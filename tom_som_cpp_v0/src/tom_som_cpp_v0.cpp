@@ -151,39 +151,6 @@ AcceptanceStepEntryOutcomeContentForm AcceptanceStepEntryOutcome::content() cons
   return AcceptanceStepEntryOutcomeContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-AccessAndAuthorizationConcept::AccessAndAuthorizationConcept(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string AccessAndAuthorizationConcept::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AccessAndAuthorizationConcept::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-UserManagement AccessAndAuthorizationConcept::userManagement() const {
-  return UserManagement(doc(), som::joinPath(path(), "userManagement"));
-}
-IdentificationAndAuthentication AccessAndAuthorizationConcept::authentication() const {
-  return IdentificationAndAuthentication(doc(), som::joinPath(path(), "authentication"));
-}
-ResourceProtection AccessAndAuthorizationConcept::resourceProtection() const {
-  return ResourceProtection(doc(), som::joinPath(path(), "resourceProtection"));
-}
-UserAuthorization AccessAndAuthorizationConcept::authorization() const {
-  return UserAuthorization(doc(), som::joinPath(path(), "authorization"));
-}
-SensitiveDataEncryption AccessAndAuthorizationConcept::encryption() const {
-  return SensitiveDataEncryption(doc(), som::joinPath(path(), "encryption"));
-}
-AuditAndLogging AccessAndAuthorizationConcept::auditAndLogging() const {
-  return AuditAndLogging(doc(), som::joinPath(path(), "auditAndLogging"));
-}
-RoleMatrix AccessAndAuthorizationConcept::roleMatrix() const {
-  return RoleMatrix(doc(), som::joinPath(path(), "roleMatrix"));
-}
-ComplianceFramework AccessAndAuthorizationConcept::complianceFramework() const {
-  return ComplianceFramework(doc(), som::joinPath(path(), "complianceFramework"));
-}
-
 AccessChannels::AccessChannels(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string AccessChannels::content() const {
@@ -1261,6 +1228,12 @@ ApplicationSecurityRequirementsValidationContentForm ApplicationSecurityRequirem
   return ApplicationSecurityRequirementsValidationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+ApprovalRecord::ApprovalRecord(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ApprovalRecordContentForm ApprovalRecord::content() const {
+  return ApprovalRecordContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 ArchitectureComponentEntry::ArchitectureComponentEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ArchitectureComponentEntryContentForm ArchitectureComponentEntry::content() const {
@@ -1459,6 +1432,74 @@ som::SomList ArchitectureStyle::decisionRecords() const {
   return som::SomList(doc(), som::joinPath(path(), "ARDE-DECI-LST"));
 }
 
+ArchitectureTechnologySpecification::ArchitectureTechnologySpecification(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "ATS") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string ArchitectureTechnologySpecification::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string ArchitectureTechnologySpecification::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void ArchitectureTechnologySpecification::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader ArchitectureTechnologySpecification::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+BasicTechnicalRequirements ArchitectureTechnologySpecification::basicTechnicalRequirements() const {
+  return BasicTechnicalRequirements(doc(), som::joinPath(path(), "basicTechnicalRequirements"));
+}
+SoftwareDesignRequirements ArchitectureTechnologySpecification::softwareDesignRequirements() const {
+  return SoftwareDesignRequirements(doc(), som::joinPath(path(), "softwareDesignRequirements"));
+}
+StandardSoftwareRequirements ArchitectureTechnologySpecification::standardSoftwareRequirements() const {
+  return StandardSoftwareRequirements(doc(), som::joinPath(path(), "standardSoftwareRequirements"));
+}
+HardwareRequirements ArchitectureTechnologySpecification::hardwareRequirements() const {
+  return HardwareRequirements(doc(), som::joinPath(path(), "hardwareRequirements"));
+}
+OperationsRequirements ArchitectureTechnologySpecification::operationsRequirements() const {
+  return OperationsRequirements(doc(), som::joinPath(path(), "operationsRequirements"));
+}
+CommunicationRequirements ArchitectureTechnologySpecification::communicationRequirements() const {
+  return CommunicationRequirements(doc(), som::joinPath(path(), "communicationRequirements"));
+}
+SystemOperationAndMonitoring ArchitectureTechnologySpecification::systemOperationAndMonitoring() const {
+  return SystemOperationAndMonitoring(doc(), som::joinPath(path(), "systemOperationAndMonitoring"));
+}
+TechnicalSecurityRequirements ArchitectureTechnologySpecification::technicalSecurityRequirements() const {
+  return TechnicalSecurityRequirements(doc(), som::joinPath(path(), "technicalSecurityRequirements"));
+}
+SystemArchitectureSpec ArchitectureTechnologySpecification::systemArchitecture() const {
+  return SystemArchitectureSpec(doc(), som::joinPath(path(), "systemArchitecture"));
+}
+ComponentsToUse ArchitectureTechnologySpecification::componentsToUse() const {
+  return ComponentsToUse(doc(), som::joinPath(path(), "componentsToUse"));
+}
+TechnicalFrameworkConditions ArchitectureTechnologySpecification::technicalFrameworkConditions() const {
+  return TechnicalFrameworkConditions(doc(), som::joinPath(path(), "technicalFrameworkConditions"));
+}
+TranslationRequirements ArchitectureTechnologySpecification::translationRequirements() const {
+  return TranslationRequirements(doc(), som::joinPath(path(), "translationRequirements"));
+}
+
+AssumptionConstraintRegister::AssumptionConstraintRegister(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AssumptionConstraintRegister::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void AssumptionConstraintRegister::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList AssumptionConstraintRegister::assumptions() const {
+  return som::SomList(doc(), som::joinPath(path(), "ACRG-ASMP-LST"));
+}
+som::SomList AssumptionConstraintRegister::constraints() const {
+  return som::SomList(doc(), som::joinPath(path(), "ACRG-CONS-LST"));
+}
+
 AssumptionEntry::AssumptionEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 AssumptionIdentification AssumptionEntry::identification() const {
@@ -1486,6 +1527,12 @@ AssumptionImpactContentForm AssumptionImpact::content() const {
   return AssumptionImpactContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+AssumptionRegisterEntry::AssumptionRegisterEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+AssumptionRegisterEntryContentForm AssumptionRegisterEntry::content() const {
+  return AssumptionRegisterEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 AssumptionRelationships::AssumptionRelationships(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 AssumptionRelationshipsContentForm AssumptionRelationships::content() const {
@@ -1496,6 +1543,18 @@ AssumptionValidation::AssumptionValidation(som::SpecDocument& doc, std::string p
     : som::SomNode(doc, std::move(path)) {}
 AssumptionValidationContentForm AssumptionValidation::content() const {
   return AssumptionValidationContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+AssumptionsConstraintsDependencies::AssumptionsConstraintsDependencies(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AssumptionsConstraintsDependencies::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void AssumptionsConstraintsDependencies::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+AssumptionConstraintRegister AssumptionsConstraintsDependencies::register_() const {
+  return AssumptionConstraintRegister(doc(), som::joinPath(path(), "register"));
 }
 
 AssumptionsOverview::AssumptionsOverview(som::SpecDocument& doc, std::string path)
@@ -1721,47 +1780,6 @@ ApiKeyManagementPolicy AuthenticationMethods::apiKeyManagement() const {
 }
 som::SomList AuthenticationMethods::items() const {
   return som::SomList(doc(), som::joinPath(path(), "ATME-ITEM-LST"));
-}
-
-AuthorizationConcept::AuthorizationConcept(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "AC") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string AuthorizationConcept::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string AuthorizationConcept::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AuthorizationConcept::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader AuthorizationConcept::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-UserManagement AuthorizationConcept::userManagement() const {
-  return UserManagement(doc(), som::joinPath(path(), "userManagement"));
-}
-IdentificationAndAuthentication AuthorizationConcept::identificationAndAuthentication() const {
-  return IdentificationAndAuthentication(doc(), som::joinPath(path(), "identificationAndAuthentication"));
-}
-ResourceProtection AuthorizationConcept::resourceProtection() const {
-  return ResourceProtection(doc(), som::joinPath(path(), "resourceProtection"));
-}
-UserAuthorization AuthorizationConcept::userAuthorization() const {
-  return UserAuthorization(doc(), som::joinPath(path(), "userAuthorization"));
-}
-SensitiveDataEncryption AuthorizationConcept::sensitiveDataEncryption() const {
-  return SensitiveDataEncryption(doc(), som::joinPath(path(), "sensitiveDataEncryption"));
-}
-AuditAndLogging AuthorizationConcept::auditAndLogging() const {
-  return AuditAndLogging(doc(), som::joinPath(path(), "auditAndLogging"));
-}
-RoleMatrix AuthorizationConcept::roleMatrix() const {
-  return RoleMatrix(doc(), som::joinPath(path(), "roleMatrix"));
-}
-ComplianceFramework AuthorizationConcept::complianceFramework() const {
-  return ComplianceFramework(doc(), som::joinPath(path(), "complianceFramework"));
 }
 
 AuthorizationEventPolicy::AuthorizationEventPolicy(som::SpecDocument& doc, std::string path)
@@ -2628,53 +2646,6 @@ BusinessComponentEntryTestingContentForm BusinessComponentEntryTesting::content(
   return BusinessComponentEntryTestingContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-BusinessDataModel::BusinessDataModel(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "BDM") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string BusinessDataModel::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string BusinessDataModel::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void BusinessDataModel::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader BusinessDataModel::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-som::SomList BusinessDataModel::entities() const {
-  return som::SomList(doc(), som::joinPath(path(), "DAENT-ENTI-LST"));
-}
-EntityRelationships BusinessDataModel::entityRelationships() const {
-  return EntityRelationships(doc(), som::joinPath(path(), "entityRelationships"));
-}
-DataClassification BusinessDataModel::dataClassification() const {
-  return DataClassification(doc(), som::joinPath(path(), "dataClassification"));
-}
-som::SomList BusinessDataModel::objectCatalog() const {
-  return som::SomList(doc(), som::joinPath(path(), "BJOEN-OBJE-LST"));
-}
-som::SomList BusinessDataModel::functionDecomposition() const {
-  return som::SomList(doc(), som::joinPath(path(), "FUNCT-FUNC-LST"));
-}
-som::SomList BusinessDataModel::functionToDataMatrix() const {
-  return som::SomList(doc(), som::joinPath(path(), "FNDMX-FUNC-LST"));
-}
-som::SomList BusinessDataModel::businessRules() const {
-  return som::SomList(doc(), som::joinPath(path(), "BIRU-BUSI-LST"));
-}
-DataDictionary BusinessDataModel::dataDictionary() const {
-  return DataDictionary(doc(), som::joinPath(path(), "dataDictionary"));
-}
-som::SomList BusinessDataModel::validationConstraints() const {
-  return som::SomList(doc(), som::joinPath(path(), "VACO-VALI-LST"));
-}
-som::SomList BusinessDataModel::integrityConstraints() const {
-  return som::SomList(doc(), som::joinPath(path(), "INCO-INTE-LST"));
-}
-
 BusinessGoalEntry::BusinessGoalEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 BusinessGoalEntryContentForm BusinessGoalEntry::content() const {
@@ -2784,24 +2755,6 @@ BusinessMetricsSpecTransactions::BusinessMetricsSpecTransactions(som::SpecDocume
     : som::SomNode(doc, std::move(path)) {}
 BusinessMetricsSpecTransactionsContentForm BusinessMetricsSpecTransactions::content() const {
   return BusinessMetricsSpecTransactionsContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-BusinessObjectAndDataModel::BusinessObjectAndDataModel(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string BusinessObjectAndDataModel::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void BusinessObjectAndDataModel::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DataModel BusinessObjectAndDataModel::dataModel() const {
-  return DataModel(doc(), som::joinPath(path(), "dataModel"));
-}
-BusinessObjectModel BusinessObjectAndDataModel::businessObjectModel() const {
-  return BusinessObjectModel(doc(), som::joinPath(path(), "businessObjectModel"));
-}
-FunctionModel BusinessObjectAndDataModel::functionModel() const {
-  return FunctionModel(doc(), som::joinPath(path(), "functionModel"));
 }
 
 BusinessObjectAttributeEntry::BusinessObjectAttributeEntry(som::SpecDocument& doc, std::string path)
@@ -2978,112 +2931,6 @@ ProcessExceptions BusinessProcessEntry::exceptions() const {
   return ProcessExceptions(doc(), som::joinPath(path(), "exceptions"));
 }
 
-BusinessProcesses::BusinessProcesses(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "BP") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string BusinessProcesses::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string BusinessProcesses::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void BusinessProcesses::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader BusinessProcesses::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-ProcessVision BusinessProcesses::processVision() const {
-  return ProcessVision(doc(), som::joinPath(path(), "processVision"));
-}
-ProcessDesignPrinciples BusinessProcesses::designPrinciples() const {
-  return ProcessDesignPrinciples(doc(), som::joinPath(path(), "designPrinciples"));
-}
-ProcessCatalog BusinessProcesses::processCatalog() const {
-  return ProcessCatalog(doc(), som::joinPath(path(), "processCatalog"));
-}
-ProcessOverviewDiagram BusinessProcesses::processOverviewDiagram() const {
-  return ProcessOverviewDiagram(doc(), som::joinPath(path(), "processOverviewDiagram"));
-}
-ProcessImprovementSummary BusinessProcesses::improvementSummary() const {
-  return ProcessImprovementSummary(doc(), som::joinPath(path(), "improvementSummary"));
-}
-ProcessRelationships BusinessProcesses::processRelationships() const {
-  return ProcessRelationships(doc(), som::joinPath(path(), "processRelationships"));
-}
-som::SomList BusinessProcesses::detailedWorkflows() const {
-  return som::SomList(doc(), som::joinPath(path(), "DEPRWO-DETA-LST"));
-}
-CrossProcessAnalysis BusinessProcesses::crossProcessAnalysis() const {
-  return CrossProcessAnalysis(doc(), som::joinPath(path(), "crossProcessAnalysis"));
-}
-ProcessExceptionHandling BusinessProcesses::exceptionHandling() const {
-  return ProcessExceptionHandling(doc(), som::joinPath(path(), "exceptionHandling"));
-}
-som::SomList BusinessProcesses::processMetricsAndKpis() const {
-  return som::SomList(doc(), som::joinPath(path(), "PMAK-PROC-LST"));
-}
-
-BusinessQualityPlan::BusinessQualityPlan(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "BQP") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string BusinessQualityPlan::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string BusinessQualityPlan::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void BusinessQualityPlan::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader BusinessQualityPlan::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-QualityFramework BusinessQualityPlan::qualityFramework() const {
-  return QualityFramework(doc(), som::joinPath(path(), "qualityFramework"));
-}
-UserQualityCriteria BusinessQualityPlan::userQualityCriteria() const {
-  return UserQualityCriteria(doc(), som::joinPath(path(), "userQualityCriteria"));
-}
-TechnicalQualityCriteria BusinessQualityPlan::technicalQualityCriteria() const {
-  return TechnicalQualityCriteria(doc(), som::joinPath(path(), "technicalQualityCriteria"));
-}
-OperationsQualityCriteria BusinessQualityPlan::operationsQualityCriteria() const {
-  return OperationsQualityCriteria(doc(), som::joinPath(path(), "operationsQualityCriteria"));
-}
-DocumentationQualityCriteria BusinessQualityPlan::documentationQualityCriteria() const {
-  return DocumentationQualityCriteria(doc(), som::joinPath(path(), "documentationQualityCriteria"));
-}
-QualityPrioritization BusinessQualityPlan::qualityPrioritization() const {
-  return QualityPrioritization(doc(), som::joinPath(path(), "qualityPrioritization"));
-}
-AcceptanceCriteriaSummary BusinessQualityPlan::acceptanceCriteriaSummary() const {
-  return AcceptanceCriteriaSummary(doc(), som::joinPath(path(), "acceptanceCriteriaSummary"));
-}
-TestStrategy BusinessQualityPlan::testStrategy() const {
-  return TestStrategy(doc(), som::joinPath(path(), "testStrategy"));
-}
-AcceptanceCriteriaList BusinessQualityPlan::acceptanceCriteria() const {
-  return AcceptanceCriteriaList(doc(), som::joinPath(path(), "acceptanceCriteria"));
-}
-AcceptanceProcess BusinessQualityPlan::acceptanceProcess() const {
-  return AcceptanceProcess(doc(), som::joinPath(path(), "acceptanceProcess"));
-}
-UserAcceptanceTesting BusinessQualityPlan::userAcceptanceTesting() const {
-  return UserAcceptanceTesting(doc(), som::joinPath(path(), "userAcceptanceTesting"));
-}
-DefectResolution BusinessQualityPlan::defectResolution() const {
-  return DefectResolution(doc(), som::joinPath(path(), "defectResolution"));
-}
-SignOffProcess BusinessQualityPlan::signOffProcess() const {
-  return SignOffProcess(doc(), som::joinPath(path(), "signOffProcess"));
-}
-WarrantyTerms BusinessQualityPlan::warranty() const {
-  return WarrantyTerms(doc(), som::joinPath(path(), "warranty"));
-}
-
 BusinessRuleEntry::BusinessRuleEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 BusinessRuleEntryIdentityForm BusinessRuleEntry::identity() const {
@@ -3124,53 +2971,6 @@ std::string BusinessRuleReferenceEntry::ruleRef() const {
 }
 void BusinessRuleReferenceEntry::setRuleRef(const std::string& value) {
   doc().setContent(som::joinPath(path(), "ruleRef"), value);
-}
-
-BusinessSystemInteractions::BusinessSystemInteractions(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "BSI") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string BusinessSystemInteractions::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string BusinessSystemInteractions::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void BusinessSystemInteractions::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader BusinessSystemInteractions::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-ExternalInterfaces BusinessSystemInteractions::externalInterfaces() const {
-  return ExternalInterfaces(doc(), som::joinPath(path(), "externalInterfaces"));
-}
-OutOfScope BusinessSystemInteractions::outOfScope() const {
-  return OutOfScope(doc(), som::joinPath(path(), "outOfScope"));
-}
-BoundaryAssumptions BusinessSystemInteractions::boundaryAssumptions() const {
-  return BoundaryAssumptions(doc(), som::joinPath(path(), "boundaryAssumptions"));
-}
-SystemLandscapeInventory BusinessSystemInteractions::systemInventory() const {
-  return SystemLandscapeInventory(doc(), som::joinPath(path(), "systemInventory"));
-}
-som::SomList BusinessSystemInteractions::interactionPatterns() const {
-  return som::SomList(doc(), som::joinPath(path(), "BOINPA-INTE-LST"));
-}
-InteractionTestingStrategy BusinessSystemInteractions::testingStrategy() const {
-  return InteractionTestingStrategy(doc(), som::joinPath(path(), "testingStrategy"));
-}
-InteractionDependencyAnalysis BusinessSystemInteractions::dependencyAnalysis() const {
-  return InteractionDependencyAnalysis(doc(), som::joinPath(path(), "dependencyAnalysis"));
-}
-som::SomList BusinessSystemInteractions::migrationInteractions() const {
-  return som::SomList(doc(), som::joinPath(path(), "MIIN-MIGR-LST"));
-}
-som::SomList BusinessSystemInteractions::operationalConsiderations() const {
-  return som::SomList(doc(), som::joinPath(path(), "CBOC-OPER-LST"));
-}
-CrossBoundaryErrorHandling BusinessSystemInteractions::crossBoundaryErrorHandling() const {
-  return CrossBoundaryErrorHandling(doc(), som::joinPath(path(), "crossBoundaryErrorHandling"));
 }
 
 CapacityPlanningSection::CapacityPlanningSection(som::SpecDocument& doc, std::string path)
@@ -5651,6 +5451,12 @@ ConstraintMitigationContentForm ConstraintMitigation::content() const {
   return ConstraintMitigationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+ConstraintRegisterEntry::ConstraintRegisterEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ConstraintRegisterEntryContentForm ConstraintRegisterEntry::content() const {
+  return ConstraintRegisterEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 ConstraintTracking::ConstraintTracking(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ConstraintTrackingContentForm ConstraintTracking::content() const {
@@ -6128,6 +5934,74 @@ MasterDataManagement CurrentDataLandscape::masterDataManagement() const {
   return MasterDataManagement(doc(), som::joinPath(path(), "masterDataManagement"));
 }
 
+CurrentLandscape::CurrentLandscape(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string CurrentLandscape::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void CurrentLandscape::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+ExistingSystemsLandscape CurrentLandscape::existingSystemsLandscape() const {
+  return ExistingSystemsLandscape(doc(), som::joinPath(path(), "existingSystemsLandscape"));
+}
+CurrentBusinessProcesses CurrentLandscape::currentBusinessProcesses() const {
+  return CurrentBusinessProcesses(doc(), som::joinPath(path(), "currentBusinessProcesses"));
+}
+PainPointsAndGaps CurrentLandscape::painPointsAndGaps() const {
+  return PainPointsAndGaps(doc(), som::joinPath(path(), "painPointsAndGaps"));
+}
+CurrentDataLandscape CurrentLandscape::currentDataLandscape() const {
+  return CurrentDataLandscape(doc(), som::joinPath(path(), "currentDataLandscape"));
+}
+som::SomList CurrentLandscape::operationalMetrics() const {
+  return som::SomList(doc(), som::joinPath(path(), "CUOPME-OPER-LST"));
+}
+CurrentStateRiskAssessment CurrentLandscape::currentStateRisks() const {
+  return CurrentStateRiskAssessment(doc(), som::joinPath(path(), "currentStateRisks"));
+}
+
+CurrentLandscapeAssessment::CurrentLandscapeAssessment(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "CLA") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string CurrentLandscapeAssessment::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string CurrentLandscapeAssessment::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void CurrentLandscapeAssessment::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader CurrentLandscapeAssessment::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+ExistingSystemsLandscape CurrentLandscapeAssessment::existingSystemsLandscape() const {
+  return ExistingSystemsLandscape(doc(), som::joinPath(path(), "existingSystemsLandscape"));
+}
+CurrentBusinessProcesses CurrentLandscapeAssessment::currentBusinessProcesses() const {
+  return CurrentBusinessProcesses(doc(), som::joinPath(path(), "currentBusinessProcesses"));
+}
+PainPointsAndGaps CurrentLandscapeAssessment::painPointsAndGaps() const {
+  return PainPointsAndGaps(doc(), som::joinPath(path(), "painPointsAndGaps"));
+}
+CurrentDataLandscape CurrentLandscapeAssessment::currentDataLandscape() const {
+  return CurrentDataLandscape(doc(), som::joinPath(path(), "currentDataLandscape"));
+}
+som::SomList CurrentLandscapeAssessment::operationalMetrics() const {
+  return som::SomList(doc(), som::joinPath(path(), "CUOPME-OPER-LST"));
+}
+CurrentStateRiskAssessment CurrentLandscapeAssessment::currentStateRisks() const {
+  return CurrentStateRiskAssessment(doc(), som::joinPath(path(), "currentStateRisks"));
+}
+ReplacementInventory CurrentLandscapeAssessment::replacementInventory() const {
+  return ReplacementInventory(doc(), som::joinPath(path(), "replacementInventory"));
+}
+MigrationConsiderations CurrentLandscapeAssessment::migrationConsiderations() const {
+  return MigrationConsiderations(doc(), som::joinPath(path(), "migrationConsiderations"));
+}
+
 CurrentOperationalMetrics::CurrentOperationalMetrics(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string CurrentOperationalMetrics::content() const {
@@ -6141,74 +6015,6 @@ CurrentProcessImprovementEntry::CurrentProcessImprovementEntry(som::SpecDocument
     : som::SomNode(doc, std::move(path)) {}
 CurrentProcessImprovementEntryContentForm CurrentProcessImprovementEntry::content() const {
   return CurrentProcessImprovementEntryContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-CurrentSituation::CurrentSituation(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "CS") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string CurrentSituation::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string CurrentSituation::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CurrentSituation::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader CurrentSituation::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-ExistingSystemsLandscape CurrentSituation::existingSystemsLandscape() const {
-  return ExistingSystemsLandscape(doc(), som::joinPath(path(), "existingSystemsLandscape"));
-}
-CurrentBusinessProcesses CurrentSituation::currentBusinessProcesses() const {
-  return CurrentBusinessProcesses(doc(), som::joinPath(path(), "currentBusinessProcesses"));
-}
-PainPointsAndGaps CurrentSituation::painPointsAndGaps() const {
-  return PainPointsAndGaps(doc(), som::joinPath(path(), "painPointsAndGaps"));
-}
-CurrentDataLandscape CurrentSituation::currentDataLandscape() const {
-  return CurrentDataLandscape(doc(), som::joinPath(path(), "currentDataLandscape"));
-}
-som::SomList CurrentSituation::operationalMetrics() const {
-  return som::SomList(doc(), som::joinPath(path(), "CUOPME-OPER-LST"));
-}
-CurrentStateRiskAssessment CurrentSituation::currentStateRisks() const {
-  return CurrentStateRiskAssessment(doc(), som::joinPath(path(), "currentStateRisks"));
-}
-ReplacementInventory CurrentSituation::replacementInventory() const {
-  return ReplacementInventory(doc(), som::joinPath(path(), "replacementInventory"));
-}
-MigrationConsiderations CurrentSituation::migrationConsiderations() const {
-  return MigrationConsiderations(doc(), som::joinPath(path(), "migrationConsiderations"));
-}
-
-CurrentStateAnalysis::CurrentStateAnalysis(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string CurrentStateAnalysis::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CurrentStateAnalysis::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-ExistingSystemsLandscape CurrentStateAnalysis::existingSystemsLandscape() const {
-  return ExistingSystemsLandscape(doc(), som::joinPath(path(), "existingSystemsLandscape"));
-}
-CurrentBusinessProcesses CurrentStateAnalysis::currentBusinessProcesses() const {
-  return CurrentBusinessProcesses(doc(), som::joinPath(path(), "currentBusinessProcesses"));
-}
-PainPointsAndGaps CurrentStateAnalysis::painPointsAndGaps() const {
-  return PainPointsAndGaps(doc(), som::joinPath(path(), "painPointsAndGaps"));
-}
-CurrentDataLandscape CurrentStateAnalysis::currentDataLandscape() const {
-  return CurrentDataLandscape(doc(), som::joinPath(path(), "currentDataLandscape"));
-}
-som::SomList CurrentStateAnalysis::operationalMetrics() const {
-  return som::SomList(doc(), som::joinPath(path(), "CUOPME-OPER-LST"));
-}
-CurrentStateRiskAssessment CurrentStateAnalysis::currentStateRisks() const {
-  return CurrentStateRiskAssessment(doc(), som::joinPath(path(), "currentStateRisks"));
 }
 
 CurrentStateRiskAssessment::CurrentStateRiskAssessment(som::SpecDocument& doc, std::string path)
@@ -7894,6 +7700,50 @@ DeliveryAcceptanceCriterionEntryVerificationContentForm DeliveryAcceptanceCriter
   return DeliveryAcceptanceCriterionEntryVerificationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+DeliveryRoadmap::DeliveryRoadmap(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "DRM") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string DeliveryRoadmap::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string DeliveryRoadmap::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void DeliveryRoadmap::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader DeliveryRoadmap::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+StagingStrategy DeliveryRoadmap::stagingStrategy() const {
+  return StagingStrategy(doc(), som::joinPath(path(), "stagingStrategy"));
+}
+StageOverview DeliveryRoadmap::stageOverview() const {
+  return StageOverview(doc(), som::joinPath(path(), "stageOverview"));
+}
+som::SomList DeliveryRoadmap::stages() const {
+  return som::SomList(doc(), som::joinPath(path(), "STAGE-STAG-LST"));
+}
+FeaturePrioritization DeliveryRoadmap::featurePrioritization() const {
+  return FeaturePrioritization(doc(), som::joinPath(path(), "featurePrioritization"));
+}
+DataMigrationStrategy DeliveryRoadmap::dataMigrationStrategy() const {
+  return DataMigrationStrategy(doc(), som::joinPath(path(), "dataMigrationStrategy"));
+}
+PhaseGateReviews DeliveryRoadmap::gateCriteria() const {
+  return PhaseGateReviews(doc(), som::joinPath(path(), "gateCriteria"));
+}
+DecisionPoints DeliveryRoadmap::decisionProcesses() const {
+  return DecisionPoints(doc(), som::joinPath(path(), "decisionProcesses"));
+}
+InitialDevelopmentFlow DeliveryRoadmap::initialDevelopmentFlow() const {
+  return InitialDevelopmentFlow(doc(), som::joinPath(path(), "initialDevelopmentFlow"));
+}
+UpgradeCycleFramework DeliveryRoadmap::upgradeCycleFramework() const {
+  return UpgradeCycleFramework(doc(), som::joinPath(path(), "upgradeCycleFramework"));
+}
+
 DeliveryScope::DeliveryScope(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DeliveryScope::content() const {
@@ -7928,6 +7778,27 @@ DeliveryScope DeliveryScopeAndAcceptance::deliveryScope() const {
 }
 AcceptancePlan DeliveryScopeAndAcceptance::acceptancePlan() const {
   return AcceptancePlan(doc(), som::joinPath(path(), "acceptancePlan"));
+}
+
+DeliveryTransitionAndRollout::DeliveryTransitionAndRollout(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DeliveryTransitionAndRollout::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void DeliveryTransitionAndRollout::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+SystemStagePlan DeliveryTransitionAndRollout::systemStagePlan() const {
+  return SystemStagePlan(doc(), som::joinPath(path(), "systemStagePlan"));
+}
+SystemRolloutConcept DeliveryTransitionAndRollout::systemRolloutConcept() const {
+  return SystemRolloutConcept(doc(), som::joinPath(path(), "systemRolloutConcept"));
+}
+LocalizationTranslationProcess DeliveryTransitionAndRollout::localizationTranslationProcess() const {
+  return LocalizationTranslationProcess(doc(), som::joinPath(path(), "localizationTranslationProcess"));
+}
+MultiLanguageAndRolloutPlan DeliveryTransitionAndRollout::multiLanguageRolloutPlan() const {
+  return MultiLanguageAndRolloutPlan(doc(), som::joinPath(path(), "multiLanguageRolloutPlan"));
 }
 
 DependenciesAndIntegrations::DependenciesAndIntegrations(som::SpecDocument& doc, std::string path)
@@ -9190,6 +9061,24 @@ DocCorrectnessQualityVerificationContentForm DocCorrectnessQualityVerification::
   return DocCorrectnessQualityVerificationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+DocumentControl::DocumentControl(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DocumentControl::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void DocumentControl::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader DocumentControl::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+RevisionHistory DocumentControl::revisionHistory() const {
+  return RevisionHistory(doc(), som::joinPath(path(), "revisionHistory"));
+}
+som::SomList DocumentControl::approvals() const {
+  return som::SomList(doc(), som::joinPath(path(), "DOCTL-APRV-LST"));
+}
+
 DocumentHeader::DocumentHeader(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 DocumentHeaderContentForm DocumentHeader::content() const {
@@ -10403,6 +10292,104 @@ ExpectedImprovements::ExpectedImprovements(som::SpecDocument& doc, std::string p
     : som::SomNode(doc, std::move(path)) {}
 ExpectedImprovementsContentForm ExpectedImprovements::content() const {
   return ExpectedImprovementsContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+ExperienceAndInterfaceDesign::ExperienceAndInterfaceDesign(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ExperienceAndInterfaceDesign::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void ExperienceAndInterfaceDesign::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DesignVision ExperienceAndInterfaceDesign::designVision() const {
+  return DesignVision(doc(), som::joinPath(path(), "designVision"));
+}
+ScreenDescriptions ExperienceAndInterfaceDesign::screens() const {
+  return ScreenDescriptions(doc(), som::joinPath(path(), "screens"));
+}
+ScreenFlowStructure ExperienceAndInterfaceDesign::screenFlow() const {
+  return ScreenFlowStructure(doc(), som::joinPath(path(), "screenFlow"));
+}
+PrintLayout ExperienceAndInterfaceDesign::printLayout() const {
+  return PrintLayout(doc(), som::joinPath(path(), "printLayout"));
+}
+ErrorHandlingConcept ExperienceAndInterfaceDesign::errorHandling() const {
+  return ErrorHandlingConcept(doc(), som::joinPath(path(), "errorHandling"));
+}
+HelpConcept ExperienceAndInterfaceDesign::helpConcept() const {
+  return HelpConcept(doc(), som::joinPath(path(), "helpConcept"));
+}
+Accessibility ExperienceAndInterfaceDesign::accessibility() const {
+  return Accessibility(doc(), som::joinPath(path(), "accessibility"));
+}
+ResponsiveDesign ExperienceAndInterfaceDesign::responsiveDesign() const {
+  return ResponsiveDesign(doc(), som::joinPath(path(), "responsiveDesign"));
+}
+UiComponents ExperienceAndInterfaceDesign::uiComponents() const {
+  return UiComponents(doc(), som::joinPath(path(), "uiComponents"));
+}
+MultiLanguageAndRollout ExperienceAndInterfaceDesign::multiLanguage() const {
+  return MultiLanguageAndRollout(doc(), som::joinPath(path(), "multiLanguage"));
+}
+Prototype ExperienceAndInterfaceDesign::prototype() const {
+  return Prototype(doc(), som::joinPath(path(), "prototype"));
+}
+som::SomList ExperienceAndInterfaceDesign::wireframesAndMockups() const {
+  return som::SomList(doc(), som::joinPath(path(), "WIANMO-WIRE-LST"));
+}
+
+ExperienceDesignSpecification::ExperienceDesignSpecification(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "XDS") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string ExperienceDesignSpecification::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string ExperienceDesignSpecification::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void ExperienceDesignSpecification::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader ExperienceDesignSpecification::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+DesignVision ExperienceDesignSpecification::designVision() const {
+  return DesignVision(doc(), som::joinPath(path(), "designVision"));
+}
+ScreenDescriptions ExperienceDesignSpecification::screens() const {
+  return ScreenDescriptions(doc(), som::joinPath(path(), "screens"));
+}
+ScreenFlowStructure ExperienceDesignSpecification::screenFlow() const {
+  return ScreenFlowStructure(doc(), som::joinPath(path(), "screenFlow"));
+}
+PrintLayout ExperienceDesignSpecification::printLayout() const {
+  return PrintLayout(doc(), som::joinPath(path(), "printLayout"));
+}
+ErrorHandlingConcept ExperienceDesignSpecification::errorHandling() const {
+  return ErrorHandlingConcept(doc(), som::joinPath(path(), "errorHandling"));
+}
+HelpConcept ExperienceDesignSpecification::helpConcept() const {
+  return HelpConcept(doc(), som::joinPath(path(), "helpConcept"));
+}
+Accessibility ExperienceDesignSpecification::accessibility() const {
+  return Accessibility(doc(), som::joinPath(path(), "accessibility"));
+}
+ResponsiveDesign ExperienceDesignSpecification::responsiveDesign() const {
+  return ResponsiveDesign(doc(), som::joinPath(path(), "responsiveDesign"));
+}
+UiComponents ExperienceDesignSpecification::uiComponents() const {
+  return UiComponents(doc(), som::joinPath(path(), "uiComponents"));
+}
+LanguageCountrySelection ExperienceDesignSpecification::languageCountrySelection() const {
+  return LanguageCountrySelection(doc(), som::joinPath(path(), "languageCountrySelection"));
+}
+Prototype ExperienceDesignSpecification::prototype() const {
+  return Prototype(doc(), som::joinPath(path(), "prototype"));
+}
+som::SomList ExperienceDesignSpecification::wireframesAndMockups() const {
+  return som::SomList(doc(), som::joinPath(path(), "WIANMO-WIRE-LST"));
 }
 
 ExportAccess::ExportAccess(som::SpecDocument& doc, std::string path)
@@ -11788,6 +11775,36 @@ GlobalRoleExclusionEntryContentForm GlobalRoleExclusionEntry::content() const {
   return GlobalRoleExclusionEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+Glossary::Glossary(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string Glossary::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void Glossary::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList Glossary::entries() const {
+  return som::SomList(doc(), som::joinPath(path(), "GLOSS-ENTR-LST"));
+}
+
+GlossaryAndAbbreviations::GlossaryAndAbbreviations(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GlossaryAndAbbreviations::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void GlossaryAndAbbreviations::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+Glossary GlossaryAndAbbreviations::glossary() const {
+  return Glossary(doc(), som::joinPath(path(), "glossary"));
+}
+
+GlossaryEntry::GlossaryEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+GlossaryEntryContentForm GlossaryEntry::content() const {
+  return GlossaryEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 GoalDependencies::GoalDependencies(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string GoalDependencies::content() const {
@@ -12517,6 +12534,24 @@ IndustryStandardEntryVerificationContentForm IndustryStandardEntryVerification::
   return IndustryStandardEntryVerificationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+InformationAndDataModel::InformationAndDataModel(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string InformationAndDataModel::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void InformationAndDataModel::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DataModel InformationAndDataModel::dataModel() const {
+  return DataModel(doc(), som::joinPath(path(), "dataModel"));
+}
+BusinessObjectModel InformationAndDataModel::businessObjectModel() const {
+  return BusinessObjectModel(doc(), som::joinPath(path(), "businessObjectModel"));
+}
+FunctionModel InformationAndDataModel::functionModel() const {
+  return FunctionModel(doc(), som::joinPath(path(), "functionModel"));
+}
+
 InformationArchitecture::InformationArchitecture(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string InformationArchitecture::content() const {
@@ -12527,6 +12562,65 @@ void InformationArchitecture::setContent(const std::string& value) {
 }
 som::SomList InformationArchitecture::globalEntryPoints() const {
   return som::SomList(doc(), som::joinPath(path(), "GLOBA-GLOB-LST"));
+}
+
+InformationForUseRequirements::InformationForUseRequirements(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string InformationForUseRequirements::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void InformationForUseRequirements::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentationAndTraining InformationForUseRequirements::documentationAndTraining() const {
+  return DocumentationAndTraining(doc(), som::joinPath(path(), "documentationAndTraining"));
+}
+
+InformationModel::InformationModel(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "IFM") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string InformationModel::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string InformationModel::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void InformationModel::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader InformationModel::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+som::SomList InformationModel::entities() const {
+  return som::SomList(doc(), som::joinPath(path(), "DAENT-ENTI-LST"));
+}
+EntityRelationships InformationModel::entityRelationships() const {
+  return EntityRelationships(doc(), som::joinPath(path(), "entityRelationships"));
+}
+DataClassification InformationModel::dataClassification() const {
+  return DataClassification(doc(), som::joinPath(path(), "dataClassification"));
+}
+som::SomList InformationModel::objectCatalog() const {
+  return som::SomList(doc(), som::joinPath(path(), "BJOEN-OBJE-LST"));
+}
+som::SomList InformationModel::functionDecomposition() const {
+  return som::SomList(doc(), som::joinPath(path(), "FUNCT-FUNC-LST"));
+}
+som::SomList InformationModel::functionToDataMatrix() const {
+  return som::SomList(doc(), som::joinPath(path(), "FNDMX-FUNC-LST"));
+}
+som::SomList InformationModel::businessRules() const {
+  return som::SomList(doc(), som::joinPath(path(), "BIRU-BUSI-LST"));
+}
+DataDictionary InformationModel::dataDictionary() const {
+  return DataDictionary(doc(), som::joinPath(path(), "dataDictionary"));
+}
+som::SomList InformationModel::validationConstraints() const {
+  return som::SomList(doc(), som::joinPath(path(), "VACO-VALI-LST"));
+}
+som::SomList InformationModel::integrityConstraints() const {
+  return som::SomList(doc(), som::joinPath(path(), "INCO-INTE-LST"));
 }
 
 InfrastructureAsCode::InfrastructureAsCode(som::SpecDocument& doc, std::string path)
@@ -12883,6 +12977,53 @@ som::SomList IntegrationHealthSummary::fragilePoints() const {
   return som::SomList(doc(), som::joinPath(path(), "FRAGI-FRAG-LST"));
 }
 
+IntegrationInterfaceSpecification::IntegrationInterfaceSpecification(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "IIS") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string IntegrationInterfaceSpecification::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string IntegrationInterfaceSpecification::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void IntegrationInterfaceSpecification::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader IntegrationInterfaceSpecification::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+ExternalInterfaces IntegrationInterfaceSpecification::externalInterfaces() const {
+  return ExternalInterfaces(doc(), som::joinPath(path(), "externalInterfaces"));
+}
+OutOfScope IntegrationInterfaceSpecification::outOfScope() const {
+  return OutOfScope(doc(), som::joinPath(path(), "outOfScope"));
+}
+BoundaryAssumptions IntegrationInterfaceSpecification::boundaryAssumptions() const {
+  return BoundaryAssumptions(doc(), som::joinPath(path(), "boundaryAssumptions"));
+}
+SystemLandscapeInventory IntegrationInterfaceSpecification::systemInventory() const {
+  return SystemLandscapeInventory(doc(), som::joinPath(path(), "systemInventory"));
+}
+som::SomList IntegrationInterfaceSpecification::interactionPatterns() const {
+  return som::SomList(doc(), som::joinPath(path(), "BOINPA-INTE-LST"));
+}
+InteractionTestingStrategy IntegrationInterfaceSpecification::testingStrategy() const {
+  return InteractionTestingStrategy(doc(), som::joinPath(path(), "testingStrategy"));
+}
+InteractionDependencyAnalysis IntegrationInterfaceSpecification::dependencyAnalysis() const {
+  return InteractionDependencyAnalysis(doc(), som::joinPath(path(), "dependencyAnalysis"));
+}
+som::SomList IntegrationInterfaceSpecification::migrationInteractions() const {
+  return som::SomList(doc(), som::joinPath(path(), "MIIN-MIGR-LST"));
+}
+som::SomList IntegrationInterfaceSpecification::operationalConsiderations() const {
+  return som::SomList(doc(), som::joinPath(path(), "CBOC-OPER-LST"));
+}
+CrossBoundaryErrorHandling IntegrationInterfaceSpecification::crossBoundaryErrorHandling() const {
+  return CrossBoundaryErrorHandling(doc(), som::joinPath(path(), "crossBoundaryErrorHandling"));
+}
+
 IntegrationPatternEntry::IntegrationPatternEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string IntegrationPatternEntry::content() const {
@@ -13136,6 +13277,44 @@ std::string InteractionScenarioEntry::content() const {
 }
 void InteractionScenarioEntry::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
+}
+
+InteractionScenarios::InteractionScenarios(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "ISC") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string InteractionScenarios::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string InteractionScenarios::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void InteractionScenarios::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader InteractionScenarios::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+ProcessStepsOverview InteractionScenarios::processStepsOverview() const {
+  return ProcessStepsOverview(doc(), som::joinPath(path(), "processStepsOverview"));
+}
+ActorOverview InteractionScenarios::actorOverview() const {
+  return ActorOverview(doc(), som::joinPath(path(), "actorOverview"));
+}
+InteractionCatalog InteractionScenarios::interactionCatalog() const {
+  return InteractionCatalog(doc(), som::joinPath(path(), "interactionCatalog"));
+}
+KeyScenarios InteractionScenarios::keyScenarios() const {
+  return KeyScenarios(doc(), som::joinPath(path(), "keyScenarios"));
+}
+ActorRelationshipDiagram InteractionScenarios::actorRelationshipDiagram() const {
+  return ActorRelationshipDiagram(doc(), som::joinPath(path(), "actorRelationshipDiagram"));
+}
+som::SomList InteractionScenarios::endToEndTestScenarios() const {
+  return som::SomList(doc(), som::joinPath(path(), "ETETS-ENDT-LST"));
+}
+UseCaseTraceability InteractionScenarios::useCaseTraceability() const {
+  return UseCaseTraceability(doc(), som::joinPath(path(), "useCaseTraceability"));
 }
 
 InteractionSecurity::InteractionSecurity(som::SpecDocument& doc, std::string path)
@@ -13537,10 +13716,67 @@ InteroperabilityRequirementsTestingContentForm InteroperabilityRequirementsTesti
   return InteroperabilityRequirementsTestingContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+IntroductionAndScope::IntroductionAndScope(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string IntroductionAndScope::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void IntroductionAndScope::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+SystemOverviewSummary IntroductionAndScope::summary() const {
+  return SystemOverviewSummary(doc(), som::joinPath(path(), "summary"));
+}
+std::string IntroductionAndScope::systemContextDiagram() const {
+  return doc().content(som::joinPath(path(), "systemContextDiagram"));
+}
+void IntroductionAndScope::setSystemContextDiagram(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "systemContextDiagram"), value);
+}
+SystemDescription IntroductionAndScope::systemDescription() const {
+  return SystemDescription(doc(), som::joinPath(path(), "systemDescription"));
+}
+Goals IntroductionAndScope::goals() const {
+  return Goals(doc(), som::joinPath(path(), "goals"));
+}
+RequirementsOverview IntroductionAndScope::requirements() const {
+  return RequirementsOverview(doc(), som::joinPath(path(), "requirements"));
+}
+SystemsToReplace IntroductionAndScope::systemsToReplace() const {
+  return SystemsToReplace(doc(), som::joinPath(path(), "systemsToReplace"));
+}
+SystemBoundaries IntroductionAndScope::systemBoundaries() const {
+  return SystemBoundaries(doc(), som::joinPath(path(), "systemBoundaries"));
+}
+FrameworkConditions IntroductionAndScope::frameworkConditions() const {
+  return FrameworkConditions(doc(), som::joinPath(path(), "frameworkConditions"));
+}
+RisksAndAssumptions IntroductionAndScope::risksAndAssumptions() const {
+  return RisksAndAssumptions(doc(), som::joinPath(path(), "risksAndAssumptions"));
+}
+
 IpOwnershipEntry::IpOwnershipEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 IpOwnershipEntryContentForm IpOwnershipEntry::content() const {
   return IpOwnershipEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+Iso25010Coverage::Iso25010Coverage(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string Iso25010Coverage::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void Iso25010Coverage::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList Iso25010Coverage::characteristics() const {
+  return som::SomList(doc(), som::joinPath(path(), "I25CV-CHAR-LST"));
+}
+
+Iso25010CoverageEntry::Iso25010CoverageEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+Iso25010CoverageEntryContentForm Iso25010CoverageEntry::content() const {
+  return Iso25010CoverageEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ItLandscapePosition::ItLandscapePosition(som::SpecDocument& doc, std::string path)
@@ -14225,6 +14461,36 @@ LocalizationProcessReview::LocalizationProcessReview(som::SpecDocument& doc, std
     : som::SomNode(doc, std::move(path)) {}
 LocalizationProcessReviewContentForm LocalizationProcessReview::content() const {
   return LocalizationProcessReviewContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+LocalizationTranslationProcess::LocalizationTranslationProcess(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string LocalizationTranslationProcess::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void LocalizationTranslationProcess::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+LocalizationProcess LocalizationTranslationProcess::localizationProcess() const {
+  return LocalizationProcess(doc(), som::joinPath(path(), "localizationProcess"));
+}
+TranslationProcess LocalizationTranslationProcess::translationProcess() const {
+  return TranslationProcess(doc(), som::joinPath(path(), "translationProcess"));
+}
+
+LocalizationTranslationRequirements::LocalizationTranslationRequirements(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string LocalizationTranslationRequirements::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void LocalizationTranslationRequirements::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+TranslationRequirements LocalizationTranslationRequirements::translationRequirements() const {
+  return TranslationRequirements(doc(), som::joinPath(path(), "translationRequirements"));
+}
+MultiLanguageAndRolloutLocaleHandling LocalizationTranslationRequirements::localeHandling() const {
+  return MultiLanguageAndRolloutLocaleHandling(doc(), som::joinPath(path(), "localeHandling"));
 }
 
 LogAggregationRequirements::LogAggregationRequirements(som::SpecDocument& doc, std::string path)
@@ -15687,26 +15953,8 @@ MultiLanguageAndRollout::MultiLanguageAndRollout(som::SpecDocument& doc, std::st
 MultiLanguageAndRolloutMultiLanguageOverviewForm MultiLanguageAndRollout::multiLanguageOverview() const {
   return MultiLanguageAndRolloutMultiLanguageOverviewForm(doc(), som::joinPath(path(), "multiLanguageOverview"));
 }
-MultiLanguageAndRolloutLocaleHandling MultiLanguageAndRollout::localeHandling() const {
-  return MultiLanguageAndRolloutLocaleHandling(doc(), som::joinPath(path(), "localeHandling"));
-}
-MultiLanguageAndRolloutPlan MultiLanguageAndRollout::rolloutPlan() const {
-  return MultiLanguageAndRolloutPlan(doc(), som::joinPath(path(), "rolloutPlan"));
-}
-LocalizationProcess MultiLanguageAndRollout::localizationProcess() const {
-  return LocalizationProcess(doc(), som::joinPath(path(), "localizationProcess"));
-}
-TranslationProcess MultiLanguageAndRollout::translationProcess() const {
-  return TranslationProcess(doc(), som::joinPath(path(), "translationProcess"));
-}
-DocumentationAndTraining MultiLanguageAndRollout::documentationAndTraining() const {
-  return DocumentationAndTraining(doc(), som::joinPath(path(), "documentationAndTraining"));
-}
 LanguageCountrySelection MultiLanguageAndRollout::languageCountrySelection() const {
   return LanguageCountrySelection(doc(), som::joinPath(path(), "languageCountrySelection"));
-}
-TranslationRequirements MultiLanguageAndRollout::translationRequirements() const {
-  return TranslationRequirements(doc(), som::joinPath(path(), "translationRequirements"));
 }
 som::SomList MultiLanguageAndRollout::supportedLocales() const {
   return som::SomList(doc(), som::joinPath(path(), "SULOEN-SUPP-LST"));
@@ -18748,68 +18996,6 @@ ProgrammingLanguageEntryVersionContentForm ProgrammingLanguageEntryVersion::cont
   return ProgrammingLanguageEntryVersionContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ProjectDefinition::ProjectDefinition(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "PD") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string ProjectDefinition::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string ProjectDefinition::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ProjectDefinition::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader ProjectDefinition::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-CurrentStateAnalysis ProjectDefinition::currentStateAnalysis() const {
-  return CurrentStateAnalysis(doc(), som::joinPath(path(), "currentStateAnalysis"));
-}
-ProjectOrganizationAndProcess ProjectDefinition::projectOrganizationProcess() const {
-  return ProjectOrganizationAndProcess(doc(), som::joinPath(path(), "projectOrganizationProcess"));
-}
-Administrative ProjectDefinition::administrative() const {
-  return Administrative(doc(), som::joinPath(path(), "administrative"));
-}
-SystemOverview ProjectDefinition::systemOverview() const {
-  return SystemOverview(doc(), som::joinPath(path(), "systemOverview"));
-}
-OrganizationalFramework ProjectDefinition::organizationalFramework() const {
-  return OrganizationalFramework(doc(), som::joinPath(path(), "organizationalFramework"));
-}
-TargetBusinessProcessModel ProjectDefinition::targetBusinessProcess() const {
-  return TargetBusinessProcessModel(doc(), som::joinPath(path(), "targetBusinessProcess"));
-}
-BusinessObjectAndDataModel ProjectDefinition::businessDataModel() const {
-  return BusinessObjectAndDataModel(doc(), som::joinPath(path(), "businessDataModel"));
-}
-TechnicalFrameworkConcept ProjectDefinition::technicalFramework() const {
-  return TechnicalFrameworkConcept(doc(), som::joinPath(path(), "technicalFramework"));
-}
-AccessAndAuthorizationConcept ProjectDefinition::accessAuthorization() const {
-  return AccessAndAuthorizationConcept(doc(), som::joinPath(path(), "accessAuthorization"));
-}
-UserInterfaceDesign ProjectDefinition::userInterfaceDesign() const {
-  return UserInterfaceDesign(doc(), som::joinPath(path(), "userInterfaceDesign"));
-}
-SystemRolloutConcept ProjectDefinition::systemRolloutConcept() const {
-  return SystemRolloutConcept(doc(), som::joinPath(path(), "systemRolloutConcept"));
-}
-SystemQualityGoals ProjectDefinition::systemQualityGoals() const {
-  return SystemQualityGoals(doc(), som::joinPath(path(), "systemQualityGoals"));
-}
-ComponentsToUse ProjectDefinition::componentsToUse() const {
-  return ComponentsToUse(doc(), som::joinPath(path(), "componentsToUse"));
-}
-SystemStagePlan ProjectDefinition::systemStagePlan() const {
-  return SystemStagePlan(doc(), som::joinPath(path(), "systemStagePlan"));
-}
-DeliveryScopeAndAcceptance ProjectDefinition::deliveryAcceptance() const {
-  return DeliveryScopeAndAcceptance(doc(), som::joinPath(path(), "deliveryAcceptance"));
-}
-
 ProjectOrganization::ProjectOrganization(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ProjectOrganization::content() const {
@@ -18853,50 +19039,6 @@ ProcessAdjustments ProjectOrganizationAndProcess::processAdjustments() const {
 }
 ToolingAndEnvironments ProjectOrganizationAndProcess::toolingAndEnvironments() const {
   return ToolingAndEnvironments(doc(), som::joinPath(path(), "toolingAndEnvironments"));
-}
-
-ProjectPhasePlan::ProjectPhasePlan(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "PPP") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string ProjectPhasePlan::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string ProjectPhasePlan::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ProjectPhasePlan::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader ProjectPhasePlan::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-StagingStrategy ProjectPhasePlan::stagingStrategy() const {
-  return StagingStrategy(doc(), som::joinPath(path(), "stagingStrategy"));
-}
-StageOverview ProjectPhasePlan::stageOverview() const {
-  return StageOverview(doc(), som::joinPath(path(), "stageOverview"));
-}
-som::SomList ProjectPhasePlan::stages() const {
-  return som::SomList(doc(), som::joinPath(path(), "STAGE-STAG-LST"));
-}
-FeaturePrioritization ProjectPhasePlan::featurePrioritization() const {
-  return FeaturePrioritization(doc(), som::joinPath(path(), "featurePrioritization"));
-}
-DataMigrationStrategy ProjectPhasePlan::dataMigrationStrategy() const {
-  return DataMigrationStrategy(doc(), som::joinPath(path(), "dataMigrationStrategy"));
-}
-PhaseGateReviews ProjectPhasePlan::gateCriteria() const {
-  return PhaseGateReviews(doc(), som::joinPath(path(), "gateCriteria"));
-}
-DecisionPoints ProjectPhasePlan::decisionProcesses() const {
-  return DecisionPoints(doc(), som::joinPath(path(), "decisionProcesses"));
-}
-InitialDevelopmentFlow ProjectPhasePlan::initialDevelopmentFlow() const {
-  return InitialDevelopmentFlow(doc(), som::joinPath(path(), "initialDevelopmentFlow"));
-}
-UpgradeCycleFramework ProjectPhasePlan::upgradeCycleFramework() const {
-  return UpgradeCycleFramework(doc(), som::joinPath(path(), "upgradeCycleFramework"));
 }
 
 ProjectTeamStaffing::ProjectTeamStaffing(som::SpecDocument& doc, std::string path)
@@ -19149,6 +19291,83 @@ PwaRequirementsUpdates::PwaRequirementsUpdates(som::SpecDocument& doc, std::stri
     : som::SomNode(doc, std::move(path)) {}
 PwaRequirementsUpdatesContentForm PwaRequirementsUpdates::content() const {
   return PwaRequirementsUpdatesContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+QualityAcceptancePlan::QualityAcceptancePlan(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "QAP") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string QualityAcceptancePlan::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string QualityAcceptancePlan::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void QualityAcceptancePlan::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader QualityAcceptancePlan::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+QualityFramework QualityAcceptancePlan::qualityFramework() const {
+  return QualityFramework(doc(), som::joinPath(path(), "qualityFramework"));
+}
+UserQualityCriteria QualityAcceptancePlan::userQualityCriteria() const {
+  return UserQualityCriteria(doc(), som::joinPath(path(), "userQualityCriteria"));
+}
+TechnicalQualityCriteria QualityAcceptancePlan::technicalQualityCriteria() const {
+  return TechnicalQualityCriteria(doc(), som::joinPath(path(), "technicalQualityCriteria"));
+}
+OperationsQualityCriteria QualityAcceptancePlan::operationsQualityCriteria() const {
+  return OperationsQualityCriteria(doc(), som::joinPath(path(), "operationsQualityCriteria"));
+}
+DocumentationQualityCriteria QualityAcceptancePlan::documentationQualityCriteria() const {
+  return DocumentationQualityCriteria(doc(), som::joinPath(path(), "documentationQualityCriteria"));
+}
+QualityPrioritization QualityAcceptancePlan::qualityPrioritization() const {
+  return QualityPrioritization(doc(), som::joinPath(path(), "qualityPrioritization"));
+}
+AcceptanceCriteriaSummary QualityAcceptancePlan::acceptanceCriteriaSummary() const {
+  return AcceptanceCriteriaSummary(doc(), som::joinPath(path(), "acceptanceCriteriaSummary"));
+}
+TestStrategy QualityAcceptancePlan::testStrategy() const {
+  return TestStrategy(doc(), som::joinPath(path(), "testStrategy"));
+}
+AcceptanceCriteriaList QualityAcceptancePlan::acceptanceCriteria() const {
+  return AcceptanceCriteriaList(doc(), som::joinPath(path(), "acceptanceCriteria"));
+}
+AcceptanceProcess QualityAcceptancePlan::acceptanceProcess() const {
+  return AcceptanceProcess(doc(), som::joinPath(path(), "acceptanceProcess"));
+}
+UserAcceptanceTesting QualityAcceptancePlan::userAcceptanceTesting() const {
+  return UserAcceptanceTesting(doc(), som::joinPath(path(), "userAcceptanceTesting"));
+}
+DefectResolution QualityAcceptancePlan::defectResolution() const {
+  return DefectResolution(doc(), som::joinPath(path(), "defectResolution"));
+}
+SignOffProcess QualityAcceptancePlan::signOffProcess() const {
+  return SignOffProcess(doc(), som::joinPath(path(), "signOffProcess"));
+}
+WarrantyTerms QualityAcceptancePlan::warranty() const {
+  return WarrantyTerms(doc(), som::joinPath(path(), "warranty"));
+}
+
+QualityAndAcceptanceModel::QualityAndAcceptanceModel(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string QualityAndAcceptanceModel::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void QualityAndAcceptanceModel::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+SystemQualityGoals QualityAndAcceptanceModel::systemQualityGoals() const {
+  return SystemQualityGoals(doc(), som::joinPath(path(), "systemQualityGoals"));
+}
+DeliveryScopeAndAcceptance QualityAndAcceptanceModel::deliveryAcceptance() const {
+  return DeliveryScopeAndAcceptance(doc(), som::joinPath(path(), "deliveryAcceptance"));
+}
+Iso25010Coverage QualityAndAcceptanceModel::iso25010Coverage() const {
+  return Iso25010Coverage(doc(), som::joinPath(path(), "iso25010Coverage"));
 }
 
 QualityCategoryEntry::QualityCategoryEntry(som::SpecDocument& doc, std::string path)
@@ -20519,45 +20738,22 @@ som::SomList RequirementUiSpecification::behaviors() const {
   return som::SomList(doc(), som::joinPath(path(), "SCBHV-BEHA-LST"));
 }
 
-RequirementsCatalog::RequirementsCatalog(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "RC") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string RequirementsCatalog::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string RequirementsCatalog::content() const {
+Requirements::Requirements(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string Requirements::content() const {
   return doc().content(som::joinPath(path(), "content"));
 }
-void RequirementsCatalog::setContent(const std::string& value) {
+void Requirements::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
-DocumentHeader RequirementsCatalog::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+LocalizationTranslationRequirements Requirements::localizationTranslation() const {
+  return LocalizationTranslationRequirements(doc(), som::joinPath(path(), "localizationTranslation"));
 }
-FunctionalRequirements RequirementsCatalog::functionalRequirements() const {
-  return FunctionalRequirements(doc(), som::joinPath(path(), "functionalRequirements"));
+InformationForUseRequirements Requirements::informationForUse() const {
+  return InformationForUseRequirements(doc(), som::joinPath(path(), "informationForUse"));
 }
-TechnicalRequirements RequirementsCatalog::technicalRequirements() const {
-  return TechnicalRequirements(doc(), som::joinPath(path(), "technicalRequirements"));
-}
-SecurityRequirements RequirementsCatalog::securityRequirements() const {
-  return SecurityRequirements(doc(), som::joinPath(path(), "securityRequirements"));
-}
-OrganizationalRequirements RequirementsCatalog::organizationalRequirements() const {
-  return OrganizationalRequirements(doc(), som::joinPath(path(), "organizationalRequirements"));
-}
-std::string RequirementsCatalog::traceabilityMatrix() const {
-  return doc().content(som::joinPath(path(), "traceabilityMatrix"));
-}
-void RequirementsCatalog::setTraceabilityMatrix(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "traceabilityMatrix"), value);
-}
-som::SomList RequirementsCatalog::requirementRelationships() const {
-  return som::SomList(doc(), som::joinPath(path(), "RERE-REQU-LST"));
-}
-RequirementCoverage RequirementsCatalog::requirementCoverage() const {
-  return RequirementCoverage(doc(), som::joinPath(path(), "requirementCoverage"));
+TrainingEnablementRequirements Requirements::trainingEnablement() const {
+  return TrainingEnablementRequirements(doc(), som::joinPath(path(), "trainingEnablement"));
 }
 
 RequirementsOverview::RequirementsOverview(som::SpecDocument& doc, std::string path)
@@ -20593,6 +20789,47 @@ som::SomList RequirementsOverview::requirementRelationships() const {
   return som::SomList(doc(), som::joinPath(path(), "RERE-REQU-LST"));
 }
 RequirementCoverage RequirementsOverview::requirementCoverage() const {
+  return RequirementCoverage(doc(), som::joinPath(path(), "requirementCoverage"));
+}
+
+RequirementsSpecification::RequirementsSpecification(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "RSP") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string RequirementsSpecification::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string RequirementsSpecification::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void RequirementsSpecification::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader RequirementsSpecification::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+FunctionalRequirements RequirementsSpecification::functionalRequirements() const {
+  return FunctionalRequirements(doc(), som::joinPath(path(), "functionalRequirements"));
+}
+TechnicalRequirements RequirementsSpecification::technicalRequirements() const {
+  return TechnicalRequirements(doc(), som::joinPath(path(), "technicalRequirements"));
+}
+SecurityRequirements RequirementsSpecification::securityRequirements() const {
+  return SecurityRequirements(doc(), som::joinPath(path(), "securityRequirements"));
+}
+OrganizationalRequirements RequirementsSpecification::organizationalRequirements() const {
+  return OrganizationalRequirements(doc(), som::joinPath(path(), "organizationalRequirements"));
+}
+std::string RequirementsSpecification::traceabilityMatrix() const {
+  return doc().content(som::joinPath(path(), "traceabilityMatrix"));
+}
+void RequirementsSpecification::setTraceabilityMatrix(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "traceabilityMatrix"), value);
+}
+som::SomList RequirementsSpecification::requirementRelationships() const {
+  return som::SomList(doc(), som::joinPath(path(), "RERE-REQU-LST"));
+}
+RequirementCoverage RequirementsSpecification::requirementCoverage() const {
   return RequirementCoverage(doc(), som::joinPath(path(), "requirementCoverage"));
 }
 
@@ -21080,6 +21317,24 @@ ReviewCriterionEntryResult::ReviewCriterionEntryResult(som::SpecDocument& doc, s
     : som::SomNode(doc, std::move(path)) {}
 ReviewCriterionEntryResultContentForm ReviewCriterionEntryResult::content() const {
   return ReviewCriterionEntryResultContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+RevisionEntry::RevisionEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+RevisionEntryContentForm RevisionEntry::content() const {
+  return RevisionEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+RevisionHistory::RevisionHistory(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string RevisionHistory::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void RevisionHistory::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList RevisionHistory::revisions() const {
+  return som::SomList(doc(), som::joinPath(path(), "RVHST-REVS-LST"));
 }
 
 RiskAnalysis::RiskAnalysis(som::SpecDocument& doc, std::string path)
@@ -22412,6 +22667,80 @@ void SecondaryNavigation::setContent(const std::string& value) {
 }
 som::SomList SecondaryNavigation::tabBars() const {
   return som::SomList(doc(), som::joinPath(path(), "TBDE-TABB-LST"));
+}
+
+SecurityAccessSpecification::SecurityAccessSpecification(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "SAS") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string SecurityAccessSpecification::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string SecurityAccessSpecification::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void SecurityAccessSpecification::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader SecurityAccessSpecification::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+UserManagement SecurityAccessSpecification::userManagement() const {
+  return UserManagement(doc(), som::joinPath(path(), "userManagement"));
+}
+IdentificationAndAuthentication SecurityAccessSpecification::identificationAndAuthentication() const {
+  return IdentificationAndAuthentication(doc(), som::joinPath(path(), "identificationAndAuthentication"));
+}
+ResourceProtection SecurityAccessSpecification::resourceProtection() const {
+  return ResourceProtection(doc(), som::joinPath(path(), "resourceProtection"));
+}
+UserAuthorization SecurityAccessSpecification::userAuthorization() const {
+  return UserAuthorization(doc(), som::joinPath(path(), "userAuthorization"));
+}
+SensitiveDataEncryption SecurityAccessSpecification::sensitiveDataEncryption() const {
+  return SensitiveDataEncryption(doc(), som::joinPath(path(), "sensitiveDataEncryption"));
+}
+AuditAndLogging SecurityAccessSpecification::auditAndLogging() const {
+  return AuditAndLogging(doc(), som::joinPath(path(), "auditAndLogging"));
+}
+RoleMatrix SecurityAccessSpecification::roleMatrix() const {
+  return RoleMatrix(doc(), som::joinPath(path(), "roleMatrix"));
+}
+ComplianceFramework SecurityAccessSpecification::complianceFramework() const {
+  return ComplianceFramework(doc(), som::joinPath(path(), "complianceFramework"));
+}
+
+SecurityAndAccessModel::SecurityAndAccessModel(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SecurityAndAccessModel::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void SecurityAndAccessModel::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+UserManagement SecurityAndAccessModel::userManagement() const {
+  return UserManagement(doc(), som::joinPath(path(), "userManagement"));
+}
+IdentificationAndAuthentication SecurityAndAccessModel::authentication() const {
+  return IdentificationAndAuthentication(doc(), som::joinPath(path(), "authentication"));
+}
+ResourceProtection SecurityAndAccessModel::resourceProtection() const {
+  return ResourceProtection(doc(), som::joinPath(path(), "resourceProtection"));
+}
+UserAuthorization SecurityAndAccessModel::authorization() const {
+  return UserAuthorization(doc(), som::joinPath(path(), "authorization"));
+}
+SensitiveDataEncryption SecurityAndAccessModel::encryption() const {
+  return SensitiveDataEncryption(doc(), som::joinPath(path(), "encryption"));
+}
+AuditAndLogging SecurityAndAccessModel::auditAndLogging() const {
+  return AuditAndLogging(doc(), som::joinPath(path(), "auditAndLogging"));
+}
+RoleMatrix SecurityAndAccessModel::roleMatrix() const {
+  return RoleMatrix(doc(), som::joinPath(path(), "roleMatrix"));
+}
+ComplianceFramework SecurityAndAccessModel::complianceFramework() const {
+  return ComplianceFramework(doc(), som::joinPath(path(), "complianceFramework"));
 }
 
 SecurityAuditEntry::SecurityAuditEntry(som::SpecDocument& doc, std::string path)
@@ -23803,6 +24132,77 @@ SoftwareLayerEntryTechnologyContentForm SoftwareLayerEntryTechnology::content() 
   return SoftwareLayerEntryTechnologyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+SolutionArchitectureAndTechnology::SolutionArchitectureAndTechnology(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SolutionArchitectureAndTechnology::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void SolutionArchitectureAndTechnology::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+TechnicalFrameworkConcept SolutionArchitectureAndTechnology::technicalFramework() const {
+  return TechnicalFrameworkConcept(doc(), som::joinPath(path(), "technicalFramework"));
+}
+ComponentsToUse SolutionArchitectureAndTechnology::componentsToUse() const {
+  return ComponentsToUse(doc(), som::joinPath(path(), "componentsToUse"));
+}
+
+SolutionBlueprint::SolutionBlueprint(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "SBP") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string SolutionBlueprint::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string SolutionBlueprint::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void SolutionBlueprint::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentControl SolutionBlueprint::documentControl() const {
+  return DocumentControl(doc(), som::joinPath(path(), "documentControl"));
+}
+IntroductionAndScope SolutionBlueprint::introductionAndScope() const {
+  return IntroductionAndScope(doc(), som::joinPath(path(), "introductionAndScope"));
+}
+GlossaryAndAbbreviations SolutionBlueprint::glossaryAndAbbreviations() const {
+  return GlossaryAndAbbreviations(doc(), som::joinPath(path(), "glossaryAndAbbreviations"));
+}
+StakeholdersAndGovernance SolutionBlueprint::stakeholdersAndGovernance() const {
+  return StakeholdersAndGovernance(doc(), som::joinPath(path(), "stakeholdersAndGovernance"));
+}
+CurrentLandscape SolutionBlueprint::currentLandscape() const {
+  return CurrentLandscape(doc(), som::joinPath(path(), "currentLandscape"));
+}
+AssumptionsConstraintsDependencies SolutionBlueprint::assumptionsConstraintsDependencies() const {
+  return AssumptionsConstraintsDependencies(doc(), som::joinPath(path(), "assumptionsConstraintsDependencies"));
+}
+TargetOperatingModelConcept SolutionBlueprint::targetOperatingModelConcept() const {
+  return TargetOperatingModelConcept(doc(), som::joinPath(path(), "targetOperatingModelConcept"));
+}
+InformationAndDataModel SolutionBlueprint::informationAndDataModel() const {
+  return InformationAndDataModel(doc(), som::joinPath(path(), "informationAndDataModel"));
+}
+Requirements SolutionBlueprint::requirements() const {
+  return Requirements(doc(), som::joinPath(path(), "requirements"));
+}
+SolutionArchitectureAndTechnology SolutionBlueprint::solutionArchitectureAndTechnology() const {
+  return SolutionArchitectureAndTechnology(doc(), som::joinPath(path(), "solutionArchitectureAndTechnology"));
+}
+SecurityAndAccessModel SolutionBlueprint::securityAndAccessModel() const {
+  return SecurityAndAccessModel(doc(), som::joinPath(path(), "securityAndAccessModel"));
+}
+ExperienceAndInterfaceDesign SolutionBlueprint::experienceAndInterfaceDesign() const {
+  return ExperienceAndInterfaceDesign(doc(), som::joinPath(path(), "experienceAndInterfaceDesign"));
+}
+QualityAndAcceptanceModel SolutionBlueprint::qualityAndAcceptanceModel() const {
+  return QualityAndAcceptanceModel(doc(), som::joinPath(path(), "qualityAndAcceptanceModel"));
+}
+DeliveryTransitionAndRollout SolutionBlueprint::deliveryTransitionAndRollout() const {
+  return DeliveryTransitionAndRollout(doc(), som::joinPath(path(), "deliveryTransitionAndRollout"));
+}
+
 SpecializedEquipmentEntry::SpecializedEquipmentEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 SpecializedEquipmentEntryContentForm SpecializedEquipmentEntry::content() const {
@@ -24556,6 +24956,24 @@ StakeholderEntryImpactContentForm StakeholderEntryImpact::content() const {
   return StakeholderEntryImpactContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+StakeholderRegister::StakeholderRegister(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string StakeholderRegister::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void StakeholderRegister::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList StakeholderRegister::stakeholders() const {
+  return som::SomList(doc(), som::joinPath(path(), "STKRG-STAK-LST"));
+}
+
+StakeholderRegisterEntry::StakeholderRegisterEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+StakeholderRegisterEntryContentForm StakeholderRegisterEntry::content() const {
+  return StakeholderRegisterEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 StakeholdersAndBeneficiaries::StakeholdersAndBeneficiaries(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string StakeholdersAndBeneficiaries::content() const {
@@ -24569,6 +24987,24 @@ som::SomList StakeholdersAndBeneficiaries::primaryStakeholders() const {
 }
 som::SomList StakeholdersAndBeneficiaries::secondaryStakeholders() const {
   return som::SomList(doc(), som::joinPath(path(), "STKNT-SECO-LST"));
+}
+
+StakeholdersAndGovernance::StakeholdersAndGovernance(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string StakeholdersAndGovernance::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void StakeholdersAndGovernance::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+ProjectOrganizationAndProcess StakeholdersAndGovernance::projectOrganizationProcess() const {
+  return ProjectOrganizationAndProcess(doc(), som::joinPath(path(), "projectOrganizationProcess"));
+}
+Administrative StakeholdersAndGovernance::administrative() const {
+  return Administrative(doc(), som::joinPath(path(), "administrative"));
+}
+StakeholderRegister StakeholdersAndGovernance::stakeholderRegister() const {
+  return StakeholderRegister(doc(), som::joinPath(path(), "stakeholderRegister"));
 }
 
 StakeholdersAndInterests::StakeholdersAndInterests(som::SpecDocument& doc, std::string path)
@@ -25552,45 +25988,6 @@ CapacityPlanningSection SystemOperationAndMonitoring::capacityPlanning() const {
   return CapacityPlanningSection(doc(), som::joinPath(path(), "capacityPlanning"));
 }
 
-SystemOverview::SystemOverview(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string SystemOverview::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SystemOverview::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-SystemOverviewSummary SystemOverview::summary() const {
-  return SystemOverviewSummary(doc(), som::joinPath(path(), "summary"));
-}
-std::string SystemOverview::systemContextDiagram() const {
-  return doc().content(som::joinPath(path(), "systemContextDiagram"));
-}
-void SystemOverview::setSystemContextDiagram(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "systemContextDiagram"), value);
-}
-SystemDescription SystemOverview::systemDescription() const {
-  return SystemDescription(doc(), som::joinPath(path(), "systemDescription"));
-}
-Goals SystemOverview::goals() const {
-  return Goals(doc(), som::joinPath(path(), "goals"));
-}
-RequirementsOverview SystemOverview::requirements() const {
-  return RequirementsOverview(doc(), som::joinPath(path(), "requirements"));
-}
-SystemsToReplace SystemOverview::systemsToReplace() const {
-  return SystemsToReplace(doc(), som::joinPath(path(), "systemsToReplace"));
-}
-SystemBoundaries SystemOverview::systemBoundaries() const {
-  return SystemBoundaries(doc(), som::joinPath(path(), "systemBoundaries"));
-}
-FrameworkConditions SystemOverview::frameworkConditions() const {
-  return FrameworkConditions(doc(), som::joinPath(path(), "frameworkConditions"));
-}
-RisksAndAssumptions SystemOverview::risksAndAssumptions() const {
-  return RisksAndAssumptions(doc(), som::joinPath(path(), "risksAndAssumptions"));
-}
-
 SystemOverviewSummary::SystemOverviewSummary(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 SystemOverviewSummaryContentForm SystemOverviewSummary::content() const {
@@ -25763,56 +26160,6 @@ SystemReplacementStrategyTimeline::SystemReplacementStrategyTimeline(som::SpecDo
     : som::SomNode(doc, std::move(path)) {}
 SystemReplacementStrategyTimelineContentForm SystemReplacementStrategyTimeline::content() const {
   return SystemReplacementStrategyTimelineContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-SystemRollout::SystemRollout(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "SR") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string SystemRollout::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string SystemRollout::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SystemRollout::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader SystemRollout::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-LocalizationProcess SystemRollout::localizationProcess() const {
-  return LocalizationProcess(doc(), som::joinPath(path(), "localizationProcess"));
-}
-TranslationProcess SystemRollout::translationProcess() const {
-  return TranslationProcess(doc(), som::joinPath(path(), "translationProcess"));
-}
-DocumentationAndTraining SystemRollout::documentationAndTraining() const {
-  return DocumentationAndTraining(doc(), som::joinPath(path(), "documentationAndTraining"));
-}
-RolloutPlan SystemRollout::rolloutPlan() const {
-  return RolloutPlan(doc(), som::joinPath(path(), "rolloutPlan"));
-}
-MigrationPlan SystemRollout::migrationPlan() const {
-  return MigrationPlan(doc(), som::joinPath(path(), "migrationPlan"));
-}
-som::SomList SystemRollout::userManuals() const {
-  return som::SomList(doc(), som::joinPath(path(), "USRMAN-USER-LST"));
-}
-som::SomList SystemRollout::trainingMaterials() const {
-  return som::SomList(doc(), som::joinPath(path(), "RLTTM-TRAI-LST"));
-}
-PilotPlan SystemRollout::pilotPlan() const {
-  return PilotPlan(doc(), som::joinPath(path(), "pilotPlan"));
-}
-som::SomList SystemRollout::cutoverProcedures() const {
-  return som::SomList(doc(), som::joinPath(path(), "CUTPRC-CUTO-LST"));
-}
-KnowledgeTransfer SystemRollout::knowledgeTransfer() const {
-  return KnowledgeTransfer(doc(), som::joinPath(path(), "knowledgeTransfer"));
-}
-WarrantyAndSupport SystemRollout::warrantyAndSupport() const {
-  return WarrantyAndSupport(doc(), som::joinPath(path(), "warrantyAndSupport"));
 }
 
 SystemRolloutConcept::SystemRolloutConcept(som::SpecDocument& doc, std::string path)
@@ -26173,6 +26520,68 @@ BusinessProcessDescriptions TargetBusinessProcessModel::businessProcessDescripti
 }
 ProcessStepsAndActorInteractions TargetBusinessProcessModel::processStepsAndActorInteractions() const {
   return ProcessStepsAndActorInteractions(doc(), som::joinPath(path(), "processStepsAndActorInteractions"));
+}
+
+TargetOperatingModel::TargetOperatingModel(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "TOM") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string TargetOperatingModel::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string TargetOperatingModel::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void TargetOperatingModel::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader TargetOperatingModel::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+ProcessVision TargetOperatingModel::processVision() const {
+  return ProcessVision(doc(), som::joinPath(path(), "processVision"));
+}
+ProcessDesignPrinciples TargetOperatingModel::designPrinciples() const {
+  return ProcessDesignPrinciples(doc(), som::joinPath(path(), "designPrinciples"));
+}
+ProcessCatalog TargetOperatingModel::processCatalog() const {
+  return ProcessCatalog(doc(), som::joinPath(path(), "processCatalog"));
+}
+ProcessOverviewDiagram TargetOperatingModel::processOverviewDiagram() const {
+  return ProcessOverviewDiagram(doc(), som::joinPath(path(), "processOverviewDiagram"));
+}
+ProcessImprovementSummary TargetOperatingModel::improvementSummary() const {
+  return ProcessImprovementSummary(doc(), som::joinPath(path(), "improvementSummary"));
+}
+ProcessRelationships TargetOperatingModel::processRelationships() const {
+  return ProcessRelationships(doc(), som::joinPath(path(), "processRelationships"));
+}
+som::SomList TargetOperatingModel::detailedWorkflows() const {
+  return som::SomList(doc(), som::joinPath(path(), "DEPRWO-DETA-LST"));
+}
+CrossProcessAnalysis TargetOperatingModel::crossProcessAnalysis() const {
+  return CrossProcessAnalysis(doc(), som::joinPath(path(), "crossProcessAnalysis"));
+}
+ProcessExceptionHandling TargetOperatingModel::exceptionHandling() const {
+  return ProcessExceptionHandling(doc(), som::joinPath(path(), "exceptionHandling"));
+}
+som::SomList TargetOperatingModel::processMetricsAndKpis() const {
+  return som::SomList(doc(), som::joinPath(path(), "PMAK-PROC-LST"));
+}
+
+TargetOperatingModelConcept::TargetOperatingModelConcept(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TargetOperatingModelConcept::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void TargetOperatingModelConcept::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+OrganizationalFramework TargetOperatingModelConcept::organizationalFramework() const {
+  return OrganizationalFramework(doc(), som::joinPath(path(), "organizationalFramework"));
+}
+TargetBusinessProcessModel TargetOperatingModelConcept::targetBusinessProcess() const {
+  return TargetBusinessProcessModel(doc(), som::joinPath(path(), "targetBusinessProcess"));
 }
 
 TargetPlatformEntry::TargetPlatformEntry(som::SpecDocument& doc, std::string path)
@@ -26659,59 +27068,6 @@ TechnicalRequirementsSummaryFormForm TechnicalRequirements::summaryForm() const 
 }
 som::SomList TechnicalRequirements::requirements() const {
   return som::SomList(doc(), som::joinPath(path(), "TERQ-REQU-LST"));
-}
-
-TechnicalRequirementsSpec::TechnicalRequirementsSpec(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "TR") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string TechnicalRequirementsSpec::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string TechnicalRequirementsSpec::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void TechnicalRequirementsSpec::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader TechnicalRequirementsSpec::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-BasicTechnicalRequirements TechnicalRequirementsSpec::basicTechnicalRequirements() const {
-  return BasicTechnicalRequirements(doc(), som::joinPath(path(), "basicTechnicalRequirements"));
-}
-SoftwareDesignRequirements TechnicalRequirementsSpec::softwareDesignRequirements() const {
-  return SoftwareDesignRequirements(doc(), som::joinPath(path(), "softwareDesignRequirements"));
-}
-StandardSoftwareRequirements TechnicalRequirementsSpec::standardSoftwareRequirements() const {
-  return StandardSoftwareRequirements(doc(), som::joinPath(path(), "standardSoftwareRequirements"));
-}
-HardwareRequirements TechnicalRequirementsSpec::hardwareRequirements() const {
-  return HardwareRequirements(doc(), som::joinPath(path(), "hardwareRequirements"));
-}
-OperationsRequirements TechnicalRequirementsSpec::operationsRequirements() const {
-  return OperationsRequirements(doc(), som::joinPath(path(), "operationsRequirements"));
-}
-CommunicationRequirements TechnicalRequirementsSpec::communicationRequirements() const {
-  return CommunicationRequirements(doc(), som::joinPath(path(), "communicationRequirements"));
-}
-SystemOperationAndMonitoring TechnicalRequirementsSpec::systemOperationAndMonitoring() const {
-  return SystemOperationAndMonitoring(doc(), som::joinPath(path(), "systemOperationAndMonitoring"));
-}
-TechnicalSecurityRequirements TechnicalRequirementsSpec::technicalSecurityRequirements() const {
-  return TechnicalSecurityRequirements(doc(), som::joinPath(path(), "technicalSecurityRequirements"));
-}
-SystemArchitectureSpec TechnicalRequirementsSpec::systemArchitecture() const {
-  return SystemArchitectureSpec(doc(), som::joinPath(path(), "systemArchitecture"));
-}
-ComponentsToUse TechnicalRequirementsSpec::componentsToUse() const {
-  return ComponentsToUse(doc(), som::joinPath(path(), "componentsToUse"));
-}
-TechnicalFrameworkConditions TechnicalRequirementsSpec::technicalFrameworkConditions() const {
-  return TechnicalFrameworkConditions(doc(), som::joinPath(path(), "technicalFrameworkConditions"));
-}
-TranslationRequirements TechnicalRequirementsSpec::translationRequirements() const {
-  return TranslationRequirements(doc(), som::joinPath(path(), "translationRequirements"));
 }
 
 TechnicalSecurityRequirements::TechnicalSecurityRequirements(som::SpecDocument& doc, std::string path)
@@ -27509,6 +27865,12 @@ som::SomList TrainingDeliverables::items() const {
   return som::SomList(doc(), som::joinPath(path(), "DLVEN-ITEM-LST"));
 }
 
+TrainingEnablementRequirements::TrainingEnablementRequirements(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+TrainingEnablementRequirementsContentForm TrainingEnablementRequirements::content() const {
+  return TrainingEnablementRequirementsContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 TrainingMaterials::TrainingMaterials(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 TrainingMaterialsContentForm TrainingMaterials::content() const {
@@ -27804,6 +28166,56 @@ TransitionRiskEntryResponse::TransitionRiskEntryResponse(som::SpecDocument& doc,
     : som::SomNode(doc, std::move(path)) {}
 TransitionRiskEntryResponseContentForm TransitionRiskEntryResponse::content() const {
   return TransitionRiskEntryResponseContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+TransitionRolloutPlan::TransitionRolloutPlan(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "TRP") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string TransitionRolloutPlan::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string TransitionRolloutPlan::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void TransitionRolloutPlan::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+DocumentHeader TransitionRolloutPlan::header() const {
+  return DocumentHeader(doc(), som::joinPath(path(), "header"));
+}
+LocalizationProcess TransitionRolloutPlan::localizationProcess() const {
+  return LocalizationProcess(doc(), som::joinPath(path(), "localizationProcess"));
+}
+TranslationProcess TransitionRolloutPlan::translationProcess() const {
+  return TranslationProcess(doc(), som::joinPath(path(), "translationProcess"));
+}
+DocumentationAndTraining TransitionRolloutPlan::documentationAndTraining() const {
+  return DocumentationAndTraining(doc(), som::joinPath(path(), "documentationAndTraining"));
+}
+RolloutPlan TransitionRolloutPlan::rolloutPlan() const {
+  return RolloutPlan(doc(), som::joinPath(path(), "rolloutPlan"));
+}
+MigrationPlan TransitionRolloutPlan::migrationPlan() const {
+  return MigrationPlan(doc(), som::joinPath(path(), "migrationPlan"));
+}
+som::SomList TransitionRolloutPlan::userManuals() const {
+  return som::SomList(doc(), som::joinPath(path(), "USRMAN-USER-LST"));
+}
+som::SomList TransitionRolloutPlan::trainingMaterials() const {
+  return som::SomList(doc(), som::joinPath(path(), "RLTTM-TRAI-LST"));
+}
+PilotPlan TransitionRolloutPlan::pilotPlan() const {
+  return PilotPlan(doc(), som::joinPath(path(), "pilotPlan"));
+}
+som::SomList TransitionRolloutPlan::cutoverProcedures() const {
+  return som::SomList(doc(), som::joinPath(path(), "CUTPRC-CUTO-LST"));
+}
+KnowledgeTransfer TransitionRolloutPlan::knowledgeTransfer() const {
+  return KnowledgeTransfer(doc(), som::joinPath(path(), "knowledgeTransfer"));
+}
+WarrantyAndSupport TransitionRolloutPlan::warrantyAndSupport() const {
+  return WarrantyAndSupport(doc(), som::joinPath(path(), "warrantyAndSupport"));
 }
 
 TransitionSuccessMetrics::TransitionSuccessMetrics(som::SpecDocument& doc, std::string path)
@@ -28268,59 +28680,6 @@ UiDesignPrincipleEntryContentForm UiDesignPrincipleEntry::content() const {
   return UiDesignPrincipleEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-UiPrototype::UiPrototype(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "UP") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string UiPrototype::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string UiPrototype::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void UiPrototype::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader UiPrototype::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-DesignVision UiPrototype::designVision() const {
-  return DesignVision(doc(), som::joinPath(path(), "designVision"));
-}
-ScreenDescriptions UiPrototype::screens() const {
-  return ScreenDescriptions(doc(), som::joinPath(path(), "screens"));
-}
-ScreenFlowStructure UiPrototype::screenFlow() const {
-  return ScreenFlowStructure(doc(), som::joinPath(path(), "screenFlow"));
-}
-PrintLayout UiPrototype::printLayout() const {
-  return PrintLayout(doc(), som::joinPath(path(), "printLayout"));
-}
-ErrorHandlingConcept UiPrototype::errorHandling() const {
-  return ErrorHandlingConcept(doc(), som::joinPath(path(), "errorHandling"));
-}
-HelpConcept UiPrototype::helpConcept() const {
-  return HelpConcept(doc(), som::joinPath(path(), "helpConcept"));
-}
-Accessibility UiPrototype::accessibility() const {
-  return Accessibility(doc(), som::joinPath(path(), "accessibility"));
-}
-ResponsiveDesign UiPrototype::responsiveDesign() const {
-  return ResponsiveDesign(doc(), som::joinPath(path(), "responsiveDesign"));
-}
-UiComponents UiPrototype::uiComponents() const {
-  return UiComponents(doc(), som::joinPath(path(), "uiComponents"));
-}
-LanguageCountrySelection UiPrototype::languageCountrySelection() const {
-  return LanguageCountrySelection(doc(), som::joinPath(path(), "languageCountrySelection"));
-}
-Prototype UiPrototype::prototype() const {
-  return Prototype(doc(), som::joinPath(path(), "prototype"));
-}
-som::SomList UiPrototype::wireframesAndMockups() const {
-  return som::SomList(doc(), som::joinPath(path(), "WIANMO-WIRE-LST"));
-}
-
 UpgradeCycleFramework::UpgradeCycleFramework(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string UpgradeCycleFramework::content() const {
@@ -28403,44 +28762,6 @@ std::string UseCaseTraceability::content() const {
 }
 void UseCaseTraceability::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-UseCases::UseCases(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "UC") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string UseCases::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string UseCases::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void UseCases::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DocumentHeader UseCases::header() const {
-  return DocumentHeader(doc(), som::joinPath(path(), "header"));
-}
-ProcessStepsOverview UseCases::processStepsOverview() const {
-  return ProcessStepsOverview(doc(), som::joinPath(path(), "processStepsOverview"));
-}
-ActorOverview UseCases::actorOverview() const {
-  return ActorOverview(doc(), som::joinPath(path(), "actorOverview"));
-}
-InteractionCatalog UseCases::interactionCatalog() const {
-  return InteractionCatalog(doc(), som::joinPath(path(), "interactionCatalog"));
-}
-KeyScenarios UseCases::keyScenarios() const {
-  return KeyScenarios(doc(), som::joinPath(path(), "keyScenarios"));
-}
-ActorRelationshipDiagram UseCases::actorRelationshipDiagram() const {
-  return ActorRelationshipDiagram(doc(), som::joinPath(path(), "actorRelationshipDiagram"));
-}
-som::SomList UseCases::endToEndTestScenarios() const {
-  return som::SomList(doc(), som::joinPath(path(), "ETETS-ENDT-LST"));
-}
-UseCaseTraceability UseCases::useCaseTraceability() const {
-  return UseCaseTraceability(doc(), som::joinPath(path(), "useCaseTraceability"));
 }
 
 UserAcceptanceTesting::UserAcceptanceTesting(som::SpecDocument& doc, std::string path)
@@ -28723,51 +29044,6 @@ std::string UserInteractionModelSummary::content() const {
 }
 void UserInteractionModelSummary::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-UserInterfaceDesign::UserInterfaceDesign(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string UserInterfaceDesign::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void UserInterfaceDesign::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-DesignVision UserInterfaceDesign::designVision() const {
-  return DesignVision(doc(), som::joinPath(path(), "designVision"));
-}
-ScreenDescriptions UserInterfaceDesign::screens() const {
-  return ScreenDescriptions(doc(), som::joinPath(path(), "screens"));
-}
-ScreenFlowStructure UserInterfaceDesign::screenFlow() const {
-  return ScreenFlowStructure(doc(), som::joinPath(path(), "screenFlow"));
-}
-PrintLayout UserInterfaceDesign::printLayout() const {
-  return PrintLayout(doc(), som::joinPath(path(), "printLayout"));
-}
-ErrorHandlingConcept UserInterfaceDesign::errorHandling() const {
-  return ErrorHandlingConcept(doc(), som::joinPath(path(), "errorHandling"));
-}
-HelpConcept UserInterfaceDesign::helpConcept() const {
-  return HelpConcept(doc(), som::joinPath(path(), "helpConcept"));
-}
-Accessibility UserInterfaceDesign::accessibility() const {
-  return Accessibility(doc(), som::joinPath(path(), "accessibility"));
-}
-ResponsiveDesign UserInterfaceDesign::responsiveDesign() const {
-  return ResponsiveDesign(doc(), som::joinPath(path(), "responsiveDesign"));
-}
-UiComponents UserInterfaceDesign::uiComponents() const {
-  return UiComponents(doc(), som::joinPath(path(), "uiComponents"));
-}
-MultiLanguageAndRollout UserInterfaceDesign::multiLanguage() const {
-  return MultiLanguageAndRollout(doc(), som::joinPath(path(), "multiLanguage"));
-}
-Prototype UserInterfaceDesign::prototype() const {
-  return Prototype(doc(), som::joinPath(path(), "prototype"));
-}
-som::SomList UserInterfaceDesign::wireframesAndMockups() const {
-  return som::SomList(doc(), som::joinPath(path(), "WIANMO-WIRE-LST"));
 }
 
 UserJourney::UserJourney(som::SpecDocument& doc, std::string path)
@@ -32928,6 +33204,33 @@ void ApplicationSecurityRequirementsValidationContentForm::setFileUploadSecurity
   doc().setFormField(path(), "fileUploadSecurity", value);
 }
 
+ApprovalRecordContentForm::ApprovalRecordContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ApprovalRecordContentForm::role() const {
+  return doc().formField(path(), "role");
+}
+void ApprovalRecordContentForm::setRole(const std::string& value) {
+  doc().setFormField(path(), "role", value);
+}
+std::string ApprovalRecordContentForm::name() const {
+  return doc().formField(path(), "name");
+}
+void ApprovalRecordContentForm::setName(const std::string& value) {
+  doc().setFormField(path(), "name", value);
+}
+std::string ApprovalRecordContentForm::date() const {
+  return doc().formField(path(), "date");
+}
+void ApprovalRecordContentForm::setDate(const std::string& value) {
+  doc().setFormField(path(), "date", value);
+}
+std::string ApprovalRecordContentForm::status() const {
+  return doc().formField(path(), "status");
+}
+void ApprovalRecordContentForm::setStatus(const std::string& value) {
+  doc().setFormField(path(), "status", value);
+}
+
 ArchitectureComponentEntryBoundariesContentForm::ArchitectureComponentEntryBoundariesContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ArchitectureComponentEntryBoundariesContentForm::publicInterface() const {
@@ -33481,6 +33784,39 @@ std::string AssumptionImpactContentForm::relatedRisks() const {
 }
 void AssumptionImpactContentForm::setRelatedRisks(const std::string& value) {
   doc().setFormField(path(), "relatedRisks", value);
+}
+
+AssumptionRegisterEntryContentForm::AssumptionRegisterEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AssumptionRegisterEntryContentForm::assumptionId() const {
+  return doc().formField(path(), "assumptionId");
+}
+void AssumptionRegisterEntryContentForm::setAssumptionId(const std::string& value) {
+  doc().setFormField(path(), "assumptionId", value);
+}
+std::string AssumptionRegisterEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void AssumptionRegisterEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
+}
+std::string AssumptionRegisterEntryContentForm::impact() const {
+  return doc().formField(path(), "impact");
+}
+void AssumptionRegisterEntryContentForm::setImpact(const std::string& value) {
+  doc().setFormField(path(), "impact", value);
+}
+std::string AssumptionRegisterEntryContentForm::validation() const {
+  return doc().formField(path(), "validation");
+}
+void AssumptionRegisterEntryContentForm::setValidation(const std::string& value) {
+  doc().setFormField(path(), "validation", value);
+}
+std::string AssumptionRegisterEntryContentForm::status() const {
+  return doc().formField(path(), "status");
+}
+void AssumptionRegisterEntryContentForm::setStatus(const std::string& value) {
+  doc().setFormField(path(), "status", value);
 }
 
 AssumptionRelationshipsContentForm::AssumptionRelationshipsContentForm(som::SpecDocument& doc, std::string path)
@@ -43249,6 +43585,39 @@ std::string ConstraintMitigationContentForm::violationConsequences() const {
 }
 void ConstraintMitigationContentForm::setViolationConsequences(const std::string& value) {
   doc().setFormField(path(), "violationConsequences", value);
+}
+
+ConstraintRegisterEntryContentForm::ConstraintRegisterEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ConstraintRegisterEntryContentForm::constraintId() const {
+  return doc().formField(path(), "constraintId");
+}
+void ConstraintRegisterEntryContentForm::setConstraintId(const std::string& value) {
+  doc().setFormField(path(), "constraintId", value);
+}
+std::string ConstraintRegisterEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void ConstraintRegisterEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
+}
+std::string ConstraintRegisterEntryContentForm::type() const {
+  return doc().formField(path(), "type");
+}
+void ConstraintRegisterEntryContentForm::setType(const std::string& value) {
+  doc().setFormField(path(), "type", value);
+}
+std::string ConstraintRegisterEntryContentForm::source() const {
+  return doc().formField(path(), "source");
+}
+void ConstraintRegisterEntryContentForm::setSource(const std::string& value) {
+  doc().setFormField(path(), "source", value);
+}
+std::string ConstraintRegisterEntryContentForm::impact() const {
+  return doc().formField(path(), "impact");
+}
+void ConstraintRegisterEntryContentForm::setImpact(const std::string& value) {
+  doc().setFormField(path(), "impact", value);
 }
 
 ConstraintTrackingContentForm::ConstraintTrackingContentForm(som::SpecDocument& doc, std::string path)
@@ -58512,6 +58881,33 @@ void GlobalRoleExclusionEntryContentForm::setComplianceReference(const std::stri
   doc().setFormField(path(), "complianceReference", value);
 }
 
+GlossaryEntryContentForm::GlossaryEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GlossaryEntryContentForm::term() const {
+  return doc().formField(path(), "term");
+}
+void GlossaryEntryContentForm::setTerm(const std::string& value) {
+  doc().setFormField(path(), "term", value);
+}
+std::string GlossaryEntryContentForm::definition() const {
+  return doc().formField(path(), "definition");
+}
+void GlossaryEntryContentForm::setDefinition(const std::string& value) {
+  doc().setFormField(path(), "definition", value);
+}
+std::string GlossaryEntryContentForm::acronym() const {
+  return doc().formField(path(), "acronym");
+}
+void GlossaryEntryContentForm::setAcronym(const std::string& value) {
+  doc().setFormField(path(), "acronym", value);
+}
+std::string GlossaryEntryContentForm::seeAlso() const {
+  return doc().formField(path(), "seeAlso");
+}
+void GlossaryEntryContentForm::setSeeAlso(const std::string& value) {
+  doc().setFormField(path(), "seeAlso", value);
+}
+
 GoalDependencyEntryContentForm::GoalDependencyEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string GoalDependencyEntryContentForm::dependencyId() const {
@@ -63244,6 +63640,27 @@ std::string IpOwnershipEntryContentForm::restrictions() const {
 }
 void IpOwnershipEntryContentForm::setRestrictions(const std::string& value) {
   doc().setFormField(path(), "restrictions", value);
+}
+
+Iso25010CoverageEntryContentForm::Iso25010CoverageEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string Iso25010CoverageEntryContentForm::characteristic() const {
+  return doc().formField(path(), "characteristic");
+}
+void Iso25010CoverageEntryContentForm::setCharacteristic(const std::string& value) {
+  doc().setFormField(path(), "characteristic", value);
+}
+std::string Iso25010CoverageEntryContentForm::addressedBy() const {
+  return doc().formField(path(), "addressedBy");
+}
+void Iso25010CoverageEntryContentForm::setAddressedBy(const std::string& value) {
+  doc().setFormField(path(), "addressedBy", value);
+}
+std::string Iso25010CoverageEntryContentForm::targetMetric() const {
+  return doc().formField(path(), "targetMetric");
+}
+void Iso25010CoverageEntryContentForm::setTargetMetric(const std::string& value) {
+  doc().setFormField(path(), "targetMetric", value);
 }
 
 ItLandscapePositionPositionDetailsForm::ItLandscapePositionPositionDetailsForm(som::SpecDocument& doc, std::string path)
@@ -83775,6 +84192,33 @@ void ReviewCriterionEntryResultContentForm::setRemediationRequired(const std::st
   doc().setFormField(path(), "remediationRequired", value);
 }
 
+RevisionEntryContentForm::RevisionEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string RevisionEntryContentForm::version() const {
+  return doc().formField(path(), "version");
+}
+void RevisionEntryContentForm::setVersion(const std::string& value) {
+  doc().setFormField(path(), "version", value);
+}
+std::string RevisionEntryContentForm::date() const {
+  return doc().formField(path(), "date");
+}
+void RevisionEntryContentForm::setDate(const std::string& value) {
+  doc().setFormField(path(), "date", value);
+}
+std::string RevisionEntryContentForm::author() const {
+  return doc().formField(path(), "author");
+}
+void RevisionEntryContentForm::setAuthor(const std::string& value) {
+  doc().setFormField(path(), "author", value);
+}
+std::string RevisionEntryContentForm::summary() const {
+  return doc().formField(path(), "summary");
+}
+void RevisionEntryContentForm::setSummary(const std::string& value) {
+  doc().setFormField(path(), "summary", value);
+}
+
 RiskAnalysisContentForm::RiskAnalysisContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string RiskAnalysisContentForm::probability() const {
@@ -92988,6 +93432,51 @@ void StakeholderEntryImpactContentForm::setPotentialConcerns(const std::string& 
   doc().setFormField(path(), "potentialConcerns", value);
 }
 
+StakeholderRegisterEntryContentForm::StakeholderRegisterEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string StakeholderRegisterEntryContentForm::stakeholderId() const {
+  return doc().formField(path(), "stakeholderId");
+}
+void StakeholderRegisterEntryContentForm::setStakeholderId(const std::string& value) {
+  doc().setFormField(path(), "stakeholderId", value);
+}
+std::string StakeholderRegisterEntryContentForm::name() const {
+  return doc().formField(path(), "name");
+}
+void StakeholderRegisterEntryContentForm::setName(const std::string& value) {
+  doc().setFormField(path(), "name", value);
+}
+std::string StakeholderRegisterEntryContentForm::role() const {
+  return doc().formField(path(), "role");
+}
+void StakeholderRegisterEntryContentForm::setRole(const std::string& value) {
+  doc().setFormField(path(), "role", value);
+}
+std::string StakeholderRegisterEntryContentForm::interest() const {
+  return doc().formField(path(), "interest");
+}
+void StakeholderRegisterEntryContentForm::setInterest(const std::string& value) {
+  doc().setFormField(path(), "interest", value);
+}
+std::string StakeholderRegisterEntryContentForm::influence() const {
+  return doc().formField(path(), "influence");
+}
+void StakeholderRegisterEntryContentForm::setInfluence(const std::string& value) {
+  doc().setFormField(path(), "influence", value);
+}
+std::string StakeholderRegisterEntryContentForm::concerns() const {
+  return doc().formField(path(), "concerns");
+}
+void StakeholderRegisterEntryContentForm::setConcerns(const std::string& value) {
+  doc().setFormField(path(), "concerns", value);
+}
+std::string StakeholderRegisterEntryContentForm::engagementStrategy() const {
+  return doc().formField(path(), "engagementStrategy");
+}
+void StakeholderRegisterEntryContentForm::setEngagementStrategy(const std::string& value) {
+  doc().setFormField(path(), "engagementStrategy", value);
+}
+
 StakeholdersAndInterestsContentForm::StakeholdersAndInterestsContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string StakeholdersAndInterestsContentForm::primaryActorInterest() const {
@@ -99436,6 +99925,33 @@ std::string TrainingAssessmentReportingContentForm::managementVisibility() const
 }
 void TrainingAssessmentReportingContentForm::setManagementVisibility(const std::string& value) {
   doc().setFormField(path(), "managementVisibility", value);
+}
+
+TrainingEnablementRequirementsContentForm::TrainingEnablementRequirementsContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TrainingEnablementRequirementsContentForm::targetAudiences() const {
+  return doc().formField(path(), "targetAudiences");
+}
+void TrainingEnablementRequirementsContentForm::setTargetAudiences(const std::string& value) {
+  doc().setFormField(path(), "targetAudiences", value);
+}
+std::string TrainingEnablementRequirementsContentForm::competencyOutcomes() const {
+  return doc().formField(path(), "competencyOutcomes");
+}
+void TrainingEnablementRequirementsContentForm::setCompetencyOutcomes(const std::string& value) {
+  doc().setFormField(path(), "competencyOutcomes", value);
+}
+std::string TrainingEnablementRequirementsContentForm::certificationRequired() const {
+  return doc().formField(path(), "certificationRequired");
+}
+void TrainingEnablementRequirementsContentForm::setCertificationRequired(const std::string& value) {
+  doc().setFormField(path(), "certificationRequired", value);
+}
+std::string TrainingEnablementRequirementsContentForm::ongoingEnablement() const {
+  return doc().formField(path(), "ongoingEnablement");
+}
+void TrainingEnablementRequirementsContentForm::setOngoingEnablement(const std::string& value) {
+  doc().setFormField(path(), "ongoingEnablement", value);
 }
 
 TrainingMaterialsContentForm::TrainingMaterialsContentForm(som::SpecDocument& doc, std::string path)

@@ -20,39 +20,13 @@ std::optional<std::string> Probability::parse(const std::string& token) {
   return std::nullopt;
 }
 
-CurrentSituation::CurrentSituation(som::SpecDocument& doc, std::string path)
+CurrentLandscapeAssessment::CurrentLandscapeAssessment(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string CurrentSituation::summary() const {
+std::string CurrentLandscapeAssessment::summary() const {
   return doc().content(som::joinPath(path(), "summary"));
 }
-void CurrentSituation::setSummary(const std::string& value) {
+void CurrentLandscapeAssessment::setSummary(const std::string& value) {
   doc().setContent(som::joinPath(path(), "summary"), value);
-}
-
-ProjectDefinition::ProjectDefinition(som::SpecDocument& doc, const std::string& documentVersion)
-    : som::SomNode(doc, "PD00") {
-  som::checkSomModelVersion(kModelVersion, documentVersion);
-}
-std::string ProjectDefinition::objectModelVersion() const {
-  return kModelVersion;
-}
-std::string ProjectDefinition::vision() const {
-  return doc().content(som::joinPath(path(), "vision"));
-}
-void ProjectDefinition::setVision(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "vision"), value);
-}
-ProjectDefinitionOwnerForm ProjectDefinition::owner() const {
-  return ProjectDefinitionOwnerForm(doc(), som::joinPath(path(), "owner"));
-}
-som::SomList ProjectDefinition::risks() const {
-  return som::SomList(doc(), som::joinPath(path(), "risks"));
-}
-som::SomList ProjectDefinition::tags() const {
-  return som::SomList(doc(), som::joinPath(path(), "tags"));
-}
-CurrentSituation ProjectDefinition::situation() const {
-  return CurrentSituation(doc(), som::joinPath(path(), "situation"));
 }
 
 Risk::Risk(som::SpecDocument& doc, std::string path)
@@ -70,18 +44,44 @@ void Risk::setProbability(const std::string& value) {
   doc().setContent(som::joinPath(path(), "prob"), value);
 }
 
-ProjectDefinitionOwnerForm::ProjectDefinitionOwnerForm(som::SpecDocument& doc, std::string path)
+SolutionBlueprint::SolutionBlueprint(som::SpecDocument& doc, const std::string& documentVersion)
+    : som::SomNode(doc, "PD00") {
+  som::checkSomModelVersion(kModelVersion, documentVersion);
+}
+std::string SolutionBlueprint::objectModelVersion() const {
+  return kModelVersion;
+}
+std::string SolutionBlueprint::vision() const {
+  return doc().content(som::joinPath(path(), "vision"));
+}
+void SolutionBlueprint::setVision(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "vision"), value);
+}
+SolutionBlueprintOwnerForm SolutionBlueprint::owner() const {
+  return SolutionBlueprintOwnerForm(doc(), som::joinPath(path(), "owner"));
+}
+som::SomList SolutionBlueprint::risks() const {
+  return som::SomList(doc(), som::joinPath(path(), "risks"));
+}
+som::SomList SolutionBlueprint::tags() const {
+  return som::SomList(doc(), som::joinPath(path(), "tags"));
+}
+CurrentLandscapeAssessment SolutionBlueprint::situation() const {
+  return CurrentLandscapeAssessment(doc(), som::joinPath(path(), "situation"));
+}
+
+SolutionBlueprintOwnerForm::SolutionBlueprintOwnerForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ProjectDefinitionOwnerForm::name() const {
+std::string SolutionBlueprintOwnerForm::name() const {
   return doc().formField(path(), "name");
 }
-void ProjectDefinitionOwnerForm::setName(const std::string& value) {
+void SolutionBlueprintOwnerForm::setName(const std::string& value) {
   doc().setFormField(path(), "name", value);
 }
-std::string ProjectDefinitionOwnerForm::role() const {
+std::string SolutionBlueprintOwnerForm::role() const {
   return doc().formField(path(), "role");
 }
-void ProjectDefinitionOwnerForm::setRole(const std::string& value) {
+void SolutionBlueprintOwnerForm::setRole(const std::string& value) {
   doc().setFormField(path(), "role", value);
 }
 

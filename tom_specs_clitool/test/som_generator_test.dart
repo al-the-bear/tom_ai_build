@@ -61,7 +61,7 @@ void main() {
 
     // Typed facade exists and declares the global root.
     final lib = File(result.libPath).readAsStringSync();
-    expect(lib, contains('class ProjectDefinition extends SomNode'));
+    expect(lib, contains('class SolutionBlueprint extends SomNode'));
     expect(result.libPath, endsWith('lib/tom_som_dart_v0.dart'));
 
     // One DocSpecs schema per @Document root (13).

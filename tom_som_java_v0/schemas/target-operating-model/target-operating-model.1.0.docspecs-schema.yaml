@@ -1,0 +1,331 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: target-operating-model/1.0
+
+section-types:
+  DEPRWO-DETA-LST:
+    prefix: deprwo_deta_lst
+    pattern-check-id:
+      pattern: ^deprwo_deta_lst-\d+$
+      error-message: ID must match deprwo_deta_lst-NNN
+    description: Detailed process workflows.
+  BPREN-PROC-LST:
+    prefix: bpren_proc_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^bpren_proc_lst-\d+$
+      error-message: ID must match bpren_proc_lst-NNN
+    description: Contains 1+× Business Process.
+  EXIPR-EXPE-LST:
+    prefix: exipr_expe_lst
+    pattern-check-id:
+      pattern: ^exipr_expe_lst-\d+$
+      error-message: ID must match exipr_expe_lst-NNN
+    description: Expected improvements over current state.
+  PCCTL-CONT-LST:
+    prefix: pcctl_cont_lst
+    pattern-check-id:
+      pattern: ^pcctl_cont_lst-\d+$
+      error-message: ID must match pcctl_cont_lst-NNN
+    description: Contains 0+× process control.
+  PCEXC-EXCE-LST:
+    prefix: pcexc_exce_lst
+    pattern-check-id:
+      pattern: ^pcexc_exce_lst-\d+$
+      error-message: ID must match pcexc_exce_lst-NNN
+    description: Contains 0+× exception scenario.
+  PCIMV-IMPR-LST:
+    prefix: pcimv_impr_lst
+    pattern-check-id:
+      pattern: ^pcimv_impr_lst-\d+$
+      error-message: ID must match pcimv_impr_lst-NNN
+    description: Contains 0+× improvement item.
+  PCINP-INPU-LST:
+    prefix: pcinp_inpu_lst
+    pattern-check-id:
+      pattern: ^pcinp_inpu_lst-\d+$
+      error-message: ID must match pcinp_inpu_lst-NNN
+    description: Contains 0+× process input.
+  PCKPI-KPIS-LST:
+    prefix: pckpi_kpis_lst
+    pattern-check-id:
+      pattern: ^pckpi_kpis_lst-\d+$
+      error-message: ID must match pckpi_kpis_lst-NNN
+    description: Contains 0+× performance metric.
+  PCOUT-OUTP-LST:
+    prefix: pcout_outp_lst
+    pattern-check-id:
+      pattern: ^pcout_outp_lst-\d+$
+      error-message: ID must match pcout_outp_lst-NNN
+    description: Contains 0+× process output.
+  PCRLT-RELA-LST:
+    prefix: pcrlt_rela_lst
+    pattern-check-id:
+      pattern: ^pcrlt_rela_lst-\d+$
+      error-message: ID must match pcrlt_rela_lst-NNN
+    description: Contains 0+× process relationship.
+  PCROL-ROLE-LST:
+    prefix: pcrol_role_lst
+    pattern-check-id:
+      pattern: ^pcrol_role_lst-\d+$
+      error-message: ID must match pcrol_role_lst-NNN
+    description: Contains 0+× process role.
+  PCSLA-SLAS-LST:
+    prefix: pcsla_slas_lst
+    pattern-check-id:
+      pattern: ^pcsla_slas_lst-\d+$
+      error-message: ID must match pcsla_slas_lst-NNN
+    description: Service Level Agreements.
+  PDPEN-PRIN-LST:
+    prefix: pdpen_prin_lst
+    pattern-check-id:
+      pattern: ^pdpen_prin_lst-\d+$
+      error-message: ID must match pdpen_prin_lst-NNN
+    description: Contains 0+× Design Principle.
+  PEEVT-ENDE-LST:
+    prefix: peevt_ende_lst
+    pattern-check-id:
+      pattern: ^peevt_ende_lst-\d+$
+      error-message: ID must match peevt_ende_lst-NNN
+    description: Process end events (outcomes).
+  PTREN-TRIG-LST:
+    prefix: ptren_trig_lst
+    pattern-check-id:
+      pattern: ^ptren_trig_lst-\d+$
+      error-message: ID must match ptren_trig_lst-NNN
+    description: Contains 0+× process trigger.
+  PMAK-PROC-LST:
+    prefix: pmak_proc_lst
+    pattern-check-id:
+      pattern: ^pmak_proc_lst-\d+$
+      error-message: ID must match pmak_proc_lst-NNN
+    description: Process metrics and KPIs.
+  CRPRAN:
+    prefix: crpran
+    description: 6.1.8. Cross-Process Analysis.
+  DEPRWO:
+    prefix: deprwo
+    description: 6.1.7. Detailed Process Workflows.
+  IMBUCA:
+    prefix: imbuca
+    description: Improvement business case.
+  INOUOV:
+    prefix: inouov
+    description: Inputs/outputs overview.
+  PRCOOV:
+    prefix: prcoov
+    description: Process controls overview.
+  PRDIOV:
+    prefix: prdiov
+    description: Process diagram overview.
+  PREXHA:
+    prefix: prexha
+    description: 6.1.9. Process Exception Handling.
+  PREXOV:
+    prefix: prexov
+    description: Process exceptions overview.
+  PRIMSU:
+    prefix: primsu
+    description: 6.1.5. Improvement Summary.
+  PRINOU:
+    prefix: prinou
+    description: Process inputs and outputs.
+  PROVDI:
+    prefix: provdi
+    description: 6.1.4. Process Overview Diagram.
+  PRPEOV:
+    prefix: prpeov
+    description: Process performance overview.
+  PRROOV:
+    prefix: prroov
+    description: Process roles overview.
+  PRTEEX:
+    prefix: prteex
+    description: Access channel and analytics capabilities.
+  PRTEIN:
+    prefix: prtein
+    description: "Data, reporting, and document tooling."
+  BPREN:
+    prefix: bpren
+    description: A business process entry.
+  DOCHD:
+    prefix: dochd
+    description: Standard document header present at the top of every TomSpecs document.
+  DPOVW:
+    prefix: dpovw
+    description: Design principles overview.
+  EXIPR:
+    prefix: exipr
+    description: Expected improvements from process transformation.
+  PCBIZ:
+    prefix: pcbiz
+    description: Demand and business value profile.
+  PCCTL:
+    prefix: pcctl
+    description: A process control entry.
+  PCEXC:
+    prefix: pcexc
+    description: A process exception entry.
+  PCIMV:
+    prefix: pcimv
+    description: A process improvement entry.
+  PCINP:
+    prefix: pcinp
+    description: A process input entry.
+  PCKPI:
+    prefix: pckpi
+    description: A process KPI entry.
+  PCOPS:
+    prefix: pcops
+    description: Operational characteristics and automation level.
+  PCOUT:
+    prefix: pcout
+    description: A process output entry.
+  PCOVW:
+    prefix: pcovw
+    description: Process catalog overview.
+  PCRLT:
+    prefix: pcrlt
+    description: A process relationship entry.
+  PCROL:
+    prefix: pcrol
+    description: A process role entry.
+  PCSLA:
+    prefix: pcsla
+    description: A process SLA entry.
+  PDPEN:
+    prefix: pdpen
+    description: A process design principle entry (form).
+  PDPRI:
+    prefix: pdpri
+    description: 6.1.2. Design Principles.
+  PEEVT:
+    prefix: peevt
+    description: A process end event entry.
+  PICLS:
+    prefix: picls
+    description: Position in the process hierarchy and taxonomy.
+  PIDEF:
+    prefix: pidef
+    description: "Narrative description, purpose, and scope."
+  PIGOV:
+    prefix: pigov
+    description: Ownership and lifecycle metadata.
+  PRCAT:
+    prefix: prcat
+    description: 6.1.3. Process Catalog.
+  PRCCL:
+    prefix: prccl
+    description: Process classification scheme.
+  PRCHR:
+    prefix: prchr
+    description: Process characteristics.
+  PRIDN:
+    prefix: pridn
+    description: Process identification.
+  PRPE1:
+    prefix: prpe1
+    description: Process performance metrics.
+  PRRE1:
+    prefix: prre1
+    description: Process relationships and dependencies (supplementary section).
+  PRSUC:
+    prefix: prsuc
+    description: Success criteria for process transformation.
+  PRTRG:
+    prefix: prtrg
+    description: Process triggers and events.
+  PRVIZ:
+    prefix: prviz
+    description: 6.1.1. Process Vision.
+  PTREN:
+    prefix: ptren
+    description: A process trigger entry.
+  PVOVW:
+    prefix: pvovw
+    description: Process vision overview.
+  TGOVW:
+    prefix: tgovw
+    description: Trigger overview.
+  IMOV:
+    prefix: imov
+    description: Improvement overview.
+  PCEO:
+    prefix: pceo
+    description: Control operation and ownership.
+  PCEV:
+    prefix: pcev
+    description: "Evidence, testing, and failure handling."
+  PEEA:
+    prefix: peea
+    description: "Likelihood, impact, and detection."
+  PEER:
+    prefix: peer
+    description: Resolution and prevention approach.
+  PIEB:
+    prefix: pieb
+    description: Target outcome and value case.
+  PIED:
+    prefix: pied
+    description: "Enablers, dependencies, and verification."
+  PKEM:
+    prefix: pkem
+    description: Measurement targets and thresholds.
+  PKEO:
+    prefix: pkeo
+    description: Reporting ownership and improvement use.
+  PMAK:
+    prefix: pmak
+    description: 6.1.10. Process Metrics and KPIs.
+  PRCO:
+    prefix: prco
+    description: Process controls and compliance.
+  PREC:
+    prefix: prec
+    description: "Access, coverage, and handoff expectations."
+  PREE:
+    prefix: pree
+    description: Process participation and authority.
+  PREX:
+    prefix: prex
+    description: Process exceptions and error handling.
+  PRRO:
+    prefix: prro
+    description: Process roles and responsibilities.
+  PRTE:
+    prefix: prte
+    description: Process technology support.
+document:
+  sections:
+    header:
+      section-type: DOCHD
+      optional: true
+    processvision:
+      section-type: PRVIZ
+      optional: true
+    designprinciples:
+      section-type: PDPRI
+      optional: true
+    processcatalog:
+      section-type: PRCAT
+      optional: true
+    processoverviewdiagram:
+      section-type: PROVDI
+      optional: true
+    improvementsummary:
+      section-type: PRIMSU
+      optional: true
+    processrelationships:
+      section-type: PRRE1
+      optional: true
+    detailedworkflows:
+      section-type: DEPRWO-DETA-LST
+      optional: true
+    crossprocessanalysis:
+      section-type: CRPRAN
+      optional: true
+    exceptionhandling:
+      section-type: PREXHA
+      optional: true
+    processmetricsandkpis:
+      section-type: PMAK-PROC-LST
+      optional: true

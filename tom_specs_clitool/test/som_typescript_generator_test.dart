@@ -71,7 +71,7 @@ void main() {
 
     // Typed facade module exists and declares + exports the global root class.
     final source = File(result.modulePath).readAsStringSync();
-    expect(source, contains('export class ProjectDefinition extends SomNode'));
+    expect(source, contains('export class SolutionBlueprint extends SomNode'));
     expect(source, contains("from 'tom_som_typescript_runtime';"));
     expect(result.modulePath, endsWith('tom_som_typescript_v0.ts'));
 

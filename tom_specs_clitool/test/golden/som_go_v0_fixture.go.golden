@@ -26,75 +26,21 @@ func parseProbability(token string) string {
 	return ""
 }
 
-type CurrentSituation struct {
+type CurrentLandscapeAssessment struct {
 	som.SomNode
 }
 
-// NewCurrentSituation binds a CurrentSituation facade to a document and a path.
-func NewCurrentSituation(doc *som.SpecDocument, path string) *CurrentSituation {
-	return &CurrentSituation{SomNode: som.NewSomNode(doc, path)}
+// NewCurrentLandscapeAssessment binds a CurrentLandscapeAssessment facade to a document and a path.
+func NewCurrentLandscapeAssessment(doc *som.SpecDocument, path string) *CurrentLandscapeAssessment {
+	return &CurrentLandscapeAssessment{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *CurrentSituation) Summary() string {
+func (x *CurrentLandscapeAssessment) Summary() string {
 	return x.Doc().ContentOr(x.Path() + "/summary")
 }
 
-func (x *CurrentSituation) SetSummary(value string) {
+func (x *CurrentLandscapeAssessment) SetSummary(value string) {
 	x.Doc().SetContent(x.Path() + "/summary", value)
-}
-
-// Root of a project definition document.
-type ProjectDefinition struct {
-	som.SomNode
-}
-
-// ProjectDefinitionModelVersion is the model version this object model was generated
-// against (§2.1).
-const ProjectDefinitionModelVersion = "0.0"
-
-// NewProjectDefinition creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewProjectDefinition(doc *som.SpecDocument, documentVersion string) (*ProjectDefinition, error) {
-	if err := som.CheckSomModelVersion(ProjectDefinitionModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &ProjectDefinition{SomNode: som.NewSomNode(doc, "PD00")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *ProjectDefinition) ObjectModelVersion() string {
-	return ProjectDefinitionModelVersion
-}
-
-// Why the system exists.
-func (x *ProjectDefinition) Vision() string {
-	return x.Doc().ContentOr(x.Path() + "/vision")
-}
-
-func (x *ProjectDefinition) SetVision(value string) {
-	x.Doc().SetContent(x.Path() + "/vision", value)
-}
-
-func (x *ProjectDefinition) Owner() *ProjectDefinitionOwnerForm {
-	return NewProjectDefinitionOwnerForm(x.Doc(), x.Path() + "/owner")
-}
-
-func (x *ProjectDefinition) Risks() *som.SomList[*Risk] {
-	return som.NewSomList(x.Doc(), x.Path() + "/risks", func(d *som.SpecDocument, p string) *Risk {
-		return NewRisk(d, p)
-	})
-}
-
-func (x *ProjectDefinition) Tags() *som.SomList[*som.SomScalar] {
-	return som.NewSomList(x.Doc(), x.Path() + "/tags", func(d *som.SpecDocument, p string) *som.SomScalar {
-		return som.NewSomScalar(d, p)
-	})
-}
-
-func (x *ProjectDefinition) Situation() *CurrentSituation {
-	return NewCurrentSituation(x.Doc(), x.Path() + "/situation")
 }
 
 type Risk struct {
@@ -122,29 +68,83 @@ func (x *Risk) SetProbability(value string) {
 	x.Doc().SetContent(x.Path() + "/prob", value)
 }
 
-// ProjectDefinitionOwnerForm is the generated form facade for the `owner` @Form section.
-type ProjectDefinitionOwnerForm struct {
+// Root of a project definition document.
+type SolutionBlueprint struct {
 	som.SomNode
 }
 
-// NewProjectDefinitionOwnerForm binds a ProjectDefinitionOwnerForm facade to a document and a path.
-func NewProjectDefinitionOwnerForm(doc *som.SpecDocument, path string) *ProjectDefinitionOwnerForm {
-	return &ProjectDefinitionOwnerForm{SomNode: som.NewSomNode(doc, path)}
+// SolutionBlueprintModelVersion is the model version this object model was generated
+// against (§2.1).
+const SolutionBlueprintModelVersion = "0.0"
+
+// NewSolutionBlueprint creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewSolutionBlueprint(doc *som.SpecDocument, documentVersion string) (*SolutionBlueprint, error) {
+	if err := som.CheckSomModelVersion(SolutionBlueprintModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &SolutionBlueprint{SomNode: som.NewSomNode(doc, "PD00")}, nil
 }
 
-func (x *ProjectDefinitionOwnerForm) Name() string {
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *SolutionBlueprint) ObjectModelVersion() string {
+	return SolutionBlueprintModelVersion
+}
+
+// Why the system exists.
+func (x *SolutionBlueprint) Vision() string {
+	return x.Doc().ContentOr(x.Path() + "/vision")
+}
+
+func (x *SolutionBlueprint) SetVision(value string) {
+	x.Doc().SetContent(x.Path() + "/vision", value)
+}
+
+func (x *SolutionBlueprint) Owner() *SolutionBlueprintOwnerForm {
+	return NewSolutionBlueprintOwnerForm(x.Doc(), x.Path() + "/owner")
+}
+
+func (x *SolutionBlueprint) Risks() *som.SomList[*Risk] {
+	return som.NewSomList(x.Doc(), x.Path() + "/risks", func(d *som.SpecDocument, p string) *Risk {
+		return NewRisk(d, p)
+	})
+}
+
+func (x *SolutionBlueprint) Tags() *som.SomList[*som.SomScalar] {
+	return som.NewSomList(x.Doc(), x.Path() + "/tags", func(d *som.SpecDocument, p string) *som.SomScalar {
+		return som.NewSomScalar(d, p)
+	})
+}
+
+func (x *SolutionBlueprint) Situation() *CurrentLandscapeAssessment {
+	return NewCurrentLandscapeAssessment(x.Doc(), x.Path() + "/situation")
+}
+
+// SolutionBlueprintOwnerForm is the generated form facade for the `owner` @Form section.
+type SolutionBlueprintOwnerForm struct {
+	som.SomNode
+}
+
+// NewSolutionBlueprintOwnerForm binds a SolutionBlueprintOwnerForm facade to a document and a path.
+func NewSolutionBlueprintOwnerForm(doc *som.SpecDocument, path string) *SolutionBlueprintOwnerForm {
+	return &SolutionBlueprintOwnerForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SolutionBlueprintOwnerForm) Name() string {
 	return x.Doc().FormFieldOr(x.Path(), "name")
 }
 
-func (x *ProjectDefinitionOwnerForm) SetName(value string) {
+func (x *SolutionBlueprintOwnerForm) SetName(value string) {
 	x.Doc().SetFormField(x.Path(), "name", value)
 }
 
-func (x *ProjectDefinitionOwnerForm) Role() string {
+func (x *SolutionBlueprintOwnerForm) Role() string {
 	return x.Doc().FormFieldOr(x.Path(), "role")
 }
 
-func (x *ProjectDefinitionOwnerForm) SetRole(value string) {
+func (x *SolutionBlueprintOwnerForm) SetRole(value string) {
 	x.Doc().SetFormField(x.Path(), "role", value)
 }
 

@@ -19,39 +19,11 @@ Probability? _parseProbability(String? token) {
   return null;
 }
 
-class CurrentSituation extends SomNode {
-  CurrentSituation(super.doc, super.path);
+class CurrentLandscapeAssessment extends SomNode {
+  CurrentLandscapeAssessment(super.doc, super.path);
 
   String get summary => doc.content('$path/summary') ?? '';
   set summary(String value) => doc.setContent('$path/summary', value);
-}
-
-/// Root of a project definition document.
-class ProjectDefinition extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  ProjectDefinition(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'PD00') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  /// Why the system exists.
-  String get vision => doc.content('$path/vision') ?? '';
-  set vision(String value) => doc.setContent('$path/vision', value);
-
-  ProjectDefinitionOwnerForm get owner => ProjectDefinitionOwnerForm(doc, '$path/owner');
-
-  SomList<Risk> get risks => SomList<Risk>(doc, '$path/risks', (d, p) => Risk(d, p));
-
-  SomList<SomScalar> get tags => SomList<SomScalar>(doc, '$path/tags', (d, p) => SomScalar(d, p));
-
-  CurrentSituation get situation => CurrentSituation(doc, '$path/situation');
 }
 
 class Risk extends SomNode {
@@ -64,9 +36,37 @@ class Risk extends SomNode {
   set probability(Probability? value) => doc.setContent('$path/prob', value?.name ?? '');
 }
 
+/// Root of a project definition document.
+class SolutionBlueprint extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  SolutionBlueprint(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'PD00') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  /// Why the system exists.
+  String get vision => doc.content('$path/vision') ?? '';
+  set vision(String value) => doc.setContent('$path/vision', value);
+
+  SolutionBlueprintOwnerForm get owner => SolutionBlueprintOwnerForm(doc, '$path/owner');
+
+  SomList<Risk> get risks => SomList<Risk>(doc, '$path/risks', (d, p) => Risk(d, p));
+
+  SomList<SomScalar> get tags => SomList<SomScalar>(doc, '$path/tags', (d, p) => SomScalar(d, p));
+
+  CurrentLandscapeAssessment get situation => CurrentLandscapeAssessment(doc, '$path/situation');
+}
+
 /// Generated form facade for the `owner` `@Form` section.
-class ProjectDefinitionOwnerForm extends SomNode {
-  ProjectDefinitionOwnerForm(super.doc, super.path);
+class SolutionBlueprintOwnerForm extends SomNode {
+  SolutionBlueprintOwnerForm(super.doc, super.path);
 
   String get name => doc.formField(path, 'name') ?? '';
   set name(String value) => doc.setFormField(path, 'name', value);

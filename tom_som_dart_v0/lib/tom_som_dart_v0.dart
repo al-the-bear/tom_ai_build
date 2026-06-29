@@ -3,7 +3,7 @@
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
-/// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+/// 14.2.1. Acceptance Criteria.
 class AcceptanceCriteriaList extends SomNode {
   AcceptanceCriteriaList(super.doc, super.path);
 
@@ -14,7 +14,7 @@ class AcceptanceCriteriaList extends SomNode {
   SomList<DeliveryAcceptanceCriterionEntry> get items => SomList<DeliveryAcceptanceCriterionEntry>(doc, '$path/DACEN-ITEM-LST', (d, p) => DeliveryAcceptanceCriterionEntry(d, p));
 }
 
-/// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+/// 11.7. Acceptance Criteria Summary.
 /// 
 /// Quality acceptance criteria for the project including must-pass criteria
 /// and quality gate checklists.
@@ -26,10 +26,10 @@ class AcceptanceCriteriaSummary extends SomNode {
   /// Acceptance criteria overview.
   // (skipped: acceptanceOverview has no target type)
 
-  /// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+  /// 11.7.1. Must-Pass Criteria.
   MustPassCriteria get mustPassCriteria => MustPassCriteria(doc, '$path/mustPassCriteria');
 
-  /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+  /// 11.7.2. Quality Gate Checklist.
   QualityGateChecklist get qualityGateChecklist => QualityGateChecklist(doc, '$path/qualityGateChecklist');
 
   /// Acceptance test summary.
@@ -45,33 +45,33 @@ class AcceptanceCriterionEntry extends SomNode {
   AcceptanceCriterionEntryContentForm get content => AcceptanceCriterionEntryContentForm(doc, '$path/content');
 }
 
-/// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+/// 14.2. Acceptance Plan. Seeds → BQP.
 class AcceptancePlan extends SomNode {
   AcceptancePlan(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+  /// 14.2.1. Acceptance Criteria.
   AcceptanceCriteriaList get acceptanceCriteria => AcceptanceCriteriaList(doc, '$path/acceptanceCriteria');
 
-  /// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+  /// 14.2.2. Acceptance Process.
   AcceptanceProcess get acceptanceProcess => AcceptanceProcess(doc, '$path/acceptanceProcess');
 
-  /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+  /// 14.2.3. User Acceptance Testing.
   UserAcceptanceTesting get userAcceptanceTesting => UserAcceptanceTesting(doc, '$path/userAcceptanceTesting');
 
-  /// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+  /// 14.2.4. Defect Resolution.
   DefectResolution get defectResolution => DefectResolution(doc, '$path/defectResolution');
 
-  /// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+  /// 14.2.5. Sign-off Process.
   SignOffProcess get signOffProcess => SignOffProcess(doc, '$path/signOffProcess');
 
-  /// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+  /// 14.2.6. Warranty.
   WarrantyTerms get warranty => WarrantyTerms(doc, '$path/warranty');
 }
 
-/// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+/// 14.2.2. Acceptance Process.
 /// 
 /// Defines the formal acceptance workflow from test initiation through
 /// final sign-off. Covers roles, responsibilities, timelines, escalation,
@@ -148,7 +148,7 @@ class AcceptanceProcessTimeline extends SomNode {
   AcceptanceProcessTimelineContentForm get content => AcceptanceProcessTimelineContentForm(doc, '$path/content');
 }
 
-/// An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
+/// An acceptance step entry (form).
 /// 
 /// A single step in the formal acceptance workflow, with entry/exit
 /// conditions, responsible parties, and outputs.
@@ -178,39 +178,7 @@ class AcceptanceStepEntryOutcome extends SomNode {
   AcceptanceStepEntryOutcomeContentForm get content => AcceptanceStepEntryOutcomeContentForm(doc, '$path/content');
 }
 
-/// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
-class AccessAndAuthorizationConcept extends SomNode {
-  AccessAndAuthorizationConcept(super.doc, super.path);
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// 9.1. User Management [PD00-ACC-USE].
-  UserManagement get userManagement => UserManagement(doc, '$path/userManagement');
-
-  /// 9.2. Identification and Authentication [PD00-ACC-IDE].
-  IdentificationAndAuthentication get authentication => IdentificationAndAuthentication(doc, '$path/authentication');
-
-  /// 9.3. Resource Protection [PD00-ACC-RES].
-  ResourceProtection get resourceProtection => ResourceProtection(doc, '$path/resourceProtection');
-
-  /// 9.4. User Authorization [PD00-ACC-USA].
-  UserAuthorization get authorization => UserAuthorization(doc, '$path/authorization');
-
-  /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
-  SensitiveDataEncryption get encryption => SensitiveDataEncryption(doc, '$path/encryption');
-
-  /// 9.6. Audit and Logging [PD00-ACC-AUD].
-  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
-
-  /// 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
-  RoleMatrix get roleMatrix => RoleMatrix(doc, '$path/roleMatrix');
-
-  /// 9.8. Compliance Framework [PD00-ACC-CMP].
-  ComplianceFramework get complianceFramework => ComplianceFramework(doc, '$path/complianceFramework');
-}
-
-/// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+/// 4.1.5.1. Access Channels.
 /// 
 /// Defines all channels through which users can access the system including
 /// web, mobile, desktop applications, APIs, and other interfaces.
@@ -257,7 +225,7 @@ class AccessControlModelSelection extends SomNode {
   // (skipped: accessControlModelDetails has no target type)
 }
 
-/// An access level entry (form) [PD00-SYO-SYD-USI-ACC-nn].
+/// An access level entry (form).
 class AccessLevelEntry extends SomNode {
   AccessLevelEntry(super.doc, super.path);
 
@@ -294,7 +262,7 @@ class AccessLevelEntryScope extends SomNode {
   AccessLevelEntryScopeContentForm get content => AccessLevelEntryScopeContentForm(doc, '$path/content');
 }
 
-/// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+/// 4.1.5.3. Access Levels.
 /// 
 /// Defines the access level hierarchy and how permissions are structured
 /// across user categories and system functions.
@@ -316,7 +284,7 @@ class AccessLevels extends SomNode {
   set permissionMatrix(String value) => doc.setContent('$path/permissionMatrix', value);
 }
 
-/// An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
+/// An access restriction entry (form).
 /// 
 /// Specific access restrictions for classified data.
 class AccessRestrictionEntry extends SomNode {
@@ -325,7 +293,7 @@ class AccessRestrictionEntry extends SomNode {
   AccessRestrictionEntryContentForm get content => AccessRestrictionEntryContentForm(doc, '$path/content');
 }
 
-/// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+/// 9.1.1. User Categories.
 class AccessUserCategories extends SomNode {
   AccessUserCategories(super.doc, super.path);
 
@@ -336,7 +304,7 @@ class AccessUserCategories extends SomNode {
   SomList<UserCategoryDefinition> get items => SomList<UserCategoryDefinition>(doc, '$path/USCDF-ITEM-LST', (d, p) => UserCategoryDefinition(d, p));
 }
 
-/// 10.9. Accessibility [PD00-USE-ACC].
+/// 10.9. Accessibility.
 /// 
 /// Comprehensive accessibility requirements for the user interface following
 /// WCAG guidelines and inclusive design principles.
@@ -357,10 +325,10 @@ class Accessibility extends SomNode {
   /// Accessibility overview narrative.
   // (skipped: accessibilityOverview has no target type)
 
-  /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+  /// 10.9.1. WCAG Compliance Level.
   WcagCompliance get wcagComplianceLevel => WcagCompliance(doc, '$path/wcagComplianceLevel');
 
-  /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+  /// 10.9.2. Accessibility Checklist.
   AccessibilityChecklist get accessibilityChecklist => AccessibilityChecklist(doc, '$path/accessibilityChecklist');
 
   /// Keyboard navigation specification.
@@ -373,7 +341,7 @@ class Accessibility extends SomNode {
   // (skipped: colorAndContrast has no target type)
 }
 
-/// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
+/// An accessibility check entry (form).
 class AccessibilityCheckEntry extends SomNode {
   AccessibilityCheckEntry(super.doc, super.path);
 
@@ -410,7 +378,7 @@ class AccessibilityCheckEntryRemediation extends SomNode {
   AccessibilityCheckEntryRemediationContentForm get content => AccessibilityCheckEntryRemediationContentForm(doc, '$path/content');
 }
 
-/// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+/// 10.9.2. Accessibility Checklist.
 /// 
 /// Comprehensive accessibility verification checklist.
 class AccessibilityChecklist extends SomNode {
@@ -612,7 +580,7 @@ class ActorDiagramOverview extends SomNode {
   ActorDiagramOverviewContentForm get content => ActorDiagramOverviewContentForm(doc, '$path/content');
 }
 
-/// An actor entry [PD00-TAR-STP-ACT-nn].
+/// An actor entry.
 /// 
 /// Comprehensive actor definition following UML and Cockburn conventions.
 class ActorEntry extends SomNode {
@@ -658,7 +626,7 @@ class ActorInteractionsSummary extends SomNode {
   ActorInteractionsSummaryContentForm get content => ActorInteractionsSummaryContentForm(doc, '$path/content');
 }
 
-/// 6.2.1. Actor Overview [PD00-TAR-STP-ACT].
+/// 6.2.1. Actor Overview.
 /// 
 /// Actors represent roles that interact with the system. Follows UML actor
 /// modeling conventions with Cockburn-style goal and scope annotations.
@@ -692,7 +660,7 @@ class ActorPermissions extends SomNode {
   ActorPermissionsContentForm get content => ActorPermissionsContentForm(doc, '$path/content');
 }
 
-/// 6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA].
+/// 6.2. Actor Relationship Diagram.
 class ActorRelationshipDiagram extends SomNode {
   ActorRelationshipDiagram(super.doc, super.path);
 
@@ -757,7 +725,7 @@ class AdminInterfaceRequirementsOperations extends SomNode {
   AdminInterfaceRequirementsOperationsContentForm get content => AdminInterfaceRequirementsOperationsContentForm(doc, '$path/content');
 }
 
-/// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+/// 8.7.1.1. Administration Requirements.
 class AdministrationRequirementsSection extends SomNode {
   AdministrationRequirementsSection(super.doc, super.path);
 
@@ -786,7 +754,7 @@ class AdministrationRequirementsSection extends SomNode {
   SystemDiagnosticTools get diagnosticTools => SystemDiagnosticTools(doc, '$path/diagnosticTools');
 }
 
-/// 3. Administrative [PD00-ADM].
+/// 3. Administrative.
 /// 
 /// Project-specific administrative information including team composition,
 /// distribution channels, procedural agreements, and reference documentation.
@@ -801,22 +769,22 @@ class Administrative extends SomNode {
   /// Administrative overview summary.
   AdministrativeSummary get summary => AdministrativeSummary(doc, '$path/summary');
 
-  /// 3.1. Project Organization [PD00-ADM-PRO].
+  /// 3.1. Project Organization.
   ProjectOrganization get projectOrganization => ProjectOrganization(doc, '$path/projectOrganization');
 
-  /// 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
+  /// 3.2. Project Team Staffing — contains 1+× Team Member.
   ProjectTeamStaffing get projectTeamStaffing => ProjectTeamStaffing(doc, '$path/projectTeamStaffing');
 
-  /// 3.3. Distribution List [PD00-ADM-DIS].
+  /// 3.3. Distribution List.
   DistributionList get distributionList => DistributionList(doc, '$path/distributionList');
 
-  /// 3.4. Change Procedure [PD00-ADM-CHA].
+  /// 3.4. Change Procedure.
   ChangeProcedure get changeProcedure => ChangeProcedure(doc, '$path/changeProcedure');
 
-  /// 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
+  /// 3.5. Reference Documents — contains 0+× Reference Document.
   ReferenceDocuments get referenceDocuments => ReferenceDocuments(doc, '$path/referenceDocuments');
 
-  /// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+  /// 3.6. Other Administrative Requirements.
   OtherAdministrativeRequirements get otherAdministrative => OtherAdministrativeRequirements(doc, '$path/otherAdministrative');
 }
 
@@ -839,14 +807,14 @@ class AdministrativeSummary extends SomNode {
   AdministrativeSummaryContentForm get content => AdministrativeSummaryContentForm(doc, '$path/content');
 }
 
-/// An affected department entry [PD00-SYO-RES-ORG-DEP-nn].
+/// An affected department entry.
 class AffectedDepartmentEntry extends SomNode {
   AffectedDepartmentEntry(super.doc, super.path);
 
   AffectedDepartmentEntryContentForm get content => AffectedDepartmentEntryContentForm(doc, '$path/content');
 }
 
-/// An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
+/// An affected function reference entry (form).
 /// 
 /// Functions where this rule applies.
 class AffectedFunctionEntry extends SomNode {
@@ -858,7 +826,7 @@ class AffectedFunctionEntry extends SomNode {
   set functionRef(String value) => doc.setContent('$path/functionRef', value);
 }
 
-/// An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
+/// An affected object reference entry (form).
 /// 
 /// Business objects affected by this rule.
 class AffectedObjectEntry extends SomNode {
@@ -981,7 +949,7 @@ class AlertNotificationChannelsRouting extends SomNode {
   AlertNotificationChannelsRoutingContentForm get content => AlertNotificationChannelsRoutingContentForm(doc, '$path/content');
 }
 
-/// An alert rule entry [PD00-TEC-SYS-MON-ALR-nn].
+/// An alert rule entry.
 class AlertRuleEntry extends SomNode {
   AlertRuleEntry(super.doc, super.path);
 
@@ -1025,7 +993,7 @@ class AlertSuppressionRules extends SomNode {
   AlertSuppressionRulesContentForm get content => AlertSuppressionRulesContentForm(doc, '$path/content');
 }
 
-/// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+/// 8.7.2.2. Alerting Configuration.
 /// 
 /// Comprehensive alerting rules, notification channels, and escalation
 /// policies.
@@ -1100,7 +1068,7 @@ class AlertingRequirementsSuppression extends SomNode {
   AlertingRequirementsSuppressionContentForm get content => AlertingRequirementsSuppressionContentForm(doc, '$path/content');
 }
 
-/// An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn].
+/// An alternative flow entry.
 class AlternativeFlowEntry extends SomNode {
   AlternativeFlowEntry(super.doc, super.path);
 
@@ -1110,7 +1078,7 @@ class AlternativeFlowEntry extends SomNode {
   SomList<AlternativeStepEntry> get steps => SomList<AlternativeStepEntry>(doc, '$path/ALST-STEP-LST', (d, p) => AlternativeStepEntry(d, p));
 }
 
-/// An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn].
+/// An alternative step entry.
 class AlternativeStepEntry extends SomNode {
   AlternativeStepEntry(super.doc, super.path);
 
@@ -1267,7 +1235,7 @@ class ApiRequestValidationPolicy extends SomNode {
   // (skipped: requestValidationDetails has no target type)
 }
 
-/// 9.3.2. API Security [PD00-ACC-RES-API].
+/// 9.3.2. API Security.
 /// 
 /// Comprehensive API security specification covering authentication,
 /// authorization, request validation, CORS policy, input sanitization,
@@ -1523,6 +1491,13 @@ class ApplicationSecurityRequirementsValidation extends SomNode {
   ApplicationSecurityRequirementsValidationContentForm get content => ApplicationSecurityRequirementsValidationContentForm(doc, '$path/content');
 }
 
+/// A formal approval / sign-off record (form).
+class ApprovalRecord extends SomNode {
+  ApprovalRecord(super.doc, super.path);
+
+  ApprovalRecordContentForm get content => ApprovalRecordContentForm(doc, '$path/content');
+}
+
 /// Architecture component/service entry.
 class ArchitectureComponentEntry extends SomNode {
   ArchitectureComponentEntry(super.doc, super.path);
@@ -1701,7 +1676,7 @@ class ArchitecturePrincipleEntryGuidance extends SomNode {
   ArchitecturePrincipleEntryGuidanceContentForm get content => ArchitecturePrincipleEntryGuidanceContentForm(doc, '$path/content');
 }
 
-/// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+/// 8.1.2. Architecture Style.
 /// 
 /// Target architecture style specification: monolith, modular monolith,
 /// microservices, event-driven, serverless, or hybrid. Includes justification
@@ -1743,7 +1718,84 @@ class ArchitectureStyle extends SomNode {
   SomList<ArchitectureDecisionRecord> get decisionRecords => SomList<ArchitectureDecisionRecord>(doc, '$path/ARDE-DECI-LST', (d, p) => ArchitectureDecisionRecord(d, p));
 }
 
-/// An assumption entry [PD00-SYO-RIS-ASS-nn] (form).
+/// TR00 Technical Requirements.
+/// 
+/// Comprehensive technical requirements: basic / software / standard-
+/// software / hardware / operations / communication / system-operation
+/// / security / architecture, plus components, framework conditions,
+/// and translation handling.
+class ArchitectureTechnologySpecification extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  ArchitectureTechnologySpecification(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'ATS') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Basic technical requirements.
+  BasicTechnicalRequirements get basicTechnicalRequirements => BasicTechnicalRequirements(doc, '$path/basicTechnicalRequirements');
+
+  /// Software design requirements.
+  SoftwareDesignRequirements get softwareDesignRequirements => SoftwareDesignRequirements(doc, '$path/softwareDesignRequirements');
+
+  /// Standard application software requirements.
+  StandardSoftwareRequirements get standardSoftwareRequirements => StandardSoftwareRequirements(doc, '$path/standardSoftwareRequirements');
+
+  /// Hardware concept requirements.
+  HardwareRequirements get hardwareRequirements => HardwareRequirements(doc, '$path/hardwareRequirements');
+
+  /// Operations requirements.
+  OperationsRequirements get operationsRequirements => OperationsRequirements(doc, '$path/operationsRequirements');
+
+  /// Communication requirements.
+  CommunicationRequirements get communicationRequirements => CommunicationRequirements(doc, '$path/communicationRequirements');
+
+  /// System operation and monitoring.
+  SystemOperationAndMonitoring get systemOperationAndMonitoring => SystemOperationAndMonitoring(doc, '$path/systemOperationAndMonitoring');
+
+  /// Technical security requirements.
+  TechnicalSecurityRequirements get technicalSecurityRequirements => TechnicalSecurityRequirements(doc, '$path/technicalSecurityRequirements');
+
+  /// System architecture (new in Phase A).
+  SystemArchitectureSpec get systemArchitecture => SystemArchitectureSpec(doc, '$path/systemArchitecture');
+
+  /// Components to use (whole).
+  ComponentsToUse get componentsToUse => ComponentsToUse(doc, '$path/componentsToUse');
+
+  /// Technical framework conditions (whole).
+  TechnicalFrameworkConditions get technicalFrameworkConditions => TechnicalFrameworkConditions(doc, '$path/technicalFrameworkConditions');
+
+  /// Translation handling requirements (whole).
+  TranslationRequirements get translationRequirements => TranslationRequirements(doc, '$path/translationRequirements');
+}
+
+/// A consolidated register of assumptions and constraints.
+class AssumptionConstraintRegister extends SomNode {
+  AssumptionConstraintRegister(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Assumptions the solution depends on being true.
+  SomList<AssumptionRegisterEntry> get assumptions => SomList<AssumptionRegisterEntry>(doc, '$path/ACRG-ASMP-LST', (d, p) => AssumptionRegisterEntry(d, p));
+
+  /// Constraints the solution must operate within.
+  SomList<ConstraintRegisterEntry> get constraints => SomList<ConstraintRegisterEntry>(doc, '$path/ACRG-CONS-LST', (d, p) => ConstraintRegisterEntry(d, p));
+}
+
+/// An assumption entry (form).
 /// 
 /// Documents a project assumption including its basis, validation approach,
 /// and contingency plans if the assumption proves false.
@@ -1777,6 +1829,16 @@ class AssumptionImpact extends SomNode {
   AssumptionImpactContentForm get content => AssumptionImpactContentForm(doc, '$path/content');
 }
 
+/// A single assumption register entry (form).
+/// 
+/// Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
+/// `AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+class AssumptionRegisterEntry extends SomNode {
+  AssumptionRegisterEntry(super.doc, super.path);
+
+  AssumptionRegisterEntryContentForm get content => AssumptionRegisterEntryContentForm(doc, '$path/content');
+}
+
 /// Relationships to other project elements.
 class AssumptionRelationships extends SomNode {
   AssumptionRelationships(super.doc, super.path);
@@ -1789,6 +1851,17 @@ class AssumptionValidation extends SomNode {
   AssumptionValidation(super.doc, super.path);
 
   AssumptionValidationContentForm get content => AssumptionValidationContentForm(doc, '$path/content');
+}
+
+/// SBP.6 Assumptions, Constraints & Dependencies.
+class AssumptionsConstraintsDependencies extends SomNode {
+  AssumptionsConstraintsDependencies(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// The consolidated assumption / constraint register.
+  AssumptionConstraintRegister get register => AssumptionConstraintRegister(doc, '$path/register');
 }
 
 /// Overview of assumptions management.
@@ -1806,7 +1879,7 @@ class AttributeInterdependencyEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 9.6. Audit and Logging [PD00-ACC-AUD].
+/// 9.6. Audit and Logging.
 /// 
 /// Security audit and event logging requirements covering security event
 /// definitions, audit log format and structure, and compliance reporting.
@@ -1818,13 +1891,13 @@ class AuditAndLogging extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+  /// 9.6.1. Security Events.
   SecurityEventsDefinition get securityEvents => SecurityEventsDefinition(doc, '$path/securityEvents');
 
-  /// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+  /// 9.6.2. Audit Log Format.
   AuditLogFormat get auditLogFormat => AuditLogFormat(doc, '$path/auditLogFormat');
 
-  /// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+  /// 9.6.3. Compliance Reporting.
   ComplianceReporting get complianceReporting => ComplianceReporting(doc, '$path/complianceReporting');
 }
 
@@ -1852,7 +1925,7 @@ class AuditEvidenceTypeEntry extends SomNode {
   AuditEvidenceTypeEntryContentForm get content => AuditEvidenceTypeEntryContentForm(doc, '$path/content');
 }
 
-/// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+/// 9.6.2. Audit Log Format.
 /// 
 /// Defines the audit log format: fields to capture (who, what, when, where,
 /// result), log retention period, and tamper protection requirements.
@@ -1878,7 +1951,7 @@ class AuditLogFormat extends SomNode {
   // (skipped: notes has no target type)
 }
 
-/// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+/// 3.6.4. Audit Requirements.
 /// 
 /// Internal and external audit obligations.
 class AuditRequirements extends SomNode {
@@ -1894,23 +1967,23 @@ class AuditRequirements extends SomNode {
   AuditEvidenceRequirements get evidenceRequirements => AuditEvidenceRequirements(doc, '$path/evidenceRequirements');
 }
 
-/// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+/// 9.2.2. Authentication.
 class Authentication extends SomNode {
   Authentication(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+  /// 9.2.2.1. Authentication Methods.
   AuthenticationMethods get authenticationMethods => AuthenticationMethods(doc, '$path/authenticationMethods');
 
-  /// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+  /// 9.2.2.2. Authentication Flow.
   AuthenticationFlow get authenticationFlow => AuthenticationFlow(doc, '$path/authenticationFlow');
 
-  /// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+  /// 9.2.3. Password and Credential Policy.
   PasswordAndCredentialPolicy get passwordAndCredentialPolicy => PasswordAndCredentialPolicy(doc, '$path/passwordAndCredentialPolicy');
 
-  /// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+  /// 9.2.4. Session Management.
   SessionManagement get sessionManagement => SessionManagement(doc, '$path/sessionManagement');
 }
 
@@ -1940,7 +2013,7 @@ class AuthenticationEventPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-/// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+/// 9.2.2.2. Authentication Flow.
 /// 
 /// Comprehensive authentication flow specification covering the complete
 /// login lifecycle: credential submission, validation, multi-factor challenges,
@@ -1980,7 +2053,7 @@ class AuthenticationFlow extends SomNode {
   SomList<LoginFlowStepEntry> get loginFlowSteps => SomList<LoginFlowStepEntry>(doc, '$path/LGFLS-LOGI-LST', (d, p) => LoginFlowStepEntry(d, p));
 }
 
-/// An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
+/// An authentication method entry (form).
 /// 
 /// Detailed per-method specification aligned with NIST SP 800-63B
 /// authenticator types (password, OTP, cryptographic, out-of-band).
@@ -2030,7 +2103,7 @@ class AuthenticationMethodEntrySecurity extends SomNode {
   AuthenticationMethodEntrySecurityContentForm get content => AuthenticationMethodEntrySecurityContentForm(doc, '$path/content');
 }
 
-/// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+/// 9.2.2.1. Authentication Methods.
 /// 
 /// Comprehensive authentication methods specification aligned with
 /// NIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).
@@ -2064,57 +2137,6 @@ class AuthenticationMethods extends SomNode {
   SomList<AuthenticationMethodEntry> get items => SomList<AuthenticationMethodEntry>(doc, '$path/ATME-ITEM-LST', (d, p) => AuthenticationMethodEntry(d, p));
 }
 
-/// AC00 Authorization Concept.
-/// 
-/// Complete access and authorization specification — user management,
-/// identification and authentication, resource protection, user
-/// authorization, encryption, audit/logging, role matrix, and
-/// compliance framework.
-class AuthorizationConcept extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  AuthorizationConcept(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'AC') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// User management — PD00-ACC-USE.
-  UserManagement get userManagement => UserManagement(doc, '$path/userManagement');
-
-  /// Identification and authentication — PD00-ACC-IDE.
-  IdentificationAndAuthentication get identificationAndAuthentication => IdentificationAndAuthentication(doc, '$path/identificationAndAuthentication');
-
-  /// Resource protection — PD00-ACC-RES.
-  ResourceProtection get resourceProtection => ResourceProtection(doc, '$path/resourceProtection');
-
-  /// User authorization — PD00-ACC-USA.
-  UserAuthorization get userAuthorization => UserAuthorization(doc, '$path/userAuthorization');
-
-  /// Sensitive data encryption — PD00-ACC-SEN.
-  SensitiveDataEncryption get sensitiveDataEncryption => SensitiveDataEncryption(doc, '$path/sensitiveDataEncryption');
-
-  /// Audit and logging — PD00-ACC-AUD.
-  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
-
-  /// Role matrix — PD00-ACC-ROL (covers HBSG AS22-AUM).
-  RoleMatrix get roleMatrix => RoleMatrix(doc, '$path/roleMatrix');
-
-  /// Compliance framework — PD00-ACC-CMP.
-  ComplianceFramework get complianceFramework => ComplianceFramework(doc, '$path/complianceFramework');
-}
-
 /// Authorization event policy (form).
 /// 
 /// Defines which authorization-related events are logged.
@@ -2127,7 +2149,7 @@ class AuthorizationEventPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-/// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
+/// An authorization group entry (form).
 class AuthorizationGroupEntry extends SomNode {
   AuthorizationGroupEntry(super.doc, super.path);
 
@@ -2137,7 +2159,7 @@ class AuthorizationGroupEntry extends SomNode {
   SomList<RoleReferenceEntry> get containedRoles => SomList<RoleReferenceEntry>(doc, '$path/ROLREF-CONT-LST', (d, p) => RoleReferenceEntry(d, p));
 }
 
-/// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+/// 9.4.1. Authorization Model.
 /// 
 /// Describes the authorization model used by the system — RBAC, ABAC, ReBAC,
 /// or hybrid. Covers access control model selection, permission granularity
@@ -2168,7 +2190,7 @@ class AuthorizationModel extends SomNode {
   // (skipped: authorizationModelNotes has no target type)
 }
 
-/// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+/// An authorization role entry (form).
 /// 
 /// Defines a single authorization role with its category, scope, permission
 /// assignments, activation rules, provisioning, and review requirements.
@@ -2237,7 +2259,7 @@ class AuthorizationRoleEntryStructure extends SomNode {
   AuthorizationRoleEntryStructureContentForm get content => AuthorizationRoleEntryStructureContentForm(doc, '$path/content');
 }
 
-/// 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
+/// 11.4.1. Availability quality.
 class AvailabilityQuality extends SomNode {
   AvailabilityQuality(super.doc, super.path);
 
@@ -2287,7 +2309,7 @@ class AvailabilityQualityVerification extends SomNode {
   AvailabilityQualityVerificationContentForm get content => AvailabilityQualityVerificationContentForm(doc, '$path/content');
 }
 
-/// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
+/// 8.5.1. Backup and Recovery.
 /// 
 /// Backup frequency, retention period, recovery point objective (RPO),
 /// recovery time objective (RTO), and backup verification procedures.
@@ -2629,20 +2651,20 @@ class BandwidthRequirementsTraffic extends SomNode {
   BandwidthRequirementsTrafficContentForm get content => BandwidthRequirementsTrafficContentForm(doc, '$path/content');
 }
 
-/// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+/// 8.1. Basic Technical Requirements.
 class BasicTechnicalRequirements extends SomNode {
   BasicTechnicalRequirements(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+  /// 8.1.1. Platform and Language.
   PlatformAndLanguage get platformAndLanguage => PlatformAndLanguage(doc, '$path/platformAndLanguage');
 
-  /// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+  /// 8.1.2. Architecture Style.
   ArchitectureStyle get architectureStyle => ArchitectureStyle(doc, '$path/architectureStyle');
 
-  /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+  /// 8.1.3. Design Patterns and Standards.
   DesignPatternsAndStandards get designPatternsAndStandards => DesignPatternsAndStandards(doc, '$path/designPatternsAndStandards');
 }
 
@@ -2705,7 +2727,7 @@ class BiometricAuthenticationPolicy extends SomNode {
   // (skipped: biometricDetails has no target type)
 }
 
-/// A boundary assumption entry [PD00-SYO-SYB-ASS-nn] (form).
+/// A boundary assumption entry (form).
 class BoundaryAssumptionEntry extends SomNode {
   BoundaryAssumptionEntry(super.doc, super.path);
 
@@ -2732,7 +2754,7 @@ class BoundaryAssumptionEntryValidation extends SomNode {
   BoundaryAssumptionEntryValidationContentForm get content => BoundaryAssumptionEntryValidationContentForm(doc, '$path/content');
 }
 
-/// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+/// 4.5.3. Assumptions.
 /// 
 /// Documents assumptions about external systems, data availability,
 /// organizational readiness, and third-party services that must hold true
@@ -2748,7 +2770,7 @@ class BoundaryAssumptions extends SomNode {
   SomList<BoundaryAssumptionEntry> get items => SomList<BoundaryAssumptionEntry>(doc, '$path/BOASEN-ITEM-LST', (d, p) => BoundaryAssumptionEntry(d, p));
 }
 
-/// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT].
+/// 4.5.5. Boundary Interaction Patterns.
 /// 
 /// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
 /// Named `BoundaryInteractionPatterns` to avoid colliding with the
@@ -2807,14 +2829,14 @@ class BoundedContextEntryScope extends SomNode {
   BoundedContextEntryScopeContentForm get content => BoundedContextEntryScopeContentForm(doc, '$path/content');
 }
 
-/// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+/// 10.3.1.6.1. Breadcrumb Configuration.
 class BreadcrumbConfiguration extends SomNode {
   BreadcrumbConfiguration(super.doc, super.path);
 
   BreadcrumbConfigurationContentForm get content => BreadcrumbConfigurationContentForm(doc, '$path/content');
 }
 
-/// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+/// 10.10.1. Breakpoints.
 /// 
 /// Breakpoint definitions for responsive layouts.
 class BreakpointConfiguration extends SomNode {
@@ -2826,7 +2848,7 @@ class BreakpointConfiguration extends SomNode {
   SomList<BreakpointEntry> get breakpoints => SomList<BreakpointEntry>(doc, '$path/BRE-BREA-LST', (d, p) => BreakpointEntry(d, p));
 }
 
-/// A breakpoint entry [PD00-USE-RES-BRE-nn].
+/// A breakpoint entry.
 class BreakpointEntry extends SomNode {
   BreakpointEntry(super.doc, super.path);
 
@@ -3118,70 +3140,7 @@ class BusinessComponentEntryTesting extends SomNode {
   BusinessComponentEntryTestingContentForm get content => BusinessComponentEntryTestingContentForm(doc, '$path/content');
 }
 
-/// BDM00 Business Data Model.
-/// 
-/// Full business data model: entities, relationships, ER diagram, data
-/// classification, business objects, function decomposition, function-
-/// to-data matrix, business rules, data dictionary, and validation /
-/// integrity constraints.
-class BusinessDataModel extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  BusinessDataModel(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'BDM') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Entity inventory — PD00-BUS-DAT-ENT (list).
-  SomList<DataEntityEntry> get entities => SomList<DataEntityEntry>(doc, '$path/DAENT-ENTI-LST', (d, p) => DataEntityEntry(d, p));
-
-  /// Entity relationships — PD00-BUS-DAT-REL.
-  EntityRelationships get entityRelationships => EntityRelationships(doc, '$path/entityRelationships');
-
-  /// Entity-relationship diagram — PD00-BUS-DAT-DIA.
-  // (skipped: erDiagram has no target type)
-
-  /// Data classification — PD00-BUS-DAT-CLA.
-  DataClassification get dataClassification => DataClassification(doc, '$path/dataClassification');
-
-  /// Business object catalog — PD00-BUS-BUS-CAT (list).
-  SomList<BusinessObjectEntry> get objectCatalog => SomList<BusinessObjectEntry>(doc, '$path/BJOEN-OBJE-LST', (d, p) => BusinessObjectEntry(d, p));
-
-  /// Business object diagram — PD00-BUS-BUS-DIA.
-  // (skipped: objectDiagram has no target type)
-
-  /// Function decomposition — PD00-BUS-FUN-DEC (list).
-  SomList<FunctionEntry> get functionDecomposition => SomList<FunctionEntry>(doc, '$path/FUNCT-FUNC-LST', (d, p) => FunctionEntry(d, p));
-
-  /// Function-to-data matrix — PD00-BUS-FUN-MAT (list).
-  SomList<FunctionDataMatrixEntry> get functionToDataMatrix => SomList<FunctionDataMatrixEntry>(doc, '$path/FNDMX-FUNC-LST', (d, p) => FunctionDataMatrixEntry(d, p));
-
-  /// Business rules catalog — PD00-BUS-FUN-RUL (list).
-  SomList<BusinessRuleEntry> get businessRules => SomList<BusinessRuleEntry>(doc, '$path/BIRU-BUSI-LST', (d, p) => BusinessRuleEntry(d, p));
-
-  /// Data dictionary — PD00-BUS-DAT-DIC.
-  DataDictionary get dataDictionary => DataDictionary(doc, '$path/dataDictionary');
-
-  /// Validation constraints — PD00-BUS-DAT-VAL.
-  SomList<ValidationConstraints> get validationConstraints => SomList<ValidationConstraints>(doc, '$path/VACO-VALI-LST', (d, p) => ValidationConstraints(d, p));
-
-  /// Integrity constraints — PD00-BUS-DAT-CON.
-  SomList<IntegrityConstraints> get integrityConstraints => SomList<IntegrityConstraints>(doc, '$path/INCO-INTE-LST', (d, p) => IntegrityConstraints(d, p));
-}
-
-/// A business goal entry [PD00-SYO-GOA-BUS-nn].
+/// A business goal entry.
 /// 
 /// Comprehensive business goal definition following SMART criteria with
 /// OKR-style key results, ownership, and tracking information.
@@ -3202,19 +3161,19 @@ class BusinessGoalEntry extends SomNode {
   /// Business rationale and impact.
   BusinessGoalEntryStrategy get strategy => BusinessGoalEntryStrategy(doc, '$path/strategy');
 
-  /// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+  /// 4.2.1.n.1. Key Results.
   GoalKeyResults get keyResults => GoalKeyResults(doc, '$path/keyResults');
 
-  /// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+  /// 4.2.1.n.2. Milestones.
   GoalMilestones get milestones => GoalMilestones(doc, '$path/milestones');
 
-  /// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+  /// 4.2.1.n.3. Dependencies.
   GoalDependencies get dependencies => GoalDependencies(doc, '$path/dependencies');
 
-  /// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+  /// 4.2.1.n.4. Risks.
   GoalRisks get risks => GoalRisks(doc, '$path/risks');
 
-  /// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+  /// 4.2.1.n.5. Resources.
   GoalResources get resources => GoalResources(doc, '$path/resources');
 }
 
@@ -3246,7 +3205,7 @@ class BusinessGoalEntryStrategy extends SomNode {
   BusinessGoalEntryStrategyContentForm get content => BusinessGoalEntryStrategyContentForm(doc, '$path/content');
 }
 
-/// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+/// 4.2.1. Business Goals.
 /// 
 /// Container for business goal definitions. Business goals define what the
 /// organization wants to achieve through this project in terms of business
@@ -3308,24 +3267,7 @@ class BusinessMetricsSpecTransactions extends SomNode {
   BusinessMetricsSpecTransactionsContentForm get content => BusinessMetricsSpecTransactionsContentForm(doc, '$path/content');
 }
 
-/// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
-class BusinessObjectAndDataModel extends SomNode {
-  BusinessObjectAndDataModel(super.doc, super.path);
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// 7.1. Data Model [PD00-BUS-DAT].
-  DataModel get dataModel => DataModel(doc, '$path/dataModel');
-
-  /// 7.2. Business Object Model [PD00-BUS-BUS].
-  BusinessObjectModel get businessObjectModel => BusinessObjectModel(doc, '$path/businessObjectModel');
-
-  /// 7.3. Function Model [PD00-BUS-FUN].
-  FunctionModel get functionModel => FunctionModel(doc, '$path/functionModel');
-}
-
-/// A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
+/// A business object attribute entry (form).
 /// 
 /// Business-level attribute specification focusing on business meaning and rules.
 class BusinessObjectAttributeEntry extends SomNode {
@@ -3364,7 +3306,7 @@ class BusinessObjectAttributeEntryValidation extends SomNode {
   BusinessObjectAttributeEntryValidationContentForm get content => BusinessObjectAttributeEntryValidationContentForm(doc, '$path/content');
 }
 
-/// A business object entry [PD00-BUS-BUS-CAT-nn] (form).
+/// A business object entry (form).
 /// 
 /// Comprehensive business object specification following domain-driven design
 /// patterns. Business objects represent key domain concepts with behavior,
@@ -3384,40 +3326,40 @@ class BusinessObjectEntry extends SomNode {
 
   SomList<IntegrationPointEntry> get integrationPoints => SomList<IntegrationPointEntry>(doc, '$path/INTEG-INTE-LST', (d, p) => IntegrationPointEntry(d, p));
 
-  /// Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
+  /// Contains 0+× BusinessObjectAttribute.
   SomList<BusinessObjectAttributeEntry> get attributes => SomList<BusinessObjectAttributeEntry>(doc, '$path/BIOBAT-ATTR-LST', (d, p) => BusinessObjectAttributeEntry(d, p));
 
-  /// Contains 0+× ObjectState [PD00-BUS-BUS-CAT-nn-STA].
+  /// Contains 0+× ObjectState.
   SomList<ObjectStateEntry> get keyStates => SomList<ObjectStateEntry>(doc, '$path/OBST-KEYS-LST', (d, p) => ObjectStateEntry(d, p));
 
-  /// Contains 0+× BusinessRuleReference [PD00-BUS-BUS-CAT-nn-BRR].
+  /// Contains 0+× BusinessRuleReference.
   SomList<BusinessRuleReferenceEntry> get keyBusinessRules => SomList<BusinessRuleReferenceEntry>(doc, '$path/BIRURE-KEYB-LST', (d, p) => BusinessRuleReferenceEntry(d, p));
 
-  /// Contains 0+× LifecycleTransition [PD00-BUS-BUS-CAT-nn-LIF].
+  /// Contains 0+× LifecycleTransition.
   SomList<LifecycleTransitionEntry> get lifecycleTransitions => SomList<LifecycleTransitionEntry>(doc, '$path/LFTRS-LIFE-LST', (d, p) => LifecycleTransitionEntry(d, p));
 
-  /// Contains 0+× ObjectOperation [PD00-BUS-BUS-CAT-nn-OPR].
+  /// Contains 0+× ObjectOperation.
   SomList<ObjectOperationEntry> get operations => SomList<ObjectOperationEntry>(doc, '$path/OBOP-OPER-LST', (d, p) => ObjectOperationEntry(d, p));
 
-  /// Contains 0+× ObjectInvariant [PD00-BUS-BUS-CAT-nn-INV].
+  /// Contains 0+× ObjectInvariant.
   SomList<ObjectInvariantEntry> get invariants => SomList<ObjectInvariantEntry>(doc, '$path/OBINV-INVA-LST', (d, p) => ObjectInvariantEntry(d, p));
 }
 
-/// 7.2. Business Object Model [PD00-BUS-BUS].
+/// 7.2. Business Object Model.
 class BusinessObjectModel extends SomNode {
   BusinessObjectModel(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.
+  /// 7.2.1. Object Catalog — contains 1+× Business Object.
   SomList<BusinessObjectEntry> get objects => SomList<BusinessObjectEntry>(doc, '$path/BJOEN-OBJE-LST', (d, p) => BusinessObjectEntry(d, p));
 
-  /// 7.2.2. Business Object Diagram [PD00-BUS-BUS-DIA] (mermaid).
+  /// 7.2.2. Business Object Diagram (mermaid).
   // (skipped: objectDiagram has no target type)
 }
 
-/// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+/// 1.3.2. Business Pain Points.
 /// 
 /// Problems that affect business outcomes: lost revenue, compliance risk,
 /// customer dissatisfaction, inability to scale, and missed opportunities.
@@ -3441,7 +3383,7 @@ class BusinessPainPointsSummary extends SomNode {
   BusinessPainPointsSummaryContentForm get content => BusinessPainPointsSummaryContentForm(doc, '$path/content');
 }
 
-/// 6.1. Business Process Descriptions [PD00-TAR-PRO].
+/// 6.1. Business Process Descriptions.
 /// 
 /// Target business processes at a high level. Each process will be expanded
 /// with detailed workflows, triggers, decision points, and exception handling
@@ -3452,38 +3394,38 @@ class BusinessProcessDescriptions extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+  /// 6.1.1. Process Vision.
   ProcessVision get processVision => ProcessVision(doc, '$path/processVision');
 
-  /// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+  /// 6.1.2. Design Principles.
   ProcessDesignPrinciples get designPrinciples => ProcessDesignPrinciples(doc, '$path/designPrinciples');
 
-  /// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
+  /// 6.1.3. Process Catalog — contains 1+× Business Process.
   ProcessCatalog get processCatalog => ProcessCatalog(doc, '$path/processCatalog');
 
-  /// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+  /// 6.1.4. Process Overview Diagram.
   ProcessOverviewDiagram get processOverviewDiagram => ProcessOverviewDiagram(doc, '$path/processOverviewDiagram');
 
-  /// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+  /// 6.1.5. Improvement Summary.
   ProcessImprovementSummary get improvementSummary => ProcessImprovementSummary(doc, '$path/improvementSummary');
 
-  /// 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
+  /// 6.1.6. Process Relationships.
   ProcessRelationships get processRelationships => ProcessRelationships(doc, '$path/processRelationships');
 
-  /// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+  /// 6.1.7. Detailed Process Workflows.
   SomList<DetailedProcessWorkflows> get detailedWorkflows => SomList<DetailedProcessWorkflows>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflows(d, p));
 
-  /// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+  /// 6.1.8. Cross-Process Analysis.
   CrossProcessAnalysis get crossProcessAnalysis => CrossProcessAnalysis(doc, '$path/crossProcessAnalysis');
 
-  /// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+  /// 6.1.9. Process Exception Handling.
   ProcessExceptionHandling get exceptionHandling => ProcessExceptionHandling(doc, '$path/exceptionHandling');
 
-  /// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+  /// 6.1.10. Process Metrics and KPIs.
   SomList<ProcessMetricsAndKpis> get processMetricsAndKpis => SomList<ProcessMetricsAndKpis>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetricsAndKpis(d, p));
 }
 
-/// A business process entry [PD00-TAR-PRO-CAT-nn].
+/// A business process entry.
 /// 
 /// Comprehensive business process definition following BPMN 2.0 concepts.
 class BusinessProcessEntry extends SomNode {
@@ -3520,131 +3462,7 @@ class BusinessProcessEntry extends SomNode {
   // (skipped: processFlowPreview has no target type)
 }
 
-/// BP00 Business Processes.
-/// 
-/// Target business process specification — vision, principles, catalog,
-/// diagrams, improvements, relationships, detailed workflows,
-/// cross-process analysis, exception handling, and KPIs.
-class BusinessProcesses extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  BusinessProcesses(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'BP') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Process vision — PD00-TAR-PRO-VIS.
-  ProcessVision get processVision => ProcessVision(doc, '$path/processVision');
-
-  /// Design principles — PD00-TAR-PRO-PRI.
-  ProcessDesignPrinciples get designPrinciples => ProcessDesignPrinciples(doc, '$path/designPrinciples');
-
-  /// Process catalog — PD00-TAR-PRO-CAT.
-  ProcessCatalog get processCatalog => ProcessCatalog(doc, '$path/processCatalog');
-
-  /// Process overview diagram — PD00-TAR-PRO-FLO.
-  ProcessOverviewDiagram get processOverviewDiagram => ProcessOverviewDiagram(doc, '$path/processOverviewDiagram');
-
-  /// Improvement summary — PD00-TAR-PRO-IMP.
-  ProcessImprovementSummary get improvementSummary => ProcessImprovementSummary(doc, '$path/improvementSummary');
-
-  /// Process relationships — PD00-TAR-PRO-REL.
-  ProcessRelationships get processRelationships => ProcessRelationships(doc, '$path/processRelationships');
-
-  /// Detailed process workflows — PD00-TAR-PRO-DET.
-  SomList<DetailedProcessWorkflows> get detailedWorkflows => SomList<DetailedProcessWorkflows>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflows(d, p));
-
-  /// Cross-process analysis — PD00-TAR-PRO-CRO.
-  CrossProcessAnalysis get crossProcessAnalysis => CrossProcessAnalysis(doc, '$path/crossProcessAnalysis');
-
-  /// Process exception handling — PD00-TAR-PRO-EXC.
-  ProcessExceptionHandling get exceptionHandling => ProcessExceptionHandling(doc, '$path/exceptionHandling');
-
-  /// Process metrics and KPIs — PD00-TAR-PRO-MET.
-  SomList<ProcessMetricsAndKpis> get processMetricsAndKpis => SomList<ProcessMetricsAndKpis>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetricsAndKpis(d, p));
-}
-
-/// BQP00 Business Quality Plan.
-/// 
-/// Full quality plan combining quality goals (PD00-SYQ) and the
-/// acceptance plan (PD00-DEL-ACC). Replaces HBSG AS11 + AS23 + partial
-/// AS14 coverage.
-class BusinessQualityPlan extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  BusinessQualityPlan(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'BQP') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Quality framework — PD00-SYQ-FRA.
-  QualityFramework get qualityFramework => QualityFramework(doc, '$path/qualityFramework');
-
-  /// User-related quality criteria — PD00-SYQ-USE.
-  UserQualityCriteria get userQualityCriteria => UserQualityCriteria(doc, '$path/userQualityCriteria');
-
-  /// Technical quality criteria — PD00-SYQ-TEC.
-  TechnicalQualityCriteria get technicalQualityCriteria => TechnicalQualityCriteria(doc, '$path/technicalQualityCriteria');
-
-  /// Operations quality criteria — PD00-SYQ-OPE.
-  OperationsQualityCriteria get operationsQualityCriteria => OperationsQualityCriteria(doc, '$path/operationsQualityCriteria');
-
-  /// Documentation quality criteria — PD00-SYQ-DOC.
-  DocumentationQualityCriteria get documentationQualityCriteria => DocumentationQualityCriteria(doc, '$path/documentationQualityCriteria');
-
-  /// Quality prioritization — PD00-SYQ-PRI.
-  QualityPrioritization get qualityPrioritization => QualityPrioritization(doc, '$path/qualityPrioritization');
-
-  /// Acceptance criteria summary — PD00-SYQ-ACC.
-  AcceptanceCriteriaSummary get acceptanceCriteriaSummary => AcceptanceCriteriaSummary(doc, '$path/acceptanceCriteriaSummary');
-
-  /// Test strategy — PD00-SYQ-TST (new in Phase A, HBSG AS23).
-  TestStrategy get testStrategy => TestStrategy(doc, '$path/testStrategy');
-
-  /// Acceptance criteria — PD00-DEL-ACC-CRI.
-  AcceptanceCriteriaList get acceptanceCriteria => AcceptanceCriteriaList(doc, '$path/acceptanceCriteria');
-
-  /// Acceptance process — PD00-DEL-ACC-PRO.
-  AcceptanceProcess get acceptanceProcess => AcceptanceProcess(doc, '$path/acceptanceProcess');
-
-  /// User acceptance testing — PD00-DEL-ACC-UAT.
-  UserAcceptanceTesting get userAcceptanceTesting => UserAcceptanceTesting(doc, '$path/userAcceptanceTesting');
-
-  /// Defect resolution — PD00-DEL-ACC-DEF.
-  DefectResolution get defectResolution => DefectResolution(doc, '$path/defectResolution');
-
-  /// Sign-off process — PD00-DEL-ACC-SIG.
-  SignOffProcess get signOffProcess => SignOffProcess(doc, '$path/signOffProcess');
-
-  /// Warranty terms — PD00-DEL-ACC-WAR.
-  WarrantyTerms get warranty => WarrantyTerms(doc, '$path/warranty');
-}
-
-/// A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
+/// A business rule entry (form).
 /// 
 /// Comprehensive business rule specification following SBVR-like patterns.
 class BusinessRuleEntry extends SomNode {
@@ -3662,17 +3480,17 @@ class BusinessRuleEntry extends SomNode {
 
   BusinessRuleEntryGovernanceForm get governance => BusinessRuleEntryGovernanceForm(doc, '$path/governance');
 
-  /// Contains 0+× AffectedObject [PD00-BUS-FUN-RUL-nn-AOB].
+  /// Contains 0+× AffectedObject.
   SomList<AffectedObjectEntry> get affectedObjects => SomList<AffectedObjectEntry>(doc, '$path/AFOB-AFFE-LST', (d, p) => AffectedObjectEntry(d, p));
 
-  /// Contains 0+× AffectedFunction [PD00-BUS-FUN-RUL-nn-AFU].
+  /// Contains 0+× AffectedFunction.
   SomList<AffectedFunctionEntry> get affectedFunctions => SomList<AffectedFunctionEntry>(doc, '$path/AFFN-AFFE-LST', (d, p) => AffectedFunctionEntry(d, p));
 
-  /// Contains 0+× RuleExample [PD00-BUS-FUN-RUL-nn-EXA].
+  /// Contains 0+× RuleExample.
   SomList<RuleExampleEntry> get examples => SomList<RuleExampleEntry>(doc, '$path/RULEXM-EXAM-LST', (d, p) => RuleExampleEntry(d, p));
 }
 
-/// A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
+/// A business rule reference entry (form).
 /// 
 /// Reference to business rules that govern this object.
 class BusinessRuleReferenceEntry extends SomNode {
@@ -3684,63 +3502,7 @@ class BusinessRuleReferenceEntry extends SomNode {
   set ruleRef(String value) => doc.setContent('$path/ruleRef', value);
 }
 
-/// BSI00 Business System Interactions.
-/// 
-/// Complete interaction specification between the target system and
-/// external systems: inventory, patterns, testing, dependencies,
-/// migration, operational concerns, and cross-boundary error handling.
-class BusinessSystemInteractions extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  BusinessSystemInteractions(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'BSI') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// External interfaces — PD00-SYO-SYB-INT.
-  ExternalInterfaces get externalInterfaces => ExternalInterfaces(doc, '$path/externalInterfaces');
-
-  /// Out of scope — PD00-SYO-SYB-OUT.
-  OutOfScope get outOfScope => OutOfScope(doc, '$path/outOfScope');
-
-  /// Boundary assumptions — PD00-SYO-SYB-ASS.
-  BoundaryAssumptions get boundaryAssumptions => BoundaryAssumptions(doc, '$path/boundaryAssumptions');
-
-  /// System landscape inventory — PD00-SYO-SYB-INV.
-  SystemLandscapeInventory get systemInventory => SystemLandscapeInventory(doc, '$path/systemInventory');
-
-  /// Boundary interaction patterns — PD00-SYO-SYB-PAT.
-  SomList<BoundaryInteractionPatterns> get interactionPatterns => SomList<BoundaryInteractionPatterns>(doc, '$path/BOINPA-INTE-LST', (d, p) => BoundaryInteractionPatterns(d, p));
-
-  /// Interaction testing strategy — PD00-SYO-SYB-TST.
-  InteractionTestingStrategy get testingStrategy => InteractionTestingStrategy(doc, '$path/testingStrategy');
-
-  /// Interaction dependency analysis — PD00-SYO-SYB-DEP.
-  InteractionDependencyAnalysis get dependencyAnalysis => InteractionDependencyAnalysis(doc, '$path/dependencyAnalysis');
-
-  /// Migration interactions — PD00-SYO-SYB-MIG.
-  SomList<MigrationInteractions> get migrationInteractions => SomList<MigrationInteractions>(doc, '$path/MIIN-MIGR-LST', (d, p) => MigrationInteractions(d, p));
-
-  /// Cross-boundary operational considerations — PD00-SYO-SYB-OPE.
-  SomList<CrossBoundaryOperationalConsiderations> get operationalConsiderations => SomList<CrossBoundaryOperationalConsiderations>(doc, '$path/CBOC-OPER-LST', (d, p) => CrossBoundaryOperationalConsiderations(d, p));
-
-  /// Cross-boundary error handling — PD00-SYO-SYB-ERR.
-  CrossBoundaryErrorHandling get crossBoundaryErrorHandling => CrossBoundaryErrorHandling(doc, '$path/crossBoundaryErrorHandling');
-}
-
-/// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+/// 8.7.3. Capacity Planning.
 class CapacityPlanningSection extends SomNode {
   CapacityPlanningSection(super.doc, super.path);
 
@@ -3897,7 +3659,7 @@ class CertificateManagementStorage extends SomNode {
   CertificateManagementStorageContentForm get content => CertificateManagementStorageContentForm(doc, '$path/content');
 }
 
-/// Certification entry (form) [PD00-ORG-WOR-nn-TRA-CER-nn].
+/// Certification entry (form).
 class CertificationEntry extends SomNode {
   CertificationEntry(super.doc, super.path);
 
@@ -4009,7 +3771,7 @@ class ChangeAdvocateEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// A change category entry [PD00-ADM-CHA-CAT-nn].
+/// A change category entry.
 /// 
 /// Defines a category of changes with specific handling rules.
 class ChangeCategoryEntry extends SomNode {
@@ -4048,7 +3810,7 @@ class ChangeCategoryEntryScope extends SomNode {
   ChangeCategoryEntryScopeContentForm get content => ChangeCategoryEntryScopeContentForm(doc, '$path/content');
 }
 
-/// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+/// 3.4.3. Change Control Board.
 /// 
 /// Governance body responsible for major change decisions.
 class ChangeControlBoard extends SomNode {
@@ -4097,7 +3859,7 @@ class ChangeDecisionCriteria extends SomNode {
   ChangeDecisionCriteriaContentForm get content => ChangeDecisionCriteriaContentForm(doc, '$path/content');
 }
 
-/// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+/// 3.4.2. Change Impact Criteria.
 /// 
 /// Criteria for determining the impact level of change requests,
 /// which drives the approval path and stakeholder involvement.
@@ -4114,7 +3876,7 @@ class ChangeImpactCriteria extends SomNode {
   SomList<ChangeImpactCriterionEntry> get items => SomList<ChangeImpactCriterionEntry>(doc, '$path/CHIMCR-ITEM-LST', (d, p) => ChangeImpactCriterionEntry(d, p));
 }
 
-/// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
+/// A change impact criterion entry (form).
 /// 
 /// Detailed criterion for assessing change impact in a specific dimension.
 class ChangeImpactCriterionEntry extends SomNode {
@@ -4170,7 +3932,7 @@ class ChangeNotificationRules extends SomNode {
   ChangeNotificationRulesContentForm get content => ChangeNotificationRulesContentForm(doc, '$path/content');
 }
 
-/// 3.4. Change Procedure [PD00-ADM-CHA].
+/// 3.4. Change Procedure.
 /// 
 /// Procedure for requesting, evaluating, and approving changes to this
 /// Project Definition and other project documents. Defines the change
@@ -4184,16 +3946,16 @@ class ChangeProcedure extends SomNode {
   /// Change procedure summary.
   ChangeProcedureSummary get summary => ChangeProcedureSummary(doc, '$path/summary');
 
-  /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+  /// 3.4.1. Change Process.
   ChangeProcess get changeProcess => ChangeProcess(doc, '$path/changeProcess');
 
-  /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+  /// 3.4.2. Change Impact Criteria.
   ChangeImpactCriteria get changeImpactCriteria => ChangeImpactCriteria(doc, '$path/changeImpactCriteria');
 
-  /// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+  /// 3.4.3. Change Control Board.
   ChangeControlBoard get changeControlBoard => ChangeControlBoard(doc, '$path/changeControlBoard');
 
-  /// 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
+  /// 3.4.4. Change Categories — contains 0+× Category.
   SomList<ChangeCategoryEntry> get changeCategories => SomList<ChangeCategoryEntry>(doc, '$path/CHCA-CHAN-LST', (d, p) => ChangeCategoryEntry(d, p));
 }
 
@@ -4204,7 +3966,7 @@ class ChangeProcedureSummary extends SomNode {
   ChangeProcedureSummaryContentForm get content => ChangeProcedureSummaryContentForm(doc, '$path/content');
 }
 
-/// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+/// 3.4.1. Change Process.
 /// 
 /// Detailed workflow for change request processing from submission
 /// through evaluation, approval, implementation, and closure.
@@ -4247,14 +4009,14 @@ class ChangeReadinessOverview extends SomNode {
   ChangeReadinessOverviewContentForm get content => ChangeReadinessOverviewContentForm(doc, '$path/content');
 }
 
-/// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
+/// A role involved in the change process (form).
 class ChangeRoleEntry extends SomNode {
   ChangeRoleEntry(super.doc, super.path);
 
   ChangeRoleEntryContentForm get content => ChangeRoleEntryContentForm(doc, '$path/content');
 }
 
-/// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
+/// A change process step entry (form).
 /// 
 /// Detailed description of a single step in the change process workflow.
 class ChangeStepEntry extends SomNode {
@@ -4323,7 +4085,7 @@ class ChangedRoleCompetencies extends SomNode {
   CompetencyGapAssessment get gapAssessment => CompetencyGapAssessment(doc, '$path/gapAssessment');
 }
 
-/// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+/// A changed role entry (form).
 /// 
 /// Documents modifications to existing roles with impact assessment,
 /// transition planning, and incumbent management.
@@ -4434,7 +4196,7 @@ class ChangedRoleTransitionTraining extends SomNode {
   ChangedRoleTransitionTrainingContentForm get content => ChangedRoleTransitionTrainingContentForm(doc, '$path/content');
 }
 
-/// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+/// 5.1.1. Changes from Current Structure.
 /// 
 /// Explicitly documents what changes from the current organization structure.
 /// Identifies affected departments, changed reporting lines, and new roles
@@ -4676,7 +4438,7 @@ class ClientNetworkRequirementsProxy extends SomNode {
   ClientNetworkRequirementsProxyContentForm get content => ClientNetworkRequirementsProxyContentForm(doc, '$path/content');
 }
 
-/// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+/// 8.4.2. Client Requirements.
 /// 
 /// Minimum client requirements: browser versions, operating systems, screen
 /// resolution, network bandwidth, and device capabilities.
@@ -5059,7 +4821,7 @@ class CodingStandardsSectionReview extends SomNode {
   CodingStandardsSectionReviewContentForm get content => CodingStandardsSectionReviewContentForm(doc, '$path/content');
 }
 
-/// A color palette entry [PD00-USE-COM-LIB-COL-nn].
+/// A color palette entry.
 class ColorPaletteEntry extends SomNode {
   ColorPaletteEntry(super.doc, super.path);
 
@@ -5087,7 +4849,7 @@ class CommitteeCharter extends SomNode {
   CommitteeCharterContentForm get content => CommitteeCharterContentForm(doc, '$path/content');
 }
 
-/// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+/// A steering committee member entry (form).
 /// 
 /// Detailed information about a steering committee member.
 class CommitteeMemberEntry extends SomNode {
@@ -5107,7 +4869,7 @@ class CommitteeResponsibilityEntry extends SomNode {
 }
 
 /// A communication channel encryption entry (form)
-/// [PD00-ACC-SEN-TRA-CHA-nn].
+/// .
 /// 
 /// Defines encryption requirements for a specific communication channel
 /// (e.g. client-to-server HTTPS, server-to-database, inter-service,
@@ -5119,7 +4881,7 @@ class CommunicationChannelEncryptionEntry extends SomNode {
   CommunicationChannelEncryptionEntryContentForm get content => CommunicationChannelEncryptionEntryContentForm(doc, '$path/content');
 }
 
-/// Communication event entry [PD00-ORG-STR-TIM-COM-nn] (form).
+/// Communication event entry (form).
 class CommunicationEventEntry extends SomNode {
   CommunicationEventEntry(super.doc, super.path);
 
@@ -5225,17 +4987,17 @@ class CommunicationPreferenceEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 8.6. Communication Requirements [PD00-TEC-COM].
+/// 8.6. Communication Requirements.
 class CommunicationRequirements extends SomNode {
   CommunicationRequirements(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+  /// 8.6.1. Protocols and Standards.
   ProtocolsAndStandardsSection get protocolsAndStandards => ProtocolsAndStandardsSection(doc, '$path/protocolsAndStandards');
 
-  /// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+  /// 8.6.2. External Connectivity.
   ExternalConnectivitySection get externalConnectivity => ExternalConnectivitySection(doc, '$path/externalConnectivity');
 }
 
@@ -5253,7 +5015,7 @@ class CommunicationTypeEntry extends SomNode {
   CommunicationTypeEntryContentForm get content => CommunicationTypeEntryContentForm(doc, '$path/content');
 }
 
-/// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+/// 8.3.1. Compatibility Requirements.
 /// 
 /// Compatibility requirements with existing IT infrastructure, standard software,
 /// and enterprise systems.
@@ -5300,14 +5062,14 @@ class CompatibilityRequirementsSection extends SomNode {
   InteroperabilityRequirements get interoperability => InteroperabilityRequirements(doc, '$path/interoperability');
 }
 
-/// A competency entry (form) [PD00-ORG-JOB-CMP-xx-nn].
+/// A competency entry (form).
 class CompetencyEntry extends SomNode {
   CompetencyEntry(super.doc, super.path);
 
   CompetencyEntryContentForm get content => CompetencyEntryContentForm(doc, '$path/content');
 }
 
-/// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+/// 5.2.5. Competency Framework.
 class CompetencyFramework extends SomNode {
   CompetencyFramework(super.doc, super.path);
 
@@ -5345,7 +5107,7 @@ class CompetencyLevelChangeEntry extends SomNode {
   CompetencyLevelChangeEntryContentForm get content => CompetencyLevelChangeEntryContentForm(doc, '$path/content');
 }
 
-/// Compliance audit planning and scheduling [PD00-TEC-SEC-AUD].
+/// Compliance audit planning and scheduling.
 class ComplianceAuditSchedule extends SomNode {
   ComplianceAuditSchedule(super.doc, super.path);
 
@@ -5382,7 +5144,7 @@ class ComplianceAuditScheduleReporting extends SomNode {
   ComplianceAuditScheduleReportingContentForm get content => ComplianceAuditScheduleReportingContentForm(doc, '$path/content');
 }
 
-/// 9.8. Compliance Framework [PD00-ACC-CMP].
+/// 9.8. Compliance Framework.
 /// 
 /// NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
 /// authorization. Pulls the compliance references currently scattered
@@ -5409,7 +5171,7 @@ class ComplianceMilestoneEntry extends SomNode {
   ComplianceMilestoneEntryContentForm get content => ComplianceMilestoneEntryContentForm(doc, '$path/content');
 }
 
-/// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+/// 9.6.3. Compliance Reporting.
 /// 
 /// Describes compliance reporting requirements: periodic access reviews,
 /// privilege usage reports, anomaly detection, and regulatory audit support.
@@ -5499,7 +5261,7 @@ class ComplianceVerificationSectionTools extends SomNode {
   ComplianceVerificationSectionToolsContentForm get content => ComplianceVerificationSectionToolsContentForm(doc, '$path/content');
 }
 
-/// A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
+/// A component action entry.
 /// 
 /// Defines an action that can be triggered from the component.
 class ComponentActionEntry extends SomNode {
@@ -5556,7 +5318,7 @@ class ComponentDocs extends SomNode {
   ComponentDocsContentForm get content => ComponentDocsContentForm(doc, '$path/content');
 }
 
-/// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+/// A component entry (form) with sub-entries.
 /// 
 /// Describes a single external or standard component planned for use:
 /// vendor assessment, maturity, security, cost, deployment model, licensing,
@@ -5593,20 +5355,20 @@ class ComponentEntry extends SomNode {
   /// Documentation.
   SomList<ComponentDocs> get docs => SomList<ComponentDocs>(doc, '$path/CODO-DOCS-LST', (d, p) => ComponentDocs(d, p));
 
-  /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
+  /// Interfaces — contains 0+× ComponentInterface.
   SomList<ComponentInterfaceEntry> get interfaces => SomList<ComponentInterfaceEntry>(doc, '$path/CMIF-INTE-LST', (d, p) => ComponentInterfaceEntry(d, p));
 
-  /// Licensing [PD00-COM-COM-nn-LIC] (form).
+  /// Licensing (form).
   ComponentLicensingEntry get licensing => ComponentLicensingEntry(doc, '$path/licensing');
 
-  /// Usage Rights [PD00-COM-COM-nn-USE].
+  /// Usage Rights.
   // (skipped: usageRights has no target type)
 
-  /// Responsibilities [PD00-COM-COM-nn-RES] (form).
+  /// Responsibilities (form).
   SomList<ComponentResponsibilitiesEntry> get responsibilities => SomList<ComponentResponsibilitiesEntry>(doc, '$path/COREEN-RESP-LST', (d, p) => ComponentResponsibilitiesEntry(d, p));
 }
 
-/// A component family entry [PD00-USE-COM-FAM-nn].
+/// A component family entry.
 /// 
 /// Groups related components by function (buttons, inputs, navigation, etc.).
 class ComponentFamilyEntry extends SomNode {
@@ -5668,7 +5430,7 @@ class ComponentGovernanceQuality extends SomNode {
   ComponentGovernanceQualityContentForm get content => ComponentGovernanceQualityContentForm(doc, '$path/content');
 }
 
-/// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
+/// A component interface entry (form).
 /// 
 /// Describes one interface exposed or consumed by a component: protocol,
 /// authentication, data format, rate limits, versioning, SLA, monitoring.
@@ -5728,7 +5490,7 @@ class ComponentInterfaceEntrySla extends SomNode {
   ComponentInterfaceEntrySlaContentForm get content => ComponentInterfaceEntrySlaContentForm(doc, '$path/content');
 }
 
-/// 10.11.1. Component Library [PD00-USE-COM-LIB].
+/// 10.11.1. Component Library.
 /// 
 /// Design system and component catalog specification.
 class ComponentLibrary extends SomNode {
@@ -5799,7 +5561,7 @@ class ComponentLibraryVisuals extends SomNode {
   ComponentLibraryVisualsContentForm get content => ComponentLibraryVisualsContentForm(doc, '$path/content');
 }
 
-/// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+/// Component licensing sub-entry (form).
 /// 
 /// Detailed licensing information: model, cost, compliance, open-source
 /// obligations, audit requirements, geographic restrictions, usage metrics.
@@ -5920,7 +5682,7 @@ class ComponentPerformance extends SomNode {
   ComponentPerformanceContentForm get content => ComponentPerformanceContentForm(doc, '$path/content');
 }
 
-/// A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
+/// A component property entry.
 /// 
 /// Defines a configurable property of the component.
 class ComponentPropertyEntry extends SomNode {
@@ -5976,7 +5738,7 @@ class ComponentRegistryUpdates extends SomNode {
   ComponentRegistryUpdatesContentForm get content => ComponentRegistryUpdatesContentForm(doc, '$path/content');
 }
 
-/// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+/// Component responsibilities sub-entry (form).
 /// 
 /// Who owns and maintains this component: primary/backup owners, SLA targets,
 /// patch response time, security vulnerability handling, budget allocation.
@@ -6033,7 +5795,7 @@ class ComponentRisk extends SomNode {
   ComponentRiskContentForm get content => ComponentRiskContentForm(doc, '$path/content');
 }
 
-/// 12.6. Risk Assessment [PD00-COM-RIS].
+/// 12.6. Risk Assessment.
 /// 
 /// Component risk assessment: identified risks with probability/impact,
 /// monitoring, mitigation strategies, and contingency plans.
@@ -6043,14 +5805,14 @@ class ComponentRiskAssessment extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+  /// 12.6.1. Component Risks — contains 0+× Risk.
   SomList<ComponentRiskEntry> get risks => SomList<ComponentRiskEntry>(doc, '$path/CMRS-RISK-LST', (d, p) => ComponentRiskEntry(d, p));
 
-  /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+  /// 12.6.2. Contingency Plans.
   ContingencyPlans get contingencyPlans => ContingencyPlans(doc, '$path/contingencyPlans');
 }
 
-/// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+/// A component risk entry (form).
 /// 
 /// Documents one component risk: category, probability, impact, detection
 /// methods, mitigation strategy and status, residual risk, and ownership.
@@ -6110,7 +5872,7 @@ class ComponentRiskEntryMitigation extends SomNode {
   ComponentRiskEntryMitigationContentForm get content => ComponentRiskEntryMitigationContentForm(doc, '$path/content');
 }
 
-/// A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
+/// A component slot entry.
 /// 
 /// Defines a slot where child widgets can be placed.
 class ComponentSlotEntry extends SomNode {
@@ -6119,7 +5881,7 @@ class ComponentSlotEntry extends SomNode {
   ComponentSlotEntryContentForm get content => ComponentSlotEntryContentForm(doc, '$path/content');
 }
 
-/// A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
+/// A component state entry.
 /// 
 /// Defines a visual/functional state of the component.
 class ComponentStateEntry extends SomNode {
@@ -6161,7 +5923,7 @@ class ComponentStateEntryVisual extends SomNode {
   ComponentStateEntryVisualContentForm get content => ComponentStateEntryVisualContentForm(doc, '$path/content');
 }
 
-/// 12.1. Component Strategy [PD00-COM-STR].
+/// 12.1. Component Strategy.
 /// 
 /// Overall component strategy: build-vs-buy philosophy, preferred vendors,
 /// technology stack alignment, governance, evaluation cadence, and portfolio
@@ -6186,10 +5948,10 @@ class ComponentStrategy extends SomNode {
   /// Budget and pilot planning.
   ComponentStrategyPlanning get planning => ComponentStrategyPlanning(doc, '$path/planning');
 
-  /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+  /// 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
   SomList<ReuseGoalEntry> get reuseGoals => SomList<ReuseGoalEntry>(doc, '$path/RGUSE-REUS-LST', (d, p) => ReuseGoalEntry(d, p));
 
-  /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+  /// 12.1.2. Evaluation Criteria.
   EvaluationCriteria get evaluationCriteria => EvaluationCriteria(doc, '$path/evaluationCriteria');
 }
 
@@ -6235,7 +5997,7 @@ class ComponentSupport extends SomNode {
   ComponentSupportContentForm get content => ComponentSupportContentForm(doc, '$path/content');
 }
 
-/// A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
+/// A component variant entry.
 /// 
 /// Defines a variation of the component with different appearance or behavior.
 class ComponentVariantEntry extends SomNode {
@@ -6274,7 +6036,7 @@ class ComponentVendor extends SomNode {
   ComponentVendorContentForm get content => ComponentVendorContentForm(doc, '$path/content');
 }
 
-/// 12. Components to Use [PD00-COM]. Seeds → TR.
+/// 12. Components to Use. Seeds → TR.
 /// 
 /// External and standard components planned for use in the system. All
 /// subsections seed the TR document, where component choices are expanded
@@ -6286,22 +6048,22 @@ class ComponentsToUse extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 12.1. Component Strategy [PD00-COM-STR].
+  /// 12.1. Component Strategy.
   ComponentStrategy get strategy => ComponentStrategy(doc, '$path/strategy');
 
-  /// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+  /// 12.2. Component Catalog — contains 0+× Component.
   SomList<ComponentEntry> get componentCatalog => SomList<ComponentEntry>(doc, '$path/CMPNT-COMP-LST', (d, p) => ComponentEntry(d, p));
 
-  /// 12.3. Component Role In System [PD00-COM-ROL].
+  /// 12.3. Component Role In System.
   // (skipped: componentRoleInSystem has no target type)
 
-  /// 12.4. Runtime Dependencies [PD00-COM-RUN].
+  /// 12.4. Runtime Dependencies.
   RuntimeDependencies get runtimeDependencies => RuntimeDependencies(doc, '$path/runtimeDependencies');
 
-  /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+  /// 12.5. Maintenance Dependencies.
   MaintenanceDependencies get maintenanceDependencies => MaintenanceDependencies(doc, '$path/maintenanceDependencies');
 
-  /// 12.6. Risk Assessment [PD00-COM-RIS].
+  /// 12.6. Risk Assessment.
   ComponentRiskAssessment get riskAssessment => ComponentRiskAssessment(doc, '$path/riskAssessment');
 }
 
@@ -6342,7 +6104,7 @@ class ComputeResourceRequirementsSpecial extends SomNode {
   ComputeResourceRequirementsSpecialContentForm get content => ComputeResourceRequirementsSpecialContentForm(doc, '$path/content');
 }
 
-/// Computing equipment entry (form) [PD00-ORG-WOR-nn-EQU-PRI-nn].
+/// Computing equipment entry (form).
 class ComputingEquipmentEntry extends SomNode {
   ComputingEquipmentEntry(super.doc, super.path);
 
@@ -6401,7 +6163,7 @@ class ConfidentialInfoCategoryEntry extends SomNode {
   ConfidentialInfoCategoryEntryContentForm get content => ConfidentialInfoCategoryEntryContentForm(doc, '$path/content');
 }
 
-/// 3.6.2. Confidentiality and NDA Requirements [PD00-ADM-OTH-NDA].
+/// 3.6.2. Confidentiality and NDA Requirements.
 /// 
 /// Non-disclosure agreements and confidentiality constraints.
 class ConfidentialityRequirements extends SomNode {
@@ -6500,7 +6262,7 @@ class ConnectivityResilienceProtection extends SomNode {
   ConnectivityResilienceProtectionContentForm get content => ConnectivityResilienceProtectionContentForm(doc, '$path/content');
 }
 
-/// Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
+/// Consent collection, tracking and management requirements.
 class ConsentManagementRequirements extends SomNode {
   ConsentManagementRequirements(super.doc, super.path);
 
@@ -6571,7 +6333,7 @@ class ConstraintDetails extends SomNode {
   ConstraintDetailsContentForm get content => ConstraintDetailsContentForm(doc, '$path/content');
 }
 
-/// A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
+/// A constraint entry (form).
 /// 
 /// Represents a single external constraint limiting project degrees of
 /// freedom. Common constraint types include regulatory requirements,
@@ -6623,6 +6385,16 @@ class ConstraintMitigation extends SomNode {
   ConstraintMitigationContentForm get content => ConstraintMitigationContentForm(doc, '$path/content');
 }
 
+/// A single constraint register entry (form).
+/// 
+/// Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
+/// `ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+class ConstraintRegisterEntry extends SomNode {
+  ConstraintRegisterEntry(super.doc, super.path);
+
+  ConstraintRegisterEntryContentForm get content => ConstraintRegisterEntryContentForm(doc, '$path/content');
+}
+
 /// Tracking for constraint.
 class ConstraintTracking extends SomNode {
   ConstraintTracking(super.doc, super.path);
@@ -6630,7 +6402,7 @@ class ConstraintTracking extends SomNode {
   ConstraintTrackingContentForm get content => ConstraintTrackingContentForm(doc, '$path/content');
 }
 
-/// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+/// 4.6.4.1. Constraints.
 /// 
 /// External constraints limiting project scope, schedule, budget, or
 /// approach. Includes regulatory, contractual, organizational, technical,
@@ -6648,7 +6420,7 @@ class Constraints extends SomNode {
   // (skipped: constraintNarrative has no target type)
 }
 
-/// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+/// 4.6.4. Constraints and Dependencies.
 /// 
 /// Documents external constraints (regulatory, contractual, budgetary,
 /// timeline) and dependencies on other projects, teams, or organizational
@@ -6659,10 +6431,10 @@ class ConstraintsAndDependencies extends SomNode {
 
   ConstraintsAndDependenciesContentForm get content => ConstraintsAndDependenciesContentForm(doc, '$path/content');
 
-  /// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+  /// 4.6.4.1. Constraints.
   Constraints get constraints => Constraints(doc, '$path/constraints');
 
-  /// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+  /// 4.6.4.2. Dependencies.
   FrameworkDependencies get frameworkDependencies => FrameworkDependencies(doc, '$path/frameworkDependencies');
 }
 
@@ -6681,7 +6453,7 @@ class ContentScanningPolicy extends SomNode {
   // (skipped: contentScanningDetails has no target type)
 }
 
-/// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+/// 4.1.2.1. Context Diagram.
 /// 
 /// Visual representation of the system as a black box showing external
 /// entities and data flows (UML context diagram / DFD Level 0).
@@ -6700,7 +6472,7 @@ class ContextDiagram extends SomNode {
   set legend(String value) => doc.setContent('$path/legend', value);
 }
 
-/// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+/// 10.8.1. Contextual Help.
 class ContextualHelp extends SomNode {
   ContextualHelp(super.doc, super.path);
 
@@ -6753,7 +6525,7 @@ class ContextualHelpWhatsThis extends SomNode {
   ContextualHelpWhatsThisContentForm get content => ContextualHelpWhatsThisContentForm(doc, '$path/content');
 }
 
-/// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+/// 10.3.1.6. Contextual Navigation.
 /// 
 /// Breadcrumbs, back navigation, related links.
 class ContextualNavigation extends SomNode {
@@ -6762,7 +6534,7 @@ class ContextualNavigation extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+  /// 10.3.1.6.1. Breadcrumb Configuration.
   BreadcrumbConfiguration get breadcrumbs => BreadcrumbConfiguration(doc, '$path/breadcrumbs');
 
   /// Back navigation behavior.
@@ -6772,7 +6544,7 @@ class ContextualNavigation extends SomNode {
   // (skipped: relatedLinks has no target type)
 }
 
-/// A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
+/// A contingency plan entry (form).
 /// 
 /// Describes one contingency plan for a component risk: trigger conditions,
 /// immediate/recovery actions, RTO/RPO, communication, testing frequency.
@@ -6832,7 +6604,7 @@ class ContingencyPlanEntryTesting extends SomNode {
   ContingencyPlanEntryTestingContentForm get content => ContingencyPlanEntryTestingContentForm(doc, '$path/content');
 }
 
-/// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+/// 12.6.2. Contingency Plans.
 /// 
 /// Container for contingency plans addressing critical component risks.
 class ContingencyPlans extends SomNode {
@@ -6845,7 +6617,7 @@ class ContingencyPlans extends SomNode {
   SomList<ContingencyPlanEntry> get items => SomList<ContingencyPlanEntry>(doc, '$path/COPL-ITEM-LST', (d, p) => ContingencyPlanEntry(d, p));
 }
 
-/// 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
+/// 11.2.3. Correctness quality.
 class CorrectnessQuality extends SomNode {
   CorrectnessQuality(super.doc, super.path);
 
@@ -6921,7 +6693,7 @@ class CriticalKnowledgeAreaEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+/// 4.5.10. Cross-Boundary Error Handling.
 /// 
 /// Failure-propagation policy that applies across system boundaries.
 /// Distinct from per-interface error handling.
@@ -6932,7 +6704,7 @@ class CrossBoundaryErrorHandling extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+/// 4.5.9. Cross-Boundary Operational Considerations.
 /// 
 /// SLA, rate-limit, and change-window considerations applied at system
 /// boundaries. Distinct from per-interface operational data captured
@@ -7001,10 +6773,10 @@ class CrossCuttingConcernsShared extends SomNode {
   CrossCuttingConcernsSharedContentForm get content => CrossCuttingConcernsSharedContentForm(doc, '$path/content');
 }
 
-/// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+/// 6.1.8. Cross-Process Analysis.
 /// 
 /// Hand-offs, shared data, and coordination patterns between processes.
-/// Covers HBSG AS07-CRO.
+/// .
 class CrossProcessAnalysis extends SomNode {
   CrossProcessAnalysis(super.doc, super.path);
 
@@ -7036,7 +6808,7 @@ class CulturalConsiderationEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+/// 1.1.2. Current Architecture.
 /// 
 /// Description of the current system architecture including deployment
 /// topology, integration patterns, shared services, and data stores.
@@ -7046,22 +6818,22 @@ class CurrentArchitecture extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
+  /// Architecture overview diagram.
   String get architectureDiagram => doc.content('$path/architectureDiagram') ?? '';
   set architectureDiagram(String value) => doc.setContent('$path/architectureDiagram', value);
 
-  /// Deployment topology description [PD00-CUR-SYS-ARC-DEP].
+  /// Deployment topology description.
   String get deploymentTopology => doc.content('$path/deploymentTopology') ?? '';
   set deploymentTopology(String value) => doc.setContent('$path/deploymentTopology', value);
 
-  /// Integration patterns used [PD00-CUR-SYS-ARC-INT].
+  /// Integration patterns used.
   SomList<IntegrationPatternEntry> get integrationPatterns => SomList<IntegrationPatternEntry>(doc, '$path/INTEG1-INTE-LST', (d, p) => IntegrationPatternEntry(d, p));
 
-  /// Shared services inventory [PD00-CUR-SYS-ARC-SHR].
+  /// Shared services inventory.
   SomList<SharedServiceEntry> get sharedServices => SomList<SharedServiceEntry>(doc, '$path/SHARE-SHAR-LST', (d, p) => SharedServiceEntry(d, p));
 }
 
-/// A current business process [PD00-CUR-PRO-nn].
+/// A current business process.
 /// 
 /// Detailed documentation of a single business process including its
 /// workflows, actors, metrics, and pain points.
@@ -7073,17 +6845,17 @@ class CurrentBusinessProcess extends SomNode {
   /// Process context and purpose.
   ProcessContext get processContext => ProcessContext(doc, '$path/processContext');
 
-  /// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
+  /// 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
   WorkflowDescriptions get workflowDescriptions => WorkflowDescriptions(doc, '$path/workflowDescriptions');
 
-  /// 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
+  /// 1.2.nn.2. Process Metrics.
   ProcessMetrics get processMetrics => ProcessMetrics(doc, '$path/processMetrics');
 
   /// Process pain points and improvement opportunities.
   ProcessPainPoints get processPainPoints => ProcessPainPoints(doc, '$path/processPainPoints');
 }
 
-/// 1.2. Current Business Processes [PD00-CUR-PRO].
+/// 1.2. Current Business Processes.
 /// 
 /// Documents the current business processes that the project will impact,
 /// replace, or enhance. Understanding existing workflows is critical for
@@ -7095,24 +6867,24 @@ class CurrentBusinessProcesses extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Process landscape diagram [PD00-CUR-PRO-DIA].
+  /// Process landscape diagram.
   String get processLandscapeDiagram => doc.content('$path/processLandscapeDiagram') ?? '';
   set processLandscapeDiagram(String value) => doc.setContent('$path/processLandscapeDiagram', value);
 
-  /// Process scope summary [PD00-CUR-PRO-SCO].
+  /// Process scope summary.
   ProcessScopeSummary get scopeSummary => ProcessScopeSummary(doc, '$path/scopeSummary');
 
-  /// Process interdependency matrix [PD00-CUR-PRO-INT].
+  /// Process interdependency matrix.
   ProcessInterdependencyMatrix get interdependencyMatrix => ProcessInterdependencyMatrix(doc, '$path/interdependencyMatrix');
 
-  /// Process performance summary [PD00-CUR-PRO-SUM].
+  /// Process performance summary.
   ProcessPerformanceSummary get performanceSummary => ProcessPerformanceSummary(doc, '$path/performanceSummary');
 
-  /// 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
+  /// 1.2.nn. Business Processes — contains 1+× Business Process.
   SomList<CurrentBusinessProcess> get processes => SomList<CurrentBusinessProcess>(doc, '$path/CUBIPR-PROC-LST', (d, p) => CurrentBusinessProcess(d, p));
 }
 
-/// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+/// 1.4.8. Data Classification.
 /// 
 /// Data classification framework, sensitivity levels, and current
 /// classification status of data assets.
@@ -7132,7 +6904,7 @@ class CurrentDataClassification extends SomNode {
   SomList<DataClassificationStatusEntry> get classificationStatus => SomList<DataClassificationStatusEntry>(doc, '$path/DCSE-CLAS-LST', (d, p) => DataClassificationStatusEntry(d, p));
 }
 
-/// 1.4. Current Data Landscape [PD00-CUR-DAT].
+/// 1.4. Current Data Landscape.
 /// 
 /// Comprehensive documentation of the current data situation including where
 /// data lives, data quality issues, duplication, ownership, volumes, growth
@@ -7154,38 +6926,117 @@ class CurrentDataLandscape extends SomNode {
   /// Summary statistics and health indicators.
   DataLandscapeSummary get dataLandscapeSummary => DataLandscapeSummary(doc, '$path/dataLandscapeSummary');
 
-  /// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+  /// 1.4.1. Data Source Inventory.
   DataSourceInventory get dataSourceInventory => DataSourceInventory(doc, '$path/dataSourceInventory');
 
-  /// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+  /// 1.4.2. Data Quality Assessment.
   DataQualityAssessment get dataQualityAssessment => DataQualityAssessment(doc, '$path/dataQualityAssessment');
 
-  /// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+  /// 1.4.3. Data Duplication Analysis.
   DataDuplicationAnalysis get dataDuplicationAnalysis => DataDuplicationAnalysis(doc, '$path/dataDuplicationAnalysis');
 
-  /// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+  /// 1.4.4. Data Ownership and Stewardship.
   DataOwnership get dataOwnership => DataOwnership(doc, '$path/dataOwnership');
 
-  /// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+  /// 1.4.5. Data Volumes and Growth.
   DataVolumesAndGrowth get dataVolumesAndGrowth => DataVolumesAndGrowth(doc, '$path/dataVolumesAndGrowth');
 
-  /// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+  /// 1.4.6. Retention Policies.
   DataRetentionPolicies get retentionPolicies => DataRetentionPolicies(doc, '$path/retentionPolicies');
 
-  /// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+  /// 1.4.7. Data Governance.
   DataGovernance get dataGovernance => DataGovernance(doc, '$path/dataGovernance');
 
-  /// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+  /// 1.4.8. Data Classification.
   CurrentDataClassification get dataClassification => CurrentDataClassification(doc, '$path/dataClassification');
 
-  /// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+  /// 1.4.9. Data Integration Points.
   DataIntegrationPoints get dataIntegrationPoints => DataIntegrationPoints(doc, '$path/dataIntegrationPoints');
 
-  /// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+  /// 1.4.10. Master Data Management.
   MasterDataManagement get masterDataManagement => MasterDataManagement(doc, '$path/masterDataManagement');
 }
 
-/// 1.5. Operational Metrics [PD00-CUR-MET].
+/// 1. Current State Analysis. Seeds → CS.
+/// 
+/// Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
+/// CS together with the systems-to-replace inventory.
+class CurrentLandscape extends SomNode {
+  CurrentLandscape(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 1.1. Existing Systems Landscape.
+  ExistingSystemsLandscape get existingSystemsLandscape => ExistingSystemsLandscape(doc, '$path/existingSystemsLandscape');
+
+  /// 1.2. Current Business Processes.
+  CurrentBusinessProcesses get currentBusinessProcesses => CurrentBusinessProcesses(doc, '$path/currentBusinessProcesses');
+
+  /// 1.3. Pain Points and Gaps.
+  PainPointsAndGaps get painPointsAndGaps => PainPointsAndGaps(doc, '$path/painPointsAndGaps');
+
+  /// 1.4. Current Data Landscape.
+  CurrentDataLandscape get currentDataLandscape => CurrentDataLandscape(doc, '$path/currentDataLandscape');
+
+  /// 1.5. Operational Metrics.
+  SomList<CurrentOperationalMetrics> get operationalMetrics => SomList<CurrentOperationalMetrics>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetrics(d, p));
+
+  /// 1.6. Current State Risks.
+  CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
+}
+
+/// CS00 Current Situation.
+/// 
+/// Detailed analysis of the current state: existing systems, business
+/// processes, pain points, data landscape, operational metrics, risks,
+/// and the inventory / migration plan for the systems being replaced.
+class CurrentLandscapeAssessment extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  CurrentLandscapeAssessment(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'CLA') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Existing systems landscape.
+  ExistingSystemsLandscape get existingSystemsLandscape => ExistingSystemsLandscape(doc, '$path/existingSystemsLandscape');
+
+  /// Current business processes.
+  CurrentBusinessProcesses get currentBusinessProcesses => CurrentBusinessProcesses(doc, '$path/currentBusinessProcesses');
+
+  /// Pain points and gaps.
+  PainPointsAndGaps get painPointsAndGaps => PainPointsAndGaps(doc, '$path/painPointsAndGaps');
+
+  /// Current data landscape.
+  CurrentDataLandscape get currentDataLandscape => CurrentDataLandscape(doc, '$path/currentDataLandscape');
+
+  /// Current operational metrics.
+  SomList<CurrentOperationalMetrics> get operationalMetrics => SomList<CurrentOperationalMetrics>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetrics(d, p));
+
+  /// Current-state risk assessment.
+  CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
+
+  /// Replacement inventory.
+  ReplacementInventory get replacementInventory => ReplacementInventory(doc, '$path/replacementInventory');
+
+  /// Migration considerations.
+  MigrationConsiderations get migrationConsiderations => MigrationConsiderations(doc, '$path/migrationConsiderations');
+}
+
+/// 1.5. Operational Metrics.
 /// 
 /// Baseline metrics of the current systems: throughput, volume, uptime,
 /// response times, user counts. Used to size the target system and to
@@ -7204,89 +7055,10 @@ class CurrentProcessImprovementEntry extends SomNode {
   CurrentProcessImprovementEntryContentForm get content => CurrentProcessImprovementEntryContentForm(doc, '$path/content');
 }
 
-/// CS00 Current Situation.
-/// 
-/// Detailed analysis of the current state: existing systems, business
-/// processes, pain points, data landscape, operational metrics, risks,
-/// and the inventory / migration plan for the systems being replaced.
-class CurrentSituation extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  CurrentSituation(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'CS') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Existing systems landscape — PD00-CUR-SYS.
-  ExistingSystemsLandscape get existingSystemsLandscape => ExistingSystemsLandscape(doc, '$path/existingSystemsLandscape');
-
-  /// Current business processes — PD00-CUR-PRO.
-  CurrentBusinessProcesses get currentBusinessProcesses => CurrentBusinessProcesses(doc, '$path/currentBusinessProcesses');
-
-  /// Pain points and gaps — PD00-CUR-PAI.
-  PainPointsAndGaps get painPointsAndGaps => PainPointsAndGaps(doc, '$path/painPointsAndGaps');
-
-  /// Current data landscape — PD00-CUR-DAT.
-  CurrentDataLandscape get currentDataLandscape => CurrentDataLandscape(doc, '$path/currentDataLandscape');
-
-  /// Current operational metrics — PD00-CUR-MET.
-  SomList<CurrentOperationalMetrics> get operationalMetrics => SomList<CurrentOperationalMetrics>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetrics(d, p));
-
-  /// Current-state risk assessment — PD00-CUR-RIS.
-  CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
-
-  /// Replacement inventory — PD00-SYO-SYR-INV.
-  ReplacementInventory get replacementInventory => ReplacementInventory(doc, '$path/replacementInventory');
-
-  /// Migration considerations — PD00-SYO-SYR-MIG.
-  MigrationConsiderations get migrationConsiderations => MigrationConsiderations(doc, '$path/migrationConsiderations');
-}
-
-/// 1. Current State Analysis [PD00-CUR]. Seeds → CS.
-/// 
-/// Seeds the CS (Current Situation) Phase 3 DocSpec. Previously listed as
-/// PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
-class CurrentStateAnalysis extends SomNode {
-  CurrentStateAnalysis(super.doc, super.path);
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
-  ExistingSystemsLandscape get existingSystemsLandscape => ExistingSystemsLandscape(doc, '$path/existingSystemsLandscape');
-
-  /// 1.2. Current Business Processes [PD00-CUR-PRO].
-  CurrentBusinessProcesses get currentBusinessProcesses => CurrentBusinessProcesses(doc, '$path/currentBusinessProcesses');
-
-  /// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
-  PainPointsAndGaps get painPointsAndGaps => PainPointsAndGaps(doc, '$path/painPointsAndGaps');
-
-  /// 1.4. Current Data Landscape [PD00-CUR-DAT].
-  CurrentDataLandscape get currentDataLandscape => CurrentDataLandscape(doc, '$path/currentDataLandscape');
-
-  /// 1.5. Operational Metrics [PD00-CUR-MET].
-  SomList<CurrentOperationalMetrics> get operationalMetrics => SomList<CurrentOperationalMetrics>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetrics(d, p));
-
-  /// 1.6. Current State Risks [PD00-CUR-RIS].
-  CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
-}
-
-/// 1.6. Current State Risks [PD00-CUR-RIS].
+/// 1.6. Current State Risks.
 /// 
 /// Risks tied to the current state and to its replacement. Distinct from
-/// PD00-SYO-RIS which covers target-side risks.
+/// the target-side risks section which covers replacement risks.
 class CurrentStateRiskAssessment extends SomNode {
   CurrentStateRiskAssessment(super.doc, super.path);
 
@@ -7294,7 +7066,7 @@ class CurrentStateRiskAssessment extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+/// A current workflow entry (form).
 /// 
 /// Detailed documentation of a single workflow within a business process.
 /// Includes triggers, steps, actors, inputs, outputs, and timing.
@@ -7303,7 +7075,7 @@ class CurrentWorkflowEntry extends SomNode {
 
   CurrentWorkflowEntryContentForm get content => CurrentWorkflowEntryContentForm(doc, '$path/content');
 
-  /// Workflow diagram [PD00-CUR-PRO-xx-WOR-xx-DIA].
+  /// Workflow diagram.
   String get workflowDiagram => doc.content('$path/workflowDiagram') ?? '';
   set workflowDiagram(String value) => doc.setContent('$path/workflowDiagram', value);
 
@@ -7351,14 +7123,14 @@ class CustomDistributionGroup extends SomNode {
   SomList<DistributionRecipientEntry> get members => SomList<DistributionRecipientEntry>(doc, '$path/DSRC-MEMB-LST', (d, p) => DistributionRecipientEntry(d, p));
 }
 
-/// A custom metric entry [PD00-TEC-SYS-MON-MET-nn].
+/// A custom metric entry.
 class CustomMetricEntry extends SomNode {
   CustomMetricEntry(super.doc, super.path);
 
   CustomMetricEntryContentForm get content => CustomMetricEntryContentForm(doc, '$path/content');
 }
 
-/// 15.6. Cutover Procedures [PD00-ROL-CUT].
+/// 15.6. Cutover Procedures.
 /// 
 /// Detailed cutover runbook for go-live. Minute-by-minute procedure
 /// covering the transition from current operation to the target system.
@@ -7369,7 +7141,7 @@ class CutoverProcedures extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// A dashboard entry [PD00-TEC-SYS-MON-DAS-nn].
+/// A dashboard entry.
 class DashboardEntry extends SomNode {
   DashboardEntry(super.doc, super.path);
 
@@ -7540,7 +7312,7 @@ class DataAttributeConstraintEntry extends SomNode {
   DataAttributeConstraintEntryContentForm get content => DataAttributeConstraintEntryContentForm(doc, '$path/content');
 }
 
-/// A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
+/// A data attribute entry (form).
 /// 
 /// Comprehensive attribute specification for data dictionary and schema design.
 class DataAttributeEntry extends SomNode {
@@ -7561,17 +7333,17 @@ class DataAttributeEntry extends SomNode {
   SomList<DisplayPropertyEntry> get displayProperties => SomList<DisplayPropertyEntry>(doc, '$path/DISPL-DISP-LST', (d, p) => DisplayPropertyEntry(d, p));
 }
 
-/// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+/// 7.1.4. Data Classification.
 class DataClassification extends SomNode {
   DataClassification(super.doc, super.path);
 
   DataClassificationOverviewForm get overview => DataClassificationOverviewForm(doc, '$path/overview');
 
-  /// Contains 0+× DataClassificationEntry [PD00-BUS-DAT-CLA-nn].
+  /// Contains 0+× DataClassificationEntry.
   SomList<DataClassificationEntry> get items => SomList<DataClassificationEntry>(doc, '$path/DCLSE-ITEM-LST', (d, p) => DataClassificationEntry(d, p));
 }
 
-/// A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
+/// A data classification entry (form).
 /// 
 /// Comprehensive data classification for security and compliance.
 class DataClassificationEntry extends SomNode {
@@ -7587,10 +7359,10 @@ class DataClassificationEntry extends SomNode {
 
   DataClassificationEntryComplianceForm get compliance => DataClassificationEntryComplianceForm(doc, '$path/compliance');
 
-  /// Contains 0+× HandlingRequirement [PD00-BUS-DAT-CLA-nn-HAN].
+  /// Contains 0+× HandlingRequirement.
   SomList<HandlingRequirementEntry> get handlingRequirements => SomList<HandlingRequirementEntry>(doc, '$path/HNDRE-HAND-LST', (d, p) => HandlingRequirementEntry(d, p));
 
-  /// Contains 0+× AccessRestriction [PD00-BUS-DAT-CLA-nn-ARE].
+  /// Contains 0+× AccessRestriction.
   SomList<AccessRestrictionEntry> get accessRestrictions => SomList<AccessRestrictionEntry>(doc, '$path/ACRSE-ACCE-LST', (d, p) => AccessRestrictionEntry(d, p));
 }
 
@@ -7615,10 +7387,10 @@ class DataClassificationSummary extends SomNode {
   DataClassificationSummaryContentForm get content => DataClassificationSummaryContentForm(doc, '$path/content');
 }
 
-/// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC].
+/// 7.1.5. Data Dictionary.
 /// 
 /// Attribute-level dictionary that complements the entity overview
-/// (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
+/// ..
 class DataDictionary extends SomNode {
   DataDictionary(super.doc, super.path);
 
@@ -7626,7 +7398,7 @@ class DataDictionary extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+/// 1.4.3. Data Duplication Analysis.
 /// 
 /// Analysis of data duplication across systems, including redundant data
 /// stores, duplicated records, and synchronization challenges.
@@ -7691,7 +7463,7 @@ class DataDuplicationSummary extends SomNode {
   DataDuplicationSummaryContentForm get content => DataDuplicationSummaryContentForm(doc, '$path/content');
 }
 
-/// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+/// A data entity entry (form).
 /// 
 /// Comprehensive entity specification following data modeling best practices.
 /// Captures conceptual, logical, and physical design aspects.
@@ -7712,23 +7484,23 @@ class DataEntityEntry extends SomNode {
 
   SomList<TechnicalCharacteristicEntry> get technicalCharacteristics => SomList<TechnicalCharacteristicEntry>(doc, '$path/TECHN-TECH-LST', (d, p) => TechnicalCharacteristicEntry(d, p));
 
-  /// Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
+  /// Contains 0+× DataAttribute.
   SomList<DataAttributeEntry> get attributes => SomList<DataAttributeEntry>(doc, '$path/DAATT-ATTR-LST', (d, p) => DataAttributeEntry(d, p));
 
-  /// Contains 0+× KeyAttribute [PD00-BUS-DAT-ENT-nn-KEY].
+  /// Contains 0+× KeyAttribute.
   SomList<KeyAttributeEntry> get keyAttributes => SomList<KeyAttributeEntry>(doc, '$path/KEATT-KEYA-LST', (d, p) => KeyAttributeEntry(d, p));
 
-  /// Contains 0+× EntityIndex [PD00-BUS-DAT-ENT-nn-IDX].
+  /// Contains 0+× EntityIndex.
   SomList<EntityIndexEntry> get indexes => SomList<EntityIndexEntry>(doc, '$path/ENIDX-INDE-LST', (d, p) => EntityIndexEntry(d, p));
 
-  /// Contains 0+× EntityConstraint [PD00-BUS-DAT-ENT-nn-CON].
+  /// Contains 0+× EntityConstraint.
   SomList<EntityConstraintEntry> get constraints => SomList<EntityConstraintEntry>(doc, '$path/ENCNS-CONS-LST', (d, p) => EntityConstraintEntry(d, p));
 
-  /// Contains 0+× MigrationMapping [PD00-BUS-DAT-ENT-nn-MIG] for data migration planning.
+  /// Contains 0+× MigrationMapping for data migration planning.
   SomList<MigrationMappingEntry> get migrationMappings => SomList<MigrationMappingEntry>(doc, '$path/MIGME-MIGR-LST', (d, p) => MigrationMappingEntry(d, p));
 }
 
-/// A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn].
+/// A data entity migration entry.
 class DataEntityMigrationEntry extends SomNode {
   DataEntityMigrationEntry(super.doc, super.path);
 
@@ -7792,7 +7564,7 @@ class DataFormatCompatibilityNumbers extends SomNode {
   DataFormatCompatibilityNumbersContentForm get content => DataFormatCompatibilityNumbersContentForm(doc, '$path/content');
 }
 
-/// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+/// 1.4.7. Data Governance.
 /// 
 /// Current data governance structure, policies, processes, and maturity level.
 class DataGovernance extends SomNode {
@@ -7947,7 +7719,7 @@ class DataIntegrationEntryTransport extends SomNode {
   DataIntegrationEntryTransportContentForm get content => DataIntegrationEntryTransportContentForm(doc, '$path/content');
 }
 
-/// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+/// 1.4.9. Data Integration Points.
 /// 
 /// Documentation of data integration points, ETL processes, APIs,
 /// and data exchange mechanisms.
@@ -7982,7 +7754,7 @@ class DataLandscapeSummary extends SomNode {
   DataLandscapeSummaryContentForm get content => DataLandscapeSummaryContentForm(doc, '$path/content');
 }
 
-/// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+/// 9.3.1. Data-Level Security.
 /// 
 /// Comprehensive data access protection specification covering database-level
 /// security, row-level security, column-level security, tenant data isolation,
@@ -8031,7 +7803,7 @@ class DataMaskingPolicy extends SomNode {
   // (skipped: dataMaskingDetails has no target type)
 }
 
-/// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+/// 13.5. Data Migration Strategy.
 /// 
 /// Comprehensive data migration strategy covering approach, methodology,
 /// tooling, environment strategy, data quality governance, cutover
@@ -8085,43 +7857,43 @@ class DataMigrationStrategy extends SomNode {
   /// Migration strategy narrative.
   // (skipped: migrationStrategyNarrative has no target type)
 
-  /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+  /// 13.5.1. Migration Phases.
   MigrationPhases get migrationPhases => MigrationPhases(doc, '$path/migrationPhases');
 
-  /// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+  /// 13.5.2. Migration Risks.
   StageMigrationRisks get migrationRisks => StageMigrationRisks(doc, '$path/migrationRisks');
 }
 
-/// 7.1. Data Model [PD00-BUS-DAT].
+/// 7.1. Data Model.
 class DataModel extends SomNode {
   DataModel(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
+  /// 7.1.1. Entity Overview — contains 1+× Data Entity.
   SomList<DataEntityEntry> get entities => SomList<DataEntityEntry>(doc, '$path/DAENT-ENTI-LST', (d, p) => DataEntityEntry(d, p));
 
-  /// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+  /// 7.1.2. Entity Relationships.
   EntityRelationships get entityRelationships => EntityRelationships(doc, '$path/entityRelationships');
 
-  /// 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
+  /// 7.1.3. Entity-Relationship Diagram (mermaid).
   // (skipped: erDiagram has no target type)
 
-  /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+  /// 7.1.4. Data Classification.
   DataClassification get dataClassification => DataClassification(doc, '$path/dataClassification');
 
-  /// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
+  /// 7.1.5. Data Dictionary..
   DataDictionary get dataDictionary => DataDictionary(doc, '$path/dataDictionary');
 
-  /// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+  /// 7.1.6. Validation Constraints.
   SomList<ValidationConstraints> get validationConstraints => SomList<ValidationConstraints>(doc, '$path/VACO-VALI-LST', (d, p) => ValidationConstraints(d, p));
 
-  /// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+  /// 7.1.7. Integrity Constraints.
   SomList<IntegrityConstraints> get integrityConstraints => SomList<IntegrityConstraints>(doc, '$path/INCO-INTE-LST', (d, p) => IntegrityConstraints(d, p));
 }
 
-/// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+/// 1.4.4. Data Ownership and Stewardship.
 /// 
 /// Documentation of data ownership structures, stewardship roles,
 /// and accountability for data assets.
@@ -8176,7 +7948,7 @@ class DataOwnershipSummary extends SomNode {
   DataOwnershipSummaryContentForm get content => DataOwnershipSummaryContentForm(doc, '$path/content');
 }
 
-/// Data processing agreement requirements [PD00-TEC-SEC-PRI].
+/// Data processing agreement requirements.
 class DataProcessingAgreementRequirements extends SomNode {
   DataProcessingAgreementRequirements(super.doc, super.path);
 
@@ -8223,7 +7995,7 @@ class DataProcessingAgreementRequirementsTransfers extends SomNode {
   DataProcessingAgreementRequirementsTransfersContentForm get content => DataProcessingAgreementRequirementsTransfersContentForm(doc, '$path/content');
 }
 
-/// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+/// 8.8.2. Data Protection and Privacy.
 /// 
 /// Comprehensive data protection and privacy requirements including
 /// GDPR compliance, data residency, consent management, data subject
@@ -8260,10 +8032,10 @@ class DataProtectionAndPrivacySection extends SomNode {
   DataProtectionClassification get dataClassification => DataProtectionClassification(doc, '$path/dataClassification');
 }
 
-/// Data protection classification and handling rules [PD00-TEC-SEC-PRI].
+/// Data protection classification and handling rules.
 /// 
 /// Named DataProtectionClassification to avoid collision with
-/// DataClassification in business_data_model.dart.
+/// DataClassification in information_and_data_model.dart.
 class DataProtectionClassification extends SomNode {
   DataProtectionClassification(super.doc, super.path);
 
@@ -8310,7 +8082,7 @@ class DataProtectionClassificationRetention extends SomNode {
   DataProtectionClassificationRetentionContentForm get content => DataProtectionClassificationRetentionContentForm(doc, '$path/content');
 }
 
-/// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+/// 1.4.2. Data Quality Assessment.
 /// 
 /// Comprehensive assessment of data quality across the organization,
 /// covering accuracy, completeness, consistency, timeliness, and validity.
@@ -8385,7 +8157,7 @@ class DataQualityIssueEntryResolution extends SomNode {
   DataQualityIssueEntryResolutionContentForm get content => DataQualityIssueEntryResolutionContentForm(doc, '$path/content');
 }
 
-/// Data residency and sovereignty requirements [PD00-TEC-SEC-PRI].
+/// Data residency and sovereignty requirements.
 class DataResidencyRequirements extends SomNode {
   DataResidencyRequirements(super.doc, super.path);
 
@@ -8422,7 +8194,7 @@ class DataResidencyRequirementsVerification extends SomNode {
   DataResidencyRequirementsVerificationContentForm get content => DataResidencyRequirementsVerificationContentForm(doc, '$path/content');
 }
 
-/// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+/// 1.4.6. Retention Policies.
 /// 
 /// Documentation of data retention policies, legal requirements,
 /// archival strategies, and data lifecycle management.
@@ -8453,7 +8225,7 @@ class DataSourceEntityEntry extends SomNode {
   DataSourceEntityEntryContentForm get content => DataSourceEntityEntryContentForm(doc, '$path/content');
 }
 
-/// A data source entry (form) [PD00-CUR-DAT-SRC-nn].
+/// A data source entry (form).
 /// 
 /// Documents a specific data source/store with comprehensive details about
 /// technology, format, volume, quality, ownership, and access patterns.
@@ -8497,7 +8269,7 @@ class DataSourceIntegration extends SomNode {
   DataSourceIntegrationContentForm get content => DataSourceIntegrationContentForm(doc, '$path/content');
 }
 
-/// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+/// 1.4.1. Data Source Inventory.
 /// 
 /// Comprehensive inventory of all data sources, stores, and repositories
 /// in the current environment.
@@ -8557,7 +8329,7 @@ class DataSourceVolume extends SomNode {
   DataSourceVolumeContentForm get content => DataSourceVolumeContentForm(doc, '$path/content');
 }
 
-/// Data subject rights management [PD00-TEC-SEC-PRI].
+/// Data subject rights management.
 /// 
 /// Covers GDPR Articles 15–22: right of access, rectification, erasure,
 /// restriction, portability, objection, and automated decision-making.
@@ -8671,7 +8443,7 @@ class DataVolumeSummaryProjection extends SomNode {
   DataVolumeSummaryProjectionContentForm get content => DataVolumeSummaryProjectionContentForm(doc, '$path/content');
 }
 
-/// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+/// 1.4.5. Data Volumes and Growth.
 /// 
 /// Analysis of current data volumes, historical growth trends,
 /// and projections for future capacity needs.
@@ -8841,14 +8613,14 @@ class DecisionAuthorityEntry extends SomNode {
   DecisionAuthorityEntryContentForm get content => DecisionAuthorityEntryContentForm(doc, '$path/content');
 }
 
-/// A decision maker entry [PD00-SYO-RES-ORG-DEC-nn].
+/// A decision maker entry.
 class DecisionMakerEntry extends SomNode {
   DecisionMakerEntry(super.doc, super.path);
 
   DecisionMakerEntryContentForm get content => DecisionMakerEntryContentForm(doc, '$path/content');
 }
 
-/// A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
+/// A decision option entry (form).
 /// 
 /// One of the available options for a decision point, with full
 /// impact analysis, feasibility assessment, and trade-off evaluation.
@@ -8898,7 +8670,7 @@ class DecisionOptionEntryTradeOffs extends SomNode {
   DecisionOptionEntryTradeOffsContentForm get content => DecisionOptionEntryTradeOffsContentForm(doc, '$path/content');
 }
 
-/// A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
+/// A decision point entry (form).
 /// 
 /// A single formal decision point with defined timing, criteria,
 /// authority, available options with impact analysis, and recording
@@ -8955,7 +8727,7 @@ class DecisionPointEntryStakeholders extends SomNode {
   DecisionPointEntryStakeholdersContentForm get content => DecisionPointEntryStakeholdersContentForm(doc, '$path/content');
 }
 
-/// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+/// 13.6.2. Decision Points.
 /// 
 /// Key decision points in the stage plan including go/no-go
 /// decisions, scope adjustments, resource reallocations, and
@@ -8973,14 +8745,14 @@ class DecisionPoints extends SomNode {
   SomList<DecisionPointEntry> get items => SomList<DecisionPointEntry>(doc, '$path/DEPOEN-ITEM-LST', (d, p) => DecisionPointEntry(d, p));
 }
 
-/// A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn].
+/// A deep link pattern entry (form).
 class DeepLinkPatternEntry extends SomNode {
   DeepLinkPatternEntry(super.doc, super.path);
 
   DeepLinkPatternEntryContentForm get content => DeepLinkPatternEntryContentForm(doc, '$path/content');
 }
 
-/// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+/// 10.3.1.7. Deep Linking.
 /// 
 /// External entry points, URL patterns, share links.
 class DeepLinking extends SomNode {
@@ -8996,7 +8768,7 @@ class DeepLinking extends SomNode {
   SomList<DeepLinkPatternEntry> get patterns => SomList<DeepLinkPatternEntry>(doc, '$path/DELNPT-PATT-LST', (d, p) => DeepLinkPatternEntry(d, p));
 }
 
-/// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+/// 14.2.4. Defect Resolution.
 /// 
 /// Defines how defects found during acceptance testing are classified,
 /// managed, resolved, and tracked. Covers severity classification,
@@ -9071,7 +8843,7 @@ class DeliverableDocumentation extends SomNode {
   DeliverableDocumentationContentForm get content => DeliverableDocumentationContentForm(doc, '$path/content');
 }
 
-/// A deliverable entry (form) [PD00-DEL-DEL-nn].
+/// A deliverable entry (form).
 /// 
 /// Represents a single deliverable item within any deliverable category.
 /// Captures identification, delivery logistics, quality requirements,
@@ -9148,7 +8920,7 @@ class DeliverableVersion extends SomNode {
   DeliverableVersionContentForm get content => DeliverableVersionContentForm(doc, '$path/content');
 }
 
-/// An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
+/// An acceptance criterion entry (form).
 /// 
 /// A single criterion that must be met for formal project acceptance.
 /// Aligned with IEEE 830 acceptance criteria structure and ISTQB
@@ -9209,41 +8981,119 @@ class DeliveryAcceptanceCriterionEntryVerification extends SomNode {
   DeliveryAcceptanceCriterionEntryVerificationContentForm get content => DeliveryAcceptanceCriterionEntryVerificationContentForm(doc, '$path/content');
 }
 
-/// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+/// PPP00 Project Phase Plan.
+/// 
+/// Full project phase plan — staging strategy, stage overview, per-stage
+/// entries, feature prioritization, data migration, gate criteria,
+/// decision processes, initial development flow, and upgrade cycle
+/// framework.
+class DeliveryRoadmap extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  DeliveryRoadmap(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'DRM') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Staging strategy.
+  StagingStrategy get stagingStrategy => StagingStrategy(doc, '$path/stagingStrategy');
+
+  /// Stage overview.
+  StageOverview get stageOverview => StageOverview(doc, '$path/stageOverview');
+
+  /// Stages (list).
+  SomList<StageEntry> get stages => SomList<StageEntry>(doc, '$path/STAGE-STAG-LST', (d, p) => StageEntry(d, p));
+
+  /// Feature prioritization.
+  FeaturePrioritization get featurePrioritization => FeaturePrioritization(doc, '$path/featurePrioritization');
+
+  /// Data migration strategy.
+  DataMigrationStrategy get dataMigrationStrategy => DataMigrationStrategy(doc, '$path/dataMigrationStrategy');
+
+  /// Gate criteria (promoted from GOV).
+  PhaseGateReviews get gateCriteria => PhaseGateReviews(doc, '$path/gateCriteria');
+
+  /// Decision processes (promoted from GOV).
+  DecisionPoints get decisionProcesses => DecisionPoints(doc, '$path/decisionProcesses');
+
+  /// Initial development flow.
+  InitialDevelopmentFlow get initialDevelopmentFlow => InitialDevelopmentFlow(doc, '$path/initialDevelopmentFlow');
+
+  /// Upgrade cycle framework (links tom_system_upgrade.md).
+  UpgradeCycleFramework get upgradeCycleFramework => UpgradeCycleFramework(doc, '$path/upgradeCycleFramework');
+}
+
+/// 14.1. Delivery and Service Scope.
 class DeliveryScope extends SomNode {
   DeliveryScope(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+  /// 14.1.1. Software Deliverables.
   SoftwareDeliverables get softwareDeliverables => SoftwareDeliverables(doc, '$path/softwareDeliverables');
 
-  /// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+  /// 14.1.2. Documentation Deliverables.
   DocumentationDeliverables get documentationDeliverables => DocumentationDeliverables(doc, '$path/documentationDeliverables');
 
-  /// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+  /// 14.1.3. Training Deliverables.
   TrainingDeliverables get trainingDeliverables => TrainingDeliverables(doc, '$path/trainingDeliverables');
 
-  /// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+  /// 14.1.4. Support Deliverables.
   SupportDeliverables get supportDeliverables => SupportDeliverables(doc, '$path/supportDeliverables');
 }
 
-/// 14. Delivery Scope and Acceptance [PD00-DEL].
+/// 14. Delivery Scope and Acceptance.
 class DeliveryScopeAndAcceptance extends SomNode {
   DeliveryScopeAndAcceptance(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+  /// 14.1. Delivery and Service Scope.
   DeliveryScope get deliveryScope => DeliveryScope(doc, '$path/deliveryScope');
 
-  /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+  /// 14.2. Acceptance Plan. Seeds → BQP.
   AcceptancePlan get acceptancePlan => AcceptancePlan(doc, '$path/acceptancePlan');
 }
 
-/// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+/// SBP.15 Delivery, Transition & Rollout.
+/// 
+/// Public anchor: PMBOK phasing + ISO 29148 transition requirements.
+class DeliveryTransitionAndRollout extends SomNode {
+  DeliveryTransitionAndRollout(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Staged delivery / phase plan.
+  SystemStagePlan get systemStagePlan => SystemStagePlan(doc, '$path/systemStagePlan');
+
+  /// Rollout and transition concept.
+  SystemRolloutConcept get systemRolloutConcept => SystemRolloutConcept(doc, '$path/systemRolloutConcept');
+
+  /// Localization & translation *execution* processes (re-homed from MLAR in
+  /// IP-6: the execution side of i18n, as opposed to the requirements that
+  /// live in SBP.9).
+  LocalizationTranslationProcess get localizationTranslationProcess => LocalizationTranslationProcess(doc, '$path/localizationTranslationProcess');
+
+  /// Multi-language rollout sequencing by region and time (re-homed from MLAR).
+  MultiLanguageAndRolloutPlan get multiLanguageRolloutPlan => MultiLanguageAndRolloutPlan(doc, '$path/multiLanguageRolloutPlan');
+}
+
+/// 1.1.3. Dependencies and Integrations.
 /// 
 /// Documents how current systems depend on each other, on external services,
 /// and on shared infrastructure. Identifies fragile integration points that
@@ -9254,23 +9104,23 @@ class DependenciesAndIntegrations extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
+  /// Dependency matrix diagram.
   String get dependencyDiagram => doc.content('$path/dependencyDiagram') ?? '';
   set dependencyDiagram(String value) => doc.setContent('$path/dependencyDiagram', value);
 
-  /// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+  /// 1.1.3.1. Internal Dependencies.
   InternalDependencies get internalDependencies => InternalDependencies(doc, '$path/internalDependencies');
 
-  /// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+  /// 1.1.3.2. External Service Dependencies.
   ExternalServiceDependencies get externalServiceDependencies => ExternalServiceDependencies(doc, '$path/externalServiceDependencies');
 
-  /// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+  /// 1.1.3.3. Shared Infrastructure Dependencies.
   SharedInfrastructureDependencies get sharedInfrastructureDependencies => SharedInfrastructureDependencies(doc, '$path/sharedInfrastructureDependencies');
 
-  /// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+  /// 1.1.3.4. System Integrations.
   Integrations get integrations => Integrations(doc, '$path/integrations');
 
-  /// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+  /// 1.1.3.5. Integration Health Summary.
   IntegrationHealthSummary get healthSummary => IntegrationHealthSummary(doc, '$path/healthSummary');
 }
 
@@ -9472,7 +9322,7 @@ class DependencyRisk extends SomNode {
   DependencyRiskContentForm get content => DependencyRiskContentForm(doc, '$path/content');
 }
 
-/// Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
+/// Dependency and supply-chain scanning requirements.
 class DependencyScanningRequirements extends SomNode {
   DependencyScanningRequirements(super.doc, super.path);
 
@@ -9533,7 +9383,7 @@ class DependencyTracking extends SomNode {
   DependencyTrackingContentForm get content => DependencyTrackingContentForm(doc, '$path/content');
 }
 
-/// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+/// 4.1.2.7. Deployment Context.
 /// 
 /// Where and how the system will be deployed in the infrastructure
 /// landscape.
@@ -9678,7 +9528,7 @@ class DeploymentSecuritySupplyChain extends SomNode {
   DeploymentSecuritySupplyChainContentForm get content => DeploymentSecuritySupplyChainContentForm(doc, '$path/content');
 }
 
-/// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+/// 8.5.2. Deployment Strategy.
 /// 
 /// Deployment model (containerized, VM-based, serverless), deployment pipeline,
 /// rollback strategy, and canary/blue-green deployment requirements.
@@ -9837,7 +9687,7 @@ class DesignFoundationEntry extends SomNode {
   DesignFoundationEntryContentForm get content => DesignFoundationEntryContentForm(doc, '$path/content');
 }
 
-/// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
+/// A design goal entry (form).
 /// 
 /// Each goal represents a measurable UI objective with success criteria.
 class DesignGoalEntry extends SomNode {
@@ -9846,7 +9696,7 @@ class DesignGoalEntry extends SomNode {
   DesignGoalEntryContentForm get content => DesignGoalEntryContentForm(doc, '$path/content');
 }
 
-/// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+/// 10.1.1. Design Goals.
 /// 
 /// Primary design objectives that the UI must achieve: simplicity, efficiency,
 /// accessibility, consistency, delight. Goals are prioritized for the project.
@@ -9920,7 +9770,7 @@ class DesignPatternEntryStructure extends SomNode {
   DesignPatternEntryStructureContentForm get content => DesignPatternEntryStructureContentForm(doc, '$path/content');
 }
 
-/// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+/// 8.1.3. Design Patterns and Standards.
 /// 
 /// Required design patterns, coding standards, development conventions, and
 /// applicable industry standards (ISO, OWASP, IEEE).
@@ -9958,7 +9808,7 @@ class DesignPatternsAndStandards extends SomNode {
   TestingStandards get testingStandards => TestingStandards(doc, '$path/testingStandards');
 }
 
-/// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+/// 10.1.2. Design Principles.
 /// 
 /// Guiding principles for all UI decisions: progressive disclosure, direct
 /// manipulation, feedback, consistency, error prevention.
@@ -9982,7 +9832,7 @@ class DesignPrinciplesOverview extends SomNode {
   DesignPrinciplesOverviewContentForm get content => DesignPrinciplesOverviewContentForm(doc, '$path/content');
 }
 
-/// 10.1. Design Vision [PD00-USE-VIS].
+/// 10.1. Design Vision.
 /// 
 /// Overall design vision for the user interface, encompassing goals,
 /// principles, and user personas that guide all UI decisions.
@@ -9992,13 +9842,13 @@ class DesignVision extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+  /// 10.1.1. Design Goals.
   DesignGoals get designGoals => DesignGoals(doc, '$path/designGoals');
 
-  /// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+  /// 10.1.2. Design Principles.
   DesignPrinciples get designPrinciples => DesignPrinciples(doc, '$path/designPrinciples');
 
-  /// 10.1.3. User Personas [PD00-USE-VIS-PER].
+  /// 10.1.3. User Personas.
   UserPersonas get personas => UserPersonas(doc, '$path/personas');
 }
 
@@ -10049,10 +9899,10 @@ class DesktopOsRequirementEntryTesting extends SomNode {
   DesktopOsRequirementEntryTestingContentForm get content => DesktopOsRequirementEntryTestingContentForm(doc, '$path/content');
 }
 
-/// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+/// 6.1.7. Detailed Process Workflows.
 /// 
-/// Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
-/// Covers HBSG AS07-DET Detailed Process Descriptions.
+/// Per-process workflow detail beyond the catalog overview.
+/// .
 class DetailedProcessWorkflows extends SomNode {
   DetailedProcessWorkflows(super.doc, super.path);
 
@@ -10174,7 +10024,7 @@ class DevelopmentConventionEntryVersionControl extends SomNode {
   DevelopmentConventionEntryVersionControlContentForm get content => DevelopmentConventionEntryVersionControlContentForm(doc, '$path/content');
 }
 
-/// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+/// 8.2.2. Development Environment.
 /// 
 /// Required IDEs, build tools, version control, CI/CD pipeline, code review
 /// process, and development workflow.
@@ -10330,7 +10180,7 @@ class DisasterRecoveryRequirementsReplication extends SomNode {
   DisasterRecoveryRequirementsReplicationContentForm get content => DisasterRecoveryRequirementsReplicationContentForm(doc, '$path/content');
 }
 
-/// Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn].
+/// Display equipment entry (form).
 class DisplayEquipmentEntry extends SomNode {
   DisplayEquipmentEntry(super.doc, super.path);
 
@@ -10465,7 +10315,7 @@ class DistributionGroupSummary extends SomNode {
   DistributionGroupSummaryContentForm get content => DistributionGroupSummaryContentForm(doc, '$path/content');
 }
 
-/// 3.3. Distribution List [PD00-ADM-DIS].
+/// 3.3. Distribution List.
 /// 
 /// Defines who receives which project documents and communications.
 /// Includes the communication matrix specifying information flow patterns,
@@ -10479,13 +10329,13 @@ class DistributionList extends SomNode {
   /// Communication matrix overview.
   CommunicationMatrix get communicationMatrix => CommunicationMatrix(doc, '$path/communicationMatrix');
 
-  /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+  /// 3.3.1. Full Distribution.
   FullDistribution get fullDistribution => FullDistribution(doc, '$path/fullDistribution');
 
-  /// 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
+  /// 3.3.2. Executive Summary.
   ExecutiveSummaryDistribution get executiveSummary => ExecutiveSummaryDistribution(doc, '$path/executiveSummary');
 
-  /// 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
+  /// 3.3.3. Custom Distribution Groups — contains 0+× Group.
   SomList<CustomDistributionGroup> get customGroups => SomList<CustomDistributionGroup>(doc, '$path/CSDSGR-CUST-LST', (d, p) => CustomDistributionGroup(d, p));
 }
 
@@ -10510,7 +10360,7 @@ class DistributionRecipientContact extends SomNode {
   DistributionRecipientContactContentForm get content => DistributionRecipientContactContentForm(doc, '$path/content');
 }
 
-/// A distribution recipient entry (form) [PD00-ADM-DIS-nn].
+/// A distribution recipient entry (form).
 /// 
 /// Detailed information about a distribution list recipient including
 /// their role, contact information, preferences, and access levels.
@@ -10596,7 +10446,7 @@ class DnsRequirementsZones extends SomNode {
   DnsRequirementsZonesContentForm get content => DnsRequirementsZonesContentForm(doc, '$path/content');
 }
 
-/// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
+/// 11.5.4. Documentation changeability quality.
 class DocChangeabilityQuality extends SomNode {
   DocChangeabilityQuality(super.doc, super.path);
 
@@ -10636,7 +10486,7 @@ class DocChangeabilityQualityStructure extends SomNode {
   DocChangeabilityQualityStructureContentForm get content => DocChangeabilityQualityStructureContentForm(doc, '$path/content');
 }
 
-/// 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].
+/// 11.5.2. Documentation completeness quality.
 class DocCompletenessQuality extends SomNode {
   DocCompletenessQuality(super.doc, super.path);
 
@@ -10646,7 +10496,7 @@ class DocCompletenessQuality extends SomNode {
   // (skipped: narrative has no target type)
 }
 
-/// 11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR].
+/// 11.5.3. Documentation correctness quality.
 class DocCorrectnessQuality extends SomNode {
   DocCorrectnessQuality(super.doc, super.path);
 
@@ -10674,6 +10524,27 @@ class DocCorrectnessQualityVerification extends SomNode {
   DocCorrectnessQualityVerification(super.doc, super.path);
 
   DocCorrectnessQualityVerificationContentForm get content => DocCorrectnessQualityVerificationContentForm(doc, '$path/content');
+}
+
+/// SBP.1 Document Control.
+/// 
+/// Holds the [DocumentHeader] (id, project, version, date, author, status)
+/// together with the document's [RevisionHistory] and the [ApprovalRecord]s
+/// that gate its release.
+class DocumentControl extends SomNode {
+  DocumentControl(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Document header form (id, project, version, date, author, status).
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Chronological revision history of this document.
+  RevisionHistory get revisionHistory => RevisionHistory(doc, '$path/revisionHistory');
+
+  /// Formal approvals (sign-offs) recorded for this document.
+  SomList<ApprovalRecord> get approvals => SomList<ApprovalRecord>(doc, '$path/DOCTL-APRV-LST', (d, p) => ApprovalRecord(d, p));
 }
 
 /// Standard document header present at the top of every TomSpecs document.
@@ -10709,7 +10580,7 @@ class DocumentRelevantSections extends SomNode {
   SomList<RelevantSectionEntry> get sections => SomList<RelevantSectionEntry>(doc, '$path/RESEEN-SECT-LST', (d, p) => RelevantSectionEntry(d, p));
 }
 
-/// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+/// 10.12.3. Documentation and Training.
 /// 
 /// End-user documentation and training materials.
 class DocumentationAndTraining extends SomNode {
@@ -10746,7 +10617,7 @@ class DocumentationAndTrainingLocalization extends SomNode {
   DocumentationAndTrainingLocalizationContentForm get content => DocumentationAndTrainingLocalizationContentForm(doc, '$path/content');
 }
 
-/// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+/// 14.1.2. Documentation Deliverables.
 class DocumentationDeliverables extends SomNode {
   DocumentationDeliverables(super.doc, super.path);
 
@@ -10757,7 +10628,7 @@ class DocumentationDeliverables extends SomNode {
   SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DLVEN-ITEM-LST', (d, p) => DeliverableEntry(d, p));
 }
 
-/// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+/// 11.5. Documentation Quality Criteria.
 /// 
 /// Quality criteria for project documentation including readability,
 /// completeness, correctness, and changeability.
@@ -10769,16 +10640,16 @@ class DocumentationQualityCriteria extends SomNode {
   /// Documentation quality overview narrative.
   // (skipped: overview has no target type)
 
-  /// 11.5.1. Readability [PD00-SYQ-DOC-REA].
+  /// 11.5.1. Readability.
   ReadabilityQuality get readability => ReadabilityQuality(doc, '$path/readability');
 
-  /// 11.5.2. Completeness [PD00-SYQ-DOC-COM].
+  /// 11.5.2. Completeness.
   DocCompletenessQuality get completeness => DocCompletenessQuality(doc, '$path/completeness');
 
-  /// 11.5.3. Correctness [PD00-SYQ-DOC-COR].
+  /// 11.5.3. Correctness.
   DocCorrectnessQuality get correctness => DocCorrectnessQuality(doc, '$path/correctness');
 
-  /// 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
+  /// 11.5.4. Changeability.
   DocChangeabilityQuality get changeability => DocChangeabilityQuality(doc, '$path/changeability');
 }
 
@@ -10886,7 +10757,7 @@ class DocumentationStandardsVersioning extends SomNode {
   DocumentationStandardsVersioningContentForm get content => DocumentationStandardsVersioningContentForm(doc, '$path/content');
 }
 
-/// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+/// 4.1.3.4. Domain Boundaries.
 /// 
 /// Clear definition of what is within and outside the domain scope,
 /// based on bounded context principles.
@@ -10939,7 +10810,7 @@ class DomainBusinessRuleEntryGovernance extends SomNode {
   DomainBusinessRuleEntryGovernanceContentForm get content => DomainBusinessRuleEntryGovernanceContentForm(doc, '$path/content');
 }
 
-/// 4.1.3.5. Domain Business Rules [PD00-SYO-SYD-DES-RUL].
+/// 4.1.3.5. Domain Business Rules.
 /// 
 /// Business rules, policies, and constraints that govern behavior
 /// within this domain.
@@ -10960,7 +10831,7 @@ class DomainEventEntry extends SomNode {
   DomainEventEntryContentForm get content => DomainEventEntryContentForm(doc, '$path/content');
 }
 
-/// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+/// 4.1.3.7. Domain Events.
 /// 
 /// Significant business events that occur within this domain and
 /// trigger actions or state changes.
@@ -10981,7 +10852,7 @@ class DomainInterfaceEntry extends SomNode {
   DomainInterfaceEntryContentForm get content => DomainInterfaceEntryContentForm(doc, '$path/content');
 }
 
-/// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+/// 4.1.3.1. Domain Overview.
 /// 
 /// High-level description of the business domain including its purpose,
 /// scope, and relationship to the overall business.
@@ -11025,7 +10896,7 @@ class DomainProcessEntryOperations extends SomNode {
   DomainProcessEntryOperationsContentForm get content => DomainProcessEntryOperationsContentForm(doc, '$path/content');
 }
 
-/// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+/// 4.1.3.6. Domain Processes.
 /// 
 /// High-level business processes within this domain, showing the main
 /// workflows and activities.
@@ -11050,7 +10921,7 @@ class DomainTermEntry extends SomNode {
   DomainTermEntryContentForm get content => DomainTermEntryContentForm(doc, '$path/content');
 }
 
-/// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+/// 4.1.3.2. Domain Vocabulary.
 /// 
 /// Glossary of domain-specific terms and definitions establishing the
 /// ubiquitous language for the project.
@@ -11064,7 +10935,7 @@ class DomainVocabulary extends SomNode {
   SomList<DomainTermEntry> get terms => SomList<DomainTermEntry>(doc, '$path/DTE-TERM-LST', (d, p) => DomainTermEntry(d, p));
 }
 
-/// 11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF].
+/// 11.3.1. Efficiency quality.
 class EfficiencyQuality extends SomNode {
   EfficiencyQuality(super.doc, super.path);
 
@@ -11104,7 +10975,7 @@ class EfficiencyQualityVerification extends SomNode {
   EfficiencyQualityVerificationContentForm get content => EfficiencyQualityVerificationContentForm(doc, '$path/content');
 }
 
-/// A validation rule entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-VAL-pp].
+/// A validation rule entry (form).
 class ElementValidationRuleEntry extends SomNode {
   ElementValidationRuleEntry(super.doc, super.path);
 
@@ -11148,7 +11019,7 @@ class EmergencyMaintenanceProceduresGovernance extends SomNode {
   EmergencyMaintenanceProceduresGovernanceContentForm get content => EmergencyMaintenanceProceduresGovernanceContentForm(doc, '$path/content');
 }
 
-/// An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn].
+/// An encrypted data category entry (form).
 /// 
 /// Defines a specific category of data that requires encryption at rest,
 /// including the data classification, encryption approach, algorithm override,
@@ -11160,7 +11031,7 @@ class EncryptedDataCategoryEntry extends SomNode {
   EncryptedDataCategoryEntryContentForm get content => EncryptedDataCategoryEntryContentForm(doc, '$path/content');
 }
 
-/// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+/// 9.5.1. Encryption At Rest.
 /// 
 /// Defines encryption requirements for stored data: algorithms, key lengths,
 /// encryption layers (application, database, filesystem, hardware), field-level
@@ -11207,7 +11078,7 @@ class EncryptionAtRestPolicy extends SomNode {
   // (skipped: encryptionAtRestPolicyDetails has no target type)
 }
 
-/// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+/// 9.5.2. Encryption In Transit.
 /// 
 /// Defines encryption requirements for data in transit: TLS protocol versions,
 /// cipher suites, certificate management, HSTS policy, mutual TLS, certificate
@@ -11238,10 +11109,10 @@ class EncryptionInTransit extends SomNode {
   // (skipped: encryptionInTransitNotes has no target type)
 }
 
-/// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E].
+/// 6.2.4. End-to-End Test Scenarios.
 /// 
 /// Test scenarios that exercise complete user journeys across processes
-/// and use cases. Covers HBSG AS24.
+/// and use cases..
 class EndToEndTestScenarios extends SomNode {
   EndToEndTestScenarios(super.doc, super.path);
 
@@ -11296,7 +11167,7 @@ class EnterpriseSystemCompatibilityEntryTesting extends SomNode {
   EnterpriseSystemCompatibilityEntryTestingContentForm get content => EnterpriseSystemCompatibilityEntryTestingContentForm(doc, '$path/content');
 }
 
-/// An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
+/// An entitlement entry (form).
 class EntitlementEntry extends SomNode {
   EntitlementEntry(super.doc, super.path);
 
@@ -11306,14 +11177,14 @@ class EntitlementEntry extends SomNode {
   SomList<ResourceKeyReferenceEntry> get resourceKeyReferences => SomList<ResourceKeyReferenceEntry>(doc, '$path/RESKREF-RESO-LST', (d, p) => ResourceKeyReferenceEntry(d, p));
 }
 
-/// An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn].
+/// An entitlement reference entry (form).
 class EntitlementReferenceEntry extends SomNode {
   EntitlementReferenceEntry(super.doc, super.path);
 
   EntitlementReferenceEntryContentForm get content => EntitlementReferenceEntryContentForm(doc, '$path/content');
 }
 
-/// An entity constraint entry (form) [PD00-BUS-DAT-ENT-nn-CON-nn].
+/// An entity constraint entry (form).
 /// 
 /// Business and technical constraints beyond keys.
 class EntityConstraintEntry extends SomNode {
@@ -11322,7 +11193,7 @@ class EntityConstraintEntry extends SomNode {
   EntityConstraintEntryContentForm get content => EntityConstraintEntryContentForm(doc, '$path/content');
 }
 
-/// An entity index entry (form) [PD00-BUS-DAT-ENT-nn-IDX-nn].
+/// An entity index entry (form).
 /// 
 /// Database index specification for query optimization.
 class EntityIndexEntry extends SomNode {
@@ -11331,7 +11202,7 @@ class EntityIndexEntry extends SomNode {
   EntityIndexEntryContentForm get content => EntityIndexEntryContentForm(doc, '$path/content');
 }
 
-/// An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
+/// An entity relationship entry (form).
 /// 
 /// Comprehensive relationship specification following ER modeling best practices.
 class EntityRelationshipEntry extends SomNode {
@@ -11356,7 +11227,7 @@ class EntityRelationshipEntry extends SomNode {
   set targetEntityRef(String value) => doc.setContent('$path/targetEntityRef', value);
 }
 
-/// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+/// 7.1.2. Entity Relationships.
 class EntityRelationships extends SomNode {
   EntityRelationships(super.doc, super.path);
 
@@ -11367,7 +11238,7 @@ class EntityRelationships extends SomNode {
   SomList<EntityRelationshipEntry> get items => SomList<EntityRelationshipEntry>(doc, '$path/ENRLE-ITEM-LST', (d, p) => EntityRelationshipEntry(d, p));
 }
 
-/// An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-mm].
+/// An entry point entry (form).
 class EntryPointEntry extends SomNode {
   EntryPointEntry(super.doc, super.path);
 
@@ -11416,7 +11287,7 @@ class EnvironmentDataManagement extends SomNode {
   EnvironmentDataManagementContentForm get content => EnvironmentDataManagementContentForm(doc, '$path/content');
 }
 
-/// An environment entry (form) [PD00-POP-TOO-ENV-nn].
+/// An environment entry (form).
 /// 
 /// Comprehensive specification of a single project environment covering
 /// identity, infrastructure, access, data management, configuration,
@@ -11611,7 +11482,7 @@ class EnvironmentStrategyTesting extends SomNode {
   EnvironmentStrategyTestingContentForm get content => EnvironmentStrategyTestingContentForm(doc, '$path/content');
 }
 
-/// 2.4.2. Environments [PD00-POP-TOO-ENV].
+/// 2.4.2. Environments.
 /// 
 /// Operational overview of project environments and the inventory of
 /// individual environment instances. Strategy-level decisions (tier
@@ -11633,7 +11504,7 @@ class EquipmentOverview extends SomNode {
   EquipmentOverviewContentForm get content => EquipmentOverviewContentForm(doc, '$path/content');
 }
 
-/// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+/// 5.3.1. Equipment Requirements.
 /// 
 /// Hardware and peripheral requirements per workplace type.
 class EquipmentRequirements extends SomNode {
@@ -11688,7 +11559,7 @@ class ErrorBudgetTrackingMonitoring extends SomNode {
   ErrorBudgetTrackingMonitoringContentForm get content => ErrorBudgetTrackingMonitoringContentForm(doc, '$path/content');
 }
 
-/// 10.7. Error Handling Concept [PD00-USE-ERR].
+/// 10.7. Error Handling Concept.
 /// 
 /// Comprehensive error handling user experience framework covering validation
 /// feedback, system error presentation, and error recovery flows. Follows
@@ -11710,13 +11581,13 @@ class ErrorHandlingConcept extends SomNode {
   /// Error handling overview and strategy.
   // (skipped: errorHandlingOverview has no target type)
 
-  /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+  /// 10.7.1. Validation Feedback.
   ValidationFeedback get validationFeedback => ValidationFeedback(doc, '$path/validationFeedback');
 
-  /// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+  /// 10.7.2. System Error Display.
   SystemErrorDisplay get systemErrorDisplay => SystemErrorDisplay(doc, '$path/systemErrorDisplay');
 
-  /// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+  /// 10.7.3. Error Recovery.
   ErrorRecovery get errorRecovery => ErrorRecovery(doc, '$path/errorRecovery');
 
   /// Error message catalog.
@@ -11820,7 +11691,7 @@ class ErrorProcedureEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+/// 10.7.3. Error Recovery.
 /// 
 /// Error recovery flows including data preservation, retry mechanisms,
 /// and guided recovery steps.
@@ -11897,7 +11768,7 @@ class EscalationProcedureEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+/// 12.1.2. Evaluation Criteria.
 /// 
 /// Container for component evaluation criteria used when assessing
 /// candidate components for adoption.
@@ -11911,7 +11782,7 @@ class EvaluationCriteria extends SomNode {
   SomList<EvaluationCriterionEntry> get items => SomList<EvaluationCriterionEntry>(doc, '$path/EVCEN-ITEM-LST', (d, p) => EvaluationCriterionEntry(d, p));
 }
 
-/// An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
+/// An evaluation criterion entry (form).
 /// 
 /// Defines one criterion for evaluating candidate components: scoring scale,
 /// threshold, evidence requirements, and evaluation method.
@@ -11964,7 +11835,7 @@ class EventAttributePolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-/// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+/// 3.3.2. Executive Summary Distribution.
 /// 
 /// Recipients who receive only executive summaries and milestone reports.
 class ExecutiveSummaryDistribution extends SomNode {
@@ -11987,7 +11858,7 @@ class ExistingSystemBusinessContext extends SomNode {
   ExistingSystemBusinessContextContentForm get content => ExistingSystemBusinessContextContentForm(doc, '$path/content');
 }
 
-/// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+/// An existing system entry (form).
 /// 
 /// Captures comprehensive information about an existing system including
 /// identity, technology, business context, usage metrics, lifecycle, and risks.
@@ -11996,28 +11867,28 @@ class ExistingSystemEntry extends SomNode {
 
   ExistingSystemEntryContentForm get content => ExistingSystemEntryContentForm(doc, '$path/content');
 
-  /// Technology stack details [PD00-CUR-SYS-INV-nn-TEC].
+  /// Technology stack details.
   ExistingSystemTechnology get technology => ExistingSystemTechnology(doc, '$path/technology');
 
-  /// Business context [PD00-CUR-SYS-INV-nn-BUS].
+  /// Business context.
   ExistingSystemBusinessContext get businessContext => ExistingSystemBusinessContext(doc, '$path/businessContext');
 
-  /// Usage metrics [PD00-CUR-SYS-INV-nn-USE].
+  /// Usage metrics.
   ExistingSystemUsage get usage => ExistingSystemUsage(doc, '$path/usage');
 
-  /// Lifecycle information [PD00-CUR-SYS-INV-nn-LIF].
+  /// Lifecycle information.
   ExistingSystemLifecycle get lifecycle => ExistingSystemLifecycle(doc, '$path/lifecycle');
 
-  /// Integration profile [PD00-CUR-SYS-INV-nn-INT].
+  /// Integration profile.
   ExistingSystemIntegration get integrationProfile => ExistingSystemIntegration(doc, '$path/integrationProfile');
 
-  /// Infrastructure details [PD00-CUR-SYS-INV-nn-INF].
+  /// Infrastructure details.
   ExistingSystemInfrastructure get infrastructure => ExistingSystemInfrastructure(doc, '$path/infrastructure');
 
-  /// Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
+  /// Contains 0+× Limitation.
   SomList<LimitationEntry> get knownLimitations => SomList<LimitationEntry>(doc, '$path/LIMET-KNOW-LST', (d, p) => LimitationEntry(d, p));
 
-  /// Quality and risk assessment [PD00-CUR-SYS-INV-nn-QUA].
+  /// Quality and risk assessment.
   ExistingSystemQuality get quality => ExistingSystemQuality(doc, '$path/quality');
 }
 
@@ -12063,7 +11934,7 @@ class ExistingSystemUsage extends SomNode {
   ExistingSystemUsageContentForm get content => ExistingSystemUsageContentForm(doc, '$path/content');
 }
 
-/// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+/// 1.1. Existing Systems Landscape.
 /// 
 /// Overview of the current systems in use, their roles, technology stacks,
 /// and limitations. Provides the foundation for understanding the AS-IS state.
@@ -12073,13 +11944,13 @@ class ExistingSystemsLandscape extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+  /// 1.1.1. System Inventory.
   SystemInventory get systemInventory => SystemInventory(doc, '$path/systemInventory');
 
-  /// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+  /// 1.1.2. Current Architecture.
   CurrentArchitecture get currentArchitecture => CurrentArchitecture(doc, '$path/currentArchitecture');
 
-  /// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+  /// 1.1.3. Dependencies and Integrations.
   DependenciesAndIntegrations get dependenciesAndIntegrations => DependenciesAndIntegrations(doc, '$path/dependenciesAndIntegrations');
 }
 
@@ -12088,6 +11959,119 @@ class ExpectedImprovements extends SomNode {
   ExpectedImprovements(super.doc, super.path);
 
   ExpectedImprovementsContentForm get content => ExpectedImprovementsContentForm(doc, '$path/content');
+}
+
+/// 10. User Interface Design and Prototype. Seeds → UP.
+class ExperienceAndInterfaceDesign extends SomNode {
+  ExperienceAndInterfaceDesign(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 10.1. Design Vision. Seeds → UP.
+  DesignVision get designVision => DesignVision(doc, '$path/designVision');
+
+  /// 10.2. Screen Descriptions. Seeds → UP.
+  ScreenDescriptions get screens => ScreenDescriptions(doc, '$path/screens');
+
+  /// 10.3. Screen Flow Structure. Seeds → UP.
+  ScreenFlowStructure get screenFlow => ScreenFlowStructure(doc, '$path/screenFlow');
+
+  /// 10.4. Print Layout. Seeds → UP.
+  PrintLayout get printLayout => PrintLayout(doc, '$path/printLayout');
+
+  /// Data Structure Alignment.
+  // (skipped: dataStructureAlignment has no target type)
+
+  /// Authorization Compliance.
+  // (skipped: authorizationCompliance has no target type)
+
+  /// 10.7. Error Handling Concept. Seeds → UP.
+  ErrorHandlingConcept get errorHandling => ErrorHandlingConcept(doc, '$path/errorHandling');
+
+  /// 10.8. Help Concept. Seeds → UP.
+  HelpConcept get helpConcept => HelpConcept(doc, '$path/helpConcept');
+
+  /// 10.9. Accessibility. Seeds → UP.
+  Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
+
+  /// 10.10. Responsive Design. Seeds → UP.
+  ResponsiveDesign get responsiveDesign => ResponsiveDesign(doc, '$path/responsiveDesign');
+
+  /// 10.11. UI Components. Seeds → UP.
+  UiComponents get uiComponents => UiComponents(doc, '$path/uiComponents');
+
+  /// 10.12. Multi-language and Rollout Support.
+  MultiLanguageAndRollout get multiLanguage => MultiLanguageAndRollout(doc, '$path/multiLanguage');
+
+  /// 10.13. Prototype. Seeds → UP.
+  Prototype get prototype => Prototype(doc, '$path/prototype');
+
+  /// 10.14. Wireframes and Mockups..
+  SomList<WireframesAndMockups> get wireframesAndMockups => SomList<WireframesAndMockups>(doc, '$path/WIANMO-WIRE-LST', (d, p) => WireframesAndMockups(d, p));
+}
+
+/// UP00 UI Prototype.
+/// 
+/// Full UI design and prototype specification — vision, screens,
+/// screen flow, print, error handling, help, accessibility, responsive,
+/// components, language/country selection, prototype, wireframes and
+/// mockups.
+class ExperienceDesignSpecification extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  ExperienceDesignSpecification(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'XDS') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Design vision.
+  DesignVision get designVision => DesignVision(doc, '$path/designVision');
+
+  /// Screen descriptions.
+  ScreenDescriptions get screens => ScreenDescriptions(doc, '$path/screens');
+
+  /// Screen flow structure.
+  ScreenFlowStructure get screenFlow => ScreenFlowStructure(doc, '$path/screenFlow');
+
+  /// Print layout.
+  PrintLayout get printLayout => PrintLayout(doc, '$path/printLayout');
+
+  /// Error handling concept.
+  ErrorHandlingConcept get errorHandling => ErrorHandlingConcept(doc, '$path/errorHandling');
+
+  /// Help concept.
+  HelpConcept get helpConcept => HelpConcept(doc, '$path/helpConcept');
+
+  /// Accessibility.
+  Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
+
+  /// Responsive design.
+  ResponsiveDesign get responsiveDesign => ResponsiveDesign(doc, '$path/responsiveDesign');
+
+  /// UI components.
+  UiComponents get uiComponents => UiComponents(doc, '$path/uiComponents');
+
+  /// Language and country selection.
+  LanguageCountrySelection get languageCountrySelection => LanguageCountrySelection(doc, '$path/languageCountrySelection');
+
+  /// Prototype.
+  Prototype get prototype => Prototype(doc, '$path/prototype');
+
+  /// Wireframes and mockups (new in Phase A).
+  SomList<WireframesAndMockups> get wireframesAndMockups => SomList<WireframesAndMockups>(doc, '$path/WIANMO-WIRE-LST', (d, p) => WireframesAndMockups(d, p));
 }
 
 /// Export access and audit.
@@ -12111,7 +12095,7 @@ class ExportDelimiter extends SomNode {
   ExportDelimiterContentForm get content => ExportDelimiterContentForm(doc, '$path/content');
 }
 
-/// A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).
+/// A field mapping within an export (form).
 class ExportFieldMappingEntry extends SomNode {
   ExportFieldMappingEntry(super.doc, super.path);
 
@@ -12165,7 +12149,7 @@ class ExportFileFormat extends SomNode {
   ExportFileFormatContentForm get content => ExportFileFormatContentForm(doc, '$path/content');
 }
 
-/// An export format entry (form) [PD00-USE-PRI-EXP-nn].
+/// An export format entry (form).
 class ExportFormatEntry extends SomNode {
   ExportFormatEntry(super.doc, super.path);
 
@@ -12227,7 +12211,7 @@ class ExportSizeSettings extends SomNode {
   ExportSizeSettingsContentForm get content => ExportSizeSettingsContentForm(doc, '$path/content');
 }
 
-/// A reusable export template [PD00-USE-PRI-TPL-nn] (form).
+/// A reusable export template (form).
 class ExportTemplateEntry extends SomNode {
   ExportTemplateEntry(super.doc, super.path);
 
@@ -12274,7 +12258,7 @@ class ExportTemplateEntryLayout extends SomNode {
   ExportTemplateEntryLayoutContentForm get content => ExportTemplateEntryLayoutContentForm(doc, '$path/content');
 }
 
-/// An extension entry [PD00-TAR-STP-INT-nn-EXT-nn].
+/// An extension entry.
 class ExtensionEntry extends SomNode {
   ExtensionEntry(super.doc, super.path);
 
@@ -12284,7 +12268,7 @@ class ExtensionEntry extends SomNode {
   SomList<ExtensionStepEntry> get steps => SomList<ExtensionStepEntry>(doc, '$path/EXTST-STEP-LST', (d, p) => ExtensionStepEntry(d, p));
 }
 
-/// An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn].
+/// An extension step entry.
 class ExtensionStepEntry extends SomNode {
   ExtensionStepEntry(super.doc, super.path);
 
@@ -12321,7 +12305,7 @@ class ExternalActorEntryInteraction extends SomNode {
   ExternalActorEntryInteractionContentForm get content => ExternalActorEntryInteractionContentForm(doc, '$path/content');
 }
 
-/// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+/// 4.1.2.3. External Actors.
 /// 
 /// Human users and organizational entities that interact with the system
 /// from outside the system boundary.
@@ -12335,7 +12319,7 @@ class ExternalActors extends SomNode {
   SomList<ExternalActorEntry> get actors => SomList<ExternalActorEntry>(doc, '$path/EAE-ACTO-LST', (d, p) => ExternalActorEntry(d, p));
 }
 
-/// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+/// 8.6.2. External Connectivity.
 class ExternalConnectivitySection extends SomNode {
   ExternalConnectivitySection(super.doc, super.path);
 
@@ -12364,7 +12348,7 @@ class ExternalConnectivitySection extends SomNode {
   ConnectivityResilience get resilience => ConnectivityResilience(doc, '$path/resilience');
 }
 
-/// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+/// An external interface entry (form).
 /// 
 /// Comprehensive documentation of an external system interface covering
 /// identification, technical details, data exchange specification, security,
@@ -12401,7 +12385,7 @@ class ExternalInterfaceEntry extends SomNode {
   InterfaceTesting get testing => InterfaceTesting(doc, '$path/testing');
 }
 
-/// Container for external interface definitions [PD00-SYO-SYB-INT].
+/// Container for external interface definitions.
 /// 
 /// Provides structured inventory of all external system integrations with
 /// categorization, prioritization, and governance information. Each interface
@@ -12478,7 +12462,7 @@ class ExternalPartnerAuthentication extends SomNode {
   ExternalPartnerAuthenticationContentForm get content => ExternalPartnerAuthenticationContentForm(doc, '$path/content');
 }
 
-/// An external partner connection entry (form) [PD00-TEC-COM-EXT-nn].
+/// An external partner connection entry (form).
 class ExternalPartnerConnectionEntry extends SomNode {
   ExternalPartnerConnectionEntry(super.doc, super.path);
 
@@ -12538,7 +12522,7 @@ class ExternalPartnerReliability extends SomNode {
   ExternalPartnerReliabilityContentForm get content => ExternalPartnerReliabilityContentForm(doc, '$path/content');
 }
 
-/// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+/// 1.1.3.2. External Service Dependencies.
 /// 
 /// Dependencies on external services, third-party APIs, SaaS platforms,
 /// and cloud services not under direct organizational control.
@@ -12552,7 +12536,7 @@ class ExternalServiceDependencies extends SomNode {
   SomList<ExternalServiceDependencyEntry> get items => SomList<ExternalServiceDependencyEntry>(doc, '$path/EXSDE-ITEM-LST', (d, p) => ExternalServiceDependencyEntry(d, p));
 }
 
-/// An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn].
+/// An external service dependency entry (form).
 /// 
 /// Documents a dependency on an external service or third-party provider
 /// including vendor details, SLA, risk assessment, and fallback options.
@@ -12635,7 +12619,7 @@ class ExternalSystemContextEntryOperations extends SomNode {
   ExternalSystemContextEntryOperationsContentForm get content => ExternalSystemContextEntryOperationsContentForm(doc, '$path/content');
 }
 
-/// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+/// 4.1.2.4. External Systems.
 /// 
 /// External systems, services, and APIs that the system integrates with.
 class ExternalSystemsContext extends SomNode {
@@ -12662,7 +12646,7 @@ class FeatureBusinessValue extends SomNode {
   FeatureBusinessValueContentForm get content => FeatureBusinessValueContentForm(doc, '$path/content');
 }
 
-/// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+/// 13.4.4. Feature Dependencies.
 /// 
 /// Cross-feature dependencies affecting staging order, critical path
 /// analysis, and delivery sequencing.
@@ -12685,7 +12669,7 @@ class FeatureDependenciesInfo extends SomNode {
   FeatureDependenciesInfoContentForm get content => FeatureDependenciesInfoContentForm(doc, '$path/content');
 }
 
-/// A feature dependency entry (form) [PD00-SSP-FEA-DEP-nn].
+/// A feature dependency entry (form).
 /// 
 /// Describes a single directional dependency between two features,
 /// including type, impact, and resolution strategy.
@@ -12766,7 +12750,7 @@ class FeatureModuleEntryStructure extends SomNode {
   FeatureModuleEntryStructureContentForm get content => FeatureModuleEntryStructureContentForm(doc, '$path/content');
 }
 
-/// 13.4. Feature Prioritization [PD00-SSP-FEA].
+/// 13.4. Feature Prioritization.
 /// 
 /// Comprehensive feature prioritization framework for staged delivery.
 /// Covers prioritization methodology, MoSCoW analysis, feature-stage
@@ -12799,16 +12783,16 @@ class FeaturePrioritization extends SomNode {
   /// Prioritization rationale narrative.
   // (skipped: prioritizationRationale has no target type)
 
-  /// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+  /// 13.4.1. MoSCoW Analysis.
   MoscowAnalysis get moscowAnalysis => MoscowAnalysis(doc, '$path/moscowAnalysis');
 
-  /// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+  /// 13.4.2. Feature-Stage Matrix.
   FeatureStageMatrix get featureStageMatrix => FeatureStageMatrix(doc, '$path/featureStageMatrix');
 
-  /// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+  /// 13.4.3. Feature Priority Register.
   FeaturePriorityRegister get featurePriorityRegister => FeaturePriorityRegister(doc, '$path/featurePriorityRegister');
 
-  /// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+  /// 13.4.4. Feature Dependencies.
   FeatureDependencies get featureDependencies => FeatureDependencies(doc, '$path/featureDependencies');
 }
 
@@ -12854,7 +12838,7 @@ class FeaturePrioritizationTraceability extends SomNode {
   FeaturePrioritizationTraceabilityContentForm get content => FeaturePrioritizationTraceabilityContentForm(doc, '$path/content');
 }
 
-/// An individual feature priority entry (form) [PD00-SSP-FEA-REG-nn].
+/// An individual feature priority entry (form).
 /// 
 /// Comprehensive record covering identity, classification, business
 /// value, effort, priority scoring, stage assignment, dependencies,
@@ -12892,7 +12876,7 @@ class FeaturePriorityEntry extends SomNode {
   FeatureStatus get status => FeatureStatus(doc, '$path/status');
 }
 
-/// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+/// 13.4.3. Feature Priority Register.
 /// 
 /// Master register of all features with comprehensive priority scoring,
 /// business value analysis, effort estimates, stakeholder ownership,
@@ -12920,7 +12904,7 @@ class FeatureStageAssignment extends SomNode {
   FeatureStageAssignmentContentForm get content => FeatureStageAssignmentContentForm(doc, '$path/content');
 }
 
-/// A feature-to-stage mapping entry (form) [PD00-SSP-FEA-MAT-nn].
+/// A feature-to-stage mapping entry (form).
 /// 
 /// Maps a single feature or feature group to its delivery stage with
 /// readiness, confidence, and dependency information.
@@ -12970,7 +12954,7 @@ class FeatureStageMappingReadiness extends SomNode {
   FeatureStageMappingReadinessContentForm get content => FeatureStageMappingReadinessContentForm(doc, '$path/content');
 }
 
-/// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+/// 13.4.2. Feature-Stage Matrix.
 /// 
 /// Maps every feature or feature group to the delivery stage, tracking
 /// readiness, confidence, dependencies, and acceptance criteria.
@@ -13000,7 +12984,7 @@ class FeatureStatus extends SomNode {
   FeatureStatusContentForm get content => FeatureStatusContentForm(doc, '$path/content');
 }
 
-/// A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
+/// A feature tour entry.
 class FeatureTourEntry extends SomNode {
   FeatureTourEntry(super.doc, super.path);
 
@@ -13017,7 +13001,7 @@ class FeatureTraceability extends SomNode {
   FeatureTraceabilityContentForm get content => FeatureTraceabilityContentForm(doc, '$path/content');
 }
 
-/// A field help entry [PD00-USE-HLP-CON-FLD-nn].
+/// A field help entry.
 class FieldHelpEntry extends SomNode {
   FieldHelpEntry(super.doc, super.path);
 
@@ -13054,7 +13038,7 @@ class FileAccessControlPolicy extends SomNode {
   // (skipped: fileAccessControlDetails has no target type)
 }
 
-/// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+/// 9.3.3. File and Storage Security.
 /// 
 /// Comprehensive file and storage security specification covering upload
 /// validation, storage encryption, access control on file resources, content
@@ -13181,7 +13165,7 @@ class FirewallRequirementsRules extends SomNode {
   FirewallRequirementsRulesContentForm get content => FirewallRequirementsRulesContentForm(doc, '$path/content');
 }
 
-/// 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
+/// 11.3.3. Flexibility quality.
 class FlexibilityQuality extends SomNode {
   FlexibilityQuality(super.doc, super.path);
 
@@ -13236,7 +13220,7 @@ class FrameworkCompatibility extends SomNode {
   FrameworkCompatibilityContentForm get content => FrameworkCompatibilityContentForm(doc, '$path/content');
 }
 
-/// 4.6. Framework Conditions [PD00-SYO-RES].
+/// 4.6. Framework Conditions.
 /// 
 /// Documents the organizational and technical environment in which the system
 /// will operate. Covers organizational structure, functional responsibilities,
@@ -13248,20 +13232,20 @@ class FrameworkConditions extends SomNode {
   /// Framework conditions overview.
   // (skipped: overview has no target type)
 
-  /// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+  /// 4.6.1. Organizational Environment.
   OrganizationalEnvironment get organizationalEnvironment => OrganizationalEnvironment(doc, '$path/organizationalEnvironment');
 
-  /// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
+  /// 4.6.2. Functional Responsibilities — contains 0+×.
   FunctionalResponsibilities get functionalResponsibilities => FunctionalResponsibilities(doc, '$path/functionalResponsibilities');
 
-  /// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+  /// 4.6.3. Technical Framework Conditions. Seeds → TR.
   TechnicalFrameworkConditions get technicalFrameworkConditions => TechnicalFrameworkConditions(doc, '$path/technicalFrameworkConditions');
 
-  /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
+  /// 4.6.4. Constraints and Dependencies — contains 0+×.
   ConstraintsAndDependencies get constraintsAndDependencies => ConstraintsAndDependencies(doc, '$path/constraintsAndDependencies');
 }
 
-/// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+/// 4.6.4.2. Dependencies.
 /// 
 /// External dependencies on other projects, teams, vendors, systems, or
 /// organizational initiatives. Each dependency represents a point where
@@ -13299,7 +13283,7 @@ class FrameworkDependenciesManagement extends SomNode {
   FrameworkDependenciesManagementContentForm get content => FrameworkDependenciesManagementContentForm(doc, '$path/content');
 }
 
-/// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+/// A framework dependency entry (form).
 /// 
 /// Represents a single external dependency where this project relies on
 /// another party (project, team, vendor, system) to deliver something.
@@ -13398,7 +13382,7 @@ class FrameworkVersion extends SomNode {
   FrameworkVersionContentForm get content => FrameworkVersionContentForm(doc, '$path/content');
 }
 
-/// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+/// 3.3.1. Full Distribution.
 /// 
 /// Recipients who receive all project documents and communications.
 class FullDistribution extends SomNode {
@@ -13414,7 +13398,7 @@ class FullDistribution extends SomNode {
   SomList<DistributionRecipientEntry> get items => SomList<DistributionRecipientEntry>(doc, '$path/DSRC-ITEM-LST', (d, p) => DistributionRecipientEntry(d, p));
 }
 
-/// A function-to-data matrix entry (form) [PD00-BUS-FUN-MAT-nn].
+/// A function-to-data matrix entry (form).
 /// 
 /// Maps a function to the data entities it accesses.
 class FunctionDataMatrixEntry extends SomNode {
@@ -13423,7 +13407,7 @@ class FunctionDataMatrixEntry extends SomNode {
   FunctionDataMatrixEntryContentForm get content => FunctionDataMatrixEntryContentForm(doc, '$path/content');
 }
 
-/// A function entry (form) [PD00-BUS-FUN-DEC-nn].
+/// A function entry (form).
 /// 
 /// Business function specification in the functional decomposition.
 class FunctionEntry extends SomNode {
@@ -13440,7 +13424,7 @@ class FunctionEntry extends SomNode {
   /// Automation and data handling summary.
   FunctionEntryImplementation get implementation => FunctionEntryImplementation(doc, '$path/implementation');
 
-  /// Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
+  /// Sub-functions — contains 0+× SubFunction.
   SomList<SubFunctionEntry> get subFunctions => SomList<SubFunctionEntry>(doc, '$path/SUFN-SUBF-LST', (d, p) => SubFunctionEntry(d, p));
 }
 
@@ -13465,7 +13449,7 @@ class FunctionEntryOperations extends SomNode {
   FunctionEntryOperationsContentForm get content => FunctionEntryOperationsContentForm(doc, '$path/content');
 }
 
-/// 7.3. Function Model [PD00-BUS-FUN].
+/// 7.3. Function Model.
 /// 
 /// Business functions, their decomposition, and relationships to data objects.
 class FunctionModel extends SomNode {
@@ -13475,17 +13459,17 @@ class FunctionModel extends SomNode {
 
   FunctionModelMatrixOverviewForm get matrixOverview => FunctionModelMatrixOverviewForm(doc, '$path/matrixOverview');
 
-  /// 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC] — contains 0+× Function.
+  /// 7.3.1. Function Decomposition — contains 0+× Function.
   SomList<FunctionEntry> get functions => SomList<FunctionEntry>(doc, '$path/FUNCT-FUNC-LST', (d, p) => FunctionEntry(d, p));
 
-  /// 7.3.2. Function-to-Data Matrix Entries [PD00-BUS-FUN-MAT] — contains 0+× MatrixEntry.
+  /// 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
   SomList<FunctionDataMatrixEntry> get matrixEntries => SomList<FunctionDataMatrixEntry>(doc, '$path/FNDMX-MATR-LST', (d, p) => FunctionDataMatrixEntry(d, p));
 
-  /// 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
+  /// 7.3.3. Business Rules — contains 1+× Business Rule.
   SomList<BusinessRuleEntry> get businessRules => SomList<BusinessRuleEntry>(doc, '$path/BIRU-BUSI-LST', (d, p) => BusinessRuleEntry(d, p));
 }
 
-/// 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
+/// 11.2.2. Functional completeness quality.
 class FunctionalCompletenessQuality extends SomNode {
   FunctionalCompletenessQuality(super.doc, super.path);
 
@@ -13495,7 +13479,7 @@ class FunctionalCompletenessQuality extends SomNode {
   // (skipped: narrative has no target type)
 }
 
-/// A functional requirement entry [PD00-SYO-REQ-FUN-nn].
+/// A functional requirement entry.
 /// 
 /// Comprehensive functional requirement definition following IEEE 830,
 /// ISO 29148, and Volere requirements shell. Includes traceability,
@@ -13523,25 +13507,25 @@ class FunctionalRequirementEntry extends SomNode {
   /// Version metadata.
   FunctionalRequirementEntryMetadata get metadata => FunctionalRequirementEntryMetadata(doc, '$path/metadata');
 
-  /// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+  /// 4.3.1.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria get acceptanceCriteria => RequirementAcceptanceCriteria(doc, '$path/acceptanceCriteria');
 
-  /// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+  /// 4.3.1.n.2. Business Rules.
   RequirementBusinessRules get businessRules => RequirementBusinessRules(doc, '$path/businessRules');
 
-  /// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+  /// 4.3.1.n.3. Data Requirements.
   RequirementDataRequirements get dataRequirements => RequirementDataRequirements(doc, '$path/dataRequirements');
 
-  /// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+  /// 4.3.1.n.4. UI Specification.
   RequirementUiSpecification get uiSpecification => RequirementUiSpecification(doc, '$path/uiSpecification');
 
-  /// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+  /// 4.3.1.n.5. Dependencies.
   RequirementDependencies get dependencies => RequirementDependencies(doc, '$path/dependencies');
 
-  /// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+  /// 4.3.1.n.6. Traceability.
   RequirementTraceability get traceability => RequirementTraceability(doc, '$path/traceability');
 
-  /// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+  /// 4.3.1.n.7. Test Cases.
   RequirementTestCases get testCases => RequirementTestCases(doc, '$path/testCases');
 }
 
@@ -13587,7 +13571,7 @@ class FunctionalRequirementEntryVerification extends SomNode {
   FunctionalRequirementEntryVerificationContentForm get content => FunctionalRequirementEntryVerificationContentForm(doc, '$path/content');
 }
 
-/// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+/// 4.3.1. Functional Requirements.
 /// 
 /// Container for functional requirements. Functional requirements describe
 /// what the system must do — its features, behaviors, processing rules,
@@ -13606,7 +13590,7 @@ class FunctionalRequirements extends SomNode {
   SomList<FunctionalRequirementEntry> get requirements => SomList<FunctionalRequirementEntry>(doc, '$path/FRE-REQU-LST', (d, p) => FunctionalRequirementEntry(d, p));
 }
 
-/// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+/// 4.6.2. Functional Responsibilities.
 /// 
 /// Maps system functions to organizational units responsible for them.
 /// Identifies domain owners, data stewards, and operational contacts for
@@ -13624,7 +13608,7 @@ class FunctionalResponsibilities extends SomNode {
   SomList<ResponsibilityEntry> get items => SomList<ResponsibilityEntry>(doc, '$path/REEN1-ITEM-LST', (d, p) => ResponsibilityEntry(d, p));
 }
 
-/// A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
+/// A gap entry (form) — a missing capability or feature.
 /// 
 /// Documents a specific gap between current capabilities and business needs:
 /// category, severity, quantified cost, stakeholders, compliance drivers,
@@ -13675,7 +13659,7 @@ class GapEntryWorkaround extends SomNode {
   GapEntryWorkaroundContentForm get content => GapEntryWorkaroundContentForm(doc, '$path/content');
 }
 
-/// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+/// 1.3.4. Gaps.
 class Gaps extends SomNode {
   Gaps(super.doc, super.path);
 
@@ -13741,7 +13725,7 @@ class GlobalEntryPointEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn].
+/// A global role exclusion entry (form).
 /// 
 /// Defines system-wide mutual exclusion rules that apply across all users,
 /// independent of individual role definitions.
@@ -13751,7 +13735,36 @@ class GlobalRoleExclusionEntry extends SomNode {
   GlobalRoleExclusionEntryContentForm get content => GlobalRoleExclusionEntryContentForm(doc, '$path/content');
 }
 
-/// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+/// An ordered collection of glossary entries.
+class Glossary extends SomNode {
+  Glossary(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// One entry per defined term or acronym.
+  SomList<GlossaryEntry> get entries => SomList<GlossaryEntry>(doc, '$path/GLOSS-ENTR-LST', (d, p) => GlossaryEntry(d, p));
+}
+
+/// SBP.3 Glossary & Abbreviations.
+class GlossaryAndAbbreviations extends SomNode {
+  GlossaryAndAbbreviations(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// The set of defined terms and abbreviations.
+  Glossary get glossary => Glossary(doc, '$path/glossary');
+}
+
+/// A single glossary entry (form).
+class GlossaryEntry extends SomNode {
+  GlossaryEntry(super.doc, super.path);
+
+  GlossaryEntryContentForm get content => GlossaryEntryContentForm(doc, '$path/content');
+}
+
+/// 4.2.1.n.3. Dependencies.
 /// 
 /// Dependencies that may affect goal achievement.
 class GoalDependencies extends SomNode {
@@ -13774,7 +13787,7 @@ class GoalDependencyEntry extends SomNode {
   set relatedGoal(String value) => doc.setContent('$path/relatedGoal', value);
 }
 
-/// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+/// 4.2.1.n.1. Key Results.
 /// 
 /// OKR-style key results that indicate progress toward the goal.
 /// Key results are specific, measurable outcomes that together constitute
@@ -13796,7 +13809,7 @@ class GoalMilestoneEntry extends SomNode {
   GoalMilestoneEntryContentForm get content => GoalMilestoneEntryContentForm(doc, '$path/content');
 }
 
-/// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+/// 4.2.1.n.2. Milestones.
 /// 
 /// Key milestones marking progress toward the goal.
 class GoalMilestones extends SomNode {
@@ -13809,7 +13822,7 @@ class GoalMilestones extends SomNode {
   SomList<GoalMilestoneEntry> get items => SomList<GoalMilestoneEntry>(doc, '$path/GOLMS-ITEM-LST', (d, p) => GoalMilestoneEntry(d, p));
 }
 
-/// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+/// 4.2.1.n.5. Resources.
 /// 
 /// Resources required to achieve the goal.
 class GoalResources extends SomNode {
@@ -13852,7 +13865,7 @@ class GoalRiskEntryResponse extends SomNode {
   GoalRiskEntryResponseContentForm get content => GoalRiskEntryResponseContentForm(doc, '$path/content');
 }
 
-/// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+/// 4.2.1.n.4. Risks.
 /// 
 /// Risks that may prevent or delay goal achievement.
 class GoalRisks extends SomNode {
@@ -13865,7 +13878,7 @@ class GoalRisks extends SomNode {
   SomList<GoalRiskEntry> get items => SomList<GoalRiskEntry>(doc, '$path/GOLRS-ITEM-LST', (d, p) => GoalRiskEntry(d, p));
 }
 
-/// 4.2. Goals [PD00-SYO-GOA].
+/// 4.2. Goals.
 /// 
 /// Container for project goals organized by category. Goals provide measurable
 /// objectives that guide project execution and define success. This section
@@ -13881,13 +13894,13 @@ class Goals extends SomNode {
   String get goalHierarchyDiagram => doc.content('$path/goalHierarchyDiagram') ?? '';
   set goalHierarchyDiagram(String value) => doc.setContent('$path/goalHierarchyDiagram', value);
 
-  /// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+  /// 4.2.1. Business Goals.
   BusinessGoals get businessGoals => BusinessGoals(doc, '$path/businessGoals');
 
-  /// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+  /// 4.2.2. Technical Goals.
   TechnicalGoals get technicalGoals => TechnicalGoals(doc, '$path/technicalGoals');
 
-  /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+  /// 4.2.3. Success Criteria.
   SuccessCriteria get successCriteria => SuccessCriteria(doc, '$path/successCriteria');
 }
 
@@ -13901,7 +13914,7 @@ class GovernanceModel extends SomNode {
   SomList<DecisionAuthorityEntry> get decisionAuthorities => SomList<DecisionAuthorityEntry>(doc, '$path/DCAUT-DECI-LST', (d, p) => DecisionAuthorityEntry(d, p));
 }
 
-/// A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
+/// A data handling requirement entry (form).
 /// 
 /// Specific handling procedures for classified data.
 class HandlingRequirementEntry extends SomNode {
@@ -13910,20 +13923,20 @@ class HandlingRequirementEntry extends SomNode {
   HandlingRequirementEntryContentForm get content => HandlingRequirementEntryContentForm(doc, '$path/content');
 }
 
-/// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+/// 8.4. Hardware Concept Requirements.
 class HardwareRequirements extends SomNode {
   HardwareRequirements(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+  /// 8.4.1. Server Requirements.
   ServerRequirementsSection get serverRequirements => ServerRequirementsSection(doc, '$path/serverRequirements');
 
-  /// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+  /// 8.4.2. Client Requirements.
   ClientRequirementsSection get clientRequirements => ClientRequirementsSection(doc, '$path/clientRequirements');
 
-  /// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+  /// 8.4.3. Network Requirements.
   NetworkRequirementsSection get networkRequirements => NetworkRequirementsSection(doc, '$path/networkRequirements');
 }
 
@@ -13964,7 +13977,7 @@ class HealthCheckEndpointsTiming extends SomNode {
   HealthCheckEndpointsTimingContentForm get content => HealthCheckEndpointsTimingContentForm(doc, '$path/content');
 }
 
-/// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+/// 8.7.2.1. Health Checks and Diagnostics.
 class HealthChecksAndDiagnosticsSection extends SomNode {
   HealthChecksAndDiagnosticsSection(super.doc, super.path);
 
@@ -13990,7 +14003,7 @@ class HealthChecksAndDiagnosticsSection extends SomNode {
   DependencyHealthMonitoring get dependencyHealth => DependencyHealthMonitoring(doc, '$path/dependencyHealth');
 }
 
-/// 10.8. Help Concept [PD00-USE-HLP].
+/// 10.8. Help Concept.
 /// 
 /// Comprehensive in-app help system including contextual help, onboarding,
 /// and support access mechanisms.
@@ -14008,13 +14021,13 @@ class HelpConcept extends SomNode {
   /// Help system overview narrative.
   // (skipped: helpOverview has no target type)
 
-  /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+  /// 10.8.1. Contextual Help.
   ContextualHelp get contextualHelp => ContextualHelp(doc, '$path/contextualHelp');
 
-  /// 10.8.2. Onboarding [PD00-USE-HLP-ONB].
+  /// 10.8.2. Onboarding.
   OnboardingHelp get onboarding => OnboardingHelp(doc, '$path/onboarding');
 
-  /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+  /// 10.8.3. Support Access.
   SupportAccess get supportAccess => SupportAccess(doc, '$path/supportAccess');
 
   /// Help content inventory.
@@ -14119,7 +14132,7 @@ class IdeRequirementEntryStandardization extends SomNode {
   IdeRequirementEntryStandardizationContentForm get content => IdeRequirementEntryStandardizationContentForm(doc, '$path/content');
 }
 
-/// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+/// 9.2.1. Identification.
 /// 
 /// Defines the identity management model: how identities are created,
 /// sourced, verified, federated, and mapped. Covers identity sources,
@@ -14133,37 +14146,37 @@ class Identification extends SomNode {
   /// Identity Sources — contains 0+× Identity Source.
   SomList<IdentitySourceEntry> get identitySources => SomList<IdentitySourceEntry>(doc, '$path/IDTSR-IDEN-LST', (d, p) => IdentitySourceEntry(d, p));
 
-  /// Identity Verification [PD00-ACC-IDE-IDN-VER].
+  /// Identity Verification.
   IdentityVerificationPolicy get identityVerification => IdentityVerificationPolicy(doc, '$path/identityVerification');
 
   /// Identity Providers — contains 0+× Identity Provider.
   SomList<IdentityProviderEntry> get identityProviders => SomList<IdentityProviderEntry>(doc, '$path/IDTPV-IDEN-LST', (d, p) => IdentityProviderEntry(d, p));
 
-  /// Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+  /// Single Sign-On.
   SingleSignOnPolicy get singleSignOn => SingleSignOnPolicy(doc, '$path/singleSignOn');
 
-  /// Self-Registration [PD00-ACC-IDE-IDN-REG].
+  /// Self-Registration.
   SelfRegistrationPolicy get selfRegistration => SelfRegistrationPolicy(doc, '$path/selfRegistration');
 
   /// Attribute Mappings — contains 0+× Identity Attribute Mapping.
   SomList<IdentityAttributeMappingEntry> get attributeMappings => SomList<IdentityAttributeMappingEntry>(doc, '$path/IDTAM-ATTR-LST', (d, p) => IdentityAttributeMappingEntry(d, p));
 }
 
-/// 9.2. Identification and Authentication [PD00-ACC-IDE].
+/// 9.2. Identification and Authentication.
 class IdentificationAndAuthentication extends SomNode {
   IdentificationAndAuthentication(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+  /// 9.2.1. Identification.
   Identification get identification => Identification(doc, '$path/identification');
 
-  /// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+  /// 9.2.2. Authentication.
   Authentication get authentication => Authentication(doc, '$path/authentication');
 }
 
-/// An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].
+/// An identity attribute mapping entry (form).
 /// 
 /// Defines how attributes map between identity sources and the application:
 /// source/target field, data type, transformation, sync direction.
@@ -14217,7 +14230,7 @@ class IdentityProviderEndpoints extends SomNode {
   IdentityProviderEndpointsContentForm get content => IdentityProviderEndpointsContentForm(doc, '$path/content');
 }
 
-/// An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].
+/// An identity provider entry (form).
 /// 
 /// Configuration for a single Identity Provider (IdP): protocol, endpoints,
 /// attribute mapping, trust level, certificate management.
@@ -14263,7 +14276,7 @@ class IdentityProviderTrust extends SomNode {
   IdentityProviderTrustContentForm get content => IdentityProviderTrustContentForm(doc, '$path/content');
 }
 
-/// An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn].
+/// An identity source entry (form).
 /// 
 /// Defines one source from which identities are obtained, e.g.
 /// internal directory, LDAP, external IdP, HR system, self-registration.
@@ -14313,7 +14326,7 @@ class IdentitySourceEntryOperations extends SomNode {
   IdentitySourceEntryOperationsContentForm get content => IdentitySourceEntryOperationsContentForm(doc, '$path/content');
 }
 
-/// Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER].
+/// Identity verification/proofing policy (form).
 /// 
 /// Defines how identity claims are verified: verification level, required
 /// documents, automation, proofing standards (NIST IAL), and re-verification.
@@ -14585,7 +14598,24 @@ class IndustryStandardEntryVerification extends SomNode {
   IndustryStandardEntryVerificationContentForm get content => IndustryStandardEntryVerificationContentForm(doc, '$path/content');
 }
 
-/// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+/// 7. Business Object and Data Model. Seeds → BDM.
+class InformationAndDataModel extends SomNode {
+  InformationAndDataModel(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 7.1. Data Model.
+  DataModel get dataModel => DataModel(doc, '$path/dataModel');
+
+  /// 7.2. Business Object Model.
+  BusinessObjectModel get businessObjectModel => BusinessObjectModel(doc, '$path/businessObjectModel');
+
+  /// 7.3. Function Model.
+  FunctionModel get functionModel => FunctionModel(doc, '$path/functionModel');
+}
+
+/// 10.2.2. Information Architecture.
 /// 
 /// Overall information architecture: site map, content hierarchy, navigation
 /// structure, and entry points. Describes how screens relate to each other
@@ -14608,8 +14638,91 @@ class InformationArchitecture extends SomNode {
   /// Global entry points.
   SomList<GlobalEntryPointEntry> get globalEntryPoints => SomList<GlobalEntryPointEntry>(doc, '$path/GLOBA-GLOB-LST', (d, p) => GlobalEntryPointEntry(d, p));
 
-  /// 10.2.2.5. Information Architecture Diagram [PD00-USE-SCR-INF-DIA].
+  /// 10.2.2.5. Information Architecture Diagram.
   // (skipped: architectureDiagram has no target type)
+}
+
+/// Information-for-Use (user documentation) requirements.
+/// 
+/// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
+/// *quality criteria* cross-map lives in SBP.14
+/// (`DocumentationQualityCriteria`).
+/// 
+/// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
+/// doc/training field-split (separating the documentation half from the
+/// training half) is deferred to IP-8.
+class InformationForUseRequirements extends SomNode {
+  InformationForUseRequirements(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Documentation (and, until the IP-8 split, training) requirements,
+  /// re-homed from MLAR.
+  DocumentationAndTraining get documentationAndTraining => DocumentationAndTraining(doc, '$path/documentationAndTraining');
+}
+
+/// BDM00 Business Data Model.
+/// 
+/// Full business data model: entities, relationships, ER diagram, data
+/// classification, business objects, function decomposition, function-
+/// to-data matrix, business rules, data dictionary, and validation /
+/// integrity constraints.
+class InformationModel extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  InformationModel(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'IFM') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Entity inventory (list).
+  SomList<DataEntityEntry> get entities => SomList<DataEntityEntry>(doc, '$path/DAENT-ENTI-LST', (d, p) => DataEntityEntry(d, p));
+
+  /// Entity relationships.
+  EntityRelationships get entityRelationships => EntityRelationships(doc, '$path/entityRelationships');
+
+  /// Entity-relationship diagram.
+  // (skipped: erDiagram has no target type)
+
+  /// Data classification.
+  DataClassification get dataClassification => DataClassification(doc, '$path/dataClassification');
+
+  /// Business object catalog (list).
+  SomList<BusinessObjectEntry> get objectCatalog => SomList<BusinessObjectEntry>(doc, '$path/BJOEN-OBJE-LST', (d, p) => BusinessObjectEntry(d, p));
+
+  /// Business object diagram.
+  // (skipped: objectDiagram has no target type)
+
+  /// Function decomposition (list).
+  SomList<FunctionEntry> get functionDecomposition => SomList<FunctionEntry>(doc, '$path/FUNCT-FUNC-LST', (d, p) => FunctionEntry(d, p));
+
+  /// Function-to-data matrix (list).
+  SomList<FunctionDataMatrixEntry> get functionToDataMatrix => SomList<FunctionDataMatrixEntry>(doc, '$path/FNDMX-FUNC-LST', (d, p) => FunctionDataMatrixEntry(d, p));
+
+  /// Business rules catalog (list).
+  SomList<BusinessRuleEntry> get businessRules => SomList<BusinessRuleEntry>(doc, '$path/BIRU-BUSI-LST', (d, p) => BusinessRuleEntry(d, p));
+
+  /// Data dictionary.
+  DataDictionary get dataDictionary => DataDictionary(doc, '$path/dataDictionary');
+
+  /// Validation constraints.
+  SomList<ValidationConstraints> get validationConstraints => SomList<ValidationConstraints>(doc, '$path/VACO-VALI-LST', (d, p) => ValidationConstraints(d, p));
+
+  /// Integrity constraints.
+  SomList<IntegrityConstraints> get integrityConstraints => SomList<IntegrityConstraints>(doc, '$path/INCO-INTE-LST', (d, p) => IntegrityConstraints(d, p));
 }
 
 /// Infrastructure as Code requirements.
@@ -14790,7 +14903,7 @@ class InfrastructureSecurityHardeningNetwork extends SomNode {
   InfrastructureSecurityHardeningNetworkContentForm get content => InfrastructureSecurityHardeningNetworkContentForm(doc, '$path/content');
 }
 
-/// 13.7. Initial Development Flow [PD00-SSP-IDV].
+/// 13.7. Initial Development Flow.
 /// 
 /// Inter-phase dependencies during the initial build (Phases 1–7 of
 /// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
@@ -14830,7 +14943,7 @@ class InitialTrainingDelivery extends SomNode {
   InitialTrainingDeliveryContentForm get content => InitialTrainingDeliveryContentForm(doc, '$path/content');
 }
 
-/// Initial training entry (form) [PD00-ORG-WOR-nn-TRA-INI-nn].
+/// Initial training entry (form).
 class InitialTrainingEntry extends SomNode {
   InitialTrainingEntry(super.doc, super.path);
 
@@ -14859,7 +14972,7 @@ class InitialTrainingSchedule extends SomNode {
   InitialTrainingScheduleContentForm get content => InitialTrainingScheduleContentForm(doc, '$path/content');
 }
 
-/// Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn].
+/// Input device entry (form).
 class InputDeviceEntry extends SomNode {
   InputDeviceEntry(super.doc, super.path);
 
@@ -14880,7 +14993,7 @@ class InsuranceEntry extends SomNode {
   InsuranceEntryContentForm get content => InsuranceEntryContentForm(doc, '$path/content');
 }
 
-/// 3.6.5. Insurance and Liability Requirements [PD00-ADM-OTH-INS].
+/// 3.6.5. Insurance and Liability Requirements.
 /// 
 /// Insurance coverage and liability agreements.
 class InsuranceLiabilityRequirements extends SomNode {
@@ -14953,7 +15066,7 @@ class IntegrationArchitectureSystems extends SomNode {
   IntegrationArchitectureSystemsContentForm get content => IntegrationArchitectureSystemsContentForm(doc, '$path/content');
 }
 
-/// An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
+/// An integration constraint entry (form).
 /// 
 /// Documents a technical constraint on system integration, including
 /// protocol requirements, format restrictions, and platform mandates.
@@ -15003,7 +15116,7 @@ class IntegrationConstraintEntryScope extends SomNode {
   IntegrationConstraintEntryScopeContentForm get content => IntegrationConstraintEntryScopeContentForm(doc, '$path/content');
 }
 
-/// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+/// 1.1.3.5. Integration Health Summary.
 /// 
 /// Executive summary of overall integration landscape health and risk areas.
 class IntegrationHealthSummary extends SomNode {
@@ -15011,8 +15124,64 @@ class IntegrationHealthSummary extends SomNode {
 
   IntegrationHealthSummaryContentForm get content => IntegrationHealthSummaryContentForm(doc, '$path/content');
 
-  /// Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
+  /// Fragile integration points requiring attention.
   SomList<FragilePointEntry> get fragilePoints => SomList<FragilePointEntry>(doc, '$path/FRAGI-FRAG-LST', (d, p) => FragilePointEntry(d, p));
+}
+
+/// BSI00 Business System Interactions.
+/// 
+/// Complete interaction specification between the target system and
+/// external systems: inventory, patterns, testing, dependencies,
+/// migration, operational concerns, and cross-boundary error handling.
+class IntegrationInterfaceSpecification extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  IntegrationInterfaceSpecification(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'IIS') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// External interfaces.
+  ExternalInterfaces get externalInterfaces => ExternalInterfaces(doc, '$path/externalInterfaces');
+
+  /// Out of scope.
+  OutOfScope get outOfScope => OutOfScope(doc, '$path/outOfScope');
+
+  /// Boundary assumptions.
+  BoundaryAssumptions get boundaryAssumptions => BoundaryAssumptions(doc, '$path/boundaryAssumptions');
+
+  /// System landscape inventory.
+  SystemLandscapeInventory get systemInventory => SystemLandscapeInventory(doc, '$path/systemInventory');
+
+  /// Boundary interaction patterns.
+  SomList<BoundaryInteractionPatterns> get interactionPatterns => SomList<BoundaryInteractionPatterns>(doc, '$path/BOINPA-INTE-LST', (d, p) => BoundaryInteractionPatterns(d, p));
+
+  /// Interaction testing strategy.
+  InteractionTestingStrategy get testingStrategy => InteractionTestingStrategy(doc, '$path/testingStrategy');
+
+  /// Interaction dependency analysis.
+  InteractionDependencyAnalysis get dependencyAnalysis => InteractionDependencyAnalysis(doc, '$path/dependencyAnalysis');
+
+  /// Migration interactions.
+  SomList<MigrationInteractions> get migrationInteractions => SomList<MigrationInteractions>(doc, '$path/MIIN-MIGR-LST', (d, p) => MigrationInteractions(d, p));
+
+  /// Cross-boundary operational considerations.
+  SomList<CrossBoundaryOperationalConsiderations> get operationalConsiderations => SomList<CrossBoundaryOperationalConsiderations>(doc, '$path/CBOC-OPER-LST', (d, p) => CrossBoundaryOperationalConsiderations(d, p));
+
+  /// Cross-boundary error handling.
+  CrossBoundaryErrorHandling get crossBoundaryErrorHandling => CrossBoundaryErrorHandling(doc, '$path/crossBoundaryErrorHandling');
 }
 
 /// A single integration pattern entry.
@@ -15030,7 +15199,7 @@ class IntegrationPointEntry extends SomNode {
   IntegrationPointEntryContentForm get content => IntegrationPointEntryContentForm(doc, '$path/content');
 }
 
-/// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+/// 1.1.3.4. System Integrations.
 /// 
 /// Active integrations between systems including protocols, data formats,
 /// error handling, and monitoring.
@@ -15044,7 +15213,7 @@ class Integrations extends SomNode {
   SomList<SystemIntegrationEntry> get items => SomList<SystemIntegrationEntry>(doc, '$path/SYIN-ITEM-LST', (d, p) => SystemIntegrationEntry(d, p));
 }
 
-/// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+/// 7.1.7. Integrity Constraints.
 /// 
 /// Cross-entity integrity rules beyond simple referential integrity.
 class IntegrityConstraints extends SomNode {
@@ -15054,7 +15223,7 @@ class IntegrityConstraints extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 3.6.1. Intellectual Property Requirements [PD00-ADM-OTH-IPR].
+/// 3.6.1. Intellectual Property Requirements.
 /// 
 /// Defines ownership and usage rights for project deliverables and IP.
 class IntellectualPropertyRequirements extends SomNode {
@@ -15073,7 +15242,7 @@ class InteractionBusinessRules extends SomNode {
   InteractionBusinessRulesContentForm get content => InteractionBusinessRulesContentForm(doc, '$path/content');
 }
 
-/// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT].
+/// 6.2.2. Interaction Catalog.
 /// 
 /// Container for key interaction descriptions. Each interaction seeds a use
 /// case following Cockburn's fully dressed use case template.
@@ -15100,7 +15269,7 @@ class InteractionCatalogOverview extends SomNode {
   InteractionCatalogOverviewContentForm get content => InteractionCatalogOverviewContentForm(doc, '$path/content');
 }
 
-/// An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
+/// An interaction channel entry (form).
 /// 
 /// Comprehensive definition of an access channel including platform details,
 /// features, constraints, and user experience considerations.
@@ -15156,7 +15325,7 @@ class InteractionChannelEntryPlatform extends SomNode {
   InteractionChannelEntryPlatformContentForm get content => InteractionChannelEntryPlatformContentForm(doc, '$path/content');
 }
 
-/// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP].
+/// 4.5.7. Interaction Dependency Analysis.
 /// 
 /// Critical-path and degraded-mode behavior analysis for system
 /// dependencies. Covers BSI-DEP.
@@ -15167,7 +15336,7 @@ class InteractionDependencyAnalysis extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// An interaction entry [PD00-TAR-STP-INT-nn].
+/// An interaction entry.
 /// 
 /// Comprehensive interaction definition following Cockburn's fully dressed
 /// use case template. Seeds the UC (Use Case) document.
@@ -15221,7 +15390,7 @@ class InteractionIdentification extends SomNode {
   InteractionIdentificationContentForm get content => InteractionIdentificationContentForm(doc, '$path/content');
 }
 
-/// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
+/// An interaction pattern entry (form).
 /// 
 /// Definition of a specific interaction pattern including timing, triggers,
 /// and user experience considerations.
@@ -15271,7 +15440,7 @@ class InteractionPatternEntryUsage extends SomNode {
   InteractionPatternEntryUsageContentForm get content => InteractionPatternEntryUsageContentForm(doc, '$path/content');
 }
 
-/// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+/// 4.1.5.2. Interaction Patterns.
 /// 
 /// Defines how users interact with the system including real-time interactions,
 /// batch processing, workflow-driven tasks, and notification-driven actions.
@@ -15307,6 +15476,53 @@ class InteractionScenarioEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
+/// UC00 Use Cases.
+/// 
+/// Detailed use cases derived from the target process steps and actor
+/// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+/// and traceability.
+class InteractionScenarios extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  InteractionScenarios(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'ISC') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Process steps overview.
+  ProcessStepsOverview get processStepsOverview => ProcessStepsOverview(doc, '$path/processStepsOverview');
+
+  /// Actor overview.
+  ActorOverview get actorOverview => ActorOverview(doc, '$path/actorOverview');
+
+  /// Interaction catalog.
+  InteractionCatalog get interactionCatalog => InteractionCatalog(doc, '$path/interactionCatalog');
+
+  /// Key scenarios.
+  KeyScenarios get keyScenarios => KeyScenarios(doc, '$path/keyScenarios');
+
+  /// Actor relationship diagram.
+  ActorRelationshipDiagram get actorRelationshipDiagram => ActorRelationshipDiagram(doc, '$path/actorRelationshipDiagram');
+
+  /// End-to-end test scenarios.
+  SomList<EndToEndTestScenarios> get endToEndTestScenarios => SomList<EndToEndTestScenarios>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenarios(d, p));
+
+  /// Use case traceability.
+  UseCaseTraceability get useCaseTraceability => UseCaseTraceability(doc, '$path/useCaseTraceability');
+}
+
 /// Interaction security requirements.
 class InteractionSecurity extends SomNode {
   InteractionSecurity(super.doc, super.path);
@@ -15314,7 +15530,7 @@ class InteractionSecurity extends SomNode {
   InteractionSecurityContentForm get content => InteractionSecurityContentForm(doc, '$path/content');
 }
 
-/// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST].
+/// 4.5.6. Interaction Testing Strategy.
 /// 
 /// Contract / integration / failure-mode testing for system boundaries.
 /// Covers BSI-TST.
@@ -15332,7 +15548,7 @@ class InteractionTraceability extends SomNode {
   InteractionTraceabilityContentForm get content => InteractionTraceabilityContentForm(doc, '$path/content');
 }
 
-/// Business context for an interface [PD00-SYO-SYB-INT-nn-BUS].
+/// Business context for an interface.
 class InterfaceBusinessContext extends SomNode {
   InterfaceBusinessContext(super.doc, super.path);
 
@@ -15342,21 +15558,21 @@ class InterfaceBusinessContext extends SomNode {
   SomList<InterfaceBusinessProcessEntry> get dependentProcesses => SomList<InterfaceBusinessProcessEntry>(doc, '$path/IBPE-DEPE-LST', (d, p) => InterfaceBusinessProcessEntry(d, p));
 }
 
-/// Business process dependency entry [PD00-SYO-SYB-INT-nn-BUS-BP-nn].
+/// Business process dependency entry.
 class InterfaceBusinessProcessEntry extends SomNode {
   InterfaceBusinessProcessEntry(super.doc, super.path);
 
   InterfaceBusinessProcessEntryContentForm get content => InterfaceBusinessProcessEntryContentForm(doc, '$path/content');
 }
 
-/// Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn].
+/// Data entity exchanged.
 class InterfaceDataEntityEntry extends SomNode {
   InterfaceDataEntityEntry(super.doc, super.path);
 
   InterfaceDataEntityEntryContentForm get content => InterfaceDataEntityEntryContentForm(doc, '$path/content');
 }
 
-/// Data specification for an interface [PD00-SYO-SYB-INT-nn-DAT].
+/// Data specification for an interface.
 class InterfaceDataSpec extends SomNode {
   InterfaceDataSpec(super.doc, super.path);
 
@@ -15372,7 +15588,7 @@ class InterfaceDataSpec extends SomNode {
   SomList<ValidationRuleEntry> get validationRules => SomList<ValidationRuleEntry>(doc, '$path/VALID-VALI-LST', (d, p) => ValidationRuleEntry(d, p));
 }
 
-/// Error handling specification [PD00-SYO-SYB-INT-nn-ERR].
+/// Error handling specification.
 class InterfaceErrorHandling extends SomNode {
   InterfaceErrorHandling(super.doc, super.path);
 
@@ -15412,7 +15628,7 @@ class InterfaceErrorHandlingTimeout extends SomNode {
   InterfaceErrorHandlingTimeoutContentForm get content => InterfaceErrorHandlingTimeoutContentForm(doc, '$path/content');
 }
 
-/// Governance and contracts [PD00-SYO-SYB-INT-nn-GOV].
+/// Governance and contracts.
 class InterfaceGovernance extends SomNode {
   InterfaceGovernance(super.doc, super.path);
 
@@ -15442,14 +15658,14 @@ class InterfaceGovernanceLifecycle extends SomNode {
   InterfaceGovernanceLifecycleContentForm get content => InterfaceGovernanceLifecycleContentForm(doc, '$path/content');
 }
 
-/// API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn].
+/// API operation entry.
 class InterfaceOperationEntry extends SomNode {
   InterfaceOperationEntry(super.doc, super.path);
 
   InterfaceOperationEntryContentForm get content => InterfaceOperationEntryContentForm(doc, '$path/content');
 }
 
-/// Operational characteristics [PD00-SYO-SYB-INT-nn-OPS].
+/// Operational characteristics.
 class InterfaceOperational extends SomNode {
   InterfaceOperational(super.doc, super.path);
 
@@ -15489,7 +15705,7 @@ class InterfaceOperationalSupport extends SomNode {
   InterfaceOperationalSupportContentForm get content => InterfaceOperationalSupportContentForm(doc, '$path/content');
 }
 
-/// Security specification for an interface [PD00-SYO-SYB-INT-nn-SEC].
+/// Security specification for an interface.
 class InterfaceSecurity extends SomNode {
   InterfaceSecurity(super.doc, super.path);
 
@@ -15576,7 +15792,7 @@ class InterfaceSpecificationEntryTooling extends SomNode {
   InterfaceSpecificationEntryToolingContentForm get content => InterfaceSpecificationEntryToolingContentForm(doc, '$path/content');
 }
 
-/// Technical specification for an interface [PD00-SYO-SYB-INT-nn-TEC].
+/// Technical specification for an interface.
 class InterfaceTechnicalSpec extends SomNode {
   InterfaceTechnicalSpec(super.doc, super.path);
 
@@ -15609,14 +15825,14 @@ class InterfaceTechnicalSpecEndpoints extends SomNode {
   InterfaceTechnicalSpecEndpointsContentForm get content => InterfaceTechnicalSpecEndpointsContentForm(doc, '$path/content');
 }
 
-/// Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn].
+/// Test scenario entry.
 class InterfaceTestScenarioEntry extends SomNode {
   InterfaceTestScenarioEntry(super.doc, super.path);
 
   InterfaceTestScenarioEntryContentForm get content => InterfaceTestScenarioEntryContentForm(doc, '$path/content');
 }
 
-/// Testing specification [PD00-SYO-SYB-INT-nn-TST].
+/// Testing specification.
 class InterfaceTesting extends SomNode {
   InterfaceTesting(super.doc, super.path);
 
@@ -15646,14 +15862,14 @@ class InterfaceTestingStrategy extends SomNode {
   InterfaceTestingStrategyContentForm get content => InterfaceTestingStrategyContentForm(doc, '$path/content');
 }
 
-/// Webhook specification [PD00-SYO-SYB-INT-nn-TEC-WH].
+/// Webhook specification.
 class InterfaceWebhookSpec extends SomNode {
   InterfaceWebhookSpec(super.doc, super.path);
 
   InterfaceWebhookSpecContentForm get content => InterfaceWebhookSpecContentForm(doc, '$path/content');
 }
 
-/// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+/// 1.1.3.1. Internal Dependencies.
 /// 
 /// Dependencies between systems owned and operated internally.
 class InternalDependencies extends SomNode {
@@ -15760,6 +15976,46 @@ class InteroperabilityRequirementsTesting extends SomNode {
   InteroperabilityRequirementsTestingContentForm get content => InteroperabilityRequirementsTestingContentForm(doc, '$path/content');
 }
 
+/// 4. System Overview.
+/// 
+/// High-level overview of the system to be built: its purpose, goals,
+/// scope boundaries, and the environment it operates in. This section
+/// establishes the foundation for all subsequent specification work.
+class IntroductionAndScope extends SomNode {
+  IntroductionAndScope(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// System overview summary statistics.
+  SystemOverviewSummary get summary => SystemOverviewSummary(doc, '$path/summary');
+
+  /// System context diagram showing major system boundaries.
+  String get systemContextDiagram => doc.content('$path/systemContextDiagram') ?? '';
+  set systemContextDiagram(String value) => doc.setContent('$path/systemContextDiagram', value);
+
+  /// 4.1. System Description.
+  SystemDescription get systemDescription => SystemDescription(doc, '$path/systemDescription');
+
+  /// 4.2. Goals.
+  Goals get goals => Goals(doc, '$path/goals');
+
+  /// 4.3. Requirements Overview. Seeds → RC.
+  RequirementsOverview get requirements => RequirementsOverview(doc, '$path/requirements');
+
+  /// 4.4. Systems to Replace. Seeds → CS.
+  SystemsToReplace get systemsToReplace => SystemsToReplace(doc, '$path/systemsToReplace');
+
+  /// 4.5. System Boundaries. Seeds → BSI.
+  SystemBoundaries get systemBoundaries => SystemBoundaries(doc, '$path/systemBoundaries');
+
+  /// 4.6. Framework Conditions.
+  FrameworkConditions get frameworkConditions => FrameworkConditions(doc, '$path/frameworkConditions');
+
+  /// 4.7. Risks and Assumptions.
+  RisksAndAssumptions get risksAndAssumptions => RisksAndAssumptions(doc, '$path/risksAndAssumptions');
+}
+
 /// An IP ownership entry (form).
 class IpOwnershipEntry extends SomNode {
   IpOwnershipEntry(super.doc, super.path);
@@ -15767,7 +16023,29 @@ class IpOwnershipEntry extends SomNode {
   IpOwnershipEntryContentForm get content => IpOwnershipEntryContentForm(doc, '$path/content');
 }
 
-/// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+/// ISO/IEC 25010 product-quality cross-map.
+/// 
+/// Maps the system's quality goals onto the eight ISO/IEC 25010 product
+/// quality characteristics so that compatibility and portability cannot be
+/// silently missed.
+class Iso25010Coverage extends SomNode {
+  Iso25010Coverage(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// One entry per ISO/IEC 25010 characteristic addressed.
+  SomList<Iso25010CoverageEntry> get characteristics => SomList<Iso25010CoverageEntry>(doc, '$path/I25CV-CHAR-LST', (d, p) => Iso25010CoverageEntry(d, p));
+}
+
+/// A single ISO/IEC 25010 coverage entry (form).
+class Iso25010CoverageEntry extends SomNode {
+  Iso25010CoverageEntry(super.doc, super.path);
+
+  Iso25010CoverageEntryContentForm get content => Iso25010CoverageEntryContentForm(doc, '$path/content');
+}
+
+/// 4.1.2.2. IT Landscape Position.
 /// 
 /// How this system fits within the organization's overall IT architecture
 /// and application portfolio.
@@ -15781,7 +16059,7 @@ class ItLandscapePosition extends SomNode {
   ItLandscapePositionPositionDetailsForm get positionDetails => ItLandscapePositionPositionDetailsForm(doc, '$path/positionDetails');
 }
 
-/// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
+/// 11.4.4. IT Security Operations quality.
 class ItSecurityOperationsQuality extends SomNode {
   ItSecurityOperationsQuality(super.doc, super.path);
 
@@ -15831,7 +16109,7 @@ class ItSecurityOperationsQualityTesting extends SomNode {
   ItSecurityOperationsQualityTestingContentForm get content => ItSecurityOperationsQualityTestingContentForm(doc, '$path/content');
 }
 
-/// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+/// 8.8.1. IT Security Standards.
 class ItSecurityStandardsSection extends SomNode {
   ItSecurityStandardsSection(super.doc, super.path);
 
@@ -15917,7 +16195,7 @@ class ItStandardComplianceEntryTimeline extends SomNode {
   ItStandardComplianceEntryTimelineContentForm get content => ItStandardComplianceEntryTimelineContentForm(doc, '$path/content');
 }
 
-/// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+/// 5.2. Job Descriptions and Staffing Plans.
 /// 
 /// Documents new and changed roles resulting from the system introduction,
 /// following HR best practices and job analysis methodologies (O*NET, SHRM).
@@ -15928,19 +16206,19 @@ class JobDescriptionsAndStaffing extends SomNode {
   /// Overview of the job architecture and role design approach.
   JobDescriptionsOverview get overview => JobDescriptionsOverview(doc, '$path/overview');
 
-  /// 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
+  /// 5.2.1. New Roles — contains 0+× New Role.
   SomList<NewRoleEntry> get newRoles => SomList<NewRoleEntry>(doc, '$path/NWROL-NEWR-LST', (d, p) => NewRoleEntry(d, p));
 
-  /// 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
+  /// 5.2.2. Changed Roles — contains 0+× Changed Role.
   SomList<ChangedRoleEntry> get changedRoles => SomList<ChangedRoleEntry>(doc, '$path/CHAROL-CHAN-LST', (d, p) => ChangedRoleEntry(d, p));
 
-  /// 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
+  /// 5.2.3. Removed Roles — contains 0+× role being eliminated.
   SomList<RemovedRoleEntry> get removedRoles => SomList<RemovedRoleEntry>(doc, '$path/REMROL-REMO-LST', (d, p) => RemovedRoleEntry(d, p));
 
-  /// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+  /// 5.2.4. Staffing Plan.
   StaffingPlan get staffingPlan => StaffingPlan(doc, '$path/staffingPlan');
 
-  /// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+  /// 5.2.5. Competency Framework.
   CompetencyFramework get competencyFramework => CompetencyFramework(doc, '$path/competencyFramework');
 }
 
@@ -15966,7 +16244,7 @@ class KeyAssumptionEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+/// 4.7.2. Key Assumptions.
 /// 
 /// Documents project assumptions that must hold true for success.
 /// Tracks validation status and contingency plans if assumptions prove false.
@@ -15980,7 +16258,7 @@ class KeyAssumptions extends SomNode {
   SomList<AssumptionEntry> get items => SomList<AssumptionEntry>(doc, '$path/ASEN-ITEM-LST', (d, p) => AssumptionEntry(d, p));
 }
 
-/// A key attribute entry (form) [PD00-BUS-DAT-ENT-nn-KEY-nn].
+/// A key attribute entry (form).
 /// 
 /// Specification for primary, foreign, alternate, and composite keys.
 class KeyAttributeEntry extends SomNode {
@@ -16049,7 +16327,7 @@ class KeyConceptEntry extends SomNode {
   // (skipped: relationshipDetails has no target type)
 }
 
-/// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+/// 4.1.3.3. Key Concepts.
 /// 
 /// Core business concepts and entities in the domain, their attributes,
 /// and relationships (conceptual domain model).
@@ -16095,7 +16373,7 @@ class KeyGenerationPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-/// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+/// 9.5.3. Key Management.
 /// 
 /// Defines cryptographic key management policies covering the full key
 /// lifecycle: generation, storage, rotation, escrow/backup, and compromise
@@ -16146,7 +16424,7 @@ class KeyRotationPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-/// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE].
+/// 6.2.3. Key Scenarios.
 /// 
 /// End-to-end scenario descriptions showing how users achieve business goals
 /// through sequences of interactions.
@@ -16186,7 +16464,7 @@ class KeyTouchpointEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+/// 15.7. Knowledge Transfer.
 /// 
 /// Handover from delivery team to operations. Covers EK09 Handover
 /// Agreement content.
@@ -16221,7 +16499,7 @@ class KpiEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+/// 10.12.4. Language and Country Selection.
 /// 
 /// UI specification for language and country selection.
 class LanguageCountrySelection extends SomNode {
@@ -16313,7 +16591,7 @@ class LayerCommunicationRulesInterfaces extends SomNode {
   LayerCommunicationRulesInterfacesContentForm get content => LayerCommunicationRulesInterfacesContentForm(doc, '$path/content');
 }
 
-/// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+/// 8.2.1. Layering and Module Structure.
 /// 
 /// Software layering (presentation, business logic, data access, infrastructure)
 /// and module structure (bounded contexts, packages, libraries).
@@ -16411,7 +16689,7 @@ class LiabilityLimitations extends SomNode {
   LiabilityLimitationsContentForm get content => LiabilityLimitationsContentForm(doc, '$path/content');
 }
 
-/// A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
+/// A lifecycle transition entry (form).
 /// 
 /// Detailed state transition specification.
 class LifecycleTransitionEntry extends SomNode {
@@ -16450,7 +16728,7 @@ class LifecycleTransitionEntryTrigger extends SomNode {
   LifecycleTransitionEntryTriggerContentForm get content => LifecycleTransitionEntryTriggerContentForm(doc, '$path/content');
 }
 
-/// A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
+/// A known limitation of an existing system (form).
 class LimitationEntry extends SomNode {
   LimitationEntry(super.doc, super.path);
 
@@ -16551,7 +16829,7 @@ class LocalDevelopmentSetupWorkflow extends SomNode {
   LocalDevelopmentSetupWorkflowContentForm get content => LocalDevelopmentSetupWorkflowContentForm(doc, '$path/content');
 }
 
-/// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
+/// 10.12.1. Localization Process.
 /// 
 /// Workflow for identifying and preparing content for localization.
 class LocalizationProcess extends SomNode {
@@ -16594,6 +16872,42 @@ class LocalizationProcessReview extends SomNode {
   LocalizationProcessReview(super.doc, super.path);
 
   LocalizationProcessReviewContentForm get content => LocalizationProcessReviewContentForm(doc, '$path/content');
+}
+
+/// Localization & Translation execution processes.
+/// 
+/// Public anchor: ISO 29148 transition requirements. Bundles the localization
+/// and translation *workflow* concerns re-homed from the former
+/// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+/// SBP.9 [LocalizationTranslationRequirements]).
+class LocalizationTranslationProcess extends SomNode {
+  LocalizationTranslationProcess(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Localization workflow (content identification, externalization, review).
+  LocalizationProcess get localizationProcess => LocalizationProcess(doc, '$path/localizationProcess');
+
+  /// Translation workflow (TMS, translation memory, vendors, QA).
+  TranslationProcess get translationProcess => TranslationProcess(doc, '$path/translationProcess');
+}
+
+/// Localization & Translation requirements (the requirement side of i18n).
+/// 
+/// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
+/// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+class LocalizationTranslationRequirements extends SomNode {
+  LocalizationTranslationRequirements(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Technical internationalization requirements (re-homed from MLAR).
+  TranslationRequirements get translationRequirements => TranslationRequirements(doc, '$path/translationRequirements');
+
+  /// Locale modeling and fallback requirements (re-homed from MLAR).
+  MultiLanguageAndRolloutLocaleHandling get localeHandling => MultiLanguageAndRolloutLocaleHandling(doc, '$path/localeHandling');
 }
 
 /// Log aggregation and analysis requirements.
@@ -16731,7 +17045,7 @@ class LoginFlowConfiguration extends SomNode {
   // (skipped: loginFlowDetails has no target type)
 }
 
-/// A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
+/// A login flow step entry (form).
 /// 
 /// Defines an individual step in the authentication flow sequence,
 /// allowing detailed specification of each stage from initial request
@@ -16772,7 +17086,7 @@ class LoginFlowStepEntryValidation extends SomNode {
   LoginFlowStepEntryValidationContentForm get content => LoginFlowStepEntryValidationContentForm(doc, '$path/content');
 }
 
-/// A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn].
+/// A main scenario step entry.
 class MainScenarioStepEntry extends SomNode {
   MainScenarioStepEntry(super.doc, super.path);
 
@@ -16789,7 +17103,7 @@ class MainSuccessScenario extends SomNode {
   SomList<MainScenarioStepEntry> get steps => SomList<MainScenarioStepEntry>(doc, '$path/MNSST-STEP-LST', (d, p) => MainScenarioStepEntry(d, p));
 }
 
-/// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
+/// 11.3.5. Maintainability quality.
 class MaintainabilityQuality extends SomNode {
   MaintainabilityQuality(super.doc, super.path);
 
@@ -16886,7 +17200,7 @@ class MaintenanceChangeManagementTesting extends SomNode {
   MaintenanceChangeManagementTestingContentForm get content => MaintenanceChangeManagementTestingContentForm(doc, '$path/content');
 }
 
-/// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+/// 12.5. Maintenance Dependencies.
 /// 
 /// Maintenance dependencies: version compatibility matrix, coordinated
 /// update sequences, and breaking-change handling.
@@ -16900,7 +17214,7 @@ class MaintenanceDependencies extends SomNode {
   SomList<MaintenanceDependencyEntry> get items => SomList<MaintenanceDependencyEntry>(doc, '$path/MNDEP-ITEM-LST', (d, p) => MaintenanceDependencyEntry(d, p));
 }
 
-/// A maintenance dependency entry (form) [PD00-COM-MAI-nn].
+/// A maintenance dependency entry (form).
 /// 
 /// Documents one maintenance dependency: coordinated update sequences,
 /// version compatibility, and breaking-change handling.
@@ -17032,7 +17346,7 @@ class MaintenanceWindowEntryScope extends SomNode {
   MaintenanceWindowEntryScopeContentForm get content => MaintenanceWindowEntryScopeContentForm(doc, '$path/content');
 }
 
-/// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+/// 8.5.4. Maintenance Windows.
 /// 
 /// Maintenance window requirements: frequency, duration, notification period,
 /// and impact on users.
@@ -17109,7 +17423,7 @@ class MasterDataDomainEntryUsage extends SomNode {
   MasterDataDomainEntryUsageContentForm get content => MasterDataDomainEntryUsageContentForm(doc, '$path/content');
 }
 
-/// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+/// 1.4.10. Master Data Management.
 /// 
 /// Master data management practices, golden records, and data
 /// synchronization across systems.
@@ -17187,7 +17501,7 @@ class MethodologyDeviationSummary extends SomNode {
   MethodologyDeviationSummaryContentForm get content => MethodologyDeviationSummaryContentForm(doc, '$path/content');
 }
 
-/// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+/// 8.7.2.3. Metrics and Observability.
 /// 
 /// Comprehensive metrics collection, distributed tracing, and observability
 /// requirements.
@@ -17287,7 +17601,7 @@ class MetricsDashboardSummary extends SomNode {
   MetricsDashboardSummaryContentForm get content => MetricsDashboardSummaryContentForm(doc, '$path/content');
 }
 
-/// An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn].
+/// An MFA enforcement per user category entry (form).
 /// 
 /// Defines MFA requirements for a specific user category, allowing
 /// different authentication assurance levels per role or access tier.
@@ -17363,7 +17677,7 @@ class MigrationCompliance extends SomNode {
   MigrationComplianceContentForm get content => MigrationComplianceContentForm(doc, '$path/content');
 }
 
-/// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+/// 4.4.2. Migration Considerations (global).
 /// 
 /// Cross-system migration concerns covering portfolio-wide strategy,
 /// resource planning, and coordination. Complements per-system
@@ -17379,7 +17693,7 @@ class MigrationConsiderations extends SomNode {
   /// Resource requirements for migration program.
   MigrationResources get resources => MigrationResources(doc, '$path/resources');
 
-  /// Migration risks [PD00-SYO-SYR-MIG-RIS].
+  /// Migration risks.
   MigrationRisks get migrationRisks => MigrationRisks(doc, '$path/migrationRisks');
 
   /// High-level migration timeline.
@@ -17428,11 +17742,11 @@ class MigrationEnvironments extends SomNode {
   MigrationEnvironmentsContentForm get content => MigrationEnvironmentsContentForm(doc, '$path/content');
 }
 
-/// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG].
+/// 4.5.8. Migration Interactions.
 /// 
 /// Interactions specific to the migration window — cutover bridges,
-/// reconciliation endpoints, and temporary shims. Back-refs
-/// PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
+/// reconciliation endpoints, and temporary shims. Back-refs the
+/// Systems to Replace inventory. Covers BSI-MIG.
 class MigrationInteractions extends SomNode {
   MigrationInteractions(super.doc, super.path);
 
@@ -17440,7 +17754,7 @@ class MigrationInteractions extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// A migration mapping entry (form) [PD00-BUS-DAT-ENT-nn-MIG-nn].
+/// A migration mapping entry (form).
 /// 
 /// Maps source system data to target entity for data migration planning.
 class MigrationMappingEntry extends SomNode {
@@ -17456,7 +17770,7 @@ class MigrationMetrics extends SomNode {
   MigrationMetricsContentForm get content => MigrationMetricsContentForm(doc, '$path/content');
 }
 
-/// A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn].
+/// A migration milestone entry.
 class MigrationMilestoneEntry extends SomNode {
   MigrationMilestoneEntry(super.doc, super.path);
 
@@ -17484,7 +17798,7 @@ class MigrationPhaseDryRuns extends SomNode {
   MigrationPhaseDryRunsContentForm get content => MigrationPhaseDryRunsContentForm(doc, '$path/content');
 }
 
-/// A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
+/// A migration phase entry (form).
 /// 
 /// Represents a single migration phase targeting a specific data domain,
 /// source system, or entity group. Covers data scope analysis, migration
@@ -17586,7 +17900,7 @@ class MigrationPhaseValidation extends SomNode {
   MigrationPhaseValidationContentForm get content => MigrationPhaseValidationContentForm(doc, '$path/content');
 }
 
-/// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+/// 13.5.1. Migration Phases.
 /// 
 /// Staged migration phases defining the sequential or overlapping
 /// execution plan. Each phase targets a specific data domain or source
@@ -17604,7 +17918,7 @@ class MigrationPhases extends SomNode {
   SomList<MigrationPhaseEntry> get items => SomList<MigrationPhaseEntry>(doc, '$path/MGPHS-ITEM-LST', (d, p) => MigrationPhaseEntry(d, p));
 }
 
-/// 15.2. Migration Plan [PD00-ROL-MIG].
+/// 15.2. Migration Plan.
 /// 
 /// End-to-end system migration plan covering DR22 Migration Plan content:
 /// data, configuration, integration, and user migration from the current
@@ -17616,7 +17930,7 @@ class MigrationPlan extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// Migration resource requirements [PD00-SYO-SYR-MIG-RES].
+/// Migration resource requirements.
 class MigrationResources extends SomNode {
   MigrationResources(super.doc, super.path);
 
@@ -17633,7 +17947,7 @@ class MigrationRiskContingency extends SomNode {
   MigrationRiskContingencyContentForm get content => MigrationRiskContingencyContentForm(doc, '$path/content');
 }
 
-/// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
+/// A migration risk entry (form).
 /// 
 /// Detailed migration risk documentation following enterprise risk
 /// management practices. Captures full risk lifecycle from identification
@@ -17743,7 +18057,7 @@ class MigrationRiskTracking extends SomNode {
   MigrationRiskTrackingContentForm get content => MigrationRiskTrackingContentForm(doc, '$path/content');
 }
 
-/// Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
+/// Migration risks — program-level risks.
 /// 
 /// Comprehensive migration risk management framework for program-level
 /// risks across the entire migration portfolio. Covers risk governance,
@@ -17914,7 +18228,7 @@ class MobileCompatibilityEntryHardware extends SomNode {
   MobileCompatibilityEntryHardwareContentForm get content => MobileCompatibilityEntryHardwareContentForm(doc, '$path/content');
 }
 
-/// Mobile device entry (form) [PD00-ORG-WOR-nn-EQU-MOB-nn].
+/// Mobile device entry (form).
 class MobileDeviceEntry extends SomNode {
   MobileDeviceEntry(super.doc, super.path);
 
@@ -18092,7 +18406,7 @@ class ModuleVersioningStrategyReleaseManagement extends SomNode {
   ModuleVersioningStrategyReleaseManagementContentForm get content => ModuleVersioningStrategyReleaseManagementContentForm(doc, '$path/content');
 }
 
-/// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+/// 8.7.2. Monitoring.
 /// 
 /// Comprehensive monitoring specification covering health checks, alerting,
 /// observability, dashboards, and SLA/SLO tracking.
@@ -18104,23 +18418,23 @@ class Monitoring extends SomNode {
   /// Monitoring strategy narrative.
   // (skipped: overviewNarrative has no target type)
 
-  /// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+  /// 8.7.2.1. Health Checks and Diagnostics.
   HealthChecksAndDiagnosticsSection get healthChecksAndDiagnostics => HealthChecksAndDiagnosticsSection(doc, '$path/healthChecksAndDiagnostics');
 
-  /// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+  /// 8.7.2.2. Alerting Configuration.
   AlertingConfiguration get alertingConfiguration => AlertingConfiguration(doc, '$path/alertingConfiguration');
 
-  /// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+  /// 8.7.2.3. Metrics and Observability.
   MetricsAndObservability get metricsAndObservability => MetricsAndObservability(doc, '$path/metricsAndObservability');
 
-  /// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+  /// 8.7.2.4. Monitoring Dashboards.
   MonitoringDashboards get dashboards => MonitoringDashboards(doc, '$path/dashboards');
 
-  /// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+  /// 8.7.2.5. SLA and SLO Monitoring.
   SlaAndSloMonitoring get slaAndSloMonitoring => SlaAndSloMonitoring(doc, '$path/slaAndSloMonitoring');
 }
 
-/// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
+/// 8.5.3. Monitoring and Alerting.
 /// 
 /// Monitoring requirements: metrics to collect, alert thresholds, dashboard
 /// requirements, on-call procedures, and escalation paths.
@@ -18164,7 +18478,7 @@ class MonitoringAndAlertingSection extends SomNode {
   SlaMonitoringRequirements get slaMonitoring => SlaMonitoringRequirements(doc, '$path/slaMonitoring');
 }
 
-/// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+/// 8.7.2.4. Monitoring Dashboards.
 /// 
 /// Operational dashboards for system monitoring.
 class MonitoringDashboards extends SomNode {
@@ -18227,7 +18541,7 @@ class MonitoringProcedureEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
+/// 11.4.3. Monitoring quality.
 class MonitoringQuality extends SomNode {
   MonitoringQuality(super.doc, super.path);
 
@@ -18277,7 +18591,7 @@ class MonitoringQualityOperations extends SomNode {
   MonitoringQualityOperationsContentForm get content => MonitoringQualityOperationsContentForm(doc, '$path/content');
 }
 
-/// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+/// 13.4.1. MoSCoW Analysis.
 /// 
 /// Classifies every feature using the MoSCoW method (Must / Should /
 /// Could / Won't) and maps each to its target delivery stage.
@@ -18293,7 +18607,7 @@ class MoscowAnalysis extends SomNode {
   SomList<MoscowEntry> get items => SomList<MoscowEntry>(doc, '$path/MOEN-ITEM-LST', (d, p) => MoscowEntry(d, p));
 }
 
-/// A MoSCoW classification entry (form) [PD00-SSP-FEA-MOS-nn].
+/// A MoSCoW classification entry (form).
 /// 
 /// Maps a single feature or feature group to its MoSCoW category and
 /// target delivery stage, with justification and cross-references.
@@ -18343,7 +18657,7 @@ class MoscowEntryValue extends SomNode {
   MoscowEntryValueContentForm get content => MoscowEntryValueContentForm(doc, '$path/content');
 }
 
-/// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+/// 4.1.5.6. Multi-Channel Experience.
 /// 
 /// Defines how the system provides a consistent experience across channels
 /// and handles channel switching.
@@ -18357,39 +18671,23 @@ class MultiChannelExperience extends SomNode {
   MultiChannelExperienceMultiChannelConfigurationForm get multiChannelConfiguration => MultiChannelExperienceMultiChannelConfigurationForm(doc, '$path/multiChannelConfiguration');
 }
 
-/// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+/// 10.12. Multi-language and Rollout Support.
 /// 
-/// Comprehensive internationalization, localization, and system rollout
-/// specification covering translation workflows, locale handling, user
-/// documentation, training, and deployment planning.
+/// Locale-picker / UX-side multi-language concerns that stay on the
+/// Experience & Interface Design side. IP-6 re-homed the requirement-side
+/// concerns (i18n requirements, documentation, training) to SBP.9 and the
+/// execution-side concerns (localization/translation processes, rollout
+/// sequencing) to SBP.15; only the stay-put UX members remain here.
 class MultiLanguageAndRollout extends SomNode {
   MultiLanguageAndRollout(super.doc, super.path);
 
   MultiLanguageAndRolloutMultiLanguageOverviewForm get multiLanguageOverview => MultiLanguageAndRolloutMultiLanguageOverviewForm(doc, '$path/multiLanguageOverview');
 
-  /// Locale modeling and fallback behavior.
-  MultiLanguageAndRolloutLocaleHandling get localeHandling => MultiLanguageAndRolloutLocaleHandling(doc, '$path/localeHandling');
-
-  /// Rollout sequencing by region and time.
-  MultiLanguageAndRolloutPlan get rolloutPlan => MultiLanguageAndRolloutPlan(doc, '$path/rolloutPlan');
-
   /// Multi-language overview narrative.
   // (skipped: overviewNarrative has no target type)
 
-  /// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
-  LocalizationProcess get localizationProcess => LocalizationProcess(doc, '$path/localizationProcess');
-
-  /// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
-  TranslationProcess get translationProcess => TranslationProcess(doc, '$path/translationProcess');
-
-  /// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
-  DocumentationAndTraining get documentationAndTraining => DocumentationAndTraining(doc, '$path/documentationAndTraining');
-
-  /// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+  /// 10.12.4. Language and Country Selection.
   LanguageCountrySelection get languageCountrySelection => LanguageCountrySelection(doc, '$path/languageCountrySelection');
-
-  /// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
-  TranslationRequirements get translationRequirements => TranslationRequirements(doc, '$path/translationRequirements');
 
   /// Supported locale entries.
   SomList<SupportedLocaleEntry> get supportedLocales => SomList<SupportedLocaleEntry>(doc, '$path/SULOEN-SUPP-LST', (d, p) => SupportedLocaleEntry(d, p));
@@ -18409,7 +18707,7 @@ class MultiLanguageAndRolloutPlan extends SomNode {
   MultiLanguageAndRolloutPlanContentForm get content => MultiLanguageAndRolloutPlanContentForm(doc, '$path/content');
 }
 
-/// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+/// 11.7.1. Must-Pass Criteria.
 /// 
 /// Criteria that must be met for the system to be accepted.
 class MustPassCriteria extends SomNode {
@@ -18424,7 +18722,7 @@ class MustPassCriteria extends SomNode {
   SomList<MustPassCriterionEntry> get items => SomList<MustPassCriterionEntry>(doc, '$path/MSTPCR-ITEM-LST', (d, p) => MustPassCriterionEntry(d, p));
 }
 
-/// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
+/// A must-pass criterion entry (form).
 class MustPassCriterionEntry extends SomNode {
   MustPassCriterionEntry(super.doc, super.path);
 
@@ -18536,7 +18834,7 @@ class NativeAppRequirementsVersions extends SomNode {
   NativeAppRequirementsVersionsContentForm get content => NativeAppRequirementsVersionsContentForm(doc, '$path/content');
 }
 
-/// A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
+/// A navigation group entry (form).
 /// 
 /// Logical grouping of navigation items (e.g., "Sales", "Administration").
 class NavigationGroupEntry extends SomNode {
@@ -18578,7 +18876,7 @@ class NavigationGroupEntryStructure extends SomNode {
   NavigationGroupEntryStructureContentForm get content => NavigationGroupEntryStructureContentForm(doc, '$path/content');
 }
 
-/// A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn].
+/// A navigation guard entry (form).
 class NavigationGuardEntry extends SomNode {
   NavigationGuardEntry(super.doc, super.path);
 
@@ -18605,7 +18903,7 @@ class NavigationGuardEntryRouting extends SomNode {
   NavigationGuardEntryRoutingContentForm get content => NavigationGuardEntryRoutingContentForm(doc, '$path/content');
 }
 
-/// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+/// 10.3.1.8. Navigation Guards.
 /// 
 /// Route guards: unsaved changes, authentication redirects, permission checks.
 class NavigationGuards extends SomNode {
@@ -18621,7 +18919,7 @@ class NavigationGuards extends SomNode {
   SomList<NavigationGuardEntry> get guards => SomList<NavigationGuardEntry>(doc, '$path/NAVGRD-GUAR-LST', (d, p) => NavigationGuardEntry(d, p));
 }
 
-/// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+/// 10.3.1.2. Navigation Hierarchy.
 /// 
 /// Full navigation tree: groups and items forming the app's navigation structure.
 class NavigationHierarchy extends SomNode {
@@ -18637,7 +18935,7 @@ class NavigationHierarchy extends SomNode {
   SomList<NavigationGroupEntry> get groups => SomList<NavigationGroupEntry>(doc, '$path/NAVGRP-GROU-LST', (d, p) => NavigationGroupEntry(d, p));
 }
 
-/// A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
+/// A navigation item entry (form).
 /// 
 /// A single navigable destination within a group.
 class NavigationItemEntry extends SomNode {
@@ -18696,7 +18994,7 @@ class NavigationItemEntryRouting extends SomNode {
   NavigationItemEntryRoutingContentForm get content => NavigationItemEntryRoutingContentForm(doc, '$path/content');
 }
 
-/// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+/// 10.3.1. Navigation Model.
 /// 
 /// Comprehensive navigation structure: primary, secondary, utility, contextual
 /// navigation, deep linking, navigation guards, and platform adaptation.
@@ -18706,32 +19004,32 @@ class NavigationModel extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+  /// 10.3.1.1. Navigation Overview.
   NavigationOverview get overview => NavigationOverview(doc, '$path/overview');
 
-  /// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+  /// 10.3.1.2. Navigation Hierarchy.
   NavigationHierarchy get hierarchy => NavigationHierarchy(doc, '$path/hierarchy');
 
-  /// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+  /// 10.3.1.3. Primary Navigation.
   PrimaryNavigation get primaryNavigation => PrimaryNavigation(doc, '$path/primaryNavigation');
 
-  /// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+  /// 10.3.1.4. Secondary Navigation.
   SecondaryNavigation get secondaryNavigation => SecondaryNavigation(doc, '$path/secondaryNavigation');
 
-  /// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+  /// 10.3.1.5. Utility Navigation.
   UtilityNavigation get utilityNavigation => UtilityNavigation(doc, '$path/utilityNavigation');
 
-  /// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+  /// 10.3.1.6. Contextual Navigation.
   ContextualNavigation get contextualNavigation => ContextualNavigation(doc, '$path/contextualNavigation');
 
-  /// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+  /// 10.3.1.7. Deep Linking.
   DeepLinking get deepLinking => DeepLinking(doc, '$path/deepLinking');
 
-  /// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+  /// 10.3.1.8. Navigation Guards.
   NavigationGuards get navigationGuards => NavigationGuards(doc, '$path/navigationGuards');
 }
 
-/// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+/// 10.3.1.1. Navigation Overview.
 /// 
 /// Overall navigation strategy, routing approach, and design decisions.
 class NavigationOverview extends SomNode {
@@ -18891,7 +19189,7 @@ class NetworkLoadBalancingRequirementsTls extends SomNode {
   NetworkLoadBalancingRequirementsTlsContentForm get content => NetworkLoadBalancingRequirementsTlsContentForm(doc, '$path/content');
 }
 
-/// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+/// 8.4.3. Network Requirements.
 /// 
 /// Network requirements: bandwidth, latency, availability, VPN/firewall rules,
 /// and geographic distribution.
@@ -19042,7 +19340,7 @@ class NetworkSecurityRequirementsMonitoring extends SomNode {
   NetworkSecurityRequirementsMonitoringContentForm get content => NetworkSecurityRequirementsMonitoringContentForm(doc, '$path/content');
 }
 
-/// 5.1. New Organization Structure [PD00-ORG-STR].
+/// 5.1. New Organization Structure.
 /// 
 /// Organizational changes required by the new system including new teams,
 /// restructured departments, changed responsibilities, and new communication
@@ -19054,14 +19352,14 @@ class NewOrganizationStructure extends SomNode {
   /// Overview of the target organization structure.
   // (skipped: overview has no target type)
 
-  /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+  /// 5.1.1. Changes from Current Structure.
   ChangesFromCurrentStructure get changesFromCurrentStructure => ChangesFromCurrentStructure(doc, '$path/changesFromCurrentStructure');
 
-  /// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+  /// 5.1.2. Organizational Transition Timeline.
   OrganizationalTransitionTimeline get transitionTimeline => OrganizationalTransitionTimeline(doc, '$path/transitionTimeline');
 }
 
-/// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+/// A new role entry (form).
 /// 
 /// Comprehensive new role definition following HR job analysis best practices.
 /// Includes competencies, responsibilities, system access, and success metrics.
@@ -19184,7 +19482,7 @@ class NotificationChannelEntry extends SomNode {
   NotificationChannelEntryContentForm get content => NotificationChannelEntryContentForm(doc, '$path/content');
 }
 
-/// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+/// 4.1.5.5. Notification Model.
 /// 
 /// Defines how the system notifies users of events, updates, and actions
 /// across different channels.
@@ -19211,7 +19509,7 @@ class NotificationTypeEntry extends SomNode {
   NotificationTypeEntryContentForm get content => NotificationTypeEntryContentForm(doc, '$path/content');
 }
 
-/// An object invariant entry (form) [PD00-BUS-BUS-CAT-nn-INV-nn].
+/// An object invariant entry (form).
 /// 
 /// Business invariants that must always hold true.
 class ObjectInvariantEntry extends SomNode {
@@ -19220,7 +19518,7 @@ class ObjectInvariantEntry extends SomNode {
   ObjectInvariantEntryContentForm get content => ObjectInvariantEntryContentForm(doc, '$path/content');
 }
 
-/// An object operation entry (form) [PD00-BUS-BUS-CAT-nn-OPR-nn].
+/// An object operation entry (form).
 /// 
 /// Business operations that can be performed on the object.
 class ObjectOperationEntry extends SomNode {
@@ -19259,7 +19557,7 @@ class ObjectOperationEntryLifecycle extends SomNode {
   ObjectOperationEntryLifecycleContentForm get content => ObjectOperationEntryLifecycleContentForm(doc, '$path/content');
 }
 
-/// An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
+/// An object state entry (form).
 /// 
 /// Detailed state specification for business object lifecycle.
 class ObjectStateEntry extends SomNode {
@@ -19350,7 +19648,7 @@ class OnCallScheduleConfigOperations extends SomNode {
   OnCallScheduleConfigOperationsContentForm get content => OnCallScheduleConfigOperationsContentForm(doc, '$path/content');
 }
 
-/// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
+/// 10.8.2. Onboarding Help.
 class OnboardingHelp extends SomNode {
   OnboardingHelp(super.doc, super.path);
 
@@ -19413,7 +19711,7 @@ class OnboardingHelpTours extends SomNode {
   OnboardingHelpToursContentForm get content => OnboardingHelpToursContentForm(doc, '$path/content');
 }
 
-/// Ongoing training entry (form) [PD00-ORG-WOR-nn-TRA-ONG-nn].
+/// Ongoing training entry (form).
 class OngoingTrainingEntry extends SomNode {
   OngoingTrainingEntry(super.doc, super.path);
 
@@ -19450,7 +19748,7 @@ class OngoingTrainingEntrySchedule extends SomNode {
   OngoingTrainingEntryScheduleContentForm get content => OngoingTrainingEntryScheduleContentForm(doc, '$path/content');
 }
 
-/// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+/// 1.3.1. Operational Pain Points.
 /// 
 /// Problems that affect day-to-day operations: downtime, slow response,
 /// data inconsistencies, manual workarounds, and process interruptions.
@@ -19474,7 +19772,7 @@ class OperationalPainPointsSummary extends SomNode {
   OperationalPainPointsSummaryContentForm get content => OperationalPainPointsSummaryContentForm(doc, '$path/content');
 }
 
-/// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+/// 11.4. Operations Quality Criteria.
 /// 
 /// Quality criteria for system operations including availability, service
 /// levels, monitoring, and IT security operations.
@@ -19486,40 +19784,40 @@ class OperationsQualityCriteria extends SomNode {
   /// Operations quality overview narrative.
   // (skipped: overview has no target type)
 
-  /// 11.4.1. Availability [PD00-SYQ-OPE-AVA].
+  /// 11.4.1. Availability.
   AvailabilityQuality get availability => AvailabilityQuality(doc, '$path/availability');
 
-  /// 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
+  /// 11.4.2. Service Level Requirements.
   ServiceLevelQuality get serviceLevelRequirements => ServiceLevelQuality(doc, '$path/serviceLevelRequirements');
 
-  /// 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
+  /// 11.4.3. Monitoring and Prevention.
   MonitoringQuality get monitoringAndPrevention => MonitoringQuality(doc, '$path/monitoringAndPrevention');
 
-  /// 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
+  /// 11.4.4. IT Security Operations.
   ItSecurityOperationsQuality get itSecurityOperations => ItSecurityOperationsQuality(doc, '$path/itSecurityOperations');
 }
 
-/// 8.5. Operations Requirements [PD00-TEC-OPE].
+/// 8.5. Operations Requirements.
 class OperationsRequirements extends SomNode {
   OperationsRequirements(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
+  /// 8.5.1. Backup And Recovery.
   BackupAndRecoverySection get backupAndRecovery => BackupAndRecoverySection(doc, '$path/backupAndRecovery');
 
-  /// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+  /// 8.5.2. Deployment Strategy.
   DeploymentStrategySection get deploymentStrategy => DeploymentStrategySection(doc, '$path/deploymentStrategy');
 
-  /// 8.5.3. Monitoring And Alerting [PD00-TEC-OPE-MON].
+  /// 8.5.3. Monitoring And Alerting.
   MonitoringAndAlertingSection get monitoringAndAlerting => MonitoringAndAlertingSection(doc, '$path/monitoringAndAlerting');
 
-  /// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+  /// 8.5.4. Maintenance Windows.
   MaintenanceWindowsSection get maintenanceWindows => MaintenanceWindowsSection(doc, '$path/maintenanceWindows');
 }
 
-/// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+/// 4.1.1.2. Opportunity Statement.
 /// 
 /// Description of the opportunity this system enables — new capabilities,
 /// competitive advantages, or improvements over current state.
@@ -19529,7 +19827,7 @@ class OpportunityStatement extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Opportunity Details Form [PD00-SYO-SYD-PUR-OPP-DES].
+  /// Opportunity Details Form.
   OpportunityStatementOpportunityDetailsForm get opportunityDetails => OpportunityStatementOpportunityDetailsForm(doc, '$path/opportunityDetails');
 }
 
@@ -19589,7 +19887,7 @@ class OrgImplementationActivity extends SomNode {
   OrgImplementationActivityContentForm get content => OrgImplementationActivityContentForm(doc, '$path/content');
 }
 
-/// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+/// 4.3.4.n.2. Implementation Plan.
 /// 
 /// Implementation plan for this organizational requirement.
 class OrgRequirementImplementationPlan extends SomNode {
@@ -19605,7 +19903,7 @@ class OrgRequirementImplementationPlan extends SomNode {
   SomList<OrgImplementationActivity> get activities => SomList<OrgImplementationActivity>(doc, '$path/ORGIM-ACTI-LST', (d, p) => OrgImplementationActivity(d, p));
 }
 
-/// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+/// 3.1.1. Organization Structure.
 class OrganizationStructure extends SomNode {
   OrganizationStructure(super.doc, super.path);
 
@@ -19619,7 +19917,7 @@ class OrganizationStructure extends SomNode {
   // (skipped: orgChartDiagram has no target type)
 }
 
-/// An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
+/// An organizational change entry (form).
 /// 
 /// Documents a specific structural change including current state, target
 /// state, rationale, impact assessment, and transition requirements.
@@ -19650,7 +19948,7 @@ class OrganizationalChangeEntry extends SomNode {
   OrgChangeStatus get status => OrgChangeStatus(doc, '$path/status');
 }
 
-/// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+/// 4.1.2.6. Organizational Context.
 /// 
 /// Organizational units, departments, and business areas that the system
 /// serves or interacts with.
@@ -19668,7 +19966,7 @@ class OrganizationalContext extends SomNode {
   set businessProcessCoverage(String value) => doc.setContent('$path/businessProcessCoverage', value);
 }
 
-/// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+/// 4.6.1. Organizational Environment.
 /// 
 /// Describes the organizational context in which the system will operate,
 /// including departments, reporting structures, decision authority, and
@@ -19724,7 +20022,7 @@ class OrganizationalEnvironmentMaturity extends SomNode {
   OrganizationalEnvironmentMaturityContentForm get content => OrganizationalEnvironmentMaturityContentForm(doc, '$path/content');
 }
 
-/// 5. Organizational Framework [PD00-ORG].
+/// 5. Organizational Framework.
 /// 
 /// Organizational changes and structures required for the new system.
 /// Covers organization structure changes, new and changed roles, staffing
@@ -19737,17 +20035,17 @@ class OrganizationalFramework extends SomNode {
   /// Overview of organizational changes required for the new system.
   // (skipped: overview has no target type)
 
-  /// 5.1. New Organization Structure [PD00-ORG-STR].
+  /// 5.1. New Organization Structure.
   NewOrganizationStructure get organizationStructure => NewOrganizationStructure(doc, '$path/organizationStructure');
 
-  /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+  /// 5.2. Job Descriptions and Staffing Plans.
   SomList<JobDescriptionsAndStaffing> get jobDescriptions => SomList<JobDescriptionsAndStaffing>(doc, '$path/JDAS-JOBD-LST', (d, p) => JobDescriptionsAndStaffing(d, p));
 
-  /// 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+  /// 5.3. Workplace Descriptions — contains 1+× per user category.
   SomList<WorkplaceDescriptionEntry> get workplaceDescriptions => SomList<WorkplaceDescriptionEntry>(doc, '$path/WPDE-WORK-LST', (d, p) => WorkplaceDescriptionEntry(d, p));
 }
 
-/// An organizational requirement entry [PD00-SYO-REQ-ORG-nn].
+/// An organizational requirement entry.
 /// 
 /// Comprehensive organizational requirement definition following change
 /// management and organizational development best practices.
@@ -19765,13 +20063,13 @@ class OrganizationalRequirementEntry extends SomNode {
   /// Planning, ownership, and success tracking.
   OrganizationalRequirementEntryPlanning get planning => OrganizationalRequirementEntryPlanning(doc, '$path/planning');
 
-  /// 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
+  /// 4.3.4.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria get acceptanceCriteria => RequirementAcceptanceCriteria(doc, '$path/acceptanceCriteria');
 
-  /// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+  /// 4.3.4.n.2. Implementation Plan.
   OrgRequirementImplementationPlan get implementationPlan => OrgRequirementImplementationPlan(doc, '$path/implementationPlan');
 
-  /// 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
+  /// 4.3.4.n.3. Dependencies.
   RequirementDependencies get dependencies => RequirementDependencies(doc, '$path/dependencies');
 }
 
@@ -19796,7 +20094,7 @@ class OrganizationalRequirementEntryPlanning extends SomNode {
   OrganizationalRequirementEntryPlanningContentForm get content => OrganizationalRequirementEntryPlanningContentForm(doc, '$path/content');
 }
 
-/// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+/// 4.3.4. Organizational Requirements.
 /// 
 /// Container for organizational requirements. These describe needed changes
 /// to organization, processes, training, or support that must be fulfilled
@@ -19815,7 +20113,7 @@ class OrganizationalRequirements extends SomNode {
   SomList<OrganizationalRequirementEntry> get requirements => SomList<OrganizationalRequirementEntry>(doc, '$path/ORRQ-REQU-LST', (d, p) => OrganizationalRequirementEntry(d, p));
 }
 
-/// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+/// 5.1.2. Organizational Transition Timeline.
 /// 
 /// Describes when organizational changes take effect, how the transition is
 /// managed, and what training or communication is needed. Follows change
@@ -19902,7 +20200,7 @@ class OsCompatibilityEntryTesting extends SomNode {
   OsCompatibilityEntryTestingContentForm get content => OsCompatibilityEntryTestingContentForm(doc, '$path/content');
 }
 
-/// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+/// 3.6. Other Administrative Requirements.
 /// 
 /// Additional administrative agreements, constraints, or requirements not
 /// covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -19913,22 +20211,22 @@ class OtherAdministrativeRequirements extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 3.6.1. Intellectual Property [PD00-ADM-OTH-IPR].
+  /// 3.6.1. Intellectual Property.
   IntellectualPropertyRequirements get intellectualProperty => IntellectualPropertyRequirements(doc, '$path/intellectualProperty');
 
-  /// 3.6.2. Confidentiality and NDAs [PD00-ADM-OTH-NDA].
+  /// 3.6.2. Confidentiality and NDAs.
   ConfidentialityRequirements get confidentiality => ConfidentialityRequirements(doc, '$path/confidentiality');
 
-  /// 3.6.3. Regulatory Compliance [PD00-ADM-OTH-REG].
+  /// 3.6.3. Regulatory Compliance.
   RegulatoryComplianceRequirements get regulatoryCompliance => RegulatoryComplianceRequirements(doc, '$path/regulatoryCompliance');
 
-  /// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+  /// 3.6.4. Audit Requirements.
   AuditRequirements get auditRequirements => AuditRequirements(doc, '$path/auditRequirements');
 
-  /// 3.6.5. Insurance and Liability [PD00-ADM-OTH-INS].
+  /// 3.6.5. Insurance and Liability.
   InsuranceLiabilityRequirements get insuranceLiability => InsuranceLiabilityRequirements(doc, '$path/insuranceLiability');
 
-  /// 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
+  /// 3.6.6. Other Agreements — contains 0+× Agreement.
   SomList<OtherAgreementEntry> get otherAgreements => SomList<OtherAgreementEntry>(doc, '$path/OTAGR-OTHE-LST', (d, p) => OtherAgreementEntry(d, p));
 }
 
@@ -19939,7 +20237,7 @@ class OtherAgreementEntry extends SomNode {
   OtherAgreementEntryContentForm get content => OtherAgreementEntryContentForm(doc, '$path/content');
 }
 
-/// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+/// 4.5.2. Out of Scope.
 /// 
 /// Explicit documentation of functionality, systems, and integrations that
 /// are excluded from the project scope. Provides clear boundaries and
@@ -19954,7 +20252,7 @@ class OutOfScope extends SomNode {
   SomList<OutOfScopeEntry> get items => SomList<OutOfScopeEntry>(doc, '$path/OOSE-ITEM-LST', (d, p) => OutOfScopeEntry(d, p));
 }
 
-/// An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
+/// An out-of-scope entry (form).
 class OutOfScopeEntry extends SomNode {
   OutOfScopeEntry(super.doc, super.path);
 
@@ -20035,7 +20333,7 @@ class PainPointClassification extends SomNode {
   PainPointClassificationContentForm get content => PainPointClassificationContentForm(doc, '$path/content');
 }
 
-/// A pain point entry (form) [PD00-CUR-PAI-nn].
+/// A pain point entry (form).
 /// 
 /// Documents a specific problem in the current state with comprehensive details:
 /// root cause analysis, impact quantification, affected stakeholders,
@@ -20131,7 +20429,7 @@ class PainPointWorkaround extends SomNode {
   PainPointWorkaroundContentForm get content => PainPointWorkaroundContentForm(doc, '$path/content');
 }
 
-/// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+/// 1.3. Pain Points and Gaps.
 /// 
 /// Comprehensive documentation of specific problems, inefficiencies,
 /// compliance gaps, and user frustrations in the current state.
@@ -20153,16 +20451,16 @@ class PainPointsAndGaps extends SomNode {
   /// Summary statistics for all pain points.
   PainPointsSummary get painPointsSummary => PainPointsSummary(doc, '$path/painPointsSummary');
 
-  /// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+  /// 1.3.1. Operational Pain Points.
   OperationalPainPoints get operationalPainPoints => OperationalPainPoints(doc, '$path/operationalPainPoints');
 
-  /// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+  /// 1.3.2. Business Pain Points.
   BusinessPainPoints get businessPainPoints => BusinessPainPoints(doc, '$path/businessPainPoints');
 
-  /// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+  /// 1.3.3. Technical Pain Points.
   TechnicalPainPoints get technicalPainPoints => TechnicalPainPoints(doc, '$path/technicalPainPoints');
 
-  /// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+  /// 1.3.4. Gaps.
   Gaps get gaps => Gaps(doc, '$path/gaps');
 
   /// Cross-reference between pain points and gaps.
@@ -20183,7 +20481,7 @@ class ParticipantEntry extends SomNode {
   ParticipantEntryContentForm get content => ParticipantEntryContentForm(doc, '$path/content');
 }
 
-/// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+/// 9.2.3. Password and Credential Policy.
 /// 
 /// Comprehensive password and credential policy aligned with NIST SP 800-63B
 /// (Revision 4). Covers password requirements, storage, lifecycle, account
@@ -20304,7 +20602,7 @@ class PeakLoadPatternsTesting extends SomNode {
   PeakLoadPatternsTestingContentForm get content => PeakLoadPatternsTestingContentForm(doc, '$path/content');
 }
 
-/// Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
+/// Penetration testing requirements and schedule.
 class PenetrationTestingRequirements extends SomNode {
   PenetrationTestingRequirements(super.doc, super.path);
 
@@ -20353,7 +20651,7 @@ class PeriodicReviewPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-/// Peripheral equipment entry (form) [PD00-ORG-WOR-nn-EQU-PER-nn].
+/// Peripheral equipment entry (form).
 class PeripheralEquipmentEntry extends SomNode {
   PeripheralEquipmentEntry(super.doc, super.path);
 
@@ -20409,7 +20707,7 @@ class PermissionMatrixEntry extends SomNode {
   PermissionMatrixEntryContentForm get content => PermissionMatrixEntryContentForm(doc, '$path/content');
 }
 
-/// A user persona entry [PD00-USE-VIS-PER-nn] (form).
+/// A user persona entry (form).
 /// 
 /// Represents a distinct user archetype with detailed context for UI design.
 class PersonaEntry extends SomNode {
@@ -20426,13 +20724,13 @@ class PersonaEntry extends SomNode {
   /// Motivations, frustrations, and success markers.
   PersonaEntryNeeds get needs => PersonaEntryNeeds(doc, '$path/needs');
 
-  /// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+  /// 10.1.3.n.1. Persona Goals.
   PersonaGoals get goals => PersonaGoals(doc, '$path/goals');
 
-  /// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+  /// 10.1.3.n.2. Persona Pain Points.
   PersonaPainPoints get painPoints => PersonaPainPoints(doc, '$path/painPoints');
 
-  /// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+  /// 10.1.3.n.3. Persona Scenarios.
   PersonaScenarios get scenarios => PersonaScenarios(doc, '$path/scenarios');
 }
 
@@ -20457,14 +20755,14 @@ class PersonaEntryProfile extends SomNode {
   PersonaEntryProfileContentForm get content => PersonaEntryProfileContentForm(doc, '$path/content');
 }
 
-/// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm].
+/// A persona goal entry (form).
 class PersonaGoalEntry extends SomNode {
   PersonaGoalEntry(super.doc, super.path);
 
   PersonaGoalEntryContentForm get content => PersonaGoalEntryContentForm(doc, '$path/content');
 }
 
-/// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+/// 10.1.3.n.1. Persona Goals.
 class PersonaGoals extends SomNode {
   PersonaGoals(super.doc, super.path);
 
@@ -20475,14 +20773,14 @@ class PersonaGoals extends SomNode {
   SomList<PersonaGoalEntry> get items => SomList<PersonaGoalEntry>(doc, '$path/PGOEN-ITEM-LST', (d, p) => PersonaGoalEntry(d, p));
 }
 
-/// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm].
+/// A pain point entry (form).
 class PersonaPainPointEntry extends SomNode {
   PersonaPainPointEntry(super.doc, super.path);
 
   PersonaPainPointEntryContentForm get content => PersonaPainPointEntryContentForm(doc, '$path/content');
 }
 
-/// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+/// 10.1.3.n.2. Persona Pain Points.
 class PersonaPainPoints extends SomNode {
   PersonaPainPoints(super.doc, super.path);
 
@@ -20493,14 +20791,14 @@ class PersonaPainPoints extends SomNode {
   SomList<PersonaPainPointEntry> get items => SomList<PersonaPainPointEntry>(doc, '$path/PPPEN-ITEM-LST', (d, p) => PersonaPainPointEntry(d, p));
 }
 
-/// A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm].
+/// A persona scenario entry (form).
 class PersonaScenarioEntry extends SomNode {
   PersonaScenarioEntry(super.doc, super.path);
 
   PersonaScenarioEntryContentForm get content => PersonaScenarioEntryContentForm(doc, '$path/content');
 }
 
-/// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+/// 10.1.3.n.3. Persona Scenarios.
 /// 
 /// Key usage scenarios for this persona — helps map personas to screens/flows.
 class PersonaScenarios extends SomNode {
@@ -20548,7 +20846,7 @@ class PhaseGateIdentity extends SomNode {
   PhaseGateIdentityContentForm get content => PhaseGateIdentityContentForm(doc, '$path/content');
 }
 
-/// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
+/// A phase gate review entry (form).
 /// 
 /// Defines a single phase gate with its criteria, participants,
 /// required evidence, entry/exit conditions, and review schedule.
@@ -20582,7 +20880,7 @@ class PhaseGateReviewEntry extends SomNode {
   SomList<ReviewCriterionEntry> get reviewCriteria => SomList<ReviewCriterionEntry>(doc, '$path/RVCRI-REVI-LST', (d, p) => ReviewCriterionEntry(d, p));
 }
 
-/// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+/// 13.6.1. Phase Gate Reviews.
 /// 
 /// Defines the phase gate review process: what is reviewed at each
 /// gate, who participates, what evidence is required, and what
@@ -20653,7 +20951,7 @@ class PhysicalWorkplaceRequirementsUsage extends SomNode {
   PhysicalWorkplaceRequirementsUsageContentForm get content => PhysicalWorkplaceRequirementsUsageContentForm(doc, '$path/content');
 }
 
-/// 15.5. Pilot Plan [PD00-ROL-PIL].
+/// 15.5. Pilot Plan.
 /// 
 /// Pilot scope, cohort selection, success criteria, and exit decision rules.
 class PilotPlan extends SomNode {
@@ -20757,7 +21055,7 @@ class PipelineStageEntryTrigger extends SomNode {
   PipelineStageEntryTriggerContentForm get content => PipelineStageEntryTriggerContentForm(doc, '$path/content');
 }
 
-/// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+/// 8.1.1. Platform and Language.
 /// 
 /// Required platforms (operating system, runtime), programming languages,
 /// and framework choices with minimum versions and justification.
@@ -20792,7 +21090,7 @@ class PlatformAndLanguage extends SomNode {
   RuntimeEnvironment get runtimeEnvironment => RuntimeEnvironment(doc, '$path/runtimeEnvironment');
 }
 
-/// 11.3.2. Portability quality [PD00-SYQ-TEC-POR].
+/// 11.3.2. Portability quality.
 class PortabilityQuality extends SomNode {
   PortabilityQuality(super.doc, super.path);
 
@@ -20860,7 +21158,7 @@ class PredecessorDependencyEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+/// 10.3.1.3. Primary Navigation.
 /// 
 /// How the main navigation appears across platforms: drawer, sidebar, bottom nav.
 class PrimaryNavigation extends SomNode {
@@ -20902,7 +21200,7 @@ class PrimaryNavigationSidebar extends SomNode {
   PrimaryNavigationSidebarContentForm get content => PrimaryNavigationSidebarContentForm(doc, '$path/content');
 }
 
-/// 10.4. Print Layout [PD00-USE-PRI].
+/// 10.4. Print Layout.
 class PrintLayout extends SomNode {
   PrintLayout(super.doc, super.path);
 
@@ -20923,13 +21221,13 @@ class PrintLayout extends SomNode {
   /// Archive and batch settings.
   PrintLayoutArchive get archive => PrintLayoutArchive(doc, '$path/archive');
 
-  /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
+  /// 10.4.1. Reports — contains 0+× Report.
   SomList<ReportEntry> get reports => SomList<ReportEntry>(doc, '$path/REEN-REPO-LST', (d, p) => ReportEntry(d, p));
 
-  /// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
+  /// 10.4.2. Export Formats — contains 0+× Export Format.
   SomList<ExportFormatEntry> get exportFormats => SomList<ExportFormatEntry>(doc, '$path/EXFOEN-EXPO-LST', (d, p) => ExportFormatEntry(d, p));
 
-  /// 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
+  /// 10.4.3. Export Templates — contains 0+× Export
   /// Template.
   SomList<ExportTemplateEntry> get exportTemplates => SomList<ExportTemplateEntry>(doc, '$path/EXTEEN-EXPO-LST', (d, p) => ExportTemplateEntry(d, p));
 }
@@ -20969,7 +21267,7 @@ class PrintLayoutWatermark extends SomNode {
   PrintLayoutWatermarkContentForm get content => PrintLayoutWatermarkContentForm(doc, '$path/content');
 }
 
-/// Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
+/// Privacy impact assessment and DPIA process.
 class PrivacyImpactAssessmentProcess extends SomNode {
   PrivacyImpactAssessmentProcess(super.doc, super.path);
 
@@ -21006,7 +21304,7 @@ class PrivacyImpactAssessmentProcessReview extends SomNode {
   PrivacyImpactAssessmentProcessReviewContentForm get content => PrivacyImpactAssessmentProcessReviewContentForm(doc, '$path/content');
 }
 
-/// Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
+/// Privacy regulation compliance requirements.
 class PrivacyRegulationCompliance extends SomNode {
   PrivacyRegulationCompliance(super.doc, super.path);
 
@@ -21065,7 +21363,7 @@ class PrivilegeUsageReporting extends SomNode {
   // (skipped: notes has no target type)
 }
 
-/// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+/// 4.1.1.1. Problem Statement.
 /// 
 /// Detailed description of the problem or pain point that this system will
 /// address. Includes impact analysis and urgency assessment.
@@ -21075,7 +21373,7 @@ class ProblemStatement extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Problem Description Form [PD00-SYO-SYD-PUR-PRO-DES].
+  /// Problem Description Form.
   ProblemStatementProblemDetailsForm get problemDetails => ProblemStatementProblemDetailsForm(doc, '$path/problemDetails');
 
   /// Related pain points from Current State Analysis.
@@ -21089,7 +21387,7 @@ class ProcessAdjustmentDetails extends SomNode {
   ProcessAdjustmentDetailsContentForm get content => ProcessAdjustmentDetailsContentForm(doc, '$path/content');
 }
 
-/// A process adjustment entry (form) [PD00-POP-PRC-nn].
+/// A process adjustment entry (form).
 /// 
 /// Documents a specific deviation from standard process steps, including
 /// the type of modification, dependencies affected, risk assessment,
@@ -21160,7 +21458,7 @@ class ProcessAdjustmentSummary extends SomNode {
   ProcessAdjustmentSummaryContentForm get content => ProcessAdjustmentSummaryContentForm(doc, '$path/content');
 }
 
-/// 2.3. Process Adjustments [PD00-POP-PRC].
+/// 2.3. Process Adjustments.
 /// 
 /// Documents any deviations from the standard tom_system_creation.md or
 /// tom_system_upgrade.md process. Includes skipped, reordered, or modified
@@ -21182,7 +21480,7 @@ class ProcessAdjustments extends SomNode {
   SomList<ProcessAdjustmentEntry> get items => SomList<ProcessAdjustmentEntry>(doc, '$path/PCAJE-ITEM-LST', (d, p) => ProcessAdjustmentEntry(d, p));
 }
 
-/// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT].
+/// 6.1.3. Process Catalog.
 /// 
 /// Container for business process definitions.
 class ProcessCatalog extends SomNode {
@@ -21246,7 +21544,7 @@ class ProcessContext extends SomNode {
   ProcessContextContentForm get content => ProcessContextContentForm(doc, '$path/content');
 }
 
-/// A process control entry [PD00-TAR-PRO-CAT-nn-CTL-nn].
+/// A process control entry.
 class ProcessControlEntry extends SomNode {
   ProcessControlEntry(super.doc, super.path);
 
@@ -21298,14 +21596,14 @@ class ProcessDependencyEntry extends SomNode {
   ProcessDependencyEntryContentForm get content => ProcessDependencyEntryContentForm(doc, '$path/content');
 }
 
-/// A process design principle entry (form) [PD00-TAR-PRO-PRI-nn].
+/// A process design principle entry (form).
 class ProcessDesignPrincipleEntry extends SomNode {
   ProcessDesignPrincipleEntry(super.doc, super.path);
 
   ProcessDesignPrincipleEntryContentForm get content => ProcessDesignPrincipleEntryContentForm(doc, '$path/content');
 }
 
-/// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+/// 6.1.2. Design Principles.
 /// 
 /// Principles that guide process design decisions.
 class ProcessDesignPrinciples extends SomNode {
@@ -21325,14 +21623,14 @@ class ProcessDiagramOverview extends SomNode {
   ProcessDiagramOverviewContentForm get content => ProcessDiagramOverviewContentForm(doc, '$path/content');
 }
 
-/// A process end event entry [PD00-TAR-PRO-CAT-nn-END-nn].
+/// A process end event entry.
 class ProcessEndEventEntry extends SomNode {
   ProcessEndEventEntry(super.doc, super.path);
 
   ProcessEndEventEntryContentForm get content => ProcessEndEventEntryContentForm(doc, '$path/content');
 }
 
-/// A process exception entry [PD00-TAR-PRO-CAT-nn-EXC-nn].
+/// A process exception entry.
 class ProcessExceptionEntry extends SomNode {
   ProcessExceptionEntry(super.doc, super.path);
 
@@ -21359,10 +21657,9 @@ class ProcessExceptionEntryResponse extends SomNode {
   ProcessExceptionEntryResponseContentForm get content => ProcessExceptionEntryResponseContentForm(doc, '$path/content');
 }
 
-/// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+/// 6.1.9. Process Exception Handling.
 /// 
 /// Exception flows, escalation paths, and compensation logic. Covers
-/// HBSG AS07-EXC.
 class ProcessExceptionHandling extends SomNode {
   ProcessExceptionHandling(super.doc, super.path);
 
@@ -21425,7 +21722,7 @@ class ProcessIdentificationGovernance extends SomNode {
   ProcessIdentificationGovernanceContentForm get content => ProcessIdentificationGovernanceContentForm(doc, '$path/content');
 }
 
-/// A process improvement entry [PD00-TAR-PRO-IMP-nn].
+/// A process improvement entry.
 class ProcessImprovementEntry extends SomNode {
   ProcessImprovementEntry(super.doc, super.path);
 
@@ -21452,7 +21749,7 @@ class ProcessImprovementEntryDelivery extends SomNode {
   ProcessImprovementEntryDeliveryContentForm get content => ProcessImprovementEntryDeliveryContentForm(doc, '$path/content');
 }
 
-/// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+/// 6.1.5. Improvement Summary.
 /// 
 /// Summary of expected improvements over current processes.
 class ProcessImprovementSummary extends SomNode {
@@ -21468,7 +21765,7 @@ class ProcessImprovementSummary extends SomNode {
   ImprovementBusinessCase get businessCase => ImprovementBusinessCase(doc, '$path/businessCase');
 }
 
-/// A process input entry [PD00-TAR-PRO-CAT-nn-INP-nn].
+/// A process input entry.
 class ProcessInputEntry extends SomNode {
   ProcessInputEntry(super.doc, super.path);
 
@@ -21496,7 +21793,7 @@ class ProcessInterdependencyMatrix extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Interdependency diagram [PD00-CUR-PRO-INT-DIA].
+  /// Interdependency diagram.
   String get dependencyDiagram => doc.content('$path/dependencyDiagram') ?? '';
   set dependencyDiagram(String value) => doc.setContent('$path/dependencyDiagram', value);
 
@@ -21504,7 +21801,7 @@ class ProcessInterdependencyMatrix extends SomNode {
   SomList<ProcessDependencyEntry> get dependencies => SomList<ProcessDependencyEntry>(doc, '$path/PRDEEN-DEPE-LST', (d, p) => ProcessDependencyEntry(d, p));
 }
 
-/// A process KPI entry [PD00-TAR-PRO-CAT-nn-KPI-nn].
+/// A process KPI entry.
 class ProcessKpiEntry extends SomNode {
   ProcessKpiEntry(super.doc, super.path);
 
@@ -21542,7 +21839,7 @@ class ProcessMetricCategory extends SomNode {
   SomList<ProcessMetricEntry> get metrics => SomList<ProcessMetricEntry>(doc, '$path/PME-METR-LST', (d, p) => ProcessMetricEntry(d, p));
 }
 
-/// A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
+/// A process metric entry (form).
 /// 
 /// A single measurable metric with current value and measurement details.
 class ProcessMetricEntry extends SomNode {
@@ -21573,7 +21870,7 @@ class ProcessMetricEntryTargets extends SomNode {
   ProcessMetricEntryTargetsContentForm get content => ProcessMetricEntryTargetsContentForm(doc, '$path/content');
 }
 
-/// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+/// 1.2.2. Process Metrics.
 /// 
 /// Quantitative metrics for measuring process performance. These metrics
 /// form the baseline against which improvements will be measured.
@@ -21583,32 +21880,32 @@ class ProcessMetrics extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Metrics dashboard summary [PD00-CUR-PRO-xx-MET-SUM].
+  /// Metrics dashboard summary.
   MetricsDashboardSummary get dashboardSummary => MetricsDashboardSummary(doc, '$path/dashboardSummary');
 
-  /// Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+  /// Efficiency metrics.
   SomList<ProcessMetricCategory> get efficiencyMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-EFFI-LST', (d, p) => ProcessMetricCategory(d, p));
 
-  /// Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+  /// Quality metrics.
   SomList<ProcessMetricCategory> get qualityMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-QUAL-LST', (d, p) => ProcessMetricCategory(d, p));
 
-  /// Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+  /// Volume metrics.
   SomList<ProcessMetricCategory> get volumeMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-VOLU-LST', (d, p) => ProcessMetricCategory(d, p));
 
-  /// Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+  /// Cost metrics.
   SomList<ProcessMetricCategory> get costMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-COST-LST', (d, p) => ProcessMetricCategory(d, p));
 
-  /// Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+  /// Manual intervention metrics.
   SomList<ProcessMetricCategory> get manualInterventionMetrics => SomList<ProcessMetricCategory>(doc, '$path/PRMECA-MANU-LST', (d, p) => ProcessMetricCategory(d, p));
 
   /// Individual metric entries.
   SomList<ProcessMetricEntry> get items => SomList<ProcessMetricEntry>(doc, '$path/PME-ITEM-LST', (d, p) => ProcessMetricEntry(d, p));
 
-  /// Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
+  /// Baseline comparison table.
   MetricsBaselineTable get baselineTable => MetricsBaselineTable(doc, '$path/baselineTable');
 }
 
-/// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+/// 6.1.10. Process Metrics and KPIs.
 /// 
 /// Process-level KPIs, SLAs, and measurement strategy.
 class ProcessMetricsAndKpis extends SomNode {
@@ -21618,14 +21915,14 @@ class ProcessMetricsAndKpis extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// A process output entry [PD00-TAR-PRO-CAT-nn-OUT-nn].
+/// A process output entry.
 class ProcessOutputEntry extends SomNode {
   ProcessOutputEntry(super.doc, super.path);
 
   ProcessOutputEntryContentForm get content => ProcessOutputEntryContentForm(doc, '$path/content');
 }
 
-/// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+/// 6.1.4. Process Overview Diagram.
 /// 
 /// High-level process flow diagram showing main processes and relationships.
 class ProcessOverviewDiagram extends SomNode {
@@ -21686,7 +21983,7 @@ class ProcessPerformanceSummary extends SomNode {
   SomList<ProcessMetricEntry> get keyMetrics => SomList<ProcessMetricEntry>(doc, '$path/PME-KEYM-LST', (d, p) => ProcessMetricEntry(d, p));
 }
 
-/// A process relationship entry [PD00-TAR-PRO-REL-nn].
+/// A process relationship entry.
 class ProcessRelationshipEntry extends SomNode {
   ProcessRelationshipEntry(super.doc, super.path);
 
@@ -21704,7 +22001,7 @@ class ProcessRelationships extends SomNode {
   SomList<ProcessRelationshipEntry> get relationships => SomList<ProcessRelationshipEntry>(doc, '$path/PCRLT-RELA-LST', (d, p) => ProcessRelationshipEntry(d, p));
 }
 
-/// A process role entry [PD00-TAR-PRO-CAT-nn-ROL-nn].
+/// A process role entry.
 class ProcessRoleEntry extends SomNode {
   ProcessRoleEntry(super.doc, super.path);
 
@@ -21769,14 +22066,14 @@ class ProcessScopeSummary extends SomNode {
   SomList<ProcessScopeEntry> get outOfScopeProcesses => SomList<ProcessScopeEntry>(doc, '$path/PRSCEN-OUTO-LST', (d, p) => ProcessScopeEntry(d, p));
 }
 
-/// A process SLA entry [PD00-TAR-PRO-CAT-nn-SLA-nn].
+/// A process SLA entry.
 class ProcessSlaEntry extends SomNode {
   ProcessSlaEntry(super.doc, super.path);
 
   ProcessSlaEntryContentForm get content => ProcessSlaEntryContentForm(doc, '$path/content');
 }
 
-/// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+/// 6.2. Process Steps and Actor Interactions. Seeds → UC.
 /// 
 /// Key process steps with their actor interactions. Each interaction will be
 /// expanded into a full use case with alternate paths, preconditions, and
@@ -21790,26 +22087,26 @@ class ProcessStepsAndActorInteractions extends SomNode {
   /// Section overview.
   ProcessStepsOverview get overview => ProcessStepsOverview(doc, '$path/overview');
 
-  /// 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
+  /// 6.2.1. Actor Overview — contains 1+× Actor.
   ActorOverview get actorOverview => ActorOverview(doc, '$path/actorOverview');
 
-  /// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
+  /// 6.2.2. Interaction Catalog — contains 1+× Interaction.
   InteractionCatalog get interactionCatalog => InteractionCatalog(doc, '$path/interactionCatalog');
 
-  /// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
+  /// 6.2.3. Key Scenarios — contains 1+× Scenario.
   KeyScenarios get keyScenarios => KeyScenarios(doc, '$path/keyScenarios');
 
   /// Actor relationship diagram.
   ActorRelationshipDiagram get actorRelationshipDiagram => ActorRelationshipDiagram(doc, '$path/actorRelationshipDiagram');
 
-  /// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
+  /// 6.2.4. End-to-End Test Scenarios..
   SomList<EndToEndTestScenarios> get endToEndTestScenarios => SomList<EndToEndTestScenarios>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenarios(d, p));
 
-  /// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+  /// 6.2.5. Use Case Traceability.
   UseCaseTraceability get useCaseTraceability => UseCaseTraceability(doc, '$path/useCaseTraceability');
 }
 
-/// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
+/// 6.2. Process Steps Overview.
 class ProcessStepsOverview extends SomNode {
   ProcessStepsOverview(super.doc, super.path);
 
@@ -21850,7 +22147,7 @@ class ProcessTechnologyInformation extends SomNode {
   ProcessTechnologyInformationContentForm get content => ProcessTechnologyInformationContentForm(doc, '$path/content');
 }
 
-/// A process trigger entry [PD00-TAR-PRO-CAT-nn-TRG-nn].
+/// A process trigger entry.
 class ProcessTriggerEntry extends SomNode {
   ProcessTriggerEntry(super.doc, super.path);
 
@@ -21871,7 +22168,7 @@ class ProcessTriggers extends SomNode {
   SomList<ProcessEndEventEntry> get endEvents => SomList<ProcessEndEventEntry>(doc, '$path/PEEVT-ENDE-LST', (d, p) => ProcessEndEventEntry(d, p));
 }
 
-/// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+/// 6.1.1. Process Vision.
 /// 
 /// The overall vision for how business processes will work with the new system.
 class ProcessVision extends SomNode {
@@ -21954,90 +22251,21 @@ class ProgrammingLanguageEntryVersion extends SomNode {
   ProgrammingLanguageEntryVersionContentForm get content => ProgrammingLanguageEntryVersionContentForm(doc, '$path/content');
 }
 
-/// The complete Project Definition (PD) document.
-/// 
-/// Contains a [DocumentHeader] and all 14 PD sections [PD00].
-class ProjectDefinition extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  ProjectDefinition(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'PD') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Document header (form fields at top of document).
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// 1. Current State Analysis [PD00-CUR].
-  CurrentStateAnalysis get currentStateAnalysis => CurrentStateAnalysis(doc, '$path/currentStateAnalysis');
-
-  /// 2. Project Organization and Process [PD00-POP].
-  ProjectOrganizationAndProcess get projectOrganizationProcess => ProjectOrganizationAndProcess(doc, '$path/projectOrganizationProcess');
-
-  /// 3. Administrative [PD00-ADM].
-  Administrative get administrative => Administrative(doc, '$path/administrative');
-
-  /// 4. System Overview [PD00-SYO].
-  SystemOverview get systemOverview => SystemOverview(doc, '$path/systemOverview');
-
-  /// 5. Organizational Framework [PD00-ORG].
-  OrganizationalFramework get organizationalFramework => OrganizationalFramework(doc, '$path/organizationalFramework');
-
-  /// 6. Target Business Process Model [PD00-TAR].
-  TargetBusinessProcessModel get targetBusinessProcess => TargetBusinessProcessModel(doc, '$path/targetBusinessProcess');
-
-  /// 7. Business Object and Data Model [PD00-BUS].
-  BusinessObjectAndDataModel get businessDataModel => BusinessObjectAndDataModel(doc, '$path/businessDataModel');
-
-  /// 8. Technical Framework Concept [PD00-TEC].
-  TechnicalFrameworkConcept get technicalFramework => TechnicalFrameworkConcept(doc, '$path/technicalFramework');
-
-  /// 9. Access and Authorization Concept [PD00-ACC].
-  AccessAndAuthorizationConcept get accessAuthorization => AccessAndAuthorizationConcept(doc, '$path/accessAuthorization');
-
-  /// 10. User Interface Design [PD00-USE].
-  UserInterfaceDesign get userInterfaceDesign => UserInterfaceDesign(doc, '$path/userInterfaceDesign');
-
-  /// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
-  SystemRolloutConcept get systemRolloutConcept => SystemRolloutConcept(doc, '$path/systemRolloutConcept');
-
-  /// 11. System Quality Goals [PD00-SYQ].
-  SystemQualityGoals get systemQualityGoals => SystemQualityGoals(doc, '$path/systemQualityGoals');
-
-  /// 12. Components to Use [PD00-COM].
-  ComponentsToUse get componentsToUse => ComponentsToUse(doc, '$path/componentsToUse');
-
-  /// 13. System Stage Plan [PD00-SSP].
-  SystemStagePlan get systemStagePlan => SystemStagePlan(doc, '$path/systemStagePlan');
-
-  /// 14. Delivery Scope and Acceptance [PD00-DEL].
-  DeliveryScopeAndAcceptance get deliveryAcceptance => DeliveryScopeAndAcceptance(doc, '$path/deliveryAcceptance');
-}
-
-/// 3.1. Project Organization [PD00-ADM-PRO].
+/// 3.1. Project Organization.
 class ProjectOrganization extends SomNode {
   ProjectOrganization(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+  /// 3.1.1. Organization Structure.
   OrganizationStructure get organizationStructure => OrganizationStructure(doc, '$path/organizationStructure');
 
-  /// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+  /// 3.1.2. Steering Committee.
   SteeringCommittee get steeringCommittee => SteeringCommittee(doc, '$path/steeringCommittee');
 }
 
-/// 2. Project Organization and Process [PD00-POP].
+/// 2. Project Organization and Process.
 /// 
 /// Project-specific deviations from the standard TomSpecs methodology.
 /// This section documents any customizations to standard roles, quality gates,
@@ -22055,74 +22283,20 @@ class ProjectOrganizationAndProcess extends SomNode {
   /// Summary of all methodology deviations.
   MethodologyDeviationSummary get deviationSummary => MethodologyDeviationSummary(doc, '$path/deviationSummary');
 
-  /// 2.1. Role Adjustments [PD00-POP-ROL].
+  /// 2.1. Role Adjustments.
   RoleAdjustments get roleAdjustments => RoleAdjustments(doc, '$path/roleAdjustments');
 
-  /// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+  /// 2.2. Quality Gate Adjustments.
   QualityGateAdjustments get qualityGateAdjustments => QualityGateAdjustments(doc, '$path/qualityGateAdjustments');
 
-  /// 2.3. Process Adjustments [PD00-POP-PRC].
+  /// 2.3. Process Adjustments.
   ProcessAdjustments get processAdjustments => ProcessAdjustments(doc, '$path/processAdjustments');
 
-  /// 2.4. Tooling and Environments [PD00-POP-TOO].
+  /// 2.4. Tooling and Environments.
   ToolingAndEnvironments get toolingAndEnvironments => ToolingAndEnvironments(doc, '$path/toolingAndEnvironments');
 }
 
-/// PPP00 Project Phase Plan.
-/// 
-/// Full project phase plan — staging strategy, stage overview, per-stage
-/// entries, feature prioritization, data migration, gate criteria,
-/// decision processes, initial development flow, and upgrade cycle
-/// framework.
-class ProjectPhasePlan extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  ProjectPhasePlan(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'PPP') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Staging strategy — PD00-SSP-STR.
-  StagingStrategy get stagingStrategy => StagingStrategy(doc, '$path/stagingStrategy');
-
-  /// Stage overview — PD00-SSP-STA.
-  StageOverview get stageOverview => StageOverview(doc, '$path/stageOverview');
-
-  /// Stages — PD00-SSP-STG (list).
-  SomList<StageEntry> get stages => SomList<StageEntry>(doc, '$path/STAGE-STAG-LST', (d, p) => StageEntry(d, p));
-
-  /// Feature prioritization — PD00-SSP-FEA.
-  FeaturePrioritization get featurePrioritization => FeaturePrioritization(doc, '$path/featurePrioritization');
-
-  /// Data migration strategy — PD00-SSP-MIG.
-  DataMigrationStrategy get dataMigrationStrategy => DataMigrationStrategy(doc, '$path/dataMigrationStrategy');
-
-  /// Gate criteria — PD00-SSP-GOV-GAT (promoted from GOV).
-  PhaseGateReviews get gateCriteria => PhaseGateReviews(doc, '$path/gateCriteria');
-
-  /// Decision processes — PD00-SSP-GOV-DEC (promoted from GOV).
-  DecisionPoints get decisionProcesses => DecisionPoints(doc, '$path/decisionProcesses');
-
-  /// Initial development flow — PD00-SSP-IDV.
-  InitialDevelopmentFlow get initialDevelopmentFlow => InitialDevelopmentFlow(doc, '$path/initialDevelopmentFlow');
-
-  /// Upgrade cycle framework — PD00-SSP-UPG (links tom_system_upgrade.md).
-  UpgradeCycleFramework get upgradeCycleFramework => UpgradeCycleFramework(doc, '$path/upgradeCycleFramework');
-}
-
-/// 3.2. Project Team Staffing [PD00-ADM-TEA].
+/// 3.2. Project Team Staffing.
 /// 
 /// Container for individual staff assignments including roles, responsibilities,
 /// availability, and required competencies.
@@ -22179,14 +22353,14 @@ class ProtocolComplianceRequirementsObservability extends SomNode {
   ProtocolComplianceRequirementsObservabilityContentForm get content => ProtocolComplianceRequirementsObservabilityContentForm(doc, '$path/content');
 }
 
-/// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
+/// A protocol or standard entry (form).
 class ProtocolEntry extends SomNode {
   ProtocolEntry(super.doc, super.path);
 
   ProtocolEntryContentForm get content => ProtocolEntryContentForm(doc, '$path/content');
 }
 
-/// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+/// 8.6.1. Protocols and Standards.
 class ProtocolsAndStandardsSection extends SomNode {
   ProtocolsAndStandardsSection(super.doc, super.path);
 
@@ -22218,7 +22392,7 @@ class ProtocolsAndStandardsSection extends SomNode {
   ProtocolComplianceRequirements get compliance => ProtocolComplianceRequirements(doc, '$path/compliance');
 }
 
-/// 10.13. Prototype [PD00-USE-PRO].
+/// 10.13. Prototype.
 /// 
 /// Comprehensive prototype planning covering goals, feature selection,
 /// prototype type, evaluation criteria, and stakeholder alignment.
@@ -22239,27 +22413,27 @@ class Prototype extends SomNode {
   /// Prototype overview narrative.
   // (skipped: overviewNarrative has no target type)
 
-  /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+  /// 10.13.1. Prototype Goals.
   PrototypeGoals get prototypeGoals => PrototypeGoals(doc, '$path/prototypeGoals');
 
-  /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+  /// 10.13.2. Selected Feature Subset.
   PrototypeFeatureSubset get featureSubset => PrototypeFeatureSubset(doc, '$path/featureSubset');
 
-  /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+  /// 10.13.3. Prototype Type.
   PrototypeTypeSection get prototypeType => PrototypeTypeSection(doc, '$path/prototypeType');
 
   /// Prototype schedule.
   // (skipped: prototypeSchedule has no target type)
 }
 
-/// A prototype feature entry [PD00-USE-PRO-FEA-nn].
+/// A prototype feature entry.
 class PrototypeFeatureEntry extends SomNode {
   PrototypeFeatureEntry(super.doc, super.path);
 
   PrototypeFeatureEntryContentForm get content => PrototypeFeatureEntryContentForm(doc, '$path/content');
 }
 
-/// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+/// 10.13.2. Selected Feature Subset.
 /// 
 /// Features included in the prototype.
 class PrototypeFeatureSubset extends SomNode {
@@ -22294,14 +22468,14 @@ class PrototypeFeatureSubsetScope extends SomNode {
   PrototypeFeatureSubsetScopeContentForm get content => PrototypeFeatureSubsetScopeContentForm(doc, '$path/content');
 }
 
-/// A prototype goal entry [PD00-USE-PRO-GOA-nn].
+/// A prototype goal entry.
 class PrototypeGoalEntry extends SomNode {
   PrototypeGoalEntry(super.doc, super.path);
 
   PrototypeGoalEntryContentForm get content => PrototypeGoalEntryContentForm(doc, '$path/content');
 }
 
-/// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+/// 10.13.1. Prototype Goals.
 /// 
 /// What the prototype should validate.
 class PrototypeGoals extends SomNode {
@@ -22357,7 +22531,7 @@ class PrototypeTimeline extends SomNode {
   PrototypeTimelineContentForm get content => PrototypeTimelineContentForm(doc, '$path/content');
 }
 
-/// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+/// 10.13.3. Prototype Type.
 /// 
 /// Classification and implications of the prototype type.
 class PrototypeTypeSection extends SomNode {
@@ -22365,13 +22539,13 @@ class PrototypeTypeSection extends SomNode {
 
   PrototypeTypeSectionPrototypeTypeOverviewForm get prototypeTypeOverview => PrototypeTypeSectionPrototypeTypeOverviewForm(doc, '$path/prototypeTypeOverview');
 
-  /// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+  /// 10.13.3.1. Reusable Prototype.
   ReusablePrototype get reusablePrototype => ReusablePrototype(doc, '$path/reusablePrototype');
 
-  /// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+  /// 10.13.3.2. Training Prototype.
   TrainingPrototype get trainingPrototype => TrainingPrototype(doc, '$path/trainingPrototype');
 
-  /// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+  /// 10.13.3.3. Throwaway Prototype.
   ThrowawayPrototype get throwawayPrototype => ThrowawayPrototype(doc, '$path/throwawayPrototype');
 }
 
@@ -22422,7 +22596,92 @@ class PwaRequirementsUpdates extends SomNode {
   PwaRequirementsUpdatesContentForm get content => PwaRequirementsUpdatesContentForm(doc, '$path/content');
 }
 
-/// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
+/// BQP00 Business Quality Plan.
+/// 
+/// Full quality plan combining quality goals and the acceptance plan.
+class QualityAcceptancePlan extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  QualityAcceptancePlan(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'QAP') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Quality framework.
+  QualityFramework get qualityFramework => QualityFramework(doc, '$path/qualityFramework');
+
+  /// User-related quality criteria.
+  UserQualityCriteria get userQualityCriteria => UserQualityCriteria(doc, '$path/userQualityCriteria');
+
+  /// Technical quality criteria.
+  TechnicalQualityCriteria get technicalQualityCriteria => TechnicalQualityCriteria(doc, '$path/technicalQualityCriteria');
+
+  /// Operations quality criteria.
+  OperationsQualityCriteria get operationsQualityCriteria => OperationsQualityCriteria(doc, '$path/operationsQualityCriteria');
+
+  /// Documentation quality criteria.
+  DocumentationQualityCriteria get documentationQualityCriteria => DocumentationQualityCriteria(doc, '$path/documentationQualityCriteria');
+
+  /// Quality prioritization.
+  QualityPrioritization get qualityPrioritization => QualityPrioritization(doc, '$path/qualityPrioritization');
+
+  /// Acceptance criteria summary.
+  AcceptanceCriteriaSummary get acceptanceCriteriaSummary => AcceptanceCriteriaSummary(doc, '$path/acceptanceCriteriaSummary');
+
+  /// Test strategy (new in Phase A).
+  TestStrategy get testStrategy => TestStrategy(doc, '$path/testStrategy');
+
+  /// Acceptance criteria.
+  AcceptanceCriteriaList get acceptanceCriteria => AcceptanceCriteriaList(doc, '$path/acceptanceCriteria');
+
+  /// Acceptance process.
+  AcceptanceProcess get acceptanceProcess => AcceptanceProcess(doc, '$path/acceptanceProcess');
+
+  /// User acceptance testing.
+  UserAcceptanceTesting get userAcceptanceTesting => UserAcceptanceTesting(doc, '$path/userAcceptanceTesting');
+
+  /// Defect resolution.
+  DefectResolution get defectResolution => DefectResolution(doc, '$path/defectResolution');
+
+  /// Sign-off process.
+  SignOffProcess get signOffProcess => SignOffProcess(doc, '$path/signOffProcess');
+
+  /// Warranty terms.
+  WarrantyTerms get warranty => WarrantyTerms(doc, '$path/warranty');
+}
+
+/// SBP.14 Quality & Acceptance Model.
+/// 
+/// Public anchor: ISO/IEC 25010 product quality.
+class QualityAndAcceptanceModel extends SomNode {
+  QualityAndAcceptanceModel(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Quality goals and attributes.
+  SystemQualityGoals get systemQualityGoals => SystemQualityGoals(doc, '$path/systemQualityGoals');
+
+  /// Delivery scope and acceptance criteria.
+  DeliveryScopeAndAcceptance get deliveryAcceptance => DeliveryScopeAndAcceptance(doc, '$path/deliveryAcceptance');
+
+  /// ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+  Iso25010Coverage get iso25010Coverage => Iso25010Coverage(doc, '$path/iso25010Coverage');
+}
+
+/// A quality category entry (form).
 /// 
 /// Defines a quality category with its attributes, weight, and relationship
 /// to other categories.
@@ -22475,7 +22734,7 @@ class QualityCategoryEntryRelationships extends SomNode {
   QualityCategoryEntryRelationshipsContentForm get content => QualityCategoryEntryRelationshipsContentForm(doc, '$path/content');
 }
 
-/// 11.1. Quality Framework [PD00-SYQ-FRA].
+/// 11.1. Quality Framework.
 /// 
 /// Overall quality approach for the project defining objectives, categories,
 /// and how quality is structured and governed across the system.
@@ -22493,13 +22752,13 @@ class QualityFramework extends SomNode {
   /// Verification and defect handling approach.
   QualityFrameworkVerification get verification => QualityFrameworkVerification(doc, '$path/verification');
 
-  /// 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
+  /// 11.1.1. Quality Objectives Overview.
   // (skipped: qualityObjectivesOverview has no target type)
 
   /// Quality objectives breakdown by category.
   // (skipped: objectivesBreakdown has no target type)
 
-  /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
+  /// 11.1.2. Quality Categories — contains 0+× QualityCategory.
   SomList<QualityCategoryEntry> get qualityCategories => SomList<QualityCategoryEntry>(doc, '$path/QCATE-QUAL-LST', (d, p) => QualityCategoryEntry(d, p));
 
   /// Quality dependencies map.
@@ -22534,7 +22793,7 @@ class QualityGateAdjustmentDetails extends SomNode {
   QualityGateAdjustmentDetailsContentForm get content => QualityGateAdjustmentDetailsContentForm(doc, '$path/content');
 }
 
-/// A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
+/// A quality gate adjustment entry (form).
 /// 
 /// Documents a specific deviation from standard quality gate definitions,
 /// including the type of change, impact on quality assurance, risk
@@ -22585,7 +22844,7 @@ class QualityGateAdjustmentSummary extends SomNode {
   QualityGateAdjustmentSummaryContentForm get content => QualityGateAdjustmentSummaryContentForm(doc, '$path/content');
 }
 
-/// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+/// 2.2. Quality Gate Adjustments.
 /// 
 /// Documents any deviations from the standard quality gates defined in
 /// tom_quality_gates.md. Includes skipped, added, or modified gates
@@ -22607,7 +22866,7 @@ class QualityGateAdjustments extends SomNode {
   SomList<QualityGateAdjustmentEntry> get items => SomList<QualityGateAdjustmentEntry>(doc, '$path/QGAJE-ITEM-LST', (d, p) => QualityGateAdjustmentEntry(d, p));
 }
 
-/// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
+/// A quality gate check entry (form).
 class QualityGateCheckEntry extends SomNode {
   QualityGateCheckEntry(super.doc, super.path);
 
@@ -22664,7 +22923,7 @@ class QualityGateCheckEntryVerification extends SomNode {
   QualityGateCheckEntryVerificationContentForm get content => QualityGateCheckEntryVerificationContentForm(doc, '$path/content');
 }
 
-/// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+/// 11.7.2. Quality Gate Checklist.
 /// 
 /// Quality gate checklist used during acceptance.
 class QualityGateChecklist extends SomNode {
@@ -22679,7 +22938,7 @@ class QualityGateChecklist extends SomNode {
   SomList<QualityGateCheckEntry> get items => SomList<QualityGateCheckEntry>(doc, '$path/QGCHK-ITEM-LST', (d, p) => QualityGateCheckEntry(d, p));
 }
 
-/// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+/// 11.6. Quality Prioritization.
 /// 
 /// Prioritization and balancing of quality attributes including weighted
 /// matrices and explicit trade-off decisions.
@@ -22691,10 +22950,10 @@ class QualityPrioritization extends SomNode {
   /// Prioritization approach overview.
   // (skipped: prioritizationOverview has no target type)
 
-  /// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+  /// 11.6.1. Weighted Quality Matrix.
   WeightedQualityMatrix get weightedQualityMatrix => WeightedQualityMatrix(doc, '$path/weightedQualityMatrix');
 
-  /// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+  /// 11.6.2. Trade-off Decisions.
   TradeOffDecisions get tradeOffDecisions => TradeOffDecisions(doc, '$path/tradeOffDecisions');
 }
 
@@ -22705,7 +22964,7 @@ class QualityScenarioEntry extends SomNode {
   QualityScenarioEntryContentForm get content => QualityScenarioEntryContentForm(doc, '$path/content');
 }
 
-/// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+/// 4.2.2.n.1. Quality Scenarios.
 /// 
 /// Quality attribute scenarios that define concrete, testable situations
 /// for verifying the technical goal (based on SEI quality attribute workshop).
@@ -22766,7 +23025,7 @@ class QualityStandardEntryProcesses extends SomNode {
   QualityStandardEntryProcessesContentForm get content => QualityStandardEntryProcessesContentForm(doc, '$path/content');
 }
 
-/// A quality weight entry [PD00-SYQ-PRI-WEI-nn].
+/// A quality weight entry.
 class QualityWeightEntry extends SomNode {
   QualityWeightEntry(super.doc, super.path);
 
@@ -22810,7 +23069,7 @@ class RateLimitingPolicyQuotas extends SomNode {
   RateLimitingPolicyQuotasContentForm get content => RateLimitingPolicyQuotasContentForm(doc, '$path/content');
 }
 
-/// 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
+/// 11.5.1. Readability quality.
 class ReadabilityQuality extends SomNode {
   ReadabilityQuality(super.doc, super.path);
 
@@ -22860,7 +23119,7 @@ class ReadabilityQualityStyle extends SomNode {
   ReadabilityQualityStyleContentForm get content => ReadabilityQualityStyleContentForm(doc, '$path/content');
 }
 
-/// Readiness criteria entry [PD00-ORG-STR-TIM-RDY-nn] (form).
+/// Readiness criteria entry (form).
 class ReadinessCriteriaEntry extends SomNode {
   ReadinessCriteriaEntry(super.doc, super.path);
 
@@ -22922,7 +23181,7 @@ class RecoveryProceduresValidation extends SomNode {
   RecoveryProceduresValidationContentForm get content => RecoveryProceduresValidationContentForm(doc, '$path/content');
 }
 
-/// A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
+/// A recovery scenario entry.
 class RecoveryScenarioEntry extends SomNode {
   RecoveryScenarioEntry(super.doc, super.path);
 
@@ -22953,7 +23212,7 @@ class RedirectHandlingPolicy extends SomNode {
   // (skipped: redirectDetails has no target type)
 }
 
-/// A reference document entry [PD00-ADM-REF-nn] (form).
+/// A reference document entry (form).
 /// 
 /// Detailed metadata for a single referenced document including
 /// identification, classification, status, and applicability.
@@ -22999,7 +23258,7 @@ class ReferenceDocumentEntryMetadata extends SomNode {
   ReferenceDocumentEntryMetadataContentForm get content => ReferenceDocumentEntryMetadataContentForm(doc, '$path/content');
 }
 
-/// 3.5. Reference Documents [PD00-ADM-REF].
+/// 3.5. Reference Documents.
 /// 
 /// Catalog of all documents referenced by this project specification,
 /// including enterprise standards, technical guidelines, regulatory
@@ -23073,7 +23332,7 @@ class RegulatoryComplianceEntryRequirements extends SomNode {
   RegulatoryComplianceEntryRequirementsContentForm get content => RegulatoryComplianceEntryRequirementsContentForm(doc, '$path/content');
 }
 
-/// 3.6.3. Regulatory Compliance Requirements [PD00-ADM-OTH-REG].
+/// 3.6.3. Regulatory Compliance Requirements.
 /// 
 /// Regulatory and compliance obligations affecting the project.
 class RegulatoryComplianceRequirements extends SomNode {
@@ -23089,7 +23348,7 @@ class RegulatoryComplianceRequirements extends SomNode {
   SomList<ComplianceMilestoneEntry> get milestones => SomList<ComplianceMilestoneEntry>(doc, '$path/CPML-MILE-LST', (d, p) => ComplianceMilestoneEntry(d, p));
 }
 
-/// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+/// 4.1.2.8. Regulatory Context.
 /// 
 /// Regulatory and compliance context that affects system design and
 /// operations.
@@ -23186,7 +23445,7 @@ class RelevantSectionEntry extends SomNode {
   RelevantSectionEntryContentForm get content => RelevantSectionEntryContentForm(doc, '$path/content');
 }
 
-/// 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
+/// 11.3.6. Reliability quality.
 class ReliabilityQuality extends SomNode {
   ReliabilityQuality(super.doc, super.path);
 
@@ -23258,7 +23517,7 @@ class RemoteAccessRequirements extends SomNode {
   RemoteAccessRequirementsContentForm get content => RemoteAccessRequirementsContentForm(doc, '$path/content');
 }
 
-/// A removed role entry [PD00-ORG-JOB-REM-nn] (form).
+/// A removed role entry (form).
 /// 
 /// Documents roles being eliminated with transition planning for incumbents.
 class RemovedRoleEntry extends SomNode {
@@ -23297,7 +23556,7 @@ class RemovedRoleEntryTransition extends SomNode {
   RemovedRoleEntryTransitionContentForm get content => RemovedRoleEntryTransitionContentForm(doc, '$path/content');
 }
 
-/// Container for systems to replace [PD00-SYO-SYR-INV].
+/// Container for systems to replace.
 /// 
 /// Provides a structured inventory of all systems targeted for replacement,
 /// with portfolio-level metrics and prioritization guidance.
@@ -23314,14 +23573,14 @@ class ReplacementInventory extends SomNode {
   SomList<SystemToReplaceEntry> get systems => SomList<SystemToReplaceEntry>(doc, '$path/SYTORE-SYST-LST', (d, p) => SystemToReplaceEntry(d, p));
 }
 
-/// A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn].
+/// A replacement phase entry.
 class ReplacementPhaseEntry extends SomNode {
   ReplacementPhaseEntry(super.doc, super.path);
 
   ReplacementPhaseEntryContentForm get content => ReplacementPhaseEntryContentForm(doc, '$path/content');
 }
 
-/// A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
+/// A system dependency entry.
 /// 
 /// Documents integrations and dependencies with other systems.
 class ReplacementSystemDependencyEntry extends SomNode {
@@ -23344,7 +23603,7 @@ class ReportChartDisplay extends SomNode {
   ReportChartDisplayContentForm get content => ReportChartDisplayContentForm(doc, '$path/content');
 }
 
-/// A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
+/// A chart/visualization in a report
 /// (form).
 class ReportChartEntry extends SomNode {
   ReportChartEntry(super.doc, super.path);
@@ -23402,7 +23661,7 @@ class ReportColumnDataSource extends SomNode {
   ReportColumnDataSourceContentForm get content => ReportColumnDataSourceContentForm(doc, '$path/content');
 }
 
-/// A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
+/// A column in a tabular report section
 /// (form).
 class ReportColumnEntry extends SomNode {
   ReportColumnEntry(super.doc, super.path);
@@ -23453,7 +23712,7 @@ class ReportDataSource extends SomNode {
   ReportDataSourceContentForm get content => ReportDataSourceContentForm(doc, '$path/content');
 }
 
-/// Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form).
+/// Distribution channel configuration (form).
 class ReportDistributionEntry extends SomNode {
   ReportDistributionEntry(super.doc, super.path);
 
@@ -23490,7 +23749,7 @@ class ReportDistributionEntryRecipients extends SomNode {
   ReportDistributionEntryRecipientsContentForm get content => ReportDistributionEntryRecipientsContentForm(doc, '$path/content');
 }
 
-/// A report entry [PD00-USE-PRI-REP-nn] (form).
+/// A report entry (form).
 class ReportEntry extends SomNode {
   ReportEntry(super.doc, super.path);
 
@@ -23545,7 +23804,7 @@ class ReportEntry extends SomNode {
   SomList<ReportRecipientEntry> get recipients => SomList<ReportRecipientEntry>(doc, '$path/REREEN-RECI-LST', (d, p) => ReportRecipientEntry(d, p));
 }
 
-/// A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form).
+/// A filter parameter for a report (form).
 class ReportFilterEntry extends SomNode {
   ReportFilterEntry(super.doc, super.path);
 
@@ -23645,7 +23904,7 @@ class ReportPagination extends SomNode {
   ReportPaginationContentForm get content => ReportPaginationContentForm(doc, '$path/content');
 }
 
-/// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
+/// A recipient entry (form).
 class ReportRecipientEntry extends SomNode {
   ReportRecipientEntry(super.doc, super.path);
 
@@ -23682,7 +23941,7 @@ class ReportRecipientEntryLifecycle extends SomNode {
   ReportRecipientEntryLifecycleContentForm get content => ReportRecipientEntryLifecycleContentForm(doc, '$path/content');
 }
 
-/// Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
+/// Scheduling rules for report generation
 /// (form).
 class ReportScheduleEntry extends SomNode {
   ReportScheduleEntry(super.doc, super.path);
@@ -23744,7 +24003,7 @@ class ReportSectionData extends SomNode {
   ReportSectionDataContentForm get content => ReportSectionDataContentForm(doc, '$path/content');
 }
 
-/// A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).
+/// A section within a report (form).
 class ReportSectionEntry extends SomNode {
   ReportSectionEntry(super.doc, super.path);
 
@@ -23798,7 +24057,7 @@ class RepresentativeQuoteEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+/// 4.3.1.n.1. Acceptance Criteria.
 /// 
 /// Testable conditions that must be met for the requirement to be accepted.
 /// Uses Given-When-Then format for clarity.
@@ -23819,7 +24078,7 @@ class RequirementBusinessRuleEntry extends SomNode {
   RequirementBusinessRuleEntryContentForm get content => RequirementBusinessRuleEntryContentForm(doc, '$path/content');
 }
 
-/// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+/// 4.3.1.n.2. Business Rules.
 /// 
 /// Business rules that constrain or guide this requirement's behavior.
 class RequirementBusinessRules extends SomNode {
@@ -23832,7 +24091,7 @@ class RequirementBusinessRules extends SomNode {
   SomList<RequirementBusinessRuleEntry> get rules => SomList<RequirementBusinessRuleEntry>(doc, '$path/RQBIRU-RULE-LST', (d, p) => RequirementBusinessRuleEntry(d, p));
 }
 
-/// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+/// 4.3.6. Requirement Coverage.
 /// 
 /// Coverage of requirements against goals, use cases, and tests.
 class RequirementCoverage extends SomNode {
@@ -23842,7 +24101,7 @@ class RequirementCoverage extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+/// 4.3.1.n.3. Data Requirements.
 /// 
 /// Data entities, attributes, and relationships needed by this requirement.
 class RequirementDataRequirements extends SomNode {
@@ -23855,7 +24114,7 @@ class RequirementDataRequirements extends SomNode {
   SomList<DataEntityReferenceEntry> get entities => SomList<DataEntityReferenceEntry>(doc, '$path/DAENRE-ENTI-LST', (d, p) => DataEntityReferenceEntry(d, p));
 }
 
-/// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+/// 4.3.1.n.5. Dependencies.
 /// 
 /// Dependencies this requirement has on other requirements.
 class RequirementDependencies extends SomNode {
@@ -23878,7 +24137,7 @@ class RequirementDependencyEntry extends SomNode {
   set relatedRequirement(String value) => doc.setContent('$path/relatedRequirement', value);
 }
 
-/// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+/// 4.3.5. Requirement Relationships.
 /// 
 /// Cross-requirement dependency and conflict graph.
 class RequirementRelationships extends SomNode {
@@ -23930,7 +24189,7 @@ class RequirementTestCaseEntryExecution extends SomNode {
   RequirementTestCaseEntryExecutionContentForm get content => RequirementTestCaseEntryExecutionContentForm(doc, '$path/content');
 }
 
-/// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+/// 4.3.1.n.7. Test Cases.
 /// 
 /// Test cases that verify this requirement is correctly implemented.
 class RequirementTestCases extends SomNode {
@@ -23943,7 +24202,7 @@ class RequirementTestCases extends SomNode {
   SomList<RequirementTestCaseEntry> get testCases => SomList<RequirementTestCaseEntry>(doc, '$path/RQTSC-TEST-LST', (d, p) => RequirementTestCaseEntry(d, p));
 }
 
-/// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+/// 4.3.1.n.6. Traceability.
 /// 
 /// Traceability links to goals, use cases, processes, and other artifacts.
 class RequirementTraceability extends SomNode {
@@ -23976,7 +24235,7 @@ class RequirementTraceabilityImplementation extends SomNode {
   RequirementTraceabilityImplementationContentForm get content => RequirementTraceabilityImplementationContentForm(doc, '$path/content');
 }
 
-/// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+/// 4.3.1.n.4. UI Specification.
 /// 
 /// User interface specification for this requirement. Defines screens,
 /// forms, and interactions needed to fulfill the requirement.
@@ -24008,59 +24267,28 @@ class RequirementUiSpecification extends SomNode {
   SomList<ScreenBehaviorEntry> get behaviors => SomList<ScreenBehaviorEntry>(doc, '$path/SCBHV-BEHA-LST', (d, p) => ScreenBehaviorEntry(d, p));
 }
 
-/// RC00 Requirements Catalog.
+/// SBP.9 Requirements.
 /// 
-/// Full requirements catalog covering functional, technical, security,
-/// and organizational requirements, plus traceability, relationships,
-/// and coverage analysis.
-class RequirementsCatalog extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  RequirementsCatalog(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'RC') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
+/// Functional requirements seed the Requirements Specification (RSP); this
+/// section currently carries the framework-uncovered NFR sub-areas re-homed in
+/// IP-6. Functional-requirement modelling is expanded in a later IP step.
+class Requirements extends SomNode {
+  Requirements(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+  /// Localization & Translation requirements (NFR-L10N-NNN).
+  LocalizationTranslationRequirements get localizationTranslation => LocalizationTranslationRequirements(doc, '$path/localizationTranslation');
 
-  /// Functional requirements — PD00-SYO-REQ-FUN.
-  FunctionalRequirements get functionalRequirements => FunctionalRequirements(doc, '$path/functionalRequirements');
+  /// Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
+  InformationForUseRequirements get informationForUse => InformationForUseRequirements(doc, '$path/informationForUse');
 
-  /// Technical (non-functional) requirements — PD00-SYO-REQ-TEC.
-  TechnicalRequirements get technicalRequirements => TechnicalRequirements(doc, '$path/technicalRequirements');
-
-  /// Security requirements — PD00-SYO-REQ-SEC.
-  SecurityRequirements get securityRequirements => SecurityRequirements(doc, '$path/securityRequirements');
-
-  /// Organizational requirements — PD00-SYO-REQ-ORG.
-  OrganizationalRequirements get organizationalRequirements => OrganizationalRequirements(doc, '$path/organizationalRequirements');
-
-  /// Traceability matrix overview — PD00-SYO-REQ-TRC.
-  /// 
-  /// Mirrors the PD00-side flat field on RequirementsOverview so the RC
-  /// outline reaches it directly. The authoritative content lives on the
-  /// PD00 side.
-  String get traceabilityMatrix => doc.content('$path/traceabilityMatrix') ?? '';
-  set traceabilityMatrix(String value) => doc.setContent('$path/traceabilityMatrix', value);
-
-  /// Requirement relationships — PD00-SYO-REQ-REL.
-  SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p));
-
-  /// Requirement coverage — PD00-SYO-REQ-COV.
-  RequirementCoverage get requirementCoverage => RequirementCoverage(doc, '$path/requirementCoverage');
+  /// Training & Enablement requirements (NFR-TRN-NNN).
+  TrainingEnablementRequirements get trainingEnablement => TrainingEnablementRequirements(doc, '$path/trainingEnablement');
 }
 
-/// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+/// 4.3. Requirements Overview. Seeds → RC.
 /// 
 /// Initial requirements overview organized by category. Each requirement
 /// receives a unique ID and will be expanded into the RC (Requirements
@@ -24080,22 +24308,74 @@ class RequirementsOverview extends SomNode {
   String get traceabilityMatrix => doc.content('$path/traceabilityMatrix') ?? '';
   set traceabilityMatrix(String value) => doc.setContent('$path/traceabilityMatrix', value);
 
-  /// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+  /// 4.3.1. Functional Requirements.
   FunctionalRequirements get functionalRequirements => FunctionalRequirements(doc, '$path/functionalRequirements');
 
-  /// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+  /// 4.3.2. Technical Requirements.
   TechnicalRequirements get technicalRequirements => TechnicalRequirements(doc, '$path/technicalRequirements');
 
-  /// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+  /// 4.3.3. Security Requirements.
   SecurityRequirements get securityRequirements => SecurityRequirements(doc, '$path/securityRequirements');
 
-  /// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+  /// 4.3.4. Organizational Requirements.
   OrganizationalRequirements get organizationalRequirements => OrganizationalRequirements(doc, '$path/organizationalRequirements');
 
-  /// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+  /// 4.3.5. Requirement Relationships.
   SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p));
 
-  /// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+  /// 4.3.6. Requirement Coverage.
+  RequirementCoverage get requirementCoverage => RequirementCoverage(doc, '$path/requirementCoverage');
+}
+
+/// RC00 Requirements Catalog.
+/// 
+/// Full requirements catalog covering functional, technical, security,
+/// and organizational requirements, plus traceability, relationships,
+/// and coverage analysis.
+class RequirementsSpecification extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  RequirementsSpecification(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'RSP') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Functional requirements.
+  FunctionalRequirements get functionalRequirements => FunctionalRequirements(doc, '$path/functionalRequirements');
+
+  /// Technical (non-functional) requirements.
+  TechnicalRequirements get technicalRequirements => TechnicalRequirements(doc, '$path/technicalRequirements');
+
+  /// Security requirements.
+  SecurityRequirements get securityRequirements => SecurityRequirements(doc, '$path/securityRequirements');
+
+  /// Organizational requirements.
+  OrganizationalRequirements get organizationalRequirements => OrganizationalRequirements(doc, '$path/organizationalRequirements');
+
+  /// Traceability matrix overview.
+  /// 
+  /// Mirrors the flat field on RequirementsOverview so the RC outline
+  /// reaches it directly. The authoritative content lives on the Solution
+  /// Blueprint side.
+  String get traceabilityMatrix => doc.content('$path/traceabilityMatrix') ?? '';
+  set traceabilityMatrix(String value) => doc.setContent('$path/traceabilityMatrix', value);
+
+  /// Requirement relationships.
+  SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p));
+
+  /// Requirement coverage.
   RequirementCoverage get requirementCoverage => RequirementCoverage(doc, '$path/requirementCoverage');
 }
 
@@ -24153,34 +24433,34 @@ class ResourceCapacityBaselinesStorage extends SomNode {
   ResourceCapacityBaselinesStorageContentForm get content => ResourceCapacityBaselinesStorageContentForm(doc, '$path/content');
 }
 
-/// A resource key entry [PD00-ACC-USA-RES-nn] (form).
+/// A resource key entry (form).
 class ResourceKeyEntry extends SomNode {
   ResourceKeyEntry(super.doc, super.path);
 
   ResourceKeyEntryContentForm get content => ResourceKeyEntryContentForm(doc, '$path/content');
 }
 
-/// A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn].
+/// A resource key reference entry (form).
 class ResourceKeyReferenceEntry extends SomNode {
   ResourceKeyReferenceEntry(super.doc, super.path);
 
   ResourceKeyReferenceEntryContentForm get content => ResourceKeyReferenceEntryContentForm(doc, '$path/content');
 }
 
-/// 9.3. Resource Protection [PD00-ACC-RES].
+/// 9.3. Resource Protection.
 class ResourceProtection extends SomNode {
   ResourceProtection(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+  /// 9.3.1. Data-Level Security.
   DataLevelSecurity get dataLevelSecurity => DataLevelSecurity(doc, '$path/dataLevelSecurity');
 
-  /// 9.3.2. API Security [PD00-ACC-RES-API].
+  /// 9.3.2. API Security.
   ApiSecurity get apiSecurity => ApiSecurity(doc, '$path/apiSecurity');
 
-  /// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+  /// 9.3.3. File and Storage Security.
   FileAndStorageSecurity get fileAndStorageSecurity => FileAndStorageSecurity(doc, '$path/fileAndStorageSecurity');
 }
 
@@ -24199,7 +24479,7 @@ class ResponseStrategyEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// Responsibility change entry [PD00-ORG-JOB-CHA-nn-xxx-nn] (form).
+/// Responsibility change entry (form).
 class ResponsibilityChangeEntry extends SomNode {
   ResponsibilityChangeEntry(super.doc, super.path);
 
@@ -24213,14 +24493,14 @@ class ResponsibilityContacts extends SomNode {
   ResponsibilityContactsContentForm get content => ResponsibilityContactsContentForm(doc, '$path/content');
 }
 
-/// Detailed responsibility entry [PD00-ORG-JOB-NEW-nn-RSP-nn] (form).
+/// Detailed responsibility entry (form).
 class ResponsibilityDetailEntry extends SomNode {
   ResponsibilityDetailEntry(super.doc, super.path);
 
   ResponsibilityDetailEntryContentForm get content => ResponsibilityDetailEntryContentForm(doc, '$path/content');
 }
 
-/// A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+/// A responsibility entry (form).
 /// 
 /// Documents responsibility assignment for a specific functional area,
 /// following RACI principles (Responsible, Accountable, Consulted, Informed)
@@ -24274,7 +24554,7 @@ class ResponsibilityRaci extends SomNode {
   ResponsibilityRaciContentForm get content => ResponsibilityRaciContentForm(doc, '$path/content');
 }
 
-/// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
+/// A responsibility reference entry (form).
 class ResponsibilityReferenceEntry extends SomNode {
   ResponsibilityReferenceEntry(super.doc, super.path);
 
@@ -24288,7 +24568,7 @@ class ResponsibilitySystems extends SomNode {
   ResponsibilitySystemsContentForm get content => ResponsibilitySystemsContentForm(doc, '$path/content');
 }
 
-/// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+/// 10.10.2. Responsive Behavior.
 /// 
 /// How the UI adapts across breakpoints.
 class ResponsiveBehavior extends SomNode {
@@ -24343,7 +24623,7 @@ class ResponsiveBehaviorVisibility extends SomNode {
   ResponsiveBehaviorVisibilityContentForm get content => ResponsiveBehaviorVisibilityContentForm(doc, '$path/content');
 }
 
-/// 10.10. Responsive Design [PD00-USE-RES].
+/// 10.10. Responsive Design.
 /// 
 /// Comprehensive responsive design specification covering breakpoints,
 /// adaptive layouts, and device-specific behavior for Flutter applications.
@@ -24355,14 +24635,14 @@ class ResponsiveDesign extends SomNode {
   /// Responsive design narrative.
   // (skipped: responsiveNarrative has no target type)
 
-  /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+  /// 10.10.1. Breakpoints.
   BreakpointConfiguration get breakpointConfig => BreakpointConfiguration(doc, '$path/breakpointConfig');
 
-  /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+  /// 10.10.2. Responsive Behavior.
   ResponsiveBehavior get responsiveBehavior => ResponsiveBehavior(doc, '$path/responsiveBehavior');
 }
 
-/// A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
+/// A screen-specific responsive rule entry.
 class ResponsiveScreenRuleEntry extends SomNode {
   ResponsiveScreenRuleEntry(super.doc, super.path);
 
@@ -24460,7 +24740,7 @@ class ReusabilityPrinciplesVersioning extends SomNode {
   ReusabilityPrinciplesVersioningContentForm get content => ReusabilityPrinciplesVersioningContentForm(doc, '$path/content');
 }
 
-/// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+/// 8.2.3. Reusable Components.
 /// 
 /// Components, libraries, or frameworks designed for reuse across projects
 /// or modules.
@@ -24498,7 +24778,7 @@ class ReusableComponentsSection extends SomNode {
   ComponentRegistry get registry => ComponentRegistry(doc, '$path/registry');
 }
 
-/// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+/// 10.13.3.1. Reusable Prototype.
 /// 
 /// Prototype that becomes part of the final product.
 class ReusablePrototype extends SomNode {
@@ -24597,7 +24877,7 @@ class ReusableUiComponentEntryInteraction extends SomNode {
   ReusableUiComponentEntryInteractionContentForm get content => ReusableUiComponentEntryInteractionContentForm(doc, '$path/content');
 }
 
-/// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
+/// A reuse goal entry (form).
 /// 
 /// Defines a specific reuse target: what to reuse, why, at what percentage,
 /// how to measure, and who owns the goal.
@@ -24637,7 +24917,7 @@ class ReuseGoalEntryMeasurement extends SomNode {
   ReuseGoalEntryMeasurementContentForm get content => ReuseGoalEntryMeasurementContentForm(doc, '$path/content');
 }
 
-/// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
+/// A review criterion entry (form).
 /// 
 /// A single criterion evaluated at a phase gate, with weight,
 /// evidence linkage, and assessment result.
@@ -24665,6 +24945,24 @@ class ReviewCriterionEntryResult extends SomNode {
   ReviewCriterionEntryResult(super.doc, super.path);
 
   ReviewCriterionEntryResultContentForm get content => ReviewCriterionEntryResultContentForm(doc, '$path/content');
+}
+
+/// A single document revision entry (form).
+class RevisionEntry extends SomNode {
+  RevisionEntry(super.doc, super.path);
+
+  RevisionEntryContentForm get content => RevisionEntryContentForm(doc, '$path/content');
+}
+
+/// Chronological revision history.
+class RevisionHistory extends SomNode {
+  RevisionHistory(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// One entry per published revision of the document.
+  SomList<RevisionEntry> get revisions => SomList<RevisionEntry>(doc, '$path/RVHST-REVS-LST', (d, p) => RevisionEntry(d, p));
 }
 
 /// Risk analysis — probability, impact, and risk scoring.
@@ -24717,7 +25015,7 @@ class RiskCategoryEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+/// A risk entry (form).
 /// 
 /// Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
 /// Captures risk identification, analysis, response planning, ownership,
@@ -24842,7 +25140,7 @@ class RiskResponseResidual extends SomNode {
   RiskResponseResidualContentForm get content => RiskResponseResidualContentForm(doc, '$path/content');
 }
 
-/// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+/// 4.7. Risks and Assumptions.
 /// 
 /// Documents identified project risks and underlying assumptions following
 /// ISO 31000 Risk Management and PMBOK risk management best practices.
@@ -24854,10 +25152,10 @@ class RisksAndAssumptions extends SomNode {
   /// Overview of the risk management approach for this project.
   RisksOverview get overview => RisksOverview(doc, '$path/overview');
 
-  /// 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+  /// 4.7.1. Key Risks — contains 0+× Risk.
   SomList<RiskEntry> get keyRisks => SomList<RiskEntry>(doc, '$path/RIEN-KEYR-LST', (d, p) => RiskEntry(d, p));
 
-  /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
+  /// 4.7.2. Key Assumptions — contains 0+×.
   KeyAssumptions get keyAssumptions => KeyAssumptions(doc, '$path/keyAssumptions');
 }
 
@@ -24868,7 +25166,7 @@ class RisksOverview extends SomNode {
   RisksOverviewContentForm get content => RisksOverviewContentForm(doc, '$path/content');
 }
 
-/// A role adjustment entry (form) [PD00-POP-ROL-nn].
+/// A role adjustment entry (form).
 /// 
 /// Documents a specific deviation from standard TomSpecs role definitions,
 /// including the type of adjustment, affected responsibilities, risk
@@ -24936,7 +25234,7 @@ class RoleAdjustmentSummary extends SomNode {
   RoleAdjustmentSummaryContentForm get content => RoleAdjustmentSummaryContentForm(doc, '$path/content');
 }
 
-/// 2.1. Role Adjustments [PD00-POP-ROL].
+/// 2.1. Role Adjustments.
 /// 
 /// Documents any deviations from the standard TomSpecs roles defined in
 /// tom_roles.md. Includes merged, split, omitted, or modified roles
@@ -24972,7 +25270,7 @@ class RoleCertificationPolicy extends SomNode {
   // (skipped: roleCertificationDetails has no target type)
 }
 
-/// A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn].
+/// A role combination constraint entry (form).
 /// 
 /// Defines rules about which roles can or cannot be combined — supports
 /// separation of duties, prerequisite roles, and co-requisite roles.
@@ -24982,14 +25280,14 @@ class RoleCombinationConstraintEntry extends SomNode {
   RoleCombinationConstraintEntryContentForm get content => RoleCombinationConstraintEntryContentForm(doc, '$path/content');
 }
 
-/// Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form).
+/// Role competency entry (form).
 class RoleCompetencyEntry extends SomNode {
   RoleCompetencyEntry(super.doc, super.path);
 
   RoleCompetencyEntryContentForm get content => RoleCompetencyEntryContentForm(doc, '$path/content');
 }
 
-/// A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn].
+/// A data scope entry for a role (form).
 /// 
 /// Specifies what data categories the role can access and at what level —
 /// supports horizontal access control and data-level security.
@@ -25006,14 +25304,14 @@ class RoleDecisionAuthority extends SomNode {
   RoleDecisionAuthorityContentForm get content => RoleDecisionAuthorityContentForm(doc, '$path/content');
 }
 
-/// A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
+/// A role exclusion entry (form).
 class RoleExclusionEntry extends SomNode {
   RoleExclusionEntry(super.doc, super.path);
 
   RoleExclusionEntryContentForm get content => RoleExclusionEntryContentForm(doc, '$path/content');
 }
 
-/// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+/// 9.4.6. Role Hierarchy.
 /// 
 /// Defines the role hierarchy: inheritance rules, mutual exclusions,
 /// role combination constraints, hierarchy depth, and role certification
@@ -25057,14 +25355,14 @@ class RoleHierarchyPolicy extends SomNode {
   // (skipped: roleHierarchyPolicyDetails has no target type)
 }
 
-/// A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
+/// A role holder entry (form).
 class RoleHolderEntry extends SomNode {
   RoleHolderEntry(super.doc, super.path);
 
   RoleHolderEntryContentForm get content => RoleHolderEntryContentForm(doc, '$path/content');
 }
 
-/// A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn].
+/// A role inheritance rule entry (form).
 /// 
 /// Defines a specific parent-child inheritance relationship between two roles,
 /// including what is inherited and any restrictions.
@@ -25074,9 +25372,9 @@ class RoleInheritanceRuleEntry extends SomNode {
   RoleInheritanceRuleEntryContentForm get content => RoleInheritanceRuleEntryContentForm(doc, '$path/content');
 }
 
-/// 9.7. Role Matrix [PD00-ACC-ROL].
+/// 9.7. Role Matrix.
 /// 
-/// Role-to-permission assignment matrix covering HBSG AS22-AUM
+/// Role-to-permission assignment matrix covering
 /// Authorization Model.
 class RoleMatrix extends SomNode {
   RoleMatrix(super.doc, super.path);
@@ -25085,7 +25383,7 @@ class RoleMatrix extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn].
+/// A direct permission entry for a role (form).
 /// 
 /// Captures direct permission assignments that complement or override
 /// entitlement-based access — useful when fine-grained per-role permissions
@@ -25096,7 +25394,7 @@ class RolePermissionEntry extends SomNode {
   RolePermissionEntryContentForm get content => RolePermissionEntryContentForm(doc, '$path/content');
 }
 
-/// A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn].
+/// A role reference entry (form).
 class RoleReferenceEntry extends SomNode {
   RoleReferenceEntry(super.doc, super.path);
 
@@ -25160,7 +25458,7 @@ class RollbackStrategyTriggers extends SomNode {
   RollbackStrategyTriggersContentForm get content => RollbackStrategyTriggersContentForm(doc, '$path/content');
 }
 
-/// 15.1. Rollout Plan [PD00-ROL-PLN].
+/// 15.1. Rollout Plan.
 /// 
 /// Geographic and/or user-group rollout plan covering DR23 Rollout Plan
 /// content: the sequencing of sites, countries, business units, and user
@@ -25172,7 +25470,7 @@ class RolloutPlan extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 15.4. Training Materials [PD00-ROL-TRN].
+/// 15.4. Training Materials.
 /// 
 /// Training deliverables covering DR17 Training Materials content.
 class RolloutTrainingMaterials extends SomNode {
@@ -25234,7 +25532,7 @@ class RpoRtoRequirementsSystems extends SomNode {
   RpoRtoRequirementsSystemsContentForm get content => RpoRtoRequirementsSystemsContentForm(doc, '$path/content');
 }
 
-/// A rule example entry (form) [PD00-BUS-FUN-RUL-nn-EXA-nn].
+/// A rule example entry (form).
 /// 
 /// Examples illustrating rule application.
 class RuleExampleEntry extends SomNode {
@@ -25243,7 +25541,7 @@ class RuleExampleEntry extends SomNode {
   RuleExampleEntryContentForm get content => RuleExampleEntryContentForm(doc, '$path/content');
 }
 
-/// 12.4. Runtime Dependencies [PD00-COM-RUN].
+/// 12.4. Runtime Dependencies.
 /// 
 /// Runtime dependencies between components: required services, startup order,
 /// health-check dependencies, failover behavior, and version constraints.
@@ -25257,7 +25555,7 @@ class RuntimeDependencies extends SomNode {
   SomList<RuntimeDependencyEntry> get items => SomList<RuntimeDependencyEntry>(doc, '$path/RNDEP-ITEM-LST', (d, p) => RuntimeDependencyEntry(d, p));
 }
 
-/// A runtime dependency entry (form) [PD00-COM-RUN-nn].
+/// A runtime dependency entry (form).
 /// 
 /// Documents one runtime dependency: startup order, health checks,
 /// failover, data flow, latency tolerance, and caching strategy.
@@ -25569,7 +25867,7 @@ class ScenarioData extends SomNode {
   ScenarioDataContentForm get content => ScenarioDataContentForm(doc, '$path/content');
 }
 
-/// A scenario entry [PD00-TAR-STP-SCE-nn].
+/// A scenario entry.
 /// 
 /// Comprehensive scenario definition for end-to-end user journey.
 class ScenarioEntry extends SomNode {
@@ -25611,7 +25909,7 @@ class ScenarioOverview extends SomNode {
   ScenarioOverviewContentForm get content => ScenarioOverviewContentForm(doc, '$path/content');
 }
 
-/// A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn].
+/// A scenario step entry.
 class ScenarioStepEntry extends SomNode {
   ScenarioStepEntry(super.doc, super.path);
 
@@ -25707,7 +26005,7 @@ class ScopeAssumptionEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+/// 4.1.1.6. Scope Boundaries.
 /// 
 /// Clear definition of what is in scope and out of scope for this system.
 /// Helps set expectations and prevent scope creep.
@@ -25717,13 +26015,13 @@ class ScopeBoundaries extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
+  /// In-Scope Items — contains 1+× ScopeItem.
   SomList<ScopeItemEntry> get inScopeItems => SomList<ScopeItemEntry>(doc, '$path/SCITE-INSC-LST', (d, p) => ScopeItemEntry(d, p));
 
-  /// Out-of-Scope Items [PD00-SYO-SYD-PUR-SCO-OUT] — contains 0+× ScopeItem.
+  /// Out-of-Scope Items — contains 0+× ScopeItem.
   SomList<ScopeItemEntry> get outOfScopeItems => SomList<ScopeItemEntry>(doc, '$path/SCITE-OUTO-LST', (d, p) => ScopeItemEntry(d, p));
 
-  /// Deferred Items [PD00-SYO-SYD-PUR-SCO-DEF] — contains 0+× ScopeItem.
+  /// Deferred Items — contains 0+× ScopeItem.
   SomList<DeferredScopeItemEntry> get deferredItems => SomList<DeferredScopeItemEntry>(doc, '$path/DFSCP-DEFE-LST', (d, p) => DeferredScopeItemEntry(d, p));
 
   /// Scope Assumptions.
@@ -25737,7 +26035,7 @@ class ScopeItemEntry extends SomNode {
   ScopeItemEntryContentForm get content => ScopeItemEntryContentForm(doc, '$path/content');
 }
 
-/// A screen action entry (form) [PD00-USE-SCR-INV-nn-ACT-mm].
+/// A screen action entry (form).
 /// 
 /// A top-level action available on the screen via toolbar, app bar, or FAB.
 class ScreenActionEntry extends SomNode {
@@ -25776,7 +26074,7 @@ class ScreenActionEntryVisual extends SomNode {
   ScreenActionEntryVisualContentForm get content => ScreenActionEntryVisualContentForm(doc, '$path/content');
 }
 
-/// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+/// 10.2.1.n.2. Screen Actions.
 /// 
 /// Top-level actions available on the screen (toolbar, app bar, FAB).
 class ScreenActions extends SomNode {
@@ -25799,17 +26097,17 @@ class ScreenBehaviorEntry extends SomNode {
   ScreenBehaviorEntryContentForm get content => ScreenBehaviorEntryContentForm(doc, '$path/content');
 }
 
-/// 10.2. Screen Descriptions [PD00-USE-SCR].
+/// 10.2. Screen Descriptions.
 class ScreenDescriptions extends SomNode {
   ScreenDescriptions(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+  /// 10.2.1. Screen Inventory.
   ScreenInventory get screenInventory => ScreenInventory(doc, '$path/screenInventory');
 
-  /// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+  /// 10.2.2. Information Architecture.
   InformationArchitecture get informationArchitecture => InformationArchitecture(doc, '$path/informationArchitecture');
 }
 
@@ -25871,7 +26169,7 @@ class ScreenElementDataDisplayOptions extends SomNode {
   ScreenElementDataDisplayOptionsContentForm get content => ScreenElementDataDisplayOptionsContentForm(doc, '$path/content');
 }
 
-/// A screen element entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk].
+/// A screen element entry (form).
 /// 
 /// Any interactive or display element within a screen section: buttons, fields,
 /// data displays, icons, labels, status indicators.
@@ -25892,13 +26190,13 @@ class ScreenElementEntry extends SomNode {
   /// Styling and data binding.
   ScreenElementEntryPresentation get presentation => ScreenElementEntryPresentation(doc, '$path/presentation');
 
-  /// 10.2.1.n.m.k.1. Element Action [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-ACN].
+  /// 10.2.1.n.m.k.1. Element Action.
   ScreenElementAction get elementAction => ScreenElementAction(doc, '$path/elementAction');
 
-  /// 10.2.1.n.m.k.2. Element Field Spec [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-FLD].
+  /// 10.2.1.n.m.k.2. Element Field Spec.
   ScreenElementFieldSpec get fieldSpec => ScreenElementFieldSpec(doc, '$path/fieldSpec');
 
-  /// 10.2.1.n.m.k.3. Element Data Display [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-DAT].
+  /// 10.2.1.n.m.k.3. Element Data Display.
   ScreenElementDataDisplay get dataDisplay => ScreenElementDataDisplay(doc, '$path/dataDisplay');
 
   /// Contains 0+× ElementValidationRule.
@@ -25982,7 +26280,7 @@ class ScreenElementFieldSpecValidation extends SomNode {
   ScreenElementFieldSpecValidationContentForm get content => ScreenElementFieldSpecValidationContentForm(doc, '$path/content');
 }
 
-/// A screen entry [PD00-USE-SCR-INV-nn] (form).
+/// A screen entry (form).
 /// 
 /// Comprehensive specification of a single application screen, covering
 /// identity, purpose, authorization, layout, elements, and behavior.
@@ -26006,13 +26304,13 @@ class ScreenEntry extends SomNode {
   /// Screen design rationale and notes.
   // (skipped: designNotes has no target type)
 
-  /// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+  /// 10.2.1.n.1. Screen Sections.
   ScreenSections get sections => ScreenSections(doc, '$path/sections');
 
-  /// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+  /// 10.2.1.n.2. Screen Actions.
   ScreenActions get actions => ScreenActions(doc, '$path/actions');
 
-  /// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+  /// 10.2.1.n.3. Screen States.
   ScreenStates get states => ScreenStates(doc, '$path/states');
 
   /// Contains 0+× ScreenUserCategory.
@@ -26105,21 +26403,21 @@ class ScreenFieldValidation extends SomNode {
   ScreenFieldValidationContentForm get content => ScreenFieldValidationContentForm(doc, '$path/content');
 }
 
-/// 10.3. Screen Flow Structure [PD00-USE-SCF].
+/// 10.3. Screen Flow Structure.
 class ScreenFlowStructure extends SomNode {
   ScreenFlowStructure(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+  /// 10.3.1. Navigation Model.
   NavigationModel get navigationModel => NavigationModel(doc, '$path/navigationModel');
 
-  /// 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid-flow).
+  /// 10.3.2. Screen Flow Diagram (mermaid-flow).
   // (skipped: screenFlowDiagram has no target type)
 }
 
-/// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+/// 10.2.1. Screen Inventory.
 /// 
 /// Container for screen definitions. Each entry fully describes one application
 /// screen including its purpose, layout zones, elements, actions, and states.
@@ -26136,7 +26434,7 @@ class ScreenInventory extends SomNode {
   SomList<ScreenEntry> get items => SomList<ScreenEntry>(doc, '$path/SCREN-ITEM-LST', (d, p) => ScreenEntry(d, p));
 }
 
-/// A responsive rule entry (form) [PD00-USE-SCR-INV-nn-RSP-mm].
+/// A responsive rule entry (form).
 /// 
 /// How the screen adapts at different breakpoints.
 class ScreenResponsiveRuleEntry extends SomNode {
@@ -26145,7 +26443,7 @@ class ScreenResponsiveRuleEntry extends SomNode {
   ScreenResponsiveRuleEntryContentForm get content => ScreenResponsiveRuleEntryContentForm(doc, '$path/content');
 }
 
-/// A screen section entry (form) [PD00-USE-SCR-INV-nn-SEC-mm].
+/// A screen section entry (form).
 /// 
 /// A logical zone within a screen: header, toolbar, content area, sidebar, etc.
 class ScreenSectionEntry extends SomNode {
@@ -26177,7 +26475,7 @@ class ScreenSectionEntryLayout extends SomNode {
   ScreenSectionEntryLayoutContentForm get content => ScreenSectionEntryLayoutContentForm(doc, '$path/content');
 }
 
-/// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+/// 10.2.1.n.1. Screen Sections.
 /// 
 /// Logical zones within a screen that group related elements.
 class ScreenSections extends SomNode {
@@ -26190,7 +26488,7 @@ class ScreenSections extends SomNode {
   SomList<ScreenSectionEntry> get items => SomList<ScreenSectionEntry>(doc, '$path/SCRSC-ITEM-LST', (d, p) => ScreenSectionEntry(d, p));
 }
 
-/// A screen state entry (form) [PD00-USE-SCR-INV-nn-STA-mm].
+/// A screen state entry (form).
 /// 
 /// A specific state the screen can be in: loading, empty, error, permission-denied.
 class ScreenStateEntry extends SomNode {
@@ -26199,7 +26497,7 @@ class ScreenStateEntry extends SomNode {
   ScreenStateEntryContentForm get content => ScreenStateEntryContentForm(doc, '$path/content');
 }
 
-/// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+/// 10.2.1.n.3. Screen States.
 /// 
 /// Different visual/behavioral states the screen can be in.
 class ScreenStates extends SomNode {
@@ -26212,14 +26510,14 @@ class ScreenStates extends SomNode {
   SomList<ScreenStateEntry> get items => SomList<ScreenStateEntry>(doc, '$path/SCRST-ITEM-LST', (d, p) => ScreenStateEntry(d, p));
 }
 
-/// A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-mm].
+/// A user category entry (form).
 class ScreenUserCategoryEntry extends SomNode {
   ScreenUserCategoryEntry(super.doc, super.path);
 
   ScreenUserCategoryEntryContentForm get content => ScreenUserCategoryEntryContentForm(doc, '$path/content');
 }
 
-/// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+/// 10.3.1.4. Secondary Navigation.
 /// 
 /// In-page navigation: tab bars, segmented controls.
 class SecondaryNavigation extends SomNode {
@@ -26235,7 +26533,90 @@ class SecondaryNavigation extends SomNode {
   SomList<TabBarDefinitionEntry> get tabBars => SomList<TabBarDefinitionEntry>(doc, '$path/TBDE-TABB-LST', (d, p) => TabBarDefinitionEntry(d, p));
 }
 
-/// A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
+/// AC00 Authorization Concept.
+/// 
+/// Complete access and authorization specification — user management,
+/// identification and authentication, resource protection, user
+/// authorization, encryption, audit/logging, role matrix, and
+/// compliance framework.
+class SecurityAccessSpecification extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  SecurityAccessSpecification(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'SAS') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// User management.
+  UserManagement get userManagement => UserManagement(doc, '$path/userManagement');
+
+  /// Identification and authentication.
+  IdentificationAndAuthentication get identificationAndAuthentication => IdentificationAndAuthentication(doc, '$path/identificationAndAuthentication');
+
+  /// Resource protection.
+  ResourceProtection get resourceProtection => ResourceProtection(doc, '$path/resourceProtection');
+
+  /// User authorization.
+  UserAuthorization get userAuthorization => UserAuthorization(doc, '$path/userAuthorization');
+
+  /// Sensitive data encryption.
+  SensitiveDataEncryption get sensitiveDataEncryption => SensitiveDataEncryption(doc, '$path/sensitiveDataEncryption');
+
+  /// Audit and logging.
+  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
+
+  /// Role matrix.
+  RoleMatrix get roleMatrix => RoleMatrix(doc, '$path/roleMatrix');
+
+  /// Compliance framework.
+  ComplianceFramework get complianceFramework => ComplianceFramework(doc, '$path/complianceFramework');
+}
+
+/// 9. Access and Authorization Concept. Seeds → AC.
+class SecurityAndAccessModel extends SomNode {
+  SecurityAndAccessModel(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 9.1. User Management.
+  UserManagement get userManagement => UserManagement(doc, '$path/userManagement');
+
+  /// 9.2. Identification and Authentication.
+  IdentificationAndAuthentication get authentication => IdentificationAndAuthentication(doc, '$path/authentication');
+
+  /// 9.3. Resource Protection.
+  ResourceProtection get resourceProtection => ResourceProtection(doc, '$path/resourceProtection');
+
+  /// 9.4. User Authorization.
+  UserAuthorization get authorization => UserAuthorization(doc, '$path/authorization');
+
+  /// 9.5. Sensitive Data Encryption.
+  SensitiveDataEncryption get encryption => SensitiveDataEncryption(doc, '$path/encryption');
+
+  /// 9.6. Audit and Logging.
+  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
+
+  /// 9.7. Role Matrix..
+  RoleMatrix get roleMatrix => RoleMatrix(doc, '$path/roleMatrix');
+
+  /// 9.8. Compliance Framework.
+  ComplianceFramework get complianceFramework => ComplianceFramework(doc, '$path/complianceFramework');
+}
+
+/// A security audit requirement entry (form).
 class SecurityAuditEntry extends SomNode {
   SecurityAuditEntry(super.doc, super.path);
 
@@ -26272,7 +26653,7 @@ class SecurityAuditEntryScheduling extends SomNode {
   SecurityAuditEntrySchedulingContentForm get content => SecurityAuditEntrySchedulingContentForm(doc, '$path/content');
 }
 
-/// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+/// 8.8.3. Security Audit Requirements.
 /// 
 /// Comprehensive security audit requirements covering penetration testing,
 /// security-focused code review, dependency scanning, security certifications,
@@ -26308,7 +26689,7 @@ class SecurityAuditRequirementsSection extends SomNode {
   SomList<SecurityAuditEntry> get auditEntries => SomList<SecurityAuditEntry>(doc, '$path/SEAUEN-AUDI-LST', (d, p) => SecurityAuditEntry(d, p));
 }
 
-/// Security certification and compliance requirements [PD00-TEC-SEC-AUD].
+/// Security certification and compliance requirements.
 class SecurityCertificationRequirements extends SomNode {
   SecurityCertificationRequirements(super.doc, super.path);
 
@@ -26355,7 +26736,7 @@ class SecurityCertificationRequirementsSoc2 extends SomNode {
   SecurityCertificationRequirementsSoc2ContentForm get content => SecurityCertificationRequirementsSoc2ContentForm(doc, '$path/content');
 }
 
-/// Security-focused code review policy [PD00-TEC-SEC-AUD].
+/// Security-focused code review policy.
 /// 
 /// Distinct from CodeReviewProcess (section 8.4) which covers general
 /// development code review. This section focuses specifically on
@@ -26431,7 +26812,7 @@ class SecurityControlEntryVerification extends SomNode {
   SecurityControlEntryVerificationContentForm get content => SecurityControlEntryVerificationContentForm(doc, '$path/content');
 }
 
-/// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+/// 4.3.3.n.2. Security Controls.
 /// 
 /// Security controls that implement or support this requirement.
 class SecurityControls extends SomNode {
@@ -26481,7 +26862,7 @@ class SecurityDevelopmentLifecycleTesting extends SomNode {
   SecurityDevelopmentLifecycleTestingContentForm get content => SecurityDevelopmentLifecycleTestingContentForm(doc, '$path/content');
 }
 
-/// A custom security event entry (form) [PD00-ACC-AUD-EVE-nn].
+/// A custom security event entry (form).
 /// 
 /// Allows defining additional application-specific security events
 /// beyond the standard categories.
@@ -26504,7 +26885,7 @@ class SecurityEventLoggingPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-/// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+/// 9.6.1. Security Events.
 /// 
 /// Defines which security events must be logged: authentication attempts,
 /// authorization failures, data access, configuration changes, admin actions,
@@ -26534,7 +26915,7 @@ class SecurityEventsDefinition extends SomNode {
   SomList<SecurityEventEntry> get customEvents => SomList<SecurityEventEntry>(doc, '$path/SEVT-CUST-LST', (d, p) => SecurityEventEntry(d, p));
 }
 
-/// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
+/// 11.3.4. Security quality.
 class SecurityQuality extends SomNode {
   SecurityQuality(super.doc, super.path);
 
@@ -26584,7 +26965,7 @@ class SecurityQualityVulnerability extends SomNode {
   SecurityQualityVulnerabilityContentForm get content => SecurityQualityVulnerabilityContentForm(doc, '$path/content');
 }
 
-/// A security requirement entry [PD00-SYO-REQ-SEC-nn].
+/// A security requirement entry.
 /// 
 /// Comprehensive security requirement definition following OWASP ASVS,
 /// ISO 27001, and security best practices.
@@ -26605,16 +26986,16 @@ class SecurityRequirementEntry extends SomNode {
   /// Status and ownership.
   SecurityRequirementEntryStatus get statusInfo => SecurityRequirementEntryStatus(doc, '$path/statusInfo');
 
-  /// 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
+  /// 4.3.3.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria get acceptanceCriteria => RequirementAcceptanceCriteria(doc, '$path/acceptanceCriteria');
 
-  /// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+  /// 4.3.3.n.2. Security Controls.
   SecurityControls get controls => SecurityControls(doc, '$path/controls');
 
-  /// 4.3.3.n.3. Dependencies [PD00-SYO-REQ-SEC-nn-DEP].
+  /// 4.3.3.n.3. Dependencies.
   RequirementDependencies get dependencies => RequirementDependencies(doc, '$path/dependencies');
 
-  /// 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
+  /// 4.3.3.n.4. Traceability.
   RequirementTraceability get traceability => RequirementTraceability(doc, '$path/traceability');
 }
 
@@ -26646,7 +27027,7 @@ class SecurityRequirementEntryVerification extends SomNode {
   SecurityRequirementEntryVerificationContentForm get content => SecurityRequirementEntryVerificationContentForm(doc, '$path/content');
 }
 
-/// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+/// 4.3.3. Security Requirements.
 /// 
 /// Container for security requirements. Security requirements describe
 /// information protection, access control, authentication, authorization,
@@ -26712,7 +27093,7 @@ class SecurityStandardComplianceEntryStatus extends SomNode {
   SecurityStandardComplianceEntryStatusContentForm get content => SecurityStandardComplianceEntryStatusContentForm(doc, '$path/content');
 }
 
-/// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
+/// A security standard entry (form).
 class SecurityStandardEntry extends SomNode {
   SecurityStandardEntry(super.doc, super.path);
 
@@ -26749,7 +27130,7 @@ class SecurityStandardEntryVerification extends SomNode {
   SecurityStandardEntryVerificationContentForm get content => SecurityStandardEntryVerificationContentForm(doc, '$path/content');
 }
 
-/// Automated security testing integration [PD00-TEC-SEC-AUD].
+/// Automated security testing integration.
 /// 
 /// Requirements for SAST, DAST, IAST, and fuzzing integration
 /// into the CI/CD pipeline and development workflow.
@@ -26809,7 +27190,7 @@ class SecurityTestingAutomationScanning extends SomNode {
   SecurityTestingAutomationScanningContentForm get content => SecurityTestingAutomationScanningContentForm(doc, '$path/content');
 }
 
-/// Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
+/// Self-registration policy (form).
 /// 
 /// Defines self-service identity creation: registration flow, required
 /// fields, verification, approval, rate limiting, and domain restrictions.
@@ -26886,20 +27267,20 @@ class SelfServiceAccountManagement extends SomNode {
   // (skipped: selfServiceDescription has no target type)
 }
 
-/// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+/// 9.5. Sensitive Data Encryption.
 class SensitiveDataEncryption extends SomNode {
   SensitiveDataEncryption(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+  /// 9.5.1. Encryption At Rest.
   EncryptionAtRest get encryptionAtRest => EncryptionAtRest(doc, '$path/encryptionAtRest');
 
-  /// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+  /// 9.5.2. Encryption In Transit.
   EncryptionInTransit get encryptionInTransit => EncryptionInTransit(doc, '$path/encryptionInTransit');
 
-  /// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+  /// 9.5.3. Key Management.
   KeyManagement get keyManagement => KeyManagement(doc, '$path/keyManagement');
 }
 
@@ -26997,7 +27378,7 @@ class ServerOsRequirementsSecurity extends SomNode {
   ServerOsRequirementsSecurityContentForm get content => ServerOsRequirementsSecurityContentForm(doc, '$path/content');
 }
 
-/// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+/// 8.4.1. Server Requirements.
 /// 
 /// Server compute requirements: CPU, memory, storage, expected load profile,
 /// and scaling requirements.
@@ -27163,7 +27544,7 @@ class ServiceAccountLifecycle extends SomNode {
   // (skipped: serviceAccountDescription has no target type)
 }
 
-/// A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].
+/// A service level agreement entry.
 class ServiceLevelAgreementEntry extends SomNode {
   ServiceLevelAgreementEntry(super.doc, super.path);
 
@@ -27207,7 +27588,7 @@ class ServiceLevelIndicatorsQuality extends SomNode {
   ServiceLevelIndicatorsQualityContentForm get content => ServiceLevelIndicatorsQualityContentForm(doc, '$path/content');
 }
 
-/// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
+/// 11.4.2. Service level quality.
 class ServiceLevelQuality extends SomNode {
   ServiceLevelQuality(super.doc, super.path);
 
@@ -27326,7 +27707,7 @@ class SessionLifecycleMonitoring extends SomNode {
   // (skipped: sessionLifecycleDetails has no target type)
 }
 
-/// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+/// 9.2.4. Session Management.
 /// 
 /// Comprehensive session management policy covering session timeouts,
 /// concurrent session control, session revocation, remember-me functionality,
@@ -27361,7 +27742,7 @@ class SessionManagement extends SomNode {
   SessionLifecycleMonitoring get sessionLifecycleMonitoring => SessionLifecycleMonitoring(doc, '$path/sessionLifecycleMonitoring');
 }
 
-/// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+/// 4.1.5.4. Session Model.
 /// 
 /// Defines session management including authentication, timeouts, and
 /// multi-device session handling.
@@ -27441,7 +27822,7 @@ class SessionTimeoutPolicy extends SomNode {
   // (skipped: sessionTimeoutDetails has no target type)
 }
 
-/// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+/// 1.1.3.3. Shared Infrastructure Dependencies.
 /// 
 /// Dependencies on shared infrastructure components used by multiple systems.
 class SharedInfrastructureDependencies extends SomNode {
@@ -27454,7 +27835,7 @@ class SharedInfrastructureDependencies extends SomNode {
   SomList<SharedInfrastructureEntry> get items => SomList<SharedInfrastructureEntry>(doc, '$path/SHIEN-ITEM-LST', (d, p) => SharedInfrastructureEntry(d, p));
 }
 
-/// A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
+/// A shared infrastructure entry (form).
 /// 
 /// Documents a shared infrastructure component that multiple systems depend on.
 class SharedInfrastructureEntry extends SomNode {
@@ -27585,7 +27966,7 @@ class SharedServiceEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+/// 14.2.5. Sign-off Process.
 /// 
 /// Formal sign-off process: who signs off (business acceptance board,
 /// technical acceptance board), what documents are signed, legal and
@@ -27649,7 +28030,7 @@ class SignOffProcessTimeline extends SomNode {
   SignOffProcessTimelineContentForm get content => SignOffProcessTimelineContentForm(doc, '$path/content');
 }
 
-/// Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO].
+/// Single Sign-On policy (form).
 /// 
 /// Defines SSO scope, protocol, session propagation, federation,
 /// logout propagation, and platform-specific SSO strategies.
@@ -27702,7 +28083,7 @@ class SingleSignOnPolicySession extends SomNode {
   SingleSignOnPolicySessionContentForm get content => SingleSignOnPolicySessionContentForm(doc, '$path/content');
 }
 
-/// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+/// 8.7.2.5. SLA and SLO Monitoring.
 /// 
 /// Service Level Agreement and Service Level Objective tracking.
 class SlaAndSloMonitoring extends SomNode {
@@ -27770,7 +28151,7 @@ class SlaMonitoringRequirementsReporting extends SomNode {
   SlaMonitoringRequirementsReportingContentForm get content => SlaMonitoringRequirementsReportingContentForm(doc, '$path/content');
 }
 
-/// An SLO entry [PD00-TEC-SYS-MON-SLA-nn].
+/// An SLO entry.
 class SloEntry extends SomNode {
   SloEntry(super.doc, super.path);
 
@@ -27797,7 +28178,7 @@ class SloEntryTarget extends SomNode {
   SloEntryTargetContentForm get content => SloEntryTargetContentForm(doc, '$path/content');
 }
 
-/// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+/// 14.1.1. Software Deliverables.
 class SoftwareDeliverables extends SomNode {
   SoftwareDeliverables(super.doc, super.path);
 
@@ -27808,20 +28189,20 @@ class SoftwareDeliverables extends SomNode {
   SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DLVEN-ITEM-LST', (d, p) => DeliverableEntry(d, p));
 }
 
-/// 8.2. Software Design Requirements [PD00-TEC-SOF].
+/// 8.2. Software Design Requirements.
 class SoftwareDesignRequirements extends SomNode {
   SoftwareDesignRequirements(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+  /// 8.2.1. Layering and Module Structure.
   LayeringAndModuleStructure get layeringAndModuleStructure => LayeringAndModuleStructure(doc, '$path/layeringAndModuleStructure');
 
-  /// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+  /// 8.2.2. Development Environment.
   DevelopmentEnvironment get developmentEnvironment => DevelopmentEnvironment(doc, '$path/developmentEnvironment');
 
-  /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+  /// 8.2.3. Reusable Components.
   ReusableComponentsSection get reusableComponents => ReusableComponentsSection(doc, '$path/reusableComponents');
 }
 
@@ -27872,7 +28253,87 @@ class SoftwareLayerEntryTechnology extends SomNode {
   SoftwareLayerEntryTechnologyContentForm get content => SoftwareLayerEntryTechnologyContentForm(doc, '$path/content');
 }
 
-/// Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn].
+/// SBP.11 Solution Architecture & Technology.
+/// 
+/// Public anchor: ISO/IEC/IEEE 42010 architecture description.
+class SolutionArchitectureAndTechnology extends SomNode {
+  SolutionArchitectureAndTechnology(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Technical framework and platform concept.
+  TechnicalFrameworkConcept get technicalFramework => TechnicalFrameworkConcept(doc, '$path/technicalFramework');
+
+  /// Components, libraries, and services to reuse.
+  ComponentsToUse get componentsToUse => ComponentsToUse(doc, '$path/componentsToUse');
+}
+
+/// The complete Solution Blueprint (SBP) document.
+/// 
+/// Contains a [DocumentControl] header block and the SBP sections, sequenced
+/// per the public-standards order (§4 of the redesign proposal).
+class SolutionBlueprint extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  SolutionBlueprint(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'SBP') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// SBP.1 Document Control (header + revision history + approvals).
+  DocumentControl get documentControl => DocumentControl(doc, '$path/documentControl');
+
+  /// SBP.2 Introduction & Scope.
+  IntroductionAndScope get introductionAndScope => IntroductionAndScope(doc, '$path/introductionAndScope');
+
+  /// SBP.3 Glossary & Abbreviations.
+  GlossaryAndAbbreviations get glossaryAndAbbreviations => GlossaryAndAbbreviations(doc, '$path/glossaryAndAbbreviations');
+
+  /// SBP.4 Stakeholders & Governance.
+  StakeholdersAndGovernance get stakeholdersAndGovernance => StakeholdersAndGovernance(doc, '$path/stakeholdersAndGovernance');
+
+  /// SBP.5 Current Landscape. Seeds → CLA.
+  CurrentLandscape get currentLandscape => CurrentLandscape(doc, '$path/currentLandscape');
+
+  /// SBP.6 Assumptions, Constraints & Dependencies.
+  AssumptionsConstraintsDependencies get assumptionsConstraintsDependencies => AssumptionsConstraintsDependencies(doc, '$path/assumptionsConstraintsDependencies');
+
+  /// SBP.7 Target Operating Model concept. Seeds → TOM.
+  TargetOperatingModelConcept get targetOperatingModelConcept => TargetOperatingModelConcept(doc, '$path/targetOperatingModelConcept');
+
+  /// SBP.8 Information & Data Model. Seeds → IFM.
+  InformationAndDataModel get informationAndDataModel => InformationAndDataModel(doc, '$path/informationAndDataModel');
+
+  /// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+  Requirements get requirements => Requirements(doc, '$path/requirements');
+
+  /// SBP.11 Solution Architecture & Technology. Seeds → ATS.
+  SolutionArchitectureAndTechnology get solutionArchitectureAndTechnology => SolutionArchitectureAndTechnology(doc, '$path/solutionArchitectureAndTechnology');
+
+  /// SBP.12 Security & Access Model. Seeds → SAS.
+  SecurityAndAccessModel get securityAndAccessModel => SecurityAndAccessModel(doc, '$path/securityAndAccessModel');
+
+  /// SBP.13 Experience & Interface Design. Seeds → XDS.
+  ExperienceAndInterfaceDesign get experienceAndInterfaceDesign => ExperienceAndInterfaceDesign(doc, '$path/experienceAndInterfaceDesign');
+
+  /// SBP.14 Quality & Acceptance Model. Seeds → QAP.
+  QualityAndAcceptanceModel get qualityAndAcceptanceModel => QualityAndAcceptanceModel(doc, '$path/qualityAndAcceptanceModel');
+
+  /// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+  DeliveryTransitionAndRollout get deliveryTransitionAndRollout => DeliveryTransitionAndRollout(doc, '$path/deliveryTransitionAndRollout');
+}
+
+/// Specialized equipment entry (form).
 class SpecializedEquipmentEntry extends SomNode {
   SpecializedEquipmentEntry(super.doc, super.path);
 
@@ -27940,7 +28401,7 @@ class StaffingBudgetGovernance extends SomNode {
   StaffingBudgetGovernanceContentForm get content => StaffingBudgetGovernanceContentForm(doc, '$path/content');
 }
 
-/// A staffing entry (form) [PD00-ORG-JOB-STA-nn].
+/// A staffing entry (form).
 /// 
 /// Represents one staffing position including role, competency requirements,
 /// sourcing method, budget, timeline, and approval status.
@@ -27990,7 +28451,7 @@ class StaffingEntryRecruitment extends SomNode {
   StaffingEntryRecruitmentContentForm get content => StaffingEntryRecruitmentContentForm(doc, '$path/content');
 }
 
-/// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+/// 5.2.4. Staffing Plan.
 class StaffingPlan extends SomNode {
   StaffingPlan(super.doc, super.path);
 
@@ -28028,7 +28489,7 @@ class StageDeployment extends SomNode {
   StageDeploymentContentForm get content => StageDeploymentContentForm(doc, '$path/content');
 }
 
-/// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+/// A stage entry (form) with description subsections.
 /// 
 /// Represents a single delivery stage — a self-contained increment of the
 /// system that delivers measurable business value. Each stage has clear
@@ -28073,20 +28534,20 @@ class StageEntry extends SomNode {
   /// Feature Scope narrative.
   // (skipped: featureScope has no target type)
 
-  /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
+  /// Sub-stages and Milestones — contains 0+× SubStage.
   SomList<SubStageEntry> get subStagesAndMilestones => SomList<SubStageEntry>(doc, '$path/SUSST-SUBS-LST', (d, p) => SubStageEntry(d, p));
 
   /// Timeline narrative.
   // (skipped: timelineNarrative has no target type)
 
-  /// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
+  /// Success Criteria — contains 0+× StageSuccessCriterion.
   SomList<StageSuccessCriterionEntry> get successCriteria => SomList<StageSuccessCriterionEntry>(doc, '$path/STGSUC-SUCC-LST', (d, p) => StageSuccessCriterionEntry(d, p));
 
   /// Rollout Plan narrative.
   // (skipped: rolloutPlan has no target type)
 }
 
-/// 13.6. Governance [PD00-SSP-GOV].
+/// 13.6. Governance.
 /// 
 /// Governance framework for stage transitions, phase gate reviews,
 /// and key decision points. Covers governance structure, authority
@@ -28123,10 +28584,10 @@ class StageGovernance extends SomNode {
   /// Governance narrative and rationale.
   // (skipped: governanceNarrative has no target type)
 
-  /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+  /// 13.6.1. Phase Gate Reviews.
   PhaseGateReviews get phaseGateReviews => PhaseGateReviews(doc, '$path/phaseGateReviews');
 
-  /// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+  /// 13.6.2. Decision Points.
   DecisionPoints get decisionPoints => DecisionPoints(doc, '$path/decisionPoints');
 }
 
@@ -28207,7 +28668,7 @@ class StageMigrationRiskContingency extends SomNode {
   StageMigrationRiskContingencyContentForm get content => StageMigrationRiskContingencyContentForm(doc, '$path/content');
 }
 
-/// A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
+/// A stage migration risk entry (form).
 /// 
 /// Individual risk in the data migration risk register. Covers risk
 /// identification, categorization, probability/impact scoring,
@@ -28292,7 +28753,7 @@ class StageMigrationRiskStatus extends SomNode {
   StageMigrationRiskStatusContentForm get content => StageMigrationRiskStatusContentForm(doc, '$path/content');
 }
 
-/// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+/// 13.5.2. Migration Risks.
 /// 
 /// Risk register specific to data migration activities. Covers data
 /// loss, corruption, downtime overrun, compliance violations,
@@ -28309,7 +28770,7 @@ class StageMigrationRisks extends SomNode {
   SomList<StageMigrationRiskEntry> get items => SomList<StageMigrationRiskEntry>(doc, '$path/STGMRS-ITEM-LST', (d, p) => StageMigrationRiskEntry(d, p));
 }
 
-/// 13.2. Stage Overview [PD00-SSP-STA].
+/// 13.2. Stage Overview.
 /// 
 /// High-level summary across all planned stages including aggregate
 /// metrics, critical-path identification, resource allocation patterns,
@@ -28355,25 +28816,25 @@ class StageOverview extends SomNode {
   /// Assumptions and constraints.
   StageOverviewConstraints get constraints => StageOverviewConstraints(doc, '$path/constraints');
 
-  /// 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
+  /// 13.2.1. Stage Summary — contains 1+× Stage
   /// Summary Entry.
   SomList<StageSummaryEntry> get stageSummaries => SomList<StageSummaryEntry>(doc, '$path/STAGSE-STAG-LST', (d, p) => StageSummaryEntry(d, p));
 
   /// Stage Summary narrative.
   // (skipped: stageSummaryNarrative has no target type)
 
-  /// 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
+  /// 13.2.2. Stage Timeline Diagram (mermaid-gantt).
   // (skipped: timelineDiagram has no target type)
 
-  /// 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
+  /// 13.2.3. Resource Allocation Diagram
   /// (mermaid-gantt).
   // (skipped: resourceAllocationDiagram has no target type)
 
-  /// 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
+  /// 13.2.4. Budget Distribution Diagram
   /// (mermaid-flow).
   // (skipped: budgetDistributionDiagram has no target type)
 
-  /// 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
+  /// 13.2.5. Dependency Map (mermaid-flow).
   // (skipped: dependencyMap has no target type)
 }
 
@@ -28489,7 +28950,7 @@ class StageStakeholders extends SomNode {
   StageStakeholdersContentForm get content => StageStakeholdersContentForm(doc, '$path/content');
 }
 
-/// A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
+/// A success criterion entry (form).
 /// 
 /// Defines a measurable criterion that determines whether a stage has
 /// achieved its objectives. Each criterion has a target metric,
@@ -28537,7 +28998,7 @@ class StageSummaryDependencies extends SomNode {
   StageSummaryDependenciesContentForm get content => StageSummaryDependenciesContentForm(doc, '$path/content');
 }
 
-/// A stage summary entry [PD00-SSP-STA-SUM-nn] (form).
+/// A stage summary entry (form).
 /// 
 /// Quick-reference record for a single stage within the overview. Each
 /// entry captures the essential identification, timeline, scope, and
@@ -28698,7 +29159,7 @@ class StagingRiskAssessment extends SomNode {
   StagingRiskAssessmentContentForm get content => StagingRiskAssessmentContentForm(doc, '$path/content');
 }
 
-/// 13.1. Staging Strategy [PD00-SSP-STR].
+/// 13.1. Staging Strategy.
 /// 
 /// Document the rationale behind the chosen staging approach. Consider
 /// PMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2
@@ -28747,16 +29208,16 @@ class StagingStrategy extends SomNode {
   /// Governance and approvals.
   StagingGovernance get governance => StagingGovernance(doc, '$path/governance');
 
-  /// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+  /// 13.1.1. Staging Approach.
   // (skipped: stagingApproach has no target type)
 
-  /// 13.1.2. Rationale [PD00-SSP-STR-RAT].
+  /// 13.1.2. Rationale.
   // (skipped: rationaleNarrative has no target type)
 
-  /// 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
+  /// 13.1.3. Key Assumptions.
   SomList<KeyAssumptionEntry> get keyAssumptions => SomList<KeyAssumptionEntry>(doc, '$path/KEYAS-KEYA-LST', (d, p) => KeyAssumptionEntry(d, p));
 
-  /// 13.1.4. Constraints [PD00-SSP-STR-CON].
+  /// 13.1.4. Constraints.
   SomList<StagingStrategyConstraintEntry> get constraints => SomList<StagingStrategyConstraintEntry>(doc, '$path/STAGI-CONS-LST', (d, p) => StagingStrategyConstraintEntry(d, p));
 }
 
@@ -28802,7 +29263,30 @@ class StakeholderEntryImpact extends SomNode {
   StakeholderEntryImpactContentForm get content => StakeholderEntryImpactContentForm(doc, '$path/content');
 }
 
-/// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+/// A register of the project's stakeholders.
+/// 
+/// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
+class StakeholderRegister extends SomNode {
+  StakeholderRegister(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// One entry per stakeholder or stakeholder group.
+  SomList<StakeholderRegisterEntry> get stakeholders => SomList<StakeholderRegisterEntry>(doc, '$path/STKRG-STAK-LST', (d, p) => StakeholderRegisterEntry(d, p));
+}
+
+/// A single stakeholder register entry (form).
+/// 
+/// Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
+/// `StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+class StakeholderRegisterEntry extends SomNode {
+  StakeholderRegisterEntry(super.doc, super.path);
+
+  StakeholderRegisterEntryContentForm get content => StakeholderRegisterEntryContentForm(doc, '$path/content');
+}
+
+/// 4.1.1.3. Stakeholders and Beneficiaries.
 /// 
 /// Lists all stakeholders and beneficiaries of the system with their
 /// interests, influence level, and expected benefits.
@@ -28819,6 +29303,25 @@ class StakeholdersAndBeneficiaries extends SomNode {
   SomList<StakeholderEntry> get secondaryStakeholders => SomList<StakeholderEntry>(doc, '$path/STKNT-SECO-LST', (d, p) => StakeholderEntry(d, p));
 }
 
+/// SBP.4 Stakeholders & Governance.
+/// 
+/// Public anchor: BABOK stakeholder analysis + PMBOK governance.
+class StakeholdersAndGovernance extends SomNode {
+  StakeholdersAndGovernance(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Governance, steering committee, RACI, process deviations.
+  ProjectOrganizationAndProcess get projectOrganizationProcess => ProjectOrganizationAndProcess(doc, '$path/projectOrganizationProcess');
+
+  /// Team, distribution, reference documents, communication.
+  Administrative get administrative => Administrative(doc, '$path/administrative');
+
+  /// Stakeholder register (§5 completeness addition).
+  StakeholderRegister get stakeholderRegister => StakeholderRegister(doc, '$path/stakeholderRegister');
+}
+
 /// Stakeholders and interests.
 class StakeholdersAndInterests extends SomNode {
   StakeholdersAndInterests(super.doc, super.path);
@@ -28826,21 +29329,21 @@ class StakeholdersAndInterests extends SomNode {
   StakeholdersAndInterestsContentForm get content => StakeholdersAndInterestsContentForm(doc, '$path/content');
 }
 
-/// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+/// 8.3. Standard Application Software Requirements.
 class StandardSoftwareRequirements extends SomNode {
   StandardSoftwareRequirements(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+  /// 8.3.1. Compatibility Requirements.
   CompatibilityRequirementsSection get compatibilityRequirements => CompatibilityRequirementsSection(doc, '$path/compatibilityRequirements');
 
-  /// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+  /// 8.3.2. Standards Compliance.
   StandardsComplianceSection get standardsCompliance => StandardsComplianceSection(doc, '$path/standardsCompliance');
 }
 
-/// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+/// 8.3.2. Standards Compliance.
 /// 
 /// Required compliance with IT standards, industry protocols, and interface
 /// specifications.
@@ -28887,7 +29390,7 @@ class StandardsComplianceSection extends SomNode {
   ComplianceVerificationSection get complianceVerification => ComplianceVerificationSection(doc, '$path/complianceVerification');
 }
 
-/// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+/// 3.1.2. Steering Committee.
 /// 
 /// Container for steering committee member descriptions.
 class SteeringCommittee extends SomNode {
@@ -28955,7 +29458,7 @@ class StorageLifecyclePolicy extends SomNode {
   // (skipped: storageLifecycleDetails has no target type)
 }
 
-/// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+/// 4.1.1.5. Strategic Alignment.
 /// 
 /// How this system aligns with organizational strategy, goals, and
 /// initiatives. Demonstrates strategic justification for the project.
@@ -28969,7 +29472,7 @@ class StrategicAlignment extends SomNode {
   StrategicAlignmentAlignmentDetailsForm get alignmentDetails => StrategicAlignmentAlignmentDetailsForm(doc, '$path/alignmentDetails');
 }
 
-/// A sub-function entry (form) [PD00-BUS-FUN-DEC-nn-SUB-nn].
+/// A sub-function entry (form).
 /// 
 /// Lower-level function in the decomposition.
 class SubFunctionEntry extends SomNode {
@@ -28978,7 +29481,7 @@ class SubFunctionEntry extends SomNode {
   SubFunctionEntryContentForm get content => SubFunctionEntryContentForm(doc, '$path/content');
 }
 
-/// A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
+/// A sub-stage or milestone entry (form).
 /// 
 /// Represents a discrete phase within a stage — alpha, beta, release
 /// candidate, pilot, GA — or a key milestone. Sub-stages provide finer
@@ -29039,7 +29542,7 @@ class SubStageEntryTimeline extends SomNode {
   SubStageEntryTimelineContentForm get content => SubStageEntryTimelineContentForm(doc, '$path/content');
 }
 
-/// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+/// 4.2.3. Success Criteria.
 /// 
 /// Overall project success criteria that determine whether the project
 /// has achieved its objectives. These criteria will be used during
@@ -29114,7 +29617,7 @@ class SuccessCriteriaSummary extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+/// A success criterion entry (form).
 /// 
 /// Individual success criterion with comprehensive measurement details,
 /// thresholds, and verification requirements.
@@ -29184,7 +29687,7 @@ class SuccessCriterionVerification extends SomNode {
   SuccessCriterionVerificationContentForm get content => SuccessCriterionVerificationContentForm(doc, '$path/content');
 }
 
-/// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+/// 10.8.3. Support Access.
 class SupportAccess extends SomNode {
   SupportAccess(super.doc, super.path);
 
@@ -29244,7 +29747,7 @@ class SupportAccessTickets extends SomNode {
   SupportAccessTicketsContentForm get content => SupportAccessTicketsContentForm(doc, '$path/content');
 }
 
-/// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+/// 14.1.4. Support Deliverables.
 class SupportDeliverables extends SomNode {
   SupportDeliverables(super.doc, super.path);
 
@@ -29255,7 +29758,7 @@ class SupportDeliverables extends SomNode {
   SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DLVEN-ITEM-LST', (d, p) => DeliverableEntry(d, p));
 }
 
-/// A supported locale entry [PD00-USE-MUL-LOC-nn].
+/// A supported locale entry.
 class SupportedLocaleEntry extends SomNode {
   SupportedLocaleEntry(super.doc, super.path);
 
@@ -29282,10 +29785,10 @@ class SupportedLocaleEntryRollout extends SomNode {
   SupportedLocaleEntryRolloutContentForm get content => SupportedLocaleEntryRolloutContentForm(doc, '$path/content');
 }
 
-/// 8.9. System Architecture [PD00-TEC-ARC].
+/// 8.9. System Architecture.
 /// 
 /// Detailed internal architecture (layers, packages, patterns). Covers
-/// HBSG AS09-SOF / DR30.
+/// 
 /// 
 /// Class named `SystemArchitectureSpec` to avoid colliding with any other
 /// architecture-related identifier in the model.
@@ -29296,7 +29799,7 @@ class SystemArchitectureSpec extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+/// 4.5. System Boundaries. Seeds → BSI.
 /// 
 /// Defines the scope boundaries of the system including external interfaces,
 /// out-of-scope items, and operating assumptions. This section provides the
@@ -29308,38 +29811,38 @@ class SystemBoundaries extends SomNode {
   /// Overview of system boundaries and scope definition approach.
   // (skipped: overview has no target type)
 
-  /// 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+  /// 4.5.1. Interfaces to External Systems — contains 0+×.
   ExternalInterfaces get externalInterfaces => ExternalInterfaces(doc, '$path/externalInterfaces');
 
-  /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
+  /// 4.5.2. Out of Scope — contains 0+×.
   OutOfScope get outOfScope => OutOfScope(doc, '$path/outOfScope');
 
-  /// 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
+  /// 4.5.3. Assumptions — contains 0+×.
   BoundaryAssumptions get assumptions => BoundaryAssumptions(doc, '$path/assumptions');
 
-  /// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV]. Covers BSI-LAN-INV.
+  /// 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
   SystemLandscapeInventory get systemLandscapeInventory => SystemLandscapeInventory(doc, '$path/systemLandscapeInventory');
 
-  /// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
+  /// 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
   SomList<BoundaryInteractionPatterns> get boundaryInteractionPatterns => SomList<BoundaryInteractionPatterns>(doc, '$path/BOINPA-BOUN-LST', (d, p) => BoundaryInteractionPatterns(d, p));
 
-  /// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
+  /// 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
   InteractionTestingStrategy get interactionTestingStrategy => InteractionTestingStrategy(doc, '$path/interactionTestingStrategy');
 
-  /// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP]. Covers BSI-DEP.
+  /// 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
   InteractionDependencyAnalysis get interactionDependencyAnalysis => InteractionDependencyAnalysis(doc, '$path/interactionDependencyAnalysis');
 
-  /// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
+  /// 4.5.8. Migration Interactions. Covers BSI-MIG.
   SomList<MigrationInteractions> get migrationInteractions => SomList<MigrationInteractions>(doc, '$path/MIIN-MIGR-LST', (d, p) => MigrationInteractions(d, p));
 
-  /// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+  /// 4.5.9. Cross-Boundary Operational Considerations.
   SomList<CrossBoundaryOperationalConsiderations> get operationalConsiderations => SomList<CrossBoundaryOperationalConsiderations>(doc, '$path/CBOC-OPER-LST', (d, p) => CrossBoundaryOperationalConsiderations(d, p));
 
-  /// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+  /// 4.5.10. Cross-Boundary Error Handling.
   CrossBoundaryErrorHandling get crossBoundaryErrorHandling => CrossBoundaryErrorHandling(doc, '$path/crossBoundaryErrorHandling');
 }
 
-/// Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS].
+/// Business criticality assessment.
 class SystemBusinessCriticality extends SomNode {
   SystemBusinessCriticality(super.doc, super.path);
 
@@ -29372,14 +29875,14 @@ class SystemBusinessCriticalityOperations extends SomNode {
   SystemBusinessCriticalityOperationsContentForm get content => SystemBusinessCriticalityOperationsContentForm(doc, '$path/content');
 }
 
-/// Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn].
+/// Business process supported.
 class SystemBusinessProcessEntry extends SomNode {
   SystemBusinessProcessEntry(super.doc, super.path);
 
   SystemBusinessProcessEntryContentForm get content => SystemBusinessProcessEntryContentForm(doc, '$path/content');
 }
 
-/// Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn].
+/// Business unit using the system.
 class SystemBusinessUnitEntry extends SomNode {
   SystemBusinessUnitEntry(super.doc, super.path);
 
@@ -29423,7 +29926,7 @@ class SystemConfigurationManagementGovernance extends SomNode {
   SystemConfigurationManagementGovernanceContentForm get content => SystemConfigurationManagementGovernanceContentForm(doc, '$path/content');
 }
 
-/// 4.1.2. System Context [PD00-SYO-SYD-CON].
+/// 4.1.2. System Context.
 /// 
 /// Describes the system in its operational context: how it fits within the
 /// organization's IT landscape, who interacts with it, and what external
@@ -29434,32 +29937,32 @@ class SystemContext extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+  /// 4.1.2.1. Context Diagram.
   ContextDiagram get contextDiagram => ContextDiagram(doc, '$path/contextDiagram');
 
-  /// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+  /// 4.1.2.2. IT Landscape Position.
   ItLandscapePosition get itLandscapePosition => ItLandscapePosition(doc, '$path/itLandscapePosition');
 
-  /// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+  /// 4.1.2.3. External Actors.
   ExternalActors get externalActors => ExternalActors(doc, '$path/externalActors');
 
-  /// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+  /// 4.1.2.4. External Systems.
   ExternalSystemsContext get externalSystems => ExternalSystemsContext(doc, '$path/externalSystems');
 
-  /// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+  /// 4.1.2.5. Trust Boundaries.
   TrustBoundaries get trustBoundaries => TrustBoundaries(doc, '$path/trustBoundaries');
 
-  /// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+  /// 4.1.2.6. Organizational Context.
   OrganizationalContext get organizationalContext => OrganizationalContext(doc, '$path/organizationalContext');
 
-  /// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+  /// 4.1.2.7. Deployment Context.
   DeploymentContext get deploymentContext => DeploymentContext(doc, '$path/deploymentContext');
 
-  /// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+  /// 4.1.2.8. Regulatory Context.
   RegulatoryContext get regulatoryContext => RegulatoryContext(doc, '$path/regulatoryContext');
 }
 
-/// Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST].
+/// Cost analysis for replacement.
 class SystemCostAnalysis extends SomNode {
   SystemCostAnalysis(super.doc, super.path);
 
@@ -29502,7 +30005,7 @@ class SystemCostAnalysisMigration extends SomNode {
   SystemCostAnalysisMigrationContentForm get content => SystemCostAnalysisMigrationContentForm(doc, '$path/content');
 }
 
-/// Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT].
+/// Data scope and migration assessment.
 class SystemDataScope extends SomNode {
   SystemDataScope(super.doc, super.path);
 
@@ -29535,7 +30038,7 @@ class SystemDataScopeMigration extends SomNode {
   SystemDataScopeMigrationContentForm get content => SystemDataScopeMigrationContentForm(doc, '$path/content');
 }
 
-/// A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+/// A system dependency entry (form).
 /// 
 /// Documents one dependency between systems in the current landscape:
 /// mechanism, coupling strength, data flow, failure impact, SLA,
@@ -29590,7 +30093,7 @@ class SystemDependencyEntryReliability extends SomNode {
   SystemDependencyEntryReliabilityContentForm get content => SystemDependencyEntryReliabilityContentForm(doc, '$path/content');
 }
 
-/// 4.1. System Description [PD00-SYO-SYD].
+/// 4.1. System Description.
 /// 
 /// Concise description of the system to be created, its primary purpose,
 /// and the business domain it addresses. This section provides the
@@ -29604,19 +30107,19 @@ class SystemDescription extends SomNode {
   /// System description summary.
   SystemDescriptionSummary get descriptionSummary => SystemDescriptionSummary(doc, '$path/descriptionSummary');
 
-  /// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+  /// 4.1.1. System Purpose.
   SystemPurpose get systemPurpose => SystemPurpose(doc, '$path/systemPurpose');
 
-  /// 4.1.2. System Context [PD00-SYO-SYD-CON].
+  /// 4.1.2. System Context.
   SystemContext get systemContext => SystemContext(doc, '$path/systemContext');
 
-  /// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+  /// 4.1.3. Description of Task Area.
   TaskArea get taskArea => TaskArea(doc, '$path/taskArea');
 
-  /// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+  /// 4.1.4. User Categories — contains 1+× User Category.
   SomList<UserCategoryEntry> get userCategories => SomList<UserCategoryEntry>(doc, '$path/USCA-USER-LST', (d, p) => UserCategoryEntry(d, p));
 
-  /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+  /// 4.1.5. User Interaction Model.
   UserInteractionModel get userInteractionModel => UserInteractionModel(doc, '$path/userInteractionModel');
 }
 
@@ -29669,7 +30172,7 @@ class SystemDiagnosticToolsTracing extends SomNode {
   SystemDiagnosticToolsTracingContentForm get content => SystemDiagnosticToolsTracingContentForm(doc, '$path/content');
 }
 
-/// A system error code entry [PD00-USE-ERR-SYS-CODE-nn].
+/// A system error code entry.
 class SystemErrorCodeEntry extends SomNode {
   SystemErrorCodeEntry(super.doc, super.path);
 
@@ -29696,7 +30199,7 @@ class SystemErrorCodeEntryOperations extends SomNode {
   SystemErrorCodeEntryOperationsContentForm get content => SystemErrorCodeEntryOperationsContentForm(doc, '$path/content');
 }
 
-/// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+/// 10.7.2. System Error Display.
 /// 
 /// System error presentation including server errors, network issues,
 /// and timeouts.
@@ -29762,7 +30265,7 @@ class SystemIntegrationDataExchange extends SomNode {
   SystemIntegrationDataExchangeContentForm get content => SystemIntegrationDataExchangeContentForm(doc, '$path/content');
 }
 
-/// A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+/// A system integration entry (form).
 /// 
 /// Documents one integration between systems: type, pattern, protocol,
 /// data format, throughput, error handling, monitoring, security,
@@ -29830,7 +30333,7 @@ class SystemIntegrationThroughput extends SomNode {
   SystemIntegrationThroughputContentForm get content => SystemIntegrationThroughputContentForm(doc, '$path/content');
 }
 
-/// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+/// 1.1.1. System Inventory.
 /// 
 /// Container for individual system descriptions. Add one entry per existing
 /// system relevant to the project scope.
@@ -29840,11 +30343,11 @@ class SystemInventory extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
+  /// Contains 1+× Existing System.
   SomList<ExistingSystemEntry> get systems => SomList<ExistingSystemEntry>(doc, '$path/ESENT-SYST-LST', (d, p) => ExistingSystemEntry(d, p));
 }
 
-/// Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW].
+/// Knowledge transfer status.
 class SystemKnowledgeTransfer extends SomNode {
   SystemKnowledgeTransfer(super.doc, super.path);
 
@@ -29857,7 +30360,7 @@ class SystemKnowledgeTransfer extends SomNode {
   // (skipped: knowledgeTransferPlan has no target type)
 }
 
-/// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV].
+/// 4.5.4. System Landscape Inventory.
 /// 
 /// Complete external-system inventory covering BSI-LAN-INV content.
 class SystemLandscapeInventory extends SomNode {
@@ -29867,7 +30370,7 @@ class SystemLandscapeInventory extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG].
+/// Per-system migration plan.
 class SystemMigrationPlan extends SomNode {
   SystemMigrationPlan(super.doc, super.path);
 
@@ -29903,82 +30406,42 @@ class SystemMigrationPlanExecution extends SomNode {
   SystemMigrationPlanExecutionContentForm get content => SystemMigrationPlanExecutionContentForm(doc, '$path/content');
 }
 
-/// A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn].
+/// A system migration risk entry.
 class SystemMigrationRiskEntry extends SomNode {
   SystemMigrationRiskEntry(super.doc, super.path);
 
   SystemMigrationRiskEntryContentForm get content => SystemMigrationRiskEntryContentForm(doc, '$path/content');
 }
 
-/// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+/// 8.7.1. System Operation.
 class SystemOperation extends SomNode {
   SystemOperation(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+  /// 8.7.1.1. Administration Requirements.
   AdministrationRequirementsSection get administrationRequirements => AdministrationRequirementsSection(doc, '$path/administrationRequirements');
 
   /// Maintenance Procedures.
   SomList<MaintenanceProcedureEntry> get maintenanceProcedures => SomList<MaintenanceProcedureEntry>(doc, '$path/MAINT-MAIN-LST', (d, p) => MaintenanceProcedureEntry(d, p));
 }
 
-/// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+/// 8.7. System Operation and Monitoring.
 class SystemOperationAndMonitoring extends SomNode {
   SystemOperationAndMonitoring(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+  /// 8.7.1. System Operation.
   SystemOperation get systemOperation => SystemOperation(doc, '$path/systemOperation');
 
-  /// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+  /// 8.7.2. Monitoring.
   Monitoring get monitoring => Monitoring(doc, '$path/monitoring');
 
-  /// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+  /// 8.7.3. Capacity Planning.
   CapacityPlanningSection get capacityPlanning => CapacityPlanningSection(doc, '$path/capacityPlanning');
-}
-
-/// 4. System Overview [PD00-SYO].
-/// 
-/// High-level overview of the system to be built: its purpose, goals,
-/// scope boundaries, and the environment it operates in. This section
-/// establishes the foundation for all subsequent specification work.
-class SystemOverview extends SomNode {
-  SystemOverview(super.doc, super.path);
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// System overview summary statistics.
-  SystemOverviewSummary get summary => SystemOverviewSummary(doc, '$path/summary');
-
-  /// System context diagram showing major system boundaries.
-  String get systemContextDiagram => doc.content('$path/systemContextDiagram') ?? '';
-  set systemContextDiagram(String value) => doc.setContent('$path/systemContextDiagram', value);
-
-  /// 4.1. System Description [PD00-SYO-SYD].
-  SystemDescription get systemDescription => SystemDescription(doc, '$path/systemDescription');
-
-  /// 4.2. Goals [PD00-SYO-GOA].
-  Goals get goals => Goals(doc, '$path/goals');
-
-  /// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
-  RequirementsOverview get requirements => RequirementsOverview(doc, '$path/requirements');
-
-  /// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
-  SystemsToReplace get systemsToReplace => SystemsToReplace(doc, '$path/systemsToReplace');
-
-  /// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
-  SystemBoundaries get systemBoundaries => SystemBoundaries(doc, '$path/systemBoundaries');
-
-  /// 4.6. Framework Conditions [PD00-SYO-RES].
-  FrameworkConditions get frameworkConditions => FrameworkConditions(doc, '$path/frameworkConditions');
-
-  /// 4.7. Risks and Assumptions [PD00-SYO-RIS].
-  RisksAndAssumptions get risksAndAssumptions => RisksAndAssumptions(doc, '$path/risksAndAssumptions');
 }
 
 /// System overview summary for quick reference.
@@ -30028,7 +30491,7 @@ class SystemOverviewSummaryStatus extends SomNode {
   SystemOverviewSummaryStatusContentForm get content => SystemOverviewSummaryStatusContentForm(doc, '$path/content');
 }
 
-/// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+/// 4.1.1. System Purpose.
 /// 
 /// Describes the overarching purpose of the system including the problem it
 /// solves, the opportunity it enables, and who the primary beneficiaries are.
@@ -30039,30 +30502,30 @@ class SystemPurpose extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Vision Statement [PD00-SYO-SYD-PUR-VIS].
+  /// Vision Statement.
   String get visionStatement => doc.content('$path/visionStatement') ?? '';
   set visionStatement(String value) => doc.setContent('$path/visionStatement', value);
 
-  /// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+  /// 4.1.1.1. Problem Statement.
   ProblemStatement get problemStatement => ProblemStatement(doc, '$path/problemStatement');
 
-  /// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+  /// 4.1.1.2. Opportunity Statement.
   OpportunityStatement get opportunityStatement => OpportunityStatement(doc, '$path/opportunityStatement');
 
-  /// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+  /// 4.1.1.3. Stakeholders and Beneficiaries.
   StakeholdersAndBeneficiaries get stakeholders => StakeholdersAndBeneficiaries(doc, '$path/stakeholders');
 
-  /// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+  /// 4.1.1.4. Value Proposition.
   ValueProposition get valueProposition => ValueProposition(doc, '$path/valueProposition');
 
-  /// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+  /// 4.1.1.5. Strategic Alignment.
   StrategicAlignment get strategicAlignment => StrategicAlignment(doc, '$path/strategicAlignment');
 
-  /// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+  /// 4.1.1.6. Scope Boundaries.
   ScopeBoundaries get scopeBoundaries => ScopeBoundaries(doc, '$path/scopeBoundaries');
 }
 
-/// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+/// 11. System Quality Goals. Seeds → BQP.
 /// 
 /// Quality goals selected from standard quality criteria and operationalized
 /// for project-specific acceptance testing. Provides governing structure for
@@ -30101,28 +30564,28 @@ class SystemQualityGoals extends SomNode {
   /// Quality attribute priority radar.
   // (skipped: qualityRadar has no target type)
 
-  /// 11.1. Quality Framework [PD00-SYQ-FRA].
+  /// 11.1. Quality Framework.
   QualityFramework get framework => QualityFramework(doc, '$path/framework');
 
-  /// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+  /// 11.2. User-Related Quality Criteria.
   UserQualityCriteria get userQuality => UserQualityCriteria(doc, '$path/userQuality');
 
-  /// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+  /// 11.3. Technical Quality Criteria.
   TechnicalQualityCriteria get technicalQuality => TechnicalQualityCriteria(doc, '$path/technicalQuality');
 
-  /// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+  /// 11.4. Operations Quality Criteria.
   OperationsQualityCriteria get operationsQuality => OperationsQualityCriteria(doc, '$path/operationsQuality');
 
-  /// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+  /// 11.5. Documentation Quality Criteria.
   DocumentationQualityCriteria get documentationQuality => DocumentationQualityCriteria(doc, '$path/documentationQuality');
 
-  /// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+  /// 11.6. Quality Prioritization.
   QualityPrioritization get prioritization => QualityPrioritization(doc, '$path/prioritization');
 
-  /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+  /// 11.7. Acceptance Criteria Summary.
   AcceptanceCriteriaSummary get acceptanceCriteria => AcceptanceCriteriaSummary(doc, '$path/acceptanceCriteria');
 
-  /// 11.8. Test Strategy [PD00-SYQ-TST]. Covers HBSG AS23.
+  /// 11.8. Test Strategy..
   TestStrategy get testStrategy => TestStrategy(doc, '$path/testStrategy');
 }
 
@@ -30154,7 +30617,7 @@ class SystemQualityGoalsResources extends SomNode {
   SystemQualityGoalsResourcesContentForm get content => SystemQualityGoalsResourcesContentForm(doc, '$path/content');
 }
 
-/// Replacement strategy details [PD00-SYO-SYR-INV-nn-STR].
+/// Replacement strategy details.
 class SystemReplacementStrategy extends SomNode {
   SystemReplacementStrategy(super.doc, super.path);
 
@@ -30190,99 +30653,39 @@ class SystemReplacementStrategyTimeline extends SomNode {
   SystemReplacementStrategyTimelineContentForm get content => SystemReplacementStrategyTimelineContentForm(doc, '$path/content');
 }
 
-/// SR00 System Rollout.
-/// 
-/// End-to-end rollout specification — localization, translation,
-/// documentation and training, plus rollout plan, migration plan,
-/// user manuals, training materials, pilot, cutover, knowledge
-/// transfer, and warranty/support.
-class SystemRollout extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  SystemRollout(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'SR') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Localization process — PD00-USE-MUL-LOC.
-  LocalizationProcess get localizationProcess => LocalizationProcess(doc, '$path/localizationProcess');
-
-  /// Translation process — PD00-USE-MUL-TRA.
-  TranslationProcess get translationProcess => TranslationProcess(doc, '$path/translationProcess');
-
-  /// Documentation and training — PD00-USE-MUL-DOC.
-  DocumentationAndTraining get documentationAndTraining => DocumentationAndTraining(doc, '$path/documentationAndTraining');
-
-  /// Rollout plan — PD00-ROL-PLN.
-  RolloutPlan get rolloutPlan => RolloutPlan(doc, '$path/rolloutPlan');
-
-  /// Migration plan — PD00-ROL-MIG.
-  MigrationPlan get migrationPlan => MigrationPlan(doc, '$path/migrationPlan');
-
-  /// User manuals — PD00-ROL-DOC.
-  SomList<UserManuals> get userManuals => SomList<UserManuals>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManuals(d, p));
-
-  /// Training materials — PD00-ROL-TRN.
-  SomList<RolloutTrainingMaterials> get trainingMaterials => SomList<RolloutTrainingMaterials>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterials(d, p));
-
-  /// Pilot plan — PD00-ROL-PIL.
-  PilotPlan get pilotPlan => PilotPlan(doc, '$path/pilotPlan');
-
-  /// Cutover procedures — PD00-ROL-CUT.
-  SomList<CutoverProcedures> get cutoverProcedures => SomList<CutoverProcedures>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedures(d, p));
-
-  /// Knowledge transfer — PD00-ROL-KNO.
-  KnowledgeTransfer get knowledgeTransfer => KnowledgeTransfer(doc, '$path/knowledgeTransfer');
-
-  /// Warranty and support — PD00-ROL-WAR.
-  WarrantyAndSupport get warrantyAndSupport => WarrantyAndSupport(doc, '$path/warrantyAndSupport');
-}
-
-/// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
+/// 15. System Rollout Concept. Seeds → SR.
 class SystemRolloutConcept extends SomNode {
   SystemRolloutConcept(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 15.1. Rollout Plan [PD00-ROL-PLN].
+  /// 15.1. Rollout Plan.
   RolloutPlan get rolloutPlan => RolloutPlan(doc, '$path/rolloutPlan');
 
-  /// 15.2. Migration Plan [PD00-ROL-MIG].
+  /// 15.2. Migration Plan.
   MigrationPlan get migrationPlan => MigrationPlan(doc, '$path/migrationPlan');
 
-  /// 15.3. User Manuals [PD00-ROL-DOC].
+  /// 15.3. User Manuals.
   SomList<UserManuals> get userManuals => SomList<UserManuals>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManuals(d, p));
 
-  /// 15.4. Training Materials [PD00-ROL-TRN].
+  /// 15.4. Training Materials.
   SomList<RolloutTrainingMaterials> get trainingMaterials => SomList<RolloutTrainingMaterials>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterials(d, p));
 
-  /// 15.5. Pilot Plan [PD00-ROL-PIL].
+  /// 15.5. Pilot Plan.
   PilotPlan get pilotPlan => PilotPlan(doc, '$path/pilotPlan');
 
-  /// 15.6. Cutover Procedures [PD00-ROL-CUT].
+  /// 15.6. Cutover Procedures.
   SomList<CutoverProcedures> get cutoverProcedures => SomList<CutoverProcedures>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedures(d, p));
 
-  /// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+  /// 15.7. Knowledge Transfer.
   KnowledgeTransfer get knowledgeTransfer => KnowledgeTransfer(doc, '$path/knowledgeTransfer');
 
-  /// 15.8. Warranty and Support [PD00-ROL-WAR].
+  /// 15.8. Warranty and Support.
   WarrantyAndSupport get warrantyAndSupport => WarrantyAndSupport(doc, '$path/warrantyAndSupport');
 }
 
-/// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+/// 13. System Stage Plan. Seeds → PPP.
 /// 
 /// Define the overall staging strategy for the system rollout. A stage
 /// is a meaningful, self-contained subset of the complete system that
@@ -30304,28 +30707,28 @@ class SystemStagePlan extends SomNode {
   /// Organizational capacity and plan confidence.
   SystemStagePlanReadiness get readiness => SystemStagePlanReadiness(doc, '$path/readiness');
 
-  /// 13.1. Staging Strategy [PD00-SSP-STR].
+  /// 13.1. Staging Strategy.
   StagingStrategy get strategy => StagingStrategy(doc, '$path/strategy');
 
-  /// 13.2. Stage Overview [PD00-SSP-STA].
+  /// 13.2. Stage Overview.
   StageOverview get stageOverview => StageOverview(doc, '$path/stageOverview');
 
-  /// 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
+  /// 13.3. Stages — contains 1+× Stage.
   SomList<StageEntry> get stages => SomList<StageEntry>(doc, '$path/STAGE-STAG-LST', (d, p) => StageEntry(d, p));
 
-  /// 13.4. Feature Prioritization [PD00-SSP-FEA].
+  /// 13.4. Feature Prioritization.
   FeaturePrioritization get featurePrioritization => FeaturePrioritization(doc, '$path/featurePrioritization');
 
-  /// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+  /// 13.5. Data Migration Strategy.
   DataMigrationStrategy get dataMigration => DataMigrationStrategy(doc, '$path/dataMigration');
 
-  /// 13.6. Governance [PD00-SSP-GOV].
+  /// 13.6. Governance.
   StageGovernance get governance => StageGovernance(doc, '$path/governance');
 
-  /// 13.7. Initial Development Flow [PD00-SSP-IDV]. Covers PPP-IDV.
+  /// 13.7. Initial Development Flow. Covers PPP-IDV.
   InitialDevelopmentFlow get initialDevelopmentFlow => InitialDevelopmentFlow(doc, '$path/initialDevelopmentFlow');
 
-  /// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG]. Covers PPP-UPG.
+  /// 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
   UpgradeCycleFramework get upgradeCycleFramework => UpgradeCycleFramework(doc, '$path/upgradeCycleFramework');
 }
 
@@ -30350,7 +30753,7 @@ class SystemStagePlanTimeline extends SomNode {
   SystemStagePlanTimelineContentForm get content => SystemStagePlanTimelineContentForm(doc, '$path/content');
 }
 
-/// A system task entry [PD00-SYO-SYD-USR-nn-TSK-mm].
+/// A system task entry.
 /// 
 /// Describes one activity this user category performs with the system.
 /// Tasks map to Use Cases in the UC document.
@@ -30407,7 +30810,7 @@ class SystemTaskWorkflowStepEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC].
+/// Technical assessment for a system to replace.
 class SystemTechnicalAssessment extends SomNode {
   SystemTechnicalAssessment(super.doc, super.path);
 
@@ -30450,7 +30853,7 @@ class SystemTechnicalAssessmentQuality extends SomNode {
   SystemTechnicalAssessmentQualityContentForm get content => SystemTechnicalAssessmentQualityContentForm(doc, '$path/content');
 }
 
-/// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+/// A system to replace entry (form).
 /// 
 /// Comprehensive documentation of a legacy system to be replaced, covering
 /// technical assessment, business criticality, replacement strategy, and
@@ -30509,7 +30912,7 @@ class SystemToReplaceEntryVendor extends SomNode {
   SystemToReplaceEntryVendorContentForm get content => SystemToReplaceEntryVendorContentForm(doc, '$path/content');
 }
 
-/// System training entry (form) [PD00-ORG-WOR-nn-TRA-SYS-nn].
+/// System training entry (form).
 class SystemTrainingEntry extends SomNode {
   SystemTrainingEntry(super.doc, super.path);
 
@@ -30546,7 +30949,7 @@ class SystemTrainingEntrySupport extends SomNode {
   SystemTrainingEntrySupportContentForm get content => SystemTrainingEntrySupportContentForm(doc, '$path/content');
 }
 
-/// User impact assessment [PD00-SYO-SYR-INV-nn-USR].
+/// User impact assessment.
 class SystemUserImpact extends SomNode {
   SystemUserImpact(super.doc, super.path);
 
@@ -30586,7 +30989,7 @@ class SystemUserImpactEnablement extends SomNode {
   SystemUserImpactEnablementContentForm get content => SystemUserImpactEnablementContentForm(doc, '$path/content');
 }
 
-/// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+/// 4.4. Systems to Replace. Seeds → CS.
 /// 
 /// Documents existing systems that will be replaced, migrated, or decommissioned
 /// as part of the project. Follows TOGAF migration planning patterns and
@@ -30598,14 +31001,14 @@ class SystemsToReplace extends SomNode {
   /// Overview of the systems replacement scope and strategy.
   // (skipped: overview has no target type)
 
-  /// 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+  /// 4.4.1. Replacement Inventory — contains 0+×.
   ReplacementInventory get replacementInventory => ReplacementInventory(doc, '$path/replacementInventory');
 
-  /// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+  /// 4.4.2. Migration Considerations.
   MigrationConsiderations get migrationConsiderations => MigrationConsiderations(doc, '$path/migrationConsiderations');
 }
 
-/// A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
+/// A tab bar definition entry (form).
 /// 
 /// Defines a tab bar or segmented control on a specific screen.
 class TabBarDefinitionEntry extends SomNode {
@@ -30637,25 +31040,97 @@ class TabBarDefinitionEntryLoading extends SomNode {
   TabBarDefinitionEntryLoadingContentForm get content => TabBarDefinitionEntryLoadingContentForm(doc, '$path/content');
 }
 
-/// A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
+/// A tab item entry (form).
 class TabItemEntry extends SomNode {
   TabItemEntry(super.doc, super.path);
 
   TabItemEntryContentForm get content => TabItemEntryContentForm(doc, '$path/content');
 }
 
-/// 6. Target Business Process Model [PD00-TAR].
+/// 6. Target Business Process Model.
 class TargetBusinessProcessModel extends SomNode {
   TargetBusinessProcessModel(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
+  /// 6.1. Business Process Descriptions. Seeds → BP.
   BusinessProcessDescriptions get businessProcessDescriptions => BusinessProcessDescriptions(doc, '$path/businessProcessDescriptions');
 
-  /// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+  /// 6.2. Process Steps and Actor Interactions. Seeds → UC.
   ProcessStepsAndActorInteractions get processStepsAndActorInteractions => ProcessStepsAndActorInteractions(doc, '$path/processStepsAndActorInteractions');
+}
+
+/// BP00 Business Processes.
+/// 
+/// Target business process specification — vision, principles, catalog,
+/// diagrams, improvements, relationships, detailed workflows,
+/// cross-process analysis, exception handling, and KPIs.
+class TargetOperatingModel extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  TargetOperatingModel(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'TOM') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Process vision.
+  ProcessVision get processVision => ProcessVision(doc, '$path/processVision');
+
+  /// Design principles.
+  ProcessDesignPrinciples get designPrinciples => ProcessDesignPrinciples(doc, '$path/designPrinciples');
+
+  /// Process catalog.
+  ProcessCatalog get processCatalog => ProcessCatalog(doc, '$path/processCatalog');
+
+  /// Process overview diagram.
+  ProcessOverviewDiagram get processOverviewDiagram => ProcessOverviewDiagram(doc, '$path/processOverviewDiagram');
+
+  /// Improvement summary.
+  ProcessImprovementSummary get improvementSummary => ProcessImprovementSummary(doc, '$path/improvementSummary');
+
+  /// Process relationships.
+  ProcessRelationships get processRelationships => ProcessRelationships(doc, '$path/processRelationships');
+
+  /// Detailed process workflows.
+  SomList<DetailedProcessWorkflows> get detailedWorkflows => SomList<DetailedProcessWorkflows>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflows(d, p));
+
+  /// Cross-process analysis.
+  CrossProcessAnalysis get crossProcessAnalysis => CrossProcessAnalysis(doc, '$path/crossProcessAnalysis');
+
+  /// Process exception handling.
+  ProcessExceptionHandling get exceptionHandling => ProcessExceptionHandling(doc, '$path/exceptionHandling');
+
+  /// Process metrics and KPIs.
+  SomList<ProcessMetricsAndKpis> get processMetricsAndKpis => SomList<ProcessMetricsAndKpis>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetricsAndKpis(d, p));
+}
+
+/// SBP.7 Target Operating Model concept.
+/// 
+/// Public anchor: BABOK future-state analysis.
+class TargetOperatingModelConcept extends SomNode {
+  TargetOperatingModelConcept(super.doc, super.path);
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Target organizational structure and roles.
+  OrganizationalFramework get organizationalFramework => OrganizationalFramework(doc, '$path/organizationalFramework');
+
+  /// Target business process model.
+  TargetBusinessProcessModel get targetBusinessProcess => TargetBusinessProcessModel(doc, '$path/targetBusinessProcess');
 }
 
 /// Target platform entry (operating system, runtime, container).
@@ -30705,7 +31180,7 @@ class TargetPlatformEntryVersion extends SomNode {
   TargetPlatformEntryVersionContentForm get content => TargetPlatformEntryVersionContentForm(doc, '$path/content');
 }
 
-/// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+/// 4.1.3. Description of Task Area.
 /// 
 /// Describes the business domain and task area the system addresses.
 /// Defines the domain vocabulary and key concepts (ubiquitous language)
@@ -30717,25 +31192,25 @@ class TaskArea extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+  /// 4.1.3.1. Domain Overview.
   DomainOverview get domainOverview => DomainOverview(doc, '$path/domainOverview');
 
-  /// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+  /// 4.1.3.2. Domain Vocabulary.
   DomainVocabulary get domainVocabulary => DomainVocabulary(doc, '$path/domainVocabulary');
 
-  /// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+  /// 4.1.3.3. Key Concepts.
   KeyConcepts get keyConcepts => KeyConcepts(doc, '$path/keyConcepts');
 
-  /// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+  /// 4.1.3.4. Domain Boundaries.
   DomainBoundaries get domainBoundaries => DomainBoundaries(doc, '$path/domainBoundaries');
 
-  /// 4.1.3.5. Business Rules [PD00-SYO-SYD-DES-RUL].
+  /// 4.1.3.5. Business Rules.
   DomainBusinessRules get businessRules => DomainBusinessRules(doc, '$path/businessRules');
 
-  /// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+  /// 4.1.3.6. Domain Processes.
   DomainProcesses get domainProcesses => DomainProcesses(doc, '$path/domainProcesses');
 
-  /// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+  /// 4.1.3.7. Domain Events.
   DomainEvents get domainEvents => DomainEvents(doc, '$path/domainEvents');
 }
 
@@ -30746,7 +31221,7 @@ class TeamMemberAvailability extends SomNode {
   TeamMemberAvailabilityContentForm get content => TeamMemberAvailabilityContentForm(doc, '$path/content');
 }
 
-/// A team member entry [PD00-ADM-TEA-nn] (form).
+/// A team member entry (form).
 /// 
 /// Detailed information about a project team member including their role,
 /// responsibilities, availability, and competencies.
@@ -30850,42 +31325,42 @@ class TechnicalDependencyEntry extends SomNode {
   TechnicalDependencyEntryContentForm get content => TechnicalDependencyEntryContentForm(doc, '$path/content');
 }
 
-/// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+/// 8. Technical Framework Concept. Seeds → TR.
 class TechnicalFrameworkConcept extends SomNode {
   TechnicalFrameworkConcept(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+  /// 8.1. Basic Technical Requirements.
   BasicTechnicalRequirements get basicRequirements => BasicTechnicalRequirements(doc, '$path/basicRequirements');
 
-  /// 8.2. Software Design Requirements [PD00-TEC-SOF].
+  /// 8.2. Software Design Requirements.
   SoftwareDesignRequirements get softwareDesign => SoftwareDesignRequirements(doc, '$path/softwareDesign');
 
-  /// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+  /// 8.3. Standard Application Software Requirements.
   StandardSoftwareRequirements get standardSoftware => StandardSoftwareRequirements(doc, '$path/standardSoftware');
 
-  /// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+  /// 8.4. Hardware Concept Requirements.
   HardwareRequirements get hardware => HardwareRequirements(doc, '$path/hardware');
 
-  /// 8.5. Operations Requirements [PD00-TEC-OPE].
+  /// 8.5. Operations Requirements.
   OperationsRequirements get operations => OperationsRequirements(doc, '$path/operations');
 
-  /// 8.6. Communication Requirements [PD00-TEC-COM].
+  /// 8.6. Communication Requirements.
   CommunicationRequirements get communication => CommunicationRequirements(doc, '$path/communication');
 
-  /// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+  /// 8.7. System Operation and Monitoring.
   SystemOperationAndMonitoring get systemOperation => SystemOperationAndMonitoring(doc, '$path/systemOperation');
 
-  /// 8.8. Security Requirements [PD00-TEC-SEC].
+  /// 8.8. Security Requirements.
   TechnicalSecurityRequirements get security => TechnicalSecurityRequirements(doc, '$path/security');
 
-  /// 8.9. System Architecture [PD00-TEC-ARC]. Covers HBSG AS09-SOF / DR30.
+  /// 8.9. System Architecture..
   SystemArchitectureSpec get systemArchitecture => SystemArchitectureSpec(doc, '$path/systemArchitecture');
 }
 
-/// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+/// 4.6.3. Technical Framework Conditions. Seeds → TR.
 /// 
 /// Documents pre-existing technical constraints including mandated platforms,
 /// network restrictions, compliance requirements, existing infrastructure
@@ -30921,13 +31396,13 @@ class TechnicalFrameworkConditions extends SomNode {
   /// Technology standards that must be followed.
   // (skipped: standardsOverview has no target type)
 
-  /// Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
+  /// Technology standards — contains 0+× TechnologyStandard.
   SomList<TechnologyStandardEntry> get technologyStandards => SomList<TechnologyStandardEntry>(doc, '$path/TESTEN-TECH-LST', (d, p) => TechnologyStandardEntry(d, p));
 
   /// Integration constraints overview.
   // (skipped: integrationOverview has no target type)
 
-  /// Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
+  /// Integration constraints — contains 0+× IntegrationConstraint.
   SomList<IntegrationConstraintEntry> get integrationConstraints => SomList<IntegrationConstraintEntry>(doc, '$path/INCOE1-INTE-LST', (d, p) => IntegrationConstraintEntry(d, p));
 }
 
@@ -30968,7 +31443,7 @@ class TechnicalFrameworkConditionsStandards extends SomNode {
   TechnicalFrameworkConditionsStandardsContentForm get content => TechnicalFrameworkConditionsStandardsContentForm(doc, '$path/content');
 }
 
-/// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+/// 4.2.2.n.4. Constraints.
 /// 
 /// Technical constraints that may limit or shape how the goal is achieved.
 class TechnicalGoalConstraints extends SomNode {
@@ -30981,7 +31456,7 @@ class TechnicalGoalConstraints extends SomNode {
   SomList<TechnicalConstraintEntry> get items => SomList<TechnicalConstraintEntry>(doc, '$path/TECN-ITEM-LST', (d, p) => TechnicalConstraintEntry(d, p));
 }
 
-/// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+/// 4.2.2.n.3. Dependencies.
 /// 
 /// Technical dependencies affecting goal achievement.
 class TechnicalGoalDependencies extends SomNode {
@@ -30994,7 +31469,7 @@ class TechnicalGoalDependencies extends SomNode {
   SomList<TechnicalDependencyEntry> get items => SomList<TechnicalDependencyEntry>(doc, '$path/TEDE-ITEM-LST', (d, p) => TechnicalDependencyEntry(d, p));
 }
 
-/// A technical goal entry [PD00-SYO-GOA-TEC-nn].
+/// A technical goal entry.
 /// 
 /// Comprehensive technical goal definition with quality attributes,
 /// architectural impact, and verification approach.
@@ -31009,16 +31484,16 @@ class TechnicalGoalEntry extends SomNode {
   /// Scope and ownership details.
   TechnicalGoalEntryGovernance get governance => TechnicalGoalEntryGovernance(doc, '$path/governance');
 
-  /// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+  /// 4.2.2.n.1. Quality Scenarios.
   QualityScenarios get qualityScenarios => QualityScenarios(doc, '$path/qualityScenarios');
 
-  /// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+  /// 4.2.2.n.2. Test Criteria.
   TechnicalGoalTestCriteria get testCriteria => TechnicalGoalTestCriteria(doc, '$path/testCriteria');
 
-  /// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+  /// 4.2.2.n.3. Dependencies.
   TechnicalGoalDependencies get dependencies => TechnicalGoalDependencies(doc, '$path/dependencies');
 
-  /// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+  /// 4.2.2.n.4. Constraints.
   TechnicalGoalConstraints get constraints => TechnicalGoalConstraints(doc, '$path/constraints');
 }
 
@@ -31043,7 +31518,7 @@ class TechnicalGoalTestCaseEntry extends SomNode {
   TechnicalGoalTestCaseEntryContentForm get content => TechnicalGoalTestCaseEntryContentForm(doc, '$path/content');
 }
 
-/// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+/// 4.2.2.n.2. Test Criteria.
 /// 
 /// Specific test criteria and acceptance thresholds for the technical goal.
 class TechnicalGoalTestCriteria extends SomNode {
@@ -31059,7 +31534,7 @@ class TechnicalGoalTestCriteria extends SomNode {
   SomList<TechnicalGoalTestCaseEntry> get items => SomList<TechnicalGoalTestCaseEntry>(doc, '$path/TEGOTS-ITEM-LST', (d, p) => TechnicalGoalTestCaseEntry(d, p));
 }
 
-/// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+/// 4.2.2. Technical Goals.
 /// 
 /// Container for technical goal definitions. Technical goals define the
 /// non-functional characteristics and technical capabilities the system
@@ -31091,7 +31566,7 @@ class TechnicalInfrastructure extends SomNode {
   SomList<CommunicationToolsRequirements> get communicationTools => SomList<CommunicationToolsRequirements>(doc, '$path/COTORE-COMM-LST', (d, p) => CommunicationToolsRequirements(d, p));
 }
 
-/// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+/// 1.3.3. Technical Pain Points.
 /// 
 /// Problems that affect development and maintenance: outdated technology,
 /// security vulnerabilities, lack of documentation, vendor lock-in,
@@ -31116,7 +31591,7 @@ class TechnicalPainPointsSummary extends SomNode {
   TechnicalPainPointsSummaryContentForm get content => TechnicalPainPointsSummaryContentForm(doc, '$path/content');
 }
 
-/// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+/// 11.3. Technical Quality Criteria.
 /// 
 /// Quality criteria for the technical implementation including efficiency,
 /// portability, flexibility, security, maintainability, and reliability.
@@ -31128,26 +31603,26 @@ class TechnicalQualityCriteria extends SomNode {
   /// Technical quality overview.
   // (skipped: overview has no target type)
 
-  /// 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
+  /// 11.3.1. Efficiency.
   EfficiencyQuality get efficiency => EfficiencyQuality(doc, '$path/efficiency');
 
-  /// 11.3.2. Portability [PD00-SYQ-TEC-POR].
+  /// 11.3.2. Portability.
   PortabilityQuality get portability => PortabilityQuality(doc, '$path/portability');
 
-  /// 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
+  /// 11.3.3. Flexibility.
   FlexibilityQuality get flexibility => FlexibilityQuality(doc, '$path/flexibility');
 
-  /// 11.3.4. Security [PD00-SYQ-TEC-SEC].
+  /// 11.3.4. Security.
   SecurityQuality get security => SecurityQuality(doc, '$path/security');
 
-  /// 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
+  /// 11.3.5. Maintainability.
   MaintainabilityQuality get maintainability => MaintainabilityQuality(doc, '$path/maintainability');
 
-  /// 11.3.6. Reliability [PD00-SYQ-TEC-REL].
+  /// 11.3.6. Reliability.
   ReliabilityQuality get reliability => ReliabilityQuality(doc, '$path/reliability');
 }
 
-/// A technical requirement entry [PD00-SYO-REQ-TEC-nn].
+/// A technical requirement entry.
 /// 
 /// Comprehensive technical requirement definition following ISO 25010
 /// quality characteristics and architecture decision records.
@@ -31171,13 +31646,13 @@ class TechnicalRequirementEntry extends SomNode {
   /// Assumptions and constraints.
   TechnicalRequirementEntryConstraints get constraints => TechnicalRequirementEntryConstraints(doc, '$path/constraints');
 
-  /// 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+  /// 4.3.2.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria get acceptanceCriteria => RequirementAcceptanceCriteria(doc, '$path/acceptanceCriteria');
 
-  /// 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+  /// 4.3.2.n.2. Dependencies.
   RequirementDependencies get dependencies => RequirementDependencies(doc, '$path/dependencies');
 
-  /// 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+  /// 4.3.2.n.3. Traceability.
   RequirementTraceability get traceability => RequirementTraceability(doc, '$path/traceability');
 }
 
@@ -31216,7 +31691,7 @@ class TechnicalRequirementEntryVerification extends SomNode {
   TechnicalRequirementEntryVerificationContentForm get content => TechnicalRequirementEntryVerificationContentForm(doc, '$path/content');
 }
 
-/// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+/// 4.3.2. Technical Requirements.
 /// 
 /// Container for technical requirements. Technical requirements describe
 /// constraints on how the system is built — platform, performance,
@@ -31235,83 +31710,20 @@ class TechnicalRequirements extends SomNode {
   SomList<TechnicalRequirementEntry> get requirements => SomList<TechnicalRequirementEntry>(doc, '$path/TERQ-REQU-LST', (d, p) => TechnicalRequirementEntry(d, p));
 }
 
-/// TR00 Technical Requirements.
-/// 
-/// Comprehensive technical requirements: basic / software / standard-
-/// software / hardware / operations / communication / system-operation
-/// / security / architecture, plus components, framework conditions,
-/// and translation handling.
-class TechnicalRequirementsSpec extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  TechnicalRequirementsSpec(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'TR') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Basic technical requirements — PD00-TEC-BAS.
-  BasicTechnicalRequirements get basicTechnicalRequirements => BasicTechnicalRequirements(doc, '$path/basicTechnicalRequirements');
-
-  /// Software design requirements — PD00-TEC-SOF.
-  SoftwareDesignRequirements get softwareDesignRequirements => SoftwareDesignRequirements(doc, '$path/softwareDesignRequirements');
-
-  /// Standard application software requirements — PD00-TEC-STA.
-  StandardSoftwareRequirements get standardSoftwareRequirements => StandardSoftwareRequirements(doc, '$path/standardSoftwareRequirements');
-
-  /// Hardware concept requirements — PD00-TEC-HAR.
-  HardwareRequirements get hardwareRequirements => HardwareRequirements(doc, '$path/hardwareRequirements');
-
-  /// Operations requirements — PD00-TEC-OPE.
-  OperationsRequirements get operationsRequirements => OperationsRequirements(doc, '$path/operationsRequirements');
-
-  /// Communication requirements — PD00-TEC-COM.
-  CommunicationRequirements get communicationRequirements => CommunicationRequirements(doc, '$path/communicationRequirements');
-
-  /// System operation and monitoring — PD00-TEC-SYS.
-  SystemOperationAndMonitoring get systemOperationAndMonitoring => SystemOperationAndMonitoring(doc, '$path/systemOperationAndMonitoring');
-
-  /// Technical security requirements — PD00-TEC-SEC.
-  TechnicalSecurityRequirements get technicalSecurityRequirements => TechnicalSecurityRequirements(doc, '$path/technicalSecurityRequirements');
-
-  /// System architecture — PD00-TEC-ARC (new in Phase A, HBSG AS09-SOF/DR30).
-  SystemArchitectureSpec get systemArchitecture => SystemArchitectureSpec(doc, '$path/systemArchitecture');
-
-  /// Components to use — PD00-COM (whole).
-  ComponentsToUse get componentsToUse => ComponentsToUse(doc, '$path/componentsToUse');
-
-  /// Technical framework conditions — PD00-SYO-RES-TEC (whole).
-  TechnicalFrameworkConditions get technicalFrameworkConditions => TechnicalFrameworkConditions(doc, '$path/technicalFrameworkConditions');
-
-  /// Translation handling requirements — PD00-USE-MUL-REQ (whole).
-  TranslationRequirements get translationRequirements => TranslationRequirements(doc, '$path/translationRequirements');
-}
-
-/// 8.8. Security Requirements [PD00-TEC-SEC].
+/// 8.8. Security Requirements.
 class TechnicalSecurityRequirements extends SomNode {
   TechnicalSecurityRequirements(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+  /// 8.8.1. IT Security Standards.
   ItSecurityStandardsSection get itSecurityStandards => ItSecurityStandardsSection(doc, '$path/itSecurityStandards');
 
-  /// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+  /// 8.8.2. Data Protection and Privacy.
   DataProtectionAndPrivacySection get dataProtectionAndPrivacy => DataProtectionAndPrivacySection(doc, '$path/dataProtectionAndPrivacy');
 
-  /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+  /// 8.8.3. Security Audit Requirements.
   SecurityAuditRequirementsSection get securityAuditRequirements => SecurityAuditRequirementsSection(doc, '$path/securityAuditRequirements');
 }
 
@@ -31322,7 +31734,7 @@ class TechnologyDataVariations extends SomNode {
   TechnologyDataVariationsContentForm get content => TechnologyDataVariationsContentForm(doc, '$path/content');
 }
 
-/// A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
+/// A technology standard entry (form).
 /// 
 /// Documents a mandated or preferred technology standard that the solution
 /// must adhere to. Includes scope, compliance requirements, and exceptions.
@@ -31405,7 +31817,7 @@ class TenantContextPolicy extends SomNode {
   // (skipped: tenantContextPolicyDetails has no target type)
 }
 
-/// A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn].
+/// A tenant customization entry (form).
 /// 
 /// Describes a specific area where tenants can customize their authorization
 /// model — custom roles, permissions, policies, or workflows. Covers scoping,
@@ -31430,14 +31842,14 @@ class TenantDataIsolationPolicy extends SomNode {
   // (skipped: tenantDataIsolationDetails has no target type)
 }
 
-/// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+/// 9.4.7. Tenant Isolation.
 /// 
 /// Describes how multi-tenant authorization is structured: how tenant context
 /// is established and propagated, how cross-tenant access is prevented or
 /// controlled, how tenants can customize their authorization model, how tenant
 /// onboarding/offboarding is handled from an authorization perspective, and
 /// how tenant boundaries are enforced at the authorization layer.
-/// Complements TenantDataIsolationPolicy (PD00-ACC-RES-DAT) which covers
+/// Complements TenantDataIsolationPolicy which covers
 /// data-level isolation; this section focuses on authorization-level isolation.
 class TenantIsolation extends SomNode {
   TenantIsolation(super.doc, super.path);
@@ -31487,7 +31899,7 @@ class TestScenarioBusiness extends SomNode {
   TestScenarioBusinessContentForm get content => TestScenarioBusinessContentForm(doc, '$path/content');
 }
 
-/// A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
+/// A test scenario entry (form).
 /// 
 /// Represents a business-level test case covering a user journey, business
 /// process, or acceptance criterion. Includes full traceability, preconditions,
@@ -31565,9 +31977,9 @@ class TestScenarioTraceability extends SomNode {
   TestScenarioTraceabilityContentForm get content => TestScenarioTraceabilityContentForm(doc, '$path/content');
 }
 
-/// 11.8. Test Strategy [PD00-SYQ-TST].
+/// 11.8. Test Strategy.
 /// 
-/// Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
+/// Overall test strategy for the project..
 class TestStrategy extends SomNode {
   TestStrategy(super.doc, super.path);
 
@@ -31793,7 +32205,7 @@ class ThirdPartyLibraryEntryUsage extends SomNode {
   ThirdPartyLibraryEntryUsageContentForm get content => ThirdPartyLibraryEntryUsageContentForm(doc, '$path/content');
 }
 
-/// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+/// 10.13.3.3. Throwaway Prototype.
 /// 
 /// Prototype evaluated and then discarded.
 class ThrowawayPrototype extends SomNode {
@@ -31946,7 +32358,7 @@ class ToolDocumentation extends SomNode {
   ToolDocumentationContentForm get content => ToolDocumentationContentForm(doc, '$path/content');
 }
 
-/// A tool entry (form) [PD00-POP-TOO-TOO-nn].
+/// A tool entry (form).
 /// 
 /// Comprehensive specification of a single tool covering identity,
 /// licensing, versioning, access, integration, support, security,
@@ -32067,7 +32479,7 @@ class ToolVersioning extends SomNode {
   ToolVersioningContentForm get content => ToolVersioningContentForm(doc, '$path/content');
 }
 
-/// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+/// 2.4.1. Tooling.
 /// 
 /// Container for the project's tool inventory and governance policies.
 /// Covers all tool categories: development, CI/CD, communication,
@@ -32094,17 +32506,17 @@ class Tooling extends SomNode {
   SomList<ToolEntry> get items => SomList<ToolEntry>(doc, '$path/TOLEN-ITEM-LST', (d, p) => ToolEntry(d, p));
 }
 
-/// 2.4. Tooling and Environments [PD00-POP-TOO].
+/// 2.4. Tooling and Environments.
 class ToolingAndEnvironments extends SomNode {
   ToolingAndEnvironments(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+  /// 2.4.1. Tooling.
   Tooling get tooling => Tooling(doc, '$path/tooling');
 
-  /// 2.4.2. Environments [PD00-POP-TOO-ENV].
+  /// 2.4.2. Environments.
   Environments get environments => Environments(doc, '$path/environments');
 }
 
@@ -32136,7 +32548,7 @@ class TourStepEntry extends SomNode {
   TourStepEntryContentForm get content => TourStepEntryContentForm(doc, '$path/content');
 }
 
-/// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
+/// A trade-off decision entry (form).
 class TradeOffDecisionEntry extends SomNode {
   TradeOffDecisionEntry(super.doc, super.path);
 
@@ -32196,7 +32608,7 @@ class TradeOffDecisionEntryRationale extends SomNode {
   TradeOffDecisionEntryRationaleContentForm get content => TradeOffDecisionEntryRationaleContentForm(doc, '$path/content');
 }
 
-/// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+/// 11.6.2. Trade-off Decisions.
 /// 
 /// Explicit trade-off decisions between quality attributes.
 class TradeOffDecisions extends SomNode {
@@ -32248,7 +32660,7 @@ class TrainingAssessmentReporting extends SomNode {
   TrainingAssessmentReportingContentForm get content => TrainingAssessmentReportingContentForm(doc, '$path/content');
 }
 
-/// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+/// 14.1.3. Training Deliverables.
 class TrainingDeliverables extends SomNode {
   TrainingDeliverables(super.doc, super.path);
 
@@ -32257,6 +32669,20 @@ class TrainingDeliverables extends SomNode {
 
   /// Contains 0+× Deliverable.
   SomList<DeliverableEntry> get items => SomList<DeliverableEntry>(doc, '$path/DLVEN-ITEM-LST', (d, p) => DeliverableEntry(d, p));
+}
+
+/// Training & Enablement requirements.
+/// 
+/// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
+/// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
+/// detailed training-module catalogue currently lives inside
+/// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
+/// pending the IP-8 doc/training split.
+class TrainingEnablementRequirements extends SomNode {
+  TrainingEnablementRequirements(super.doc, super.path);
+
+  /// Training & enablement requirement form.
+  TrainingEnablementRequirementsContentForm get content => TrainingEnablementRequirementsContentForm(doc, '$path/content');
 }
 
 /// Training materials and resources.
@@ -32296,7 +32722,7 @@ class TrainingMaterialsPractice extends SomNode {
   TrainingMaterialsPracticeContentForm get content => TrainingMaterialsPracticeContentForm(doc, '$path/content');
 }
 
-/// A training module entry [PD00-USE-MUL-DOC-MOD-nn].
+/// A training module entry.
 class TrainingModuleEntry extends SomNode {
   TrainingModuleEntry(super.doc, super.path);
 
@@ -32310,7 +32736,7 @@ class TrainingOverview extends SomNode {
   TrainingOverviewContentForm get content => TrainingOverviewContentForm(doc, '$path/content');
 }
 
-/// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+/// 10.13.3.2. Training Prototype.
 /// 
 /// Prototype where concepts are reused but not code.
 class TrainingPrototype extends SomNode {
@@ -32342,7 +32768,7 @@ class TrainingPrototypeOutputs extends SomNode {
   TrainingPrototypeOutputsContentForm get content => TrainingPrototypeOutputsContentForm(doc, '$path/content');
 }
 
-/// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+/// 5.3.2. Training Requirements.
 /// 
 /// Comprehensive training program requirements following adult learning
 /// principles (ADDIE, Kirkpatrick evaluation model).
@@ -32413,7 +32839,7 @@ class TransitionEscalationPaths extends SomNode {
   TransitionEscalationPathsContentForm get content => TransitionEscalationPathsContentForm(doc, '$path/content');
 }
 
-/// Transition metric entry [PD00-ORG-STR-TIM-MET-nn] (form).
+/// Transition metric entry (form).
 class TransitionMetricEntry extends SomNode {
   TransitionMetricEntry(super.doc, super.path);
 
@@ -32447,7 +32873,7 @@ class TransitionMetricsOverview extends SomNode {
   TransitionMetricsOverviewContentForm get content => TransitionMetricsOverviewContentForm(doc, '$path/content');
 }
 
-/// A transition milestone entry [PD00-ORG-STR-TIM-MIL-nn] (form).
+/// A transition milestone entry (form).
 class TransitionMilestoneEntry extends SomNode {
   TransitionMilestoneEntry(super.doc, super.path);
 
@@ -32518,7 +32944,7 @@ class TransitionPhaseActivities extends SomNode {
   TransitionPhaseActivitiesContentForm get content => TransitionPhaseActivitiesContentForm(doc, '$path/content');
 }
 
-/// A transition phase entry [PD00-ORG-STR-TIM-PHA-nn] (form).
+/// A transition phase entry (form).
 /// 
 /// Defines a distinct phase in the organizational transition sequence.
 class TransitionPhaseEntry extends SomNode {
@@ -32578,7 +33004,7 @@ class TransitionPhaseStakeholders extends SomNode {
   TransitionPhaseStakeholdersContentForm get content => TransitionPhaseStakeholdersContentForm(doc, '$path/content');
 }
 
-/// Transition risk entry [PD00-ORG-STR-TIM-RSK-nn] (form).
+/// Transition risk entry (form).
 class TransitionRiskEntry extends SomNode {
   TransitionRiskEntry(super.doc, super.path);
 
@@ -32605,6 +33031,66 @@ class TransitionRiskEntryResponse extends SomNode {
   TransitionRiskEntryResponseContentForm get content => TransitionRiskEntryResponseContentForm(doc, '$path/content');
 }
 
+/// SR00 System Rollout.
+/// 
+/// End-to-end rollout specification — localization, translation,
+/// documentation and training, plus rollout plan, migration plan,
+/// user manuals, training materials, pilot, cutover, knowledge
+/// transfer, and warranty/support.
+class TransitionRolloutPlan extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  TransitionRolloutPlan(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'TRP') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Localization process.
+  LocalizationProcess get localizationProcess => LocalizationProcess(doc, '$path/localizationProcess');
+
+  /// Translation process.
+  TranslationProcess get translationProcess => TranslationProcess(doc, '$path/translationProcess');
+
+  /// Documentation and training.
+  DocumentationAndTraining get documentationAndTraining => DocumentationAndTraining(doc, '$path/documentationAndTraining');
+
+  /// Rollout plan.
+  RolloutPlan get rolloutPlan => RolloutPlan(doc, '$path/rolloutPlan');
+
+  /// Migration plan.
+  MigrationPlan get migrationPlan => MigrationPlan(doc, '$path/migrationPlan');
+
+  /// User manuals.
+  SomList<UserManuals> get userManuals => SomList<UserManuals>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManuals(d, p));
+
+  /// Training materials.
+  SomList<RolloutTrainingMaterials> get trainingMaterials => SomList<RolloutTrainingMaterials>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterials(d, p));
+
+  /// Pilot plan.
+  PilotPlan get pilotPlan => PilotPlan(doc, '$path/pilotPlan');
+
+  /// Cutover procedures.
+  SomList<CutoverProcedures> get cutoverProcedures => SomList<CutoverProcedures>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedures(d, p));
+
+  /// Knowledge transfer.
+  KnowledgeTransfer get knowledgeTransfer => KnowledgeTransfer(doc, '$path/knowledgeTransfer');
+
+  /// Warranty and support.
+  WarrantyAndSupport get warrantyAndSupport => WarrantyAndSupport(doc, '$path/warrantyAndSupport');
+}
+
 /// Success metrics for the transition.
 class TransitionSuccessMetrics extends SomNode {
   TransitionSuccessMetrics(super.doc, super.path);
@@ -32623,7 +33109,7 @@ class TransitionSupportOverview extends SomNode {
   TransitionSupportOverviewContentForm get content => TransitionSupportOverviewContentForm(doc, '$path/content');
 }
 
-/// Support resource entry [PD00-ORG-STR-TIM-SUP-nn] (form).
+/// Support resource entry (form).
 class TransitionSupportResourceEntry extends SomNode {
   TransitionSupportResourceEntry(super.doc, super.path);
 
@@ -32644,7 +33130,7 @@ class TransitionSupportStructure extends SomNode {
   SomList<TransitionEscalationPaths> get escalationPaths => SomList<TransitionEscalationPaths>(doc, '$path/TRESPA-ESCA-LST', (d, p) => TransitionEscalationPaths(d, p));
 }
 
-/// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
+/// 10.12.2. Translation Process.
 /// 
 /// Workflow for translating content.
 class TranslationProcess extends SomNode {
@@ -32699,7 +33185,7 @@ class TranslationProcessWorkflow extends SomNode {
   TranslationProcessWorkflowContentForm get content => TranslationProcessWorkflowContentForm(doc, '$path/content');
 }
 
-/// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+/// 10.12.5. Translation Handling Requirements.
 /// 
 /// Technical requirements for internationalization framework.
 class TranslationRequirements extends SomNode {
@@ -32751,7 +33237,7 @@ class TranslationRequirementsVariants extends SomNode {
   TranslationRequirementsVariantsContentForm get content => TranslationRequirementsVariantsContentForm(doc, '$path/content');
 }
 
-/// A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].
+/// A translation vendor entry.
 class TranslationVendorEntry extends SomNode {
   TranslationVendorEntry(super.doc, super.path);
 
@@ -32817,7 +33303,7 @@ class TroubleshootingCapabilitiesRunbooks extends SomNode {
   TroubleshootingCapabilitiesRunbooksContentForm get content => TroubleshootingCapabilitiesRunbooksContentForm(doc, '$path/content');
 }
 
-/// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+/// 4.1.2.5. Trust Boundaries.
 /// 
 /// Security zones and trust boundaries that the system operates within
 /// or crosses.
@@ -32838,7 +33324,7 @@ class TrustBoundaryEntry extends SomNode {
   TrustBoundaryEntryContentForm get content => TrustBoundaryEntryContentForm(doc, '$path/content');
 }
 
-/// A typography style entry [PD00-USE-COM-LIB-TYP-nn].
+/// A typography style entry.
 class TypographyStyleEntry extends SomNode {
   TypographyStyleEntry(super.doc, super.path);
 
@@ -32918,7 +33404,7 @@ class UatSignOff extends SomNode {
   UatSignOffContentForm get content => UatSignOffContentForm(doc, '$path/content');
 }
 
-/// A UAT test cycle entry [PD00-DEL-ACC-UAT-CYC-nn].
+/// A UAT test cycle entry.
 /// 
 /// Represents a distinct test execution round — e.g. Cycle 1 (initial),
 /// Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
@@ -32956,7 +33442,7 @@ class UatTestData extends SomNode {
   UatTestDataContentForm get content => UatTestDataContentForm(doc, '$path/content');
 }
 
-/// A UAT test step entry [PD00-DEL-ACC-UAT-nn-STP-mm].
+/// A UAT test step entry.
 /// 
 /// Individual step within a test scenario. Captures the action, input data,
 /// expected result, and pass criteria at fine-grained level per IEEE 829
@@ -32974,7 +33460,7 @@ class UatTraining extends SomNode {
   UatTrainingContentForm get content => UatTrainingContentForm(doc, '$path/content');
 }
 
-/// A UI component entry [PD00-USE-COM-SPE-nn].
+/// A UI component entry.
 /// 
 /// Comprehensive specification for a single UI component covering identity,
 /// visual design, behavior, states, responsiveness, accessibility,
@@ -33100,7 +33586,7 @@ class UiComponentEntrySurface extends SomNode {
   UiComponentEntrySurfaceContentForm get content => UiComponentEntrySurfaceContentForm(doc, '$path/content');
 }
 
-/// 10.11. UI Components [PD00-USE-COM].
+/// 10.11. UI Components.
 /// 
 /// Comprehensive UI component library specification covering design system,
 /// component catalog, and detailed per-component specifications. Supports
@@ -33119,13 +33605,13 @@ class UiComponents extends SomNode {
   /// Extension and theming boundaries.
   UiComponentsCustomization get customization => UiComponentsCustomization(doc, '$path/customization');
 
-  /// 10.11.1. Component Library [PD00-USE-COM-LIB].
+  /// 10.11.1. Component Library.
   ComponentLibrary get componentLibrary => ComponentLibrary(doc, '$path/componentLibrary');
 
-  /// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+  /// 10.11.2. Component Specifications — contains 0+×.
   SomList<UiComponentEntry> get componentSpecs => SomList<UiComponentEntry>(doc, '$path/UICOEN-COMP-LST', (d, p) => UiComponentEntry(d, p));
 
-  /// 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
+  /// 10.11.3. Component Families — contains 0+×.
   SomList<ComponentFamilyEntry> get componentFamilies => SomList<ComponentFamilyEntry>(doc, '$path/CMFA-COMP-LST', (d, p) => ComponentFamilyEntry(d, p));
 }
 
@@ -33150,7 +33636,7 @@ class UiComponentsVisualLanguage extends SomNode {
   UiComponentsVisualLanguageContentForm get content => UiComponentsVisualLanguageContentForm(doc, '$path/content');
 }
 
-/// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
+/// A design principle entry (form).
 /// 
 /// Each principle guides UI decisions with rationale and examples.
 class UiDesignPrincipleEntry extends SomNode {
@@ -33159,70 +33645,7 @@ class UiDesignPrincipleEntry extends SomNode {
   UiDesignPrincipleEntryContentForm get content => UiDesignPrincipleEntryContentForm(doc, '$path/content');
 }
 
-/// UP00 UI Prototype.
-/// 
-/// Full UI design and prototype specification — vision, screens,
-/// screen flow, print, error handling, help, accessibility, responsive,
-/// components, language/country selection, prototype, wireframes and
-/// mockups.
-class UiPrototype extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  UiPrototype(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'UP') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Design vision — PD00-USE-VIS.
-  DesignVision get designVision => DesignVision(doc, '$path/designVision');
-
-  /// Screen descriptions — PD00-USE-SCR.
-  ScreenDescriptions get screens => ScreenDescriptions(doc, '$path/screens');
-
-  /// Screen flow structure — PD00-USE-SCF.
-  ScreenFlowStructure get screenFlow => ScreenFlowStructure(doc, '$path/screenFlow');
-
-  /// Print layout — PD00-USE-PRI.
-  PrintLayout get printLayout => PrintLayout(doc, '$path/printLayout');
-
-  /// Error handling concept — PD00-USE-ERR.
-  ErrorHandlingConcept get errorHandling => ErrorHandlingConcept(doc, '$path/errorHandling');
-
-  /// Help concept — PD00-USE-HLP.
-  HelpConcept get helpConcept => HelpConcept(doc, '$path/helpConcept');
-
-  /// Accessibility — PD00-USE-ACC.
-  Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
-
-  /// Responsive design — PD00-USE-RES.
-  ResponsiveDesign get responsiveDesign => ResponsiveDesign(doc, '$path/responsiveDesign');
-
-  /// UI components — PD00-USE-COM.
-  UiComponents get uiComponents => UiComponents(doc, '$path/uiComponents');
-
-  /// Language and country selection — PD00-USE-MUL-LCS.
-  LanguageCountrySelection get languageCountrySelection => LanguageCountrySelection(doc, '$path/languageCountrySelection');
-
-  /// Prototype — PD00-USE-PRO.
-  Prototype get prototype => Prototype(doc, '$path/prototype');
-
-  /// Wireframes and mockups — PD00-USE-WIR (new in Phase A, HBSG AS10-WIR).
-  SomList<WireframesAndMockups> get wireframesAndMockups => SomList<WireframesAndMockups>(doc, '$path/WIANMO-WIRE-LST', (d, p) => WireframesAndMockups(d, p));
-}
-
-/// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG].
+/// 13.8. Upgrade Cycle Framework.
 /// 
 /// Post-development upgrade cycle framework. Links the upgrade process
 /// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
@@ -33233,7 +33656,7 @@ class UpgradeCycleFramework extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 11.2.1. Usability quality [PD00-SYQ-USE-USA].
+/// 11.2.1. Usability quality.
 class UsabilityQuality extends SomNode {
   UsabilityQuality(super.doc, super.path);
 
@@ -33310,7 +33733,7 @@ class UseCaseScopeContext extends SomNode {
   UseCaseScopeContextContentForm get content => UseCaseScopeContextContentForm(doc, '$path/content');
 }
 
-/// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+/// 6.2.5. Use Case Traceability.
 /// 
 /// Use case ↔ requirement ↔ process ↔ test traceability.
 class UseCaseTraceability extends SomNode {
@@ -33320,54 +33743,7 @@ class UseCaseTraceability extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// UC00 Use Cases.
-/// 
-/// Detailed use cases derived from the target process steps and actor
-/// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-/// and traceability.
-class UseCases extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  UseCases(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'UC') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Process steps overview — PD00-TAR-STP-OVE.
-  ProcessStepsOverview get processStepsOverview => ProcessStepsOverview(doc, '$path/processStepsOverview');
-
-  /// Actor overview — PD00-TAR-STP-ACT.
-  ActorOverview get actorOverview => ActorOverview(doc, '$path/actorOverview');
-
-  /// Interaction catalog — PD00-TAR-STP-INT.
-  InteractionCatalog get interactionCatalog => InteractionCatalog(doc, '$path/interactionCatalog');
-
-  /// Key scenarios — PD00-TAR-STP-SCE.
-  KeyScenarios get keyScenarios => KeyScenarios(doc, '$path/keyScenarios');
-
-  /// Actor relationship diagram — PD00-TAR-STP-DIA.
-  ActorRelationshipDiagram get actorRelationshipDiagram => ActorRelationshipDiagram(doc, '$path/actorRelationshipDiagram');
-
-  /// End-to-end test scenarios — PD00-TAR-STP-E2E (covers HBSG AS24).
-  SomList<EndToEndTestScenarios> get endToEndTestScenarios => SomList<EndToEndTestScenarios>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenarios(d, p));
-
-  /// Use case traceability — PD00-TAR-STP-TRC.
-  UseCaseTraceability get useCaseTraceability => UseCaseTraceability(doc, '$path/useCaseTraceability');
-}
-
-/// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+/// 14.2.3. User Acceptance Testing.
 /// 
 /// Comprehensive UAT planning covering scope, environment, test data,
 /// governance, scheduling, defect management, reporting, non-functional
@@ -33421,7 +33797,7 @@ class UserAcceptanceTesting extends SomNode {
   SomList<TestScenarioEntry> get testScenarios => SomList<TestScenarioEntry>(doc, '$path/TSSC-TEST-LST', (d, p) => TestScenarioEntry(d, p));
 }
 
-/// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+/// 4.1.4.n.4. Access and Permissions.
 /// 
 /// Security and access control specifications for this user category.
 class UserAccessPermissions extends SomNode {
@@ -33457,7 +33833,7 @@ class UserAccessPermissionsRestrictions extends SomNode {
   UserAccessPermissionsRestrictionsContentForm get content => UserAccessPermissionsRestrictionsContentForm(doc, '$path/content');
 }
 
-/// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+/// 4.1.4.n.6. Accessibility Needs.
 /// 
 /// Accessibility requirements and accommodations for this user category.
 class UserAccessibilityNeeds extends SomNode {
@@ -33484,14 +33860,14 @@ class UserAccountStatesDefinition extends SomNode {
   // (skipped: stateTransitionDiagram has no target type)
 }
 
-/// A user attribute entry (form) [PD00-ACC-USE-ATT-nn].
+/// A user attribute entry (form).
 class UserAttributeEntry extends SomNode {
   UserAttributeEntry(super.doc, super.path);
 
   UserAttributeEntryContentForm get content => UserAttributeEntryContentForm(doc, '$path/content');
 }
 
-/// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+/// 9.1.3. User Attributes.
 class UserAttributes extends SomNode {
   UserAttributes(super.doc, super.path);
 
@@ -33502,7 +33878,7 @@ class UserAttributes extends SomNode {
   SomList<UserAttributeEntry> get items => SomList<UserAttributeEntry>(doc, '$path/USATE-ITEM-LST', (d, p) => UserAttributeEntry(d, p));
 }
 
-/// 9.4. User Authorization [PD00-ACC-USA].
+/// 9.4. User Authorization.
 /// 
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 class UserAuthorization extends SomNode {
@@ -33511,36 +33887,36 @@ class UserAuthorization extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+  /// 9.4.1. Authorization Model.
   AuthorizationModel get authorizationModel => AuthorizationModel(doc, '$path/authorizationModel');
 
-  /// 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
+  /// 9.4.2. Authorization Groups — contains 0+× Group.
   SomList<AuthorizationGroupEntry> get groups => SomList<AuthorizationGroupEntry>(doc, '$path/AZGR-GROU-LST', (d, p) => AuthorizationGroupEntry(d, p));
 
-  /// 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+  /// 9.4.3. Role Definitions — contains 1+× Role.
   SomList<AuthorizationRoleEntry> get roleDefinitions => SomList<AuthorizationRoleEntry>(doc, '$path/AZRO-ROLE-LST', (d, p) => AuthorizationRoleEntry(d, p));
 
-  /// 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
+  /// 9.4.4. Entitlements — contains 1+× Entitlement.
   SomList<EntitlementEntry> get entitlements => SomList<EntitlementEntry>(doc, '$path/ENT-ENTI-LST', (d, p) => EntitlementEntry(d, p));
 
-  /// 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
+  /// 9.4.5. Resource Keys — contains 0+× Resource Key.
   SomList<ResourceKeyEntry> get resourceKeys => SomList<ResourceKeyEntry>(doc, '$path/RESKEY-RESO-LST', (d, p) => ResourceKeyEntry(d, p));
 
-  /// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+  /// 9.4.6. Role Hierarchy.
   RoleHierarchy get roleHierarchy => RoleHierarchy(doc, '$path/roleHierarchy');
 
-  /// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+  /// 9.4.7. Tenant Isolation.
   TenantIsolation get tenantIsolation => TenantIsolation(doc, '$path/tenantIsolation');
 }
 
-/// A user category definition (form) [PD00-ACC-USE-CAT-nn].
+/// A user category definition (form).
 class UserCategoryDefinition extends SomNode {
   UserCategoryDefinition(super.doc, super.path);
 
   UserCategoryDefinitionContentForm get content => UserCategoryDefinitionContentForm(doc, '$path/content');
 }
 
-/// A user category entry [PD00-SYO-SYD-USR-nn].
+/// A user category entry.
 /// 
 /// Comprehensive user persona definition including demographics, goals,
 /// frustrations, technical proficiency, and system interaction patterns.
@@ -33555,25 +33931,25 @@ class UserCategoryEntry extends SomNode {
   /// Growth and prioritization profile.
   UserCategoryEntryImportance get importance => UserCategoryEntryImportance(doc, '$path/importance');
 
-  /// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+  /// 4.1.4.n.1. User Persona Details.
   UserPersonaDetails get personaDetails => UserPersonaDetails(doc, '$path/personaDetails');
 
-  /// 4.1.4.n.2. Role [PD00-SYO-SYD-USR-nn-ROL].
+  /// 4.1.4.n.2. Role.
   UserCategoryRoleEntry get role => UserCategoryRoleEntry(doc, '$path/role');
 
-  /// 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+  /// 4.1.4.n.3. System Tasks — contains 1+× System Task.
   SomList<SystemTaskEntry> get systemTasks => SomList<SystemTaskEntry>(doc, '$path/SYTS-SYST-LST', (d, p) => SystemTaskEntry(d, p));
 
-  /// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+  /// 4.1.4.n.4. Access and Permissions.
   UserAccessPermissions get accessPermissions => UserAccessPermissions(doc, '$path/accessPermissions');
 
-  /// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+  /// 4.1.4.n.5. Training Requirements.
   UserTrainingRequirements get trainingRequirements => UserTrainingRequirements(doc, '$path/trainingRequirements');
 
-  /// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+  /// 4.1.4.n.6. Accessibility Needs.
   UserAccessibilityNeeds get accessibilityNeeds => UserAccessibilityNeeds(doc, '$path/accessibilityNeeds');
 
-  /// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+  /// 4.1.4.n.7. User Journey.
   UserJourney get userJourney => UserJourney(doc, '$path/userJourney');
 }
 
@@ -33591,7 +33967,7 @@ class UserCategoryEntryUsage extends SomNode {
   UserCategoryEntryUsageContentForm get content => UserCategoryEntryUsageContentForm(doc, '$path/content');
 }
 
-/// Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
+/// Role within a user category.
 /// 
 /// Organizational role and responsibilities associated with this user category.
 class UserCategoryRoleEntry extends SomNode {
@@ -33600,7 +33976,7 @@ class UserCategoryRoleEntry extends SomNode {
   UserCategoryRoleEntryContentForm get content => UserCategoryRoleEntryContentForm(doc, '$path/content');
 }
 
-/// User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn].
+/// User group impact entry.
 class UserGroupImpactEntry extends SomNode {
   UserGroupImpactEntry(super.doc, super.path);
 
@@ -33644,7 +34020,7 @@ class UserGrowthProjectionsThresholds extends SomNode {
   UserGrowthProjectionsThresholdsContentForm get content => UserGrowthProjectionsThresholdsContentForm(doc, '$path/content');
 }
 
-/// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+/// 4.1.5. User Interaction Model.
 /// 
 /// Describes how different user categories interact with the system including
 /// access channels, interaction patterns, access levels, and session management.
@@ -33658,22 +34034,22 @@ class UserInteractionModel extends SomNode {
   /// Interaction model summary.
   UserInteractionModelSummary get summary => UserInteractionModelSummary(doc, '$path/summary');
 
-  /// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+  /// 4.1.5.1. Access Channels.
   AccessChannels get accessChannels => AccessChannels(doc, '$path/accessChannels');
 
-  /// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+  /// 4.1.5.2. Interaction Patterns.
   InteractionPatterns get interactionPatterns => InteractionPatterns(doc, '$path/interactionPatterns');
 
-  /// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+  /// 4.1.5.3. Access Levels.
   AccessLevels get accessLevels => AccessLevels(doc, '$path/accessLevels');
 
-  /// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+  /// 4.1.5.4. Session Model.
   SessionModel get sessionModel => SessionModel(doc, '$path/sessionModel');
 
-  /// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+  /// 4.1.5.5. Notification Model.
   NotificationModel get notificationModel => NotificationModel(doc, '$path/notificationModel');
 
-  /// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+  /// 4.1.5.6. Multi-Channel Experience.
   MultiChannelExperience get multiChannelExperience => MultiChannelExperience(doc, '$path/multiChannelExperience');
 }
 
@@ -33686,57 +34062,7 @@ class UserInteractionModelSummary extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
-class UserInterfaceDesign extends SomNode {
-  UserInterfaceDesign(super.doc, super.path);
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
-  DesignVision get designVision => DesignVision(doc, '$path/designVision');
-
-  /// 10.2. Screen Descriptions [PD00-USE-SCR]. Seeds → UP.
-  ScreenDescriptions get screens => ScreenDescriptions(doc, '$path/screens');
-
-  /// 10.3. Screen Flow Structure [PD00-USE-SCF]. Seeds → UP.
-  ScreenFlowStructure get screenFlow => ScreenFlowStructure(doc, '$path/screenFlow');
-
-  /// 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
-  PrintLayout get printLayout => PrintLayout(doc, '$path/printLayout');
-
-  /// Data Structure Alignment.
-  // (skipped: dataStructureAlignment has no target type)
-
-  /// Authorization Compliance.
-  // (skipped: authorizationCompliance has no target type)
-
-  /// 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
-  ErrorHandlingConcept get errorHandling => ErrorHandlingConcept(doc, '$path/errorHandling');
-
-  /// 10.8. Help Concept [PD00-USE-HLP]. Seeds → UP.
-  HelpConcept get helpConcept => HelpConcept(doc, '$path/helpConcept');
-
-  /// 10.9. Accessibility [PD00-USE-ACC]. Seeds → UP.
-  Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
-
-  /// 10.10. Responsive Design [PD00-USE-RES]. Seeds → UP.
-  ResponsiveDesign get responsiveDesign => ResponsiveDesign(doc, '$path/responsiveDesign');
-
-  /// 10.11. UI Components [PD00-USE-COM]. Seeds → UP.
-  UiComponents get uiComponents => UiComponents(doc, '$path/uiComponents');
-
-  /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
-  MultiLanguageAndRollout get multiLanguage => MultiLanguageAndRollout(doc, '$path/multiLanguage');
-
-  /// 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
-  Prototype get prototype => Prototype(doc, '$path/prototype');
-
-  /// 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
-  SomList<WireframesAndMockups> get wireframesAndMockups => SomList<WireframesAndMockups>(doc, '$path/WIANMO-WIRE-LST', (d, p) => WireframesAndMockups(d, p));
-}
-
-/// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+/// 4.1.4.n.7. User Journey.
 /// 
 /// Key touchpoints and journey map for this user category's experience.
 class UserJourney extends SomNode {
@@ -33771,7 +34097,7 @@ class UserJourneyPainPointEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+/// 9.1.2. User Lifecycle.
 /// 
 /// Defines the complete user account lifecycle: states, transitions between
 /// states, approval requirements for each transition, and operational policies
@@ -33813,7 +34139,7 @@ class UserLifecycleSection extends SomNode {
   SomList<ServiceAccountLifecycle> get serviceAccounts => SomList<ServiceAccountLifecycle>(doc, '$path/SACLC-SERV-LST', (d, p) => ServiceAccountLifecycle(d, p));
 }
 
-/// A lifecycle transition entry (form) [PD00-ACC-USE-LIF-nn].
+/// A lifecycle transition entry (form).
 /// 
 /// Defines a single permissible transition between two lifecycle states,
 /// including trigger, approval, and side effects.
@@ -33873,24 +34199,24 @@ class UserLifecycleTransitions extends SomNode {
   SomList<UserLifecycleTransitionEntry> get items => SomList<UserLifecycleTransitionEntry>(doc, '$path/ULTRE-ITEM-LST', (d, p) => UserLifecycleTransitionEntry(d, p));
 }
 
-/// 9.1. User Management [PD00-ACC-USE].
+/// 9.1. User Management.
 class UserManagement extends SomNode {
   UserManagement(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+  /// 9.1.1. User Categories.
   AccessUserCategories get userCategories => AccessUserCategories(doc, '$path/userCategories');
 
-  /// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+  /// 9.1.2. User Lifecycle.
   UserLifecycleSection get userLifecycle => UserLifecycleSection(doc, '$path/userLifecycle');
 
-  /// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+  /// 9.1.3. User Attributes.
   UserAttributes get userAttributes => UserAttributes(doc, '$path/userAttributes');
 }
 
-/// 15.3. User Manuals [PD00-ROL-DOC].
+/// 15.3. User Manuals.
 /// 
 /// End-user documentation deliverables covering DR15 User Manual content.
 class UserManuals extends SomNode {
@@ -33909,7 +34235,7 @@ class UserNotificationPreferences extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+/// 4.1.4.n.1. User Persona Details.
 /// 
 /// Detailed persona information including demographics, goals, frustrations,
 /// and behavioral characteristics for user-centered design.
@@ -33960,7 +34286,7 @@ class UserPersonaDetailsGoals extends SomNode {
   UserPersonaDetailsGoalsContentForm get content => UserPersonaDetailsGoalsContentForm(doc, '$path/content');
 }
 
-/// 10.1.3. User Personas [PD00-USE-VIS-PER].
+/// 10.1.3. User Personas.
 /// 
 /// Container for user persona definitions. Each persona represents a distinct
 /// user archetype with goals, pain points, and context.
@@ -34014,7 +34340,7 @@ class UserProvisioningToolsRoleManagement extends SomNode {
   UserProvisioningToolsRoleManagementContentForm get content => UserProvisioningToolsRoleManagementContentForm(doc, '$path/content');
 }
 
-/// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+/// 11.2. User-Related Quality Criteria.
 /// 
 /// Quality criteria that directly affect user experience, including usability,
 /// functional completeness, and correctness from the end-user perspective.
@@ -34026,13 +34352,13 @@ class UserQualityCriteria extends SomNode {
   /// User quality criteria overview.
   // (skipped: overview has no target type)
 
-  /// 11.2.1. Usability [PD00-SYQ-USE-USA].
+  /// 11.2.1. Usability.
   UsabilityQuality get usability => UsabilityQuality(doc, '$path/usability');
 
-  /// 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
+  /// 11.2.2. Functional Completeness.
   FunctionalCompletenessQuality get functionalCompleteness => FunctionalCompletenessQuality(doc, '$path/functionalCompleteness');
 
-  /// 11.2.3. Correctness [PD00-SYQ-USE-COR].
+  /// 11.2.3. Correctness.
   CorrectnessQuality get correctness => CorrectnessQuality(doc, '$path/correctness');
 }
 
@@ -34053,7 +34379,7 @@ class UserRegistrationProcess extends SomNode {
   // (skipped: registrationFlowDiagram has no target type)
 }
 
-/// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+/// 4.1.4.n.5. Training Requirements.
 /// 
 /// Training and onboarding requirements for this user category.
 class UserTrainingRequirements extends SomNode {
@@ -34069,7 +34395,7 @@ class UserTrainingRequirements extends SomNode {
   SomList<TrainingTopicEntry> get trainingTopics => SomList<TrainingTopicEntry>(doc, '$path/TRTP-TRAI-LST', (d, p) => TrainingTopicEntry(d, p));
 }
 
-/// A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
+/// A utility menu item entry (form).
 /// 
 /// Entry in a utility popup/dropdown menu (e.g., user menu items).
 class UtilityMenuItemEntry extends SomNode {
@@ -34098,7 +34424,7 @@ class UtilityMenuItemEntryBehavior extends SomNode {
   UtilityMenuItemEntryBehaviorContentForm get content => UtilityMenuItemEntryBehaviorContentForm(doc, '$path/content');
 }
 
-/// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+/// 10.3.1.5. Utility Navigation.
 /// 
 /// Always-visible utility items: user menu, notifications, help, settings.
 class UtilityNavigation extends SomNode {
@@ -34111,7 +34437,7 @@ class UtilityNavigation extends SomNode {
   SomList<UtilityNavigationItemEntry> get items => SomList<UtilityNavigationItemEntry>(doc, '$path/UNIE-ITEM-LST', (d, p) => UtilityNavigationItemEntry(d, p));
 }
 
-/// A utility navigation item entry (form) [PD00-USE-SCF-NAV-UTL-nn].
+/// A utility navigation item entry (form).
 /// 
 /// A persistent utility element in the app bar: user avatar, notifications bell,
 /// help icon, settings.
@@ -34144,7 +34470,7 @@ class UtilityNavigationItemEntryDisplay extends SomNode {
   UtilityNavigationItemEntryDisplayContentForm get content => UtilityNavigationItemEntryDisplayContentForm(doc, '$path/content');
 }
 
-/// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+/// 7.1.6. Validation Constraints.
 /// 
 /// Cross-entity validation policy. Per-field validation lives in entity
 /// form fields; this section captures rules that span multiple fields or
@@ -34156,7 +34482,7 @@ class ValidationConstraints extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+/// 10.7.1. Validation Feedback.
 /// 
 /// Field validation error display and feedback mechanisms.
 class ValidationFeedback extends SomNode {
@@ -34214,7 +34540,7 @@ class ValidationFeedbackPlacement extends SomNode {
   ValidationFeedbackPlacementContentForm get content => ValidationFeedbackPlacementContentForm(doc, '$path/content');
 }
 
-/// A validation message template [PD00-USE-ERR-VAL-MSG-nn].
+/// A validation message template.
 class ValidationMessageTemplate extends SomNode {
   ValidationMessageTemplate(super.doc, super.path);
 
@@ -34229,7 +34555,7 @@ class ValidationRuleEntry extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+/// 4.1.1.4. Value Proposition.
 /// 
 /// Clear articulation of the value this system provides, including
 /// quantifiable benefits and return on investment analysis.
@@ -34459,7 +34785,7 @@ class VulnerabilityManagementPolicyReporting extends SomNode {
   VulnerabilityManagementPolicyReportingContentForm get content => VulnerabilityManagementPolicyReportingContentForm(doc, '$path/content');
 }
 
-/// 15.8. Warranty and Support [PD00-ROL-WAR].
+/// 15.8. Warranty and Support.
 /// 
 /// Post-acceptance warranty period terms and support arrangements. Covers
 /// EK10 warranty content and feeds the SR top-level on the same topic.
@@ -34505,7 +34831,7 @@ class WarrantyServiceLevels extends SomNode {
   WarrantyServiceLevelsContentForm get content => WarrantyServiceLevelsContentForm(doc, '$path/content');
 }
 
-/// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+/// 14.2.6. Warranty.
 /// 
 /// Post-acceptance warranty terms: duration, scope, service levels,
 /// exclusions, and transition to standard support.
@@ -34543,7 +34869,7 @@ class WarrantyTransition extends SomNode {
   WarrantyTransitionContentForm get content => WarrantyTransitionContentForm(doc, '$path/content');
 }
 
-/// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+/// 10.9.1. WCAG Compliance Level.
 class WcagCompliance extends SomNode {
   WcagCompliance(super.doc, super.path);
 
@@ -34586,14 +34912,14 @@ class WcagComplianceUnderstandable extends SomNode {
   WcagComplianceUnderstandableContentForm get content => WcagComplianceUnderstandableContentForm(doc, '$path/content');
 }
 
-/// A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
+/// A WCAG success criterion entry.
 class WcagSuccessCriterionEntry extends SomNode {
   WcagSuccessCriterionEntry(super.doc, super.path);
 
   WcagSuccessCriterionEntryContentForm get content => WcagSuccessCriterionEntryContentForm(doc, '$path/content');
 }
 
-/// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+/// 11.6.1. Weighted Quality Matrix.
 class WeightedQualityMatrix extends SomNode {
   WeightedQualityMatrix(super.doc, super.path);
 
@@ -34609,10 +34935,10 @@ class WeightedQualityMatrix extends SomNode {
   // (skipped: matrixVisualization has no target type)
 }
 
-/// 10.14. Wireframes and Mockups [PD00-USE-WIR].
+/// 10.14. Wireframes and Mockups.
 /// 
 /// Wireframe and mockup inventory beyond individual screen descriptions.
-/// Covers HBSG AS10-WIR.
+/// .
 class WireframesAndMockups extends SomNode {
   WireframesAndMockups(super.doc, super.path);
 
@@ -34620,7 +34946,7 @@ class WireframesAndMockups extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
+/// A workflow actor entry (form).
 /// 
 /// Documentation of a participant in the workflow.
 class WorkflowActorEntry extends SomNode {
@@ -34646,10 +34972,10 @@ class WorkflowDecisionPoint extends SomNode {
   WorkflowDecisionPointContentForm get content => WorkflowDecisionPointContentForm(doc, '$path/content');
 }
 
-/// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+/// 1.2.nn.1. Workflow Descriptions.
 /// 
 /// Container for workflow entries within a business process.
-/// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+/// 1.2.nn.1. Workflow Descriptions.
 /// 
 /// Container for workflow entries within a business process. Add one
 /// subsection per current workflow relevant to the project.
@@ -34659,11 +34985,11 @@ class WorkflowDescriptions extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
+  /// Workflow overview diagram.
   String get workflowOverviewDiagram => doc.content('$path/workflowOverviewDiagram') ?? '';
   set workflowOverviewDiagram(String value) => doc.setContent('$path/workflowOverviewDiagram', value);
 
-  /// Workflow summary table [PD00-CUR-PRO-xx-WOR-SUM].
+  /// Workflow summary table.
   WorkflowSummaryTable get summaryTable => WorkflowSummaryTable(doc, '$path/summaryTable');
 
   /// Individual workflow entries.
@@ -34702,7 +35028,7 @@ class WorkflowOutputEntry extends SomNode {
   WorkflowOutputEntryContentForm get content => WorkflowOutputEntryContentForm(doc, '$path/content');
 }
 
-/// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
+/// A workflow step entry (form).
 /// 
 /// Detailed documentation of a single step within a workflow.
 class WorkflowStepEntry extends SomNode {
@@ -34783,7 +35109,7 @@ class WorkflowTriggers extends SomNode {
   SomList<WorkflowTriggerEntry> get triggers => SomList<WorkflowTriggerEntry>(doc, '$path/WOTREN-TRIG-LST', (d, p) => WorkflowTriggerEntry(d, p));
 }
 
-/// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+/// A workplace description entry (form, per user category).
 /// 
 /// Comprehensive workplace requirements following workplace design best
 /// practices (OSHA, ISO 9001, ergonomic standards). Covers physical,
@@ -34797,13 +35123,13 @@ class WorkplaceDescriptionEntry extends SomNode {
   /// Physical workplace layout and environment.
   PhysicalWorkplaceRequirements get physicalRequirements => PhysicalWorkplaceRequirements(doc, '$path/physicalRequirements');
 
-  /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+  /// 5.3.1. Equipment Requirements.
   EquipmentRequirements get equipmentRequirements => EquipmentRequirements(doc, '$path/equipmentRequirements');
 
   /// Technical infrastructure requirements.
   TechnicalInfrastructure get technicalInfrastructure => TechnicalInfrastructure(doc, '$path/technicalInfrastructure');
 
-  /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+  /// 5.3.2. Training Requirements.
   TrainingRequirements get trainingRequirements => TrainingRequirements(doc, '$path/trainingRequirements');
 
   /// Support resources available to users.
@@ -36837,6 +37163,23 @@ class ApplicationSecurityRequirementsValidationContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class ApprovalRecordContentForm extends SomNode {
+  ApprovalRecordContentForm(super.doc, super.path);
+
+  String get role => doc.formField(path, 'role') ?? '';
+  set role(String value) => doc.setFormField(path, 'role', value);
+
+  String get name => doc.formField(path, 'name') ?? '';
+  set name(String value) => doc.setFormField(path, 'name', value);
+
+  String get date => doc.formField(path, 'date') ?? '';
+  set date(String value) => doc.setFormField(path, 'date', value);
+
+  String get status => doc.formField(path, 'status') ?? '';
+  set status(String value) => doc.setFormField(path, 'status', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class ArchitectureComponentEntryBoundariesContentForm extends SomNode {
   ArchitectureComponentEntryBoundariesContentForm(super.doc, super.path);
 
@@ -37185,6 +37528,26 @@ class AssumptionImpactContentForm extends SomNode {
 
   String get relatedRisks => doc.formField(path, 'relatedRisks') ?? '';
   set relatedRisks(String value) => doc.setFormField(path, 'relatedRisks', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class AssumptionRegisterEntryContentForm extends SomNode {
+  AssumptionRegisterEntryContentForm(super.doc, super.path);
+
+  String get assumptionId => doc.formField(path, 'assumptionId') ?? '';
+  set assumptionId(String value) => doc.setFormField(path, 'assumptionId', value);
+
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
+
+  String get impact => doc.formField(path, 'impact') ?? '';
+  set impact(String value) => doc.setFormField(path, 'impact', value);
+
+  String get validation => doc.formField(path, 'validation') ?? '';
+  set validation(String value) => doc.setFormField(path, 'validation', value);
+
+  String get status => doc.formField(path, 'status') ?? '';
+  set status(String value) => doc.setFormField(path, 'status', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -43378,6 +43741,26 @@ class ConstraintMitigationContentForm extends SomNode {
 
   String get violationConsequences => doc.formField(path, 'violationConsequences') ?? '';
   set violationConsequences(String value) => doc.setFormField(path, 'violationConsequences', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class ConstraintRegisterEntryContentForm extends SomNode {
+  ConstraintRegisterEntryContentForm(super.doc, super.path);
+
+  String get constraintId => doc.formField(path, 'constraintId') ?? '';
+  set constraintId(String value) => doc.setFormField(path, 'constraintId', value);
+
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
+
+  String get type => doc.formField(path, 'type') ?? '';
+  set type(String value) => doc.setFormField(path, 'type', value);
+
+  String get source => doc.formField(path, 'source') ?? '';
+  set source(String value) => doc.setFormField(path, 'source', value);
+
+  String get impact => doc.formField(path, 'impact') ?? '';
+  set impact(String value) => doc.setFormField(path, 'impact', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -52947,6 +53330,23 @@ class GlobalRoleExclusionEntryContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class GlossaryEntryContentForm extends SomNode {
+  GlossaryEntryContentForm(super.doc, super.path);
+
+  String get term => doc.formField(path, 'term') ?? '';
+  set term(String value) => doc.setFormField(path, 'term', value);
+
+  String get definition => doc.formField(path, 'definition') ?? '';
+  set definition(String value) => doc.setFormField(path, 'definition', value);
+
+  String get acronym => doc.formField(path, 'acronym') ?? '';
+  set acronym(String value) => doc.setFormField(path, 'acronym', value);
+
+  String get seeAlso => doc.formField(path, 'seeAlso') ?? '';
+  set seeAlso(String value) => doc.setFormField(path, 'seeAlso', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class GoalDependencyEntryContentForm extends SomNode {
   GoalDependencyEntryContentForm(super.doc, super.path);
 
@@ -55913,6 +56313,20 @@ class IpOwnershipEntryContentForm extends SomNode {
 
   String get restrictions => doc.formField(path, 'restrictions') ?? '';
   set restrictions(String value) => doc.setFormField(path, 'restrictions', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class Iso25010CoverageEntryContentForm extends SomNode {
+  Iso25010CoverageEntryContentForm(super.doc, super.path);
+
+  String get characteristic => doc.formField(path, 'characteristic') ?? '';
+  set characteristic(String value) => doc.setFormField(path, 'characteristic', value);
+
+  String get addressedBy => doc.formField(path, 'addressedBy') ?? '';
+  set addressedBy(String value) => doc.setFormField(path, 'addressedBy', value);
+
+  String get targetMetric => doc.formField(path, 'targetMetric') ?? '';
+  set targetMetric(String value) => doc.setFormField(path, 'targetMetric', value);
 }
 
 /// Generated form facade for the `positionDetails` `@Form` section.
@@ -68592,6 +69006,23 @@ class ReviewCriterionEntryResultContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class RevisionEntryContentForm extends SomNode {
+  RevisionEntryContentForm(super.doc, super.path);
+
+  String get version => doc.formField(path, 'version') ?? '';
+  set version(String value) => doc.setFormField(path, 'version', value);
+
+  String get date => doc.formField(path, 'date') ?? '';
+  set date(String value) => doc.setFormField(path, 'date', value);
+
+  String get author => doc.formField(path, 'author') ?? '';
+  set author(String value) => doc.setFormField(path, 'author', value);
+
+  String get summary => doc.formField(path, 'summary') ?? '';
+  set summary(String value) => doc.setFormField(path, 'summary', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class RiskAnalysisContentForm extends SomNode {
   RiskAnalysisContentForm(super.doc, super.path);
 
@@ -74378,6 +74809,32 @@ class StakeholderEntryImpactContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
+class StakeholderRegisterEntryContentForm extends SomNode {
+  StakeholderRegisterEntryContentForm(super.doc, super.path);
+
+  String get stakeholderId => doc.formField(path, 'stakeholderId') ?? '';
+  set stakeholderId(String value) => doc.setFormField(path, 'stakeholderId', value);
+
+  String get name => doc.formField(path, 'name') ?? '';
+  set name(String value) => doc.setFormField(path, 'name', value);
+
+  String get role => doc.formField(path, 'role') ?? '';
+  set role(String value) => doc.setFormField(path, 'role', value);
+
+  String get interest => doc.formField(path, 'interest') ?? '';
+  set interest(String value) => doc.setFormField(path, 'interest', value);
+
+  String get influence => doc.formField(path, 'influence') ?? '';
+  set influence(String value) => doc.setFormField(path, 'influence', value);
+
+  String get concerns => doc.formField(path, 'concerns') ?? '';
+  set concerns(String value) => doc.setFormField(path, 'concerns', value);
+
+  String get engagementStrategy => doc.formField(path, 'engagementStrategy') ?? '';
+  set engagementStrategy(String value) => doc.setFormField(path, 'engagementStrategy', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
 class StakeholdersAndInterestsContentForm extends SomNode {
   StakeholdersAndInterestsContentForm(super.doc, super.path);
 
@@ -78384,6 +78841,23 @@ class TrainingAssessmentReportingContentForm extends SomNode {
 
   String get managementVisibility => doc.formField(path, 'managementVisibility') ?? '';
   set managementVisibility(String value) => doc.setFormField(path, 'managementVisibility', value);
+}
+
+/// Generated form facade for the `content` `@Form` section.
+class TrainingEnablementRequirementsContentForm extends SomNode {
+  TrainingEnablementRequirementsContentForm(super.doc, super.path);
+
+  String get targetAudiences => doc.formField(path, 'targetAudiences') ?? '';
+  set targetAudiences(String value) => doc.setFormField(path, 'targetAudiences', value);
+
+  String get competencyOutcomes => doc.formField(path, 'competencyOutcomes') ?? '';
+  set competencyOutcomes(String value) => doc.setFormField(path, 'competencyOutcomes', value);
+
+  String get certificationRequired => doc.formField(path, 'certificationRequired') ?? '';
+  set certificationRequired(String value) => doc.setFormField(path, 'certificationRequired', value);
+
+  String get ongoingEnablement => doc.formField(path, 'ongoingEnablement') ?? '';
+  set ongoingEnablement(String value) => doc.setFormField(path, 'ongoingEnablement', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.

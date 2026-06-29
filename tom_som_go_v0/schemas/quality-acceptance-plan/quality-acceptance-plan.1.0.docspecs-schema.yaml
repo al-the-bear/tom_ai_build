@@ -1,0 +1,642 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: quality-acceptance-plan/1.0
+
+section-types:
+  MSTPCR-ITEM-LST:
+    prefix: mstpcr_item_lst
+    pattern-check-id:
+      pattern: ^mstpcr_item_lst-\d+$
+      error-message: ID must match mstpcr_item_lst-NNN
+    description: Contains 0+× MustPassCriterion.
+  TESCNO-NOTE-LST:
+    prefix: tescno_note_lst
+    pattern-check-id:
+      pattern: ^tescno_note_lst-\d+$
+      error-message: ID must match tescno_note_lst-NNN
+    description: Notes.
+  UATSST-TEST-LST:
+    prefix: uatsst_test_lst
+    pattern-check-id:
+      pattern: ^uatsst_test_lst-\d+$
+      error-message: ID must match uatsst_test_lst-NNN
+    description: Contains 0+× UatTestStep for this scenario.
+  WASELE-SERV-LST:
+    prefix: wasele_serv_lst
+    pattern-check-id:
+      pattern: ^wasele_serv_lst-\d+$
+      error-message: ID must match wasele_serv_lst-NNN
+    description: Service levels.
+  CATEG-CATE-LST:
+    prefix: categ_cate_lst
+    pattern-check-id:
+      pattern: ^categ_cate_lst-\d+$
+      error-message: ID must match categ_cate_lst-NNN
+    description: Quality dependencies map.
+  DACEN-ITEM-LST:
+    prefix: dacen_item_lst
+    pattern-check-id:
+      pattern: ^dacen_item_lst-\d+$
+      error-message: ID must match dacen_item_lst-NNN
+    description: Contains 0+× DeliveryAcceptanceCriterion.
+  QCATE-QUAL-LST:
+    prefix: qcate_qual_lst
+    pattern-check-id:
+      pattern: ^qcate_qual_lst-\d+$
+      error-message: ID must match qcate_qual_lst-NNN
+    description: 11.1.2. Quality Categories — contains 0+× QualityCategory.
+  QGCHK-ITEM-LST:
+    prefix: qgchk_item_lst
+    pattern-check-id:
+      pattern: ^qgchk_item_lst-\d+$
+      error-message: ID must match qgchk_item_lst-NNN
+    description: Contains 0+× QualityGateCheck.
+  QLWGT-WEIG-LST:
+    prefix: qlwgt_weig_lst
+    pattern-check-id:
+      pattern: ^qlwgt_weig_lst-\d+$
+      error-message: ID must match qlwgt_weig_lst-NNN
+    description: Quality attribute weight entries.
+  UATCY-TEST-LST:
+    prefix: uatcy_test_lst
+    pattern-check-id:
+      pattern: ^uatcy_test_lst-\d+$
+      error-message: ID must match uatcy_test_lst-NNN
+    description: Contains 0+× UatTestCycle.
+  ACST-STEP-LST:
+    prefix: acst_step_lst
+    pattern-check-id:
+      pattern: ^acst_step_lst-\d+$
+      error-message: ID must match acst_step_lst-NNN
+    description: Contains 0+× AcceptanceStep.
+  SLAE-SLAE-LST:
+    prefix: slae_slae_lst
+    pattern-check-id:
+      pattern: ^slae_slae_lst-\d+$
+      error-message: ID must match slae_slae_lst-NNN
+    description: Service Level Agreement entries.
+  TODE-ITEM-LST:
+    prefix: tode_item_lst
+    pattern-check-id:
+      pattern: ^tode_item_lst-\d+$
+      error-message: ID must match tode_item_lst-NNN
+    description: Contains 0+× TradeOffDecision.
+  TSSC-TEST-LST:
+    prefix: tssc_test_lst
+    pattern-check-id:
+      pattern: ^tssc_test_lst-\d+$
+      error-message: ID must match tssc_test_lst-NNN
+    description: Contains 0+× TestScenario.
+  ACCRSU:
+    prefix: accrsu
+    description: 11.7. Acceptance Criteria Summary.
+  ACPRDE:
+    prefix: acprde
+    description: Decision framework.
+  ACPRDO:
+    prefix: acprdo
+    description: Documentation.
+  ACPRES:
+    prefix: acpres
+    description: Escalation.
+  ACPROV:
+    prefix: acprov
+    description: Process overview.
+  ACPRPA:
+    prefix: acprpa
+    description: Participants and governance.
+  ACPRTI:
+    prefix: acprti
+    description: Timeline and schedule.
+  ACRITL:
+    prefix: acritl
+    description: 14.2.1. Acceptance Criteria.
+  AVQUMA:
+    prefix: avquma
+    description: Maintenance window policy.
+  AVQUVE:
+    prefix: avquve
+    description: Monitoring and reporting.
+  COQUAC:
+    prefix: coquac
+    description: Accuracy and auditability requirements.
+  COQUIN:
+    prefix: coquin
+    description: Data integrity expectations.
+  COQUVE:
+    prefix: coquve
+    description: Verification and regression approach.
+  DACEOW:
+    prefix: daceow
+    description: Responsibility assignments.
+  DEREPR:
+    prefix: derepr
+    description: "Triage, retest, and escalation process."
+  DERERE:
+    prefix: derere
+    description: Reporting and closure rules.
+  DERESL:
+    prefix: deresl
+    description: Classification refinement and SLA targets.
+  DERETH:
+    prefix: dereth
+    description: Acceptance thresholds and deferral rules.
+  DOCHQU:
+    prefix: dochqu
+    description: 11.5.4. Documentation changeability quality.
+  DOCOQ1:
+    prefix: docoq1
+    description: 11.5.3. Documentation correctness quality.
+  DOCOQU:
+    prefix: docoqu
+    description: 11.5.2. Documentation completeness quality.
+  DOQUCR:
+    prefix: doqucr
+    description: 11.5. Documentation Quality Criteria.
+  EFQURE:
+    prefix: efqure
+    description: Resource utilization constraints.
+  EFQUTH:
+    prefix: efquth
+    description: Throughput and scale targets.
+  EFQUVE:
+    prefix: efquve
+    description: Performance validation and SLA commitments.
+  FLQUDE:
+    prefix: flqude
+    description: Distribution and configurability model.
+  FLQUEX:
+    prefix: flquex
+    description: Extensibility and verification expectations.
+  FLQUMO:
+    prefix: flqumo
+    description: Modularity and reuse goals.
+  MAQUAN:
+    prefix: maquan
+    description: Analyzability requirements.
+  MAQUCH:
+    prefix: maquch
+    description: Changeability requirements.
+  MAQUGO:
+    prefix: maqugo
+    description: Extensibility and verification requirements.
+  MAQUTE:
+    prefix: maqute
+    description: Testability requirements.
+  MOQUAL:
+    prefix: moqual
+    description: Alerting strategy and channels.
+  MOQUAU:
+    prefix: moquau
+    description: Alert automation capabilities.
+  MOQUCO:
+    prefix: moquco
+    description: Component monitoring coverage.
+  MOQUOP:
+    prefix: moquop
+    description: Planning and observability settings.
+  MSTPCR:
+    prefix: mstpcr
+    description: A must-pass criterion entry (form).
+  MUPACR:
+    prefix: mupacr
+    description: 11.7.1. Must-Pass Criteria.
+  OPQUCR:
+    prefix: opqucr
+    description: 11.4. Operations Quality Criteria.
+  QUGACH:
+    prefix: qugach
+    description: 11.7.2. Quality Gate Checklist.
+  REQUCO:
+    prefix: requco
+    description: Comprehensibility requirements.
+  REQUDU:
+    prefix: requdu
+    description: Data durability requirements.
+  REQUFA:
+    prefix: requfa
+    description: Failover requirements.
+  REQUNA:
+    prefix: requna
+    description: Identifiability and navigation.
+  REQURE:
+    prefix: requre
+    description: Recovery objectives.
+  REQUS1:
+    prefix: requs1
+    description: Style guide alignment.
+  REQUST:
+    prefix: requst
+    description: Document structure rules.
+  REQUVE:
+    prefix: requve
+    description: Verification and learning.
+  SELEQU:
+    prefix: selequ
+    description: 11.4.2. Service level quality.
+  SEQUA1:
+    prefix: sequa1
+    description: Authorization controls.
+  SEQUAU:
+    prefix: sequau
+    description: Authentication controls.
+  SEQUCO:
+    prefix: sequco
+    description: Compliance and verification settings.
+  SEQUVU:
+    prefix: sequvu
+    description: Vulnerability management expectations.
+  SIOFPR:
+    prefix: siofpr
+    description: 14.2.5. Sign-off Process.
+  TEQUCR:
+    prefix: tequcr
+    description: 11.3. Technical Quality Criteria.
+  TESCBU:
+    prefix: tescbu
+    description: Business context for test scenario.
+  TESCEX:
+    prefix: tescex
+    description: Execution for test scenario.
+  TESCID:
+    prefix: tescid
+    description: Identification for test scenario.
+  TESCNO:
+    prefix: tescno
+    description: Notes for test scenario.
+  TESCSE:
+    prefix: tescse
+    description: Setup for test scenario.
+  TESCTR:
+    prefix: tesctr
+    description: Traceability for test scenario.
+  TROFDE:
+    prefix: trofde
+    description: 11.6.2. Trade-off Decisions.
+  UADEMA:
+    prefix: uadema
+    description: Defect management for UAT.
+  UANOFU:
+    prefix: uanofu
+    description: Non-functional acceptance for UAT.
+  UASIOF:
+    prefix: uasiof
+    description: Sign-off for UAT.
+  UATEDA:
+    prefix: uateda
+    description: Test data for UAT.
+  UATSST:
+    prefix: uatsst
+    description: A UAT test step entry.
+  USACTE:
+    prefix: usacte
+    description: 14.2.3. User Acceptance Testing.
+  WASELE:
+    prefix: wasele
+    description: Service levels.
+  WEQUMA:
+    prefix: wequma
+    description: 11.6.1. Weighted Quality Matrix.
+  ACPR1:
+    prefix: acpr1
+    description: 14.2.2. Acceptance Process.
+  CATEG:
+    prefix: categ
+    description: A single category dependency entry.
+  DACED:
+    prefix: daced
+    description: Priority and description.
+  DACEN:
+    prefix: dacen
+    description: An acceptance criterion entry (form).
+  DACES:
+    prefix: daces
+    description: Current status and notes.
+  DACET:
+    prefix: dacet
+    description: Traceability links.
+  DACEV:
+    prefix: dacev
+    description: Verification method and evidence.
+  DOCHD:
+    prefix: dochd
+    description: Standard document header present at the top of every TomSpecs document.
+  FNCOQ:
+    prefix: fncoq
+    description: 11.2.2. Functional completeness quality.
+  ISOQA:
+    prefix: isoqa
+    description: Access protection controls.
+  ISOQI:
+    prefix: isoqi
+    description: Incident handling and reporting.
+  ISOQR:
+    prefix: isoqr
+    description: Disaster recovery planning details.
+  ISOQT:
+    prefix: isoqt
+    description: Penetration testing and remediation.
+  MPCED:
+    prefix: mpced
+    description: Classification and intent of the criterion.
+  MPCEG:
+    prefix: mpceg
+    description: Responsibility and dependency information.
+  MPCES:
+    prefix: mpces
+    description: Execution status and defects.
+  MPCEV:
+    prefix: mpcev
+    description: Verification and threshold details.
+  QCADF:
+    prefix: qcadf
+    description: Description and priority context.
+  QCAGV:
+    prefix: qcagv
+    description: Governance ownership.
+  QCAMT:
+    prefix: qcamt
+    description: Measurement targets.
+  QCARL:
+    prefix: qcarl
+    description: Category relationships.
+  QCATE:
+    prefix: qcate
+    description: A quality category entry (form).
+  QFOBJ:
+    prefix: qfobj
+    description: Quality objective structure and alignment.
+  QFTRD:
+    prefix: qftrd
+    description: Trade-off priorities and decision authority.
+  QFVER:
+    prefix: qfver
+    description: Verification and defect handling approach.
+  QGCEB:
+    prefix: qgceb
+    description: Blocking behavior.
+  QGCED:
+    prefix: qgced
+    description: Check definition and categorization.
+  QGCEE:
+    prefix: qgcee
+    description: Responsibility and timing.
+  QGCES:
+    prefix: qgces
+    description: Status and observations.
+  QGCEV:
+    prefix: qgcev
+    description: Verification criteria and evidence.
+  QGCHK:
+    prefix: qgchk
+    description: A quality gate check entry (form).
+  QLFWK:
+    prefix: qlfwk
+    description: 11.1. Quality Framework.
+  QLWGT:
+    prefix: qlwgt
+    description: A quality weight entry.
+  REQU1:
+    prefix: requ1
+    description: 11.5.1. Readability quality.
+  SLQOC:
+    prefix: slqoc
+    description: On-call support expectations.
+  SLQR1:
+    prefix: slqr1
+    description: Resolution targets.
+  SLQR2:
+    prefix: slqr2
+    description: Restoration and communication priorities.
+  TODEA:
+    prefix: todea
+    description: Approval and governance for trade-off decision.
+  TODEI:
+    prefix: todei
+    description: Impact assessment for trade-off decision.
+  TODEM:
+    prefix: todem
+    description: Mitigation measures for trade-off decision.
+  TODEQ:
+    prefix: todeq
+    description: Qualities in conflict for trade-off decision.
+  TODER:
+    prefix: toder
+    description: Rationale for trade-off decision.
+  UASC1:
+    prefix: uasc1
+    description: Schedule for UAT.
+  UATCY:
+    prefix: uatcy
+    description: A UAT test cycle entry.
+  USACL:
+    prefix: usacl
+    description: Clarity and complexity constraints.
+  USAIN:
+    prefix: usain
+    description: Interaction control settings.
+  USALN:
+    prefix: usaln
+    description: Learnability and onboarding expectations.
+  USAOP:
+    prefix: usaop
+    description: Operability verification and ergonomics goals.
+  USAPR:
+    prefix: usapr
+    description: Perceived and measured responsiveness targets.
+  USAQL:
+    prefix: usaql
+    description: 11.2.1. Usability quality.
+  USQCR:
+    prefix: usqcr
+    description: 11.2. User-Related Quality Criteria.
+  UTCEE:
+    prefix: utcee
+    description: Staffing and risk context.
+  UTCES:
+    prefix: utces
+    description: Scope and pass criteria for this cycle.
+  ACST:
+    prefix: acst
+    description: An acceptance step entry (form).
+  AQDM:
+    prefix: aqdm
+    description: Degraded-mode behavior.
+  AQOH:
+    prefix: aqoh
+    description: Operating-hour expectations.
+  ASEF:
+    prefix: asef
+    description: Participants and execution flow.
+  ASEO:
+    prefix: aseo
+    description: Exit outcomes and timing.
+  AVQU:
+    prefix: avqu
+    description: 11.4.1. Availability quality.
+  COQU:
+    prefix: coqu
+    description: 11.2.3. Correctness quality.
+  DCQA:
+    prefix: dcqa
+    description: Formatting and implementation alignment.
+  DCQE:
+    prefix: dcqe
+    description: Extensibility and localization readiness.
+  DCQM:
+    prefix: dcqm
+    description: Review and retirement maintenance process.
+  DCQS:
+    prefix: dcqs
+    description: Sizing and structural consistency rules.
+  DCQV:
+    prefix: dcqv
+    description: Verification and feedback handling.
+  DERE:
+    prefix: dere
+    description: 14.2.4. Defect Resolution.
+  EFQU:
+    prefix: efqu
+    description: 11.3.1. Efficiency quality.
+  FLQU:
+    prefix: flqu
+    description: 11.3.3. Flexibility quality.
+  ISOQ:
+    prefix: isoq
+    description: 11.4.4. IT Security Operations quality.
+  MAQU:
+    prefix: maqu
+    description: 11.3.5. Maintainability quality.
+  MOQU:
+    prefix: moqu
+    description: 11.4.3. Monitoring quality.
+  POQU:
+    prefix: poqu
+    description: 11.3.2. Portability quality.
+  QUPR:
+    prefix: qupr
+    description: 11.6. Quality Prioritization.
+  REQU:
+    prefix: requ
+    description: 11.3.6. Reliability quality.
+  SEQU:
+    prefix: sequ
+    description: 11.3.4. Security quality.
+  SLAE:
+    prefix: slae
+    description: A service level agreement entry.
+  SLQE:
+    prefix: slqe
+    description: Escalation rules.
+  SLQR:
+    prefix: slqr
+    description: Remaining response targets.
+  SOPA:
+    prefix: sopa
+    description: Conditional or partial acceptance policies.
+  SOPC:
+    prefix: sopc
+    description: Legal and contractual consequences.
+  SOPE:
+    prefix: sope
+    description: Evidence and checklist requirements.
+  SOPG:
+    prefix: sopg
+    description: Signatory and quorum governance.
+  SOPT:
+    prefix: sopt
+    description: Review timeline.
+  TEST:
+    prefix: test
+    description: 11.8. Test Strategy.
+  TODE:
+    prefix: tode
+    description: A trade-off decision entry (form).
+  TSPE:
+    prefix: tspe
+    description: Post-execution for test scenario.
+  TSSC:
+    prefix: tssc
+    description: A test scenario entry (form).
+  UACR:
+    prefix: uacr
+    description: Criteria for UAT.
+  UAEN:
+    prefix: uaen
+    description: Environment for UAT.
+  UAGO:
+    prefix: uago
+    description: Governance for UAT.
+  UARE:
+    prefix: uare
+    description: Reporting for UAT.
+  UASC:
+    prefix: uasc
+    description: Scope and objectives for UAT.
+  UATR:
+    prefix: uatr
+    description: Training and readiness for UAT.
+  WACO:
+    prefix: waco
+    description: Scope of coverage.
+  WADU:
+    prefix: wadu
+    description: Duration and activation.
+  WAFI:
+    prefix: wafi
+    description: Financial terms.
+  WAPR:
+    prefix: wapr
+    description: Process for defect handling.
+  WATE:
+    prefix: wate
+    description: 14.2.6. Warranty.
+  WATR:
+    prefix: watr
+    description: Transition to support.
+document:
+  sections:
+    header:
+      section-type: DOCHD
+      optional: true
+    qualityframework:
+      section-type: QLFWK
+      optional: true
+    userqualitycriteria:
+      section-type: USQCR
+      optional: true
+    technicalqualitycriteria:
+      section-type: TEQUCR
+      optional: true
+    operationsqualitycriteria:
+      section-type: OPQUCR
+      optional: true
+    documentationqualitycriteria:
+      section-type: DOQUCR
+      optional: true
+    qualityprioritization:
+      section-type: QUPR
+      optional: true
+    acceptancecriteriasummary:
+      section-type: ACCRSU
+      optional: true
+    teststrategy:
+      section-type: TEST
+      optional: true
+    acceptancecriteria:
+      section-type: ACRITL
+      optional: true
+    acceptanceprocess:
+      section-type: ACPR1
+      optional: true
+    useracceptancetesting:
+      section-type: USACTE
+      optional: true
+    defectresolution:
+      section-type: DERE
+      optional: true
+    signoffprocess:
+      section-type: SIOFPR
+      optional: true
+    warranty:
+      section-type: WATE
+      optional: true

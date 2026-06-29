@@ -35,7 +35,7 @@ function _parseProbability(token) {
   return null;
 }
 
-class CurrentSituation extends SomNode {
+class CurrentLandscapeAssessment extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -46,49 +46,6 @@ class CurrentSituation extends SomNode {
 
   set summary(value) {
     this.doc.setContent(this.path + "/summary", value);
-  }
-}
-
-// Root of a project definition document.
-class ProjectDefinition extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "PD00");
-    checkSomModelVersion(ProjectDefinition.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return ProjectDefinition.MODEL_VERSION;
-  }
-
-  // Why the system exists.
-  get vision() {
-    return this.doc.content(this.path + "/vision") || '';
-  }
-
-  set vision(value) {
-    this.doc.setContent(this.path + "/vision", value);
-  }
-
-  get owner() {
-    return new ProjectDefinitionOwnerForm(this.doc, this.path + "/owner");
-  }
-
-  get risks() {
-    return new SomList(this.doc, this.path + "/risks", (d, p) => new Risk(d, p));
-  }
-
-  get tags() {
-    return new SomList(this.doc, this.path + "/tags", (d, p) => new SomScalar(d, p));
-  }
-
-  get situation() {
-    return new CurrentSituation(this.doc, this.path + "/situation");
   }
 }
 
@@ -114,8 +71,51 @@ class Risk extends SomNode {
   }
 }
 
+// Root of a project definition document.
+class SolutionBlueprint extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "PD00");
+    checkSomModelVersion(SolutionBlueprint.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return SolutionBlueprint.MODEL_VERSION;
+  }
+
+  // Why the system exists.
+  get vision() {
+    return this.doc.content(this.path + "/vision") || '';
+  }
+
+  set vision(value) {
+    this.doc.setContent(this.path + "/vision", value);
+  }
+
+  get owner() {
+    return new SolutionBlueprintOwnerForm(this.doc, this.path + "/owner");
+  }
+
+  get risks() {
+    return new SomList(this.doc, this.path + "/risks", (d, p) => new Risk(d, p));
+  }
+
+  get tags() {
+    return new SomList(this.doc, this.path + "/tags", (d, p) => new SomScalar(d, p));
+  }
+
+  get situation() {
+    return new CurrentLandscapeAssessment(this.doc, this.path + "/situation");
+  }
+}
+
 // Generated form facade for the `owner` @Form section.
-class ProjectDefinitionOwnerForm extends SomNode {
+class SolutionBlueprintOwnerForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
   }
@@ -139,8 +139,8 @@ class ProjectDefinitionOwnerForm extends SomNode {
 
 module.exports = {
   Probability,
-  CurrentSituation,
-  ProjectDefinition,
+  CurrentLandscapeAssessment,
   Risk,
-  ProjectDefinitionOwnerForm,
+  SolutionBlueprint,
+  SolutionBlueprintOwnerForm,
 };

@@ -9,7 +9,7 @@ package somv0
 
 import som "tom_som_go_runtime"
 
-// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+// 14.2.1. Acceptance Criteria.
 type AcceptanceCriteriaList struct {
 	som.SomNode
 }
@@ -34,7 +34,7 @@ func (x *AcceptanceCriteriaList) Items() *som.SomList[*DeliveryAcceptanceCriteri
 	})
 }
 
-// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+// 11.7. Acceptance Criteria Summary.
 //
 // Quality acceptance criteria for the project including must-pass criteria
 // and quality gate checklists.
@@ -54,12 +54,12 @@ func (x *AcceptanceCriteriaSummary) AcceptanceFrameworkContent() *AcceptanceCrit
 // Acceptance criteria overview.
 // (skipped: acceptanceOverview has no target type)
 
-// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+// 11.7.1. Must-Pass Criteria.
 func (x *AcceptanceCriteriaSummary) MustPassCriteria() *MustPassCriteria {
 	return NewMustPassCriteria(x.Doc(), x.Path() + "/mustPassCriteria")
 }
 
-// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+// 11.7.2. Quality Gate Checklist.
 func (x *AcceptanceCriteriaSummary) QualityGateChecklist() *QualityGateChecklist {
 	return NewQualityGateChecklist(x.Doc(), x.Path() + "/qualityGateChecklist")
 }
@@ -83,7 +83,7 @@ func (x *AcceptanceCriterionEntry) Content() *AcceptanceCriterionEntryContentFor
 	return NewAcceptanceCriterionEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → BQP.
 type AcceptancePlan struct {
 	som.SomNode
 }
@@ -101,37 +101,37 @@ func (x *AcceptancePlan) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+// 14.2.1. Acceptance Criteria.
 func (x *AcceptancePlan) AcceptanceCriteria() *AcceptanceCriteriaList {
 	return NewAcceptanceCriteriaList(x.Doc(), x.Path() + "/acceptanceCriteria")
 }
 
-// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+// 14.2.2. Acceptance Process.
 func (x *AcceptancePlan) AcceptanceProcess() *AcceptanceProcess {
 	return NewAcceptanceProcess(x.Doc(), x.Path() + "/acceptanceProcess")
 }
 
-// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+// 14.2.3. User Acceptance Testing.
 func (x *AcceptancePlan) UserAcceptanceTesting() *UserAcceptanceTesting {
 	return NewUserAcceptanceTesting(x.Doc(), x.Path() + "/userAcceptanceTesting")
 }
 
-// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+// 14.2.4. Defect Resolution.
 func (x *AcceptancePlan) DefectResolution() *DefectResolution {
 	return NewDefectResolution(x.Doc(), x.Path() + "/defectResolution")
 }
 
-// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+// 14.2.5. Sign-off Process.
 func (x *AcceptancePlan) SignOffProcess() *SignOffProcess {
 	return NewSignOffProcess(x.Doc(), x.Path() + "/signOffProcess")
 }
 
-// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+// 14.2.6. Warranty.
 func (x *AcceptancePlan) Warranty() *WarrantyTerms {
 	return NewWarrantyTerms(x.Doc(), x.Path() + "/warranty")
 }
 
-// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+// 14.2.2. Acceptance Process.
 //
 // Defines the formal acceptance workflow from test initiation through
 // final sign-off. Covers roles, responsibilities, timelines, escalation,
@@ -273,7 +273,7 @@ func (x *AcceptanceProcessTimeline) Content() *AcceptanceProcessTimelineContentF
 	return NewAcceptanceProcessTimelineContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
+// An acceptance step entry (form).
 //
 // A single step in the formal acceptance workflow, with entry/exit
 // conditions, responsible parties, and outputs.
@@ -328,65 +328,7 @@ func (x *AcceptanceStepEntryOutcome) Content() *AcceptanceStepEntryOutcomeConten
 	return NewAcceptanceStepEntryOutcomeContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
-type AccessAndAuthorizationConcept struct {
-	som.SomNode
-}
-
-// NewAccessAndAuthorizationConcept binds a AccessAndAuthorizationConcept facade to a document and a path.
-func NewAccessAndAuthorizationConcept(doc *som.SpecDocument, path string) *AccessAndAuthorizationConcept {
-	return &AccessAndAuthorizationConcept{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AccessAndAuthorizationConcept) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AccessAndAuthorizationConcept) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// 9.1. User Management [PD00-ACC-USE].
-func (x *AccessAndAuthorizationConcept) UserManagement() *UserManagement {
-	return NewUserManagement(x.Doc(), x.Path() + "/userManagement")
-}
-
-// 9.2. Identification and Authentication [PD00-ACC-IDE].
-func (x *AccessAndAuthorizationConcept) Authentication() *IdentificationAndAuthentication {
-	return NewIdentificationAndAuthentication(x.Doc(), x.Path() + "/authentication")
-}
-
-// 9.3. Resource Protection [PD00-ACC-RES].
-func (x *AccessAndAuthorizationConcept) ResourceProtection() *ResourceProtection {
-	return NewResourceProtection(x.Doc(), x.Path() + "/resourceProtection")
-}
-
-// 9.4. User Authorization [PD00-ACC-USA].
-func (x *AccessAndAuthorizationConcept) Authorization() *UserAuthorization {
-	return NewUserAuthorization(x.Doc(), x.Path() + "/authorization")
-}
-
-// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
-func (x *AccessAndAuthorizationConcept) Encryption() *SensitiveDataEncryption {
-	return NewSensitiveDataEncryption(x.Doc(), x.Path() + "/encryption")
-}
-
-// 9.6. Audit and Logging [PD00-ACC-AUD].
-func (x *AccessAndAuthorizationConcept) AuditAndLogging() *AuditAndLogging {
-	return NewAuditAndLogging(x.Doc(), x.Path() + "/auditAndLogging")
-}
-
-// 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
-func (x *AccessAndAuthorizationConcept) RoleMatrix() *RoleMatrix {
-	return NewRoleMatrix(x.Doc(), x.Path() + "/roleMatrix")
-}
-
-// 9.8. Compliance Framework [PD00-ACC-CMP].
-func (x *AccessAndAuthorizationConcept) ComplianceFramework() *ComplianceFramework {
-	return NewComplianceFramework(x.Doc(), x.Path() + "/complianceFramework")
-}
-
-// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+// 4.1.5.1. Access Channels.
 //
 // Defines all channels through which users can access the system including
 // web, mobile, desktop applications, APIs, and other interfaces.
@@ -472,7 +414,7 @@ func (x *AccessControlModelSelection) SetContent(value string) {
 // Access Control Model Details (text).
 // (skipped: accessControlModelDetails has no target type)
 
-// An access level entry (form) [PD00-SYO-SYD-USI-ACC-nn].
+// An access level entry (form).
 type AccessLevelEntry struct {
 	som.SomNode
 }
@@ -543,7 +485,7 @@ func (x *AccessLevelEntryScope) Content() *AccessLevelEntryScopeContentForm {
 	return NewAccessLevelEntryScopeContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+// 4.1.5.3. Access Levels.
 //
 // Defines the access level hierarchy and how permissions are structured
 // across user categories and system functions.
@@ -589,7 +531,7 @@ func (x *AccessLevels) SetPermissionMatrix(value string) {
 	x.Doc().SetContent(x.Path() + "/permissionMatrix", value)
 }
 
-// An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
+// An access restriction entry (form).
 //
 // Specific access restrictions for classified data.
 type AccessRestrictionEntry struct {
@@ -605,7 +547,7 @@ func (x *AccessRestrictionEntry) Content() *AccessRestrictionEntryContentForm {
 	return NewAccessRestrictionEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+// 9.1.1. User Categories.
 type AccessUserCategories struct {
 	som.SomNode
 }
@@ -630,7 +572,7 @@ func (x *AccessUserCategories) Items() *som.SomList[*UserCategoryDefinition] {
 	})
 }
 
-// 10.9. Accessibility [PD00-USE-ACC].
+// 10.9. Accessibility.
 //
 // Comprehensive accessibility requirements for the user interface following
 // WCAG guidelines and inclusive design principles.
@@ -665,12 +607,12 @@ func (x *Accessibility) Support() *AccessibilitySupport {
 // Accessibility overview narrative.
 // (skipped: accessibilityOverview has no target type)
 
-// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+// 10.9.1. WCAG Compliance Level.
 func (x *Accessibility) WcagComplianceLevel() *WcagCompliance {
 	return NewWcagCompliance(x.Doc(), x.Path() + "/wcagComplianceLevel")
 }
 
-// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+// 10.9.2. Accessibility Checklist.
 func (x *Accessibility) AccessibilityChecklist() *AccessibilityChecklist {
 	return NewAccessibilityChecklist(x.Doc(), x.Path() + "/accessibilityChecklist")
 }
@@ -684,7 +626,7 @@ func (x *Accessibility) AccessibilityChecklist() *AccessibilityChecklist {
 // Color and contrast specification.
 // (skipped: colorAndContrast has no target type)
 
-// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
+// An accessibility check entry (form).
 type AccessibilityCheckEntry struct {
 	som.SomNode
 }
@@ -755,7 +697,7 @@ func (x *AccessibilityCheckEntryRemediation) Content() *AccessibilityCheckEntryR
 	return NewAccessibilityCheckEntryRemediationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+// 10.9.2. Accessibility Checklist.
 //
 // Comprehensive accessibility verification checklist.
 type AccessibilityChecklist struct {
@@ -1128,7 +1070,7 @@ func (x *ActorDiagramOverview) Content() *ActorDiagramOverviewContentForm {
 	return NewActorDiagramOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An actor entry [PD00-TAR-STP-ACT-nn].
+// An actor entry.
 //
 // Comprehensive actor definition following UML and Cockburn conventions.
 type ActorEntry struct {
@@ -1216,7 +1158,7 @@ func (x *ActorInteractionsSummary) Content() *ActorInteractionsSummaryContentFor
 	return NewActorInteractionsSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.2.1. Actor Overview [PD00-TAR-STP-ACT].
+// 6.2.1. Actor Overview.
 //
 // Actors represent roles that interact with the system. Follows UML actor
 // modeling conventions with Cockburn-style goal and scope annotations.
@@ -1282,7 +1224,7 @@ func (x *ActorPermissions) Content() *ActorPermissionsContentForm {
 	return NewActorPermissionsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA].
+// 6.2. Actor Relationship Diagram.
 type ActorRelationshipDiagram struct {
 	som.SomNode
 }
@@ -1402,7 +1344,7 @@ func (x *AdminInterfaceRequirementsOperations) Content() *AdminInterfaceRequirem
 	return NewAdminInterfaceRequirementsOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+// 8.7.1.1. Administration Requirements.
 type AdministrationRequirementsSection struct {
 	som.SomNode
 }
@@ -1453,7 +1395,7 @@ func (x *AdministrationRequirementsSection) DiagnosticTools() *SystemDiagnosticT
 	return NewSystemDiagnosticTools(x.Doc(), x.Path() + "/diagnosticTools")
 }
 
-// 3. Administrative [PD00-ADM].
+// 3. Administrative.
 //
 // Project-specific administrative information including team composition,
 // distribution channels, procedural agreements, and reference documentation.
@@ -1481,32 +1423,32 @@ func (x *Administrative) Summary() *AdministrativeSummary {
 	return NewAdministrativeSummary(x.Doc(), x.Path() + "/summary")
 }
 
-// 3.1. Project Organization [PD00-ADM-PRO].
+// 3.1. Project Organization.
 func (x *Administrative) ProjectOrganization() *ProjectOrganization {
 	return NewProjectOrganization(x.Doc(), x.Path() + "/projectOrganization")
 }
 
-// 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
+// 3.2. Project Team Staffing — contains 1+× Team Member.
 func (x *Administrative) ProjectTeamStaffing() *ProjectTeamStaffing {
 	return NewProjectTeamStaffing(x.Doc(), x.Path() + "/projectTeamStaffing")
 }
 
-// 3.3. Distribution List [PD00-ADM-DIS].
+// 3.3. Distribution List.
 func (x *Administrative) DistributionList() *DistributionList {
 	return NewDistributionList(x.Doc(), x.Path() + "/distributionList")
 }
 
-// 3.4. Change Procedure [PD00-ADM-CHA].
+// 3.4. Change Procedure.
 func (x *Administrative) ChangeProcedure() *ChangeProcedure {
 	return NewChangeProcedure(x.Doc(), x.Path() + "/changeProcedure")
 }
 
-// 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
+// 3.5. Reference Documents — contains 0+× Reference Document.
 func (x *Administrative) ReferenceDocuments() *ReferenceDocuments {
 	return NewReferenceDocuments(x.Doc(), x.Path() + "/referenceDocuments")
 }
 
-// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+// 3.6. Other Administrative Requirements.
 func (x *Administrative) OtherAdministrative() *OtherAdministrativeRequirements {
 	return NewOtherAdministrativeRequirements(x.Doc(), x.Path() + "/otherAdministrative")
 }
@@ -1544,7 +1486,7 @@ func (x *AdministrativeSummary) Content() *AdministrativeSummaryContentForm {
 	return NewAdministrativeSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An affected department entry [PD00-SYO-RES-ORG-DEP-nn].
+// An affected department entry.
 type AffectedDepartmentEntry struct {
 	som.SomNode
 }
@@ -1558,7 +1500,7 @@ func (x *AffectedDepartmentEntry) Content() *AffectedDepartmentEntryContentForm 
 	return NewAffectedDepartmentEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
+// An affected function reference entry (form).
 //
 // Functions where this rule applies.
 type AffectedFunctionEntry struct {
@@ -1582,7 +1524,7 @@ func (x *AffectedFunctionEntry) SetFunctionRef(value string) {
 	x.Doc().SetContent(x.Path() + "/functionRef", value)
 }
 
-// An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
+// An affected object reference entry (form).
 //
 // Business objects affected by this rule.
 type AffectedObjectEntry struct {
@@ -1819,7 +1761,7 @@ func (x *AlertNotificationChannelsRouting) Content() *AlertNotificationChannelsR
 	return NewAlertNotificationChannelsRoutingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An alert rule entry [PD00-TEC-SYS-MON-ALR-nn].
+// An alert rule entry.
 type AlertRuleEntry struct {
 	som.SomNode
 }
@@ -1904,7 +1846,7 @@ func (x *AlertSuppressionRules) Content() *AlertSuppressionRulesContentForm {
 	return NewAlertSuppressionRulesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+// 8.7.2.2. Alerting Configuration.
 //
 // Comprehensive alerting rules, notification channels, and escalation
 // policies.
@@ -2043,7 +1985,7 @@ func (x *AlertingRequirementsSuppression) Content() *AlertingRequirementsSuppres
 	return NewAlertingRequirementsSuppressionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn].
+// An alternative flow entry.
 type AlternativeFlowEntry struct {
 	som.SomNode
 }
@@ -2064,7 +2006,7 @@ func (x *AlternativeFlowEntry) Steps() *som.SomList[*AlternativeStepEntry] {
 	})
 }
 
-// An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn].
+// An alternative step entry.
 type AlternativeStepEntry struct {
 	som.SomNode
 }
@@ -2338,7 +2280,7 @@ func (x *ApiRequestValidationPolicy) SetContent(value string) {
 // Request Validation Details (text).
 // (skipped: requestValidationDetails has no target type)
 
-// 9.3.2. API Security [PD00-ACC-RES-API].
+// 9.3.2. API Security.
 //
 // Comprehensive API security specification covering authentication,
 // authorization, request validation, CORS policy, input sanitization,
@@ -2816,6 +2758,20 @@ func (x *ApplicationSecurityRequirementsValidation) Content() *ApplicationSecuri
 	return NewApplicationSecurityRequirementsValidationContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// A formal approval / sign-off record (form).
+type ApprovalRecord struct {
+	som.SomNode
+}
+
+// NewApprovalRecord binds a ApprovalRecord facade to a document and a path.
+func NewApprovalRecord(doc *som.SpecDocument, path string) *ApprovalRecord {
+	return &ApprovalRecord{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ApprovalRecord) Content() *ApprovalRecordContentForm {
+	return NewApprovalRecordContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // Architecture component/service entry.
 type ArchitectureComponentEntry struct {
 	som.SomNode
@@ -3157,7 +3113,7 @@ func (x *ArchitecturePrincipleEntryGuidance) Content() *ArchitecturePrincipleEnt
 	return NewArchitecturePrincipleEntryGuidanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+// 8.1.2. Architecture Style.
 //
 // Target architecture style specification: monolith, modular monolith,
 // microservices, event-driven, serverless, or hybrid. Includes justification
@@ -3235,7 +3191,142 @@ func (x *ArchitectureStyle) DecisionRecords() *som.SomList[*ArchitectureDecision
 	})
 }
 
-// An assumption entry [PD00-SYO-RIS-ASS-nn] (form).
+// TR00 Technical Requirements.
+//
+// Comprehensive technical requirements: basic / software / standard-
+// software / hardware / operations / communication / system-operation
+// / security / architecture, plus components, framework conditions,
+// and translation handling.
+type ArchitectureTechnologySpecification struct {
+	som.SomNode
+}
+
+// ArchitectureTechnologySpecificationModelVersion is the model version this object model was generated
+// against (§2.1).
+const ArchitectureTechnologySpecificationModelVersion = "0.0"
+
+// NewArchitectureTechnologySpecification creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewArchitectureTechnologySpecification(doc *som.SpecDocument, documentVersion string) (*ArchitectureTechnologySpecification, error) {
+	if err := som.CheckSomModelVersion(ArchitectureTechnologySpecificationModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &ArchitectureTechnologySpecification{SomNode: som.NewSomNode(doc, "ATS")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *ArchitectureTechnologySpecification) ObjectModelVersion() string {
+	return ArchitectureTechnologySpecificationModelVersion
+}
+
+func (x *ArchitectureTechnologySpecification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ArchitectureTechnologySpecification) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *ArchitectureTechnologySpecification) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Basic technical requirements.
+func (x *ArchitectureTechnologySpecification) BasicTechnicalRequirements() *BasicTechnicalRequirements {
+	return NewBasicTechnicalRequirements(x.Doc(), x.Path() + "/basicTechnicalRequirements")
+}
+
+// Software design requirements.
+func (x *ArchitectureTechnologySpecification) SoftwareDesignRequirements() *SoftwareDesignRequirements {
+	return NewSoftwareDesignRequirements(x.Doc(), x.Path() + "/softwareDesignRequirements")
+}
+
+// Standard application software requirements.
+func (x *ArchitectureTechnologySpecification) StandardSoftwareRequirements() *StandardSoftwareRequirements {
+	return NewStandardSoftwareRequirements(x.Doc(), x.Path() + "/standardSoftwareRequirements")
+}
+
+// Hardware concept requirements.
+func (x *ArchitectureTechnologySpecification) HardwareRequirements() *HardwareRequirements {
+	return NewHardwareRequirements(x.Doc(), x.Path() + "/hardwareRequirements")
+}
+
+// Operations requirements.
+func (x *ArchitectureTechnologySpecification) OperationsRequirements() *OperationsRequirements {
+	return NewOperationsRequirements(x.Doc(), x.Path() + "/operationsRequirements")
+}
+
+// Communication requirements.
+func (x *ArchitectureTechnologySpecification) CommunicationRequirements() *CommunicationRequirements {
+	return NewCommunicationRequirements(x.Doc(), x.Path() + "/communicationRequirements")
+}
+
+// System operation and monitoring.
+func (x *ArchitectureTechnologySpecification) SystemOperationAndMonitoring() *SystemOperationAndMonitoring {
+	return NewSystemOperationAndMonitoring(x.Doc(), x.Path() + "/systemOperationAndMonitoring")
+}
+
+// Technical security requirements.
+func (x *ArchitectureTechnologySpecification) TechnicalSecurityRequirements() *TechnicalSecurityRequirements {
+	return NewTechnicalSecurityRequirements(x.Doc(), x.Path() + "/technicalSecurityRequirements")
+}
+
+// System architecture (new in Phase A).
+func (x *ArchitectureTechnologySpecification) SystemArchitecture() *SystemArchitectureSpec {
+	return NewSystemArchitectureSpec(x.Doc(), x.Path() + "/systemArchitecture")
+}
+
+// Components to use (whole).
+func (x *ArchitectureTechnologySpecification) ComponentsToUse() *ComponentsToUse {
+	return NewComponentsToUse(x.Doc(), x.Path() + "/componentsToUse")
+}
+
+// Technical framework conditions (whole).
+func (x *ArchitectureTechnologySpecification) TechnicalFrameworkConditions() *TechnicalFrameworkConditions {
+	return NewTechnicalFrameworkConditions(x.Doc(), x.Path() + "/technicalFrameworkConditions")
+}
+
+// Translation handling requirements (whole).
+func (x *ArchitectureTechnologySpecification) TranslationRequirements() *TranslationRequirements {
+	return NewTranslationRequirements(x.Doc(), x.Path() + "/translationRequirements")
+}
+
+// A consolidated register of assumptions and constraints.
+type AssumptionConstraintRegister struct {
+	som.SomNode
+}
+
+// NewAssumptionConstraintRegister binds a AssumptionConstraintRegister facade to a document and a path.
+func NewAssumptionConstraintRegister(doc *som.SpecDocument, path string) *AssumptionConstraintRegister {
+	return &AssumptionConstraintRegister{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *AssumptionConstraintRegister) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *AssumptionConstraintRegister) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Assumptions the solution depends on being true.
+func (x *AssumptionConstraintRegister) Assumptions() *som.SomList[*AssumptionRegisterEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/ACRG-ASMP-LST", func(d *som.SpecDocument, p string) *AssumptionRegisterEntry {
+		return NewAssumptionRegisterEntry(d, p)
+	})
+}
+
+// Constraints the solution must operate within.
+func (x *AssumptionConstraintRegister) Constraints() *som.SomList[*ConstraintRegisterEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/ACRG-CONS-LST", func(d *som.SpecDocument, p string) *ConstraintRegisterEntry {
+		return NewConstraintRegisterEntry(d, p)
+	})
+}
+
+// An assumption entry (form).
 //
 // Documents a project assumption including its basis, validation approach,
 // and contingency plans if the assumption proves false.
@@ -3298,6 +3389,23 @@ func (x *AssumptionImpact) Content() *AssumptionImpactContentForm {
 	return NewAssumptionImpactContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// A single assumption register entry (form).
+//
+// Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
+// `AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+type AssumptionRegisterEntry struct {
+	som.SomNode
+}
+
+// NewAssumptionRegisterEntry binds a AssumptionRegisterEntry facade to a document and a path.
+func NewAssumptionRegisterEntry(doc *som.SpecDocument, path string) *AssumptionRegisterEntry {
+	return &AssumptionRegisterEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *AssumptionRegisterEntry) Content() *AssumptionRegisterEntryContentForm {
+	return NewAssumptionRegisterEntryContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // Relationships to other project elements.
 type AssumptionRelationships struct {
 	som.SomNode
@@ -3324,6 +3432,29 @@ func NewAssumptionValidation(doc *som.SpecDocument, path string) *AssumptionVali
 
 func (x *AssumptionValidation) Content() *AssumptionValidationContentForm {
 	return NewAssumptionValidationContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// SBP.6 Assumptions, Constraints & Dependencies.
+type AssumptionsConstraintsDependencies struct {
+	som.SomNode
+}
+
+// NewAssumptionsConstraintsDependencies binds a AssumptionsConstraintsDependencies facade to a document and a path.
+func NewAssumptionsConstraintsDependencies(doc *som.SpecDocument, path string) *AssumptionsConstraintsDependencies {
+	return &AssumptionsConstraintsDependencies{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *AssumptionsConstraintsDependencies) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *AssumptionsConstraintsDependencies) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// The consolidated assumption / constraint register.
+func (x *AssumptionsConstraintsDependencies) Register() *AssumptionConstraintRegister {
+	return NewAssumptionConstraintRegister(x.Doc(), x.Path() + "/register")
 }
 
 // Overview of assumptions management.
@@ -3358,7 +3489,7 @@ func (x *AttributeInterdependencyEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 9.6. Audit and Logging [PD00-ACC-AUD].
+// 9.6. Audit and Logging.
 //
 // Security audit and event logging requirements covering security event
 // definitions, audit log format and structure, and compliance reporting.
@@ -3381,17 +3512,17 @@ func (x *AuditAndLogging) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+// 9.6.1. Security Events.
 func (x *AuditAndLogging) SecurityEvents() *SecurityEventsDefinition {
 	return NewSecurityEventsDefinition(x.Doc(), x.Path() + "/securityEvents")
 }
 
-// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+// 9.6.2. Audit Log Format.
 func (x *AuditAndLogging) AuditLogFormat() *AuditLogFormat {
 	return NewAuditLogFormat(x.Doc(), x.Path() + "/auditLogFormat")
 }
 
-// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+// 9.6.3. Compliance Reporting.
 func (x *AuditAndLogging) ComplianceReporting() *ComplianceReporting {
 	return NewComplianceReporting(x.Doc(), x.Path() + "/complianceReporting")
 }
@@ -3445,7 +3576,7 @@ func (x *AuditEvidenceTypeEntry) Content() *AuditEvidenceTypeEntryContentForm {
 	return NewAuditEvidenceTypeEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+// 9.6.2. Audit Log Format.
 //
 // Defines the audit log format: fields to capture (who, what, when, where,
 // result), log retention period, and tamper protection requirements.
@@ -3489,7 +3620,7 @@ func (x *AuditLogFormat) LogRetention() *LogRetentionPolicy {
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+// 3.6.4. Audit Requirements.
 //
 // Internal and external audit obligations.
 type AuditRequirements struct {
@@ -3521,7 +3652,7 @@ func (x *AuditRequirements) EvidenceRequirements() *AuditEvidenceRequirements {
 	return NewAuditEvidenceRequirements(x.Doc(), x.Path() + "/evidenceRequirements")
 }
 
-// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+// 9.2.2. Authentication.
 type Authentication struct {
 	som.SomNode
 }
@@ -3539,22 +3670,22 @@ func (x *Authentication) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+// 9.2.2.1. Authentication Methods.
 func (x *Authentication) AuthenticationMethods() *AuthenticationMethods {
 	return NewAuthenticationMethods(x.Doc(), x.Path() + "/authenticationMethods")
 }
 
-// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+// 9.2.2.2. Authentication Flow.
 func (x *Authentication) AuthenticationFlow() *AuthenticationFlow {
 	return NewAuthenticationFlow(x.Doc(), x.Path() + "/authenticationFlow")
 }
 
-// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+// 9.2.3. Password and Credential Policy.
 func (x *Authentication) PasswordAndCredentialPolicy() *PasswordAndCredentialPolicy {
 	return NewPasswordAndCredentialPolicy(x.Doc(), x.Path() + "/passwordAndCredentialPolicy")
 }
 
-// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+// 9.2.4. Session Management.
 func (x *Authentication) SessionManagement() *SessionManagement {
 	return NewSessionManagement(x.Doc(), x.Path() + "/sessionManagement")
 }
@@ -3602,7 +3733,7 @@ func (x *AuthenticationEventPolicy) Content() *AuthenticationEventPolicyContentF
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+// 9.2.2.2. Authentication Flow.
 //
 // Comprehensive authentication flow specification covering the complete
 // login lifecycle: credential submission, validation, multi-factor challenges,
@@ -3668,7 +3799,7 @@ func (x *AuthenticationFlow) LoginFlowSteps() *som.SomList[*LoginFlowStepEntry] 
 	})
 }
 
-// An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
+// An authentication method entry (form).
 //
 // Detailed per-method specification aligned with NIST SP 800-63B
 // authenticator types (password, OTP, cryptographic, out-of-band).
@@ -3761,7 +3892,7 @@ func (x *AuthenticationMethodEntrySecurity) Content() *AuthenticationMethodEntry
 	return NewAuthenticationMethodEntrySecurityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+// 9.2.2.1. Authentication Methods.
 //
 // Comprehensive authentication methods specification aligned with
 // NIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).
@@ -3819,89 +3950,6 @@ func (x *AuthenticationMethods) Items() *som.SomList[*AuthenticationMethodEntry]
 	})
 }
 
-// AC00 Authorization Concept.
-//
-// Complete access and authorization specification — user management,
-// identification and authentication, resource protection, user
-// authorization, encryption, audit/logging, role matrix, and
-// compliance framework.
-type AuthorizationConcept struct {
-	som.SomNode
-}
-
-// AuthorizationConceptModelVersion is the model version this object model was generated
-// against (§2.1).
-const AuthorizationConceptModelVersion = "0.0"
-
-// NewAuthorizationConcept creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewAuthorizationConcept(doc *som.SpecDocument, documentVersion string) (*AuthorizationConcept, error) {
-	if err := som.CheckSomModelVersion(AuthorizationConceptModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &AuthorizationConcept{SomNode: som.NewSomNode(doc, "AC")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *AuthorizationConcept) ObjectModelVersion() string {
-	return AuthorizationConceptModelVersion
-}
-
-func (x *AuthorizationConcept) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AuthorizationConcept) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *AuthorizationConcept) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// User management — PD00-ACC-USE.
-func (x *AuthorizationConcept) UserManagement() *UserManagement {
-	return NewUserManagement(x.Doc(), x.Path() + "/userManagement")
-}
-
-// Identification and authentication — PD00-ACC-IDE.
-func (x *AuthorizationConcept) IdentificationAndAuthentication() *IdentificationAndAuthentication {
-	return NewIdentificationAndAuthentication(x.Doc(), x.Path() + "/identificationAndAuthentication")
-}
-
-// Resource protection — PD00-ACC-RES.
-func (x *AuthorizationConcept) ResourceProtection() *ResourceProtection {
-	return NewResourceProtection(x.Doc(), x.Path() + "/resourceProtection")
-}
-
-// User authorization — PD00-ACC-USA.
-func (x *AuthorizationConcept) UserAuthorization() *UserAuthorization {
-	return NewUserAuthorization(x.Doc(), x.Path() + "/userAuthorization")
-}
-
-// Sensitive data encryption — PD00-ACC-SEN.
-func (x *AuthorizationConcept) SensitiveDataEncryption() *SensitiveDataEncryption {
-	return NewSensitiveDataEncryption(x.Doc(), x.Path() + "/sensitiveDataEncryption")
-}
-
-// Audit and logging — PD00-ACC-AUD.
-func (x *AuthorizationConcept) AuditAndLogging() *AuditAndLogging {
-	return NewAuditAndLogging(x.Doc(), x.Path() + "/auditAndLogging")
-}
-
-// Role matrix — PD00-ACC-ROL (covers HBSG AS22-AUM).
-func (x *AuthorizationConcept) RoleMatrix() *RoleMatrix {
-	return NewRoleMatrix(x.Doc(), x.Path() + "/roleMatrix")
-}
-
-// Compliance framework — PD00-ACC-CMP.
-func (x *AuthorizationConcept) ComplianceFramework() *ComplianceFramework {
-	return NewComplianceFramework(x.Doc(), x.Path() + "/complianceFramework")
-}
-
 // Authorization event policy (form).
 //
 // Defines which authorization-related events are logged.
@@ -3921,7 +3969,7 @@ func (x *AuthorizationEventPolicy) Content() *AuthorizationEventPolicyContentFor
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
+// An authorization group entry (form).
 type AuthorizationGroupEntry struct {
 	som.SomNode
 }
@@ -3942,7 +3990,7 @@ func (x *AuthorizationGroupEntry) ContainedRoles() *som.SomList[*RoleReferenceEn
 	})
 }
 
-// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+// 9.4.1. Authorization Model.
 //
 // Describes the authorization model used by the system — RBAC, ABAC, ReBAC,
 // or hybrid. Covers access control model selection, permission granularity
@@ -3993,7 +4041,7 @@ func (x *AuthorizationModel) PermissionEvaluation() *PermissionEvaluationBehavio
 // Authorization Model Notes (text).
 // (skipped: authorizationModelNotes has no target type)
 
-// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+// An authorization role entry (form).
 //
 // Defines a single authorization role with its category, scope, permission
 // assignments, activation rules, provisioning, and review requirements.
@@ -4129,7 +4177,7 @@ func (x *AuthorizationRoleEntryStructure) Content() *AuthorizationRoleEntryStruc
 	return NewAuthorizationRoleEntryStructureContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
+// 11.4.1. Availability quality.
 type AvailabilityQuality struct {
 	som.SomNode
 }
@@ -4222,7 +4270,7 @@ func (x *AvailabilityQualityVerification) Content() *AvailabilityQualityVerifica
 	return NewAvailabilityQualityVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
+// 8.5.1. Backup and Recovery.
 //
 // Backup frequency, retention period, recovery point objective (RPO),
 // recovery time objective (RTO), and backup verification procedures.
@@ -4867,7 +4915,7 @@ func (x *BandwidthRequirementsTraffic) Content() *BandwidthRequirementsTrafficCo
 	return NewBandwidthRequirementsTrafficContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+// 8.1. Basic Technical Requirements.
 type BasicTechnicalRequirements struct {
 	som.SomNode
 }
@@ -4885,17 +4933,17 @@ func (x *BasicTechnicalRequirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+// 8.1.1. Platform and Language.
 func (x *BasicTechnicalRequirements) PlatformAndLanguage() *PlatformAndLanguage {
 	return NewPlatformAndLanguage(x.Doc(), x.Path() + "/platformAndLanguage")
 }
 
-// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+// 8.1.2. Architecture Style.
 func (x *BasicTechnicalRequirements) ArchitectureStyle() *ArchitectureStyle {
 	return NewArchitectureStyle(x.Doc(), x.Path() + "/architectureStyle")
 }
 
-// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+// 8.1.3. Design Patterns and Standards.
 func (x *BasicTechnicalRequirements) DesignPatternsAndStandards() *DesignPatternsAndStandards {
 	return NewDesignPatternsAndStandards(x.Doc(), x.Path() + "/designPatternsAndStandards")
 }
@@ -5010,7 +5058,7 @@ func (x *BiometricAuthenticationPolicy) SetContent(value string) {
 // Biometric Implementation Details (text).
 // (skipped: biometricDetails has no target type)
 
-// A boundary assumption entry [PD00-SYO-SYB-ASS-nn] (form).
+// A boundary assumption entry (form).
 type BoundaryAssumptionEntry struct {
 	som.SomNode
 }
@@ -5062,7 +5110,7 @@ func (x *BoundaryAssumptionEntryValidation) Content() *BoundaryAssumptionEntryVa
 	return NewBoundaryAssumptionEntryValidationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+// 4.5.3. Assumptions.
 //
 // Documents assumptions about external systems, data availability,
 // organizational readiness, and third-party services that must hold true
@@ -5087,7 +5135,7 @@ func (x *BoundaryAssumptions) Items() *som.SomList[*BoundaryAssumptionEntry] {
 	})
 }
 
-// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT].
+// 4.5.5. Boundary Interaction Patterns.
 //
 // Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
 // Named `BoundaryInteractionPatterns` to avoid colliding with the
@@ -5199,7 +5247,7 @@ func (x *BoundedContextEntryScope) Content() *BoundedContextEntryScopeContentFor
 	return NewBoundedContextEntryScopeContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+// 10.3.1.6.1. Breadcrumb Configuration.
 type BreadcrumbConfiguration struct {
 	som.SomNode
 }
@@ -5213,7 +5261,7 @@ func (x *BreadcrumbConfiguration) Content() *BreadcrumbConfigurationContentForm 
 	return NewBreadcrumbConfigurationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+// 10.10.1. Breakpoints.
 //
 // Breakpoint definitions for responsive layouts.
 type BreakpointConfiguration struct {
@@ -5236,7 +5284,7 @@ func (x *BreakpointConfiguration) Breakpoints() *som.SomList[*BreakpointEntry] {
 	})
 }
 
-// A breakpoint entry [PD00-USE-RES-BRE-nn].
+// A breakpoint entry.
 type BreakpointEntry struct {
 	som.SomNode
 }
@@ -5795,120 +5843,7 @@ func (x *BusinessComponentEntryTesting) Content() *BusinessComponentEntryTesting
 	return NewBusinessComponentEntryTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// BDM00 Business Data Model.
-//
-// Full business data model: entities, relationships, ER diagram, data
-// classification, business objects, function decomposition, function-
-// to-data matrix, business rules, data dictionary, and validation /
-// integrity constraints.
-type BusinessDataModel struct {
-	som.SomNode
-}
-
-// BusinessDataModelModelVersion is the model version this object model was generated
-// against (§2.1).
-const BusinessDataModelModelVersion = "0.0"
-
-// NewBusinessDataModel creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewBusinessDataModel(doc *som.SpecDocument, documentVersion string) (*BusinessDataModel, error) {
-	if err := som.CheckSomModelVersion(BusinessDataModelModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &BusinessDataModel{SomNode: som.NewSomNode(doc, "BDM")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *BusinessDataModel) ObjectModelVersion() string {
-	return BusinessDataModelModelVersion
-}
-
-func (x *BusinessDataModel) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *BusinessDataModel) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *BusinessDataModel) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Entity inventory — PD00-BUS-DAT-ENT (list).
-func (x *BusinessDataModel) Entities() *som.SomList[*DataEntityEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DAENT-ENTI-LST", func(d *som.SpecDocument, p string) *DataEntityEntry {
-		return NewDataEntityEntry(d, p)
-	})
-}
-
-// Entity relationships — PD00-BUS-DAT-REL.
-func (x *BusinessDataModel) EntityRelationships() *EntityRelationships {
-	return NewEntityRelationships(x.Doc(), x.Path() + "/entityRelationships")
-}
-
-// Entity-relationship diagram — PD00-BUS-DAT-DIA.
-// (skipped: erDiagram has no target type)
-
-// Data classification — PD00-BUS-DAT-CLA.
-func (x *BusinessDataModel) DataClassification() *DataClassification {
-	return NewDataClassification(x.Doc(), x.Path() + "/dataClassification")
-}
-
-// Business object catalog — PD00-BUS-BUS-CAT (list).
-func (x *BusinessDataModel) ObjectCatalog() *som.SomList[*BusinessObjectEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/BJOEN-OBJE-LST", func(d *som.SpecDocument, p string) *BusinessObjectEntry {
-		return NewBusinessObjectEntry(d, p)
-	})
-}
-
-// Business object diagram — PD00-BUS-BUS-DIA.
-// (skipped: objectDiagram has no target type)
-
-// Function decomposition — PD00-BUS-FUN-DEC (list).
-func (x *BusinessDataModel) FunctionDecomposition() *som.SomList[*FunctionEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/FUNCT-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionEntry {
-		return NewFunctionEntry(d, p)
-	})
-}
-
-// Function-to-data matrix — PD00-BUS-FUN-MAT (list).
-func (x *BusinessDataModel) FunctionToDataMatrix() *som.SomList[*FunctionDataMatrixEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/FNDMX-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionDataMatrixEntry {
-		return NewFunctionDataMatrixEntry(d, p)
-	})
-}
-
-// Business rules catalog — PD00-BUS-FUN-RUL (list).
-func (x *BusinessDataModel) BusinessRules() *som.SomList[*BusinessRuleEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/BIRU-BUSI-LST", func(d *som.SpecDocument, p string) *BusinessRuleEntry {
-		return NewBusinessRuleEntry(d, p)
-	})
-}
-
-// Data dictionary — PD00-BUS-DAT-DIC.
-func (x *BusinessDataModel) DataDictionary() *DataDictionary {
-	return NewDataDictionary(x.Doc(), x.Path() + "/dataDictionary")
-}
-
-// Validation constraints — PD00-BUS-DAT-VAL.
-func (x *BusinessDataModel) ValidationConstraints() *som.SomList[*ValidationConstraints] {
-	return som.NewSomList(x.Doc(), x.Path() + "/VACO-VALI-LST", func(d *som.SpecDocument, p string) *ValidationConstraints {
-		return NewValidationConstraints(d, p)
-	})
-}
-
-// Integrity constraints — PD00-BUS-DAT-CON.
-func (x *BusinessDataModel) IntegrityConstraints() *som.SomList[*IntegrityConstraints] {
-	return som.NewSomList(x.Doc(), x.Path() + "/INCO-INTE-LST", func(d *som.SpecDocument, p string) *IntegrityConstraints {
-		return NewIntegrityConstraints(d, p)
-	})
-}
-
-// A business goal entry [PD00-SYO-GOA-BUS-nn].
+// A business goal entry.
 //
 // Comprehensive business goal definition following SMART criteria with
 // OKR-style key results, ownership, and tracking information.
@@ -5945,27 +5880,27 @@ func (x *BusinessGoalEntry) Strategy() *BusinessGoalEntryStrategy {
 	return NewBusinessGoalEntryStrategy(x.Doc(), x.Path() + "/strategy")
 }
 
-// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+// 4.2.1.n.1. Key Results.
 func (x *BusinessGoalEntry) KeyResults() *GoalKeyResults {
 	return NewGoalKeyResults(x.Doc(), x.Path() + "/keyResults")
 }
 
-// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+// 4.2.1.n.2. Milestones.
 func (x *BusinessGoalEntry) Milestones() *GoalMilestones {
 	return NewGoalMilestones(x.Doc(), x.Path() + "/milestones")
 }
 
-// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+// 4.2.1.n.3. Dependencies.
 func (x *BusinessGoalEntry) Dependencies() *GoalDependencies {
 	return NewGoalDependencies(x.Doc(), x.Path() + "/dependencies")
 }
 
-// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+// 4.2.1.n.4. Risks.
 func (x *BusinessGoalEntry) Risks() *GoalRisks {
 	return NewGoalRisks(x.Doc(), x.Path() + "/risks")
 }
 
-// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+// 4.2.1.n.5. Resources.
 func (x *BusinessGoalEntry) Resources() *GoalResources {
 	return NewGoalResources(x.Doc(), x.Path() + "/resources")
 }
@@ -6026,7 +5961,7 @@ func (x *BusinessGoalEntryStrategy) Content() *BusinessGoalEntryStrategyContentF
 	return NewBusinessGoalEntryStrategyContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+// 4.2.1. Business Goals.
 //
 // Container for business goal definitions. Business goals define what the
 // organization wants to achieve through this project in terms of business
@@ -6145,40 +6080,7 @@ func (x *BusinessMetricsSpecTransactions) Content() *BusinessMetricsSpecTransact
 	return NewBusinessMetricsSpecTransactionsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
-type BusinessObjectAndDataModel struct {
-	som.SomNode
-}
-
-// NewBusinessObjectAndDataModel binds a BusinessObjectAndDataModel facade to a document and a path.
-func NewBusinessObjectAndDataModel(doc *som.SpecDocument, path string) *BusinessObjectAndDataModel {
-	return &BusinessObjectAndDataModel{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *BusinessObjectAndDataModel) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *BusinessObjectAndDataModel) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// 7.1. Data Model [PD00-BUS-DAT].
-func (x *BusinessObjectAndDataModel) DataModel() *DataModel {
-	return NewDataModel(x.Doc(), x.Path() + "/dataModel")
-}
-
-// 7.2. Business Object Model [PD00-BUS-BUS].
-func (x *BusinessObjectAndDataModel) BusinessObjectModel() *BusinessObjectModel {
-	return NewBusinessObjectModel(x.Doc(), x.Path() + "/businessObjectModel")
-}
-
-// 7.3. Function Model [PD00-BUS-FUN].
-func (x *BusinessObjectAndDataModel) FunctionModel() *FunctionModel {
-	return NewFunctionModel(x.Doc(), x.Path() + "/functionModel")
-}
-
-// A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
+// A business object attribute entry (form).
 //
 // Business-level attribute specification focusing on business meaning and rules.
 type BusinessObjectAttributeEntry struct {
@@ -6251,7 +6153,7 @@ func (x *BusinessObjectAttributeEntryValidation) Content() *BusinessObjectAttrib
 	return NewBusinessObjectAttributeEntryValidationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A business object entry [PD00-BUS-BUS-CAT-nn] (form).
+// A business object entry (form).
 //
 // Comprehensive business object specification following domain-driven design
 // patterns. Business objects represent key domain concepts with behavior,
@@ -6293,49 +6195,49 @@ func (x *BusinessObjectEntry) IntegrationPoints() *som.SomList[*IntegrationPoint
 	})
 }
 
-// Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
+// Contains 0+× BusinessObjectAttribute.
 func (x *BusinessObjectEntry) Attributes() *som.SomList[*BusinessObjectAttributeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BIOBAT-ATTR-LST", func(d *som.SpecDocument, p string) *BusinessObjectAttributeEntry {
 		return NewBusinessObjectAttributeEntry(d, p)
 	})
 }
 
-// Contains 0+× ObjectState [PD00-BUS-BUS-CAT-nn-STA].
+// Contains 0+× ObjectState.
 func (x *BusinessObjectEntry) KeyStates() *som.SomList[*ObjectStateEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OBST-KEYS-LST", func(d *som.SpecDocument, p string) *ObjectStateEntry {
 		return NewObjectStateEntry(d, p)
 	})
 }
 
-// Contains 0+× BusinessRuleReference [PD00-BUS-BUS-CAT-nn-BRR].
+// Contains 0+× BusinessRuleReference.
 func (x *BusinessObjectEntry) KeyBusinessRules() *som.SomList[*BusinessRuleReferenceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BIRURE-KEYB-LST", func(d *som.SpecDocument, p string) *BusinessRuleReferenceEntry {
 		return NewBusinessRuleReferenceEntry(d, p)
 	})
 }
 
-// Contains 0+× LifecycleTransition [PD00-BUS-BUS-CAT-nn-LIF].
+// Contains 0+× LifecycleTransition.
 func (x *BusinessObjectEntry) LifecycleTransitions() *som.SomList[*LifecycleTransitionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/LFTRS-LIFE-LST", func(d *som.SpecDocument, p string) *LifecycleTransitionEntry {
 		return NewLifecycleTransitionEntry(d, p)
 	})
 }
 
-// Contains 0+× ObjectOperation [PD00-BUS-BUS-CAT-nn-OPR].
+// Contains 0+× ObjectOperation.
 func (x *BusinessObjectEntry) Operations() *som.SomList[*ObjectOperationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OBOP-OPER-LST", func(d *som.SpecDocument, p string) *ObjectOperationEntry {
 		return NewObjectOperationEntry(d, p)
 	})
 }
 
-// Contains 0+× ObjectInvariant [PD00-BUS-BUS-CAT-nn-INV].
+// Contains 0+× ObjectInvariant.
 func (x *BusinessObjectEntry) Invariants() *som.SomList[*ObjectInvariantEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OBINV-INVA-LST", func(d *som.SpecDocument, p string) *ObjectInvariantEntry {
 		return NewObjectInvariantEntry(d, p)
 	})
 }
 
-// 7.2. Business Object Model [PD00-BUS-BUS].
+// 7.2. Business Object Model.
 type BusinessObjectModel struct {
 	som.SomNode
 }
@@ -6353,17 +6255,17 @@ func (x *BusinessObjectModel) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.
+// 7.2.1. Object Catalog — contains 1+× Business Object.
 func (x *BusinessObjectModel) Objects() *som.SomList[*BusinessObjectEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BJOEN-OBJE-LST", func(d *som.SpecDocument, p string) *BusinessObjectEntry {
 		return NewBusinessObjectEntry(d, p)
 	})
 }
 
-// 7.2.2. Business Object Diagram [PD00-BUS-BUS-DIA] (mermaid).
+// 7.2.2. Business Object Diagram (mermaid).
 // (skipped: objectDiagram has no target type)
 
-// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+// 1.3.2. Business Pain Points.
 //
 // Problems that affect business outcomes: lost revenue, compliance risk,
 // customer dissatisfaction, inability to scale, and missed opportunities.
@@ -6410,7 +6312,7 @@ func (x *BusinessPainPointsSummary) Content() *BusinessPainPointsSummaryContentF
 	return NewBusinessPainPointsSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.1. Business Process Descriptions [PD00-TAR-PRO].
+// 6.1. Business Process Descriptions.
 //
 // Target business processes at a high level. Each process will be expanded
 // with detailed workflows, triggers, decision points, and exception handling
@@ -6432,61 +6334,61 @@ func (x *BusinessProcessDescriptions) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+// 6.1.1. Process Vision.
 func (x *BusinessProcessDescriptions) ProcessVision() *ProcessVision {
 	return NewProcessVision(x.Doc(), x.Path() + "/processVision")
 }
 
-// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+// 6.1.2. Design Principles.
 func (x *BusinessProcessDescriptions) DesignPrinciples() *ProcessDesignPrinciples {
 	return NewProcessDesignPrinciples(x.Doc(), x.Path() + "/designPrinciples")
 }
 
-// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
+// 6.1.3. Process Catalog — contains 1+× Business Process.
 func (x *BusinessProcessDescriptions) ProcessCatalog() *ProcessCatalog {
 	return NewProcessCatalog(x.Doc(), x.Path() + "/processCatalog")
 }
 
-// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+// 6.1.4. Process Overview Diagram.
 func (x *BusinessProcessDescriptions) ProcessOverviewDiagram() *ProcessOverviewDiagram {
 	return NewProcessOverviewDiagram(x.Doc(), x.Path() + "/processOverviewDiagram")
 }
 
-// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+// 6.1.5. Improvement Summary.
 func (x *BusinessProcessDescriptions) ImprovementSummary() *ProcessImprovementSummary {
 	return NewProcessImprovementSummary(x.Doc(), x.Path() + "/improvementSummary")
 }
 
-// 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
+// 6.1.6. Process Relationships.
 func (x *BusinessProcessDescriptions) ProcessRelationships() *ProcessRelationships {
 	return NewProcessRelationships(x.Doc(), x.Path() + "/processRelationships")
 }
 
-// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+// 6.1.7. Detailed Process Workflows.
 func (x *BusinessProcessDescriptions) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflows] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflows {
 		return NewDetailedProcessWorkflows(d, p)
 	})
 }
 
-// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+// 6.1.8. Cross-Process Analysis.
 func (x *BusinessProcessDescriptions) CrossProcessAnalysis() *CrossProcessAnalysis {
 	return NewCrossProcessAnalysis(x.Doc(), x.Path() + "/crossProcessAnalysis")
 }
 
-// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+// 6.1.9. Process Exception Handling.
 func (x *BusinessProcessDescriptions) ExceptionHandling() *ProcessExceptionHandling {
 	return NewProcessExceptionHandling(x.Doc(), x.Path() + "/exceptionHandling")
 }
 
-// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+// 6.1.10. Process Metrics and KPIs.
 func (x *BusinessProcessDescriptions) ProcessMetricsAndKpis() *som.SomList[*ProcessMetricsAndKpis] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetricsAndKpis {
 		return NewProcessMetricsAndKpis(d, p)
 	})
 }
 
-// A business process entry [PD00-TAR-PRO-CAT-nn].
+// A business process entry.
 //
 // Comprehensive business process definition following BPMN 2.0 concepts.
 type BusinessProcessEntry struct {
@@ -6546,215 +6448,7 @@ func (x *BusinessProcessEntry) Exceptions() *ProcessExceptions {
 // Process flow preview (high-level).
 // (skipped: processFlowPreview has no target type)
 
-// BP00 Business Processes.
-//
-// Target business process specification — vision, principles, catalog,
-// diagrams, improvements, relationships, detailed workflows,
-// cross-process analysis, exception handling, and KPIs.
-type BusinessProcesses struct {
-	som.SomNode
-}
-
-// BusinessProcessesModelVersion is the model version this object model was generated
-// against (§2.1).
-const BusinessProcessesModelVersion = "0.0"
-
-// NewBusinessProcesses creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewBusinessProcesses(doc *som.SpecDocument, documentVersion string) (*BusinessProcesses, error) {
-	if err := som.CheckSomModelVersion(BusinessProcessesModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &BusinessProcesses{SomNode: som.NewSomNode(doc, "BP")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *BusinessProcesses) ObjectModelVersion() string {
-	return BusinessProcessesModelVersion
-}
-
-func (x *BusinessProcesses) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *BusinessProcesses) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *BusinessProcesses) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Process vision — PD00-TAR-PRO-VIS.
-func (x *BusinessProcesses) ProcessVision() *ProcessVision {
-	return NewProcessVision(x.Doc(), x.Path() + "/processVision")
-}
-
-// Design principles — PD00-TAR-PRO-PRI.
-func (x *BusinessProcesses) DesignPrinciples() *ProcessDesignPrinciples {
-	return NewProcessDesignPrinciples(x.Doc(), x.Path() + "/designPrinciples")
-}
-
-// Process catalog — PD00-TAR-PRO-CAT.
-func (x *BusinessProcesses) ProcessCatalog() *ProcessCatalog {
-	return NewProcessCatalog(x.Doc(), x.Path() + "/processCatalog")
-}
-
-// Process overview diagram — PD00-TAR-PRO-FLO.
-func (x *BusinessProcesses) ProcessOverviewDiagram() *ProcessOverviewDiagram {
-	return NewProcessOverviewDiagram(x.Doc(), x.Path() + "/processOverviewDiagram")
-}
-
-// Improvement summary — PD00-TAR-PRO-IMP.
-func (x *BusinessProcesses) ImprovementSummary() *ProcessImprovementSummary {
-	return NewProcessImprovementSummary(x.Doc(), x.Path() + "/improvementSummary")
-}
-
-// Process relationships — PD00-TAR-PRO-REL.
-func (x *BusinessProcesses) ProcessRelationships() *ProcessRelationships {
-	return NewProcessRelationships(x.Doc(), x.Path() + "/processRelationships")
-}
-
-// Detailed process workflows — PD00-TAR-PRO-DET.
-func (x *BusinessProcesses) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflows] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflows {
-		return NewDetailedProcessWorkflows(d, p)
-	})
-}
-
-// Cross-process analysis — PD00-TAR-PRO-CRO.
-func (x *BusinessProcesses) CrossProcessAnalysis() *CrossProcessAnalysis {
-	return NewCrossProcessAnalysis(x.Doc(), x.Path() + "/crossProcessAnalysis")
-}
-
-// Process exception handling — PD00-TAR-PRO-EXC.
-func (x *BusinessProcesses) ExceptionHandling() *ProcessExceptionHandling {
-	return NewProcessExceptionHandling(x.Doc(), x.Path() + "/exceptionHandling")
-}
-
-// Process metrics and KPIs — PD00-TAR-PRO-MET.
-func (x *BusinessProcesses) ProcessMetricsAndKpis() *som.SomList[*ProcessMetricsAndKpis] {
-	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetricsAndKpis {
-		return NewProcessMetricsAndKpis(d, p)
-	})
-}
-
-// BQP00 Business Quality Plan.
-//
-// Full quality plan combining quality goals (PD00-SYQ) and the
-// acceptance plan (PD00-DEL-ACC). Replaces HBSG AS11 + AS23 + partial
-// AS14 coverage.
-type BusinessQualityPlan struct {
-	som.SomNode
-}
-
-// BusinessQualityPlanModelVersion is the model version this object model was generated
-// against (§2.1).
-const BusinessQualityPlanModelVersion = "0.0"
-
-// NewBusinessQualityPlan creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewBusinessQualityPlan(doc *som.SpecDocument, documentVersion string) (*BusinessQualityPlan, error) {
-	if err := som.CheckSomModelVersion(BusinessQualityPlanModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &BusinessQualityPlan{SomNode: som.NewSomNode(doc, "BQP")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *BusinessQualityPlan) ObjectModelVersion() string {
-	return BusinessQualityPlanModelVersion
-}
-
-func (x *BusinessQualityPlan) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *BusinessQualityPlan) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *BusinessQualityPlan) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Quality framework — PD00-SYQ-FRA.
-func (x *BusinessQualityPlan) QualityFramework() *QualityFramework {
-	return NewQualityFramework(x.Doc(), x.Path() + "/qualityFramework")
-}
-
-// User-related quality criteria — PD00-SYQ-USE.
-func (x *BusinessQualityPlan) UserQualityCriteria() *UserQualityCriteria {
-	return NewUserQualityCriteria(x.Doc(), x.Path() + "/userQualityCriteria")
-}
-
-// Technical quality criteria — PD00-SYQ-TEC.
-func (x *BusinessQualityPlan) TechnicalQualityCriteria() *TechnicalQualityCriteria {
-	return NewTechnicalQualityCriteria(x.Doc(), x.Path() + "/technicalQualityCriteria")
-}
-
-// Operations quality criteria — PD00-SYQ-OPE.
-func (x *BusinessQualityPlan) OperationsQualityCriteria() *OperationsQualityCriteria {
-	return NewOperationsQualityCriteria(x.Doc(), x.Path() + "/operationsQualityCriteria")
-}
-
-// Documentation quality criteria — PD00-SYQ-DOC.
-func (x *BusinessQualityPlan) DocumentationQualityCriteria() *DocumentationQualityCriteria {
-	return NewDocumentationQualityCriteria(x.Doc(), x.Path() + "/documentationQualityCriteria")
-}
-
-// Quality prioritization — PD00-SYQ-PRI.
-func (x *BusinessQualityPlan) QualityPrioritization() *QualityPrioritization {
-	return NewQualityPrioritization(x.Doc(), x.Path() + "/qualityPrioritization")
-}
-
-// Acceptance criteria summary — PD00-SYQ-ACC.
-func (x *BusinessQualityPlan) AcceptanceCriteriaSummary() *AcceptanceCriteriaSummary {
-	return NewAcceptanceCriteriaSummary(x.Doc(), x.Path() + "/acceptanceCriteriaSummary")
-}
-
-// Test strategy — PD00-SYQ-TST (new in Phase A, HBSG AS23).
-func (x *BusinessQualityPlan) TestStrategy() *TestStrategy {
-	return NewTestStrategy(x.Doc(), x.Path() + "/testStrategy")
-}
-
-// Acceptance criteria — PD00-DEL-ACC-CRI.
-func (x *BusinessQualityPlan) AcceptanceCriteria() *AcceptanceCriteriaList {
-	return NewAcceptanceCriteriaList(x.Doc(), x.Path() + "/acceptanceCriteria")
-}
-
-// Acceptance process — PD00-DEL-ACC-PRO.
-func (x *BusinessQualityPlan) AcceptanceProcess() *AcceptanceProcess {
-	return NewAcceptanceProcess(x.Doc(), x.Path() + "/acceptanceProcess")
-}
-
-// User acceptance testing — PD00-DEL-ACC-UAT.
-func (x *BusinessQualityPlan) UserAcceptanceTesting() *UserAcceptanceTesting {
-	return NewUserAcceptanceTesting(x.Doc(), x.Path() + "/userAcceptanceTesting")
-}
-
-// Defect resolution — PD00-DEL-ACC-DEF.
-func (x *BusinessQualityPlan) DefectResolution() *DefectResolution {
-	return NewDefectResolution(x.Doc(), x.Path() + "/defectResolution")
-}
-
-// Sign-off process — PD00-DEL-ACC-SIG.
-func (x *BusinessQualityPlan) SignOffProcess() *SignOffProcess {
-	return NewSignOffProcess(x.Doc(), x.Path() + "/signOffProcess")
-}
-
-// Warranty terms — PD00-DEL-ACC-WAR.
-func (x *BusinessQualityPlan) Warranty() *WarrantyTerms {
-	return NewWarrantyTerms(x.Doc(), x.Path() + "/warranty")
-}
-
-// A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
+// A business rule entry (form).
 //
 // Comprehensive business rule specification following SBVR-like patterns.
 type BusinessRuleEntry struct {
@@ -6790,28 +6484,28 @@ func (x *BusinessRuleEntry) Governance() *BusinessRuleEntryGovernanceForm {
 	return NewBusinessRuleEntryGovernanceForm(x.Doc(), x.Path() + "/governance")
 }
 
-// Contains 0+× AffectedObject [PD00-BUS-FUN-RUL-nn-AOB].
+// Contains 0+× AffectedObject.
 func (x *BusinessRuleEntry) AffectedObjects() *som.SomList[*AffectedObjectEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AFOB-AFFE-LST", func(d *som.SpecDocument, p string) *AffectedObjectEntry {
 		return NewAffectedObjectEntry(d, p)
 	})
 }
 
-// Contains 0+× AffectedFunction [PD00-BUS-FUN-RUL-nn-AFU].
+// Contains 0+× AffectedFunction.
 func (x *BusinessRuleEntry) AffectedFunctions() *som.SomList[*AffectedFunctionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AFFN-AFFE-LST", func(d *som.SpecDocument, p string) *AffectedFunctionEntry {
 		return NewAffectedFunctionEntry(d, p)
 	})
 }
 
-// Contains 0+× RuleExample [PD00-BUS-FUN-RUL-nn-EXA].
+// Contains 0+× RuleExample.
 func (x *BusinessRuleEntry) Examples() *som.SomList[*RuleExampleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RULEXM-EXAM-LST", func(d *som.SpecDocument, p string) *RuleExampleEntry {
 		return NewRuleExampleEntry(d, p)
 	})
 }
 
-// A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
+// A business rule reference entry (form).
 //
 // Reference to business rules that govern this object.
 type BusinessRuleReferenceEntry struct {
@@ -6835,105 +6529,7 @@ func (x *BusinessRuleReferenceEntry) SetRuleRef(value string) {
 	x.Doc().SetContent(x.Path() + "/ruleRef", value)
 }
 
-// BSI00 Business System Interactions.
-//
-// Complete interaction specification between the target system and
-// external systems: inventory, patterns, testing, dependencies,
-// migration, operational concerns, and cross-boundary error handling.
-type BusinessSystemInteractions struct {
-	som.SomNode
-}
-
-// BusinessSystemInteractionsModelVersion is the model version this object model was generated
-// against (§2.1).
-const BusinessSystemInteractionsModelVersion = "0.0"
-
-// NewBusinessSystemInteractions creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewBusinessSystemInteractions(doc *som.SpecDocument, documentVersion string) (*BusinessSystemInteractions, error) {
-	if err := som.CheckSomModelVersion(BusinessSystemInteractionsModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &BusinessSystemInteractions{SomNode: som.NewSomNode(doc, "BSI")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *BusinessSystemInteractions) ObjectModelVersion() string {
-	return BusinessSystemInteractionsModelVersion
-}
-
-func (x *BusinessSystemInteractions) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *BusinessSystemInteractions) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *BusinessSystemInteractions) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// External interfaces — PD00-SYO-SYB-INT.
-func (x *BusinessSystemInteractions) ExternalInterfaces() *ExternalInterfaces {
-	return NewExternalInterfaces(x.Doc(), x.Path() + "/externalInterfaces")
-}
-
-// Out of scope — PD00-SYO-SYB-OUT.
-func (x *BusinessSystemInteractions) OutOfScope() *OutOfScope {
-	return NewOutOfScope(x.Doc(), x.Path() + "/outOfScope")
-}
-
-// Boundary assumptions — PD00-SYO-SYB-ASS.
-func (x *BusinessSystemInteractions) BoundaryAssumptions() *BoundaryAssumptions {
-	return NewBoundaryAssumptions(x.Doc(), x.Path() + "/boundaryAssumptions")
-}
-
-// System landscape inventory — PD00-SYO-SYB-INV.
-func (x *BusinessSystemInteractions) SystemInventory() *SystemLandscapeInventory {
-	return NewSystemLandscapeInventory(x.Doc(), x.Path() + "/systemInventory")
-}
-
-// Boundary interaction patterns — PD00-SYO-SYB-PAT.
-func (x *BusinessSystemInteractions) InteractionPatterns() *som.SomList[*BoundaryInteractionPatterns] {
-	return som.NewSomList(x.Doc(), x.Path() + "/BOINPA-INTE-LST", func(d *som.SpecDocument, p string) *BoundaryInteractionPatterns {
-		return NewBoundaryInteractionPatterns(d, p)
-	})
-}
-
-// Interaction testing strategy — PD00-SYO-SYB-TST.
-func (x *BusinessSystemInteractions) TestingStrategy() *InteractionTestingStrategy {
-	return NewInteractionTestingStrategy(x.Doc(), x.Path() + "/testingStrategy")
-}
-
-// Interaction dependency analysis — PD00-SYO-SYB-DEP.
-func (x *BusinessSystemInteractions) DependencyAnalysis() *InteractionDependencyAnalysis {
-	return NewInteractionDependencyAnalysis(x.Doc(), x.Path() + "/dependencyAnalysis")
-}
-
-// Migration interactions — PD00-SYO-SYB-MIG.
-func (x *BusinessSystemInteractions) MigrationInteractions() *som.SomList[*MigrationInteractions] {
-	return som.NewSomList(x.Doc(), x.Path() + "/MIIN-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationInteractions {
-		return NewMigrationInteractions(d, p)
-	})
-}
-
-// Cross-boundary operational considerations — PD00-SYO-SYB-OPE.
-func (x *BusinessSystemInteractions) OperationalConsiderations() *som.SomList[*CrossBoundaryOperationalConsiderations] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CBOC-OPER-LST", func(d *som.SpecDocument, p string) *CrossBoundaryOperationalConsiderations {
-		return NewCrossBoundaryOperationalConsiderations(d, p)
-	})
-}
-
-// Cross-boundary error handling — PD00-SYO-SYB-ERR.
-func (x *BusinessSystemInteractions) CrossBoundaryErrorHandling() *CrossBoundaryErrorHandling {
-	return NewCrossBoundaryErrorHandling(x.Doc(), x.Path() + "/crossBoundaryErrorHandling")
-}
-
-// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+// 8.7.3. Capacity Planning.
 type CapacityPlanningSection struct {
 	som.SomNode
 }
@@ -7226,7 +6822,7 @@ func (x *CertificateManagementStorage) Content() *CertificateManagementStorageCo
 	return NewCertificateManagementStorageContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Certification entry (form) [PD00-ORG-WOR-nn-TRA-CER-nn].
+// Certification entry (form).
 type CertificationEntry struct {
 	som.SomNode
 }
@@ -7443,7 +7039,7 @@ func (x *ChangeAdvocateEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// A change category entry [PD00-ADM-CHA-CAT-nn].
+// A change category entry.
 //
 // Defines a category of changes with specific handling rules.
 type ChangeCategoryEntry struct {
@@ -7516,7 +7112,7 @@ func (x *ChangeCategoryEntryScope) Content() *ChangeCategoryEntryScopeContentFor
 	return NewChangeCategoryEntryScopeContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+// 3.4.3. Change Control Board.
 //
 // Governance body responsible for major change decisions.
 type ChangeControlBoard struct {
@@ -7610,7 +7206,7 @@ func (x *ChangeDecisionCriteria) Content() *ChangeDecisionCriteriaContentForm {
 	return NewChangeDecisionCriteriaContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+// 3.4.2. Change Impact Criteria.
 //
 // Criteria for determining the impact level of change requests,
 // which drives the approval path and stakeholder involvement.
@@ -7645,7 +7241,7 @@ func (x *ChangeImpactCriteria) Items() *som.SomList[*ChangeImpactCriterionEntry]
 	})
 }
 
-// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
+// A change impact criterion entry (form).
 //
 // Detailed criterion for assessing change impact in a specific dimension.
 type ChangeImpactCriterionEntry struct {
@@ -7751,7 +7347,7 @@ func (x *ChangeNotificationRules) Content() *ChangeNotificationRulesContentForm 
 	return NewChangeNotificationRulesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.4. Change Procedure [PD00-ADM-CHA].
+// 3.4. Change Procedure.
 //
 // Procedure for requesting, evaluating, and approving changes to this
 // Project Definition and other project documents. Defines the change
@@ -7778,22 +7374,22 @@ func (x *ChangeProcedure) Summary() *ChangeProcedureSummary {
 	return NewChangeProcedureSummary(x.Doc(), x.Path() + "/summary")
 }
 
-// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+// 3.4.1. Change Process.
 func (x *ChangeProcedure) ChangeProcess() *ChangeProcess {
 	return NewChangeProcess(x.Doc(), x.Path() + "/changeProcess")
 }
 
-// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+// 3.4.2. Change Impact Criteria.
 func (x *ChangeProcedure) ChangeImpactCriteria() *ChangeImpactCriteria {
 	return NewChangeImpactCriteria(x.Doc(), x.Path() + "/changeImpactCriteria")
 }
 
-// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+// 3.4.3. Change Control Board.
 func (x *ChangeProcedure) ChangeControlBoard() *ChangeControlBoard {
 	return NewChangeControlBoard(x.Doc(), x.Path() + "/changeControlBoard")
 }
 
-// 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
+// 3.4.4. Change Categories — contains 0+× Category.
 func (x *ChangeProcedure) ChangeCategories() *som.SomList[*ChangeCategoryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CHCA-CHAN-LST", func(d *som.SpecDocument, p string) *ChangeCategoryEntry {
 		return NewChangeCategoryEntry(d, p)
@@ -7814,7 +7410,7 @@ func (x *ChangeProcedureSummary) Content() *ChangeProcedureSummaryContentForm {
 	return NewChangeProcedureSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+// 3.4.1. Change Process.
 //
 // Detailed workflow for change request processing from submission
 // through evaluation, approval, implementation, and closure.
@@ -7896,7 +7492,7 @@ func (x *ChangeReadinessOverview) Content() *ChangeReadinessOverviewContentForm 
 	return NewChangeReadinessOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
+// A role involved in the change process (form).
 type ChangeRoleEntry struct {
 	som.SomNode
 }
@@ -7910,7 +7506,7 @@ func (x *ChangeRoleEntry) Content() *ChangeRoleEntryContentForm {
 	return NewChangeRoleEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
+// A change process step entry (form).
 //
 // Detailed description of a single step in the change process workflow.
 type ChangeStepEntry struct {
@@ -8041,7 +7637,7 @@ func (x *ChangedRoleCompetencies) GapAssessment() *CompetencyGapAssessment {
 	return NewCompetencyGapAssessment(x.Doc(), x.Path() + "/gapAssessment")
 }
 
-// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+// A changed role entry (form).
 //
 // Documents modifications to existing roles with impact assessment,
 // transition planning, and incumbent management.
@@ -8252,7 +7848,7 @@ func (x *ChangedRoleTransitionTraining) Content() *ChangedRoleTransitionTraining
 	return NewChangedRoleTransitionTrainingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+// 5.1.1. Changes from Current Structure.
 //
 // Explicitly documents what changes from the current organization structure.
 // Identifies affected departments, changed reporting lines, and new roles
@@ -8716,7 +8312,7 @@ func (x *ClientNetworkRequirementsProxy) Content() *ClientNetworkRequirementsPro
 	return NewClientNetworkRequirementsProxyContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+// 8.4.2. Client Requirements.
 //
 // Minimum client requirements: browser versions, operating systems, screen
 // resolution, network bandwidth, and device capabilities.
@@ -9445,7 +9041,7 @@ func (x *CodingStandardsSectionReview) Content() *CodingStandardsSectionReviewCo
 	return NewCodingStandardsSectionReviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A color palette entry [PD00-USE-COM-LIB-COL-nn].
+// A color palette entry.
 type ColorPaletteEntry struct {
 	som.SomNode
 }
@@ -9497,7 +9093,7 @@ func (x *CommitteeCharter) Content() *CommitteeCharterContentForm {
 	return NewCommitteeCharterContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+// A steering committee member entry (form).
 //
 // Detailed information about a steering committee member.
 type CommitteeMemberEntry struct {
@@ -9535,7 +9131,7 @@ func (x *CommitteeResponsibilityEntry) Content() *CommitteeResponsibilityEntryCo
 }
 
 // A communication channel encryption entry (form)
-// [PD00-ACC-SEN-TRA-CHA-nn].
+// .
 //
 // Defines encryption requirements for a specific communication channel
 // (e.g. client-to-server HTTPS, server-to-database, inter-service,
@@ -9554,7 +9150,7 @@ func (x *CommunicationChannelEncryptionEntry) Content() *CommunicationChannelEnc
 	return NewCommunicationChannelEncryptionEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Communication event entry [PD00-ORG-STR-TIM-COM-nn] (form).
+// Communication event entry (form).
 type CommunicationEventEntry struct {
 	som.SomNode
 }
@@ -9763,7 +9359,7 @@ func (x *CommunicationPreferenceEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.6. Communication Requirements [PD00-TEC-COM].
+// 8.6. Communication Requirements.
 type CommunicationRequirements struct {
 	som.SomNode
 }
@@ -9781,12 +9377,12 @@ func (x *CommunicationRequirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+// 8.6.1. Protocols and Standards.
 func (x *CommunicationRequirements) ProtocolsAndStandards() *ProtocolsAndStandardsSection {
 	return NewProtocolsAndStandardsSection(x.Doc(), x.Path() + "/protocolsAndStandards")
 }
 
-// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+// 8.6.2. External Connectivity.
 func (x *CommunicationRequirements) ExternalConnectivity() *ExternalConnectivitySection {
 	return NewExternalConnectivitySection(x.Doc(), x.Path() + "/externalConnectivity")
 }
@@ -9819,7 +9415,7 @@ func (x *CommunicationTypeEntry) Content() *CommunicationTypeEntryContentForm {
 	return NewCommunicationTypeEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+// 8.3.1. Compatibility Requirements.
 //
 // Compatibility requirements with existing IT infrastructure, standard software,
 // and enterprise systems.
@@ -9914,7 +9510,7 @@ func (x *CompatibilityRequirementsSection) Interoperability() *InteroperabilityR
 	return NewInteroperabilityRequirements(x.Doc(), x.Path() + "/interoperability")
 }
 
-// A competency entry (form) [PD00-ORG-JOB-CMP-xx-nn].
+// A competency entry (form).
 type CompetencyEntry struct {
 	som.SomNode
 }
@@ -9928,7 +9524,7 @@ func (x *CompetencyEntry) Content() *CompetencyEntryContentForm {
 	return NewCompetencyEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+// 5.2.5. Competency Framework.
 type CompetencyFramework struct {
 	som.SomNode
 }
@@ -10006,7 +9602,7 @@ func (x *CompetencyLevelChangeEntry) Content() *CompetencyLevelChangeEntryConten
 	return NewCompetencyLevelChangeEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Compliance audit planning and scheduling [PD00-TEC-SEC-AUD].
+// Compliance audit planning and scheduling.
 type ComplianceAuditSchedule struct {
 	som.SomNode
 }
@@ -10077,7 +9673,7 @@ func (x *ComplianceAuditScheduleReporting) Content() *ComplianceAuditScheduleRep
 	return NewComplianceAuditScheduleReportingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.8. Compliance Framework [PD00-ACC-CMP].
+// 9.8. Compliance Framework.
 //
 // NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
 // authorization. Pulls the compliance references currently scattered
@@ -10131,7 +9727,7 @@ func (x *ComplianceMilestoneEntry) Content() *ComplianceMilestoneEntryContentFor
 	return NewComplianceMilestoneEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+// 9.6.3. Compliance Reporting.
 //
 // Describes compliance reporting requirements: periodic access reviews,
 // privilege usage reports, anomaly detection, and regulatory audit support.
@@ -10298,7 +9894,7 @@ func (x *ComplianceVerificationSectionTools) Content() *ComplianceVerificationSe
 	return NewComplianceVerificationSectionToolsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
+// A component action entry.
 //
 // Defines an action that can be triggered from the component.
 type ComponentActionEntry struct {
@@ -10408,7 +10004,7 @@ func (x *ComponentDocs) Content() *ComponentDocsContentForm {
 	return NewComponentDocsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+// A component entry (form) with sub-entries.
 //
 // Describes a single external or standard component planned for use:
 // vendor assessment, maturity, security, cost, deployment model, licensing,
@@ -10473,29 +10069,29 @@ func (x *ComponentEntry) Docs() *som.SomList[*ComponentDocs] {
 	})
 }
 
-// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
+// Interfaces — contains 0+× ComponentInterface.
 func (x *ComponentEntry) Interfaces() *som.SomList[*ComponentInterfaceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMIF-INTE-LST", func(d *som.SpecDocument, p string) *ComponentInterfaceEntry {
 		return NewComponentInterfaceEntry(d, p)
 	})
 }
 
-// Licensing [PD00-COM-COM-nn-LIC] (form).
+// Licensing (form).
 func (x *ComponentEntry) Licensing() *ComponentLicensingEntry {
 	return NewComponentLicensingEntry(x.Doc(), x.Path() + "/licensing")
 }
 
-// Usage Rights [PD00-COM-COM-nn-USE].
+// Usage Rights.
 // (skipped: usageRights has no target type)
 
-// Responsibilities [PD00-COM-COM-nn-RES] (form).
+// Responsibilities (form).
 func (x *ComponentEntry) Responsibilities() *som.SomList[*ComponentResponsibilitiesEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/COREEN-RESP-LST", func(d *som.SpecDocument, p string) *ComponentResponsibilitiesEntry {
 		return NewComponentResponsibilitiesEntry(d, p)
 	})
 }
 
-// A component family entry [PD00-USE-COM-FAM-nn].
+// A component family entry.
 //
 // Groups related components by function (buttons, inputs, navigation, etc.).
 type ComponentFamilyEntry struct {
@@ -10611,7 +10207,7 @@ func (x *ComponentGovernanceQuality) Content() *ComponentGovernanceQualityConten
 	return NewComponentGovernanceQualityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
+// A component interface entry (form).
 //
 // Describes one interface exposed or consumed by a component: protocol,
 // authentication, data format, rate limits, versioning, SLA, monitoring.
@@ -10723,7 +10319,7 @@ func (x *ComponentInterfaceEntrySla) Content() *ComponentInterfaceEntrySlaConten
 	return NewComponentInterfaceEntrySlaContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.11.1. Component Library [PD00-USE-COM-LIB].
+// 10.11.1. Component Library.
 //
 // Design system and component catalog specification.
 type ComponentLibrary struct {
@@ -10856,7 +10452,7 @@ func (x *ComponentLibraryVisuals) Content() *ComponentLibraryVisualsContentForm 
 	return NewComponentLibraryVisualsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+// Component licensing sub-entry (form).
 //
 // Detailed licensing information: model, cost, compliance, open-source
 // obligations, audit requirements, geographic restrictions, usage metrics.
@@ -11086,7 +10682,7 @@ func (x *ComponentPerformance) Content() *ComponentPerformanceContentForm {
 	return NewComponentPerformanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
+// A component property entry.
 //
 // Defines a configurable property of the component.
 type ComponentPropertyEntry struct {
@@ -11192,7 +10788,7 @@ func (x *ComponentRegistryUpdates) Content() *ComponentRegistryUpdatesContentFor
 	return NewComponentRegistryUpdatesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+// Component responsibilities sub-entry (form).
 //
 // Who owns and maintains this component: primary/backup owners, SLA targets,
 // patch response time, security vulnerability handling, budget allocation.
@@ -11299,7 +10895,7 @@ func (x *ComponentRisk) Content() *ComponentRiskContentForm {
 	return NewComponentRiskContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 12.6. Risk Assessment [PD00-COM-RIS].
+// 12.6. Risk Assessment.
 //
 // Component risk assessment: identified risks with probability/impact,
 // monitoring, mitigation strategies, and contingency plans.
@@ -11320,19 +10916,19 @@ func (x *ComponentRiskAssessment) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+// 12.6.1. Component Risks — contains 0+× Risk.
 func (x *ComponentRiskAssessment) Risks() *som.SomList[*ComponentRiskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMRS-RISK-LST", func(d *som.SpecDocument, p string) *ComponentRiskEntry {
 		return NewComponentRiskEntry(d, p)
 	})
 }
 
-// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+// 12.6.2. Contingency Plans.
 func (x *ComponentRiskAssessment) ContingencyPlans() *ContingencyPlans {
 	return NewContingencyPlans(x.Doc(), x.Path() + "/contingencyPlans")
 }
 
-// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+// A component risk entry (form).
 //
 // Documents one component risk: category, probability, impact, detection
 // methods, mitigation strategy and status, residual risk, and ownership.
@@ -11444,7 +11040,7 @@ func (x *ComponentRiskEntryMitigation) Content() *ComponentRiskEntryMitigationCo
 	return NewComponentRiskEntryMitigationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
+// A component slot entry.
 //
 // Defines a slot where child widgets can be placed.
 type ComponentSlotEntry struct {
@@ -11460,7 +11056,7 @@ func (x *ComponentSlotEntry) Content() *ComponentSlotEntryContentForm {
 	return NewComponentSlotEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
+// A component state entry.
 //
 // Defines a visual/functional state of the component.
 type ComponentStateEntry struct {
@@ -11536,7 +11132,7 @@ func (x *ComponentStateEntryVisual) Content() *ComponentStateEntryVisualContentF
 	return NewComponentStateEntryVisualContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 12.1. Component Strategy [PD00-COM-STR].
+// 12.1. Component Strategy.
 //
 // Overall component strategy: build-vs-buy philosophy, preferred vendors,
 // technology stack alignment, governance, evaluation cadence, and portfolio
@@ -11579,14 +11175,14 @@ func (x *ComponentStrategy) Planning() *ComponentStrategyPlanning {
 	return NewComponentStrategyPlanning(x.Doc(), x.Path() + "/planning")
 }
 
-// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+// 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
 func (x *ComponentStrategy) ReuseGoals() *som.SomList[*ReuseGoalEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RGUSE-REUS-LST", func(d *som.SpecDocument, p string) *ReuseGoalEntry {
 		return NewReuseGoalEntry(d, p)
 	})
 }
 
-// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+// 12.1.2. Evaluation Criteria.
 func (x *ComponentStrategy) EvaluationCriteria() *EvaluationCriteria {
 	return NewEvaluationCriteria(x.Doc(), x.Path() + "/evaluationCriteria")
 }
@@ -11675,7 +11271,7 @@ func (x *ComponentSupport) Content() *ComponentSupportContentForm {
 	return NewComponentSupportContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
+// A component variant entry.
 //
 // Defines a variation of the component with different appearance or behavior.
 type ComponentVariantEntry struct {
@@ -11746,7 +11342,7 @@ func (x *ComponentVendor) Content() *ComponentVendorContentForm {
 	return NewComponentVendorContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 12. Components to Use [PD00-COM]. Seeds → TR.
+// 12. Components to Use. Seeds → TR.
 //
 // External and standard components planned for use in the system. All
 // subsections seed the TR document, where component choices are expanded
@@ -11769,32 +11365,32 @@ func (x *ComponentsToUse) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 12.1. Component Strategy [PD00-COM-STR].
+// 12.1. Component Strategy.
 func (x *ComponentsToUse) Strategy() *ComponentStrategy {
 	return NewComponentStrategy(x.Doc(), x.Path() + "/strategy")
 }
 
-// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+// 12.2. Component Catalog — contains 0+× Component.
 func (x *ComponentsToUse) ComponentCatalog() *som.SomList[*ComponentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMPNT-COMP-LST", func(d *som.SpecDocument, p string) *ComponentEntry {
 		return NewComponentEntry(d, p)
 	})
 }
 
-// 12.3. Component Role In System [PD00-COM-ROL].
+// 12.3. Component Role In System.
 // (skipped: componentRoleInSystem has no target type)
 
-// 12.4. Runtime Dependencies [PD00-COM-RUN].
+// 12.4. Runtime Dependencies.
 func (x *ComponentsToUse) RuntimeDependencies() *RuntimeDependencies {
 	return NewRuntimeDependencies(x.Doc(), x.Path() + "/runtimeDependencies")
 }
 
-// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+// 12.5. Maintenance Dependencies.
 func (x *ComponentsToUse) MaintenanceDependencies() *MaintenanceDependencies {
 	return NewMaintenanceDependencies(x.Doc(), x.Path() + "/maintenanceDependencies")
 }
 
-// 12.6. Risk Assessment [PD00-COM-RIS].
+// 12.6. Risk Assessment.
 func (x *ComponentsToUse) RiskAssessment() *ComponentRiskAssessment {
 	return NewComponentRiskAssessment(x.Doc(), x.Path() + "/riskAssessment")
 }
@@ -11870,7 +11466,7 @@ func (x *ComputeResourceRequirementsSpecial) Content() *ComputeResourceRequireme
 	return NewComputeResourceRequirementsSpecialContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Computing equipment entry (form) [PD00-ORG-WOR-nn-EQU-PRI-nn].
+// Computing equipment entry (form).
 type ComputingEquipmentEntry struct {
 	som.SomNode
 }
@@ -11980,7 +11576,7 @@ func (x *ConfidentialInfoCategoryEntry) Content() *ConfidentialInfoCategoryEntry
 	return NewConfidentialInfoCategoryEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.6.2. Confidentiality and NDA Requirements [PD00-ADM-OTH-NDA].
+// 3.6.2. Confidentiality and NDA Requirements.
 //
 // Non-disclosure agreements and confidentiality constraints.
 type ConfidentialityRequirements struct {
@@ -12169,7 +11765,7 @@ func (x *ConnectivityResilienceProtection) Content() *ConnectivityResilienceProt
 	return NewConnectivityResilienceProtectionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
+// Consent collection, tracking and management requirements.
 type ConsentManagementRequirements struct {
 	som.SomNode
 }
@@ -12306,7 +11902,7 @@ func (x *ConstraintDetails) Content() *ConstraintDetailsContentForm {
 	return NewConstraintDetailsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
+// A constraint entry (form).
 //
 // Represents a single external constraint limiting project degrees of
 // freedom. Common constraint types include regulatory requirements,
@@ -12402,6 +11998,23 @@ func (x *ConstraintMitigation) Content() *ConstraintMitigationContentForm {
 	return NewConstraintMitigationContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// A single constraint register entry (form).
+//
+// Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
+// `ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+type ConstraintRegisterEntry struct {
+	som.SomNode
+}
+
+// NewConstraintRegisterEntry binds a ConstraintRegisterEntry facade to a document and a path.
+func NewConstraintRegisterEntry(doc *som.SpecDocument, path string) *ConstraintRegisterEntry {
+	return &ConstraintRegisterEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ConstraintRegisterEntry) Content() *ConstraintRegisterEntryContentForm {
+	return NewConstraintRegisterEntryContentForm(x.Doc(), x.Path() + "/content")
+}
+
 // Tracking for constraint.
 type ConstraintTracking struct {
 	som.SomNode
@@ -12416,7 +12029,7 @@ func (x *ConstraintTracking) Content() *ConstraintTrackingContentForm {
 	return NewConstraintTrackingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+// 4.6.4.1. Constraints.
 //
 // External constraints limiting project scope, schedule, budget, or
 // approach. Includes regulatory, contractual, organizational, technical,
@@ -12445,7 +12058,7 @@ func (x *Constraints) Items() *som.SomList[*ConstraintEntry] {
 // Constraint Summary narrative.
 // (skipped: constraintNarrative has no target type)
 
-// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+// 4.6.4. Constraints and Dependencies.
 //
 // Documents external constraints (regulatory, contractual, budgetary,
 // timeline) and dependencies on other projects, teams, or organizational
@@ -12464,12 +12077,12 @@ func (x *ConstraintsAndDependencies) Content() *ConstraintsAndDependenciesConten
 	return NewConstraintsAndDependenciesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+// 4.6.4.1. Constraints.
 func (x *ConstraintsAndDependencies) Constraints() *Constraints {
 	return NewConstraints(x.Doc(), x.Path() + "/constraints")
 }
 
-// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+// 4.6.4.2. Dependencies.
 func (x *ConstraintsAndDependencies) FrameworkDependencies() *FrameworkDependencies {
 	return NewFrameworkDependencies(x.Doc(), x.Path() + "/frameworkDependencies")
 }
@@ -12499,7 +12112,7 @@ func (x *ContentScanningPolicy) SetContent(value string) {
 // Content Scanning Details (text).
 // (skipped: contentScanningDetails has no target type)
 
-// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+// 4.1.2.1. Context Diagram.
 //
 // Visual representation of the system as a black box showing external
 // entities and data flows (UML context diagram / DFD Level 0).
@@ -12538,7 +12151,7 @@ func (x *ContextDiagram) SetLegend(value string) {
 	x.Doc().SetContent(x.Path() + "/legend", value)
 }
 
-// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+// 10.8.1. Contextual Help.
 type ContextualHelp struct {
 	som.SomNode
 }
@@ -12638,7 +12251,7 @@ func (x *ContextualHelpWhatsThis) Content() *ContextualHelpWhatsThisContentForm 
 	return NewContextualHelpWhatsThisContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+// 10.3.1.6. Contextual Navigation.
 //
 // Breadcrumbs, back navigation, related links.
 type ContextualNavigation struct {
@@ -12658,7 +12271,7 @@ func (x *ContextualNavigation) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+// 10.3.1.6.1. Breadcrumb Configuration.
 func (x *ContextualNavigation) Breadcrumbs() *BreadcrumbConfiguration {
 	return NewBreadcrumbConfiguration(x.Doc(), x.Path() + "/breadcrumbs")
 }
@@ -12669,7 +12282,7 @@ func (x *ContextualNavigation) Breadcrumbs() *BreadcrumbConfiguration {
 // Related links behavior.
 // (skipped: relatedLinks has no target type)
 
-// A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
+// A contingency plan entry (form).
 //
 // Describes one contingency plan for a component risk: trigger conditions,
 // immediate/recovery actions, RTO/RPO, communication, testing frequency.
@@ -12781,7 +12394,7 @@ func (x *ContingencyPlanEntryTesting) Content() *ContingencyPlanEntryTestingCont
 	return NewContingencyPlanEntryTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+// 12.6.2. Contingency Plans.
 //
 // Container for contingency plans addressing critical component risks.
 type ContingencyPlans struct {
@@ -12808,7 +12421,7 @@ func (x *ContingencyPlans) Items() *som.SomList[*ContingencyPlanEntry] {
 	})
 }
 
-// 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
+// 11.2.3. Correctness quality.
 type CorrectnessQuality struct {
 	som.SomNode
 }
@@ -12948,7 +12561,7 @@ func (x *CriticalKnowledgeAreaEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+// 4.5.10. Cross-Boundary Error Handling.
 //
 // Failure-propagation policy that applies across system boundaries.
 // Distinct from per-interface error handling.
@@ -12969,7 +12582,7 @@ func (x *CrossBoundaryErrorHandling) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+// 4.5.9. Cross-Boundary Operational Considerations.
 //
 // SLA, rate-limit, and change-window considerations applied at system
 // boundaries. Distinct from per-interface operational data captured
@@ -13100,10 +12713,10 @@ func (x *CrossCuttingConcernsShared) Content() *CrossCuttingConcernsSharedConten
 	return NewCrossCuttingConcernsSharedContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+// 6.1.8. Cross-Process Analysis.
 //
 // Hand-offs, shared data, and coordination patterns between processes.
-// Covers HBSG AS07-CRO.
+// .
 type CrossProcessAnalysis struct {
 	som.SomNode
 }
@@ -13165,7 +12778,7 @@ func (x *CulturalConsiderationEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+// 1.1.2. Current Architecture.
 //
 // Description of the current system architecture including deployment
 // topology, integration patterns, shared services, and data stores.
@@ -13186,7 +12799,7 @@ func (x *CurrentArchitecture) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
+// Architecture overview diagram.
 func (x *CurrentArchitecture) ArchitectureDiagram() string {
 	return x.Doc().ContentOr(x.Path() + "/architectureDiagram")
 }
@@ -13195,7 +12808,7 @@ func (x *CurrentArchitecture) SetArchitectureDiagram(value string) {
 	x.Doc().SetContent(x.Path() + "/architectureDiagram", value)
 }
 
-// Deployment topology description [PD00-CUR-SYS-ARC-DEP].
+// Deployment topology description.
 func (x *CurrentArchitecture) DeploymentTopology() string {
 	return x.Doc().ContentOr(x.Path() + "/deploymentTopology")
 }
@@ -13204,21 +12817,21 @@ func (x *CurrentArchitecture) SetDeploymentTopology(value string) {
 	x.Doc().SetContent(x.Path() + "/deploymentTopology", value)
 }
 
-// Integration patterns used [PD00-CUR-SYS-ARC-INT].
+// Integration patterns used.
 func (x *CurrentArchitecture) IntegrationPatterns() *som.SomList[*IntegrationPatternEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INTEG1-INTE-LST", func(d *som.SpecDocument, p string) *IntegrationPatternEntry {
 		return NewIntegrationPatternEntry(d, p)
 	})
 }
 
-// Shared services inventory [PD00-CUR-SYS-ARC-SHR].
+// Shared services inventory.
 func (x *CurrentArchitecture) SharedServices() *som.SomList[*SharedServiceEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SHARE-SHAR-LST", func(d *som.SpecDocument, p string) *SharedServiceEntry {
 		return NewSharedServiceEntry(d, p)
 	})
 }
 
-// A current business process [PD00-CUR-PRO-nn].
+// A current business process.
 //
 // Detailed documentation of a single business process including its
 // workflows, actors, metrics, and pain points.
@@ -13240,12 +12853,12 @@ func (x *CurrentBusinessProcess) ProcessContext() *ProcessContext {
 	return NewProcessContext(x.Doc(), x.Path() + "/processContext")
 }
 
-// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
+// 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
 func (x *CurrentBusinessProcess) WorkflowDescriptions() *WorkflowDescriptions {
 	return NewWorkflowDescriptions(x.Doc(), x.Path() + "/workflowDescriptions")
 }
 
-// 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
+// 1.2.nn.2. Process Metrics.
 func (x *CurrentBusinessProcess) ProcessMetrics() *ProcessMetrics {
 	return NewProcessMetrics(x.Doc(), x.Path() + "/processMetrics")
 }
@@ -13255,7 +12868,7 @@ func (x *CurrentBusinessProcess) ProcessPainPoints() *ProcessPainPoints {
 	return NewProcessPainPoints(x.Doc(), x.Path() + "/processPainPoints")
 }
 
-// 1.2. Current Business Processes [PD00-CUR-PRO].
+// 1.2. Current Business Processes.
 //
 // Documents the current business processes that the project will impact,
 // replace, or enhance. Understanding existing workflows is critical for
@@ -13278,7 +12891,7 @@ func (x *CurrentBusinessProcesses) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Process landscape diagram [PD00-CUR-PRO-DIA].
+// Process landscape diagram.
 func (x *CurrentBusinessProcesses) ProcessLandscapeDiagram() string {
 	return x.Doc().ContentOr(x.Path() + "/processLandscapeDiagram")
 }
@@ -13287,29 +12900,29 @@ func (x *CurrentBusinessProcesses) SetProcessLandscapeDiagram(value string) {
 	x.Doc().SetContent(x.Path() + "/processLandscapeDiagram", value)
 }
 
-// Process scope summary [PD00-CUR-PRO-SCO].
+// Process scope summary.
 func (x *CurrentBusinessProcesses) ScopeSummary() *ProcessScopeSummary {
 	return NewProcessScopeSummary(x.Doc(), x.Path() + "/scopeSummary")
 }
 
-// Process interdependency matrix [PD00-CUR-PRO-INT].
+// Process interdependency matrix.
 func (x *CurrentBusinessProcesses) InterdependencyMatrix() *ProcessInterdependencyMatrix {
 	return NewProcessInterdependencyMatrix(x.Doc(), x.Path() + "/interdependencyMatrix")
 }
 
-// Process performance summary [PD00-CUR-PRO-SUM].
+// Process performance summary.
 func (x *CurrentBusinessProcesses) PerformanceSummary() *ProcessPerformanceSummary {
 	return NewProcessPerformanceSummary(x.Doc(), x.Path() + "/performanceSummary")
 }
 
-// 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
+// 1.2.nn. Business Processes — contains 1+× Business Process.
 func (x *CurrentBusinessProcesses) Processes() *som.SomList[*CurrentBusinessProcess] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CUBIPR-PROC-LST", func(d *som.SpecDocument, p string) *CurrentBusinessProcess {
 		return NewCurrentBusinessProcess(d, p)
 	})
 }
 
-// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+// 1.4.8. Data Classification.
 //
 // Data classification framework, sensitivity levels, and current
 // classification status of data assets.
@@ -13349,7 +12962,7 @@ func (x *CurrentDataClassification) ClassificationStatus() *som.SomList[*DataCla
 	})
 }
 
-// 1.4. Current Data Landscape [PD00-CUR-DAT].
+// 1.4. Current Data Landscape.
 //
 // Comprehensive documentation of the current data situation including where
 // data lives, data quality issues, duplication, ownership, volumes, growth
@@ -13394,57 +13007,194 @@ func (x *CurrentDataLandscape) DataLandscapeSummary() *DataLandscapeSummary {
 	return NewDataLandscapeSummary(x.Doc(), x.Path() + "/dataLandscapeSummary")
 }
 
-// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+// 1.4.1. Data Source Inventory.
 func (x *CurrentDataLandscape) DataSourceInventory() *DataSourceInventory {
 	return NewDataSourceInventory(x.Doc(), x.Path() + "/dataSourceInventory")
 }
 
-// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+// 1.4.2. Data Quality Assessment.
 func (x *CurrentDataLandscape) DataQualityAssessment() *DataQualityAssessment {
 	return NewDataQualityAssessment(x.Doc(), x.Path() + "/dataQualityAssessment")
 }
 
-// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+// 1.4.3. Data Duplication Analysis.
 func (x *CurrentDataLandscape) DataDuplicationAnalysis() *DataDuplicationAnalysis {
 	return NewDataDuplicationAnalysis(x.Doc(), x.Path() + "/dataDuplicationAnalysis")
 }
 
-// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+// 1.4.4. Data Ownership and Stewardship.
 func (x *CurrentDataLandscape) DataOwnership() *DataOwnership {
 	return NewDataOwnership(x.Doc(), x.Path() + "/dataOwnership")
 }
 
-// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+// 1.4.5. Data Volumes and Growth.
 func (x *CurrentDataLandscape) DataVolumesAndGrowth() *DataVolumesAndGrowth {
 	return NewDataVolumesAndGrowth(x.Doc(), x.Path() + "/dataVolumesAndGrowth")
 }
 
-// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+// 1.4.6. Retention Policies.
 func (x *CurrentDataLandscape) RetentionPolicies() *DataRetentionPolicies {
 	return NewDataRetentionPolicies(x.Doc(), x.Path() + "/retentionPolicies")
 }
 
-// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+// 1.4.7. Data Governance.
 func (x *CurrentDataLandscape) DataGovernance() *DataGovernance {
 	return NewDataGovernance(x.Doc(), x.Path() + "/dataGovernance")
 }
 
-// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+// 1.4.8. Data Classification.
 func (x *CurrentDataLandscape) DataClassification() *CurrentDataClassification {
 	return NewCurrentDataClassification(x.Doc(), x.Path() + "/dataClassification")
 }
 
-// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+// 1.4.9. Data Integration Points.
 func (x *CurrentDataLandscape) DataIntegrationPoints() *DataIntegrationPoints {
 	return NewDataIntegrationPoints(x.Doc(), x.Path() + "/dataIntegrationPoints")
 }
 
-// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+// 1.4.10. Master Data Management.
 func (x *CurrentDataLandscape) MasterDataManagement() *MasterDataManagement {
 	return NewMasterDataManagement(x.Doc(), x.Path() + "/masterDataManagement")
 }
 
-// 1.5. Operational Metrics [PD00-CUR-MET].
+// 1. Current State Analysis. Seeds → CS.
+//
+// Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
+// CS together with the systems-to-replace inventory.
+type CurrentLandscape struct {
+	som.SomNode
+}
+
+// NewCurrentLandscape binds a CurrentLandscape facade to a document and a path.
+func NewCurrentLandscape(doc *som.SpecDocument, path string) *CurrentLandscape {
+	return &CurrentLandscape{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *CurrentLandscape) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *CurrentLandscape) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// 1.1. Existing Systems Landscape.
+func (x *CurrentLandscape) ExistingSystemsLandscape() *ExistingSystemsLandscape {
+	return NewExistingSystemsLandscape(x.Doc(), x.Path() + "/existingSystemsLandscape")
+}
+
+// 1.2. Current Business Processes.
+func (x *CurrentLandscape) CurrentBusinessProcesses() *CurrentBusinessProcesses {
+	return NewCurrentBusinessProcesses(x.Doc(), x.Path() + "/currentBusinessProcesses")
+}
+
+// 1.3. Pain Points and Gaps.
+func (x *CurrentLandscape) PainPointsAndGaps() *PainPointsAndGaps {
+	return NewPainPointsAndGaps(x.Doc(), x.Path() + "/painPointsAndGaps")
+}
+
+// 1.4. Current Data Landscape.
+func (x *CurrentLandscape) CurrentDataLandscape() *CurrentDataLandscape {
+	return NewCurrentDataLandscape(x.Doc(), x.Path() + "/currentDataLandscape")
+}
+
+// 1.5. Operational Metrics.
+func (x *CurrentLandscape) OperationalMetrics() *som.SomList[*CurrentOperationalMetrics] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetrics {
+		return NewCurrentOperationalMetrics(d, p)
+	})
+}
+
+// 1.6. Current State Risks.
+func (x *CurrentLandscape) CurrentStateRisks() *CurrentStateRiskAssessment {
+	return NewCurrentStateRiskAssessment(x.Doc(), x.Path() + "/currentStateRisks")
+}
+
+// CS00 Current Situation.
+//
+// Detailed analysis of the current state: existing systems, business
+// processes, pain points, data landscape, operational metrics, risks,
+// and the inventory / migration plan for the systems being replaced.
+type CurrentLandscapeAssessment struct {
+	som.SomNode
+}
+
+// CurrentLandscapeAssessmentModelVersion is the model version this object model was generated
+// against (§2.1).
+const CurrentLandscapeAssessmentModelVersion = "0.0"
+
+// NewCurrentLandscapeAssessment creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewCurrentLandscapeAssessment(doc *som.SpecDocument, documentVersion string) (*CurrentLandscapeAssessment, error) {
+	if err := som.CheckSomModelVersion(CurrentLandscapeAssessmentModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &CurrentLandscapeAssessment{SomNode: som.NewSomNode(doc, "CLA")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *CurrentLandscapeAssessment) ObjectModelVersion() string {
+	return CurrentLandscapeAssessmentModelVersion
+}
+
+func (x *CurrentLandscapeAssessment) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *CurrentLandscapeAssessment) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *CurrentLandscapeAssessment) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Existing systems landscape.
+func (x *CurrentLandscapeAssessment) ExistingSystemsLandscape() *ExistingSystemsLandscape {
+	return NewExistingSystemsLandscape(x.Doc(), x.Path() + "/existingSystemsLandscape")
+}
+
+// Current business processes.
+func (x *CurrentLandscapeAssessment) CurrentBusinessProcesses() *CurrentBusinessProcesses {
+	return NewCurrentBusinessProcesses(x.Doc(), x.Path() + "/currentBusinessProcesses")
+}
+
+// Pain points and gaps.
+func (x *CurrentLandscapeAssessment) PainPointsAndGaps() *PainPointsAndGaps {
+	return NewPainPointsAndGaps(x.Doc(), x.Path() + "/painPointsAndGaps")
+}
+
+// Current data landscape.
+func (x *CurrentLandscapeAssessment) CurrentDataLandscape() *CurrentDataLandscape {
+	return NewCurrentDataLandscape(x.Doc(), x.Path() + "/currentDataLandscape")
+}
+
+// Current operational metrics.
+func (x *CurrentLandscapeAssessment) OperationalMetrics() *som.SomList[*CurrentOperationalMetrics] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetrics {
+		return NewCurrentOperationalMetrics(d, p)
+	})
+}
+
+// Current-state risk assessment.
+func (x *CurrentLandscapeAssessment) CurrentStateRisks() *CurrentStateRiskAssessment {
+	return NewCurrentStateRiskAssessment(x.Doc(), x.Path() + "/currentStateRisks")
+}
+
+// Replacement inventory.
+func (x *CurrentLandscapeAssessment) ReplacementInventory() *ReplacementInventory {
+	return NewReplacementInventory(x.Doc(), x.Path() + "/replacementInventory")
+}
+
+// Migration considerations.
+func (x *CurrentLandscapeAssessment) MigrationConsiderations() *MigrationConsiderations {
+	return NewMigrationConsiderations(x.Doc(), x.Path() + "/migrationConsiderations")
+}
+
+// 1.5. Operational Metrics.
 //
 // Baseline metrics of the current systems: throughput, volume, uptime,
 // response times, user counts. Used to size the target system and to
@@ -13480,147 +13230,10 @@ func (x *CurrentProcessImprovementEntry) Content() *CurrentProcessImprovementEnt
 	return NewCurrentProcessImprovementEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// CS00 Current Situation.
-//
-// Detailed analysis of the current state: existing systems, business
-// processes, pain points, data landscape, operational metrics, risks,
-// and the inventory / migration plan for the systems being replaced.
-type CurrentSituation struct {
-	som.SomNode
-}
-
-// CurrentSituationModelVersion is the model version this object model was generated
-// against (§2.1).
-const CurrentSituationModelVersion = "0.0"
-
-// NewCurrentSituation creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewCurrentSituation(doc *som.SpecDocument, documentVersion string) (*CurrentSituation, error) {
-	if err := som.CheckSomModelVersion(CurrentSituationModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &CurrentSituation{SomNode: som.NewSomNode(doc, "CS")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *CurrentSituation) ObjectModelVersion() string {
-	return CurrentSituationModelVersion
-}
-
-func (x *CurrentSituation) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CurrentSituation) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *CurrentSituation) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Existing systems landscape — PD00-CUR-SYS.
-func (x *CurrentSituation) ExistingSystemsLandscape() *ExistingSystemsLandscape {
-	return NewExistingSystemsLandscape(x.Doc(), x.Path() + "/existingSystemsLandscape")
-}
-
-// Current business processes — PD00-CUR-PRO.
-func (x *CurrentSituation) CurrentBusinessProcesses() *CurrentBusinessProcesses {
-	return NewCurrentBusinessProcesses(x.Doc(), x.Path() + "/currentBusinessProcesses")
-}
-
-// Pain points and gaps — PD00-CUR-PAI.
-func (x *CurrentSituation) PainPointsAndGaps() *PainPointsAndGaps {
-	return NewPainPointsAndGaps(x.Doc(), x.Path() + "/painPointsAndGaps")
-}
-
-// Current data landscape — PD00-CUR-DAT.
-func (x *CurrentSituation) CurrentDataLandscape() *CurrentDataLandscape {
-	return NewCurrentDataLandscape(x.Doc(), x.Path() + "/currentDataLandscape")
-}
-
-// Current operational metrics — PD00-CUR-MET.
-func (x *CurrentSituation) OperationalMetrics() *som.SomList[*CurrentOperationalMetrics] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetrics {
-		return NewCurrentOperationalMetrics(d, p)
-	})
-}
-
-// Current-state risk assessment — PD00-CUR-RIS.
-func (x *CurrentSituation) CurrentStateRisks() *CurrentStateRiskAssessment {
-	return NewCurrentStateRiskAssessment(x.Doc(), x.Path() + "/currentStateRisks")
-}
-
-// Replacement inventory — PD00-SYO-SYR-INV.
-func (x *CurrentSituation) ReplacementInventory() *ReplacementInventory {
-	return NewReplacementInventory(x.Doc(), x.Path() + "/replacementInventory")
-}
-
-// Migration considerations — PD00-SYO-SYR-MIG.
-func (x *CurrentSituation) MigrationConsiderations() *MigrationConsiderations {
-	return NewMigrationConsiderations(x.Doc(), x.Path() + "/migrationConsiderations")
-}
-
-// 1. Current State Analysis [PD00-CUR]. Seeds → CS.
-//
-// Seeds the CS (Current Situation) Phase 3 DocSpec. Previously listed as
-// PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
-type CurrentStateAnalysis struct {
-	som.SomNode
-}
-
-// NewCurrentStateAnalysis binds a CurrentStateAnalysis facade to a document and a path.
-func NewCurrentStateAnalysis(doc *som.SpecDocument, path string) *CurrentStateAnalysis {
-	return &CurrentStateAnalysis{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *CurrentStateAnalysis) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CurrentStateAnalysis) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
-func (x *CurrentStateAnalysis) ExistingSystemsLandscape() *ExistingSystemsLandscape {
-	return NewExistingSystemsLandscape(x.Doc(), x.Path() + "/existingSystemsLandscape")
-}
-
-// 1.2. Current Business Processes [PD00-CUR-PRO].
-func (x *CurrentStateAnalysis) CurrentBusinessProcesses() *CurrentBusinessProcesses {
-	return NewCurrentBusinessProcesses(x.Doc(), x.Path() + "/currentBusinessProcesses")
-}
-
-// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
-func (x *CurrentStateAnalysis) PainPointsAndGaps() *PainPointsAndGaps {
-	return NewPainPointsAndGaps(x.Doc(), x.Path() + "/painPointsAndGaps")
-}
-
-// 1.4. Current Data Landscape [PD00-CUR-DAT].
-func (x *CurrentStateAnalysis) CurrentDataLandscape() *CurrentDataLandscape {
-	return NewCurrentDataLandscape(x.Doc(), x.Path() + "/currentDataLandscape")
-}
-
-// 1.5. Operational Metrics [PD00-CUR-MET].
-func (x *CurrentStateAnalysis) OperationalMetrics() *som.SomList[*CurrentOperationalMetrics] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetrics {
-		return NewCurrentOperationalMetrics(d, p)
-	})
-}
-
-// 1.6. Current State Risks [PD00-CUR-RIS].
-func (x *CurrentStateAnalysis) CurrentStateRisks() *CurrentStateRiskAssessment {
-	return NewCurrentStateRiskAssessment(x.Doc(), x.Path() + "/currentStateRisks")
-}
-
-// 1.6. Current State Risks [PD00-CUR-RIS].
+// 1.6. Current State Risks.
 //
 // Risks tied to the current state and to its replacement. Distinct from
-// PD00-SYO-RIS which covers target-side risks.
+// the target-side risks section which covers replacement risks.
 type CurrentStateRiskAssessment struct {
 	som.SomNode
 }
@@ -13638,7 +13251,7 @@ func (x *CurrentStateRiskAssessment) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+// A current workflow entry (form).
 //
 // Detailed documentation of a single workflow within a business process.
 // Includes triggers, steps, actors, inputs, outputs, and timing.
@@ -13655,7 +13268,7 @@ func (x *CurrentWorkflowEntry) Content() *CurrentWorkflowEntryContentForm {
 	return NewCurrentWorkflowEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Workflow diagram [PD00-CUR-PRO-xx-WOR-xx-DIA].
+// Workflow diagram.
 func (x *CurrentWorkflowEntry) WorkflowDiagram() string {
 	return x.Doc().ContentOr(x.Path() + "/workflowDiagram")
 }
@@ -13756,7 +13369,7 @@ func (x *CustomDistributionGroup) Members() *som.SomList[*DistributionRecipientE
 	})
 }
 
-// A custom metric entry [PD00-TEC-SYS-MON-MET-nn].
+// A custom metric entry.
 type CustomMetricEntry struct {
 	som.SomNode
 }
@@ -13770,7 +13383,7 @@ func (x *CustomMetricEntry) Content() *CustomMetricEntryContentForm {
 	return NewCustomMetricEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 15.6. Cutover Procedures [PD00-ROL-CUT].
+// 15.6. Cutover Procedures.
 //
 // Detailed cutover runbook for go-live. Minute-by-minute procedure
 // covering the transition from current operation to the target system.
@@ -13791,7 +13404,7 @@ func (x *CutoverProcedures) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// A dashboard entry [PD00-TEC-SYS-MON-DAS-nn].
+// A dashboard entry.
 type DashboardEntry struct {
 	som.SomNode
 }
@@ -14113,7 +13726,7 @@ func (x *DataAttributeConstraintEntry) Content() *DataAttributeConstraintEntryCo
 	return NewDataAttributeConstraintEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
+// A data attribute entry (form).
 //
 // Comprehensive attribute specification for data dictionary and schema design.
 type DataAttributeEntry struct {
@@ -14157,7 +13770,7 @@ func (x *DataAttributeEntry) DisplayProperties() *som.SomList[*DisplayPropertyEn
 	})
 }
 
-// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+// 7.1.4. Data Classification.
 type DataClassification struct {
 	som.SomNode
 }
@@ -14171,14 +13784,14 @@ func (x *DataClassification) Overview() *DataClassificationOverviewForm {
 	return NewDataClassificationOverviewForm(x.Doc(), x.Path() + "/overview")
 }
 
-// Contains 0+× DataClassificationEntry [PD00-BUS-DAT-CLA-nn].
+// Contains 0+× DataClassificationEntry.
 func (x *DataClassification) Items() *som.SomList[*DataClassificationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DCLSE-ITEM-LST", func(d *som.SpecDocument, p string) *DataClassificationEntry {
 		return NewDataClassificationEntry(d, p)
 	})
 }
 
-// A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
+// A data classification entry (form).
 //
 // Comprehensive data classification for security and compliance.
 type DataClassificationEntry struct {
@@ -14210,14 +13823,14 @@ func (x *DataClassificationEntry) Compliance() *DataClassificationEntryComplianc
 	return NewDataClassificationEntryComplianceForm(x.Doc(), x.Path() + "/compliance")
 }
 
-// Contains 0+× HandlingRequirement [PD00-BUS-DAT-CLA-nn-HAN].
+// Contains 0+× HandlingRequirement.
 func (x *DataClassificationEntry) HandlingRequirements() *som.SomList[*HandlingRequirementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/HNDRE-HAND-LST", func(d *som.SpecDocument, p string) *HandlingRequirementEntry {
 		return NewHandlingRequirementEntry(d, p)
 	})
 }
 
-// Contains 0+× AccessRestriction [PD00-BUS-DAT-CLA-nn-ARE].
+// Contains 0+× AccessRestriction.
 func (x *DataClassificationEntry) AccessRestrictions() *som.SomList[*AccessRestrictionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ACRSE-ACCE-LST", func(d *som.SpecDocument, p string) *AccessRestrictionEntry {
 		return NewAccessRestrictionEntry(d, p)
@@ -14266,10 +13879,10 @@ func (x *DataClassificationSummary) Content() *DataClassificationSummaryContentF
 	return NewDataClassificationSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC].
+// 7.1.5. Data Dictionary.
 //
 // Attribute-level dictionary that complements the entity overview
-// (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
+// ..
 type DataDictionary struct {
 	som.SomNode
 }
@@ -14287,7 +13900,7 @@ func (x *DataDictionary) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+// 1.4.3. Data Duplication Analysis.
 //
 // Analysis of data duplication across systems, including redundant data
 // stores, duplicated records, and synchronization challenges.
@@ -14414,7 +14027,7 @@ func (x *DataDuplicationSummary) Content() *DataDuplicationSummaryContentForm {
 	return NewDataDuplicationSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+// A data entity entry (form).
 //
 // Comprehensive entity specification following data modeling best practices.
 // Captures conceptual, logical, and physical design aspects.
@@ -14461,42 +14074,42 @@ func (x *DataEntityEntry) TechnicalCharacteristics() *som.SomList[*TechnicalChar
 	})
 }
 
-// Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
+// Contains 0+× DataAttribute.
 func (x *DataEntityEntry) Attributes() *som.SomList[*DataAttributeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAATT-ATTR-LST", func(d *som.SpecDocument, p string) *DataAttributeEntry {
 		return NewDataAttributeEntry(d, p)
 	})
 }
 
-// Contains 0+× KeyAttribute [PD00-BUS-DAT-ENT-nn-KEY].
+// Contains 0+× KeyAttribute.
 func (x *DataEntityEntry) KeyAttributes() *som.SomList[*KeyAttributeEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/KEATT-KEYA-LST", func(d *som.SpecDocument, p string) *KeyAttributeEntry {
 		return NewKeyAttributeEntry(d, p)
 	})
 }
 
-// Contains 0+× EntityIndex [PD00-BUS-DAT-ENT-nn-IDX].
+// Contains 0+× EntityIndex.
 func (x *DataEntityEntry) Indexes() *som.SomList[*EntityIndexEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ENIDX-INDE-LST", func(d *som.SpecDocument, p string) *EntityIndexEntry {
 		return NewEntityIndexEntry(d, p)
 	})
 }
 
-// Contains 0+× EntityConstraint [PD00-BUS-DAT-ENT-nn-CON].
+// Contains 0+× EntityConstraint.
 func (x *DataEntityEntry) Constraints() *som.SomList[*EntityConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ENCNS-CONS-LST", func(d *som.SpecDocument, p string) *EntityConstraintEntry {
 		return NewEntityConstraintEntry(d, p)
 	})
 }
 
-// Contains 0+× MigrationMapping [PD00-BUS-DAT-ENT-nn-MIG] for data migration planning.
+// Contains 0+× MigrationMapping for data migration planning.
 func (x *DataEntityEntry) MigrationMappings() *som.SomList[*MigrationMappingEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MIGME-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationMappingEntry {
 		return NewMigrationMappingEntry(d, p)
 	})
 }
 
-// A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn].
+// A data entity migration entry.
 type DataEntityMigrationEntry struct {
 	som.SomNode
 }
@@ -14622,7 +14235,7 @@ func (x *DataFormatCompatibilityNumbers) Content() *DataFormatCompatibilityNumbe
 	return NewDataFormatCompatibilityNumbersContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+// 1.4.7. Data Governance.
 //
 // Current data governance structure, policies, processes, and maturity level.
 type DataGovernance struct {
@@ -14923,7 +14536,7 @@ func (x *DataIntegrationEntryTransport) Content() *DataIntegrationEntryTransport
 	return NewDataIntegrationEntryTransportContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+// 1.4.9. Data Integration Points.
 //
 // Documentation of data integration points, ETL processes, APIs,
 // and data exchange mechanisms.
@@ -14993,7 +14606,7 @@ func (x *DataLandscapeSummary) Content() *DataLandscapeSummaryContentForm {
 	return NewDataLandscapeSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+// 9.3.1. Data-Level Security.
 //
 // Comprehensive data access protection specification covering database-level
 // security, row-level security, column-level security, tenant data isolation,
@@ -15074,7 +14687,7 @@ func (x *DataMaskingPolicy) SetContent(value string) {
 // Data Masking Details (text).
 // (skipped: dataMaskingDetails has no target type)
 
-// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+// 13.5. Data Migration Strategy.
 //
 // Comprehensive data migration strategy covering approach, methodology,
 // tooling, environment strategy, data quality governance, cutover
@@ -15170,17 +14783,17 @@ func (x *DataMigrationStrategy) Schedule() *MigrationSchedule {
 // Migration strategy narrative.
 // (skipped: migrationStrategyNarrative has no target type)
 
-// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+// 13.5.1. Migration Phases.
 func (x *DataMigrationStrategy) MigrationPhases() *MigrationPhases {
 	return NewMigrationPhases(x.Doc(), x.Path() + "/migrationPhases")
 }
 
-// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+// 13.5.2. Migration Risks.
 func (x *DataMigrationStrategy) MigrationRisks() *StageMigrationRisks {
 	return NewStageMigrationRisks(x.Doc(), x.Path() + "/migrationRisks")
 }
 
-// 7.1. Data Model [PD00-BUS-DAT].
+// 7.1. Data Model.
 type DataModel struct {
 	som.SomNode
 }
@@ -15198,46 +14811,46 @@ func (x *DataModel) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
+// 7.1.1. Entity Overview — contains 1+× Data Entity.
 func (x *DataModel) Entities() *som.SomList[*DataEntityEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DAENT-ENTI-LST", func(d *som.SpecDocument, p string) *DataEntityEntry {
 		return NewDataEntityEntry(d, p)
 	})
 }
 
-// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+// 7.1.2. Entity Relationships.
 func (x *DataModel) EntityRelationships() *EntityRelationships {
 	return NewEntityRelationships(x.Doc(), x.Path() + "/entityRelationships")
 }
 
-// 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
+// 7.1.3. Entity-Relationship Diagram (mermaid).
 // (skipped: erDiagram has no target type)
 
-// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+// 7.1.4. Data Classification.
 func (x *DataModel) DataClassification() *DataClassification {
 	return NewDataClassification(x.Doc(), x.Path() + "/dataClassification")
 }
 
-// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
+// 7.1.5. Data Dictionary..
 func (x *DataModel) DataDictionary() *DataDictionary {
 	return NewDataDictionary(x.Doc(), x.Path() + "/dataDictionary")
 }
 
-// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+// 7.1.6. Validation Constraints.
 func (x *DataModel) ValidationConstraints() *som.SomList[*ValidationConstraints] {
 	return som.NewSomList(x.Doc(), x.Path() + "/VACO-VALI-LST", func(d *som.SpecDocument, p string) *ValidationConstraints {
 		return NewValidationConstraints(d, p)
 	})
 }
 
-// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+// 7.1.7. Integrity Constraints.
 func (x *DataModel) IntegrityConstraints() *som.SomList[*IntegrityConstraints] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INCO-INTE-LST", func(d *som.SpecDocument, p string) *IntegrityConstraints {
 		return NewIntegrityConstraints(d, p)
 	})
 }
 
-// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+// 1.4.4. Data Ownership and Stewardship.
 //
 // Documentation of data ownership structures, stewardship roles,
 // and accountability for data assets.
@@ -15345,7 +14958,7 @@ func (x *DataOwnershipSummary) Content() *DataOwnershipSummaryContentForm {
 	return NewDataOwnershipSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Data processing agreement requirements [PD00-TEC-SEC-PRI].
+// Data processing agreement requirements.
 type DataProcessingAgreementRequirements struct {
 	som.SomNode
 }
@@ -15435,7 +15048,7 @@ func (x *DataProcessingAgreementRequirementsTransfers) Content() *DataProcessing
 	return NewDataProcessingAgreementRequirementsTransfersContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+// 8.8.2. Data Protection and Privacy.
 //
 // Comprehensive data protection and privacy requirements including
 // GDPR compliance, data residency, consent management, data subject
@@ -15496,10 +15109,10 @@ func (x *DataProtectionAndPrivacySection) DataClassification() *DataProtectionCl
 	return NewDataProtectionClassification(x.Doc(), x.Path() + "/dataClassification")
 }
 
-// Data protection classification and handling rules [PD00-TEC-SEC-PRI].
+// Data protection classification and handling rules.
 //
 // Named DataProtectionClassification to avoid collision with
-// DataClassification in business_data_model.dart.
+// DataClassification in information_and_data_model.dart.
 type DataProtectionClassification struct {
 	som.SomNode
 }
@@ -15589,7 +15202,7 @@ func (x *DataProtectionClassificationRetention) Content() *DataProtectionClassif
 	return NewDataProtectionClassificationRetentionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+// 1.4.2. Data Quality Assessment.
 //
 // Comprehensive assessment of data quality across the organization,
 // covering accuracy, completeness, consistency, timeliness, and validity.
@@ -15737,7 +15350,7 @@ func (x *DataQualityIssueEntryResolution) Content() *DataQualityIssueEntryResolu
 	return NewDataQualityIssueEntryResolutionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Data residency and sovereignty requirements [PD00-TEC-SEC-PRI].
+// Data residency and sovereignty requirements.
 type DataResidencyRequirements struct {
 	som.SomNode
 }
@@ -15808,7 +15421,7 @@ func (x *DataResidencyRequirementsVerification) Content() *DataResidencyRequirem
 	return NewDataResidencyRequirementsVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+// 1.4.6. Retention Policies.
 //
 // Documentation of data retention policies, legal requirements,
 // archival strategies, and data lifecycle management.
@@ -15869,7 +15482,7 @@ func (x *DataSourceEntityEntry) Content() *DataSourceEntityEntryContentForm {
 	return NewDataSourceEntityEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A data source entry (form) [PD00-CUR-DAT-SRC-nn].
+// A data source entry (form).
 //
 // Documents a specific data source/store with comprehensive details about
 // technology, format, volume, quality, ownership, and access patterns.
@@ -15947,7 +15560,7 @@ func (x *DataSourceIntegration) Content() *DataSourceIntegrationContentForm {
 	return NewDataSourceIntegrationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+// 1.4.1. Data Source Inventory.
 //
 // Comprehensive inventory of all data sources, stores, and repositories
 // in the current environment.
@@ -16068,7 +15681,7 @@ func (x *DataSourceVolume) Content() *DataSourceVolumeContentForm {
 	return NewDataSourceVolumeContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Data subject rights management [PD00-TEC-SEC-PRI].
+// Data subject rights management.
 //
 // Covers GDPR Articles 15–22: right of access, rectification, erasure,
 // restriction, portability, objection, and automated decision-making.
@@ -16284,7 +15897,7 @@ func (x *DataVolumeSummaryProjection) Content() *DataVolumeSummaryProjectionCont
 	return NewDataVolumeSummaryProjectionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+// 1.4.5. Data Volumes and Growth.
 //
 // Analysis of current data volumes, historical growth trends,
 // and projections for future capacity needs.
@@ -16607,7 +16220,7 @@ func (x *DecisionAuthorityEntry) Content() *DecisionAuthorityEntryContentForm {
 	return NewDecisionAuthorityEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A decision maker entry [PD00-SYO-RES-ORG-DEC-nn].
+// A decision maker entry.
 type DecisionMakerEntry struct {
 	som.SomNode
 }
@@ -16621,7 +16234,7 @@ func (x *DecisionMakerEntry) Content() *DecisionMakerEntryContentForm {
 	return NewDecisionMakerEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
+// A decision option entry (form).
 //
 // One of the available options for a decision point, with full
 // impact analysis, feasibility assessment, and trade-off evaluation.
@@ -16714,7 +16327,7 @@ func (x *DecisionOptionEntryTradeOffs) Content() *DecisionOptionEntryTradeOffsCo
 	return NewDecisionOptionEntryTradeOffsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
+// A decision point entry (form).
 //
 // A single formal decision point with defined timing, criteria,
 // authority, available options with impact analysis, and recording
@@ -16818,7 +16431,7 @@ func (x *DecisionPointEntryStakeholders) Content() *DecisionPointEntryStakeholde
 	return NewDecisionPointEntryStakeholdersContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+// 13.6.2. Decision Points.
 //
 // Key decision points in the stage plan including go/no-go
 // decisions, scope adjustments, resource reallocations, and
@@ -16847,7 +16460,7 @@ func (x *DecisionPoints) Items() *som.SomList[*DecisionPointEntry] {
 	})
 }
 
-// A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn].
+// A deep link pattern entry (form).
 type DeepLinkPatternEntry struct {
 	som.SomNode
 }
@@ -16861,7 +16474,7 @@ func (x *DeepLinkPatternEntry) Content() *DeepLinkPatternEntryContentForm {
 	return NewDeepLinkPatternEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+// 10.3.1.7. Deep Linking.
 //
 // External entry points, URL patterns, share links.
 type DeepLinking struct {
@@ -16891,7 +16504,7 @@ func (x *DeepLinking) Patterns() *som.SomList[*DeepLinkPatternEntry] {
 	})
 }
 
-// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+// 14.2.4. Defect Resolution.
 //
 // Defines how defects found during acceptance testing are classified,
 // managed, resolved, and tracked. Covers severity classification,
@@ -17030,7 +16643,7 @@ func (x *DeliverableDocumentation) Content() *DeliverableDocumentationContentFor
 	return NewDeliverableDocumentationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A deliverable entry (form) [PD00-DEL-DEL-nn].
+// A deliverable entry (form).
 //
 // Represents a single deliverable item within any deliverable category.
 // Captures identification, delivery logistics, quality requirements,
@@ -17174,7 +16787,7 @@ func (x *DeliverableVersion) Content() *DeliverableVersionContentForm {
 	return NewDeliverableVersionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
+// An acceptance criterion entry (form).
 //
 // A single criterion that must be met for formal project acceptance.
 // Aligned with IEEE 830 acceptance criteria structure and ISTQB
@@ -17287,7 +16900,97 @@ func (x *DeliveryAcceptanceCriterionEntryVerification) Content() *DeliveryAccept
 	return NewDeliveryAcceptanceCriterionEntryVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+// PPP00 Project Phase Plan.
+//
+// Full project phase plan — staging strategy, stage overview, per-stage
+// entries, feature prioritization, data migration, gate criteria,
+// decision processes, initial development flow, and upgrade cycle
+// framework.
+type DeliveryRoadmap struct {
+	som.SomNode
+}
+
+// DeliveryRoadmapModelVersion is the model version this object model was generated
+// against (§2.1).
+const DeliveryRoadmapModelVersion = "0.0"
+
+// NewDeliveryRoadmap creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewDeliveryRoadmap(doc *som.SpecDocument, documentVersion string) (*DeliveryRoadmap, error) {
+	if err := som.CheckSomModelVersion(DeliveryRoadmapModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &DeliveryRoadmap{SomNode: som.NewSomNode(doc, "DRM")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *DeliveryRoadmap) ObjectModelVersion() string {
+	return DeliveryRoadmapModelVersion
+}
+
+func (x *DeliveryRoadmap) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DeliveryRoadmap) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *DeliveryRoadmap) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Staging strategy.
+func (x *DeliveryRoadmap) StagingStrategy() *StagingStrategy {
+	return NewStagingStrategy(x.Doc(), x.Path() + "/stagingStrategy")
+}
+
+// Stage overview.
+func (x *DeliveryRoadmap) StageOverview() *StageOverview {
+	return NewStageOverview(x.Doc(), x.Path() + "/stageOverview")
+}
+
+// Stages (list).
+func (x *DeliveryRoadmap) Stages() *som.SomList[*StageEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/STAGE-STAG-LST", func(d *som.SpecDocument, p string) *StageEntry {
+		return NewStageEntry(d, p)
+	})
+}
+
+// Feature prioritization.
+func (x *DeliveryRoadmap) FeaturePrioritization() *FeaturePrioritization {
+	return NewFeaturePrioritization(x.Doc(), x.Path() + "/featurePrioritization")
+}
+
+// Data migration strategy.
+func (x *DeliveryRoadmap) DataMigrationStrategy() *DataMigrationStrategy {
+	return NewDataMigrationStrategy(x.Doc(), x.Path() + "/dataMigrationStrategy")
+}
+
+// Gate criteria (promoted from GOV).
+func (x *DeliveryRoadmap) GateCriteria() *PhaseGateReviews {
+	return NewPhaseGateReviews(x.Doc(), x.Path() + "/gateCriteria")
+}
+
+// Decision processes (promoted from GOV).
+func (x *DeliveryRoadmap) DecisionProcesses() *DecisionPoints {
+	return NewDecisionPoints(x.Doc(), x.Path() + "/decisionProcesses")
+}
+
+// Initial development flow.
+func (x *DeliveryRoadmap) InitialDevelopmentFlow() *InitialDevelopmentFlow {
+	return NewInitialDevelopmentFlow(x.Doc(), x.Path() + "/initialDevelopmentFlow")
+}
+
+// Upgrade cycle framework (links tom_system_upgrade.md).
+func (x *DeliveryRoadmap) UpgradeCycleFramework() *UpgradeCycleFramework {
+	return NewUpgradeCycleFramework(x.Doc(), x.Path() + "/upgradeCycleFramework")
+}
+
+// 14.1. Delivery and Service Scope.
 type DeliveryScope struct {
 	som.SomNode
 }
@@ -17305,27 +17008,27 @@ func (x *DeliveryScope) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+// 14.1.1. Software Deliverables.
 func (x *DeliveryScope) SoftwareDeliverables() *SoftwareDeliverables {
 	return NewSoftwareDeliverables(x.Doc(), x.Path() + "/softwareDeliverables")
 }
 
-// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+// 14.1.2. Documentation Deliverables.
 func (x *DeliveryScope) DocumentationDeliverables() *DocumentationDeliverables {
 	return NewDocumentationDeliverables(x.Doc(), x.Path() + "/documentationDeliverables")
 }
 
-// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+// 14.1.3. Training Deliverables.
 func (x *DeliveryScope) TrainingDeliverables() *TrainingDeliverables {
 	return NewTrainingDeliverables(x.Doc(), x.Path() + "/trainingDeliverables")
 }
 
-// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+// 14.1.4. Support Deliverables.
 func (x *DeliveryScope) SupportDeliverables() *SupportDeliverables {
 	return NewSupportDeliverables(x.Doc(), x.Path() + "/supportDeliverables")
 }
 
-// 14. Delivery Scope and Acceptance [PD00-DEL].
+// 14. Delivery Scope and Acceptance.
 type DeliveryScopeAndAcceptance struct {
 	som.SomNode
 }
@@ -17343,17 +17046,59 @@ func (x *DeliveryScopeAndAcceptance) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+// 14.1. Delivery and Service Scope.
 func (x *DeliveryScopeAndAcceptance) DeliveryScope() *DeliveryScope {
 	return NewDeliveryScope(x.Doc(), x.Path() + "/deliveryScope")
 }
 
-// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → BQP.
 func (x *DeliveryScopeAndAcceptance) AcceptancePlan() *AcceptancePlan {
 	return NewAcceptancePlan(x.Doc(), x.Path() + "/acceptancePlan")
 }
 
-// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+// SBP.15 Delivery, Transition & Rollout.
+//
+// Public anchor: PMBOK phasing + ISO 29148 transition requirements.
+type DeliveryTransitionAndRollout struct {
+	som.SomNode
+}
+
+// NewDeliveryTransitionAndRollout binds a DeliveryTransitionAndRollout facade to a document and a path.
+func NewDeliveryTransitionAndRollout(doc *som.SpecDocument, path string) *DeliveryTransitionAndRollout {
+	return &DeliveryTransitionAndRollout{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *DeliveryTransitionAndRollout) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DeliveryTransitionAndRollout) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Staged delivery / phase plan.
+func (x *DeliveryTransitionAndRollout) SystemStagePlan() *SystemStagePlan {
+	return NewSystemStagePlan(x.Doc(), x.Path() + "/systemStagePlan")
+}
+
+// Rollout and transition concept.
+func (x *DeliveryTransitionAndRollout) SystemRolloutConcept() *SystemRolloutConcept {
+	return NewSystemRolloutConcept(x.Doc(), x.Path() + "/systemRolloutConcept")
+}
+
+// Localization & translation *execution* processes (re-homed from MLAR in
+// IP-6: the execution side of i18n, as opposed to the requirements that
+// live in SBP.9).
+func (x *DeliveryTransitionAndRollout) LocalizationTranslationProcess() *LocalizationTranslationProcess {
+	return NewLocalizationTranslationProcess(x.Doc(), x.Path() + "/localizationTranslationProcess")
+}
+
+// Multi-language rollout sequencing by region and time (re-homed from MLAR).
+func (x *DeliveryTransitionAndRollout) MultiLanguageRolloutPlan() *MultiLanguageAndRolloutPlan {
+	return NewMultiLanguageAndRolloutPlan(x.Doc(), x.Path() + "/multiLanguageRolloutPlan")
+}
+
+// 1.1.3. Dependencies and Integrations.
 //
 // Documents how current systems depend on each other, on external services,
 // and on shared infrastructure. Identifies fragile integration points that
@@ -17375,7 +17120,7 @@ func (x *DependenciesAndIntegrations) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
+// Dependency matrix diagram.
 func (x *DependenciesAndIntegrations) DependencyDiagram() string {
 	return x.Doc().ContentOr(x.Path() + "/dependencyDiagram")
 }
@@ -17384,27 +17129,27 @@ func (x *DependenciesAndIntegrations) SetDependencyDiagram(value string) {
 	x.Doc().SetContent(x.Path() + "/dependencyDiagram", value)
 }
 
-// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+// 1.1.3.1. Internal Dependencies.
 func (x *DependenciesAndIntegrations) InternalDependencies() *InternalDependencies {
 	return NewInternalDependencies(x.Doc(), x.Path() + "/internalDependencies")
 }
 
-// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+// 1.1.3.2. External Service Dependencies.
 func (x *DependenciesAndIntegrations) ExternalServiceDependencies() *ExternalServiceDependencies {
 	return NewExternalServiceDependencies(x.Doc(), x.Path() + "/externalServiceDependencies")
 }
 
-// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+// 1.1.3.3. Shared Infrastructure Dependencies.
 func (x *DependenciesAndIntegrations) SharedInfrastructureDependencies() *SharedInfrastructureDependencies {
 	return NewSharedInfrastructureDependencies(x.Doc(), x.Path() + "/sharedInfrastructureDependencies")
 }
 
-// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+// 1.1.3.4. System Integrations.
 func (x *DependenciesAndIntegrations) Integrations() *Integrations {
 	return NewIntegrations(x.Doc(), x.Path() + "/integrations")
 }
 
-// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+// 1.1.3.5. Integration Health Summary.
 func (x *DependenciesAndIntegrations) HealthSummary() *IntegrationHealthSummary {
 	return NewIntegrationHealthSummary(x.Doc(), x.Path() + "/healthSummary")
 }
@@ -17795,7 +17540,7 @@ func (x *DependencyRisk) Content() *DependencyRiskContentForm {
 	return NewDependencyRiskContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
+// Dependency and supply-chain scanning requirements.
 type DependencyScanningRequirements struct {
 	som.SomNode
 }
@@ -17913,7 +17658,7 @@ func (x *DependencyTracking) Content() *DependencyTrackingContentForm {
 	return NewDependencyTrackingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+// 4.1.2.7. Deployment Context.
 //
 // Where and how the system will be deployed in the infrastructure
 // landscape.
@@ -18190,7 +17935,7 @@ func (x *DeploymentSecuritySupplyChain) Content() *DeploymentSecuritySupplyChain
 	return NewDeploymentSecuritySupplyChainContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+// 8.5.2. Deployment Strategy.
 //
 // Deployment model (containerized, VM-based, serverless), deployment pipeline,
 // rollback strategy, and canary/blue-green deployment requirements.
@@ -18486,7 +18231,7 @@ func (x *DesignFoundationEntry) Content() *DesignFoundationEntryContentForm {
 	return NewDesignFoundationEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
+// A design goal entry (form).
 //
 // Each goal represents a measurable UI objective with success criteria.
 type DesignGoalEntry struct {
@@ -18502,7 +18247,7 @@ func (x *DesignGoalEntry) Content() *DesignGoalEntryContentForm {
 	return NewDesignGoalEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+// 10.1.1. Design Goals.
 //
 // Primary design objectives that the UI must achieve: simplicity, efficiency,
 // accessibility, consistency, delight. Goals are prioritized for the project.
@@ -18642,7 +18387,7 @@ func (x *DesignPatternEntryStructure) Content() *DesignPatternEntryStructureCont
 	return NewDesignPatternEntryStructureContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+// 8.1.3. Design Patterns and Standards.
 //
 // Required design patterns, coding standards, development conventions, and
 // applicable industry standards (ISO, OWASP, IEEE).
@@ -18714,7 +18459,7 @@ func (x *DesignPatternsAndStandards) TestingStandards() *TestingStandards {
 	return NewTestingStandards(x.Doc(), x.Path() + "/testingStandards")
 }
 
-// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+// 10.1.2. Design Principles.
 //
 // Guiding principles for all UI decisions: progressive disclosure, direct
 // manipulation, feedback, consistency, error prevention.
@@ -18759,7 +18504,7 @@ func (x *DesignPrinciplesOverview) Content() *DesignPrinciplesOverviewContentFor
 	return NewDesignPrinciplesOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.1. Design Vision [PD00-USE-VIS].
+// 10.1. Design Vision.
 //
 // Overall design vision for the user interface, encompassing goals,
 // principles, and user personas that guide all UI decisions.
@@ -18780,17 +18525,17 @@ func (x *DesignVision) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+// 10.1.1. Design Goals.
 func (x *DesignVision) DesignGoals() *DesignGoals {
 	return NewDesignGoals(x.Doc(), x.Path() + "/designGoals")
 }
 
-// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+// 10.1.2. Design Principles.
 func (x *DesignVision) DesignPrinciples() *DesignPrinciples {
 	return NewDesignPrinciples(x.Doc(), x.Path() + "/designPrinciples")
 }
 
-// 10.1.3. User Personas [PD00-USE-VIS-PER].
+// 10.1.3. User Personas.
 func (x *DesignVision) Personas() *UserPersonas {
 	return NewUserPersonas(x.Doc(), x.Path() + "/personas")
 }
@@ -18885,10 +18630,10 @@ func (x *DesktopOsRequirementEntryTesting) Content() *DesktopOsRequirementEntryT
 	return NewDesktopOsRequirementEntryTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+// 6.1.7. Detailed Process Workflows.
 //
-// Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
-// Covers HBSG AS07-DET Detailed Process Descriptions.
+// Per-process workflow detail beyond the catalog overview.
+// .
 type DetailedProcessWorkflows struct {
 	som.SomNode
 }
@@ -19124,7 +18869,7 @@ func (x *DevelopmentConventionEntryVersionControl) Content() *DevelopmentConvent
 	return NewDevelopmentConventionEntryVersionControlContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+// 8.2.2. Development Environment.
 //
 // Required IDEs, build tools, version control, CI/CD pipeline, code review
 // process, and development workflow.
@@ -19417,7 +19162,7 @@ func (x *DisasterRecoveryRequirementsReplication) Content() *DisasterRecoveryReq
 	return NewDisasterRecoveryRequirementsReplicationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn].
+// Display equipment entry (form).
 type DisplayEquipmentEntry struct {
 	som.SomNode
 }
@@ -19677,7 +19422,7 @@ func (x *DistributionGroupSummary) Content() *DistributionGroupSummaryContentFor
 	return NewDistributionGroupSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.3. Distribution List [PD00-ADM-DIS].
+// 3.3. Distribution List.
 //
 // Defines who receives which project documents and communications.
 // Includes the communication matrix specifying information flow patterns,
@@ -19704,17 +19449,17 @@ func (x *DistributionList) CommunicationMatrix() *CommunicationMatrix {
 	return NewCommunicationMatrix(x.Doc(), x.Path() + "/communicationMatrix")
 }
 
-// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+// 3.3.1. Full Distribution.
 func (x *DistributionList) FullDistribution() *FullDistribution {
 	return NewFullDistribution(x.Doc(), x.Path() + "/fullDistribution")
 }
 
-// 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
+// 3.3.2. Executive Summary.
 func (x *DistributionList) ExecutiveSummary() *ExecutiveSummaryDistribution {
 	return NewExecutiveSummaryDistribution(x.Doc(), x.Path() + "/executiveSummary")
 }
 
-// 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
+// 3.3.3. Custom Distribution Groups — contains 0+× Group.
 func (x *DistributionList) CustomGroups() *som.SomList[*CustomDistributionGroup] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CSDSGR-CUST-LST", func(d *som.SpecDocument, p string) *CustomDistributionGroup {
 		return NewCustomDistributionGroup(d, p)
@@ -19763,7 +19508,7 @@ func (x *DistributionRecipientContact) Content() *DistributionRecipientContactCo
 	return NewDistributionRecipientContactContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A distribution recipient entry (form) [PD00-ADM-DIS-nn].
+// A distribution recipient entry (form).
 //
 // Detailed information about a distribution list recipient including
 // their role, contact information, preferences, and access levels.
@@ -19925,7 +19670,7 @@ func (x *DnsRequirementsZones) Content() *DnsRequirementsZonesContentForm {
 	return NewDnsRequirementsZonesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
+// 11.5.4. Documentation changeability quality.
 type DocChangeabilityQuality struct {
 	som.SomNode
 }
@@ -19999,7 +19744,7 @@ func (x *DocChangeabilityQualityStructure) Content() *DocChangeabilityQualityStr
 	return NewDocChangeabilityQualityStructureContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].
+// 11.5.2. Documentation completeness quality.
 type DocCompletenessQuality struct {
 	som.SomNode
 }
@@ -20016,7 +19761,7 @@ func (x *DocCompletenessQuality) Content() *DocCompletenessQualityContentForm {
 // Detailed completeness requirements narrative.
 // (skipped: narrative has no target type)
 
-// 11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR].
+// 11.5.3. Documentation correctness quality.
 type DocCorrectnessQuality struct {
 	som.SomNode
 }
@@ -20069,6 +19814,45 @@ func NewDocCorrectnessQualityVerification(doc *som.SpecDocument, path string) *D
 
 func (x *DocCorrectnessQualityVerification) Content() *DocCorrectnessQualityVerificationContentForm {
 	return NewDocCorrectnessQualityVerificationContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// SBP.1 Document Control.
+//
+// Holds the [DocumentHeader] (id, project, version, date, author, status)
+// together with the document's [RevisionHistory] and the [ApprovalRecord]s
+// that gate its release.
+type DocumentControl struct {
+	som.SomNode
+}
+
+// NewDocumentControl binds a DocumentControl facade to a document and a path.
+func NewDocumentControl(doc *som.SpecDocument, path string) *DocumentControl {
+	return &DocumentControl{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *DocumentControl) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DocumentControl) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Document header form (id, project, version, date, author, status).
+func (x *DocumentControl) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Chronological revision history of this document.
+func (x *DocumentControl) RevisionHistory() *RevisionHistory {
+	return NewRevisionHistory(x.Doc(), x.Path() + "/revisionHistory")
+}
+
+// Formal approvals (sign-offs) recorded for this document.
+func (x *DocumentControl) Approvals() *som.SomList[*ApprovalRecord] {
+	return som.NewSomList(x.Doc(), x.Path() + "/DOCTL-APRV-LST", func(d *som.SpecDocument, p string) *ApprovalRecord {
+		return NewApprovalRecord(d, p)
+	})
 }
 
 // Standard document header present at the top of every TomSpecs document.
@@ -20136,7 +19920,7 @@ func (x *DocumentRelevantSections) Sections() *som.SomList[*RelevantSectionEntry
 	})
 }
 
-// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+// 10.12.3. Documentation and Training.
 //
 // End-user documentation and training materials.
 type DocumentationAndTraining struct {
@@ -20204,7 +19988,7 @@ func (x *DocumentationAndTrainingLocalization) Content() *DocumentationAndTraini
 	return NewDocumentationAndTrainingLocalizationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+// 14.1.2. Documentation Deliverables.
 type DocumentationDeliverables struct {
 	som.SomNode
 }
@@ -20229,7 +20013,7 @@ func (x *DocumentationDeliverables) Items() *som.SomList[*DeliverableEntry] {
 	})
 }
 
-// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+// 11.5. Documentation Quality Criteria.
 //
 // Quality criteria for project documentation including readability,
 // completeness, correctness, and changeability.
@@ -20249,22 +20033,22 @@ func (x *DocumentationQualityCriteria) DocumentationOverviewContent() *Documenta
 // Documentation quality overview narrative.
 // (skipped: overview has no target type)
 
-// 11.5.1. Readability [PD00-SYQ-DOC-REA].
+// 11.5.1. Readability.
 func (x *DocumentationQualityCriteria) Readability() *ReadabilityQuality {
 	return NewReadabilityQuality(x.Doc(), x.Path() + "/readability")
 }
 
-// 11.5.2. Completeness [PD00-SYQ-DOC-COM].
+// 11.5.2. Completeness.
 func (x *DocumentationQualityCriteria) Completeness() *DocCompletenessQuality {
 	return NewDocCompletenessQuality(x.Doc(), x.Path() + "/completeness")
 }
 
-// 11.5.3. Correctness [PD00-SYQ-DOC-COR].
+// 11.5.3. Correctness.
 func (x *DocumentationQualityCriteria) Correctness() *DocCorrectnessQuality {
 	return NewDocCorrectnessQuality(x.Doc(), x.Path() + "/correctness")
 }
 
-// 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
+// 11.5.4. Changeability.
 func (x *DocumentationQualityCriteria) Changeability() *DocChangeabilityQuality {
 	return NewDocChangeabilityQuality(x.Doc(), x.Path() + "/changeability")
 }
@@ -20468,7 +20252,7 @@ func (x *DocumentationStandardsVersioning) Content() *DocumentationStandardsVers
 	return NewDocumentationStandardsVersioningContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+// 4.1.3.4. Domain Boundaries.
 //
 // Clear definition of what is within and outside the domain scope,
 // based on bounded context principles.
@@ -20575,7 +20359,7 @@ func (x *DomainBusinessRuleEntryGovernance) Content() *DomainBusinessRuleEntryGo
 	return NewDomainBusinessRuleEntryGovernanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.3.5. Domain Business Rules [PD00-SYO-SYD-DES-RUL].
+// 4.1.3.5. Domain Business Rules.
 //
 // Business rules, policies, and constraints that govern behavior
 // within this domain.
@@ -20617,7 +20401,7 @@ func (x *DomainEventEntry) Content() *DomainEventEntryContentForm {
 	return NewDomainEventEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+// 4.1.3.7. Domain Events.
 //
 // Significant business events that occur within this domain and
 // trigger actions or state changes.
@@ -20659,7 +20443,7 @@ func (x *DomainInterfaceEntry) Content() *DomainInterfaceEntryContentForm {
 	return NewDomainInterfaceEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+// 4.1.3.1. Domain Overview.
 //
 // High-level description of the business domain including its purpose,
 // scope, and relationship to the overall business.
@@ -20740,7 +20524,7 @@ func (x *DomainProcessEntryOperations) Content() *DomainProcessEntryOperationsCo
 	return NewDomainProcessEntryOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+// 4.1.3.6. Domain Processes.
 //
 // High-level business processes within this domain, showing the main
 // workflows and activities.
@@ -20791,7 +20575,7 @@ func (x *DomainTermEntry) Content() *DomainTermEntryContentForm {
 	return NewDomainTermEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+// 4.1.3.2. Domain Vocabulary.
 //
 // Glossary of domain-specific terms and definitions establishing the
 // ubiquitous language for the project.
@@ -20819,7 +20603,7 @@ func (x *DomainVocabulary) Terms() *som.SomList[*DomainTermEntry] {
 	})
 }
 
-// 11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF].
+// 11.3.1. Efficiency quality.
 type EfficiencyQuality struct {
 	som.SomNode
 }
@@ -20893,7 +20677,7 @@ func (x *EfficiencyQualityVerification) Content() *EfficiencyQualityVerification
 	return NewEfficiencyQualityVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A validation rule entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-VAL-pp].
+// A validation rule entry (form).
 type ElementValidationRuleEntry struct {
 	som.SomNode
 }
@@ -20978,7 +20762,7 @@ func (x *EmergencyMaintenanceProceduresGovernance) Content() *EmergencyMaintenan
 	return NewEmergencyMaintenanceProceduresGovernanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn].
+// An encrypted data category entry (form).
 //
 // Defines a specific category of data that requires encryption at rest,
 // including the data classification, encryption approach, algorithm override,
@@ -20997,7 +20781,7 @@ func (x *EncryptedDataCategoryEntry) Content() *EncryptedDataCategoryEntryConten
 	return NewEncryptedDataCategoryEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+// 9.5.1. Encryption At Rest.
 //
 // Defines encryption requirements for stored data: algorithms, key lengths,
 // encryption layers (application, database, filesystem, hardware), field-level
@@ -21076,7 +20860,7 @@ func (x *EncryptionAtRestPolicy) SetContent(value string) {
 // Encryption At Rest Policy Details (text).
 // (skipped: encryptionAtRestPolicyDetails has no target type)
 
-// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+// 9.5.2. Encryption In Transit.
 //
 // Defines encryption requirements for data in transit: TLS protocol versions,
 // cipher suites, certificate management, HSTS policy, mutual TLS, certificate
@@ -21129,10 +20913,10 @@ func (x *EncryptionInTransit) TransportSecurityPolicy() *TransportSecurityPolicy
 // Encryption In Transit Notes (text).
 // (skipped: encryptionInTransitNotes has no target type)
 
-// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E].
+// 6.2.4. End-to-End Test Scenarios.
 //
 // Test scenarios that exercise complete user journeys across processes
-// and use cases. Covers HBSG AS24.
+// and use cases..
 type EndToEndTestScenarios struct {
 	som.SomNode
 }
@@ -21240,7 +21024,7 @@ func (x *EnterpriseSystemCompatibilityEntryTesting) Content() *EnterpriseSystemC
 	return NewEnterpriseSystemCompatibilityEntryTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
+// An entitlement entry (form).
 type EntitlementEntry struct {
 	som.SomNode
 }
@@ -21261,7 +21045,7 @@ func (x *EntitlementEntry) ResourceKeyReferences() *som.SomList[*ResourceKeyRefe
 	})
 }
 
-// An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn].
+// An entitlement reference entry (form).
 type EntitlementReferenceEntry struct {
 	som.SomNode
 }
@@ -21275,7 +21059,7 @@ func (x *EntitlementReferenceEntry) Content() *EntitlementReferenceEntryContentF
 	return NewEntitlementReferenceEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An entity constraint entry (form) [PD00-BUS-DAT-ENT-nn-CON-nn].
+// An entity constraint entry (form).
 //
 // Business and technical constraints beyond keys.
 type EntityConstraintEntry struct {
@@ -21291,7 +21075,7 @@ func (x *EntityConstraintEntry) Content() *EntityConstraintEntryContentForm {
 	return NewEntityConstraintEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An entity index entry (form) [PD00-BUS-DAT-ENT-nn-IDX-nn].
+// An entity index entry (form).
 //
 // Database index specification for query optimization.
 type EntityIndexEntry struct {
@@ -21307,7 +21091,7 @@ func (x *EntityIndexEntry) Content() *EntityIndexEntryContentForm {
 	return NewEntityIndexEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
+// An entity relationship entry (form).
 //
 // Comprehensive relationship specification following ER modeling best practices.
 type EntityRelationshipEntry struct {
@@ -21363,7 +21147,7 @@ func (x *EntityRelationshipEntry) SetTargetEntityRef(value string) {
 	x.Doc().SetContent(x.Path() + "/targetEntityRef", value)
 }
 
-// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+// 7.1.2. Entity Relationships.
 type EntityRelationships struct {
 	som.SomNode
 }
@@ -21388,7 +21172,7 @@ func (x *EntityRelationships) Items() *som.SomList[*EntityRelationshipEntry] {
 	})
 }
 
-// An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-mm].
+// An entry point entry (form).
 type EntryPointEntry struct {
 	som.SomNode
 }
@@ -21486,7 +21270,7 @@ func (x *EnvironmentDataManagement) Content() *EnvironmentDataManagementContentF
 	return NewEnvironmentDataManagementContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An environment entry (form) [PD00-POP-TOO-ENV-nn].
+// An environment entry (form).
 //
 // Comprehensive specification of a single project environment covering
 // identity, infrastructure, access, data management, configuration,
@@ -21849,7 +21633,7 @@ func (x *EnvironmentStrategyTesting) Content() *EnvironmentStrategyTestingConten
 	return NewEnvironmentStrategyTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 2.4.2. Environments [PD00-POP-TOO-ENV].
+// 2.4.2. Environments.
 //
 // Operational overview of project environments and the inventory of
 // individual environment instances. Strategy-level decisions (tier
@@ -21889,7 +21673,7 @@ func (x *EquipmentOverview) Content() *EquipmentOverviewContentForm {
 	return NewEquipmentOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+// 5.3.1. Equipment Requirements.
 //
 // Hardware and peripheral requirements per workplace type.
 type EquipmentRequirements struct {
@@ -22000,7 +21784,7 @@ func (x *ErrorBudgetTrackingMonitoring) Content() *ErrorBudgetTrackingMonitoring
 	return NewErrorBudgetTrackingMonitoringContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.7. Error Handling Concept [PD00-USE-ERR].
+// 10.7. Error Handling Concept.
 //
 // Comprehensive error handling user experience framework covering validation
 // feedback, system error presentation, and error recovery flows. Follows
@@ -22036,17 +21820,17 @@ func (x *ErrorHandlingConcept) Operations() *ErrorHandlingConceptOperations {
 // Error handling overview and strategy.
 // (skipped: errorHandlingOverview has no target type)
 
-// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+// 10.7.1. Validation Feedback.
 func (x *ErrorHandlingConcept) ValidationFeedback() *ValidationFeedback {
 	return NewValidationFeedback(x.Doc(), x.Path() + "/validationFeedback")
 }
 
-// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+// 10.7.2. System Error Display.
 func (x *ErrorHandlingConcept) SystemErrorDisplay() *SystemErrorDisplay {
 	return NewSystemErrorDisplay(x.Doc(), x.Path() + "/systemErrorDisplay")
 }
 
-// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+// 10.7.3. Error Recovery.
 func (x *ErrorHandlingConcept) ErrorRecovery() *ErrorRecovery {
 	return NewErrorRecovery(x.Doc(), x.Path() + "/errorRecovery")
 }
@@ -22244,7 +22028,7 @@ func (x *ErrorProcedureEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+// 10.7.3. Error Recovery.
 //
 // Error recovery flows including data preservation, retry mechanisms,
 // and guided recovery steps.
@@ -22391,7 +22175,7 @@ func (x *EscalationProcedureEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+// 12.1.2. Evaluation Criteria.
 //
 // Container for component evaluation criteria used when assessing
 // candidate components for adoption.
@@ -22419,7 +22203,7 @@ func (x *EvaluationCriteria) Items() *som.SomList[*EvaluationCriterionEntry] {
 	})
 }
 
-// An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
+// An evaluation criterion entry (form).
 //
 // Defines one criterion for evaluating candidate components: scoring scale,
 // threshold, evidence requirements, and evaluation method.
@@ -22513,7 +22297,7 @@ func (x *EventAttributePolicy) Content() *EventAttributePolicyContentForm {
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+// 3.3.2. Executive Summary Distribution.
 //
 // Recipients who receive only executive summaries and milestone reports.
 type ExecutiveSummaryDistribution struct {
@@ -22559,7 +22343,7 @@ func (x *ExistingSystemBusinessContext) Content() *ExistingSystemBusinessContext
 	return NewExistingSystemBusinessContextContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+// An existing system entry (form).
 //
 // Captures comprehensive information about an existing system including
 // identity, technology, business context, usage metrics, lifecycle, and risks.
@@ -22576,44 +22360,44 @@ func (x *ExistingSystemEntry) Content() *ExistingSystemEntryContentForm {
 	return NewExistingSystemEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Technology stack details [PD00-CUR-SYS-INV-nn-TEC].
+// Technology stack details.
 func (x *ExistingSystemEntry) Technology() *ExistingSystemTechnology {
 	return NewExistingSystemTechnology(x.Doc(), x.Path() + "/technology")
 }
 
-// Business context [PD00-CUR-SYS-INV-nn-BUS].
+// Business context.
 func (x *ExistingSystemEntry) BusinessContext() *ExistingSystemBusinessContext {
 	return NewExistingSystemBusinessContext(x.Doc(), x.Path() + "/businessContext")
 }
 
-// Usage metrics [PD00-CUR-SYS-INV-nn-USE].
+// Usage metrics.
 func (x *ExistingSystemEntry) Usage() *ExistingSystemUsage {
 	return NewExistingSystemUsage(x.Doc(), x.Path() + "/usage")
 }
 
-// Lifecycle information [PD00-CUR-SYS-INV-nn-LIF].
+// Lifecycle information.
 func (x *ExistingSystemEntry) Lifecycle() *ExistingSystemLifecycle {
 	return NewExistingSystemLifecycle(x.Doc(), x.Path() + "/lifecycle")
 }
 
-// Integration profile [PD00-CUR-SYS-INV-nn-INT].
+// Integration profile.
 func (x *ExistingSystemEntry) IntegrationProfile() *ExistingSystemIntegration {
 	return NewExistingSystemIntegration(x.Doc(), x.Path() + "/integrationProfile")
 }
 
-// Infrastructure details [PD00-CUR-SYS-INV-nn-INF].
+// Infrastructure details.
 func (x *ExistingSystemEntry) Infrastructure() *ExistingSystemInfrastructure {
 	return NewExistingSystemInfrastructure(x.Doc(), x.Path() + "/infrastructure")
 }
 
-// Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
+// Contains 0+× Limitation.
 func (x *ExistingSystemEntry) KnownLimitations() *som.SomList[*LimitationEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/LIMET-KNOW-LST", func(d *som.SpecDocument, p string) *LimitationEntry {
 		return NewLimitationEntry(d, p)
 	})
 }
 
-// Quality and risk assessment [PD00-CUR-SYS-INV-nn-QUA].
+// Quality and risk assessment.
 func (x *ExistingSystemEntry) Quality() *ExistingSystemQuality {
 	return NewExistingSystemQuality(x.Doc(), x.Path() + "/quality")
 }
@@ -22702,7 +22486,7 @@ func (x *ExistingSystemUsage) Content() *ExistingSystemUsageContentForm {
 	return NewExistingSystemUsageContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+// 1.1. Existing Systems Landscape.
 //
 // Overview of the current systems in use, their roles, technology stacks,
 // and limitations. Provides the foundation for understanding the AS-IS state.
@@ -22723,17 +22507,17 @@ func (x *ExistingSystemsLandscape) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+// 1.1.1. System Inventory.
 func (x *ExistingSystemsLandscape) SystemInventory() *SystemInventory {
 	return NewSystemInventory(x.Doc(), x.Path() + "/systemInventory")
 }
 
-// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+// 1.1.2. Current Architecture.
 func (x *ExistingSystemsLandscape) CurrentArchitecture() *CurrentArchitecture {
 	return NewCurrentArchitecture(x.Doc(), x.Path() + "/currentArchitecture")
 }
 
-// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+// 1.1.3. Dependencies and Integrations.
 func (x *ExistingSystemsLandscape) DependenciesAndIntegrations() *DependenciesAndIntegrations {
 	return NewDependenciesAndIntegrations(x.Doc(), x.Path() + "/dependenciesAndIntegrations")
 }
@@ -22750,6 +22534,197 @@ func NewExpectedImprovements(doc *som.SpecDocument, path string) *ExpectedImprov
 
 func (x *ExpectedImprovements) Content() *ExpectedImprovementsContentForm {
 	return NewExpectedImprovementsContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// 10. User Interface Design and Prototype. Seeds → UP.
+type ExperienceAndInterfaceDesign struct {
+	som.SomNode
+}
+
+// NewExperienceAndInterfaceDesign binds a ExperienceAndInterfaceDesign facade to a document and a path.
+func NewExperienceAndInterfaceDesign(doc *som.SpecDocument, path string) *ExperienceAndInterfaceDesign {
+	return &ExperienceAndInterfaceDesign{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ExperienceAndInterfaceDesign) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ExperienceAndInterfaceDesign) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// 10.1. Design Vision. Seeds → UP.
+func (x *ExperienceAndInterfaceDesign) DesignVision() *DesignVision {
+	return NewDesignVision(x.Doc(), x.Path() + "/designVision")
+}
+
+// 10.2. Screen Descriptions. Seeds → UP.
+func (x *ExperienceAndInterfaceDesign) Screens() *ScreenDescriptions {
+	return NewScreenDescriptions(x.Doc(), x.Path() + "/screens")
+}
+
+// 10.3. Screen Flow Structure. Seeds → UP.
+func (x *ExperienceAndInterfaceDesign) ScreenFlow() *ScreenFlowStructure {
+	return NewScreenFlowStructure(x.Doc(), x.Path() + "/screenFlow")
+}
+
+// 10.4. Print Layout. Seeds → UP.
+func (x *ExperienceAndInterfaceDesign) PrintLayout() *PrintLayout {
+	return NewPrintLayout(x.Doc(), x.Path() + "/printLayout")
+}
+
+// Data Structure Alignment.
+// (skipped: dataStructureAlignment has no target type)
+
+// Authorization Compliance.
+// (skipped: authorizationCompliance has no target type)
+
+// 10.7. Error Handling Concept. Seeds → UP.
+func (x *ExperienceAndInterfaceDesign) ErrorHandling() *ErrorHandlingConcept {
+	return NewErrorHandlingConcept(x.Doc(), x.Path() + "/errorHandling")
+}
+
+// 10.8. Help Concept. Seeds → UP.
+func (x *ExperienceAndInterfaceDesign) HelpConcept() *HelpConcept {
+	return NewHelpConcept(x.Doc(), x.Path() + "/helpConcept")
+}
+
+// 10.9. Accessibility. Seeds → UP.
+func (x *ExperienceAndInterfaceDesign) Accessibility() *Accessibility {
+	return NewAccessibility(x.Doc(), x.Path() + "/accessibility")
+}
+
+// 10.10. Responsive Design. Seeds → UP.
+func (x *ExperienceAndInterfaceDesign) ResponsiveDesign() *ResponsiveDesign {
+	return NewResponsiveDesign(x.Doc(), x.Path() + "/responsiveDesign")
+}
+
+// 10.11. UI Components. Seeds → UP.
+func (x *ExperienceAndInterfaceDesign) UiComponents() *UiComponents {
+	return NewUiComponents(x.Doc(), x.Path() + "/uiComponents")
+}
+
+// 10.12. Multi-language and Rollout Support.
+func (x *ExperienceAndInterfaceDesign) MultiLanguage() *MultiLanguageAndRollout {
+	return NewMultiLanguageAndRollout(x.Doc(), x.Path() + "/multiLanguage")
+}
+
+// 10.13. Prototype. Seeds → UP.
+func (x *ExperienceAndInterfaceDesign) Prototype() *Prototype {
+	return NewPrototype(x.Doc(), x.Path() + "/prototype")
+}
+
+// 10.14. Wireframes and Mockups..
+func (x *ExperienceAndInterfaceDesign) WireframesAndMockups() *som.SomList[*WireframesAndMockups] {
+	return som.NewSomList(x.Doc(), x.Path() + "/WIANMO-WIRE-LST", func(d *som.SpecDocument, p string) *WireframesAndMockups {
+		return NewWireframesAndMockups(d, p)
+	})
+}
+
+// UP00 UI Prototype.
+//
+// Full UI design and prototype specification — vision, screens,
+// screen flow, print, error handling, help, accessibility, responsive,
+// components, language/country selection, prototype, wireframes and
+// mockups.
+type ExperienceDesignSpecification struct {
+	som.SomNode
+}
+
+// ExperienceDesignSpecificationModelVersion is the model version this object model was generated
+// against (§2.1).
+const ExperienceDesignSpecificationModelVersion = "0.0"
+
+// NewExperienceDesignSpecification creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewExperienceDesignSpecification(doc *som.SpecDocument, documentVersion string) (*ExperienceDesignSpecification, error) {
+	if err := som.CheckSomModelVersion(ExperienceDesignSpecificationModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &ExperienceDesignSpecification{SomNode: som.NewSomNode(doc, "XDS")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *ExperienceDesignSpecification) ObjectModelVersion() string {
+	return ExperienceDesignSpecificationModelVersion
+}
+
+func (x *ExperienceDesignSpecification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ExperienceDesignSpecification) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *ExperienceDesignSpecification) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Design vision.
+func (x *ExperienceDesignSpecification) DesignVision() *DesignVision {
+	return NewDesignVision(x.Doc(), x.Path() + "/designVision")
+}
+
+// Screen descriptions.
+func (x *ExperienceDesignSpecification) Screens() *ScreenDescriptions {
+	return NewScreenDescriptions(x.Doc(), x.Path() + "/screens")
+}
+
+// Screen flow structure.
+func (x *ExperienceDesignSpecification) ScreenFlow() *ScreenFlowStructure {
+	return NewScreenFlowStructure(x.Doc(), x.Path() + "/screenFlow")
+}
+
+// Print layout.
+func (x *ExperienceDesignSpecification) PrintLayout() *PrintLayout {
+	return NewPrintLayout(x.Doc(), x.Path() + "/printLayout")
+}
+
+// Error handling concept.
+func (x *ExperienceDesignSpecification) ErrorHandling() *ErrorHandlingConcept {
+	return NewErrorHandlingConcept(x.Doc(), x.Path() + "/errorHandling")
+}
+
+// Help concept.
+func (x *ExperienceDesignSpecification) HelpConcept() *HelpConcept {
+	return NewHelpConcept(x.Doc(), x.Path() + "/helpConcept")
+}
+
+// Accessibility.
+func (x *ExperienceDesignSpecification) Accessibility() *Accessibility {
+	return NewAccessibility(x.Doc(), x.Path() + "/accessibility")
+}
+
+// Responsive design.
+func (x *ExperienceDesignSpecification) ResponsiveDesign() *ResponsiveDesign {
+	return NewResponsiveDesign(x.Doc(), x.Path() + "/responsiveDesign")
+}
+
+// UI components.
+func (x *ExperienceDesignSpecification) UiComponents() *UiComponents {
+	return NewUiComponents(x.Doc(), x.Path() + "/uiComponents")
+}
+
+// Language and country selection.
+func (x *ExperienceDesignSpecification) LanguageCountrySelection() *LanguageCountrySelection {
+	return NewLanguageCountrySelection(x.Doc(), x.Path() + "/languageCountrySelection")
+}
+
+// Prototype.
+func (x *ExperienceDesignSpecification) Prototype() *Prototype {
+	return NewPrototype(x.Doc(), x.Path() + "/prototype")
+}
+
+// Wireframes and mockups (new in Phase A).
+func (x *ExperienceDesignSpecification) WireframesAndMockups() *som.SomList[*WireframesAndMockups] {
+	return som.NewSomList(x.Doc(), x.Path() + "/WIANMO-WIRE-LST", func(d *som.SpecDocument, p string) *WireframesAndMockups {
+		return NewWireframesAndMockups(d, p)
+	})
 }
 
 // Export access and audit.
@@ -22794,7 +22769,7 @@ func (x *ExportDelimiter) Content() *ExportDelimiterContentForm {
 	return NewExportDelimiterContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).
+// A field mapping within an export (form).
 type ExportFieldMappingEntry struct {
 	som.SomNode
 }
@@ -22898,7 +22873,7 @@ func (x *ExportFileFormat) Content() *ExportFileFormatContentForm {
 	return NewExportFileFormatContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An export format entry (form) [PD00-USE-PRI-EXP-nn].
+// An export format entry (form).
 type ExportFormatEntry struct {
 	som.SomNode
 }
@@ -23017,7 +22992,7 @@ func (x *ExportSizeSettings) Content() *ExportSizeSettingsContentForm {
 	return NewExportSizeSettingsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A reusable export template [PD00-USE-PRI-TPL-nn] (form).
+// A reusable export template (form).
 type ExportTemplateEntry struct {
 	som.SomNode
 }
@@ -23107,7 +23082,7 @@ func (x *ExportTemplateEntryLayout) Content() *ExportTemplateEntryLayoutContentF
 	return NewExportTemplateEntryLayoutContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An extension entry [PD00-TAR-STP-INT-nn-EXT-nn].
+// An extension entry.
 type ExtensionEntry struct {
 	som.SomNode
 }
@@ -23128,7 +23103,7 @@ func (x *ExtensionEntry) Steps() *som.SomList[*ExtensionStepEntry] {
 	})
 }
 
-// An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn].
+// An extension step entry.
 type ExtensionStepEntry struct {
 	som.SomNode
 }
@@ -23201,7 +23176,7 @@ func (x *ExternalActorEntryInteraction) Content() *ExternalActorEntryInteraction
 	return NewExternalActorEntryInteractionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+// 4.1.2.3. External Actors.
 //
 // Human users and organizational entities that interact with the system
 // from outside the system boundary.
@@ -23229,7 +23204,7 @@ func (x *ExternalActors) Actors() *som.SomList[*ExternalActorEntry] {
 	})
 }
 
-// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+// 8.6.2. External Connectivity.
 type ExternalConnectivitySection struct {
 	som.SomNode
 }
@@ -23282,7 +23257,7 @@ func (x *ExternalConnectivitySection) Resilience() *ConnectivityResilience {
 	return NewConnectivityResilience(x.Doc(), x.Path() + "/resilience")
 }
 
-// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+// An external interface entry (form).
 //
 // Comprehensive documentation of an external system interface covering
 // identification, technical details, data exchange specification, security,
@@ -23342,7 +23317,7 @@ func (x *ExternalInterfaceEntry) Testing() *InterfaceTesting {
 	return NewInterfaceTesting(x.Doc(), x.Path() + "/testing")
 }
 
-// Container for external interface definitions [PD00-SYO-SYB-INT].
+// Container for external interface definitions.
 //
 // Provides structured inventory of all external system integrations with
 // categorization, prioritization, and governance information. Each interface
@@ -23478,7 +23453,7 @@ func (x *ExternalPartnerAuthentication) Content() *ExternalPartnerAuthentication
 	return NewExternalPartnerAuthenticationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An external partner connection entry (form) [PD00-TEC-COM-EXT-nn].
+// An external partner connection entry (form).
 type ExternalPartnerConnectionEntry struct {
 	som.SomNode
 }
@@ -23594,7 +23569,7 @@ func (x *ExternalPartnerReliability) Content() *ExternalPartnerReliabilityConten
 	return NewExternalPartnerReliabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+// 1.1.3.2. External Service Dependencies.
 //
 // Dependencies on external services, third-party APIs, SaaS platforms,
 // and cloud services not under direct organizational control.
@@ -23622,7 +23597,7 @@ func (x *ExternalServiceDependencies) Items() *som.SomList[*ExternalServiceDepen
 	})
 }
 
-// An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn].
+// An external service dependency entry (form).
 //
 // Documents a dependency on an external service or third-party provider
 // including vendor details, SLA, risk assessment, and fallback options.
@@ -23780,7 +23755,7 @@ func (x *ExternalSystemContextEntryOperations) Content() *ExternalSystemContextE
 	return NewExternalSystemContextEntryOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+// 4.1.2.4. External Systems.
 //
 // External systems, services, and APIs that the system integrates with.
 type ExternalSystemsContext struct {
@@ -23835,7 +23810,7 @@ func (x *FeatureBusinessValue) Content() *FeatureBusinessValueContentForm {
 	return NewFeatureBusinessValueContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+// 13.4.4. Feature Dependencies.
 //
 // Cross-feature dependencies affecting staging order, critical path
 // analysis, and delivery sequencing.
@@ -23876,7 +23851,7 @@ func (x *FeatureDependenciesInfo) Content() *FeatureDependenciesInfoContentForm 
 	return NewFeatureDependenciesInfoContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A feature dependency entry (form) [PD00-SSP-FEA-DEP-nn].
+// A feature dependency entry (form).
 //
 // Describes a single directional dependency between two features,
 // including type, impact, and resolution strategy.
@@ -24030,7 +24005,7 @@ func (x *FeatureModuleEntryStructure) Content() *FeatureModuleEntryStructureCont
 	return NewFeatureModuleEntryStructureContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 13.4. Feature Prioritization [PD00-SSP-FEA].
+// 13.4. Feature Prioritization.
 //
 // Comprehensive feature prioritization framework for staged delivery.
 // Covers prioritization methodology, MoSCoW analysis, feature-stage
@@ -24083,22 +24058,22 @@ func (x *FeaturePrioritization) Traceability() *FeaturePrioritizationTraceabilit
 // Prioritization rationale narrative.
 // (skipped: prioritizationRationale has no target type)
 
-// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+// 13.4.1. MoSCoW Analysis.
 func (x *FeaturePrioritization) MoscowAnalysis() *MoscowAnalysis {
 	return NewMoscowAnalysis(x.Doc(), x.Path() + "/moscowAnalysis")
 }
 
-// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+// 13.4.2. Feature-Stage Matrix.
 func (x *FeaturePrioritization) FeatureStageMatrix() *FeatureStageMatrix {
 	return NewFeatureStageMatrix(x.Doc(), x.Path() + "/featureStageMatrix")
 }
 
-// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+// 13.4.3. Feature Priority Register.
 func (x *FeaturePrioritization) FeaturePriorityRegister() *FeaturePriorityRegister {
 	return NewFeaturePriorityRegister(x.Doc(), x.Path() + "/featurePriorityRegister")
 }
 
-// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+// 13.4.4. Feature Dependencies.
 func (x *FeaturePrioritization) FeatureDependencies() *FeatureDependencies {
 	return NewFeatureDependencies(x.Doc(), x.Path() + "/featureDependencies")
 }
@@ -24187,7 +24162,7 @@ func (x *FeaturePrioritizationTraceability) Content() *FeaturePrioritizationTrac
 	return NewFeaturePrioritizationTraceabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An individual feature priority entry (form) [PD00-SSP-FEA-REG-nn].
+// An individual feature priority entry (form).
 //
 // Comprehensive record covering identity, classification, business
 // value, effort, priority scoring, stage assignment, dependencies,
@@ -24252,7 +24227,7 @@ func (x *FeaturePriorityEntry) Status() *FeatureStatus {
 	return NewFeatureStatus(x.Doc(), x.Path() + "/status")
 }
 
-// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+// 13.4.3. Feature Priority Register.
 //
 // Master register of all features with comprehensive priority scoring,
 // business value analysis, effort estimates, stakeholder ownership,
@@ -24305,7 +24280,7 @@ func (x *FeatureStageAssignment) Content() *FeatureStageAssignmentContentForm {
 	return NewFeatureStageAssignmentContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A feature-to-stage mapping entry (form) [PD00-SSP-FEA-MAT-nn].
+// A feature-to-stage mapping entry (form).
 //
 // Maps a single feature or feature group to its delivery stage with
 // readiness, confidence, and dependency information.
@@ -24398,7 +24373,7 @@ func (x *FeatureStageMappingReadiness) Content() *FeatureStageMappingReadinessCo
 	return NewFeatureStageMappingReadinessContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+// 13.4.2. Feature-Stage Matrix.
 //
 // Maps every feature or feature group to the delivery stage, tracking
 // readiness, confidence, dependencies, and acceptance criteria.
@@ -24453,7 +24428,7 @@ func (x *FeatureStatus) Content() *FeatureStatusContentForm {
 	return NewFeatureStatusContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
+// A feature tour entry.
 type FeatureTourEntry struct {
 	som.SomNode
 }
@@ -24488,7 +24463,7 @@ func (x *FeatureTraceability) Content() *FeatureTraceabilityContentForm {
 	return NewFeatureTraceabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A field help entry [PD00-USE-HLP-CON-FLD-nn].
+// A field help entry.
 type FieldHelpEntry struct {
 	som.SomNode
 }
@@ -24559,7 +24534,7 @@ func (x *FileAccessControlPolicy) SetContent(value string) {
 // File Access Control Details (text).
 // (skipped: fileAccessControlDetails has no target type)
 
-// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+// 9.3.3. File and Storage Security.
 //
 // Comprehensive file and storage security specification covering upload
 // validation, storage encryption, access control on file resources, content
@@ -24781,7 +24756,7 @@ func (x *FirewallRequirementsRules) Content() *FirewallRequirementsRulesContentF
 	return NewFirewallRequirementsRulesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
+// 11.3.3. Flexibility quality.
 type FlexibilityQuality struct {
 	som.SomNode
 }
@@ -24887,7 +24862,7 @@ func (x *FrameworkCompatibility) Content() *FrameworkCompatibilityContentForm {
 	return NewFrameworkCompatibilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.6. Framework Conditions [PD00-SYO-RES].
+// 4.6. Framework Conditions.
 //
 // Documents the organizational and technical environment in which the system
 // will operate. Covers organizational structure, functional responsibilities,
@@ -24905,27 +24880,27 @@ func NewFrameworkConditions(doc *som.SpecDocument, path string) *FrameworkCondit
 // Framework conditions overview.
 // (skipped: overview has no target type)
 
-// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+// 4.6.1. Organizational Environment.
 func (x *FrameworkConditions) OrganizationalEnvironment() *OrganizationalEnvironment {
 	return NewOrganizationalEnvironment(x.Doc(), x.Path() + "/organizationalEnvironment")
 }
 
-// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
+// 4.6.2. Functional Responsibilities — contains 0+×.
 func (x *FrameworkConditions) FunctionalResponsibilities() *FunctionalResponsibilities {
 	return NewFunctionalResponsibilities(x.Doc(), x.Path() + "/functionalResponsibilities")
 }
 
-// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → TR.
 func (x *FrameworkConditions) TechnicalFrameworkConditions() *TechnicalFrameworkConditions {
 	return NewTechnicalFrameworkConditions(x.Doc(), x.Path() + "/technicalFrameworkConditions")
 }
 
-// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
+// 4.6.4. Constraints and Dependencies — contains 0+×.
 func (x *FrameworkConditions) ConstraintsAndDependencies() *ConstraintsAndDependencies {
 	return NewConstraintsAndDependencies(x.Doc(), x.Path() + "/constraintsAndDependencies")
 }
 
-// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+// 4.6.4.2. Dependencies.
 //
 // External dependencies on other projects, teams, vendors, systems, or
 // organizational initiatives. Each dependency represents a point where
@@ -24992,7 +24967,7 @@ func (x *FrameworkDependenciesManagement) Content() *FrameworkDependenciesManage
 	return NewFrameworkDependenciesManagementContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+// A framework dependency entry (form).
 //
 // Represents a single external dependency where this project relies on
 // another party (project, team, vendor, system) to deliver something.
@@ -25172,7 +25147,7 @@ func (x *FrameworkVersion) Content() *FrameworkVersionContentForm {
 	return NewFrameworkVersionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+// 3.3.1. Full Distribution.
 //
 // Recipients who receive all project documents and communications.
 type FullDistribution struct {
@@ -25204,7 +25179,7 @@ func (x *FullDistribution) Items() *som.SomList[*DistributionRecipientEntry] {
 	})
 }
 
-// A function-to-data matrix entry (form) [PD00-BUS-FUN-MAT-nn].
+// A function-to-data matrix entry (form).
 //
 // Maps a function to the data entities it accesses.
 type FunctionDataMatrixEntry struct {
@@ -25220,7 +25195,7 @@ func (x *FunctionDataMatrixEntry) Content() *FunctionDataMatrixEntryContentForm 
 	return NewFunctionDataMatrixEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A function entry (form) [PD00-BUS-FUN-DEC-nn].
+// A function entry (form).
 //
 // Business function specification in the functional decomposition.
 type FunctionEntry struct {
@@ -25251,7 +25226,7 @@ func (x *FunctionEntry) Implementation() *FunctionEntryImplementation {
 	return NewFunctionEntryImplementation(x.Doc(), x.Path() + "/implementation")
 }
 
-// Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
+// Sub-functions — contains 0+× SubFunction.
 func (x *FunctionEntry) SubFunctions() *som.SomList[*SubFunctionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SUFN-SUBF-LST", func(d *som.SpecDocument, p string) *SubFunctionEntry {
 		return NewSubFunctionEntry(d, p)
@@ -25300,7 +25275,7 @@ func (x *FunctionEntryOperations) Content() *FunctionEntryOperationsContentForm 
 	return NewFunctionEntryOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 7.3. Function Model [PD00-BUS-FUN].
+// 7.3. Function Model.
 //
 // Business functions, their decomposition, and relationships to data objects.
 type FunctionModel struct {
@@ -25320,28 +25295,28 @@ func (x *FunctionModel) MatrixOverview() *FunctionModelMatrixOverviewForm {
 	return NewFunctionModelMatrixOverviewForm(x.Doc(), x.Path() + "/matrixOverview")
 }
 
-// 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC] — contains 0+× Function.
+// 7.3.1. Function Decomposition — contains 0+× Function.
 func (x *FunctionModel) Functions() *som.SomList[*FunctionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FUNCT-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionEntry {
 		return NewFunctionEntry(d, p)
 	})
 }
 
-// 7.3.2. Function-to-Data Matrix Entries [PD00-BUS-FUN-MAT] — contains 0+× MatrixEntry.
+// 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
 func (x *FunctionModel) MatrixEntries() *som.SomList[*FunctionDataMatrixEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FNDMX-MATR-LST", func(d *som.SpecDocument, p string) *FunctionDataMatrixEntry {
 		return NewFunctionDataMatrixEntry(d, p)
 	})
 }
 
-// 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
+// 7.3.3. Business Rules — contains 1+× Business Rule.
 func (x *FunctionModel) BusinessRules() *som.SomList[*BusinessRuleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BIRU-BUSI-LST", func(d *som.SpecDocument, p string) *BusinessRuleEntry {
 		return NewBusinessRuleEntry(d, p)
 	})
 }
 
-// 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
+// 11.2.2. Functional completeness quality.
 type FunctionalCompletenessQuality struct {
 	som.SomNode
 }
@@ -25358,7 +25333,7 @@ func (x *FunctionalCompletenessQuality) Content() *FunctionalCompletenessQuality
 // Detailed functional completeness narrative.
 // (skipped: narrative has no target type)
 
-// A functional requirement entry [PD00-SYO-REQ-FUN-nn].
+// A functional requirement entry.
 //
 // Comprehensive functional requirement definition following IEEE 830,
 // ISO 29148, and Volere requirements shell. Includes traceability,
@@ -25406,37 +25381,37 @@ func (x *FunctionalRequirementEntry) Metadata() *FunctionalRequirementEntryMetad
 	return NewFunctionalRequirementEntryMetadata(x.Doc(), x.Path() + "/metadata")
 }
 
-// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+// 4.3.1.n.1. Acceptance Criteria.
 func (x *FunctionalRequirementEntry) AcceptanceCriteria() *RequirementAcceptanceCriteria {
 	return NewRequirementAcceptanceCriteria(x.Doc(), x.Path() + "/acceptanceCriteria")
 }
 
-// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+// 4.3.1.n.2. Business Rules.
 func (x *FunctionalRequirementEntry) BusinessRules() *RequirementBusinessRules {
 	return NewRequirementBusinessRules(x.Doc(), x.Path() + "/businessRules")
 }
 
-// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+// 4.3.1.n.3. Data Requirements.
 func (x *FunctionalRequirementEntry) DataRequirements() *RequirementDataRequirements {
 	return NewRequirementDataRequirements(x.Doc(), x.Path() + "/dataRequirements")
 }
 
-// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+// 4.3.1.n.4. UI Specification.
 func (x *FunctionalRequirementEntry) UiSpecification() *RequirementUiSpecification {
 	return NewRequirementUiSpecification(x.Doc(), x.Path() + "/uiSpecification")
 }
 
-// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+// 4.3.1.n.5. Dependencies.
 func (x *FunctionalRequirementEntry) Dependencies() *RequirementDependencies {
 	return NewRequirementDependencies(x.Doc(), x.Path() + "/dependencies")
 }
 
-// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+// 4.3.1.n.6. Traceability.
 func (x *FunctionalRequirementEntry) Traceability() *RequirementTraceability {
 	return NewRequirementTraceability(x.Doc(), x.Path() + "/traceability")
 }
 
-// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+// 4.3.1.n.7. Test Cases.
 func (x *FunctionalRequirementEntry) TestCases() *RequirementTestCases {
 	return NewRequirementTestCases(x.Doc(), x.Path() + "/testCases")
 }
@@ -25525,7 +25500,7 @@ func (x *FunctionalRequirementEntryVerification) Content() *FunctionalRequiremen
 	return NewFunctionalRequirementEntryVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+// 4.3.1. Functional Requirements.
 //
 // Container for functional requirements. Functional requirements describe
 // what the system must do — its features, behaviors, processing rules,
@@ -25560,7 +25535,7 @@ func (x *FunctionalRequirements) Requirements() *som.SomList[*FunctionalRequirem
 	})
 }
 
-// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+// 4.6.2. Functional Responsibilities.
 //
 // Maps system functions to organizational units responsible for them.
 // Identifies domain owners, data stewards, and operational contacts for
@@ -25589,7 +25564,7 @@ func (x *FunctionalResponsibilities) Items() *som.SomList[*ResponsibilityEntry] 
 	})
 }
 
-// A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
+// A gap entry (form) — a missing capability or feature.
 //
 // Documents a specific gap between current capabilities and business needs:
 // category, severity, quantified cost, stakeholders, compliance drivers,
@@ -25683,7 +25658,7 @@ func (x *GapEntryWorkaround) Content() *GapEntryWorkaroundContentForm {
 	return NewGapEntryWorkaroundContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+// 1.3.4. Gaps.
 type Gaps struct {
 	som.SomNode
 }
@@ -25816,7 +25791,7 @@ func (x *GlobalEntryPointEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn].
+// A global role exclusion entry (form).
 //
 // Defines system-wide mutual exclusion rules that apply across all users,
 // independent of individual role definitions.
@@ -25833,7 +25808,69 @@ func (x *GlobalRoleExclusionEntry) Content() *GlobalRoleExclusionEntryContentFor
 	return NewGlobalRoleExclusionEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+// An ordered collection of glossary entries.
+type Glossary struct {
+	som.SomNode
+}
+
+// NewGlossary binds a Glossary facade to a document and a path.
+func NewGlossary(doc *som.SpecDocument, path string) *Glossary {
+	return &Glossary{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *Glossary) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *Glossary) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// One entry per defined term or acronym.
+func (x *Glossary) Entries() *som.SomList[*GlossaryEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/GLOSS-ENTR-LST", func(d *som.SpecDocument, p string) *GlossaryEntry {
+		return NewGlossaryEntry(d, p)
+	})
+}
+
+// SBP.3 Glossary & Abbreviations.
+type GlossaryAndAbbreviations struct {
+	som.SomNode
+}
+
+// NewGlossaryAndAbbreviations binds a GlossaryAndAbbreviations facade to a document and a path.
+func NewGlossaryAndAbbreviations(doc *som.SpecDocument, path string) *GlossaryAndAbbreviations {
+	return &GlossaryAndAbbreviations{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *GlossaryAndAbbreviations) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *GlossaryAndAbbreviations) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// The set of defined terms and abbreviations.
+func (x *GlossaryAndAbbreviations) Glossary() *Glossary {
+	return NewGlossary(x.Doc(), x.Path() + "/glossary")
+}
+
+// A single glossary entry (form).
+type GlossaryEntry struct {
+	som.SomNode
+}
+
+// NewGlossaryEntry binds a GlossaryEntry facade to a document and a path.
+func NewGlossaryEntry(doc *som.SpecDocument, path string) *GlossaryEntry {
+	return &GlossaryEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *GlossaryEntry) Content() *GlossaryEntryContentForm {
+	return NewGlossaryEntryContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// 4.2.1.n.3. Dependencies.
 //
 // Dependencies that may affect goal achievement.
 type GoalDependencies struct {
@@ -25882,7 +25919,7 @@ func (x *GoalDependencyEntry) SetRelatedGoal(value string) {
 	x.Doc().SetContent(x.Path() + "/relatedGoal", value)
 }
 
-// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+// 4.2.1.n.1. Key Results.
 //
 // OKR-style key results that indicate progress toward the goal.
 // Key results are specific, measurable outcomes that together constitute
@@ -25925,7 +25962,7 @@ func (x *GoalMilestoneEntry) Content() *GoalMilestoneEntryContentForm {
 	return NewGoalMilestoneEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+// 4.2.1.n.2. Milestones.
 //
 // Key milestones marking progress toward the goal.
 type GoalMilestones struct {
@@ -25952,7 +25989,7 @@ func (x *GoalMilestones) Items() *som.SomList[*GoalMilestoneEntry] {
 	})
 }
 
-// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+// 4.2.1.n.5. Resources.
 //
 // Resources required to achieve the goal.
 type GoalResources struct {
@@ -26036,7 +26073,7 @@ func (x *GoalRiskEntryResponse) Content() *GoalRiskEntryResponseContentForm {
 	return NewGoalRiskEntryResponseContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+// 4.2.1.n.4. Risks.
 //
 // Risks that may prevent or delay goal achievement.
 type GoalRisks struct {
@@ -26063,7 +26100,7 @@ func (x *GoalRisks) Items() *som.SomList[*GoalRiskEntry] {
 	})
 }
 
-// 4.2. Goals [PD00-SYO-GOA].
+// 4.2. Goals.
 //
 // Container for project goals organized by category. Goals provide measurable
 // objectives that guide project execution and define success. This section
@@ -26095,17 +26132,17 @@ func (x *Goals) SetGoalHierarchyDiagram(value string) {
 	x.Doc().SetContent(x.Path() + "/goalHierarchyDiagram", value)
 }
 
-// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+// 4.2.1. Business Goals.
 func (x *Goals) BusinessGoals() *BusinessGoals {
 	return NewBusinessGoals(x.Doc(), x.Path() + "/businessGoals")
 }
 
-// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+// 4.2.2. Technical Goals.
 func (x *Goals) TechnicalGoals() *TechnicalGoals {
 	return NewTechnicalGoals(x.Doc(), x.Path() + "/technicalGoals")
 }
 
-// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+// 4.2.3. Success Criteria.
 func (x *Goals) SuccessCriteria() *SuccessCriteria {
 	return NewSuccessCriteria(x.Doc(), x.Path() + "/successCriteria")
 }
@@ -26131,7 +26168,7 @@ func (x *GovernanceModel) DecisionAuthorities() *som.SomList[*DecisionAuthorityE
 	})
 }
 
-// A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
+// A data handling requirement entry (form).
 //
 // Specific handling procedures for classified data.
 type HandlingRequirementEntry struct {
@@ -26147,7 +26184,7 @@ func (x *HandlingRequirementEntry) Content() *HandlingRequirementEntryContentFor
 	return NewHandlingRequirementEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+// 8.4. Hardware Concept Requirements.
 type HardwareRequirements struct {
 	som.SomNode
 }
@@ -26165,17 +26202,17 @@ func (x *HardwareRequirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+// 8.4.1. Server Requirements.
 func (x *HardwareRequirements) ServerRequirements() *ServerRequirementsSection {
 	return NewServerRequirementsSection(x.Doc(), x.Path() + "/serverRequirements")
 }
 
-// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+// 8.4.2. Client Requirements.
 func (x *HardwareRequirements) ClientRequirements() *ClientRequirementsSection {
 	return NewClientRequirementsSection(x.Doc(), x.Path() + "/clientRequirements")
 }
 
-// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+// 8.4.3. Network Requirements.
 func (x *HardwareRequirements) NetworkRequirements() *NetworkRequirementsSection {
 	return NewNetworkRequirementsSection(x.Doc(), x.Path() + "/networkRequirements")
 }
@@ -26251,7 +26288,7 @@ func (x *HealthCheckEndpointsTiming) Content() *HealthCheckEndpointsTimingConten
 	return NewHealthCheckEndpointsTimingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+// 8.7.2.1. Health Checks and Diagnostics.
 type HealthChecksAndDiagnosticsSection struct {
 	som.SomNode
 }
@@ -26297,7 +26334,7 @@ func (x *HealthChecksAndDiagnosticsSection) DependencyHealth() *DependencyHealth
 	return NewDependencyHealthMonitoring(x.Doc(), x.Path() + "/dependencyHealth")
 }
 
-// 10.8. Help Concept [PD00-USE-HLP].
+// 10.8. Help Concept.
 //
 // Comprehensive in-app help system including contextual help, onboarding,
 // and support access mechanisms.
@@ -26327,17 +26364,17 @@ func (x *HelpConcept) Insights() *HelpConceptInsights {
 // Help system overview narrative.
 // (skipped: helpOverview has no target type)
 
-// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+// 10.8.1. Contextual Help.
 func (x *HelpConcept) ContextualHelp() *ContextualHelp {
 	return NewContextualHelp(x.Doc(), x.Path() + "/contextualHelp")
 }
 
-// 10.8.2. Onboarding [PD00-USE-HLP-ONB].
+// 10.8.2. Onboarding.
 func (x *HelpConcept) Onboarding() *OnboardingHelp {
 	return NewOnboardingHelp(x.Doc(), x.Path() + "/onboarding")
 }
 
-// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+// 10.8.3. Support Access.
 func (x *HelpConcept) SupportAccess() *SupportAccess {
 	return NewSupportAccess(x.Doc(), x.Path() + "/supportAccess")
 }
@@ -26534,7 +26571,7 @@ func (x *IdeRequirementEntryStandardization) Content() *IdeRequirementEntryStand
 	return NewIdeRequirementEntryStandardizationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+// 9.2.1. Identification.
 //
 // Defines the identity management model: how identities are created,
 // sourced, verified, federated, and mapped. Covers identity sources,
@@ -26560,7 +26597,7 @@ func (x *Identification) IdentitySources() *som.SomList[*IdentitySourceEntry] {
 	})
 }
 
-// Identity Verification [PD00-ACC-IDE-IDN-VER].
+// Identity Verification.
 func (x *Identification) IdentityVerification() *IdentityVerificationPolicy {
 	return NewIdentityVerificationPolicy(x.Doc(), x.Path() + "/identityVerification")
 }
@@ -26572,12 +26609,12 @@ func (x *Identification) IdentityProviders() *som.SomList[*IdentityProviderEntry
 	})
 }
 
-// Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+// Single Sign-On.
 func (x *Identification) SingleSignOn() *SingleSignOnPolicy {
 	return NewSingleSignOnPolicy(x.Doc(), x.Path() + "/singleSignOn")
 }
 
-// Self-Registration [PD00-ACC-IDE-IDN-REG].
+// Self-Registration.
 func (x *Identification) SelfRegistration() *SelfRegistrationPolicy {
 	return NewSelfRegistrationPolicy(x.Doc(), x.Path() + "/selfRegistration")
 }
@@ -26589,7 +26626,7 @@ func (x *Identification) AttributeMappings() *som.SomList[*IdentityAttributeMapp
 	})
 }
 
-// 9.2. Identification and Authentication [PD00-ACC-IDE].
+// 9.2. Identification and Authentication.
 type IdentificationAndAuthentication struct {
 	som.SomNode
 }
@@ -26607,17 +26644,17 @@ func (x *IdentificationAndAuthentication) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+// 9.2.1. Identification.
 func (x *IdentificationAndAuthentication) Identification() *Identification {
 	return NewIdentification(x.Doc(), x.Path() + "/identification")
 }
 
-// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+// 9.2.2. Authentication.
 func (x *IdentificationAndAuthentication) Authentication() *Authentication {
 	return NewAuthentication(x.Doc(), x.Path() + "/authentication")
 }
 
-// An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].
+// An identity attribute mapping entry (form).
 //
 // Defines how attributes map between identity sources and the application:
 // source/target field, data type, transformation, sync direction.
@@ -26719,7 +26756,7 @@ func (x *IdentityProviderEndpoints) Content() *IdentityProviderEndpointsContentF
 	return NewIdentityProviderEndpointsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].
+// An identity provider entry (form).
 //
 // Configuration for a single Identity Provider (IdP): protocol, endpoints,
 // attribute mapping, trust level, certificate management.
@@ -26807,7 +26844,7 @@ func (x *IdentityProviderTrust) Content() *IdentityProviderTrustContentForm {
 	return NewIdentityProviderTrustContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn].
+// An identity source entry (form).
 //
 // Defines one source from which identities are obtained, e.g.
 // internal directory, LDAP, external IdP, HR system, self-registration.
@@ -26900,7 +26937,7 @@ func (x *IdentitySourceEntryOperations) Content() *IdentitySourceEntryOperations
 	return NewIdentitySourceEntryOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER].
+// Identity verification/proofing policy (form).
 //
 // Defines how identity claims are verified: verification level, required
 // documents, automation, proofing standards (NIST IAL), and re-verification.
@@ -27417,7 +27454,40 @@ func (x *IndustryStandardEntryVerification) Content() *IndustryStandardEntryVeri
 	return NewIndustryStandardEntryVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+// 7. Business Object and Data Model. Seeds → BDM.
+type InformationAndDataModel struct {
+	som.SomNode
+}
+
+// NewInformationAndDataModel binds a InformationAndDataModel facade to a document and a path.
+func NewInformationAndDataModel(doc *som.SpecDocument, path string) *InformationAndDataModel {
+	return &InformationAndDataModel{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *InformationAndDataModel) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *InformationAndDataModel) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// 7.1. Data Model.
+func (x *InformationAndDataModel) DataModel() *DataModel {
+	return NewDataModel(x.Doc(), x.Path() + "/dataModel")
+}
+
+// 7.2. Business Object Model.
+func (x *InformationAndDataModel) BusinessObjectModel() *BusinessObjectModel {
+	return NewBusinessObjectModel(x.Doc(), x.Path() + "/businessObjectModel")
+}
+
+// 7.3. Function Model.
+func (x *InformationAndDataModel) FunctionModel() *FunctionModel {
+	return NewFunctionModel(x.Doc(), x.Path() + "/functionModel")
+}
+
+// 10.2.2. Information Architecture.
 //
 // Overall information architecture: site map, content hierarchy, navigation
 // structure, and entry points. Describes how screens relate to each other
@@ -27455,8 +27525,153 @@ func (x *InformationArchitecture) GlobalEntryPoints() *som.SomList[*GlobalEntryP
 	})
 }
 
-// 10.2.2.5. Information Architecture Diagram [PD00-USE-SCR-INF-DIA].
+// 10.2.2.5. Information Architecture Diagram.
 // (skipped: architectureDiagram has no target type)
+
+// Information-for-Use (user documentation) requirements.
+//
+// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
+// *quality criteria* cross-map lives in SBP.14
+// (`DocumentationQualityCriteria`).
+//
+// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
+// doc/training field-split (separating the documentation half from the
+// training half) is deferred to IP-8.
+type InformationForUseRequirements struct {
+	som.SomNode
+}
+
+// NewInformationForUseRequirements binds a InformationForUseRequirements facade to a document and a path.
+func NewInformationForUseRequirements(doc *som.SpecDocument, path string) *InformationForUseRequirements {
+	return &InformationForUseRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *InformationForUseRequirements) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *InformationForUseRequirements) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Documentation (and, until the IP-8 split, training) requirements,
+// re-homed from MLAR.
+func (x *InformationForUseRequirements) DocumentationAndTraining() *DocumentationAndTraining {
+	return NewDocumentationAndTraining(x.Doc(), x.Path() + "/documentationAndTraining")
+}
+
+// BDM00 Business Data Model.
+//
+// Full business data model: entities, relationships, ER diagram, data
+// classification, business objects, function decomposition, function-
+// to-data matrix, business rules, data dictionary, and validation /
+// integrity constraints.
+type InformationModel struct {
+	som.SomNode
+}
+
+// InformationModelModelVersion is the model version this object model was generated
+// against (§2.1).
+const InformationModelModelVersion = "0.0"
+
+// NewInformationModel creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewInformationModel(doc *som.SpecDocument, documentVersion string) (*InformationModel, error) {
+	if err := som.CheckSomModelVersion(InformationModelModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &InformationModel{SomNode: som.NewSomNode(doc, "IFM")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *InformationModel) ObjectModelVersion() string {
+	return InformationModelModelVersion
+}
+
+func (x *InformationModel) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *InformationModel) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *InformationModel) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Entity inventory (list).
+func (x *InformationModel) Entities() *som.SomList[*DataEntityEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/DAENT-ENTI-LST", func(d *som.SpecDocument, p string) *DataEntityEntry {
+		return NewDataEntityEntry(d, p)
+	})
+}
+
+// Entity relationships.
+func (x *InformationModel) EntityRelationships() *EntityRelationships {
+	return NewEntityRelationships(x.Doc(), x.Path() + "/entityRelationships")
+}
+
+// Entity-relationship diagram.
+// (skipped: erDiagram has no target type)
+
+// Data classification.
+func (x *InformationModel) DataClassification() *DataClassification {
+	return NewDataClassification(x.Doc(), x.Path() + "/dataClassification")
+}
+
+// Business object catalog (list).
+func (x *InformationModel) ObjectCatalog() *som.SomList[*BusinessObjectEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/BJOEN-OBJE-LST", func(d *som.SpecDocument, p string) *BusinessObjectEntry {
+		return NewBusinessObjectEntry(d, p)
+	})
+}
+
+// Business object diagram.
+// (skipped: objectDiagram has no target type)
+
+// Function decomposition (list).
+func (x *InformationModel) FunctionDecomposition() *som.SomList[*FunctionEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/FUNCT-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionEntry {
+		return NewFunctionEntry(d, p)
+	})
+}
+
+// Function-to-data matrix (list).
+func (x *InformationModel) FunctionToDataMatrix() *som.SomList[*FunctionDataMatrixEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/FNDMX-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionDataMatrixEntry {
+		return NewFunctionDataMatrixEntry(d, p)
+	})
+}
+
+// Business rules catalog (list).
+func (x *InformationModel) BusinessRules() *som.SomList[*BusinessRuleEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/BIRU-BUSI-LST", func(d *som.SpecDocument, p string) *BusinessRuleEntry {
+		return NewBusinessRuleEntry(d, p)
+	})
+}
+
+// Data dictionary.
+func (x *InformationModel) DataDictionary() *DataDictionary {
+	return NewDataDictionary(x.Doc(), x.Path() + "/dataDictionary")
+}
+
+// Validation constraints.
+func (x *InformationModel) ValidationConstraints() *som.SomList[*ValidationConstraints] {
+	return som.NewSomList(x.Doc(), x.Path() + "/VACO-VALI-LST", func(d *som.SpecDocument, p string) *ValidationConstraints {
+		return NewValidationConstraints(d, p)
+	})
+}
+
+// Integrity constraints.
+func (x *InformationModel) IntegrityConstraints() *som.SomList[*IntegrityConstraints] {
+	return som.NewSomList(x.Doc(), x.Path() + "/INCO-INTE-LST", func(d *som.SpecDocument, p string) *IntegrityConstraints {
+		return NewIntegrityConstraints(d, p)
+	})
+}
 
 // Infrastructure as Code requirements.
 type InfrastructureAsCode struct {
@@ -27799,7 +28014,7 @@ func (x *InfrastructureSecurityHardeningNetwork) Content() *InfrastructureSecuri
 	return NewInfrastructureSecurityHardeningNetworkContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 13.7. Initial Development Flow [PD00-SSP-IDV].
+// 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
 // `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
@@ -27877,7 +28092,7 @@ func (x *InitialTrainingDelivery) Content() *InitialTrainingDeliveryContentForm 
 	return NewInitialTrainingDeliveryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Initial training entry (form) [PD00-ORG-WOR-nn-TRA-INI-nn].
+// Initial training entry (form).
 type InitialTrainingEntry struct {
 	som.SomNode
 }
@@ -27930,7 +28145,7 @@ func (x *InitialTrainingSchedule) Content() *InitialTrainingScheduleContentForm 
 	return NewInitialTrainingScheduleContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn].
+// Input device entry (form).
 type InputDeviceEntry struct {
 	som.SomNode
 }
@@ -27972,7 +28187,7 @@ func (x *InsuranceEntry) Content() *InsuranceEntryContentForm {
 	return NewInsuranceEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.6.5. Insurance and Liability Requirements [PD00-ADM-OTH-INS].
+// 3.6.5. Insurance and Liability Requirements.
 //
 // Insurance coverage and liability agreements.
 type InsuranceLiabilityRequirements struct {
@@ -28115,7 +28330,7 @@ func (x *IntegrationArchitectureSystems) Content() *IntegrationArchitectureSyste
 	return NewIntegrationArchitectureSystemsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
+// An integration constraint entry (form).
 //
 // Documents a technical constraint on system integration, including
 // protocol requirements, format restrictions, and platform mandates.
@@ -28208,7 +28423,7 @@ func (x *IntegrationConstraintEntryScope) Content() *IntegrationConstraintEntryS
 	return NewIntegrationConstraintEntryScopeContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+// 1.1.3.5. Integration Health Summary.
 //
 // Executive summary of overall integration landscape health and risk areas.
 type IntegrationHealthSummary struct {
@@ -28224,11 +28439,109 @@ func (x *IntegrationHealthSummary) Content() *IntegrationHealthSummaryContentFor
 	return NewIntegrationHealthSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
+// Fragile integration points requiring attention.
 func (x *IntegrationHealthSummary) FragilePoints() *som.SomList[*FragilePointEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/FRAGI-FRAG-LST", func(d *som.SpecDocument, p string) *FragilePointEntry {
 		return NewFragilePointEntry(d, p)
 	})
+}
+
+// BSI00 Business System Interactions.
+//
+// Complete interaction specification between the target system and
+// external systems: inventory, patterns, testing, dependencies,
+// migration, operational concerns, and cross-boundary error handling.
+type IntegrationInterfaceSpecification struct {
+	som.SomNode
+}
+
+// IntegrationInterfaceSpecificationModelVersion is the model version this object model was generated
+// against (§2.1).
+const IntegrationInterfaceSpecificationModelVersion = "0.0"
+
+// NewIntegrationInterfaceSpecification creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewIntegrationInterfaceSpecification(doc *som.SpecDocument, documentVersion string) (*IntegrationInterfaceSpecification, error) {
+	if err := som.CheckSomModelVersion(IntegrationInterfaceSpecificationModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &IntegrationInterfaceSpecification{SomNode: som.NewSomNode(doc, "IIS")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *IntegrationInterfaceSpecification) ObjectModelVersion() string {
+	return IntegrationInterfaceSpecificationModelVersion
+}
+
+func (x *IntegrationInterfaceSpecification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *IntegrationInterfaceSpecification) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *IntegrationInterfaceSpecification) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// External interfaces.
+func (x *IntegrationInterfaceSpecification) ExternalInterfaces() *ExternalInterfaces {
+	return NewExternalInterfaces(x.Doc(), x.Path() + "/externalInterfaces")
+}
+
+// Out of scope.
+func (x *IntegrationInterfaceSpecification) OutOfScope() *OutOfScope {
+	return NewOutOfScope(x.Doc(), x.Path() + "/outOfScope")
+}
+
+// Boundary assumptions.
+func (x *IntegrationInterfaceSpecification) BoundaryAssumptions() *BoundaryAssumptions {
+	return NewBoundaryAssumptions(x.Doc(), x.Path() + "/boundaryAssumptions")
+}
+
+// System landscape inventory.
+func (x *IntegrationInterfaceSpecification) SystemInventory() *SystemLandscapeInventory {
+	return NewSystemLandscapeInventory(x.Doc(), x.Path() + "/systemInventory")
+}
+
+// Boundary interaction patterns.
+func (x *IntegrationInterfaceSpecification) InteractionPatterns() *som.SomList[*BoundaryInteractionPatterns] {
+	return som.NewSomList(x.Doc(), x.Path() + "/BOINPA-INTE-LST", func(d *som.SpecDocument, p string) *BoundaryInteractionPatterns {
+		return NewBoundaryInteractionPatterns(d, p)
+	})
+}
+
+// Interaction testing strategy.
+func (x *IntegrationInterfaceSpecification) TestingStrategy() *InteractionTestingStrategy {
+	return NewInteractionTestingStrategy(x.Doc(), x.Path() + "/testingStrategy")
+}
+
+// Interaction dependency analysis.
+func (x *IntegrationInterfaceSpecification) DependencyAnalysis() *InteractionDependencyAnalysis {
+	return NewInteractionDependencyAnalysis(x.Doc(), x.Path() + "/dependencyAnalysis")
+}
+
+// Migration interactions.
+func (x *IntegrationInterfaceSpecification) MigrationInteractions() *som.SomList[*MigrationInteractions] {
+	return som.NewSomList(x.Doc(), x.Path() + "/MIIN-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationInteractions {
+		return NewMigrationInteractions(d, p)
+	})
+}
+
+// Cross-boundary operational considerations.
+func (x *IntegrationInterfaceSpecification) OperationalConsiderations() *som.SomList[*CrossBoundaryOperationalConsiderations] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CBOC-OPER-LST", func(d *som.SpecDocument, p string) *CrossBoundaryOperationalConsiderations {
+		return NewCrossBoundaryOperationalConsiderations(d, p)
+	})
+}
+
+// Cross-boundary error handling.
+func (x *IntegrationInterfaceSpecification) CrossBoundaryErrorHandling() *CrossBoundaryErrorHandling {
+	return NewCrossBoundaryErrorHandling(x.Doc(), x.Path() + "/crossBoundaryErrorHandling")
 }
 
 // A single integration pattern entry.
@@ -28263,7 +28576,7 @@ func (x *IntegrationPointEntry) Content() *IntegrationPointEntryContentForm {
 	return NewIntegrationPointEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+// 1.1.3.4. System Integrations.
 //
 // Active integrations between systems including protocols, data formats,
 // error handling, and monitoring.
@@ -28291,7 +28604,7 @@ func (x *Integrations) Items() *som.SomList[*SystemIntegrationEntry] {
 	})
 }
 
-// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+// 7.1.7. Integrity Constraints.
 //
 // Cross-entity integrity rules beyond simple referential integrity.
 type IntegrityConstraints struct {
@@ -28311,7 +28624,7 @@ func (x *IntegrityConstraints) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 3.6.1. Intellectual Property Requirements [PD00-ADM-OTH-IPR].
+// 3.6.1. Intellectual Property Requirements.
 //
 // Defines ownership and usage rights for project deliverables and IP.
 type IntellectualPropertyRequirements struct {
@@ -28348,7 +28661,7 @@ func (x *InteractionBusinessRules) Content() *InteractionBusinessRulesContentFor
 	return NewInteractionBusinessRulesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT].
+// 6.2.2. Interaction Catalog.
 //
 // Container for key interaction descriptions. Each interaction seeds a use
 // case following Cockburn's fully dressed use case template.
@@ -28400,7 +28713,7 @@ func (x *InteractionCatalogOverview) Content() *InteractionCatalogOverviewConten
 	return NewInteractionCatalogOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
+// An interaction channel entry (form).
 //
 // Comprehensive definition of an access channel including platform details,
 // features, constraints, and user experience considerations.
@@ -28505,7 +28818,7 @@ func (x *InteractionChannelEntryPlatform) Content() *InteractionChannelEntryPlat
 	return NewInteractionChannelEntryPlatformContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP].
+// 4.5.7. Interaction Dependency Analysis.
 //
 // Critical-path and degraded-mode behavior analysis for system
 // dependencies. Covers BSI-DEP.
@@ -28526,7 +28839,7 @@ func (x *InteractionDependencyAnalysis) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// An interaction entry [PD00-TAR-STP-INT-nn].
+// An interaction entry.
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
 // use case template. Seeds the UC (Use Case) document.
@@ -28628,7 +28941,7 @@ func (x *InteractionIdentification) Content() *InteractionIdentificationContentF
 	return NewInteractionIdentificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
+// An interaction pattern entry (form).
 //
 // Definition of a specific interaction pattern including timing, triggers,
 // and user experience considerations.
@@ -28721,7 +29034,7 @@ func (x *InteractionPatternEntryUsage) Content() *InteractionPatternEntryUsageCo
 	return NewInteractionPatternEntryUsageContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+// 4.1.5.2. Interaction Patterns.
 //
 // Defines how users interact with the system including real-time interactions,
 // batch processing, workflow-driven tasks, and notification-driven actions.
@@ -28795,6 +29108,85 @@ func (x *InteractionScenarioEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
+// UC00 Use Cases.
+//
+// Detailed use cases derived from the target process steps and actor
+// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+// and traceability.
+type InteractionScenarios struct {
+	som.SomNode
+}
+
+// InteractionScenariosModelVersion is the model version this object model was generated
+// against (§2.1).
+const InteractionScenariosModelVersion = "0.0"
+
+// NewInteractionScenarios creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewInteractionScenarios(doc *som.SpecDocument, documentVersion string) (*InteractionScenarios, error) {
+	if err := som.CheckSomModelVersion(InteractionScenariosModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &InteractionScenarios{SomNode: som.NewSomNode(doc, "ISC")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *InteractionScenarios) ObjectModelVersion() string {
+	return InteractionScenariosModelVersion
+}
+
+func (x *InteractionScenarios) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *InteractionScenarios) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *InteractionScenarios) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Process steps overview.
+func (x *InteractionScenarios) ProcessStepsOverview() *ProcessStepsOverview {
+	return NewProcessStepsOverview(x.Doc(), x.Path() + "/processStepsOverview")
+}
+
+// Actor overview.
+func (x *InteractionScenarios) ActorOverview() *ActorOverview {
+	return NewActorOverview(x.Doc(), x.Path() + "/actorOverview")
+}
+
+// Interaction catalog.
+func (x *InteractionScenarios) InteractionCatalog() *InteractionCatalog {
+	return NewInteractionCatalog(x.Doc(), x.Path() + "/interactionCatalog")
+}
+
+// Key scenarios.
+func (x *InteractionScenarios) KeyScenarios() *KeyScenarios {
+	return NewKeyScenarios(x.Doc(), x.Path() + "/keyScenarios")
+}
+
+// Actor relationship diagram.
+func (x *InteractionScenarios) ActorRelationshipDiagram() *ActorRelationshipDiagram {
+	return NewActorRelationshipDiagram(x.Doc(), x.Path() + "/actorRelationshipDiagram")
+}
+
+// End-to-end test scenarios.
+func (x *InteractionScenarios) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenarios] {
+	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenarios {
+		return NewEndToEndTestScenarios(d, p)
+	})
+}
+
+// Use case traceability.
+func (x *InteractionScenarios) UseCaseTraceability() *UseCaseTraceability {
+	return NewUseCaseTraceability(x.Doc(), x.Path() + "/useCaseTraceability")
+}
+
 // Interaction security requirements.
 type InteractionSecurity struct {
 	som.SomNode
@@ -28809,7 +29201,7 @@ func (x *InteractionSecurity) Content() *InteractionSecurityContentForm {
 	return NewInteractionSecurityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST].
+// 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
 // Covers BSI-TST.
@@ -28844,7 +29236,7 @@ func (x *InteractionTraceability) Content() *InteractionTraceabilityContentForm 
 	return NewInteractionTraceabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Business context for an interface [PD00-SYO-SYB-INT-nn-BUS].
+// Business context for an interface.
 type InterfaceBusinessContext struct {
 	som.SomNode
 }
@@ -28865,7 +29257,7 @@ func (x *InterfaceBusinessContext) DependentProcesses() *som.SomList[*InterfaceB
 	})
 }
 
-// Business process dependency entry [PD00-SYO-SYB-INT-nn-BUS-BP-nn].
+// Business process dependency entry.
 type InterfaceBusinessProcessEntry struct {
 	som.SomNode
 }
@@ -28879,7 +29271,7 @@ func (x *InterfaceBusinessProcessEntry) Content() *InterfaceBusinessProcessEntry
 	return NewInterfaceBusinessProcessEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn].
+// Data entity exchanged.
 type InterfaceDataEntityEntry struct {
 	som.SomNode
 }
@@ -28893,7 +29285,7 @@ func (x *InterfaceDataEntityEntry) Content() *InterfaceDataEntityEntryContentFor
 	return NewInterfaceDataEntityEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Data specification for an interface [PD00-SYO-SYB-INT-nn-DAT].
+// Data specification for an interface.
 type InterfaceDataSpec struct {
 	som.SomNode
 }
@@ -28928,7 +29320,7 @@ func (x *InterfaceDataSpec) ValidationRules() *som.SomList[*ValidationRuleEntry]
 	})
 }
 
-// Error handling specification [PD00-SYO-SYB-INT-nn-ERR].
+// Error handling specification.
 type InterfaceErrorHandling struct {
 	som.SomNode
 }
@@ -29006,7 +29398,7 @@ func (x *InterfaceErrorHandlingTimeout) Content() *InterfaceErrorHandlingTimeout
 	return NewInterfaceErrorHandlingTimeoutContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Governance and contracts [PD00-SYO-SYB-INT-nn-GOV].
+// Governance and contracts.
 type InterfaceGovernance struct {
 	som.SomNode
 }
@@ -29061,7 +29453,7 @@ func (x *InterfaceGovernanceLifecycle) Content() *InterfaceGovernanceLifecycleCo
 	return NewInterfaceGovernanceLifecycleContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn].
+// API operation entry.
 type InterfaceOperationEntry struct {
 	som.SomNode
 }
@@ -29075,7 +29467,7 @@ func (x *InterfaceOperationEntry) Content() *InterfaceOperationEntryContentForm 
 	return NewInterfaceOperationEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Operational characteristics [PD00-SYO-SYB-INT-nn-OPS].
+// Operational characteristics.
 type InterfaceOperational struct {
 	som.SomNode
 }
@@ -29153,7 +29545,7 @@ func (x *InterfaceOperationalSupport) Content() *InterfaceOperationalSupportCont
 	return NewInterfaceOperationalSupportContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Security specification for an interface [PD00-SYO-SYB-INT-nn-SEC].
+// Security specification for an interface.
 type InterfaceSecurity struct {
 	som.SomNode
 }
@@ -29317,7 +29709,7 @@ func (x *InterfaceSpecificationEntryTooling) Content() *InterfaceSpecificationEn
 	return NewInterfaceSpecificationEntryToolingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Technical specification for an interface [PD00-SYO-SYB-INT-nn-TEC].
+// Technical specification for an interface.
 type InterfaceTechnicalSpec struct {
 	som.SomNode
 }
@@ -29381,7 +29773,7 @@ func (x *InterfaceTechnicalSpecEndpoints) Content() *InterfaceTechnicalSpecEndpo
 	return NewInterfaceTechnicalSpecEndpointsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn].
+// Test scenario entry.
 type InterfaceTestScenarioEntry struct {
 	som.SomNode
 }
@@ -29395,7 +29787,7 @@ func (x *InterfaceTestScenarioEntry) Content() *InterfaceTestScenarioEntryConten
 	return NewInterfaceTestScenarioEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Testing specification [PD00-SYO-SYB-INT-nn-TST].
+// Testing specification.
 type InterfaceTesting struct {
 	som.SomNode
 }
@@ -29454,7 +29846,7 @@ func (x *InterfaceTestingStrategy) Content() *InterfaceTestingStrategyContentFor
 	return NewInterfaceTestingStrategyContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Webhook specification [PD00-SYO-SYB-INT-nn-TEC-WH].
+// Webhook specification.
 type InterfaceWebhookSpec struct {
 	som.SomNode
 }
@@ -29468,7 +29860,7 @@ func (x *InterfaceWebhookSpec) Content() *InterfaceWebhookSpecContentForm {
 	return NewInterfaceWebhookSpecContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+// 1.1.3.1. Internal Dependencies.
 //
 // Dependencies between systems owned and operated internally.
 type InternalDependencies struct {
@@ -29675,6 +30067,77 @@ func (x *InteroperabilityRequirementsTesting) Content() *InteroperabilityRequire
 	return NewInteroperabilityRequirementsTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// 4. System Overview.
+//
+// High-level overview of the system to be built: its purpose, goals,
+// scope boundaries, and the environment it operates in. This section
+// establishes the foundation for all subsequent specification work.
+type IntroductionAndScope struct {
+	som.SomNode
+}
+
+// NewIntroductionAndScope binds a IntroductionAndScope facade to a document and a path.
+func NewIntroductionAndScope(doc *som.SpecDocument, path string) *IntroductionAndScope {
+	return &IntroductionAndScope{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *IntroductionAndScope) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *IntroductionAndScope) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// System overview summary statistics.
+func (x *IntroductionAndScope) Summary() *SystemOverviewSummary {
+	return NewSystemOverviewSummary(x.Doc(), x.Path() + "/summary")
+}
+
+// System context diagram showing major system boundaries.
+func (x *IntroductionAndScope) SystemContextDiagram() string {
+	return x.Doc().ContentOr(x.Path() + "/systemContextDiagram")
+}
+
+func (x *IntroductionAndScope) SetSystemContextDiagram(value string) {
+	x.Doc().SetContent(x.Path() + "/systemContextDiagram", value)
+}
+
+// 4.1. System Description.
+func (x *IntroductionAndScope) SystemDescription() *SystemDescription {
+	return NewSystemDescription(x.Doc(), x.Path() + "/systemDescription")
+}
+
+// 4.2. Goals.
+func (x *IntroductionAndScope) Goals() *Goals {
+	return NewGoals(x.Doc(), x.Path() + "/goals")
+}
+
+// 4.3. Requirements Overview. Seeds → RC.
+func (x *IntroductionAndScope) Requirements() *RequirementsOverview {
+	return NewRequirementsOverview(x.Doc(), x.Path() + "/requirements")
+}
+
+// 4.4. Systems to Replace. Seeds → CS.
+func (x *IntroductionAndScope) SystemsToReplace() *SystemsToReplace {
+	return NewSystemsToReplace(x.Doc(), x.Path() + "/systemsToReplace")
+}
+
+// 4.5. System Boundaries. Seeds → BSI.
+func (x *IntroductionAndScope) SystemBoundaries() *SystemBoundaries {
+	return NewSystemBoundaries(x.Doc(), x.Path() + "/systemBoundaries")
+}
+
+// 4.6. Framework Conditions.
+func (x *IntroductionAndScope) FrameworkConditions() *FrameworkConditions {
+	return NewFrameworkConditions(x.Doc(), x.Path() + "/frameworkConditions")
+}
+
+// 4.7. Risks and Assumptions.
+func (x *IntroductionAndScope) RisksAndAssumptions() *RisksAndAssumptions {
+	return NewRisksAndAssumptions(x.Doc(), x.Path() + "/risksAndAssumptions")
+}
+
 // An IP ownership entry (form).
 type IpOwnershipEntry struct {
 	som.SomNode
@@ -29689,7 +30152,50 @@ func (x *IpOwnershipEntry) Content() *IpOwnershipEntryContentForm {
 	return NewIpOwnershipEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+// ISO/IEC 25010 product-quality cross-map.
+//
+// Maps the system's quality goals onto the eight ISO/IEC 25010 product
+// quality characteristics so that compatibility and portability cannot be
+// silently missed.
+type Iso25010Coverage struct {
+	som.SomNode
+}
+
+// NewIso25010Coverage binds a Iso25010Coverage facade to a document and a path.
+func NewIso25010Coverage(doc *som.SpecDocument, path string) *Iso25010Coverage {
+	return &Iso25010Coverage{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *Iso25010Coverage) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *Iso25010Coverage) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// One entry per ISO/IEC 25010 characteristic addressed.
+func (x *Iso25010Coverage) Characteristics() *som.SomList[*Iso25010CoverageEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/I25CV-CHAR-LST", func(d *som.SpecDocument, p string) *Iso25010CoverageEntry {
+		return NewIso25010CoverageEntry(d, p)
+	})
+}
+
+// A single ISO/IEC 25010 coverage entry (form).
+type Iso25010CoverageEntry struct {
+	som.SomNode
+}
+
+// NewIso25010CoverageEntry binds a Iso25010CoverageEntry facade to a document and a path.
+func NewIso25010CoverageEntry(doc *som.SpecDocument, path string) *Iso25010CoverageEntry {
+	return &Iso25010CoverageEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *Iso25010CoverageEntry) Content() *Iso25010CoverageEntryContentForm {
+	return NewIso25010CoverageEntryContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// 4.1.2.2. IT Landscape Position.
 //
 // How this system fits within the organization's overall IT architecture
 // and application portfolio.
@@ -29715,7 +30221,7 @@ func (x *ItLandscapePosition) PositionDetails() *ItLandscapePositionPositionDeta
 	return NewItLandscapePositionPositionDetailsForm(x.Doc(), x.Path() + "/positionDetails")
 }
 
-// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
+// 11.4.4. IT Security Operations quality.
 type ItSecurityOperationsQuality struct {
 	som.SomNode
 }
@@ -29808,7 +30314,7 @@ func (x *ItSecurityOperationsQualityTesting) Content() *ItSecurityOperationsQual
 	return NewItSecurityOperationsQualityTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+// 8.8.1. IT Security Standards.
 type ItSecurityStandardsSection struct {
 	som.SomNode
 }
@@ -29970,7 +30476,7 @@ func (x *ItStandardComplianceEntryTimeline) Content() *ItStandardComplianceEntry
 	return NewItStandardComplianceEntryTimelineContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+// 5.2. Job Descriptions and Staffing Plans.
 //
 // Documents new and changed roles resulting from the system introduction,
 // following HR best practices and job analysis methodologies (O*NET, SHRM).
@@ -29989,33 +30495,33 @@ func (x *JobDescriptionsAndStaffing) Overview() *JobDescriptionsOverview {
 	return NewJobDescriptionsOverview(x.Doc(), x.Path() + "/overview")
 }
 
-// 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
+// 5.2.1. New Roles — contains 0+× New Role.
 func (x *JobDescriptionsAndStaffing) NewRoles() *som.SomList[*NewRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/NWROL-NEWR-LST", func(d *som.SpecDocument, p string) *NewRoleEntry {
 		return NewNewRoleEntry(d, p)
 	})
 }
 
-// 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
+// 5.2.2. Changed Roles — contains 0+× Changed Role.
 func (x *JobDescriptionsAndStaffing) ChangedRoles() *som.SomList[*ChangedRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CHAROL-CHAN-LST", func(d *som.SpecDocument, p string) *ChangedRoleEntry {
 		return NewChangedRoleEntry(d, p)
 	})
 }
 
-// 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
+// 5.2.3. Removed Roles — contains 0+× role being eliminated.
 func (x *JobDescriptionsAndStaffing) RemovedRoles() *som.SomList[*RemovedRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REMROL-REMO-LST", func(d *som.SpecDocument, p string) *RemovedRoleEntry {
 		return NewRemovedRoleEntry(d, p)
 	})
 }
 
-// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+// 5.2.4. Staffing Plan.
 func (x *JobDescriptionsAndStaffing) StaffingPlan() *StaffingPlan {
 	return NewStaffingPlan(x.Doc(), x.Path() + "/staffingPlan")
 }
 
-// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+// 5.2.5. Competency Framework.
 func (x *JobDescriptionsAndStaffing) CompetencyFramework() *CompetencyFramework {
 	return NewCompetencyFramework(x.Doc(), x.Path() + "/competencyFramework")
 }
@@ -30066,7 +30572,7 @@ func (x *KeyAssumptionEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+// 4.7.2. Key Assumptions.
 //
 // Documents project assumptions that must hold true for success.
 // Tracks validation status and contingency plans if assumptions prove false.
@@ -30091,7 +30597,7 @@ func (x *KeyAssumptions) Items() *som.SomList[*AssumptionEntry] {
 	})
 }
 
-// A key attribute entry (form) [PD00-BUS-DAT-ENT-nn-KEY-nn].
+// A key attribute entry (form).
 //
 // Specification for primary, foreign, alternate, and composite keys.
 type KeyAttributeEntry struct {
@@ -30213,7 +30719,7 @@ func (x *KeyConceptEntry) Content() *KeyConceptEntryContentForm {
 // Relationships to other concepts.
 // (skipped: relationshipDetails has no target type)
 
-// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+// 4.1.3.3. Key Concepts.
 //
 // Core business concepts and entities in the domain, their attributes,
 // and relationships (conceptual domain model).
@@ -30292,7 +30798,7 @@ func (x *KeyGenerationPolicy) Content() *KeyGenerationPolicyContentForm {
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+// 9.5.3. Key Management.
 //
 // Defines cryptographic key management policies covering the full key
 // lifecycle: generation, storage, rotation, escrow/backup, and compromise
@@ -30377,7 +30883,7 @@ func (x *KeyRotationPolicy) Content() *KeyRotationPolicyContentForm {
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE].
+// 6.2.3. Key Scenarios.
 //
 // End-to-end scenario descriptions showing how users achieve business goals
 // through sequences of interactions.
@@ -30450,7 +30956,7 @@ func (x *KeyTouchpointEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+// 15.7. Knowledge Transfer.
 //
 // Handover from delivery team to operations. Covers EK09 Handover
 // Agreement content.
@@ -30525,7 +31031,7 @@ func (x *KpiEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+// 10.12.4. Language and Country Selection.
 //
 // UI specification for language and country selection.
 type LanguageCountrySelection struct {
@@ -30694,7 +31200,7 @@ func (x *LayerCommunicationRulesInterfaces) Content() *LayerCommunicationRulesIn
 	return NewLayerCommunicationRulesInterfacesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+// 8.2.1. Layering and Module Structure.
 //
 // Software layering (presentation, business logic, data access, infrastructure)
 // and module structure (bounded contexts, packages, libraries).
@@ -30882,7 +31388,7 @@ func (x *LiabilityLimitations) Content() *LiabilityLimitationsContentForm {
 	return NewLiabilityLimitationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
+// A lifecycle transition entry (form).
 //
 // Detailed state transition specification.
 type LifecycleTransitionEntry struct {
@@ -30955,7 +31461,7 @@ func (x *LifecycleTransitionEntryTrigger) Content() *LifecycleTransitionEntryTri
 	return NewLifecycleTransitionEntryTriggerContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
+// A known limitation of an existing system (form).
 type LimitationEntry struct {
 	som.SomNode
 }
@@ -31149,7 +31655,7 @@ func (x *LocalDevelopmentSetupWorkflow) Content() *LocalDevelopmentSetupWorkflow
 	return NewLocalDevelopmentSetupWorkflowContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
+// 10.12.1. Localization Process.
 //
 // Workflow for identifying and preparing content for localization.
 type LocalizationProcess struct {
@@ -31226,6 +31732,70 @@ func NewLocalizationProcessReview(doc *som.SpecDocument, path string) *Localizat
 
 func (x *LocalizationProcessReview) Content() *LocalizationProcessReviewContentForm {
 	return NewLocalizationProcessReviewContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Localization & Translation execution processes.
+//
+// Public anchor: ISO 29148 transition requirements. Bundles the localization
+// and translation *workflow* concerns re-homed from the former
+// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+// SBP.9 [LocalizationTranslationRequirements]).
+type LocalizationTranslationProcess struct {
+	som.SomNode
+}
+
+// NewLocalizationTranslationProcess binds a LocalizationTranslationProcess facade to a document and a path.
+func NewLocalizationTranslationProcess(doc *som.SpecDocument, path string) *LocalizationTranslationProcess {
+	return &LocalizationTranslationProcess{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *LocalizationTranslationProcess) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *LocalizationTranslationProcess) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Localization workflow (content identification, externalization, review).
+func (x *LocalizationTranslationProcess) LocalizationProcess() *LocalizationProcess {
+	return NewLocalizationProcess(x.Doc(), x.Path() + "/localizationProcess")
+}
+
+// Translation workflow (TMS, translation memory, vendors, QA).
+func (x *LocalizationTranslationProcess) TranslationProcess() *TranslationProcess {
+	return NewTranslationProcess(x.Doc(), x.Path() + "/translationProcess")
+}
+
+// Localization & Translation requirements (the requirement side of i18n).
+//
+// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
+// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+type LocalizationTranslationRequirements struct {
+	som.SomNode
+}
+
+// NewLocalizationTranslationRequirements binds a LocalizationTranslationRequirements facade to a document and a path.
+func NewLocalizationTranslationRequirements(doc *som.SpecDocument, path string) *LocalizationTranslationRequirements {
+	return &LocalizationTranslationRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *LocalizationTranslationRequirements) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *LocalizationTranslationRequirements) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Technical internationalization requirements (re-homed from MLAR).
+func (x *LocalizationTranslationRequirements) TranslationRequirements() *TranslationRequirements {
+	return NewTranslationRequirements(x.Doc(), x.Path() + "/translationRequirements")
+}
+
+// Locale modeling and fallback requirements (re-homed from MLAR).
+func (x *LocalizationTranslationRequirements) LocaleHandling() *MultiLanguageAndRolloutLocaleHandling {
+	return NewMultiLanguageAndRolloutLocaleHandling(x.Doc(), x.Path() + "/localeHandling")
 }
 
 // Log aggregation and analysis requirements.
@@ -31471,7 +32041,7 @@ func (x *LoginFlowConfiguration) SetContent(value string) {
 // Login Flow Details (text).
 // (skipped: loginFlowDetails has no target type)
 
-// A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
+// A login flow step entry (form).
 //
 // Defines an individual step in the authentication flow sequence,
 // allowing detailed specification of each stage from initial request
@@ -31546,7 +32116,7 @@ func (x *LoginFlowStepEntryValidation) Content() *LoginFlowStepEntryValidationCo
 	return NewLoginFlowStepEntryValidationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn].
+// A main scenario step entry.
 type MainScenarioStepEntry struct {
 	som.SomNode
 }
@@ -31581,7 +32151,7 @@ func (x *MainSuccessScenario) Steps() *som.SomList[*MainScenarioStepEntry] {
 	})
 }
 
-// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
+// 11.3.5. Maintainability quality.
 type MaintainabilityQuality struct {
 	som.SomNode
 }
@@ -31764,7 +32334,7 @@ func (x *MaintenanceChangeManagementTesting) Content() *MaintenanceChangeManagem
 	return NewMaintenanceChangeManagementTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+// 12.5. Maintenance Dependencies.
 //
 // Maintenance dependencies: version compatibility matrix, coordinated
 // update sequences, and breaking-change handling.
@@ -31792,7 +32362,7 @@ func (x *MaintenanceDependencies) Items() *som.SomList[*MaintenanceDependencyEnt
 	})
 }
 
-// A maintenance dependency entry (form) [PD00-COM-MAI-nn].
+// A maintenance dependency entry (form).
 //
 // Documents one maintenance dependency: coordinated update sequences,
 // version compatibility, and breaking-change handling.
@@ -32045,7 +32615,7 @@ func (x *MaintenanceWindowEntryScope) Content() *MaintenanceWindowEntryScopeCont
 	return NewMaintenanceWindowEntryScopeContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+// 8.5.4. Maintenance Windows.
 //
 // Maintenance window requirements: frequency, duration, notification period,
 // and impact on users.
@@ -32190,7 +32760,7 @@ func (x *MasterDataDomainEntryUsage) Content() *MasterDataDomainEntryUsageConten
 	return NewMasterDataDomainEntryUsageContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+// 1.4.10. Master Data Management.
 //
 // Master data management practices, golden records, and data
 // synchronization across systems.
@@ -32341,7 +32911,7 @@ func (x *MethodologyDeviationSummary) Content() *MethodologyDeviationSummaryCont
 	return NewMethodologyDeviationSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+// 8.7.2.3. Metrics and Observability.
 //
 // Comprehensive metrics collection, distributed tracing, and observability
 // requirements.
@@ -32531,7 +33101,7 @@ func (x *MetricsDashboardSummary) Content() *MetricsDashboardSummaryContentForm 
 	return NewMetricsDashboardSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn].
+// An MFA enforcement per user category entry (form).
 //
 // Defines MFA requirements for a specific user category, allowing
 // different authentication assurance levels per role or access tier.
@@ -32679,7 +33249,7 @@ func (x *MigrationCompliance) Content() *MigrationComplianceContentForm {
 	return NewMigrationComplianceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+// 4.4.2. Migration Considerations (global).
 //
 // Cross-system migration concerns covering portfolio-wide strategy,
 // resource planning, and coordination. Complements per-system
@@ -32705,7 +33275,7 @@ func (x *MigrationConsiderations) Resources() *MigrationResources {
 	return NewMigrationResources(x.Doc(), x.Path() + "/resources")
 }
 
-// Migration risks [PD00-SYO-SYR-MIG-RIS].
+// Migration risks.
 func (x *MigrationConsiderations) MigrationRisks() *MigrationRisks {
 	return NewMigrationRisks(x.Doc(), x.Path() + "/migrationRisks")
 }
@@ -32784,11 +33354,11 @@ func (x *MigrationEnvironments) Content() *MigrationEnvironmentsContentForm {
 	return NewMigrationEnvironmentsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG].
+// 4.5.8. Migration Interactions.
 //
 // Interactions specific to the migration window — cutover bridges,
-// reconciliation endpoints, and temporary shims. Back-refs
-// PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
+// reconciliation endpoints, and temporary shims. Back-refs the
+// Systems to Replace inventory. Covers BSI-MIG.
 type MigrationInteractions struct {
 	som.SomNode
 }
@@ -32806,7 +33376,7 @@ func (x *MigrationInteractions) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// A migration mapping entry (form) [PD00-BUS-DAT-ENT-nn-MIG-nn].
+// A migration mapping entry (form).
 //
 // Maps source system data to target entity for data migration planning.
 type MigrationMappingEntry struct {
@@ -32836,7 +33406,7 @@ func (x *MigrationMetrics) Content() *MigrationMetricsContentForm {
 	return NewMigrationMetricsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn].
+// A migration milestone entry.
 type MigrationMilestoneEntry struct {
 	som.SomNode
 }
@@ -32892,7 +33462,7 @@ func (x *MigrationPhaseDryRuns) Content() *MigrationPhaseDryRunsContentForm {
 	return NewMigrationPhaseDryRunsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
+// A migration phase entry (form).
 //
 // Represents a single migration phase targeting a specific data domain,
 // source system, or entity group. Covers data scope analysis, migration
@@ -33083,7 +33653,7 @@ func (x *MigrationPhaseValidation) Content() *MigrationPhaseValidationContentFor
 	return NewMigrationPhaseValidationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+// 13.5.1. Migration Phases.
 //
 // Staged migration phases defining the sequential or overlapping
 // execution plan. Each phase targets a specific data domain or source
@@ -33112,7 +33682,7 @@ func (x *MigrationPhases) Items() *som.SomList[*MigrationPhaseEntry] {
 	})
 }
 
-// 15.2. Migration Plan [PD00-ROL-MIG].
+// 15.2. Migration Plan.
 //
 // End-to-end system migration plan covering DR22 Migration Plan content:
 // data, configuration, integration, and user migration from the current
@@ -33134,7 +33704,7 @@ func (x *MigrationPlan) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Migration resource requirements [PD00-SYO-SYR-MIG-RES].
+// Migration resource requirements.
 type MigrationResources struct {
 	som.SomNode
 }
@@ -33165,7 +33735,7 @@ func (x *MigrationRiskContingency) Content() *MigrationRiskContingencyContentFor
 	return NewMigrationRiskContingencyContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
+// A migration risk entry (form).
 //
 // Detailed migration risk documentation following enterprise risk
 // management practices. Captures full risk lifecycle from identification
@@ -33367,7 +33937,7 @@ func (x *MigrationRiskTracking) Content() *MigrationRiskTrackingContentForm {
 	return NewMigrationRiskTrackingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
+// Migration risks — program-level risks.
 //
 // Comprehensive migration risk management framework for program-level
 // risks across the entire migration portfolio. Covers risk governance,
@@ -33686,7 +34256,7 @@ func (x *MobileCompatibilityEntryHardware) Content() *MobileCompatibilityEntryHa
 	return NewMobileCompatibilityEntryHardwareContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Mobile device entry (form) [PD00-ORG-WOR-nn-EQU-MOB-nn].
+// Mobile device entry (form).
 type MobileDeviceEntry struct {
 	som.SomNode
 }
@@ -34027,7 +34597,7 @@ func (x *ModuleVersioningStrategyReleaseManagement) Content() *ModuleVersioningS
 	return NewModuleVersioningStrategyReleaseManagementContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+// 8.7.2. Monitoring.
 //
 // Comprehensive monitoring specification covering health checks, alerting,
 // observability, dashboards, and SLA/SLO tracking.
@@ -34047,32 +34617,32 @@ func (x *Monitoring) MonitoringOverview() *MonitoringMonitoringOverviewForm {
 // Monitoring strategy narrative.
 // (skipped: overviewNarrative has no target type)
 
-// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+// 8.7.2.1. Health Checks and Diagnostics.
 func (x *Monitoring) HealthChecksAndDiagnostics() *HealthChecksAndDiagnosticsSection {
 	return NewHealthChecksAndDiagnosticsSection(x.Doc(), x.Path() + "/healthChecksAndDiagnostics")
 }
 
-// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+// 8.7.2.2. Alerting Configuration.
 func (x *Monitoring) AlertingConfiguration() *AlertingConfiguration {
 	return NewAlertingConfiguration(x.Doc(), x.Path() + "/alertingConfiguration")
 }
 
-// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+// 8.7.2.3. Metrics and Observability.
 func (x *Monitoring) MetricsAndObservability() *MetricsAndObservability {
 	return NewMetricsAndObservability(x.Doc(), x.Path() + "/metricsAndObservability")
 }
 
-// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+// 8.7.2.4. Monitoring Dashboards.
 func (x *Monitoring) Dashboards() *MonitoringDashboards {
 	return NewMonitoringDashboards(x.Doc(), x.Path() + "/dashboards")
 }
 
-// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+// 8.7.2.5. SLA and SLO Monitoring.
 func (x *Monitoring) SlaAndSloMonitoring() *SlaAndSloMonitoring {
 	return NewSlaAndSloMonitoring(x.Doc(), x.Path() + "/slaAndSloMonitoring")
 }
 
-// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
+// 8.5.3. Monitoring and Alerting.
 //
 // Monitoring requirements: metrics to collect, alert thresholds, dashboard
 // requirements, on-call procedures, and escalation paths.
@@ -34148,7 +34718,7 @@ func (x *MonitoringAndAlertingSection) SlaMonitoring() *SlaMonitoringRequirement
 	return NewSlaMonitoringRequirements(x.Doc(), x.Path() + "/slaMonitoring")
 }
 
-// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+// 8.7.2.4. Monitoring Dashboards.
 //
 // Operational dashboards for system monitoring.
 type MonitoringDashboards struct {
@@ -34270,7 +34840,7 @@ func (x *MonitoringProcedureEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
+// 11.4.3. Monitoring quality.
 type MonitoringQuality struct {
 	som.SomNode
 }
@@ -34363,7 +34933,7 @@ func (x *MonitoringQualityOperations) Content() *MonitoringQualityOperationsCont
 	return NewMonitoringQualityOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+// 13.4.1. MoSCoW Analysis.
 //
 // Classifies every feature using the MoSCoW method (Must / Should /
 // Could / Won't) and maps each to its target delivery stage.
@@ -34390,7 +34960,7 @@ func (x *MoscowAnalysis) Items() *som.SomList[*MoscowEntry] {
 	})
 }
 
-// A MoSCoW classification entry (form) [PD00-SSP-FEA-MOS-nn].
+// A MoSCoW classification entry (form).
 //
 // Maps a single feature or feature group to its MoSCoW category and
 // target delivery stage, with justification and cross-references.
@@ -34483,7 +35053,7 @@ func (x *MoscowEntryValue) Content() *MoscowEntryValueContentForm {
 	return NewMoscowEntryValueContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+// 4.1.5.6. Multi-Channel Experience.
 //
 // Defines how the system provides a consistent experience across channels
 // and handles channel switching.
@@ -34509,11 +35079,13 @@ func (x *MultiChannelExperience) MultiChannelConfiguration() *MultiChannelExperi
 	return NewMultiChannelExperienceMultiChannelConfigurationForm(x.Doc(), x.Path() + "/multiChannelConfiguration")
 }
 
-// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+// 10.12. Multi-language and Rollout Support.
 //
-// Comprehensive internationalization, localization, and system rollout
-// specification covering translation workflows, locale handling, user
-// documentation, training, and deployment planning.
+// Locale-picker / UX-side multi-language concerns that stay on the
+// Experience & Interface Design side. IP-6 re-homed the requirement-side
+// concerns (i18n requirements, documentation, training) to SBP.9 and the
+// execution-side concerns (localization/translation processes, rollout
+// sequencing) to SBP.15; only the stay-put UX members remain here.
 type MultiLanguageAndRollout struct {
 	som.SomNode
 }
@@ -34527,42 +35099,12 @@ func (x *MultiLanguageAndRollout) MultiLanguageOverview() *MultiLanguageAndRollo
 	return NewMultiLanguageAndRolloutMultiLanguageOverviewForm(x.Doc(), x.Path() + "/multiLanguageOverview")
 }
 
-// Locale modeling and fallback behavior.
-func (x *MultiLanguageAndRollout) LocaleHandling() *MultiLanguageAndRolloutLocaleHandling {
-	return NewMultiLanguageAndRolloutLocaleHandling(x.Doc(), x.Path() + "/localeHandling")
-}
-
-// Rollout sequencing by region and time.
-func (x *MultiLanguageAndRollout) RolloutPlan() *MultiLanguageAndRolloutPlan {
-	return NewMultiLanguageAndRolloutPlan(x.Doc(), x.Path() + "/rolloutPlan")
-}
-
 // Multi-language overview narrative.
 // (skipped: overviewNarrative has no target type)
 
-// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
-func (x *MultiLanguageAndRollout) LocalizationProcess() *LocalizationProcess {
-	return NewLocalizationProcess(x.Doc(), x.Path() + "/localizationProcess")
-}
-
-// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
-func (x *MultiLanguageAndRollout) TranslationProcess() *TranslationProcess {
-	return NewTranslationProcess(x.Doc(), x.Path() + "/translationProcess")
-}
-
-// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
-func (x *MultiLanguageAndRollout) DocumentationAndTraining() *DocumentationAndTraining {
-	return NewDocumentationAndTraining(x.Doc(), x.Path() + "/documentationAndTraining")
-}
-
-// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+// 10.12.4. Language and Country Selection.
 func (x *MultiLanguageAndRollout) LanguageCountrySelection() *LanguageCountrySelection {
 	return NewLanguageCountrySelection(x.Doc(), x.Path() + "/languageCountrySelection")
-}
-
-// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
-func (x *MultiLanguageAndRollout) TranslationRequirements() *TranslationRequirements {
-	return NewTranslationRequirements(x.Doc(), x.Path() + "/translationRequirements")
 }
 
 // Supported locale entries.
@@ -34600,7 +35142,7 @@ func (x *MultiLanguageAndRolloutPlan) Content() *MultiLanguageAndRolloutPlanCont
 	return NewMultiLanguageAndRolloutPlanContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+// 11.7.1. Must-Pass Criteria.
 //
 // Criteria that must be met for the system to be accepted.
 type MustPassCriteria struct {
@@ -34626,7 +35168,7 @@ func (x *MustPassCriteria) Items() *som.SomList[*MustPassCriterionEntry] {
 	})
 }
 
-// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
+// A must-pass criterion entry (form).
 type MustPassCriterionEntry struct {
 	som.SomNode
 }
@@ -34834,7 +35376,7 @@ func (x *NativeAppRequirementsVersions) Content() *NativeAppRequirementsVersions
 	return NewNativeAppRequirementsVersionsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
+// A navigation group entry (form).
 //
 // Logical grouping of navigation items (e.g., "Sales", "Administration").
 type NavigationGroupEntry struct {
@@ -34914,7 +35456,7 @@ func (x *NavigationGroupEntryStructure) Content() *NavigationGroupEntryStructure
 	return NewNavigationGroupEntryStructureContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn].
+// A navigation guard entry (form).
 type NavigationGuardEntry struct {
 	som.SomNode
 }
@@ -34966,7 +35508,7 @@ func (x *NavigationGuardEntryRouting) Content() *NavigationGuardEntryRoutingCont
 	return NewNavigationGuardEntryRoutingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+// 10.3.1.8. Navigation Guards.
 //
 // Route guards: unsaved changes, authentication redirects, permission checks.
 type NavigationGuards struct {
@@ -34996,7 +35538,7 @@ func (x *NavigationGuards) Guards() *som.SomList[*NavigationGuardEntry] {
 	})
 }
 
-// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+// 10.3.1.2. Navigation Hierarchy.
 //
 // Full navigation tree: groups and items forming the app's navigation structure.
 type NavigationHierarchy struct {
@@ -35026,7 +35568,7 @@ func (x *NavigationHierarchy) Groups() *som.SomList[*NavigationGroupEntry] {
 	})
 }
 
-// A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
+// A navigation item entry (form).
 //
 // A single navigable destination within a group.
 type NavigationItemEntry struct {
@@ -35137,7 +35679,7 @@ func (x *NavigationItemEntryRouting) Content() *NavigationItemEntryRoutingConten
 	return NewNavigationItemEntryRoutingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+// 10.3.1. Navigation Model.
 //
 // Comprehensive navigation structure: primary, secondary, utility, contextual
 // navigation, deep linking, navigation guards, and platform adaptation.
@@ -35158,47 +35700,47 @@ func (x *NavigationModel) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+// 10.3.1.1. Navigation Overview.
 func (x *NavigationModel) Overview() *NavigationOverview {
 	return NewNavigationOverview(x.Doc(), x.Path() + "/overview")
 }
 
-// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+// 10.3.1.2. Navigation Hierarchy.
 func (x *NavigationModel) Hierarchy() *NavigationHierarchy {
 	return NewNavigationHierarchy(x.Doc(), x.Path() + "/hierarchy")
 }
 
-// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+// 10.3.1.3. Primary Navigation.
 func (x *NavigationModel) PrimaryNavigation() *PrimaryNavigation {
 	return NewPrimaryNavigation(x.Doc(), x.Path() + "/primaryNavigation")
 }
 
-// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+// 10.3.1.4. Secondary Navigation.
 func (x *NavigationModel) SecondaryNavigation() *SecondaryNavigation {
 	return NewSecondaryNavigation(x.Doc(), x.Path() + "/secondaryNavigation")
 }
 
-// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+// 10.3.1.5. Utility Navigation.
 func (x *NavigationModel) UtilityNavigation() *UtilityNavigation {
 	return NewUtilityNavigation(x.Doc(), x.Path() + "/utilityNavigation")
 }
 
-// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+// 10.3.1.6. Contextual Navigation.
 func (x *NavigationModel) ContextualNavigation() *ContextualNavigation {
 	return NewContextualNavigation(x.Doc(), x.Path() + "/contextualNavigation")
 }
 
-// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+// 10.3.1.7. Deep Linking.
 func (x *NavigationModel) DeepLinking() *DeepLinking {
 	return NewDeepLinking(x.Doc(), x.Path() + "/deepLinking")
 }
 
-// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+// 10.3.1.8. Navigation Guards.
 func (x *NavigationModel) NavigationGuards() *NavigationGuards {
 	return NewNavigationGuards(x.Doc(), x.Path() + "/navigationGuards")
 }
 
-// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+// 10.3.1.1. Navigation Overview.
 //
 // Overall navigation strategy, routing approach, and design decisions.
 type NavigationOverview struct {
@@ -35501,7 +36043,7 @@ func (x *NetworkLoadBalancingRequirementsTls) Content() *NetworkLoadBalancingReq
 	return NewNetworkLoadBalancingRequirementsTlsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+// 8.4.3. Network Requirements.
 //
 // Network requirements: bandwidth, latency, availability, VPN/firewall rules,
 // and geographic distribution.
@@ -35781,7 +36323,7 @@ func (x *NetworkSecurityRequirementsMonitoring) Content() *NetworkSecurityRequir
 	return NewNetworkSecurityRequirementsMonitoringContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 5.1. New Organization Structure [PD00-ORG-STR].
+// 5.1. New Organization Structure.
 //
 // Organizational changes required by the new system including new teams,
 // restructured departments, changed responsibilities, and new communication
@@ -35799,17 +36341,17 @@ func NewNewOrganizationStructure(doc *som.SpecDocument, path string) *NewOrganiz
 // Overview of the target organization structure.
 // (skipped: overview has no target type)
 
-// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+// 5.1.1. Changes from Current Structure.
 func (x *NewOrganizationStructure) ChangesFromCurrentStructure() *ChangesFromCurrentStructure {
 	return NewChangesFromCurrentStructure(x.Doc(), x.Path() + "/changesFromCurrentStructure")
 }
 
-// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+// 5.1.2. Organizational Transition Timeline.
 func (x *NewOrganizationStructure) TransitionTimeline() *OrganizationalTransitionTimeline {
 	return NewOrganizationalTransitionTimeline(x.Doc(), x.Path() + "/transitionTimeline")
 }
 
-// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+// A new role entry (form).
 //
 // Comprehensive new role definition following HR job analysis best practices.
 // Includes competencies, responsibilities, system access, and success metrics.
@@ -36047,7 +36589,7 @@ func (x *NotificationChannelEntry) Content() *NotificationChannelEntryContentFor
 	return NewNotificationChannelEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+// 4.1.5.5. Notification Model.
 //
 // Defines how the system notifies users of events, updates, and actions
 // across different channels.
@@ -36103,7 +36645,7 @@ func (x *NotificationTypeEntry) Content() *NotificationTypeEntryContentForm {
 	return NewNotificationTypeEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An object invariant entry (form) [PD00-BUS-BUS-CAT-nn-INV-nn].
+// An object invariant entry (form).
 //
 // Business invariants that must always hold true.
 type ObjectInvariantEntry struct {
@@ -36119,7 +36661,7 @@ func (x *ObjectInvariantEntry) Content() *ObjectInvariantEntryContentForm {
 	return NewObjectInvariantEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An object operation entry (form) [PD00-BUS-BUS-CAT-nn-OPR-nn].
+// An object operation entry (form).
 //
 // Business operations that can be performed on the object.
 type ObjectOperationEntry struct {
@@ -36192,7 +36734,7 @@ func (x *ObjectOperationEntryLifecycle) Content() *ObjectOperationEntryLifecycle
 	return NewObjectOperationEntryLifecycleContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
+// An object state entry (form).
 //
 // Detailed state specification for business object lifecycle.
 type ObjectStateEntry struct {
@@ -36368,7 +36910,7 @@ func (x *OnCallScheduleConfigOperations) Content() *OnCallScheduleConfigOperatio
 	return NewOnCallScheduleConfigOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
+// 10.8.2. Onboarding Help.
 type OnboardingHelp struct {
 	som.SomNode
 }
@@ -36487,7 +37029,7 @@ func (x *OnboardingHelpTours) Content() *OnboardingHelpToursContentForm {
 	return NewOnboardingHelpToursContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Ongoing training entry (form) [PD00-ORG-WOR-nn-TRA-ONG-nn].
+// Ongoing training entry (form).
 type OngoingTrainingEntry struct {
 	som.SomNode
 }
@@ -36558,7 +37100,7 @@ func (x *OngoingTrainingEntrySchedule) Content() *OngoingTrainingEntryScheduleCo
 	return NewOngoingTrainingEntryScheduleContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+// 1.3.1. Operational Pain Points.
 //
 // Problems that affect day-to-day operations: downtime, slow response,
 // data inconsistencies, manual workarounds, and process interruptions.
@@ -36605,7 +37147,7 @@ func (x *OperationalPainPointsSummary) Content() *OperationalPainPointsSummaryCo
 	return NewOperationalPainPointsSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+// 11.4. Operations Quality Criteria.
 //
 // Quality criteria for system operations including availability, service
 // levels, monitoring, and IT security operations.
@@ -36625,27 +37167,27 @@ func (x *OperationsQualityCriteria) OperationsOverviewContent() *OperationsQuali
 // Operations quality overview narrative.
 // (skipped: overview has no target type)
 
-// 11.4.1. Availability [PD00-SYQ-OPE-AVA].
+// 11.4.1. Availability.
 func (x *OperationsQualityCriteria) Availability() *AvailabilityQuality {
 	return NewAvailabilityQuality(x.Doc(), x.Path() + "/availability")
 }
 
-// 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
+// 11.4.2. Service Level Requirements.
 func (x *OperationsQualityCriteria) ServiceLevelRequirements() *ServiceLevelQuality {
 	return NewServiceLevelQuality(x.Doc(), x.Path() + "/serviceLevelRequirements")
 }
 
-// 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
+// 11.4.3. Monitoring and Prevention.
 func (x *OperationsQualityCriteria) MonitoringAndPrevention() *MonitoringQuality {
 	return NewMonitoringQuality(x.Doc(), x.Path() + "/monitoringAndPrevention")
 }
 
-// 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
+// 11.4.4. IT Security Operations.
 func (x *OperationsQualityCriteria) ItSecurityOperations() *ItSecurityOperationsQuality {
 	return NewItSecurityOperationsQuality(x.Doc(), x.Path() + "/itSecurityOperations")
 }
 
-// 8.5. Operations Requirements [PD00-TEC-OPE].
+// 8.5. Operations Requirements.
 type OperationsRequirements struct {
 	som.SomNode
 }
@@ -36663,27 +37205,27 @@ func (x *OperationsRequirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
+// 8.5.1. Backup And Recovery.
 func (x *OperationsRequirements) BackupAndRecovery() *BackupAndRecoverySection {
 	return NewBackupAndRecoverySection(x.Doc(), x.Path() + "/backupAndRecovery")
 }
 
-// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+// 8.5.2. Deployment Strategy.
 func (x *OperationsRequirements) DeploymentStrategy() *DeploymentStrategySection {
 	return NewDeploymentStrategySection(x.Doc(), x.Path() + "/deploymentStrategy")
 }
 
-// 8.5.3. Monitoring And Alerting [PD00-TEC-OPE-MON].
+// 8.5.3. Monitoring And Alerting.
 func (x *OperationsRequirements) MonitoringAndAlerting() *MonitoringAndAlertingSection {
 	return NewMonitoringAndAlertingSection(x.Doc(), x.Path() + "/monitoringAndAlerting")
 }
 
-// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+// 8.5.4. Maintenance Windows.
 func (x *OperationsRequirements) MaintenanceWindows() *MaintenanceWindowsSection {
 	return NewMaintenanceWindowsSection(x.Doc(), x.Path() + "/maintenanceWindows")
 }
 
-// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+// 4.1.1.2. Opportunity Statement.
 //
 // Description of the opportunity this system enables — new capabilities,
 // competitive advantages, or improvements over current state.
@@ -36704,7 +37246,7 @@ func (x *OpportunityStatement) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Opportunity Details Form [PD00-SYO-SYD-PUR-OPP-DES].
+// Opportunity Details Form.
 func (x *OpportunityStatement) OpportunityDetails() *OpportunityStatementOpportunityDetailsForm {
 	return NewOpportunityStatementOpportunityDetailsForm(x.Doc(), x.Path() + "/opportunityDetails")
 }
@@ -36821,7 +37363,7 @@ func (x *OrgImplementationActivity) Content() *OrgImplementationActivityContentF
 	return NewOrgImplementationActivityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+// 4.3.4.n.2. Implementation Plan.
 //
 // Implementation plan for this organizational requirement.
 type OrgRequirementImplementationPlan struct {
@@ -36853,7 +37395,7 @@ func (x *OrgRequirementImplementationPlan) Activities() *som.SomList[*OrgImpleme
 	})
 }
 
-// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+// 3.1.1. Organization Structure.
 type OrganizationStructure struct {
 	som.SomNode
 }
@@ -36879,7 +37421,7 @@ func (x *OrganizationStructure) GovernanceModel() *GovernanceModel {
 // Organization chart diagram (e.g. Mermaid or image reference).
 // (skipped: orgChartDiagram has no target type)
 
-// An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
+// An organizational change entry (form).
 //
 // Documents a specific structural change including current state, target
 // state, rationale, impact assessment, and transition requirements.
@@ -36933,7 +37475,7 @@ func (x *OrganizationalChangeEntry) Status() *OrgChangeStatus {
 	return NewOrgChangeStatus(x.Doc(), x.Path() + "/status")
 }
 
-// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+// 4.1.2.6. Organizational Context.
 //
 // Organizational units, departments, and business areas that the system
 // serves or interacts with.
@@ -36970,7 +37512,7 @@ func (x *OrganizationalContext) SetBusinessProcessCoverage(value string) {
 	x.Doc().SetContent(x.Path() + "/businessProcessCoverage", value)
 }
 
-// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+// 4.6.1. Organizational Environment.
 //
 // Describes the organizational context in which the system will operate,
 // including departments, reporting structures, decision authority, and
@@ -37071,7 +37613,7 @@ func (x *OrganizationalEnvironmentMaturity) Content() *OrganizationalEnvironment
 	return NewOrganizationalEnvironmentMaturityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 5. Organizational Framework [PD00-ORG].
+// 5. Organizational Framework.
 //
 // Organizational changes and structures required for the new system.
 // Covers organization structure changes, new and changed roles, staffing
@@ -37090,26 +37632,26 @@ func NewOrganizationalFramework(doc *som.SpecDocument, path string) *Organizatio
 // Overview of organizational changes required for the new system.
 // (skipped: overview has no target type)
 
-// 5.1. New Organization Structure [PD00-ORG-STR].
+// 5.1. New Organization Structure.
 func (x *OrganizationalFramework) OrganizationStructure() *NewOrganizationStructure {
 	return NewNewOrganizationStructure(x.Doc(), x.Path() + "/organizationStructure")
 }
 
-// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+// 5.2. Job Descriptions and Staffing Plans.
 func (x *OrganizationalFramework) JobDescriptions() *som.SomList[*JobDescriptionsAndStaffing] {
 	return som.NewSomList(x.Doc(), x.Path() + "/JDAS-JOBD-LST", func(d *som.SpecDocument, p string) *JobDescriptionsAndStaffing {
 		return NewJobDescriptionsAndStaffing(d, p)
 	})
 }
 
-// 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+// 5.3. Workplace Descriptions — contains 1+× per user category.
 func (x *OrganizationalFramework) WorkplaceDescriptions() *som.SomList[*WorkplaceDescriptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/WPDE-WORK-LST", func(d *som.SpecDocument, p string) *WorkplaceDescriptionEntry {
 		return NewWorkplaceDescriptionEntry(d, p)
 	})
 }
 
-// An organizational requirement entry [PD00-SYO-REQ-ORG-nn].
+// An organizational requirement entry.
 //
 // Comprehensive organizational requirement definition following change
 // management and organizational development best practices.
@@ -37141,17 +37683,17 @@ func (x *OrganizationalRequirementEntry) Planning() *OrganizationalRequirementEn
 	return NewOrganizationalRequirementEntryPlanning(x.Doc(), x.Path() + "/planning")
 }
 
-// 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
+// 4.3.4.n.1. Acceptance Criteria.
 func (x *OrganizationalRequirementEntry) AcceptanceCriteria() *RequirementAcceptanceCriteria {
 	return NewRequirementAcceptanceCriteria(x.Doc(), x.Path() + "/acceptanceCriteria")
 }
 
-// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+// 4.3.4.n.2. Implementation Plan.
 func (x *OrganizationalRequirementEntry) ImplementationPlan() *OrgRequirementImplementationPlan {
 	return NewOrgRequirementImplementationPlan(x.Doc(), x.Path() + "/implementationPlan")
 }
 
-// 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
+// 4.3.4.n.3. Dependencies.
 func (x *OrganizationalRequirementEntry) Dependencies() *RequirementDependencies {
 	return NewRequirementDependencies(x.Doc(), x.Path() + "/dependencies")
 }
@@ -37198,7 +37740,7 @@ func (x *OrganizationalRequirementEntryPlanning) Content() *OrganizationalRequir
 	return NewOrganizationalRequirementEntryPlanningContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+// 4.3.4. Organizational Requirements.
 //
 // Container for organizational requirements. These describe needed changes
 // to organization, processes, training, or support that must be fulfilled
@@ -37233,7 +37775,7 @@ func (x *OrganizationalRequirements) Requirements() *som.SomList[*Organizational
 	})
 }
 
-// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+// 5.1.2. Organizational Transition Timeline.
 //
 // Describes when organizational changes take effect, how the transition is
 // managed, and what training or communication is needed. Follows change
@@ -37397,7 +37939,7 @@ func (x *OsCompatibilityEntryTesting) Content() *OsCompatibilityEntryTestingCont
 	return NewOsCompatibilityEntryTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+// 3.6. Other Administrative Requirements.
 //
 // Additional administrative agreements, constraints, or requirements not
 // covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -37419,32 +37961,32 @@ func (x *OtherAdministrativeRequirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 3.6.1. Intellectual Property [PD00-ADM-OTH-IPR].
+// 3.6.1. Intellectual Property.
 func (x *OtherAdministrativeRequirements) IntellectualProperty() *IntellectualPropertyRequirements {
 	return NewIntellectualPropertyRequirements(x.Doc(), x.Path() + "/intellectualProperty")
 }
 
-// 3.6.2. Confidentiality and NDAs [PD00-ADM-OTH-NDA].
+// 3.6.2. Confidentiality and NDAs.
 func (x *OtherAdministrativeRequirements) Confidentiality() *ConfidentialityRequirements {
 	return NewConfidentialityRequirements(x.Doc(), x.Path() + "/confidentiality")
 }
 
-// 3.6.3. Regulatory Compliance [PD00-ADM-OTH-REG].
+// 3.6.3. Regulatory Compliance.
 func (x *OtherAdministrativeRequirements) RegulatoryCompliance() *RegulatoryComplianceRequirements {
 	return NewRegulatoryComplianceRequirements(x.Doc(), x.Path() + "/regulatoryCompliance")
 }
 
-// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+// 3.6.4. Audit Requirements.
 func (x *OtherAdministrativeRequirements) AuditRequirements() *AuditRequirements {
 	return NewAuditRequirements(x.Doc(), x.Path() + "/auditRequirements")
 }
 
-// 3.6.5. Insurance and Liability [PD00-ADM-OTH-INS].
+// 3.6.5. Insurance and Liability.
 func (x *OtherAdministrativeRequirements) InsuranceLiability() *InsuranceLiabilityRequirements {
 	return NewInsuranceLiabilityRequirements(x.Doc(), x.Path() + "/insuranceLiability")
 }
 
-// 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
+// 3.6.6. Other Agreements — contains 0+× Agreement.
 func (x *OtherAdministrativeRequirements) OtherAgreements() *som.SomList[*OtherAgreementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/OTAGR-OTHE-LST", func(d *som.SpecDocument, p string) *OtherAgreementEntry {
 		return NewOtherAgreementEntry(d, p)
@@ -37465,7 +38007,7 @@ func (x *OtherAgreementEntry) Content() *OtherAgreementEntryContentForm {
 	return NewOtherAgreementEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+// 4.5.2. Out of Scope.
 //
 // Explicit documentation of functionality, systems, and integrations that
 // are excluded from the project scope. Provides clear boundaries and
@@ -37489,7 +38031,7 @@ func (x *OutOfScope) Items() *som.SomList[*OutOfScopeEntry] {
 	})
 }
 
-// An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
+// An out-of-scope entry (form).
 type OutOfScopeEntry struct {
 	som.SomNode
 }
@@ -37645,7 +38187,7 @@ func (x *PainPointClassification) Content() *PainPointClassificationContentForm 
 	return NewPainPointClassificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A pain point entry (form) [PD00-CUR-PAI-nn].
+// A pain point entry (form).
 //
 // Documents a specific problem in the current state with comprehensive details:
 // root cause analysis, impact quantification, affected stakeholders,
@@ -37832,7 +38374,7 @@ func (x *PainPointWorkaround) Content() *PainPointWorkaroundContentForm {
 	return NewPainPointWorkaroundContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+// 1.3. Pain Points and Gaps.
 //
 // Comprehensive documentation of specific problems, inefficiencies,
 // compliance gaps, and user frustrations in the current state.
@@ -37877,22 +38419,22 @@ func (x *PainPointsAndGaps) PainPointsSummary() *PainPointsSummary {
 	return NewPainPointsSummary(x.Doc(), x.Path() + "/painPointsSummary")
 }
 
-// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+// 1.3.1. Operational Pain Points.
 func (x *PainPointsAndGaps) OperationalPainPoints() *OperationalPainPoints {
 	return NewOperationalPainPoints(x.Doc(), x.Path() + "/operationalPainPoints")
 }
 
-// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+// 1.3.2. Business Pain Points.
 func (x *PainPointsAndGaps) BusinessPainPoints() *BusinessPainPoints {
 	return NewBusinessPainPoints(x.Doc(), x.Path() + "/businessPainPoints")
 }
 
-// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+// 1.3.3. Technical Pain Points.
 func (x *PainPointsAndGaps) TechnicalPainPoints() *TechnicalPainPoints {
 	return NewTechnicalPainPoints(x.Doc(), x.Path() + "/technicalPainPoints")
 }
 
-// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+// 1.3.4. Gaps.
 func (x *PainPointsAndGaps) Gaps() *Gaps {
 	return NewGaps(x.Doc(), x.Path() + "/gaps")
 }
@@ -37930,7 +38472,7 @@ func (x *ParticipantEntry) Content() *ParticipantEntryContentForm {
 	return NewParticipantEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+// 9.2.3. Password and Credential Policy.
 //
 // Comprehensive password and credential policy aligned with NIST SP 800-63B
 // (Revision 4). Covers password requirements, storage, lifecycle, account
@@ -38143,7 +38685,7 @@ func (x *PeakLoadPatternsTesting) Content() *PeakLoadPatternsTestingContentForm 
 	return NewPeakLoadPatternsTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
+// Penetration testing requirements and schedule.
 type PenetrationTestingRequirements struct {
 	som.SomNode
 }
@@ -38233,7 +38775,7 @@ func (x *PeriodicReviewPolicy) Content() *PeriodicReviewPolicyContentForm {
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// Peripheral equipment entry (form) [PD00-ORG-WOR-nn-EQU-PER-nn].
+// Peripheral equipment entry (form).
 type PeripheralEquipmentEntry struct {
 	som.SomNode
 }
@@ -38333,7 +38875,7 @@ func (x *PermissionMatrixEntry) Content() *PermissionMatrixEntryContentForm {
 	return NewPermissionMatrixEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A user persona entry [PD00-USE-VIS-PER-nn] (form).
+// A user persona entry (form).
 //
 // Represents a distinct user archetype with detailed context for UI design.
 type PersonaEntry struct {
@@ -38364,17 +38906,17 @@ func (x *PersonaEntry) Needs() *PersonaEntryNeeds {
 	return NewPersonaEntryNeeds(x.Doc(), x.Path() + "/needs")
 }
 
-// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+// 10.1.3.n.1. Persona Goals.
 func (x *PersonaEntry) Goals() *PersonaGoals {
 	return NewPersonaGoals(x.Doc(), x.Path() + "/goals")
 }
 
-// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+// 10.1.3.n.2. Persona Pain Points.
 func (x *PersonaEntry) PainPoints() *PersonaPainPoints {
 	return NewPersonaPainPoints(x.Doc(), x.Path() + "/painPoints")
 }
 
-// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+// 10.1.3.n.3. Persona Scenarios.
 func (x *PersonaEntry) Scenarios() *PersonaScenarios {
 	return NewPersonaScenarios(x.Doc(), x.Path() + "/scenarios")
 }
@@ -38421,7 +38963,7 @@ func (x *PersonaEntryProfile) Content() *PersonaEntryProfileContentForm {
 	return NewPersonaEntryProfileContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm].
+// A persona goal entry (form).
 type PersonaGoalEntry struct {
 	som.SomNode
 }
@@ -38435,7 +38977,7 @@ func (x *PersonaGoalEntry) Content() *PersonaGoalEntryContentForm {
 	return NewPersonaGoalEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+// 10.1.3.n.1. Persona Goals.
 type PersonaGoals struct {
 	som.SomNode
 }
@@ -38460,7 +39002,7 @@ func (x *PersonaGoals) Items() *som.SomList[*PersonaGoalEntry] {
 	})
 }
 
-// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm].
+// A pain point entry (form).
 type PersonaPainPointEntry struct {
 	som.SomNode
 }
@@ -38474,7 +39016,7 @@ func (x *PersonaPainPointEntry) Content() *PersonaPainPointEntryContentForm {
 	return NewPersonaPainPointEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+// 10.1.3.n.2. Persona Pain Points.
 type PersonaPainPoints struct {
 	som.SomNode
 }
@@ -38499,7 +39041,7 @@ func (x *PersonaPainPoints) Items() *som.SomList[*PersonaPainPointEntry] {
 	})
 }
 
-// A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm].
+// A persona scenario entry (form).
 type PersonaScenarioEntry struct {
 	som.SomNode
 }
@@ -38513,7 +39055,7 @@ func (x *PersonaScenarioEntry) Content() *PersonaScenarioEntryContentForm {
 	return NewPersonaScenarioEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+// 10.1.3.n.3. Persona Scenarios.
 //
 // Key usage scenarios for this persona — helps map personas to screens/flows.
 type PersonaScenarios struct {
@@ -38610,7 +39152,7 @@ func (x *PhaseGateIdentity) Content() *PhaseGateIdentityContentForm {
 	return NewPhaseGateIdentityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
+// A phase gate review entry (form).
 //
 // Defines a single phase gate with its criteria, participants,
 // required evidence, entry/exit conditions, and review schedule.
@@ -38667,7 +39209,7 @@ func (x *PhaseGateReviewEntry) ReviewCriteria() *som.SomList[*ReviewCriterionEnt
 	})
 }
 
-// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+// 13.6.1. Phase Gate Reviews.
 //
 // Defines the phase gate review process: what is reviewed at each
 // gate, who participates, what evidence is required, and what
@@ -38799,7 +39341,7 @@ func (x *PhysicalWorkplaceRequirementsUsage) Content() *PhysicalWorkplaceRequire
 	return NewPhysicalWorkplaceRequirementsUsageContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 15.5. Pilot Plan [PD00-ROL-PIL].
+// 15.5. Pilot Plan.
 //
 // Pilot scope, cohort selection, success criteria, and exit decision rules.
 type PilotPlan struct {
@@ -38999,7 +39541,7 @@ func (x *PipelineStageEntryTrigger) Content() *PipelineStageEntryTriggerContentF
 	return NewPipelineStageEntryTriggerContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+// 8.1.1. Platform and Language.
 //
 // Required platforms (operating system, runtime), programming languages,
 // and framework choices with minimum versions and justification.
@@ -39068,7 +39610,7 @@ func (x *PlatformAndLanguage) RuntimeEnvironment() *RuntimeEnvironment {
 	return NewRuntimeEnvironment(x.Doc(), x.Path() + "/runtimeEnvironment")
 }
 
-// 11.3.2. Portability quality [PD00-SYQ-TEC-POR].
+// 11.3.2. Portability quality.
 type PortabilityQuality struct {
 	som.SomNode
 }
@@ -39202,7 +39744,7 @@ func (x *PredecessorDependencyEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+// 10.3.1.3. Primary Navigation.
 //
 // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
 type PrimaryNavigation struct {
@@ -39278,7 +39820,7 @@ func (x *PrimaryNavigationSidebar) Content() *PrimaryNavigationSidebarContentFor
 	return NewPrimaryNavigationSidebarContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.4. Print Layout [PD00-USE-PRI].
+// 10.4. Print Layout.
 type PrintLayout struct {
 	som.SomNode
 }
@@ -39317,21 +39859,21 @@ func (x *PrintLayout) Archive() *PrintLayoutArchive {
 	return NewPrintLayoutArchive(x.Doc(), x.Path() + "/archive")
 }
 
-// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
+// 10.4.1. Reports — contains 0+× Report.
 func (x *PrintLayout) Reports() *som.SomList[*ReportEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/REEN-REPO-LST", func(d *som.SpecDocument, p string) *ReportEntry {
 		return NewReportEntry(d, p)
 	})
 }
 
-// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
+// 10.4.2. Export Formats — contains 0+× Export Format.
 func (x *PrintLayout) ExportFormats() *som.SomList[*ExportFormatEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXFOEN-EXPO-LST", func(d *som.SpecDocument, p string) *ExportFormatEntry {
 		return NewExportFormatEntry(d, p)
 	})
 }
 
-// 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
+// 10.4.3. Export Templates — contains 0+× Export
 // Template.
 func (x *PrintLayout) ExportTemplates() *som.SomList[*ExportTemplateEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/EXTEEN-EXPO-LST", func(d *som.SpecDocument, p string) *ExportTemplateEntry {
@@ -39409,7 +39951,7 @@ func (x *PrintLayoutWatermark) Content() *PrintLayoutWatermarkContentForm {
 	return NewPrintLayoutWatermarkContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
+// Privacy impact assessment and DPIA process.
 type PrivacyImpactAssessmentProcess struct {
 	som.SomNode
 }
@@ -39480,7 +40022,7 @@ func (x *PrivacyImpactAssessmentProcessReview) Content() *PrivacyImpactAssessmen
 	return NewPrivacyImpactAssessmentProcessReviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
+// Privacy regulation compliance requirements.
 type PrivacyRegulationCompliance struct {
 	som.SomNode
 }
@@ -39589,7 +40131,7 @@ func (x *PrivilegeUsageReporting) Content() *PrivilegeUsageReportingContentForm 
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+// 4.1.1.1. Problem Statement.
 //
 // Detailed description of the problem or pain point that this system will
 // address. Includes impact analysis and urgency assessment.
@@ -39610,7 +40152,7 @@ func (x *ProblemStatement) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Problem Description Form [PD00-SYO-SYD-PUR-PRO-DES].
+// Problem Description Form.
 func (x *ProblemStatement) ProblemDetails() *ProblemStatementProblemDetailsForm {
 	return NewProblemStatementProblemDetailsForm(x.Doc(), x.Path() + "/problemDetails")
 }
@@ -39636,7 +40178,7 @@ func (x *ProcessAdjustmentDetails) Content() *ProcessAdjustmentDetailsContentFor
 	return NewProcessAdjustmentDetailsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A process adjustment entry (form) [PD00-POP-PRC-nn].
+// A process adjustment entry (form).
 //
 // Documents a specific deviation from standard process steps, including
 // the type of modification, dependencies affected, risk assessment,
@@ -39770,7 +40312,7 @@ func (x *ProcessAdjustmentSummary) Content() *ProcessAdjustmentSummaryContentFor
 	return NewProcessAdjustmentSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 2.3. Process Adjustments [PD00-POP-PRC].
+// 2.3. Process Adjustments.
 //
 // Documents any deviations from the standard tom_system_creation.md or
 // tom_system_upgrade.md process. Includes skipped, reordered, or modified
@@ -39813,7 +40355,7 @@ func (x *ProcessAdjustments) Items() *som.SomList[*ProcessAdjustmentEntry] {
 	})
 }
 
-// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT].
+// 6.1.3. Process Catalog.
 //
 // Container for business process definitions.
 type ProcessCatalog struct {
@@ -39936,7 +40478,7 @@ func (x *ProcessContext) Content() *ProcessContextContentForm {
 	return NewProcessContextContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A process control entry [PD00-TAR-PRO-CAT-nn-CTL-nn].
+// A process control entry.
 type ProcessControlEntry struct {
 	som.SomNode
 }
@@ -40038,7 +40580,7 @@ func (x *ProcessDependencyEntry) Content() *ProcessDependencyEntryContentForm {
 	return NewProcessDependencyEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A process design principle entry (form) [PD00-TAR-PRO-PRI-nn].
+// A process design principle entry (form).
 type ProcessDesignPrincipleEntry struct {
 	som.SomNode
 }
@@ -40052,7 +40594,7 @@ func (x *ProcessDesignPrincipleEntry) Content() *ProcessDesignPrincipleEntryCont
 	return NewProcessDesignPrincipleEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+// 6.1.2. Design Principles.
 //
 // Principles that guide process design decisions.
 type ProcessDesignPrinciples struct {
@@ -40090,7 +40632,7 @@ func (x *ProcessDiagramOverview) Content() *ProcessDiagramOverviewContentForm {
 	return NewProcessDiagramOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A process end event entry [PD00-TAR-PRO-CAT-nn-END-nn].
+// A process end event entry.
 type ProcessEndEventEntry struct {
 	som.SomNode
 }
@@ -40104,7 +40646,7 @@ func (x *ProcessEndEventEntry) Content() *ProcessEndEventEntryContentForm {
 	return NewProcessEndEventEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A process exception entry [PD00-TAR-PRO-CAT-nn-EXC-nn].
+// A process exception entry.
 type ProcessExceptionEntry struct {
 	som.SomNode
 }
@@ -40156,10 +40698,9 @@ func (x *ProcessExceptionEntryResponse) Content() *ProcessExceptionEntryResponse
 	return NewProcessExceptionEntryResponseContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+// 6.1.9. Process Exception Handling.
 //
 // Exception flows, escalation paths, and compensation logic. Covers
-// HBSG AS07-EXC.
 type ProcessExceptionHandling struct {
 	som.SomNode
 }
@@ -40284,7 +40825,7 @@ func (x *ProcessIdentificationGovernance) Content() *ProcessIdentificationGovern
 	return NewProcessIdentificationGovernanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A process improvement entry [PD00-TAR-PRO-IMP-nn].
+// A process improvement entry.
 type ProcessImprovementEntry struct {
 	som.SomNode
 }
@@ -40336,7 +40877,7 @@ func (x *ProcessImprovementEntryDelivery) Content() *ProcessImprovementEntryDeli
 	return NewProcessImprovementEntryDeliveryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+// 6.1.5. Improvement Summary.
 //
 // Summary of expected improvements over current processes.
 type ProcessImprovementSummary struct {
@@ -40365,7 +40906,7 @@ func (x *ProcessImprovementSummary) BusinessCase() *ImprovementBusinessCase {
 	return NewImprovementBusinessCase(x.Doc(), x.Path() + "/businessCase")
 }
 
-// A process input entry [PD00-TAR-PRO-CAT-nn-INP-nn].
+// A process input entry.
 type ProcessInputEntry struct {
 	som.SomNode
 }
@@ -40426,7 +40967,7 @@ func (x *ProcessInterdependencyMatrix) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Interdependency diagram [PD00-CUR-PRO-INT-DIA].
+// Interdependency diagram.
 func (x *ProcessInterdependencyMatrix) DependencyDiagram() string {
 	return x.Doc().ContentOr(x.Path() + "/dependencyDiagram")
 }
@@ -40442,7 +40983,7 @@ func (x *ProcessInterdependencyMatrix) Dependencies() *som.SomList[*ProcessDepen
 	})
 }
 
-// A process KPI entry [PD00-TAR-PRO-CAT-nn-KPI-nn].
+// A process KPI entry.
 type ProcessKpiEntry struct {
 	som.SomNode
 }
@@ -40519,7 +41060,7 @@ func (x *ProcessMetricCategory) Metrics() *som.SomList[*ProcessMetricEntry] {
 	})
 }
 
-// A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
+// A process metric entry (form).
 //
 // A single measurable metric with current value and measurement details.
 type ProcessMetricEntry struct {
@@ -40577,7 +41118,7 @@ func (x *ProcessMetricEntryTargets) Content() *ProcessMetricEntryTargetsContentF
 	return NewProcessMetricEntryTargetsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+// 1.2.2. Process Metrics.
 //
 // Quantitative metrics for measuring process performance. These metrics
 // form the baseline against which improvements will be measured.
@@ -40598,40 +41139,40 @@ func (x *ProcessMetrics) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Metrics dashboard summary [PD00-CUR-PRO-xx-MET-SUM].
+// Metrics dashboard summary.
 func (x *ProcessMetrics) DashboardSummary() *MetricsDashboardSummary {
 	return NewMetricsDashboardSummary(x.Doc(), x.Path() + "/dashboardSummary")
 }
 
-// Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+// Efficiency metrics.
 func (x *ProcessMetrics) EfficiencyMetrics() *som.SomList[*ProcessMetricCategory] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMECA-EFFI-LST", func(d *som.SpecDocument, p string) *ProcessMetricCategory {
 		return NewProcessMetricCategory(d, p)
 	})
 }
 
-// Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+// Quality metrics.
 func (x *ProcessMetrics) QualityMetrics() *som.SomList[*ProcessMetricCategory] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMECA-QUAL-LST", func(d *som.SpecDocument, p string) *ProcessMetricCategory {
 		return NewProcessMetricCategory(d, p)
 	})
 }
 
-// Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+// Volume metrics.
 func (x *ProcessMetrics) VolumeMetrics() *som.SomList[*ProcessMetricCategory] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMECA-VOLU-LST", func(d *som.SpecDocument, p string) *ProcessMetricCategory {
 		return NewProcessMetricCategory(d, p)
 	})
 }
 
-// Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+// Cost metrics.
 func (x *ProcessMetrics) CostMetrics() *som.SomList[*ProcessMetricCategory] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMECA-COST-LST", func(d *som.SpecDocument, p string) *ProcessMetricCategory {
 		return NewProcessMetricCategory(d, p)
 	})
 }
 
-// Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+// Manual intervention metrics.
 func (x *ProcessMetrics) ManualInterventionMetrics() *som.SomList[*ProcessMetricCategory] {
 	return som.NewSomList(x.Doc(), x.Path() + "/PRMECA-MANU-LST", func(d *som.SpecDocument, p string) *ProcessMetricCategory {
 		return NewProcessMetricCategory(d, p)
@@ -40645,12 +41186,12 @@ func (x *ProcessMetrics) Items() *som.SomList[*ProcessMetricEntry] {
 	})
 }
 
-// Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
+// Baseline comparison table.
 func (x *ProcessMetrics) BaselineTable() *MetricsBaselineTable {
 	return NewMetricsBaselineTable(x.Doc(), x.Path() + "/baselineTable")
 }
 
-// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+// 6.1.10. Process Metrics and KPIs.
 //
 // Process-level KPIs, SLAs, and measurement strategy.
 type ProcessMetricsAndKpis struct {
@@ -40670,7 +41211,7 @@ func (x *ProcessMetricsAndKpis) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// A process output entry [PD00-TAR-PRO-CAT-nn-OUT-nn].
+// A process output entry.
 type ProcessOutputEntry struct {
 	som.SomNode
 }
@@ -40684,7 +41225,7 @@ func (x *ProcessOutputEntry) Content() *ProcessOutputEntryContentForm {
 	return NewProcessOutputEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+// 6.1.4. Process Overview Diagram.
 //
 // High-level process flow diagram showing main processes and relationships.
 type ProcessOverviewDiagram struct {
@@ -40799,7 +41340,7 @@ func (x *ProcessPerformanceSummary) KeyMetrics() *som.SomList[*ProcessMetricEntr
 	})
 }
 
-// A process relationship entry [PD00-TAR-PRO-REL-nn].
+// A process relationship entry.
 type ProcessRelationshipEntry struct {
 	som.SomNode
 }
@@ -40838,7 +41379,7 @@ func (x *ProcessRelationships) Relationships() *som.SomList[*ProcessRelationship
 	})
 }
 
-// A process role entry [PD00-TAR-PRO-CAT-nn-ROL-nn].
+// A process role entry.
 type ProcessRoleEntry struct {
 	som.SomNode
 }
@@ -40968,7 +41509,7 @@ func (x *ProcessScopeSummary) OutOfScopeProcesses() *som.SomList[*ProcessScopeEn
 	})
 }
 
-// A process SLA entry [PD00-TAR-PRO-CAT-nn-SLA-nn].
+// A process SLA entry.
 type ProcessSlaEntry struct {
 	som.SomNode
 }
@@ -40982,7 +41523,7 @@ func (x *ProcessSlaEntry) Content() *ProcessSlaEntryContentForm {
 	return NewProcessSlaEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → UC.
 //
 // Key process steps with their actor interactions. Each interaction will be
 // expanded into a full use case with alternate paths, preconditions, and
@@ -41009,17 +41550,17 @@ func (x *ProcessStepsAndActorInteractions) Overview() *ProcessStepsOverview {
 	return NewProcessStepsOverview(x.Doc(), x.Path() + "/overview")
 }
 
-// 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
+// 6.2.1. Actor Overview — contains 1+× Actor.
 func (x *ProcessStepsAndActorInteractions) ActorOverview() *ActorOverview {
 	return NewActorOverview(x.Doc(), x.Path() + "/actorOverview")
 }
 
-// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
+// 6.2.2. Interaction Catalog — contains 1+× Interaction.
 func (x *ProcessStepsAndActorInteractions) InteractionCatalog() *InteractionCatalog {
 	return NewInteractionCatalog(x.Doc(), x.Path() + "/interactionCatalog")
 }
 
-// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
+// 6.2.3. Key Scenarios — contains 1+× Scenario.
 func (x *ProcessStepsAndActorInteractions) KeyScenarios() *KeyScenarios {
 	return NewKeyScenarios(x.Doc(), x.Path() + "/keyScenarios")
 }
@@ -41029,19 +41570,19 @@ func (x *ProcessStepsAndActorInteractions) ActorRelationshipDiagram() *ActorRela
 	return NewActorRelationshipDiagram(x.Doc(), x.Path() + "/actorRelationshipDiagram")
 }
 
-// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
+// 6.2.4. End-to-End Test Scenarios..
 func (x *ProcessStepsAndActorInteractions) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenarios] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenarios {
 		return NewEndToEndTestScenarios(d, p)
 	})
 }
 
-// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+// 6.2.5. Use Case Traceability.
 func (x *ProcessStepsAndActorInteractions) UseCaseTraceability() *UseCaseTraceability {
 	return NewUseCaseTraceability(x.Doc(), x.Path() + "/useCaseTraceability")
 }
 
-// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
+// 6.2. Process Steps Overview.
 type ProcessStepsOverview struct {
 	som.SomNode
 }
@@ -41121,7 +41662,7 @@ func (x *ProcessTechnologyInformation) Content() *ProcessTechnologyInformationCo
 	return NewProcessTechnologyInformationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A process trigger entry [PD00-TAR-PRO-CAT-nn-TRG-nn].
+// A process trigger entry.
 type ProcessTriggerEntry struct {
 	som.SomNode
 }
@@ -41164,7 +41705,7 @@ func (x *ProcessTriggers) EndEvents() *som.SomList[*ProcessEndEventEntry] {
 	})
 }
 
-// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+// 6.1.1. Process Vision.
 //
 // The overall vision for how business processes will work with the new system.
 type ProcessVision struct {
@@ -41319,122 +41860,7 @@ func (x *ProgrammingLanguageEntryVersion) Content() *ProgrammingLanguageEntryVer
 	return NewProgrammingLanguageEntryVersionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// The complete Project Definition (PD) document.
-//
-// Contains a [DocumentHeader] and all 14 PD sections [PD00].
-type ProjectDefinition struct {
-	som.SomNode
-}
-
-// ProjectDefinitionModelVersion is the model version this object model was generated
-// against (§2.1).
-const ProjectDefinitionModelVersion = "0.0"
-
-// NewProjectDefinition creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewProjectDefinition(doc *som.SpecDocument, documentVersion string) (*ProjectDefinition, error) {
-	if err := som.CheckSomModelVersion(ProjectDefinitionModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &ProjectDefinition{SomNode: som.NewSomNode(doc, "PD")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *ProjectDefinition) ObjectModelVersion() string {
-	return ProjectDefinitionModelVersion
-}
-
-func (x *ProjectDefinition) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ProjectDefinition) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Document header (form fields at top of document).
-func (x *ProjectDefinition) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// 1. Current State Analysis [PD00-CUR].
-func (x *ProjectDefinition) CurrentStateAnalysis() *CurrentStateAnalysis {
-	return NewCurrentStateAnalysis(x.Doc(), x.Path() + "/currentStateAnalysis")
-}
-
-// 2. Project Organization and Process [PD00-POP].
-func (x *ProjectDefinition) ProjectOrganizationProcess() *ProjectOrganizationAndProcess {
-	return NewProjectOrganizationAndProcess(x.Doc(), x.Path() + "/projectOrganizationProcess")
-}
-
-// 3. Administrative [PD00-ADM].
-func (x *ProjectDefinition) Administrative() *Administrative {
-	return NewAdministrative(x.Doc(), x.Path() + "/administrative")
-}
-
-// 4. System Overview [PD00-SYO].
-func (x *ProjectDefinition) SystemOverview() *SystemOverview {
-	return NewSystemOverview(x.Doc(), x.Path() + "/systemOverview")
-}
-
-// 5. Organizational Framework [PD00-ORG].
-func (x *ProjectDefinition) OrganizationalFramework() *OrganizationalFramework {
-	return NewOrganizationalFramework(x.Doc(), x.Path() + "/organizationalFramework")
-}
-
-// 6. Target Business Process Model [PD00-TAR].
-func (x *ProjectDefinition) TargetBusinessProcess() *TargetBusinessProcessModel {
-	return NewTargetBusinessProcessModel(x.Doc(), x.Path() + "/targetBusinessProcess")
-}
-
-// 7. Business Object and Data Model [PD00-BUS].
-func (x *ProjectDefinition) BusinessDataModel() *BusinessObjectAndDataModel {
-	return NewBusinessObjectAndDataModel(x.Doc(), x.Path() + "/businessDataModel")
-}
-
-// 8. Technical Framework Concept [PD00-TEC].
-func (x *ProjectDefinition) TechnicalFramework() *TechnicalFrameworkConcept {
-	return NewTechnicalFrameworkConcept(x.Doc(), x.Path() + "/technicalFramework")
-}
-
-// 9. Access and Authorization Concept [PD00-ACC].
-func (x *ProjectDefinition) AccessAuthorization() *AccessAndAuthorizationConcept {
-	return NewAccessAndAuthorizationConcept(x.Doc(), x.Path() + "/accessAuthorization")
-}
-
-// 10. User Interface Design [PD00-USE].
-func (x *ProjectDefinition) UserInterfaceDesign() *UserInterfaceDesign {
-	return NewUserInterfaceDesign(x.Doc(), x.Path() + "/userInterfaceDesign")
-}
-
-// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
-func (x *ProjectDefinition) SystemRolloutConcept() *SystemRolloutConcept {
-	return NewSystemRolloutConcept(x.Doc(), x.Path() + "/systemRolloutConcept")
-}
-
-// 11. System Quality Goals [PD00-SYQ].
-func (x *ProjectDefinition) SystemQualityGoals() *SystemQualityGoals {
-	return NewSystemQualityGoals(x.Doc(), x.Path() + "/systemQualityGoals")
-}
-
-// 12. Components to Use [PD00-COM].
-func (x *ProjectDefinition) ComponentsToUse() *ComponentsToUse {
-	return NewComponentsToUse(x.Doc(), x.Path() + "/componentsToUse")
-}
-
-// 13. System Stage Plan [PD00-SSP].
-func (x *ProjectDefinition) SystemStagePlan() *SystemStagePlan {
-	return NewSystemStagePlan(x.Doc(), x.Path() + "/systemStagePlan")
-}
-
-// 14. Delivery Scope and Acceptance [PD00-DEL].
-func (x *ProjectDefinition) DeliveryAcceptance() *DeliveryScopeAndAcceptance {
-	return NewDeliveryScopeAndAcceptance(x.Doc(), x.Path() + "/deliveryAcceptance")
-}
-
-// 3.1. Project Organization [PD00-ADM-PRO].
+// 3.1. Project Organization.
 type ProjectOrganization struct {
 	som.SomNode
 }
@@ -41452,17 +41878,17 @@ func (x *ProjectOrganization) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+// 3.1.1. Organization Structure.
 func (x *ProjectOrganization) OrganizationStructure() *OrganizationStructure {
 	return NewOrganizationStructure2(x.Doc(), x.Path() + "/organizationStructure")
 }
 
-// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+// 3.1.2. Steering Committee.
 func (x *ProjectOrganization) SteeringCommittee() *SteeringCommittee {
 	return NewSteeringCommittee(x.Doc(), x.Path() + "/steeringCommittee")
 }
 
-// 2. Project Organization and Process [PD00-POP].
+// 2. Project Organization and Process.
 //
 // Project-specific deviations from the standard TomSpecs methodology.
 // This section documents any customizations to standard roles, quality gates,
@@ -41498,117 +41924,27 @@ func (x *ProjectOrganizationAndProcess) DeviationSummary() *MethodologyDeviation
 	return NewMethodologyDeviationSummary(x.Doc(), x.Path() + "/deviationSummary")
 }
 
-// 2.1. Role Adjustments [PD00-POP-ROL].
+// 2.1. Role Adjustments.
 func (x *ProjectOrganizationAndProcess) RoleAdjustments() *RoleAdjustments {
 	return NewRoleAdjustments(x.Doc(), x.Path() + "/roleAdjustments")
 }
 
-// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+// 2.2. Quality Gate Adjustments.
 func (x *ProjectOrganizationAndProcess) QualityGateAdjustments() *QualityGateAdjustments {
 	return NewQualityGateAdjustments(x.Doc(), x.Path() + "/qualityGateAdjustments")
 }
 
-// 2.3. Process Adjustments [PD00-POP-PRC].
+// 2.3. Process Adjustments.
 func (x *ProjectOrganizationAndProcess) ProcessAdjustments() *ProcessAdjustments {
 	return NewProcessAdjustments(x.Doc(), x.Path() + "/processAdjustments")
 }
 
-// 2.4. Tooling and Environments [PD00-POP-TOO].
+// 2.4. Tooling and Environments.
 func (x *ProjectOrganizationAndProcess) ToolingAndEnvironments() *ToolingAndEnvironments {
 	return NewToolingAndEnvironments(x.Doc(), x.Path() + "/toolingAndEnvironments")
 }
 
-// PPP00 Project Phase Plan.
-//
-// Full project phase plan — staging strategy, stage overview, per-stage
-// entries, feature prioritization, data migration, gate criteria,
-// decision processes, initial development flow, and upgrade cycle
-// framework.
-type ProjectPhasePlan struct {
-	som.SomNode
-}
-
-// ProjectPhasePlanModelVersion is the model version this object model was generated
-// against (§2.1).
-const ProjectPhasePlanModelVersion = "0.0"
-
-// NewProjectPhasePlan creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewProjectPhasePlan(doc *som.SpecDocument, documentVersion string) (*ProjectPhasePlan, error) {
-	if err := som.CheckSomModelVersion(ProjectPhasePlanModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &ProjectPhasePlan{SomNode: som.NewSomNode(doc, "PPP")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *ProjectPhasePlan) ObjectModelVersion() string {
-	return ProjectPhasePlanModelVersion
-}
-
-func (x *ProjectPhasePlan) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ProjectPhasePlan) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *ProjectPhasePlan) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Staging strategy — PD00-SSP-STR.
-func (x *ProjectPhasePlan) StagingStrategy() *StagingStrategy {
-	return NewStagingStrategy(x.Doc(), x.Path() + "/stagingStrategy")
-}
-
-// Stage overview — PD00-SSP-STA.
-func (x *ProjectPhasePlan) StageOverview() *StageOverview {
-	return NewStageOverview(x.Doc(), x.Path() + "/stageOverview")
-}
-
-// Stages — PD00-SSP-STG (list).
-func (x *ProjectPhasePlan) Stages() *som.SomList[*StageEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/STAGE-STAG-LST", func(d *som.SpecDocument, p string) *StageEntry {
-		return NewStageEntry(d, p)
-	})
-}
-
-// Feature prioritization — PD00-SSP-FEA.
-func (x *ProjectPhasePlan) FeaturePrioritization() *FeaturePrioritization {
-	return NewFeaturePrioritization(x.Doc(), x.Path() + "/featurePrioritization")
-}
-
-// Data migration strategy — PD00-SSP-MIG.
-func (x *ProjectPhasePlan) DataMigrationStrategy() *DataMigrationStrategy {
-	return NewDataMigrationStrategy(x.Doc(), x.Path() + "/dataMigrationStrategy")
-}
-
-// Gate criteria — PD00-SSP-GOV-GAT (promoted from GOV).
-func (x *ProjectPhasePlan) GateCriteria() *PhaseGateReviews {
-	return NewPhaseGateReviews(x.Doc(), x.Path() + "/gateCriteria")
-}
-
-// Decision processes — PD00-SSP-GOV-DEC (promoted from GOV).
-func (x *ProjectPhasePlan) DecisionProcesses() *DecisionPoints {
-	return NewDecisionPoints(x.Doc(), x.Path() + "/decisionProcesses")
-}
-
-// Initial development flow — PD00-SSP-IDV.
-func (x *ProjectPhasePlan) InitialDevelopmentFlow() *InitialDevelopmentFlow {
-	return NewInitialDevelopmentFlow(x.Doc(), x.Path() + "/initialDevelopmentFlow")
-}
-
-// Upgrade cycle framework — PD00-SSP-UPG (links tom_system_upgrade.md).
-func (x *ProjectPhasePlan) UpgradeCycleFramework() *UpgradeCycleFramework {
-	return NewUpgradeCycleFramework(x.Doc(), x.Path() + "/upgradeCycleFramework")
-}
-
-// 3.2. Project Team Staffing [PD00-ADM-TEA].
+// 3.2. Project Team Staffing.
 //
 // Container for individual staff assignments including roles, responsibilities,
 // availability, and required competencies.
@@ -41719,7 +42055,7 @@ func (x *ProtocolComplianceRequirementsObservability) Content() *ProtocolComplia
 	return NewProtocolComplianceRequirementsObservabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
+// A protocol or standard entry (form).
 type ProtocolEntry struct {
 	som.SomNode
 }
@@ -41733,7 +42069,7 @@ func (x *ProtocolEntry) Content() *ProtocolEntryContentForm {
 	return NewProtocolEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+// 8.6.1. Protocols and Standards.
 type ProtocolsAndStandardsSection struct {
 	som.SomNode
 }
@@ -41791,7 +42127,7 @@ func (x *ProtocolsAndStandardsSection) Compliance() *ProtocolComplianceRequireme
 	return NewProtocolComplianceRequirements(x.Doc(), x.Path() + "/compliance")
 }
 
-// 10.13. Prototype [PD00-USE-PRO].
+// 10.13. Prototype.
 //
 // Comprehensive prototype planning covering goals, feature selection,
 // prototype type, evaluation criteria, and stakeholder alignment.
@@ -41826,17 +42162,17 @@ func (x *Prototype) Governance() *PrototypeGovernance {
 // Prototype overview narrative.
 // (skipped: overviewNarrative has no target type)
 
-// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+// 10.13.1. Prototype Goals.
 func (x *Prototype) PrototypeGoals() *PrototypeGoals {
 	return NewPrototypeGoals(x.Doc(), x.Path() + "/prototypeGoals")
 }
 
-// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+// 10.13.2. Selected Feature Subset.
 func (x *Prototype) FeatureSubset() *PrototypeFeatureSubset {
 	return NewPrototypeFeatureSubset(x.Doc(), x.Path() + "/featureSubset")
 }
 
-// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+// 10.13.3. Prototype Type.
 func (x *Prototype) PrototypeType() *PrototypeTypeSection {
 	return NewPrototypeTypeSection(x.Doc(), x.Path() + "/prototypeType")
 }
@@ -41844,7 +42180,7 @@ func (x *Prototype) PrototypeType() *PrototypeTypeSection {
 // Prototype schedule.
 // (skipped: prototypeSchedule has no target type)
 
-// A prototype feature entry [PD00-USE-PRO-FEA-nn].
+// A prototype feature entry.
 type PrototypeFeatureEntry struct {
 	som.SomNode
 }
@@ -41858,7 +42194,7 @@ func (x *PrototypeFeatureEntry) Content() *PrototypeFeatureEntryContentForm {
 	return NewPrototypeFeatureEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+// 10.13.2. Selected Feature Subset.
 //
 // Features included in the prototype.
 type PrototypeFeatureSubset struct {
@@ -41922,7 +42258,7 @@ func (x *PrototypeFeatureSubsetScope) Content() *PrototypeFeatureSubsetScopeCont
 	return NewPrototypeFeatureSubsetScopeContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A prototype goal entry [PD00-USE-PRO-GOA-nn].
+// A prototype goal entry.
 type PrototypeGoalEntry struct {
 	som.SomNode
 }
@@ -41936,7 +42272,7 @@ func (x *PrototypeGoalEntry) Content() *PrototypeGoalEntryContentForm {
 	return NewPrototypeGoalEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+// 10.13.1. Prototype Goals.
 //
 // What the prototype should validate.
 type PrototypeGoals struct {
@@ -42042,7 +42378,7 @@ func (x *PrototypeTimeline) Content() *PrototypeTimelineContentForm {
 	return NewPrototypeTimelineContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+// 10.13.3. Prototype Type.
 //
 // Classification and implications of the prototype type.
 type PrototypeTypeSection struct {
@@ -42058,17 +42394,17 @@ func (x *PrototypeTypeSection) PrototypeTypeOverview() *PrototypeTypeSectionProt
 	return NewPrototypeTypeSectionPrototypeTypeOverviewForm(x.Doc(), x.Path() + "/prototypeTypeOverview")
 }
 
-// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+// 10.13.3.1. Reusable Prototype.
 func (x *PrototypeTypeSection) ReusablePrototype() *ReusablePrototype {
 	return NewReusablePrototype(x.Doc(), x.Path() + "/reusablePrototype")
 }
 
-// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+// 10.13.3.2. Training Prototype.
 func (x *PrototypeTypeSection) TrainingPrototype() *TrainingPrototype {
 	return NewTrainingPrototype(x.Doc(), x.Path() + "/trainingPrototype")
 }
 
-// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+// 10.13.3.3. Throwaway Prototype.
 func (x *PrototypeTypeSection) ThrowawayPrototype() *ThrowawayPrototype {
 	return NewThrowawayPrototype(x.Doc(), x.Path() + "/throwawayPrototype")
 }
@@ -42163,7 +42499,152 @@ func (x *PwaRequirementsUpdates) Content() *PwaRequirementsUpdatesContentForm {
 	return NewPwaRequirementsUpdatesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
+// BQP00 Business Quality Plan.
+//
+// Full quality plan combining quality goals and the acceptance plan.
+type QualityAcceptancePlan struct {
+	som.SomNode
+}
+
+// QualityAcceptancePlanModelVersion is the model version this object model was generated
+// against (§2.1).
+const QualityAcceptancePlanModelVersion = "0.0"
+
+// NewQualityAcceptancePlan creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewQualityAcceptancePlan(doc *som.SpecDocument, documentVersion string) (*QualityAcceptancePlan, error) {
+	if err := som.CheckSomModelVersion(QualityAcceptancePlanModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &QualityAcceptancePlan{SomNode: som.NewSomNode(doc, "QAP")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *QualityAcceptancePlan) ObjectModelVersion() string {
+	return QualityAcceptancePlanModelVersion
+}
+
+func (x *QualityAcceptancePlan) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *QualityAcceptancePlan) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *QualityAcceptancePlan) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Quality framework.
+func (x *QualityAcceptancePlan) QualityFramework() *QualityFramework {
+	return NewQualityFramework(x.Doc(), x.Path() + "/qualityFramework")
+}
+
+// User-related quality criteria.
+func (x *QualityAcceptancePlan) UserQualityCriteria() *UserQualityCriteria {
+	return NewUserQualityCriteria(x.Doc(), x.Path() + "/userQualityCriteria")
+}
+
+// Technical quality criteria.
+func (x *QualityAcceptancePlan) TechnicalQualityCriteria() *TechnicalQualityCriteria {
+	return NewTechnicalQualityCriteria(x.Doc(), x.Path() + "/technicalQualityCriteria")
+}
+
+// Operations quality criteria.
+func (x *QualityAcceptancePlan) OperationsQualityCriteria() *OperationsQualityCriteria {
+	return NewOperationsQualityCriteria(x.Doc(), x.Path() + "/operationsQualityCriteria")
+}
+
+// Documentation quality criteria.
+func (x *QualityAcceptancePlan) DocumentationQualityCriteria() *DocumentationQualityCriteria {
+	return NewDocumentationQualityCriteria(x.Doc(), x.Path() + "/documentationQualityCriteria")
+}
+
+// Quality prioritization.
+func (x *QualityAcceptancePlan) QualityPrioritization() *QualityPrioritization {
+	return NewQualityPrioritization(x.Doc(), x.Path() + "/qualityPrioritization")
+}
+
+// Acceptance criteria summary.
+func (x *QualityAcceptancePlan) AcceptanceCriteriaSummary() *AcceptanceCriteriaSummary {
+	return NewAcceptanceCriteriaSummary(x.Doc(), x.Path() + "/acceptanceCriteriaSummary")
+}
+
+// Test strategy (new in Phase A).
+func (x *QualityAcceptancePlan) TestStrategy() *TestStrategy {
+	return NewTestStrategy(x.Doc(), x.Path() + "/testStrategy")
+}
+
+// Acceptance criteria.
+func (x *QualityAcceptancePlan) AcceptanceCriteria() *AcceptanceCriteriaList {
+	return NewAcceptanceCriteriaList(x.Doc(), x.Path() + "/acceptanceCriteria")
+}
+
+// Acceptance process.
+func (x *QualityAcceptancePlan) AcceptanceProcess() *AcceptanceProcess {
+	return NewAcceptanceProcess(x.Doc(), x.Path() + "/acceptanceProcess")
+}
+
+// User acceptance testing.
+func (x *QualityAcceptancePlan) UserAcceptanceTesting() *UserAcceptanceTesting {
+	return NewUserAcceptanceTesting(x.Doc(), x.Path() + "/userAcceptanceTesting")
+}
+
+// Defect resolution.
+func (x *QualityAcceptancePlan) DefectResolution() *DefectResolution {
+	return NewDefectResolution(x.Doc(), x.Path() + "/defectResolution")
+}
+
+// Sign-off process.
+func (x *QualityAcceptancePlan) SignOffProcess() *SignOffProcess {
+	return NewSignOffProcess(x.Doc(), x.Path() + "/signOffProcess")
+}
+
+// Warranty terms.
+func (x *QualityAcceptancePlan) Warranty() *WarrantyTerms {
+	return NewWarrantyTerms(x.Doc(), x.Path() + "/warranty")
+}
+
+// SBP.14 Quality & Acceptance Model.
+//
+// Public anchor: ISO/IEC 25010 product quality.
+type QualityAndAcceptanceModel struct {
+	som.SomNode
+}
+
+// NewQualityAndAcceptanceModel binds a QualityAndAcceptanceModel facade to a document and a path.
+func NewQualityAndAcceptanceModel(doc *som.SpecDocument, path string) *QualityAndAcceptanceModel {
+	return &QualityAndAcceptanceModel{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *QualityAndAcceptanceModel) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *QualityAndAcceptanceModel) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Quality goals and attributes.
+func (x *QualityAndAcceptanceModel) SystemQualityGoals() *SystemQualityGoals {
+	return NewSystemQualityGoals(x.Doc(), x.Path() + "/systemQualityGoals")
+}
+
+// Delivery scope and acceptance criteria.
+func (x *QualityAndAcceptanceModel) DeliveryAcceptance() *DeliveryScopeAndAcceptance {
+	return NewDeliveryScopeAndAcceptance(x.Doc(), x.Path() + "/deliveryAcceptance")
+}
+
+// ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+func (x *QualityAndAcceptanceModel) Iso25010Coverage() *Iso25010Coverage {
+	return NewIso25010Coverage(x.Doc(), x.Path() + "/iso25010Coverage")
+}
+
+// A quality category entry (form).
 //
 // Defines a quality category with its attributes, weight, and relationship
 // to other categories.
@@ -42259,7 +42740,7 @@ func (x *QualityCategoryEntryRelationships) Content() *QualityCategoryEntryRelat
 	return NewQualityCategoryEntryRelationshipsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.1. Quality Framework [PD00-SYQ-FRA].
+// 11.1. Quality Framework.
 //
 // Overall quality approach for the project defining objectives, categories,
 // and how quality is structured and governed across the system.
@@ -42291,13 +42772,13 @@ func (x *QualityFramework) Verification() *QualityFrameworkVerification {
 	return NewQualityFrameworkVerification(x.Doc(), x.Path() + "/verification")
 }
 
-// 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
+// 11.1.1. Quality Objectives Overview.
 // (skipped: qualityObjectivesOverview has no target type)
 
 // Quality objectives breakdown by category.
 // (skipped: objectivesBreakdown has no target type)
 
-// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
+// 11.1.2. Quality Categories — contains 0+× QualityCategory.
 func (x *QualityFramework) QualityCategories() *som.SomList[*QualityCategoryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/QCATE-QUAL-LST", func(d *som.SpecDocument, p string) *QualityCategoryEntry {
 		return NewQualityCategoryEntry(d, p)
@@ -42367,7 +42848,7 @@ func (x *QualityGateAdjustmentDetails) Content() *QualityGateAdjustmentDetailsCo
 	return NewQualityGateAdjustmentDetailsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
+// A quality gate adjustment entry (form).
 //
 // Documents a specific deviation from standard quality gate definitions,
 // including the type of change, impact on quality assurance, risk
@@ -42463,7 +42944,7 @@ func (x *QualityGateAdjustmentSummary) Content() *QualityGateAdjustmentSummaryCo
 	return NewQualityGateAdjustmentSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+// 2.2. Quality Gate Adjustments.
 //
 // Documents any deviations from the standard quality gates defined in
 // tom_quality_gates.md. Includes skipped, added, or modified gates
@@ -42506,7 +42987,7 @@ func (x *QualityGateAdjustments) Items() *som.SomList[*QualityGateAdjustmentEntr
 	})
 }
 
-// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
+// A quality gate check entry (form).
 type QualityGateCheckEntry struct {
 	som.SomNode
 }
@@ -42615,7 +43096,7 @@ func (x *QualityGateCheckEntryVerification) Content() *QualityGateCheckEntryVeri
 	return NewQualityGateCheckEntryVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+// 11.7.2. Quality Gate Checklist.
 //
 // Quality gate checklist used during acceptance.
 type QualityGateChecklist struct {
@@ -42641,7 +43122,7 @@ func (x *QualityGateChecklist) Items() *som.SomList[*QualityGateCheckEntry] {
 	})
 }
 
-// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+// 11.6. Quality Prioritization.
 //
 // Prioritization and balancing of quality attributes including weighted
 // matrices and explicit trade-off decisions.
@@ -42661,12 +43142,12 @@ func (x *QualityPrioritization) PrioritizationFrameworkContent() *QualityPriorit
 // Prioritization approach overview.
 // (skipped: prioritizationOverview has no target type)
 
-// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+// 11.6.1. Weighted Quality Matrix.
 func (x *QualityPrioritization) WeightedQualityMatrix() *WeightedQualityMatrix {
 	return NewWeightedQualityMatrix(x.Doc(), x.Path() + "/weightedQualityMatrix")
 }
 
-// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+// 11.6.2. Trade-off Decisions.
 func (x *QualityPrioritization) TradeOffDecisions() *TradeOffDecisions {
 	return NewTradeOffDecisions(x.Doc(), x.Path() + "/tradeOffDecisions")
 }
@@ -42685,7 +43166,7 @@ func (x *QualityScenarioEntry) Content() *QualityScenarioEntryContentForm {
 	return NewQualityScenarioEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+// 4.2.2.n.1. Quality Scenarios.
 //
 // Quality attribute scenarios that define concrete, testable situations
 // for verifying the technical goal (based on SEI quality attribute workshop).
@@ -42803,7 +43284,7 @@ func (x *QualityStandardEntryProcesses) Content() *QualityStandardEntryProcesses
 	return NewQualityStandardEntryProcessesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A quality weight entry [PD00-SYQ-PRI-WEI-nn].
+// A quality weight entry.
 type QualityWeightEntry struct {
 	som.SomNode
 }
@@ -42888,7 +43369,7 @@ func (x *RateLimitingPolicyQuotas) Content() *RateLimitingPolicyQuotasContentFor
 	return NewRateLimitingPolicyQuotasContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
+// 11.5.1. Readability quality.
 type ReadabilityQuality struct {
 	som.SomNode
 }
@@ -42981,7 +43462,7 @@ func (x *ReadabilityQualityStyle) Content() *ReadabilityQualityStyleContentForm 
 	return NewReadabilityQualityStyleContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Readiness criteria entry [PD00-ORG-STR-TIM-RDY-nn] (form).
+// Readiness criteria entry (form).
 type ReadinessCriteriaEntry struct {
 	som.SomNode
 }
@@ -43103,7 +43584,7 @@ func (x *RecoveryProceduresValidation) Content() *RecoveryProceduresValidationCo
 	return NewRecoveryProceduresValidationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
+// A recovery scenario entry.
 type RecoveryScenarioEntry struct {
 	som.SomNode
 }
@@ -43158,7 +43639,7 @@ func (x *RedirectHandlingPolicy) SetContent(value string) {
 // Redirect Handling Details (text).
 // (skipped: redirectDetails has no target type)
 
-// A reference document entry [PD00-ADM-REF-nn] (form).
+// A reference document entry (form).
 //
 // Detailed metadata for a single referenced document including
 // identification, classification, status, and applicability.
@@ -43242,7 +43723,7 @@ func (x *ReferenceDocumentEntryMetadata) Content() *ReferenceDocumentEntryMetada
 	return NewReferenceDocumentEntryMetadataContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.5. Reference Documents [PD00-ADM-REF].
+// 3.5. Reference Documents.
 //
 // Catalog of all documents referenced by this project specification,
 // including enterprise standards, technical guidelines, regulatory
@@ -43380,7 +43861,7 @@ func (x *RegulatoryComplianceEntryRequirements) Content() *RegulatoryComplianceE
 	return NewRegulatoryComplianceEntryRequirementsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.6.3. Regulatory Compliance Requirements [PD00-ADM-OTH-REG].
+// 3.6.3. Regulatory Compliance Requirements.
 //
 // Regulatory and compliance obligations affecting the project.
 type RegulatoryComplianceRequirements struct {
@@ -43414,7 +43895,7 @@ func (x *RegulatoryComplianceRequirements) Milestones() *som.SomList[*Compliance
 	})
 }
 
-// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+// 4.1.2.8. Regulatory Context.
 //
 // Regulatory and compliance context that affects system design and
 // operations.
@@ -43606,7 +44087,7 @@ func (x *RelevantSectionEntry) Content() *RelevantSectionEntryContentForm {
 	return NewRelevantSectionEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
+// 11.3.6. Reliability quality.
 type ReliabilityQuality struct {
 	som.SomNode
 }
@@ -43738,7 +44219,7 @@ func (x *RemoteAccessRequirements) Content() *RemoteAccessRequirementsContentFor
 	return NewRemoteAccessRequirementsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A removed role entry [PD00-ORG-JOB-REM-nn] (form).
+// A removed role entry (form).
 //
 // Documents roles being eliminated with transition planning for incumbents.
 type RemovedRoleEntry struct {
@@ -43811,7 +44292,7 @@ func (x *RemovedRoleEntryTransition) Content() *RemovedRoleEntryTransitionConten
 	return NewRemovedRoleEntryTransitionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Container for systems to replace [PD00-SYO-SYR-INV].
+// Container for systems to replace.
 //
 // Provides a structured inventory of all systems targeted for replacement,
 // with portfolio-level metrics and prioritization guidance.
@@ -43837,7 +44318,7 @@ func (x *ReplacementInventory) Systems() *som.SomList[*SystemToReplaceEntry] {
 	})
 }
 
-// A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn].
+// A replacement phase entry.
 type ReplacementPhaseEntry struct {
 	som.SomNode
 }
@@ -43851,7 +44332,7 @@ func (x *ReplacementPhaseEntry) Content() *ReplacementPhaseEntryContentForm {
 	return NewReplacementPhaseEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
+// A system dependency entry.
 //
 // Documents integrations and dependencies with other systems.
 type ReplacementSystemDependencyEntry struct {
@@ -43895,7 +44376,7 @@ func (x *ReportChartDisplay) Content() *ReportChartDisplayContentForm {
 	return NewReportChartDisplayContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
+// A chart/visualization in a report
 // (form).
 type ReportChartEntry struct {
 	som.SomNode
@@ -44007,7 +44488,7 @@ func (x *ReportColumnDataSource) Content() *ReportColumnDataSourceContentForm {
 	return NewReportColumnDataSourceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
+// A column in a tabular report section
 // (form).
 type ReportColumnEntry struct {
 	som.SomNode
@@ -44103,7 +44584,7 @@ func (x *ReportDataSource) Content() *ReportDataSourceContentForm {
 	return NewReportDataSourceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form).
+// Distribution channel configuration (form).
 type ReportDistributionEntry struct {
 	som.SomNode
 }
@@ -44174,7 +44655,7 @@ func (x *ReportDistributionEntryRecipients) Content() *ReportDistributionEntryRe
 	return NewReportDistributionEntryRecipientsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A report entry [PD00-USE-PRI-REP-nn] (form).
+// A report entry (form).
 type ReportEntry struct {
 	som.SomNode
 }
@@ -44278,7 +44759,7 @@ func (x *ReportEntry) Recipients() *som.SomList[*ReportRecipientEntry] {
 	})
 }
 
-// A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form).
+// A filter parameter for a report (form).
 type ReportFilterEntry struct {
 	som.SomNode
 }
@@ -44475,7 +44956,7 @@ func (x *ReportPagination) Content() *ReportPaginationContentForm {
 	return NewReportPaginationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
+// A recipient entry (form).
 type ReportRecipientEntry struct {
 	som.SomNode
 }
@@ -44546,7 +45027,7 @@ func (x *ReportRecipientEntryLifecycle) Content() *ReportRecipientEntryLifecycle
 	return NewReportRecipientEntryLifecycleContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
+// Scheduling rules for report generation
 // (form).
 type ReportScheduleEntry struct {
 	som.SomNode
@@ -44665,7 +45146,7 @@ func (x *ReportSectionData) Content() *ReportSectionDataContentForm {
 	return NewReportSectionDataContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).
+// A section within a report (form).
 type ReportSectionEntry struct {
 	som.SomNode
 }
@@ -44773,7 +45254,7 @@ func (x *RepresentativeQuoteEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+// 4.3.1.n.1. Acceptance Criteria.
 //
 // Testable conditions that must be met for the requirement to be accepted.
 // Uses Given-When-Then format for clarity.
@@ -44815,7 +45296,7 @@ func (x *RequirementBusinessRuleEntry) Content() *RequirementBusinessRuleEntryCo
 	return NewRequirementBusinessRuleEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+// 4.3.1.n.2. Business Rules.
 //
 // Business rules that constrain or guide this requirement's behavior.
 type RequirementBusinessRules struct {
@@ -44842,7 +45323,7 @@ func (x *RequirementBusinessRules) Rules() *som.SomList[*RequirementBusinessRule
 	})
 }
 
-// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+// 4.3.6. Requirement Coverage.
 //
 // Coverage of requirements against goals, use cases, and tests.
 type RequirementCoverage struct {
@@ -44862,7 +45343,7 @@ func (x *RequirementCoverage) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+// 4.3.1.n.3. Data Requirements.
 //
 // Data entities, attributes, and relationships needed by this requirement.
 type RequirementDataRequirements struct {
@@ -44889,7 +45370,7 @@ func (x *RequirementDataRequirements) Entities() *som.SomList[*DataEntityReferen
 	})
 }
 
-// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+// 4.3.1.n.5. Dependencies.
 //
 // Dependencies this requirement has on other requirements.
 type RequirementDependencies struct {
@@ -44938,7 +45419,7 @@ func (x *RequirementDependencyEntry) SetRelatedRequirement(value string) {
 	x.Doc().SetContent(x.Path() + "/relatedRequirement", value)
 }
 
-// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+// 4.3.5. Requirement Relationships.
 //
 // Cross-requirement dependency and conflict graph.
 type RequirementRelationships struct {
@@ -45041,7 +45522,7 @@ func (x *RequirementTestCaseEntryExecution) Content() *RequirementTestCaseEntryE
 	return NewRequirementTestCaseEntryExecutionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+// 4.3.1.n.7. Test Cases.
 //
 // Test cases that verify this requirement is correctly implemented.
 type RequirementTestCases struct {
@@ -45068,7 +45549,7 @@ func (x *RequirementTestCases) TestCases() *som.SomList[*RequirementTestCaseEntr
 	})
 }
 
-// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+// 4.3.1.n.6. Traceability.
 //
 // Traceability links to goals, use cases, processes, and other artifacts.
 type RequirementTraceability struct {
@@ -45131,7 +45612,7 @@ func (x *RequirementTraceabilityImplementation) Content() *RequirementTraceabili
 	return NewRequirementTraceabilityImplementationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+// 4.3.1.n.4. UI Specification.
 //
 // User interface specification for this requirement. Defines screens,
 // forms, and interactions needed to fulfill the requirement.
@@ -45197,94 +45678,44 @@ func (x *RequirementUiSpecification) Behaviors() *som.SomList[*ScreenBehaviorEnt
 	})
 }
 
-// RC00 Requirements Catalog.
+// SBP.9 Requirements.
 //
-// Full requirements catalog covering functional, technical, security,
-// and organizational requirements, plus traceability, relationships,
-// and coverage analysis.
-type RequirementsCatalog struct {
+// Functional requirements seed the Requirements Specification (RSP); this
+// section currently carries the framework-uncovered NFR sub-areas re-homed in
+// IP-6. Functional-requirement modelling is expanded in a later IP step.
+type Requirements struct {
 	som.SomNode
 }
 
-// RequirementsCatalogModelVersion is the model version this object model was generated
-// against (§2.1).
-const RequirementsCatalogModelVersion = "0.0"
-
-// NewRequirementsCatalog creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewRequirementsCatalog(doc *som.SpecDocument, documentVersion string) (*RequirementsCatalog, error) {
-	if err := som.CheckSomModelVersion(RequirementsCatalogModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &RequirementsCatalog{SomNode: som.NewSomNode(doc, "RC")}, nil
+// NewRequirements binds a Requirements facade to a document and a path.
+func NewRequirements(doc *som.SpecDocument, path string) *Requirements {
+	return &Requirements{SomNode: som.NewSomNode(doc, path)}
 }
 
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *RequirementsCatalog) ObjectModelVersion() string {
-	return RequirementsCatalogModelVersion
-}
-
-func (x *RequirementsCatalog) Content() string {
+func (x *Requirements) Content() string {
 	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-func (x *RequirementsCatalog) SetContent(value string) {
+func (x *Requirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Standard TomSpecs document header.
-func (x *RequirementsCatalog) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+// Localization & Translation requirements (NFR-L10N-NNN).
+func (x *Requirements) LocalizationTranslation() *LocalizationTranslationRequirements {
+	return NewLocalizationTranslationRequirements(x.Doc(), x.Path() + "/localizationTranslation")
 }
 
-// Functional requirements — PD00-SYO-REQ-FUN.
-func (x *RequirementsCatalog) FunctionalRequirements() *FunctionalRequirements {
-	return NewFunctionalRequirements(x.Doc(), x.Path() + "/functionalRequirements")
+// Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
+func (x *Requirements) InformationForUse() *InformationForUseRequirements {
+	return NewInformationForUseRequirements(x.Doc(), x.Path() + "/informationForUse")
 }
 
-// Technical (non-functional) requirements — PD00-SYO-REQ-TEC.
-func (x *RequirementsCatalog) TechnicalRequirements() *TechnicalRequirements {
-	return NewTechnicalRequirements(x.Doc(), x.Path() + "/technicalRequirements")
+// Training & Enablement requirements (NFR-TRN-NNN).
+func (x *Requirements) TrainingEnablement() *TrainingEnablementRequirements {
+	return NewTrainingEnablementRequirements(x.Doc(), x.Path() + "/trainingEnablement")
 }
 
-// Security requirements — PD00-SYO-REQ-SEC.
-func (x *RequirementsCatalog) SecurityRequirements() *SecurityRequirements {
-	return NewSecurityRequirements(x.Doc(), x.Path() + "/securityRequirements")
-}
-
-// Organizational requirements — PD00-SYO-REQ-ORG.
-func (x *RequirementsCatalog) OrganizationalRequirements() *OrganizationalRequirements {
-	return NewOrganizationalRequirements(x.Doc(), x.Path() + "/organizationalRequirements")
-}
-
-// Traceability matrix overview — PD00-SYO-REQ-TRC.
-//
-// Mirrors the PD00-side flat field on RequirementsOverview so the RC
-// outline reaches it directly. The authoritative content lives on the
-// PD00 side.
-func (x *RequirementsCatalog) TraceabilityMatrix() string {
-	return x.Doc().ContentOr(x.Path() + "/traceabilityMatrix")
-}
-
-func (x *RequirementsCatalog) SetTraceabilityMatrix(value string) {
-	x.Doc().SetContent(x.Path() + "/traceabilityMatrix", value)
-}
-
-// Requirement relationships — PD00-SYO-REQ-REL.
-func (x *RequirementsCatalog) RequirementRelationships() *som.SomList[*RequirementRelationships] {
-	return som.NewSomList(x.Doc(), x.Path() + "/RERE-REQU-LST", func(d *som.SpecDocument, p string) *RequirementRelationships {
-		return NewRequirementRelationships(d, p)
-	})
-}
-
-// Requirement coverage — PD00-SYO-REQ-COV.
-func (x *RequirementsCatalog) RequirementCoverage() *RequirementCoverage {
-	return NewRequirementCoverage(x.Doc(), x.Path() + "/requirementCoverage")
-}
-
-// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+// 4.3. Requirements Overview. Seeds → RC.
 //
 // Initial requirements overview organized by category. Each requirement
 // receives a unique ID and will be expanded into the RC (Requirements
@@ -45322,35 +45753,122 @@ func (x *RequirementsOverview) SetTraceabilityMatrix(value string) {
 	x.Doc().SetContent(x.Path() + "/traceabilityMatrix", value)
 }
 
-// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+// 4.3.1. Functional Requirements.
 func (x *RequirementsOverview) FunctionalRequirements() *FunctionalRequirements {
 	return NewFunctionalRequirements(x.Doc(), x.Path() + "/functionalRequirements")
 }
 
-// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+// 4.3.2. Technical Requirements.
 func (x *RequirementsOverview) TechnicalRequirements() *TechnicalRequirements {
 	return NewTechnicalRequirements(x.Doc(), x.Path() + "/technicalRequirements")
 }
 
-// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+// 4.3.3. Security Requirements.
 func (x *RequirementsOverview) SecurityRequirements() *SecurityRequirements {
 	return NewSecurityRequirements(x.Doc(), x.Path() + "/securityRequirements")
 }
 
-// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+// 4.3.4. Organizational Requirements.
 func (x *RequirementsOverview) OrganizationalRequirements() *OrganizationalRequirements {
 	return NewOrganizationalRequirements(x.Doc(), x.Path() + "/organizationalRequirements")
 }
 
-// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+// 4.3.5. Requirement Relationships.
 func (x *RequirementsOverview) RequirementRelationships() *som.SomList[*RequirementRelationships] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RERE-REQU-LST", func(d *som.SpecDocument, p string) *RequirementRelationships {
 		return NewRequirementRelationships(d, p)
 	})
 }
 
-// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+// 4.3.6. Requirement Coverage.
 func (x *RequirementsOverview) RequirementCoverage() *RequirementCoverage {
+	return NewRequirementCoverage(x.Doc(), x.Path() + "/requirementCoverage")
+}
+
+// RC00 Requirements Catalog.
+//
+// Full requirements catalog covering functional, technical, security,
+// and organizational requirements, plus traceability, relationships,
+// and coverage analysis.
+type RequirementsSpecification struct {
+	som.SomNode
+}
+
+// RequirementsSpecificationModelVersion is the model version this object model was generated
+// against (§2.1).
+const RequirementsSpecificationModelVersion = "0.0"
+
+// NewRequirementsSpecification creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewRequirementsSpecification(doc *som.SpecDocument, documentVersion string) (*RequirementsSpecification, error) {
+	if err := som.CheckSomModelVersion(RequirementsSpecificationModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &RequirementsSpecification{SomNode: som.NewSomNode(doc, "RSP")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *RequirementsSpecification) ObjectModelVersion() string {
+	return RequirementsSpecificationModelVersion
+}
+
+func (x *RequirementsSpecification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *RequirementsSpecification) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *RequirementsSpecification) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Functional requirements.
+func (x *RequirementsSpecification) FunctionalRequirements() *FunctionalRequirements {
+	return NewFunctionalRequirements(x.Doc(), x.Path() + "/functionalRequirements")
+}
+
+// Technical (non-functional) requirements.
+func (x *RequirementsSpecification) TechnicalRequirements() *TechnicalRequirements {
+	return NewTechnicalRequirements(x.Doc(), x.Path() + "/technicalRequirements")
+}
+
+// Security requirements.
+func (x *RequirementsSpecification) SecurityRequirements() *SecurityRequirements {
+	return NewSecurityRequirements(x.Doc(), x.Path() + "/securityRequirements")
+}
+
+// Organizational requirements.
+func (x *RequirementsSpecification) OrganizationalRequirements() *OrganizationalRequirements {
+	return NewOrganizationalRequirements(x.Doc(), x.Path() + "/organizationalRequirements")
+}
+
+// Traceability matrix overview.
+//
+// Mirrors the flat field on RequirementsOverview so the RC outline
+// reaches it directly. The authoritative content lives on the Solution
+// Blueprint side.
+func (x *RequirementsSpecification) TraceabilityMatrix() string {
+	return x.Doc().ContentOr(x.Path() + "/traceabilityMatrix")
+}
+
+func (x *RequirementsSpecification) SetTraceabilityMatrix(value string) {
+	x.Doc().SetContent(x.Path() + "/traceabilityMatrix", value)
+}
+
+// Requirement relationships.
+func (x *RequirementsSpecification) RequirementRelationships() *som.SomList[*RequirementRelationships] {
+	return som.NewSomList(x.Doc(), x.Path() + "/RERE-REQU-LST", func(d *som.SpecDocument, p string) *RequirementRelationships {
+		return NewRequirementRelationships(d, p)
+	})
+}
+
+// Requirement coverage.
+func (x *RequirementsSpecification) RequirementCoverage() *RequirementCoverage {
 	return NewRequirementCoverage(x.Doc(), x.Path() + "/requirementCoverage")
 }
 
@@ -45458,7 +45976,7 @@ func (x *ResourceCapacityBaselinesStorage) Content() *ResourceCapacityBaselinesS
 	return NewResourceCapacityBaselinesStorageContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A resource key entry [PD00-ACC-USA-RES-nn] (form).
+// A resource key entry (form).
 type ResourceKeyEntry struct {
 	som.SomNode
 }
@@ -45472,7 +45990,7 @@ func (x *ResourceKeyEntry) Content() *ResourceKeyEntryContentForm {
 	return NewResourceKeyEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn].
+// A resource key reference entry (form).
 type ResourceKeyReferenceEntry struct {
 	som.SomNode
 }
@@ -45486,7 +46004,7 @@ func (x *ResourceKeyReferenceEntry) Content() *ResourceKeyReferenceEntryContentF
 	return NewResourceKeyReferenceEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.3. Resource Protection [PD00-ACC-RES].
+// 9.3. Resource Protection.
 type ResourceProtection struct {
 	som.SomNode
 }
@@ -45504,17 +46022,17 @@ func (x *ResourceProtection) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+// 9.3.1. Data-Level Security.
 func (x *ResourceProtection) DataLevelSecurity() *DataLevelSecurity {
 	return NewDataLevelSecurity(x.Doc(), x.Path() + "/dataLevelSecurity")
 }
 
-// 9.3.2. API Security [PD00-ACC-RES-API].
+// 9.3.2. API Security.
 func (x *ResourceProtection) ApiSecurity() *ApiSecurity {
 	return NewApiSecurity(x.Doc(), x.Path() + "/apiSecurity")
 }
 
-// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+// 9.3.3. File and Storage Security.
 func (x *ResourceProtection) FileAndStorageSecurity() *FileAndStorageSecurity {
 	return NewFileAndStorageSecurity(x.Doc(), x.Path() + "/fileAndStorageSecurity")
 }
@@ -45551,7 +46069,7 @@ func (x *ResponseStrategyEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Responsibility change entry [PD00-ORG-JOB-CHA-nn-xxx-nn] (form).
+// Responsibility change entry (form).
 type ResponsibilityChangeEntry struct {
 	som.SomNode
 }
@@ -45579,7 +46097,7 @@ func (x *ResponsibilityContacts) Content() *ResponsibilityContactsContentForm {
 	return NewResponsibilityContactsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Detailed responsibility entry [PD00-ORG-JOB-NEW-nn-RSP-nn] (form).
+// Detailed responsibility entry (form).
 type ResponsibilityDetailEntry struct {
 	som.SomNode
 }
@@ -45593,7 +46111,7 @@ func (x *ResponsibilityDetailEntry) Content() *ResponsibilityDetailEntryContentF
 	return NewResponsibilityDetailEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+// A responsibility entry (form).
 //
 // Documents responsibility assignment for a specific functional area,
 // following RACI principles (Responsible, Accountable, Consulted, Informed)
@@ -45698,7 +46216,7 @@ func (x *ResponsibilityRaci) Content() *ResponsibilityRaciContentForm {
 	return NewResponsibilityRaciContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
+// A responsibility reference entry (form).
 type ResponsibilityReferenceEntry struct {
 	som.SomNode
 }
@@ -45726,7 +46244,7 @@ func (x *ResponsibilitySystems) Content() *ResponsibilitySystemsContentForm {
 	return NewResponsibilitySystemsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+// 10.10.2. Responsive Behavior.
 //
 // How the UI adapts across breakpoints.
 type ResponsiveBehavior struct {
@@ -45828,7 +46346,7 @@ func (x *ResponsiveBehaviorVisibility) Content() *ResponsiveBehaviorVisibilityCo
 	return NewResponsiveBehaviorVisibilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.10. Responsive Design [PD00-USE-RES].
+// 10.10. Responsive Design.
 //
 // Comprehensive responsive design specification covering breakpoints,
 // adaptive layouts, and device-specific behavior for Flutter applications.
@@ -45848,17 +46366,17 @@ func (x *ResponsiveDesign) ResponsiveOverview() *ResponsiveDesignResponsiveOverv
 // Responsive design narrative.
 // (skipped: responsiveNarrative has no target type)
 
-// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+// 10.10.1. Breakpoints.
 func (x *ResponsiveDesign) BreakpointConfig() *BreakpointConfiguration {
 	return NewBreakpointConfiguration(x.Doc(), x.Path() + "/breakpointConfig")
 }
 
-// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+// 10.10.2. Responsive Behavior.
 func (x *ResponsiveDesign) ResponsiveBehavior() *ResponsiveBehavior {
 	return NewResponsiveBehavior(x.Doc(), x.Path() + "/responsiveBehavior")
 }
 
-// A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
+// A screen-specific responsive rule entry.
 type ResponsiveScreenRuleEntry struct {
 	som.SomNode
 }
@@ -46047,7 +46565,7 @@ func (x *ReusabilityPrinciplesVersioning) Content() *ReusabilityPrinciplesVersio
 	return NewReusabilityPrinciplesVersioningContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+// 8.2.3. Reusable Components.
 //
 // Components, libraries, or frameworks designed for reuse across projects
 // or modules.
@@ -46121,7 +46639,7 @@ func (x *ReusableComponentsSection) Registry() *ComponentRegistry {
 	return NewComponentRegistry(x.Doc(), x.Path() + "/registry")
 }
 
-// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+// 10.13.3.1. Reusable Prototype.
 //
 // Prototype that becomes part of the final product.
 type ReusablePrototype struct {
@@ -46306,7 +46824,7 @@ func (x *ReusableUiComponentEntryInteraction) Content() *ReusableUiComponentEntr
 	return NewReusableUiComponentEntryInteractionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
+// A reuse goal entry (form).
 //
 // Defines a specific reuse target: what to reuse, why, at what percentage,
 // how to measure, and who owns the goal.
@@ -46380,7 +46898,7 @@ func (x *ReuseGoalEntryMeasurement) Content() *ReuseGoalEntryMeasurementContentF
 	return NewReuseGoalEntryMeasurementContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
+// A review criterion entry (form).
 //
 // A single criterion evaluated at a phase gate, with weight,
 // evidence linkage, and assessment result.
@@ -46433,6 +46951,45 @@ func NewReviewCriterionEntryResult(doc *som.SpecDocument, path string) *ReviewCr
 
 func (x *ReviewCriterionEntryResult) Content() *ReviewCriterionEntryResultContentForm {
 	return NewReviewCriterionEntryResultContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// A single document revision entry (form).
+type RevisionEntry struct {
+	som.SomNode
+}
+
+// NewRevisionEntry binds a RevisionEntry facade to a document and a path.
+func NewRevisionEntry(doc *som.SpecDocument, path string) *RevisionEntry {
+	return &RevisionEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *RevisionEntry) Content() *RevisionEntryContentForm {
+	return NewRevisionEntryContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// Chronological revision history.
+type RevisionHistory struct {
+	som.SomNode
+}
+
+// NewRevisionHistory binds a RevisionHistory facade to a document and a path.
+func NewRevisionHistory(doc *som.SpecDocument, path string) *RevisionHistory {
+	return &RevisionHistory{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *RevisionHistory) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *RevisionHistory) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// One entry per published revision of the document.
+func (x *RevisionHistory) Revisions() *som.SomList[*RevisionEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/RVHST-REVS-LST", func(d *som.SpecDocument, p string) *RevisionEntry {
+		return NewRevisionEntry(d, p)
+	})
 }
 
 // Risk analysis — probability, impact, and risk scoring.
@@ -46537,7 +47094,7 @@ func (x *RiskCategoryEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+// A risk entry (form).
 //
 // Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
 // Captures risk identification, analysis, response planning, ownership,
@@ -46772,7 +47329,7 @@ func (x *RiskResponseResidual) Content() *RiskResponseResidualContentForm {
 	return NewRiskResponseResidualContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+// 4.7. Risks and Assumptions.
 //
 // Documents identified project risks and underlying assumptions following
 // ISO 31000 Risk Management and PMBOK risk management best practices.
@@ -46792,14 +47349,14 @@ func (x *RisksAndAssumptions) Overview() *RisksOverview {
 	return NewRisksOverview(x.Doc(), x.Path() + "/overview")
 }
 
-// 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+// 4.7.1. Key Risks — contains 0+× Risk.
 func (x *RisksAndAssumptions) KeyRisks() *som.SomList[*RiskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RIEN-KEYR-LST", func(d *som.SpecDocument, p string) *RiskEntry {
 		return NewRiskEntry(d, p)
 	})
 }
 
-// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
+// 4.7.2. Key Assumptions — contains 0+×.
 func (x *RisksAndAssumptions) KeyAssumptions() *KeyAssumptions {
 	return NewKeyAssumptions(x.Doc(), x.Path() + "/keyAssumptions")
 }
@@ -46818,7 +47375,7 @@ func (x *RisksOverview) Content() *RisksOverviewContentForm {
 	return NewRisksOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A role adjustment entry (form) [PD00-POP-ROL-nn].
+// A role adjustment entry (form).
 //
 // Documents a specific deviation from standard TomSpecs role definitions,
 // including the type of adjustment, affected responsibilities, risk
@@ -46945,7 +47502,7 @@ func (x *RoleAdjustmentSummary) Content() *RoleAdjustmentSummaryContentForm {
 	return NewRoleAdjustmentSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 2.1. Role Adjustments [PD00-POP-ROL].
+// 2.1. Role Adjustments.
 //
 // Documents any deviations from the standard TomSpecs roles defined in
 // tom_roles.md. Includes merged, split, omitted, or modified roles
@@ -47012,7 +47569,7 @@ func (x *RoleCertificationPolicy) SetContent(value string) {
 // Role Certification Details (text).
 // (skipped: roleCertificationDetails has no target type)
 
-// A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn].
+// A role combination constraint entry (form).
 //
 // Defines rules about which roles can or cannot be combined — supports
 // separation of duties, prerequisite roles, and co-requisite roles.
@@ -47029,7 +47586,7 @@ func (x *RoleCombinationConstraintEntry) Content() *RoleCombinationConstraintEnt
 	return NewRoleCombinationConstraintEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form).
+// Role competency entry (form).
 type RoleCompetencyEntry struct {
 	som.SomNode
 }
@@ -47043,7 +47600,7 @@ func (x *RoleCompetencyEntry) Content() *RoleCompetencyEntryContentForm {
 	return NewRoleCompetencyEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn].
+// A data scope entry for a role (form).
 //
 // Specifies what data categories the role can access and at what level —
 // supports horizontal access control and data-level security.
@@ -47074,7 +47631,7 @@ func (x *RoleDecisionAuthority) Content() *RoleDecisionAuthorityContentForm {
 	return NewRoleDecisionAuthorityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
+// A role exclusion entry (form).
 type RoleExclusionEntry struct {
 	som.SomNode
 }
@@ -47088,7 +47645,7 @@ func (x *RoleExclusionEntry) Content() *RoleExclusionEntryContentForm {
 	return NewRoleExclusionEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+// 9.4.6. Role Hierarchy.
 //
 // Defines the role hierarchy: inheritance rules, mutual exclusions,
 // role combination constraints, hierarchy depth, and role certification
@@ -47168,7 +47725,7 @@ func (x *RoleHierarchyPolicy) SetContent(value string) {
 // Role Hierarchy Policy Details (text).
 // (skipped: roleHierarchyPolicyDetails has no target type)
 
-// A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
+// A role holder entry (form).
 type RoleHolderEntry struct {
 	som.SomNode
 }
@@ -47182,7 +47739,7 @@ func (x *RoleHolderEntry) Content() *RoleHolderEntryContentForm {
 	return NewRoleHolderEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn].
+// A role inheritance rule entry (form).
 //
 // Defines a specific parent-child inheritance relationship between two roles,
 // including what is inherited and any restrictions.
@@ -47199,9 +47756,9 @@ func (x *RoleInheritanceRuleEntry) Content() *RoleInheritanceRuleEntryContentFor
 	return NewRoleInheritanceRuleEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.7. Role Matrix [PD00-ACC-ROL].
+// 9.7. Role Matrix.
 //
-// Role-to-permission assignment matrix covering HBSG AS22-AUM
+// Role-to-permission assignment matrix covering
 // Authorization Model.
 type RoleMatrix struct {
 	som.SomNode
@@ -47220,7 +47777,7 @@ func (x *RoleMatrix) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn].
+// A direct permission entry for a role (form).
 //
 // Captures direct permission assignments that complement or override
 // entitlement-based access — useful when fine-grained per-role permissions
@@ -47238,7 +47795,7 @@ func (x *RolePermissionEntry) Content() *RolePermissionEntryContentForm {
 	return NewRolePermissionEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn].
+// A role reference entry (form).
 type RoleReferenceEntry struct {
 	som.SomNode
 }
@@ -47361,7 +47918,7 @@ func (x *RollbackStrategyTriggers) Content() *RollbackStrategyTriggersContentFor
 	return NewRollbackStrategyTriggersContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 15.1. Rollout Plan [PD00-ROL-PLN].
+// 15.1. Rollout Plan.
 //
 // Geographic and/or user-group rollout plan covering DR23 Rollout Plan
 // content: the sequencing of sites, countries, business units, and user
@@ -47383,7 +47940,7 @@ func (x *RolloutPlan) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 15.4. Training Materials [PD00-ROL-TRN].
+// 15.4. Training Materials.
 //
 // Training deliverables covering DR17 Training Materials content.
 type RolloutTrainingMaterials struct {
@@ -47499,7 +48056,7 @@ func (x *RpoRtoRequirementsSystems) Content() *RpoRtoRequirementsSystemsContentF
 	return NewRpoRtoRequirementsSystemsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A rule example entry (form) [PD00-BUS-FUN-RUL-nn-EXA-nn].
+// A rule example entry (form).
 //
 // Examples illustrating rule application.
 type RuleExampleEntry struct {
@@ -47515,7 +48072,7 @@ func (x *RuleExampleEntry) Content() *RuleExampleEntryContentForm {
 	return NewRuleExampleEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 12.4. Runtime Dependencies [PD00-COM-RUN].
+// 12.4. Runtime Dependencies.
 //
 // Runtime dependencies between components: required services, startup order,
 // health-check dependencies, failover behavior, and version constraints.
@@ -47543,7 +48100,7 @@ func (x *RuntimeDependencies) Items() *som.SomList[*RuntimeDependencyEntry] {
 	})
 }
 
-// A runtime dependency entry (form) [PD00-COM-RUN-nn].
+// A runtime dependency entry (form).
 //
 // Documents one runtime dependency: startup order, health checks,
 // failover, data flow, latency tolerance, and caching strategy.
@@ -48138,7 +48695,7 @@ func (x *ScenarioData) Content() *ScenarioDataContentForm {
 	return NewScenarioDataContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A scenario entry [PD00-TAR-STP-SCE-nn].
+// A scenario entry.
 //
 // Comprehensive scenario definition for end-to-end user journey.
 type ScenarioEntry struct {
@@ -48217,7 +48774,7 @@ func (x *ScenarioOverview) Content() *ScenarioOverviewContentForm {
 	return NewScenarioOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn].
+// A scenario step entry.
 type ScenarioStepEntry struct {
 	som.SomNode
 }
@@ -48405,7 +48962,7 @@ func (x *ScopeAssumptionEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+// 4.1.1.6. Scope Boundaries.
 //
 // Clear definition of what is in scope and out of scope for this system.
 // Helps set expectations and prevent scope creep.
@@ -48426,21 +48983,21 @@ func (x *ScopeBoundaries) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
+// In-Scope Items — contains 1+× ScopeItem.
 func (x *ScopeBoundaries) InScopeItems() *som.SomList[*ScopeItemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCITE-INSC-LST", func(d *som.SpecDocument, p string) *ScopeItemEntry {
 		return NewScopeItemEntry(d, p)
 	})
 }
 
-// Out-of-Scope Items [PD00-SYO-SYD-PUR-SCO-OUT] — contains 0+× ScopeItem.
+// Out-of-Scope Items — contains 0+× ScopeItem.
 func (x *ScopeBoundaries) OutOfScopeItems() *som.SomList[*ScopeItemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SCITE-OUTO-LST", func(d *som.SpecDocument, p string) *ScopeItemEntry {
 		return NewScopeItemEntry(d, p)
 	})
 }
 
-// Deferred Items [PD00-SYO-SYD-PUR-SCO-DEF] — contains 0+× ScopeItem.
+// Deferred Items — contains 0+× ScopeItem.
 func (x *ScopeBoundaries) DeferredItems() *som.SomList[*DeferredScopeItemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DFSCP-DEFE-LST", func(d *som.SpecDocument, p string) *DeferredScopeItemEntry {
 		return NewDeferredScopeItemEntry(d, p)
@@ -48468,7 +49025,7 @@ func (x *ScopeItemEntry) Content() *ScopeItemEntryContentForm {
 	return NewScopeItemEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A screen action entry (form) [PD00-USE-SCR-INV-nn-ACT-mm].
+// A screen action entry (form).
 //
 // A top-level action available on the screen via toolbar, app bar, or FAB.
 type ScreenActionEntry struct {
@@ -48541,7 +49098,7 @@ func (x *ScreenActionEntryVisual) Content() *ScreenActionEntryVisualContentForm 
 	return NewScreenActionEntryVisualContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+// 10.2.1.n.2. Screen Actions.
 //
 // Top-level actions available on the screen (toolbar, app bar, FAB).
 type ScreenActions struct {
@@ -48585,7 +49142,7 @@ func (x *ScreenBehaviorEntry) Content() *ScreenBehaviorEntryContentForm {
 	return NewScreenBehaviorEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.2. Screen Descriptions [PD00-USE-SCR].
+// 10.2. Screen Descriptions.
 type ScreenDescriptions struct {
 	som.SomNode
 }
@@ -48603,12 +49160,12 @@ func (x *ScreenDescriptions) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+// 10.2.1. Screen Inventory.
 func (x *ScreenDescriptions) ScreenInventory() *ScreenInventory {
 	return NewScreenInventory(x.Doc(), x.Path() + "/screenInventory")
 }
 
-// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+// 10.2.2. Information Architecture.
 func (x *ScreenDescriptions) InformationArchitecture() *InformationArchitecture {
 	return NewInformationArchitecture(x.Doc(), x.Path() + "/informationArchitecture")
 }
@@ -48721,7 +49278,7 @@ func (x *ScreenElementDataDisplayOptions) Content() *ScreenElementDataDisplayOpt
 	return NewScreenElementDataDisplayOptionsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A screen element entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk].
+// A screen element entry (form).
 //
 // Any interactive or display element within a screen section: buttons, fields,
 // data displays, icons, labels, status indicators.
@@ -48758,17 +49315,17 @@ func (x *ScreenElementEntry) Presentation() *ScreenElementEntryPresentation {
 	return NewScreenElementEntryPresentation(x.Doc(), x.Path() + "/presentation")
 }
 
-// 10.2.1.n.m.k.1. Element Action [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-ACN].
+// 10.2.1.n.m.k.1. Element Action.
 func (x *ScreenElementEntry) ElementAction() *ScreenElementAction {
 	return NewScreenElementAction(x.Doc(), x.Path() + "/elementAction")
 }
 
-// 10.2.1.n.m.k.2. Element Field Spec [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-FLD].
+// 10.2.1.n.m.k.2. Element Field Spec.
 func (x *ScreenElementEntry) FieldSpec() *ScreenElementFieldSpec {
 	return NewScreenElementFieldSpec(x.Doc(), x.Path() + "/fieldSpec")
 }
 
-// 10.2.1.n.m.k.3. Element Data Display [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-DAT].
+// 10.2.1.n.m.k.3. Element Data Display.
 func (x *ScreenElementEntry) DataDisplay() *ScreenElementDataDisplay {
 	return NewScreenElementDataDisplay(x.Doc(), x.Path() + "/dataDisplay")
 }
@@ -48928,7 +49485,7 @@ func (x *ScreenElementFieldSpecValidation) Content() *ScreenElementFieldSpecVali
 	return NewScreenElementFieldSpecValidationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A screen entry [PD00-USE-SCR-INV-nn] (form).
+// A screen entry (form).
 //
 // Comprehensive specification of a single application screen, covering
 // identity, purpose, authorization, layout, elements, and behavior.
@@ -48968,17 +49525,17 @@ func (x *ScreenEntry) Presentation() *ScreenEntryPresentation {
 // Screen design rationale and notes.
 // (skipped: designNotes has no target type)
 
-// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+// 10.2.1.n.1. Screen Sections.
 func (x *ScreenEntry) Sections() *ScreenSections {
 	return NewScreenSections(x.Doc(), x.Path() + "/sections")
 }
 
-// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+// 10.2.1.n.2. Screen Actions.
 func (x *ScreenEntry) Actions() *ScreenActions {
 	return NewScreenActions(x.Doc(), x.Path() + "/actions")
 }
 
-// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+// 10.2.1.n.3. Screen States.
 func (x *ScreenEntry) States() *ScreenStates {
 	return NewScreenStates(x.Doc(), x.Path() + "/states")
 }
@@ -49159,7 +49716,7 @@ func (x *ScreenFieldValidation) Content() *ScreenFieldValidationContentForm {
 	return NewScreenFieldValidationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.3. Screen Flow Structure [PD00-USE-SCF].
+// 10.3. Screen Flow Structure.
 type ScreenFlowStructure struct {
 	som.SomNode
 }
@@ -49177,15 +49734,15 @@ func (x *ScreenFlowStructure) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+// 10.3.1. Navigation Model.
 func (x *ScreenFlowStructure) NavigationModel() *NavigationModel {
 	return NewNavigationModel(x.Doc(), x.Path() + "/navigationModel")
 }
 
-// 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid-flow).
+// 10.3.2. Screen Flow Diagram (mermaid-flow).
 // (skipped: screenFlowDiagram has no target type)
 
-// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+// 10.2.1. Screen Inventory.
 //
 // Container for screen definitions. Each entry fully describes one application
 // screen including its purpose, layout zones, elements, actions, and states.
@@ -49216,7 +49773,7 @@ func (x *ScreenInventory) Items() *som.SomList[*ScreenEntry] {
 	})
 }
 
-// A responsive rule entry (form) [PD00-USE-SCR-INV-nn-RSP-mm].
+// A responsive rule entry (form).
 //
 // How the screen adapts at different breakpoints.
 type ScreenResponsiveRuleEntry struct {
@@ -49232,7 +49789,7 @@ func (x *ScreenResponsiveRuleEntry) Content() *ScreenResponsiveRuleEntryContentF
 	return NewScreenResponsiveRuleEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A screen section entry (form) [PD00-USE-SCR-INV-nn-SEC-mm].
+// A screen section entry (form).
 //
 // A logical zone within a screen: header, toolbar, content area, sidebar, etc.
 type ScreenSectionEntry struct {
@@ -49293,7 +49850,7 @@ func (x *ScreenSectionEntryLayout) Content() *ScreenSectionEntryLayoutContentFor
 	return NewScreenSectionEntryLayoutContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+// 10.2.1.n.1. Screen Sections.
 //
 // Logical zones within a screen that group related elements.
 type ScreenSections struct {
@@ -49320,7 +49877,7 @@ func (x *ScreenSections) Items() *som.SomList[*ScreenSectionEntry] {
 	})
 }
 
-// A screen state entry (form) [PD00-USE-SCR-INV-nn-STA-mm].
+// A screen state entry (form).
 //
 // A specific state the screen can be in: loading, empty, error, permission-denied.
 type ScreenStateEntry struct {
@@ -49336,7 +49893,7 @@ func (x *ScreenStateEntry) Content() *ScreenStateEntryContentForm {
 	return NewScreenStateEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+// 10.2.1.n.3. Screen States.
 //
 // Different visual/behavioral states the screen can be in.
 type ScreenStates struct {
@@ -49363,7 +49920,7 @@ func (x *ScreenStates) Items() *som.SomList[*ScreenStateEntry] {
 	})
 }
 
-// A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-mm].
+// A user category entry (form).
 type ScreenUserCategoryEntry struct {
 	som.SomNode
 }
@@ -49377,7 +49934,7 @@ func (x *ScreenUserCategoryEntry) Content() *ScreenUserCategoryEntryContentForm 
 	return NewScreenUserCategoryEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+// 10.3.1.4. Secondary Navigation.
 //
 // In-page navigation: tab bars, segmented controls.
 type SecondaryNavigation struct {
@@ -49407,7 +49964,148 @@ func (x *SecondaryNavigation) TabBars() *som.SomList[*TabBarDefinitionEntry] {
 	})
 }
 
-// A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
+// AC00 Authorization Concept.
+//
+// Complete access and authorization specification — user management,
+// identification and authentication, resource protection, user
+// authorization, encryption, audit/logging, role matrix, and
+// compliance framework.
+type SecurityAccessSpecification struct {
+	som.SomNode
+}
+
+// SecurityAccessSpecificationModelVersion is the model version this object model was generated
+// against (§2.1).
+const SecurityAccessSpecificationModelVersion = "0.0"
+
+// NewSecurityAccessSpecification creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewSecurityAccessSpecification(doc *som.SpecDocument, documentVersion string) (*SecurityAccessSpecification, error) {
+	if err := som.CheckSomModelVersion(SecurityAccessSpecificationModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &SecurityAccessSpecification{SomNode: som.NewSomNode(doc, "SAS")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *SecurityAccessSpecification) ObjectModelVersion() string {
+	return SecurityAccessSpecificationModelVersion
+}
+
+func (x *SecurityAccessSpecification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SecurityAccessSpecification) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *SecurityAccessSpecification) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// User management.
+func (x *SecurityAccessSpecification) UserManagement() *UserManagement {
+	return NewUserManagement(x.Doc(), x.Path() + "/userManagement")
+}
+
+// Identification and authentication.
+func (x *SecurityAccessSpecification) IdentificationAndAuthentication() *IdentificationAndAuthentication {
+	return NewIdentificationAndAuthentication(x.Doc(), x.Path() + "/identificationAndAuthentication")
+}
+
+// Resource protection.
+func (x *SecurityAccessSpecification) ResourceProtection() *ResourceProtection {
+	return NewResourceProtection(x.Doc(), x.Path() + "/resourceProtection")
+}
+
+// User authorization.
+func (x *SecurityAccessSpecification) UserAuthorization() *UserAuthorization {
+	return NewUserAuthorization(x.Doc(), x.Path() + "/userAuthorization")
+}
+
+// Sensitive data encryption.
+func (x *SecurityAccessSpecification) SensitiveDataEncryption() *SensitiveDataEncryption {
+	return NewSensitiveDataEncryption(x.Doc(), x.Path() + "/sensitiveDataEncryption")
+}
+
+// Audit and logging.
+func (x *SecurityAccessSpecification) AuditAndLogging() *AuditAndLogging {
+	return NewAuditAndLogging(x.Doc(), x.Path() + "/auditAndLogging")
+}
+
+// Role matrix.
+func (x *SecurityAccessSpecification) RoleMatrix() *RoleMatrix {
+	return NewRoleMatrix(x.Doc(), x.Path() + "/roleMatrix")
+}
+
+// Compliance framework.
+func (x *SecurityAccessSpecification) ComplianceFramework() *ComplianceFramework {
+	return NewComplianceFramework(x.Doc(), x.Path() + "/complianceFramework")
+}
+
+// 9. Access and Authorization Concept. Seeds → AC.
+type SecurityAndAccessModel struct {
+	som.SomNode
+}
+
+// NewSecurityAndAccessModel binds a SecurityAndAccessModel facade to a document and a path.
+func NewSecurityAndAccessModel(doc *som.SpecDocument, path string) *SecurityAndAccessModel {
+	return &SecurityAndAccessModel{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SecurityAndAccessModel) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SecurityAndAccessModel) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// 9.1. User Management.
+func (x *SecurityAndAccessModel) UserManagement() *UserManagement {
+	return NewUserManagement(x.Doc(), x.Path() + "/userManagement")
+}
+
+// 9.2. Identification and Authentication.
+func (x *SecurityAndAccessModel) Authentication() *IdentificationAndAuthentication {
+	return NewIdentificationAndAuthentication(x.Doc(), x.Path() + "/authentication")
+}
+
+// 9.3. Resource Protection.
+func (x *SecurityAndAccessModel) ResourceProtection() *ResourceProtection {
+	return NewResourceProtection(x.Doc(), x.Path() + "/resourceProtection")
+}
+
+// 9.4. User Authorization.
+func (x *SecurityAndAccessModel) Authorization() *UserAuthorization {
+	return NewUserAuthorization(x.Doc(), x.Path() + "/authorization")
+}
+
+// 9.5. Sensitive Data Encryption.
+func (x *SecurityAndAccessModel) Encryption() *SensitiveDataEncryption {
+	return NewSensitiveDataEncryption(x.Doc(), x.Path() + "/encryption")
+}
+
+// 9.6. Audit and Logging.
+func (x *SecurityAndAccessModel) AuditAndLogging() *AuditAndLogging {
+	return NewAuditAndLogging(x.Doc(), x.Path() + "/auditAndLogging")
+}
+
+// 9.7. Role Matrix..
+func (x *SecurityAndAccessModel) RoleMatrix() *RoleMatrix {
+	return NewRoleMatrix(x.Doc(), x.Path() + "/roleMatrix")
+}
+
+// 9.8. Compliance Framework.
+func (x *SecurityAndAccessModel) ComplianceFramework() *ComplianceFramework {
+	return NewComplianceFramework(x.Doc(), x.Path() + "/complianceFramework")
+}
+
+// A security audit requirement entry (form).
 type SecurityAuditEntry struct {
 	som.SomNode
 }
@@ -49478,7 +50176,7 @@ func (x *SecurityAuditEntryScheduling) Content() *SecurityAuditEntrySchedulingCo
 	return NewSecurityAuditEntrySchedulingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+// 8.8.3. Security Audit Requirements.
 //
 // Comprehensive security audit requirements covering penetration testing,
 // security-focused code review, dependency scanning, security certifications,
@@ -49540,7 +50238,7 @@ func (x *SecurityAuditRequirementsSection) AuditEntries() *som.SomList[*Security
 	})
 }
 
-// Security certification and compliance requirements [PD00-TEC-SEC-AUD].
+// Security certification and compliance requirements.
 type SecurityCertificationRequirements struct {
 	som.SomNode
 }
@@ -49630,7 +50328,7 @@ func (x *SecurityCertificationRequirementsSoc2) Content() *SecurityCertification
 	return NewSecurityCertificationRequirementsSoc2ContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Security-focused code review policy [PD00-TEC-SEC-AUD].
+// Security-focused code review policy.
 //
 // Distinct from CodeReviewProcess (section 8.4) which covers general
 // development code review. This section focuses specifically on
@@ -49775,7 +50473,7 @@ func (x *SecurityControlEntryVerification) Content() *SecurityControlEntryVerifi
 	return NewSecurityControlEntryVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+// 4.3.3.n.2. Security Controls.
 //
 // Security controls that implement or support this requirement.
 type SecurityControls struct {
@@ -49873,7 +50571,7 @@ func (x *SecurityDevelopmentLifecycleTesting) Content() *SecurityDevelopmentLife
 	return NewSecurityDevelopmentLifecycleTestingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A custom security event entry (form) [PD00-ACC-AUD-EVE-nn].
+// A custom security event entry (form).
 //
 // Allows defining additional application-specific security events
 // beyond the standard categories.
@@ -49910,7 +50608,7 @@ func (x *SecurityEventLoggingPolicy) Content() *SecurityEventLoggingPolicyConten
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+// 9.6.1. Security Events.
 //
 // Defines which security events must be logged: authentication attempts,
 // authorization failures, data access, configuration changes, admin actions,
@@ -49964,7 +50662,7 @@ func (x *SecurityEventsDefinition) CustomEvents() *som.SomList[*SecurityEventEnt
 	})
 }
 
-// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
+// 11.3.4. Security quality.
 type SecurityQuality struct {
 	som.SomNode
 }
@@ -50057,7 +50755,7 @@ func (x *SecurityQualityVulnerability) Content() *SecurityQualityVulnerabilityCo
 	return NewSecurityQualityVulnerabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A security requirement entry [PD00-SYO-REQ-SEC-nn].
+// A security requirement entry.
 //
 // Comprehensive security requirement definition following OWASP ASVS,
 // ISO 27001, and security best practices.
@@ -50094,22 +50792,22 @@ func (x *SecurityRequirementEntry) StatusInfo() *SecurityRequirementEntryStatus 
 	return NewSecurityRequirementEntryStatus(x.Doc(), x.Path() + "/statusInfo")
 }
 
-// 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
+// 4.3.3.n.1. Acceptance Criteria.
 func (x *SecurityRequirementEntry) AcceptanceCriteria() *RequirementAcceptanceCriteria {
 	return NewRequirementAcceptanceCriteria(x.Doc(), x.Path() + "/acceptanceCriteria")
 }
 
-// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+// 4.3.3.n.2. Security Controls.
 func (x *SecurityRequirementEntry) Controls() *SecurityControls {
 	return NewSecurityControls(x.Doc(), x.Path() + "/controls")
 }
 
-// 4.3.3.n.3. Dependencies [PD00-SYO-REQ-SEC-nn-DEP].
+// 4.3.3.n.3. Dependencies.
 func (x *SecurityRequirementEntry) Dependencies() *RequirementDependencies {
 	return NewRequirementDependencies(x.Doc(), x.Path() + "/dependencies")
 }
 
-// 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
+// 4.3.3.n.4. Traceability.
 func (x *SecurityRequirementEntry) Traceability() *RequirementTraceability {
 	return NewRequirementTraceability(x.Doc(), x.Path() + "/traceability")
 }
@@ -50170,7 +50868,7 @@ func (x *SecurityRequirementEntryVerification) Content() *SecurityRequirementEnt
 	return NewSecurityRequirementEntryVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+// 4.3.3. Security Requirements.
 //
 // Container for security requirements. Security requirements describe
 // information protection, access control, authentication, authorization,
@@ -50295,7 +50993,7 @@ func (x *SecurityStandardComplianceEntryStatus) Content() *SecurityStandardCompl
 	return NewSecurityStandardComplianceEntryStatusContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
+// A security standard entry (form).
 type SecurityStandardEntry struct {
 	som.SomNode
 }
@@ -50366,7 +51064,7 @@ func (x *SecurityStandardEntryVerification) Content() *SecurityStandardEntryVeri
 	return NewSecurityStandardEntryVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Automated security testing integration [PD00-TEC-SEC-AUD].
+// Automated security testing integration.
 //
 // Requirements for SAST, DAST, IAST, and fuzzing integration
 // into the CI/CD pipeline and development workflow.
@@ -50478,7 +51176,7 @@ func (x *SecurityTestingAutomationScanning) Content() *SecurityTestingAutomation
 	return NewSecurityTestingAutomationScanningContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
+// Self-registration policy (form).
 //
 // Defines self-service identity creation: registration flow, required
 // fields, verification, approval, rate limiting, and domain restrictions.
@@ -50617,7 +51315,7 @@ func (x *SelfServiceAccountManagement) SetContent(value string) {
 // Self-Service Capabilities Description (text).
 // (skipped: selfServiceDescription has no target type)
 
-// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+// 9.5. Sensitive Data Encryption.
 type SensitiveDataEncryption struct {
 	som.SomNode
 }
@@ -50635,17 +51333,17 @@ func (x *SensitiveDataEncryption) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+// 9.5.1. Encryption At Rest.
 func (x *SensitiveDataEncryption) EncryptionAtRest() *EncryptionAtRest {
 	return NewEncryptionAtRest(x.Doc(), x.Path() + "/encryptionAtRest")
 }
 
-// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+// 9.5.2. Encryption In Transit.
 func (x *SensitiveDataEncryption) EncryptionInTransit() *EncryptionInTransit {
 	return NewEncryptionInTransit(x.Doc(), x.Path() + "/encryptionInTransit")
 }
 
-// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+// 9.5.3. Key Management.
 func (x *SensitiveDataEncryption) KeyManagement() *KeyManagement {
 	return NewKeyManagement(x.Doc(), x.Path() + "/keyManagement")
 }
@@ -50830,7 +51528,7 @@ func (x *ServerOsRequirementsSecurity) Content() *ServerOsRequirementsSecurityCo
 	return NewServerOsRequirementsSecurityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+// 8.4.1. Server Requirements.
 //
 // Server compute requirements: CPU, memory, storage, expected load profile,
 // and scaling requirements.
@@ -51136,7 +51834,7 @@ func (x *ServiceAccountLifecycle) SetContent(value string) {
 // Service Account Management Description (text).
 // (skipped: serviceAccountDescription has no target type)
 
-// A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].
+// A service level agreement entry.
 type ServiceLevelAgreementEntry struct {
 	som.SomNode
 }
@@ -51221,7 +51919,7 @@ func (x *ServiceLevelIndicatorsQuality) Content() *ServiceLevelIndicatorsQuality
 	return NewServiceLevelIndicatorsQualityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
+// 11.4.2. Service level quality.
 type ServiceLevelQuality struct {
 	som.SomNode
 }
@@ -51441,7 +52139,7 @@ func (x *SessionLifecycleMonitoring) SetContent(value string) {
 // Session Lifecycle Monitoring Details (text).
 // (skipped: sessionLifecycleDetails has no target type)
 
-// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+// 9.2.4. Session Management.
 //
 // Comprehensive session management policy covering session timeouts,
 // concurrent session control, session revocation, remember-me functionality,
@@ -51498,7 +52196,7 @@ func (x *SessionManagement) SessionLifecycleMonitoring() *SessionLifecycleMonito
 	return NewSessionLifecycleMonitoring(x.Doc(), x.Path() + "/sessionLifecycleMonitoring")
 }
 
-// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+// 4.1.5.4. Session Model.
 //
 // Defines session management including authentication, timeouts, and
 // multi-device session handling.
@@ -51638,7 +52336,7 @@ func (x *SessionTimeoutPolicy) SetContent(value string) {
 // Session Timeout Details (text).
 // (skipped: sessionTimeoutDetails has no target type)
 
-// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+// 1.1.3.3. Shared Infrastructure Dependencies.
 //
 // Dependencies on shared infrastructure components used by multiple systems.
 type SharedInfrastructureDependencies struct {
@@ -51665,7 +52363,7 @@ func (x *SharedInfrastructureDependencies) Items() *som.SomList[*SharedInfrastru
 	})
 }
 
-// A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
+// A shared infrastructure entry (form).
 //
 // Documents a shared infrastructure component that multiple systems depend on.
 type SharedInfrastructureEntry struct {
@@ -51917,7 +52615,7 @@ func (x *SharedServiceEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+// 14.2.5. Sign-off Process.
 //
 // Formal sign-off process: who signs off (business acceptance board,
 // technical acceptance board), what documents are signed, legal and
@@ -52033,7 +52731,7 @@ func (x *SignOffProcessTimeline) Content() *SignOffProcessTimelineContentForm {
 	return NewSignOffProcessTimelineContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO].
+// Single Sign-On policy (form).
 //
 // Defines SSO scope, protocol, session propagation, federation,
 // logout propagation, and platform-specific SSO strategies.
@@ -52129,7 +52827,7 @@ func (x *SingleSignOnPolicySession) Content() *SingleSignOnPolicySessionContentF
 	return NewSingleSignOnPolicySessionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+// 8.7.2.5. SLA and SLO Monitoring.
 //
 // Service Level Agreement and Service Level Objective tracking.
 type SlaAndSloMonitoring struct {
@@ -52255,7 +52953,7 @@ func (x *SlaMonitoringRequirementsReporting) Content() *SlaMonitoringRequirement
 	return NewSlaMonitoringRequirementsReportingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// An SLO entry [PD00-TEC-SYS-MON-SLA-nn].
+// An SLO entry.
 type SloEntry struct {
 	som.SomNode
 }
@@ -52307,7 +53005,7 @@ func (x *SloEntryTarget) Content() *SloEntryTargetContentForm {
 	return NewSloEntryTargetContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+// 14.1.1. Software Deliverables.
 type SoftwareDeliverables struct {
 	som.SomNode
 }
@@ -52332,7 +53030,7 @@ func (x *SoftwareDeliverables) Items() *som.SomList[*DeliverableEntry] {
 	})
 }
 
-// 8.2. Software Design Requirements [PD00-TEC-SOF].
+// 8.2. Software Design Requirements.
 type SoftwareDesignRequirements struct {
 	som.SomNode
 }
@@ -52350,17 +53048,17 @@ func (x *SoftwareDesignRequirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+// 8.2.1. Layering and Module Structure.
 func (x *SoftwareDesignRequirements) LayeringAndModuleStructure() *LayeringAndModuleStructure {
 	return NewLayeringAndModuleStructure(x.Doc(), x.Path() + "/layeringAndModuleStructure")
 }
 
-// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+// 8.2.2. Development Environment.
 func (x *SoftwareDesignRequirements) DevelopmentEnvironment() *DevelopmentEnvironment {
 	return NewDevelopmentEnvironment(x.Doc(), x.Path() + "/developmentEnvironment")
 }
 
-// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+// 8.2.3. Reusable Components.
 func (x *SoftwareDesignRequirements) ReusableComponents() *ReusableComponentsSection {
 	return NewReusableComponentsSection(x.Doc(), x.Path() + "/reusableComponents")
 }
@@ -52455,7 +53153,143 @@ func (x *SoftwareLayerEntryTechnology) Content() *SoftwareLayerEntryTechnologyCo
 	return NewSoftwareLayerEntryTechnologyContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn].
+// SBP.11 Solution Architecture & Technology.
+//
+// Public anchor: ISO/IEC/IEEE 42010 architecture description.
+type SolutionArchitectureAndTechnology struct {
+	som.SomNode
+}
+
+// NewSolutionArchitectureAndTechnology binds a SolutionArchitectureAndTechnology facade to a document and a path.
+func NewSolutionArchitectureAndTechnology(doc *som.SpecDocument, path string) *SolutionArchitectureAndTechnology {
+	return &SolutionArchitectureAndTechnology{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *SolutionArchitectureAndTechnology) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SolutionArchitectureAndTechnology) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Technical framework and platform concept.
+func (x *SolutionArchitectureAndTechnology) TechnicalFramework() *TechnicalFrameworkConcept {
+	return NewTechnicalFrameworkConcept(x.Doc(), x.Path() + "/technicalFramework")
+}
+
+// Components, libraries, and services to reuse.
+func (x *SolutionArchitectureAndTechnology) ComponentsToUse() *ComponentsToUse {
+	return NewComponentsToUse(x.Doc(), x.Path() + "/componentsToUse")
+}
+
+// The complete Solution Blueprint (SBP) document.
+//
+// Contains a [DocumentControl] header block and the SBP sections, sequenced
+// per the public-standards order (§4 of the redesign proposal).
+type SolutionBlueprint struct {
+	som.SomNode
+}
+
+// SolutionBlueprintModelVersion is the model version this object model was generated
+// against (§2.1).
+const SolutionBlueprintModelVersion = "0.0"
+
+// NewSolutionBlueprint creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewSolutionBlueprint(doc *som.SpecDocument, documentVersion string) (*SolutionBlueprint, error) {
+	if err := som.CheckSomModelVersion(SolutionBlueprintModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &SolutionBlueprint{SomNode: som.NewSomNode(doc, "SBP")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *SolutionBlueprint) ObjectModelVersion() string {
+	return SolutionBlueprintModelVersion
+}
+
+func (x *SolutionBlueprint) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SolutionBlueprint) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// SBP.1 Document Control (header + revision history + approvals).
+func (x *SolutionBlueprint) DocumentControl() *DocumentControl {
+	return NewDocumentControl(x.Doc(), x.Path() + "/documentControl")
+}
+
+// SBP.2 Introduction & Scope.
+func (x *SolutionBlueprint) IntroductionAndScope() *IntroductionAndScope {
+	return NewIntroductionAndScope(x.Doc(), x.Path() + "/introductionAndScope")
+}
+
+// SBP.3 Glossary & Abbreviations.
+func (x *SolutionBlueprint) GlossaryAndAbbreviations() *GlossaryAndAbbreviations {
+	return NewGlossaryAndAbbreviations(x.Doc(), x.Path() + "/glossaryAndAbbreviations")
+}
+
+// SBP.4 Stakeholders & Governance.
+func (x *SolutionBlueprint) StakeholdersAndGovernance() *StakeholdersAndGovernance {
+	return NewStakeholdersAndGovernance(x.Doc(), x.Path() + "/stakeholdersAndGovernance")
+}
+
+// SBP.5 Current Landscape. Seeds → CLA.
+func (x *SolutionBlueprint) CurrentLandscape() *CurrentLandscape {
+	return NewCurrentLandscape(x.Doc(), x.Path() + "/currentLandscape")
+}
+
+// SBP.6 Assumptions, Constraints & Dependencies.
+func (x *SolutionBlueprint) AssumptionsConstraintsDependencies() *AssumptionsConstraintsDependencies {
+	return NewAssumptionsConstraintsDependencies(x.Doc(), x.Path() + "/assumptionsConstraintsDependencies")
+}
+
+// SBP.7 Target Operating Model concept. Seeds → TOM.
+func (x *SolutionBlueprint) TargetOperatingModelConcept() *TargetOperatingModelConcept {
+	return NewTargetOperatingModelConcept(x.Doc(), x.Path() + "/targetOperatingModelConcept")
+}
+
+// SBP.8 Information & Data Model. Seeds → IFM.
+func (x *SolutionBlueprint) InformationAndDataModel() *InformationAndDataModel {
+	return NewInformationAndDataModel(x.Doc(), x.Path() + "/informationAndDataModel")
+}
+
+// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+func (x *SolutionBlueprint) Requirements() *Requirements {
+	return NewRequirements(x.Doc(), x.Path() + "/requirements")
+}
+
+// SBP.11 Solution Architecture & Technology. Seeds → ATS.
+func (x *SolutionBlueprint) SolutionArchitectureAndTechnology() *SolutionArchitectureAndTechnology {
+	return NewSolutionArchitectureAndTechnology(x.Doc(), x.Path() + "/solutionArchitectureAndTechnology")
+}
+
+// SBP.12 Security & Access Model. Seeds → SAS.
+func (x *SolutionBlueprint) SecurityAndAccessModel() *SecurityAndAccessModel {
+	return NewSecurityAndAccessModel(x.Doc(), x.Path() + "/securityAndAccessModel")
+}
+
+// SBP.13 Experience & Interface Design. Seeds → XDS.
+func (x *SolutionBlueprint) ExperienceAndInterfaceDesign() *ExperienceAndInterfaceDesign {
+	return NewExperienceAndInterfaceDesign(x.Doc(), x.Path() + "/experienceAndInterfaceDesign")
+}
+
+// SBP.14 Quality & Acceptance Model. Seeds → QAP.
+func (x *SolutionBlueprint) QualityAndAcceptanceModel() *QualityAndAcceptanceModel {
+	return NewQualityAndAcceptanceModel(x.Doc(), x.Path() + "/qualityAndAcceptanceModel")
+}
+
+// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+func (x *SolutionBlueprint) DeliveryTransitionAndRollout() *DeliveryTransitionAndRollout {
+	return NewDeliveryTransitionAndRollout(x.Doc(), x.Path() + "/deliveryTransitionAndRollout")
+}
+
+// Specialized equipment entry (form).
 type SpecializedEquipmentEntry struct {
 	som.SomNode
 }
@@ -52583,7 +53417,7 @@ func (x *StaffingBudgetGovernance) Content() *StaffingBudgetGovernanceContentFor
 	return NewStaffingBudgetGovernanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A staffing entry (form) [PD00-ORG-JOB-STA-nn].
+// A staffing entry (form).
 //
 // Represents one staffing position including role, competency requirements,
 // sourcing method, budget, timeline, and approval status.
@@ -52676,7 +53510,7 @@ func (x *StaffingEntryRecruitment) Content() *StaffingEntryRecruitmentContentFor
 	return NewStaffingEntryRecruitmentContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+// 5.2.4. Staffing Plan.
 type StaffingPlan struct {
 	som.SomNode
 }
@@ -52750,7 +53584,7 @@ func (x *StageDeployment) Content() *StageDeploymentContentForm {
 	return NewStageDeploymentContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+// A stage entry (form) with description subsections.
 //
 // Represents a single delivery stage — a self-contained increment of the
 // system that delivers measurable business value. Each stage has clear
@@ -52829,7 +53663,7 @@ func (x *StageEntry) Metrics() *StageMetrics {
 // Feature Scope narrative.
 // (skipped: featureScope has no target type)
 
-// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
+// Sub-stages and Milestones — contains 0+× SubStage.
 func (x *StageEntry) SubStagesAndMilestones() *som.SomList[*SubStageEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SUSST-SUBS-LST", func(d *som.SpecDocument, p string) *SubStageEntry {
 		return NewSubStageEntry(d, p)
@@ -52839,7 +53673,7 @@ func (x *StageEntry) SubStagesAndMilestones() *som.SomList[*SubStageEntry] {
 // Timeline narrative.
 // (skipped: timelineNarrative has no target type)
 
-// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
+// Success Criteria — contains 0+× StageSuccessCriterion.
 func (x *StageEntry) SuccessCriteria() *som.SomList[*StageSuccessCriterionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STGSUC-SUCC-LST", func(d *som.SpecDocument, p string) *StageSuccessCriterionEntry {
 		return NewStageSuccessCriterionEntry(d, p)
@@ -52849,7 +53683,7 @@ func (x *StageEntry) SuccessCriteria() *som.SomList[*StageSuccessCriterionEntry]
 // Rollout Plan narrative.
 // (skipped: rolloutPlan has no target type)
 
-// 13.6. Governance [PD00-SSP-GOV].
+// 13.6. Governance.
 //
 // Governance framework for stage transitions, phase gate reviews,
 // and key decision points. Covers governance structure, authority
@@ -52908,12 +53742,12 @@ func (x *StageGovernance) Transition() *StageGovernanceTransition {
 // Governance narrative and rationale.
 // (skipped: governanceNarrative has no target type)
 
-// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+// 13.6.1. Phase Gate Reviews.
 func (x *StageGovernance) PhaseGateReviews() *PhaseGateReviews {
 	return NewPhaseGateReviews(x.Doc(), x.Path() + "/phaseGateReviews")
 }
 
-// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+// 13.6.2. Decision Points.
 func (x *StageGovernance) DecisionPoints() *DecisionPoints {
 	return NewDecisionPoints(x.Doc(), x.Path() + "/decisionPoints")
 }
@@ -53072,7 +53906,7 @@ func (x *StageMigrationRiskContingency) Content() *StageMigrationRiskContingency
 	return NewStageMigrationRiskContingencyContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
+// A stage migration risk entry (form).
 //
 // Individual risk in the data migration risk register. Covers risk
 // identification, categorization, probability/impact scoring,
@@ -53229,7 +54063,7 @@ func (x *StageMigrationRiskStatus) Content() *StageMigrationRiskStatusContentFor
 	return NewStageMigrationRiskStatusContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+// 13.5.2. Migration Risks.
 //
 // Risk register specific to data migration activities. Covers data
 // loss, corruption, downtime overrun, compliance violations,
@@ -53257,7 +54091,7 @@ func (x *StageMigrationRisks) Items() *som.SomList[*StageMigrationRiskEntry] {
 	})
 }
 
-// 13.2. Stage Overview [PD00-SSP-STA].
+// 13.2. Stage Overview.
 //
 // High-level summary across all planned stages including aggregate
 // metrics, critical-path identification, resource allocation patterns,
@@ -53333,7 +54167,7 @@ func (x *StageOverview) Constraints() *StageOverviewConstraints {
 	return NewStageOverviewConstraints(x.Doc(), x.Path() + "/constraints")
 }
 
-// 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
+// 13.2.1. Stage Summary — contains 1+× Stage
 // Summary Entry.
 func (x *StageOverview) StageSummaries() *som.SomList[*StageSummaryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STAGSE-STAG-LST", func(d *som.SpecDocument, p string) *StageSummaryEntry {
@@ -53344,18 +54178,18 @@ func (x *StageOverview) StageSummaries() *som.SomList[*StageSummaryEntry] {
 // Stage Summary narrative.
 // (skipped: stageSummaryNarrative has no target type)
 
-// 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
+// 13.2.2. Stage Timeline Diagram (mermaid-gantt).
 // (skipped: timelineDiagram has no target type)
 
-// 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
+// 13.2.3. Resource Allocation Diagram
 // (mermaid-gantt).
 // (skipped: resourceAllocationDiagram has no target type)
 
-// 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
+// 13.2.4. Budget Distribution Diagram
 // (mermaid-flow).
 // (skipped: budgetDistributionDiagram has no target type)
 
-// 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
+// 13.2.5. Dependency Map (mermaid-flow).
 // (skipped: dependencyMap has no target type)
 
 // Planning baseline for stage overview.
@@ -53582,7 +54416,7 @@ func (x *StageStakeholders) Content() *StageStakeholdersContentForm {
 	return NewStageStakeholdersContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
+// A success criterion entry (form).
 //
 // Defines a measurable criterion that determines whether a stage has
 // achieved its objectives. Each criterion has a target metric,
@@ -53671,7 +54505,7 @@ func (x *StageSummaryDependencies) Content() *StageSummaryDependenciesContentFor
 	return NewStageSummaryDependenciesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A stage summary entry [PD00-SSP-STA-SUM-nn] (form).
+// A stage summary entry (form).
 //
 // Quick-reference record for a single stage within the overview. Each
 // entry captures the essential identification, timeline, scope, and
@@ -53983,7 +54817,7 @@ func (x *StagingRiskAssessment) Content() *StagingRiskAssessmentContentForm {
 	return NewStagingRiskAssessmentContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 13.1. Staging Strategy [PD00-SSP-STR].
+// 13.1. Staging Strategy.
 //
 // Document the rationale behind the chosen staging approach. Consider
 // PMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2
@@ -54068,20 +54902,20 @@ func (x *StagingStrategy) Governance() *StagingGovernance {
 	return NewStagingGovernance(x.Doc(), x.Path() + "/governance")
 }
 
-// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+// 13.1.1. Staging Approach.
 // (skipped: stagingApproach has no target type)
 
-// 13.1.2. Rationale [PD00-SSP-STR-RAT].
+// 13.1.2. Rationale.
 // (skipped: rationaleNarrative has no target type)
 
-// 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
+// 13.1.3. Key Assumptions.
 func (x *StagingStrategy) KeyAssumptions() *som.SomList[*KeyAssumptionEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/KEYAS-KEYA-LST", func(d *som.SpecDocument, p string) *KeyAssumptionEntry {
 		return NewKeyAssumptionEntry(d, p)
 	})
 }
 
-// 13.1.4. Constraints [PD00-SSP-STR-CON].
+// 13.1.4. Constraints.
 func (x *StagingStrategy) Constraints() *som.SomList[*StagingStrategyConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STAGI-CONS-LST", func(d *som.SpecDocument, p string) *StagingStrategyConstraintEntry {
 		return NewStagingStrategyConstraintEntry(d, p)
@@ -54172,7 +55006,51 @@ func (x *StakeholderEntryImpact) Content() *StakeholderEntryImpactContentForm {
 	return NewStakeholderEntryImpactContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+// A register of the project's stakeholders.
+//
+// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
+type StakeholderRegister struct {
+	som.SomNode
+}
+
+// NewStakeholderRegister binds a StakeholderRegister facade to a document and a path.
+func NewStakeholderRegister(doc *som.SpecDocument, path string) *StakeholderRegister {
+	return &StakeholderRegister{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *StakeholderRegister) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *StakeholderRegister) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// One entry per stakeholder or stakeholder group.
+func (x *StakeholderRegister) Stakeholders() *som.SomList[*StakeholderRegisterEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/STKRG-STAK-LST", func(d *som.SpecDocument, p string) *StakeholderRegisterEntry {
+		return NewStakeholderRegisterEntry(d, p)
+	})
+}
+
+// A single stakeholder register entry (form).
+//
+// Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
+// `StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+type StakeholderRegisterEntry struct {
+	som.SomNode
+}
+
+// NewStakeholderRegisterEntry binds a StakeholderRegisterEntry facade to a document and a path.
+func NewStakeholderRegisterEntry(doc *som.SpecDocument, path string) *StakeholderRegisterEntry {
+	return &StakeholderRegisterEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *StakeholderRegisterEntry) Content() *StakeholderRegisterEntryContentForm {
+	return NewStakeholderRegisterEntryContentForm(x.Doc(), x.Path() + "/content")
+}
+
+// 4.1.1.3. Stakeholders and Beneficiaries.
 //
 // Lists all stakeholders and beneficiaries of the system with their
 // interests, influence level, and expected benefits.
@@ -54207,6 +55085,41 @@ func (x *StakeholdersAndBeneficiaries) SecondaryStakeholders() *som.SomList[*Sta
 	})
 }
 
+// SBP.4 Stakeholders & Governance.
+//
+// Public anchor: BABOK stakeholder analysis + PMBOK governance.
+type StakeholdersAndGovernance struct {
+	som.SomNode
+}
+
+// NewStakeholdersAndGovernance binds a StakeholdersAndGovernance facade to a document and a path.
+func NewStakeholdersAndGovernance(doc *som.SpecDocument, path string) *StakeholdersAndGovernance {
+	return &StakeholdersAndGovernance{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *StakeholdersAndGovernance) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *StakeholdersAndGovernance) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Governance, steering committee, RACI, process deviations.
+func (x *StakeholdersAndGovernance) ProjectOrganizationProcess() *ProjectOrganizationAndProcess {
+	return NewProjectOrganizationAndProcess(x.Doc(), x.Path() + "/projectOrganizationProcess")
+}
+
+// Team, distribution, reference documents, communication.
+func (x *StakeholdersAndGovernance) Administrative() *Administrative {
+	return NewAdministrative(x.Doc(), x.Path() + "/administrative")
+}
+
+// Stakeholder register (§5 completeness addition).
+func (x *StakeholdersAndGovernance) StakeholderRegister() *StakeholderRegister {
+	return NewStakeholderRegister(x.Doc(), x.Path() + "/stakeholderRegister")
+}
+
 // Stakeholders and interests.
 type StakeholdersAndInterests struct {
 	som.SomNode
@@ -54221,7 +55134,7 @@ func (x *StakeholdersAndInterests) Content() *StakeholdersAndInterestsContentFor
 	return NewStakeholdersAndInterestsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+// 8.3. Standard Application Software Requirements.
 type StandardSoftwareRequirements struct {
 	som.SomNode
 }
@@ -54239,17 +55152,17 @@ func (x *StandardSoftwareRequirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+// 8.3.1. Compatibility Requirements.
 func (x *StandardSoftwareRequirements) CompatibilityRequirements() *CompatibilityRequirementsSection {
 	return NewCompatibilityRequirementsSection(x.Doc(), x.Path() + "/compatibilityRequirements")
 }
 
-// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+// 8.3.2. Standards Compliance.
 func (x *StandardSoftwareRequirements) StandardsCompliance() *StandardsComplianceSection {
 	return NewStandardsComplianceSection(x.Doc(), x.Path() + "/standardsCompliance")
 }
 
-// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+// 8.3.2. Standards Compliance.
 //
 // Required compliance with IT standards, industry protocols, and interface
 // specifications.
@@ -54342,7 +55255,7 @@ func (x *StandardsComplianceSection) ComplianceVerification() *ComplianceVerific
 	return NewComplianceVerificationSection(x.Doc(), x.Path() + "/complianceVerification")
 }
 
-// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+// 3.1.2. Steering Committee.
 //
 // Container for steering committee member descriptions.
 type SteeringCommittee struct {
@@ -54470,7 +55383,7 @@ func (x *StorageLifecyclePolicy) SetContent(value string) {
 // Storage Lifecycle Details (text).
 // (skipped: storageLifecycleDetails has no target type)
 
-// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+// 4.1.1.5. Strategic Alignment.
 //
 // How this system aligns with organizational strategy, goals, and
 // initiatives. Demonstrates strategic justification for the project.
@@ -54496,7 +55409,7 @@ func (x *StrategicAlignment) AlignmentDetails() *StrategicAlignmentAlignmentDeta
 	return NewStrategicAlignmentAlignmentDetailsForm(x.Doc(), x.Path() + "/alignmentDetails")
 }
 
-// A sub-function entry (form) [PD00-BUS-FUN-DEC-nn-SUB-nn].
+// A sub-function entry (form).
 //
 // Lower-level function in the decomposition.
 type SubFunctionEntry struct {
@@ -54512,7 +55425,7 @@ func (x *SubFunctionEntry) Content() *SubFunctionEntryContentForm {
 	return NewSubFunctionEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
+// A sub-stage or milestone entry (form).
 //
 // Represents a discrete phase within a stage — alpha, beta, release
 // candidate, pilot, GA — or a key milestone. Sub-stages provide finer
@@ -54625,7 +55538,7 @@ func (x *SubStageEntryTimeline) Content() *SubStageEntryTimelineContentForm {
 	return NewSubStageEntryTimelineContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+// 4.2.3. Success Criteria.
 //
 // Overall project success criteria that determine whether the project
 // has achieved its objectives. These criteria will be used during
@@ -54777,7 +55690,7 @@ func (x *SuccessCriteriaSummary) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+// A success criterion entry (form).
 //
 // Individual success criterion with comprehensive measurement details,
 // thresholds, and verification requirements.
@@ -54910,7 +55823,7 @@ func (x *SuccessCriterionVerification) Content() *SuccessCriterionVerificationCo
 	return NewSuccessCriterionVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+// 10.8.3. Support Access.
 type SupportAccess struct {
 	som.SomNode
 }
@@ -55022,7 +55935,7 @@ func (x *SupportAccessTickets) Content() *SupportAccessTicketsContentForm {
 	return NewSupportAccessTicketsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+// 14.1.4. Support Deliverables.
 type SupportDeliverables struct {
 	som.SomNode
 }
@@ -55047,7 +55960,7 @@ func (x *SupportDeliverables) Items() *som.SomList[*DeliverableEntry] {
 	})
 }
 
-// A supported locale entry [PD00-USE-MUL-LOC-nn].
+// A supported locale entry.
 type SupportedLocaleEntry struct {
 	som.SomNode
 }
@@ -55099,10 +56012,10 @@ func (x *SupportedLocaleEntryRollout) Content() *SupportedLocaleEntryRolloutCont
 	return NewSupportedLocaleEntryRolloutContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.9. System Architecture [PD00-TEC-ARC].
+// 8.9. System Architecture.
 //
 // Detailed internal architecture (layers, packages, patterns). Covers
-// HBSG AS09-SOF / DR30.
+//
 //
 // Class named `SystemArchitectureSpec` to avoid colliding with any other
 // architecture-related identifier in the model.
@@ -55123,7 +56036,7 @@ func (x *SystemArchitectureSpec) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+// 4.5. System Boundaries. Seeds → BSI.
 //
 // Defines the scope boundaries of the system including external interfaces,
 // out-of-scope items, and operating assumptions. This section provides the
@@ -55141,63 +56054,63 @@ func NewSystemBoundaries(doc *som.SpecDocument, path string) *SystemBoundaries {
 // Overview of system boundaries and scope definition approach.
 // (skipped: overview has no target type)
 
-// 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+// 4.5.1. Interfaces to External Systems — contains 0+×.
 func (x *SystemBoundaries) ExternalInterfaces() *ExternalInterfaces {
 	return NewExternalInterfaces(x.Doc(), x.Path() + "/externalInterfaces")
 }
 
-// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
+// 4.5.2. Out of Scope — contains 0+×.
 func (x *SystemBoundaries) OutOfScope() *OutOfScope {
 	return NewOutOfScope(x.Doc(), x.Path() + "/outOfScope")
 }
 
-// 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
+// 4.5.3. Assumptions — contains 0+×.
 func (x *SystemBoundaries) Assumptions() *BoundaryAssumptions {
 	return NewBoundaryAssumptions(x.Doc(), x.Path() + "/assumptions")
 }
 
-// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV]. Covers BSI-LAN-INV.
+// 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
 func (x *SystemBoundaries) SystemLandscapeInventory() *SystemLandscapeInventory {
 	return NewSystemLandscapeInventory(x.Doc(), x.Path() + "/systemLandscapeInventory")
 }
 
-// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
+// 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
 func (x *SystemBoundaries) BoundaryInteractionPatterns() *som.SomList[*BoundaryInteractionPatterns] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BOINPA-BOUN-LST", func(d *som.SpecDocument, p string) *BoundaryInteractionPatterns {
 		return NewBoundaryInteractionPatterns(d, p)
 	})
 }
 
-// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
+// 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
 func (x *SystemBoundaries) InteractionTestingStrategy() *InteractionTestingStrategy {
 	return NewInteractionTestingStrategy(x.Doc(), x.Path() + "/interactionTestingStrategy")
 }
 
-// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP]. Covers BSI-DEP.
+// 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
 func (x *SystemBoundaries) InteractionDependencyAnalysis() *InteractionDependencyAnalysis {
 	return NewInteractionDependencyAnalysis(x.Doc(), x.Path() + "/interactionDependencyAnalysis")
 }
 
-// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
+// 4.5.8. Migration Interactions. Covers BSI-MIG.
 func (x *SystemBoundaries) MigrationInteractions() *som.SomList[*MigrationInteractions] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MIIN-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationInteractions {
 		return NewMigrationInteractions(d, p)
 	})
 }
 
-// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+// 4.5.9. Cross-Boundary Operational Considerations.
 func (x *SystemBoundaries) OperationalConsiderations() *som.SomList[*CrossBoundaryOperationalConsiderations] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CBOC-OPER-LST", func(d *som.SpecDocument, p string) *CrossBoundaryOperationalConsiderations {
 		return NewCrossBoundaryOperationalConsiderations(d, p)
 	})
 }
 
-// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+// 4.5.10. Cross-Boundary Error Handling.
 func (x *SystemBoundaries) CrossBoundaryErrorHandling() *CrossBoundaryErrorHandling {
 	return NewCrossBoundaryErrorHandling(x.Doc(), x.Path() + "/crossBoundaryErrorHandling")
 }
 
-// Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS].
+// Business criticality assessment.
 type SystemBusinessCriticality struct {
 	som.SomNode
 }
@@ -55263,7 +56176,7 @@ func (x *SystemBusinessCriticalityOperations) Content() *SystemBusinessCriticali
 	return NewSystemBusinessCriticalityOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn].
+// Business process supported.
 type SystemBusinessProcessEntry struct {
 	som.SomNode
 }
@@ -55277,7 +56190,7 @@ func (x *SystemBusinessProcessEntry) Content() *SystemBusinessProcessEntryConten
 	return NewSystemBusinessProcessEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn].
+// Business unit using the system.
 type SystemBusinessUnitEntry struct {
 	som.SomNode
 }
@@ -55362,7 +56275,7 @@ func (x *SystemConfigurationManagementGovernance) Content() *SystemConfiguration
 	return NewSystemConfigurationManagementGovernanceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.2. System Context [PD00-SYO-SYD-CON].
+// 4.1.2. System Context.
 //
 // Describes the system in its operational context: how it fits within the
 // organization's IT landscape, who interacts with it, and what external
@@ -55384,47 +56297,47 @@ func (x *SystemContext) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+// 4.1.2.1. Context Diagram.
 func (x *SystemContext) ContextDiagram() *ContextDiagram {
 	return NewContextDiagram(x.Doc(), x.Path() + "/contextDiagram")
 }
 
-// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+// 4.1.2.2. IT Landscape Position.
 func (x *SystemContext) ItLandscapePosition() *ItLandscapePosition {
 	return NewItLandscapePosition(x.Doc(), x.Path() + "/itLandscapePosition")
 }
 
-// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+// 4.1.2.3. External Actors.
 func (x *SystemContext) ExternalActors() *ExternalActors {
 	return NewExternalActors(x.Doc(), x.Path() + "/externalActors")
 }
 
-// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+// 4.1.2.4. External Systems.
 func (x *SystemContext) ExternalSystems() *ExternalSystemsContext {
 	return NewExternalSystemsContext(x.Doc(), x.Path() + "/externalSystems")
 }
 
-// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+// 4.1.2.5. Trust Boundaries.
 func (x *SystemContext) TrustBoundaries() *TrustBoundaries {
 	return NewTrustBoundaries(x.Doc(), x.Path() + "/trustBoundaries")
 }
 
-// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+// 4.1.2.6. Organizational Context.
 func (x *SystemContext) OrganizationalContext() *OrganizationalContext {
 	return NewOrganizationalContext(x.Doc(), x.Path() + "/organizationalContext")
 }
 
-// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+// 4.1.2.7. Deployment Context.
 func (x *SystemContext) DeploymentContext() *DeploymentContext {
 	return NewDeploymentContext(x.Doc(), x.Path() + "/deploymentContext")
 }
 
-// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+// 4.1.2.8. Regulatory Context.
 func (x *SystemContext) RegulatoryContext() *RegulatoryContext {
 	return NewRegulatoryContext(x.Doc(), x.Path() + "/regulatoryContext")
 }
 
-// Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST].
+// Cost analysis for replacement.
 type SystemCostAnalysis struct {
 	som.SomNode
 }
@@ -55505,7 +56418,7 @@ func (x *SystemCostAnalysisMigration) Content() *SystemCostAnalysisMigrationCont
 	return NewSystemCostAnalysisMigrationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT].
+// Data scope and migration assessment.
 type SystemDataScope struct {
 	som.SomNode
 }
@@ -55571,7 +56484,7 @@ func (x *SystemDataScopeMigration) Content() *SystemDataScopeMigrationContentFor
 	return NewSystemDataScopeMigrationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+// A system dependency entry (form).
 //
 // Documents one dependency between systems in the current landscape:
 // mechanism, coupling strength, data flow, failure impact, SLA,
@@ -55673,7 +56586,7 @@ func (x *SystemDependencyEntryReliability) Content() *SystemDependencyEntryRelia
 	return NewSystemDependencyEntryReliabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1. System Description [PD00-SYO-SYD].
+// 4.1. System Description.
 //
 // Concise description of the system to be created, its primary purpose,
 // and the business domain it addresses. This section provides the
@@ -55700,29 +56613,29 @@ func (x *SystemDescription) DescriptionSummary() *SystemDescriptionSummary {
 	return NewSystemDescriptionSummary(x.Doc(), x.Path() + "/descriptionSummary")
 }
 
-// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+// 4.1.1. System Purpose.
 func (x *SystemDescription) SystemPurpose() *SystemPurpose {
 	return NewSystemPurpose(x.Doc(), x.Path() + "/systemPurpose")
 }
 
-// 4.1.2. System Context [PD00-SYO-SYD-CON].
+// 4.1.2. System Context.
 func (x *SystemDescription) SystemContext() *SystemContext {
 	return NewSystemContext(x.Doc(), x.Path() + "/systemContext")
 }
 
-// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+// 4.1.3. Description of Task Area.
 func (x *SystemDescription) TaskArea() *TaskArea {
 	return NewTaskArea(x.Doc(), x.Path() + "/taskArea")
 }
 
-// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+// 4.1.4. User Categories — contains 1+× User Category.
 func (x *SystemDescription) UserCategories() *som.SomList[*UserCategoryEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/USCA-USER-LST", func(d *som.SpecDocument, p string) *UserCategoryEntry {
 		return NewUserCategoryEntry(d, p)
 	})
 }
 
-// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+// 4.1.5. User Interaction Model.
 func (x *SystemDescription) UserInteractionModel() *UserInteractionModel {
 	return NewUserInteractionModel(x.Doc(), x.Path() + "/userInteractionModel")
 }
@@ -55820,7 +56733,7 @@ func (x *SystemDiagnosticToolsTracing) Content() *SystemDiagnosticToolsTracingCo
 	return NewSystemDiagnosticToolsTracingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A system error code entry [PD00-USE-ERR-SYS-CODE-nn].
+// A system error code entry.
 type SystemErrorCodeEntry struct {
 	som.SomNode
 }
@@ -55872,7 +56785,7 @@ func (x *SystemErrorCodeEntryOperations) Content() *SystemErrorCodeEntryOperatio
 	return NewSystemErrorCodeEntryOperationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+// 10.7.2. System Error Display.
 //
 // System error presentation including server errors, network issues,
 // and timeouts.
@@ -55996,7 +56909,7 @@ func (x *SystemIntegrationDataExchange) Content() *SystemIntegrationDataExchange
 	return NewSystemIntegrationDataExchangeContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+// A system integration entry (form).
 //
 // Documents one integration between systems: type, pattern, protocol,
 // data format, throughput, error handling, monitoring, security,
@@ -56122,7 +57035,7 @@ func (x *SystemIntegrationThroughput) Content() *SystemIntegrationThroughputCont
 	return NewSystemIntegrationThroughputContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+// 1.1.1. System Inventory.
 //
 // Container for individual system descriptions. Add one entry per existing
 // system relevant to the project scope.
@@ -56143,14 +57056,14 @@ func (x *SystemInventory) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
+// Contains 1+× Existing System.
 func (x *SystemInventory) Systems() *som.SomList[*ExistingSystemEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ESENT-SYST-LST", func(d *som.SpecDocument, p string) *ExistingSystemEntry {
 		return NewExistingSystemEntry(d, p)
 	})
 }
 
-// Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW].
+// Knowledge transfer status.
 type SystemKnowledgeTransfer struct {
 	som.SomNode
 }
@@ -56174,7 +57087,7 @@ func (x *SystemKnowledgeTransfer) CriticalKnowledgeAreas() *som.SomList[*Critica
 // Knowledge transfer plan if SME risk is high.
 // (skipped: knowledgeTransferPlan has no target type)
 
-// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV].
+// 4.5.4. System Landscape Inventory.
 //
 // Complete external-system inventory covering BSI-LAN-INV content.
 type SystemLandscapeInventory struct {
@@ -56194,7 +57107,7 @@ func (x *SystemLandscapeInventory) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG].
+// Per-system migration plan.
 type SystemMigrationPlan struct {
 	som.SomNode
 }
@@ -56259,7 +57172,7 @@ func (x *SystemMigrationPlanExecution) Content() *SystemMigrationPlanExecutionCo
 	return NewSystemMigrationPlanExecutionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn].
+// A system migration risk entry.
 type SystemMigrationRiskEntry struct {
 	som.SomNode
 }
@@ -56273,7 +57186,7 @@ func (x *SystemMigrationRiskEntry) Content() *SystemMigrationRiskEntryContentFor
 	return NewSystemMigrationRiskEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+// 8.7.1. System Operation.
 type SystemOperation struct {
 	som.SomNode
 }
@@ -56291,7 +57204,7 @@ func (x *SystemOperation) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+// 8.7.1.1. Administration Requirements.
 func (x *SystemOperation) AdministrationRequirements() *AdministrationRequirementsSection {
 	return NewAdministrationRequirementsSection(x.Doc(), x.Path() + "/administrationRequirements")
 }
@@ -56303,7 +57216,7 @@ func (x *SystemOperation) MaintenanceProcedures() *som.SomList[*MaintenanceProce
 	})
 }
 
-// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+// 8.7. System Operation and Monitoring.
 type SystemOperationAndMonitoring struct {
 	som.SomNode
 }
@@ -56321,90 +57234,19 @@ func (x *SystemOperationAndMonitoring) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+// 8.7.1. System Operation.
 func (x *SystemOperationAndMonitoring) SystemOperation() *SystemOperation {
 	return NewSystemOperation(x.Doc(), x.Path() + "/systemOperation")
 }
 
-// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+// 8.7.2. Monitoring.
 func (x *SystemOperationAndMonitoring) Monitoring() *Monitoring {
 	return NewMonitoring(x.Doc(), x.Path() + "/monitoring")
 }
 
-// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+// 8.7.3. Capacity Planning.
 func (x *SystemOperationAndMonitoring) CapacityPlanning() *CapacityPlanningSection {
 	return NewCapacityPlanningSection(x.Doc(), x.Path() + "/capacityPlanning")
-}
-
-// 4. System Overview [PD00-SYO].
-//
-// High-level overview of the system to be built: its purpose, goals,
-// scope boundaries, and the environment it operates in. This section
-// establishes the foundation for all subsequent specification work.
-type SystemOverview struct {
-	som.SomNode
-}
-
-// NewSystemOverview binds a SystemOverview facade to a document and a path.
-func NewSystemOverview(doc *som.SpecDocument, path string) *SystemOverview {
-	return &SystemOverview{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *SystemOverview) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SystemOverview) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// System overview summary statistics.
-func (x *SystemOverview) Summary() *SystemOverviewSummary {
-	return NewSystemOverviewSummary(x.Doc(), x.Path() + "/summary")
-}
-
-// System context diagram showing major system boundaries.
-func (x *SystemOverview) SystemContextDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/systemContextDiagram")
-}
-
-func (x *SystemOverview) SetSystemContextDiagram(value string) {
-	x.Doc().SetContent(x.Path() + "/systemContextDiagram", value)
-}
-
-// 4.1. System Description [PD00-SYO-SYD].
-func (x *SystemOverview) SystemDescription() *SystemDescription {
-	return NewSystemDescription(x.Doc(), x.Path() + "/systemDescription")
-}
-
-// 4.2. Goals [PD00-SYO-GOA].
-func (x *SystemOverview) Goals() *Goals {
-	return NewGoals(x.Doc(), x.Path() + "/goals")
-}
-
-// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
-func (x *SystemOverview) Requirements() *RequirementsOverview {
-	return NewRequirementsOverview(x.Doc(), x.Path() + "/requirements")
-}
-
-// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
-func (x *SystemOverview) SystemsToReplace() *SystemsToReplace {
-	return NewSystemsToReplace(x.Doc(), x.Path() + "/systemsToReplace")
-}
-
-// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
-func (x *SystemOverview) SystemBoundaries() *SystemBoundaries {
-	return NewSystemBoundaries(x.Doc(), x.Path() + "/systemBoundaries")
-}
-
-// 4.6. Framework Conditions [PD00-SYO-RES].
-func (x *SystemOverview) FrameworkConditions() *FrameworkConditions {
-	return NewFrameworkConditions(x.Doc(), x.Path() + "/frameworkConditions")
-}
-
-// 4.7. Risks and Assumptions [PD00-SYO-RIS].
-func (x *SystemOverview) RisksAndAssumptions() *RisksAndAssumptions {
-	return NewRisksAndAssumptions(x.Doc(), x.Path() + "/risksAndAssumptions")
 }
 
 // System overview summary for quick reference.
@@ -56497,7 +57339,7 @@ func (x *SystemOverviewSummaryStatus) Content() *SystemOverviewSummaryStatusCont
 	return NewSystemOverviewSummaryStatusContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+// 4.1.1. System Purpose.
 //
 // Describes the overarching purpose of the system including the problem it
 // solves, the opportunity it enables, and who the primary beneficiaries are.
@@ -56519,7 +57361,7 @@ func (x *SystemPurpose) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Vision Statement [PD00-SYO-SYD-PUR-VIS].
+// Vision Statement.
 func (x *SystemPurpose) VisionStatement() string {
 	return x.Doc().ContentOr(x.Path() + "/visionStatement")
 }
@@ -56528,37 +57370,37 @@ func (x *SystemPurpose) SetVisionStatement(value string) {
 	x.Doc().SetContent(x.Path() + "/visionStatement", value)
 }
 
-// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+// 4.1.1.1. Problem Statement.
 func (x *SystemPurpose) ProblemStatement() *ProblemStatement {
 	return NewProblemStatement(x.Doc(), x.Path() + "/problemStatement")
 }
 
-// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+// 4.1.1.2. Opportunity Statement.
 func (x *SystemPurpose) OpportunityStatement() *OpportunityStatement {
 	return NewOpportunityStatement(x.Doc(), x.Path() + "/opportunityStatement")
 }
 
-// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+// 4.1.1.3. Stakeholders and Beneficiaries.
 func (x *SystemPurpose) Stakeholders() *StakeholdersAndBeneficiaries {
 	return NewStakeholdersAndBeneficiaries(x.Doc(), x.Path() + "/stakeholders")
 }
 
-// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+// 4.1.1.4. Value Proposition.
 func (x *SystemPurpose) ValueProposition() *ValueProposition {
 	return NewValueProposition(x.Doc(), x.Path() + "/valueProposition")
 }
 
-// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+// 4.1.1.5. Strategic Alignment.
 func (x *SystemPurpose) StrategicAlignment() *StrategicAlignment {
 	return NewStrategicAlignment(x.Doc(), x.Path() + "/strategicAlignment")
 }
 
-// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+// 4.1.1.6. Scope Boundaries.
 func (x *SystemPurpose) ScopeBoundaries() *ScopeBoundaries {
 	return NewScopeBoundaries(x.Doc(), x.Path() + "/scopeBoundaries")
 }
 
-// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+// 11. System Quality Goals. Seeds → BQP.
 //
 // Quality goals selected from standard quality criteria and operationalized
 // for project-specific acceptance testing. Provides governing structure for
@@ -56617,42 +57459,42 @@ func (x *SystemQualityGoals) AttributeInterdependencies() *som.SomList[*Attribut
 // Quality attribute priority radar.
 // (skipped: qualityRadar has no target type)
 
-// 11.1. Quality Framework [PD00-SYQ-FRA].
+// 11.1. Quality Framework.
 func (x *SystemQualityGoals) Framework() *QualityFramework {
 	return NewQualityFramework(x.Doc(), x.Path() + "/framework")
 }
 
-// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+// 11.2. User-Related Quality Criteria.
 func (x *SystemQualityGoals) UserQuality() *UserQualityCriteria {
 	return NewUserQualityCriteria(x.Doc(), x.Path() + "/userQuality")
 }
 
-// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+// 11.3. Technical Quality Criteria.
 func (x *SystemQualityGoals) TechnicalQuality() *TechnicalQualityCriteria {
 	return NewTechnicalQualityCriteria(x.Doc(), x.Path() + "/technicalQuality")
 }
 
-// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+// 11.4. Operations Quality Criteria.
 func (x *SystemQualityGoals) OperationsQuality() *OperationsQualityCriteria {
 	return NewOperationsQualityCriteria(x.Doc(), x.Path() + "/operationsQuality")
 }
 
-// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+// 11.5. Documentation Quality Criteria.
 func (x *SystemQualityGoals) DocumentationQuality() *DocumentationQualityCriteria {
 	return NewDocumentationQualityCriteria(x.Doc(), x.Path() + "/documentationQuality")
 }
 
-// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+// 11.6. Quality Prioritization.
 func (x *SystemQualityGoals) Prioritization() *QualityPrioritization {
 	return NewQualityPrioritization(x.Doc(), x.Path() + "/prioritization")
 }
 
-// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+// 11.7. Acceptance Criteria Summary.
 func (x *SystemQualityGoals) AcceptanceCriteria() *AcceptanceCriteriaSummary {
 	return NewAcceptanceCriteriaSummary(x.Doc(), x.Path() + "/acceptanceCriteria")
 }
 
-// 11.8. Test Strategy [PD00-SYQ-TST]. Covers HBSG AS23.
+// 11.8. Test Strategy..
 func (x *SystemQualityGoals) TestStrategy() *TestStrategy {
 	return NewTestStrategy(x.Doc(), x.Path() + "/testStrategy")
 }
@@ -56713,7 +57555,7 @@ func (x *SystemQualityGoalsResources) Content() *SystemQualityGoalsResourcesCont
 	return NewSystemQualityGoalsResourcesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Replacement strategy details [PD00-SYO-SYR-INV-nn-STR].
+// Replacement strategy details.
 type SystemReplacementStrategy struct {
 	som.SomNode
 }
@@ -56782,111 +57624,7 @@ func (x *SystemReplacementStrategyTimeline) Content() *SystemReplacementStrategy
 	return NewSystemReplacementStrategyTimelineContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// SR00 System Rollout.
-//
-// End-to-end rollout specification — localization, translation,
-// documentation and training, plus rollout plan, migration plan,
-// user manuals, training materials, pilot, cutover, knowledge
-// transfer, and warranty/support.
-type SystemRollout struct {
-	som.SomNode
-}
-
-// SystemRolloutModelVersion is the model version this object model was generated
-// against (§2.1).
-const SystemRolloutModelVersion = "0.0"
-
-// NewSystemRollout creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewSystemRollout(doc *som.SpecDocument, documentVersion string) (*SystemRollout, error) {
-	if err := som.CheckSomModelVersion(SystemRolloutModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &SystemRollout{SomNode: som.NewSomNode(doc, "SR")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *SystemRollout) ObjectModelVersion() string {
-	return SystemRolloutModelVersion
-}
-
-func (x *SystemRollout) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SystemRollout) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *SystemRollout) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Localization process — PD00-USE-MUL-LOC.
-func (x *SystemRollout) LocalizationProcess() *LocalizationProcess {
-	return NewLocalizationProcess(x.Doc(), x.Path() + "/localizationProcess")
-}
-
-// Translation process — PD00-USE-MUL-TRA.
-func (x *SystemRollout) TranslationProcess() *TranslationProcess {
-	return NewTranslationProcess(x.Doc(), x.Path() + "/translationProcess")
-}
-
-// Documentation and training — PD00-USE-MUL-DOC.
-func (x *SystemRollout) DocumentationAndTraining() *DocumentationAndTraining {
-	return NewDocumentationAndTraining(x.Doc(), x.Path() + "/documentationAndTraining")
-}
-
-// Rollout plan — PD00-ROL-PLN.
-func (x *SystemRollout) RolloutPlan() *RolloutPlan {
-	return NewRolloutPlan(x.Doc(), x.Path() + "/rolloutPlan")
-}
-
-// Migration plan — PD00-ROL-MIG.
-func (x *SystemRollout) MigrationPlan() *MigrationPlan {
-	return NewMigrationPlan(x.Doc(), x.Path() + "/migrationPlan")
-}
-
-// User manuals — PD00-ROL-DOC.
-func (x *SystemRollout) UserManuals() *som.SomList[*UserManuals] {
-	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManuals {
-		return NewUserManuals(d, p)
-	})
-}
-
-// Training materials — PD00-ROL-TRN.
-func (x *SystemRollout) TrainingMaterials() *som.SomList[*RolloutTrainingMaterials] {
-	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterials {
-		return NewRolloutTrainingMaterials(d, p)
-	})
-}
-
-// Pilot plan — PD00-ROL-PIL.
-func (x *SystemRollout) PilotPlan() *PilotPlan {
-	return NewPilotPlan(x.Doc(), x.Path() + "/pilotPlan")
-}
-
-// Cutover procedures — PD00-ROL-CUT.
-func (x *SystemRollout) CutoverProcedures() *som.SomList[*CutoverProcedures] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedures {
-		return NewCutoverProcedures(d, p)
-	})
-}
-
-// Knowledge transfer — PD00-ROL-KNO.
-func (x *SystemRollout) KnowledgeTransfer() *KnowledgeTransfer {
-	return NewKnowledgeTransfer(x.Doc(), x.Path() + "/knowledgeTransfer")
-}
-
-// Warranty and support — PD00-ROL-WAR.
-func (x *SystemRollout) WarrantyAndSupport() *WarrantyAndSupport {
-	return NewWarrantyAndSupport(x.Doc(), x.Path() + "/warrantyAndSupport")
-}
-
-// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
+// 15. System Rollout Concept. Seeds → SR.
 type SystemRolloutConcept struct {
 	som.SomNode
 }
@@ -56904,53 +57642,53 @@ func (x *SystemRolloutConcept) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 15.1. Rollout Plan [PD00-ROL-PLN].
+// 15.1. Rollout Plan.
 func (x *SystemRolloutConcept) RolloutPlan() *RolloutPlan {
 	return NewRolloutPlan(x.Doc(), x.Path() + "/rolloutPlan")
 }
 
-// 15.2. Migration Plan [PD00-ROL-MIG].
+// 15.2. Migration Plan.
 func (x *SystemRolloutConcept) MigrationPlan() *MigrationPlan {
 	return NewMigrationPlan(x.Doc(), x.Path() + "/migrationPlan")
 }
 
-// 15.3. User Manuals [PD00-ROL-DOC].
+// 15.3. User Manuals.
 func (x *SystemRolloutConcept) UserManuals() *som.SomList[*UserManuals] {
 	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManuals {
 		return NewUserManuals(d, p)
 	})
 }
 
-// 15.4. Training Materials [PD00-ROL-TRN].
+// 15.4. Training Materials.
 func (x *SystemRolloutConcept) TrainingMaterials() *som.SomList[*RolloutTrainingMaterials] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterials {
 		return NewRolloutTrainingMaterials(d, p)
 	})
 }
 
-// 15.5. Pilot Plan [PD00-ROL-PIL].
+// 15.5. Pilot Plan.
 func (x *SystemRolloutConcept) PilotPlan() *PilotPlan {
 	return NewPilotPlan(x.Doc(), x.Path() + "/pilotPlan")
 }
 
-// 15.6. Cutover Procedures [PD00-ROL-CUT].
+// 15.6. Cutover Procedures.
 func (x *SystemRolloutConcept) CutoverProcedures() *som.SomList[*CutoverProcedures] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedures {
 		return NewCutoverProcedures(d, p)
 	})
 }
 
-// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+// 15.7. Knowledge Transfer.
 func (x *SystemRolloutConcept) KnowledgeTransfer() *KnowledgeTransfer {
 	return NewKnowledgeTransfer(x.Doc(), x.Path() + "/knowledgeTransfer")
 }
 
-// 15.8. Warranty and Support [PD00-ROL-WAR].
+// 15.8. Warranty and Support.
 func (x *SystemRolloutConcept) WarrantyAndSupport() *WarrantyAndSupport {
 	return NewWarrantyAndSupport(x.Doc(), x.Path() + "/warrantyAndSupport")
 }
 
-// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+// 13. System Stage Plan. Seeds → PPP.
 //
 // Define the overall staging strategy for the system rollout. A stage
 // is a meaningful, self-contained subset of the complete system that
@@ -56986,44 +57724,44 @@ func (x *SystemStagePlan) Readiness() *SystemStagePlanReadiness {
 	return NewSystemStagePlanReadiness(x.Doc(), x.Path() + "/readiness")
 }
 
-// 13.1. Staging Strategy [PD00-SSP-STR].
+// 13.1. Staging Strategy.
 func (x *SystemStagePlan) Strategy() *StagingStrategy {
 	return NewStagingStrategy(x.Doc(), x.Path() + "/strategy")
 }
 
-// 13.2. Stage Overview [PD00-SSP-STA].
+// 13.2. Stage Overview.
 func (x *SystemStagePlan) StageOverview() *StageOverview {
 	return NewStageOverview(x.Doc(), x.Path() + "/stageOverview")
 }
 
-// 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
+// 13.3. Stages — contains 1+× Stage.
 func (x *SystemStagePlan) Stages() *som.SomList[*StageEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/STAGE-STAG-LST", func(d *som.SpecDocument, p string) *StageEntry {
 		return NewStageEntry(d, p)
 	})
 }
 
-// 13.4. Feature Prioritization [PD00-SSP-FEA].
+// 13.4. Feature Prioritization.
 func (x *SystemStagePlan) FeaturePrioritization() *FeaturePrioritization {
 	return NewFeaturePrioritization(x.Doc(), x.Path() + "/featurePrioritization")
 }
 
-// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+// 13.5. Data Migration Strategy.
 func (x *SystemStagePlan) DataMigration() *DataMigrationStrategy {
 	return NewDataMigrationStrategy(x.Doc(), x.Path() + "/dataMigration")
 }
 
-// 13.6. Governance [PD00-SSP-GOV].
+// 13.6. Governance.
 func (x *SystemStagePlan) Governance() *StageGovernance {
 	return NewStageGovernance(x.Doc(), x.Path() + "/governance")
 }
 
-// 13.7. Initial Development Flow [PD00-SSP-IDV]. Covers PPP-IDV.
+// 13.7. Initial Development Flow. Covers PPP-IDV.
 func (x *SystemStagePlan) InitialDevelopmentFlow() *InitialDevelopmentFlow {
 	return NewInitialDevelopmentFlow(x.Doc(), x.Path() + "/initialDevelopmentFlow")
 }
 
-// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG]. Covers PPP-UPG.
+// 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
 func (x *SystemStagePlan) UpgradeCycleFramework() *UpgradeCycleFramework {
 	return NewUpgradeCycleFramework(x.Doc(), x.Path() + "/upgradeCycleFramework")
 }
@@ -57070,7 +57808,7 @@ func (x *SystemStagePlanTimeline) Content() *SystemStagePlanTimelineContentForm 
 	return NewSystemStagePlanTimelineContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A system task entry [PD00-SYO-SYD-USR-nn-TSK-mm].
+// A system task entry.
 //
 // Describes one activity this user category performs with the system.
 // Tasks map to Use Cases in the UC document.
@@ -57184,7 +57922,7 @@ func (x *SystemTaskWorkflowStepEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC].
+// Technical assessment for a system to replace.
 type SystemTechnicalAssessment struct {
 	som.SomNode
 }
@@ -57269,7 +58007,7 @@ func (x *SystemTechnicalAssessmentQuality) Content() *SystemTechnicalAssessmentQ
 	return NewSystemTechnicalAssessmentQualityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+// A system to replace entry (form).
 //
 // Comprehensive documentation of a legacy system to be replaced, covering
 // technical assessment, business criticality, replacement strategy, and
@@ -57373,7 +58111,7 @@ func (x *SystemToReplaceEntryVendor) Content() *SystemToReplaceEntryVendorConten
 	return NewSystemToReplaceEntryVendorContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// System training entry (form) [PD00-ORG-WOR-nn-TRA-SYS-nn].
+// System training entry (form).
 type SystemTrainingEntry struct {
 	som.SomNode
 }
@@ -57444,7 +58182,7 @@ func (x *SystemTrainingEntrySupport) Content() *SystemTrainingEntrySupportConten
 	return NewSystemTrainingEntrySupportContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// User impact assessment [PD00-SYO-SYR-INV-nn-USR].
+// User impact assessment.
 type SystemUserImpact struct {
 	som.SomNode
 }
@@ -57522,7 +58260,7 @@ func (x *SystemUserImpactEnablement) Content() *SystemUserImpactEnablementConten
 	return NewSystemUserImpactEnablementContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+// 4.4. Systems to Replace. Seeds → CS.
 //
 // Documents existing systems that will be replaced, migrated, or decommissioned
 // as part of the project. Follows TOGAF migration planning patterns and
@@ -57540,17 +58278,17 @@ func NewSystemsToReplace(doc *som.SpecDocument, path string) *SystemsToReplace {
 // Overview of the systems replacement scope and strategy.
 // (skipped: overview has no target type)
 
-// 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+// 4.4.1. Replacement Inventory — contains 0+×.
 func (x *SystemsToReplace) ReplacementInventory() *ReplacementInventory {
 	return NewReplacementInventory(x.Doc(), x.Path() + "/replacementInventory")
 }
 
-// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+// 4.4.2. Migration Considerations.
 func (x *SystemsToReplace) MigrationConsiderations() *MigrationConsiderations {
 	return NewMigrationConsiderations(x.Doc(), x.Path() + "/migrationConsiderations")
 }
 
-// A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
+// A tab bar definition entry (form).
 //
 // Defines a tab bar or segmented control on a specific screen.
 type TabBarDefinitionEntry struct {
@@ -57611,7 +58349,7 @@ func (x *TabBarDefinitionEntryLoading) Content() *TabBarDefinitionEntryLoadingCo
 	return NewTabBarDefinitionEntryLoadingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
+// A tab item entry (form).
 type TabItemEntry struct {
 	som.SomNode
 }
@@ -57625,7 +58363,7 @@ func (x *TabItemEntry) Content() *TabItemEntryContentForm {
 	return NewTabItemEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6. Target Business Process Model [PD00-TAR].
+// 6. Target Business Process Model.
 type TargetBusinessProcessModel struct {
 	som.SomNode
 }
@@ -57643,14 +58381,140 @@ func (x *TargetBusinessProcessModel) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
+// 6.1. Business Process Descriptions. Seeds → BP.
 func (x *TargetBusinessProcessModel) BusinessProcessDescriptions() *BusinessProcessDescriptions {
 	return NewBusinessProcessDescriptions(x.Doc(), x.Path() + "/businessProcessDescriptions")
 }
 
-// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → UC.
 func (x *TargetBusinessProcessModel) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractions {
 	return NewProcessStepsAndActorInteractions(x.Doc(), x.Path() + "/processStepsAndActorInteractions")
+}
+
+// BP00 Business Processes.
+//
+// Target business process specification — vision, principles, catalog,
+// diagrams, improvements, relationships, detailed workflows,
+// cross-process analysis, exception handling, and KPIs.
+type TargetOperatingModel struct {
+	som.SomNode
+}
+
+// TargetOperatingModelModelVersion is the model version this object model was generated
+// against (§2.1).
+const TargetOperatingModelModelVersion = "0.0"
+
+// NewTargetOperatingModel creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewTargetOperatingModel(doc *som.SpecDocument, documentVersion string) (*TargetOperatingModel, error) {
+	if err := som.CheckSomModelVersion(TargetOperatingModelModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &TargetOperatingModel{SomNode: som.NewSomNode(doc, "TOM")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *TargetOperatingModel) ObjectModelVersion() string {
+	return TargetOperatingModelModelVersion
+}
+
+func (x *TargetOperatingModel) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TargetOperatingModel) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *TargetOperatingModel) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Process vision.
+func (x *TargetOperatingModel) ProcessVision() *ProcessVision {
+	return NewProcessVision(x.Doc(), x.Path() + "/processVision")
+}
+
+// Design principles.
+func (x *TargetOperatingModel) DesignPrinciples() *ProcessDesignPrinciples {
+	return NewProcessDesignPrinciples(x.Doc(), x.Path() + "/designPrinciples")
+}
+
+// Process catalog.
+func (x *TargetOperatingModel) ProcessCatalog() *ProcessCatalog {
+	return NewProcessCatalog(x.Doc(), x.Path() + "/processCatalog")
+}
+
+// Process overview diagram.
+func (x *TargetOperatingModel) ProcessOverviewDiagram() *ProcessOverviewDiagram {
+	return NewProcessOverviewDiagram(x.Doc(), x.Path() + "/processOverviewDiagram")
+}
+
+// Improvement summary.
+func (x *TargetOperatingModel) ImprovementSummary() *ProcessImprovementSummary {
+	return NewProcessImprovementSummary(x.Doc(), x.Path() + "/improvementSummary")
+}
+
+// Process relationships.
+func (x *TargetOperatingModel) ProcessRelationships() *ProcessRelationships {
+	return NewProcessRelationships(x.Doc(), x.Path() + "/processRelationships")
+}
+
+// Detailed process workflows.
+func (x *TargetOperatingModel) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflows] {
+	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflows {
+		return NewDetailedProcessWorkflows(d, p)
+	})
+}
+
+// Cross-process analysis.
+func (x *TargetOperatingModel) CrossProcessAnalysis() *CrossProcessAnalysis {
+	return NewCrossProcessAnalysis(x.Doc(), x.Path() + "/crossProcessAnalysis")
+}
+
+// Process exception handling.
+func (x *TargetOperatingModel) ExceptionHandling() *ProcessExceptionHandling {
+	return NewProcessExceptionHandling(x.Doc(), x.Path() + "/exceptionHandling")
+}
+
+// Process metrics and KPIs.
+func (x *TargetOperatingModel) ProcessMetricsAndKpis() *som.SomList[*ProcessMetricsAndKpis] {
+	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetricsAndKpis {
+		return NewProcessMetricsAndKpis(d, p)
+	})
+}
+
+// SBP.7 Target Operating Model concept.
+//
+// Public anchor: BABOK future-state analysis.
+type TargetOperatingModelConcept struct {
+	som.SomNode
+}
+
+// NewTargetOperatingModelConcept binds a TargetOperatingModelConcept facade to a document and a path.
+func NewTargetOperatingModelConcept(doc *som.SpecDocument, path string) *TargetOperatingModelConcept {
+	return &TargetOperatingModelConcept{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TargetOperatingModelConcept) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TargetOperatingModelConcept) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Target organizational structure and roles.
+func (x *TargetOperatingModelConcept) OrganizationalFramework() *OrganizationalFramework {
+	return NewOrganizationalFramework(x.Doc(), x.Path() + "/organizationalFramework")
+}
+
+// Target business process model.
+func (x *TargetOperatingModelConcept) TargetBusinessProcess() *TargetBusinessProcessModel {
+	return NewTargetBusinessProcessModel(x.Doc(), x.Path() + "/targetBusinessProcess")
 }
 
 // Target platform entry (operating system, runtime, container).
@@ -57743,7 +58607,7 @@ func (x *TargetPlatformEntryVersion) Content() *TargetPlatformEntryVersionConten
 	return NewTargetPlatformEntryVersionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+// 4.1.3. Description of Task Area.
 //
 // Describes the business domain and task area the system addresses.
 // Defines the domain vocabulary and key concepts (ubiquitous language)
@@ -57766,37 +58630,37 @@ func (x *TaskArea) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+// 4.1.3.1. Domain Overview.
 func (x *TaskArea) DomainOverview() *DomainOverview {
 	return NewDomainOverview(x.Doc(), x.Path() + "/domainOverview")
 }
 
-// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+// 4.1.3.2. Domain Vocabulary.
 func (x *TaskArea) DomainVocabulary() *DomainVocabulary {
 	return NewDomainVocabulary(x.Doc(), x.Path() + "/domainVocabulary")
 }
 
-// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+// 4.1.3.3. Key Concepts.
 func (x *TaskArea) KeyConcepts() *KeyConcepts {
 	return NewKeyConcepts(x.Doc(), x.Path() + "/keyConcepts")
 }
 
-// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+// 4.1.3.4. Domain Boundaries.
 func (x *TaskArea) DomainBoundaries() *DomainBoundaries {
 	return NewDomainBoundaries(x.Doc(), x.Path() + "/domainBoundaries")
 }
 
-// 4.1.3.5. Business Rules [PD00-SYO-SYD-DES-RUL].
+// 4.1.3.5. Business Rules.
 func (x *TaskArea) BusinessRules() *DomainBusinessRules {
 	return NewDomainBusinessRules(x.Doc(), x.Path() + "/businessRules")
 }
 
-// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+// 4.1.3.6. Domain Processes.
 func (x *TaskArea) DomainProcesses() *DomainProcesses {
 	return NewDomainProcesses(x.Doc(), x.Path() + "/domainProcesses")
 }
 
-// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+// 4.1.3.7. Domain Events.
 func (x *TaskArea) DomainEvents() *DomainEvents {
 	return NewDomainEvents(x.Doc(), x.Path() + "/domainEvents")
 }
@@ -57815,7 +58679,7 @@ func (x *TeamMemberAvailability) Content() *TeamMemberAvailabilityContentForm {
 	return NewTeamMemberAvailabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A team member entry [PD00-ADM-TEA-nn] (form).
+// A team member entry (form).
 //
 // Detailed information about a project team member including their role,
 // responsibilities, availability, and competencies.
@@ -58014,7 +58878,7 @@ func (x *TechnicalDependencyEntry) Content() *TechnicalDependencyEntryContentFor
 	return NewTechnicalDependencyEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+// 8. Technical Framework Concept. Seeds → TR.
 type TechnicalFrameworkConcept struct {
 	som.SomNode
 }
@@ -58032,52 +58896,52 @@ func (x *TechnicalFrameworkConcept) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+// 8.1. Basic Technical Requirements.
 func (x *TechnicalFrameworkConcept) BasicRequirements() *BasicTechnicalRequirements {
 	return NewBasicTechnicalRequirements(x.Doc(), x.Path() + "/basicRequirements")
 }
 
-// 8.2. Software Design Requirements [PD00-TEC-SOF].
+// 8.2. Software Design Requirements.
 func (x *TechnicalFrameworkConcept) SoftwareDesign() *SoftwareDesignRequirements {
 	return NewSoftwareDesignRequirements(x.Doc(), x.Path() + "/softwareDesign")
 }
 
-// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+// 8.3. Standard Application Software Requirements.
 func (x *TechnicalFrameworkConcept) StandardSoftware() *StandardSoftwareRequirements {
 	return NewStandardSoftwareRequirements(x.Doc(), x.Path() + "/standardSoftware")
 }
 
-// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+// 8.4. Hardware Concept Requirements.
 func (x *TechnicalFrameworkConcept) Hardware() *HardwareRequirements {
 	return NewHardwareRequirements(x.Doc(), x.Path() + "/hardware")
 }
 
-// 8.5. Operations Requirements [PD00-TEC-OPE].
+// 8.5. Operations Requirements.
 func (x *TechnicalFrameworkConcept) Operations() *OperationsRequirements {
 	return NewOperationsRequirements(x.Doc(), x.Path() + "/operations")
 }
 
-// 8.6. Communication Requirements [PD00-TEC-COM].
+// 8.6. Communication Requirements.
 func (x *TechnicalFrameworkConcept) Communication() *CommunicationRequirements {
 	return NewCommunicationRequirements(x.Doc(), x.Path() + "/communication")
 }
 
-// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+// 8.7. System Operation and Monitoring.
 func (x *TechnicalFrameworkConcept) SystemOperation() *SystemOperationAndMonitoring {
 	return NewSystemOperationAndMonitoring(x.Doc(), x.Path() + "/systemOperation")
 }
 
-// 8.8. Security Requirements [PD00-TEC-SEC].
+// 8.8. Security Requirements.
 func (x *TechnicalFrameworkConcept) Security() *TechnicalSecurityRequirements {
 	return NewTechnicalSecurityRequirements(x.Doc(), x.Path() + "/security")
 }
 
-// 8.9. System Architecture [PD00-TEC-ARC]. Covers HBSG AS09-SOF / DR30.
+// 8.9. System Architecture..
 func (x *TechnicalFrameworkConcept) SystemArchitecture() *SystemArchitectureSpec {
 	return NewSystemArchitectureSpec(x.Doc(), x.Path() + "/systemArchitecture")
 }
 
-// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → TR.
 //
 // Documents pre-existing technical constraints including mandated platforms,
 // network restrictions, compliance requirements, existing infrastructure
@@ -58133,7 +58997,7 @@ func (x *TechnicalFrameworkConditions) Datacenters() *som.SomList[*DatacenterEnt
 // Technology standards that must be followed.
 // (skipped: standardsOverview has no target type)
 
-// Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
+// Technology standards — contains 0+× TechnologyStandard.
 func (x *TechnicalFrameworkConditions) TechnologyStandards() *som.SomList[*TechnologyStandardEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/TESTEN-TECH-LST", func(d *som.SpecDocument, p string) *TechnologyStandardEntry {
 		return NewTechnologyStandardEntry(d, p)
@@ -58143,7 +59007,7 @@ func (x *TechnicalFrameworkConditions) TechnologyStandards() *som.SomList[*Techn
 // Integration constraints overview.
 // (skipped: integrationOverview has no target type)
 
-// Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
+// Integration constraints — contains 0+× IntegrationConstraint.
 func (x *TechnicalFrameworkConditions) IntegrationConstraints() *som.SomList[*IntegrationConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/INCOE1-INTE-LST", func(d *som.SpecDocument, p string) *IntegrationConstraintEntry {
 		return NewIntegrationConstraintEntry(d, p)
@@ -58223,7 +59087,7 @@ func (x *TechnicalFrameworkConditionsStandards) Content() *TechnicalFrameworkCon
 	return NewTechnicalFrameworkConditionsStandardsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+// 4.2.2.n.4. Constraints.
 //
 // Technical constraints that may limit or shape how the goal is achieved.
 type TechnicalGoalConstraints struct {
@@ -58250,7 +59114,7 @@ func (x *TechnicalGoalConstraints) Items() *som.SomList[*TechnicalConstraintEntr
 	})
 }
 
-// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+// 4.2.2.n.3. Dependencies.
 //
 // Technical dependencies affecting goal achievement.
 type TechnicalGoalDependencies struct {
@@ -58277,7 +59141,7 @@ func (x *TechnicalGoalDependencies) Items() *som.SomList[*TechnicalDependencyEnt
 	})
 }
 
-// A technical goal entry [PD00-SYO-GOA-TEC-nn].
+// A technical goal entry.
 //
 // Comprehensive technical goal definition with quality attributes,
 // architectural impact, and verification approach.
@@ -58304,22 +59168,22 @@ func (x *TechnicalGoalEntry) Governance() *TechnicalGoalEntryGovernance {
 	return NewTechnicalGoalEntryGovernance(x.Doc(), x.Path() + "/governance")
 }
 
-// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+// 4.2.2.n.1. Quality Scenarios.
 func (x *TechnicalGoalEntry) QualityScenarios() *QualityScenarios {
 	return NewQualityScenarios(x.Doc(), x.Path() + "/qualityScenarios")
 }
 
-// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+// 4.2.2.n.2. Test Criteria.
 func (x *TechnicalGoalEntry) TestCriteria() *TechnicalGoalTestCriteria {
 	return NewTechnicalGoalTestCriteria(x.Doc(), x.Path() + "/testCriteria")
 }
 
-// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+// 4.2.2.n.3. Dependencies.
 func (x *TechnicalGoalEntry) Dependencies() *TechnicalGoalDependencies {
 	return NewTechnicalGoalDependencies(x.Doc(), x.Path() + "/dependencies")
 }
 
-// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+// 4.2.2.n.4. Constraints.
 func (x *TechnicalGoalEntry) Constraints() *TechnicalGoalConstraints {
 	return NewTechnicalGoalConstraints(x.Doc(), x.Path() + "/constraints")
 }
@@ -58366,7 +59230,7 @@ func (x *TechnicalGoalTestCaseEntry) Content() *TechnicalGoalTestCaseEntryConten
 	return NewTechnicalGoalTestCaseEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+// 4.2.2.n.2. Test Criteria.
 //
 // Specific test criteria and acceptance thresholds for the technical goal.
 type TechnicalGoalTestCriteria struct {
@@ -58398,7 +59262,7 @@ func (x *TechnicalGoalTestCriteria) Items() *som.SomList[*TechnicalGoalTestCaseE
 	})
 }
 
-// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+// 4.2.2. Technical Goals.
 //
 // Container for technical goal definitions. Technical goals define the
 // non-functional characteristics and technical capabilities the system
@@ -58459,7 +59323,7 @@ func (x *TechnicalInfrastructure) CommunicationTools() *som.SomList[*Communicati
 	})
 }
 
-// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+// 1.3.3. Technical Pain Points.
 //
 // Problems that affect development and maintenance: outdated technology,
 // security vulnerabilities, lack of documentation, vendor lock-in,
@@ -58507,7 +59371,7 @@ func (x *TechnicalPainPointsSummary) Content() *TechnicalPainPointsSummaryConten
 	return NewTechnicalPainPointsSummaryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+// 11.3. Technical Quality Criteria.
 //
 // Quality criteria for the technical implementation including efficiency,
 // portability, flexibility, security, maintainability, and reliability.
@@ -58527,37 +59391,37 @@ func (x *TechnicalQualityCriteria) TechnicalQualityContent() *TechnicalQualityCr
 // Technical quality overview.
 // (skipped: overview has no target type)
 
-// 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
+// 11.3.1. Efficiency.
 func (x *TechnicalQualityCriteria) Efficiency() *EfficiencyQuality {
 	return NewEfficiencyQuality(x.Doc(), x.Path() + "/efficiency")
 }
 
-// 11.3.2. Portability [PD00-SYQ-TEC-POR].
+// 11.3.2. Portability.
 func (x *TechnicalQualityCriteria) Portability() *PortabilityQuality {
 	return NewPortabilityQuality(x.Doc(), x.Path() + "/portability")
 }
 
-// 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
+// 11.3.3. Flexibility.
 func (x *TechnicalQualityCriteria) Flexibility() *FlexibilityQuality {
 	return NewFlexibilityQuality(x.Doc(), x.Path() + "/flexibility")
 }
 
-// 11.3.4. Security [PD00-SYQ-TEC-SEC].
+// 11.3.4. Security.
 func (x *TechnicalQualityCriteria) Security() *SecurityQuality {
 	return NewSecurityQuality(x.Doc(), x.Path() + "/security")
 }
 
-// 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
+// 11.3.5. Maintainability.
 func (x *TechnicalQualityCriteria) Maintainability() *MaintainabilityQuality {
 	return NewMaintainabilityQuality(x.Doc(), x.Path() + "/maintainability")
 }
 
-// 11.3.6. Reliability [PD00-SYQ-TEC-REL].
+// 11.3.6. Reliability.
 func (x *TechnicalQualityCriteria) Reliability() *ReliabilityQuality {
 	return NewReliabilityQuality(x.Doc(), x.Path() + "/reliability")
 }
 
-// A technical requirement entry [PD00-SYO-REQ-TEC-nn].
+// A technical requirement entry.
 //
 // Comprehensive technical requirement definition following ISO 25010
 // quality characteristics and architecture decision records.
@@ -58599,17 +59463,17 @@ func (x *TechnicalRequirementEntry) Constraints() *TechnicalRequirementEntryCons
 	return NewTechnicalRequirementEntryConstraints(x.Doc(), x.Path() + "/constraints")
 }
 
-// 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+// 4.3.2.n.1. Acceptance Criteria.
 func (x *TechnicalRequirementEntry) AcceptanceCriteria() *RequirementAcceptanceCriteria {
 	return NewRequirementAcceptanceCriteria(x.Doc(), x.Path() + "/acceptanceCriteria")
 }
 
-// 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+// 4.3.2.n.2. Dependencies.
 func (x *TechnicalRequirementEntry) Dependencies() *RequirementDependencies {
 	return NewRequirementDependencies(x.Doc(), x.Path() + "/dependencies")
 }
 
-// 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+// 4.3.2.n.3. Traceability.
 func (x *TechnicalRequirementEntry) Traceability() *RequirementTraceability {
 	return NewRequirementTraceability(x.Doc(), x.Path() + "/traceability")
 }
@@ -58684,7 +59548,7 @@ func (x *TechnicalRequirementEntryVerification) Content() *TechnicalRequirementE
 	return NewTechnicalRequirementEntryVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+// 4.3.2. Technical Requirements.
 //
 // Container for technical requirements. Technical requirements describe
 // constraints on how the system is built — platform, performance,
@@ -58719,110 +59583,7 @@ func (x *TechnicalRequirements) Requirements() *som.SomList[*TechnicalRequiremen
 	})
 }
 
-// TR00 Technical Requirements.
-//
-// Comprehensive technical requirements: basic / software / standard-
-// software / hardware / operations / communication / system-operation
-// / security / architecture, plus components, framework conditions,
-// and translation handling.
-type TechnicalRequirementsSpec struct {
-	som.SomNode
-}
-
-// TechnicalRequirementsSpecModelVersion is the model version this object model was generated
-// against (§2.1).
-const TechnicalRequirementsSpecModelVersion = "0.0"
-
-// NewTechnicalRequirementsSpec creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewTechnicalRequirementsSpec(doc *som.SpecDocument, documentVersion string) (*TechnicalRequirementsSpec, error) {
-	if err := som.CheckSomModelVersion(TechnicalRequirementsSpecModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &TechnicalRequirementsSpec{SomNode: som.NewSomNode(doc, "TR")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *TechnicalRequirementsSpec) ObjectModelVersion() string {
-	return TechnicalRequirementsSpecModelVersion
-}
-
-func (x *TechnicalRequirementsSpec) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TechnicalRequirementsSpec) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *TechnicalRequirementsSpec) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Basic technical requirements — PD00-TEC-BAS.
-func (x *TechnicalRequirementsSpec) BasicTechnicalRequirements() *BasicTechnicalRequirements {
-	return NewBasicTechnicalRequirements(x.Doc(), x.Path() + "/basicTechnicalRequirements")
-}
-
-// Software design requirements — PD00-TEC-SOF.
-func (x *TechnicalRequirementsSpec) SoftwareDesignRequirements() *SoftwareDesignRequirements {
-	return NewSoftwareDesignRequirements(x.Doc(), x.Path() + "/softwareDesignRequirements")
-}
-
-// Standard application software requirements — PD00-TEC-STA.
-func (x *TechnicalRequirementsSpec) StandardSoftwareRequirements() *StandardSoftwareRequirements {
-	return NewStandardSoftwareRequirements(x.Doc(), x.Path() + "/standardSoftwareRequirements")
-}
-
-// Hardware concept requirements — PD00-TEC-HAR.
-func (x *TechnicalRequirementsSpec) HardwareRequirements() *HardwareRequirements {
-	return NewHardwareRequirements(x.Doc(), x.Path() + "/hardwareRequirements")
-}
-
-// Operations requirements — PD00-TEC-OPE.
-func (x *TechnicalRequirementsSpec) OperationsRequirements() *OperationsRequirements {
-	return NewOperationsRequirements(x.Doc(), x.Path() + "/operationsRequirements")
-}
-
-// Communication requirements — PD00-TEC-COM.
-func (x *TechnicalRequirementsSpec) CommunicationRequirements() *CommunicationRequirements {
-	return NewCommunicationRequirements(x.Doc(), x.Path() + "/communicationRequirements")
-}
-
-// System operation and monitoring — PD00-TEC-SYS.
-func (x *TechnicalRequirementsSpec) SystemOperationAndMonitoring() *SystemOperationAndMonitoring {
-	return NewSystemOperationAndMonitoring(x.Doc(), x.Path() + "/systemOperationAndMonitoring")
-}
-
-// Technical security requirements — PD00-TEC-SEC.
-func (x *TechnicalRequirementsSpec) TechnicalSecurityRequirements() *TechnicalSecurityRequirements {
-	return NewTechnicalSecurityRequirements(x.Doc(), x.Path() + "/technicalSecurityRequirements")
-}
-
-// System architecture — PD00-TEC-ARC (new in Phase A, HBSG AS09-SOF/DR30).
-func (x *TechnicalRequirementsSpec) SystemArchitecture() *SystemArchitectureSpec {
-	return NewSystemArchitectureSpec(x.Doc(), x.Path() + "/systemArchitecture")
-}
-
-// Components to use — PD00-COM (whole).
-func (x *TechnicalRequirementsSpec) ComponentsToUse() *ComponentsToUse {
-	return NewComponentsToUse(x.Doc(), x.Path() + "/componentsToUse")
-}
-
-// Technical framework conditions — PD00-SYO-RES-TEC (whole).
-func (x *TechnicalRequirementsSpec) TechnicalFrameworkConditions() *TechnicalFrameworkConditions {
-	return NewTechnicalFrameworkConditions(x.Doc(), x.Path() + "/technicalFrameworkConditions")
-}
-
-// Translation handling requirements — PD00-USE-MUL-REQ (whole).
-func (x *TechnicalRequirementsSpec) TranslationRequirements() *TranslationRequirements {
-	return NewTranslationRequirements(x.Doc(), x.Path() + "/translationRequirements")
-}
-
-// 8.8. Security Requirements [PD00-TEC-SEC].
+// 8.8. Security Requirements.
 type TechnicalSecurityRequirements struct {
 	som.SomNode
 }
@@ -58840,17 +59601,17 @@ func (x *TechnicalSecurityRequirements) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+// 8.8.1. IT Security Standards.
 func (x *TechnicalSecurityRequirements) ItSecurityStandards() *ItSecurityStandardsSection {
 	return NewItSecurityStandardsSection(x.Doc(), x.Path() + "/itSecurityStandards")
 }
 
-// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+// 8.8.2. Data Protection and Privacy.
 func (x *TechnicalSecurityRequirements) DataProtectionAndPrivacy() *DataProtectionAndPrivacySection {
 	return NewDataProtectionAndPrivacySection(x.Doc(), x.Path() + "/dataProtectionAndPrivacy")
 }
 
-// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+// 8.8.3. Security Audit Requirements.
 func (x *TechnicalSecurityRequirements) SecurityAuditRequirements() *SecurityAuditRequirementsSection {
 	return NewSecurityAuditRequirementsSection(x.Doc(), x.Path() + "/securityAuditRequirements")
 }
@@ -58869,7 +59630,7 @@ func (x *TechnologyDataVariations) Content() *TechnologyDataVariationsContentFor
 	return NewTechnologyDataVariationsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
+// A technology standard entry (form).
 //
 // Documents a mandated or preferred technology standard that the solution
 // must adhere to. Includes scope, compliance requirements, and exceptions.
@@ -59015,7 +59776,7 @@ func (x *TenantContextPolicy) SetContent(value string) {
 // Tenant Context Policy Details (text).
 // (skipped: tenantContextPolicyDetails has no target type)
 
-// A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn].
+// A tenant customization entry (form).
 //
 // Describes a specific area where tenants can customize their authorization
 // model — custom roles, permissions, policies, or workflows. Covers scoping,
@@ -59057,14 +59818,14 @@ func (x *TenantDataIsolationPolicy) SetContent(value string) {
 // Tenant Data Isolation Details (text).
 // (skipped: tenantDataIsolationDetails has no target type)
 
-// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+// 9.4.7. Tenant Isolation.
 //
 // Describes how multi-tenant authorization is structured: how tenant context
 // is established and propagated, how cross-tenant access is prevented or
 // controlled, how tenants can customize their authorization model, how tenant
 // onboarding/offboarding is handled from an authorization perspective, and
 // how tenant boundaries are enforced at the authorization layer.
-// Complements TenantDataIsolationPolicy (PD00-ACC-RES-DAT) which covers
+// Complements TenantDataIsolationPolicy which covers
 // data-level isolation; this section focuses on authorization-level isolation.
 type TenantIsolation struct {
 	som.SomNode
@@ -59153,7 +59914,7 @@ func (x *TestScenarioBusiness) Content() *TestScenarioBusinessContentForm {
 	return NewTestScenarioBusinessContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
+// A test scenario entry (form).
 //
 // Represents a business-level test case covering a user journey, business
 // process, or acceptance criterion. Includes full traceability, preconditions,
@@ -59300,9 +60061,9 @@ func (x *TestScenarioTraceability) Content() *TestScenarioTraceabilityContentFor
 	return NewTestScenarioTraceabilityContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.8. Test Strategy [PD00-SYQ-TST].
+// 11.8. Test Strategy.
 //
-// Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
+// Overall test strategy for the project..
 type TestStrategy struct {
 	som.SomNode
 }
@@ -59737,7 +60498,7 @@ func (x *ThirdPartyLibraryEntryUsage) Content() *ThirdPartyLibraryEntryUsageCont
 	return NewThirdPartyLibraryEntryUsageContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+// 10.13.3.3. Throwaway Prototype.
 //
 // Prototype evaluated and then discarded.
 type ThrowawayPrototype struct {
@@ -60022,7 +60783,7 @@ func (x *ToolDocumentation) Content() *ToolDocumentationContentForm {
 	return NewToolDocumentationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A tool entry (form) [PD00-POP-TOO-TOO-nn].
+// A tool entry (form).
 //
 // Comprehensive specification of a single tool covering identity,
 // licensing, versioning, access, integration, support, security,
@@ -60241,7 +61002,7 @@ func (x *ToolVersioning) Content() *ToolVersioningContentForm {
 	return NewToolVersioningContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+// 2.4.1. Tooling.
 //
 // Container for the project's tool inventory and governance policies.
 // Covers all tool categories: development, CI/CD, communication,
@@ -60285,7 +61046,7 @@ func (x *Tooling) Items() *som.SomList[*ToolEntry] {
 	})
 }
 
-// 2.4. Tooling and Environments [PD00-POP-TOO].
+// 2.4. Tooling and Environments.
 type ToolingAndEnvironments struct {
 	som.SomNode
 }
@@ -60303,12 +61064,12 @@ func (x *ToolingAndEnvironments) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+// 2.4.1. Tooling.
 func (x *ToolingAndEnvironments) Tooling() *Tooling {
 	return NewTooling(x.Doc(), x.Path() + "/tooling")
 }
 
-// 2.4.2. Environments [PD00-POP-TOO-ENV].
+// 2.4.2. Environments.
 func (x *ToolingAndEnvironments) Environments() *Environments {
 	return NewEnvironments(x.Doc(), x.Path() + "/environments")
 }
@@ -60369,7 +61130,7 @@ func (x *TourStepEntry) Content() *TourStepEntryContentForm {
 	return NewTourStepEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
+// A trade-off decision entry (form).
 type TradeOffDecisionEntry struct {
 	som.SomNode
 }
@@ -60481,7 +61242,7 @@ func (x *TradeOffDecisionEntryRationale) Content() *TradeOffDecisionEntryRationa
 	return NewTradeOffDecisionEntryRationaleContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+// 11.6.2. Trade-off Decisions.
 //
 // Explicit trade-off decisions between quality attributes.
 type TradeOffDecisions struct {
@@ -60578,7 +61339,7 @@ func (x *TrainingAssessmentReporting) Content() *TrainingAssessmentReportingCont
 	return NewTrainingAssessmentReportingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+// 14.1.3. Training Deliverables.
 type TrainingDeliverables struct {
 	som.SomNode
 }
@@ -60601,6 +61362,27 @@ func (x *TrainingDeliverables) Items() *som.SomList[*DeliverableEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DLVEN-ITEM-LST", func(d *som.SpecDocument, p string) *DeliverableEntry {
 		return NewDeliverableEntry(d, p)
 	})
+}
+
+// Training & Enablement requirements.
+//
+// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
+// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
+// detailed training-module catalogue currently lives inside
+// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
+// pending the IP-8 doc/training split.
+type TrainingEnablementRequirements struct {
+	som.SomNode
+}
+
+// NewTrainingEnablementRequirements binds a TrainingEnablementRequirements facade to a document and a path.
+func NewTrainingEnablementRequirements(doc *som.SpecDocument, path string) *TrainingEnablementRequirements {
+	return &TrainingEnablementRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+// Training & enablement requirement form.
+func (x *TrainingEnablementRequirements) Content() *TrainingEnablementRequirementsContentForm {
+	return NewTrainingEnablementRequirementsContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Training materials and resources.
@@ -60674,7 +61456,7 @@ func (x *TrainingMaterialsPractice) Content() *TrainingMaterialsPracticeContentF
 	return NewTrainingMaterialsPracticeContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A training module entry [PD00-USE-MUL-DOC-MOD-nn].
+// A training module entry.
 type TrainingModuleEntry struct {
 	som.SomNode
 }
@@ -60702,7 +61484,7 @@ func (x *TrainingOverview) Content() *TrainingOverviewContentForm {
 	return NewTrainingOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+// 10.13.3.2. Training Prototype.
 //
 // Prototype where concepts are reused but not code.
 type TrainingPrototype struct {
@@ -60759,7 +61541,7 @@ func (x *TrainingPrototypeOutputs) Content() *TrainingPrototypeOutputsContentFor
 	return NewTrainingPrototypeOutputsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+// 5.3.2. Training Requirements.
 //
 // Comprehensive training program requirements following adult learning
 // principles (ADDIE, Kirkpatrick evaluation model).
@@ -60900,7 +61682,7 @@ func (x *TransitionEscalationPaths) Content() *TransitionEscalationPathsContentF
 	return NewTransitionEscalationPathsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Transition metric entry [PD00-ORG-STR-TIM-MET-nn] (form).
+// Transition metric entry (form).
 type TransitionMetricEntry struct {
 	som.SomNode
 }
@@ -60966,7 +61748,7 @@ func (x *TransitionMetricsOverview) Content() *TransitionMetricsOverviewContentF
 	return NewTransitionMetricsOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A transition milestone entry [PD00-ORG-STR-TIM-MIL-nn] (form).
+// A transition milestone entry (form).
 type TransitionMilestoneEntry struct {
 	som.SomNode
 }
@@ -61103,7 +61885,7 @@ func (x *TransitionPhaseActivities) Content() *TransitionPhaseActivitiesContentF
 	return NewTransitionPhaseActivitiesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A transition phase entry [PD00-ORG-STR-TIM-PHA-nn] (form).
+// A transition phase entry (form).
 //
 // Defines a distinct phase in the organizational transition sequence.
 type TransitionPhaseEntry struct {
@@ -61219,7 +62001,7 @@ func (x *TransitionPhaseStakeholders) Content() *TransitionPhaseStakeholdersCont
 	return NewTransitionPhaseStakeholdersContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Transition risk entry [PD00-ORG-STR-TIM-RSK-nn] (form).
+// Transition risk entry (form).
 type TransitionRiskEntry struct {
 	som.SomNode
 }
@@ -61271,6 +62053,110 @@ func (x *TransitionRiskEntryResponse) Content() *TransitionRiskEntryResponseCont
 	return NewTransitionRiskEntryResponseContentForm(x.Doc(), x.Path() + "/content")
 }
 
+// SR00 System Rollout.
+//
+// End-to-end rollout specification — localization, translation,
+// documentation and training, plus rollout plan, migration plan,
+// user manuals, training materials, pilot, cutover, knowledge
+// transfer, and warranty/support.
+type TransitionRolloutPlan struct {
+	som.SomNode
+}
+
+// TransitionRolloutPlanModelVersion is the model version this object model was generated
+// against (§2.1).
+const TransitionRolloutPlanModelVersion = "0.0"
+
+// NewTransitionRolloutPlan creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewTransitionRolloutPlan(doc *som.SpecDocument, documentVersion string) (*TransitionRolloutPlan, error) {
+	if err := som.CheckSomModelVersion(TransitionRolloutPlanModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &TransitionRolloutPlan{SomNode: som.NewSomNode(doc, "TRP")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *TransitionRolloutPlan) ObjectModelVersion() string {
+	return TransitionRolloutPlanModelVersion
+}
+
+func (x *TransitionRolloutPlan) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TransitionRolloutPlan) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *TransitionRolloutPlan) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Localization process.
+func (x *TransitionRolloutPlan) LocalizationProcess() *LocalizationProcess {
+	return NewLocalizationProcess(x.Doc(), x.Path() + "/localizationProcess")
+}
+
+// Translation process.
+func (x *TransitionRolloutPlan) TranslationProcess() *TranslationProcess {
+	return NewTranslationProcess(x.Doc(), x.Path() + "/translationProcess")
+}
+
+// Documentation and training.
+func (x *TransitionRolloutPlan) DocumentationAndTraining() *DocumentationAndTraining {
+	return NewDocumentationAndTraining(x.Doc(), x.Path() + "/documentationAndTraining")
+}
+
+// Rollout plan.
+func (x *TransitionRolloutPlan) RolloutPlan() *RolloutPlan {
+	return NewRolloutPlan(x.Doc(), x.Path() + "/rolloutPlan")
+}
+
+// Migration plan.
+func (x *TransitionRolloutPlan) MigrationPlan() *MigrationPlan {
+	return NewMigrationPlan(x.Doc(), x.Path() + "/migrationPlan")
+}
+
+// User manuals.
+func (x *TransitionRolloutPlan) UserManuals() *som.SomList[*UserManuals] {
+	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManuals {
+		return NewUserManuals(d, p)
+	})
+}
+
+// Training materials.
+func (x *TransitionRolloutPlan) TrainingMaterials() *som.SomList[*RolloutTrainingMaterials] {
+	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterials {
+		return NewRolloutTrainingMaterials(d, p)
+	})
+}
+
+// Pilot plan.
+func (x *TransitionRolloutPlan) PilotPlan() *PilotPlan {
+	return NewPilotPlan(x.Doc(), x.Path() + "/pilotPlan")
+}
+
+// Cutover procedures.
+func (x *TransitionRolloutPlan) CutoverProcedures() *som.SomList[*CutoverProcedures] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedures {
+		return NewCutoverProcedures(d, p)
+	})
+}
+
+// Knowledge transfer.
+func (x *TransitionRolloutPlan) KnowledgeTransfer() *KnowledgeTransfer {
+	return NewKnowledgeTransfer(x.Doc(), x.Path() + "/knowledgeTransfer")
+}
+
+// Warranty and support.
+func (x *TransitionRolloutPlan) WarrantyAndSupport() *WarrantyAndSupport {
+	return NewWarrantyAndSupport(x.Doc(), x.Path() + "/warrantyAndSupport")
+}
+
 // Success metrics for the transition.
 type TransitionSuccessMetrics struct {
 	som.SomNode
@@ -61307,7 +62193,7 @@ func (x *TransitionSupportOverview) Content() *TransitionSupportOverviewContentF
 	return NewTransitionSupportOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Support resource entry [PD00-ORG-STR-TIM-SUP-nn] (form).
+// Support resource entry (form).
 type TransitionSupportResourceEntry struct {
 	som.SomNode
 }
@@ -61350,7 +62236,7 @@ func (x *TransitionSupportStructure) EscalationPaths() *som.SomList[*TransitionE
 	})
 }
 
-// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
+// 10.12.2. Translation Process.
 //
 // Workflow for translating content.
 type TranslationProcess struct {
@@ -61452,7 +62338,7 @@ func (x *TranslationProcessWorkflow) Content() *TranslationProcessWorkflowConten
 	return NewTranslationProcessWorkflowContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+// 10.12.5. Translation Handling Requirements.
 //
 // Technical requirements for internationalization framework.
 type TranslationRequirements struct {
@@ -61547,7 +62433,7 @@ func (x *TranslationRequirementsVariants) Content() *TranslationRequirementsVari
 	return NewTranslationRequirementsVariantsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].
+// A translation vendor entry.
 type TranslationVendorEntry struct {
 	som.SomNode
 }
@@ -61671,7 +62557,7 @@ func (x *TroubleshootingCapabilitiesRunbooks) Content() *TroubleshootingCapabili
 	return NewTroubleshootingCapabilitiesRunbooksContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+// 4.1.2.5. Trust Boundaries.
 //
 // Security zones and trust boundaries that the system operates within
 // or crosses.
@@ -61713,7 +62599,7 @@ func (x *TrustBoundaryEntry) Content() *TrustBoundaryEntryContentForm {
 	return NewTrustBoundaryEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A typography style entry [PD00-USE-COM-LIB-TYP-nn].
+// A typography style entry.
 type TypographyStyleEntry struct {
 	som.SomNode
 }
@@ -61870,7 +62756,7 @@ func (x *UatSignOff) Content() *UatSignOffContentForm {
 	return NewUatSignOffContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A UAT test cycle entry [PD00-DEL-ACC-UAT-CYC-nn].
+// A UAT test cycle entry.
 //
 // Represents a distinct test execution round — e.g. Cycle 1 (initial),
 // Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
@@ -61940,7 +62826,7 @@ func (x *UatTestData) Content() *UatTestDataContentForm {
 	return NewUatTestDataContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A UAT test step entry [PD00-DEL-ACC-UAT-nn-STP-mm].
+// A UAT test step entry.
 //
 // Individual step within a test scenario. Captures the action, input data,
 // expected result, and pass criteria at fine-grained level per IEEE 829
@@ -61972,7 +62858,7 @@ func (x *UatTraining) Content() *UatTrainingContentForm {
 	return NewUatTrainingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A UI component entry [PD00-USE-COM-SPE-nn].
+// A UI component entry.
 //
 // Comprehensive specification for a single UI component covering identity,
 // visual design, behavior, states, responsiveness, accessibility,
@@ -62211,7 +63097,7 @@ func (x *UiComponentEntrySurface) Content() *UiComponentEntrySurfaceContentForm 
 	return NewUiComponentEntrySurfaceContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.11. UI Components [PD00-USE-COM].
+// 10.11. UI Components.
 //
 // Comprehensive UI component library specification covering design system,
 // component catalog, and detailed per-component specifications. Supports
@@ -62244,19 +63130,19 @@ func (x *UiComponents) Customization() *UiComponentsCustomization {
 	return NewUiComponentsCustomization(x.Doc(), x.Path() + "/customization")
 }
 
-// 10.11.1. Component Library [PD00-USE-COM-LIB].
+// 10.11.1. Component Library.
 func (x *UiComponents) ComponentLibrary() *ComponentLibrary {
 	return NewComponentLibrary(x.Doc(), x.Path() + "/componentLibrary")
 }
 
-// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+// 10.11.2. Component Specifications — contains 0+×.
 func (x *UiComponents) ComponentSpecs() *som.SomList[*UiComponentEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/UICOEN-COMP-LST", func(d *som.SpecDocument, p string) *UiComponentEntry {
 		return NewUiComponentEntry(d, p)
 	})
 }
 
-// 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
+// 10.11.3. Component Families — contains 0+×.
 func (x *UiComponents) ComponentFamilies() *som.SomList[*ComponentFamilyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/CMFA-COMP-LST", func(d *som.SpecDocument, p string) *ComponentFamilyEntry {
 		return NewComponentFamilyEntry(d, p)
@@ -62305,7 +63191,7 @@ func (x *UiComponentsVisualLanguage) Content() *UiComponentsVisualLanguageConten
 	return NewUiComponentsVisualLanguageContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
+// A design principle entry (form).
 //
 // Each principle guides UI decisions with rationale and examples.
 type UiDesignPrincipleEntry struct {
@@ -62321,112 +63207,7 @@ func (x *UiDesignPrincipleEntry) Content() *UiDesignPrincipleEntryContentForm {
 	return NewUiDesignPrincipleEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// UP00 UI Prototype.
-//
-// Full UI design and prototype specification — vision, screens,
-// screen flow, print, error handling, help, accessibility, responsive,
-// components, language/country selection, prototype, wireframes and
-// mockups.
-type UiPrototype struct {
-	som.SomNode
-}
-
-// UiPrototypeModelVersion is the model version this object model was generated
-// against (§2.1).
-const UiPrototypeModelVersion = "0.0"
-
-// NewUiPrototype creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewUiPrototype(doc *som.SpecDocument, documentVersion string) (*UiPrototype, error) {
-	if err := som.CheckSomModelVersion(UiPrototypeModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &UiPrototype{SomNode: som.NewSomNode(doc, "UP")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *UiPrototype) ObjectModelVersion() string {
-	return UiPrototypeModelVersion
-}
-
-func (x *UiPrototype) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *UiPrototype) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *UiPrototype) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Design vision — PD00-USE-VIS.
-func (x *UiPrototype) DesignVision() *DesignVision {
-	return NewDesignVision(x.Doc(), x.Path() + "/designVision")
-}
-
-// Screen descriptions — PD00-USE-SCR.
-func (x *UiPrototype) Screens() *ScreenDescriptions {
-	return NewScreenDescriptions(x.Doc(), x.Path() + "/screens")
-}
-
-// Screen flow structure — PD00-USE-SCF.
-func (x *UiPrototype) ScreenFlow() *ScreenFlowStructure {
-	return NewScreenFlowStructure(x.Doc(), x.Path() + "/screenFlow")
-}
-
-// Print layout — PD00-USE-PRI.
-func (x *UiPrototype) PrintLayout() *PrintLayout {
-	return NewPrintLayout(x.Doc(), x.Path() + "/printLayout")
-}
-
-// Error handling concept — PD00-USE-ERR.
-func (x *UiPrototype) ErrorHandling() *ErrorHandlingConcept {
-	return NewErrorHandlingConcept(x.Doc(), x.Path() + "/errorHandling")
-}
-
-// Help concept — PD00-USE-HLP.
-func (x *UiPrototype) HelpConcept() *HelpConcept {
-	return NewHelpConcept(x.Doc(), x.Path() + "/helpConcept")
-}
-
-// Accessibility — PD00-USE-ACC.
-func (x *UiPrototype) Accessibility() *Accessibility {
-	return NewAccessibility(x.Doc(), x.Path() + "/accessibility")
-}
-
-// Responsive design — PD00-USE-RES.
-func (x *UiPrototype) ResponsiveDesign() *ResponsiveDesign {
-	return NewResponsiveDesign(x.Doc(), x.Path() + "/responsiveDesign")
-}
-
-// UI components — PD00-USE-COM.
-func (x *UiPrototype) UiComponents() *UiComponents {
-	return NewUiComponents(x.Doc(), x.Path() + "/uiComponents")
-}
-
-// Language and country selection — PD00-USE-MUL-LCS.
-func (x *UiPrototype) LanguageCountrySelection() *LanguageCountrySelection {
-	return NewLanguageCountrySelection(x.Doc(), x.Path() + "/languageCountrySelection")
-}
-
-// Prototype — PD00-USE-PRO.
-func (x *UiPrototype) Prototype() *Prototype {
-	return NewPrototype(x.Doc(), x.Path() + "/prototype")
-}
-
-// Wireframes and mockups — PD00-USE-WIR (new in Phase A, HBSG AS10-WIR).
-func (x *UiPrototype) WireframesAndMockups() *som.SomList[*WireframesAndMockups] {
-	return som.NewSomList(x.Doc(), x.Path() + "/WIANMO-WIRE-LST", func(d *som.SpecDocument, p string) *WireframesAndMockups {
-		return NewWireframesAndMockups(d, p)
-	})
-}
-
-// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG].
+// 13.8. Upgrade Cycle Framework.
 //
 // Post-development upgrade cycle framework. Links the upgrade process
 // defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
@@ -62447,7 +63228,7 @@ func (x *UpgradeCycleFramework) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 11.2.1. Usability quality [PD00-SYQ-USE-USA].
+// 11.2.1. Usability quality.
 type UsabilityQuality struct {
 	som.SomNode
 }
@@ -62594,7 +63375,7 @@ func (x *UseCaseScopeContext) Content() *UseCaseScopeContextContentForm {
 	return NewUseCaseScopeContextContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+// 6.2.5. Use Case Traceability.
 //
 // Use case ↔ requirement ↔ process ↔ test traceability.
 type UseCaseTraceability struct {
@@ -62614,86 +63395,7 @@ func (x *UseCaseTraceability) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// UC00 Use Cases.
-//
-// Detailed use cases derived from the target process steps and actor
-// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-// and traceability.
-type UseCases struct {
-	som.SomNode
-}
-
-// UseCasesModelVersion is the model version this object model was generated
-// against (§2.1).
-const UseCasesModelVersion = "0.0"
-
-// NewUseCases creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewUseCases(doc *som.SpecDocument, documentVersion string) (*UseCases, error) {
-	if err := som.CheckSomModelVersion(UseCasesModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &UseCases{SomNode: som.NewSomNode(doc, "UC")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *UseCases) ObjectModelVersion() string {
-	return UseCasesModelVersion
-}
-
-func (x *UseCases) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *UseCases) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *UseCases) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Process steps overview — PD00-TAR-STP-OVE.
-func (x *UseCases) ProcessStepsOverview() *ProcessStepsOverview {
-	return NewProcessStepsOverview(x.Doc(), x.Path() + "/processStepsOverview")
-}
-
-// Actor overview — PD00-TAR-STP-ACT.
-func (x *UseCases) ActorOverview() *ActorOverview {
-	return NewActorOverview(x.Doc(), x.Path() + "/actorOverview")
-}
-
-// Interaction catalog — PD00-TAR-STP-INT.
-func (x *UseCases) InteractionCatalog() *InteractionCatalog {
-	return NewInteractionCatalog(x.Doc(), x.Path() + "/interactionCatalog")
-}
-
-// Key scenarios — PD00-TAR-STP-SCE.
-func (x *UseCases) KeyScenarios() *KeyScenarios {
-	return NewKeyScenarios(x.Doc(), x.Path() + "/keyScenarios")
-}
-
-// Actor relationship diagram — PD00-TAR-STP-DIA.
-func (x *UseCases) ActorRelationshipDiagram() *ActorRelationshipDiagram {
-	return NewActorRelationshipDiagram(x.Doc(), x.Path() + "/actorRelationshipDiagram")
-}
-
-// End-to-end test scenarios — PD00-TAR-STP-E2E (covers HBSG AS24).
-func (x *UseCases) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenarios] {
-	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenarios {
-		return NewEndToEndTestScenarios(d, p)
-	})
-}
-
-// Use case traceability — PD00-TAR-STP-TRC.
-func (x *UseCases) UseCaseTraceability() *UseCaseTraceability {
-	return NewUseCaseTraceability(x.Doc(), x.Path() + "/useCaseTraceability")
-}
-
-// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+// 14.2.3. User Acceptance Testing.
 //
 // Comprehensive UAT planning covering scope, environment, test data,
 // governance, scheduling, defect management, reporting, non-functional
@@ -62784,7 +63486,7 @@ func (x *UserAcceptanceTesting) TestScenarios() *som.SomList[*TestScenarioEntry]
 	})
 }
 
-// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+// 4.1.4.n.4. Access and Permissions.
 //
 // Security and access control specifications for this user category.
 type UserAccessPermissions struct {
@@ -62854,7 +63556,7 @@ func (x *UserAccessPermissionsRestrictions) Content() *UserAccessPermissionsRest
 	return NewUserAccessPermissionsRestrictionsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+// 4.1.4.n.6. Accessibility Needs.
 //
 // Accessibility requirements and accommodations for this user category.
 type UserAccessibilityNeeds struct {
@@ -62903,7 +63605,7 @@ func (x *UserAccountStatesDefinition) SetContent(value string) {
 // State Transition Diagram (mermaid).
 // (skipped: stateTransitionDiagram has no target type)
 
-// A user attribute entry (form) [PD00-ACC-USE-ATT-nn].
+// A user attribute entry (form).
 type UserAttributeEntry struct {
 	som.SomNode
 }
@@ -62917,7 +63619,7 @@ func (x *UserAttributeEntry) Content() *UserAttributeEntryContentForm {
 	return NewUserAttributeEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+// 9.1.3. User Attributes.
 type UserAttributes struct {
 	som.SomNode
 }
@@ -62942,7 +63644,7 @@ func (x *UserAttributes) Items() *som.SomList[*UserAttributeEntry] {
 	})
 }
 
-// 9.4. User Authorization [PD00-ACC-USA].
+// 9.4. User Authorization.
 //
 // Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 type UserAuthorization struct {
@@ -62962,50 +63664,50 @@ func (x *UserAuthorization) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+// 9.4.1. Authorization Model.
 func (x *UserAuthorization) AuthorizationModel() *AuthorizationModel {
 	return NewAuthorizationModel(x.Doc(), x.Path() + "/authorizationModel")
 }
 
-// 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
+// 9.4.2. Authorization Groups — contains 0+× Group.
 func (x *UserAuthorization) Groups() *som.SomList[*AuthorizationGroupEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AZGR-GROU-LST", func(d *som.SpecDocument, p string) *AuthorizationGroupEntry {
 		return NewAuthorizationGroupEntry(d, p)
 	})
 }
 
-// 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+// 9.4.3. Role Definitions — contains 1+× Role.
 func (x *UserAuthorization) RoleDefinitions() *som.SomList[*AuthorizationRoleEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/AZRO-ROLE-LST", func(d *som.SpecDocument, p string) *AuthorizationRoleEntry {
 		return NewAuthorizationRoleEntry(d, p)
 	})
 }
 
-// 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
+// 9.4.4. Entitlements — contains 1+× Entitlement.
 func (x *UserAuthorization) Entitlements() *som.SomList[*EntitlementEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/ENT-ENTI-LST", func(d *som.SpecDocument, p string) *EntitlementEntry {
 		return NewEntitlementEntry(d, p)
 	})
 }
 
-// 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
+// 9.4.5. Resource Keys — contains 0+× Resource Key.
 func (x *UserAuthorization) ResourceKeys() *som.SomList[*ResourceKeyEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RESKEY-RESO-LST", func(d *som.SpecDocument, p string) *ResourceKeyEntry {
 		return NewResourceKeyEntry(d, p)
 	})
 }
 
-// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+// 9.4.6. Role Hierarchy.
 func (x *UserAuthorization) RoleHierarchy() *RoleHierarchy {
 	return NewRoleHierarchy(x.Doc(), x.Path() + "/roleHierarchy")
 }
 
-// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+// 9.4.7. Tenant Isolation.
 func (x *UserAuthorization) TenantIsolation() *TenantIsolation {
 	return NewTenantIsolation(x.Doc(), x.Path() + "/tenantIsolation")
 }
 
-// A user category definition (form) [PD00-ACC-USE-CAT-nn].
+// A user category definition (form).
 type UserCategoryDefinition struct {
 	som.SomNode
 }
@@ -63019,7 +63721,7 @@ func (x *UserCategoryDefinition) Content() *UserCategoryDefinitionContentForm {
 	return NewUserCategoryDefinitionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A user category entry [PD00-SYO-SYD-USR-nn].
+// A user category entry.
 //
 // Comprehensive user persona definition including demographics, goals,
 // frustrations, technical proficiency, and system interaction patterns.
@@ -63046,39 +63748,39 @@ func (x *UserCategoryEntry) Importance() *UserCategoryEntryImportance {
 	return NewUserCategoryEntryImportance(x.Doc(), x.Path() + "/importance")
 }
 
-// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+// 4.1.4.n.1. User Persona Details.
 func (x *UserCategoryEntry) PersonaDetails() *UserPersonaDetails {
 	return NewUserPersonaDetails(x.Doc(), x.Path() + "/personaDetails")
 }
 
-// 4.1.4.n.2. Role [PD00-SYO-SYD-USR-nn-ROL].
+// 4.1.4.n.2. Role.
 func (x *UserCategoryEntry) Role() *UserCategoryRoleEntry {
 	return NewUserCategoryRoleEntry(x.Doc(), x.Path() + "/role")
 }
 
-// 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+// 4.1.4.n.3. System Tasks — contains 1+× System Task.
 func (x *UserCategoryEntry) SystemTasks() *som.SomList[*SystemTaskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/SYTS-SYST-LST", func(d *som.SpecDocument, p string) *SystemTaskEntry {
 		return NewSystemTaskEntry(d, p)
 	})
 }
 
-// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+// 4.1.4.n.4. Access and Permissions.
 func (x *UserCategoryEntry) AccessPermissions() *UserAccessPermissions {
 	return NewUserAccessPermissions(x.Doc(), x.Path() + "/accessPermissions")
 }
 
-// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+// 4.1.4.n.5. Training Requirements.
 func (x *UserCategoryEntry) TrainingRequirements() *UserTrainingRequirements {
 	return NewUserTrainingRequirements(x.Doc(), x.Path() + "/trainingRequirements")
 }
 
-// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+// 4.1.4.n.6. Accessibility Needs.
 func (x *UserCategoryEntry) AccessibilityNeeds() *UserAccessibilityNeeds {
 	return NewUserAccessibilityNeeds(x.Doc(), x.Path() + "/accessibilityNeeds")
 }
 
-// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+// 4.1.4.n.7. User Journey.
 func (x *UserCategoryEntry) UserJourney() *UserJourney {
 	return NewUserJourney(x.Doc(), x.Path() + "/userJourney")
 }
@@ -63111,7 +63813,7 @@ func (x *UserCategoryEntryUsage) Content() *UserCategoryEntryUsageContentForm {
 	return NewUserCategoryEntryUsageContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
+// Role within a user category.
 //
 // Organizational role and responsibilities associated with this user category.
 type UserCategoryRoleEntry struct {
@@ -63127,7 +63829,7 @@ func (x *UserCategoryRoleEntry) Content() *UserCategoryRoleEntryContentForm {
 	return NewUserCategoryRoleEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn].
+// User group impact entry.
 type UserGroupImpactEntry struct {
 	som.SomNode
 }
@@ -63212,7 +63914,7 @@ func (x *UserGrowthProjectionsThresholds) Content() *UserGrowthProjectionsThresh
 	return NewUserGrowthProjectionsThresholdsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+// 4.1.5. User Interaction Model.
 //
 // Describes how different user categories interact with the system including
 // access channels, interaction patterns, access levels, and session management.
@@ -63239,32 +63941,32 @@ func (x *UserInteractionModel) Summary() *UserInteractionModelSummary {
 	return NewUserInteractionModelSummary(x.Doc(), x.Path() + "/summary")
 }
 
-// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+// 4.1.5.1. Access Channels.
 func (x *UserInteractionModel) AccessChannels() *AccessChannels {
 	return NewAccessChannels(x.Doc(), x.Path() + "/accessChannels")
 }
 
-// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+// 4.1.5.2. Interaction Patterns.
 func (x *UserInteractionModel) InteractionPatterns() *InteractionPatterns {
 	return NewInteractionPatterns(x.Doc(), x.Path() + "/interactionPatterns")
 }
 
-// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+// 4.1.5.3. Access Levels.
 func (x *UserInteractionModel) AccessLevels() *AccessLevels {
 	return NewAccessLevels(x.Doc(), x.Path() + "/accessLevels")
 }
 
-// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+// 4.1.5.4. Session Model.
 func (x *UserInteractionModel) SessionModel() *SessionModel {
 	return NewSessionModel(x.Doc(), x.Path() + "/sessionModel")
 }
 
-// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+// 4.1.5.5. Notification Model.
 func (x *UserInteractionModel) NotificationModel() *NotificationModel {
 	return NewNotificationModel(x.Doc(), x.Path() + "/notificationModel")
 }
 
-// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+// 4.1.5.6. Multi-Channel Experience.
 func (x *UserInteractionModel) MultiChannelExperience() *MultiChannelExperience {
 	return NewMultiChannelExperience(x.Doc(), x.Path() + "/multiChannelExperience")
 }
@@ -63288,93 +63990,7 @@ func (x *UserInteractionModelSummary) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
-type UserInterfaceDesign struct {
-	som.SomNode
-}
-
-// NewUserInterfaceDesign binds a UserInterfaceDesign facade to a document and a path.
-func NewUserInterfaceDesign(doc *som.SpecDocument, path string) *UserInterfaceDesign {
-	return &UserInterfaceDesign{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *UserInterfaceDesign) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *UserInterfaceDesign) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
-func (x *UserInterfaceDesign) DesignVision() *DesignVision {
-	return NewDesignVision(x.Doc(), x.Path() + "/designVision")
-}
-
-// 10.2. Screen Descriptions [PD00-USE-SCR]. Seeds → UP.
-func (x *UserInterfaceDesign) Screens() *ScreenDescriptions {
-	return NewScreenDescriptions(x.Doc(), x.Path() + "/screens")
-}
-
-// 10.3. Screen Flow Structure [PD00-USE-SCF]. Seeds → UP.
-func (x *UserInterfaceDesign) ScreenFlow() *ScreenFlowStructure {
-	return NewScreenFlowStructure(x.Doc(), x.Path() + "/screenFlow")
-}
-
-// 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
-func (x *UserInterfaceDesign) PrintLayout() *PrintLayout {
-	return NewPrintLayout(x.Doc(), x.Path() + "/printLayout")
-}
-
-// Data Structure Alignment.
-// (skipped: dataStructureAlignment has no target type)
-
-// Authorization Compliance.
-// (skipped: authorizationCompliance has no target type)
-
-// 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
-func (x *UserInterfaceDesign) ErrorHandling() *ErrorHandlingConcept {
-	return NewErrorHandlingConcept(x.Doc(), x.Path() + "/errorHandling")
-}
-
-// 10.8. Help Concept [PD00-USE-HLP]. Seeds → UP.
-func (x *UserInterfaceDesign) HelpConcept() *HelpConcept {
-	return NewHelpConcept(x.Doc(), x.Path() + "/helpConcept")
-}
-
-// 10.9. Accessibility [PD00-USE-ACC]. Seeds → UP.
-func (x *UserInterfaceDesign) Accessibility() *Accessibility {
-	return NewAccessibility(x.Doc(), x.Path() + "/accessibility")
-}
-
-// 10.10. Responsive Design [PD00-USE-RES]. Seeds → UP.
-func (x *UserInterfaceDesign) ResponsiveDesign() *ResponsiveDesign {
-	return NewResponsiveDesign(x.Doc(), x.Path() + "/responsiveDesign")
-}
-
-// 10.11. UI Components [PD00-USE-COM]. Seeds → UP.
-func (x *UserInterfaceDesign) UiComponents() *UiComponents {
-	return NewUiComponents(x.Doc(), x.Path() + "/uiComponents")
-}
-
-// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
-func (x *UserInterfaceDesign) MultiLanguage() *MultiLanguageAndRollout {
-	return NewMultiLanguageAndRollout(x.Doc(), x.Path() + "/multiLanguage")
-}
-
-// 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
-func (x *UserInterfaceDesign) Prototype() *Prototype {
-	return NewPrototype(x.Doc(), x.Path() + "/prototype")
-}
-
-// 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
-func (x *UserInterfaceDesign) WireframesAndMockups() *som.SomList[*WireframesAndMockups] {
-	return som.NewSomList(x.Doc(), x.Path() + "/WIANMO-WIRE-LST", func(d *som.SpecDocument, p string) *WireframesAndMockups {
-		return NewWireframesAndMockups(d, p)
-	})
-}
-
-// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+// 4.1.4.n.7. User Journey.
 //
 // Key touchpoints and journey map for this user category's experience.
 type UserJourney struct {
@@ -63451,7 +64067,7 @@ func (x *UserJourneyPainPointEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+// 9.1.2. User Lifecycle.
 //
 // Defines the complete user account lifecycle: states, transitions between
 // states, approval requirements for each transition, and operational policies
@@ -63523,7 +64139,7 @@ func (x *UserLifecycleSection) ServiceAccounts() *som.SomList[*ServiceAccountLif
 	})
 }
 
-// A lifecycle transition entry (form) [PD00-ACC-USE-LIF-nn].
+// A lifecycle transition entry (form).
 //
 // Defines a single permissible transition between two lifecycle states,
 // including trigger, approval, and side effects.
@@ -63631,7 +64247,7 @@ func (x *UserLifecycleTransitions) Items() *som.SomList[*UserLifecycleTransition
 	})
 }
 
-// 9.1. User Management [PD00-ACC-USE].
+// 9.1. User Management.
 type UserManagement struct {
 	som.SomNode
 }
@@ -63649,22 +64265,22 @@ func (x *UserManagement) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+// 9.1.1. User Categories.
 func (x *UserManagement) UserCategories() *AccessUserCategories {
 	return NewAccessUserCategories(x.Doc(), x.Path() + "/userCategories")
 }
 
-// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+// 9.1.2. User Lifecycle.
 func (x *UserManagement) UserLifecycle() *UserLifecycleSection {
 	return NewUserLifecycleSection(x.Doc(), x.Path() + "/userLifecycle")
 }
 
-// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+// 9.1.3. User Attributes.
 func (x *UserManagement) UserAttributes() *UserAttributes {
 	return NewUserAttributes(x.Doc(), x.Path() + "/userAttributes")
 }
 
-// 15.3. User Manuals [PD00-ROL-DOC].
+// 15.3. User Manuals.
 //
 // End-user documentation deliverables covering DR15 User Manual content.
 type UserManuals struct {
@@ -63703,7 +64319,7 @@ func (x *UserNotificationPreferences) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+// 4.1.4.n.1. User Persona Details.
 //
 // Detailed persona information including demographics, goals, frustrations,
 // and behavioral characteristics for user-centered design.
@@ -63802,7 +64418,7 @@ func (x *UserPersonaDetailsGoals) Content() *UserPersonaDetailsGoalsContentForm 
 	return NewUserPersonaDetailsGoalsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.1.3. User Personas [PD00-USE-VIS-PER].
+// 10.1.3. User Personas.
 //
 // Container for user persona definitions. Each persona represents a distinct
 // user archetype with goals, pain points, and context.
@@ -63904,7 +64520,7 @@ func (x *UserProvisioningToolsRoleManagement) Content() *UserProvisioningToolsRo
 	return NewUserProvisioningToolsRoleManagementContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+// 11.2. User-Related Quality Criteria.
 //
 // Quality criteria that directly affect user experience, including usability,
 // functional completeness, and correctness from the end-user perspective.
@@ -63924,17 +64540,17 @@ func (x *UserQualityCriteria) UserQualityContent() *UserQualityCriteriaUserQuali
 // User quality criteria overview.
 // (skipped: overview has no target type)
 
-// 11.2.1. Usability [PD00-SYQ-USE-USA].
+// 11.2.1. Usability.
 func (x *UserQualityCriteria) Usability() *UsabilityQuality {
 	return NewUsabilityQuality(x.Doc(), x.Path() + "/usability")
 }
 
-// 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
+// 11.2.2. Functional Completeness.
 func (x *UserQualityCriteria) FunctionalCompleteness() *FunctionalCompletenessQuality {
 	return NewFunctionalCompletenessQuality(x.Doc(), x.Path() + "/functionalCompleteness")
 }
 
-// 11.2.3. Correctness [PD00-SYQ-USE-COR].
+// 11.2.3. Correctness.
 func (x *UserQualityCriteria) Correctness() *CorrectnessQuality {
 	return NewCorrectnessQuality(x.Doc(), x.Path() + "/correctness")
 }
@@ -63966,7 +64582,7 @@ func (x *UserRegistrationProcess) SetContent(value string) {
 // Registration Flow Diagram (mermaid-sequence).
 // (skipped: registrationFlowDiagram has no target type)
 
-// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+// 4.1.4.n.5. Training Requirements.
 //
 // Training and onboarding requirements for this user category.
 type UserTrainingRequirements struct {
@@ -63998,7 +64614,7 @@ func (x *UserTrainingRequirements) TrainingTopics() *som.SomList[*TrainingTopicE
 	})
 }
 
-// A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
+// A utility menu item entry (form).
 //
 // Entry in a utility popup/dropdown menu (e.g., user menu items).
 type UtilityMenuItemEntry struct {
@@ -64052,7 +64668,7 @@ func (x *UtilityMenuItemEntryBehavior) Content() *UtilityMenuItemEntryBehaviorCo
 	return NewUtilityMenuItemEntryBehaviorContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+// 10.3.1.5. Utility Navigation.
 //
 // Always-visible utility items: user menu, notifications, help, settings.
 type UtilityNavigation struct {
@@ -64079,7 +64695,7 @@ func (x *UtilityNavigation) Items() *som.SomList[*UtilityNavigationItemEntry] {
 	})
 }
 
-// A utility navigation item entry (form) [PD00-USE-SCF-NAV-UTL-nn].
+// A utility navigation item entry (form).
 //
 // A persistent utility element in the app bar: user avatar, notifications bell,
 // help icon, settings.
@@ -64141,7 +64757,7 @@ func (x *UtilityNavigationItemEntryDisplay) Content() *UtilityNavigationItemEntr
 	return NewUtilityNavigationItemEntryDisplayContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+// 7.1.6. Validation Constraints.
 //
 // Cross-entity validation policy. Per-field validation lives in entity
 // form fields; this section captures rules that span multiple fields or
@@ -64163,7 +64779,7 @@ func (x *ValidationConstraints) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+// 10.7.1. Validation Feedback.
 //
 // Field validation error display and feedback mechanisms.
 type ValidationFeedback struct {
@@ -64272,7 +64888,7 @@ func (x *ValidationFeedbackPlacement) Content() *ValidationFeedbackPlacementCont
 	return NewValidationFeedbackPlacementContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A validation message template [PD00-USE-ERR-VAL-MSG-nn].
+// A validation message template.
 type ValidationMessageTemplate struct {
 	som.SomNode
 }
@@ -64304,7 +64920,7 @@ func (x *ValidationRuleEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+// 4.1.1.4. Value Proposition.
 //
 // Clear articulation of the value this system provides, including
 // quantifiable benefits and return on investment analysis.
@@ -64748,7 +65364,7 @@ func (x *VulnerabilityManagementPolicyReporting) Content() *VulnerabilityManagem
 	return NewVulnerabilityManagementPolicyReportingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 15.8. Warranty and Support [PD00-ROL-WAR].
+// 15.8. Warranty and Support.
 //
 // Post-acceptance warranty period terms and support arrangements. Covers
 // EK10 warranty content and feeds the SR top-level on the same topic.
@@ -64839,7 +65455,7 @@ func (x *WarrantyServiceLevels) Content() *WarrantyServiceLevelsContentForm {
 	return NewWarrantyServiceLevelsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+// 14.2.6. Warranty.
 //
 // Post-acceptance warranty terms: duration, scope, service levels,
 // exclusions, and transition to standard support.
@@ -64905,7 +65521,7 @@ func (x *WarrantyTransition) Content() *WarrantyTransitionContentForm {
 	return NewWarrantyTransitionContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+// 10.9.1. WCAG Compliance Level.
 type WcagCompliance struct {
 	som.SomNode
 }
@@ -64986,7 +65602,7 @@ func (x *WcagComplianceUnderstandable) Content() *WcagComplianceUnderstandableCo
 	return NewWcagComplianceUnderstandableContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
+// A WCAG success criterion entry.
 type WcagSuccessCriterionEntry struct {
 	som.SomNode
 }
@@ -65000,7 +65616,7 @@ func (x *WcagSuccessCriterionEntry) Content() *WcagSuccessCriterionEntryContentF
 	return NewWcagSuccessCriterionEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+// 11.6.1. Weighted Quality Matrix.
 type WeightedQualityMatrix struct {
 	som.SomNode
 }
@@ -65027,10 +65643,10 @@ func (x *WeightedQualityMatrix) Weights() *som.SomList[*QualityWeightEntry] {
 // Quality matrix visualization.
 // (skipped: matrixVisualization has no target type)
 
-// 10.14. Wireframes and Mockups [PD00-USE-WIR].
+// 10.14. Wireframes and Mockups.
 //
 // Wireframe and mockup inventory beyond individual screen descriptions.
-// Covers HBSG AS10-WIR.
+// .
 type WireframesAndMockups struct {
 	som.SomNode
 }
@@ -65048,7 +65664,7 @@ func (x *WireframesAndMockups) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
+// A workflow actor entry (form).
 //
 // Documentation of a participant in the workflow.
 type WorkflowActorEntry struct {
@@ -65099,10 +65715,10 @@ func (x *WorkflowDecisionPoint) Content() *WorkflowDecisionPointContentForm {
 	return NewWorkflowDecisionPointContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+// 1.2.nn.1. Workflow Descriptions.
 //
 // Container for workflow entries within a business process.
-// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+// 1.2.nn.1. Workflow Descriptions.
 //
 // Container for workflow entries within a business process. Add one
 // subsection per current workflow relevant to the project.
@@ -65123,7 +65739,7 @@ func (x *WorkflowDescriptions) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
+// Workflow overview diagram.
 func (x *WorkflowDescriptions) WorkflowOverviewDiagram() string {
 	return x.Doc().ContentOr(x.Path() + "/workflowOverviewDiagram")
 }
@@ -65132,7 +65748,7 @@ func (x *WorkflowDescriptions) SetWorkflowOverviewDiagram(value string) {
 	x.Doc().SetContent(x.Path() + "/workflowOverviewDiagram", value)
 }
 
-// Workflow summary table [PD00-CUR-PRO-xx-WOR-SUM].
+// Workflow summary table.
 func (x *WorkflowDescriptions) SummaryTable() *WorkflowSummaryTable {
 	return NewWorkflowSummaryTable(x.Doc(), x.Path() + "/summaryTable")
 }
@@ -65211,7 +65827,7 @@ func (x *WorkflowOutputEntry) Content() *WorkflowOutputEntryContentForm {
 	return NewWorkflowOutputEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
+// A workflow step entry (form).
 //
 // Detailed documentation of a single step within a workflow.
 type WorkflowStepEntry struct {
@@ -65382,7 +65998,7 @@ func (x *WorkflowTriggers) Triggers() *som.SomList[*WorkflowTriggerEntry] {
 	})
 }
 
-// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+// A workplace description entry (form, per user category).
 //
 // Comprehensive workplace requirements following workplace design best
 // practices (OSHA, ISO 9001, ergonomic standards). Covers physical,
@@ -65406,7 +66022,7 @@ func (x *WorkplaceDescriptionEntry) PhysicalRequirements() *PhysicalWorkplaceReq
 	return NewPhysicalWorkplaceRequirements(x.Doc(), x.Path() + "/physicalRequirements")
 }
 
-// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+// 5.3.1. Equipment Requirements.
 func (x *WorkplaceDescriptionEntry) EquipmentRequirements() *EquipmentRequirements {
 	return NewEquipmentRequirements(x.Doc(), x.Path() + "/equipmentRequirements")
 }
@@ -65416,7 +66032,7 @@ func (x *WorkplaceDescriptionEntry) TechnicalInfrastructure() *TechnicalInfrastr
 	return NewTechnicalInfrastructure(x.Doc(), x.Path() + "/technicalInfrastructure")
 }
 
-// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+// 5.3.2. Training Requirements.
 func (x *WorkplaceDescriptionEntry) TrainingRequirements() *TrainingRequirements {
 	return NewTrainingRequirements(x.Doc(), x.Path() + "/trainingRequirements")
 }
@@ -70423,6 +71039,48 @@ func (x *ApplicationSecurityRequirementsValidationContentForm) SetFileUploadSecu
 	x.Doc().SetFormField(x.Path(), "fileUploadSecurity", value)
 }
 
+// ApprovalRecordContentForm is the generated form facade for the `content` @Form section.
+type ApprovalRecordContentForm struct {
+	som.SomNode
+}
+
+// NewApprovalRecordContentForm binds a ApprovalRecordContentForm facade to a document and a path.
+func NewApprovalRecordContentForm(doc *som.SpecDocument, path string) *ApprovalRecordContentForm {
+	return &ApprovalRecordContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ApprovalRecordContentForm) Role() string {
+	return x.Doc().FormFieldOr(x.Path(), "role")
+}
+
+func (x *ApprovalRecordContentForm) SetRole(value string) {
+	x.Doc().SetFormField(x.Path(), "role", value)
+}
+
+func (x *ApprovalRecordContentForm) Name() string {
+	return x.Doc().FormFieldOr(x.Path(), "name")
+}
+
+func (x *ApprovalRecordContentForm) SetName(value string) {
+	x.Doc().SetFormField(x.Path(), "name", value)
+}
+
+func (x *ApprovalRecordContentForm) Date() string {
+	return x.Doc().FormFieldOr(x.Path(), "date")
+}
+
+func (x *ApprovalRecordContentForm) SetDate(value string) {
+	x.Doc().SetFormField(x.Path(), "date", value)
+}
+
+func (x *ApprovalRecordContentForm) Status() string {
+	return x.Doc().FormFieldOr(x.Path(), "status")
+}
+
+func (x *ApprovalRecordContentForm) SetStatus(value string) {
+	x.Doc().SetFormField(x.Path(), "status", value)
+}
+
 // ArchitectureComponentEntryBoundariesContentForm is the generated form facade for the `content` @Form section.
 type ArchitectureComponentEntryBoundariesContentForm struct {
 	som.SomNode
@@ -71287,6 +71945,56 @@ func (x *AssumptionImpactContentForm) RelatedRisks() string {
 
 func (x *AssumptionImpactContentForm) SetRelatedRisks(value string) {
 	x.Doc().SetFormField(x.Path(), "relatedRisks", value)
+}
+
+// AssumptionRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+type AssumptionRegisterEntryContentForm struct {
+	som.SomNode
+}
+
+// NewAssumptionRegisterEntryContentForm binds a AssumptionRegisterEntryContentForm facade to a document and a path.
+func NewAssumptionRegisterEntryContentForm(doc *som.SpecDocument, path string) *AssumptionRegisterEntryContentForm {
+	return &AssumptionRegisterEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *AssumptionRegisterEntryContentForm) AssumptionId() string {
+	return x.Doc().FormFieldOr(x.Path(), "assumptionId")
+}
+
+func (x *AssumptionRegisterEntryContentForm) SetAssumptionId(value string) {
+	x.Doc().SetFormField(x.Path(), "assumptionId", value)
+}
+
+func (x *AssumptionRegisterEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *AssumptionRegisterEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
+}
+
+func (x *AssumptionRegisterEntryContentForm) Impact() string {
+	return x.Doc().FormFieldOr(x.Path(), "impact")
+}
+
+func (x *AssumptionRegisterEntryContentForm) SetImpact(value string) {
+	x.Doc().SetFormField(x.Path(), "impact", value)
+}
+
+func (x *AssumptionRegisterEntryContentForm) Validation() string {
+	return x.Doc().FormFieldOr(x.Path(), "validation")
+}
+
+func (x *AssumptionRegisterEntryContentForm) SetValidation(value string) {
+	x.Doc().SetFormField(x.Path(), "validation", value)
+}
+
+func (x *AssumptionRegisterEntryContentForm) Status() string {
+	return x.Doc().FormFieldOr(x.Path(), "status")
+}
+
+func (x *AssumptionRegisterEntryContentForm) SetStatus(value string) {
+	x.Doc().SetFormField(x.Path(), "status", value)
 }
 
 // AssumptionRelationshipsContentForm is the generated form facade for the `content` @Form section.
@@ -86555,6 +87263,56 @@ func (x *ConstraintMitigationContentForm) ViolationConsequences() string {
 
 func (x *ConstraintMitigationContentForm) SetViolationConsequences(value string) {
 	x.Doc().SetFormField(x.Path(), "violationConsequences", value)
+}
+
+// ConstraintRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+type ConstraintRegisterEntryContentForm struct {
+	som.SomNode
+}
+
+// NewConstraintRegisterEntryContentForm binds a ConstraintRegisterEntryContentForm facade to a document and a path.
+func NewConstraintRegisterEntryContentForm(doc *som.SpecDocument, path string) *ConstraintRegisterEntryContentForm {
+	return &ConstraintRegisterEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ConstraintRegisterEntryContentForm) ConstraintId() string {
+	return x.Doc().FormFieldOr(x.Path(), "constraintId")
+}
+
+func (x *ConstraintRegisterEntryContentForm) SetConstraintId(value string) {
+	x.Doc().SetFormField(x.Path(), "constraintId", value)
+}
+
+func (x *ConstraintRegisterEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *ConstraintRegisterEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
+}
+
+func (x *ConstraintRegisterEntryContentForm) Type() string {
+	return x.Doc().FormFieldOr(x.Path(), "type")
+}
+
+func (x *ConstraintRegisterEntryContentForm) SetType(value string) {
+	x.Doc().SetFormField(x.Path(), "type", value)
+}
+
+func (x *ConstraintRegisterEntryContentForm) Source() string {
+	return x.Doc().FormFieldOr(x.Path(), "source")
+}
+
+func (x *ConstraintRegisterEntryContentForm) SetSource(value string) {
+	x.Doc().SetFormField(x.Path(), "source", value)
+}
+
+func (x *ConstraintRegisterEntryContentForm) Impact() string {
+	return x.Doc().FormFieldOr(x.Path(), "impact")
+}
+
+func (x *ConstraintRegisterEntryContentForm) SetImpact(value string) {
+	x.Doc().SetFormField(x.Path(), "impact", value)
 }
 
 // ConstraintTrackingContentForm is the generated form facade for the `content` @Form section.
@@ -110223,6 +110981,48 @@ func (x *GlobalRoleExclusionEntryContentForm) SetComplianceReference(value strin
 	x.Doc().SetFormField(x.Path(), "complianceReference", value)
 }
 
+// GlossaryEntryContentForm is the generated form facade for the `content` @Form section.
+type GlossaryEntryContentForm struct {
+	som.SomNode
+}
+
+// NewGlossaryEntryContentForm binds a GlossaryEntryContentForm facade to a document and a path.
+func NewGlossaryEntryContentForm(doc *som.SpecDocument, path string) *GlossaryEntryContentForm {
+	return &GlossaryEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *GlossaryEntryContentForm) Term() string {
+	return x.Doc().FormFieldOr(x.Path(), "term")
+}
+
+func (x *GlossaryEntryContentForm) SetTerm(value string) {
+	x.Doc().SetFormField(x.Path(), "term", value)
+}
+
+func (x *GlossaryEntryContentForm) Definition() string {
+	return x.Doc().FormFieldOr(x.Path(), "definition")
+}
+
+func (x *GlossaryEntryContentForm) SetDefinition(value string) {
+	x.Doc().SetFormField(x.Path(), "definition", value)
+}
+
+func (x *GlossaryEntryContentForm) Acronym() string {
+	return x.Doc().FormFieldOr(x.Path(), "acronym")
+}
+
+func (x *GlossaryEntryContentForm) SetAcronym(value string) {
+	x.Doc().SetFormField(x.Path(), "acronym", value)
+}
+
+func (x *GlossaryEntryContentForm) SeeAlso() string {
+	return x.Doc().FormFieldOr(x.Path(), "seeAlso")
+}
+
+func (x *GlossaryEntryContentForm) SetSeeAlso(value string) {
+	x.Doc().SetFormField(x.Path(), "seeAlso", value)
+}
+
 // GoalDependencyEntryContentForm is the generated form facade for the `content` @Form section.
 type GoalDependencyEntryContentForm struct {
 	som.SomNode
@@ -117565,6 +118365,40 @@ func (x *IpOwnershipEntryContentForm) Restrictions() string {
 
 func (x *IpOwnershipEntryContentForm) SetRestrictions(value string) {
 	x.Doc().SetFormField(x.Path(), "restrictions", value)
+}
+
+// Iso25010CoverageEntryContentForm is the generated form facade for the `content` @Form section.
+type Iso25010CoverageEntryContentForm struct {
+	som.SomNode
+}
+
+// NewIso25010CoverageEntryContentForm binds a Iso25010CoverageEntryContentForm facade to a document and a path.
+func NewIso25010CoverageEntryContentForm(doc *som.SpecDocument, path string) *Iso25010CoverageEntryContentForm {
+	return &Iso25010CoverageEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *Iso25010CoverageEntryContentForm) Characteristic() string {
+	return x.Doc().FormFieldOr(x.Path(), "characteristic")
+}
+
+func (x *Iso25010CoverageEntryContentForm) SetCharacteristic(value string) {
+	x.Doc().SetFormField(x.Path(), "characteristic", value)
+}
+
+func (x *Iso25010CoverageEntryContentForm) AddressedBy() string {
+	return x.Doc().FormFieldOr(x.Path(), "addressedBy")
+}
+
+func (x *Iso25010CoverageEntryContentForm) SetAddressedBy(value string) {
+	x.Doc().SetFormField(x.Path(), "addressedBy", value)
+}
+
+func (x *Iso25010CoverageEntryContentForm) TargetMetric() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetMetric")
+}
+
+func (x *Iso25010CoverageEntryContentForm) SetTargetMetric(value string) {
+	x.Doc().SetFormField(x.Path(), "targetMetric", value)
 }
 
 // ItLandscapePositionPositionDetailsForm is the generated form facade for the `positionDetails` @Form section.
@@ -149073,6 +149907,48 @@ func (x *ReviewCriterionEntryResultContentForm) SetRemediationRequired(value str
 	x.Doc().SetFormField(x.Path(), "remediationRequired", value)
 }
 
+// RevisionEntryContentForm is the generated form facade for the `content` @Form section.
+type RevisionEntryContentForm struct {
+	som.SomNode
+}
+
+// NewRevisionEntryContentForm binds a RevisionEntryContentForm facade to a document and a path.
+func NewRevisionEntryContentForm(doc *som.SpecDocument, path string) *RevisionEntryContentForm {
+	return &RevisionEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *RevisionEntryContentForm) Version() string {
+	return x.Doc().FormFieldOr(x.Path(), "version")
+}
+
+func (x *RevisionEntryContentForm) SetVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "version", value)
+}
+
+func (x *RevisionEntryContentForm) Date() string {
+	return x.Doc().FormFieldOr(x.Path(), "date")
+}
+
+func (x *RevisionEntryContentForm) SetDate(value string) {
+	x.Doc().SetFormField(x.Path(), "date", value)
+}
+
+func (x *RevisionEntryContentForm) Author() string {
+	return x.Doc().FormFieldOr(x.Path(), "author")
+}
+
+func (x *RevisionEntryContentForm) SetAuthor(value string) {
+	x.Doc().SetFormField(x.Path(), "author", value)
+}
+
+func (x *RevisionEntryContentForm) Summary() string {
+	return x.Doc().FormFieldOr(x.Path(), "summary")
+}
+
+func (x *RevisionEntryContentForm) SetSummary(value string) {
+	x.Doc().SetFormField(x.Path(), "summary", value)
+}
+
 // RiskAnalysisContentForm is the generated form facade for the `content` @Form section.
 type RiskAnalysisContentForm struct {
 	som.SomNode
@@ -163379,6 +164255,72 @@ func (x *StakeholderEntryImpactContentForm) SetPotentialConcerns(value string) {
 	x.Doc().SetFormField(x.Path(), "potentialConcerns", value)
 }
 
+// StakeholderRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+type StakeholderRegisterEntryContentForm struct {
+	som.SomNode
+}
+
+// NewStakeholderRegisterEntryContentForm binds a StakeholderRegisterEntryContentForm facade to a document and a path.
+func NewStakeholderRegisterEntryContentForm(doc *som.SpecDocument, path string) *StakeholderRegisterEntryContentForm {
+	return &StakeholderRegisterEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *StakeholderRegisterEntryContentForm) StakeholderId() string {
+	return x.Doc().FormFieldOr(x.Path(), "stakeholderId")
+}
+
+func (x *StakeholderRegisterEntryContentForm) SetStakeholderId(value string) {
+	x.Doc().SetFormField(x.Path(), "stakeholderId", value)
+}
+
+func (x *StakeholderRegisterEntryContentForm) Name() string {
+	return x.Doc().FormFieldOr(x.Path(), "name")
+}
+
+func (x *StakeholderRegisterEntryContentForm) SetName(value string) {
+	x.Doc().SetFormField(x.Path(), "name", value)
+}
+
+func (x *StakeholderRegisterEntryContentForm) Role() string {
+	return x.Doc().FormFieldOr(x.Path(), "role")
+}
+
+func (x *StakeholderRegisterEntryContentForm) SetRole(value string) {
+	x.Doc().SetFormField(x.Path(), "role", value)
+}
+
+func (x *StakeholderRegisterEntryContentForm) Interest() string {
+	return x.Doc().FormFieldOr(x.Path(), "interest")
+}
+
+func (x *StakeholderRegisterEntryContentForm) SetInterest(value string) {
+	x.Doc().SetFormField(x.Path(), "interest", value)
+}
+
+func (x *StakeholderRegisterEntryContentForm) Influence() string {
+	return x.Doc().FormFieldOr(x.Path(), "influence")
+}
+
+func (x *StakeholderRegisterEntryContentForm) SetInfluence(value string) {
+	x.Doc().SetFormField(x.Path(), "influence", value)
+}
+
+func (x *StakeholderRegisterEntryContentForm) Concerns() string {
+	return x.Doc().FormFieldOr(x.Path(), "concerns")
+}
+
+func (x *StakeholderRegisterEntryContentForm) SetConcerns(value string) {
+	x.Doc().SetFormField(x.Path(), "concerns", value)
+}
+
+func (x *StakeholderRegisterEntryContentForm) EngagementStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "engagementStrategy")
+}
+
+func (x *StakeholderRegisterEntryContentForm) SetEngagementStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "engagementStrategy", value)
+}
+
 // StakeholdersAndInterestsContentForm is the generated form facade for the `content` @Form section.
 type StakeholdersAndInterestsContentForm struct {
 	som.SomNode
@@ -173321,6 +174263,48 @@ func (x *TrainingAssessmentReportingContentForm) ManagementVisibility() string {
 
 func (x *TrainingAssessmentReportingContentForm) SetManagementVisibility(value string) {
 	x.Doc().SetFormField(x.Path(), "managementVisibility", value)
+}
+
+// TrainingEnablementRequirementsContentForm is the generated form facade for the `content` @Form section.
+type TrainingEnablementRequirementsContentForm struct {
+	som.SomNode
+}
+
+// NewTrainingEnablementRequirementsContentForm binds a TrainingEnablementRequirementsContentForm facade to a document and a path.
+func NewTrainingEnablementRequirementsContentForm(doc *som.SpecDocument, path string) *TrainingEnablementRequirementsContentForm {
+	return &TrainingEnablementRequirementsContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *TrainingEnablementRequirementsContentForm) TargetAudiences() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetAudiences")
+}
+
+func (x *TrainingEnablementRequirementsContentForm) SetTargetAudiences(value string) {
+	x.Doc().SetFormField(x.Path(), "targetAudiences", value)
+}
+
+func (x *TrainingEnablementRequirementsContentForm) CompetencyOutcomes() string {
+	return x.Doc().FormFieldOr(x.Path(), "competencyOutcomes")
+}
+
+func (x *TrainingEnablementRequirementsContentForm) SetCompetencyOutcomes(value string) {
+	x.Doc().SetFormField(x.Path(), "competencyOutcomes", value)
+}
+
+func (x *TrainingEnablementRequirementsContentForm) CertificationRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "certificationRequired")
+}
+
+func (x *TrainingEnablementRequirementsContentForm) SetCertificationRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "certificationRequired", value)
+}
+
+func (x *TrainingEnablementRequirementsContentForm) OngoingEnablement() string {
+	return x.Doc().FormFieldOr(x.Path(), "ongoingEnablement")
+}
+
+func (x *TrainingEnablementRequirementsContentForm) SetOngoingEnablement(value string) {
+	x.Doc().SetFormField(x.Path(), "ongoingEnablement", value)
 }
 
 // TrainingMaterialsContentForm is the generated form facade for the `content` @Form section.

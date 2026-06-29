@@ -13,7 +13,7 @@ import {
   checkSomModelVersion,
 } from 'tom_som_typescript_runtime';
 
-// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+// 14.2.1. Acceptance Criteria.
 export class AcceptanceCriteriaList extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33,7 +33,7 @@ export class AcceptanceCriteriaList extends SomNode {
   }
 }
 
-// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+// 11.7. Acceptance Criteria Summary.
 //
 // Quality acceptance criteria for the project including must-pass criteria
 // and quality gate checklists.
@@ -49,12 +49,12 @@ export class AcceptanceCriteriaSummary extends SomNode {
   // Acceptance criteria overview.
   // (skipped: acceptanceOverview has no target type)
 
-  // 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+  // 11.7.1. Must-Pass Criteria.
   get mustPassCriteria(): MustPassCriteria {
     return new MustPassCriteria(this.doc, this.path + "/mustPassCriteria");
   }
 
-  // 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+  // 11.7.2. Quality Gate Checklist.
   get qualityGateChecklist(): QualityGateChecklist {
     return new QualityGateChecklist(this.doc, this.path + "/qualityGateChecklist");
   }
@@ -76,7 +76,7 @@ export class AcceptanceCriterionEntry extends SomNode {
   }
 }
 
-// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → BQP.
 export class AcceptancePlan extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -90,38 +90,38 @@ export class AcceptancePlan extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+  // 14.2.1. Acceptance Criteria.
   get acceptanceCriteria(): AcceptanceCriteriaList {
     return new AcceptanceCriteriaList(this.doc, this.path + "/acceptanceCriteria");
   }
 
-  // 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+  // 14.2.2. Acceptance Process.
   get acceptanceProcess(): AcceptanceProcess {
     return new AcceptanceProcess(this.doc, this.path + "/acceptanceProcess");
   }
 
-  // 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+  // 14.2.3. User Acceptance Testing.
   get userAcceptanceTesting(): UserAcceptanceTesting {
     return new UserAcceptanceTesting(this.doc, this.path + "/userAcceptanceTesting");
   }
 
-  // 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+  // 14.2.4. Defect Resolution.
   get defectResolution(): DefectResolution {
     return new DefectResolution(this.doc, this.path + "/defectResolution");
   }
 
-  // 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+  // 14.2.5. Sign-off Process.
   get signOffProcess(): SignOffProcess {
     return new SignOffProcess(this.doc, this.path + "/signOffProcess");
   }
 
-  // 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+  // 14.2.6. Warranty.
   get warranty(): WarrantyTerms {
     return new WarrantyTerms(this.doc, this.path + "/warranty");
   }
 }
 
-// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+// 14.2.2. Acceptance Process.
 //
 // Defines the formal acceptance workflow from test initiation through
 // final sign-off. Covers roles, responsibilities, timelines, escalation,
@@ -240,7 +240,7 @@ export class AcceptanceProcessTimeline extends SomNode {
   }
 }
 
-// An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
+// An acceptance step entry (form).
 //
 // A single step in the formal acceptance workflow, with entry/exit
 // conditions, responsible parties, and outputs.
@@ -286,62 +286,7 @@ export class AcceptanceStepEntryOutcome extends SomNode {
   }
 }
 
-// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
-export class AccessAndAuthorizationConcept extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // 9.1. User Management [PD00-ACC-USE].
-  get userManagement(): UserManagement {
-    return new UserManagement(this.doc, this.path + "/userManagement");
-  }
-
-  // 9.2. Identification and Authentication [PD00-ACC-IDE].
-  get authentication(): IdentificationAndAuthentication {
-    return new IdentificationAndAuthentication(this.doc, this.path + "/authentication");
-  }
-
-  // 9.3. Resource Protection [PD00-ACC-RES].
-  get resourceProtection(): ResourceProtection {
-    return new ResourceProtection(this.doc, this.path + "/resourceProtection");
-  }
-
-  // 9.4. User Authorization [PD00-ACC-USA].
-  get authorization(): UserAuthorization {
-    return new UserAuthorization(this.doc, this.path + "/authorization");
-  }
-
-  // 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
-  get encryption(): SensitiveDataEncryption {
-    return new SensitiveDataEncryption(this.doc, this.path + "/encryption");
-  }
-
-  // 9.6. Audit and Logging [PD00-ACC-AUD].
-  get auditAndLogging(): AuditAndLogging {
-    return new AuditAndLogging(this.doc, this.path + "/auditAndLogging");
-  }
-
-  // 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
-  get roleMatrix(): RoleMatrix {
-    return new RoleMatrix(this.doc, this.path + "/roleMatrix");
-  }
-
-  // 9.8. Compliance Framework [PD00-ACC-CMP].
-  get complianceFramework(): ComplianceFramework {
-    return new ComplianceFramework(this.doc, this.path + "/complianceFramework");
-  }
-}
-
-// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+// 4.1.5.1. Access Channels.
 //
 // Defines all channels through which users can access the system including
 // web, mobile, desktop applications, APIs, and other interfaces.
@@ -416,7 +361,7 @@ export class AccessControlModelSelection extends SomNode {
   // (skipped: accessControlModelDetails has no target type)
 }
 
-// An access level entry (form) [PD00-SYO-SYD-USI-ACC-nn].
+// An access level entry (form).
 export class AccessLevelEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -475,7 +420,7 @@ export class AccessLevelEntryScope extends SomNode {
   }
 }
 
-// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+// 4.1.5.3. Access Levels.
 //
 // Defines the access level hierarchy and how permissions are structured
 // across user categories and system functions.
@@ -516,7 +461,7 @@ export class AccessLevels extends SomNode {
   }
 }
 
-// An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
+// An access restriction entry (form).
 //
 // Specific access restrictions for classified data.
 export class AccessRestrictionEntry extends SomNode {
@@ -529,7 +474,7 @@ export class AccessRestrictionEntry extends SomNode {
   }
 }
 
-// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+// 9.1.1. User Categories.
 export class AccessUserCategories extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -549,7 +494,7 @@ export class AccessUserCategories extends SomNode {
   }
 }
 
-// 10.9. Accessibility [PD00-USE-ACC].
+// 10.9. Accessibility.
 //
 // Comprehensive accessibility requirements for the user interface following
 // WCAG guidelines and inclusive design principles.
@@ -580,12 +525,12 @@ export class Accessibility extends SomNode {
   // Accessibility overview narrative.
   // (skipped: accessibilityOverview has no target type)
 
-  // 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+  // 10.9.1. WCAG Compliance Level.
   get wcagComplianceLevel(): WcagCompliance {
     return new WcagCompliance(this.doc, this.path + "/wcagComplianceLevel");
   }
 
-  // 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+  // 10.9.2. Accessibility Checklist.
   get accessibilityChecklist(): AccessibilityChecklist {
     return new AccessibilityChecklist(this.doc, this.path + "/accessibilityChecklist");
   }
@@ -600,7 +545,7 @@ export class Accessibility extends SomNode {
   // (skipped: colorAndContrast has no target type)
 }
 
-// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
+// An accessibility check entry (form).
 export class AccessibilityCheckEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -659,7 +604,7 @@ export class AccessibilityCheckEntryRemediation extends SomNode {
   }
 }
 
-// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+// 10.9.2. Accessibility Checklist.
 //
 // Comprehensive accessibility verification checklist.
 export class AccessibilityChecklist extends SomNode {
@@ -970,7 +915,7 @@ export class ActorDiagramOverview extends SomNode {
   }
 }
 
-// An actor entry [PD00-TAR-STP-ACT-nn].
+// An actor entry.
 //
 // Comprehensive actor definition following UML and Cockburn conventions.
 export class ActorEntry extends SomNode {
@@ -1042,7 +987,7 @@ export class ActorInteractionsSummary extends SomNode {
   }
 }
 
-// 6.2.1. Actor Overview [PD00-TAR-STP-ACT].
+// 6.2.1. Actor Overview.
 //
 // Actors represent roles that interact with the system. Follows UML actor
 // modeling conventions with Cockburn-style goal and scope annotations.
@@ -1097,7 +1042,7 @@ export class ActorPermissions extends SomNode {
   }
 }
 
-// 6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA].
+// 6.2. Actor Relationship Diagram.
 export class ActorRelationshipDiagram extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -1196,7 +1141,7 @@ export class AdminInterfaceRequirementsOperations extends SomNode {
   }
 }
 
-// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+// 8.7.1.1. Administration Requirements.
 export class AdministrationRequirementsSection extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -1244,7 +1189,7 @@ export class AdministrationRequirementsSection extends SomNode {
   }
 }
 
-// 3. Administrative [PD00-ADM].
+// 3. Administrative.
 //
 // Project-specific administrative information including team composition,
 // distribution channels, procedural agreements, and reference documentation.
@@ -1268,32 +1213,32 @@ export class Administrative extends SomNode {
     return new AdministrativeSummary(this.doc, this.path + "/summary");
   }
 
-  // 3.1. Project Organization [PD00-ADM-PRO].
+  // 3.1. Project Organization.
   get projectOrganization(): ProjectOrganization {
     return new ProjectOrganization(this.doc, this.path + "/projectOrganization");
   }
 
-  // 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
+  // 3.2. Project Team Staffing — contains 1+× Team Member.
   get projectTeamStaffing(): ProjectTeamStaffing {
     return new ProjectTeamStaffing(this.doc, this.path + "/projectTeamStaffing");
   }
 
-  // 3.3. Distribution List [PD00-ADM-DIS].
+  // 3.3. Distribution List.
   get distributionList(): DistributionList {
     return new DistributionList(this.doc, this.path + "/distributionList");
   }
 
-  // 3.4. Change Procedure [PD00-ADM-CHA].
+  // 3.4. Change Procedure.
   get changeProcedure(): ChangeProcedure {
     return new ChangeProcedure(this.doc, this.path + "/changeProcedure");
   }
 
-  // 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
+  // 3.5. Reference Documents — contains 0+× Reference Document.
   get referenceDocuments(): ReferenceDocuments {
     return new ReferenceDocuments(this.doc, this.path + "/referenceDocuments");
   }
 
-  // 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+  // 3.6. Other Administrative Requirements.
   get otherAdministrative(): OtherAdministrativeRequirements {
     return new OtherAdministrativeRequirements(this.doc, this.path + "/otherAdministrative");
   }
@@ -1326,7 +1271,7 @@ export class AdministrativeSummary extends SomNode {
   }
 }
 
-// An affected department entry [PD00-SYO-RES-ORG-DEP-nn].
+// An affected department entry.
 export class AffectedDepartmentEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -1337,7 +1282,7 @@ export class AffectedDepartmentEntry extends SomNode {
   }
 }
 
-// An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
+// An affected function reference entry (form).
 //
 // Functions where this rule applies.
 export class AffectedFunctionEntry extends SomNode {
@@ -1358,7 +1303,7 @@ export class AffectedFunctionEntry extends SomNode {
   }
 }
 
-// An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
+// An affected object reference entry (form).
 //
 // Business objects affected by this rule.
 export class AffectedObjectEntry extends SomNode {
@@ -1556,7 +1501,7 @@ export class AlertNotificationChannelsRouting extends SomNode {
   }
 }
 
-// An alert rule entry [PD00-TEC-SYS-MON-ALR-nn].
+// An alert rule entry.
 export class AlertRuleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -1626,7 +1571,7 @@ export class AlertSuppressionRules extends SomNode {
   }
 }
 
-// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+// 8.7.2.2. Alerting Configuration.
 //
 // Comprehensive alerting rules, notification channels, and escalation
 // policies.
@@ -1743,7 +1688,7 @@ export class AlertingRequirementsSuppression extends SomNode {
   }
 }
 
-// An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn].
+// An alternative flow entry.
 export class AlternativeFlowEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -1759,7 +1704,7 @@ export class AlternativeFlowEntry extends SomNode {
   }
 }
 
-// An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn].
+// An alternative step entry.
 export class AlternativeStepEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -1994,7 +1939,7 @@ export class ApiRequestValidationPolicy extends SomNode {
   // (skipped: requestValidationDetails has no target type)
 }
 
-// 9.3.2. API Security [PD00-ACC-RES-API].
+// 9.3.2. API Security.
 //
 // Comprehensive API security specification covering authentication,
 // authorization, request validation, CORS policy, input sanitization,
@@ -2398,6 +2343,17 @@ export class ApplicationSecurityRequirementsValidation extends SomNode {
   }
 }
 
+// A formal approval / sign-off record (form).
+export class ApprovalRecord extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ApprovalRecordContentForm {
+    return new ApprovalRecordContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Architecture component/service entry.
 export class ArchitectureComponentEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -2682,7 +2638,7 @@ export class ArchitecturePrincipleEntryGuidance extends SomNode {
   }
 }
 
-// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+// 8.1.2. Architecture Style.
 //
 // Target architecture style specification: monolith, modular monolith,
 // microservices, event-driven, serverless, or hybrid. Includes justification
@@ -2751,7 +2707,128 @@ export class ArchitectureStyle extends SomNode {
   }
 }
 
-// An assumption entry [PD00-SYO-RIS-ASS-nn] (form).
+// TR00 Technical Requirements.
+//
+// Comprehensive technical requirements: basic / software / standard-
+// software / hardware / operations / communication / system-operation
+// / security / architecture, plus components, framework conditions,
+// and translation handling.
+export class ArchitectureTechnologySpecification extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "ATS");
+    checkSomModelVersion(ArchitectureTechnologySpecification.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return ArchitectureTechnologySpecification.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Basic technical requirements.
+  get basicTechnicalRequirements(): BasicTechnicalRequirements {
+    return new BasicTechnicalRequirements(this.doc, this.path + "/basicTechnicalRequirements");
+  }
+
+  // Software design requirements.
+  get softwareDesignRequirements(): SoftwareDesignRequirements {
+    return new SoftwareDesignRequirements(this.doc, this.path + "/softwareDesignRequirements");
+  }
+
+  // Standard application software requirements.
+  get standardSoftwareRequirements(): StandardSoftwareRequirements {
+    return new StandardSoftwareRequirements(this.doc, this.path + "/standardSoftwareRequirements");
+  }
+
+  // Hardware concept requirements.
+  get hardwareRequirements(): HardwareRequirements {
+    return new HardwareRequirements(this.doc, this.path + "/hardwareRequirements");
+  }
+
+  // Operations requirements.
+  get operationsRequirements(): OperationsRequirements {
+    return new OperationsRequirements(this.doc, this.path + "/operationsRequirements");
+  }
+
+  // Communication requirements.
+  get communicationRequirements(): CommunicationRequirements {
+    return new CommunicationRequirements(this.doc, this.path + "/communicationRequirements");
+  }
+
+  // System operation and monitoring.
+  get systemOperationAndMonitoring(): SystemOperationAndMonitoring {
+    return new SystemOperationAndMonitoring(this.doc, this.path + "/systemOperationAndMonitoring");
+  }
+
+  // Technical security requirements.
+  get technicalSecurityRequirements(): TechnicalSecurityRequirements {
+    return new TechnicalSecurityRequirements(this.doc, this.path + "/technicalSecurityRequirements");
+  }
+
+  // System architecture (new in Phase A).
+  get systemArchitecture(): SystemArchitectureSpec {
+    return new SystemArchitectureSpec(this.doc, this.path + "/systemArchitecture");
+  }
+
+  // Components to use (whole).
+  get componentsToUse(): ComponentsToUse {
+    return new ComponentsToUse(this.doc, this.path + "/componentsToUse");
+  }
+
+  // Technical framework conditions (whole).
+  get technicalFrameworkConditions(): TechnicalFrameworkConditions {
+    return new TechnicalFrameworkConditions(this.doc, this.path + "/technicalFrameworkConditions");
+  }
+
+  // Translation handling requirements (whole).
+  get translationRequirements(): TranslationRequirements {
+    return new TranslationRequirements(this.doc, this.path + "/translationRequirements");
+  }
+}
+
+// A consolidated register of assumptions and constraints.
+export class AssumptionConstraintRegister extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Assumptions the solution depends on being true.
+  get assumptions(): SomList<AssumptionRegisterEntry> {
+    return new SomList(this.doc, this.path + "/ACRG-ASMP-LST", (d: SpecDocument, p: string) => new AssumptionRegisterEntry(d, p));
+  }
+
+  // Constraints the solution must operate within.
+  get constraints(): SomList<ConstraintRegisterEntry> {
+    return new SomList(this.doc, this.path + "/ACRG-CONS-LST", (d: SpecDocument, p: string) => new ConstraintRegisterEntry(d, p));
+  }
+}
+
+// An assumption entry (form).
 //
 // Documents a project assumption including its basis, validation approach,
 // and contingency plans if the assumption proves false.
@@ -2803,6 +2880,20 @@ export class AssumptionImpact extends SomNode {
   }
 }
 
+// A single assumption register entry (form).
+//
+// Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
+// `AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+export class AssumptionRegisterEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): AssumptionRegisterEntryContentForm {
+    return new AssumptionRegisterEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Relationships to other project elements.
 export class AssumptionRelationships extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -2822,6 +2913,26 @@ export class AssumptionValidation extends SomNode {
 
   get content(): AssumptionValidationContentForm {
     return new AssumptionValidationContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// SBP.6 Assumptions, Constraints & Dependencies.
+export class AssumptionsConstraintsDependencies extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // The consolidated assumption / constraint register.
+  get register(): AssumptionConstraintRegister {
+    return new AssumptionConstraintRegister(this.doc, this.path + "/register");
   }
 }
 
@@ -2851,7 +2962,7 @@ export class AttributeInterdependencyEntry extends SomNode {
   }
 }
 
-// 9.6. Audit and Logging [PD00-ACC-AUD].
+// 9.6. Audit and Logging.
 //
 // Security audit and event logging requirements covering security event
 // definitions, audit log format and structure, and compliance reporting.
@@ -2870,17 +2981,17 @@ export class AuditAndLogging extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+  // 9.6.1. Security Events.
   get securityEvents(): SecurityEventsDefinition {
     return new SecurityEventsDefinition(this.doc, this.path + "/securityEvents");
   }
 
-  // 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+  // 9.6.2. Audit Log Format.
   get auditLogFormat(): AuditLogFormat {
     return new AuditLogFormat(this.doc, this.path + "/auditLogFormat");
   }
 
-  // 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+  // 9.6.3. Compliance Reporting.
   get complianceReporting(): ComplianceReporting {
     return new ComplianceReporting(this.doc, this.path + "/complianceReporting");
   }
@@ -2924,7 +3035,7 @@ export class AuditEvidenceTypeEntry extends SomNode {
   }
 }
 
-// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+// 9.6.2. Audit Log Format.
 //
 // Defines the audit log format: fields to capture (who, what, when, where,
 // result), log retention period, and tamper protection requirements.
@@ -2965,7 +3076,7 @@ export class AuditLogFormat extends SomNode {
   // (skipped: notes has no target type)
 }
 
-// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+// 3.6.4. Audit Requirements.
 //
 // Internal and external audit obligations.
 export class AuditRequirements extends SomNode {
@@ -2992,7 +3103,7 @@ export class AuditRequirements extends SomNode {
   }
 }
 
-// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+// 9.2.2. Authentication.
 export class Authentication extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -3006,22 +3117,22 @@ export class Authentication extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+  // 9.2.2.1. Authentication Methods.
   get authenticationMethods(): AuthenticationMethods {
     return new AuthenticationMethods(this.doc, this.path + "/authenticationMethods");
   }
 
-  // 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+  // 9.2.2.2. Authentication Flow.
   get authenticationFlow(): AuthenticationFlow {
     return new AuthenticationFlow(this.doc, this.path + "/authenticationFlow");
   }
 
-  // 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+  // 9.2.3. Password and Credential Policy.
   get passwordAndCredentialPolicy(): PasswordAndCredentialPolicy {
     return new PasswordAndCredentialPolicy(this.doc, this.path + "/passwordAndCredentialPolicy");
   }
 
-  // 9.2.4. Session Management [PD00-ACC-IDE-SES].
+  // 9.2.4. Session Management.
   get sessionManagement(): SessionManagement {
     return new SessionManagement(this.doc, this.path + "/sessionManagement");
   }
@@ -3064,7 +3175,7 @@ export class AuthenticationEventPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+// 9.2.2.2. Authentication Flow.
 //
 // Comprehensive authentication flow specification covering the complete
 // login lifecycle: credential submission, validation, multi-factor challenges,
@@ -3125,7 +3236,7 @@ export class AuthenticationFlow extends SomNode {
   }
 }
 
-// An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
+// An authentication method entry (form).
 //
 // Detailed per-method specification aligned with NIST SP 800-63B
 // authenticator types (password, OTP, cryptographic, out-of-band).
@@ -3203,7 +3314,7 @@ export class AuthenticationMethodEntrySecurity extends SomNode {
   }
 }
 
-// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+// 9.2.2.1. Authentication Methods.
 //
 // Comprehensive authentication methods specification aligned with
 // NIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).
@@ -3256,82 +3367,6 @@ export class AuthenticationMethods extends SomNode {
   }
 }
 
-// AC00 Authorization Concept.
-//
-// Complete access and authorization specification — user management,
-// identification and authentication, resource protection, user
-// authorization, encryption, audit/logging, role matrix, and
-// compliance framework.
-export class AuthorizationConcept extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "AC");
-    checkSomModelVersion(AuthorizationConcept.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return AuthorizationConcept.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // User management — PD00-ACC-USE.
-  get userManagement(): UserManagement {
-    return new UserManagement(this.doc, this.path + "/userManagement");
-  }
-
-  // Identification and authentication — PD00-ACC-IDE.
-  get identificationAndAuthentication(): IdentificationAndAuthentication {
-    return new IdentificationAndAuthentication(this.doc, this.path + "/identificationAndAuthentication");
-  }
-
-  // Resource protection — PD00-ACC-RES.
-  get resourceProtection(): ResourceProtection {
-    return new ResourceProtection(this.doc, this.path + "/resourceProtection");
-  }
-
-  // User authorization — PD00-ACC-USA.
-  get userAuthorization(): UserAuthorization {
-    return new UserAuthorization(this.doc, this.path + "/userAuthorization");
-  }
-
-  // Sensitive data encryption — PD00-ACC-SEN.
-  get sensitiveDataEncryption(): SensitiveDataEncryption {
-    return new SensitiveDataEncryption(this.doc, this.path + "/sensitiveDataEncryption");
-  }
-
-  // Audit and logging — PD00-ACC-AUD.
-  get auditAndLogging(): AuditAndLogging {
-    return new AuditAndLogging(this.doc, this.path + "/auditAndLogging");
-  }
-
-  // Role matrix — PD00-ACC-ROL (covers HBSG AS22-AUM).
-  get roleMatrix(): RoleMatrix {
-    return new RoleMatrix(this.doc, this.path + "/roleMatrix");
-  }
-
-  // Compliance framework — PD00-ACC-CMP.
-  get complianceFramework(): ComplianceFramework {
-    return new ComplianceFramework(this.doc, this.path + "/complianceFramework");
-  }
-}
-
 // Authorization event policy (form).
 //
 // Defines which authorization-related events are logged.
@@ -3348,7 +3383,7 @@ export class AuthorizationEventPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
+// An authorization group entry (form).
 export class AuthorizationGroupEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -3364,7 +3399,7 @@ export class AuthorizationGroupEntry extends SomNode {
   }
 }
 
-// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+// 9.4.1. Authorization Model.
 //
 // Describes the authorization model used by the system — RBAC, ABAC, ReBAC,
 // or hybrid. Covers access control model selection, permission granularity
@@ -3412,7 +3447,7 @@ export class AuthorizationModel extends SomNode {
   // (skipped: authorizationModelNotes has no target type)
 }
 
-// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+// An authorization role entry (form).
 //
 // Defines a single authorization role with its category, scope, permission
 // assignments, activation rules, provisioning, and review requirements.
@@ -3521,7 +3556,7 @@ export class AuthorizationRoleEntryStructure extends SomNode {
   }
 }
 
-// 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
+// 11.4.1. Availability quality.
 export class AvailabilityQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -3599,7 +3634,7 @@ export class AvailabilityQualityVerification extends SomNode {
   }
 }
 
-// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
+// 8.5.1. Backup and Recovery.
 //
 // Backup frequency, retention period, recovery point objective (RPO),
 // recovery time objective (RTO), and backup verification procedures.
@@ -4143,7 +4178,7 @@ export class BandwidthRequirementsTraffic extends SomNode {
   }
 }
 
-// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+// 8.1. Basic Technical Requirements.
 export class BasicTechnicalRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -4157,17 +4192,17 @@ export class BasicTechnicalRequirements extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+  // 8.1.1. Platform and Language.
   get platformAndLanguage(): PlatformAndLanguage {
     return new PlatformAndLanguage(this.doc, this.path + "/platformAndLanguage");
   }
 
-  // 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+  // 8.1.2. Architecture Style.
   get architectureStyle(): ArchitectureStyle {
     return new ArchitectureStyle(this.doc, this.path + "/architectureStyle");
   }
 
-  // 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+  // 8.1.3. Design Patterns and Standards.
   get designPatternsAndStandards(): DesignPatternsAndStandards {
     return new DesignPatternsAndStandards(this.doc, this.path + "/designPatternsAndStandards");
   }
@@ -4265,7 +4300,7 @@ export class BiometricAuthenticationPolicy extends SomNode {
   // (skipped: biometricDetails has no target type)
 }
 
-// A boundary assumption entry [PD00-SYO-SYB-ASS-nn] (form).
+// A boundary assumption entry (form).
 export class BoundaryAssumptionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -4308,7 +4343,7 @@ export class BoundaryAssumptionEntryValidation extends SomNode {
   }
 }
 
-// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+// 4.5.3. Assumptions.
 //
 // Documents assumptions about external systems, data availability,
 // organizational readiness, and third-party services that must hold true
@@ -4328,7 +4363,7 @@ export class BoundaryAssumptions extends SomNode {
   }
 }
 
-// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT].
+// 4.5.5. Boundary Interaction Patterns.
 //
 // Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
 // Named `BoundaryInteractionPatterns` to avoid colliding with the
@@ -4422,7 +4457,7 @@ export class BoundedContextEntryScope extends SomNode {
   }
 }
 
-// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+// 10.3.1.6.1. Breadcrumb Configuration.
 export class BreadcrumbConfiguration extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -4433,7 +4468,7 @@ export class BreadcrumbConfiguration extends SomNode {
   }
 }
 
-// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+// 10.10.1. Breakpoints.
 //
 // Breakpoint definitions for responsive layouts.
 export class BreakpointConfiguration extends SomNode {
@@ -4451,7 +4486,7 @@ export class BreakpointConfiguration extends SomNode {
   }
 }
 
-// A breakpoint entry [PD00-USE-RES-BRE-nn].
+// A breakpoint entry.
 export class BreakpointEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -4917,99 +4952,7 @@ export class BusinessComponentEntryTesting extends SomNode {
   }
 }
 
-// BDM00 Business Data Model.
-//
-// Full business data model: entities, relationships, ER diagram, data
-// classification, business objects, function decomposition, function-
-// to-data matrix, business rules, data dictionary, and validation /
-// integrity constraints.
-export class BusinessDataModel extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "BDM");
-    checkSomModelVersion(BusinessDataModel.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return BusinessDataModel.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Entity inventory — PD00-BUS-DAT-ENT (list).
-  get entities(): SomList<DataEntityEntry> {
-    return new SomList(this.doc, this.path + "/DAENT-ENTI-LST", (d: SpecDocument, p: string) => new DataEntityEntry(d, p));
-  }
-
-  // Entity relationships — PD00-BUS-DAT-REL.
-  get entityRelationships(): EntityRelationships {
-    return new EntityRelationships(this.doc, this.path + "/entityRelationships");
-  }
-
-  // Entity-relationship diagram — PD00-BUS-DAT-DIA.
-  // (skipped: erDiagram has no target type)
-
-  // Data classification — PD00-BUS-DAT-CLA.
-  get dataClassification(): DataClassification {
-    return new DataClassification(this.doc, this.path + "/dataClassification");
-  }
-
-  // Business object catalog — PD00-BUS-BUS-CAT (list).
-  get objectCatalog(): SomList<BusinessObjectEntry> {
-    return new SomList(this.doc, this.path + "/BJOEN-OBJE-LST", (d: SpecDocument, p: string) => new BusinessObjectEntry(d, p));
-  }
-
-  // Business object diagram — PD00-BUS-BUS-DIA.
-  // (skipped: objectDiagram has no target type)
-
-  // Function decomposition — PD00-BUS-FUN-DEC (list).
-  get functionDecomposition(): SomList<FunctionEntry> {
-    return new SomList(this.doc, this.path + "/FUNCT-FUNC-LST", (d: SpecDocument, p: string) => new FunctionEntry(d, p));
-  }
-
-  // Function-to-data matrix — PD00-BUS-FUN-MAT (list).
-  get functionToDataMatrix(): SomList<FunctionDataMatrixEntry> {
-    return new SomList(this.doc, this.path + "/FNDMX-FUNC-LST", (d: SpecDocument, p: string) => new FunctionDataMatrixEntry(d, p));
-  }
-
-  // Business rules catalog — PD00-BUS-FUN-RUL (list).
-  get businessRules(): SomList<BusinessRuleEntry> {
-    return new SomList(this.doc, this.path + "/BIRU-BUSI-LST", (d: SpecDocument, p: string) => new BusinessRuleEntry(d, p));
-  }
-
-  // Data dictionary — PD00-BUS-DAT-DIC.
-  get dataDictionary(): DataDictionary {
-    return new DataDictionary(this.doc, this.path + "/dataDictionary");
-  }
-
-  // Validation constraints — PD00-BUS-DAT-VAL.
-  get validationConstraints(): SomList<ValidationConstraints> {
-    return new SomList(this.doc, this.path + "/VACO-VALI-LST", (d: SpecDocument, p: string) => new ValidationConstraints(d, p));
-  }
-
-  // Integrity constraints — PD00-BUS-DAT-CON.
-  get integrityConstraints(): SomList<IntegrityConstraints> {
-    return new SomList(this.doc, this.path + "/INCO-INTE-LST", (d: SpecDocument, p: string) => new IntegrityConstraints(d, p));
-  }
-}
-
-// A business goal entry [PD00-SYO-GOA-BUS-nn].
+// A business goal entry.
 //
 // Comprehensive business goal definition following SMART criteria with
 // OKR-style key results, ownership, and tracking information.
@@ -5042,27 +4985,27 @@ export class BusinessGoalEntry extends SomNode {
     return new BusinessGoalEntryStrategy(this.doc, this.path + "/strategy");
   }
 
-  // 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+  // 4.2.1.n.1. Key Results.
   get keyResults(): GoalKeyResults {
     return new GoalKeyResults(this.doc, this.path + "/keyResults");
   }
 
-  // 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+  // 4.2.1.n.2. Milestones.
   get milestones(): GoalMilestones {
     return new GoalMilestones(this.doc, this.path + "/milestones");
   }
 
-  // 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+  // 4.2.1.n.3. Dependencies.
   get dependencies(): GoalDependencies {
     return new GoalDependencies(this.doc, this.path + "/dependencies");
   }
 
-  // 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+  // 4.2.1.n.4. Risks.
   get risks(): GoalRisks {
     return new GoalRisks(this.doc, this.path + "/risks");
   }
 
-  // 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+  // 4.2.1.n.5. Resources.
   get resources(): GoalResources {
     return new GoalResources(this.doc, this.path + "/resources");
   }
@@ -5112,7 +5055,7 @@ export class BusinessGoalEntryStrategy extends SomNode {
   }
 }
 
-// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+// 4.2.1. Business Goals.
 //
 // Container for business goal definitions. Business goals define what the
 // organization wants to achieve through this project in terms of business
@@ -5211,37 +5154,7 @@ export class BusinessMetricsSpecTransactions extends SomNode {
   }
 }
 
-// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
-export class BusinessObjectAndDataModel extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // 7.1. Data Model [PD00-BUS-DAT].
-  get dataModel(): DataModel {
-    return new DataModel(this.doc, this.path + "/dataModel");
-  }
-
-  // 7.2. Business Object Model [PD00-BUS-BUS].
-  get businessObjectModel(): BusinessObjectModel {
-    return new BusinessObjectModel(this.doc, this.path + "/businessObjectModel");
-  }
-
-  // 7.3. Function Model [PD00-BUS-FUN].
-  get functionModel(): FunctionModel {
-    return new FunctionModel(this.doc, this.path + "/functionModel");
-  }
-}
-
-// A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
+// A business object attribute entry (form).
 //
 // Business-level attribute specification focusing on business meaning and rules.
 export class BusinessObjectAttributeEntry extends SomNode {
@@ -5302,7 +5215,7 @@ export class BusinessObjectAttributeEntryValidation extends SomNode {
   }
 }
 
-// A business object entry [PD00-BUS-BUS-CAT-nn] (form).
+// A business object entry (form).
 //
 // Comprehensive business object specification following domain-driven design
 // patterns. Business objects represent key domain concepts with behavior,
@@ -5336,38 +5249,38 @@ export class BusinessObjectEntry extends SomNode {
     return new SomList(this.doc, this.path + "/INTEG-INTE-LST", (d: SpecDocument, p: string) => new IntegrationPointEntry(d, p));
   }
 
-  // Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
+  // Contains 0+× BusinessObjectAttribute.
   get attributes(): SomList<BusinessObjectAttributeEntry> {
     return new SomList(this.doc, this.path + "/BIOBAT-ATTR-LST", (d: SpecDocument, p: string) => new BusinessObjectAttributeEntry(d, p));
   }
 
-  // Contains 0+× ObjectState [PD00-BUS-BUS-CAT-nn-STA].
+  // Contains 0+× ObjectState.
   get keyStates(): SomList<ObjectStateEntry> {
     return new SomList(this.doc, this.path + "/OBST-KEYS-LST", (d: SpecDocument, p: string) => new ObjectStateEntry(d, p));
   }
 
-  // Contains 0+× BusinessRuleReference [PD00-BUS-BUS-CAT-nn-BRR].
+  // Contains 0+× BusinessRuleReference.
   get keyBusinessRules(): SomList<BusinessRuleReferenceEntry> {
     return new SomList(this.doc, this.path + "/BIRURE-KEYB-LST", (d: SpecDocument, p: string) => new BusinessRuleReferenceEntry(d, p));
   }
 
-  // Contains 0+× LifecycleTransition [PD00-BUS-BUS-CAT-nn-LIF].
+  // Contains 0+× LifecycleTransition.
   get lifecycleTransitions(): SomList<LifecycleTransitionEntry> {
     return new SomList(this.doc, this.path + "/LFTRS-LIFE-LST", (d: SpecDocument, p: string) => new LifecycleTransitionEntry(d, p));
   }
 
-  // Contains 0+× ObjectOperation [PD00-BUS-BUS-CAT-nn-OPR].
+  // Contains 0+× ObjectOperation.
   get operations(): SomList<ObjectOperationEntry> {
     return new SomList(this.doc, this.path + "/OBOP-OPER-LST", (d: SpecDocument, p: string) => new ObjectOperationEntry(d, p));
   }
 
-  // Contains 0+× ObjectInvariant [PD00-BUS-BUS-CAT-nn-INV].
+  // Contains 0+× ObjectInvariant.
   get invariants(): SomList<ObjectInvariantEntry> {
     return new SomList(this.doc, this.path + "/OBINV-INVA-LST", (d: SpecDocument, p: string) => new ObjectInvariantEntry(d, p));
   }
 }
 
-// 7.2. Business Object Model [PD00-BUS-BUS].
+// 7.2. Business Object Model.
 export class BusinessObjectModel extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -5381,16 +5294,16 @@ export class BusinessObjectModel extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.
+  // 7.2.1. Object Catalog — contains 1+× Business Object.
   get objects(): SomList<BusinessObjectEntry> {
     return new SomList(this.doc, this.path + "/BJOEN-OBJE-LST", (d: SpecDocument, p: string) => new BusinessObjectEntry(d, p));
   }
 
-  // 7.2.2. Business Object Diagram [PD00-BUS-BUS-DIA] (mermaid).
+  // 7.2.2. Business Object Diagram (mermaid).
   // (skipped: objectDiagram has no target type)
 }
 
-// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+// 1.3.2. Business Pain Points.
 //
 // Problems that affect business outcomes: lost revenue, compliance risk,
 // customer dissatisfaction, inability to scale, and missed opportunities.
@@ -5429,7 +5342,7 @@ export class BusinessPainPointsSummary extends SomNode {
   }
 }
 
-// 6.1. Business Process Descriptions [PD00-TAR-PRO].
+// 6.1. Business Process Descriptions.
 //
 // Target business processes at a high level. Each process will be expanded
 // with detailed workflows, triggers, decision points, and exception handling
@@ -5447,58 +5360,58 @@ export class BusinessProcessDescriptions extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+  // 6.1.1. Process Vision.
   get processVision(): ProcessVision {
     return new ProcessVision(this.doc, this.path + "/processVision");
   }
 
-  // 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+  // 6.1.2. Design Principles.
   get designPrinciples(): ProcessDesignPrinciples {
     return new ProcessDesignPrinciples(this.doc, this.path + "/designPrinciples");
   }
 
-  // 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
+  // 6.1.3. Process Catalog — contains 1+× Business Process.
   get processCatalog(): ProcessCatalog {
     return new ProcessCatalog(this.doc, this.path + "/processCatalog");
   }
 
-  // 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+  // 6.1.4. Process Overview Diagram.
   get processOverviewDiagram(): ProcessOverviewDiagram {
     return new ProcessOverviewDiagram(this.doc, this.path + "/processOverviewDiagram");
   }
 
-  // 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+  // 6.1.5. Improvement Summary.
   get improvementSummary(): ProcessImprovementSummary {
     return new ProcessImprovementSummary(this.doc, this.path + "/improvementSummary");
   }
 
-  // 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
+  // 6.1.6. Process Relationships.
   get processRelationships(): ProcessRelationships {
     return new ProcessRelationships(this.doc, this.path + "/processRelationships");
   }
 
-  // 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+  // 6.1.7. Detailed Process Workflows.
   get detailedWorkflows(): SomList<DetailedProcessWorkflows> {
     return new SomList(this.doc, this.path + "/DEPRWO-DETA-LST", (d: SpecDocument, p: string) => new DetailedProcessWorkflows(d, p));
   }
 
-  // 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+  // 6.1.8. Cross-Process Analysis.
   get crossProcessAnalysis(): CrossProcessAnalysis {
     return new CrossProcessAnalysis(this.doc, this.path + "/crossProcessAnalysis");
   }
 
-  // 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+  // 6.1.9. Process Exception Handling.
   get exceptionHandling(): ProcessExceptionHandling {
     return new ProcessExceptionHandling(this.doc, this.path + "/exceptionHandling");
   }
 
-  // 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+  // 6.1.10. Process Metrics and KPIs.
   get processMetricsAndKpis(): SomList<ProcessMetricsAndKpis> {
     return new SomList(this.doc, this.path + "/PMAK-PROC-LST", (d: SpecDocument, p: string) => new ProcessMetricsAndKpis(d, p));
   }
 }
 
-// A business process entry [PD00-TAR-PRO-CAT-nn].
+// A business process entry.
 //
 // Comprehensive business process definition following BPMN 2.0 concepts.
 export class BusinessProcessEntry extends SomNode {
@@ -5555,197 +5468,7 @@ export class BusinessProcessEntry extends SomNode {
   // (skipped: processFlowPreview has no target type)
 }
 
-// BP00 Business Processes.
-//
-// Target business process specification — vision, principles, catalog,
-// diagrams, improvements, relationships, detailed workflows,
-// cross-process analysis, exception handling, and KPIs.
-export class BusinessProcesses extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "BP");
-    checkSomModelVersion(BusinessProcesses.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return BusinessProcesses.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Process vision — PD00-TAR-PRO-VIS.
-  get processVision(): ProcessVision {
-    return new ProcessVision(this.doc, this.path + "/processVision");
-  }
-
-  // Design principles — PD00-TAR-PRO-PRI.
-  get designPrinciples(): ProcessDesignPrinciples {
-    return new ProcessDesignPrinciples(this.doc, this.path + "/designPrinciples");
-  }
-
-  // Process catalog — PD00-TAR-PRO-CAT.
-  get processCatalog(): ProcessCatalog {
-    return new ProcessCatalog(this.doc, this.path + "/processCatalog");
-  }
-
-  // Process overview diagram — PD00-TAR-PRO-FLO.
-  get processOverviewDiagram(): ProcessOverviewDiagram {
-    return new ProcessOverviewDiagram(this.doc, this.path + "/processOverviewDiagram");
-  }
-
-  // Improvement summary — PD00-TAR-PRO-IMP.
-  get improvementSummary(): ProcessImprovementSummary {
-    return new ProcessImprovementSummary(this.doc, this.path + "/improvementSummary");
-  }
-
-  // Process relationships — PD00-TAR-PRO-REL.
-  get processRelationships(): ProcessRelationships {
-    return new ProcessRelationships(this.doc, this.path + "/processRelationships");
-  }
-
-  // Detailed process workflows — PD00-TAR-PRO-DET.
-  get detailedWorkflows(): SomList<DetailedProcessWorkflows> {
-    return new SomList(this.doc, this.path + "/DEPRWO-DETA-LST", (d: SpecDocument, p: string) => new DetailedProcessWorkflows(d, p));
-  }
-
-  // Cross-process analysis — PD00-TAR-PRO-CRO.
-  get crossProcessAnalysis(): CrossProcessAnalysis {
-    return new CrossProcessAnalysis(this.doc, this.path + "/crossProcessAnalysis");
-  }
-
-  // Process exception handling — PD00-TAR-PRO-EXC.
-  get exceptionHandling(): ProcessExceptionHandling {
-    return new ProcessExceptionHandling(this.doc, this.path + "/exceptionHandling");
-  }
-
-  // Process metrics and KPIs — PD00-TAR-PRO-MET.
-  get processMetricsAndKpis(): SomList<ProcessMetricsAndKpis> {
-    return new SomList(this.doc, this.path + "/PMAK-PROC-LST", (d: SpecDocument, p: string) => new ProcessMetricsAndKpis(d, p));
-  }
-}
-
-// BQP00 Business Quality Plan.
-//
-// Full quality plan combining quality goals (PD00-SYQ) and the
-// acceptance plan (PD00-DEL-ACC). Replaces HBSG AS11 + AS23 + partial
-// AS14 coverage.
-export class BusinessQualityPlan extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "BQP");
-    checkSomModelVersion(BusinessQualityPlan.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return BusinessQualityPlan.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Quality framework — PD00-SYQ-FRA.
-  get qualityFramework(): QualityFramework {
-    return new QualityFramework(this.doc, this.path + "/qualityFramework");
-  }
-
-  // User-related quality criteria — PD00-SYQ-USE.
-  get userQualityCriteria(): UserQualityCriteria {
-    return new UserQualityCriteria(this.doc, this.path + "/userQualityCriteria");
-  }
-
-  // Technical quality criteria — PD00-SYQ-TEC.
-  get technicalQualityCriteria(): TechnicalQualityCriteria {
-    return new TechnicalQualityCriteria(this.doc, this.path + "/technicalQualityCriteria");
-  }
-
-  // Operations quality criteria — PD00-SYQ-OPE.
-  get operationsQualityCriteria(): OperationsQualityCriteria {
-    return new OperationsQualityCriteria(this.doc, this.path + "/operationsQualityCriteria");
-  }
-
-  // Documentation quality criteria — PD00-SYQ-DOC.
-  get documentationQualityCriteria(): DocumentationQualityCriteria {
-    return new DocumentationQualityCriteria(this.doc, this.path + "/documentationQualityCriteria");
-  }
-
-  // Quality prioritization — PD00-SYQ-PRI.
-  get qualityPrioritization(): QualityPrioritization {
-    return new QualityPrioritization(this.doc, this.path + "/qualityPrioritization");
-  }
-
-  // Acceptance criteria summary — PD00-SYQ-ACC.
-  get acceptanceCriteriaSummary(): AcceptanceCriteriaSummary {
-    return new AcceptanceCriteriaSummary(this.doc, this.path + "/acceptanceCriteriaSummary");
-  }
-
-  // Test strategy — PD00-SYQ-TST (new in Phase A, HBSG AS23).
-  get testStrategy(): TestStrategy {
-    return new TestStrategy(this.doc, this.path + "/testStrategy");
-  }
-
-  // Acceptance criteria — PD00-DEL-ACC-CRI.
-  get acceptanceCriteria(): AcceptanceCriteriaList {
-    return new AcceptanceCriteriaList(this.doc, this.path + "/acceptanceCriteria");
-  }
-
-  // Acceptance process — PD00-DEL-ACC-PRO.
-  get acceptanceProcess(): AcceptanceProcess {
-    return new AcceptanceProcess(this.doc, this.path + "/acceptanceProcess");
-  }
-
-  // User acceptance testing — PD00-DEL-ACC-UAT.
-  get userAcceptanceTesting(): UserAcceptanceTesting {
-    return new UserAcceptanceTesting(this.doc, this.path + "/userAcceptanceTesting");
-  }
-
-  // Defect resolution — PD00-DEL-ACC-DEF.
-  get defectResolution(): DefectResolution {
-    return new DefectResolution(this.doc, this.path + "/defectResolution");
-  }
-
-  // Sign-off process — PD00-DEL-ACC-SIG.
-  get signOffProcess(): SignOffProcess {
-    return new SignOffProcess(this.doc, this.path + "/signOffProcess");
-  }
-
-  // Warranty terms — PD00-DEL-ACC-WAR.
-  get warranty(): WarrantyTerms {
-    return new WarrantyTerms(this.doc, this.path + "/warranty");
-  }
-}
-
-// A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
+// A business rule entry (form).
 //
 // Comprehensive business rule specification following SBVR-like patterns.
 export class BusinessRuleEntry extends SomNode {
@@ -5777,23 +5500,23 @@ export class BusinessRuleEntry extends SomNode {
     return new BusinessRuleEntryGovernanceForm(this.doc, this.path + "/governance");
   }
 
-  // Contains 0+× AffectedObject [PD00-BUS-FUN-RUL-nn-AOB].
+  // Contains 0+× AffectedObject.
   get affectedObjects(): SomList<AffectedObjectEntry> {
     return new SomList(this.doc, this.path + "/AFOB-AFFE-LST", (d: SpecDocument, p: string) => new AffectedObjectEntry(d, p));
   }
 
-  // Contains 0+× AffectedFunction [PD00-BUS-FUN-RUL-nn-AFU].
+  // Contains 0+× AffectedFunction.
   get affectedFunctions(): SomList<AffectedFunctionEntry> {
     return new SomList(this.doc, this.path + "/AFFN-AFFE-LST", (d: SpecDocument, p: string) => new AffectedFunctionEntry(d, p));
   }
 
-  // Contains 0+× RuleExample [PD00-BUS-FUN-RUL-nn-EXA].
+  // Contains 0+× RuleExample.
   get examples(): SomList<RuleExampleEntry> {
     return new SomList(this.doc, this.path + "/RULEXM-EXAM-LST", (d: SpecDocument, p: string) => new RuleExampleEntry(d, p));
   }
 }
 
-// A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
+// A business rule reference entry (form).
 //
 // Reference to business rules that govern this object.
 export class BusinessRuleReferenceEntry extends SomNode {
@@ -5814,92 +5537,7 @@ export class BusinessRuleReferenceEntry extends SomNode {
   }
 }
 
-// BSI00 Business System Interactions.
-//
-// Complete interaction specification between the target system and
-// external systems: inventory, patterns, testing, dependencies,
-// migration, operational concerns, and cross-boundary error handling.
-export class BusinessSystemInteractions extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "BSI");
-    checkSomModelVersion(BusinessSystemInteractions.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return BusinessSystemInteractions.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // External interfaces — PD00-SYO-SYB-INT.
-  get externalInterfaces(): ExternalInterfaces {
-    return new ExternalInterfaces(this.doc, this.path + "/externalInterfaces");
-  }
-
-  // Out of scope — PD00-SYO-SYB-OUT.
-  get outOfScope(): OutOfScope {
-    return new OutOfScope(this.doc, this.path + "/outOfScope");
-  }
-
-  // Boundary assumptions — PD00-SYO-SYB-ASS.
-  get boundaryAssumptions(): BoundaryAssumptions {
-    return new BoundaryAssumptions(this.doc, this.path + "/boundaryAssumptions");
-  }
-
-  // System landscape inventory — PD00-SYO-SYB-INV.
-  get systemInventory(): SystemLandscapeInventory {
-    return new SystemLandscapeInventory(this.doc, this.path + "/systemInventory");
-  }
-
-  // Boundary interaction patterns — PD00-SYO-SYB-PAT.
-  get interactionPatterns(): SomList<BoundaryInteractionPatterns> {
-    return new SomList(this.doc, this.path + "/BOINPA-INTE-LST", (d: SpecDocument, p: string) => new BoundaryInteractionPatterns(d, p));
-  }
-
-  // Interaction testing strategy — PD00-SYO-SYB-TST.
-  get testingStrategy(): InteractionTestingStrategy {
-    return new InteractionTestingStrategy(this.doc, this.path + "/testingStrategy");
-  }
-
-  // Interaction dependency analysis — PD00-SYO-SYB-DEP.
-  get dependencyAnalysis(): InteractionDependencyAnalysis {
-    return new InteractionDependencyAnalysis(this.doc, this.path + "/dependencyAnalysis");
-  }
-
-  // Migration interactions — PD00-SYO-SYB-MIG.
-  get migrationInteractions(): SomList<MigrationInteractions> {
-    return new SomList(this.doc, this.path + "/MIIN-MIGR-LST", (d: SpecDocument, p: string) => new MigrationInteractions(d, p));
-  }
-
-  // Cross-boundary operational considerations — PD00-SYO-SYB-OPE.
-  get operationalConsiderations(): SomList<CrossBoundaryOperationalConsiderations> {
-    return new SomList(this.doc, this.path + "/CBOC-OPER-LST", (d: SpecDocument, p: string) => new CrossBoundaryOperationalConsiderations(d, p));
-  }
-
-  // Cross-boundary error handling — PD00-SYO-SYB-ERR.
-  get crossBoundaryErrorHandling(): CrossBoundaryErrorHandling {
-    return new CrossBoundaryErrorHandling(this.doc, this.path + "/crossBoundaryErrorHandling");
-  }
-}
-
-// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+// 8.7.3. Capacity Planning.
 export class CapacityPlanningSection extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -6150,7 +5788,7 @@ export class CertificateManagementStorage extends SomNode {
   }
 }
 
-// Certification entry (form) [PD00-ORG-WOR-nn-TRA-CER-nn].
+// Certification entry (form).
 export class CertificationEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -6331,7 +5969,7 @@ export class ChangeAdvocateEntry extends SomNode {
   }
 }
 
-// A change category entry [PD00-ADM-CHA-CAT-nn].
+// A change category entry.
 //
 // Defines a category of changes with specific handling rules.
 export class ChangeCategoryEntry extends SomNode {
@@ -6392,7 +6030,7 @@ export class ChangeCategoryEntryScope extends SomNode {
   }
 }
 
-// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+// 3.4.3. Change Control Board.
 //
 // Governance body responsible for major change decisions.
 export class ChangeControlBoard extends SomNode {
@@ -6469,7 +6107,7 @@ export class ChangeDecisionCriteria extends SomNode {
   }
 }
 
-// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+// 3.4.2. Change Impact Criteria.
 //
 // Criteria for determining the impact level of change requests,
 // which drives the approval path and stakeholder involvement.
@@ -6497,7 +6135,7 @@ export class ChangeImpactCriteria extends SomNode {
   }
 }
 
-// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
+// A change impact criterion entry (form).
 //
 // Detailed criterion for assessing change impact in a specific dimension.
 export class ChangeImpactCriterionEntry extends SomNode {
@@ -6585,7 +6223,7 @@ export class ChangeNotificationRules extends SomNode {
   }
 }
 
-// 3.4. Change Procedure [PD00-ADM-CHA].
+// 3.4. Change Procedure.
 //
 // Procedure for requesting, evaluating, and approving changes to this
 // Project Definition and other project documents. Defines the change
@@ -6608,22 +6246,22 @@ export class ChangeProcedure extends SomNode {
     return new ChangeProcedureSummary(this.doc, this.path + "/summary");
   }
 
-  // 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+  // 3.4.1. Change Process.
   get changeProcess(): ChangeProcess {
     return new ChangeProcess(this.doc, this.path + "/changeProcess");
   }
 
-  // 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+  // 3.4.2. Change Impact Criteria.
   get changeImpactCriteria(): ChangeImpactCriteria {
     return new ChangeImpactCriteria(this.doc, this.path + "/changeImpactCriteria");
   }
 
-  // 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+  // 3.4.3. Change Control Board.
   get changeControlBoard(): ChangeControlBoard {
     return new ChangeControlBoard(this.doc, this.path + "/changeControlBoard");
   }
 
-  // 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
+  // 3.4.4. Change Categories — contains 0+× Category.
   get changeCategories(): SomList<ChangeCategoryEntry> {
     return new SomList(this.doc, this.path + "/CHCA-CHAN-LST", (d: SpecDocument, p: string) => new ChangeCategoryEntry(d, p));
   }
@@ -6640,7 +6278,7 @@ export class ChangeProcedureSummary extends SomNode {
   }
 }
 
-// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+// 3.4.1. Change Process.
 //
 // Detailed workflow for change request processing from submission
 // through evaluation, approval, implementation, and closure.
@@ -6705,7 +6343,7 @@ export class ChangeReadinessOverview extends SomNode {
   }
 }
 
-// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
+// A role involved in the change process (form).
 export class ChangeRoleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -6716,7 +6354,7 @@ export class ChangeRoleEntry extends SomNode {
   }
 }
 
-// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
+// A change process step entry (form).
 //
 // Detailed description of a single step in the change process workflow.
 export class ChangeStepEntry extends SomNode {
@@ -6823,7 +6461,7 @@ export class ChangedRoleCompetencies extends SomNode {
   }
 }
 
-// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+// A changed role entry (form).
 //
 // Documents modifications to existing roles with impact assessment,
 // transition planning, and incumbent management.
@@ -6998,7 +6636,7 @@ export class ChangedRoleTransitionTraining extends SomNode {
   }
 }
 
-// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+// 5.1.1. Changes from Current Structure.
 //
 // Explicitly documents what changes from the current organization structure.
 // Identifies affected departments, changed reporting lines, and new roles
@@ -7382,7 +7020,7 @@ export class ClientNetworkRequirementsProxy extends SomNode {
   }
 }
 
-// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+// 8.4.2. Client Requirements.
 //
 // Minimum client requirements: browser versions, operating systems, screen
 // resolution, network bandwidth, and device capabilities.
@@ -7994,7 +7632,7 @@ export class CodingStandardsSectionReview extends SomNode {
   }
 }
 
-// A color palette entry [PD00-USE-COM-LIB-COL-nn].
+// A color palette entry.
 export class ColorPaletteEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -8037,7 +7675,7 @@ export class CommitteeCharter extends SomNode {
   }
 }
 
-// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+// A steering committee member entry (form).
 //
 // Detailed information about a steering committee member.
 export class CommitteeMemberEntry extends SomNode {
@@ -8067,7 +7705,7 @@ export class CommitteeResponsibilityEntry extends SomNode {
 }
 
 // A communication channel encryption entry (form)
-// [PD00-ACC-SEN-TRA-CHA-nn].
+// .
 //
 // Defines encryption requirements for a specific communication channel
 // (e.g. client-to-server HTTPS, server-to-database, inter-service,
@@ -8083,7 +7721,7 @@ export class CommunicationChannelEncryptionEntry extends SomNode {
   }
 }
 
-// Communication event entry [PD00-ORG-STR-TIM-COM-nn] (form).
+// Communication event entry (form).
 export class CommunicationEventEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -8257,7 +7895,7 @@ export class CommunicationPreferenceEntry extends SomNode {
   }
 }
 
-// 8.6. Communication Requirements [PD00-TEC-COM].
+// 8.6. Communication Requirements.
 export class CommunicationRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -8271,12 +7909,12 @@ export class CommunicationRequirements extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+  // 8.6.1. Protocols and Standards.
   get protocolsAndStandards(): ProtocolsAndStandardsSection {
     return new ProtocolsAndStandardsSection(this.doc, this.path + "/protocolsAndStandards");
   }
 
-  // 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+  // 8.6.2. External Connectivity.
   get externalConnectivity(): ExternalConnectivitySection {
     return new ExternalConnectivitySection(this.doc, this.path + "/externalConnectivity");
   }
@@ -8304,7 +7942,7 @@ export class CommunicationTypeEntry extends SomNode {
   }
 }
 
-// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+// 8.3.1. Compatibility Requirements.
 //
 // Compatibility requirements with existing IT infrastructure, standard software,
 // and enterprise systems.
@@ -8380,7 +8018,7 @@ export class CompatibilityRequirementsSection extends SomNode {
   }
 }
 
-// A competency entry (form) [PD00-ORG-JOB-CMP-xx-nn].
+// A competency entry (form).
 export class CompetencyEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -8391,7 +8029,7 @@ export class CompetencyEntry extends SomNode {
   }
 }
 
-// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+// 5.2.5. Competency Framework.
 export class CompetencyFramework extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -8451,7 +8089,7 @@ export class CompetencyLevelChangeEntry extends SomNode {
   }
 }
 
-// Compliance audit planning and scheduling [PD00-TEC-SEC-AUD].
+// Compliance audit planning and scheduling.
 export class ComplianceAuditSchedule extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -8510,7 +8148,7 @@ export class ComplianceAuditScheduleReporting extends SomNode {
   }
 }
 
-// 9.8. Compliance Framework [PD00-ACC-CMP].
+// 9.8. Compliance Framework.
 //
 // NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
 // authorization. Pulls the compliance references currently scattered
@@ -8555,7 +8193,7 @@ export class ComplianceMilestoneEntry extends SomNode {
   }
 }
 
-// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+// 9.6.3. Compliance Reporting.
 //
 // Describes compliance reporting requirements: periodic access reviews,
 // privilege usage reports, anomaly detection, and regulatory audit support.
@@ -8698,7 +8336,7 @@ export class ComplianceVerificationSectionTools extends SomNode {
   }
 }
 
-// A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
+// A component action entry.
 //
 // Defines an action that can be triggered from the component.
 export class ComponentActionEntry extends SomNode {
@@ -8787,7 +8425,7 @@ export class ComponentDocs extends SomNode {
   }
 }
 
-// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+// A component entry (form) with sub-entries.
 //
 // Describes a single external or standard component planned for use:
 // vendor assessment, maturity, security, cost, deployment model, licensing,
@@ -8846,26 +8484,26 @@ export class ComponentEntry extends SomNode {
     return new SomList(this.doc, this.path + "/CODO-DOCS-LST", (d: SpecDocument, p: string) => new ComponentDocs(d, p));
   }
 
-  // Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
+  // Interfaces — contains 0+× ComponentInterface.
   get interfaces(): SomList<ComponentInterfaceEntry> {
     return new SomList(this.doc, this.path + "/CMIF-INTE-LST", (d: SpecDocument, p: string) => new ComponentInterfaceEntry(d, p));
   }
 
-  // Licensing [PD00-COM-COM-nn-LIC] (form).
+  // Licensing (form).
   get licensing(): ComponentLicensingEntry {
     return new ComponentLicensingEntry(this.doc, this.path + "/licensing");
   }
 
-  // Usage Rights [PD00-COM-COM-nn-USE].
+  // Usage Rights.
   // (skipped: usageRights has no target type)
 
-  // Responsibilities [PD00-COM-COM-nn-RES] (form).
+  // Responsibilities (form).
   get responsibilities(): SomList<ComponentResponsibilitiesEntry> {
     return new SomList(this.doc, this.path + "/COREEN-RESP-LST", (d: SpecDocument, p: string) => new ComponentResponsibilitiesEntry(d, p));
   }
 }
 
-// A component family entry [PD00-USE-COM-FAM-nn].
+// A component family entry.
 //
 // Groups related components by function (buttons, inputs, navigation, etc.).
 export class ComponentFamilyEntry extends SomNode {
@@ -8961,7 +8599,7 @@ export class ComponentGovernanceQuality extends SomNode {
   }
 }
 
-// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
+// A component interface entry (form).
 //
 // Describes one interface exposed or consumed by a component: protocol,
 // authentication, data format, rate limits, versioning, SLA, monitoring.
@@ -9055,7 +8693,7 @@ export class ComponentInterfaceEntrySla extends SomNode {
   }
 }
 
-// 10.11.1. Component Library [PD00-USE-COM-LIB].
+// 10.11.1. Component Library.
 //
 // Design system and component catalog specification.
 export class ComponentLibrary extends SomNode {
@@ -9164,7 +8802,7 @@ export class ComponentLibraryVisuals extends SomNode {
   }
 }
 
-// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+// Component licensing sub-entry (form).
 //
 // Detailed licensing information: model, cost, compliance, open-source
 // obligations, audit requirements, geographic restrictions, usage metrics.
@@ -9355,7 +8993,7 @@ export class ComponentPerformance extends SomNode {
   }
 }
 
-// A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
+// A component property entry.
 //
 // Defines a configurable property of the component.
 export class ComponentPropertyEntry extends SomNode {
@@ -9443,7 +9081,7 @@ export class ComponentRegistryUpdates extends SomNode {
   }
 }
 
-// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+// Component responsibilities sub-entry (form).
 //
 // Who owns and maintains this component: primary/backup owners, SLA targets,
 // patch response time, security vulnerability handling, budget allocation.
@@ -9532,7 +9170,7 @@ export class ComponentRisk extends SomNode {
   }
 }
 
-// 12.6. Risk Assessment [PD00-COM-RIS].
+// 12.6. Risk Assessment.
 //
 // Component risk assessment: identified risks with probability/impact,
 // monitoring, mitigation strategies, and contingency plans.
@@ -9549,18 +9187,18 @@ export class ComponentRiskAssessment extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+  // 12.6.1. Component Risks — contains 0+× Risk.
   get risks(): SomList<ComponentRiskEntry> {
     return new SomList(this.doc, this.path + "/CMRS-RISK-LST", (d: SpecDocument, p: string) => new ComponentRiskEntry(d, p));
   }
 
-  // 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+  // 12.6.2. Contingency Plans.
   get contingencyPlans(): ContingencyPlans {
     return new ContingencyPlans(this.doc, this.path + "/contingencyPlans");
   }
 }
 
-// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+// A component risk entry (form).
 //
 // Documents one component risk: category, probability, impact, detection
 // methods, mitigation strategy and status, residual risk, and ownership.
@@ -9654,7 +9292,7 @@ export class ComponentRiskEntryMitigation extends SomNode {
   }
 }
 
-// A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
+// A component slot entry.
 //
 // Defines a slot where child widgets can be placed.
 export class ComponentSlotEntry extends SomNode {
@@ -9667,7 +9305,7 @@ export class ComponentSlotEntry extends SomNode {
   }
 }
 
-// A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
+// A component state entry.
 //
 // Defines a visual/functional state of the component.
 export class ComponentStateEntry extends SomNode {
@@ -9731,7 +9369,7 @@ export class ComponentStateEntryVisual extends SomNode {
   }
 }
 
-// 12.1. Component Strategy [PD00-COM-STR].
+// 12.1. Component Strategy.
 //
 // Overall component strategy: build-vs-buy philosophy, preferred vendors,
 // technology stack alignment, governance, evaluation cadence, and portfolio
@@ -9770,12 +9408,12 @@ export class ComponentStrategy extends SomNode {
     return new ComponentStrategyPlanning(this.doc, this.path + "/planning");
   }
 
-  // 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+  // 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
   get reuseGoals(): SomList<ReuseGoalEntry> {
     return new SomList(this.doc, this.path + "/RGUSE-REUS-LST", (d: SpecDocument, p: string) => new ReuseGoalEntry(d, p));
   }
 
-  // 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+  // 12.1.2. Evaluation Criteria.
   get evaluationCriteria(): EvaluationCriteria {
     return new EvaluationCriteria(this.doc, this.path + "/evaluationCriteria");
   }
@@ -9847,7 +9485,7 @@ export class ComponentSupport extends SomNode {
   }
 }
 
-// A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
+// A component variant entry.
 //
 // Defines a variation of the component with different appearance or behavior.
 export class ComponentVariantEntry extends SomNode {
@@ -9906,7 +9544,7 @@ export class ComponentVendor extends SomNode {
   }
 }
 
-// 12. Components to Use [PD00-COM]. Seeds → TR.
+// 12. Components to Use. Seeds → TR.
 //
 // External and standard components planned for use in the system. All
 // subsections seed the TR document, where component choices are expanded
@@ -9925,30 +9563,30 @@ export class ComponentsToUse extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 12.1. Component Strategy [PD00-COM-STR].
+  // 12.1. Component Strategy.
   get strategy(): ComponentStrategy {
     return new ComponentStrategy(this.doc, this.path + "/strategy");
   }
 
-  // 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+  // 12.2. Component Catalog — contains 0+× Component.
   get componentCatalog(): SomList<ComponentEntry> {
     return new SomList(this.doc, this.path + "/CMPNT-COMP-LST", (d: SpecDocument, p: string) => new ComponentEntry(d, p));
   }
 
-  // 12.3. Component Role In System [PD00-COM-ROL].
+  // 12.3. Component Role In System.
   // (skipped: componentRoleInSystem has no target type)
 
-  // 12.4. Runtime Dependencies [PD00-COM-RUN].
+  // 12.4. Runtime Dependencies.
   get runtimeDependencies(): RuntimeDependencies {
     return new RuntimeDependencies(this.doc, this.path + "/runtimeDependencies");
   }
 
-  // 12.5. Maintenance Dependencies [PD00-COM-MAI].
+  // 12.5. Maintenance Dependencies.
   get maintenanceDependencies(): MaintenanceDependencies {
     return new MaintenanceDependencies(this.doc, this.path + "/maintenanceDependencies");
   }
 
-  // 12.6. Risk Assessment [PD00-COM-RIS].
+  // 12.6. Risk Assessment.
   get riskAssessment(): ComponentRiskAssessment {
     return new ComponentRiskAssessment(this.doc, this.path + "/riskAssessment");
   }
@@ -10013,7 +9651,7 @@ export class ComputeResourceRequirementsSpecial extends SomNode {
   }
 }
 
-// Computing equipment entry (form) [PD00-ORG-WOR-nn-EQU-PRI-nn].
+// Computing equipment entry (form).
 export class ComputingEquipmentEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -10105,7 +9743,7 @@ export class ConfidentialInfoCategoryEntry extends SomNode {
   }
 }
 
-// 3.6.2. Confidentiality and NDA Requirements [PD00-ADM-OTH-NDA].
+// 3.6.2. Confidentiality and NDA Requirements.
 //
 // Non-disclosure agreements and confidentiality constraints.
 export class ConfidentialityRequirements extends SomNode {
@@ -10262,7 +9900,7 @@ export class ConnectivityResilienceProtection extends SomNode {
   }
 }
 
-// Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
+// Consent collection, tracking and management requirements.
 export class ConsentManagementRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -10375,7 +10013,7 @@ export class ConstraintDetails extends SomNode {
   }
 }
 
-// A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
+// A constraint entry (form).
 //
 // Represents a single external constraint limiting project degrees of
 // freedom. Common constraint types include regulatory requirements,
@@ -10455,6 +10093,20 @@ export class ConstraintMitigation extends SomNode {
   }
 }
 
+// A single constraint register entry (form).
+//
+// Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
+// `ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+export class ConstraintRegisterEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ConstraintRegisterEntryContentForm {
+    return new ConstraintRegisterEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Tracking for constraint.
 export class ConstraintTracking extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -10466,7 +10118,7 @@ export class ConstraintTracking extends SomNode {
   }
 }
 
-// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+// 4.6.4.1. Constraints.
 //
 // External constraints limiting project scope, schedule, budget, or
 // approach. Includes regulatory, contractual, organizational, technical,
@@ -10490,7 +10142,7 @@ export class Constraints extends SomNode {
   // (skipped: constraintNarrative has no target type)
 }
 
-// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+// 4.6.4. Constraints and Dependencies.
 //
 // Documents external constraints (regulatory, contractual, budgetary,
 // timeline) and dependencies on other projects, teams, or organizational
@@ -10505,12 +10157,12 @@ export class ConstraintsAndDependencies extends SomNode {
     return new ConstraintsAndDependenciesContentForm(this.doc, this.path + "/content");
   }
 
-  // 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+  // 4.6.4.1. Constraints.
   get constraints(): Constraints {
     return new Constraints(this.doc, this.path + "/constraints");
   }
 
-  // 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+  // 4.6.4.2. Dependencies.
   get frameworkDependencies(): FrameworkDependencies {
     return new FrameworkDependencies(this.doc, this.path + "/frameworkDependencies");
   }
@@ -10538,7 +10190,7 @@ export class ContentScanningPolicy extends SomNode {
   // (skipped: contentScanningDetails has no target type)
 }
 
-// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+// 4.1.2.1. Context Diagram.
 //
 // Visual representation of the system as a black box showing external
 // entities and data flows (UML context diagram / DFD Level 0).
@@ -10574,7 +10226,7 @@ export class ContextDiagram extends SomNode {
   }
 }
 
-// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+// 10.8.1. Contextual Help.
 export class ContextualHelp extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -10657,7 +10309,7 @@ export class ContextualHelpWhatsThis extends SomNode {
   }
 }
 
-// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+// 10.3.1.6. Contextual Navigation.
 //
 // Breadcrumbs, back navigation, related links.
 export class ContextualNavigation extends SomNode {
@@ -10673,7 +10325,7 @@ export class ContextualNavigation extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+  // 10.3.1.6.1. Breadcrumb Configuration.
   get breadcrumbs(): BreadcrumbConfiguration {
     return new BreadcrumbConfiguration(this.doc, this.path + "/breadcrumbs");
   }
@@ -10685,7 +10337,7 @@ export class ContextualNavigation extends SomNode {
   // (skipped: relatedLinks has no target type)
 }
 
-// A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
+// A contingency plan entry (form).
 //
 // Describes one contingency plan for a component risk: trigger conditions,
 // immediate/recovery actions, RTO/RPO, communication, testing frequency.
@@ -10779,7 +10431,7 @@ export class ContingencyPlanEntryTesting extends SomNode {
   }
 }
 
-// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+// 12.6.2. Contingency Plans.
 //
 // Container for contingency plans addressing critical component risks.
 export class ContingencyPlans extends SomNode {
@@ -10801,7 +10453,7 @@ export class ContingencyPlans extends SomNode {
   }
 }
 
-// 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
+// 11.2.3. Correctness quality.
 export class CorrectnessQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -10920,7 +10572,7 @@ export class CriticalKnowledgeAreaEntry extends SomNode {
   }
 }
 
-// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+// 4.5.10. Cross-Boundary Error Handling.
 //
 // Failure-propagation policy that applies across system boundaries.
 // Distinct from per-interface error handling.
@@ -10938,7 +10590,7 @@ export class CrossBoundaryErrorHandling extends SomNode {
   }
 }
 
-// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+// 4.5.9. Cross-Boundary Operational Considerations.
 //
 // SLA, rate-limit, and change-window considerations applied at system
 // boundaries. Distinct from per-interface operational data captured
@@ -11048,10 +10700,10 @@ export class CrossCuttingConcernsShared extends SomNode {
   }
 }
 
-// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+// 6.1.8. Cross-Process Analysis.
 //
 // Hand-offs, shared data, and coordination patterns between processes.
-// Covers HBSG AS07-CRO.
+// .
 export class CrossProcessAnalysis extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -11104,7 +10756,7 @@ export class CulturalConsiderationEntry extends SomNode {
   }
 }
 
-// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+// 1.1.2. Current Architecture.
 //
 // Description of the current system architecture including deployment
 // topology, integration patterns, shared services, and data stores.
@@ -11121,7 +10773,7 @@ export class CurrentArchitecture extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
+  // Architecture overview diagram.
   get architectureDiagram(): string {
     return this.doc.content(this.path + "/architectureDiagram") || '';
   }
@@ -11130,7 +10782,7 @@ export class CurrentArchitecture extends SomNode {
     this.doc.setContent(this.path + "/architectureDiagram", value);
   }
 
-  // Deployment topology description [PD00-CUR-SYS-ARC-DEP].
+  // Deployment topology description.
   get deploymentTopology(): string {
     return this.doc.content(this.path + "/deploymentTopology") || '';
   }
@@ -11139,18 +10791,18 @@ export class CurrentArchitecture extends SomNode {
     this.doc.setContent(this.path + "/deploymentTopology", value);
   }
 
-  // Integration patterns used [PD00-CUR-SYS-ARC-INT].
+  // Integration patterns used.
   get integrationPatterns(): SomList<IntegrationPatternEntry> {
     return new SomList(this.doc, this.path + "/INTEG1-INTE-LST", (d: SpecDocument, p: string) => new IntegrationPatternEntry(d, p));
   }
 
-  // Shared services inventory [PD00-CUR-SYS-ARC-SHR].
+  // Shared services inventory.
   get sharedServices(): SomList<SharedServiceEntry> {
     return new SomList(this.doc, this.path + "/SHARE-SHAR-LST", (d: SpecDocument, p: string) => new SharedServiceEntry(d, p));
   }
 }
 
-// A current business process [PD00-CUR-PRO-nn].
+// A current business process.
 //
 // Detailed documentation of a single business process including its
 // workflows, actors, metrics, and pain points.
@@ -11168,12 +10820,12 @@ export class CurrentBusinessProcess extends SomNode {
     return new ProcessContext(this.doc, this.path + "/processContext");
   }
 
-  // 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
+  // 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
   get workflowDescriptions(): WorkflowDescriptions {
     return new WorkflowDescriptions(this.doc, this.path + "/workflowDescriptions");
   }
 
-  // 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
+  // 1.2.nn.2. Process Metrics.
   get processMetrics(): ProcessMetrics {
     return new ProcessMetrics(this.doc, this.path + "/processMetrics");
   }
@@ -11184,7 +10836,7 @@ export class CurrentBusinessProcess extends SomNode {
   }
 }
 
-// 1.2. Current Business Processes [PD00-CUR-PRO].
+// 1.2. Current Business Processes.
 //
 // Documents the current business processes that the project will impact,
 // replace, or enhance. Understanding existing workflows is critical for
@@ -11203,7 +10855,7 @@ export class CurrentBusinessProcesses extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Process landscape diagram [PD00-CUR-PRO-DIA].
+  // Process landscape diagram.
   get processLandscapeDiagram(): string {
     return this.doc.content(this.path + "/processLandscapeDiagram") || '';
   }
@@ -11212,28 +10864,28 @@ export class CurrentBusinessProcesses extends SomNode {
     this.doc.setContent(this.path + "/processLandscapeDiagram", value);
   }
 
-  // Process scope summary [PD00-CUR-PRO-SCO].
+  // Process scope summary.
   get scopeSummary(): ProcessScopeSummary {
     return new ProcessScopeSummary(this.doc, this.path + "/scopeSummary");
   }
 
-  // Process interdependency matrix [PD00-CUR-PRO-INT].
+  // Process interdependency matrix.
   get interdependencyMatrix(): ProcessInterdependencyMatrix {
     return new ProcessInterdependencyMatrix(this.doc, this.path + "/interdependencyMatrix");
   }
 
-  // Process performance summary [PD00-CUR-PRO-SUM].
+  // Process performance summary.
   get performanceSummary(): ProcessPerformanceSummary {
     return new ProcessPerformanceSummary(this.doc, this.path + "/performanceSummary");
   }
 
-  // 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
+  // 1.2.nn. Business Processes — contains 1+× Business Process.
   get processes(): SomList<CurrentBusinessProcess> {
     return new SomList(this.doc, this.path + "/CUBIPR-PROC-LST", (d: SpecDocument, p: string) => new CurrentBusinessProcess(d, p));
   }
 }
 
-// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+// 1.4.8. Data Classification.
 //
 // Data classification framework, sensitivity levels, and current
 // classification status of data assets.
@@ -11266,7 +10918,7 @@ export class CurrentDataClassification extends SomNode {
   }
 }
 
-// 1.4. Current Data Landscape [PD00-CUR-DAT].
+// 1.4. Current Data Landscape.
 //
 // Comprehensive documentation of the current data situation including where
 // data lives, data quality issues, duplication, ownership, volumes, growth
@@ -11307,58 +10959,181 @@ export class CurrentDataLandscape extends SomNode {
     return new DataLandscapeSummary(this.doc, this.path + "/dataLandscapeSummary");
   }
 
-  // 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+  // 1.4.1. Data Source Inventory.
   get dataSourceInventory(): DataSourceInventory {
     return new DataSourceInventory(this.doc, this.path + "/dataSourceInventory");
   }
 
-  // 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+  // 1.4.2. Data Quality Assessment.
   get dataQualityAssessment(): DataQualityAssessment {
     return new DataQualityAssessment(this.doc, this.path + "/dataQualityAssessment");
   }
 
-  // 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+  // 1.4.3. Data Duplication Analysis.
   get dataDuplicationAnalysis(): DataDuplicationAnalysis {
     return new DataDuplicationAnalysis(this.doc, this.path + "/dataDuplicationAnalysis");
   }
 
-  // 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+  // 1.4.4. Data Ownership and Stewardship.
   get dataOwnership(): DataOwnership {
     return new DataOwnership(this.doc, this.path + "/dataOwnership");
   }
 
-  // 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+  // 1.4.5. Data Volumes and Growth.
   get dataVolumesAndGrowth(): DataVolumesAndGrowth {
     return new DataVolumesAndGrowth(this.doc, this.path + "/dataVolumesAndGrowth");
   }
 
-  // 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+  // 1.4.6. Retention Policies.
   get retentionPolicies(): DataRetentionPolicies {
     return new DataRetentionPolicies(this.doc, this.path + "/retentionPolicies");
   }
 
-  // 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+  // 1.4.7. Data Governance.
   get dataGovernance(): DataGovernance {
     return new DataGovernance(this.doc, this.path + "/dataGovernance");
   }
 
-  // 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+  // 1.4.8. Data Classification.
   get dataClassification(): CurrentDataClassification {
     return new CurrentDataClassification(this.doc, this.path + "/dataClassification");
   }
 
-  // 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+  // 1.4.9. Data Integration Points.
   get dataIntegrationPoints(): DataIntegrationPoints {
     return new DataIntegrationPoints(this.doc, this.path + "/dataIntegrationPoints");
   }
 
-  // 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+  // 1.4.10. Master Data Management.
   get masterDataManagement(): MasterDataManagement {
     return new MasterDataManagement(this.doc, this.path + "/masterDataManagement");
   }
 }
 
-// 1.5. Operational Metrics [PD00-CUR-MET].
+// 1. Current State Analysis. Seeds → CS.
+//
+// Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
+// CS together with the systems-to-replace inventory.
+export class CurrentLandscape extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 1.1. Existing Systems Landscape.
+  get existingSystemsLandscape(): ExistingSystemsLandscape {
+    return new ExistingSystemsLandscape(this.doc, this.path + "/existingSystemsLandscape");
+  }
+
+  // 1.2. Current Business Processes.
+  get currentBusinessProcesses(): CurrentBusinessProcesses {
+    return new CurrentBusinessProcesses(this.doc, this.path + "/currentBusinessProcesses");
+  }
+
+  // 1.3. Pain Points and Gaps.
+  get painPointsAndGaps(): PainPointsAndGaps {
+    return new PainPointsAndGaps(this.doc, this.path + "/painPointsAndGaps");
+  }
+
+  // 1.4. Current Data Landscape.
+  get currentDataLandscape(): CurrentDataLandscape {
+    return new CurrentDataLandscape(this.doc, this.path + "/currentDataLandscape");
+  }
+
+  // 1.5. Operational Metrics.
+  get operationalMetrics(): SomList<CurrentOperationalMetrics> {
+    return new SomList(this.doc, this.path + "/CUOPME-OPER-LST", (d: SpecDocument, p: string) => new CurrentOperationalMetrics(d, p));
+  }
+
+  // 1.6. Current State Risks.
+  get currentStateRisks(): CurrentStateRiskAssessment {
+    return new CurrentStateRiskAssessment(this.doc, this.path + "/currentStateRisks");
+  }
+}
+
+// CS00 Current Situation.
+//
+// Detailed analysis of the current state: existing systems, business
+// processes, pain points, data landscape, operational metrics, risks,
+// and the inventory / migration plan for the systems being replaced.
+export class CurrentLandscapeAssessment extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "CLA");
+    checkSomModelVersion(CurrentLandscapeAssessment.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return CurrentLandscapeAssessment.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Existing systems landscape.
+  get existingSystemsLandscape(): ExistingSystemsLandscape {
+    return new ExistingSystemsLandscape(this.doc, this.path + "/existingSystemsLandscape");
+  }
+
+  // Current business processes.
+  get currentBusinessProcesses(): CurrentBusinessProcesses {
+    return new CurrentBusinessProcesses(this.doc, this.path + "/currentBusinessProcesses");
+  }
+
+  // Pain points and gaps.
+  get painPointsAndGaps(): PainPointsAndGaps {
+    return new PainPointsAndGaps(this.doc, this.path + "/painPointsAndGaps");
+  }
+
+  // Current data landscape.
+  get currentDataLandscape(): CurrentDataLandscape {
+    return new CurrentDataLandscape(this.doc, this.path + "/currentDataLandscape");
+  }
+
+  // Current operational metrics.
+  get operationalMetrics(): SomList<CurrentOperationalMetrics> {
+    return new SomList(this.doc, this.path + "/CUOPME-OPER-LST", (d: SpecDocument, p: string) => new CurrentOperationalMetrics(d, p));
+  }
+
+  // Current-state risk assessment.
+  get currentStateRisks(): CurrentStateRiskAssessment {
+    return new CurrentStateRiskAssessment(this.doc, this.path + "/currentStateRisks");
+  }
+
+  // Replacement inventory.
+  get replacementInventory(): ReplacementInventory {
+    return new ReplacementInventory(this.doc, this.path + "/replacementInventory");
+  }
+
+  // Migration considerations.
+  get migrationConsiderations(): MigrationConsiderations {
+    return new MigrationConsiderations(this.doc, this.path + "/migrationConsiderations");
+  }
+}
+
+// 1.5. Operational Metrics.
 //
 // Baseline metrics of the current systems: throughput, volume, uptime,
 // response times, user counts. Used to size the target system and to
@@ -11388,133 +11163,10 @@ export class CurrentProcessImprovementEntry extends SomNode {
   }
 }
 
-// CS00 Current Situation.
-//
-// Detailed analysis of the current state: existing systems, business
-// processes, pain points, data landscape, operational metrics, risks,
-// and the inventory / migration plan for the systems being replaced.
-export class CurrentSituation extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "CS");
-    checkSomModelVersion(CurrentSituation.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return CurrentSituation.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Existing systems landscape — PD00-CUR-SYS.
-  get existingSystemsLandscape(): ExistingSystemsLandscape {
-    return new ExistingSystemsLandscape(this.doc, this.path + "/existingSystemsLandscape");
-  }
-
-  // Current business processes — PD00-CUR-PRO.
-  get currentBusinessProcesses(): CurrentBusinessProcesses {
-    return new CurrentBusinessProcesses(this.doc, this.path + "/currentBusinessProcesses");
-  }
-
-  // Pain points and gaps — PD00-CUR-PAI.
-  get painPointsAndGaps(): PainPointsAndGaps {
-    return new PainPointsAndGaps(this.doc, this.path + "/painPointsAndGaps");
-  }
-
-  // Current data landscape — PD00-CUR-DAT.
-  get currentDataLandscape(): CurrentDataLandscape {
-    return new CurrentDataLandscape(this.doc, this.path + "/currentDataLandscape");
-  }
-
-  // Current operational metrics — PD00-CUR-MET.
-  get operationalMetrics(): SomList<CurrentOperationalMetrics> {
-    return new SomList(this.doc, this.path + "/CUOPME-OPER-LST", (d: SpecDocument, p: string) => new CurrentOperationalMetrics(d, p));
-  }
-
-  // Current-state risk assessment — PD00-CUR-RIS.
-  get currentStateRisks(): CurrentStateRiskAssessment {
-    return new CurrentStateRiskAssessment(this.doc, this.path + "/currentStateRisks");
-  }
-
-  // Replacement inventory — PD00-SYO-SYR-INV.
-  get replacementInventory(): ReplacementInventory {
-    return new ReplacementInventory(this.doc, this.path + "/replacementInventory");
-  }
-
-  // Migration considerations — PD00-SYO-SYR-MIG.
-  get migrationConsiderations(): MigrationConsiderations {
-    return new MigrationConsiderations(this.doc, this.path + "/migrationConsiderations");
-  }
-}
-
-// 1. Current State Analysis [PD00-CUR]. Seeds → CS.
-//
-// Seeds the CS (Current Situation) Phase 3 DocSpec. Previously listed as
-// PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
-export class CurrentStateAnalysis extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // 1.1. Existing Systems Landscape [PD00-CUR-SYS].
-  get existingSystemsLandscape(): ExistingSystemsLandscape {
-    return new ExistingSystemsLandscape(this.doc, this.path + "/existingSystemsLandscape");
-  }
-
-  // 1.2. Current Business Processes [PD00-CUR-PRO].
-  get currentBusinessProcesses(): CurrentBusinessProcesses {
-    return new CurrentBusinessProcesses(this.doc, this.path + "/currentBusinessProcesses");
-  }
-
-  // 1.3. Pain Points and Gaps [PD00-CUR-PAI].
-  get painPointsAndGaps(): PainPointsAndGaps {
-    return new PainPointsAndGaps(this.doc, this.path + "/painPointsAndGaps");
-  }
-
-  // 1.4. Current Data Landscape [PD00-CUR-DAT].
-  get currentDataLandscape(): CurrentDataLandscape {
-    return new CurrentDataLandscape(this.doc, this.path + "/currentDataLandscape");
-  }
-
-  // 1.5. Operational Metrics [PD00-CUR-MET].
-  get operationalMetrics(): SomList<CurrentOperationalMetrics> {
-    return new SomList(this.doc, this.path + "/CUOPME-OPER-LST", (d: SpecDocument, p: string) => new CurrentOperationalMetrics(d, p));
-  }
-
-  // 1.6. Current State Risks [PD00-CUR-RIS].
-  get currentStateRisks(): CurrentStateRiskAssessment {
-    return new CurrentStateRiskAssessment(this.doc, this.path + "/currentStateRisks");
-  }
-}
-
-// 1.6. Current State Risks [PD00-CUR-RIS].
+// 1.6. Current State Risks.
 //
 // Risks tied to the current state and to its replacement. Distinct from
-// PD00-SYO-RIS which covers target-side risks.
+// the target-side risks section which covers replacement risks.
 export class CurrentStateRiskAssessment extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -11529,7 +11181,7 @@ export class CurrentStateRiskAssessment extends SomNode {
   }
 }
 
-// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+// A current workflow entry (form).
 //
 // Detailed documentation of a single workflow within a business process.
 // Includes triggers, steps, actors, inputs, outputs, and timing.
@@ -11542,7 +11194,7 @@ export class CurrentWorkflowEntry extends SomNode {
     return new CurrentWorkflowEntryContentForm(this.doc, this.path + "/content");
   }
 
-  // Workflow diagram [PD00-CUR-PRO-xx-WOR-xx-DIA].
+  // Workflow diagram.
   get workflowDiagram(): string {
     return this.doc.content(this.path + "/workflowDiagram") || '';
   }
@@ -11623,7 +11275,7 @@ export class CustomDistributionGroup extends SomNode {
   }
 }
 
-// A custom metric entry [PD00-TEC-SYS-MON-MET-nn].
+// A custom metric entry.
 export class CustomMetricEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -11634,7 +11286,7 @@ export class CustomMetricEntry extends SomNode {
   }
 }
 
-// 15.6. Cutover Procedures [PD00-ROL-CUT].
+// 15.6. Cutover Procedures.
 //
 // Detailed cutover runbook for go-live. Minute-by-minute procedure
 // covering the transition from current operation to the target system.
@@ -11652,7 +11304,7 @@ export class CutoverProcedures extends SomNode {
   }
 }
 
-// A dashboard entry [PD00-TEC-SYS-MON-DAS-nn].
+// A dashboard entry.
 export class DashboardEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -11920,7 +11572,7 @@ export class DataAttributeConstraintEntry extends SomNode {
   }
 }
 
-// A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
+// A data attribute entry (form).
 //
 // Comprehensive attribute specification for data dictionary and schema design.
 export class DataAttributeEntry extends SomNode {
@@ -11957,7 +11609,7 @@ export class DataAttributeEntry extends SomNode {
   }
 }
 
-// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+// 7.1.4. Data Classification.
 export class DataClassification extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -11967,13 +11619,13 @@ export class DataClassification extends SomNode {
     return new DataClassificationOverviewForm(this.doc, this.path + "/overview");
   }
 
-  // Contains 0+× DataClassificationEntry [PD00-BUS-DAT-CLA-nn].
+  // Contains 0+× DataClassificationEntry.
   get items(): SomList<DataClassificationEntry> {
     return new SomList(this.doc, this.path + "/DCLSE-ITEM-LST", (d: SpecDocument, p: string) => new DataClassificationEntry(d, p));
   }
 }
 
-// A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
+// A data classification entry (form).
 //
 // Comprehensive data classification for security and compliance.
 export class DataClassificationEntry extends SomNode {
@@ -12001,12 +11653,12 @@ export class DataClassificationEntry extends SomNode {
     return new DataClassificationEntryComplianceForm(this.doc, this.path + "/compliance");
   }
 
-  // Contains 0+× HandlingRequirement [PD00-BUS-DAT-CLA-nn-HAN].
+  // Contains 0+× HandlingRequirement.
   get handlingRequirements(): SomList<HandlingRequirementEntry> {
     return new SomList(this.doc, this.path + "/HNDRE-HAND-LST", (d: SpecDocument, p: string) => new HandlingRequirementEntry(d, p));
   }
 
-  // Contains 0+× AccessRestriction [PD00-BUS-DAT-CLA-nn-ARE].
+  // Contains 0+× AccessRestriction.
   get accessRestrictions(): SomList<AccessRestrictionEntry> {
     return new SomList(this.doc, this.path + "/ACRSE-ACCE-LST", (d: SpecDocument, p: string) => new AccessRestrictionEntry(d, p));
   }
@@ -12045,10 +11697,10 @@ export class DataClassificationSummary extends SomNode {
   }
 }
 
-// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC].
+// 7.1.5. Data Dictionary.
 //
 // Attribute-level dictionary that complements the entity overview
-// (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
+// ..
 export class DataDictionary extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -12063,7 +11715,7 @@ export class DataDictionary extends SomNode {
   }
 }
 
-// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+// 1.4.3. Data Duplication Analysis.
 //
 // Analysis of data duplication across systems, including redundant data
 // stores, duplicated records, and synchronization challenges.
@@ -12170,7 +11822,7 @@ export class DataDuplicationSummary extends SomNode {
   }
 }
 
-// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+// A data entity entry (form).
 //
 // Comprehensive entity specification following data modeling best practices.
 // Captures conceptual, logical, and physical design aspects.
@@ -12207,33 +11859,33 @@ export class DataEntityEntry extends SomNode {
     return new SomList(this.doc, this.path + "/TECHN-TECH-LST", (d: SpecDocument, p: string) => new TechnicalCharacteristicEntry(d, p));
   }
 
-  // Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
+  // Contains 0+× DataAttribute.
   get attributes(): SomList<DataAttributeEntry> {
     return new SomList(this.doc, this.path + "/DAATT-ATTR-LST", (d: SpecDocument, p: string) => new DataAttributeEntry(d, p));
   }
 
-  // Contains 0+× KeyAttribute [PD00-BUS-DAT-ENT-nn-KEY].
+  // Contains 0+× KeyAttribute.
   get keyAttributes(): SomList<KeyAttributeEntry> {
     return new SomList(this.doc, this.path + "/KEATT-KEYA-LST", (d: SpecDocument, p: string) => new KeyAttributeEntry(d, p));
   }
 
-  // Contains 0+× EntityIndex [PD00-BUS-DAT-ENT-nn-IDX].
+  // Contains 0+× EntityIndex.
   get indexes(): SomList<EntityIndexEntry> {
     return new SomList(this.doc, this.path + "/ENIDX-INDE-LST", (d: SpecDocument, p: string) => new EntityIndexEntry(d, p));
   }
 
-  // Contains 0+× EntityConstraint [PD00-BUS-DAT-ENT-nn-CON].
+  // Contains 0+× EntityConstraint.
   get constraints(): SomList<EntityConstraintEntry> {
     return new SomList(this.doc, this.path + "/ENCNS-CONS-LST", (d: SpecDocument, p: string) => new EntityConstraintEntry(d, p));
   }
 
-  // Contains 0+× MigrationMapping [PD00-BUS-DAT-ENT-nn-MIG] for data migration planning.
+  // Contains 0+× MigrationMapping for data migration planning.
   get migrationMappings(): SomList<MigrationMappingEntry> {
     return new SomList(this.doc, this.path + "/MIGME-MIGR-LST", (d: SpecDocument, p: string) => new MigrationMappingEntry(d, p));
   }
 }
 
-// A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn].
+// A data entity migration entry.
 export class DataEntityMigrationEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -12338,7 +11990,7 @@ export class DataFormatCompatibilityNumbers extends SomNode {
   }
 }
 
-// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+// 1.4.7. Data Governance.
 //
 // Current data governance structure, policies, processes, and maturity level.
 export class DataGovernance extends SomNode {
@@ -12589,7 +12241,7 @@ export class DataIntegrationEntryTransport extends SomNode {
   }
 }
 
-// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+// 1.4.9. Data Integration Points.
 //
 // Documentation of data integration points, ETL processes, APIs,
 // and data exchange mechanisms.
@@ -12648,7 +12300,7 @@ export class DataLandscapeSummary extends SomNode {
   }
 }
 
-// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+// 9.3.1. Data-Level Security.
 //
 // Comprehensive data access protection specification covering database-level
 // security, row-level security, column-level security, tenant data isolation,
@@ -12723,7 +12375,7 @@ export class DataMaskingPolicy extends SomNode {
   // (skipped: dataMaskingDetails has no target type)
 }
 
-// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+// 13.5. Data Migration Strategy.
 //
 // Comprehensive data migration strategy covering approach, methodology,
 // tooling, environment strategy, data quality governance, cutover
@@ -12807,18 +12459,18 @@ export class DataMigrationStrategy extends SomNode {
   // Migration strategy narrative.
   // (skipped: migrationStrategyNarrative has no target type)
 
-  // 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+  // 13.5.1. Migration Phases.
   get migrationPhases(): MigrationPhases {
     return new MigrationPhases(this.doc, this.path + "/migrationPhases");
   }
 
-  // 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+  // 13.5.2. Migration Risks.
   get migrationRisks(): StageMigrationRisks {
     return new StageMigrationRisks(this.doc, this.path + "/migrationRisks");
   }
 }
 
-// 7.1. Data Model [PD00-BUS-DAT].
+// 7.1. Data Model.
 export class DataModel extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -12832,41 +12484,41 @@ export class DataModel extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
+  // 7.1.1. Entity Overview — contains 1+× Data Entity.
   get entities(): SomList<DataEntityEntry> {
     return new SomList(this.doc, this.path + "/DAENT-ENTI-LST", (d: SpecDocument, p: string) => new DataEntityEntry(d, p));
   }
 
-  // 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+  // 7.1.2. Entity Relationships.
   get entityRelationships(): EntityRelationships {
     return new EntityRelationships(this.doc, this.path + "/entityRelationships");
   }
 
-  // 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
+  // 7.1.3. Entity-Relationship Diagram (mermaid).
   // (skipped: erDiagram has no target type)
 
-  // 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+  // 7.1.4. Data Classification.
   get dataClassification(): DataClassification {
     return new DataClassification(this.doc, this.path + "/dataClassification");
   }
 
-  // 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
+  // 7.1.5. Data Dictionary..
   get dataDictionary(): DataDictionary {
     return new DataDictionary(this.doc, this.path + "/dataDictionary");
   }
 
-  // 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+  // 7.1.6. Validation Constraints.
   get validationConstraints(): SomList<ValidationConstraints> {
     return new SomList(this.doc, this.path + "/VACO-VALI-LST", (d: SpecDocument, p: string) => new ValidationConstraints(d, p));
   }
 
-  // 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+  // 7.1.7. Integrity Constraints.
   get integrityConstraints(): SomList<IntegrityConstraints> {
     return new SomList(this.doc, this.path + "/INCO-INTE-LST", (d: SpecDocument, p: string) => new IntegrityConstraints(d, p));
   }
 }
 
-// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+// 1.4.4. Data Ownership and Stewardship.
 //
 // Documentation of data ownership structures, stewardship roles,
 // and accountability for data assets.
@@ -12957,7 +12609,7 @@ export class DataOwnershipSummary extends SomNode {
   }
 }
 
-// Data processing agreement requirements [PD00-TEC-SEC-PRI].
+// Data processing agreement requirements.
 export class DataProcessingAgreementRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -13032,7 +12684,7 @@ export class DataProcessingAgreementRequirementsTransfers extends SomNode {
   }
 }
 
-// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+// 8.8.2. Data Protection and Privacy.
 //
 // Comprehensive data protection and privacy requirements including
 // GDPR compliance, data residency, consent management, data subject
@@ -13090,10 +12742,10 @@ export class DataProtectionAndPrivacySection extends SomNode {
   }
 }
 
-// Data protection classification and handling rules [PD00-TEC-SEC-PRI].
+// Data protection classification and handling rules.
 //
 // Named DataProtectionClassification to avoid collision with
-// DataClassification in business_data_model.dart.
+// DataClassification in information_and_data_model.dart.
 export class DataProtectionClassification extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -13168,7 +12820,7 @@ export class DataProtectionClassificationRetention extends SomNode {
   }
 }
 
-// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+// 1.4.2. Data Quality Assessment.
 //
 // Comprehensive assessment of data quality across the organization,
 // covering accuracy, completeness, consistency, timeliness, and validity.
@@ -13291,7 +12943,7 @@ export class DataQualityIssueEntryResolution extends SomNode {
   }
 }
 
-// Data residency and sovereignty requirements [PD00-TEC-SEC-PRI].
+// Data residency and sovereignty requirements.
 export class DataResidencyRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -13350,7 +13002,7 @@ export class DataResidencyRequirementsVerification extends SomNode {
   }
 }
 
-// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+// 1.4.6. Retention Policies.
 //
 // Documentation of data retention policies, legal requirements,
 // archival strategies, and data lifecycle management.
@@ -13400,7 +13052,7 @@ export class DataSourceEntityEntry extends SomNode {
   }
 }
 
-// A data source entry (form) [PD00-CUR-DAT-SRC-nn].
+// A data source entry (form).
 //
 // Documents a specific data source/store with comprehensive details about
 // technology, format, volume, quality, ownership, and access patterns.
@@ -13470,7 +13122,7 @@ export class DataSourceIntegration extends SomNode {
   }
 }
 
-// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+// 1.4.1. Data Source Inventory.
 //
 // Comprehensive inventory of all data sources, stores, and repositories
 // in the current environment.
@@ -13568,7 +13220,7 @@ export class DataSourceVolume extends SomNode {
   }
 }
 
-// Data subject rights management [PD00-TEC-SEC-PRI].
+// Data subject rights management.
 //
 // Covers GDPR Articles 15–22: right of access, rectification, erasure,
 // restriction, portability, objection, and automated decision-making.
@@ -13748,7 +13400,7 @@ export class DataVolumeSummaryProjection extends SomNode {
   }
 }
 
-// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+// 1.4.5. Data Volumes and Growth.
 //
 // Analysis of current data volumes, historical growth trends,
 // and projections for future capacity needs.
@@ -14021,7 +13673,7 @@ export class DecisionAuthorityEntry extends SomNode {
   }
 }
 
-// A decision maker entry [PD00-SYO-RES-ORG-DEC-nn].
+// A decision maker entry.
 export class DecisionMakerEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -14032,7 +13684,7 @@ export class DecisionMakerEntry extends SomNode {
   }
 }
 
-// A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
+// A decision option entry (form).
 //
 // One of the available options for a decision point, with full
 // impact analysis, feasibility assessment, and trade-off evaluation.
@@ -14110,7 +13762,7 @@ export class DecisionOptionEntryTradeOffs extends SomNode {
   }
 }
 
-// A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
+// A decision point entry (form).
 //
 // A single formal decision point with defined timing, criteria,
 // authority, available options with impact analysis, and recording
@@ -14197,7 +13849,7 @@ export class DecisionPointEntryStakeholders extends SomNode {
   }
 }
 
-// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+// 13.6.2. Decision Points.
 //
 // Key decision points in the stage plan including go/no-go
 // decisions, scope adjustments, resource reallocations, and
@@ -14221,7 +13873,7 @@ export class DecisionPoints extends SomNode {
   }
 }
 
-// A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn].
+// A deep link pattern entry (form).
 export class DeepLinkPatternEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -14232,7 +13884,7 @@ export class DeepLinkPatternEntry extends SomNode {
   }
 }
 
-// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+// 10.3.1.7. Deep Linking.
 //
 // External entry points, URL patterns, share links.
 export class DeepLinking extends SomNode {
@@ -14257,7 +13909,7 @@ export class DeepLinking extends SomNode {
   }
 }
 
-// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+// 14.2.4. Defect Resolution.
 //
 // Defines how defects found during acceptance testing are classified,
 // managed, resolved, and tracked. Covers severity classification,
@@ -14372,7 +14024,7 @@ export class DeliverableDocumentation extends SomNode {
   }
 }
 
-// A deliverable entry (form) [PD00-DEL-DEL-nn].
+// A deliverable entry (form).
 //
 // Represents a single deliverable item within any deliverable category.
 // Captures identification, delivery logistics, quality requirements,
@@ -14493,7 +14145,7 @@ export class DeliverableVersion extends SomNode {
   }
 }
 
-// An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
+// An acceptance criterion entry (form).
 //
 // A single criterion that must be met for formal project acceptance.
 // Aligned with IEEE 830 acceptance criteria structure and ISTQB
@@ -14588,7 +14240,88 @@ export class DeliveryAcceptanceCriterionEntryVerification extends SomNode {
   }
 }
 
-// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+// PPP00 Project Phase Plan.
+//
+// Full project phase plan — staging strategy, stage overview, per-stage
+// entries, feature prioritization, data migration, gate criteria,
+// decision processes, initial development flow, and upgrade cycle
+// framework.
+export class DeliveryRoadmap extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "DRM");
+    checkSomModelVersion(DeliveryRoadmap.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return DeliveryRoadmap.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Staging strategy.
+  get stagingStrategy(): StagingStrategy {
+    return new StagingStrategy(this.doc, this.path + "/stagingStrategy");
+  }
+
+  // Stage overview.
+  get stageOverview(): StageOverview {
+    return new StageOverview(this.doc, this.path + "/stageOverview");
+  }
+
+  // Stages (list).
+  get stages(): SomList<StageEntry> {
+    return new SomList(this.doc, this.path + "/STAGE-STAG-LST", (d: SpecDocument, p: string) => new StageEntry(d, p));
+  }
+
+  // Feature prioritization.
+  get featurePrioritization(): FeaturePrioritization {
+    return new FeaturePrioritization(this.doc, this.path + "/featurePrioritization");
+  }
+
+  // Data migration strategy.
+  get dataMigrationStrategy(): DataMigrationStrategy {
+    return new DataMigrationStrategy(this.doc, this.path + "/dataMigrationStrategy");
+  }
+
+  // Gate criteria (promoted from GOV).
+  get gateCriteria(): PhaseGateReviews {
+    return new PhaseGateReviews(this.doc, this.path + "/gateCriteria");
+  }
+
+  // Decision processes (promoted from GOV).
+  get decisionProcesses(): DecisionPoints {
+    return new DecisionPoints(this.doc, this.path + "/decisionProcesses");
+  }
+
+  // Initial development flow.
+  get initialDevelopmentFlow(): InitialDevelopmentFlow {
+    return new InitialDevelopmentFlow(this.doc, this.path + "/initialDevelopmentFlow");
+  }
+
+  // Upgrade cycle framework (links tom_system_upgrade.md).
+  get upgradeCycleFramework(): UpgradeCycleFramework {
+    return new UpgradeCycleFramework(this.doc, this.path + "/upgradeCycleFramework");
+  }
+}
+
+// 14.1. Delivery and Service Scope.
 export class DeliveryScope extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -14602,28 +14335,28 @@ export class DeliveryScope extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+  // 14.1.1. Software Deliverables.
   get softwareDeliverables(): SoftwareDeliverables {
     return new SoftwareDeliverables(this.doc, this.path + "/softwareDeliverables");
   }
 
-  // 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+  // 14.1.2. Documentation Deliverables.
   get documentationDeliverables(): DocumentationDeliverables {
     return new DocumentationDeliverables(this.doc, this.path + "/documentationDeliverables");
   }
 
-  // 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+  // 14.1.3. Training Deliverables.
   get trainingDeliverables(): TrainingDeliverables {
     return new TrainingDeliverables(this.doc, this.path + "/trainingDeliverables");
   }
 
-  // 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+  // 14.1.4. Support Deliverables.
   get supportDeliverables(): SupportDeliverables {
     return new SupportDeliverables(this.doc, this.path + "/supportDeliverables");
   }
 }
 
-// 14. Delivery Scope and Acceptance [PD00-DEL].
+// 14. Delivery Scope and Acceptance.
 export class DeliveryScopeAndAcceptance extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -14637,18 +14370,57 @@ export class DeliveryScopeAndAcceptance extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+  // 14.1. Delivery and Service Scope.
   get deliveryScope(): DeliveryScope {
     return new DeliveryScope(this.doc, this.path + "/deliveryScope");
   }
 
-  // 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+  // 14.2. Acceptance Plan. Seeds → BQP.
   get acceptancePlan(): AcceptancePlan {
     return new AcceptancePlan(this.doc, this.path + "/acceptancePlan");
   }
 }
 
-// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+// SBP.15 Delivery, Transition & Rollout.
+//
+// Public anchor: PMBOK phasing + ISO 29148 transition requirements.
+export class DeliveryTransitionAndRollout extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Staged delivery / phase plan.
+  get systemStagePlan(): SystemStagePlan {
+    return new SystemStagePlan(this.doc, this.path + "/systemStagePlan");
+  }
+
+  // Rollout and transition concept.
+  get systemRolloutConcept(): SystemRolloutConcept {
+    return new SystemRolloutConcept(this.doc, this.path + "/systemRolloutConcept");
+  }
+
+  // Localization & translation *execution* processes (re-homed from MLAR in
+  // IP-6: the execution side of i18n, as opposed to the requirements that
+  // live in SBP.9).
+  get localizationTranslationProcess(): LocalizationTranslationProcess {
+    return new LocalizationTranslationProcess(this.doc, this.path + "/localizationTranslationProcess");
+  }
+
+  // Multi-language rollout sequencing by region and time (re-homed from MLAR).
+  get multiLanguageRolloutPlan(): MultiLanguageAndRolloutPlan {
+    return new MultiLanguageAndRolloutPlan(this.doc, this.path + "/multiLanguageRolloutPlan");
+  }
+}
+
+// 1.1.3. Dependencies and Integrations.
 //
 // Documents how current systems depend on each other, on external services,
 // and on shared infrastructure. Identifies fragile integration points that
@@ -14666,7 +14438,7 @@ export class DependenciesAndIntegrations extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
+  // Dependency matrix diagram.
   get dependencyDiagram(): string {
     return this.doc.content(this.path + "/dependencyDiagram") || '';
   }
@@ -14675,27 +14447,27 @@ export class DependenciesAndIntegrations extends SomNode {
     this.doc.setContent(this.path + "/dependencyDiagram", value);
   }
 
-  // 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+  // 1.1.3.1. Internal Dependencies.
   get internalDependencies(): InternalDependencies {
     return new InternalDependencies(this.doc, this.path + "/internalDependencies");
   }
 
-  // 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+  // 1.1.3.2. External Service Dependencies.
   get externalServiceDependencies(): ExternalServiceDependencies {
     return new ExternalServiceDependencies(this.doc, this.path + "/externalServiceDependencies");
   }
 
-  // 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+  // 1.1.3.3. Shared Infrastructure Dependencies.
   get sharedInfrastructureDependencies(): SharedInfrastructureDependencies {
     return new SharedInfrastructureDependencies(this.doc, this.path + "/sharedInfrastructureDependencies");
   }
 
-  // 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+  // 1.1.3.4. System Integrations.
   get integrations(): Integrations {
     return new Integrations(this.doc, this.path + "/integrations");
   }
 
-  // 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+  // 1.1.3.5. Integration Health Summary.
   get healthSummary(): IntegrationHealthSummary {
     return new IntegrationHealthSummary(this.doc, this.path + "/healthSummary");
   }
@@ -15018,7 +14790,7 @@ export class DependencyRisk extends SomNode {
   }
 }
 
-// Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
+// Dependency and supply-chain scanning requirements.
 export class DependencyScanningRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -15115,7 +14887,7 @@ export class DependencyTracking extends SomNode {
   }
 }
 
-// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+// 4.1.2.7. Deployment Context.
 //
 // Where and how the system will be deployed in the infrastructure
 // landscape.
@@ -15347,7 +15119,7 @@ export class DeploymentSecuritySupplyChain extends SomNode {
   }
 }
 
-// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+// 8.5.2. Deployment Strategy.
 //
 // Deployment model (containerized, VM-based, serverless), deployment pipeline,
 // rollback strategy, and canary/blue-green deployment requirements.
@@ -15601,7 +15373,7 @@ export class DesignFoundationEntry extends SomNode {
   }
 }
 
-// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
+// A design goal entry (form).
 //
 // Each goal represents a measurable UI objective with success criteria.
 export class DesignGoalEntry extends SomNode {
@@ -15614,7 +15386,7 @@ export class DesignGoalEntry extends SomNode {
   }
 }
 
-// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+// 10.1.1. Design Goals.
 //
 // Primary design objectives that the UI must achieve: simplicity, efficiency,
 // accessibility, consistency, delight. Goals are prioritized for the project.
@@ -15731,7 +15503,7 @@ export class DesignPatternEntryStructure extends SomNode {
   }
 }
 
-// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+// 8.1.3. Design Patterns and Standards.
 //
 // Required design patterns, coding standards, development conventions, and
 // applicable industry standards (ISO, OWASP, IEEE).
@@ -15792,7 +15564,7 @@ export class DesignPatternsAndStandards extends SomNode {
   }
 }
 
-// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+// 10.1.2. Design Principles.
 //
 // Guiding principles for all UI decisions: progressive disclosure, direct
 // manipulation, feedback, consistency, error prevention.
@@ -15829,7 +15601,7 @@ export class DesignPrinciplesOverview extends SomNode {
   }
 }
 
-// 10.1. Design Vision [PD00-USE-VIS].
+// 10.1. Design Vision.
 //
 // Overall design vision for the user interface, encompassing goals,
 // principles, and user personas that guide all UI decisions.
@@ -15846,17 +15618,17 @@ export class DesignVision extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+  // 10.1.1. Design Goals.
   get designGoals(): DesignGoals {
     return new DesignGoals(this.doc, this.path + "/designGoals");
   }
 
-  // 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+  // 10.1.2. Design Principles.
   get designPrinciples(): DesignPrinciples {
     return new DesignPrinciples(this.doc, this.path + "/designPrinciples");
   }
 
-  // 10.1.3. User Personas [PD00-USE-VIS-PER].
+  // 10.1.3. User Personas.
   get personas(): UserPersonas {
     return new UserPersonas(this.doc, this.path + "/personas");
   }
@@ -15937,10 +15709,10 @@ export class DesktopOsRequirementEntryTesting extends SomNode {
   }
 }
 
-// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+// 6.1.7. Detailed Process Workflows.
 //
-// Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
-// Covers HBSG AS07-DET Detailed Process Descriptions.
+// Per-process workflow detail beyond the catalog overview.
+// .
 export class DetailedProcessWorkflows extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -16137,7 +15909,7 @@ export class DevelopmentConventionEntryVersionControl extends SomNode {
   }
 }
 
-// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+// 8.2.2. Development Environment.
 //
 // Required IDEs, build tools, version control, CI/CD pipeline, code review
 // process, and development workflow.
@@ -16389,7 +16161,7 @@ export class DisasterRecoveryRequirementsReplication extends SomNode {
   }
 }
 
-// Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn].
+// Display equipment entry (form).
 export class DisplayEquipmentEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -16604,7 +16376,7 @@ export class DistributionGroupSummary extends SomNode {
   }
 }
 
-// 3.3. Distribution List [PD00-ADM-DIS].
+// 3.3. Distribution List.
 //
 // Defines who receives which project documents and communications.
 // Includes the communication matrix specifying information flow patterns,
@@ -16627,17 +16399,17 @@ export class DistributionList extends SomNode {
     return new CommunicationMatrix(this.doc, this.path + "/communicationMatrix");
   }
 
-  // 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+  // 3.3.1. Full Distribution.
   get fullDistribution(): FullDistribution {
     return new FullDistribution(this.doc, this.path + "/fullDistribution");
   }
 
-  // 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
+  // 3.3.2. Executive Summary.
   get executiveSummary(): ExecutiveSummaryDistribution {
     return new ExecutiveSummaryDistribution(this.doc, this.path + "/executiveSummary");
   }
 
-  // 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
+  // 3.3.3. Custom Distribution Groups — contains 0+× Group.
   get customGroups(): SomList<CustomDistributionGroup> {
     return new SomList(this.doc, this.path + "/CSDSGR-CUST-LST", (d: SpecDocument, p: string) => new CustomDistributionGroup(d, p));
   }
@@ -16676,7 +16448,7 @@ export class DistributionRecipientContact extends SomNode {
   }
 }
 
-// A distribution recipient entry (form) [PD00-ADM-DIS-nn].
+// A distribution recipient entry (form).
 //
 // Detailed information about a distribution list recipient including
 // their role, contact information, preferences, and access levels.
@@ -16812,7 +16584,7 @@ export class DnsRequirementsZones extends SomNode {
   }
 }
 
-// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
+// 11.5.4. Documentation changeability quality.
 export class DocChangeabilityQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -16874,7 +16646,7 @@ export class DocChangeabilityQualityStructure extends SomNode {
   }
 }
 
-// 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].
+// 11.5.2. Documentation completeness quality.
 export class DocCompletenessQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -16888,7 +16660,7 @@ export class DocCompletenessQuality extends SomNode {
   // (skipped: narrative has no target type)
 }
 
-// 11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR].
+// 11.5.3. Documentation correctness quality.
 export class DocCorrectnessQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -16931,6 +16703,40 @@ export class DocCorrectnessQualityVerification extends SomNode {
 
   get content(): DocCorrectnessQualityVerificationContentForm {
     return new DocCorrectnessQualityVerificationContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// SBP.1 Document Control.
+//
+// Holds the [DocumentHeader] (id, project, version, date, author, status)
+// together with the document's [RevisionHistory] and the [ApprovalRecord]s
+// that gate its release.
+export class DocumentControl extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Document header form (id, project, version, date, author, status).
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Chronological revision history of this document.
+  get revisionHistory(): RevisionHistory {
+    return new RevisionHistory(this.doc, this.path + "/revisionHistory");
+  }
+
+  // Formal approvals (sign-offs) recorded for this document.
+  get approvals(): SomList<ApprovalRecord> {
+    return new SomList(this.doc, this.path + "/DOCTL-APRV-LST", (d: SpecDocument, p: string) => new ApprovalRecord(d, p));
   }
 }
 
@@ -16986,7 +16792,7 @@ export class DocumentRelevantSections extends SomNode {
   }
 }
 
-// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+// 10.12.3. Documentation and Training.
 //
 // End-user documentation and training materials.
 export class DocumentationAndTraining extends SomNode {
@@ -17043,7 +16849,7 @@ export class DocumentationAndTrainingLocalization extends SomNode {
   }
 }
 
-// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+// 14.1.2. Documentation Deliverables.
 export class DocumentationDeliverables extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -17063,7 +16869,7 @@ export class DocumentationDeliverables extends SomNode {
   }
 }
 
-// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+// 11.5. Documentation Quality Criteria.
 //
 // Quality criteria for project documentation including readability,
 // completeness, correctness, and changeability.
@@ -17079,22 +16885,22 @@ export class DocumentationQualityCriteria extends SomNode {
   // Documentation quality overview narrative.
   // (skipped: overview has no target type)
 
-  // 11.5.1. Readability [PD00-SYQ-DOC-REA].
+  // 11.5.1. Readability.
   get readability(): ReadabilityQuality {
     return new ReadabilityQuality(this.doc, this.path + "/readability");
   }
 
-  // 11.5.2. Completeness [PD00-SYQ-DOC-COM].
+  // 11.5.2. Completeness.
   get completeness(): DocCompletenessQuality {
     return new DocCompletenessQuality(this.doc, this.path + "/completeness");
   }
 
-  // 11.5.3. Correctness [PD00-SYQ-DOC-COR].
+  // 11.5.3. Correctness.
   get correctness(): DocCorrectnessQuality {
     return new DocCorrectnessQuality(this.doc, this.path + "/correctness");
   }
 
-  // 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
+  // 11.5.4. Changeability.
   get changeability(): DocChangeabilityQuality {
     return new DocChangeabilityQuality(this.doc, this.path + "/changeability");
   }
@@ -17266,7 +17072,7 @@ export class DocumentationStandardsVersioning extends SomNode {
   }
 }
 
-// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+// 4.1.3.4. Domain Boundaries.
 //
 // Clear definition of what is within and outside the domain scope,
 // based on bounded context principles.
@@ -17359,7 +17165,7 @@ export class DomainBusinessRuleEntryGovernance extends SomNode {
   }
 }
 
-// 4.1.3.5. Domain Business Rules [PD00-SYO-SYD-DES-RUL].
+// 4.1.3.5. Domain Business Rules.
 //
 // Business rules, policies, and constraints that govern behavior
 // within this domain.
@@ -17393,7 +17199,7 @@ export class DomainEventEntry extends SomNode {
   }
 }
 
-// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+// 4.1.3.7. Domain Events.
 //
 // Significant business events that occur within this domain and
 // trigger actions or state changes.
@@ -17427,7 +17233,7 @@ export class DomainInterfaceEntry extends SomNode {
   }
 }
 
-// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+// 4.1.3.1. Domain Overview.
 //
 // High-level description of the business domain including its purpose,
 // scope, and relationship to the overall business.
@@ -17496,7 +17302,7 @@ export class DomainProcessEntryOperations extends SomNode {
   }
 }
 
-// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+// 4.1.3.6. Domain Processes.
 //
 // High-level business processes within this domain, showing the main
 // workflows and activities.
@@ -17539,7 +17345,7 @@ export class DomainTermEntry extends SomNode {
   }
 }
 
-// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+// 4.1.3.2. Domain Vocabulary.
 //
 // Glossary of domain-specific terms and definitions establishing the
 // ubiquitous language for the project.
@@ -17562,7 +17368,7 @@ export class DomainVocabulary extends SomNode {
   }
 }
 
-// 11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF].
+// 11.3.1. Efficiency quality.
 export class EfficiencyQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -17624,7 +17430,7 @@ export class EfficiencyQualityVerification extends SomNode {
   }
 }
 
-// A validation rule entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-VAL-pp].
+// A validation rule entry (form).
 export class ElementValidationRuleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -17694,7 +17500,7 @@ export class EmergencyMaintenanceProceduresGovernance extends SomNode {
   }
 }
 
-// An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn].
+// An encrypted data category entry (form).
 //
 // Defines a specific category of data that requires encryption at rest,
 // including the data classification, encryption approach, algorithm override,
@@ -17710,7 +17516,7 @@ export class EncryptedDataCategoryEntry extends SomNode {
   }
 }
 
-// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+// 9.5.1. Encryption At Rest.
 //
 // Defines encryption requirements for stored data: algorithms, key lengths,
 // encryption layers (application, database, filesystem, hardware), field-level
@@ -17781,7 +17587,7 @@ export class EncryptionAtRestPolicy extends SomNode {
   // (skipped: encryptionAtRestPolicyDetails has no target type)
 }
 
-// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+// 9.5.2. Encryption In Transit.
 //
 // Defines encryption requirements for data in transit: TLS protocol versions,
 // cipher suites, certificate management, HSTS policy, mutual TLS, certificate
@@ -17829,10 +17635,10 @@ export class EncryptionInTransit extends SomNode {
   // (skipped: encryptionInTransitNotes has no target type)
 }
 
-// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E].
+// 6.2.4. End-to-End Test Scenarios.
 //
 // Test scenarios that exercise complete user journeys across processes
-// and use cases. Covers HBSG AS24.
+// and use cases..
 export class EndToEndTestScenarios extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -17922,7 +17728,7 @@ export class EnterpriseSystemCompatibilityEntryTesting extends SomNode {
   }
 }
 
-// An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
+// An entitlement entry (form).
 export class EntitlementEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -17938,7 +17744,7 @@ export class EntitlementEntry extends SomNode {
   }
 }
 
-// An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn].
+// An entitlement reference entry (form).
 export class EntitlementReferenceEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -17949,7 +17755,7 @@ export class EntitlementReferenceEntry extends SomNode {
   }
 }
 
-// An entity constraint entry (form) [PD00-BUS-DAT-ENT-nn-CON-nn].
+// An entity constraint entry (form).
 //
 // Business and technical constraints beyond keys.
 export class EntityConstraintEntry extends SomNode {
@@ -17962,7 +17768,7 @@ export class EntityConstraintEntry extends SomNode {
   }
 }
 
-// An entity index entry (form) [PD00-BUS-DAT-ENT-nn-IDX-nn].
+// An entity index entry (form).
 //
 // Database index specification for query optimization.
 export class EntityIndexEntry extends SomNode {
@@ -17975,7 +17781,7 @@ export class EntityIndexEntry extends SomNode {
   }
 }
 
-// An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
+// An entity relationship entry (form).
 //
 // Comprehensive relationship specification following ER modeling best practices.
 export class EntityRelationshipEntry extends SomNode {
@@ -18024,7 +17830,7 @@ export class EntityRelationshipEntry extends SomNode {
   }
 }
 
-// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+// 7.1.2. Entity Relationships.
 export class EntityRelationships extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -18044,7 +17850,7 @@ export class EntityRelationships extends SomNode {
   }
 }
 
-// An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-mm].
+// An entry point entry (form).
 export class EntryPointEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -18121,7 +17927,7 @@ export class EnvironmentDataManagement extends SomNode {
   }
 }
 
-// An environment entry (form) [PD00-POP-TOO-ENV-nn].
+// An environment entry (form).
 //
 // Comprehensive specification of a single project environment covering
 // identity, infrastructure, access, data management, configuration,
@@ -18430,7 +18236,7 @@ export class EnvironmentStrategyTesting extends SomNode {
   }
 }
 
-// 2.4.2. Environments [PD00-POP-TOO-ENV].
+// 2.4.2. Environments.
 //
 // Operational overview of project environments and the inventory of
 // individual environment instances. Strategy-level decisions (tier
@@ -18462,7 +18268,7 @@ export class EquipmentOverview extends SomNode {
   }
 }
 
-// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+// 5.3.1. Equipment Requirements.
 //
 // Hardware and peripheral requirements per workplace type.
 export class EquipmentRequirements extends SomNode {
@@ -18549,7 +18355,7 @@ export class ErrorBudgetTrackingMonitoring extends SomNode {
   }
 }
 
-// 10.7. Error Handling Concept [PD00-USE-ERR].
+// 10.7. Error Handling Concept.
 //
 // Comprehensive error handling user experience framework covering validation
 // feedback, system error presentation, and error recovery flows. Follows
@@ -18581,17 +18387,17 @@ export class ErrorHandlingConcept extends SomNode {
   // Error handling overview and strategy.
   // (skipped: errorHandlingOverview has no target type)
 
-  // 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+  // 10.7.1. Validation Feedback.
   get validationFeedback(): ValidationFeedback {
     return new ValidationFeedback(this.doc, this.path + "/validationFeedback");
   }
 
-  // 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+  // 10.7.2. System Error Display.
   get systemErrorDisplay(): SystemErrorDisplay {
     return new SystemErrorDisplay(this.doc, this.path + "/systemErrorDisplay");
   }
 
-  // 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+  // 10.7.3. Error Recovery.
   get errorRecovery(): ErrorRecovery {
     return new ErrorRecovery(this.doc, this.path + "/errorRecovery");
   }
@@ -18757,7 +18563,7 @@ export class ErrorProcedureEntry extends SomNode {
   }
 }
 
-// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+// 10.7.3. Error Recovery.
 //
 // Error recovery flows including data preservation, retry mechanisms,
 // and guided recovery steps.
@@ -18879,7 +18685,7 @@ export class EscalationProcedureEntry extends SomNode {
   }
 }
 
-// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+// 12.1.2. Evaluation Criteria.
 //
 // Container for component evaluation criteria used when assessing
 // candidate components for adoption.
@@ -18902,7 +18708,7 @@ export class EvaluationCriteria extends SomNode {
   }
 }
 
-// An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
+// An evaluation criterion entry (form).
 //
 // Defines one criterion for evaluating candidate components: scoring scale,
 // threshold, evidence requirements, and evaluation method.
@@ -18981,7 +18787,7 @@ export class EventAttributePolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+// 3.3.2. Executive Summary Distribution.
 //
 // Recipients who receive only executive summaries and milestone reports.
 export class ExecutiveSummaryDistribution extends SomNode {
@@ -19019,7 +18825,7 @@ export class ExistingSystemBusinessContext extends SomNode {
   }
 }
 
-// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+// An existing system entry (form).
 //
 // Captures comprehensive information about an existing system including
 // identity, technology, business context, usage metrics, lifecycle, and risks.
@@ -19032,42 +18838,42 @@ export class ExistingSystemEntry extends SomNode {
     return new ExistingSystemEntryContentForm(this.doc, this.path + "/content");
   }
 
-  // Technology stack details [PD00-CUR-SYS-INV-nn-TEC].
+  // Technology stack details.
   get technology(): ExistingSystemTechnology {
     return new ExistingSystemTechnology(this.doc, this.path + "/technology");
   }
 
-  // Business context [PD00-CUR-SYS-INV-nn-BUS].
+  // Business context.
   get businessContext(): ExistingSystemBusinessContext {
     return new ExistingSystemBusinessContext(this.doc, this.path + "/businessContext");
   }
 
-  // Usage metrics [PD00-CUR-SYS-INV-nn-USE].
+  // Usage metrics.
   get usage(): ExistingSystemUsage {
     return new ExistingSystemUsage(this.doc, this.path + "/usage");
   }
 
-  // Lifecycle information [PD00-CUR-SYS-INV-nn-LIF].
+  // Lifecycle information.
   get lifecycle(): ExistingSystemLifecycle {
     return new ExistingSystemLifecycle(this.doc, this.path + "/lifecycle");
   }
 
-  // Integration profile [PD00-CUR-SYS-INV-nn-INT].
+  // Integration profile.
   get integrationProfile(): ExistingSystemIntegration {
     return new ExistingSystemIntegration(this.doc, this.path + "/integrationProfile");
   }
 
-  // Infrastructure details [PD00-CUR-SYS-INV-nn-INF].
+  // Infrastructure details.
   get infrastructure(): ExistingSystemInfrastructure {
     return new ExistingSystemInfrastructure(this.doc, this.path + "/infrastructure");
   }
 
-  // Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
+  // Contains 0+× Limitation.
   get knownLimitations(): SomList<LimitationEntry> {
     return new SomList(this.doc, this.path + "/LIMET-KNOW-LST", (d: SpecDocument, p: string) => new LimitationEntry(d, p));
   }
 
-  // Quality and risk assessment [PD00-CUR-SYS-INV-nn-QUA].
+  // Quality and risk assessment.
   get quality(): ExistingSystemQuality {
     return new ExistingSystemQuality(this.doc, this.path + "/quality");
   }
@@ -19139,7 +18945,7 @@ export class ExistingSystemUsage extends SomNode {
   }
 }
 
-// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+// 1.1. Existing Systems Landscape.
 //
 // Overview of the current systems in use, their roles, technology stacks,
 // and limitations. Provides the foundation for understanding the AS-IS state.
@@ -19156,17 +18962,17 @@ export class ExistingSystemsLandscape extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+  // 1.1.1. System Inventory.
   get systemInventory(): SystemInventory {
     return new SystemInventory(this.doc, this.path + "/systemInventory");
   }
 
-  // 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+  // 1.1.2. Current Architecture.
   get currentArchitecture(): CurrentArchitecture {
     return new CurrentArchitecture(this.doc, this.path + "/currentArchitecture");
   }
 
-  // 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+  // 1.1.3. Dependencies and Integrations.
   get dependenciesAndIntegrations(): DependenciesAndIntegrations {
     return new DependenciesAndIntegrations(this.doc, this.path + "/dependenciesAndIntegrations");
   }
@@ -19180,6 +18986,183 @@ export class ExpectedImprovements extends SomNode {
 
   get content(): ExpectedImprovementsContentForm {
     return new ExpectedImprovementsContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 10. User Interface Design and Prototype. Seeds → UP.
+export class ExperienceAndInterfaceDesign extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 10.1. Design Vision. Seeds → UP.
+  get designVision(): DesignVision {
+    return new DesignVision(this.doc, this.path + "/designVision");
+  }
+
+  // 10.2. Screen Descriptions. Seeds → UP.
+  get screens(): ScreenDescriptions {
+    return new ScreenDescriptions(this.doc, this.path + "/screens");
+  }
+
+  // 10.3. Screen Flow Structure. Seeds → UP.
+  get screenFlow(): ScreenFlowStructure {
+    return new ScreenFlowStructure(this.doc, this.path + "/screenFlow");
+  }
+
+  // 10.4. Print Layout. Seeds → UP.
+  get printLayout(): PrintLayout {
+    return new PrintLayout(this.doc, this.path + "/printLayout");
+  }
+
+  // Data Structure Alignment.
+  // (skipped: dataStructureAlignment has no target type)
+
+  // Authorization Compliance.
+  // (skipped: authorizationCompliance has no target type)
+
+  // 10.7. Error Handling Concept. Seeds → UP.
+  get errorHandling(): ErrorHandlingConcept {
+    return new ErrorHandlingConcept(this.doc, this.path + "/errorHandling");
+  }
+
+  // 10.8. Help Concept. Seeds → UP.
+  get helpConcept(): HelpConcept {
+    return new HelpConcept(this.doc, this.path + "/helpConcept");
+  }
+
+  // 10.9. Accessibility. Seeds → UP.
+  get accessibility(): Accessibility {
+    return new Accessibility(this.doc, this.path + "/accessibility");
+  }
+
+  // 10.10. Responsive Design. Seeds → UP.
+  get responsiveDesign(): ResponsiveDesign {
+    return new ResponsiveDesign(this.doc, this.path + "/responsiveDesign");
+  }
+
+  // 10.11. UI Components. Seeds → UP.
+  get uiComponents(): UiComponents {
+    return new UiComponents(this.doc, this.path + "/uiComponents");
+  }
+
+  // 10.12. Multi-language and Rollout Support.
+  get multiLanguage(): MultiLanguageAndRollout {
+    return new MultiLanguageAndRollout(this.doc, this.path + "/multiLanguage");
+  }
+
+  // 10.13. Prototype. Seeds → UP.
+  get prototype_(): Prototype {
+    return new Prototype(this.doc, this.path + "/prototype");
+  }
+
+  // 10.14. Wireframes and Mockups..
+  get wireframesAndMockups(): SomList<WireframesAndMockups> {
+    return new SomList(this.doc, this.path + "/WIANMO-WIRE-LST", (d: SpecDocument, p: string) => new WireframesAndMockups(d, p));
+  }
+}
+
+// UP00 UI Prototype.
+//
+// Full UI design and prototype specification — vision, screens,
+// screen flow, print, error handling, help, accessibility, responsive,
+// components, language/country selection, prototype, wireframes and
+// mockups.
+export class ExperienceDesignSpecification extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "XDS");
+    checkSomModelVersion(ExperienceDesignSpecification.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return ExperienceDesignSpecification.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Design vision.
+  get designVision(): DesignVision {
+    return new DesignVision(this.doc, this.path + "/designVision");
+  }
+
+  // Screen descriptions.
+  get screens(): ScreenDescriptions {
+    return new ScreenDescriptions(this.doc, this.path + "/screens");
+  }
+
+  // Screen flow structure.
+  get screenFlow(): ScreenFlowStructure {
+    return new ScreenFlowStructure(this.doc, this.path + "/screenFlow");
+  }
+
+  // Print layout.
+  get printLayout(): PrintLayout {
+    return new PrintLayout(this.doc, this.path + "/printLayout");
+  }
+
+  // Error handling concept.
+  get errorHandling(): ErrorHandlingConcept {
+    return new ErrorHandlingConcept(this.doc, this.path + "/errorHandling");
+  }
+
+  // Help concept.
+  get helpConcept(): HelpConcept {
+    return new HelpConcept(this.doc, this.path + "/helpConcept");
+  }
+
+  // Accessibility.
+  get accessibility(): Accessibility {
+    return new Accessibility(this.doc, this.path + "/accessibility");
+  }
+
+  // Responsive design.
+  get responsiveDesign(): ResponsiveDesign {
+    return new ResponsiveDesign(this.doc, this.path + "/responsiveDesign");
+  }
+
+  // UI components.
+  get uiComponents(): UiComponents {
+    return new UiComponents(this.doc, this.path + "/uiComponents");
+  }
+
+  // Language and country selection.
+  get languageCountrySelection(): LanguageCountrySelection {
+    return new LanguageCountrySelection(this.doc, this.path + "/languageCountrySelection");
+  }
+
+  // Prototype.
+  get prototype_(): Prototype {
+    return new Prototype(this.doc, this.path + "/prototype");
+  }
+
+  // Wireframes and mockups (new in Phase A).
+  get wireframesAndMockups(): SomList<WireframesAndMockups> {
+    return new SomList(this.doc, this.path + "/WIANMO-WIRE-LST", (d: SpecDocument, p: string) => new WireframesAndMockups(d, p));
   }
 }
 
@@ -19216,7 +19199,7 @@ export class ExportDelimiter extends SomNode {
   }
 }
 
-// A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).
+// A field mapping within an export (form).
 export class ExportFieldMappingEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -19302,7 +19285,7 @@ export class ExportFileFormat extends SomNode {
   }
 }
 
-// An export format entry (form) [PD00-USE-PRI-EXP-nn].
+// An export format entry (form).
 export class ExportFormatEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -19402,7 +19385,7 @@ export class ExportSizeSettings extends SomNode {
   }
 }
 
-// A reusable export template [PD00-USE-PRI-TPL-nn] (form).
+// A reusable export template (form).
 export class ExportTemplateEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -19477,7 +19460,7 @@ export class ExportTemplateEntryLayout extends SomNode {
   }
 }
 
-// An extension entry [PD00-TAR-STP-INT-nn-EXT-nn].
+// An extension entry.
 export class ExtensionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -19493,7 +19476,7 @@ export class ExtensionEntry extends SomNode {
   }
 }
 
-// An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn].
+// An extension step entry.
 export class ExtensionStepEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -19552,7 +19535,7 @@ export class ExternalActorEntryInteraction extends SomNode {
   }
 }
 
-// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+// 4.1.2.3. External Actors.
 //
 // Human users and organizational entities that interact with the system
 // from outside the system boundary.
@@ -19575,7 +19558,7 @@ export class ExternalActors extends SomNode {
   }
 }
 
-// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+// 8.6.2. External Connectivity.
 export class ExternalConnectivitySection extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -19623,7 +19606,7 @@ export class ExternalConnectivitySection extends SomNode {
   }
 }
 
-// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+// An external interface entry (form).
 //
 // Comprehensive documentation of an external system interface covering
 // identification, technical details, data exchange specification, security,
@@ -19680,7 +19663,7 @@ export class ExternalInterfaceEntry extends SomNode {
   }
 }
 
-// Container for external interface definitions [PD00-SYO-SYB-INT].
+// Container for external interface definitions.
 //
 // Provides structured inventory of all external system integrations with
 // categorization, prioritization, and governance information. Each interface
@@ -19793,7 +19776,7 @@ export class ExternalPartnerAuthentication extends SomNode {
   }
 }
 
-// An external partner connection entry (form) [PD00-TEC-COM-EXT-nn].
+// An external partner connection entry (form).
 export class ExternalPartnerConnectionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -19889,7 +19872,7 @@ export class ExternalPartnerReliability extends SomNode {
   }
 }
 
-// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+// 1.1.3.2. External Service Dependencies.
 //
 // Dependencies on external services, third-party APIs, SaaS platforms,
 // and cloud services not under direct organizational control.
@@ -19912,7 +19895,7 @@ export class ExternalServiceDependencies extends SomNode {
   }
 }
 
-// An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn].
+// An external service dependency entry (form).
 //
 // Documents a dependency on an external service or third-party provider
 // including vendor details, SLA, risk assessment, and fallback options.
@@ -20046,7 +20029,7 @@ export class ExternalSystemContextEntryOperations extends SomNode {
   }
 }
 
-// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+// 4.1.2.4. External Systems.
 //
 // External systems, services, and APIs that the system integrates with.
 export class ExternalSystemsContext extends SomNode {
@@ -20090,7 +20073,7 @@ export class FeatureBusinessValue extends SomNode {
   }
 }
 
-// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+// 13.4.4. Feature Dependencies.
 //
 // Cross-feature dependencies affecting staging order, critical path
 // analysis, and delivery sequencing.
@@ -20123,7 +20106,7 @@ export class FeatureDependenciesInfo extends SomNode {
   }
 }
 
-// A feature dependency entry (form) [PD00-SSP-FEA-DEP-nn].
+// A feature dependency entry (form).
 //
 // Describes a single directional dependency between two features,
 // including type, impact, and resolution strategy.
@@ -20250,7 +20233,7 @@ export class FeatureModuleEntryStructure extends SomNode {
   }
 }
 
-// 13.4. Feature Prioritization [PD00-SSP-FEA].
+// 13.4. Feature Prioritization.
 //
 // Comprehensive feature prioritization framework for staged delivery.
 // Covers prioritization methodology, MoSCoW analysis, feature-stage
@@ -20299,22 +20282,22 @@ export class FeaturePrioritization extends SomNode {
   // Prioritization rationale narrative.
   // (skipped: prioritizationRationale has no target type)
 
-  // 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+  // 13.4.1. MoSCoW Analysis.
   get moscowAnalysis(): MoscowAnalysis {
     return new MoscowAnalysis(this.doc, this.path + "/moscowAnalysis");
   }
 
-  // 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+  // 13.4.2. Feature-Stage Matrix.
   get featureStageMatrix(): FeatureStageMatrix {
     return new FeatureStageMatrix(this.doc, this.path + "/featureStageMatrix");
   }
 
-  // 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+  // 13.4.3. Feature Priority Register.
   get featurePriorityRegister(): FeaturePriorityRegister {
     return new FeaturePriorityRegister(this.doc, this.path + "/featurePriorityRegister");
   }
 
-  // 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+  // 13.4.4. Feature Dependencies.
   get featureDependencies(): FeatureDependencies {
     return new FeatureDependencies(this.doc, this.path + "/featureDependencies");
   }
@@ -20386,7 +20369,7 @@ export class FeaturePrioritizationTraceability extends SomNode {
   }
 }
 
-// An individual feature priority entry (form) [PD00-SSP-FEA-REG-nn].
+// An individual feature priority entry (form).
 //
 // Comprehensive record covering identity, classification, business
 // value, effort, priority scoring, stage assignment, dependencies,
@@ -20446,7 +20429,7 @@ export class FeaturePriorityEntry extends SomNode {
   }
 }
 
-// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+// 13.4.3. Feature Priority Register.
 //
 // Master register of all features with comprehensive priority scoring,
 // business value analysis, effort estimates, stakeholder ownership,
@@ -20488,7 +20471,7 @@ export class FeatureStageAssignment extends SomNode {
   }
 }
 
-// A feature-to-stage mapping entry (form) [PD00-SSP-FEA-MAT-nn].
+// A feature-to-stage mapping entry (form).
 //
 // Maps a single feature or feature group to its delivery stage with
 // readiness, confidence, and dependency information.
@@ -20566,7 +20549,7 @@ export class FeatureStageMappingReadiness extends SomNode {
   }
 }
 
-// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+// 13.4.2. Feature-Stage Matrix.
 //
 // Maps every feature or feature group to the delivery stage, tracking
 // readiness, confidence, dependencies, and acceptance criteria.
@@ -20610,7 +20593,7 @@ export class FeatureStatus extends SomNode {
   }
 }
 
-// A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
+// A feature tour entry.
 export class FeatureTourEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -20637,7 +20620,7 @@ export class FeatureTraceability extends SomNode {
   }
 }
 
-// A field help entry [PD00-USE-HLP-CON-FLD-nn].
+// A field help entry.
 export class FieldHelpEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -20696,7 +20679,7 @@ export class FileAccessControlPolicy extends SomNode {
   // (skipped: fileAccessControlDetails has no target type)
 }
 
-// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+// 9.3.3. File and Storage Security.
 //
 // Comprehensive file and storage security specification covering upload
 // validation, storage encryption, access control on file resources, content
@@ -20891,7 +20874,7 @@ export class FirewallRequirementsRules extends SomNode {
   }
 }
 
-// 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
+// 11.3.3. Flexibility quality.
 export class FlexibilityQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -20979,7 +20962,7 @@ export class FrameworkCompatibility extends SomNode {
   }
 }
 
-// 4.6. Framework Conditions [PD00-SYO-RES].
+// 4.6. Framework Conditions.
 //
 // Documents the organizational and technical environment in which the system
 // will operate. Covers organizational structure, functional responsibilities,
@@ -20993,28 +20976,28 @@ export class FrameworkConditions extends SomNode {
   // Framework conditions overview.
   // (skipped: overview has no target type)
 
-  // 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+  // 4.6.1. Organizational Environment.
   get organizationalEnvironment(): OrganizationalEnvironment {
     return new OrganizationalEnvironment(this.doc, this.path + "/organizationalEnvironment");
   }
 
-  // 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
+  // 4.6.2. Functional Responsibilities — contains 0+×.
   get functionalResponsibilities(): FunctionalResponsibilities {
     return new FunctionalResponsibilities(this.doc, this.path + "/functionalResponsibilities");
   }
 
-  // 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+  // 4.6.3. Technical Framework Conditions. Seeds → TR.
   get technicalFrameworkConditions(): TechnicalFrameworkConditions {
     return new TechnicalFrameworkConditions(this.doc, this.path + "/technicalFrameworkConditions");
   }
 
-  // 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
+  // 4.6.4. Constraints and Dependencies — contains 0+×.
   get constraintsAndDependencies(): ConstraintsAndDependencies {
     return new ConstraintsAndDependencies(this.doc, this.path + "/constraintsAndDependencies");
   }
 }
 
-// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+// 4.6.4.2. Dependencies.
 //
 // External dependencies on other projects, teams, vendors, systems, or
 // organizational initiatives. Each dependency represents a point where
@@ -21070,7 +21053,7 @@ export class FrameworkDependenciesManagement extends SomNode {
   }
 }
 
-// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+// A framework dependency entry (form).
 //
 // Represents a single external dependency where this project relies on
 // another party (project, team, vendor, system) to deliver something.
@@ -21227,7 +21210,7 @@ export class FrameworkVersion extends SomNode {
   }
 }
 
-// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+// 3.3.1. Full Distribution.
 //
 // Recipients who receive all project documents and communications.
 export class FullDistribution extends SomNode {
@@ -21254,7 +21237,7 @@ export class FullDistribution extends SomNode {
   }
 }
 
-// A function-to-data matrix entry (form) [PD00-BUS-FUN-MAT-nn].
+// A function-to-data matrix entry (form).
 //
 // Maps a function to the data entities it accesses.
 export class FunctionDataMatrixEntry extends SomNode {
@@ -21267,7 +21250,7 @@ export class FunctionDataMatrixEntry extends SomNode {
   }
 }
 
-// A function entry (form) [PD00-BUS-FUN-DEC-nn].
+// A function entry (form).
 //
 // Business function specification in the functional decomposition.
 export class FunctionEntry extends SomNode {
@@ -21294,7 +21277,7 @@ export class FunctionEntry extends SomNode {
     return new FunctionEntryImplementation(this.doc, this.path + "/implementation");
   }
 
-  // Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
+  // Sub-functions — contains 0+× SubFunction.
   get subFunctions(): SomList<SubFunctionEntry> {
     return new SomList(this.doc, this.path + "/SUFN-SUBF-LST", (d: SpecDocument, p: string) => new SubFunctionEntry(d, p));
   }
@@ -21333,7 +21316,7 @@ export class FunctionEntryOperations extends SomNode {
   }
 }
 
-// 7.3. Function Model [PD00-BUS-FUN].
+// 7.3. Function Model.
 //
 // Business functions, their decomposition, and relationships to data objects.
 export class FunctionModel extends SomNode {
@@ -21349,23 +21332,23 @@ export class FunctionModel extends SomNode {
     return new FunctionModelMatrixOverviewForm(this.doc, this.path + "/matrixOverview");
   }
 
-  // 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC] — contains 0+× Function.
+  // 7.3.1. Function Decomposition — contains 0+× Function.
   get functions(): SomList<FunctionEntry> {
     return new SomList(this.doc, this.path + "/FUNCT-FUNC-LST", (d: SpecDocument, p: string) => new FunctionEntry(d, p));
   }
 
-  // 7.3.2. Function-to-Data Matrix Entries [PD00-BUS-FUN-MAT] — contains 0+× MatrixEntry.
+  // 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
   get matrixEntries(): SomList<FunctionDataMatrixEntry> {
     return new SomList(this.doc, this.path + "/FNDMX-MATR-LST", (d: SpecDocument, p: string) => new FunctionDataMatrixEntry(d, p));
   }
 
-  // 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
+  // 7.3.3. Business Rules — contains 1+× Business Rule.
   get businessRules(): SomList<BusinessRuleEntry> {
     return new SomList(this.doc, this.path + "/BIRU-BUSI-LST", (d: SpecDocument, p: string) => new BusinessRuleEntry(d, p));
   }
 }
 
-// 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
+// 11.2.2. Functional completeness quality.
 export class FunctionalCompletenessQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -21379,7 +21362,7 @@ export class FunctionalCompletenessQuality extends SomNode {
   // (skipped: narrative has no target type)
 }
 
-// A functional requirement entry [PD00-SYO-REQ-FUN-nn].
+// A functional requirement entry.
 //
 // Comprehensive functional requirement definition following IEEE 830,
 // ISO 29148, and Volere requirements shell. Includes traceability,
@@ -21423,37 +21406,37 @@ export class FunctionalRequirementEntry extends SomNode {
     return new FunctionalRequirementEntryMetadata(this.doc, this.path + "/metadata");
   }
 
-  // 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+  // 4.3.1.n.1. Acceptance Criteria.
   get acceptanceCriteria(): RequirementAcceptanceCriteria {
     return new RequirementAcceptanceCriteria(this.doc, this.path + "/acceptanceCriteria");
   }
 
-  // 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+  // 4.3.1.n.2. Business Rules.
   get businessRules(): RequirementBusinessRules {
     return new RequirementBusinessRules(this.doc, this.path + "/businessRules");
   }
 
-  // 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+  // 4.3.1.n.3. Data Requirements.
   get dataRequirements(): RequirementDataRequirements {
     return new RequirementDataRequirements(this.doc, this.path + "/dataRequirements");
   }
 
-  // 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+  // 4.3.1.n.4. UI Specification.
   get uiSpecification(): RequirementUiSpecification {
     return new RequirementUiSpecification(this.doc, this.path + "/uiSpecification");
   }
 
-  // 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+  // 4.3.1.n.5. Dependencies.
   get dependencies(): RequirementDependencies {
     return new RequirementDependencies(this.doc, this.path + "/dependencies");
   }
 
-  // 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+  // 4.3.1.n.6. Traceability.
   get traceability(): RequirementTraceability {
     return new RequirementTraceability(this.doc, this.path + "/traceability");
   }
 
-  // 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+  // 4.3.1.n.7. Test Cases.
   get testCases(): RequirementTestCases {
     return new RequirementTestCases(this.doc, this.path + "/testCases");
   }
@@ -21525,7 +21508,7 @@ export class FunctionalRequirementEntryVerification extends SomNode {
   }
 }
 
-// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+// 4.3.1. Functional Requirements.
 //
 // Container for functional requirements. Functional requirements describe
 // what the system must do — its features, behaviors, processing rules,
@@ -21555,7 +21538,7 @@ export class FunctionalRequirements extends SomNode {
   }
 }
 
-// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+// 4.6.2. Functional Responsibilities.
 //
 // Maps system functions to organizational units responsible for them.
 // Identifies domain owners, data stewards, and operational contacts for
@@ -21579,7 +21562,7 @@ export class FunctionalResponsibilities extends SomNode {
   }
 }
 
-// A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
+// A gap entry (form) — a missing capability or feature.
 //
 // Documents a specific gap between current capabilities and business needs:
 // category, severity, quantified cost, stakeholders, compliance drivers,
@@ -21658,7 +21641,7 @@ export class GapEntryWorkaround extends SomNode {
   }
 }
 
-// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+// 1.3.4. Gaps.
 export class Gaps extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -21768,7 +21751,7 @@ export class GlobalEntryPointEntry extends SomNode {
   }
 }
 
-// A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn].
+// A global role exclusion entry (form).
 //
 // Defines system-wide mutual exclusion rules that apply across all users,
 // independent of individual role definitions.
@@ -21782,7 +21765,58 @@ export class GlobalRoleExclusionEntry extends SomNode {
   }
 }
 
-// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+// An ordered collection of glossary entries.
+export class Glossary extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // One entry per defined term or acronym.
+  get entries(): SomList<GlossaryEntry> {
+    return new SomList(this.doc, this.path + "/GLOSS-ENTR-LST", (d: SpecDocument, p: string) => new GlossaryEntry(d, p));
+  }
+}
+
+// SBP.3 Glossary & Abbreviations.
+export class GlossaryAndAbbreviations extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // The set of defined terms and abbreviations.
+  get glossary(): Glossary {
+    return new Glossary(this.doc, this.path + "/glossary");
+  }
+}
+
+// A single glossary entry (form).
+export class GlossaryEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): GlossaryEntryContentForm {
+    return new GlossaryEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 4.2.1.n.3. Dependencies.
 //
 // Dependencies that may affect goal achievement.
 export class GoalDependencies extends SomNode {
@@ -21823,7 +21857,7 @@ export class GoalDependencyEntry extends SomNode {
   }
 }
 
-// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+// 4.2.1.n.1. Key Results.
 //
 // OKR-style key results that indicate progress toward the goal.
 // Key results are specific, measurable outcomes that together constitute
@@ -21858,7 +21892,7 @@ export class GoalMilestoneEntry extends SomNode {
   }
 }
 
-// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+// 4.2.1.n.2. Milestones.
 //
 // Key milestones marking progress toward the goal.
 export class GoalMilestones extends SomNode {
@@ -21880,7 +21914,7 @@ export class GoalMilestones extends SomNode {
   }
 }
 
-// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+// 4.2.1.n.5. Resources.
 //
 // Resources required to achieve the goal.
 export class GoalResources extends SomNode {
@@ -21950,7 +21984,7 @@ export class GoalRiskEntryResponse extends SomNode {
   }
 }
 
-// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+// 4.2.1.n.4. Risks.
 //
 // Risks that may prevent or delay goal achievement.
 export class GoalRisks extends SomNode {
@@ -21972,7 +22006,7 @@ export class GoalRisks extends SomNode {
   }
 }
 
-// 4.2. Goals [PD00-SYO-GOA].
+// 4.2. Goals.
 //
 // Container for project goals organized by category. Goals provide measurable
 // objectives that guide project execution and define success. This section
@@ -22000,17 +22034,17 @@ export class Goals extends SomNode {
     this.doc.setContent(this.path + "/goalHierarchyDiagram", value);
   }
 
-  // 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+  // 4.2.1. Business Goals.
   get businessGoals(): BusinessGoals {
     return new BusinessGoals(this.doc, this.path + "/businessGoals");
   }
 
-  // 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+  // 4.2.2. Technical Goals.
   get technicalGoals(): TechnicalGoals {
     return new TechnicalGoals(this.doc, this.path + "/technicalGoals");
   }
 
-  // 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+  // 4.2.3. Success Criteria.
   get successCriteria(): SuccessCriteria {
     return new SuccessCriteria(this.doc, this.path + "/successCriteria");
   }
@@ -22032,7 +22066,7 @@ export class GovernanceModel extends SomNode {
   }
 }
 
-// A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
+// A data handling requirement entry (form).
 //
 // Specific handling procedures for classified data.
 export class HandlingRequirementEntry extends SomNode {
@@ -22045,7 +22079,7 @@ export class HandlingRequirementEntry extends SomNode {
   }
 }
 
-// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+// 8.4. Hardware Concept Requirements.
 export class HardwareRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -22059,17 +22093,17 @@ export class HardwareRequirements extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+  // 8.4.1. Server Requirements.
   get serverRequirements(): ServerRequirementsSection {
     return new ServerRequirementsSection(this.doc, this.path + "/serverRequirements");
   }
 
-  // 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+  // 8.4.2. Client Requirements.
   get clientRequirements(): ClientRequirementsSection {
     return new ClientRequirementsSection(this.doc, this.path + "/clientRequirements");
   }
 
-  // 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+  // 8.4.3. Network Requirements.
   get networkRequirements(): NetworkRequirementsSection {
     return new NetworkRequirementsSection(this.doc, this.path + "/networkRequirements");
   }
@@ -22134,7 +22168,7 @@ export class HealthCheckEndpointsTiming extends SomNode {
   }
 }
 
-// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+// 8.7.2.1. Health Checks and Diagnostics.
 export class HealthChecksAndDiagnosticsSection extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -22177,7 +22211,7 @@ export class HealthChecksAndDiagnosticsSection extends SomNode {
   }
 }
 
-// 10.8. Help Concept [PD00-USE-HLP].
+// 10.8. Help Concept.
 //
 // Comprehensive in-app help system including contextual help, onboarding,
 // and support access mechanisms.
@@ -22203,17 +22237,17 @@ export class HelpConcept extends SomNode {
   // Help system overview narrative.
   // (skipped: helpOverview has no target type)
 
-  // 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+  // 10.8.1. Contextual Help.
   get contextualHelp(): ContextualHelp {
     return new ContextualHelp(this.doc, this.path + "/contextualHelp");
   }
 
-  // 10.8.2. Onboarding [PD00-USE-HLP-ONB].
+  // 10.8.2. Onboarding.
   get onboarding(): OnboardingHelp {
     return new OnboardingHelp(this.doc, this.path + "/onboarding");
   }
 
-  // 10.8.3. Support Access [PD00-USE-HLP-SUP].
+  // 10.8.3. Support Access.
   get supportAccess(): SupportAccess {
     return new SupportAccess(this.doc, this.path + "/supportAccess");
   }
@@ -22378,7 +22412,7 @@ export class IdeRequirementEntryStandardization extends SomNode {
   }
 }
 
-// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+// 9.2.1. Identification.
 //
 // Defines the identity management model: how identities are created,
 // sourced, verified, federated, and mapped. Covers identity sources,
@@ -22398,7 +22432,7 @@ export class Identification extends SomNode {
     return new SomList(this.doc, this.path + "/IDTSR-IDEN-LST", (d: SpecDocument, p: string) => new IdentitySourceEntry(d, p));
   }
 
-  // Identity Verification [PD00-ACC-IDE-IDN-VER].
+  // Identity Verification.
   get identityVerification(): IdentityVerificationPolicy {
     return new IdentityVerificationPolicy(this.doc, this.path + "/identityVerification");
   }
@@ -22408,12 +22442,12 @@ export class Identification extends SomNode {
     return new SomList(this.doc, this.path + "/IDTPV-IDEN-LST", (d: SpecDocument, p: string) => new IdentityProviderEntry(d, p));
   }
 
-  // Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+  // Single Sign-On.
   get singleSignOn(): SingleSignOnPolicy {
     return new SingleSignOnPolicy(this.doc, this.path + "/singleSignOn");
   }
 
-  // Self-Registration [PD00-ACC-IDE-IDN-REG].
+  // Self-Registration.
   get selfRegistration(): SelfRegistrationPolicy {
     return new SelfRegistrationPolicy(this.doc, this.path + "/selfRegistration");
   }
@@ -22424,7 +22458,7 @@ export class Identification extends SomNode {
   }
 }
 
-// 9.2. Identification and Authentication [PD00-ACC-IDE].
+// 9.2. Identification and Authentication.
 export class IdentificationAndAuthentication extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -22438,18 +22472,18 @@ export class IdentificationAndAuthentication extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 9.2.1. Identification [PD00-ACC-IDE-IDN].
+  // 9.2.1. Identification.
   get identification(): Identification {
     return new Identification(this.doc, this.path + "/identification");
   }
 
-  // 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+  // 9.2.2. Authentication.
   get authentication(): Authentication {
     return new Authentication(this.doc, this.path + "/authentication");
   }
 }
 
-// An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].
+// An identity attribute mapping entry (form).
 //
 // Defines how attributes map between identity sources and the application:
 // source/target field, data type, transformation, sync direction.
@@ -22533,7 +22567,7 @@ export class IdentityProviderEndpoints extends SomNode {
   }
 }
 
-// An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].
+// An identity provider entry (form).
 //
 // Configuration for a single Identity Provider (IdP): protocol, endpoints,
 // attribute mapping, trust level, certificate management.
@@ -22605,7 +22639,7 @@ export class IdentityProviderTrust extends SomNode {
   }
 }
 
-// An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn].
+// An identity source entry (form).
 //
 // Defines one source from which identities are obtained, e.g.
 // internal directory, LDAP, external IdP, HR system, self-registration.
@@ -22683,7 +22717,7 @@ export class IdentitySourceEntryOperations extends SomNode {
   }
 }
 
-// Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER].
+// Identity verification/proofing policy (form).
 //
 // Defines how identity claims are verified: verification level, required
 // documents, automation, proofing standards (NIST IAL), and re-verification.
@@ -23113,7 +23147,37 @@ export class IndustryStandardEntryVerification extends SomNode {
   }
 }
 
-// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+// 7. Business Object and Data Model. Seeds → BDM.
+export class InformationAndDataModel extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 7.1. Data Model.
+  get dataModel(): DataModel {
+    return new DataModel(this.doc, this.path + "/dataModel");
+  }
+
+  // 7.2. Business Object Model.
+  get businessObjectModel(): BusinessObjectModel {
+    return new BusinessObjectModel(this.doc, this.path + "/businessObjectModel");
+  }
+
+  // 7.3. Function Model.
+  get functionModel(): FunctionModel {
+    return new FunctionModel(this.doc, this.path + "/functionModel");
+  }
+}
+
+// 10.2.2. Information Architecture.
 //
 // Overall information architecture: site map, content hierarchy, navigation
 // structure, and entry points. Describes how screens relate to each other
@@ -23145,8 +23209,129 @@ export class InformationArchitecture extends SomNode {
     return new SomList(this.doc, this.path + "/GLOBA-GLOB-LST", (d: SpecDocument, p: string) => new GlobalEntryPointEntry(d, p));
   }
 
-  // 10.2.2.5. Information Architecture Diagram [PD00-USE-SCR-INF-DIA].
+  // 10.2.2.5. Information Architecture Diagram.
   // (skipped: architectureDiagram has no target type)
+}
+
+// Information-for-Use (user documentation) requirements.
+//
+// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
+// *quality criteria* cross-map lives in SBP.14
+// (`DocumentationQualityCriteria`).
+//
+// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
+// doc/training field-split (separating the documentation half from the
+// training half) is deferred to IP-8.
+export class InformationForUseRequirements extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Documentation (and, until the IP-8 split, training) requirements,
+  // re-homed from MLAR.
+  get documentationAndTraining(): DocumentationAndTraining {
+    return new DocumentationAndTraining(this.doc, this.path + "/documentationAndTraining");
+  }
+}
+
+// BDM00 Business Data Model.
+//
+// Full business data model: entities, relationships, ER diagram, data
+// classification, business objects, function decomposition, function-
+// to-data matrix, business rules, data dictionary, and validation /
+// integrity constraints.
+export class InformationModel extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "IFM");
+    checkSomModelVersion(InformationModel.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return InformationModel.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Entity inventory (list).
+  get entities(): SomList<DataEntityEntry> {
+    return new SomList(this.doc, this.path + "/DAENT-ENTI-LST", (d: SpecDocument, p: string) => new DataEntityEntry(d, p));
+  }
+
+  // Entity relationships.
+  get entityRelationships(): EntityRelationships {
+    return new EntityRelationships(this.doc, this.path + "/entityRelationships");
+  }
+
+  // Entity-relationship diagram.
+  // (skipped: erDiagram has no target type)
+
+  // Data classification.
+  get dataClassification(): DataClassification {
+    return new DataClassification(this.doc, this.path + "/dataClassification");
+  }
+
+  // Business object catalog (list).
+  get objectCatalog(): SomList<BusinessObjectEntry> {
+    return new SomList(this.doc, this.path + "/BJOEN-OBJE-LST", (d: SpecDocument, p: string) => new BusinessObjectEntry(d, p));
+  }
+
+  // Business object diagram.
+  // (skipped: objectDiagram has no target type)
+
+  // Function decomposition (list).
+  get functionDecomposition(): SomList<FunctionEntry> {
+    return new SomList(this.doc, this.path + "/FUNCT-FUNC-LST", (d: SpecDocument, p: string) => new FunctionEntry(d, p));
+  }
+
+  // Function-to-data matrix (list).
+  get functionToDataMatrix(): SomList<FunctionDataMatrixEntry> {
+    return new SomList(this.doc, this.path + "/FNDMX-FUNC-LST", (d: SpecDocument, p: string) => new FunctionDataMatrixEntry(d, p));
+  }
+
+  // Business rules catalog (list).
+  get businessRules(): SomList<BusinessRuleEntry> {
+    return new SomList(this.doc, this.path + "/BIRU-BUSI-LST", (d: SpecDocument, p: string) => new BusinessRuleEntry(d, p));
+  }
+
+  // Data dictionary.
+  get dataDictionary(): DataDictionary {
+    return new DataDictionary(this.doc, this.path + "/dataDictionary");
+  }
+
+  // Validation constraints.
+  get validationConstraints(): SomList<ValidationConstraints> {
+    return new SomList(this.doc, this.path + "/VACO-VALI-LST", (d: SpecDocument, p: string) => new ValidationConstraints(d, p));
+  }
+
+  // Integrity constraints.
+  get integrityConstraints(): SomList<IntegrityConstraints> {
+    return new SomList(this.doc, this.path + "/INCO-INTE-LST", (d: SpecDocument, p: string) => new IntegrityConstraints(d, p));
+  }
 }
 
 // Infrastructure as Code requirements.
@@ -23433,7 +23618,7 @@ export class InfrastructureSecurityHardeningNetwork extends SomNode {
   }
 }
 
-// 13.7. Initial Development Flow [PD00-SSP-IDV].
+// 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
 // `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
@@ -23496,7 +23681,7 @@ export class InitialTrainingDelivery extends SomNode {
   }
 }
 
-// Initial training entry (form) [PD00-ORG-WOR-nn-TRA-INI-nn].
+// Initial training entry (form).
 export class InitialTrainingEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -23543,7 +23728,7 @@ export class InitialTrainingSchedule extends SomNode {
   }
 }
 
-// Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn].
+// Input device entry (form).
 export class InputDeviceEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -23576,7 +23761,7 @@ export class InsuranceEntry extends SomNode {
   }
 }
 
-// 3.6.5. Insurance and Liability Requirements [PD00-ADM-OTH-INS].
+// 3.6.5. Insurance and Liability Requirements.
 //
 // Insurance coverage and liability agreements.
 export class InsuranceLiabilityRequirements extends SomNode {
@@ -23694,7 +23879,7 @@ export class IntegrationArchitectureSystems extends SomNode {
   }
 }
 
-// An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
+// An integration constraint entry (form).
 //
 // Documents a technical constraint on system integration, including
 // protocol requirements, format restrictions, and platform mandates.
@@ -23772,7 +23957,7 @@ export class IntegrationConstraintEntryScope extends SomNode {
   }
 }
 
-// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+// 1.1.3.5. Integration Health Summary.
 //
 // Executive summary of overall integration landscape health and risk areas.
 export class IntegrationHealthSummary extends SomNode {
@@ -23784,9 +23969,94 @@ export class IntegrationHealthSummary extends SomNode {
     return new IntegrationHealthSummaryContentForm(this.doc, this.path + "/content");
   }
 
-  // Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
+  // Fragile integration points requiring attention.
   get fragilePoints(): SomList<FragilePointEntry> {
     return new SomList(this.doc, this.path + "/FRAGI-FRAG-LST", (d: SpecDocument, p: string) => new FragilePointEntry(d, p));
+  }
+}
+
+// BSI00 Business System Interactions.
+//
+// Complete interaction specification between the target system and
+// external systems: inventory, patterns, testing, dependencies,
+// migration, operational concerns, and cross-boundary error handling.
+export class IntegrationInterfaceSpecification extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "IIS");
+    checkSomModelVersion(IntegrationInterfaceSpecification.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return IntegrationInterfaceSpecification.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // External interfaces.
+  get externalInterfaces(): ExternalInterfaces {
+    return new ExternalInterfaces(this.doc, this.path + "/externalInterfaces");
+  }
+
+  // Out of scope.
+  get outOfScope(): OutOfScope {
+    return new OutOfScope(this.doc, this.path + "/outOfScope");
+  }
+
+  // Boundary assumptions.
+  get boundaryAssumptions(): BoundaryAssumptions {
+    return new BoundaryAssumptions(this.doc, this.path + "/boundaryAssumptions");
+  }
+
+  // System landscape inventory.
+  get systemInventory(): SystemLandscapeInventory {
+    return new SystemLandscapeInventory(this.doc, this.path + "/systemInventory");
+  }
+
+  // Boundary interaction patterns.
+  get interactionPatterns(): SomList<BoundaryInteractionPatterns> {
+    return new SomList(this.doc, this.path + "/BOINPA-INTE-LST", (d: SpecDocument, p: string) => new BoundaryInteractionPatterns(d, p));
+  }
+
+  // Interaction testing strategy.
+  get testingStrategy(): InteractionTestingStrategy {
+    return new InteractionTestingStrategy(this.doc, this.path + "/testingStrategy");
+  }
+
+  // Interaction dependency analysis.
+  get dependencyAnalysis(): InteractionDependencyAnalysis {
+    return new InteractionDependencyAnalysis(this.doc, this.path + "/dependencyAnalysis");
+  }
+
+  // Migration interactions.
+  get migrationInteractions(): SomList<MigrationInteractions> {
+    return new SomList(this.doc, this.path + "/MIIN-MIGR-LST", (d: SpecDocument, p: string) => new MigrationInteractions(d, p));
+  }
+
+  // Cross-boundary operational considerations.
+  get operationalConsiderations(): SomList<CrossBoundaryOperationalConsiderations> {
+    return new SomList(this.doc, this.path + "/CBOC-OPER-LST", (d: SpecDocument, p: string) => new CrossBoundaryOperationalConsiderations(d, p));
+  }
+
+  // Cross-boundary error handling.
+  get crossBoundaryErrorHandling(): CrossBoundaryErrorHandling {
+    return new CrossBoundaryErrorHandling(this.doc, this.path + "/crossBoundaryErrorHandling");
   }
 }
 
@@ -23816,7 +24086,7 @@ export class IntegrationPointEntry extends SomNode {
   }
 }
 
-// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+// 1.1.3.4. System Integrations.
 //
 // Active integrations between systems including protocols, data formats,
 // error handling, and monitoring.
@@ -23839,7 +24109,7 @@ export class Integrations extends SomNode {
   }
 }
 
-// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+// 7.1.7. Integrity Constraints.
 //
 // Cross-entity integrity rules beyond simple referential integrity.
 export class IntegrityConstraints extends SomNode {
@@ -23856,7 +24126,7 @@ export class IntegrityConstraints extends SomNode {
   }
 }
 
-// 3.6.1. Intellectual Property Requirements [PD00-ADM-OTH-IPR].
+// 3.6.1. Intellectual Property Requirements.
 //
 // Defines ownership and usage rights for project deliverables and IP.
 export class IntellectualPropertyRequirements extends SomNode {
@@ -23885,7 +24155,7 @@ export class InteractionBusinessRules extends SomNode {
   }
 }
 
-// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT].
+// 6.2.2. Interaction Catalog.
 //
 // Container for key interaction descriptions. Each interaction seeds a use
 // case following Cockburn's fully dressed use case template.
@@ -23929,7 +24199,7 @@ export class InteractionCatalogOverview extends SomNode {
   }
 }
 
-// An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
+// An interaction channel entry (form).
 //
 // Comprehensive definition of an access channel including platform details,
 // features, constraints, and user experience considerations.
@@ -24017,7 +24287,7 @@ export class InteractionChannelEntryPlatform extends SomNode {
   }
 }
 
-// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP].
+// 4.5.7. Interaction Dependency Analysis.
 //
 // Critical-path and degraded-mode behavior analysis for system
 // dependencies. Covers BSI-DEP.
@@ -24035,7 +24305,7 @@ export class InteractionDependencyAnalysis extends SomNode {
   }
 }
 
-// An interaction entry [PD00-TAR-STP-INT-nn].
+// An interaction entry.
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
 // use case template. Seeds the UC (Use Case) document.
@@ -24121,7 +24391,7 @@ export class InteractionIdentification extends SomNode {
   }
 }
 
-// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
+// An interaction pattern entry (form).
 //
 // Definition of a specific interaction pattern including timing, triggers,
 // and user experience considerations.
@@ -24199,7 +24469,7 @@ export class InteractionPatternEntryUsage extends SomNode {
   }
 }
 
-// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+// 4.1.5.2. Interaction Patterns.
 //
 // Defines how users interact with the system including real-time interactions,
 // batch processing, workflow-driven tasks, and notification-driven actions.
@@ -24259,6 +24529,76 @@ export class InteractionScenarioEntry extends SomNode {
   }
 }
 
+// UC00 Use Cases.
+//
+// Detailed use cases derived from the target process steps and actor
+// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+// and traceability.
+export class InteractionScenarios extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "ISC");
+    checkSomModelVersion(InteractionScenarios.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return InteractionScenarios.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Process steps overview.
+  get processStepsOverview(): ProcessStepsOverview {
+    return new ProcessStepsOverview(this.doc, this.path + "/processStepsOverview");
+  }
+
+  // Actor overview.
+  get actorOverview(): ActorOverview {
+    return new ActorOverview(this.doc, this.path + "/actorOverview");
+  }
+
+  // Interaction catalog.
+  get interactionCatalog(): InteractionCatalog {
+    return new InteractionCatalog(this.doc, this.path + "/interactionCatalog");
+  }
+
+  // Key scenarios.
+  get keyScenarios(): KeyScenarios {
+    return new KeyScenarios(this.doc, this.path + "/keyScenarios");
+  }
+
+  // Actor relationship diagram.
+  get actorRelationshipDiagram(): ActorRelationshipDiagram {
+    return new ActorRelationshipDiagram(this.doc, this.path + "/actorRelationshipDiagram");
+  }
+
+  // End-to-end test scenarios.
+  get endToEndTestScenarios(): SomList<EndToEndTestScenarios> {
+    return new SomList(this.doc, this.path + "/ETETS-ENDT-LST", (d: SpecDocument, p: string) => new EndToEndTestScenarios(d, p));
+  }
+
+  // Use case traceability.
+  get useCaseTraceability(): UseCaseTraceability {
+    return new UseCaseTraceability(this.doc, this.path + "/useCaseTraceability");
+  }
+}
+
 // Interaction security requirements.
 export class InteractionSecurity extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -24270,7 +24610,7 @@ export class InteractionSecurity extends SomNode {
   }
 }
 
-// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST].
+// 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
 // Covers BSI-TST.
@@ -24299,7 +24639,7 @@ export class InteractionTraceability extends SomNode {
   }
 }
 
-// Business context for an interface [PD00-SYO-SYB-INT-nn-BUS].
+// Business context for an interface.
 export class InterfaceBusinessContext extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24315,7 +24655,7 @@ export class InterfaceBusinessContext extends SomNode {
   }
 }
 
-// Business process dependency entry [PD00-SYO-SYB-INT-nn-BUS-BP-nn].
+// Business process dependency entry.
 export class InterfaceBusinessProcessEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24326,7 +24666,7 @@ export class InterfaceBusinessProcessEntry extends SomNode {
   }
 }
 
-// Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn].
+// Data entity exchanged.
 export class InterfaceDataEntityEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24337,7 +24677,7 @@ export class InterfaceDataEntityEntry extends SomNode {
   }
 }
 
-// Data specification for an interface [PD00-SYO-SYB-INT-nn-DAT].
+// Data specification for an interface.
 export class InterfaceDataSpec extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24363,7 +24703,7 @@ export class InterfaceDataSpec extends SomNode {
   }
 }
 
-// Error handling specification [PD00-SYO-SYB-INT-nn-ERR].
+// Error handling specification.
 export class InterfaceErrorHandling extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24427,7 +24767,7 @@ export class InterfaceErrorHandlingTimeout extends SomNode {
   }
 }
 
-// Governance and contracts [PD00-SYO-SYB-INT-nn-GOV].
+// Governance and contracts.
 export class InterfaceGovernance extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24473,7 +24813,7 @@ export class InterfaceGovernanceLifecycle extends SomNode {
   }
 }
 
-// API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn].
+// API operation entry.
 export class InterfaceOperationEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24484,7 +24824,7 @@ export class InterfaceOperationEntry extends SomNode {
   }
 }
 
-// Operational characteristics [PD00-SYO-SYB-INT-nn-OPS].
+// Operational characteristics.
 export class InterfaceOperational extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24548,7 +24888,7 @@ export class InterfaceOperationalSupport extends SomNode {
   }
 }
 
-// Security specification for an interface [PD00-SYO-SYB-INT-nn-SEC].
+// Security specification for an interface.
 export class InterfaceSecurity extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24685,7 +25025,7 @@ export class InterfaceSpecificationEntryTooling extends SomNode {
   }
 }
 
-// Technical specification for an interface [PD00-SYO-SYB-INT-nn-TEC].
+// Technical specification for an interface.
 export class InterfaceTechnicalSpec extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24738,7 +25078,7 @@ export class InterfaceTechnicalSpecEndpoints extends SomNode {
   }
 }
 
-// Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn].
+// Test scenario entry.
 export class InterfaceTestScenarioEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24749,7 +25089,7 @@ export class InterfaceTestScenarioEntry extends SomNode {
   }
 }
 
-// Testing specification [PD00-SYO-SYB-INT-nn-TST].
+// Testing specification.
 export class InterfaceTesting extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24797,7 +25137,7 @@ export class InterfaceTestingStrategy extends SomNode {
   }
 }
 
-// Webhook specification [PD00-SYO-SYB-INT-nn-TEC-WH].
+// Webhook specification.
 export class InterfaceWebhookSpec extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -24808,7 +25148,7 @@ export class InterfaceWebhookSpec extends SomNode {
   }
 }
 
-// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+// 1.1.3.1. Internal Dependencies.
 //
 // Dependencies between systems owned and operated internally.
 export class InternalDependencies extends SomNode {
@@ -24980,6 +25320,74 @@ export class InteroperabilityRequirementsTesting extends SomNode {
   }
 }
 
+// 4. System Overview.
+//
+// High-level overview of the system to be built: its purpose, goals,
+// scope boundaries, and the environment it operates in. This section
+// establishes the foundation for all subsequent specification work.
+export class IntroductionAndScope extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // System overview summary statistics.
+  get summary(): SystemOverviewSummary {
+    return new SystemOverviewSummary(this.doc, this.path + "/summary");
+  }
+
+  // System context diagram showing major system boundaries.
+  get systemContextDiagram(): string {
+    return this.doc.content(this.path + "/systemContextDiagram") || '';
+  }
+
+  set systemContextDiagram(value: string) {
+    this.doc.setContent(this.path + "/systemContextDiagram", value);
+  }
+
+  // 4.1. System Description.
+  get systemDescription(): SystemDescription {
+    return new SystemDescription(this.doc, this.path + "/systemDescription");
+  }
+
+  // 4.2. Goals.
+  get goals(): Goals {
+    return new Goals(this.doc, this.path + "/goals");
+  }
+
+  // 4.3. Requirements Overview. Seeds → RC.
+  get requirements(): RequirementsOverview {
+    return new RequirementsOverview(this.doc, this.path + "/requirements");
+  }
+
+  // 4.4. Systems to Replace. Seeds → CS.
+  get systemsToReplace(): SystemsToReplace {
+    return new SystemsToReplace(this.doc, this.path + "/systemsToReplace");
+  }
+
+  // 4.5. System Boundaries. Seeds → BSI.
+  get systemBoundaries(): SystemBoundaries {
+    return new SystemBoundaries(this.doc, this.path + "/systemBoundaries");
+  }
+
+  // 4.6. Framework Conditions.
+  get frameworkConditions(): FrameworkConditions {
+    return new FrameworkConditions(this.doc, this.path + "/frameworkConditions");
+  }
+
+  // 4.7. Risks and Assumptions.
+  get risksAndAssumptions(): RisksAndAssumptions {
+    return new RisksAndAssumptions(this.doc, this.path + "/risksAndAssumptions");
+  }
+}
+
 // An IP ownership entry (form).
 export class IpOwnershipEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -24991,7 +25399,42 @@ export class IpOwnershipEntry extends SomNode {
   }
 }
 
-// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+// ISO/IEC 25010 product-quality cross-map.
+//
+// Maps the system's quality goals onto the eight ISO/IEC 25010 product
+// quality characteristics so that compatibility and portability cannot be
+// silently missed.
+export class Iso25010Coverage extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // One entry per ISO/IEC 25010 characteristic addressed.
+  get characteristics(): SomList<Iso25010CoverageEntry> {
+    return new SomList(this.doc, this.path + "/I25CV-CHAR-LST", (d: SpecDocument, p: string) => new Iso25010CoverageEntry(d, p));
+  }
+}
+
+// A single ISO/IEC 25010 coverage entry (form).
+export class Iso25010CoverageEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): Iso25010CoverageEntryContentForm {
+    return new Iso25010CoverageEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 4.1.2.2. IT Landscape Position.
 //
 // How this system fits within the organization's overall IT architecture
 // and application portfolio.
@@ -25014,7 +25457,7 @@ export class ItLandscapePosition extends SomNode {
   }
 }
 
-// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
+// 11.4.4. IT Security Operations quality.
 export class ItSecurityOperationsQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -25092,7 +25535,7 @@ export class ItSecurityOperationsQualityTesting extends SomNode {
   }
 }
 
-// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+// 8.8.1. IT Security Standards.
 export class ItSecurityStandardsSection extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -25231,7 +25674,7 @@ export class ItStandardComplianceEntryTimeline extends SomNode {
   }
 }
 
-// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+// 5.2. Job Descriptions and Staffing Plans.
 //
 // Documents new and changed roles resulting from the system introduction,
 // following HR best practices and job analysis methodologies (O*NET, SHRM).
@@ -25246,27 +25689,27 @@ export class JobDescriptionsAndStaffing extends SomNode {
     return new JobDescriptionsOverview(this.doc, this.path + "/overview");
   }
 
-  // 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
+  // 5.2.1. New Roles — contains 0+× New Role.
   get newRoles(): SomList<NewRoleEntry> {
     return new SomList(this.doc, this.path + "/NWROL-NEWR-LST", (d: SpecDocument, p: string) => new NewRoleEntry(d, p));
   }
 
-  // 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
+  // 5.2.2. Changed Roles — contains 0+× Changed Role.
   get changedRoles(): SomList<ChangedRoleEntry> {
     return new SomList(this.doc, this.path + "/CHAROL-CHAN-LST", (d: SpecDocument, p: string) => new ChangedRoleEntry(d, p));
   }
 
-  // 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
+  // 5.2.3. Removed Roles — contains 0+× role being eliminated.
   get removedRoles(): SomList<RemovedRoleEntry> {
     return new SomList(this.doc, this.path + "/REMROL-REMO-LST", (d: SpecDocument, p: string) => new RemovedRoleEntry(d, p));
   }
 
-  // 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+  // 5.2.4. Staffing Plan.
   get staffingPlan(): StaffingPlan {
     return new StaffingPlan(this.doc, this.path + "/staffingPlan");
   }
 
-  // 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+  // 5.2.5. Competency Framework.
   get competencyFramework(): CompetencyFramework {
     return new CompetencyFramework(this.doc, this.path + "/competencyFramework");
   }
@@ -25309,7 +25752,7 @@ export class KeyAssumptionEntry extends SomNode {
   }
 }
 
-// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+// 4.7.2. Key Assumptions.
 //
 // Documents project assumptions that must hold true for success.
 // Tracks validation status and contingency plans if assumptions prove false.
@@ -25329,7 +25772,7 @@ export class KeyAssumptions extends SomNode {
   }
 }
 
-// A key attribute entry (form) [PD00-BUS-DAT-ENT-nn-KEY-nn].
+// A key attribute entry (form).
 //
 // Specification for primary, foreign, alternate, and composite keys.
 export class KeyAttributeEntry extends SomNode {
@@ -25433,7 +25876,7 @@ export class KeyConceptEntry extends SomNode {
   // (skipped: relationshipDetails has no target type)
 }
 
-// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+// 4.1.3.3. Key Concepts.
 //
 // Core business concepts and entities in the domain, their attributes,
 // and relationships (conceptual domain model).
@@ -25501,7 +25944,7 @@ export class KeyGenerationPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+// 9.5.3. Key Management.
 //
 // Defines cryptographic key management policies covering the full key
 // lifecycle: generation, storage, rotation, escrow/backup, and compromise
@@ -25577,7 +26020,7 @@ export class KeyRotationPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE].
+// 6.2.3. Key Scenarios.
 //
 // End-to-end scenario descriptions showing how users achieve business goals
 // through sequences of interactions.
@@ -25639,7 +26082,7 @@ export class KeyTouchpointEntry extends SomNode {
   }
 }
 
-// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+// 15.7. Knowledge Transfer.
 //
 // Handover from delivery team to operations. Covers EK09 Handover
 // Agreement content.
@@ -25702,7 +26145,7 @@ export class KpiEntry extends SomNode {
   }
 }
 
-// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+// 10.12.4. Language and Country Selection.
 //
 // UI specification for language and country selection.
 export class LanguageCountrySelection extends SomNode {
@@ -25844,7 +26287,7 @@ export class LayerCommunicationRulesInterfaces extends SomNode {
   }
 }
 
-// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+// 8.2.1. Layering and Module Structure.
 //
 // Software layering (presentation, business logic, data access, infrastructure)
 // and module structure (bounded contexts, packages, libraries).
@@ -26001,7 +26444,7 @@ export class LiabilityLimitations extends SomNode {
   }
 }
 
-// A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
+// A lifecycle transition entry (form).
 //
 // Detailed state transition specification.
 export class LifecycleTransitionEntry extends SomNode {
@@ -26062,7 +26505,7 @@ export class LifecycleTransitionEntryTrigger extends SomNode {
   }
 }
 
-// A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
+// A known limitation of an existing system (form).
 export class LimitationEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -26223,7 +26666,7 @@ export class LocalDevelopmentSetupWorkflow extends SomNode {
   }
 }
 
-// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
+// 10.12.1. Localization Process.
 //
 // Workflow for identifying and preparing content for localization.
 export class LocalizationProcess extends SomNode {
@@ -26287,6 +26730,64 @@ export class LocalizationProcessReview extends SomNode {
 
   get content(): LocalizationProcessReviewContentForm {
     return new LocalizationProcessReviewContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Localization & Translation execution processes.
+//
+// Public anchor: ISO 29148 transition requirements. Bundles the localization
+// and translation *workflow* concerns re-homed from the former
+// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+// SBP.9 [LocalizationTranslationRequirements]).
+export class LocalizationTranslationProcess extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Localization workflow (content identification, externalization, review).
+  get localizationProcess(): LocalizationProcess {
+    return new LocalizationProcess(this.doc, this.path + "/localizationProcess");
+  }
+
+  // Translation workflow (TMS, translation memory, vendors, QA).
+  get translationProcess(): TranslationProcess {
+    return new TranslationProcess(this.doc, this.path + "/translationProcess");
+  }
+}
+
+// Localization & Translation requirements (the requirement side of i18n).
+//
+// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
+// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+export class LocalizationTranslationRequirements extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Technical internationalization requirements (re-homed from MLAR).
+  get translationRequirements(): TranslationRequirements {
+    return new TranslationRequirements(this.doc, this.path + "/translationRequirements");
+  }
+
+  // Locale modeling and fallback requirements (re-homed from MLAR).
+  get localeHandling(): MultiLanguageAndRolloutLocaleHandling {
+    return new MultiLanguageAndRolloutLocaleHandling(this.doc, this.path + "/localeHandling");
   }
 }
 
@@ -26494,7 +26995,7 @@ export class LoginFlowConfiguration extends SomNode {
   // (skipped: loginFlowDetails has no target type)
 }
 
-// A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
+// A login flow step entry (form).
 //
 // Defines an individual step in the authentication flow sequence,
 // allowing detailed specification of each stage from initial request
@@ -26557,7 +27058,7 @@ export class LoginFlowStepEntryValidation extends SomNode {
   }
 }
 
-// A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn].
+// A main scenario step entry.
 export class MainScenarioStepEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -26584,7 +27085,7 @@ export class MainSuccessScenario extends SomNode {
   }
 }
 
-// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
+// 11.3.5. Maintainability quality.
 export class MaintainabilityQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -26737,7 +27238,7 @@ export class MaintenanceChangeManagementTesting extends SomNode {
   }
 }
 
-// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+// 12.5. Maintenance Dependencies.
 //
 // Maintenance dependencies: version compatibility matrix, coordinated
 // update sequences, and breaking-change handling.
@@ -26760,7 +27261,7 @@ export class MaintenanceDependencies extends SomNode {
   }
 }
 
-// A maintenance dependency entry (form) [PD00-COM-MAI-nn].
+// A maintenance dependency entry (form).
 //
 // Documents one maintenance dependency: coordinated update sequences,
 // version compatibility, and breaking-change handling.
@@ -26971,7 +27472,7 @@ export class MaintenanceWindowEntryScope extends SomNode {
   }
 }
 
-// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+// 8.5.4. Maintenance Windows.
 //
 // Maintenance window requirements: frequency, duration, notification period,
 // and impact on users.
@@ -27096,7 +27597,7 @@ export class MasterDataDomainEntryUsage extends SomNode {
   }
 }
 
-// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+// 1.4.10. Master Data Management.
 //
 // Master data management practices, golden records, and data
 // synchronization across systems.
@@ -27221,7 +27722,7 @@ export class MethodologyDeviationSummary extends SomNode {
   }
 }
 
-// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+// 8.7.2.3. Metrics and Observability.
 //
 // Comprehensive metrics collection, distributed tracing, and observability
 // requirements.
@@ -27380,7 +27881,7 @@ export class MetricsDashboardSummary extends SomNode {
   }
 }
 
-// An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn].
+// An MFA enforcement per user category entry (form).
 //
 // Defines MFA requirements for a specific user category, allowing
 // different authentication assurance levels per role or access tier.
@@ -27502,7 +28003,7 @@ export class MigrationCompliance extends SomNode {
   }
 }
 
-// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+// 4.4.2. Migration Considerations (global).
 //
 // Cross-system migration concerns covering portfolio-wide strategy,
 // resource planning, and coordination. Complements per-system
@@ -27524,7 +28025,7 @@ export class MigrationConsiderations extends SomNode {
     return new MigrationResources(this.doc, this.path + "/resources");
   }
 
-  // Migration risks [PD00-SYO-SYR-MIG-RIS].
+  // Migration risks.
   get migrationRisks(): MigrationRisks {
     return new MigrationRisks(this.doc, this.path + "/migrationRisks");
   }
@@ -27591,11 +28092,11 @@ export class MigrationEnvironments extends SomNode {
   }
 }
 
-// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG].
+// 4.5.8. Migration Interactions.
 //
 // Interactions specific to the migration window — cutover bridges,
-// reconciliation endpoints, and temporary shims. Back-refs
-// PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
+// reconciliation endpoints, and temporary shims. Back-refs the
+// Systems to Replace inventory. Covers BSI-MIG.
 export class MigrationInteractions extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -27610,7 +28111,7 @@ export class MigrationInteractions extends SomNode {
   }
 }
 
-// A migration mapping entry (form) [PD00-BUS-DAT-ENT-nn-MIG-nn].
+// A migration mapping entry (form).
 //
 // Maps source system data to target entity for data migration planning.
 export class MigrationMappingEntry extends SomNode {
@@ -27634,7 +28135,7 @@ export class MigrationMetrics extends SomNode {
   }
 }
 
-// A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn].
+// A migration milestone entry.
 export class MigrationMilestoneEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -27678,7 +28179,7 @@ export class MigrationPhaseDryRuns extends SomNode {
   }
 }
 
-// A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
+// A migration phase entry (form).
 //
 // Represents a single migration phase targeting a specific data domain,
 // source system, or entity group. Covers data scope analysis, migration
@@ -27838,7 +28339,7 @@ export class MigrationPhaseValidation extends SomNode {
   }
 }
 
-// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+// 13.5.1. Migration Phases.
 //
 // Staged migration phases defining the sequential or overlapping
 // execution plan. Each phase targets a specific data domain or source
@@ -27862,7 +28363,7 @@ export class MigrationPhases extends SomNode {
   }
 }
 
-// 15.2. Migration Plan [PD00-ROL-MIG].
+// 15.2. Migration Plan.
 //
 // End-to-end system migration plan covering DR22 Migration Plan content:
 // data, configuration, integration, and user migration from the current
@@ -27881,7 +28382,7 @@ export class MigrationPlan extends SomNode {
   }
 }
 
-// Migration resource requirements [PD00-SYO-SYR-MIG-RES].
+// Migration resource requirements.
 export class MigrationResources extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -27906,7 +28407,7 @@ export class MigrationRiskContingency extends SomNode {
   }
 }
 
-// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
+// A migration risk entry (form).
 //
 // Detailed migration risk documentation following enterprise risk
 // management practices. Captures full risk lifecycle from identification
@@ -28076,7 +28577,7 @@ export class MigrationRiskTracking extends SomNode {
   }
 }
 
-// Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
+// Migration risks — program-level risks.
 //
 // Comprehensive migration risk management framework for program-level
 // risks across the entire migration portfolio. Covers risk governance,
@@ -28337,7 +28838,7 @@ export class MobileCompatibilityEntryHardware extends SomNode {
   }
 }
 
-// Mobile device entry (form) [PD00-ORG-WOR-nn-EQU-MOB-nn].
+// Mobile device entry (form).
 export class MobileDeviceEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -28621,7 +29122,7 @@ export class ModuleVersioningStrategyReleaseManagement extends SomNode {
   }
 }
 
-// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+// 8.7.2. Monitoring.
 //
 // Comprehensive monitoring specification covering health checks, alerting,
 // observability, dashboards, and SLA/SLO tracking.
@@ -28637,33 +29138,33 @@ export class Monitoring extends SomNode {
   // Monitoring strategy narrative.
   // (skipped: overviewNarrative has no target type)
 
-  // 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+  // 8.7.2.1. Health Checks and Diagnostics.
   get healthChecksAndDiagnostics(): HealthChecksAndDiagnosticsSection {
     return new HealthChecksAndDiagnosticsSection(this.doc, this.path + "/healthChecksAndDiagnostics");
   }
 
-  // 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+  // 8.7.2.2. Alerting Configuration.
   get alertingConfiguration(): AlertingConfiguration {
     return new AlertingConfiguration(this.doc, this.path + "/alertingConfiguration");
   }
 
-  // 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+  // 8.7.2.3. Metrics and Observability.
   get metricsAndObservability(): MetricsAndObservability {
     return new MetricsAndObservability(this.doc, this.path + "/metricsAndObservability");
   }
 
-  // 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+  // 8.7.2.4. Monitoring Dashboards.
   get dashboards(): MonitoringDashboards {
     return new MonitoringDashboards(this.doc, this.path + "/dashboards");
   }
 
-  // 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+  // 8.7.2.5. SLA and SLO Monitoring.
   get slaAndSloMonitoring(): SlaAndSloMonitoring {
     return new SlaAndSloMonitoring(this.doc, this.path + "/slaAndSloMonitoring");
   }
 }
 
-// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
+// 8.5.3. Monitoring and Alerting.
 //
 // Monitoring requirements: metrics to collect, alert thresholds, dashboard
 // requirements, on-call procedures, and escalation paths.
@@ -28734,7 +29235,7 @@ export class MonitoringAndAlertingSection extends SomNode {
   }
 }
 
-// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+// 8.7.2.4. Monitoring Dashboards.
 //
 // Operational dashboards for system monitoring.
 export class MonitoringDashboards extends SomNode {
@@ -28834,7 +29335,7 @@ export class MonitoringProcedureEntry extends SomNode {
   }
 }
 
-// 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
+// 11.4.3. Monitoring quality.
 export class MonitoringQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -28912,7 +29413,7 @@ export class MonitoringQualityOperations extends SomNode {
   }
 }
 
-// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+// 13.4.1. MoSCoW Analysis.
 //
 // Classifies every feature using the MoSCoW method (Must / Should /
 // Could / Won't) and maps each to its target delivery stage.
@@ -28934,7 +29435,7 @@ export class MoscowAnalysis extends SomNode {
   }
 }
 
-// A MoSCoW classification entry (form) [PD00-SSP-FEA-MOS-nn].
+// A MoSCoW classification entry (form).
 //
 // Maps a single feature or feature group to its MoSCoW category and
 // target delivery stage, with justification and cross-references.
@@ -29012,7 +29513,7 @@ export class MoscowEntryValue extends SomNode {
   }
 }
 
-// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+// 4.1.5.6. Multi-Channel Experience.
 //
 // Defines how the system provides a consistent experience across channels
 // and handles channel switching.
@@ -29035,11 +29536,13 @@ export class MultiChannelExperience extends SomNode {
   }
 }
 
-// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+// 10.12. Multi-language and Rollout Support.
 //
-// Comprehensive internationalization, localization, and system rollout
-// specification covering translation workflows, locale handling, user
-// documentation, training, and deployment planning.
+// Locale-picker / UX-side multi-language concerns that stay on the
+// Experience & Interface Design side. IP-6 re-homed the requirement-side
+// concerns (i18n requirements, documentation, training) to SBP.9 and the
+// execution-side concerns (localization/translation processes, rollout
+// sequencing) to SBP.15; only the stay-put UX members remain here.
 export class MultiLanguageAndRollout extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -29049,42 +29552,12 @@ export class MultiLanguageAndRollout extends SomNode {
     return new MultiLanguageAndRolloutMultiLanguageOverviewForm(this.doc, this.path + "/multiLanguageOverview");
   }
 
-  // Locale modeling and fallback behavior.
-  get localeHandling(): MultiLanguageAndRolloutLocaleHandling {
-    return new MultiLanguageAndRolloutLocaleHandling(this.doc, this.path + "/localeHandling");
-  }
-
-  // Rollout sequencing by region and time.
-  get rolloutPlan(): MultiLanguageAndRolloutPlan {
-    return new MultiLanguageAndRolloutPlan(this.doc, this.path + "/rolloutPlan");
-  }
-
   // Multi-language overview narrative.
   // (skipped: overviewNarrative has no target type)
 
-  // 10.12.1. Localization Process [PD00-USE-MUL-LOC].
-  get localizationProcess(): LocalizationProcess {
-    return new LocalizationProcess(this.doc, this.path + "/localizationProcess");
-  }
-
-  // 10.12.2. Translation Process [PD00-USE-MUL-TRA].
-  get translationProcess(): TranslationProcess {
-    return new TranslationProcess(this.doc, this.path + "/translationProcess");
-  }
-
-  // 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
-  get documentationAndTraining(): DocumentationAndTraining {
-    return new DocumentationAndTraining(this.doc, this.path + "/documentationAndTraining");
-  }
-
-  // 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+  // 10.12.4. Language and Country Selection.
   get languageCountrySelection(): LanguageCountrySelection {
     return new LanguageCountrySelection(this.doc, this.path + "/languageCountrySelection");
-  }
-
-  // 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
-  get translationRequirements(): TranslationRequirements {
-    return new TranslationRequirements(this.doc, this.path + "/translationRequirements");
   }
 
   // Supported locale entries.
@@ -29115,7 +29588,7 @@ export class MultiLanguageAndRolloutPlan extends SomNode {
   }
 }
 
-// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+// 11.7.1. Must-Pass Criteria.
 //
 // Criteria that must be met for the system to be accepted.
 export class MustPassCriteria extends SomNode {
@@ -29136,7 +29609,7 @@ export class MustPassCriteria extends SomNode {
   }
 }
 
-// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
+// A must-pass criterion entry (form).
 export class MustPassCriterionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -29311,7 +29784,7 @@ export class NativeAppRequirementsVersions extends SomNode {
   }
 }
 
-// A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
+// A navigation group entry (form).
 //
 // Logical grouping of navigation items (e.g., "Sales", "Administration").
 export class NavigationGroupEntry extends SomNode {
@@ -29377,7 +29850,7 @@ export class NavigationGroupEntryStructure extends SomNode {
   }
 }
 
-// A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn].
+// A navigation guard entry (form).
 export class NavigationGuardEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -29420,7 +29893,7 @@ export class NavigationGuardEntryRouting extends SomNode {
   }
 }
 
-// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+// 10.3.1.8. Navigation Guards.
 //
 // Route guards: unsaved changes, authentication redirects, permission checks.
 export class NavigationGuards extends SomNode {
@@ -29445,7 +29918,7 @@ export class NavigationGuards extends SomNode {
   }
 }
 
-// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+// 10.3.1.2. Navigation Hierarchy.
 //
 // Full navigation tree: groups and items forming the app's navigation structure.
 export class NavigationHierarchy extends SomNode {
@@ -29470,7 +29943,7 @@ export class NavigationHierarchy extends SomNode {
   }
 }
 
-// A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
+// A navigation item entry (form).
 //
 // A single navigable destination within a group.
 export class NavigationItemEntry extends SomNode {
@@ -29563,7 +30036,7 @@ export class NavigationItemEntryRouting extends SomNode {
   }
 }
 
-// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+// 10.3.1. Navigation Model.
 //
 // Comprehensive navigation structure: primary, secondary, utility, contextual
 // navigation, deep linking, navigation guards, and platform adaptation.
@@ -29580,48 +30053,48 @@ export class NavigationModel extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+  // 10.3.1.1. Navigation Overview.
   get overview(): NavigationOverview {
     return new NavigationOverview(this.doc, this.path + "/overview");
   }
 
-  // 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+  // 10.3.1.2. Navigation Hierarchy.
   get hierarchy(): NavigationHierarchy {
     return new NavigationHierarchy(this.doc, this.path + "/hierarchy");
   }
 
-  // 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+  // 10.3.1.3. Primary Navigation.
   get primaryNavigation(): PrimaryNavigation {
     return new PrimaryNavigation(this.doc, this.path + "/primaryNavigation");
   }
 
-  // 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+  // 10.3.1.4. Secondary Navigation.
   get secondaryNavigation(): SecondaryNavigation {
     return new SecondaryNavigation(this.doc, this.path + "/secondaryNavigation");
   }
 
-  // 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+  // 10.3.1.5. Utility Navigation.
   get utilityNavigation(): UtilityNavigation {
     return new UtilityNavigation(this.doc, this.path + "/utilityNavigation");
   }
 
-  // 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+  // 10.3.1.6. Contextual Navigation.
   get contextualNavigation(): ContextualNavigation {
     return new ContextualNavigation(this.doc, this.path + "/contextualNavigation");
   }
 
-  // 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+  // 10.3.1.7. Deep Linking.
   get deepLinking(): DeepLinking {
     return new DeepLinking(this.doc, this.path + "/deepLinking");
   }
 
-  // 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+  // 10.3.1.8. Navigation Guards.
   get navigationGuards(): NavigationGuards {
     return new NavigationGuards(this.doc, this.path + "/navigationGuards");
   }
 }
 
-// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+// 10.3.1.1. Navigation Overview.
 //
 // Overall navigation strategy, routing approach, and design decisions.
 export class NavigationOverview extends SomNode {
@@ -29873,7 +30346,7 @@ export class NetworkLoadBalancingRequirementsTls extends SomNode {
   }
 }
 
-// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+// 8.4.3. Network Requirements.
 //
 // Network requirements: bandwidth, latency, availability, VPN/firewall rules,
 // and geographic distribution.
@@ -30115,7 +30588,7 @@ export class NetworkSecurityRequirementsMonitoring extends SomNode {
   }
 }
 
-// 5.1. New Organization Structure [PD00-ORG-STR].
+// 5.1. New Organization Structure.
 //
 // Organizational changes required by the new system including new teams,
 // restructured departments, changed responsibilities, and new communication
@@ -30129,18 +30602,18 @@ export class NewOrganizationStructure extends SomNode {
   // Overview of the target organization structure.
   // (skipped: overview has no target type)
 
-  // 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+  // 5.1.1. Changes from Current Structure.
   get changesFromCurrentStructure(): ChangesFromCurrentStructure {
     return new ChangesFromCurrentStructure(this.doc, this.path + "/changesFromCurrentStructure");
   }
 
-  // 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+  // 5.1.2. Organizational Transition Timeline.
   get transitionTimeline(): OrganizationalTransitionTimeline {
     return new OrganizationalTransitionTimeline(this.doc, this.path + "/transitionTimeline");
   }
 }
 
-// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+// A new role entry (form).
 //
 // Comprehensive new role definition following HR job analysis best practices.
 // Includes competencies, responsibilities, system access, and success metrics.
@@ -30336,7 +30809,7 @@ export class NotificationChannelEntry extends SomNode {
   }
 }
 
-// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+// 4.1.5.5. Notification Model.
 //
 // Defines how the system notifies users of events, updates, and actions
 // across different channels.
@@ -30380,7 +30853,7 @@ export class NotificationTypeEntry extends SomNode {
   }
 }
 
-// An object invariant entry (form) [PD00-BUS-BUS-CAT-nn-INV-nn].
+// An object invariant entry (form).
 //
 // Business invariants that must always hold true.
 export class ObjectInvariantEntry extends SomNode {
@@ -30393,7 +30866,7 @@ export class ObjectInvariantEntry extends SomNode {
   }
 }
 
-// An object operation entry (form) [PD00-BUS-BUS-CAT-nn-OPR-nn].
+// An object operation entry (form).
 //
 // Business operations that can be performed on the object.
 export class ObjectOperationEntry extends SomNode {
@@ -30454,7 +30927,7 @@ export class ObjectOperationEntryLifecycle extends SomNode {
   }
 }
 
-// An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
+// An object state entry (form).
 //
 // Detailed state specification for business object lifecycle.
 export class ObjectStateEntry extends SomNode {
@@ -30600,7 +31073,7 @@ export class OnCallScheduleConfigOperations extends SomNode {
   }
 }
 
-// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
+// 10.8.2. Onboarding Help.
 export class OnboardingHelp extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -30699,7 +31172,7 @@ export class OnboardingHelpTours extends SomNode {
   }
 }
 
-// Ongoing training entry (form) [PD00-ORG-WOR-nn-TRA-ONG-nn].
+// Ongoing training entry (form).
 export class OngoingTrainingEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -30758,7 +31231,7 @@ export class OngoingTrainingEntrySchedule extends SomNode {
   }
 }
 
-// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+// 1.3.1. Operational Pain Points.
 //
 // Problems that affect day-to-day operations: downtime, slow response,
 // data inconsistencies, manual workarounds, and process interruptions.
@@ -30797,7 +31270,7 @@ export class OperationalPainPointsSummary extends SomNode {
   }
 }
 
-// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+// 11.4. Operations Quality Criteria.
 //
 // Quality criteria for system operations including availability, service
 // levels, monitoring, and IT security operations.
@@ -30813,28 +31286,28 @@ export class OperationsQualityCriteria extends SomNode {
   // Operations quality overview narrative.
   // (skipped: overview has no target type)
 
-  // 11.4.1. Availability [PD00-SYQ-OPE-AVA].
+  // 11.4.1. Availability.
   get availability(): AvailabilityQuality {
     return new AvailabilityQuality(this.doc, this.path + "/availability");
   }
 
-  // 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
+  // 11.4.2. Service Level Requirements.
   get serviceLevelRequirements(): ServiceLevelQuality {
     return new ServiceLevelQuality(this.doc, this.path + "/serviceLevelRequirements");
   }
 
-  // 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
+  // 11.4.3. Monitoring and Prevention.
   get monitoringAndPrevention(): MonitoringQuality {
     return new MonitoringQuality(this.doc, this.path + "/monitoringAndPrevention");
   }
 
-  // 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
+  // 11.4.4. IT Security Operations.
   get itSecurityOperations(): ItSecurityOperationsQuality {
     return new ItSecurityOperationsQuality(this.doc, this.path + "/itSecurityOperations");
   }
 }
 
-// 8.5. Operations Requirements [PD00-TEC-OPE].
+// 8.5. Operations Requirements.
 export class OperationsRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -30848,28 +31321,28 @@ export class OperationsRequirements extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
+  // 8.5.1. Backup And Recovery.
   get backupAndRecovery(): BackupAndRecoverySection {
     return new BackupAndRecoverySection(this.doc, this.path + "/backupAndRecovery");
   }
 
-  // 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+  // 8.5.2. Deployment Strategy.
   get deploymentStrategy(): DeploymentStrategySection {
     return new DeploymentStrategySection(this.doc, this.path + "/deploymentStrategy");
   }
 
-  // 8.5.3. Monitoring And Alerting [PD00-TEC-OPE-MON].
+  // 8.5.3. Monitoring And Alerting.
   get monitoringAndAlerting(): MonitoringAndAlertingSection {
     return new MonitoringAndAlertingSection(this.doc, this.path + "/monitoringAndAlerting");
   }
 
-  // 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+  // 8.5.4. Maintenance Windows.
   get maintenanceWindows(): MaintenanceWindowsSection {
     return new MaintenanceWindowsSection(this.doc, this.path + "/maintenanceWindows");
   }
 }
 
-// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+// 4.1.1.2. Opportunity Statement.
 //
 // Description of the opportunity this system enables — new capabilities,
 // competitive advantages, or improvements over current state.
@@ -30886,7 +31359,7 @@ export class OpportunityStatement extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Opportunity Details Form [PD00-SYO-SYD-PUR-OPP-DES].
+  // Opportunity Details Form.
   get opportunityDetails(): OpportunityStatementOpportunityDetailsForm {
     return new OpportunityStatementOpportunityDetailsForm(this.doc, this.path + "/opportunityDetails");
   }
@@ -30980,7 +31453,7 @@ export class OrgImplementationActivity extends SomNode {
   }
 }
 
-// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+// 4.3.4.n.2. Implementation Plan.
 //
 // Implementation plan for this organizational requirement.
 export class OrgRequirementImplementationPlan extends SomNode {
@@ -31007,7 +31480,7 @@ export class OrgRequirementImplementationPlan extends SomNode {
   }
 }
 
-// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+// 3.1.1. Organization Structure.
 export class OrganizationStructure extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -31030,7 +31503,7 @@ export class OrganizationStructure extends SomNode {
   // (skipped: orgChartDiagram has no target type)
 }
 
-// An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
+// An organizational change entry (form).
 //
 // Documents a specific structural change including current state, target
 // state, rationale, impact assessment, and transition requirements.
@@ -31079,7 +31552,7 @@ export class OrganizationalChangeEntry extends SomNode {
   }
 }
 
-// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+// 4.1.2.6. Organizational Context.
 //
 // Organizational units, departments, and business areas that the system
 // serves or interacts with.
@@ -31111,7 +31584,7 @@ export class OrganizationalContext extends SomNode {
   }
 }
 
-// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+// 4.6.1. Organizational Environment.
 //
 // Describes the organizational context in which the system will operate,
 // including departments, reporting structures, decision authority, and
@@ -31193,7 +31666,7 @@ export class OrganizationalEnvironmentMaturity extends SomNode {
   }
 }
 
-// 5. Organizational Framework [PD00-ORG].
+// 5. Organizational Framework.
 //
 // Organizational changes and structures required for the new system.
 // Covers organization structure changes, new and changed roles, staffing
@@ -31208,23 +31681,23 @@ export class OrganizationalFramework extends SomNode {
   // Overview of organizational changes required for the new system.
   // (skipped: overview has no target type)
 
-  // 5.1. New Organization Structure [PD00-ORG-STR].
+  // 5.1. New Organization Structure.
   get organizationStructure(): NewOrganizationStructure {
     return new NewOrganizationStructure(this.doc, this.path + "/organizationStructure");
   }
 
-  // 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+  // 5.2. Job Descriptions and Staffing Plans.
   get jobDescriptions(): SomList<JobDescriptionsAndStaffing> {
     return new SomList(this.doc, this.path + "/JDAS-JOBD-LST", (d: SpecDocument, p: string) => new JobDescriptionsAndStaffing(d, p));
   }
 
-  // 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+  // 5.3. Workplace Descriptions — contains 1+× per user category.
   get workplaceDescriptions(): SomList<WorkplaceDescriptionEntry> {
     return new SomList(this.doc, this.path + "/WPDE-WORK-LST", (d: SpecDocument, p: string) => new WorkplaceDescriptionEntry(d, p));
   }
 }
 
-// An organizational requirement entry [PD00-SYO-REQ-ORG-nn].
+// An organizational requirement entry.
 //
 // Comprehensive organizational requirement definition following change
 // management and organizational development best practices.
@@ -31252,17 +31725,17 @@ export class OrganizationalRequirementEntry extends SomNode {
     return new OrganizationalRequirementEntryPlanning(this.doc, this.path + "/planning");
   }
 
-  // 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
+  // 4.3.4.n.1. Acceptance Criteria.
   get acceptanceCriteria(): RequirementAcceptanceCriteria {
     return new RequirementAcceptanceCriteria(this.doc, this.path + "/acceptanceCriteria");
   }
 
-  // 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+  // 4.3.4.n.2. Implementation Plan.
   get implementationPlan(): OrgRequirementImplementationPlan {
     return new OrgRequirementImplementationPlan(this.doc, this.path + "/implementationPlan");
   }
 
-  // 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
+  // 4.3.4.n.3. Dependencies.
   get dependencies(): RequirementDependencies {
     return new RequirementDependencies(this.doc, this.path + "/dependencies");
   }
@@ -31301,7 +31774,7 @@ export class OrganizationalRequirementEntryPlanning extends SomNode {
   }
 }
 
-// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+// 4.3.4. Organizational Requirements.
 //
 // Container for organizational requirements. These describe needed changes
 // to organization, processes, training, or support that must be fulfilled
@@ -31331,7 +31804,7 @@ export class OrganizationalRequirements extends SomNode {
   }
 }
 
-// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+// 5.1.2. Organizational Transition Timeline.
 //
 // Describes when organizational changes take effect, how the transition is
 // managed, and what training or communication is needed. Follows change
@@ -31468,7 +31941,7 @@ export class OsCompatibilityEntryTesting extends SomNode {
   }
 }
 
-// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+// 3.6. Other Administrative Requirements.
 //
 // Additional administrative agreements, constraints, or requirements not
 // covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -31486,32 +31959,32 @@ export class OtherAdministrativeRequirements extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 3.6.1. Intellectual Property [PD00-ADM-OTH-IPR].
+  // 3.6.1. Intellectual Property.
   get intellectualProperty(): IntellectualPropertyRequirements {
     return new IntellectualPropertyRequirements(this.doc, this.path + "/intellectualProperty");
   }
 
-  // 3.6.2. Confidentiality and NDAs [PD00-ADM-OTH-NDA].
+  // 3.6.2. Confidentiality and NDAs.
   get confidentiality(): ConfidentialityRequirements {
     return new ConfidentialityRequirements(this.doc, this.path + "/confidentiality");
   }
 
-  // 3.6.3. Regulatory Compliance [PD00-ADM-OTH-REG].
+  // 3.6.3. Regulatory Compliance.
   get regulatoryCompliance(): RegulatoryComplianceRequirements {
     return new RegulatoryComplianceRequirements(this.doc, this.path + "/regulatoryCompliance");
   }
 
-  // 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+  // 3.6.4. Audit Requirements.
   get auditRequirements(): AuditRequirements {
     return new AuditRequirements(this.doc, this.path + "/auditRequirements");
   }
 
-  // 3.6.5. Insurance and Liability [PD00-ADM-OTH-INS].
+  // 3.6.5. Insurance and Liability.
   get insuranceLiability(): InsuranceLiabilityRequirements {
     return new InsuranceLiabilityRequirements(this.doc, this.path + "/insuranceLiability");
   }
 
-  // 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
+  // 3.6.6. Other Agreements — contains 0+× Agreement.
   get otherAgreements(): SomList<OtherAgreementEntry> {
     return new SomList(this.doc, this.path + "/OTAGR-OTHE-LST", (d: SpecDocument, p: string) => new OtherAgreementEntry(d, p));
   }
@@ -31528,7 +32001,7 @@ export class OtherAgreementEntry extends SomNode {
   }
 }
 
-// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+// 4.5.2. Out of Scope.
 //
 // Explicit documentation of functionality, systems, and integrations that
 // are excluded from the project scope. Provides clear boundaries and
@@ -31547,7 +32020,7 @@ export class OutOfScope extends SomNode {
   }
 }
 
-// An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
+// An out-of-scope entry (form).
 export class OutOfScopeEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -31676,7 +32149,7 @@ export class PainPointClassification extends SomNode {
   }
 }
 
-// A pain point entry (form) [PD00-CUR-PAI-nn].
+// A pain point entry (form).
 //
 // Documents a specific problem in the current state with comprehensive details:
 // root cause analysis, impact quantification, affected stakeholders,
@@ -31832,7 +32305,7 @@ export class PainPointWorkaround extends SomNode {
   }
 }
 
-// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+// 1.3. Pain Points and Gaps.
 //
 // Comprehensive documentation of specific problems, inefficiencies,
 // compliance gaps, and user frustrations in the current state.
@@ -31873,22 +32346,22 @@ export class PainPointsAndGaps extends SomNode {
     return new PainPointsSummary(this.doc, this.path + "/painPointsSummary");
   }
 
-  // 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+  // 1.3.1. Operational Pain Points.
   get operationalPainPoints(): OperationalPainPoints {
     return new OperationalPainPoints(this.doc, this.path + "/operationalPainPoints");
   }
 
-  // 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+  // 1.3.2. Business Pain Points.
   get businessPainPoints(): BusinessPainPoints {
     return new BusinessPainPoints(this.doc, this.path + "/businessPainPoints");
   }
 
-  // 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+  // 1.3.3. Technical Pain Points.
   get technicalPainPoints(): TechnicalPainPoints {
     return new TechnicalPainPoints(this.doc, this.path + "/technicalPainPoints");
   }
 
-  // 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+  // 1.3.4. Gaps.
   get gaps(): Gaps {
     return new Gaps(this.doc, this.path + "/gaps");
   }
@@ -31921,7 +32394,7 @@ export class ParticipantEntry extends SomNode {
   }
 }
 
-// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+// 9.2.3. Password and Credential Policy.
 //
 // Comprehensive password and credential policy aligned with NIST SP 800-63B
 // (Revision 4). Covers password requirements, storage, lifecycle, account
@@ -32108,7 +32581,7 @@ export class PeakLoadPatternsTesting extends SomNode {
   }
 }
 
-// Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
+// Penetration testing requirements and schedule.
 export class PenetrationTestingRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -32183,7 +32656,7 @@ export class PeriodicReviewPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-// Peripheral equipment entry (form) [PD00-ORG-WOR-nn-EQU-PER-nn].
+// Peripheral equipment entry (form).
 export class PeripheralEquipmentEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -32268,7 +32741,7 @@ export class PermissionMatrixEntry extends SomNode {
   }
 }
 
-// A user persona entry [PD00-USE-VIS-PER-nn] (form).
+// A user persona entry (form).
 //
 // Represents a distinct user archetype with detailed context for UI design.
 export class PersonaEntry extends SomNode {
@@ -32295,17 +32768,17 @@ export class PersonaEntry extends SomNode {
     return new PersonaEntryNeeds(this.doc, this.path + "/needs");
   }
 
-  // 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+  // 10.1.3.n.1. Persona Goals.
   get goals(): PersonaGoals {
     return new PersonaGoals(this.doc, this.path + "/goals");
   }
 
-  // 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+  // 10.1.3.n.2. Persona Pain Points.
   get painPoints(): PersonaPainPoints {
     return new PersonaPainPoints(this.doc, this.path + "/painPoints");
   }
 
-  // 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+  // 10.1.3.n.3. Persona Scenarios.
   get scenarios(): PersonaScenarios {
     return new PersonaScenarios(this.doc, this.path + "/scenarios");
   }
@@ -32344,7 +32817,7 @@ export class PersonaEntryProfile extends SomNode {
   }
 }
 
-// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm].
+// A persona goal entry (form).
 export class PersonaGoalEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -32355,7 +32828,7 @@ export class PersonaGoalEntry extends SomNode {
   }
 }
 
-// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+// 10.1.3.n.1. Persona Goals.
 export class PersonaGoals extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -32375,7 +32848,7 @@ export class PersonaGoals extends SomNode {
   }
 }
 
-// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm].
+// A pain point entry (form).
 export class PersonaPainPointEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -32386,7 +32859,7 @@ export class PersonaPainPointEntry extends SomNode {
   }
 }
 
-// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+// 10.1.3.n.2. Persona Pain Points.
 export class PersonaPainPoints extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -32406,7 +32879,7 @@ export class PersonaPainPoints extends SomNode {
   }
 }
 
-// A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm].
+// A persona scenario entry (form).
 export class PersonaScenarioEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -32417,7 +32890,7 @@ export class PersonaScenarioEntry extends SomNode {
   }
 }
 
-// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+// 10.1.3.n.3. Persona Scenarios.
 //
 // Key usage scenarios for this persona — helps map personas to screens/flows.
 export class PersonaScenarios extends SomNode {
@@ -32494,7 +32967,7 @@ export class PhaseGateIdentity extends SomNode {
   }
 }
 
-// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
+// A phase gate review entry (form).
 //
 // Defines a single phase gate with its criteria, participants,
 // required evidence, entry/exit conditions, and review schedule.
@@ -32546,7 +33019,7 @@ export class PhaseGateReviewEntry extends SomNode {
   }
 }
 
-// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+// 13.6.1. Phase Gate Reviews.
 //
 // Defines the phase gate review process: what is reviewed at each
 // gate, who participates, what evidence is required, and what
@@ -32655,7 +33128,7 @@ export class PhysicalWorkplaceRequirementsUsage extends SomNode {
   }
 }
 
-// 15.5. Pilot Plan [PD00-ROL-PIL].
+// 15.5. Pilot Plan.
 //
 // Pilot scope, cohort selection, success criteria, and exit decision rules.
 export class PilotPlan extends SomNode {
@@ -32822,7 +33295,7 @@ export class PipelineStageEntryTrigger extends SomNode {
   }
 }
 
-// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+// 8.1.1. Platform and Language.
 //
 // Required platforms (operating system, runtime), programming languages,
 // and framework choices with minimum versions and justification.
@@ -32878,7 +33351,7 @@ export class PlatformAndLanguage extends SomNode {
   }
 }
 
-// 11.3.2. Portability quality [PD00-SYQ-TEC-POR].
+// 11.3.2. Portability quality.
 export class PortabilityQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -32988,7 +33461,7 @@ export class PredecessorDependencyEntry extends SomNode {
   }
 }
 
-// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+// 10.3.1.3. Primary Navigation.
 //
 // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
 export class PrimaryNavigation extends SomNode {
@@ -33052,7 +33525,7 @@ export class PrimaryNavigationSidebar extends SomNode {
   }
 }
 
-// 10.4. Print Layout [PD00-USE-PRI].
+// 10.4. Print Layout.
 export class PrintLayout extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33087,17 +33560,17 @@ export class PrintLayout extends SomNode {
     return new PrintLayoutArchive(this.doc, this.path + "/archive");
   }
 
-  // 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
+  // 10.4.1. Reports — contains 0+× Report.
   get reports(): SomList<ReportEntry> {
     return new SomList(this.doc, this.path + "/REEN-REPO-LST", (d: SpecDocument, p: string) => new ReportEntry(d, p));
   }
 
-  // 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
+  // 10.4.2. Export Formats — contains 0+× Export Format.
   get exportFormats(): SomList<ExportFormatEntry> {
     return new SomList(this.doc, this.path + "/EXFOEN-EXPO-LST", (d: SpecDocument, p: string) => new ExportFormatEntry(d, p));
   }
 
-  // 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
+  // 10.4.3. Export Templates — contains 0+× Export
   // Template.
   get exportTemplates(): SomList<ExportTemplateEntry> {
     return new SomList(this.doc, this.path + "/EXTEEN-EXPO-LST", (d: SpecDocument, p: string) => new ExportTemplateEntry(d, p));
@@ -33159,7 +33632,7 @@ export class PrintLayoutWatermark extends SomNode {
   }
 }
 
-// Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
+// Privacy impact assessment and DPIA process.
 export class PrivacyImpactAssessmentProcess extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33218,7 +33691,7 @@ export class PrivacyImpactAssessmentProcessReview extends SomNode {
   }
 }
 
-// Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
+// Privacy regulation compliance requirements.
 export class PrivacyRegulationCompliance extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33309,7 +33782,7 @@ export class PrivilegeUsageReporting extends SomNode {
   // (skipped: notes has no target type)
 }
 
-// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+// 4.1.1.1. Problem Statement.
 //
 // Detailed description of the problem or pain point that this system will
 // address. Includes impact analysis and urgency assessment.
@@ -33326,7 +33799,7 @@ export class ProblemStatement extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Problem Description Form [PD00-SYO-SYD-PUR-PRO-DES].
+  // Problem Description Form.
   get problemDetails(): ProblemStatementProblemDetailsForm {
     return new ProblemStatementProblemDetailsForm(this.doc, this.path + "/problemDetails");
   }
@@ -33348,7 +33821,7 @@ export class ProcessAdjustmentDetails extends SomNode {
   }
 }
 
-// A process adjustment entry (form) [PD00-POP-PRC-nn].
+// A process adjustment entry (form).
 //
 // Documents a specific deviation from standard process steps, including
 // the type of modification, dependencies affected, risk assessment,
@@ -33459,7 +33932,7 @@ export class ProcessAdjustmentSummary extends SomNode {
   }
 }
 
-// 2.3. Process Adjustments [PD00-POP-PRC].
+// 2.3. Process Adjustments.
 //
 // Documents any deviations from the standard tom_system_creation.md or
 // tom_system_upgrade.md process. Includes skipped, reordered, or modified
@@ -33497,7 +33970,7 @@ export class ProcessAdjustments extends SomNode {
   }
 }
 
-// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT].
+// 6.1.3. Process Catalog.
 //
 // Container for business process definitions.
 export class ProcessCatalog extends SomNode {
@@ -33597,7 +34070,7 @@ export class ProcessContext extends SomNode {
   }
 }
 
-// A process control entry [PD00-TAR-PRO-CAT-nn-CTL-nn].
+// A process control entry.
 export class ProcessControlEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33679,7 +34152,7 @@ export class ProcessDependencyEntry extends SomNode {
   }
 }
 
-// A process design principle entry (form) [PD00-TAR-PRO-PRI-nn].
+// A process design principle entry (form).
 export class ProcessDesignPrincipleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33690,7 +34163,7 @@ export class ProcessDesignPrincipleEntry extends SomNode {
   }
 }
 
-// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+// 6.1.2. Design Principles.
 //
 // Principles that guide process design decisions.
 export class ProcessDesignPrinciples extends SomNode {
@@ -33720,7 +34193,7 @@ export class ProcessDiagramOverview extends SomNode {
   }
 }
 
-// A process end event entry [PD00-TAR-PRO-CAT-nn-END-nn].
+// A process end event entry.
 export class ProcessEndEventEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33731,7 +34204,7 @@ export class ProcessEndEventEntry extends SomNode {
   }
 }
 
-// A process exception entry [PD00-TAR-PRO-CAT-nn-EXC-nn].
+// A process exception entry.
 export class ProcessExceptionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33774,10 +34247,9 @@ export class ProcessExceptionEntryResponse extends SomNode {
   }
 }
 
-// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+// 6.1.9. Process Exception Handling.
 //
 // Exception flows, escalation paths, and compensation logic. Covers
-// HBSG AS07-EXC.
 export class ProcessExceptionHandling extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33879,7 +34351,7 @@ export class ProcessIdentificationGovernance extends SomNode {
   }
 }
 
-// A process improvement entry [PD00-TAR-PRO-IMP-nn].
+// A process improvement entry.
 export class ProcessImprovementEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33922,7 +34394,7 @@ export class ProcessImprovementEntryDelivery extends SomNode {
   }
 }
 
-// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+// 6.1.5. Improvement Summary.
 //
 // Summary of expected improvements over current processes.
 export class ProcessImprovementSummary extends SomNode {
@@ -33946,7 +34418,7 @@ export class ProcessImprovementSummary extends SomNode {
   }
 }
 
-// A process input entry [PD00-TAR-PRO-CAT-nn-INP-nn].
+// A process input entry.
 export class ProcessInputEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -33993,7 +34465,7 @@ export class ProcessInterdependencyMatrix extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Interdependency diagram [PD00-CUR-PRO-INT-DIA].
+  // Interdependency diagram.
   get dependencyDiagram(): string {
     return this.doc.content(this.path + "/dependencyDiagram") || '';
   }
@@ -34008,7 +34480,7 @@ export class ProcessInterdependencyMatrix extends SomNode {
   }
 }
 
-// A process KPI entry [PD00-TAR-PRO-CAT-nn-KPI-nn].
+// A process KPI entry.
 export class ProcessKpiEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -34071,7 +34543,7 @@ export class ProcessMetricCategory extends SomNode {
   }
 }
 
-// A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
+// A process metric entry (form).
 //
 // A single measurable metric with current value and measurement details.
 export class ProcessMetricEntry extends SomNode {
@@ -34120,7 +34592,7 @@ export class ProcessMetricEntryTargets extends SomNode {
   }
 }
 
-// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+// 1.2.2. Process Metrics.
 //
 // Quantitative metrics for measuring process performance. These metrics
 // form the baseline against which improvements will be measured.
@@ -34137,32 +34609,32 @@ export class ProcessMetrics extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Metrics dashboard summary [PD00-CUR-PRO-xx-MET-SUM].
+  // Metrics dashboard summary.
   get dashboardSummary(): MetricsDashboardSummary {
     return new MetricsDashboardSummary(this.doc, this.path + "/dashboardSummary");
   }
 
-  // Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+  // Efficiency metrics.
   get efficiencyMetrics(): SomList<ProcessMetricCategory> {
     return new SomList(this.doc, this.path + "/PRMECA-EFFI-LST", (d: SpecDocument, p: string) => new ProcessMetricCategory(d, p));
   }
 
-  // Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+  // Quality metrics.
   get qualityMetrics(): SomList<ProcessMetricCategory> {
     return new SomList(this.doc, this.path + "/PRMECA-QUAL-LST", (d: SpecDocument, p: string) => new ProcessMetricCategory(d, p));
   }
 
-  // Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+  // Volume metrics.
   get volumeMetrics(): SomList<ProcessMetricCategory> {
     return new SomList(this.doc, this.path + "/PRMECA-VOLU-LST", (d: SpecDocument, p: string) => new ProcessMetricCategory(d, p));
   }
 
-  // Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+  // Cost metrics.
   get costMetrics(): SomList<ProcessMetricCategory> {
     return new SomList(this.doc, this.path + "/PRMECA-COST-LST", (d: SpecDocument, p: string) => new ProcessMetricCategory(d, p));
   }
 
-  // Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+  // Manual intervention metrics.
   get manualInterventionMetrics(): SomList<ProcessMetricCategory> {
     return new SomList(this.doc, this.path + "/PRMECA-MANU-LST", (d: SpecDocument, p: string) => new ProcessMetricCategory(d, p));
   }
@@ -34172,13 +34644,13 @@ export class ProcessMetrics extends SomNode {
     return new SomList(this.doc, this.path + "/PME-ITEM-LST", (d: SpecDocument, p: string) => new ProcessMetricEntry(d, p));
   }
 
-  // Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
+  // Baseline comparison table.
   get baselineTable(): MetricsBaselineTable {
     return new MetricsBaselineTable(this.doc, this.path + "/baselineTable");
   }
 }
 
-// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+// 6.1.10. Process Metrics and KPIs.
 //
 // Process-level KPIs, SLAs, and measurement strategy.
 export class ProcessMetricsAndKpis extends SomNode {
@@ -34195,7 +34667,7 @@ export class ProcessMetricsAndKpis extends SomNode {
   }
 }
 
-// A process output entry [PD00-TAR-PRO-CAT-nn-OUT-nn].
+// A process output entry.
 export class ProcessOutputEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -34206,7 +34678,7 @@ export class ProcessOutputEntry extends SomNode {
   }
 }
 
-// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+// 6.1.4. Process Overview Diagram.
 //
 // High-level process flow diagram showing main processes and relationships.
 export class ProcessOverviewDiagram extends SomNode {
@@ -34298,7 +34770,7 @@ export class ProcessPerformanceSummary extends SomNode {
   }
 }
 
-// A process relationship entry [PD00-TAR-PRO-REL-nn].
+// A process relationship entry.
 export class ProcessRelationshipEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -34329,7 +34801,7 @@ export class ProcessRelationships extends SomNode {
   }
 }
 
-// A process role entry [PD00-TAR-PRO-CAT-nn-ROL-nn].
+// A process role entry.
 export class ProcessRoleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -34432,7 +34904,7 @@ export class ProcessScopeSummary extends SomNode {
   }
 }
 
-// A process SLA entry [PD00-TAR-PRO-CAT-nn-SLA-nn].
+// A process SLA entry.
 export class ProcessSlaEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -34443,7 +34915,7 @@ export class ProcessSlaEntry extends SomNode {
   }
 }
 
-// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → UC.
 //
 // Key process steps with their actor interactions. Each interaction will be
 // expanded into a full use case with alternate paths, preconditions, and
@@ -34466,17 +34938,17 @@ export class ProcessStepsAndActorInteractions extends SomNode {
     return new ProcessStepsOverview(this.doc, this.path + "/overview");
   }
 
-  // 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
+  // 6.2.1. Actor Overview — contains 1+× Actor.
   get actorOverview(): ActorOverview {
     return new ActorOverview(this.doc, this.path + "/actorOverview");
   }
 
-  // 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
+  // 6.2.2. Interaction Catalog — contains 1+× Interaction.
   get interactionCatalog(): InteractionCatalog {
     return new InteractionCatalog(this.doc, this.path + "/interactionCatalog");
   }
 
-  // 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
+  // 6.2.3. Key Scenarios — contains 1+× Scenario.
   get keyScenarios(): KeyScenarios {
     return new KeyScenarios(this.doc, this.path + "/keyScenarios");
   }
@@ -34486,18 +34958,18 @@ export class ProcessStepsAndActorInteractions extends SomNode {
     return new ActorRelationshipDiagram(this.doc, this.path + "/actorRelationshipDiagram");
   }
 
-  // 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
+  // 6.2.4. End-to-End Test Scenarios..
   get endToEndTestScenarios(): SomList<EndToEndTestScenarios> {
     return new SomList(this.doc, this.path + "/ETETS-ENDT-LST", (d: SpecDocument, p: string) => new EndToEndTestScenarios(d, p));
   }
 
-  // 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+  // 6.2.5. Use Case Traceability.
   get useCaseTraceability(): UseCaseTraceability {
     return new UseCaseTraceability(this.doc, this.path + "/useCaseTraceability");
   }
 }
 
-// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
+// 6.2. Process Steps Overview.
 export class ProcessStepsOverview extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -34562,7 +35034,7 @@ export class ProcessTechnologyInformation extends SomNode {
   }
 }
 
-// A process trigger entry [PD00-TAR-PRO-CAT-nn-TRG-nn].
+// A process trigger entry.
 export class ProcessTriggerEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -34595,7 +35067,7 @@ export class ProcessTriggers extends SomNode {
   }
 }
 
-// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+// 6.1.1. Process Vision.
 //
 // The overall vision for how business processes will work with the new system.
 export class ProcessVision extends SomNode {
@@ -34724,115 +35196,7 @@ export class ProgrammingLanguageEntryVersion extends SomNode {
   }
 }
 
-// The complete Project Definition (PD) document.
-//
-// Contains a [DocumentHeader] and all 14 PD sections [PD00].
-export class ProjectDefinition extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "PD");
-    checkSomModelVersion(ProjectDefinition.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return ProjectDefinition.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Document header (form fields at top of document).
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // 1. Current State Analysis [PD00-CUR].
-  get currentStateAnalysis(): CurrentStateAnalysis {
-    return new CurrentStateAnalysis(this.doc, this.path + "/currentStateAnalysis");
-  }
-
-  // 2. Project Organization and Process [PD00-POP].
-  get projectOrganizationProcess(): ProjectOrganizationAndProcess {
-    return new ProjectOrganizationAndProcess(this.doc, this.path + "/projectOrganizationProcess");
-  }
-
-  // 3. Administrative [PD00-ADM].
-  get administrative(): Administrative {
-    return new Administrative(this.doc, this.path + "/administrative");
-  }
-
-  // 4. System Overview [PD00-SYO].
-  get systemOverview(): SystemOverview {
-    return new SystemOverview(this.doc, this.path + "/systemOverview");
-  }
-
-  // 5. Organizational Framework [PD00-ORG].
-  get organizationalFramework(): OrganizationalFramework {
-    return new OrganizationalFramework(this.doc, this.path + "/organizationalFramework");
-  }
-
-  // 6. Target Business Process Model [PD00-TAR].
-  get targetBusinessProcess(): TargetBusinessProcessModel {
-    return new TargetBusinessProcessModel(this.doc, this.path + "/targetBusinessProcess");
-  }
-
-  // 7. Business Object and Data Model [PD00-BUS].
-  get businessDataModel(): BusinessObjectAndDataModel {
-    return new BusinessObjectAndDataModel(this.doc, this.path + "/businessDataModel");
-  }
-
-  // 8. Technical Framework Concept [PD00-TEC].
-  get technicalFramework(): TechnicalFrameworkConcept {
-    return new TechnicalFrameworkConcept(this.doc, this.path + "/technicalFramework");
-  }
-
-  // 9. Access and Authorization Concept [PD00-ACC].
-  get accessAuthorization(): AccessAndAuthorizationConcept {
-    return new AccessAndAuthorizationConcept(this.doc, this.path + "/accessAuthorization");
-  }
-
-  // 10. User Interface Design [PD00-USE].
-  get userInterfaceDesign(): UserInterfaceDesign {
-    return new UserInterfaceDesign(this.doc, this.path + "/userInterfaceDesign");
-  }
-
-  // 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
-  get systemRolloutConcept(): SystemRolloutConcept {
-    return new SystemRolloutConcept(this.doc, this.path + "/systemRolloutConcept");
-  }
-
-  // 11. System Quality Goals [PD00-SYQ].
-  get systemQualityGoals(): SystemQualityGoals {
-    return new SystemQualityGoals(this.doc, this.path + "/systemQualityGoals");
-  }
-
-  // 12. Components to Use [PD00-COM].
-  get componentsToUse(): ComponentsToUse {
-    return new ComponentsToUse(this.doc, this.path + "/componentsToUse");
-  }
-
-  // 13. System Stage Plan [PD00-SSP].
-  get systemStagePlan(): SystemStagePlan {
-    return new SystemStagePlan(this.doc, this.path + "/systemStagePlan");
-  }
-
-  // 14. Delivery Scope and Acceptance [PD00-DEL].
-  get deliveryAcceptance(): DeliveryScopeAndAcceptance {
-    return new DeliveryScopeAndAcceptance(this.doc, this.path + "/deliveryAcceptance");
-  }
-}
-
-// 3.1. Project Organization [PD00-ADM-PRO].
+// 3.1. Project Organization.
 export class ProjectOrganization extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -34846,18 +35210,18 @@ export class ProjectOrganization extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+  // 3.1.1. Organization Structure.
   get organizationStructure(): OrganizationStructure {
     return new OrganizationStructure(this.doc, this.path + "/organizationStructure");
   }
 
-  // 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+  // 3.1.2. Steering Committee.
   get steeringCommittee(): SteeringCommittee {
     return new SteeringCommittee(this.doc, this.path + "/steeringCommittee");
   }
 }
 
-// 2. Project Organization and Process [PD00-POP].
+// 2. Project Organization and Process.
 //
 // Project-specific deviations from the standard TomSpecs methodology.
 // This section documents any customizations to standard roles, quality gates,
@@ -34889,109 +35253,28 @@ export class ProjectOrganizationAndProcess extends SomNode {
     return new MethodologyDeviationSummary(this.doc, this.path + "/deviationSummary");
   }
 
-  // 2.1. Role Adjustments [PD00-POP-ROL].
+  // 2.1. Role Adjustments.
   get roleAdjustments(): RoleAdjustments {
     return new RoleAdjustments(this.doc, this.path + "/roleAdjustments");
   }
 
-  // 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+  // 2.2. Quality Gate Adjustments.
   get qualityGateAdjustments(): QualityGateAdjustments {
     return new QualityGateAdjustments(this.doc, this.path + "/qualityGateAdjustments");
   }
 
-  // 2.3. Process Adjustments [PD00-POP-PRC].
+  // 2.3. Process Adjustments.
   get processAdjustments(): ProcessAdjustments {
     return new ProcessAdjustments(this.doc, this.path + "/processAdjustments");
   }
 
-  // 2.4. Tooling and Environments [PD00-POP-TOO].
+  // 2.4. Tooling and Environments.
   get toolingAndEnvironments(): ToolingAndEnvironments {
     return new ToolingAndEnvironments(this.doc, this.path + "/toolingAndEnvironments");
   }
 }
 
-// PPP00 Project Phase Plan.
-//
-// Full project phase plan — staging strategy, stage overview, per-stage
-// entries, feature prioritization, data migration, gate criteria,
-// decision processes, initial development flow, and upgrade cycle
-// framework.
-export class ProjectPhasePlan extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "PPP");
-    checkSomModelVersion(ProjectPhasePlan.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return ProjectPhasePlan.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Staging strategy — PD00-SSP-STR.
-  get stagingStrategy(): StagingStrategy {
-    return new StagingStrategy(this.doc, this.path + "/stagingStrategy");
-  }
-
-  // Stage overview — PD00-SSP-STA.
-  get stageOverview(): StageOverview {
-    return new StageOverview(this.doc, this.path + "/stageOverview");
-  }
-
-  // Stages — PD00-SSP-STG (list).
-  get stages(): SomList<StageEntry> {
-    return new SomList(this.doc, this.path + "/STAGE-STAG-LST", (d: SpecDocument, p: string) => new StageEntry(d, p));
-  }
-
-  // Feature prioritization — PD00-SSP-FEA.
-  get featurePrioritization(): FeaturePrioritization {
-    return new FeaturePrioritization(this.doc, this.path + "/featurePrioritization");
-  }
-
-  // Data migration strategy — PD00-SSP-MIG.
-  get dataMigrationStrategy(): DataMigrationStrategy {
-    return new DataMigrationStrategy(this.doc, this.path + "/dataMigrationStrategy");
-  }
-
-  // Gate criteria — PD00-SSP-GOV-GAT (promoted from GOV).
-  get gateCriteria(): PhaseGateReviews {
-    return new PhaseGateReviews(this.doc, this.path + "/gateCriteria");
-  }
-
-  // Decision processes — PD00-SSP-GOV-DEC (promoted from GOV).
-  get decisionProcesses(): DecisionPoints {
-    return new DecisionPoints(this.doc, this.path + "/decisionProcesses");
-  }
-
-  // Initial development flow — PD00-SSP-IDV.
-  get initialDevelopmentFlow(): InitialDevelopmentFlow {
-    return new InitialDevelopmentFlow(this.doc, this.path + "/initialDevelopmentFlow");
-  }
-
-  // Upgrade cycle framework — PD00-SSP-UPG (links tom_system_upgrade.md).
-  get upgradeCycleFramework(): UpgradeCycleFramework {
-    return new UpgradeCycleFramework(this.doc, this.path + "/upgradeCycleFramework");
-  }
-}
-
-// 3.2. Project Team Staffing [PD00-ADM-TEA].
+// 3.2. Project Team Staffing.
 //
 // Container for individual staff assignments including roles, responsibilities,
 // availability, and required competencies.
@@ -35083,7 +35366,7 @@ export class ProtocolComplianceRequirementsObservability extends SomNode {
   }
 }
 
-// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
+// A protocol or standard entry (form).
 export class ProtocolEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -35094,7 +35377,7 @@ export class ProtocolEntry extends SomNode {
   }
 }
 
-// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+// 8.6.1. Protocols and Standards.
 export class ProtocolsAndStandardsSection extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -35147,7 +35430,7 @@ export class ProtocolsAndStandardsSection extends SomNode {
   }
 }
 
-// 10.13. Prototype [PD00-USE-PRO].
+// 10.13. Prototype.
 //
 // Comprehensive prototype planning covering goals, feature selection,
 // prototype type, evaluation criteria, and stakeholder alignment.
@@ -35178,17 +35461,17 @@ export class Prototype extends SomNode {
   // Prototype overview narrative.
   // (skipped: overviewNarrative has no target type)
 
-  // 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+  // 10.13.1. Prototype Goals.
   get prototypeGoals(): PrototypeGoals {
     return new PrototypeGoals(this.doc, this.path + "/prototypeGoals");
   }
 
-  // 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+  // 10.13.2. Selected Feature Subset.
   get featureSubset(): PrototypeFeatureSubset {
     return new PrototypeFeatureSubset(this.doc, this.path + "/featureSubset");
   }
 
-  // 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+  // 10.13.3. Prototype Type.
   get prototypeType(): PrototypeTypeSection {
     return new PrototypeTypeSection(this.doc, this.path + "/prototypeType");
   }
@@ -35197,7 +35480,7 @@ export class Prototype extends SomNode {
   // (skipped: prototypeSchedule has no target type)
 }
 
-// A prototype feature entry [PD00-USE-PRO-FEA-nn].
+// A prototype feature entry.
 export class PrototypeFeatureEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -35208,7 +35491,7 @@ export class PrototypeFeatureEntry extends SomNode {
   }
 }
 
-// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+// 10.13.2. Selected Feature Subset.
 //
 // Features included in the prototype.
 export class PrototypeFeatureSubset extends SomNode {
@@ -35261,7 +35544,7 @@ export class PrototypeFeatureSubsetScope extends SomNode {
   }
 }
 
-// A prototype goal entry [PD00-USE-PRO-GOA-nn].
+// A prototype goal entry.
 export class PrototypeGoalEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -35272,7 +35555,7 @@ export class PrototypeGoalEntry extends SomNode {
   }
 }
 
-// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+// 10.13.1. Prototype Goals.
 //
 // What the prototype should validate.
 export class PrototypeGoals extends SomNode {
@@ -35358,7 +35641,7 @@ export class PrototypeTimeline extends SomNode {
   }
 }
 
-// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+// 10.13.3. Prototype Type.
 //
 // Classification and implications of the prototype type.
 export class PrototypeTypeSection extends SomNode {
@@ -35370,17 +35653,17 @@ export class PrototypeTypeSection extends SomNode {
     return new PrototypeTypeSectionPrototypeTypeOverviewForm(this.doc, this.path + "/prototypeTypeOverview");
   }
 
-  // 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+  // 10.13.3.1. Reusable Prototype.
   get reusablePrototype(): ReusablePrototype {
     return new ReusablePrototype(this.doc, this.path + "/reusablePrototype");
   }
 
-  // 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+  // 10.13.3.2. Training Prototype.
   get trainingPrototype(): TrainingPrototype {
     return new TrainingPrototype(this.doc, this.path + "/trainingPrototype");
   }
 
-  // 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+  // 10.13.3.3. Throwaway Prototype.
   get throwawayPrototype(): ThrowawayPrototype {
     return new ThrowawayPrototype(this.doc, this.path + "/throwawayPrototype");
   }
@@ -35461,7 +35744,142 @@ export class PwaRequirementsUpdates extends SomNode {
   }
 }
 
-// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
+// BQP00 Business Quality Plan.
+//
+// Full quality plan combining quality goals and the acceptance plan.
+export class QualityAcceptancePlan extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "QAP");
+    checkSomModelVersion(QualityAcceptancePlan.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return QualityAcceptancePlan.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Quality framework.
+  get qualityFramework(): QualityFramework {
+    return new QualityFramework(this.doc, this.path + "/qualityFramework");
+  }
+
+  // User-related quality criteria.
+  get userQualityCriteria(): UserQualityCriteria {
+    return new UserQualityCriteria(this.doc, this.path + "/userQualityCriteria");
+  }
+
+  // Technical quality criteria.
+  get technicalQualityCriteria(): TechnicalQualityCriteria {
+    return new TechnicalQualityCriteria(this.doc, this.path + "/technicalQualityCriteria");
+  }
+
+  // Operations quality criteria.
+  get operationsQualityCriteria(): OperationsQualityCriteria {
+    return new OperationsQualityCriteria(this.doc, this.path + "/operationsQualityCriteria");
+  }
+
+  // Documentation quality criteria.
+  get documentationQualityCriteria(): DocumentationQualityCriteria {
+    return new DocumentationQualityCriteria(this.doc, this.path + "/documentationQualityCriteria");
+  }
+
+  // Quality prioritization.
+  get qualityPrioritization(): QualityPrioritization {
+    return new QualityPrioritization(this.doc, this.path + "/qualityPrioritization");
+  }
+
+  // Acceptance criteria summary.
+  get acceptanceCriteriaSummary(): AcceptanceCriteriaSummary {
+    return new AcceptanceCriteriaSummary(this.doc, this.path + "/acceptanceCriteriaSummary");
+  }
+
+  // Test strategy (new in Phase A).
+  get testStrategy(): TestStrategy {
+    return new TestStrategy(this.doc, this.path + "/testStrategy");
+  }
+
+  // Acceptance criteria.
+  get acceptanceCriteria(): AcceptanceCriteriaList {
+    return new AcceptanceCriteriaList(this.doc, this.path + "/acceptanceCriteria");
+  }
+
+  // Acceptance process.
+  get acceptanceProcess(): AcceptanceProcess {
+    return new AcceptanceProcess(this.doc, this.path + "/acceptanceProcess");
+  }
+
+  // User acceptance testing.
+  get userAcceptanceTesting(): UserAcceptanceTesting {
+    return new UserAcceptanceTesting(this.doc, this.path + "/userAcceptanceTesting");
+  }
+
+  // Defect resolution.
+  get defectResolution(): DefectResolution {
+    return new DefectResolution(this.doc, this.path + "/defectResolution");
+  }
+
+  // Sign-off process.
+  get signOffProcess(): SignOffProcess {
+    return new SignOffProcess(this.doc, this.path + "/signOffProcess");
+  }
+
+  // Warranty terms.
+  get warranty(): WarrantyTerms {
+    return new WarrantyTerms(this.doc, this.path + "/warranty");
+  }
+}
+
+// SBP.14 Quality & Acceptance Model.
+//
+// Public anchor: ISO/IEC 25010 product quality.
+export class QualityAndAcceptanceModel extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Quality goals and attributes.
+  get systemQualityGoals(): SystemQualityGoals {
+    return new SystemQualityGoals(this.doc, this.path + "/systemQualityGoals");
+  }
+
+  // Delivery scope and acceptance criteria.
+  get deliveryAcceptance(): DeliveryScopeAndAcceptance {
+    return new DeliveryScopeAndAcceptance(this.doc, this.path + "/deliveryAcceptance");
+  }
+
+  // ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+  get iso25010Coverage(): Iso25010Coverage {
+    return new Iso25010Coverage(this.doc, this.path + "/iso25010Coverage");
+  }
+}
+
+// A quality category entry (form).
 //
 // Defines a quality category with its attributes, weight, and relationship
 // to other categories.
@@ -35542,7 +35960,7 @@ export class QualityCategoryEntryRelationships extends SomNode {
   }
 }
 
-// 11.1. Quality Framework [PD00-SYQ-FRA].
+// 11.1. Quality Framework.
 //
 // Overall quality approach for the project defining objectives, categories,
 // and how quality is structured and governed across the system.
@@ -35570,13 +35988,13 @@ export class QualityFramework extends SomNode {
     return new QualityFrameworkVerification(this.doc, this.path + "/verification");
   }
 
-  // 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
+  // 11.1.1. Quality Objectives Overview.
   // (skipped: qualityObjectivesOverview has no target type)
 
   // Quality objectives breakdown by category.
   // (skipped: objectivesBreakdown has no target type)
 
-  // 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
+  // 11.1.2. Quality Categories — contains 0+× QualityCategory.
   get qualityCategories(): SomList<QualityCategoryEntry> {
     return new SomList(this.doc, this.path + "/QCATE-QUAL-LST", (d: SpecDocument, p: string) => new QualityCategoryEntry(d, p));
   }
@@ -35631,7 +36049,7 @@ export class QualityGateAdjustmentDetails extends SomNode {
   }
 }
 
-// A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
+// A quality gate adjustment entry (form).
 //
 // Documents a specific deviation from standard quality gate definitions,
 // including the type of change, impact on quality assurance, risk
@@ -35710,7 +36128,7 @@ export class QualityGateAdjustmentSummary extends SomNode {
   }
 }
 
-// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+// 2.2. Quality Gate Adjustments.
 //
 // Documents any deviations from the standard quality gates defined in
 // tom_quality_gates.md. Includes skipped, added, or modified gates
@@ -35748,7 +36166,7 @@ export class QualityGateAdjustments extends SomNode {
   }
 }
 
-// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
+// A quality gate check entry (form).
 export class QualityGateCheckEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -35839,7 +36257,7 @@ export class QualityGateCheckEntryVerification extends SomNode {
   }
 }
 
-// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+// 11.7.2. Quality Gate Checklist.
 //
 // Quality gate checklist used during acceptance.
 export class QualityGateChecklist extends SomNode {
@@ -35860,7 +36278,7 @@ export class QualityGateChecklist extends SomNode {
   }
 }
 
-// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+// 11.6. Quality Prioritization.
 //
 // Prioritization and balancing of quality attributes including weighted
 // matrices and explicit trade-off decisions.
@@ -35876,12 +36294,12 @@ export class QualityPrioritization extends SomNode {
   // Prioritization approach overview.
   // (skipped: prioritizationOverview has no target type)
 
-  // 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+  // 11.6.1. Weighted Quality Matrix.
   get weightedQualityMatrix(): WeightedQualityMatrix {
     return new WeightedQualityMatrix(this.doc, this.path + "/weightedQualityMatrix");
   }
 
-  // 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+  // 11.6.2. Trade-off Decisions.
   get tradeOffDecisions(): TradeOffDecisions {
     return new TradeOffDecisions(this.doc, this.path + "/tradeOffDecisions");
   }
@@ -35898,7 +36316,7 @@ export class QualityScenarioEntry extends SomNode {
   }
 }
 
-// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+// 4.2.2.n.1. Quality Scenarios.
 //
 // Quality attribute scenarios that define concrete, testable situations
 // for verifying the technical goal (based on SEI quality attribute workshop).
@@ -35996,7 +36414,7 @@ export class QualityStandardEntryProcesses extends SomNode {
   }
 }
 
-// A quality weight entry [PD00-SYQ-PRI-WEI-nn].
+// A quality weight entry.
 export class QualityWeightEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -36066,7 +36484,7 @@ export class RateLimitingPolicyQuotas extends SomNode {
   }
 }
 
-// 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
+// 11.5.1. Readability quality.
 export class ReadabilityQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -36144,7 +36562,7 @@ export class ReadabilityQualityStyle extends SomNode {
   }
 }
 
-// Readiness criteria entry [PD00-ORG-STR-TIM-RDY-nn] (form).
+// Readiness criteria entry (form).
 export class ReadinessCriteriaEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -36245,7 +36663,7 @@ export class RecoveryProceduresValidation extends SomNode {
   }
 }
 
-// A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
+// A recovery scenario entry.
 export class RecoveryScenarioEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -36291,7 +36709,7 @@ export class RedirectHandlingPolicy extends SomNode {
   // (skipped: redirectDetails has no target type)
 }
 
-// A reference document entry [PD00-ADM-REF-nn] (form).
+// A reference document entry (form).
 //
 // Detailed metadata for a single referenced document including
 // identification, classification, status, and applicability.
@@ -36363,7 +36781,7 @@ export class ReferenceDocumentEntryMetadata extends SomNode {
   }
 }
 
-// 3.5. Reference Documents [PD00-ADM-REF].
+// 3.5. Reference Documents.
 //
 // Catalog of all documents referenced by this project specification,
 // including enterprise standards, technical guidelines, regulatory
@@ -36478,7 +36896,7 @@ export class RegulatoryComplianceEntryRequirements extends SomNode {
   }
 }
 
-// 3.6.3. Regulatory Compliance Requirements [PD00-ADM-OTH-REG].
+// 3.6.3. Regulatory Compliance Requirements.
 //
 // Regulatory and compliance obligations affecting the project.
 export class RegulatoryComplianceRequirements extends SomNode {
@@ -36505,7 +36923,7 @@ export class RegulatoryComplianceRequirements extends SomNode {
   }
 }
 
-// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+// 4.1.2.8. Regulatory Context.
 //
 // Regulatory and compliance context that affects system design and
 // operations.
@@ -36662,7 +37080,7 @@ export class RelevantSectionEntry extends SomNode {
   }
 }
 
-// 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
+// 11.3.6. Reliability quality.
 export class ReliabilityQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -36773,7 +37191,7 @@ export class RemoteAccessRequirements extends SomNode {
   }
 }
 
-// A removed role entry [PD00-ORG-JOB-REM-nn] (form).
+// A removed role entry (form).
 //
 // Documents roles being eliminated with transition planning for incumbents.
 export class RemovedRoleEntry extends SomNode {
@@ -36834,7 +37252,7 @@ export class RemovedRoleEntryTransition extends SomNode {
   }
 }
 
-// Container for systems to replace [PD00-SYO-SYR-INV].
+// Container for systems to replace.
 //
 // Provides a structured inventory of all systems targeted for replacement,
 // with portfolio-level metrics and prioritization guidance.
@@ -36855,7 +37273,7 @@ export class ReplacementInventory extends SomNode {
   }
 }
 
-// A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn].
+// A replacement phase entry.
 export class ReplacementPhaseEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -36866,7 +37284,7 @@ export class ReplacementPhaseEntry extends SomNode {
   }
 }
 
-// A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
+// A system dependency entry.
 //
 // Documents integrations and dependencies with other systems.
 export class ReplacementSystemDependencyEntry extends SomNode {
@@ -36901,7 +37319,7 @@ export class ReportChartDisplay extends SomNode {
   }
 }
 
-// A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
+// A chart/visualization in a report
 // (form).
 export class ReportChartEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -36993,7 +37411,7 @@ export class ReportColumnDataSource extends SomNode {
   }
 }
 
-// A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
+// A column in a tabular report section
 // (form).
 export class ReportColumnEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -37074,7 +37492,7 @@ export class ReportDataSource extends SomNode {
   }
 }
 
-// Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form).
+// Distribution channel configuration (form).
 export class ReportDistributionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -37133,7 +37551,7 @@ export class ReportDistributionEntryRecipients extends SomNode {
   }
 }
 
-// A report entry [PD00-USE-PRI-REP-nn] (form).
+// A report entry (form).
 export class ReportEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -37224,7 +37642,7 @@ export class ReportEntry extends SomNode {
   }
 }
 
-// A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form).
+// A filter parameter for a report (form).
 export class ReportFilterEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -37382,7 +37800,7 @@ export class ReportPagination extends SomNode {
   }
 }
 
-// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
+// A recipient entry (form).
 export class ReportRecipientEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -37441,7 +37859,7 @@ export class ReportRecipientEntryLifecycle extends SomNode {
   }
 }
 
-// Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
+// Scheduling rules for report generation
 // (form).
 export class ReportScheduleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -37539,7 +37957,7 @@ export class ReportSectionData extends SomNode {
   }
 }
 
-// A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).
+// A section within a report (form).
 export class ReportSectionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -37628,7 +38046,7 @@ export class RepresentativeQuoteEntry extends SomNode {
   }
 }
 
-// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+// 4.3.1.n.1. Acceptance Criteria.
 //
 // Testable conditions that must be met for the requirement to be accepted.
 // Uses Given-When-Then format for clarity.
@@ -37662,7 +38080,7 @@ export class RequirementBusinessRuleEntry extends SomNode {
   }
 }
 
-// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+// 4.3.1.n.2. Business Rules.
 //
 // Business rules that constrain or guide this requirement's behavior.
 export class RequirementBusinessRules extends SomNode {
@@ -37684,7 +38102,7 @@ export class RequirementBusinessRules extends SomNode {
   }
 }
 
-// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+// 4.3.6. Requirement Coverage.
 //
 // Coverage of requirements against goals, use cases, and tests.
 export class RequirementCoverage extends SomNode {
@@ -37701,7 +38119,7 @@ export class RequirementCoverage extends SomNode {
   }
 }
 
-// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+// 4.3.1.n.3. Data Requirements.
 //
 // Data entities, attributes, and relationships needed by this requirement.
 export class RequirementDataRequirements extends SomNode {
@@ -37723,7 +38141,7 @@ export class RequirementDataRequirements extends SomNode {
   }
 }
 
-// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+// 4.3.1.n.5. Dependencies.
 //
 // Dependencies this requirement has on other requirements.
 export class RequirementDependencies extends SomNode {
@@ -37764,7 +38182,7 @@ export class RequirementDependencyEntry extends SomNode {
   }
 }
 
-// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+// 4.3.5. Requirement Relationships.
 //
 // Cross-requirement dependency and conflict graph.
 export class RequirementRelationships extends SomNode {
@@ -37850,7 +38268,7 @@ export class RequirementTestCaseEntryExecution extends SomNode {
   }
 }
 
-// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+// 4.3.1.n.7. Test Cases.
 //
 // Test cases that verify this requirement is correctly implemented.
 export class RequirementTestCases extends SomNode {
@@ -37872,7 +38290,7 @@ export class RequirementTestCases extends SomNode {
   }
 }
 
-// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+// 4.3.1.n.6. Traceability.
 //
 // Traceability links to goals, use cases, processes, and other artifacts.
 export class RequirementTraceability extends SomNode {
@@ -37926,7 +38344,7 @@ export class RequirementTraceabilityImplementation extends SomNode {
   }
 }
 
-// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+// 4.3.1.n.4. UI Specification.
 //
 // User interface specification for this requirement. Defines screens,
 // forms, and interactions needed to fulfill the requirement.
@@ -37983,25 +38401,14 @@ export class RequirementUiSpecification extends SomNode {
   }
 }
 
-// RC00 Requirements Catalog.
+// SBP.9 Requirements.
 //
-// Full requirements catalog covering functional, technical, security,
-// and organizational requirements, plus traceability, relationships,
-// and coverage analysis.
-export class RequirementsCatalog extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "RC");
-    checkSomModelVersion(RequirementsCatalog.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return RequirementsCatalog.MODEL_VERSION;
+// Functional requirements seed the Requirements Specification (RSP); this
+// section currently carries the framework-uncovered NFR sub-areas re-homed in
+// IP-6. Functional-requirement modelling is expanded in a later IP step.
+export class Requirements extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
   }
 
   get content(): string {
@@ -38012,56 +38419,23 @@ export class RequirementsCatalog extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
+  // Localization & Translation requirements (NFR-L10N-NNN).
+  get localizationTranslation(): LocalizationTranslationRequirements {
+    return new LocalizationTranslationRequirements(this.doc, this.path + "/localizationTranslation");
   }
 
-  // Functional requirements — PD00-SYO-REQ-FUN.
-  get functionalRequirements(): FunctionalRequirements {
-    return new FunctionalRequirements(this.doc, this.path + "/functionalRequirements");
+  // Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
+  get informationForUse(): InformationForUseRequirements {
+    return new InformationForUseRequirements(this.doc, this.path + "/informationForUse");
   }
 
-  // Technical (non-functional) requirements — PD00-SYO-REQ-TEC.
-  get technicalRequirements(): TechnicalRequirements {
-    return new TechnicalRequirements(this.doc, this.path + "/technicalRequirements");
-  }
-
-  // Security requirements — PD00-SYO-REQ-SEC.
-  get securityRequirements(): SecurityRequirements {
-    return new SecurityRequirements(this.doc, this.path + "/securityRequirements");
-  }
-
-  // Organizational requirements — PD00-SYO-REQ-ORG.
-  get organizationalRequirements(): OrganizationalRequirements {
-    return new OrganizationalRequirements(this.doc, this.path + "/organizationalRequirements");
-  }
-
-  // Traceability matrix overview — PD00-SYO-REQ-TRC.
-  //
-  // Mirrors the PD00-side flat field on RequirementsOverview so the RC
-  // outline reaches it directly. The authoritative content lives on the
-  // PD00 side.
-  get traceabilityMatrix(): string {
-    return this.doc.content(this.path + "/traceabilityMatrix") || '';
-  }
-
-  set traceabilityMatrix(value: string) {
-    this.doc.setContent(this.path + "/traceabilityMatrix", value);
-  }
-
-  // Requirement relationships — PD00-SYO-REQ-REL.
-  get requirementRelationships(): SomList<RequirementRelationships> {
-    return new SomList(this.doc, this.path + "/RERE-REQU-LST", (d: SpecDocument, p: string) => new RequirementRelationships(d, p));
-  }
-
-  // Requirement coverage — PD00-SYO-REQ-COV.
-  get requirementCoverage(): RequirementCoverage {
-    return new RequirementCoverage(this.doc, this.path + "/requirementCoverage");
+  // Training & Enablement requirements (NFR-TRN-NNN).
+  get trainingEnablement(): TrainingEnablementRequirements {
+    return new TrainingEnablementRequirements(this.doc, this.path + "/trainingEnablement");
   }
 }
 
-// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+// 4.3. Requirements Overview. Seeds → RC.
 //
 // Initial requirements overview organized by category. Each requirement
 // receives a unique ID and will be expanded into the RC (Requirements
@@ -38095,32 +38469,110 @@ export class RequirementsOverview extends SomNode {
     this.doc.setContent(this.path + "/traceabilityMatrix", value);
   }
 
-  // 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+  // 4.3.1. Functional Requirements.
   get functionalRequirements(): FunctionalRequirements {
     return new FunctionalRequirements(this.doc, this.path + "/functionalRequirements");
   }
 
-  // 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+  // 4.3.2. Technical Requirements.
   get technicalRequirements(): TechnicalRequirements {
     return new TechnicalRequirements(this.doc, this.path + "/technicalRequirements");
   }
 
-  // 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+  // 4.3.3. Security Requirements.
   get securityRequirements(): SecurityRequirements {
     return new SecurityRequirements(this.doc, this.path + "/securityRequirements");
   }
 
-  // 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+  // 4.3.4. Organizational Requirements.
   get organizationalRequirements(): OrganizationalRequirements {
     return new OrganizationalRequirements(this.doc, this.path + "/organizationalRequirements");
   }
 
-  // 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+  // 4.3.5. Requirement Relationships.
   get requirementRelationships(): SomList<RequirementRelationships> {
     return new SomList(this.doc, this.path + "/RERE-REQU-LST", (d: SpecDocument, p: string) => new RequirementRelationships(d, p));
   }
 
-  // 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+  // 4.3.6. Requirement Coverage.
+  get requirementCoverage(): RequirementCoverage {
+    return new RequirementCoverage(this.doc, this.path + "/requirementCoverage");
+  }
+}
+
+// RC00 Requirements Catalog.
+//
+// Full requirements catalog covering functional, technical, security,
+// and organizational requirements, plus traceability, relationships,
+// and coverage analysis.
+export class RequirementsSpecification extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "RSP");
+    checkSomModelVersion(RequirementsSpecification.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return RequirementsSpecification.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Functional requirements.
+  get functionalRequirements(): FunctionalRequirements {
+    return new FunctionalRequirements(this.doc, this.path + "/functionalRequirements");
+  }
+
+  // Technical (non-functional) requirements.
+  get technicalRequirements(): TechnicalRequirements {
+    return new TechnicalRequirements(this.doc, this.path + "/technicalRequirements");
+  }
+
+  // Security requirements.
+  get securityRequirements(): SecurityRequirements {
+    return new SecurityRequirements(this.doc, this.path + "/securityRequirements");
+  }
+
+  // Organizational requirements.
+  get organizationalRequirements(): OrganizationalRequirements {
+    return new OrganizationalRequirements(this.doc, this.path + "/organizationalRequirements");
+  }
+
+  // Traceability matrix overview.
+  //
+  // Mirrors the flat field on RequirementsOverview so the RC outline
+  // reaches it directly. The authoritative content lives on the Solution
+  // Blueprint side.
+  get traceabilityMatrix(): string {
+    return this.doc.content(this.path + "/traceabilityMatrix") || '';
+  }
+
+  set traceabilityMatrix(value: string) {
+    this.doc.setContent(this.path + "/traceabilityMatrix", value);
+  }
+
+  // Requirement relationships.
+  get requirementRelationships(): SomList<RequirementRelationships> {
+    return new SomList(this.doc, this.path + "/RERE-REQU-LST", (d: SpecDocument, p: string) => new RequirementRelationships(d, p));
+  }
+
+  // Requirement coverage.
   get requirementCoverage(): RequirementCoverage {
     return new RequirementCoverage(this.doc, this.path + "/requirementCoverage");
   }
@@ -38212,7 +38664,7 @@ export class ResourceCapacityBaselinesStorage extends SomNode {
   }
 }
 
-// A resource key entry [PD00-ACC-USA-RES-nn] (form).
+// A resource key entry (form).
 export class ResourceKeyEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -38223,7 +38675,7 @@ export class ResourceKeyEntry extends SomNode {
   }
 }
 
-// A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn].
+// A resource key reference entry (form).
 export class ResourceKeyReferenceEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -38234,7 +38686,7 @@ export class ResourceKeyReferenceEntry extends SomNode {
   }
 }
 
-// 9.3. Resource Protection [PD00-ACC-RES].
+// 9.3. Resource Protection.
 export class ResourceProtection extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -38248,17 +38700,17 @@ export class ResourceProtection extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+  // 9.3.1. Data-Level Security.
   get dataLevelSecurity(): DataLevelSecurity {
     return new DataLevelSecurity(this.doc, this.path + "/dataLevelSecurity");
   }
 
-  // 9.3.2. API Security [PD00-ACC-RES-API].
+  // 9.3.2. API Security.
   get apiSecurity(): ApiSecurity {
     return new ApiSecurity(this.doc, this.path + "/apiSecurity");
   }
 
-  // 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+  // 9.3.3. File and Storage Security.
   get fileAndStorageSecurity(): FileAndStorageSecurity {
     return new FileAndStorageSecurity(this.doc, this.path + "/fileAndStorageSecurity");
   }
@@ -38290,7 +38742,7 @@ export class ResponseStrategyEntry extends SomNode {
   }
 }
 
-// Responsibility change entry [PD00-ORG-JOB-CHA-nn-xxx-nn] (form).
+// Responsibility change entry (form).
 export class ResponsibilityChangeEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -38312,7 +38764,7 @@ export class ResponsibilityContacts extends SomNode {
   }
 }
 
-// Detailed responsibility entry [PD00-ORG-JOB-NEW-nn-RSP-nn] (form).
+// Detailed responsibility entry (form).
 export class ResponsibilityDetailEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -38323,7 +38775,7 @@ export class ResponsibilityDetailEntry extends SomNode {
   }
 }
 
-// A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+// A responsibility entry (form).
 //
 // Documents responsibility assignment for a specific functional area,
 // following RACI principles (Responsible, Accountable, Consulted, Informed)
@@ -38407,7 +38859,7 @@ export class ResponsibilityRaci extends SomNode {
   }
 }
 
-// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
+// A responsibility reference entry (form).
 export class ResponsibilityReferenceEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -38429,7 +38881,7 @@ export class ResponsibilitySystems extends SomNode {
   }
 }
 
-// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+// 10.10.2. Responsive Behavior.
 //
 // How the UI adapts across breakpoints.
 export class ResponsiveBehavior extends SomNode {
@@ -38514,7 +38966,7 @@ export class ResponsiveBehaviorVisibility extends SomNode {
   }
 }
 
-// 10.10. Responsive Design [PD00-USE-RES].
+// 10.10. Responsive Design.
 //
 // Comprehensive responsive design specification covering breakpoints,
 // adaptive layouts, and device-specific behavior for Flutter applications.
@@ -38530,18 +38982,18 @@ export class ResponsiveDesign extends SomNode {
   // Responsive design narrative.
   // (skipped: responsiveNarrative has no target type)
 
-  // 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+  // 10.10.1. Breakpoints.
   get breakpointConfig(): BreakpointConfiguration {
     return new BreakpointConfiguration(this.doc, this.path + "/breakpointConfig");
   }
 
-  // 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+  // 10.10.2. Responsive Behavior.
   get responsiveBehavior(): ResponsiveBehavior {
     return new ResponsiveBehavior(this.doc, this.path + "/responsiveBehavior");
   }
 }
 
-// A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
+// A screen-specific responsive rule entry.
 export class ResponsiveScreenRuleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -38697,7 +39149,7 @@ export class ReusabilityPrinciplesVersioning extends SomNode {
   }
 }
 
-// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+// 8.2.3. Reusable Components.
 //
 // Components, libraries, or frameworks designed for reuse across projects
 // or modules.
@@ -38758,7 +39210,7 @@ export class ReusableComponentsSection extends SomNode {
   }
 }
 
-// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+// 10.13.3.1. Reusable Prototype.
 //
 // Prototype that becomes part of the final product.
 export class ReusablePrototype extends SomNode {
@@ -38913,7 +39365,7 @@ export class ReusableUiComponentEntryInteraction extends SomNode {
   }
 }
 
-// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
+// A reuse goal entry (form).
 //
 // Defines a specific reuse target: what to reuse, why, at what percentage,
 // how to measure, and who owns the goal.
@@ -38975,7 +39427,7 @@ export class ReuseGoalEntryMeasurement extends SomNode {
   }
 }
 
-// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
+// A review criterion entry (form).
 //
 // A single criterion evaluated at a phase gate, with weight,
 // evidence linkage, and assessment result.
@@ -39018,6 +39470,37 @@ export class ReviewCriterionEntryResult extends SomNode {
 
   get content(): ReviewCriterionEntryResultContentForm {
     return new ReviewCriterionEntryResultContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// A single document revision entry (form).
+export class RevisionEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): RevisionEntryContentForm {
+    return new RevisionEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Chronological revision history.
+export class RevisionHistory extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // One entry per published revision of the document.
+  get revisions(): SomList<RevisionEntry> {
+    return new SomList(this.doc, this.path + "/RVHST-REVS-LST", (d: SpecDocument, p: string) => new RevisionEntry(d, p));
   }
 }
 
@@ -39105,7 +39588,7 @@ export class RiskCategoryEntry extends SomNode {
   }
 }
 
-// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+// A risk entry (form).
 //
 // Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
 // Captures risk identification, analysis, response planning, ownership,
@@ -39302,7 +39785,7 @@ export class RiskResponseResidual extends SomNode {
   }
 }
 
-// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+// 4.7. Risks and Assumptions.
 //
 // Documents identified project risks and underlying assumptions following
 // ISO 31000 Risk Management and PMBOK risk management best practices.
@@ -39318,12 +39801,12 @@ export class RisksAndAssumptions extends SomNode {
     return new RisksOverview(this.doc, this.path + "/overview");
   }
 
-  // 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+  // 4.7.1. Key Risks — contains 0+× Risk.
   get keyRisks(): SomList<RiskEntry> {
     return new SomList(this.doc, this.path + "/RIEN-KEYR-LST", (d: SpecDocument, p: string) => new RiskEntry(d, p));
   }
 
-  // 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
+  // 4.7.2. Key Assumptions — contains 0+×.
   get keyAssumptions(): KeyAssumptions {
     return new KeyAssumptions(this.doc, this.path + "/keyAssumptions");
   }
@@ -39340,7 +39823,7 @@ export class RisksOverview extends SomNode {
   }
 }
 
-// A role adjustment entry (form) [PD00-POP-ROL-nn].
+// A role adjustment entry (form).
 //
 // Documents a specific deviation from standard TomSpecs role definitions,
 // including the type of adjustment, affected responsibilities, risk
@@ -39446,7 +39929,7 @@ export class RoleAdjustmentSummary extends SomNode {
   }
 }
 
-// 2.1. Role Adjustments [PD00-POP-ROL].
+// 2.1. Role Adjustments.
 //
 // Documents any deviations from the standard TomSpecs roles defined in
 // tom_roles.md. Includes merged, split, omitted, or modified roles
@@ -39505,7 +39988,7 @@ export class RoleCertificationPolicy extends SomNode {
   // (skipped: roleCertificationDetails has no target type)
 }
 
-// A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn].
+// A role combination constraint entry (form).
 //
 // Defines rules about which roles can or cannot be combined — supports
 // separation of duties, prerequisite roles, and co-requisite roles.
@@ -39519,7 +40002,7 @@ export class RoleCombinationConstraintEntry extends SomNode {
   }
 }
 
-// Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form).
+// Role competency entry (form).
 export class RoleCompetencyEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -39530,7 +40013,7 @@ export class RoleCompetencyEntry extends SomNode {
   }
 }
 
-// A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn].
+// A data scope entry for a role (form).
 //
 // Specifies what data categories the role can access and at what level —
 // supports horizontal access control and data-level security.
@@ -39555,7 +40038,7 @@ export class RoleDecisionAuthority extends SomNode {
   }
 }
 
-// A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
+// A role exclusion entry (form).
 export class RoleExclusionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -39566,7 +40049,7 @@ export class RoleExclusionEntry extends SomNode {
   }
 }
 
-// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+// 9.4.6. Role Hierarchy.
 //
 // Defines the role hierarchy: inheritance rules, mutual exclusions,
 // role combination constraints, hierarchy depth, and role certification
@@ -39634,7 +40117,7 @@ export class RoleHierarchyPolicy extends SomNode {
   // (skipped: roleHierarchyPolicyDetails has no target type)
 }
 
-// A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
+// A role holder entry (form).
 export class RoleHolderEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -39645,7 +40128,7 @@ export class RoleHolderEntry extends SomNode {
   }
 }
 
-// A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn].
+// A role inheritance rule entry (form).
 //
 // Defines a specific parent-child inheritance relationship between two roles,
 // including what is inherited and any restrictions.
@@ -39659,9 +40142,9 @@ export class RoleInheritanceRuleEntry extends SomNode {
   }
 }
 
-// 9.7. Role Matrix [PD00-ACC-ROL].
+// 9.7. Role Matrix.
 //
-// Role-to-permission assignment matrix covering HBSG AS22-AUM
+// Role-to-permission assignment matrix covering
 // Authorization Model.
 export class RoleMatrix extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -39677,7 +40160,7 @@ export class RoleMatrix extends SomNode {
   }
 }
 
-// A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn].
+// A direct permission entry for a role (form).
 //
 // Captures direct permission assignments that complement or override
 // entitlement-based access — useful when fine-grained per-role permissions
@@ -39692,7 +40175,7 @@ export class RolePermissionEntry extends SomNode {
   }
 }
 
-// A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn].
+// A role reference entry (form).
 export class RoleReferenceEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -39794,7 +40277,7 @@ export class RollbackStrategyTriggers extends SomNode {
   }
 }
 
-// 15.1. Rollout Plan [PD00-ROL-PLN].
+// 15.1. Rollout Plan.
 //
 // Geographic and/or user-group rollout plan covering DR23 Rollout Plan
 // content: the sequencing of sites, countries, business units, and user
@@ -39813,7 +40296,7 @@ export class RolloutPlan extends SomNode {
   }
 }
 
-// 15.4. Training Materials [PD00-ROL-TRN].
+// 15.4. Training Materials.
 //
 // Training deliverables covering DR17 Training Materials content.
 export class RolloutTrainingMaterials extends SomNode {
@@ -39911,7 +40394,7 @@ export class RpoRtoRequirementsSystems extends SomNode {
   }
 }
 
-// A rule example entry (form) [PD00-BUS-FUN-RUL-nn-EXA-nn].
+// A rule example entry (form).
 //
 // Examples illustrating rule application.
 export class RuleExampleEntry extends SomNode {
@@ -39924,7 +40407,7 @@ export class RuleExampleEntry extends SomNode {
   }
 }
 
-// 12.4. Runtime Dependencies [PD00-COM-RUN].
+// 12.4. Runtime Dependencies.
 //
 // Runtime dependencies between components: required services, startup order,
 // health-check dependencies, failover behavior, and version constraints.
@@ -39947,7 +40430,7 @@ export class RuntimeDependencies extends SomNode {
   }
 }
 
-// A runtime dependency entry (form) [PD00-COM-RUN-nn].
+// A runtime dependency entry (form).
 //
 // Documents one runtime dependency: startup order, health checks,
 // failover, data flow, latency tolerance, and caching strategy.
@@ -40443,7 +40926,7 @@ export class ScenarioData extends SomNode {
   }
 }
 
-// A scenario entry [PD00-TAR-STP-SCE-nn].
+// A scenario entry.
 //
 // Comprehensive scenario definition for end-to-end user journey.
 export class ScenarioEntry extends SomNode {
@@ -40509,7 +40992,7 @@ export class ScenarioOverview extends SomNode {
   }
 }
 
-// A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn].
+// A scenario step entry.
 export class ScenarioStepEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -40664,7 +41147,7 @@ export class ScopeAssumptionEntry extends SomNode {
   }
 }
 
-// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+// 4.1.1.6. Scope Boundaries.
 //
 // Clear definition of what is in scope and out of scope for this system.
 // Helps set expectations and prevent scope creep.
@@ -40681,17 +41164,17 @@ export class ScopeBoundaries extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
+  // In-Scope Items — contains 1+× ScopeItem.
   get inScopeItems(): SomList<ScopeItemEntry> {
     return new SomList(this.doc, this.path + "/SCITE-INSC-LST", (d: SpecDocument, p: string) => new ScopeItemEntry(d, p));
   }
 
-  // Out-of-Scope Items [PD00-SYO-SYD-PUR-SCO-OUT] — contains 0+× ScopeItem.
+  // Out-of-Scope Items — contains 0+× ScopeItem.
   get outOfScopeItems(): SomList<ScopeItemEntry> {
     return new SomList(this.doc, this.path + "/SCITE-OUTO-LST", (d: SpecDocument, p: string) => new ScopeItemEntry(d, p));
   }
 
-  // Deferred Items [PD00-SYO-SYD-PUR-SCO-DEF] — contains 0+× ScopeItem.
+  // Deferred Items — contains 0+× ScopeItem.
   get deferredItems(): SomList<DeferredScopeItemEntry> {
     return new SomList(this.doc, this.path + "/DFSCP-DEFE-LST", (d: SpecDocument, p: string) => new DeferredScopeItemEntry(d, p));
   }
@@ -40713,7 +41196,7 @@ export class ScopeItemEntry extends SomNode {
   }
 }
 
-// A screen action entry (form) [PD00-USE-SCR-INV-nn-ACT-mm].
+// A screen action entry (form).
 //
 // A top-level action available on the screen via toolbar, app bar, or FAB.
 export class ScreenActionEntry extends SomNode {
@@ -40774,7 +41257,7 @@ export class ScreenActionEntryVisual extends SomNode {
   }
 }
 
-// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+// 10.2.1.n.2. Screen Actions.
 //
 // Top-level actions available on the screen (toolbar, app bar, FAB).
 export class ScreenActions extends SomNode {
@@ -40810,7 +41293,7 @@ export class ScreenBehaviorEntry extends SomNode {
   }
 }
 
-// 10.2. Screen Descriptions [PD00-USE-SCR].
+// 10.2. Screen Descriptions.
 export class ScreenDescriptions extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -40824,12 +41307,12 @@ export class ScreenDescriptions extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+  // 10.2.1. Screen Inventory.
   get screenInventory(): ScreenInventory {
     return new ScreenInventory(this.doc, this.path + "/screenInventory");
   }
 
-  // 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+  // 10.2.2. Information Architecture.
   get informationArchitecture(): InformationArchitecture {
     return new InformationArchitecture(this.doc, this.path + "/informationArchitecture");
   }
@@ -40925,7 +41408,7 @@ export class ScreenElementDataDisplayOptions extends SomNode {
   }
 }
 
-// A screen element entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk].
+// A screen element entry (form).
 //
 // Any interactive or display element within a screen section: buttons, fields,
 // data displays, icons, labels, status indicators.
@@ -40958,17 +41441,17 @@ export class ScreenElementEntry extends SomNode {
     return new ScreenElementEntryPresentation(this.doc, this.path + "/presentation");
   }
 
-  // 10.2.1.n.m.k.1. Element Action [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-ACN].
+  // 10.2.1.n.m.k.1. Element Action.
   get elementAction(): ScreenElementAction {
     return new ScreenElementAction(this.doc, this.path + "/elementAction");
   }
 
-  // 10.2.1.n.m.k.2. Element Field Spec [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-FLD].
+  // 10.2.1.n.m.k.2. Element Field Spec.
   get fieldSpec(): ScreenElementFieldSpec {
     return new ScreenElementFieldSpec(this.doc, this.path + "/fieldSpec");
   }
 
-  // 10.2.1.n.m.k.3. Element Data Display [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-DAT].
+  // 10.2.1.n.m.k.3. Element Data Display.
   get dataDisplay(): ScreenElementDataDisplay {
     return new ScreenElementDataDisplay(this.doc, this.path + "/dataDisplay");
   }
@@ -41100,7 +41583,7 @@ export class ScreenElementFieldSpecValidation extends SomNode {
   }
 }
 
-// A screen entry [PD00-USE-SCR-INV-nn] (form).
+// A screen entry (form).
 //
 // Comprehensive specification of a single application screen, covering
 // identity, purpose, authorization, layout, elements, and behavior.
@@ -41136,17 +41619,17 @@ export class ScreenEntry extends SomNode {
   // Screen design rationale and notes.
   // (skipped: designNotes has no target type)
 
-  // 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+  // 10.2.1.n.1. Screen Sections.
   get sections(): ScreenSections {
     return new ScreenSections(this.doc, this.path + "/sections");
   }
 
-  // 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+  // 10.2.1.n.2. Screen Actions.
   get actions(): ScreenActions {
     return new ScreenActions(this.doc, this.path + "/actions");
   }
 
-  // 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+  // 10.2.1.n.3. Screen States.
   get states(): ScreenStates {
     return new ScreenStates(this.doc, this.path + "/states");
   }
@@ -41293,7 +41776,7 @@ export class ScreenFieldValidation extends SomNode {
   }
 }
 
-// 10.3. Screen Flow Structure [PD00-USE-SCF].
+// 10.3. Screen Flow Structure.
 export class ScreenFlowStructure extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -41307,16 +41790,16 @@ export class ScreenFlowStructure extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+  // 10.3.1. Navigation Model.
   get navigationModel(): NavigationModel {
     return new NavigationModel(this.doc, this.path + "/navigationModel");
   }
 
-  // 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid-flow).
+  // 10.3.2. Screen Flow Diagram (mermaid-flow).
   // (skipped: screenFlowDiagram has no target type)
 }
 
-// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+// 10.2.1. Screen Inventory.
 //
 // Container for screen definitions. Each entry fully describes one application
 // screen including its purpose, layout zones, elements, actions, and states.
@@ -41342,7 +41825,7 @@ export class ScreenInventory extends SomNode {
   }
 }
 
-// A responsive rule entry (form) [PD00-USE-SCR-INV-nn-RSP-mm].
+// A responsive rule entry (form).
 //
 // How the screen adapts at different breakpoints.
 export class ScreenResponsiveRuleEntry extends SomNode {
@@ -41355,7 +41838,7 @@ export class ScreenResponsiveRuleEntry extends SomNode {
   }
 }
 
-// A screen section entry (form) [PD00-USE-SCR-INV-nn-SEC-mm].
+// A screen section entry (form).
 //
 // A logical zone within a screen: header, toolbar, content area, sidebar, etc.
 export class ScreenSectionEntry extends SomNode {
@@ -41405,7 +41888,7 @@ export class ScreenSectionEntryLayout extends SomNode {
   }
 }
 
-// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+// 10.2.1.n.1. Screen Sections.
 //
 // Logical zones within a screen that group related elements.
 export class ScreenSections extends SomNode {
@@ -41427,7 +41910,7 @@ export class ScreenSections extends SomNode {
   }
 }
 
-// A screen state entry (form) [PD00-USE-SCR-INV-nn-STA-mm].
+// A screen state entry (form).
 //
 // A specific state the screen can be in: loading, empty, error, permission-denied.
 export class ScreenStateEntry extends SomNode {
@@ -41440,7 +41923,7 @@ export class ScreenStateEntry extends SomNode {
   }
 }
 
-// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+// 10.2.1.n.3. Screen States.
 //
 // Different visual/behavioral states the screen can be in.
 export class ScreenStates extends SomNode {
@@ -41462,7 +41945,7 @@ export class ScreenStates extends SomNode {
   }
 }
 
-// A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-mm].
+// A user category entry (form).
 export class ScreenUserCategoryEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -41473,7 +41956,7 @@ export class ScreenUserCategoryEntry extends SomNode {
   }
 }
 
-// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+// 10.3.1.4. Secondary Navigation.
 //
 // In-page navigation: tab bars, segmented controls.
 export class SecondaryNavigation extends SomNode {
@@ -41498,7 +41981,138 @@ export class SecondaryNavigation extends SomNode {
   }
 }
 
-// A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
+// AC00 Authorization Concept.
+//
+// Complete access and authorization specification — user management,
+// identification and authentication, resource protection, user
+// authorization, encryption, audit/logging, role matrix, and
+// compliance framework.
+export class SecurityAccessSpecification extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "SAS");
+    checkSomModelVersion(SecurityAccessSpecification.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return SecurityAccessSpecification.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // User management.
+  get userManagement(): UserManagement {
+    return new UserManagement(this.doc, this.path + "/userManagement");
+  }
+
+  // Identification and authentication.
+  get identificationAndAuthentication(): IdentificationAndAuthentication {
+    return new IdentificationAndAuthentication(this.doc, this.path + "/identificationAndAuthentication");
+  }
+
+  // Resource protection.
+  get resourceProtection(): ResourceProtection {
+    return new ResourceProtection(this.doc, this.path + "/resourceProtection");
+  }
+
+  // User authorization.
+  get userAuthorization(): UserAuthorization {
+    return new UserAuthorization(this.doc, this.path + "/userAuthorization");
+  }
+
+  // Sensitive data encryption.
+  get sensitiveDataEncryption(): SensitiveDataEncryption {
+    return new SensitiveDataEncryption(this.doc, this.path + "/sensitiveDataEncryption");
+  }
+
+  // Audit and logging.
+  get auditAndLogging(): AuditAndLogging {
+    return new AuditAndLogging(this.doc, this.path + "/auditAndLogging");
+  }
+
+  // Role matrix.
+  get roleMatrix(): RoleMatrix {
+    return new RoleMatrix(this.doc, this.path + "/roleMatrix");
+  }
+
+  // Compliance framework.
+  get complianceFramework(): ComplianceFramework {
+    return new ComplianceFramework(this.doc, this.path + "/complianceFramework");
+  }
+}
+
+// 9. Access and Authorization Concept. Seeds → AC.
+export class SecurityAndAccessModel extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 9.1. User Management.
+  get userManagement(): UserManagement {
+    return new UserManagement(this.doc, this.path + "/userManagement");
+  }
+
+  // 9.2. Identification and Authentication.
+  get authentication(): IdentificationAndAuthentication {
+    return new IdentificationAndAuthentication(this.doc, this.path + "/authentication");
+  }
+
+  // 9.3. Resource Protection.
+  get resourceProtection(): ResourceProtection {
+    return new ResourceProtection(this.doc, this.path + "/resourceProtection");
+  }
+
+  // 9.4. User Authorization.
+  get authorization(): UserAuthorization {
+    return new UserAuthorization(this.doc, this.path + "/authorization");
+  }
+
+  // 9.5. Sensitive Data Encryption.
+  get encryption(): SensitiveDataEncryption {
+    return new SensitiveDataEncryption(this.doc, this.path + "/encryption");
+  }
+
+  // 9.6. Audit and Logging.
+  get auditAndLogging(): AuditAndLogging {
+    return new AuditAndLogging(this.doc, this.path + "/auditAndLogging");
+  }
+
+  // 9.7. Role Matrix..
+  get roleMatrix(): RoleMatrix {
+    return new RoleMatrix(this.doc, this.path + "/roleMatrix");
+  }
+
+  // 9.8. Compliance Framework.
+  get complianceFramework(): ComplianceFramework {
+    return new ComplianceFramework(this.doc, this.path + "/complianceFramework");
+  }
+}
+
+// A security audit requirement entry (form).
 export class SecurityAuditEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -41557,7 +42171,7 @@ export class SecurityAuditEntryScheduling extends SomNode {
   }
 }
 
-// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+// 8.8.3. Security Audit Requirements.
 //
 // Comprehensive security audit requirements covering penetration testing,
 // security-focused code review, dependency scanning, security certifications,
@@ -41614,7 +42228,7 @@ export class SecurityAuditRequirementsSection extends SomNode {
   }
 }
 
-// Security certification and compliance requirements [PD00-TEC-SEC-AUD].
+// Security certification and compliance requirements.
 export class SecurityCertificationRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -41689,7 +42303,7 @@ export class SecurityCertificationRequirementsSoc2 extends SomNode {
   }
 }
 
-// Security-focused code review policy [PD00-TEC-SEC-AUD].
+// Security-focused code review policy.
 //
 // Distinct from CodeReviewProcess (section 8.4) which covers general
 // development code review. This section focuses specifically on
@@ -41810,7 +42424,7 @@ export class SecurityControlEntryVerification extends SomNode {
   }
 }
 
-// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+// 4.3.3.n.2. Security Controls.
 //
 // Security controls that implement or support this requirement.
 export class SecurityControls extends SomNode {
@@ -41891,7 +42505,7 @@ export class SecurityDevelopmentLifecycleTesting extends SomNode {
   }
 }
 
-// A custom security event entry (form) [PD00-ACC-AUD-EVE-nn].
+// A custom security event entry (form).
 //
 // Allows defining additional application-specific security events
 // beyond the standard categories.
@@ -41922,7 +42536,7 @@ export class SecurityEventLoggingPolicy extends SomNode {
   // (skipped: notes has no target type)
 }
 
-// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+// 9.6.1. Security Events.
 //
 // Defines which security events must be logged: authentication attempts,
 // authorization failures, data access, configuration changes, admin actions,
@@ -41971,7 +42585,7 @@ export class SecurityEventsDefinition extends SomNode {
   }
 }
 
-// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
+// 11.3.4. Security quality.
 export class SecurityQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -42049,7 +42663,7 @@ export class SecurityQualityVulnerability extends SomNode {
   }
 }
 
-// A security requirement entry [PD00-SYO-REQ-SEC-nn].
+// A security requirement entry.
 //
 // Comprehensive security requirement definition following OWASP ASVS,
 // ISO 27001, and security best practices.
@@ -42082,22 +42696,22 @@ export class SecurityRequirementEntry extends SomNode {
     return new SecurityRequirementEntryStatus(this.doc, this.path + "/statusInfo");
   }
 
-  // 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
+  // 4.3.3.n.1. Acceptance Criteria.
   get acceptanceCriteria(): RequirementAcceptanceCriteria {
     return new RequirementAcceptanceCriteria(this.doc, this.path + "/acceptanceCriteria");
   }
 
-  // 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+  // 4.3.3.n.2. Security Controls.
   get controls(): SecurityControls {
     return new SecurityControls(this.doc, this.path + "/controls");
   }
 
-  // 4.3.3.n.3. Dependencies [PD00-SYO-REQ-SEC-nn-DEP].
+  // 4.3.3.n.3. Dependencies.
   get dependencies(): RequirementDependencies {
     return new RequirementDependencies(this.doc, this.path + "/dependencies");
   }
 
-  // 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
+  // 4.3.3.n.4. Traceability.
   get traceability(): RequirementTraceability {
     return new RequirementTraceability(this.doc, this.path + "/traceability");
   }
@@ -42147,7 +42761,7 @@ export class SecurityRequirementEntryVerification extends SomNode {
   }
 }
 
-// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+// 4.3.3. Security Requirements.
 //
 // Container for security requirements. Security requirements describe
 // information protection, access control, authentication, authorization,
@@ -42252,7 +42866,7 @@ export class SecurityStandardComplianceEntryStatus extends SomNode {
   }
 }
 
-// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
+// A security standard entry (form).
 export class SecurityStandardEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -42311,7 +42925,7 @@ export class SecurityStandardEntryVerification extends SomNode {
   }
 }
 
-// Automated security testing integration [PD00-TEC-SEC-AUD].
+// Automated security testing integration.
 //
 // Requirements for SAST, DAST, IAST, and fuzzing integration
 // into the CI/CD pipeline and development workflow.
@@ -42405,7 +43019,7 @@ export class SecurityTestingAutomationScanning extends SomNode {
   }
 }
 
-// Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
+// Self-registration policy (form).
 //
 // Defines self-service identity creation: registration flow, required
 // fields, verification, approval, rate limiting, and domain restrictions.
@@ -42523,7 +43137,7 @@ export class SelfServiceAccountManagement extends SomNode {
   // (skipped: selfServiceDescription has no target type)
 }
 
-// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+// 9.5. Sensitive Data Encryption.
 export class SensitiveDataEncryption extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -42537,17 +43151,17 @@ export class SensitiveDataEncryption extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+  // 9.5.1. Encryption At Rest.
   get encryptionAtRest(): EncryptionAtRest {
     return new EncryptionAtRest(this.doc, this.path + "/encryptionAtRest");
   }
 
-  // 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+  // 9.5.2. Encryption In Transit.
   get encryptionInTransit(): EncryptionInTransit {
     return new EncryptionInTransit(this.doc, this.path + "/encryptionInTransit");
   }
 
-  // 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+  // 9.5.3. Key Management.
   get keyManagement(): KeyManagement {
     return new KeyManagement(this.doc, this.path + "/keyManagement");
   }
@@ -42703,7 +43317,7 @@ export class ServerOsRequirementsSecurity extends SomNode {
   }
 }
 
-// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+// 8.4.1. Server Requirements.
 //
 // Server compute requirements: CPU, memory, storage, expected load profile,
 // and scaling requirements.
@@ -42966,7 +43580,7 @@ export class ServiceAccountLifecycle extends SomNode {
   // (skipped: serviceAccountDescription has no target type)
 }
 
-// A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].
+// A service level agreement entry.
 export class ServiceLevelAgreementEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -43036,7 +43650,7 @@ export class ServiceLevelIndicatorsQuality extends SomNode {
   }
 }
 
-// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
+// 11.4.2. Service level quality.
 export class ServiceLevelQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -43221,7 +43835,7 @@ export class SessionLifecycleMonitoring extends SomNode {
   // (skipped: sessionLifecycleDetails has no target type)
 }
 
-// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+// 9.2.4. Session Management.
 //
 // Comprehensive session management policy covering session timeouts,
 // concurrent session control, session revocation, remember-me functionality,
@@ -43275,7 +43889,7 @@ export class SessionManagement extends SomNode {
   }
 }
 
-// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+// 4.1.5.4. Session Model.
 //
 // Defines session management including authentication, timeouts, and
 // multi-device session handling.
@@ -43397,7 +44011,7 @@ export class SessionTimeoutPolicy extends SomNode {
   // (skipped: sessionTimeoutDetails has no target type)
 }
 
-// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+// 1.1.3.3. Shared Infrastructure Dependencies.
 //
 // Dependencies on shared infrastructure components used by multiple systems.
 export class SharedInfrastructureDependencies extends SomNode {
@@ -43419,7 +44033,7 @@ export class SharedInfrastructureDependencies extends SomNode {
   }
 }
 
-// A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
+// A shared infrastructure entry (form).
 //
 // Documents a shared infrastructure component that multiple systems depend on.
 export class SharedInfrastructureEntry extends SomNode {
@@ -43629,7 +44243,7 @@ export class SharedServiceEntry extends SomNode {
   }
 }
 
-// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+// 14.2.5. Sign-off Process.
 //
 // Formal sign-off process: who signs off (business acceptance board,
 // technical acceptance board), what documents are signed, legal and
@@ -43727,7 +44341,7 @@ export class SignOffProcessTimeline extends SomNode {
   }
 }
 
-// Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO].
+// Single Sign-On policy (form).
 //
 // Defines SSO scope, protocol, session propagation, federation,
 // logout propagation, and platform-specific SSO strategies.
@@ -43808,7 +44422,7 @@ export class SingleSignOnPolicySession extends SomNode {
   }
 }
 
-// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+// 8.7.2.5. SLA and SLO Monitoring.
 //
 // Service Level Agreement and Service Level Objective tracking.
 export class SlaAndSloMonitoring extends SomNode {
@@ -43914,7 +44528,7 @@ export class SlaMonitoringRequirementsReporting extends SomNode {
   }
 }
 
-// An SLO entry [PD00-TEC-SYS-MON-SLA-nn].
+// An SLO entry.
 export class SloEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -43957,7 +44571,7 @@ export class SloEntryTarget extends SomNode {
   }
 }
 
-// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+// 14.1.1. Software Deliverables.
 export class SoftwareDeliverables extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -43977,7 +44591,7 @@ export class SoftwareDeliverables extends SomNode {
   }
 }
 
-// 8.2. Software Design Requirements [PD00-TEC-SOF].
+// 8.2. Software Design Requirements.
 export class SoftwareDesignRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -43991,17 +44605,17 @@ export class SoftwareDesignRequirements extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+  // 8.2.1. Layering and Module Structure.
   get layeringAndModuleStructure(): LayeringAndModuleStructure {
     return new LayeringAndModuleStructure(this.doc, this.path + "/layeringAndModuleStructure");
   }
 
-  // 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+  // 8.2.2. Development Environment.
   get developmentEnvironment(): DevelopmentEnvironment {
     return new DevelopmentEnvironment(this.doc, this.path + "/developmentEnvironment");
   }
 
-  // 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+  // 8.2.3. Reusable Components.
   get reusableComponents(): ReusableComponentsSection {
     return new ReusableComponentsSection(this.doc, this.path + "/reusableComponents");
   }
@@ -44082,7 +44696,133 @@ export class SoftwareLayerEntryTechnology extends SomNode {
   }
 }
 
-// Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn].
+// SBP.11 Solution Architecture & Technology.
+//
+// Public anchor: ISO/IEC/IEEE 42010 architecture description.
+export class SolutionArchitectureAndTechnology extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Technical framework and platform concept.
+  get technicalFramework(): TechnicalFrameworkConcept {
+    return new TechnicalFrameworkConcept(this.doc, this.path + "/technicalFramework");
+  }
+
+  // Components, libraries, and services to reuse.
+  get componentsToUse(): ComponentsToUse {
+    return new ComponentsToUse(this.doc, this.path + "/componentsToUse");
+  }
+}
+
+// The complete Solution Blueprint (SBP) document.
+//
+// Contains a [DocumentControl] header block and the SBP sections, sequenced
+// per the public-standards order (§4 of the redesign proposal).
+export class SolutionBlueprint extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "SBP");
+    checkSomModelVersion(SolutionBlueprint.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return SolutionBlueprint.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // SBP.1 Document Control (header + revision history + approvals).
+  get documentControl(): DocumentControl {
+    return new DocumentControl(this.doc, this.path + "/documentControl");
+  }
+
+  // SBP.2 Introduction & Scope.
+  get introductionAndScope(): IntroductionAndScope {
+    return new IntroductionAndScope(this.doc, this.path + "/introductionAndScope");
+  }
+
+  // SBP.3 Glossary & Abbreviations.
+  get glossaryAndAbbreviations(): GlossaryAndAbbreviations {
+    return new GlossaryAndAbbreviations(this.doc, this.path + "/glossaryAndAbbreviations");
+  }
+
+  // SBP.4 Stakeholders & Governance.
+  get stakeholdersAndGovernance(): StakeholdersAndGovernance {
+    return new StakeholdersAndGovernance(this.doc, this.path + "/stakeholdersAndGovernance");
+  }
+
+  // SBP.5 Current Landscape. Seeds → CLA.
+  get currentLandscape(): CurrentLandscape {
+    return new CurrentLandscape(this.doc, this.path + "/currentLandscape");
+  }
+
+  // SBP.6 Assumptions, Constraints & Dependencies.
+  get assumptionsConstraintsDependencies(): AssumptionsConstraintsDependencies {
+    return new AssumptionsConstraintsDependencies(this.doc, this.path + "/assumptionsConstraintsDependencies");
+  }
+
+  // SBP.7 Target Operating Model concept. Seeds → TOM.
+  get targetOperatingModelConcept(): TargetOperatingModelConcept {
+    return new TargetOperatingModelConcept(this.doc, this.path + "/targetOperatingModelConcept");
+  }
+
+  // SBP.8 Information & Data Model. Seeds → IFM.
+  get informationAndDataModel(): InformationAndDataModel {
+    return new InformationAndDataModel(this.doc, this.path + "/informationAndDataModel");
+  }
+
+  // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+  get requirements(): Requirements {
+    return new Requirements(this.doc, this.path + "/requirements");
+  }
+
+  // SBP.11 Solution Architecture & Technology. Seeds → ATS.
+  get solutionArchitectureAndTechnology(): SolutionArchitectureAndTechnology {
+    return new SolutionArchitectureAndTechnology(this.doc, this.path + "/solutionArchitectureAndTechnology");
+  }
+
+  // SBP.12 Security & Access Model. Seeds → SAS.
+  get securityAndAccessModel(): SecurityAndAccessModel {
+    return new SecurityAndAccessModel(this.doc, this.path + "/securityAndAccessModel");
+  }
+
+  // SBP.13 Experience & Interface Design. Seeds → XDS.
+  get experienceAndInterfaceDesign(): ExperienceAndInterfaceDesign {
+    return new ExperienceAndInterfaceDesign(this.doc, this.path + "/experienceAndInterfaceDesign");
+  }
+
+  // SBP.14 Quality & Acceptance Model. Seeds → QAP.
+  get qualityAndAcceptanceModel(): QualityAndAcceptanceModel {
+    return new QualityAndAcceptanceModel(this.doc, this.path + "/qualityAndAcceptanceModel");
+  }
+
+  // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+  get deliveryTransitionAndRollout(): DeliveryTransitionAndRollout {
+    return new DeliveryTransitionAndRollout(this.doc, this.path + "/deliveryTransitionAndRollout");
+  }
+}
+
+// Specialized equipment entry (form).
 export class SpecializedEquipmentEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -44189,7 +44929,7 @@ export class StaffingBudgetGovernance extends SomNode {
   }
 }
 
-// A staffing entry (form) [PD00-ORG-JOB-STA-nn].
+// A staffing entry (form).
 //
 // Represents one staffing position including role, competency requirements,
 // sourcing method, budget, timeline, and approval status.
@@ -44267,7 +45007,7 @@ export class StaffingEntryRecruitment extends SomNode {
   }
 }
 
-// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+// 5.2.4. Staffing Plan.
 export class StaffingPlan extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -44327,7 +45067,7 @@ export class StageDeployment extends SomNode {
   }
 }
 
-// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+// A stage entry (form) with description subsections.
 //
 // Represents a single delivery stage — a self-contained increment of the
 // system that delivers measurable business value. Each stage has clear
@@ -44396,7 +45136,7 @@ export class StageEntry extends SomNode {
   // Feature Scope narrative.
   // (skipped: featureScope has no target type)
 
-  // Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
+  // Sub-stages and Milestones — contains 0+× SubStage.
   get subStagesAndMilestones(): SomList<SubStageEntry> {
     return new SomList(this.doc, this.path + "/SUSST-SUBS-LST", (d: SpecDocument, p: string) => new SubStageEntry(d, p));
   }
@@ -44404,7 +45144,7 @@ export class StageEntry extends SomNode {
   // Timeline narrative.
   // (skipped: timelineNarrative has no target type)
 
-  // Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
+  // Success Criteria — contains 0+× StageSuccessCriterion.
   get successCriteria(): SomList<StageSuccessCriterionEntry> {
     return new SomList(this.doc, this.path + "/STGSUC-SUCC-LST", (d: SpecDocument, p: string) => new StageSuccessCriterionEntry(d, p));
   }
@@ -44413,7 +45153,7 @@ export class StageEntry extends SomNode {
   // (skipped: rolloutPlan has no target type)
 }
 
-// 13.6. Governance [PD00-SSP-GOV].
+// 13.6. Governance.
 //
 // Governance framework for stage transitions, phase gate reviews,
 // and key decision points. Covers governance structure, authority
@@ -44468,12 +45208,12 @@ export class StageGovernance extends SomNode {
   // Governance narrative and rationale.
   // (skipped: governanceNarrative has no target type)
 
-  // 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+  // 13.6.1. Phase Gate Reviews.
   get phaseGateReviews(): PhaseGateReviews {
     return new PhaseGateReviews(this.doc, this.path + "/phaseGateReviews");
   }
 
-  // 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+  // 13.6.2. Decision Points.
   get decisionPoints(): DecisionPoints {
     return new DecisionPoints(this.doc, this.path + "/decisionPoints");
   }
@@ -44600,7 +45340,7 @@ export class StageMigrationRiskContingency extends SomNode {
   }
 }
 
-// A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
+// A stage migration risk entry (form).
 //
 // Individual risk in the data migration risk register. Covers risk
 // identification, categorization, probability/impact scoring,
@@ -44733,7 +45473,7 @@ export class StageMigrationRiskStatus extends SomNode {
   }
 }
 
-// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+// 13.5.2. Migration Risks.
 //
 // Risk register specific to data migration activities. Covers data
 // loss, corruption, downtime overrun, compliance violations,
@@ -44756,7 +45496,7 @@ export class StageMigrationRisks extends SomNode {
   }
 }
 
-// 13.2. Stage Overview [PD00-SSP-STA].
+// 13.2. Stage Overview.
 //
 // High-level summary across all planned stages including aggregate
 // metrics, critical-path identification, resource allocation patterns,
@@ -44828,7 +45568,7 @@ export class StageOverview extends SomNode {
     return new StageOverviewConstraints(this.doc, this.path + "/constraints");
   }
 
-  // 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
+  // 13.2.1. Stage Summary — contains 1+× Stage
   // Summary Entry.
   get stageSummaries(): SomList<StageSummaryEntry> {
     return new SomList(this.doc, this.path + "/STAGSE-STAG-LST", (d: SpecDocument, p: string) => new StageSummaryEntry(d, p));
@@ -44837,18 +45577,18 @@ export class StageOverview extends SomNode {
   // Stage Summary narrative.
   // (skipped: stageSummaryNarrative has no target type)
 
-  // 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
+  // 13.2.2. Stage Timeline Diagram (mermaid-gantt).
   // (skipped: timelineDiagram has no target type)
 
-  // 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
+  // 13.2.3. Resource Allocation Diagram
   // (mermaid-gantt).
   // (skipped: resourceAllocationDiagram has no target type)
 
-  // 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
+  // 13.2.4. Budget Distribution Diagram
   // (mermaid-flow).
   // (skipped: budgetDistributionDiagram has no target type)
 
-  // 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
+  // 13.2.5. Dependency Map (mermaid-flow).
   // (skipped: dependencyMap has no target type)
 }
 
@@ -45028,7 +45768,7 @@ export class StageStakeholders extends SomNode {
   }
 }
 
-// A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
+// A success criterion entry (form).
 //
 // Defines a measurable criterion that determines whether a stage has
 // achieved its objectives. Each criterion has a target metric,
@@ -45102,7 +45842,7 @@ export class StageSummaryDependencies extends SomNode {
   }
 }
 
-// A stage summary entry [PD00-SSP-STA-SUM-nn] (form).
+// A stage summary entry (form).
 //
 // Quick-reference record for a single stage within the overview. Each
 // entry captures the essential identification, timeline, scope, and
@@ -45353,7 +46093,7 @@ export class StagingRiskAssessment extends SomNode {
   }
 }
 
-// 13.1. Staging Strategy [PD00-SSP-STR].
+// 13.1. Staging Strategy.
 //
 // Document the rationale behind the chosen staging approach. Consider
 // PMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2
@@ -45430,18 +46170,18 @@ export class StagingStrategy extends SomNode {
     return new StagingGovernance(this.doc, this.path + "/governance");
   }
 
-  // 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+  // 13.1.1. Staging Approach.
   // (skipped: stagingApproach has no target type)
 
-  // 13.1.2. Rationale [PD00-SSP-STR-RAT].
+  // 13.1.2. Rationale.
   // (skipped: rationaleNarrative has no target type)
 
-  // 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
+  // 13.1.3. Key Assumptions.
   get keyAssumptions(): SomList<KeyAssumptionEntry> {
     return new SomList(this.doc, this.path + "/KEYAS-KEYA-LST", (d: SpecDocument, p: string) => new KeyAssumptionEntry(d, p));
   }
 
-  // 13.1.4. Constraints [PD00-SSP-STR-CON].
+  // 13.1.4. Constraints.
   get constraints(): SomList<StagingStrategyConstraintEntry> {
     return new SomList(this.doc, this.path + "/STAGI-CONS-LST", (d: SpecDocument, p: string) => new StagingStrategyConstraintEntry(d, p));
   }
@@ -45516,7 +46256,43 @@ export class StakeholderEntryImpact extends SomNode {
   }
 }
 
-// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+// A register of the project's stakeholders.
+//
+// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
+export class StakeholderRegister extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // One entry per stakeholder or stakeholder group.
+  get stakeholders(): SomList<StakeholderRegisterEntry> {
+    return new SomList(this.doc, this.path + "/STKRG-STAK-LST", (d: SpecDocument, p: string) => new StakeholderRegisterEntry(d, p));
+  }
+}
+
+// A single stakeholder register entry (form).
+//
+// Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
+// `StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+export class StakeholderRegisterEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): StakeholderRegisterEntryContentForm {
+    return new StakeholderRegisterEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 4.1.1.3. Stakeholders and Beneficiaries.
 //
 // Lists all stakeholders and beneficiaries of the system with their
 // interests, influence level, and expected benefits.
@@ -45544,6 +46320,38 @@ export class StakeholdersAndBeneficiaries extends SomNode {
   }
 }
 
+// SBP.4 Stakeholders & Governance.
+//
+// Public anchor: BABOK stakeholder analysis + PMBOK governance.
+export class StakeholdersAndGovernance extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Governance, steering committee, RACI, process deviations.
+  get projectOrganizationProcess(): ProjectOrganizationAndProcess {
+    return new ProjectOrganizationAndProcess(this.doc, this.path + "/projectOrganizationProcess");
+  }
+
+  // Team, distribution, reference documents, communication.
+  get administrative(): Administrative {
+    return new Administrative(this.doc, this.path + "/administrative");
+  }
+
+  // Stakeholder register (§5 completeness addition).
+  get stakeholderRegister(): StakeholderRegister {
+    return new StakeholderRegister(this.doc, this.path + "/stakeholderRegister");
+  }
+}
+
 // Stakeholders and interests.
 export class StakeholdersAndInterests extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -45555,7 +46363,7 @@ export class StakeholdersAndInterests extends SomNode {
   }
 }
 
-// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+// 8.3. Standard Application Software Requirements.
 export class StandardSoftwareRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -45569,18 +46377,18 @@ export class StandardSoftwareRequirements extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+  // 8.3.1. Compatibility Requirements.
   get compatibilityRequirements(): CompatibilityRequirementsSection {
     return new CompatibilityRequirementsSection(this.doc, this.path + "/compatibilityRequirements");
   }
 
-  // 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+  // 8.3.2. Standards Compliance.
   get standardsCompliance(): StandardsComplianceSection {
     return new StandardsComplianceSection(this.doc, this.path + "/standardsCompliance");
   }
 }
 
-// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+// 8.3.2. Standards Compliance.
 //
 // Required compliance with IT standards, industry protocols, and interface
 // specifications.
@@ -45656,7 +46464,7 @@ export class StandardsComplianceSection extends SomNode {
   }
 }
 
-// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+// 3.1.2. Steering Committee.
 //
 // Container for steering committee member descriptions.
 export class SteeringCommittee extends SomNode {
@@ -45765,7 +46573,7 @@ export class StorageLifecyclePolicy extends SomNode {
   // (skipped: storageLifecycleDetails has no target type)
 }
 
-// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+// 4.1.1.5. Strategic Alignment.
 //
 // How this system aligns with organizational strategy, goals, and
 // initiatives. Demonstrates strategic justification for the project.
@@ -45788,7 +46596,7 @@ export class StrategicAlignment extends SomNode {
   }
 }
 
-// A sub-function entry (form) [PD00-BUS-FUN-DEC-nn-SUB-nn].
+// A sub-function entry (form).
 //
 // Lower-level function in the decomposition.
 export class SubFunctionEntry extends SomNode {
@@ -45801,7 +46609,7 @@ export class SubFunctionEntry extends SomNode {
   }
 }
 
-// A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
+// A sub-stage or milestone entry (form).
 //
 // Represents a discrete phase within a stage — alpha, beta, release
 // candidate, pilot, GA — or a key milestone. Sub-stages provide finer
@@ -45896,7 +46704,7 @@ export class SubStageEntryTimeline extends SomNode {
   }
 }
 
-// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+// 4.2.3. Success Criteria.
 //
 // Overall project success criteria that determine whether the project
 // has achieved its objectives. These criteria will be used during
@@ -46034,7 +46842,7 @@ export class SuccessCriteriaSummary extends SomNode {
   }
 }
 
-// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+// A success criterion entry (form).
 //
 // Individual success criterion with comprehensive measurement details,
 // thresholds, and verification requirements.
@@ -46144,7 +46952,7 @@ export class SuccessCriterionVerification extends SomNode {
   }
 }
 
-// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+// 10.8.3. Support Access.
 export class SupportAccess extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -46238,7 +47046,7 @@ export class SupportAccessTickets extends SomNode {
   }
 }
 
-// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+// 14.1.4. Support Deliverables.
 export class SupportDeliverables extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -46258,7 +47066,7 @@ export class SupportDeliverables extends SomNode {
   }
 }
 
-// A supported locale entry [PD00-USE-MUL-LOC-nn].
+// A supported locale entry.
 export class SupportedLocaleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -46301,10 +47109,10 @@ export class SupportedLocaleEntryRollout extends SomNode {
   }
 }
 
-// 8.9. System Architecture [PD00-TEC-ARC].
+// 8.9. System Architecture.
 //
 // Detailed internal architecture (layers, packages, patterns). Covers
-// HBSG AS09-SOF / DR30.
+//
 //
 // Class named `SystemArchitectureSpec` to avoid colliding with any other
 // architecture-related identifier in the model.
@@ -46322,7 +47130,7 @@ export class SystemArchitectureSpec extends SomNode {
   }
 }
 
-// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+// 4.5. System Boundaries. Seeds → BSI.
 //
 // Defines the scope boundaries of the system including external interfaces,
 // out-of-scope items, and operating assumptions. This section provides the
@@ -46336,58 +47144,58 @@ export class SystemBoundaries extends SomNode {
   // Overview of system boundaries and scope definition approach.
   // (skipped: overview has no target type)
 
-  // 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+  // 4.5.1. Interfaces to External Systems — contains 0+×.
   get externalInterfaces(): ExternalInterfaces {
     return new ExternalInterfaces(this.doc, this.path + "/externalInterfaces");
   }
 
-  // 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
+  // 4.5.2. Out of Scope — contains 0+×.
   get outOfScope(): OutOfScope {
     return new OutOfScope(this.doc, this.path + "/outOfScope");
   }
 
-  // 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
+  // 4.5.3. Assumptions — contains 0+×.
   get assumptions(): BoundaryAssumptions {
     return new BoundaryAssumptions(this.doc, this.path + "/assumptions");
   }
 
-  // 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV]. Covers BSI-LAN-INV.
+  // 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
   get systemLandscapeInventory(): SystemLandscapeInventory {
     return new SystemLandscapeInventory(this.doc, this.path + "/systemLandscapeInventory");
   }
 
-  // 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
+  // 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
   get boundaryInteractionPatterns(): SomList<BoundaryInteractionPatterns> {
     return new SomList(this.doc, this.path + "/BOINPA-BOUN-LST", (d: SpecDocument, p: string) => new BoundaryInteractionPatterns(d, p));
   }
 
-  // 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
+  // 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
   get interactionTestingStrategy(): InteractionTestingStrategy {
     return new InteractionTestingStrategy(this.doc, this.path + "/interactionTestingStrategy");
   }
 
-  // 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP]. Covers BSI-DEP.
+  // 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
   get interactionDependencyAnalysis(): InteractionDependencyAnalysis {
     return new InteractionDependencyAnalysis(this.doc, this.path + "/interactionDependencyAnalysis");
   }
 
-  // 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
+  // 4.5.8. Migration Interactions. Covers BSI-MIG.
   get migrationInteractions(): SomList<MigrationInteractions> {
     return new SomList(this.doc, this.path + "/MIIN-MIGR-LST", (d: SpecDocument, p: string) => new MigrationInteractions(d, p));
   }
 
-  // 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+  // 4.5.9. Cross-Boundary Operational Considerations.
   get operationalConsiderations(): SomList<CrossBoundaryOperationalConsiderations> {
     return new SomList(this.doc, this.path + "/CBOC-OPER-LST", (d: SpecDocument, p: string) => new CrossBoundaryOperationalConsiderations(d, p));
   }
 
-  // 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+  // 4.5.10. Cross-Boundary Error Handling.
   get crossBoundaryErrorHandling(): CrossBoundaryErrorHandling {
     return new CrossBoundaryErrorHandling(this.doc, this.path + "/crossBoundaryErrorHandling");
   }
 }
 
-// Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS].
+// Business criticality assessment.
 export class SystemBusinessCriticality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -46440,7 +47248,7 @@ export class SystemBusinessCriticalityOperations extends SomNode {
   }
 }
 
-// Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn].
+// Business process supported.
 export class SystemBusinessProcessEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -46451,7 +47259,7 @@ export class SystemBusinessProcessEntry extends SomNode {
   }
 }
 
-// Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn].
+// Business unit using the system.
 export class SystemBusinessUnitEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -46521,7 +47329,7 @@ export class SystemConfigurationManagementGovernance extends SomNode {
   }
 }
 
-// 4.1.2. System Context [PD00-SYO-SYD-CON].
+// 4.1.2. System Context.
 //
 // Describes the system in its operational context: how it fits within the
 // organization's IT landscape, who interacts with it, and what external
@@ -46539,48 +47347,48 @@ export class SystemContext extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+  // 4.1.2.1. Context Diagram.
   get contextDiagram(): ContextDiagram {
     return new ContextDiagram(this.doc, this.path + "/contextDiagram");
   }
 
-  // 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+  // 4.1.2.2. IT Landscape Position.
   get itLandscapePosition(): ItLandscapePosition {
     return new ItLandscapePosition(this.doc, this.path + "/itLandscapePosition");
   }
 
-  // 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+  // 4.1.2.3. External Actors.
   get externalActors(): ExternalActors {
     return new ExternalActors(this.doc, this.path + "/externalActors");
   }
 
-  // 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+  // 4.1.2.4. External Systems.
   get externalSystems(): ExternalSystemsContext {
     return new ExternalSystemsContext(this.doc, this.path + "/externalSystems");
   }
 
-  // 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+  // 4.1.2.5. Trust Boundaries.
   get trustBoundaries(): TrustBoundaries {
     return new TrustBoundaries(this.doc, this.path + "/trustBoundaries");
   }
 
-  // 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+  // 4.1.2.6. Organizational Context.
   get organizationalContext(): OrganizationalContext {
     return new OrganizationalContext(this.doc, this.path + "/organizationalContext");
   }
 
-  // 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+  // 4.1.2.7. Deployment Context.
   get deploymentContext(): DeploymentContext {
     return new DeploymentContext(this.doc, this.path + "/deploymentContext");
   }
 
-  // 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+  // 4.1.2.8. Regulatory Context.
   get regulatoryContext(): RegulatoryContext {
     return new RegulatoryContext(this.doc, this.path + "/regulatoryContext");
   }
 }
 
-// Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST].
+// Cost analysis for replacement.
 export class SystemCostAnalysis extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -46647,7 +47455,7 @@ export class SystemCostAnalysisMigration extends SomNode {
   }
 }
 
-// Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT].
+// Data scope and migration assessment.
 export class SystemDataScope extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -46700,7 +47508,7 @@ export class SystemDataScopeMigration extends SomNode {
   }
 }
 
-// A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+// A system dependency entry (form).
 //
 // Documents one dependency between systems in the current landscape:
 // mechanism, coupling strength, data flow, failure impact, SLA,
@@ -46787,7 +47595,7 @@ export class SystemDependencyEntryReliability extends SomNode {
   }
 }
 
-// 4.1. System Description [PD00-SYO-SYD].
+// 4.1. System Description.
 //
 // Concise description of the system to be created, its primary purpose,
 // and the business domain it addresses. This section provides the
@@ -46810,27 +47618,27 @@ export class SystemDescription extends SomNode {
     return new SystemDescriptionSummary(this.doc, this.path + "/descriptionSummary");
   }
 
-  // 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+  // 4.1.1. System Purpose.
   get systemPurpose(): SystemPurpose {
     return new SystemPurpose(this.doc, this.path + "/systemPurpose");
   }
 
-  // 4.1.2. System Context [PD00-SYO-SYD-CON].
+  // 4.1.2. System Context.
   get systemContext(): SystemContext {
     return new SystemContext(this.doc, this.path + "/systemContext");
   }
 
-  // 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+  // 4.1.3. Description of Task Area.
   get taskArea(): TaskArea {
     return new TaskArea(this.doc, this.path + "/taskArea");
   }
 
-  // 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+  // 4.1.4. User Categories — contains 1+× User Category.
   get userCategories(): SomList<UserCategoryEntry> {
     return new SomList(this.doc, this.path + "/USCA-USER-LST", (d: SpecDocument, p: string) => new UserCategoryEntry(d, p));
   }
 
-  // 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+  // 4.1.5. User Interaction Model.
   get userInteractionModel(): UserInteractionModel {
     return new UserInteractionModel(this.doc, this.path + "/userInteractionModel");
   }
@@ -46914,7 +47722,7 @@ export class SystemDiagnosticToolsTracing extends SomNode {
   }
 }
 
-// A system error code entry [PD00-USE-ERR-SYS-CODE-nn].
+// A system error code entry.
 export class SystemErrorCodeEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -46957,7 +47765,7 @@ export class SystemErrorCodeEntryOperations extends SomNode {
   }
 }
 
-// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+// 10.7.2. System Error Display.
 //
 // System error presentation including server errors, network issues,
 // and timeouts.
@@ -47059,7 +47867,7 @@ export class SystemIntegrationDataExchange extends SomNode {
   }
 }
 
-// A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+// A system integration entry (form).
 //
 // Documents one integration between systems: type, pattern, protocol,
 // data format, throughput, error handling, monitoring, security,
@@ -47167,7 +47975,7 @@ export class SystemIntegrationThroughput extends SomNode {
   }
 }
 
-// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+// 1.1.1. System Inventory.
 //
 // Container for individual system descriptions. Add one entry per existing
 // system relevant to the project scope.
@@ -47184,13 +47992,13 @@ export class SystemInventory extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
+  // Contains 1+× Existing System.
   get systems(): SomList<ExistingSystemEntry> {
     return new SomList(this.doc, this.path + "/ESENT-SYST-LST", (d: SpecDocument, p: string) => new ExistingSystemEntry(d, p));
   }
 }
 
-// Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW].
+// Knowledge transfer status.
 export class SystemKnowledgeTransfer extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -47209,7 +48017,7 @@ export class SystemKnowledgeTransfer extends SomNode {
   // (skipped: knowledgeTransferPlan has no target type)
 }
 
-// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV].
+// 4.5.4. System Landscape Inventory.
 //
 // Complete external-system inventory covering BSI-LAN-INV content.
 export class SystemLandscapeInventory extends SomNode {
@@ -47226,7 +48034,7 @@ export class SystemLandscapeInventory extends SomNode {
   }
 }
 
-// Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG].
+// Per-system migration plan.
 export class SystemMigrationPlan extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -47280,7 +48088,7 @@ export class SystemMigrationPlanExecution extends SomNode {
   }
 }
 
-// A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn].
+// A system migration risk entry.
 export class SystemMigrationRiskEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -47291,7 +48099,7 @@ export class SystemMigrationRiskEntry extends SomNode {
   }
 }
 
-// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+// 8.7.1. System Operation.
 export class SystemOperation extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -47305,7 +48113,7 @@ export class SystemOperation extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+  // 8.7.1.1. Administration Requirements.
   get administrationRequirements(): AdministrationRequirementsSection {
     return new AdministrationRequirementsSection(this.doc, this.path + "/administrationRequirements");
   }
@@ -47316,7 +48124,7 @@ export class SystemOperation extends SomNode {
   }
 }
 
-// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+// 8.7. System Operation and Monitoring.
 export class SystemOperationAndMonitoring extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -47330,87 +48138,19 @@ export class SystemOperationAndMonitoring extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+  // 8.7.1. System Operation.
   get systemOperation(): SystemOperation {
     return new SystemOperation(this.doc, this.path + "/systemOperation");
   }
 
-  // 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+  // 8.7.2. Monitoring.
   get monitoring(): Monitoring {
     return new Monitoring(this.doc, this.path + "/monitoring");
   }
 
-  // 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+  // 8.7.3. Capacity Planning.
   get capacityPlanning(): CapacityPlanningSection {
     return new CapacityPlanningSection(this.doc, this.path + "/capacityPlanning");
-  }
-}
-
-// 4. System Overview [PD00-SYO].
-//
-// High-level overview of the system to be built: its purpose, goals,
-// scope boundaries, and the environment it operates in. This section
-// establishes the foundation for all subsequent specification work.
-export class SystemOverview extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // System overview summary statistics.
-  get summary(): SystemOverviewSummary {
-    return new SystemOverviewSummary(this.doc, this.path + "/summary");
-  }
-
-  // System context diagram showing major system boundaries.
-  get systemContextDiagram(): string {
-    return this.doc.content(this.path + "/systemContextDiagram") || '';
-  }
-
-  set systemContextDiagram(value: string) {
-    this.doc.setContent(this.path + "/systemContextDiagram", value);
-  }
-
-  // 4.1. System Description [PD00-SYO-SYD].
-  get systemDescription(): SystemDescription {
-    return new SystemDescription(this.doc, this.path + "/systemDescription");
-  }
-
-  // 4.2. Goals [PD00-SYO-GOA].
-  get goals(): Goals {
-    return new Goals(this.doc, this.path + "/goals");
-  }
-
-  // 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
-  get requirements(): RequirementsOverview {
-    return new RequirementsOverview(this.doc, this.path + "/requirements");
-  }
-
-  // 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
-  get systemsToReplace(): SystemsToReplace {
-    return new SystemsToReplace(this.doc, this.path + "/systemsToReplace");
-  }
-
-  // 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
-  get systemBoundaries(): SystemBoundaries {
-    return new SystemBoundaries(this.doc, this.path + "/systemBoundaries");
-  }
-
-  // 4.6. Framework Conditions [PD00-SYO-RES].
-  get frameworkConditions(): FrameworkConditions {
-    return new FrameworkConditions(this.doc, this.path + "/frameworkConditions");
-  }
-
-  // 4.7. Risks and Assumptions [PD00-SYO-RIS].
-  get risksAndAssumptions(): RisksAndAssumptions {
-    return new RisksAndAssumptions(this.doc, this.path + "/risksAndAssumptions");
   }
 }
 
@@ -47489,7 +48229,7 @@ export class SystemOverviewSummaryStatus extends SomNode {
   }
 }
 
-// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+// 4.1.1. System Purpose.
 //
 // Describes the overarching purpose of the system including the problem it
 // solves, the opportunity it enables, and who the primary beneficiaries are.
@@ -47507,7 +48247,7 @@ export class SystemPurpose extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Vision Statement [PD00-SYO-SYD-PUR-VIS].
+  // Vision Statement.
   get visionStatement(): string {
     return this.doc.content(this.path + "/visionStatement") || '';
   }
@@ -47516,38 +48256,38 @@ export class SystemPurpose extends SomNode {
     this.doc.setContent(this.path + "/visionStatement", value);
   }
 
-  // 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+  // 4.1.1.1. Problem Statement.
   get problemStatement(): ProblemStatement {
     return new ProblemStatement(this.doc, this.path + "/problemStatement");
   }
 
-  // 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+  // 4.1.1.2. Opportunity Statement.
   get opportunityStatement(): OpportunityStatement {
     return new OpportunityStatement(this.doc, this.path + "/opportunityStatement");
   }
 
-  // 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+  // 4.1.1.3. Stakeholders and Beneficiaries.
   get stakeholders(): StakeholdersAndBeneficiaries {
     return new StakeholdersAndBeneficiaries(this.doc, this.path + "/stakeholders");
   }
 
-  // 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+  // 4.1.1.4. Value Proposition.
   get valueProposition(): ValueProposition {
     return new ValueProposition(this.doc, this.path + "/valueProposition");
   }
 
-  // 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+  // 4.1.1.5. Strategic Alignment.
   get strategicAlignment(): StrategicAlignment {
     return new StrategicAlignment(this.doc, this.path + "/strategicAlignment");
   }
 
-  // 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+  // 4.1.1.6. Scope Boundaries.
   get scopeBoundaries(): ScopeBoundaries {
     return new ScopeBoundaries(this.doc, this.path + "/scopeBoundaries");
   }
 }
 
-// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+// 11. System Quality Goals. Seeds → BQP.
 //
 // Quality goals selected from standard quality criteria and operationalized
 // for project-specific acceptance testing. Provides governing structure for
@@ -47600,42 +48340,42 @@ export class SystemQualityGoals extends SomNode {
   // Quality attribute priority radar.
   // (skipped: qualityRadar has no target type)
 
-  // 11.1. Quality Framework [PD00-SYQ-FRA].
+  // 11.1. Quality Framework.
   get framework(): QualityFramework {
     return new QualityFramework(this.doc, this.path + "/framework");
   }
 
-  // 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+  // 11.2. User-Related Quality Criteria.
   get userQuality(): UserQualityCriteria {
     return new UserQualityCriteria(this.doc, this.path + "/userQuality");
   }
 
-  // 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+  // 11.3. Technical Quality Criteria.
   get technicalQuality(): TechnicalQualityCriteria {
     return new TechnicalQualityCriteria(this.doc, this.path + "/technicalQuality");
   }
 
-  // 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+  // 11.4. Operations Quality Criteria.
   get operationsQuality(): OperationsQualityCriteria {
     return new OperationsQualityCriteria(this.doc, this.path + "/operationsQuality");
   }
 
-  // 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+  // 11.5. Documentation Quality Criteria.
   get documentationQuality(): DocumentationQualityCriteria {
     return new DocumentationQualityCriteria(this.doc, this.path + "/documentationQuality");
   }
 
-  // 11.6. Quality Prioritization [PD00-SYQ-PRI].
+  // 11.6. Quality Prioritization.
   get prioritization(): QualityPrioritization {
     return new QualityPrioritization(this.doc, this.path + "/prioritization");
   }
 
-  // 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+  // 11.7. Acceptance Criteria Summary.
   get acceptanceCriteria(): AcceptanceCriteriaSummary {
     return new AcceptanceCriteriaSummary(this.doc, this.path + "/acceptanceCriteria");
   }
 
-  // 11.8. Test Strategy [PD00-SYQ-TST]. Covers HBSG AS23.
+  // 11.8. Test Strategy..
   get testStrategy(): TestStrategy {
     return new TestStrategy(this.doc, this.path + "/testStrategy");
   }
@@ -47685,7 +48425,7 @@ export class SystemQualityGoalsResources extends SomNode {
   }
 }
 
-// Replacement strategy details [PD00-SYO-SYR-INV-nn-STR].
+// Replacement strategy details.
 export class SystemReplacementStrategy extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -47741,98 +48481,7 @@ export class SystemReplacementStrategyTimeline extends SomNode {
   }
 }
 
-// SR00 System Rollout.
-//
-// End-to-end rollout specification — localization, translation,
-// documentation and training, plus rollout plan, migration plan,
-// user manuals, training materials, pilot, cutover, knowledge
-// transfer, and warranty/support.
-export class SystemRollout extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "SR");
-    checkSomModelVersion(SystemRollout.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return SystemRollout.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Localization process — PD00-USE-MUL-LOC.
-  get localizationProcess(): LocalizationProcess {
-    return new LocalizationProcess(this.doc, this.path + "/localizationProcess");
-  }
-
-  // Translation process — PD00-USE-MUL-TRA.
-  get translationProcess(): TranslationProcess {
-    return new TranslationProcess(this.doc, this.path + "/translationProcess");
-  }
-
-  // Documentation and training — PD00-USE-MUL-DOC.
-  get documentationAndTraining(): DocumentationAndTraining {
-    return new DocumentationAndTraining(this.doc, this.path + "/documentationAndTraining");
-  }
-
-  // Rollout plan — PD00-ROL-PLN.
-  get rolloutPlan(): RolloutPlan {
-    return new RolloutPlan(this.doc, this.path + "/rolloutPlan");
-  }
-
-  // Migration plan — PD00-ROL-MIG.
-  get migrationPlan(): MigrationPlan {
-    return new MigrationPlan(this.doc, this.path + "/migrationPlan");
-  }
-
-  // User manuals — PD00-ROL-DOC.
-  get userManuals(): SomList<UserManuals> {
-    return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d: SpecDocument, p: string) => new UserManuals(d, p));
-  }
-
-  // Training materials — PD00-ROL-TRN.
-  get trainingMaterials(): SomList<RolloutTrainingMaterials> {
-    return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d: SpecDocument, p: string) => new RolloutTrainingMaterials(d, p));
-  }
-
-  // Pilot plan — PD00-ROL-PIL.
-  get pilotPlan(): PilotPlan {
-    return new PilotPlan(this.doc, this.path + "/pilotPlan");
-  }
-
-  // Cutover procedures — PD00-ROL-CUT.
-  get cutoverProcedures(): SomList<CutoverProcedures> {
-    return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d: SpecDocument, p: string) => new CutoverProcedures(d, p));
-  }
-
-  // Knowledge transfer — PD00-ROL-KNO.
-  get knowledgeTransfer(): KnowledgeTransfer {
-    return new KnowledgeTransfer(this.doc, this.path + "/knowledgeTransfer");
-  }
-
-  // Warranty and support — PD00-ROL-WAR.
-  get warrantyAndSupport(): WarrantyAndSupport {
-    return new WarrantyAndSupport(this.doc, this.path + "/warrantyAndSupport");
-  }
-}
-
-// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
+// 15. System Rollout Concept. Seeds → SR.
 export class SystemRolloutConcept extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -47846,48 +48495,48 @@ export class SystemRolloutConcept extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 15.1. Rollout Plan [PD00-ROL-PLN].
+  // 15.1. Rollout Plan.
   get rolloutPlan(): RolloutPlan {
     return new RolloutPlan(this.doc, this.path + "/rolloutPlan");
   }
 
-  // 15.2. Migration Plan [PD00-ROL-MIG].
+  // 15.2. Migration Plan.
   get migrationPlan(): MigrationPlan {
     return new MigrationPlan(this.doc, this.path + "/migrationPlan");
   }
 
-  // 15.3. User Manuals [PD00-ROL-DOC].
+  // 15.3. User Manuals.
   get userManuals(): SomList<UserManuals> {
     return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d: SpecDocument, p: string) => new UserManuals(d, p));
   }
 
-  // 15.4. Training Materials [PD00-ROL-TRN].
+  // 15.4. Training Materials.
   get trainingMaterials(): SomList<RolloutTrainingMaterials> {
     return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d: SpecDocument, p: string) => new RolloutTrainingMaterials(d, p));
   }
 
-  // 15.5. Pilot Plan [PD00-ROL-PIL].
+  // 15.5. Pilot Plan.
   get pilotPlan(): PilotPlan {
     return new PilotPlan(this.doc, this.path + "/pilotPlan");
   }
 
-  // 15.6. Cutover Procedures [PD00-ROL-CUT].
+  // 15.6. Cutover Procedures.
   get cutoverProcedures(): SomList<CutoverProcedures> {
     return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d: SpecDocument, p: string) => new CutoverProcedures(d, p));
   }
 
-  // 15.7. Knowledge Transfer [PD00-ROL-KNO].
+  // 15.7. Knowledge Transfer.
   get knowledgeTransfer(): KnowledgeTransfer {
     return new KnowledgeTransfer(this.doc, this.path + "/knowledgeTransfer");
   }
 
-  // 15.8. Warranty and Support [PD00-ROL-WAR].
+  // 15.8. Warranty and Support.
   get warrantyAndSupport(): WarrantyAndSupport {
     return new WarrantyAndSupport(this.doc, this.path + "/warrantyAndSupport");
   }
 }
 
-// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+// 13. System Stage Plan. Seeds → PPP.
 //
 // Define the overall staging strategy for the system rollout. A stage
 // is a meaningful, self-contained subset of the complete system that
@@ -47919,42 +48568,42 @@ export class SystemStagePlan extends SomNode {
     return new SystemStagePlanReadiness(this.doc, this.path + "/readiness");
   }
 
-  // 13.1. Staging Strategy [PD00-SSP-STR].
+  // 13.1. Staging Strategy.
   get strategy(): StagingStrategy {
     return new StagingStrategy(this.doc, this.path + "/strategy");
   }
 
-  // 13.2. Stage Overview [PD00-SSP-STA].
+  // 13.2. Stage Overview.
   get stageOverview(): StageOverview {
     return new StageOverview(this.doc, this.path + "/stageOverview");
   }
 
-  // 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
+  // 13.3. Stages — contains 1+× Stage.
   get stages(): SomList<StageEntry> {
     return new SomList(this.doc, this.path + "/STAGE-STAG-LST", (d: SpecDocument, p: string) => new StageEntry(d, p));
   }
 
-  // 13.4. Feature Prioritization [PD00-SSP-FEA].
+  // 13.4. Feature Prioritization.
   get featurePrioritization(): FeaturePrioritization {
     return new FeaturePrioritization(this.doc, this.path + "/featurePrioritization");
   }
 
-  // 13.5. Data Migration Strategy [PD00-SSP-MIG].
+  // 13.5. Data Migration Strategy.
   get dataMigration(): DataMigrationStrategy {
     return new DataMigrationStrategy(this.doc, this.path + "/dataMigration");
   }
 
-  // 13.6. Governance [PD00-SSP-GOV].
+  // 13.6. Governance.
   get governance(): StageGovernance {
     return new StageGovernance(this.doc, this.path + "/governance");
   }
 
-  // 13.7. Initial Development Flow [PD00-SSP-IDV]. Covers PPP-IDV.
+  // 13.7. Initial Development Flow. Covers PPP-IDV.
   get initialDevelopmentFlow(): InitialDevelopmentFlow {
     return new InitialDevelopmentFlow(this.doc, this.path + "/initialDevelopmentFlow");
   }
 
-  // 13.8. Upgrade Cycle Framework [PD00-SSP-UPG]. Covers PPP-UPG.
+  // 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
   get upgradeCycleFramework(): UpgradeCycleFramework {
     return new UpgradeCycleFramework(this.doc, this.path + "/upgradeCycleFramework");
   }
@@ -47993,7 +48642,7 @@ export class SystemStagePlanTimeline extends SomNode {
   }
 }
 
-// A system task entry [PD00-SYO-SYD-USR-nn-TSK-mm].
+// A system task entry.
 //
 // Describes one activity this user category performs with the system.
 // Tasks map to Use Cases in the UC document.
@@ -48088,7 +48737,7 @@ export class SystemTaskWorkflowStepEntry extends SomNode {
   }
 }
 
-// Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC].
+// Technical assessment for a system to replace.
 export class SystemTechnicalAssessment extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -48157,7 +48806,7 @@ export class SystemTechnicalAssessmentQuality extends SomNode {
   }
 }
 
-// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+// A system to replace entry (form).
 //
 // Comprehensive documentation of a legacy system to be replaced, covering
 // technical assessment, business criticality, replacement strategy, and
@@ -48250,7 +48899,7 @@ export class SystemToReplaceEntryVendor extends SomNode {
   }
 }
 
-// System training entry (form) [PD00-ORG-WOR-nn-TRA-SYS-nn].
+// System training entry (form).
 export class SystemTrainingEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -48309,7 +48958,7 @@ export class SystemTrainingEntrySupport extends SomNode {
   }
 }
 
-// User impact assessment [PD00-SYO-SYR-INV-nn-USR].
+// User impact assessment.
 export class SystemUserImpact extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -48373,7 +49022,7 @@ export class SystemUserImpactEnablement extends SomNode {
   }
 }
 
-// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+// 4.4. Systems to Replace. Seeds → CS.
 //
 // Documents existing systems that will be replaced, migrated, or decommissioned
 // as part of the project. Follows TOGAF migration planning patterns and
@@ -48387,18 +49036,18 @@ export class SystemsToReplace extends SomNode {
   // Overview of the systems replacement scope and strategy.
   // (skipped: overview has no target type)
 
-  // 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+  // 4.4.1. Replacement Inventory — contains 0+×.
   get replacementInventory(): ReplacementInventory {
     return new ReplacementInventory(this.doc, this.path + "/replacementInventory");
   }
 
-  // 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+  // 4.4.2. Migration Considerations.
   get migrationConsiderations(): MigrationConsiderations {
     return new MigrationConsiderations(this.doc, this.path + "/migrationConsiderations");
   }
 }
 
-// A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
+// A tab bar definition entry (form).
 //
 // Defines a tab bar or segmented control on a specific screen.
 export class TabBarDefinitionEntry extends SomNode {
@@ -48448,7 +49097,7 @@ export class TabBarDefinitionEntryLoading extends SomNode {
   }
 }
 
-// A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
+// A tab item entry (form).
 export class TabItemEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -48459,7 +49108,7 @@ export class TabItemEntry extends SomNode {
   }
 }
 
-// 6. Target Business Process Model [PD00-TAR].
+// 6. Target Business Process Model.
 export class TargetBusinessProcessModel extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -48473,14 +49122,126 @@ export class TargetBusinessProcessModel extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
+  // 6.1. Business Process Descriptions. Seeds → BP.
   get businessProcessDescriptions(): BusinessProcessDescriptions {
     return new BusinessProcessDescriptions(this.doc, this.path + "/businessProcessDescriptions");
   }
 
-  // 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+  // 6.2. Process Steps and Actor Interactions. Seeds → UC.
   get processStepsAndActorInteractions(): ProcessStepsAndActorInteractions {
     return new ProcessStepsAndActorInteractions(this.doc, this.path + "/processStepsAndActorInteractions");
+  }
+}
+
+// BP00 Business Processes.
+//
+// Target business process specification — vision, principles, catalog,
+// diagrams, improvements, relationships, detailed workflows,
+// cross-process analysis, exception handling, and KPIs.
+export class TargetOperatingModel extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "TOM");
+    checkSomModelVersion(TargetOperatingModel.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return TargetOperatingModel.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Process vision.
+  get processVision(): ProcessVision {
+    return new ProcessVision(this.doc, this.path + "/processVision");
+  }
+
+  // Design principles.
+  get designPrinciples(): ProcessDesignPrinciples {
+    return new ProcessDesignPrinciples(this.doc, this.path + "/designPrinciples");
+  }
+
+  // Process catalog.
+  get processCatalog(): ProcessCatalog {
+    return new ProcessCatalog(this.doc, this.path + "/processCatalog");
+  }
+
+  // Process overview diagram.
+  get processOverviewDiagram(): ProcessOverviewDiagram {
+    return new ProcessOverviewDiagram(this.doc, this.path + "/processOverviewDiagram");
+  }
+
+  // Improvement summary.
+  get improvementSummary(): ProcessImprovementSummary {
+    return new ProcessImprovementSummary(this.doc, this.path + "/improvementSummary");
+  }
+
+  // Process relationships.
+  get processRelationships(): ProcessRelationships {
+    return new ProcessRelationships(this.doc, this.path + "/processRelationships");
+  }
+
+  // Detailed process workflows.
+  get detailedWorkflows(): SomList<DetailedProcessWorkflows> {
+    return new SomList(this.doc, this.path + "/DEPRWO-DETA-LST", (d: SpecDocument, p: string) => new DetailedProcessWorkflows(d, p));
+  }
+
+  // Cross-process analysis.
+  get crossProcessAnalysis(): CrossProcessAnalysis {
+    return new CrossProcessAnalysis(this.doc, this.path + "/crossProcessAnalysis");
+  }
+
+  // Process exception handling.
+  get exceptionHandling(): ProcessExceptionHandling {
+    return new ProcessExceptionHandling(this.doc, this.path + "/exceptionHandling");
+  }
+
+  // Process metrics and KPIs.
+  get processMetricsAndKpis(): SomList<ProcessMetricsAndKpis> {
+    return new SomList(this.doc, this.path + "/PMAK-PROC-LST", (d: SpecDocument, p: string) => new ProcessMetricsAndKpis(d, p));
+  }
+}
+
+// SBP.7 Target Operating Model concept.
+//
+// Public anchor: BABOK future-state analysis.
+export class TargetOperatingModelConcept extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Target organizational structure and roles.
+  get organizationalFramework(): OrganizationalFramework {
+    return new OrganizationalFramework(this.doc, this.path + "/organizationalFramework");
+  }
+
+  // Target business process model.
+  get targetBusinessProcess(): TargetBusinessProcessModel {
+    return new TargetBusinessProcessModel(this.doc, this.path + "/targetBusinessProcess");
   }
 }
 
@@ -48559,7 +49320,7 @@ export class TargetPlatformEntryVersion extends SomNode {
   }
 }
 
-// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+// 4.1.3. Description of Task Area.
 //
 // Describes the business domain and task area the system addresses.
 // Defines the domain vocabulary and key concepts (ubiquitous language)
@@ -48578,37 +49339,37 @@ export class TaskArea extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+  // 4.1.3.1. Domain Overview.
   get domainOverview(): DomainOverview {
     return new DomainOverview(this.doc, this.path + "/domainOverview");
   }
 
-  // 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+  // 4.1.3.2. Domain Vocabulary.
   get domainVocabulary(): DomainVocabulary {
     return new DomainVocabulary(this.doc, this.path + "/domainVocabulary");
   }
 
-  // 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+  // 4.1.3.3. Key Concepts.
   get keyConcepts(): KeyConcepts {
     return new KeyConcepts(this.doc, this.path + "/keyConcepts");
   }
 
-  // 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+  // 4.1.3.4. Domain Boundaries.
   get domainBoundaries(): DomainBoundaries {
     return new DomainBoundaries(this.doc, this.path + "/domainBoundaries");
   }
 
-  // 4.1.3.5. Business Rules [PD00-SYO-SYD-DES-RUL].
+  // 4.1.3.5. Business Rules.
   get businessRules(): DomainBusinessRules {
     return new DomainBusinessRules(this.doc, this.path + "/businessRules");
   }
 
-  // 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+  // 4.1.3.6. Domain Processes.
   get domainProcesses(): DomainProcesses {
     return new DomainProcesses(this.doc, this.path + "/domainProcesses");
   }
 
-  // 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+  // 4.1.3.7. Domain Events.
   get domainEvents(): DomainEvents {
     return new DomainEvents(this.doc, this.path + "/domainEvents");
   }
@@ -48625,7 +49386,7 @@ export class TeamMemberAvailability extends SomNode {
   }
 }
 
-// A team member entry [PD00-ADM-TEA-nn] (form).
+// A team member entry (form).
 //
 // Detailed information about a project team member including their role,
 // responsibilities, availability, and competencies.
@@ -48787,7 +49548,7 @@ export class TechnicalDependencyEntry extends SomNode {
   }
 }
 
-// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+// 8. Technical Framework Concept. Seeds → TR.
 export class TechnicalFrameworkConcept extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -48801,53 +49562,53 @@ export class TechnicalFrameworkConcept extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+  // 8.1. Basic Technical Requirements.
   get basicRequirements(): BasicTechnicalRequirements {
     return new BasicTechnicalRequirements(this.doc, this.path + "/basicRequirements");
   }
 
-  // 8.2. Software Design Requirements [PD00-TEC-SOF].
+  // 8.2. Software Design Requirements.
   get softwareDesign(): SoftwareDesignRequirements {
     return new SoftwareDesignRequirements(this.doc, this.path + "/softwareDesign");
   }
 
-  // 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+  // 8.3. Standard Application Software Requirements.
   get standardSoftware(): StandardSoftwareRequirements {
     return new StandardSoftwareRequirements(this.doc, this.path + "/standardSoftware");
   }
 
-  // 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+  // 8.4. Hardware Concept Requirements.
   get hardware(): HardwareRequirements {
     return new HardwareRequirements(this.doc, this.path + "/hardware");
   }
 
-  // 8.5. Operations Requirements [PD00-TEC-OPE].
+  // 8.5. Operations Requirements.
   get operations(): OperationsRequirements {
     return new OperationsRequirements(this.doc, this.path + "/operations");
   }
 
-  // 8.6. Communication Requirements [PD00-TEC-COM].
+  // 8.6. Communication Requirements.
   get communication(): CommunicationRequirements {
     return new CommunicationRequirements(this.doc, this.path + "/communication");
   }
 
-  // 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+  // 8.7. System Operation and Monitoring.
   get systemOperation(): SystemOperationAndMonitoring {
     return new SystemOperationAndMonitoring(this.doc, this.path + "/systemOperation");
   }
 
-  // 8.8. Security Requirements [PD00-TEC-SEC].
+  // 8.8. Security Requirements.
   get security(): TechnicalSecurityRequirements {
     return new TechnicalSecurityRequirements(this.doc, this.path + "/security");
   }
 
-  // 8.9. System Architecture [PD00-TEC-ARC]. Covers HBSG AS09-SOF / DR30.
+  // 8.9. System Architecture..
   get systemArchitecture(): SystemArchitectureSpec {
     return new SystemArchitectureSpec(this.doc, this.path + "/systemArchitecture");
   }
 }
 
-// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → TR.
 //
 // Documents pre-existing technical constraints including mandated platforms,
 // network restrictions, compliance requirements, existing infrastructure
@@ -48897,7 +49658,7 @@ export class TechnicalFrameworkConditions extends SomNode {
   // Technology standards that must be followed.
   // (skipped: standardsOverview has no target type)
 
-  // Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
+  // Technology standards — contains 0+× TechnologyStandard.
   get technologyStandards(): SomList<TechnologyStandardEntry> {
     return new SomList(this.doc, this.path + "/TESTEN-TECH-LST", (d: SpecDocument, p: string) => new TechnologyStandardEntry(d, p));
   }
@@ -48905,7 +49666,7 @@ export class TechnicalFrameworkConditions extends SomNode {
   // Integration constraints overview.
   // (skipped: integrationOverview has no target type)
 
-  // Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
+  // Integration constraints — contains 0+× IntegrationConstraint.
   get integrationConstraints(): SomList<IntegrationConstraintEntry> {
     return new SomList(this.doc, this.path + "/INCOE1-INTE-LST", (d: SpecDocument, p: string) => new IntegrationConstraintEntry(d, p));
   }
@@ -48968,7 +49729,7 @@ export class TechnicalFrameworkConditionsStandards extends SomNode {
   }
 }
 
-// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+// 4.2.2.n.4. Constraints.
 //
 // Technical constraints that may limit or shape how the goal is achieved.
 export class TechnicalGoalConstraints extends SomNode {
@@ -48990,7 +49751,7 @@ export class TechnicalGoalConstraints extends SomNode {
   }
 }
 
-// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+// 4.2.2.n.3. Dependencies.
 //
 // Technical dependencies affecting goal achievement.
 export class TechnicalGoalDependencies extends SomNode {
@@ -49012,7 +49773,7 @@ export class TechnicalGoalDependencies extends SomNode {
   }
 }
 
-// A technical goal entry [PD00-SYO-GOA-TEC-nn].
+// A technical goal entry.
 //
 // Comprehensive technical goal definition with quality attributes,
 // architectural impact, and verification approach.
@@ -49035,22 +49796,22 @@ export class TechnicalGoalEntry extends SomNode {
     return new TechnicalGoalEntryGovernance(this.doc, this.path + "/governance");
   }
 
-  // 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+  // 4.2.2.n.1. Quality Scenarios.
   get qualityScenarios(): QualityScenarios {
     return new QualityScenarios(this.doc, this.path + "/qualityScenarios");
   }
 
-  // 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+  // 4.2.2.n.2. Test Criteria.
   get testCriteria(): TechnicalGoalTestCriteria {
     return new TechnicalGoalTestCriteria(this.doc, this.path + "/testCriteria");
   }
 
-  // 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+  // 4.2.2.n.3. Dependencies.
   get dependencies(): TechnicalGoalDependencies {
     return new TechnicalGoalDependencies(this.doc, this.path + "/dependencies");
   }
 
-  // 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+  // 4.2.2.n.4. Constraints.
   get constraints(): TechnicalGoalConstraints {
     return new TechnicalGoalConstraints(this.doc, this.path + "/constraints");
   }
@@ -49089,7 +49850,7 @@ export class TechnicalGoalTestCaseEntry extends SomNode {
   }
 }
 
-// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+// 4.2.2.n.2. Test Criteria.
 //
 // Specific test criteria and acceptance thresholds for the technical goal.
 export class TechnicalGoalTestCriteria extends SomNode {
@@ -49116,7 +49877,7 @@ export class TechnicalGoalTestCriteria extends SomNode {
   }
 }
 
-// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+// 4.2.2. Technical Goals.
 //
 // Container for technical goal definitions. Technical goals define the
 // non-functional characteristics and technical capabilities the system
@@ -49167,7 +49928,7 @@ export class TechnicalInfrastructure extends SomNode {
   }
 }
 
-// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+// 1.3.3. Technical Pain Points.
 //
 // Problems that affect development and maintenance: outdated technology,
 // security vulnerabilities, lack of documentation, vendor lock-in,
@@ -49207,7 +49968,7 @@ export class TechnicalPainPointsSummary extends SomNode {
   }
 }
 
-// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+// 11.3. Technical Quality Criteria.
 //
 // Quality criteria for the technical implementation including efficiency,
 // portability, flexibility, security, maintainability, and reliability.
@@ -49223,38 +49984,38 @@ export class TechnicalQualityCriteria extends SomNode {
   // Technical quality overview.
   // (skipped: overview has no target type)
 
-  // 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
+  // 11.3.1. Efficiency.
   get efficiency(): EfficiencyQuality {
     return new EfficiencyQuality(this.doc, this.path + "/efficiency");
   }
 
-  // 11.3.2. Portability [PD00-SYQ-TEC-POR].
+  // 11.3.2. Portability.
   get portability(): PortabilityQuality {
     return new PortabilityQuality(this.doc, this.path + "/portability");
   }
 
-  // 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
+  // 11.3.3. Flexibility.
   get flexibility(): FlexibilityQuality {
     return new FlexibilityQuality(this.doc, this.path + "/flexibility");
   }
 
-  // 11.3.4. Security [PD00-SYQ-TEC-SEC].
+  // 11.3.4. Security.
   get security(): SecurityQuality {
     return new SecurityQuality(this.doc, this.path + "/security");
   }
 
-  // 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
+  // 11.3.5. Maintainability.
   get maintainability(): MaintainabilityQuality {
     return new MaintainabilityQuality(this.doc, this.path + "/maintainability");
   }
 
-  // 11.3.6. Reliability [PD00-SYQ-TEC-REL].
+  // 11.3.6. Reliability.
   get reliability(): ReliabilityQuality {
     return new ReliabilityQuality(this.doc, this.path + "/reliability");
   }
 }
 
-// A technical requirement entry [PD00-SYO-REQ-TEC-nn].
+// A technical requirement entry.
 //
 // Comprehensive technical requirement definition following ISO 25010
 // quality characteristics and architecture decision records.
@@ -49292,17 +50053,17 @@ export class TechnicalRequirementEntry extends SomNode {
     return new TechnicalRequirementEntryConstraints(this.doc, this.path + "/constraints");
   }
 
-  // 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+  // 4.3.2.n.1. Acceptance Criteria.
   get acceptanceCriteria(): RequirementAcceptanceCriteria {
     return new RequirementAcceptanceCriteria(this.doc, this.path + "/acceptanceCriteria");
   }
 
-  // 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+  // 4.3.2.n.2. Dependencies.
   get dependencies(): RequirementDependencies {
     return new RequirementDependencies(this.doc, this.path + "/dependencies");
   }
 
-  // 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+  // 4.3.2.n.3. Traceability.
   get traceability(): RequirementTraceability {
     return new RequirementTraceability(this.doc, this.path + "/traceability");
   }
@@ -49363,7 +50124,7 @@ export class TechnicalRequirementEntryVerification extends SomNode {
   }
 }
 
-// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+// 4.3.2. Technical Requirements.
 //
 // Container for technical requirements. Technical requirements describe
 // constraints on how the system is built — platform, performance,
@@ -49393,103 +50154,7 @@ export class TechnicalRequirements extends SomNode {
   }
 }
 
-// TR00 Technical Requirements.
-//
-// Comprehensive technical requirements: basic / software / standard-
-// software / hardware / operations / communication / system-operation
-// / security / architecture, plus components, framework conditions,
-// and translation handling.
-export class TechnicalRequirementsSpec extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "TR");
-    checkSomModelVersion(TechnicalRequirementsSpec.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return TechnicalRequirementsSpec.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Basic technical requirements — PD00-TEC-BAS.
-  get basicTechnicalRequirements(): BasicTechnicalRequirements {
-    return new BasicTechnicalRequirements(this.doc, this.path + "/basicTechnicalRequirements");
-  }
-
-  // Software design requirements — PD00-TEC-SOF.
-  get softwareDesignRequirements(): SoftwareDesignRequirements {
-    return new SoftwareDesignRequirements(this.doc, this.path + "/softwareDesignRequirements");
-  }
-
-  // Standard application software requirements — PD00-TEC-STA.
-  get standardSoftwareRequirements(): StandardSoftwareRequirements {
-    return new StandardSoftwareRequirements(this.doc, this.path + "/standardSoftwareRequirements");
-  }
-
-  // Hardware concept requirements — PD00-TEC-HAR.
-  get hardwareRequirements(): HardwareRequirements {
-    return new HardwareRequirements(this.doc, this.path + "/hardwareRequirements");
-  }
-
-  // Operations requirements — PD00-TEC-OPE.
-  get operationsRequirements(): OperationsRequirements {
-    return new OperationsRequirements(this.doc, this.path + "/operationsRequirements");
-  }
-
-  // Communication requirements — PD00-TEC-COM.
-  get communicationRequirements(): CommunicationRequirements {
-    return new CommunicationRequirements(this.doc, this.path + "/communicationRequirements");
-  }
-
-  // System operation and monitoring — PD00-TEC-SYS.
-  get systemOperationAndMonitoring(): SystemOperationAndMonitoring {
-    return new SystemOperationAndMonitoring(this.doc, this.path + "/systemOperationAndMonitoring");
-  }
-
-  // Technical security requirements — PD00-TEC-SEC.
-  get technicalSecurityRequirements(): TechnicalSecurityRequirements {
-    return new TechnicalSecurityRequirements(this.doc, this.path + "/technicalSecurityRequirements");
-  }
-
-  // System architecture — PD00-TEC-ARC (new in Phase A, HBSG AS09-SOF/DR30).
-  get systemArchitecture(): SystemArchitectureSpec {
-    return new SystemArchitectureSpec(this.doc, this.path + "/systemArchitecture");
-  }
-
-  // Components to use — PD00-COM (whole).
-  get componentsToUse(): ComponentsToUse {
-    return new ComponentsToUse(this.doc, this.path + "/componentsToUse");
-  }
-
-  // Technical framework conditions — PD00-SYO-RES-TEC (whole).
-  get technicalFrameworkConditions(): TechnicalFrameworkConditions {
-    return new TechnicalFrameworkConditions(this.doc, this.path + "/technicalFrameworkConditions");
-  }
-
-  // Translation handling requirements — PD00-USE-MUL-REQ (whole).
-  get translationRequirements(): TranslationRequirements {
-    return new TranslationRequirements(this.doc, this.path + "/translationRequirements");
-  }
-}
-
-// 8.8. Security Requirements [PD00-TEC-SEC].
+// 8.8. Security Requirements.
 export class TechnicalSecurityRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -49503,17 +50168,17 @@ export class TechnicalSecurityRequirements extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+  // 8.8.1. IT Security Standards.
   get itSecurityStandards(): ItSecurityStandardsSection {
     return new ItSecurityStandardsSection(this.doc, this.path + "/itSecurityStandards");
   }
 
-  // 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+  // 8.8.2. Data Protection and Privacy.
   get dataProtectionAndPrivacy(): DataProtectionAndPrivacySection {
     return new DataProtectionAndPrivacySection(this.doc, this.path + "/dataProtectionAndPrivacy");
   }
 
-  // 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+  // 8.8.3. Security Audit Requirements.
   get securityAuditRequirements(): SecurityAuditRequirementsSection {
     return new SecurityAuditRequirementsSection(this.doc, this.path + "/securityAuditRequirements");
   }
@@ -49530,7 +50195,7 @@ export class TechnologyDataVariations extends SomNode {
   }
 }
 
-// A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
+// A technology standard entry (form).
 //
 // Documents a mandated or preferred technology standard that the solution
 // must adhere to. Includes scope, compliance requirements, and exceptions.
@@ -49655,7 +50320,7 @@ export class TenantContextPolicy extends SomNode {
   // (skipped: tenantContextPolicyDetails has no target type)
 }
 
-// A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn].
+// A tenant customization entry (form).
 //
 // Describes a specific area where tenants can customize their authorization
 // model — custom roles, permissions, policies, or workflows. Covers scoping,
@@ -49691,14 +50356,14 @@ export class TenantDataIsolationPolicy extends SomNode {
   // (skipped: tenantDataIsolationDetails has no target type)
 }
 
-// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+// 9.4.7. Tenant Isolation.
 //
 // Describes how multi-tenant authorization is structured: how tenant context
 // is established and propagated, how cross-tenant access is prevented or
 // controlled, how tenants can customize their authorization model, how tenant
 // onboarding/offboarding is handled from an authorization perspective, and
 // how tenant boundaries are enforced at the authorization layer.
-// Complements TenantDataIsolationPolicy (PD00-ACC-RES-DAT) which covers
+// Complements TenantDataIsolationPolicy which covers
 // data-level isolation; this section focuses on authorization-level isolation.
 export class TenantIsolation extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -49776,7 +50441,7 @@ export class TestScenarioBusiness extends SomNode {
   }
 }
 
-// A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
+// A test scenario entry (form).
 //
 // Represents a business-level test case covering a user journey, business
 // process, or acceptance criterion. Includes full traceability, preconditions,
@@ -49898,9 +50563,9 @@ export class TestScenarioTraceability extends SomNode {
   }
 }
 
-// 11.8. Test Strategy [PD00-SYQ-TST].
+// 11.8. Test Strategy.
 //
-// Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
+// Overall test strategy for the project..
 export class TestStrategy extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -50263,7 +50928,7 @@ export class ThirdPartyLibraryEntryUsage extends SomNode {
   }
 }
 
-// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+// 10.13.3.3. Throwaway Prototype.
 //
 // Prototype evaluated and then discarded.
 export class ThrowawayPrototype extends SomNode {
@@ -50500,7 +51165,7 @@ export class ToolDocumentation extends SomNode {
   }
 }
 
-// A tool entry (form) [PD00-POP-TOO-TOO-nn].
+// A tool entry (form).
 //
 // Comprehensive specification of a single tool covering identity,
 // licensing, versioning, access, integration, support, security,
@@ -50689,7 +51354,7 @@ export class ToolVersioning extends SomNode {
   }
 }
 
-// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+// 2.4.1. Tooling.
 //
 // Container for the project's tool inventory and governance policies.
 // Covers all tool categories: development, CI/CD, communication,
@@ -50728,7 +51393,7 @@ export class Tooling extends SomNode {
   }
 }
 
-// 2.4. Tooling and Environments [PD00-POP-TOO].
+// 2.4. Tooling and Environments.
 export class ToolingAndEnvironments extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -50742,12 +51407,12 @@ export class ToolingAndEnvironments extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 2.4.1. Tooling [PD00-POP-TOO-TOO].
+  // 2.4.1. Tooling.
   get tooling(): Tooling {
     return new Tooling(this.doc, this.path + "/tooling");
   }
 
-  // 2.4.2. Environments [PD00-POP-TOO-ENV].
+  // 2.4.2. Environments.
   get environments(): Environments {
     return new Environments(this.doc, this.path + "/environments");
   }
@@ -50797,7 +51462,7 @@ export class TourStepEntry extends SomNode {
   }
 }
 
-// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
+// A trade-off decision entry (form).
 export class TradeOffDecisionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -50891,7 +51556,7 @@ export class TradeOffDecisionEntryRationale extends SomNode {
   }
 }
 
-// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+// 11.6.2. Trade-off Decisions.
 //
 // Explicit trade-off decisions between quality attributes.
 export class TradeOffDecisions extends SomNode {
@@ -50971,7 +51636,7 @@ export class TrainingAssessmentReporting extends SomNode {
   }
 }
 
-// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+// 14.1.3. Training Deliverables.
 export class TrainingDeliverables extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -50988,6 +51653,24 @@ export class TrainingDeliverables extends SomNode {
   // Contains 0+× Deliverable.
   get items(): SomList<DeliverableEntry> {
     return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p));
+  }
+}
+
+// Training & Enablement requirements.
+//
+// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
+// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
+// detailed training-module catalogue currently lives inside
+// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
+// pending the IP-8 doc/training split.
+export class TrainingEnablementRequirements extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  // Training & enablement requirement form.
+  get content(): TrainingEnablementRequirementsContentForm {
+    return new TrainingEnablementRequirementsContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -51050,7 +51733,7 @@ export class TrainingMaterialsPractice extends SomNode {
   }
 }
 
-// A training module entry [PD00-USE-MUL-DOC-MOD-nn].
+// A training module entry.
 export class TrainingModuleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -51072,7 +51755,7 @@ export class TrainingOverview extends SomNode {
   }
 }
 
-// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+// 10.13.3.2. Training Prototype.
 //
 // Prototype where concepts are reused but not code.
 export class TrainingPrototype extends SomNode {
@@ -51120,7 +51803,7 @@ export class TrainingPrototypeOutputs extends SomNode {
   }
 }
 
-// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+// 5.3.2. Training Requirements.
 //
 // Comprehensive training program requirements following adult learning
 // principles (ADDIE, Kirkpatrick evaluation model).
@@ -51231,7 +51914,7 @@ export class TransitionEscalationPaths extends SomNode {
   }
 }
 
-// Transition metric entry [PD00-ORG-STR-TIM-MET-nn] (form).
+// Transition metric entry (form).
 export class TransitionMetricEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -51285,7 +51968,7 @@ export class TransitionMetricsOverview extends SomNode {
   }
 }
 
-// A transition milestone entry [PD00-ORG-STR-TIM-MIL-nn] (form).
+// A transition milestone entry (form).
 export class TransitionMilestoneEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -51398,7 +52081,7 @@ export class TransitionPhaseActivities extends SomNode {
   }
 }
 
-// A transition phase entry [PD00-ORG-STR-TIM-PHA-nn] (form).
+// A transition phase entry (form).
 //
 // Defines a distinct phase in the organizational transition sequence.
 export class TransitionPhaseEntry extends SomNode {
@@ -51492,7 +52175,7 @@ export class TransitionPhaseStakeholders extends SomNode {
   }
 }
 
-// Transition risk entry [PD00-ORG-STR-TIM-RSK-nn] (form).
+// Transition risk entry (form).
 export class TransitionRiskEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -51535,6 +52218,97 @@ export class TransitionRiskEntryResponse extends SomNode {
   }
 }
 
+// SR00 System Rollout.
+//
+// End-to-end rollout specification — localization, translation,
+// documentation and training, plus rollout plan, migration plan,
+// user manuals, training materials, pilot, cutover, knowledge
+// transfer, and warranty/support.
+export class TransitionRolloutPlan extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "TRP");
+    checkSomModelVersion(TransitionRolloutPlan.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return TransitionRolloutPlan.MODEL_VERSION;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header(): DocumentHeader {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Localization process.
+  get localizationProcess(): LocalizationProcess {
+    return new LocalizationProcess(this.doc, this.path + "/localizationProcess");
+  }
+
+  // Translation process.
+  get translationProcess(): TranslationProcess {
+    return new TranslationProcess(this.doc, this.path + "/translationProcess");
+  }
+
+  // Documentation and training.
+  get documentationAndTraining(): DocumentationAndTraining {
+    return new DocumentationAndTraining(this.doc, this.path + "/documentationAndTraining");
+  }
+
+  // Rollout plan.
+  get rolloutPlan(): RolloutPlan {
+    return new RolloutPlan(this.doc, this.path + "/rolloutPlan");
+  }
+
+  // Migration plan.
+  get migrationPlan(): MigrationPlan {
+    return new MigrationPlan(this.doc, this.path + "/migrationPlan");
+  }
+
+  // User manuals.
+  get userManuals(): SomList<UserManuals> {
+    return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d: SpecDocument, p: string) => new UserManuals(d, p));
+  }
+
+  // Training materials.
+  get trainingMaterials(): SomList<RolloutTrainingMaterials> {
+    return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d: SpecDocument, p: string) => new RolloutTrainingMaterials(d, p));
+  }
+
+  // Pilot plan.
+  get pilotPlan(): PilotPlan {
+    return new PilotPlan(this.doc, this.path + "/pilotPlan");
+  }
+
+  // Cutover procedures.
+  get cutoverProcedures(): SomList<CutoverProcedures> {
+    return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d: SpecDocument, p: string) => new CutoverProcedures(d, p));
+  }
+
+  // Knowledge transfer.
+  get knowledgeTransfer(): KnowledgeTransfer {
+    return new KnowledgeTransfer(this.doc, this.path + "/knowledgeTransfer");
+  }
+
+  // Warranty and support.
+  get warrantyAndSupport(): WarrantyAndSupport {
+    return new WarrantyAndSupport(this.doc, this.path + "/warrantyAndSupport");
+  }
+}
+
 // Success metrics for the transition.
 export class TransitionSuccessMetrics extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -51563,7 +52337,7 @@ export class TransitionSupportOverview extends SomNode {
   }
 }
 
-// Support resource entry [PD00-ORG-STR-TIM-SUP-nn] (form).
+// Support resource entry (form).
 export class TransitionSupportResourceEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -51596,7 +52370,7 @@ export class TransitionSupportStructure extends SomNode {
   }
 }
 
-// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
+// 10.12.2. Translation Process.
 //
 // Workflow for translating content.
 export class TranslationProcess extends SomNode {
@@ -51681,7 +52455,7 @@ export class TranslationProcessWorkflow extends SomNode {
   }
 }
 
-// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+// 10.12.5. Translation Handling Requirements.
 //
 // Technical requirements for internationalization framework.
 export class TranslationRequirements extends SomNode {
@@ -51761,7 +52535,7 @@ export class TranslationRequirementsVariants extends SomNode {
   }
 }
 
-// A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].
+// A translation vendor entry.
 export class TranslationVendorEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -51864,7 +52638,7 @@ export class TroubleshootingCapabilitiesRunbooks extends SomNode {
   }
 }
 
-// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+// 4.1.2.5. Trust Boundaries.
 //
 // Security zones and trust boundaries that the system operates within
 // or crosses.
@@ -51898,7 +52672,7 @@ export class TrustBoundaryEntry extends SomNode {
   }
 }
 
-// A typography style entry [PD00-USE-COM-LIB-TYP-nn].
+// A typography style entry.
 export class TypographyStyleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -52022,7 +52796,7 @@ export class UatSignOff extends SomNode {
   }
 }
 
-// A UAT test cycle entry [PD00-DEL-ACC-UAT-CYC-nn].
+// A UAT test cycle entry.
 //
 // Represents a distinct test execution round — e.g. Cycle 1 (initial),
 // Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
@@ -52080,7 +52854,7 @@ export class UatTestData extends SomNode {
   }
 }
 
-// A UAT test step entry [PD00-DEL-ACC-UAT-nn-STP-mm].
+// A UAT test step entry.
 //
 // Individual step within a test scenario. Captures the action, input data,
 // expected result, and pass criteria at fine-grained level per IEEE 829
@@ -52106,7 +52880,7 @@ export class UatTraining extends SomNode {
   }
 }
 
-// A UI component entry [PD00-USE-COM-SPE-nn].
+// A UI component entry.
 //
 // Comprehensive specification for a single UI component covering identity,
 // visual design, behavior, states, responsiveness, accessibility,
@@ -52308,7 +53082,7 @@ export class UiComponentEntrySurface extends SomNode {
   }
 }
 
-// 10.11. UI Components [PD00-USE-COM].
+// 10.11. UI Components.
 //
 // Comprehensive UI component library specification covering design system,
 // component catalog, and detailed per-component specifications. Supports
@@ -52337,17 +53111,17 @@ export class UiComponents extends SomNode {
     return new UiComponentsCustomization(this.doc, this.path + "/customization");
   }
 
-  // 10.11.1. Component Library [PD00-USE-COM-LIB].
+  // 10.11.1. Component Library.
   get componentLibrary(): ComponentLibrary {
     return new ComponentLibrary(this.doc, this.path + "/componentLibrary");
   }
 
-  // 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+  // 10.11.2. Component Specifications — contains 0+×.
   get componentSpecs(): SomList<UiComponentEntry> {
     return new SomList(this.doc, this.path + "/UICOEN-COMP-LST", (d: SpecDocument, p: string) => new UiComponentEntry(d, p));
   }
 
-  // 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
+  // 10.11.3. Component Families — contains 0+×.
   get componentFamilies(): SomList<ComponentFamilyEntry> {
     return new SomList(this.doc, this.path + "/CMFA-COMP-LST", (d: SpecDocument, p: string) => new ComponentFamilyEntry(d, p));
   }
@@ -52386,7 +53160,7 @@ export class UiComponentsVisualLanguage extends SomNode {
   }
 }
 
-// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
+// A design principle entry (form).
 //
 // Each principle guides UI decisions with rationale and examples.
 export class UiDesignPrincipleEntry extends SomNode {
@@ -52399,103 +53173,7 @@ export class UiDesignPrincipleEntry extends SomNode {
   }
 }
 
-// UP00 UI Prototype.
-//
-// Full UI design and prototype specification — vision, screens,
-// screen flow, print, error handling, help, accessibility, responsive,
-// components, language/country selection, prototype, wireframes and
-// mockups.
-export class UiPrototype extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "UP");
-    checkSomModelVersion(UiPrototype.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return UiPrototype.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Design vision — PD00-USE-VIS.
-  get designVision(): DesignVision {
-    return new DesignVision(this.doc, this.path + "/designVision");
-  }
-
-  // Screen descriptions — PD00-USE-SCR.
-  get screens(): ScreenDescriptions {
-    return new ScreenDescriptions(this.doc, this.path + "/screens");
-  }
-
-  // Screen flow structure — PD00-USE-SCF.
-  get screenFlow(): ScreenFlowStructure {
-    return new ScreenFlowStructure(this.doc, this.path + "/screenFlow");
-  }
-
-  // Print layout — PD00-USE-PRI.
-  get printLayout(): PrintLayout {
-    return new PrintLayout(this.doc, this.path + "/printLayout");
-  }
-
-  // Error handling concept — PD00-USE-ERR.
-  get errorHandling(): ErrorHandlingConcept {
-    return new ErrorHandlingConcept(this.doc, this.path + "/errorHandling");
-  }
-
-  // Help concept — PD00-USE-HLP.
-  get helpConcept(): HelpConcept {
-    return new HelpConcept(this.doc, this.path + "/helpConcept");
-  }
-
-  // Accessibility — PD00-USE-ACC.
-  get accessibility(): Accessibility {
-    return new Accessibility(this.doc, this.path + "/accessibility");
-  }
-
-  // Responsive design — PD00-USE-RES.
-  get responsiveDesign(): ResponsiveDesign {
-    return new ResponsiveDesign(this.doc, this.path + "/responsiveDesign");
-  }
-
-  // UI components — PD00-USE-COM.
-  get uiComponents(): UiComponents {
-    return new UiComponents(this.doc, this.path + "/uiComponents");
-  }
-
-  // Language and country selection — PD00-USE-MUL-LCS.
-  get languageCountrySelection(): LanguageCountrySelection {
-    return new LanguageCountrySelection(this.doc, this.path + "/languageCountrySelection");
-  }
-
-  // Prototype — PD00-USE-PRO.
-  get prototype_(): Prototype {
-    return new Prototype(this.doc, this.path + "/prototype");
-  }
-
-  // Wireframes and mockups — PD00-USE-WIR (new in Phase A, HBSG AS10-WIR).
-  get wireframesAndMockups(): SomList<WireframesAndMockups> {
-    return new SomList(this.doc, this.path + "/WIANMO-WIRE-LST", (d: SpecDocument, p: string) => new WireframesAndMockups(d, p));
-  }
-}
-
-// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG].
+// 13.8. Upgrade Cycle Framework.
 //
 // Post-development upgrade cycle framework. Links the upgrade process
 // defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
@@ -52513,7 +53191,7 @@ export class UpgradeCycleFramework extends SomNode {
   }
 }
 
-// 11.2.1. Usability quality [PD00-SYQ-USE-USA].
+// 11.2.1. Usability quality.
 export class UsabilityQuality extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -52634,7 +53312,7 @@ export class UseCaseScopeContext extends SomNode {
   }
 }
 
-// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+// 6.2.5. Use Case Traceability.
 //
 // Use case ↔ requirement ↔ process ↔ test traceability.
 export class UseCaseTraceability extends SomNode {
@@ -52651,77 +53329,7 @@ export class UseCaseTraceability extends SomNode {
   }
 }
 
-// UC00 Use Cases.
-//
-// Detailed use cases derived from the target process steps and actor
-// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-// and traceability.
-export class UseCases extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "UC");
-    checkSomModelVersion(UseCases.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return UseCases.MODEL_VERSION;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header(): DocumentHeader {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Process steps overview — PD00-TAR-STP-OVE.
-  get processStepsOverview(): ProcessStepsOverview {
-    return new ProcessStepsOverview(this.doc, this.path + "/processStepsOverview");
-  }
-
-  // Actor overview — PD00-TAR-STP-ACT.
-  get actorOverview(): ActorOverview {
-    return new ActorOverview(this.doc, this.path + "/actorOverview");
-  }
-
-  // Interaction catalog — PD00-TAR-STP-INT.
-  get interactionCatalog(): InteractionCatalog {
-    return new InteractionCatalog(this.doc, this.path + "/interactionCatalog");
-  }
-
-  // Key scenarios — PD00-TAR-STP-SCE.
-  get keyScenarios(): KeyScenarios {
-    return new KeyScenarios(this.doc, this.path + "/keyScenarios");
-  }
-
-  // Actor relationship diagram — PD00-TAR-STP-DIA.
-  get actorRelationshipDiagram(): ActorRelationshipDiagram {
-    return new ActorRelationshipDiagram(this.doc, this.path + "/actorRelationshipDiagram");
-  }
-
-  // End-to-end test scenarios — PD00-TAR-STP-E2E (covers HBSG AS24).
-  get endToEndTestScenarios(): SomList<EndToEndTestScenarios> {
-    return new SomList(this.doc, this.path + "/ETETS-ENDT-LST", (d: SpecDocument, p: string) => new EndToEndTestScenarios(d, p));
-  }
-
-  // Use case traceability — PD00-TAR-STP-TRC.
-  get useCaseTraceability(): UseCaseTraceability {
-    return new UseCaseTraceability(this.doc, this.path + "/useCaseTraceability");
-  }
-}
-
-// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+// 14.2.3. User Acceptance Testing.
 //
 // Comprehensive UAT planning covering scope, environment, test data,
 // governance, scheduling, defect management, reporting, non-functional
@@ -52805,7 +53413,7 @@ export class UserAcceptanceTesting extends SomNode {
   }
 }
 
-// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+// 4.1.4.n.4. Access and Permissions.
 //
 // Security and access control specifications for this user category.
 export class UserAccessPermissions extends SomNode {
@@ -52864,7 +53472,7 @@ export class UserAccessPermissionsRestrictions extends SomNode {
   }
 }
 
-// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+// 4.1.4.n.6. Accessibility Needs.
 //
 // Accessibility requirements and accommodations for this user category.
 export class UserAccessibilityNeeds extends SomNode {
@@ -52907,7 +53515,7 @@ export class UserAccountStatesDefinition extends SomNode {
   // (skipped: stateTransitionDiagram has no target type)
 }
 
-// A user attribute entry (form) [PD00-ACC-USE-ATT-nn].
+// A user attribute entry (form).
 export class UserAttributeEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -52918,7 +53526,7 @@ export class UserAttributeEntry extends SomNode {
   }
 }
 
-// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+// 9.1.3. User Attributes.
 export class UserAttributes extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -52938,7 +53546,7 @@ export class UserAttributes extends SomNode {
   }
 }
 
-// 9.4. User Authorization [PD00-ACC-USA].
+// 9.4. User Authorization.
 //
 // Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 export class UserAuthorization extends SomNode {
@@ -52954,43 +53562,43 @@ export class UserAuthorization extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+  // 9.4.1. Authorization Model.
   get authorizationModel(): AuthorizationModel {
     return new AuthorizationModel(this.doc, this.path + "/authorizationModel");
   }
 
-  // 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
+  // 9.4.2. Authorization Groups — contains 0+× Group.
   get groups(): SomList<AuthorizationGroupEntry> {
     return new SomList(this.doc, this.path + "/AZGR-GROU-LST", (d: SpecDocument, p: string) => new AuthorizationGroupEntry(d, p));
   }
 
-  // 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+  // 9.4.3. Role Definitions — contains 1+× Role.
   get roleDefinitions(): SomList<AuthorizationRoleEntry> {
     return new SomList(this.doc, this.path + "/AZRO-ROLE-LST", (d: SpecDocument, p: string) => new AuthorizationRoleEntry(d, p));
   }
 
-  // 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
+  // 9.4.4. Entitlements — contains 1+× Entitlement.
   get entitlements(): SomList<EntitlementEntry> {
     return new SomList(this.doc, this.path + "/ENT-ENTI-LST", (d: SpecDocument, p: string) => new EntitlementEntry(d, p));
   }
 
-  // 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
+  // 9.4.5. Resource Keys — contains 0+× Resource Key.
   get resourceKeys(): SomList<ResourceKeyEntry> {
     return new SomList(this.doc, this.path + "/RESKEY-RESO-LST", (d: SpecDocument, p: string) => new ResourceKeyEntry(d, p));
   }
 
-  // 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+  // 9.4.6. Role Hierarchy.
   get roleHierarchy(): RoleHierarchy {
     return new RoleHierarchy(this.doc, this.path + "/roleHierarchy");
   }
 
-  // 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+  // 9.4.7. Tenant Isolation.
   get tenantIsolation(): TenantIsolation {
     return new TenantIsolation(this.doc, this.path + "/tenantIsolation");
   }
 }
 
-// A user category definition (form) [PD00-ACC-USE-CAT-nn].
+// A user category definition (form).
 export class UserCategoryDefinition extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -53001,7 +53609,7 @@ export class UserCategoryDefinition extends SomNode {
   }
 }
 
-// A user category entry [PD00-SYO-SYD-USR-nn].
+// A user category entry.
 //
 // Comprehensive user persona definition including demographics, goals,
 // frustrations, technical proficiency, and system interaction patterns.
@@ -53024,37 +53632,37 @@ export class UserCategoryEntry extends SomNode {
     return new UserCategoryEntryImportance(this.doc, this.path + "/importance");
   }
 
-  // 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+  // 4.1.4.n.1. User Persona Details.
   get personaDetails(): UserPersonaDetails {
     return new UserPersonaDetails(this.doc, this.path + "/personaDetails");
   }
 
-  // 4.1.4.n.2. Role [PD00-SYO-SYD-USR-nn-ROL].
+  // 4.1.4.n.2. Role.
   get role(): UserCategoryRoleEntry {
     return new UserCategoryRoleEntry(this.doc, this.path + "/role");
   }
 
-  // 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+  // 4.1.4.n.3. System Tasks — contains 1+× System Task.
   get systemTasks(): SomList<SystemTaskEntry> {
     return new SomList(this.doc, this.path + "/SYTS-SYST-LST", (d: SpecDocument, p: string) => new SystemTaskEntry(d, p));
   }
 
-  // 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+  // 4.1.4.n.4. Access and Permissions.
   get accessPermissions(): UserAccessPermissions {
     return new UserAccessPermissions(this.doc, this.path + "/accessPermissions");
   }
 
-  // 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+  // 4.1.4.n.5. Training Requirements.
   get trainingRequirements(): UserTrainingRequirements {
     return new UserTrainingRequirements(this.doc, this.path + "/trainingRequirements");
   }
 
-  // 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+  // 4.1.4.n.6. Accessibility Needs.
   get accessibilityNeeds(): UserAccessibilityNeeds {
     return new UserAccessibilityNeeds(this.doc, this.path + "/accessibilityNeeds");
   }
 
-  // 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+  // 4.1.4.n.7. User Journey.
   get userJourney(): UserJourney {
     return new UserJourney(this.doc, this.path + "/userJourney");
   }
@@ -53082,7 +53690,7 @@ export class UserCategoryEntryUsage extends SomNode {
   }
 }
 
-// Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
+// Role within a user category.
 //
 // Organizational role and responsibilities associated with this user category.
 export class UserCategoryRoleEntry extends SomNode {
@@ -53095,7 +53703,7 @@ export class UserCategoryRoleEntry extends SomNode {
   }
 }
 
-// User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn].
+// User group impact entry.
 export class UserGroupImpactEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -53165,7 +53773,7 @@ export class UserGrowthProjectionsThresholds extends SomNode {
   }
 }
 
-// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+// 4.1.5. User Interaction Model.
 //
 // Describes how different user categories interact with the system including
 // access channels, interaction patterns, access levels, and session management.
@@ -53188,32 +53796,32 @@ export class UserInteractionModel extends SomNode {
     return new UserInteractionModelSummary(this.doc, this.path + "/summary");
   }
 
-  // 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+  // 4.1.5.1. Access Channels.
   get accessChannels(): AccessChannels {
     return new AccessChannels(this.doc, this.path + "/accessChannels");
   }
 
-  // 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+  // 4.1.5.2. Interaction Patterns.
   get interactionPatterns(): InteractionPatterns {
     return new InteractionPatterns(this.doc, this.path + "/interactionPatterns");
   }
 
-  // 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+  // 4.1.5.3. Access Levels.
   get accessLevels(): AccessLevels {
     return new AccessLevels(this.doc, this.path + "/accessLevels");
   }
 
-  // 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+  // 4.1.5.4. Session Model.
   get sessionModel(): SessionModel {
     return new SessionModel(this.doc, this.path + "/sessionModel");
   }
 
-  // 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+  // 4.1.5.5. Notification Model.
   get notificationModel(): NotificationModel {
     return new NotificationModel(this.doc, this.path + "/notificationModel");
   }
 
-  // 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+  // 4.1.5.6. Multi-Channel Experience.
   get multiChannelExperience(): MultiChannelExperience {
     return new MultiChannelExperience(this.doc, this.path + "/multiChannelExperience");
   }
@@ -53235,88 +53843,7 @@ export class UserInteractionModelSummary extends SomNode {
   }
 }
 
-// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
-export class UserInterfaceDesign extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
-  get designVision(): DesignVision {
-    return new DesignVision(this.doc, this.path + "/designVision");
-  }
-
-  // 10.2. Screen Descriptions [PD00-USE-SCR]. Seeds → UP.
-  get screens(): ScreenDescriptions {
-    return new ScreenDescriptions(this.doc, this.path + "/screens");
-  }
-
-  // 10.3. Screen Flow Structure [PD00-USE-SCF]. Seeds → UP.
-  get screenFlow(): ScreenFlowStructure {
-    return new ScreenFlowStructure(this.doc, this.path + "/screenFlow");
-  }
-
-  // 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
-  get printLayout(): PrintLayout {
-    return new PrintLayout(this.doc, this.path + "/printLayout");
-  }
-
-  // Data Structure Alignment.
-  // (skipped: dataStructureAlignment has no target type)
-
-  // Authorization Compliance.
-  // (skipped: authorizationCompliance has no target type)
-
-  // 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
-  get errorHandling(): ErrorHandlingConcept {
-    return new ErrorHandlingConcept(this.doc, this.path + "/errorHandling");
-  }
-
-  // 10.8. Help Concept [PD00-USE-HLP]. Seeds → UP.
-  get helpConcept(): HelpConcept {
-    return new HelpConcept(this.doc, this.path + "/helpConcept");
-  }
-
-  // 10.9. Accessibility [PD00-USE-ACC]. Seeds → UP.
-  get accessibility(): Accessibility {
-    return new Accessibility(this.doc, this.path + "/accessibility");
-  }
-
-  // 10.10. Responsive Design [PD00-USE-RES]. Seeds → UP.
-  get responsiveDesign(): ResponsiveDesign {
-    return new ResponsiveDesign(this.doc, this.path + "/responsiveDesign");
-  }
-
-  // 10.11. UI Components [PD00-USE-COM]. Seeds → UP.
-  get uiComponents(): UiComponents {
-    return new UiComponents(this.doc, this.path + "/uiComponents");
-  }
-
-  // 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
-  get multiLanguage(): MultiLanguageAndRollout {
-    return new MultiLanguageAndRollout(this.doc, this.path + "/multiLanguage");
-  }
-
-  // 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
-  get prototype_(): Prototype {
-    return new Prototype(this.doc, this.path + "/prototype");
-  }
-
-  // 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
-  get wireframesAndMockups(): SomList<WireframesAndMockups> {
-    return new SomList(this.doc, this.path + "/WIANMO-WIRE-LST", (d: SpecDocument, p: string) => new WireframesAndMockups(d, p));
-  }
-}
-
-// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+// 4.1.4.n.7. User Journey.
 //
 // Key touchpoints and journey map for this user category's experience.
 export class UserJourney extends SomNode {
@@ -53381,7 +53908,7 @@ export class UserJourneyPainPointEntry extends SomNode {
   }
 }
 
-// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+// 9.1.2. User Lifecycle.
 //
 // Defines the complete user account lifecycle: states, transitions between
 // states, approval requirements for each transition, and operational policies
@@ -53448,7 +53975,7 @@ export class UserLifecycleSection extends SomNode {
   }
 }
 
-// A lifecycle transition entry (form) [PD00-ACC-USE-LIF-nn].
+// A lifecycle transition entry (form).
 //
 // Defines a single permissible transition between two lifecycle states,
 // including trigger, approval, and side effects.
@@ -53539,7 +54066,7 @@ export class UserLifecycleTransitions extends SomNode {
   }
 }
 
-// 9.1. User Management [PD00-ACC-USE].
+// 9.1. User Management.
 export class UserManagement extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -53553,23 +54080,23 @@ export class UserManagement extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 9.1.1. User Categories [PD00-ACC-USE-CAT].
+  // 9.1.1. User Categories.
   get userCategories(): AccessUserCategories {
     return new AccessUserCategories(this.doc, this.path + "/userCategories");
   }
 
-  // 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+  // 9.1.2. User Lifecycle.
   get userLifecycle(): UserLifecycleSection {
     return new UserLifecycleSection(this.doc, this.path + "/userLifecycle");
   }
 
-  // 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+  // 9.1.3. User Attributes.
   get userAttributes(): UserAttributes {
     return new UserAttributes(this.doc, this.path + "/userAttributes");
   }
 }
 
-// 15.3. User Manuals [PD00-ROL-DOC].
+// 15.3. User Manuals.
 //
 // End-user documentation deliverables covering DR15 User Manual content.
 export class UserManuals extends SomNode {
@@ -53602,7 +54129,7 @@ export class UserNotificationPreferences extends SomNode {
   }
 }
 
-// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+// 4.1.4.n.1. User Persona Details.
 //
 // Detailed persona information including demographics, goals, frustrations,
 // and behavioral characteristics for user-centered design.
@@ -53687,7 +54214,7 @@ export class UserPersonaDetailsGoals extends SomNode {
   }
 }
 
-// 10.1.3. User Personas [PD00-USE-VIS-PER].
+// 10.1.3. User Personas.
 //
 // Container for user persona definitions. Each persona represents a distinct
 // user archetype with goals, pain points, and context.
@@ -53772,7 +54299,7 @@ export class UserProvisioningToolsRoleManagement extends SomNode {
   }
 }
 
-// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+// 11.2. User-Related Quality Criteria.
 //
 // Quality criteria that directly affect user experience, including usability,
 // functional completeness, and correctness from the end-user perspective.
@@ -53788,17 +54315,17 @@ export class UserQualityCriteria extends SomNode {
   // User quality criteria overview.
   // (skipped: overview has no target type)
 
-  // 11.2.1. Usability [PD00-SYQ-USE-USA].
+  // 11.2.1. Usability.
   get usability(): UsabilityQuality {
     return new UsabilityQuality(this.doc, this.path + "/usability");
   }
 
-  // 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
+  // 11.2.2. Functional Completeness.
   get functionalCompleteness(): FunctionalCompletenessQuality {
     return new FunctionalCompletenessQuality(this.doc, this.path + "/functionalCompleteness");
   }
 
-  // 11.2.3. Correctness [PD00-SYQ-USE-COR].
+  // 11.2.3. Correctness.
   get correctness(): CorrectnessQuality {
     return new CorrectnessQuality(this.doc, this.path + "/correctness");
   }
@@ -53828,7 +54355,7 @@ export class UserRegistrationProcess extends SomNode {
   // (skipped: registrationFlowDiagram has no target type)
 }
 
-// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+// 4.1.4.n.5. Training Requirements.
 //
 // Training and onboarding requirements for this user category.
 export class UserTrainingRequirements extends SomNode {
@@ -53855,7 +54382,7 @@ export class UserTrainingRequirements extends SomNode {
   }
 }
 
-// A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
+// A utility menu item entry (form).
 //
 // Entry in a utility popup/dropdown menu (e.g., user menu items).
 export class UtilityMenuItemEntry extends SomNode {
@@ -53900,7 +54427,7 @@ export class UtilityMenuItemEntryBehavior extends SomNode {
   }
 }
 
-// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+// 10.3.1.5. Utility Navigation.
 //
 // Always-visible utility items: user menu, notifications, help, settings.
 export class UtilityNavigation extends SomNode {
@@ -53922,7 +54449,7 @@ export class UtilityNavigation extends SomNode {
   }
 }
 
-// A utility navigation item entry (form) [PD00-USE-SCF-NAV-UTL-nn].
+// A utility navigation item entry (form).
 //
 // A persistent utility element in the app bar: user avatar, notifications bell,
 // help icon, settings.
@@ -53973,7 +54500,7 @@ export class UtilityNavigationItemEntryDisplay extends SomNode {
   }
 }
 
-// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+// 7.1.6. Validation Constraints.
 //
 // Cross-entity validation policy. Per-field validation lives in entity
 // form fields; this section captures rules that span multiple fields or
@@ -53992,7 +54519,7 @@ export class ValidationConstraints extends SomNode {
   }
 }
 
-// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+// 10.7.1. Validation Feedback.
 //
 // Field validation error display and feedback mechanisms.
 export class ValidationFeedback extends SomNode {
@@ -54082,7 +54609,7 @@ export class ValidationFeedbackPlacement extends SomNode {
   }
 }
 
-// A validation message template [PD00-USE-ERR-VAL-MSG-nn].
+// A validation message template.
 export class ValidationMessageTemplate extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -54108,7 +54635,7 @@ export class ValidationRuleEntry extends SomNode {
   }
 }
 
-// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+// 4.1.1.4. Value Proposition.
 //
 // Clear articulation of the value this system provides, including
 // quantifiable benefits and return on investment analysis.
@@ -54478,7 +55005,7 @@ export class VulnerabilityManagementPolicyReporting extends SomNode {
   }
 }
 
-// 15.8. Warranty and Support [PD00-ROL-WAR].
+// 15.8. Warranty and Support.
 //
 // Post-acceptance warranty period terms and support arrangements. Covers
 // EK10 warranty content and feeds the SR top-level on the same topic.
@@ -54551,7 +55078,7 @@ export class WarrantyServiceLevels extends SomNode {
   }
 }
 
-// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+// 14.2.6. Warranty.
 //
 // Post-acceptance warranty terms: duration, scope, service levels,
 // exclusions, and transition to standard support.
@@ -54609,7 +55136,7 @@ export class WarrantyTransition extends SomNode {
   }
 }
 
-// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+// 10.9.1. WCAG Compliance Level.
 export class WcagCompliance extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -54676,7 +55203,7 @@ export class WcagComplianceUnderstandable extends SomNode {
   }
 }
 
-// A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
+// A WCAG success criterion entry.
 export class WcagSuccessCriterionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -54687,7 +55214,7 @@ export class WcagSuccessCriterionEntry extends SomNode {
   }
 }
 
-// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+// 11.6.1. Weighted Quality Matrix.
 export class WeightedQualityMatrix extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -54709,10 +55236,10 @@ export class WeightedQualityMatrix extends SomNode {
   // (skipped: matrixVisualization has no target type)
 }
 
-// 10.14. Wireframes and Mockups [PD00-USE-WIR].
+// 10.14. Wireframes and Mockups.
 //
 // Wireframe and mockup inventory beyond individual screen descriptions.
-// Covers HBSG AS10-WIR.
+// .
 export class WireframesAndMockups extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -54727,7 +55254,7 @@ export class WireframesAndMockups extends SomNode {
   }
 }
 
-// A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
+// A workflow actor entry (form).
 //
 // Documentation of a participant in the workflow.
 export class WorkflowActorEntry extends SomNode {
@@ -54767,10 +55294,10 @@ export class WorkflowDecisionPoint extends SomNode {
   }
 }
 
-// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+// 1.2.nn.1. Workflow Descriptions.
 //
 // Container for workflow entries within a business process.
-// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+// 1.2.nn.1. Workflow Descriptions.
 //
 // Container for workflow entries within a business process. Add one
 // subsection per current workflow relevant to the project.
@@ -54787,7 +55314,7 @@ export class WorkflowDescriptions extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
+  // Workflow overview diagram.
   get workflowOverviewDiagram(): string {
     return this.doc.content(this.path + "/workflowOverviewDiagram") || '';
   }
@@ -54796,7 +55323,7 @@ export class WorkflowDescriptions extends SomNode {
     this.doc.setContent(this.path + "/workflowOverviewDiagram", value);
   }
 
-  // Workflow summary table [PD00-CUR-PRO-xx-WOR-SUM].
+  // Workflow summary table.
   get summaryTable(): WorkflowSummaryTable {
     return new WorkflowSummaryTable(this.doc, this.path + "/summaryTable");
   }
@@ -54860,7 +55387,7 @@ export class WorkflowOutputEntry extends SomNode {
   }
 }
 
-// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
+// A workflow step entry (form).
 //
 // Detailed documentation of a single step within a workflow.
 export class WorkflowStepEntry extends SomNode {
@@ -54993,7 +55520,7 @@ export class WorkflowTriggers extends SomNode {
   }
 }
 
-// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+// A workplace description entry (form, per user category).
 //
 // Comprehensive workplace requirements following workplace design best
 // practices (OSHA, ISO 9001, ergonomic standards). Covers physical,
@@ -55013,7 +55540,7 @@ export class WorkplaceDescriptionEntry extends SomNode {
     return new PhysicalWorkplaceRequirements(this.doc, this.path + "/physicalRequirements");
   }
 
-  // 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+  // 5.3.1. Equipment Requirements.
   get equipmentRequirements(): EquipmentRequirements {
     return new EquipmentRequirements(this.doc, this.path + "/equipmentRequirements");
   }
@@ -55023,7 +55550,7 @@ export class WorkplaceDescriptionEntry extends SomNode {
     return new TechnicalInfrastructure(this.doc, this.path + "/technicalInfrastructure");
   }
 
-  // 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+  // 5.3.2. Training Requirements.
   get trainingRequirements(): TrainingRequirements {
     return new TrainingRequirements(this.doc, this.path + "/trainingRequirements");
   }
@@ -59690,6 +60217,45 @@ export class ApplicationSecurityRequirementsValidationContentForm extends SomNod
 }
 
 // Generated form facade for the `content` @Form section.
+export class ApprovalRecordContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get role(): string {
+    return this.doc.formField(this.path, "role") || '';
+  }
+
+  set role(value: string) {
+    this.doc.setFormField(this.path, "role", value);
+  }
+
+  get name(): string {
+    return this.doc.formField(this.path, "name") || '';
+  }
+
+  set name(value: string) {
+    this.doc.setFormField(this.path, "name", value);
+  }
+
+  get date(): string {
+    return this.doc.formField(this.path, "date") || '';
+  }
+
+  set date(value: string) {
+    this.doc.setFormField(this.path, "date", value);
+  }
+
+  get status(): string {
+    return this.doc.formField(this.path, "status") || '';
+  }
+
+  set status(value: string) {
+    this.doc.setFormField(this.path, "status", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 export class ArchitectureComponentEntryBoundariesContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -60489,6 +61055,53 @@ export class AssumptionImpactContentForm extends SomNode {
 
   set relatedRisks(value: string) {
     this.doc.setFormField(this.path, "relatedRisks", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+export class AssumptionRegisterEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get assumptionId(): string {
+    return this.doc.formField(this.path, "assumptionId") || '';
+  }
+
+  set assumptionId(value: string) {
+    this.doc.setFormField(this.path, "assumptionId", value);
+  }
+
+  get description(): string {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value: string) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+
+  get impact(): string {
+    return this.doc.formField(this.path, "impact") || '';
+  }
+
+  set impact(value: string) {
+    this.doc.setFormField(this.path, "impact", value);
+  }
+
+  get validation(): string {
+    return this.doc.formField(this.path, "validation") || '';
+  }
+
+  set validation(value: string) {
+    this.doc.setFormField(this.path, "validation", value);
+  }
+
+  get status(): string {
+    return this.doc.formField(this.path, "status") || '';
+  }
+
+  set status(value: string) {
+    this.doc.setFormField(this.path, "status", value);
   }
 }
 
@@ -74635,6 +75248,53 @@ export class ConstraintMitigationContentForm extends SomNode {
 
   set violationConsequences(value: string) {
     this.doc.setFormField(this.path, "violationConsequences", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+export class ConstraintRegisterEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get constraintId(): string {
+    return this.doc.formField(this.path, "constraintId") || '';
+  }
+
+  set constraintId(value: string) {
+    this.doc.setFormField(this.path, "constraintId", value);
+  }
+
+  get description(): string {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value: string) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+
+  get type(): string {
+    return this.doc.formField(this.path, "type") || '';
+  }
+
+  set type(value: string) {
+    this.doc.setFormField(this.path, "type", value);
+  }
+
+  get source(): string {
+    return this.doc.formField(this.path, "source") || '';
+  }
+
+  set source(value: string) {
+    this.doc.setFormField(this.path, "source", value);
+  }
+
+  get impact(): string {
+    return this.doc.formField(this.path, "impact") || '';
+  }
+
+  set impact(value: string) {
+    this.doc.setFormField(this.path, "impact", value);
   }
 }
 
@@ -96646,6 +97306,45 @@ export class GlobalRoleExclusionEntryContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+export class GlossaryEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get term(): string {
+    return this.doc.formField(this.path, "term") || '';
+  }
+
+  set term(value: string) {
+    this.doc.setFormField(this.path, "term", value);
+  }
+
+  get definition(): string {
+    return this.doc.formField(this.path, "definition") || '';
+  }
+
+  set definition(value: string) {
+    this.doc.setFormField(this.path, "definition", value);
+  }
+
+  get acronym(): string {
+    return this.doc.formField(this.path, "acronym") || '';
+  }
+
+  set acronym(value: string) {
+    this.doc.setFormField(this.path, "acronym", value);
+  }
+
+  get seeAlso(): string {
+    return this.doc.formField(this.path, "seeAlso") || '';
+  }
+
+  set seeAlso(value: string) {
+    this.doc.setFormField(this.path, "seeAlso", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 export class GoalDependencyEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -103470,6 +104169,37 @@ export class IpOwnershipEntryContentForm extends SomNode {
 
   set restrictions(value: string) {
     this.doc.setFormField(this.path, "restrictions", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+export class Iso25010CoverageEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get characteristic(): string {
+    return this.doc.formField(this.path, "characteristic") || '';
+  }
+
+  set characteristic(value: string) {
+    this.doc.setFormField(this.path, "characteristic", value);
+  }
+
+  get addressedBy(): string {
+    return this.doc.formField(this.path, "addressedBy") || '';
+  }
+
+  set addressedBy(value: string) {
+    this.doc.setFormField(this.path, "addressedBy", value);
+  }
+
+  get targetMetric(): string {
+    return this.doc.formField(this.path, "targetMetric") || '';
+  }
+
+  set targetMetric(value: string) {
+    this.doc.setFormField(this.path, "targetMetric", value);
   }
 }
 
@@ -132913,6 +133643,45 @@ export class ReviewCriterionEntryResultContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+export class RevisionEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get version(): string {
+    return this.doc.formField(this.path, "version") || '';
+  }
+
+  set version(value: string) {
+    this.doc.setFormField(this.path, "version", value);
+  }
+
+  get date(): string {
+    return this.doc.formField(this.path, "date") || '';
+  }
+
+  set date(value: string) {
+    this.doc.setFormField(this.path, "date", value);
+  }
+
+  get author(): string {
+    return this.doc.formField(this.path, "author") || '';
+  }
+
+  set author(value: string) {
+    this.doc.setFormField(this.path, "author", value);
+  }
+
+  get summary(): string {
+    return this.doc.formField(this.path, "summary") || '';
+  }
+
+  set summary(value: string) {
+    this.doc.setFormField(this.path, "summary", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 export class RiskAnalysisContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -146208,6 +146977,69 @@ export class StakeholderEntryImpactContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
+export class StakeholderRegisterEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get stakeholderId(): string {
+    return this.doc.formField(this.path, "stakeholderId") || '';
+  }
+
+  set stakeholderId(value: string) {
+    this.doc.setFormField(this.path, "stakeholderId", value);
+  }
+
+  get name(): string {
+    return this.doc.formField(this.path, "name") || '';
+  }
+
+  set name(value: string) {
+    this.doc.setFormField(this.path, "name", value);
+  }
+
+  get role(): string {
+    return this.doc.formField(this.path, "role") || '';
+  }
+
+  set role(value: string) {
+    this.doc.setFormField(this.path, "role", value);
+  }
+
+  get interest(): string {
+    return this.doc.formField(this.path, "interest") || '';
+  }
+
+  set interest(value: string) {
+    this.doc.setFormField(this.path, "interest", value);
+  }
+
+  get influence(): string {
+    return this.doc.formField(this.path, "influence") || '';
+  }
+
+  set influence(value: string) {
+    this.doc.setFormField(this.path, "influence", value);
+  }
+
+  get concerns(): string {
+    return this.doc.formField(this.path, "concerns") || '';
+  }
+
+  set concerns(value: string) {
+    this.doc.setFormField(this.path, "concerns", value);
+  }
+
+  get engagementStrategy(): string {
+    return this.doc.formField(this.path, "engagementStrategy") || '';
+  }
+
+  set engagementStrategy(value: string) {
+    this.doc.setFormField(this.path, "engagementStrategy", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
 export class StakeholdersAndInterestsContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -155476,6 +156308,45 @@ export class TrainingAssessmentReportingContentForm extends SomNode {
 
   set managementVisibility(value: string) {
     this.doc.setFormField(this.path, "managementVisibility", value);
+  }
+}
+
+// Generated form facade for the `content` @Form section.
+export class TrainingEnablementRequirementsContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get targetAudiences(): string {
+    return this.doc.formField(this.path, "targetAudiences") || '';
+  }
+
+  set targetAudiences(value: string) {
+    this.doc.setFormField(this.path, "targetAudiences", value);
+  }
+
+  get competencyOutcomes(): string {
+    return this.doc.formField(this.path, "competencyOutcomes") || '';
+  }
+
+  set competencyOutcomes(value: string) {
+    this.doc.setFormField(this.path, "competencyOutcomes", value);
+  }
+
+  get certificationRequired(): string {
+    return this.doc.formField(this.path, "certificationRequired") || '';
+  }
+
+  set certificationRequired(value: string) {
+    this.doc.setFormField(this.path, "certificationRequired", value);
+  }
+
+  get ongoingEnablement(): string {
+    return this.doc.formField(this.path, "ongoingEnablement") || '';
+  }
+
+  set ongoingEnablement(value: string) {
+    this.doc.setFormField(this.path, "ongoingEnablement", value);
   }
 }
 

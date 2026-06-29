@@ -33,7 +33,7 @@ function _parseProbability(token: string | null | undefined): string | null {
   return null;
 }
 
-export class CurrentSituation extends SomNode {
+export class CurrentLandscapeAssessment extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
   }
@@ -44,49 +44,6 @@ export class CurrentSituation extends SomNode {
 
   set summary(value: string) {
     this.doc.setContent(this.path + "/summary", value);
-  }
-}
-
-// Root of a project definition document.
-export class ProjectDefinition extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static readonly MODEL_VERSION: string = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc: SpecDocument, documentVersion: string | null = null) {
-    super(doc, "PD00");
-    checkSomModelVersion(ProjectDefinition.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion(): string {
-    return ProjectDefinition.MODEL_VERSION;
-  }
-
-  // Why the system exists.
-  get vision(): string {
-    return this.doc.content(this.path + "/vision") || '';
-  }
-
-  set vision(value: string) {
-    this.doc.setContent(this.path + "/vision", value);
-  }
-
-  get owner(): ProjectDefinitionOwnerForm {
-    return new ProjectDefinitionOwnerForm(this.doc, this.path + "/owner");
-  }
-
-  get risks(): SomList<Risk> {
-    return new SomList(this.doc, this.path + "/risks", (d: SpecDocument, p: string) => new Risk(d, p));
-  }
-
-  get tags(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/tags", (d: SpecDocument, p: string) => new SomScalar(d, p));
-  }
-
-  get situation(): CurrentSituation {
-    return new CurrentSituation(this.doc, this.path + "/situation");
   }
 }
 
@@ -112,8 +69,51 @@ export class Risk extends SomNode {
   }
 }
 
+// Root of a project definition document.
+export class SolutionBlueprint extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static readonly MODEL_VERSION: string = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc: SpecDocument, documentVersion: string | null = null) {
+    super(doc, "PD00");
+    checkSomModelVersion(SolutionBlueprint.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion(): string {
+    return SolutionBlueprint.MODEL_VERSION;
+  }
+
+  // Why the system exists.
+  get vision(): string {
+    return this.doc.content(this.path + "/vision") || '';
+  }
+
+  set vision(value: string) {
+    this.doc.setContent(this.path + "/vision", value);
+  }
+
+  get owner(): SolutionBlueprintOwnerForm {
+    return new SolutionBlueprintOwnerForm(this.doc, this.path + "/owner");
+  }
+
+  get risks(): SomList<Risk> {
+    return new SomList(this.doc, this.path + "/risks", (d: SpecDocument, p: string) => new Risk(d, p));
+  }
+
+  get tags(): SomList<SomScalar> {
+    return new SomList(this.doc, this.path + "/tags", (d: SpecDocument, p: string) => new SomScalar(d, p));
+  }
+
+  get situation(): CurrentLandscapeAssessment {
+    return new CurrentLandscapeAssessment(this.doc, this.path + "/situation");
+  }
+}
+
 // Generated form facade for the `owner` @Form section.
-export class ProjectDefinitionOwnerForm extends SomNode {
+export class SolutionBlueprintOwnerForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
   }

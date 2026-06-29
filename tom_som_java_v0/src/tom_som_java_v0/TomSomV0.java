@@ -11,7 +11,7 @@ import tom_som_runtime.SpecDocument;
 public final class TomSomV0 {
   private TomSomV0() {}
 
-  // 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+  // 14.2.1. Acceptance Criteria.
   public static final class AcceptanceCriteriaList extends SomNode {
     public AcceptanceCriteriaList(SpecDocument doc, String path) {
       super(doc, path);
@@ -32,7 +32,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+  // 11.7. Acceptance Criteria Summary.
   //
   // Quality acceptance criteria for the project including must-pass criteria
   // and quality gate checklists.
@@ -48,12 +48,12 @@ public final class TomSomV0 {
     // Acceptance criteria overview.
     // (skipped: acceptanceOverview has no target type)
 
-    // 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+    // 11.7.1. Must-Pass Criteria.
     public MustPassCriteria mustPassCriteria() {
       return new MustPassCriteria(doc, path + "/mustPassCriteria");
     }
 
-    // 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+    // 11.7.2. Quality Gate Checklist.
     public QualityGateChecklist qualityGateChecklist() {
       return new QualityGateChecklist(doc, path + "/qualityGateChecklist");
     }
@@ -75,7 +75,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+  // 14.2. Acceptance Plan. Seeds → BQP.
   public static final class AcceptancePlan extends SomNode {
     public AcceptancePlan(SpecDocument doc, String path) {
       super(doc, path);
@@ -90,38 +90,38 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+    // 14.2.1. Acceptance Criteria.
     public AcceptanceCriteriaList acceptanceCriteria() {
       return new AcceptanceCriteriaList(doc, path + "/acceptanceCriteria");
     }
 
-    // 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+    // 14.2.2. Acceptance Process.
     public AcceptanceProcess acceptanceProcess() {
       return new AcceptanceProcess(doc, path + "/acceptanceProcess");
     }
 
-    // 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+    // 14.2.3. User Acceptance Testing.
     public UserAcceptanceTesting userAcceptanceTesting() {
       return new UserAcceptanceTesting(doc, path + "/userAcceptanceTesting");
     }
 
-    // 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+    // 14.2.4. Defect Resolution.
     public DefectResolution defectResolution() {
       return new DefectResolution(doc, path + "/defectResolution");
     }
 
-    // 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+    // 14.2.5. Sign-off Process.
     public SignOffProcess signOffProcess() {
       return new SignOffProcess(doc, path + "/signOffProcess");
     }
 
-    // 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+    // 14.2.6. Warranty.
     public WarrantyTerms warranty() {
       return new WarrantyTerms(doc, path + "/warranty");
     }
   }
 
-  // 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+  // 14.2.2. Acceptance Process.
   //
   // Defines the formal acceptance workflow from test initiation through
   // final sign-off. Covers roles, responsibilities, timelines, escalation,
@@ -240,7 +240,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
+  // An acceptance step entry (form).
   //
   // A single step in the formal acceptance workflow, with entry/exit
   // conditions, responsible parties, and outputs.
@@ -286,63 +286,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
-  public static final class AccessAndAuthorizationConcept extends SomNode {
-    public AccessAndAuthorizationConcept(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // 9.1. User Management [PD00-ACC-USE].
-    public UserManagement userManagement() {
-      return new UserManagement(doc, path + "/userManagement");
-    }
-
-    // 9.2. Identification and Authentication [PD00-ACC-IDE].
-    public IdentificationAndAuthentication authentication() {
-      return new IdentificationAndAuthentication(doc, path + "/authentication");
-    }
-
-    // 9.3. Resource Protection [PD00-ACC-RES].
-    public ResourceProtection resourceProtection() {
-      return new ResourceProtection(doc, path + "/resourceProtection");
-    }
-
-    // 9.4. User Authorization [PD00-ACC-USA].
-    public UserAuthorization authorization() {
-      return new UserAuthorization(doc, path + "/authorization");
-    }
-
-    // 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
-    public SensitiveDataEncryption encryption() {
-      return new SensitiveDataEncryption(doc, path + "/encryption");
-    }
-
-    // 9.6. Audit and Logging [PD00-ACC-AUD].
-    public AuditAndLogging auditAndLogging() {
-      return new AuditAndLogging(doc, path + "/auditAndLogging");
-    }
-
-    // 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
-    public RoleMatrix roleMatrix() {
-      return new RoleMatrix(doc, path + "/roleMatrix");
-    }
-
-    // 9.8. Compliance Framework [PD00-ACC-CMP].
-    public ComplianceFramework complianceFramework() {
-      return new ComplianceFramework(doc, path + "/complianceFramework");
-    }
-  }
-
-  // 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+  // 4.1.5.1. Access Channels.
   //
   // Defines all channels through which users can access the system including
   // web, mobile, desktop applications, APIs, and other interfaces.
@@ -421,7 +365,7 @@ public final class TomSomV0 {
     // (skipped: accessControlModelDetails has no target type)
   }
 
-  // An access level entry (form) [PD00-SYO-SYD-USI-ACC-nn].
+  // An access level entry (form).
   public static final class AccessLevelEntry extends SomNode {
     public AccessLevelEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -480,7 +424,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+  // 4.1.5.3. Access Levels.
   //
   // Defines the access level hierarchy and how permissions are structured
   // across user categories and system functions.
@@ -524,7 +468,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
+  // An access restriction entry (form).
   //
   // Specific access restrictions for classified data.
   public static final class AccessRestrictionEntry extends SomNode {
@@ -537,7 +481,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.1.1. User Categories [PD00-ACC-USE-CAT].
+  // 9.1.1. User Categories.
   public static final class AccessUserCategories extends SomNode {
     public AccessUserCategories(SpecDocument doc, String path) {
       super(doc, path);
@@ -558,7 +502,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.9. Accessibility [PD00-USE-ACC].
+  // 10.9. Accessibility.
   //
   // Comprehensive accessibility requirements for the user interface following
   // WCAG guidelines and inclusive design principles.
@@ -589,12 +533,12 @@ public final class TomSomV0 {
     // Accessibility overview narrative.
     // (skipped: accessibilityOverview has no target type)
 
-    // 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+    // 10.9.1. WCAG Compliance Level.
     public WcagCompliance wcagComplianceLevel() {
       return new WcagCompliance(doc, path + "/wcagComplianceLevel");
     }
 
-    // 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+    // 10.9.2. Accessibility Checklist.
     public AccessibilityChecklist accessibilityChecklist() {
       return new AccessibilityChecklist(doc, path + "/accessibilityChecklist");
     }
@@ -609,7 +553,7 @@ public final class TomSomV0 {
     // (skipped: colorAndContrast has no target type)
   }
 
-  // An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
+  // An accessibility check entry (form).
   public static final class AccessibilityCheckEntry extends SomNode {
     public AccessibilityCheckEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -668,7 +612,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+  // 10.9.2. Accessibility Checklist.
   //
   // Comprehensive accessibility verification checklist.
   public static final class AccessibilityChecklist extends SomNode {
@@ -984,7 +928,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An actor entry [PD00-TAR-STP-ACT-nn].
+  // An actor entry.
   //
   // Comprehensive actor definition following UML and Cockburn conventions.
   public static final class ActorEntry extends SomNode {
@@ -1056,7 +1000,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.2.1. Actor Overview [PD00-TAR-STP-ACT].
+  // 6.2.1. Actor Overview.
   //
   // Actors represent roles that interact with the system. Follows UML actor
   // modeling conventions with Cockburn-style goal and scope annotations.
@@ -1112,7 +1056,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA].
+  // 6.2. Actor Relationship Diagram.
   public static final class ActorRelationshipDiagram extends SomNode {
     public ActorRelationshipDiagram(SpecDocument doc, String path) {
       super(doc, path);
@@ -1211,7 +1155,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+  // 8.7.1.1. Administration Requirements.
   public static final class AdministrationRequirementsSection extends SomNode {
     public AdministrationRequirementsSection(SpecDocument doc, String path) {
       super(doc, path);
@@ -1260,7 +1204,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3. Administrative [PD00-ADM].
+  // 3. Administrative.
   //
   // Project-specific administrative information including team composition,
   // distribution channels, procedural agreements, and reference documentation.
@@ -1285,32 +1229,32 @@ public final class TomSomV0 {
       return new AdministrativeSummary(doc, path + "/summary");
     }
 
-    // 3.1. Project Organization [PD00-ADM-PRO].
+    // 3.1. Project Organization.
     public ProjectOrganization projectOrganization() {
       return new ProjectOrganization(doc, path + "/projectOrganization");
     }
 
-    // 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
+    // 3.2. Project Team Staffing — contains 1+× Team Member.
     public ProjectTeamStaffing projectTeamStaffing() {
       return new ProjectTeamStaffing(doc, path + "/projectTeamStaffing");
     }
 
-    // 3.3. Distribution List [PD00-ADM-DIS].
+    // 3.3. Distribution List.
     public DistributionList distributionList() {
       return new DistributionList(doc, path + "/distributionList");
     }
 
-    // 3.4. Change Procedure [PD00-ADM-CHA].
+    // 3.4. Change Procedure.
     public ChangeProcedure changeProcedure() {
       return new ChangeProcedure(doc, path + "/changeProcedure");
     }
 
-    // 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
+    // 3.5. Reference Documents — contains 0+× Reference Document.
     public ReferenceDocuments referenceDocuments() {
       return new ReferenceDocuments(doc, path + "/referenceDocuments");
     }
 
-    // 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+    // 3.6. Other Administrative Requirements.
     public OtherAdministrativeRequirements otherAdministrative() {
       return new OtherAdministrativeRequirements(doc, path + "/otherAdministrative");
     }
@@ -1343,7 +1287,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An affected department entry [PD00-SYO-RES-ORG-DEP-nn].
+  // An affected department entry.
   public static final class AffectedDepartmentEntry extends SomNode {
     public AffectedDepartmentEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -1354,7 +1298,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
+  // An affected function reference entry (form).
   //
   // Functions where this rule applies.
   public static final class AffectedFunctionEntry extends SomNode {
@@ -1376,7 +1320,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
+  // An affected object reference entry (form).
   //
   // Business objects affected by this rule.
   public static final class AffectedObjectEntry extends SomNode {
@@ -1575,7 +1519,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An alert rule entry [PD00-TEC-SYS-MON-ALR-nn].
+  // An alert rule entry.
   public static final class AlertRuleEntry extends SomNode {
     public AlertRuleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -1645,7 +1589,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+  // 8.7.2.2. Alerting Configuration.
   //
   // Comprehensive alerting rules, notification channels, and escalation
   // policies.
@@ -1762,7 +1706,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn].
+  // An alternative flow entry.
   public static final class AlternativeFlowEntry extends SomNode {
     public AlternativeFlowEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -1778,7 +1722,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn].
+  // An alternative step entry.
   public static final class AlternativeStepEntry extends SomNode {
     public AlternativeStepEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -2019,7 +1963,7 @@ public final class TomSomV0 {
     // (skipped: requestValidationDetails has no target type)
   }
 
-  // 9.3.2. API Security [PD00-ACC-RES-API].
+  // 9.3.2. API Security.
   //
   // Comprehensive API security specification covering authentication,
   // authorization, request validation, CORS policy, input sanitization,
@@ -2425,6 +2369,17 @@ public final class TomSomV0 {
     }
   }
 
+  // A formal approval / sign-off record (form).
+  public static final class ApprovalRecord extends SomNode {
+    public ApprovalRecord(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ApprovalRecordContentForm content() {
+      return new ApprovalRecordContentForm(doc, path + "/content");
+    }
+  }
+
   // Architecture component/service entry.
   public static final class ArchitectureComponentEntry extends SomNode {
     public ArchitectureComponentEntry(SpecDocument doc, String path) {
@@ -2709,7 +2664,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+  // 8.1.2. Architecture Style.
   //
   // Target architecture style specification: monolith, modular monolith,
   // microservices, event-driven, serverless, or hybrid. Includes justification
@@ -2779,7 +2734,134 @@ public final class TomSomV0 {
     }
   }
 
-  // An assumption entry [PD00-SYO-RIS-ASS-nn] (form).
+  // TR00 Technical Requirements.
+  //
+  // Comprehensive technical requirements: basic / software / standard-
+  // software / hardware / operations / communication / system-operation
+  // / security / architecture, plus components, framework conditions,
+  // and translation handling.
+  public static final class ArchitectureTechnologySpecification extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public ArchitectureTechnologySpecification(SpecDocument doc, String documentVersion) {
+      super(doc, "ATS");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public ArchitectureTechnologySpecification(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Basic technical requirements.
+    public BasicTechnicalRequirements basicTechnicalRequirements() {
+      return new BasicTechnicalRequirements(doc, path + "/basicTechnicalRequirements");
+    }
+
+    // Software design requirements.
+    public SoftwareDesignRequirements softwareDesignRequirements() {
+      return new SoftwareDesignRequirements(doc, path + "/softwareDesignRequirements");
+    }
+
+    // Standard application software requirements.
+    public StandardSoftwareRequirements standardSoftwareRequirements() {
+      return new StandardSoftwareRequirements(doc, path + "/standardSoftwareRequirements");
+    }
+
+    // Hardware concept requirements.
+    public HardwareRequirements hardwareRequirements() {
+      return new HardwareRequirements(doc, path + "/hardwareRequirements");
+    }
+
+    // Operations requirements.
+    public OperationsRequirements operationsRequirements() {
+      return new OperationsRequirements(doc, path + "/operationsRequirements");
+    }
+
+    // Communication requirements.
+    public CommunicationRequirements communicationRequirements() {
+      return new CommunicationRequirements(doc, path + "/communicationRequirements");
+    }
+
+    // System operation and monitoring.
+    public SystemOperationAndMonitoring systemOperationAndMonitoring() {
+      return new SystemOperationAndMonitoring(doc, path + "/systemOperationAndMonitoring");
+    }
+
+    // Technical security requirements.
+    public TechnicalSecurityRequirements technicalSecurityRequirements() {
+      return new TechnicalSecurityRequirements(doc, path + "/technicalSecurityRequirements");
+    }
+
+    // System architecture (new in Phase A).
+    public SystemArchitectureSpec systemArchitecture() {
+      return new SystemArchitectureSpec(doc, path + "/systemArchitecture");
+    }
+
+    // Components to use (whole).
+    public ComponentsToUse componentsToUse() {
+      return new ComponentsToUse(doc, path + "/componentsToUse");
+    }
+
+    // Technical framework conditions (whole).
+    public TechnicalFrameworkConditions technicalFrameworkConditions() {
+      return new TechnicalFrameworkConditions(doc, path + "/technicalFrameworkConditions");
+    }
+
+    // Translation handling requirements (whole).
+    public TranslationRequirements translationRequirements() {
+      return new TranslationRequirements(doc, path + "/translationRequirements");
+    }
+  }
+
+  // A consolidated register of assumptions and constraints.
+  public static final class AssumptionConstraintRegister extends SomNode {
+    public AssumptionConstraintRegister(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Assumptions the solution depends on being true.
+    public SomList<AssumptionRegisterEntry> assumptions() {
+      return new SomList<>(doc, path + "/ACRG-ASMP-LST", (d, p) -> new AssumptionRegisterEntry(d, p));
+    }
+
+    // Constraints the solution must operate within.
+    public SomList<ConstraintRegisterEntry> constraints() {
+      return new SomList<>(doc, path + "/ACRG-CONS-LST", (d, p) -> new ConstraintRegisterEntry(d, p));
+    }
+  }
+
+  // An assumption entry (form).
   //
   // Documents a project assumption including its basis, validation approach,
   // and contingency plans if the assumption proves false.
@@ -2831,6 +2913,20 @@ public final class TomSomV0 {
     }
   }
 
+  // A single assumption register entry (form).
+  //
+  // Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
+  // `AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+  public static final class AssumptionRegisterEntry extends SomNode {
+    public AssumptionRegisterEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public AssumptionRegisterEntryContentForm content() {
+      return new AssumptionRegisterEntryContentForm(doc, path + "/content");
+    }
+  }
+
   // Relationships to other project elements.
   public static final class AssumptionRelationships extends SomNode {
     public AssumptionRelationships(SpecDocument doc, String path) {
@@ -2850,6 +2946,27 @@ public final class TomSomV0 {
 
     public AssumptionValidationContentForm content() {
       return new AssumptionValidationContentForm(doc, path + "/content");
+    }
+  }
+
+  // SBP.6 Assumptions, Constraints & Dependencies.
+  public static final class AssumptionsConstraintsDependencies extends SomNode {
+    public AssumptionsConstraintsDependencies(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // The consolidated assumption / constraint register.
+    public AssumptionConstraintRegister register() {
+      return new AssumptionConstraintRegister(doc, path + "/register");
     }
   }
 
@@ -2880,7 +2997,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.6. Audit and Logging [PD00-ACC-AUD].
+  // 9.6. Audit and Logging.
   //
   // Security audit and event logging requirements covering security event
   // definitions, audit log format and structure, and compliance reporting.
@@ -2900,17 +3017,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+    // 9.6.1. Security Events.
     public SecurityEventsDefinition securityEvents() {
       return new SecurityEventsDefinition(doc, path + "/securityEvents");
     }
 
-    // 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+    // 9.6.2. Audit Log Format.
     public AuditLogFormat auditLogFormat() {
       return new AuditLogFormat(doc, path + "/auditLogFormat");
     }
 
-    // 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+    // 9.6.3. Compliance Reporting.
     public ComplianceReporting complianceReporting() {
       return new ComplianceReporting(doc, path + "/complianceReporting");
     }
@@ -2954,7 +3071,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+  // 9.6.2. Audit Log Format.
   //
   // Defines the audit log format: fields to capture (who, what, when, where,
   // result), log retention period, and tamper protection requirements.
@@ -2996,7 +3113,7 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
-  // 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+  // 3.6.4. Audit Requirements.
   //
   // Internal and external audit obligations.
   public static final class AuditRequirements extends SomNode {
@@ -3024,7 +3141,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+  // 9.2.2. Authentication.
   public static final class Authentication extends SomNode {
     public Authentication(SpecDocument doc, String path) {
       super(doc, path);
@@ -3039,22 +3156,22 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+    // 9.2.2.1. Authentication Methods.
     public AuthenticationMethods authenticationMethods() {
       return new AuthenticationMethods(doc, path + "/authenticationMethods");
     }
 
-    // 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+    // 9.2.2.2. Authentication Flow.
     public AuthenticationFlow authenticationFlow() {
       return new AuthenticationFlow(doc, path + "/authenticationFlow");
     }
 
-    // 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+    // 9.2.3. Password and Credential Policy.
     public PasswordAndCredentialPolicy passwordAndCredentialPolicy() {
       return new PasswordAndCredentialPolicy(doc, path + "/passwordAndCredentialPolicy");
     }
 
-    // 9.2.4. Session Management [PD00-ACC-IDE-SES].
+    // 9.2.4. Session Management.
     public SessionManagement sessionManagement() {
       return new SessionManagement(doc, path + "/sessionManagement");
     }
@@ -3098,7 +3215,7 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
-  // 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+  // 9.2.2.2. Authentication Flow.
   //
   // Comprehensive authentication flow specification covering the complete
   // login lifecycle: credential submission, validation, multi-factor challenges,
@@ -3160,7 +3277,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
+  // An authentication method entry (form).
   //
   // Detailed per-method specification aligned with NIST SP 800-63B
   // authenticator types (password, OTP, cryptographic, out-of-band).
@@ -3238,7 +3355,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+  // 9.2.2.1. Authentication Methods.
   //
   // Comprehensive authentication methods specification aligned with
   // NIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).
@@ -3292,87 +3409,6 @@ public final class TomSomV0 {
     }
   }
 
-  // AC00 Authorization Concept.
-  //
-  // Complete access and authorization specification — user management,
-  // identification and authentication, resource protection, user
-  // authorization, encryption, audit/logging, role matrix, and
-  // compliance framework.
-  public static final class AuthorizationConcept extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public AuthorizationConcept(SpecDocument doc, String documentVersion) {
-      super(doc, "AC");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public AuthorizationConcept(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // User management — PD00-ACC-USE.
-    public UserManagement userManagement() {
-      return new UserManagement(doc, path + "/userManagement");
-    }
-
-    // Identification and authentication — PD00-ACC-IDE.
-    public IdentificationAndAuthentication identificationAndAuthentication() {
-      return new IdentificationAndAuthentication(doc, path + "/identificationAndAuthentication");
-    }
-
-    // Resource protection — PD00-ACC-RES.
-    public ResourceProtection resourceProtection() {
-      return new ResourceProtection(doc, path + "/resourceProtection");
-    }
-
-    // User authorization — PD00-ACC-USA.
-    public UserAuthorization userAuthorization() {
-      return new UserAuthorization(doc, path + "/userAuthorization");
-    }
-
-    // Sensitive data encryption — PD00-ACC-SEN.
-    public SensitiveDataEncryption sensitiveDataEncryption() {
-      return new SensitiveDataEncryption(doc, path + "/sensitiveDataEncryption");
-    }
-
-    // Audit and logging — PD00-ACC-AUD.
-    public AuditAndLogging auditAndLogging() {
-      return new AuditAndLogging(doc, path + "/auditAndLogging");
-    }
-
-    // Role matrix — PD00-ACC-ROL (covers HBSG AS22-AUM).
-    public RoleMatrix roleMatrix() {
-      return new RoleMatrix(doc, path + "/roleMatrix");
-    }
-
-    // Compliance framework — PD00-ACC-CMP.
-    public ComplianceFramework complianceFramework() {
-      return new ComplianceFramework(doc, path + "/complianceFramework");
-    }
-  }
-
   // Authorization event policy (form).
   //
   // Defines which authorization-related events are logged.
@@ -3389,7 +3425,7 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
-  // An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
+  // An authorization group entry (form).
   public static final class AuthorizationGroupEntry extends SomNode {
     public AuthorizationGroupEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -3405,7 +3441,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+  // 9.4.1. Authorization Model.
   //
   // Describes the authorization model used by the system — RBAC, ABAC, ReBAC,
   // or hybrid. Covers access control model selection, permission granularity
@@ -3454,7 +3490,7 @@ public final class TomSomV0 {
     // (skipped: authorizationModelNotes has no target type)
   }
 
-  // An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+  // An authorization role entry (form).
   //
   // Defines a single authorization role with its category, scope, permission
   // assignments, activation rules, provisioning, and review requirements.
@@ -3563,7 +3599,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
+  // 11.4.1. Availability quality.
   public static final class AvailabilityQuality extends SomNode {
     public AvailabilityQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -3641,7 +3677,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
+  // 8.5.1. Backup and Recovery.
   //
   // Backup frequency, retention period, recovery point objective (RPO),
   // recovery time objective (RTO), and backup verification procedures.
@@ -4187,7 +4223,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+  // 8.1. Basic Technical Requirements.
   public static final class BasicTechnicalRequirements extends SomNode {
     public BasicTechnicalRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -4202,17 +4238,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+    // 8.1.1. Platform and Language.
     public PlatformAndLanguage platformAndLanguage() {
       return new PlatformAndLanguage(doc, path + "/platformAndLanguage");
     }
 
-    // 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+    // 8.1.2. Architecture Style.
     public ArchitectureStyle architectureStyle() {
       return new ArchitectureStyle(doc, path + "/architectureStyle");
     }
 
-    // 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+    // 8.1.3. Design Patterns and Standards.
     public DesignPatternsAndStandards designPatternsAndStandards() {
       return new DesignPatternsAndStandards(doc, path + "/designPatternsAndStandards");
     }
@@ -4311,7 +4347,7 @@ public final class TomSomV0 {
     // (skipped: biometricDetails has no target type)
   }
 
-  // A boundary assumption entry [PD00-SYO-SYB-ASS-nn] (form).
+  // A boundary assumption entry (form).
   public static final class BoundaryAssumptionEntry extends SomNode {
     public BoundaryAssumptionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -4354,7 +4390,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+  // 4.5.3. Assumptions.
   //
   // Documents assumptions about external systems, data availability,
   // organizational readiness, and third-party services that must hold true
@@ -4374,7 +4410,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT].
+  // 4.5.5. Boundary Interaction Patterns.
   //
   // Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
   // Named `BoundaryInteractionPatterns` to avoid colliding with the
@@ -4469,7 +4505,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+  // 10.3.1.6.1. Breadcrumb Configuration.
   public static final class BreadcrumbConfiguration extends SomNode {
     public BreadcrumbConfiguration(SpecDocument doc, String path) {
       super(doc, path);
@@ -4480,7 +4516,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+  // 10.10.1. Breakpoints.
   //
   // Breakpoint definitions for responsive layouts.
   public static final class BreakpointConfiguration extends SomNode {
@@ -4498,7 +4534,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A breakpoint entry [PD00-USE-RES-BRE-nn].
+  // A breakpoint entry.
   public static final class BreakpointEntry extends SomNode {
     public BreakpointEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -4964,104 +5000,7 @@ public final class TomSomV0 {
     }
   }
 
-  // BDM00 Business Data Model.
-  //
-  // Full business data model: entities, relationships, ER diagram, data
-  // classification, business objects, function decomposition, function-
-  // to-data matrix, business rules, data dictionary, and validation /
-  // integrity constraints.
-  public static final class BusinessDataModel extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public BusinessDataModel(SpecDocument doc, String documentVersion) {
-      super(doc, "BDM");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public BusinessDataModel(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Entity inventory — PD00-BUS-DAT-ENT (list).
-    public SomList<DataEntityEntry> entities() {
-      return new SomList<>(doc, path + "/DAENT-ENTI-LST", (d, p) -> new DataEntityEntry(d, p));
-    }
-
-    // Entity relationships — PD00-BUS-DAT-REL.
-    public EntityRelationships entityRelationships() {
-      return new EntityRelationships(doc, path + "/entityRelationships");
-    }
-
-    // Entity-relationship diagram — PD00-BUS-DAT-DIA.
-    // (skipped: erDiagram has no target type)
-
-    // Data classification — PD00-BUS-DAT-CLA.
-    public DataClassification dataClassification() {
-      return new DataClassification(doc, path + "/dataClassification");
-    }
-
-    // Business object catalog — PD00-BUS-BUS-CAT (list).
-    public SomList<BusinessObjectEntry> objectCatalog() {
-      return new SomList<>(doc, path + "/BJOEN-OBJE-LST", (d, p) -> new BusinessObjectEntry(d, p));
-    }
-
-    // Business object diagram — PD00-BUS-BUS-DIA.
-    // (skipped: objectDiagram has no target type)
-
-    // Function decomposition — PD00-BUS-FUN-DEC (list).
-    public SomList<FunctionEntry> functionDecomposition() {
-      return new SomList<>(doc, path + "/FUNCT-FUNC-LST", (d, p) -> new FunctionEntry(d, p));
-    }
-
-    // Function-to-data matrix — PD00-BUS-FUN-MAT (list).
-    public SomList<FunctionDataMatrixEntry> functionToDataMatrix() {
-      return new SomList<>(doc, path + "/FNDMX-FUNC-LST", (d, p) -> new FunctionDataMatrixEntry(d, p));
-    }
-
-    // Business rules catalog — PD00-BUS-FUN-RUL (list).
-    public SomList<BusinessRuleEntry> businessRules() {
-      return new SomList<>(doc, path + "/BIRU-BUSI-LST", (d, p) -> new BusinessRuleEntry(d, p));
-    }
-
-    // Data dictionary — PD00-BUS-DAT-DIC.
-    public DataDictionary dataDictionary() {
-      return new DataDictionary(doc, path + "/dataDictionary");
-    }
-
-    // Validation constraints — PD00-BUS-DAT-VAL.
-    public SomList<ValidationConstraints> validationConstraints() {
-      return new SomList<>(doc, path + "/VACO-VALI-LST", (d, p) -> new ValidationConstraints(d, p));
-    }
-
-    // Integrity constraints — PD00-BUS-DAT-CON.
-    public SomList<IntegrityConstraints> integrityConstraints() {
-      return new SomList<>(doc, path + "/INCO-INTE-LST", (d, p) -> new IntegrityConstraints(d, p));
-    }
-  }
-
-  // A business goal entry [PD00-SYO-GOA-BUS-nn].
+  // A business goal entry.
   //
   // Comprehensive business goal definition following SMART criteria with
   // OKR-style key results, ownership, and tracking information.
@@ -5094,27 +5033,27 @@ public final class TomSomV0 {
       return new BusinessGoalEntryStrategy(doc, path + "/strategy");
     }
 
-    // 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+    // 4.2.1.n.1. Key Results.
     public GoalKeyResults keyResults() {
       return new GoalKeyResults(doc, path + "/keyResults");
     }
 
-    // 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+    // 4.2.1.n.2. Milestones.
     public GoalMilestones milestones() {
       return new GoalMilestones(doc, path + "/milestones");
     }
 
-    // 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+    // 4.2.1.n.3. Dependencies.
     public GoalDependencies dependencies() {
       return new GoalDependencies(doc, path + "/dependencies");
     }
 
-    // 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+    // 4.2.1.n.4. Risks.
     public GoalRisks risks() {
       return new GoalRisks(doc, path + "/risks");
     }
 
-    // 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+    // 4.2.1.n.5. Resources.
     public GoalResources resources() {
       return new GoalResources(doc, path + "/resources");
     }
@@ -5164,7 +5103,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+  // 4.2.1. Business Goals.
   //
   // Container for business goal definitions. Business goals define what the
   // organization wants to achieve through this project in terms of business
@@ -5264,38 +5203,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
-  public static final class BusinessObjectAndDataModel extends SomNode {
-    public BusinessObjectAndDataModel(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // 7.1. Data Model [PD00-BUS-DAT].
-    public DataModel dataModel() {
-      return new DataModel(doc, path + "/dataModel");
-    }
-
-    // 7.2. Business Object Model [PD00-BUS-BUS].
-    public BusinessObjectModel businessObjectModel() {
-      return new BusinessObjectModel(doc, path + "/businessObjectModel");
-    }
-
-    // 7.3. Function Model [PD00-BUS-FUN].
-    public FunctionModel functionModel() {
-      return new FunctionModel(doc, path + "/functionModel");
-    }
-  }
-
-  // A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
+  // A business object attribute entry (form).
   //
   // Business-level attribute specification focusing on business meaning and rules.
   public static final class BusinessObjectAttributeEntry extends SomNode {
@@ -5356,7 +5264,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A business object entry [PD00-BUS-BUS-CAT-nn] (form).
+  // A business object entry (form).
   //
   // Comprehensive business object specification following domain-driven design
   // patterns. Business objects represent key domain concepts with behavior,
@@ -5390,38 +5298,38 @@ public final class TomSomV0 {
       return new SomList<>(doc, path + "/INTEG-INTE-LST", (d, p) -> new IntegrationPointEntry(d, p));
     }
 
-    // Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
+    // Contains 0+× BusinessObjectAttribute.
     public SomList<BusinessObjectAttributeEntry> attributes() {
       return new SomList<>(doc, path + "/BIOBAT-ATTR-LST", (d, p) -> new BusinessObjectAttributeEntry(d, p));
     }
 
-    // Contains 0+× ObjectState [PD00-BUS-BUS-CAT-nn-STA].
+    // Contains 0+× ObjectState.
     public SomList<ObjectStateEntry> keyStates() {
       return new SomList<>(doc, path + "/OBST-KEYS-LST", (d, p) -> new ObjectStateEntry(d, p));
     }
 
-    // Contains 0+× BusinessRuleReference [PD00-BUS-BUS-CAT-nn-BRR].
+    // Contains 0+× BusinessRuleReference.
     public SomList<BusinessRuleReferenceEntry> keyBusinessRules() {
       return new SomList<>(doc, path + "/BIRURE-KEYB-LST", (d, p) -> new BusinessRuleReferenceEntry(d, p));
     }
 
-    // Contains 0+× LifecycleTransition [PD00-BUS-BUS-CAT-nn-LIF].
+    // Contains 0+× LifecycleTransition.
     public SomList<LifecycleTransitionEntry> lifecycleTransitions() {
       return new SomList<>(doc, path + "/LFTRS-LIFE-LST", (d, p) -> new LifecycleTransitionEntry(d, p));
     }
 
-    // Contains 0+× ObjectOperation [PD00-BUS-BUS-CAT-nn-OPR].
+    // Contains 0+× ObjectOperation.
     public SomList<ObjectOperationEntry> operations() {
       return new SomList<>(doc, path + "/OBOP-OPER-LST", (d, p) -> new ObjectOperationEntry(d, p));
     }
 
-    // Contains 0+× ObjectInvariant [PD00-BUS-BUS-CAT-nn-INV].
+    // Contains 0+× ObjectInvariant.
     public SomList<ObjectInvariantEntry> invariants() {
       return new SomList<>(doc, path + "/OBINV-INVA-LST", (d, p) -> new ObjectInvariantEntry(d, p));
     }
   }
 
-  // 7.2. Business Object Model [PD00-BUS-BUS].
+  // 7.2. Business Object Model.
   public static final class BusinessObjectModel extends SomNode {
     public BusinessObjectModel(SpecDocument doc, String path) {
       super(doc, path);
@@ -5436,16 +5344,16 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.
+    // 7.2.1. Object Catalog — contains 1+× Business Object.
     public SomList<BusinessObjectEntry> objects() {
       return new SomList<>(doc, path + "/BJOEN-OBJE-LST", (d, p) -> new BusinessObjectEntry(d, p));
     }
 
-    // 7.2.2. Business Object Diagram [PD00-BUS-BUS-DIA] (mermaid).
+    // 7.2.2. Business Object Diagram (mermaid).
     // (skipped: objectDiagram has no target type)
   }
 
-  // 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+  // 1.3.2. Business Pain Points.
   //
   // Problems that affect business outcomes: lost revenue, compliance risk,
   // customer dissatisfaction, inability to scale, and missed opportunities.
@@ -5485,7 +5393,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.1. Business Process Descriptions [PD00-TAR-PRO].
+  // 6.1. Business Process Descriptions.
   //
   // Target business processes at a high level. Each process will be expanded
   // with detailed workflows, triggers, decision points, and exception handling
@@ -5504,58 +5412,58 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+    // 6.1.1. Process Vision.
     public ProcessVision processVision() {
       return new ProcessVision(doc, path + "/processVision");
     }
 
-    // 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+    // 6.1.2. Design Principles.
     public ProcessDesignPrinciples designPrinciples() {
       return new ProcessDesignPrinciples(doc, path + "/designPrinciples");
     }
 
-    // 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
+    // 6.1.3. Process Catalog — contains 1+× Business Process.
     public ProcessCatalog processCatalog() {
       return new ProcessCatalog(doc, path + "/processCatalog");
     }
 
-    // 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+    // 6.1.4. Process Overview Diagram.
     public ProcessOverviewDiagram processOverviewDiagram() {
       return new ProcessOverviewDiagram(doc, path + "/processOverviewDiagram");
     }
 
-    // 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+    // 6.1.5. Improvement Summary.
     public ProcessImprovementSummary improvementSummary() {
       return new ProcessImprovementSummary(doc, path + "/improvementSummary");
     }
 
-    // 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
+    // 6.1.6. Process Relationships.
     public ProcessRelationships processRelationships() {
       return new ProcessRelationships(doc, path + "/processRelationships");
     }
 
-    // 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+    // 6.1.7. Detailed Process Workflows.
     public SomList<DetailedProcessWorkflows> detailedWorkflows() {
       return new SomList<>(doc, path + "/DEPRWO-DETA-LST", (d, p) -> new DetailedProcessWorkflows(d, p));
     }
 
-    // 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+    // 6.1.8. Cross-Process Analysis.
     public CrossProcessAnalysis crossProcessAnalysis() {
       return new CrossProcessAnalysis(doc, path + "/crossProcessAnalysis");
     }
 
-    // 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+    // 6.1.9. Process Exception Handling.
     public ProcessExceptionHandling exceptionHandling() {
       return new ProcessExceptionHandling(doc, path + "/exceptionHandling");
     }
 
-    // 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+    // 6.1.10. Process Metrics and KPIs.
     public SomList<ProcessMetricsAndKpis> processMetricsAndKpis() {
       return new SomList<>(doc, path + "/PMAK-PROC-LST", (d, p) -> new ProcessMetricsAndKpis(d, p));
     }
   }
 
-  // A business process entry [PD00-TAR-PRO-CAT-nn].
+  // A business process entry.
   //
   // Comprehensive business process definition following BPMN 2.0 concepts.
   public static final class BusinessProcessEntry extends SomNode {
@@ -5612,207 +5520,7 @@ public final class TomSomV0 {
     // (skipped: processFlowPreview has no target type)
   }
 
-  // BP00 Business Processes.
-  //
-  // Target business process specification — vision, principles, catalog,
-  // diagrams, improvements, relationships, detailed workflows,
-  // cross-process analysis, exception handling, and KPIs.
-  public static final class BusinessProcesses extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public BusinessProcesses(SpecDocument doc, String documentVersion) {
-      super(doc, "BP");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public BusinessProcesses(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Process vision — PD00-TAR-PRO-VIS.
-    public ProcessVision processVision() {
-      return new ProcessVision(doc, path + "/processVision");
-    }
-
-    // Design principles — PD00-TAR-PRO-PRI.
-    public ProcessDesignPrinciples designPrinciples() {
-      return new ProcessDesignPrinciples(doc, path + "/designPrinciples");
-    }
-
-    // Process catalog — PD00-TAR-PRO-CAT.
-    public ProcessCatalog processCatalog() {
-      return new ProcessCatalog(doc, path + "/processCatalog");
-    }
-
-    // Process overview diagram — PD00-TAR-PRO-FLO.
-    public ProcessOverviewDiagram processOverviewDiagram() {
-      return new ProcessOverviewDiagram(doc, path + "/processOverviewDiagram");
-    }
-
-    // Improvement summary — PD00-TAR-PRO-IMP.
-    public ProcessImprovementSummary improvementSummary() {
-      return new ProcessImprovementSummary(doc, path + "/improvementSummary");
-    }
-
-    // Process relationships — PD00-TAR-PRO-REL.
-    public ProcessRelationships processRelationships() {
-      return new ProcessRelationships(doc, path + "/processRelationships");
-    }
-
-    // Detailed process workflows — PD00-TAR-PRO-DET.
-    public SomList<DetailedProcessWorkflows> detailedWorkflows() {
-      return new SomList<>(doc, path + "/DEPRWO-DETA-LST", (d, p) -> new DetailedProcessWorkflows(d, p));
-    }
-
-    // Cross-process analysis — PD00-TAR-PRO-CRO.
-    public CrossProcessAnalysis crossProcessAnalysis() {
-      return new CrossProcessAnalysis(doc, path + "/crossProcessAnalysis");
-    }
-
-    // Process exception handling — PD00-TAR-PRO-EXC.
-    public ProcessExceptionHandling exceptionHandling() {
-      return new ProcessExceptionHandling(doc, path + "/exceptionHandling");
-    }
-
-    // Process metrics and KPIs — PD00-TAR-PRO-MET.
-    public SomList<ProcessMetricsAndKpis> processMetricsAndKpis() {
-      return new SomList<>(doc, path + "/PMAK-PROC-LST", (d, p) -> new ProcessMetricsAndKpis(d, p));
-    }
-  }
-
-  // BQP00 Business Quality Plan.
-  //
-  // Full quality plan combining quality goals (PD00-SYQ) and the
-  // acceptance plan (PD00-DEL-ACC). Replaces HBSG AS11 + AS23 + partial
-  // AS14 coverage.
-  public static final class BusinessQualityPlan extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public BusinessQualityPlan(SpecDocument doc, String documentVersion) {
-      super(doc, "BQP");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public BusinessQualityPlan(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Quality framework — PD00-SYQ-FRA.
-    public QualityFramework qualityFramework() {
-      return new QualityFramework(doc, path + "/qualityFramework");
-    }
-
-    // User-related quality criteria — PD00-SYQ-USE.
-    public UserQualityCriteria userQualityCriteria() {
-      return new UserQualityCriteria(doc, path + "/userQualityCriteria");
-    }
-
-    // Technical quality criteria — PD00-SYQ-TEC.
-    public TechnicalQualityCriteria technicalQualityCriteria() {
-      return new TechnicalQualityCriteria(doc, path + "/technicalQualityCriteria");
-    }
-
-    // Operations quality criteria — PD00-SYQ-OPE.
-    public OperationsQualityCriteria operationsQualityCriteria() {
-      return new OperationsQualityCriteria(doc, path + "/operationsQualityCriteria");
-    }
-
-    // Documentation quality criteria — PD00-SYQ-DOC.
-    public DocumentationQualityCriteria documentationQualityCriteria() {
-      return new DocumentationQualityCriteria(doc, path + "/documentationQualityCriteria");
-    }
-
-    // Quality prioritization — PD00-SYQ-PRI.
-    public QualityPrioritization qualityPrioritization() {
-      return new QualityPrioritization(doc, path + "/qualityPrioritization");
-    }
-
-    // Acceptance criteria summary — PD00-SYQ-ACC.
-    public AcceptanceCriteriaSummary acceptanceCriteriaSummary() {
-      return new AcceptanceCriteriaSummary(doc, path + "/acceptanceCriteriaSummary");
-    }
-
-    // Test strategy — PD00-SYQ-TST (new in Phase A, HBSG AS23).
-    public TestStrategy testStrategy() {
-      return new TestStrategy(doc, path + "/testStrategy");
-    }
-
-    // Acceptance criteria — PD00-DEL-ACC-CRI.
-    public AcceptanceCriteriaList acceptanceCriteria() {
-      return new AcceptanceCriteriaList(doc, path + "/acceptanceCriteria");
-    }
-
-    // Acceptance process — PD00-DEL-ACC-PRO.
-    public AcceptanceProcess acceptanceProcess() {
-      return new AcceptanceProcess(doc, path + "/acceptanceProcess");
-    }
-
-    // User acceptance testing — PD00-DEL-ACC-UAT.
-    public UserAcceptanceTesting userAcceptanceTesting() {
-      return new UserAcceptanceTesting(doc, path + "/userAcceptanceTesting");
-    }
-
-    // Defect resolution — PD00-DEL-ACC-DEF.
-    public DefectResolution defectResolution() {
-      return new DefectResolution(doc, path + "/defectResolution");
-    }
-
-    // Sign-off process — PD00-DEL-ACC-SIG.
-    public SignOffProcess signOffProcess() {
-      return new SignOffProcess(doc, path + "/signOffProcess");
-    }
-
-    // Warranty terms — PD00-DEL-ACC-WAR.
-    public WarrantyTerms warranty() {
-      return new WarrantyTerms(doc, path + "/warranty");
-    }
-  }
-
-  // A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
+  // A business rule entry (form).
   //
   // Comprehensive business rule specification following SBVR-like patterns.
   public static final class BusinessRuleEntry extends SomNode {
@@ -5844,23 +5552,23 @@ public final class TomSomV0 {
       return new BusinessRuleEntryGovernanceForm(doc, path + "/governance");
     }
 
-    // Contains 0+× AffectedObject [PD00-BUS-FUN-RUL-nn-AOB].
+    // Contains 0+× AffectedObject.
     public SomList<AffectedObjectEntry> affectedObjects() {
       return new SomList<>(doc, path + "/AFOB-AFFE-LST", (d, p) -> new AffectedObjectEntry(d, p));
     }
 
-    // Contains 0+× AffectedFunction [PD00-BUS-FUN-RUL-nn-AFU].
+    // Contains 0+× AffectedFunction.
     public SomList<AffectedFunctionEntry> affectedFunctions() {
       return new SomList<>(doc, path + "/AFFN-AFFE-LST", (d, p) -> new AffectedFunctionEntry(d, p));
     }
 
-    // Contains 0+× RuleExample [PD00-BUS-FUN-RUL-nn-EXA].
+    // Contains 0+× RuleExample.
     public SomList<RuleExampleEntry> examples() {
       return new SomList<>(doc, path + "/RULEXM-EXAM-LST", (d, p) -> new RuleExampleEntry(d, p));
     }
   }
 
-  // A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
+  // A business rule reference entry (form).
   //
   // Reference to business rules that govern this object.
   public static final class BusinessRuleReferenceEntry extends SomNode {
@@ -5882,97 +5590,7 @@ public final class TomSomV0 {
     }
   }
 
-  // BSI00 Business System Interactions.
-  //
-  // Complete interaction specification between the target system and
-  // external systems: inventory, patterns, testing, dependencies,
-  // migration, operational concerns, and cross-boundary error handling.
-  public static final class BusinessSystemInteractions extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public BusinessSystemInteractions(SpecDocument doc, String documentVersion) {
-      super(doc, "BSI");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public BusinessSystemInteractions(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // External interfaces — PD00-SYO-SYB-INT.
-    public ExternalInterfaces externalInterfaces() {
-      return new ExternalInterfaces(doc, path + "/externalInterfaces");
-    }
-
-    // Out of scope — PD00-SYO-SYB-OUT.
-    public OutOfScope outOfScope() {
-      return new OutOfScope(doc, path + "/outOfScope");
-    }
-
-    // Boundary assumptions — PD00-SYO-SYB-ASS.
-    public BoundaryAssumptions boundaryAssumptions() {
-      return new BoundaryAssumptions(doc, path + "/boundaryAssumptions");
-    }
-
-    // System landscape inventory — PD00-SYO-SYB-INV.
-    public SystemLandscapeInventory systemInventory() {
-      return new SystemLandscapeInventory(doc, path + "/systemInventory");
-    }
-
-    // Boundary interaction patterns — PD00-SYO-SYB-PAT.
-    public SomList<BoundaryInteractionPatterns> interactionPatterns() {
-      return new SomList<>(doc, path + "/BOINPA-INTE-LST", (d, p) -> new BoundaryInteractionPatterns(d, p));
-    }
-
-    // Interaction testing strategy — PD00-SYO-SYB-TST.
-    public InteractionTestingStrategy testingStrategy() {
-      return new InteractionTestingStrategy(doc, path + "/testingStrategy");
-    }
-
-    // Interaction dependency analysis — PD00-SYO-SYB-DEP.
-    public InteractionDependencyAnalysis dependencyAnalysis() {
-      return new InteractionDependencyAnalysis(doc, path + "/dependencyAnalysis");
-    }
-
-    // Migration interactions — PD00-SYO-SYB-MIG.
-    public SomList<MigrationInteractions> migrationInteractions() {
-      return new SomList<>(doc, path + "/MIIN-MIGR-LST", (d, p) -> new MigrationInteractions(d, p));
-    }
-
-    // Cross-boundary operational considerations — PD00-SYO-SYB-OPE.
-    public SomList<CrossBoundaryOperationalConsiderations> operationalConsiderations() {
-      return new SomList<>(doc, path + "/CBOC-OPER-LST", (d, p) -> new CrossBoundaryOperationalConsiderations(d, p));
-    }
-
-    // Cross-boundary error handling — PD00-SYO-SYB-ERR.
-    public CrossBoundaryErrorHandling crossBoundaryErrorHandling() {
-      return new CrossBoundaryErrorHandling(doc, path + "/crossBoundaryErrorHandling");
-    }
-  }
-
-  // 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+  // 8.7.3. Capacity Planning.
   public static final class CapacityPlanningSection extends SomNode {
     public CapacityPlanningSection(SpecDocument doc, String path) {
       super(doc, path);
@@ -6227,7 +5845,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Certification entry (form) [PD00-ORG-WOR-nn-TRA-CER-nn].
+  // Certification entry (form).
   public static final class CertificationEntry extends SomNode {
     public CertificationEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -6409,7 +6027,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A change category entry [PD00-ADM-CHA-CAT-nn].
+  // A change category entry.
   //
   // Defines a category of changes with specific handling rules.
   public static final class ChangeCategoryEntry extends SomNode {
@@ -6470,7 +6088,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+  // 3.4.3. Change Control Board.
   //
   // Governance body responsible for major change decisions.
   public static final class ChangeControlBoard extends SomNode {
@@ -6547,7 +6165,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+  // 3.4.2. Change Impact Criteria.
   //
   // Criteria for determining the impact level of change requests,
   // which drives the approval path and stakeholder involvement.
@@ -6576,7 +6194,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
+  // A change impact criterion entry (form).
   //
   // Detailed criterion for assessing change impact in a specific dimension.
   public static final class ChangeImpactCriterionEntry extends SomNode {
@@ -6664,7 +6282,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.4. Change Procedure [PD00-ADM-CHA].
+  // 3.4. Change Procedure.
   //
   // Procedure for requesting, evaluating, and approving changes to this
   // Project Definition and other project documents. Defines the change
@@ -6688,22 +6306,22 @@ public final class TomSomV0 {
       return new ChangeProcedureSummary(doc, path + "/summary");
     }
 
-    // 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+    // 3.4.1. Change Process.
     public ChangeProcess changeProcess() {
       return new ChangeProcess(doc, path + "/changeProcess");
     }
 
-    // 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+    // 3.4.2. Change Impact Criteria.
     public ChangeImpactCriteria changeImpactCriteria() {
       return new ChangeImpactCriteria(doc, path + "/changeImpactCriteria");
     }
 
-    // 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+    // 3.4.3. Change Control Board.
     public ChangeControlBoard changeControlBoard() {
       return new ChangeControlBoard(doc, path + "/changeControlBoard");
     }
 
-    // 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
+    // 3.4.4. Change Categories — contains 0+× Category.
     public SomList<ChangeCategoryEntry> changeCategories() {
       return new SomList<>(doc, path + "/CHCA-CHAN-LST", (d, p) -> new ChangeCategoryEntry(d, p));
     }
@@ -6720,7 +6338,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+  // 3.4.1. Change Process.
   //
   // Detailed workflow for change request processing from submission
   // through evaluation, approval, implementation, and closure.
@@ -6785,7 +6403,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
+  // A role involved in the change process (form).
   public static final class ChangeRoleEntry extends SomNode {
     public ChangeRoleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -6796,7 +6414,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
+  // A change process step entry (form).
   //
   // Detailed description of a single step in the change process workflow.
   public static final class ChangeStepEntry extends SomNode {
@@ -6903,7 +6521,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+  // A changed role entry (form).
   //
   // Documents modifications to existing roles with impact assessment,
   // transition planning, and incumbent management.
@@ -7078,7 +6696,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+  // 5.1.1. Changes from Current Structure.
   //
   // Explicitly documents what changes from the current organization structure.
   // Identifies affected departments, changed reporting lines, and new roles
@@ -7464,7 +7082,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+  // 8.4.2. Client Requirements.
   //
   // Minimum client requirements: browser versions, operating systems, screen
   // resolution, network bandwidth, and device capabilities.
@@ -8077,7 +7695,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A color palette entry [PD00-USE-COM-LIB-COL-nn].
+  // A color palette entry.
   public static final class ColorPaletteEntry extends SomNode {
     public ColorPaletteEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -8121,7 +7739,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+  // A steering committee member entry (form).
   //
   // Detailed information about a steering committee member.
   public static final class CommitteeMemberEntry extends SomNode {
@@ -8151,7 +7769,7 @@ public final class TomSomV0 {
   }
 
   // A communication channel encryption entry (form)
-  // [PD00-ACC-SEN-TRA-CHA-nn].
+  // .
   //
   // Defines encryption requirements for a specific communication channel
   // (e.g. client-to-server HTTPS, server-to-database, inter-service,
@@ -8167,7 +7785,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Communication event entry [PD00-ORG-STR-TIM-COM-nn] (form).
+  // Communication event entry (form).
   public static final class CommunicationEventEntry extends SomNode {
     public CommunicationEventEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -8343,7 +7961,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.6. Communication Requirements [PD00-TEC-COM].
+  // 8.6. Communication Requirements.
   public static final class CommunicationRequirements extends SomNode {
     public CommunicationRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -8358,12 +7976,12 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+    // 8.6.1. Protocols and Standards.
     public ProtocolsAndStandardsSection protocolsAndStandards() {
       return new ProtocolsAndStandardsSection(doc, path + "/protocolsAndStandards");
     }
 
-    // 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+    // 8.6.2. External Connectivity.
     public ExternalConnectivitySection externalConnectivity() {
       return new ExternalConnectivitySection(doc, path + "/externalConnectivity");
     }
@@ -8391,7 +8009,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+  // 8.3.1. Compatibility Requirements.
   //
   // Compatibility requirements with existing IT infrastructure, standard software,
   // and enterprise systems.
@@ -8468,7 +8086,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A competency entry (form) [PD00-ORG-JOB-CMP-xx-nn].
+  // A competency entry (form).
   public static final class CompetencyEntry extends SomNode {
     public CompetencyEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -8479,7 +8097,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+  // 5.2.5. Competency Framework.
   public static final class CompetencyFramework extends SomNode {
     public CompetencyFramework(SpecDocument doc, String path) {
       super(doc, path);
@@ -8539,7 +8157,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Compliance audit planning and scheduling [PD00-TEC-SEC-AUD].
+  // Compliance audit planning and scheduling.
   public static final class ComplianceAuditSchedule extends SomNode {
     public ComplianceAuditSchedule(SpecDocument doc, String path) {
       super(doc, path);
@@ -8598,7 +8216,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.8. Compliance Framework [PD00-ACC-CMP].
+  // 9.8. Compliance Framework.
   //
   // NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
   // authorization. Pulls the compliance references currently scattered
@@ -8645,7 +8263,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+  // 9.6.3. Compliance Reporting.
   //
   // Describes compliance reporting requirements: periodic access reviews,
   // privilege usage reports, anomaly detection, and regulatory audit support.
@@ -8789,7 +8407,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
+  // A component action entry.
   //
   // Defines an action that can be triggered from the component.
   public static final class ComponentActionEntry extends SomNode {
@@ -8878,7 +8496,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+  // A component entry (form) with sub-entries.
   //
   // Describes a single external or standard component planned for use:
   // vendor assessment, maturity, security, cost, deployment model, licensing,
@@ -8937,26 +8555,26 @@ public final class TomSomV0 {
       return new SomList<>(doc, path + "/CODO-DOCS-LST", (d, p) -> new ComponentDocs(d, p));
     }
 
-    // Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
+    // Interfaces — contains 0+× ComponentInterface.
     public SomList<ComponentInterfaceEntry> interfaces() {
       return new SomList<>(doc, path + "/CMIF-INTE-LST", (d, p) -> new ComponentInterfaceEntry(d, p));
     }
 
-    // Licensing [PD00-COM-COM-nn-LIC] (form).
+    // Licensing (form).
     public ComponentLicensingEntry licensing() {
       return new ComponentLicensingEntry(doc, path + "/licensing");
     }
 
-    // Usage Rights [PD00-COM-COM-nn-USE].
+    // Usage Rights.
     // (skipped: usageRights has no target type)
 
-    // Responsibilities [PD00-COM-COM-nn-RES] (form).
+    // Responsibilities (form).
     public SomList<ComponentResponsibilitiesEntry> responsibilities() {
       return new SomList<>(doc, path + "/COREEN-RESP-LST", (d, p) -> new ComponentResponsibilitiesEntry(d, p));
     }
   }
 
-  // A component family entry [PD00-USE-COM-FAM-nn].
+  // A component family entry.
   //
   // Groups related components by function (buttons, inputs, navigation, etc.).
   public static final class ComponentFamilyEntry extends SomNode {
@@ -9052,7 +8670,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
+  // A component interface entry (form).
   //
   // Describes one interface exposed or consumed by a component: protocol,
   // authentication, data format, rate limits, versioning, SLA, monitoring.
@@ -9146,7 +8764,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.11.1. Component Library [PD00-USE-COM-LIB].
+  // 10.11.1. Component Library.
   //
   // Design system and component catalog specification.
   public static final class ComponentLibrary extends SomNode {
@@ -9255,7 +8873,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+  // Component licensing sub-entry (form).
   //
   // Detailed licensing information: model, cost, compliance, open-source
   // obligations, audit requirements, geographic restrictions, usage metrics.
@@ -9446,7 +9064,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
+  // A component property entry.
   //
   // Defines a configurable property of the component.
   public static final class ComponentPropertyEntry extends SomNode {
@@ -9534,7 +9152,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+  // Component responsibilities sub-entry (form).
   //
   // Who owns and maintains this component: primary/backup owners, SLA targets,
   // patch response time, security vulnerability handling, budget allocation.
@@ -9623,7 +9241,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 12.6. Risk Assessment [PD00-COM-RIS].
+  // 12.6. Risk Assessment.
   //
   // Component risk assessment: identified risks with probability/impact,
   // monitoring, mitigation strategies, and contingency plans.
@@ -9641,18 +9259,18 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+    // 12.6.1. Component Risks — contains 0+× Risk.
     public SomList<ComponentRiskEntry> risks() {
       return new SomList<>(doc, path + "/CMRS-RISK-LST", (d, p) -> new ComponentRiskEntry(d, p));
     }
 
-    // 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+    // 12.6.2. Contingency Plans.
     public ContingencyPlans contingencyPlans() {
       return new ContingencyPlans(doc, path + "/contingencyPlans");
     }
   }
 
-  // A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+  // A component risk entry (form).
   //
   // Documents one component risk: category, probability, impact, detection
   // methods, mitigation strategy and status, residual risk, and ownership.
@@ -9746,7 +9364,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
+  // A component slot entry.
   //
   // Defines a slot where child widgets can be placed.
   public static final class ComponentSlotEntry extends SomNode {
@@ -9759,7 +9377,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
+  // A component state entry.
   //
   // Defines a visual/functional state of the component.
   public static final class ComponentStateEntry extends SomNode {
@@ -9823,7 +9441,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 12.1. Component Strategy [PD00-COM-STR].
+  // 12.1. Component Strategy.
   //
   // Overall component strategy: build-vs-buy philosophy, preferred vendors,
   // technology stack alignment, governance, evaluation cadence, and portfolio
@@ -9862,12 +9480,12 @@ public final class TomSomV0 {
       return new ComponentStrategyPlanning(doc, path + "/planning");
     }
 
-    // 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+    // 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
     public SomList<ReuseGoalEntry> reuseGoals() {
       return new SomList<>(doc, path + "/RGUSE-REUS-LST", (d, p) -> new ReuseGoalEntry(d, p));
     }
 
-    // 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+    // 12.1.2. Evaluation Criteria.
     public EvaluationCriteria evaluationCriteria() {
       return new EvaluationCriteria(doc, path + "/evaluationCriteria");
     }
@@ -9939,7 +9557,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
+  // A component variant entry.
   //
   // Defines a variation of the component with different appearance or behavior.
   public static final class ComponentVariantEntry extends SomNode {
@@ -9998,7 +9616,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 12. Components to Use [PD00-COM]. Seeds → TR.
+  // 12. Components to Use. Seeds → TR.
   //
   // External and standard components planned for use in the system. All
   // subsections seed the TR document, where component choices are expanded
@@ -10018,30 +9636,30 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 12.1. Component Strategy [PD00-COM-STR].
+    // 12.1. Component Strategy.
     public ComponentStrategy strategy() {
       return new ComponentStrategy(doc, path + "/strategy");
     }
 
-    // 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+    // 12.2. Component Catalog — contains 0+× Component.
     public SomList<ComponentEntry> componentCatalog() {
       return new SomList<>(doc, path + "/CMPNT-COMP-LST", (d, p) -> new ComponentEntry(d, p));
     }
 
-    // 12.3. Component Role In System [PD00-COM-ROL].
+    // 12.3. Component Role In System.
     // (skipped: componentRoleInSystem has no target type)
 
-    // 12.4. Runtime Dependencies [PD00-COM-RUN].
+    // 12.4. Runtime Dependencies.
     public RuntimeDependencies runtimeDependencies() {
       return new RuntimeDependencies(doc, path + "/runtimeDependencies");
     }
 
-    // 12.5. Maintenance Dependencies [PD00-COM-MAI].
+    // 12.5. Maintenance Dependencies.
     public MaintenanceDependencies maintenanceDependencies() {
       return new MaintenanceDependencies(doc, path + "/maintenanceDependencies");
     }
 
-    // 12.6. Risk Assessment [PD00-COM-RIS].
+    // 12.6. Risk Assessment.
     public ComponentRiskAssessment riskAssessment() {
       return new ComponentRiskAssessment(doc, path + "/riskAssessment");
     }
@@ -10106,7 +9724,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Computing equipment entry (form) [PD00-ORG-WOR-nn-EQU-PRI-nn].
+  // Computing equipment entry (form).
   public static final class ComputingEquipmentEntry extends SomNode {
     public ComputingEquipmentEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -10199,7 +9817,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.6.2. Confidentiality and NDA Requirements [PD00-ADM-OTH-NDA].
+  // 3.6.2. Confidentiality and NDA Requirements.
   //
   // Non-disclosure agreements and confidentiality constraints.
   public static final class ConfidentialityRequirements extends SomNode {
@@ -10356,7 +9974,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
+  // Consent collection, tracking and management requirements.
   public static final class ConsentManagementRequirements extends SomNode {
     public ConsentManagementRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -10469,7 +10087,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
+  // A constraint entry (form).
   //
   // Represents a single external constraint limiting project degrees of
   // freedom. Common constraint types include regulatory requirements,
@@ -10549,6 +10167,20 @@ public final class TomSomV0 {
     }
   }
 
+  // A single constraint register entry (form).
+  //
+  // Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
+  // `ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+  public static final class ConstraintRegisterEntry extends SomNode {
+    public ConstraintRegisterEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ConstraintRegisterEntryContentForm content() {
+      return new ConstraintRegisterEntryContentForm(doc, path + "/content");
+    }
+  }
+
   // Tracking for constraint.
   public static final class ConstraintTracking extends SomNode {
     public ConstraintTracking(SpecDocument doc, String path) {
@@ -10560,7 +10192,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+  // 4.6.4.1. Constraints.
   //
   // External constraints limiting project scope, schedule, budget, or
   // approach. Includes regulatory, contractual, organizational, technical,
@@ -10584,7 +10216,7 @@ public final class TomSomV0 {
     // (skipped: constraintNarrative has no target type)
   }
 
-  // 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+  // 4.6.4. Constraints and Dependencies.
   //
   // Documents external constraints (regulatory, contractual, budgetary,
   // timeline) and dependencies on other projects, teams, or organizational
@@ -10599,12 +10231,12 @@ public final class TomSomV0 {
       return new ConstraintsAndDependenciesContentForm(doc, path + "/content");
     }
 
-    // 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+    // 4.6.4.1. Constraints.
     public Constraints constraints() {
       return new Constraints(doc, path + "/constraints");
     }
 
-    // 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+    // 4.6.4.2. Dependencies.
     public FrameworkDependencies frameworkDependencies() {
       return new FrameworkDependencies(doc, path + "/frameworkDependencies");
     }
@@ -10633,7 +10265,7 @@ public final class TomSomV0 {
     // (skipped: contentScanningDetails has no target type)
   }
 
-  // 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+  // 4.1.2.1. Context Diagram.
   //
   // Visual representation of the system as a black box showing external
   // entities and data flows (UML context diagram / DFD Level 0).
@@ -10672,7 +10304,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+  // 10.8.1. Contextual Help.
   public static final class ContextualHelp extends SomNode {
     public ContextualHelp(SpecDocument doc, String path) {
       super(doc, path);
@@ -10755,7 +10387,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+  // 10.3.1.6. Contextual Navigation.
   //
   // Breadcrumbs, back navigation, related links.
   public static final class ContextualNavigation extends SomNode {
@@ -10772,7 +10404,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+    // 10.3.1.6.1. Breadcrumb Configuration.
     public BreadcrumbConfiguration breadcrumbs() {
       return new BreadcrumbConfiguration(doc, path + "/breadcrumbs");
     }
@@ -10784,7 +10416,7 @@ public final class TomSomV0 {
     // (skipped: relatedLinks has no target type)
   }
 
-  // A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
+  // A contingency plan entry (form).
   //
   // Describes one contingency plan for a component risk: trigger conditions,
   // immediate/recovery actions, RTO/RPO, communication, testing frequency.
@@ -10878,7 +10510,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+  // 12.6.2. Contingency Plans.
   //
   // Container for contingency plans addressing critical component risks.
   public static final class ContingencyPlans extends SomNode {
@@ -10901,7 +10533,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
+  // 11.2.3. Correctness quality.
   public static final class CorrectnessQuality extends SomNode {
     public CorrectnessQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -11023,7 +10655,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+  // 4.5.10. Cross-Boundary Error Handling.
   //
   // Failure-propagation policy that applies across system boundaries.
   // Distinct from per-interface error handling.
@@ -11042,7 +10674,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+  // 4.5.9. Cross-Boundary Operational Considerations.
   //
   // SLA, rate-limit, and change-window considerations applied at system
   // boundaries. Distinct from per-interface operational data captured
@@ -11153,10 +10785,10 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+  // 6.1.8. Cross-Process Analysis.
   //
   // Hand-offs, shared data, and coordination patterns between processes.
-  // Covers HBSG AS07-CRO.
+  // .
   public static final class CrossProcessAnalysis extends SomNode {
     public CrossProcessAnalysis(SpecDocument doc, String path) {
       super(doc, path);
@@ -11212,7 +10844,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+  // 1.1.2. Current Architecture.
   //
   // Description of the current system architecture including deployment
   // topology, integration patterns, shared services, and data stores.
@@ -11230,7 +10862,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
+    // Architecture overview diagram.
     public String architectureDiagram() {
       String v = doc.content(path + "/architectureDiagram");
       return v == null ? "" : v;
@@ -11240,7 +10872,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/architectureDiagram", value);
     }
 
-    // Deployment topology description [PD00-CUR-SYS-ARC-DEP].
+    // Deployment topology description.
     public String deploymentTopology() {
       String v = doc.content(path + "/deploymentTopology");
       return v == null ? "" : v;
@@ -11250,18 +10882,18 @@ public final class TomSomV0 {
       doc.setContent(path + "/deploymentTopology", value);
     }
 
-    // Integration patterns used [PD00-CUR-SYS-ARC-INT].
+    // Integration patterns used.
     public SomList<IntegrationPatternEntry> integrationPatterns() {
       return new SomList<>(doc, path + "/INTEG1-INTE-LST", (d, p) -> new IntegrationPatternEntry(d, p));
     }
 
-    // Shared services inventory [PD00-CUR-SYS-ARC-SHR].
+    // Shared services inventory.
     public SomList<SharedServiceEntry> sharedServices() {
       return new SomList<>(doc, path + "/SHARE-SHAR-LST", (d, p) -> new SharedServiceEntry(d, p));
     }
   }
 
-  // A current business process [PD00-CUR-PRO-nn].
+  // A current business process.
   //
   // Detailed documentation of a single business process including its
   // workflows, actors, metrics, and pain points.
@@ -11279,12 +10911,12 @@ public final class TomSomV0 {
       return new ProcessContext(doc, path + "/processContext");
     }
 
-    // 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
+    // 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
     public WorkflowDescriptions workflowDescriptions() {
       return new WorkflowDescriptions(doc, path + "/workflowDescriptions");
     }
 
-    // 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
+    // 1.2.nn.2. Process Metrics.
     public ProcessMetrics processMetrics() {
       return new ProcessMetrics(doc, path + "/processMetrics");
     }
@@ -11295,7 +10927,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.2. Current Business Processes [PD00-CUR-PRO].
+  // 1.2. Current Business Processes.
   //
   // Documents the current business processes that the project will impact,
   // replace, or enhance. Understanding existing workflows is critical for
@@ -11315,7 +10947,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Process landscape diagram [PD00-CUR-PRO-DIA].
+    // Process landscape diagram.
     public String processLandscapeDiagram() {
       String v = doc.content(path + "/processLandscapeDiagram");
       return v == null ? "" : v;
@@ -11325,28 +10957,28 @@ public final class TomSomV0 {
       doc.setContent(path + "/processLandscapeDiagram", value);
     }
 
-    // Process scope summary [PD00-CUR-PRO-SCO].
+    // Process scope summary.
     public ProcessScopeSummary scopeSummary() {
       return new ProcessScopeSummary(doc, path + "/scopeSummary");
     }
 
-    // Process interdependency matrix [PD00-CUR-PRO-INT].
+    // Process interdependency matrix.
     public ProcessInterdependencyMatrix interdependencyMatrix() {
       return new ProcessInterdependencyMatrix(doc, path + "/interdependencyMatrix");
     }
 
-    // Process performance summary [PD00-CUR-PRO-SUM].
+    // Process performance summary.
     public ProcessPerformanceSummary performanceSummary() {
       return new ProcessPerformanceSummary(doc, path + "/performanceSummary");
     }
 
-    // 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
+    // 1.2.nn. Business Processes — contains 1+× Business Process.
     public SomList<CurrentBusinessProcess> processes() {
       return new SomList<>(doc, path + "/CUBIPR-PROC-LST", (d, p) -> new CurrentBusinessProcess(d, p));
     }
   }
 
-  // 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+  // 1.4.8. Data Classification.
   //
   // Data classification framework, sensitivity levels, and current
   // classification status of data assets.
@@ -11380,7 +11012,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.4. Current Data Landscape [PD00-CUR-DAT].
+  // 1.4. Current Data Landscape.
   //
   // Comprehensive documentation of the current data situation including where
   // data lives, data quality issues, duplication, ownership, volumes, growth
@@ -11424,58 +11056,187 @@ public final class TomSomV0 {
       return new DataLandscapeSummary(doc, path + "/dataLandscapeSummary");
     }
 
-    // 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+    // 1.4.1. Data Source Inventory.
     public DataSourceInventory dataSourceInventory() {
       return new DataSourceInventory(doc, path + "/dataSourceInventory");
     }
 
-    // 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+    // 1.4.2. Data Quality Assessment.
     public DataQualityAssessment dataQualityAssessment() {
       return new DataQualityAssessment(doc, path + "/dataQualityAssessment");
     }
 
-    // 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+    // 1.4.3. Data Duplication Analysis.
     public DataDuplicationAnalysis dataDuplicationAnalysis() {
       return new DataDuplicationAnalysis(doc, path + "/dataDuplicationAnalysis");
     }
 
-    // 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+    // 1.4.4. Data Ownership and Stewardship.
     public DataOwnership dataOwnership() {
       return new DataOwnership(doc, path + "/dataOwnership");
     }
 
-    // 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+    // 1.4.5. Data Volumes and Growth.
     public DataVolumesAndGrowth dataVolumesAndGrowth() {
       return new DataVolumesAndGrowth(doc, path + "/dataVolumesAndGrowth");
     }
 
-    // 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+    // 1.4.6. Retention Policies.
     public DataRetentionPolicies retentionPolicies() {
       return new DataRetentionPolicies(doc, path + "/retentionPolicies");
     }
 
-    // 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+    // 1.4.7. Data Governance.
     public DataGovernance dataGovernance() {
       return new DataGovernance(doc, path + "/dataGovernance");
     }
 
-    // 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+    // 1.4.8. Data Classification.
     public CurrentDataClassification dataClassification() {
       return new CurrentDataClassification(doc, path + "/dataClassification");
     }
 
-    // 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+    // 1.4.9. Data Integration Points.
     public DataIntegrationPoints dataIntegrationPoints() {
       return new DataIntegrationPoints(doc, path + "/dataIntegrationPoints");
     }
 
-    // 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+    // 1.4.10. Master Data Management.
     public MasterDataManagement masterDataManagement() {
       return new MasterDataManagement(doc, path + "/masterDataManagement");
     }
   }
 
-  // 1.5. Operational Metrics [PD00-CUR-MET].
+  // 1. Current State Analysis. Seeds → CS.
+  //
+  // Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
+  // CS together with the systems-to-replace inventory.
+  public static final class CurrentLandscape extends SomNode {
+    public CurrentLandscape(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 1.1. Existing Systems Landscape.
+    public ExistingSystemsLandscape existingSystemsLandscape() {
+      return new ExistingSystemsLandscape(doc, path + "/existingSystemsLandscape");
+    }
+
+    // 1.2. Current Business Processes.
+    public CurrentBusinessProcesses currentBusinessProcesses() {
+      return new CurrentBusinessProcesses(doc, path + "/currentBusinessProcesses");
+    }
+
+    // 1.3. Pain Points and Gaps.
+    public PainPointsAndGaps painPointsAndGaps() {
+      return new PainPointsAndGaps(doc, path + "/painPointsAndGaps");
+    }
+
+    // 1.4. Current Data Landscape.
+    public CurrentDataLandscape currentDataLandscape() {
+      return new CurrentDataLandscape(doc, path + "/currentDataLandscape");
+    }
+
+    // 1.5. Operational Metrics.
+    public SomList<CurrentOperationalMetrics> operationalMetrics() {
+      return new SomList<>(doc, path + "/CUOPME-OPER-LST", (d, p) -> new CurrentOperationalMetrics(d, p));
+    }
+
+    // 1.6. Current State Risks.
+    public CurrentStateRiskAssessment currentStateRisks() {
+      return new CurrentStateRiskAssessment(doc, path + "/currentStateRisks");
+    }
+  }
+
+  // CS00 Current Situation.
+  //
+  // Detailed analysis of the current state: existing systems, business
+  // processes, pain points, data landscape, operational metrics, risks,
+  // and the inventory / migration plan for the systems being replaced.
+  public static final class CurrentLandscapeAssessment extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public CurrentLandscapeAssessment(SpecDocument doc, String documentVersion) {
+      super(doc, "CLA");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public CurrentLandscapeAssessment(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Existing systems landscape.
+    public ExistingSystemsLandscape existingSystemsLandscape() {
+      return new ExistingSystemsLandscape(doc, path + "/existingSystemsLandscape");
+    }
+
+    // Current business processes.
+    public CurrentBusinessProcesses currentBusinessProcesses() {
+      return new CurrentBusinessProcesses(doc, path + "/currentBusinessProcesses");
+    }
+
+    // Pain points and gaps.
+    public PainPointsAndGaps painPointsAndGaps() {
+      return new PainPointsAndGaps(doc, path + "/painPointsAndGaps");
+    }
+
+    // Current data landscape.
+    public CurrentDataLandscape currentDataLandscape() {
+      return new CurrentDataLandscape(doc, path + "/currentDataLandscape");
+    }
+
+    // Current operational metrics.
+    public SomList<CurrentOperationalMetrics> operationalMetrics() {
+      return new SomList<>(doc, path + "/CUOPME-OPER-LST", (d, p) -> new CurrentOperationalMetrics(d, p));
+    }
+
+    // Current-state risk assessment.
+    public CurrentStateRiskAssessment currentStateRisks() {
+      return new CurrentStateRiskAssessment(doc, path + "/currentStateRisks");
+    }
+
+    // Replacement inventory.
+    public ReplacementInventory replacementInventory() {
+      return new ReplacementInventory(doc, path + "/replacementInventory");
+    }
+
+    // Migration considerations.
+    public MigrationConsiderations migrationConsiderations() {
+      return new MigrationConsiderations(doc, path + "/migrationConsiderations");
+    }
+  }
+
+  // 1.5. Operational Metrics.
   //
   // Baseline metrics of the current systems: throughput, volume, uptime,
   // response times, user counts. Used to size the target system and to
@@ -11506,139 +11267,10 @@ public final class TomSomV0 {
     }
   }
 
-  // CS00 Current Situation.
-  //
-  // Detailed analysis of the current state: existing systems, business
-  // processes, pain points, data landscape, operational metrics, risks,
-  // and the inventory / migration plan for the systems being replaced.
-  public static final class CurrentSituation extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public CurrentSituation(SpecDocument doc, String documentVersion) {
-      super(doc, "CS");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public CurrentSituation(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Existing systems landscape — PD00-CUR-SYS.
-    public ExistingSystemsLandscape existingSystemsLandscape() {
-      return new ExistingSystemsLandscape(doc, path + "/existingSystemsLandscape");
-    }
-
-    // Current business processes — PD00-CUR-PRO.
-    public CurrentBusinessProcesses currentBusinessProcesses() {
-      return new CurrentBusinessProcesses(doc, path + "/currentBusinessProcesses");
-    }
-
-    // Pain points and gaps — PD00-CUR-PAI.
-    public PainPointsAndGaps painPointsAndGaps() {
-      return new PainPointsAndGaps(doc, path + "/painPointsAndGaps");
-    }
-
-    // Current data landscape — PD00-CUR-DAT.
-    public CurrentDataLandscape currentDataLandscape() {
-      return new CurrentDataLandscape(doc, path + "/currentDataLandscape");
-    }
-
-    // Current operational metrics — PD00-CUR-MET.
-    public SomList<CurrentOperationalMetrics> operationalMetrics() {
-      return new SomList<>(doc, path + "/CUOPME-OPER-LST", (d, p) -> new CurrentOperationalMetrics(d, p));
-    }
-
-    // Current-state risk assessment — PD00-CUR-RIS.
-    public CurrentStateRiskAssessment currentStateRisks() {
-      return new CurrentStateRiskAssessment(doc, path + "/currentStateRisks");
-    }
-
-    // Replacement inventory — PD00-SYO-SYR-INV.
-    public ReplacementInventory replacementInventory() {
-      return new ReplacementInventory(doc, path + "/replacementInventory");
-    }
-
-    // Migration considerations — PD00-SYO-SYR-MIG.
-    public MigrationConsiderations migrationConsiderations() {
-      return new MigrationConsiderations(doc, path + "/migrationConsiderations");
-    }
-  }
-
-  // 1. Current State Analysis [PD00-CUR]. Seeds → CS.
-  //
-  // Seeds the CS (Current Situation) Phase 3 DocSpec. Previously listed as
-  // PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
-  public static final class CurrentStateAnalysis extends SomNode {
-    public CurrentStateAnalysis(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // 1.1. Existing Systems Landscape [PD00-CUR-SYS].
-    public ExistingSystemsLandscape existingSystemsLandscape() {
-      return new ExistingSystemsLandscape(doc, path + "/existingSystemsLandscape");
-    }
-
-    // 1.2. Current Business Processes [PD00-CUR-PRO].
-    public CurrentBusinessProcesses currentBusinessProcesses() {
-      return new CurrentBusinessProcesses(doc, path + "/currentBusinessProcesses");
-    }
-
-    // 1.3. Pain Points and Gaps [PD00-CUR-PAI].
-    public PainPointsAndGaps painPointsAndGaps() {
-      return new PainPointsAndGaps(doc, path + "/painPointsAndGaps");
-    }
-
-    // 1.4. Current Data Landscape [PD00-CUR-DAT].
-    public CurrentDataLandscape currentDataLandscape() {
-      return new CurrentDataLandscape(doc, path + "/currentDataLandscape");
-    }
-
-    // 1.5. Operational Metrics [PD00-CUR-MET].
-    public SomList<CurrentOperationalMetrics> operationalMetrics() {
-      return new SomList<>(doc, path + "/CUOPME-OPER-LST", (d, p) -> new CurrentOperationalMetrics(d, p));
-    }
-
-    // 1.6. Current State Risks [PD00-CUR-RIS].
-    public CurrentStateRiskAssessment currentStateRisks() {
-      return new CurrentStateRiskAssessment(doc, path + "/currentStateRisks");
-    }
-  }
-
-  // 1.6. Current State Risks [PD00-CUR-RIS].
+  // 1.6. Current State Risks.
   //
   // Risks tied to the current state and to its replacement. Distinct from
-  // PD00-SYO-RIS which covers target-side risks.
+  // the target-side risks section which covers replacement risks.
   public static final class CurrentStateRiskAssessment extends SomNode {
     public CurrentStateRiskAssessment(SpecDocument doc, String path) {
       super(doc, path);
@@ -11654,7 +11286,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+  // A current workflow entry (form).
   //
   // Detailed documentation of a single workflow within a business process.
   // Includes triggers, steps, actors, inputs, outputs, and timing.
@@ -11667,7 +11299,7 @@ public final class TomSomV0 {
       return new CurrentWorkflowEntryContentForm(doc, path + "/content");
     }
 
-    // Workflow diagram [PD00-CUR-PRO-xx-WOR-xx-DIA].
+    // Workflow diagram.
     public String workflowDiagram() {
       String v = doc.content(path + "/workflowDiagram");
       return v == null ? "" : v;
@@ -11749,7 +11381,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A custom metric entry [PD00-TEC-SYS-MON-MET-nn].
+  // A custom metric entry.
   public static final class CustomMetricEntry extends SomNode {
     public CustomMetricEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -11760,7 +11392,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 15.6. Cutover Procedures [PD00-ROL-CUT].
+  // 15.6. Cutover Procedures.
   //
   // Detailed cutover runbook for go-live. Minute-by-minute procedure
   // covering the transition from current operation to the target system.
@@ -11779,7 +11411,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A dashboard entry [PD00-TEC-SYS-MON-DAS-nn].
+  // A dashboard entry.
   public static final class DashboardEntry extends SomNode {
     public DashboardEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -12048,7 +11680,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
+  // A data attribute entry (form).
   //
   // Comprehensive attribute specification for data dictionary and schema design.
   public static final class DataAttributeEntry extends SomNode {
@@ -12085,7 +11717,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+  // 7.1.4. Data Classification.
   public static final class DataClassification extends SomNode {
     public DataClassification(SpecDocument doc, String path) {
       super(doc, path);
@@ -12095,13 +11727,13 @@ public final class TomSomV0 {
       return new DataClassificationOverviewForm(doc, path + "/overview");
     }
 
-    // Contains 0+× DataClassificationEntry [PD00-BUS-DAT-CLA-nn].
+    // Contains 0+× DataClassificationEntry.
     public SomList<DataClassificationEntry> items() {
       return new SomList<>(doc, path + "/DCLSE-ITEM-LST", (d, p) -> new DataClassificationEntry(d, p));
     }
   }
 
-  // A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
+  // A data classification entry (form).
   //
   // Comprehensive data classification for security and compliance.
   public static final class DataClassificationEntry extends SomNode {
@@ -12129,12 +11761,12 @@ public final class TomSomV0 {
       return new DataClassificationEntryComplianceForm(doc, path + "/compliance");
     }
 
-    // Contains 0+× HandlingRequirement [PD00-BUS-DAT-CLA-nn-HAN].
+    // Contains 0+× HandlingRequirement.
     public SomList<HandlingRequirementEntry> handlingRequirements() {
       return new SomList<>(doc, path + "/HNDRE-HAND-LST", (d, p) -> new HandlingRequirementEntry(d, p));
     }
 
-    // Contains 0+× AccessRestriction [PD00-BUS-DAT-CLA-nn-ARE].
+    // Contains 0+× AccessRestriction.
     public SomList<AccessRestrictionEntry> accessRestrictions() {
       return new SomList<>(doc, path + "/ACRSE-ACCE-LST", (d, p) -> new AccessRestrictionEntry(d, p));
     }
@@ -12173,10 +11805,10 @@ public final class TomSomV0 {
     }
   }
 
-  // 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC].
+  // 7.1.5. Data Dictionary.
   //
   // Attribute-level dictionary that complements the entity overview
-  // (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
+  // ..
   public static final class DataDictionary extends SomNode {
     public DataDictionary(SpecDocument doc, String path) {
       super(doc, path);
@@ -12192,7 +11824,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+  // 1.4.3. Data Duplication Analysis.
   //
   // Analysis of data duplication across systems, including redundant data
   // stores, duplicated records, and synchronization challenges.
@@ -12301,7 +11933,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+  // A data entity entry (form).
   //
   // Comprehensive entity specification following data modeling best practices.
   // Captures conceptual, logical, and physical design aspects.
@@ -12338,33 +11970,33 @@ public final class TomSomV0 {
       return new SomList<>(doc, path + "/TECHN-TECH-LST", (d, p) -> new TechnicalCharacteristicEntry(d, p));
     }
 
-    // Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
+    // Contains 0+× DataAttribute.
     public SomList<DataAttributeEntry> attributes() {
       return new SomList<>(doc, path + "/DAATT-ATTR-LST", (d, p) -> new DataAttributeEntry(d, p));
     }
 
-    // Contains 0+× KeyAttribute [PD00-BUS-DAT-ENT-nn-KEY].
+    // Contains 0+× KeyAttribute.
     public SomList<KeyAttributeEntry> keyAttributes() {
       return new SomList<>(doc, path + "/KEATT-KEYA-LST", (d, p) -> new KeyAttributeEntry(d, p));
     }
 
-    // Contains 0+× EntityIndex [PD00-BUS-DAT-ENT-nn-IDX].
+    // Contains 0+× EntityIndex.
     public SomList<EntityIndexEntry> indexes() {
       return new SomList<>(doc, path + "/ENIDX-INDE-LST", (d, p) -> new EntityIndexEntry(d, p));
     }
 
-    // Contains 0+× EntityConstraint [PD00-BUS-DAT-ENT-nn-CON].
+    // Contains 0+× EntityConstraint.
     public SomList<EntityConstraintEntry> constraints() {
       return new SomList<>(doc, path + "/ENCNS-CONS-LST", (d, p) -> new EntityConstraintEntry(d, p));
     }
 
-    // Contains 0+× MigrationMapping [PD00-BUS-DAT-ENT-nn-MIG] for data migration planning.
+    // Contains 0+× MigrationMapping for data migration planning.
     public SomList<MigrationMappingEntry> migrationMappings() {
       return new SomList<>(doc, path + "/MIGME-MIGR-LST", (d, p) -> new MigrationMappingEntry(d, p));
     }
   }
 
-  // A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn].
+  // A data entity migration entry.
   public static final class DataEntityMigrationEntry extends SomNode {
     public DataEntityMigrationEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -12470,7 +12102,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+  // 1.4.7. Data Governance.
   //
   // Current data governance structure, policies, processes, and maturity level.
   public static final class DataGovernance extends SomNode {
@@ -12723,7 +12355,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+  // 1.4.9. Data Integration Points.
   //
   // Documentation of data integration points, ETL processes, APIs,
   // and data exchange mechanisms.
@@ -12784,7 +12416,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+  // 9.3.1. Data-Level Security.
   //
   // Comprehensive data access protection specification covering database-level
   // security, row-level security, column-level security, tenant data isolation,
@@ -12861,7 +12493,7 @@ public final class TomSomV0 {
     // (skipped: dataMaskingDetails has no target type)
   }
 
-  // 13.5. Data Migration Strategy [PD00-SSP-MIG].
+  // 13.5. Data Migration Strategy.
   //
   // Comprehensive data migration strategy covering approach, methodology,
   // tooling, environment strategy, data quality governance, cutover
@@ -12945,18 +12577,18 @@ public final class TomSomV0 {
     // Migration strategy narrative.
     // (skipped: migrationStrategyNarrative has no target type)
 
-    // 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+    // 13.5.1. Migration Phases.
     public MigrationPhases migrationPhases() {
       return new MigrationPhases(doc, path + "/migrationPhases");
     }
 
-    // 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+    // 13.5.2. Migration Risks.
     public StageMigrationRisks migrationRisks() {
       return new StageMigrationRisks(doc, path + "/migrationRisks");
     }
   }
 
-  // 7.1. Data Model [PD00-BUS-DAT].
+  // 7.1. Data Model.
   public static final class DataModel extends SomNode {
     public DataModel(SpecDocument doc, String path) {
       super(doc, path);
@@ -12971,41 +12603,41 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
+    // 7.1.1. Entity Overview — contains 1+× Data Entity.
     public SomList<DataEntityEntry> entities() {
       return new SomList<>(doc, path + "/DAENT-ENTI-LST", (d, p) -> new DataEntityEntry(d, p));
     }
 
-    // 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+    // 7.1.2. Entity Relationships.
     public EntityRelationships entityRelationships() {
       return new EntityRelationships(doc, path + "/entityRelationships");
     }
 
-    // 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
+    // 7.1.3. Entity-Relationship Diagram (mermaid).
     // (skipped: erDiagram has no target type)
 
-    // 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+    // 7.1.4. Data Classification.
     public DataClassification dataClassification() {
       return new DataClassification(doc, path + "/dataClassification");
     }
 
-    // 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
+    // 7.1.5. Data Dictionary..
     public DataDictionary dataDictionary() {
       return new DataDictionary(doc, path + "/dataDictionary");
     }
 
-    // 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+    // 7.1.6. Validation Constraints.
     public SomList<ValidationConstraints> validationConstraints() {
       return new SomList<>(doc, path + "/VACO-VALI-LST", (d, p) -> new ValidationConstraints(d, p));
     }
 
-    // 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+    // 7.1.7. Integrity Constraints.
     public SomList<IntegrityConstraints> integrityConstraints() {
       return new SomList<>(doc, path + "/INCO-INTE-LST", (d, p) -> new IntegrityConstraints(d, p));
     }
   }
 
-  // 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+  // 1.4.4. Data Ownership and Stewardship.
   //
   // Documentation of data ownership structures, stewardship roles,
   // and accountability for data assets.
@@ -13098,7 +12730,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Data processing agreement requirements [PD00-TEC-SEC-PRI].
+  // Data processing agreement requirements.
   public static final class DataProcessingAgreementRequirements extends SomNode {
     public DataProcessingAgreementRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -13173,7 +12805,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+  // 8.8.2. Data Protection and Privacy.
   //
   // Comprehensive data protection and privacy requirements including
   // GDPR compliance, data residency, consent management, data subject
@@ -13232,10 +12864,10 @@ public final class TomSomV0 {
     }
   }
 
-  // Data protection classification and handling rules [PD00-TEC-SEC-PRI].
+  // Data protection classification and handling rules.
   //
   // Named DataProtectionClassification to avoid collision with
-  // DataClassification in business_data_model.dart.
+  // DataClassification in information_and_data_model.dart.
   public static final class DataProtectionClassification extends SomNode {
     public DataProtectionClassification(SpecDocument doc, String path) {
       super(doc, path);
@@ -13310,7 +12942,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+  // 1.4.2. Data Quality Assessment.
   //
   // Comprehensive assessment of data quality across the organization,
   // covering accuracy, completeness, consistency, timeliness, and validity.
@@ -13435,7 +13067,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Data residency and sovereignty requirements [PD00-TEC-SEC-PRI].
+  // Data residency and sovereignty requirements.
   public static final class DataResidencyRequirements extends SomNode {
     public DataResidencyRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -13494,7 +13126,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+  // 1.4.6. Retention Policies.
   //
   // Documentation of data retention policies, legal requirements,
   // archival strategies, and data lifecycle management.
@@ -13545,7 +13177,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A data source entry (form) [PD00-CUR-DAT-SRC-nn].
+  // A data source entry (form).
   //
   // Documents a specific data source/store with comprehensive details about
   // technology, format, volume, quality, ownership, and access patterns.
@@ -13615,7 +13247,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+  // 1.4.1. Data Source Inventory.
   //
   // Comprehensive inventory of all data sources, stores, and repositories
   // in the current environment.
@@ -13715,7 +13347,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Data subject rights management [PD00-TEC-SEC-PRI].
+  // Data subject rights management.
   //
   // Covers GDPR Articles 15–22: right of access, rectification, erasure,
   // restriction, portability, objection, and automated decision-making.
@@ -13895,7 +13527,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+  // 1.4.5. Data Volumes and Growth.
   //
   // Analysis of current data volumes, historical growth trends,
   // and projections for future capacity needs.
@@ -14173,7 +13805,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A decision maker entry [PD00-SYO-RES-ORG-DEC-nn].
+  // A decision maker entry.
   public static final class DecisionMakerEntry extends SomNode {
     public DecisionMakerEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -14184,7 +13816,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
+  // A decision option entry (form).
   //
   // One of the available options for a decision point, with full
   // impact analysis, feasibility assessment, and trade-off evaluation.
@@ -14262,7 +13894,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
+  // A decision point entry (form).
   //
   // A single formal decision point with defined timing, criteria,
   // authority, available options with impact analysis, and recording
@@ -14349,7 +13981,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+  // 13.6.2. Decision Points.
   //
   // Key decision points in the stage plan including go/no-go
   // decisions, scope adjustments, resource reallocations, and
@@ -14373,7 +14005,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn].
+  // A deep link pattern entry (form).
   public static final class DeepLinkPatternEntry extends SomNode {
     public DeepLinkPatternEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -14384,7 +14016,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+  // 10.3.1.7. Deep Linking.
   //
   // External entry points, URL patterns, share links.
   public static final class DeepLinking extends SomNode {
@@ -14410,7 +14042,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+  // 14.2.4. Defect Resolution.
   //
   // Defines how defects found during acceptance testing are classified,
   // managed, resolved, and tracked. Covers severity classification,
@@ -14525,7 +14157,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A deliverable entry (form) [PD00-DEL-DEL-nn].
+  // A deliverable entry (form).
   //
   // Represents a single deliverable item within any deliverable category.
   // Captures identification, delivery logistics, quality requirements,
@@ -14646,7 +14278,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
+  // An acceptance criterion entry (form).
   //
   // A single criterion that must be met for formal project acceptance.
   // Aligned with IEEE 830 acceptance criteria structure and ISTQB
@@ -14741,7 +14373,93 @@ public final class TomSomV0 {
     }
   }
 
-  // 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+  // PPP00 Project Phase Plan.
+  //
+  // Full project phase plan — staging strategy, stage overview, per-stage
+  // entries, feature prioritization, data migration, gate criteria,
+  // decision processes, initial development flow, and upgrade cycle
+  // framework.
+  public static final class DeliveryRoadmap extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public DeliveryRoadmap(SpecDocument doc, String documentVersion) {
+      super(doc, "DRM");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public DeliveryRoadmap(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Staging strategy.
+    public StagingStrategy stagingStrategy() {
+      return new StagingStrategy(doc, path + "/stagingStrategy");
+    }
+
+    // Stage overview.
+    public StageOverview stageOverview() {
+      return new StageOverview(doc, path + "/stageOverview");
+    }
+
+    // Stages (list).
+    public SomList<StageEntry> stages() {
+      return new SomList<>(doc, path + "/STAGE-STAG-LST", (d, p) -> new StageEntry(d, p));
+    }
+
+    // Feature prioritization.
+    public FeaturePrioritization featurePrioritization() {
+      return new FeaturePrioritization(doc, path + "/featurePrioritization");
+    }
+
+    // Data migration strategy.
+    public DataMigrationStrategy dataMigrationStrategy() {
+      return new DataMigrationStrategy(doc, path + "/dataMigrationStrategy");
+    }
+
+    // Gate criteria (promoted from GOV).
+    public PhaseGateReviews gateCriteria() {
+      return new PhaseGateReviews(doc, path + "/gateCriteria");
+    }
+
+    // Decision processes (promoted from GOV).
+    public DecisionPoints decisionProcesses() {
+      return new DecisionPoints(doc, path + "/decisionProcesses");
+    }
+
+    // Initial development flow.
+    public InitialDevelopmentFlow initialDevelopmentFlow() {
+      return new InitialDevelopmentFlow(doc, path + "/initialDevelopmentFlow");
+    }
+
+    // Upgrade cycle framework (links tom_system_upgrade.md).
+    public UpgradeCycleFramework upgradeCycleFramework() {
+      return new UpgradeCycleFramework(doc, path + "/upgradeCycleFramework");
+    }
+  }
+
+  // 14.1. Delivery and Service Scope.
   public static final class DeliveryScope extends SomNode {
     public DeliveryScope(SpecDocument doc, String path) {
       super(doc, path);
@@ -14756,28 +14474,28 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+    // 14.1.1. Software Deliverables.
     public SoftwareDeliverables softwareDeliverables() {
       return new SoftwareDeliverables(doc, path + "/softwareDeliverables");
     }
 
-    // 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+    // 14.1.2. Documentation Deliverables.
     public DocumentationDeliverables documentationDeliverables() {
       return new DocumentationDeliverables(doc, path + "/documentationDeliverables");
     }
 
-    // 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+    // 14.1.3. Training Deliverables.
     public TrainingDeliverables trainingDeliverables() {
       return new TrainingDeliverables(doc, path + "/trainingDeliverables");
     }
 
-    // 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+    // 14.1.4. Support Deliverables.
     public SupportDeliverables supportDeliverables() {
       return new SupportDeliverables(doc, path + "/supportDeliverables");
     }
   }
 
-  // 14. Delivery Scope and Acceptance [PD00-DEL].
+  // 14. Delivery Scope and Acceptance.
   public static final class DeliveryScopeAndAcceptance extends SomNode {
     public DeliveryScopeAndAcceptance(SpecDocument doc, String path) {
       super(doc, path);
@@ -14792,18 +14510,58 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+    // 14.1. Delivery and Service Scope.
     public DeliveryScope deliveryScope() {
       return new DeliveryScope(doc, path + "/deliveryScope");
     }
 
-    // 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+    // 14.2. Acceptance Plan. Seeds → BQP.
     public AcceptancePlan acceptancePlan() {
       return new AcceptancePlan(doc, path + "/acceptancePlan");
     }
   }
 
-  // 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+  // SBP.15 Delivery, Transition & Rollout.
+  //
+  // Public anchor: PMBOK phasing + ISO 29148 transition requirements.
+  public static final class DeliveryTransitionAndRollout extends SomNode {
+    public DeliveryTransitionAndRollout(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Staged delivery / phase plan.
+    public SystemStagePlan systemStagePlan() {
+      return new SystemStagePlan(doc, path + "/systemStagePlan");
+    }
+
+    // Rollout and transition concept.
+    public SystemRolloutConcept systemRolloutConcept() {
+      return new SystemRolloutConcept(doc, path + "/systemRolloutConcept");
+    }
+
+    // Localization & translation *execution* processes (re-homed from MLAR in
+    // IP-6: the execution side of i18n, as opposed to the requirements that
+    // live in SBP.9).
+    public LocalizationTranslationProcess localizationTranslationProcess() {
+      return new LocalizationTranslationProcess(doc, path + "/localizationTranslationProcess");
+    }
+
+    // Multi-language rollout sequencing by region and time (re-homed from MLAR).
+    public MultiLanguageAndRolloutPlan multiLanguageRolloutPlan() {
+      return new MultiLanguageAndRolloutPlan(doc, path + "/multiLanguageRolloutPlan");
+    }
+  }
+
+  // 1.1.3. Dependencies and Integrations.
   //
   // Documents how current systems depend on each other, on external services,
   // and on shared infrastructure. Identifies fragile integration points that
@@ -14822,7 +14580,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
+    // Dependency matrix diagram.
     public String dependencyDiagram() {
       String v = doc.content(path + "/dependencyDiagram");
       return v == null ? "" : v;
@@ -14832,27 +14590,27 @@ public final class TomSomV0 {
       doc.setContent(path + "/dependencyDiagram", value);
     }
 
-    // 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+    // 1.1.3.1. Internal Dependencies.
     public InternalDependencies internalDependencies() {
       return new InternalDependencies(doc, path + "/internalDependencies");
     }
 
-    // 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+    // 1.1.3.2. External Service Dependencies.
     public ExternalServiceDependencies externalServiceDependencies() {
       return new ExternalServiceDependencies(doc, path + "/externalServiceDependencies");
     }
 
-    // 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+    // 1.1.3.3. Shared Infrastructure Dependencies.
     public SharedInfrastructureDependencies sharedInfrastructureDependencies() {
       return new SharedInfrastructureDependencies(doc, path + "/sharedInfrastructureDependencies");
     }
 
-    // 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+    // 1.1.3.4. System Integrations.
     public Integrations integrations() {
       return new Integrations(doc, path + "/integrations");
     }
 
-    // 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+    // 1.1.3.5. Integration Health Summary.
     public IntegrationHealthSummary healthSummary() {
       return new IntegrationHealthSummary(doc, path + "/healthSummary");
     }
@@ -15176,7 +14934,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
+  // Dependency and supply-chain scanning requirements.
   public static final class DependencyScanningRequirements extends SomNode {
     public DependencyScanningRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -15273,7 +15031,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+  // 4.1.2.7. Deployment Context.
   //
   // Where and how the system will be deployed in the infrastructure
   // landscape.
@@ -15506,7 +15264,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+  // 8.5.2. Deployment Strategy.
   //
   // Deployment model (containerized, VM-based, serverless), deployment pipeline,
   // rollback strategy, and canary/blue-green deployment requirements.
@@ -15761,7 +15519,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A design goal entry (form) [PD00-USE-VIS-GOA-nn].
+  // A design goal entry (form).
   //
   // Each goal represents a measurable UI objective with success criteria.
   public static final class DesignGoalEntry extends SomNode {
@@ -15774,7 +15532,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+  // 10.1.1. Design Goals.
   //
   // Primary design objectives that the UI must achieve: simplicity, efficiency,
   // accessibility, consistency, delight. Goals are prioritized for the project.
@@ -15892,7 +15650,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+  // 8.1.3. Design Patterns and Standards.
   //
   // Required design patterns, coding standards, development conventions, and
   // applicable industry standards (ISO, OWASP, IEEE).
@@ -15954,7 +15712,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+  // 10.1.2. Design Principles.
   //
   // Guiding principles for all UI decisions: progressive disclosure, direct
   // manipulation, feedback, consistency, error prevention.
@@ -15992,7 +15750,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.1. Design Vision [PD00-USE-VIS].
+  // 10.1. Design Vision.
   //
   // Overall design vision for the user interface, encompassing goals,
   // principles, and user personas that guide all UI decisions.
@@ -16010,17 +15768,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+    // 10.1.1. Design Goals.
     public DesignGoals designGoals() {
       return new DesignGoals(doc, path + "/designGoals");
     }
 
-    // 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+    // 10.1.2. Design Principles.
     public DesignPrinciples designPrinciples() {
       return new DesignPrinciples(doc, path + "/designPrinciples");
     }
 
-    // 10.1.3. User Personas [PD00-USE-VIS-PER].
+    // 10.1.3. User Personas.
     public UserPersonas personas() {
       return new UserPersonas(doc, path + "/personas");
     }
@@ -16101,10 +15859,10 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+  // 6.1.7. Detailed Process Workflows.
   //
-  // Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
-  // Covers HBSG AS07-DET Detailed Process Descriptions.
+  // Per-process workflow detail beyond the catalog overview.
+  // .
   public static final class DetailedProcessWorkflows extends SomNode {
     public DetailedProcessWorkflows(SpecDocument doc, String path) {
       super(doc, path);
@@ -16302,7 +16060,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+  // 8.2.2. Development Environment.
   //
   // Required IDEs, build tools, version control, CI/CD pipeline, code review
   // process, and development workflow.
@@ -16556,7 +16314,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn].
+  // Display equipment entry (form).
   public static final class DisplayEquipmentEntry extends SomNode {
     public DisplayEquipmentEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -16771,7 +16529,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.3. Distribution List [PD00-ADM-DIS].
+  // 3.3. Distribution List.
   //
   // Defines who receives which project documents and communications.
   // Includes the communication matrix specifying information flow patterns,
@@ -16795,17 +16553,17 @@ public final class TomSomV0 {
       return new CommunicationMatrix(doc, path + "/communicationMatrix");
     }
 
-    // 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+    // 3.3.1. Full Distribution.
     public FullDistribution fullDistribution() {
       return new FullDistribution(doc, path + "/fullDistribution");
     }
 
-    // 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
+    // 3.3.2. Executive Summary.
     public ExecutiveSummaryDistribution executiveSummary() {
       return new ExecutiveSummaryDistribution(doc, path + "/executiveSummary");
     }
 
-    // 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
+    // 3.3.3. Custom Distribution Groups — contains 0+× Group.
     public SomList<CustomDistributionGroup> customGroups() {
       return new SomList<>(doc, path + "/CSDSGR-CUST-LST", (d, p) -> new CustomDistributionGroup(d, p));
     }
@@ -16844,7 +16602,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A distribution recipient entry (form) [PD00-ADM-DIS-nn].
+  // A distribution recipient entry (form).
   //
   // Detailed information about a distribution list recipient including
   // their role, contact information, preferences, and access levels.
@@ -16980,7 +16738,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
+  // 11.5.4. Documentation changeability quality.
   public static final class DocChangeabilityQuality extends SomNode {
     public DocChangeabilityQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -17042,7 +16800,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].
+  // 11.5.2. Documentation completeness quality.
   public static final class DocCompletenessQuality extends SomNode {
     public DocCompletenessQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -17056,7 +16814,7 @@ public final class TomSomV0 {
     // (skipped: narrative has no target type)
   }
 
-  // 11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR].
+  // 11.5.3. Documentation correctness quality.
   public static final class DocCorrectnessQuality extends SomNode {
     public DocCorrectnessQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -17099,6 +16857,41 @@ public final class TomSomV0 {
 
     public DocCorrectnessQualityVerificationContentForm content() {
       return new DocCorrectnessQualityVerificationContentForm(doc, path + "/content");
+    }
+  }
+
+  // SBP.1 Document Control.
+  //
+  // Holds the [DocumentHeader] (id, project, version, date, author, status)
+  // together with the document's [RevisionHistory] and the [ApprovalRecord]s
+  // that gate its release.
+  public static final class DocumentControl extends SomNode {
+    public DocumentControl(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Document header form (id, project, version, date, author, status).
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Chronological revision history of this document.
+    public RevisionHistory revisionHistory() {
+      return new RevisionHistory(doc, path + "/revisionHistory");
+    }
+
+    // Formal approvals (sign-offs) recorded for this document.
+    public SomList<ApprovalRecord> approvals() {
+      return new SomList<>(doc, path + "/DOCTL-APRV-LST", (d, p) -> new ApprovalRecord(d, p));
     }
   }
 
@@ -17155,7 +16948,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+  // 10.12.3. Documentation and Training.
   //
   // End-user documentation and training materials.
   public static final class DocumentationAndTraining extends SomNode {
@@ -17212,7 +17005,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+  // 14.1.2. Documentation Deliverables.
   public static final class DocumentationDeliverables extends SomNode {
     public DocumentationDeliverables(SpecDocument doc, String path) {
       super(doc, path);
@@ -17233,7 +17026,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+  // 11.5. Documentation Quality Criteria.
   //
   // Quality criteria for project documentation including readability,
   // completeness, correctness, and changeability.
@@ -17249,22 +17042,22 @@ public final class TomSomV0 {
     // Documentation quality overview narrative.
     // (skipped: overview has no target type)
 
-    // 11.5.1. Readability [PD00-SYQ-DOC-REA].
+    // 11.5.1. Readability.
     public ReadabilityQuality readability() {
       return new ReadabilityQuality(doc, path + "/readability");
     }
 
-    // 11.5.2. Completeness [PD00-SYQ-DOC-COM].
+    // 11.5.2. Completeness.
     public DocCompletenessQuality completeness() {
       return new DocCompletenessQuality(doc, path + "/completeness");
     }
 
-    // 11.5.3. Correctness [PD00-SYQ-DOC-COR].
+    // 11.5.3. Correctness.
     public DocCorrectnessQuality correctness() {
       return new DocCorrectnessQuality(doc, path + "/correctness");
     }
 
-    // 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
+    // 11.5.4. Changeability.
     public DocChangeabilityQuality changeability() {
       return new DocChangeabilityQuality(doc, path + "/changeability");
     }
@@ -17436,7 +17229,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+  // 4.1.3.4. Domain Boundaries.
   //
   // Clear definition of what is within and outside the domain scope,
   // based on bounded context principles.
@@ -17533,7 +17326,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.3.5. Domain Business Rules [PD00-SYO-SYD-DES-RUL].
+  // 4.1.3.5. Domain Business Rules.
   //
   // Business rules, policies, and constraints that govern behavior
   // within this domain.
@@ -17568,7 +17361,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+  // 4.1.3.7. Domain Events.
   //
   // Significant business events that occur within this domain and
   // trigger actions or state changes.
@@ -17603,7 +17396,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+  // 4.1.3.1. Domain Overview.
   //
   // High-level description of the business domain including its purpose,
   // scope, and relationship to the overall business.
@@ -17673,7 +17466,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+  // 4.1.3.6. Domain Processes.
   //
   // High-level business processes within this domain, showing the main
   // workflows and activities.
@@ -17718,7 +17511,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+  // 4.1.3.2. Domain Vocabulary.
   //
   // Glossary of domain-specific terms and definitions establishing the
   // ubiquitous language for the project.
@@ -17742,7 +17535,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF].
+  // 11.3.1. Efficiency quality.
   public static final class EfficiencyQuality extends SomNode {
     public EfficiencyQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -17804,7 +17597,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A validation rule entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-VAL-pp].
+  // A validation rule entry (form).
   public static final class ElementValidationRuleEntry extends SomNode {
     public ElementValidationRuleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -17874,7 +17667,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn].
+  // An encrypted data category entry (form).
   //
   // Defines a specific category of data that requires encryption at rest,
   // including the data classification, encryption approach, algorithm override,
@@ -17890,7 +17683,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+  // 9.5.1. Encryption At Rest.
   //
   // Defines encryption requirements for stored data: algorithms, key lengths,
   // encryption layers (application, database, filesystem, hardware), field-level
@@ -17963,7 +17756,7 @@ public final class TomSomV0 {
     // (skipped: encryptionAtRestPolicyDetails has no target type)
   }
 
-  // 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+  // 9.5.2. Encryption In Transit.
   //
   // Defines encryption requirements for data in transit: TLS protocol versions,
   // cipher suites, certificate management, HSTS policy, mutual TLS, certificate
@@ -18012,10 +17805,10 @@ public final class TomSomV0 {
     // (skipped: encryptionInTransitNotes has no target type)
   }
 
-  // 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E].
+  // 6.2.4. End-to-End Test Scenarios.
   //
   // Test scenarios that exercise complete user journeys across processes
-  // and use cases. Covers HBSG AS24.
+  // and use cases..
   public static final class EndToEndTestScenarios extends SomNode {
     public EndToEndTestScenarios(SpecDocument doc, String path) {
       super(doc, path);
@@ -18106,7 +17899,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
+  // An entitlement entry (form).
   public static final class EntitlementEntry extends SomNode {
     public EntitlementEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -18122,7 +17915,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn].
+  // An entitlement reference entry (form).
   public static final class EntitlementReferenceEntry extends SomNode {
     public EntitlementReferenceEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -18133,7 +17926,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An entity constraint entry (form) [PD00-BUS-DAT-ENT-nn-CON-nn].
+  // An entity constraint entry (form).
   //
   // Business and technical constraints beyond keys.
   public static final class EntityConstraintEntry extends SomNode {
@@ -18146,7 +17939,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An entity index entry (form) [PD00-BUS-DAT-ENT-nn-IDX-nn].
+  // An entity index entry (form).
   //
   // Database index specification for query optimization.
   public static final class EntityIndexEntry extends SomNode {
@@ -18159,7 +17952,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
+  // An entity relationship entry (form).
   //
   // Comprehensive relationship specification following ER modeling best practices.
   public static final class EntityRelationshipEntry extends SomNode {
@@ -18210,7 +18003,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+  // 7.1.2. Entity Relationships.
   public static final class EntityRelationships extends SomNode {
     public EntityRelationships(SpecDocument doc, String path) {
       super(doc, path);
@@ -18231,7 +18024,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-mm].
+  // An entry point entry (form).
   public static final class EntryPointEntry extends SomNode {
     public EntryPointEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -18308,7 +18101,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An environment entry (form) [PD00-POP-TOO-ENV-nn].
+  // An environment entry (form).
   //
   // Comprehensive specification of a single project environment covering
   // identity, infrastructure, access, data management, configuration,
@@ -18617,7 +18410,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 2.4.2. Environments [PD00-POP-TOO-ENV].
+  // 2.4.2. Environments.
   //
   // Operational overview of project environments and the inventory of
   // individual environment instances. Strategy-level decisions (tier
@@ -18649,7 +18442,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+  // 5.3.1. Equipment Requirements.
   //
   // Hardware and peripheral requirements per workplace type.
   public static final class EquipmentRequirements extends SomNode {
@@ -18736,7 +18529,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.7. Error Handling Concept [PD00-USE-ERR].
+  // 10.7. Error Handling Concept.
   //
   // Comprehensive error handling user experience framework covering validation
   // feedback, system error presentation, and error recovery flows. Follows
@@ -18768,17 +18561,17 @@ public final class TomSomV0 {
     // Error handling overview and strategy.
     // (skipped: errorHandlingOverview has no target type)
 
-    // 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+    // 10.7.1. Validation Feedback.
     public ValidationFeedback validationFeedback() {
       return new ValidationFeedback(doc, path + "/validationFeedback");
     }
 
-    // 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+    // 10.7.2. System Error Display.
     public SystemErrorDisplay systemErrorDisplay() {
       return new SystemErrorDisplay(doc, path + "/systemErrorDisplay");
     }
 
-    // 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+    // 10.7.3. Error Recovery.
     public ErrorRecovery errorRecovery() {
       return new ErrorRecovery(doc, path + "/errorRecovery");
     }
@@ -18946,7 +18739,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+  // 10.7.3. Error Recovery.
   //
   // Error recovery flows including data preservation, retry mechanisms,
   // and guided recovery steps.
@@ -19069,7 +18862,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+  // 12.1.2. Evaluation Criteria.
   //
   // Container for component evaluation criteria used when assessing
   // candidate components for adoption.
@@ -19093,7 +18886,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
+  // An evaluation criterion entry (form).
   //
   // Defines one criterion for evaluating candidate components: scoring scale,
   // threshold, evidence requirements, and evaluation method.
@@ -19172,7 +18965,7 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
-  // 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+  // 3.3.2. Executive Summary Distribution.
   //
   // Recipients who receive only executive summaries and milestone reports.
   public static final class ExecutiveSummaryDistribution extends SomNode {
@@ -19211,7 +19004,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+  // An existing system entry (form).
   //
   // Captures comprehensive information about an existing system including
   // identity, technology, business context, usage metrics, lifecycle, and risks.
@@ -19224,42 +19017,42 @@ public final class TomSomV0 {
       return new ExistingSystemEntryContentForm(doc, path + "/content");
     }
 
-    // Technology stack details [PD00-CUR-SYS-INV-nn-TEC].
+    // Technology stack details.
     public ExistingSystemTechnology technology() {
       return new ExistingSystemTechnology(doc, path + "/technology");
     }
 
-    // Business context [PD00-CUR-SYS-INV-nn-BUS].
+    // Business context.
     public ExistingSystemBusinessContext businessContext() {
       return new ExistingSystemBusinessContext(doc, path + "/businessContext");
     }
 
-    // Usage metrics [PD00-CUR-SYS-INV-nn-USE].
+    // Usage metrics.
     public ExistingSystemUsage usage() {
       return new ExistingSystemUsage(doc, path + "/usage");
     }
 
-    // Lifecycle information [PD00-CUR-SYS-INV-nn-LIF].
+    // Lifecycle information.
     public ExistingSystemLifecycle lifecycle() {
       return new ExistingSystemLifecycle(doc, path + "/lifecycle");
     }
 
-    // Integration profile [PD00-CUR-SYS-INV-nn-INT].
+    // Integration profile.
     public ExistingSystemIntegration integrationProfile() {
       return new ExistingSystemIntegration(doc, path + "/integrationProfile");
     }
 
-    // Infrastructure details [PD00-CUR-SYS-INV-nn-INF].
+    // Infrastructure details.
     public ExistingSystemInfrastructure infrastructure() {
       return new ExistingSystemInfrastructure(doc, path + "/infrastructure");
     }
 
-    // Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
+    // Contains 0+× Limitation.
     public SomList<LimitationEntry> knownLimitations() {
       return new SomList<>(doc, path + "/LIMET-KNOW-LST", (d, p) -> new LimitationEntry(d, p));
     }
 
-    // Quality and risk assessment [PD00-CUR-SYS-INV-nn-QUA].
+    // Quality and risk assessment.
     public ExistingSystemQuality quality() {
       return new ExistingSystemQuality(doc, path + "/quality");
     }
@@ -19331,7 +19124,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+  // 1.1. Existing Systems Landscape.
   //
   // Overview of the current systems in use, their roles, technology stacks,
   // and limitations. Provides the foundation for understanding the AS-IS state.
@@ -19349,17 +19142,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+    // 1.1.1. System Inventory.
     public SystemInventory systemInventory() {
       return new SystemInventory(doc, path + "/systemInventory");
     }
 
-    // 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+    // 1.1.2. Current Architecture.
     public CurrentArchitecture currentArchitecture() {
       return new CurrentArchitecture(doc, path + "/currentArchitecture");
     }
 
-    // 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+    // 1.1.3. Dependencies and Integrations.
     public DependenciesAndIntegrations dependenciesAndIntegrations() {
       return new DependenciesAndIntegrations(doc, path + "/dependenciesAndIntegrations");
     }
@@ -19373,6 +19166,189 @@ public final class TomSomV0 {
 
     public ExpectedImprovementsContentForm content() {
       return new ExpectedImprovementsContentForm(doc, path + "/content");
+    }
+  }
+
+  // 10. User Interface Design and Prototype. Seeds → UP.
+  public static final class ExperienceAndInterfaceDesign extends SomNode {
+    public ExperienceAndInterfaceDesign(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 10.1. Design Vision. Seeds → UP.
+    public DesignVision designVision() {
+      return new DesignVision(doc, path + "/designVision");
+    }
+
+    // 10.2. Screen Descriptions. Seeds → UP.
+    public ScreenDescriptions screens() {
+      return new ScreenDescriptions(doc, path + "/screens");
+    }
+
+    // 10.3. Screen Flow Structure. Seeds → UP.
+    public ScreenFlowStructure screenFlow() {
+      return new ScreenFlowStructure(doc, path + "/screenFlow");
+    }
+
+    // 10.4. Print Layout. Seeds → UP.
+    public PrintLayout printLayout() {
+      return new PrintLayout(doc, path + "/printLayout");
+    }
+
+    // Data Structure Alignment.
+    // (skipped: dataStructureAlignment has no target type)
+
+    // Authorization Compliance.
+    // (skipped: authorizationCompliance has no target type)
+
+    // 10.7. Error Handling Concept. Seeds → UP.
+    public ErrorHandlingConcept errorHandling() {
+      return new ErrorHandlingConcept(doc, path + "/errorHandling");
+    }
+
+    // 10.8. Help Concept. Seeds → UP.
+    public HelpConcept helpConcept() {
+      return new HelpConcept(doc, path + "/helpConcept");
+    }
+
+    // 10.9. Accessibility. Seeds → UP.
+    public Accessibility accessibility() {
+      return new Accessibility(doc, path + "/accessibility");
+    }
+
+    // 10.10. Responsive Design. Seeds → UP.
+    public ResponsiveDesign responsiveDesign() {
+      return new ResponsiveDesign(doc, path + "/responsiveDesign");
+    }
+
+    // 10.11. UI Components. Seeds → UP.
+    public UiComponents uiComponents() {
+      return new UiComponents(doc, path + "/uiComponents");
+    }
+
+    // 10.12. Multi-language and Rollout Support.
+    public MultiLanguageAndRollout multiLanguage() {
+      return new MultiLanguageAndRollout(doc, path + "/multiLanguage");
+    }
+
+    // 10.13. Prototype. Seeds → UP.
+    public Prototype prototype() {
+      return new Prototype(doc, path + "/prototype");
+    }
+
+    // 10.14. Wireframes and Mockups..
+    public SomList<WireframesAndMockups> wireframesAndMockups() {
+      return new SomList<>(doc, path + "/WIANMO-WIRE-LST", (d, p) -> new WireframesAndMockups(d, p));
+    }
+  }
+
+  // UP00 UI Prototype.
+  //
+  // Full UI design and prototype specification — vision, screens,
+  // screen flow, print, error handling, help, accessibility, responsive,
+  // components, language/country selection, prototype, wireframes and
+  // mockups.
+  public static final class ExperienceDesignSpecification extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public ExperienceDesignSpecification(SpecDocument doc, String documentVersion) {
+      super(doc, "XDS");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public ExperienceDesignSpecification(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Design vision.
+    public DesignVision designVision() {
+      return new DesignVision(doc, path + "/designVision");
+    }
+
+    // Screen descriptions.
+    public ScreenDescriptions screens() {
+      return new ScreenDescriptions(doc, path + "/screens");
+    }
+
+    // Screen flow structure.
+    public ScreenFlowStructure screenFlow() {
+      return new ScreenFlowStructure(doc, path + "/screenFlow");
+    }
+
+    // Print layout.
+    public PrintLayout printLayout() {
+      return new PrintLayout(doc, path + "/printLayout");
+    }
+
+    // Error handling concept.
+    public ErrorHandlingConcept errorHandling() {
+      return new ErrorHandlingConcept(doc, path + "/errorHandling");
+    }
+
+    // Help concept.
+    public HelpConcept helpConcept() {
+      return new HelpConcept(doc, path + "/helpConcept");
+    }
+
+    // Accessibility.
+    public Accessibility accessibility() {
+      return new Accessibility(doc, path + "/accessibility");
+    }
+
+    // Responsive design.
+    public ResponsiveDesign responsiveDesign() {
+      return new ResponsiveDesign(doc, path + "/responsiveDesign");
+    }
+
+    // UI components.
+    public UiComponents uiComponents() {
+      return new UiComponents(doc, path + "/uiComponents");
+    }
+
+    // Language and country selection.
+    public LanguageCountrySelection languageCountrySelection() {
+      return new LanguageCountrySelection(doc, path + "/languageCountrySelection");
+    }
+
+    // Prototype.
+    public Prototype prototype() {
+      return new Prototype(doc, path + "/prototype");
+    }
+
+    // Wireframes and mockups (new in Phase A).
+    public SomList<WireframesAndMockups> wireframesAndMockups() {
+      return new SomList<>(doc, path + "/WIANMO-WIRE-LST", (d, p) -> new WireframesAndMockups(d, p));
     }
   }
 
@@ -19409,7 +19385,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).
+  // A field mapping within an export (form).
   public static final class ExportFieldMappingEntry extends SomNode {
     public ExportFieldMappingEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -19495,7 +19471,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An export format entry (form) [PD00-USE-PRI-EXP-nn].
+  // An export format entry (form).
   public static final class ExportFormatEntry extends SomNode {
     public ExportFormatEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -19595,7 +19571,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A reusable export template [PD00-USE-PRI-TPL-nn] (form).
+  // A reusable export template (form).
   public static final class ExportTemplateEntry extends SomNode {
     public ExportTemplateEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -19670,7 +19646,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An extension entry [PD00-TAR-STP-INT-nn-EXT-nn].
+  // An extension entry.
   public static final class ExtensionEntry extends SomNode {
     public ExtensionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -19686,7 +19662,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn].
+  // An extension step entry.
   public static final class ExtensionStepEntry extends SomNode {
     public ExtensionStepEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -19745,7 +19721,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+  // 4.1.2.3. External Actors.
   //
   // Human users and organizational entities that interact with the system
   // from outside the system boundary.
@@ -19769,7 +19745,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+  // 8.6.2. External Connectivity.
   public static final class ExternalConnectivitySection extends SomNode {
     public ExternalConnectivitySection(SpecDocument doc, String path) {
       super(doc, path);
@@ -19818,7 +19794,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+  // An external interface entry (form).
   //
   // Comprehensive documentation of an external system interface covering
   // identification, technical details, data exchange specification, security,
@@ -19875,7 +19851,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Container for external interface definitions [PD00-SYO-SYB-INT].
+  // Container for external interface definitions.
   //
   // Provides structured inventory of all external system integrations with
   // categorization, prioritization, and governance information. Each interface
@@ -19988,7 +19964,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An external partner connection entry (form) [PD00-TEC-COM-EXT-nn].
+  // An external partner connection entry (form).
   public static final class ExternalPartnerConnectionEntry extends SomNode {
     public ExternalPartnerConnectionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -20084,7 +20060,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+  // 1.1.3.2. External Service Dependencies.
   //
   // Dependencies on external services, third-party APIs, SaaS platforms,
   // and cloud services not under direct organizational control.
@@ -20108,7 +20084,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn].
+  // An external service dependency entry (form).
   //
   // Documents a dependency on an external service or third-party provider
   // including vendor details, SLA, risk assessment, and fallback options.
@@ -20243,7 +20219,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+  // 4.1.2.4. External Systems.
   //
   // External systems, services, and APIs that the system integrates with.
   public static final class ExternalSystemsContext extends SomNode {
@@ -20288,7 +20264,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+  // 13.4.4. Feature Dependencies.
   //
   // Cross-feature dependencies affecting staging order, critical path
   // analysis, and delivery sequencing.
@@ -20321,7 +20297,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A feature dependency entry (form) [PD00-SSP-FEA-DEP-nn].
+  // A feature dependency entry (form).
   //
   // Describes a single directional dependency between two features,
   // including type, impact, and resolution strategy.
@@ -20448,7 +20424,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.4. Feature Prioritization [PD00-SSP-FEA].
+  // 13.4. Feature Prioritization.
   //
   // Comprehensive feature prioritization framework for staged delivery.
   // Covers prioritization methodology, MoSCoW analysis, feature-stage
@@ -20497,22 +20473,22 @@ public final class TomSomV0 {
     // Prioritization rationale narrative.
     // (skipped: prioritizationRationale has no target type)
 
-    // 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+    // 13.4.1. MoSCoW Analysis.
     public MoscowAnalysis moscowAnalysis() {
       return new MoscowAnalysis(doc, path + "/moscowAnalysis");
     }
 
-    // 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+    // 13.4.2. Feature-Stage Matrix.
     public FeatureStageMatrix featureStageMatrix() {
       return new FeatureStageMatrix(doc, path + "/featureStageMatrix");
     }
 
-    // 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+    // 13.4.3. Feature Priority Register.
     public FeaturePriorityRegister featurePriorityRegister() {
       return new FeaturePriorityRegister(doc, path + "/featurePriorityRegister");
     }
 
-    // 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+    // 13.4.4. Feature Dependencies.
     public FeatureDependencies featureDependencies() {
       return new FeatureDependencies(doc, path + "/featureDependencies");
     }
@@ -20584,7 +20560,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An individual feature priority entry (form) [PD00-SSP-FEA-REG-nn].
+  // An individual feature priority entry (form).
   //
   // Comprehensive record covering identity, classification, business
   // value, effort, priority scoring, stage assignment, dependencies,
@@ -20644,7 +20620,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+  // 13.4.3. Feature Priority Register.
   //
   // Master register of all features with comprehensive priority scoring,
   // business value analysis, effort estimates, stakeholder ownership,
@@ -20686,7 +20662,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A feature-to-stage mapping entry (form) [PD00-SSP-FEA-MAT-nn].
+  // A feature-to-stage mapping entry (form).
   //
   // Maps a single feature or feature group to its delivery stage with
   // readiness, confidence, and dependency information.
@@ -20764,7 +20740,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+  // 13.4.2. Feature-Stage Matrix.
   //
   // Maps every feature or feature group to the delivery stage, tracking
   // readiness, confidence, dependencies, and acceptance criteria.
@@ -20808,7 +20784,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
+  // A feature tour entry.
   public static final class FeatureTourEntry extends SomNode {
     public FeatureTourEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -20835,7 +20811,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A field help entry [PD00-USE-HLP-CON-FLD-nn].
+  // A field help entry.
   public static final class FieldHelpEntry extends SomNode {
     public FieldHelpEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -20896,7 +20872,7 @@ public final class TomSomV0 {
     // (skipped: fileAccessControlDetails has no target type)
   }
 
-  // 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+  // 9.3.3. File and Storage Security.
   //
   // Comprehensive file and storage security specification covering upload
   // validation, storage encryption, access control on file resources, content
@@ -21095,7 +21071,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
+  // 11.3.3. Flexibility quality.
   public static final class FlexibilityQuality extends SomNode {
     public FlexibilityQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -21184,7 +21160,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.6. Framework Conditions [PD00-SYO-RES].
+  // 4.6. Framework Conditions.
   //
   // Documents the organizational and technical environment in which the system
   // will operate. Covers organizational structure, functional responsibilities,
@@ -21198,28 +21174,28 @@ public final class TomSomV0 {
     // Framework conditions overview.
     // (skipped: overview has no target type)
 
-    // 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+    // 4.6.1. Organizational Environment.
     public OrganizationalEnvironment organizationalEnvironment() {
       return new OrganizationalEnvironment(doc, path + "/organizationalEnvironment");
     }
 
-    // 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
+    // 4.6.2. Functional Responsibilities — contains 0+×.
     public FunctionalResponsibilities functionalResponsibilities() {
       return new FunctionalResponsibilities(doc, path + "/functionalResponsibilities");
     }
 
-    // 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+    // 4.6.3. Technical Framework Conditions. Seeds → TR.
     public TechnicalFrameworkConditions technicalFrameworkConditions() {
       return new TechnicalFrameworkConditions(doc, path + "/technicalFrameworkConditions");
     }
 
-    // 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
+    // 4.6.4. Constraints and Dependencies — contains 0+×.
     public ConstraintsAndDependencies constraintsAndDependencies() {
       return new ConstraintsAndDependencies(doc, path + "/constraintsAndDependencies");
     }
   }
 
-  // 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+  // 4.6.4.2. Dependencies.
   //
   // External dependencies on other projects, teams, vendors, systems, or
   // organizational initiatives. Each dependency represents a point where
@@ -21275,7 +21251,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+  // A framework dependency entry (form).
   //
   // Represents a single external dependency where this project relies on
   // another party (project, team, vendor, system) to deliver something.
@@ -21432,7 +21408,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+  // 3.3.1. Full Distribution.
   //
   // Recipients who receive all project documents and communications.
   public static final class FullDistribution extends SomNode {
@@ -21460,7 +21436,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A function-to-data matrix entry (form) [PD00-BUS-FUN-MAT-nn].
+  // A function-to-data matrix entry (form).
   //
   // Maps a function to the data entities it accesses.
   public static final class FunctionDataMatrixEntry extends SomNode {
@@ -21473,7 +21449,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A function entry (form) [PD00-BUS-FUN-DEC-nn].
+  // A function entry (form).
   //
   // Business function specification in the functional decomposition.
   public static final class FunctionEntry extends SomNode {
@@ -21500,7 +21476,7 @@ public final class TomSomV0 {
       return new FunctionEntryImplementation(doc, path + "/implementation");
     }
 
-    // Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
+    // Sub-functions — contains 0+× SubFunction.
     public SomList<SubFunctionEntry> subFunctions() {
       return new SomList<>(doc, path + "/SUFN-SUBF-LST", (d, p) -> new SubFunctionEntry(d, p));
     }
@@ -21539,7 +21515,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 7.3. Function Model [PD00-BUS-FUN].
+  // 7.3. Function Model.
   //
   // Business functions, their decomposition, and relationships to data objects.
   public static final class FunctionModel extends SomNode {
@@ -21555,23 +21531,23 @@ public final class TomSomV0 {
       return new FunctionModelMatrixOverviewForm(doc, path + "/matrixOverview");
     }
 
-    // 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC] — contains 0+× Function.
+    // 7.3.1. Function Decomposition — contains 0+× Function.
     public SomList<FunctionEntry> functions() {
       return new SomList<>(doc, path + "/FUNCT-FUNC-LST", (d, p) -> new FunctionEntry(d, p));
     }
 
-    // 7.3.2. Function-to-Data Matrix Entries [PD00-BUS-FUN-MAT] — contains 0+× MatrixEntry.
+    // 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
     public SomList<FunctionDataMatrixEntry> matrixEntries() {
       return new SomList<>(doc, path + "/FNDMX-MATR-LST", (d, p) -> new FunctionDataMatrixEntry(d, p));
     }
 
-    // 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
+    // 7.3.3. Business Rules — contains 1+× Business Rule.
     public SomList<BusinessRuleEntry> businessRules() {
       return new SomList<>(doc, path + "/BIRU-BUSI-LST", (d, p) -> new BusinessRuleEntry(d, p));
     }
   }
 
-  // 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
+  // 11.2.2. Functional completeness quality.
   public static final class FunctionalCompletenessQuality extends SomNode {
     public FunctionalCompletenessQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -21585,7 +21561,7 @@ public final class TomSomV0 {
     // (skipped: narrative has no target type)
   }
 
-  // A functional requirement entry [PD00-SYO-REQ-FUN-nn].
+  // A functional requirement entry.
   //
   // Comprehensive functional requirement definition following IEEE 830,
   // ISO 29148, and Volere requirements shell. Includes traceability,
@@ -21629,37 +21605,37 @@ public final class TomSomV0 {
       return new FunctionalRequirementEntryMetadata(doc, path + "/metadata");
     }
 
-    // 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+    // 4.3.1.n.1. Acceptance Criteria.
     public RequirementAcceptanceCriteria acceptanceCriteria() {
       return new RequirementAcceptanceCriteria(doc, path + "/acceptanceCriteria");
     }
 
-    // 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+    // 4.3.1.n.2. Business Rules.
     public RequirementBusinessRules businessRules() {
       return new RequirementBusinessRules(doc, path + "/businessRules");
     }
 
-    // 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+    // 4.3.1.n.3. Data Requirements.
     public RequirementDataRequirements dataRequirements() {
       return new RequirementDataRequirements(doc, path + "/dataRequirements");
     }
 
-    // 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+    // 4.3.1.n.4. UI Specification.
     public RequirementUiSpecification uiSpecification() {
       return new RequirementUiSpecification(doc, path + "/uiSpecification");
     }
 
-    // 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+    // 4.3.1.n.5. Dependencies.
     public RequirementDependencies dependencies() {
       return new RequirementDependencies(doc, path + "/dependencies");
     }
 
-    // 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+    // 4.3.1.n.6. Traceability.
     public RequirementTraceability traceability() {
       return new RequirementTraceability(doc, path + "/traceability");
     }
 
-    // 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+    // 4.3.1.n.7. Test Cases.
     public RequirementTestCases testCases() {
       return new RequirementTestCases(doc, path + "/testCases");
     }
@@ -21731,7 +21707,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+  // 4.3.1. Functional Requirements.
   //
   // Container for functional requirements. Functional requirements describe
   // what the system must do — its features, behaviors, processing rules,
@@ -21762,7 +21738,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+  // 4.6.2. Functional Responsibilities.
   //
   // Maps system functions to organizational units responsible for them.
   // Identifies domain owners, data stewards, and operational contacts for
@@ -21786,7 +21762,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
+  // A gap entry (form) — a missing capability or feature.
   //
   // Documents a specific gap between current capabilities and business needs:
   // category, severity, quantified cost, stakeholders, compliance drivers,
@@ -21865,7 +21841,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+  // 1.3.4. Gaps.
   public static final class Gaps extends SomNode {
     public Gaps(SpecDocument doc, String path) {
       super(doc, path);
@@ -21977,7 +21953,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn].
+  // A global role exclusion entry (form).
   //
   // Defines system-wide mutual exclusion rules that apply across all users,
   // independent of individual role definitions.
@@ -21991,7 +21967,60 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+  // An ordered collection of glossary entries.
+  public static final class Glossary extends SomNode {
+    public Glossary(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // One entry per defined term or acronym.
+    public SomList<GlossaryEntry> entries() {
+      return new SomList<>(doc, path + "/GLOSS-ENTR-LST", (d, p) -> new GlossaryEntry(d, p));
+    }
+  }
+
+  // SBP.3 Glossary & Abbreviations.
+  public static final class GlossaryAndAbbreviations extends SomNode {
+    public GlossaryAndAbbreviations(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // The set of defined terms and abbreviations.
+    public Glossary glossary() {
+      return new Glossary(doc, path + "/glossary");
+    }
+  }
+
+  // A single glossary entry (form).
+  public static final class GlossaryEntry extends SomNode {
+    public GlossaryEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public GlossaryEntryContentForm content() {
+      return new GlossaryEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // 4.2.1.n.3. Dependencies.
   //
   // Dependencies that may affect goal achievement.
   public static final class GoalDependencies extends SomNode {
@@ -22034,7 +22063,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+  // 4.2.1.n.1. Key Results.
   //
   // OKR-style key results that indicate progress toward the goal.
   // Key results are specific, measurable outcomes that together constitute
@@ -22070,7 +22099,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+  // 4.2.1.n.2. Milestones.
   //
   // Key milestones marking progress toward the goal.
   public static final class GoalMilestones extends SomNode {
@@ -22093,7 +22122,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+  // 4.2.1.n.5. Resources.
   //
   // Resources required to achieve the goal.
   public static final class GoalResources extends SomNode {
@@ -22164,7 +22193,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+  // 4.2.1.n.4. Risks.
   //
   // Risks that may prevent or delay goal achievement.
   public static final class GoalRisks extends SomNode {
@@ -22187,7 +22216,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2. Goals [PD00-SYO-GOA].
+  // 4.2. Goals.
   //
   // Container for project goals organized by category. Goals provide measurable
   // objectives that guide project execution and define success. This section
@@ -22217,17 +22246,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/goalHierarchyDiagram", value);
     }
 
-    // 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+    // 4.2.1. Business Goals.
     public BusinessGoals businessGoals() {
       return new BusinessGoals(doc, path + "/businessGoals");
     }
 
-    // 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+    // 4.2.2. Technical Goals.
     public TechnicalGoals technicalGoals() {
       return new TechnicalGoals(doc, path + "/technicalGoals");
     }
 
-    // 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+    // 4.2.3. Success Criteria.
     public SuccessCriteria successCriteria() {
       return new SuccessCriteria(doc, path + "/successCriteria");
     }
@@ -22249,7 +22278,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
+  // A data handling requirement entry (form).
   //
   // Specific handling procedures for classified data.
   public static final class HandlingRequirementEntry extends SomNode {
@@ -22262,7 +22291,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+  // 8.4. Hardware Concept Requirements.
   public static final class HardwareRequirements extends SomNode {
     public HardwareRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -22277,17 +22306,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+    // 8.4.1. Server Requirements.
     public ServerRequirementsSection serverRequirements() {
       return new ServerRequirementsSection(doc, path + "/serverRequirements");
     }
 
-    // 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+    // 8.4.2. Client Requirements.
     public ClientRequirementsSection clientRequirements() {
       return new ClientRequirementsSection(doc, path + "/clientRequirements");
     }
 
-    // 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+    // 8.4.3. Network Requirements.
     public NetworkRequirementsSection networkRequirements() {
       return new NetworkRequirementsSection(doc, path + "/networkRequirements");
     }
@@ -22352,7 +22381,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+  // 8.7.2.1. Health Checks and Diagnostics.
   public static final class HealthChecksAndDiagnosticsSection extends SomNode {
     public HealthChecksAndDiagnosticsSection(SpecDocument doc, String path) {
       super(doc, path);
@@ -22396,7 +22425,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.8. Help Concept [PD00-USE-HLP].
+  // 10.8. Help Concept.
   //
   // Comprehensive in-app help system including contextual help, onboarding,
   // and support access mechanisms.
@@ -22422,17 +22451,17 @@ public final class TomSomV0 {
     // Help system overview narrative.
     // (skipped: helpOverview has no target type)
 
-    // 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+    // 10.8.1. Contextual Help.
     public ContextualHelp contextualHelp() {
       return new ContextualHelp(doc, path + "/contextualHelp");
     }
 
-    // 10.8.2. Onboarding [PD00-USE-HLP-ONB].
+    // 10.8.2. Onboarding.
     public OnboardingHelp onboarding() {
       return new OnboardingHelp(doc, path + "/onboarding");
     }
 
-    // 10.8.3. Support Access [PD00-USE-HLP-SUP].
+    // 10.8.3. Support Access.
     public SupportAccess supportAccess() {
       return new SupportAccess(doc, path + "/supportAccess");
     }
@@ -22597,7 +22626,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.2.1. Identification [PD00-ACC-IDE-IDN].
+  // 9.2.1. Identification.
   //
   // Defines the identity management model: how identities are created,
   // sourced, verified, federated, and mapped. Covers identity sources,
@@ -22617,7 +22646,7 @@ public final class TomSomV0 {
       return new SomList<>(doc, path + "/IDTSR-IDEN-LST", (d, p) -> new IdentitySourceEntry(d, p));
     }
 
-    // Identity Verification [PD00-ACC-IDE-IDN-VER].
+    // Identity Verification.
     public IdentityVerificationPolicy identityVerification() {
       return new IdentityVerificationPolicy(doc, path + "/identityVerification");
     }
@@ -22627,12 +22656,12 @@ public final class TomSomV0 {
       return new SomList<>(doc, path + "/IDTPV-IDEN-LST", (d, p) -> new IdentityProviderEntry(d, p));
     }
 
-    // Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+    // Single Sign-On.
     public SingleSignOnPolicy singleSignOn() {
       return new SingleSignOnPolicy(doc, path + "/singleSignOn");
     }
 
-    // Self-Registration [PD00-ACC-IDE-IDN-REG].
+    // Self-Registration.
     public SelfRegistrationPolicy selfRegistration() {
       return new SelfRegistrationPolicy(doc, path + "/selfRegistration");
     }
@@ -22643,7 +22672,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.2. Identification and Authentication [PD00-ACC-IDE].
+  // 9.2. Identification and Authentication.
   public static final class IdentificationAndAuthentication extends SomNode {
     public IdentificationAndAuthentication(SpecDocument doc, String path) {
       super(doc, path);
@@ -22658,18 +22687,18 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 9.2.1. Identification [PD00-ACC-IDE-IDN].
+    // 9.2.1. Identification.
     public Identification identification() {
       return new Identification(doc, path + "/identification");
     }
 
-    // 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+    // 9.2.2. Authentication.
     public Authentication authentication() {
       return new Authentication(doc, path + "/authentication");
     }
   }
 
-  // An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].
+  // An identity attribute mapping entry (form).
   //
   // Defines how attributes map between identity sources and the application:
   // source/target field, data type, transformation, sync direction.
@@ -22753,7 +22782,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].
+  // An identity provider entry (form).
   //
   // Configuration for a single Identity Provider (IdP): protocol, endpoints,
   // attribute mapping, trust level, certificate management.
@@ -22825,7 +22854,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn].
+  // An identity source entry (form).
   //
   // Defines one source from which identities are obtained, e.g.
   // internal directory, LDAP, external IdP, HR system, self-registration.
@@ -22903,7 +22932,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER].
+  // Identity verification/proofing policy (form).
   //
   // Defines how identity claims are verified: verification level, required
   // documents, automation, proofing standards (NIST IAL), and re-verification.
@@ -23333,7 +23362,38 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+  // 7. Business Object and Data Model. Seeds → BDM.
+  public static final class InformationAndDataModel extends SomNode {
+    public InformationAndDataModel(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 7.1. Data Model.
+    public DataModel dataModel() {
+      return new DataModel(doc, path + "/dataModel");
+    }
+
+    // 7.2. Business Object Model.
+    public BusinessObjectModel businessObjectModel() {
+      return new BusinessObjectModel(doc, path + "/businessObjectModel");
+    }
+
+    // 7.3. Function Model.
+    public FunctionModel functionModel() {
+      return new FunctionModel(doc, path + "/functionModel");
+    }
+  }
+
+  // 10.2.2. Information Architecture.
   //
   // Overall information architecture: site map, content hierarchy, navigation
   // structure, and entry points. Describes how screens relate to each other
@@ -23366,8 +23426,135 @@ public final class TomSomV0 {
       return new SomList<>(doc, path + "/GLOBA-GLOB-LST", (d, p) -> new GlobalEntryPointEntry(d, p));
     }
 
-    // 10.2.2.5. Information Architecture Diagram [PD00-USE-SCR-INF-DIA].
+    // 10.2.2.5. Information Architecture Diagram.
     // (skipped: architectureDiagram has no target type)
+  }
+
+  // Information-for-Use (user documentation) requirements.
+  //
+  // Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
+  // *quality criteria* cross-map lives in SBP.14
+  // (`DocumentationQualityCriteria`).
+  //
+  // Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
+  // doc/training field-split (separating the documentation half from the
+  // training half) is deferred to IP-8.
+  public static final class InformationForUseRequirements extends SomNode {
+    public InformationForUseRequirements(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Documentation (and, until the IP-8 split, training) requirements,
+    // re-homed from MLAR.
+    public DocumentationAndTraining documentationAndTraining() {
+      return new DocumentationAndTraining(doc, path + "/documentationAndTraining");
+    }
+  }
+
+  // BDM00 Business Data Model.
+  //
+  // Full business data model: entities, relationships, ER diagram, data
+  // classification, business objects, function decomposition, function-
+  // to-data matrix, business rules, data dictionary, and validation /
+  // integrity constraints.
+  public static final class InformationModel extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public InformationModel(SpecDocument doc, String documentVersion) {
+      super(doc, "IFM");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public InformationModel(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Entity inventory (list).
+    public SomList<DataEntityEntry> entities() {
+      return new SomList<>(doc, path + "/DAENT-ENTI-LST", (d, p) -> new DataEntityEntry(d, p));
+    }
+
+    // Entity relationships.
+    public EntityRelationships entityRelationships() {
+      return new EntityRelationships(doc, path + "/entityRelationships");
+    }
+
+    // Entity-relationship diagram.
+    // (skipped: erDiagram has no target type)
+
+    // Data classification.
+    public DataClassification dataClassification() {
+      return new DataClassification(doc, path + "/dataClassification");
+    }
+
+    // Business object catalog (list).
+    public SomList<BusinessObjectEntry> objectCatalog() {
+      return new SomList<>(doc, path + "/BJOEN-OBJE-LST", (d, p) -> new BusinessObjectEntry(d, p));
+    }
+
+    // Business object diagram.
+    // (skipped: objectDiagram has no target type)
+
+    // Function decomposition (list).
+    public SomList<FunctionEntry> functionDecomposition() {
+      return new SomList<>(doc, path + "/FUNCT-FUNC-LST", (d, p) -> new FunctionEntry(d, p));
+    }
+
+    // Function-to-data matrix (list).
+    public SomList<FunctionDataMatrixEntry> functionToDataMatrix() {
+      return new SomList<>(doc, path + "/FNDMX-FUNC-LST", (d, p) -> new FunctionDataMatrixEntry(d, p));
+    }
+
+    // Business rules catalog (list).
+    public SomList<BusinessRuleEntry> businessRules() {
+      return new SomList<>(doc, path + "/BIRU-BUSI-LST", (d, p) -> new BusinessRuleEntry(d, p));
+    }
+
+    // Data dictionary.
+    public DataDictionary dataDictionary() {
+      return new DataDictionary(doc, path + "/dataDictionary");
+    }
+
+    // Validation constraints.
+    public SomList<ValidationConstraints> validationConstraints() {
+      return new SomList<>(doc, path + "/VACO-VALI-LST", (d, p) -> new ValidationConstraints(d, p));
+    }
+
+    // Integrity constraints.
+    public SomList<IntegrityConstraints> integrityConstraints() {
+      return new SomList<>(doc, path + "/INCO-INTE-LST", (d, p) -> new IntegrityConstraints(d, p));
+    }
   }
 
   // Infrastructure as Code requirements.
@@ -23654,7 +23841,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.7. Initial Development Flow [PD00-SSP-IDV].
+  // 13.7. Initial Development Flow.
   //
   // Inter-phase dependencies during the initial build (Phases 1–7 of
   // `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
@@ -23718,7 +23905,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Initial training entry (form) [PD00-ORG-WOR-nn-TRA-INI-nn].
+  // Initial training entry (form).
   public static final class InitialTrainingEntry extends SomNode {
     public InitialTrainingEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -23765,7 +23952,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn].
+  // Input device entry (form).
   public static final class InputDeviceEntry extends SomNode {
     public InputDeviceEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -23798,7 +23985,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.6.5. Insurance and Liability Requirements [PD00-ADM-OTH-INS].
+  // 3.6.5. Insurance and Liability Requirements.
   //
   // Insurance coverage and liability agreements.
   public static final class InsuranceLiabilityRequirements extends SomNode {
@@ -23917,7 +24104,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
+  // An integration constraint entry (form).
   //
   // Documents a technical constraint on system integration, including
   // protocol requirements, format restrictions, and platform mandates.
@@ -23995,7 +24182,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+  // 1.1.3.5. Integration Health Summary.
   //
   // Executive summary of overall integration landscape health and risk areas.
   public static final class IntegrationHealthSummary extends SomNode {
@@ -24007,9 +24194,99 @@ public final class TomSomV0 {
       return new IntegrationHealthSummaryContentForm(doc, path + "/content");
     }
 
-    // Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
+    // Fragile integration points requiring attention.
     public SomList<FragilePointEntry> fragilePoints() {
       return new SomList<>(doc, path + "/FRAGI-FRAG-LST", (d, p) -> new FragilePointEntry(d, p));
+    }
+  }
+
+  // BSI00 Business System Interactions.
+  //
+  // Complete interaction specification between the target system and
+  // external systems: inventory, patterns, testing, dependencies,
+  // migration, operational concerns, and cross-boundary error handling.
+  public static final class IntegrationInterfaceSpecification extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public IntegrationInterfaceSpecification(SpecDocument doc, String documentVersion) {
+      super(doc, "IIS");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public IntegrationInterfaceSpecification(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // External interfaces.
+    public ExternalInterfaces externalInterfaces() {
+      return new ExternalInterfaces(doc, path + "/externalInterfaces");
+    }
+
+    // Out of scope.
+    public OutOfScope outOfScope() {
+      return new OutOfScope(doc, path + "/outOfScope");
+    }
+
+    // Boundary assumptions.
+    public BoundaryAssumptions boundaryAssumptions() {
+      return new BoundaryAssumptions(doc, path + "/boundaryAssumptions");
+    }
+
+    // System landscape inventory.
+    public SystemLandscapeInventory systemInventory() {
+      return new SystemLandscapeInventory(doc, path + "/systemInventory");
+    }
+
+    // Boundary interaction patterns.
+    public SomList<BoundaryInteractionPatterns> interactionPatterns() {
+      return new SomList<>(doc, path + "/BOINPA-INTE-LST", (d, p) -> new BoundaryInteractionPatterns(d, p));
+    }
+
+    // Interaction testing strategy.
+    public InteractionTestingStrategy testingStrategy() {
+      return new InteractionTestingStrategy(doc, path + "/testingStrategy");
+    }
+
+    // Interaction dependency analysis.
+    public InteractionDependencyAnalysis dependencyAnalysis() {
+      return new InteractionDependencyAnalysis(doc, path + "/dependencyAnalysis");
+    }
+
+    // Migration interactions.
+    public SomList<MigrationInteractions> migrationInteractions() {
+      return new SomList<>(doc, path + "/MIIN-MIGR-LST", (d, p) -> new MigrationInteractions(d, p));
+    }
+
+    // Cross-boundary operational considerations.
+    public SomList<CrossBoundaryOperationalConsiderations> operationalConsiderations() {
+      return new SomList<>(doc, path + "/CBOC-OPER-LST", (d, p) -> new CrossBoundaryOperationalConsiderations(d, p));
+    }
+
+    // Cross-boundary error handling.
+    public CrossBoundaryErrorHandling crossBoundaryErrorHandling() {
+      return new CrossBoundaryErrorHandling(doc, path + "/crossBoundaryErrorHandling");
     }
   }
 
@@ -24040,7 +24317,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+  // 1.1.3.4. System Integrations.
   //
   // Active integrations between systems including protocols, data formats,
   // error handling, and monitoring.
@@ -24064,7 +24341,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+  // 7.1.7. Integrity Constraints.
   //
   // Cross-entity integrity rules beyond simple referential integrity.
   public static final class IntegrityConstraints extends SomNode {
@@ -24082,7 +24359,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.6.1. Intellectual Property Requirements [PD00-ADM-OTH-IPR].
+  // 3.6.1. Intellectual Property Requirements.
   //
   // Defines ownership and usage rights for project deliverables and IP.
   public static final class IntellectualPropertyRequirements extends SomNode {
@@ -24111,7 +24388,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.2.2. Interaction Catalog [PD00-TAR-STP-INT].
+  // 6.2.2. Interaction Catalog.
   //
   // Container for key interaction descriptions. Each interaction seeds a use
   // case following Cockburn's fully dressed use case template.
@@ -24156,7 +24433,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
+  // An interaction channel entry (form).
   //
   // Comprehensive definition of an access channel including platform details,
   // features, constraints, and user experience considerations.
@@ -24244,7 +24521,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP].
+  // 4.5.7. Interaction Dependency Analysis.
   //
   // Critical-path and degraded-mode behavior analysis for system
   // dependencies. Covers BSI-DEP.
@@ -24263,7 +24540,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An interaction entry [PD00-TAR-STP-INT-nn].
+  // An interaction entry.
   //
   // Comprehensive interaction definition following Cockburn's fully dressed
   // use case template. Seeds the UC (Use Case) document.
@@ -24349,7 +24626,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
+  // An interaction pattern entry (form).
   //
   // Definition of a specific interaction pattern including timing, triggers,
   // and user experience considerations.
@@ -24427,7 +24704,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+  // 4.1.5.2. Interaction Patterns.
   //
   // Defines how users interact with the system including real-time interactions,
   // batch processing, workflow-driven tasks, and notification-driven actions.
@@ -24489,6 +24766,81 @@ public final class TomSomV0 {
     }
   }
 
+  // UC00 Use Cases.
+  //
+  // Detailed use cases derived from the target process steps and actor
+  // interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+  // and traceability.
+  public static final class InteractionScenarios extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public InteractionScenarios(SpecDocument doc, String documentVersion) {
+      super(doc, "ISC");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public InteractionScenarios(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Process steps overview.
+    public ProcessStepsOverview processStepsOverview() {
+      return new ProcessStepsOverview(doc, path + "/processStepsOverview");
+    }
+
+    // Actor overview.
+    public ActorOverview actorOverview() {
+      return new ActorOverview(doc, path + "/actorOverview");
+    }
+
+    // Interaction catalog.
+    public InteractionCatalog interactionCatalog() {
+      return new InteractionCatalog(doc, path + "/interactionCatalog");
+    }
+
+    // Key scenarios.
+    public KeyScenarios keyScenarios() {
+      return new KeyScenarios(doc, path + "/keyScenarios");
+    }
+
+    // Actor relationship diagram.
+    public ActorRelationshipDiagram actorRelationshipDiagram() {
+      return new ActorRelationshipDiagram(doc, path + "/actorRelationshipDiagram");
+    }
+
+    // End-to-end test scenarios.
+    public SomList<EndToEndTestScenarios> endToEndTestScenarios() {
+      return new SomList<>(doc, path + "/ETETS-ENDT-LST", (d, p) -> new EndToEndTestScenarios(d, p));
+    }
+
+    // Use case traceability.
+    public UseCaseTraceability useCaseTraceability() {
+      return new UseCaseTraceability(doc, path + "/useCaseTraceability");
+    }
+  }
+
   // Interaction security requirements.
   public static final class InteractionSecurity extends SomNode {
     public InteractionSecurity(SpecDocument doc, String path) {
@@ -24500,7 +24852,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST].
+  // 4.5.6. Interaction Testing Strategy.
   //
   // Contract / integration / failure-mode testing for system boundaries.
   // Covers BSI-TST.
@@ -24530,7 +24882,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Business context for an interface [PD00-SYO-SYB-INT-nn-BUS].
+  // Business context for an interface.
   public static final class InterfaceBusinessContext extends SomNode {
     public InterfaceBusinessContext(SpecDocument doc, String path) {
       super(doc, path);
@@ -24546,7 +24898,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Business process dependency entry [PD00-SYO-SYB-INT-nn-BUS-BP-nn].
+  // Business process dependency entry.
   public static final class InterfaceBusinessProcessEntry extends SomNode {
     public InterfaceBusinessProcessEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -24557,7 +24909,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn].
+  // Data entity exchanged.
   public static final class InterfaceDataEntityEntry extends SomNode {
     public InterfaceDataEntityEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -24568,7 +24920,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Data specification for an interface [PD00-SYO-SYB-INT-nn-DAT].
+  // Data specification for an interface.
   public static final class InterfaceDataSpec extends SomNode {
     public InterfaceDataSpec(SpecDocument doc, String path) {
       super(doc, path);
@@ -24594,7 +24946,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Error handling specification [PD00-SYO-SYB-INT-nn-ERR].
+  // Error handling specification.
   public static final class InterfaceErrorHandling extends SomNode {
     public InterfaceErrorHandling(SpecDocument doc, String path) {
       super(doc, path);
@@ -24658,7 +25010,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Governance and contracts [PD00-SYO-SYB-INT-nn-GOV].
+  // Governance and contracts.
   public static final class InterfaceGovernance extends SomNode {
     public InterfaceGovernance(SpecDocument doc, String path) {
       super(doc, path);
@@ -24704,7 +25056,7 @@ public final class TomSomV0 {
     }
   }
 
-  // API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn].
+  // API operation entry.
   public static final class InterfaceOperationEntry extends SomNode {
     public InterfaceOperationEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -24715,7 +25067,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Operational characteristics [PD00-SYO-SYB-INT-nn-OPS].
+  // Operational characteristics.
   public static final class InterfaceOperational extends SomNode {
     public InterfaceOperational(SpecDocument doc, String path) {
       super(doc, path);
@@ -24779,7 +25131,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Security specification for an interface [PD00-SYO-SYB-INT-nn-SEC].
+  // Security specification for an interface.
   public static final class InterfaceSecurity extends SomNode {
     public InterfaceSecurity(SpecDocument doc, String path) {
       super(doc, path);
@@ -24916,7 +25268,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Technical specification for an interface [PD00-SYO-SYB-INT-nn-TEC].
+  // Technical specification for an interface.
   public static final class InterfaceTechnicalSpec extends SomNode {
     public InterfaceTechnicalSpec(SpecDocument doc, String path) {
       super(doc, path);
@@ -24969,7 +25321,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn].
+  // Test scenario entry.
   public static final class InterfaceTestScenarioEntry extends SomNode {
     public InterfaceTestScenarioEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -24980,7 +25332,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Testing specification [PD00-SYO-SYB-INT-nn-TST].
+  // Testing specification.
   public static final class InterfaceTesting extends SomNode {
     public InterfaceTesting(SpecDocument doc, String path) {
       super(doc, path);
@@ -25028,7 +25380,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Webhook specification [PD00-SYO-SYB-INT-nn-TEC-WH].
+  // Webhook specification.
   public static final class InterfaceWebhookSpec extends SomNode {
     public InterfaceWebhookSpec(SpecDocument doc, String path) {
       super(doc, path);
@@ -25039,7 +25391,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+  // 1.1.3.1. Internal Dependencies.
   //
   // Dependencies between systems owned and operated internally.
   public static final class InternalDependencies extends SomNode {
@@ -25212,6 +25564,76 @@ public final class TomSomV0 {
     }
   }
 
+  // 4. System Overview.
+  //
+  // High-level overview of the system to be built: its purpose, goals,
+  // scope boundaries, and the environment it operates in. This section
+  // establishes the foundation for all subsequent specification work.
+  public static final class IntroductionAndScope extends SomNode {
+    public IntroductionAndScope(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // System overview summary statistics.
+    public SystemOverviewSummary summary() {
+      return new SystemOverviewSummary(doc, path + "/summary");
+    }
+
+    // System context diagram showing major system boundaries.
+    public String systemContextDiagram() {
+      String v = doc.content(path + "/systemContextDiagram");
+      return v == null ? "" : v;
+    }
+
+    public void systemContextDiagram(String value) {
+      doc.setContent(path + "/systemContextDiagram", value);
+    }
+
+    // 4.1. System Description.
+    public SystemDescription systemDescription() {
+      return new SystemDescription(doc, path + "/systemDescription");
+    }
+
+    // 4.2. Goals.
+    public Goals goals() {
+      return new Goals(doc, path + "/goals");
+    }
+
+    // 4.3. Requirements Overview. Seeds → RC.
+    public RequirementsOverview requirements() {
+      return new RequirementsOverview(doc, path + "/requirements");
+    }
+
+    // 4.4. Systems to Replace. Seeds → CS.
+    public SystemsToReplace systemsToReplace() {
+      return new SystemsToReplace(doc, path + "/systemsToReplace");
+    }
+
+    // 4.5. System Boundaries. Seeds → BSI.
+    public SystemBoundaries systemBoundaries() {
+      return new SystemBoundaries(doc, path + "/systemBoundaries");
+    }
+
+    // 4.6. Framework Conditions.
+    public FrameworkConditions frameworkConditions() {
+      return new FrameworkConditions(doc, path + "/frameworkConditions");
+    }
+
+    // 4.7. Risks and Assumptions.
+    public RisksAndAssumptions risksAndAssumptions() {
+      return new RisksAndAssumptions(doc, path + "/risksAndAssumptions");
+    }
+  }
+
   // An IP ownership entry (form).
   public static final class IpOwnershipEntry extends SomNode {
     public IpOwnershipEntry(SpecDocument doc, String path) {
@@ -25223,7 +25645,43 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+  // ISO/IEC 25010 product-quality cross-map.
+  //
+  // Maps the system's quality goals onto the eight ISO/IEC 25010 product
+  // quality characteristics so that compatibility and portability cannot be
+  // silently missed.
+  public static final class Iso25010Coverage extends SomNode {
+    public Iso25010Coverage(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // One entry per ISO/IEC 25010 characteristic addressed.
+    public SomList<Iso25010CoverageEntry> characteristics() {
+      return new SomList<>(doc, path + "/I25CV-CHAR-LST", (d, p) -> new Iso25010CoverageEntry(d, p));
+    }
+  }
+
+  // A single ISO/IEC 25010 coverage entry (form).
+  public static final class Iso25010CoverageEntry extends SomNode {
+    public Iso25010CoverageEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public Iso25010CoverageEntryContentForm content() {
+      return new Iso25010CoverageEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // 4.1.2.2. IT Landscape Position.
   //
   // How this system fits within the organization's overall IT architecture
   // and application portfolio.
@@ -25247,7 +25705,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
+  // 11.4.4. IT Security Operations quality.
   public static final class ItSecurityOperationsQuality extends SomNode {
     public ItSecurityOperationsQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -25325,7 +25783,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+  // 8.8.1. IT Security Standards.
   public static final class ItSecurityStandardsSection extends SomNode {
     public ItSecurityStandardsSection(SpecDocument doc, String path) {
       super(doc, path);
@@ -25465,7 +25923,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+  // 5.2. Job Descriptions and Staffing Plans.
   //
   // Documents new and changed roles resulting from the system introduction,
   // following HR best practices and job analysis methodologies (O*NET, SHRM).
@@ -25480,27 +25938,27 @@ public final class TomSomV0 {
       return new JobDescriptionsOverview(doc, path + "/overview");
     }
 
-    // 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
+    // 5.2.1. New Roles — contains 0+× New Role.
     public SomList<NewRoleEntry> newRoles() {
       return new SomList<>(doc, path + "/NWROL-NEWR-LST", (d, p) -> new NewRoleEntry(d, p));
     }
 
-    // 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
+    // 5.2.2. Changed Roles — contains 0+× Changed Role.
     public SomList<ChangedRoleEntry> changedRoles() {
       return new SomList<>(doc, path + "/CHAROL-CHAN-LST", (d, p) -> new ChangedRoleEntry(d, p));
     }
 
-    // 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
+    // 5.2.3. Removed Roles — contains 0+× role being eliminated.
     public SomList<RemovedRoleEntry> removedRoles() {
       return new SomList<>(doc, path + "/REMROL-REMO-LST", (d, p) -> new RemovedRoleEntry(d, p));
     }
 
-    // 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+    // 5.2.4. Staffing Plan.
     public StaffingPlan staffingPlan() {
       return new StaffingPlan(doc, path + "/staffingPlan");
     }
 
-    // 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+    // 5.2.5. Competency Framework.
     public CompetencyFramework competencyFramework() {
       return new CompetencyFramework(doc, path + "/competencyFramework");
     }
@@ -25544,7 +26002,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+  // 4.7.2. Key Assumptions.
   //
   // Documents project assumptions that must hold true for success.
   // Tracks validation status and contingency plans if assumptions prove false.
@@ -25564,7 +26022,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A key attribute entry (form) [PD00-BUS-DAT-ENT-nn-KEY-nn].
+  // A key attribute entry (form).
   //
   // Specification for primary, foreign, alternate, and composite keys.
   public static final class KeyAttributeEntry extends SomNode {
@@ -25669,7 +26127,7 @@ public final class TomSomV0 {
     // (skipped: relationshipDetails has no target type)
   }
 
-  // 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+  // 4.1.3.3. Key Concepts.
   //
   // Core business concepts and entities in the domain, their attributes,
   // and relationships (conceptual domain model).
@@ -25739,7 +26197,7 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
-  // 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+  // 9.5.3. Key Management.
   //
   // Defines cryptographic key management policies covering the full key
   // lifecycle: generation, storage, rotation, escrow/backup, and compromise
@@ -25816,7 +26274,7 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
-  // 6.2.3. Key Scenarios [PD00-TAR-STP-SCE].
+  // 6.2.3. Key Scenarios.
   //
   // End-to-end scenario descriptions showing how users achieve business goals
   // through sequences of interactions.
@@ -25880,7 +26338,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 15.7. Knowledge Transfer [PD00-ROL-KNO].
+  // 15.7. Knowledge Transfer.
   //
   // Handover from delivery team to operations. Covers EK09 Handover
   // Agreement content.
@@ -25947,7 +26405,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+  // 10.12.4. Language and Country Selection.
   //
   // UI specification for language and country selection.
   public static final class LanguageCountrySelection extends SomNode {
@@ -26089,7 +26547,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+  // 8.2.1. Layering and Module Structure.
   //
   // Software layering (presentation, business logic, data access, infrastructure)
   // and module structure (bounded contexts, packages, libraries).
@@ -26247,7 +26705,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
+  // A lifecycle transition entry (form).
   //
   // Detailed state transition specification.
   public static final class LifecycleTransitionEntry extends SomNode {
@@ -26308,7 +26766,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
+  // A known limitation of an existing system (form).
   public static final class LimitationEntry extends SomNode {
     public LimitationEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -26469,7 +26927,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.12.1. Localization Process [PD00-USE-MUL-LOC].
+  // 10.12.1. Localization Process.
   //
   // Workflow for identifying and preparing content for localization.
   public static final class LocalizationProcess extends SomNode {
@@ -26533,6 +26991,66 @@ public final class TomSomV0 {
 
     public LocalizationProcessReviewContentForm content() {
       return new LocalizationProcessReviewContentForm(doc, path + "/content");
+    }
+  }
+
+  // Localization & Translation execution processes.
+  //
+  // Public anchor: ISO 29148 transition requirements. Bundles the localization
+  // and translation *workflow* concerns re-homed from the former
+  // `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+  // SBP.9 [LocalizationTranslationRequirements]).
+  public static final class LocalizationTranslationProcess extends SomNode {
+    public LocalizationTranslationProcess(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Localization workflow (content identification, externalization, review).
+    public LocalizationProcess localizationProcess() {
+      return new LocalizationProcess(doc, path + "/localizationProcess");
+    }
+
+    // Translation workflow (TMS, translation memory, vendors, QA).
+    public TranslationProcess translationProcess() {
+      return new TranslationProcess(doc, path + "/translationProcess");
+    }
+  }
+
+  // Localization & Translation requirements (the requirement side of i18n).
+  //
+  // Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
+  // constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+  public static final class LocalizationTranslationRequirements extends SomNode {
+    public LocalizationTranslationRequirements(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Technical internationalization requirements (re-homed from MLAR).
+    public TranslationRequirements translationRequirements() {
+      return new TranslationRequirements(doc, path + "/translationRequirements");
+    }
+
+    // Locale modeling and fallback requirements (re-homed from MLAR).
+    public MultiLanguageAndRolloutLocaleHandling localeHandling() {
+      return new MultiLanguageAndRolloutLocaleHandling(doc, path + "/localeHandling");
     }
   }
 
@@ -26741,7 +27259,7 @@ public final class TomSomV0 {
     // (skipped: loginFlowDetails has no target type)
   }
 
-  // A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
+  // A login flow step entry (form).
   //
   // Defines an individual step in the authentication flow sequence,
   // allowing detailed specification of each stage from initial request
@@ -26804,7 +27322,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn].
+  // A main scenario step entry.
   public static final class MainScenarioStepEntry extends SomNode {
     public MainScenarioStepEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -26831,7 +27349,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
+  // 11.3.5. Maintainability quality.
   public static final class MaintainabilityQuality extends SomNode {
     public MaintainabilityQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -26984,7 +27502,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 12.5. Maintenance Dependencies [PD00-COM-MAI].
+  // 12.5. Maintenance Dependencies.
   //
   // Maintenance dependencies: version compatibility matrix, coordinated
   // update sequences, and breaking-change handling.
@@ -27008,7 +27526,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A maintenance dependency entry (form) [PD00-COM-MAI-nn].
+  // A maintenance dependency entry (form).
   //
   // Documents one maintenance dependency: coordinated update sequences,
   // version compatibility, and breaking-change handling.
@@ -27220,7 +27738,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+  // 8.5.4. Maintenance Windows.
   //
   // Maintenance window requirements: frequency, duration, notification period,
   // and impact on users.
@@ -27347,7 +27865,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+  // 1.4.10. Master Data Management.
   //
   // Master data management practices, golden records, and data
   // synchronization across systems.
@@ -27473,7 +27991,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+  // 8.7.2.3. Metrics and Observability.
   //
   // Comprehensive metrics collection, distributed tracing, and observability
   // requirements.
@@ -27633,7 +28151,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn].
+  // An MFA enforcement per user category entry (form).
   //
   // Defines MFA requirements for a specific user category, allowing
   // different authentication assurance levels per role or access tier.
@@ -27757,7 +28275,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+  // 4.4.2. Migration Considerations (global).
   //
   // Cross-system migration concerns covering portfolio-wide strategy,
   // resource planning, and coordination. Complements per-system
@@ -27779,7 +28297,7 @@ public final class TomSomV0 {
       return new MigrationResources(doc, path + "/resources");
     }
 
-    // Migration risks [PD00-SYO-SYR-MIG-RIS].
+    // Migration risks.
     public MigrationRisks migrationRisks() {
       return new MigrationRisks(doc, path + "/migrationRisks");
     }
@@ -27846,11 +28364,11 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG].
+  // 4.5.8. Migration Interactions.
   //
   // Interactions specific to the migration window — cutover bridges,
-  // reconciliation endpoints, and temporary shims. Back-refs
-  // PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
+  // reconciliation endpoints, and temporary shims. Back-refs the
+  // Systems to Replace inventory. Covers BSI-MIG.
   public static final class MigrationInteractions extends SomNode {
     public MigrationInteractions(SpecDocument doc, String path) {
       super(doc, path);
@@ -27866,7 +28384,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A migration mapping entry (form) [PD00-BUS-DAT-ENT-nn-MIG-nn].
+  // A migration mapping entry (form).
   //
   // Maps source system data to target entity for data migration planning.
   public static final class MigrationMappingEntry extends SomNode {
@@ -27890,7 +28408,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn].
+  // A migration milestone entry.
   public static final class MigrationMilestoneEntry extends SomNode {
     public MigrationMilestoneEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -27934,7 +28452,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
+  // A migration phase entry (form).
   //
   // Represents a single migration phase targeting a specific data domain,
   // source system, or entity group. Covers data scope analysis, migration
@@ -28094,7 +28612,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+  // 13.5.1. Migration Phases.
   //
   // Staged migration phases defining the sequential or overlapping
   // execution plan. Each phase targets a specific data domain or source
@@ -28118,7 +28636,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 15.2. Migration Plan [PD00-ROL-MIG].
+  // 15.2. Migration Plan.
   //
   // End-to-end system migration plan covering DR22 Migration Plan content:
   // data, configuration, integration, and user migration from the current
@@ -28138,7 +28656,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Migration resource requirements [PD00-SYO-SYR-MIG-RES].
+  // Migration resource requirements.
   public static final class MigrationResources extends SomNode {
     public MigrationResources(SpecDocument doc, String path) {
       super(doc, path);
@@ -28163,7 +28681,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
+  // A migration risk entry (form).
   //
   // Detailed migration risk documentation following enterprise risk
   // management practices. Captures full risk lifecycle from identification
@@ -28333,7 +28851,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
+  // Migration risks — program-level risks.
   //
   // Comprehensive migration risk management framework for program-level
   // risks across the entire migration portfolio. Covers risk governance,
@@ -28594,7 +29112,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Mobile device entry (form) [PD00-ORG-WOR-nn-EQU-MOB-nn].
+  // Mobile device entry (form).
   public static final class MobileDeviceEntry extends SomNode {
     public MobileDeviceEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -28878,7 +29396,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+  // 8.7.2. Monitoring.
   //
   // Comprehensive monitoring specification covering health checks, alerting,
   // observability, dashboards, and SLA/SLO tracking.
@@ -28894,33 +29412,33 @@ public final class TomSomV0 {
     // Monitoring strategy narrative.
     // (skipped: overviewNarrative has no target type)
 
-    // 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+    // 8.7.2.1. Health Checks and Diagnostics.
     public HealthChecksAndDiagnosticsSection healthChecksAndDiagnostics() {
       return new HealthChecksAndDiagnosticsSection(doc, path + "/healthChecksAndDiagnostics");
     }
 
-    // 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+    // 8.7.2.2. Alerting Configuration.
     public AlertingConfiguration alertingConfiguration() {
       return new AlertingConfiguration(doc, path + "/alertingConfiguration");
     }
 
-    // 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+    // 8.7.2.3. Metrics and Observability.
     public MetricsAndObservability metricsAndObservability() {
       return new MetricsAndObservability(doc, path + "/metricsAndObservability");
     }
 
-    // 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+    // 8.7.2.4. Monitoring Dashboards.
     public MonitoringDashboards dashboards() {
       return new MonitoringDashboards(doc, path + "/dashboards");
     }
 
-    // 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+    // 8.7.2.5. SLA and SLO Monitoring.
     public SlaAndSloMonitoring slaAndSloMonitoring() {
       return new SlaAndSloMonitoring(doc, path + "/slaAndSloMonitoring");
     }
   }
 
-  // 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
+  // 8.5.3. Monitoring and Alerting.
   //
   // Monitoring requirements: metrics to collect, alert thresholds, dashboard
   // requirements, on-call procedures, and escalation paths.
@@ -28992,7 +29510,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+  // 8.7.2.4. Monitoring Dashboards.
   //
   // Operational dashboards for system monitoring.
   public static final class MonitoringDashboards extends SomNode {
@@ -29093,7 +29611,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
+  // 11.4.3. Monitoring quality.
   public static final class MonitoringQuality extends SomNode {
     public MonitoringQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -29171,7 +29689,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+  // 13.4.1. MoSCoW Analysis.
   //
   // Classifies every feature using the MoSCoW method (Must / Should /
   // Could / Won't) and maps each to its target delivery stage.
@@ -29193,7 +29711,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A MoSCoW classification entry (form) [PD00-SSP-FEA-MOS-nn].
+  // A MoSCoW classification entry (form).
   //
   // Maps a single feature or feature group to its MoSCoW category and
   // target delivery stage, with justification and cross-references.
@@ -29271,7 +29789,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+  // 4.1.5.6. Multi-Channel Experience.
   //
   // Defines how the system provides a consistent experience across channels
   // and handles channel switching.
@@ -29295,11 +29813,13 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+  // 10.12. Multi-language and Rollout Support.
   //
-  // Comprehensive internationalization, localization, and system rollout
-  // specification covering translation workflows, locale handling, user
-  // documentation, training, and deployment planning.
+  // Locale-picker / UX-side multi-language concerns that stay on the
+  // Experience & Interface Design side. IP-6 re-homed the requirement-side
+  // concerns (i18n requirements, documentation, training) to SBP.9 and the
+  // execution-side concerns (localization/translation processes, rollout
+  // sequencing) to SBP.15; only the stay-put UX members remain here.
   public static final class MultiLanguageAndRollout extends SomNode {
     public MultiLanguageAndRollout(SpecDocument doc, String path) {
       super(doc, path);
@@ -29309,42 +29829,12 @@ public final class TomSomV0 {
       return new MultiLanguageAndRolloutMultiLanguageOverviewForm(doc, path + "/multiLanguageOverview");
     }
 
-    // Locale modeling and fallback behavior.
-    public MultiLanguageAndRolloutLocaleHandling localeHandling() {
-      return new MultiLanguageAndRolloutLocaleHandling(doc, path + "/localeHandling");
-    }
-
-    // Rollout sequencing by region and time.
-    public MultiLanguageAndRolloutPlan rolloutPlan() {
-      return new MultiLanguageAndRolloutPlan(doc, path + "/rolloutPlan");
-    }
-
     // Multi-language overview narrative.
     // (skipped: overviewNarrative has no target type)
 
-    // 10.12.1. Localization Process [PD00-USE-MUL-LOC].
-    public LocalizationProcess localizationProcess() {
-      return new LocalizationProcess(doc, path + "/localizationProcess");
-    }
-
-    // 10.12.2. Translation Process [PD00-USE-MUL-TRA].
-    public TranslationProcess translationProcess() {
-      return new TranslationProcess(doc, path + "/translationProcess");
-    }
-
-    // 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
-    public DocumentationAndTraining documentationAndTraining() {
-      return new DocumentationAndTraining(doc, path + "/documentationAndTraining");
-    }
-
-    // 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+    // 10.12.4. Language and Country Selection.
     public LanguageCountrySelection languageCountrySelection() {
       return new LanguageCountrySelection(doc, path + "/languageCountrySelection");
-    }
-
-    // 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
-    public TranslationRequirements translationRequirements() {
-      return new TranslationRequirements(doc, path + "/translationRequirements");
     }
 
     // Supported locale entries.
@@ -29375,7 +29865,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+  // 11.7.1. Must-Pass Criteria.
   //
   // Criteria that must be met for the system to be accepted.
   public static final class MustPassCriteria extends SomNode {
@@ -29396,7 +29886,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
+  // A must-pass criterion entry (form).
   public static final class MustPassCriterionEntry extends SomNode {
     public MustPassCriterionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -29572,7 +30062,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
+  // A navigation group entry (form).
   //
   // Logical grouping of navigation items (e.g., "Sales", "Administration").
   public static final class NavigationGroupEntry extends SomNode {
@@ -29638,7 +30128,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn].
+  // A navigation guard entry (form).
   public static final class NavigationGuardEntry extends SomNode {
     public NavigationGuardEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -29681,7 +30171,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+  // 10.3.1.8. Navigation Guards.
   //
   // Route guards: unsaved changes, authentication redirects, permission checks.
   public static final class NavigationGuards extends SomNode {
@@ -29707,7 +30197,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+  // 10.3.1.2. Navigation Hierarchy.
   //
   // Full navigation tree: groups and items forming the app's navigation structure.
   public static final class NavigationHierarchy extends SomNode {
@@ -29733,7 +30223,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
+  // A navigation item entry (form).
   //
   // A single navigable destination within a group.
   public static final class NavigationItemEntry extends SomNode {
@@ -29826,7 +30316,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+  // 10.3.1. Navigation Model.
   //
   // Comprehensive navigation structure: primary, secondary, utility, contextual
   // navigation, deep linking, navigation guards, and platform adaptation.
@@ -29844,48 +30334,48 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+    // 10.3.1.1. Navigation Overview.
     public NavigationOverview overview() {
       return new NavigationOverview(doc, path + "/overview");
     }
 
-    // 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+    // 10.3.1.2. Navigation Hierarchy.
     public NavigationHierarchy hierarchy() {
       return new NavigationHierarchy(doc, path + "/hierarchy");
     }
 
-    // 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+    // 10.3.1.3. Primary Navigation.
     public PrimaryNavigation primaryNavigation() {
       return new PrimaryNavigation(doc, path + "/primaryNavigation");
     }
 
-    // 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+    // 10.3.1.4. Secondary Navigation.
     public SecondaryNavigation secondaryNavigation() {
       return new SecondaryNavigation(doc, path + "/secondaryNavigation");
     }
 
-    // 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+    // 10.3.1.5. Utility Navigation.
     public UtilityNavigation utilityNavigation() {
       return new UtilityNavigation(doc, path + "/utilityNavigation");
     }
 
-    // 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+    // 10.3.1.6. Contextual Navigation.
     public ContextualNavigation contextualNavigation() {
       return new ContextualNavigation(doc, path + "/contextualNavigation");
     }
 
-    // 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+    // 10.3.1.7. Deep Linking.
     public DeepLinking deepLinking() {
       return new DeepLinking(doc, path + "/deepLinking");
     }
 
-    // 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+    // 10.3.1.8. Navigation Guards.
     public NavigationGuards navigationGuards() {
       return new NavigationGuards(doc, path + "/navigationGuards");
     }
   }
 
-  // 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+  // 10.3.1.1. Navigation Overview.
   //
   // Overall navigation strategy, routing approach, and design decisions.
   public static final class NavigationOverview extends SomNode {
@@ -30137,7 +30627,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+  // 8.4.3. Network Requirements.
   //
   // Network requirements: bandwidth, latency, availability, VPN/firewall rules,
   // and geographic distribution.
@@ -30380,7 +30870,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 5.1. New Organization Structure [PD00-ORG-STR].
+  // 5.1. New Organization Structure.
   //
   // Organizational changes required by the new system including new teams,
   // restructured departments, changed responsibilities, and new communication
@@ -30394,18 +30884,18 @@ public final class TomSomV0 {
     // Overview of the target organization structure.
     // (skipped: overview has no target type)
 
-    // 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+    // 5.1.1. Changes from Current Structure.
     public ChangesFromCurrentStructure changesFromCurrentStructure() {
       return new ChangesFromCurrentStructure(doc, path + "/changesFromCurrentStructure");
     }
 
-    // 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+    // 5.1.2. Organizational Transition Timeline.
     public OrganizationalTransitionTimeline transitionTimeline() {
       return new OrganizationalTransitionTimeline(doc, path + "/transitionTimeline");
     }
   }
 
-  // A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+  // A new role entry (form).
   //
   // Comprehensive new role definition following HR job analysis best practices.
   // Includes competencies, responsibilities, system access, and success metrics.
@@ -30602,7 +31092,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+  // 4.1.5.5. Notification Model.
   //
   // Defines how the system notifies users of events, updates, and actions
   // across different channels.
@@ -30647,7 +31137,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An object invariant entry (form) [PD00-BUS-BUS-CAT-nn-INV-nn].
+  // An object invariant entry (form).
   //
   // Business invariants that must always hold true.
   public static final class ObjectInvariantEntry extends SomNode {
@@ -30660,7 +31150,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An object operation entry (form) [PD00-BUS-BUS-CAT-nn-OPR-nn].
+  // An object operation entry (form).
   //
   // Business operations that can be performed on the object.
   public static final class ObjectOperationEntry extends SomNode {
@@ -30721,7 +31211,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
+  // An object state entry (form).
   //
   // Detailed state specification for business object lifecycle.
   public static final class ObjectStateEntry extends SomNode {
@@ -30868,7 +31358,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
+  // 10.8.2. Onboarding Help.
   public static final class OnboardingHelp extends SomNode {
     public OnboardingHelp(SpecDocument doc, String path) {
       super(doc, path);
@@ -30967,7 +31457,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Ongoing training entry (form) [PD00-ORG-WOR-nn-TRA-ONG-nn].
+  // Ongoing training entry (form).
   public static final class OngoingTrainingEntry extends SomNode {
     public OngoingTrainingEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -31026,7 +31516,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+  // 1.3.1. Operational Pain Points.
   //
   // Problems that affect day-to-day operations: downtime, slow response,
   // data inconsistencies, manual workarounds, and process interruptions.
@@ -31066,7 +31556,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+  // 11.4. Operations Quality Criteria.
   //
   // Quality criteria for system operations including availability, service
   // levels, monitoring, and IT security operations.
@@ -31082,28 +31572,28 @@ public final class TomSomV0 {
     // Operations quality overview narrative.
     // (skipped: overview has no target type)
 
-    // 11.4.1. Availability [PD00-SYQ-OPE-AVA].
+    // 11.4.1. Availability.
     public AvailabilityQuality availability() {
       return new AvailabilityQuality(doc, path + "/availability");
     }
 
-    // 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
+    // 11.4.2. Service Level Requirements.
     public ServiceLevelQuality serviceLevelRequirements() {
       return new ServiceLevelQuality(doc, path + "/serviceLevelRequirements");
     }
 
-    // 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
+    // 11.4.3. Monitoring and Prevention.
     public MonitoringQuality monitoringAndPrevention() {
       return new MonitoringQuality(doc, path + "/monitoringAndPrevention");
     }
 
-    // 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
+    // 11.4.4. IT Security Operations.
     public ItSecurityOperationsQuality itSecurityOperations() {
       return new ItSecurityOperationsQuality(doc, path + "/itSecurityOperations");
     }
   }
 
-  // 8.5. Operations Requirements [PD00-TEC-OPE].
+  // 8.5. Operations Requirements.
   public static final class OperationsRequirements extends SomNode {
     public OperationsRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -31118,28 +31608,28 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
+    // 8.5.1. Backup And Recovery.
     public BackupAndRecoverySection backupAndRecovery() {
       return new BackupAndRecoverySection(doc, path + "/backupAndRecovery");
     }
 
-    // 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+    // 8.5.2. Deployment Strategy.
     public DeploymentStrategySection deploymentStrategy() {
       return new DeploymentStrategySection(doc, path + "/deploymentStrategy");
     }
 
-    // 8.5.3. Monitoring And Alerting [PD00-TEC-OPE-MON].
+    // 8.5.3. Monitoring And Alerting.
     public MonitoringAndAlertingSection monitoringAndAlerting() {
       return new MonitoringAndAlertingSection(doc, path + "/monitoringAndAlerting");
     }
 
-    // 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+    // 8.5.4. Maintenance Windows.
     public MaintenanceWindowsSection maintenanceWindows() {
       return new MaintenanceWindowsSection(doc, path + "/maintenanceWindows");
     }
   }
 
-  // 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+  // 4.1.1.2. Opportunity Statement.
   //
   // Description of the opportunity this system enables — new capabilities,
   // competitive advantages, or improvements over current state.
@@ -31157,7 +31647,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Opportunity Details Form [PD00-SYO-SYD-PUR-OPP-DES].
+    // Opportunity Details Form.
     public OpportunityStatementOpportunityDetailsForm opportunityDetails() {
       return new OpportunityStatementOpportunityDetailsForm(doc, path + "/opportunityDetails");
     }
@@ -31251,7 +31741,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+  // 4.3.4.n.2. Implementation Plan.
   //
   // Implementation plan for this organizational requirement.
   public static final class OrgRequirementImplementationPlan extends SomNode {
@@ -31279,7 +31769,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+  // 3.1.1. Organization Structure.
   public static final class OrganizationStructure extends SomNode {
     public OrganizationStructure(SpecDocument doc, String path) {
       super(doc, path);
@@ -31303,7 +31793,7 @@ public final class TomSomV0 {
     // (skipped: orgChartDiagram has no target type)
   }
 
-  // An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
+  // An organizational change entry (form).
   //
   // Documents a specific structural change including current state, target
   // state, rationale, impact assessment, and transition requirements.
@@ -31352,7 +31842,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+  // 4.1.2.6. Organizational Context.
   //
   // Organizational units, departments, and business areas that the system
   // serves or interacts with.
@@ -31386,7 +31876,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+  // 4.6.1. Organizational Environment.
   //
   // Describes the organizational context in which the system will operate,
   // including departments, reporting structures, decision authority, and
@@ -31468,7 +31958,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 5. Organizational Framework [PD00-ORG].
+  // 5. Organizational Framework.
   //
   // Organizational changes and structures required for the new system.
   // Covers organization structure changes, new and changed roles, staffing
@@ -31483,23 +31973,23 @@ public final class TomSomV0 {
     // Overview of organizational changes required for the new system.
     // (skipped: overview has no target type)
 
-    // 5.1. New Organization Structure [PD00-ORG-STR].
+    // 5.1. New Organization Structure.
     public NewOrganizationStructure organizationStructure() {
       return new NewOrganizationStructure(doc, path + "/organizationStructure");
     }
 
-    // 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+    // 5.2. Job Descriptions and Staffing Plans.
     public SomList<JobDescriptionsAndStaffing> jobDescriptions() {
       return new SomList<>(doc, path + "/JDAS-JOBD-LST", (d, p) -> new JobDescriptionsAndStaffing(d, p));
     }
 
-    // 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+    // 5.3. Workplace Descriptions — contains 1+× per user category.
     public SomList<WorkplaceDescriptionEntry> workplaceDescriptions() {
       return new SomList<>(doc, path + "/WPDE-WORK-LST", (d, p) -> new WorkplaceDescriptionEntry(d, p));
     }
   }
 
-  // An organizational requirement entry [PD00-SYO-REQ-ORG-nn].
+  // An organizational requirement entry.
   //
   // Comprehensive organizational requirement definition following change
   // management and organizational development best practices.
@@ -31527,17 +32017,17 @@ public final class TomSomV0 {
       return new OrganizationalRequirementEntryPlanning(doc, path + "/planning");
     }
 
-    // 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
+    // 4.3.4.n.1. Acceptance Criteria.
     public RequirementAcceptanceCriteria acceptanceCriteria() {
       return new RequirementAcceptanceCriteria(doc, path + "/acceptanceCriteria");
     }
 
-    // 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+    // 4.3.4.n.2. Implementation Plan.
     public OrgRequirementImplementationPlan implementationPlan() {
       return new OrgRequirementImplementationPlan(doc, path + "/implementationPlan");
     }
 
-    // 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
+    // 4.3.4.n.3. Dependencies.
     public RequirementDependencies dependencies() {
       return new RequirementDependencies(doc, path + "/dependencies");
     }
@@ -31576,7 +32066,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+  // 4.3.4. Organizational Requirements.
   //
   // Container for organizational requirements. These describe needed changes
   // to organization, processes, training, or support that must be fulfilled
@@ -31607,7 +32097,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+  // 5.1.2. Organizational Transition Timeline.
   //
   // Describes when organizational changes take effect, how the transition is
   // managed, and what training or communication is needed. Follows change
@@ -31744,7 +32234,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+  // 3.6. Other Administrative Requirements.
   //
   // Additional administrative agreements, constraints, or requirements not
   // covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -31763,32 +32253,32 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 3.6.1. Intellectual Property [PD00-ADM-OTH-IPR].
+    // 3.6.1. Intellectual Property.
     public IntellectualPropertyRequirements intellectualProperty() {
       return new IntellectualPropertyRequirements(doc, path + "/intellectualProperty");
     }
 
-    // 3.6.2. Confidentiality and NDAs [PD00-ADM-OTH-NDA].
+    // 3.6.2. Confidentiality and NDAs.
     public ConfidentialityRequirements confidentiality() {
       return new ConfidentialityRequirements(doc, path + "/confidentiality");
     }
 
-    // 3.6.3. Regulatory Compliance [PD00-ADM-OTH-REG].
+    // 3.6.3. Regulatory Compliance.
     public RegulatoryComplianceRequirements regulatoryCompliance() {
       return new RegulatoryComplianceRequirements(doc, path + "/regulatoryCompliance");
     }
 
-    // 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+    // 3.6.4. Audit Requirements.
     public AuditRequirements auditRequirements() {
       return new AuditRequirements(doc, path + "/auditRequirements");
     }
 
-    // 3.6.5. Insurance and Liability [PD00-ADM-OTH-INS].
+    // 3.6.5. Insurance and Liability.
     public InsuranceLiabilityRequirements insuranceLiability() {
       return new InsuranceLiabilityRequirements(doc, path + "/insuranceLiability");
     }
 
-    // 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
+    // 3.6.6. Other Agreements — contains 0+× Agreement.
     public SomList<OtherAgreementEntry> otherAgreements() {
       return new SomList<>(doc, path + "/OTAGR-OTHE-LST", (d, p) -> new OtherAgreementEntry(d, p));
     }
@@ -31805,7 +32295,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+  // 4.5.2. Out of Scope.
   //
   // Explicit documentation of functionality, systems, and integrations that
   // are excluded from the project scope. Provides clear boundaries and
@@ -31824,7 +32314,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
+  // An out-of-scope entry (form).
   public static final class OutOfScopeEntry extends SomNode {
     public OutOfScopeEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -31953,7 +32443,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A pain point entry (form) [PD00-CUR-PAI-nn].
+  // A pain point entry (form).
   //
   // Documents a specific problem in the current state with comprehensive details:
   // root cause analysis, impact quantification, affected stakeholders,
@@ -32111,7 +32601,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+  // 1.3. Pain Points and Gaps.
   //
   // Comprehensive documentation of specific problems, inefficiencies,
   // compliance gaps, and user frustrations in the current state.
@@ -32155,22 +32645,22 @@ public final class TomSomV0 {
       return new PainPointsSummary(doc, path + "/painPointsSummary");
     }
 
-    // 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+    // 1.3.1. Operational Pain Points.
     public OperationalPainPoints operationalPainPoints() {
       return new OperationalPainPoints(doc, path + "/operationalPainPoints");
     }
 
-    // 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+    // 1.3.2. Business Pain Points.
     public BusinessPainPoints businessPainPoints() {
       return new BusinessPainPoints(doc, path + "/businessPainPoints");
     }
 
-    // 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+    // 1.3.3. Technical Pain Points.
     public TechnicalPainPoints technicalPainPoints() {
       return new TechnicalPainPoints(doc, path + "/technicalPainPoints");
     }
 
-    // 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+    // 1.3.4. Gaps.
     public Gaps gaps() {
       return new Gaps(doc, path + "/gaps");
     }
@@ -32203,7 +32693,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+  // 9.2.3. Password and Credential Policy.
   //
   // Comprehensive password and credential policy aligned with NIST SP 800-63B
   // (Revision 4). Covers password requirements, storage, lifecycle, account
@@ -32394,7 +32884,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
+  // Penetration testing requirements and schedule.
   public static final class PenetrationTestingRequirements extends SomNode {
     public PenetrationTestingRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -32469,7 +32959,7 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
-  // Peripheral equipment entry (form) [PD00-ORG-WOR-nn-EQU-PER-nn].
+  // Peripheral equipment entry (form).
   public static final class PeripheralEquipmentEntry extends SomNode {
     public PeripheralEquipmentEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -32557,7 +33047,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A user persona entry [PD00-USE-VIS-PER-nn] (form).
+  // A user persona entry (form).
   //
   // Represents a distinct user archetype with detailed context for UI design.
   public static final class PersonaEntry extends SomNode {
@@ -32584,17 +33074,17 @@ public final class TomSomV0 {
       return new PersonaEntryNeeds(doc, path + "/needs");
     }
 
-    // 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+    // 10.1.3.n.1. Persona Goals.
     public PersonaGoals goals() {
       return new PersonaGoals(doc, path + "/goals");
     }
 
-    // 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+    // 10.1.3.n.2. Persona Pain Points.
     public PersonaPainPoints painPoints() {
       return new PersonaPainPoints(doc, path + "/painPoints");
     }
 
-    // 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+    // 10.1.3.n.3. Persona Scenarios.
     public PersonaScenarios scenarios() {
       return new PersonaScenarios(doc, path + "/scenarios");
     }
@@ -32633,7 +33123,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm].
+  // A persona goal entry (form).
   public static final class PersonaGoalEntry extends SomNode {
     public PersonaGoalEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -32644,7 +33134,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+  // 10.1.3.n.1. Persona Goals.
   public static final class PersonaGoals extends SomNode {
     public PersonaGoals(SpecDocument doc, String path) {
       super(doc, path);
@@ -32665,7 +33155,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm].
+  // A pain point entry (form).
   public static final class PersonaPainPointEntry extends SomNode {
     public PersonaPainPointEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -32676,7 +33166,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+  // 10.1.3.n.2. Persona Pain Points.
   public static final class PersonaPainPoints extends SomNode {
     public PersonaPainPoints(SpecDocument doc, String path) {
       super(doc, path);
@@ -32697,7 +33187,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm].
+  // A persona scenario entry (form).
   public static final class PersonaScenarioEntry extends SomNode {
     public PersonaScenarioEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -32708,7 +33198,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+  // 10.1.3.n.3. Persona Scenarios.
   //
   // Key usage scenarios for this persona — helps map personas to screens/flows.
   public static final class PersonaScenarios extends SomNode {
@@ -32786,7 +33276,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
+  // A phase gate review entry (form).
   //
   // Defines a single phase gate with its criteria, participants,
   // required evidence, entry/exit conditions, and review schedule.
@@ -32838,7 +33328,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+  // 13.6.1. Phase Gate Reviews.
   //
   // Defines the phase gate review process: what is reviewed at each
   // gate, who participates, what evidence is required, and what
@@ -32947,7 +33437,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 15.5. Pilot Plan [PD00-ROL-PIL].
+  // 15.5. Pilot Plan.
   //
   // Pilot scope, cohort selection, success criteria, and exit decision rules.
   public static final class PilotPlan extends SomNode {
@@ -33115,7 +33605,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+  // 8.1.1. Platform and Language.
   //
   // Required platforms (operating system, runtime), programming languages,
   // and framework choices with minimum versions and justification.
@@ -33172,7 +33662,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.3.2. Portability quality [PD00-SYQ-TEC-POR].
+  // 11.3.2. Portability quality.
   public static final class PortabilityQuality extends SomNode {
     public PortabilityQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -33284,7 +33774,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+  // 10.3.1.3. Primary Navigation.
   //
   // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
   public static final class PrimaryNavigation extends SomNode {
@@ -33348,7 +33838,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.4. Print Layout [PD00-USE-PRI].
+  // 10.4. Print Layout.
   public static final class PrintLayout extends SomNode {
     public PrintLayout(SpecDocument doc, String path) {
       super(doc, path);
@@ -33383,17 +33873,17 @@ public final class TomSomV0 {
       return new PrintLayoutArchive(doc, path + "/archive");
     }
 
-    // 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
+    // 10.4.1. Reports — contains 0+× Report.
     public SomList<ReportEntry> reports() {
       return new SomList<>(doc, path + "/REEN-REPO-LST", (d, p) -> new ReportEntry(d, p));
     }
 
-    // 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
+    // 10.4.2. Export Formats — contains 0+× Export Format.
     public SomList<ExportFormatEntry> exportFormats() {
       return new SomList<>(doc, path + "/EXFOEN-EXPO-LST", (d, p) -> new ExportFormatEntry(d, p));
     }
 
-    // 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
+    // 10.4.3. Export Templates — contains 0+× Export
     // Template.
     public SomList<ExportTemplateEntry> exportTemplates() {
       return new SomList<>(doc, path + "/EXTEEN-EXPO-LST", (d, p) -> new ExportTemplateEntry(d, p));
@@ -33455,7 +33945,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
+  // Privacy impact assessment and DPIA process.
   public static final class PrivacyImpactAssessmentProcess extends SomNode {
     public PrivacyImpactAssessmentProcess(SpecDocument doc, String path) {
       super(doc, path);
@@ -33514,7 +34004,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
+  // Privacy regulation compliance requirements.
   public static final class PrivacyRegulationCompliance extends SomNode {
     public PrivacyRegulationCompliance(SpecDocument doc, String path) {
       super(doc, path);
@@ -33605,7 +34095,7 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
-  // 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+  // 4.1.1.1. Problem Statement.
   //
   // Detailed description of the problem or pain point that this system will
   // address. Includes impact analysis and urgency assessment.
@@ -33623,7 +34113,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Problem Description Form [PD00-SYO-SYD-PUR-PRO-DES].
+    // Problem Description Form.
     public ProblemStatementProblemDetailsForm problemDetails() {
       return new ProblemStatementProblemDetailsForm(doc, path + "/problemDetails");
     }
@@ -33645,7 +34135,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process adjustment entry (form) [PD00-POP-PRC-nn].
+  // A process adjustment entry (form).
   //
   // Documents a specific deviation from standard process steps, including
   // the type of modification, dependencies affected, risk assessment,
@@ -33756,7 +34246,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 2.3. Process Adjustments [PD00-POP-PRC].
+  // 2.3. Process Adjustments.
   //
   // Documents any deviations from the standard tom_system_creation.md or
   // tom_system_upgrade.md process. Includes skipped, reordered, or modified
@@ -33796,7 +34286,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.1.3. Process Catalog [PD00-TAR-PRO-CAT].
+  // 6.1.3. Process Catalog.
   //
   // Container for business process definitions.
   public static final class ProcessCatalog extends SomNode {
@@ -33896,7 +34386,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process control entry [PD00-TAR-PRO-CAT-nn-CTL-nn].
+  // A process control entry.
   public static final class ProcessControlEntry extends SomNode {
     public ProcessControlEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -33978,7 +34468,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process design principle entry (form) [PD00-TAR-PRO-PRI-nn].
+  // A process design principle entry (form).
   public static final class ProcessDesignPrincipleEntry extends SomNode {
     public ProcessDesignPrincipleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -33989,7 +34479,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+  // 6.1.2. Design Principles.
   //
   // Principles that guide process design decisions.
   public static final class ProcessDesignPrinciples extends SomNode {
@@ -34019,7 +34509,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process end event entry [PD00-TAR-PRO-CAT-nn-END-nn].
+  // A process end event entry.
   public static final class ProcessEndEventEntry extends SomNode {
     public ProcessEndEventEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34030,7 +34520,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process exception entry [PD00-TAR-PRO-CAT-nn-EXC-nn].
+  // A process exception entry.
   public static final class ProcessExceptionEntry extends SomNode {
     public ProcessExceptionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34073,10 +34563,9 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+  // 6.1.9. Process Exception Handling.
   //
   // Exception flows, escalation paths, and compensation logic. Covers
-  // HBSG AS07-EXC.
   public static final class ProcessExceptionHandling extends SomNode {
     public ProcessExceptionHandling(SpecDocument doc, String path) {
       super(doc, path);
@@ -34179,7 +34668,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process improvement entry [PD00-TAR-PRO-IMP-nn].
+  // A process improvement entry.
   public static final class ProcessImprovementEntry extends SomNode {
     public ProcessImprovementEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34222,7 +34711,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+  // 6.1.5. Improvement Summary.
   //
   // Summary of expected improvements over current processes.
   public static final class ProcessImprovementSummary extends SomNode {
@@ -34246,7 +34735,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process input entry [PD00-TAR-PRO-CAT-nn-INP-nn].
+  // A process input entry.
   public static final class ProcessInputEntry extends SomNode {
     public ProcessInputEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34294,7 +34783,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Interdependency diagram [PD00-CUR-PRO-INT-DIA].
+    // Interdependency diagram.
     public String dependencyDiagram() {
       String v = doc.content(path + "/dependencyDiagram");
       return v == null ? "" : v;
@@ -34310,7 +34799,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process KPI entry [PD00-TAR-PRO-CAT-nn-KPI-nn].
+  // A process KPI entry.
   public static final class ProcessKpiEntry extends SomNode {
     public ProcessKpiEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34374,7 +34863,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
+  // A process metric entry (form).
   //
   // A single measurable metric with current value and measurement details.
   public static final class ProcessMetricEntry extends SomNode {
@@ -34423,7 +34912,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+  // 1.2.2. Process Metrics.
   //
   // Quantitative metrics for measuring process performance. These metrics
   // form the baseline against which improvements will be measured.
@@ -34441,32 +34930,32 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Metrics dashboard summary [PD00-CUR-PRO-xx-MET-SUM].
+    // Metrics dashboard summary.
     public MetricsDashboardSummary dashboardSummary() {
       return new MetricsDashboardSummary(doc, path + "/dashboardSummary");
     }
 
-    // Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+    // Efficiency metrics.
     public SomList<ProcessMetricCategory> efficiencyMetrics() {
       return new SomList<>(doc, path + "/PRMECA-EFFI-LST", (d, p) -> new ProcessMetricCategory(d, p));
     }
 
-    // Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+    // Quality metrics.
     public SomList<ProcessMetricCategory> qualityMetrics() {
       return new SomList<>(doc, path + "/PRMECA-QUAL-LST", (d, p) -> new ProcessMetricCategory(d, p));
     }
 
-    // Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+    // Volume metrics.
     public SomList<ProcessMetricCategory> volumeMetrics() {
       return new SomList<>(doc, path + "/PRMECA-VOLU-LST", (d, p) -> new ProcessMetricCategory(d, p));
     }
 
-    // Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+    // Cost metrics.
     public SomList<ProcessMetricCategory> costMetrics() {
       return new SomList<>(doc, path + "/PRMECA-COST-LST", (d, p) -> new ProcessMetricCategory(d, p));
     }
 
-    // Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+    // Manual intervention metrics.
     public SomList<ProcessMetricCategory> manualInterventionMetrics() {
       return new SomList<>(doc, path + "/PRMECA-MANU-LST", (d, p) -> new ProcessMetricCategory(d, p));
     }
@@ -34476,13 +34965,13 @@ public final class TomSomV0 {
       return new SomList<>(doc, path + "/PME-ITEM-LST", (d, p) -> new ProcessMetricEntry(d, p));
     }
 
-    // Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
+    // Baseline comparison table.
     public MetricsBaselineTable baselineTable() {
       return new MetricsBaselineTable(doc, path + "/baselineTable");
     }
   }
 
-  // 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+  // 6.1.10. Process Metrics and KPIs.
   //
   // Process-level KPIs, SLAs, and measurement strategy.
   public static final class ProcessMetricsAndKpis extends SomNode {
@@ -34500,7 +34989,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process output entry [PD00-TAR-PRO-CAT-nn-OUT-nn].
+  // A process output entry.
   public static final class ProcessOutputEntry extends SomNode {
     public ProcessOutputEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34511,7 +35000,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+  // 6.1.4. Process Overview Diagram.
   //
   // High-level process flow diagram showing main processes and relationships.
   public static final class ProcessOverviewDiagram extends SomNode {
@@ -34604,7 +35093,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process relationship entry [PD00-TAR-PRO-REL-nn].
+  // A process relationship entry.
   public static final class ProcessRelationshipEntry extends SomNode {
     public ProcessRelationshipEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34636,7 +35125,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process role entry [PD00-TAR-PRO-CAT-nn-ROL-nn].
+  // A process role entry.
   public static final class ProcessRoleEntry extends SomNode {
     public ProcessRoleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34739,7 +35228,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process SLA entry [PD00-TAR-PRO-CAT-nn-SLA-nn].
+  // A process SLA entry.
   public static final class ProcessSlaEntry extends SomNode {
     public ProcessSlaEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34750,7 +35239,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+  // 6.2. Process Steps and Actor Interactions. Seeds → UC.
   //
   // Key process steps with their actor interactions. Each interaction will be
   // expanded into a full use case with alternate paths, preconditions, and
@@ -34774,17 +35263,17 @@ public final class TomSomV0 {
       return new ProcessStepsOverview(doc, path + "/overview");
     }
 
-    // 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
+    // 6.2.1. Actor Overview — contains 1+× Actor.
     public ActorOverview actorOverview() {
       return new ActorOverview(doc, path + "/actorOverview");
     }
 
-    // 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
+    // 6.2.2. Interaction Catalog — contains 1+× Interaction.
     public InteractionCatalog interactionCatalog() {
       return new InteractionCatalog(doc, path + "/interactionCatalog");
     }
 
-    // 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
+    // 6.2.3. Key Scenarios — contains 1+× Scenario.
     public KeyScenarios keyScenarios() {
       return new KeyScenarios(doc, path + "/keyScenarios");
     }
@@ -34794,18 +35283,18 @@ public final class TomSomV0 {
       return new ActorRelationshipDiagram(doc, path + "/actorRelationshipDiagram");
     }
 
-    // 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
+    // 6.2.4. End-to-End Test Scenarios..
     public SomList<EndToEndTestScenarios> endToEndTestScenarios() {
       return new SomList<>(doc, path + "/ETETS-ENDT-LST", (d, p) -> new EndToEndTestScenarios(d, p));
     }
 
-    // 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+    // 6.2.5. Use Case Traceability.
     public UseCaseTraceability useCaseTraceability() {
       return new UseCaseTraceability(doc, path + "/useCaseTraceability");
     }
   }
 
-  // 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
+  // 6.2. Process Steps Overview.
   public static final class ProcessStepsOverview extends SomNode {
     public ProcessStepsOverview(SpecDocument doc, String path) {
       super(doc, path);
@@ -34870,7 +35359,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A process trigger entry [PD00-TAR-PRO-CAT-nn-TRG-nn].
+  // A process trigger entry.
   public static final class ProcessTriggerEntry extends SomNode {
     public ProcessTriggerEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -34903,7 +35392,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+  // 6.1.1. Process Vision.
   //
   // The overall vision for how business processes will work with the new system.
   public static final class ProcessVision extends SomNode {
@@ -35032,120 +35521,7 @@ public final class TomSomV0 {
     }
   }
 
-  // The complete Project Definition (PD) document.
-  //
-  // Contains a [DocumentHeader] and all 14 PD sections [PD00].
-  public static final class ProjectDefinition extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public ProjectDefinition(SpecDocument doc, String documentVersion) {
-      super(doc, "PD");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public ProjectDefinition(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Document header (form fields at top of document).
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // 1. Current State Analysis [PD00-CUR].
-    public CurrentStateAnalysis currentStateAnalysis() {
-      return new CurrentStateAnalysis(doc, path + "/currentStateAnalysis");
-    }
-
-    // 2. Project Organization and Process [PD00-POP].
-    public ProjectOrganizationAndProcess projectOrganizationProcess() {
-      return new ProjectOrganizationAndProcess(doc, path + "/projectOrganizationProcess");
-    }
-
-    // 3. Administrative [PD00-ADM].
-    public Administrative administrative() {
-      return new Administrative(doc, path + "/administrative");
-    }
-
-    // 4. System Overview [PD00-SYO].
-    public SystemOverview systemOverview() {
-      return new SystemOverview(doc, path + "/systemOverview");
-    }
-
-    // 5. Organizational Framework [PD00-ORG].
-    public OrganizationalFramework organizationalFramework() {
-      return new OrganizationalFramework(doc, path + "/organizationalFramework");
-    }
-
-    // 6. Target Business Process Model [PD00-TAR].
-    public TargetBusinessProcessModel targetBusinessProcess() {
-      return new TargetBusinessProcessModel(doc, path + "/targetBusinessProcess");
-    }
-
-    // 7. Business Object and Data Model [PD00-BUS].
-    public BusinessObjectAndDataModel businessDataModel() {
-      return new BusinessObjectAndDataModel(doc, path + "/businessDataModel");
-    }
-
-    // 8. Technical Framework Concept [PD00-TEC].
-    public TechnicalFrameworkConcept technicalFramework() {
-      return new TechnicalFrameworkConcept(doc, path + "/technicalFramework");
-    }
-
-    // 9. Access and Authorization Concept [PD00-ACC].
-    public AccessAndAuthorizationConcept accessAuthorization() {
-      return new AccessAndAuthorizationConcept(doc, path + "/accessAuthorization");
-    }
-
-    // 10. User Interface Design [PD00-USE].
-    public UserInterfaceDesign userInterfaceDesign() {
-      return new UserInterfaceDesign(doc, path + "/userInterfaceDesign");
-    }
-
-    // 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
-    public SystemRolloutConcept systemRolloutConcept() {
-      return new SystemRolloutConcept(doc, path + "/systemRolloutConcept");
-    }
-
-    // 11. System Quality Goals [PD00-SYQ].
-    public SystemQualityGoals systemQualityGoals() {
-      return new SystemQualityGoals(doc, path + "/systemQualityGoals");
-    }
-
-    // 12. Components to Use [PD00-COM].
-    public ComponentsToUse componentsToUse() {
-      return new ComponentsToUse(doc, path + "/componentsToUse");
-    }
-
-    // 13. System Stage Plan [PD00-SSP].
-    public SystemStagePlan systemStagePlan() {
-      return new SystemStagePlan(doc, path + "/systemStagePlan");
-    }
-
-    // 14. Delivery Scope and Acceptance [PD00-DEL].
-    public DeliveryScopeAndAcceptance deliveryAcceptance() {
-      return new DeliveryScopeAndAcceptance(doc, path + "/deliveryAcceptance");
-    }
-  }
-
-  // 3.1. Project Organization [PD00-ADM-PRO].
+  // 3.1. Project Organization.
   public static final class ProjectOrganization extends SomNode {
     public ProjectOrganization(SpecDocument doc, String path) {
       super(doc, path);
@@ -35160,18 +35536,18 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+    // 3.1.1. Organization Structure.
     public OrganizationStructure organizationStructure() {
       return new OrganizationStructure(doc, path + "/organizationStructure");
     }
 
-    // 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+    // 3.1.2. Steering Committee.
     public SteeringCommittee steeringCommittee() {
       return new SteeringCommittee(doc, path + "/steeringCommittee");
     }
   }
 
-  // 2. Project Organization and Process [PD00-POP].
+  // 2. Project Organization and Process.
   //
   // Project-specific deviations from the standard TomSpecs methodology.
   // This section documents any customizations to standard roles, quality gates,
@@ -35205,114 +35581,28 @@ public final class TomSomV0 {
       return new MethodologyDeviationSummary(doc, path + "/deviationSummary");
     }
 
-    // 2.1. Role Adjustments [PD00-POP-ROL].
+    // 2.1. Role Adjustments.
     public RoleAdjustments roleAdjustments() {
       return new RoleAdjustments(doc, path + "/roleAdjustments");
     }
 
-    // 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+    // 2.2. Quality Gate Adjustments.
     public QualityGateAdjustments qualityGateAdjustments() {
       return new QualityGateAdjustments(doc, path + "/qualityGateAdjustments");
     }
 
-    // 2.3. Process Adjustments [PD00-POP-PRC].
+    // 2.3. Process Adjustments.
     public ProcessAdjustments processAdjustments() {
       return new ProcessAdjustments(doc, path + "/processAdjustments");
     }
 
-    // 2.4. Tooling and Environments [PD00-POP-TOO].
+    // 2.4. Tooling and Environments.
     public ToolingAndEnvironments toolingAndEnvironments() {
       return new ToolingAndEnvironments(doc, path + "/toolingAndEnvironments");
     }
   }
 
-  // PPP00 Project Phase Plan.
-  //
-  // Full project phase plan — staging strategy, stage overview, per-stage
-  // entries, feature prioritization, data migration, gate criteria,
-  // decision processes, initial development flow, and upgrade cycle
-  // framework.
-  public static final class ProjectPhasePlan extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public ProjectPhasePlan(SpecDocument doc, String documentVersion) {
-      super(doc, "PPP");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public ProjectPhasePlan(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Staging strategy — PD00-SSP-STR.
-    public StagingStrategy stagingStrategy() {
-      return new StagingStrategy(doc, path + "/stagingStrategy");
-    }
-
-    // Stage overview — PD00-SSP-STA.
-    public StageOverview stageOverview() {
-      return new StageOverview(doc, path + "/stageOverview");
-    }
-
-    // Stages — PD00-SSP-STG (list).
-    public SomList<StageEntry> stages() {
-      return new SomList<>(doc, path + "/STAGE-STAG-LST", (d, p) -> new StageEntry(d, p));
-    }
-
-    // Feature prioritization — PD00-SSP-FEA.
-    public FeaturePrioritization featurePrioritization() {
-      return new FeaturePrioritization(doc, path + "/featurePrioritization");
-    }
-
-    // Data migration strategy — PD00-SSP-MIG.
-    public DataMigrationStrategy dataMigrationStrategy() {
-      return new DataMigrationStrategy(doc, path + "/dataMigrationStrategy");
-    }
-
-    // Gate criteria — PD00-SSP-GOV-GAT (promoted from GOV).
-    public PhaseGateReviews gateCriteria() {
-      return new PhaseGateReviews(doc, path + "/gateCriteria");
-    }
-
-    // Decision processes — PD00-SSP-GOV-DEC (promoted from GOV).
-    public DecisionPoints decisionProcesses() {
-      return new DecisionPoints(doc, path + "/decisionProcesses");
-    }
-
-    // Initial development flow — PD00-SSP-IDV.
-    public InitialDevelopmentFlow initialDevelopmentFlow() {
-      return new InitialDevelopmentFlow(doc, path + "/initialDevelopmentFlow");
-    }
-
-    // Upgrade cycle framework — PD00-SSP-UPG (links tom_system_upgrade.md).
-    public UpgradeCycleFramework upgradeCycleFramework() {
-      return new UpgradeCycleFramework(doc, path + "/upgradeCycleFramework");
-    }
-  }
-
-  // 3.2. Project Team Staffing [PD00-ADM-TEA].
+  // 3.2. Project Team Staffing.
   //
   // Container for individual staff assignments including roles, responsibilities,
   // availability, and required competencies.
@@ -35405,7 +35695,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
+  // A protocol or standard entry (form).
   public static final class ProtocolEntry extends SomNode {
     public ProtocolEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -35416,7 +35706,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+  // 8.6.1. Protocols and Standards.
   public static final class ProtocolsAndStandardsSection extends SomNode {
     public ProtocolsAndStandardsSection(SpecDocument doc, String path) {
       super(doc, path);
@@ -35470,7 +35760,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.13. Prototype [PD00-USE-PRO].
+  // 10.13. Prototype.
   //
   // Comprehensive prototype planning covering goals, feature selection,
   // prototype type, evaluation criteria, and stakeholder alignment.
@@ -35501,17 +35791,17 @@ public final class TomSomV0 {
     // Prototype overview narrative.
     // (skipped: overviewNarrative has no target type)
 
-    // 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+    // 10.13.1. Prototype Goals.
     public PrototypeGoals prototypeGoals() {
       return new PrototypeGoals(doc, path + "/prototypeGoals");
     }
 
-    // 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+    // 10.13.2. Selected Feature Subset.
     public PrototypeFeatureSubset featureSubset() {
       return new PrototypeFeatureSubset(doc, path + "/featureSubset");
     }
 
-    // 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+    // 10.13.3. Prototype Type.
     public PrototypeTypeSection prototypeType() {
       return new PrototypeTypeSection(doc, path + "/prototypeType");
     }
@@ -35520,7 +35810,7 @@ public final class TomSomV0 {
     // (skipped: prototypeSchedule has no target type)
   }
 
-  // A prototype feature entry [PD00-USE-PRO-FEA-nn].
+  // A prototype feature entry.
   public static final class PrototypeFeatureEntry extends SomNode {
     public PrototypeFeatureEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -35531,7 +35821,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+  // 10.13.2. Selected Feature Subset.
   //
   // Features included in the prototype.
   public static final class PrototypeFeatureSubset extends SomNode {
@@ -35584,7 +35874,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A prototype goal entry [PD00-USE-PRO-GOA-nn].
+  // A prototype goal entry.
   public static final class PrototypeGoalEntry extends SomNode {
     public PrototypeGoalEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -35595,7 +35885,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+  // 10.13.1. Prototype Goals.
   //
   // What the prototype should validate.
   public static final class PrototypeGoals extends SomNode {
@@ -35681,7 +35971,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+  // 10.13.3. Prototype Type.
   //
   // Classification and implications of the prototype type.
   public static final class PrototypeTypeSection extends SomNode {
@@ -35693,17 +35983,17 @@ public final class TomSomV0 {
       return new PrototypeTypeSectionPrototypeTypeOverviewForm(doc, path + "/prototypeTypeOverview");
     }
 
-    // 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+    // 10.13.3.1. Reusable Prototype.
     public ReusablePrototype reusablePrototype() {
       return new ReusablePrototype(doc, path + "/reusablePrototype");
     }
 
-    // 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+    // 10.13.3.2. Training Prototype.
     public TrainingPrototype trainingPrototype() {
       return new TrainingPrototype(doc, path + "/trainingPrototype");
     }
 
-    // 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+    // 10.13.3.3. Throwaway Prototype.
     public ThrowawayPrototype throwawayPrototype() {
       return new ThrowawayPrototype(doc, path + "/throwawayPrototype");
     }
@@ -35784,7 +36074,148 @@ public final class TomSomV0 {
     }
   }
 
-  // A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
+  // BQP00 Business Quality Plan.
+  //
+  // Full quality plan combining quality goals and the acceptance plan.
+  public static final class QualityAcceptancePlan extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public QualityAcceptancePlan(SpecDocument doc, String documentVersion) {
+      super(doc, "QAP");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public QualityAcceptancePlan(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Quality framework.
+    public QualityFramework qualityFramework() {
+      return new QualityFramework(doc, path + "/qualityFramework");
+    }
+
+    // User-related quality criteria.
+    public UserQualityCriteria userQualityCriteria() {
+      return new UserQualityCriteria(doc, path + "/userQualityCriteria");
+    }
+
+    // Technical quality criteria.
+    public TechnicalQualityCriteria technicalQualityCriteria() {
+      return new TechnicalQualityCriteria(doc, path + "/technicalQualityCriteria");
+    }
+
+    // Operations quality criteria.
+    public OperationsQualityCriteria operationsQualityCriteria() {
+      return new OperationsQualityCriteria(doc, path + "/operationsQualityCriteria");
+    }
+
+    // Documentation quality criteria.
+    public DocumentationQualityCriteria documentationQualityCriteria() {
+      return new DocumentationQualityCriteria(doc, path + "/documentationQualityCriteria");
+    }
+
+    // Quality prioritization.
+    public QualityPrioritization qualityPrioritization() {
+      return new QualityPrioritization(doc, path + "/qualityPrioritization");
+    }
+
+    // Acceptance criteria summary.
+    public AcceptanceCriteriaSummary acceptanceCriteriaSummary() {
+      return new AcceptanceCriteriaSummary(doc, path + "/acceptanceCriteriaSummary");
+    }
+
+    // Test strategy (new in Phase A).
+    public TestStrategy testStrategy() {
+      return new TestStrategy(doc, path + "/testStrategy");
+    }
+
+    // Acceptance criteria.
+    public AcceptanceCriteriaList acceptanceCriteria() {
+      return new AcceptanceCriteriaList(doc, path + "/acceptanceCriteria");
+    }
+
+    // Acceptance process.
+    public AcceptanceProcess acceptanceProcess() {
+      return new AcceptanceProcess(doc, path + "/acceptanceProcess");
+    }
+
+    // User acceptance testing.
+    public UserAcceptanceTesting userAcceptanceTesting() {
+      return new UserAcceptanceTesting(doc, path + "/userAcceptanceTesting");
+    }
+
+    // Defect resolution.
+    public DefectResolution defectResolution() {
+      return new DefectResolution(doc, path + "/defectResolution");
+    }
+
+    // Sign-off process.
+    public SignOffProcess signOffProcess() {
+      return new SignOffProcess(doc, path + "/signOffProcess");
+    }
+
+    // Warranty terms.
+    public WarrantyTerms warranty() {
+      return new WarrantyTerms(doc, path + "/warranty");
+    }
+  }
+
+  // SBP.14 Quality & Acceptance Model.
+  //
+  // Public anchor: ISO/IEC 25010 product quality.
+  public static final class QualityAndAcceptanceModel extends SomNode {
+    public QualityAndAcceptanceModel(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Quality goals and attributes.
+    public SystemQualityGoals systemQualityGoals() {
+      return new SystemQualityGoals(doc, path + "/systemQualityGoals");
+    }
+
+    // Delivery scope and acceptance criteria.
+    public DeliveryScopeAndAcceptance deliveryAcceptance() {
+      return new DeliveryScopeAndAcceptance(doc, path + "/deliveryAcceptance");
+    }
+
+    // ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+    public Iso25010Coverage iso25010Coverage() {
+      return new Iso25010Coverage(doc, path + "/iso25010Coverage");
+    }
+  }
+
+  // A quality category entry (form).
   //
   // Defines a quality category with its attributes, weight, and relationship
   // to other categories.
@@ -35865,7 +36296,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.1. Quality Framework [PD00-SYQ-FRA].
+  // 11.1. Quality Framework.
   //
   // Overall quality approach for the project defining objectives, categories,
   // and how quality is structured and governed across the system.
@@ -35893,13 +36324,13 @@ public final class TomSomV0 {
       return new QualityFrameworkVerification(doc, path + "/verification");
     }
 
-    // 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
+    // 11.1.1. Quality Objectives Overview.
     // (skipped: qualityObjectivesOverview has no target type)
 
     // Quality objectives breakdown by category.
     // (skipped: objectivesBreakdown has no target type)
 
-    // 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
+    // 11.1.2. Quality Categories — contains 0+× QualityCategory.
     public SomList<QualityCategoryEntry> qualityCategories() {
       return new SomList<>(doc, path + "/QCATE-QUAL-LST", (d, p) -> new QualityCategoryEntry(d, p));
     }
@@ -35954,7 +36385,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
+  // A quality gate adjustment entry (form).
   //
   // Documents a specific deviation from standard quality gate definitions,
   // including the type of change, impact on quality assurance, risk
@@ -36033,7 +36464,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+  // 2.2. Quality Gate Adjustments.
   //
   // Documents any deviations from the standard quality gates defined in
   // tom_quality_gates.md. Includes skipped, added, or modified gates
@@ -36073,7 +36504,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
+  // A quality gate check entry (form).
   public static final class QualityGateCheckEntry extends SomNode {
     public QualityGateCheckEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -36164,7 +36595,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+  // 11.7.2. Quality Gate Checklist.
   //
   // Quality gate checklist used during acceptance.
   public static final class QualityGateChecklist extends SomNode {
@@ -36185,7 +36616,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.6. Quality Prioritization [PD00-SYQ-PRI].
+  // 11.6. Quality Prioritization.
   //
   // Prioritization and balancing of quality attributes including weighted
   // matrices and explicit trade-off decisions.
@@ -36201,12 +36632,12 @@ public final class TomSomV0 {
     // Prioritization approach overview.
     // (skipped: prioritizationOverview has no target type)
 
-    // 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+    // 11.6.1. Weighted Quality Matrix.
     public WeightedQualityMatrix weightedQualityMatrix() {
       return new WeightedQualityMatrix(doc, path + "/weightedQualityMatrix");
     }
 
-    // 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+    // 11.6.2. Trade-off Decisions.
     public TradeOffDecisions tradeOffDecisions() {
       return new TradeOffDecisions(doc, path + "/tradeOffDecisions");
     }
@@ -36223,7 +36654,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+  // 4.2.2.n.1. Quality Scenarios.
   //
   // Quality attribute scenarios that define concrete, testable situations
   // for verifying the technical goal (based on SEI quality attribute workshop).
@@ -36322,7 +36753,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A quality weight entry [PD00-SYQ-PRI-WEI-nn].
+  // A quality weight entry.
   public static final class QualityWeightEntry extends SomNode {
     public QualityWeightEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -36392,7 +36823,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
+  // 11.5.1. Readability quality.
   public static final class ReadabilityQuality extends SomNode {
     public ReadabilityQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -36470,7 +36901,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Readiness criteria entry [PD00-ORG-STR-TIM-RDY-nn] (form).
+  // Readiness criteria entry (form).
   public static final class ReadinessCriteriaEntry extends SomNode {
     public ReadinessCriteriaEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -36572,7 +37003,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
+  // A recovery scenario entry.
   public static final class RecoveryScenarioEntry extends SomNode {
     public RecoveryScenarioEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -36619,7 +37050,7 @@ public final class TomSomV0 {
     // (skipped: redirectDetails has no target type)
   }
 
-  // A reference document entry [PD00-ADM-REF-nn] (form).
+  // A reference document entry (form).
   //
   // Detailed metadata for a single referenced document including
   // identification, classification, status, and applicability.
@@ -36691,7 +37122,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.5. Reference Documents [PD00-ADM-REF].
+  // 3.5. Reference Documents.
   //
   // Catalog of all documents referenced by this project specification,
   // including enterprise standards, technical guidelines, regulatory
@@ -36807,7 +37238,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.6.3. Regulatory Compliance Requirements [PD00-ADM-OTH-REG].
+  // 3.6.3. Regulatory Compliance Requirements.
   //
   // Regulatory and compliance obligations affecting the project.
   public static final class RegulatoryComplianceRequirements extends SomNode {
@@ -36835,7 +37266,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+  // 4.1.2.8. Regulatory Context.
   //
   // Regulatory and compliance context that affects system design and
   // operations.
@@ -36994,7 +37425,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
+  // 11.3.6. Reliability quality.
   public static final class ReliabilityQuality extends SomNode {
     public ReliabilityQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -37106,7 +37537,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A removed role entry [PD00-ORG-JOB-REM-nn] (form).
+  // A removed role entry (form).
   //
   // Documents roles being eliminated with transition planning for incumbents.
   public static final class RemovedRoleEntry extends SomNode {
@@ -37167,7 +37598,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Container for systems to replace [PD00-SYO-SYR-INV].
+  // Container for systems to replace.
   //
   // Provides a structured inventory of all systems targeted for replacement,
   // with portfolio-level metrics and prioritization guidance.
@@ -37188,7 +37619,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn].
+  // A replacement phase entry.
   public static final class ReplacementPhaseEntry extends SomNode {
     public ReplacementPhaseEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -37199,7 +37630,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
+  // A system dependency entry.
   //
   // Documents integrations and dependencies with other systems.
   public static final class ReplacementSystemDependencyEntry extends SomNode {
@@ -37234,7 +37665,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
+  // A chart/visualization in a report
   // (form).
   public static final class ReportChartEntry extends SomNode {
     public ReportChartEntry(SpecDocument doc, String path) {
@@ -37326,7 +37757,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
+  // A column in a tabular report section
   // (form).
   public static final class ReportColumnEntry extends SomNode {
     public ReportColumnEntry(SpecDocument doc, String path) {
@@ -37407,7 +37838,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form).
+  // Distribution channel configuration (form).
   public static final class ReportDistributionEntry extends SomNode {
     public ReportDistributionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -37466,7 +37897,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A report entry [PD00-USE-PRI-REP-nn] (form).
+  // A report entry (form).
   public static final class ReportEntry extends SomNode {
     public ReportEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -37557,7 +37988,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form).
+  // A filter parameter for a report (form).
   public static final class ReportFilterEntry extends SomNode {
     public ReportFilterEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -37715,7 +38146,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
+  // A recipient entry (form).
   public static final class ReportRecipientEntry extends SomNode {
     public ReportRecipientEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -37774,7 +38205,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
+  // Scheduling rules for report generation
   // (form).
   public static final class ReportScheduleEntry extends SomNode {
     public ReportScheduleEntry(SpecDocument doc, String path) {
@@ -37872,7 +38303,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).
+  // A section within a report (form).
   public static final class ReportSectionEntry extends SomNode {
     public ReportSectionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -37962,7 +38393,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+  // 4.3.1.n.1. Acceptance Criteria.
   //
   // Testable conditions that must be met for the requirement to be accepted.
   // Uses Given-When-Then format for clarity.
@@ -37997,7 +38428,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+  // 4.3.1.n.2. Business Rules.
   //
   // Business rules that constrain or guide this requirement's behavior.
   public static final class RequirementBusinessRules extends SomNode {
@@ -38020,7 +38451,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+  // 4.3.6. Requirement Coverage.
   //
   // Coverage of requirements against goals, use cases, and tests.
   public static final class RequirementCoverage extends SomNode {
@@ -38038,7 +38469,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+  // 4.3.1.n.3. Data Requirements.
   //
   // Data entities, attributes, and relationships needed by this requirement.
   public static final class RequirementDataRequirements extends SomNode {
@@ -38061,7 +38492,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+  // 4.3.1.n.5. Dependencies.
   //
   // Dependencies this requirement has on other requirements.
   public static final class RequirementDependencies extends SomNode {
@@ -38104,7 +38535,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+  // 4.3.5. Requirement Relationships.
   //
   // Cross-requirement dependency and conflict graph.
   public static final class RequirementRelationships extends SomNode {
@@ -38192,7 +38623,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+  // 4.3.1.n.7. Test Cases.
   //
   // Test cases that verify this requirement is correctly implemented.
   public static final class RequirementTestCases extends SomNode {
@@ -38215,7 +38646,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+  // 4.3.1.n.6. Traceability.
   //
   // Traceability links to goals, use cases, processes, and other artifacts.
   public static final class RequirementTraceability extends SomNode {
@@ -38270,7 +38701,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+  // 4.3.1.n.4. UI Specification.
   //
   // User interface specification for this requirement. Defines screens,
   // forms, and interactions needed to fulfill the requirement.
@@ -38330,29 +38761,14 @@ public final class TomSomV0 {
     }
   }
 
-  // RC00 Requirements Catalog.
+  // SBP.9 Requirements.
   //
-  // Full requirements catalog covering functional, technical, security,
-  // and organizational requirements, plus traceability, relationships,
-  // and coverage analysis.
-  public static final class RequirementsCatalog extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public RequirementsCatalog(SpecDocument doc, String documentVersion) {
-      super(doc, "RC");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public RequirementsCatalog(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
+  // Functional requirements seed the Requirements Specification (RSP); this
+  // section currently carries the framework-uncovered NFR sub-areas re-homed in
+  // IP-6. Functional-requirement modelling is expanded in a later IP step.
+  public static final class Requirements extends SomNode {
+    public Requirements(SpecDocument doc, String path) {
+      super(doc, path);
     }
 
     public String content() {
@@ -38364,57 +38780,23 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
+    // Localization & Translation requirements (NFR-L10N-NNN).
+    public LocalizationTranslationRequirements localizationTranslation() {
+      return new LocalizationTranslationRequirements(doc, path + "/localizationTranslation");
     }
 
-    // Functional requirements — PD00-SYO-REQ-FUN.
-    public FunctionalRequirements functionalRequirements() {
-      return new FunctionalRequirements(doc, path + "/functionalRequirements");
+    // Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
+    public InformationForUseRequirements informationForUse() {
+      return new InformationForUseRequirements(doc, path + "/informationForUse");
     }
 
-    // Technical (non-functional) requirements — PD00-SYO-REQ-TEC.
-    public TechnicalRequirements technicalRequirements() {
-      return new TechnicalRequirements(doc, path + "/technicalRequirements");
-    }
-
-    // Security requirements — PD00-SYO-REQ-SEC.
-    public SecurityRequirements securityRequirements() {
-      return new SecurityRequirements(doc, path + "/securityRequirements");
-    }
-
-    // Organizational requirements — PD00-SYO-REQ-ORG.
-    public OrganizationalRequirements organizationalRequirements() {
-      return new OrganizationalRequirements(doc, path + "/organizationalRequirements");
-    }
-
-    // Traceability matrix overview — PD00-SYO-REQ-TRC.
-    //
-    // Mirrors the PD00-side flat field on RequirementsOverview so the RC
-    // outline reaches it directly. The authoritative content lives on the
-    // PD00 side.
-    public String traceabilityMatrix() {
-      String v = doc.content(path + "/traceabilityMatrix");
-      return v == null ? "" : v;
-    }
-
-    public void traceabilityMatrix(String value) {
-      doc.setContent(path + "/traceabilityMatrix", value);
-    }
-
-    // Requirement relationships — PD00-SYO-REQ-REL.
-    public SomList<RequirementRelationships> requirementRelationships() {
-      return new SomList<>(doc, path + "/RERE-REQU-LST", (d, p) -> new RequirementRelationships(d, p));
-    }
-
-    // Requirement coverage — PD00-SYO-REQ-COV.
-    public RequirementCoverage requirementCoverage() {
-      return new RequirementCoverage(doc, path + "/requirementCoverage");
+    // Training & Enablement requirements (NFR-TRN-NNN).
+    public TrainingEnablementRequirements trainingEnablement() {
+      return new TrainingEnablementRequirements(doc, path + "/trainingEnablement");
     }
   }
 
-  // 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+  // 4.3. Requirements Overview. Seeds → RC.
   //
   // Initial requirements overview organized by category. Each requirement
   // receives a unique ID and will be expanded into the RC (Requirements
@@ -38450,32 +38832,116 @@ public final class TomSomV0 {
       doc.setContent(path + "/traceabilityMatrix", value);
     }
 
-    // 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+    // 4.3.1. Functional Requirements.
     public FunctionalRequirements functionalRequirements() {
       return new FunctionalRequirements(doc, path + "/functionalRequirements");
     }
 
-    // 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+    // 4.3.2. Technical Requirements.
     public TechnicalRequirements technicalRequirements() {
       return new TechnicalRequirements(doc, path + "/technicalRequirements");
     }
 
-    // 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+    // 4.3.3. Security Requirements.
     public SecurityRequirements securityRequirements() {
       return new SecurityRequirements(doc, path + "/securityRequirements");
     }
 
-    // 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+    // 4.3.4. Organizational Requirements.
     public OrganizationalRequirements organizationalRequirements() {
       return new OrganizationalRequirements(doc, path + "/organizationalRequirements");
     }
 
-    // 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+    // 4.3.5. Requirement Relationships.
     public SomList<RequirementRelationships> requirementRelationships() {
       return new SomList<>(doc, path + "/RERE-REQU-LST", (d, p) -> new RequirementRelationships(d, p));
     }
 
-    // 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+    // 4.3.6. Requirement Coverage.
+    public RequirementCoverage requirementCoverage() {
+      return new RequirementCoverage(doc, path + "/requirementCoverage");
+    }
+  }
+
+  // RC00 Requirements Catalog.
+  //
+  // Full requirements catalog covering functional, technical, security,
+  // and organizational requirements, plus traceability, relationships,
+  // and coverage analysis.
+  public static final class RequirementsSpecification extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public RequirementsSpecification(SpecDocument doc, String documentVersion) {
+      super(doc, "RSP");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public RequirementsSpecification(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Functional requirements.
+    public FunctionalRequirements functionalRequirements() {
+      return new FunctionalRequirements(doc, path + "/functionalRequirements");
+    }
+
+    // Technical (non-functional) requirements.
+    public TechnicalRequirements technicalRequirements() {
+      return new TechnicalRequirements(doc, path + "/technicalRequirements");
+    }
+
+    // Security requirements.
+    public SecurityRequirements securityRequirements() {
+      return new SecurityRequirements(doc, path + "/securityRequirements");
+    }
+
+    // Organizational requirements.
+    public OrganizationalRequirements organizationalRequirements() {
+      return new OrganizationalRequirements(doc, path + "/organizationalRequirements");
+    }
+
+    // Traceability matrix overview.
+    //
+    // Mirrors the flat field on RequirementsOverview so the RC outline
+    // reaches it directly. The authoritative content lives on the Solution
+    // Blueprint side.
+    public String traceabilityMatrix() {
+      String v = doc.content(path + "/traceabilityMatrix");
+      return v == null ? "" : v;
+    }
+
+    public void traceabilityMatrix(String value) {
+      doc.setContent(path + "/traceabilityMatrix", value);
+    }
+
+    // Requirement relationships.
+    public SomList<RequirementRelationships> requirementRelationships() {
+      return new SomList<>(doc, path + "/RERE-REQU-LST", (d, p) -> new RequirementRelationships(d, p));
+    }
+
+    // Requirement coverage.
     public RequirementCoverage requirementCoverage() {
       return new RequirementCoverage(doc, path + "/requirementCoverage");
     }
@@ -38567,7 +39033,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A resource key entry [PD00-ACC-USA-RES-nn] (form).
+  // A resource key entry (form).
   public static final class ResourceKeyEntry extends SomNode {
     public ResourceKeyEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -38578,7 +39044,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn].
+  // A resource key reference entry (form).
   public static final class ResourceKeyReferenceEntry extends SomNode {
     public ResourceKeyReferenceEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -38589,7 +39055,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.3. Resource Protection [PD00-ACC-RES].
+  // 9.3. Resource Protection.
   public static final class ResourceProtection extends SomNode {
     public ResourceProtection(SpecDocument doc, String path) {
       super(doc, path);
@@ -38604,17 +39070,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+    // 9.3.1. Data-Level Security.
     public DataLevelSecurity dataLevelSecurity() {
       return new DataLevelSecurity(doc, path + "/dataLevelSecurity");
     }
 
-    // 9.3.2. API Security [PD00-ACC-RES-API].
+    // 9.3.2. API Security.
     public ApiSecurity apiSecurity() {
       return new ApiSecurity(doc, path + "/apiSecurity");
     }
 
-    // 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+    // 9.3.3. File and Storage Security.
     public FileAndStorageSecurity fileAndStorageSecurity() {
       return new FileAndStorageSecurity(doc, path + "/fileAndStorageSecurity");
     }
@@ -38647,7 +39113,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Responsibility change entry [PD00-ORG-JOB-CHA-nn-xxx-nn] (form).
+  // Responsibility change entry (form).
   public static final class ResponsibilityChangeEntry extends SomNode {
     public ResponsibilityChangeEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -38669,7 +39135,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Detailed responsibility entry [PD00-ORG-JOB-NEW-nn-RSP-nn] (form).
+  // Detailed responsibility entry (form).
   public static final class ResponsibilityDetailEntry extends SomNode {
     public ResponsibilityDetailEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -38680,7 +39146,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+  // A responsibility entry (form).
   //
   // Documents responsibility assignment for a specific functional area,
   // following RACI principles (Responsible, Accountable, Consulted, Informed)
@@ -38764,7 +39230,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
+  // A responsibility reference entry (form).
   public static final class ResponsibilityReferenceEntry extends SomNode {
     public ResponsibilityReferenceEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -38786,7 +39252,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+  // 10.10.2. Responsive Behavior.
   //
   // How the UI adapts across breakpoints.
   public static final class ResponsiveBehavior extends SomNode {
@@ -38871,7 +39337,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.10. Responsive Design [PD00-USE-RES].
+  // 10.10. Responsive Design.
   //
   // Comprehensive responsive design specification covering breakpoints,
   // adaptive layouts, and device-specific behavior for Flutter applications.
@@ -38887,18 +39353,18 @@ public final class TomSomV0 {
     // Responsive design narrative.
     // (skipped: responsiveNarrative has no target type)
 
-    // 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+    // 10.10.1. Breakpoints.
     public BreakpointConfiguration breakpointConfig() {
       return new BreakpointConfiguration(doc, path + "/breakpointConfig");
     }
 
-    // 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+    // 10.10.2. Responsive Behavior.
     public ResponsiveBehavior responsiveBehavior() {
       return new ResponsiveBehavior(doc, path + "/responsiveBehavior");
     }
   }
 
-  // A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
+  // A screen-specific responsive rule entry.
   public static final class ResponsiveScreenRuleEntry extends SomNode {
     public ResponsiveScreenRuleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -39054,7 +39520,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+  // 8.2.3. Reusable Components.
   //
   // Components, libraries, or frameworks designed for reuse across projects
   // or modules.
@@ -39116,7 +39582,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+  // 10.13.3.1. Reusable Prototype.
   //
   // Prototype that becomes part of the final product.
   public static final class ReusablePrototype extends SomNode {
@@ -39271,7 +39737,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
+  // A reuse goal entry (form).
   //
   // Defines a specific reuse target: what to reuse, why, at what percentage,
   // how to measure, and who owns the goal.
@@ -39333,7 +39799,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
+  // A review criterion entry (form).
   //
   // A single criterion evaluated at a phase gate, with weight,
   // evidence linkage, and assessment result.
@@ -39376,6 +39842,38 @@ public final class TomSomV0 {
 
     public ReviewCriterionEntryResultContentForm content() {
       return new ReviewCriterionEntryResultContentForm(doc, path + "/content");
+    }
+  }
+
+  // A single document revision entry (form).
+  public static final class RevisionEntry extends SomNode {
+    public RevisionEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public RevisionEntryContentForm content() {
+      return new RevisionEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // Chronological revision history.
+  public static final class RevisionHistory extends SomNode {
+    public RevisionHistory(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // One entry per published revision of the document.
+    public SomList<RevisionEntry> revisions() {
+      return new SomList<>(doc, path + "/RVHST-REVS-LST", (d, p) -> new RevisionEntry(d, p));
     }
   }
 
@@ -39465,7 +39963,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+  // A risk entry (form).
   //
   // Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
   // Captures risk identification, analysis, response planning, ownership,
@@ -39662,7 +40160,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.7. Risks and Assumptions [PD00-SYO-RIS].
+  // 4.7. Risks and Assumptions.
   //
   // Documents identified project risks and underlying assumptions following
   // ISO 31000 Risk Management and PMBOK risk management best practices.
@@ -39678,12 +40176,12 @@ public final class TomSomV0 {
       return new RisksOverview(doc, path + "/overview");
     }
 
-    // 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+    // 4.7.1. Key Risks — contains 0+× Risk.
     public SomList<RiskEntry> keyRisks() {
       return new SomList<>(doc, path + "/RIEN-KEYR-LST", (d, p) -> new RiskEntry(d, p));
     }
 
-    // 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
+    // 4.7.2. Key Assumptions — contains 0+×.
     public KeyAssumptions keyAssumptions() {
       return new KeyAssumptions(doc, path + "/keyAssumptions");
     }
@@ -39700,7 +40198,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A role adjustment entry (form) [PD00-POP-ROL-nn].
+  // A role adjustment entry (form).
   //
   // Documents a specific deviation from standard TomSpecs role definitions,
   // including the type of adjustment, affected responsibilities, risk
@@ -39806,7 +40304,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 2.1. Role Adjustments [PD00-POP-ROL].
+  // 2.1. Role Adjustments.
   //
   // Documents any deviations from the standard TomSpecs roles defined in
   // tom_roles.md. Includes merged, split, omitted, or modified roles
@@ -39868,7 +40366,7 @@ public final class TomSomV0 {
     // (skipped: roleCertificationDetails has no target type)
   }
 
-  // A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn].
+  // A role combination constraint entry (form).
   //
   // Defines rules about which roles can or cannot be combined — supports
   // separation of duties, prerequisite roles, and co-requisite roles.
@@ -39882,7 +40380,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form).
+  // Role competency entry (form).
   public static final class RoleCompetencyEntry extends SomNode {
     public RoleCompetencyEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -39893,7 +40391,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn].
+  // A data scope entry for a role (form).
   //
   // Specifies what data categories the role can access and at what level —
   // supports horizontal access control and data-level security.
@@ -39918,7 +40416,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
+  // A role exclusion entry (form).
   public static final class RoleExclusionEntry extends SomNode {
     public RoleExclusionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -39929,7 +40427,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+  // 9.4.6. Role Hierarchy.
   //
   // Defines the role hierarchy: inheritance rules, mutual exclusions,
   // role combination constraints, hierarchy depth, and role certification
@@ -39999,7 +40497,7 @@ public final class TomSomV0 {
     // (skipped: roleHierarchyPolicyDetails has no target type)
   }
 
-  // A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
+  // A role holder entry (form).
   public static final class RoleHolderEntry extends SomNode {
     public RoleHolderEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -40010,7 +40508,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn].
+  // A role inheritance rule entry (form).
   //
   // Defines a specific parent-child inheritance relationship between two roles,
   // including what is inherited and any restrictions.
@@ -40024,9 +40522,9 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.7. Role Matrix [PD00-ACC-ROL].
+  // 9.7. Role Matrix.
   //
-  // Role-to-permission assignment matrix covering HBSG AS22-AUM
+  // Role-to-permission assignment matrix covering
   // Authorization Model.
   public static final class RoleMatrix extends SomNode {
     public RoleMatrix(SpecDocument doc, String path) {
@@ -40043,7 +40541,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn].
+  // A direct permission entry for a role (form).
   //
   // Captures direct permission assignments that complement or override
   // entitlement-based access — useful when fine-grained per-role permissions
@@ -40058,7 +40556,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn].
+  // A role reference entry (form).
   public static final class RoleReferenceEntry extends SomNode {
     public RoleReferenceEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -40160,7 +40658,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 15.1. Rollout Plan [PD00-ROL-PLN].
+  // 15.1. Rollout Plan.
   //
   // Geographic and/or user-group rollout plan covering DR23 Rollout Plan
   // content: the sequencing of sites, countries, business units, and user
@@ -40180,7 +40678,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 15.4. Training Materials [PD00-ROL-TRN].
+  // 15.4. Training Materials.
   //
   // Training deliverables covering DR17 Training Materials content.
   public static final class RolloutTrainingMaterials extends SomNode {
@@ -40280,7 +40778,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A rule example entry (form) [PD00-BUS-FUN-RUL-nn-EXA-nn].
+  // A rule example entry (form).
   //
   // Examples illustrating rule application.
   public static final class RuleExampleEntry extends SomNode {
@@ -40293,7 +40791,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 12.4. Runtime Dependencies [PD00-COM-RUN].
+  // 12.4. Runtime Dependencies.
   //
   // Runtime dependencies between components: required services, startup order,
   // health-check dependencies, failover behavior, and version constraints.
@@ -40317,7 +40815,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A runtime dependency entry (form) [PD00-COM-RUN-nn].
+  // A runtime dependency entry (form).
   //
   // Documents one runtime dependency: startup order, health checks,
   // failover, data flow, latency tolerance, and caching strategy.
@@ -40813,7 +41311,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A scenario entry [PD00-TAR-STP-SCE-nn].
+  // A scenario entry.
   //
   // Comprehensive scenario definition for end-to-end user journey.
   public static final class ScenarioEntry extends SomNode {
@@ -40879,7 +41377,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn].
+  // A scenario step entry.
   public static final class ScenarioStepEntry extends SomNode {
     public ScenarioStepEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -41035,7 +41533,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+  // 4.1.1.6. Scope Boundaries.
   //
   // Clear definition of what is in scope and out of scope for this system.
   // Helps set expectations and prevent scope creep.
@@ -41053,17 +41551,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
+    // In-Scope Items — contains 1+× ScopeItem.
     public SomList<ScopeItemEntry> inScopeItems() {
       return new SomList<>(doc, path + "/SCITE-INSC-LST", (d, p) -> new ScopeItemEntry(d, p));
     }
 
-    // Out-of-Scope Items [PD00-SYO-SYD-PUR-SCO-OUT] — contains 0+× ScopeItem.
+    // Out-of-Scope Items — contains 0+× ScopeItem.
     public SomList<ScopeItemEntry> outOfScopeItems() {
       return new SomList<>(doc, path + "/SCITE-OUTO-LST", (d, p) -> new ScopeItemEntry(d, p));
     }
 
-    // Deferred Items [PD00-SYO-SYD-PUR-SCO-DEF] — contains 0+× ScopeItem.
+    // Deferred Items — contains 0+× ScopeItem.
     public SomList<DeferredScopeItemEntry> deferredItems() {
       return new SomList<>(doc, path + "/DFSCP-DEFE-LST", (d, p) -> new DeferredScopeItemEntry(d, p));
     }
@@ -41085,7 +41583,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A screen action entry (form) [PD00-USE-SCR-INV-nn-ACT-mm].
+  // A screen action entry (form).
   //
   // A top-level action available on the screen via toolbar, app bar, or FAB.
   public static final class ScreenActionEntry extends SomNode {
@@ -41146,7 +41644,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+  // 10.2.1.n.2. Screen Actions.
   //
   // Top-level actions available on the screen (toolbar, app bar, FAB).
   public static final class ScreenActions extends SomNode {
@@ -41183,7 +41681,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.2. Screen Descriptions [PD00-USE-SCR].
+  // 10.2. Screen Descriptions.
   public static final class ScreenDescriptions extends SomNode {
     public ScreenDescriptions(SpecDocument doc, String path) {
       super(doc, path);
@@ -41198,12 +41696,12 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+    // 10.2.1. Screen Inventory.
     public ScreenInventory screenInventory() {
       return new ScreenInventory(doc, path + "/screenInventory");
     }
 
-    // 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+    // 10.2.2. Information Architecture.
     public InformationArchitecture informationArchitecture() {
       return new InformationArchitecture(doc, path + "/informationArchitecture");
     }
@@ -41299,7 +41797,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A screen element entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk].
+  // A screen element entry (form).
   //
   // Any interactive or display element within a screen section: buttons, fields,
   // data displays, icons, labels, status indicators.
@@ -41332,17 +41830,17 @@ public final class TomSomV0 {
       return new ScreenElementEntryPresentation(doc, path + "/presentation");
     }
 
-    // 10.2.1.n.m.k.1. Element Action [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-ACN].
+    // 10.2.1.n.m.k.1. Element Action.
     public ScreenElementAction elementAction() {
       return new ScreenElementAction(doc, path + "/elementAction");
     }
 
-    // 10.2.1.n.m.k.2. Element Field Spec [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-FLD].
+    // 10.2.1.n.m.k.2. Element Field Spec.
     public ScreenElementFieldSpec fieldSpec() {
       return new ScreenElementFieldSpec(doc, path + "/fieldSpec");
     }
 
-    // 10.2.1.n.m.k.3. Element Data Display [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-DAT].
+    // 10.2.1.n.m.k.3. Element Data Display.
     public ScreenElementDataDisplay dataDisplay() {
       return new ScreenElementDataDisplay(doc, path + "/dataDisplay");
     }
@@ -41474,7 +41972,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A screen entry [PD00-USE-SCR-INV-nn] (form).
+  // A screen entry (form).
   //
   // Comprehensive specification of a single application screen, covering
   // identity, purpose, authorization, layout, elements, and behavior.
@@ -41510,17 +42008,17 @@ public final class TomSomV0 {
     // Screen design rationale and notes.
     // (skipped: designNotes has no target type)
 
-    // 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+    // 10.2.1.n.1. Screen Sections.
     public ScreenSections sections() {
       return new ScreenSections(doc, path + "/sections");
     }
 
-    // 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+    // 10.2.1.n.2. Screen Actions.
     public ScreenActions actions() {
       return new ScreenActions(doc, path + "/actions");
     }
 
-    // 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+    // 10.2.1.n.3. Screen States.
     public ScreenStates states() {
       return new ScreenStates(doc, path + "/states");
     }
@@ -41667,7 +42165,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.3. Screen Flow Structure [PD00-USE-SCF].
+  // 10.3. Screen Flow Structure.
   public static final class ScreenFlowStructure extends SomNode {
     public ScreenFlowStructure(SpecDocument doc, String path) {
       super(doc, path);
@@ -41682,16 +42180,16 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+    // 10.3.1. Navigation Model.
     public NavigationModel navigationModel() {
       return new NavigationModel(doc, path + "/navigationModel");
     }
 
-    // 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid-flow).
+    // 10.3.2. Screen Flow Diagram (mermaid-flow).
     // (skipped: screenFlowDiagram has no target type)
   }
 
-  // 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+  // 10.2.1. Screen Inventory.
   //
   // Container for screen definitions. Each entry fully describes one application
   // screen including its purpose, layout zones, elements, actions, and states.
@@ -41718,7 +42216,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A responsive rule entry (form) [PD00-USE-SCR-INV-nn-RSP-mm].
+  // A responsive rule entry (form).
   //
   // How the screen adapts at different breakpoints.
   public static final class ScreenResponsiveRuleEntry extends SomNode {
@@ -41731,7 +42229,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A screen section entry (form) [PD00-USE-SCR-INV-nn-SEC-mm].
+  // A screen section entry (form).
   //
   // A logical zone within a screen: header, toolbar, content area, sidebar, etc.
   public static final class ScreenSectionEntry extends SomNode {
@@ -41781,7 +42279,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+  // 10.2.1.n.1. Screen Sections.
   //
   // Logical zones within a screen that group related elements.
   public static final class ScreenSections extends SomNode {
@@ -41804,7 +42302,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A screen state entry (form) [PD00-USE-SCR-INV-nn-STA-mm].
+  // A screen state entry (form).
   //
   // A specific state the screen can be in: loading, empty, error, permission-denied.
   public static final class ScreenStateEntry extends SomNode {
@@ -41817,7 +42315,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+  // 10.2.1.n.3. Screen States.
   //
   // Different visual/behavioral states the screen can be in.
   public static final class ScreenStates extends SomNode {
@@ -41840,7 +42338,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-mm].
+  // A user category entry (form).
   public static final class ScreenUserCategoryEntry extends SomNode {
     public ScreenUserCategoryEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -41851,7 +42349,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+  // 10.3.1.4. Secondary Navigation.
   //
   // In-page navigation: tab bars, segmented controls.
   public static final class SecondaryNavigation extends SomNode {
@@ -41877,7 +42375,144 @@ public final class TomSomV0 {
     }
   }
 
-  // A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
+  // AC00 Authorization Concept.
+  //
+  // Complete access and authorization specification — user management,
+  // identification and authentication, resource protection, user
+  // authorization, encryption, audit/logging, role matrix, and
+  // compliance framework.
+  public static final class SecurityAccessSpecification extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public SecurityAccessSpecification(SpecDocument doc, String documentVersion) {
+      super(doc, "SAS");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public SecurityAccessSpecification(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // User management.
+    public UserManagement userManagement() {
+      return new UserManagement(doc, path + "/userManagement");
+    }
+
+    // Identification and authentication.
+    public IdentificationAndAuthentication identificationAndAuthentication() {
+      return new IdentificationAndAuthentication(doc, path + "/identificationAndAuthentication");
+    }
+
+    // Resource protection.
+    public ResourceProtection resourceProtection() {
+      return new ResourceProtection(doc, path + "/resourceProtection");
+    }
+
+    // User authorization.
+    public UserAuthorization userAuthorization() {
+      return new UserAuthorization(doc, path + "/userAuthorization");
+    }
+
+    // Sensitive data encryption.
+    public SensitiveDataEncryption sensitiveDataEncryption() {
+      return new SensitiveDataEncryption(doc, path + "/sensitiveDataEncryption");
+    }
+
+    // Audit and logging.
+    public AuditAndLogging auditAndLogging() {
+      return new AuditAndLogging(doc, path + "/auditAndLogging");
+    }
+
+    // Role matrix.
+    public RoleMatrix roleMatrix() {
+      return new RoleMatrix(doc, path + "/roleMatrix");
+    }
+
+    // Compliance framework.
+    public ComplianceFramework complianceFramework() {
+      return new ComplianceFramework(doc, path + "/complianceFramework");
+    }
+  }
+
+  // 9. Access and Authorization Concept. Seeds → AC.
+  public static final class SecurityAndAccessModel extends SomNode {
+    public SecurityAndAccessModel(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 9.1. User Management.
+    public UserManagement userManagement() {
+      return new UserManagement(doc, path + "/userManagement");
+    }
+
+    // 9.2. Identification and Authentication.
+    public IdentificationAndAuthentication authentication() {
+      return new IdentificationAndAuthentication(doc, path + "/authentication");
+    }
+
+    // 9.3. Resource Protection.
+    public ResourceProtection resourceProtection() {
+      return new ResourceProtection(doc, path + "/resourceProtection");
+    }
+
+    // 9.4. User Authorization.
+    public UserAuthorization authorization() {
+      return new UserAuthorization(doc, path + "/authorization");
+    }
+
+    // 9.5. Sensitive Data Encryption.
+    public SensitiveDataEncryption encryption() {
+      return new SensitiveDataEncryption(doc, path + "/encryption");
+    }
+
+    // 9.6. Audit and Logging.
+    public AuditAndLogging auditAndLogging() {
+      return new AuditAndLogging(doc, path + "/auditAndLogging");
+    }
+
+    // 9.7. Role Matrix..
+    public RoleMatrix roleMatrix() {
+      return new RoleMatrix(doc, path + "/roleMatrix");
+    }
+
+    // 9.8. Compliance Framework.
+    public ComplianceFramework complianceFramework() {
+      return new ComplianceFramework(doc, path + "/complianceFramework");
+    }
+  }
+
+  // A security audit requirement entry (form).
   public static final class SecurityAuditEntry extends SomNode {
     public SecurityAuditEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -41936,7 +42571,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+  // 8.8.3. Security Audit Requirements.
   //
   // Comprehensive security audit requirements covering penetration testing,
   // security-focused code review, dependency scanning, security certifications,
@@ -41994,7 +42629,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Security certification and compliance requirements [PD00-TEC-SEC-AUD].
+  // Security certification and compliance requirements.
   public static final class SecurityCertificationRequirements extends SomNode {
     public SecurityCertificationRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -42069,7 +42704,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Security-focused code review policy [PD00-TEC-SEC-AUD].
+  // Security-focused code review policy.
   //
   // Distinct from CodeReviewProcess (section 8.4) which covers general
   // development code review. This section focuses specifically on
@@ -42191,7 +42826,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+  // 4.3.3.n.2. Security Controls.
   //
   // Security controls that implement or support this requirement.
   public static final class SecurityControls extends SomNode {
@@ -42273,7 +42908,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A custom security event entry (form) [PD00-ACC-AUD-EVE-nn].
+  // A custom security event entry (form).
   //
   // Allows defining additional application-specific security events
   // beyond the standard categories.
@@ -42304,7 +42939,7 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
-  // 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+  // 9.6.1. Security Events.
   //
   // Defines which security events must be logged: authentication attempts,
   // authorization failures, data access, configuration changes, admin actions,
@@ -42354,7 +42989,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
+  // 11.3.4. Security quality.
   public static final class SecurityQuality extends SomNode {
     public SecurityQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -42432,7 +43067,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A security requirement entry [PD00-SYO-REQ-SEC-nn].
+  // A security requirement entry.
   //
   // Comprehensive security requirement definition following OWASP ASVS,
   // ISO 27001, and security best practices.
@@ -42465,22 +43100,22 @@ public final class TomSomV0 {
       return new SecurityRequirementEntryStatus(doc, path + "/statusInfo");
     }
 
-    // 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
+    // 4.3.3.n.1. Acceptance Criteria.
     public RequirementAcceptanceCriteria acceptanceCriteria() {
       return new RequirementAcceptanceCriteria(doc, path + "/acceptanceCriteria");
     }
 
-    // 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+    // 4.3.3.n.2. Security Controls.
     public SecurityControls controls() {
       return new SecurityControls(doc, path + "/controls");
     }
 
-    // 4.3.3.n.3. Dependencies [PD00-SYO-REQ-SEC-nn-DEP].
+    // 4.3.3.n.3. Dependencies.
     public RequirementDependencies dependencies() {
       return new RequirementDependencies(doc, path + "/dependencies");
     }
 
-    // 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
+    // 4.3.3.n.4. Traceability.
     public RequirementTraceability traceability() {
       return new RequirementTraceability(doc, path + "/traceability");
     }
@@ -42530,7 +43165,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+  // 4.3.3. Security Requirements.
   //
   // Container for security requirements. Security requirements describe
   // information protection, access control, authentication, authorization,
@@ -42636,7 +43271,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
+  // A security standard entry (form).
   public static final class SecurityStandardEntry extends SomNode {
     public SecurityStandardEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -42695,7 +43330,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Automated security testing integration [PD00-TEC-SEC-AUD].
+  // Automated security testing integration.
   //
   // Requirements for SAST, DAST, IAST, and fuzzing integration
   // into the CI/CD pipeline and development workflow.
@@ -42789,7 +43424,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
+  // Self-registration policy (form).
   //
   // Defines self-service identity creation: registration flow, required
   // fields, verification, approval, rate limiting, and domain restrictions.
@@ -42908,7 +43543,7 @@ public final class TomSomV0 {
     // (skipped: selfServiceDescription has no target type)
   }
 
-  // 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+  // 9.5. Sensitive Data Encryption.
   public static final class SensitiveDataEncryption extends SomNode {
     public SensitiveDataEncryption(SpecDocument doc, String path) {
       super(doc, path);
@@ -42923,17 +43558,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+    // 9.5.1. Encryption At Rest.
     public EncryptionAtRest encryptionAtRest() {
       return new EncryptionAtRest(doc, path + "/encryptionAtRest");
     }
 
-    // 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+    // 9.5.2. Encryption In Transit.
     public EncryptionInTransit encryptionInTransit() {
       return new EncryptionInTransit(doc, path + "/encryptionInTransit");
     }
 
-    // 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+    // 9.5.3. Key Management.
     public KeyManagement keyManagement() {
       return new KeyManagement(doc, path + "/keyManagement");
     }
@@ -43089,7 +43724,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+  // 8.4.1. Server Requirements.
   //
   // Server compute requirements: CPU, memory, storage, expected load profile,
   // and scaling requirements.
@@ -43355,7 +43990,7 @@ public final class TomSomV0 {
     // (skipped: serviceAccountDescription has no target type)
   }
 
-  // A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].
+  // A service level agreement entry.
   public static final class ServiceLevelAgreementEntry extends SomNode {
     public ServiceLevelAgreementEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -43425,7 +44060,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
+  // 11.4.2. Service level quality.
   public static final class ServiceLevelQuality extends SomNode {
     public ServiceLevelQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -43612,7 +44247,7 @@ public final class TomSomV0 {
     // (skipped: sessionLifecycleDetails has no target type)
   }
 
-  // 9.2.4. Session Management [PD00-ACC-IDE-SES].
+  // 9.2.4. Session Management.
   //
   // Comprehensive session management policy covering session timeouts,
   // concurrent session control, session revocation, remember-me functionality,
@@ -43667,7 +44302,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+  // 4.1.5.4. Session Model.
   //
   // Defines session management including authentication, timeouts, and
   // multi-device session handling.
@@ -43793,7 +44428,7 @@ public final class TomSomV0 {
     // (skipped: sessionTimeoutDetails has no target type)
   }
 
-  // 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+  // 1.1.3.3. Shared Infrastructure Dependencies.
   //
   // Dependencies on shared infrastructure components used by multiple systems.
   public static final class SharedInfrastructureDependencies extends SomNode {
@@ -43816,7 +44451,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
+  // A shared infrastructure entry (form).
   //
   // Documents a shared infrastructure component that multiple systems depend on.
   public static final class SharedInfrastructureEntry extends SomNode {
@@ -44027,7 +44662,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+  // 14.2.5. Sign-off Process.
   //
   // Formal sign-off process: who signs off (business acceptance board,
   // technical acceptance board), what documents are signed, legal and
@@ -44125,7 +44760,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO].
+  // Single Sign-On policy (form).
   //
   // Defines SSO scope, protocol, session propagation, federation,
   // logout propagation, and platform-specific SSO strategies.
@@ -44206,7 +44841,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+  // 8.7.2.5. SLA and SLO Monitoring.
   //
   // Service Level Agreement and Service Level Objective tracking.
   public static final class SlaAndSloMonitoring extends SomNode {
@@ -44312,7 +44947,7 @@ public final class TomSomV0 {
     }
   }
 
-  // An SLO entry [PD00-TEC-SYS-MON-SLA-nn].
+  // An SLO entry.
   public static final class SloEntry extends SomNode {
     public SloEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -44355,7 +44990,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+  // 14.1.1. Software Deliverables.
   public static final class SoftwareDeliverables extends SomNode {
     public SoftwareDeliverables(SpecDocument doc, String path) {
       super(doc, path);
@@ -44376,7 +45011,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.2. Software Design Requirements [PD00-TEC-SOF].
+  // 8.2. Software Design Requirements.
   public static final class SoftwareDesignRequirements extends SomNode {
     public SoftwareDesignRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -44391,17 +45026,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+    // 8.2.1. Layering and Module Structure.
     public LayeringAndModuleStructure layeringAndModuleStructure() {
       return new LayeringAndModuleStructure(doc, path + "/layeringAndModuleStructure");
     }
 
-    // 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+    // 8.2.2. Development Environment.
     public DevelopmentEnvironment developmentEnvironment() {
       return new DevelopmentEnvironment(doc, path + "/developmentEnvironment");
     }
 
-    // 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+    // 8.2.3. Reusable Components.
     public ReusableComponentsSection reusableComponents() {
       return new ReusableComponentsSection(doc, path + "/reusableComponents");
     }
@@ -44482,7 +45117,139 @@ public final class TomSomV0 {
     }
   }
 
-  // Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn].
+  // SBP.11 Solution Architecture & Technology.
+  //
+  // Public anchor: ISO/IEC/IEEE 42010 architecture description.
+  public static final class SolutionArchitectureAndTechnology extends SomNode {
+    public SolutionArchitectureAndTechnology(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Technical framework and platform concept.
+    public TechnicalFrameworkConcept technicalFramework() {
+      return new TechnicalFrameworkConcept(doc, path + "/technicalFramework");
+    }
+
+    // Components, libraries, and services to reuse.
+    public ComponentsToUse componentsToUse() {
+      return new ComponentsToUse(doc, path + "/componentsToUse");
+    }
+  }
+
+  // The complete Solution Blueprint (SBP) document.
+  //
+  // Contains a [DocumentControl] header block and the SBP sections, sequenced
+  // per the public-standards order (§4 of the redesign proposal).
+  public static final class SolutionBlueprint extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public SolutionBlueprint(SpecDocument doc, String documentVersion) {
+      super(doc, "SBP");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public SolutionBlueprint(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // SBP.1 Document Control (header + revision history + approvals).
+    public DocumentControl documentControl() {
+      return new DocumentControl(doc, path + "/documentControl");
+    }
+
+    // SBP.2 Introduction & Scope.
+    public IntroductionAndScope introductionAndScope() {
+      return new IntroductionAndScope(doc, path + "/introductionAndScope");
+    }
+
+    // SBP.3 Glossary & Abbreviations.
+    public GlossaryAndAbbreviations glossaryAndAbbreviations() {
+      return new GlossaryAndAbbreviations(doc, path + "/glossaryAndAbbreviations");
+    }
+
+    // SBP.4 Stakeholders & Governance.
+    public StakeholdersAndGovernance stakeholdersAndGovernance() {
+      return new StakeholdersAndGovernance(doc, path + "/stakeholdersAndGovernance");
+    }
+
+    // SBP.5 Current Landscape. Seeds → CLA.
+    public CurrentLandscape currentLandscape() {
+      return new CurrentLandscape(doc, path + "/currentLandscape");
+    }
+
+    // SBP.6 Assumptions, Constraints & Dependencies.
+    public AssumptionsConstraintsDependencies assumptionsConstraintsDependencies() {
+      return new AssumptionsConstraintsDependencies(doc, path + "/assumptionsConstraintsDependencies");
+    }
+
+    // SBP.7 Target Operating Model concept. Seeds → TOM.
+    public TargetOperatingModelConcept targetOperatingModelConcept() {
+      return new TargetOperatingModelConcept(doc, path + "/targetOperatingModelConcept");
+    }
+
+    // SBP.8 Information & Data Model. Seeds → IFM.
+    public InformationAndDataModel informationAndDataModel() {
+      return new InformationAndDataModel(doc, path + "/informationAndDataModel");
+    }
+
+    // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+    public Requirements requirements() {
+      return new Requirements(doc, path + "/requirements");
+    }
+
+    // SBP.11 Solution Architecture & Technology. Seeds → ATS.
+    public SolutionArchitectureAndTechnology solutionArchitectureAndTechnology() {
+      return new SolutionArchitectureAndTechnology(doc, path + "/solutionArchitectureAndTechnology");
+    }
+
+    // SBP.12 Security & Access Model. Seeds → SAS.
+    public SecurityAndAccessModel securityAndAccessModel() {
+      return new SecurityAndAccessModel(doc, path + "/securityAndAccessModel");
+    }
+
+    // SBP.13 Experience & Interface Design. Seeds → XDS.
+    public ExperienceAndInterfaceDesign experienceAndInterfaceDesign() {
+      return new ExperienceAndInterfaceDesign(doc, path + "/experienceAndInterfaceDesign");
+    }
+
+    // SBP.14 Quality & Acceptance Model. Seeds → QAP.
+    public QualityAndAcceptanceModel qualityAndAcceptanceModel() {
+      return new QualityAndAcceptanceModel(doc, path + "/qualityAndAcceptanceModel");
+    }
+
+    // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+    public DeliveryTransitionAndRollout deliveryTransitionAndRollout() {
+      return new DeliveryTransitionAndRollout(doc, path + "/deliveryTransitionAndRollout");
+    }
+  }
+
+  // Specialized equipment entry (form).
   public static final class SpecializedEquipmentEntry extends SomNode {
     public SpecializedEquipmentEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -44590,7 +45357,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A staffing entry (form) [PD00-ORG-JOB-STA-nn].
+  // A staffing entry (form).
   //
   // Represents one staffing position including role, competency requirements,
   // sourcing method, budget, timeline, and approval status.
@@ -44668,7 +45435,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+  // 5.2.4. Staffing Plan.
   public static final class StaffingPlan extends SomNode {
     public StaffingPlan(SpecDocument doc, String path) {
       super(doc, path);
@@ -44728,7 +45495,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+  // A stage entry (form) with description subsections.
   //
   // Represents a single delivery stage — a self-contained increment of the
   // system that delivers measurable business value. Each stage has clear
@@ -44797,7 +45564,7 @@ public final class TomSomV0 {
     // Feature Scope narrative.
     // (skipped: featureScope has no target type)
 
-    // Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
+    // Sub-stages and Milestones — contains 0+× SubStage.
     public SomList<SubStageEntry> subStagesAndMilestones() {
       return new SomList<>(doc, path + "/SUSST-SUBS-LST", (d, p) -> new SubStageEntry(d, p));
     }
@@ -44805,7 +45572,7 @@ public final class TomSomV0 {
     // Timeline narrative.
     // (skipped: timelineNarrative has no target type)
 
-    // Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
+    // Success Criteria — contains 0+× StageSuccessCriterion.
     public SomList<StageSuccessCriterionEntry> successCriteria() {
       return new SomList<>(doc, path + "/STGSUC-SUCC-LST", (d, p) -> new StageSuccessCriterionEntry(d, p));
     }
@@ -44814,7 +45581,7 @@ public final class TomSomV0 {
     // (skipped: rolloutPlan has no target type)
   }
 
-  // 13.6. Governance [PD00-SSP-GOV].
+  // 13.6. Governance.
   //
   // Governance framework for stage transitions, phase gate reviews,
   // and key decision points. Covers governance structure, authority
@@ -44869,12 +45636,12 @@ public final class TomSomV0 {
     // Governance narrative and rationale.
     // (skipped: governanceNarrative has no target type)
 
-    // 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+    // 13.6.1. Phase Gate Reviews.
     public PhaseGateReviews phaseGateReviews() {
       return new PhaseGateReviews(doc, path + "/phaseGateReviews");
     }
 
-    // 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+    // 13.6.2. Decision Points.
     public DecisionPoints decisionPoints() {
       return new DecisionPoints(doc, path + "/decisionPoints");
     }
@@ -45001,7 +45768,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
+  // A stage migration risk entry (form).
   //
   // Individual risk in the data migration risk register. Covers risk
   // identification, categorization, probability/impact scoring,
@@ -45134,7 +45901,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+  // 13.5.2. Migration Risks.
   //
   // Risk register specific to data migration activities. Covers data
   // loss, corruption, downtime overrun, compliance violations,
@@ -45157,7 +45924,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.2. Stage Overview [PD00-SSP-STA].
+  // 13.2. Stage Overview.
   //
   // High-level summary across all planned stages including aggregate
   // metrics, critical-path identification, resource allocation patterns,
@@ -45229,7 +45996,7 @@ public final class TomSomV0 {
       return new StageOverviewConstraints(doc, path + "/constraints");
     }
 
-    // 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
+    // 13.2.1. Stage Summary — contains 1+× Stage
     // Summary Entry.
     public SomList<StageSummaryEntry> stageSummaries() {
       return new SomList<>(doc, path + "/STAGSE-STAG-LST", (d, p) -> new StageSummaryEntry(d, p));
@@ -45238,18 +46005,18 @@ public final class TomSomV0 {
     // Stage Summary narrative.
     // (skipped: stageSummaryNarrative has no target type)
 
-    // 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
+    // 13.2.2. Stage Timeline Diagram (mermaid-gantt).
     // (skipped: timelineDiagram has no target type)
 
-    // 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
+    // 13.2.3. Resource Allocation Diagram
     // (mermaid-gantt).
     // (skipped: resourceAllocationDiagram has no target type)
 
-    // 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
+    // 13.2.4. Budget Distribution Diagram
     // (mermaid-flow).
     // (skipped: budgetDistributionDiagram has no target type)
 
-    // 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
+    // 13.2.5. Dependency Map (mermaid-flow).
     // (skipped: dependencyMap has no target type)
   }
 
@@ -45429,7 +46196,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
+  // A success criterion entry (form).
   //
   // Defines a measurable criterion that determines whether a stage has
   // achieved its objectives. Each criterion has a target metric,
@@ -45503,7 +46270,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A stage summary entry [PD00-SSP-STA-SUM-nn] (form).
+  // A stage summary entry (form).
   //
   // Quick-reference record for a single stage within the overview. Each
   // entry captures the essential identification, timeline, scope, and
@@ -45754,7 +46521,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.1. Staging Strategy [PD00-SSP-STR].
+  // 13.1. Staging Strategy.
   //
   // Document the rationale behind the chosen staging approach. Consider
   // PMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2
@@ -45831,18 +46598,18 @@ public final class TomSomV0 {
       return new StagingGovernance(doc, path + "/governance");
     }
 
-    // 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+    // 13.1.1. Staging Approach.
     // (skipped: stagingApproach has no target type)
 
-    // 13.1.2. Rationale [PD00-SSP-STR-RAT].
+    // 13.1.2. Rationale.
     // (skipped: rationaleNarrative has no target type)
 
-    // 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
+    // 13.1.3. Key Assumptions.
     public SomList<KeyAssumptionEntry> keyAssumptions() {
       return new SomList<>(doc, path + "/KEYAS-KEYA-LST", (d, p) -> new KeyAssumptionEntry(d, p));
     }
 
-    // 13.1.4. Constraints [PD00-SSP-STR-CON].
+    // 13.1.4. Constraints.
     public SomList<StagingStrategyConstraintEntry> constraints() {
       return new SomList<>(doc, path + "/STAGI-CONS-LST", (d, p) -> new StagingStrategyConstraintEntry(d, p));
     }
@@ -45918,7 +46685,44 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+  // A register of the project's stakeholders.
+  //
+  // Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
+  public static final class StakeholderRegister extends SomNode {
+    public StakeholderRegister(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // One entry per stakeholder or stakeholder group.
+    public SomList<StakeholderRegisterEntry> stakeholders() {
+      return new SomList<>(doc, path + "/STKRG-STAK-LST", (d, p) -> new StakeholderRegisterEntry(d, p));
+    }
+  }
+
+  // A single stakeholder register entry (form).
+  //
+  // Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
+  // `StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+  public static final class StakeholderRegisterEntry extends SomNode {
+    public StakeholderRegisterEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public StakeholderRegisterEntryContentForm content() {
+      return new StakeholderRegisterEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // 4.1.1.3. Stakeholders and Beneficiaries.
   //
   // Lists all stakeholders and beneficiaries of the system with their
   // interests, influence level, and expected benefits.
@@ -45947,6 +46751,39 @@ public final class TomSomV0 {
     }
   }
 
+  // SBP.4 Stakeholders & Governance.
+  //
+  // Public anchor: BABOK stakeholder analysis + PMBOK governance.
+  public static final class StakeholdersAndGovernance extends SomNode {
+    public StakeholdersAndGovernance(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Governance, steering committee, RACI, process deviations.
+    public ProjectOrganizationAndProcess projectOrganizationProcess() {
+      return new ProjectOrganizationAndProcess(doc, path + "/projectOrganizationProcess");
+    }
+
+    // Team, distribution, reference documents, communication.
+    public Administrative administrative() {
+      return new Administrative(doc, path + "/administrative");
+    }
+
+    // Stakeholder register (§5 completeness addition).
+    public StakeholderRegister stakeholderRegister() {
+      return new StakeholderRegister(doc, path + "/stakeholderRegister");
+    }
+  }
+
   // Stakeholders and interests.
   public static final class StakeholdersAndInterests extends SomNode {
     public StakeholdersAndInterests(SpecDocument doc, String path) {
@@ -45958,7 +46795,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+  // 8.3. Standard Application Software Requirements.
   public static final class StandardSoftwareRequirements extends SomNode {
     public StandardSoftwareRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -45973,18 +46810,18 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+    // 8.3.1. Compatibility Requirements.
     public CompatibilityRequirementsSection compatibilityRequirements() {
       return new CompatibilityRequirementsSection(doc, path + "/compatibilityRequirements");
     }
 
-    // 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+    // 8.3.2. Standards Compliance.
     public StandardsComplianceSection standardsCompliance() {
       return new StandardsComplianceSection(doc, path + "/standardsCompliance");
     }
   }
 
-  // 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+  // 8.3.2. Standards Compliance.
   //
   // Required compliance with IT standards, industry protocols, and interface
   // specifications.
@@ -46061,7 +46898,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+  // 3.1.2. Steering Committee.
   //
   // Container for steering committee member descriptions.
   public static final class SteeringCommittee extends SomNode {
@@ -46175,7 +47012,7 @@ public final class TomSomV0 {
     // (skipped: storageLifecycleDetails has no target type)
   }
 
-  // 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+  // 4.1.1.5. Strategic Alignment.
   //
   // How this system aligns with organizational strategy, goals, and
   // initiatives. Demonstrates strategic justification for the project.
@@ -46199,7 +47036,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A sub-function entry (form) [PD00-BUS-FUN-DEC-nn-SUB-nn].
+  // A sub-function entry (form).
   //
   // Lower-level function in the decomposition.
   public static final class SubFunctionEntry extends SomNode {
@@ -46212,7 +47049,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
+  // A sub-stage or milestone entry (form).
   //
   // Represents a discrete phase within a stage — alpha, beta, release
   // candidate, pilot, GA — or a key milestone. Sub-stages provide finer
@@ -46307,7 +47144,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+  // 4.2.3. Success Criteria.
   //
   // Overall project success criteria that determine whether the project
   // has achieved its objectives. These criteria will be used during
@@ -46454,7 +47291,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+  // A success criterion entry (form).
   //
   // Individual success criterion with comprehensive measurement details,
   // thresholds, and verification requirements.
@@ -46564,7 +47401,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.8.3. Support Access [PD00-USE-HLP-SUP].
+  // 10.8.3. Support Access.
   public static final class SupportAccess extends SomNode {
     public SupportAccess(SpecDocument doc, String path) {
       super(doc, path);
@@ -46658,7 +47495,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+  // 14.1.4. Support Deliverables.
   public static final class SupportDeliverables extends SomNode {
     public SupportDeliverables(SpecDocument doc, String path) {
       super(doc, path);
@@ -46679,7 +47516,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A supported locale entry [PD00-USE-MUL-LOC-nn].
+  // A supported locale entry.
   public static final class SupportedLocaleEntry extends SomNode {
     public SupportedLocaleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -46722,10 +47559,10 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.9. System Architecture [PD00-TEC-ARC].
+  // 8.9. System Architecture.
   //
   // Detailed internal architecture (layers, packages, patterns). Covers
-  // HBSG AS09-SOF / DR30.
+  //
   //
   // Class named `SystemArchitectureSpec` to avoid colliding with any other
   // architecture-related identifier in the model.
@@ -46744,7 +47581,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+  // 4.5. System Boundaries. Seeds → BSI.
   //
   // Defines the scope boundaries of the system including external interfaces,
   // out-of-scope items, and operating assumptions. This section provides the
@@ -46758,58 +47595,58 @@ public final class TomSomV0 {
     // Overview of system boundaries and scope definition approach.
     // (skipped: overview has no target type)
 
-    // 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+    // 4.5.1. Interfaces to External Systems — contains 0+×.
     public ExternalInterfaces externalInterfaces() {
       return new ExternalInterfaces(doc, path + "/externalInterfaces");
     }
 
-    // 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
+    // 4.5.2. Out of Scope — contains 0+×.
     public OutOfScope outOfScope() {
       return new OutOfScope(doc, path + "/outOfScope");
     }
 
-    // 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
+    // 4.5.3. Assumptions — contains 0+×.
     public BoundaryAssumptions assumptions() {
       return new BoundaryAssumptions(doc, path + "/assumptions");
     }
 
-    // 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV]. Covers BSI-LAN-INV.
+    // 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
     public SystemLandscapeInventory systemLandscapeInventory() {
       return new SystemLandscapeInventory(doc, path + "/systemLandscapeInventory");
     }
 
-    // 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
+    // 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
     public SomList<BoundaryInteractionPatterns> boundaryInteractionPatterns() {
       return new SomList<>(doc, path + "/BOINPA-BOUN-LST", (d, p) -> new BoundaryInteractionPatterns(d, p));
     }
 
-    // 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
+    // 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
     public InteractionTestingStrategy interactionTestingStrategy() {
       return new InteractionTestingStrategy(doc, path + "/interactionTestingStrategy");
     }
 
-    // 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP]. Covers BSI-DEP.
+    // 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
     public InteractionDependencyAnalysis interactionDependencyAnalysis() {
       return new InteractionDependencyAnalysis(doc, path + "/interactionDependencyAnalysis");
     }
 
-    // 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
+    // 4.5.8. Migration Interactions. Covers BSI-MIG.
     public SomList<MigrationInteractions> migrationInteractions() {
       return new SomList<>(doc, path + "/MIIN-MIGR-LST", (d, p) -> new MigrationInteractions(d, p));
     }
 
-    // 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+    // 4.5.9. Cross-Boundary Operational Considerations.
     public SomList<CrossBoundaryOperationalConsiderations> operationalConsiderations() {
       return new SomList<>(doc, path + "/CBOC-OPER-LST", (d, p) -> new CrossBoundaryOperationalConsiderations(d, p));
     }
 
-    // 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+    // 4.5.10. Cross-Boundary Error Handling.
     public CrossBoundaryErrorHandling crossBoundaryErrorHandling() {
       return new CrossBoundaryErrorHandling(doc, path + "/crossBoundaryErrorHandling");
     }
   }
 
-  // Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS].
+  // Business criticality assessment.
   public static final class SystemBusinessCriticality extends SomNode {
     public SystemBusinessCriticality(SpecDocument doc, String path) {
       super(doc, path);
@@ -46862,7 +47699,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn].
+  // Business process supported.
   public static final class SystemBusinessProcessEntry extends SomNode {
     public SystemBusinessProcessEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -46873,7 +47710,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn].
+  // Business unit using the system.
   public static final class SystemBusinessUnitEntry extends SomNode {
     public SystemBusinessUnitEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -46943,7 +47780,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.2. System Context [PD00-SYO-SYD-CON].
+  // 4.1.2. System Context.
   //
   // Describes the system in its operational context: how it fits within the
   // organization's IT landscape, who interacts with it, and what external
@@ -46962,48 +47799,48 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+    // 4.1.2.1. Context Diagram.
     public ContextDiagram contextDiagram() {
       return new ContextDiagram(doc, path + "/contextDiagram");
     }
 
-    // 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+    // 4.1.2.2. IT Landscape Position.
     public ItLandscapePosition itLandscapePosition() {
       return new ItLandscapePosition(doc, path + "/itLandscapePosition");
     }
 
-    // 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+    // 4.1.2.3. External Actors.
     public ExternalActors externalActors() {
       return new ExternalActors(doc, path + "/externalActors");
     }
 
-    // 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+    // 4.1.2.4. External Systems.
     public ExternalSystemsContext externalSystems() {
       return new ExternalSystemsContext(doc, path + "/externalSystems");
     }
 
-    // 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+    // 4.1.2.5. Trust Boundaries.
     public TrustBoundaries trustBoundaries() {
       return new TrustBoundaries(doc, path + "/trustBoundaries");
     }
 
-    // 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+    // 4.1.2.6. Organizational Context.
     public OrganizationalContext organizationalContext() {
       return new OrganizationalContext(doc, path + "/organizationalContext");
     }
 
-    // 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+    // 4.1.2.7. Deployment Context.
     public DeploymentContext deploymentContext() {
       return new DeploymentContext(doc, path + "/deploymentContext");
     }
 
-    // 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+    // 4.1.2.8. Regulatory Context.
     public RegulatoryContext regulatoryContext() {
       return new RegulatoryContext(doc, path + "/regulatoryContext");
     }
   }
 
-  // Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST].
+  // Cost analysis for replacement.
   public static final class SystemCostAnalysis extends SomNode {
     public SystemCostAnalysis(SpecDocument doc, String path) {
       super(doc, path);
@@ -47070,7 +47907,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT].
+  // Data scope and migration assessment.
   public static final class SystemDataScope extends SomNode {
     public SystemDataScope(SpecDocument doc, String path) {
       super(doc, path);
@@ -47123,7 +47960,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+  // A system dependency entry (form).
   //
   // Documents one dependency between systems in the current landscape:
   // mechanism, coupling strength, data flow, failure impact, SLA,
@@ -47210,7 +48047,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1. System Description [PD00-SYO-SYD].
+  // 4.1. System Description.
   //
   // Concise description of the system to be created, its primary purpose,
   // and the business domain it addresses. This section provides the
@@ -47234,27 +48071,27 @@ public final class TomSomV0 {
       return new SystemDescriptionSummary(doc, path + "/descriptionSummary");
     }
 
-    // 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+    // 4.1.1. System Purpose.
     public SystemPurpose systemPurpose() {
       return new SystemPurpose(doc, path + "/systemPurpose");
     }
 
-    // 4.1.2. System Context [PD00-SYO-SYD-CON].
+    // 4.1.2. System Context.
     public SystemContext systemContext() {
       return new SystemContext(doc, path + "/systemContext");
     }
 
-    // 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+    // 4.1.3. Description of Task Area.
     public TaskArea taskArea() {
       return new TaskArea(doc, path + "/taskArea");
     }
 
-    // 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+    // 4.1.4. User Categories — contains 1+× User Category.
     public SomList<UserCategoryEntry> userCategories() {
       return new SomList<>(doc, path + "/USCA-USER-LST", (d, p) -> new UserCategoryEntry(d, p));
     }
 
-    // 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+    // 4.1.5. User Interaction Model.
     public UserInteractionModel userInteractionModel() {
       return new UserInteractionModel(doc, path + "/userInteractionModel");
     }
@@ -47339,7 +48176,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A system error code entry [PD00-USE-ERR-SYS-CODE-nn].
+  // A system error code entry.
   public static final class SystemErrorCodeEntry extends SomNode {
     public SystemErrorCodeEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -47382,7 +48219,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+  // 10.7.2. System Error Display.
   //
   // System error presentation including server errors, network issues,
   // and timeouts.
@@ -47484,7 +48321,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+  // A system integration entry (form).
   //
   // Documents one integration between systems: type, pattern, protocol,
   // data format, throughput, error handling, monitoring, security,
@@ -47592,7 +48429,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+  // 1.1.1. System Inventory.
   //
   // Container for individual system descriptions. Add one entry per existing
   // system relevant to the project scope.
@@ -47610,13 +48447,13 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
+    // Contains 1+× Existing System.
     public SomList<ExistingSystemEntry> systems() {
       return new SomList<>(doc, path + "/ESENT-SYST-LST", (d, p) -> new ExistingSystemEntry(d, p));
     }
   }
 
-  // Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW].
+  // Knowledge transfer status.
   public static final class SystemKnowledgeTransfer extends SomNode {
     public SystemKnowledgeTransfer(SpecDocument doc, String path) {
       super(doc, path);
@@ -47635,7 +48472,7 @@ public final class TomSomV0 {
     // (skipped: knowledgeTransferPlan has no target type)
   }
 
-  // 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV].
+  // 4.5.4. System Landscape Inventory.
   //
   // Complete external-system inventory covering BSI-LAN-INV content.
   public static final class SystemLandscapeInventory extends SomNode {
@@ -47653,7 +48490,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG].
+  // Per-system migration plan.
   public static final class SystemMigrationPlan extends SomNode {
     public SystemMigrationPlan(SpecDocument doc, String path) {
       super(doc, path);
@@ -47707,7 +48544,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn].
+  // A system migration risk entry.
   public static final class SystemMigrationRiskEntry extends SomNode {
     public SystemMigrationRiskEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -47718,7 +48555,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+  // 8.7.1. System Operation.
   public static final class SystemOperation extends SomNode {
     public SystemOperation(SpecDocument doc, String path) {
       super(doc, path);
@@ -47733,7 +48570,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+    // 8.7.1.1. Administration Requirements.
     public AdministrationRequirementsSection administrationRequirements() {
       return new AdministrationRequirementsSection(doc, path + "/administrationRequirements");
     }
@@ -47744,7 +48581,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+  // 8.7. System Operation and Monitoring.
   public static final class SystemOperationAndMonitoring extends SomNode {
     public SystemOperationAndMonitoring(SpecDocument doc, String path) {
       super(doc, path);
@@ -47759,89 +48596,19 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+    // 8.7.1. System Operation.
     public SystemOperation systemOperation() {
       return new SystemOperation(doc, path + "/systemOperation");
     }
 
-    // 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+    // 8.7.2. Monitoring.
     public Monitoring monitoring() {
       return new Monitoring(doc, path + "/monitoring");
     }
 
-    // 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+    // 8.7.3. Capacity Planning.
     public CapacityPlanningSection capacityPlanning() {
       return new CapacityPlanningSection(doc, path + "/capacityPlanning");
-    }
-  }
-
-  // 4. System Overview [PD00-SYO].
-  //
-  // High-level overview of the system to be built: its purpose, goals,
-  // scope boundaries, and the environment it operates in. This section
-  // establishes the foundation for all subsequent specification work.
-  public static final class SystemOverview extends SomNode {
-    public SystemOverview(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // System overview summary statistics.
-    public SystemOverviewSummary summary() {
-      return new SystemOverviewSummary(doc, path + "/summary");
-    }
-
-    // System context diagram showing major system boundaries.
-    public String systemContextDiagram() {
-      String v = doc.content(path + "/systemContextDiagram");
-      return v == null ? "" : v;
-    }
-
-    public void systemContextDiagram(String value) {
-      doc.setContent(path + "/systemContextDiagram", value);
-    }
-
-    // 4.1. System Description [PD00-SYO-SYD].
-    public SystemDescription systemDescription() {
-      return new SystemDescription(doc, path + "/systemDescription");
-    }
-
-    // 4.2. Goals [PD00-SYO-GOA].
-    public Goals goals() {
-      return new Goals(doc, path + "/goals");
-    }
-
-    // 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
-    public RequirementsOverview requirements() {
-      return new RequirementsOverview(doc, path + "/requirements");
-    }
-
-    // 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
-    public SystemsToReplace systemsToReplace() {
-      return new SystemsToReplace(doc, path + "/systemsToReplace");
-    }
-
-    // 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
-    public SystemBoundaries systemBoundaries() {
-      return new SystemBoundaries(doc, path + "/systemBoundaries");
-    }
-
-    // 4.6. Framework Conditions [PD00-SYO-RES].
-    public FrameworkConditions frameworkConditions() {
-      return new FrameworkConditions(doc, path + "/frameworkConditions");
-    }
-
-    // 4.7. Risks and Assumptions [PD00-SYO-RIS].
-    public RisksAndAssumptions risksAndAssumptions() {
-      return new RisksAndAssumptions(doc, path + "/risksAndAssumptions");
     }
   }
 
@@ -47920,7 +48687,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+  // 4.1.1. System Purpose.
   //
   // Describes the overarching purpose of the system including the problem it
   // solves, the opportunity it enables, and who the primary beneficiaries are.
@@ -47939,7 +48706,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Vision Statement [PD00-SYO-SYD-PUR-VIS].
+    // Vision Statement.
     public String visionStatement() {
       String v = doc.content(path + "/visionStatement");
       return v == null ? "" : v;
@@ -47949,38 +48716,38 @@ public final class TomSomV0 {
       doc.setContent(path + "/visionStatement", value);
     }
 
-    // 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+    // 4.1.1.1. Problem Statement.
     public ProblemStatement problemStatement() {
       return new ProblemStatement(doc, path + "/problemStatement");
     }
 
-    // 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+    // 4.1.1.2. Opportunity Statement.
     public OpportunityStatement opportunityStatement() {
       return new OpportunityStatement(doc, path + "/opportunityStatement");
     }
 
-    // 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+    // 4.1.1.3. Stakeholders and Beneficiaries.
     public StakeholdersAndBeneficiaries stakeholders() {
       return new StakeholdersAndBeneficiaries(doc, path + "/stakeholders");
     }
 
-    // 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+    // 4.1.1.4. Value Proposition.
     public ValueProposition valueProposition() {
       return new ValueProposition(doc, path + "/valueProposition");
     }
 
-    // 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+    // 4.1.1.5. Strategic Alignment.
     public StrategicAlignment strategicAlignment() {
       return new StrategicAlignment(doc, path + "/strategicAlignment");
     }
 
-    // 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+    // 4.1.1.6. Scope Boundaries.
     public ScopeBoundaries scopeBoundaries() {
       return new ScopeBoundaries(doc, path + "/scopeBoundaries");
     }
   }
 
-  // 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+  // 11. System Quality Goals. Seeds → BQP.
   //
   // Quality goals selected from standard quality criteria and operationalized
   // for project-specific acceptance testing. Provides governing structure for
@@ -48033,42 +48800,42 @@ public final class TomSomV0 {
     // Quality attribute priority radar.
     // (skipped: qualityRadar has no target type)
 
-    // 11.1. Quality Framework [PD00-SYQ-FRA].
+    // 11.1. Quality Framework.
     public QualityFramework framework() {
       return new QualityFramework(doc, path + "/framework");
     }
 
-    // 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+    // 11.2. User-Related Quality Criteria.
     public UserQualityCriteria userQuality() {
       return new UserQualityCriteria(doc, path + "/userQuality");
     }
 
-    // 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+    // 11.3. Technical Quality Criteria.
     public TechnicalQualityCriteria technicalQuality() {
       return new TechnicalQualityCriteria(doc, path + "/technicalQuality");
     }
 
-    // 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+    // 11.4. Operations Quality Criteria.
     public OperationsQualityCriteria operationsQuality() {
       return new OperationsQualityCriteria(doc, path + "/operationsQuality");
     }
 
-    // 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+    // 11.5. Documentation Quality Criteria.
     public DocumentationQualityCriteria documentationQuality() {
       return new DocumentationQualityCriteria(doc, path + "/documentationQuality");
     }
 
-    // 11.6. Quality Prioritization [PD00-SYQ-PRI].
+    // 11.6. Quality Prioritization.
     public QualityPrioritization prioritization() {
       return new QualityPrioritization(doc, path + "/prioritization");
     }
 
-    // 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+    // 11.7. Acceptance Criteria Summary.
     public AcceptanceCriteriaSummary acceptanceCriteria() {
       return new AcceptanceCriteriaSummary(doc, path + "/acceptanceCriteria");
     }
 
-    // 11.8. Test Strategy [PD00-SYQ-TST]. Covers HBSG AS23.
+    // 11.8. Test Strategy..
     public TestStrategy testStrategy() {
       return new TestStrategy(doc, path + "/testStrategy");
     }
@@ -48118,7 +48885,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Replacement strategy details [PD00-SYO-SYR-INV-nn-STR].
+  // Replacement strategy details.
   public static final class SystemReplacementStrategy extends SomNode {
     public SystemReplacementStrategy(SpecDocument doc, String path) {
       super(doc, path);
@@ -48174,103 +48941,7 @@ public final class TomSomV0 {
     }
   }
 
-  // SR00 System Rollout.
-  //
-  // End-to-end rollout specification — localization, translation,
-  // documentation and training, plus rollout plan, migration plan,
-  // user manuals, training materials, pilot, cutover, knowledge
-  // transfer, and warranty/support.
-  public static final class SystemRollout extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public SystemRollout(SpecDocument doc, String documentVersion) {
-      super(doc, "SR");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public SystemRollout(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Localization process — PD00-USE-MUL-LOC.
-    public LocalizationProcess localizationProcess() {
-      return new LocalizationProcess(doc, path + "/localizationProcess");
-    }
-
-    // Translation process — PD00-USE-MUL-TRA.
-    public TranslationProcess translationProcess() {
-      return new TranslationProcess(doc, path + "/translationProcess");
-    }
-
-    // Documentation and training — PD00-USE-MUL-DOC.
-    public DocumentationAndTraining documentationAndTraining() {
-      return new DocumentationAndTraining(doc, path + "/documentationAndTraining");
-    }
-
-    // Rollout plan — PD00-ROL-PLN.
-    public RolloutPlan rolloutPlan() {
-      return new RolloutPlan(doc, path + "/rolloutPlan");
-    }
-
-    // Migration plan — PD00-ROL-MIG.
-    public MigrationPlan migrationPlan() {
-      return new MigrationPlan(doc, path + "/migrationPlan");
-    }
-
-    // User manuals — PD00-ROL-DOC.
-    public SomList<UserManuals> userManuals() {
-      return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManuals(d, p));
-    }
-
-    // Training materials — PD00-ROL-TRN.
-    public SomList<RolloutTrainingMaterials> trainingMaterials() {
-      return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterials(d, p));
-    }
-
-    // Pilot plan — PD00-ROL-PIL.
-    public PilotPlan pilotPlan() {
-      return new PilotPlan(doc, path + "/pilotPlan");
-    }
-
-    // Cutover procedures — PD00-ROL-CUT.
-    public SomList<CutoverProcedures> cutoverProcedures() {
-      return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedures(d, p));
-    }
-
-    // Knowledge transfer — PD00-ROL-KNO.
-    public KnowledgeTransfer knowledgeTransfer() {
-      return new KnowledgeTransfer(doc, path + "/knowledgeTransfer");
-    }
-
-    // Warranty and support — PD00-ROL-WAR.
-    public WarrantyAndSupport warrantyAndSupport() {
-      return new WarrantyAndSupport(doc, path + "/warrantyAndSupport");
-    }
-  }
-
-  // 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
+  // 15. System Rollout Concept. Seeds → SR.
   public static final class SystemRolloutConcept extends SomNode {
     public SystemRolloutConcept(SpecDocument doc, String path) {
       super(doc, path);
@@ -48285,48 +48956,48 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 15.1. Rollout Plan [PD00-ROL-PLN].
+    // 15.1. Rollout Plan.
     public RolloutPlan rolloutPlan() {
       return new RolloutPlan(doc, path + "/rolloutPlan");
     }
 
-    // 15.2. Migration Plan [PD00-ROL-MIG].
+    // 15.2. Migration Plan.
     public MigrationPlan migrationPlan() {
       return new MigrationPlan(doc, path + "/migrationPlan");
     }
 
-    // 15.3. User Manuals [PD00-ROL-DOC].
+    // 15.3. User Manuals.
     public SomList<UserManuals> userManuals() {
       return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManuals(d, p));
     }
 
-    // 15.4. Training Materials [PD00-ROL-TRN].
+    // 15.4. Training Materials.
     public SomList<RolloutTrainingMaterials> trainingMaterials() {
       return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterials(d, p));
     }
 
-    // 15.5. Pilot Plan [PD00-ROL-PIL].
+    // 15.5. Pilot Plan.
     public PilotPlan pilotPlan() {
       return new PilotPlan(doc, path + "/pilotPlan");
     }
 
-    // 15.6. Cutover Procedures [PD00-ROL-CUT].
+    // 15.6. Cutover Procedures.
     public SomList<CutoverProcedures> cutoverProcedures() {
       return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedures(d, p));
     }
 
-    // 15.7. Knowledge Transfer [PD00-ROL-KNO].
+    // 15.7. Knowledge Transfer.
     public KnowledgeTransfer knowledgeTransfer() {
       return new KnowledgeTransfer(doc, path + "/knowledgeTransfer");
     }
 
-    // 15.8. Warranty and Support [PD00-ROL-WAR].
+    // 15.8. Warranty and Support.
     public WarrantyAndSupport warrantyAndSupport() {
       return new WarrantyAndSupport(doc, path + "/warrantyAndSupport");
     }
   }
 
-  // 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+  // 13. System Stage Plan. Seeds → PPP.
   //
   // Define the overall staging strategy for the system rollout. A stage
   // is a meaningful, self-contained subset of the complete system that
@@ -48358,42 +49029,42 @@ public final class TomSomV0 {
       return new SystemStagePlanReadiness(doc, path + "/readiness");
     }
 
-    // 13.1. Staging Strategy [PD00-SSP-STR].
+    // 13.1. Staging Strategy.
     public StagingStrategy strategy() {
       return new StagingStrategy(doc, path + "/strategy");
     }
 
-    // 13.2. Stage Overview [PD00-SSP-STA].
+    // 13.2. Stage Overview.
     public StageOverview stageOverview() {
       return new StageOverview(doc, path + "/stageOverview");
     }
 
-    // 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
+    // 13.3. Stages — contains 1+× Stage.
     public SomList<StageEntry> stages() {
       return new SomList<>(doc, path + "/STAGE-STAG-LST", (d, p) -> new StageEntry(d, p));
     }
 
-    // 13.4. Feature Prioritization [PD00-SSP-FEA].
+    // 13.4. Feature Prioritization.
     public FeaturePrioritization featurePrioritization() {
       return new FeaturePrioritization(doc, path + "/featurePrioritization");
     }
 
-    // 13.5. Data Migration Strategy [PD00-SSP-MIG].
+    // 13.5. Data Migration Strategy.
     public DataMigrationStrategy dataMigration() {
       return new DataMigrationStrategy(doc, path + "/dataMigration");
     }
 
-    // 13.6. Governance [PD00-SSP-GOV].
+    // 13.6. Governance.
     public StageGovernance governance() {
       return new StageGovernance(doc, path + "/governance");
     }
 
-    // 13.7. Initial Development Flow [PD00-SSP-IDV]. Covers PPP-IDV.
+    // 13.7. Initial Development Flow. Covers PPP-IDV.
     public InitialDevelopmentFlow initialDevelopmentFlow() {
       return new InitialDevelopmentFlow(doc, path + "/initialDevelopmentFlow");
     }
 
-    // 13.8. Upgrade Cycle Framework [PD00-SSP-UPG]. Covers PPP-UPG.
+    // 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
     public UpgradeCycleFramework upgradeCycleFramework() {
       return new UpgradeCycleFramework(doc, path + "/upgradeCycleFramework");
     }
@@ -48432,7 +49103,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A system task entry [PD00-SYO-SYD-USR-nn-TSK-mm].
+  // A system task entry.
   //
   // Describes one activity this user category performs with the system.
   // Tasks map to Use Cases in the UC document.
@@ -48529,7 +49200,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC].
+  // Technical assessment for a system to replace.
   public static final class SystemTechnicalAssessment extends SomNode {
     public SystemTechnicalAssessment(SpecDocument doc, String path) {
       super(doc, path);
@@ -48598,7 +49269,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+  // A system to replace entry (form).
   //
   // Comprehensive documentation of a legacy system to be replaced, covering
   // technical assessment, business criticality, replacement strategy, and
@@ -48691,7 +49362,7 @@ public final class TomSomV0 {
     }
   }
 
-  // System training entry (form) [PD00-ORG-WOR-nn-TRA-SYS-nn].
+  // System training entry (form).
   public static final class SystemTrainingEntry extends SomNode {
     public SystemTrainingEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -48750,7 +49421,7 @@ public final class TomSomV0 {
     }
   }
 
-  // User impact assessment [PD00-SYO-SYR-INV-nn-USR].
+  // User impact assessment.
   public static final class SystemUserImpact extends SomNode {
     public SystemUserImpact(SpecDocument doc, String path) {
       super(doc, path);
@@ -48814,7 +49485,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+  // 4.4. Systems to Replace. Seeds → CS.
   //
   // Documents existing systems that will be replaced, migrated, or decommissioned
   // as part of the project. Follows TOGAF migration planning patterns and
@@ -48828,18 +49499,18 @@ public final class TomSomV0 {
     // Overview of the systems replacement scope and strategy.
     // (skipped: overview has no target type)
 
-    // 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+    // 4.4.1. Replacement Inventory — contains 0+×.
     public ReplacementInventory replacementInventory() {
       return new ReplacementInventory(doc, path + "/replacementInventory");
     }
 
-    // 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+    // 4.4.2. Migration Considerations.
     public MigrationConsiderations migrationConsiderations() {
       return new MigrationConsiderations(doc, path + "/migrationConsiderations");
     }
   }
 
-  // A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
+  // A tab bar definition entry (form).
   //
   // Defines a tab bar or segmented control on a specific screen.
   public static final class TabBarDefinitionEntry extends SomNode {
@@ -48889,7 +49560,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
+  // A tab item entry (form).
   public static final class TabItemEntry extends SomNode {
     public TabItemEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -48900,7 +49571,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6. Target Business Process Model [PD00-TAR].
+  // 6. Target Business Process Model.
   public static final class TargetBusinessProcessModel extends SomNode {
     public TargetBusinessProcessModel(SpecDocument doc, String path) {
       super(doc, path);
@@ -48915,14 +49586,132 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
+    // 6.1. Business Process Descriptions. Seeds → BP.
     public BusinessProcessDescriptions businessProcessDescriptions() {
       return new BusinessProcessDescriptions(doc, path + "/businessProcessDescriptions");
     }
 
-    // 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+    // 6.2. Process Steps and Actor Interactions. Seeds → UC.
     public ProcessStepsAndActorInteractions processStepsAndActorInteractions() {
       return new ProcessStepsAndActorInteractions(doc, path + "/processStepsAndActorInteractions");
+    }
+  }
+
+  // BP00 Business Processes.
+  //
+  // Target business process specification — vision, principles, catalog,
+  // diagrams, improvements, relationships, detailed workflows,
+  // cross-process analysis, exception handling, and KPIs.
+  public static final class TargetOperatingModel extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public TargetOperatingModel(SpecDocument doc, String documentVersion) {
+      super(doc, "TOM");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public TargetOperatingModel(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Process vision.
+    public ProcessVision processVision() {
+      return new ProcessVision(doc, path + "/processVision");
+    }
+
+    // Design principles.
+    public ProcessDesignPrinciples designPrinciples() {
+      return new ProcessDesignPrinciples(doc, path + "/designPrinciples");
+    }
+
+    // Process catalog.
+    public ProcessCatalog processCatalog() {
+      return new ProcessCatalog(doc, path + "/processCatalog");
+    }
+
+    // Process overview diagram.
+    public ProcessOverviewDiagram processOverviewDiagram() {
+      return new ProcessOverviewDiagram(doc, path + "/processOverviewDiagram");
+    }
+
+    // Improvement summary.
+    public ProcessImprovementSummary improvementSummary() {
+      return new ProcessImprovementSummary(doc, path + "/improvementSummary");
+    }
+
+    // Process relationships.
+    public ProcessRelationships processRelationships() {
+      return new ProcessRelationships(doc, path + "/processRelationships");
+    }
+
+    // Detailed process workflows.
+    public SomList<DetailedProcessWorkflows> detailedWorkflows() {
+      return new SomList<>(doc, path + "/DEPRWO-DETA-LST", (d, p) -> new DetailedProcessWorkflows(d, p));
+    }
+
+    // Cross-process analysis.
+    public CrossProcessAnalysis crossProcessAnalysis() {
+      return new CrossProcessAnalysis(doc, path + "/crossProcessAnalysis");
+    }
+
+    // Process exception handling.
+    public ProcessExceptionHandling exceptionHandling() {
+      return new ProcessExceptionHandling(doc, path + "/exceptionHandling");
+    }
+
+    // Process metrics and KPIs.
+    public SomList<ProcessMetricsAndKpis> processMetricsAndKpis() {
+      return new SomList<>(doc, path + "/PMAK-PROC-LST", (d, p) -> new ProcessMetricsAndKpis(d, p));
+    }
+  }
+
+  // SBP.7 Target Operating Model concept.
+  //
+  // Public anchor: BABOK future-state analysis.
+  public static final class TargetOperatingModelConcept extends SomNode {
+    public TargetOperatingModelConcept(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Target organizational structure and roles.
+    public OrganizationalFramework organizationalFramework() {
+      return new OrganizationalFramework(doc, path + "/organizationalFramework");
+    }
+
+    // Target business process model.
+    public TargetBusinessProcessModel targetBusinessProcess() {
+      return new TargetBusinessProcessModel(doc, path + "/targetBusinessProcess");
     }
   }
 
@@ -49001,7 +49790,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+  // 4.1.3. Description of Task Area.
   //
   // Describes the business domain and task area the system addresses.
   // Defines the domain vocabulary and key concepts (ubiquitous language)
@@ -49021,37 +49810,37 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+    // 4.1.3.1. Domain Overview.
     public DomainOverview domainOverview() {
       return new DomainOverview(doc, path + "/domainOverview");
     }
 
-    // 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+    // 4.1.3.2. Domain Vocabulary.
     public DomainVocabulary domainVocabulary() {
       return new DomainVocabulary(doc, path + "/domainVocabulary");
     }
 
-    // 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+    // 4.1.3.3. Key Concepts.
     public KeyConcepts keyConcepts() {
       return new KeyConcepts(doc, path + "/keyConcepts");
     }
 
-    // 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+    // 4.1.3.4. Domain Boundaries.
     public DomainBoundaries domainBoundaries() {
       return new DomainBoundaries(doc, path + "/domainBoundaries");
     }
 
-    // 4.1.3.5. Business Rules [PD00-SYO-SYD-DES-RUL].
+    // 4.1.3.5. Business Rules.
     public DomainBusinessRules businessRules() {
       return new DomainBusinessRules(doc, path + "/businessRules");
     }
 
-    // 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+    // 4.1.3.6. Domain Processes.
     public DomainProcesses domainProcesses() {
       return new DomainProcesses(doc, path + "/domainProcesses");
     }
 
-    // 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+    // 4.1.3.7. Domain Events.
     public DomainEvents domainEvents() {
       return new DomainEvents(doc, path + "/domainEvents");
     }
@@ -49068,7 +49857,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A team member entry [PD00-ADM-TEA-nn] (form).
+  // A team member entry (form).
   //
   // Detailed information about a project team member including their role,
   // responsibilities, availability, and competencies.
@@ -49230,7 +50019,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+  // 8. Technical Framework Concept. Seeds → TR.
   public static final class TechnicalFrameworkConcept extends SomNode {
     public TechnicalFrameworkConcept(SpecDocument doc, String path) {
       super(doc, path);
@@ -49245,53 +50034,53 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+    // 8.1. Basic Technical Requirements.
     public BasicTechnicalRequirements basicRequirements() {
       return new BasicTechnicalRequirements(doc, path + "/basicRequirements");
     }
 
-    // 8.2. Software Design Requirements [PD00-TEC-SOF].
+    // 8.2. Software Design Requirements.
     public SoftwareDesignRequirements softwareDesign() {
       return new SoftwareDesignRequirements(doc, path + "/softwareDesign");
     }
 
-    // 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+    // 8.3. Standard Application Software Requirements.
     public StandardSoftwareRequirements standardSoftware() {
       return new StandardSoftwareRequirements(doc, path + "/standardSoftware");
     }
 
-    // 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+    // 8.4. Hardware Concept Requirements.
     public HardwareRequirements hardware() {
       return new HardwareRequirements(doc, path + "/hardware");
     }
 
-    // 8.5. Operations Requirements [PD00-TEC-OPE].
+    // 8.5. Operations Requirements.
     public OperationsRequirements operations() {
       return new OperationsRequirements(doc, path + "/operations");
     }
 
-    // 8.6. Communication Requirements [PD00-TEC-COM].
+    // 8.6. Communication Requirements.
     public CommunicationRequirements communication() {
       return new CommunicationRequirements(doc, path + "/communication");
     }
 
-    // 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+    // 8.7. System Operation and Monitoring.
     public SystemOperationAndMonitoring systemOperation() {
       return new SystemOperationAndMonitoring(doc, path + "/systemOperation");
     }
 
-    // 8.8. Security Requirements [PD00-TEC-SEC].
+    // 8.8. Security Requirements.
     public TechnicalSecurityRequirements security() {
       return new TechnicalSecurityRequirements(doc, path + "/security");
     }
 
-    // 8.9. System Architecture [PD00-TEC-ARC]. Covers HBSG AS09-SOF / DR30.
+    // 8.9. System Architecture..
     public SystemArchitectureSpec systemArchitecture() {
       return new SystemArchitectureSpec(doc, path + "/systemArchitecture");
     }
   }
 
-  // 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+  // 4.6.3. Technical Framework Conditions. Seeds → TR.
   //
   // Documents pre-existing technical constraints including mandated platforms,
   // network restrictions, compliance requirements, existing infrastructure
@@ -49341,7 +50130,7 @@ public final class TomSomV0 {
     // Technology standards that must be followed.
     // (skipped: standardsOverview has no target type)
 
-    // Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
+    // Technology standards — contains 0+× TechnologyStandard.
     public SomList<TechnologyStandardEntry> technologyStandards() {
       return new SomList<>(doc, path + "/TESTEN-TECH-LST", (d, p) -> new TechnologyStandardEntry(d, p));
     }
@@ -49349,7 +50138,7 @@ public final class TomSomV0 {
     // Integration constraints overview.
     // (skipped: integrationOverview has no target type)
 
-    // Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
+    // Integration constraints — contains 0+× IntegrationConstraint.
     public SomList<IntegrationConstraintEntry> integrationConstraints() {
       return new SomList<>(doc, path + "/INCOE1-INTE-LST", (d, p) -> new IntegrationConstraintEntry(d, p));
     }
@@ -49412,7 +50201,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+  // 4.2.2.n.4. Constraints.
   //
   // Technical constraints that may limit or shape how the goal is achieved.
   public static final class TechnicalGoalConstraints extends SomNode {
@@ -49435,7 +50224,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+  // 4.2.2.n.3. Dependencies.
   //
   // Technical dependencies affecting goal achievement.
   public static final class TechnicalGoalDependencies extends SomNode {
@@ -49458,7 +50247,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A technical goal entry [PD00-SYO-GOA-TEC-nn].
+  // A technical goal entry.
   //
   // Comprehensive technical goal definition with quality attributes,
   // architectural impact, and verification approach.
@@ -49481,22 +50270,22 @@ public final class TomSomV0 {
       return new TechnicalGoalEntryGovernance(doc, path + "/governance");
     }
 
-    // 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+    // 4.2.2.n.1. Quality Scenarios.
     public QualityScenarios qualityScenarios() {
       return new QualityScenarios(doc, path + "/qualityScenarios");
     }
 
-    // 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+    // 4.2.2.n.2. Test Criteria.
     public TechnicalGoalTestCriteria testCriteria() {
       return new TechnicalGoalTestCriteria(doc, path + "/testCriteria");
     }
 
-    // 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+    // 4.2.2.n.3. Dependencies.
     public TechnicalGoalDependencies dependencies() {
       return new TechnicalGoalDependencies(doc, path + "/dependencies");
     }
 
-    // 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+    // 4.2.2.n.4. Constraints.
     public TechnicalGoalConstraints constraints() {
       return new TechnicalGoalConstraints(doc, path + "/constraints");
     }
@@ -49535,7 +50324,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+  // 4.2.2.n.2. Test Criteria.
   //
   // Specific test criteria and acceptance thresholds for the technical goal.
   public static final class TechnicalGoalTestCriteria extends SomNode {
@@ -49563,7 +50352,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+  // 4.2.2. Technical Goals.
   //
   // Container for technical goal definitions. Technical goals define the
   // non-functional characteristics and technical capabilities the system
@@ -49615,7 +50404,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+  // 1.3.3. Technical Pain Points.
   //
   // Problems that affect development and maintenance: outdated technology,
   // security vulnerabilities, lack of documentation, vendor lock-in,
@@ -49656,7 +50445,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+  // 11.3. Technical Quality Criteria.
   //
   // Quality criteria for the technical implementation including efficiency,
   // portability, flexibility, security, maintainability, and reliability.
@@ -49672,38 +50461,38 @@ public final class TomSomV0 {
     // Technical quality overview.
     // (skipped: overview has no target type)
 
-    // 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
+    // 11.3.1. Efficiency.
     public EfficiencyQuality efficiency() {
       return new EfficiencyQuality(doc, path + "/efficiency");
     }
 
-    // 11.3.2. Portability [PD00-SYQ-TEC-POR].
+    // 11.3.2. Portability.
     public PortabilityQuality portability() {
       return new PortabilityQuality(doc, path + "/portability");
     }
 
-    // 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
+    // 11.3.3. Flexibility.
     public FlexibilityQuality flexibility() {
       return new FlexibilityQuality(doc, path + "/flexibility");
     }
 
-    // 11.3.4. Security [PD00-SYQ-TEC-SEC].
+    // 11.3.4. Security.
     public SecurityQuality security() {
       return new SecurityQuality(doc, path + "/security");
     }
 
-    // 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
+    // 11.3.5. Maintainability.
     public MaintainabilityQuality maintainability() {
       return new MaintainabilityQuality(doc, path + "/maintainability");
     }
 
-    // 11.3.6. Reliability [PD00-SYQ-TEC-REL].
+    // 11.3.6. Reliability.
     public ReliabilityQuality reliability() {
       return new ReliabilityQuality(doc, path + "/reliability");
     }
   }
 
-  // A technical requirement entry [PD00-SYO-REQ-TEC-nn].
+  // A technical requirement entry.
   //
   // Comprehensive technical requirement definition following ISO 25010
   // quality characteristics and architecture decision records.
@@ -49741,17 +50530,17 @@ public final class TomSomV0 {
       return new TechnicalRequirementEntryConstraints(doc, path + "/constraints");
     }
 
-    // 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+    // 4.3.2.n.1. Acceptance Criteria.
     public RequirementAcceptanceCriteria acceptanceCriteria() {
       return new RequirementAcceptanceCriteria(doc, path + "/acceptanceCriteria");
     }
 
-    // 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+    // 4.3.2.n.2. Dependencies.
     public RequirementDependencies dependencies() {
       return new RequirementDependencies(doc, path + "/dependencies");
     }
 
-    // 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+    // 4.3.2.n.3. Traceability.
     public RequirementTraceability traceability() {
       return new RequirementTraceability(doc, path + "/traceability");
     }
@@ -49812,7 +50601,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+  // 4.3.2. Technical Requirements.
   //
   // Container for technical requirements. Technical requirements describe
   // constraints on how the system is built — platform, performance,
@@ -49843,108 +50632,7 @@ public final class TomSomV0 {
     }
   }
 
-  // TR00 Technical Requirements.
-  //
-  // Comprehensive technical requirements: basic / software / standard-
-  // software / hardware / operations / communication / system-operation
-  // / security / architecture, plus components, framework conditions,
-  // and translation handling.
-  public static final class TechnicalRequirementsSpec extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public TechnicalRequirementsSpec(SpecDocument doc, String documentVersion) {
-      super(doc, "TR");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public TechnicalRequirementsSpec(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Basic technical requirements — PD00-TEC-BAS.
-    public BasicTechnicalRequirements basicTechnicalRequirements() {
-      return new BasicTechnicalRequirements(doc, path + "/basicTechnicalRequirements");
-    }
-
-    // Software design requirements — PD00-TEC-SOF.
-    public SoftwareDesignRequirements softwareDesignRequirements() {
-      return new SoftwareDesignRequirements(doc, path + "/softwareDesignRequirements");
-    }
-
-    // Standard application software requirements — PD00-TEC-STA.
-    public StandardSoftwareRequirements standardSoftwareRequirements() {
-      return new StandardSoftwareRequirements(doc, path + "/standardSoftwareRequirements");
-    }
-
-    // Hardware concept requirements — PD00-TEC-HAR.
-    public HardwareRequirements hardwareRequirements() {
-      return new HardwareRequirements(doc, path + "/hardwareRequirements");
-    }
-
-    // Operations requirements — PD00-TEC-OPE.
-    public OperationsRequirements operationsRequirements() {
-      return new OperationsRequirements(doc, path + "/operationsRequirements");
-    }
-
-    // Communication requirements — PD00-TEC-COM.
-    public CommunicationRequirements communicationRequirements() {
-      return new CommunicationRequirements(doc, path + "/communicationRequirements");
-    }
-
-    // System operation and monitoring — PD00-TEC-SYS.
-    public SystemOperationAndMonitoring systemOperationAndMonitoring() {
-      return new SystemOperationAndMonitoring(doc, path + "/systemOperationAndMonitoring");
-    }
-
-    // Technical security requirements — PD00-TEC-SEC.
-    public TechnicalSecurityRequirements technicalSecurityRequirements() {
-      return new TechnicalSecurityRequirements(doc, path + "/technicalSecurityRequirements");
-    }
-
-    // System architecture — PD00-TEC-ARC (new in Phase A, HBSG AS09-SOF/DR30).
-    public SystemArchitectureSpec systemArchitecture() {
-      return new SystemArchitectureSpec(doc, path + "/systemArchitecture");
-    }
-
-    // Components to use — PD00-COM (whole).
-    public ComponentsToUse componentsToUse() {
-      return new ComponentsToUse(doc, path + "/componentsToUse");
-    }
-
-    // Technical framework conditions — PD00-SYO-RES-TEC (whole).
-    public TechnicalFrameworkConditions technicalFrameworkConditions() {
-      return new TechnicalFrameworkConditions(doc, path + "/technicalFrameworkConditions");
-    }
-
-    // Translation handling requirements — PD00-USE-MUL-REQ (whole).
-    public TranslationRequirements translationRequirements() {
-      return new TranslationRequirements(doc, path + "/translationRequirements");
-    }
-  }
-
-  // 8.8. Security Requirements [PD00-TEC-SEC].
+  // 8.8. Security Requirements.
   public static final class TechnicalSecurityRequirements extends SomNode {
     public TechnicalSecurityRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -49959,17 +50647,17 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+    // 8.8.1. IT Security Standards.
     public ItSecurityStandardsSection itSecurityStandards() {
       return new ItSecurityStandardsSection(doc, path + "/itSecurityStandards");
     }
 
-    // 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+    // 8.8.2. Data Protection and Privacy.
     public DataProtectionAndPrivacySection dataProtectionAndPrivacy() {
       return new DataProtectionAndPrivacySection(doc, path + "/dataProtectionAndPrivacy");
     }
 
-    // 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+    // 8.8.3. Security Audit Requirements.
     public SecurityAuditRequirementsSection securityAuditRequirements() {
       return new SecurityAuditRequirementsSection(doc, path + "/securityAuditRequirements");
     }
@@ -49986,7 +50674,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
+  // A technology standard entry (form).
   //
   // Documents a mandated or preferred technology standard that the solution
   // must adhere to. Includes scope, compliance requirements, and exceptions.
@@ -50113,7 +50801,7 @@ public final class TomSomV0 {
     // (skipped: tenantContextPolicyDetails has no target type)
   }
 
-  // A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn].
+  // A tenant customization entry (form).
   //
   // Describes a specific area where tenants can customize their authorization
   // model — custom roles, permissions, policies, or workflows. Covers scoping,
@@ -50150,14 +50838,14 @@ public final class TomSomV0 {
     // (skipped: tenantDataIsolationDetails has no target type)
   }
 
-  // 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+  // 9.4.7. Tenant Isolation.
   //
   // Describes how multi-tenant authorization is structured: how tenant context
   // is established and propagated, how cross-tenant access is prevented or
   // controlled, how tenants can customize their authorization model, how tenant
   // onboarding/offboarding is handled from an authorization perspective, and
   // how tenant boundaries are enforced at the authorization layer.
-  // Complements TenantDataIsolationPolicy (PD00-ACC-RES-DAT) which covers
+  // Complements TenantDataIsolationPolicy which covers
   // data-level isolation; this section focuses on authorization-level isolation.
   public static final class TenantIsolation extends SomNode {
     public TenantIsolation(SpecDocument doc, String path) {
@@ -50237,7 +50925,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
+  // A test scenario entry (form).
   //
   // Represents a business-level test case covering a user journey, business
   // process, or acceptance criterion. Includes full traceability, preconditions,
@@ -50359,9 +51047,9 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.8. Test Strategy [PD00-SYQ-TST].
+  // 11.8. Test Strategy.
   //
-  // Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
+  // Overall test strategy for the project..
   public static final class TestStrategy extends SomNode {
     public TestStrategy(SpecDocument doc, String path) {
       super(doc, path);
@@ -50725,7 +51413,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+  // 10.13.3.3. Throwaway Prototype.
   //
   // Prototype evaluated and then discarded.
   public static final class ThrowawayPrototype extends SomNode {
@@ -50964,7 +51652,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A tool entry (form) [PD00-POP-TOO-TOO-nn].
+  // A tool entry (form).
   //
   // Comprehensive specification of a single tool covering identity,
   // licensing, versioning, access, integration, support, security,
@@ -51153,7 +51841,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 2.4.1. Tooling [PD00-POP-TOO-TOO].
+  // 2.4.1. Tooling.
   //
   // Container for the project's tool inventory and governance policies.
   // Covers all tool categories: development, CI/CD, communication,
@@ -51192,7 +51880,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 2.4. Tooling and Environments [PD00-POP-TOO].
+  // 2.4. Tooling and Environments.
   public static final class ToolingAndEnvironments extends SomNode {
     public ToolingAndEnvironments(SpecDocument doc, String path) {
       super(doc, path);
@@ -51207,12 +51895,12 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 2.4.1. Tooling [PD00-POP-TOO-TOO].
+    // 2.4.1. Tooling.
     public Tooling tooling() {
       return new Tooling(doc, path + "/tooling");
     }
 
-    // 2.4.2. Environments [PD00-POP-TOO-ENV].
+    // 2.4.2. Environments.
     public Environments environments() {
       return new Environments(doc, path + "/environments");
     }
@@ -51262,7 +51950,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
+  // A trade-off decision entry (form).
   public static final class TradeOffDecisionEntry extends SomNode {
     public TradeOffDecisionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -51356,7 +52044,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+  // 11.6.2. Trade-off Decisions.
   //
   // Explicit trade-off decisions between quality attributes.
   public static final class TradeOffDecisions extends SomNode {
@@ -51436,7 +52124,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+  // 14.1.3. Training Deliverables.
   public static final class TrainingDeliverables extends SomNode {
     public TrainingDeliverables(SpecDocument doc, String path) {
       super(doc, path);
@@ -51454,6 +52142,24 @@ public final class TomSomV0 {
     // Contains 0+× Deliverable.
     public SomList<DeliverableEntry> items() {
       return new SomList<>(doc, path + "/DLVEN-ITEM-LST", (d, p) -> new DeliverableEntry(d, p));
+    }
+  }
+
+  // Training & Enablement requirements.
+  //
+  // Public anchor: ISO 29148 transition requirements; PMBOK transition. The
+  // training-materials *delivery* and rollout sequencing re-home to SBP.15; the
+  // detailed training-module catalogue currently lives inside
+  // [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
+  // pending the IP-8 doc/training split.
+  public static final class TrainingEnablementRequirements extends SomNode {
+    public TrainingEnablementRequirements(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // Training & enablement requirement form.
+    public TrainingEnablementRequirementsContentForm content() {
+      return new TrainingEnablementRequirementsContentForm(doc, path + "/content");
     }
   }
 
@@ -51516,7 +52222,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A training module entry [PD00-USE-MUL-DOC-MOD-nn].
+  // A training module entry.
   public static final class TrainingModuleEntry extends SomNode {
     public TrainingModuleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -51538,7 +52244,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+  // 10.13.3.2. Training Prototype.
   //
   // Prototype where concepts are reused but not code.
   public static final class TrainingPrototype extends SomNode {
@@ -51586,7 +52292,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+  // 5.3.2. Training Requirements.
   //
   // Comprehensive training program requirements following adult learning
   // principles (ADDIE, Kirkpatrick evaluation model).
@@ -51697,7 +52403,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Transition metric entry [PD00-ORG-STR-TIM-MET-nn] (form).
+  // Transition metric entry (form).
   public static final class TransitionMetricEntry extends SomNode {
     public TransitionMetricEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -51751,7 +52457,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A transition milestone entry [PD00-ORG-STR-TIM-MIL-nn] (form).
+  // A transition milestone entry (form).
   public static final class TransitionMilestoneEntry extends SomNode {
     public TransitionMilestoneEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -51864,7 +52570,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A transition phase entry [PD00-ORG-STR-TIM-PHA-nn] (form).
+  // A transition phase entry (form).
   //
   // Defines a distinct phase in the organizational transition sequence.
   public static final class TransitionPhaseEntry extends SomNode {
@@ -51958,7 +52664,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Transition risk entry [PD00-ORG-STR-TIM-RSK-nn] (form).
+  // Transition risk entry (form).
   public static final class TransitionRiskEntry extends SomNode {
     public TransitionRiskEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -52001,6 +52707,102 @@ public final class TomSomV0 {
     }
   }
 
+  // SR00 System Rollout.
+  //
+  // End-to-end rollout specification — localization, translation,
+  // documentation and training, plus rollout plan, migration plan,
+  // user manuals, training materials, pilot, cutover, knowledge
+  // transfer, and warranty/support.
+  public static final class TransitionRolloutPlan extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public TransitionRolloutPlan(SpecDocument doc, String documentVersion) {
+      super(doc, "TRP");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public TransitionRolloutPlan(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Localization process.
+    public LocalizationProcess localizationProcess() {
+      return new LocalizationProcess(doc, path + "/localizationProcess");
+    }
+
+    // Translation process.
+    public TranslationProcess translationProcess() {
+      return new TranslationProcess(doc, path + "/translationProcess");
+    }
+
+    // Documentation and training.
+    public DocumentationAndTraining documentationAndTraining() {
+      return new DocumentationAndTraining(doc, path + "/documentationAndTraining");
+    }
+
+    // Rollout plan.
+    public RolloutPlan rolloutPlan() {
+      return new RolloutPlan(doc, path + "/rolloutPlan");
+    }
+
+    // Migration plan.
+    public MigrationPlan migrationPlan() {
+      return new MigrationPlan(doc, path + "/migrationPlan");
+    }
+
+    // User manuals.
+    public SomList<UserManuals> userManuals() {
+      return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManuals(d, p));
+    }
+
+    // Training materials.
+    public SomList<RolloutTrainingMaterials> trainingMaterials() {
+      return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterials(d, p));
+    }
+
+    // Pilot plan.
+    public PilotPlan pilotPlan() {
+      return new PilotPlan(doc, path + "/pilotPlan");
+    }
+
+    // Cutover procedures.
+    public SomList<CutoverProcedures> cutoverProcedures() {
+      return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedures(d, p));
+    }
+
+    // Knowledge transfer.
+    public KnowledgeTransfer knowledgeTransfer() {
+      return new KnowledgeTransfer(doc, path + "/knowledgeTransfer");
+    }
+
+    // Warranty and support.
+    public WarrantyAndSupport warrantyAndSupport() {
+      return new WarrantyAndSupport(doc, path + "/warrantyAndSupport");
+    }
+  }
+
   // Success metrics for the transition.
   public static final class TransitionSuccessMetrics extends SomNode {
     public TransitionSuccessMetrics(SpecDocument doc, String path) {
@@ -52029,7 +52831,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Support resource entry [PD00-ORG-STR-TIM-SUP-nn] (form).
+  // Support resource entry (form).
   public static final class TransitionSupportResourceEntry extends SomNode {
     public TransitionSupportResourceEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -52062,7 +52864,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.12.2. Translation Process [PD00-USE-MUL-TRA].
+  // 10.12.2. Translation Process.
   //
   // Workflow for translating content.
   public static final class TranslationProcess extends SomNode {
@@ -52147,7 +52949,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+  // 10.12.5. Translation Handling Requirements.
   //
   // Technical requirements for internationalization framework.
   public static final class TranslationRequirements extends SomNode {
@@ -52227,7 +53029,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].
+  // A translation vendor entry.
   public static final class TranslationVendorEntry extends SomNode {
     public TranslationVendorEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -52331,7 +53133,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+  // 4.1.2.5. Trust Boundaries.
   //
   // Security zones and trust boundaries that the system operates within
   // or crosses.
@@ -52366,7 +53168,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A typography style entry [PD00-USE-COM-LIB-TYP-nn].
+  // A typography style entry.
   public static final class TypographyStyleEntry extends SomNode {
     public TypographyStyleEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -52490,7 +53292,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A UAT test cycle entry [PD00-DEL-ACC-UAT-CYC-nn].
+  // A UAT test cycle entry.
   //
   // Represents a distinct test execution round — e.g. Cycle 1 (initial),
   // Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
@@ -52548,7 +53350,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A UAT test step entry [PD00-DEL-ACC-UAT-nn-STP-mm].
+  // A UAT test step entry.
   //
   // Individual step within a test scenario. Captures the action, input data,
   // expected result, and pass criteria at fine-grained level per IEEE 829
@@ -52574,7 +53376,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A UI component entry [PD00-USE-COM-SPE-nn].
+  // A UI component entry.
   //
   // Comprehensive specification for a single UI component covering identity,
   // visual design, behavior, states, responsiveness, accessibility,
@@ -52776,7 +53578,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.11. UI Components [PD00-USE-COM].
+  // 10.11. UI Components.
   //
   // Comprehensive UI component library specification covering design system,
   // component catalog, and detailed per-component specifications. Supports
@@ -52805,17 +53607,17 @@ public final class TomSomV0 {
       return new UiComponentsCustomization(doc, path + "/customization");
     }
 
-    // 10.11.1. Component Library [PD00-USE-COM-LIB].
+    // 10.11.1. Component Library.
     public ComponentLibrary componentLibrary() {
       return new ComponentLibrary(doc, path + "/componentLibrary");
     }
 
-    // 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+    // 10.11.2. Component Specifications — contains 0+×.
     public SomList<UiComponentEntry> componentSpecs() {
       return new SomList<>(doc, path + "/UICOEN-COMP-LST", (d, p) -> new UiComponentEntry(d, p));
     }
 
-    // 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
+    // 10.11.3. Component Families — contains 0+×.
     public SomList<ComponentFamilyEntry> componentFamilies() {
       return new SomList<>(doc, path + "/CMFA-COMP-LST", (d, p) -> new ComponentFamilyEntry(d, p));
     }
@@ -52854,7 +53656,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A design principle entry (form) [PD00-USE-VIS-PRI-nn].
+  // A design principle entry (form).
   //
   // Each principle guides UI decisions with rationale and examples.
   public static final class UiDesignPrincipleEntry extends SomNode {
@@ -52867,108 +53669,7 @@ public final class TomSomV0 {
     }
   }
 
-  // UP00 UI Prototype.
-  //
-  // Full UI design and prototype specification — vision, screens,
-  // screen flow, print, error handling, help, accessibility, responsive,
-  // components, language/country selection, prototype, wireframes and
-  // mockups.
-  public static final class UiPrototype extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public UiPrototype(SpecDocument doc, String documentVersion) {
-      super(doc, "UP");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public UiPrototype(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Design vision — PD00-USE-VIS.
-    public DesignVision designVision() {
-      return new DesignVision(doc, path + "/designVision");
-    }
-
-    // Screen descriptions — PD00-USE-SCR.
-    public ScreenDescriptions screens() {
-      return new ScreenDescriptions(doc, path + "/screens");
-    }
-
-    // Screen flow structure — PD00-USE-SCF.
-    public ScreenFlowStructure screenFlow() {
-      return new ScreenFlowStructure(doc, path + "/screenFlow");
-    }
-
-    // Print layout — PD00-USE-PRI.
-    public PrintLayout printLayout() {
-      return new PrintLayout(doc, path + "/printLayout");
-    }
-
-    // Error handling concept — PD00-USE-ERR.
-    public ErrorHandlingConcept errorHandling() {
-      return new ErrorHandlingConcept(doc, path + "/errorHandling");
-    }
-
-    // Help concept — PD00-USE-HLP.
-    public HelpConcept helpConcept() {
-      return new HelpConcept(doc, path + "/helpConcept");
-    }
-
-    // Accessibility — PD00-USE-ACC.
-    public Accessibility accessibility() {
-      return new Accessibility(doc, path + "/accessibility");
-    }
-
-    // Responsive design — PD00-USE-RES.
-    public ResponsiveDesign responsiveDesign() {
-      return new ResponsiveDesign(doc, path + "/responsiveDesign");
-    }
-
-    // UI components — PD00-USE-COM.
-    public UiComponents uiComponents() {
-      return new UiComponents(doc, path + "/uiComponents");
-    }
-
-    // Language and country selection — PD00-USE-MUL-LCS.
-    public LanguageCountrySelection languageCountrySelection() {
-      return new LanguageCountrySelection(doc, path + "/languageCountrySelection");
-    }
-
-    // Prototype — PD00-USE-PRO.
-    public Prototype prototype() {
-      return new Prototype(doc, path + "/prototype");
-    }
-
-    // Wireframes and mockups — PD00-USE-WIR (new in Phase A, HBSG AS10-WIR).
-    public SomList<WireframesAndMockups> wireframesAndMockups() {
-      return new SomList<>(doc, path + "/WIANMO-WIRE-LST", (d, p) -> new WireframesAndMockups(d, p));
-    }
-  }
-
-  // 13.8. Upgrade Cycle Framework [PD00-SSP-UPG].
+  // 13.8. Upgrade Cycle Framework.
   //
   // Post-development upgrade cycle framework. Links the upgrade process
   // defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
@@ -52987,7 +53688,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.2.1. Usability quality [PD00-SYQ-USE-USA].
+  // 11.2.1. Usability quality.
   public static final class UsabilityQuality extends SomNode {
     public UsabilityQuality(SpecDocument doc, String path) {
       super(doc, path);
@@ -53108,7 +53809,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+  // 6.2.5. Use Case Traceability.
   //
   // Use case ↔ requirement ↔ process ↔ test traceability.
   public static final class UseCaseTraceability extends SomNode {
@@ -53126,82 +53827,7 @@ public final class TomSomV0 {
     }
   }
 
-  // UC00 Use Cases.
-  //
-  // Detailed use cases derived from the target process steps and actor
-  // interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-  // and traceability.
-  public static final class UseCases extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public UseCases(SpecDocument doc, String documentVersion) {
-      super(doc, "UC");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public UseCases(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Process steps overview — PD00-TAR-STP-OVE.
-    public ProcessStepsOverview processStepsOverview() {
-      return new ProcessStepsOverview(doc, path + "/processStepsOverview");
-    }
-
-    // Actor overview — PD00-TAR-STP-ACT.
-    public ActorOverview actorOverview() {
-      return new ActorOverview(doc, path + "/actorOverview");
-    }
-
-    // Interaction catalog — PD00-TAR-STP-INT.
-    public InteractionCatalog interactionCatalog() {
-      return new InteractionCatalog(doc, path + "/interactionCatalog");
-    }
-
-    // Key scenarios — PD00-TAR-STP-SCE.
-    public KeyScenarios keyScenarios() {
-      return new KeyScenarios(doc, path + "/keyScenarios");
-    }
-
-    // Actor relationship diagram — PD00-TAR-STP-DIA.
-    public ActorRelationshipDiagram actorRelationshipDiagram() {
-      return new ActorRelationshipDiagram(doc, path + "/actorRelationshipDiagram");
-    }
-
-    // End-to-end test scenarios — PD00-TAR-STP-E2E (covers HBSG AS24).
-    public SomList<EndToEndTestScenarios> endToEndTestScenarios() {
-      return new SomList<>(doc, path + "/ETETS-ENDT-LST", (d, p) -> new EndToEndTestScenarios(d, p));
-    }
-
-    // Use case traceability — PD00-TAR-STP-TRC.
-    public UseCaseTraceability useCaseTraceability() {
-      return new UseCaseTraceability(doc, path + "/useCaseTraceability");
-    }
-  }
-
-  // 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+  // 14.2.3. User Acceptance Testing.
   //
   // Comprehensive UAT planning covering scope, environment, test data,
   // governance, scheduling, defect management, reporting, non-functional
@@ -53285,7 +53911,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+  // 4.1.4.n.4. Access and Permissions.
   //
   // Security and access control specifications for this user category.
   public static final class UserAccessPermissions extends SomNode {
@@ -53345,7 +53971,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+  // 4.1.4.n.6. Accessibility Needs.
   //
   // Accessibility requirements and accommodations for this user category.
   public static final class UserAccessibilityNeeds extends SomNode {
@@ -53390,7 +54016,7 @@ public final class TomSomV0 {
     // (skipped: stateTransitionDiagram has no target type)
   }
 
-  // A user attribute entry (form) [PD00-ACC-USE-ATT-nn].
+  // A user attribute entry (form).
   public static final class UserAttributeEntry extends SomNode {
     public UserAttributeEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -53401,7 +54027,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+  // 9.1.3. User Attributes.
   public static final class UserAttributes extends SomNode {
     public UserAttributes(SpecDocument doc, String path) {
       super(doc, path);
@@ -53422,7 +54048,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.4. User Authorization [PD00-ACC-USA].
+  // 9.4. User Authorization.
   //
   // Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
   public static final class UserAuthorization extends SomNode {
@@ -53439,43 +54065,43 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+    // 9.4.1. Authorization Model.
     public AuthorizationModel authorizationModel() {
       return new AuthorizationModel(doc, path + "/authorizationModel");
     }
 
-    // 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
+    // 9.4.2. Authorization Groups — contains 0+× Group.
     public SomList<AuthorizationGroupEntry> groups() {
       return new SomList<>(doc, path + "/AZGR-GROU-LST", (d, p) -> new AuthorizationGroupEntry(d, p));
     }
 
-    // 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+    // 9.4.3. Role Definitions — contains 1+× Role.
     public SomList<AuthorizationRoleEntry> roleDefinitions() {
       return new SomList<>(doc, path + "/AZRO-ROLE-LST", (d, p) -> new AuthorizationRoleEntry(d, p));
     }
 
-    // 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
+    // 9.4.4. Entitlements — contains 1+× Entitlement.
     public SomList<EntitlementEntry> entitlements() {
       return new SomList<>(doc, path + "/ENT-ENTI-LST", (d, p) -> new EntitlementEntry(d, p));
     }
 
-    // 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
+    // 9.4.5. Resource Keys — contains 0+× Resource Key.
     public SomList<ResourceKeyEntry> resourceKeys() {
       return new SomList<>(doc, path + "/RESKEY-RESO-LST", (d, p) -> new ResourceKeyEntry(d, p));
     }
 
-    // 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+    // 9.4.6. Role Hierarchy.
     public RoleHierarchy roleHierarchy() {
       return new RoleHierarchy(doc, path + "/roleHierarchy");
     }
 
-    // 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+    // 9.4.7. Tenant Isolation.
     public TenantIsolation tenantIsolation() {
       return new TenantIsolation(doc, path + "/tenantIsolation");
     }
   }
 
-  // A user category definition (form) [PD00-ACC-USE-CAT-nn].
+  // A user category definition (form).
   public static final class UserCategoryDefinition extends SomNode {
     public UserCategoryDefinition(SpecDocument doc, String path) {
       super(doc, path);
@@ -53486,7 +54112,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A user category entry [PD00-SYO-SYD-USR-nn].
+  // A user category entry.
   //
   // Comprehensive user persona definition including demographics, goals,
   // frustrations, technical proficiency, and system interaction patterns.
@@ -53509,37 +54135,37 @@ public final class TomSomV0 {
       return new UserCategoryEntryImportance(doc, path + "/importance");
     }
 
-    // 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+    // 4.1.4.n.1. User Persona Details.
     public UserPersonaDetails personaDetails() {
       return new UserPersonaDetails(doc, path + "/personaDetails");
     }
 
-    // 4.1.4.n.2. Role [PD00-SYO-SYD-USR-nn-ROL].
+    // 4.1.4.n.2. Role.
     public UserCategoryRoleEntry role() {
       return new UserCategoryRoleEntry(doc, path + "/role");
     }
 
-    // 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+    // 4.1.4.n.3. System Tasks — contains 1+× System Task.
     public SomList<SystemTaskEntry> systemTasks() {
       return new SomList<>(doc, path + "/SYTS-SYST-LST", (d, p) -> new SystemTaskEntry(d, p));
     }
 
-    // 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+    // 4.1.4.n.4. Access and Permissions.
     public UserAccessPermissions accessPermissions() {
       return new UserAccessPermissions(doc, path + "/accessPermissions");
     }
 
-    // 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+    // 4.1.4.n.5. Training Requirements.
     public UserTrainingRequirements trainingRequirements() {
       return new UserTrainingRequirements(doc, path + "/trainingRequirements");
     }
 
-    // 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+    // 4.1.4.n.6. Accessibility Needs.
     public UserAccessibilityNeeds accessibilityNeeds() {
       return new UserAccessibilityNeeds(doc, path + "/accessibilityNeeds");
     }
 
-    // 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+    // 4.1.4.n.7. User Journey.
     public UserJourney userJourney() {
       return new UserJourney(doc, path + "/userJourney");
     }
@@ -53567,7 +54193,7 @@ public final class TomSomV0 {
     }
   }
 
-  // Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
+  // Role within a user category.
   //
   // Organizational role and responsibilities associated with this user category.
   public static final class UserCategoryRoleEntry extends SomNode {
@@ -53580,7 +54206,7 @@ public final class TomSomV0 {
     }
   }
 
-  // User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn].
+  // User group impact entry.
   public static final class UserGroupImpactEntry extends SomNode {
     public UserGroupImpactEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -53650,7 +54276,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+  // 4.1.5. User Interaction Model.
   //
   // Describes how different user categories interact with the system including
   // access channels, interaction patterns, access levels, and session management.
@@ -53674,32 +54300,32 @@ public final class TomSomV0 {
       return new UserInteractionModelSummary(doc, path + "/summary");
     }
 
-    // 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+    // 4.1.5.1. Access Channels.
     public AccessChannels accessChannels() {
       return new AccessChannels(doc, path + "/accessChannels");
     }
 
-    // 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+    // 4.1.5.2. Interaction Patterns.
     public InteractionPatterns interactionPatterns() {
       return new InteractionPatterns(doc, path + "/interactionPatterns");
     }
 
-    // 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+    // 4.1.5.3. Access Levels.
     public AccessLevels accessLevels() {
       return new AccessLevels(doc, path + "/accessLevels");
     }
 
-    // 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+    // 4.1.5.4. Session Model.
     public SessionModel sessionModel() {
       return new SessionModel(doc, path + "/sessionModel");
     }
 
-    // 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+    // 4.1.5.5. Notification Model.
     public NotificationModel notificationModel() {
       return new NotificationModel(doc, path + "/notificationModel");
     }
 
-    // 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+    // 4.1.5.6. Multi-Channel Experience.
     public MultiChannelExperience multiChannelExperience() {
       return new MultiChannelExperience(doc, path + "/multiChannelExperience");
     }
@@ -53722,89 +54348,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
-  public static final class UserInterfaceDesign extends SomNode {
-    public UserInterfaceDesign(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
-    public DesignVision designVision() {
-      return new DesignVision(doc, path + "/designVision");
-    }
-
-    // 10.2. Screen Descriptions [PD00-USE-SCR]. Seeds → UP.
-    public ScreenDescriptions screens() {
-      return new ScreenDescriptions(doc, path + "/screens");
-    }
-
-    // 10.3. Screen Flow Structure [PD00-USE-SCF]. Seeds → UP.
-    public ScreenFlowStructure screenFlow() {
-      return new ScreenFlowStructure(doc, path + "/screenFlow");
-    }
-
-    // 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
-    public PrintLayout printLayout() {
-      return new PrintLayout(doc, path + "/printLayout");
-    }
-
-    // Data Structure Alignment.
-    // (skipped: dataStructureAlignment has no target type)
-
-    // Authorization Compliance.
-    // (skipped: authorizationCompliance has no target type)
-
-    // 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
-    public ErrorHandlingConcept errorHandling() {
-      return new ErrorHandlingConcept(doc, path + "/errorHandling");
-    }
-
-    // 10.8. Help Concept [PD00-USE-HLP]. Seeds → UP.
-    public HelpConcept helpConcept() {
-      return new HelpConcept(doc, path + "/helpConcept");
-    }
-
-    // 10.9. Accessibility [PD00-USE-ACC]. Seeds → UP.
-    public Accessibility accessibility() {
-      return new Accessibility(doc, path + "/accessibility");
-    }
-
-    // 10.10. Responsive Design [PD00-USE-RES]. Seeds → UP.
-    public ResponsiveDesign responsiveDesign() {
-      return new ResponsiveDesign(doc, path + "/responsiveDesign");
-    }
-
-    // 10.11. UI Components [PD00-USE-COM]. Seeds → UP.
-    public UiComponents uiComponents() {
-      return new UiComponents(doc, path + "/uiComponents");
-    }
-
-    // 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
-    public MultiLanguageAndRollout multiLanguage() {
-      return new MultiLanguageAndRollout(doc, path + "/multiLanguage");
-    }
-
-    // 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
-    public Prototype prototype() {
-      return new Prototype(doc, path + "/prototype");
-    }
-
-    // 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
-    public SomList<WireframesAndMockups> wireframesAndMockups() {
-      return new SomList<>(doc, path + "/WIANMO-WIRE-LST", (d, p) -> new WireframesAndMockups(d, p));
-    }
-  }
-
-  // 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+  // 4.1.4.n.7. User Journey.
   //
   // Key touchpoints and journey map for this user category's experience.
   public static final class UserJourney extends SomNode {
@@ -53873,7 +54417,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+  // 9.1.2. User Lifecycle.
   //
   // Defines the complete user account lifecycle: states, transitions between
   // states, approval requirements for each transition, and operational policies
@@ -53941,7 +54485,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A lifecycle transition entry (form) [PD00-ACC-USE-LIF-nn].
+  // A lifecycle transition entry (form).
   //
   // Defines a single permissible transition between two lifecycle states,
   // including trigger, approval, and side effects.
@@ -54033,7 +54577,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9.1. User Management [PD00-ACC-USE].
+  // 9.1. User Management.
   public static final class UserManagement extends SomNode {
     public UserManagement(SpecDocument doc, String path) {
       super(doc, path);
@@ -54048,23 +54592,23 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 9.1.1. User Categories [PD00-ACC-USE-CAT].
+    // 9.1.1. User Categories.
     public AccessUserCategories userCategories() {
       return new AccessUserCategories(doc, path + "/userCategories");
     }
 
-    // 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+    // 9.1.2. User Lifecycle.
     public UserLifecycleSection userLifecycle() {
       return new UserLifecycleSection(doc, path + "/userLifecycle");
     }
 
-    // 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+    // 9.1.3. User Attributes.
     public UserAttributes userAttributes() {
       return new UserAttributes(doc, path + "/userAttributes");
     }
   }
 
-  // 15.3. User Manuals [PD00-ROL-DOC].
+  // 15.3. User Manuals.
   //
   // End-user documentation deliverables covering DR15 User Manual content.
   public static final class UserManuals extends SomNode {
@@ -54099,7 +54643,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+  // 4.1.4.n.1. User Persona Details.
   //
   // Detailed persona information including demographics, goals, frustrations,
   // and behavioral characteristics for user-centered design.
@@ -54186,7 +54730,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.1.3. User Personas [PD00-USE-VIS-PER].
+  // 10.1.3. User Personas.
   //
   // Container for user persona definitions. Each persona represents a distinct
   // user archetype with goals, pain points, and context.
@@ -54272,7 +54816,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+  // 11.2. User-Related Quality Criteria.
   //
   // Quality criteria that directly affect user experience, including usability,
   // functional completeness, and correctness from the end-user perspective.
@@ -54288,17 +54832,17 @@ public final class TomSomV0 {
     // User quality criteria overview.
     // (skipped: overview has no target type)
 
-    // 11.2.1. Usability [PD00-SYQ-USE-USA].
+    // 11.2.1. Usability.
     public UsabilityQuality usability() {
       return new UsabilityQuality(doc, path + "/usability");
     }
 
-    // 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
+    // 11.2.2. Functional Completeness.
     public FunctionalCompletenessQuality functionalCompleteness() {
       return new FunctionalCompletenessQuality(doc, path + "/functionalCompleteness");
     }
 
-    // 11.2.3. Correctness [PD00-SYQ-USE-COR].
+    // 11.2.3. Correctness.
     public CorrectnessQuality correctness() {
       return new CorrectnessQuality(doc, path + "/correctness");
     }
@@ -54329,7 +54873,7 @@ public final class TomSomV0 {
     // (skipped: registrationFlowDiagram has no target type)
   }
 
-  // 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+  // 4.1.4.n.5. Training Requirements.
   //
   // Training and onboarding requirements for this user category.
   public static final class UserTrainingRequirements extends SomNode {
@@ -54357,7 +54901,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
+  // A utility menu item entry (form).
   //
   // Entry in a utility popup/dropdown menu (e.g., user menu items).
   public static final class UtilityMenuItemEntry extends SomNode {
@@ -54402,7 +54946,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+  // 10.3.1.5. Utility Navigation.
   //
   // Always-visible utility items: user menu, notifications, help, settings.
   public static final class UtilityNavigation extends SomNode {
@@ -54425,7 +54969,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A utility navigation item entry (form) [PD00-USE-SCF-NAV-UTL-nn].
+  // A utility navigation item entry (form).
   //
   // A persistent utility element in the app bar: user avatar, notifications bell,
   // help icon, settings.
@@ -54476,7 +55020,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+  // 7.1.6. Validation Constraints.
   //
   // Cross-entity validation policy. Per-field validation lives in entity
   // form fields; this section captures rules that span multiple fields or
@@ -54496,7 +55040,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+  // 10.7.1. Validation Feedback.
   //
   // Field validation error display and feedback mechanisms.
   public static final class ValidationFeedback extends SomNode {
@@ -54586,7 +55130,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A validation message template [PD00-USE-ERR-VAL-MSG-nn].
+  // A validation message template.
   public static final class ValidationMessageTemplate extends SomNode {
     public ValidationMessageTemplate(SpecDocument doc, String path) {
       super(doc, path);
@@ -54613,7 +55157,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+  // 4.1.1.4. Value Proposition.
   //
   // Clear articulation of the value this system provides, including
   // quantifiable benefits and return on investment analysis.
@@ -54985,7 +55529,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 15.8. Warranty and Support [PD00-ROL-WAR].
+  // 15.8. Warranty and Support.
   //
   // Post-acceptance warranty period terms and support arrangements. Covers
   // EK10 warranty content and feeds the SR top-level on the same topic.
@@ -55059,7 +55603,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+  // 14.2.6. Warranty.
   //
   // Post-acceptance warranty terms: duration, scope, service levels,
   // exclusions, and transition to standard support.
@@ -55117,7 +55661,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+  // 10.9.1. WCAG Compliance Level.
   public static final class WcagCompliance extends SomNode {
     public WcagCompliance(SpecDocument doc, String path) {
       super(doc, path);
@@ -55184,7 +55728,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
+  // A WCAG success criterion entry.
   public static final class WcagSuccessCriterionEntry extends SomNode {
     public WcagSuccessCriterionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -55195,7 +55739,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+  // 11.6.1. Weighted Quality Matrix.
   public static final class WeightedQualityMatrix extends SomNode {
     public WeightedQualityMatrix(SpecDocument doc, String path) {
       super(doc, path);
@@ -55217,10 +55761,10 @@ public final class TomSomV0 {
     // (skipped: matrixVisualization has no target type)
   }
 
-  // 10.14. Wireframes and Mockups [PD00-USE-WIR].
+  // 10.14. Wireframes and Mockups.
   //
   // Wireframe and mockup inventory beyond individual screen descriptions.
-  // Covers HBSG AS10-WIR.
+  // .
   public static final class WireframesAndMockups extends SomNode {
     public WireframesAndMockups(SpecDocument doc, String path) {
       super(doc, path);
@@ -55236,7 +55780,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
+  // A workflow actor entry (form).
   //
   // Documentation of a participant in the workflow.
   public static final class WorkflowActorEntry extends SomNode {
@@ -55276,10 +55820,10 @@ public final class TomSomV0 {
     }
   }
 
-  // 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+  // 1.2.nn.1. Workflow Descriptions.
   //
   // Container for workflow entries within a business process.
-  // 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+  // 1.2.nn.1. Workflow Descriptions.
   //
   // Container for workflow entries within a business process. Add one
   // subsection per current workflow relevant to the project.
@@ -55297,7 +55841,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
+    // Workflow overview diagram.
     public String workflowOverviewDiagram() {
       String v = doc.content(path + "/workflowOverviewDiagram");
       return v == null ? "" : v;
@@ -55307,7 +55851,7 @@ public final class TomSomV0 {
       doc.setContent(path + "/workflowOverviewDiagram", value);
     }
 
-    // Workflow summary table [PD00-CUR-PRO-xx-WOR-SUM].
+    // Workflow summary table.
     public WorkflowSummaryTable summaryTable() {
       return new WorkflowSummaryTable(doc, path + "/summaryTable");
     }
@@ -55372,7 +55916,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
+  // A workflow step entry (form).
   //
   // Detailed documentation of a single step within a workflow.
   public static final class WorkflowStepEntry extends SomNode {
@@ -55507,7 +56051,7 @@ public final class TomSomV0 {
     }
   }
 
-  // A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+  // A workplace description entry (form, per user category).
   //
   // Comprehensive workplace requirements following workplace design best
   // practices (OSHA, ISO 9001, ergonomic standards). Covers physical,
@@ -55527,7 +56071,7 @@ public final class TomSomV0 {
       return new PhysicalWorkplaceRequirements(doc, path + "/physicalRequirements");
     }
 
-    // 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+    // 5.3.1. Equipment Requirements.
     public EquipmentRequirements equipmentRequirements() {
       return new EquipmentRequirements(doc, path + "/equipmentRequirements");
     }
@@ -55537,7 +56081,7 @@ public final class TomSomV0 {
       return new TechnicalInfrastructure(doc, path + "/technicalInfrastructure");
     }
 
-    // 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+    // 5.3.2. Training Requirements.
     public TrainingRequirements trainingRequirements() {
       return new TrainingRequirements(doc, path + "/trainingRequirements");
     }
@@ -60679,6 +61223,49 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class ApprovalRecordContentForm extends SomNode {
+    public ApprovalRecordContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String role() {
+      String v = doc.formField(path, "role");
+      return v == null ? "" : v;
+    }
+
+    public void role(String value) {
+      doc.setFormField(path, "role", value);
+    }
+
+    public String name() {
+      String v = doc.formField(path, "name");
+      return v == null ? "" : v;
+    }
+
+    public void name(String value) {
+      doc.setFormField(path, "name", value);
+    }
+
+    public String date() {
+      String v = doc.formField(path, "date");
+      return v == null ? "" : v;
+    }
+
+    public void date(String value) {
+      doc.setFormField(path, "date", value);
+    }
+
+    public String status() {
+      String v = doc.formField(path, "status");
+      return v == null ? "" : v;
+    }
+
+    public void status(String value) {
+      doc.setFormField(path, "status", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class ArchitectureComponentEntryBoundariesContentForm extends SomNode {
     public ArchitectureComponentEntryBoundariesContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -61560,6 +62147,58 @@ public final class TomSomV0 {
 
     public void relatedRisks(String value) {
       doc.setFormField(path, "relatedRisks", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class AssumptionRegisterEntryContentForm extends SomNode {
+    public AssumptionRegisterEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String assumptionId() {
+      String v = doc.formField(path, "assumptionId");
+      return v == null ? "" : v;
+    }
+
+    public void assumptionId(String value) {
+      doc.setFormField(path, "assumptionId", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
+    }
+
+    public String impact() {
+      String v = doc.formField(path, "impact");
+      return v == null ? "" : v;
+    }
+
+    public void impact(String value) {
+      doc.setFormField(path, "impact", value);
+    }
+
+    public String validation() {
+      String v = doc.formField(path, "validation");
+      return v == null ? "" : v;
+    }
+
+    public void validation(String value) {
+      doc.setFormField(path, "validation", value);
+    }
+
+    public String status() {
+      String v = doc.formField(path, "status");
+      return v == null ? "" : v;
+    }
+
+    public void status(String value) {
+      doc.setFormField(path, "status", value);
     }
   }
 
@@ -77147,6 +77786,58 @@ public final class TomSomV0 {
 
     public void violationConsequences(String value) {
       doc.setFormField(path, "violationConsequences", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class ConstraintRegisterEntryContentForm extends SomNode {
+    public ConstraintRegisterEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String constraintId() {
+      String v = doc.formField(path, "constraintId");
+      return v == null ? "" : v;
+    }
+
+    public void constraintId(String value) {
+      doc.setFormField(path, "constraintId", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
+    }
+
+    public String type() {
+      String v = doc.formField(path, "type");
+      return v == null ? "" : v;
+    }
+
+    public void type(String value) {
+      doc.setFormField(path, "type", value);
+    }
+
+    public String source() {
+      String v = doc.formField(path, "source");
+      return v == null ? "" : v;
+    }
+
+    public void source(String value) {
+      doc.setFormField(path, "source", value);
+    }
+
+    public String impact() {
+      String v = doc.formField(path, "impact");
+      return v == null ? "" : v;
+    }
+
+    public void impact(String value) {
+      doc.setFormField(path, "impact", value);
     }
   }
 
@@ -101425,6 +102116,49 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class GlossaryEntryContentForm extends SomNode {
+    public GlossaryEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String term() {
+      String v = doc.formField(path, "term");
+      return v == null ? "" : v;
+    }
+
+    public void term(String value) {
+      doc.setFormField(path, "term", value);
+    }
+
+    public String definition() {
+      String v = doc.formField(path, "definition");
+      return v == null ? "" : v;
+    }
+
+    public void definition(String value) {
+      doc.setFormField(path, "definition", value);
+    }
+
+    public String acronym() {
+      String v = doc.formField(path, "acronym");
+      return v == null ? "" : v;
+    }
+
+    public void acronym(String value) {
+      doc.setFormField(path, "acronym", value);
+    }
+
+    public String seeAlso() {
+      String v = doc.formField(path, "seeAlso");
+      return v == null ? "" : v;
+    }
+
+    public void seeAlso(String value) {
+      doc.setFormField(path, "seeAlso", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class GoalDependencyEntryContentForm extends SomNode {
     public GoalDependencyEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -108952,6 +109686,40 @@ public final class TomSomV0 {
 
     public void restrictions(String value) {
       doc.setFormField(path, "restrictions", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class Iso25010CoverageEntryContentForm extends SomNode {
+    public Iso25010CoverageEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String characteristic() {
+      String v = doc.formField(path, "characteristic");
+      return v == null ? "" : v;
+    }
+
+    public void characteristic(String value) {
+      doc.setFormField(path, "characteristic", value);
+    }
+
+    public String addressedBy() {
+      String v = doc.formField(path, "addressedBy");
+      return v == null ? "" : v;
+    }
+
+    public void addressedBy(String value) {
+      doc.setFormField(path, "addressedBy", value);
+    }
+
+    public String targetMetric() {
+      String v = doc.formField(path, "targetMetric");
+      return v == null ? "" : v;
+    }
+
+    public void targetMetric(String value) {
+      doc.setFormField(path, "targetMetric", value);
     }
   }
 
@@ -141472,6 +142240,49 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class RevisionEntryContentForm extends SomNode {
+    public RevisionEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String version() {
+      String v = doc.formField(path, "version");
+      return v == null ? "" : v;
+    }
+
+    public void version(String value) {
+      doc.setFormField(path, "version", value);
+    }
+
+    public String date() {
+      String v = doc.formField(path, "date");
+      return v == null ? "" : v;
+    }
+
+    public void date(String value) {
+      doc.setFormField(path, "date", value);
+    }
+
+    public String author() {
+      String v = doc.formField(path, "author");
+      return v == null ? "" : v;
+    }
+
+    public void author(String value) {
+      doc.setFormField(path, "author", value);
+    }
+
+    public String summary() {
+      String v = doc.formField(path, "summary");
+      return v == null ? "" : v;
+    }
+
+    public void summary(String value) {
+      doc.setFormField(path, "summary", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class RiskAnalysisContentForm extends SomNode {
     public RiskAnalysisContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -156134,6 +156945,76 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
+  public static final class StakeholderRegisterEntryContentForm extends SomNode {
+    public StakeholderRegisterEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String stakeholderId() {
+      String v = doc.formField(path, "stakeholderId");
+      return v == null ? "" : v;
+    }
+
+    public void stakeholderId(String value) {
+      doc.setFormField(path, "stakeholderId", value);
+    }
+
+    public String name() {
+      String v = doc.formField(path, "name");
+      return v == null ? "" : v;
+    }
+
+    public void name(String value) {
+      doc.setFormField(path, "name", value);
+    }
+
+    public String role() {
+      String v = doc.formField(path, "role");
+      return v == null ? "" : v;
+    }
+
+    public void role(String value) {
+      doc.setFormField(path, "role", value);
+    }
+
+    public String interest() {
+      String v = doc.formField(path, "interest");
+      return v == null ? "" : v;
+    }
+
+    public void interest(String value) {
+      doc.setFormField(path, "interest", value);
+    }
+
+    public String influence() {
+      String v = doc.formField(path, "influence");
+      return v == null ? "" : v;
+    }
+
+    public void influence(String value) {
+      doc.setFormField(path, "influence", value);
+    }
+
+    public String concerns() {
+      String v = doc.formField(path, "concerns");
+      return v == null ? "" : v;
+    }
+
+    public void concerns(String value) {
+      doc.setFormField(path, "concerns", value);
+    }
+
+    public String engagementStrategy() {
+      String v = doc.formField(path, "engagementStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void engagementStrategy(String value) {
+      doc.setFormField(path, "engagementStrategy", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
   public static final class StakeholdersAndInterestsContentForm extends SomNode {
     public StakeholdersAndInterestsContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -166365,6 +167246,49 @@ public final class TomSomV0 {
 
     public void managementVisibility(String value) {
       doc.setFormField(path, "managementVisibility", value);
+    }
+  }
+
+  // Generated form facade for the `content` @Form section.
+  public static final class TrainingEnablementRequirementsContentForm extends SomNode {
+    public TrainingEnablementRequirementsContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public String targetAudiences() {
+      String v = doc.formField(path, "targetAudiences");
+      return v == null ? "" : v;
+    }
+
+    public void targetAudiences(String value) {
+      doc.setFormField(path, "targetAudiences", value);
+    }
+
+    public String competencyOutcomes() {
+      String v = doc.formField(path, "competencyOutcomes");
+      return v == null ? "" : v;
+    }
+
+    public void competencyOutcomes(String value) {
+      doc.setFormField(path, "competencyOutcomes", value);
+    }
+
+    public String certificationRequired() {
+      String v = doc.formField(path, "certificationRequired");
+      return v == null ? "" : v;
+    }
+
+    public void certificationRequired(String value) {
+      doc.setFormField(path, "certificationRequired", value);
+    }
+
+    public String ongoingEnablement() {
+      String v = doc.formField(path, "ongoingEnablement");
+      return v == null ? "" : v;
+    }
+
+    public void ongoingEnablement(String value) {
+      doc.setFormField(path, "ongoingEnablement", value);
     }
   }
 

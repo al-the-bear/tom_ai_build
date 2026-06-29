@@ -13,15 +13,15 @@ Map<String, dynamic> _fixtureJson() => {
       'modelVersion': 0,
       'roots': [
         {
-          'type': 'ProjectDefinition',
+          'type': 'SolutionBlueprint',
           'title': 'Project Definition',
           'sectionId': 'PD00',
           'description': 'The structured project overview.',
         },
       ],
       'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
+        'SolutionBlueprint': {
+          'name': 'SolutionBlueprint',
           'sectionId': 'PD00',
           'doc': 'Root of a project definition document.',
           'fields': [
@@ -60,7 +60,7 @@ Map<String, dynamic> _fixtureJson() => {
               'name': 'situation',
               'kind': 'complex',
               'sectionId': 'situation',
-              'type': 'CurrentSituation',
+              'type': 'CurrentLandscapeAssessment',
             },
           ],
         },
@@ -83,8 +83,8 @@ Map<String, dynamic> _fixtureJson() => {
             },
           ],
         },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
+        'CurrentLandscapeAssessment': {
+          'name': 'CurrentLandscapeAssessment',
           'sectionId': 'CS00',
           'fields': [
             {
@@ -379,7 +379,7 @@ void main() {
       expect(emitter.modelVersionString, '0.0');
       // The generated header pins the same value as a #define.
       expect(emitter.generateHeader(),
-          contains('#define PROJECT_DEFINITION_MODEL_VERSION "0.0"'));
+          contains('#define SOLUTION_BLUEPRINT_MODEL_VERSION "0.0"'));
     });
 
     test('v1 label yields major 1', () {
@@ -452,13 +452,13 @@ void main() {
     test('documentRoots subsets the generated structs', () {
       final all = SomCEmitter(_fixtureModel()).generateHeader();
       expect(all,
-          contains('typedef struct { SomNode node; } CurrentSituation;'));
+          contains('typedef struct { SomNode node; } CurrentLandscapeAssessment;'));
 
       final justRoot = SomCEmitter(_fixtureModel(),
-              documentRoots: ['ProjectDefinition'])
+              documentRoots: ['SolutionBlueprint'])
           .generateHeader();
       expect(justRoot,
-          contains('typedef struct { SomNode node; } CurrentSituation;'));
+          contains('typedef struct { SomNode node; } CurrentLandscapeAssessment;'));
     });
   });
 }

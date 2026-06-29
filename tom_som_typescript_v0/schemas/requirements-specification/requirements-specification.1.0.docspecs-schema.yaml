@@ -1,0 +1,310 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: requirements-specification/1.0
+
+section-types:
+  DAENRE-ENTI-LST:
+    prefix: daenre_enti_lst
+    pattern-check-id:
+      pattern: ^daenre_enti_lst-\d+$
+      error-message: ID must match daenre_enti_lst-NNN
+    description: Data entity entries — contains 0+× DataEntityReferenceEntry.
+  RQBIRU-RULE-LST:
+    prefix: rqbiru_rule_lst
+    pattern-check-id:
+      pattern: ^rqbiru_rule_lst-\d+$
+      error-message: ID must match rqbiru_rule_lst-NNN
+    description: Business rule entries — contains 0+× RequirementBusinessRuleEntry.
+  RQSCAC-ACTI-LST:
+    prefix: rqscac_acti_lst
+    pattern-check-id:
+      pattern: ^rqscac_acti_lst-\d+$
+      error-message: ID must match rqscac_acti_lst-NNN
+    description: Define actions available in the UI.
+  FLDVL-VALI-LST:
+    prefix: fldvl_vali_lst
+    pattern-check-id:
+      pattern: ^fldvl_vali_lst-\d+$
+      error-message: ID must match fldvl_vali_lst-NNN
+    description: Field validation rules — contains 0+× FieldValidationRule.
+  ORGIM-ACTI-LST:
+    prefix: orgim_acti_lst
+    pattern-check-id:
+      pattern: ^orgim_acti_lst-\d+$
+      error-message: ID must match orgim_acti_lst-NNN
+    description: Implementation activities — contains 0+× OrgImplementationActivity.
+  RQDEP-ITEM-LST:
+    prefix: rqdep_item_lst
+    pattern-check-id:
+      pattern: ^rqdep_item_lst-\d+$
+      error-message: ID must match rqdep_item_lst-NNN
+    description: Dependency entries — contains 0+× RequirementDependencyEntry.
+  RQTSC-TEST-LST:
+    prefix: rqtsc_test_lst
+    pattern-check-id:
+      pattern: ^rqtsc_test_lst-\d+$
+      error-message: ID must match rqtsc_test_lst-NNN
+    description: Test case entries — contains 0+× RequirementTestCaseEntry.
+  SCBHV-BEHA-LST:
+    prefix: scbhv_beha_lst
+    pattern-check-id:
+      pattern: ^scbhv_beha_lst-\d+$
+      error-message: ID must match scbhv_beha_lst-NNN
+    description: Define dynamic behaviors and interactions.
+  SCFLD-FIEL-LST:
+    prefix: scfld_fiel_lst
+    pattern-check-id:
+      pattern: ^scfld_fiel_lst-\d+$
+      error-message: ID must match scfld_fiel_lst-NNN
+    description: Define each field in the UI.
+  SECCT-CONT-LST:
+    prefix: secct_cont_lst
+    pattern-check-id:
+      pattern: ^secct_cont_lst-\d+$
+      error-message: ID must match secct_cont_lst-NNN
+    description: Security control entries — contains 0+× SecurityControlEntry.
+  SECRQ-REQU-LST:
+    prefix: secrq_requ_lst
+    pattern-check-id:
+      pattern: ^secrq_requ_lst-\d+$
+      error-message: ID must match secrq_requ_lst-NNN
+    description: Add one entry per security requirement.
+  ACCR-CRIT-LST:
+    prefix: accr_crit_lst
+    pattern-check-id:
+      pattern: ^accr_crit_lst-\d+$
+      error-message: ID must match accr_crit_lst-NNN
+    description: Add one criterion per testable condition.
+  ACPR-PARA-LST:
+    prefix: acpr_para_lst
+    pattern-check-id:
+      pattern: ^acpr_para_lst-\d+$
+      error-message: ID must match acpr_para_lst-NNN
+    description: Action parameters — contains 0+× ActionParameterEntry.
+  ORRQ-REQU-LST:
+    prefix: orrq_requ_lst
+    pattern-check-id:
+      pattern: ^orrq_requ_lst-\d+$
+      error-message: ID must match orrq_requ_lst-NNN
+    description: Add one entry per organizational requirement.
+  RERE-REQU-LST:
+    prefix: rere_requ_lst
+    pattern-check-id:
+      pattern: ^rere_requ_lst-\d+$
+      error-message: ID must match rere_requ_lst-NNN
+    description: Requirement relationships.
+  TERQ-REQU-LST:
+    prefix: terq_requ_lst
+    pattern-check-id:
+      pattern: ^terq_requ_lst-\d+$
+      error-message: ID must match terq_requ_lst-NNN
+    description: Add one entry per technical requirement.
+  FRE-REQU-LST:
+    prefix: fre_requ_lst
+    min-count-in-document: 1
+    pattern-check-id:
+      pattern: ^fre_requ_lst-\d+$
+      error-message: ID must match fre_requ_lst-NNN
+    description: "Add one entry per functional requirement. Group related requirements together. Each requirement should be atomic, testable, and have clear acceptance criteria."
+  DAENRE:
+    prefix: daenre
+    description: A reference to a data entity (form).
+  RETECA:
+    prefix: reteca
+    description: Define test cases that verify requirement implementation.
+  RETRAR:
+    prefix: retrar
+    description: Linked artifacts and test coverage references.
+  RETRIM:
+    prefix: retrim
+    description: Implementation and deployment tracking.
+  RQBIRU:
+    prefix: rqbiru
+    description: A business rule entry (form).
+  RQSCAC:
+    prefix: rqscac
+    description: A screen action entry (form).
+  SCFICO:
+    prefix: scfico
+    description: Conditional behavior.
+  SCFILA:
+    prefix: scfila
+    description: UI and layout.
+  SCFIVA:
+    prefix: scfiva
+    description: Validation rules.
+  DOCHD:
+    prefix: dochd
+    description: Standard document header present at the top of every TomSpecs document.
+  FLDVL:
+    prefix: fldvl
+    description: A field validation rule (form).
+  ORGIM:
+    prefix: orgim
+    description: An organizational implementation activity (form).
+  RECO1:
+    prefix: reco1
+    description: 4.3.6. Requirement Coverage.
+  RQDEP:
+    prefix: rqdep
+    description: A requirement dependency entry (form).
+  RQTSC:
+    prefix: rqtsc
+    description: A test case entry for requirement verification (form).
+  RTCEA:
+    prefix: rtcea
+    description: Automation and prioritization details.
+  RTCEE:
+    prefix: rtcee
+    description: Test execution details.
+  SCBHV:
+    prefix: scbhv
+    description: A screen behavior entry (form).
+  SECRQ:
+    prefix: secrq
+    description: A security requirement entry.
+  SREC1:
+    prefix: srec1
+    description: Category and classification for security requirement.
+  SREC2:
+    prefix: srec2
+    description: Compliance framework mapping for security requirement.
+  SRES2:
+    prefix: sres2
+    description: Status and ownership for security requirement.
+  ACPR:
+    prefix: acpr
+    description: An action parameter entry (form).
+  FREC:
+    prefix: frec
+    description: Assumptions and constraints for requirement.
+  FRED:
+    prefix: fred
+    description: "Requirement details: description, type, category."
+  FREM:
+    prefix: frem
+    description: Version metadata for requirement.
+  FREP:
+    prefix: frep
+    description: Priority and effort assessment.
+  FRES:
+    prefix: fres
+    description: Source and rationale for requirement.
+  FREV:
+    prefix: frev
+    description: Verification criteria for requirement.
+  OREC:
+    prefix: orec
+    description: Requirement classification and source.
+  OREI:
+    prefix: orei
+    description: Impact and change profile.
+  OREP:
+    prefix: orep
+    description: "Planning, ownership, and success tracking."
+  ORIP:
+    prefix: orip
+    description: Define the implementation approach for this organizational change requirement.
+  ORRQ:
+    prefix: orrq
+    description: An organizational requirement entry.
+  RERE:
+    prefix: rere
+    description: 4.3.5. Requirement Relationships.
+  SCE1:
+    prefix: sce1
+    description: A security control entry (form).
+  SCEI:
+    prefix: scei
+    description: Control implementation details.
+  SCEV:
+    prefix: scev
+    description: Testing and lifecycle status.
+  SECO:
+    prefix: seco
+    description: Define security controls that implement this requirement.
+  SFDB:
+    prefix: sfdb
+    description: Data binding and defaults.
+  SREV:
+    prefix: srev
+    description: Implementation and verification for security requirement.
+  TERQ:
+    prefix: terq
+    description: A technical requirement entry.
+  TREC:
+    prefix: trec
+    description: Assumptions and constraints for technical requirement.
+  TRED:
+    prefix: tred
+    description: "Technical requirement details: description, category, priority."
+  TREI:
+    prefix: trei
+    description: Impact assessment for technical requirement.
+  TREM:
+    prefix: trem
+    description: Measurement specifications for technical requirement.
+  TREV:
+    prefix: trev
+    description: Verification approach for technical requirement.
+  ACE:
+    prefix: ace
+    description: An acceptance criterion entry (form).
+  FRE:
+    prefix: fre
+    description: A functional requirement entry.
+  RAC:
+    prefix: rac
+    description: "Define clear, testable acceptance criteria. Use Given-When-Then format: Given [context], When [action], Then [expected result]."
+  RBR:
+    prefix: rbr
+    description: "Define business rules that affect this requirement. Business rules are constraints, calculations, or policies from the business domain."
+  RD1:
+    prefix: rd1
+    description: Identify requirements that must be implemented before or alongside this requirement.
+  RDR:
+    prefix: rdr
+    description: "Define the data entities and attributes this requirement reads, creates, updates, or deletes."
+  RUS:
+    prefix: rus
+    description: "Define the UI elements needed to support this requirement. Specify screens, forms, fields, actions, and behaviors."
+  SFE:
+    prefix: sfe
+    description: A screen field entry (form).
+  SR1:
+    prefix: sr1
+    description: "Security requirements protect confidentiality, integrity, and availability of information. Include authentication, authorization, data protection, and compliance requirements."
+  TR1:
+    prefix: tr1
+    description: "Technical requirements describe non-functional aspects and constraints. Each should be measurable and testable. Common categories: Performance, Scalability, Availability, Security, Maintainability."
+  FR:
+    prefix: fr
+    description: "Functional requirements describe system capabilities, behaviors, and features. Use clear, testable language. Each requirement should answer: What must the system do? For whom? Under what conditions?"
+  OR:
+    prefix: or
+    description: "Organizational requirements describe non-technical changes needed for system success: training, process changes, role changes, support structures, and communication."
+  RT:
+    prefix: rt
+    description: Document traceability links to maintain visibility of requirements throughout the project lifecycle.
+document:
+  sections:
+    header:
+      section-type: DOCHD
+      optional: true
+    functionalrequirements:
+      section-type: FR
+      optional: true
+    technicalrequirements:
+      section-type: TR1
+      optional: true
+    securityrequirements:
+      section-type: SR1
+      optional: true
+    organizationalrequirements:
+      section-type: OR
+      optional: true
+    requirementrelationships:
+      section-type: RERE-REQU-LST
+      optional: true
+    requirementcoverage:
+      section-type: RECO1
+      optional: true

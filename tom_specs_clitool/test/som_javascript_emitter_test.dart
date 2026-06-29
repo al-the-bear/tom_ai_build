@@ -14,15 +14,15 @@ Map<String, dynamic> _fixtureJson() => {
       'modelVersion': 0,
       'roots': [
         {
-          'type': 'ProjectDefinition',
+          'type': 'SolutionBlueprint',
           'title': 'Project Definition',
           'sectionId': 'PD00',
           'description': 'The structured project overview.',
         },
       ],
       'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
+        'SolutionBlueprint': {
+          'name': 'SolutionBlueprint',
           'sectionId': 'PD00',
           'doc': 'Root of a project definition document.',
           'fields': [
@@ -61,7 +61,7 @@ Map<String, dynamic> _fixtureJson() => {
               'name': 'situation',
               'kind': 'complex',
               'sectionId': 'situation',
-              'type': 'CurrentSituation',
+              'type': 'CurrentLandscapeAssessment',
             },
           ],
         },
@@ -84,8 +84,8 @@ Map<String, dynamic> _fixtureJson() => {
             },
           ],
         },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
+        'CurrentLandscapeAssessment': {
+          'name': 'CurrentLandscapeAssessment',
           'sectionId': 'CS00',
           'fields': [
             {
@@ -262,7 +262,7 @@ void main() {
 const m = require(${jsonEncode(modulePath)});
 const { SpecDocument } = require(${jsonEncode(runtimePath)});
 const doc = new SpecDocument();
-const pd = new m.ProjectDefinition(doc);
+const pd = new m.SolutionBlueprint(doc);
 if (pd.objectModelVersion !== '0.0') throw new Error('version ' + pd.objectModelVersion);
 pd.vision = 'A clear vision';
 if (pd.vision !== 'A clear vision') throw new Error('typed read');
@@ -353,12 +353,12 @@ process.stdout.write('OK');
 
     test('documentRoots subsets the generated classes', () {
       final all = SomJavaScriptEmitter(_fixtureModel()).generateLibrary();
-      expect(all, contains('class CurrentSituation extends SomNode'));
+      expect(all, contains('class CurrentLandscapeAssessment extends SomNode'));
 
       final justRoot = SomJavaScriptEmitter(_fixtureModel(),
-              documentRoots: ['ProjectDefinition'])
+              documentRoots: ['SolutionBlueprint'])
           .generateLibrary();
-      expect(justRoot, contains('class CurrentSituation extends SomNode'));
+      expect(justRoot, contains('class CurrentLandscapeAssessment extends SomNode'));
     });
   });
 }

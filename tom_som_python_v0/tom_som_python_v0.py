@@ -12,7 +12,7 @@ from tom_som_runtime import (
 )
 
 class AcceptanceCriteriaList(SomNode):
-    """14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI]."""
+    """14.2.1. Acceptance Criteria."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30,7 +30,7 @@ class AcceptanceCriteriaList(SomNode):
         return SomList(self.doc, f"{self.path}/DACEN-ITEM-LST", lambda d, p: DeliveryAcceptanceCriterionEntry(d, p))
 
 class AcceptanceCriteriaSummary(SomNode):
-    """11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+    """11.7. Acceptance Criteria Summary.
     
     Quality acceptance criteria for the project including must-pass criteria
     and quality gate checklists.
@@ -47,12 +47,12 @@ class AcceptanceCriteriaSummary(SomNode):
     def acceptanceOverview(self):
         return None  # (skipped: no target type)
 
-    # 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+    # 11.7.1. Must-Pass Criteria.
     @property
     def mustPassCriteria(self):
         return MustPassCriteria(self.doc, f"{self.path}/mustPassCriteria")
 
-    # 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+    # 11.7.2. Quality Gate Checklist.
     @property
     def qualityGateChecklist(self):
         return QualityGateChecklist(self.doc, f"{self.path}/qualityGateChecklist")
@@ -75,7 +75,7 @@ class AcceptanceCriterionEntry(SomNode):
         return AcceptanceCriterionEntryContentForm(self.doc, f"{self.path}/content")
 
 class AcceptancePlan(SomNode):
-    """14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP."""
+    """14.2. Acceptance Plan. Seeds → BQP."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -87,38 +87,38 @@ class AcceptancePlan(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+    # 14.2.1. Acceptance Criteria.
     @property
     def acceptanceCriteria(self):
         return AcceptanceCriteriaList(self.doc, f"{self.path}/acceptanceCriteria")
 
-    # 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+    # 14.2.2. Acceptance Process.
     @property
     def acceptanceProcess(self):
         return AcceptanceProcess(self.doc, f"{self.path}/acceptanceProcess")
 
-    # 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+    # 14.2.3. User Acceptance Testing.
     @property
     def userAcceptanceTesting(self):
         return UserAcceptanceTesting(self.doc, f"{self.path}/userAcceptanceTesting")
 
-    # 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+    # 14.2.4. Defect Resolution.
     @property
     def defectResolution(self):
         return DefectResolution(self.doc, f"{self.path}/defectResolution")
 
-    # 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+    # 14.2.5. Sign-off Process.
     @property
     def signOffProcess(self):
         return SignOffProcess(self.doc, f"{self.path}/signOffProcess")
 
-    # 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+    # 14.2.6. Warranty.
     @property
     def warranty(self):
         return WarrantyTerms(self.doc, f"{self.path}/warranty")
 
 class AcceptanceProcess(SomNode):
-    """14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+    """14.2.2. Acceptance Process.
     
     Defines the formal acceptance workflow from test initiation through
     final sign-off. Covers roles, responsibilities, timelines, escalation,
@@ -226,7 +226,7 @@ class AcceptanceProcessTimeline(SomNode):
         return AcceptanceProcessTimelineContentForm(self.doc, f"{self.path}/content")
 
 class AcceptanceStepEntry(SomNode):
-    """An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
+    """An acceptance step entry (form).
     
     A single step in the formal acceptance workflow, with entry/exit
     conditions, responsible parties, and outputs.
@@ -266,61 +266,8 @@ class AcceptanceStepEntryOutcome(SomNode):
     def content(self):
         return AcceptanceStepEntryOutcomeContentForm(self.doc, f"{self.path}/content")
 
-class AccessAndAuthorizationConcept(SomNode):
-    """9. Access and Authorization Concept [PD00-ACC]. Seeds → AC."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # 9.1. User Management [PD00-ACC-USE].
-    @property
-    def userManagement(self):
-        return UserManagement(self.doc, f"{self.path}/userManagement")
-
-    # 9.2. Identification and Authentication [PD00-ACC-IDE].
-    @property
-    def authentication(self):
-        return IdentificationAndAuthentication(self.doc, f"{self.path}/authentication")
-
-    # 9.3. Resource Protection [PD00-ACC-RES].
-    @property
-    def resourceProtection(self):
-        return ResourceProtection(self.doc, f"{self.path}/resourceProtection")
-
-    # 9.4. User Authorization [PD00-ACC-USA].
-    @property
-    def authorization(self):
-        return UserAuthorization(self.doc, f"{self.path}/authorization")
-
-    # 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
-    @property
-    def encryption(self):
-        return SensitiveDataEncryption(self.doc, f"{self.path}/encryption")
-
-    # 9.6. Audit and Logging [PD00-ACC-AUD].
-    @property
-    def auditAndLogging(self):
-        return AuditAndLogging(self.doc, f"{self.path}/auditAndLogging")
-
-    # 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
-    @property
-    def roleMatrix(self):
-        return RoleMatrix(self.doc, f"{self.path}/roleMatrix")
-
-    # 9.8. Compliance Framework [PD00-ACC-CMP].
-    @property
-    def complianceFramework(self):
-        return ComplianceFramework(self.doc, f"{self.path}/complianceFramework")
-
 class AccessChannels(SomNode):
-    """4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+    """4.1.5.1. Access Channels.
     
     Defines all channels through which users can access the system including
     web, mobile, desktop applications, APIs, and other interfaces.
@@ -396,7 +343,7 @@ class AccessControlModelSelection(SomNode):
         return None  # (skipped: no target type)
 
 class AccessLevelEntry(SomNode):
-    """An access level entry (form) [PD00-SYO-SYD-USI-ACC-nn]."""
+    """An access level entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -447,7 +394,7 @@ class AccessLevelEntryScope(SomNode):
         return AccessLevelEntryScopeContentForm(self.doc, f"{self.path}/content")
 
 class AccessLevels(SomNode):
-    """4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+    """4.1.5.3. Access Levels.
     
     Defines the access level hierarchy and how permissions are structured
     across user categories and system functions.
@@ -487,7 +434,7 @@ class AccessLevels(SomNode):
         self.doc.set_content(f"{self.path}/permissionMatrix", value)
 
 class AccessRestrictionEntry(SomNode):
-    """An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
+    """An access restriction entry (form).
     
     Specific access restrictions for classified data.
     """
@@ -499,7 +446,7 @@ class AccessRestrictionEntry(SomNode):
         return AccessRestrictionEntryContentForm(self.doc, f"{self.path}/content")
 
 class AccessUserCategories(SomNode):
-    """9.1.1. User Categories [PD00-ACC-USE-CAT]."""
+    """9.1.1. User Categories."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -517,7 +464,7 @@ class AccessUserCategories(SomNode):
         return SomList(self.doc, f"{self.path}/USCDF-ITEM-LST", lambda d, p: UserCategoryDefinition(d, p))
 
 class Accessibility(SomNode):
-    """10.9. Accessibility [PD00-USE-ACC].
+    """10.9. Accessibility.
     
     Comprehensive accessibility requirements for the user interface following
     WCAG guidelines and inclusive design principles.
@@ -549,12 +496,12 @@ class Accessibility(SomNode):
     def accessibilityOverview(self):
         return None  # (skipped: no target type)
 
-    # 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+    # 10.9.1. WCAG Compliance Level.
     @property
     def wcagComplianceLevel(self):
         return WcagCompliance(self.doc, f"{self.path}/wcagComplianceLevel")
 
-    # 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+    # 10.9.2. Accessibility Checklist.
     @property
     def accessibilityChecklist(self):
         return AccessibilityChecklist(self.doc, f"{self.path}/accessibilityChecklist")
@@ -575,7 +522,7 @@ class Accessibility(SomNode):
         return None  # (skipped: no target type)
 
 class AccessibilityCheckEntry(SomNode):
-    """An accessibility check entry (form) [PD00-USE-ACC-CHK-nn]."""
+    """An accessibility check entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -626,7 +573,7 @@ class AccessibilityCheckEntryRemediation(SomNode):
         return AccessibilityCheckEntryRemediationContentForm(self.doc, f"{self.path}/content")
 
 class AccessibilityChecklist(SomNode):
-    """10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+    """10.9.2. Accessibility Checklist.
     
     Comprehensive accessibility verification checklist.
     """
@@ -915,7 +862,7 @@ class ActorDiagramOverview(SomNode):
         return ActorDiagramOverviewContentForm(self.doc, f"{self.path}/content")
 
 class ActorEntry(SomNode):
-    """An actor entry [PD00-TAR-STP-ACT-nn].
+    """An actor entry.
     
     Comprehensive actor definition following UML and Cockburn conventions.
     """
@@ -980,7 +927,7 @@ class ActorInteractionsSummary(SomNode):
         return ActorInteractionsSummaryContentForm(self.doc, f"{self.path}/content")
 
 class ActorOverview(SomNode):
-    """6.2.1. Actor Overview [PD00-TAR-STP-ACT].
+    """6.2.1. Actor Overview.
     
     Actors represent roles that interact with the system. Follows UML actor
     modeling conventions with Cockburn-style goal and scope annotations.
@@ -1030,7 +977,7 @@ class ActorPermissions(SomNode):
         return ActorPermissionsContentForm(self.doc, f"{self.path}/content")
 
 class ActorRelationshipDiagram(SomNode):
-    """6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA]."""
+    """6.2. Actor Relationship Diagram."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -1119,7 +1066,7 @@ class AdminInterfaceRequirementsOperations(SomNode):
         return AdminInterfaceRequirementsOperationsContentForm(self.doc, f"{self.path}/content")
 
 class AdministrationRequirementsSection(SomNode):
-    """8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM]."""
+    """8.7.1.1. Administration Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -1167,7 +1114,7 @@ class AdministrationRequirementsSection(SomNode):
         return SystemDiagnosticTools(self.doc, f"{self.path}/diagnosticTools")
 
 class Administrative(SomNode):
-    """3. Administrative [PD00-ADM].
+    """3. Administrative.
     
     Project-specific administrative information including team composition,
     distribution channels, procedural agreements, and reference documentation.
@@ -1190,32 +1137,32 @@ class Administrative(SomNode):
     def summary(self):
         return AdministrativeSummary(self.doc, f"{self.path}/summary")
 
-    # 3.1. Project Organization [PD00-ADM-PRO].
+    # 3.1. Project Organization.
     @property
     def projectOrganization(self):
         return ProjectOrganization(self.doc, f"{self.path}/projectOrganization")
 
-    # 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
+    # 3.2. Project Team Staffing — contains 1+× Team Member.
     @property
     def projectTeamStaffing(self):
         return ProjectTeamStaffing(self.doc, f"{self.path}/projectTeamStaffing")
 
-    # 3.3. Distribution List [PD00-ADM-DIS].
+    # 3.3. Distribution List.
     @property
     def distributionList(self):
         return DistributionList(self.doc, f"{self.path}/distributionList")
 
-    # 3.4. Change Procedure [PD00-ADM-CHA].
+    # 3.4. Change Procedure.
     @property
     def changeProcedure(self):
         return ChangeProcedure(self.doc, f"{self.path}/changeProcedure")
 
-    # 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
+    # 3.5. Reference Documents — contains 0+× Reference Document.
     @property
     def referenceDocuments(self):
         return ReferenceDocuments(self.doc, f"{self.path}/referenceDocuments")
 
-    # 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+    # 3.6. Other Administrative Requirements.
     @property
     def otherAdministrative(self):
         return OtherAdministrativeRequirements(self.doc, f"{self.path}/otherAdministrative")
@@ -1247,7 +1194,7 @@ class AdministrativeSummary(SomNode):
         return AdministrativeSummaryContentForm(self.doc, f"{self.path}/content")
 
 class AffectedDepartmentEntry(SomNode):
-    """An affected department entry [PD00-SYO-RES-ORG-DEP-nn]."""
+    """An affected department entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -1256,7 +1203,7 @@ class AffectedDepartmentEntry(SomNode):
         return AffectedDepartmentEntryContentForm(self.doc, f"{self.path}/content")
 
 class AffectedFunctionEntry(SomNode):
-    """An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
+    """An affected function reference entry (form).
     
     Functions where this rule applies.
     """
@@ -1276,7 +1223,7 @@ class AffectedFunctionEntry(SomNode):
         self.doc.set_content(f"{self.path}/functionRef", value)
 
 class AffectedObjectEntry(SomNode):
-    """An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
+    """An affected object reference entry (form).
     
     Business objects affected by this rule.
     """
@@ -1449,7 +1396,7 @@ class AlertNotificationChannelsRouting(SomNode):
         return AlertNotificationChannelsRoutingContentForm(self.doc, f"{self.path}/content")
 
 class AlertRuleEntry(SomNode):
-    """An alert rule entry [PD00-TEC-SYS-MON-ALR-nn]."""
+    """An alert rule entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -1509,7 +1456,7 @@ class AlertSuppressionRules(SomNode):
         return AlertSuppressionRulesContentForm(self.doc, f"{self.path}/content")
 
 class AlertingConfiguration(SomNode):
-    """8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+    """8.7.2.2. Alerting Configuration.
     
     Comprehensive alerting rules, notification channels, and escalation
     policies.
@@ -1617,7 +1564,7 @@ class AlertingRequirementsSuppression(SomNode):
         return AlertingRequirementsSuppressionContentForm(self.doc, f"{self.path}/content")
 
 class AlternativeFlowEntry(SomNode):
-    """An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn]."""
+    """An alternative flow entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -1631,7 +1578,7 @@ class AlternativeFlowEntry(SomNode):
         return SomList(self.doc, f"{self.path}/ALST-STEP-LST", lambda d, p: AlternativeStepEntry(d, p))
 
 class AlternativeStepEntry(SomNode):
-    """An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn]."""
+    """An alternative step entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -1861,7 +1808,7 @@ class ApiRequestValidationPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class ApiSecurity(SomNode):
-    """9.3.2. API Security [PD00-ACC-RES-API].
+    """9.3.2. API Security.
     
     Comprehensive API security specification covering authentication,
     authorization, request validation, CORS policy, input sanitization,
@@ -2222,6 +2169,15 @@ class ApplicationSecurityRequirementsValidation(SomNode):
     def content(self):
         return ApplicationSecurityRequirementsValidationContentForm(self.doc, f"{self.path}/content")
 
+class ApprovalRecord(SomNode):
+    """A formal approval / sign-off record (form)."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ApprovalRecordContentForm(self.doc, f"{self.path}/content")
+
 class ArchitectureComponentEntry(SomNode):
     """Architecture component/service entry."""
     def __init__(self, doc, path):
@@ -2469,7 +2425,7 @@ class ArchitecturePrincipleEntryGuidance(SomNode):
         return ArchitecturePrincipleEntryGuidanceContentForm(self.doc, f"{self.path}/content")
 
 class ArchitectureStyle(SomNode):
-    """8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+    """8.1.2. Architecture Style.
     
     Target architecture style specification: monolith, modular monolith,
     microservices, event-driven, serverless, or hybrid. Includes justification
@@ -2536,8 +2492,124 @@ class ArchitectureStyle(SomNode):
     def decisionRecords(self):
         return SomList(self.doc, f"{self.path}/ARDE-DECI-LST", lambda d, p: ArchitectureDecisionRecord(d, p))
 
+class ArchitectureTechnologySpecification(SomNode):
+    """TR00 Technical Requirements.
+    
+    Comprehensive technical requirements: basic / software / standard-
+    software / hardware / operations / communication / system-operation
+    / security / architecture, plus components, framework conditions,
+    and translation handling.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "ATS")
+        check_som_model_version(ArchitectureTechnologySpecification.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return ArchitectureTechnologySpecification.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Basic technical requirements.
+    @property
+    def basicTechnicalRequirements(self):
+        return BasicTechnicalRequirements(self.doc, f"{self.path}/basicTechnicalRequirements")
+
+    # Software design requirements.
+    @property
+    def softwareDesignRequirements(self):
+        return SoftwareDesignRequirements(self.doc, f"{self.path}/softwareDesignRequirements")
+
+    # Standard application software requirements.
+    @property
+    def standardSoftwareRequirements(self):
+        return StandardSoftwareRequirements(self.doc, f"{self.path}/standardSoftwareRequirements")
+
+    # Hardware concept requirements.
+    @property
+    def hardwareRequirements(self):
+        return HardwareRequirements(self.doc, f"{self.path}/hardwareRequirements")
+
+    # Operations requirements.
+    @property
+    def operationsRequirements(self):
+        return OperationsRequirements(self.doc, f"{self.path}/operationsRequirements")
+
+    # Communication requirements.
+    @property
+    def communicationRequirements(self):
+        return CommunicationRequirements(self.doc, f"{self.path}/communicationRequirements")
+
+    # System operation and monitoring.
+    @property
+    def systemOperationAndMonitoring(self):
+        return SystemOperationAndMonitoring(self.doc, f"{self.path}/systemOperationAndMonitoring")
+
+    # Technical security requirements.
+    @property
+    def technicalSecurityRequirements(self):
+        return TechnicalSecurityRequirements(self.doc, f"{self.path}/technicalSecurityRequirements")
+
+    # System architecture (new in Phase A).
+    @property
+    def systemArchitecture(self):
+        return SystemArchitectureSpec(self.doc, f"{self.path}/systemArchitecture")
+
+    # Components to use (whole).
+    @property
+    def componentsToUse(self):
+        return ComponentsToUse(self.doc, f"{self.path}/componentsToUse")
+
+    # Technical framework conditions (whole).
+    @property
+    def technicalFrameworkConditions(self):
+        return TechnicalFrameworkConditions(self.doc, f"{self.path}/technicalFrameworkConditions")
+
+    # Translation handling requirements (whole).
+    @property
+    def translationRequirements(self):
+        return TranslationRequirements(self.doc, f"{self.path}/translationRequirements")
+
+class AssumptionConstraintRegister(SomNode):
+    """A consolidated register of assumptions and constraints."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Assumptions the solution depends on being true.
+    @property
+    def assumptions(self):
+        return SomList(self.doc, f"{self.path}/ACRG-ASMP-LST", lambda d, p: AssumptionRegisterEntry(d, p))
+
+    # Constraints the solution must operate within.
+    @property
+    def constraints(self):
+        return SomList(self.doc, f"{self.path}/ACRG-CONS-LST", lambda d, p: ConstraintRegisterEntry(d, p))
+
 class AssumptionEntry(SomNode):
-    """An assumption entry [PD00-SYO-RIS-ASS-nn] (form).
+    """An assumption entry (form).
     
     Documents a project assumption including its basis, validation approach,
     and contingency plans if the assumption proves false.
@@ -2583,6 +2655,19 @@ class AssumptionImpact(SomNode):
     def content(self):
         return AssumptionImpactContentForm(self.doc, f"{self.path}/content")
 
+class AssumptionRegisterEntry(SomNode):
+    """A single assumption register entry (form).
+    
+    Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
+    `AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return AssumptionRegisterEntryContentForm(self.doc, f"{self.path}/content")
+
 class AssumptionRelationships(SomNode):
     """Relationships to other project elements."""
     def __init__(self, doc, path):
@@ -2600,6 +2685,24 @@ class AssumptionValidation(SomNode):
     @property
     def content(self):
         return AssumptionValidationContentForm(self.doc, f"{self.path}/content")
+
+class AssumptionsConstraintsDependencies(SomNode):
+    """SBP.6 Assumptions, Constraints & Dependencies."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # The consolidated assumption / constraint register.
+    @property
+    def register(self):
+        return AssumptionConstraintRegister(self.doc, f"{self.path}/register")
 
 class AssumptionsOverview(SomNode):
     """Overview of assumptions management."""
@@ -2624,7 +2727,7 @@ class AttributeInterdependencyEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class AuditAndLogging(SomNode):
-    """9.6. Audit and Logging [PD00-ACC-AUD].
+    """9.6. Audit and Logging.
     
     Security audit and event logging requirements covering security event
     definitions, audit log format and structure, and compliance reporting.
@@ -2642,17 +2745,17 @@ class AuditAndLogging(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+    # 9.6.1. Security Events.
     @property
     def securityEvents(self):
         return SecurityEventsDefinition(self.doc, f"{self.path}/securityEvents")
 
-    # 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+    # 9.6.2. Audit Log Format.
     @property
     def auditLogFormat(self):
         return AuditLogFormat(self.doc, f"{self.path}/auditLogFormat")
 
-    # 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+    # 9.6.3. Compliance Reporting.
     @property
     def complianceReporting(self):
         return ComplianceReporting(self.doc, f"{self.path}/complianceReporting")
@@ -2690,7 +2793,7 @@ class AuditEvidenceTypeEntry(SomNode):
         return AuditEvidenceTypeEntryContentForm(self.doc, f"{self.path}/content")
 
 class AuditLogFormat(SomNode):
-    """9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+    """9.6.2. Audit Log Format.
     
     Defines the audit log format: fields to capture (who, what, when, where,
     result), log retention period, and tamper protection requirements.
@@ -2732,7 +2835,7 @@ class AuditLogFormat(SomNode):
         return None  # (skipped: no target type)
 
 class AuditRequirements(SomNode):
-    """3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+    """3.6.4. Audit Requirements.
     
     Internal and external audit obligations.
     """
@@ -2758,7 +2861,7 @@ class AuditRequirements(SomNode):
         return AuditEvidenceRequirements(self.doc, f"{self.path}/evidenceRequirements")
 
 class Authentication(SomNode):
-    """9.2.2. Authentication [PD00-ACC-IDE-AUT]."""
+    """9.2.2. Authentication."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -2770,22 +2873,22 @@ class Authentication(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+    # 9.2.2.1. Authentication Methods.
     @property
     def authenticationMethods(self):
         return AuthenticationMethods(self.doc, f"{self.path}/authenticationMethods")
 
-    # 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+    # 9.2.2.2. Authentication Flow.
     @property
     def authenticationFlow(self):
         return AuthenticationFlow(self.doc, f"{self.path}/authenticationFlow")
 
-    # 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+    # 9.2.3. Password and Credential Policy.
     @property
     def passwordAndCredentialPolicy(self):
         return PasswordAndCredentialPolicy(self.doc, f"{self.path}/passwordAndCredentialPolicy")
 
-    # 9.2.4. Session Management [PD00-ACC-IDE-SES].
+    # 9.2.4. Session Management.
     @property
     def sessionManagement(self):
         return SessionManagement(self.doc, f"{self.path}/sessionManagement")
@@ -2830,7 +2933,7 @@ class AuthenticationEventPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class AuthenticationFlow(SomNode):
-    """9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+    """9.2.2.2. Authentication Flow.
     
     Comprehensive authentication flow specification covering the complete
     login lifecycle: credential submission, validation, multi-factor challenges,
@@ -2894,7 +2997,7 @@ class AuthenticationFlow(SomNode):
         return SomList(self.doc, f"{self.path}/LGFLS-LOGI-LST", lambda d, p: LoginFlowStepEntry(d, p))
 
 class AuthenticationMethodEntry(SomNode):
-    """An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
+    """An authentication method entry (form).
     
     Detailed per-method specification aligned with NIST SP 800-63B
     authenticator types (password, OTP, cryptographic, out-of-band).
@@ -2963,7 +3066,7 @@ class AuthenticationMethodEntrySecurity(SomNode):
         return AuthenticationMethodEntrySecurityContentForm(self.doc, f"{self.path}/content")
 
 class AuthenticationMethods(SomNode):
-    """9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+    """9.2.2.1. Authentication Methods.
     
     Comprehensive authentication methods specification aligned with
     NIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).
@@ -3016,79 +3119,6 @@ class AuthenticationMethods(SomNode):
     def items(self):
         return SomList(self.doc, f"{self.path}/ATME-ITEM-LST", lambda d, p: AuthenticationMethodEntry(d, p))
 
-class AuthorizationConcept(SomNode):
-    """AC00 Authorization Concept.
-    
-    Complete access and authorization specification — user management,
-    identification and authentication, resource protection, user
-    authorization, encryption, audit/logging, role matrix, and
-    compliance framework.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "AC")
-        check_som_model_version(AuthorizationConcept.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return AuthorizationConcept.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # User management — PD00-ACC-USE.
-    @property
-    def userManagement(self):
-        return UserManagement(self.doc, f"{self.path}/userManagement")
-
-    # Identification and authentication — PD00-ACC-IDE.
-    @property
-    def identificationAndAuthentication(self):
-        return IdentificationAndAuthentication(self.doc, f"{self.path}/identificationAndAuthentication")
-
-    # Resource protection — PD00-ACC-RES.
-    @property
-    def resourceProtection(self):
-        return ResourceProtection(self.doc, f"{self.path}/resourceProtection")
-
-    # User authorization — PD00-ACC-USA.
-    @property
-    def userAuthorization(self):
-        return UserAuthorization(self.doc, f"{self.path}/userAuthorization")
-
-    # Sensitive data encryption — PD00-ACC-SEN.
-    @property
-    def sensitiveDataEncryption(self):
-        return SensitiveDataEncryption(self.doc, f"{self.path}/sensitiveDataEncryption")
-
-    # Audit and logging — PD00-ACC-AUD.
-    @property
-    def auditAndLogging(self):
-        return AuditAndLogging(self.doc, f"{self.path}/auditAndLogging")
-
-    # Role matrix — PD00-ACC-ROL (covers HBSG AS22-AUM).
-    @property
-    def roleMatrix(self):
-        return RoleMatrix(self.doc, f"{self.path}/roleMatrix")
-
-    # Compliance framework — PD00-ACC-CMP.
-    @property
-    def complianceFramework(self):
-        return ComplianceFramework(self.doc, f"{self.path}/complianceFramework")
-
 class AuthorizationEventPolicy(SomNode):
     """Authorization event policy (form).
     
@@ -3107,7 +3137,7 @@ class AuthorizationEventPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class AuthorizationGroupEntry(SomNode):
-    """An authorization group entry [PD00-ACC-USA-GRP-nn] (form)."""
+    """An authorization group entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -3121,7 +3151,7 @@ class AuthorizationGroupEntry(SomNode):
         return SomList(self.doc, f"{self.path}/ROLREF-CONT-LST", lambda d, p: RoleReferenceEntry(d, p))
 
 class AuthorizationModel(SomNode):
-    """9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+    """9.4.1. Authorization Model.
     
     Describes the authorization model used by the system — RBAC, ABAC, ReBAC,
     or hybrid. Covers access control model selection, permission granularity
@@ -3170,7 +3200,7 @@ class AuthorizationModel(SomNode):
         return None  # (skipped: no target type)
 
 class AuthorizationRoleEntry(SomNode):
-    """An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+    """An authorization role entry (form).
     
     Defines a single authorization role with its category, scope, permission
     assignments, activation rules, provisioning, and review requirements.
@@ -3270,7 +3300,7 @@ class AuthorizationRoleEntryStructure(SomNode):
         return AuthorizationRoleEntryStructureContentForm(self.doc, f"{self.path}/content")
 
 class AvailabilityQuality(SomNode):
-    """11.4.1. Availability quality [PD00-SYQ-OPE-AVA]."""
+    """11.4.1. Availability quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -3340,7 +3370,7 @@ class AvailabilityQualityVerification(SomNode):
         return AvailabilityQualityVerificationContentForm(self.doc, f"{self.path}/content")
 
 class BackupAndRecoverySection(SomNode):
-    """8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
+    """8.5.1. Backup and Recovery.
     
     Backup frequency, retention period, recovery point objective (RPO),
     recovery time objective (RTO), and backup verification procedures.
@@ -3824,7 +3854,7 @@ class BandwidthRequirementsTraffic(SomNode):
         return BandwidthRequirementsTrafficContentForm(self.doc, f"{self.path}/content")
 
 class BasicTechnicalRequirements(SomNode):
-    """8.1. Basic Technical Requirements [PD00-TEC-BAS]."""
+    """8.1. Basic Technical Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -3836,17 +3866,17 @@ class BasicTechnicalRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+    # 8.1.1. Platform and Language.
     @property
     def platformAndLanguage(self):
         return PlatformAndLanguage(self.doc, f"{self.path}/platformAndLanguage")
 
-    # 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+    # 8.1.2. Architecture Style.
     @property
     def architectureStyle(self):
         return ArchitectureStyle(self.doc, f"{self.path}/architectureStyle")
 
-    # 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+    # 8.1.3. Design Patterns and Standards.
     @property
     def designPatternsAndStandards(self):
         return DesignPatternsAndStandards(self.doc, f"{self.path}/designPatternsAndStandards")
@@ -3935,7 +3965,7 @@ class BiometricAuthenticationPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class BoundaryAssumptionEntry(SomNode):
-    """A boundary assumption entry [PD00-SYO-SYB-ASS-nn] (form)."""
+    """A boundary assumption entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -3972,7 +4002,7 @@ class BoundaryAssumptionEntryValidation(SomNode):
         return BoundaryAssumptionEntryValidationContentForm(self.doc, f"{self.path}/content")
 
 class BoundaryAssumptions(SomNode):
-    """4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+    """4.5.3. Assumptions.
     
     Documents assumptions about external systems, data availability,
     organizational readiness, and third-party services that must hold true
@@ -3993,7 +4023,7 @@ class BoundaryAssumptions(SomNode):
         return SomList(self.doc, f"{self.path}/BOASEN-ITEM-LST", lambda d, p: BoundaryAssumptionEntry(d, p))
 
 class BoundaryInteractionPatterns(SomNode):
-    """4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT].
+    """4.5.5. Boundary Interaction Patterns.
     
     Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
     Named `BoundaryInteractionPatterns` to avoid colliding with the
@@ -4076,7 +4106,7 @@ class BoundedContextEntryScope(SomNode):
         return BoundedContextEntryScopeContentForm(self.doc, f"{self.path}/content")
 
 class BreadcrumbConfiguration(SomNode):
-    """10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD]."""
+    """10.3.1.6.1. Breadcrumb Configuration."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -4085,7 +4115,7 @@ class BreadcrumbConfiguration(SomNode):
         return BreadcrumbConfigurationContentForm(self.doc, f"{self.path}/content")
 
 class BreakpointConfiguration(SomNode):
-    """10.10.1. Breakpoints [PD00-USE-RES-BRE].
+    """10.10.1. Breakpoints.
     
     Breakpoint definitions for responsive layouts.
     """
@@ -4102,7 +4132,7 @@ class BreakpointConfiguration(SomNode):
         return SomList(self.doc, f"{self.path}/BRE-BREA-LST", lambda d, p: BreakpointEntry(d, p))
 
 class BreakpointEntry(SomNode):
-    """A breakpoint entry [PD00-USE-RES-BRE-nn]."""
+    """A breakpoint entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -4505,101 +4535,8 @@ class BusinessComponentEntryTesting(SomNode):
     def content(self):
         return BusinessComponentEntryTestingContentForm(self.doc, f"{self.path}/content")
 
-class BusinessDataModel(SomNode):
-    """BDM00 Business Data Model.
-    
-    Full business data model: entities, relationships, ER diagram, data
-    classification, business objects, function decomposition, function-
-    to-data matrix, business rules, data dictionary, and validation /
-    integrity constraints.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "BDM")
-        check_som_model_version(BusinessDataModel.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return BusinessDataModel.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Entity inventory — PD00-BUS-DAT-ENT (list).
-    @property
-    def entities(self):
-        return SomList(self.doc, f"{self.path}/DAENT-ENTI-LST", lambda d, p: DataEntityEntry(d, p))
-
-    # Entity relationships — PD00-BUS-DAT-REL.
-    @property
-    def entityRelationships(self):
-        return EntityRelationships(self.doc, f"{self.path}/entityRelationships")
-
-    # Entity-relationship diagram — PD00-BUS-DAT-DIA.
-    @property
-    def erDiagram(self):
-        return None  # (skipped: no target type)
-
-    # Data classification — PD00-BUS-DAT-CLA.
-    @property
-    def dataClassification(self):
-        return DataClassification(self.doc, f"{self.path}/dataClassification")
-
-    # Business object catalog — PD00-BUS-BUS-CAT (list).
-    @property
-    def objectCatalog(self):
-        return SomList(self.doc, f"{self.path}/BJOEN-OBJE-LST", lambda d, p: BusinessObjectEntry(d, p))
-
-    # Business object diagram — PD00-BUS-BUS-DIA.
-    @property
-    def objectDiagram(self):
-        return None  # (skipped: no target type)
-
-    # Function decomposition — PD00-BUS-FUN-DEC (list).
-    @property
-    def functionDecomposition(self):
-        return SomList(self.doc, f"{self.path}/FUNCT-FUNC-LST", lambda d, p: FunctionEntry(d, p))
-
-    # Function-to-data matrix — PD00-BUS-FUN-MAT (list).
-    @property
-    def functionToDataMatrix(self):
-        return SomList(self.doc, f"{self.path}/FNDMX-FUNC-LST", lambda d, p: FunctionDataMatrixEntry(d, p))
-
-    # Business rules catalog — PD00-BUS-FUN-RUL (list).
-    @property
-    def businessRules(self):
-        return SomList(self.doc, f"{self.path}/BIRU-BUSI-LST", lambda d, p: BusinessRuleEntry(d, p))
-
-    # Data dictionary — PD00-BUS-DAT-DIC.
-    @property
-    def dataDictionary(self):
-        return DataDictionary(self.doc, f"{self.path}/dataDictionary")
-
-    # Validation constraints — PD00-BUS-DAT-VAL.
-    @property
-    def validationConstraints(self):
-        return SomList(self.doc, f"{self.path}/VACO-VALI-LST", lambda d, p: ValidationConstraints(d, p))
-
-    # Integrity constraints — PD00-BUS-DAT-CON.
-    @property
-    def integrityConstraints(self):
-        return SomList(self.doc, f"{self.path}/INCO-INTE-LST", lambda d, p: IntegrityConstraints(d, p))
-
 class BusinessGoalEntry(SomNode):
-    """A business goal entry [PD00-SYO-GOA-BUS-nn].
+    """A business goal entry.
     
     Comprehensive business goal definition following SMART criteria with
     OKR-style key results, ownership, and tracking information.
@@ -4631,27 +4568,27 @@ class BusinessGoalEntry(SomNode):
     def strategy(self):
         return BusinessGoalEntryStrategy(self.doc, f"{self.path}/strategy")
 
-    # 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+    # 4.2.1.n.1. Key Results.
     @property
     def keyResults(self):
         return GoalKeyResults(self.doc, f"{self.path}/keyResults")
 
-    # 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+    # 4.2.1.n.2. Milestones.
     @property
     def milestones(self):
         return GoalMilestones(self.doc, f"{self.path}/milestones")
 
-    # 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+    # 4.2.1.n.3. Dependencies.
     @property
     def dependencies(self):
         return GoalDependencies(self.doc, f"{self.path}/dependencies")
 
-    # 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+    # 4.2.1.n.4. Risks.
     @property
     def risks(self):
         return GoalRisks(self.doc, f"{self.path}/risks")
 
-    # 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+    # 4.2.1.n.5. Resources.
     @property
     def resources(self):
         return GoalResources(self.doc, f"{self.path}/resources")
@@ -4693,7 +4630,7 @@ class BusinessGoalEntryStrategy(SomNode):
         return BusinessGoalEntryStrategyContentForm(self.doc, f"{self.path}/content")
 
 class BusinessGoals(SomNode):
-    """4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+    """4.2.1. Business Goals.
     
     Container for business goal definitions. Business goals define what the
     organization wants to achieve through this project in terms of business
@@ -4780,36 +4717,8 @@ class BusinessMetricsSpecTransactions(SomNode):
     def content(self):
         return BusinessMetricsSpecTransactionsContentForm(self.doc, f"{self.path}/content")
 
-class BusinessObjectAndDataModel(SomNode):
-    """7. Business Object and Data Model [PD00-BUS]. Seeds → BDM."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # 7.1. Data Model [PD00-BUS-DAT].
-    @property
-    def dataModel(self):
-        return DataModel(self.doc, f"{self.path}/dataModel")
-
-    # 7.2. Business Object Model [PD00-BUS-BUS].
-    @property
-    def businessObjectModel(self):
-        return BusinessObjectModel(self.doc, f"{self.path}/businessObjectModel")
-
-    # 7.3. Function Model [PD00-BUS-FUN].
-    @property
-    def functionModel(self):
-        return FunctionModel(self.doc, f"{self.path}/functionModel")
-
 class BusinessObjectAttributeEntry(SomNode):
-    """A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
+    """A business object attribute entry (form).
     
     Business-level attribute specification focusing on business meaning and rules.
     """
@@ -4863,7 +4772,7 @@ class BusinessObjectAttributeEntryValidation(SomNode):
         return BusinessObjectAttributeEntryValidationContentForm(self.doc, f"{self.path}/content")
 
 class BusinessObjectEntry(SomNode):
-    """A business object entry [PD00-BUS-BUS-CAT-nn] (form).
+    """A business object entry (form).
     
     Comprehensive business object specification following domain-driven design
     patterns. Business objects represent key domain concepts with behavior,
@@ -4896,38 +4805,38 @@ class BusinessObjectEntry(SomNode):
     def integrationPoints(self):
         return SomList(self.doc, f"{self.path}/INTEG-INTE-LST", lambda d, p: IntegrationPointEntry(d, p))
 
-    # Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
+    # Contains 0+× BusinessObjectAttribute.
     @property
     def attributes(self):
         return SomList(self.doc, f"{self.path}/BIOBAT-ATTR-LST", lambda d, p: BusinessObjectAttributeEntry(d, p))
 
-    # Contains 0+× ObjectState [PD00-BUS-BUS-CAT-nn-STA].
+    # Contains 0+× ObjectState.
     @property
     def keyStates(self):
         return SomList(self.doc, f"{self.path}/OBST-KEYS-LST", lambda d, p: ObjectStateEntry(d, p))
 
-    # Contains 0+× BusinessRuleReference [PD00-BUS-BUS-CAT-nn-BRR].
+    # Contains 0+× BusinessRuleReference.
     @property
     def keyBusinessRules(self):
         return SomList(self.doc, f"{self.path}/BIRURE-KEYB-LST", lambda d, p: BusinessRuleReferenceEntry(d, p))
 
-    # Contains 0+× LifecycleTransition [PD00-BUS-BUS-CAT-nn-LIF].
+    # Contains 0+× LifecycleTransition.
     @property
     def lifecycleTransitions(self):
         return SomList(self.doc, f"{self.path}/LFTRS-LIFE-LST", lambda d, p: LifecycleTransitionEntry(d, p))
 
-    # Contains 0+× ObjectOperation [PD00-BUS-BUS-CAT-nn-OPR].
+    # Contains 0+× ObjectOperation.
     @property
     def operations(self):
         return SomList(self.doc, f"{self.path}/OBOP-OPER-LST", lambda d, p: ObjectOperationEntry(d, p))
 
-    # Contains 0+× ObjectInvariant [PD00-BUS-BUS-CAT-nn-INV].
+    # Contains 0+× ObjectInvariant.
     @property
     def invariants(self):
         return SomList(self.doc, f"{self.path}/OBINV-INVA-LST", lambda d, p: ObjectInvariantEntry(d, p))
 
 class BusinessObjectModel(SomNode):
-    """7.2. Business Object Model [PD00-BUS-BUS]."""
+    """7.2. Business Object Model."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -4939,18 +4848,18 @@ class BusinessObjectModel(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.
+    # 7.2.1. Object Catalog — contains 1+× Business Object.
     @property
     def objects(self):
         return SomList(self.doc, f"{self.path}/BJOEN-OBJE-LST", lambda d, p: BusinessObjectEntry(d, p))
 
-    # 7.2.2. Business Object Diagram [PD00-BUS-BUS-DIA] (mermaid).
+    # 7.2.2. Business Object Diagram (mermaid).
     @property
     def objectDiagram(self):
         return None  # (skipped: no target type)
 
 class BusinessPainPoints(SomNode):
-    """1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+    """1.3.2. Business Pain Points.
     
     Problems that affect business outcomes: lost revenue, compliance risk,
     customer dissatisfaction, inability to scale, and missed opportunities.
@@ -4986,7 +4895,7 @@ class BusinessPainPointsSummary(SomNode):
         return BusinessPainPointsSummaryContentForm(self.doc, f"{self.path}/content")
 
 class BusinessProcessDescriptions(SomNode):
-    """6.1. Business Process Descriptions [PD00-TAR-PRO].
+    """6.1. Business Process Descriptions.
     
     Target business processes at a high level. Each process will be expanded
     with detailed workflows, triggers, decision points, and exception handling
@@ -5003,58 +4912,58 @@ class BusinessProcessDescriptions(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+    # 6.1.1. Process Vision.
     @property
     def processVision(self):
         return ProcessVision(self.doc, f"{self.path}/processVision")
 
-    # 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+    # 6.1.2. Design Principles.
     @property
     def designPrinciples(self):
         return ProcessDesignPrinciples(self.doc, f"{self.path}/designPrinciples")
 
-    # 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
+    # 6.1.3. Process Catalog — contains 1+× Business Process.
     @property
     def processCatalog(self):
         return ProcessCatalog(self.doc, f"{self.path}/processCatalog")
 
-    # 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+    # 6.1.4. Process Overview Diagram.
     @property
     def processOverviewDiagram(self):
         return ProcessOverviewDiagram(self.doc, f"{self.path}/processOverviewDiagram")
 
-    # 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+    # 6.1.5. Improvement Summary.
     @property
     def improvementSummary(self):
         return ProcessImprovementSummary(self.doc, f"{self.path}/improvementSummary")
 
-    # 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
+    # 6.1.6. Process Relationships.
     @property
     def processRelationships(self):
         return ProcessRelationships(self.doc, f"{self.path}/processRelationships")
 
-    # 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+    # 6.1.7. Detailed Process Workflows.
     @property
     def detailedWorkflows(self):
         return SomList(self.doc, f"{self.path}/DEPRWO-DETA-LST", lambda d, p: DetailedProcessWorkflows(d, p))
 
-    # 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+    # 6.1.8. Cross-Process Analysis.
     @property
     def crossProcessAnalysis(self):
         return CrossProcessAnalysis(self.doc, f"{self.path}/crossProcessAnalysis")
 
-    # 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+    # 6.1.9. Process Exception Handling.
     @property
     def exceptionHandling(self):
         return ProcessExceptionHandling(self.doc, f"{self.path}/exceptionHandling")
 
-    # 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+    # 6.1.10. Process Metrics and KPIs.
     @property
     def processMetricsAndKpis(self):
         return SomList(self.doc, f"{self.path}/PMAK-PROC-LST", lambda d, p: ProcessMetricsAndKpis(d, p))
 
 class BusinessProcessEntry(SomNode):
-    """A business process entry [PD00-TAR-PRO-CAT-nn].
+    """A business process entry.
     
     Comprehensive business process definition following BPMN 2.0 concepts.
     """
@@ -5111,192 +5020,8 @@ class BusinessProcessEntry(SomNode):
     def processFlowPreview(self):
         return None  # (skipped: no target type)
 
-class BusinessProcesses(SomNode):
-    """BP00 Business Processes.
-    
-    Target business process specification — vision, principles, catalog,
-    diagrams, improvements, relationships, detailed workflows,
-    cross-process analysis, exception handling, and KPIs.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "BP")
-        check_som_model_version(BusinessProcesses.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return BusinessProcesses.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Process vision — PD00-TAR-PRO-VIS.
-    @property
-    def processVision(self):
-        return ProcessVision(self.doc, f"{self.path}/processVision")
-
-    # Design principles — PD00-TAR-PRO-PRI.
-    @property
-    def designPrinciples(self):
-        return ProcessDesignPrinciples(self.doc, f"{self.path}/designPrinciples")
-
-    # Process catalog — PD00-TAR-PRO-CAT.
-    @property
-    def processCatalog(self):
-        return ProcessCatalog(self.doc, f"{self.path}/processCatalog")
-
-    # Process overview diagram — PD00-TAR-PRO-FLO.
-    @property
-    def processOverviewDiagram(self):
-        return ProcessOverviewDiagram(self.doc, f"{self.path}/processOverviewDiagram")
-
-    # Improvement summary — PD00-TAR-PRO-IMP.
-    @property
-    def improvementSummary(self):
-        return ProcessImprovementSummary(self.doc, f"{self.path}/improvementSummary")
-
-    # Process relationships — PD00-TAR-PRO-REL.
-    @property
-    def processRelationships(self):
-        return ProcessRelationships(self.doc, f"{self.path}/processRelationships")
-
-    # Detailed process workflows — PD00-TAR-PRO-DET.
-    @property
-    def detailedWorkflows(self):
-        return SomList(self.doc, f"{self.path}/DEPRWO-DETA-LST", lambda d, p: DetailedProcessWorkflows(d, p))
-
-    # Cross-process analysis — PD00-TAR-PRO-CRO.
-    @property
-    def crossProcessAnalysis(self):
-        return CrossProcessAnalysis(self.doc, f"{self.path}/crossProcessAnalysis")
-
-    # Process exception handling — PD00-TAR-PRO-EXC.
-    @property
-    def exceptionHandling(self):
-        return ProcessExceptionHandling(self.doc, f"{self.path}/exceptionHandling")
-
-    # Process metrics and KPIs — PD00-TAR-PRO-MET.
-    @property
-    def processMetricsAndKpis(self):
-        return SomList(self.doc, f"{self.path}/PMAK-PROC-LST", lambda d, p: ProcessMetricsAndKpis(d, p))
-
-class BusinessQualityPlan(SomNode):
-    """BQP00 Business Quality Plan.
-    
-    Full quality plan combining quality goals (PD00-SYQ) and the
-    acceptance plan (PD00-DEL-ACC). Replaces HBSG AS11 + AS23 + partial
-    AS14 coverage.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "BQP")
-        check_som_model_version(BusinessQualityPlan.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return BusinessQualityPlan.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Quality framework — PD00-SYQ-FRA.
-    @property
-    def qualityFramework(self):
-        return QualityFramework(self.doc, f"{self.path}/qualityFramework")
-
-    # User-related quality criteria — PD00-SYQ-USE.
-    @property
-    def userQualityCriteria(self):
-        return UserQualityCriteria(self.doc, f"{self.path}/userQualityCriteria")
-
-    # Technical quality criteria — PD00-SYQ-TEC.
-    @property
-    def technicalQualityCriteria(self):
-        return TechnicalQualityCriteria(self.doc, f"{self.path}/technicalQualityCriteria")
-
-    # Operations quality criteria — PD00-SYQ-OPE.
-    @property
-    def operationsQualityCriteria(self):
-        return OperationsQualityCriteria(self.doc, f"{self.path}/operationsQualityCriteria")
-
-    # Documentation quality criteria — PD00-SYQ-DOC.
-    @property
-    def documentationQualityCriteria(self):
-        return DocumentationQualityCriteria(self.doc, f"{self.path}/documentationQualityCriteria")
-
-    # Quality prioritization — PD00-SYQ-PRI.
-    @property
-    def qualityPrioritization(self):
-        return QualityPrioritization(self.doc, f"{self.path}/qualityPrioritization")
-
-    # Acceptance criteria summary — PD00-SYQ-ACC.
-    @property
-    def acceptanceCriteriaSummary(self):
-        return AcceptanceCriteriaSummary(self.doc, f"{self.path}/acceptanceCriteriaSummary")
-
-    # Test strategy — PD00-SYQ-TST (new in Phase A, HBSG AS23).
-    @property
-    def testStrategy(self):
-        return TestStrategy(self.doc, f"{self.path}/testStrategy")
-
-    # Acceptance criteria — PD00-DEL-ACC-CRI.
-    @property
-    def acceptanceCriteria(self):
-        return AcceptanceCriteriaList(self.doc, f"{self.path}/acceptanceCriteria")
-
-    # Acceptance process — PD00-DEL-ACC-PRO.
-    @property
-    def acceptanceProcess(self):
-        return AcceptanceProcess(self.doc, f"{self.path}/acceptanceProcess")
-
-    # User acceptance testing — PD00-DEL-ACC-UAT.
-    @property
-    def userAcceptanceTesting(self):
-        return UserAcceptanceTesting(self.doc, f"{self.path}/userAcceptanceTesting")
-
-    # Defect resolution — PD00-DEL-ACC-DEF.
-    @property
-    def defectResolution(self):
-        return DefectResolution(self.doc, f"{self.path}/defectResolution")
-
-    # Sign-off process — PD00-DEL-ACC-SIG.
-    @property
-    def signOffProcess(self):
-        return SignOffProcess(self.doc, f"{self.path}/signOffProcess")
-
-    # Warranty terms — PD00-DEL-ACC-WAR.
-    @property
-    def warranty(self):
-        return WarrantyTerms(self.doc, f"{self.path}/warranty")
-
 class BusinessRuleEntry(SomNode):
-    """A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
+    """A business rule entry (form).
     
     Comprehensive business rule specification following SBVR-like patterns.
     """
@@ -5327,23 +5052,23 @@ class BusinessRuleEntry(SomNode):
     def governance(self):
         return BusinessRuleEntryGovernanceForm(self.doc, f"{self.path}/governance")
 
-    # Contains 0+× AffectedObject [PD00-BUS-FUN-RUL-nn-AOB].
+    # Contains 0+× AffectedObject.
     @property
     def affectedObjects(self):
         return SomList(self.doc, f"{self.path}/AFOB-AFFE-LST", lambda d, p: AffectedObjectEntry(d, p))
 
-    # Contains 0+× AffectedFunction [PD00-BUS-FUN-RUL-nn-AFU].
+    # Contains 0+× AffectedFunction.
     @property
     def affectedFunctions(self):
         return SomList(self.doc, f"{self.path}/AFFN-AFFE-LST", lambda d, p: AffectedFunctionEntry(d, p))
 
-    # Contains 0+× RuleExample [PD00-BUS-FUN-RUL-nn-EXA].
+    # Contains 0+× RuleExample.
     @property
     def examples(self):
         return SomList(self.doc, f"{self.path}/RULEXM-EXAM-LST", lambda d, p: RuleExampleEntry(d, p))
 
 class BusinessRuleReferenceEntry(SomNode):
-    """A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
+    """A business rule reference entry (form).
     
     Reference to business rules that govern this object.
     """
@@ -5362,90 +5087,8 @@ class BusinessRuleReferenceEntry(SomNode):
     def ruleRef(self, value):
         self.doc.set_content(f"{self.path}/ruleRef", value)
 
-class BusinessSystemInteractions(SomNode):
-    """BSI00 Business System Interactions.
-    
-    Complete interaction specification between the target system and
-    external systems: inventory, patterns, testing, dependencies,
-    migration, operational concerns, and cross-boundary error handling.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "BSI")
-        check_som_model_version(BusinessSystemInteractions.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return BusinessSystemInteractions.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # External interfaces — PD00-SYO-SYB-INT.
-    @property
-    def externalInterfaces(self):
-        return ExternalInterfaces(self.doc, f"{self.path}/externalInterfaces")
-
-    # Out of scope — PD00-SYO-SYB-OUT.
-    @property
-    def outOfScope(self):
-        return OutOfScope(self.doc, f"{self.path}/outOfScope")
-
-    # Boundary assumptions — PD00-SYO-SYB-ASS.
-    @property
-    def boundaryAssumptions(self):
-        return BoundaryAssumptions(self.doc, f"{self.path}/boundaryAssumptions")
-
-    # System landscape inventory — PD00-SYO-SYB-INV.
-    @property
-    def systemInventory(self):
-        return SystemLandscapeInventory(self.doc, f"{self.path}/systemInventory")
-
-    # Boundary interaction patterns — PD00-SYO-SYB-PAT.
-    @property
-    def interactionPatterns(self):
-        return SomList(self.doc, f"{self.path}/BOINPA-INTE-LST", lambda d, p: BoundaryInteractionPatterns(d, p))
-
-    # Interaction testing strategy — PD00-SYO-SYB-TST.
-    @property
-    def testingStrategy(self):
-        return InteractionTestingStrategy(self.doc, f"{self.path}/testingStrategy")
-
-    # Interaction dependency analysis — PD00-SYO-SYB-DEP.
-    @property
-    def dependencyAnalysis(self):
-        return InteractionDependencyAnalysis(self.doc, f"{self.path}/dependencyAnalysis")
-
-    # Migration interactions — PD00-SYO-SYB-MIG.
-    @property
-    def migrationInteractions(self):
-        return SomList(self.doc, f"{self.path}/MIIN-MIGR-LST", lambda d, p: MigrationInteractions(d, p))
-
-    # Cross-boundary operational considerations — PD00-SYO-SYB-OPE.
-    @property
-    def operationalConsiderations(self):
-        return SomList(self.doc, f"{self.path}/CBOC-OPER-LST", lambda d, p: CrossBoundaryOperationalConsiderations(d, p))
-
-    # Cross-boundary error handling — PD00-SYO-SYB-ERR.
-    @property
-    def crossBoundaryErrorHandling(self):
-        return CrossBoundaryErrorHandling(self.doc, f"{self.path}/crossBoundaryErrorHandling")
-
 class CapacityPlanningSection(SomNode):
-    """8.7.3. Capacity Planning [PD00-TEC-SYS-CAP]."""
+    """8.7.3. Capacity Planning."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -5676,7 +5319,7 @@ class CertificateManagementStorage(SomNode):
         return CertificateManagementStorageContentForm(self.doc, f"{self.path}/content")
 
 class CertificationEntry(SomNode):
-    """Certification entry (form) [PD00-ORG-WOR-nn-TRA-CER-nn]."""
+    """Certification entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -5833,7 +5476,7 @@ class ChangeAdvocateEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class ChangeCategoryEntry(SomNode):
-    """A change category entry [PD00-ADM-CHA-CAT-nn].
+    """A change category entry.
     
     Defines a category of changes with specific handling rules.
     """
@@ -5887,7 +5530,7 @@ class ChangeCategoryEntryScope(SomNode):
         return ChangeCategoryEntryScopeContentForm(self.doc, f"{self.path}/content")
 
 class ChangeControlBoard(SomNode):
-    """3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+    """3.4.3. Change Control Board.
     
     Governance body responsible for major change decisions.
     """
@@ -5955,7 +5598,7 @@ class ChangeDecisionCriteria(SomNode):
         return ChangeDecisionCriteriaContentForm(self.doc, f"{self.path}/content")
 
 class ChangeImpactCriteria(SomNode):
-    """3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+    """3.4.2. Change Impact Criteria.
     
     Criteria for determining the impact level of change requests,
     which drives the approval path and stakeholder involvement.
@@ -5982,7 +5625,7 @@ class ChangeImpactCriteria(SomNode):
         return SomList(self.doc, f"{self.path}/CHIMCR-ITEM-LST", lambda d, p: ChangeImpactCriterionEntry(d, p))
 
 class ChangeImpactCriterionEntry(SomNode):
-    """A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
+    """A change impact criterion entry (form).
     
     Detailed criterion for assessing change impact in a specific dimension.
     """
@@ -6059,7 +5702,7 @@ class ChangeNotificationRules(SomNode):
         return ChangeNotificationRulesContentForm(self.doc, f"{self.path}/content")
 
 class ChangeProcedure(SomNode):
-    """3.4. Change Procedure [PD00-ADM-CHA].
+    """3.4. Change Procedure.
     
     Procedure for requesting, evaluating, and approving changes to this
     Project Definition and other project documents. Defines the change
@@ -6081,22 +5724,22 @@ class ChangeProcedure(SomNode):
     def summary(self):
         return ChangeProcedureSummary(self.doc, f"{self.path}/summary")
 
-    # 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+    # 3.4.1. Change Process.
     @property
     def changeProcess(self):
         return ChangeProcess(self.doc, f"{self.path}/changeProcess")
 
-    # 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+    # 3.4.2. Change Impact Criteria.
     @property
     def changeImpactCriteria(self):
         return ChangeImpactCriteria(self.doc, f"{self.path}/changeImpactCriteria")
 
-    # 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+    # 3.4.3. Change Control Board.
     @property
     def changeControlBoard(self):
         return ChangeControlBoard(self.doc, f"{self.path}/changeControlBoard")
 
-    # 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
+    # 3.4.4. Change Categories — contains 0+× Category.
     @property
     def changeCategories(self):
         return SomList(self.doc, f"{self.path}/CHCA-CHAN-LST", lambda d, p: ChangeCategoryEntry(d, p))
@@ -6111,7 +5754,7 @@ class ChangeProcedureSummary(SomNode):
         return ChangeProcedureSummaryContentForm(self.doc, f"{self.path}/content")
 
 class ChangeProcess(SomNode):
-    """3.4.1. Change Process [PD00-ADM-CHA-PRO].
+    """3.4.1. Change Process.
     
     Detailed workflow for change request processing from submission
     through evaluation, approval, implementation, and closure.
@@ -6173,7 +5816,7 @@ class ChangeReadinessOverview(SomNode):
         return ChangeReadinessOverviewContentForm(self.doc, f"{self.path}/content")
 
 class ChangeRoleEntry(SomNode):
-    """A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn]."""
+    """A role involved in the change process (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -6182,7 +5825,7 @@ class ChangeRoleEntry(SomNode):
         return ChangeRoleEntryContentForm(self.doc, f"{self.path}/content")
 
 class ChangeStepEntry(SomNode):
-    """A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
+    """A change process step entry (form).
     
     Detailed description of a single step in the change process workflow.
     """
@@ -6280,7 +5923,7 @@ class ChangedRoleCompetencies(SomNode):
         return CompetencyGapAssessment(self.doc, f"{self.path}/gapAssessment")
 
 class ChangedRoleEntry(SomNode):
-    """A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+    """A changed role entry (form).
     
     Documents modifications to existing roles with impact assessment,
     transition planning, and incumbent management.
@@ -6436,7 +6079,7 @@ class ChangedRoleTransitionTraining(SomNode):
         return ChangedRoleTransitionTrainingContentForm(self.doc, f"{self.path}/content")
 
 class ChangesFromCurrentStructure(SomNode):
-    """5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+    """5.1.1. Changes from Current Structure.
     
     Explicitly documents what changes from the current organization structure.
     Identifies affected departments, changed reporting lines, and new roles
@@ -6777,7 +6420,7 @@ class ClientNetworkRequirementsProxy(SomNode):
         return ClientNetworkRequirementsProxyContentForm(self.doc, f"{self.path}/content")
 
 class ClientRequirementsSection(SomNode):
-    """8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+    """8.4.2. Client Requirements.
     
     Minimum client requirements: browser versions, operating systems, screen
     resolution, network bandwidth, and device capabilities.
@@ -7318,7 +6961,7 @@ class CodingStandardsSectionReview(SomNode):
         return CodingStandardsSectionReviewContentForm(self.doc, f"{self.path}/content")
 
 class ColorPaletteEntry(SomNode):
-    """A color palette entry [PD00-USE-COM-LIB-COL-nn]."""
+    """A color palette entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -7358,7 +7001,7 @@ class CommitteeCharter(SomNode):
         return CommitteeCharterContentForm(self.doc, f"{self.path}/content")
 
 class CommitteeMemberEntry(SomNode):
-    """A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+    """A steering committee member entry (form).
     
     Detailed information about a steering committee member.
     """
@@ -7385,7 +7028,7 @@ class CommitteeResponsibilityEntry(SomNode):
 
 class CommunicationChannelEncryptionEntry(SomNode):
     """A communication channel encryption entry (form)
-    [PD00-ACC-SEN-TRA-CHA-nn].
+    .
     
     Defines encryption requirements for a specific communication channel
     (e.g. client-to-server HTTPS, server-to-database, inter-service,
@@ -7400,7 +7043,7 @@ class CommunicationChannelEncryptionEntry(SomNode):
         return CommunicationChannelEncryptionEntryContentForm(self.doc, f"{self.path}/content")
 
 class CommunicationEventEntry(SomNode):
-    """Communication event entry [PD00-ORG-STR-TIM-COM-nn] (form)."""
+    """Communication event entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -7552,7 +7195,7 @@ class CommunicationPreferenceEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class CommunicationRequirements(SomNode):
-    """8.6. Communication Requirements [PD00-TEC-COM]."""
+    """8.6. Communication Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -7564,12 +7207,12 @@ class CommunicationRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+    # 8.6.1. Protocols and Standards.
     @property
     def protocolsAndStandards(self):
         return ProtocolsAndStandardsSection(self.doc, f"{self.path}/protocolsAndStandards")
 
-    # 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+    # 8.6.2. External Connectivity.
     @property
     def externalConnectivity(self):
         return ExternalConnectivitySection(self.doc, f"{self.path}/externalConnectivity")
@@ -7593,7 +7236,7 @@ class CommunicationTypeEntry(SomNode):
         return CommunicationTypeEntryContentForm(self.doc, f"{self.path}/content")
 
 class CompatibilityRequirementsSection(SomNode):
-    """8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+    """8.3.1. Compatibility Requirements.
     
     Compatibility requirements with existing IT infrastructure, standard software,
     and enterprise systems.
@@ -7670,7 +7313,7 @@ class CompatibilityRequirementsSection(SomNode):
         return InteroperabilityRequirements(self.doc, f"{self.path}/interoperability")
 
 class CompetencyEntry(SomNode):
-    """A competency entry (form) [PD00-ORG-JOB-CMP-xx-nn]."""
+    """A competency entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -7679,7 +7322,7 @@ class CompetencyEntry(SomNode):
         return CompetencyEntryContentForm(self.doc, f"{self.path}/content")
 
 class CompetencyFramework(SomNode):
-    """5.2.5. Competency Framework [PD00-ORG-JOB-CMP]."""
+    """5.2.5. Competency Framework."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -7731,7 +7374,7 @@ class CompetencyLevelChangeEntry(SomNode):
         return CompetencyLevelChangeEntryContentForm(self.doc, f"{self.path}/content")
 
 class ComplianceAuditSchedule(SomNode):
-    """Compliance audit planning and scheduling [PD00-TEC-SEC-AUD]."""
+    """Compliance audit planning and scheduling."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -7782,7 +7425,7 @@ class ComplianceAuditScheduleReporting(SomNode):
         return ComplianceAuditScheduleReportingContentForm(self.doc, f"{self.path}/content")
 
 class ComplianceFramework(SomNode):
-    """9.8. Compliance Framework [PD00-ACC-CMP].
+    """9.8. Compliance Framework.
     
     NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
     authorization. Pulls the compliance references currently scattered
@@ -7822,7 +7465,7 @@ class ComplianceMilestoneEntry(SomNode):
         return ComplianceMilestoneEntryContentForm(self.doc, f"{self.path}/content")
 
 class ComplianceReporting(SomNode):
-    """9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+    """9.6.3. Compliance Reporting.
     
     Describes compliance reporting requirements: periodic access reviews,
     privilege usage reports, anomaly detection, and regulatory audit support.
@@ -7952,7 +7595,7 @@ class ComplianceVerificationSectionTools(SomNode):
         return ComplianceVerificationSectionToolsContentForm(self.doc, f"{self.path}/content")
 
 class ComponentActionEntry(SomNode):
-    """A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
+    """A component action entry.
     
     Defines an action that can be triggered from the component.
     """
@@ -8028,7 +7671,7 @@ class ComponentDocs(SomNode):
         return ComponentDocsContentForm(self.doc, f"{self.path}/content")
 
 class ComponentEntry(SomNode):
-    """A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+    """A component entry (form) with sub-entries.
     
     Describes a single external or standard component planned for use:
     vendor assessment, maturity, security, cost, deployment model, licensing,
@@ -8086,28 +7729,28 @@ class ComponentEntry(SomNode):
     def docs(self):
         return SomList(self.doc, f"{self.path}/CODO-DOCS-LST", lambda d, p: ComponentDocs(d, p))
 
-    # Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
+    # Interfaces — contains 0+× ComponentInterface.
     @property
     def interfaces(self):
         return SomList(self.doc, f"{self.path}/CMIF-INTE-LST", lambda d, p: ComponentInterfaceEntry(d, p))
 
-    # Licensing [PD00-COM-COM-nn-LIC] (form).
+    # Licensing (form).
     @property
     def licensing(self):
         return ComponentLicensingEntry(self.doc, f"{self.path}/licensing")
 
-    # Usage Rights [PD00-COM-COM-nn-USE].
+    # Usage Rights.
     @property
     def usageRights(self):
         return None  # (skipped: no target type)
 
-    # Responsibilities [PD00-COM-COM-nn-RES] (form).
+    # Responsibilities (form).
     @property
     def responsibilities(self):
         return SomList(self.doc, f"{self.path}/COREEN-RESP-LST", lambda d, p: ComponentResponsibilitiesEntry(d, p))
 
 class ComponentFamilyEntry(SomNode):
-    """A component family entry [PD00-USE-COM-FAM-nn].
+    """A component family entry.
     
     Groups related components by function (buttons, inputs, navigation, etc.).
     """
@@ -8194,7 +7837,7 @@ class ComponentGovernanceQuality(SomNode):
         return ComponentGovernanceQualityContentForm(self.doc, f"{self.path}/content")
 
 class ComponentInterfaceEntry(SomNode):
-    """A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
+    """A component interface entry (form).
     
     Describes one interface exposed or consumed by a component: protocol,
     authentication, data format, rate limits, versioning, SLA, monitoring.
@@ -8277,7 +7920,7 @@ class ComponentInterfaceEntrySla(SomNode):
         return ComponentInterfaceEntrySlaContentForm(self.doc, f"{self.path}/content")
 
 class ComponentLibrary(SomNode):
-    """10.11.1. Component Library [PD00-USE-COM-LIB].
+    """10.11.1. Component Library.
     
     Design system and component catalog specification.
     """
@@ -8379,7 +8022,7 @@ class ComponentLibraryVisuals(SomNode):
         return ComponentLibraryVisualsContentForm(self.doc, f"{self.path}/content")
 
 class ComponentLicensingEntry(SomNode):
-    """Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+    """Component licensing sub-entry (form).
     
     Detailed licensing information: model, cost, compliance, open-source
     obligations, audit requirements, geographic restrictions, usage metrics.
@@ -8545,7 +8188,7 @@ class ComponentPerformance(SomNode):
         return ComponentPerformanceContentForm(self.doc, f"{self.path}/content")
 
 class ComponentPropertyEntry(SomNode):
-    """A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
+    """A component property entry.
     
     Defines a configurable property of the component.
     """
@@ -8622,7 +8265,7 @@ class ComponentRegistryUpdates(SomNode):
         return ComponentRegistryUpdatesContentForm(self.doc, f"{self.path}/content")
 
 class ComponentResponsibilitiesEntry(SomNode):
-    """Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+    """Component responsibilities sub-entry (form).
     
     Who owns and maintains this component: primary/backup owners, SLA targets,
     patch response time, security vulnerability handling, budget allocation.
@@ -8700,7 +8343,7 @@ class ComponentRisk(SomNode):
         return ComponentRiskContentForm(self.doc, f"{self.path}/content")
 
 class ComponentRiskAssessment(SomNode):
-    """12.6. Risk Assessment [PD00-COM-RIS].
+    """12.6. Risk Assessment.
     
     Component risk assessment: identified risks with probability/impact,
     monitoring, mitigation strategies, and contingency plans.
@@ -8716,18 +8359,18 @@ class ComponentRiskAssessment(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+    # 12.6.1. Component Risks — contains 0+× Risk.
     @property
     def risks(self):
         return SomList(self.doc, f"{self.path}/CMRS-RISK-LST", lambda d, p: ComponentRiskEntry(d, p))
 
-    # 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+    # 12.6.2. Contingency Plans.
     @property
     def contingencyPlans(self):
         return ContingencyPlans(self.doc, f"{self.path}/contingencyPlans")
 
 class ComponentRiskEntry(SomNode):
-    """A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+    """A component risk entry (form).
     
     Documents one component risk: category, probability, impact, detection
     methods, mitigation strategy and status, residual risk, and ownership.
@@ -8810,7 +8453,7 @@ class ComponentRiskEntryMitigation(SomNode):
         return ComponentRiskEntryMitigationContentForm(self.doc, f"{self.path}/content")
 
 class ComponentSlotEntry(SomNode):
-    """A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
+    """A component slot entry.
     
     Defines a slot where child widgets can be placed.
     """
@@ -8822,7 +8465,7 @@ class ComponentSlotEntry(SomNode):
         return ComponentSlotEntryContentForm(self.doc, f"{self.path}/content")
 
 class ComponentStateEntry(SomNode):
-    """A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
+    """A component state entry.
     
     Defines a visual/functional state of the component.
     """
@@ -8881,7 +8524,7 @@ class ComponentStateEntryVisual(SomNode):
         return ComponentStateEntryVisualContentForm(self.doc, f"{self.path}/content")
 
 class ComponentStrategy(SomNode):
-    """12.1. Component Strategy [PD00-COM-STR].
+    """12.1. Component Strategy.
     
     Overall component strategy: build-vs-buy philosophy, preferred vendors,
     technology stack alignment, governance, evaluation cadence, and portfolio
@@ -8919,12 +8562,12 @@ class ComponentStrategy(SomNode):
     def planning(self):
         return ComponentStrategyPlanning(self.doc, f"{self.path}/planning")
 
-    # 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+    # 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
     @property
     def reuseGoals(self):
         return SomList(self.doc, f"{self.path}/RGUSE-REUS-LST", lambda d, p: ReuseGoalEntry(d, p))
 
-    # 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+    # 12.1.2. Evaluation Criteria.
     @property
     def evaluationCriteria(self):
         return EvaluationCriteria(self.doc, f"{self.path}/evaluationCriteria")
@@ -8984,7 +8627,7 @@ class ComponentSupport(SomNode):
         return ComponentSupportContentForm(self.doc, f"{self.path}/content")
 
 class ComponentVariantEntry(SomNode):
-    """A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
+    """A component variant entry.
     
     Defines a variation of the component with different appearance or behavior.
     """
@@ -9038,7 +8681,7 @@ class ComponentVendor(SomNode):
         return ComponentVendorContentForm(self.doc, f"{self.path}/content")
 
 class ComponentsToUse(SomNode):
-    """12. Components to Use [PD00-COM]. Seeds → TR.
+    """12. Components to Use. Seeds → TR.
     
     External and standard components planned for use in the system. All
     subsections seed the TR document, where component choices are expanded
@@ -9056,32 +8699,32 @@ class ComponentsToUse(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 12.1. Component Strategy [PD00-COM-STR].
+    # 12.1. Component Strategy.
     @property
     def strategy(self):
         return ComponentStrategy(self.doc, f"{self.path}/strategy")
 
-    # 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+    # 12.2. Component Catalog — contains 0+× Component.
     @property
     def componentCatalog(self):
         return SomList(self.doc, f"{self.path}/CMPNT-COMP-LST", lambda d, p: ComponentEntry(d, p))
 
-    # 12.3. Component Role In System [PD00-COM-ROL].
+    # 12.3. Component Role In System.
     @property
     def componentRoleInSystem(self):
         return None  # (skipped: no target type)
 
-    # 12.4. Runtime Dependencies [PD00-COM-RUN].
+    # 12.4. Runtime Dependencies.
     @property
     def runtimeDependencies(self):
         return RuntimeDependencies(self.doc, f"{self.path}/runtimeDependencies")
 
-    # 12.5. Maintenance Dependencies [PD00-COM-MAI].
+    # 12.5. Maintenance Dependencies.
     @property
     def maintenanceDependencies(self):
         return MaintenanceDependencies(self.doc, f"{self.path}/maintenanceDependencies")
 
-    # 12.6. Risk Assessment [PD00-COM-RIS].
+    # 12.6. Risk Assessment.
     @property
     def riskAssessment(self):
         return ComponentRiskAssessment(self.doc, f"{self.path}/riskAssessment")
@@ -9138,7 +8781,7 @@ class ComputeResourceRequirementsSpecial(SomNode):
         return ComputeResourceRequirementsSpecialContentForm(self.doc, f"{self.path}/content")
 
 class ComputingEquipmentEntry(SomNode):
-    """Computing equipment entry (form) [PD00-ORG-WOR-nn-EQU-PRI-nn]."""
+    """Computing equipment entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -9221,7 +8864,7 @@ class ConfidentialInfoCategoryEntry(SomNode):
         return ConfidentialInfoCategoryEntryContentForm(self.doc, f"{self.path}/content")
 
 class ConfidentialityRequirements(SomNode):
-    """3.6.2. Confidentiality and NDA Requirements [PD00-ADM-OTH-NDA].
+    """3.6.2. Confidentiality and NDA Requirements.
     
     Non-disclosure agreements and confidentiality constraints.
     """
@@ -9359,7 +9002,7 @@ class ConnectivityResilienceProtection(SomNode):
         return ConnectivityResilienceProtectionContentForm(self.doc, f"{self.path}/content")
 
 class ConsentManagementRequirements(SomNode):
-    """Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI]."""
+    """Consent collection, tracking and management requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -9456,7 +9099,7 @@ class ConstraintDetails(SomNode):
         return ConstraintDetailsContentForm(self.doc, f"{self.path}/content")
 
 class ConstraintEntry(SomNode):
-    """A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
+    """A constraint entry (form).
     
     Represents a single external constraint limiting project degrees of
     freedom. Common constraint types include regulatory requirements,
@@ -9528,6 +9171,19 @@ class ConstraintMitigation(SomNode):
     def content(self):
         return ConstraintMitigationContentForm(self.doc, f"{self.path}/content")
 
+class ConstraintRegisterEntry(SomNode):
+    """A single constraint register entry (form).
+    
+    Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
+    `ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ConstraintRegisterEntryContentForm(self.doc, f"{self.path}/content")
+
 class ConstraintTracking(SomNode):
     """Tracking for constraint."""
     def __init__(self, doc, path):
@@ -9538,7 +9194,7 @@ class ConstraintTracking(SomNode):
         return ConstraintTrackingContentForm(self.doc, f"{self.path}/content")
 
 class Constraints(SomNode):
-    """4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+    """4.6.4.1. Constraints.
     
     External constraints limiting project scope, schedule, budget, or
     approach. Includes regulatory, contractual, organizational, technical,
@@ -9563,7 +9219,7 @@ class Constraints(SomNode):
         return None  # (skipped: no target type)
 
 class ConstraintsAndDependencies(SomNode):
-    """4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+    """4.6.4. Constraints and Dependencies.
     
     Documents external constraints (regulatory, contractual, budgetary,
     timeline) and dependencies on other projects, teams, or organizational
@@ -9577,12 +9233,12 @@ class ConstraintsAndDependencies(SomNode):
     def content(self):
         return ConstraintsAndDependenciesContentForm(self.doc, f"{self.path}/content")
 
-    # 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+    # 4.6.4.1. Constraints.
     @property
     def constraints(self):
         return Constraints(self.doc, f"{self.path}/constraints")
 
-    # 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+    # 4.6.4.2. Dependencies.
     @property
     def frameworkDependencies(self):
         return FrameworkDependencies(self.doc, f"{self.path}/frameworkDependencies")
@@ -9611,7 +9267,7 @@ class ContentScanningPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class ContextDiagram(SomNode):
-    """4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+    """4.1.2.1. Context Diagram.
     
     Visual representation of the system as a black box showing external
     entities and data flows (UML context diagram / DFD Level 0).
@@ -9646,7 +9302,7 @@ class ContextDiagram(SomNode):
         self.doc.set_content(f"{self.path}/legend", value)
 
 class ContextualHelp(SomNode):
-    """10.8.1. Contextual Help [PD00-USE-HLP-CON]."""
+    """10.8.1. Contextual Help."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -9721,7 +9377,7 @@ class ContextualHelpWhatsThis(SomNode):
         return ContextualHelpWhatsThisContentForm(self.doc, f"{self.path}/content")
 
 class ContextualNavigation(SomNode):
-    """10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+    """10.3.1.6. Contextual Navigation.
     
     Breadcrumbs, back navigation, related links.
     """
@@ -9736,7 +9392,7 @@ class ContextualNavigation(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+    # 10.3.1.6.1. Breadcrumb Configuration.
     @property
     def breadcrumbs(self):
         return BreadcrumbConfiguration(self.doc, f"{self.path}/breadcrumbs")
@@ -9752,7 +9408,7 @@ class ContextualNavigation(SomNode):
         return None  # (skipped: no target type)
 
 class ContingencyPlanEntry(SomNode):
-    """A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
+    """A contingency plan entry (form).
     
     Describes one contingency plan for a component risk: trigger conditions,
     immediate/recovery actions, RTO/RPO, communication, testing frequency.
@@ -9835,7 +9491,7 @@ class ContingencyPlanEntryTesting(SomNode):
         return ContingencyPlanEntryTestingContentForm(self.doc, f"{self.path}/content")
 
 class ContingencyPlans(SomNode):
-    """12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+    """12.6.2. Contingency Plans.
     
     Container for contingency plans addressing critical component risks.
     """
@@ -9856,7 +9512,7 @@ class ContingencyPlans(SomNode):
         return SomList(self.doc, f"{self.path}/COPL-ITEM-LST", lambda d, p: ContingencyPlanEntry(d, p))
 
 class CorrectnessQuality(SomNode):
-    """11.2.3. Correctness quality [PD00-SYQ-USE-COR]."""
+    """11.2.3. Correctness quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -9969,7 +9625,7 @@ class CriticalKnowledgeAreaEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class CrossBoundaryErrorHandling(SomNode):
-    """4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+    """4.5.10. Cross-Boundary Error Handling.
     
     Failure-propagation policy that applies across system boundaries.
     Distinct from per-interface error handling.
@@ -9986,7 +9642,7 @@ class CrossBoundaryErrorHandling(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class CrossBoundaryOperationalConsiderations(SomNode):
-    """4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+    """4.5.9. Cross-Boundary Operational Considerations.
     
     SLA, rate-limit, and change-window considerations applied at system
     boundaries. Distinct from per-interface operational data captured
@@ -10083,10 +9739,10 @@ class CrossCuttingConcernsShared(SomNode):
         return CrossCuttingConcernsSharedContentForm(self.doc, f"{self.path}/content")
 
 class CrossProcessAnalysis(SomNode):
-    """6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+    """6.1.8. Cross-Process Analysis.
     
     Hand-offs, shared data, and coordination patterns between processes.
-    Covers HBSG AS07-CRO.
+    .
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -10137,7 +9793,7 @@ class CulturalConsiderationEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class CurrentArchitecture(SomNode):
-    """1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+    """1.1.2. Current Architecture.
     
     Description of the current system architecture including deployment
     topology, integration patterns, shared services, and data stores.
@@ -10153,7 +9809,7 @@ class CurrentArchitecture(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
+    # Architecture overview diagram.
     @property
     def architectureDiagram(self):
         return self.doc.content(f"{self.path}/architectureDiagram") or ""
@@ -10162,7 +9818,7 @@ class CurrentArchitecture(SomNode):
     def architectureDiagram(self, value):
         self.doc.set_content(f"{self.path}/architectureDiagram", value)
 
-    # Deployment topology description [PD00-CUR-SYS-ARC-DEP].
+    # Deployment topology description.
     @property
     def deploymentTopology(self):
         return self.doc.content(f"{self.path}/deploymentTopology") or ""
@@ -10171,18 +9827,18 @@ class CurrentArchitecture(SomNode):
     def deploymentTopology(self, value):
         self.doc.set_content(f"{self.path}/deploymentTopology", value)
 
-    # Integration patterns used [PD00-CUR-SYS-ARC-INT].
+    # Integration patterns used.
     @property
     def integrationPatterns(self):
         return SomList(self.doc, f"{self.path}/INTEG1-INTE-LST", lambda d, p: IntegrationPatternEntry(d, p))
 
-    # Shared services inventory [PD00-CUR-SYS-ARC-SHR].
+    # Shared services inventory.
     @property
     def sharedServices(self):
         return SomList(self.doc, f"{self.path}/SHARE-SHAR-LST", lambda d, p: SharedServiceEntry(d, p))
 
 class CurrentBusinessProcess(SomNode):
-    """A current business process [PD00-CUR-PRO-nn].
+    """A current business process.
     
     Detailed documentation of a single business process including its
     workflows, actors, metrics, and pain points.
@@ -10199,12 +9855,12 @@ class CurrentBusinessProcess(SomNode):
     def processContext(self):
         return ProcessContext(self.doc, f"{self.path}/processContext")
 
-    # 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
+    # 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
     @property
     def workflowDescriptions(self):
         return WorkflowDescriptions(self.doc, f"{self.path}/workflowDescriptions")
 
-    # 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
+    # 1.2.nn.2. Process Metrics.
     @property
     def processMetrics(self):
         return ProcessMetrics(self.doc, f"{self.path}/processMetrics")
@@ -10215,7 +9871,7 @@ class CurrentBusinessProcess(SomNode):
         return ProcessPainPoints(self.doc, f"{self.path}/processPainPoints")
 
 class CurrentBusinessProcesses(SomNode):
-    """1.2. Current Business Processes [PD00-CUR-PRO].
+    """1.2. Current Business Processes.
     
     Documents the current business processes that the project will impact,
     replace, or enhance. Understanding existing workflows is critical for
@@ -10233,7 +9889,7 @@ class CurrentBusinessProcesses(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Process landscape diagram [PD00-CUR-PRO-DIA].
+    # Process landscape diagram.
     @property
     def processLandscapeDiagram(self):
         return self.doc.content(f"{self.path}/processLandscapeDiagram") or ""
@@ -10242,28 +9898,28 @@ class CurrentBusinessProcesses(SomNode):
     def processLandscapeDiagram(self, value):
         self.doc.set_content(f"{self.path}/processLandscapeDiagram", value)
 
-    # Process scope summary [PD00-CUR-PRO-SCO].
+    # Process scope summary.
     @property
     def scopeSummary(self):
         return ProcessScopeSummary(self.doc, f"{self.path}/scopeSummary")
 
-    # Process interdependency matrix [PD00-CUR-PRO-INT].
+    # Process interdependency matrix.
     @property
     def interdependencyMatrix(self):
         return ProcessInterdependencyMatrix(self.doc, f"{self.path}/interdependencyMatrix")
 
-    # Process performance summary [PD00-CUR-PRO-SUM].
+    # Process performance summary.
     @property
     def performanceSummary(self):
         return ProcessPerformanceSummary(self.doc, f"{self.path}/performanceSummary")
 
-    # 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
+    # 1.2.nn. Business Processes — contains 1+× Business Process.
     @property
     def processes(self):
         return SomList(self.doc, f"{self.path}/CUBIPR-PROC-LST", lambda d, p: CurrentBusinessProcess(d, p))
 
 class CurrentDataClassification(SomNode):
-    """1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+    """1.4.8. Data Classification.
     
     Data classification framework, sensitivity levels, and current
     classification status of data assets.
@@ -10295,7 +9951,7 @@ class CurrentDataClassification(SomNode):
         return SomList(self.doc, f"{self.path}/DCSE-CLAS-LST", lambda d, p: DataClassificationStatusEntry(d, p))
 
 class CurrentDataLandscape(SomNode):
-    """1.4. Current Data Landscape [PD00-CUR-DAT].
+    """1.4. Current Data Landscape.
     
     Comprehensive documentation of the current data situation including where
     data lives, data quality issues, duplication, ownership, volumes, growth
@@ -10335,58 +9991,177 @@ class CurrentDataLandscape(SomNode):
     def dataLandscapeSummary(self):
         return DataLandscapeSummary(self.doc, f"{self.path}/dataLandscapeSummary")
 
-    # 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+    # 1.4.1. Data Source Inventory.
     @property
     def dataSourceInventory(self):
         return DataSourceInventory(self.doc, f"{self.path}/dataSourceInventory")
 
-    # 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+    # 1.4.2. Data Quality Assessment.
     @property
     def dataQualityAssessment(self):
         return DataQualityAssessment(self.doc, f"{self.path}/dataQualityAssessment")
 
-    # 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+    # 1.4.3. Data Duplication Analysis.
     @property
     def dataDuplicationAnalysis(self):
         return DataDuplicationAnalysis(self.doc, f"{self.path}/dataDuplicationAnalysis")
 
-    # 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+    # 1.4.4. Data Ownership and Stewardship.
     @property
     def dataOwnership(self):
         return DataOwnership(self.doc, f"{self.path}/dataOwnership")
 
-    # 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+    # 1.4.5. Data Volumes and Growth.
     @property
     def dataVolumesAndGrowth(self):
         return DataVolumesAndGrowth(self.doc, f"{self.path}/dataVolumesAndGrowth")
 
-    # 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+    # 1.4.6. Retention Policies.
     @property
     def retentionPolicies(self):
         return DataRetentionPolicies(self.doc, f"{self.path}/retentionPolicies")
 
-    # 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+    # 1.4.7. Data Governance.
     @property
     def dataGovernance(self):
         return DataGovernance(self.doc, f"{self.path}/dataGovernance")
 
-    # 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+    # 1.4.8. Data Classification.
     @property
     def dataClassification(self):
         return CurrentDataClassification(self.doc, f"{self.path}/dataClassification")
 
-    # 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+    # 1.4.9. Data Integration Points.
     @property
     def dataIntegrationPoints(self):
         return DataIntegrationPoints(self.doc, f"{self.path}/dataIntegrationPoints")
 
-    # 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+    # 1.4.10. Master Data Management.
     @property
     def masterDataManagement(self):
         return MasterDataManagement(self.doc, f"{self.path}/masterDataManagement")
 
+class CurrentLandscape(SomNode):
+    """1. Current State Analysis. Seeds → CS.
+    
+    Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
+    CS together with the systems-to-replace inventory.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 1.1. Existing Systems Landscape.
+    @property
+    def existingSystemsLandscape(self):
+        return ExistingSystemsLandscape(self.doc, f"{self.path}/existingSystemsLandscape")
+
+    # 1.2. Current Business Processes.
+    @property
+    def currentBusinessProcesses(self):
+        return CurrentBusinessProcesses(self.doc, f"{self.path}/currentBusinessProcesses")
+
+    # 1.3. Pain Points and Gaps.
+    @property
+    def painPointsAndGaps(self):
+        return PainPointsAndGaps(self.doc, f"{self.path}/painPointsAndGaps")
+
+    # 1.4. Current Data Landscape.
+    @property
+    def currentDataLandscape(self):
+        return CurrentDataLandscape(self.doc, f"{self.path}/currentDataLandscape")
+
+    # 1.5. Operational Metrics.
+    @property
+    def operationalMetrics(self):
+        return SomList(self.doc, f"{self.path}/CUOPME-OPER-LST", lambda d, p: CurrentOperationalMetrics(d, p))
+
+    # 1.6. Current State Risks.
+    @property
+    def currentStateRisks(self):
+        return CurrentStateRiskAssessment(self.doc, f"{self.path}/currentStateRisks")
+
+class CurrentLandscapeAssessment(SomNode):
+    """CS00 Current Situation.
+    
+    Detailed analysis of the current state: existing systems, business
+    processes, pain points, data landscape, operational metrics, risks,
+    and the inventory / migration plan for the systems being replaced.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "CLA")
+        check_som_model_version(CurrentLandscapeAssessment.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return CurrentLandscapeAssessment.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Existing systems landscape.
+    @property
+    def existingSystemsLandscape(self):
+        return ExistingSystemsLandscape(self.doc, f"{self.path}/existingSystemsLandscape")
+
+    # Current business processes.
+    @property
+    def currentBusinessProcesses(self):
+        return CurrentBusinessProcesses(self.doc, f"{self.path}/currentBusinessProcesses")
+
+    # Pain points and gaps.
+    @property
+    def painPointsAndGaps(self):
+        return PainPointsAndGaps(self.doc, f"{self.path}/painPointsAndGaps")
+
+    # Current data landscape.
+    @property
+    def currentDataLandscape(self):
+        return CurrentDataLandscape(self.doc, f"{self.path}/currentDataLandscape")
+
+    # Current operational metrics.
+    @property
+    def operationalMetrics(self):
+        return SomList(self.doc, f"{self.path}/CUOPME-OPER-LST", lambda d, p: CurrentOperationalMetrics(d, p))
+
+    # Current-state risk assessment.
+    @property
+    def currentStateRisks(self):
+        return CurrentStateRiskAssessment(self.doc, f"{self.path}/currentStateRisks")
+
+    # Replacement inventory.
+    @property
+    def replacementInventory(self):
+        return ReplacementInventory(self.doc, f"{self.path}/replacementInventory")
+
+    # Migration considerations.
+    @property
+    def migrationConsiderations(self):
+        return MigrationConsiderations(self.doc, f"{self.path}/migrationConsiderations")
+
 class CurrentOperationalMetrics(SomNode):
-    """1.5. Operational Metrics [PD00-CUR-MET].
+    """1.5. Operational Metrics.
     
     Baseline metrics of the current systems: throughput, volume, uptime,
     response times, user counts. Used to size the target system and to
@@ -10412,130 +10187,11 @@ class CurrentProcessImprovementEntry(SomNode):
     def content(self):
         return CurrentProcessImprovementEntryContentForm(self.doc, f"{self.path}/content")
 
-class CurrentSituation(SomNode):
-    """CS00 Current Situation.
-    
-    Detailed analysis of the current state: existing systems, business
-    processes, pain points, data landscape, operational metrics, risks,
-    and the inventory / migration plan for the systems being replaced.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "CS")
-        check_som_model_version(CurrentSituation.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return CurrentSituation.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Existing systems landscape — PD00-CUR-SYS.
-    @property
-    def existingSystemsLandscape(self):
-        return ExistingSystemsLandscape(self.doc, f"{self.path}/existingSystemsLandscape")
-
-    # Current business processes — PD00-CUR-PRO.
-    @property
-    def currentBusinessProcesses(self):
-        return CurrentBusinessProcesses(self.doc, f"{self.path}/currentBusinessProcesses")
-
-    # Pain points and gaps — PD00-CUR-PAI.
-    @property
-    def painPointsAndGaps(self):
-        return PainPointsAndGaps(self.doc, f"{self.path}/painPointsAndGaps")
-
-    # Current data landscape — PD00-CUR-DAT.
-    @property
-    def currentDataLandscape(self):
-        return CurrentDataLandscape(self.doc, f"{self.path}/currentDataLandscape")
-
-    # Current operational metrics — PD00-CUR-MET.
-    @property
-    def operationalMetrics(self):
-        return SomList(self.doc, f"{self.path}/CUOPME-OPER-LST", lambda d, p: CurrentOperationalMetrics(d, p))
-
-    # Current-state risk assessment — PD00-CUR-RIS.
-    @property
-    def currentStateRisks(self):
-        return CurrentStateRiskAssessment(self.doc, f"{self.path}/currentStateRisks")
-
-    # Replacement inventory — PD00-SYO-SYR-INV.
-    @property
-    def replacementInventory(self):
-        return ReplacementInventory(self.doc, f"{self.path}/replacementInventory")
-
-    # Migration considerations — PD00-SYO-SYR-MIG.
-    @property
-    def migrationConsiderations(self):
-        return MigrationConsiderations(self.doc, f"{self.path}/migrationConsiderations")
-
-class CurrentStateAnalysis(SomNode):
-    """1. Current State Analysis [PD00-CUR]. Seeds → CS.
-    
-    Seeds the CS (Current Situation) Phase 3 DocSpec. Previously listed as
-    PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # 1.1. Existing Systems Landscape [PD00-CUR-SYS].
-    @property
-    def existingSystemsLandscape(self):
-        return ExistingSystemsLandscape(self.doc, f"{self.path}/existingSystemsLandscape")
-
-    # 1.2. Current Business Processes [PD00-CUR-PRO].
-    @property
-    def currentBusinessProcesses(self):
-        return CurrentBusinessProcesses(self.doc, f"{self.path}/currentBusinessProcesses")
-
-    # 1.3. Pain Points and Gaps [PD00-CUR-PAI].
-    @property
-    def painPointsAndGaps(self):
-        return PainPointsAndGaps(self.doc, f"{self.path}/painPointsAndGaps")
-
-    # 1.4. Current Data Landscape [PD00-CUR-DAT].
-    @property
-    def currentDataLandscape(self):
-        return CurrentDataLandscape(self.doc, f"{self.path}/currentDataLandscape")
-
-    # 1.5. Operational Metrics [PD00-CUR-MET].
-    @property
-    def operationalMetrics(self):
-        return SomList(self.doc, f"{self.path}/CUOPME-OPER-LST", lambda d, p: CurrentOperationalMetrics(d, p))
-
-    # 1.6. Current State Risks [PD00-CUR-RIS].
-    @property
-    def currentStateRisks(self):
-        return CurrentStateRiskAssessment(self.doc, f"{self.path}/currentStateRisks")
-
 class CurrentStateRiskAssessment(SomNode):
-    """1.6. Current State Risks [PD00-CUR-RIS].
+    """1.6. Current State Risks.
     
     Risks tied to the current state and to its replacement. Distinct from
-    PD00-SYO-RIS which covers target-side risks.
+    the target-side risks section which covers replacement risks.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -10549,7 +10205,7 @@ class CurrentStateRiskAssessment(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class CurrentWorkflowEntry(SomNode):
-    """A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+    """A current workflow entry (form).
     
     Detailed documentation of a single workflow within a business process.
     Includes triggers, steps, actors, inputs, outputs, and timing.
@@ -10561,7 +10217,7 @@ class CurrentWorkflowEntry(SomNode):
     def content(self):
         return CurrentWorkflowEntryContentForm(self.doc, f"{self.path}/content")
 
-    # Workflow diagram [PD00-CUR-PRO-xx-WOR-xx-DIA].
+    # Workflow diagram.
     @property
     def workflowDiagram(self):
         return self.doc.content(f"{self.path}/workflowDiagram") or ""
@@ -10640,7 +10296,7 @@ class CustomDistributionGroup(SomNode):
         return SomList(self.doc, f"{self.path}/DSRC-MEMB-LST", lambda d, p: DistributionRecipientEntry(d, p))
 
 class CustomMetricEntry(SomNode):
-    """A custom metric entry [PD00-TEC-SYS-MON-MET-nn]."""
+    """A custom metric entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -10649,7 +10305,7 @@ class CustomMetricEntry(SomNode):
         return CustomMetricEntryContentForm(self.doc, f"{self.path}/content")
 
 class CutoverProcedures(SomNode):
-    """15.6. Cutover Procedures [PD00-ROL-CUT].
+    """15.6. Cutover Procedures.
     
     Detailed cutover runbook for go-live. Minute-by-minute procedure
     covering the transition from current operation to the target system.
@@ -10666,7 +10322,7 @@ class CutoverProcedures(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class DashboardEntry(SomNode):
-    """A dashboard entry [PD00-TEC-SYS-MON-DAS-nn]."""
+    """A dashboard entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -10904,7 +10560,7 @@ class DataAttributeConstraintEntry(SomNode):
         return DataAttributeConstraintEntryContentForm(self.doc, f"{self.path}/content")
 
 class DataAttributeEntry(SomNode):
-    """A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
+    """A data attribute entry (form).
     
     Comprehensive attribute specification for data dictionary and schema design.
     """
@@ -10940,7 +10596,7 @@ class DataAttributeEntry(SomNode):
         return SomList(self.doc, f"{self.path}/DISPL-DISP-LST", lambda d, p: DisplayPropertyEntry(d, p))
 
 class DataClassification(SomNode):
-    """7.1.4. Data Classification [PD00-BUS-DAT-CLA]."""
+    """7.1.4. Data Classification."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -10948,13 +10604,13 @@ class DataClassification(SomNode):
     def overview(self):
         return DataClassificationOverviewForm(self.doc, f"{self.path}/overview")
 
-    # Contains 0+× DataClassificationEntry [PD00-BUS-DAT-CLA-nn].
+    # Contains 0+× DataClassificationEntry.
     @property
     def items(self):
         return SomList(self.doc, f"{self.path}/DCLSE-ITEM-LST", lambda d, p: DataClassificationEntry(d, p))
 
 class DataClassificationEntry(SomNode):
-    """A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
+    """A data classification entry (form).
     
     Comprehensive data classification for security and compliance.
     """
@@ -10981,12 +10637,12 @@ class DataClassificationEntry(SomNode):
     def compliance(self):
         return DataClassificationEntryComplianceForm(self.doc, f"{self.path}/compliance")
 
-    # Contains 0+× HandlingRequirement [PD00-BUS-DAT-CLA-nn-HAN].
+    # Contains 0+× HandlingRequirement.
     @property
     def handlingRequirements(self):
         return SomList(self.doc, f"{self.path}/HNDRE-HAND-LST", lambda d, p: HandlingRequirementEntry(d, p))
 
-    # Contains 0+× AccessRestriction [PD00-BUS-DAT-CLA-nn-ARE].
+    # Contains 0+× AccessRestriction.
     @property
     def accessRestrictions(self):
         return SomList(self.doc, f"{self.path}/ACRSE-ACCE-LST", lambda d, p: AccessRestrictionEntry(d, p))
@@ -11019,10 +10675,10 @@ class DataClassificationSummary(SomNode):
         return DataClassificationSummaryContentForm(self.doc, f"{self.path}/content")
 
 class DataDictionary(SomNode):
-    """7.1.5. Data Dictionary [PD00-BUS-DAT-DIC].
+    """7.1.5. Data Dictionary.
     
     Attribute-level dictionary that complements the entity overview
-    (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
+    ..
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -11036,7 +10692,7 @@ class DataDictionary(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class DataDuplicationAnalysis(SomNode):
-    """1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+    """1.4.3. Data Duplication Analysis.
     
     Analysis of data duplication across systems, including redundant data
     stores, duplicated records, and synchronization challenges.
@@ -11132,7 +10788,7 @@ class DataDuplicationSummary(SomNode):
         return DataDuplicationSummaryContentForm(self.doc, f"{self.path}/content")
 
 class DataEntityEntry(SomNode):
-    """A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+    """A data entity entry (form).
     
     Comprehensive entity specification following data modeling best practices.
     Captures conceptual, logical, and physical design aspects.
@@ -11168,33 +10824,33 @@ class DataEntityEntry(SomNode):
     def technicalCharacteristics(self):
         return SomList(self.doc, f"{self.path}/TECHN-TECH-LST", lambda d, p: TechnicalCharacteristicEntry(d, p))
 
-    # Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
+    # Contains 0+× DataAttribute.
     @property
     def attributes(self):
         return SomList(self.doc, f"{self.path}/DAATT-ATTR-LST", lambda d, p: DataAttributeEntry(d, p))
 
-    # Contains 0+× KeyAttribute [PD00-BUS-DAT-ENT-nn-KEY].
+    # Contains 0+× KeyAttribute.
     @property
     def keyAttributes(self):
         return SomList(self.doc, f"{self.path}/KEATT-KEYA-LST", lambda d, p: KeyAttributeEntry(d, p))
 
-    # Contains 0+× EntityIndex [PD00-BUS-DAT-ENT-nn-IDX].
+    # Contains 0+× EntityIndex.
     @property
     def indexes(self):
         return SomList(self.doc, f"{self.path}/ENIDX-INDE-LST", lambda d, p: EntityIndexEntry(d, p))
 
-    # Contains 0+× EntityConstraint [PD00-BUS-DAT-ENT-nn-CON].
+    # Contains 0+× EntityConstraint.
     @property
     def constraints(self):
         return SomList(self.doc, f"{self.path}/ENCNS-CONS-LST", lambda d, p: EntityConstraintEntry(d, p))
 
-    # Contains 0+× MigrationMapping [PD00-BUS-DAT-ENT-nn-MIG] for data migration planning.
+    # Contains 0+× MigrationMapping for data migration planning.
     @property
     def migrationMappings(self):
         return SomList(self.doc, f"{self.path}/MIGME-MIGR-LST", lambda d, p: MigrationMappingEntry(d, p))
 
 class DataEntityMigrationEntry(SomNode):
-    """A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn]."""
+    """A data entity migration entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -11285,7 +10941,7 @@ class DataFormatCompatibilityNumbers(SomNode):
         return DataFormatCompatibilityNumbersContentForm(self.doc, f"{self.path}/content")
 
 class DataGovernance(SomNode):
-    """1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+    """1.4.7. Data Governance.
     
     Current data governance structure, policies, processes, and maturity level.
     """
@@ -11505,7 +11161,7 @@ class DataIntegrationEntryTransport(SomNode):
         return DataIntegrationEntryTransportContentForm(self.doc, f"{self.path}/content")
 
 class DataIntegrationPoints(SomNode):
-    """1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+    """1.4.9. Data Integration Points.
     
     Documentation of data integration points, ETL processes, APIs,
     and data exchange mechanisms.
@@ -11559,7 +11215,7 @@ class DataLandscapeSummary(SomNode):
         return DataLandscapeSummaryContentForm(self.doc, f"{self.path}/content")
 
 class DataLevelSecurity(SomNode):
-    """9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+    """9.3.1. Data-Level Security.
     
     Comprehensive data access protection specification covering database-level
     security, row-level security, column-level security, tenant data isolation,
@@ -11636,7 +11292,7 @@ class DataMaskingPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class DataMigrationStrategy(SomNode):
-    """13.5. Data Migration Strategy [PD00-SSP-MIG].
+    """13.5. Data Migration Strategy.
     
     Comprehensive data migration strategy covering approach, methodology,
     tooling, environment strategy, data quality governance, cutover
@@ -11721,18 +11377,18 @@ class DataMigrationStrategy(SomNode):
     def migrationStrategyNarrative(self):
         return None  # (skipped: no target type)
 
-    # 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+    # 13.5.1. Migration Phases.
     @property
     def migrationPhases(self):
         return MigrationPhases(self.doc, f"{self.path}/migrationPhases")
 
-    # 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+    # 13.5.2. Migration Risks.
     @property
     def migrationRisks(self):
         return StageMigrationRisks(self.doc, f"{self.path}/migrationRisks")
 
 class DataModel(SomNode):
-    """7.1. Data Model [PD00-BUS-DAT]."""
+    """7.1. Data Model."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -11744,43 +11400,43 @@ class DataModel(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
+    # 7.1.1. Entity Overview — contains 1+× Data Entity.
     @property
     def entities(self):
         return SomList(self.doc, f"{self.path}/DAENT-ENTI-LST", lambda d, p: DataEntityEntry(d, p))
 
-    # 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+    # 7.1.2. Entity Relationships.
     @property
     def entityRelationships(self):
         return EntityRelationships(self.doc, f"{self.path}/entityRelationships")
 
-    # 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
+    # 7.1.3. Entity-Relationship Diagram (mermaid).
     @property
     def erDiagram(self):
         return None  # (skipped: no target type)
 
-    # 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+    # 7.1.4. Data Classification.
     @property
     def dataClassification(self):
         return DataClassification(self.doc, f"{self.path}/dataClassification")
 
-    # 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
+    # 7.1.5. Data Dictionary..
     @property
     def dataDictionary(self):
         return DataDictionary(self.doc, f"{self.path}/dataDictionary")
 
-    # 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+    # 7.1.6. Validation Constraints.
     @property
     def validationConstraints(self):
         return SomList(self.doc, f"{self.path}/VACO-VALI-LST", lambda d, p: ValidationConstraints(d, p))
 
-    # 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+    # 7.1.7. Integrity Constraints.
     @property
     def integrityConstraints(self):
         return SomList(self.doc, f"{self.path}/INCO-INTE-LST", lambda d, p: IntegrityConstraints(d, p))
 
 class DataOwnership(SomNode):
-    """1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+    """1.4.4. Data Ownership and Stewardship.
     
     Documentation of data ownership structures, stewardship roles,
     and accountability for data assets.
@@ -11862,7 +11518,7 @@ class DataOwnershipSummary(SomNode):
         return DataOwnershipSummaryContentForm(self.doc, f"{self.path}/content")
 
 class DataProcessingAgreementRequirements(SomNode):
-    """Data processing agreement requirements [PD00-TEC-SEC-PRI]."""
+    """Data processing agreement requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -11927,7 +11583,7 @@ class DataProcessingAgreementRequirementsTransfers(SomNode):
         return DataProcessingAgreementRequirementsTransfersContentForm(self.doc, f"{self.path}/content")
 
 class DataProtectionAndPrivacySection(SomNode):
-    """8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+    """8.8.2. Data Protection and Privacy.
     
     Comprehensive data protection and privacy requirements including
     GDPR compliance, data residency, consent management, data subject
@@ -11986,10 +11642,10 @@ class DataProtectionAndPrivacySection(SomNode):
         return DataProtectionClassification(self.doc, f"{self.path}/dataClassification")
 
 class DataProtectionClassification(SomNode):
-    """Data protection classification and handling rules [PD00-TEC-SEC-PRI].
+    """Data protection classification and handling rules.
     
     Named DataProtectionClassification to avoid collision with
-    DataClassification in business_data_model.dart.
+    DataClassification in information_and_data_model.dart.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -12055,7 +11711,7 @@ class DataProtectionClassificationRetention(SomNode):
         return DataProtectionClassificationRetentionContentForm(self.doc, f"{self.path}/content")
 
 class DataQualityAssessment(SomNode):
-    """1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+    """1.4.2. Data Quality Assessment.
     
     Comprehensive assessment of data quality across the organization,
     covering accuracy, completeness, consistency, timeliness, and validity.
@@ -12165,7 +11821,7 @@ class DataQualityIssueEntryResolution(SomNode):
         return DataQualityIssueEntryResolutionContentForm(self.doc, f"{self.path}/content")
 
 class DataResidencyRequirements(SomNode):
-    """Data residency and sovereignty requirements [PD00-TEC-SEC-PRI]."""
+    """Data residency and sovereignty requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -12216,7 +11872,7 @@ class DataResidencyRequirementsVerification(SomNode):
         return DataResidencyRequirementsVerificationContentForm(self.doc, f"{self.path}/content")
 
 class DataRetentionPolicies(SomNode):
-    """1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+    """1.4.6. Retention Policies.
     
     Documentation of data retention policies, legal requirements,
     archival strategies, and data lifecycle management.
@@ -12261,7 +11917,7 @@ class DataSourceEntityEntry(SomNode):
         return DataSourceEntityEntryContentForm(self.doc, f"{self.path}/content")
 
 class DataSourceEntry(SomNode):
-    """A data source entry (form) [PD00-CUR-DAT-SRC-nn].
+    """A data source entry (form).
     
     Documents a specific data source/store with comprehensive details about
     technology, format, volume, quality, ownership, and access patterns.
@@ -12328,7 +11984,7 @@ class DataSourceIntegration(SomNode):
         return DataSourceIntegrationContentForm(self.doc, f"{self.path}/content")
 
 class DataSourceInventory(SomNode):
-    """1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+    """1.4.1. Data Source Inventory.
     
     Comprehensive inventory of all data sources, stores, and repositories
     in the current environment.
@@ -12413,7 +12069,7 @@ class DataSourceVolume(SomNode):
         return DataSourceVolumeContentForm(self.doc, f"{self.path}/content")
 
 class DataSubjectRightsManagement(SomNode):
-    """Data subject rights management [PD00-TEC-SEC-PRI].
+    """Data subject rights management.
     
     Covers GDPR Articles 15–22: right of access, rectification, erasure,
     restriction, portability, objection, and automated decision-making.
@@ -12570,7 +12226,7 @@ class DataVolumeSummaryProjection(SomNode):
         return DataVolumeSummaryProjectionContentForm(self.doc, f"{self.path}/content")
 
 class DataVolumesAndGrowth(SomNode):
-    """1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+    """1.4.5. Data Volumes and Growth.
     
     Analysis of current data volumes, historical growth trends,
     and projections for future capacity needs.
@@ -12818,7 +12474,7 @@ class DecisionAuthorityEntry(SomNode):
         return DecisionAuthorityEntryContentForm(self.doc, f"{self.path}/content")
 
 class DecisionMakerEntry(SomNode):
-    """A decision maker entry [PD00-SYO-RES-ORG-DEC-nn]."""
+    """A decision maker entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -12827,7 +12483,7 @@ class DecisionMakerEntry(SomNode):
         return DecisionMakerEntryContentForm(self.doc, f"{self.path}/content")
 
 class DecisionOptionEntry(SomNode):
-    """A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
+    """A decision option entry (form).
     
     One of the available options for a decision point, with full
     impact analysis, feasibility assessment, and trade-off evaluation.
@@ -12896,7 +12552,7 @@ class DecisionOptionEntryTradeOffs(SomNode):
         return DecisionOptionEntryTradeOffsContentForm(self.doc, f"{self.path}/content")
 
 class DecisionPointEntry(SomNode):
-    """A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
+    """A decision point entry (form).
     
     A single formal decision point with defined timing, criteria,
     authority, available options with impact analysis, and recording
@@ -12976,7 +12632,7 @@ class DecisionPointEntryStakeholders(SomNode):
         return DecisionPointEntryStakeholdersContentForm(self.doc, f"{self.path}/content")
 
 class DecisionPoints(SomNode):
-    """13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+    """13.6.2. Decision Points.
     
     Key decision points in the stage plan including go/no-go
     decisions, scope adjustments, resource reallocations, and
@@ -13001,7 +12657,7 @@ class DecisionPoints(SomNode):
         return SomList(self.doc, f"{self.path}/DEPOEN-ITEM-LST", lambda d, p: DecisionPointEntry(d, p))
 
 class DeepLinkPatternEntry(SomNode):
-    """A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn]."""
+    """A deep link pattern entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -13010,7 +12666,7 @@ class DeepLinkPatternEntry(SomNode):
         return DeepLinkPatternEntryContentForm(self.doc, f"{self.path}/content")
 
 class DeepLinking(SomNode):
-    """10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+    """10.3.1.7. Deep Linking.
     
     External entry points, URL patterns, share links.
     """
@@ -13036,7 +12692,7 @@ class DeepLinking(SomNode):
         return SomList(self.doc, f"{self.path}/DELNPT-PATT-LST", lambda d, p: DeepLinkPatternEntry(d, p))
 
 class DefectResolution(SomNode):
-    """14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+    """14.2.4. Defect Resolution.
     
     Defines how defects found during acceptance testing are classified,
     managed, resolved, and tracked. Covers severity classification,
@@ -13138,7 +12794,7 @@ class DeliverableDocumentation(SomNode):
         return DeliverableDocumentationContentForm(self.doc, f"{self.path}/content")
 
 class DeliverableEntry(SomNode):
-    """A deliverable entry (form) [PD00-DEL-DEL-nn].
+    """A deliverable entry (form).
     
     Represents a single deliverable item within any deliverable category.
     Captures identification, delivery logistics, quality requirements,
@@ -13246,7 +12902,7 @@ class DeliverableVersion(SomNode):
         return DeliverableVersionContentForm(self.doc, f"{self.path}/content")
 
 class DeliveryAcceptanceCriterionEntry(SomNode):
-    """An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
+    """An acceptance criterion entry (form).
     
     A single criterion that must be met for formal project acceptance.
     Aligned with IEEE 830 acceptance criteria structure and ISTQB
@@ -13329,8 +12985,86 @@ class DeliveryAcceptanceCriterionEntryVerification(SomNode):
     def content(self):
         return DeliveryAcceptanceCriterionEntryVerificationContentForm(self.doc, f"{self.path}/content")
 
+class DeliveryRoadmap(SomNode):
+    """PPP00 Project Phase Plan.
+    
+    Full project phase plan — staging strategy, stage overview, per-stage
+    entries, feature prioritization, data migration, gate criteria,
+    decision processes, initial development flow, and upgrade cycle
+    framework.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "DRM")
+        check_som_model_version(DeliveryRoadmap.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return DeliveryRoadmap.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Staging strategy.
+    @property
+    def stagingStrategy(self):
+        return StagingStrategy(self.doc, f"{self.path}/stagingStrategy")
+
+    # Stage overview.
+    @property
+    def stageOverview(self):
+        return StageOverview(self.doc, f"{self.path}/stageOverview")
+
+    # Stages (list).
+    @property
+    def stages(self):
+        return SomList(self.doc, f"{self.path}/STAGE-STAG-LST", lambda d, p: StageEntry(d, p))
+
+    # Feature prioritization.
+    @property
+    def featurePrioritization(self):
+        return FeaturePrioritization(self.doc, f"{self.path}/featurePrioritization")
+
+    # Data migration strategy.
+    @property
+    def dataMigrationStrategy(self):
+        return DataMigrationStrategy(self.doc, f"{self.path}/dataMigrationStrategy")
+
+    # Gate criteria (promoted from GOV).
+    @property
+    def gateCriteria(self):
+        return PhaseGateReviews(self.doc, f"{self.path}/gateCriteria")
+
+    # Decision processes (promoted from GOV).
+    @property
+    def decisionProcesses(self):
+        return DecisionPoints(self.doc, f"{self.path}/decisionProcesses")
+
+    # Initial development flow.
+    @property
+    def initialDevelopmentFlow(self):
+        return InitialDevelopmentFlow(self.doc, f"{self.path}/initialDevelopmentFlow")
+
+    # Upgrade cycle framework (links tom_system_upgrade.md).
+    @property
+    def upgradeCycleFramework(self):
+        return UpgradeCycleFramework(self.doc, f"{self.path}/upgradeCycleFramework")
+
 class DeliveryScope(SomNode):
-    """14.1. Delivery and Service Scope [PD00-DEL-DEL]."""
+    """14.1. Delivery and Service Scope."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -13342,28 +13076,28 @@ class DeliveryScope(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+    # 14.1.1. Software Deliverables.
     @property
     def softwareDeliverables(self):
         return SoftwareDeliverables(self.doc, f"{self.path}/softwareDeliverables")
 
-    # 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+    # 14.1.2. Documentation Deliverables.
     @property
     def documentationDeliverables(self):
         return DocumentationDeliverables(self.doc, f"{self.path}/documentationDeliverables")
 
-    # 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+    # 14.1.3. Training Deliverables.
     @property
     def trainingDeliverables(self):
         return TrainingDeliverables(self.doc, f"{self.path}/trainingDeliverables")
 
-    # 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+    # 14.1.4. Support Deliverables.
     @property
     def supportDeliverables(self):
         return SupportDeliverables(self.doc, f"{self.path}/supportDeliverables")
 
 class DeliveryScopeAndAcceptance(SomNode):
-    """14. Delivery Scope and Acceptance [PD00-DEL]."""
+    """14. Delivery Scope and Acceptance."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -13375,18 +13109,56 @@ class DeliveryScopeAndAcceptance(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+    # 14.1. Delivery and Service Scope.
     @property
     def deliveryScope(self):
         return DeliveryScope(self.doc, f"{self.path}/deliveryScope")
 
-    # 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+    # 14.2. Acceptance Plan. Seeds → BQP.
     @property
     def acceptancePlan(self):
         return AcceptancePlan(self.doc, f"{self.path}/acceptancePlan")
 
+class DeliveryTransitionAndRollout(SomNode):
+    """SBP.15 Delivery, Transition & Rollout.
+    
+    Public anchor: PMBOK phasing + ISO 29148 transition requirements.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Staged delivery / phase plan.
+    @property
+    def systemStagePlan(self):
+        return SystemStagePlan(self.doc, f"{self.path}/systemStagePlan")
+
+    # Rollout and transition concept.
+    @property
+    def systemRolloutConcept(self):
+        return SystemRolloutConcept(self.doc, f"{self.path}/systemRolloutConcept")
+
+    # Localization & translation *execution* processes (re-homed from MLAR in
+    # IP-6: the execution side of i18n, as opposed to the requirements that
+    # live in SBP.9).
+    @property
+    def localizationTranslationProcess(self):
+        return LocalizationTranslationProcess(self.doc, f"{self.path}/localizationTranslationProcess")
+
+    # Multi-language rollout sequencing by region and time (re-homed from MLAR).
+    @property
+    def multiLanguageRolloutPlan(self):
+        return MultiLanguageAndRolloutPlan(self.doc, f"{self.path}/multiLanguageRolloutPlan")
+
 class DependenciesAndIntegrations(SomNode):
-    """1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+    """1.1.3. Dependencies and Integrations.
     
     Documents how current systems depend on each other, on external services,
     and on shared infrastructure. Identifies fragile integration points that
@@ -13403,7 +13175,7 @@ class DependenciesAndIntegrations(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
+    # Dependency matrix diagram.
     @property
     def dependencyDiagram(self):
         return self.doc.content(f"{self.path}/dependencyDiagram") or ""
@@ -13412,27 +13184,27 @@ class DependenciesAndIntegrations(SomNode):
     def dependencyDiagram(self, value):
         self.doc.set_content(f"{self.path}/dependencyDiagram", value)
 
-    # 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+    # 1.1.3.1. Internal Dependencies.
     @property
     def internalDependencies(self):
         return InternalDependencies(self.doc, f"{self.path}/internalDependencies")
 
-    # 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+    # 1.1.3.2. External Service Dependencies.
     @property
     def externalServiceDependencies(self):
         return ExternalServiceDependencies(self.doc, f"{self.path}/externalServiceDependencies")
 
-    # 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+    # 1.1.3.3. Shared Infrastructure Dependencies.
     @property
     def sharedInfrastructureDependencies(self):
         return SharedInfrastructureDependencies(self.doc, f"{self.path}/sharedInfrastructureDependencies")
 
-    # 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+    # 1.1.3.4. System Integrations.
     @property
     def integrations(self):
         return Integrations(self.doc, f"{self.path}/integrations")
 
-    # 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+    # 1.1.3.5. Integration Health Summary.
     @property
     def healthSummary(self):
         return IntegrationHealthSummary(self.doc, f"{self.path}/healthSummary")
@@ -13709,7 +13481,7 @@ class DependencyRisk(SomNode):
         return DependencyRiskContentForm(self.doc, f"{self.path}/content")
 
 class DependencyScanningRequirements(SomNode):
-    """Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD]."""
+    """Dependency and supply-chain scanning requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -13792,7 +13564,7 @@ class DependencyTracking(SomNode):
         return DependencyTrackingContentForm(self.doc, f"{self.path}/content")
 
 class DeploymentContext(SomNode):
-    """4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+    """4.1.2.7. Deployment Context.
     
     Where and how the system will be deployed in the infrastructure
     landscape.
@@ -13995,7 +13767,7 @@ class DeploymentSecuritySupplyChain(SomNode):
         return DeploymentSecuritySupplyChainContentForm(self.doc, f"{self.path}/content")
 
 class DeploymentStrategySection(SomNode):
-    """8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+    """8.5.2. Deployment Strategy.
     
     Deployment model (containerized, VM-based, serverless), deployment pipeline,
     rollback strategy, and canary/blue-green deployment requirements.
@@ -14224,7 +13996,7 @@ class DesignFoundationEntry(SomNode):
         return DesignFoundationEntryContentForm(self.doc, f"{self.path}/content")
 
 class DesignGoalEntry(SomNode):
-    """A design goal entry (form) [PD00-USE-VIS-GOA-nn].
+    """A design goal entry (form).
     
     Each goal represents a measurable UI objective with success criteria.
     """
@@ -14236,7 +14008,7 @@ class DesignGoalEntry(SomNode):
         return DesignGoalEntryContentForm(self.doc, f"{self.path}/content")
 
 class DesignGoals(SomNode):
-    """10.1.1. Design Goals [PD00-USE-VIS-GOA].
+    """10.1.1. Design Goals.
     
     Primary design objectives that the UI must achieve: simplicity, efficiency,
     accessibility, consistency, delight. Goals are prioritized for the project.
@@ -14342,7 +14114,7 @@ class DesignPatternEntryStructure(SomNode):
         return DesignPatternEntryStructureContentForm(self.doc, f"{self.path}/content")
 
 class DesignPatternsAndStandards(SomNode):
-    """8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+    """8.1.3. Design Patterns and Standards.
     
     Required design patterns, coding standards, development conventions, and
     applicable industry standards (ISO, OWASP, IEEE).
@@ -14404,7 +14176,7 @@ class DesignPatternsAndStandards(SomNode):
         return TestingStandards(self.doc, f"{self.path}/testingStandards")
 
 class DesignPrinciples(SomNode):
-    """10.1.2. Design Principles [PD00-USE-VIS-PRI].
+    """10.1.2. Design Principles.
     
     Guiding principles for all UI decisions: progressive disclosure, direct
     manipulation, feedback, consistency, error prevention.
@@ -14440,7 +14212,7 @@ class DesignPrinciplesOverview(SomNode):
         return DesignPrinciplesOverviewContentForm(self.doc, f"{self.path}/content")
 
 class DesignVision(SomNode):
-    """10.1. Design Vision [PD00-USE-VIS].
+    """10.1. Design Vision.
     
     Overall design vision for the user interface, encompassing goals,
     principles, and user personas that guide all UI decisions.
@@ -14456,17 +14228,17 @@ class DesignVision(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+    # 10.1.1. Design Goals.
     @property
     def designGoals(self):
         return DesignGoals(self.doc, f"{self.path}/designGoals")
 
-    # 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+    # 10.1.2. Design Principles.
     @property
     def designPrinciples(self):
         return DesignPrinciples(self.doc, f"{self.path}/designPrinciples")
 
-    # 10.1.3. User Personas [PD00-USE-VIS-PER].
+    # 10.1.3. User Personas.
     @property
     def personas(self):
         return UserPersonas(self.doc, f"{self.path}/personas")
@@ -14537,10 +14309,10 @@ class DesktopOsRequirementEntryTesting(SomNode):
         return DesktopOsRequirementEntryTestingContentForm(self.doc, f"{self.path}/content")
 
 class DetailedProcessWorkflows(SomNode):
-    """6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+    """6.1.7. Detailed Process Workflows.
     
-    Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
-    Covers HBSG AS07-DET Detailed Process Descriptions.
+    Per-process workflow detail beyond the catalog overview.
+    .
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -14712,7 +14484,7 @@ class DevelopmentConventionEntryVersionControl(SomNode):
         return DevelopmentConventionEntryVersionControlContentForm(self.doc, f"{self.path}/content")
 
 class DevelopmentEnvironment(SomNode):
-    """8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+    """8.2.2. Development Environment.
     
     Required IDEs, build tools, version control, CI/CD pipeline, code review
     process, and development workflow.
@@ -14941,7 +14713,7 @@ class DisasterRecoveryRequirementsReplication(SomNode):
         return DisasterRecoveryRequirementsReplicationContentForm(self.doc, f"{self.path}/content")
 
 class DisplayEquipmentEntry(SomNode):
-    """Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn]."""
+    """Display equipment entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -15126,7 +14898,7 @@ class DistributionGroupSummary(SomNode):
         return DistributionGroupSummaryContentForm(self.doc, f"{self.path}/content")
 
 class DistributionList(SomNode):
-    """3.3. Distribution List [PD00-ADM-DIS].
+    """3.3. Distribution List.
     
     Defines who receives which project documents and communications.
     Includes the communication matrix specifying information flow patterns,
@@ -15148,17 +14920,17 @@ class DistributionList(SomNode):
     def communicationMatrix(self):
         return CommunicationMatrix(self.doc, f"{self.path}/communicationMatrix")
 
-    # 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+    # 3.3.1. Full Distribution.
     @property
     def fullDistribution(self):
         return FullDistribution(self.doc, f"{self.path}/fullDistribution")
 
-    # 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
+    # 3.3.2. Executive Summary.
     @property
     def executiveSummary(self):
         return ExecutiveSummaryDistribution(self.doc, f"{self.path}/executiveSummary")
 
-    # 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
+    # 3.3.3. Custom Distribution Groups — contains 0+× Group.
     @property
     def customGroups(self):
         return SomList(self.doc, f"{self.path}/CSDSGR-CUST-LST", lambda d, p: CustomDistributionGroup(d, p))
@@ -15191,7 +14963,7 @@ class DistributionRecipientContact(SomNode):
         return DistributionRecipientContactContentForm(self.doc, f"{self.path}/content")
 
 class DistributionRecipientEntry(SomNode):
-    """A distribution recipient entry (form) [PD00-ADM-DIS-nn].
+    """A distribution recipient entry (form).
     
     Detailed information about a distribution list recipient including
     their role, contact information, preferences, and access levels.
@@ -15312,7 +15084,7 @@ class DnsRequirementsZones(SomNode):
         return DnsRequirementsZonesContentForm(self.doc, f"{self.path}/content")
 
 class DocChangeabilityQuality(SomNode):
-    """11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA]."""
+    """11.5.4. Documentation changeability quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -15368,7 +15140,7 @@ class DocChangeabilityQualityStructure(SomNode):
         return DocChangeabilityQualityStructureContentForm(self.doc, f"{self.path}/content")
 
 class DocCompletenessQuality(SomNode):
-    """11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM]."""
+    """11.5.2. Documentation completeness quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -15382,7 +15154,7 @@ class DocCompletenessQuality(SomNode):
         return None  # (skipped: no target type)
 
 class DocCorrectnessQuality(SomNode):
-    """11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR]."""
+    """11.5.3. Documentation correctness quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -15422,6 +15194,39 @@ class DocCorrectnessQualityVerification(SomNode):
     @property
     def content(self):
         return DocCorrectnessQualityVerificationContentForm(self.doc, f"{self.path}/content")
+
+class DocumentControl(SomNode):
+    """SBP.1 Document Control.
+    
+    Holds the [DocumentHeader] (id, project, version, date, author, status)
+    together with the document's [RevisionHistory] and the [ApprovalRecord]s
+    that gate its release.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Document header form (id, project, version, date, author, status).
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Chronological revision history of this document.
+    @property
+    def revisionHistory(self):
+        return RevisionHistory(self.doc, f"{self.path}/revisionHistory")
+
+    # Formal approvals (sign-offs) recorded for this document.
+    @property
+    def approvals(self):
+        return SomList(self.doc, f"{self.path}/DOCTL-APRV-LST", lambda d, p: ApprovalRecord(d, p))
 
 class DocumentHeader(SomNode):
     """Standard document header present at the top of every TomSpecs document.
@@ -15471,7 +15276,7 @@ class DocumentRelevantSections(SomNode):
         return SomList(self.doc, f"{self.path}/RESEEN-SECT-LST", lambda d, p: RelevantSectionEntry(d, p))
 
 class DocumentationAndTraining(SomNode):
-    """10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+    """10.12.3. Documentation and Training.
     
     End-user documentation and training materials.
     """
@@ -15525,7 +15330,7 @@ class DocumentationAndTrainingLocalization(SomNode):
         return DocumentationAndTrainingLocalizationContentForm(self.doc, f"{self.path}/content")
 
 class DocumentationDeliverables(SomNode):
-    """14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC]."""
+    """14.1.2. Documentation Deliverables."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -15543,7 +15348,7 @@ class DocumentationDeliverables(SomNode):
         return SomList(self.doc, f"{self.path}/DLVEN-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
 
 class DocumentationQualityCriteria(SomNode):
-    """11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+    """11.5. Documentation Quality Criteria.
     
     Quality criteria for project documentation including readability,
     completeness, correctness, and changeability.
@@ -15560,22 +15365,22 @@ class DocumentationQualityCriteria(SomNode):
     def overview(self):
         return None  # (skipped: no target type)
 
-    # 11.5.1. Readability [PD00-SYQ-DOC-REA].
+    # 11.5.1. Readability.
     @property
     def readability(self):
         return ReadabilityQuality(self.doc, f"{self.path}/readability")
 
-    # 11.5.2. Completeness [PD00-SYQ-DOC-COM].
+    # 11.5.2. Completeness.
     @property
     def completeness(self):
         return DocCompletenessQuality(self.doc, f"{self.path}/completeness")
 
-    # 11.5.3. Correctness [PD00-SYQ-DOC-COR].
+    # 11.5.3. Correctness.
     @property
     def correctness(self):
         return DocCorrectnessQuality(self.doc, f"{self.path}/correctness")
 
-    # 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
+    # 11.5.4. Changeability.
     @property
     def changeability(self):
         return DocChangeabilityQuality(self.doc, f"{self.path}/changeability")
@@ -15725,7 +15530,7 @@ class DocumentationStandardsVersioning(SomNode):
         return DocumentationStandardsVersioningContentForm(self.doc, f"{self.path}/content")
 
 class DomainBoundaries(SomNode):
-    """4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+    """4.1.3.4. Domain Boundaries.
     
     Clear definition of what is within and outside the domain scope,
     based on bounded context principles.
@@ -15811,7 +15616,7 @@ class DomainBusinessRuleEntryGovernance(SomNode):
         return DomainBusinessRuleEntryGovernanceContentForm(self.doc, f"{self.path}/content")
 
 class DomainBusinessRules(SomNode):
-    """4.1.3.5. Domain Business Rules [PD00-SYO-SYD-DES-RUL].
+    """4.1.3.5. Domain Business Rules.
     
     Business rules, policies, and constraints that govern behavior
     within this domain.
@@ -15842,7 +15647,7 @@ class DomainEventEntry(SomNode):
         return DomainEventEntryContentForm(self.doc, f"{self.path}/content")
 
 class DomainEvents(SomNode):
-    """4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+    """4.1.3.7. Domain Events.
     
     Significant business events that occur within this domain and
     trigger actions or state changes.
@@ -15873,7 +15678,7 @@ class DomainInterfaceEntry(SomNode):
         return DomainInterfaceEntryContentForm(self.doc, f"{self.path}/content")
 
 class DomainOverview(SomNode):
-    """4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+    """4.1.3.1. Domain Overview.
     
     High-level description of the business domain including its purpose,
     scope, and relationship to the overall business.
@@ -15937,7 +15742,7 @@ class DomainProcessEntryOperations(SomNode):
         return DomainProcessEntryOperationsContentForm(self.doc, f"{self.path}/content")
 
 class DomainProcesses(SomNode):
-    """4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+    """4.1.3.6. Domain Processes.
     
     High-level business processes within this domain, showing the main
     workflows and activities.
@@ -15977,7 +15782,7 @@ class DomainTermEntry(SomNode):
         return DomainTermEntryContentForm(self.doc, f"{self.path}/content")
 
 class DomainVocabulary(SomNode):
-    """4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+    """4.1.3.2. Domain Vocabulary.
     
     Glossary of domain-specific terms and definitions establishing the
     ubiquitous language for the project.
@@ -15999,7 +15804,7 @@ class DomainVocabulary(SomNode):
         return SomList(self.doc, f"{self.path}/DTE-TERM-LST", lambda d, p: DomainTermEntry(d, p))
 
 class EfficiencyQuality(SomNode):
-    """11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF]."""
+    """11.3.1. Efficiency quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -16055,7 +15860,7 @@ class EfficiencyQualityVerification(SomNode):
         return EfficiencyQualityVerificationContentForm(self.doc, f"{self.path}/content")
 
 class ElementValidationRuleEntry(SomNode):
-    """A validation rule entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-VAL-pp]."""
+    """A validation rule entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -16115,7 +15920,7 @@ class EmergencyMaintenanceProceduresGovernance(SomNode):
         return EmergencyMaintenanceProceduresGovernanceContentForm(self.doc, f"{self.path}/content")
 
 class EncryptedDataCategoryEntry(SomNode):
-    """An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn].
+    """An encrypted data category entry (form).
     
     Defines a specific category of data that requires encryption at rest,
     including the data classification, encryption approach, algorithm override,
@@ -16130,7 +15935,7 @@ class EncryptedDataCategoryEntry(SomNode):
         return EncryptedDataCategoryEntryContentForm(self.doc, f"{self.path}/content")
 
 class EncryptionAtRest(SomNode):
-    """9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+    """9.5.1. Encryption At Rest.
     
     Defines encryption requirements for stored data: algorithms, key lengths,
     encryption layers (application, database, filesystem, hardware), field-level
@@ -16203,7 +16008,7 @@ class EncryptionAtRestPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class EncryptionInTransit(SomNode):
-    """9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+    """9.5.2. Encryption In Transit.
     
     Defines encryption requirements for data in transit: TLS protocol versions,
     cipher suites, certificate management, HSTS policy, mutual TLS, certificate
@@ -16252,10 +16057,10 @@ class EncryptionInTransit(SomNode):
         return None  # (skipped: no target type)
 
 class EndToEndTestScenarios(SomNode):
-    """6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E].
+    """6.2.4. End-to-End Test Scenarios.
     
     Test scenarios that exercise complete user journeys across processes
-    and use cases. Covers HBSG AS24.
+    and use cases..
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -16334,7 +16139,7 @@ class EnterpriseSystemCompatibilityEntryTesting(SomNode):
         return EnterpriseSystemCompatibilityEntryTestingContentForm(self.doc, f"{self.path}/content")
 
 class EntitlementEntry(SomNode):
-    """An entitlement entry [PD00-ACC-USA-ENT-nn] (form)."""
+    """An entitlement entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -16348,7 +16153,7 @@ class EntitlementEntry(SomNode):
         return SomList(self.doc, f"{self.path}/RESKREF-RESO-LST", lambda d, p: ResourceKeyReferenceEntry(d, p))
 
 class EntitlementReferenceEntry(SomNode):
-    """An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn]."""
+    """An entitlement reference entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -16357,7 +16162,7 @@ class EntitlementReferenceEntry(SomNode):
         return EntitlementReferenceEntryContentForm(self.doc, f"{self.path}/content")
 
 class EntityConstraintEntry(SomNode):
-    """An entity constraint entry (form) [PD00-BUS-DAT-ENT-nn-CON-nn].
+    """An entity constraint entry (form).
     
     Business and technical constraints beyond keys.
     """
@@ -16369,7 +16174,7 @@ class EntityConstraintEntry(SomNode):
         return EntityConstraintEntryContentForm(self.doc, f"{self.path}/content")
 
 class EntityIndexEntry(SomNode):
-    """An entity index entry (form) [PD00-BUS-DAT-ENT-nn-IDX-nn].
+    """An entity index entry (form).
     
     Database index specification for query optimization.
     """
@@ -16381,7 +16186,7 @@ class EntityIndexEntry(SomNode):
         return EntityIndexEntryContentForm(self.doc, f"{self.path}/content")
 
 class EntityRelationshipEntry(SomNode):
-    """An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
+    """An entity relationship entry (form).
     
     Comprehensive relationship specification following ER modeling best practices.
     """
@@ -16429,7 +16234,7 @@ class EntityRelationshipEntry(SomNode):
         self.doc.set_content(f"{self.path}/targetEntityRef", value)
 
 class EntityRelationships(SomNode):
-    """7.1.2. Entity Relationships [PD00-BUS-DAT-REL]."""
+    """7.1.2. Entity Relationships."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -16447,7 +16252,7 @@ class EntityRelationships(SomNode):
         return SomList(self.doc, f"{self.path}/ENRLE-ITEM-LST", lambda d, p: EntityRelationshipEntry(d, p))
 
 class EntryPointEntry(SomNode):
-    """An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-mm]."""
+    """An entry point entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -16510,7 +16315,7 @@ class EnvironmentDataManagement(SomNode):
         return EnvironmentDataManagementContentForm(self.doc, f"{self.path}/content")
 
 class EnvironmentEntry(SomNode):
-    """An environment entry (form) [PD00-POP-TOO-ENV-nn].
+    """An environment entry (form).
     
     Comprehensive specification of a single project environment covering
     identity, infrastructure, access, data management, configuration,
@@ -16784,7 +16589,7 @@ class EnvironmentStrategyTesting(SomNode):
         return EnvironmentStrategyTestingContentForm(self.doc, f"{self.path}/content")
 
 class Environments(SomNode):
-    """2.4.2. Environments [PD00-POP-TOO-ENV].
+    """2.4.2. Environments.
     
     Operational overview of project environments and the inventory of
     individual environment instances. Strategy-level decisions (tier
@@ -16813,7 +16618,7 @@ class EquipmentOverview(SomNode):
         return EquipmentOverviewContentForm(self.doc, f"{self.path}/content")
 
 class EquipmentRequirements(SomNode):
-    """5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+    """5.3.1. Equipment Requirements.
     
     Hardware and peripheral requirements per workplace type.
     """
@@ -16893,7 +16698,7 @@ class ErrorBudgetTrackingMonitoring(SomNode):
         return ErrorBudgetTrackingMonitoringContentForm(self.doc, f"{self.path}/content")
 
 class ErrorHandlingConcept(SomNode):
-    """10.7. Error Handling Concept [PD00-USE-ERR].
+    """10.7. Error Handling Concept.
     
     Comprehensive error handling user experience framework covering validation
     feedback, system error presentation, and error recovery flows. Follows
@@ -16926,17 +16731,17 @@ class ErrorHandlingConcept(SomNode):
     def errorHandlingOverview(self):
         return None  # (skipped: no target type)
 
-    # 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+    # 10.7.1. Validation Feedback.
     @property
     def validationFeedback(self):
         return ValidationFeedback(self.doc, f"{self.path}/validationFeedback")
 
-    # 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+    # 10.7.2. System Error Display.
     @property
     def systemErrorDisplay(self):
         return SystemErrorDisplay(self.doc, f"{self.path}/systemErrorDisplay")
 
-    # 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+    # 10.7.3. Error Recovery.
     @property
     def errorRecovery(self):
         return ErrorRecovery(self.doc, f"{self.path}/errorRecovery")
@@ -17084,7 +16889,7 @@ class ErrorProcedureEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class ErrorRecovery(SomNode):
-    """10.7.3. Error Recovery [PD00-USE-ERR-REC].
+    """10.7.3. Error Recovery.
     
     Error recovery flows including data preservation, retry mechanisms,
     and guided recovery steps.
@@ -17195,7 +17000,7 @@ class EscalationProcedureEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class EvaluationCriteria(SomNode):
-    """12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+    """12.1.2. Evaluation Criteria.
     
     Container for component evaluation criteria used when assessing
     candidate components for adoption.
@@ -17217,7 +17022,7 @@ class EvaluationCriteria(SomNode):
         return SomList(self.doc, f"{self.path}/EVCEN-ITEM-LST", lambda d, p: EvaluationCriterionEntry(d, p))
 
 class EvaluationCriterionEntry(SomNode):
-    """An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
+    """An evaluation criterion entry (form).
     
     Defines one criterion for evaluating candidate components: scoring scale,
     threshold, evidence requirements, and evaluation method.
@@ -17290,7 +17095,7 @@ class EventAttributePolicy(SomNode):
         return None  # (skipped: no target type)
 
 class ExecutiveSummaryDistribution(SomNode):
-    """3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+    """3.3.2. Executive Summary Distribution.
     
     Recipients who receive only executive summaries and milestone reports.
     """
@@ -17325,7 +17130,7 @@ class ExistingSystemBusinessContext(SomNode):
         return ExistingSystemBusinessContextContentForm(self.doc, f"{self.path}/content")
 
 class ExistingSystemEntry(SomNode):
-    """An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+    """An existing system entry (form).
     
     Captures comprehensive information about an existing system including
     identity, technology, business context, usage metrics, lifecycle, and risks.
@@ -17337,42 +17142,42 @@ class ExistingSystemEntry(SomNode):
     def content(self):
         return ExistingSystemEntryContentForm(self.doc, f"{self.path}/content")
 
-    # Technology stack details [PD00-CUR-SYS-INV-nn-TEC].
+    # Technology stack details.
     @property
     def technology(self):
         return ExistingSystemTechnology(self.doc, f"{self.path}/technology")
 
-    # Business context [PD00-CUR-SYS-INV-nn-BUS].
+    # Business context.
     @property
     def businessContext(self):
         return ExistingSystemBusinessContext(self.doc, f"{self.path}/businessContext")
 
-    # Usage metrics [PD00-CUR-SYS-INV-nn-USE].
+    # Usage metrics.
     @property
     def usage(self):
         return ExistingSystemUsage(self.doc, f"{self.path}/usage")
 
-    # Lifecycle information [PD00-CUR-SYS-INV-nn-LIF].
+    # Lifecycle information.
     @property
     def lifecycle(self):
         return ExistingSystemLifecycle(self.doc, f"{self.path}/lifecycle")
 
-    # Integration profile [PD00-CUR-SYS-INV-nn-INT].
+    # Integration profile.
     @property
     def integrationProfile(self):
         return ExistingSystemIntegration(self.doc, f"{self.path}/integrationProfile")
 
-    # Infrastructure details [PD00-CUR-SYS-INV-nn-INF].
+    # Infrastructure details.
     @property
     def infrastructure(self):
         return ExistingSystemInfrastructure(self.doc, f"{self.path}/infrastructure")
 
-    # Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
+    # Contains 0+× Limitation.
     @property
     def knownLimitations(self):
         return SomList(self.doc, f"{self.path}/LIMET-KNOW-LST", lambda d, p: LimitationEntry(d, p))
 
-    # Quality and risk assessment [PD00-CUR-SYS-INV-nn-QUA].
+    # Quality and risk assessment.
     @property
     def quality(self):
         return ExistingSystemQuality(self.doc, f"{self.path}/quality")
@@ -17432,7 +17237,7 @@ class ExistingSystemUsage(SomNode):
         return ExistingSystemUsageContentForm(self.doc, f"{self.path}/content")
 
 class ExistingSystemsLandscape(SomNode):
-    """1.1. Existing Systems Landscape [PD00-CUR-SYS].
+    """1.1. Existing Systems Landscape.
     
     Overview of the current systems in use, their roles, technology stacks,
     and limitations. Provides the foundation for understanding the AS-IS state.
@@ -17448,17 +17253,17 @@ class ExistingSystemsLandscape(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+    # 1.1.1. System Inventory.
     @property
     def systemInventory(self):
         return SystemInventory(self.doc, f"{self.path}/systemInventory")
 
-    # 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+    # 1.1.2. Current Architecture.
     @property
     def currentArchitecture(self):
         return CurrentArchitecture(self.doc, f"{self.path}/currentArchitecture")
 
-    # 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+    # 1.1.3. Dependencies and Integrations.
     @property
     def dependenciesAndIntegrations(self):
         return DependenciesAndIntegrations(self.doc, f"{self.path}/dependenciesAndIntegrations")
@@ -17471,6 +17276,182 @@ class ExpectedImprovements(SomNode):
     @property
     def content(self):
         return ExpectedImprovementsContentForm(self.doc, f"{self.path}/content")
+
+class ExperienceAndInterfaceDesign(SomNode):
+    """10. User Interface Design and Prototype. Seeds → UP."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 10.1. Design Vision. Seeds → UP.
+    @property
+    def designVision(self):
+        return DesignVision(self.doc, f"{self.path}/designVision")
+
+    # 10.2. Screen Descriptions. Seeds → UP.
+    @property
+    def screens(self):
+        return ScreenDescriptions(self.doc, f"{self.path}/screens")
+
+    # 10.3. Screen Flow Structure. Seeds → UP.
+    @property
+    def screenFlow(self):
+        return ScreenFlowStructure(self.doc, f"{self.path}/screenFlow")
+
+    # 10.4. Print Layout. Seeds → UP.
+    @property
+    def printLayout(self):
+        return PrintLayout(self.doc, f"{self.path}/printLayout")
+
+    # Data Structure Alignment.
+    @property
+    def dataStructureAlignment(self):
+        return None  # (skipped: no target type)
+
+    # Authorization Compliance.
+    @property
+    def authorizationCompliance(self):
+        return None  # (skipped: no target type)
+
+    # 10.7. Error Handling Concept. Seeds → UP.
+    @property
+    def errorHandling(self):
+        return ErrorHandlingConcept(self.doc, f"{self.path}/errorHandling")
+
+    # 10.8. Help Concept. Seeds → UP.
+    @property
+    def helpConcept(self):
+        return HelpConcept(self.doc, f"{self.path}/helpConcept")
+
+    # 10.9. Accessibility. Seeds → UP.
+    @property
+    def accessibility(self):
+        return Accessibility(self.doc, f"{self.path}/accessibility")
+
+    # 10.10. Responsive Design. Seeds → UP.
+    @property
+    def responsiveDesign(self):
+        return ResponsiveDesign(self.doc, f"{self.path}/responsiveDesign")
+
+    # 10.11. UI Components. Seeds → UP.
+    @property
+    def uiComponents(self):
+        return UiComponents(self.doc, f"{self.path}/uiComponents")
+
+    # 10.12. Multi-language and Rollout Support.
+    @property
+    def multiLanguage(self):
+        return MultiLanguageAndRollout(self.doc, f"{self.path}/multiLanguage")
+
+    # 10.13. Prototype. Seeds → UP.
+    @property
+    def prototype(self):
+        return Prototype(self.doc, f"{self.path}/prototype")
+
+    # 10.14. Wireframes and Mockups..
+    @property
+    def wireframesAndMockups(self):
+        return SomList(self.doc, f"{self.path}/WIANMO-WIRE-LST", lambda d, p: WireframesAndMockups(d, p))
+
+class ExperienceDesignSpecification(SomNode):
+    """UP00 UI Prototype.
+    
+    Full UI design and prototype specification — vision, screens,
+    screen flow, print, error handling, help, accessibility, responsive,
+    components, language/country selection, prototype, wireframes and
+    mockups.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "XDS")
+        check_som_model_version(ExperienceDesignSpecification.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return ExperienceDesignSpecification.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Design vision.
+    @property
+    def designVision(self):
+        return DesignVision(self.doc, f"{self.path}/designVision")
+
+    # Screen descriptions.
+    @property
+    def screens(self):
+        return ScreenDescriptions(self.doc, f"{self.path}/screens")
+
+    # Screen flow structure.
+    @property
+    def screenFlow(self):
+        return ScreenFlowStructure(self.doc, f"{self.path}/screenFlow")
+
+    # Print layout.
+    @property
+    def printLayout(self):
+        return PrintLayout(self.doc, f"{self.path}/printLayout")
+
+    # Error handling concept.
+    @property
+    def errorHandling(self):
+        return ErrorHandlingConcept(self.doc, f"{self.path}/errorHandling")
+
+    # Help concept.
+    @property
+    def helpConcept(self):
+        return HelpConcept(self.doc, f"{self.path}/helpConcept")
+
+    # Accessibility.
+    @property
+    def accessibility(self):
+        return Accessibility(self.doc, f"{self.path}/accessibility")
+
+    # Responsive design.
+    @property
+    def responsiveDesign(self):
+        return ResponsiveDesign(self.doc, f"{self.path}/responsiveDesign")
+
+    # UI components.
+    @property
+    def uiComponents(self):
+        return UiComponents(self.doc, f"{self.path}/uiComponents")
+
+    # Language and country selection.
+    @property
+    def languageCountrySelection(self):
+        return LanguageCountrySelection(self.doc, f"{self.path}/languageCountrySelection")
+
+    # Prototype.
+    @property
+    def prototype(self):
+        return Prototype(self.doc, f"{self.path}/prototype")
+
+    # Wireframes and mockups (new in Phase A).
+    @property
+    def wireframesAndMockups(self):
+        return SomList(self.doc, f"{self.path}/WIANMO-WIRE-LST", lambda d, p: WireframesAndMockups(d, p))
 
 class ExportAccess(SomNode):
     """Export access and audit."""
@@ -17500,7 +17481,7 @@ class ExportDelimiter(SomNode):
         return ExportDelimiterContentForm(self.doc, f"{self.path}/content")
 
 class ExportFieldMappingEntry(SomNode):
-    """A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form)."""
+    """A field mapping within an export (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -17574,7 +17555,7 @@ class ExportFileFormat(SomNode):
         return ExportFileFormatContentForm(self.doc, f"{self.path}/content")
 
 class ExportFormatEntry(SomNode):
-    """An export format entry (form) [PD00-USE-PRI-EXP-nn]."""
+    """An export format entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -17664,7 +17645,7 @@ class ExportSizeSettings(SomNode):
         return ExportSizeSettingsContentForm(self.doc, f"{self.path}/content")
 
 class ExportTemplateEntry(SomNode):
-    """A reusable export template [PD00-USE-PRI-TPL-nn] (form)."""
+    """A reusable export template (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -17729,7 +17710,7 @@ class ExportTemplateEntryLayout(SomNode):
         return ExportTemplateEntryLayoutContentForm(self.doc, f"{self.path}/content")
 
 class ExtensionEntry(SomNode):
-    """An extension entry [PD00-TAR-STP-INT-nn-EXT-nn]."""
+    """An extension entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -17743,7 +17724,7 @@ class ExtensionEntry(SomNode):
         return SomList(self.doc, f"{self.path}/EXTST-STEP-LST", lambda d, p: ExtensionStepEntry(d, p))
 
 class ExtensionStepEntry(SomNode):
-    """An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn]."""
+    """An extension step entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -17794,7 +17775,7 @@ class ExternalActorEntryInteraction(SomNode):
         return ExternalActorEntryInteractionContentForm(self.doc, f"{self.path}/content")
 
 class ExternalActors(SomNode):
-    """4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+    """4.1.2.3. External Actors.
     
     Human users and organizational entities that interact with the system
     from outside the system boundary.
@@ -17816,7 +17797,7 @@ class ExternalActors(SomNode):
         return SomList(self.doc, f"{self.path}/EAE-ACTO-LST", lambda d, p: ExternalActorEntry(d, p))
 
 class ExternalConnectivitySection(SomNode):
-    """8.6.2. External Connectivity [PD00-TEC-COM-EXT]."""
+    """8.6.2. External Connectivity."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -17864,7 +17845,7 @@ class ExternalConnectivitySection(SomNode):
         return ConnectivityResilience(self.doc, f"{self.path}/resilience")
 
 class ExternalInterfaceEntry(SomNode):
-    """An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+    """An external interface entry (form).
     
     Comprehensive documentation of an external system interface covering
     identification, technical details, data exchange specification, security,
@@ -17920,7 +17901,7 @@ class ExternalInterfaceEntry(SomNode):
         return InterfaceTesting(self.doc, f"{self.path}/testing")
 
 class ExternalInterfaces(SomNode):
-    """Container for external interface definitions [PD00-SYO-SYB-INT].
+    """Container for external interface definitions.
     
     Provides structured inventory of all external system integrations with
     categorization, prioritization, and governance information. Each interface
@@ -18026,7 +18007,7 @@ class ExternalPartnerAuthentication(SomNode):
         return ExternalPartnerAuthenticationContentForm(self.doc, f"{self.path}/content")
 
 class ExternalPartnerConnectionEntry(SomNode):
-    """An external partner connection entry (form) [PD00-TEC-COM-EXT-nn]."""
+    """An external partner connection entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -18110,7 +18091,7 @@ class ExternalPartnerReliability(SomNode):
         return ExternalPartnerReliabilityContentForm(self.doc, f"{self.path}/content")
 
 class ExternalServiceDependencies(SomNode):
-    """1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+    """1.1.3.2. External Service Dependencies.
     
     Dependencies on external services, third-party APIs, SaaS platforms,
     and cloud services not under direct organizational control.
@@ -18132,7 +18113,7 @@ class ExternalServiceDependencies(SomNode):
         return SomList(self.doc, f"{self.path}/EXSDE-ITEM-LST", lambda d, p: ExternalServiceDependencyEntry(d, p))
 
 class ExternalServiceDependencyEntry(SomNode):
-    """An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn].
+    """An external service dependency entry (form).
     
     Documents a dependency on an external service or third-party provider
     including vendor details, SLA, risk assessment, and fallback options.
@@ -18251,7 +18232,7 @@ class ExternalSystemContextEntryOperations(SomNode):
         return ExternalSystemContextEntryOperationsContentForm(self.doc, f"{self.path}/content")
 
 class ExternalSystemsContext(SomNode):
-    """4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+    """4.1.2.4. External Systems.
     
     External systems, services, and APIs that the system integrates with.
     """
@@ -18290,7 +18271,7 @@ class FeatureBusinessValue(SomNode):
         return FeatureBusinessValueContentForm(self.doc, f"{self.path}/content")
 
 class FeatureDependencies(SomNode):
-    """13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+    """13.4.4. Feature Dependencies.
     
     Cross-feature dependencies affecting staging order, critical path
     analysis, and delivery sequencing.
@@ -18322,7 +18303,7 @@ class FeatureDependenciesInfo(SomNode):
         return FeatureDependenciesInfoContentForm(self.doc, f"{self.path}/content")
 
 class FeatureDependencyEntry(SomNode):
-    """A feature dependency entry (form) [PD00-SSP-FEA-DEP-nn].
+    """A feature dependency entry (form).
     
     Describes a single directional dependency between two features,
     including type, impact, and resolution strategy.
@@ -18432,7 +18413,7 @@ class FeatureModuleEntryStructure(SomNode):
         return FeatureModuleEntryStructureContentForm(self.doc, f"{self.path}/content")
 
 class FeaturePrioritization(SomNode):
-    """13.4. Feature Prioritization [PD00-SSP-FEA].
+    """13.4. Feature Prioritization.
     
     Comprehensive feature prioritization framework for staged delivery.
     Covers prioritization methodology, MoSCoW analysis, feature-stage
@@ -18482,22 +18463,22 @@ class FeaturePrioritization(SomNode):
     def prioritizationRationale(self):
         return None  # (skipped: no target type)
 
-    # 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+    # 13.4.1. MoSCoW Analysis.
     @property
     def moscowAnalysis(self):
         return MoscowAnalysis(self.doc, f"{self.path}/moscowAnalysis")
 
-    # 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+    # 13.4.2. Feature-Stage Matrix.
     @property
     def featureStageMatrix(self):
         return FeatureStageMatrix(self.doc, f"{self.path}/featureStageMatrix")
 
-    # 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+    # 13.4.3. Feature Priority Register.
     @property
     def featurePriorityRegister(self):
         return FeaturePriorityRegister(self.doc, f"{self.path}/featurePriorityRegister")
 
-    # 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+    # 13.4.4. Feature Dependencies.
     @property
     def featureDependencies(self):
         return FeatureDependencies(self.doc, f"{self.path}/featureDependencies")
@@ -18557,7 +18538,7 @@ class FeaturePrioritizationTraceability(SomNode):
         return FeaturePrioritizationTraceabilityContentForm(self.doc, f"{self.path}/content")
 
 class FeaturePriorityEntry(SomNode):
-    """An individual feature priority entry (form) [PD00-SSP-FEA-REG-nn].
+    """An individual feature priority entry (form).
     
     Comprehensive record covering identity, classification, business
     value, effort, priority scoring, stage assignment, dependencies,
@@ -18616,7 +18597,7 @@ class FeaturePriorityEntry(SomNode):
         return FeatureStatus(self.doc, f"{self.path}/status")
 
 class FeaturePriorityRegister(SomNode):
-    """13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+    """13.4.3. Feature Priority Register.
     
     Master register of all features with comprehensive priority scoring,
     business value analysis, effort estimates, stakeholder ownership,
@@ -18653,7 +18634,7 @@ class FeatureStageAssignment(SomNode):
         return FeatureStageAssignmentContentForm(self.doc, f"{self.path}/content")
 
 class FeatureStageMapping(SomNode):
-    """A feature-to-stage mapping entry (form) [PD00-SSP-FEA-MAT-nn].
+    """A feature-to-stage mapping entry (form).
     
     Maps a single feature or feature group to its delivery stage with
     readiness, confidence, and dependency information.
@@ -18722,7 +18703,7 @@ class FeatureStageMappingReadiness(SomNode):
         return FeatureStageMappingReadinessContentForm(self.doc, f"{self.path}/content")
 
 class FeatureStageMatrix(SomNode):
-    """13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+    """13.4.2. Feature-Stage Matrix.
     
     Maps every feature or feature group to the delivery stage, tracking
     readiness, confidence, dependencies, and acceptance criteria.
@@ -18763,7 +18744,7 @@ class FeatureStatus(SomNode):
         return FeatureStatusContentForm(self.doc, f"{self.path}/content")
 
 class FeatureTourEntry(SomNode):
-    """A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn]."""
+    """A feature tour entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -18786,7 +18767,7 @@ class FeatureTraceability(SomNode):
         return FeatureTraceabilityContentForm(self.doc, f"{self.path}/content")
 
 class FieldHelpEntry(SomNode):
-    """A field help entry [PD00-USE-HLP-CON-FLD-nn]."""
+    """A field help entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -18840,7 +18821,7 @@ class FileAccessControlPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class FileAndStorageSecurity(SomNode):
-    """9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+    """9.3.3. File and Storage Security.
     
     Comprehensive file and storage security specification covering upload
     validation, storage encryption, access control on file resources, content
@@ -19029,7 +19010,7 @@ class FirewallRequirementsRules(SomNode):
         return FirewallRequirementsRulesContentForm(self.doc, f"{self.path}/content")
 
 class FlexibilityQuality(SomNode):
-    """11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE]."""
+    """11.3.3. Flexibility quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -19107,7 +19088,7 @@ class FrameworkCompatibility(SomNode):
         return FrameworkCompatibilityContentForm(self.doc, f"{self.path}/content")
 
 class FrameworkConditions(SomNode):
-    """4.6. Framework Conditions [PD00-SYO-RES].
+    """4.6. Framework Conditions.
     
     Documents the organizational and technical environment in which the system
     will operate. Covers organizational structure, functional responsibilities,
@@ -19122,28 +19103,28 @@ class FrameworkConditions(SomNode):
     def overview(self):
         return None  # (skipped: no target type)
 
-    # 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+    # 4.6.1. Organizational Environment.
     @property
     def organizationalEnvironment(self):
         return OrganizationalEnvironment(self.doc, f"{self.path}/organizationalEnvironment")
 
-    # 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
+    # 4.6.2. Functional Responsibilities — contains 0+×.
     @property
     def functionalResponsibilities(self):
         return FunctionalResponsibilities(self.doc, f"{self.path}/functionalResponsibilities")
 
-    # 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+    # 4.6.3. Technical Framework Conditions. Seeds → TR.
     @property
     def technicalFrameworkConditions(self):
         return TechnicalFrameworkConditions(self.doc, f"{self.path}/technicalFrameworkConditions")
 
-    # 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
+    # 4.6.4. Constraints and Dependencies — contains 0+×.
     @property
     def constraintsAndDependencies(self):
         return ConstraintsAndDependencies(self.doc, f"{self.path}/constraintsAndDependencies")
 
 class FrameworkDependencies(SomNode):
-    """4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+    """4.6.4.2. Dependencies.
     
     External dependencies on other projects, teams, vendors, systems, or
     organizational initiatives. Each dependency represents a point where
@@ -19196,7 +19177,7 @@ class FrameworkDependenciesManagement(SomNode):
         return FrameworkDependenciesManagementContentForm(self.doc, f"{self.path}/content")
 
 class FrameworkDependencyEntry(SomNode):
-    """A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+    """A framework dependency entry (form).
     
     Represents a single external dependency where this project relies on
     another party (project, team, vendor, system) to deliver something.
@@ -19340,7 +19321,7 @@ class FrameworkVersion(SomNode):
         return FrameworkVersionContentForm(self.doc, f"{self.path}/content")
 
 class FullDistribution(SomNode):
-    """3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+    """3.3.1. Full Distribution.
     
     Recipients who receive all project documents and communications.
     """
@@ -19366,7 +19347,7 @@ class FullDistribution(SomNode):
         return SomList(self.doc, f"{self.path}/DSRC-ITEM-LST", lambda d, p: DistributionRecipientEntry(d, p))
 
 class FunctionDataMatrixEntry(SomNode):
-    """A function-to-data matrix entry (form) [PD00-BUS-FUN-MAT-nn].
+    """A function-to-data matrix entry (form).
     
     Maps a function to the data entities it accesses.
     """
@@ -19378,7 +19359,7 @@ class FunctionDataMatrixEntry(SomNode):
         return FunctionDataMatrixEntryContentForm(self.doc, f"{self.path}/content")
 
 class FunctionEntry(SomNode):
-    """A function entry (form) [PD00-BUS-FUN-DEC-nn].
+    """A function entry (form).
     
     Business function specification in the functional decomposition.
     """
@@ -19404,7 +19385,7 @@ class FunctionEntry(SomNode):
     def implementation(self):
         return FunctionEntryImplementation(self.doc, f"{self.path}/implementation")
 
-    # Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
+    # Sub-functions — contains 0+× SubFunction.
     @property
     def subFunctions(self):
         return SomList(self.doc, f"{self.path}/SUFN-SUBF-LST", lambda d, p: SubFunctionEntry(d, p))
@@ -19437,7 +19418,7 @@ class FunctionEntryOperations(SomNode):
         return FunctionEntryOperationsContentForm(self.doc, f"{self.path}/content")
 
 class FunctionModel(SomNode):
-    """7.3. Function Model [PD00-BUS-FUN].
+    """7.3. Function Model.
     
     Business functions, their decomposition, and relationships to data objects.
     """
@@ -19452,23 +19433,23 @@ class FunctionModel(SomNode):
     def matrixOverview(self):
         return FunctionModelMatrixOverviewForm(self.doc, f"{self.path}/matrixOverview")
 
-    # 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC] — contains 0+× Function.
+    # 7.3.1. Function Decomposition — contains 0+× Function.
     @property
     def functions(self):
         return SomList(self.doc, f"{self.path}/FUNCT-FUNC-LST", lambda d, p: FunctionEntry(d, p))
 
-    # 7.3.2. Function-to-Data Matrix Entries [PD00-BUS-FUN-MAT] — contains 0+× MatrixEntry.
+    # 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
     @property
     def matrixEntries(self):
         return SomList(self.doc, f"{self.path}/FNDMX-MATR-LST", lambda d, p: FunctionDataMatrixEntry(d, p))
 
-    # 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
+    # 7.3.3. Business Rules — contains 1+× Business Rule.
     @property
     def businessRules(self):
         return SomList(self.doc, f"{self.path}/BIRU-BUSI-LST", lambda d, p: BusinessRuleEntry(d, p))
 
 class FunctionalCompletenessQuality(SomNode):
-    """11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN]."""
+    """11.2.2. Functional completeness quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -19482,7 +19463,7 @@ class FunctionalCompletenessQuality(SomNode):
         return None  # (skipped: no target type)
 
 class FunctionalRequirementEntry(SomNode):
-    """A functional requirement entry [PD00-SYO-REQ-FUN-nn].
+    """A functional requirement entry.
     
     Comprehensive functional requirement definition following IEEE 830,
     ISO 29148, and Volere requirements shell. Includes traceability,
@@ -19525,37 +19506,37 @@ class FunctionalRequirementEntry(SomNode):
     def metadata(self):
         return FunctionalRequirementEntryMetadata(self.doc, f"{self.path}/metadata")
 
-    # 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+    # 4.3.1.n.1. Acceptance Criteria.
     @property
     def acceptanceCriteria(self):
         return RequirementAcceptanceCriteria(self.doc, f"{self.path}/acceptanceCriteria")
 
-    # 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+    # 4.3.1.n.2. Business Rules.
     @property
     def businessRules(self):
         return RequirementBusinessRules(self.doc, f"{self.path}/businessRules")
 
-    # 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+    # 4.3.1.n.3. Data Requirements.
     @property
     def dataRequirements(self):
         return RequirementDataRequirements(self.doc, f"{self.path}/dataRequirements")
 
-    # 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+    # 4.3.1.n.4. UI Specification.
     @property
     def uiSpecification(self):
         return RequirementUiSpecification(self.doc, f"{self.path}/uiSpecification")
 
-    # 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+    # 4.3.1.n.5. Dependencies.
     @property
     def dependencies(self):
         return RequirementDependencies(self.doc, f"{self.path}/dependencies")
 
-    # 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+    # 4.3.1.n.6. Traceability.
     @property
     def traceability(self):
         return RequirementTraceability(self.doc, f"{self.path}/traceability")
 
-    # 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+    # 4.3.1.n.7. Test Cases.
     @property
     def testCases(self):
         return RequirementTestCases(self.doc, f"{self.path}/testCases")
@@ -19615,7 +19596,7 @@ class FunctionalRequirementEntryVerification(SomNode):
         return FunctionalRequirementEntryVerificationContentForm(self.doc, f"{self.path}/content")
 
 class FunctionalRequirements(SomNode):
-    """4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+    """4.3.1. Functional Requirements.
     
     Container for functional requirements. Functional requirements describe
     what the system must do — its features, behaviors, processing rules,
@@ -19644,7 +19625,7 @@ class FunctionalRequirements(SomNode):
         return SomList(self.doc, f"{self.path}/FRE-REQU-LST", lambda d, p: FunctionalRequirementEntry(d, p))
 
 class FunctionalResponsibilities(SomNode):
-    """4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+    """4.6.2. Functional Responsibilities.
     
     Maps system functions to organizational units responsible for them.
     Identifies domain owners, data stewards, and operational contacts for
@@ -19669,7 +19650,7 @@ class FunctionalResponsibilities(SomNode):
         return SomList(self.doc, f"{self.path}/REEN1-ITEM-LST", lambda d, p: ResponsibilityEntry(d, p))
 
 class GapEntry(SomNode):
-    """A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
+    """A gap entry (form) — a missing capability or feature.
     
     Documents a specific gap between current capabilities and business needs:
     category, severity, quantified cost, stakeholders, compliance drivers,
@@ -19739,7 +19720,7 @@ class GapEntryWorkaround(SomNode):
         return GapEntryWorkaroundContentForm(self.doc, f"{self.path}/content")
 
 class Gaps(SomNode):
-    """1.3.4. Gaps [PD00-CUR-PAI-GAP]."""
+    """1.3.4. Gaps."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -19835,7 +19816,7 @@ class GlobalEntryPointEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class GlobalRoleExclusionEntry(SomNode):
-    """A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn].
+    """A global role exclusion entry (form).
     
     Defines system-wide mutual exclusion rules that apply across all users,
     independent of individual role definitions.
@@ -19847,8 +19828,53 @@ class GlobalRoleExclusionEntry(SomNode):
     def content(self):
         return GlobalRoleExclusionEntryContentForm(self.doc, f"{self.path}/content")
 
+class Glossary(SomNode):
+    """An ordered collection of glossary entries."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # One entry per defined term or acronym.
+    @property
+    def entries(self):
+        return SomList(self.doc, f"{self.path}/GLOSS-ENTR-LST", lambda d, p: GlossaryEntry(d, p))
+
+class GlossaryAndAbbreviations(SomNode):
+    """SBP.3 Glossary & Abbreviations."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # The set of defined terms and abbreviations.
+    @property
+    def glossary(self):
+        return Glossary(self.doc, f"{self.path}/glossary")
+
+class GlossaryEntry(SomNode):
+    """A single glossary entry (form)."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return GlossaryEntryContentForm(self.doc, f"{self.path}/content")
+
 class GoalDependencies(SomNode):
-    """4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+    """4.2.1.n.3. Dependencies.
     
     Dependencies that may affect goal achievement.
     """
@@ -19886,7 +19912,7 @@ class GoalDependencyEntry(SomNode):
         self.doc.set_content(f"{self.path}/relatedGoal", value)
 
 class GoalKeyResults(SomNode):
-    """4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+    """4.2.1.n.1. Key Results.
     
     OKR-style key results that indicate progress toward the goal.
     Key results are specific, measurable outcomes that together constitute
@@ -19918,7 +19944,7 @@ class GoalMilestoneEntry(SomNode):
         return GoalMilestoneEntryContentForm(self.doc, f"{self.path}/content")
 
 class GoalMilestones(SomNode):
-    """4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+    """4.2.1.n.2. Milestones.
     
     Key milestones marking progress toward the goal.
     """
@@ -19939,7 +19965,7 @@ class GoalMilestones(SomNode):
         return SomList(self.doc, f"{self.path}/GOLMS-ITEM-LST", lambda d, p: GoalMilestoneEntry(d, p))
 
 class GoalResources(SomNode):
-    """4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+    """4.2.1.n.5. Resources.
     
     Resources required to achieve the goal.
     """
@@ -20002,7 +20028,7 @@ class GoalRiskEntryResponse(SomNode):
         return GoalRiskEntryResponseContentForm(self.doc, f"{self.path}/content")
 
 class GoalRisks(SomNode):
-    """4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+    """4.2.1.n.4. Risks.
     
     Risks that may prevent or delay goal achievement.
     """
@@ -20023,7 +20049,7 @@ class GoalRisks(SomNode):
         return SomList(self.doc, f"{self.path}/GOLRS-ITEM-LST", lambda d, p: GoalRiskEntry(d, p))
 
 class Goals(SomNode):
-    """4.2. Goals [PD00-SYO-GOA].
+    """4.2. Goals.
     
     Container for project goals organized by category. Goals provide measurable
     objectives that guide project execution and define success. This section
@@ -20050,17 +20076,17 @@ class Goals(SomNode):
     def goalHierarchyDiagram(self, value):
         self.doc.set_content(f"{self.path}/goalHierarchyDiagram", value)
 
-    # 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+    # 4.2.1. Business Goals.
     @property
     def businessGoals(self):
         return BusinessGoals(self.doc, f"{self.path}/businessGoals")
 
-    # 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+    # 4.2.2. Technical Goals.
     @property
     def technicalGoals(self):
         return TechnicalGoals(self.doc, f"{self.path}/technicalGoals")
 
-    # 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+    # 4.2.3. Success Criteria.
     @property
     def successCriteria(self):
         return SuccessCriteria(self.doc, f"{self.path}/successCriteria")
@@ -20080,7 +20106,7 @@ class GovernanceModel(SomNode):
         return SomList(self.doc, f"{self.path}/DCAUT-DECI-LST", lambda d, p: DecisionAuthorityEntry(d, p))
 
 class HandlingRequirementEntry(SomNode):
-    """A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
+    """A data handling requirement entry (form).
     
     Specific handling procedures for classified data.
     """
@@ -20092,7 +20118,7 @@ class HandlingRequirementEntry(SomNode):
         return HandlingRequirementEntryContentForm(self.doc, f"{self.path}/content")
 
 class HardwareRequirements(SomNode):
-    """8.4. Hardware Concept Requirements [PD00-TEC-HAR]."""
+    """8.4. Hardware Concept Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -20104,17 +20130,17 @@ class HardwareRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+    # 8.4.1. Server Requirements.
     @property
     def serverRequirements(self):
         return ServerRequirementsSection(self.doc, f"{self.path}/serverRequirements")
 
-    # 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+    # 8.4.2. Client Requirements.
     @property
     def clientRequirements(self):
         return ClientRequirementsSection(self.doc, f"{self.path}/clientRequirements")
 
-    # 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+    # 8.4.3. Network Requirements.
     @property
     def networkRequirements(self):
         return NetworkRequirementsSection(self.doc, f"{self.path}/networkRequirements")
@@ -20171,7 +20197,7 @@ class HealthCheckEndpointsTiming(SomNode):
         return HealthCheckEndpointsTimingContentForm(self.doc, f"{self.path}/content")
 
 class HealthChecksAndDiagnosticsSection(SomNode):
-    """8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA]."""
+    """8.7.2.1. Health Checks and Diagnostics."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -20214,7 +20240,7 @@ class HealthChecksAndDiagnosticsSection(SomNode):
         return DependencyHealthMonitoring(self.doc, f"{self.path}/dependencyHealth")
 
 class HelpConcept(SomNode):
-    """10.8. Help Concept [PD00-USE-HLP].
+    """10.8. Help Concept.
     
     Comprehensive in-app help system including contextual help, onboarding,
     and support access mechanisms.
@@ -20241,17 +20267,17 @@ class HelpConcept(SomNode):
     def helpOverview(self):
         return None  # (skipped: no target type)
 
-    # 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+    # 10.8.1. Contextual Help.
     @property
     def contextualHelp(self):
         return ContextualHelp(self.doc, f"{self.path}/contextualHelp")
 
-    # 10.8.2. Onboarding [PD00-USE-HLP-ONB].
+    # 10.8.2. Onboarding.
     @property
     def onboarding(self):
         return OnboardingHelp(self.doc, f"{self.path}/onboarding")
 
-    # 10.8.3. Support Access [PD00-USE-HLP-SUP].
+    # 10.8.3. Support Access.
     @property
     def supportAccess(self):
         return SupportAccess(self.doc, f"{self.path}/supportAccess")
@@ -20396,7 +20422,7 @@ class IdeRequirementEntryStandardization(SomNode):
         return IdeRequirementEntryStandardizationContentForm(self.doc, f"{self.path}/content")
 
 class Identification(SomNode):
-    """9.2.1. Identification [PD00-ACC-IDE-IDN].
+    """9.2.1. Identification.
     
     Defines the identity management model: how identities are created,
     sourced, verified, federated, and mapped. Covers identity sources,
@@ -20415,7 +20441,7 @@ class Identification(SomNode):
     def identitySources(self):
         return SomList(self.doc, f"{self.path}/IDTSR-IDEN-LST", lambda d, p: IdentitySourceEntry(d, p))
 
-    # Identity Verification [PD00-ACC-IDE-IDN-VER].
+    # Identity Verification.
     @property
     def identityVerification(self):
         return IdentityVerificationPolicy(self.doc, f"{self.path}/identityVerification")
@@ -20425,12 +20451,12 @@ class Identification(SomNode):
     def identityProviders(self):
         return SomList(self.doc, f"{self.path}/IDTPV-IDEN-LST", lambda d, p: IdentityProviderEntry(d, p))
 
-    # Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+    # Single Sign-On.
     @property
     def singleSignOn(self):
         return SingleSignOnPolicy(self.doc, f"{self.path}/singleSignOn")
 
-    # Self-Registration [PD00-ACC-IDE-IDN-REG].
+    # Self-Registration.
     @property
     def selfRegistration(self):
         return SelfRegistrationPolicy(self.doc, f"{self.path}/selfRegistration")
@@ -20441,7 +20467,7 @@ class Identification(SomNode):
         return SomList(self.doc, f"{self.path}/IDTAM-ATTR-LST", lambda d, p: IdentityAttributeMappingEntry(d, p))
 
 class IdentificationAndAuthentication(SomNode):
-    """9.2. Identification and Authentication [PD00-ACC-IDE]."""
+    """9.2. Identification and Authentication."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -20453,18 +20479,18 @@ class IdentificationAndAuthentication(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 9.2.1. Identification [PD00-ACC-IDE-IDN].
+    # 9.2.1. Identification.
     @property
     def identification(self):
         return Identification(self.doc, f"{self.path}/identification")
 
-    # 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+    # 9.2.2. Authentication.
     @property
     def authentication(self):
         return Authentication(self.doc, f"{self.path}/authentication")
 
 class IdentityAttributeMappingEntry(SomNode):
-    """An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].
+    """An identity attribute mapping entry (form).
     
     Defines how attributes map between identity sources and the application:
     source/target field, data type, transformation, sync direction.
@@ -20537,7 +20563,7 @@ class IdentityProviderEndpoints(SomNode):
         return IdentityProviderEndpointsContentForm(self.doc, f"{self.path}/content")
 
 class IdentityProviderEntry(SomNode):
-    """An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].
+    """An identity provider entry (form).
     
     Configuration for a single Identity Provider (IdP): protocol, endpoints,
     attribute mapping, trust level, certificate management.
@@ -20602,7 +20628,7 @@ class IdentityProviderTrust(SomNode):
         return IdentityProviderTrustContentForm(self.doc, f"{self.path}/content")
 
 class IdentitySourceEntry(SomNode):
-    """An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn].
+    """An identity source entry (form).
     
     Defines one source from which identities are obtained, e.g.
     internal directory, LDAP, external IdP, HR system, self-registration.
@@ -20671,7 +20697,7 @@ class IdentitySourceEntryOperations(SomNode):
         return IdentitySourceEntryOperationsContentForm(self.doc, f"{self.path}/content")
 
 class IdentityVerificationPolicy(SomNode):
-    """Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER].
+    """Identity verification/proofing policy (form).
     
     Defines how identity claims are verified: verification level, required
     documents, automation, proofing standards (NIST IAL), and re-verification.
@@ -21045,8 +21071,36 @@ class IndustryStandardEntryVerification(SomNode):
     def content(self):
         return IndustryStandardEntryVerificationContentForm(self.doc, f"{self.path}/content")
 
+class InformationAndDataModel(SomNode):
+    """7. Business Object and Data Model. Seeds → BDM."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 7.1. Data Model.
+    @property
+    def dataModel(self):
+        return DataModel(self.doc, f"{self.path}/dataModel")
+
+    # 7.2. Business Object Model.
+    @property
+    def businessObjectModel(self):
+        return BusinessObjectModel(self.doc, f"{self.path}/businessObjectModel")
+
+    # 7.3. Function Model.
+    @property
+    def functionModel(self):
+        return FunctionModel(self.doc, f"{self.path}/functionModel")
+
 class InformationArchitecture(SomNode):
-    """10.2.2. Information Architecture [PD00-USE-SCR-INF].
+    """10.2.2. Information Architecture.
     
     Overall information architecture: site map, content hierarchy, navigation
     structure, and entry points. Describes how screens relate to each other
@@ -21083,10 +21137,131 @@ class InformationArchitecture(SomNode):
     def globalEntryPoints(self):
         return SomList(self.doc, f"{self.path}/GLOBA-GLOB-LST", lambda d, p: GlobalEntryPointEntry(d, p))
 
-    # 10.2.2.5. Information Architecture Diagram [PD00-USE-SCR-INF-DIA].
+    # 10.2.2.5. Information Architecture Diagram.
     @property
     def architectureDiagram(self):
         return None  # (skipped: no target type)
+
+class InformationForUseRequirements(SomNode):
+    """Information-for-Use (user documentation) requirements.
+    
+    Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
+    *quality criteria* cross-map lives in SBP.14
+    (`DocumentationQualityCriteria`).
+    
+    Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
+    doc/training field-split (separating the documentation half from the
+    training half) is deferred to IP-8.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Documentation (and, until the IP-8 split, training) requirements,
+    # re-homed from MLAR.
+    @property
+    def documentationAndTraining(self):
+        return DocumentationAndTraining(self.doc, f"{self.path}/documentationAndTraining")
+
+class InformationModel(SomNode):
+    """BDM00 Business Data Model.
+    
+    Full business data model: entities, relationships, ER diagram, data
+    classification, business objects, function decomposition, function-
+    to-data matrix, business rules, data dictionary, and validation /
+    integrity constraints.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "IFM")
+        check_som_model_version(InformationModel.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return InformationModel.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Entity inventory (list).
+    @property
+    def entities(self):
+        return SomList(self.doc, f"{self.path}/DAENT-ENTI-LST", lambda d, p: DataEntityEntry(d, p))
+
+    # Entity relationships.
+    @property
+    def entityRelationships(self):
+        return EntityRelationships(self.doc, f"{self.path}/entityRelationships")
+
+    # Entity-relationship diagram.
+    @property
+    def erDiagram(self):
+        return None  # (skipped: no target type)
+
+    # Data classification.
+    @property
+    def dataClassification(self):
+        return DataClassification(self.doc, f"{self.path}/dataClassification")
+
+    # Business object catalog (list).
+    @property
+    def objectCatalog(self):
+        return SomList(self.doc, f"{self.path}/BJOEN-OBJE-LST", lambda d, p: BusinessObjectEntry(d, p))
+
+    # Business object diagram.
+    @property
+    def objectDiagram(self):
+        return None  # (skipped: no target type)
+
+    # Function decomposition (list).
+    @property
+    def functionDecomposition(self):
+        return SomList(self.doc, f"{self.path}/FUNCT-FUNC-LST", lambda d, p: FunctionEntry(d, p))
+
+    # Function-to-data matrix (list).
+    @property
+    def functionToDataMatrix(self):
+        return SomList(self.doc, f"{self.path}/FNDMX-FUNC-LST", lambda d, p: FunctionDataMatrixEntry(d, p))
+
+    # Business rules catalog (list).
+    @property
+    def businessRules(self):
+        return SomList(self.doc, f"{self.path}/BIRU-BUSI-LST", lambda d, p: BusinessRuleEntry(d, p))
+
+    # Data dictionary.
+    @property
+    def dataDictionary(self):
+        return DataDictionary(self.doc, f"{self.path}/dataDictionary")
+
+    # Validation constraints.
+    @property
+    def validationConstraints(self):
+        return SomList(self.doc, f"{self.path}/VACO-VALI-LST", lambda d, p: ValidationConstraints(d, p))
+
+    # Integrity constraints.
+    @property
+    def integrityConstraints(self):
+        return SomList(self.doc, f"{self.path}/INCO-INTE-LST", lambda d, p: IntegrityConstraints(d, p))
 
 class InfrastructureAsCode(SomNode):
     """Infrastructure as Code requirements."""
@@ -21335,7 +21510,7 @@ class InfrastructureSecurityHardeningNetwork(SomNode):
         return InfrastructureSecurityHardeningNetworkContentForm(self.doc, f"{self.path}/content")
 
 class InitialDevelopmentFlow(SomNode):
-    """13.7. Initial Development Flow [PD00-SSP-IDV].
+    """13.7. Initial Development Flow.
     
     Inter-phase dependencies during the initial build (Phases 1–7 of
     `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
@@ -21389,7 +21564,7 @@ class InitialTrainingDelivery(SomNode):
         return InitialTrainingDeliveryContentForm(self.doc, f"{self.path}/content")
 
 class InitialTrainingEntry(SomNode):
-    """Initial training entry (form) [PD00-ORG-WOR-nn-TRA-INI-nn]."""
+    """Initial training entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -21432,7 +21607,7 @@ class InitialTrainingSchedule(SomNode):
         return InitialTrainingScheduleContentForm(self.doc, f"{self.path}/content")
 
 class InputDeviceEntry(SomNode):
-    """Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn]."""
+    """Input device entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -21459,7 +21634,7 @@ class InsuranceEntry(SomNode):
         return InsuranceEntryContentForm(self.doc, f"{self.path}/content")
 
 class InsuranceLiabilityRequirements(SomNode):
-    """3.6.5. Insurance and Liability Requirements [PD00-ADM-OTH-INS].
+    """3.6.5. Insurance and Liability Requirements.
     
     Insurance coverage and liability agreements.
     """
@@ -21564,7 +21739,7 @@ class IntegrationArchitectureSystems(SomNode):
         return IntegrationArchitectureSystemsContentForm(self.doc, f"{self.path}/content")
 
 class IntegrationConstraintEntry(SomNode):
-    """An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
+    """An integration constraint entry (form).
     
     Documents a technical constraint on system integration, including
     protocol requirements, format restrictions, and platform mandates.
@@ -21633,7 +21808,7 @@ class IntegrationConstraintEntryScope(SomNode):
         return IntegrationConstraintEntryScopeContentForm(self.doc, f"{self.path}/content")
 
 class IntegrationHealthSummary(SomNode):
-    """1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+    """1.1.3.5. Integration Health Summary.
     
     Executive summary of overall integration landscape health and risk areas.
     """
@@ -21644,10 +21819,92 @@ class IntegrationHealthSummary(SomNode):
     def content(self):
         return IntegrationHealthSummaryContentForm(self.doc, f"{self.path}/content")
 
-    # Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
+    # Fragile integration points requiring attention.
     @property
     def fragilePoints(self):
         return SomList(self.doc, f"{self.path}/FRAGI-FRAG-LST", lambda d, p: FragilePointEntry(d, p))
+
+class IntegrationInterfaceSpecification(SomNode):
+    """BSI00 Business System Interactions.
+    
+    Complete interaction specification between the target system and
+    external systems: inventory, patterns, testing, dependencies,
+    migration, operational concerns, and cross-boundary error handling.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "IIS")
+        check_som_model_version(IntegrationInterfaceSpecification.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return IntegrationInterfaceSpecification.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # External interfaces.
+    @property
+    def externalInterfaces(self):
+        return ExternalInterfaces(self.doc, f"{self.path}/externalInterfaces")
+
+    # Out of scope.
+    @property
+    def outOfScope(self):
+        return OutOfScope(self.doc, f"{self.path}/outOfScope")
+
+    # Boundary assumptions.
+    @property
+    def boundaryAssumptions(self):
+        return BoundaryAssumptions(self.doc, f"{self.path}/boundaryAssumptions")
+
+    # System landscape inventory.
+    @property
+    def systemInventory(self):
+        return SystemLandscapeInventory(self.doc, f"{self.path}/systemInventory")
+
+    # Boundary interaction patterns.
+    @property
+    def interactionPatterns(self):
+        return SomList(self.doc, f"{self.path}/BOINPA-INTE-LST", lambda d, p: BoundaryInteractionPatterns(d, p))
+
+    # Interaction testing strategy.
+    @property
+    def testingStrategy(self):
+        return InteractionTestingStrategy(self.doc, f"{self.path}/testingStrategy")
+
+    # Interaction dependency analysis.
+    @property
+    def dependencyAnalysis(self):
+        return InteractionDependencyAnalysis(self.doc, f"{self.path}/dependencyAnalysis")
+
+    # Migration interactions.
+    @property
+    def migrationInteractions(self):
+        return SomList(self.doc, f"{self.path}/MIIN-MIGR-LST", lambda d, p: MigrationInteractions(d, p))
+
+    # Cross-boundary operational considerations.
+    @property
+    def operationalConsiderations(self):
+        return SomList(self.doc, f"{self.path}/CBOC-OPER-LST", lambda d, p: CrossBoundaryOperationalConsiderations(d, p))
+
+    # Cross-boundary error handling.
+    @property
+    def crossBoundaryErrorHandling(self):
+        return CrossBoundaryErrorHandling(self.doc, f"{self.path}/crossBoundaryErrorHandling")
 
 class IntegrationPatternEntry(SomNode):
     """A single integration pattern entry."""
@@ -21672,7 +21929,7 @@ class IntegrationPointEntry(SomNode):
         return IntegrationPointEntryContentForm(self.doc, f"{self.path}/content")
 
 class Integrations(SomNode):
-    """1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+    """1.1.3.4. System Integrations.
     
     Active integrations between systems including protocols, data formats,
     error handling, and monitoring.
@@ -21694,7 +21951,7 @@ class Integrations(SomNode):
         return SomList(self.doc, f"{self.path}/SYIN-ITEM-LST", lambda d, p: SystemIntegrationEntry(d, p))
 
 class IntegrityConstraints(SomNode):
-    """7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+    """7.1.7. Integrity Constraints.
     
     Cross-entity integrity rules beyond simple referential integrity.
     """
@@ -21710,7 +21967,7 @@ class IntegrityConstraints(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class IntellectualPropertyRequirements(SomNode):
-    """3.6.1. Intellectual Property Requirements [PD00-ADM-OTH-IPR].
+    """3.6.1. Intellectual Property Requirements.
     
     Defines ownership and usage rights for project deliverables and IP.
     """
@@ -21736,7 +21993,7 @@ class InteractionBusinessRules(SomNode):
         return InteractionBusinessRulesContentForm(self.doc, f"{self.path}/content")
 
 class InteractionCatalog(SomNode):
-    """6.2.2. Interaction Catalog [PD00-TAR-STP-INT].
+    """6.2.2. Interaction Catalog.
     
     Container for key interaction descriptions. Each interaction seeds a use
     case following Cockburn's fully dressed use case template.
@@ -21777,7 +22034,7 @@ class InteractionCatalogOverview(SomNode):
         return InteractionCatalogOverviewContentForm(self.doc, f"{self.path}/content")
 
 class InteractionChannelEntry(SomNode):
-    """An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
+    """An interaction channel entry (form).
     
     Comprehensive definition of an access channel including platform details,
     features, constraints, and user experience considerations.
@@ -21856,7 +22113,7 @@ class InteractionChannelEntryPlatform(SomNode):
         return InteractionChannelEntryPlatformContentForm(self.doc, f"{self.path}/content")
 
 class InteractionDependencyAnalysis(SomNode):
-    """4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP].
+    """4.5.7. Interaction Dependency Analysis.
     
     Critical-path and degraded-mode behavior analysis for system
     dependencies. Covers BSI-DEP.
@@ -21873,7 +22130,7 @@ class InteractionDependencyAnalysis(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class InteractionEntry(SomNode):
-    """An interaction entry [PD00-TAR-STP-INT-nn].
+    """An interaction entry.
     
     Comprehensive interaction definition following Cockburn's fully dressed
     use case template. Seeds the UC (Use Case) document.
@@ -21956,7 +22213,7 @@ class InteractionIdentification(SomNode):
         return InteractionIdentificationContentForm(self.doc, f"{self.path}/content")
 
 class InteractionPatternEntry(SomNode):
-    """An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
+    """An interaction pattern entry (form).
     
     Definition of a specific interaction pattern including timing, triggers,
     and user experience considerations.
@@ -22025,7 +22282,7 @@ class InteractionPatternEntryUsage(SomNode):
         return InteractionPatternEntryUsageContentForm(self.doc, f"{self.path}/content")
 
 class InteractionPatterns(SomNode):
-    """4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+    """4.1.5.2. Interaction Patterns.
     
     Defines how users interact with the system including real-time interactions,
     batch processing, workflow-driven tasks, and notification-driven actions.
@@ -22077,6 +22334,73 @@ class InteractionScenarioEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+class InteractionScenarios(SomNode):
+    """UC00 Use Cases.
+    
+    Detailed use cases derived from the target process steps and actor
+    interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+    and traceability.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "ISC")
+        check_som_model_version(InteractionScenarios.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return InteractionScenarios.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Process steps overview.
+    @property
+    def processStepsOverview(self):
+        return ProcessStepsOverview(self.doc, f"{self.path}/processStepsOverview")
+
+    # Actor overview.
+    @property
+    def actorOverview(self):
+        return ActorOverview(self.doc, f"{self.path}/actorOverview")
+
+    # Interaction catalog.
+    @property
+    def interactionCatalog(self):
+        return InteractionCatalog(self.doc, f"{self.path}/interactionCatalog")
+
+    # Key scenarios.
+    @property
+    def keyScenarios(self):
+        return KeyScenarios(self.doc, f"{self.path}/keyScenarios")
+
+    # Actor relationship diagram.
+    @property
+    def actorRelationshipDiagram(self):
+        return ActorRelationshipDiagram(self.doc, f"{self.path}/actorRelationshipDiagram")
+
+    # End-to-end test scenarios.
+    @property
+    def endToEndTestScenarios(self):
+        return SomList(self.doc, f"{self.path}/ETETS-ENDT-LST", lambda d, p: EndToEndTestScenarios(d, p))
+
+    # Use case traceability.
+    @property
+    def useCaseTraceability(self):
+        return UseCaseTraceability(self.doc, f"{self.path}/useCaseTraceability")
+
 class InteractionSecurity(SomNode):
     """Interaction security requirements."""
     def __init__(self, doc, path):
@@ -22087,7 +22411,7 @@ class InteractionSecurity(SomNode):
         return InteractionSecurityContentForm(self.doc, f"{self.path}/content")
 
 class InteractionTestingStrategy(SomNode):
-    """4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST].
+    """4.5.6. Interaction Testing Strategy.
     
     Contract / integration / failure-mode testing for system boundaries.
     Covers BSI-TST.
@@ -22113,7 +22437,7 @@ class InteractionTraceability(SomNode):
         return InteractionTraceabilityContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceBusinessContext(SomNode):
-    """Business context for an interface [PD00-SYO-SYB-INT-nn-BUS]."""
+    """Business context for an interface."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22127,7 +22451,7 @@ class InterfaceBusinessContext(SomNode):
         return SomList(self.doc, f"{self.path}/IBPE-DEPE-LST", lambda d, p: InterfaceBusinessProcessEntry(d, p))
 
 class InterfaceBusinessProcessEntry(SomNode):
-    """Business process dependency entry [PD00-SYO-SYB-INT-nn-BUS-BP-nn]."""
+    """Business process dependency entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22136,7 +22460,7 @@ class InterfaceBusinessProcessEntry(SomNode):
         return InterfaceBusinessProcessEntryContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceDataEntityEntry(SomNode):
-    """Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn]."""
+    """Data entity exchanged."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22145,7 +22469,7 @@ class InterfaceDataEntityEntry(SomNode):
         return InterfaceDataEntityEntryContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceDataSpec(SomNode):
-    """Data specification for an interface [PD00-SYO-SYB-INT-nn-DAT]."""
+    """Data specification for an interface."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22169,7 +22493,7 @@ class InterfaceDataSpec(SomNode):
         return SomList(self.doc, f"{self.path}/VALID-VALI-LST", lambda d, p: ValidationRuleEntry(d, p))
 
 class InterfaceErrorHandling(SomNode):
-    """Error handling specification [PD00-SYO-SYB-INT-nn-ERR]."""
+    """Error handling specification."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22225,7 +22549,7 @@ class InterfaceErrorHandlingTimeout(SomNode):
         return InterfaceErrorHandlingTimeoutContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceGovernance(SomNode):
-    """Governance and contracts [PD00-SYO-SYB-INT-nn-GOV]."""
+    """Governance and contracts."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22267,7 +22591,7 @@ class InterfaceGovernanceLifecycle(SomNode):
         return InterfaceGovernanceLifecycleContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceOperationEntry(SomNode):
-    """API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn]."""
+    """API operation entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22276,7 +22600,7 @@ class InterfaceOperationEntry(SomNode):
         return InterfaceOperationEntryContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceOperational(SomNode):
-    """Operational characteristics [PD00-SYO-SYB-INT-nn-OPS]."""
+    """Operational characteristics."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22332,7 +22656,7 @@ class InterfaceOperationalSupport(SomNode):
         return InterfaceOperationalSupportContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceSecurity(SomNode):
-    """Security specification for an interface [PD00-SYO-SYB-INT-nn-SEC]."""
+    """Security specification for an interface."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22453,7 +22777,7 @@ class InterfaceSpecificationEntryTooling(SomNode):
         return InterfaceSpecificationEntryToolingContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceTechnicalSpec(SomNode):
-    """Technical specification for an interface [PD00-SYO-SYB-INT-nn-TEC]."""
+    """Technical specification for an interface."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22500,7 +22824,7 @@ class InterfaceTechnicalSpecEndpoints(SomNode):
         return InterfaceTechnicalSpecEndpointsContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceTestScenarioEntry(SomNode):
-    """Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn]."""
+    """Test scenario entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22509,7 +22833,7 @@ class InterfaceTestScenarioEntry(SomNode):
         return InterfaceTestScenarioEntryContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceTesting(SomNode):
-    """Testing specification [PD00-SYO-SYB-INT-nn-TST]."""
+    """Testing specification."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22551,7 +22875,7 @@ class InterfaceTestingStrategy(SomNode):
         return InterfaceTestingStrategyContentForm(self.doc, f"{self.path}/content")
 
 class InterfaceWebhookSpec(SomNode):
-    """Webhook specification [PD00-SYO-SYB-INT-nn-TEC-WH]."""
+    """Webhook specification."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22560,7 +22884,7 @@ class InterfaceWebhookSpec(SomNode):
         return InterfaceWebhookSpecContentForm(self.doc, f"{self.path}/content")
 
 class InternalDependencies(SomNode):
-    """1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+    """1.1.3.1. Internal Dependencies.
     
     Dependencies between systems owned and operated internally.
     """
@@ -22710,6 +23034,73 @@ class InteroperabilityRequirementsTesting(SomNode):
     def content(self):
         return InteroperabilityRequirementsTestingContentForm(self.doc, f"{self.path}/content")
 
+class IntroductionAndScope(SomNode):
+    """4. System Overview.
+    
+    High-level overview of the system to be built: its purpose, goals,
+    scope boundaries, and the environment it operates in. This section
+    establishes the foundation for all subsequent specification work.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # System overview summary statistics.
+    @property
+    def summary(self):
+        return SystemOverviewSummary(self.doc, f"{self.path}/summary")
+
+    # System context diagram showing major system boundaries.
+    @property
+    def systemContextDiagram(self):
+        return self.doc.content(f"{self.path}/systemContextDiagram") or ""
+
+    @systemContextDiagram.setter
+    def systemContextDiagram(self, value):
+        self.doc.set_content(f"{self.path}/systemContextDiagram", value)
+
+    # 4.1. System Description.
+    @property
+    def systemDescription(self):
+        return SystemDescription(self.doc, f"{self.path}/systemDescription")
+
+    # 4.2. Goals.
+    @property
+    def goals(self):
+        return Goals(self.doc, f"{self.path}/goals")
+
+    # 4.3. Requirements Overview. Seeds → RC.
+    @property
+    def requirements(self):
+        return RequirementsOverview(self.doc, f"{self.path}/requirements")
+
+    # 4.4. Systems to Replace. Seeds → CS.
+    @property
+    def systemsToReplace(self):
+        return SystemsToReplace(self.doc, f"{self.path}/systemsToReplace")
+
+    # 4.5. System Boundaries. Seeds → BSI.
+    @property
+    def systemBoundaries(self):
+        return SystemBoundaries(self.doc, f"{self.path}/systemBoundaries")
+
+    # 4.6. Framework Conditions.
+    @property
+    def frameworkConditions(self):
+        return FrameworkConditions(self.doc, f"{self.path}/frameworkConditions")
+
+    # 4.7. Risks and Assumptions.
+    @property
+    def risksAndAssumptions(self):
+        return RisksAndAssumptions(self.doc, f"{self.path}/risksAndAssumptions")
+
 class IpOwnershipEntry(SomNode):
     """An IP ownership entry (form)."""
     def __init__(self, doc, path):
@@ -22719,8 +23110,40 @@ class IpOwnershipEntry(SomNode):
     def content(self):
         return IpOwnershipEntryContentForm(self.doc, f"{self.path}/content")
 
+class Iso25010Coverage(SomNode):
+    """ISO/IEC 25010 product-quality cross-map.
+    
+    Maps the system's quality goals onto the eight ISO/IEC 25010 product
+    quality characteristics so that compatibility and portability cannot be
+    silently missed.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # One entry per ISO/IEC 25010 characteristic addressed.
+    @property
+    def characteristics(self):
+        return SomList(self.doc, f"{self.path}/I25CV-CHAR-LST", lambda d, p: Iso25010CoverageEntry(d, p))
+
+class Iso25010CoverageEntry(SomNode):
+    """A single ISO/IEC 25010 coverage entry (form)."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return Iso25010CoverageEntryContentForm(self.doc, f"{self.path}/content")
+
 class ItLandscapePosition(SomNode):
-    """4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+    """4.1.2.2. IT Landscape Position.
     
     How this system fits within the organization's overall IT architecture
     and application portfolio.
@@ -22742,7 +23165,7 @@ class ItLandscapePosition(SomNode):
         return ItLandscapePositionPositionDetailsForm(self.doc, f"{self.path}/positionDetails")
 
 class ItSecurityOperationsQuality(SomNode):
-    """11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS]."""
+    """11.4.4. IT Security Operations quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22812,7 +23235,7 @@ class ItSecurityOperationsQualityTesting(SomNode):
         return ItSecurityOperationsQualityTestingContentForm(self.doc, f"{self.path}/content")
 
 class ItSecurityStandardsSection(SomNode):
-    """8.8.1. IT Security Standards [PD00-TEC-SEC-ITS]."""
+    """8.8.1. IT Security Standards."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -22939,7 +23362,7 @@ class ItStandardComplianceEntryTimeline(SomNode):
         return ItStandardComplianceEntryTimelineContentForm(self.doc, f"{self.path}/content")
 
 class JobDescriptionsAndStaffing(SomNode):
-    """5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+    """5.2. Job Descriptions and Staffing Plans.
     
     Documents new and changed roles resulting from the system introduction,
     following HR best practices and job analysis methodologies (O*NET, SHRM).
@@ -22953,27 +23376,27 @@ class JobDescriptionsAndStaffing(SomNode):
     def overview(self):
         return JobDescriptionsOverview(self.doc, f"{self.path}/overview")
 
-    # 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
+    # 5.2.1. New Roles — contains 0+× New Role.
     @property
     def newRoles(self):
         return SomList(self.doc, f"{self.path}/NWROL-NEWR-LST", lambda d, p: NewRoleEntry(d, p))
 
-    # 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
+    # 5.2.2. Changed Roles — contains 0+× Changed Role.
     @property
     def changedRoles(self):
         return SomList(self.doc, f"{self.path}/CHAROL-CHAN-LST", lambda d, p: ChangedRoleEntry(d, p))
 
-    # 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
+    # 5.2.3. Removed Roles — contains 0+× role being eliminated.
     @property
     def removedRoles(self):
         return SomList(self.doc, f"{self.path}/REMROL-REMO-LST", lambda d, p: RemovedRoleEntry(d, p))
 
-    # 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+    # 5.2.4. Staffing Plan.
     @property
     def staffingPlan(self):
         return StaffingPlan(self.doc, f"{self.path}/staffingPlan")
 
-    # 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+    # 5.2.5. Competency Framework.
     @property
     def competencyFramework(self):
         return CompetencyFramework(self.doc, f"{self.path}/competencyFramework")
@@ -23010,7 +23433,7 @@ class KeyAssumptionEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class KeyAssumptions(SomNode):
-    """4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+    """4.7.2. Key Assumptions.
     
     Documents project assumptions that must hold true for success.
     Tracks validation status and contingency plans if assumptions prove false.
@@ -23029,7 +23452,7 @@ class KeyAssumptions(SomNode):
         return SomList(self.doc, f"{self.path}/ASEN-ITEM-LST", lambda d, p: AssumptionEntry(d, p))
 
 class KeyAttributeEntry(SomNode):
-    """A key attribute entry (form) [PD00-BUS-DAT-ENT-nn-KEY-nn].
+    """A key attribute entry (form).
     
     Specification for primary, foreign, alternate, and composite keys.
     """
@@ -23129,7 +23552,7 @@ class KeyConceptEntry(SomNode):
         return None  # (skipped: no target type)
 
 class KeyConcepts(SomNode):
-    """4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+    """4.1.3.3. Key Concepts.
     
     Core business concepts and entities in the domain, their attributes,
     and relationships (conceptual domain model).
@@ -23198,7 +23621,7 @@ class KeyGenerationPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class KeyManagement(SomNode):
-    """9.5.3. Key Management [PD00-ACC-SEN-KEY].
+    """9.5.3. Key Management.
     
     Defines cryptographic key management policies covering the full key
     lifecycle: generation, storage, rotation, escrow/backup, and compromise
@@ -23274,7 +23697,7 @@ class KeyRotationPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class KeyScenarios(SomNode):
-    """6.2.3. Key Scenarios [PD00-TAR-STP-SCE].
+    """6.2.3. Key Scenarios.
     
     End-to-end scenario descriptions showing how users achieve business goals
     through sequences of interactions.
@@ -23334,7 +23757,7 @@ class KeyTouchpointEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class KnowledgeTransfer(SomNode):
-    """15.7. Knowledge Transfer [PD00-ROL-KNO].
+    """15.7. Knowledge Transfer.
     
     Handover from delivery team to operations. Covers EK09 Handover
     Agreement content.
@@ -23390,7 +23813,7 @@ class KpiEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class LanguageCountrySelection(SomNode):
-    """10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+    """10.12.4. Language and Country Selection.
     
     UI specification for language and country selection.
     """
@@ -23519,7 +23942,7 @@ class LayerCommunicationRulesInterfaces(SomNode):
         return LayerCommunicationRulesInterfacesContentForm(self.doc, f"{self.path}/content")
 
 class LayeringAndModuleStructure(SomNode):
-    """8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+    """8.2.1. Layering and Module Structure.
     
     Software layering (presentation, business logic, data access, infrastructure)
     and module structure (bounded contexts, packages, libraries).
@@ -23665,7 +24088,7 @@ class LiabilityLimitations(SomNode):
         return LiabilityLimitationsContentForm(self.doc, f"{self.path}/content")
 
 class LifecycleTransitionEntry(SomNode):
-    """A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
+    """A lifecycle transition entry (form).
     
     Detailed state transition specification.
     """
@@ -23719,7 +24142,7 @@ class LifecycleTransitionEntryTrigger(SomNode):
         return LifecycleTransitionEntryTriggerContentForm(self.doc, f"{self.path}/content")
 
 class LimitationEntry(SomNode):
-    """A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn]."""
+    """A known limitation of an existing system (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -23858,7 +24281,7 @@ class LocalDevelopmentSetupWorkflow(SomNode):
         return LocalDevelopmentSetupWorkflowContentForm(self.doc, f"{self.path}/content")
 
 class LocalizationProcess(SomNode):
-    """10.12.1. Localization Process [PD00-USE-MUL-LOC].
+    """10.12.1. Localization Process.
     
     Workflow for identifying and preparing content for localization.
     """
@@ -23920,6 +24343,62 @@ class LocalizationProcessReview(SomNode):
     @property
     def content(self):
         return LocalizationProcessReviewContentForm(self.doc, f"{self.path}/content")
+
+class LocalizationTranslationProcess(SomNode):
+    """Localization & Translation execution processes.
+    
+    Public anchor: ISO 29148 transition requirements. Bundles the localization
+    and translation *workflow* concerns re-homed from the former
+    `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+    SBP.9 [LocalizationTranslationRequirements]).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Localization workflow (content identification, externalization, review).
+    @property
+    def localizationProcess(self):
+        return LocalizationProcess(self.doc, f"{self.path}/localizationProcess")
+
+    # Translation workflow (TMS, translation memory, vendors, QA).
+    @property
+    def translationProcess(self):
+        return TranslationProcess(self.doc, f"{self.path}/translationProcess")
+
+class LocalizationTranslationRequirements(SomNode):
+    """Localization & Translation requirements (the requirement side of i18n).
+    
+    Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
+    constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Technical internationalization requirements (re-homed from MLAR).
+    @property
+    def translationRequirements(self):
+        return TranslationRequirements(self.doc, f"{self.path}/translationRequirements")
+
+    # Locale modeling and fallback requirements (re-homed from MLAR).
+    @property
+    def localeHandling(self):
+        return MultiLanguageAndRolloutLocaleHandling(self.doc, f"{self.path}/localeHandling")
 
 class LogAggregationRequirements(SomNode):
     """Log aggregation and analysis requirements."""
@@ -24112,7 +24591,7 @@ class LoginFlowConfiguration(SomNode):
         return None  # (skipped: no target type)
 
 class LoginFlowStepEntry(SomNode):
-    """A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
+    """A login flow step entry (form).
     
     Defines an individual step in the authentication flow sequence,
     allowing detailed specification of each stage from initial request
@@ -24168,7 +24647,7 @@ class LoginFlowStepEntryValidation(SomNode):
         return LoginFlowStepEntryValidationContentForm(self.doc, f"{self.path}/content")
 
 class MainScenarioStepEntry(SomNode):
-    """A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn]."""
+    """A main scenario step entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -24191,7 +24670,7 @@ class MainSuccessScenario(SomNode):
         return SomList(self.doc, f"{self.path}/MNSST-STEP-LST", lambda d, p: MainScenarioStepEntry(d, p))
 
 class MaintainabilityQuality(SomNode):
-    """11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI]."""
+    """11.3.5. Maintainability quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -24326,7 +24805,7 @@ class MaintenanceChangeManagementTesting(SomNode):
         return MaintenanceChangeManagementTestingContentForm(self.doc, f"{self.path}/content")
 
 class MaintenanceDependencies(SomNode):
-    """12.5. Maintenance Dependencies [PD00-COM-MAI].
+    """12.5. Maintenance Dependencies.
     
     Maintenance dependencies: version compatibility matrix, coordinated
     update sequences, and breaking-change handling.
@@ -24348,7 +24827,7 @@ class MaintenanceDependencies(SomNode):
         return SomList(self.doc, f"{self.path}/MNDEP-ITEM-LST", lambda d, p: MaintenanceDependencyEntry(d, p))
 
 class MaintenanceDependencyEntry(SomNode):
-    """A maintenance dependency entry (form) [PD00-COM-MAI-nn].
+    """A maintenance dependency entry (form).
     
     Documents one maintenance dependency: coordinated update sequences,
     version compatibility, and breaking-change handling.
@@ -24532,7 +25011,7 @@ class MaintenanceWindowEntryScope(SomNode):
         return MaintenanceWindowEntryScopeContentForm(self.doc, f"{self.path}/content")
 
 class MaintenanceWindowsSection(SomNode):
-    """8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+    """8.5.4. Maintenance Windows.
     
     Maintenance window requirements: frequency, duration, notification period,
     and impact on users.
@@ -24648,7 +25127,7 @@ class MasterDataDomainEntryUsage(SomNode):
         return MasterDataDomainEntryUsageContentForm(self.doc, f"{self.path}/content")
 
 class MasterDataManagement(SomNode):
-    """1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+    """1.4.10. Master Data Management.
     
     Master data management practices, golden records, and data
     synchronization across systems.
@@ -24758,7 +25237,7 @@ class MethodologyDeviationSummary(SomNode):
         return MethodologyDeviationSummaryContentForm(self.doc, f"{self.path}/content")
 
 class MetricsAndObservability(SomNode):
-    """8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+    """8.7.2.3. Metrics and Observability.
     
     Comprehensive metrics collection, distributed tracing, and observability
     requirements.
@@ -24902,7 +25381,7 @@ class MetricsDashboardSummary(SomNode):
         return MetricsDashboardSummaryContentForm(self.doc, f"{self.path}/content")
 
 class MfaCategoryRequirementEntry(SomNode):
-    """An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn].
+    """An MFA enforcement per user category entry (form).
     
     Defines MFA requirements for a specific user category, allowing
     different authentication assurance levels per role or access tier.
@@ -25010,7 +25489,7 @@ class MigrationCompliance(SomNode):
         return MigrationComplianceContentForm(self.doc, f"{self.path}/content")
 
 class MigrationConsiderations(SomNode):
-    """4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+    """4.4.2. Migration Considerations (global).
     
     Cross-system migration concerns covering portfolio-wide strategy,
     resource planning, and coordination. Complements per-system
@@ -25033,7 +25512,7 @@ class MigrationConsiderations(SomNode):
     def resources(self):
         return MigrationResources(self.doc, f"{self.path}/resources")
 
-    # Migration risks [PD00-SYO-SYR-MIG-RIS].
+    # Migration risks.
     @property
     def migrationRisks(self):
         return MigrationRisks(self.doc, f"{self.path}/migrationRisks")
@@ -25106,11 +25585,11 @@ class MigrationEnvironments(SomNode):
         return MigrationEnvironmentsContentForm(self.doc, f"{self.path}/content")
 
 class MigrationInteractions(SomNode):
-    """4.5.8. Migration Interactions [PD00-SYO-SYB-MIG].
+    """4.5.8. Migration Interactions.
     
     Interactions specific to the migration window — cutover bridges,
-    reconciliation endpoints, and temporary shims. Back-refs
-    PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
+    reconciliation endpoints, and temporary shims. Back-refs the
+    Systems to Replace inventory. Covers BSI-MIG.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -25124,7 +25603,7 @@ class MigrationInteractions(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class MigrationMappingEntry(SomNode):
-    """A migration mapping entry (form) [PD00-BUS-DAT-ENT-nn-MIG-nn].
+    """A migration mapping entry (form).
     
     Maps source system data to target entity for data migration planning.
     """
@@ -25145,7 +25624,7 @@ class MigrationMetrics(SomNode):
         return MigrationMetricsContentForm(self.doc, f"{self.path}/content")
 
 class MigrationMilestoneEntry(SomNode):
-    """A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn]."""
+    """A migration milestone entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -25181,7 +25660,7 @@ class MigrationPhaseDryRuns(SomNode):
         return MigrationPhaseDryRunsContentForm(self.doc, f"{self.path}/content")
 
 class MigrationPhaseEntry(SomNode):
-    """A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
+    """A migration phase entry (form).
     
     Represents a single migration phase targeting a specific data domain,
     source system, or entity group. Covers data scope analysis, migration
@@ -25324,7 +25803,7 @@ class MigrationPhaseValidation(SomNode):
         return MigrationPhaseValidationContentForm(self.doc, f"{self.path}/content")
 
 class MigrationPhases(SomNode):
-    """13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+    """13.5.1. Migration Phases.
     
     Staged migration phases defining the sequential or overlapping
     execution plan. Each phase targets a specific data domain or source
@@ -25349,7 +25828,7 @@ class MigrationPhases(SomNode):
         return SomList(self.doc, f"{self.path}/MGPHS-ITEM-LST", lambda d, p: MigrationPhaseEntry(d, p))
 
 class MigrationPlan(SomNode):
-    """15.2. Migration Plan [PD00-ROL-MIG].
+    """15.2. Migration Plan.
     
     End-to-end system migration plan covering DR22 Migration Plan content:
     data, configuration, integration, and user migration from the current
@@ -25367,7 +25846,7 @@ class MigrationPlan(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class MigrationResources(SomNode):
-    """Migration resource requirements [PD00-SYO-SYR-MIG-RES]."""
+    """Migration resource requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -25390,7 +25869,7 @@ class MigrationRiskContingency(SomNode):
         return MigrationRiskContingencyContentForm(self.doc, f"{self.path}/content")
 
 class MigrationRiskEntry(SomNode):
-    """A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
+    """A migration risk entry (form).
     
     Detailed migration risk documentation following enterprise risk
     management practices. Captures full risk lifecycle from identification
@@ -25545,7 +26024,7 @@ class MigrationRiskTracking(SomNode):
         return MigrationRiskTrackingContentForm(self.doc, f"{self.path}/content")
 
 class MigrationRisks(SomNode):
-    """Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
+    """Migration risks — program-level risks.
     
     Comprehensive migration risk management framework for program-level
     risks across the entire migration portfolio. Covers risk governance,
@@ -25785,7 +26264,7 @@ class MobileCompatibilityEntryHardware(SomNode):
         return MobileCompatibilityEntryHardwareContentForm(self.doc, f"{self.path}/content")
 
 class MobileDeviceEntry(SomNode):
-    """Mobile device entry (form) [PD00-ORG-WOR-nn-EQU-MOB-nn]."""
+    """Mobile device entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -26031,7 +26510,7 @@ class ModuleVersioningStrategyReleaseManagement(SomNode):
         return ModuleVersioningStrategyReleaseManagementContentForm(self.doc, f"{self.path}/content")
 
 class Monitoring(SomNode):
-    """8.7.2. Monitoring [PD00-TEC-SYS-MON].
+    """8.7.2. Monitoring.
     
     Comprehensive monitoring specification covering health checks, alerting,
     observability, dashboards, and SLA/SLO tracking.
@@ -26048,33 +26527,33 @@ class Monitoring(SomNode):
     def overviewNarrative(self):
         return None  # (skipped: no target type)
 
-    # 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+    # 8.7.2.1. Health Checks and Diagnostics.
     @property
     def healthChecksAndDiagnostics(self):
         return HealthChecksAndDiagnosticsSection(self.doc, f"{self.path}/healthChecksAndDiagnostics")
 
-    # 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+    # 8.7.2.2. Alerting Configuration.
     @property
     def alertingConfiguration(self):
         return AlertingConfiguration(self.doc, f"{self.path}/alertingConfiguration")
 
-    # 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+    # 8.7.2.3. Metrics and Observability.
     @property
     def metricsAndObservability(self):
         return MetricsAndObservability(self.doc, f"{self.path}/metricsAndObservability")
 
-    # 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+    # 8.7.2.4. Monitoring Dashboards.
     @property
     def dashboards(self):
         return MonitoringDashboards(self.doc, f"{self.path}/dashboards")
 
-    # 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+    # 8.7.2.5. SLA and SLO Monitoring.
     @property
     def slaAndSloMonitoring(self):
         return SlaAndSloMonitoring(self.doc, f"{self.path}/slaAndSloMonitoring")
 
 class MonitoringAndAlertingSection(SomNode):
-    """8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
+    """8.5.3. Monitoring and Alerting.
     
     Monitoring requirements: metrics to collect, alert thresholds, dashboard
     requirements, on-call procedures, and escalation paths.
@@ -26146,7 +26625,7 @@ class MonitoringAndAlertingSection(SomNode):
         return SlaMonitoringRequirements(self.doc, f"{self.path}/slaMonitoring")
 
 class MonitoringDashboards(SomNode):
-    """8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+    """8.7.2.4. Monitoring Dashboards.
     
     Operational dashboards for system monitoring.
     """
@@ -26237,7 +26716,7 @@ class MonitoringProcedureEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class MonitoringQuality(SomNode):
-    """11.4.3. Monitoring quality [PD00-SYQ-OPE-MON]."""
+    """11.4.3. Monitoring quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -26307,7 +26786,7 @@ class MonitoringQualityOperations(SomNode):
         return MonitoringQualityOperationsContentForm(self.doc, f"{self.path}/content")
 
 class MoscowAnalysis(SomNode):
-    """13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+    """13.4.1. MoSCoW Analysis.
     
     Classifies every feature using the MoSCoW method (Must / Should /
     Could / Won't) and maps each to its target delivery stage.
@@ -26330,7 +26809,7 @@ class MoscowAnalysis(SomNode):
         return SomList(self.doc, f"{self.path}/MOEN-ITEM-LST", lambda d, p: MoscowEntry(d, p))
 
 class MoscowEntry(SomNode):
-    """A MoSCoW classification entry (form) [PD00-SSP-FEA-MOS-nn].
+    """A MoSCoW classification entry (form).
     
     Maps a single feature or feature group to its MoSCoW category and
     target delivery stage, with justification and cross-references.
@@ -26399,7 +26878,7 @@ class MoscowEntryValue(SomNode):
         return MoscowEntryValueContentForm(self.doc, f"{self.path}/content")
 
 class MultiChannelExperience(SomNode):
-    """4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+    """4.1.5.6. Multi-Channel Experience.
     
     Defines how the system provides a consistent experience across channels
     and handles channel switching.
@@ -26421,11 +26900,13 @@ class MultiChannelExperience(SomNode):
         return MultiChannelExperienceMultiChannelConfigurationForm(self.doc, f"{self.path}/multiChannelConfiguration")
 
 class MultiLanguageAndRollout(SomNode):
-    """10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+    """10.12. Multi-language and Rollout Support.
     
-    Comprehensive internationalization, localization, and system rollout
-    specification covering translation workflows, locale handling, user
-    documentation, training, and deployment planning.
+    Locale-picker / UX-side multi-language concerns that stay on the
+    Experience & Interface Design side. IP-6 re-homed the requirement-side
+    concerns (i18n requirements, documentation, training) to SBP.9 and the
+    execution-side concerns (localization/translation processes, rollout
+    sequencing) to SBP.15; only the stay-put UX members remain here.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -26434,45 +26915,15 @@ class MultiLanguageAndRollout(SomNode):
     def multiLanguageOverview(self):
         return MultiLanguageAndRolloutMultiLanguageOverviewForm(self.doc, f"{self.path}/multiLanguageOverview")
 
-    # Locale modeling and fallback behavior.
-    @property
-    def localeHandling(self):
-        return MultiLanguageAndRolloutLocaleHandling(self.doc, f"{self.path}/localeHandling")
-
-    # Rollout sequencing by region and time.
-    @property
-    def rolloutPlan(self):
-        return MultiLanguageAndRolloutPlan(self.doc, f"{self.path}/rolloutPlan")
-
     # Multi-language overview narrative.
     @property
     def overviewNarrative(self):
         return None  # (skipped: no target type)
 
-    # 10.12.1. Localization Process [PD00-USE-MUL-LOC].
-    @property
-    def localizationProcess(self):
-        return LocalizationProcess(self.doc, f"{self.path}/localizationProcess")
-
-    # 10.12.2. Translation Process [PD00-USE-MUL-TRA].
-    @property
-    def translationProcess(self):
-        return TranslationProcess(self.doc, f"{self.path}/translationProcess")
-
-    # 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
-    @property
-    def documentationAndTraining(self):
-        return DocumentationAndTraining(self.doc, f"{self.path}/documentationAndTraining")
-
-    # 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+    # 10.12.4. Language and Country Selection.
     @property
     def languageCountrySelection(self):
         return LanguageCountrySelection(self.doc, f"{self.path}/languageCountrySelection")
-
-    # 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
-    @property
-    def translationRequirements(self):
-        return TranslationRequirements(self.doc, f"{self.path}/translationRequirements")
 
     # Supported locale entries.
     @property
@@ -26498,7 +26949,7 @@ class MultiLanguageAndRolloutPlan(SomNode):
         return MultiLanguageAndRolloutPlanContentForm(self.doc, f"{self.path}/content")
 
 class MustPassCriteria(SomNode):
-    """11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+    """11.7.1. Must-Pass Criteria.
     
     Criteria that must be met for the system to be accepted.
     """
@@ -26520,7 +26971,7 @@ class MustPassCriteria(SomNode):
         return SomList(self.doc, f"{self.path}/MSTPCR-ITEM-LST", lambda d, p: MustPassCriterionEntry(d, p))
 
 class MustPassCriterionEntry(SomNode):
-    """A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn]."""
+    """A must-pass criterion entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -26678,7 +27129,7 @@ class NativeAppRequirementsVersions(SomNode):
         return NativeAppRequirementsVersionsContentForm(self.doc, f"{self.path}/content")
 
 class NavigationGroupEntry(SomNode):
-    """A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
+    """A navigation group entry (form).
     
     Logical grouping of navigation items (e.g., "Sales", "Administration").
     """
@@ -26737,7 +27188,7 @@ class NavigationGroupEntryStructure(SomNode):
         return NavigationGroupEntryStructureContentForm(self.doc, f"{self.path}/content")
 
 class NavigationGuardEntry(SomNode):
-    """A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn]."""
+    """A navigation guard entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -26774,7 +27225,7 @@ class NavigationGuardEntryRouting(SomNode):
         return NavigationGuardEntryRoutingContentForm(self.doc, f"{self.path}/content")
 
 class NavigationGuards(SomNode):
-    """10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+    """10.3.1.8. Navigation Guards.
     
     Route guards: unsaved changes, authentication redirects, permission checks.
     """
@@ -26800,7 +27251,7 @@ class NavigationGuards(SomNode):
         return SomList(self.doc, f"{self.path}/NAVGRD-GUAR-LST", lambda d, p: NavigationGuardEntry(d, p))
 
 class NavigationHierarchy(SomNode):
-    """10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+    """10.3.1.2. Navigation Hierarchy.
     
     Full navigation tree: groups and items forming the app's navigation structure.
     """
@@ -26826,7 +27277,7 @@ class NavigationHierarchy(SomNode):
         return SomList(self.doc, f"{self.path}/NAVGRP-GROU-LST", lambda d, p: NavigationGroupEntry(d, p))
 
 class NavigationItemEntry(SomNode):
-    """A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
+    """A navigation item entry (form).
     
     A single navigable destination within a group.
     """
@@ -26908,7 +27359,7 @@ class NavigationItemEntryRouting(SomNode):
         return NavigationItemEntryRoutingContentForm(self.doc, f"{self.path}/content")
 
 class NavigationModel(SomNode):
-    """10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+    """10.3.1. Navigation Model.
     
     Comprehensive navigation structure: primary, secondary, utility, contextual
     navigation, deep linking, navigation guards, and platform adaptation.
@@ -26924,48 +27375,48 @@ class NavigationModel(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+    # 10.3.1.1. Navigation Overview.
     @property
     def overview(self):
         return NavigationOverview(self.doc, f"{self.path}/overview")
 
-    # 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+    # 10.3.1.2. Navigation Hierarchy.
     @property
     def hierarchy(self):
         return NavigationHierarchy(self.doc, f"{self.path}/hierarchy")
 
-    # 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+    # 10.3.1.3. Primary Navigation.
     @property
     def primaryNavigation(self):
         return PrimaryNavigation(self.doc, f"{self.path}/primaryNavigation")
 
-    # 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+    # 10.3.1.4. Secondary Navigation.
     @property
     def secondaryNavigation(self):
         return SecondaryNavigation(self.doc, f"{self.path}/secondaryNavigation")
 
-    # 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+    # 10.3.1.5. Utility Navigation.
     @property
     def utilityNavigation(self):
         return UtilityNavigation(self.doc, f"{self.path}/utilityNavigation")
 
-    # 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+    # 10.3.1.6. Contextual Navigation.
     @property
     def contextualNavigation(self):
         return ContextualNavigation(self.doc, f"{self.path}/contextualNavigation")
 
-    # 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+    # 10.3.1.7. Deep Linking.
     @property
     def deepLinking(self):
         return DeepLinking(self.doc, f"{self.path}/deepLinking")
 
-    # 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+    # 10.3.1.8. Navigation Guards.
     @property
     def navigationGuards(self):
         return NavigationGuards(self.doc, f"{self.path}/navigationGuards")
 
 class NavigationOverview(SomNode):
-    """10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+    """10.3.1.1. Navigation Overview.
     
     Overall navigation strategy, routing approach, and design decisions.
     """
@@ -27186,7 +27637,7 @@ class NetworkLoadBalancingRequirementsTls(SomNode):
         return NetworkLoadBalancingRequirementsTlsContentForm(self.doc, f"{self.path}/content")
 
 class NetworkRequirementsSection(SomNode):
-    """8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+    """8.4.3. Network Requirements.
     
     Network requirements: bandwidth, latency, availability, VPN/firewall rules,
     and geographic distribution.
@@ -27407,7 +27858,7 @@ class NetworkSecurityRequirementsMonitoring(SomNode):
         return NetworkSecurityRequirementsMonitoringContentForm(self.doc, f"{self.path}/content")
 
 class NewOrganizationStructure(SomNode):
-    """5.1. New Organization Structure [PD00-ORG-STR].
+    """5.1. New Organization Structure.
     
     Organizational changes required by the new system including new teams,
     restructured departments, changed responsibilities, and new communication
@@ -27422,18 +27873,18 @@ class NewOrganizationStructure(SomNode):
     def overview(self):
         return None  # (skipped: no target type)
 
-    # 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+    # 5.1.1. Changes from Current Structure.
     @property
     def changesFromCurrentStructure(self):
         return ChangesFromCurrentStructure(self.doc, f"{self.path}/changesFromCurrentStructure")
 
-    # 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+    # 5.1.2. Organizational Transition Timeline.
     @property
     def transitionTimeline(self):
         return OrganizationalTransitionTimeline(self.doc, f"{self.path}/transitionTimeline")
 
 class NewRoleEntry(SomNode):
-    """A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+    """A new role entry (form).
     
     Comprehensive new role definition following HR job analysis best practices.
     Includes competencies, responsibilities, system access, and success metrics.
@@ -27606,7 +28057,7 @@ class NotificationChannelEntry(SomNode):
         return NotificationChannelEntryContentForm(self.doc, f"{self.path}/content")
 
 class NotificationModel(SomNode):
-    """4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+    """4.1.5.5. Notification Model.
     
     Defines how the system notifies users of events, updates, and actions
     across different channels.
@@ -27647,7 +28098,7 @@ class NotificationTypeEntry(SomNode):
         return NotificationTypeEntryContentForm(self.doc, f"{self.path}/content")
 
 class ObjectInvariantEntry(SomNode):
-    """An object invariant entry (form) [PD00-BUS-BUS-CAT-nn-INV-nn].
+    """An object invariant entry (form).
     
     Business invariants that must always hold true.
     """
@@ -27659,7 +28110,7 @@ class ObjectInvariantEntry(SomNode):
         return ObjectInvariantEntryContentForm(self.doc, f"{self.path}/content")
 
 class ObjectOperationEntry(SomNode):
-    """An object operation entry (form) [PD00-BUS-BUS-CAT-nn-OPR-nn].
+    """An object operation entry (form).
     
     Business operations that can be performed on the object.
     """
@@ -27713,7 +28164,7 @@ class ObjectOperationEntryLifecycle(SomNode):
         return ObjectOperationEntryLifecycleContentForm(self.doc, f"{self.path}/content")
 
 class ObjectStateEntry(SomNode):
-    """An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
+    """An object state entry (form).
     
     Detailed state specification for business object lifecycle.
     """
@@ -27840,7 +28291,7 @@ class OnCallScheduleConfigOperations(SomNode):
         return OnCallScheduleConfigOperationsContentForm(self.doc, f"{self.path}/content")
 
 class OnboardingHelp(SomNode):
-    """10.8.2. Onboarding Help [PD00-USE-HLP-ONB]."""
+    """10.8.2. Onboarding Help."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -27929,7 +28380,7 @@ class OnboardingHelpTours(SomNode):
         return OnboardingHelpToursContentForm(self.doc, f"{self.path}/content")
 
 class OngoingTrainingEntry(SomNode):
-    """Ongoing training entry (form) [PD00-ORG-WOR-nn-TRA-ONG-nn]."""
+    """Ongoing training entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -27980,7 +28431,7 @@ class OngoingTrainingEntrySchedule(SomNode):
         return OngoingTrainingEntryScheduleContentForm(self.doc, f"{self.path}/content")
 
 class OperationalPainPoints(SomNode):
-    """1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+    """1.3.1. Operational Pain Points.
     
     Problems that affect day-to-day operations: downtime, slow response,
     data inconsistencies, manual workarounds, and process interruptions.
@@ -28016,7 +28467,7 @@ class OperationalPainPointsSummary(SomNode):
         return OperationalPainPointsSummaryContentForm(self.doc, f"{self.path}/content")
 
 class OperationsQualityCriteria(SomNode):
-    """11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+    """11.4. Operations Quality Criteria.
     
     Quality criteria for system operations including availability, service
     levels, monitoring, and IT security operations.
@@ -28033,28 +28484,28 @@ class OperationsQualityCriteria(SomNode):
     def overview(self):
         return None  # (skipped: no target type)
 
-    # 11.4.1. Availability [PD00-SYQ-OPE-AVA].
+    # 11.4.1. Availability.
     @property
     def availability(self):
         return AvailabilityQuality(self.doc, f"{self.path}/availability")
 
-    # 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
+    # 11.4.2. Service Level Requirements.
     @property
     def serviceLevelRequirements(self):
         return ServiceLevelQuality(self.doc, f"{self.path}/serviceLevelRequirements")
 
-    # 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
+    # 11.4.3. Monitoring and Prevention.
     @property
     def monitoringAndPrevention(self):
         return MonitoringQuality(self.doc, f"{self.path}/monitoringAndPrevention")
 
-    # 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
+    # 11.4.4. IT Security Operations.
     @property
     def itSecurityOperations(self):
         return ItSecurityOperationsQuality(self.doc, f"{self.path}/itSecurityOperations")
 
 class OperationsRequirements(SomNode):
-    """8.5. Operations Requirements [PD00-TEC-OPE]."""
+    """8.5. Operations Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -28066,28 +28517,28 @@ class OperationsRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
+    # 8.5.1. Backup And Recovery.
     @property
     def backupAndRecovery(self):
         return BackupAndRecoverySection(self.doc, f"{self.path}/backupAndRecovery")
 
-    # 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+    # 8.5.2. Deployment Strategy.
     @property
     def deploymentStrategy(self):
         return DeploymentStrategySection(self.doc, f"{self.path}/deploymentStrategy")
 
-    # 8.5.3. Monitoring And Alerting [PD00-TEC-OPE-MON].
+    # 8.5.3. Monitoring And Alerting.
     @property
     def monitoringAndAlerting(self):
         return MonitoringAndAlertingSection(self.doc, f"{self.path}/monitoringAndAlerting")
 
-    # 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+    # 8.5.4. Maintenance Windows.
     @property
     def maintenanceWindows(self):
         return MaintenanceWindowsSection(self.doc, f"{self.path}/maintenanceWindows")
 
 class OpportunityStatement(SomNode):
-    """4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+    """4.1.1.2. Opportunity Statement.
     
     Description of the opportunity this system enables — new capabilities,
     competitive advantages, or improvements over current state.
@@ -28103,7 +28554,7 @@ class OpportunityStatement(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Opportunity Details Form [PD00-SYO-SYD-PUR-OPP-DES].
+    # Opportunity Details Form.
     @property
     def opportunityDetails(self):
         return OpportunityStatementOpportunityDetailsForm(self.doc, f"{self.path}/opportunityDetails")
@@ -28181,7 +28632,7 @@ class OrgImplementationActivity(SomNode):
         return OrgImplementationActivityContentForm(self.doc, f"{self.path}/content")
 
 class OrgRequirementImplementationPlan(SomNode):
-    """4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+    """4.3.4.n.2. Implementation Plan.
     
     Implementation plan for this organizational requirement.
     """
@@ -28207,7 +28658,7 @@ class OrgRequirementImplementationPlan(SomNode):
         return SomList(self.doc, f"{self.path}/ORGIM-ACTI-LST", lambda d, p: OrgImplementationActivity(d, p))
 
 class OrganizationStructure(SomNode):
-    """3.1.1. Organization Structure [PD00-ADM-PRO-STR]."""
+    """3.1.1. Organization Structure."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -28230,7 +28681,7 @@ class OrganizationStructure(SomNode):
         return None  # (skipped: no target type)
 
 class OrganizationalChangeEntry(SomNode):
-    """An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
+    """An organizational change entry (form).
     
     Documents a specific structural change including current state, target
     state, rationale, impact assessment, and transition requirements.
@@ -28278,7 +28729,7 @@ class OrganizationalChangeEntry(SomNode):
         return OrgChangeStatus(self.doc, f"{self.path}/status")
 
 class OrganizationalContext(SomNode):
-    """4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+    """4.1.2.6. Organizational Context.
     
     Organizational units, departments, and business areas that the system
     serves or interacts with.
@@ -28309,7 +28760,7 @@ class OrganizationalContext(SomNode):
         self.doc.set_content(f"{self.path}/businessProcessCoverage", value)
 
 class OrganizationalEnvironment(SomNode):
-    """4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+    """4.6.1. Organizational Environment.
     
     Describes the organizational context in which the system will operate,
     including departments, reporting structures, decision authority, and
@@ -28392,7 +28843,7 @@ class OrganizationalEnvironmentMaturity(SomNode):
         return OrganizationalEnvironmentMaturityContentForm(self.doc, f"{self.path}/content")
 
 class OrganizationalFramework(SomNode):
-    """5. Organizational Framework [PD00-ORG].
+    """5. Organizational Framework.
     
     Organizational changes and structures required for the new system.
     Covers organization structure changes, new and changed roles, staffing
@@ -28408,23 +28859,23 @@ class OrganizationalFramework(SomNode):
     def overview(self):
         return None  # (skipped: no target type)
 
-    # 5.1. New Organization Structure [PD00-ORG-STR].
+    # 5.1. New Organization Structure.
     @property
     def organizationStructure(self):
         return NewOrganizationStructure(self.doc, f"{self.path}/organizationStructure")
 
-    # 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+    # 5.2. Job Descriptions and Staffing Plans.
     @property
     def jobDescriptions(self):
         return SomList(self.doc, f"{self.path}/JDAS-JOBD-LST", lambda d, p: JobDescriptionsAndStaffing(d, p))
 
-    # 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+    # 5.3. Workplace Descriptions — contains 1+× per user category.
     @property
     def workplaceDescriptions(self):
         return SomList(self.doc, f"{self.path}/WPDE-WORK-LST", lambda d, p: WorkplaceDescriptionEntry(d, p))
 
 class OrganizationalRequirementEntry(SomNode):
-    """An organizational requirement entry [PD00-SYO-REQ-ORG-nn].
+    """An organizational requirement entry.
     
     Comprehensive organizational requirement definition following change
     management and organizational development best practices.
@@ -28451,17 +28902,17 @@ class OrganizationalRequirementEntry(SomNode):
     def planning(self):
         return OrganizationalRequirementEntryPlanning(self.doc, f"{self.path}/planning")
 
-    # 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
+    # 4.3.4.n.1. Acceptance Criteria.
     @property
     def acceptanceCriteria(self):
         return RequirementAcceptanceCriteria(self.doc, f"{self.path}/acceptanceCriteria")
 
-    # 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+    # 4.3.4.n.2. Implementation Plan.
     @property
     def implementationPlan(self):
         return OrgRequirementImplementationPlan(self.doc, f"{self.path}/implementationPlan")
 
-    # 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
+    # 4.3.4.n.3. Dependencies.
     @property
     def dependencies(self):
         return RequirementDependencies(self.doc, f"{self.path}/dependencies")
@@ -28494,7 +28945,7 @@ class OrganizationalRequirementEntryPlanning(SomNode):
         return OrganizationalRequirementEntryPlanningContentForm(self.doc, f"{self.path}/content")
 
 class OrganizationalRequirements(SomNode):
-    """4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+    """4.3.4. Organizational Requirements.
     
     Container for organizational requirements. These describe needed changes
     to organization, processes, training, or support that must be fulfilled
@@ -28523,7 +28974,7 @@ class OrganizationalRequirements(SomNode):
         return SomList(self.doc, f"{self.path}/ORRQ-REQU-LST", lambda d, p: OrganizationalRequirementEntry(d, p))
 
 class OrganizationalTransitionTimeline(SomNode):
-    """5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+    """5.1.2. Organizational Transition Timeline.
     
     Describes when organizational changes take effect, how the transition is
     managed, and what training or communication is needed. Follows change
@@ -28647,7 +29098,7 @@ class OsCompatibilityEntryTesting(SomNode):
         return OsCompatibilityEntryTestingContentForm(self.doc, f"{self.path}/content")
 
 class OtherAdministrativeRequirements(SomNode):
-    """3.6. Other Administrative Requirements [PD00-ADM-OTH].
+    """3.6. Other Administrative Requirements.
     
     Additional administrative agreements, constraints, or requirements not
     covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -28664,32 +29115,32 @@ class OtherAdministrativeRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 3.6.1. Intellectual Property [PD00-ADM-OTH-IPR].
+    # 3.6.1. Intellectual Property.
     @property
     def intellectualProperty(self):
         return IntellectualPropertyRequirements(self.doc, f"{self.path}/intellectualProperty")
 
-    # 3.6.2. Confidentiality and NDAs [PD00-ADM-OTH-NDA].
+    # 3.6.2. Confidentiality and NDAs.
     @property
     def confidentiality(self):
         return ConfidentialityRequirements(self.doc, f"{self.path}/confidentiality")
 
-    # 3.6.3. Regulatory Compliance [PD00-ADM-OTH-REG].
+    # 3.6.3. Regulatory Compliance.
     @property
     def regulatoryCompliance(self):
         return RegulatoryComplianceRequirements(self.doc, f"{self.path}/regulatoryCompliance")
 
-    # 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+    # 3.6.4. Audit Requirements.
     @property
     def auditRequirements(self):
         return AuditRequirements(self.doc, f"{self.path}/auditRequirements")
 
-    # 3.6.5. Insurance and Liability [PD00-ADM-OTH-INS].
+    # 3.6.5. Insurance and Liability.
     @property
     def insuranceLiability(self):
         return InsuranceLiabilityRequirements(self.doc, f"{self.path}/insuranceLiability")
 
-    # 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
+    # 3.6.6. Other Agreements — contains 0+× Agreement.
     @property
     def otherAgreements(self):
         return SomList(self.doc, f"{self.path}/OTAGR-OTHE-LST", lambda d, p: OtherAgreementEntry(d, p))
@@ -28704,7 +29155,7 @@ class OtherAgreementEntry(SomNode):
         return OtherAgreementEntryContentForm(self.doc, f"{self.path}/content")
 
 class OutOfScope(SomNode):
-    """4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+    """4.5.2. Out of Scope.
     
     Explicit documentation of functionality, systems, and integrations that
     are excluded from the project scope. Provides clear boundaries and
@@ -28724,7 +29175,7 @@ class OutOfScope(SomNode):
         return SomList(self.doc, f"{self.path}/OOSE-ITEM-LST", lambda d, p: OutOfScopeEntry(d, p))
 
 class OutOfScopeEntry(SomNode):
-    """An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form)."""
+    """An out-of-scope entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -28835,7 +29286,7 @@ class PainPointClassification(SomNode):
         return PainPointClassificationContentForm(self.doc, f"{self.path}/content")
 
 class PainPointEntry(SomNode):
-    """A pain point entry (form) [PD00-CUR-PAI-nn].
+    """A pain point entry (form).
     
     Documents a specific problem in the current state with comprehensive details:
     root cause analysis, impact quantification, affected stakeholders,
@@ -28974,7 +29425,7 @@ class PainPointWorkaround(SomNode):
         return PainPointWorkaroundContentForm(self.doc, f"{self.path}/content")
 
 class PainPointsAndGaps(SomNode):
-    """1.3. Pain Points and Gaps [PD00-CUR-PAI].
+    """1.3. Pain Points and Gaps.
     
     Comprehensive documentation of specific problems, inefficiencies,
     compliance gaps, and user frustrations in the current state.
@@ -29014,22 +29465,22 @@ class PainPointsAndGaps(SomNode):
     def painPointsSummary(self):
         return PainPointsSummary(self.doc, f"{self.path}/painPointsSummary")
 
-    # 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+    # 1.3.1. Operational Pain Points.
     @property
     def operationalPainPoints(self):
         return OperationalPainPoints(self.doc, f"{self.path}/operationalPainPoints")
 
-    # 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+    # 1.3.2. Business Pain Points.
     @property
     def businessPainPoints(self):
         return BusinessPainPoints(self.doc, f"{self.path}/businessPainPoints")
 
-    # 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+    # 1.3.3. Technical Pain Points.
     @property
     def technicalPainPoints(self):
         return TechnicalPainPoints(self.doc, f"{self.path}/technicalPainPoints")
 
-    # 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+    # 1.3.4. Gaps.
     @property
     def gaps(self):
         return Gaps(self.doc, f"{self.path}/gaps")
@@ -29058,7 +29509,7 @@ class ParticipantEntry(SomNode):
         return ParticipantEntryContentForm(self.doc, f"{self.path}/content")
 
 class PasswordAndCredentialPolicy(SomNode):
-    """9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+    """9.2.3. Password and Credential Policy.
     
     Comprehensive password and credential policy aligned with NIST SP 800-63B
     (Revision 4). Covers password requirements, storage, lifecycle, account
@@ -29241,7 +29692,7 @@ class PeakLoadPatternsTesting(SomNode):
         return PeakLoadPatternsTestingContentForm(self.doc, f"{self.path}/content")
 
 class PenetrationTestingRequirements(SomNode):
-    """Penetration testing requirements and schedule [PD00-TEC-SEC-AUD]."""
+    """Penetration testing requirements and schedule."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -29309,7 +29760,7 @@ class PeriodicReviewPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class PeripheralEquipmentEntry(SomNode):
-    """Peripheral equipment entry (form) [PD00-ORG-WOR-nn-EQU-PER-nn]."""
+    """Peripheral equipment entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -29393,7 +29844,7 @@ class PermissionMatrixEntry(SomNode):
         return PermissionMatrixEntryContentForm(self.doc, f"{self.path}/content")
 
 class PersonaEntry(SomNode):
-    """A user persona entry [PD00-USE-VIS-PER-nn] (form).
+    """A user persona entry (form).
     
     Represents a distinct user archetype with detailed context for UI design.
     """
@@ -29419,17 +29870,17 @@ class PersonaEntry(SomNode):
     def needs(self):
         return PersonaEntryNeeds(self.doc, f"{self.path}/needs")
 
-    # 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+    # 10.1.3.n.1. Persona Goals.
     @property
     def goals(self):
         return PersonaGoals(self.doc, f"{self.path}/goals")
 
-    # 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+    # 10.1.3.n.2. Persona Pain Points.
     @property
     def painPoints(self):
         return PersonaPainPoints(self.doc, f"{self.path}/painPoints")
 
-    # 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+    # 10.1.3.n.3. Persona Scenarios.
     @property
     def scenarios(self):
         return PersonaScenarios(self.doc, f"{self.path}/scenarios")
@@ -29462,7 +29913,7 @@ class PersonaEntryProfile(SomNode):
         return PersonaEntryProfileContentForm(self.doc, f"{self.path}/content")
 
 class PersonaGoalEntry(SomNode):
-    """A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm]."""
+    """A persona goal entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -29471,7 +29922,7 @@ class PersonaGoalEntry(SomNode):
         return PersonaGoalEntryContentForm(self.doc, f"{self.path}/content")
 
 class PersonaGoals(SomNode):
-    """10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA]."""
+    """10.1.3.n.1. Persona Goals."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -29489,7 +29940,7 @@ class PersonaGoals(SomNode):
         return SomList(self.doc, f"{self.path}/PGOEN-ITEM-LST", lambda d, p: PersonaGoalEntry(d, p))
 
 class PersonaPainPointEntry(SomNode):
-    """A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm]."""
+    """A pain point entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -29498,7 +29949,7 @@ class PersonaPainPointEntry(SomNode):
         return PersonaPainPointEntryContentForm(self.doc, f"{self.path}/content")
 
 class PersonaPainPoints(SomNode):
-    """10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI]."""
+    """10.1.3.n.2. Persona Pain Points."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -29516,7 +29967,7 @@ class PersonaPainPoints(SomNode):
         return SomList(self.doc, f"{self.path}/PPPEN-ITEM-LST", lambda d, p: PersonaPainPointEntry(d, p))
 
 class PersonaScenarioEntry(SomNode):
-    """A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm]."""
+    """A persona scenario entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -29525,7 +29976,7 @@ class PersonaScenarioEntry(SomNode):
         return PersonaScenarioEntryContentForm(self.doc, f"{self.path}/content")
 
 class PersonaScenarios(SomNode):
-    """10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+    """10.1.3.n.3. Persona Scenarios.
     
     Key usage scenarios for this persona — helps map personas to screens/flows.
     """
@@ -29591,7 +30042,7 @@ class PhaseGateIdentity(SomNode):
         return PhaseGateIdentityContentForm(self.doc, f"{self.path}/content")
 
 class PhaseGateReviewEntry(SomNode):
-    """A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
+    """A phase gate review entry (form).
     
     Defines a single phase gate with its criteria, participants,
     required evidence, entry/exit conditions, and review schedule.
@@ -29644,7 +30095,7 @@ class PhaseGateReviewEntry(SomNode):
         return SomList(self.doc, f"{self.path}/RVCRI-REVI-LST", lambda d, p: ReviewCriterionEntry(d, p))
 
 class PhaseGateReviews(SomNode):
-    """13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+    """13.6.1. Phase Gate Reviews.
     
     Defines the phase gate review process: what is reviewed at each
     gate, who participates, what evidence is required, and what
@@ -29742,7 +30193,7 @@ class PhysicalWorkplaceRequirementsUsage(SomNode):
         return PhysicalWorkplaceRequirementsUsageContentForm(self.doc, f"{self.path}/content")
 
 class PilotPlan(SomNode):
-    """15.5. Pilot Plan [PD00-ROL-PIL].
+    """15.5. Pilot Plan.
     
     Pilot scope, cohort selection, success criteria, and exit decision rules.
     """
@@ -29888,7 +30339,7 @@ class PipelineStageEntryTrigger(SomNode):
         return PipelineStageEntryTriggerContentForm(self.doc, f"{self.path}/content")
 
 class PlatformAndLanguage(SomNode):
-    """8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+    """8.1.1. Platform and Language.
     
     Required platforms (operating system, runtime), programming languages,
     and framework choices with minimum versions and justification.
@@ -29945,7 +30396,7 @@ class PlatformAndLanguage(SomNode):
         return RuntimeEnvironment(self.doc, f"{self.path}/runtimeEnvironment")
 
 class PortabilityQuality(SomNode):
-    """11.3.2. Portability quality [PD00-SYQ-TEC-POR]."""
+    """11.3.2. Portability quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30041,7 +30492,7 @@ class PredecessorDependencyEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class PrimaryNavigation(SomNode):
-    """10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+    """10.3.1.3. Primary Navigation.
     
     How the main navigation appears across platforms: drawer, sidebar, bottom nav.
     """
@@ -30100,7 +30551,7 @@ class PrimaryNavigationSidebar(SomNode):
         return PrimaryNavigationSidebarContentForm(self.doc, f"{self.path}/content")
 
 class PrintLayout(SomNode):
-    """10.4. Print Layout [PD00-USE-PRI]."""
+    """10.4. Print Layout."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30133,17 +30584,17 @@ class PrintLayout(SomNode):
     def archive(self):
         return PrintLayoutArchive(self.doc, f"{self.path}/archive")
 
-    # 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
+    # 10.4.1. Reports — contains 0+× Report.
     @property
     def reports(self):
         return SomList(self.doc, f"{self.path}/REEN-REPO-LST", lambda d, p: ReportEntry(d, p))
 
-    # 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
+    # 10.4.2. Export Formats — contains 0+× Export Format.
     @property
     def exportFormats(self):
         return SomList(self.doc, f"{self.path}/EXFOEN-EXPO-LST", lambda d, p: ExportFormatEntry(d, p))
 
-    # 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
+    # 10.4.3. Export Templates — contains 0+× Export
     # Template.
     @property
     def exportTemplates(self):
@@ -30195,7 +30646,7 @@ class PrintLayoutWatermark(SomNode):
         return PrintLayoutWatermarkContentForm(self.doc, f"{self.path}/content")
 
 class PrivacyImpactAssessmentProcess(SomNode):
-    """Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI]."""
+    """Privacy impact assessment and DPIA process."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30246,7 +30697,7 @@ class PrivacyImpactAssessmentProcessReview(SomNode):
         return PrivacyImpactAssessmentProcessReviewContentForm(self.doc, f"{self.path}/content")
 
 class PrivacyRegulationCompliance(SomNode):
-    """Privacy regulation compliance requirements [PD00-TEC-SEC-PRI]."""
+    """Privacy regulation compliance requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30328,7 +30779,7 @@ class PrivilegeUsageReporting(SomNode):
         return None  # (skipped: no target type)
 
 class ProblemStatement(SomNode):
-    """4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+    """4.1.1.1. Problem Statement.
     
     Detailed description of the problem or pain point that this system will
     address. Includes impact analysis and urgency assessment.
@@ -30344,7 +30795,7 @@ class ProblemStatement(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Problem Description Form [PD00-SYO-SYD-PUR-PRO-DES].
+    # Problem Description Form.
     @property
     def problemDetails(self):
         return ProblemStatementProblemDetailsForm(self.doc, f"{self.path}/problemDetails")
@@ -30364,7 +30815,7 @@ class ProcessAdjustmentDetails(SomNode):
         return ProcessAdjustmentDetailsContentForm(self.doc, f"{self.path}/content")
 
 class ProcessAdjustmentEntry(SomNode):
-    """A process adjustment entry (form) [PD00-POP-PRC-nn].
+    """A process adjustment entry (form).
     
     Documents a specific deviation from standard process steps, including
     the type of modification, dependencies affected, risk assessment,
@@ -30462,7 +30913,7 @@ class ProcessAdjustmentSummary(SomNode):
         return ProcessAdjustmentSummaryContentForm(self.doc, f"{self.path}/content")
 
 class ProcessAdjustments(SomNode):
-    """2.3. Process Adjustments [PD00-POP-PRC].
+    """2.3. Process Adjustments.
     
     Documents any deviations from the standard tom_system_creation.md or
     tom_system_upgrade.md process. Includes skipped, reordered, or modified
@@ -30499,7 +30950,7 @@ class ProcessAdjustments(SomNode):
         return SomList(self.doc, f"{self.path}/PCAJE-ITEM-LST", lambda d, p: ProcessAdjustmentEntry(d, p))
 
 class ProcessCatalog(SomNode):
-    """6.1.3. Process Catalog [PD00-TAR-PRO-CAT].
+    """6.1.3. Process Catalog.
     
     Container for business process definitions.
     """
@@ -30586,7 +31037,7 @@ class ProcessContext(SomNode):
         return ProcessContextContentForm(self.doc, f"{self.path}/content")
 
 class ProcessControlEntry(SomNode):
-    """A process control entry [PD00-TAR-PRO-CAT-nn-CTL-nn]."""
+    """A process control entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30656,7 +31107,7 @@ class ProcessDependencyEntry(SomNode):
         return ProcessDependencyEntryContentForm(self.doc, f"{self.path}/content")
 
 class ProcessDesignPrincipleEntry(SomNode):
-    """A process design principle entry (form) [PD00-TAR-PRO-PRI-nn]."""
+    """A process design principle entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30665,7 +31116,7 @@ class ProcessDesignPrincipleEntry(SomNode):
         return ProcessDesignPrincipleEntryContentForm(self.doc, f"{self.path}/content")
 
 class ProcessDesignPrinciples(SomNode):
-    """6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+    """6.1.2. Design Principles.
     
     Principles that guide process design decisions.
     """
@@ -30692,7 +31143,7 @@ class ProcessDiagramOverview(SomNode):
         return ProcessDiagramOverviewContentForm(self.doc, f"{self.path}/content")
 
 class ProcessEndEventEntry(SomNode):
-    """A process end event entry [PD00-TAR-PRO-CAT-nn-END-nn]."""
+    """A process end event entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30701,7 +31152,7 @@ class ProcessEndEventEntry(SomNode):
         return ProcessEndEventEntryContentForm(self.doc, f"{self.path}/content")
 
 class ProcessExceptionEntry(SomNode):
-    """A process exception entry [PD00-TAR-PRO-CAT-nn-EXC-nn]."""
+    """A process exception entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30738,10 +31189,9 @@ class ProcessExceptionEntryResponse(SomNode):
         return ProcessExceptionEntryResponseContentForm(self.doc, f"{self.path}/content")
 
 class ProcessExceptionHandling(SomNode):
-    """6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+    """6.1.9. Process Exception Handling.
     
     Exception flows, escalation paths, and compensation logic. Covers
-    HBSG AS07-EXC.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -30830,7 +31280,7 @@ class ProcessIdentificationGovernance(SomNode):
         return ProcessIdentificationGovernanceContentForm(self.doc, f"{self.path}/content")
 
 class ProcessImprovementEntry(SomNode):
-    """A process improvement entry [PD00-TAR-PRO-IMP-nn]."""
+    """A process improvement entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30867,7 +31317,7 @@ class ProcessImprovementEntryDelivery(SomNode):
         return ProcessImprovementEntryDeliveryContentForm(self.doc, f"{self.path}/content")
 
 class ProcessImprovementSummary(SomNode):
-    """6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+    """6.1.5. Improvement Summary.
     
     Summary of expected improvements over current processes.
     """
@@ -30890,7 +31340,7 @@ class ProcessImprovementSummary(SomNode):
         return ImprovementBusinessCase(self.doc, f"{self.path}/businessCase")
 
 class ProcessInputEntry(SomNode):
-    """A process input entry [PD00-TAR-PRO-CAT-nn-INP-nn]."""
+    """A process input entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -30931,7 +31381,7 @@ class ProcessInterdependencyMatrix(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Interdependency diagram [PD00-CUR-PRO-INT-DIA].
+    # Interdependency diagram.
     @property
     def dependencyDiagram(self):
         return self.doc.content(f"{self.path}/dependencyDiagram") or ""
@@ -30946,7 +31396,7 @@ class ProcessInterdependencyMatrix(SomNode):
         return SomList(self.doc, f"{self.path}/PRDEEN-DEPE-LST", lambda d, p: ProcessDependencyEntry(d, p))
 
 class ProcessKpiEntry(SomNode):
-    """A process KPI entry [PD00-TAR-PRO-CAT-nn-KPI-nn]."""
+    """A process KPI entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31001,7 +31451,7 @@ class ProcessMetricCategory(SomNode):
         return SomList(self.doc, f"{self.path}/PME-METR-LST", lambda d, p: ProcessMetricEntry(d, p))
 
 class ProcessMetricEntry(SomNode):
-    """A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
+    """A process metric entry (form).
     
     A single measurable metric with current value and measurement details.
     """
@@ -31045,7 +31495,7 @@ class ProcessMetricEntryTargets(SomNode):
         return ProcessMetricEntryTargetsContentForm(self.doc, f"{self.path}/content")
 
 class ProcessMetrics(SomNode):
-    """1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+    """1.2.2. Process Metrics.
     
     Quantitative metrics for measuring process performance. These metrics
     form the baseline against which improvements will be measured.
@@ -31061,32 +31511,32 @@ class ProcessMetrics(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Metrics dashboard summary [PD00-CUR-PRO-xx-MET-SUM].
+    # Metrics dashboard summary.
     @property
     def dashboardSummary(self):
         return MetricsDashboardSummary(self.doc, f"{self.path}/dashboardSummary")
 
-    # Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+    # Efficiency metrics.
     @property
     def efficiencyMetrics(self):
         return SomList(self.doc, f"{self.path}/PRMECA-EFFI-LST", lambda d, p: ProcessMetricCategory(d, p))
 
-    # Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+    # Quality metrics.
     @property
     def qualityMetrics(self):
         return SomList(self.doc, f"{self.path}/PRMECA-QUAL-LST", lambda d, p: ProcessMetricCategory(d, p))
 
-    # Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+    # Volume metrics.
     @property
     def volumeMetrics(self):
         return SomList(self.doc, f"{self.path}/PRMECA-VOLU-LST", lambda d, p: ProcessMetricCategory(d, p))
 
-    # Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+    # Cost metrics.
     @property
     def costMetrics(self):
         return SomList(self.doc, f"{self.path}/PRMECA-COST-LST", lambda d, p: ProcessMetricCategory(d, p))
 
-    # Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+    # Manual intervention metrics.
     @property
     def manualInterventionMetrics(self):
         return SomList(self.doc, f"{self.path}/PRMECA-MANU-LST", lambda d, p: ProcessMetricCategory(d, p))
@@ -31096,13 +31546,13 @@ class ProcessMetrics(SomNode):
     def items(self):
         return SomList(self.doc, f"{self.path}/PME-ITEM-LST", lambda d, p: ProcessMetricEntry(d, p))
 
-    # Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
+    # Baseline comparison table.
     @property
     def baselineTable(self):
         return MetricsBaselineTable(self.doc, f"{self.path}/baselineTable")
 
 class ProcessMetricsAndKpis(SomNode):
-    """6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+    """6.1.10. Process Metrics and KPIs.
     
     Process-level KPIs, SLAs, and measurement strategy.
     """
@@ -31118,7 +31568,7 @@ class ProcessMetricsAndKpis(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class ProcessOutputEntry(SomNode):
-    """A process output entry [PD00-TAR-PRO-CAT-nn-OUT-nn]."""
+    """A process output entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31127,7 +31577,7 @@ class ProcessOutputEntry(SomNode):
         return ProcessOutputEntryContentForm(self.doc, f"{self.path}/content")
 
 class ProcessOverviewDiagram(SomNode):
-    """6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+    """6.1.4. Process Overview Diagram.
     
     High-level process flow diagram showing main processes and relationships.
     """
@@ -31216,7 +31666,7 @@ class ProcessPerformanceSummary(SomNode):
         return SomList(self.doc, f"{self.path}/PME-KEYM-LST", lambda d, p: ProcessMetricEntry(d, p))
 
 class ProcessRelationshipEntry(SomNode):
-    """A process relationship entry [PD00-TAR-PRO-REL-nn]."""
+    """A process relationship entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31243,7 +31693,7 @@ class ProcessRelationships(SomNode):
         return SomList(self.doc, f"{self.path}/PCRLT-RELA-LST", lambda d, p: ProcessRelationshipEntry(d, p))
 
 class ProcessRoleEntry(SomNode):
-    """A process role entry [PD00-TAR-PRO-CAT-nn-ROL-nn]."""
+    """A process role entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31332,7 +31782,7 @@ class ProcessScopeSummary(SomNode):
         return SomList(self.doc, f"{self.path}/PRSCEN-OUTO-LST", lambda d, p: ProcessScopeEntry(d, p))
 
 class ProcessSlaEntry(SomNode):
-    """A process SLA entry [PD00-TAR-PRO-CAT-nn-SLA-nn]."""
+    """A process SLA entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31341,7 +31791,7 @@ class ProcessSlaEntry(SomNode):
         return ProcessSlaEntryContentForm(self.doc, f"{self.path}/content")
 
 class ProcessStepsAndActorInteractions(SomNode):
-    """6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+    """6.2. Process Steps and Actor Interactions. Seeds → UC.
     
     Key process steps with their actor interactions. Each interaction will be
     expanded into a full use case with alternate paths, preconditions, and
@@ -31363,17 +31813,17 @@ class ProcessStepsAndActorInteractions(SomNode):
     def overview(self):
         return ProcessStepsOverview(self.doc, f"{self.path}/overview")
 
-    # 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
+    # 6.2.1. Actor Overview — contains 1+× Actor.
     @property
     def actorOverview(self):
         return ActorOverview(self.doc, f"{self.path}/actorOverview")
 
-    # 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
+    # 6.2.2. Interaction Catalog — contains 1+× Interaction.
     @property
     def interactionCatalog(self):
         return InteractionCatalog(self.doc, f"{self.path}/interactionCatalog")
 
-    # 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
+    # 6.2.3. Key Scenarios — contains 1+× Scenario.
     @property
     def keyScenarios(self):
         return KeyScenarios(self.doc, f"{self.path}/keyScenarios")
@@ -31383,18 +31833,18 @@ class ProcessStepsAndActorInteractions(SomNode):
     def actorRelationshipDiagram(self):
         return ActorRelationshipDiagram(self.doc, f"{self.path}/actorRelationshipDiagram")
 
-    # 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
+    # 6.2.4. End-to-End Test Scenarios..
     @property
     def endToEndTestScenarios(self):
         return SomList(self.doc, f"{self.path}/ETETS-ENDT-LST", lambda d, p: EndToEndTestScenarios(d, p))
 
-    # 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+    # 6.2.5. Use Case Traceability.
     @property
     def useCaseTraceability(self):
         return UseCaseTraceability(self.doc, f"{self.path}/useCaseTraceability")
 
 class ProcessStepsOverview(SomNode):
-    """6.2. Process Steps Overview [PD00-TAR-STP-OVE]."""
+    """6.2. Process Steps Overview."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31449,7 +31899,7 @@ class ProcessTechnologyInformation(SomNode):
         return ProcessTechnologyInformationContentForm(self.doc, f"{self.path}/content")
 
 class ProcessTriggerEntry(SomNode):
-    """A process trigger entry [PD00-TAR-PRO-CAT-nn-TRG-nn]."""
+    """A process trigger entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31478,7 +31928,7 @@ class ProcessTriggers(SomNode):
         return SomList(self.doc, f"{self.path}/PEEVT-ENDE-LST", lambda d, p: ProcessEndEventEntry(d, p))
 
 class ProcessVision(SomNode):
-    """6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+    """6.1.1. Process Vision.
     
     The overall vision for how business processes will work with the new system.
     """
@@ -31593,113 +32043,8 @@ class ProgrammingLanguageEntryVersion(SomNode):
     def content(self):
         return ProgrammingLanguageEntryVersionContentForm(self.doc, f"{self.path}/content")
 
-class ProjectDefinition(SomNode):
-    """The complete Project Definition (PD) document.
-    
-    Contains a [DocumentHeader] and all 14 PD sections [PD00].
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "PD")
-        check_som_model_version(ProjectDefinition.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return ProjectDefinition.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Document header (form fields at top of document).
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # 1. Current State Analysis [PD00-CUR].
-    @property
-    def currentStateAnalysis(self):
-        return CurrentStateAnalysis(self.doc, f"{self.path}/currentStateAnalysis")
-
-    # 2. Project Organization and Process [PD00-POP].
-    @property
-    def projectOrganizationProcess(self):
-        return ProjectOrganizationAndProcess(self.doc, f"{self.path}/projectOrganizationProcess")
-
-    # 3. Administrative [PD00-ADM].
-    @property
-    def administrative(self):
-        return Administrative(self.doc, f"{self.path}/administrative")
-
-    # 4. System Overview [PD00-SYO].
-    @property
-    def systemOverview(self):
-        return SystemOverview(self.doc, f"{self.path}/systemOverview")
-
-    # 5. Organizational Framework [PD00-ORG].
-    @property
-    def organizationalFramework(self):
-        return OrganizationalFramework(self.doc, f"{self.path}/organizationalFramework")
-
-    # 6. Target Business Process Model [PD00-TAR].
-    @property
-    def targetBusinessProcess(self):
-        return TargetBusinessProcessModel(self.doc, f"{self.path}/targetBusinessProcess")
-
-    # 7. Business Object and Data Model [PD00-BUS].
-    @property
-    def businessDataModel(self):
-        return BusinessObjectAndDataModel(self.doc, f"{self.path}/businessDataModel")
-
-    # 8. Technical Framework Concept [PD00-TEC].
-    @property
-    def technicalFramework(self):
-        return TechnicalFrameworkConcept(self.doc, f"{self.path}/technicalFramework")
-
-    # 9. Access and Authorization Concept [PD00-ACC].
-    @property
-    def accessAuthorization(self):
-        return AccessAndAuthorizationConcept(self.doc, f"{self.path}/accessAuthorization")
-
-    # 10. User Interface Design [PD00-USE].
-    @property
-    def userInterfaceDesign(self):
-        return UserInterfaceDesign(self.doc, f"{self.path}/userInterfaceDesign")
-
-    # 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
-    @property
-    def systemRolloutConcept(self):
-        return SystemRolloutConcept(self.doc, f"{self.path}/systemRolloutConcept")
-
-    # 11. System Quality Goals [PD00-SYQ].
-    @property
-    def systemQualityGoals(self):
-        return SystemQualityGoals(self.doc, f"{self.path}/systemQualityGoals")
-
-    # 12. Components to Use [PD00-COM].
-    @property
-    def componentsToUse(self):
-        return ComponentsToUse(self.doc, f"{self.path}/componentsToUse")
-
-    # 13. System Stage Plan [PD00-SSP].
-    @property
-    def systemStagePlan(self):
-        return SystemStagePlan(self.doc, f"{self.path}/systemStagePlan")
-
-    # 14. Delivery Scope and Acceptance [PD00-DEL].
-    @property
-    def deliveryAcceptance(self):
-        return DeliveryScopeAndAcceptance(self.doc, f"{self.path}/deliveryAcceptance")
-
 class ProjectOrganization(SomNode):
-    """3.1. Project Organization [PD00-ADM-PRO]."""
+    """3.1. Project Organization."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31711,18 +32056,18 @@ class ProjectOrganization(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+    # 3.1.1. Organization Structure.
     @property
     def organizationStructure(self):
         return OrganizationStructure(self.doc, f"{self.path}/organizationStructure")
 
-    # 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+    # 3.1.2. Steering Committee.
     @property
     def steeringCommittee(self):
         return SteeringCommittee(self.doc, f"{self.path}/steeringCommittee")
 
 class ProjectOrganizationAndProcess(SomNode):
-    """2. Project Organization and Process [PD00-POP].
+    """2. Project Organization and Process.
     
     Project-specific deviations from the standard TomSpecs methodology.
     This section documents any customizations to standard roles, quality gates,
@@ -31753,106 +32098,28 @@ class ProjectOrganizationAndProcess(SomNode):
     def deviationSummary(self):
         return MethodologyDeviationSummary(self.doc, f"{self.path}/deviationSummary")
 
-    # 2.1. Role Adjustments [PD00-POP-ROL].
+    # 2.1. Role Adjustments.
     @property
     def roleAdjustments(self):
         return RoleAdjustments(self.doc, f"{self.path}/roleAdjustments")
 
-    # 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+    # 2.2. Quality Gate Adjustments.
     @property
     def qualityGateAdjustments(self):
         return QualityGateAdjustments(self.doc, f"{self.path}/qualityGateAdjustments")
 
-    # 2.3. Process Adjustments [PD00-POP-PRC].
+    # 2.3. Process Adjustments.
     @property
     def processAdjustments(self):
         return ProcessAdjustments(self.doc, f"{self.path}/processAdjustments")
 
-    # 2.4. Tooling and Environments [PD00-POP-TOO].
+    # 2.4. Tooling and Environments.
     @property
     def toolingAndEnvironments(self):
         return ToolingAndEnvironments(self.doc, f"{self.path}/toolingAndEnvironments")
 
-class ProjectPhasePlan(SomNode):
-    """PPP00 Project Phase Plan.
-    
-    Full project phase plan — staging strategy, stage overview, per-stage
-    entries, feature prioritization, data migration, gate criteria,
-    decision processes, initial development flow, and upgrade cycle
-    framework.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "PPP")
-        check_som_model_version(ProjectPhasePlan.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return ProjectPhasePlan.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Staging strategy — PD00-SSP-STR.
-    @property
-    def stagingStrategy(self):
-        return StagingStrategy(self.doc, f"{self.path}/stagingStrategy")
-
-    # Stage overview — PD00-SSP-STA.
-    @property
-    def stageOverview(self):
-        return StageOverview(self.doc, f"{self.path}/stageOverview")
-
-    # Stages — PD00-SSP-STG (list).
-    @property
-    def stages(self):
-        return SomList(self.doc, f"{self.path}/STAGE-STAG-LST", lambda d, p: StageEntry(d, p))
-
-    # Feature prioritization — PD00-SSP-FEA.
-    @property
-    def featurePrioritization(self):
-        return FeaturePrioritization(self.doc, f"{self.path}/featurePrioritization")
-
-    # Data migration strategy — PD00-SSP-MIG.
-    @property
-    def dataMigrationStrategy(self):
-        return DataMigrationStrategy(self.doc, f"{self.path}/dataMigrationStrategy")
-
-    # Gate criteria — PD00-SSP-GOV-GAT (promoted from GOV).
-    @property
-    def gateCriteria(self):
-        return PhaseGateReviews(self.doc, f"{self.path}/gateCriteria")
-
-    # Decision processes — PD00-SSP-GOV-DEC (promoted from GOV).
-    @property
-    def decisionProcesses(self):
-        return DecisionPoints(self.doc, f"{self.path}/decisionProcesses")
-
-    # Initial development flow — PD00-SSP-IDV.
-    @property
-    def initialDevelopmentFlow(self):
-        return InitialDevelopmentFlow(self.doc, f"{self.path}/initialDevelopmentFlow")
-
-    # Upgrade cycle framework — PD00-SSP-UPG (links tom_system_upgrade.md).
-    @property
-    def upgradeCycleFramework(self):
-        return UpgradeCycleFramework(self.doc, f"{self.path}/upgradeCycleFramework")
-
 class ProjectTeamStaffing(SomNode):
-    """3.2. Project Team Staffing [PD00-ADM-TEA].
+    """3.2. Project Team Staffing.
     
     Container for individual staff assignments including roles, responsibilities,
     availability, and required competencies.
@@ -31935,7 +32202,7 @@ class ProtocolComplianceRequirementsObservability(SomNode):
         return ProtocolComplianceRequirementsObservabilityContentForm(self.doc, f"{self.path}/content")
 
 class ProtocolEntry(SomNode):
-    """A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn]."""
+    """A protocol or standard entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31944,7 +32211,7 @@ class ProtocolEntry(SomNode):
         return ProtocolEntryContentForm(self.doc, f"{self.path}/content")
 
 class ProtocolsAndStandardsSection(SomNode):
-    """8.6.1. Protocols and Standards [PD00-TEC-COM-PRO]."""
+    """8.6.1. Protocols and Standards."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -31997,7 +32264,7 @@ class ProtocolsAndStandardsSection(SomNode):
         return ProtocolComplianceRequirements(self.doc, f"{self.path}/compliance")
 
 class Prototype(SomNode):
-    """10.13. Prototype [PD00-USE-PRO].
+    """10.13. Prototype.
     
     Comprehensive prototype planning covering goals, feature selection,
     prototype type, evaluation criteria, and stakeholder alignment.
@@ -32029,17 +32296,17 @@ class Prototype(SomNode):
     def overviewNarrative(self):
         return None  # (skipped: no target type)
 
-    # 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+    # 10.13.1. Prototype Goals.
     @property
     def prototypeGoals(self):
         return PrototypeGoals(self.doc, f"{self.path}/prototypeGoals")
 
-    # 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+    # 10.13.2. Selected Feature Subset.
     @property
     def featureSubset(self):
         return PrototypeFeatureSubset(self.doc, f"{self.path}/featureSubset")
 
-    # 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+    # 10.13.3. Prototype Type.
     @property
     def prototypeType(self):
         return PrototypeTypeSection(self.doc, f"{self.path}/prototypeType")
@@ -32050,7 +32317,7 @@ class Prototype(SomNode):
         return None  # (skipped: no target type)
 
 class PrototypeFeatureEntry(SomNode):
-    """A prototype feature entry [PD00-USE-PRO-FEA-nn]."""
+    """A prototype feature entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -32059,7 +32326,7 @@ class PrototypeFeatureEntry(SomNode):
         return PrototypeFeatureEntryContentForm(self.doc, f"{self.path}/content")
 
 class PrototypeFeatureSubset(SomNode):
-    """10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+    """10.13.2. Selected Feature Subset.
     
     Features included in the prototype.
     """
@@ -32109,7 +32376,7 @@ class PrototypeFeatureSubsetScope(SomNode):
         return PrototypeFeatureSubsetScopeContentForm(self.doc, f"{self.path}/content")
 
 class PrototypeGoalEntry(SomNode):
-    """A prototype goal entry [PD00-USE-PRO-GOA-nn]."""
+    """A prototype goal entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -32118,7 +32385,7 @@ class PrototypeGoalEntry(SomNode):
         return PrototypeGoalEntryContentForm(self.doc, f"{self.path}/content")
 
 class PrototypeGoals(SomNode):
-    """10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+    """10.13.1. Prototype Goals.
     
     What the prototype should validate.
     """
@@ -32195,7 +32462,7 @@ class PrototypeTimeline(SomNode):
         return PrototypeTimelineContentForm(self.doc, f"{self.path}/content")
 
 class PrototypeTypeSection(SomNode):
-    """10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+    """10.13.3. Prototype Type.
     
     Classification and implications of the prototype type.
     """
@@ -32206,17 +32473,17 @@ class PrototypeTypeSection(SomNode):
     def prototypeTypeOverview(self):
         return PrototypeTypeSectionPrototypeTypeOverviewForm(self.doc, f"{self.path}/prototypeTypeOverview")
 
-    # 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+    # 10.13.3.1. Reusable Prototype.
     @property
     def reusablePrototype(self):
         return ReusablePrototype(self.doc, f"{self.path}/reusablePrototype")
 
-    # 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+    # 10.13.3.2. Training Prototype.
     @property
     def trainingPrototype(self):
         return TrainingPrototype(self.doc, f"{self.path}/trainingPrototype")
 
-    # 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+    # 10.13.3.3. Throwaway Prototype.
     @property
     def throwawayPrototype(self):
         return ThrowawayPrototype(self.doc, f"{self.path}/throwawayPrototype")
@@ -32286,8 +32553,139 @@ class PwaRequirementsUpdates(SomNode):
     def content(self):
         return PwaRequirementsUpdatesContentForm(self.doc, f"{self.path}/content")
 
+class QualityAcceptancePlan(SomNode):
+    """BQP00 Business Quality Plan.
+    
+    Full quality plan combining quality goals and the acceptance plan.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "QAP")
+        check_som_model_version(QualityAcceptancePlan.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return QualityAcceptancePlan.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Quality framework.
+    @property
+    def qualityFramework(self):
+        return QualityFramework(self.doc, f"{self.path}/qualityFramework")
+
+    # User-related quality criteria.
+    @property
+    def userQualityCriteria(self):
+        return UserQualityCriteria(self.doc, f"{self.path}/userQualityCriteria")
+
+    # Technical quality criteria.
+    @property
+    def technicalQualityCriteria(self):
+        return TechnicalQualityCriteria(self.doc, f"{self.path}/technicalQualityCriteria")
+
+    # Operations quality criteria.
+    @property
+    def operationsQualityCriteria(self):
+        return OperationsQualityCriteria(self.doc, f"{self.path}/operationsQualityCriteria")
+
+    # Documentation quality criteria.
+    @property
+    def documentationQualityCriteria(self):
+        return DocumentationQualityCriteria(self.doc, f"{self.path}/documentationQualityCriteria")
+
+    # Quality prioritization.
+    @property
+    def qualityPrioritization(self):
+        return QualityPrioritization(self.doc, f"{self.path}/qualityPrioritization")
+
+    # Acceptance criteria summary.
+    @property
+    def acceptanceCriteriaSummary(self):
+        return AcceptanceCriteriaSummary(self.doc, f"{self.path}/acceptanceCriteriaSummary")
+
+    # Test strategy (new in Phase A).
+    @property
+    def testStrategy(self):
+        return TestStrategy(self.doc, f"{self.path}/testStrategy")
+
+    # Acceptance criteria.
+    @property
+    def acceptanceCriteria(self):
+        return AcceptanceCriteriaList(self.doc, f"{self.path}/acceptanceCriteria")
+
+    # Acceptance process.
+    @property
+    def acceptanceProcess(self):
+        return AcceptanceProcess(self.doc, f"{self.path}/acceptanceProcess")
+
+    # User acceptance testing.
+    @property
+    def userAcceptanceTesting(self):
+        return UserAcceptanceTesting(self.doc, f"{self.path}/userAcceptanceTesting")
+
+    # Defect resolution.
+    @property
+    def defectResolution(self):
+        return DefectResolution(self.doc, f"{self.path}/defectResolution")
+
+    # Sign-off process.
+    @property
+    def signOffProcess(self):
+        return SignOffProcess(self.doc, f"{self.path}/signOffProcess")
+
+    # Warranty terms.
+    @property
+    def warranty(self):
+        return WarrantyTerms(self.doc, f"{self.path}/warranty")
+
+class QualityAndAcceptanceModel(SomNode):
+    """SBP.14 Quality & Acceptance Model.
+    
+    Public anchor: ISO/IEC 25010 product quality.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Quality goals and attributes.
+    @property
+    def systemQualityGoals(self):
+        return SystemQualityGoals(self.doc, f"{self.path}/systemQualityGoals")
+
+    # Delivery scope and acceptance criteria.
+    @property
+    def deliveryAcceptance(self):
+        return DeliveryScopeAndAcceptance(self.doc, f"{self.path}/deliveryAcceptance")
+
+    # ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+    @property
+    def iso25010Coverage(self):
+        return Iso25010Coverage(self.doc, f"{self.path}/iso25010Coverage")
+
 class QualityCategoryEntry(SomNode):
-    """A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
+    """A quality category entry (form).
     
     Defines a quality category with its attributes, weight, and relationship
     to other categories.
@@ -32361,7 +32759,7 @@ class QualityCategoryEntryRelationships(SomNode):
         return QualityCategoryEntryRelationshipsContentForm(self.doc, f"{self.path}/content")
 
 class QualityFramework(SomNode):
-    """11.1. Quality Framework [PD00-SYQ-FRA].
+    """11.1. Quality Framework.
     
     Overall quality approach for the project defining objectives, categories,
     and how quality is structured and governed across the system.
@@ -32388,7 +32786,7 @@ class QualityFramework(SomNode):
     def verification(self):
         return QualityFrameworkVerification(self.doc, f"{self.path}/verification")
 
-    # 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
+    # 11.1.1. Quality Objectives Overview.
     @property
     def qualityObjectivesOverview(self):
         return None  # (skipped: no target type)
@@ -32398,7 +32796,7 @@ class QualityFramework(SomNode):
     def objectivesBreakdown(self):
         return None  # (skipped: no target type)
 
-    # 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
+    # 11.1.2. Quality Categories — contains 0+× QualityCategory.
     @property
     def qualityCategories(self):
         return SomList(self.doc, f"{self.path}/QCATE-QUAL-LST", lambda d, p: QualityCategoryEntry(d, p))
@@ -32445,7 +32843,7 @@ class QualityGateAdjustmentDetails(SomNode):
         return QualityGateAdjustmentDetailsContentForm(self.doc, f"{self.path}/content")
 
 class QualityGateAdjustmentEntry(SomNode):
-    """A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
+    """A quality gate adjustment entry (form).
     
     Documents a specific deviation from standard quality gate definitions,
     including the type of change, impact on quality assurance, risk
@@ -32515,7 +32913,7 @@ class QualityGateAdjustmentSummary(SomNode):
         return QualityGateAdjustmentSummaryContentForm(self.doc, f"{self.path}/content")
 
 class QualityGateAdjustments(SomNode):
-    """2.2. Quality Gate Adjustments [PD00-POP-QGA].
+    """2.2. Quality Gate Adjustments.
     
     Documents any deviations from the standard quality gates defined in
     tom_quality_gates.md. Includes skipped, added, or modified gates
@@ -32552,7 +32950,7 @@ class QualityGateAdjustments(SomNode):
         return SomList(self.doc, f"{self.path}/QGAJE-ITEM-LST", lambda d, p: QualityGateAdjustmentEntry(d, p))
 
 class QualityGateCheckEntry(SomNode):
-    """A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn]."""
+    """A quality gate check entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -32631,7 +33029,7 @@ class QualityGateCheckEntryVerification(SomNode):
         return QualityGateCheckEntryVerificationContentForm(self.doc, f"{self.path}/content")
 
 class QualityGateChecklist(SomNode):
-    """11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+    """11.7.2. Quality Gate Checklist.
     
     Quality gate checklist used during acceptance.
     """
@@ -32653,7 +33051,7 @@ class QualityGateChecklist(SomNode):
         return SomList(self.doc, f"{self.path}/QGCHK-ITEM-LST", lambda d, p: QualityGateCheckEntry(d, p))
 
 class QualityPrioritization(SomNode):
-    """11.6. Quality Prioritization [PD00-SYQ-PRI].
+    """11.6. Quality Prioritization.
     
     Prioritization and balancing of quality attributes including weighted
     matrices and explicit trade-off decisions.
@@ -32670,12 +33068,12 @@ class QualityPrioritization(SomNode):
     def prioritizationOverview(self):
         return None  # (skipped: no target type)
 
-    # 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+    # 11.6.1. Weighted Quality Matrix.
     @property
     def weightedQualityMatrix(self):
         return WeightedQualityMatrix(self.doc, f"{self.path}/weightedQualityMatrix")
 
-    # 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+    # 11.6.2. Trade-off Decisions.
     @property
     def tradeOffDecisions(self):
         return TradeOffDecisions(self.doc, f"{self.path}/tradeOffDecisions")
@@ -32690,7 +33088,7 @@ class QualityScenarioEntry(SomNode):
         return QualityScenarioEntryContentForm(self.doc, f"{self.path}/content")
 
 class QualityScenarios(SomNode):
-    """4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+    """4.2.2.n.1. Quality Scenarios.
     
     Quality attribute scenarios that define concrete, testable situations
     for verifying the technical goal (based on SEI quality attribute workshop).
@@ -32777,7 +33175,7 @@ class QualityStandardEntryProcesses(SomNode):
         return QualityStandardEntryProcessesContentForm(self.doc, f"{self.path}/content")
 
 class QualityWeightEntry(SomNode):
-    """A quality weight entry [PD00-SYQ-PRI-WEI-nn]."""
+    """A quality weight entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -32837,7 +33235,7 @@ class RateLimitingPolicyQuotas(SomNode):
         return RateLimitingPolicyQuotasContentForm(self.doc, f"{self.path}/content")
 
 class ReadabilityQuality(SomNode):
-    """11.5.1. Readability quality [PD00-SYQ-DOC-REA]."""
+    """11.5.1. Readability quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -32907,7 +33305,7 @@ class ReadabilityQualityStyle(SomNode):
         return ReadabilityQualityStyleContentForm(self.doc, f"{self.path}/content")
 
 class ReadinessCriteriaEntry(SomNode):
-    """Readiness criteria entry [PD00-ORG-STR-TIM-RDY-nn] (form)."""
+    """Readiness criteria entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -32994,7 +33392,7 @@ class RecoveryProceduresValidation(SomNode):
         return RecoveryProceduresValidationContentForm(self.doc, f"{self.path}/content")
 
 class RecoveryScenarioEntry(SomNode):
-    """A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn]."""
+    """A recovery scenario entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -33039,7 +33437,7 @@ class RedirectHandlingPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class ReferenceDocumentEntry(SomNode):
-    """A reference document entry [PD00-ADM-REF-nn] (form).
+    """A reference document entry (form).
     
     Detailed metadata for a single referenced document including
     identification, classification, status, and applicability.
@@ -33104,7 +33502,7 @@ class ReferenceDocumentEntryMetadata(SomNode):
         return ReferenceDocumentEntryMetadataContentForm(self.doc, f"{self.path}/content")
 
 class ReferenceDocuments(SomNode):
-    """3.5. Reference Documents [PD00-ADM-REF].
+    """3.5. Reference Documents.
     
     Catalog of all documents referenced by this project specification,
     including enterprise standards, technical guidelines, regulatory
@@ -33209,7 +33607,7 @@ class RegulatoryComplianceEntryRequirements(SomNode):
         return RegulatoryComplianceEntryRequirementsContentForm(self.doc, f"{self.path}/content")
 
 class RegulatoryComplianceRequirements(SomNode):
-    """3.6.3. Regulatory Compliance Requirements [PD00-ADM-OTH-REG].
+    """3.6.3. Regulatory Compliance Requirements.
     
     Regulatory and compliance obligations affecting the project.
     """
@@ -33235,7 +33633,7 @@ class RegulatoryComplianceRequirements(SomNode):
         return SomList(self.doc, f"{self.path}/CPML-MILE-LST", lambda d, p: ComplianceMilestoneEntry(d, p))
 
 class RegulatoryContext(SomNode):
-    """4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+    """4.1.2.8. Regulatory Context.
     
     Regulatory and compliance context that affects system design and
     operations.
@@ -33371,7 +33769,7 @@ class RelevantSectionEntry(SomNode):
         return RelevantSectionEntryContentForm(self.doc, f"{self.path}/content")
 
 class ReliabilityQuality(SomNode):
-    """11.3.6. Reliability quality [PD00-SYQ-TEC-REL]."""
+    """11.3.6. Reliability quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -33473,7 +33871,7 @@ class RemoteAccessRequirements(SomNode):
         return RemoteAccessRequirementsContentForm(self.doc, f"{self.path}/content")
 
 class RemovedRoleEntry(SomNode):
-    """A removed role entry [PD00-ORG-JOB-REM-nn] (form).
+    """A removed role entry (form).
     
     Documents roles being eliminated with transition planning for incumbents.
     """
@@ -33527,7 +33925,7 @@ class RemovedRoleEntryTransition(SomNode):
         return RemovedRoleEntryTransitionContentForm(self.doc, f"{self.path}/content")
 
 class ReplacementInventory(SomNode):
-    """Container for systems to replace [PD00-SYO-SYR-INV].
+    """Container for systems to replace.
     
     Provides a structured inventory of all systems targeted for replacement,
     with portfolio-level metrics and prioritization guidance.
@@ -33551,7 +33949,7 @@ class ReplacementInventory(SomNode):
         return SomList(self.doc, f"{self.path}/SYTORE-SYST-LST", lambda d, p: SystemToReplaceEntry(d, p))
 
 class ReplacementPhaseEntry(SomNode):
-    """A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn]."""
+    """A replacement phase entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -33560,7 +33958,7 @@ class ReplacementPhaseEntry(SomNode):
         return ReplacementPhaseEntryContentForm(self.doc, f"{self.path}/content")
 
 class ReplacementSystemDependencyEntry(SomNode):
-    """A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
+    """A system dependency entry.
     
     Documents integrations and dependencies with other systems.
     """
@@ -33590,7 +33988,7 @@ class ReportChartDisplay(SomNode):
         return ReportChartDisplayContentForm(self.doc, f"{self.path}/content")
 
 class ReportChartEntry(SomNode):
-    """A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
+    """A chart/visualization in a report
     (form).
     """
     def __init__(self, doc, path):
@@ -33671,7 +34069,7 @@ class ReportColumnDataSource(SomNode):
         return ReportColumnDataSourceContentForm(self.doc, f"{self.path}/content")
 
 class ReportColumnEntry(SomNode):
-    """A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
+    """A column in a tabular report section
     (form).
     """
     def __init__(self, doc, path):
@@ -33743,7 +34141,7 @@ class ReportDataSource(SomNode):
         return ReportDataSourceContentForm(self.doc, f"{self.path}/content")
 
 class ReportDistributionEntry(SomNode):
-    """Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form)."""
+    """Distribution channel configuration (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -33794,7 +34192,7 @@ class ReportDistributionEntryRecipients(SomNode):
         return ReportDistributionEntryRecipientsContentForm(self.doc, f"{self.path}/content")
 
 class ReportEntry(SomNode):
-    """A report entry [PD00-USE-PRI-REP-nn] (form)."""
+    """A report entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -33883,7 +34281,7 @@ class ReportEntry(SomNode):
         return SomList(self.doc, f"{self.path}/REREEN-RECI-LST", lambda d, p: ReportRecipientEntry(d, p))
 
 class ReportFilterEntry(SomNode):
-    """A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form)."""
+    """A filter parameter for a report (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -34015,7 +34413,7 @@ class ReportPagination(SomNode):
         return ReportPaginationContentForm(self.doc, f"{self.path}/content")
 
 class ReportRecipientEntry(SomNode):
-    """A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn]."""
+    """A recipient entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -34066,7 +34464,7 @@ class ReportRecipientEntryLifecycle(SomNode):
         return ReportRecipientEntryLifecycleContentForm(self.doc, f"{self.path}/content")
 
 class ReportScheduleEntry(SomNode):
-    """Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
+    """Scheduling rules for report generation
     (form).
     """
     def __init__(self, doc, path):
@@ -34151,7 +34549,7 @@ class ReportSectionData(SomNode):
         return ReportSectionDataContentForm(self.doc, f"{self.path}/content")
 
 class ReportSectionEntry(SomNode):
-    """A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form)."""
+    """A section within a report (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -34230,7 +34628,7 @@ class RepresentativeQuoteEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class RequirementAcceptanceCriteria(SomNode):
-    """4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+    """4.3.1.n.1. Acceptance Criteria.
     
     Testable conditions that must be met for the requirement to be accepted.
     Uses Given-When-Then format for clarity.
@@ -34261,7 +34659,7 @@ class RequirementBusinessRuleEntry(SomNode):
         return RequirementBusinessRuleEntryContentForm(self.doc, f"{self.path}/content")
 
 class RequirementBusinessRules(SomNode):
-    """4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+    """4.3.1.n.2. Business Rules.
     
     Business rules that constrain or guide this requirement's behavior.
     """
@@ -34282,7 +34680,7 @@ class RequirementBusinessRules(SomNode):
         return SomList(self.doc, f"{self.path}/RQBIRU-RULE-LST", lambda d, p: RequirementBusinessRuleEntry(d, p))
 
 class RequirementCoverage(SomNode):
-    """4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+    """4.3.6. Requirement Coverage.
     
     Coverage of requirements against goals, use cases, and tests.
     """
@@ -34298,7 +34696,7 @@ class RequirementCoverage(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class RequirementDataRequirements(SomNode):
-    """4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+    """4.3.1.n.3. Data Requirements.
     
     Data entities, attributes, and relationships needed by this requirement.
     """
@@ -34319,7 +34717,7 @@ class RequirementDataRequirements(SomNode):
         return SomList(self.doc, f"{self.path}/DAENRE-ENTI-LST", lambda d, p: DataEntityReferenceEntry(d, p))
 
 class RequirementDependencies(SomNode):
-    """4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+    """4.3.1.n.5. Dependencies.
     
     Dependencies this requirement has on other requirements.
     """
@@ -34357,7 +34755,7 @@ class RequirementDependencyEntry(SomNode):
         self.doc.set_content(f"{self.path}/relatedRequirement", value)
 
 class RequirementRelationships(SomNode):
-    """4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+    """4.3.5. Requirement Relationships.
     
     Cross-requirement dependency and conflict graph.
     """
@@ -34435,7 +34833,7 @@ class RequirementTestCaseEntryExecution(SomNode):
         return RequirementTestCaseEntryExecutionContentForm(self.doc, f"{self.path}/content")
 
 class RequirementTestCases(SomNode):
-    """4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+    """4.3.1.n.7. Test Cases.
     
     Test cases that verify this requirement is correctly implemented.
     """
@@ -34456,7 +34854,7 @@ class RequirementTestCases(SomNode):
         return SomList(self.doc, f"{self.path}/RQTSC-TEST-LST", lambda d, p: RequirementTestCaseEntry(d, p))
 
 class RequirementTraceability(SomNode):
-    """4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+    """4.3.1.n.6. Traceability.
     
     Traceability links to goals, use cases, processes, and other artifacts.
     """
@@ -34505,7 +34903,7 @@ class RequirementTraceabilityImplementation(SomNode):
         return RequirementTraceabilityImplementationContentForm(self.doc, f"{self.path}/content")
 
 class RequirementUiSpecification(SomNode):
-    """4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+    """4.3.1.n.4. UI Specification.
     
     User interface specification for this requirement. Defines screens,
     forms, and interactions needed to fulfill the requirement.
@@ -34560,24 +34958,15 @@ class RequirementUiSpecification(SomNode):
     def behaviors(self):
         return SomList(self.doc, f"{self.path}/SCBHV-BEHA-LST", lambda d, p: ScreenBehaviorEntry(d, p))
 
-class RequirementsCatalog(SomNode):
-    """RC00 Requirements Catalog.
+class Requirements(SomNode):
+    """SBP.9 Requirements.
     
-    Full requirements catalog covering functional, technical, security,
-    and organizational requirements, plus traceability, relationships,
-    and coverage analysis.
+    Functional requirements seed the Requirements Specification (RSP); this
+    section currently carries the framework-uncovered NFR sub-areas re-homed in
+    IP-6. Functional-requirement modelling is expanded in a later IP step.
     """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "RC")
-        check_som_model_version(RequirementsCatalog.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return RequirementsCatalog.model_version
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
 
     @property
     def content(self):
@@ -34587,56 +34976,23 @@ class RequirementsCatalog(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Standard TomSpecs document header.
+    # Localization & Translation requirements (NFR-L10N-NNN).
     @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
+    def localizationTranslation(self):
+        return LocalizationTranslationRequirements(self.doc, f"{self.path}/localizationTranslation")
 
-    # Functional requirements — PD00-SYO-REQ-FUN.
+    # Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
     @property
-    def functionalRequirements(self):
-        return FunctionalRequirements(self.doc, f"{self.path}/functionalRequirements")
+    def informationForUse(self):
+        return InformationForUseRequirements(self.doc, f"{self.path}/informationForUse")
 
-    # Technical (non-functional) requirements — PD00-SYO-REQ-TEC.
+    # Training & Enablement requirements (NFR-TRN-NNN).
     @property
-    def technicalRequirements(self):
-        return TechnicalRequirements(self.doc, f"{self.path}/technicalRequirements")
-
-    # Security requirements — PD00-SYO-REQ-SEC.
-    @property
-    def securityRequirements(self):
-        return SecurityRequirements(self.doc, f"{self.path}/securityRequirements")
-
-    # Organizational requirements — PD00-SYO-REQ-ORG.
-    @property
-    def organizationalRequirements(self):
-        return OrganizationalRequirements(self.doc, f"{self.path}/organizationalRequirements")
-
-    # Traceability matrix overview — PD00-SYO-REQ-TRC.
-    #
-    # Mirrors the PD00-side flat field on RequirementsOverview so the RC
-    # outline reaches it directly. The authoritative content lives on the
-    # PD00 side.
-    @property
-    def traceabilityMatrix(self):
-        return self.doc.content(f"{self.path}/traceabilityMatrix") or ""
-
-    @traceabilityMatrix.setter
-    def traceabilityMatrix(self, value):
-        self.doc.set_content(f"{self.path}/traceabilityMatrix", value)
-
-    # Requirement relationships — PD00-SYO-REQ-REL.
-    @property
-    def requirementRelationships(self):
-        return SomList(self.doc, f"{self.path}/RERE-REQU-LST", lambda d, p: RequirementRelationships(d, p))
-
-    # Requirement coverage — PD00-SYO-REQ-COV.
-    @property
-    def requirementCoverage(self):
-        return RequirementCoverage(self.doc, f"{self.path}/requirementCoverage")
+    def trainingEnablement(self):
+        return TrainingEnablementRequirements(self.doc, f"{self.path}/trainingEnablement")
 
 class RequirementsOverview(SomNode):
-    """4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+    """4.3. Requirements Overview. Seeds → RC.
     
     Initial requirements overview organized by category. Each requirement
     receives a unique ID and will be expanded into the RC (Requirements
@@ -34669,32 +35025,107 @@ class RequirementsOverview(SomNode):
     def traceabilityMatrix(self, value):
         self.doc.set_content(f"{self.path}/traceabilityMatrix", value)
 
-    # 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+    # 4.3.1. Functional Requirements.
     @property
     def functionalRequirements(self):
         return FunctionalRequirements(self.doc, f"{self.path}/functionalRequirements")
 
-    # 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+    # 4.3.2. Technical Requirements.
     @property
     def technicalRequirements(self):
         return TechnicalRequirements(self.doc, f"{self.path}/technicalRequirements")
 
-    # 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+    # 4.3.3. Security Requirements.
     @property
     def securityRequirements(self):
         return SecurityRequirements(self.doc, f"{self.path}/securityRequirements")
 
-    # 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+    # 4.3.4. Organizational Requirements.
     @property
     def organizationalRequirements(self):
         return OrganizationalRequirements(self.doc, f"{self.path}/organizationalRequirements")
 
-    # 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+    # 4.3.5. Requirement Relationships.
     @property
     def requirementRelationships(self):
         return SomList(self.doc, f"{self.path}/RERE-REQU-LST", lambda d, p: RequirementRelationships(d, p))
 
-    # 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+    # 4.3.6. Requirement Coverage.
+    @property
+    def requirementCoverage(self):
+        return RequirementCoverage(self.doc, f"{self.path}/requirementCoverage")
+
+class RequirementsSpecification(SomNode):
+    """RC00 Requirements Catalog.
+    
+    Full requirements catalog covering functional, technical, security,
+    and organizational requirements, plus traceability, relationships,
+    and coverage analysis.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "RSP")
+        check_som_model_version(RequirementsSpecification.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return RequirementsSpecification.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Functional requirements.
+    @property
+    def functionalRequirements(self):
+        return FunctionalRequirements(self.doc, f"{self.path}/functionalRequirements")
+
+    # Technical (non-functional) requirements.
+    @property
+    def technicalRequirements(self):
+        return TechnicalRequirements(self.doc, f"{self.path}/technicalRequirements")
+
+    # Security requirements.
+    @property
+    def securityRequirements(self):
+        return SecurityRequirements(self.doc, f"{self.path}/securityRequirements")
+
+    # Organizational requirements.
+    @property
+    def organizationalRequirements(self):
+        return OrganizationalRequirements(self.doc, f"{self.path}/organizationalRequirements")
+
+    # Traceability matrix overview.
+    #
+    # Mirrors the flat field on RequirementsOverview so the RC outline
+    # reaches it directly. The authoritative content lives on the Solution
+    # Blueprint side.
+    @property
+    def traceabilityMatrix(self):
+        return self.doc.content(f"{self.path}/traceabilityMatrix") or ""
+
+    @traceabilityMatrix.setter
+    def traceabilityMatrix(self, value):
+        self.doc.set_content(f"{self.path}/traceabilityMatrix", value)
+
+    # Requirement relationships.
+    @property
+    def requirementRelationships(self):
+        return SomList(self.doc, f"{self.path}/RERE-REQU-LST", lambda d, p: RequirementRelationships(d, p))
+
+    # Requirement coverage.
     @property
     def requirementCoverage(self):
         return RequirementCoverage(self.doc, f"{self.path}/requirementCoverage")
@@ -34774,7 +35205,7 @@ class ResourceCapacityBaselinesStorage(SomNode):
         return ResourceCapacityBaselinesStorageContentForm(self.doc, f"{self.path}/content")
 
 class ResourceKeyEntry(SomNode):
-    """A resource key entry [PD00-ACC-USA-RES-nn] (form)."""
+    """A resource key entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -34783,7 +35214,7 @@ class ResourceKeyEntry(SomNode):
         return ResourceKeyEntryContentForm(self.doc, f"{self.path}/content")
 
 class ResourceKeyReferenceEntry(SomNode):
-    """A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn]."""
+    """A resource key reference entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -34792,7 +35223,7 @@ class ResourceKeyReferenceEntry(SomNode):
         return ResourceKeyReferenceEntryContentForm(self.doc, f"{self.path}/content")
 
 class ResourceProtection(SomNode):
-    """9.3. Resource Protection [PD00-ACC-RES]."""
+    """9.3. Resource Protection."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -34804,17 +35235,17 @@ class ResourceProtection(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+    # 9.3.1. Data-Level Security.
     @property
     def dataLevelSecurity(self):
         return DataLevelSecurity(self.doc, f"{self.path}/dataLevelSecurity")
 
-    # 9.3.2. API Security [PD00-ACC-RES-API].
+    # 9.3.2. API Security.
     @property
     def apiSecurity(self):
         return ApiSecurity(self.doc, f"{self.path}/apiSecurity")
 
-    # 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+    # 9.3.3. File and Storage Security.
     @property
     def fileAndStorageSecurity(self):
         return FileAndStorageSecurity(self.doc, f"{self.path}/fileAndStorageSecurity")
@@ -34842,7 +35273,7 @@ class ResponseStrategyEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class ResponsibilityChangeEntry(SomNode):
-    """Responsibility change entry [PD00-ORG-JOB-CHA-nn-xxx-nn] (form)."""
+    """Responsibility change entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -34860,7 +35291,7 @@ class ResponsibilityContacts(SomNode):
         return ResponsibilityContactsContentForm(self.doc, f"{self.path}/content")
 
 class ResponsibilityDetailEntry(SomNode):
-    """Detailed responsibility entry [PD00-ORG-JOB-NEW-nn-RSP-nn] (form)."""
+    """Detailed responsibility entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -34869,7 +35300,7 @@ class ResponsibilityDetailEntry(SomNode):
         return ResponsibilityDetailEntryContentForm(self.doc, f"{self.path}/content")
 
 class ResponsibilityEntry(SomNode):
-    """A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+    """A responsibility entry (form).
     
     Documents responsibility assignment for a specific functional area,
     following RACI principles (Responsible, Accountable, Consulted, Informed)
@@ -34944,7 +35375,7 @@ class ResponsibilityRaci(SomNode):
         return ResponsibilityRaciContentForm(self.doc, f"{self.path}/content")
 
 class ResponsibilityReferenceEntry(SomNode):
-    """A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn]."""
+    """A responsibility reference entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -34962,7 +35393,7 @@ class ResponsibilitySystems(SomNode):
         return ResponsibilitySystemsContentForm(self.doc, f"{self.path}/content")
 
 class ResponsiveBehavior(SomNode):
-    """10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+    """10.10.2. Responsive Behavior.
     
     How the UI adapts across breakpoints.
     """
@@ -35040,7 +35471,7 @@ class ResponsiveBehaviorVisibility(SomNode):
         return ResponsiveBehaviorVisibilityContentForm(self.doc, f"{self.path}/content")
 
 class ResponsiveDesign(SomNode):
-    """10.10. Responsive Design [PD00-USE-RES].
+    """10.10. Responsive Design.
     
     Comprehensive responsive design specification covering breakpoints,
     adaptive layouts, and device-specific behavior for Flutter applications.
@@ -35057,18 +35488,18 @@ class ResponsiveDesign(SomNode):
     def responsiveNarrative(self):
         return None  # (skipped: no target type)
 
-    # 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+    # 10.10.1. Breakpoints.
     @property
     def breakpointConfig(self):
         return BreakpointConfiguration(self.doc, f"{self.path}/breakpointConfig")
 
-    # 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+    # 10.10.2. Responsive Behavior.
     @property
     def responsiveBehavior(self):
         return ResponsiveBehavior(self.doc, f"{self.path}/responsiveBehavior")
 
 class ResponsiveScreenRuleEntry(SomNode):
-    """A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn]."""
+    """A screen-specific responsive rule entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -35202,7 +35633,7 @@ class ReusabilityPrinciplesVersioning(SomNode):
         return ReusabilityPrinciplesVersioningContentForm(self.doc, f"{self.path}/content")
 
 class ReusableComponentsSection(SomNode):
-    """8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+    """8.2.3. Reusable Components.
     
     Components, libraries, or frameworks designed for reuse across projects
     or modules.
@@ -35264,7 +35695,7 @@ class ReusableComponentsSection(SomNode):
         return ComponentRegistry(self.doc, f"{self.path}/registry")
 
 class ReusablePrototype(SomNode):
-    """10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+    """10.13.3.1. Reusable Prototype.
     
     Prototype that becomes part of the final product.
     """
@@ -35402,7 +35833,7 @@ class ReusableUiComponentEntryInteraction(SomNode):
         return ReusableUiComponentEntryInteractionContentForm(self.doc, f"{self.path}/content")
 
 class ReuseGoalEntry(SomNode):
-    """A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
+    """A reuse goal entry (form).
     
     Defines a specific reuse target: what to reuse, why, at what percentage,
     how to measure, and who owns the goal.
@@ -35457,7 +35888,7 @@ class ReuseGoalEntryMeasurement(SomNode):
         return ReuseGoalEntryMeasurementContentForm(self.doc, f"{self.path}/content")
 
 class ReviewCriterionEntry(SomNode):
-    """A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
+    """A review criterion entry (form).
     
     A single criterion evaluated at a phase gate, with weight,
     evidence linkage, and assessment result.
@@ -35496,6 +35927,33 @@ class ReviewCriterionEntryResult(SomNode):
     @property
     def content(self):
         return ReviewCriterionEntryResultContentForm(self.doc, f"{self.path}/content")
+
+class RevisionEntry(SomNode):
+    """A single document revision entry (form)."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return RevisionEntryContentForm(self.doc, f"{self.path}/content")
+
+class RevisionHistory(SomNode):
+    """Chronological revision history."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # One entry per published revision of the document.
+    @property
+    def revisions(self):
+        return SomList(self.doc, f"{self.path}/RVHST-REVS-LST", lambda d, p: RevisionEntry(d, p))
 
 class RiskAnalysis(SomNode):
     """Risk analysis — probability, impact, and risk scoring."""
@@ -35570,7 +36028,7 @@ class RiskCategoryEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class RiskEntry(SomNode):
-    """A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+    """A risk entry (form).
     
     Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
     Captures risk identification, analysis, response planning, ownership,
@@ -35744,7 +36202,7 @@ class RiskResponseResidual(SomNode):
         return RiskResponseResidualContentForm(self.doc, f"{self.path}/content")
 
 class RisksAndAssumptions(SomNode):
-    """4.7. Risks and Assumptions [PD00-SYO-RIS].
+    """4.7. Risks and Assumptions.
     
     Documents identified project risks and underlying assumptions following
     ISO 31000 Risk Management and PMBOK risk management best practices.
@@ -35759,12 +36217,12 @@ class RisksAndAssumptions(SomNode):
     def overview(self):
         return RisksOverview(self.doc, f"{self.path}/overview")
 
-    # 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+    # 4.7.1. Key Risks — contains 0+× Risk.
     @property
     def keyRisks(self):
         return SomList(self.doc, f"{self.path}/RIEN-KEYR-LST", lambda d, p: RiskEntry(d, p))
 
-    # 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
+    # 4.7.2. Key Assumptions — contains 0+×.
     @property
     def keyAssumptions(self):
         return KeyAssumptions(self.doc, f"{self.path}/keyAssumptions")
@@ -35779,7 +36237,7 @@ class RisksOverview(SomNode):
         return RisksOverviewContentForm(self.doc, f"{self.path}/content")
 
 class RoleAdjustmentEntry(SomNode):
-    """A role adjustment entry (form) [PD00-POP-ROL-nn].
+    """A role adjustment entry (form).
     
     Documents a specific deviation from standard TomSpecs role definitions,
     including the type of adjustment, affected responsibilities, risk
@@ -35872,7 +36330,7 @@ class RoleAdjustmentSummary(SomNode):
         return RoleAdjustmentSummaryContentForm(self.doc, f"{self.path}/content")
 
 class RoleAdjustments(SomNode):
-    """2.1. Role Adjustments [PD00-POP-ROL].
+    """2.1. Role Adjustments.
     
     Documents any deviations from the standard TomSpecs roles defined in
     tom_roles.md. Includes merged, split, omitted, or modified roles
@@ -35931,7 +36389,7 @@ class RoleCertificationPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class RoleCombinationConstraintEntry(SomNode):
-    """A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn].
+    """A role combination constraint entry (form).
     
     Defines rules about which roles can or cannot be combined — supports
     separation of duties, prerequisite roles, and co-requisite roles.
@@ -35944,7 +36402,7 @@ class RoleCombinationConstraintEntry(SomNode):
         return RoleCombinationConstraintEntryContentForm(self.doc, f"{self.path}/content")
 
 class RoleCompetencyEntry(SomNode):
-    """Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form)."""
+    """Role competency entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -35953,7 +36411,7 @@ class RoleCompetencyEntry(SomNode):
         return RoleCompetencyEntryContentForm(self.doc, f"{self.path}/content")
 
 class RoleDataScopeEntry(SomNode):
-    """A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn].
+    """A data scope entry for a role (form).
     
     Specifies what data categories the role can access and at what level —
     supports horizontal access control and data-level security.
@@ -35975,7 +36433,7 @@ class RoleDecisionAuthority(SomNode):
         return RoleDecisionAuthorityContentForm(self.doc, f"{self.path}/content")
 
 class RoleExclusionEntry(SomNode):
-    """A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn]."""
+    """A role exclusion entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -35984,7 +36442,7 @@ class RoleExclusionEntry(SomNode):
         return RoleExclusionEntryContentForm(self.doc, f"{self.path}/content")
 
 class RoleHierarchy(SomNode):
-    """9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+    """9.4.6. Role Hierarchy.
     
     Defines the role hierarchy: inheritance rules, mutual exclusions,
     role combination constraints, hierarchy depth, and role certification
@@ -36054,7 +36512,7 @@ class RoleHierarchyPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class RoleHolderEntry(SomNode):
-    """A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn]."""
+    """A role holder entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -36063,7 +36521,7 @@ class RoleHolderEntry(SomNode):
         return RoleHolderEntryContentForm(self.doc, f"{self.path}/content")
 
 class RoleInheritanceRuleEntry(SomNode):
-    """A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn].
+    """A role inheritance rule entry (form).
     
     Defines a specific parent-child inheritance relationship between two roles,
     including what is inherited and any restrictions.
@@ -36076,9 +36534,9 @@ class RoleInheritanceRuleEntry(SomNode):
         return RoleInheritanceRuleEntryContentForm(self.doc, f"{self.path}/content")
 
 class RoleMatrix(SomNode):
-    """9.7. Role Matrix [PD00-ACC-ROL].
+    """9.7. Role Matrix.
     
-    Role-to-permission assignment matrix covering HBSG AS22-AUM
+    Role-to-permission assignment matrix covering
     Authorization Model.
     """
     def __init__(self, doc, path):
@@ -36093,7 +36551,7 @@ class RoleMatrix(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class RolePermissionEntry(SomNode):
-    """A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn].
+    """A direct permission entry for a role (form).
     
     Captures direct permission assignments that complement or override
     entitlement-based access — useful when fine-grained per-role permissions
@@ -36107,7 +36565,7 @@ class RolePermissionEntry(SomNode):
         return RolePermissionEntryContentForm(self.doc, f"{self.path}/content")
 
 class RoleReferenceEntry(SomNode):
-    """A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn]."""
+    """A role reference entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -36195,7 +36653,7 @@ class RollbackStrategyTriggers(SomNode):
         return RollbackStrategyTriggersContentForm(self.doc, f"{self.path}/content")
 
 class RolloutPlan(SomNode):
-    """15.1. Rollout Plan [PD00-ROL-PLN].
+    """15.1. Rollout Plan.
     
     Geographic and/or user-group rollout plan covering DR23 Rollout Plan
     content: the sequencing of sites, countries, business units, and user
@@ -36213,7 +36671,7 @@ class RolloutPlan(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class RolloutTrainingMaterials(SomNode):
-    """15.4. Training Materials [PD00-ROL-TRN].
+    """15.4. Training Materials.
     
     Training deliverables covering DR17 Training Materials content.
     """
@@ -36303,7 +36761,7 @@ class RpoRtoRequirementsSystems(SomNode):
         return RpoRtoRequirementsSystemsContentForm(self.doc, f"{self.path}/content")
 
 class RuleExampleEntry(SomNode):
-    """A rule example entry (form) [PD00-BUS-FUN-RUL-nn-EXA-nn].
+    """A rule example entry (form).
     
     Examples illustrating rule application.
     """
@@ -36315,7 +36773,7 @@ class RuleExampleEntry(SomNode):
         return RuleExampleEntryContentForm(self.doc, f"{self.path}/content")
 
 class RuntimeDependencies(SomNode):
-    """12.4. Runtime Dependencies [PD00-COM-RUN].
+    """12.4. Runtime Dependencies.
     
     Runtime dependencies between components: required services, startup order,
     health-check dependencies, failover behavior, and version constraints.
@@ -36337,7 +36795,7 @@ class RuntimeDependencies(SomNode):
         return SomList(self.doc, f"{self.path}/RNDEP-ITEM-LST", lambda d, p: RuntimeDependencyEntry(d, p))
 
 class RuntimeDependencyEntry(SomNode):
-    """A runtime dependency entry (form) [PD00-COM-RUN-nn].
+    """A runtime dependency entry (form).
     
     Documents one runtime dependency: startup order, health checks,
     failover, data flow, latency tolerance, and caching strategy.
@@ -36768,7 +37226,7 @@ class ScenarioData(SomNode):
         return ScenarioDataContentForm(self.doc, f"{self.path}/content")
 
 class ScenarioEntry(SomNode):
-    """A scenario entry [PD00-TAR-STP-SCE-nn].
+    """A scenario entry.
     
     Comprehensive scenario definition for end-to-end user journey.
     """
@@ -36829,7 +37287,7 @@ class ScenarioOverview(SomNode):
         return ScenarioOverviewContentForm(self.doc, f"{self.path}/content")
 
 class ScenarioStepEntry(SomNode):
-    """A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn]."""
+    """A scenario step entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -36962,7 +37420,7 @@ class ScopeAssumptionEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class ScopeBoundaries(SomNode):
-    """4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+    """4.1.1.6. Scope Boundaries.
     
     Clear definition of what is in scope and out of scope for this system.
     Helps set expectations and prevent scope creep.
@@ -36978,17 +37436,17 @@ class ScopeBoundaries(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
+    # In-Scope Items — contains 1+× ScopeItem.
     @property
     def inScopeItems(self):
         return SomList(self.doc, f"{self.path}/SCITE-INSC-LST", lambda d, p: ScopeItemEntry(d, p))
 
-    # Out-of-Scope Items [PD00-SYO-SYD-PUR-SCO-OUT] — contains 0+× ScopeItem.
+    # Out-of-Scope Items — contains 0+× ScopeItem.
     @property
     def outOfScopeItems(self):
         return SomList(self.doc, f"{self.path}/SCITE-OUTO-LST", lambda d, p: ScopeItemEntry(d, p))
 
-    # Deferred Items [PD00-SYO-SYD-PUR-SCO-DEF] — contains 0+× ScopeItem.
+    # Deferred Items — contains 0+× ScopeItem.
     @property
     def deferredItems(self):
         return SomList(self.doc, f"{self.path}/DFSCP-DEFE-LST", lambda d, p: DeferredScopeItemEntry(d, p))
@@ -37008,7 +37466,7 @@ class ScopeItemEntry(SomNode):
         return ScopeItemEntryContentForm(self.doc, f"{self.path}/content")
 
 class ScreenActionEntry(SomNode):
-    """A screen action entry (form) [PD00-USE-SCR-INV-nn-ACT-mm].
+    """A screen action entry (form).
     
     A top-level action available on the screen via toolbar, app bar, or FAB.
     """
@@ -37062,7 +37520,7 @@ class ScreenActionEntryVisual(SomNode):
         return ScreenActionEntryVisualContentForm(self.doc, f"{self.path}/content")
 
 class ScreenActions(SomNode):
-    """10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+    """10.2.1.n.2. Screen Actions.
     
     Top-level actions available on the screen (toolbar, app bar, FAB).
     """
@@ -37096,7 +37554,7 @@ class ScreenBehaviorEntry(SomNode):
         return ScreenBehaviorEntryContentForm(self.doc, f"{self.path}/content")
 
 class ScreenDescriptions(SomNode):
-    """10.2. Screen Descriptions [PD00-USE-SCR]."""
+    """10.2. Screen Descriptions."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -37108,12 +37566,12 @@ class ScreenDescriptions(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+    # 10.2.1. Screen Inventory.
     @property
     def screenInventory(self):
         return ScreenInventory(self.doc, f"{self.path}/screenInventory")
 
-    # 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+    # 10.2.2. Information Architecture.
     @property
     def informationArchitecture(self):
         return InformationArchitecture(self.doc, f"{self.path}/informationArchitecture")
@@ -37199,7 +37657,7 @@ class ScreenElementDataDisplayOptions(SomNode):
         return ScreenElementDataDisplayOptionsContentForm(self.doc, f"{self.path}/content")
 
 class ScreenElementEntry(SomNode):
-    """A screen element entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk].
+    """A screen element entry (form).
     
     Any interactive or display element within a screen section: buttons, fields,
     data displays, icons, labels, status indicators.
@@ -37231,17 +37689,17 @@ class ScreenElementEntry(SomNode):
     def presentation(self):
         return ScreenElementEntryPresentation(self.doc, f"{self.path}/presentation")
 
-    # 10.2.1.n.m.k.1. Element Action [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-ACN].
+    # 10.2.1.n.m.k.1. Element Action.
     @property
     def elementAction(self):
         return ScreenElementAction(self.doc, f"{self.path}/elementAction")
 
-    # 10.2.1.n.m.k.2. Element Field Spec [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-FLD].
+    # 10.2.1.n.m.k.2. Element Field Spec.
     @property
     def fieldSpec(self):
         return ScreenElementFieldSpec(self.doc, f"{self.path}/fieldSpec")
 
-    # 10.2.1.n.m.k.3. Element Data Display [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-DAT].
+    # 10.2.1.n.m.k.3. Element Data Display.
     @property
     def dataDisplay(self):
         return ScreenElementDataDisplay(self.doc, f"{self.path}/dataDisplay")
@@ -37356,7 +37814,7 @@ class ScreenElementFieldSpecValidation(SomNode):
         return ScreenElementFieldSpecValidationContentForm(self.doc, f"{self.path}/content")
 
 class ScreenEntry(SomNode):
-    """A screen entry [PD00-USE-SCR-INV-nn] (form).
+    """A screen entry (form).
     
     Comprehensive specification of a single application screen, covering
     identity, purpose, authorization, layout, elements, and behavior.
@@ -37393,17 +37851,17 @@ class ScreenEntry(SomNode):
     def designNotes(self):
         return None  # (skipped: no target type)
 
-    # 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+    # 10.2.1.n.1. Screen Sections.
     @property
     def sections(self):
         return ScreenSections(self.doc, f"{self.path}/sections")
 
-    # 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+    # 10.2.1.n.2. Screen Actions.
     @property
     def actions(self):
         return ScreenActions(self.doc, f"{self.path}/actions")
 
-    # 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+    # 10.2.1.n.3. Screen States.
     @property
     def states(self):
         return ScreenStates(self.doc, f"{self.path}/states")
@@ -37533,7 +37991,7 @@ class ScreenFieldValidation(SomNode):
         return ScreenFieldValidationContentForm(self.doc, f"{self.path}/content")
 
 class ScreenFlowStructure(SomNode):
-    """10.3. Screen Flow Structure [PD00-USE-SCF]."""
+    """10.3. Screen Flow Structure."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -37545,18 +38003,18 @@ class ScreenFlowStructure(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+    # 10.3.1. Navigation Model.
     @property
     def navigationModel(self):
         return NavigationModel(self.doc, f"{self.path}/navigationModel")
 
-    # 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid-flow).
+    # 10.3.2. Screen Flow Diagram (mermaid-flow).
     @property
     def screenFlowDiagram(self):
         return None  # (skipped: no target type)
 
 class ScreenInventory(SomNode):
-    """10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+    """10.2.1. Screen Inventory.
     
     Container for screen definitions. Each entry fully describes one application
     screen including its purpose, layout zones, elements, actions, and states.
@@ -37583,7 +38041,7 @@ class ScreenInventory(SomNode):
         return SomList(self.doc, f"{self.path}/SCREN-ITEM-LST", lambda d, p: ScreenEntry(d, p))
 
 class ScreenResponsiveRuleEntry(SomNode):
-    """A responsive rule entry (form) [PD00-USE-SCR-INV-nn-RSP-mm].
+    """A responsive rule entry (form).
     
     How the screen adapts at different breakpoints.
     """
@@ -37595,7 +38053,7 @@ class ScreenResponsiveRuleEntry(SomNode):
         return ScreenResponsiveRuleEntryContentForm(self.doc, f"{self.path}/content")
 
 class ScreenSectionEntry(SomNode):
-    """A screen section entry (form) [PD00-USE-SCR-INV-nn-SEC-mm].
+    """A screen section entry (form).
     
     A logical zone within a screen: header, toolbar, content area, sidebar, etc.
     """
@@ -37640,7 +38098,7 @@ class ScreenSectionEntryLayout(SomNode):
         return ScreenSectionEntryLayoutContentForm(self.doc, f"{self.path}/content")
 
 class ScreenSections(SomNode):
-    """10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+    """10.2.1.n.1. Screen Sections.
     
     Logical zones within a screen that group related elements.
     """
@@ -37661,7 +38119,7 @@ class ScreenSections(SomNode):
         return SomList(self.doc, f"{self.path}/SCRSC-ITEM-LST", lambda d, p: ScreenSectionEntry(d, p))
 
 class ScreenStateEntry(SomNode):
-    """A screen state entry (form) [PD00-USE-SCR-INV-nn-STA-mm].
+    """A screen state entry (form).
     
     A specific state the screen can be in: loading, empty, error, permission-denied.
     """
@@ -37673,7 +38131,7 @@ class ScreenStateEntry(SomNode):
         return ScreenStateEntryContentForm(self.doc, f"{self.path}/content")
 
 class ScreenStates(SomNode):
-    """10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+    """10.2.1.n.3. Screen States.
     
     Different visual/behavioral states the screen can be in.
     """
@@ -37694,7 +38152,7 @@ class ScreenStates(SomNode):
         return SomList(self.doc, f"{self.path}/SCRST-ITEM-LST", lambda d, p: ScreenStateEntry(d, p))
 
 class ScreenUserCategoryEntry(SomNode):
-    """A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-mm]."""
+    """A user category entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -37703,7 +38161,7 @@ class ScreenUserCategoryEntry(SomNode):
         return ScreenUserCategoryEntryContentForm(self.doc, f"{self.path}/content")
 
 class SecondaryNavigation(SomNode):
-    """10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+    """10.3.1.4. Secondary Navigation.
     
     In-page navigation: tab bars, segmented controls.
     """
@@ -37728,8 +38186,134 @@ class SecondaryNavigation(SomNode):
     def tabBars(self):
         return SomList(self.doc, f"{self.path}/TBDE-TABB-LST", lambda d, p: TabBarDefinitionEntry(d, p))
 
+class SecurityAccessSpecification(SomNode):
+    """AC00 Authorization Concept.
+    
+    Complete access and authorization specification — user management,
+    identification and authentication, resource protection, user
+    authorization, encryption, audit/logging, role matrix, and
+    compliance framework.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "SAS")
+        check_som_model_version(SecurityAccessSpecification.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return SecurityAccessSpecification.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # User management.
+    @property
+    def userManagement(self):
+        return UserManagement(self.doc, f"{self.path}/userManagement")
+
+    # Identification and authentication.
+    @property
+    def identificationAndAuthentication(self):
+        return IdentificationAndAuthentication(self.doc, f"{self.path}/identificationAndAuthentication")
+
+    # Resource protection.
+    @property
+    def resourceProtection(self):
+        return ResourceProtection(self.doc, f"{self.path}/resourceProtection")
+
+    # User authorization.
+    @property
+    def userAuthorization(self):
+        return UserAuthorization(self.doc, f"{self.path}/userAuthorization")
+
+    # Sensitive data encryption.
+    @property
+    def sensitiveDataEncryption(self):
+        return SensitiveDataEncryption(self.doc, f"{self.path}/sensitiveDataEncryption")
+
+    # Audit and logging.
+    @property
+    def auditAndLogging(self):
+        return AuditAndLogging(self.doc, f"{self.path}/auditAndLogging")
+
+    # Role matrix.
+    @property
+    def roleMatrix(self):
+        return RoleMatrix(self.doc, f"{self.path}/roleMatrix")
+
+    # Compliance framework.
+    @property
+    def complianceFramework(self):
+        return ComplianceFramework(self.doc, f"{self.path}/complianceFramework")
+
+class SecurityAndAccessModel(SomNode):
+    """9. Access and Authorization Concept. Seeds → AC."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 9.1. User Management.
+    @property
+    def userManagement(self):
+        return UserManagement(self.doc, f"{self.path}/userManagement")
+
+    # 9.2. Identification and Authentication.
+    @property
+    def authentication(self):
+        return IdentificationAndAuthentication(self.doc, f"{self.path}/authentication")
+
+    # 9.3. Resource Protection.
+    @property
+    def resourceProtection(self):
+        return ResourceProtection(self.doc, f"{self.path}/resourceProtection")
+
+    # 9.4. User Authorization.
+    @property
+    def authorization(self):
+        return UserAuthorization(self.doc, f"{self.path}/authorization")
+
+    # 9.5. Sensitive Data Encryption.
+    @property
+    def encryption(self):
+        return SensitiveDataEncryption(self.doc, f"{self.path}/encryption")
+
+    # 9.6. Audit and Logging.
+    @property
+    def auditAndLogging(self):
+        return AuditAndLogging(self.doc, f"{self.path}/auditAndLogging")
+
+    # 9.7. Role Matrix..
+    @property
+    def roleMatrix(self):
+        return RoleMatrix(self.doc, f"{self.path}/roleMatrix")
+
+    # 9.8. Compliance Framework.
+    @property
+    def complianceFramework(self):
+        return ComplianceFramework(self.doc, f"{self.path}/complianceFramework")
+
 class SecurityAuditEntry(SomNode):
-    """A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn]."""
+    """A security audit requirement entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -37780,7 +38364,7 @@ class SecurityAuditEntryScheduling(SomNode):
         return SecurityAuditEntrySchedulingContentForm(self.doc, f"{self.path}/content")
 
 class SecurityAuditRequirementsSection(SomNode):
-    """8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+    """8.8.3. Security Audit Requirements.
     
     Comprehensive security audit requirements covering penetration testing,
     security-focused code review, dependency scanning, security certifications,
@@ -37838,7 +38422,7 @@ class SecurityAuditRequirementsSection(SomNode):
         return SomList(self.doc, f"{self.path}/SEAUEN-AUDI-LST", lambda d, p: SecurityAuditEntry(d, p))
 
 class SecurityCertificationRequirements(SomNode):
-    """Security certification and compliance requirements [PD00-TEC-SEC-AUD]."""
+    """Security certification and compliance requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -37903,7 +38487,7 @@ class SecurityCertificationRequirementsSoc2(SomNode):
         return SecurityCertificationRequirementsSoc2ContentForm(self.doc, f"{self.path}/content")
 
 class SecurityCodeReviewPolicy(SomNode):
-    """Security-focused code review policy [PD00-TEC-SEC-AUD].
+    """Security-focused code review policy.
     
     Distinct from CodeReviewProcess (section 8.4) which covers general
     development code review. This section focuses specifically on
@@ -38009,7 +38593,7 @@ class SecurityControlEntryVerification(SomNode):
         return SecurityControlEntryVerificationContentForm(self.doc, f"{self.path}/content")
 
 class SecurityControls(SomNode):
-    """4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+    """4.3.3.n.2. Security Controls.
     
     Security controls that implement or support this requirement.
     """
@@ -38081,7 +38665,7 @@ class SecurityDevelopmentLifecycleTesting(SomNode):
         return SecurityDevelopmentLifecycleTestingContentForm(self.doc, f"{self.path}/content")
 
 class SecurityEventEntry(SomNode):
-    """A custom security event entry (form) [PD00-ACC-AUD-EVE-nn].
+    """A custom security event entry (form).
     
     Allows defining additional application-specific security events
     beyond the standard categories.
@@ -38112,7 +38696,7 @@ class SecurityEventLoggingPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class SecurityEventsDefinition(SomNode):
-    """9.6.1. Security Events [PD00-ACC-AUD-EVE].
+    """9.6.1. Security Events.
     
     Defines which security events must be logged: authentication attempts,
     authorization failures, data access, configuration changes, admin actions,
@@ -38160,7 +38744,7 @@ class SecurityEventsDefinition(SomNode):
         return SomList(self.doc, f"{self.path}/SEVT-CUST-LST", lambda d, p: SecurityEventEntry(d, p))
 
 class SecurityQuality(SomNode):
-    """11.3.4. Security quality [PD00-SYQ-TEC-SEC]."""
+    """11.3.4. Security quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -38230,7 +38814,7 @@ class SecurityQualityVulnerability(SomNode):
         return SecurityQualityVulnerabilityContentForm(self.doc, f"{self.path}/content")
 
 class SecurityRequirementEntry(SomNode):
-    """A security requirement entry [PD00-SYO-REQ-SEC-nn].
+    """A security requirement entry.
     
     Comprehensive security requirement definition following OWASP ASVS,
     ISO 27001, and security best practices.
@@ -38262,22 +38846,22 @@ class SecurityRequirementEntry(SomNode):
     def statusInfo(self):
         return SecurityRequirementEntryStatus(self.doc, f"{self.path}/statusInfo")
 
-    # 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
+    # 4.3.3.n.1. Acceptance Criteria.
     @property
     def acceptanceCriteria(self):
         return RequirementAcceptanceCriteria(self.doc, f"{self.path}/acceptanceCriteria")
 
-    # 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+    # 4.3.3.n.2. Security Controls.
     @property
     def controls(self):
         return SecurityControls(self.doc, f"{self.path}/controls")
 
-    # 4.3.3.n.3. Dependencies [PD00-SYO-REQ-SEC-nn-DEP].
+    # 4.3.3.n.3. Dependencies.
     @property
     def dependencies(self):
         return RequirementDependencies(self.doc, f"{self.path}/dependencies")
 
-    # 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
+    # 4.3.3.n.4. Traceability.
     @property
     def traceability(self):
         return RequirementTraceability(self.doc, f"{self.path}/traceability")
@@ -38319,7 +38903,7 @@ class SecurityRequirementEntryVerification(SomNode):
         return SecurityRequirementEntryVerificationContentForm(self.doc, f"{self.path}/content")
 
 class SecurityRequirements(SomNode):
-    """4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+    """4.3.3. Security Requirements.
     
     Container for security requirements. Security requirements describe
     information protection, access control, authentication, authorization,
@@ -38413,7 +38997,7 @@ class SecurityStandardComplianceEntryStatus(SomNode):
         return SecurityStandardComplianceEntryStatusContentForm(self.doc, f"{self.path}/content")
 
 class SecurityStandardEntry(SomNode):
-    """A security standard entry (form) [PD00-TEC-SEC-ITS-nn]."""
+    """A security standard entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -38464,7 +39048,7 @@ class SecurityStandardEntryVerification(SomNode):
         return SecurityStandardEntryVerificationContentForm(self.doc, f"{self.path}/content")
 
 class SecurityTestingAutomation(SomNode):
-    """Automated security testing integration [PD00-TEC-SEC-AUD].
+    """Automated security testing integration.
     
     Requirements for SAST, DAST, IAST, and fuzzing integration
     into the CI/CD pipeline and development workflow.
@@ -38547,7 +39131,7 @@ class SecurityTestingAutomationScanning(SomNode):
         return SecurityTestingAutomationScanningContentForm(self.doc, f"{self.path}/content")
 
 class SelfRegistrationPolicy(SomNode):
-    """Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
+    """Self-registration policy (form).
     
     Defines self-service identity creation: registration flow, required
     fields, verification, approval, rate limiting, and domain restrictions.
@@ -38657,7 +39241,7 @@ class SelfServiceAccountManagement(SomNode):
         return None  # (skipped: no target type)
 
 class SensitiveDataEncryption(SomNode):
-    """9.5. Sensitive Data Encryption [PD00-ACC-SEN]."""
+    """9.5. Sensitive Data Encryption."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -38669,17 +39253,17 @@ class SensitiveDataEncryption(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+    # 9.5.1. Encryption At Rest.
     @property
     def encryptionAtRest(self):
         return EncryptionAtRest(self.doc, f"{self.path}/encryptionAtRest")
 
-    # 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+    # 9.5.2. Encryption In Transit.
     @property
     def encryptionInTransit(self):
         return EncryptionInTransit(self.doc, f"{self.path}/encryptionInTransit")
 
-    # 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+    # 9.5.3. Key Management.
     @property
     def keyManagement(self):
         return KeyManagement(self.doc, f"{self.path}/keyManagement")
@@ -38815,7 +39399,7 @@ class ServerOsRequirementsSecurity(SomNode):
         return ServerOsRequirementsSecurityContentForm(self.doc, f"{self.path}/content")
 
 class ServerRequirementsSection(SomNode):
-    """8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+    """8.4.1. Server Requirements.
     
     Server compute requirements: CPU, memory, storage, expected load profile,
     and scaling requirements.
@@ -39061,7 +39645,7 @@ class ServiceAccountLifecycle(SomNode):
         return None  # (skipped: no target type)
 
 class ServiceLevelAgreementEntry(SomNode):
-    """A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn]."""
+    """A service level agreement entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -39121,7 +39705,7 @@ class ServiceLevelIndicatorsQuality(SomNode):
         return ServiceLevelIndicatorsQualityContentForm(self.doc, f"{self.path}/content")
 
 class ServiceLevelQuality(SomNode):
-    """11.4.2. Service level quality [PD00-SYQ-OPE-SER]."""
+    """11.4.2. Service level quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -39292,7 +39876,7 @@ class SessionLifecycleMonitoring(SomNode):
         return None  # (skipped: no target type)
 
 class SessionManagement(SomNode):
-    """9.2.4. Session Management [PD00-ACC-IDE-SES].
+    """9.2.4. Session Management.
     
     Comprehensive session management policy covering session timeouts,
     concurrent session control, session revocation, remember-me functionality,
@@ -39347,7 +39931,7 @@ class SessionManagement(SomNode):
         return SessionLifecycleMonitoring(self.doc, f"{self.path}/sessionLifecycleMonitoring")
 
 class SessionModel(SomNode):
-    """4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+    """4.1.5.4. Session Model.
     
     Defines session management including authentication, timeouts, and
     multi-device session handling.
@@ -39467,7 +40051,7 @@ class SessionTimeoutPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class SharedInfrastructureDependencies(SomNode):
-    """1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+    """1.1.3.3. Shared Infrastructure Dependencies.
     
     Dependencies on shared infrastructure components used by multiple systems.
     """
@@ -39488,7 +40072,7 @@ class SharedInfrastructureDependencies(SomNode):
         return SomList(self.doc, f"{self.path}/SHIEN-ITEM-LST", lambda d, p: SharedInfrastructureEntry(d, p))
 
 class SharedInfrastructureEntry(SomNode):
-    """A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
+    """A shared infrastructure entry (form).
     
     Documents a shared infrastructure component that multiple systems depend on.
     """
@@ -39671,7 +40255,7 @@ class SharedServiceEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class SignOffProcess(SomNode):
-    """14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+    """14.2.5. Sign-off Process.
     
     Formal sign-off process: who signs off (business acceptance board,
     technical acceptance board), what documents are signed, legal and
@@ -39760,7 +40344,7 @@ class SignOffProcessTimeline(SomNode):
         return SignOffProcessTimelineContentForm(self.doc, f"{self.path}/content")
 
 class SingleSignOnPolicy(SomNode):
-    """Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO].
+    """Single Sign-On policy (form).
     
     Defines SSO scope, protocol, session propagation, federation,
     logout propagation, and platform-specific SSO strategies.
@@ -39834,7 +40418,7 @@ class SingleSignOnPolicySession(SomNode):
         return SingleSignOnPolicySessionContentForm(self.doc, f"{self.path}/content")
 
 class SlaAndSloMonitoring(SomNode):
-    """8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+    """8.7.2.5. SLA and SLO Monitoring.
     
     Service Level Agreement and Service Level Objective tracking.
     """
@@ -39931,7 +40515,7 @@ class SlaMonitoringRequirementsReporting(SomNode):
         return SlaMonitoringRequirementsReportingContentForm(self.doc, f"{self.path}/content")
 
 class SloEntry(SomNode):
-    """An SLO entry [PD00-TEC-SYS-MON-SLA-nn]."""
+    """An SLO entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -39968,7 +40552,7 @@ class SloEntryTarget(SomNode):
         return SloEntryTargetContentForm(self.doc, f"{self.path}/content")
 
 class SoftwareDeliverables(SomNode):
-    """14.1.1. Software Deliverables [PD00-DEL-DEL-SOF]."""
+    """14.1.1. Software Deliverables."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -39986,7 +40570,7 @@ class SoftwareDeliverables(SomNode):
         return SomList(self.doc, f"{self.path}/DLVEN-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
 
 class SoftwareDesignRequirements(SomNode):
-    """8.2. Software Design Requirements [PD00-TEC-SOF]."""
+    """8.2. Software Design Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -39998,17 +40582,17 @@ class SoftwareDesignRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+    # 8.2.1. Layering and Module Structure.
     @property
     def layeringAndModuleStructure(self):
         return LayeringAndModuleStructure(self.doc, f"{self.path}/layeringAndModuleStructure")
 
-    # 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+    # 8.2.2. Development Environment.
     @property
     def developmentEnvironment(self):
         return DevelopmentEnvironment(self.doc, f"{self.path}/developmentEnvironment")
 
-    # 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+    # 8.2.3. Reusable Components.
     @property
     def reusableComponents(self):
         return ReusableComponentsSection(self.doc, f"{self.path}/reusableComponents")
@@ -40078,8 +40662,130 @@ class SoftwareLayerEntryTechnology(SomNode):
     def content(self):
         return SoftwareLayerEntryTechnologyContentForm(self.doc, f"{self.path}/content")
 
+class SolutionArchitectureAndTechnology(SomNode):
+    """SBP.11 Solution Architecture & Technology.
+    
+    Public anchor: ISO/IEC/IEEE 42010 architecture description.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Technical framework and platform concept.
+    @property
+    def technicalFramework(self):
+        return TechnicalFrameworkConcept(self.doc, f"{self.path}/technicalFramework")
+
+    # Components, libraries, and services to reuse.
+    @property
+    def componentsToUse(self):
+        return ComponentsToUse(self.doc, f"{self.path}/componentsToUse")
+
+class SolutionBlueprint(SomNode):
+    """The complete Solution Blueprint (SBP) document.
+    
+    Contains a [DocumentControl] header block and the SBP sections, sequenced
+    per the public-standards order (§4 of the redesign proposal).
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "SBP")
+        check_som_model_version(SolutionBlueprint.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return SolutionBlueprint.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # SBP.1 Document Control (header + revision history + approvals).
+    @property
+    def documentControl(self):
+        return DocumentControl(self.doc, f"{self.path}/documentControl")
+
+    # SBP.2 Introduction & Scope.
+    @property
+    def introductionAndScope(self):
+        return IntroductionAndScope(self.doc, f"{self.path}/introductionAndScope")
+
+    # SBP.3 Glossary & Abbreviations.
+    @property
+    def glossaryAndAbbreviations(self):
+        return GlossaryAndAbbreviations(self.doc, f"{self.path}/glossaryAndAbbreviations")
+
+    # SBP.4 Stakeholders & Governance.
+    @property
+    def stakeholdersAndGovernance(self):
+        return StakeholdersAndGovernance(self.doc, f"{self.path}/stakeholdersAndGovernance")
+
+    # SBP.5 Current Landscape. Seeds → CLA.
+    @property
+    def currentLandscape(self):
+        return CurrentLandscape(self.doc, f"{self.path}/currentLandscape")
+
+    # SBP.6 Assumptions, Constraints & Dependencies.
+    @property
+    def assumptionsConstraintsDependencies(self):
+        return AssumptionsConstraintsDependencies(self.doc, f"{self.path}/assumptionsConstraintsDependencies")
+
+    # SBP.7 Target Operating Model concept. Seeds → TOM.
+    @property
+    def targetOperatingModelConcept(self):
+        return TargetOperatingModelConcept(self.doc, f"{self.path}/targetOperatingModelConcept")
+
+    # SBP.8 Information & Data Model. Seeds → IFM.
+    @property
+    def informationAndDataModel(self):
+        return InformationAndDataModel(self.doc, f"{self.path}/informationAndDataModel")
+
+    # SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+    @property
+    def requirements(self):
+        return Requirements(self.doc, f"{self.path}/requirements")
+
+    # SBP.11 Solution Architecture & Technology. Seeds → ATS.
+    @property
+    def solutionArchitectureAndTechnology(self):
+        return SolutionArchitectureAndTechnology(self.doc, f"{self.path}/solutionArchitectureAndTechnology")
+
+    # SBP.12 Security & Access Model. Seeds → SAS.
+    @property
+    def securityAndAccessModel(self):
+        return SecurityAndAccessModel(self.doc, f"{self.path}/securityAndAccessModel")
+
+    # SBP.13 Experience & Interface Design. Seeds → XDS.
+    @property
+    def experienceAndInterfaceDesign(self):
+        return ExperienceAndInterfaceDesign(self.doc, f"{self.path}/experienceAndInterfaceDesign")
+
+    # SBP.14 Quality & Acceptance Model. Seeds → QAP.
+    @property
+    def qualityAndAcceptanceModel(self):
+        return QualityAndAcceptanceModel(self.doc, f"{self.path}/qualityAndAcceptanceModel")
+
+    # SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+    @property
+    def deliveryTransitionAndRollout(self):
+        return DeliveryTransitionAndRollout(self.doc, f"{self.path}/deliveryTransitionAndRollout")
+
 class SpecializedEquipmentEntry(SomNode):
-    """Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn]."""
+    """Specialized equipment entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -40175,7 +40881,7 @@ class StaffingBudgetGovernance(SomNode):
         return StaffingBudgetGovernanceContentForm(self.doc, f"{self.path}/content")
 
 class StaffingEntry(SomNode):
-    """A staffing entry (form) [PD00-ORG-JOB-STA-nn].
+    """A staffing entry (form).
     
     Represents one staffing position including role, competency requirements,
     sourcing method, budget, timeline, and approval status.
@@ -40244,7 +40950,7 @@ class StaffingEntryRecruitment(SomNode):
         return StaffingEntryRecruitmentContentForm(self.doc, f"{self.path}/content")
 
 class StaffingPlan(SomNode):
-    """5.2.4. Staffing Plan [PD00-ORG-JOB-STA]."""
+    """5.2.4. Staffing Plan."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -40296,7 +41002,7 @@ class StageDeployment(SomNode):
         return StageDeploymentContentForm(self.doc, f"{self.path}/content")
 
 class StageEntry(SomNode):
-    """A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+    """A stage entry (form) with description subsections.
     
     Represents a single delivery stage — a self-contained increment of the
     system that delivers measurable business value. Each stage has clear
@@ -40366,7 +41072,7 @@ class StageEntry(SomNode):
     def featureScope(self):
         return None  # (skipped: no target type)
 
-    # Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
+    # Sub-stages and Milestones — contains 0+× SubStage.
     @property
     def subStagesAndMilestones(self):
         return SomList(self.doc, f"{self.path}/SUSST-SUBS-LST", lambda d, p: SubStageEntry(d, p))
@@ -40376,7 +41082,7 @@ class StageEntry(SomNode):
     def timelineNarrative(self):
         return None  # (skipped: no target type)
 
-    # Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
+    # Success Criteria — contains 0+× StageSuccessCriterion.
     @property
     def successCriteria(self):
         return SomList(self.doc, f"{self.path}/STGSUC-SUCC-LST", lambda d, p: StageSuccessCriterionEntry(d, p))
@@ -40387,7 +41093,7 @@ class StageEntry(SomNode):
         return None  # (skipped: no target type)
 
 class StageGovernance(SomNode):
-    """13.6. Governance [PD00-SSP-GOV].
+    """13.6. Governance.
     
     Governance framework for stage transitions, phase gate reviews,
     and key decision points. Covers governance structure, authority
@@ -40443,12 +41149,12 @@ class StageGovernance(SomNode):
     def governanceNarrative(self):
         return None  # (skipped: no target type)
 
-    # 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+    # 13.6.1. Phase Gate Reviews.
     @property
     def phaseGateReviews(self):
         return PhaseGateReviews(self.doc, f"{self.path}/phaseGateReviews")
 
-    # 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+    # 13.6.2. Decision Points.
     @property
     def decisionPoints(self):
         return DecisionPoints(self.doc, f"{self.path}/decisionPoints")
@@ -40553,7 +41259,7 @@ class StageMigrationRiskContingency(SomNode):
         return StageMigrationRiskContingencyContentForm(self.doc, f"{self.path}/content")
 
 class StageMigrationRiskEntry(SomNode):
-    """A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
+    """A stage migration risk entry (form).
     
     Individual risk in the data migration risk register. Covers risk
     identification, categorization, probability/impact scoring,
@@ -40671,7 +41377,7 @@ class StageMigrationRiskStatus(SomNode):
         return StageMigrationRiskStatusContentForm(self.doc, f"{self.path}/content")
 
 class StageMigrationRisks(SomNode):
-    """13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+    """13.5.2. Migration Risks.
     
     Risk register specific to data migration activities. Covers data
     loss, corruption, downtime overrun, compliance violations,
@@ -40695,7 +41401,7 @@ class StageMigrationRisks(SomNode):
         return SomList(self.doc, f"{self.path}/STGMRS-ITEM-LST", lambda d, p: StageMigrationRiskEntry(d, p))
 
 class StageOverview(SomNode):
-    """13.2. Stage Overview [PD00-SSP-STA].
+    """13.2. Stage Overview.
     
     High-level summary across all planned stages including aggregate
     metrics, critical-path identification, resource allocation patterns,
@@ -40766,7 +41472,7 @@ class StageOverview(SomNode):
     def constraints(self):
         return StageOverviewConstraints(self.doc, f"{self.path}/constraints")
 
-    # 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
+    # 13.2.1. Stage Summary — contains 1+× Stage
     # Summary Entry.
     @property
     def stageSummaries(self):
@@ -40777,24 +41483,24 @@ class StageOverview(SomNode):
     def stageSummaryNarrative(self):
         return None  # (skipped: no target type)
 
-    # 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
+    # 13.2.2. Stage Timeline Diagram (mermaid-gantt).
     @property
     def timelineDiagram(self):
         return None  # (skipped: no target type)
 
-    # 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
+    # 13.2.3. Resource Allocation Diagram
     # (mermaid-gantt).
     @property
     def resourceAllocationDiagram(self):
         return None  # (skipped: no target type)
 
-    # 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
+    # 13.2.4. Budget Distribution Diagram
     # (mermaid-flow).
     @property
     def budgetDistributionDiagram(self):
         return None  # (skipped: no target type)
 
-    # 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
+    # 13.2.5. Dependency Map (mermaid-flow).
     @property
     def dependencyMap(self):
         return None  # (skipped: no target type)
@@ -40944,7 +41650,7 @@ class StageStakeholders(SomNode):
         return StageStakeholdersContentForm(self.doc, f"{self.path}/content")
 
 class StageSuccessCriterionEntry(SomNode):
-    """A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
+    """A success criterion entry (form).
     
     Defines a measurable criterion that determines whether a stage has
     achieved its objectives. Each criterion has a target metric,
@@ -41009,7 +41715,7 @@ class StageSummaryDependencies(SomNode):
         return StageSummaryDependenciesContentForm(self.doc, f"{self.path}/content")
 
 class StageSummaryEntry(SomNode):
-    """A stage summary entry [PD00-SSP-STA-SUM-nn] (form).
+    """A stage summary entry (form).
     
     Quick-reference record for a single stage within the overview. Each
     entry captures the essential identification, timeline, scope, and
@@ -41223,7 +41929,7 @@ class StagingRiskAssessment(SomNode):
         return StagingRiskAssessmentContentForm(self.doc, f"{self.path}/content")
 
 class StagingStrategy(SomNode):
-    """13.1. Staging Strategy [PD00-SSP-STR].
+    """13.1. Staging Strategy.
     
     Document the rationale behind the chosen staging approach. Consider
     PMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2
@@ -41299,22 +42005,22 @@ class StagingStrategy(SomNode):
     def governance(self):
         return StagingGovernance(self.doc, f"{self.path}/governance")
 
-    # 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+    # 13.1.1. Staging Approach.
     @property
     def stagingApproach(self):
         return None  # (skipped: no target type)
 
-    # 13.1.2. Rationale [PD00-SSP-STR-RAT].
+    # 13.1.2. Rationale.
     @property
     def rationaleNarrative(self):
         return None  # (skipped: no target type)
 
-    # 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
+    # 13.1.3. Key Assumptions.
     @property
     def keyAssumptions(self):
         return SomList(self.doc, f"{self.path}/KEYAS-KEYA-LST", lambda d, p: KeyAssumptionEntry(d, p))
 
-    # 13.1.4. Constraints [PD00-SSP-STR-CON].
+    # 13.1.4. Constraints.
     @property
     def constraints(self):
         return SomList(self.doc, f"{self.path}/STAGI-CONS-LST", lambda d, p: StagingStrategyConstraintEntry(d, p))
@@ -41378,8 +42084,42 @@ class StakeholderEntryImpact(SomNode):
     def content(self):
         return StakeholderEntryImpactContentForm(self.doc, f"{self.path}/content")
 
+class StakeholderRegister(SomNode):
+    """A register of the project's stakeholders.
+    
+    Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # One entry per stakeholder or stakeholder group.
+    @property
+    def stakeholders(self):
+        return SomList(self.doc, f"{self.path}/STKRG-STAK-LST", lambda d, p: StakeholderRegisterEntry(d, p))
+
+class StakeholderRegisterEntry(SomNode):
+    """A single stakeholder register entry (form).
+    
+    Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
+    `StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return StakeholderRegisterEntryContentForm(self.doc, f"{self.path}/content")
+
 class StakeholdersAndBeneficiaries(SomNode):
-    """4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+    """4.1.1.3. Stakeholders and Beneficiaries.
     
     Lists all stakeholders and beneficiaries of the system with their
     interests, influence level, and expected benefits.
@@ -41405,17 +42145,11 @@ class StakeholdersAndBeneficiaries(SomNode):
     def secondaryStakeholders(self):
         return SomList(self.doc, f"{self.path}/STKNT-SECO-LST", lambda d, p: StakeholderEntry(d, p))
 
-class StakeholdersAndInterests(SomNode):
-    """Stakeholders and interests."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return StakeholdersAndInterestsContentForm(self.doc, f"{self.path}/content")
-
-class StandardSoftwareRequirements(SomNode):
-    """8.3. Standard Application Software Requirements [PD00-TEC-STA]."""
+class StakeholdersAndGovernance(SomNode):
+    """SBP.4 Stakeholders & Governance.
+    
+    Public anchor: BABOK stakeholder analysis + PMBOK governance.
+    """
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -41427,18 +42161,55 @@ class StandardSoftwareRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+    # Governance, steering committee, RACI, process deviations.
+    @property
+    def projectOrganizationProcess(self):
+        return ProjectOrganizationAndProcess(self.doc, f"{self.path}/projectOrganizationProcess")
+
+    # Team, distribution, reference documents, communication.
+    @property
+    def administrative(self):
+        return Administrative(self.doc, f"{self.path}/administrative")
+
+    # Stakeholder register (§5 completeness addition).
+    @property
+    def stakeholderRegister(self):
+        return StakeholderRegister(self.doc, f"{self.path}/stakeholderRegister")
+
+class StakeholdersAndInterests(SomNode):
+    """Stakeholders and interests."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return StakeholdersAndInterestsContentForm(self.doc, f"{self.path}/content")
+
+class StandardSoftwareRequirements(SomNode):
+    """8.3. Standard Application Software Requirements."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 8.3.1. Compatibility Requirements.
     @property
     def compatibilityRequirements(self):
         return CompatibilityRequirementsSection(self.doc, f"{self.path}/compatibilityRequirements")
 
-    # 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+    # 8.3.2. Standards Compliance.
     @property
     def standardsCompliance(self):
         return StandardsComplianceSection(self.doc, f"{self.path}/standardsCompliance")
 
 class StandardsComplianceSection(SomNode):
-    """8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+    """8.3.2. Standards Compliance.
     
     Required compliance with IT standards, industry protocols, and interface
     specifications.
@@ -41515,7 +42286,7 @@ class StandardsComplianceSection(SomNode):
         return ComplianceVerificationSection(self.doc, f"{self.path}/complianceVerification")
 
 class SteeringCommittee(SomNode):
-    """3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+    """3.1.2. Steering Committee.
     
     Container for steering committee member descriptions.
     """
@@ -41622,7 +42393,7 @@ class StorageLifecyclePolicy(SomNode):
         return None  # (skipped: no target type)
 
 class StrategicAlignment(SomNode):
-    """4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+    """4.1.1.5. Strategic Alignment.
     
     How this system aligns with organizational strategy, goals, and
     initiatives. Demonstrates strategic justification for the project.
@@ -41644,7 +42415,7 @@ class StrategicAlignment(SomNode):
         return StrategicAlignmentAlignmentDetailsForm(self.doc, f"{self.path}/alignmentDetails")
 
 class SubFunctionEntry(SomNode):
-    """A sub-function entry (form) [PD00-BUS-FUN-DEC-nn-SUB-nn].
+    """A sub-function entry (form).
     
     Lower-level function in the decomposition.
     """
@@ -41656,7 +42427,7 @@ class SubFunctionEntry(SomNode):
         return SubFunctionEntryContentForm(self.doc, f"{self.path}/content")
 
 class SubStageEntry(SomNode):
-    """A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
+    """A sub-stage or milestone entry (form).
     
     Represents a discrete phase within a stage — alpha, beta, release
     candidate, pilot, GA — or a key milestone. Sub-stages provide finer
@@ -41740,7 +42511,7 @@ class SubStageEntryTimeline(SomNode):
         return SubStageEntryTimelineContentForm(self.doc, f"{self.path}/content")
 
 class SuccessCriteria(SomNode):
-    """4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+    """4.2.3. Success Criteria.
     
     Overall project success criteria that determine whether the project
     has achieved its objectives. These criteria will be used during
@@ -41871,7 +42642,7 @@ class SuccessCriteriaSummary(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class SuccessCriterionEntry(SomNode):
-    """A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+    """A success criterion entry (form).
     
     Individual success criterion with comprehensive measurement details,
     thresholds, and verification requirements.
@@ -41968,7 +42739,7 @@ class SuccessCriterionVerification(SomNode):
         return SuccessCriterionVerificationContentForm(self.doc, f"{self.path}/content")
 
 class SupportAccess(SomNode):
-    """10.8.3. Support Access [PD00-USE-HLP-SUP]."""
+    """10.8.3. Support Access."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -42052,7 +42823,7 @@ class SupportAccessTickets(SomNode):
         return SupportAccessTicketsContentForm(self.doc, f"{self.path}/content")
 
 class SupportDeliverables(SomNode):
-    """14.1.4. Support Deliverables [PD00-DEL-DEL-SUP]."""
+    """14.1.4. Support Deliverables."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -42070,7 +42841,7 @@ class SupportDeliverables(SomNode):
         return SomList(self.doc, f"{self.path}/DLVEN-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
 
 class SupportedLocaleEntry(SomNode):
-    """A supported locale entry [PD00-USE-MUL-LOC-nn]."""
+    """A supported locale entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -42107,10 +42878,10 @@ class SupportedLocaleEntryRollout(SomNode):
         return SupportedLocaleEntryRolloutContentForm(self.doc, f"{self.path}/content")
 
 class SystemArchitectureSpec(SomNode):
-    """8.9. System Architecture [PD00-TEC-ARC].
+    """8.9. System Architecture.
     
     Detailed internal architecture (layers, packages, patterns). Covers
-    HBSG AS09-SOF / DR30.
+    
     
     Class named `SystemArchitectureSpec` to avoid colliding with any other
     architecture-related identifier in the model.
@@ -42127,7 +42898,7 @@ class SystemArchitectureSpec(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class SystemBoundaries(SomNode):
-    """4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+    """4.5. System Boundaries. Seeds → BSI.
     
     Defines the scope boundaries of the system including external interfaces,
     out-of-scope items, and operating assumptions. This section provides the
@@ -42142,58 +42913,58 @@ class SystemBoundaries(SomNode):
     def overview(self):
         return None  # (skipped: no target type)
 
-    # 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+    # 4.5.1. Interfaces to External Systems — contains 0+×.
     @property
     def externalInterfaces(self):
         return ExternalInterfaces(self.doc, f"{self.path}/externalInterfaces")
 
-    # 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
+    # 4.5.2. Out of Scope — contains 0+×.
     @property
     def outOfScope(self):
         return OutOfScope(self.doc, f"{self.path}/outOfScope")
 
-    # 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
+    # 4.5.3. Assumptions — contains 0+×.
     @property
     def assumptions(self):
         return BoundaryAssumptions(self.doc, f"{self.path}/assumptions")
 
-    # 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV]. Covers BSI-LAN-INV.
+    # 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
     @property
     def systemLandscapeInventory(self):
         return SystemLandscapeInventory(self.doc, f"{self.path}/systemLandscapeInventory")
 
-    # 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
+    # 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
     @property
     def boundaryInteractionPatterns(self):
         return SomList(self.doc, f"{self.path}/BOINPA-BOUN-LST", lambda d, p: BoundaryInteractionPatterns(d, p))
 
-    # 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
+    # 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
     @property
     def interactionTestingStrategy(self):
         return InteractionTestingStrategy(self.doc, f"{self.path}/interactionTestingStrategy")
 
-    # 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP]. Covers BSI-DEP.
+    # 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
     @property
     def interactionDependencyAnalysis(self):
         return InteractionDependencyAnalysis(self.doc, f"{self.path}/interactionDependencyAnalysis")
 
-    # 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
+    # 4.5.8. Migration Interactions. Covers BSI-MIG.
     @property
     def migrationInteractions(self):
         return SomList(self.doc, f"{self.path}/MIIN-MIGR-LST", lambda d, p: MigrationInteractions(d, p))
 
-    # 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+    # 4.5.9. Cross-Boundary Operational Considerations.
     @property
     def operationalConsiderations(self):
         return SomList(self.doc, f"{self.path}/CBOC-OPER-LST", lambda d, p: CrossBoundaryOperationalConsiderations(d, p))
 
-    # 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+    # 4.5.10. Cross-Boundary Error Handling.
     @property
     def crossBoundaryErrorHandling(self):
         return CrossBoundaryErrorHandling(self.doc, f"{self.path}/crossBoundaryErrorHandling")
 
 class SystemBusinessCriticality(SomNode):
-    """Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS]."""
+    """Business criticality assessment."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -42240,7 +43011,7 @@ class SystemBusinessCriticalityOperations(SomNode):
         return SystemBusinessCriticalityOperationsContentForm(self.doc, f"{self.path}/content")
 
 class SystemBusinessProcessEntry(SomNode):
-    """Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn]."""
+    """Business process supported."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -42249,7 +43020,7 @@ class SystemBusinessProcessEntry(SomNode):
         return SystemBusinessProcessEntryContentForm(self.doc, f"{self.path}/content")
 
 class SystemBusinessUnitEntry(SomNode):
-    """Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn]."""
+    """Business unit using the system."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -42309,7 +43080,7 @@ class SystemConfigurationManagementGovernance(SomNode):
         return SystemConfigurationManagementGovernanceContentForm(self.doc, f"{self.path}/content")
 
 class SystemContext(SomNode):
-    """4.1.2. System Context [PD00-SYO-SYD-CON].
+    """4.1.2. System Context.
     
     Describes the system in its operational context: how it fits within the
     organization's IT landscape, who interacts with it, and what external
@@ -42326,48 +43097,48 @@ class SystemContext(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+    # 4.1.2.1. Context Diagram.
     @property
     def contextDiagram(self):
         return ContextDiagram(self.doc, f"{self.path}/contextDiagram")
 
-    # 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+    # 4.1.2.2. IT Landscape Position.
     @property
     def itLandscapePosition(self):
         return ItLandscapePosition(self.doc, f"{self.path}/itLandscapePosition")
 
-    # 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+    # 4.1.2.3. External Actors.
     @property
     def externalActors(self):
         return ExternalActors(self.doc, f"{self.path}/externalActors")
 
-    # 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+    # 4.1.2.4. External Systems.
     @property
     def externalSystems(self):
         return ExternalSystemsContext(self.doc, f"{self.path}/externalSystems")
 
-    # 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+    # 4.1.2.5. Trust Boundaries.
     @property
     def trustBoundaries(self):
         return TrustBoundaries(self.doc, f"{self.path}/trustBoundaries")
 
-    # 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+    # 4.1.2.6. Organizational Context.
     @property
     def organizationalContext(self):
         return OrganizationalContext(self.doc, f"{self.path}/organizationalContext")
 
-    # 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+    # 4.1.2.7. Deployment Context.
     @property
     def deploymentContext(self):
         return DeploymentContext(self.doc, f"{self.path}/deploymentContext")
 
-    # 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+    # 4.1.2.8. Regulatory Context.
     @property
     def regulatoryContext(self):
         return RegulatoryContext(self.doc, f"{self.path}/regulatoryContext")
 
 class SystemCostAnalysis(SomNode):
-    """Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST]."""
+    """Cost analysis for replacement."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -42428,7 +43199,7 @@ class SystemCostAnalysisMigration(SomNode):
         return SystemCostAnalysisMigrationContentForm(self.doc, f"{self.path}/content")
 
 class SystemDataScope(SomNode):
-    """Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT]."""
+    """Data scope and migration assessment."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -42475,7 +43246,7 @@ class SystemDataScopeMigration(SomNode):
         return SystemDataScopeMigrationContentForm(self.doc, f"{self.path}/content")
 
 class SystemDependencyEntry(SomNode):
-    """A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+    """A system dependency entry (form).
     
     Documents one dependency between systems in the current landscape:
     mechanism, coupling strength, data flow, failure impact, SLA,
@@ -42553,7 +43324,7 @@ class SystemDependencyEntryReliability(SomNode):
         return SystemDependencyEntryReliabilityContentForm(self.doc, f"{self.path}/content")
 
 class SystemDescription(SomNode):
-    """4.1. System Description [PD00-SYO-SYD].
+    """4.1. System Description.
     
     Concise description of the system to be created, its primary purpose,
     and the business domain it addresses. This section provides the
@@ -42575,27 +43346,27 @@ class SystemDescription(SomNode):
     def descriptionSummary(self):
         return SystemDescriptionSummary(self.doc, f"{self.path}/descriptionSummary")
 
-    # 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+    # 4.1.1. System Purpose.
     @property
     def systemPurpose(self):
         return SystemPurpose(self.doc, f"{self.path}/systemPurpose")
 
-    # 4.1.2. System Context [PD00-SYO-SYD-CON].
+    # 4.1.2. System Context.
     @property
     def systemContext(self):
         return SystemContext(self.doc, f"{self.path}/systemContext")
 
-    # 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+    # 4.1.3. Description of Task Area.
     @property
     def taskArea(self):
         return TaskArea(self.doc, f"{self.path}/taskArea")
 
-    # 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+    # 4.1.4. User Categories — contains 1+× User Category.
     @property
     def userCategories(self):
         return SomList(self.doc, f"{self.path}/USCA-USER-LST", lambda d, p: UserCategoryEntry(d, p))
 
-    # 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+    # 4.1.5. User Interaction Model.
     @property
     def userInteractionModel(self):
         return UserInteractionModel(self.doc, f"{self.path}/userInteractionModel")
@@ -42670,7 +43441,7 @@ class SystemDiagnosticToolsTracing(SomNode):
         return SystemDiagnosticToolsTracingContentForm(self.doc, f"{self.path}/content")
 
 class SystemErrorCodeEntry(SomNode):
-    """A system error code entry [PD00-USE-ERR-SYS-CODE-nn]."""
+    """A system error code entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -42707,7 +43478,7 @@ class SystemErrorCodeEntryOperations(SomNode):
         return SystemErrorCodeEntryOperationsContentForm(self.doc, f"{self.path}/content")
 
 class SystemErrorDisplay(SomNode):
-    """10.7.2. System Error Display [PD00-USE-ERR-SYS].
+    """10.7.2. System Error Display.
     
     System error presentation including server errors, network issues,
     and timeouts.
@@ -42800,7 +43571,7 @@ class SystemIntegrationDataExchange(SomNode):
         return SystemIntegrationDataExchangeContentForm(self.doc, f"{self.path}/content")
 
 class SystemIntegrationEntry(SomNode):
-    """A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+    """A system integration entry (form).
     
     Documents one integration between systems: type, pattern, protocol,
     data format, throughput, error handling, monitoring, security,
@@ -42897,7 +43668,7 @@ class SystemIntegrationThroughput(SomNode):
         return SystemIntegrationThroughputContentForm(self.doc, f"{self.path}/content")
 
 class SystemInventory(SomNode):
-    """1.1.1. System Inventory [PD00-CUR-SYS-INV].
+    """1.1.1. System Inventory.
     
     Container for individual system descriptions. Add one entry per existing
     system relevant to the project scope.
@@ -42913,13 +43684,13 @@ class SystemInventory(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
+    # Contains 1+× Existing System.
     @property
     def systems(self):
         return SomList(self.doc, f"{self.path}/ESENT-SYST-LST", lambda d, p: ExistingSystemEntry(d, p))
 
 class SystemKnowledgeTransfer(SomNode):
-    """Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW]."""
+    """Knowledge transfer status."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -42938,7 +43709,7 @@ class SystemKnowledgeTransfer(SomNode):
         return None  # (skipped: no target type)
 
 class SystemLandscapeInventory(SomNode):
-    """4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV].
+    """4.5.4. System Landscape Inventory.
     
     Complete external-system inventory covering BSI-LAN-INV content.
     """
@@ -42954,7 +43725,7 @@ class SystemLandscapeInventory(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class SystemMigrationPlan(SomNode):
-    """Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG]."""
+    """Per-system migration plan."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -43006,7 +43777,7 @@ class SystemMigrationPlanExecution(SomNode):
         return SystemMigrationPlanExecutionContentForm(self.doc, f"{self.path}/content")
 
 class SystemMigrationRiskEntry(SomNode):
-    """A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn]."""
+    """A system migration risk entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -43015,7 +43786,7 @@ class SystemMigrationRiskEntry(SomNode):
         return SystemMigrationRiskEntryContentForm(self.doc, f"{self.path}/content")
 
 class SystemOperation(SomNode):
-    """8.7.1. System Operation [PD00-TEC-SYS-OPE]."""
+    """8.7.1. System Operation."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -43027,7 +43798,7 @@ class SystemOperation(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+    # 8.7.1.1. Administration Requirements.
     @property
     def administrationRequirements(self):
         return AdministrationRequirementsSection(self.doc, f"{self.path}/administrationRequirements")
@@ -43038,7 +43809,7 @@ class SystemOperation(SomNode):
         return SomList(self.doc, f"{self.path}/MAINT-MAIN-LST", lambda d, p: MaintenanceProcedureEntry(d, p))
 
 class SystemOperationAndMonitoring(SomNode):
-    """8.7. System Operation and Monitoring [PD00-TEC-SYS]."""
+    """8.7. System Operation and Monitoring."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -43050,87 +43821,20 @@ class SystemOperationAndMonitoring(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+    # 8.7.1. System Operation.
     @property
     def systemOperation(self):
         return SystemOperation(self.doc, f"{self.path}/systemOperation")
 
-    # 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+    # 8.7.2. Monitoring.
     @property
     def monitoring(self):
         return Monitoring(self.doc, f"{self.path}/monitoring")
 
-    # 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+    # 8.7.3. Capacity Planning.
     @property
     def capacityPlanning(self):
         return CapacityPlanningSection(self.doc, f"{self.path}/capacityPlanning")
-
-class SystemOverview(SomNode):
-    """4. System Overview [PD00-SYO].
-    
-    High-level overview of the system to be built: its purpose, goals,
-    scope boundaries, and the environment it operates in. This section
-    establishes the foundation for all subsequent specification work.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # System overview summary statistics.
-    @property
-    def summary(self):
-        return SystemOverviewSummary(self.doc, f"{self.path}/summary")
-
-    # System context diagram showing major system boundaries.
-    @property
-    def systemContextDiagram(self):
-        return self.doc.content(f"{self.path}/systemContextDiagram") or ""
-
-    @systemContextDiagram.setter
-    def systemContextDiagram(self, value):
-        self.doc.set_content(f"{self.path}/systemContextDiagram", value)
-
-    # 4.1. System Description [PD00-SYO-SYD].
-    @property
-    def systemDescription(self):
-        return SystemDescription(self.doc, f"{self.path}/systemDescription")
-
-    # 4.2. Goals [PD00-SYO-GOA].
-    @property
-    def goals(self):
-        return Goals(self.doc, f"{self.path}/goals")
-
-    # 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
-    @property
-    def requirements(self):
-        return RequirementsOverview(self.doc, f"{self.path}/requirements")
-
-    # 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
-    @property
-    def systemsToReplace(self):
-        return SystemsToReplace(self.doc, f"{self.path}/systemsToReplace")
-
-    # 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
-    @property
-    def systemBoundaries(self):
-        return SystemBoundaries(self.doc, f"{self.path}/systemBoundaries")
-
-    # 4.6. Framework Conditions [PD00-SYO-RES].
-    @property
-    def frameworkConditions(self):
-        return FrameworkConditions(self.doc, f"{self.path}/frameworkConditions")
-
-    # 4.7. Risks and Assumptions [PD00-SYO-RIS].
-    @property
-    def risksAndAssumptions(self):
-        return RisksAndAssumptions(self.doc, f"{self.path}/risksAndAssumptions")
 
 class SystemOverviewSummary(SomNode):
     """System overview summary for quick reference."""
@@ -43198,7 +43902,7 @@ class SystemOverviewSummaryStatus(SomNode):
         return SystemOverviewSummaryStatusContentForm(self.doc, f"{self.path}/content")
 
 class SystemPurpose(SomNode):
-    """4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+    """4.1.1. System Purpose.
     
     Describes the overarching purpose of the system including the problem it
     solves, the opportunity it enables, and who the primary beneficiaries are.
@@ -43215,7 +43919,7 @@ class SystemPurpose(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Vision Statement [PD00-SYO-SYD-PUR-VIS].
+    # Vision Statement.
     @property
     def visionStatement(self):
         return self.doc.content(f"{self.path}/visionStatement") or ""
@@ -43224,38 +43928,38 @@ class SystemPurpose(SomNode):
     def visionStatement(self, value):
         self.doc.set_content(f"{self.path}/visionStatement", value)
 
-    # 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+    # 4.1.1.1. Problem Statement.
     @property
     def problemStatement(self):
         return ProblemStatement(self.doc, f"{self.path}/problemStatement")
 
-    # 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+    # 4.1.1.2. Opportunity Statement.
     @property
     def opportunityStatement(self):
         return OpportunityStatement(self.doc, f"{self.path}/opportunityStatement")
 
-    # 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+    # 4.1.1.3. Stakeholders and Beneficiaries.
     @property
     def stakeholders(self):
         return StakeholdersAndBeneficiaries(self.doc, f"{self.path}/stakeholders")
 
-    # 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+    # 4.1.1.4. Value Proposition.
     @property
     def valueProposition(self):
         return ValueProposition(self.doc, f"{self.path}/valueProposition")
 
-    # 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+    # 4.1.1.5. Strategic Alignment.
     @property
     def strategicAlignment(self):
         return StrategicAlignment(self.doc, f"{self.path}/strategicAlignment")
 
-    # 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+    # 4.1.1.6. Scope Boundaries.
     @property
     def scopeBoundaries(self):
         return ScopeBoundaries(self.doc, f"{self.path}/scopeBoundaries")
 
 class SystemQualityGoals(SomNode):
-    """11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+    """11. System Quality Goals. Seeds → BQP.
     
     Quality goals selected from standard quality criteria and operationalized
     for project-specific acceptance testing. Provides governing structure for
@@ -43315,42 +44019,42 @@ class SystemQualityGoals(SomNode):
     def qualityRadar(self):
         return None  # (skipped: no target type)
 
-    # 11.1. Quality Framework [PD00-SYQ-FRA].
+    # 11.1. Quality Framework.
     @property
     def framework(self):
         return QualityFramework(self.doc, f"{self.path}/framework")
 
-    # 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+    # 11.2. User-Related Quality Criteria.
     @property
     def userQuality(self):
         return UserQualityCriteria(self.doc, f"{self.path}/userQuality")
 
-    # 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+    # 11.3. Technical Quality Criteria.
     @property
     def technicalQuality(self):
         return TechnicalQualityCriteria(self.doc, f"{self.path}/technicalQuality")
 
-    # 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+    # 11.4. Operations Quality Criteria.
     @property
     def operationsQuality(self):
         return OperationsQualityCriteria(self.doc, f"{self.path}/operationsQuality")
 
-    # 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+    # 11.5. Documentation Quality Criteria.
     @property
     def documentationQuality(self):
         return DocumentationQualityCriteria(self.doc, f"{self.path}/documentationQuality")
 
-    # 11.6. Quality Prioritization [PD00-SYQ-PRI].
+    # 11.6. Quality Prioritization.
     @property
     def prioritization(self):
         return QualityPrioritization(self.doc, f"{self.path}/prioritization")
 
-    # 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+    # 11.7. Acceptance Criteria Summary.
     @property
     def acceptanceCriteria(self):
         return AcceptanceCriteriaSummary(self.doc, f"{self.path}/acceptanceCriteria")
 
-    # 11.8. Test Strategy [PD00-SYQ-TST]. Covers HBSG AS23.
+    # 11.8. Test Strategy..
     @property
     def testStrategy(self):
         return TestStrategy(self.doc, f"{self.path}/testStrategy")
@@ -43392,7 +44096,7 @@ class SystemQualityGoalsResources(SomNode):
         return SystemQualityGoalsResourcesContentForm(self.doc, f"{self.path}/content")
 
 class SystemReplacementStrategy(SomNode):
-    """Replacement strategy details [PD00-SYO-SYR-INV-nn-STR]."""
+    """Replacement strategy details."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -43443,96 +44147,8 @@ class SystemReplacementStrategyTimeline(SomNode):
     def content(self):
         return SystemReplacementStrategyTimelineContentForm(self.doc, f"{self.path}/content")
 
-class SystemRollout(SomNode):
-    """SR00 System Rollout.
-    
-    End-to-end rollout specification — localization, translation,
-    documentation and training, plus rollout plan, migration plan,
-    user manuals, training materials, pilot, cutover, knowledge
-    transfer, and warranty/support.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "SR")
-        check_som_model_version(SystemRollout.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return SystemRollout.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Localization process — PD00-USE-MUL-LOC.
-    @property
-    def localizationProcess(self):
-        return LocalizationProcess(self.doc, f"{self.path}/localizationProcess")
-
-    # Translation process — PD00-USE-MUL-TRA.
-    @property
-    def translationProcess(self):
-        return TranslationProcess(self.doc, f"{self.path}/translationProcess")
-
-    # Documentation and training — PD00-USE-MUL-DOC.
-    @property
-    def documentationAndTraining(self):
-        return DocumentationAndTraining(self.doc, f"{self.path}/documentationAndTraining")
-
-    # Rollout plan — PD00-ROL-PLN.
-    @property
-    def rolloutPlan(self):
-        return RolloutPlan(self.doc, f"{self.path}/rolloutPlan")
-
-    # Migration plan — PD00-ROL-MIG.
-    @property
-    def migrationPlan(self):
-        return MigrationPlan(self.doc, f"{self.path}/migrationPlan")
-
-    # User manuals — PD00-ROL-DOC.
-    @property
-    def userManuals(self):
-        return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManuals(d, p))
-
-    # Training materials — PD00-ROL-TRN.
-    @property
-    def trainingMaterials(self):
-        return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterials(d, p))
-
-    # Pilot plan — PD00-ROL-PIL.
-    @property
-    def pilotPlan(self):
-        return PilotPlan(self.doc, f"{self.path}/pilotPlan")
-
-    # Cutover procedures — PD00-ROL-CUT.
-    @property
-    def cutoverProcedures(self):
-        return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedures(d, p))
-
-    # Knowledge transfer — PD00-ROL-KNO.
-    @property
-    def knowledgeTransfer(self):
-        return KnowledgeTransfer(self.doc, f"{self.path}/knowledgeTransfer")
-
-    # Warranty and support — PD00-ROL-WAR.
-    @property
-    def warrantyAndSupport(self):
-        return WarrantyAndSupport(self.doc, f"{self.path}/warrantyAndSupport")
-
 class SystemRolloutConcept(SomNode):
-    """15. System Rollout Concept [PD00-ROL]. Seeds → SR."""
+    """15. System Rollout Concept. Seeds → SR."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -43544,48 +44160,48 @@ class SystemRolloutConcept(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 15.1. Rollout Plan [PD00-ROL-PLN].
+    # 15.1. Rollout Plan.
     @property
     def rolloutPlan(self):
         return RolloutPlan(self.doc, f"{self.path}/rolloutPlan")
 
-    # 15.2. Migration Plan [PD00-ROL-MIG].
+    # 15.2. Migration Plan.
     @property
     def migrationPlan(self):
         return MigrationPlan(self.doc, f"{self.path}/migrationPlan")
 
-    # 15.3. User Manuals [PD00-ROL-DOC].
+    # 15.3. User Manuals.
     @property
     def userManuals(self):
         return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManuals(d, p))
 
-    # 15.4. Training Materials [PD00-ROL-TRN].
+    # 15.4. Training Materials.
     @property
     def trainingMaterials(self):
         return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterials(d, p))
 
-    # 15.5. Pilot Plan [PD00-ROL-PIL].
+    # 15.5. Pilot Plan.
     @property
     def pilotPlan(self):
         return PilotPlan(self.doc, f"{self.path}/pilotPlan")
 
-    # 15.6. Cutover Procedures [PD00-ROL-CUT].
+    # 15.6. Cutover Procedures.
     @property
     def cutoverProcedures(self):
         return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedures(d, p))
 
-    # 15.7. Knowledge Transfer [PD00-ROL-KNO].
+    # 15.7. Knowledge Transfer.
     @property
     def knowledgeTransfer(self):
         return KnowledgeTransfer(self.doc, f"{self.path}/knowledgeTransfer")
 
-    # 15.8. Warranty and Support [PD00-ROL-WAR].
+    # 15.8. Warranty and Support.
     @property
     def warrantyAndSupport(self):
         return WarrantyAndSupport(self.doc, f"{self.path}/warrantyAndSupport")
 
 class SystemStagePlan(SomNode):
-    """13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+    """13. System Stage Plan. Seeds → PPP.
     
     Define the overall staging strategy for the system rollout. A stage
     is a meaningful, self-contained subset of the complete system that
@@ -43616,42 +44232,42 @@ class SystemStagePlan(SomNode):
     def readiness(self):
         return SystemStagePlanReadiness(self.doc, f"{self.path}/readiness")
 
-    # 13.1. Staging Strategy [PD00-SSP-STR].
+    # 13.1. Staging Strategy.
     @property
     def strategy(self):
         return StagingStrategy(self.doc, f"{self.path}/strategy")
 
-    # 13.2. Stage Overview [PD00-SSP-STA].
+    # 13.2. Stage Overview.
     @property
     def stageOverview(self):
         return StageOverview(self.doc, f"{self.path}/stageOverview")
 
-    # 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
+    # 13.3. Stages — contains 1+× Stage.
     @property
     def stages(self):
         return SomList(self.doc, f"{self.path}/STAGE-STAG-LST", lambda d, p: StageEntry(d, p))
 
-    # 13.4. Feature Prioritization [PD00-SSP-FEA].
+    # 13.4. Feature Prioritization.
     @property
     def featurePrioritization(self):
         return FeaturePrioritization(self.doc, f"{self.path}/featurePrioritization")
 
-    # 13.5. Data Migration Strategy [PD00-SSP-MIG].
+    # 13.5. Data Migration Strategy.
     @property
     def dataMigration(self):
         return DataMigrationStrategy(self.doc, f"{self.path}/dataMigration")
 
-    # 13.6. Governance [PD00-SSP-GOV].
+    # 13.6. Governance.
     @property
     def governance(self):
         return StageGovernance(self.doc, f"{self.path}/governance")
 
-    # 13.7. Initial Development Flow [PD00-SSP-IDV]. Covers PPP-IDV.
+    # 13.7. Initial Development Flow. Covers PPP-IDV.
     @property
     def initialDevelopmentFlow(self):
         return InitialDevelopmentFlow(self.doc, f"{self.path}/initialDevelopmentFlow")
 
-    # 13.8. Upgrade Cycle Framework [PD00-SSP-UPG]. Covers PPP-UPG.
+    # 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
     @property
     def upgradeCycleFramework(self):
         return UpgradeCycleFramework(self.doc, f"{self.path}/upgradeCycleFramework")
@@ -43684,7 +44300,7 @@ class SystemStagePlanTimeline(SomNode):
         return SystemStagePlanTimelineContentForm(self.doc, f"{self.path}/content")
 
 class SystemTaskEntry(SomNode):
-    """A system task entry [PD00-SYO-SYD-USR-nn-TSK-mm].
+    """A system task entry.
     
     Describes one activity this user category performs with the system.
     Tasks map to Use Cases in the UC document.
@@ -43770,7 +44386,7 @@ class SystemTaskWorkflowStepEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class SystemTechnicalAssessment(SomNode):
-    """Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC]."""
+    """Technical assessment for a system to replace."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -43831,7 +44447,7 @@ class SystemTechnicalAssessmentQuality(SomNode):
         return SystemTechnicalAssessmentQualityContentForm(self.doc, f"{self.path}/content")
 
 class SystemToReplaceEntry(SomNode):
-    """A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+    """A system to replace entry (form).
     
     Comprehensive documentation of a legacy system to be replaced, covering
     technical assessment, business criticality, replacement strategy, and
@@ -43919,7 +44535,7 @@ class SystemToReplaceEntryVendor(SomNode):
         return SystemToReplaceEntryVendorContentForm(self.doc, f"{self.path}/content")
 
 class SystemTrainingEntry(SomNode):
-    """System training entry (form) [PD00-ORG-WOR-nn-TRA-SYS-nn]."""
+    """System training entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -43970,7 +44586,7 @@ class SystemTrainingEntrySupport(SomNode):
         return SystemTrainingEntrySupportContentForm(self.doc, f"{self.path}/content")
 
 class SystemUserImpact(SomNode):
-    """User impact assessment [PD00-SYO-SYR-INV-nn-USR]."""
+    """User impact assessment."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -44026,7 +44642,7 @@ class SystemUserImpactEnablement(SomNode):
         return SystemUserImpactEnablementContentForm(self.doc, f"{self.path}/content")
 
 class SystemsToReplace(SomNode):
-    """4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+    """4.4. Systems to Replace. Seeds → CS.
     
     Documents existing systems that will be replaced, migrated, or decommissioned
     as part of the project. Follows TOGAF migration planning patterns and
@@ -44041,18 +44657,18 @@ class SystemsToReplace(SomNode):
     def overview(self):
         return None  # (skipped: no target type)
 
-    # 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+    # 4.4.1. Replacement Inventory — contains 0+×.
     @property
     def replacementInventory(self):
         return ReplacementInventory(self.doc, f"{self.path}/replacementInventory")
 
-    # 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+    # 4.4.2. Migration Considerations.
     @property
     def migrationConsiderations(self):
         return MigrationConsiderations(self.doc, f"{self.path}/migrationConsiderations")
 
 class TabBarDefinitionEntry(SomNode):
-    """A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
+    """A tab bar definition entry (form).
     
     Defines a tab bar or segmented control on a specific screen.
     """
@@ -44097,7 +44713,7 @@ class TabBarDefinitionEntryLoading(SomNode):
         return TabBarDefinitionEntryLoadingContentForm(self.doc, f"{self.path}/content")
 
 class TabItemEntry(SomNode):
-    """A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm]."""
+    """A tab item entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -44106,7 +44722,7 @@ class TabItemEntry(SomNode):
         return TabItemEntryContentForm(self.doc, f"{self.path}/content")
 
 class TargetBusinessProcessModel(SomNode):
-    """6. Target Business Process Model [PD00-TAR]."""
+    """6. Target Business Process Model."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -44118,15 +44734,123 @@ class TargetBusinessProcessModel(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
+    # 6.1. Business Process Descriptions. Seeds → BP.
     @property
     def businessProcessDescriptions(self):
         return BusinessProcessDescriptions(self.doc, f"{self.path}/businessProcessDescriptions")
 
-    # 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+    # 6.2. Process Steps and Actor Interactions. Seeds → UC.
     @property
     def processStepsAndActorInteractions(self):
         return ProcessStepsAndActorInteractions(self.doc, f"{self.path}/processStepsAndActorInteractions")
+
+class TargetOperatingModel(SomNode):
+    """BP00 Business Processes.
+    
+    Target business process specification — vision, principles, catalog,
+    diagrams, improvements, relationships, detailed workflows,
+    cross-process analysis, exception handling, and KPIs.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "TOM")
+        check_som_model_version(TargetOperatingModel.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return TargetOperatingModel.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Process vision.
+    @property
+    def processVision(self):
+        return ProcessVision(self.doc, f"{self.path}/processVision")
+
+    # Design principles.
+    @property
+    def designPrinciples(self):
+        return ProcessDesignPrinciples(self.doc, f"{self.path}/designPrinciples")
+
+    # Process catalog.
+    @property
+    def processCatalog(self):
+        return ProcessCatalog(self.doc, f"{self.path}/processCatalog")
+
+    # Process overview diagram.
+    @property
+    def processOverviewDiagram(self):
+        return ProcessOverviewDiagram(self.doc, f"{self.path}/processOverviewDiagram")
+
+    # Improvement summary.
+    @property
+    def improvementSummary(self):
+        return ProcessImprovementSummary(self.doc, f"{self.path}/improvementSummary")
+
+    # Process relationships.
+    @property
+    def processRelationships(self):
+        return ProcessRelationships(self.doc, f"{self.path}/processRelationships")
+
+    # Detailed process workflows.
+    @property
+    def detailedWorkflows(self):
+        return SomList(self.doc, f"{self.path}/DEPRWO-DETA-LST", lambda d, p: DetailedProcessWorkflows(d, p))
+
+    # Cross-process analysis.
+    @property
+    def crossProcessAnalysis(self):
+        return CrossProcessAnalysis(self.doc, f"{self.path}/crossProcessAnalysis")
+
+    # Process exception handling.
+    @property
+    def exceptionHandling(self):
+        return ProcessExceptionHandling(self.doc, f"{self.path}/exceptionHandling")
+
+    # Process metrics and KPIs.
+    @property
+    def processMetricsAndKpis(self):
+        return SomList(self.doc, f"{self.path}/PMAK-PROC-LST", lambda d, p: ProcessMetricsAndKpis(d, p))
+
+class TargetOperatingModelConcept(SomNode):
+    """SBP.7 Target Operating Model concept.
+    
+    Public anchor: BABOK future-state analysis.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Target organizational structure and roles.
+    @property
+    def organizationalFramework(self):
+        return OrganizationalFramework(self.doc, f"{self.path}/organizationalFramework")
+
+    # Target business process model.
+    @property
+    def targetBusinessProcess(self):
+        return TargetBusinessProcessModel(self.doc, f"{self.path}/targetBusinessProcess")
 
 class TargetPlatformEntry(SomNode):
     """Target platform entry (operating system, runtime, container)."""
@@ -44194,7 +44918,7 @@ class TargetPlatformEntryVersion(SomNode):
         return TargetPlatformEntryVersionContentForm(self.doc, f"{self.path}/content")
 
 class TaskArea(SomNode):
-    """4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+    """4.1.3. Description of Task Area.
     
     Describes the business domain and task area the system addresses.
     Defines the domain vocabulary and key concepts (ubiquitous language)
@@ -44212,37 +44936,37 @@ class TaskArea(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+    # 4.1.3.1. Domain Overview.
     @property
     def domainOverview(self):
         return DomainOverview(self.doc, f"{self.path}/domainOverview")
 
-    # 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+    # 4.1.3.2. Domain Vocabulary.
     @property
     def domainVocabulary(self):
         return DomainVocabulary(self.doc, f"{self.path}/domainVocabulary")
 
-    # 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+    # 4.1.3.3. Key Concepts.
     @property
     def keyConcepts(self):
         return KeyConcepts(self.doc, f"{self.path}/keyConcepts")
 
-    # 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+    # 4.1.3.4. Domain Boundaries.
     @property
     def domainBoundaries(self):
         return DomainBoundaries(self.doc, f"{self.path}/domainBoundaries")
 
-    # 4.1.3.5. Business Rules [PD00-SYO-SYD-DES-RUL].
+    # 4.1.3.5. Business Rules.
     @property
     def businessRules(self):
         return DomainBusinessRules(self.doc, f"{self.path}/businessRules")
 
-    # 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+    # 4.1.3.6. Domain Processes.
     @property
     def domainProcesses(self):
         return DomainProcesses(self.doc, f"{self.path}/domainProcesses")
 
-    # 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+    # 4.1.3.7. Domain Events.
     @property
     def domainEvents(self):
         return DomainEvents(self.doc, f"{self.path}/domainEvents")
@@ -44257,7 +44981,7 @@ class TeamMemberAvailability(SomNode):
         return TeamMemberAvailabilityContentForm(self.doc, f"{self.path}/content")
 
 class TeamMemberEntry(SomNode):
-    """A team member entry [PD00-ADM-TEA-nn] (form).
+    """A team member entry (form).
     
     Detailed information about a project team member including their role,
     responsibilities, availability, and competencies.
@@ -44400,7 +45124,7 @@ class TechnicalDependencyEntry(SomNode):
         return TechnicalDependencyEntryContentForm(self.doc, f"{self.path}/content")
 
 class TechnicalFrameworkConcept(SomNode):
-    """8. Technical Framework Concept [PD00-TEC]. Seeds → TR."""
+    """8. Technical Framework Concept. Seeds → TR."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -44412,53 +45136,53 @@ class TechnicalFrameworkConcept(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+    # 8.1. Basic Technical Requirements.
     @property
     def basicRequirements(self):
         return BasicTechnicalRequirements(self.doc, f"{self.path}/basicRequirements")
 
-    # 8.2. Software Design Requirements [PD00-TEC-SOF].
+    # 8.2. Software Design Requirements.
     @property
     def softwareDesign(self):
         return SoftwareDesignRequirements(self.doc, f"{self.path}/softwareDesign")
 
-    # 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+    # 8.3. Standard Application Software Requirements.
     @property
     def standardSoftware(self):
         return StandardSoftwareRequirements(self.doc, f"{self.path}/standardSoftware")
 
-    # 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+    # 8.4. Hardware Concept Requirements.
     @property
     def hardware(self):
         return HardwareRequirements(self.doc, f"{self.path}/hardware")
 
-    # 8.5. Operations Requirements [PD00-TEC-OPE].
+    # 8.5. Operations Requirements.
     @property
     def operations(self):
         return OperationsRequirements(self.doc, f"{self.path}/operations")
 
-    # 8.6. Communication Requirements [PD00-TEC-COM].
+    # 8.6. Communication Requirements.
     @property
     def communication(self):
         return CommunicationRequirements(self.doc, f"{self.path}/communication")
 
-    # 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+    # 8.7. System Operation and Monitoring.
     @property
     def systemOperation(self):
         return SystemOperationAndMonitoring(self.doc, f"{self.path}/systemOperation")
 
-    # 8.8. Security Requirements [PD00-TEC-SEC].
+    # 8.8. Security Requirements.
     @property
     def security(self):
         return TechnicalSecurityRequirements(self.doc, f"{self.path}/security")
 
-    # 8.9. System Architecture [PD00-TEC-ARC]. Covers HBSG AS09-SOF / DR30.
+    # 8.9. System Architecture..
     @property
     def systemArchitecture(self):
         return SystemArchitectureSpec(self.doc, f"{self.path}/systemArchitecture")
 
 class TechnicalFrameworkConditions(SomNode):
-    """4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+    """4.6.3. Technical Framework Conditions. Seeds → TR.
     
     Documents pre-existing technical constraints including mandated platforms,
     network restrictions, compliance requirements, existing infrastructure
@@ -44513,7 +45237,7 @@ class TechnicalFrameworkConditions(SomNode):
     def standardsOverview(self):
         return None  # (skipped: no target type)
 
-    # Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
+    # Technology standards — contains 0+× TechnologyStandard.
     @property
     def technologyStandards(self):
         return SomList(self.doc, f"{self.path}/TESTEN-TECH-LST", lambda d, p: TechnologyStandardEntry(d, p))
@@ -44523,7 +45247,7 @@ class TechnicalFrameworkConditions(SomNode):
     def integrationOverview(self):
         return None  # (skipped: no target type)
 
-    # Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
+    # Integration constraints — contains 0+× IntegrationConstraint.
     @property
     def integrationConstraints(self):
         return SomList(self.doc, f"{self.path}/INCOE1-INTE-LST", lambda d, p: IntegrationConstraintEntry(d, p))
@@ -44580,7 +45304,7 @@ class TechnicalFrameworkConditionsStandards(SomNode):
         return TechnicalFrameworkConditionsStandardsContentForm(self.doc, f"{self.path}/content")
 
 class TechnicalGoalConstraints(SomNode):
-    """4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+    """4.2.2.n.4. Constraints.
     
     Technical constraints that may limit or shape how the goal is achieved.
     """
@@ -44601,7 +45325,7 @@ class TechnicalGoalConstraints(SomNode):
         return SomList(self.doc, f"{self.path}/TECN-ITEM-LST", lambda d, p: TechnicalConstraintEntry(d, p))
 
 class TechnicalGoalDependencies(SomNode):
-    """4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+    """4.2.2.n.3. Dependencies.
     
     Technical dependencies affecting goal achievement.
     """
@@ -44622,7 +45346,7 @@ class TechnicalGoalDependencies(SomNode):
         return SomList(self.doc, f"{self.path}/TEDE-ITEM-LST", lambda d, p: TechnicalDependencyEntry(d, p))
 
 class TechnicalGoalEntry(SomNode):
-    """A technical goal entry [PD00-SYO-GOA-TEC-nn].
+    """A technical goal entry.
     
     Comprehensive technical goal definition with quality attributes,
     architectural impact, and verification approach.
@@ -44644,22 +45368,22 @@ class TechnicalGoalEntry(SomNode):
     def governance(self):
         return TechnicalGoalEntryGovernance(self.doc, f"{self.path}/governance")
 
-    # 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+    # 4.2.2.n.1. Quality Scenarios.
     @property
     def qualityScenarios(self):
         return QualityScenarios(self.doc, f"{self.path}/qualityScenarios")
 
-    # 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+    # 4.2.2.n.2. Test Criteria.
     @property
     def testCriteria(self):
         return TechnicalGoalTestCriteria(self.doc, f"{self.path}/testCriteria")
 
-    # 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+    # 4.2.2.n.3. Dependencies.
     @property
     def dependencies(self):
         return TechnicalGoalDependencies(self.doc, f"{self.path}/dependencies")
 
-    # 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+    # 4.2.2.n.4. Constraints.
     @property
     def constraints(self):
         return TechnicalGoalConstraints(self.doc, f"{self.path}/constraints")
@@ -44692,7 +45416,7 @@ class TechnicalGoalTestCaseEntry(SomNode):
         return TechnicalGoalTestCaseEntryContentForm(self.doc, f"{self.path}/content")
 
 class TechnicalGoalTestCriteria(SomNode):
-    """4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+    """4.2.2.n.2. Test Criteria.
     
     Specific test criteria and acceptance thresholds for the technical goal.
     """
@@ -44718,7 +45442,7 @@ class TechnicalGoalTestCriteria(SomNode):
         return SomList(self.doc, f"{self.path}/TEGOTS-ITEM-LST", lambda d, p: TechnicalGoalTestCaseEntry(d, p))
 
 class TechnicalGoals(SomNode):
-    """4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+    """4.2.2. Technical Goals.
     
     Container for technical goal definitions. Technical goals define the
     non-functional characteristics and technical capabilities the system
@@ -44766,7 +45490,7 @@ class TechnicalInfrastructure(SomNode):
         return SomList(self.doc, f"{self.path}/COTORE-COMM-LST", lambda d, p: CommunicationToolsRequirements(d, p))
 
 class TechnicalPainPoints(SomNode):
-    """1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+    """1.3.3. Technical Pain Points.
     
     Problems that affect development and maintenance: outdated technology,
     security vulnerabilities, lack of documentation, vendor lock-in,
@@ -44803,7 +45527,7 @@ class TechnicalPainPointsSummary(SomNode):
         return TechnicalPainPointsSummaryContentForm(self.doc, f"{self.path}/content")
 
 class TechnicalQualityCriteria(SomNode):
-    """11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+    """11.3. Technical Quality Criteria.
     
     Quality criteria for the technical implementation including efficiency,
     portability, flexibility, security, maintainability, and reliability.
@@ -44820,38 +45544,38 @@ class TechnicalQualityCriteria(SomNode):
     def overview(self):
         return None  # (skipped: no target type)
 
-    # 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
+    # 11.3.1. Efficiency.
     @property
     def efficiency(self):
         return EfficiencyQuality(self.doc, f"{self.path}/efficiency")
 
-    # 11.3.2. Portability [PD00-SYQ-TEC-POR].
+    # 11.3.2. Portability.
     @property
     def portability(self):
         return PortabilityQuality(self.doc, f"{self.path}/portability")
 
-    # 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
+    # 11.3.3. Flexibility.
     @property
     def flexibility(self):
         return FlexibilityQuality(self.doc, f"{self.path}/flexibility")
 
-    # 11.3.4. Security [PD00-SYQ-TEC-SEC].
+    # 11.3.4. Security.
     @property
     def security(self):
         return SecurityQuality(self.doc, f"{self.path}/security")
 
-    # 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
+    # 11.3.5. Maintainability.
     @property
     def maintainability(self):
         return MaintainabilityQuality(self.doc, f"{self.path}/maintainability")
 
-    # 11.3.6. Reliability [PD00-SYQ-TEC-REL].
+    # 11.3.6. Reliability.
     @property
     def reliability(self):
         return ReliabilityQuality(self.doc, f"{self.path}/reliability")
 
 class TechnicalRequirementEntry(SomNode):
-    """A technical requirement entry [PD00-SYO-REQ-TEC-nn].
+    """A technical requirement entry.
     
     Comprehensive technical requirement definition following ISO 25010
     quality characteristics and architecture decision records.
@@ -44888,17 +45612,17 @@ class TechnicalRequirementEntry(SomNode):
     def constraints(self):
         return TechnicalRequirementEntryConstraints(self.doc, f"{self.path}/constraints")
 
-    # 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+    # 4.3.2.n.1. Acceptance Criteria.
     @property
     def acceptanceCriteria(self):
         return RequirementAcceptanceCriteria(self.doc, f"{self.path}/acceptanceCriteria")
 
-    # 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+    # 4.3.2.n.2. Dependencies.
     @property
     def dependencies(self):
         return RequirementDependencies(self.doc, f"{self.path}/dependencies")
 
-    # 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+    # 4.3.2.n.3. Traceability.
     @property
     def traceability(self):
         return RequirementTraceability(self.doc, f"{self.path}/traceability")
@@ -44949,7 +45673,7 @@ class TechnicalRequirementEntryVerification(SomNode):
         return TechnicalRequirementEntryVerificationContentForm(self.doc, f"{self.path}/content")
 
 class TechnicalRequirements(SomNode):
-    """4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+    """4.3.2. Technical Requirements.
     
     Container for technical requirements. Technical requirements describe
     constraints on how the system is built — platform, performance,
@@ -44977,101 +45701,8 @@ class TechnicalRequirements(SomNode):
     def requirements(self):
         return SomList(self.doc, f"{self.path}/TERQ-REQU-LST", lambda d, p: TechnicalRequirementEntry(d, p))
 
-class TechnicalRequirementsSpec(SomNode):
-    """TR00 Technical Requirements.
-    
-    Comprehensive technical requirements: basic / software / standard-
-    software / hardware / operations / communication / system-operation
-    / security / architecture, plus components, framework conditions,
-    and translation handling.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "TR")
-        check_som_model_version(TechnicalRequirementsSpec.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return TechnicalRequirementsSpec.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Basic technical requirements — PD00-TEC-BAS.
-    @property
-    def basicTechnicalRequirements(self):
-        return BasicTechnicalRequirements(self.doc, f"{self.path}/basicTechnicalRequirements")
-
-    # Software design requirements — PD00-TEC-SOF.
-    @property
-    def softwareDesignRequirements(self):
-        return SoftwareDesignRequirements(self.doc, f"{self.path}/softwareDesignRequirements")
-
-    # Standard application software requirements — PD00-TEC-STA.
-    @property
-    def standardSoftwareRequirements(self):
-        return StandardSoftwareRequirements(self.doc, f"{self.path}/standardSoftwareRequirements")
-
-    # Hardware concept requirements — PD00-TEC-HAR.
-    @property
-    def hardwareRequirements(self):
-        return HardwareRequirements(self.doc, f"{self.path}/hardwareRequirements")
-
-    # Operations requirements — PD00-TEC-OPE.
-    @property
-    def operationsRequirements(self):
-        return OperationsRequirements(self.doc, f"{self.path}/operationsRequirements")
-
-    # Communication requirements — PD00-TEC-COM.
-    @property
-    def communicationRequirements(self):
-        return CommunicationRequirements(self.doc, f"{self.path}/communicationRequirements")
-
-    # System operation and monitoring — PD00-TEC-SYS.
-    @property
-    def systemOperationAndMonitoring(self):
-        return SystemOperationAndMonitoring(self.doc, f"{self.path}/systemOperationAndMonitoring")
-
-    # Technical security requirements — PD00-TEC-SEC.
-    @property
-    def technicalSecurityRequirements(self):
-        return TechnicalSecurityRequirements(self.doc, f"{self.path}/technicalSecurityRequirements")
-
-    # System architecture — PD00-TEC-ARC (new in Phase A, HBSG AS09-SOF/DR30).
-    @property
-    def systemArchitecture(self):
-        return SystemArchitectureSpec(self.doc, f"{self.path}/systemArchitecture")
-
-    # Components to use — PD00-COM (whole).
-    @property
-    def componentsToUse(self):
-        return ComponentsToUse(self.doc, f"{self.path}/componentsToUse")
-
-    # Technical framework conditions — PD00-SYO-RES-TEC (whole).
-    @property
-    def technicalFrameworkConditions(self):
-        return TechnicalFrameworkConditions(self.doc, f"{self.path}/technicalFrameworkConditions")
-
-    # Translation handling requirements — PD00-USE-MUL-REQ (whole).
-    @property
-    def translationRequirements(self):
-        return TranslationRequirements(self.doc, f"{self.path}/translationRequirements")
-
 class TechnicalSecurityRequirements(SomNode):
-    """8.8. Security Requirements [PD00-TEC-SEC]."""
+    """8.8. Security Requirements."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -45083,17 +45714,17 @@ class TechnicalSecurityRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+    # 8.8.1. IT Security Standards.
     @property
     def itSecurityStandards(self):
         return ItSecurityStandardsSection(self.doc, f"{self.path}/itSecurityStandards")
 
-    # 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+    # 8.8.2. Data Protection and Privacy.
     @property
     def dataProtectionAndPrivacy(self):
         return DataProtectionAndPrivacySection(self.doc, f"{self.path}/dataProtectionAndPrivacy")
 
-    # 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+    # 8.8.3. Security Audit Requirements.
     @property
     def securityAuditRequirements(self):
         return SecurityAuditRequirementsSection(self.doc, f"{self.path}/securityAuditRequirements")
@@ -45108,7 +45739,7 @@ class TechnologyDataVariations(SomNode):
         return TechnologyDataVariationsContentForm(self.doc, f"{self.path}/content")
 
 class TechnologyStandardEntry(SomNode):
-    """A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
+    """A technology standard entry (form).
     
     Documents a mandated or preferred technology standard that the solution
     must adhere to. Includes scope, compliance requirements, and exceptions.
@@ -45226,7 +45857,7 @@ class TenantContextPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class TenantCustomizationEntry(SomNode):
-    """A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn].
+    """A tenant customization entry (form).
     
     Describes a specific area where tenants can customize their authorization
     model — custom roles, permissions, policies, or workflows. Covers scoping,
@@ -45262,14 +45893,14 @@ class TenantDataIsolationPolicy(SomNode):
         return None  # (skipped: no target type)
 
 class TenantIsolation(SomNode):
-    """9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+    """9.4.7. Tenant Isolation.
     
     Describes how multi-tenant authorization is structured: how tenant context
     is established and propagated, how cross-tenant access is prevented or
     controlled, how tenants can customize their authorization model, how tenant
     onboarding/offboarding is handled from an authorization perspective, and
     how tenant boundaries are enforced at the authorization layer.
-    Complements TenantDataIsolationPolicy (PD00-ACC-RES-DAT) which covers
+    Complements TenantDataIsolationPolicy which covers
     data-level isolation; this section focuses on authorization-level isolation.
     """
     def __init__(self, doc, path):
@@ -45347,7 +45978,7 @@ class TestScenarioBusiness(SomNode):
         return TestScenarioBusinessContentForm(self.doc, f"{self.path}/content")
 
 class TestScenarioEntry(SomNode):
-    """A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
+    """A test scenario entry (form).
     
     Represents a business-level test case covering a user journey, business
     process, or acceptance criterion. Includes full traceability, preconditions,
@@ -45456,9 +46087,9 @@ class TestScenarioTraceability(SomNode):
         return TestScenarioTraceabilityContentForm(self.doc, f"{self.path}/content")
 
 class TestStrategy(SomNode):
-    """11.8. Test Strategy [PD00-SYQ-TST].
+    """11.8. Test Strategy.
     
-    Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
+    Overall test strategy for the project..
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -45774,7 +46405,7 @@ class ThirdPartyLibraryEntryUsage(SomNode):
         return ThirdPartyLibraryEntryUsageContentForm(self.doc, f"{self.path}/content")
 
 class ThrowawayPrototype(SomNode):
-    """10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+    """10.13.3.3. Throwaway Prototype.
     
     Prototype evaluated and then discarded.
     """
@@ -45988,7 +46619,7 @@ class ToolDocumentation(SomNode):
         return ToolDocumentationContentForm(self.doc, f"{self.path}/content")
 
 class ToolEntry(SomNode):
-    """A tool entry (form) [PD00-POP-TOO-TOO-nn].
+    """A tool entry (form).
     
     Comprehensive specification of a single tool covering identity,
     licensing, versioning, access, integration, support, security,
@@ -46160,7 +46791,7 @@ class ToolVersioning(SomNode):
         return ToolVersioningContentForm(self.doc, f"{self.path}/content")
 
 class Tooling(SomNode):
-    """2.4.1. Tooling [PD00-POP-TOO-TOO].
+    """2.4.1. Tooling.
     
     Container for the project's tool inventory and governance policies.
     Covers all tool categories: development, CI/CD, communication,
@@ -46200,7 +46831,7 @@ class Tooling(SomNode):
         return SomList(self.doc, f"{self.path}/TOLEN-ITEM-LST", lambda d, p: ToolEntry(d, p))
 
 class ToolingAndEnvironments(SomNode):
-    """2.4. Tooling and Environments [PD00-POP-TOO]."""
+    """2.4. Tooling and Environments."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -46212,12 +46843,12 @@ class ToolingAndEnvironments(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 2.4.1. Tooling [PD00-POP-TOO-TOO].
+    # 2.4.1. Tooling.
     @property
     def tooling(self):
         return Tooling(self.doc, f"{self.path}/tooling")
 
-    # 2.4.2. Environments [PD00-POP-TOO-ENV].
+    # 2.4.2. Environments.
     @property
     def environments(self):
         return Environments(self.doc, f"{self.path}/environments")
@@ -46259,7 +46890,7 @@ class TourStepEntry(SomNode):
         return TourStepEntryContentForm(self.doc, f"{self.path}/content")
 
 class TradeOffDecisionEntry(SomNode):
-    """A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn]."""
+    """A trade-off decision entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -46343,7 +46974,7 @@ class TradeOffDecisionEntryRationale(SomNode):
         return TradeOffDecisionEntryRationaleContentForm(self.doc, f"{self.path}/content")
 
 class TradeOffDecisions(SomNode):
-    """11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+    """11.6.2. Trade-off Decisions.
     
     Explicit trade-off decisions between quality attributes.
     """
@@ -46416,7 +47047,7 @@ class TrainingAssessmentReporting(SomNode):
         return TrainingAssessmentReportingContentForm(self.doc, f"{self.path}/content")
 
 class TrainingDeliverables(SomNode):
-    """14.1.3. Training Deliverables [PD00-DEL-DEL-TRA]."""
+    """14.1.3. Training Deliverables."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -46432,6 +47063,23 @@ class TrainingDeliverables(SomNode):
     @property
     def items(self):
         return SomList(self.doc, f"{self.path}/DLVEN-ITEM-LST", lambda d, p: DeliverableEntry(d, p))
+
+class TrainingEnablementRequirements(SomNode):
+    """Training & Enablement requirements.
+    
+    Public anchor: ISO 29148 transition requirements; PMBOK transition. The
+    training-materials *delivery* and rollout sequencing re-home to SBP.15; the
+    detailed training-module catalogue currently lives inside
+    [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
+    pending the IP-8 doc/training split.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # Training & enablement requirement form.
+    @property
+    def content(self):
+        return TrainingEnablementRequirementsContentForm(self.doc, f"{self.path}/content")
 
 class TrainingMaterials(SomNode):
     """Training materials and resources."""
@@ -46485,7 +47133,7 @@ class TrainingMaterialsPractice(SomNode):
         return TrainingMaterialsPracticeContentForm(self.doc, f"{self.path}/content")
 
 class TrainingModuleEntry(SomNode):
-    """A training module entry [PD00-USE-MUL-DOC-MOD-nn]."""
+    """A training module entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -46503,7 +47151,7 @@ class TrainingOverview(SomNode):
         return TrainingOverviewContentForm(self.doc, f"{self.path}/content")
 
 class TrainingPrototype(SomNode):
-    """10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+    """10.13.3.2. Training Prototype.
     
     Prototype where concepts are reused but not code.
     """
@@ -46548,7 +47196,7 @@ class TrainingPrototypeOutputs(SomNode):
         return TrainingPrototypeOutputsContentForm(self.doc, f"{self.path}/content")
 
 class TrainingRequirements(SomNode):
-    """5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+    """5.3.2. Training Requirements.
     
     Comprehensive training program requirements following adult learning
     principles (ADDIE, Kirkpatrick evaluation model).
@@ -46648,7 +47296,7 @@ class TransitionEscalationPaths(SomNode):
         return TransitionEscalationPathsContentForm(self.doc, f"{self.path}/content")
 
 class TransitionMetricEntry(SomNode):
-    """Transition metric entry [PD00-ORG-STR-TIM-MET-nn] (form)."""
+    """Transition metric entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -46694,7 +47342,7 @@ class TransitionMetricsOverview(SomNode):
         return TransitionMetricsOverviewContentForm(self.doc, f"{self.path}/content")
 
 class TransitionMilestoneEntry(SomNode):
-    """A transition milestone entry [PD00-ORG-STR-TIM-MIL-nn] (form)."""
+    """A transition milestone entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -46791,7 +47439,7 @@ class TransitionPhaseActivities(SomNode):
         return TransitionPhaseActivitiesContentForm(self.doc, f"{self.path}/content")
 
 class TransitionPhaseEntry(SomNode):
-    """A transition phase entry [PD00-ORG-STR-TIM-PHA-nn] (form).
+    """A transition phase entry (form).
     
     Defines a distinct phase in the organizational transition sequence.
     """
@@ -46874,7 +47522,7 @@ class TransitionPhaseStakeholders(SomNode):
         return TransitionPhaseStakeholdersContentForm(self.doc, f"{self.path}/content")
 
 class TransitionRiskEntry(SomNode):
-    """Transition risk entry [PD00-ORG-STR-TIM-RSK-nn] (form)."""
+    """Transition risk entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -46910,6 +47558,94 @@ class TransitionRiskEntryResponse(SomNode):
     def content(self):
         return TransitionRiskEntryResponseContentForm(self.doc, f"{self.path}/content")
 
+class TransitionRolloutPlan(SomNode):
+    """SR00 System Rollout.
+    
+    End-to-end rollout specification — localization, translation,
+    documentation and training, plus rollout plan, migration plan,
+    user manuals, training materials, pilot, cutover, knowledge
+    transfer, and warranty/support.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "TRP")
+        check_som_model_version(TransitionRolloutPlan.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return TransitionRolloutPlan.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Localization process.
+    @property
+    def localizationProcess(self):
+        return LocalizationProcess(self.doc, f"{self.path}/localizationProcess")
+
+    # Translation process.
+    @property
+    def translationProcess(self):
+        return TranslationProcess(self.doc, f"{self.path}/translationProcess")
+
+    # Documentation and training.
+    @property
+    def documentationAndTraining(self):
+        return DocumentationAndTraining(self.doc, f"{self.path}/documentationAndTraining")
+
+    # Rollout plan.
+    @property
+    def rolloutPlan(self):
+        return RolloutPlan(self.doc, f"{self.path}/rolloutPlan")
+
+    # Migration plan.
+    @property
+    def migrationPlan(self):
+        return MigrationPlan(self.doc, f"{self.path}/migrationPlan")
+
+    # User manuals.
+    @property
+    def userManuals(self):
+        return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManuals(d, p))
+
+    # Training materials.
+    @property
+    def trainingMaterials(self):
+        return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterials(d, p))
+
+    # Pilot plan.
+    @property
+    def pilotPlan(self):
+        return PilotPlan(self.doc, f"{self.path}/pilotPlan")
+
+    # Cutover procedures.
+    @property
+    def cutoverProcedures(self):
+        return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedures(d, p))
+
+    # Knowledge transfer.
+    @property
+    def knowledgeTransfer(self):
+        return KnowledgeTransfer(self.doc, f"{self.path}/knowledgeTransfer")
+
+    # Warranty and support.
+    @property
+    def warrantyAndSupport(self):
+        return WarrantyAndSupport(self.doc, f"{self.path}/warrantyAndSupport")
+
 class TransitionSuccessMetrics(SomNode):
     """Success metrics for the transition."""
     def __init__(self, doc, path):
@@ -46935,7 +47671,7 @@ class TransitionSupportOverview(SomNode):
         return TransitionSupportOverviewContentForm(self.doc, f"{self.path}/content")
 
 class TransitionSupportResourceEntry(SomNode):
-    """Support resource entry [PD00-ORG-STR-TIM-SUP-nn] (form)."""
+    """Support resource entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -46964,7 +47700,7 @@ class TransitionSupportStructure(SomNode):
         return SomList(self.doc, f"{self.path}/TRESPA-ESCA-LST", lambda d, p: TransitionEscalationPaths(d, p))
 
 class TranslationProcess(SomNode):
-    """10.12.2. Translation Process [PD00-USE-MUL-TRA].
+    """10.12.2. Translation Process.
     
     Workflow for translating content.
     """
@@ -47042,7 +47778,7 @@ class TranslationProcessWorkflow(SomNode):
         return TranslationProcessWorkflowContentForm(self.doc, f"{self.path}/content")
 
 class TranslationRequirements(SomNode):
-    """10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+    """10.12.5. Translation Handling Requirements.
     
     Technical requirements for internationalization framework.
     """
@@ -47115,7 +47851,7 @@ class TranslationRequirementsVariants(SomNode):
         return TranslationRequirementsVariantsContentForm(self.doc, f"{self.path}/content")
 
 class TranslationVendorEntry(SomNode):
-    """A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn]."""
+    """A translation vendor entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -47207,7 +47943,7 @@ class TroubleshootingCapabilitiesRunbooks(SomNode):
         return TroubleshootingCapabilitiesRunbooksContentForm(self.doc, f"{self.path}/content")
 
 class TrustBoundaries(SomNode):
-    """4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+    """4.1.2.5. Trust Boundaries.
     
     Security zones and trust boundaries that the system operates within
     or crosses.
@@ -47238,7 +47974,7 @@ class TrustBoundaryEntry(SomNode):
         return TrustBoundaryEntryContentForm(self.doc, f"{self.path}/content")
 
 class TypographyStyleEntry(SomNode):
-    """A typography style entry [PD00-USE-COM-LIB-TYP-nn]."""
+    """A typography style entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -47342,7 +48078,7 @@ class UatSignOff(SomNode):
         return UatSignOffContentForm(self.doc, f"{self.path}/content")
 
 class UatTestCycleEntry(SomNode):
-    """A UAT test cycle entry [PD00-DEL-ACC-UAT-CYC-nn].
+    """A UAT test cycle entry.
     
     Represents a distinct test execution round — e.g. Cycle 1 (initial),
     Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
@@ -47393,7 +48129,7 @@ class UatTestData(SomNode):
         return UatTestDataContentForm(self.doc, f"{self.path}/content")
 
 class UatTestStepEntry(SomNode):
-    """A UAT test step entry [PD00-DEL-ACC-UAT-nn-STP-mm].
+    """A UAT test step entry.
     
     Individual step within a test scenario. Captures the action, input data,
     expected result, and pass criteria at fine-grained level per IEEE 829
@@ -47416,7 +48152,7 @@ class UatTraining(SomNode):
         return UatTrainingContentForm(self.doc, f"{self.path}/content")
 
 class UiComponentEntry(SomNode):
-    """A UI component entry [PD00-USE-COM-SPE-nn].
+    """A UI component entry.
     
     Comprehensive specification for a single UI component covering identity,
     visual design, behavior, states, responsiveness, accessibility,
@@ -47605,7 +48341,7 @@ class UiComponentEntrySurface(SomNode):
         return UiComponentEntrySurfaceContentForm(self.doc, f"{self.path}/content")
 
 class UiComponents(SomNode):
-    """10.11. UI Components [PD00-USE-COM].
+    """10.11. UI Components.
     
     Comprehensive UI component library specification covering design system,
     component catalog, and detailed per-component specifications. Supports
@@ -47633,17 +48369,17 @@ class UiComponents(SomNode):
     def customization(self):
         return UiComponentsCustomization(self.doc, f"{self.path}/customization")
 
-    # 10.11.1. Component Library [PD00-USE-COM-LIB].
+    # 10.11.1. Component Library.
     @property
     def componentLibrary(self):
         return ComponentLibrary(self.doc, f"{self.path}/componentLibrary")
 
-    # 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+    # 10.11.2. Component Specifications — contains 0+×.
     @property
     def componentSpecs(self):
         return SomList(self.doc, f"{self.path}/UICOEN-COMP-LST", lambda d, p: UiComponentEntry(d, p))
 
-    # 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
+    # 10.11.3. Component Families — contains 0+×.
     @property
     def componentFamilies(self):
         return SomList(self.doc, f"{self.path}/CMFA-COMP-LST", lambda d, p: ComponentFamilyEntry(d, p))
@@ -47676,7 +48412,7 @@ class UiComponentsVisualLanguage(SomNode):
         return UiComponentsVisualLanguageContentForm(self.doc, f"{self.path}/content")
 
 class UiDesignPrincipleEntry(SomNode):
-    """A design principle entry (form) [PD00-USE-VIS-PRI-nn].
+    """A design principle entry (form).
     
     Each principle guides UI decisions with rationale and examples.
     """
@@ -47687,101 +48423,8 @@ class UiDesignPrincipleEntry(SomNode):
     def content(self):
         return UiDesignPrincipleEntryContentForm(self.doc, f"{self.path}/content")
 
-class UiPrototype(SomNode):
-    """UP00 UI Prototype.
-    
-    Full UI design and prototype specification — vision, screens,
-    screen flow, print, error handling, help, accessibility, responsive,
-    components, language/country selection, prototype, wireframes and
-    mockups.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "UP")
-        check_som_model_version(UiPrototype.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return UiPrototype.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Design vision — PD00-USE-VIS.
-    @property
-    def designVision(self):
-        return DesignVision(self.doc, f"{self.path}/designVision")
-
-    # Screen descriptions — PD00-USE-SCR.
-    @property
-    def screens(self):
-        return ScreenDescriptions(self.doc, f"{self.path}/screens")
-
-    # Screen flow structure — PD00-USE-SCF.
-    @property
-    def screenFlow(self):
-        return ScreenFlowStructure(self.doc, f"{self.path}/screenFlow")
-
-    # Print layout — PD00-USE-PRI.
-    @property
-    def printLayout(self):
-        return PrintLayout(self.doc, f"{self.path}/printLayout")
-
-    # Error handling concept — PD00-USE-ERR.
-    @property
-    def errorHandling(self):
-        return ErrorHandlingConcept(self.doc, f"{self.path}/errorHandling")
-
-    # Help concept — PD00-USE-HLP.
-    @property
-    def helpConcept(self):
-        return HelpConcept(self.doc, f"{self.path}/helpConcept")
-
-    # Accessibility — PD00-USE-ACC.
-    @property
-    def accessibility(self):
-        return Accessibility(self.doc, f"{self.path}/accessibility")
-
-    # Responsive design — PD00-USE-RES.
-    @property
-    def responsiveDesign(self):
-        return ResponsiveDesign(self.doc, f"{self.path}/responsiveDesign")
-
-    # UI components — PD00-USE-COM.
-    @property
-    def uiComponents(self):
-        return UiComponents(self.doc, f"{self.path}/uiComponents")
-
-    # Language and country selection — PD00-USE-MUL-LCS.
-    @property
-    def languageCountrySelection(self):
-        return LanguageCountrySelection(self.doc, f"{self.path}/languageCountrySelection")
-
-    # Prototype — PD00-USE-PRO.
-    @property
-    def prototype(self):
-        return Prototype(self.doc, f"{self.path}/prototype")
-
-    # Wireframes and mockups — PD00-USE-WIR (new in Phase A, HBSG AS10-WIR).
-    @property
-    def wireframesAndMockups(self):
-        return SomList(self.doc, f"{self.path}/WIANMO-WIRE-LST", lambda d, p: WireframesAndMockups(d, p))
-
 class UpgradeCycleFramework(SomNode):
-    """13.8. Upgrade Cycle Framework [PD00-SSP-UPG].
+    """13.8. Upgrade Cycle Framework.
     
     Post-development upgrade cycle framework. Links the upgrade process
     defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
@@ -47798,7 +48441,7 @@ class UpgradeCycleFramework(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class UsabilityQuality(SomNode):
-    """11.2.1. Usability quality [PD00-SYQ-USE-USA]."""
+    """11.2.1. Usability quality."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -47905,7 +48548,7 @@ class UseCaseScopeContext(SomNode):
         return UseCaseScopeContextContentForm(self.doc, f"{self.path}/content")
 
 class UseCaseTraceability(SomNode):
-    """6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+    """6.2.5. Use Case Traceability.
     
     Use case ↔ requirement ↔ process ↔ test traceability.
     """
@@ -47920,75 +48563,8 @@ class UseCaseTraceability(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-class UseCases(SomNode):
-    """UC00 Use Cases.
-    
-    Detailed use cases derived from the target process steps and actor
-    interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-    and traceability.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "UC")
-        check_som_model_version(UseCases.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return UseCases.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Process steps overview — PD00-TAR-STP-OVE.
-    @property
-    def processStepsOverview(self):
-        return ProcessStepsOverview(self.doc, f"{self.path}/processStepsOverview")
-
-    # Actor overview — PD00-TAR-STP-ACT.
-    @property
-    def actorOverview(self):
-        return ActorOverview(self.doc, f"{self.path}/actorOverview")
-
-    # Interaction catalog — PD00-TAR-STP-INT.
-    @property
-    def interactionCatalog(self):
-        return InteractionCatalog(self.doc, f"{self.path}/interactionCatalog")
-
-    # Key scenarios — PD00-TAR-STP-SCE.
-    @property
-    def keyScenarios(self):
-        return KeyScenarios(self.doc, f"{self.path}/keyScenarios")
-
-    # Actor relationship diagram — PD00-TAR-STP-DIA.
-    @property
-    def actorRelationshipDiagram(self):
-        return ActorRelationshipDiagram(self.doc, f"{self.path}/actorRelationshipDiagram")
-
-    # End-to-end test scenarios — PD00-TAR-STP-E2E (covers HBSG AS24).
-    @property
-    def endToEndTestScenarios(self):
-        return SomList(self.doc, f"{self.path}/ETETS-ENDT-LST", lambda d, p: EndToEndTestScenarios(d, p))
-
-    # Use case traceability — PD00-TAR-STP-TRC.
-    @property
-    def useCaseTraceability(self):
-        return UseCaseTraceability(self.doc, f"{self.path}/useCaseTraceability")
-
 class UserAcceptanceTesting(SomNode):
-    """14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+    """14.2.3. User Acceptance Testing.
     
     Comprehensive UAT planning covering scope, environment, test data,
     governance, scheduling, defect management, reporting, non-functional
@@ -48073,7 +48649,7 @@ class UserAcceptanceTesting(SomNode):
         return SomList(self.doc, f"{self.path}/TSSC-TEST-LST", lambda d, p: TestScenarioEntry(d, p))
 
 class UserAccessPermissions(SomNode):
-    """4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+    """4.1.4.n.4. Access and Permissions.
     
     Security and access control specifications for this user category.
     """
@@ -48127,7 +48703,7 @@ class UserAccessPermissionsRestrictions(SomNode):
         return UserAccessPermissionsRestrictionsContentForm(self.doc, f"{self.path}/content")
 
 class UserAccessibilityNeeds(SomNode):
-    """4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+    """4.1.4.n.6. Accessibility Needs.
     
     Accessibility requirements and accommodations for this user category.
     """
@@ -48170,7 +48746,7 @@ class UserAccountStatesDefinition(SomNode):
         return None  # (skipped: no target type)
 
 class UserAttributeEntry(SomNode):
-    """A user attribute entry (form) [PD00-ACC-USE-ATT-nn]."""
+    """A user attribute entry (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -48179,7 +48755,7 @@ class UserAttributeEntry(SomNode):
         return UserAttributeEntryContentForm(self.doc, f"{self.path}/content")
 
 class UserAttributes(SomNode):
-    """9.1.3. User Attributes [PD00-ACC-USE-ATT]."""
+    """9.1.3. User Attributes."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -48197,7 +48773,7 @@ class UserAttributes(SomNode):
         return SomList(self.doc, f"{self.path}/USATE-ITEM-LST", lambda d, p: UserAttributeEntry(d, p))
 
 class UserAuthorization(SomNode):
-    """9.4. User Authorization [PD00-ACC-USA].
+    """9.4. User Authorization.
     
     Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
     """
@@ -48212,43 +48788,43 @@ class UserAuthorization(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+    # 9.4.1. Authorization Model.
     @property
     def authorizationModel(self):
         return AuthorizationModel(self.doc, f"{self.path}/authorizationModel")
 
-    # 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
+    # 9.4.2. Authorization Groups — contains 0+× Group.
     @property
     def groups(self):
         return SomList(self.doc, f"{self.path}/AZGR-GROU-LST", lambda d, p: AuthorizationGroupEntry(d, p))
 
-    # 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+    # 9.4.3. Role Definitions — contains 1+× Role.
     @property
     def roleDefinitions(self):
         return SomList(self.doc, f"{self.path}/AZRO-ROLE-LST", lambda d, p: AuthorizationRoleEntry(d, p))
 
-    # 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
+    # 9.4.4. Entitlements — contains 1+× Entitlement.
     @property
     def entitlements(self):
         return SomList(self.doc, f"{self.path}/ENT-ENTI-LST", lambda d, p: EntitlementEntry(d, p))
 
-    # 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
+    # 9.4.5. Resource Keys — contains 0+× Resource Key.
     @property
     def resourceKeys(self):
         return SomList(self.doc, f"{self.path}/RESKEY-RESO-LST", lambda d, p: ResourceKeyEntry(d, p))
 
-    # 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+    # 9.4.6. Role Hierarchy.
     @property
     def roleHierarchy(self):
         return RoleHierarchy(self.doc, f"{self.path}/roleHierarchy")
 
-    # 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+    # 9.4.7. Tenant Isolation.
     @property
     def tenantIsolation(self):
         return TenantIsolation(self.doc, f"{self.path}/tenantIsolation")
 
 class UserCategoryDefinition(SomNode):
-    """A user category definition (form) [PD00-ACC-USE-CAT-nn]."""
+    """A user category definition (form)."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -48257,7 +48833,7 @@ class UserCategoryDefinition(SomNode):
         return UserCategoryDefinitionContentForm(self.doc, f"{self.path}/content")
 
 class UserCategoryEntry(SomNode):
-    """A user category entry [PD00-SYO-SYD-USR-nn].
+    """A user category entry.
     
     Comprehensive user persona definition including demographics, goals,
     frustrations, technical proficiency, and system interaction patterns.
@@ -48279,37 +48855,37 @@ class UserCategoryEntry(SomNode):
     def importance(self):
         return UserCategoryEntryImportance(self.doc, f"{self.path}/importance")
 
-    # 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+    # 4.1.4.n.1. User Persona Details.
     @property
     def personaDetails(self):
         return UserPersonaDetails(self.doc, f"{self.path}/personaDetails")
 
-    # 4.1.4.n.2. Role [PD00-SYO-SYD-USR-nn-ROL].
+    # 4.1.4.n.2. Role.
     @property
     def role(self):
         return UserCategoryRoleEntry(self.doc, f"{self.path}/role")
 
-    # 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+    # 4.1.4.n.3. System Tasks — contains 1+× System Task.
     @property
     def systemTasks(self):
         return SomList(self.doc, f"{self.path}/SYTS-SYST-LST", lambda d, p: SystemTaskEntry(d, p))
 
-    # 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+    # 4.1.4.n.4. Access and Permissions.
     @property
     def accessPermissions(self):
         return UserAccessPermissions(self.doc, f"{self.path}/accessPermissions")
 
-    # 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+    # 4.1.4.n.5. Training Requirements.
     @property
     def trainingRequirements(self):
         return UserTrainingRequirements(self.doc, f"{self.path}/trainingRequirements")
 
-    # 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+    # 4.1.4.n.6. Accessibility Needs.
     @property
     def accessibilityNeeds(self):
         return UserAccessibilityNeeds(self.doc, f"{self.path}/accessibilityNeeds")
 
-    # 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+    # 4.1.4.n.7. User Journey.
     @property
     def userJourney(self):
         return UserJourney(self.doc, f"{self.path}/userJourney")
@@ -48333,7 +48909,7 @@ class UserCategoryEntryUsage(SomNode):
         return UserCategoryEntryUsageContentForm(self.doc, f"{self.path}/content")
 
 class UserCategoryRoleEntry(SomNode):
-    """Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
+    """Role within a user category.
     
     Organizational role and responsibilities associated with this user category.
     """
@@ -48345,7 +48921,7 @@ class UserCategoryRoleEntry(SomNode):
         return UserCategoryRoleEntryContentForm(self.doc, f"{self.path}/content")
 
 class UserGroupImpactEntry(SomNode):
-    """User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn]."""
+    """User group impact entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -48405,7 +48981,7 @@ class UserGrowthProjectionsThresholds(SomNode):
         return UserGrowthProjectionsThresholdsContentForm(self.doc, f"{self.path}/content")
 
 class UserInteractionModel(SomNode):
-    """4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+    """4.1.5. User Interaction Model.
     
     Describes how different user categories interact with the system including
     access channels, interaction patterns, access levels, and session management.
@@ -48427,32 +49003,32 @@ class UserInteractionModel(SomNode):
     def summary(self):
         return UserInteractionModelSummary(self.doc, f"{self.path}/summary")
 
-    # 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+    # 4.1.5.1. Access Channels.
     @property
     def accessChannels(self):
         return AccessChannels(self.doc, f"{self.path}/accessChannels")
 
-    # 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+    # 4.1.5.2. Interaction Patterns.
     @property
     def interactionPatterns(self):
         return InteractionPatterns(self.doc, f"{self.path}/interactionPatterns")
 
-    # 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+    # 4.1.5.3. Access Levels.
     @property
     def accessLevels(self):
         return AccessLevels(self.doc, f"{self.path}/accessLevels")
 
-    # 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+    # 4.1.5.4. Session Model.
     @property
     def sessionModel(self):
         return SessionModel(self.doc, f"{self.path}/sessionModel")
 
-    # 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+    # 4.1.5.5. Notification Model.
     @property
     def notificationModel(self):
         return NotificationModel(self.doc, f"{self.path}/notificationModel")
 
-    # 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+    # 4.1.5.6. Multi-Channel Experience.
     @property
     def multiChannelExperience(self):
         return MultiChannelExperience(self.doc, f"{self.path}/multiChannelExperience")
@@ -48471,91 +49047,8 @@ class UserInteractionModelSummary(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-class UserInterfaceDesign(SomNode):
-    """10. User Interface Design and Prototype [PD00-USE]. Seeds → UP."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
-    @property
-    def designVision(self):
-        return DesignVision(self.doc, f"{self.path}/designVision")
-
-    # 10.2. Screen Descriptions [PD00-USE-SCR]. Seeds → UP.
-    @property
-    def screens(self):
-        return ScreenDescriptions(self.doc, f"{self.path}/screens")
-
-    # 10.3. Screen Flow Structure [PD00-USE-SCF]. Seeds → UP.
-    @property
-    def screenFlow(self):
-        return ScreenFlowStructure(self.doc, f"{self.path}/screenFlow")
-
-    # 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
-    @property
-    def printLayout(self):
-        return PrintLayout(self.doc, f"{self.path}/printLayout")
-
-    # Data Structure Alignment.
-    @property
-    def dataStructureAlignment(self):
-        return None  # (skipped: no target type)
-
-    # Authorization Compliance.
-    @property
-    def authorizationCompliance(self):
-        return None  # (skipped: no target type)
-
-    # 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
-    @property
-    def errorHandling(self):
-        return ErrorHandlingConcept(self.doc, f"{self.path}/errorHandling")
-
-    # 10.8. Help Concept [PD00-USE-HLP]. Seeds → UP.
-    @property
-    def helpConcept(self):
-        return HelpConcept(self.doc, f"{self.path}/helpConcept")
-
-    # 10.9. Accessibility [PD00-USE-ACC]. Seeds → UP.
-    @property
-    def accessibility(self):
-        return Accessibility(self.doc, f"{self.path}/accessibility")
-
-    # 10.10. Responsive Design [PD00-USE-RES]. Seeds → UP.
-    @property
-    def responsiveDesign(self):
-        return ResponsiveDesign(self.doc, f"{self.path}/responsiveDesign")
-
-    # 10.11. UI Components [PD00-USE-COM]. Seeds → UP.
-    @property
-    def uiComponents(self):
-        return UiComponents(self.doc, f"{self.path}/uiComponents")
-
-    # 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
-    @property
-    def multiLanguage(self):
-        return MultiLanguageAndRollout(self.doc, f"{self.path}/multiLanguage")
-
-    # 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
-    @property
-    def prototype(self):
-        return Prototype(self.doc, f"{self.path}/prototype")
-
-    # 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
-    @property
-    def wireframesAndMockups(self):
-        return SomList(self.doc, f"{self.path}/WIANMO-WIRE-LST", lambda d, p: WireframesAndMockups(d, p))
-
 class UserJourney(SomNode):
-    """4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+    """4.1.4.n.7. User Journey.
     
     Key touchpoints and journey map for this user category's experience.
     """
@@ -48617,7 +49110,7 @@ class UserJourneyPainPointEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class UserLifecycleSection(SomNode):
-    """9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+    """9.1.2. User Lifecycle.
     
     Defines the complete user account lifecycle: states, transitions between
     states, approval requirements for each transition, and operational policies
@@ -48685,7 +49178,7 @@ class UserLifecycleSection(SomNode):
         return SomList(self.doc, f"{self.path}/SACLC-SERV-LST", lambda d, p: ServiceAccountLifecycle(d, p))
 
 class UserLifecycleTransitionEntry(SomNode):
-    """A lifecycle transition entry (form) [PD00-ACC-USE-LIF-nn].
+    """A lifecycle transition entry (form).
     
     Defines a single permissible transition between two lifecycle states,
     including trigger, approval, and side effects.
@@ -48772,7 +49265,7 @@ class UserLifecycleTransitions(SomNode):
         return SomList(self.doc, f"{self.path}/ULTRE-ITEM-LST", lambda d, p: UserLifecycleTransitionEntry(d, p))
 
 class UserManagement(SomNode):
-    """9.1. User Management [PD00-ACC-USE]."""
+    """9.1. User Management."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -48784,23 +49277,23 @@ class UserManagement(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 9.1.1. User Categories [PD00-ACC-USE-CAT].
+    # 9.1.1. User Categories.
     @property
     def userCategories(self):
         return AccessUserCategories(self.doc, f"{self.path}/userCategories")
 
-    # 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+    # 9.1.2. User Lifecycle.
     @property
     def userLifecycle(self):
         return UserLifecycleSection(self.doc, f"{self.path}/userLifecycle")
 
-    # 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+    # 9.1.3. User Attributes.
     @property
     def userAttributes(self):
         return UserAttributes(self.doc, f"{self.path}/userAttributes")
 
 class UserManuals(SomNode):
-    """15.3. User Manuals [PD00-ROL-DOC].
+    """15.3. User Manuals.
     
     End-user documentation deliverables covering DR15 User Manual content.
     """
@@ -48830,7 +49323,7 @@ class UserNotificationPreferences(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class UserPersonaDetails(SomNode):
-    """4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+    """4.1.4.n.1. User Persona Details.
     
     Detailed persona information including demographics, goals, frustrations,
     and behavioral characteristics for user-centered design.
@@ -48908,7 +49401,7 @@ class UserPersonaDetailsGoals(SomNode):
         return UserPersonaDetailsGoalsContentForm(self.doc, f"{self.path}/content")
 
 class UserPersonas(SomNode):
-    """10.1.3. User Personas [PD00-USE-VIS-PER].
+    """10.1.3. User Personas.
     
     Container for user persona definitions. Each persona represents a distinct
     user archetype with goals, pain points, and context.
@@ -48986,7 +49479,7 @@ class UserProvisioningToolsRoleManagement(SomNode):
         return UserProvisioningToolsRoleManagementContentForm(self.doc, f"{self.path}/content")
 
 class UserQualityCriteria(SomNode):
-    """11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+    """11.2. User-Related Quality Criteria.
     
     Quality criteria that directly affect user experience, including usability,
     functional completeness, and correctness from the end-user perspective.
@@ -49003,17 +49496,17 @@ class UserQualityCriteria(SomNode):
     def overview(self):
         return None  # (skipped: no target type)
 
-    # 11.2.1. Usability [PD00-SYQ-USE-USA].
+    # 11.2.1. Usability.
     @property
     def usability(self):
         return UsabilityQuality(self.doc, f"{self.path}/usability")
 
-    # 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
+    # 11.2.2. Functional Completeness.
     @property
     def functionalCompleteness(self):
         return FunctionalCompletenessQuality(self.doc, f"{self.path}/functionalCompleteness")
 
-    # 11.2.3. Correctness [PD00-SYQ-USE-COR].
+    # 11.2.3. Correctness.
     @property
     def correctness(self):
         return CorrectnessQuality(self.doc, f"{self.path}/correctness")
@@ -49046,7 +49539,7 @@ class UserRegistrationProcess(SomNode):
         return None  # (skipped: no target type)
 
 class UserTrainingRequirements(SomNode):
-    """4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+    """4.1.4.n.5. Training Requirements.
     
     Training and onboarding requirements for this user category.
     """
@@ -49072,7 +49565,7 @@ class UserTrainingRequirements(SomNode):
         return SomList(self.doc, f"{self.path}/TRTP-TRAI-LST", lambda d, p: TrainingTopicEntry(d, p))
 
 class UtilityMenuItemEntry(SomNode):
-    """A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
+    """A utility menu item entry (form).
     
     Entry in a utility popup/dropdown menu (e.g., user menu items).
     """
@@ -49112,7 +49605,7 @@ class UtilityMenuItemEntryBehavior(SomNode):
         return UtilityMenuItemEntryBehaviorContentForm(self.doc, f"{self.path}/content")
 
 class UtilityNavigation(SomNode):
-    """10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+    """10.3.1.5. Utility Navigation.
     
     Always-visible utility items: user menu, notifications, help, settings.
     """
@@ -49133,7 +49626,7 @@ class UtilityNavigation(SomNode):
         return SomList(self.doc, f"{self.path}/UNIE-ITEM-LST", lambda d, p: UtilityNavigationItemEntry(d, p))
 
 class UtilityNavigationItemEntry(SomNode):
-    """A utility navigation item entry (form) [PD00-USE-SCF-NAV-UTL-nn].
+    """A utility navigation item entry (form).
     
     A persistent utility element in the app bar: user avatar, notifications bell,
     help icon, settings.
@@ -49179,7 +49672,7 @@ class UtilityNavigationItemEntryDisplay(SomNode):
         return UtilityNavigationItemEntryDisplayContentForm(self.doc, f"{self.path}/content")
 
 class ValidationConstraints(SomNode):
-    """7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+    """7.1.6. Validation Constraints.
     
     Cross-entity validation policy. Per-field validation lives in entity
     form fields; this section captures rules that span multiple fields or
@@ -49197,7 +49690,7 @@ class ValidationConstraints(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class ValidationFeedback(SomNode):
-    """10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+    """10.7.1. Validation Feedback.
     
     Field validation error display and feedback mechanisms.
     """
@@ -49280,7 +49773,7 @@ class ValidationFeedbackPlacement(SomNode):
         return ValidationFeedbackPlacementContentForm(self.doc, f"{self.path}/content")
 
 class ValidationMessageTemplate(SomNode):
-    """A validation message template [PD00-USE-ERR-VAL-MSG-nn]."""
+    """A validation message template."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -49302,7 +49795,7 @@ class ValidationRuleEntry(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class ValueProposition(SomNode):
-    """4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+    """4.1.1.4. Value Proposition.
     
     Clear articulation of the value this system provides, including
     quantifiable benefits and return on investment analysis.
@@ -49625,7 +50118,7 @@ class VulnerabilityManagementPolicyReporting(SomNode):
         return VulnerabilityManagementPolicyReportingContentForm(self.doc, f"{self.path}/content")
 
 class WarrantyAndSupport(SomNode):
-    """15.8. Warranty and Support [PD00-ROL-WAR].
+    """15.8. Warranty and Support.
     
     Post-acceptance warranty period terms and support arrangements. Covers
     EK10 warranty content and feeds the SR top-level on the same topic.
@@ -49687,7 +50180,7 @@ class WarrantyServiceLevels(SomNode):
         return WarrantyServiceLevelsContentForm(self.doc, f"{self.path}/content")
 
 class WarrantyTerms(SomNode):
-    """14.2.6. Warranty [PD00-DEL-ACC-WAR].
+    """14.2.6. Warranty.
     
     Post-acceptance warranty terms: duration, scope, service levels,
     exclusions, and transition to standard support.
@@ -49744,7 +50237,7 @@ class WarrantyTransition(SomNode):
         return WarrantyTransitionContentForm(self.doc, f"{self.path}/content")
 
 class WcagCompliance(SomNode):
-    """10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA]."""
+    """10.9.1. WCAG Compliance Level."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -49805,7 +50298,7 @@ class WcagComplianceUnderstandable(SomNode):
         return WcagComplianceUnderstandableContentForm(self.doc, f"{self.path}/content")
 
 class WcagSuccessCriterionEntry(SomNode):
-    """A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn]."""
+    """A WCAG success criterion entry."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -49814,7 +50307,7 @@ class WcagSuccessCriterionEntry(SomNode):
         return WcagSuccessCriterionEntryContentForm(self.doc, f"{self.path}/content")
 
 class WeightedQualityMatrix(SomNode):
-    """11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI]."""
+    """11.6.1. Weighted Quality Matrix."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -49838,10 +50331,10 @@ class WeightedQualityMatrix(SomNode):
         return None  # (skipped: no target type)
 
 class WireframesAndMockups(SomNode):
-    """10.14. Wireframes and Mockups [PD00-USE-WIR].
+    """10.14. Wireframes and Mockups.
     
     Wireframe and mockup inventory beyond individual screen descriptions.
-    Covers HBSG AS10-WIR.
+    .
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -49855,7 +50348,7 @@ class WireframesAndMockups(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class WorkflowActorEntry(SomNode):
-    """A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
+    """A workflow actor entry (form).
     
     Documentation of a participant in the workflow.
     """
@@ -49890,10 +50383,10 @@ class WorkflowDecisionPoint(SomNode):
         return WorkflowDecisionPointContentForm(self.doc, f"{self.path}/content")
 
 class WorkflowDescriptions(SomNode):
-    """1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+    """1.2.nn.1. Workflow Descriptions.
     
     Container for workflow entries within a business process.
-    1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+    1.2.nn.1. Workflow Descriptions.
     
     Container for workflow entries within a business process. Add one
     subsection per current workflow relevant to the project.
@@ -49909,7 +50402,7 @@ class WorkflowDescriptions(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
+    # Workflow overview diagram.
     @property
     def workflowOverviewDiagram(self):
         return self.doc.content(f"{self.path}/workflowOverviewDiagram") or ""
@@ -49918,7 +50411,7 @@ class WorkflowDescriptions(SomNode):
     def workflowOverviewDiagram(self, value):
         self.doc.set_content(f"{self.path}/workflowOverviewDiagram", value)
 
-    # Workflow summary table [PD00-CUR-PRO-xx-WOR-SUM].
+    # Workflow summary table.
     @property
     def summaryTable(self):
         return WorkflowSummaryTable(self.doc, f"{self.path}/summaryTable")
@@ -49974,7 +50467,7 @@ class WorkflowOutputEntry(SomNode):
         return WorkflowOutputEntryContentForm(self.doc, f"{self.path}/content")
 
 class WorkflowStepEntry(SomNode):
-    """A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
+    """A workflow step entry (form).
     
     Detailed documentation of a single step within a workflow.
     """
@@ -50092,7 +50585,7 @@ class WorkflowTriggers(SomNode):
         return SomList(self.doc, f"{self.path}/WOTREN-TRIG-LST", lambda d, p: WorkflowTriggerEntry(d, p))
 
 class WorkplaceDescriptionEntry(SomNode):
-    """A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+    """A workplace description entry (form, per user category).
     
     Comprehensive workplace requirements following workplace design best
     practices (OSHA, ISO 9001, ergonomic standards). Covers physical,
@@ -50111,7 +50604,7 @@ class WorkplaceDescriptionEntry(SomNode):
     def physicalRequirements(self):
         return PhysicalWorkplaceRequirements(self.doc, f"{self.path}/physicalRequirements")
 
-    # 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+    # 5.3.1. Equipment Requirements.
     @property
     def equipmentRequirements(self):
         return EquipmentRequirements(self.doc, f"{self.path}/equipmentRequirements")
@@ -50121,7 +50614,7 @@ class WorkplaceDescriptionEntry(SomNode):
     def technicalInfrastructure(self):
         return TechnicalInfrastructure(self.doc, f"{self.path}/technicalInfrastructure")
 
-    # 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+    # 5.3.2. Training Requirements.
     @property
     def trainingRequirements(self):
         return TrainingRequirements(self.doc, f"{self.path}/trainingRequirements")
@@ -54664,6 +55157,44 @@ class ApplicationSecurityRequirementsValidationContentForm(SomNode):
     def fileUploadSecurity(self, value):
         self.doc.set_form_field(self.path, "fileUploadSecurity", value)
 
+class ApprovalRecordContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def role(self):
+        return self.doc.form_field(self.path, "role") or ""
+
+    @role.setter
+    def role(self, value):
+        self.doc.set_form_field(self.path, "role", value)
+
+    @property
+    def name(self):
+        return self.doc.form_field(self.path, "name") or ""
+
+    @name.setter
+    def name(self, value):
+        self.doc.set_form_field(self.path, "name", value)
+
+    @property
+    def date(self):
+        return self.doc.form_field(self.path, "date") or ""
+
+    @date.setter
+    def date(self, value):
+        self.doc.set_form_field(self.path, "date", value)
+
+    @property
+    def status(self):
+        return self.doc.form_field(self.path, "status") or ""
+
+    @status.setter
+    def status(self, value):
+        self.doc.set_form_field(self.path, "status", value)
+
 class ArchitectureComponentEntryBoundariesContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -55445,6 +55976,52 @@ class AssumptionImpactContentForm(SomNode):
     @relatedRisks.setter
     def relatedRisks(self, value):
         self.doc.set_form_field(self.path, "relatedRisks", value)
+
+class AssumptionRegisterEntryContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def assumptionId(self):
+        return self.doc.form_field(self.path, "assumptionId") or ""
+
+    @assumptionId.setter
+    def assumptionId(self, value):
+        self.doc.set_form_field(self.path, "assumptionId", value)
+
+    @property
+    def description(self):
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
+
+    @property
+    def impact(self):
+        return self.doc.form_field(self.path, "impact") or ""
+
+    @impact.setter
+    def impact(self, value):
+        self.doc.set_form_field(self.path, "impact", value)
+
+    @property
+    def validation(self):
+        return self.doc.form_field(self.path, "validation") or ""
+
+    @validation.setter
+    def validation(self, value):
+        self.doc.set_form_field(self.path, "validation", value)
+
+    @property
+    def status(self):
+        return self.doc.form_field(self.path, "status") or ""
+
+    @status.setter
+    def status(self, value):
+        self.doc.set_form_field(self.path, "status", value)
 
 class AssumptionRelationshipsContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -69217,6 +69794,52 @@ class ConstraintMitigationContentForm(SomNode):
     @violationConsequences.setter
     def violationConsequences(self, value):
         self.doc.set_form_field(self.path, "violationConsequences", value)
+
+class ConstraintRegisterEntryContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def constraintId(self):
+        return self.doc.form_field(self.path, "constraintId") or ""
+
+    @constraintId.setter
+    def constraintId(self, value):
+        self.doc.set_form_field(self.path, "constraintId", value)
+
+    @property
+    def description(self):
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
+
+    @property
+    def type(self):
+        return self.doc.form_field(self.path, "type") or ""
+
+    @type.setter
+    def type(self, value):
+        self.doc.set_form_field(self.path, "type", value)
+
+    @property
+    def source(self):
+        return self.doc.form_field(self.path, "source") or ""
+
+    @source.setter
+    def source(self, value):
+        self.doc.set_form_field(self.path, "source", value)
+
+    @property
+    def impact(self):
+        return self.doc.form_field(self.path, "impact") or ""
+
+    @impact.setter
+    def impact(self, value):
+        self.doc.set_form_field(self.path, "impact", value)
 
 class ConstraintTrackingContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -90672,6 +91295,44 @@ class GlobalRoleExclusionEntryContentForm(SomNode):
     def complianceReference(self, value):
         self.doc.set_form_field(self.path, "complianceReference", value)
 
+class GlossaryEntryContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def term(self):
+        return self.doc.form_field(self.path, "term") or ""
+
+    @term.setter
+    def term(self, value):
+        self.doc.set_form_field(self.path, "term", value)
+
+    @property
+    def definition(self):
+        return self.doc.form_field(self.path, "definition") or ""
+
+    @definition.setter
+    def definition(self, value):
+        self.doc.set_form_field(self.path, "definition", value)
+
+    @property
+    def acronym(self):
+        return self.doc.form_field(self.path, "acronym") or ""
+
+    @acronym.setter
+    def acronym(self, value):
+        self.doc.set_form_field(self.path, "acronym", value)
+
+    @property
+    def seeAlso(self):
+        return self.doc.form_field(self.path, "seeAlso") or ""
+
+    @seeAlso.setter
+    def seeAlso(self, value):
+        self.doc.set_form_field(self.path, "seeAlso", value)
+
 class GoalDependencyEntryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -97327,6 +97988,36 @@ class IpOwnershipEntryContentForm(SomNode):
     @restrictions.setter
     def restrictions(self, value):
         self.doc.set_form_field(self.path, "restrictions", value)
+
+class Iso25010CoverageEntryContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def characteristic(self):
+        return self.doc.form_field(self.path, "characteristic") or ""
+
+    @characteristic.setter
+    def characteristic(self, value):
+        self.doc.set_form_field(self.path, "characteristic", value)
+
+    @property
+    def addressedBy(self):
+        return self.doc.form_field(self.path, "addressedBy") or ""
+
+    @addressedBy.setter
+    def addressedBy(self, value):
+        self.doc.set_form_field(self.path, "addressedBy", value)
+
+    @property
+    def targetMetric(self):
+        return self.doc.form_field(self.path, "targetMetric") or ""
+
+    @targetMetric.setter
+    def targetMetric(self, value):
+        self.doc.set_form_field(self.path, "targetMetric", value)
 
 class ItLandscapePositionPositionDetailsForm(SomNode):
     """Generated form facade for the `positionDetails` @Form section."""
@@ -126078,6 +126769,44 @@ class ReviewCriterionEntryResultContentForm(SomNode):
     def remediationRequired(self, value):
         self.doc.set_form_field(self.path, "remediationRequired", value)
 
+class RevisionEntryContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def version(self):
+        return self.doc.form_field(self.path, "version") or ""
+
+    @version.setter
+    def version(self, value):
+        self.doc.set_form_field(self.path, "version", value)
+
+    @property
+    def date(self):
+        return self.doc.form_field(self.path, "date") or ""
+
+    @date.setter
+    def date(self, value):
+        self.doc.set_form_field(self.path, "date", value)
+
+    @property
+    def author(self):
+        return self.doc.form_field(self.path, "author") or ""
+
+    @author.setter
+    def author(self, value):
+        self.doc.set_form_field(self.path, "author", value)
+
+    @property
+    def summary(self):
+        return self.doc.form_field(self.path, "summary") or ""
+
+    @summary.setter
+    def summary(self, value):
+        self.doc.set_form_field(self.path, "summary", value)
+
 class RiskAnalysisContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -139036,6 +139765,68 @@ class StakeholderEntryImpactContentForm(SomNode):
     def potentialConcerns(self, value):
         self.doc.set_form_field(self.path, "potentialConcerns", value)
 
+class StakeholderRegisterEntryContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def stakeholderId(self):
+        return self.doc.form_field(self.path, "stakeholderId") or ""
+
+    @stakeholderId.setter
+    def stakeholderId(self, value):
+        self.doc.set_form_field(self.path, "stakeholderId", value)
+
+    @property
+    def name(self):
+        return self.doc.form_field(self.path, "name") or ""
+
+    @name.setter
+    def name(self, value):
+        self.doc.set_form_field(self.path, "name", value)
+
+    @property
+    def role(self):
+        return self.doc.form_field(self.path, "role") or ""
+
+    @role.setter
+    def role(self, value):
+        self.doc.set_form_field(self.path, "role", value)
+
+    @property
+    def interest(self):
+        return self.doc.form_field(self.path, "interest") or ""
+
+    @interest.setter
+    def interest(self, value):
+        self.doc.set_form_field(self.path, "interest", value)
+
+    @property
+    def influence(self):
+        return self.doc.form_field(self.path, "influence") or ""
+
+    @influence.setter
+    def influence(self, value):
+        self.doc.set_form_field(self.path, "influence", value)
+
+    @property
+    def concerns(self):
+        return self.doc.form_field(self.path, "concerns") or ""
+
+    @concerns.setter
+    def concerns(self, value):
+        self.doc.set_form_field(self.path, "concerns", value)
+
+    @property
+    def engagementStrategy(self):
+        return self.doc.form_field(self.path, "engagementStrategy") or ""
+
+    @engagementStrategy.setter
+    def engagementStrategy(self, value):
+        self.doc.set_form_field(self.path, "engagementStrategy", value)
+
 class StakeholdersAndInterestsContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -148083,6 +148874,44 @@ class TrainingAssessmentReportingContentForm(SomNode):
     @managementVisibility.setter
     def managementVisibility(self, value):
         self.doc.set_form_field(self.path, "managementVisibility", value)
+
+class TrainingEnablementRequirementsContentForm(SomNode):
+    """Generated form facade for the `content` @Form section."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def targetAudiences(self):
+        return self.doc.form_field(self.path, "targetAudiences") or ""
+
+    @targetAudiences.setter
+    def targetAudiences(self, value):
+        self.doc.set_form_field(self.path, "targetAudiences", value)
+
+    @property
+    def competencyOutcomes(self):
+        return self.doc.form_field(self.path, "competencyOutcomes") or ""
+
+    @competencyOutcomes.setter
+    def competencyOutcomes(self, value):
+        self.doc.set_form_field(self.path, "competencyOutcomes", value)
+
+    @property
+    def certificationRequired(self):
+        return self.doc.form_field(self.path, "certificationRequired") or ""
+
+    @certificationRequired.setter
+    def certificationRequired(self, value):
+        self.doc.set_form_field(self.path, "certificationRequired", value)
+
+    @property
+    def ongoingEnablement(self):
+        return self.doc.form_field(self.path, "ongoingEnablement") or ""
+
+    @ongoingEnablement.setter
+    def ongoingEnablement(self, value):
+        self.doc.set_form_field(self.path, "ongoingEnablement", value)
 
 class TrainingMaterialsContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""

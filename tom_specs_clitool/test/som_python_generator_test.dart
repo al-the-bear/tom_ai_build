@@ -69,7 +69,7 @@ void main() {
 
     // Typed facade module exists and declares the global root class.
     final module = File(result.modulePath).readAsStringSync();
-    expect(module, contains('class ProjectDefinition'));
+    expect(module, contains('class SolutionBlueprint'));
     expect(result.modulePath, endsWith('tom_som_python_v0.py'));
 
     // One DocSpecs schema per @Document root (13).

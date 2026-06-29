@@ -23,14 +23,14 @@ pub fn parse_probability(token: &str) -> String {
     }
 }
 
-pub struct CurrentSituation {
+pub struct CurrentLandscapeAssessment {
     pub node: som::SomNode,
 }
 
-impl CurrentSituation {
-    /// Binds a CurrentSituation facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CurrentSituation {
-        CurrentSituation { node: som::SomNode::new(doc, path) }
+impl CurrentLandscapeAssessment {
+    /// Binds a CurrentLandscapeAssessment facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CurrentLandscapeAssessment {
+        CurrentLandscapeAssessment { node: som::SomNode::new(doc, path) }
     }
 
     pub fn summary(&self) -> String {
@@ -40,63 +40,6 @@ impl CurrentSituation {
     pub fn set_summary(&self, value: &str) {
         let path = format!("{}/{}", self.node.path(), "summary");
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
-/// Root of a project definition document.
-pub struct ProjectDefinition {
-    pub node: som::SomNode,
-}
-
-/// PROJECT_DEFINITION_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const PROJECT_DEFINITION_MODEL_VERSION: &str = "0.0";
-
-impl ProjectDefinition {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<ProjectDefinition, som::SomVersionError> {
-        som::check_som_model_version(PROJECT_DEFINITION_MODEL_VERSION, document_version)?;
-        Ok(ProjectDefinition { node: som::SomNode::new(doc, "PD00".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        PROJECT_DEFINITION_MODEL_VERSION
-    }
-
-    /// Why the system exists.
-    pub fn vision(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "vision"))
-    }
-
-    pub fn set_vision(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "vision");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn owner(&self) -> ProjectDefinitionOwnerForm {
-        ProjectDefinitionOwnerForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "owner"))
-    }
-
-    pub fn risks(&self) -> som::SomList<Risk> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "risks"),
-            Box::new(|d, p| Risk::new(d, p)),
-        )
-    }
-
-    pub fn tags(&self) -> som::SomList<som::SomScalar> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "tags"),
-            Box::new(|d, p| som::SomScalar::new(d, p)),
-        )
-    }
-
-    pub fn situation(&self) -> CurrentSituation {
-        CurrentSituation::new(self.node.doc(), format!("{}/{}", self.node.path(), "situation"))
     }
 }
 
@@ -129,15 +72,72 @@ impl Risk {
     }
 }
 
-/// ProjectDefinitionOwnerForm is the generated form facade for the `owner` @Form section.
-pub struct ProjectDefinitionOwnerForm {
+/// Root of a project definition document.
+pub struct SolutionBlueprint {
     pub node: som::SomNode,
 }
 
-impl ProjectDefinitionOwnerForm {
-    /// Binds a ProjectDefinitionOwnerForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ProjectDefinitionOwnerForm {
-        ProjectDefinitionOwnerForm { node: som::SomNode::new(doc, path) }
+/// SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "0.0";
+
+impl SolutionBlueprint {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<SolutionBlueprint, som::SomVersionError> {
+        som::check_som_model_version(SOLUTION_BLUEPRINT_MODEL_VERSION, document_version)?;
+        Ok(SolutionBlueprint { node: som::SomNode::new(doc, "PD00".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        SOLUTION_BLUEPRINT_MODEL_VERSION
+    }
+
+    /// Why the system exists.
+    pub fn vision(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "vision"))
+    }
+
+    pub fn set_vision(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "vision");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn owner(&self) -> SolutionBlueprintOwnerForm {
+        SolutionBlueprintOwnerForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "owner"))
+    }
+
+    pub fn risks(&self) -> som::SomList<Risk> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "risks"),
+            Box::new(|d, p| Risk::new(d, p)),
+        )
+    }
+
+    pub fn tags(&self) -> som::SomList<som::SomScalar> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "tags"),
+            Box::new(|d, p| som::SomScalar::new(d, p)),
+        )
+    }
+
+    pub fn situation(&self) -> CurrentLandscapeAssessment {
+        CurrentLandscapeAssessment::new(self.node.doc(), format!("{}/{}", self.node.path(), "situation"))
+    }
+}
+
+/// SolutionBlueprintOwnerForm is the generated form facade for the `owner` @Form section.
+pub struct SolutionBlueprintOwnerForm {
+    pub node: som::SomNode,
+}
+
+impl SolutionBlueprintOwnerForm {
+    /// Binds a SolutionBlueprintOwnerForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SolutionBlueprintOwnerForm {
+        SolutionBlueprintOwnerForm { node: som::SomNode::new(doc, path) }
     }
 
     pub fn name(&self) -> String {

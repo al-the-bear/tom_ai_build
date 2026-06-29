@@ -6,32 +6,32 @@
 
 #include "tom_som_c_runtime.h"
 
-// AUTHORIZATION_CONCEPT_MODEL_VERSION is the model version the AuthorizationConcept object model was generated against (§2.1).
-#define AUTHORIZATION_CONCEPT_MODEL_VERSION "0.0"
-// BUSINESS_DATA_MODEL_MODEL_VERSION is the model version the BusinessDataModel object model was generated against (§2.1).
-#define BUSINESS_DATA_MODEL_MODEL_VERSION "0.0"
-// BUSINESS_PROCESSES_MODEL_VERSION is the model version the BusinessProcesses object model was generated against (§2.1).
-#define BUSINESS_PROCESSES_MODEL_VERSION "0.0"
-// BUSINESS_QUALITY_PLAN_MODEL_VERSION is the model version the BusinessQualityPlan object model was generated against (§2.1).
-#define BUSINESS_QUALITY_PLAN_MODEL_VERSION "0.0"
-// BUSINESS_SYSTEM_INTERACTIONS_MODEL_VERSION is the model version the BusinessSystemInteractions object model was generated against (§2.1).
-#define BUSINESS_SYSTEM_INTERACTIONS_MODEL_VERSION "0.0"
-// CURRENT_SITUATION_MODEL_VERSION is the model version the CurrentSituation object model was generated against (§2.1).
-#define CURRENT_SITUATION_MODEL_VERSION "0.0"
-// PROJECT_DEFINITION_MODEL_VERSION is the model version the ProjectDefinition object model was generated against (§2.1).
-#define PROJECT_DEFINITION_MODEL_VERSION "0.0"
-// PROJECT_PHASE_PLAN_MODEL_VERSION is the model version the ProjectPhasePlan object model was generated against (§2.1).
-#define PROJECT_PHASE_PLAN_MODEL_VERSION "0.0"
-// REQUIREMENTS_CATALOG_MODEL_VERSION is the model version the RequirementsCatalog object model was generated against (§2.1).
-#define REQUIREMENTS_CATALOG_MODEL_VERSION "0.0"
-// SYSTEM_ROLLOUT_MODEL_VERSION is the model version the SystemRollout object model was generated against (§2.1).
-#define SYSTEM_ROLLOUT_MODEL_VERSION "0.0"
-// TECHNICAL_REQUIREMENTS_SPEC_MODEL_VERSION is the model version the TechnicalRequirementsSpec object model was generated against (§2.1).
-#define TECHNICAL_REQUIREMENTS_SPEC_MODEL_VERSION "0.0"
-// UI_PROTOTYPE_MODEL_VERSION is the model version the UiPrototype object model was generated against (§2.1).
-#define UI_PROTOTYPE_MODEL_VERSION "0.0"
-// USE_CASES_MODEL_VERSION is the model version the UseCases object model was generated against (§2.1).
-#define USE_CASES_MODEL_VERSION "0.0"
+// ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the ArchitectureTechnologySpecification object model was generated against (§2.1).
+#define ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "0.0"
+// CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the CurrentLandscapeAssessment object model was generated against (§2.1).
+#define CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "0.0"
+// DELIVERY_ROADMAP_MODEL_VERSION is the model version the DeliveryRoadmap object model was generated against (§2.1).
+#define DELIVERY_ROADMAP_MODEL_VERSION "0.0"
+// EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the ExperienceDesignSpecification object model was generated against (§2.1).
+#define EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "0.0"
+// INFORMATION_MODEL_MODEL_VERSION is the model version the InformationModel object model was generated against (§2.1).
+#define INFORMATION_MODEL_MODEL_VERSION "0.0"
+// INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the IntegrationInterfaceSpecification object model was generated against (§2.1).
+#define INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "0.0"
+// INTERACTION_SCENARIOS_MODEL_VERSION is the model version the InteractionScenarios object model was generated against (§2.1).
+#define INTERACTION_SCENARIOS_MODEL_VERSION "0.0"
+// QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the QualityAcceptancePlan object model was generated against (§2.1).
+#define QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "0.0"
+// REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the RequirementsSpecification object model was generated against (§2.1).
+#define REQUIREMENTS_SPECIFICATION_MODEL_VERSION "0.0"
+// SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the SecurityAccessSpecification object model was generated against (§2.1).
+#define SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "0.0"
+// SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the SolutionBlueprint object model was generated against (§2.1).
+#define SOLUTION_BLUEPRINT_MODEL_VERSION "0.0"
+// TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the TargetOperatingModel object model was generated against (§2.1).
+#define TARGET_OPERATING_MODEL_MODEL_VERSION "0.0"
+// TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the TransitionRolloutPlan object model was generated against (§2.1).
+#define TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "0.0"
 
 // Typed facade structs — each binds a node (document + path).
 typedef struct { SomNode node; } AcceptanceCriteriaList;
@@ -48,7 +48,6 @@ typedef struct { SomNode node; } AcceptanceProcessTimeline;
 typedef struct { SomNode node; } AcceptanceStepEntry;
 typedef struct { SomNode node; } AcceptanceStepEntryFlow;
 typedef struct { SomNode node; } AcceptanceStepEntryOutcome;
-typedef struct { SomNode node; } AccessAndAuthorizationConcept;
 typedef struct { SomNode node; } AccessChannels;
 typedef struct { SomNode node; } AccessConstraintPolicies;
 typedef struct { SomNode node; } AccessControlModelSelection;
@@ -166,6 +165,7 @@ typedef struct { SomNode node; } ApplicationSecurityRequirements;
 typedef struct { SomNode node; } ApplicationSecurityRequirementsApi;
 typedef struct { SomNode node; } ApplicationSecurityRequirementsControls;
 typedef struct { SomNode node; } ApplicationSecurityRequirementsValidation;
+typedef struct { SomNode node; } ApprovalRecord;
 typedef struct { SomNode node; } ArchitectureComponentEntry;
 typedef struct { SomNode node; } ArchitectureComponentEntryBoundaries;
 typedef struct { SomNode node; } ArchitectureComponentEntryDependencies;
@@ -186,11 +186,15 @@ typedef struct { SomNode node; } ArchitecturePrincipleEntry;
 typedef struct { SomNode node; } ArchitecturePrincipleEntryGovernance;
 typedef struct { SomNode node; } ArchitecturePrincipleEntryGuidance;
 typedef struct { SomNode node; } ArchitectureStyle;
+typedef struct { SomNode node; } ArchitectureTechnologySpecification;
+typedef struct { SomNode node; } AssumptionConstraintRegister;
 typedef struct { SomNode node; } AssumptionEntry;
 typedef struct { SomNode node; } AssumptionIdentification;
 typedef struct { SomNode node; } AssumptionImpact;
+typedef struct { SomNode node; } AssumptionRegisterEntry;
 typedef struct { SomNode node; } AssumptionRelationships;
 typedef struct { SomNode node; } AssumptionValidation;
+typedef struct { SomNode node; } AssumptionsConstraintsDependencies;
 typedef struct { SomNode node; } AssumptionsOverview;
 typedef struct { SomNode node; } AttributeInterdependencyEntry;
 typedef struct { SomNode node; } AuditAndLogging;
@@ -209,7 +213,6 @@ typedef struct { SomNode node; } AuthenticationMethodEntryEnrollment;
 typedef struct { SomNode node; } AuthenticationMethodEntryOperations;
 typedef struct { SomNode node; } AuthenticationMethodEntrySecurity;
 typedef struct { SomNode node; } AuthenticationMethods;
-typedef struct { SomNode node; } AuthorizationConcept;
 typedef struct { SomNode node; } AuthorizationEventPolicy;
 typedef struct { SomNode node; } AuthorizationGroupEntry;
 typedef struct { SomNode node; } AuthorizationModel;
@@ -306,7 +309,6 @@ typedef struct { SomNode node; } BusinessComponentEntryDescription;
 typedef struct { SomNode node; } BusinessComponentEntryInterface;
 typedef struct { SomNode node; } BusinessComponentEntryReuse;
 typedef struct { SomNode node; } BusinessComponentEntryTesting;
-typedef struct { SomNode node; } BusinessDataModel;
 typedef struct { SomNode node; } BusinessGoalEntry;
 typedef struct { SomNode node; } BusinessGoalEntryDefinition;
 typedef struct { SomNode node; } BusinessGoalEntryGovernance;
@@ -318,7 +320,6 @@ typedef struct { SomNode node; } BusinessMetricsSpecFeatureUsage;
 typedef struct { SomNode node; } BusinessMetricsSpecKpis;
 typedef struct { SomNode node; } BusinessMetricsSpecOperations;
 typedef struct { SomNode node; } BusinessMetricsSpecTransactions;
-typedef struct { SomNode node; } BusinessObjectAndDataModel;
 typedef struct { SomNode node; } BusinessObjectAttributeEntry;
 typedef struct { SomNode node; } BusinessObjectAttributeEntryDefinition;
 typedef struct { SomNode node; } BusinessObjectAttributeEntryGovernance;
@@ -329,11 +330,8 @@ typedef struct { SomNode node; } BusinessPainPoints;
 typedef struct { SomNode node; } BusinessPainPointsSummary;
 typedef struct { SomNode node; } BusinessProcessDescriptions;
 typedef struct { SomNode node; } BusinessProcessEntry;
-typedef struct { SomNode node; } BusinessProcesses;
-typedef struct { SomNode node; } BusinessQualityPlan;
 typedef struct { SomNode node; } BusinessRuleEntry;
 typedef struct { SomNode node; } BusinessRuleReferenceEntry;
-typedef struct { SomNode node; } BusinessSystemInteractions;
 typedef struct { SomNode node; } CapacityPlanningSection;
 typedef struct { SomNode node; } CapacityReviewProcess;
 typedef struct { SomNode node; } CapacityReviewProcessEscalation;
@@ -607,6 +605,7 @@ typedef struct { SomNode node; } ConstraintEntry;
 typedef struct { SomNode node; } ConstraintImpact;
 typedef struct { SomNode node; } ConstraintLinkages;
 typedef struct { SomNode node; } ConstraintMitigation;
+typedef struct { SomNode node; } ConstraintRegisterEntry;
 typedef struct { SomNode node; } ConstraintTracking;
 typedef struct { SomNode node; } Constraints;
 typedef struct { SomNode node; } ConstraintsAndDependencies;
@@ -648,10 +647,10 @@ typedef struct { SomNode node; } CurrentBusinessProcess;
 typedef struct { SomNode node; } CurrentBusinessProcesses;
 typedef struct { SomNode node; } CurrentDataClassification;
 typedef struct { SomNode node; } CurrentDataLandscape;
+typedef struct { SomNode node; } CurrentLandscape;
+typedef struct { SomNode node; } CurrentLandscapeAssessment;
 typedef struct { SomNode node; } CurrentOperationalMetrics;
 typedef struct { SomNode node; } CurrentProcessImprovementEntry;
-typedef struct { SomNode node; } CurrentSituation;
-typedef struct { SomNode node; } CurrentStateAnalysis;
 typedef struct { SomNode node; } CurrentStateRiskAssessment;
 typedef struct { SomNode node; } CurrentWorkflowEntry;
 typedef struct { SomNode node; } CustomDistributionGroup;
@@ -821,8 +820,10 @@ typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryOwnership;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryStatus;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryTraceability;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryVerification;
+typedef struct { SomNode node; } DeliveryRoadmap;
 typedef struct { SomNode node; } DeliveryScope;
 typedef struct { SomNode node; } DeliveryScopeAndAcceptance;
+typedef struct { SomNode node; } DeliveryTransitionAndRollout;
 typedef struct { SomNode node; } DependenciesAndIntegrations;
 typedef struct { SomNode node; } DependencyClassification;
 typedef struct { SomNode node; } DependencyDeliverable;
@@ -961,6 +962,7 @@ typedef struct { SomNode node; } DocCompletenessQuality;
 typedef struct { SomNode node; } DocCorrectnessQuality;
 typedef struct { SomNode node; } DocCorrectnessQualityAlignment;
 typedef struct { SomNode node; } DocCorrectnessQualityVerification;
+typedef struct { SomNode node; } DocumentControl;
 typedef struct { SomNode node; } DocumentHeader;
 typedef struct { SomNode node; } DocumentRelationships;
 typedef struct { SomNode node; } DocumentRelevantSections;
@@ -1087,6 +1089,8 @@ typedef struct { SomNode node; } ExistingSystemTechnology;
 typedef struct { SomNode node; } ExistingSystemUsage;
 typedef struct { SomNode node; } ExistingSystemsLandscape;
 typedef struct { SomNode node; } ExpectedImprovements;
+typedef struct { SomNode node; } ExperienceAndInterfaceDesign;
+typedef struct { SomNode node; } ExperienceDesignSpecification;
 typedef struct { SomNode node; } ExportAccess;
 typedef struct { SomNode node; } ExportDataFormat;
 typedef struct { SomNode node; } ExportDelimiter;
@@ -1231,6 +1235,9 @@ typedef struct { SomNode node; } GeographicDistributionRequirementsPerformance;
 typedef struct { SomNode node; } GeographicDistributionRequirementsRouting;
 typedef struct { SomNode node; } GlobalEntryPointEntry;
 typedef struct { SomNode node; } GlobalRoleExclusionEntry;
+typedef struct { SomNode node; } Glossary;
+typedef struct { SomNode node; } GlossaryAndAbbreviations;
+typedef struct { SomNode node; } GlossaryEntry;
 typedef struct { SomNode node; } GoalDependencies;
 typedef struct { SomNode node; } GoalDependencyEntry;
 typedef struct { SomNode node; } GoalKeyResults;
@@ -1308,7 +1315,10 @@ typedef struct { SomNode node; } IndustryStandardEntryCompliance;
 typedef struct { SomNode node; } IndustryStandardEntryReference;
 typedef struct { SomNode node; } IndustryStandardEntryScope;
 typedef struct { SomNode node; } IndustryStandardEntryVerification;
+typedef struct { SomNode node; } InformationAndDataModel;
 typedef struct { SomNode node; } InformationArchitecture;
+typedef struct { SomNode node; } InformationForUseRequirements;
+typedef struct { SomNode node; } InformationModel;
 typedef struct { SomNode node; } InfrastructureAsCode;
 typedef struct { SomNode node; } InfrastructureAsCodeDrift;
 typedef struct { SomNode node; } InfrastructureAsCodeExecution;
@@ -1351,6 +1361,7 @@ typedef struct { SomNode node; } IntegrationConstraintEntryDetails;
 typedef struct { SomNode node; } IntegrationConstraintEntryMitigation;
 typedef struct { SomNode node; } IntegrationConstraintEntryScope;
 typedef struct { SomNode node; } IntegrationHealthSummary;
+typedef struct { SomNode node; } IntegrationInterfaceSpecification;
 typedef struct { SomNode node; } IntegrationPatternEntry;
 typedef struct { SomNode node; } IntegrationPointEntry;
 typedef struct { SomNode node; } Integrations;
@@ -1376,6 +1387,7 @@ typedef struct { SomNode node; } InteractionPatterns;
 typedef struct { SomNode node; } InteractionPerformance;
 typedef struct { SomNode node; } InteractionPrioritization;
 typedef struct { SomNode node; } InteractionScenarioEntry;
+typedef struct { SomNode node; } InteractionScenarios;
 typedef struct { SomNode node; } InteractionSecurity;
 typedef struct { SomNode node; } InteractionTestingStrategy;
 typedef struct { SomNode node; } InteractionTraceability;
@@ -1423,7 +1435,10 @@ typedef struct { SomNode node; } InteroperabilityRequirementsDataExchange;
 typedef struct { SomNode node; } InteroperabilityRequirementsGovernance;
 typedef struct { SomNode node; } InteroperabilityRequirementsStandards;
 typedef struct { SomNode node; } InteroperabilityRequirementsTesting;
+typedef struct { SomNode node; } IntroductionAndScope;
 typedef struct { SomNode node; } IpOwnershipEntry;
+typedef struct { SomNode node; } Iso25010Coverage;
+typedef struct { SomNode node; } Iso25010CoverageEntry;
 typedef struct { SomNode node; } ItLandscapePosition;
 typedef struct { SomNode node; } ItSecurityOperationsQuality;
 typedef struct { SomNode node; } ItSecurityOperationsQualityAccess;
@@ -1496,6 +1511,8 @@ typedef struct { SomNode node; } LocalizationProcess;
 typedef struct { SomNode node; } LocalizationProcessDeployment;
 typedef struct { SomNode node; } LocalizationProcessFormatting;
 typedef struct { SomNode node; } LocalizationProcessReview;
+typedef struct { SomNode node; } LocalizationTranslationProcess;
+typedef struct { SomNode node; } LocalizationTranslationRequirements;
 typedef struct { SomNode node; } LogAggregationRequirements;
 typedef struct { SomNode node; } LogAggregationRequirementsAnalysis;
 typedef struct { SomNode node; } LogAggregationRequirementsCollection;
@@ -1983,10 +2000,8 @@ typedef struct { SomNode node; } ProgrammingLanguageEntryQuality;
 typedef struct { SomNode node; } ProgrammingLanguageEntrySdk;
 typedef struct { SomNode node; } ProgrammingLanguageEntryUsage;
 typedef struct { SomNode node; } ProgrammingLanguageEntryVersion;
-typedef struct { SomNode node; } ProjectDefinition;
 typedef struct { SomNode node; } ProjectOrganization;
 typedef struct { SomNode node; } ProjectOrganizationAndProcess;
-typedef struct { SomNode node; } ProjectPhasePlan;
 typedef struct { SomNode node; } ProjectTeamStaffing;
 typedef struct { SomNode node; } ProtocolComplianceRequirements;
 typedef struct { SomNode node; } ProtocolComplianceRequirementsCaching;
@@ -2012,6 +2027,8 @@ typedef struct { SomNode node; } PwaRequirementsIcons;
 typedef struct { SomNode node; } PwaRequirementsInstallation;
 typedef struct { SomNode node; } PwaRequirementsOffline;
 typedef struct { SomNode node; } PwaRequirementsUpdates;
+typedef struct { SomNode node; } QualityAcceptancePlan;
+typedef struct { SomNode node; } QualityAndAcceptanceModel;
 typedef struct { SomNode node; } QualityCategoryEntry;
 typedef struct { SomNode node; } QualityCategoryEntryDefinition;
 typedef struct { SomNode node; } QualityCategoryEntryGovernance;
@@ -2164,8 +2181,9 @@ typedef struct { SomNode node; } RequirementTraceability;
 typedef struct { SomNode node; } RequirementTraceabilityArtifacts;
 typedef struct { SomNode node; } RequirementTraceabilityImplementation;
 typedef struct { SomNode node; } RequirementUiSpecification;
-typedef struct { SomNode node; } RequirementsCatalog;
+typedef struct { SomNode node; } Requirements;
 typedef struct { SomNode node; } RequirementsOverview;
+typedef struct { SomNode node; } RequirementsSpecification;
 typedef struct { SomNode node; } ResourceAllocationEntry;
 typedef struct { SomNode node; } ResourceCapacityBaselines;
 typedef struct { SomNode node; } ResourceCapacityBaselinesCost;
@@ -2222,6 +2240,8 @@ typedef struct { SomNode node; } ReuseGoalEntryMeasurement;
 typedef struct { SomNode node; } ReviewCriterionEntry;
 typedef struct { SomNode node; } ReviewCriterionEntryAssessment;
 typedef struct { SomNode node; } ReviewCriterionEntryResult;
+typedef struct { SomNode node; } RevisionEntry;
+typedef struct { SomNode node; } RevisionHistory;
 typedef struct { SomNode node; } RiskAnalysis;
 typedef struct { SomNode node; } RiskBasedDecisionEntry;
 typedef struct { SomNode node; } RiskBusinessImpact;
@@ -2371,6 +2391,8 @@ typedef struct { SomNode node; } ScreenStateEntry;
 typedef struct { SomNode node; } ScreenStates;
 typedef struct { SomNode node; } ScreenUserCategoryEntry;
 typedef struct { SomNode node; } SecondaryNavigation;
+typedef struct { SomNode node; } SecurityAccessSpecification;
+typedef struct { SomNode node; } SecurityAndAccessModel;
 typedef struct { SomNode node; } SecurityAuditEntry;
 typedef struct { SomNode node; } SecurityAuditEntryExecution;
 typedef struct { SomNode node; } SecurityAuditEntryFollowUp;
@@ -2519,6 +2541,8 @@ typedef struct { SomNode node; } SoftwareLayerEntryComponents;
 typedef struct { SomNode node; } SoftwareLayerEntryDependencies;
 typedef struct { SomNode node; } SoftwareLayerEntryResponsibilities;
 typedef struct { SomNode node; } SoftwareLayerEntryTechnology;
+typedef struct { SomNode node; } SolutionArchitectureAndTechnology;
+typedef struct { SomNode node; } SolutionBlueprint;
 typedef struct { SomNode node; } SpecializedEquipmentEntry;
 typedef struct { SomNode node; } SpecializedEquipmentEntryPlanning;
 typedef struct { SomNode node; } SpecializedEquipmentEntryTechnical;
@@ -2604,7 +2628,10 @@ typedef struct { SomNode node; } StagingSuccessCriteria;
 typedef struct { SomNode node; } StakeholderEntry;
 typedef struct { SomNode node; } StakeholderEntryEngagement;
 typedef struct { SomNode node; } StakeholderEntryImpact;
+typedef struct { SomNode node; } StakeholderRegister;
+typedef struct { SomNode node; } StakeholderRegisterEntry;
 typedef struct { SomNode node; } StakeholdersAndBeneficiaries;
+typedef struct { SomNode node; } StakeholdersAndGovernance;
 typedef struct { SomNode node; } StakeholdersAndInterests;
 typedef struct { SomNode node; } StandardSoftwareRequirements;
 typedef struct { SomNode node; } StandardsComplianceSection;
@@ -2696,7 +2723,6 @@ typedef struct { SomNode node; } SystemMigrationPlanExecution;
 typedef struct { SomNode node; } SystemMigrationRiskEntry;
 typedef struct { SomNode node; } SystemOperation;
 typedef struct { SomNode node; } SystemOperationAndMonitoring;
-typedef struct { SomNode node; } SystemOverview;
 typedef struct { SomNode node; } SystemOverviewSummary;
 typedef struct { SomNode node; } SystemOverviewSummaryClassification;
 typedef struct { SomNode node; } SystemOverviewSummaryComplexity;
@@ -2711,7 +2737,6 @@ typedef struct { SomNode node; } SystemQualityGoalsResources;
 typedef struct { SomNode node; } SystemReplacementStrategy;
 typedef struct { SomNode node; } SystemReplacementStrategyCutover;
 typedef struct { SomNode node; } SystemReplacementStrategyTimeline;
-typedef struct { SomNode node; } SystemRollout;
 typedef struct { SomNode node; } SystemRolloutConcept;
 typedef struct { SomNode node; } SystemStagePlan;
 typedef struct { SomNode node; } SystemStagePlanCoordination;
@@ -2743,6 +2768,8 @@ typedef struct { SomNode node; } TabBarDefinitionEntryBehavior;
 typedef struct { SomNode node; } TabBarDefinitionEntryLoading;
 typedef struct { SomNode node; } TabItemEntry;
 typedef struct { SomNode node; } TargetBusinessProcessModel;
+typedef struct { SomNode node; } TargetOperatingModel;
+typedef struct { SomNode node; } TargetOperatingModelConcept;
 typedef struct { SomNode node; } TargetPlatformEntry;
 typedef struct { SomNode node; } TargetPlatformEntryArchitecture;
 typedef struct { SomNode node; } TargetPlatformEntryLifecycle;
@@ -2786,7 +2813,6 @@ typedef struct { SomNode node; } TechnicalRequirementEntryImpact;
 typedef struct { SomNode node; } TechnicalRequirementEntryMeasurement;
 typedef struct { SomNode node; } TechnicalRequirementEntryVerification;
 typedef struct { SomNode node; } TechnicalRequirements;
-typedef struct { SomNode node; } TechnicalRequirementsSpec;
 typedef struct { SomNode node; } TechnicalSecurityRequirements;
 typedef struct { SomNode node; } TechnologyDataVariations;
 typedef struct { SomNode node; } TechnologyStandardEntry;
@@ -2876,6 +2902,7 @@ typedef struct { SomNode node; } TrainingAssessmentEffectiveness;
 typedef struct { SomNode node; } TrainingAssessmentImprovement;
 typedef struct { SomNode node; } TrainingAssessmentReporting;
 typedef struct { SomNode node; } TrainingDeliverables;
+typedef struct { SomNode node; } TrainingEnablementRequirements;
 typedef struct { SomNode node; } TrainingMaterials;
 typedef struct { SomNode node; } TrainingMaterialsKnowledge;
 typedef struct { SomNode node; } TrainingMaterialsOperations;
@@ -2912,6 +2939,7 @@ typedef struct { SomNode node; } TransitionPhaseStakeholders;
 typedef struct { SomNode node; } TransitionRiskEntry;
 typedef struct { SomNode node; } TransitionRiskEntryAssessment;
 typedef struct { SomNode node; } TransitionRiskEntryResponse;
+typedef struct { SomNode node; } TransitionRolloutPlan;
 typedef struct { SomNode node; } TransitionSuccessMetrics;
 typedef struct { SomNode node; } TransitionSupportOverview;
 typedef struct { SomNode node; } TransitionSupportResourceEntry;
@@ -2966,7 +2994,6 @@ typedef struct { SomNode node; } UiComponentsComponentApproach;
 typedef struct { SomNode node; } UiComponentsCustomization;
 typedef struct { SomNode node; } UiComponentsVisualLanguage;
 typedef struct { SomNode node; } UiDesignPrincipleEntry;
-typedef struct { SomNode node; } UiPrototype;
 typedef struct { SomNode node; } UpgradeCycleFramework;
 typedef struct { SomNode node; } UsabilityQuality;
 typedef struct { SomNode node; } UsabilityQualityClarity;
@@ -2977,7 +3004,6 @@ typedef struct { SomNode node; } UsabilityQualityPerformance;
 typedef struct { SomNode node; } UseCaseExtensions;
 typedef struct { SomNode node; } UseCaseScopeContext;
 typedef struct { SomNode node; } UseCaseTraceability;
-typedef struct { SomNode node; } UseCases;
 typedef struct { SomNode node; } UserAcceptanceTesting;
 typedef struct { SomNode node; } UserAccessPermissions;
 typedef struct { SomNode node; } UserAccessPermissionsGovernance;
@@ -2999,7 +3025,6 @@ typedef struct { SomNode node; } UserGrowthProjectionsSegmentation;
 typedef struct { SomNode node; } UserGrowthProjectionsThresholds;
 typedef struct { SomNode node; } UserInteractionModel;
 typedef struct { SomNode node; } UserInteractionModelSummary;
-typedef struct { SomNode node; } UserInterfaceDesign;
 typedef struct { SomNode node; } UserJourney;
 typedef struct { SomNode node; } UserJourneyPainPointEntry;
 typedef struct { SomNode node; } UserLifecycleSection;
@@ -3208,6 +3233,7 @@ typedef struct { SomNode node; } ApplicationSecurityRequirementsApiContentForm;
 typedef struct { SomNode node; } ApplicationSecurityRequirementsContentForm;
 typedef struct { SomNode node; } ApplicationSecurityRequirementsControlsContentForm;
 typedef struct { SomNode node; } ApplicationSecurityRequirementsValidationContentForm;
+typedef struct { SomNode node; } ApprovalRecordContentForm;
 typedef struct { SomNode node; } ArchitectureComponentEntryBoundariesContentForm;
 typedef struct { SomNode node; } ArchitectureComponentEntryContentForm;
 typedef struct { SomNode node; } ArchitectureComponentEntryDependenciesContentForm;
@@ -3229,6 +3255,7 @@ typedef struct { SomNode node; } ArchitecturePrincipleEntryGovernanceContentForm
 typedef struct { SomNode node; } ArchitecturePrincipleEntryGuidanceContentForm;
 typedef struct { SomNode node; } AssumptionIdentificationContentForm;
 typedef struct { SomNode node; } AssumptionImpactContentForm;
+typedef struct { SomNode node; } AssumptionRegisterEntryContentForm;
 typedef struct { SomNode node; } AssumptionRelationshipsContentForm;
 typedef struct { SomNode node; } AssumptionValidationContentForm;
 typedef struct { SomNode node; } AssumptionsOverviewContentForm;
@@ -3603,6 +3630,7 @@ typedef struct { SomNode node; } ConstraintEntryContentForm;
 typedef struct { SomNode node; } ConstraintImpactContentForm;
 typedef struct { SomNode node; } ConstraintLinkagesContentForm;
 typedef struct { SomNode node; } ConstraintMitigationContentForm;
+typedef struct { SomNode node; } ConstraintRegisterEntryContentForm;
 typedef struct { SomNode node; } ConstraintTrackingContentForm;
 typedef struct { SomNode node; } ConstraintsAndDependenciesContentForm;
 typedef struct { SomNode node; } ConstraintsContentForm;
@@ -4156,6 +4184,7 @@ typedef struct { SomNode node; } GeographicDistributionRequirementsContentForm;
 typedef struct { SomNode node; } GeographicDistributionRequirementsPerformanceContentForm;
 typedef struct { SomNode node; } GeographicDistributionRequirementsRoutingContentForm;
 typedef struct { SomNode node; } GlobalRoleExclusionEntryContentForm;
+typedef struct { SomNode node; } GlossaryEntryContentForm;
 typedef struct { SomNode node; } GoalDependencyEntryContentForm;
 typedef struct { SomNode node; } GoalMilestoneEntryContentForm;
 typedef struct { SomNode node; } GoalResourcesResourcesFormForm;
@@ -4328,6 +4357,7 @@ typedef struct { SomNode node; } InteroperabilityRequirementsGovernanceContentFo
 typedef struct { SomNode node; } InteroperabilityRequirementsStandardsContentForm;
 typedef struct { SomNode node; } InteroperabilityRequirementsTestingContentForm;
 typedef struct { SomNode node; } IpOwnershipEntryContentForm;
+typedef struct { SomNode node; } Iso25010CoverageEntryContentForm;
 typedef struct { SomNode node; } ItLandscapePositionPositionDetailsForm;
 typedef struct { SomNode node; } ItSecurityOperationsQualityAccessContentForm;
 typedef struct { SomNode node; } ItSecurityOperationsQualityContentForm;
@@ -5017,6 +5047,7 @@ typedef struct { SomNode node; } ReuseGoalEntryMeasurementContentForm;
 typedef struct { SomNode node; } ReviewCriterionEntryAssessmentContentForm;
 typedef struct { SomNode node; } ReviewCriterionEntryContentForm;
 typedef struct { SomNode node; } ReviewCriterionEntryResultContentForm;
+typedef struct { SomNode node; } RevisionEntryContentForm;
 typedef struct { SomNode node; } RiskAnalysisContentForm;
 typedef struct { SomNode node; } RiskBusinessImpactContentForm;
 typedef struct { SomNode node; } RiskBusinessImpactDeliveryContentForm;
@@ -5354,6 +5385,7 @@ typedef struct { SomNode node; } StagingSuccessCriteriaContentForm;
 typedef struct { SomNode node; } StakeholderEntryContentForm;
 typedef struct { SomNode node; } StakeholderEntryEngagementContentForm;
 typedef struct { SomNode node; } StakeholderEntryImpactContentForm;
+typedef struct { SomNode node; } StakeholderRegisterEntryContentForm;
 typedef struct { SomNode node; } StakeholdersAndInterestsContentForm;
 typedef struct { SomNode node; } StrategicAlignmentAlignmentDetailsForm;
 typedef struct { SomNode node; } SubFunctionEntryContentForm;
@@ -5578,6 +5610,7 @@ typedef struct { SomNode node; } TrainingAssessmentContentForm;
 typedef struct { SomNode node; } TrainingAssessmentEffectivenessContentForm;
 typedef struct { SomNode node; } TrainingAssessmentImprovementContentForm;
 typedef struct { SomNode node; } TrainingAssessmentReportingContentForm;
+typedef struct { SomNode node; } TrainingEnablementRequirementsContentForm;
 typedef struct { SomNode node; } TrainingMaterialsContentForm;
 typedef struct { SomNode node; } TrainingMaterialsKnowledgeContentForm;
 typedef struct { SomNode node; } TrainingMaterialsOperationsContentForm;
@@ -5775,7 +5808,7 @@ typedef struct { SomNode node; } WorkplaceSupportResourcesIncidentsContentForm;
 typedef struct { SomNode node; } WorkplaceSupportResourcesSelfServiceContentForm;
 typedef struct { SomNode node; } WorkplaceUserCategoryContentForm;
 
-// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+// 14.2.1. Acceptance Criteria.
 // Binds a AcceptanceCriteriaList facade to a document and a path (path copied).
 void acceptance_criteria_list_init(AcceptanceCriteriaList *self, SpecDocument *doc, const char *path);
 void acceptance_criteria_list_free(AcceptanceCriteriaList *self);
@@ -5785,7 +5818,7 @@ void acceptance_criteria_list_set_content(AcceptanceCriteriaList *self, const ch
 // Returns the list view; element type: DeliveryAcceptanceCriterionEntry (construct from item paths).
 SomList acceptance_criteria_list_items(const AcceptanceCriteriaList *self);
 
-// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+// 11.7. Acceptance Criteria Summary.
 //
 // Quality acceptance criteria for the project including must-pass criteria
 // and quality gate checklists.
@@ -5795,9 +5828,9 @@ void acceptance_criteria_summary_free(AcceptanceCriteriaSummary *self);
 AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm acceptance_criteria_summary_acceptance_framework_content(const AcceptanceCriteriaSummary *self);
 // Acceptance criteria overview.
 // (skipped: acceptanceOverview has no target type)
-// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+// 11.7.1. Must-Pass Criteria.
 MustPassCriteria acceptance_criteria_summary_must_pass_criteria(const AcceptanceCriteriaSummary *self);
-// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+// 11.7.2. Quality Gate Checklist.
 QualityGateChecklist acceptance_criteria_summary_quality_gate_checklist(const AcceptanceCriteriaSummary *self);
 // Acceptance test summary.
 // (skipped: acceptanceTestSummary has no target type)
@@ -5810,26 +5843,26 @@ void acceptance_criterion_entry_init(AcceptanceCriterionEntry *self, SpecDocumen
 void acceptance_criterion_entry_free(AcceptanceCriterionEntry *self);
 AcceptanceCriterionEntryContentForm acceptance_criterion_entry_content(const AcceptanceCriterionEntry *self);
 
-// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → BQP.
 // Binds a AcceptancePlan facade to a document and a path (path copied).
 void acceptance_plan_init(AcceptancePlan *self, SpecDocument *doc, const char *path);
 void acceptance_plan_free(AcceptancePlan *self);
 char *acceptance_plan_content(const AcceptancePlan *self);
 void acceptance_plan_set_content(AcceptancePlan *self, const char *value);
-// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+// 14.2.1. Acceptance Criteria.
 AcceptanceCriteriaList acceptance_plan_acceptance_criteria(const AcceptancePlan *self);
-// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+// 14.2.2. Acceptance Process.
 AcceptanceProcess acceptance_plan_acceptance_process(const AcceptancePlan *self);
-// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+// 14.2.3. User Acceptance Testing.
 UserAcceptanceTesting acceptance_plan_user_acceptance_testing(const AcceptancePlan *self);
-// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+// 14.2.4. Defect Resolution.
 DefectResolution acceptance_plan_defect_resolution(const AcceptancePlan *self);
-// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+// 14.2.5. Sign-off Process.
 SignOffProcess acceptance_plan_sign_off_process(const AcceptancePlan *self);
-// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+// 14.2.6. Warranty.
 WarrantyTerms acceptance_plan_warranty(const AcceptancePlan *self);
 
-// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+// 14.2.2. Acceptance Process.
 //
 // Defines the formal acceptance workflow from test initiation through
 // final sign-off. Covers roles, responsibilities, timelines, escalation,
@@ -5892,7 +5925,7 @@ void acceptance_process_timeline_init(AcceptanceProcessTimeline *self, SpecDocum
 void acceptance_process_timeline_free(AcceptanceProcessTimeline *self);
 AcceptanceProcessTimelineContentForm acceptance_process_timeline_content(const AcceptanceProcessTimeline *self);
 
-// An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
+// An acceptance step entry (form).
 //
 // A single step in the formal acceptance workflow, with entry/exit
 // conditions, responsible parties, and outputs.
@@ -5917,30 +5950,7 @@ void acceptance_step_entry_outcome_init(AcceptanceStepEntryOutcome *self, SpecDo
 void acceptance_step_entry_outcome_free(AcceptanceStepEntryOutcome *self);
 AcceptanceStepEntryOutcomeContentForm acceptance_step_entry_outcome_content(const AcceptanceStepEntryOutcome *self);
 
-// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
-// Binds a AccessAndAuthorizationConcept facade to a document and a path (path copied).
-void access_and_authorization_concept_init(AccessAndAuthorizationConcept *self, SpecDocument *doc, const char *path);
-void access_and_authorization_concept_free(AccessAndAuthorizationConcept *self);
-char *access_and_authorization_concept_content(const AccessAndAuthorizationConcept *self);
-void access_and_authorization_concept_set_content(AccessAndAuthorizationConcept *self, const char *value);
-// 9.1. User Management [PD00-ACC-USE].
-UserManagement access_and_authorization_concept_user_management(const AccessAndAuthorizationConcept *self);
-// 9.2. Identification and Authentication [PD00-ACC-IDE].
-IdentificationAndAuthentication access_and_authorization_concept_authentication(const AccessAndAuthorizationConcept *self);
-// 9.3. Resource Protection [PD00-ACC-RES].
-ResourceProtection access_and_authorization_concept_resource_protection(const AccessAndAuthorizationConcept *self);
-// 9.4. User Authorization [PD00-ACC-USA].
-UserAuthorization access_and_authorization_concept_authorization(const AccessAndAuthorizationConcept *self);
-// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
-SensitiveDataEncryption access_and_authorization_concept_encryption(const AccessAndAuthorizationConcept *self);
-// 9.6. Audit and Logging [PD00-ACC-AUD].
-AuditAndLogging access_and_authorization_concept_audit_and_logging(const AccessAndAuthorizationConcept *self);
-// 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
-RoleMatrix access_and_authorization_concept_role_matrix(const AccessAndAuthorizationConcept *self);
-// 9.8. Compliance Framework [PD00-ACC-CMP].
-ComplianceFramework access_and_authorization_concept_compliance_framework(const AccessAndAuthorizationConcept *self);
-
-// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+// 4.1.5.1. Access Channels.
 //
 // Defines all channels through which users can access the system including
 // web, mobile, desktop applications, APIs, and other interfaces.
@@ -5981,7 +5991,7 @@ void access_control_model_selection_set_content(AccessControlModelSelection *sel
 // Access Control Model Details (text).
 // (skipped: accessControlModelDetails has no target type)
 
-// An access level entry (form) [PD00-SYO-SYD-USI-ACC-nn].
+// An access level entry (form).
 // Binds a AccessLevelEntry facade to a document and a path (path copied).
 void access_level_entry_init(AccessLevelEntry *self, SpecDocument *doc, const char *path);
 void access_level_entry_free(AccessLevelEntry *self);
@@ -6011,7 +6021,7 @@ void access_level_entry_scope_init(AccessLevelEntryScope *self, SpecDocument *do
 void access_level_entry_scope_free(AccessLevelEntryScope *self);
 AccessLevelEntryScopeContentForm access_level_entry_scope_content(const AccessLevelEntryScope *self);
 
-// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+// 4.1.5.3. Access Levels.
 //
 // Defines the access level hierarchy and how permissions are structured
 // across user categories and system functions.
@@ -6030,7 +6040,7 @@ SomList access_levels_levels(const AccessLevels *self);
 char *access_levels_permission_matrix(const AccessLevels *self);
 void access_levels_set_permission_matrix(AccessLevels *self, const char *value);
 
-// An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
+// An access restriction entry (form).
 //
 // Specific access restrictions for classified data.
 // Binds a AccessRestrictionEntry facade to a document and a path (path copied).
@@ -6038,7 +6048,7 @@ void access_restriction_entry_init(AccessRestrictionEntry *self, SpecDocument *d
 void access_restriction_entry_free(AccessRestrictionEntry *self);
 AccessRestrictionEntryContentForm access_restriction_entry_content(const AccessRestrictionEntry *self);
 
-// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+// 9.1.1. User Categories.
 // Binds a AccessUserCategories facade to a document and a path (path copied).
 void access_user_categories_init(AccessUserCategories *self, SpecDocument *doc, const char *path);
 void access_user_categories_free(AccessUserCategories *self);
@@ -6048,7 +6058,7 @@ void access_user_categories_set_content(AccessUserCategories *self, const char *
 // Returns the list view; element type: UserCategoryDefinition (construct from item paths).
 SomList access_user_categories_items(const AccessUserCategories *self);
 
-// 10.9. Accessibility [PD00-USE-ACC].
+// 10.9. Accessibility.
 //
 // Comprehensive accessibility requirements for the user interface following
 // WCAG guidelines and inclusive design principles.
@@ -6064,9 +6074,9 @@ AccessibilityTesting accessibility_testing(const Accessibility *self);
 AccessibilitySupport accessibility_support(const Accessibility *self);
 // Accessibility overview narrative.
 // (skipped: accessibilityOverview has no target type)
-// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+// 10.9.1. WCAG Compliance Level.
 WcagCompliance accessibility_wcag_compliance_level(const Accessibility *self);
-// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+// 10.9.2. Accessibility Checklist.
 AccessibilityChecklist accessibility_accessibility_checklist(const Accessibility *self);
 // Keyboard navigation specification.
 // (skipped: keyboardNavigation has no target type)
@@ -6075,7 +6085,7 @@ AccessibilityChecklist accessibility_accessibility_checklist(const Accessibility
 // Color and contrast specification.
 // (skipped: colorAndContrast has no target type)
 
-// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
+// An accessibility check entry (form).
 // Binds a AccessibilityCheckEntry facade to a document and a path (path copied).
 void accessibility_check_entry_init(AccessibilityCheckEntry *self, SpecDocument *doc, const char *path);
 void accessibility_check_entry_free(AccessibilityCheckEntry *self);
@@ -6105,7 +6115,7 @@ void accessibility_check_entry_remediation_init(AccessibilityCheckEntryRemediati
 void accessibility_check_entry_remediation_free(AccessibilityCheckEntryRemediation *self);
 AccessibilityCheckEntryRemediationContentForm accessibility_check_entry_remediation_content(const AccessibilityCheckEntryRemediation *self);
 
-// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+// 10.9.2. Accessibility Checklist.
 //
 // Comprehensive accessibility verification checklist.
 // Binds a AccessibilityChecklist facade to a document and a path (path copied).
@@ -6275,7 +6285,7 @@ void actor_diagram_overview_init(ActorDiagramOverview *self, SpecDocument *doc, 
 void actor_diagram_overview_free(ActorDiagramOverview *self);
 ActorDiagramOverviewContentForm actor_diagram_overview_content(const ActorDiagramOverview *self);
 
-// An actor entry [PD00-TAR-STP-ACT-nn].
+// An actor entry.
 //
 // Comprehensive actor definition following UML and Cockburn conventions.
 // Binds a ActorEntry facade to a document and a path (path copied).
@@ -6314,7 +6324,7 @@ void actor_interactions_summary_init(ActorInteractionsSummary *self, SpecDocumen
 void actor_interactions_summary_free(ActorInteractionsSummary *self);
 ActorInteractionsSummaryContentForm actor_interactions_summary_content(const ActorInteractionsSummary *self);
 
-// 6.2.1. Actor Overview [PD00-TAR-STP-ACT].
+// 6.2.1. Actor Overview.
 //
 // Actors represent roles that interact with the system. Follows UML actor
 // modeling conventions with Cockburn-style goal and scope annotations.
@@ -6343,7 +6353,7 @@ void actor_permissions_init(ActorPermissions *self, SpecDocument *doc, const cha
 void actor_permissions_free(ActorPermissions *self);
 ActorPermissionsContentForm actor_permissions_content(const ActorPermissions *self);
 
-// 6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA].
+// 6.2. Actor Relationship Diagram.
 // Binds a ActorRelationshipDiagram facade to a document and a path (path copied).
 void actor_relationship_diagram_init(ActorRelationshipDiagram *self, SpecDocument *doc, const char *path);
 void actor_relationship_diagram_free(ActorRelationshipDiagram *self);
@@ -6396,7 +6406,7 @@ void admin_interface_requirements_operations_init(AdminInterfaceRequirementsOper
 void admin_interface_requirements_operations_free(AdminInterfaceRequirementsOperations *self);
 AdminInterfaceRequirementsOperationsContentForm admin_interface_requirements_operations_content(const AdminInterfaceRequirementsOperations *self);
 
-// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+// 8.7.1.1. Administration Requirements.
 // Binds a AdministrationRequirementsSection facade to a document and a path (path copied).
 void administration_requirements_section_init(AdministrationRequirementsSection *self, SpecDocument *doc, const char *path);
 void administration_requirements_section_free(AdministrationRequirementsSection *self);
@@ -6417,7 +6427,7 @@ AdminEnvironmentManagement administration_requirements_section_environment_manag
 // System diagnostic tools.
 SystemDiagnosticTools administration_requirements_section_diagnostic_tools(const AdministrationRequirementsSection *self);
 
-// 3. Administrative [PD00-ADM].
+// 3. Administrative.
 //
 // Project-specific administrative information including team composition,
 // distribution channels, procedural agreements, and reference documentation.
@@ -6430,17 +6440,17 @@ char *administrative_content(const Administrative *self);
 void administrative_set_content(Administrative *self, const char *value);
 // Administrative overview summary.
 AdministrativeSummary administrative_summary(const Administrative *self);
-// 3.1. Project Organization [PD00-ADM-PRO].
+// 3.1. Project Organization.
 ProjectOrganization administrative_project_organization(const Administrative *self);
-// 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
+// 3.2. Project Team Staffing — contains 1+× Team Member.
 ProjectTeamStaffing administrative_project_team_staffing(const Administrative *self);
-// 3.3. Distribution List [PD00-ADM-DIS].
+// 3.3. Distribution List.
 DistributionList administrative_distribution_list(const Administrative *self);
-// 3.4. Change Procedure [PD00-ADM-CHA].
+// 3.4. Change Procedure.
 ChangeProcedure administrative_change_procedure(const Administrative *self);
-// 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
+// 3.5. Reference Documents — contains 0+× Reference Document.
 ReferenceDocuments administrative_reference_documents(const Administrative *self);
-// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+// 3.6. Other Administrative Requirements.
 OtherAdministrativeRequirements administrative_other_administrative(const Administrative *self);
 
 // Administrative event policy (form).
@@ -6459,13 +6469,13 @@ void administrative_summary_init(AdministrativeSummary *self, SpecDocument *doc,
 void administrative_summary_free(AdministrativeSummary *self);
 AdministrativeSummaryContentForm administrative_summary_content(const AdministrativeSummary *self);
 
-// An affected department entry [PD00-SYO-RES-ORG-DEP-nn].
+// An affected department entry.
 // Binds a AffectedDepartmentEntry facade to a document and a path (path copied).
 void affected_department_entry_init(AffectedDepartmentEntry *self, SpecDocument *doc, const char *path);
 void affected_department_entry_free(AffectedDepartmentEntry *self);
 AffectedDepartmentEntryContentForm affected_department_entry_content(const AffectedDepartmentEntry *self);
 
-// An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
+// An affected function reference entry (form).
 //
 // Functions where this rule applies.
 // Binds a AffectedFunctionEntry facade to a document and a path (path copied).
@@ -6475,7 +6485,7 @@ AffectedFunctionEntryContentForm affected_function_entry_content(const AffectedF
 char *affected_function_entry_function_ref(const AffectedFunctionEntry *self);
 void affected_function_entry_set_function_ref(AffectedFunctionEntry *self, const char *value);
 
-// An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
+// An affected object reference entry (form).
 //
 // Business objects affected by this rule.
 // Binds a AffectedObjectEntry facade to a document and a path (path copied).
@@ -6575,7 +6585,7 @@ void alert_notification_channels_routing_init(AlertNotificationChannelsRouting *
 void alert_notification_channels_routing_free(AlertNotificationChannelsRouting *self);
 AlertNotificationChannelsRoutingContentForm alert_notification_channels_routing_content(const AlertNotificationChannelsRouting *self);
 
-// An alert rule entry [PD00-TEC-SYS-MON-ALR-nn].
+// An alert rule entry.
 // Binds a AlertRuleEntry facade to a document and a path (path copied).
 void alert_rule_entry_init(AlertRuleEntry *self, SpecDocument *doc, const char *path);
 void alert_rule_entry_free(AlertRuleEntry *self);
@@ -6611,7 +6621,7 @@ void alert_suppression_rules_init(AlertSuppressionRules *self, SpecDocument *doc
 void alert_suppression_rules_free(AlertSuppressionRules *self);
 AlertSuppressionRulesContentForm alert_suppression_rules_content(const AlertSuppressionRules *self);
 
-// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+// 8.7.2.2. Alerting Configuration.
 //
 // Comprehensive alerting rules, notification channels, and escalation
 // policies.
@@ -6672,7 +6682,7 @@ void alerting_requirements_suppression_init(AlertingRequirementsSuppression *sel
 void alerting_requirements_suppression_free(AlertingRequirementsSuppression *self);
 AlertingRequirementsSuppressionContentForm alerting_requirements_suppression_content(const AlertingRequirementsSuppression *self);
 
-// An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn].
+// An alternative flow entry.
 // Binds a AlternativeFlowEntry facade to a document and a path (path copied).
 void alternative_flow_entry_init(AlternativeFlowEntry *self, SpecDocument *doc, const char *path);
 void alternative_flow_entry_free(AlternativeFlowEntry *self);
@@ -6681,7 +6691,7 @@ AlternativeFlowEntryContentForm alternative_flow_entry_content(const Alternative
 // Returns the list view; element type: AlternativeStepEntry (construct from item paths).
 SomList alternative_flow_entry_steps(const AlternativeFlowEntry *self);
 
-// An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn].
+// An alternative step entry.
 // Binds a AlternativeStepEntry facade to a document and a path (path copied).
 void alternative_step_entry_init(AlternativeStepEntry *self, SpecDocument *doc, const char *path);
 void alternative_step_entry_free(AlternativeStepEntry *self);
@@ -6814,7 +6824,7 @@ void api_request_validation_policy_set_content(ApiRequestValidationPolicy *self,
 // Request Validation Details (text).
 // (skipped: requestValidationDetails has no target type)
 
-// 9.3.2. API Security [PD00-ACC-RES-API].
+// 9.3.2. API Security.
 //
 // Comprehensive API security specification covering authentication,
 // authorization, request validation, CORS policy, input sanitization,
@@ -7022,6 +7032,12 @@ void application_security_requirements_validation_init(ApplicationSecurityRequir
 void application_security_requirements_validation_free(ApplicationSecurityRequirementsValidation *self);
 ApplicationSecurityRequirementsValidationContentForm application_security_requirements_validation_content(const ApplicationSecurityRequirementsValidation *self);
 
+// A formal approval / sign-off record (form).
+// Binds a ApprovalRecord facade to a document and a path (path copied).
+void approval_record_init(ApprovalRecord *self, SpecDocument *doc, const char *path);
+void approval_record_free(ApprovalRecord *self);
+ApprovalRecordContentForm approval_record_content(const ApprovalRecord *self);
+
 // Architecture component/service entry.
 // Binds a ArchitectureComponentEntry facade to a document and a path (path copied).
 void architecture_component_entry_init(ArchitectureComponentEntry *self, SpecDocument *doc, const char *path);
@@ -7166,7 +7182,7 @@ void architecture_principle_entry_guidance_init(ArchitecturePrincipleEntryGuidan
 void architecture_principle_entry_guidance_free(ArchitecturePrincipleEntryGuidance *self);
 ArchitecturePrincipleEntryGuidanceContentForm architecture_principle_entry_guidance_content(const ArchitecturePrincipleEntryGuidance *self);
 
-// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+// 8.1.2. Architecture Style.
 //
 // Target architecture style specification: monolith, modular monolith,
 // microservices, event-driven, serverless, or hybrid. Includes justification
@@ -7200,7 +7216,62 @@ DeploymentTopology architecture_style_deployment_topology(const ArchitectureStyl
 // Returns the list view; element type: ArchitectureDecisionRecord (construct from item paths).
 SomList architecture_style_decision_records(const ArchitectureStyle *self);
 
-// An assumption entry [PD00-SYO-RIS-ASS-nn] (form).
+// TR00 Technical Requirements.
+//
+// Comprehensive technical requirements: basic / software / standard-
+// software / hardware / operations / communication / system-operation
+// / security / architecture, plus components, framework conditions,
+// and translation handling.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int architecture_technology_specification_new(ArchitectureTechnologySpecification *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *architecture_technology_specification_object_model_version(const ArchitectureTechnologySpecification *self);
+void architecture_technology_specification_free(ArchitectureTechnologySpecification *self);
+char *architecture_technology_specification_content(const ArchitectureTechnologySpecification *self);
+void architecture_technology_specification_set_content(ArchitectureTechnologySpecification *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader architecture_technology_specification_header(const ArchitectureTechnologySpecification *self);
+// Basic technical requirements.
+BasicTechnicalRequirements architecture_technology_specification_basic_technical_requirements(const ArchitectureTechnologySpecification *self);
+// Software design requirements.
+SoftwareDesignRequirements architecture_technology_specification_software_design_requirements(const ArchitectureTechnologySpecification *self);
+// Standard application software requirements.
+StandardSoftwareRequirements architecture_technology_specification_standard_software_requirements(const ArchitectureTechnologySpecification *self);
+// Hardware concept requirements.
+HardwareRequirements architecture_technology_specification_hardware_requirements(const ArchitectureTechnologySpecification *self);
+// Operations requirements.
+OperationsRequirements architecture_technology_specification_operations_requirements(const ArchitectureTechnologySpecification *self);
+// Communication requirements.
+CommunicationRequirements architecture_technology_specification_communication_requirements(const ArchitectureTechnologySpecification *self);
+// System operation and monitoring.
+SystemOperationAndMonitoring architecture_technology_specification_system_operation_and_monitoring(const ArchitectureTechnologySpecification *self);
+// Technical security requirements.
+TechnicalSecurityRequirements architecture_technology_specification_technical_security_requirements(const ArchitectureTechnologySpecification *self);
+// System architecture (new in Phase A).
+SystemArchitectureSpec architecture_technology_specification_system_architecture(const ArchitectureTechnologySpecification *self);
+// Components to use (whole).
+ComponentsToUse architecture_technology_specification_components_to_use(const ArchitectureTechnologySpecification *self);
+// Technical framework conditions (whole).
+TechnicalFrameworkConditions architecture_technology_specification_technical_framework_conditions(const ArchitectureTechnologySpecification *self);
+// Translation handling requirements (whole).
+TranslationRequirements architecture_technology_specification_translation_requirements(const ArchitectureTechnologySpecification *self);
+
+// A consolidated register of assumptions and constraints.
+// Binds a AssumptionConstraintRegister facade to a document and a path (path copied).
+void assumption_constraint_register_init(AssumptionConstraintRegister *self, SpecDocument *doc, const char *path);
+void assumption_constraint_register_free(AssumptionConstraintRegister *self);
+char *assumption_constraint_register_content(const AssumptionConstraintRegister *self);
+void assumption_constraint_register_set_content(AssumptionConstraintRegister *self, const char *value);
+// Assumptions the solution depends on being true.
+// Returns the list view; element type: AssumptionRegisterEntry (construct from item paths).
+SomList assumption_constraint_register_assumptions(const AssumptionConstraintRegister *self);
+// Constraints the solution must operate within.
+// Returns the list view; element type: ConstraintRegisterEntry (construct from item paths).
+SomList assumption_constraint_register_constraints(const AssumptionConstraintRegister *self);
+
+// An assumption entry (form).
 //
 // Documents a project assumption including its basis, validation approach,
 // and contingency plans if the assumption proves false.
@@ -7229,6 +7300,15 @@ void assumption_impact_init(AssumptionImpact *self, SpecDocument *doc, const cha
 void assumption_impact_free(AssumptionImpact *self);
 AssumptionImpactContentForm assumption_impact_content(const AssumptionImpact *self);
 
+// A single assumption register entry (form).
+//
+// Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
+// `AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+// Binds a AssumptionRegisterEntry facade to a document and a path (path copied).
+void assumption_register_entry_init(AssumptionRegisterEntry *self, SpecDocument *doc, const char *path);
+void assumption_register_entry_free(AssumptionRegisterEntry *self);
+AssumptionRegisterEntryContentForm assumption_register_entry_content(const AssumptionRegisterEntry *self);
+
 // Relationships to other project elements.
 // Binds a AssumptionRelationships facade to a document and a path (path copied).
 void assumption_relationships_init(AssumptionRelationships *self, SpecDocument *doc, const char *path);
@@ -7240,6 +7320,15 @@ AssumptionRelationshipsContentForm assumption_relationships_content(const Assump
 void assumption_validation_init(AssumptionValidation *self, SpecDocument *doc, const char *path);
 void assumption_validation_free(AssumptionValidation *self);
 AssumptionValidationContentForm assumption_validation_content(const AssumptionValidation *self);
+
+// SBP.6 Assumptions, Constraints & Dependencies.
+// Binds a AssumptionsConstraintsDependencies facade to a document and a path (path copied).
+void assumptions_constraints_dependencies_init(AssumptionsConstraintsDependencies *self, SpecDocument *doc, const char *path);
+void assumptions_constraints_dependencies_free(AssumptionsConstraintsDependencies *self);
+char *assumptions_constraints_dependencies_content(const AssumptionsConstraintsDependencies *self);
+void assumptions_constraints_dependencies_set_content(AssumptionsConstraintsDependencies *self, const char *value);
+// The consolidated assumption / constraint register.
+AssumptionConstraintRegister assumptions_constraints_dependencies_register_(const AssumptionsConstraintsDependencies *self);
 
 // Overview of assumptions management.
 // Binds a AssumptionsOverview facade to a document and a path (path copied).
@@ -7254,7 +7343,7 @@ void attribute_interdependency_entry_free(AttributeInterdependencyEntry *self);
 char *attribute_interdependency_entry_content(const AttributeInterdependencyEntry *self);
 void attribute_interdependency_entry_set_content(AttributeInterdependencyEntry *self, const char *value);
 
-// 9.6. Audit and Logging [PD00-ACC-AUD].
+// 9.6. Audit and Logging.
 //
 // Security audit and event logging requirements covering security event
 // definitions, audit log format and structure, and compliance reporting.
@@ -7265,11 +7354,11 @@ void audit_and_logging_init(AuditAndLogging *self, SpecDocument *doc, const char
 void audit_and_logging_free(AuditAndLogging *self);
 char *audit_and_logging_content(const AuditAndLogging *self);
 void audit_and_logging_set_content(AuditAndLogging *self, const char *value);
-// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+// 9.6.1. Security Events.
 SecurityEventsDefinition audit_and_logging_security_events(const AuditAndLogging *self);
-// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+// 9.6.2. Audit Log Format.
 AuditLogFormat audit_and_logging_audit_log_format(const AuditAndLogging *self);
-// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+// 9.6.3. Compliance Reporting.
 ComplianceReporting audit_and_logging_compliance_reporting(const AuditAndLogging *self);
 
 // An audit entry.
@@ -7293,7 +7382,7 @@ void audit_evidence_type_entry_init(AuditEvidenceTypeEntry *self, SpecDocument *
 void audit_evidence_type_entry_free(AuditEvidenceTypeEntry *self);
 AuditEvidenceTypeEntryContentForm audit_evidence_type_entry_content(const AuditEvidenceTypeEntry *self);
 
-// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+// 9.6.2. Audit Log Format.
 //
 // Defines the audit log format: fields to capture (who, what, when, where,
 // result), log retention period, and tamper protection requirements.
@@ -7313,7 +7402,7 @@ LogRetentionPolicy audit_log_format_log_retention(const AuditLogFormat *self);
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+// 3.6.4. Audit Requirements.
 //
 // Internal and external audit obligations.
 // Binds a AuditRequirements facade to a document and a path (path copied).
@@ -7327,19 +7416,19 @@ SomList audit_requirements_audits(const AuditRequirements *self);
 // Audit evidence requirements.
 AuditEvidenceRequirements audit_requirements_evidence_requirements(const AuditRequirements *self);
 
-// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+// 9.2.2. Authentication.
 // Binds a Authentication facade to a document and a path (path copied).
 void authentication_init(Authentication *self, SpecDocument *doc, const char *path);
 void authentication_free(Authentication *self);
 char *authentication_content(const Authentication *self);
 void authentication_set_content(Authentication *self, const char *value);
-// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+// 9.2.2.1. Authentication Methods.
 AuthenticationMethods authentication_authentication_methods(const Authentication *self);
-// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+// 9.2.2.2. Authentication Flow.
 AuthenticationFlow authentication_authentication_flow(const Authentication *self);
-// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+// 9.2.3. Password and Credential Policy.
 PasswordAndCredentialPolicy authentication_password_and_credential_policy(const Authentication *self);
-// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+// 9.2.4. Session Management.
 SessionManagement authentication_session_management(const Authentication *self);
 
 // Authentication error handling (form).
@@ -7364,7 +7453,7 @@ AuthenticationEventPolicyContentForm authentication_event_policy_content(const A
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+// 9.2.2.2. Authentication Flow.
 //
 // Comprehensive authentication flow specification covering the complete
 // login lifecycle: credential submission, validation, multi-factor challenges,
@@ -7395,7 +7484,7 @@ StepUpAuthenticationPolicy authentication_flow_step_up_authentication(const Auth
 // Returns the list view; element type: LoginFlowStepEntry (construct from item paths).
 SomList authentication_flow_login_flow_steps(const AuthenticationFlow *self);
 
-// An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
+// An authentication method entry (form).
 //
 // Detailed per-method specification aligned with NIST SP 800-63B
 // authenticator types (password, OTP, cryptographic, out-of-band).
@@ -7436,7 +7525,7 @@ void authentication_method_entry_security_init(AuthenticationMethodEntrySecurity
 void authentication_method_entry_security_free(AuthenticationMethodEntrySecurity *self);
 AuthenticationMethodEntrySecurityContentForm authentication_method_entry_security_content(const AuthenticationMethodEntrySecurity *self);
 
-// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+// 9.2.2.1. Authentication Methods.
 //
 // Comprehensive authentication methods specification aligned with
 // NIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).
@@ -7463,40 +7552,6 @@ ApiKeyManagementPolicy authentication_methods_api_key_management(const Authentic
 // Returns the list view; element type: AuthenticationMethodEntry (construct from item paths).
 SomList authentication_methods_items(const AuthenticationMethods *self);
 
-// AC00 Authorization Concept.
-//
-// Complete access and authorization specification — user management,
-// identification and authentication, resource protection, user
-// authorization, encryption, audit/logging, role matrix, and
-// compliance framework.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int authorization_concept_new(AuthorizationConcept *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *authorization_concept_object_model_version(const AuthorizationConcept *self);
-void authorization_concept_free(AuthorizationConcept *self);
-char *authorization_concept_content(const AuthorizationConcept *self);
-void authorization_concept_set_content(AuthorizationConcept *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader authorization_concept_header(const AuthorizationConcept *self);
-// User management — PD00-ACC-USE.
-UserManagement authorization_concept_user_management(const AuthorizationConcept *self);
-// Identification and authentication — PD00-ACC-IDE.
-IdentificationAndAuthentication authorization_concept_identification_and_authentication(const AuthorizationConcept *self);
-// Resource protection — PD00-ACC-RES.
-ResourceProtection authorization_concept_resource_protection(const AuthorizationConcept *self);
-// User authorization — PD00-ACC-USA.
-UserAuthorization authorization_concept_user_authorization(const AuthorizationConcept *self);
-// Sensitive data encryption — PD00-ACC-SEN.
-SensitiveDataEncryption authorization_concept_sensitive_data_encryption(const AuthorizationConcept *self);
-// Audit and logging — PD00-ACC-AUD.
-AuditAndLogging authorization_concept_audit_and_logging(const AuthorizationConcept *self);
-// Role matrix — PD00-ACC-ROL (covers HBSG AS22-AUM).
-RoleMatrix authorization_concept_role_matrix(const AuthorizationConcept *self);
-// Compliance framework — PD00-ACC-CMP.
-ComplianceFramework authorization_concept_compliance_framework(const AuthorizationConcept *self);
-
 // Authorization event policy (form).
 //
 // Defines which authorization-related events are logged.
@@ -7507,7 +7562,7 @@ AuthorizationEventPolicyContentForm authorization_event_policy_content(const Aut
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
+// An authorization group entry (form).
 // Binds a AuthorizationGroupEntry facade to a document and a path (path copied).
 void authorization_group_entry_init(AuthorizationGroupEntry *self, SpecDocument *doc, const char *path);
 void authorization_group_entry_free(AuthorizationGroupEntry *self);
@@ -7516,7 +7571,7 @@ AuthorizationGroupEntryContentForm authorization_group_entry_content(const Autho
 // Returns the list view; element type: RoleReferenceEntry (construct from item paths).
 SomList authorization_group_entry_contained_roles(const AuthorizationGroupEntry *self);
 
-// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+// 9.4.1. Authorization Model.
 //
 // Describes the authorization model used by the system — RBAC, ABAC, ReBAC,
 // or hybrid. Covers access control model selection, permission granularity
@@ -7540,7 +7595,7 @@ PermissionEvaluationBehavior authorization_model_permission_evaluation(const Aut
 // Authorization Model Notes (text).
 // (skipped: authorizationModelNotes has no target type)
 
-// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+// An authorization role entry (form).
 //
 // Defines a single authorization role with its category, scope, permission
 // assignments, activation rules, provisioning, and review requirements.
@@ -7600,7 +7655,7 @@ void authorization_role_entry_structure_init(AuthorizationRoleEntryStructure *se
 void authorization_role_entry_structure_free(AuthorizationRoleEntryStructure *self);
 AuthorizationRoleEntryStructureContentForm authorization_role_entry_structure_content(const AuthorizationRoleEntryStructure *self);
 
-// 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
+// 11.4.1. Availability quality.
 // Binds a AvailabilityQuality facade to a document and a path (path copied).
 void availability_quality_init(AvailabilityQuality *self, SpecDocument *doc, const char *path);
 void availability_quality_free(AvailabilityQuality *self);
@@ -7640,7 +7695,7 @@ void availability_quality_verification_init(AvailabilityQualityVerification *sel
 void availability_quality_verification_free(AvailabilityQualityVerification *self);
 AvailabilityQualityVerificationContentForm availability_quality_verification_content(const AvailabilityQualityVerification *self);
 
-// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
+// 8.5.1. Backup and Recovery.
 //
 // Backup frequency, retention period, recovery point objective (RPO),
 // recovery time objective (RTO), and backup verification procedures.
@@ -7916,17 +7971,17 @@ void bandwidth_requirements_traffic_init(BandwidthRequirementsTraffic *self, Spe
 void bandwidth_requirements_traffic_free(BandwidthRequirementsTraffic *self);
 BandwidthRequirementsTrafficContentForm bandwidth_requirements_traffic_content(const BandwidthRequirementsTraffic *self);
 
-// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+// 8.1. Basic Technical Requirements.
 // Binds a BasicTechnicalRequirements facade to a document and a path (path copied).
 void basic_technical_requirements_init(BasicTechnicalRequirements *self, SpecDocument *doc, const char *path);
 void basic_technical_requirements_free(BasicTechnicalRequirements *self);
 char *basic_technical_requirements_content(const BasicTechnicalRequirements *self);
 void basic_technical_requirements_set_content(BasicTechnicalRequirements *self, const char *value);
-// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+// 8.1.1. Platform and Language.
 PlatformAndLanguage basic_technical_requirements_platform_and_language(const BasicTechnicalRequirements *self);
-// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+// 8.1.2. Architecture Style.
 ArchitectureStyle basic_technical_requirements_architecture_style(const BasicTechnicalRequirements *self);
-// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+// 8.1.3. Design Patterns and Standards.
 DesignPatternsAndStandards basic_technical_requirements_design_patterns_and_standards(const BasicTechnicalRequirements *self);
 
 // Batch job management.
@@ -7978,7 +8033,7 @@ void biometric_authentication_policy_set_content(BiometricAuthenticationPolicy *
 // Biometric Implementation Details (text).
 // (skipped: biometricDetails has no target type)
 
-// A boundary assumption entry [PD00-SYO-SYB-ASS-nn] (form).
+// A boundary assumption entry (form).
 // Binds a BoundaryAssumptionEntry facade to a document and a path (path copied).
 void boundary_assumption_entry_init(BoundaryAssumptionEntry *self, SpecDocument *doc, const char *path);
 void boundary_assumption_entry_free(BoundaryAssumptionEntry *self);
@@ -8000,7 +8055,7 @@ void boundary_assumption_entry_validation_init(BoundaryAssumptionEntryValidation
 void boundary_assumption_entry_validation_free(BoundaryAssumptionEntryValidation *self);
 BoundaryAssumptionEntryValidationContentForm boundary_assumption_entry_validation_content(const BoundaryAssumptionEntryValidation *self);
 
-// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+// 4.5.3. Assumptions.
 //
 // Documents assumptions about external systems, data availability,
 // organizational readiness, and third-party services that must hold true
@@ -8015,7 +8070,7 @@ void boundary_assumptions_free(BoundaryAssumptions *self);
 // Returns the list view; element type: BoundaryAssumptionEntry (construct from item paths).
 SomList boundary_assumptions_items(const BoundaryAssumptions *self);
 
-// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT].
+// 4.5.5. Boundary Interaction Patterns.
 //
 // Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
 // Named `BoundaryInteractionPatterns` to avoid colliding with the
@@ -8064,13 +8119,13 @@ void bounded_context_entry_scope_init(BoundedContextEntryScope *self, SpecDocume
 void bounded_context_entry_scope_free(BoundedContextEntryScope *self);
 BoundedContextEntryScopeContentForm bounded_context_entry_scope_content(const BoundedContextEntryScope *self);
 
-// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+// 10.3.1.6.1. Breadcrumb Configuration.
 // Binds a BreadcrumbConfiguration facade to a document and a path (path copied).
 void breadcrumb_configuration_init(BreadcrumbConfiguration *self, SpecDocument *doc, const char *path);
 void breadcrumb_configuration_free(BreadcrumbConfiguration *self);
 BreadcrumbConfigurationContentForm breadcrumb_configuration_content(const BreadcrumbConfiguration *self);
 
-// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+// 10.10.1. Breakpoints.
 //
 // Breakpoint definitions for responsive layouts.
 // Binds a BreakpointConfiguration facade to a document and a path (path copied).
@@ -8081,7 +8136,7 @@ BreakpointConfigurationBreakpointOverviewForm breakpoint_configuration_breakpoin
 // Returns the list view; element type: BreakpointEntry (construct from item paths).
 SomList breakpoint_configuration_breakpoints(const BreakpointConfiguration *self);
 
-// A breakpoint entry [PD00-USE-RES-BRE-nn].
+// A breakpoint entry.
 // Binds a BreakpointEntry facade to a document and a path (path copied).
 void breakpoint_entry_init(BreakpointEntry *self, SpecDocument *doc, const char *path);
 void breakpoint_entry_free(BreakpointEntry *self);
@@ -8317,56 +8372,7 @@ void business_component_entry_testing_init(BusinessComponentEntryTesting *self, 
 void business_component_entry_testing_free(BusinessComponentEntryTesting *self);
 BusinessComponentEntryTestingContentForm business_component_entry_testing_content(const BusinessComponentEntryTesting *self);
 
-// BDM00 Business Data Model.
-//
-// Full business data model: entities, relationships, ER diagram, data
-// classification, business objects, function decomposition, function-
-// to-data matrix, business rules, data dictionary, and validation /
-// integrity constraints.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int business_data_model_new(BusinessDataModel *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *business_data_model_object_model_version(const BusinessDataModel *self);
-void business_data_model_free(BusinessDataModel *self);
-char *business_data_model_content(const BusinessDataModel *self);
-void business_data_model_set_content(BusinessDataModel *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader business_data_model_header(const BusinessDataModel *self);
-// Entity inventory — PD00-BUS-DAT-ENT (list).
-// Returns the list view; element type: DataEntityEntry (construct from item paths).
-SomList business_data_model_entities(const BusinessDataModel *self);
-// Entity relationships — PD00-BUS-DAT-REL.
-EntityRelationships business_data_model_entity_relationships(const BusinessDataModel *self);
-// Entity-relationship diagram — PD00-BUS-DAT-DIA.
-// (skipped: erDiagram has no target type)
-// Data classification — PD00-BUS-DAT-CLA.
-DataClassification business_data_model_data_classification(const BusinessDataModel *self);
-// Business object catalog — PD00-BUS-BUS-CAT (list).
-// Returns the list view; element type: BusinessObjectEntry (construct from item paths).
-SomList business_data_model_object_catalog(const BusinessDataModel *self);
-// Business object diagram — PD00-BUS-BUS-DIA.
-// (skipped: objectDiagram has no target type)
-// Function decomposition — PD00-BUS-FUN-DEC (list).
-// Returns the list view; element type: FunctionEntry (construct from item paths).
-SomList business_data_model_function_decomposition(const BusinessDataModel *self);
-// Function-to-data matrix — PD00-BUS-FUN-MAT (list).
-// Returns the list view; element type: FunctionDataMatrixEntry (construct from item paths).
-SomList business_data_model_function_to_data_matrix(const BusinessDataModel *self);
-// Business rules catalog — PD00-BUS-FUN-RUL (list).
-// Returns the list view; element type: BusinessRuleEntry (construct from item paths).
-SomList business_data_model_business_rules(const BusinessDataModel *self);
-// Data dictionary — PD00-BUS-DAT-DIC.
-DataDictionary business_data_model_data_dictionary(const BusinessDataModel *self);
-// Validation constraints — PD00-BUS-DAT-VAL.
-// Returns the list view; element type: ValidationConstraints (construct from item paths).
-SomList business_data_model_validation_constraints(const BusinessDataModel *self);
-// Integrity constraints — PD00-BUS-DAT-CON.
-// Returns the list view; element type: IntegrityConstraints (construct from item paths).
-SomList business_data_model_integrity_constraints(const BusinessDataModel *self);
-
-// A business goal entry [PD00-SYO-GOA-BUS-nn].
+// A business goal entry.
 //
 // Comprehensive business goal definition following SMART criteria with
 // OKR-style key results, ownership, and tracking information.
@@ -8382,15 +8388,15 @@ BusinessGoalEntryMeasurement business_goal_entry_measurement(const BusinessGoalE
 BusinessGoalEntryGovernance business_goal_entry_governance(const BusinessGoalEntry *self);
 // Business rationale and impact.
 BusinessGoalEntryStrategy business_goal_entry_strategy(const BusinessGoalEntry *self);
-// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+// 4.2.1.n.1. Key Results.
 GoalKeyResults business_goal_entry_key_results(const BusinessGoalEntry *self);
-// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+// 4.2.1.n.2. Milestones.
 GoalMilestones business_goal_entry_milestones(const BusinessGoalEntry *self);
-// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+// 4.2.1.n.3. Dependencies.
 GoalDependencies business_goal_entry_dependencies(const BusinessGoalEntry *self);
-// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+// 4.2.1.n.4. Risks.
 GoalRisks business_goal_entry_risks(const BusinessGoalEntry *self);
-// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+// 4.2.1.n.5. Resources.
 GoalResources business_goal_entry_resources(const BusinessGoalEntry *self);
 
 // Goal definition and priority.
@@ -8417,7 +8423,7 @@ void business_goal_entry_strategy_init(BusinessGoalEntryStrategy *self, SpecDocu
 void business_goal_entry_strategy_free(BusinessGoalEntryStrategy *self);
 BusinessGoalEntryStrategyContentForm business_goal_entry_strategy_content(const BusinessGoalEntryStrategy *self);
 
-// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+// 4.2.1. Business Goals.
 //
 // Container for business goal definitions. Business goals define what the
 // organization wants to achieve through this project in terms of business
@@ -8469,20 +8475,7 @@ void business_metrics_spec_transactions_init(BusinessMetricsSpecTransactions *se
 void business_metrics_spec_transactions_free(BusinessMetricsSpecTransactions *self);
 BusinessMetricsSpecTransactionsContentForm business_metrics_spec_transactions_content(const BusinessMetricsSpecTransactions *self);
 
-// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
-// Binds a BusinessObjectAndDataModel facade to a document and a path (path copied).
-void business_object_and_data_model_init(BusinessObjectAndDataModel *self, SpecDocument *doc, const char *path);
-void business_object_and_data_model_free(BusinessObjectAndDataModel *self);
-char *business_object_and_data_model_content(const BusinessObjectAndDataModel *self);
-void business_object_and_data_model_set_content(BusinessObjectAndDataModel *self, const char *value);
-// 7.1. Data Model [PD00-BUS-DAT].
-DataModel business_object_and_data_model_data_model(const BusinessObjectAndDataModel *self);
-// 7.2. Business Object Model [PD00-BUS-BUS].
-BusinessObjectModel business_object_and_data_model_business_object_model(const BusinessObjectAndDataModel *self);
-// 7.3. Function Model [PD00-BUS-FUN].
-FunctionModel business_object_and_data_model_function_model(const BusinessObjectAndDataModel *self);
-
-// A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
+// A business object attribute entry (form).
 //
 // Business-level attribute specification focusing on business meaning and rules.
 // Binds a BusinessObjectAttributeEntry facade to a document and a path (path copied).
@@ -8514,7 +8507,7 @@ void business_object_attribute_entry_validation_init(BusinessObjectAttributeEntr
 void business_object_attribute_entry_validation_free(BusinessObjectAttributeEntryValidation *self);
 BusinessObjectAttributeEntryValidationContentForm business_object_attribute_entry_validation_content(const BusinessObjectAttributeEntryValidation *self);
 
-// A business object entry [PD00-BUS-BUS-CAT-nn] (form).
+// A business object entry (form).
 //
 // Comprehensive business object specification following domain-driven design
 // patterns. Business objects represent key domain concepts with behavior,
@@ -8530,38 +8523,38 @@ SomList business_object_entry_behavior_rules(const BusinessObjectEntry *self);
 BusinessObjectEntryOwnershipForm business_object_entry_ownership(const BusinessObjectEntry *self);
 // Returns the list view; element type: IntegrationPointEntry (construct from item paths).
 SomList business_object_entry_integration_points(const BusinessObjectEntry *self);
-// Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
+// Contains 0+× BusinessObjectAttribute.
 // Returns the list view; element type: BusinessObjectAttributeEntry (construct from item paths).
 SomList business_object_entry_attributes(const BusinessObjectEntry *self);
-// Contains 0+× ObjectState [PD00-BUS-BUS-CAT-nn-STA].
+// Contains 0+× ObjectState.
 // Returns the list view; element type: ObjectStateEntry (construct from item paths).
 SomList business_object_entry_key_states(const BusinessObjectEntry *self);
-// Contains 0+× BusinessRuleReference [PD00-BUS-BUS-CAT-nn-BRR].
+// Contains 0+× BusinessRuleReference.
 // Returns the list view; element type: BusinessRuleReferenceEntry (construct from item paths).
 SomList business_object_entry_key_business_rules(const BusinessObjectEntry *self);
-// Contains 0+× LifecycleTransition [PD00-BUS-BUS-CAT-nn-LIF].
+// Contains 0+× LifecycleTransition.
 // Returns the list view; element type: LifecycleTransitionEntry (construct from item paths).
 SomList business_object_entry_lifecycle_transitions(const BusinessObjectEntry *self);
-// Contains 0+× ObjectOperation [PD00-BUS-BUS-CAT-nn-OPR].
+// Contains 0+× ObjectOperation.
 // Returns the list view; element type: ObjectOperationEntry (construct from item paths).
 SomList business_object_entry_operations(const BusinessObjectEntry *self);
-// Contains 0+× ObjectInvariant [PD00-BUS-BUS-CAT-nn-INV].
+// Contains 0+× ObjectInvariant.
 // Returns the list view; element type: ObjectInvariantEntry (construct from item paths).
 SomList business_object_entry_invariants(const BusinessObjectEntry *self);
 
-// 7.2. Business Object Model [PD00-BUS-BUS].
+// 7.2. Business Object Model.
 // Binds a BusinessObjectModel facade to a document and a path (path copied).
 void business_object_model_init(BusinessObjectModel *self, SpecDocument *doc, const char *path);
 void business_object_model_free(BusinessObjectModel *self);
 char *business_object_model_content(const BusinessObjectModel *self);
 void business_object_model_set_content(BusinessObjectModel *self, const char *value);
-// 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.
+// 7.2.1. Object Catalog — contains 1+× Business Object.
 // Returns the list view; element type: BusinessObjectEntry (construct from item paths).
 SomList business_object_model_objects(const BusinessObjectModel *self);
-// 7.2.2. Business Object Diagram [PD00-BUS-BUS-DIA] (mermaid).
+// 7.2.2. Business Object Diagram (mermaid).
 // (skipped: objectDiagram has no target type)
 
-// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+// 1.3.2. Business Pain Points.
 //
 // Problems that affect business outcomes: lost revenue, compliance risk,
 // customer dissatisfaction, inability to scale, and missed opportunities.
@@ -8582,7 +8575,7 @@ void business_pain_points_summary_init(BusinessPainPointsSummary *self, SpecDocu
 void business_pain_points_summary_free(BusinessPainPointsSummary *self);
 BusinessPainPointsSummaryContentForm business_pain_points_summary_content(const BusinessPainPointsSummary *self);
 
-// 6.1. Business Process Descriptions [PD00-TAR-PRO].
+// 6.1. Business Process Descriptions.
 //
 // Target business processes at a high level. Each process will be expanded
 // with detailed workflows, triggers, decision points, and exception handling
@@ -8592,30 +8585,30 @@ void business_process_descriptions_init(BusinessProcessDescriptions *self, SpecD
 void business_process_descriptions_free(BusinessProcessDescriptions *self);
 char *business_process_descriptions_content(const BusinessProcessDescriptions *self);
 void business_process_descriptions_set_content(BusinessProcessDescriptions *self, const char *value);
-// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+// 6.1.1. Process Vision.
 ProcessVision business_process_descriptions_process_vision(const BusinessProcessDescriptions *self);
-// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+// 6.1.2. Design Principles.
 ProcessDesignPrinciples business_process_descriptions_design_principles(const BusinessProcessDescriptions *self);
-// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
+// 6.1.3. Process Catalog — contains 1+× Business Process.
 ProcessCatalog business_process_descriptions_process_catalog(const BusinessProcessDescriptions *self);
-// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+// 6.1.4. Process Overview Diagram.
 ProcessOverviewDiagram business_process_descriptions_process_overview_diagram(const BusinessProcessDescriptions *self);
-// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+// 6.1.5. Improvement Summary.
 ProcessImprovementSummary business_process_descriptions_improvement_summary(const BusinessProcessDescriptions *self);
-// 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
+// 6.1.6. Process Relationships.
 ProcessRelationships business_process_descriptions_process_relationships(const BusinessProcessDescriptions *self);
-// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+// 6.1.7. Detailed Process Workflows.
 // Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
 SomList business_process_descriptions_detailed_workflows(const BusinessProcessDescriptions *self);
-// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+// 6.1.8. Cross-Process Analysis.
 CrossProcessAnalysis business_process_descriptions_cross_process_analysis(const BusinessProcessDescriptions *self);
-// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+// 6.1.9. Process Exception Handling.
 ProcessExceptionHandling business_process_descriptions_exception_handling(const BusinessProcessDescriptions *self);
-// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+// 6.1.10. Process Metrics and KPIs.
 // Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
 SomList business_process_descriptions_process_metrics_and_kpis(const BusinessProcessDescriptions *self);
 
-// A business process entry [PD00-TAR-PRO-CAT-nn].
+// A business process entry.
 //
 // Comprehensive business process definition following BPMN 2.0 concepts.
 // Binds a BusinessProcessEntry facade to a document and a path (path copied).
@@ -8642,91 +8635,7 @@ ProcessExceptions business_process_entry_exceptions(const BusinessProcessEntry *
 // Process flow preview (high-level).
 // (skipped: processFlowPreview has no target type)
 
-// BP00 Business Processes.
-//
-// Target business process specification — vision, principles, catalog,
-// diagrams, improvements, relationships, detailed workflows,
-// cross-process analysis, exception handling, and KPIs.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int business_processes_new(BusinessProcesses *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *business_processes_object_model_version(const BusinessProcesses *self);
-void business_processes_free(BusinessProcesses *self);
-char *business_processes_content(const BusinessProcesses *self);
-void business_processes_set_content(BusinessProcesses *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader business_processes_header(const BusinessProcesses *self);
-// Process vision — PD00-TAR-PRO-VIS.
-ProcessVision business_processes_process_vision(const BusinessProcesses *self);
-// Design principles — PD00-TAR-PRO-PRI.
-ProcessDesignPrinciples business_processes_design_principles(const BusinessProcesses *self);
-// Process catalog — PD00-TAR-PRO-CAT.
-ProcessCatalog business_processes_process_catalog(const BusinessProcesses *self);
-// Process overview diagram — PD00-TAR-PRO-FLO.
-ProcessOverviewDiagram business_processes_process_overview_diagram(const BusinessProcesses *self);
-// Improvement summary — PD00-TAR-PRO-IMP.
-ProcessImprovementSummary business_processes_improvement_summary(const BusinessProcesses *self);
-// Process relationships — PD00-TAR-PRO-REL.
-ProcessRelationships business_processes_process_relationships(const BusinessProcesses *self);
-// Detailed process workflows — PD00-TAR-PRO-DET.
-// Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
-SomList business_processes_detailed_workflows(const BusinessProcesses *self);
-// Cross-process analysis — PD00-TAR-PRO-CRO.
-CrossProcessAnalysis business_processes_cross_process_analysis(const BusinessProcesses *self);
-// Process exception handling — PD00-TAR-PRO-EXC.
-ProcessExceptionHandling business_processes_exception_handling(const BusinessProcesses *self);
-// Process metrics and KPIs — PD00-TAR-PRO-MET.
-// Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
-SomList business_processes_process_metrics_and_kpis(const BusinessProcesses *self);
-
-// BQP00 Business Quality Plan.
-//
-// Full quality plan combining quality goals (PD00-SYQ) and the
-// acceptance plan (PD00-DEL-ACC). Replaces HBSG AS11 + AS23 + partial
-// AS14 coverage.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int business_quality_plan_new(BusinessQualityPlan *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *business_quality_plan_object_model_version(const BusinessQualityPlan *self);
-void business_quality_plan_free(BusinessQualityPlan *self);
-char *business_quality_plan_content(const BusinessQualityPlan *self);
-void business_quality_plan_set_content(BusinessQualityPlan *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader business_quality_plan_header(const BusinessQualityPlan *self);
-// Quality framework — PD00-SYQ-FRA.
-QualityFramework business_quality_plan_quality_framework(const BusinessQualityPlan *self);
-// User-related quality criteria — PD00-SYQ-USE.
-UserQualityCriteria business_quality_plan_user_quality_criteria(const BusinessQualityPlan *self);
-// Technical quality criteria — PD00-SYQ-TEC.
-TechnicalQualityCriteria business_quality_plan_technical_quality_criteria(const BusinessQualityPlan *self);
-// Operations quality criteria — PD00-SYQ-OPE.
-OperationsQualityCriteria business_quality_plan_operations_quality_criteria(const BusinessQualityPlan *self);
-// Documentation quality criteria — PD00-SYQ-DOC.
-DocumentationQualityCriteria business_quality_plan_documentation_quality_criteria(const BusinessQualityPlan *self);
-// Quality prioritization — PD00-SYQ-PRI.
-QualityPrioritization business_quality_plan_quality_prioritization(const BusinessQualityPlan *self);
-// Acceptance criteria summary — PD00-SYQ-ACC.
-AcceptanceCriteriaSummary business_quality_plan_acceptance_criteria_summary(const BusinessQualityPlan *self);
-// Test strategy — PD00-SYQ-TST (new in Phase A, HBSG AS23).
-TestStrategy business_quality_plan_test_strategy(const BusinessQualityPlan *self);
-// Acceptance criteria — PD00-DEL-ACC-CRI.
-AcceptanceCriteriaList business_quality_plan_acceptance_criteria(const BusinessQualityPlan *self);
-// Acceptance process — PD00-DEL-ACC-PRO.
-AcceptanceProcess business_quality_plan_acceptance_process(const BusinessQualityPlan *self);
-// User acceptance testing — PD00-DEL-ACC-UAT.
-UserAcceptanceTesting business_quality_plan_user_acceptance_testing(const BusinessQualityPlan *self);
-// Defect resolution — PD00-DEL-ACC-DEF.
-DefectResolution business_quality_plan_defect_resolution(const BusinessQualityPlan *self);
-// Sign-off process — PD00-DEL-ACC-SIG.
-SignOffProcess business_quality_plan_sign_off_process(const BusinessQualityPlan *self);
-// Warranty terms — PD00-DEL-ACC-WAR.
-WarrantyTerms business_quality_plan_warranty(const BusinessQualityPlan *self);
-
-// A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
+// A business rule entry (form).
 //
 // Comprehensive business rule specification following SBVR-like patterns.
 // Binds a BusinessRuleEntry facade to a document and a path (path copied).
@@ -8738,17 +8647,17 @@ BusinessRuleEntryRuleLogicForm business_rule_entry_rule_logic(const BusinessRule
 BusinessRuleEntryImplementationForm business_rule_entry_implementation(const BusinessRuleEntry *self);
 BusinessRuleEntryExceptionHandlingForm business_rule_entry_exception_handling(const BusinessRuleEntry *self);
 BusinessRuleEntryGovernanceForm business_rule_entry_governance(const BusinessRuleEntry *self);
-// Contains 0+× AffectedObject [PD00-BUS-FUN-RUL-nn-AOB].
+// Contains 0+× AffectedObject.
 // Returns the list view; element type: AffectedObjectEntry (construct from item paths).
 SomList business_rule_entry_affected_objects(const BusinessRuleEntry *self);
-// Contains 0+× AffectedFunction [PD00-BUS-FUN-RUL-nn-AFU].
+// Contains 0+× AffectedFunction.
 // Returns the list view; element type: AffectedFunctionEntry (construct from item paths).
 SomList business_rule_entry_affected_functions(const BusinessRuleEntry *self);
-// Contains 0+× RuleExample [PD00-BUS-FUN-RUL-nn-EXA].
+// Contains 0+× RuleExample.
 // Returns the list view; element type: RuleExampleEntry (construct from item paths).
 SomList business_rule_entry_examples(const BusinessRuleEntry *self);
 
-// A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
+// A business rule reference entry (form).
 //
 // Reference to business rules that govern this object.
 // Binds a BusinessRuleReferenceEntry facade to a document and a path (path copied).
@@ -8758,47 +8667,7 @@ BusinessRuleReferenceEntryContentForm business_rule_reference_entry_content(cons
 char *business_rule_reference_entry_rule_ref(const BusinessRuleReferenceEntry *self);
 void business_rule_reference_entry_set_rule_ref(BusinessRuleReferenceEntry *self, const char *value);
 
-// BSI00 Business System Interactions.
-//
-// Complete interaction specification between the target system and
-// external systems: inventory, patterns, testing, dependencies,
-// migration, operational concerns, and cross-boundary error handling.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int business_system_interactions_new(BusinessSystemInteractions *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *business_system_interactions_object_model_version(const BusinessSystemInteractions *self);
-void business_system_interactions_free(BusinessSystemInteractions *self);
-char *business_system_interactions_content(const BusinessSystemInteractions *self);
-void business_system_interactions_set_content(BusinessSystemInteractions *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader business_system_interactions_header(const BusinessSystemInteractions *self);
-// External interfaces — PD00-SYO-SYB-INT.
-ExternalInterfaces business_system_interactions_external_interfaces(const BusinessSystemInteractions *self);
-// Out of scope — PD00-SYO-SYB-OUT.
-OutOfScope business_system_interactions_out_of_scope(const BusinessSystemInteractions *self);
-// Boundary assumptions — PD00-SYO-SYB-ASS.
-BoundaryAssumptions business_system_interactions_boundary_assumptions(const BusinessSystemInteractions *self);
-// System landscape inventory — PD00-SYO-SYB-INV.
-SystemLandscapeInventory business_system_interactions_system_inventory(const BusinessSystemInteractions *self);
-// Boundary interaction patterns — PD00-SYO-SYB-PAT.
-// Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
-SomList business_system_interactions_interaction_patterns(const BusinessSystemInteractions *self);
-// Interaction testing strategy — PD00-SYO-SYB-TST.
-InteractionTestingStrategy business_system_interactions_testing_strategy(const BusinessSystemInteractions *self);
-// Interaction dependency analysis — PD00-SYO-SYB-DEP.
-InteractionDependencyAnalysis business_system_interactions_dependency_analysis(const BusinessSystemInteractions *self);
-// Migration interactions — PD00-SYO-SYB-MIG.
-// Returns the list view; element type: MigrationInteractions (construct from item paths).
-SomList business_system_interactions_migration_interactions(const BusinessSystemInteractions *self);
-// Cross-boundary operational considerations — PD00-SYO-SYB-OPE.
-// Returns the list view; element type: CrossBoundaryOperationalConsiderations (construct from item paths).
-SomList business_system_interactions_operational_considerations(const BusinessSystemInteractions *self);
-// Cross-boundary error handling — PD00-SYO-SYB-ERR.
-CrossBoundaryErrorHandling business_system_interactions_cross_boundary_error_handling(const BusinessSystemInteractions *self);
-
-// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+// 8.7.3. Capacity Planning.
 // Binds a CapacityPlanningSection facade to a document and a path (path copied).
 void capacity_planning_section_init(CapacityPlanningSection *self, SpecDocument *doc, const char *path);
 void capacity_planning_section_free(CapacityPlanningSection *self);
@@ -8925,7 +8794,7 @@ void certificate_management_storage_init(CertificateManagementStorage *self, Spe
 void certificate_management_storage_free(CertificateManagementStorage *self);
 CertificateManagementStorageContentForm certificate_management_storage_content(const CertificateManagementStorage *self);
 
-// Certification entry (form) [PD00-ORG-WOR-nn-TRA-CER-nn].
+// Certification entry (form).
 // Binds a CertificationEntry facade to a document and a path (path copied).
 void certification_entry_init(CertificationEntry *self, SpecDocument *doc, const char *path);
 void certification_entry_free(CertificationEntry *self);
@@ -9016,7 +8885,7 @@ void change_advocate_entry_free(ChangeAdvocateEntry *self);
 char *change_advocate_entry_content(const ChangeAdvocateEntry *self);
 void change_advocate_entry_set_content(ChangeAdvocateEntry *self, const char *value);
 
-// A change category entry [PD00-ADM-CHA-CAT-nn].
+// A change category entry.
 //
 // Defines a category of changes with specific handling rules.
 // Binds a ChangeCategoryEntry facade to a document and a path (path copied).
@@ -9048,7 +8917,7 @@ void change_category_entry_scope_init(ChangeCategoryEntryScope *self, SpecDocume
 void change_category_entry_scope_free(ChangeCategoryEntryScope *self);
 ChangeCategoryEntryScopeContentForm change_category_entry_scope_content(const ChangeCategoryEntryScope *self);
 
-// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+// 3.4.3. Change Control Board.
 //
 // Governance body responsible for major change decisions.
 // Binds a ChangeControlBoard facade to a document and a path (path copied).
@@ -9089,7 +8958,7 @@ void change_decision_criteria_init(ChangeDecisionCriteria *self, SpecDocument *d
 void change_decision_criteria_free(ChangeDecisionCriteria *self);
 ChangeDecisionCriteriaContentForm change_decision_criteria_content(const ChangeDecisionCriteria *self);
 
-// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+// 3.4.2. Change Impact Criteria.
 //
 // Criteria for determining the impact level of change requests,
 // which drives the approval path and stakeholder involvement.
@@ -9105,7 +8974,7 @@ SomList change_impact_criteria_impact_levels(const ChangeImpactCriteria *self);
 // Returns the list view; element type: ChangeImpactCriterionEntry (construct from item paths).
 SomList change_impact_criteria_items(const ChangeImpactCriteria *self);
 
-// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
+// A change impact criterion entry (form).
 //
 // Detailed criterion for assessing change impact in a specific dimension.
 // Binds a ChangeImpactCriterionEntry facade to a document and a path (path copied).
@@ -9151,7 +9020,7 @@ void change_notification_rules_init(ChangeNotificationRules *self, SpecDocument 
 void change_notification_rules_free(ChangeNotificationRules *self);
 ChangeNotificationRulesContentForm change_notification_rules_content(const ChangeNotificationRules *self);
 
-// 3.4. Change Procedure [PD00-ADM-CHA].
+// 3.4. Change Procedure.
 //
 // Procedure for requesting, evaluating, and approving changes to this
 // Project Definition and other project documents. Defines the change
@@ -9163,13 +9032,13 @@ char *change_procedure_content(const ChangeProcedure *self);
 void change_procedure_set_content(ChangeProcedure *self, const char *value);
 // Change procedure summary.
 ChangeProcedureSummary change_procedure_summary(const ChangeProcedure *self);
-// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+// 3.4.1. Change Process.
 ChangeProcess change_procedure_change_process(const ChangeProcedure *self);
-// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+// 3.4.2. Change Impact Criteria.
 ChangeImpactCriteria change_procedure_change_impact_criteria(const ChangeProcedure *self);
-// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+// 3.4.3. Change Control Board.
 ChangeControlBoard change_procedure_change_control_board(const ChangeProcedure *self);
-// 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
+// 3.4.4. Change Categories — contains 0+× Category.
 // Returns the list view; element type: ChangeCategoryEntry (construct from item paths).
 SomList change_procedure_change_categories(const ChangeProcedure *self);
 
@@ -9179,7 +9048,7 @@ void change_procedure_summary_init(ChangeProcedureSummary *self, SpecDocument *d
 void change_procedure_summary_free(ChangeProcedureSummary *self);
 ChangeProcedureSummaryContentForm change_procedure_summary_content(const ChangeProcedureSummary *self);
 
-// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+// 3.4.1. Change Process.
 //
 // Detailed workflow for change request processing from submission
 // through evaluation, approval, implementation, and closure.
@@ -9217,13 +9086,13 @@ void change_readiness_overview_init(ChangeReadinessOverview *self, SpecDocument 
 void change_readiness_overview_free(ChangeReadinessOverview *self);
 ChangeReadinessOverviewContentForm change_readiness_overview_content(const ChangeReadinessOverview *self);
 
-// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
+// A role involved in the change process (form).
 // Binds a ChangeRoleEntry facade to a document and a path (path copied).
 void change_role_entry_init(ChangeRoleEntry *self, SpecDocument *doc, const char *path);
 void change_role_entry_free(ChangeRoleEntry *self);
 ChangeRoleEntryContentForm change_role_entry_content(const ChangeRoleEntry *self);
 
-// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
+// A change process step entry (form).
 //
 // Detailed description of a single step in the change process workflow.
 // Binds a ChangeStepEntry facade to a document and a path (path copied).
@@ -9281,7 +9150,7 @@ SomList changed_role_competencies_changed_levels(const ChangedRoleCompetencies *
 // Overall competency gap assessment.
 CompetencyGapAssessment changed_role_competencies_gap_assessment(const ChangedRoleCompetencies *self);
 
-// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+// A changed role entry (form).
 //
 // Documents modifications to existing roles with impact assessment,
 // transition planning, and incumbent management.
@@ -9373,7 +9242,7 @@ void changed_role_transition_training_init(ChangedRoleTransitionTraining *self, 
 void changed_role_transition_training_free(ChangedRoleTransitionTraining *self);
 ChangedRoleTransitionTrainingContentForm changed_role_transition_training_content(const ChangedRoleTransitionTraining *self);
 
-// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+// 5.1.1. Changes from Current Structure.
 //
 // Explicitly documents what changes from the current organization structure.
 // Identifies affected departments, changed reporting lines, and new roles
@@ -9573,7 +9442,7 @@ void client_network_requirements_proxy_init(ClientNetworkRequirementsProxy *self
 void client_network_requirements_proxy_free(ClientNetworkRequirementsProxy *self);
 ClientNetworkRequirementsProxyContentForm client_network_requirements_proxy_content(const ClientNetworkRequirementsProxy *self);
 
-// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+// 8.4.2. Client Requirements.
 //
 // Minimum client requirements: browser versions, operating systems, screen
 // resolution, network bandwidth, and device capabilities.
@@ -9882,7 +9751,7 @@ void coding_standards_section_review_init(CodingStandardsSectionReview *self, Sp
 void coding_standards_section_review_free(CodingStandardsSectionReview *self);
 CodingStandardsSectionReviewContentForm coding_standards_section_review_content(const CodingStandardsSectionReview *self);
 
-// A color palette entry [PD00-USE-COM-LIB-COL-nn].
+// A color palette entry.
 // Binds a ColorPaletteEntry facade to a document and a path (path copied).
 void color_palette_entry_init(ColorPaletteEntry *self, SpecDocument *doc, const char *path);
 void color_palette_entry_free(ColorPaletteEntry *self);
@@ -9906,7 +9775,7 @@ void committee_charter_init(CommitteeCharter *self, SpecDocument *doc, const cha
 void committee_charter_free(CommitteeCharter *self);
 CommitteeCharterContentForm committee_charter_content(const CommitteeCharter *self);
 
-// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+// A steering committee member entry (form).
 //
 // Detailed information about a steering committee member.
 // Binds a CommitteeMemberEntry facade to a document and a path (path copied).
@@ -9924,7 +9793,7 @@ void committee_responsibility_entry_free(CommitteeResponsibilityEntry *self);
 CommitteeResponsibilityEntryContentForm committee_responsibility_entry_content(const CommitteeResponsibilityEntry *self);
 
 // A communication channel encryption entry (form)
-// [PD00-ACC-SEN-TRA-CHA-nn].
+// .
 //
 // Defines encryption requirements for a specific communication channel
 // (e.g. client-to-server HTTPS, server-to-database, inter-service,
@@ -9935,7 +9804,7 @@ void communication_channel_encryption_entry_init(CommunicationChannelEncryptionE
 void communication_channel_encryption_entry_free(CommunicationChannelEncryptionEntry *self);
 CommunicationChannelEncryptionEntryContentForm communication_channel_encryption_entry_content(const CommunicationChannelEncryptionEntry *self);
 
-// Communication event entry [PD00-ORG-STR-TIM-COM-nn] (form).
+// Communication event entry (form).
 // Binds a CommunicationEventEntry facade to a document and a path (path copied).
 void communication_event_entry_init(CommunicationEventEntry *self, SpecDocument *doc, const char *path);
 void communication_event_entry_free(CommunicationEventEntry *self);
@@ -10022,15 +9891,15 @@ void communication_preference_entry_free(CommunicationPreferenceEntry *self);
 char *communication_preference_entry_content(const CommunicationPreferenceEntry *self);
 void communication_preference_entry_set_content(CommunicationPreferenceEntry *self, const char *value);
 
-// 8.6. Communication Requirements [PD00-TEC-COM].
+// 8.6. Communication Requirements.
 // Binds a CommunicationRequirements facade to a document and a path (path copied).
 void communication_requirements_init(CommunicationRequirements *self, SpecDocument *doc, const char *path);
 void communication_requirements_free(CommunicationRequirements *self);
 char *communication_requirements_content(const CommunicationRequirements *self);
 void communication_requirements_set_content(CommunicationRequirements *self, const char *value);
-// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+// 8.6.1. Protocols and Standards.
 ProtocolsAndStandardsSection communication_requirements_protocols_and_standards(const CommunicationRequirements *self);
-// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+// 8.6.2. External Connectivity.
 ExternalConnectivitySection communication_requirements_external_connectivity(const CommunicationRequirements *self);
 
 // Communication tools requirements.
@@ -10045,7 +9914,7 @@ void communication_type_entry_init(CommunicationTypeEntry *self, SpecDocument *d
 void communication_type_entry_free(CommunicationTypeEntry *self);
 CommunicationTypeEntryContentForm communication_type_entry_content(const CommunicationTypeEntry *self);
 
-// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+// 8.3.1. Compatibility Requirements.
 //
 // Compatibility requirements with existing IT infrastructure, standard software,
 // and enterprise systems.
@@ -10087,13 +9956,13 @@ BackwardsCompatibilityRequirements compatibility_requirements_section_backwards_
 // Interoperability requirements.
 InteroperabilityRequirements compatibility_requirements_section_interoperability(const CompatibilityRequirementsSection *self);
 
-// A competency entry (form) [PD00-ORG-JOB-CMP-xx-nn].
+// A competency entry (form).
 // Binds a CompetencyEntry facade to a document and a path (path copied).
 void competency_entry_init(CompetencyEntry *self, SpecDocument *doc, const char *path);
 void competency_entry_free(CompetencyEntry *self);
 CompetencyEntryContentForm competency_entry_content(const CompetencyEntry *self);
 
-// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+// 5.2.5. Competency Framework.
 // Binds a CompetencyFramework facade to a document and a path (path copied).
 void competency_framework_init(CompetencyFramework *self, SpecDocument *doc, const char *path);
 void competency_framework_free(CompetencyFramework *self);
@@ -10127,7 +9996,7 @@ void competency_level_change_entry_init(CompetencyLevelChangeEntry *self, SpecDo
 void competency_level_change_entry_free(CompetencyLevelChangeEntry *self);
 CompetencyLevelChangeEntryContentForm competency_level_change_entry_content(const CompetencyLevelChangeEntry *self);
 
-// Compliance audit planning and scheduling [PD00-TEC-SEC-AUD].
+// Compliance audit planning and scheduling.
 // Binds a ComplianceAuditSchedule facade to a document and a path (path copied).
 void compliance_audit_schedule_init(ComplianceAuditSchedule *self, SpecDocument *doc, const char *path);
 void compliance_audit_schedule_free(ComplianceAuditSchedule *self);
@@ -10157,7 +10026,7 @@ void compliance_audit_schedule_reporting_init(ComplianceAuditScheduleReporting *
 void compliance_audit_schedule_reporting_free(ComplianceAuditScheduleReporting *self);
 ComplianceAuditScheduleReportingContentForm compliance_audit_schedule_reporting_content(const ComplianceAuditScheduleReporting *self);
 
-// 9.8. Compliance Framework [PD00-ACC-CMP].
+// 9.8. Compliance Framework.
 //
 // NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
 // authorization. Pulls the compliance references currently scattered
@@ -10181,7 +10050,7 @@ void compliance_milestone_entry_init(ComplianceMilestoneEntry *self, SpecDocumen
 void compliance_milestone_entry_free(ComplianceMilestoneEntry *self);
 ComplianceMilestoneEntryContentForm compliance_milestone_entry_content(const ComplianceMilestoneEntry *self);
 
-// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+// 9.6.3. Compliance Reporting.
 //
 // Describes compliance reporting requirements: periodic access reviews,
 // privilege usage reports, anomaly detection, and regulatory audit support.
@@ -10253,7 +10122,7 @@ void compliance_verification_section_tools_init(ComplianceVerificationSectionToo
 void compliance_verification_section_tools_free(ComplianceVerificationSectionTools *self);
 ComplianceVerificationSectionToolsContentForm compliance_verification_section_tools_content(const ComplianceVerificationSectionTools *self);
 
-// A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
+// A component action entry.
 //
 // Defines an action that can be triggered from the component.
 // Binds a ComponentActionEntry facade to a document and a path (path copied).
@@ -10301,7 +10170,7 @@ void component_docs_init(ComponentDocs *self, SpecDocument *doc, const char *pat
 void component_docs_free(ComponentDocs *self);
 ComponentDocsContentForm component_docs_content(const ComponentDocs *self);
 
-// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+// A component entry (form) with sub-entries.
 //
 // Describes a single external or standard component planned for use:
 // vendor assessment, maturity, security, cost, deployment model, licensing,
@@ -10329,18 +10198,18 @@ ComponentRisk component_entry_risk(const ComponentEntry *self);
 // Documentation.
 // Returns the list view; element type: ComponentDocs (construct from item paths).
 SomList component_entry_docs(const ComponentEntry *self);
-// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
+// Interfaces — contains 0+× ComponentInterface.
 // Returns the list view; element type: ComponentInterfaceEntry (construct from item paths).
 SomList component_entry_interfaces(const ComponentEntry *self);
-// Licensing [PD00-COM-COM-nn-LIC] (form).
+// Licensing (form).
 ComponentLicensingEntry component_entry_licensing(const ComponentEntry *self);
-// Usage Rights [PD00-COM-COM-nn-USE].
+// Usage Rights.
 // (skipped: usageRights has no target type)
-// Responsibilities [PD00-COM-COM-nn-RES] (form).
+// Responsibilities (form).
 // Returns the list view; element type: ComponentResponsibilitiesEntry (construct from item paths).
 SomList component_entry_responsibilities(const ComponentEntry *self);
 
-// A component family entry [PD00-USE-COM-FAM-nn].
+// A component family entry.
 //
 // Groups related components by function (buttons, inputs, navigation, etc.).
 // Binds a ComponentFamilyEntry facade to a document and a path (path copied).
@@ -10391,7 +10260,7 @@ void component_governance_quality_init(ComponentGovernanceQuality *self, SpecDoc
 void component_governance_quality_free(ComponentGovernanceQuality *self);
 ComponentGovernanceQualityContentForm component_governance_quality_content(const ComponentGovernanceQuality *self);
 
-// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
+// A component interface entry (form).
 //
 // Describes one interface exposed or consumed by a component: protocol,
 // authentication, data format, rate limits, versioning, SLA, monitoring.
@@ -10440,7 +10309,7 @@ void component_interface_entry_sla_init(ComponentInterfaceEntrySla *self, SpecDo
 void component_interface_entry_sla_free(ComponentInterfaceEntrySla *self);
 ComponentInterfaceEntrySlaContentForm component_interface_entry_sla_content(const ComponentInterfaceEntrySla *self);
 
-// 10.11.1. Component Library [PD00-USE-COM-LIB].
+// 10.11.1. Component Library.
 //
 // Design system and component catalog specification.
 // Binds a ComponentLibrary facade to a document and a path (path copied).
@@ -10499,7 +10368,7 @@ void component_library_visuals_init(ComponentLibraryVisuals *self, SpecDocument 
 void component_library_visuals_free(ComponentLibraryVisuals *self);
 ComponentLibraryVisualsContentForm component_library_visuals_content(const ComponentLibraryVisuals *self);
 
-// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+// Component licensing sub-entry (form).
 //
 // Detailed licensing information: model, cost, compliance, open-source
 // obligations, audit requirements, geographic restrictions, usage metrics.
@@ -10598,7 +10467,7 @@ void component_performance_init(ComponentPerformance *self, SpecDocument *doc, c
 void component_performance_free(ComponentPerformance *self);
 ComponentPerformanceContentForm component_performance_content(const ComponentPerformance *self);
 
-// A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
+// A component property entry.
 //
 // Defines a configurable property of the component.
 // Binds a ComponentPropertyEntry facade to a document and a path (path copied).
@@ -10644,7 +10513,7 @@ void component_registry_updates_init(ComponentRegistryUpdates *self, SpecDocumen
 void component_registry_updates_free(ComponentRegistryUpdates *self);
 ComponentRegistryUpdatesContentForm component_registry_updates_content(const ComponentRegistryUpdates *self);
 
-// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+// Component responsibilities sub-entry (form).
 //
 // Who owns and maintains this component: primary/backup owners, SLA targets,
 // patch response time, security vulnerability handling, budget allocation.
@@ -10691,7 +10560,7 @@ void component_risk_init(ComponentRisk *self, SpecDocument *doc, const char *pat
 void component_risk_free(ComponentRisk *self);
 ComponentRiskContentForm component_risk_content(const ComponentRisk *self);
 
-// 12.6. Risk Assessment [PD00-COM-RIS].
+// 12.6. Risk Assessment.
 //
 // Component risk assessment: identified risks with probability/impact,
 // monitoring, mitigation strategies, and contingency plans.
@@ -10700,13 +10569,13 @@ void component_risk_assessment_init(ComponentRiskAssessment *self, SpecDocument 
 void component_risk_assessment_free(ComponentRiskAssessment *self);
 char *component_risk_assessment_content(const ComponentRiskAssessment *self);
 void component_risk_assessment_set_content(ComponentRiskAssessment *self, const char *value);
-// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+// 12.6.1. Component Risks — contains 0+× Risk.
 // Returns the list view; element type: ComponentRiskEntry (construct from item paths).
 SomList component_risk_assessment_risks(const ComponentRiskAssessment *self);
-// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+// 12.6.2. Contingency Plans.
 ContingencyPlans component_risk_assessment_contingency_plans(const ComponentRiskAssessment *self);
 
-// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+// A component risk entry (form).
 //
 // Documents one component risk: category, probability, impact, detection
 // methods, mitigation strategy and status, residual risk, and ownership.
@@ -10755,7 +10624,7 @@ void component_risk_entry_mitigation_init(ComponentRiskEntryMitigation *self, Sp
 void component_risk_entry_mitigation_free(ComponentRiskEntryMitigation *self);
 ComponentRiskEntryMitigationContentForm component_risk_entry_mitigation_content(const ComponentRiskEntryMitigation *self);
 
-// A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
+// A component slot entry.
 //
 // Defines a slot where child widgets can be placed.
 // Binds a ComponentSlotEntry facade to a document and a path (path copied).
@@ -10763,7 +10632,7 @@ void component_slot_entry_init(ComponentSlotEntry *self, SpecDocument *doc, cons
 void component_slot_entry_free(ComponentSlotEntry *self);
 ComponentSlotEntryContentForm component_slot_entry_content(const ComponentSlotEntry *self);
 
-// A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
+// A component state entry.
 //
 // Defines a visual/functional state of the component.
 // Binds a ComponentStateEntry facade to a document and a path (path copied).
@@ -10797,7 +10666,7 @@ void component_state_entry_visual_init(ComponentStateEntryVisual *self, SpecDocu
 void component_state_entry_visual_free(ComponentStateEntryVisual *self);
 ComponentStateEntryVisualContentForm component_state_entry_visual_content(const ComponentStateEntryVisual *self);
 
-// 12.1. Component Strategy [PD00-COM-STR].
+// 12.1. Component Strategy.
 //
 // Overall component strategy: build-vs-buy philosophy, preferred vendors,
 // technology stack alignment, governance, evaluation cadence, and portfolio
@@ -10816,10 +10685,10 @@ ComponentStrategyPortfolio component_strategy_portfolio(const ComponentStrategy 
 ComponentStrategyPolicies component_strategy_policies(const ComponentStrategy *self);
 // Budget and pilot planning.
 ComponentStrategyPlanning component_strategy_planning(const ComponentStrategy *self);
-// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+// 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
 // Returns the list view; element type: ReuseGoalEntry (construct from item paths).
 SomList component_strategy_reuse_goals(const ComponentStrategy *self);
-// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+// 12.1.2. Evaluation Criteria.
 EvaluationCriteria component_strategy_evaluation_criteria(const ComponentStrategy *self);
 
 // Governance and evaluation process.
@@ -10858,7 +10727,7 @@ void component_support_init(ComponentSupport *self, SpecDocument *doc, const cha
 void component_support_free(ComponentSupport *self);
 ComponentSupportContentForm component_support_content(const ComponentSupport *self);
 
-// A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
+// A component variant entry.
 //
 // Defines a variation of the component with different appearance or behavior.
 // Binds a ComponentVariantEntry facade to a document and a path (path copied).
@@ -10890,7 +10759,7 @@ void component_vendor_init(ComponentVendor *self, SpecDocument *doc, const char 
 void component_vendor_free(ComponentVendor *self);
 ComponentVendorContentForm component_vendor_content(const ComponentVendor *self);
 
-// 12. Components to Use [PD00-COM]. Seeds → TR.
+// 12. Components to Use. Seeds → TR.
 //
 // External and standard components planned for use in the system. All
 // subsections seed the TR document, where component choices are expanded
@@ -10901,18 +10770,18 @@ void components_to_use_init(ComponentsToUse *self, SpecDocument *doc, const char
 void components_to_use_free(ComponentsToUse *self);
 char *components_to_use_content(const ComponentsToUse *self);
 void components_to_use_set_content(ComponentsToUse *self, const char *value);
-// 12.1. Component Strategy [PD00-COM-STR].
+// 12.1. Component Strategy.
 ComponentStrategy components_to_use_strategy(const ComponentsToUse *self);
-// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+// 12.2. Component Catalog — contains 0+× Component.
 // Returns the list view; element type: ComponentEntry (construct from item paths).
 SomList components_to_use_component_catalog(const ComponentsToUse *self);
-// 12.3. Component Role In System [PD00-COM-ROL].
+// 12.3. Component Role In System.
 // (skipped: componentRoleInSystem has no target type)
-// 12.4. Runtime Dependencies [PD00-COM-RUN].
+// 12.4. Runtime Dependencies.
 RuntimeDependencies components_to_use_runtime_dependencies(const ComponentsToUse *self);
-// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+// 12.5. Maintenance Dependencies.
 MaintenanceDependencies components_to_use_maintenance_dependencies(const ComponentsToUse *self);
-// 12.6. Risk Assessment [PD00-COM-RIS].
+// 12.6. Risk Assessment.
 ComponentRiskAssessment components_to_use_risk_assessment(const ComponentsToUse *self);
 
 // Compute resource requirements.
@@ -10945,7 +10814,7 @@ void compute_resource_requirements_special_init(ComputeResourceRequirementsSpeci
 void compute_resource_requirements_special_free(ComputeResourceRequirementsSpecial *self);
 ComputeResourceRequirementsSpecialContentForm compute_resource_requirements_special_content(const ComputeResourceRequirementsSpecial *self);
 
-// Computing equipment entry (form) [PD00-ORG-WOR-nn-EQU-PRI-nn].
+// Computing equipment entry (form).
 // Binds a ComputingEquipmentEntry facade to a document and a path (path copied).
 void computing_equipment_entry_init(ComputingEquipmentEntry *self, SpecDocument *doc, const char *path);
 void computing_equipment_entry_free(ComputingEquipmentEntry *self);
@@ -10994,7 +10863,7 @@ void confidential_info_category_entry_init(ConfidentialInfoCategoryEntry *self, 
 void confidential_info_category_entry_free(ConfidentialInfoCategoryEntry *self);
 ConfidentialInfoCategoryEntryContentForm confidential_info_category_entry_content(const ConfidentialInfoCategoryEntry *self);
 
-// 3.6.2. Confidentiality and NDA Requirements [PD00-ADM-OTH-NDA].
+// 3.6.2. Confidentiality and NDA Requirements.
 //
 // Non-disclosure agreements and confidentiality constraints.
 // Binds a ConfidentialityRequirements facade to a document and a path (path copied).
@@ -11075,7 +10944,7 @@ void connectivity_resilience_protection_init(ConnectivityResilienceProtection *s
 void connectivity_resilience_protection_free(ConnectivityResilienceProtection *self);
 ConnectivityResilienceProtectionContentForm connectivity_resilience_protection_content(const ConnectivityResilienceProtection *self);
 
-// Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
+// Consent collection, tracking and management requirements.
 // Binds a ConsentManagementRequirements facade to a document and a path (path copied).
 void consent_management_requirements_init(ConsentManagementRequirements *self, SpecDocument *doc, const char *path);
 void consent_management_requirements_free(ConsentManagementRequirements *self);
@@ -11133,7 +11002,7 @@ void constraint_details_init(ConstraintDetails *self, SpecDocument *doc, const c
 void constraint_details_free(ConstraintDetails *self);
 ConstraintDetailsContentForm constraint_details_content(const ConstraintDetails *self);
 
-// A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
+// A constraint entry (form).
 //
 // Represents a single external constraint limiting project degrees of
 // freedom. Common constraint types include regulatory requirements,
@@ -11177,13 +11046,22 @@ void constraint_mitigation_init(ConstraintMitigation *self, SpecDocument *doc, c
 void constraint_mitigation_free(ConstraintMitigation *self);
 ConstraintMitigationContentForm constraint_mitigation_content(const ConstraintMitigation *self);
 
+// A single constraint register entry (form).
+//
+// Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
+// `ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+// Binds a ConstraintRegisterEntry facade to a document and a path (path copied).
+void constraint_register_entry_init(ConstraintRegisterEntry *self, SpecDocument *doc, const char *path);
+void constraint_register_entry_free(ConstraintRegisterEntry *self);
+ConstraintRegisterEntryContentForm constraint_register_entry_content(const ConstraintRegisterEntry *self);
+
 // Tracking for constraint.
 // Binds a ConstraintTracking facade to a document and a path (path copied).
 void constraint_tracking_init(ConstraintTracking *self, SpecDocument *doc, const char *path);
 void constraint_tracking_free(ConstraintTracking *self);
 ConstraintTrackingContentForm constraint_tracking_content(const ConstraintTracking *self);
 
-// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+// 4.6.4.1. Constraints.
 //
 // External constraints limiting project scope, schedule, budget, or
 // approach. Includes regulatory, contractual, organizational, technical,
@@ -11199,7 +11077,7 @@ SomList constraints_items(const Constraints *self);
 // Constraint Summary narrative.
 // (skipped: constraintNarrative has no target type)
 
-// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+// 4.6.4. Constraints and Dependencies.
 //
 // Documents external constraints (regulatory, contractual, budgetary,
 // timeline) and dependencies on other projects, teams, or organizational
@@ -11209,9 +11087,9 @@ SomList constraints_items(const Constraints *self);
 void constraints_and_dependencies_init(ConstraintsAndDependencies *self, SpecDocument *doc, const char *path);
 void constraints_and_dependencies_free(ConstraintsAndDependencies *self);
 ConstraintsAndDependenciesContentForm constraints_and_dependencies_content(const ConstraintsAndDependencies *self);
-// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+// 4.6.4.1. Constraints.
 Constraints constraints_and_dependencies_constraints(const ConstraintsAndDependencies *self);
-// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+// 4.6.4.2. Dependencies.
 FrameworkDependencies constraints_and_dependencies_framework_dependencies(const ConstraintsAndDependencies *self);
 
 // Content scanning policy — how uploaded and stored files are scanned for
@@ -11227,7 +11105,7 @@ void content_scanning_policy_set_content(ContentScanningPolicy *self, const char
 // Content Scanning Details (text).
 // (skipped: contentScanningDetails has no target type)
 
-// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+// 4.1.2.1. Context Diagram.
 //
 // Visual representation of the system as a black box showing external
 // entities and data flows (UML context diagram / DFD Level 0).
@@ -11243,7 +11121,7 @@ void context_diagram_set_diagram(ContextDiagram *self, const char *value);
 char *context_diagram_legend(const ContextDiagram *self);
 void context_diagram_set_legend(ContextDiagram *self, const char *value);
 
-// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+// 10.8.1. Contextual Help.
 // Binds a ContextualHelp facade to a document and a path (path copied).
 void contextual_help_init(ContextualHelp *self, SpecDocument *doc, const char *path);
 void contextual_help_free(ContextualHelp *self);
@@ -11286,7 +11164,7 @@ void contextual_help_whats_this_init(ContextualHelpWhatsThis *self, SpecDocument
 void contextual_help_whats_this_free(ContextualHelpWhatsThis *self);
 ContextualHelpWhatsThisContentForm contextual_help_whats_this_content(const ContextualHelpWhatsThis *self);
 
-// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+// 10.3.1.6. Contextual Navigation.
 //
 // Breadcrumbs, back navigation, related links.
 // Binds a ContextualNavigation facade to a document and a path (path copied).
@@ -11294,14 +11172,14 @@ void contextual_navigation_init(ContextualNavigation *self, SpecDocument *doc, c
 void contextual_navigation_free(ContextualNavigation *self);
 char *contextual_navigation_content(const ContextualNavigation *self);
 void contextual_navigation_set_content(ContextualNavigation *self, const char *value);
-// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+// 10.3.1.6.1. Breadcrumb Configuration.
 BreadcrumbConfiguration contextual_navigation_breadcrumbs(const ContextualNavigation *self);
 // Back navigation behavior.
 // (skipped: backNavigation has no target type)
 // Related links behavior.
 // (skipped: relatedLinks has no target type)
 
-// A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
+// A contingency plan entry (form).
 //
 // Describes one contingency plan for a component risk: trigger conditions,
 // immediate/recovery actions, RTO/RPO, communication, testing frequency.
@@ -11350,7 +11228,7 @@ void contingency_plan_entry_testing_init(ContingencyPlanEntryTesting *self, Spec
 void contingency_plan_entry_testing_free(ContingencyPlanEntryTesting *self);
 ContingencyPlanEntryTestingContentForm contingency_plan_entry_testing_content(const ContingencyPlanEntryTesting *self);
 
-// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+// 12.6.2. Contingency Plans.
 //
 // Container for contingency plans addressing critical component risks.
 // Binds a ContingencyPlans facade to a document and a path (path copied).
@@ -11362,7 +11240,7 @@ void contingency_plans_set_content(ContingencyPlans *self, const char *value);
 // Returns the list view; element type: ContingencyPlanEntry (construct from item paths).
 SomList contingency_plans_items(const ContingencyPlans *self);
 
-// 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
+// 11.2.3. Correctness quality.
 // Binds a CorrectnessQuality facade to a document and a path (path copied).
 void correctness_quality_init(CorrectnessQuality *self, SpecDocument *doc, const char *path);
 void correctness_quality_free(CorrectnessQuality *self);
@@ -11425,7 +11303,7 @@ void critical_knowledge_area_entry_free(CriticalKnowledgeAreaEntry *self);
 char *critical_knowledge_area_entry_content(const CriticalKnowledgeAreaEntry *self);
 void critical_knowledge_area_entry_set_content(CriticalKnowledgeAreaEntry *self, const char *value);
 
-// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+// 4.5.10. Cross-Boundary Error Handling.
 //
 // Failure-propagation policy that applies across system boundaries.
 // Distinct from per-interface error handling.
@@ -11435,7 +11313,7 @@ void cross_boundary_error_handling_free(CrossBoundaryErrorHandling *self);
 char *cross_boundary_error_handling_content(const CrossBoundaryErrorHandling *self);
 void cross_boundary_error_handling_set_content(CrossBoundaryErrorHandling *self, const char *value);
 
-// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+// 4.5.9. Cross-Boundary Operational Considerations.
 //
 // SLA, rate-limit, and change-window considerations applied at system
 // boundaries. Distinct from per-interface operational data captured
@@ -11492,10 +11370,10 @@ void cross_cutting_concerns_shared_init(CrossCuttingConcernsShared *self, SpecDo
 void cross_cutting_concerns_shared_free(CrossCuttingConcernsShared *self);
 CrossCuttingConcernsSharedContentForm cross_cutting_concerns_shared_content(const CrossCuttingConcernsShared *self);
 
-// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+// 6.1.8. Cross-Process Analysis.
 //
 // Hand-offs, shared data, and coordination patterns between processes.
-// Covers HBSG AS07-CRO.
+// .
 // Binds a CrossProcessAnalysis facade to a document and a path (path copied).
 void cross_process_analysis_init(CrossProcessAnalysis *self, SpecDocument *doc, const char *path);
 void cross_process_analysis_free(CrossProcessAnalysis *self);
@@ -11523,7 +11401,7 @@ void cultural_consideration_entry_free(CulturalConsiderationEntry *self);
 char *cultural_consideration_entry_content(const CulturalConsiderationEntry *self);
 void cultural_consideration_entry_set_content(CulturalConsiderationEntry *self, const char *value);
 
-// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+// 1.1.2. Current Architecture.
 //
 // Description of the current system architecture including deployment
 // topology, integration patterns, shared services, and data stores.
@@ -11532,20 +11410,20 @@ void current_architecture_init(CurrentArchitecture *self, SpecDocument *doc, con
 void current_architecture_free(CurrentArchitecture *self);
 char *current_architecture_content(const CurrentArchitecture *self);
 void current_architecture_set_content(CurrentArchitecture *self, const char *value);
-// Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
+// Architecture overview diagram.
 char *current_architecture_architecture_diagram(const CurrentArchitecture *self);
 void current_architecture_set_architecture_diagram(CurrentArchitecture *self, const char *value);
-// Deployment topology description [PD00-CUR-SYS-ARC-DEP].
+// Deployment topology description.
 char *current_architecture_deployment_topology(const CurrentArchitecture *self);
 void current_architecture_set_deployment_topology(CurrentArchitecture *self, const char *value);
-// Integration patterns used [PD00-CUR-SYS-ARC-INT].
+// Integration patterns used.
 // Returns the list view; element type: IntegrationPatternEntry (construct from item paths).
 SomList current_architecture_integration_patterns(const CurrentArchitecture *self);
-// Shared services inventory [PD00-CUR-SYS-ARC-SHR].
+// Shared services inventory.
 // Returns the list view; element type: SharedServiceEntry (construct from item paths).
 SomList current_architecture_shared_services(const CurrentArchitecture *self);
 
-// A current business process [PD00-CUR-PRO-nn].
+// A current business process.
 //
 // Detailed documentation of a single business process including its
 // workflows, actors, metrics, and pain points.
@@ -11555,14 +11433,14 @@ void current_business_process_free(CurrentBusinessProcess *self);
 CurrentBusinessProcessContentForm current_business_process_content(const CurrentBusinessProcess *self);
 // Process context and purpose.
 ProcessContext current_business_process_process_context(const CurrentBusinessProcess *self);
-// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
+// 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
 WorkflowDescriptions current_business_process_workflow_descriptions(const CurrentBusinessProcess *self);
-// 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
+// 1.2.nn.2. Process Metrics.
 ProcessMetrics current_business_process_process_metrics(const CurrentBusinessProcess *self);
 // Process pain points and improvement opportunities.
 ProcessPainPoints current_business_process_process_pain_points(const CurrentBusinessProcess *self);
 
-// 1.2. Current Business Processes [PD00-CUR-PRO].
+// 1.2. Current Business Processes.
 //
 // Documents the current business processes that the project will impact,
 // replace, or enhance. Understanding existing workflows is critical for
@@ -11573,20 +11451,20 @@ void current_business_processes_init(CurrentBusinessProcesses *self, SpecDocumen
 void current_business_processes_free(CurrentBusinessProcesses *self);
 char *current_business_processes_content(const CurrentBusinessProcesses *self);
 void current_business_processes_set_content(CurrentBusinessProcesses *self, const char *value);
-// Process landscape diagram [PD00-CUR-PRO-DIA].
+// Process landscape diagram.
 char *current_business_processes_process_landscape_diagram(const CurrentBusinessProcesses *self);
 void current_business_processes_set_process_landscape_diagram(CurrentBusinessProcesses *self, const char *value);
-// Process scope summary [PD00-CUR-PRO-SCO].
+// Process scope summary.
 ProcessScopeSummary current_business_processes_scope_summary(const CurrentBusinessProcesses *self);
-// Process interdependency matrix [PD00-CUR-PRO-INT].
+// Process interdependency matrix.
 ProcessInterdependencyMatrix current_business_processes_interdependency_matrix(const CurrentBusinessProcesses *self);
-// Process performance summary [PD00-CUR-PRO-SUM].
+// Process performance summary.
 ProcessPerformanceSummary current_business_processes_performance_summary(const CurrentBusinessProcesses *self);
-// 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
+// 1.2.nn. Business Processes — contains 1+× Business Process.
 // Returns the list view; element type: CurrentBusinessProcess (construct from item paths).
 SomList current_business_processes_processes(const CurrentBusinessProcesses *self);
 
-// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+// 1.4.8. Data Classification.
 //
 // Data classification framework, sensitivity levels, and current
 // classification status of data assets.
@@ -11604,7 +11482,7 @@ SomList current_data_classification_classification_levels(const CurrentDataClass
 // Returns the list view; element type: DataClassificationStatusEntry (construct from item paths).
 SomList current_data_classification_classification_status(const CurrentDataClassification *self);
 
-// 1.4. Current Data Landscape [PD00-CUR-DAT].
+// 1.4. Current Data Landscape.
 //
 // Comprehensive documentation of the current data situation including where
 // data lives, data quality issues, duplication, ownership, volumes, growth
@@ -11622,28 +11500,85 @@ char *current_data_landscape_data_architecture_diagram(const CurrentDataLandscap
 void current_data_landscape_set_data_architecture_diagram(CurrentDataLandscape *self, const char *value);
 // Summary statistics and health indicators.
 DataLandscapeSummary current_data_landscape_data_landscape_summary(const CurrentDataLandscape *self);
-// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+// 1.4.1. Data Source Inventory.
 DataSourceInventory current_data_landscape_data_source_inventory(const CurrentDataLandscape *self);
-// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+// 1.4.2. Data Quality Assessment.
 DataQualityAssessment current_data_landscape_data_quality_assessment(const CurrentDataLandscape *self);
-// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+// 1.4.3. Data Duplication Analysis.
 DataDuplicationAnalysis current_data_landscape_data_duplication_analysis(const CurrentDataLandscape *self);
-// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+// 1.4.4. Data Ownership and Stewardship.
 DataOwnership current_data_landscape_data_ownership(const CurrentDataLandscape *self);
-// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+// 1.4.5. Data Volumes and Growth.
 DataVolumesAndGrowth current_data_landscape_data_volumes_and_growth(const CurrentDataLandscape *self);
-// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+// 1.4.6. Retention Policies.
 DataRetentionPolicies current_data_landscape_retention_policies(const CurrentDataLandscape *self);
-// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+// 1.4.7. Data Governance.
 DataGovernance current_data_landscape_data_governance(const CurrentDataLandscape *self);
-// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+// 1.4.8. Data Classification.
 CurrentDataClassification current_data_landscape_data_classification(const CurrentDataLandscape *self);
-// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+// 1.4.9. Data Integration Points.
 DataIntegrationPoints current_data_landscape_data_integration_points(const CurrentDataLandscape *self);
-// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+// 1.4.10. Master Data Management.
 MasterDataManagement current_data_landscape_master_data_management(const CurrentDataLandscape *self);
 
-// 1.5. Operational Metrics [PD00-CUR-MET].
+// 1. Current State Analysis. Seeds → CS.
+//
+// Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
+// CS together with the systems-to-replace inventory.
+// Binds a CurrentLandscape facade to a document and a path (path copied).
+void current_landscape_init(CurrentLandscape *self, SpecDocument *doc, const char *path);
+void current_landscape_free(CurrentLandscape *self);
+char *current_landscape_content(const CurrentLandscape *self);
+void current_landscape_set_content(CurrentLandscape *self, const char *value);
+// 1.1. Existing Systems Landscape.
+ExistingSystemsLandscape current_landscape_existing_systems_landscape(const CurrentLandscape *self);
+// 1.2. Current Business Processes.
+CurrentBusinessProcesses current_landscape_current_business_processes(const CurrentLandscape *self);
+// 1.3. Pain Points and Gaps.
+PainPointsAndGaps current_landscape_pain_points_and_gaps(const CurrentLandscape *self);
+// 1.4. Current Data Landscape.
+CurrentDataLandscape current_landscape_current_data_landscape(const CurrentLandscape *self);
+// 1.5. Operational Metrics.
+// Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
+SomList current_landscape_operational_metrics(const CurrentLandscape *self);
+// 1.6. Current State Risks.
+CurrentStateRiskAssessment current_landscape_current_state_risks(const CurrentLandscape *self);
+
+// CS00 Current Situation.
+//
+// Detailed analysis of the current state: existing systems, business
+// processes, pain points, data landscape, operational metrics, risks,
+// and the inventory / migration plan for the systems being replaced.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int current_landscape_assessment_new(CurrentLandscapeAssessment *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *current_landscape_assessment_object_model_version(const CurrentLandscapeAssessment *self);
+void current_landscape_assessment_free(CurrentLandscapeAssessment *self);
+char *current_landscape_assessment_content(const CurrentLandscapeAssessment *self);
+void current_landscape_assessment_set_content(CurrentLandscapeAssessment *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader current_landscape_assessment_header(const CurrentLandscapeAssessment *self);
+// Existing systems landscape.
+ExistingSystemsLandscape current_landscape_assessment_existing_systems_landscape(const CurrentLandscapeAssessment *self);
+// Current business processes.
+CurrentBusinessProcesses current_landscape_assessment_current_business_processes(const CurrentLandscapeAssessment *self);
+// Pain points and gaps.
+PainPointsAndGaps current_landscape_assessment_pain_points_and_gaps(const CurrentLandscapeAssessment *self);
+// Current data landscape.
+CurrentDataLandscape current_landscape_assessment_current_data_landscape(const CurrentLandscapeAssessment *self);
+// Current operational metrics.
+// Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
+SomList current_landscape_assessment_operational_metrics(const CurrentLandscapeAssessment *self);
+// Current-state risk assessment.
+CurrentStateRiskAssessment current_landscape_assessment_current_state_risks(const CurrentLandscapeAssessment *self);
+// Replacement inventory.
+ReplacementInventory current_landscape_assessment_replacement_inventory(const CurrentLandscapeAssessment *self);
+// Migration considerations.
+MigrationConsiderations current_landscape_assessment_migration_considerations(const CurrentLandscapeAssessment *self);
+
+// 1.5. Operational Metrics.
 //
 // Baseline metrics of the current systems: throughput, volume, uptime,
 // response times, user counts. Used to size the target system and to
@@ -11660,74 +11595,17 @@ void current_process_improvement_entry_init(CurrentProcessImprovementEntry *self
 void current_process_improvement_entry_free(CurrentProcessImprovementEntry *self);
 CurrentProcessImprovementEntryContentForm current_process_improvement_entry_content(const CurrentProcessImprovementEntry *self);
 
-// CS00 Current Situation.
-//
-// Detailed analysis of the current state: existing systems, business
-// processes, pain points, data landscape, operational metrics, risks,
-// and the inventory / migration plan for the systems being replaced.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int current_situation_new(CurrentSituation *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *current_situation_object_model_version(const CurrentSituation *self);
-void current_situation_free(CurrentSituation *self);
-char *current_situation_content(const CurrentSituation *self);
-void current_situation_set_content(CurrentSituation *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader current_situation_header(const CurrentSituation *self);
-// Existing systems landscape — PD00-CUR-SYS.
-ExistingSystemsLandscape current_situation_existing_systems_landscape(const CurrentSituation *self);
-// Current business processes — PD00-CUR-PRO.
-CurrentBusinessProcesses current_situation_current_business_processes(const CurrentSituation *self);
-// Pain points and gaps — PD00-CUR-PAI.
-PainPointsAndGaps current_situation_pain_points_and_gaps(const CurrentSituation *self);
-// Current data landscape — PD00-CUR-DAT.
-CurrentDataLandscape current_situation_current_data_landscape(const CurrentSituation *self);
-// Current operational metrics — PD00-CUR-MET.
-// Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
-SomList current_situation_operational_metrics(const CurrentSituation *self);
-// Current-state risk assessment — PD00-CUR-RIS.
-CurrentStateRiskAssessment current_situation_current_state_risks(const CurrentSituation *self);
-// Replacement inventory — PD00-SYO-SYR-INV.
-ReplacementInventory current_situation_replacement_inventory(const CurrentSituation *self);
-// Migration considerations — PD00-SYO-SYR-MIG.
-MigrationConsiderations current_situation_migration_considerations(const CurrentSituation *self);
-
-// 1. Current State Analysis [PD00-CUR]. Seeds → CS.
-//
-// Seeds the CS (Current Situation) Phase 3 DocSpec. Previously listed as
-// PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
-// Binds a CurrentStateAnalysis facade to a document and a path (path copied).
-void current_state_analysis_init(CurrentStateAnalysis *self, SpecDocument *doc, const char *path);
-void current_state_analysis_free(CurrentStateAnalysis *self);
-char *current_state_analysis_content(const CurrentStateAnalysis *self);
-void current_state_analysis_set_content(CurrentStateAnalysis *self, const char *value);
-// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
-ExistingSystemsLandscape current_state_analysis_existing_systems_landscape(const CurrentStateAnalysis *self);
-// 1.2. Current Business Processes [PD00-CUR-PRO].
-CurrentBusinessProcesses current_state_analysis_current_business_processes(const CurrentStateAnalysis *self);
-// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
-PainPointsAndGaps current_state_analysis_pain_points_and_gaps(const CurrentStateAnalysis *self);
-// 1.4. Current Data Landscape [PD00-CUR-DAT].
-CurrentDataLandscape current_state_analysis_current_data_landscape(const CurrentStateAnalysis *self);
-// 1.5. Operational Metrics [PD00-CUR-MET].
-// Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
-SomList current_state_analysis_operational_metrics(const CurrentStateAnalysis *self);
-// 1.6. Current State Risks [PD00-CUR-RIS].
-CurrentStateRiskAssessment current_state_analysis_current_state_risks(const CurrentStateAnalysis *self);
-
-// 1.6. Current State Risks [PD00-CUR-RIS].
+// 1.6. Current State Risks.
 //
 // Risks tied to the current state and to its replacement. Distinct from
-// PD00-SYO-RIS which covers target-side risks.
+// the target-side risks section which covers replacement risks.
 // Binds a CurrentStateRiskAssessment facade to a document and a path (path copied).
 void current_state_risk_assessment_init(CurrentStateRiskAssessment *self, SpecDocument *doc, const char *path);
 void current_state_risk_assessment_free(CurrentStateRiskAssessment *self);
 char *current_state_risk_assessment_content(const CurrentStateRiskAssessment *self);
 void current_state_risk_assessment_set_content(CurrentStateRiskAssessment *self, const char *value);
 
-// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+// A current workflow entry (form).
 //
 // Detailed documentation of a single workflow within a business process.
 // Includes triggers, steps, actors, inputs, outputs, and timing.
@@ -11735,7 +11613,7 @@ void current_state_risk_assessment_set_content(CurrentStateRiskAssessment *self,
 void current_workflow_entry_init(CurrentWorkflowEntry *self, SpecDocument *doc, const char *path);
 void current_workflow_entry_free(CurrentWorkflowEntry *self);
 CurrentWorkflowEntryContentForm current_workflow_entry_content(const CurrentWorkflowEntry *self);
-// Workflow diagram [PD00-CUR-PRO-xx-WOR-xx-DIA].
+// Workflow diagram.
 char *current_workflow_entry_workflow_diagram(const CurrentWorkflowEntry *self);
 void current_workflow_entry_set_workflow_diagram(CurrentWorkflowEntry *self, const char *value);
 // Workflow triggers and initiation.
@@ -11778,13 +11656,13 @@ CustomDistributionGroupContentForm custom_distribution_group_content(const Custo
 // Returns the list view; element type: DistributionRecipientEntry (construct from item paths).
 SomList custom_distribution_group_members(const CustomDistributionGroup *self);
 
-// A custom metric entry [PD00-TEC-SYS-MON-MET-nn].
+// A custom metric entry.
 // Binds a CustomMetricEntry facade to a document and a path (path copied).
 void custom_metric_entry_init(CustomMetricEntry *self, SpecDocument *doc, const char *path);
 void custom_metric_entry_free(CustomMetricEntry *self);
 CustomMetricEntryContentForm custom_metric_entry_content(const CustomMetricEntry *self);
 
-// 15.6. Cutover Procedures [PD00-ROL-CUT].
+// 15.6. Cutover Procedures.
 //
 // Detailed cutover runbook for go-live. Minute-by-minute procedure
 // covering the transition from current operation to the target system.
@@ -11794,7 +11672,7 @@ void cutover_procedures_free(CutoverProcedures *self);
 char *cutover_procedures_content(const CutoverProcedures *self);
 void cutover_procedures_set_content(CutoverProcedures *self, const char *value);
 
-// A dashboard entry [PD00-TEC-SYS-MON-DAS-nn].
+// A dashboard entry.
 // Binds a DashboardEntry facade to a document and a path (path copied).
 void dashboard_entry_init(DashboardEntry *self, SpecDocument *doc, const char *path);
 void dashboard_entry_free(DashboardEntry *self);
@@ -11934,7 +11812,7 @@ void data_attribute_constraint_entry_init(DataAttributeConstraintEntry *self, Sp
 void data_attribute_constraint_entry_free(DataAttributeConstraintEntry *self);
 DataAttributeConstraintEntryContentForm data_attribute_constraint_entry_content(const DataAttributeConstraintEntry *self);
 
-// A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
+// A data attribute entry (form).
 //
 // Comprehensive attribute specification for data dictionary and schema design.
 // Binds a DataAttributeEntry facade to a document and a path (path copied).
@@ -11950,16 +11828,16 @@ DataAttributeEntryMigrationLineageForm data_attribute_entry_migration_lineage(co
 // Returns the list view; element type: DisplayPropertyEntry (construct from item paths).
 SomList data_attribute_entry_display_properties(const DataAttributeEntry *self);
 
-// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+// 7.1.4. Data Classification.
 // Binds a DataClassification facade to a document and a path (path copied).
 void data_classification_init(DataClassification *self, SpecDocument *doc, const char *path);
 void data_classification_free(DataClassification *self);
 DataClassificationOverviewForm data_classification_overview(const DataClassification *self);
-// Contains 0+× DataClassificationEntry [PD00-BUS-DAT-CLA-nn].
+// Contains 0+× DataClassificationEntry.
 // Returns the list view; element type: DataClassificationEntry (construct from item paths).
 SomList data_classification_items(const DataClassification *self);
 
-// A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
+// A data classification entry (form).
 //
 // Comprehensive data classification for security and compliance.
 // Binds a DataClassificationEntry facade to a document and a path (path copied).
@@ -11970,10 +11848,10 @@ DataClassificationEntryStorageTransmissionForm data_classification_entry_storage
 DataClassificationEntryAccessControlForm data_classification_entry_access_control(const DataClassificationEntry *self);
 DataClassificationEntryRetentionDisposalForm data_classification_entry_retention_disposal(const DataClassificationEntry *self);
 DataClassificationEntryComplianceForm data_classification_entry_compliance(const DataClassificationEntry *self);
-// Contains 0+× HandlingRequirement [PD00-BUS-DAT-CLA-nn-HAN].
+// Contains 0+× HandlingRequirement.
 // Returns the list view; element type: HandlingRequirementEntry (construct from item paths).
 SomList data_classification_entry_handling_requirements(const DataClassificationEntry *self);
-// Contains 0+× AccessRestriction [PD00-BUS-DAT-CLA-nn-ARE].
+// Contains 0+× AccessRestriction.
 // Returns the list view; element type: AccessRestrictionEntry (construct from item paths).
 SomList data_classification_entry_access_restrictions(const DataClassificationEntry *self);
 
@@ -11995,17 +11873,17 @@ void data_classification_summary_init(DataClassificationSummary *self, SpecDocum
 void data_classification_summary_free(DataClassificationSummary *self);
 DataClassificationSummaryContentForm data_classification_summary_content(const DataClassificationSummary *self);
 
-// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC].
+// 7.1.5. Data Dictionary.
 //
 // Attribute-level dictionary that complements the entity overview
-// (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
+// ..
 // Binds a DataDictionary facade to a document and a path (path copied).
 void data_dictionary_init(DataDictionary *self, SpecDocument *doc, const char *path);
 void data_dictionary_free(DataDictionary *self);
 char *data_dictionary_content(const DataDictionary *self);
 void data_dictionary_set_content(DataDictionary *self, const char *value);
 
-// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+// 1.4.3. Data Duplication Analysis.
 //
 // Analysis of data duplication across systems, including redundant data
 // stores, duplicated records, and synchronization challenges.
@@ -12059,7 +11937,7 @@ void data_duplication_summary_init(DataDuplicationSummary *self, SpecDocument *d
 void data_duplication_summary_free(DataDuplicationSummary *self);
 DataDuplicationSummaryContentForm data_duplication_summary_content(const DataDuplicationSummary *self);
 
-// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+// A data entity entry (form).
 //
 // Comprehensive entity specification following data modeling best practices.
 // Captures conceptual, logical, and physical design aspects.
@@ -12076,23 +11954,23 @@ SomList data_entity_entry_compliance_requirements(const DataEntityEntry *self);
 DataEntityEntryRelationshipSummaryForm data_entity_entry_relationship_summary(const DataEntityEntry *self);
 // Returns the list view; element type: TechnicalCharacteristicEntry (construct from item paths).
 SomList data_entity_entry_technical_characteristics(const DataEntityEntry *self);
-// Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
+// Contains 0+× DataAttribute.
 // Returns the list view; element type: DataAttributeEntry (construct from item paths).
 SomList data_entity_entry_attributes(const DataEntityEntry *self);
-// Contains 0+× KeyAttribute [PD00-BUS-DAT-ENT-nn-KEY].
+// Contains 0+× KeyAttribute.
 // Returns the list view; element type: KeyAttributeEntry (construct from item paths).
 SomList data_entity_entry_key_attributes(const DataEntityEntry *self);
-// Contains 0+× EntityIndex [PD00-BUS-DAT-ENT-nn-IDX].
+// Contains 0+× EntityIndex.
 // Returns the list view; element type: EntityIndexEntry (construct from item paths).
 SomList data_entity_entry_indexes(const DataEntityEntry *self);
-// Contains 0+× EntityConstraint [PD00-BUS-DAT-ENT-nn-CON].
+// Contains 0+× EntityConstraint.
 // Returns the list view; element type: EntityConstraintEntry (construct from item paths).
 SomList data_entity_entry_constraints(const DataEntityEntry *self);
-// Contains 0+× MigrationMapping [PD00-BUS-DAT-ENT-nn-MIG] for data migration planning.
+// Contains 0+× MigrationMapping for data migration planning.
 // Returns the list view; element type: MigrationMappingEntry (construct from item paths).
 SomList data_entity_entry_migration_mappings(const DataEntityEntry *self);
 
-// A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn].
+// A data entity migration entry.
 // Binds a DataEntityMigrationEntry facade to a document and a path (path copied).
 void data_entity_migration_entry_init(DataEntityMigrationEntry *self, SpecDocument *doc, const char *path);
 void data_entity_migration_entry_free(DataEntityMigrationEntry *self);
@@ -12144,7 +12022,7 @@ void data_format_compatibility_numbers_init(DataFormatCompatibilityNumbers *self
 void data_format_compatibility_numbers_free(DataFormatCompatibilityNumbers *self);
 DataFormatCompatibilityNumbersContentForm data_format_compatibility_numbers_content(const DataFormatCompatibilityNumbers *self);
 
-// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+// 1.4.7. Data Governance.
 //
 // Current data governance structure, policies, processes, and maturity level.
 // Binds a DataGovernance facade to a document and a path (path copied).
@@ -12271,7 +12149,7 @@ void data_integration_entry_transport_init(DataIntegrationEntryTransport *self, 
 void data_integration_entry_transport_free(DataIntegrationEntryTransport *self);
 DataIntegrationEntryTransportContentForm data_integration_entry_transport_content(const DataIntegrationEntryTransport *self);
 
-// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+// 1.4.9. Data Integration Points.
 //
 // Documentation of data integration points, ETL processes, APIs,
 // and data exchange mechanisms.
@@ -12301,7 +12179,7 @@ void data_landscape_summary_init(DataLandscapeSummary *self, SpecDocument *doc, 
 void data_landscape_summary_free(DataLandscapeSummary *self);
 DataLandscapeSummaryContentForm data_landscape_summary_content(const DataLandscapeSummary *self);
 
-// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+// 9.3.1. Data-Level Security.
 //
 // Comprehensive data access protection specification covering database-level
 // security, row-level security, column-level security, tenant data isolation,
@@ -12340,7 +12218,7 @@ void data_masking_policy_set_content(DataMaskingPolicy *self, const char *value)
 // Data Masking Details (text).
 // (skipped: dataMaskingDetails has no target type)
 
-// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+// 13.5. Data Migration Strategy.
 //
 // Comprehensive data migration strategy covering approach, methodology,
 // tooling, environment strategy, data quality governance, cutover
@@ -12383,36 +12261,36 @@ SomList data_migration_strategy_resources(const DataMigrationStrategy *self);
 MigrationSchedule data_migration_strategy_schedule(const DataMigrationStrategy *self);
 // Migration strategy narrative.
 // (skipped: migrationStrategyNarrative has no target type)
-// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+// 13.5.1. Migration Phases.
 MigrationPhases data_migration_strategy_migration_phases(const DataMigrationStrategy *self);
-// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+// 13.5.2. Migration Risks.
 StageMigrationRisks data_migration_strategy_migration_risks(const DataMigrationStrategy *self);
 
-// 7.1. Data Model [PD00-BUS-DAT].
+// 7.1. Data Model.
 // Binds a DataModel facade to a document and a path (path copied).
 void data_model_init(DataModel *self, SpecDocument *doc, const char *path);
 void data_model_free(DataModel *self);
 char *data_model_content(const DataModel *self);
 void data_model_set_content(DataModel *self, const char *value);
-// 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
+// 7.1.1. Entity Overview — contains 1+× Data Entity.
 // Returns the list view; element type: DataEntityEntry (construct from item paths).
 SomList data_model_entities(const DataModel *self);
-// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+// 7.1.2. Entity Relationships.
 EntityRelationships data_model_entity_relationships(const DataModel *self);
-// 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
+// 7.1.3. Entity-Relationship Diagram (mermaid).
 // (skipped: erDiagram has no target type)
-// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+// 7.1.4. Data Classification.
 DataClassification data_model_data_classification(const DataModel *self);
-// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
+// 7.1.5. Data Dictionary..
 DataDictionary data_model_data_dictionary(const DataModel *self);
-// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+// 7.1.6. Validation Constraints.
 // Returns the list view; element type: ValidationConstraints (construct from item paths).
 SomList data_model_validation_constraints(const DataModel *self);
-// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+// 7.1.7. Integrity Constraints.
 // Returns the list view; element type: IntegrityConstraints (construct from item paths).
 SomList data_model_integrity_constraints(const DataModel *self);
 
-// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+// 1.4.4. Data Ownership and Stewardship.
 //
 // Documentation of data ownership structures, stewardship roles,
 // and accountability for data assets.
@@ -12458,7 +12336,7 @@ void data_ownership_summary_init(DataOwnershipSummary *self, SpecDocument *doc, 
 void data_ownership_summary_free(DataOwnershipSummary *self);
 DataOwnershipSummaryContentForm data_ownership_summary_content(const DataOwnershipSummary *self);
 
-// Data processing agreement requirements [PD00-TEC-SEC-PRI].
+// Data processing agreement requirements.
 // Binds a DataProcessingAgreementRequirements facade to a document and a path (path copied).
 void data_processing_agreement_requirements_init(DataProcessingAgreementRequirements *self, SpecDocument *doc, const char *path);
 void data_processing_agreement_requirements_free(DataProcessingAgreementRequirements *self);
@@ -12496,7 +12374,7 @@ void data_processing_agreement_requirements_transfers_init(DataProcessingAgreeme
 void data_processing_agreement_requirements_transfers_free(DataProcessingAgreementRequirementsTransfers *self);
 DataProcessingAgreementRequirementsTransfersContentForm data_processing_agreement_requirements_transfers_content(const DataProcessingAgreementRequirementsTransfers *self);
 
-// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+// 8.8.2. Data Protection and Privacy.
 //
 // Comprehensive data protection and privacy requirements including
 // GDPR compliance, data residency, consent management, data subject
@@ -12524,10 +12402,10 @@ DataProcessingAgreementRequirements data_protection_and_privacy_section_data_pro
 // Data protection classification and handling rules.
 DataProtectionClassification data_protection_and_privacy_section_data_classification(const DataProtectionAndPrivacySection *self);
 
-// Data protection classification and handling rules [PD00-TEC-SEC-PRI].
+// Data protection classification and handling rules.
 //
 // Named DataProtectionClassification to avoid collision with
-// DataClassification in business_data_model.dart.
+// DataClassification in information_and_data_model.dart.
 // Binds a DataProtectionClassification facade to a document and a path (path copied).
 void data_protection_classification_init(DataProtectionClassification *self, SpecDocument *doc, const char *path);
 void data_protection_classification_free(DataProtectionClassification *self);
@@ -12565,7 +12443,7 @@ void data_protection_classification_retention_init(DataProtectionClassificationR
 void data_protection_classification_retention_free(DataProtectionClassificationRetention *self);
 DataProtectionClassificationRetentionContentForm data_protection_classification_retention_content(const DataProtectionClassificationRetention *self);
 
-// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+// 1.4.2. Data Quality Assessment.
 //
 // Comprehensive assessment of data quality across the organization,
 // covering accuracy, completeness, consistency, timeliness, and validity.
@@ -12628,7 +12506,7 @@ void data_quality_issue_entry_resolution_init(DataQualityIssueEntryResolution *s
 void data_quality_issue_entry_resolution_free(DataQualityIssueEntryResolution *self);
 DataQualityIssueEntryResolutionContentForm data_quality_issue_entry_resolution_content(const DataQualityIssueEntryResolution *self);
 
-// Data residency and sovereignty requirements [PD00-TEC-SEC-PRI].
+// Data residency and sovereignty requirements.
 // Binds a DataResidencyRequirements facade to a document and a path (path copied).
 void data_residency_requirements_init(DataResidencyRequirements *self, SpecDocument *doc, const char *path);
 void data_residency_requirements_free(DataResidencyRequirements *self);
@@ -12658,7 +12536,7 @@ void data_residency_requirements_verification_init(DataResidencyRequirementsVeri
 void data_residency_requirements_verification_free(DataResidencyRequirementsVerification *self);
 DataResidencyRequirementsVerificationContentForm data_residency_requirements_verification_content(const DataResidencyRequirementsVerification *self);
 
-// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+// 1.4.6. Retention Policies.
 //
 // Documentation of data retention policies, legal requirements,
 // archival strategies, and data lifecycle management.
@@ -12685,7 +12563,7 @@ void data_source_entity_entry_init(DataSourceEntityEntry *self, SpecDocument *do
 void data_source_entity_entry_free(DataSourceEntityEntry *self);
 DataSourceEntityEntryContentForm data_source_entity_entry_content(const DataSourceEntityEntry *self);
 
-// A data source entry (form) [PD00-CUR-DAT-SRC-nn].
+// A data source entry (form).
 //
 // Documents a specific data source/store with comprehensive details about
 // technology, format, volume, quality, ownership, and access patterns.
@@ -12719,7 +12597,7 @@ void data_source_integration_init(DataSourceIntegration *self, SpecDocument *doc
 void data_source_integration_free(DataSourceIntegration *self);
 DataSourceIntegrationContentForm data_source_integration_content(const DataSourceIntegration *self);
 
-// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+// 1.4.1. Data Source Inventory.
 //
 // Comprehensive inventory of all data sources, stores, and repositories
 // in the current environment.
@@ -12771,7 +12649,7 @@ void data_source_volume_init(DataSourceVolume *self, SpecDocument *doc, const ch
 void data_source_volume_free(DataSourceVolume *self);
 DataSourceVolumeContentForm data_source_volume_content(const DataSourceVolume *self);
 
-// Data subject rights management [PD00-TEC-SEC-PRI].
+// Data subject rights management.
 //
 // Covers GDPR Articles 15–22: right of access, rectification, erasure,
 // restriction, portability, objection, and automated decision-making.
@@ -12864,7 +12742,7 @@ void data_volume_summary_projection_init(DataVolumeSummaryProjection *self, Spec
 void data_volume_summary_projection_free(DataVolumeSummaryProjection *self);
 DataVolumeSummaryProjectionContentForm data_volume_summary_projection_content(const DataVolumeSummaryProjection *self);
 
-// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+// 1.4.5. Data Volumes and Growth.
 //
 // Analysis of current data volumes, historical growth trends,
 // and projections for future capacity needs.
@@ -13005,13 +12883,13 @@ void decision_authority_entry_init(DecisionAuthorityEntry *self, SpecDocument *d
 void decision_authority_entry_free(DecisionAuthorityEntry *self);
 DecisionAuthorityEntryContentForm decision_authority_entry_content(const DecisionAuthorityEntry *self);
 
-// A decision maker entry [PD00-SYO-RES-ORG-DEC-nn].
+// A decision maker entry.
 // Binds a DecisionMakerEntry facade to a document and a path (path copied).
 void decision_maker_entry_init(DecisionMakerEntry *self, SpecDocument *doc, const char *path);
 void decision_maker_entry_free(DecisionMakerEntry *self);
 DecisionMakerEntryContentForm decision_maker_entry_content(const DecisionMakerEntry *self);
 
-// A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
+// A decision option entry (form).
 //
 // One of the available options for a decision point, with full
 // impact analysis, feasibility assessment, and trade-off evaluation.
@@ -13052,7 +12930,7 @@ void decision_option_entry_trade_offs_init(DecisionOptionEntryTradeOffs *self, S
 void decision_option_entry_trade_offs_free(DecisionOptionEntryTradeOffs *self);
 DecisionOptionEntryTradeOffsContentForm decision_option_entry_trade_offs_content(const DecisionOptionEntryTradeOffs *self);
 
-// A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
+// A decision point entry (form).
 //
 // A single formal decision point with defined timing, criteria,
 // authority, available options with impact analysis, and recording
@@ -13099,7 +12977,7 @@ void decision_point_entry_stakeholders_init(DecisionPointEntryStakeholders *self
 void decision_point_entry_stakeholders_free(DecisionPointEntryStakeholders *self);
 DecisionPointEntryStakeholdersContentForm decision_point_entry_stakeholders_content(const DecisionPointEntryStakeholders *self);
 
-// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+// 13.6.2. Decision Points.
 //
 // Key decision points in the stage plan including go/no-go
 // decisions, scope adjustments, resource reallocations, and
@@ -13115,13 +12993,13 @@ DecisionPointsContentForm decision_points_content(const DecisionPoints *self);
 // Returns the list view; element type: DecisionPointEntry (construct from item paths).
 SomList decision_points_items(const DecisionPoints *self);
 
-// A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn].
+// A deep link pattern entry (form).
 // Binds a DeepLinkPatternEntry facade to a document and a path (path copied).
 void deep_link_pattern_entry_init(DeepLinkPatternEntry *self, SpecDocument *doc, const char *path);
 void deep_link_pattern_entry_free(DeepLinkPatternEntry *self);
 DeepLinkPatternEntryContentForm deep_link_pattern_entry_content(const DeepLinkPatternEntry *self);
 
-// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+// 10.3.1.7. Deep Linking.
 //
 // External entry points, URL patterns, share links.
 // Binds a DeepLinking facade to a document and a path (path copied).
@@ -13135,7 +13013,7 @@ void deep_linking_set_content(DeepLinking *self, const char *value);
 // Returns the list view; element type: DeepLinkPatternEntry (construct from item paths).
 SomList deep_linking_patterns(const DeepLinking *self);
 
-// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+// 14.2.4. Defect Resolution.
 //
 // Defines how defects found during acceptance testing are classified,
 // managed, resolved, and tracked. Covers severity classification,
@@ -13197,7 +13075,7 @@ void deliverable_documentation_init(DeliverableDocumentation *self, SpecDocument
 void deliverable_documentation_free(DeliverableDocumentation *self);
 DeliverableDocumentationContentForm deliverable_documentation_content(const DeliverableDocumentation *self);
 
-// A deliverable entry (form) [PD00-DEL-DEL-nn].
+// A deliverable entry (form).
 //
 // Represents a single deliverable item within any deliverable category.
 // Captures identification, delivery logistics, quality requirements,
@@ -13260,7 +13138,7 @@ void deliverable_version_init(DeliverableVersion *self, SpecDocument *doc, const
 void deliverable_version_free(DeliverableVersion *self);
 DeliverableVersionContentForm deliverable_version_content(const DeliverableVersion *self);
 
-// An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
+// An acceptance criterion entry (form).
 //
 // A single criterion that must be met for formal project acceptance.
 // Aligned with IEEE 830 acceptance criteria structure and ISTQB
@@ -13310,33 +13188,89 @@ void delivery_acceptance_criterion_entry_verification_init(DeliveryAcceptanceCri
 void delivery_acceptance_criterion_entry_verification_free(DeliveryAcceptanceCriterionEntryVerification *self);
 DeliveryAcceptanceCriterionEntryVerificationContentForm delivery_acceptance_criterion_entry_verification_content(const DeliveryAcceptanceCriterionEntryVerification *self);
 
-// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+// PPP00 Project Phase Plan.
+//
+// Full project phase plan — staging strategy, stage overview, per-stage
+// entries, feature prioritization, data migration, gate criteria,
+// decision processes, initial development flow, and upgrade cycle
+// framework.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int delivery_roadmap_new(DeliveryRoadmap *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *delivery_roadmap_object_model_version(const DeliveryRoadmap *self);
+void delivery_roadmap_free(DeliveryRoadmap *self);
+char *delivery_roadmap_content(const DeliveryRoadmap *self);
+void delivery_roadmap_set_content(DeliveryRoadmap *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader delivery_roadmap_header(const DeliveryRoadmap *self);
+// Staging strategy.
+StagingStrategy delivery_roadmap_staging_strategy(const DeliveryRoadmap *self);
+// Stage overview.
+StageOverview delivery_roadmap_stage_overview(const DeliveryRoadmap *self);
+// Stages (list).
+// Returns the list view; element type: StageEntry (construct from item paths).
+SomList delivery_roadmap_stages(const DeliveryRoadmap *self);
+// Feature prioritization.
+FeaturePrioritization delivery_roadmap_feature_prioritization(const DeliveryRoadmap *self);
+// Data migration strategy.
+DataMigrationStrategy delivery_roadmap_data_migration_strategy(const DeliveryRoadmap *self);
+// Gate criteria (promoted from GOV).
+PhaseGateReviews delivery_roadmap_gate_criteria(const DeliveryRoadmap *self);
+// Decision processes (promoted from GOV).
+DecisionPoints delivery_roadmap_decision_processes(const DeliveryRoadmap *self);
+// Initial development flow.
+InitialDevelopmentFlow delivery_roadmap_initial_development_flow(const DeliveryRoadmap *self);
+// Upgrade cycle framework (links tom_system_upgrade.md).
+UpgradeCycleFramework delivery_roadmap_upgrade_cycle_framework(const DeliveryRoadmap *self);
+
+// 14.1. Delivery and Service Scope.
 // Binds a DeliveryScope facade to a document and a path (path copied).
 void delivery_scope_init(DeliveryScope *self, SpecDocument *doc, const char *path);
 void delivery_scope_free(DeliveryScope *self);
 char *delivery_scope_content(const DeliveryScope *self);
 void delivery_scope_set_content(DeliveryScope *self, const char *value);
-// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+// 14.1.1. Software Deliverables.
 SoftwareDeliverables delivery_scope_software_deliverables(const DeliveryScope *self);
-// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+// 14.1.2. Documentation Deliverables.
 DocumentationDeliverables delivery_scope_documentation_deliverables(const DeliveryScope *self);
-// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+// 14.1.3. Training Deliverables.
 TrainingDeliverables delivery_scope_training_deliverables(const DeliveryScope *self);
-// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+// 14.1.4. Support Deliverables.
 SupportDeliverables delivery_scope_support_deliverables(const DeliveryScope *self);
 
-// 14. Delivery Scope and Acceptance [PD00-DEL].
+// 14. Delivery Scope and Acceptance.
 // Binds a DeliveryScopeAndAcceptance facade to a document and a path (path copied).
 void delivery_scope_and_acceptance_init(DeliveryScopeAndAcceptance *self, SpecDocument *doc, const char *path);
 void delivery_scope_and_acceptance_free(DeliveryScopeAndAcceptance *self);
 char *delivery_scope_and_acceptance_content(const DeliveryScopeAndAcceptance *self);
 void delivery_scope_and_acceptance_set_content(DeliveryScopeAndAcceptance *self, const char *value);
-// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+// 14.1. Delivery and Service Scope.
 DeliveryScope delivery_scope_and_acceptance_delivery_scope(const DeliveryScopeAndAcceptance *self);
-// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → BQP.
 AcceptancePlan delivery_scope_and_acceptance_acceptance_plan(const DeliveryScopeAndAcceptance *self);
 
-// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+// SBP.15 Delivery, Transition & Rollout.
+//
+// Public anchor: PMBOK phasing + ISO 29148 transition requirements.
+// Binds a DeliveryTransitionAndRollout facade to a document and a path (path copied).
+void delivery_transition_and_rollout_init(DeliveryTransitionAndRollout *self, SpecDocument *doc, const char *path);
+void delivery_transition_and_rollout_free(DeliveryTransitionAndRollout *self);
+char *delivery_transition_and_rollout_content(const DeliveryTransitionAndRollout *self);
+void delivery_transition_and_rollout_set_content(DeliveryTransitionAndRollout *self, const char *value);
+// Staged delivery / phase plan.
+SystemStagePlan delivery_transition_and_rollout_system_stage_plan(const DeliveryTransitionAndRollout *self);
+// Rollout and transition concept.
+SystemRolloutConcept delivery_transition_and_rollout_system_rollout_concept(const DeliveryTransitionAndRollout *self);
+// Localization & translation *execution* processes (re-homed from MLAR in
+// IP-6: the execution side of i18n, as opposed to the requirements that
+// live in SBP.9).
+LocalizationTranslationProcess delivery_transition_and_rollout_localization_translation_process(const DeliveryTransitionAndRollout *self);
+// Multi-language rollout sequencing by region and time (re-homed from MLAR).
+MultiLanguageAndRolloutPlan delivery_transition_and_rollout_multi_language_rollout_plan(const DeliveryTransitionAndRollout *self);
+
+// 1.1.3. Dependencies and Integrations.
 //
 // Documents how current systems depend on each other, on external services,
 // and on shared infrastructure. Identifies fragile integration points that
@@ -13346,18 +13280,18 @@ void dependencies_and_integrations_init(DependenciesAndIntegrations *self, SpecD
 void dependencies_and_integrations_free(DependenciesAndIntegrations *self);
 char *dependencies_and_integrations_content(const DependenciesAndIntegrations *self);
 void dependencies_and_integrations_set_content(DependenciesAndIntegrations *self, const char *value);
-// Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
+// Dependency matrix diagram.
 char *dependencies_and_integrations_dependency_diagram(const DependenciesAndIntegrations *self);
 void dependencies_and_integrations_set_dependency_diagram(DependenciesAndIntegrations *self, const char *value);
-// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+// 1.1.3.1. Internal Dependencies.
 InternalDependencies dependencies_and_integrations_internal_dependencies(const DependenciesAndIntegrations *self);
-// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+// 1.1.3.2. External Service Dependencies.
 ExternalServiceDependencies dependencies_and_integrations_external_service_dependencies(const DependenciesAndIntegrations *self);
-// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+// 1.1.3.3. Shared Infrastructure Dependencies.
 SharedInfrastructureDependencies dependencies_and_integrations_shared_infrastructure_dependencies(const DependenciesAndIntegrations *self);
-// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+// 1.1.3.4. System Integrations.
 Integrations dependencies_and_integrations_integrations(const DependenciesAndIntegrations *self);
-// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+// 1.1.3.5. Integration Health Summary.
 IntegrationHealthSummary dependencies_and_integrations_health_summary(const DependenciesAndIntegrations *self);
 
 // Dependency classification.
@@ -13523,7 +13457,7 @@ void dependency_risk_init(DependencyRisk *self, SpecDocument *doc, const char *p
 void dependency_risk_free(DependencyRisk *self);
 DependencyRiskContentForm dependency_risk_content(const DependencyRisk *self);
 
-// Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
+// Dependency and supply-chain scanning requirements.
 // Binds a DependencyScanningRequirements facade to a document and a path (path copied).
 void dependency_scanning_requirements_init(DependencyScanningRequirements *self, SpecDocument *doc, const char *path);
 void dependency_scanning_requirements_free(DependencyScanningRequirements *self);
@@ -13573,7 +13507,7 @@ void dependency_tracking_init(DependencyTracking *self, SpecDocument *doc, const
 void dependency_tracking_free(DependencyTracking *self);
 DependencyTrackingContentForm dependency_tracking_content(const DependencyTracking *self);
 
-// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+// 4.1.2.7. Deployment Context.
 //
 // Where and how the system will be deployed in the infrastructure
 // landscape.
@@ -13691,7 +13625,7 @@ void deployment_security_supply_chain_init(DeploymentSecuritySupplyChain *self, 
 void deployment_security_supply_chain_free(DeploymentSecuritySupplyChain *self);
 DeploymentSecuritySupplyChainContentForm deployment_security_supply_chain_content(const DeploymentSecuritySupplyChain *self);
 
-// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+// 8.5.2. Deployment Strategy.
 //
 // Deployment model (containerized, VM-based, serverless), deployment pipeline,
 // rollback strategy, and canary/blue-green deployment requirements.
@@ -13817,7 +13751,7 @@ void design_foundation_entry_init(DesignFoundationEntry *self, SpecDocument *doc
 void design_foundation_entry_free(DesignFoundationEntry *self);
 DesignFoundationEntryContentForm design_foundation_entry_content(const DesignFoundationEntry *self);
 
-// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
+// A design goal entry (form).
 //
 // Each goal represents a measurable UI objective with success criteria.
 // Binds a DesignGoalEntry facade to a document and a path (path copied).
@@ -13825,7 +13759,7 @@ void design_goal_entry_init(DesignGoalEntry *self, SpecDocument *doc, const char
 void design_goal_entry_free(DesignGoalEntry *self);
 DesignGoalEntryContentForm design_goal_entry_content(const DesignGoalEntry *self);
 
-// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+// 10.1.1. Design Goals.
 //
 // Primary design objectives that the UI must achieve: simplicity, efficiency,
 // accessibility, consistency, delight. Goals are prioritized for the project.
@@ -13886,7 +13820,7 @@ void design_pattern_entry_structure_init(DesignPatternEntryStructure *self, Spec
 void design_pattern_entry_structure_free(DesignPatternEntryStructure *self);
 DesignPatternEntryStructureContentForm design_pattern_entry_structure_content(const DesignPatternEntryStructure *self);
 
-// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+// 8.1.3. Design Patterns and Standards.
 //
 // Required design patterns, coding standards, development conventions, and
 // applicable industry standards (ISO, OWASP, IEEE).
@@ -13918,7 +13852,7 @@ ErrorHandlingStandards design_patterns_and_standards_error_handling_standards(co
 // Testing standards and requirements.
 TestingStandards design_patterns_and_standards_testing_standards(const DesignPatternsAndStandards *self);
 
-// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+// 10.1.2. Design Principles.
 //
 // Guiding principles for all UI decisions: progressive disclosure, direct
 // manipulation, feedback, consistency, error prevention.
@@ -13939,7 +13873,7 @@ void design_principles_overview_init(DesignPrinciplesOverview *self, SpecDocumen
 void design_principles_overview_free(DesignPrinciplesOverview *self);
 DesignPrinciplesOverviewContentForm design_principles_overview_content(const DesignPrinciplesOverview *self);
 
-// 10.1. Design Vision [PD00-USE-VIS].
+// 10.1. Design Vision.
 //
 // Overall design vision for the user interface, encompassing goals,
 // principles, and user personas that guide all UI decisions.
@@ -13948,11 +13882,11 @@ void design_vision_init(DesignVision *self, SpecDocument *doc, const char *path)
 void design_vision_free(DesignVision *self);
 char *design_vision_content(const DesignVision *self);
 void design_vision_set_content(DesignVision *self, const char *value);
-// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+// 10.1.1. Design Goals.
 DesignGoals design_vision_design_goals(const DesignVision *self);
-// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+// 10.1.2. Design Principles.
 DesignPrinciples design_vision_design_principles(const DesignVision *self);
-// 10.1.3. User Personas [PD00-USE-VIS-PER].
+// 10.1.3. User Personas.
 UserPersonas design_vision_personas(const DesignVision *self);
 
 // Desktop operating system requirement entry.
@@ -13993,10 +13927,10 @@ void desktop_os_requirement_entry_testing_init(DesktopOsRequirementEntryTesting 
 void desktop_os_requirement_entry_testing_free(DesktopOsRequirementEntryTesting *self);
 DesktopOsRequirementEntryTestingContentForm desktop_os_requirement_entry_testing_content(const DesktopOsRequirementEntryTesting *self);
 
-// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+// 6.1.7. Detailed Process Workflows.
 //
-// Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
-// Covers HBSG AS07-DET Detailed Process Descriptions.
+// Per-process workflow detail beyond the catalog overview.
+// .
 // Binds a DetailedProcessWorkflows facade to a document and a path (path copied).
 void detailed_process_workflows_init(DetailedProcessWorkflows *self, SpecDocument *doc, const char *path);
 void detailed_process_workflows_free(DetailedProcessWorkflows *self);
@@ -14095,7 +14029,7 @@ void development_convention_entry_version_control_init(DevelopmentConventionEntr
 void development_convention_entry_version_control_free(DevelopmentConventionEntryVersionControl *self);
 DevelopmentConventionEntryVersionControlContentForm development_convention_entry_version_control_content(const DevelopmentConventionEntryVersionControl *self);
 
-// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+// 8.2.2. Development Environment.
 //
 // Required IDEs, build tools, version control, CI/CD pipeline, code review
 // process, and development workflow.
@@ -14219,7 +14153,7 @@ void disaster_recovery_requirements_replication_init(DisasterRecoveryRequirement
 void disaster_recovery_requirements_replication_free(DisasterRecoveryRequirementsReplication *self);
 DisasterRecoveryRequirementsReplicationContentForm disaster_recovery_requirements_replication_content(const DisasterRecoveryRequirementsReplication *self);
 
-// Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn].
+// Display equipment entry (form).
 // Binds a DisplayEquipmentEntry facade to a document and a path (path copied).
 void display_equipment_entry_init(DisplayEquipmentEntry *self, SpecDocument *doc, const char *path);
 void display_equipment_entry_free(DisplayEquipmentEntry *self);
@@ -14329,7 +14263,7 @@ void distribution_group_summary_init(DistributionGroupSummary *self, SpecDocumen
 void distribution_group_summary_free(DistributionGroupSummary *self);
 DistributionGroupSummaryContentForm distribution_group_summary_content(const DistributionGroupSummary *self);
 
-// 3.3. Distribution List [PD00-ADM-DIS].
+// 3.3. Distribution List.
 //
 // Defines who receives which project documents and communications.
 // Includes the communication matrix specifying information flow patterns,
@@ -14341,11 +14275,11 @@ char *distribution_list_content(const DistributionList *self);
 void distribution_list_set_content(DistributionList *self, const char *value);
 // Communication matrix overview.
 CommunicationMatrix distribution_list_communication_matrix(const DistributionList *self);
-// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+// 3.3.1. Full Distribution.
 FullDistribution distribution_list_full_distribution(const DistributionList *self);
-// 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
+// 3.3.2. Executive Summary.
 ExecutiveSummaryDistribution distribution_list_executive_summary(const DistributionList *self);
-// 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
+// 3.3.3. Custom Distribution Groups — contains 0+× Group.
 // Returns the list view; element type: CustomDistributionGroup (construct from item paths).
 SomList distribution_list_custom_groups(const DistributionList *self);
 
@@ -14367,7 +14301,7 @@ void distribution_recipient_contact_init(DistributionRecipientContact *self, Spe
 void distribution_recipient_contact_free(DistributionRecipientContact *self);
 DistributionRecipientContactContentForm distribution_recipient_contact_content(const DistributionRecipientContact *self);
 
-// A distribution recipient entry (form) [PD00-ADM-DIS-nn].
+// A distribution recipient entry (form).
 //
 // Detailed information about a distribution list recipient including
 // their role, contact information, preferences, and access levels.
@@ -14437,7 +14371,7 @@ void dns_requirements_zones_init(DnsRequirementsZones *self, SpecDocument *doc, 
 void dns_requirements_zones_free(DnsRequirementsZones *self);
 DnsRequirementsZonesContentForm dns_requirements_zones_content(const DnsRequirementsZones *self);
 
-// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
+// 11.5.4. Documentation changeability quality.
 // Binds a DocChangeabilityQuality facade to a document and a path (path copied).
 void doc_changeability_quality_init(DocChangeabilityQuality *self, SpecDocument *doc, const char *path);
 void doc_changeability_quality_free(DocChangeabilityQuality *self);
@@ -14469,7 +14403,7 @@ void doc_changeability_quality_structure_init(DocChangeabilityQualityStructure *
 void doc_changeability_quality_structure_free(DocChangeabilityQualityStructure *self);
 DocChangeabilityQualityStructureContentForm doc_changeability_quality_structure_content(const DocChangeabilityQualityStructure *self);
 
-// 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].
+// 11.5.2. Documentation completeness quality.
 // Binds a DocCompletenessQuality facade to a document and a path (path copied).
 void doc_completeness_quality_init(DocCompletenessQuality *self, SpecDocument *doc, const char *path);
 void doc_completeness_quality_free(DocCompletenessQuality *self);
@@ -14477,7 +14411,7 @@ DocCompletenessQualityContentForm doc_completeness_quality_content(const DocComp
 // Detailed completeness requirements narrative.
 // (skipped: narrative has no target type)
 
-// 11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR].
+// 11.5.3. Documentation correctness quality.
 // Binds a DocCorrectnessQuality facade to a document and a path (path copied).
 void doc_correctness_quality_init(DocCorrectnessQuality *self, SpecDocument *doc, const char *path);
 void doc_correctness_quality_free(DocCorrectnessQuality *self);
@@ -14500,6 +14434,24 @@ DocCorrectnessQualityAlignmentContentForm doc_correctness_quality_alignment_cont
 void doc_correctness_quality_verification_init(DocCorrectnessQualityVerification *self, SpecDocument *doc, const char *path);
 void doc_correctness_quality_verification_free(DocCorrectnessQualityVerification *self);
 DocCorrectnessQualityVerificationContentForm doc_correctness_quality_verification_content(const DocCorrectnessQualityVerification *self);
+
+// SBP.1 Document Control.
+//
+// Holds the [DocumentHeader] (id, project, version, date, author, status)
+// together with the document's [RevisionHistory] and the [ApprovalRecord]s
+// that gate its release.
+// Binds a DocumentControl facade to a document and a path (path copied).
+void document_control_init(DocumentControl *self, SpecDocument *doc, const char *path);
+void document_control_free(DocumentControl *self);
+char *document_control_content(const DocumentControl *self);
+void document_control_set_content(DocumentControl *self, const char *value);
+// Document header form (id, project, version, date, author, status).
+DocumentHeader document_control_header(const DocumentControl *self);
+// Chronological revision history of this document.
+RevisionHistory document_control_revision_history(const DocumentControl *self);
+// Formal approvals (sign-offs) recorded for this document.
+// Returns the list view; element type: ApprovalRecord (construct from item paths).
+SomList document_control_approvals(const DocumentControl *self);
 
 // Standard document header present at the top of every TomSpecs document.
 //
@@ -14531,7 +14483,7 @@ DocumentRelevantSectionsContentForm document_relevant_sections_content(const Doc
 // Returns the list view; element type: RelevantSectionEntry (construct from item paths).
 SomList document_relevant_sections_sections(const DocumentRelevantSections *self);
 
-// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+// 10.12.3. Documentation and Training.
 //
 // End-user documentation and training materials.
 // Binds a DocumentationAndTraining facade to a document and a path (path copied).
@@ -14561,7 +14513,7 @@ void documentation_and_training_localization_init(DocumentationAndTrainingLocali
 void documentation_and_training_localization_free(DocumentationAndTrainingLocalization *self);
 DocumentationAndTrainingLocalizationContentForm documentation_and_training_localization_content(const DocumentationAndTrainingLocalization *self);
 
-// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+// 14.1.2. Documentation Deliverables.
 // Binds a DocumentationDeliverables facade to a document and a path (path copied).
 void documentation_deliverables_init(DocumentationDeliverables *self, SpecDocument *doc, const char *path);
 void documentation_deliverables_free(DocumentationDeliverables *self);
@@ -14571,7 +14523,7 @@ void documentation_deliverables_set_content(DocumentationDeliverables *self, con
 // Returns the list view; element type: DeliverableEntry (construct from item paths).
 SomList documentation_deliverables_items(const DocumentationDeliverables *self);
 
-// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+// 11.5. Documentation Quality Criteria.
 //
 // Quality criteria for project documentation including readability,
 // completeness, correctness, and changeability.
@@ -14581,13 +14533,13 @@ void documentation_quality_criteria_free(DocumentationQualityCriteria *self);
 DocumentationQualityCriteriaDocumentationOverviewContentForm documentation_quality_criteria_documentation_overview_content(const DocumentationQualityCriteria *self);
 // Documentation quality overview narrative.
 // (skipped: overview has no target type)
-// 11.5.1. Readability [PD00-SYQ-DOC-REA].
+// 11.5.1. Readability.
 ReadabilityQuality documentation_quality_criteria_readability(const DocumentationQualityCriteria *self);
-// 11.5.2. Completeness [PD00-SYQ-DOC-COM].
+// 11.5.2. Completeness.
 DocCompletenessQuality documentation_quality_criteria_completeness(const DocumentationQualityCriteria *self);
-// 11.5.3. Correctness [PD00-SYQ-DOC-COR].
+// 11.5.3. Correctness.
 DocCorrectnessQuality documentation_quality_criteria_correctness(const DocumentationQualityCriteria *self);
-// 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
+// 11.5.4. Changeability.
 DocChangeabilityQuality documentation_quality_criteria_changeability(const DocumentationQualityCriteria *self);
 
 // Documentation standards and requirements.
@@ -14674,7 +14626,7 @@ void documentation_standards_versioning_init(DocumentationStandardsVersioning *s
 void documentation_standards_versioning_free(DocumentationStandardsVersioning *self);
 DocumentationStandardsVersioningContentForm documentation_standards_versioning_content(const DocumentationStandardsVersioning *self);
 
-// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+// 4.1.3.4. Domain Boundaries.
 //
 // Clear definition of what is within and outside the domain scope,
 // based on bounded context principles.
@@ -14718,7 +14670,7 @@ void domain_business_rule_entry_governance_init(DomainBusinessRuleEntryGovernanc
 void domain_business_rule_entry_governance_free(DomainBusinessRuleEntryGovernance *self);
 DomainBusinessRuleEntryGovernanceContentForm domain_business_rule_entry_governance_content(const DomainBusinessRuleEntryGovernance *self);
 
-// 4.1.3.5. Domain Business Rules [PD00-SYO-SYD-DES-RUL].
+// 4.1.3.5. Domain Business Rules.
 //
 // Business rules, policies, and constraints that govern behavior
 // within this domain.
@@ -14737,7 +14689,7 @@ void domain_event_entry_init(DomainEventEntry *self, SpecDocument *doc, const ch
 void domain_event_entry_free(DomainEventEntry *self);
 DomainEventEntryContentForm domain_event_entry_content(const DomainEventEntry *self);
 
-// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+// 4.1.3.7. Domain Events.
 //
 // Significant business events that occur within this domain and
 // trigger actions or state changes.
@@ -14756,7 +14708,7 @@ void domain_interface_entry_init(DomainInterfaceEntry *self, SpecDocument *doc, 
 void domain_interface_entry_free(DomainInterfaceEntry *self);
 DomainInterfaceEntryContentForm domain_interface_entry_content(const DomainInterfaceEntry *self);
 
-// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+// 4.1.3.1. Domain Overview.
 //
 // High-level description of the business domain including its purpose,
 // scope, and relationship to the overall business.
@@ -14792,7 +14744,7 @@ void domain_process_entry_operations_init(DomainProcessEntryOperations *self, Sp
 void domain_process_entry_operations_free(DomainProcessEntryOperations *self);
 DomainProcessEntryOperationsContentForm domain_process_entry_operations_content(const DomainProcessEntryOperations *self);
 
-// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+// 4.1.3.6. Domain Processes.
 //
 // High-level business processes within this domain, showing the main
 // workflows and activities.
@@ -14814,7 +14766,7 @@ void domain_term_entry_init(DomainTermEntry *self, SpecDocument *doc, const char
 void domain_term_entry_free(DomainTermEntry *self);
 DomainTermEntryContentForm domain_term_entry_content(const DomainTermEntry *self);
 
-// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+// 4.1.3.2. Domain Vocabulary.
 //
 // Glossary of domain-specific terms and definitions establishing the
 // ubiquitous language for the project.
@@ -14827,7 +14779,7 @@ void domain_vocabulary_set_content(DomainVocabulary *self, const char *value);
 // Returns the list view; element type: DomainTermEntry (construct from item paths).
 SomList domain_vocabulary_terms(const DomainVocabulary *self);
 
-// 11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF].
+// 11.3.1. Efficiency quality.
 // Binds a EfficiencyQuality facade to a document and a path (path copied).
 void efficiency_quality_init(EfficiencyQuality *self, SpecDocument *doc, const char *path);
 void efficiency_quality_free(EfficiencyQuality *self);
@@ -14859,7 +14811,7 @@ void efficiency_quality_verification_init(EfficiencyQualityVerification *self, S
 void efficiency_quality_verification_free(EfficiencyQualityVerification *self);
 EfficiencyQualityVerificationContentForm efficiency_quality_verification_content(const EfficiencyQualityVerification *self);
 
-// A validation rule entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-VAL-pp].
+// A validation rule entry (form).
 // Binds a ElementValidationRuleEntry facade to a document and a path (path copied).
 void element_validation_rule_entry_init(ElementValidationRuleEntry *self, SpecDocument *doc, const char *path);
 void element_validation_rule_entry_free(ElementValidationRuleEntry *self);
@@ -14895,7 +14847,7 @@ void emergency_maintenance_procedures_governance_init(EmergencyMaintenanceProced
 void emergency_maintenance_procedures_governance_free(EmergencyMaintenanceProceduresGovernance *self);
 EmergencyMaintenanceProceduresGovernanceContentForm emergency_maintenance_procedures_governance_content(const EmergencyMaintenanceProceduresGovernance *self);
 
-// An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn].
+// An encrypted data category entry (form).
 //
 // Defines a specific category of data that requires encryption at rest,
 // including the data classification, encryption approach, algorithm override,
@@ -14906,7 +14858,7 @@ void encrypted_data_category_entry_init(EncryptedDataCategoryEntry *self, SpecDo
 void encrypted_data_category_entry_free(EncryptedDataCategoryEntry *self);
 EncryptedDataCategoryEntryContentForm encrypted_data_category_entry_content(const EncryptedDataCategoryEntry *self);
 
-// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+// 9.5.1. Encryption At Rest.
 //
 // Defines encryption requirements for stored data: algorithms, key lengths,
 // encryption layers (application, database, filesystem, hardware), field-level
@@ -14945,7 +14897,7 @@ void encryption_at_rest_policy_set_content(EncryptionAtRestPolicy *self, const c
 // Encryption At Rest Policy Details (text).
 // (skipped: encryptionAtRestPolicyDetails has no target type)
 
-// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+// 9.5.2. Encryption In Transit.
 //
 // Defines encryption requirements for data in transit: TLS protocol versions,
 // cipher suites, certificate management, HSTS policy, mutual TLS, certificate
@@ -14970,10 +14922,10 @@ TransportSecurityPolicy encryption_in_transit_transport_security_policy(const En
 // Encryption In Transit Notes (text).
 // (skipped: encryptionInTransitNotes has no target type)
 
-// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E].
+// 6.2.4. End-to-End Test Scenarios.
 //
 // Test scenarios that exercise complete user journeys across processes
-// and use cases. Covers HBSG AS24.
+// and use cases..
 // Binds a EndToEndTestScenarios facade to a document and a path (path copied).
 void end_to_end_test_scenarios_init(EndToEndTestScenarios *self, SpecDocument *doc, const char *path);
 void end_to_end_test_scenarios_free(EndToEndTestScenarios *self);
@@ -15018,7 +14970,7 @@ void enterprise_system_compatibility_entry_testing_init(EnterpriseSystemCompatib
 void enterprise_system_compatibility_entry_testing_free(EnterpriseSystemCompatibilityEntryTesting *self);
 EnterpriseSystemCompatibilityEntryTestingContentForm enterprise_system_compatibility_entry_testing_content(const EnterpriseSystemCompatibilityEntryTesting *self);
 
-// An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
+// An entitlement entry (form).
 // Binds a EntitlementEntry facade to a document and a path (path copied).
 void entitlement_entry_init(EntitlementEntry *self, SpecDocument *doc, const char *path);
 void entitlement_entry_free(EntitlementEntry *self);
@@ -15027,13 +14979,13 @@ EntitlementEntryContentForm entitlement_entry_content(const EntitlementEntry *se
 // Returns the list view; element type: ResourceKeyReferenceEntry (construct from item paths).
 SomList entitlement_entry_resource_key_references(const EntitlementEntry *self);
 
-// An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn].
+// An entitlement reference entry (form).
 // Binds a EntitlementReferenceEntry facade to a document and a path (path copied).
 void entitlement_reference_entry_init(EntitlementReferenceEntry *self, SpecDocument *doc, const char *path);
 void entitlement_reference_entry_free(EntitlementReferenceEntry *self);
 EntitlementReferenceEntryContentForm entitlement_reference_entry_content(const EntitlementReferenceEntry *self);
 
-// An entity constraint entry (form) [PD00-BUS-DAT-ENT-nn-CON-nn].
+// An entity constraint entry (form).
 //
 // Business and technical constraints beyond keys.
 // Binds a EntityConstraintEntry facade to a document and a path (path copied).
@@ -15041,7 +14993,7 @@ void entity_constraint_entry_init(EntityConstraintEntry *self, SpecDocument *doc
 void entity_constraint_entry_free(EntityConstraintEntry *self);
 EntityConstraintEntryContentForm entity_constraint_entry_content(const EntityConstraintEntry *self);
 
-// An entity index entry (form) [PD00-BUS-DAT-ENT-nn-IDX-nn].
+// An entity index entry (form).
 //
 // Database index specification for query optimization.
 // Binds a EntityIndexEntry facade to a document and a path (path copied).
@@ -15049,7 +15001,7 @@ void entity_index_entry_init(EntityIndexEntry *self, SpecDocument *doc, const ch
 void entity_index_entry_free(EntityIndexEntry *self);
 EntityIndexEntryContentForm entity_index_entry_content(const EntityIndexEntry *self);
 
-// An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
+// An entity relationship entry (form).
 //
 // Comprehensive relationship specification following ER modeling best practices.
 // Binds a EntityRelationshipEntry facade to a document and a path (path copied).
@@ -15068,7 +15020,7 @@ void entity_relationship_entry_set_source_entity_ref(EntityRelationshipEntry *se
 char *entity_relationship_entry_target_entity_ref(const EntityRelationshipEntry *self);
 void entity_relationship_entry_set_target_entity_ref(EntityRelationshipEntry *self, const char *value);
 
-// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+// 7.1.2. Entity Relationships.
 // Binds a EntityRelationships facade to a document and a path (path copied).
 void entity_relationships_init(EntityRelationships *self, SpecDocument *doc, const char *path);
 void entity_relationships_free(EntityRelationships *self);
@@ -15078,7 +15030,7 @@ void entity_relationships_set_content(EntityRelationships *self, const char *val
 // Returns the list view; element type: EntityRelationshipEntry (construct from item paths).
 SomList entity_relationships_items(const EntityRelationships *self);
 
-// An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-mm].
+// An entry point entry (form).
 // Binds a EntryPointEntry facade to a document and a path (path copied).
 void entry_point_entry_init(EntryPointEntry *self, SpecDocument *doc, const char *path);
 void entry_point_entry_free(EntryPointEntry *self);
@@ -15120,7 +15072,7 @@ void environment_data_management_init(EnvironmentDataManagement *self, SpecDocum
 void environment_data_management_free(EnvironmentDataManagement *self);
 EnvironmentDataManagementContentForm environment_data_management_content(const EnvironmentDataManagement *self);
 
-// An environment entry (form) [PD00-POP-TOO-ENV-nn].
+// An environment entry (form).
 //
 // Comprehensive specification of a single project environment covering
 // identity, infrastructure, access, data management, configuration,
@@ -15276,7 +15228,7 @@ void environment_strategy_testing_init(EnvironmentStrategyTesting *self, SpecDoc
 void environment_strategy_testing_free(EnvironmentStrategyTesting *self);
 EnvironmentStrategyTestingContentForm environment_strategy_testing_content(const EnvironmentStrategyTesting *self);
 
-// 2.4.2. Environments [PD00-POP-TOO-ENV].
+// 2.4.2. Environments.
 //
 // Operational overview of project environments and the inventory of
 // individual environment instances. Strategy-level decisions (tier
@@ -15296,7 +15248,7 @@ void equipment_overview_init(EquipmentOverview *self, SpecDocument *doc, const c
 void equipment_overview_free(EquipmentOverview *self);
 EquipmentOverviewContentForm equipment_overview_content(const EquipmentOverview *self);
 
-// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+// 5.3.1. Equipment Requirements.
 //
 // Hardware and peripheral requirements per workplace type.
 // Binds a EquipmentRequirements facade to a document and a path (path copied).
@@ -15345,7 +15297,7 @@ void error_budget_tracking_monitoring_init(ErrorBudgetTrackingMonitoring *self, 
 void error_budget_tracking_monitoring_free(ErrorBudgetTrackingMonitoring *self);
 ErrorBudgetTrackingMonitoringContentForm error_budget_tracking_monitoring_content(const ErrorBudgetTrackingMonitoring *self);
 
-// 10.7. Error Handling Concept [PD00-USE-ERR].
+// 10.7. Error Handling Concept.
 //
 // Comprehensive error handling user experience framework covering validation
 // feedback, system error presentation, and error recovery flows. Follows
@@ -15362,11 +15314,11 @@ ErrorHandlingConceptAccessibility error_handling_concept_accessibility(const Err
 ErrorHandlingConceptOperations error_handling_concept_operations(const ErrorHandlingConcept *self);
 // Error handling overview and strategy.
 // (skipped: errorHandlingOverview has no target type)
-// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+// 10.7.1. Validation Feedback.
 ValidationFeedback error_handling_concept_validation_feedback(const ErrorHandlingConcept *self);
-// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+// 10.7.2. System Error Display.
 SystemErrorDisplay error_handling_concept_system_error_display(const ErrorHandlingConcept *self);
-// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+// 10.7.3. Error Recovery.
 ErrorRecovery error_handling_concept_error_recovery(const ErrorHandlingConcept *self);
 // Error message catalog.
 // (skipped: errorMessageCatalog has no target type)
@@ -15451,7 +15403,7 @@ void error_procedure_entry_free(ErrorProcedureEntry *self);
 char *error_procedure_entry_content(const ErrorProcedureEntry *self);
 void error_procedure_entry_set_content(ErrorProcedureEntry *self, const char *value);
 
-// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+// 10.7.3. Error Recovery.
 //
 // Error recovery flows including data preservation, retry mechanisms,
 // and guided recovery steps.
@@ -15515,7 +15467,7 @@ void escalation_procedure_entry_free(EscalationProcedureEntry *self);
 char *escalation_procedure_entry_content(const EscalationProcedureEntry *self);
 void escalation_procedure_entry_set_content(EscalationProcedureEntry *self, const char *value);
 
-// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+// 12.1.2. Evaluation Criteria.
 //
 // Container for component evaluation criteria used when assessing
 // candidate components for adoption.
@@ -15528,7 +15480,7 @@ void evaluation_criteria_set_content(EvaluationCriteria *self, const char *value
 // Returns the list view; element type: EvaluationCriterionEntry (construct from item paths).
 SomList evaluation_criteria_items(const EvaluationCriteria *self);
 
-// An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
+// An evaluation criterion entry (form).
 //
 // Defines one criterion for evaluating candidate components: scoring scale,
 // threshold, evidence requirements, and evaluation method.
@@ -15572,7 +15524,7 @@ EventAttributePolicyContentForm event_attribute_policy_content(const EventAttrib
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+// 3.3.2. Executive Summary Distribution.
 //
 // Recipients who receive only executive summaries and milestone reports.
 // Binds a ExecutiveSummaryDistribution facade to a document and a path (path copied).
@@ -15592,7 +15544,7 @@ void existing_system_business_context_init(ExistingSystemBusinessContext *self, 
 void existing_system_business_context_free(ExistingSystemBusinessContext *self);
 ExistingSystemBusinessContextContentForm existing_system_business_context_content(const ExistingSystemBusinessContext *self);
 
-// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+// An existing system entry (form).
 //
 // Captures comprehensive information about an existing system including
 // identity, technology, business context, usage metrics, lifecycle, and risks.
@@ -15600,22 +15552,22 @@ ExistingSystemBusinessContextContentForm existing_system_business_context_conten
 void existing_system_entry_init(ExistingSystemEntry *self, SpecDocument *doc, const char *path);
 void existing_system_entry_free(ExistingSystemEntry *self);
 ExistingSystemEntryContentForm existing_system_entry_content(const ExistingSystemEntry *self);
-// Technology stack details [PD00-CUR-SYS-INV-nn-TEC].
+// Technology stack details.
 ExistingSystemTechnology existing_system_entry_technology(const ExistingSystemEntry *self);
-// Business context [PD00-CUR-SYS-INV-nn-BUS].
+// Business context.
 ExistingSystemBusinessContext existing_system_entry_business_context(const ExistingSystemEntry *self);
-// Usage metrics [PD00-CUR-SYS-INV-nn-USE].
+// Usage metrics.
 ExistingSystemUsage existing_system_entry_usage(const ExistingSystemEntry *self);
-// Lifecycle information [PD00-CUR-SYS-INV-nn-LIF].
+// Lifecycle information.
 ExistingSystemLifecycle existing_system_entry_lifecycle(const ExistingSystemEntry *self);
-// Integration profile [PD00-CUR-SYS-INV-nn-INT].
+// Integration profile.
 ExistingSystemIntegration existing_system_entry_integration_profile(const ExistingSystemEntry *self);
-// Infrastructure details [PD00-CUR-SYS-INV-nn-INF].
+// Infrastructure details.
 ExistingSystemInfrastructure existing_system_entry_infrastructure(const ExistingSystemEntry *self);
-// Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
+// Contains 0+× Limitation.
 // Returns the list view; element type: LimitationEntry (construct from item paths).
 SomList existing_system_entry_known_limitations(const ExistingSystemEntry *self);
-// Quality and risk assessment [PD00-CUR-SYS-INV-nn-QUA].
+// Quality and risk assessment.
 ExistingSystemQuality existing_system_entry_quality(const ExistingSystemEntry *self);
 
 // Infrastructure details for an existing system.
@@ -15654,7 +15606,7 @@ void existing_system_usage_init(ExistingSystemUsage *self, SpecDocument *doc, co
 void existing_system_usage_free(ExistingSystemUsage *self);
 ExistingSystemUsageContentForm existing_system_usage_content(const ExistingSystemUsage *self);
 
-// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+// 1.1. Existing Systems Landscape.
 //
 // Overview of the current systems in use, their roles, technology stacks,
 // and limitations. Provides the foundation for understanding the AS-IS state.
@@ -15663,11 +15615,11 @@ void existing_systems_landscape_init(ExistingSystemsLandscape *self, SpecDocumen
 void existing_systems_landscape_free(ExistingSystemsLandscape *self);
 char *existing_systems_landscape_content(const ExistingSystemsLandscape *self);
 void existing_systems_landscape_set_content(ExistingSystemsLandscape *self, const char *value);
-// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+// 1.1.1. System Inventory.
 SystemInventory existing_systems_landscape_system_inventory(const ExistingSystemsLandscape *self);
-// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+// 1.1.2. Current Architecture.
 CurrentArchitecture existing_systems_landscape_current_architecture(const ExistingSystemsLandscape *self);
-// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+// 1.1.3. Dependencies and Integrations.
 DependenciesAndIntegrations existing_systems_landscape_dependencies_and_integrations(const ExistingSystemsLandscape *self);
 
 // Expected improvements from process transformation.
@@ -15675,6 +15627,85 @@ DependenciesAndIntegrations existing_systems_landscape_dependencies_and_integrat
 void expected_improvements_init(ExpectedImprovements *self, SpecDocument *doc, const char *path);
 void expected_improvements_free(ExpectedImprovements *self);
 ExpectedImprovementsContentForm expected_improvements_content(const ExpectedImprovements *self);
+
+// 10. User Interface Design and Prototype. Seeds → UP.
+// Binds a ExperienceAndInterfaceDesign facade to a document and a path (path copied).
+void experience_and_interface_design_init(ExperienceAndInterfaceDesign *self, SpecDocument *doc, const char *path);
+void experience_and_interface_design_free(ExperienceAndInterfaceDesign *self);
+char *experience_and_interface_design_content(const ExperienceAndInterfaceDesign *self);
+void experience_and_interface_design_set_content(ExperienceAndInterfaceDesign *self, const char *value);
+// 10.1. Design Vision. Seeds → UP.
+DesignVision experience_and_interface_design_design_vision(const ExperienceAndInterfaceDesign *self);
+// 10.2. Screen Descriptions. Seeds → UP.
+ScreenDescriptions experience_and_interface_design_screens(const ExperienceAndInterfaceDesign *self);
+// 10.3. Screen Flow Structure. Seeds → UP.
+ScreenFlowStructure experience_and_interface_design_screen_flow(const ExperienceAndInterfaceDesign *self);
+// 10.4. Print Layout. Seeds → UP.
+PrintLayout experience_and_interface_design_print_layout(const ExperienceAndInterfaceDesign *self);
+// Data Structure Alignment.
+// (skipped: dataStructureAlignment has no target type)
+// Authorization Compliance.
+// (skipped: authorizationCompliance has no target type)
+// 10.7. Error Handling Concept. Seeds → UP.
+ErrorHandlingConcept experience_and_interface_design_error_handling(const ExperienceAndInterfaceDesign *self);
+// 10.8. Help Concept. Seeds → UP.
+HelpConcept experience_and_interface_design_help_concept(const ExperienceAndInterfaceDesign *self);
+// 10.9. Accessibility. Seeds → UP.
+Accessibility experience_and_interface_design_accessibility(const ExperienceAndInterfaceDesign *self);
+// 10.10. Responsive Design. Seeds → UP.
+ResponsiveDesign experience_and_interface_design_responsive_design(const ExperienceAndInterfaceDesign *self);
+// 10.11. UI Components. Seeds → UP.
+UiComponents experience_and_interface_design_ui_components(const ExperienceAndInterfaceDesign *self);
+// 10.12. Multi-language and Rollout Support.
+MultiLanguageAndRollout experience_and_interface_design_multi_language(const ExperienceAndInterfaceDesign *self);
+// 10.13. Prototype. Seeds → UP.
+Prototype experience_and_interface_design_prototype(const ExperienceAndInterfaceDesign *self);
+// 10.14. Wireframes and Mockups..
+// Returns the list view; element type: WireframesAndMockups (construct from item paths).
+SomList experience_and_interface_design_wireframes_and_mockups(const ExperienceAndInterfaceDesign *self);
+
+// UP00 UI Prototype.
+//
+// Full UI design and prototype specification — vision, screens,
+// screen flow, print, error handling, help, accessibility, responsive,
+// components, language/country selection, prototype, wireframes and
+// mockups.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int experience_design_specification_new(ExperienceDesignSpecification *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *experience_design_specification_object_model_version(const ExperienceDesignSpecification *self);
+void experience_design_specification_free(ExperienceDesignSpecification *self);
+char *experience_design_specification_content(const ExperienceDesignSpecification *self);
+void experience_design_specification_set_content(ExperienceDesignSpecification *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader experience_design_specification_header(const ExperienceDesignSpecification *self);
+// Design vision.
+DesignVision experience_design_specification_design_vision(const ExperienceDesignSpecification *self);
+// Screen descriptions.
+ScreenDescriptions experience_design_specification_screens(const ExperienceDesignSpecification *self);
+// Screen flow structure.
+ScreenFlowStructure experience_design_specification_screen_flow(const ExperienceDesignSpecification *self);
+// Print layout.
+PrintLayout experience_design_specification_print_layout(const ExperienceDesignSpecification *self);
+// Error handling concept.
+ErrorHandlingConcept experience_design_specification_error_handling(const ExperienceDesignSpecification *self);
+// Help concept.
+HelpConcept experience_design_specification_help_concept(const ExperienceDesignSpecification *self);
+// Accessibility.
+Accessibility experience_design_specification_accessibility(const ExperienceDesignSpecification *self);
+// Responsive design.
+ResponsiveDesign experience_design_specification_responsive_design(const ExperienceDesignSpecification *self);
+// UI components.
+UiComponents experience_design_specification_ui_components(const ExperienceDesignSpecification *self);
+// Language and country selection.
+LanguageCountrySelection experience_design_specification_language_country_selection(const ExperienceDesignSpecification *self);
+// Prototype.
+Prototype experience_design_specification_prototype(const ExperienceDesignSpecification *self);
+// Wireframes and mockups (new in Phase A).
+// Returns the list view; element type: WireframesAndMockups (construct from item paths).
+SomList experience_design_specification_wireframes_and_mockups(const ExperienceDesignSpecification *self);
 
 // Export access and audit.
 // Binds a ExportAccess facade to a document and a path (path copied).
@@ -15694,7 +15725,7 @@ void export_delimiter_init(ExportDelimiter *self, SpecDocument *doc, const char 
 void export_delimiter_free(ExportDelimiter *self);
 ExportDelimiterContentForm export_delimiter_content(const ExportDelimiter *self);
 
-// A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).
+// A field mapping within an export (form).
 // Binds a ExportFieldMappingEntry facade to a document and a path (path copied).
 void export_field_mapping_entry_init(ExportFieldMappingEntry *self, SpecDocument *doc, const char *path);
 void export_field_mapping_entry_free(ExportFieldMappingEntry *self);
@@ -15738,7 +15769,7 @@ void export_file_format_init(ExportFileFormat *self, SpecDocument *doc, const ch
 void export_file_format_free(ExportFileFormat *self);
 ExportFileFormatContentForm export_file_format_content(const ExportFileFormat *self);
 
-// An export format entry (form) [PD00-USE-PRI-EXP-nn].
+// An export format entry (form).
 // Binds a ExportFormatEntry facade to a document and a path (path copied).
 void export_format_entry_init(ExportFormatEntry *self, SpecDocument *doc, const char *path);
 void export_format_entry_free(ExportFormatEntry *self);
@@ -15788,7 +15819,7 @@ void export_size_settings_init(ExportSizeSettings *self, SpecDocument *doc, cons
 void export_size_settings_free(ExportSizeSettings *self);
 ExportSizeSettingsContentForm export_size_settings_content(const ExportSizeSettings *self);
 
-// A reusable export template [PD00-USE-PRI-TPL-nn] (form).
+// A reusable export template (form).
 // Binds a ExportTemplateEntry facade to a document and a path (path copied).
 void export_template_entry_init(ExportTemplateEntry *self, SpecDocument *doc, const char *path);
 void export_template_entry_free(ExportTemplateEntry *self);
@@ -15826,7 +15857,7 @@ void export_template_entry_layout_init(ExportTemplateEntryLayout *self, SpecDocu
 void export_template_entry_layout_free(ExportTemplateEntryLayout *self);
 ExportTemplateEntryLayoutContentForm export_template_entry_layout_content(const ExportTemplateEntryLayout *self);
 
-// An extension entry [PD00-TAR-STP-INT-nn-EXT-nn].
+// An extension entry.
 // Binds a ExtensionEntry facade to a document and a path (path copied).
 void extension_entry_init(ExtensionEntry *self, SpecDocument *doc, const char *path);
 void extension_entry_free(ExtensionEntry *self);
@@ -15835,7 +15866,7 @@ ExtensionEntryContentForm extension_entry_content(const ExtensionEntry *self);
 // Returns the list view; element type: ExtensionStepEntry (construct from item paths).
 SomList extension_entry_steps(const ExtensionEntry *self);
 
-// An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn].
+// An extension step entry.
 // Binds a ExtensionStepEntry facade to a document and a path (path copied).
 void extension_step_entry_init(ExtensionStepEntry *self, SpecDocument *doc, const char *path);
 void extension_step_entry_free(ExtensionStepEntry *self);
@@ -15866,7 +15897,7 @@ void external_actor_entry_interaction_init(ExternalActorEntryInteraction *self, 
 void external_actor_entry_interaction_free(ExternalActorEntryInteraction *self);
 ExternalActorEntryInteractionContentForm external_actor_entry_interaction_content(const ExternalActorEntryInteraction *self);
 
-// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+// 4.1.2.3. External Actors.
 //
 // Human users and organizational entities that interact with the system
 // from outside the system boundary.
@@ -15879,7 +15910,7 @@ void external_actors_set_content(ExternalActors *self, const char *value);
 // Returns the list view; element type: ExternalActorEntry (construct from item paths).
 SomList external_actors_actors(const ExternalActors *self);
 
-// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+// 8.6.2. External Connectivity.
 // Binds a ExternalConnectivitySection facade to a document and a path (path copied).
 void external_connectivity_section_init(ExternalConnectivitySection *self, SpecDocument *doc, const char *path);
 void external_connectivity_section_free(ExternalConnectivitySection *self);
@@ -15901,7 +15932,7 @@ ServiceMeshAndGateway external_connectivity_section_service_mesh_and_gateway(con
 // Connectivity resilience requirements.
 ConnectivityResilience external_connectivity_section_resilience(const ExternalConnectivitySection *self);
 
-// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+// An external interface entry (form).
 //
 // Comprehensive documentation of an external system interface covering
 // identification, technical details, data exchange specification, security,
@@ -15929,7 +15960,7 @@ InterfaceGovernance external_interface_entry_governance(const ExternalInterfaceE
 // Testing and environment information.
 InterfaceTesting external_interface_entry_testing(const ExternalInterfaceEntry *self);
 
-// Container for external interface definitions [PD00-SYO-SYB-INT].
+// Container for external interface definitions.
 //
 // Provides structured inventory of all external system integrations with
 // categorization, prioritization, and governance information. Each interface
@@ -15993,7 +16024,7 @@ void external_partner_authentication_init(ExternalPartnerAuthentication *self, S
 void external_partner_authentication_free(ExternalPartnerAuthentication *self);
 ExternalPartnerAuthenticationContentForm external_partner_authentication_content(const ExternalPartnerAuthentication *self);
 
-// An external partner connection entry (form) [PD00-TEC-COM-EXT-nn].
+// An external partner connection entry (form).
 // Binds a ExternalPartnerConnectionEntry facade to a document and a path (path copied).
 void external_partner_connection_entry_init(ExternalPartnerConnectionEntry *self, SpecDocument *doc, const char *path);
 void external_partner_connection_entry_free(ExternalPartnerConnectionEntry *self);
@@ -16042,7 +16073,7 @@ void external_partner_reliability_init(ExternalPartnerReliability *self, SpecDoc
 void external_partner_reliability_free(ExternalPartnerReliability *self);
 ExternalPartnerReliabilityContentForm external_partner_reliability_content(const ExternalPartnerReliability *self);
 
-// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+// 1.1.3.2. External Service Dependencies.
 //
 // Dependencies on external services, third-party APIs, SaaS platforms,
 // and cloud services not under direct organizational control.
@@ -16055,7 +16086,7 @@ void external_service_dependencies_set_content(ExternalServiceDependencies *self
 // Returns the list view; element type: ExternalServiceDependencyEntry (construct from item paths).
 SomList external_service_dependencies_items(const ExternalServiceDependencies *self);
 
-// An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn].
+// An external service dependency entry (form).
 //
 // Documents a dependency on an external service or third-party provider
 // including vendor details, SLA, risk assessment, and fallback options.
@@ -16122,7 +16153,7 @@ void external_system_context_entry_operations_init(ExternalSystemContextEntryOpe
 void external_system_context_entry_operations_free(ExternalSystemContextEntryOperations *self);
 ExternalSystemContextEntryOperationsContentForm external_system_context_entry_operations_content(const ExternalSystemContextEntryOperations *self);
 
-// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+// 4.1.2.4. External Systems.
 //
 // External systems, services, and APIs that the system integrates with.
 // Binds a ExternalSystemsContext facade to a document and a path (path copied).
@@ -16146,7 +16177,7 @@ void feature_business_value_init(FeatureBusinessValue *self, SpecDocument *doc, 
 void feature_business_value_free(FeatureBusinessValue *self);
 FeatureBusinessValueContentForm feature_business_value_content(const FeatureBusinessValue *self);
 
-// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+// 13.4.4. Feature Dependencies.
 //
 // Cross-feature dependencies affecting staging order, critical path
 // analysis, and delivery sequencing.
@@ -16166,7 +16197,7 @@ void feature_dependencies_info_init(FeatureDependenciesInfo *self, SpecDocument 
 void feature_dependencies_info_free(FeatureDependenciesInfo *self);
 FeatureDependenciesInfoContentForm feature_dependencies_info_content(const FeatureDependenciesInfo *self);
 
-// A feature dependency entry (form) [PD00-SSP-FEA-DEP-nn].
+// A feature dependency entry (form).
 //
 // Describes a single directional dependency between two features,
 // including type, impact, and resolution strategy.
@@ -16233,7 +16264,7 @@ void feature_module_entry_structure_init(FeatureModuleEntryStructure *self, Spec
 void feature_module_entry_structure_free(FeatureModuleEntryStructure *self);
 FeatureModuleEntryStructureContentForm feature_module_entry_structure_content(const FeatureModuleEntryStructure *self);
 
-// 13.4. Feature Prioritization [PD00-SSP-FEA].
+// 13.4. Feature Prioritization.
 //
 // Comprehensive feature prioritization framework for staged delivery.
 // Covers prioritization methodology, MoSCoW analysis, feature-stage
@@ -16258,13 +16289,13 @@ FeaturePrioritizationBacklog feature_prioritization_backlog(const FeaturePriorit
 FeaturePrioritizationTraceability feature_prioritization_traceability(const FeaturePrioritization *self);
 // Prioritization rationale narrative.
 // (skipped: prioritizationRationale has no target type)
-// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+// 13.4.1. MoSCoW Analysis.
 MoscowAnalysis feature_prioritization_moscow_analysis(const FeaturePrioritization *self);
-// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+// 13.4.2. Feature-Stage Matrix.
 FeatureStageMatrix feature_prioritization_feature_stage_matrix(const FeaturePrioritization *self);
-// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+// 13.4.3. Feature Priority Register.
 FeaturePriorityRegister feature_prioritization_feature_priority_register(const FeaturePrioritization *self);
-// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+// 13.4.4. Feature Dependencies.
 FeatureDependencies feature_prioritization_feature_dependencies(const FeaturePrioritization *self);
 
 // Backlog health.
@@ -16303,7 +16334,7 @@ void feature_prioritization_traceability_init(FeaturePrioritizationTraceability 
 void feature_prioritization_traceability_free(FeaturePrioritizationTraceability *self);
 FeaturePrioritizationTraceabilityContentForm feature_prioritization_traceability_content(const FeaturePrioritizationTraceability *self);
 
-// An individual feature priority entry (form) [PD00-SSP-FEA-REG-nn].
+// An individual feature priority entry (form).
 //
 // Comprehensive record covering identity, classification, business
 // value, effort, priority scoring, stage assignment, dependencies,
@@ -16332,7 +16363,7 @@ FeatureTraceability feature_priority_entry_traceability(const FeaturePriorityEnt
 // Status.
 FeatureStatus feature_priority_entry_status(const FeaturePriorityEntry *self);
 
-// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+// 13.4.3. Feature Priority Register.
 //
 // Master register of all features with comprehensive priority scoring,
 // business value analysis, effort estimates, stakeholder ownership,
@@ -16357,7 +16388,7 @@ void feature_stage_assignment_init(FeatureStageAssignment *self, SpecDocument *d
 void feature_stage_assignment_free(FeatureStageAssignment *self);
 FeatureStageAssignmentContentForm feature_stage_assignment_content(const FeatureStageAssignment *self);
 
-// A feature-to-stage mapping entry (form) [PD00-SSP-FEA-MAT-nn].
+// A feature-to-stage mapping entry (form).
 //
 // Maps a single feature or feature group to its delivery stage with
 // readiness, confidence, and dependency information.
@@ -16398,7 +16429,7 @@ void feature_stage_mapping_readiness_init(FeatureStageMappingReadiness *self, Sp
 void feature_stage_mapping_readiness_free(FeatureStageMappingReadiness *self);
 FeatureStageMappingReadinessContentForm feature_stage_mapping_readiness_content(const FeatureStageMappingReadiness *self);
 
-// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+// 13.4.2. Feature-Stage Matrix.
 //
 // Maps every feature or feature group to the delivery stage, tracking
 // readiness, confidence, dependencies, and acceptance criteria.
@@ -16424,7 +16455,7 @@ void feature_status_init(FeatureStatus *self, SpecDocument *doc, const char *pat
 void feature_status_free(FeatureStatus *self);
 FeatureStatusContentForm feature_status_content(const FeatureStatus *self);
 
-// A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
+// A feature tour entry.
 // Binds a FeatureTourEntry facade to a document and a path (path copied).
 void feature_tour_entry_init(FeatureTourEntry *self, SpecDocument *doc, const char *path);
 void feature_tour_entry_free(FeatureTourEntry *self);
@@ -16439,7 +16470,7 @@ void feature_traceability_init(FeatureTraceability *self, SpecDocument *doc, con
 void feature_traceability_free(FeatureTraceability *self);
 FeatureTraceabilityContentForm feature_traceability_content(const FeatureTraceability *self);
 
-// A field help entry [PD00-USE-HLP-CON-FLD-nn].
+// A field help entry.
 // Binds a FieldHelpEntry facade to a document and a path (path copied).
 void field_help_entry_init(FieldHelpEntry *self, SpecDocument *doc, const char *path);
 void field_help_entry_free(FieldHelpEntry *self);
@@ -16471,7 +16502,7 @@ void file_access_control_policy_set_content(FileAccessControlPolicy *self, const
 // File Access Control Details (text).
 // (skipped: fileAccessControlDetails has no target type)
 
-// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+// 9.3.3. File and Storage Security.
 //
 // Comprehensive file and storage security specification covering upload
 // validation, storage encryption, access control on file resources, content
@@ -16575,7 +16606,7 @@ void firewall_requirements_rules_init(FirewallRequirementsRules *self, SpecDocum
 void firewall_requirements_rules_free(FirewallRequirementsRules *self);
 FirewallRequirementsRulesContentForm firewall_requirements_rules_content(const FirewallRequirementsRules *self);
 
-// 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
+// 11.3.3. Flexibility quality.
 // Binds a FlexibilityQuality facade to a document and a path (path copied).
 void flexibility_quality_init(FlexibilityQuality *self, SpecDocument *doc, const char *path);
 void flexibility_quality_free(FlexibilityQuality *self);
@@ -16620,7 +16651,7 @@ void framework_compatibility_init(FrameworkCompatibility *self, SpecDocument *do
 void framework_compatibility_free(FrameworkCompatibility *self);
 FrameworkCompatibilityContentForm framework_compatibility_content(const FrameworkCompatibility *self);
 
-// 4.6. Framework Conditions [PD00-SYO-RES].
+// 4.6. Framework Conditions.
 //
 // Documents the organizational and technical environment in which the system
 // will operate. Covers organizational structure, functional responsibilities,
@@ -16631,16 +16662,16 @@ void framework_conditions_init(FrameworkConditions *self, SpecDocument *doc, con
 void framework_conditions_free(FrameworkConditions *self);
 // Framework conditions overview.
 // (skipped: overview has no target type)
-// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+// 4.6.1. Organizational Environment.
 OrganizationalEnvironment framework_conditions_organizational_environment(const FrameworkConditions *self);
-// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
+// 4.6.2. Functional Responsibilities — contains 0+×.
 FunctionalResponsibilities framework_conditions_functional_responsibilities(const FrameworkConditions *self);
-// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → TR.
 TechnicalFrameworkConditions framework_conditions_technical_framework_conditions(const FrameworkConditions *self);
-// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
+// 4.6.4. Constraints and Dependencies — contains 0+×.
 ConstraintsAndDependencies framework_conditions_constraints_and_dependencies(const FrameworkConditions *self);
 
-// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+// 4.6.4.2. Dependencies.
 //
 // External dependencies on other projects, teams, vendors, systems, or
 // organizational initiatives. Each dependency represents a point where
@@ -16672,7 +16703,7 @@ void framework_dependencies_management_init(FrameworkDependenciesManagement *sel
 void framework_dependencies_management_free(FrameworkDependenciesManagement *self);
 FrameworkDependenciesManagementContentForm framework_dependencies_management_content(const FrameworkDependenciesManagement *self);
 
-// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+// A framework dependency entry (form).
 //
 // Represents a single external dependency where this project relies on
 // another party (project, team, vendor, system) to deliver something.
@@ -16750,7 +16781,7 @@ void framework_version_init(FrameworkVersion *self, SpecDocument *doc, const cha
 void framework_version_free(FrameworkVersion *self);
 FrameworkVersionContentForm framework_version_content(const FrameworkVersion *self);
 
-// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+// 3.3.1. Full Distribution.
 //
 // Recipients who receive all project documents and communications.
 // Binds a FullDistribution facade to a document and a path (path copied).
@@ -16764,7 +16795,7 @@ DistributionGroupSummary full_distribution_group_summary(const FullDistribution 
 // Returns the list view; element type: DistributionRecipientEntry (construct from item paths).
 SomList full_distribution_items(const FullDistribution *self);
 
-// A function-to-data matrix entry (form) [PD00-BUS-FUN-MAT-nn].
+// A function-to-data matrix entry (form).
 //
 // Maps a function to the data entities it accesses.
 // Binds a FunctionDataMatrixEntry facade to a document and a path (path copied).
@@ -16772,7 +16803,7 @@ void function_data_matrix_entry_init(FunctionDataMatrixEntry *self, SpecDocument
 void function_data_matrix_entry_free(FunctionDataMatrixEntry *self);
 FunctionDataMatrixEntryContentForm function_data_matrix_entry_content(const FunctionDataMatrixEntry *self);
 
-// A function entry (form) [PD00-BUS-FUN-DEC-nn].
+// A function entry (form).
 //
 // Business function specification in the functional decomposition.
 // Binds a FunctionEntry facade to a document and a path (path copied).
@@ -16785,7 +16816,7 @@ FunctionEntryClassification function_entry_classification(const FunctionEntry *s
 FunctionEntryOperations function_entry_operations(const FunctionEntry *self);
 // Automation and data handling summary.
 FunctionEntryImplementation function_entry_implementation(const FunctionEntry *self);
-// Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
+// Sub-functions — contains 0+× SubFunction.
 // Returns the list view; element type: SubFunctionEntry (construct from item paths).
 SomList function_entry_sub_functions(const FunctionEntry *self);
 
@@ -16807,7 +16838,7 @@ void function_entry_operations_init(FunctionEntryOperations *self, SpecDocument 
 void function_entry_operations_free(FunctionEntryOperations *self);
 FunctionEntryOperationsContentForm function_entry_operations_content(const FunctionEntryOperations *self);
 
-// 7.3. Function Model [PD00-BUS-FUN].
+// 7.3. Function Model.
 //
 // Business functions, their decomposition, and relationships to data objects.
 // Binds a FunctionModel facade to a document and a path (path copied).
@@ -16815,17 +16846,17 @@ void function_model_init(FunctionModel *self, SpecDocument *doc, const char *pat
 void function_model_free(FunctionModel *self);
 FunctionModelDecompositionOverviewForm function_model_decomposition_overview(const FunctionModel *self);
 FunctionModelMatrixOverviewForm function_model_matrix_overview(const FunctionModel *self);
-// 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC] — contains 0+× Function.
+// 7.3.1. Function Decomposition — contains 0+× Function.
 // Returns the list view; element type: FunctionEntry (construct from item paths).
 SomList function_model_functions(const FunctionModel *self);
-// 7.3.2. Function-to-Data Matrix Entries [PD00-BUS-FUN-MAT] — contains 0+× MatrixEntry.
+// 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
 // Returns the list view; element type: FunctionDataMatrixEntry (construct from item paths).
 SomList function_model_matrix_entries(const FunctionModel *self);
-// 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
+// 7.3.3. Business Rules — contains 1+× Business Rule.
 // Returns the list view; element type: BusinessRuleEntry (construct from item paths).
 SomList function_model_business_rules(const FunctionModel *self);
 
-// 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
+// 11.2.2. Functional completeness quality.
 // Binds a FunctionalCompletenessQuality facade to a document and a path (path copied).
 void functional_completeness_quality_init(FunctionalCompletenessQuality *self, SpecDocument *doc, const char *path);
 void functional_completeness_quality_free(FunctionalCompletenessQuality *self);
@@ -16833,7 +16864,7 @@ FunctionalCompletenessQualityContentForm functional_completeness_quality_content
 // Detailed functional completeness narrative.
 // (skipped: narrative has no target type)
 
-// A functional requirement entry [PD00-SYO-REQ-FUN-nn].
+// A functional requirement entry.
 //
 // Comprehensive functional requirement definition following IEEE 830,
 // ISO 29148, and Volere requirements shell. Includes traceability,
@@ -16854,19 +16885,19 @@ FunctionalRequirementEntryVerification functional_requirement_entry_verification
 FunctionalRequirementEntryConstraints functional_requirement_entry_constraints(const FunctionalRequirementEntry *self);
 // Version metadata.
 FunctionalRequirementEntryMetadata functional_requirement_entry_metadata(const FunctionalRequirementEntry *self);
-// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+// 4.3.1.n.1. Acceptance Criteria.
 RequirementAcceptanceCriteria functional_requirement_entry_acceptance_criteria(const FunctionalRequirementEntry *self);
-// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+// 4.3.1.n.2. Business Rules.
 RequirementBusinessRules functional_requirement_entry_business_rules(const FunctionalRequirementEntry *self);
-// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+// 4.3.1.n.3. Data Requirements.
 RequirementDataRequirements functional_requirement_entry_data_requirements(const FunctionalRequirementEntry *self);
-// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+// 4.3.1.n.4. UI Specification.
 RequirementUiSpecification functional_requirement_entry_ui_specification(const FunctionalRequirementEntry *self);
-// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+// 4.3.1.n.5. Dependencies.
 RequirementDependencies functional_requirement_entry_dependencies(const FunctionalRequirementEntry *self);
-// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+// 4.3.1.n.6. Traceability.
 RequirementTraceability functional_requirement_entry_traceability(const FunctionalRequirementEntry *self);
-// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+// 4.3.1.n.7. Test Cases.
 RequirementTestCases functional_requirement_entry_test_cases(const FunctionalRequirementEntry *self);
 
 // Assumptions and constraints for requirement.
@@ -16905,7 +16936,7 @@ void functional_requirement_entry_verification_init(FunctionalRequirementEntryVe
 void functional_requirement_entry_verification_free(FunctionalRequirementEntryVerification *self);
 FunctionalRequirementEntryVerificationContentForm functional_requirement_entry_verification_content(const FunctionalRequirementEntryVerification *self);
 
-// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+// 4.3.1. Functional Requirements.
 //
 // Container for functional requirements. Functional requirements describe
 // what the system must do — its features, behaviors, processing rules,
@@ -16922,7 +16953,7 @@ FunctionalRequirementsSummaryFormForm functional_requirements_summary_form(const
 // Returns the list view; element type: FunctionalRequirementEntry (construct from item paths).
 SomList functional_requirements_requirements(const FunctionalRequirements *self);
 
-// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+// 4.6.2. Functional Responsibilities.
 //
 // Maps system functions to organizational units responsible for them.
 // Identifies domain owners, data stewards, and operational contacts for
@@ -16938,7 +16969,7 @@ FunctionalResponsibilitiesContentForm functional_responsibilities_content(const 
 // Returns the list view; element type: ResponsibilityEntry (construct from item paths).
 SomList functional_responsibilities_items(const FunctionalResponsibilities *self);
 
-// A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
+// A gap entry (form) — a missing capability or feature.
 //
 // Documents a specific gap between current capabilities and business needs:
 // category, severity, quantified cost, stakeholders, compliance drivers,
@@ -16980,7 +17011,7 @@ void gap_entry_workaround_init(GapEntryWorkaround *self, SpecDocument *doc, cons
 void gap_entry_workaround_free(GapEntryWorkaround *self);
 GapEntryWorkaroundContentForm gap_entry_workaround_content(const GapEntryWorkaround *self);
 
-// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+// 1.3.4. Gaps.
 // Binds a Gaps facade to a document and a path (path copied).
 void gaps_init(Gaps *self, SpecDocument *doc, const char *path);
 void gaps_free(Gaps *self);
@@ -17035,7 +17066,7 @@ void global_entry_point_entry_free(GlobalEntryPointEntry *self);
 char *global_entry_point_entry_content(const GlobalEntryPointEntry *self);
 void global_entry_point_entry_set_content(GlobalEntryPointEntry *self, const char *value);
 
-// A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn].
+// A global role exclusion entry (form).
 //
 // Defines system-wide mutual exclusion rules that apply across all users,
 // independent of individual role definitions.
@@ -17044,7 +17075,32 @@ void global_role_exclusion_entry_init(GlobalRoleExclusionEntry *self, SpecDocume
 void global_role_exclusion_entry_free(GlobalRoleExclusionEntry *self);
 GlobalRoleExclusionEntryContentForm global_role_exclusion_entry_content(const GlobalRoleExclusionEntry *self);
 
-// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+// An ordered collection of glossary entries.
+// Binds a Glossary facade to a document and a path (path copied).
+void glossary_init(Glossary *self, SpecDocument *doc, const char *path);
+void glossary_free(Glossary *self);
+char *glossary_content(const Glossary *self);
+void glossary_set_content(Glossary *self, const char *value);
+// One entry per defined term or acronym.
+// Returns the list view; element type: GlossaryEntry (construct from item paths).
+SomList glossary_entries(const Glossary *self);
+
+// SBP.3 Glossary & Abbreviations.
+// Binds a GlossaryAndAbbreviations facade to a document and a path (path copied).
+void glossary_and_abbreviations_init(GlossaryAndAbbreviations *self, SpecDocument *doc, const char *path);
+void glossary_and_abbreviations_free(GlossaryAndAbbreviations *self);
+char *glossary_and_abbreviations_content(const GlossaryAndAbbreviations *self);
+void glossary_and_abbreviations_set_content(GlossaryAndAbbreviations *self, const char *value);
+// The set of defined terms and abbreviations.
+Glossary glossary_and_abbreviations_glossary(const GlossaryAndAbbreviations *self);
+
+// A single glossary entry (form).
+// Binds a GlossaryEntry facade to a document and a path (path copied).
+void glossary_entry_init(GlossaryEntry *self, SpecDocument *doc, const char *path);
+void glossary_entry_free(GlossaryEntry *self);
+GlossaryEntryContentForm glossary_entry_content(const GlossaryEntry *self);
+
+// 4.2.1.n.3. Dependencies.
 //
 // Dependencies that may affect goal achievement.
 // Binds a GoalDependencies facade to a document and a path (path copied).
@@ -17064,7 +17120,7 @@ GoalDependencyEntryContentForm goal_dependency_entry_content(const GoalDependenc
 char *goal_dependency_entry_related_goal(const GoalDependencyEntry *self);
 void goal_dependency_entry_set_related_goal(GoalDependencyEntry *self, const char *value);
 
-// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+// 4.2.1.n.1. Key Results.
 //
 // OKR-style key results that indicate progress toward the goal.
 // Key results are specific, measurable outcomes that together constitute
@@ -17084,7 +17140,7 @@ void goal_milestone_entry_init(GoalMilestoneEntry *self, SpecDocument *doc, cons
 void goal_milestone_entry_free(GoalMilestoneEntry *self);
 GoalMilestoneEntryContentForm goal_milestone_entry_content(const GoalMilestoneEntry *self);
 
-// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+// 4.2.1.n.2. Milestones.
 //
 // Key milestones marking progress toward the goal.
 // Binds a GoalMilestones facade to a document and a path (path copied).
@@ -17096,7 +17152,7 @@ void goal_milestones_set_content(GoalMilestones *self, const char *value);
 // Returns the list view; element type: GoalMilestoneEntry (construct from item paths).
 SomList goal_milestones_items(const GoalMilestones *self);
 
-// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+// 4.2.1.n.5. Resources.
 //
 // Resources required to achieve the goal.
 // Binds a GoalResources facade to a document and a path (path copied).
@@ -17132,7 +17188,7 @@ void goal_risk_entry_response_init(GoalRiskEntryResponse *self, SpecDocument *do
 void goal_risk_entry_response_free(GoalRiskEntryResponse *self);
 GoalRiskEntryResponseContentForm goal_risk_entry_response_content(const GoalRiskEntryResponse *self);
 
-// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+// 4.2.1.n.4. Risks.
 //
 // Risks that may prevent or delay goal achievement.
 // Binds a GoalRisks facade to a document and a path (path copied).
@@ -17144,7 +17200,7 @@ void goal_risks_set_content(GoalRisks *self, const char *value);
 // Returns the list view; element type: GoalRiskEntry (construct from item paths).
 SomList goal_risks_items(const GoalRisks *self);
 
-// 4.2. Goals [PD00-SYO-GOA].
+// 4.2. Goals.
 //
 // Container for project goals organized by category. Goals provide measurable
 // objectives that guide project execution and define success. This section
@@ -17158,11 +17214,11 @@ void goals_set_content(Goals *self, const char *value);
 // Goal hierarchy diagram.
 char *goals_goal_hierarchy_diagram(const Goals *self);
 void goals_set_goal_hierarchy_diagram(Goals *self, const char *value);
-// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+// 4.2.1. Business Goals.
 BusinessGoals goals_business_goals(const Goals *self);
-// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+// 4.2.2. Technical Goals.
 TechnicalGoals goals_technical_goals(const Goals *self);
-// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+// 4.2.3. Success Criteria.
 SuccessCriteria goals_success_criteria(const Goals *self);
 
 // Governance model details.
@@ -17174,7 +17230,7 @@ GovernanceModelContentForm governance_model_content(const GovernanceModel *self)
 // Returns the list view; element type: DecisionAuthorityEntry (construct from item paths).
 SomList governance_model_decision_authorities(const GovernanceModel *self);
 
-// A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
+// A data handling requirement entry (form).
 //
 // Specific handling procedures for classified data.
 // Binds a HandlingRequirementEntry facade to a document and a path (path copied).
@@ -17182,17 +17238,17 @@ void handling_requirement_entry_init(HandlingRequirementEntry *self, SpecDocumen
 void handling_requirement_entry_free(HandlingRequirementEntry *self);
 HandlingRequirementEntryContentForm handling_requirement_entry_content(const HandlingRequirementEntry *self);
 
-// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+// 8.4. Hardware Concept Requirements.
 // Binds a HardwareRequirements facade to a document and a path (path copied).
 void hardware_requirements_init(HardwareRequirements *self, SpecDocument *doc, const char *path);
 void hardware_requirements_free(HardwareRequirements *self);
 char *hardware_requirements_content(const HardwareRequirements *self);
 void hardware_requirements_set_content(HardwareRequirements *self, const char *value);
-// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+// 8.4.1. Server Requirements.
 ServerRequirementsSection hardware_requirements_server_requirements(const HardwareRequirements *self);
-// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+// 8.4.2. Client Requirements.
 ClientRequirementsSection hardware_requirements_client_requirements(const HardwareRequirements *self);
-// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+// 8.4.3. Network Requirements.
 NetworkRequirementsSection hardware_requirements_network_requirements(const HardwareRequirements *self);
 
 // Health check endpoint requirements.
@@ -17225,7 +17281,7 @@ void health_check_endpoints_timing_init(HealthCheckEndpointsTiming *self, SpecDo
 void health_check_endpoints_timing_free(HealthCheckEndpointsTiming *self);
 HealthCheckEndpointsTimingContentForm health_check_endpoints_timing_content(const HealthCheckEndpointsTiming *self);
 
-// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+// 8.7.2.1. Health Checks and Diagnostics.
 // Binds a HealthChecksAndDiagnosticsSection facade to a document and a path (path copied).
 void health_checks_and_diagnostics_section_init(HealthChecksAndDiagnosticsSection *self, SpecDocument *doc, const char *path);
 void health_checks_and_diagnostics_section_free(HealthChecksAndDiagnosticsSection *self);
@@ -17244,7 +17300,7 @@ TroubleshootingCapabilities health_checks_and_diagnostics_section_troubleshootin
 // Dependency health monitoring.
 DependencyHealthMonitoring health_checks_and_diagnostics_section_dependency_health(const HealthChecksAndDiagnosticsSection *self);
 
-// 10.8. Help Concept [PD00-USE-HLP].
+// 10.8. Help Concept.
 //
 // Comprehensive in-app help system including contextual help, onboarding,
 // and support access mechanisms.
@@ -17258,11 +17314,11 @@ HelpConceptDelivery help_concept_delivery(const HelpConcept *self);
 HelpConceptInsights help_concept_insights(const HelpConcept *self);
 // Help system overview narrative.
 // (skipped: helpOverview has no target type)
-// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+// 10.8.1. Contextual Help.
 ContextualHelp help_concept_contextual_help(const HelpConcept *self);
-// 10.8.2. Onboarding [PD00-USE-HLP-ONB].
+// 10.8.2. Onboarding.
 OnboardingHelp help_concept_onboarding(const HelpConcept *self);
-// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+// 10.8.3. Support Access.
 SupportAccess help_concept_support_access(const HelpConcept *self);
 // Help content inventory.
 // (skipped: helpContentInventory has no target type)
@@ -17347,7 +17403,7 @@ void ide_requirement_entry_standardization_init(IdeRequirementEntryStandardizati
 void ide_requirement_entry_standardization_free(IdeRequirementEntryStandardization *self);
 IdeRequirementEntryStandardizationContentForm ide_requirement_entry_standardization_content(const IdeRequirementEntryStandardization *self);
 
-// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+// 9.2.1. Identification.
 //
 // Defines the identity management model: how identities are created,
 // sourced, verified, federated, and mapped. Covers identity sources,
@@ -17360,31 +17416,31 @@ IdentificationContentForm identification_content(const Identification *self);
 // Identity Sources — contains 0+× Identity Source.
 // Returns the list view; element type: IdentitySourceEntry (construct from item paths).
 SomList identification_identity_sources(const Identification *self);
-// Identity Verification [PD00-ACC-IDE-IDN-VER].
+// Identity Verification.
 IdentityVerificationPolicy identification_identity_verification(const Identification *self);
 // Identity Providers — contains 0+× Identity Provider.
 // Returns the list view; element type: IdentityProviderEntry (construct from item paths).
 SomList identification_identity_providers(const Identification *self);
-// Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+// Single Sign-On.
 SingleSignOnPolicy identification_single_sign_on(const Identification *self);
-// Self-Registration [PD00-ACC-IDE-IDN-REG].
+// Self-Registration.
 SelfRegistrationPolicy identification_self_registration(const Identification *self);
 // Attribute Mappings — contains 0+× Identity Attribute Mapping.
 // Returns the list view; element type: IdentityAttributeMappingEntry (construct from item paths).
 SomList identification_attribute_mappings(const Identification *self);
 
-// 9.2. Identification and Authentication [PD00-ACC-IDE].
+// 9.2. Identification and Authentication.
 // Binds a IdentificationAndAuthentication facade to a document and a path (path copied).
 void identification_and_authentication_init(IdentificationAndAuthentication *self, SpecDocument *doc, const char *path);
 void identification_and_authentication_free(IdentificationAndAuthentication *self);
 char *identification_and_authentication_content(const IdentificationAndAuthentication *self);
 void identification_and_authentication_set_content(IdentificationAndAuthentication *self, const char *value);
-// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+// 9.2.1. Identification.
 Identification identification_and_authentication_identification(const IdentificationAndAuthentication *self);
-// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+// 9.2.2. Authentication.
 Authentication identification_and_authentication_authentication(const IdentificationAndAuthentication *self);
 
-// An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].
+// An identity attribute mapping entry (form).
 //
 // Defines how attributes map between identity sources and the application:
 // source/target field, data type, transformation, sync direction.
@@ -17429,7 +17485,7 @@ void identity_provider_endpoints_init(IdentityProviderEndpoints *self, SpecDocum
 void identity_provider_endpoints_free(IdentityProviderEndpoints *self);
 IdentityProviderEndpointsContentForm identity_provider_endpoints_content(const IdentityProviderEndpoints *self);
 
-// An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].
+// An identity provider entry (form).
 //
 // Configuration for a single Identity Provider (IdP): protocol, endpoints,
 // attribute mapping, trust level, certificate management.
@@ -17468,7 +17524,7 @@ void identity_provider_trust_init(IdentityProviderTrust *self, SpecDocument *doc
 void identity_provider_trust_free(IdentityProviderTrust *self);
 IdentityProviderTrustContentForm identity_provider_trust_content(const IdentityProviderTrust *self);
 
-// An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn].
+// An identity source entry (form).
 //
 // Defines one source from which identities are obtained, e.g.
 // internal directory, LDAP, external IdP, HR system, self-registration.
@@ -17509,7 +17565,7 @@ void identity_source_entry_operations_init(IdentitySourceEntryOperations *self, 
 void identity_source_entry_operations_free(IdentitySourceEntryOperations *self);
 IdentitySourceEntryOperationsContentForm identity_source_entry_operations_content(const IdentitySourceEntryOperations *self);
 
-// Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER].
+// Identity verification/proofing policy (form).
 //
 // Defines how identity claims are verified: verification level, required
 // documents, automation, proofing standards (NIST IAL), and re-verification.
@@ -17730,7 +17786,20 @@ void industry_standard_entry_verification_init(IndustryStandardEntryVerification
 void industry_standard_entry_verification_free(IndustryStandardEntryVerification *self);
 IndustryStandardEntryVerificationContentForm industry_standard_entry_verification_content(const IndustryStandardEntryVerification *self);
 
-// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+// 7. Business Object and Data Model. Seeds → BDM.
+// Binds a InformationAndDataModel facade to a document and a path (path copied).
+void information_and_data_model_init(InformationAndDataModel *self, SpecDocument *doc, const char *path);
+void information_and_data_model_free(InformationAndDataModel *self);
+char *information_and_data_model_content(const InformationAndDataModel *self);
+void information_and_data_model_set_content(InformationAndDataModel *self, const char *value);
+// 7.1. Data Model.
+DataModel information_and_data_model_data_model(const InformationAndDataModel *self);
+// 7.2. Business Object Model.
+BusinessObjectModel information_and_data_model_business_object_model(const InformationAndDataModel *self);
+// 7.3. Function Model.
+FunctionModel information_and_data_model_function_model(const InformationAndDataModel *self);
+
+// 10.2.2. Information Architecture.
 //
 // Overall information architecture: site map, content hierarchy, navigation
 // structure, and entry points. Describes how screens relate to each other
@@ -17749,8 +17818,75 @@ void information_architecture_set_content(InformationArchitecture *self, const c
 // Global entry points.
 // Returns the list view; element type: GlobalEntryPointEntry (construct from item paths).
 SomList information_architecture_global_entry_points(const InformationArchitecture *self);
-// 10.2.2.5. Information Architecture Diagram [PD00-USE-SCR-INF-DIA].
+// 10.2.2.5. Information Architecture Diagram.
 // (skipped: architectureDiagram has no target type)
+
+// Information-for-Use (user documentation) requirements.
+//
+// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
+// *quality criteria* cross-map lives in SBP.14
+// (`DocumentationQualityCriteria`).
+//
+// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
+// doc/training field-split (separating the documentation half from the
+// training half) is deferred to IP-8.
+// Binds a InformationForUseRequirements facade to a document and a path (path copied).
+void information_for_use_requirements_init(InformationForUseRequirements *self, SpecDocument *doc, const char *path);
+void information_for_use_requirements_free(InformationForUseRequirements *self);
+char *information_for_use_requirements_content(const InformationForUseRequirements *self);
+void information_for_use_requirements_set_content(InformationForUseRequirements *self, const char *value);
+// Documentation (and, until the IP-8 split, training) requirements,
+// re-homed from MLAR.
+DocumentationAndTraining information_for_use_requirements_documentation_and_training(const InformationForUseRequirements *self);
+
+// BDM00 Business Data Model.
+//
+// Full business data model: entities, relationships, ER diagram, data
+// classification, business objects, function decomposition, function-
+// to-data matrix, business rules, data dictionary, and validation /
+// integrity constraints.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int information_model_new(InformationModel *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *information_model_object_model_version(const InformationModel *self);
+void information_model_free(InformationModel *self);
+char *information_model_content(const InformationModel *self);
+void information_model_set_content(InformationModel *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader information_model_header(const InformationModel *self);
+// Entity inventory (list).
+// Returns the list view; element type: DataEntityEntry (construct from item paths).
+SomList information_model_entities(const InformationModel *self);
+// Entity relationships.
+EntityRelationships information_model_entity_relationships(const InformationModel *self);
+// Entity-relationship diagram.
+// (skipped: erDiagram has no target type)
+// Data classification.
+DataClassification information_model_data_classification(const InformationModel *self);
+// Business object catalog (list).
+// Returns the list view; element type: BusinessObjectEntry (construct from item paths).
+SomList information_model_object_catalog(const InformationModel *self);
+// Business object diagram.
+// (skipped: objectDiagram has no target type)
+// Function decomposition (list).
+// Returns the list view; element type: FunctionEntry (construct from item paths).
+SomList information_model_function_decomposition(const InformationModel *self);
+// Function-to-data matrix (list).
+// Returns the list view; element type: FunctionDataMatrixEntry (construct from item paths).
+SomList information_model_function_to_data_matrix(const InformationModel *self);
+// Business rules catalog (list).
+// Returns the list view; element type: BusinessRuleEntry (construct from item paths).
+SomList information_model_business_rules(const InformationModel *self);
+// Data dictionary.
+DataDictionary information_model_data_dictionary(const InformationModel *self);
+// Validation constraints.
+// Returns the list view; element type: ValidationConstraints (construct from item paths).
+SomList information_model_validation_constraints(const InformationModel *self);
+// Integrity constraints.
+// Returns the list view; element type: IntegrityConstraints (construct from item paths).
+SomList information_model_integrity_constraints(const InformationModel *self);
 
 // Infrastructure as Code requirements.
 // Binds a InfrastructureAsCode facade to a document and a path (path copied).
@@ -17896,7 +18032,7 @@ void infrastructure_security_hardening_network_init(InfrastructureSecurityHarden
 void infrastructure_security_hardening_network_free(InfrastructureSecurityHardeningNetwork *self);
 InfrastructureSecurityHardeningNetworkContentForm infrastructure_security_hardening_network_content(const InfrastructureSecurityHardeningNetwork *self);
 
-// 13.7. Initial Development Flow [PD00-SSP-IDV].
+// 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
 // `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
@@ -17931,7 +18067,7 @@ void initial_training_delivery_init(InitialTrainingDelivery *self, SpecDocument 
 void initial_training_delivery_free(InitialTrainingDelivery *self);
 InitialTrainingDeliveryContentForm initial_training_delivery_content(const InitialTrainingDelivery *self);
 
-// Initial training entry (form) [PD00-ORG-WOR-nn-TRA-INI-nn].
+// Initial training entry (form).
 // Binds a InitialTrainingEntry facade to a document and a path (path copied).
 void initial_training_entry_init(InitialTrainingEntry *self, SpecDocument *doc, const char *path);
 void initial_training_entry_free(InitialTrainingEntry *self);
@@ -17953,7 +18089,7 @@ void initial_training_schedule_init(InitialTrainingSchedule *self, SpecDocument 
 void initial_training_schedule_free(InitialTrainingSchedule *self);
 InitialTrainingScheduleContentForm initial_training_schedule_content(const InitialTrainingSchedule *self);
 
-// Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn].
+// Input device entry (form).
 // Binds a InputDeviceEntry facade to a document and a path (path copied).
 void input_device_entry_init(InputDeviceEntry *self, SpecDocument *doc, const char *path);
 void input_device_entry_free(InputDeviceEntry *self);
@@ -17971,7 +18107,7 @@ void insurance_entry_init(InsuranceEntry *self, SpecDocument *doc, const char *p
 void insurance_entry_free(InsuranceEntry *self);
 InsuranceEntryContentForm insurance_entry_content(const InsuranceEntry *self);
 
-// 3.6.5. Insurance and Liability Requirements [PD00-ADM-OTH-INS].
+// 3.6.5. Insurance and Liability Requirements.
 //
 // Insurance coverage and liability agreements.
 // Binds a InsuranceLiabilityRequirements facade to a document and a path (path copied).
@@ -18032,7 +18168,7 @@ void integration_architecture_systems_init(IntegrationArchitectureSystems *self,
 void integration_architecture_systems_free(IntegrationArchitectureSystems *self);
 IntegrationArchitectureSystemsContentForm integration_architecture_systems_content(const IntegrationArchitectureSystems *self);
 
-// An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
+// An integration constraint entry (form).
 //
 // Documents a technical constraint on system integration, including
 // protocol requirements, format restrictions, and platform mandates.
@@ -18073,16 +18209,56 @@ void integration_constraint_entry_scope_init(IntegrationConstraintEntryScope *se
 void integration_constraint_entry_scope_free(IntegrationConstraintEntryScope *self);
 IntegrationConstraintEntryScopeContentForm integration_constraint_entry_scope_content(const IntegrationConstraintEntryScope *self);
 
-// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+// 1.1.3.5. Integration Health Summary.
 //
 // Executive summary of overall integration landscape health and risk areas.
 // Binds a IntegrationHealthSummary facade to a document and a path (path copied).
 void integration_health_summary_init(IntegrationHealthSummary *self, SpecDocument *doc, const char *path);
 void integration_health_summary_free(IntegrationHealthSummary *self);
 IntegrationHealthSummaryContentForm integration_health_summary_content(const IntegrationHealthSummary *self);
-// Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
+// Fragile integration points requiring attention.
 // Returns the list view; element type: FragilePointEntry (construct from item paths).
 SomList integration_health_summary_fragile_points(const IntegrationHealthSummary *self);
+
+// BSI00 Business System Interactions.
+//
+// Complete interaction specification between the target system and
+// external systems: inventory, patterns, testing, dependencies,
+// migration, operational concerns, and cross-boundary error handling.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int integration_interface_specification_new(IntegrationInterfaceSpecification *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *integration_interface_specification_object_model_version(const IntegrationInterfaceSpecification *self);
+void integration_interface_specification_free(IntegrationInterfaceSpecification *self);
+char *integration_interface_specification_content(const IntegrationInterfaceSpecification *self);
+void integration_interface_specification_set_content(IntegrationInterfaceSpecification *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader integration_interface_specification_header(const IntegrationInterfaceSpecification *self);
+// External interfaces.
+ExternalInterfaces integration_interface_specification_external_interfaces(const IntegrationInterfaceSpecification *self);
+// Out of scope.
+OutOfScope integration_interface_specification_out_of_scope(const IntegrationInterfaceSpecification *self);
+// Boundary assumptions.
+BoundaryAssumptions integration_interface_specification_boundary_assumptions(const IntegrationInterfaceSpecification *self);
+// System landscape inventory.
+SystemLandscapeInventory integration_interface_specification_system_inventory(const IntegrationInterfaceSpecification *self);
+// Boundary interaction patterns.
+// Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
+SomList integration_interface_specification_interaction_patterns(const IntegrationInterfaceSpecification *self);
+// Interaction testing strategy.
+InteractionTestingStrategy integration_interface_specification_testing_strategy(const IntegrationInterfaceSpecification *self);
+// Interaction dependency analysis.
+InteractionDependencyAnalysis integration_interface_specification_dependency_analysis(const IntegrationInterfaceSpecification *self);
+// Migration interactions.
+// Returns the list view; element type: MigrationInteractions (construct from item paths).
+SomList integration_interface_specification_migration_interactions(const IntegrationInterfaceSpecification *self);
+// Cross-boundary operational considerations.
+// Returns the list view; element type: CrossBoundaryOperationalConsiderations (construct from item paths).
+SomList integration_interface_specification_operational_considerations(const IntegrationInterfaceSpecification *self);
+// Cross-boundary error handling.
+CrossBoundaryErrorHandling integration_interface_specification_cross_boundary_error_handling(const IntegrationInterfaceSpecification *self);
 
 // A single integration pattern entry.
 // Binds a IntegrationPatternEntry facade to a document and a path (path copied).
@@ -18097,7 +18273,7 @@ void integration_point_entry_init(IntegrationPointEntry *self, SpecDocument *doc
 void integration_point_entry_free(IntegrationPointEntry *self);
 IntegrationPointEntryContentForm integration_point_entry_content(const IntegrationPointEntry *self);
 
-// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+// 1.1.3.4. System Integrations.
 //
 // Active integrations between systems including protocols, data formats,
 // error handling, and monitoring.
@@ -18110,7 +18286,7 @@ void integrations_set_content(Integrations *self, const char *value);
 // Returns the list view; element type: SystemIntegrationEntry (construct from item paths).
 SomList integrations_items(const Integrations *self);
 
-// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+// 7.1.7. Integrity Constraints.
 //
 // Cross-entity integrity rules beyond simple referential integrity.
 // Binds a IntegrityConstraints facade to a document and a path (path copied).
@@ -18119,7 +18295,7 @@ void integrity_constraints_free(IntegrityConstraints *self);
 char *integrity_constraints_content(const IntegrityConstraints *self);
 void integrity_constraints_set_content(IntegrityConstraints *self, const char *value);
 
-// 3.6.1. Intellectual Property Requirements [PD00-ADM-OTH-IPR].
+// 3.6.1. Intellectual Property Requirements.
 //
 // Defines ownership and usage rights for project deliverables and IP.
 // Binds a IntellectualPropertyRequirements facade to a document and a path (path copied).
@@ -18136,7 +18312,7 @@ void interaction_business_rules_init(InteractionBusinessRules *self, SpecDocumen
 void interaction_business_rules_free(InteractionBusinessRules *self);
 InteractionBusinessRulesContentForm interaction_business_rules_content(const InteractionBusinessRules *self);
 
-// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT].
+// 6.2.2. Interaction Catalog.
 //
 // Container for key interaction descriptions. Each interaction seeds a use
 // case following Cockburn's fully dressed use case template.
@@ -18159,7 +18335,7 @@ void interaction_catalog_overview_init(InteractionCatalogOverview *self, SpecDoc
 void interaction_catalog_overview_free(InteractionCatalogOverview *self);
 InteractionCatalogOverviewContentForm interaction_catalog_overview_content(const InteractionCatalogOverview *self);
 
-// An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
+// An interaction channel entry (form).
 //
 // Comprehensive definition of an access channel including platform details,
 // features, constraints, and user experience considerations.
@@ -18205,7 +18381,7 @@ void interaction_channel_entry_platform_init(InteractionChannelEntryPlatform *se
 void interaction_channel_entry_platform_free(InteractionChannelEntryPlatform *self);
 InteractionChannelEntryPlatformContentForm interaction_channel_entry_platform_content(const InteractionChannelEntryPlatform *self);
 
-// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP].
+// 4.5.7. Interaction Dependency Analysis.
 //
 // Critical-path and degraded-mode behavior analysis for system
 // dependencies. Covers BSI-DEP.
@@ -18215,7 +18391,7 @@ void interaction_dependency_analysis_free(InteractionDependencyAnalysis *self);
 char *interaction_dependency_analysis_content(const InteractionDependencyAnalysis *self);
 void interaction_dependency_analysis_set_content(InteractionDependencyAnalysis *self, const char *value);
 
-// An interaction entry [PD00-TAR-STP-INT-nn].
+// An interaction entry.
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
 // use case template. Seeds the UC (Use Case) document.
@@ -18260,7 +18436,7 @@ void interaction_identification_init(InteractionIdentification *self, SpecDocume
 void interaction_identification_free(InteractionIdentification *self);
 InteractionIdentificationContentForm interaction_identification_content(const InteractionIdentification *self);
 
-// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
+// An interaction pattern entry (form).
 //
 // Definition of a specific interaction pattern including timing, triggers,
 // and user experience considerations.
@@ -18301,7 +18477,7 @@ void interaction_pattern_entry_usage_init(InteractionPatternEntryUsage *self, Sp
 void interaction_pattern_entry_usage_free(InteractionPatternEntryUsage *self);
 InteractionPatternEntryUsageContentForm interaction_pattern_entry_usage_content(const InteractionPatternEntryUsage *self);
 
-// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+// 4.1.5.2. Interaction Patterns.
 //
 // Defines how users interact with the system including real-time interactions,
 // batch processing, workflow-driven tasks, and notification-driven actions.
@@ -18333,13 +18509,45 @@ void interaction_scenario_entry_free(InteractionScenarioEntry *self);
 char *interaction_scenario_entry_content(const InteractionScenarioEntry *self);
 void interaction_scenario_entry_set_content(InteractionScenarioEntry *self, const char *value);
 
+// UC00 Use Cases.
+//
+// Detailed use cases derived from the target process steps and actor
+// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+// and traceability.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int interaction_scenarios_new(InteractionScenarios *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *interaction_scenarios_object_model_version(const InteractionScenarios *self);
+void interaction_scenarios_free(InteractionScenarios *self);
+char *interaction_scenarios_content(const InteractionScenarios *self);
+void interaction_scenarios_set_content(InteractionScenarios *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader interaction_scenarios_header(const InteractionScenarios *self);
+// Process steps overview.
+ProcessStepsOverview interaction_scenarios_process_steps_overview(const InteractionScenarios *self);
+// Actor overview.
+ActorOverview interaction_scenarios_actor_overview(const InteractionScenarios *self);
+// Interaction catalog.
+InteractionCatalog interaction_scenarios_interaction_catalog(const InteractionScenarios *self);
+// Key scenarios.
+KeyScenarios interaction_scenarios_key_scenarios(const InteractionScenarios *self);
+// Actor relationship diagram.
+ActorRelationshipDiagram interaction_scenarios_actor_relationship_diagram(const InteractionScenarios *self);
+// End-to-end test scenarios.
+// Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
+SomList interaction_scenarios_end_to_end_test_scenarios(const InteractionScenarios *self);
+// Use case traceability.
+UseCaseTraceability interaction_scenarios_use_case_traceability(const InteractionScenarios *self);
+
 // Interaction security requirements.
 // Binds a InteractionSecurity facade to a document and a path (path copied).
 void interaction_security_init(InteractionSecurity *self, SpecDocument *doc, const char *path);
 void interaction_security_free(InteractionSecurity *self);
 InteractionSecurityContentForm interaction_security_content(const InteractionSecurity *self);
 
-// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST].
+// 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
 // Covers BSI-TST.
@@ -18355,7 +18563,7 @@ void interaction_traceability_init(InteractionTraceability *self, SpecDocument *
 void interaction_traceability_free(InteractionTraceability *self);
 InteractionTraceabilityContentForm interaction_traceability_content(const InteractionTraceability *self);
 
-// Business context for an interface [PD00-SYO-SYB-INT-nn-BUS].
+// Business context for an interface.
 // Binds a InterfaceBusinessContext facade to a document and a path (path copied).
 void interface_business_context_init(InterfaceBusinessContext *self, SpecDocument *doc, const char *path);
 void interface_business_context_free(InterfaceBusinessContext *self);
@@ -18364,19 +18572,19 @@ InterfaceBusinessContextContentForm interface_business_context_content(const Int
 // Returns the list view; element type: InterfaceBusinessProcessEntry (construct from item paths).
 SomList interface_business_context_dependent_processes(const InterfaceBusinessContext *self);
 
-// Business process dependency entry [PD00-SYO-SYB-INT-nn-BUS-BP-nn].
+// Business process dependency entry.
 // Binds a InterfaceBusinessProcessEntry facade to a document and a path (path copied).
 void interface_business_process_entry_init(InterfaceBusinessProcessEntry *self, SpecDocument *doc, const char *path);
 void interface_business_process_entry_free(InterfaceBusinessProcessEntry *self);
 InterfaceBusinessProcessEntryContentForm interface_business_process_entry_content(const InterfaceBusinessProcessEntry *self);
 
-// Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn].
+// Data entity exchanged.
 // Binds a InterfaceDataEntityEntry facade to a document and a path (path copied).
 void interface_data_entity_entry_init(InterfaceDataEntityEntry *self, SpecDocument *doc, const char *path);
 void interface_data_entity_entry_free(InterfaceDataEntityEntry *self);
 InterfaceDataEntityEntryContentForm interface_data_entity_entry_content(const InterfaceDataEntityEntry *self);
 
-// Data specification for an interface [PD00-SYO-SYB-INT-nn-DAT].
+// Data specification for an interface.
 // Binds a InterfaceDataSpec facade to a document and a path (path copied).
 void interface_data_spec_init(InterfaceDataSpec *self, SpecDocument *doc, const char *path);
 void interface_data_spec_free(InterfaceDataSpec *self);
@@ -18391,7 +18599,7 @@ SomList interface_data_spec_mapping_rules(const InterfaceDataSpec *self);
 // Returns the list view; element type: ValidationRuleEntry (construct from item paths).
 SomList interface_data_spec_validation_rules(const InterfaceDataSpec *self);
 
-// Error handling specification [PD00-SYO-SYB-INT-nn-ERR].
+// Error handling specification.
 // Binds a InterfaceErrorHandling facade to a document and a path (path copied).
 void interface_error_handling_init(InterfaceErrorHandling *self, SpecDocument *doc, const char *path);
 void interface_error_handling_free(InterfaceErrorHandling *self);
@@ -18424,7 +18632,7 @@ void interface_error_handling_timeout_init(InterfaceErrorHandlingTimeout *self, 
 void interface_error_handling_timeout_free(InterfaceErrorHandlingTimeout *self);
 InterfaceErrorHandlingTimeoutContentForm interface_error_handling_timeout_content(const InterfaceErrorHandlingTimeout *self);
 
-// Governance and contracts [PD00-SYO-SYB-INT-nn-GOV].
+// Governance and contracts.
 // Binds a InterfaceGovernance facade to a document and a path (path copied).
 void interface_governance_init(InterfaceGovernance *self, SpecDocument *doc, const char *path);
 void interface_governance_free(InterfaceGovernance *self);
@@ -18448,13 +18656,13 @@ void interface_governance_lifecycle_init(InterfaceGovernanceLifecycle *self, Spe
 void interface_governance_lifecycle_free(InterfaceGovernanceLifecycle *self);
 InterfaceGovernanceLifecycleContentForm interface_governance_lifecycle_content(const InterfaceGovernanceLifecycle *self);
 
-// API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn].
+// API operation entry.
 // Binds a InterfaceOperationEntry facade to a document and a path (path copied).
 void interface_operation_entry_init(InterfaceOperationEntry *self, SpecDocument *doc, const char *path);
 void interface_operation_entry_free(InterfaceOperationEntry *self);
 InterfaceOperationEntryContentForm interface_operation_entry_content(const InterfaceOperationEntry *self);
 
-// Operational characteristics [PD00-SYO-SYB-INT-nn-OPS].
+// Operational characteristics.
 // Binds a InterfaceOperational facade to a document and a path (path copied).
 void interface_operational_init(InterfaceOperational *self, SpecDocument *doc, const char *path);
 void interface_operational_free(InterfaceOperational *self);
@@ -18487,7 +18695,7 @@ void interface_operational_support_init(InterfaceOperationalSupport *self, SpecD
 void interface_operational_support_free(InterfaceOperationalSupport *self);
 InterfaceOperationalSupportContentForm interface_operational_support_content(const InterfaceOperationalSupport *self);
 
-// Security specification for an interface [PD00-SYO-SYB-INT-nn-SEC].
+// Security specification for an interface.
 // Binds a InterfaceSecurity facade to a document and a path (path copied).
 void interface_security_init(InterfaceSecurity *self, SpecDocument *doc, const char *path);
 void interface_security_free(InterfaceSecurity *self);
@@ -18557,7 +18765,7 @@ void interface_specification_entry_tooling_init(InterfaceSpecificationEntryTooli
 void interface_specification_entry_tooling_free(InterfaceSpecificationEntryTooling *self);
 InterfaceSpecificationEntryToolingContentForm interface_specification_entry_tooling_content(const InterfaceSpecificationEntryTooling *self);
 
-// Technical specification for an interface [PD00-SYO-SYB-INT-nn-TEC].
+// Technical specification for an interface.
 // Binds a InterfaceTechnicalSpec facade to a document and a path (path copied).
 void interface_technical_spec_init(InterfaceTechnicalSpec *self, SpecDocument *doc, const char *path);
 void interface_technical_spec_free(InterfaceTechnicalSpec *self);
@@ -18584,13 +18792,13 @@ void interface_technical_spec_endpoints_init(InterfaceTechnicalSpecEndpoints *se
 void interface_technical_spec_endpoints_free(InterfaceTechnicalSpecEndpoints *self);
 InterfaceTechnicalSpecEndpointsContentForm interface_technical_spec_endpoints_content(const InterfaceTechnicalSpecEndpoints *self);
 
-// Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn].
+// Test scenario entry.
 // Binds a InterfaceTestScenarioEntry facade to a document and a path (path copied).
 void interface_test_scenario_entry_init(InterfaceTestScenarioEntry *self, SpecDocument *doc, const char *path);
 void interface_test_scenario_entry_free(InterfaceTestScenarioEntry *self);
 InterfaceTestScenarioEntryContentForm interface_test_scenario_entry_content(const InterfaceTestScenarioEntry *self);
 
-// Testing specification [PD00-SYO-SYB-INT-nn-TST].
+// Testing specification.
 // Binds a InterfaceTesting facade to a document and a path (path copied).
 void interface_testing_init(InterfaceTesting *self, SpecDocument *doc, const char *path);
 void interface_testing_free(InterfaceTesting *self);
@@ -18615,13 +18823,13 @@ void interface_testing_strategy_init(InterfaceTestingStrategy *self, SpecDocumen
 void interface_testing_strategy_free(InterfaceTestingStrategy *self);
 InterfaceTestingStrategyContentForm interface_testing_strategy_content(const InterfaceTestingStrategy *self);
 
-// Webhook specification [PD00-SYO-SYB-INT-nn-TEC-WH].
+// Webhook specification.
 // Binds a InterfaceWebhookSpec facade to a document and a path (path copied).
 void interface_webhook_spec_init(InterfaceWebhookSpec *self, SpecDocument *doc, const char *path);
 void interface_webhook_spec_free(InterfaceWebhookSpec *self);
 InterfaceWebhookSpecContentForm interface_webhook_spec_content(const InterfaceWebhookSpec *self);
 
-// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+// 1.1.3.1. Internal Dependencies.
 //
 // Dependencies between systems owned and operated internally.
 // Binds a InternalDependencies facade to a document and a path (path copied).
@@ -18709,13 +18917,63 @@ void interoperability_requirements_testing_init(InteroperabilityRequirementsTest
 void interoperability_requirements_testing_free(InteroperabilityRequirementsTesting *self);
 InteroperabilityRequirementsTestingContentForm interoperability_requirements_testing_content(const InteroperabilityRequirementsTesting *self);
 
+// 4. System Overview.
+//
+// High-level overview of the system to be built: its purpose, goals,
+// scope boundaries, and the environment it operates in. This section
+// establishes the foundation for all subsequent specification work.
+// Binds a IntroductionAndScope facade to a document and a path (path copied).
+void introduction_and_scope_init(IntroductionAndScope *self, SpecDocument *doc, const char *path);
+void introduction_and_scope_free(IntroductionAndScope *self);
+char *introduction_and_scope_content(const IntroductionAndScope *self);
+void introduction_and_scope_set_content(IntroductionAndScope *self, const char *value);
+// System overview summary statistics.
+SystemOverviewSummary introduction_and_scope_summary(const IntroductionAndScope *self);
+// System context diagram showing major system boundaries.
+char *introduction_and_scope_system_context_diagram(const IntroductionAndScope *self);
+void introduction_and_scope_set_system_context_diagram(IntroductionAndScope *self, const char *value);
+// 4.1. System Description.
+SystemDescription introduction_and_scope_system_description(const IntroductionAndScope *self);
+// 4.2. Goals.
+Goals introduction_and_scope_goals(const IntroductionAndScope *self);
+// 4.3. Requirements Overview. Seeds → RC.
+RequirementsOverview introduction_and_scope_requirements(const IntroductionAndScope *self);
+// 4.4. Systems to Replace. Seeds → CS.
+SystemsToReplace introduction_and_scope_systems_to_replace(const IntroductionAndScope *self);
+// 4.5. System Boundaries. Seeds → BSI.
+SystemBoundaries introduction_and_scope_system_boundaries(const IntroductionAndScope *self);
+// 4.6. Framework Conditions.
+FrameworkConditions introduction_and_scope_framework_conditions(const IntroductionAndScope *self);
+// 4.7. Risks and Assumptions.
+RisksAndAssumptions introduction_and_scope_risks_and_assumptions(const IntroductionAndScope *self);
+
 // An IP ownership entry (form).
 // Binds a IpOwnershipEntry facade to a document and a path (path copied).
 void ip_ownership_entry_init(IpOwnershipEntry *self, SpecDocument *doc, const char *path);
 void ip_ownership_entry_free(IpOwnershipEntry *self);
 IpOwnershipEntryContentForm ip_ownership_entry_content(const IpOwnershipEntry *self);
 
-// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+// ISO/IEC 25010 product-quality cross-map.
+//
+// Maps the system's quality goals onto the eight ISO/IEC 25010 product
+// quality characteristics so that compatibility and portability cannot be
+// silently missed.
+// Binds a Iso25010Coverage facade to a document and a path (path copied).
+void iso25010_coverage_init(Iso25010Coverage *self, SpecDocument *doc, const char *path);
+void iso25010_coverage_free(Iso25010Coverage *self);
+char *iso25010_coverage_content(const Iso25010Coverage *self);
+void iso25010_coverage_set_content(Iso25010Coverage *self, const char *value);
+// One entry per ISO/IEC 25010 characteristic addressed.
+// Returns the list view; element type: Iso25010CoverageEntry (construct from item paths).
+SomList iso25010_coverage_characteristics(const Iso25010Coverage *self);
+
+// A single ISO/IEC 25010 coverage entry (form).
+// Binds a Iso25010CoverageEntry facade to a document and a path (path copied).
+void iso25010_coverage_entry_init(Iso25010CoverageEntry *self, SpecDocument *doc, const char *path);
+void iso25010_coverage_entry_free(Iso25010CoverageEntry *self);
+Iso25010CoverageEntryContentForm iso25010_coverage_entry_content(const Iso25010CoverageEntry *self);
+
+// 4.1.2.2. IT Landscape Position.
 //
 // How this system fits within the organization's overall IT architecture
 // and application portfolio.
@@ -18727,7 +18985,7 @@ void it_landscape_position_set_content(ItLandscapePosition *self, const char *va
 // IT Landscape Position Details (form).
 ItLandscapePositionPositionDetailsForm it_landscape_position_position_details(const ItLandscapePosition *self);
 
-// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
+// 11.4.4. IT Security Operations quality.
 // Binds a ItSecurityOperationsQuality facade to a document and a path (path copied).
 void it_security_operations_quality_init(ItSecurityOperationsQuality *self, SpecDocument *doc, const char *path);
 void it_security_operations_quality_free(ItSecurityOperationsQuality *self);
@@ -18767,7 +19025,7 @@ void it_security_operations_quality_testing_init(ItSecurityOperationsQualityTest
 void it_security_operations_quality_testing_free(ItSecurityOperationsQualityTesting *self);
 ItSecurityOperationsQualityTestingContentForm it_security_operations_quality_testing_content(const ItSecurityOperationsQualityTesting *self);
 
-// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+// 8.8.1. IT Security Standards.
 // Binds a ItSecurityStandardsSection facade to a document and a path (path copied).
 void it_security_standards_section_init(ItSecurityStandardsSection *self, SpecDocument *doc, const char *path);
 void it_security_standards_section_free(ItSecurityStandardsSection *self);
@@ -18835,7 +19093,7 @@ void it_standard_compliance_entry_timeline_init(ItStandardComplianceEntryTimelin
 void it_standard_compliance_entry_timeline_free(ItStandardComplianceEntryTimeline *self);
 ItStandardComplianceEntryTimelineContentForm it_standard_compliance_entry_timeline_content(const ItStandardComplianceEntryTimeline *self);
 
-// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+// 5.2. Job Descriptions and Staffing Plans.
 //
 // Documents new and changed roles resulting from the system introduction,
 // following HR best practices and job analysis methodologies (O*NET, SHRM).
@@ -18845,18 +19103,18 @@ void job_descriptions_and_staffing_init(JobDescriptionsAndStaffing *self, SpecDo
 void job_descriptions_and_staffing_free(JobDescriptionsAndStaffing *self);
 // Overview of the job architecture and role design approach.
 JobDescriptionsOverview job_descriptions_and_staffing_overview(const JobDescriptionsAndStaffing *self);
-// 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
+// 5.2.1. New Roles — contains 0+× New Role.
 // Returns the list view; element type: NewRoleEntry (construct from item paths).
 SomList job_descriptions_and_staffing_new_roles(const JobDescriptionsAndStaffing *self);
-// 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
+// 5.2.2. Changed Roles — contains 0+× Changed Role.
 // Returns the list view; element type: ChangedRoleEntry (construct from item paths).
 SomList job_descriptions_and_staffing_changed_roles(const JobDescriptionsAndStaffing *self);
-// 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
+// 5.2.3. Removed Roles — contains 0+× role being eliminated.
 // Returns the list view; element type: RemovedRoleEntry (construct from item paths).
 SomList job_descriptions_and_staffing_removed_roles(const JobDescriptionsAndStaffing *self);
-// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+// 5.2.4. Staffing Plan.
 StaffingPlan job_descriptions_and_staffing_staffing_plan(const JobDescriptionsAndStaffing *self);
-// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+// 5.2.5. Competency Framework.
 CompetencyFramework job_descriptions_and_staffing_competency_framework(const JobDescriptionsAndStaffing *self);
 
 // Overview of job descriptions and staffing approach.
@@ -18878,7 +19136,7 @@ void key_assumption_entry_free(KeyAssumptionEntry *self);
 char *key_assumption_entry_content(const KeyAssumptionEntry *self);
 void key_assumption_entry_set_content(KeyAssumptionEntry *self, const char *value);
 
-// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+// 4.7.2. Key Assumptions.
 //
 // Documents project assumptions that must hold true for success.
 // Tracks validation status and contingency plans if assumptions prove false.
@@ -18891,7 +19149,7 @@ AssumptionsOverview key_assumptions_overview(const KeyAssumptions *self);
 // Returns the list view; element type: AssumptionEntry (construct from item paths).
 SomList key_assumptions_items(const KeyAssumptions *self);
 
-// A key attribute entry (form) [PD00-BUS-DAT-ENT-nn-KEY-nn].
+// A key attribute entry (form).
 //
 // Specification for primary, foreign, alternate, and composite keys.
 // Binds a KeyAttributeEntry facade to a document and a path (path copied).
@@ -18947,7 +19205,7 @@ KeyConceptEntryContentForm key_concept_entry_content(const KeyConceptEntry *self
 // Relationships to other concepts.
 // (skipped: relationshipDetails has no target type)
 
-// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+// 4.1.3.3. Key Concepts.
 //
 // Core business concepts and entities in the domain, their attributes,
 // and relationships (conceptual domain model).
@@ -18987,7 +19245,7 @@ KeyGenerationPolicyContentForm key_generation_policy_content(const KeyGeneration
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+// 9.5.3. Key Management.
 //
 // Defines cryptographic key management policies covering the full key
 // lifecycle: generation, storage, rotation, escrow/backup, and compromise
@@ -19028,7 +19286,7 @@ KeyRotationPolicyContentForm key_rotation_policy_content(const KeyRotationPolicy
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE].
+// 6.2.3. Key Scenarios.
 //
 // End-to-end scenario descriptions showing how users achieve business goals
 // through sequences of interactions.
@@ -19063,7 +19321,7 @@ void key_touchpoint_entry_free(KeyTouchpointEntry *self);
 char *key_touchpoint_entry_content(const KeyTouchpointEntry *self);
 void key_touchpoint_entry_set_content(KeyTouchpointEntry *self, const char *value);
 
-// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+// 15.7. Knowledge Transfer.
 //
 // Handover from delivery team to operations. Covers EK09 Handover
 // Agreement content.
@@ -19094,7 +19352,7 @@ void kpi_entry_free(KpiEntry *self);
 char *kpi_entry_content(const KpiEntry *self);
 void kpi_entry_set_content(KpiEntry *self, const char *value);
 
-// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+// 10.12.4. Language and Country Selection.
 //
 // UI specification for language and country selection.
 // Binds a LanguageCountrySelection facade to a document and a path (path copied).
@@ -19168,7 +19426,7 @@ void layer_communication_rules_interfaces_init(LayerCommunicationRulesInterfaces
 void layer_communication_rules_interfaces_free(LayerCommunicationRulesInterfaces *self);
 LayerCommunicationRulesInterfacesContentForm layer_communication_rules_interfaces_content(const LayerCommunicationRulesInterfaces *self);
 
-// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+// 8.2.1. Layering and Module Structure.
 //
 // Software layering (presentation, business logic, data access, infrastructure)
 // and module structure (bounded contexts, packages, libraries).
@@ -19249,7 +19507,7 @@ void liability_limitations_init(LiabilityLimitations *self, SpecDocument *doc, c
 void liability_limitations_free(LiabilityLimitations *self);
 LiabilityLimitationsContentForm liability_limitations_content(const LiabilityLimitations *self);
 
-// A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
+// A lifecycle transition entry (form).
 //
 // Detailed state transition specification.
 // Binds a LifecycleTransitionEntry facade to a document and a path (path copied).
@@ -19281,7 +19539,7 @@ void lifecycle_transition_entry_trigger_init(LifecycleTransitionEntryTrigger *se
 void lifecycle_transition_entry_trigger_free(LifecycleTransitionEntryTrigger *self);
 LifecycleTransitionEntryTriggerContentForm lifecycle_transition_entry_trigger_content(const LifecycleTransitionEntryTrigger *self);
 
-// A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
+// A known limitation of an existing system (form).
 // Binds a LimitationEntry facade to a document and a path (path copied).
 void limitation_entry_init(LimitationEntry *self, SpecDocument *doc, const char *path);
 void limitation_entry_free(LimitationEntry *self);
@@ -19363,7 +19621,7 @@ void local_development_setup_workflow_init(LocalDevelopmentSetupWorkflow *self, 
 void local_development_setup_workflow_free(LocalDevelopmentSetupWorkflow *self);
 LocalDevelopmentSetupWorkflowContentForm local_development_setup_workflow_content(const LocalDevelopmentSetupWorkflow *self);
 
-// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
+// 10.12.1. Localization Process.
 //
 // Workflow for identifying and preparing content for localization.
 // Binds a LocalizationProcess facade to a document and a path (path copied).
@@ -19398,6 +19656,36 @@ LocalizationProcessFormattingContentForm localization_process_formatting_content
 void localization_process_review_init(LocalizationProcessReview *self, SpecDocument *doc, const char *path);
 void localization_process_review_free(LocalizationProcessReview *self);
 LocalizationProcessReviewContentForm localization_process_review_content(const LocalizationProcessReview *self);
+
+// Localization & Translation execution processes.
+//
+// Public anchor: ISO 29148 transition requirements. Bundles the localization
+// and translation *workflow* concerns re-homed from the former
+// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+// SBP.9 [LocalizationTranslationRequirements]).
+// Binds a LocalizationTranslationProcess facade to a document and a path (path copied).
+void localization_translation_process_init(LocalizationTranslationProcess *self, SpecDocument *doc, const char *path);
+void localization_translation_process_free(LocalizationTranslationProcess *self);
+char *localization_translation_process_content(const LocalizationTranslationProcess *self);
+void localization_translation_process_set_content(LocalizationTranslationProcess *self, const char *value);
+// Localization workflow (content identification, externalization, review).
+LocalizationProcess localization_translation_process_localization_process(const LocalizationTranslationProcess *self);
+// Translation workflow (TMS, translation memory, vendors, QA).
+TranslationProcess localization_translation_process_translation_process(const LocalizationTranslationProcess *self);
+
+// Localization & Translation requirements (the requirement side of i18n).
+//
+// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
+// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+// Binds a LocalizationTranslationRequirements facade to a document and a path (path copied).
+void localization_translation_requirements_init(LocalizationTranslationRequirements *self, SpecDocument *doc, const char *path);
+void localization_translation_requirements_free(LocalizationTranslationRequirements *self);
+char *localization_translation_requirements_content(const LocalizationTranslationRequirements *self);
+void localization_translation_requirements_set_content(LocalizationTranslationRequirements *self, const char *value);
+// Technical internationalization requirements (re-homed from MLAR).
+TranslationRequirements localization_translation_requirements_translation_requirements(const LocalizationTranslationRequirements *self);
+// Locale modeling and fallback requirements (re-homed from MLAR).
+MultiLanguageAndRolloutLocaleHandling localization_translation_requirements_locale_handling(const LocalizationTranslationRequirements *self);
 
 // Log aggregation and analysis requirements.
 // Binds a LogAggregationRequirements facade to a document and a path (path copied).
@@ -19510,7 +19798,7 @@ void login_flow_configuration_set_content(LoginFlowConfiguration *self, const ch
 // Login Flow Details (text).
 // (skipped: loginFlowDetails has no target type)
 
-// A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
+// A login flow step entry (form).
 //
 // Defines an individual step in the authentication flow sequence,
 // allowing detailed specification of each stage from initial request
@@ -19544,7 +19832,7 @@ void login_flow_step_entry_validation_init(LoginFlowStepEntryValidation *self, S
 void login_flow_step_entry_validation_free(LoginFlowStepEntryValidation *self);
 LoginFlowStepEntryValidationContentForm login_flow_step_entry_validation_content(const LoginFlowStepEntryValidation *self);
 
-// A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn].
+// A main scenario step entry.
 // Binds a MainScenarioStepEntry facade to a document and a path (path copied).
 void main_scenario_step_entry_init(MainScenarioStepEntry *self, SpecDocument *doc, const char *path);
 void main_scenario_step_entry_free(MainScenarioStepEntry *self);
@@ -19559,7 +19847,7 @@ MainSuccessScenarioContentForm main_success_scenario_content(const MainSuccessSc
 // Returns the list view; element type: MainScenarioStepEntry (construct from item paths).
 SomList main_success_scenario_steps(const MainSuccessScenario *self);
 
-// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
+// 11.3.5. Maintainability quality.
 // Binds a MaintainabilityQuality facade to a document and a path (path copied).
 void maintainability_quality_init(MaintainabilityQuality *self, SpecDocument *doc, const char *path);
 void maintainability_quality_free(MaintainabilityQuality *self);
@@ -19637,7 +19925,7 @@ void maintenance_change_management_testing_init(MaintenanceChangeManagementTesti
 void maintenance_change_management_testing_free(MaintenanceChangeManagementTesting *self);
 MaintenanceChangeManagementTestingContentForm maintenance_change_management_testing_content(const MaintenanceChangeManagementTesting *self);
 
-// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+// 12.5. Maintenance Dependencies.
 //
 // Maintenance dependencies: version compatibility matrix, coordinated
 // update sequences, and breaking-change handling.
@@ -19650,7 +19938,7 @@ void maintenance_dependencies_set_content(MaintenanceDependencies *self, const c
 // Returns the list view; element type: MaintenanceDependencyEntry (construct from item paths).
 SomList maintenance_dependencies_items(const MaintenanceDependencies *self);
 
-// A maintenance dependency entry (form) [PD00-COM-MAI-nn].
+// A maintenance dependency entry (form).
 //
 // Documents one maintenance dependency: coordinated update sequences,
 // version compatibility, and breaking-change handling.
@@ -19758,7 +20046,7 @@ void maintenance_window_entry_scope_init(MaintenanceWindowEntryScope *self, Spec
 void maintenance_window_entry_scope_free(MaintenanceWindowEntryScope *self);
 MaintenanceWindowEntryScopeContentForm maintenance_window_entry_scope_content(const MaintenanceWindowEntryScope *self);
 
-// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+// 8.5.4. Maintenance Windows.
 //
 // Maintenance window requirements: frequency, duration, notification period,
 // and impact on users.
@@ -19820,7 +20108,7 @@ void master_data_domain_entry_usage_init(MasterDataDomainEntryUsage *self, SpecD
 void master_data_domain_entry_usage_free(MasterDataDomainEntryUsage *self);
 MasterDataDomainEntryUsageContentForm master_data_domain_entry_usage_content(const MasterDataDomainEntryUsage *self);
 
-// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+// 1.4.10. Master Data Management.
 //
 // Master data management practices, golden records, and data
 // synchronization across systems.
@@ -19885,7 +20173,7 @@ void methodology_deviation_summary_init(MethodologyDeviationSummary *self, SpecD
 void methodology_deviation_summary_free(MethodologyDeviationSummary *self);
 MethodologyDeviationSummaryContentForm methodology_deviation_summary_content(const MethodologyDeviationSummary *self);
 
-// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+// 8.7.2.3. Metrics and Observability.
 //
 // Comprehensive metrics collection, distributed tracing, and observability
 // requirements.
@@ -19967,7 +20255,7 @@ void metrics_dashboard_summary_init(MetricsDashboardSummary *self, SpecDocument 
 void metrics_dashboard_summary_free(MetricsDashboardSummary *self);
 MetricsDashboardSummaryContentForm metrics_dashboard_summary_content(const MetricsDashboardSummary *self);
 
-// An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn].
+// An MFA enforcement per user category entry (form).
 //
 // Defines MFA requirements for a specific user category, allowing
 // different authentication assurance levels per role or access tier.
@@ -20032,7 +20320,7 @@ void migration_compliance_init(MigrationCompliance *self, SpecDocument *doc, con
 void migration_compliance_free(MigrationCompliance *self);
 MigrationComplianceContentForm migration_compliance_content(const MigrationCompliance *self);
 
-// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+// 4.4.2. Migration Considerations (global).
 //
 // Cross-system migration concerns covering portfolio-wide strategy,
 // resource planning, and coordination. Complements per-system
@@ -20045,7 +20333,7 @@ MigrationConsiderationsStrategyContentForm migration_considerations_strategy_con
 // (skipped: strategyNarrative has no target type)
 // Resource requirements for migration program.
 MigrationResources migration_considerations_resources(const MigrationConsiderations *self);
-// Migration risks [PD00-SYO-SYR-MIG-RIS].
+// Migration risks.
 MigrationRisks migration_considerations_migration_risks(const MigrationConsiderations *self);
 // High-level migration timeline.
 // (skipped: timeline has no target type)
@@ -20084,18 +20372,18 @@ void migration_environments_init(MigrationEnvironments *self, SpecDocument *doc,
 void migration_environments_free(MigrationEnvironments *self);
 MigrationEnvironmentsContentForm migration_environments_content(const MigrationEnvironments *self);
 
-// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG].
+// 4.5.8. Migration Interactions.
 //
 // Interactions specific to the migration window — cutover bridges,
-// reconciliation endpoints, and temporary shims. Back-refs
-// PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
+// reconciliation endpoints, and temporary shims. Back-refs the
+// Systems to Replace inventory. Covers BSI-MIG.
 // Binds a MigrationInteractions facade to a document and a path (path copied).
 void migration_interactions_init(MigrationInteractions *self, SpecDocument *doc, const char *path);
 void migration_interactions_free(MigrationInteractions *self);
 char *migration_interactions_content(const MigrationInteractions *self);
 void migration_interactions_set_content(MigrationInteractions *self, const char *value);
 
-// A migration mapping entry (form) [PD00-BUS-DAT-ENT-nn-MIG-nn].
+// A migration mapping entry (form).
 //
 // Maps source system data to target entity for data migration planning.
 // Binds a MigrationMappingEntry facade to a document and a path (path copied).
@@ -20109,7 +20397,7 @@ void migration_metrics_init(MigrationMetrics *self, SpecDocument *doc, const cha
 void migration_metrics_free(MigrationMetrics *self);
 MigrationMetricsContentForm migration_metrics_content(const MigrationMetrics *self);
 
-// A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn].
+// A migration milestone entry.
 // Binds a MigrationMilestoneEntry facade to a document and a path (path copied).
 void migration_milestone_entry_init(MigrationMilestoneEntry *self, SpecDocument *doc, const char *path);
 void migration_milestone_entry_free(MigrationMilestoneEntry *self);
@@ -20133,7 +20421,7 @@ void migration_phase_dry_runs_init(MigrationPhaseDryRuns *self, SpecDocument *do
 void migration_phase_dry_runs_free(MigrationPhaseDryRuns *self);
 MigrationPhaseDryRunsContentForm migration_phase_dry_runs_content(const MigrationPhaseDryRuns *self);
 
-// A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
+// A migration phase entry (form).
 //
 // Represents a single migration phase targeting a specific data domain,
 // source system, or entity group. Covers data scope analysis, migration
@@ -20217,7 +20505,7 @@ void migration_phase_validation_init(MigrationPhaseValidation *self, SpecDocumen
 void migration_phase_validation_free(MigrationPhaseValidation *self);
 MigrationPhaseValidationContentForm migration_phase_validation_content(const MigrationPhaseValidation *self);
 
-// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+// 13.5.1. Migration Phases.
 //
 // Staged migration phases defining the sequential or overlapping
 // execution plan. Each phase targets a specific data domain or source
@@ -20233,7 +20521,7 @@ MigrationPhasesContentForm migration_phases_content(const MigrationPhases *self)
 // Returns the list view; element type: MigrationPhaseEntry (construct from item paths).
 SomList migration_phases_items(const MigrationPhases *self);
 
-// 15.2. Migration Plan [PD00-ROL-MIG].
+// 15.2. Migration Plan.
 //
 // End-to-end system migration plan covering DR22 Migration Plan content:
 // data, configuration, integration, and user migration from the current
@@ -20244,7 +20532,7 @@ void migration_plan_free(MigrationPlan *self);
 char *migration_plan_content(const MigrationPlan *self);
 void migration_plan_set_content(MigrationPlan *self, const char *value);
 
-// Migration resource requirements [PD00-SYO-SYR-MIG-RES].
+// Migration resource requirements.
 // Binds a MigrationResources facade to a document and a path (path copied).
 void migration_resources_init(MigrationResources *self, SpecDocument *doc, const char *path);
 void migration_resources_free(MigrationResources *self);
@@ -20258,7 +20546,7 @@ void migration_risk_contingency_init(MigrationRiskContingency *self, SpecDocumen
 void migration_risk_contingency_free(MigrationRiskContingency *self);
 MigrationRiskContingencyContentForm migration_risk_contingency_content(const MigrationRiskContingency *self);
 
-// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
+// A migration risk entry (form).
 //
 // Detailed migration risk documentation following enterprise risk
 // management practices. Captures full risk lifecycle from identification
@@ -20347,7 +20635,7 @@ void migration_risk_tracking_init(MigrationRiskTracking *self, SpecDocument *doc
 void migration_risk_tracking_free(MigrationRiskTracking *self);
 MigrationRiskTrackingContentForm migration_risk_tracking_content(const MigrationRiskTracking *self);
 
-// Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
+// Migration risks — program-level risks.
 //
 // Comprehensive migration risk management framework for program-level
 // risks across the entire migration portfolio. Covers risk governance,
@@ -20489,7 +20777,7 @@ void mobile_compatibility_entry_hardware_init(MobileCompatibilityEntryHardware *
 void mobile_compatibility_entry_hardware_free(MobileCompatibilityEntryHardware *self);
 MobileCompatibilityEntryHardwareContentForm mobile_compatibility_entry_hardware_content(const MobileCompatibilityEntryHardware *self);
 
-// Mobile device entry (form) [PD00-ORG-WOR-nn-EQU-MOB-nn].
+// Mobile device entry (form).
 // Binds a MobileDeviceEntry facade to a document and a path (path copied).
 void mobile_device_entry_init(MobileDeviceEntry *self, SpecDocument *doc, const char *path);
 void mobile_device_entry_free(MobileDeviceEntry *self);
@@ -20633,7 +20921,7 @@ void module_versioning_strategy_release_management_init(ModuleVersioningStrategy
 void module_versioning_strategy_release_management_free(ModuleVersioningStrategyReleaseManagement *self);
 ModuleVersioningStrategyReleaseManagementContentForm module_versioning_strategy_release_management_content(const ModuleVersioningStrategyReleaseManagement *self);
 
-// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+// 8.7.2. Monitoring.
 //
 // Comprehensive monitoring specification covering health checks, alerting,
 // observability, dashboards, and SLA/SLO tracking.
@@ -20643,18 +20931,18 @@ void monitoring_free(Monitoring *self);
 MonitoringMonitoringOverviewForm monitoring_monitoring_overview(const Monitoring *self);
 // Monitoring strategy narrative.
 // (skipped: overviewNarrative has no target type)
-// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+// 8.7.2.1. Health Checks and Diagnostics.
 HealthChecksAndDiagnosticsSection monitoring_health_checks_and_diagnostics(const Monitoring *self);
-// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+// 8.7.2.2. Alerting Configuration.
 AlertingConfiguration monitoring_alerting_configuration(const Monitoring *self);
-// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+// 8.7.2.3. Metrics and Observability.
 MetricsAndObservability monitoring_metrics_and_observability(const Monitoring *self);
-// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+// 8.7.2.4. Monitoring Dashboards.
 MonitoringDashboards monitoring_dashboards(const Monitoring *self);
-// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+// 8.7.2.5. SLA and SLO Monitoring.
 SlaAndSloMonitoring monitoring_sla_and_slo_monitoring(const Monitoring *self);
 
-// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
+// 8.5.3. Monitoring and Alerting.
 //
 // Monitoring requirements: metrics to collect, alert thresholds, dashboard
 // requirements, on-call procedures, and escalation paths.
@@ -20687,7 +20975,7 @@ IncidentManagementRequirements monitoring_and_alerting_section_incident_manageme
 // SLA monitoring.
 SlaMonitoringRequirements monitoring_and_alerting_section_sla_monitoring(const MonitoringAndAlertingSection *self);
 
-// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+// 8.7.2.4. Monitoring Dashboards.
 //
 // Operational dashboards for system monitoring.
 // Binds a MonitoringDashboards facade to a document and a path (path copied).
@@ -20740,7 +21028,7 @@ void monitoring_procedure_entry_free(MonitoringProcedureEntry *self);
 char *monitoring_procedure_entry_content(const MonitoringProcedureEntry *self);
 void monitoring_procedure_entry_set_content(MonitoringProcedureEntry *self, const char *value);
 
-// 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
+// 11.4.3. Monitoring quality.
 // Binds a MonitoringQuality facade to a document and a path (path copied).
 void monitoring_quality_init(MonitoringQuality *self, SpecDocument *doc, const char *path);
 void monitoring_quality_free(MonitoringQuality *self);
@@ -20780,7 +21068,7 @@ void monitoring_quality_operations_init(MonitoringQualityOperations *self, SpecD
 void monitoring_quality_operations_free(MonitoringQualityOperations *self);
 MonitoringQualityOperationsContentForm monitoring_quality_operations_content(const MonitoringQualityOperations *self);
 
-// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+// 13.4.1. MoSCoW Analysis.
 //
 // Classifies every feature using the MoSCoW method (Must / Should /
 // Could / Won't) and maps each to its target delivery stage.
@@ -20794,7 +21082,7 @@ MoscowAnalysisContentForm moscow_analysis_content(const MoscowAnalysis *self);
 // Returns the list view; element type: MoscowEntry (construct from item paths).
 SomList moscow_analysis_items(const MoscowAnalysis *self);
 
-// A MoSCoW classification entry (form) [PD00-SSP-FEA-MOS-nn].
+// A MoSCoW classification entry (form).
 //
 // Maps a single feature or feature group to its MoSCoW category and
 // target delivery stage, with justification and cross-references.
@@ -20835,7 +21123,7 @@ void moscow_entry_value_init(MoscowEntryValue *self, SpecDocument *doc, const ch
 void moscow_entry_value_free(MoscowEntryValue *self);
 MoscowEntryValueContentForm moscow_entry_value_content(const MoscowEntryValue *self);
 
-// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+// 4.1.5.6. Multi-Channel Experience.
 //
 // Defines how the system provides a consistent experience across channels
 // and handles channel switching.
@@ -20847,31 +21135,21 @@ void multi_channel_experience_set_content(MultiChannelExperience *self, const ch
 // Multi-channel configuration.
 MultiChannelExperienceMultiChannelConfigurationForm multi_channel_experience_multi_channel_configuration(const MultiChannelExperience *self);
 
-// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+// 10.12. Multi-language and Rollout Support.
 //
-// Comprehensive internationalization, localization, and system rollout
-// specification covering translation workflows, locale handling, user
-// documentation, training, and deployment planning.
+// Locale-picker / UX-side multi-language concerns that stay on the
+// Experience & Interface Design side. IP-6 re-homed the requirement-side
+// concerns (i18n requirements, documentation, training) to SBP.9 and the
+// execution-side concerns (localization/translation processes, rollout
+// sequencing) to SBP.15; only the stay-put UX members remain here.
 // Binds a MultiLanguageAndRollout facade to a document and a path (path copied).
 void multi_language_and_rollout_init(MultiLanguageAndRollout *self, SpecDocument *doc, const char *path);
 void multi_language_and_rollout_free(MultiLanguageAndRollout *self);
 MultiLanguageAndRolloutMultiLanguageOverviewForm multi_language_and_rollout_multi_language_overview(const MultiLanguageAndRollout *self);
-// Locale modeling and fallback behavior.
-MultiLanguageAndRolloutLocaleHandling multi_language_and_rollout_locale_handling(const MultiLanguageAndRollout *self);
-// Rollout sequencing by region and time.
-MultiLanguageAndRolloutPlan multi_language_and_rollout_rollout_plan(const MultiLanguageAndRollout *self);
 // Multi-language overview narrative.
 // (skipped: overviewNarrative has no target type)
-// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
-LocalizationProcess multi_language_and_rollout_localization_process(const MultiLanguageAndRollout *self);
-// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
-TranslationProcess multi_language_and_rollout_translation_process(const MultiLanguageAndRollout *self);
-// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
-DocumentationAndTraining multi_language_and_rollout_documentation_and_training(const MultiLanguageAndRollout *self);
-// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+// 10.12.4. Language and Country Selection.
 LanguageCountrySelection multi_language_and_rollout_language_country_selection(const MultiLanguageAndRollout *self);
-// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
-TranslationRequirements multi_language_and_rollout_translation_requirements(const MultiLanguageAndRollout *self);
 // Supported locale entries.
 // Returns the list view; element type: SupportedLocaleEntry (construct from item paths).
 SomList multi_language_and_rollout_supported_locales(const MultiLanguageAndRollout *self);
@@ -20888,7 +21166,7 @@ void multi_language_and_rollout_plan_init(MultiLanguageAndRolloutPlan *self, Spe
 void multi_language_and_rollout_plan_free(MultiLanguageAndRolloutPlan *self);
 MultiLanguageAndRolloutPlanContentForm multi_language_and_rollout_plan_content(const MultiLanguageAndRolloutPlan *self);
 
-// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+// 11.7.1. Must-Pass Criteria.
 //
 // Criteria that must be met for the system to be accepted.
 // Binds a MustPassCriteria facade to a document and a path (path copied).
@@ -20901,7 +21179,7 @@ MustPassCriteriaMustPassOverviewContentForm must_pass_criteria_must_pass_overvie
 // Returns the list view; element type: MustPassCriterionEntry (construct from item paths).
 SomList must_pass_criteria_items(const MustPassCriteria *self);
 
-// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
+// A must-pass criterion entry (form).
 // Binds a MustPassCriterionEntry facade to a document and a path (path copied).
 void must_pass_criterion_entry_init(MustPassCriterionEntry *self, SpecDocument *doc, const char *path);
 void must_pass_criterion_entry_free(MustPassCriterionEntry *self);
@@ -20992,7 +21270,7 @@ void native_app_requirements_versions_init(NativeAppRequirementsVersions *self, 
 void native_app_requirements_versions_free(NativeAppRequirementsVersions *self);
 NativeAppRequirementsVersionsContentForm native_app_requirements_versions_content(const NativeAppRequirementsVersions *self);
 
-// A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
+// A navigation group entry (form).
 //
 // Logical grouping of navigation items (e.g., "Sales", "Administration").
 // Binds a NavigationGroupEntry facade to a document and a path (path copied).
@@ -21027,7 +21305,7 @@ void navigation_group_entry_structure_init(NavigationGroupEntryStructure *self, 
 void navigation_group_entry_structure_free(NavigationGroupEntryStructure *self);
 NavigationGroupEntryStructureContentForm navigation_group_entry_structure_content(const NavigationGroupEntryStructure *self);
 
-// A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn].
+// A navigation guard entry (form).
 // Binds a NavigationGuardEntry facade to a document and a path (path copied).
 void navigation_guard_entry_init(NavigationGuardEntry *self, SpecDocument *doc, const char *path);
 void navigation_guard_entry_free(NavigationGuardEntry *self);
@@ -21049,7 +21327,7 @@ void navigation_guard_entry_routing_init(NavigationGuardEntryRouting *self, Spec
 void navigation_guard_entry_routing_free(NavigationGuardEntryRouting *self);
 NavigationGuardEntryRoutingContentForm navigation_guard_entry_routing_content(const NavigationGuardEntryRouting *self);
 
-// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+// 10.3.1.8. Navigation Guards.
 //
 // Route guards: unsaved changes, authentication redirects, permission checks.
 // Binds a NavigationGuards facade to a document and a path (path copied).
@@ -21063,7 +21341,7 @@ void navigation_guards_set_content(NavigationGuards *self, const char *value);
 // Returns the list view; element type: NavigationGuardEntry (construct from item paths).
 SomList navigation_guards_guards(const NavigationGuards *self);
 
-// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+// 10.3.1.2. Navigation Hierarchy.
 //
 // Full navigation tree: groups and items forming the app's navigation structure.
 // Binds a NavigationHierarchy facade to a document and a path (path copied).
@@ -21077,7 +21355,7 @@ void navigation_hierarchy_set_content(NavigationHierarchy *self, const char *val
 // Returns the list view; element type: NavigationGroupEntry (construct from item paths).
 SomList navigation_hierarchy_groups(const NavigationHierarchy *self);
 
-// A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
+// A navigation item entry (form).
 //
 // A single navigable destination within a group.
 // Binds a NavigationItemEntry facade to a document and a path (path copied).
@@ -21125,7 +21403,7 @@ void navigation_item_entry_routing_init(NavigationItemEntryRouting *self, SpecDo
 void navigation_item_entry_routing_free(NavigationItemEntryRouting *self);
 NavigationItemEntryRoutingContentForm navigation_item_entry_routing_content(const NavigationItemEntryRouting *self);
 
-// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+// 10.3.1. Navigation Model.
 //
 // Comprehensive navigation structure: primary, secondary, utility, contextual
 // navigation, deep linking, navigation guards, and platform adaptation.
@@ -21134,24 +21412,24 @@ void navigation_model_init(NavigationModel *self, SpecDocument *doc, const char 
 void navigation_model_free(NavigationModel *self);
 char *navigation_model_content(const NavigationModel *self);
 void navigation_model_set_content(NavigationModel *self, const char *value);
-// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+// 10.3.1.1. Navigation Overview.
 NavigationOverview navigation_model_overview(const NavigationModel *self);
-// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+// 10.3.1.2. Navigation Hierarchy.
 NavigationHierarchy navigation_model_hierarchy(const NavigationModel *self);
-// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+// 10.3.1.3. Primary Navigation.
 PrimaryNavigation navigation_model_primary_navigation(const NavigationModel *self);
-// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+// 10.3.1.4. Secondary Navigation.
 SecondaryNavigation navigation_model_secondary_navigation(const NavigationModel *self);
-// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+// 10.3.1.5. Utility Navigation.
 UtilityNavigation navigation_model_utility_navigation(const NavigationModel *self);
-// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+// 10.3.1.6. Contextual Navigation.
 ContextualNavigation navigation_model_contextual_navigation(const NavigationModel *self);
-// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+// 10.3.1.7. Deep Linking.
 DeepLinking navigation_model_deep_linking(const NavigationModel *self);
-// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+// 10.3.1.8. Navigation Guards.
 NavigationGuards navigation_model_navigation_guards(const NavigationModel *self);
 
-// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+// 10.3.1.1. Navigation Overview.
 //
 // Overall navigation strategy, routing approach, and design decisions.
 // Binds a NavigationOverview facade to a document and a path (path copied).
@@ -21281,7 +21559,7 @@ void network_load_balancing_requirements_tls_init(NetworkLoadBalancingRequiremen
 void network_load_balancing_requirements_tls_free(NetworkLoadBalancingRequirementsTls *self);
 NetworkLoadBalancingRequirementsTlsContentForm network_load_balancing_requirements_tls_content(const NetworkLoadBalancingRequirementsTls *self);
 
-// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+// 8.4.3. Network Requirements.
 //
 // Network requirements: bandwidth, latency, availability, VPN/firewall rules,
 // and geographic distribution.
@@ -21400,7 +21678,7 @@ void network_security_requirements_monitoring_init(NetworkSecurityRequirementsMo
 void network_security_requirements_monitoring_free(NetworkSecurityRequirementsMonitoring *self);
 NetworkSecurityRequirementsMonitoringContentForm network_security_requirements_monitoring_content(const NetworkSecurityRequirementsMonitoring *self);
 
-// 5.1. New Organization Structure [PD00-ORG-STR].
+// 5.1. New Organization Structure.
 //
 // Organizational changes required by the new system including new teams,
 // restructured departments, changed responsibilities, and new communication
@@ -21411,12 +21689,12 @@ void new_organization_structure_init(NewOrganizationStructure *self, SpecDocumen
 void new_organization_structure_free(NewOrganizationStructure *self);
 // Overview of the target organization structure.
 // (skipped: overview has no target type)
-// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+// 5.1.1. Changes from Current Structure.
 ChangesFromCurrentStructure new_organization_structure_changes_from_current_structure(const NewOrganizationStructure *self);
-// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+// 5.1.2. Organizational Transition Timeline.
 OrganizationalTransitionTimeline new_organization_structure_transition_timeline(const NewOrganizationStructure *self);
 
-// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+// A new role entry (form).
 //
 // Comprehensive new role definition following HR job analysis best practices.
 // Includes competencies, responsibilities, system access, and success metrics.
@@ -21519,7 +21797,7 @@ void notification_channel_entry_init(NotificationChannelEntry *self, SpecDocumen
 void notification_channel_entry_free(NotificationChannelEntry *self);
 NotificationChannelEntryContentForm notification_channel_entry_content(const NotificationChannelEntry *self);
 
-// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+// 4.1.5.5. Notification Model.
 //
 // Defines how the system notifies users of events, updates, and actions
 // across different channels.
@@ -21544,7 +21822,7 @@ void notification_type_entry_init(NotificationTypeEntry *self, SpecDocument *doc
 void notification_type_entry_free(NotificationTypeEntry *self);
 NotificationTypeEntryContentForm notification_type_entry_content(const NotificationTypeEntry *self);
 
-// An object invariant entry (form) [PD00-BUS-BUS-CAT-nn-INV-nn].
+// An object invariant entry (form).
 //
 // Business invariants that must always hold true.
 // Binds a ObjectInvariantEntry facade to a document and a path (path copied).
@@ -21552,7 +21830,7 @@ void object_invariant_entry_init(ObjectInvariantEntry *self, SpecDocument *doc, 
 void object_invariant_entry_free(ObjectInvariantEntry *self);
 ObjectInvariantEntryContentForm object_invariant_entry_content(const ObjectInvariantEntry *self);
 
-// An object operation entry (form) [PD00-BUS-BUS-CAT-nn-OPR-nn].
+// An object operation entry (form).
 //
 // Business operations that can be performed on the object.
 // Binds a ObjectOperationEntry facade to a document and a path (path copied).
@@ -21584,7 +21862,7 @@ void object_operation_entry_lifecycle_init(ObjectOperationEntryLifecycle *self, 
 void object_operation_entry_lifecycle_free(ObjectOperationEntryLifecycle *self);
 ObjectOperationEntryLifecycleContentForm object_operation_entry_lifecycle_content(const ObjectOperationEntryLifecycle *self);
 
-// An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
+// An object state entry (form).
 //
 // Detailed state specification for business object lifecycle.
 // Binds a ObjectStateEntry facade to a document and a path (path copied).
@@ -21659,7 +21937,7 @@ void on_call_schedule_config_operations_init(OnCallScheduleConfigOperations *sel
 void on_call_schedule_config_operations_free(OnCallScheduleConfigOperations *self);
 OnCallScheduleConfigOperationsContentForm on_call_schedule_config_operations_content(const OnCallScheduleConfigOperations *self);
 
-// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
+// 10.8.2. Onboarding Help.
 // Binds a OnboardingHelp facade to a document and a path (path copied).
 void onboarding_help_init(OnboardingHelp *self, SpecDocument *doc, const char *path);
 void onboarding_help_free(OnboardingHelp *self);
@@ -21710,7 +21988,7 @@ void onboarding_help_tours_init(OnboardingHelpTours *self, SpecDocument *doc, co
 void onboarding_help_tours_free(OnboardingHelpTours *self);
 OnboardingHelpToursContentForm onboarding_help_tours_content(const OnboardingHelpTours *self);
 
-// Ongoing training entry (form) [PD00-ORG-WOR-nn-TRA-ONG-nn].
+// Ongoing training entry (form).
 // Binds a OngoingTrainingEntry facade to a document and a path (path copied).
 void ongoing_training_entry_init(OngoingTrainingEntry *self, SpecDocument *doc, const char *path);
 void ongoing_training_entry_free(OngoingTrainingEntry *self);
@@ -21740,7 +22018,7 @@ void ongoing_training_entry_schedule_init(OngoingTrainingEntrySchedule *self, Sp
 void ongoing_training_entry_schedule_free(OngoingTrainingEntrySchedule *self);
 OngoingTrainingEntryScheduleContentForm ongoing_training_entry_schedule_content(const OngoingTrainingEntrySchedule *self);
 
-// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+// 1.3.1. Operational Pain Points.
 //
 // Problems that affect day-to-day operations: downtime, slow response,
 // data inconsistencies, manual workarounds, and process interruptions.
@@ -21761,7 +22039,7 @@ void operational_pain_points_summary_init(OperationalPainPointsSummary *self, Sp
 void operational_pain_points_summary_free(OperationalPainPointsSummary *self);
 OperationalPainPointsSummaryContentForm operational_pain_points_summary_content(const OperationalPainPointsSummary *self);
 
-// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+// 11.4. Operations Quality Criteria.
 //
 // Quality criteria for system operations including availability, service
 // levels, monitoring, and IT security operations.
@@ -21771,31 +22049,31 @@ void operations_quality_criteria_free(OperationsQualityCriteria *self);
 OperationsQualityCriteriaOperationsOverviewContentForm operations_quality_criteria_operations_overview_content(const OperationsQualityCriteria *self);
 // Operations quality overview narrative.
 // (skipped: overview has no target type)
-// 11.4.1. Availability [PD00-SYQ-OPE-AVA].
+// 11.4.1. Availability.
 AvailabilityQuality operations_quality_criteria_availability(const OperationsQualityCriteria *self);
-// 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
+// 11.4.2. Service Level Requirements.
 ServiceLevelQuality operations_quality_criteria_service_level_requirements(const OperationsQualityCriteria *self);
-// 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
+// 11.4.3. Monitoring and Prevention.
 MonitoringQuality operations_quality_criteria_monitoring_and_prevention(const OperationsQualityCriteria *self);
-// 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
+// 11.4.4. IT Security Operations.
 ItSecurityOperationsQuality operations_quality_criteria_it_security_operations(const OperationsQualityCriteria *self);
 
-// 8.5. Operations Requirements [PD00-TEC-OPE].
+// 8.5. Operations Requirements.
 // Binds a OperationsRequirements facade to a document and a path (path copied).
 void operations_requirements_init(OperationsRequirements *self, SpecDocument *doc, const char *path);
 void operations_requirements_free(OperationsRequirements *self);
 char *operations_requirements_content(const OperationsRequirements *self);
 void operations_requirements_set_content(OperationsRequirements *self, const char *value);
-// 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
+// 8.5.1. Backup And Recovery.
 BackupAndRecoverySection operations_requirements_backup_and_recovery(const OperationsRequirements *self);
-// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+// 8.5.2. Deployment Strategy.
 DeploymentStrategySection operations_requirements_deployment_strategy(const OperationsRequirements *self);
-// 8.5.3. Monitoring And Alerting [PD00-TEC-OPE-MON].
+// 8.5.3. Monitoring And Alerting.
 MonitoringAndAlertingSection operations_requirements_monitoring_and_alerting(const OperationsRequirements *self);
-// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+// 8.5.4. Maintenance Windows.
 MaintenanceWindowsSection operations_requirements_maintenance_windows(const OperationsRequirements *self);
 
-// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+// 4.1.1.2. Opportunity Statement.
 //
 // Description of the opportunity this system enables — new capabilities,
 // competitive advantages, or improvements over current state.
@@ -21804,7 +22082,7 @@ void opportunity_statement_init(OpportunityStatement *self, SpecDocument *doc, c
 void opportunity_statement_free(OpportunityStatement *self);
 char *opportunity_statement_content(const OpportunityStatement *self);
 void opportunity_statement_set_content(OpportunityStatement *self, const char *value);
-// Opportunity Details Form [PD00-SYO-SYD-PUR-OPP-DES].
+// Opportunity Details Form.
 OpportunityStatementOpportunityDetailsForm opportunity_statement_opportunity_details(const OpportunityStatement *self);
 
 // Identification details for organizational change.
@@ -21855,7 +22133,7 @@ void org_implementation_activity_init(OrgImplementationActivity *self, SpecDocum
 void org_implementation_activity_free(OrgImplementationActivity *self);
 OrgImplementationActivityContentForm org_implementation_activity_content(const OrgImplementationActivity *self);
 
-// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+// 4.3.4.n.2. Implementation Plan.
 //
 // Implementation plan for this organizational requirement.
 // Binds a OrgRequirementImplementationPlan facade to a document and a path (path copied).
@@ -21869,7 +22147,7 @@ OrgRequirementImplementationPlanPlanFormForm org_requirement_implementation_plan
 // Returns the list view; element type: OrgImplementationActivity (construct from item paths).
 SomList org_requirement_implementation_plan_activities(const OrgRequirementImplementationPlan *self);
 
-// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+// 3.1.1. Organization Structure.
 // Binds a OrganizationStructure facade to a document and a path (path copied).
 void organization_structure_init(OrganizationStructure *self, SpecDocument *doc, const char *path);
 void organization_structure_free(OrganizationStructure *self);
@@ -21880,7 +22158,7 @@ GovernanceModel organization_structure_governance_model(const OrganizationStruct
 // Organization chart diagram (e.g. Mermaid or image reference).
 // (skipped: orgChartDiagram has no target type)
 
-// An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
+// An organizational change entry (form).
 //
 // Documents a specific structural change including current state, target
 // state, rationale, impact assessment, and transition requirements.
@@ -21904,7 +22182,7 @@ SomList organizational_change_entry_risks(const OrganizationalChangeEntry *self)
 // Status tracking.
 OrgChangeStatus organizational_change_entry_status(const OrganizationalChangeEntry *self);
 
-// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+// 4.1.2.6. Organizational Context.
 //
 // Organizational units, departments, and business areas that the system
 // serves or interacts with.
@@ -21920,7 +22198,7 @@ SomList organizational_context_organizational_units(const OrganizationalContext 
 char *organizational_context_business_process_coverage(const OrganizationalContext *self);
 void organizational_context_set_business_process_coverage(OrganizationalContext *self, const char *value);
 
-// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+// 4.6.1. Organizational Environment.
 //
 // Describes the organizational context in which the system will operate,
 // including departments, reporting structures, decision authority, and
@@ -21968,7 +22246,7 @@ void organizational_environment_maturity_init(OrganizationalEnvironmentMaturity 
 void organizational_environment_maturity_free(OrganizationalEnvironmentMaturity *self);
 OrganizationalEnvironmentMaturityContentForm organizational_environment_maturity_content(const OrganizationalEnvironmentMaturity *self);
 
-// 5. Organizational Framework [PD00-ORG].
+// 5. Organizational Framework.
 //
 // Organizational changes and structures required for the new system.
 // Covers organization structure changes, new and changed roles, staffing
@@ -21980,16 +22258,16 @@ void organizational_framework_init(OrganizationalFramework *self, SpecDocument *
 void organizational_framework_free(OrganizationalFramework *self);
 // Overview of organizational changes required for the new system.
 // (skipped: overview has no target type)
-// 5.1. New Organization Structure [PD00-ORG-STR].
+// 5.1. New Organization Structure.
 NewOrganizationStructure organizational_framework_organization_structure(const OrganizationalFramework *self);
-// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+// 5.2. Job Descriptions and Staffing Plans.
 // Returns the list view; element type: JobDescriptionsAndStaffing (construct from item paths).
 SomList organizational_framework_job_descriptions(const OrganizationalFramework *self);
-// 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+// 5.3. Workplace Descriptions — contains 1+× per user category.
 // Returns the list view; element type: WorkplaceDescriptionEntry (construct from item paths).
 SomList organizational_framework_workplace_descriptions(const OrganizationalFramework *self);
 
-// An organizational requirement entry [PD00-SYO-REQ-ORG-nn].
+// An organizational requirement entry.
 //
 // Comprehensive organizational requirement definition following change
 // management and organizational development best practices.
@@ -22003,11 +22281,11 @@ OrganizationalRequirementEntryClassification organizational_requirement_entry_cl
 OrganizationalRequirementEntryImpact organizational_requirement_entry_impact(const OrganizationalRequirementEntry *self);
 // Planning, ownership, and success tracking.
 OrganizationalRequirementEntryPlanning organizational_requirement_entry_planning(const OrganizationalRequirementEntry *self);
-// 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
+// 4.3.4.n.1. Acceptance Criteria.
 RequirementAcceptanceCriteria organizational_requirement_entry_acceptance_criteria(const OrganizationalRequirementEntry *self);
-// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+// 4.3.4.n.2. Implementation Plan.
 OrgRequirementImplementationPlan organizational_requirement_entry_implementation_plan(const OrganizationalRequirementEntry *self);
-// 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
+// 4.3.4.n.3. Dependencies.
 RequirementDependencies organizational_requirement_entry_dependencies(const OrganizationalRequirementEntry *self);
 
 // Requirement classification and source.
@@ -22028,7 +22306,7 @@ void organizational_requirement_entry_planning_init(OrganizationalRequirementEnt
 void organizational_requirement_entry_planning_free(OrganizationalRequirementEntryPlanning *self);
 OrganizationalRequirementEntryPlanningContentForm organizational_requirement_entry_planning_content(const OrganizationalRequirementEntryPlanning *self);
 
-// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+// 4.3.4. Organizational Requirements.
 //
 // Container for organizational requirements. These describe needed changes
 // to organization, processes, training, or support that must be fulfilled
@@ -22045,7 +22323,7 @@ OrganizationalRequirementsSummaryFormForm organizational_requirements_summary_fo
 // Returns the list view; element type: OrganizationalRequirementEntry (construct from item paths).
 SomList organizational_requirements_requirements(const OrganizationalRequirements *self);
 
-// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+// 5.1.2. Organizational Transition Timeline.
 //
 // Describes when organizational changes take effect, how the transition is
 // managed, and what training or communication is needed. Follows change
@@ -22117,7 +22395,7 @@ void os_compatibility_entry_testing_init(OsCompatibilityEntryTesting *self, Spec
 void os_compatibility_entry_testing_free(OsCompatibilityEntryTesting *self);
 OsCompatibilityEntryTestingContentForm os_compatibility_entry_testing_content(const OsCompatibilityEntryTesting *self);
 
-// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+// 3.6. Other Administrative Requirements.
 //
 // Additional administrative agreements, constraints, or requirements not
 // covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -22127,17 +22405,17 @@ void other_administrative_requirements_init(OtherAdministrativeRequirements *sel
 void other_administrative_requirements_free(OtherAdministrativeRequirements *self);
 char *other_administrative_requirements_content(const OtherAdministrativeRequirements *self);
 void other_administrative_requirements_set_content(OtherAdministrativeRequirements *self, const char *value);
-// 3.6.1. Intellectual Property [PD00-ADM-OTH-IPR].
+// 3.6.1. Intellectual Property.
 IntellectualPropertyRequirements other_administrative_requirements_intellectual_property(const OtherAdministrativeRequirements *self);
-// 3.6.2. Confidentiality and NDAs [PD00-ADM-OTH-NDA].
+// 3.6.2. Confidentiality and NDAs.
 ConfidentialityRequirements other_administrative_requirements_confidentiality(const OtherAdministrativeRequirements *self);
-// 3.6.3. Regulatory Compliance [PD00-ADM-OTH-REG].
+// 3.6.3. Regulatory Compliance.
 RegulatoryComplianceRequirements other_administrative_requirements_regulatory_compliance(const OtherAdministrativeRequirements *self);
-// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+// 3.6.4. Audit Requirements.
 AuditRequirements other_administrative_requirements_audit_requirements(const OtherAdministrativeRequirements *self);
-// 3.6.5. Insurance and Liability [PD00-ADM-OTH-INS].
+// 3.6.5. Insurance and Liability.
 InsuranceLiabilityRequirements other_administrative_requirements_insurance_liability(const OtherAdministrativeRequirements *self);
-// 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
+// 3.6.6. Other Agreements — contains 0+× Agreement.
 // Returns the list view; element type: OtherAgreementEntry (construct from item paths).
 SomList other_administrative_requirements_other_agreements(const OtherAdministrativeRequirements *self);
 
@@ -22147,7 +22425,7 @@ void other_agreement_entry_init(OtherAgreementEntry *self, SpecDocument *doc, co
 void other_agreement_entry_free(OtherAgreementEntry *self);
 OtherAgreementEntryContentForm other_agreement_entry_content(const OtherAgreementEntry *self);
 
-// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+// 4.5.2. Out of Scope.
 //
 // Explicit documentation of functionality, systems, and integrations that
 // are excluded from the project scope. Provides clear boundaries and
@@ -22161,7 +22439,7 @@ void out_of_scope_free(OutOfScope *self);
 // Returns the list view; element type: OutOfScopeEntry (construct from item paths).
 SomList out_of_scope_items(const OutOfScope *self);
 
-// An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
+// An out-of-scope entry (form).
 // Binds a OutOfScopeEntry facade to a document and a path (path copied).
 void out_of_scope_entry_init(OutOfScopeEntry *self, SpecDocument *doc, const char *path);
 void out_of_scope_entry_free(OutOfScopeEntry *self);
@@ -22227,7 +22505,7 @@ void pain_point_classification_init(PainPointClassification *self, SpecDocument 
 void pain_point_classification_free(PainPointClassification *self);
 PainPointClassificationContentForm pain_point_classification_content(const PainPointClassification *self);
 
-// A pain point entry (form) [PD00-CUR-PAI-nn].
+// A pain point entry (form).
 //
 // Documents a specific problem in the current state with comprehensive details:
 // root cause analysis, impact quantification, affected stakeholders,
@@ -22307,7 +22585,7 @@ void pain_point_workaround_init(PainPointWorkaround *self, SpecDocument *doc, co
 void pain_point_workaround_free(PainPointWorkaround *self);
 PainPointWorkaroundContentForm pain_point_workaround_content(const PainPointWorkaround *self);
 
-// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+// 1.3. Pain Points and Gaps.
 //
 // Comprehensive documentation of specific problems, inefficiencies,
 // compliance gaps, and user frustrations in the current state.
@@ -22325,13 +22603,13 @@ char *pain_points_and_gaps_pain_points_priority_matrix(const PainPointsAndGaps *
 void pain_points_and_gaps_set_pain_points_priority_matrix(PainPointsAndGaps *self, const char *value);
 // Summary statistics for all pain points.
 PainPointsSummary pain_points_and_gaps_pain_points_summary(const PainPointsAndGaps *self);
-// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+// 1.3.1. Operational Pain Points.
 OperationalPainPoints pain_points_and_gaps_operational_pain_points(const PainPointsAndGaps *self);
-// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+// 1.3.2. Business Pain Points.
 BusinessPainPoints pain_points_and_gaps_business_pain_points(const PainPointsAndGaps *self);
-// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+// 1.3.3. Technical Pain Points.
 TechnicalPainPoints pain_points_and_gaps_technical_pain_points(const PainPointsAndGaps *self);
-// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+// 1.3.4. Gaps.
 Gaps pain_points_and_gaps_gaps(const PainPointsAndGaps *self);
 // Cross-reference between pain points and gaps.
 PainPointGapCorrelation pain_points_and_gaps_pain_point_gap_correlation(const PainPointsAndGaps *self);
@@ -22348,7 +22626,7 @@ void participant_entry_init(ParticipantEntry *self, SpecDocument *doc, const cha
 void participant_entry_free(ParticipantEntry *self);
 ParticipantEntryContentForm participant_entry_content(const ParticipantEntry *self);
 
-// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+// 9.2.3. Password and Credential Policy.
 //
 // Comprehensive password and credential policy aligned with NIST SP 800-63B
 // (Revision 4). Covers password requirements, storage, lifecycle, account
@@ -22447,7 +22725,7 @@ void peak_load_patterns_testing_init(PeakLoadPatternsTesting *self, SpecDocument
 void peak_load_patterns_testing_free(PeakLoadPatternsTesting *self);
 PeakLoadPatternsTestingContentForm peak_load_patterns_testing_content(const PeakLoadPatternsTesting *self);
 
-// Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
+// Penetration testing requirements and schedule.
 // Binds a PenetrationTestingRequirements facade to a document and a path (path copied).
 void penetration_testing_requirements_init(PenetrationTestingRequirements *self, SpecDocument *doc, const char *path);
 void penetration_testing_requirements_free(PenetrationTestingRequirements *self);
@@ -22487,7 +22765,7 @@ PeriodicReviewPolicyContentForm periodic_review_policy_content(const PeriodicRev
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// Peripheral equipment entry (form) [PD00-ORG-WOR-nn-EQU-PER-nn].
+// Peripheral equipment entry (form).
 // Binds a PeripheralEquipmentEntry facade to a document and a path (path copied).
 void peripheral_equipment_entry_init(PeripheralEquipmentEntry *self, SpecDocument *doc, const char *path);
 void peripheral_equipment_entry_free(PeripheralEquipmentEntry *self);
@@ -22535,7 +22813,7 @@ void permission_matrix_entry_init(PermissionMatrixEntry *self, SpecDocument *doc
 void permission_matrix_entry_free(PermissionMatrixEntry *self);
 PermissionMatrixEntryContentForm permission_matrix_entry_content(const PermissionMatrixEntry *self);
 
-// A user persona entry [PD00-USE-VIS-PER-nn] (form).
+// A user persona entry (form).
 //
 // Represents a distinct user archetype with detailed context for UI design.
 // Binds a PersonaEntry facade to a document and a path (path copied).
@@ -22548,11 +22826,11 @@ PersonaEntryProfile persona_entry_profile(const PersonaEntry *self);
 PersonaEntryContext persona_entry_context(const PersonaEntry *self);
 // Motivations, frustrations, and success markers.
 PersonaEntryNeeds persona_entry_needs(const PersonaEntry *self);
-// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+// 10.1.3.n.1. Persona Goals.
 PersonaGoals persona_entry_goals(const PersonaEntry *self);
-// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+// 10.1.3.n.2. Persona Pain Points.
 PersonaPainPoints persona_entry_pain_points(const PersonaEntry *self);
-// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+// 10.1.3.n.3. Persona Scenarios.
 PersonaScenarios persona_entry_scenarios(const PersonaEntry *self);
 
 // Usage environment and device context.
@@ -22573,13 +22851,13 @@ void persona_entry_profile_init(PersonaEntryProfile *self, SpecDocument *doc, co
 void persona_entry_profile_free(PersonaEntryProfile *self);
 PersonaEntryProfileContentForm persona_entry_profile_content(const PersonaEntryProfile *self);
 
-// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm].
+// A persona goal entry (form).
 // Binds a PersonaGoalEntry facade to a document and a path (path copied).
 void persona_goal_entry_init(PersonaGoalEntry *self, SpecDocument *doc, const char *path);
 void persona_goal_entry_free(PersonaGoalEntry *self);
 PersonaGoalEntryContentForm persona_goal_entry_content(const PersonaGoalEntry *self);
 
-// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+// 10.1.3.n.1. Persona Goals.
 // Binds a PersonaGoals facade to a document and a path (path copied).
 void persona_goals_init(PersonaGoals *self, SpecDocument *doc, const char *path);
 void persona_goals_free(PersonaGoals *self);
@@ -22589,13 +22867,13 @@ void persona_goals_set_content(PersonaGoals *self, const char *value);
 // Returns the list view; element type: PersonaGoalEntry (construct from item paths).
 SomList persona_goals_items(const PersonaGoals *self);
 
-// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm].
+// A pain point entry (form).
 // Binds a PersonaPainPointEntry facade to a document and a path (path copied).
 void persona_pain_point_entry_init(PersonaPainPointEntry *self, SpecDocument *doc, const char *path);
 void persona_pain_point_entry_free(PersonaPainPointEntry *self);
 PersonaPainPointEntryContentForm persona_pain_point_entry_content(const PersonaPainPointEntry *self);
 
-// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+// 10.1.3.n.2. Persona Pain Points.
 // Binds a PersonaPainPoints facade to a document and a path (path copied).
 void persona_pain_points_init(PersonaPainPoints *self, SpecDocument *doc, const char *path);
 void persona_pain_points_free(PersonaPainPoints *self);
@@ -22605,13 +22883,13 @@ void persona_pain_points_set_content(PersonaPainPoints *self, const char *value)
 // Returns the list view; element type: PersonaPainPointEntry (construct from item paths).
 SomList persona_pain_points_items(const PersonaPainPoints *self);
 
-// A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm].
+// A persona scenario entry (form).
 // Binds a PersonaScenarioEntry facade to a document and a path (path copied).
 void persona_scenario_entry_init(PersonaScenarioEntry *self, SpecDocument *doc, const char *path);
 void persona_scenario_entry_free(PersonaScenarioEntry *self);
 PersonaScenarioEntryContentForm persona_scenario_entry_content(const PersonaScenarioEntry *self);
 
-// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+// 10.1.3.n.3. Persona Scenarios.
 //
 // Key usage scenarios for this persona — helps map personas to screens/flows.
 // Binds a PersonaScenarios facade to a document and a path (path copied).
@@ -22653,7 +22931,7 @@ void phase_gate_identity_init(PhaseGateIdentity *self, SpecDocument *doc, const 
 void phase_gate_identity_free(PhaseGateIdentity *self);
 PhaseGateIdentityContentForm phase_gate_identity_content(const PhaseGateIdentity *self);
 
-// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
+// A phase gate review entry (form).
 //
 // Defines a single phase gate with its criteria, participants,
 // required evidence, entry/exit conditions, and review schedule.
@@ -22679,7 +22957,7 @@ PhaseGateExit phase_gate_review_entry_exit(const PhaseGateReviewEntry *self);
 // Returns the list view; element type: ReviewCriterionEntry (construct from item paths).
 SomList phase_gate_review_entry_review_criteria(const PhaseGateReviewEntry *self);
 
-// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+// 13.6.1. Phase Gate Reviews.
 //
 // Defines the phase gate review process: what is reviewed at each
 // gate, who participates, what evidence is required, and what
@@ -22738,7 +23016,7 @@ void physical_workplace_requirements_usage_init(PhysicalWorkplaceRequirementsUsa
 void physical_workplace_requirements_usage_free(PhysicalWorkplaceRequirementsUsage *self);
 PhysicalWorkplaceRequirementsUsageContentForm physical_workplace_requirements_usage_content(const PhysicalWorkplaceRequirementsUsage *self);
 
-// 15.5. Pilot Plan [PD00-ROL-PIL].
+// 15.5. Pilot Plan.
 //
 // Pilot scope, cohort selection, success criteria, and exit decision rules.
 // Binds a PilotPlan facade to a document and a path (path copied).
@@ -22823,7 +23101,7 @@ void pipeline_stage_entry_trigger_init(PipelineStageEntryTrigger *self, SpecDocu
 void pipeline_stage_entry_trigger_free(PipelineStageEntryTrigger *self);
 PipelineStageEntryTriggerContentForm pipeline_stage_entry_trigger_content(const PipelineStageEntryTrigger *self);
 
-// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+// 8.1.1. Platform and Language.
 //
 // Required platforms (operating system, runtime), programming languages,
 // and framework choices with minimum versions and justification.
@@ -22854,7 +23132,7 @@ DependencyManagement platform_and_language_dependency_management(const PlatformA
 // Runtime environment constraints.
 RuntimeEnvironment platform_and_language_runtime_environment(const PlatformAndLanguage *self);
 
-// 11.3.2. Portability quality [PD00-SYQ-TEC-POR].
+// 11.3.2. Portability quality.
 // Binds a PortabilityQuality facade to a document and a path (path copied).
 void portability_quality_init(PortabilityQuality *self, SpecDocument *doc, const char *path);
 void portability_quality_free(PortabilityQuality *self);
@@ -22911,7 +23189,7 @@ void predecessor_dependency_entry_free(PredecessorDependencyEntry *self);
 char *predecessor_dependency_entry_content(const PredecessorDependencyEntry *self);
 void predecessor_dependency_entry_set_content(PredecessorDependencyEntry *self, const char *value);
 
-// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+// 10.3.1.3. Primary Navigation.
 //
 // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
 // Binds a PrimaryNavigation facade to a document and a path (path copied).
@@ -22945,7 +23223,7 @@ void primary_navigation_sidebar_init(PrimaryNavigationSidebar *self, SpecDocumen
 void primary_navigation_sidebar_free(PrimaryNavigationSidebar *self);
 PrimaryNavigationSidebarContentForm primary_navigation_sidebar_content(const PrimaryNavigationSidebar *self);
 
-// 10.4. Print Layout [PD00-USE-PRI].
+// 10.4. Print Layout.
 // Binds a PrintLayout facade to a document and a path (path copied).
 void print_layout_init(PrintLayout *self, SpecDocument *doc, const char *path);
 void print_layout_free(PrintLayout *self);
@@ -22960,13 +23238,13 @@ PrintLayoutWatermark print_layout_watermark(const PrintLayout *self);
 PrintLayoutHeaderFooter print_layout_header_footer(const PrintLayout *self);
 // Archive and batch settings.
 PrintLayoutArchive print_layout_archive(const PrintLayout *self);
-// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
+// 10.4.1. Reports — contains 0+× Report.
 // Returns the list view; element type: ReportEntry (construct from item paths).
 SomList print_layout_reports(const PrintLayout *self);
-// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
+// 10.4.2. Export Formats — contains 0+× Export Format.
 // Returns the list view; element type: ExportFormatEntry (construct from item paths).
 SomList print_layout_export_formats(const PrintLayout *self);
-// 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
+// 10.4.3. Export Templates — contains 0+× Export
 // Template.
 // Returns the list view; element type: ExportTemplateEntry (construct from item paths).
 SomList print_layout_export_templates(const PrintLayout *self);
@@ -23001,7 +23279,7 @@ void print_layout_watermark_init(PrintLayoutWatermark *self, SpecDocument *doc, 
 void print_layout_watermark_free(PrintLayoutWatermark *self);
 PrintLayoutWatermarkContentForm print_layout_watermark_content(const PrintLayoutWatermark *self);
 
-// Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
+// Privacy impact assessment and DPIA process.
 // Binds a PrivacyImpactAssessmentProcess facade to a document and a path (path copied).
 void privacy_impact_assessment_process_init(PrivacyImpactAssessmentProcess *self, SpecDocument *doc, const char *path);
 void privacy_impact_assessment_process_free(PrivacyImpactAssessmentProcess *self);
@@ -23031,7 +23309,7 @@ void privacy_impact_assessment_process_review_init(PrivacyImpactAssessmentProces
 void privacy_impact_assessment_process_review_free(PrivacyImpactAssessmentProcessReview *self);
 PrivacyImpactAssessmentProcessReviewContentForm privacy_impact_assessment_process_review_content(const PrivacyImpactAssessmentProcessReview *self);
 
-// Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
+// Privacy regulation compliance requirements.
 // Binds a PrivacyRegulationCompliance facade to a document and a path (path copied).
 void privacy_regulation_compliance_init(PrivacyRegulationCompliance *self, SpecDocument *doc, const char *path);
 void privacy_regulation_compliance_free(PrivacyRegulationCompliance *self);
@@ -23079,7 +23357,7 @@ PrivilegeUsageReportingContentForm privilege_usage_reporting_content(const Privi
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+// 4.1.1.1. Problem Statement.
 //
 // Detailed description of the problem or pain point that this system will
 // address. Includes impact analysis and urgency assessment.
@@ -23088,7 +23366,7 @@ void problem_statement_init(ProblemStatement *self, SpecDocument *doc, const cha
 void problem_statement_free(ProblemStatement *self);
 char *problem_statement_content(const ProblemStatement *self);
 void problem_statement_set_content(ProblemStatement *self, const char *value);
-// Problem Description Form [PD00-SYO-SYD-PUR-PRO-DES].
+// Problem Description Form.
 ProblemStatementProblemDetailsForm problem_statement_problem_details(const ProblemStatement *self);
 // Related pain points from Current State Analysis.
 // Returns the list view; element type: RelatedPainPointEntry (construct from item paths).
@@ -23100,7 +23378,7 @@ void process_adjustment_details_init(ProcessAdjustmentDetails *self, SpecDocumen
 void process_adjustment_details_free(ProcessAdjustmentDetails *self);
 ProcessAdjustmentDetailsContentForm process_adjustment_details_content(const ProcessAdjustmentDetails *self);
 
-// A process adjustment entry (form) [PD00-POP-PRC-nn].
+// A process adjustment entry (form).
 //
 // Documents a specific deviation from standard process steps, including
 // the type of modification, dependencies affected, risk assessment,
@@ -23159,7 +23437,7 @@ void process_adjustment_summary_init(ProcessAdjustmentSummary *self, SpecDocumen
 void process_adjustment_summary_free(ProcessAdjustmentSummary *self);
 ProcessAdjustmentSummaryContentForm process_adjustment_summary_content(const ProcessAdjustmentSummary *self);
 
-// 2.3. Process Adjustments [PD00-POP-PRC].
+// 2.3. Process Adjustments.
 //
 // Documents any deviations from the standard tom_system_creation.md or
 // tom_system_upgrade.md process. Includes skipped, reordered, or modified
@@ -23178,7 +23456,7 @@ void process_adjustments_set_process_flow_diagram(ProcessAdjustments *self, cons
 // Returns the list view; element type: ProcessAdjustmentEntry (construct from item paths).
 SomList process_adjustments_items(const ProcessAdjustments *self);
 
-// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT].
+// 6.1.3. Process Catalog.
 //
 // Container for business process definitions.
 // Binds a ProcessCatalog facade to a document and a path (path copied).
@@ -23232,7 +23510,7 @@ void process_context_init(ProcessContext *self, SpecDocument *doc, const char *p
 void process_context_free(ProcessContext *self);
 ProcessContextContentForm process_context_content(const ProcessContext *self);
 
-// A process control entry [PD00-TAR-PRO-CAT-nn-CTL-nn].
+// A process control entry.
 // Binds a ProcessControlEntry facade to a document and a path (path copied).
 void process_control_entry_init(ProcessControlEntry *self, SpecDocument *doc, const char *path);
 void process_control_entry_free(ProcessControlEntry *self);
@@ -23276,13 +23554,13 @@ void process_dependency_entry_init(ProcessDependencyEntry *self, SpecDocument *d
 void process_dependency_entry_free(ProcessDependencyEntry *self);
 ProcessDependencyEntryContentForm process_dependency_entry_content(const ProcessDependencyEntry *self);
 
-// A process design principle entry (form) [PD00-TAR-PRO-PRI-nn].
+// A process design principle entry (form).
 // Binds a ProcessDesignPrincipleEntry facade to a document and a path (path copied).
 void process_design_principle_entry_init(ProcessDesignPrincipleEntry *self, SpecDocument *doc, const char *path);
 void process_design_principle_entry_free(ProcessDesignPrincipleEntry *self);
 ProcessDesignPrincipleEntryContentForm process_design_principle_entry_content(const ProcessDesignPrincipleEntry *self);
 
-// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+// 6.1.2. Design Principles.
 //
 // Principles that guide process design decisions.
 // Binds a ProcessDesignPrinciples facade to a document and a path (path copied).
@@ -23300,13 +23578,13 @@ void process_diagram_overview_init(ProcessDiagramOverview *self, SpecDocument *d
 void process_diagram_overview_free(ProcessDiagramOverview *self);
 ProcessDiagramOverviewContentForm process_diagram_overview_content(const ProcessDiagramOverview *self);
 
-// A process end event entry [PD00-TAR-PRO-CAT-nn-END-nn].
+// A process end event entry.
 // Binds a ProcessEndEventEntry facade to a document and a path (path copied).
 void process_end_event_entry_init(ProcessEndEventEntry *self, SpecDocument *doc, const char *path);
 void process_end_event_entry_free(ProcessEndEventEntry *self);
 ProcessEndEventEntryContentForm process_end_event_entry_content(const ProcessEndEventEntry *self);
 
-// A process exception entry [PD00-TAR-PRO-CAT-nn-EXC-nn].
+// A process exception entry.
 // Binds a ProcessExceptionEntry facade to a document and a path (path copied).
 void process_exception_entry_init(ProcessExceptionEntry *self, SpecDocument *doc, const char *path);
 void process_exception_entry_free(ProcessExceptionEntry *self);
@@ -23328,10 +23606,9 @@ void process_exception_entry_response_init(ProcessExceptionEntryResponse *self, 
 void process_exception_entry_response_free(ProcessExceptionEntryResponse *self);
 ProcessExceptionEntryResponseContentForm process_exception_entry_response_content(const ProcessExceptionEntryResponse *self);
 
-// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+// 6.1.9. Process Exception Handling.
 //
 // Exception flows, escalation paths, and compensation logic. Covers
-// HBSG AS07-EXC.
 // Binds a ProcessExceptionHandling facade to a document and a path (path copied).
 void process_exception_handling_init(ProcessExceptionHandling *self, SpecDocument *doc, const char *path);
 void process_exception_handling_free(ProcessExceptionHandling *self);
@@ -23384,7 +23661,7 @@ void process_identification_governance_init(ProcessIdentificationGovernance *sel
 void process_identification_governance_free(ProcessIdentificationGovernance *self);
 ProcessIdentificationGovernanceContentForm process_identification_governance_content(const ProcessIdentificationGovernance *self);
 
-// A process improvement entry [PD00-TAR-PRO-IMP-nn].
+// A process improvement entry.
 // Binds a ProcessImprovementEntry facade to a document and a path (path copied).
 void process_improvement_entry_init(ProcessImprovementEntry *self, SpecDocument *doc, const char *path);
 void process_improvement_entry_free(ProcessImprovementEntry *self);
@@ -23406,7 +23683,7 @@ void process_improvement_entry_delivery_init(ProcessImprovementEntryDelivery *se
 void process_improvement_entry_delivery_free(ProcessImprovementEntryDelivery *self);
 ProcessImprovementEntryDeliveryContentForm process_improvement_entry_delivery_content(const ProcessImprovementEntryDelivery *self);
 
-// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+// 6.1.5. Improvement Summary.
 //
 // Summary of expected improvements over current processes.
 // Binds a ProcessImprovementSummary facade to a document and a path (path copied).
@@ -23420,7 +23697,7 @@ SomList process_improvement_summary_improvements(const ProcessImprovementSummary
 // Business case summary.
 ImprovementBusinessCase process_improvement_summary_business_case(const ProcessImprovementSummary *self);
 
-// A process input entry [PD00-TAR-PRO-CAT-nn-INP-nn].
+// A process input entry.
 // Binds a ProcessInputEntry facade to a document and a path (path copied).
 void process_input_entry_init(ProcessInputEntry *self, SpecDocument *doc, const char *path);
 void process_input_entry_free(ProcessInputEntry *self);
@@ -23445,14 +23722,14 @@ void process_interdependency_matrix_init(ProcessInterdependencyMatrix *self, Spe
 void process_interdependency_matrix_free(ProcessInterdependencyMatrix *self);
 char *process_interdependency_matrix_content(const ProcessInterdependencyMatrix *self);
 void process_interdependency_matrix_set_content(ProcessInterdependencyMatrix *self, const char *value);
-// Interdependency diagram [PD00-CUR-PRO-INT-DIA].
+// Interdependency diagram.
 char *process_interdependency_matrix_dependency_diagram(const ProcessInterdependencyMatrix *self);
 void process_interdependency_matrix_set_dependency_diagram(ProcessInterdependencyMatrix *self, const char *value);
 // Individual process dependencies.
 // Returns the list view; element type: ProcessDependencyEntry (construct from item paths).
 SomList process_interdependency_matrix_dependencies(const ProcessInterdependencyMatrix *self);
 
-// A process KPI entry [PD00-TAR-PRO-CAT-nn-KPI-nn].
+// A process KPI entry.
 // Binds a ProcessKpiEntry facade to a document and a path (path copied).
 void process_kpi_entry_init(ProcessKpiEntry *self, SpecDocument *doc, const char *path);
 void process_kpi_entry_free(ProcessKpiEntry *self);
@@ -23484,7 +23761,7 @@ void process_metric_category_set_content(ProcessMetricCategory *self, const char
 // Returns the list view; element type: ProcessMetricEntry (construct from item paths).
 SomList process_metric_category_metrics(const ProcessMetricCategory *self);
 
-// A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
+// A process metric entry (form).
 //
 // A single measurable metric with current value and measurement details.
 // Binds a ProcessMetricEntry facade to a document and a path (path copied).
@@ -23509,7 +23786,7 @@ void process_metric_entry_targets_init(ProcessMetricEntryTargets *self, SpecDocu
 void process_metric_entry_targets_free(ProcessMetricEntryTargets *self);
 ProcessMetricEntryTargetsContentForm process_metric_entry_targets_content(const ProcessMetricEntryTargets *self);
 
-// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+// 1.2.2. Process Metrics.
 //
 // Quantitative metrics for measuring process performance. These metrics
 // form the baseline against which improvements will be measured.
@@ -23518,30 +23795,30 @@ void process_metrics_init(ProcessMetrics *self, SpecDocument *doc, const char *p
 void process_metrics_free(ProcessMetrics *self);
 char *process_metrics_content(const ProcessMetrics *self);
 void process_metrics_set_content(ProcessMetrics *self, const char *value);
-// Metrics dashboard summary [PD00-CUR-PRO-xx-MET-SUM].
+// Metrics dashboard summary.
 MetricsDashboardSummary process_metrics_dashboard_summary(const ProcessMetrics *self);
-// Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+// Efficiency metrics.
 // Returns the list view; element type: ProcessMetricCategory (construct from item paths).
 SomList process_metrics_efficiency_metrics(const ProcessMetrics *self);
-// Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+// Quality metrics.
 // Returns the list view; element type: ProcessMetricCategory (construct from item paths).
 SomList process_metrics_quality_metrics(const ProcessMetrics *self);
-// Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+// Volume metrics.
 // Returns the list view; element type: ProcessMetricCategory (construct from item paths).
 SomList process_metrics_volume_metrics(const ProcessMetrics *self);
-// Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+// Cost metrics.
 // Returns the list view; element type: ProcessMetricCategory (construct from item paths).
 SomList process_metrics_cost_metrics(const ProcessMetrics *self);
-// Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+// Manual intervention metrics.
 // Returns the list view; element type: ProcessMetricCategory (construct from item paths).
 SomList process_metrics_manual_intervention_metrics(const ProcessMetrics *self);
 // Individual metric entries.
 // Returns the list view; element type: ProcessMetricEntry (construct from item paths).
 SomList process_metrics_items(const ProcessMetrics *self);
-// Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
+// Baseline comparison table.
 MetricsBaselineTable process_metrics_baseline_table(const ProcessMetrics *self);
 
-// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+// 6.1.10. Process Metrics and KPIs.
 //
 // Process-level KPIs, SLAs, and measurement strategy.
 // Binds a ProcessMetricsAndKpis facade to a document and a path (path copied).
@@ -23550,13 +23827,13 @@ void process_metrics_and_kpis_free(ProcessMetricsAndKpis *self);
 char *process_metrics_and_kpis_content(const ProcessMetricsAndKpis *self);
 void process_metrics_and_kpis_set_content(ProcessMetricsAndKpis *self, const char *value);
 
-// A process output entry [PD00-TAR-PRO-CAT-nn-OUT-nn].
+// A process output entry.
 // Binds a ProcessOutputEntry facade to a document and a path (path copied).
 void process_output_entry_init(ProcessOutputEntry *self, SpecDocument *doc, const char *path);
 void process_output_entry_free(ProcessOutputEntry *self);
 ProcessOutputEntryContentForm process_output_entry_content(const ProcessOutputEntry *self);
 
-// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+// 6.1.4. Process Overview Diagram.
 //
 // High-level process flow diagram showing main processes and relationships.
 // Binds a ProcessOverviewDiagram facade to a document and a path (path copied).
@@ -23609,7 +23886,7 @@ ProcessPerformanceSummaryContentForm process_performance_summary_content(const P
 // Returns the list view; element type: ProcessMetricEntry (construct from item paths).
 SomList process_performance_summary_key_metrics(const ProcessPerformanceSummary *self);
 
-// A process relationship entry [PD00-TAR-PRO-REL-nn].
+// A process relationship entry.
 // Binds a ProcessRelationshipEntry facade to a document and a path (path copied).
 void process_relationship_entry_init(ProcessRelationshipEntry *self, SpecDocument *doc, const char *path);
 void process_relationship_entry_free(ProcessRelationshipEntry *self);
@@ -23625,7 +23902,7 @@ void process_relationships_set_content(ProcessRelationships *self, const char *v
 // Returns the list view; element type: ProcessRelationshipEntry (construct from item paths).
 SomList process_relationships_relationships(const ProcessRelationships *self);
 
-// A process role entry [PD00-TAR-PRO-CAT-nn-ROL-nn].
+// A process role entry.
 // Binds a ProcessRoleEntry facade to a document and a path (path copied).
 void process_role_entry_init(ProcessRoleEntry *self, SpecDocument *doc, const char *path);
 void process_role_entry_free(ProcessRoleEntry *self);
@@ -23681,13 +23958,13 @@ SomList process_scope_summary_in_scope_processes(const ProcessScopeSummary *self
 // Returns the list view; element type: ProcessScopeEntry (construct from item paths).
 SomList process_scope_summary_out_of_scope_processes(const ProcessScopeSummary *self);
 
-// A process SLA entry [PD00-TAR-PRO-CAT-nn-SLA-nn].
+// A process SLA entry.
 // Binds a ProcessSlaEntry facade to a document and a path (path copied).
 void process_sla_entry_init(ProcessSlaEntry *self, SpecDocument *doc, const char *path);
 void process_sla_entry_free(ProcessSlaEntry *self);
 ProcessSlaEntryContentForm process_sla_entry_content(const ProcessSlaEntry *self);
 
-// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → UC.
 //
 // Key process steps with their actor interactions. Each interaction will be
 // expanded into a full use case with alternate paths, preconditions, and
@@ -23699,21 +23976,21 @@ char *process_steps_and_actor_interactions_content(const ProcessStepsAndActorInt
 void process_steps_and_actor_interactions_set_content(ProcessStepsAndActorInteractions *self, const char *value);
 // Section overview.
 ProcessStepsOverview process_steps_and_actor_interactions_overview(const ProcessStepsAndActorInteractions *self);
-// 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
+// 6.2.1. Actor Overview — contains 1+× Actor.
 ActorOverview process_steps_and_actor_interactions_actor_overview(const ProcessStepsAndActorInteractions *self);
-// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
+// 6.2.2. Interaction Catalog — contains 1+× Interaction.
 InteractionCatalog process_steps_and_actor_interactions_interaction_catalog(const ProcessStepsAndActorInteractions *self);
-// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
+// 6.2.3. Key Scenarios — contains 1+× Scenario.
 KeyScenarios process_steps_and_actor_interactions_key_scenarios(const ProcessStepsAndActorInteractions *self);
 // Actor relationship diagram.
 ActorRelationshipDiagram process_steps_and_actor_interactions_actor_relationship_diagram(const ProcessStepsAndActorInteractions *self);
-// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
+// 6.2.4. End-to-End Test Scenarios..
 // Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
 SomList process_steps_and_actor_interactions_end_to_end_test_scenarios(const ProcessStepsAndActorInteractions *self);
-// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+// 6.2.5. Use Case Traceability.
 UseCaseTraceability process_steps_and_actor_interactions_use_case_traceability(const ProcessStepsAndActorInteractions *self);
 
-// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
+// 6.2. Process Steps Overview.
 // Binds a ProcessStepsOverview facade to a document and a path (path copied).
 void process_steps_overview_init(ProcessStepsOverview *self, SpecDocument *doc, const char *path);
 void process_steps_overview_free(ProcessStepsOverview *self);
@@ -23747,7 +24024,7 @@ void process_technology_information_init(ProcessTechnologyInformation *self, Spe
 void process_technology_information_free(ProcessTechnologyInformation *self);
 ProcessTechnologyInformationContentForm process_technology_information_content(const ProcessTechnologyInformation *self);
 
-// A process trigger entry [PD00-TAR-PRO-CAT-nn-TRG-nn].
+// A process trigger entry.
 // Binds a ProcessTriggerEntry facade to a document and a path (path copied).
 void process_trigger_entry_init(ProcessTriggerEntry *self, SpecDocument *doc, const char *path);
 void process_trigger_entry_free(ProcessTriggerEntry *self);
@@ -23766,7 +24043,7 @@ SomList process_triggers_triggers(const ProcessTriggers *self);
 // Returns the list view; element type: ProcessEndEventEntry (construct from item paths).
 SomList process_triggers_end_events(const ProcessTriggers *self);
 
-// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+// 6.1.1. Process Vision.
 //
 // The overall vision for how business processes will work with the new system.
 // Binds a ProcessVision facade to a document and a path (path copied).
@@ -23834,63 +24111,18 @@ void programming_language_entry_version_init(ProgrammingLanguageEntryVersion *se
 void programming_language_entry_version_free(ProgrammingLanguageEntryVersion *self);
 ProgrammingLanguageEntryVersionContentForm programming_language_entry_version_content(const ProgrammingLanguageEntryVersion *self);
 
-// The complete Project Definition (PD) document.
-//
-// Contains a [DocumentHeader] and all 14 PD sections [PD00].
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int project_definition_new(ProjectDefinition *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *project_definition_object_model_version(const ProjectDefinition *self);
-void project_definition_free(ProjectDefinition *self);
-char *project_definition_content(const ProjectDefinition *self);
-void project_definition_set_content(ProjectDefinition *self, const char *value);
-// Document header (form fields at top of document).
-DocumentHeader project_definition_header(const ProjectDefinition *self);
-// 1. Current State Analysis [PD00-CUR].
-CurrentStateAnalysis project_definition_current_state_analysis(const ProjectDefinition *self);
-// 2. Project Organization and Process [PD00-POP].
-ProjectOrganizationAndProcess project_definition_project_organization_process(const ProjectDefinition *self);
-// 3. Administrative [PD00-ADM].
-Administrative project_definition_administrative(const ProjectDefinition *self);
-// 4. System Overview [PD00-SYO].
-SystemOverview project_definition_system_overview(const ProjectDefinition *self);
-// 5. Organizational Framework [PD00-ORG].
-OrganizationalFramework project_definition_organizational_framework(const ProjectDefinition *self);
-// 6. Target Business Process Model [PD00-TAR].
-TargetBusinessProcessModel project_definition_target_business_process(const ProjectDefinition *self);
-// 7. Business Object and Data Model [PD00-BUS].
-BusinessObjectAndDataModel project_definition_business_data_model(const ProjectDefinition *self);
-// 8. Technical Framework Concept [PD00-TEC].
-TechnicalFrameworkConcept project_definition_technical_framework(const ProjectDefinition *self);
-// 9. Access and Authorization Concept [PD00-ACC].
-AccessAndAuthorizationConcept project_definition_access_authorization(const ProjectDefinition *self);
-// 10. User Interface Design [PD00-USE].
-UserInterfaceDesign project_definition_user_interface_design(const ProjectDefinition *self);
-// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
-SystemRolloutConcept project_definition_system_rollout_concept(const ProjectDefinition *self);
-// 11. System Quality Goals [PD00-SYQ].
-SystemQualityGoals project_definition_system_quality_goals(const ProjectDefinition *self);
-// 12. Components to Use [PD00-COM].
-ComponentsToUse project_definition_components_to_use(const ProjectDefinition *self);
-// 13. System Stage Plan [PD00-SSP].
-SystemStagePlan project_definition_system_stage_plan(const ProjectDefinition *self);
-// 14. Delivery Scope and Acceptance [PD00-DEL].
-DeliveryScopeAndAcceptance project_definition_delivery_acceptance(const ProjectDefinition *self);
-
-// 3.1. Project Organization [PD00-ADM-PRO].
+// 3.1. Project Organization.
 // Binds a ProjectOrganization facade to a document and a path (path copied).
 void project_organization_init(ProjectOrganization *self, SpecDocument *doc, const char *path);
 void project_organization_free(ProjectOrganization *self);
 char *project_organization_content(const ProjectOrganization *self);
 void project_organization_set_content(ProjectOrganization *self, const char *value);
-// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+// 3.1.1. Organization Structure.
 OrganizationStructure project_organization_organization_structure(const ProjectOrganization *self);
-// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+// 3.1.2. Steering Committee.
 SteeringCommittee project_organization_steering_committee(const ProjectOrganization *self);
 
-// 2. Project Organization and Process [PD00-POP].
+// 2. Project Organization and Process.
 //
 // Project-specific deviations from the standard TomSpecs methodology.
 // This section documents any customizations to standard roles, quality gates,
@@ -23905,53 +24137,16 @@ char *project_organization_and_process_methodology_deviation_diagram(const Proje
 void project_organization_and_process_set_methodology_deviation_diagram(ProjectOrganizationAndProcess *self, const char *value);
 // Summary of all methodology deviations.
 MethodologyDeviationSummary project_organization_and_process_deviation_summary(const ProjectOrganizationAndProcess *self);
-// 2.1. Role Adjustments [PD00-POP-ROL].
+// 2.1. Role Adjustments.
 RoleAdjustments project_organization_and_process_role_adjustments(const ProjectOrganizationAndProcess *self);
-// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+// 2.2. Quality Gate Adjustments.
 QualityGateAdjustments project_organization_and_process_quality_gate_adjustments(const ProjectOrganizationAndProcess *self);
-// 2.3. Process Adjustments [PD00-POP-PRC].
+// 2.3. Process Adjustments.
 ProcessAdjustments project_organization_and_process_process_adjustments(const ProjectOrganizationAndProcess *self);
-// 2.4. Tooling and Environments [PD00-POP-TOO].
+// 2.4. Tooling and Environments.
 ToolingAndEnvironments project_organization_and_process_tooling_and_environments(const ProjectOrganizationAndProcess *self);
 
-// PPP00 Project Phase Plan.
-//
-// Full project phase plan — staging strategy, stage overview, per-stage
-// entries, feature prioritization, data migration, gate criteria,
-// decision processes, initial development flow, and upgrade cycle
-// framework.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int project_phase_plan_new(ProjectPhasePlan *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *project_phase_plan_object_model_version(const ProjectPhasePlan *self);
-void project_phase_plan_free(ProjectPhasePlan *self);
-char *project_phase_plan_content(const ProjectPhasePlan *self);
-void project_phase_plan_set_content(ProjectPhasePlan *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader project_phase_plan_header(const ProjectPhasePlan *self);
-// Staging strategy — PD00-SSP-STR.
-StagingStrategy project_phase_plan_staging_strategy(const ProjectPhasePlan *self);
-// Stage overview — PD00-SSP-STA.
-StageOverview project_phase_plan_stage_overview(const ProjectPhasePlan *self);
-// Stages — PD00-SSP-STG (list).
-// Returns the list view; element type: StageEntry (construct from item paths).
-SomList project_phase_plan_stages(const ProjectPhasePlan *self);
-// Feature prioritization — PD00-SSP-FEA.
-FeaturePrioritization project_phase_plan_feature_prioritization(const ProjectPhasePlan *self);
-// Data migration strategy — PD00-SSP-MIG.
-DataMigrationStrategy project_phase_plan_data_migration_strategy(const ProjectPhasePlan *self);
-// Gate criteria — PD00-SSP-GOV-GAT (promoted from GOV).
-PhaseGateReviews project_phase_plan_gate_criteria(const ProjectPhasePlan *self);
-// Decision processes — PD00-SSP-GOV-DEC (promoted from GOV).
-DecisionPoints project_phase_plan_decision_processes(const ProjectPhasePlan *self);
-// Initial development flow — PD00-SSP-IDV.
-InitialDevelopmentFlow project_phase_plan_initial_development_flow(const ProjectPhasePlan *self);
-// Upgrade cycle framework — PD00-SSP-UPG (links tom_system_upgrade.md).
-UpgradeCycleFramework project_phase_plan_upgrade_cycle_framework(const ProjectPhasePlan *self);
-
-// 3.2. Project Team Staffing [PD00-ADM-TEA].
+// 3.2. Project Team Staffing.
 //
 // Container for individual staff assignments including roles, responsibilities,
 // availability, and required competencies.
@@ -23999,13 +24194,13 @@ void protocol_compliance_requirements_observability_init(ProtocolComplianceRequi
 void protocol_compliance_requirements_observability_free(ProtocolComplianceRequirementsObservability *self);
 ProtocolComplianceRequirementsObservabilityContentForm protocol_compliance_requirements_observability_content(const ProtocolComplianceRequirementsObservability *self);
 
-// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
+// A protocol or standard entry (form).
 // Binds a ProtocolEntry facade to a document and a path (path copied).
 void protocol_entry_init(ProtocolEntry *self, SpecDocument *doc, const char *path);
 void protocol_entry_free(ProtocolEntry *self);
 ProtocolEntryContentForm protocol_entry_content(const ProtocolEntry *self);
 
-// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+// 8.6.1. Protocols and Standards.
 // Binds a ProtocolsAndStandardsSection facade to a document and a path (path copied).
 void protocols_and_standards_section_init(ProtocolsAndStandardsSection *self, SpecDocument *doc, const char *path);
 void protocols_and_standards_section_free(ProtocolsAndStandardsSection *self);
@@ -24029,7 +24224,7 @@ RateLimitingPolicy protocols_and_standards_section_rate_limiting(const Protocols
 // Protocol compliance requirements.
 ProtocolComplianceRequirements protocols_and_standards_section_compliance(const ProtocolsAndStandardsSection *self);
 
-// 10.13. Prototype [PD00-USE-PRO].
+// 10.13. Prototype.
 //
 // Comprehensive prototype planning covering goals, feature selection,
 // prototype type, evaluation criteria, and stakeholder alignment.
@@ -24045,22 +24240,22 @@ PrototypeResources prototype_resources(const Prototype *self);
 PrototypeGovernance prototype_governance(const Prototype *self);
 // Prototype overview narrative.
 // (skipped: overviewNarrative has no target type)
-// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+// 10.13.1. Prototype Goals.
 PrototypeGoals prototype_prototype_goals(const Prototype *self);
-// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+// 10.13.2. Selected Feature Subset.
 PrototypeFeatureSubset prototype_feature_subset(const Prototype *self);
-// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+// 10.13.3. Prototype Type.
 PrototypeTypeSection prototype_prototype_type(const Prototype *self);
 // Prototype schedule.
 // (skipped: prototypeSchedule has no target type)
 
-// A prototype feature entry [PD00-USE-PRO-FEA-nn].
+// A prototype feature entry.
 // Binds a PrototypeFeatureEntry facade to a document and a path (path copied).
 void prototype_feature_entry_init(PrototypeFeatureEntry *self, SpecDocument *doc, const char *path);
 void prototype_feature_entry_free(PrototypeFeatureEntry *self);
 PrototypeFeatureEntryContentForm prototype_feature_entry_content(const PrototypeFeatureEntry *self);
 
-// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+// 10.13.2. Selected Feature Subset.
 //
 // Features included in the prototype.
 // Binds a PrototypeFeatureSubset facade to a document and a path (path copied).
@@ -24089,13 +24284,13 @@ void prototype_feature_subset_scope_init(PrototypeFeatureSubsetScope *self, Spec
 void prototype_feature_subset_scope_free(PrototypeFeatureSubsetScope *self);
 PrototypeFeatureSubsetScopeContentForm prototype_feature_subset_scope_content(const PrototypeFeatureSubsetScope *self);
 
-// A prototype goal entry [PD00-USE-PRO-GOA-nn].
+// A prototype goal entry.
 // Binds a PrototypeGoalEntry facade to a document and a path (path copied).
 void prototype_goal_entry_init(PrototypeGoalEntry *self, SpecDocument *doc, const char *path);
 void prototype_goal_entry_free(PrototypeGoalEntry *self);
 PrototypeGoalEntryContentForm prototype_goal_entry_content(const PrototypeGoalEntry *self);
 
-// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+// 10.13.1. Prototype Goals.
 //
 // What the prototype should validate.
 // Binds a PrototypeGoals facade to a document and a path (path copied).
@@ -24142,18 +24337,18 @@ void prototype_timeline_init(PrototypeTimeline *self, SpecDocument *doc, const c
 void prototype_timeline_free(PrototypeTimeline *self);
 PrototypeTimelineContentForm prototype_timeline_content(const PrototypeTimeline *self);
 
-// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+// 10.13.3. Prototype Type.
 //
 // Classification and implications of the prototype type.
 // Binds a PrototypeTypeSection facade to a document and a path (path copied).
 void prototype_type_section_init(PrototypeTypeSection *self, SpecDocument *doc, const char *path);
 void prototype_type_section_free(PrototypeTypeSection *self);
 PrototypeTypeSectionPrototypeTypeOverviewForm prototype_type_section_prototype_type_overview(const PrototypeTypeSection *self);
-// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+// 10.13.3.1. Reusable Prototype.
 ReusablePrototype prototype_type_section_reusable_prototype(const PrototypeTypeSection *self);
-// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+// 10.13.3.2. Training Prototype.
 TrainingPrototype prototype_type_section_training_prototype(const PrototypeTypeSection *self);
-// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+// 10.13.3.3. Throwaway Prototype.
 ThrowawayPrototype prototype_type_section_throwaway_prototype(const PrototypeTypeSection *self);
 
 // Progressive Web App (PWA) requirements.
@@ -24194,7 +24389,65 @@ void pwa_requirements_updates_init(PwaRequirementsUpdates *self, SpecDocument *d
 void pwa_requirements_updates_free(PwaRequirementsUpdates *self);
 PwaRequirementsUpdatesContentForm pwa_requirements_updates_content(const PwaRequirementsUpdates *self);
 
-// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
+// BQP00 Business Quality Plan.
+//
+// Full quality plan combining quality goals and the acceptance plan.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int quality_acceptance_plan_new(QualityAcceptancePlan *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *quality_acceptance_plan_object_model_version(const QualityAcceptancePlan *self);
+void quality_acceptance_plan_free(QualityAcceptancePlan *self);
+char *quality_acceptance_plan_content(const QualityAcceptancePlan *self);
+void quality_acceptance_plan_set_content(QualityAcceptancePlan *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader quality_acceptance_plan_header(const QualityAcceptancePlan *self);
+// Quality framework.
+QualityFramework quality_acceptance_plan_quality_framework(const QualityAcceptancePlan *self);
+// User-related quality criteria.
+UserQualityCriteria quality_acceptance_plan_user_quality_criteria(const QualityAcceptancePlan *self);
+// Technical quality criteria.
+TechnicalQualityCriteria quality_acceptance_plan_technical_quality_criteria(const QualityAcceptancePlan *self);
+// Operations quality criteria.
+OperationsQualityCriteria quality_acceptance_plan_operations_quality_criteria(const QualityAcceptancePlan *self);
+// Documentation quality criteria.
+DocumentationQualityCriteria quality_acceptance_plan_documentation_quality_criteria(const QualityAcceptancePlan *self);
+// Quality prioritization.
+QualityPrioritization quality_acceptance_plan_quality_prioritization(const QualityAcceptancePlan *self);
+// Acceptance criteria summary.
+AcceptanceCriteriaSummary quality_acceptance_plan_acceptance_criteria_summary(const QualityAcceptancePlan *self);
+// Test strategy (new in Phase A).
+TestStrategy quality_acceptance_plan_test_strategy(const QualityAcceptancePlan *self);
+// Acceptance criteria.
+AcceptanceCriteriaList quality_acceptance_plan_acceptance_criteria(const QualityAcceptancePlan *self);
+// Acceptance process.
+AcceptanceProcess quality_acceptance_plan_acceptance_process(const QualityAcceptancePlan *self);
+// User acceptance testing.
+UserAcceptanceTesting quality_acceptance_plan_user_acceptance_testing(const QualityAcceptancePlan *self);
+// Defect resolution.
+DefectResolution quality_acceptance_plan_defect_resolution(const QualityAcceptancePlan *self);
+// Sign-off process.
+SignOffProcess quality_acceptance_plan_sign_off_process(const QualityAcceptancePlan *self);
+// Warranty terms.
+WarrantyTerms quality_acceptance_plan_warranty(const QualityAcceptancePlan *self);
+
+// SBP.14 Quality & Acceptance Model.
+//
+// Public anchor: ISO/IEC 25010 product quality.
+// Binds a QualityAndAcceptanceModel facade to a document and a path (path copied).
+void quality_and_acceptance_model_init(QualityAndAcceptanceModel *self, SpecDocument *doc, const char *path);
+void quality_and_acceptance_model_free(QualityAndAcceptanceModel *self);
+char *quality_and_acceptance_model_content(const QualityAndAcceptanceModel *self);
+void quality_and_acceptance_model_set_content(QualityAndAcceptanceModel *self, const char *value);
+// Quality goals and attributes.
+SystemQualityGoals quality_and_acceptance_model_system_quality_goals(const QualityAndAcceptanceModel *self);
+// Delivery scope and acceptance criteria.
+DeliveryScopeAndAcceptance quality_and_acceptance_model_delivery_acceptance(const QualityAndAcceptanceModel *self);
+// ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+Iso25010Coverage quality_and_acceptance_model_iso25010_coverage(const QualityAndAcceptanceModel *self);
+
+// A quality category entry (form).
 //
 // Defines a quality category with its attributes, weight, and relationship
 // to other categories.
@@ -24237,7 +24490,7 @@ void quality_category_entry_relationships_init(QualityCategoryEntryRelationships
 void quality_category_entry_relationships_free(QualityCategoryEntryRelationships *self);
 QualityCategoryEntryRelationshipsContentForm quality_category_entry_relationships_content(const QualityCategoryEntryRelationships *self);
 
-// 11.1. Quality Framework [PD00-SYQ-FRA].
+// 11.1. Quality Framework.
 //
 // Overall quality approach for the project defining objectives, categories,
 // and how quality is structured and governed across the system.
@@ -24251,11 +24504,11 @@ QualityFrameworkObjectives quality_framework_objectives(const QualityFramework *
 QualityFrameworkTradeOffs quality_framework_trade_offs(const QualityFramework *self);
 // Verification and defect handling approach.
 QualityFrameworkVerification quality_framework_verification(const QualityFramework *self);
-// 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
+// 11.1.1. Quality Objectives Overview.
 // (skipped: qualityObjectivesOverview has no target type)
 // Quality objectives breakdown by category.
 // (skipped: objectivesBreakdown has no target type)
-// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
+// 11.1.2. Quality Categories — contains 0+× QualityCategory.
 // Returns the list view; element type: QualityCategoryEntry (construct from item paths).
 SomList quality_framework_quality_categories(const QualityFramework *self);
 // Quality dependencies map.
@@ -24286,7 +24539,7 @@ void quality_gate_adjustment_details_init(QualityGateAdjustmentDetails *self, Sp
 void quality_gate_adjustment_details_free(QualityGateAdjustmentDetails *self);
 QualityGateAdjustmentDetailsContentForm quality_gate_adjustment_details_content(const QualityGateAdjustmentDetails *self);
 
-// A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
+// A quality gate adjustment entry (form).
 //
 // Documents a specific deviation from standard quality gate definitions,
 // including the type of change, impact on quality assurance, risk
@@ -24329,7 +24582,7 @@ void quality_gate_adjustment_summary_init(QualityGateAdjustmentSummary *self, Sp
 void quality_gate_adjustment_summary_free(QualityGateAdjustmentSummary *self);
 QualityGateAdjustmentSummaryContentForm quality_gate_adjustment_summary_content(const QualityGateAdjustmentSummary *self);
 
-// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+// 2.2. Quality Gate Adjustments.
 //
 // Documents any deviations from the standard quality gates defined in
 // tom_quality_gates.md. Includes skipped, added, or modified gates
@@ -24348,7 +24601,7 @@ void quality_gate_adjustments_set_gate_flow_diagram(QualityGateAdjustments *self
 // Returns the list view; element type: QualityGateAdjustmentEntry (construct from item paths).
 SomList quality_gate_adjustments_items(const QualityGateAdjustments *self);
 
-// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
+// A quality gate check entry (form).
 // Binds a QualityGateCheckEntry facade to a document and a path (path copied).
 void quality_gate_check_entry_init(QualityGateCheckEntry *self, SpecDocument *doc, const char *path);
 void quality_gate_check_entry_free(QualityGateCheckEntry *self);
@@ -24394,7 +24647,7 @@ void quality_gate_check_entry_verification_init(QualityGateCheckEntryVerificatio
 void quality_gate_check_entry_verification_free(QualityGateCheckEntryVerification *self);
 QualityGateCheckEntryVerificationContentForm quality_gate_check_entry_verification_content(const QualityGateCheckEntryVerification *self);
 
-// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+// 11.7.2. Quality Gate Checklist.
 //
 // Quality gate checklist used during acceptance.
 // Binds a QualityGateChecklist facade to a document and a path (path copied).
@@ -24407,7 +24660,7 @@ QualityGateChecklistChecklistOverviewContentForm quality_gate_checklist_checklis
 // Returns the list view; element type: QualityGateCheckEntry (construct from item paths).
 SomList quality_gate_checklist_items(const QualityGateChecklist *self);
 
-// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+// 11.6. Quality Prioritization.
 //
 // Prioritization and balancing of quality attributes including weighted
 // matrices and explicit trade-off decisions.
@@ -24417,9 +24670,9 @@ void quality_prioritization_free(QualityPrioritization *self);
 QualityPrioritizationPrioritizationFrameworkContentForm quality_prioritization_prioritization_framework_content(const QualityPrioritization *self);
 // Prioritization approach overview.
 // (skipped: prioritizationOverview has no target type)
-// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+// 11.6.1. Weighted Quality Matrix.
 WeightedQualityMatrix quality_prioritization_weighted_quality_matrix(const QualityPrioritization *self);
-// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+// 11.6.2. Trade-off Decisions.
 TradeOffDecisions quality_prioritization_trade_off_decisions(const QualityPrioritization *self);
 
 // A quality scenario entry (form) - SEI Quality Attribute Workshop format.
@@ -24428,7 +24681,7 @@ void quality_scenario_entry_init(QualityScenarioEntry *self, SpecDocument *doc, 
 void quality_scenario_entry_free(QualityScenarioEntry *self);
 QualityScenarioEntryContentForm quality_scenario_entry_content(const QualityScenarioEntry *self);
 
-// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+// 4.2.2.n.1. Quality Scenarios.
 //
 // Quality attribute scenarios that define concrete, testable situations
 // for verifying the technical goal (based on SEI quality attribute workshop).
@@ -24479,7 +24732,7 @@ void quality_standard_entry_processes_init(QualityStandardEntryProcesses *self, 
 void quality_standard_entry_processes_free(QualityStandardEntryProcesses *self);
 QualityStandardEntryProcessesContentForm quality_standard_entry_processes_content(const QualityStandardEntryProcesses *self);
 
-// A quality weight entry [PD00-SYQ-PRI-WEI-nn].
+// A quality weight entry.
 // Binds a QualityWeightEntry facade to a document and a path (path copied).
 void quality_weight_entry_init(QualityWeightEntry *self, SpecDocument *doc, const char *path);
 void quality_weight_entry_free(QualityWeightEntry *self);
@@ -24515,7 +24768,7 @@ void rate_limiting_policy_quotas_init(RateLimitingPolicyQuotas *self, SpecDocume
 void rate_limiting_policy_quotas_free(RateLimitingPolicyQuotas *self);
 RateLimitingPolicyQuotasContentForm rate_limiting_policy_quotas_content(const RateLimitingPolicyQuotas *self);
 
-// 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
+// 11.5.1. Readability quality.
 // Binds a ReadabilityQuality facade to a document and a path (path copied).
 void readability_quality_init(ReadabilityQuality *self, SpecDocument *doc, const char *path);
 void readability_quality_free(ReadabilityQuality *self);
@@ -24555,7 +24808,7 @@ void readability_quality_style_init(ReadabilityQualityStyle *self, SpecDocument 
 void readability_quality_style_free(ReadabilityQualityStyle *self);
 ReadabilityQualityStyleContentForm readability_quality_style_content(const ReadabilityQualityStyle *self);
 
-// Readiness criteria entry [PD00-ORG-STR-TIM-RDY-nn] (form).
+// Readiness criteria entry (form).
 // Binds a ReadinessCriteriaEntry facade to a document and a path (path copied).
 void readiness_criteria_entry_init(ReadinessCriteriaEntry *self, SpecDocument *doc, const char *path);
 void readiness_criteria_entry_free(ReadinessCriteriaEntry *self);
@@ -24606,7 +24859,7 @@ void recovery_procedures_validation_init(RecoveryProceduresValidation *self, Spe
 void recovery_procedures_validation_free(RecoveryProceduresValidation *self);
 RecoveryProceduresValidationContentForm recovery_procedures_validation_content(const RecoveryProceduresValidation *self);
 
-// A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
+// A recovery scenario entry.
 // Binds a RecoveryScenarioEntry facade to a document and a path (path copied).
 void recovery_scenario_entry_init(RecoveryScenarioEntry *self, SpecDocument *doc, const char *path);
 void recovery_scenario_entry_free(RecoveryScenarioEntry *self);
@@ -24632,7 +24885,7 @@ void redirect_handling_policy_set_content(RedirectHandlingPolicy *self, const ch
 // Redirect Handling Details (text).
 // (skipped: redirectDetails has no target type)
 
-// A reference document entry [PD00-ADM-REF-nn] (form).
+// A reference document entry (form).
 //
 // Detailed metadata for a single referenced document including
 // identification, classification, status, and applicability.
@@ -24669,7 +24922,7 @@ void reference_document_entry_metadata_init(ReferenceDocumentEntryMetadata *self
 void reference_document_entry_metadata_free(ReferenceDocumentEntryMetadata *self);
 ReferenceDocumentEntryMetadataContentForm reference_document_entry_metadata_content(const ReferenceDocumentEntryMetadata *self);
 
-// 3.5. Reference Documents [PD00-ADM-REF].
+// 3.5. Reference Documents.
 //
 // Catalog of all documents referenced by this project specification,
 // including enterprise standards, technical guidelines, regulatory
@@ -24731,7 +24984,7 @@ void regulatory_compliance_entry_requirements_init(RegulatoryComplianceEntryRequ
 void regulatory_compliance_entry_requirements_free(RegulatoryComplianceEntryRequirements *self);
 RegulatoryComplianceEntryRequirementsContentForm regulatory_compliance_entry_requirements_content(const RegulatoryComplianceEntryRequirements *self);
 
-// 3.6.3. Regulatory Compliance Requirements [PD00-ADM-OTH-REG].
+// 3.6.3. Regulatory Compliance Requirements.
 //
 // Regulatory and compliance obligations affecting the project.
 // Binds a RegulatoryComplianceRequirements facade to a document and a path (path copied).
@@ -24746,7 +24999,7 @@ SomList regulatory_compliance_requirements_requirements(const RegulatoryComplian
 // Returns the list view; element type: ComplianceMilestoneEntry (construct from item paths).
 SomList regulatory_compliance_requirements_milestones(const RegulatoryComplianceRequirements *self);
 
-// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+// 4.1.2.8. Regulatory Context.
 //
 // Regulatory and compliance context that affects system design and
 // operations.
@@ -24828,7 +25081,7 @@ void relevant_section_entry_init(RelevantSectionEntry *self, SpecDocument *doc, 
 void relevant_section_entry_free(RelevantSectionEntry *self);
 RelevantSectionEntryContentForm relevant_section_entry_content(const RelevantSectionEntry *self);
 
-// 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
+// 11.3.6. Reliability quality.
 // Binds a ReliabilityQuality facade to a document and a path (path copied).
 void reliability_quality_init(ReliabilityQuality *self, SpecDocument *doc, const char *path);
 void reliability_quality_free(ReliabilityQuality *self);
@@ -24887,7 +25140,7 @@ void remote_access_requirements_init(RemoteAccessRequirements *self, SpecDocumen
 void remote_access_requirements_free(RemoteAccessRequirements *self);
 RemoteAccessRequirementsContentForm remote_access_requirements_content(const RemoteAccessRequirements *self);
 
-// A removed role entry [PD00-ORG-JOB-REM-nn] (form).
+// A removed role entry (form).
 //
 // Documents roles being eliminated with transition planning for incumbents.
 // Binds a RemovedRoleEntry facade to a document and a path (path copied).
@@ -24919,7 +25172,7 @@ void removed_role_entry_transition_init(RemovedRoleEntryTransition *self, SpecDo
 void removed_role_entry_transition_free(RemovedRoleEntryTransition *self);
 RemovedRoleEntryTransitionContentForm removed_role_entry_transition_content(const RemovedRoleEntryTransition *self);
 
-// Container for systems to replace [PD00-SYO-SYR-INV].
+// Container for systems to replace.
 //
 // Provides a structured inventory of all systems targeted for replacement,
 // with portfolio-level metrics and prioritization guidance.
@@ -24934,13 +25187,13 @@ void replacement_inventory_free(ReplacementInventory *self);
 // Returns the list view; element type: SystemToReplaceEntry (construct from item paths).
 SomList replacement_inventory_systems(const ReplacementInventory *self);
 
-// A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn].
+// A replacement phase entry.
 // Binds a ReplacementPhaseEntry facade to a document and a path (path copied).
 void replacement_phase_entry_init(ReplacementPhaseEntry *self, SpecDocument *doc, const char *path);
 void replacement_phase_entry_free(ReplacementPhaseEntry *self);
 ReplacementPhaseEntryContentForm replacement_phase_entry_content(const ReplacementPhaseEntry *self);
 
-// A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
+// A system dependency entry.
 //
 // Documents integrations and dependencies with other systems.
 // Binds a ReplacementSystemDependencyEntry facade to a document and a path (path copied).
@@ -24960,7 +25213,7 @@ void report_chart_display_init(ReportChartDisplay *self, SpecDocument *doc, cons
 void report_chart_display_free(ReportChartDisplay *self);
 ReportChartDisplayContentForm report_chart_display_content(const ReportChartDisplay *self);
 
-// A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
+// A chart/visualization in a report
 // (form).
 // Binds a ReportChartEntry facade to a document and a path (path copied).
 void report_chart_entry_init(ReportChartEntry *self, SpecDocument *doc, const char *path);
@@ -25008,7 +25261,7 @@ void report_column_data_source_init(ReportColumnDataSource *self, SpecDocument *
 void report_column_data_source_free(ReportColumnDataSource *self);
 ReportColumnDataSourceContentForm report_column_data_source_content(const ReportColumnDataSource *self);
 
-// A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
+// A column in a tabular report section
 // (form).
 // Binds a ReportColumnEntry facade to a document and a path (path copied).
 void report_column_entry_init(ReportColumnEntry *self, SpecDocument *doc, const char *path);
@@ -25049,7 +25302,7 @@ void report_data_source_init(ReportDataSource *self, SpecDocument *doc, const ch
 void report_data_source_free(ReportDataSource *self);
 ReportDataSourceContentForm report_data_source_content(const ReportDataSource *self);
 
-// Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form).
+// Distribution channel configuration (form).
 // Binds a ReportDistributionEntry facade to a document and a path (path copied).
 void report_distribution_entry_init(ReportDistributionEntry *self, SpecDocument *doc, const char *path);
 void report_distribution_entry_free(ReportDistributionEntry *self);
@@ -25079,7 +25332,7 @@ void report_distribution_entry_recipients_init(ReportDistributionEntryRecipients
 void report_distribution_entry_recipients_free(ReportDistributionEntryRecipients *self);
 ReportDistributionEntryRecipientsContentForm report_distribution_entry_recipients_content(const ReportDistributionEntryRecipients *self);
 
-// A report entry [PD00-USE-PRI-REP-nn] (form).
+// A report entry (form).
 // Binds a ReportEntry facade to a document and a path (path copied).
 void report_entry_init(ReportEntry *self, SpecDocument *doc, const char *path);
 void report_entry_free(ReportEntry *self);
@@ -25122,7 +25375,7 @@ SomList report_entry_distributions(const ReportEntry *self);
 // Returns the list view; element type: ReportRecipientEntry (construct from item paths).
 SomList report_entry_recipients(const ReportEntry *self);
 
-// A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form).
+// A filter parameter for a report (form).
 // Binds a ReportFilterEntry facade to a document and a path (path copied).
 void report_filter_entry_init(ReportFilterEntry *self, SpecDocument *doc, const char *path);
 void report_filter_entry_free(ReportFilterEntry *self);
@@ -25206,7 +25459,7 @@ void report_pagination_init(ReportPagination *self, SpecDocument *doc, const cha
 void report_pagination_free(ReportPagination *self);
 ReportPaginationContentForm report_pagination_content(const ReportPagination *self);
 
-// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
+// A recipient entry (form).
 // Binds a ReportRecipientEntry facade to a document and a path (path copied).
 void report_recipient_entry_init(ReportRecipientEntry *self, SpecDocument *doc, const char *path);
 void report_recipient_entry_free(ReportRecipientEntry *self);
@@ -25236,7 +25489,7 @@ void report_recipient_entry_lifecycle_init(ReportRecipientEntryLifecycle *self, 
 void report_recipient_entry_lifecycle_free(ReportRecipientEntryLifecycle *self);
 ReportRecipientEntryLifecycleContentForm report_recipient_entry_lifecycle_content(const ReportRecipientEntryLifecycle *self);
 
-// Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
+// Scheduling rules for report generation
 // (form).
 // Binds a ReportScheduleEntry facade to a document and a path (path copied).
 void report_schedule_entry_init(ReportScheduleEntry *self, SpecDocument *doc, const char *path);
@@ -25287,7 +25540,7 @@ void report_section_data_init(ReportSectionData *self, SpecDocument *doc, const 
 void report_section_data_free(ReportSectionData *self);
 ReportSectionDataContentForm report_section_data_content(const ReportSectionData *self);
 
-// A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).
+// A section within a report (form).
 // Binds a ReportSectionEntry facade to a document and a path (path copied).
 void report_section_entry_init(ReportSectionEntry *self, SpecDocument *doc, const char *path);
 void report_section_entry_free(ReportSectionEntry *self);
@@ -25332,7 +25585,7 @@ void representative_quote_entry_free(RepresentativeQuoteEntry *self);
 char *representative_quote_entry_content(const RepresentativeQuoteEntry *self);
 void representative_quote_entry_set_content(RepresentativeQuoteEntry *self, const char *value);
 
-// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+// 4.3.1.n.1. Acceptance Criteria.
 //
 // Testable conditions that must be met for the requirement to be accepted.
 // Uses Given-When-Then format for clarity.
@@ -25351,7 +25604,7 @@ void requirement_business_rule_entry_init(RequirementBusinessRuleEntry *self, Sp
 void requirement_business_rule_entry_free(RequirementBusinessRuleEntry *self);
 RequirementBusinessRuleEntryContentForm requirement_business_rule_entry_content(const RequirementBusinessRuleEntry *self);
 
-// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+// 4.3.1.n.2. Business Rules.
 //
 // Business rules that constrain or guide this requirement's behavior.
 // Binds a RequirementBusinessRules facade to a document and a path (path copied).
@@ -25363,7 +25616,7 @@ void requirement_business_rules_set_content(RequirementBusinessRules *self, cons
 // Returns the list view; element type: RequirementBusinessRuleEntry (construct from item paths).
 SomList requirement_business_rules_rules(const RequirementBusinessRules *self);
 
-// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+// 4.3.6. Requirement Coverage.
 //
 // Coverage of requirements against goals, use cases, and tests.
 // Binds a RequirementCoverage facade to a document and a path (path copied).
@@ -25372,7 +25625,7 @@ void requirement_coverage_free(RequirementCoverage *self);
 char *requirement_coverage_content(const RequirementCoverage *self);
 void requirement_coverage_set_content(RequirementCoverage *self, const char *value);
 
-// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+// 4.3.1.n.3. Data Requirements.
 //
 // Data entities, attributes, and relationships needed by this requirement.
 // Binds a RequirementDataRequirements facade to a document and a path (path copied).
@@ -25384,7 +25637,7 @@ void requirement_data_requirements_set_content(RequirementDataRequirements *self
 // Returns the list view; element type: DataEntityReferenceEntry (construct from item paths).
 SomList requirement_data_requirements_entities(const RequirementDataRequirements *self);
 
-// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+// 4.3.1.n.5. Dependencies.
 //
 // Dependencies this requirement has on other requirements.
 // Binds a RequirementDependencies facade to a document and a path (path copied).
@@ -25404,7 +25657,7 @@ RequirementDependencyEntryContentForm requirement_dependency_entry_content(const
 char *requirement_dependency_entry_related_requirement(const RequirementDependencyEntry *self);
 void requirement_dependency_entry_set_related_requirement(RequirementDependencyEntry *self, const char *value);
 
-// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+// 4.3.5. Requirement Relationships.
 //
 // Cross-requirement dependency and conflict graph.
 // Binds a RequirementRelationships facade to a document and a path (path copied).
@@ -25448,7 +25701,7 @@ void requirement_test_case_entry_execution_init(RequirementTestCaseEntryExecutio
 void requirement_test_case_entry_execution_free(RequirementTestCaseEntryExecution *self);
 RequirementTestCaseEntryExecutionContentForm requirement_test_case_entry_execution_content(const RequirementTestCaseEntryExecution *self);
 
-// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+// 4.3.1.n.7. Test Cases.
 //
 // Test cases that verify this requirement is correctly implemented.
 // Binds a RequirementTestCases facade to a document and a path (path copied).
@@ -25460,7 +25713,7 @@ void requirement_test_cases_set_content(RequirementTestCases *self, const char *
 // Returns the list view; element type: RequirementTestCaseEntry (construct from item paths).
 SomList requirement_test_cases_test_cases(const RequirementTestCases *self);
 
-// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+// 4.3.1.n.6. Traceability.
 //
 // Traceability links to goals, use cases, processes, and other artifacts.
 // Binds a RequirementTraceability facade to a document and a path (path copied).
@@ -25487,7 +25740,7 @@ void requirement_traceability_implementation_init(RequirementTraceabilityImpleme
 void requirement_traceability_implementation_free(RequirementTraceabilityImplementation *self);
 RequirementTraceabilityImplementationContentForm requirement_traceability_implementation_content(const RequirementTraceabilityImplementation *self);
 
-// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+// 4.3.1.n.4. UI Specification.
 //
 // User interface specification for this requirement. Defines screens,
 // forms, and interactions needed to fulfill the requirement.
@@ -25515,44 +25768,24 @@ SomList requirement_ui_specification_actions(const RequirementUiSpecification *s
 // Returns the list view; element type: ScreenBehaviorEntry (construct from item paths).
 SomList requirement_ui_specification_behaviors(const RequirementUiSpecification *self);
 
-// RC00 Requirements Catalog.
+// SBP.9 Requirements.
 //
-// Full requirements catalog covering functional, technical, security,
-// and organizational requirements, plus traceability, relationships,
-// and coverage analysis.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int requirements_catalog_new(RequirementsCatalog *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *requirements_catalog_object_model_version(const RequirementsCatalog *self);
-void requirements_catalog_free(RequirementsCatalog *self);
-char *requirements_catalog_content(const RequirementsCatalog *self);
-void requirements_catalog_set_content(RequirementsCatalog *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader requirements_catalog_header(const RequirementsCatalog *self);
-// Functional requirements — PD00-SYO-REQ-FUN.
-FunctionalRequirements requirements_catalog_functional_requirements(const RequirementsCatalog *self);
-// Technical (non-functional) requirements — PD00-SYO-REQ-TEC.
-TechnicalRequirements requirements_catalog_technical_requirements(const RequirementsCatalog *self);
-// Security requirements — PD00-SYO-REQ-SEC.
-SecurityRequirements requirements_catalog_security_requirements(const RequirementsCatalog *self);
-// Organizational requirements — PD00-SYO-REQ-ORG.
-OrganizationalRequirements requirements_catalog_organizational_requirements(const RequirementsCatalog *self);
-// Traceability matrix overview — PD00-SYO-REQ-TRC.
-//
-// Mirrors the PD00-side flat field on RequirementsOverview so the RC
-// outline reaches it directly. The authoritative content lives on the
-// PD00 side.
-char *requirements_catalog_traceability_matrix(const RequirementsCatalog *self);
-void requirements_catalog_set_traceability_matrix(RequirementsCatalog *self, const char *value);
-// Requirement relationships — PD00-SYO-REQ-REL.
-// Returns the list view; element type: RequirementRelationships (construct from item paths).
-SomList requirements_catalog_requirement_relationships(const RequirementsCatalog *self);
-// Requirement coverage — PD00-SYO-REQ-COV.
-RequirementCoverage requirements_catalog_requirement_coverage(const RequirementsCatalog *self);
+// Functional requirements seed the Requirements Specification (RSP); this
+// section currently carries the framework-uncovered NFR sub-areas re-homed in
+// IP-6. Functional-requirement modelling is expanded in a later IP step.
+// Binds a Requirements facade to a document and a path (path copied).
+void requirements_init(Requirements *self, SpecDocument *doc, const char *path);
+void requirements_free(Requirements *self);
+char *requirements_content(const Requirements *self);
+void requirements_set_content(Requirements *self, const char *value);
+// Localization & Translation requirements (NFR-L10N-NNN).
+LocalizationTranslationRequirements requirements_localization_translation(const Requirements *self);
+// Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
+InformationForUseRequirements requirements_information_for_use(const Requirements *self);
+// Training & Enablement requirements (NFR-TRN-NNN).
+TrainingEnablementRequirements requirements_training_enablement(const Requirements *self);
 
-// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+// 4.3. Requirements Overview. Seeds → RC.
 //
 // Initial requirements overview organized by category. Each requirement
 // receives a unique ID and will be expanded into the RC (Requirements
@@ -25569,19 +25802,56 @@ RequirementsOverviewRequirementsFormForm requirements_overview_requirements_form
 // Traceability matrix overview.
 char *requirements_overview_traceability_matrix(const RequirementsOverview *self);
 void requirements_overview_set_traceability_matrix(RequirementsOverview *self, const char *value);
-// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+// 4.3.1. Functional Requirements.
 FunctionalRequirements requirements_overview_functional_requirements(const RequirementsOverview *self);
-// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+// 4.3.2. Technical Requirements.
 TechnicalRequirements requirements_overview_technical_requirements(const RequirementsOverview *self);
-// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+// 4.3.3. Security Requirements.
 SecurityRequirements requirements_overview_security_requirements(const RequirementsOverview *self);
-// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+// 4.3.4. Organizational Requirements.
 OrganizationalRequirements requirements_overview_organizational_requirements(const RequirementsOverview *self);
-// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+// 4.3.5. Requirement Relationships.
 // Returns the list view; element type: RequirementRelationships (construct from item paths).
 SomList requirements_overview_requirement_relationships(const RequirementsOverview *self);
-// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+// 4.3.6. Requirement Coverage.
 RequirementCoverage requirements_overview_requirement_coverage(const RequirementsOverview *self);
+
+// RC00 Requirements Catalog.
+//
+// Full requirements catalog covering functional, technical, security,
+// and organizational requirements, plus traceability, relationships,
+// and coverage analysis.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int requirements_specification_new(RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *requirements_specification_object_model_version(const RequirementsSpecification *self);
+void requirements_specification_free(RequirementsSpecification *self);
+char *requirements_specification_content(const RequirementsSpecification *self);
+void requirements_specification_set_content(RequirementsSpecification *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader requirements_specification_header(const RequirementsSpecification *self);
+// Functional requirements.
+FunctionalRequirements requirements_specification_functional_requirements(const RequirementsSpecification *self);
+// Technical (non-functional) requirements.
+TechnicalRequirements requirements_specification_technical_requirements(const RequirementsSpecification *self);
+// Security requirements.
+SecurityRequirements requirements_specification_security_requirements(const RequirementsSpecification *self);
+// Organizational requirements.
+OrganizationalRequirements requirements_specification_organizational_requirements(const RequirementsSpecification *self);
+// Traceability matrix overview.
+//
+// Mirrors the flat field on RequirementsOverview so the RC outline
+// reaches it directly. The authoritative content lives on the Solution
+// Blueprint side.
+char *requirements_specification_traceability_matrix(const RequirementsSpecification *self);
+void requirements_specification_set_traceability_matrix(RequirementsSpecification *self, const char *value);
+// Requirement relationships.
+// Returns the list view; element type: RequirementRelationships (construct from item paths).
+SomList requirements_specification_requirement_relationships(const RequirementsSpecification *self);
+// Requirement coverage.
+RequirementCoverage requirements_specification_requirement_coverage(const RequirementsSpecification *self);
 
 // A resource allocation entry (form).
 // Binds a ResourceAllocationEntry facade to a document and a path (path copied).
@@ -25627,29 +25897,29 @@ void resource_capacity_baselines_storage_init(ResourceCapacityBaselinesStorage *
 void resource_capacity_baselines_storage_free(ResourceCapacityBaselinesStorage *self);
 ResourceCapacityBaselinesStorageContentForm resource_capacity_baselines_storage_content(const ResourceCapacityBaselinesStorage *self);
 
-// A resource key entry [PD00-ACC-USA-RES-nn] (form).
+// A resource key entry (form).
 // Binds a ResourceKeyEntry facade to a document and a path (path copied).
 void resource_key_entry_init(ResourceKeyEntry *self, SpecDocument *doc, const char *path);
 void resource_key_entry_free(ResourceKeyEntry *self);
 ResourceKeyEntryContentForm resource_key_entry_content(const ResourceKeyEntry *self);
 
-// A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn].
+// A resource key reference entry (form).
 // Binds a ResourceKeyReferenceEntry facade to a document and a path (path copied).
 void resource_key_reference_entry_init(ResourceKeyReferenceEntry *self, SpecDocument *doc, const char *path);
 void resource_key_reference_entry_free(ResourceKeyReferenceEntry *self);
 ResourceKeyReferenceEntryContentForm resource_key_reference_entry_content(const ResourceKeyReferenceEntry *self);
 
-// 9.3. Resource Protection [PD00-ACC-RES].
+// 9.3. Resource Protection.
 // Binds a ResourceProtection facade to a document and a path (path copied).
 void resource_protection_init(ResourceProtection *self, SpecDocument *doc, const char *path);
 void resource_protection_free(ResourceProtection *self);
 char *resource_protection_content(const ResourceProtection *self);
 void resource_protection_set_content(ResourceProtection *self, const char *value);
-// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+// 9.3.1. Data-Level Security.
 DataLevelSecurity resource_protection_data_level_security(const ResourceProtection *self);
-// 9.3.2. API Security [PD00-ACC-RES-API].
+// 9.3.2. API Security.
 ApiSecurity resource_protection_api_security(const ResourceProtection *self);
-// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+// 9.3.3. File and Storage Security.
 FileAndStorageSecurity resource_protection_file_and_storage_security(const ResourceProtection *self);
 
 // A resource requirement entry for unfilled positions.
@@ -25665,7 +25935,7 @@ void response_strategy_entry_free(ResponseStrategyEntry *self);
 char *response_strategy_entry_content(const ResponseStrategyEntry *self);
 void response_strategy_entry_set_content(ResponseStrategyEntry *self, const char *value);
 
-// Responsibility change entry [PD00-ORG-JOB-CHA-nn-xxx-nn] (form).
+// Responsibility change entry (form).
 // Binds a ResponsibilityChangeEntry facade to a document and a path (path copied).
 void responsibility_change_entry_init(ResponsibilityChangeEntry *self, SpecDocument *doc, const char *path);
 void responsibility_change_entry_free(ResponsibilityChangeEntry *self);
@@ -25677,13 +25947,13 @@ void responsibility_contacts_init(ResponsibilityContacts *self, SpecDocument *do
 void responsibility_contacts_free(ResponsibilityContacts *self);
 ResponsibilityContactsContentForm responsibility_contacts_content(const ResponsibilityContacts *self);
 
-// Detailed responsibility entry [PD00-ORG-JOB-NEW-nn-RSP-nn] (form).
+// Detailed responsibility entry (form).
 // Binds a ResponsibilityDetailEntry facade to a document and a path (path copied).
 void responsibility_detail_entry_init(ResponsibilityDetailEntry *self, SpecDocument *doc, const char *path);
 void responsibility_detail_entry_free(ResponsibilityDetailEntry *self);
 ResponsibilityDetailEntryContentForm responsibility_detail_entry_content(const ResponsibilityDetailEntry *self);
 
-// A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+// A responsibility entry (form).
 //
 // Documents responsibility assignment for a specific functional area,
 // following RACI principles (Responsible, Accountable, Consulted, Informed)
@@ -25730,7 +26000,7 @@ void responsibility_raci_init(ResponsibilityRaci *self, SpecDocument *doc, const
 void responsibility_raci_free(ResponsibilityRaci *self);
 ResponsibilityRaciContentForm responsibility_raci_content(const ResponsibilityRaci *self);
 
-// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
+// A responsibility reference entry (form).
 // Binds a ResponsibilityReferenceEntry facade to a document and a path (path copied).
 void responsibility_reference_entry_init(ResponsibilityReferenceEntry *self, SpecDocument *doc, const char *path);
 void responsibility_reference_entry_free(ResponsibilityReferenceEntry *self);
@@ -25742,7 +26012,7 @@ void responsibility_systems_init(ResponsibilitySystems *self, SpecDocument *doc,
 void responsibility_systems_free(ResponsibilitySystems *self);
 ResponsibilitySystemsContentForm responsibility_systems_content(const ResponsibilitySystems *self);
 
-// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+// 10.10.2. Responsive Behavior.
 //
 // How the UI adapts across breakpoints.
 // Binds a ResponsiveBehavior facade to a document and a path (path copied).
@@ -25787,7 +26057,7 @@ void responsive_behavior_visibility_init(ResponsiveBehaviorVisibility *self, Spe
 void responsive_behavior_visibility_free(ResponsiveBehaviorVisibility *self);
 ResponsiveBehaviorVisibilityContentForm responsive_behavior_visibility_content(const ResponsiveBehaviorVisibility *self);
 
-// 10.10. Responsive Design [PD00-USE-RES].
+// 10.10. Responsive Design.
 //
 // Comprehensive responsive design specification covering breakpoints,
 // adaptive layouts, and device-specific behavior for Flutter applications.
@@ -25797,12 +26067,12 @@ void responsive_design_free(ResponsiveDesign *self);
 ResponsiveDesignResponsiveOverviewForm responsive_design_responsive_overview(const ResponsiveDesign *self);
 // Responsive design narrative.
 // (skipped: responsiveNarrative has no target type)
-// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+// 10.10.1. Breakpoints.
 BreakpointConfiguration responsive_design_breakpoint_config(const ResponsiveDesign *self);
-// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+// 10.10.2. Responsive Behavior.
 ResponsiveBehavior responsive_design_responsive_behavior(const ResponsiveDesign *self);
 
-// A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
+// A screen-specific responsive rule entry.
 // Binds a ResponsiveScreenRuleEntry facade to a document and a path (path copied).
 void responsive_screen_rule_entry_init(ResponsiveScreenRuleEntry *self, SpecDocument *doc, const char *path);
 void responsive_screen_rule_entry_free(ResponsiveScreenRuleEntry *self);
@@ -25882,7 +26152,7 @@ void reusability_principles_versioning_init(ReusabilityPrinciplesVersioning *sel
 void reusability_principles_versioning_free(ReusabilityPrinciplesVersioning *self);
 ReusabilityPrinciplesVersioningContentForm reusability_principles_versioning_content(const ReusabilityPrinciplesVersioning *self);
 
-// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+// 8.2.3. Reusable Components.
 //
 // Components, libraries, or frameworks designed for reuse across projects
 // or modules.
@@ -25915,7 +26185,7 @@ ComponentGovernance reusable_components_section_governance(const ReusableCompone
 // Component discovery and registry.
 ComponentRegistry reusable_components_section_registry(const ReusableComponentsSection *self);
 
-// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+// 10.13.3.1. Reusable Prototype.
 //
 // Prototype that becomes part of the final product.
 // Binds a ReusablePrototype facade to a document and a path (path copied).
@@ -25995,7 +26265,7 @@ void reusable_ui_component_entry_interaction_init(ReusableUiComponentEntryIntera
 void reusable_ui_component_entry_interaction_free(ReusableUiComponentEntryInteraction *self);
 ReusableUiComponentEntryInteractionContentForm reusable_ui_component_entry_interaction_content(const ReusableUiComponentEntryInteraction *self);
 
-// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
+// A reuse goal entry (form).
 //
 // Defines a specific reuse target: what to reuse, why, at what percentage,
 // how to measure, and who owns the goal.
@@ -26028,7 +26298,7 @@ void reuse_goal_entry_measurement_init(ReuseGoalEntryMeasurement *self, SpecDocu
 void reuse_goal_entry_measurement_free(ReuseGoalEntryMeasurement *self);
 ReuseGoalEntryMeasurementContentForm reuse_goal_entry_measurement_content(const ReuseGoalEntryMeasurement *self);
 
-// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
+// A review criterion entry (form).
 //
 // A single criterion evaluated at a phase gate, with weight,
 // evidence linkage, and assessment result.
@@ -26052,6 +26322,22 @@ ReviewCriterionEntryAssessmentContentForm review_criterion_entry_assessment_cont
 void review_criterion_entry_result_init(ReviewCriterionEntryResult *self, SpecDocument *doc, const char *path);
 void review_criterion_entry_result_free(ReviewCriterionEntryResult *self);
 ReviewCriterionEntryResultContentForm review_criterion_entry_result_content(const ReviewCriterionEntryResult *self);
+
+// A single document revision entry (form).
+// Binds a RevisionEntry facade to a document and a path (path copied).
+void revision_entry_init(RevisionEntry *self, SpecDocument *doc, const char *path);
+void revision_entry_free(RevisionEntry *self);
+RevisionEntryContentForm revision_entry_content(const RevisionEntry *self);
+
+// Chronological revision history.
+// Binds a RevisionHistory facade to a document and a path (path copied).
+void revision_history_init(RevisionHistory *self, SpecDocument *doc, const char *path);
+void revision_history_free(RevisionHistory *self);
+char *revision_history_content(const RevisionHistory *self);
+void revision_history_set_content(RevisionHistory *self, const char *value);
+// One entry per published revision of the document.
+// Returns the list view; element type: RevisionEntry (construct from item paths).
+SomList revision_history_revisions(const RevisionHistory *self);
 
 // Risk analysis — probability, impact, and risk scoring.
 // Binds a RiskAnalysis facade to a document and a path (path copied).
@@ -26095,7 +26381,7 @@ void risk_category_entry_free(RiskCategoryEntry *self);
 char *risk_category_entry_content(const RiskCategoryEntry *self);
 void risk_category_entry_set_content(RiskCategoryEntry *self, const char *value);
 
-// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+// A risk entry (form).
 //
 // Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
 // Captures risk identification, analysis, response planning, ownership,
@@ -26197,7 +26483,7 @@ void risk_response_residual_init(RiskResponseResidual *self, SpecDocument *doc, 
 void risk_response_residual_free(RiskResponseResidual *self);
 RiskResponseResidualContentForm risk_response_residual_content(const RiskResponseResidual *self);
 
-// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+// 4.7. Risks and Assumptions.
 //
 // Documents identified project risks and underlying assumptions following
 // ISO 31000 Risk Management and PMBOK risk management best practices.
@@ -26208,10 +26494,10 @@ void risks_and_assumptions_init(RisksAndAssumptions *self, SpecDocument *doc, co
 void risks_and_assumptions_free(RisksAndAssumptions *self);
 // Overview of the risk management approach for this project.
 RisksOverview risks_and_assumptions_overview(const RisksAndAssumptions *self);
-// 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+// 4.7.1. Key Risks — contains 0+× Risk.
 // Returns the list view; element type: RiskEntry (construct from item paths).
 SomList risks_and_assumptions_key_risks(const RisksAndAssumptions *self);
-// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
+// 4.7.2. Key Assumptions — contains 0+×.
 KeyAssumptions risks_and_assumptions_key_assumptions(const RisksAndAssumptions *self);
 
 // Overview of the risk management approach.
@@ -26220,7 +26506,7 @@ void risks_overview_init(RisksOverview *self, SpecDocument *doc, const char *pat
 void risks_overview_free(RisksOverview *self);
 RisksOverviewContentForm risks_overview_content(const RisksOverview *self);
 
-// A role adjustment entry (form) [PD00-POP-ROL-nn].
+// A role adjustment entry (form).
 //
 // Documents a specific deviation from standard TomSpecs role definitions,
 // including the type of adjustment, affected responsibilities, risk
@@ -26276,7 +26562,7 @@ void role_adjustment_summary_init(RoleAdjustmentSummary *self, SpecDocument *doc
 void role_adjustment_summary_free(RoleAdjustmentSummary *self);
 RoleAdjustmentSummaryContentForm role_adjustment_summary_content(const RoleAdjustmentSummary *self);
 
-// 2.1. Role Adjustments [PD00-POP-ROL].
+// 2.1. Role Adjustments.
 //
 // Documents any deviations from the standard TomSpecs roles defined in
 // tom_roles.md. Includes merged, split, omitted, or modified roles
@@ -26307,7 +26593,7 @@ void role_certification_policy_set_content(RoleCertificationPolicy *self, const 
 // Role Certification Details (text).
 // (skipped: roleCertificationDetails has no target type)
 
-// A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn].
+// A role combination constraint entry (form).
 //
 // Defines rules about which roles can or cannot be combined — supports
 // separation of duties, prerequisite roles, and co-requisite roles.
@@ -26316,13 +26602,13 @@ void role_combination_constraint_entry_init(RoleCombinationConstraintEntry *self
 void role_combination_constraint_entry_free(RoleCombinationConstraintEntry *self);
 RoleCombinationConstraintEntryContentForm role_combination_constraint_entry_content(const RoleCombinationConstraintEntry *self);
 
-// Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form).
+// Role competency entry (form).
 // Binds a RoleCompetencyEntry facade to a document and a path (path copied).
 void role_competency_entry_init(RoleCompetencyEntry *self, SpecDocument *doc, const char *path);
 void role_competency_entry_free(RoleCompetencyEntry *self);
 RoleCompetencyEntryContentForm role_competency_entry_content(const RoleCompetencyEntry *self);
 
-// A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn].
+// A data scope entry for a role (form).
 //
 // Specifies what data categories the role can access and at what level —
 // supports horizontal access control and data-level security.
@@ -26337,13 +26623,13 @@ void role_decision_authority_init(RoleDecisionAuthority *self, SpecDocument *doc
 void role_decision_authority_free(RoleDecisionAuthority *self);
 RoleDecisionAuthorityContentForm role_decision_authority_content(const RoleDecisionAuthority *self);
 
-// A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
+// A role exclusion entry (form).
 // Binds a RoleExclusionEntry facade to a document and a path (path copied).
 void role_exclusion_entry_init(RoleExclusionEntry *self, SpecDocument *doc, const char *path);
 void role_exclusion_entry_free(RoleExclusionEntry *self);
 RoleExclusionEntryContentForm role_exclusion_entry_content(const RoleExclusionEntry *self);
 
-// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+// 9.4.6. Role Hierarchy.
 //
 // Defines the role hierarchy: inheritance rules, mutual exclusions,
 // role combination constraints, hierarchy depth, and role certification
@@ -26381,13 +26667,13 @@ void role_hierarchy_policy_set_content(RoleHierarchyPolicy *self, const char *va
 // Role Hierarchy Policy Details (text).
 // (skipped: roleHierarchyPolicyDetails has no target type)
 
-// A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
+// A role holder entry (form).
 // Binds a RoleHolderEntry facade to a document and a path (path copied).
 void role_holder_entry_init(RoleHolderEntry *self, SpecDocument *doc, const char *path);
 void role_holder_entry_free(RoleHolderEntry *self);
 RoleHolderEntryContentForm role_holder_entry_content(const RoleHolderEntry *self);
 
-// A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn].
+// A role inheritance rule entry (form).
 //
 // Defines a specific parent-child inheritance relationship between two roles,
 // including what is inherited and any restrictions.
@@ -26396,9 +26682,9 @@ void role_inheritance_rule_entry_init(RoleInheritanceRuleEntry *self, SpecDocume
 void role_inheritance_rule_entry_free(RoleInheritanceRuleEntry *self);
 RoleInheritanceRuleEntryContentForm role_inheritance_rule_entry_content(const RoleInheritanceRuleEntry *self);
 
-// 9.7. Role Matrix [PD00-ACC-ROL].
+// 9.7. Role Matrix.
 //
-// Role-to-permission assignment matrix covering HBSG AS22-AUM
+// Role-to-permission assignment matrix covering
 // Authorization Model.
 // Binds a RoleMatrix facade to a document and a path (path copied).
 void role_matrix_init(RoleMatrix *self, SpecDocument *doc, const char *path);
@@ -26406,7 +26692,7 @@ void role_matrix_free(RoleMatrix *self);
 char *role_matrix_content(const RoleMatrix *self);
 void role_matrix_set_content(RoleMatrix *self, const char *value);
 
-// A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn].
+// A direct permission entry for a role (form).
 //
 // Captures direct permission assignments that complement or override
 // entitlement-based access — useful when fine-grained per-role permissions
@@ -26416,7 +26702,7 @@ void role_permission_entry_init(RolePermissionEntry *self, SpecDocument *doc, co
 void role_permission_entry_free(RolePermissionEntry *self);
 RolePermissionEntryContentForm role_permission_entry_content(const RolePermissionEntry *self);
 
-// A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn].
+// A role reference entry (form).
 // Binds a RoleReferenceEntry facade to a document and a path (path copied).
 void role_reference_entry_init(RoleReferenceEntry *self, SpecDocument *doc, const char *path);
 void role_reference_entry_free(RoleReferenceEntry *self);
@@ -26468,7 +26754,7 @@ void rollback_strategy_triggers_init(RollbackStrategyTriggers *self, SpecDocumen
 void rollback_strategy_triggers_free(RollbackStrategyTriggers *self);
 RollbackStrategyTriggersContentForm rollback_strategy_triggers_content(const RollbackStrategyTriggers *self);
 
-// 15.1. Rollout Plan [PD00-ROL-PLN].
+// 15.1. Rollout Plan.
 //
 // Geographic and/or user-group rollout plan covering DR23 Rollout Plan
 // content: the sequencing of sites, countries, business units, and user
@@ -26479,7 +26765,7 @@ void rollout_plan_free(RolloutPlan *self);
 char *rollout_plan_content(const RolloutPlan *self);
 void rollout_plan_set_content(RolloutPlan *self, const char *value);
 
-// 15.4. Training Materials [PD00-ROL-TRN].
+// 15.4. Training Materials.
 //
 // Training deliverables covering DR17 Training Materials content.
 // Binds a RolloutTrainingMaterials facade to a document and a path (path copied).
@@ -26531,7 +26817,7 @@ void rpo_rto_requirements_systems_init(RpoRtoRequirementsSystems *self, SpecDocu
 void rpo_rto_requirements_systems_free(RpoRtoRequirementsSystems *self);
 RpoRtoRequirementsSystemsContentForm rpo_rto_requirements_systems_content(const RpoRtoRequirementsSystems *self);
 
-// A rule example entry (form) [PD00-BUS-FUN-RUL-nn-EXA-nn].
+// A rule example entry (form).
 //
 // Examples illustrating rule application.
 // Binds a RuleExampleEntry facade to a document and a path (path copied).
@@ -26539,7 +26825,7 @@ void rule_example_entry_init(RuleExampleEntry *self, SpecDocument *doc, const ch
 void rule_example_entry_free(RuleExampleEntry *self);
 RuleExampleEntryContentForm rule_example_entry_content(const RuleExampleEntry *self);
 
-// 12.4. Runtime Dependencies [PD00-COM-RUN].
+// 12.4. Runtime Dependencies.
 //
 // Runtime dependencies between components: required services, startup order,
 // health-check dependencies, failover behavior, and version constraints.
@@ -26552,7 +26838,7 @@ void runtime_dependencies_set_content(RuntimeDependencies *self, const char *val
 // Returns the list view; element type: RuntimeDependencyEntry (construct from item paths).
 SomList runtime_dependencies_items(const RuntimeDependencies *self);
 
-// A runtime dependency entry (form) [PD00-COM-RUN-nn].
+// A runtime dependency entry (form).
 //
 // Documents one runtime dependency: startup order, health checks,
 // failover, data flow, latency tolerance, and caching strategy.
@@ -26805,7 +27091,7 @@ void scenario_data_init(ScenarioData *self, SpecDocument *doc, const char *path)
 void scenario_data_free(ScenarioData *self);
 ScenarioDataContentForm scenario_data_content(const ScenarioData *self);
 
-// A scenario entry [PD00-TAR-STP-SCE-nn].
+// A scenario entry.
 //
 // Comprehensive scenario definition for end-to-end user journey.
 // Binds a ScenarioEntry facade to a document and a path (path copied).
@@ -26840,7 +27126,7 @@ void scenario_overview_init(ScenarioOverview *self, SpecDocument *doc, const cha
 void scenario_overview_free(ScenarioOverview *self);
 ScenarioOverviewContentForm scenario_overview_content(const ScenarioOverview *self);
 
-// A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn].
+// A scenario step entry.
 // Binds a ScenarioStepEntry facade to a document and a path (path copied).
 void scenario_step_entry_init(ScenarioStepEntry *self, SpecDocument *doc, const char *path);
 void scenario_step_entry_free(ScenarioStepEntry *self);
@@ -26919,7 +27205,7 @@ void scope_assumption_entry_free(ScopeAssumptionEntry *self);
 char *scope_assumption_entry_content(const ScopeAssumptionEntry *self);
 void scope_assumption_entry_set_content(ScopeAssumptionEntry *self, const char *value);
 
-// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+// 4.1.1.6. Scope Boundaries.
 //
 // Clear definition of what is in scope and out of scope for this system.
 // Helps set expectations and prevent scope creep.
@@ -26928,13 +27214,13 @@ void scope_boundaries_init(ScopeBoundaries *self, SpecDocument *doc, const char 
 void scope_boundaries_free(ScopeBoundaries *self);
 char *scope_boundaries_content(const ScopeBoundaries *self);
 void scope_boundaries_set_content(ScopeBoundaries *self, const char *value);
-// In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
+// In-Scope Items — contains 1+× ScopeItem.
 // Returns the list view; element type: ScopeItemEntry (construct from item paths).
 SomList scope_boundaries_in_scope_items(const ScopeBoundaries *self);
-// Out-of-Scope Items [PD00-SYO-SYD-PUR-SCO-OUT] — contains 0+× ScopeItem.
+// Out-of-Scope Items — contains 0+× ScopeItem.
 // Returns the list view; element type: ScopeItemEntry (construct from item paths).
 SomList scope_boundaries_out_of_scope_items(const ScopeBoundaries *self);
-// Deferred Items [PD00-SYO-SYD-PUR-SCO-DEF] — contains 0+× ScopeItem.
+// Deferred Items — contains 0+× ScopeItem.
 // Returns the list view; element type: DeferredScopeItemEntry (construct from item paths).
 SomList scope_boundaries_deferred_items(const ScopeBoundaries *self);
 // Scope Assumptions.
@@ -26947,7 +27233,7 @@ void scope_item_entry_init(ScopeItemEntry *self, SpecDocument *doc, const char *
 void scope_item_entry_free(ScopeItemEntry *self);
 ScopeItemEntryContentForm scope_item_entry_content(const ScopeItemEntry *self);
 
-// A screen action entry (form) [PD00-USE-SCR-INV-nn-ACT-mm].
+// A screen action entry (form).
 //
 // A top-level action available on the screen via toolbar, app bar, or FAB.
 // Binds a ScreenActionEntry facade to a document and a path (path copied).
@@ -26979,7 +27265,7 @@ void screen_action_entry_visual_init(ScreenActionEntryVisual *self, SpecDocument
 void screen_action_entry_visual_free(ScreenActionEntryVisual *self);
 ScreenActionEntryVisualContentForm screen_action_entry_visual_content(const ScreenActionEntryVisual *self);
 
-// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+// 10.2.1.n.2. Screen Actions.
 //
 // Top-level actions available on the screen (toolbar, app bar, FAB).
 // Binds a ScreenActions facade to a document and a path (path copied).
@@ -27000,15 +27286,15 @@ void screen_behavior_entry_init(ScreenBehaviorEntry *self, SpecDocument *doc, co
 void screen_behavior_entry_free(ScreenBehaviorEntry *self);
 ScreenBehaviorEntryContentForm screen_behavior_entry_content(const ScreenBehaviorEntry *self);
 
-// 10.2. Screen Descriptions [PD00-USE-SCR].
+// 10.2. Screen Descriptions.
 // Binds a ScreenDescriptions facade to a document and a path (path copied).
 void screen_descriptions_init(ScreenDescriptions *self, SpecDocument *doc, const char *path);
 void screen_descriptions_free(ScreenDescriptions *self);
 char *screen_descriptions_content(const ScreenDescriptions *self);
 void screen_descriptions_set_content(ScreenDescriptions *self, const char *value);
-// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+// 10.2.1. Screen Inventory.
 ScreenInventory screen_descriptions_screen_inventory(const ScreenDescriptions *self);
-// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+// 10.2.2. Information Architecture.
 InformationArchitecture screen_descriptions_information_architecture(const ScreenDescriptions *self);
 
 // Action specification for an action-type element (form).
@@ -27059,7 +27345,7 @@ void screen_element_data_display_options_init(ScreenElementDataDisplayOptions *s
 void screen_element_data_display_options_free(ScreenElementDataDisplayOptions *self);
 ScreenElementDataDisplayOptionsContentForm screen_element_data_display_options_content(const ScreenElementDataDisplayOptions *self);
 
-// A screen element entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk].
+// A screen element entry (form).
 //
 // Any interactive or display element within a screen section: buttons, fields,
 // data displays, icons, labels, status indicators.
@@ -27075,11 +27361,11 @@ ScreenElementEntryLayout screen_element_entry_layout(const ScreenElementEntry *s
 ScreenElementEntryBehavior screen_element_entry_behavior(const ScreenElementEntry *self);
 // Styling and data binding.
 ScreenElementEntryPresentation screen_element_entry_presentation(const ScreenElementEntry *self);
-// 10.2.1.n.m.k.1. Element Action [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-ACN].
+// 10.2.1.n.m.k.1. Element Action.
 ScreenElementAction screen_element_entry_element_action(const ScreenElementEntry *self);
-// 10.2.1.n.m.k.2. Element Field Spec [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-FLD].
+// 10.2.1.n.m.k.2. Element Field Spec.
 ScreenElementFieldSpec screen_element_entry_field_spec(const ScreenElementEntry *self);
-// 10.2.1.n.m.k.3. Element Data Display [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-DAT].
+// 10.2.1.n.m.k.3. Element Data Display.
 ScreenElementDataDisplay screen_element_entry_data_display(const ScreenElementEntry *self);
 // Contains 0+× ElementValidationRule.
 // Returns the list view; element type: ElementValidationRuleEntry (construct from item paths).
@@ -27149,7 +27435,7 @@ void screen_element_field_spec_validation_init(ScreenElementFieldSpecValidation 
 void screen_element_field_spec_validation_free(ScreenElementFieldSpecValidation *self);
 ScreenElementFieldSpecValidationContentForm screen_element_field_spec_validation_content(const ScreenElementFieldSpecValidation *self);
 
-// A screen entry [PD00-USE-SCR-INV-nn] (form).
+// A screen entry (form).
 //
 // Comprehensive specification of a single application screen, covering
 // identity, purpose, authorization, layout, elements, and behavior.
@@ -27167,11 +27453,11 @@ ScreenEntryTraceability screen_entry_traceability(const ScreenEntry *self);
 ScreenEntryPresentation screen_entry_presentation(const ScreenEntry *self);
 // Screen design rationale and notes.
 // (skipped: designNotes has no target type)
-// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+// 10.2.1.n.1. Screen Sections.
 ScreenSections screen_entry_sections(const ScreenEntry *self);
-// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+// 10.2.1.n.2. Screen Actions.
 ScreenActions screen_entry_actions(const ScreenEntry *self);
-// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+// 10.2.1.n.3. Screen States.
 ScreenStates screen_entry_states(const ScreenEntry *self);
 // Contains 0+× ScreenUserCategory.
 // Returns the list view; element type: ScreenUserCategoryEntry (construct from item paths).
@@ -27250,18 +27536,18 @@ void screen_field_validation_init(ScreenFieldValidation *self, SpecDocument *doc
 void screen_field_validation_free(ScreenFieldValidation *self);
 ScreenFieldValidationContentForm screen_field_validation_content(const ScreenFieldValidation *self);
 
-// 10.3. Screen Flow Structure [PD00-USE-SCF].
+// 10.3. Screen Flow Structure.
 // Binds a ScreenFlowStructure facade to a document and a path (path copied).
 void screen_flow_structure_init(ScreenFlowStructure *self, SpecDocument *doc, const char *path);
 void screen_flow_structure_free(ScreenFlowStructure *self);
 char *screen_flow_structure_content(const ScreenFlowStructure *self);
 void screen_flow_structure_set_content(ScreenFlowStructure *self, const char *value);
-// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+// 10.3.1. Navigation Model.
 NavigationModel screen_flow_structure_navigation_model(const ScreenFlowStructure *self);
-// 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid-flow).
+// 10.3.2. Screen Flow Diagram (mermaid-flow).
 // (skipped: screenFlowDiagram has no target type)
 
-// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+// 10.2.1. Screen Inventory.
 //
 // Container for screen definitions. Each entry fully describes one application
 // screen including its purpose, layout zones, elements, actions, and states.
@@ -27276,7 +27562,7 @@ void screen_inventory_set_content(ScreenInventory *self, const char *value);
 // Returns the list view; element type: ScreenEntry (construct from item paths).
 SomList screen_inventory_items(const ScreenInventory *self);
 
-// A responsive rule entry (form) [PD00-USE-SCR-INV-nn-RSP-mm].
+// A responsive rule entry (form).
 //
 // How the screen adapts at different breakpoints.
 // Binds a ScreenResponsiveRuleEntry facade to a document and a path (path copied).
@@ -27284,7 +27570,7 @@ void screen_responsive_rule_entry_init(ScreenResponsiveRuleEntry *self, SpecDocu
 void screen_responsive_rule_entry_free(ScreenResponsiveRuleEntry *self);
 ScreenResponsiveRuleEntryContentForm screen_responsive_rule_entry_content(const ScreenResponsiveRuleEntry *self);
 
-// A screen section entry (form) [PD00-USE-SCR-INV-nn-SEC-mm].
+// A screen section entry (form).
 //
 // A logical zone within a screen: header, toolbar, content area, sidebar, etc.
 // Binds a ScreenSectionEntry facade to a document and a path (path copied).
@@ -27311,7 +27597,7 @@ void screen_section_entry_layout_init(ScreenSectionEntryLayout *self, SpecDocume
 void screen_section_entry_layout_free(ScreenSectionEntryLayout *self);
 ScreenSectionEntryLayoutContentForm screen_section_entry_layout_content(const ScreenSectionEntryLayout *self);
 
-// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+// 10.2.1.n.1. Screen Sections.
 //
 // Logical zones within a screen that group related elements.
 // Binds a ScreenSections facade to a document and a path (path copied).
@@ -27323,7 +27609,7 @@ void screen_sections_set_content(ScreenSections *self, const char *value);
 // Returns the list view; element type: ScreenSectionEntry (construct from item paths).
 SomList screen_sections_items(const ScreenSections *self);
 
-// A screen state entry (form) [PD00-USE-SCR-INV-nn-STA-mm].
+// A screen state entry (form).
 //
 // A specific state the screen can be in: loading, empty, error, permission-denied.
 // Binds a ScreenStateEntry facade to a document and a path (path copied).
@@ -27331,7 +27617,7 @@ void screen_state_entry_init(ScreenStateEntry *self, SpecDocument *doc, const ch
 void screen_state_entry_free(ScreenStateEntry *self);
 ScreenStateEntryContentForm screen_state_entry_content(const ScreenStateEntry *self);
 
-// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+// 10.2.1.n.3. Screen States.
 //
 // Different visual/behavioral states the screen can be in.
 // Binds a ScreenStates facade to a document and a path (path copied).
@@ -27343,13 +27629,13 @@ void screen_states_set_content(ScreenStates *self, const char *value);
 // Returns the list view; element type: ScreenStateEntry (construct from item paths).
 SomList screen_states_items(const ScreenStates *self);
 
-// A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-mm].
+// A user category entry (form).
 // Binds a ScreenUserCategoryEntry facade to a document and a path (path copied).
 void screen_user_category_entry_init(ScreenUserCategoryEntry *self, SpecDocument *doc, const char *path);
 void screen_user_category_entry_free(ScreenUserCategoryEntry *self);
 ScreenUserCategoryEntryContentForm screen_user_category_entry_content(const ScreenUserCategoryEntry *self);
 
-// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+// 10.3.1.4. Secondary Navigation.
 //
 // In-page navigation: tab bars, segmented controls.
 // Binds a SecondaryNavigation facade to a document and a path (path copied).
@@ -27363,7 +27649,64 @@ void secondary_navigation_set_content(SecondaryNavigation *self, const char *val
 // Returns the list view; element type: TabBarDefinitionEntry (construct from item paths).
 SomList secondary_navigation_tab_bars(const SecondaryNavigation *self);
 
-// A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
+// AC00 Authorization Concept.
+//
+// Complete access and authorization specification — user management,
+// identification and authentication, resource protection, user
+// authorization, encryption, audit/logging, role matrix, and
+// compliance framework.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int security_access_specification_new(SecurityAccessSpecification *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *security_access_specification_object_model_version(const SecurityAccessSpecification *self);
+void security_access_specification_free(SecurityAccessSpecification *self);
+char *security_access_specification_content(const SecurityAccessSpecification *self);
+void security_access_specification_set_content(SecurityAccessSpecification *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader security_access_specification_header(const SecurityAccessSpecification *self);
+// User management.
+UserManagement security_access_specification_user_management(const SecurityAccessSpecification *self);
+// Identification and authentication.
+IdentificationAndAuthentication security_access_specification_identification_and_authentication(const SecurityAccessSpecification *self);
+// Resource protection.
+ResourceProtection security_access_specification_resource_protection(const SecurityAccessSpecification *self);
+// User authorization.
+UserAuthorization security_access_specification_user_authorization(const SecurityAccessSpecification *self);
+// Sensitive data encryption.
+SensitiveDataEncryption security_access_specification_sensitive_data_encryption(const SecurityAccessSpecification *self);
+// Audit and logging.
+AuditAndLogging security_access_specification_audit_and_logging(const SecurityAccessSpecification *self);
+// Role matrix.
+RoleMatrix security_access_specification_role_matrix(const SecurityAccessSpecification *self);
+// Compliance framework.
+ComplianceFramework security_access_specification_compliance_framework(const SecurityAccessSpecification *self);
+
+// 9. Access and Authorization Concept. Seeds → AC.
+// Binds a SecurityAndAccessModel facade to a document and a path (path copied).
+void security_and_access_model_init(SecurityAndAccessModel *self, SpecDocument *doc, const char *path);
+void security_and_access_model_free(SecurityAndAccessModel *self);
+char *security_and_access_model_content(const SecurityAndAccessModel *self);
+void security_and_access_model_set_content(SecurityAndAccessModel *self, const char *value);
+// 9.1. User Management.
+UserManagement security_and_access_model_user_management(const SecurityAndAccessModel *self);
+// 9.2. Identification and Authentication.
+IdentificationAndAuthentication security_and_access_model_authentication(const SecurityAndAccessModel *self);
+// 9.3. Resource Protection.
+ResourceProtection security_and_access_model_resource_protection(const SecurityAndAccessModel *self);
+// 9.4. User Authorization.
+UserAuthorization security_and_access_model_authorization(const SecurityAndAccessModel *self);
+// 9.5. Sensitive Data Encryption.
+SensitiveDataEncryption security_and_access_model_encryption(const SecurityAndAccessModel *self);
+// 9.6. Audit and Logging.
+AuditAndLogging security_and_access_model_audit_and_logging(const SecurityAndAccessModel *self);
+// 9.7. Role Matrix..
+RoleMatrix security_and_access_model_role_matrix(const SecurityAndAccessModel *self);
+// 9.8. Compliance Framework.
+ComplianceFramework security_and_access_model_compliance_framework(const SecurityAndAccessModel *self);
+
+// A security audit requirement entry (form).
 // Binds a SecurityAuditEntry facade to a document and a path (path copied).
 void security_audit_entry_init(SecurityAuditEntry *self, SpecDocument *doc, const char *path);
 void security_audit_entry_free(SecurityAuditEntry *self);
@@ -27393,7 +27736,7 @@ void security_audit_entry_scheduling_init(SecurityAuditEntryScheduling *self, Sp
 void security_audit_entry_scheduling_free(SecurityAuditEntryScheduling *self);
 SecurityAuditEntrySchedulingContentForm security_audit_entry_scheduling_content(const SecurityAuditEntryScheduling *self);
 
-// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+// 8.8.3. Security Audit Requirements.
 //
 // Comprehensive security audit requirements covering penetration testing,
 // security-focused code review, dependency scanning, security certifications,
@@ -27421,7 +27764,7 @@ SecurityTestingAutomation security_audit_requirements_section_security_testing_a
 // Returns the list view; element type: SecurityAuditEntry (construct from item paths).
 SomList security_audit_requirements_section_audit_entries(const SecurityAuditRequirementsSection *self);
 
-// Security certification and compliance requirements [PD00-TEC-SEC-AUD].
+// Security certification and compliance requirements.
 // Binds a SecurityCertificationRequirements facade to a document and a path (path copied).
 void security_certification_requirements_init(SecurityCertificationRequirements *self, SpecDocument *doc, const char *path);
 void security_certification_requirements_free(SecurityCertificationRequirements *self);
@@ -27459,7 +27802,7 @@ void security_certification_requirements_soc2_init(SecurityCertificationRequirem
 void security_certification_requirements_soc2_free(SecurityCertificationRequirementsSoc2 *self);
 SecurityCertificationRequirementsSoc2ContentForm security_certification_requirements_soc2_content(const SecurityCertificationRequirementsSoc2 *self);
 
-// Security-focused code review policy [PD00-TEC-SEC-AUD].
+// Security-focused code review policy.
 //
 // Distinct from CodeReviewProcess (section 8.4) which covers general
 // development code review. This section focuses specifically on
@@ -27522,7 +27865,7 @@ void security_control_entry_verification_init(SecurityControlEntryVerification *
 void security_control_entry_verification_free(SecurityControlEntryVerification *self);
 SecurityControlEntryVerificationContentForm security_control_entry_verification_content(const SecurityControlEntryVerification *self);
 
-// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+// 4.3.3.n.2. Security Controls.
 //
 // Security controls that implement or support this requirement.
 // Binds a SecurityControls facade to a document and a path (path copied).
@@ -27564,7 +27907,7 @@ void security_development_lifecycle_testing_init(SecurityDevelopmentLifecycleTes
 void security_development_lifecycle_testing_free(SecurityDevelopmentLifecycleTesting *self);
 SecurityDevelopmentLifecycleTestingContentForm security_development_lifecycle_testing_content(const SecurityDevelopmentLifecycleTesting *self);
 
-// A custom security event entry (form) [PD00-ACC-AUD-EVE-nn].
+// A custom security event entry (form).
 //
 // Allows defining additional application-specific security events
 // beyond the standard categories.
@@ -27584,7 +27927,7 @@ SecurityEventLoggingPolicyContentForm security_event_logging_policy_content(cons
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
-// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+// 9.6.1. Security Events.
 //
 // Defines which security events must be logged: authentication attempts,
 // authorization failures, data access, configuration changes, admin actions,
@@ -27608,7 +27951,7 @@ AdministrativeEventPolicy security_events_definition_administrative_events(const
 // Returns the list view; element type: SecurityEventEntry (construct from item paths).
 SomList security_events_definition_custom_events(const SecurityEventsDefinition *self);
 
-// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
+// 11.3.4. Security quality.
 // Binds a SecurityQuality facade to a document and a path (path copied).
 void security_quality_init(SecurityQuality *self, SpecDocument *doc, const char *path);
 void security_quality_free(SecurityQuality *self);
@@ -27648,7 +27991,7 @@ void security_quality_vulnerability_init(SecurityQualityVulnerability *self, Spe
 void security_quality_vulnerability_free(SecurityQualityVulnerability *self);
 SecurityQualityVulnerabilityContentForm security_quality_vulnerability_content(const SecurityQualityVulnerability *self);
 
-// A security requirement entry [PD00-SYO-REQ-SEC-nn].
+// A security requirement entry.
 //
 // Comprehensive security requirement definition following OWASP ASVS,
 // ISO 27001, and security best practices.
@@ -27664,13 +28007,13 @@ SecurityRequirementEntryCompliance security_requirement_entry_compliance(const S
 SecurityRequirementEntryVerification security_requirement_entry_verification(const SecurityRequirementEntry *self);
 // Status and ownership.
 SecurityRequirementEntryStatus security_requirement_entry_status_info(const SecurityRequirementEntry *self);
-// 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
+// 4.3.3.n.1. Acceptance Criteria.
 RequirementAcceptanceCriteria security_requirement_entry_acceptance_criteria(const SecurityRequirementEntry *self);
-// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+// 4.3.3.n.2. Security Controls.
 SecurityControls security_requirement_entry_controls(const SecurityRequirementEntry *self);
-// 4.3.3.n.3. Dependencies [PD00-SYO-REQ-SEC-nn-DEP].
+// 4.3.3.n.3. Dependencies.
 RequirementDependencies security_requirement_entry_dependencies(const SecurityRequirementEntry *self);
-// 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
+// 4.3.3.n.4. Traceability.
 RequirementTraceability security_requirement_entry_traceability(const SecurityRequirementEntry *self);
 
 // Category and classification for security requirement.
@@ -27697,7 +28040,7 @@ void security_requirement_entry_verification_init(SecurityRequirementEntryVerifi
 void security_requirement_entry_verification_free(SecurityRequirementEntryVerification *self);
 SecurityRequirementEntryVerificationContentForm security_requirement_entry_verification_content(const SecurityRequirementEntryVerification *self);
 
-// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+// 4.3.3. Security Requirements.
 //
 // Container for security requirements. Security requirements describe
 // information protection, access control, authentication, authorization,
@@ -27752,7 +28095,7 @@ void security_standard_compliance_entry_status_init(SecurityStandardComplianceEn
 void security_standard_compliance_entry_status_free(SecurityStandardComplianceEntryStatus *self);
 SecurityStandardComplianceEntryStatusContentForm security_standard_compliance_entry_status_content(const SecurityStandardComplianceEntryStatus *self);
 
-// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
+// A security standard entry (form).
 // Binds a SecurityStandardEntry facade to a document and a path (path copied).
 void security_standard_entry_init(SecurityStandardEntry *self, SpecDocument *doc, const char *path);
 void security_standard_entry_free(SecurityStandardEntry *self);
@@ -27782,7 +28125,7 @@ void security_standard_entry_verification_init(SecurityStandardEntryVerification
 void security_standard_entry_verification_free(SecurityStandardEntryVerification *self);
 SecurityStandardEntryVerificationContentForm security_standard_entry_verification_content(const SecurityStandardEntryVerification *self);
 
-// Automated security testing integration [PD00-TEC-SEC-AUD].
+// Automated security testing integration.
 //
 // Requirements for SAST, DAST, IAST, and fuzzing integration
 // into the CI/CD pipeline and development workflow.
@@ -27831,7 +28174,7 @@ void security_testing_automation_scanning_init(SecurityTestingAutomationScanning
 void security_testing_automation_scanning_free(SecurityTestingAutomationScanning *self);
 SecurityTestingAutomationScanningContentForm security_testing_automation_scanning_content(const SecurityTestingAutomationScanning *self);
 
-// Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
+// Self-registration policy (form).
 //
 // Defines self-service identity creation: registration flow, required
 // fields, verification, approval, rate limiting, and domain restrictions.
@@ -27894,17 +28237,17 @@ void self_service_account_management_set_content(SelfServiceAccountManagement *s
 // Self-Service Capabilities Description (text).
 // (skipped: selfServiceDescription has no target type)
 
-// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+// 9.5. Sensitive Data Encryption.
 // Binds a SensitiveDataEncryption facade to a document and a path (path copied).
 void sensitive_data_encryption_init(SensitiveDataEncryption *self, SpecDocument *doc, const char *path);
 void sensitive_data_encryption_free(SensitiveDataEncryption *self);
 char *sensitive_data_encryption_content(const SensitiveDataEncryption *self);
 void sensitive_data_encryption_set_content(SensitiveDataEncryption *self, const char *value);
-// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+// 9.5.1. Encryption At Rest.
 EncryptionAtRest sensitive_data_encryption_encryption_at_rest(const SensitiveDataEncryption *self);
-// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+// 9.5.2. Encryption In Transit.
 EncryptionInTransit sensitive_data_encryption_encryption_in_transit(const SensitiveDataEncryption *self);
-// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+// 9.5.3. Key Management.
 KeyManagement sensitive_data_encryption_key_management(const SensitiveDataEncryption *self);
 
 // Server environment entry (development, staging, production, DR).
@@ -27983,7 +28326,7 @@ void server_os_requirements_security_init(ServerOsRequirementsSecurity *self, Sp
 void server_os_requirements_security_free(ServerOsRequirementsSecurity *self);
 ServerOsRequirementsSecurityContentForm server_os_requirements_security_content(const ServerOsRequirementsSecurity *self);
 
-// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+// 8.4.1. Server Requirements.
 //
 // Server compute requirements: CPU, memory, storage, expected load profile,
 // and scaling requirements.
@@ -28117,7 +28460,7 @@ void service_account_lifecycle_set_content(ServiceAccountLifecycle *self, const 
 // Service Account Management Description (text).
 // (skipped: serviceAccountDescription has no target type)
 
-// A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].
+// A service level agreement entry.
 // Binds a ServiceLevelAgreementEntry facade to a document and a path (path copied).
 void service_level_agreement_entry_init(ServiceLevelAgreementEntry *self, SpecDocument *doc, const char *path);
 void service_level_agreement_entry_free(ServiceLevelAgreementEntry *self);
@@ -28153,7 +28496,7 @@ void service_level_indicators_quality_init(ServiceLevelIndicatorsQuality *self, 
 void service_level_indicators_quality_free(ServiceLevelIndicatorsQuality *self);
 ServiceLevelIndicatorsQualityContentForm service_level_indicators_quality_content(const ServiceLevelIndicatorsQuality *self);
 
-// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
+// 11.4.2. Service level quality.
 // Binds a ServiceLevelQuality facade to a document and a path (path copied).
 void service_level_quality_init(ServiceLevelQuality *self, SpecDocument *doc, const char *path);
 void service_level_quality_free(ServiceLevelQuality *self);
@@ -28251,7 +28594,7 @@ void session_lifecycle_monitoring_set_content(SessionLifecycleMonitoring *self, 
 // Session Lifecycle Monitoring Details (text).
 // (skipped: sessionLifecycleDetails has no target type)
 
-// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+// 9.2.4. Session Management.
 //
 // Comprehensive session management policy covering session timeouts,
 // concurrent session control, session revocation, remember-me functionality,
@@ -28278,7 +28621,7 @@ SessionSecurityPolicy session_management_session_security_policy(const SessionMa
 // Session Lifecycle Monitoring.
 SessionLifecycleMonitoring session_management_session_lifecycle_monitoring(const SessionManagement *self);
 
-// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+// 4.1.5.4. Session Model.
 //
 // Defines session management including authentication, timeouts, and
 // multi-device session handling.
@@ -28346,7 +28689,7 @@ void session_timeout_policy_set_content(SessionTimeoutPolicy *self, const char *
 // Session Timeout Details (text).
 // (skipped: sessionTimeoutDetails has no target type)
 
-// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+// 1.1.3.3. Shared Infrastructure Dependencies.
 //
 // Dependencies on shared infrastructure components used by multiple systems.
 // Binds a SharedInfrastructureDependencies facade to a document and a path (path copied).
@@ -28358,7 +28701,7 @@ void shared_infrastructure_dependencies_set_content(SharedInfrastructureDependen
 // Returns the list view; element type: SharedInfrastructureEntry (construct from item paths).
 SomList shared_infrastructure_dependencies_items(const SharedInfrastructureDependencies *self);
 
-// A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
+// A shared infrastructure entry (form).
 //
 // Documents a shared infrastructure component that multiple systems depend on.
 // Binds a SharedInfrastructureEntry facade to a document and a path (path copied).
@@ -28465,7 +28808,7 @@ void shared_service_entry_free(SharedServiceEntry *self);
 char *shared_service_entry_content(const SharedServiceEntry *self);
 void shared_service_entry_set_content(SharedServiceEntry *self, const char *value);
 
-// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+// 14.2.5. Sign-off Process.
 //
 // Formal sign-off process: who signs off (business acceptance board,
 // technical acceptance board), what documents are signed, legal and
@@ -28517,7 +28860,7 @@ void sign_off_process_timeline_init(SignOffProcessTimeline *self, SpecDocument *
 void sign_off_process_timeline_free(SignOffProcessTimeline *self);
 SignOffProcessTimelineContentForm sign_off_process_timeline_content(const SignOffProcessTimeline *self);
 
-// Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO].
+// Single Sign-On policy (form).
 //
 // Defines SSO scope, protocol, session propagation, federation,
 // logout propagation, and platform-specific SSO strategies.
@@ -28560,7 +28903,7 @@ void single_sign_on_policy_session_init(SingleSignOnPolicySession *self, SpecDoc
 void single_sign_on_policy_session_free(SingleSignOnPolicySession *self);
 SingleSignOnPolicySessionContentForm single_sign_on_policy_session_content(const SingleSignOnPolicySession *self);
 
-// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+// 8.7.2.5. SLA and SLO Monitoring.
 //
 // Service Level Agreement and Service Level Objective tracking.
 // Binds a SlaAndSloMonitoring facade to a document and a path (path copied).
@@ -28615,7 +28958,7 @@ void sla_monitoring_requirements_reporting_init(SlaMonitoringRequirementsReporti
 void sla_monitoring_requirements_reporting_free(SlaMonitoringRequirementsReporting *self);
 SlaMonitoringRequirementsReportingContentForm sla_monitoring_requirements_reporting_content(const SlaMonitoringRequirementsReporting *self);
 
-// An SLO entry [PD00-TEC-SYS-MON-SLA-nn].
+// An SLO entry.
 // Binds a SloEntry facade to a document and a path (path copied).
 void slo_entry_init(SloEntry *self, SpecDocument *doc, const char *path);
 void slo_entry_free(SloEntry *self);
@@ -28637,7 +28980,7 @@ void slo_entry_target_init(SloEntryTarget *self, SpecDocument *doc, const char *
 void slo_entry_target_free(SloEntryTarget *self);
 SloEntryTargetContentForm slo_entry_target_content(const SloEntryTarget *self);
 
-// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+// 14.1.1. Software Deliverables.
 // Binds a SoftwareDeliverables facade to a document and a path (path copied).
 void software_deliverables_init(SoftwareDeliverables *self, SpecDocument *doc, const char *path);
 void software_deliverables_free(SoftwareDeliverables *self);
@@ -28647,17 +28990,17 @@ void software_deliverables_set_content(SoftwareDeliverables *self, const char *v
 // Returns the list view; element type: DeliverableEntry (construct from item paths).
 SomList software_deliverables_items(const SoftwareDeliverables *self);
 
-// 8.2. Software Design Requirements [PD00-TEC-SOF].
+// 8.2. Software Design Requirements.
 // Binds a SoftwareDesignRequirements facade to a document and a path (path copied).
 void software_design_requirements_init(SoftwareDesignRequirements *self, SpecDocument *doc, const char *path);
 void software_design_requirements_free(SoftwareDesignRequirements *self);
 char *software_design_requirements_content(const SoftwareDesignRequirements *self);
 void software_design_requirements_set_content(SoftwareDesignRequirements *self, const char *value);
-// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+// 8.2.1. Layering and Module Structure.
 LayeringAndModuleStructure software_design_requirements_layering_and_module_structure(const SoftwareDesignRequirements *self);
-// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+// 8.2.2. Development Environment.
 DevelopmentEnvironment software_design_requirements_development_environment(const SoftwareDesignRequirements *self);
-// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+// 8.2.3. Reusable Components.
 ReusableComponentsSection software_design_requirements_reusable_components(const SoftwareDesignRequirements *self);
 
 // Software layer entry — a horizontal layer in the architecture.
@@ -28698,7 +29041,62 @@ void software_layer_entry_technology_init(SoftwareLayerEntryTechnology *self, Sp
 void software_layer_entry_technology_free(SoftwareLayerEntryTechnology *self);
 SoftwareLayerEntryTechnologyContentForm software_layer_entry_technology_content(const SoftwareLayerEntryTechnology *self);
 
-// Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn].
+// SBP.11 Solution Architecture & Technology.
+//
+// Public anchor: ISO/IEC/IEEE 42010 architecture description.
+// Binds a SolutionArchitectureAndTechnology facade to a document and a path (path copied).
+void solution_architecture_and_technology_init(SolutionArchitectureAndTechnology *self, SpecDocument *doc, const char *path);
+void solution_architecture_and_technology_free(SolutionArchitectureAndTechnology *self);
+char *solution_architecture_and_technology_content(const SolutionArchitectureAndTechnology *self);
+void solution_architecture_and_technology_set_content(SolutionArchitectureAndTechnology *self, const char *value);
+// Technical framework and platform concept.
+TechnicalFrameworkConcept solution_architecture_and_technology_technical_framework(const SolutionArchitectureAndTechnology *self);
+// Components, libraries, and services to reuse.
+ComponentsToUse solution_architecture_and_technology_components_to_use(const SolutionArchitectureAndTechnology *self);
+
+// The complete Solution Blueprint (SBP) document.
+//
+// Contains a [DocumentControl] header block and the SBP sections, sequenced
+// per the public-standards order (§4 of the redesign proposal).
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int solution_blueprint_new(SolutionBlueprint *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *solution_blueprint_object_model_version(const SolutionBlueprint *self);
+void solution_blueprint_free(SolutionBlueprint *self);
+char *solution_blueprint_content(const SolutionBlueprint *self);
+void solution_blueprint_set_content(SolutionBlueprint *self, const char *value);
+// SBP.1 Document Control (header + revision history + approvals).
+DocumentControl solution_blueprint_document_control(const SolutionBlueprint *self);
+// SBP.2 Introduction & Scope.
+IntroductionAndScope solution_blueprint_introduction_and_scope(const SolutionBlueprint *self);
+// SBP.3 Glossary & Abbreviations.
+GlossaryAndAbbreviations solution_blueprint_glossary_and_abbreviations(const SolutionBlueprint *self);
+// SBP.4 Stakeholders & Governance.
+StakeholdersAndGovernance solution_blueprint_stakeholders_and_governance(const SolutionBlueprint *self);
+// SBP.5 Current Landscape. Seeds → CLA.
+CurrentLandscape solution_blueprint_current_landscape(const SolutionBlueprint *self);
+// SBP.6 Assumptions, Constraints & Dependencies.
+AssumptionsConstraintsDependencies solution_blueprint_assumptions_constraints_dependencies(const SolutionBlueprint *self);
+// SBP.7 Target Operating Model concept. Seeds → TOM.
+TargetOperatingModelConcept solution_blueprint_target_operating_model_concept(const SolutionBlueprint *self);
+// SBP.8 Information & Data Model. Seeds → IFM.
+InformationAndDataModel solution_blueprint_information_and_data_model(const SolutionBlueprint *self);
+// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+Requirements solution_blueprint_requirements(const SolutionBlueprint *self);
+// SBP.11 Solution Architecture & Technology. Seeds → ATS.
+SolutionArchitectureAndTechnology solution_blueprint_solution_architecture_and_technology(const SolutionBlueprint *self);
+// SBP.12 Security & Access Model. Seeds → SAS.
+SecurityAndAccessModel solution_blueprint_security_and_access_model(const SolutionBlueprint *self);
+// SBP.13 Experience & Interface Design. Seeds → XDS.
+ExperienceAndInterfaceDesign solution_blueprint_experience_and_interface_design(const SolutionBlueprint *self);
+// SBP.14 Quality & Acceptance Model. Seeds → QAP.
+QualityAndAcceptanceModel solution_blueprint_quality_and_acceptance_model(const SolutionBlueprint *self);
+// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+DeliveryTransitionAndRollout solution_blueprint_delivery_transition_and_rollout(const SolutionBlueprint *self);
+
+// Specialized equipment entry (form).
 // Binds a SpecializedEquipmentEntry facade to a document and a path (path copied).
 void specialized_equipment_entry_init(SpecializedEquipmentEntry *self, SpecDocument *doc, const char *path);
 void specialized_equipment_entry_free(SpecializedEquipmentEntry *self);
@@ -28754,7 +29152,7 @@ void staffing_budget_governance_init(StaffingBudgetGovernance *self, SpecDocumen
 void staffing_budget_governance_free(StaffingBudgetGovernance *self);
 StaffingBudgetGovernanceContentForm staffing_budget_governance_content(const StaffingBudgetGovernance *self);
 
-// A staffing entry (form) [PD00-ORG-JOB-STA-nn].
+// A staffing entry (form).
 //
 // Represents one staffing position including role, competency requirements,
 // sourcing method, budget, timeline, and approval status.
@@ -28795,7 +29193,7 @@ void staffing_entry_recruitment_init(StaffingEntryRecruitment *self, SpecDocumen
 void staffing_entry_recruitment_free(StaffingEntryRecruitment *self);
 StaffingEntryRecruitmentContentForm staffing_entry_recruitment_content(const StaffingEntryRecruitment *self);
 
-// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+// 5.2.4. Staffing Plan.
 // Binds a StaffingPlan facade to a document and a path (path copied).
 void staffing_plan_init(StaffingPlan *self, SpecDocument *doc, const char *path);
 void staffing_plan_free(StaffingPlan *self);
@@ -28827,7 +29225,7 @@ void stage_deployment_init(StageDeployment *self, SpecDocument *doc, const char 
 void stage_deployment_free(StageDeployment *self);
 StageDeploymentContentForm stage_deployment_content(const StageDeployment *self);
 
-// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+// A stage entry (form) with description subsections.
 //
 // Represents a single delivery stage — a self-contained increment of the
 // system that delivers measurable business value. Each stage has clear
@@ -28863,18 +29261,18 @@ StageRisk stage_entry_risk(const StageEntry *self);
 StageMetrics stage_entry_metrics(const StageEntry *self);
 // Feature Scope narrative.
 // (skipped: featureScope has no target type)
-// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
+// Sub-stages and Milestones — contains 0+× SubStage.
 // Returns the list view; element type: SubStageEntry (construct from item paths).
 SomList stage_entry_sub_stages_and_milestones(const StageEntry *self);
 // Timeline narrative.
 // (skipped: timelineNarrative has no target type)
-// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
+// Success Criteria — contains 0+× StageSuccessCriterion.
 // Returns the list view; element type: StageSuccessCriterionEntry (construct from item paths).
 SomList stage_entry_success_criteria(const StageEntry *self);
 // Rollout Plan narrative.
 // (skipped: rolloutPlan has no target type)
 
-// 13.6. Governance [PD00-SSP-GOV].
+// 13.6. Governance.
 //
 // Governance framework for stage transitions, phase gate reviews,
 // and key decision points. Covers governance structure, authority
@@ -28902,9 +29300,9 @@ StageGovernanceMetrics stage_governance_metrics(const StageGovernance *self);
 StageGovernanceTransition stage_governance_transition(const StageGovernance *self);
 // Governance narrative and rationale.
 // (skipped: governanceNarrative has no target type)
-// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+// 13.6.1. Phase Gate Reviews.
 PhaseGateReviews stage_governance_phase_gate_reviews(const StageGovernance *self);
-// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+// 13.6.2. Decision Points.
 DecisionPoints stage_governance_decision_points(const StageGovernance *self);
 
 // Authority and oversight.
@@ -28973,7 +29371,7 @@ void stage_migration_risk_contingency_init(StageMigrationRiskContingency *self, 
 void stage_migration_risk_contingency_free(StageMigrationRiskContingency *self);
 StageMigrationRiskContingencyContentForm stage_migration_risk_contingency_content(const StageMigrationRiskContingency *self);
 
-// A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
+// A stage migration risk entry (form).
 //
 // Individual risk in the data migration risk register. Covers risk
 // identification, categorization, probability/impact scoring,
@@ -29042,7 +29440,7 @@ void stage_migration_risk_status_init(StageMigrationRiskStatus *self, SpecDocume
 void stage_migration_risk_status_free(StageMigrationRiskStatus *self);
 StageMigrationRiskStatusContentForm stage_migration_risk_status_content(const StageMigrationRiskStatus *self);
 
-// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+// 13.5.2. Migration Risks.
 //
 // Risk register specific to data migration activities. Covers data
 // loss, corruption, downtime overrun, compliance violations,
@@ -29057,7 +29455,7 @@ StageMigrationRisksContentForm stage_migration_risks_content(const StageMigratio
 // Returns the list view; element type: StageMigrationRiskEntry (construct from item paths).
 SomList stage_migration_risks_items(const StageMigrationRisks *self);
 
-// 13.2. Stage Overview [PD00-SSP-STA].
+// 13.2. Stage Overview.
 //
 // High-level summary across all planned stages including aggregate
 // metrics, critical-path identification, resource allocation patterns,
@@ -29091,21 +29489,21 @@ StageOverviewStatus stage_overview_status(const StageOverview *self);
 StageOverviewCommunication stage_overview_communication(const StageOverview *self);
 // Assumptions and constraints.
 StageOverviewConstraints stage_overview_constraints(const StageOverview *self);
-// 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
+// 13.2.1. Stage Summary — contains 1+× Stage
 // Summary Entry.
 // Returns the list view; element type: StageSummaryEntry (construct from item paths).
 SomList stage_overview_stage_summaries(const StageOverview *self);
 // Stage Summary narrative.
 // (skipped: stageSummaryNarrative has no target type)
-// 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
+// 13.2.2. Stage Timeline Diagram (mermaid-gantt).
 // (skipped: timelineDiagram has no target type)
-// 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
+// 13.2.3. Resource Allocation Diagram
 // (mermaid-gantt).
 // (skipped: resourceAllocationDiagram has no target type)
-// 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
+// 13.2.4. Budget Distribution Diagram
 // (mermaid-flow).
 // (skipped: budgetDistributionDiagram has no target type)
-// 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
+// 13.2.5. Dependency Map (mermaid-flow).
 // (skipped: dependencyMap has no target type)
 
 // Planning baseline for stage overview.
@@ -29204,7 +29602,7 @@ void stage_stakeholders_init(StageStakeholders *self, SpecDocument *doc, const c
 void stage_stakeholders_free(StageStakeholders *self);
 StageStakeholdersContentForm stage_stakeholders_content(const StageStakeholders *self);
 
-// A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
+// A success criterion entry (form).
 //
 // Defines a measurable criterion that determines whether a stage has
 // achieved its objectives. Each criterion has a target metric,
@@ -29244,7 +29642,7 @@ void stage_summary_dependencies_init(StageSummaryDependencies *self, SpecDocumen
 void stage_summary_dependencies_free(StageSummaryDependencies *self);
 StageSummaryDependenciesContentForm stage_summary_dependencies_content(const StageSummaryDependencies *self);
 
-// A stage summary entry [PD00-SSP-STA-SUM-nn] (form).
+// A stage summary entry (form).
 //
 // Quick-reference record for a single stage within the overview. Each
 // entry captures the essential identification, timeline, scope, and
@@ -29381,7 +29779,7 @@ void staging_risk_assessment_init(StagingRiskAssessment *self, SpecDocument *doc
 void staging_risk_assessment_free(StagingRiskAssessment *self);
 StagingRiskAssessmentContentForm staging_risk_assessment_content(const StagingRiskAssessment *self);
 
-// 13.1. Staging Strategy [PD00-SSP-STR].
+// 13.1. Staging Strategy.
 //
 // Document the rationale behind the chosen staging approach. Consider
 // PMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2
@@ -29419,14 +29817,14 @@ StagingFrameworkAlignment staging_strategy_framework_alignment(const StagingStra
 SomList staging_strategy_dependencies(const StagingStrategy *self);
 // Governance and approvals.
 StagingGovernance staging_strategy_governance(const StagingStrategy *self);
-// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+// 13.1.1. Staging Approach.
 // (skipped: stagingApproach has no target type)
-// 13.1.2. Rationale [PD00-SSP-STR-RAT].
+// 13.1.2. Rationale.
 // (skipped: rationaleNarrative has no target type)
-// 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
+// 13.1.3. Key Assumptions.
 // Returns the list view; element type: KeyAssumptionEntry (construct from item paths).
 SomList staging_strategy_key_assumptions(const StagingStrategy *self);
-// 13.1.4. Constraints [PD00-SSP-STR-CON].
+// 13.1.4. Constraints.
 // Returns the list view; element type: StagingStrategyConstraintEntry (construct from item paths).
 SomList staging_strategy_constraints(const StagingStrategy *self);
 
@@ -29465,7 +29863,28 @@ void stakeholder_entry_impact_init(StakeholderEntryImpact *self, SpecDocument *d
 void stakeholder_entry_impact_free(StakeholderEntryImpact *self);
 StakeholderEntryImpactContentForm stakeholder_entry_impact_content(const StakeholderEntryImpact *self);
 
-// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+// A register of the project's stakeholders.
+//
+// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
+// Binds a StakeholderRegister facade to a document and a path (path copied).
+void stakeholder_register_init(StakeholderRegister *self, SpecDocument *doc, const char *path);
+void stakeholder_register_free(StakeholderRegister *self);
+char *stakeholder_register_content(const StakeholderRegister *self);
+void stakeholder_register_set_content(StakeholderRegister *self, const char *value);
+// One entry per stakeholder or stakeholder group.
+// Returns the list view; element type: StakeholderRegisterEntry (construct from item paths).
+SomList stakeholder_register_stakeholders(const StakeholderRegister *self);
+
+// A single stakeholder register entry (form).
+//
+// Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
+// `StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+// Binds a StakeholderRegisterEntry facade to a document and a path (path copied).
+void stakeholder_register_entry_init(StakeholderRegisterEntry *self, SpecDocument *doc, const char *path);
+void stakeholder_register_entry_free(StakeholderRegisterEntry *self);
+StakeholderRegisterEntryContentForm stakeholder_register_entry_content(const StakeholderRegisterEntry *self);
+
+// 4.1.1.3. Stakeholders and Beneficiaries.
 //
 // Lists all stakeholders and beneficiaries of the system with their
 // interests, influence level, and expected benefits.
@@ -29481,24 +29900,39 @@ SomList stakeholders_and_beneficiaries_primary_stakeholders(const StakeholdersAn
 // Returns the list view; element type: StakeholderEntry (construct from item paths).
 SomList stakeholders_and_beneficiaries_secondary_stakeholders(const StakeholdersAndBeneficiaries *self);
 
+// SBP.4 Stakeholders & Governance.
+//
+// Public anchor: BABOK stakeholder analysis + PMBOK governance.
+// Binds a StakeholdersAndGovernance facade to a document and a path (path copied).
+void stakeholders_and_governance_init(StakeholdersAndGovernance *self, SpecDocument *doc, const char *path);
+void stakeholders_and_governance_free(StakeholdersAndGovernance *self);
+char *stakeholders_and_governance_content(const StakeholdersAndGovernance *self);
+void stakeholders_and_governance_set_content(StakeholdersAndGovernance *self, const char *value);
+// Governance, steering committee, RACI, process deviations.
+ProjectOrganizationAndProcess stakeholders_and_governance_project_organization_process(const StakeholdersAndGovernance *self);
+// Team, distribution, reference documents, communication.
+Administrative stakeholders_and_governance_administrative(const StakeholdersAndGovernance *self);
+// Stakeholder register (§5 completeness addition).
+StakeholderRegister stakeholders_and_governance_stakeholder_register(const StakeholdersAndGovernance *self);
+
 // Stakeholders and interests.
 // Binds a StakeholdersAndInterests facade to a document and a path (path copied).
 void stakeholders_and_interests_init(StakeholdersAndInterests *self, SpecDocument *doc, const char *path);
 void stakeholders_and_interests_free(StakeholdersAndInterests *self);
 StakeholdersAndInterestsContentForm stakeholders_and_interests_content(const StakeholdersAndInterests *self);
 
-// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+// 8.3. Standard Application Software Requirements.
 // Binds a StandardSoftwareRequirements facade to a document and a path (path copied).
 void standard_software_requirements_init(StandardSoftwareRequirements *self, SpecDocument *doc, const char *path);
 void standard_software_requirements_free(StandardSoftwareRequirements *self);
 char *standard_software_requirements_content(const StandardSoftwareRequirements *self);
 void standard_software_requirements_set_content(StandardSoftwareRequirements *self, const char *value);
-// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+// 8.3.1. Compatibility Requirements.
 CompatibilityRequirementsSection standard_software_requirements_compatibility_requirements(const StandardSoftwareRequirements *self);
-// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+// 8.3.2. Standards Compliance.
 StandardsComplianceSection standard_software_requirements_standards_compliance(const StandardSoftwareRequirements *self);
 
-// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+// 8.3.2. Standards Compliance.
 //
 // Required compliance with IT standards, industry protocols, and interface
 // specifications.
@@ -29539,7 +29973,7 @@ CertificationRequirementsSection standards_compliance_section_certification_requ
 // Compliance verification and auditing.
 ComplianceVerificationSection standards_compliance_section_compliance_verification(const StandardsComplianceSection *self);
 
-// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+// 3.1.2. Steering Committee.
 //
 // Container for steering committee member descriptions.
 // Binds a SteeringCommittee facade to a document and a path (path copied).
@@ -29599,7 +30033,7 @@ void storage_lifecycle_policy_set_content(StorageLifecyclePolicy *self, const ch
 // Storage Lifecycle Details (text).
 // (skipped: storageLifecycleDetails has no target type)
 
-// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+// 4.1.1.5. Strategic Alignment.
 //
 // How this system aligns with organizational strategy, goals, and
 // initiatives. Demonstrates strategic justification for the project.
@@ -29611,7 +30045,7 @@ void strategic_alignment_set_content(StrategicAlignment *self, const char *value
 // Strategic Alignment Details (form).
 StrategicAlignmentAlignmentDetailsForm strategic_alignment_alignment_details(const StrategicAlignment *self);
 
-// A sub-function entry (form) [PD00-BUS-FUN-DEC-nn-SUB-nn].
+// A sub-function entry (form).
 //
 // Lower-level function in the decomposition.
 // Binds a SubFunctionEntry facade to a document and a path (path copied).
@@ -29619,7 +30053,7 @@ void sub_function_entry_init(SubFunctionEntry *self, SpecDocument *doc, const ch
 void sub_function_entry_free(SubFunctionEntry *self);
 SubFunctionEntryContentForm sub_function_entry_content(const SubFunctionEntry *self);
 
-// A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
+// A sub-stage or milestone entry (form).
 //
 // Represents a discrete phase within a stage — alpha, beta, release
 // candidate, pilot, GA — or a key milestone. Sub-stages provide finer
@@ -29669,7 +30103,7 @@ void sub_stage_entry_timeline_init(SubStageEntryTimeline *self, SpecDocument *do
 void sub_stage_entry_timeline_free(SubStageEntryTimeline *self);
 SubStageEntryTimelineContentForm sub_stage_entry_timeline_content(const SubStageEntryTimeline *self);
 
-// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+// 4.2.3. Success Criteria.
 //
 // Overall project success criteria that determine whether the project
 // has achieved its objectives. These criteria will be used during
@@ -29731,7 +30165,7 @@ void success_criteria_summary_free(SuccessCriteriaSummary *self);
 char *success_criteria_summary_content(const SuccessCriteriaSummary *self);
 void success_criteria_summary_set_content(SuccessCriteriaSummary *self, const char *value);
 
-// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+// A success criterion entry (form).
 //
 // Individual success criterion with comprehensive measurement details,
 // thresholds, and verification requirements.
@@ -29789,7 +30223,7 @@ void success_criterion_verification_init(SuccessCriterionVerification *self, Spe
 void success_criterion_verification_free(SuccessCriterionVerification *self);
 SuccessCriterionVerificationContentForm success_criterion_verification_content(const SuccessCriterionVerification *self);
 
-// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+// 10.8.3. Support Access.
 // Binds a SupportAccess facade to a document and a path (path copied).
 void support_access_init(SupportAccess *self, SpecDocument *doc, const char *path);
 void support_access_free(SupportAccess *self);
@@ -29837,7 +30271,7 @@ void support_access_tickets_init(SupportAccessTickets *self, SpecDocument *doc, 
 void support_access_tickets_free(SupportAccessTickets *self);
 SupportAccessTicketsContentForm support_access_tickets_content(const SupportAccessTickets *self);
 
-// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+// 14.1.4. Support Deliverables.
 // Binds a SupportDeliverables facade to a document and a path (path copied).
 void support_deliverables_init(SupportDeliverables *self, SpecDocument *doc, const char *path);
 void support_deliverables_free(SupportDeliverables *self);
@@ -29847,7 +30281,7 @@ void support_deliverables_set_content(SupportDeliverables *self, const char *val
 // Returns the list view; element type: DeliverableEntry (construct from item paths).
 SomList support_deliverables_items(const SupportDeliverables *self);
 
-// A supported locale entry [PD00-USE-MUL-LOC-nn].
+// A supported locale entry.
 // Binds a SupportedLocaleEntry facade to a document and a path (path copied).
 void supported_locale_entry_init(SupportedLocaleEntry *self, SpecDocument *doc, const char *path);
 void supported_locale_entry_free(SupportedLocaleEntry *self);
@@ -29869,10 +30303,10 @@ void supported_locale_entry_rollout_init(SupportedLocaleEntryRollout *self, Spec
 void supported_locale_entry_rollout_free(SupportedLocaleEntryRollout *self);
 SupportedLocaleEntryRolloutContentForm supported_locale_entry_rollout_content(const SupportedLocaleEntryRollout *self);
 
-// 8.9. System Architecture [PD00-TEC-ARC].
+// 8.9. System Architecture.
 //
 // Detailed internal architecture (layers, packages, patterns). Covers
-// HBSG AS09-SOF / DR30.
+//
 //
 // Class named `SystemArchitectureSpec` to avoid colliding with any other
 // architecture-related identifier in the model.
@@ -29882,7 +30316,7 @@ void system_architecture_spec_free(SystemArchitectureSpec *self);
 char *system_architecture_spec_content(const SystemArchitectureSpec *self);
 void system_architecture_spec_set_content(SystemArchitectureSpec *self, const char *value);
 
-// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+// 4.5. System Boundaries. Seeds → BSI.
 //
 // Defines the scope boundaries of the system including external interfaces,
 // out-of-scope items, and operating assumptions. This section provides the
@@ -29893,31 +30327,31 @@ void system_boundaries_init(SystemBoundaries *self, SpecDocument *doc, const cha
 void system_boundaries_free(SystemBoundaries *self);
 // Overview of system boundaries and scope definition approach.
 // (skipped: overview has no target type)
-// 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+// 4.5.1. Interfaces to External Systems — contains 0+×.
 ExternalInterfaces system_boundaries_external_interfaces(const SystemBoundaries *self);
-// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
+// 4.5.2. Out of Scope — contains 0+×.
 OutOfScope system_boundaries_out_of_scope(const SystemBoundaries *self);
-// 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
+// 4.5.3. Assumptions — contains 0+×.
 BoundaryAssumptions system_boundaries_assumptions(const SystemBoundaries *self);
-// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV]. Covers BSI-LAN-INV.
+// 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
 SystemLandscapeInventory system_boundaries_system_landscape_inventory(const SystemBoundaries *self);
-// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
+// 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
 // Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
 SomList system_boundaries_boundary_interaction_patterns(const SystemBoundaries *self);
-// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
+// 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
 InteractionTestingStrategy system_boundaries_interaction_testing_strategy(const SystemBoundaries *self);
-// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP]. Covers BSI-DEP.
+// 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
 InteractionDependencyAnalysis system_boundaries_interaction_dependency_analysis(const SystemBoundaries *self);
-// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
+// 4.5.8. Migration Interactions. Covers BSI-MIG.
 // Returns the list view; element type: MigrationInteractions (construct from item paths).
 SomList system_boundaries_migration_interactions(const SystemBoundaries *self);
-// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+// 4.5.9. Cross-Boundary Operational Considerations.
 // Returns the list view; element type: CrossBoundaryOperationalConsiderations (construct from item paths).
 SomList system_boundaries_operational_considerations(const SystemBoundaries *self);
-// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+// 4.5.10. Cross-Boundary Error Handling.
 CrossBoundaryErrorHandling system_boundaries_cross_boundary_error_handling(const SystemBoundaries *self);
 
-// Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS].
+// Business criticality assessment.
 // Binds a SystemBusinessCriticality facade to a document and a path (path copied).
 void system_business_criticality_init(SystemBusinessCriticality *self, SpecDocument *doc, const char *path);
 void system_business_criticality_free(SystemBusinessCriticality *self);
@@ -29945,13 +30379,13 @@ void system_business_criticality_operations_init(SystemBusinessCriticalityOperat
 void system_business_criticality_operations_free(SystemBusinessCriticalityOperations *self);
 SystemBusinessCriticalityOperationsContentForm system_business_criticality_operations_content(const SystemBusinessCriticalityOperations *self);
 
-// Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn].
+// Business process supported.
 // Binds a SystemBusinessProcessEntry facade to a document and a path (path copied).
 void system_business_process_entry_init(SystemBusinessProcessEntry *self, SpecDocument *doc, const char *path);
 void system_business_process_entry_free(SystemBusinessProcessEntry *self);
 SystemBusinessProcessEntryContentForm system_business_process_entry_content(const SystemBusinessProcessEntry *self);
 
-// Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn].
+// Business unit using the system.
 // Binds a SystemBusinessUnitEntry facade to a document and a path (path copied).
 void system_business_unit_entry_init(SystemBusinessUnitEntry *self, SpecDocument *doc, const char *path);
 void system_business_unit_entry_free(SystemBusinessUnitEntry *self);
@@ -29987,7 +30421,7 @@ void system_configuration_management_governance_init(SystemConfigurationManageme
 void system_configuration_management_governance_free(SystemConfigurationManagementGovernance *self);
 SystemConfigurationManagementGovernanceContentForm system_configuration_management_governance_content(const SystemConfigurationManagementGovernance *self);
 
-// 4.1.2. System Context [PD00-SYO-SYD-CON].
+// 4.1.2. System Context.
 //
 // Describes the system in its operational context: how it fits within the
 // organization's IT landscape, who interacts with it, and what external
@@ -29997,24 +30431,24 @@ void system_context_init(SystemContext *self, SpecDocument *doc, const char *pat
 void system_context_free(SystemContext *self);
 char *system_context_content(const SystemContext *self);
 void system_context_set_content(SystemContext *self, const char *value);
-// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+// 4.1.2.1. Context Diagram.
 ContextDiagram system_context_context_diagram(const SystemContext *self);
-// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+// 4.1.2.2. IT Landscape Position.
 ItLandscapePosition system_context_it_landscape_position(const SystemContext *self);
-// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+// 4.1.2.3. External Actors.
 ExternalActors system_context_external_actors(const SystemContext *self);
-// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+// 4.1.2.4. External Systems.
 ExternalSystemsContext system_context_external_systems(const SystemContext *self);
-// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+// 4.1.2.5. Trust Boundaries.
 TrustBoundaries system_context_trust_boundaries(const SystemContext *self);
-// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+// 4.1.2.6. Organizational Context.
 OrganizationalContext system_context_organizational_context(const SystemContext *self);
-// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+// 4.1.2.7. Deployment Context.
 DeploymentContext system_context_deployment_context(const SystemContext *self);
-// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+// 4.1.2.8. Regulatory Context.
 RegulatoryContext system_context_regulatory_context(const SystemContext *self);
 
-// Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST].
+// Cost analysis for replacement.
 // Binds a SystemCostAnalysis facade to a document and a path (path copied).
 void system_cost_analysis_init(SystemCostAnalysis *self, SpecDocument *doc, const char *path);
 void system_cost_analysis_free(SystemCostAnalysis *self);
@@ -30049,7 +30483,7 @@ void system_cost_analysis_migration_init(SystemCostAnalysisMigration *self, Spec
 void system_cost_analysis_migration_free(SystemCostAnalysisMigration *self);
 SystemCostAnalysisMigrationContentForm system_cost_analysis_migration_content(const SystemCostAnalysisMigration *self);
 
-// Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT].
+// Data scope and migration assessment.
 // Binds a SystemDataScope facade to a document and a path (path copied).
 void system_data_scope_init(SystemDataScope *self, SpecDocument *doc, const char *path);
 void system_data_scope_free(SystemDataScope *self);
@@ -30077,7 +30511,7 @@ void system_data_scope_migration_init(SystemDataScopeMigration *self, SpecDocume
 void system_data_scope_migration_free(SystemDataScopeMigration *self);
 SystemDataScopeMigrationContentForm system_data_scope_migration_content(const SystemDataScopeMigration *self);
 
-// A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+// A system dependency entry (form).
 //
 // Documents one dependency between systems in the current landscape:
 // mechanism, coupling strength, data flow, failure impact, SLA,
@@ -30121,7 +30555,7 @@ void system_dependency_entry_reliability_init(SystemDependencyEntryReliability *
 void system_dependency_entry_reliability_free(SystemDependencyEntryReliability *self);
 SystemDependencyEntryReliabilityContentForm system_dependency_entry_reliability_content(const SystemDependencyEntryReliability *self);
 
-// 4.1. System Description [PD00-SYO-SYD].
+// 4.1. System Description.
 //
 // Concise description of the system to be created, its primary purpose,
 // and the business domain it addresses. This section provides the
@@ -30133,16 +30567,16 @@ char *system_description_content(const SystemDescription *self);
 void system_description_set_content(SystemDescription *self, const char *value);
 // System description summary.
 SystemDescriptionSummary system_description_description_summary(const SystemDescription *self);
-// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+// 4.1.1. System Purpose.
 SystemPurpose system_description_system_purpose(const SystemDescription *self);
-// 4.1.2. System Context [PD00-SYO-SYD-CON].
+// 4.1.2. System Context.
 SystemContext system_description_system_context(const SystemDescription *self);
-// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+// 4.1.3. Description of Task Area.
 TaskArea system_description_task_area(const SystemDescription *self);
-// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+// 4.1.4. User Categories — contains 1+× User Category.
 // Returns the list view; element type: UserCategoryEntry (construct from item paths).
 SomList system_description_user_categories(const SystemDescription *self);
-// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+// 4.1.5. User Interaction Model.
 UserInteractionModel system_description_user_interaction_model(const SystemDescription *self);
 
 // Summary statistics and classification for system description.
@@ -30186,7 +30620,7 @@ void system_diagnostic_tools_tracing_init(SystemDiagnosticToolsTracing *self, Sp
 void system_diagnostic_tools_tracing_free(SystemDiagnosticToolsTracing *self);
 SystemDiagnosticToolsTracingContentForm system_diagnostic_tools_tracing_content(const SystemDiagnosticToolsTracing *self);
 
-// A system error code entry [PD00-USE-ERR-SYS-CODE-nn].
+// A system error code entry.
 // Binds a SystemErrorCodeEntry facade to a document and a path (path copied).
 void system_error_code_entry_init(SystemErrorCodeEntry *self, SpecDocument *doc, const char *path);
 void system_error_code_entry_free(SystemErrorCodeEntry *self);
@@ -30208,7 +30642,7 @@ void system_error_code_entry_operations_init(SystemErrorCodeEntryOperations *sel
 void system_error_code_entry_operations_free(SystemErrorCodeEntryOperations *self);
 SystemErrorCodeEntryOperationsContentForm system_error_code_entry_operations_content(const SystemErrorCodeEntryOperations *self);
 
-// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+// 10.7.2. System Error Display.
 //
 // System error presentation including server errors, network issues,
 // and timeouts.
@@ -30263,7 +30697,7 @@ void system_integration_data_exchange_init(SystemIntegrationDataExchange *self, 
 void system_integration_data_exchange_free(SystemIntegrationDataExchange *self);
 SystemIntegrationDataExchangeContentForm system_integration_data_exchange_content(const SystemIntegrationDataExchange *self);
 
-// A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+// A system integration entry (form).
 //
 // Documents one integration between systems: type, pattern, protocol,
 // data format, throughput, error handling, monitoring, security,
@@ -30317,7 +30751,7 @@ void system_integration_throughput_init(SystemIntegrationThroughput *self, SpecD
 void system_integration_throughput_free(SystemIntegrationThroughput *self);
 SystemIntegrationThroughputContentForm system_integration_throughput_content(const SystemIntegrationThroughput *self);
 
-// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+// 1.1.1. System Inventory.
 //
 // Container for individual system descriptions. Add one entry per existing
 // system relevant to the project scope.
@@ -30326,11 +30760,11 @@ void system_inventory_init(SystemInventory *self, SpecDocument *doc, const char 
 void system_inventory_free(SystemInventory *self);
 char *system_inventory_content(const SystemInventory *self);
 void system_inventory_set_content(SystemInventory *self, const char *value);
-// Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
+// Contains 1+× Existing System.
 // Returns the list view; element type: ExistingSystemEntry (construct from item paths).
 SomList system_inventory_systems(const SystemInventory *self);
 
-// Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW].
+// Knowledge transfer status.
 // Binds a SystemKnowledgeTransfer facade to a document and a path (path copied).
 void system_knowledge_transfer_init(SystemKnowledgeTransfer *self, SpecDocument *doc, const char *path);
 void system_knowledge_transfer_free(SystemKnowledgeTransfer *self);
@@ -30341,7 +30775,7 @@ SomList system_knowledge_transfer_critical_knowledge_areas(const SystemKnowledge
 // Knowledge transfer plan if SME risk is high.
 // (skipped: knowledgeTransferPlan has no target type)
 
-// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV].
+// 4.5.4. System Landscape Inventory.
 //
 // Complete external-system inventory covering BSI-LAN-INV content.
 // Binds a SystemLandscapeInventory facade to a document and a path (path copied).
@@ -30350,7 +30784,7 @@ void system_landscape_inventory_free(SystemLandscapeInventory *self);
 char *system_landscape_inventory_content(const SystemLandscapeInventory *self);
 void system_landscape_inventory_set_content(SystemLandscapeInventory *self, const char *value);
 
-// Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG].
+// Per-system migration plan.
 // Binds a SystemMigrationPlan facade to a document and a path (path copied).
 void system_migration_plan_init(SystemMigrationPlan *self, SpecDocument *doc, const char *path);
 void system_migration_plan_free(SystemMigrationPlan *self);
@@ -30379,66 +30813,36 @@ void system_migration_plan_execution_init(SystemMigrationPlanExecution *self, Sp
 void system_migration_plan_execution_free(SystemMigrationPlanExecution *self);
 SystemMigrationPlanExecutionContentForm system_migration_plan_execution_content(const SystemMigrationPlanExecution *self);
 
-// A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn].
+// A system migration risk entry.
 // Binds a SystemMigrationRiskEntry facade to a document and a path (path copied).
 void system_migration_risk_entry_init(SystemMigrationRiskEntry *self, SpecDocument *doc, const char *path);
 void system_migration_risk_entry_free(SystemMigrationRiskEntry *self);
 SystemMigrationRiskEntryContentForm system_migration_risk_entry_content(const SystemMigrationRiskEntry *self);
 
-// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+// 8.7.1. System Operation.
 // Binds a SystemOperation facade to a document and a path (path copied).
 void system_operation_init(SystemOperation *self, SpecDocument *doc, const char *path);
 void system_operation_free(SystemOperation *self);
 char *system_operation_content(const SystemOperation *self);
 void system_operation_set_content(SystemOperation *self, const char *value);
-// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+// 8.7.1.1. Administration Requirements.
 AdministrationRequirementsSection system_operation_administration_requirements(const SystemOperation *self);
 // Maintenance Procedures.
 // Returns the list view; element type: MaintenanceProcedureEntry (construct from item paths).
 SomList system_operation_maintenance_procedures(const SystemOperation *self);
 
-// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+// 8.7. System Operation and Monitoring.
 // Binds a SystemOperationAndMonitoring facade to a document and a path (path copied).
 void system_operation_and_monitoring_init(SystemOperationAndMonitoring *self, SpecDocument *doc, const char *path);
 void system_operation_and_monitoring_free(SystemOperationAndMonitoring *self);
 char *system_operation_and_monitoring_content(const SystemOperationAndMonitoring *self);
 void system_operation_and_monitoring_set_content(SystemOperationAndMonitoring *self, const char *value);
-// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+// 8.7.1. System Operation.
 SystemOperation system_operation_and_monitoring_system_operation(const SystemOperationAndMonitoring *self);
-// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+// 8.7.2. Monitoring.
 Monitoring system_operation_and_monitoring_monitoring(const SystemOperationAndMonitoring *self);
-// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+// 8.7.3. Capacity Planning.
 CapacityPlanningSection system_operation_and_monitoring_capacity_planning(const SystemOperationAndMonitoring *self);
-
-// 4. System Overview [PD00-SYO].
-//
-// High-level overview of the system to be built: its purpose, goals,
-// scope boundaries, and the environment it operates in. This section
-// establishes the foundation for all subsequent specification work.
-// Binds a SystemOverview facade to a document and a path (path copied).
-void system_overview_init(SystemOverview *self, SpecDocument *doc, const char *path);
-void system_overview_free(SystemOverview *self);
-char *system_overview_content(const SystemOverview *self);
-void system_overview_set_content(SystemOverview *self, const char *value);
-// System overview summary statistics.
-SystemOverviewSummary system_overview_summary(const SystemOverview *self);
-// System context diagram showing major system boundaries.
-char *system_overview_system_context_diagram(const SystemOverview *self);
-void system_overview_set_system_context_diagram(SystemOverview *self, const char *value);
-// 4.1. System Description [PD00-SYO-SYD].
-SystemDescription system_overview_system_description(const SystemOverview *self);
-// 4.2. Goals [PD00-SYO-GOA].
-Goals system_overview_goals(const SystemOverview *self);
-// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
-RequirementsOverview system_overview_requirements(const SystemOverview *self);
-// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
-SystemsToReplace system_overview_systems_to_replace(const SystemOverview *self);
-// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
-SystemBoundaries system_overview_system_boundaries(const SystemOverview *self);
-// 4.6. Framework Conditions [PD00-SYO-RES].
-FrameworkConditions system_overview_framework_conditions(const SystemOverview *self);
-// 4.7. Risks and Assumptions [PD00-SYO-RIS].
-RisksAndAssumptions system_overview_risks_and_assumptions(const SystemOverview *self);
 
 // System overview summary for quick reference.
 // Binds a SystemOverviewSummary facade to a document and a path (path copied).
@@ -30478,7 +30882,7 @@ void system_overview_summary_status_init(SystemOverviewSummaryStatus *self, Spec
 void system_overview_summary_status_free(SystemOverviewSummaryStatus *self);
 SystemOverviewSummaryStatusContentForm system_overview_summary_status_content(const SystemOverviewSummaryStatus *self);
 
-// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+// 4.1.1. System Purpose.
 //
 // Describes the overarching purpose of the system including the problem it
 // solves, the opportunity it enables, and who the primary beneficiaries are.
@@ -30488,23 +30892,23 @@ void system_purpose_init(SystemPurpose *self, SpecDocument *doc, const char *pat
 void system_purpose_free(SystemPurpose *self);
 char *system_purpose_content(const SystemPurpose *self);
 void system_purpose_set_content(SystemPurpose *self, const char *value);
-// Vision Statement [PD00-SYO-SYD-PUR-VIS].
+// Vision Statement.
 char *system_purpose_vision_statement(const SystemPurpose *self);
 void system_purpose_set_vision_statement(SystemPurpose *self, const char *value);
-// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+// 4.1.1.1. Problem Statement.
 ProblemStatement system_purpose_problem_statement(const SystemPurpose *self);
-// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+// 4.1.1.2. Opportunity Statement.
 OpportunityStatement system_purpose_opportunity_statement(const SystemPurpose *self);
-// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+// 4.1.1.3. Stakeholders and Beneficiaries.
 StakeholdersAndBeneficiaries system_purpose_stakeholders(const SystemPurpose *self);
-// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+// 4.1.1.4. Value Proposition.
 ValueProposition system_purpose_value_proposition(const SystemPurpose *self);
-// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+// 4.1.1.5. Strategic Alignment.
 StrategicAlignment system_purpose_strategic_alignment(const SystemPurpose *self);
-// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+// 4.1.1.6. Scope Boundaries.
 ScopeBoundaries system_purpose_scope_boundaries(const SystemPurpose *self);
 
-// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+// 11. System Quality Goals. Seeds → BQP.
 //
 // Quality goals selected from standard quality criteria and operationalized
 // for project-specific acceptance testing. Provides governing structure for
@@ -30534,21 +30938,21 @@ SystemQualityGoalsResources system_quality_goals_resources(const SystemQualityGo
 SomList system_quality_goals_attribute_interdependencies(const SystemQualityGoals *self);
 // Quality attribute priority radar.
 // (skipped: qualityRadar has no target type)
-// 11.1. Quality Framework [PD00-SYQ-FRA].
+// 11.1. Quality Framework.
 QualityFramework system_quality_goals_framework(const SystemQualityGoals *self);
-// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+// 11.2. User-Related Quality Criteria.
 UserQualityCriteria system_quality_goals_user_quality(const SystemQualityGoals *self);
-// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+// 11.3. Technical Quality Criteria.
 TechnicalQualityCriteria system_quality_goals_technical_quality(const SystemQualityGoals *self);
-// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+// 11.4. Operations Quality Criteria.
 OperationsQualityCriteria system_quality_goals_operations_quality(const SystemQualityGoals *self);
-// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+// 11.5. Documentation Quality Criteria.
 DocumentationQualityCriteria system_quality_goals_documentation_quality(const SystemQualityGoals *self);
-// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+// 11.6. Quality Prioritization.
 QualityPrioritization system_quality_goals_prioritization(const SystemQualityGoals *self);
-// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+// 11.7. Acceptance Criteria Summary.
 AcceptanceCriteriaSummary system_quality_goals_acceptance_criteria(const SystemQualityGoals *self);
-// 11.8. Test Strategy [PD00-SYQ-TST]. Covers HBSG AS23.
+// 11.8. Test Strategy..
 TestStrategy system_quality_goals_test_strategy(const SystemQualityGoals *self);
 
 // Baseline and target settings.
@@ -30575,7 +30979,7 @@ void system_quality_goals_resources_init(SystemQualityGoalsResources *self, Spec
 void system_quality_goals_resources_free(SystemQualityGoalsResources *self);
 SystemQualityGoalsResourcesContentForm system_quality_goals_resources_content(const SystemQualityGoalsResources *self);
 
-// Replacement strategy details [PD00-SYO-SYR-INV-nn-STR].
+// Replacement strategy details.
 // Binds a SystemReplacementStrategy facade to a document and a path (path copied).
 void system_replacement_strategy_init(SystemReplacementStrategy *self, SpecDocument *doc, const char *path);
 void system_replacement_strategy_free(SystemReplacementStrategy *self);
@@ -30605,76 +31009,33 @@ void system_replacement_strategy_timeline_init(SystemReplacementStrategyTimeline
 void system_replacement_strategy_timeline_free(SystemReplacementStrategyTimeline *self);
 SystemReplacementStrategyTimelineContentForm system_replacement_strategy_timeline_content(const SystemReplacementStrategyTimeline *self);
 
-// SR00 System Rollout.
-//
-// End-to-end rollout specification — localization, translation,
-// documentation and training, plus rollout plan, migration plan,
-// user manuals, training materials, pilot, cutover, knowledge
-// transfer, and warranty/support.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int system_rollout_new(SystemRollout *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *system_rollout_object_model_version(const SystemRollout *self);
-void system_rollout_free(SystemRollout *self);
-char *system_rollout_content(const SystemRollout *self);
-void system_rollout_set_content(SystemRollout *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader system_rollout_header(const SystemRollout *self);
-// Localization process — PD00-USE-MUL-LOC.
-LocalizationProcess system_rollout_localization_process(const SystemRollout *self);
-// Translation process — PD00-USE-MUL-TRA.
-TranslationProcess system_rollout_translation_process(const SystemRollout *self);
-// Documentation and training — PD00-USE-MUL-DOC.
-DocumentationAndTraining system_rollout_documentation_and_training(const SystemRollout *self);
-// Rollout plan — PD00-ROL-PLN.
-RolloutPlan system_rollout_rollout_plan(const SystemRollout *self);
-// Migration plan — PD00-ROL-MIG.
-MigrationPlan system_rollout_migration_plan(const SystemRollout *self);
-// User manuals — PD00-ROL-DOC.
-// Returns the list view; element type: UserManuals (construct from item paths).
-SomList system_rollout_user_manuals(const SystemRollout *self);
-// Training materials — PD00-ROL-TRN.
-// Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
-SomList system_rollout_training_materials(const SystemRollout *self);
-// Pilot plan — PD00-ROL-PIL.
-PilotPlan system_rollout_pilot_plan(const SystemRollout *self);
-// Cutover procedures — PD00-ROL-CUT.
-// Returns the list view; element type: CutoverProcedures (construct from item paths).
-SomList system_rollout_cutover_procedures(const SystemRollout *self);
-// Knowledge transfer — PD00-ROL-KNO.
-KnowledgeTransfer system_rollout_knowledge_transfer(const SystemRollout *self);
-// Warranty and support — PD00-ROL-WAR.
-WarrantyAndSupport system_rollout_warranty_and_support(const SystemRollout *self);
-
-// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
+// 15. System Rollout Concept. Seeds → SR.
 // Binds a SystemRolloutConcept facade to a document and a path (path copied).
 void system_rollout_concept_init(SystemRolloutConcept *self, SpecDocument *doc, const char *path);
 void system_rollout_concept_free(SystemRolloutConcept *self);
 char *system_rollout_concept_content(const SystemRolloutConcept *self);
 void system_rollout_concept_set_content(SystemRolloutConcept *self, const char *value);
-// 15.1. Rollout Plan [PD00-ROL-PLN].
+// 15.1. Rollout Plan.
 RolloutPlan system_rollout_concept_rollout_plan(const SystemRolloutConcept *self);
-// 15.2. Migration Plan [PD00-ROL-MIG].
+// 15.2. Migration Plan.
 MigrationPlan system_rollout_concept_migration_plan(const SystemRolloutConcept *self);
-// 15.3. User Manuals [PD00-ROL-DOC].
+// 15.3. User Manuals.
 // Returns the list view; element type: UserManuals (construct from item paths).
 SomList system_rollout_concept_user_manuals(const SystemRolloutConcept *self);
-// 15.4. Training Materials [PD00-ROL-TRN].
+// 15.4. Training Materials.
 // Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
 SomList system_rollout_concept_training_materials(const SystemRolloutConcept *self);
-// 15.5. Pilot Plan [PD00-ROL-PIL].
+// 15.5. Pilot Plan.
 PilotPlan system_rollout_concept_pilot_plan(const SystemRolloutConcept *self);
-// 15.6. Cutover Procedures [PD00-ROL-CUT].
+// 15.6. Cutover Procedures.
 // Returns the list view; element type: CutoverProcedures (construct from item paths).
 SomList system_rollout_concept_cutover_procedures(const SystemRolloutConcept *self);
-// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+// 15.7. Knowledge Transfer.
 KnowledgeTransfer system_rollout_concept_knowledge_transfer(const SystemRolloutConcept *self);
-// 15.8. Warranty and Support [PD00-ROL-WAR].
+// 15.8. Warranty and Support.
 WarrantyAndSupport system_rollout_concept_warranty_and_support(const SystemRolloutConcept *self);
 
-// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+// 13. System Stage Plan. Seeds → PPP.
 //
 // Define the overall staging strategy for the system rollout. A stage
 // is a meaningful, self-contained subset of the complete system that
@@ -30692,22 +31053,22 @@ SystemStagePlanTimeline system_stage_plan_timeline(const SystemStagePlan *self);
 SystemStagePlanCoordination system_stage_plan_coordination(const SystemStagePlan *self);
 // Organizational capacity and plan confidence.
 SystemStagePlanReadiness system_stage_plan_readiness(const SystemStagePlan *self);
-// 13.1. Staging Strategy [PD00-SSP-STR].
+// 13.1. Staging Strategy.
 StagingStrategy system_stage_plan_strategy(const SystemStagePlan *self);
-// 13.2. Stage Overview [PD00-SSP-STA].
+// 13.2. Stage Overview.
 StageOverview system_stage_plan_stage_overview(const SystemStagePlan *self);
-// 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
+// 13.3. Stages — contains 1+× Stage.
 // Returns the list view; element type: StageEntry (construct from item paths).
 SomList system_stage_plan_stages(const SystemStagePlan *self);
-// 13.4. Feature Prioritization [PD00-SSP-FEA].
+// 13.4. Feature Prioritization.
 FeaturePrioritization system_stage_plan_feature_prioritization(const SystemStagePlan *self);
-// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+// 13.5. Data Migration Strategy.
 DataMigrationStrategy system_stage_plan_data_migration(const SystemStagePlan *self);
-// 13.6. Governance [PD00-SSP-GOV].
+// 13.6. Governance.
 StageGovernance system_stage_plan_governance(const SystemStagePlan *self);
-// 13.7. Initial Development Flow [PD00-SSP-IDV]. Covers PPP-IDV.
+// 13.7. Initial Development Flow. Covers PPP-IDV.
 InitialDevelopmentFlow system_stage_plan_initial_development_flow(const SystemStagePlan *self);
-// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG]. Covers PPP-UPG.
+// 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
 UpgradeCycleFramework system_stage_plan_upgrade_cycle_framework(const SystemStagePlan *self);
 
 // Dependencies, risks, and compliance constraints across stages.
@@ -30728,7 +31089,7 @@ void system_stage_plan_timeline_init(SystemStagePlanTimeline *self, SpecDocument
 void system_stage_plan_timeline_free(SystemStagePlanTimeline *self);
 SystemStagePlanTimelineContentForm system_stage_plan_timeline_content(const SystemStagePlanTimeline *self);
 
-// A system task entry [PD00-SYO-SYD-USR-nn-TSK-mm].
+// A system task entry.
 //
 // Describes one activity this user category performs with the system.
 // Tasks map to Use Cases in the UC document.
@@ -30776,7 +31137,7 @@ void system_task_workflow_step_entry_free(SystemTaskWorkflowStepEntry *self);
 char *system_task_workflow_step_entry_content(const SystemTaskWorkflowStepEntry *self);
 void system_task_workflow_step_entry_set_content(SystemTaskWorkflowStepEntry *self, const char *value);
 
-// Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC].
+// Technical assessment for a system to replace.
 // Binds a SystemTechnicalAssessment facade to a document and a path (path copied).
 void system_technical_assessment_init(SystemTechnicalAssessment *self, SpecDocument *doc, const char *path);
 void system_technical_assessment_free(SystemTechnicalAssessment *self);
@@ -30812,7 +31173,7 @@ void system_technical_assessment_quality_init(SystemTechnicalAssessmentQuality *
 void system_technical_assessment_quality_free(SystemTechnicalAssessmentQuality *self);
 SystemTechnicalAssessmentQualityContentForm system_technical_assessment_quality_content(const SystemTechnicalAssessmentQuality *self);
 
-// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+// A system to replace entry (form).
 //
 // Comprehensive documentation of a legacy system to be replaced, covering
 // technical assessment, business criticality, replacement strategy, and
@@ -30858,7 +31219,7 @@ void system_to_replace_entry_vendor_init(SystemToReplaceEntryVendor *self, SpecD
 void system_to_replace_entry_vendor_free(SystemToReplaceEntryVendor *self);
 SystemToReplaceEntryVendorContentForm system_to_replace_entry_vendor_content(const SystemToReplaceEntryVendor *self);
 
-// System training entry (form) [PD00-ORG-WOR-nn-TRA-SYS-nn].
+// System training entry (form).
 // Binds a SystemTrainingEntry facade to a document and a path (path copied).
 void system_training_entry_init(SystemTrainingEntry *self, SpecDocument *doc, const char *path);
 void system_training_entry_free(SystemTrainingEntry *self);
@@ -30888,7 +31249,7 @@ void system_training_entry_support_init(SystemTrainingEntrySupport *self, SpecDo
 void system_training_entry_support_free(SystemTrainingEntrySupport *self);
 SystemTrainingEntrySupportContentForm system_training_entry_support_content(const SystemTrainingEntrySupport *self);
 
-// User impact assessment [PD00-SYO-SYR-INV-nn-USR].
+// User impact assessment.
 // Binds a SystemUserImpact facade to a document and a path (path copied).
 void system_user_impact_init(SystemUserImpact *self, SpecDocument *doc, const char *path);
 void system_user_impact_free(SystemUserImpact *self);
@@ -30921,7 +31282,7 @@ void system_user_impact_enablement_init(SystemUserImpactEnablement *self, SpecDo
 void system_user_impact_enablement_free(SystemUserImpactEnablement *self);
 SystemUserImpactEnablementContentForm system_user_impact_enablement_content(const SystemUserImpactEnablement *self);
 
-// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+// 4.4. Systems to Replace. Seeds → CS.
 //
 // Documents existing systems that will be replaced, migrated, or decommissioned
 // as part of the project. Follows TOGAF migration planning patterns and
@@ -30932,12 +31293,12 @@ void systems_to_replace_init(SystemsToReplace *self, SpecDocument *doc, const ch
 void systems_to_replace_free(SystemsToReplace *self);
 // Overview of the systems replacement scope and strategy.
 // (skipped: overview has no target type)
-// 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+// 4.4.1. Replacement Inventory — contains 0+×.
 ReplacementInventory systems_to_replace_replacement_inventory(const SystemsToReplace *self);
-// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+// 4.4.2. Migration Considerations.
 MigrationConsiderations systems_to_replace_migration_considerations(const SystemsToReplace *self);
 
-// A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
+// A tab bar definition entry (form).
 //
 // Defines a tab bar or segmented control on a specific screen.
 // Binds a TabBarDefinitionEntry facade to a document and a path (path copied).
@@ -30964,22 +31325,74 @@ void tab_bar_definition_entry_loading_init(TabBarDefinitionEntryLoading *self, S
 void tab_bar_definition_entry_loading_free(TabBarDefinitionEntryLoading *self);
 TabBarDefinitionEntryLoadingContentForm tab_bar_definition_entry_loading_content(const TabBarDefinitionEntryLoading *self);
 
-// A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
+// A tab item entry (form).
 // Binds a TabItemEntry facade to a document and a path (path copied).
 void tab_item_entry_init(TabItemEntry *self, SpecDocument *doc, const char *path);
 void tab_item_entry_free(TabItemEntry *self);
 TabItemEntryContentForm tab_item_entry_content(const TabItemEntry *self);
 
-// 6. Target Business Process Model [PD00-TAR].
+// 6. Target Business Process Model.
 // Binds a TargetBusinessProcessModel facade to a document and a path (path copied).
 void target_business_process_model_init(TargetBusinessProcessModel *self, SpecDocument *doc, const char *path);
 void target_business_process_model_free(TargetBusinessProcessModel *self);
 char *target_business_process_model_content(const TargetBusinessProcessModel *self);
 void target_business_process_model_set_content(TargetBusinessProcessModel *self, const char *value);
-// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
+// 6.1. Business Process Descriptions. Seeds → BP.
 BusinessProcessDescriptions target_business_process_model_business_process_descriptions(const TargetBusinessProcessModel *self);
-// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → UC.
 ProcessStepsAndActorInteractions target_business_process_model_process_steps_and_actor_interactions(const TargetBusinessProcessModel *self);
+
+// BP00 Business Processes.
+//
+// Target business process specification — vision, principles, catalog,
+// diagrams, improvements, relationships, detailed workflows,
+// cross-process analysis, exception handling, and KPIs.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int target_operating_model_new(TargetOperatingModel *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *target_operating_model_object_model_version(const TargetOperatingModel *self);
+void target_operating_model_free(TargetOperatingModel *self);
+char *target_operating_model_content(const TargetOperatingModel *self);
+void target_operating_model_set_content(TargetOperatingModel *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader target_operating_model_header(const TargetOperatingModel *self);
+// Process vision.
+ProcessVision target_operating_model_process_vision(const TargetOperatingModel *self);
+// Design principles.
+ProcessDesignPrinciples target_operating_model_design_principles(const TargetOperatingModel *self);
+// Process catalog.
+ProcessCatalog target_operating_model_process_catalog(const TargetOperatingModel *self);
+// Process overview diagram.
+ProcessOverviewDiagram target_operating_model_process_overview_diagram(const TargetOperatingModel *self);
+// Improvement summary.
+ProcessImprovementSummary target_operating_model_improvement_summary(const TargetOperatingModel *self);
+// Process relationships.
+ProcessRelationships target_operating_model_process_relationships(const TargetOperatingModel *self);
+// Detailed process workflows.
+// Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
+SomList target_operating_model_detailed_workflows(const TargetOperatingModel *self);
+// Cross-process analysis.
+CrossProcessAnalysis target_operating_model_cross_process_analysis(const TargetOperatingModel *self);
+// Process exception handling.
+ProcessExceptionHandling target_operating_model_exception_handling(const TargetOperatingModel *self);
+// Process metrics and KPIs.
+// Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
+SomList target_operating_model_process_metrics_and_kpis(const TargetOperatingModel *self);
+
+// SBP.7 Target Operating Model concept.
+//
+// Public anchor: BABOK future-state analysis.
+// Binds a TargetOperatingModelConcept facade to a document and a path (path copied).
+void target_operating_model_concept_init(TargetOperatingModelConcept *self, SpecDocument *doc, const char *path);
+void target_operating_model_concept_free(TargetOperatingModelConcept *self);
+char *target_operating_model_concept_content(const TargetOperatingModelConcept *self);
+void target_operating_model_concept_set_content(TargetOperatingModelConcept *self, const char *value);
+// Target organizational structure and roles.
+OrganizationalFramework target_operating_model_concept_organizational_framework(const TargetOperatingModelConcept *self);
+// Target business process model.
+TargetBusinessProcessModel target_operating_model_concept_target_business_process(const TargetOperatingModelConcept *self);
 
 // Target platform entry (operating system, runtime, container).
 // Binds a TargetPlatformEntry facade to a document and a path (path copied).
@@ -31019,7 +31432,7 @@ void target_platform_entry_version_init(TargetPlatformEntryVersion *self, SpecDo
 void target_platform_entry_version_free(TargetPlatformEntryVersion *self);
 TargetPlatformEntryVersionContentForm target_platform_entry_version_content(const TargetPlatformEntryVersion *self);
 
-// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+// 4.1.3. Description of Task Area.
 //
 // Describes the business domain and task area the system addresses.
 // Defines the domain vocabulary and key concepts (ubiquitous language)
@@ -31030,19 +31443,19 @@ void task_area_init(TaskArea *self, SpecDocument *doc, const char *path);
 void task_area_free(TaskArea *self);
 char *task_area_content(const TaskArea *self);
 void task_area_set_content(TaskArea *self, const char *value);
-// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+// 4.1.3.1. Domain Overview.
 DomainOverview task_area_domain_overview(const TaskArea *self);
-// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+// 4.1.3.2. Domain Vocabulary.
 DomainVocabulary task_area_domain_vocabulary(const TaskArea *self);
-// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+// 4.1.3.3. Key Concepts.
 KeyConcepts task_area_key_concepts(const TaskArea *self);
-// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+// 4.1.3.4. Domain Boundaries.
 DomainBoundaries task_area_domain_boundaries(const TaskArea *self);
-// 4.1.3.5. Business Rules [PD00-SYO-SYD-DES-RUL].
+// 4.1.3.5. Business Rules.
 DomainBusinessRules task_area_business_rules(const TaskArea *self);
-// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+// 4.1.3.6. Domain Processes.
 DomainProcesses task_area_domain_processes(const TaskArea *self);
-// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+// 4.1.3.7. Domain Events.
 DomainEvents task_area_domain_events(const TaskArea *self);
 
 // Team member availability constraints.
@@ -31051,7 +31464,7 @@ void team_member_availability_init(TeamMemberAvailability *self, SpecDocument *d
 void team_member_availability_free(TeamMemberAvailability *self);
 TeamMemberAvailabilityContentForm team_member_availability_content(const TeamMemberAvailability *self);
 
-// A team member entry [PD00-ADM-TEA-nn] (form).
+// A team member entry (form).
 //
 // Detailed information about a project team member including their role,
 // responsibilities, availability, and competencies.
@@ -31138,32 +31551,32 @@ void technical_dependency_entry_init(TechnicalDependencyEntry *self, SpecDocumen
 void technical_dependency_entry_free(TechnicalDependencyEntry *self);
 TechnicalDependencyEntryContentForm technical_dependency_entry_content(const TechnicalDependencyEntry *self);
 
-// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+// 8. Technical Framework Concept. Seeds → TR.
 // Binds a TechnicalFrameworkConcept facade to a document and a path (path copied).
 void technical_framework_concept_init(TechnicalFrameworkConcept *self, SpecDocument *doc, const char *path);
 void technical_framework_concept_free(TechnicalFrameworkConcept *self);
 char *technical_framework_concept_content(const TechnicalFrameworkConcept *self);
 void technical_framework_concept_set_content(TechnicalFrameworkConcept *self, const char *value);
-// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+// 8.1. Basic Technical Requirements.
 BasicTechnicalRequirements technical_framework_concept_basic_requirements(const TechnicalFrameworkConcept *self);
-// 8.2. Software Design Requirements [PD00-TEC-SOF].
+// 8.2. Software Design Requirements.
 SoftwareDesignRequirements technical_framework_concept_software_design(const TechnicalFrameworkConcept *self);
-// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+// 8.3. Standard Application Software Requirements.
 StandardSoftwareRequirements technical_framework_concept_standard_software(const TechnicalFrameworkConcept *self);
-// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+// 8.4. Hardware Concept Requirements.
 HardwareRequirements technical_framework_concept_hardware(const TechnicalFrameworkConcept *self);
-// 8.5. Operations Requirements [PD00-TEC-OPE].
+// 8.5. Operations Requirements.
 OperationsRequirements technical_framework_concept_operations(const TechnicalFrameworkConcept *self);
-// 8.6. Communication Requirements [PD00-TEC-COM].
+// 8.6. Communication Requirements.
 CommunicationRequirements technical_framework_concept_communication(const TechnicalFrameworkConcept *self);
-// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+// 8.7. System Operation and Monitoring.
 SystemOperationAndMonitoring technical_framework_concept_system_operation(const TechnicalFrameworkConcept *self);
-// 8.8. Security Requirements [PD00-TEC-SEC].
+// 8.8. Security Requirements.
 TechnicalSecurityRequirements technical_framework_concept_security(const TechnicalFrameworkConcept *self);
-// 8.9. System Architecture [PD00-TEC-ARC]. Covers HBSG AS09-SOF / DR30.
+// 8.9. System Architecture..
 SystemArchitectureSpec technical_framework_concept_system_architecture(const TechnicalFrameworkConcept *self);
 
-// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → TR.
 //
 // Documents pre-existing technical constraints including mandated platforms,
 // network restrictions, compliance requirements, existing infrastructure
@@ -31191,12 +31604,12 @@ SomList technical_framework_conditions_datacenters(const TechnicalFrameworkCondi
 // (skipped: networkTopology has no target type)
 // Technology standards that must be followed.
 // (skipped: standardsOverview has no target type)
-// Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
+// Technology standards — contains 0+× TechnologyStandard.
 // Returns the list view; element type: TechnologyStandardEntry (construct from item paths).
 SomList technical_framework_conditions_technology_standards(const TechnicalFrameworkConditions *self);
 // Integration constraints overview.
 // (skipped: integrationOverview has no target type)
-// Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
+// Integration constraints — contains 0+× IntegrationConstraint.
 // Returns the list view; element type: IntegrationConstraintEntry (construct from item paths).
 SomList technical_framework_conditions_integration_constraints(const TechnicalFrameworkConditions *self);
 
@@ -31232,7 +31645,7 @@ void technical_framework_conditions_standards_init(TechnicalFrameworkConditionsS
 void technical_framework_conditions_standards_free(TechnicalFrameworkConditionsStandards *self);
 TechnicalFrameworkConditionsStandardsContentForm technical_framework_conditions_standards_content(const TechnicalFrameworkConditionsStandards *self);
 
-// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+// 4.2.2.n.4. Constraints.
 //
 // Technical constraints that may limit or shape how the goal is achieved.
 // Binds a TechnicalGoalConstraints facade to a document and a path (path copied).
@@ -31244,7 +31657,7 @@ void technical_goal_constraints_set_content(TechnicalGoalConstraints *self, cons
 // Returns the list view; element type: TechnicalConstraintEntry (construct from item paths).
 SomList technical_goal_constraints_items(const TechnicalGoalConstraints *self);
 
-// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+// 4.2.2.n.3. Dependencies.
 //
 // Technical dependencies affecting goal achievement.
 // Binds a TechnicalGoalDependencies facade to a document and a path (path copied).
@@ -31256,7 +31669,7 @@ void technical_goal_dependencies_set_content(TechnicalGoalDependencies *self, co
 // Returns the list view; element type: TechnicalDependencyEntry (construct from item paths).
 SomList technical_goal_dependencies_items(const TechnicalGoalDependencies *self);
 
-// A technical goal entry [PD00-SYO-GOA-TEC-nn].
+// A technical goal entry.
 //
 // Comprehensive technical goal definition with quality attributes,
 // architectural impact, and verification approach.
@@ -31268,13 +31681,13 @@ TechnicalGoalEntryContentForm technical_goal_entry_content(const TechnicalGoalEn
 TechnicalGoalEntryMeasurement technical_goal_entry_measurement(const TechnicalGoalEntry *self);
 // Scope and ownership details.
 TechnicalGoalEntryGovernance technical_goal_entry_governance(const TechnicalGoalEntry *self);
-// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+// 4.2.2.n.1. Quality Scenarios.
 QualityScenarios technical_goal_entry_quality_scenarios(const TechnicalGoalEntry *self);
-// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+// 4.2.2.n.2. Test Criteria.
 TechnicalGoalTestCriteria technical_goal_entry_test_criteria(const TechnicalGoalEntry *self);
-// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+// 4.2.2.n.3. Dependencies.
 TechnicalGoalDependencies technical_goal_entry_dependencies(const TechnicalGoalEntry *self);
-// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+// 4.2.2.n.4. Constraints.
 TechnicalGoalConstraints technical_goal_entry_constraints(const TechnicalGoalEntry *self);
 
 // Scope and ownership details.
@@ -31295,7 +31708,7 @@ void technical_goal_test_case_entry_init(TechnicalGoalTestCaseEntry *self, SpecD
 void technical_goal_test_case_entry_free(TechnicalGoalTestCaseEntry *self);
 TechnicalGoalTestCaseEntryContentForm technical_goal_test_case_entry_content(const TechnicalGoalTestCaseEntry *self);
 
-// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+// 4.2.2.n.2. Test Criteria.
 //
 // Specific test criteria and acceptance thresholds for the technical goal.
 // Binds a TechnicalGoalTestCriteria facade to a document and a path (path copied).
@@ -31309,7 +31722,7 @@ TechnicalGoalTestCriteriaTestCriteriaFormForm technical_goal_test_criteria_test_
 // Returns the list view; element type: TechnicalGoalTestCaseEntry (construct from item paths).
 SomList technical_goal_test_criteria_items(const TechnicalGoalTestCriteria *self);
 
-// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+// 4.2.2. Technical Goals.
 //
 // Container for technical goal definitions. Technical goals define the
 // non-functional characteristics and technical capabilities the system
@@ -31337,7 +31750,7 @@ RemoteAccessRequirements technical_infrastructure_remote_access(const TechnicalI
 // Returns the list view; element type: CommunicationToolsRequirements (construct from item paths).
 SomList technical_infrastructure_communication_tools(const TechnicalInfrastructure *self);
 
-// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+// 1.3.3. Technical Pain Points.
 //
 // Problems that affect development and maintenance: outdated technology,
 // security vulnerabilities, lack of documentation, vendor lock-in,
@@ -31359,7 +31772,7 @@ void technical_pain_points_summary_init(TechnicalPainPointsSummary *self, SpecDo
 void technical_pain_points_summary_free(TechnicalPainPointsSummary *self);
 TechnicalPainPointsSummaryContentForm technical_pain_points_summary_content(const TechnicalPainPointsSummary *self);
 
-// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+// 11.3. Technical Quality Criteria.
 //
 // Quality criteria for the technical implementation including efficiency,
 // portability, flexibility, security, maintainability, and reliability.
@@ -31369,20 +31782,20 @@ void technical_quality_criteria_free(TechnicalQualityCriteria *self);
 TechnicalQualityCriteriaTechnicalQualityContentForm technical_quality_criteria_technical_quality_content(const TechnicalQualityCriteria *self);
 // Technical quality overview.
 // (skipped: overview has no target type)
-// 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
+// 11.3.1. Efficiency.
 EfficiencyQuality technical_quality_criteria_efficiency(const TechnicalQualityCriteria *self);
-// 11.3.2. Portability [PD00-SYQ-TEC-POR].
+// 11.3.2. Portability.
 PortabilityQuality technical_quality_criteria_portability(const TechnicalQualityCriteria *self);
-// 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
+// 11.3.3. Flexibility.
 FlexibilityQuality technical_quality_criteria_flexibility(const TechnicalQualityCriteria *self);
-// 11.3.4. Security [PD00-SYQ-TEC-SEC].
+// 11.3.4. Security.
 SecurityQuality technical_quality_criteria_security(const TechnicalQualityCriteria *self);
-// 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
+// 11.3.5. Maintainability.
 MaintainabilityQuality technical_quality_criteria_maintainability(const TechnicalQualityCriteria *self);
-// 11.3.6. Reliability [PD00-SYQ-TEC-REL].
+// 11.3.6. Reliability.
 ReliabilityQuality technical_quality_criteria_reliability(const TechnicalQualityCriteria *self);
 
-// A technical requirement entry [PD00-SYO-REQ-TEC-nn].
+// A technical requirement entry.
 //
 // Comprehensive technical requirement definition following ISO 25010
 // quality characteristics and architecture decision records.
@@ -31400,11 +31813,11 @@ TechnicalRequirementEntryVerification technical_requirement_entry_verification(c
 TechnicalRequirementEntryImpact technical_requirement_entry_impact(const TechnicalRequirementEntry *self);
 // Assumptions and constraints.
 TechnicalRequirementEntryConstraints technical_requirement_entry_constraints(const TechnicalRequirementEntry *self);
-// 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+// 4.3.2.n.1. Acceptance Criteria.
 RequirementAcceptanceCriteria technical_requirement_entry_acceptance_criteria(const TechnicalRequirementEntry *self);
-// 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+// 4.3.2.n.2. Dependencies.
 RequirementDependencies technical_requirement_entry_dependencies(const TechnicalRequirementEntry *self);
-// 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+// 4.3.2.n.3. Traceability.
 RequirementTraceability technical_requirement_entry_traceability(const TechnicalRequirementEntry *self);
 
 // Assumptions and constraints for technical requirement.
@@ -31437,7 +31850,7 @@ void technical_requirement_entry_verification_init(TechnicalRequirementEntryVeri
 void technical_requirement_entry_verification_free(TechnicalRequirementEntryVerification *self);
 TechnicalRequirementEntryVerificationContentForm technical_requirement_entry_verification_content(const TechnicalRequirementEntryVerification *self);
 
-// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+// 4.3.2. Technical Requirements.
 //
 // Container for technical requirements. Technical requirements describe
 // constraints on how the system is built — platform, performance,
@@ -31454,59 +31867,17 @@ TechnicalRequirementsSummaryFormForm technical_requirements_summary_form(const T
 // Returns the list view; element type: TechnicalRequirementEntry (construct from item paths).
 SomList technical_requirements_requirements(const TechnicalRequirements *self);
 
-// TR00 Technical Requirements.
-//
-// Comprehensive technical requirements: basic / software / standard-
-// software / hardware / operations / communication / system-operation
-// / security / architecture, plus components, framework conditions,
-// and translation handling.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int technical_requirements_spec_new(TechnicalRequirementsSpec *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *technical_requirements_spec_object_model_version(const TechnicalRequirementsSpec *self);
-void technical_requirements_spec_free(TechnicalRequirementsSpec *self);
-char *technical_requirements_spec_content(const TechnicalRequirementsSpec *self);
-void technical_requirements_spec_set_content(TechnicalRequirementsSpec *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader technical_requirements_spec_header(const TechnicalRequirementsSpec *self);
-// Basic technical requirements — PD00-TEC-BAS.
-BasicTechnicalRequirements technical_requirements_spec_basic_technical_requirements(const TechnicalRequirementsSpec *self);
-// Software design requirements — PD00-TEC-SOF.
-SoftwareDesignRequirements technical_requirements_spec_software_design_requirements(const TechnicalRequirementsSpec *self);
-// Standard application software requirements — PD00-TEC-STA.
-StandardSoftwareRequirements technical_requirements_spec_standard_software_requirements(const TechnicalRequirementsSpec *self);
-// Hardware concept requirements — PD00-TEC-HAR.
-HardwareRequirements technical_requirements_spec_hardware_requirements(const TechnicalRequirementsSpec *self);
-// Operations requirements — PD00-TEC-OPE.
-OperationsRequirements technical_requirements_spec_operations_requirements(const TechnicalRequirementsSpec *self);
-// Communication requirements — PD00-TEC-COM.
-CommunicationRequirements technical_requirements_spec_communication_requirements(const TechnicalRequirementsSpec *self);
-// System operation and monitoring — PD00-TEC-SYS.
-SystemOperationAndMonitoring technical_requirements_spec_system_operation_and_monitoring(const TechnicalRequirementsSpec *self);
-// Technical security requirements — PD00-TEC-SEC.
-TechnicalSecurityRequirements technical_requirements_spec_technical_security_requirements(const TechnicalRequirementsSpec *self);
-// System architecture — PD00-TEC-ARC (new in Phase A, HBSG AS09-SOF/DR30).
-SystemArchitectureSpec technical_requirements_spec_system_architecture(const TechnicalRequirementsSpec *self);
-// Components to use — PD00-COM (whole).
-ComponentsToUse technical_requirements_spec_components_to_use(const TechnicalRequirementsSpec *self);
-// Technical framework conditions — PD00-SYO-RES-TEC (whole).
-TechnicalFrameworkConditions technical_requirements_spec_technical_framework_conditions(const TechnicalRequirementsSpec *self);
-// Translation handling requirements — PD00-USE-MUL-REQ (whole).
-TranslationRequirements technical_requirements_spec_translation_requirements(const TechnicalRequirementsSpec *self);
-
-// 8.8. Security Requirements [PD00-TEC-SEC].
+// 8.8. Security Requirements.
 // Binds a TechnicalSecurityRequirements facade to a document and a path (path copied).
 void technical_security_requirements_init(TechnicalSecurityRequirements *self, SpecDocument *doc, const char *path);
 void technical_security_requirements_free(TechnicalSecurityRequirements *self);
 char *technical_security_requirements_content(const TechnicalSecurityRequirements *self);
 void technical_security_requirements_set_content(TechnicalSecurityRequirements *self, const char *value);
-// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+// 8.8.1. IT Security Standards.
 ItSecurityStandardsSection technical_security_requirements_it_security_standards(const TechnicalSecurityRequirements *self);
-// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+// 8.8.2. Data Protection and Privacy.
 DataProtectionAndPrivacySection technical_security_requirements_data_protection_and_privacy(const TechnicalSecurityRequirements *self);
-// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+// 8.8.3. Security Audit Requirements.
 SecurityAuditRequirementsSection technical_security_requirements_security_audit_requirements(const TechnicalSecurityRequirements *self);
 
 // Technology and data variations.
@@ -31515,7 +31886,7 @@ void technology_data_variations_init(TechnologyDataVariations *self, SpecDocumen
 void technology_data_variations_free(TechnologyDataVariations *self);
 TechnologyDataVariationsContentForm technology_data_variations_content(const TechnologyDataVariations *self);
 
-// A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
+// A technology standard entry (form).
 //
 // Documents a mandated or preferred technology standard that the solution
 // must adhere to. Includes scope, compliance requirements, and exceptions.
@@ -31585,7 +31956,7 @@ void tenant_context_policy_set_content(TenantContextPolicy *self, const char *va
 // Tenant Context Policy Details (text).
 // (skipped: tenantContextPolicyDetails has no target type)
 
-// A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn].
+// A tenant customization entry (form).
 //
 // Describes a specific area where tenants can customize their authorization
 // model — custom roles, permissions, policies, or workflows. Covers scoping,
@@ -31607,14 +31978,14 @@ void tenant_data_isolation_policy_set_content(TenantDataIsolationPolicy *self, c
 // Tenant Data Isolation Details (text).
 // (skipped: tenantDataIsolationDetails has no target type)
 
-// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+// 9.4.7. Tenant Isolation.
 //
 // Describes how multi-tenant authorization is structured: how tenant context
 // is established and propagated, how cross-tenant access is prevented or
 // controlled, how tenants can customize their authorization model, how tenant
 // onboarding/offboarding is handled from an authorization perspective, and
 // how tenant boundaries are enforced at the authorization layer.
-// Complements TenantDataIsolationPolicy (PD00-ACC-RES-DAT) which covers
+// Complements TenantDataIsolationPolicy which covers
 // data-level isolation; this section focuses on authorization-level isolation.
 // Binds a TenantIsolation facade to a document and a path (path copied).
 void tenant_isolation_init(TenantIsolation *self, SpecDocument *doc, const char *path);
@@ -31655,7 +32026,7 @@ void test_scenario_business_init(TestScenarioBusiness *self, SpecDocument *doc, 
 void test_scenario_business_free(TestScenarioBusiness *self);
 TestScenarioBusinessContentForm test_scenario_business_content(const TestScenarioBusiness *self);
 
-// A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
+// A test scenario entry (form).
 //
 // Represents a business-level test case covering a user journey, business
 // process, or acceptance criterion. Includes full traceability, preconditions,
@@ -31720,9 +32091,9 @@ void test_scenario_traceability_init(TestScenarioTraceability *self, SpecDocumen
 void test_scenario_traceability_free(TestScenarioTraceability *self);
 TestScenarioTraceabilityContentForm test_scenario_traceability_content(const TestScenarioTraceability *self);
 
-// 11.8. Test Strategy [PD00-SYQ-TST].
+// 11.8. Test Strategy.
 //
-// Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
+// Overall test strategy for the project..
 // Binds a TestStrategy facade to a document and a path (path copied).
 void test_strategy_init(TestStrategy *self, SpecDocument *doc, const char *path);
 void test_strategy_free(TestStrategy *self);
@@ -31905,7 +32276,7 @@ void third_party_library_entry_usage_init(ThirdPartyLibraryEntryUsage *self, Spe
 void third_party_library_entry_usage_free(ThirdPartyLibraryEntryUsage *self);
 ThirdPartyLibraryEntryUsageContentForm third_party_library_entry_usage_content(const ThirdPartyLibraryEntryUsage *self);
 
-// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+// 10.13.3.3. Throwaway Prototype.
 //
 // Prototype evaluated and then discarded.
 // Binds a ThrowawayPrototype facade to a document and a path (path copied).
@@ -32032,7 +32403,7 @@ void tool_documentation_init(ToolDocumentation *self, SpecDocument *doc, const c
 void tool_documentation_free(ToolDocumentation *self);
 ToolDocumentationContentForm tool_documentation_content(const ToolDocumentation *self);
 
-// A tool entry (form) [PD00-POP-TOO-TOO-nn].
+// A tool entry (form).
 //
 // Comprehensive specification of a single tool covering identity,
 // licensing, versioning, access, integration, support, security,
@@ -32128,7 +32499,7 @@ void tool_versioning_init(ToolVersioning *self, SpecDocument *doc, const char *p
 void tool_versioning_free(ToolVersioning *self);
 ToolVersioningContentForm tool_versioning_content(const ToolVersioning *self);
 
-// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+// 2.4.1. Tooling.
 //
 // Container for the project's tool inventory and governance policies.
 // Covers all tool categories: development, CI/CD, communication,
@@ -32150,15 +32521,15 @@ ToolingGovernance tooling_governance(const Tooling *self);
 // Returns the list view; element type: ToolEntry (construct from item paths).
 SomList tooling_items(const Tooling *self);
 
-// 2.4. Tooling and Environments [PD00-POP-TOO].
+// 2.4. Tooling and Environments.
 // Binds a ToolingAndEnvironments facade to a document and a path (path copied).
 void tooling_and_environments_init(ToolingAndEnvironments *self, SpecDocument *doc, const char *path);
 void tooling_and_environments_free(ToolingAndEnvironments *self);
 char *tooling_and_environments_content(const ToolingAndEnvironments *self);
 void tooling_and_environments_set_content(ToolingAndEnvironments *self, const char *value);
-// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+// 2.4.1. Tooling.
 Tooling tooling_and_environments_tooling(const ToolingAndEnvironments *self);
-// 2.4.2. Environments [PD00-POP-TOO-ENV].
+// 2.4.2. Environments.
 Environments tooling_and_environments_environments(const ToolingAndEnvironments *self);
 
 // Review, catalog, and notes.
@@ -32185,7 +32556,7 @@ void tour_step_entry_init(TourStepEntry *self, SpecDocument *doc, const char *pa
 void tour_step_entry_free(TourStepEntry *self);
 TourStepEntryContentForm tour_step_entry_content(const TourStepEntry *self);
 
-// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
+// A trade-off decision entry (form).
 // Binds a TradeOffDecisionEntry facade to a document and a path (path copied).
 void trade_off_decision_entry_init(TradeOffDecisionEntry *self, SpecDocument *doc, const char *path);
 void trade_off_decision_entry_free(TradeOffDecisionEntry *self);
@@ -32233,7 +32604,7 @@ void trade_off_decision_entry_rationale_init(TradeOffDecisionEntryRationale *sel
 void trade_off_decision_entry_rationale_free(TradeOffDecisionEntryRationale *self);
 TradeOffDecisionEntryRationaleContentForm trade_off_decision_entry_rationale_content(const TradeOffDecisionEntryRationale *self);
 
-// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+// 11.6.2. Trade-off Decisions.
 //
 // Explicit trade-off decisions between quality attributes.
 // Binds a TradeOffDecisions facade to a document and a path (path copied).
@@ -32276,7 +32647,7 @@ void training_assessment_reporting_init(TrainingAssessmentReporting *self, SpecD
 void training_assessment_reporting_free(TrainingAssessmentReporting *self);
 TrainingAssessmentReportingContentForm training_assessment_reporting_content(const TrainingAssessmentReporting *self);
 
-// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+// 14.1.3. Training Deliverables.
 // Binds a TrainingDeliverables facade to a document and a path (path copied).
 void training_deliverables_init(TrainingDeliverables *self, SpecDocument *doc, const char *path);
 void training_deliverables_free(TrainingDeliverables *self);
@@ -32285,6 +32656,19 @@ void training_deliverables_set_content(TrainingDeliverables *self, const char *v
 // Contains 0+× Deliverable.
 // Returns the list view; element type: DeliverableEntry (construct from item paths).
 SomList training_deliverables_items(const TrainingDeliverables *self);
+
+// Training & Enablement requirements.
+//
+// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
+// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
+// detailed training-module catalogue currently lives inside
+// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
+// pending the IP-8 doc/training split.
+// Binds a TrainingEnablementRequirements facade to a document and a path (path copied).
+void training_enablement_requirements_init(TrainingEnablementRequirements *self, SpecDocument *doc, const char *path);
+void training_enablement_requirements_free(TrainingEnablementRequirements *self);
+// Training & enablement requirement form.
+TrainingEnablementRequirementsContentForm training_enablement_requirements_content(const TrainingEnablementRequirements *self);
 
 // Training materials and resources.
 // Binds a TrainingMaterials facade to a document and a path (path copied).
@@ -32316,7 +32700,7 @@ void training_materials_practice_init(TrainingMaterialsPractice *self, SpecDocum
 void training_materials_practice_free(TrainingMaterialsPractice *self);
 TrainingMaterialsPracticeContentForm training_materials_practice_content(const TrainingMaterialsPractice *self);
 
-// A training module entry [PD00-USE-MUL-DOC-MOD-nn].
+// A training module entry.
 // Binds a TrainingModuleEntry facade to a document and a path (path copied).
 void training_module_entry_init(TrainingModuleEntry *self, SpecDocument *doc, const char *path);
 void training_module_entry_free(TrainingModuleEntry *self);
@@ -32328,7 +32712,7 @@ void training_overview_init(TrainingOverview *self, SpecDocument *doc, const cha
 void training_overview_free(TrainingOverview *self);
 TrainingOverviewContentForm training_overview_content(const TrainingOverview *self);
 
-// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+// 10.13.3.2. Training Prototype.
 //
 // Prototype where concepts are reused but not code.
 // Binds a TrainingPrototype facade to a document and a path (path copied).
@@ -32354,7 +32738,7 @@ void training_prototype_outputs_init(TrainingPrototypeOutputs *self, SpecDocumen
 void training_prototype_outputs_free(TrainingPrototypeOutputs *self);
 TrainingPrototypeOutputsContentForm training_prototype_outputs_content(const TrainingPrototypeOutputs *self);
 
-// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+// 5.3.2. Training Requirements.
 //
 // Comprehensive training program requirements following adult learning
 // principles (ADDIE, Kirkpatrick evaluation model).
@@ -32417,7 +32801,7 @@ void transition_escalation_paths_init(TransitionEscalationPaths *self, SpecDocum
 void transition_escalation_paths_free(TransitionEscalationPaths *self);
 TransitionEscalationPathsContentForm transition_escalation_paths_content(const TransitionEscalationPaths *self);
 
-// Transition metric entry [PD00-ORG-STR-TIM-MET-nn] (form).
+// Transition metric entry (form).
 // Binds a TransitionMetricEntry facade to a document and a path (path copied).
 void transition_metric_entry_init(TransitionMetricEntry *self, SpecDocument *doc, const char *path);
 void transition_metric_entry_free(TransitionMetricEntry *self);
@@ -32445,7 +32829,7 @@ void transition_metrics_overview_init(TransitionMetricsOverview *self, SpecDocum
 void transition_metrics_overview_free(TransitionMetricsOverview *self);
 TransitionMetricsOverviewContentForm transition_metrics_overview_content(const TransitionMetricsOverview *self);
 
-// A transition milestone entry [PD00-ORG-STR-TIM-MIL-nn] (form).
+// A transition milestone entry (form).
 // Binds a TransitionMilestoneEntry facade to a document and a path (path copied).
 void transition_milestone_entry_init(TransitionMilestoneEntry *self, SpecDocument *doc, const char *path);
 void transition_milestone_entry_free(TransitionMilestoneEntry *self);
@@ -32503,7 +32887,7 @@ void transition_phase_activities_init(TransitionPhaseActivities *self, SpecDocum
 void transition_phase_activities_free(TransitionPhaseActivities *self);
 TransitionPhaseActivitiesContentForm transition_phase_activities_content(const TransitionPhaseActivities *self);
 
-// A transition phase entry [PD00-ORG-STR-TIM-PHA-nn] (form).
+// A transition phase entry (form).
 //
 // Defines a distinct phase in the organizational transition sequence.
 // Binds a TransitionPhaseEntry facade to a document and a path (path copied).
@@ -32554,7 +32938,7 @@ void transition_phase_stakeholders_init(TransitionPhaseStakeholders *self, SpecD
 void transition_phase_stakeholders_free(TransitionPhaseStakeholders *self);
 TransitionPhaseStakeholdersContentForm transition_phase_stakeholders_content(const TransitionPhaseStakeholders *self);
 
-// Transition risk entry [PD00-ORG-STR-TIM-RSK-nn] (form).
+// Transition risk entry (form).
 // Binds a TransitionRiskEntry facade to a document and a path (path copied).
 void transition_risk_entry_init(TransitionRiskEntry *self, SpecDocument *doc, const char *path);
 void transition_risk_entry_free(TransitionRiskEntry *self);
@@ -32576,6 +32960,49 @@ void transition_risk_entry_response_init(TransitionRiskEntryResponse *self, Spec
 void transition_risk_entry_response_free(TransitionRiskEntryResponse *self);
 TransitionRiskEntryResponseContentForm transition_risk_entry_response_content(const TransitionRiskEntryResponse *self);
 
+// SR00 System Rollout.
+//
+// End-to-end rollout specification — localization, translation,
+// documentation and training, plus rollout plan, migration plan,
+// user manuals, training materials, pilot, cutover, knowledge
+// transfer, and warranty/support.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int transition_rollout_plan_new(TransitionRolloutPlan *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *transition_rollout_plan_object_model_version(const TransitionRolloutPlan *self);
+void transition_rollout_plan_free(TransitionRolloutPlan *self);
+char *transition_rollout_plan_content(const TransitionRolloutPlan *self);
+void transition_rollout_plan_set_content(TransitionRolloutPlan *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader transition_rollout_plan_header(const TransitionRolloutPlan *self);
+// Localization process.
+LocalizationProcess transition_rollout_plan_localization_process(const TransitionRolloutPlan *self);
+// Translation process.
+TranslationProcess transition_rollout_plan_translation_process(const TransitionRolloutPlan *self);
+// Documentation and training.
+DocumentationAndTraining transition_rollout_plan_documentation_and_training(const TransitionRolloutPlan *self);
+// Rollout plan.
+RolloutPlan transition_rollout_plan_rollout_plan(const TransitionRolloutPlan *self);
+// Migration plan.
+MigrationPlan transition_rollout_plan_migration_plan(const TransitionRolloutPlan *self);
+// User manuals.
+// Returns the list view; element type: UserManuals (construct from item paths).
+SomList transition_rollout_plan_user_manuals(const TransitionRolloutPlan *self);
+// Training materials.
+// Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
+SomList transition_rollout_plan_training_materials(const TransitionRolloutPlan *self);
+// Pilot plan.
+PilotPlan transition_rollout_plan_pilot_plan(const TransitionRolloutPlan *self);
+// Cutover procedures.
+// Returns the list view; element type: CutoverProcedures (construct from item paths).
+SomList transition_rollout_plan_cutover_procedures(const TransitionRolloutPlan *self);
+// Knowledge transfer.
+KnowledgeTransfer transition_rollout_plan_knowledge_transfer(const TransitionRolloutPlan *self);
+// Warranty and support.
+WarrantyAndSupport transition_rollout_plan_warranty_and_support(const TransitionRolloutPlan *self);
+
 // Success metrics for the transition.
 // Binds a TransitionSuccessMetrics facade to a document and a path (path copied).
 void transition_success_metrics_init(TransitionSuccessMetrics *self, SpecDocument *doc, const char *path);
@@ -32592,7 +33019,7 @@ void transition_support_overview_init(TransitionSupportOverview *self, SpecDocum
 void transition_support_overview_free(TransitionSupportOverview *self);
 TransitionSupportOverviewContentForm transition_support_overview_content(const TransitionSupportOverview *self);
 
-// Support resource entry [PD00-ORG-STR-TIM-SUP-nn] (form).
+// Support resource entry (form).
 // Binds a TransitionSupportResourceEntry facade to a document and a path (path copied).
 void transition_support_resource_entry_init(TransitionSupportResourceEntry *self, SpecDocument *doc, const char *path);
 void transition_support_resource_entry_free(TransitionSupportResourceEntry *self);
@@ -32611,7 +33038,7 @@ SomList transition_support_structure_support_resources(const TransitionSupportSt
 // Returns the list view; element type: TransitionEscalationPaths (construct from item paths).
 SomList transition_support_structure_escalation_paths(const TransitionSupportStructure *self);
 
-// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
+// 10.12.2. Translation Process.
 //
 // Workflow for translating content.
 // Binds a TranslationProcess facade to a document and a path (path copied).
@@ -32656,7 +33083,7 @@ void translation_process_workflow_init(TranslationProcessWorkflow *self, SpecDoc
 void translation_process_workflow_free(TranslationProcessWorkflow *self);
 TranslationProcessWorkflowContentForm translation_process_workflow_content(const TranslationProcessWorkflow *self);
 
-// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+// 10.12.5. Translation Handling Requirements.
 //
 // Technical requirements for internationalization framework.
 // Binds a TranslationRequirements facade to a document and a path (path copied).
@@ -32698,7 +33125,7 @@ void translation_requirements_variants_init(TranslationRequirementsVariants *sel
 void translation_requirements_variants_free(TranslationRequirementsVariants *self);
 TranslationRequirementsVariantsContentForm translation_requirements_variants_content(const TranslationRequirementsVariants *self);
 
-// A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].
+// A translation vendor entry.
 // Binds a TranslationVendorEntry facade to a document and a path (path copied).
 void translation_vendor_entry_init(TranslationVendorEntry *self, SpecDocument *doc, const char *path);
 void translation_vendor_entry_free(TranslationVendorEntry *self);
@@ -32753,7 +33180,7 @@ void troubleshooting_capabilities_runbooks_init(TroubleshootingCapabilitiesRunbo
 void troubleshooting_capabilities_runbooks_free(TroubleshootingCapabilitiesRunbooks *self);
 TroubleshootingCapabilitiesRunbooksContentForm troubleshooting_capabilities_runbooks_content(const TroubleshootingCapabilitiesRunbooks *self);
 
-// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+// 4.1.2.5. Trust Boundaries.
 //
 // Security zones and trust boundaries that the system operates within
 // or crosses.
@@ -32772,7 +33199,7 @@ void trust_boundary_entry_init(TrustBoundaryEntry *self, SpecDocument *doc, cons
 void trust_boundary_entry_free(TrustBoundaryEntry *self);
 TrustBoundaryEntryContentForm trust_boundary_entry_content(const TrustBoundaryEntry *self);
 
-// A typography style entry [PD00-USE-COM-LIB-TYP-nn].
+// A typography style entry.
 // Binds a TypographyStyleEntry facade to a document and a path (path copied).
 void typography_style_entry_init(TypographyStyleEntry *self, SpecDocument *doc, const char *path);
 void typography_style_entry_free(TypographyStyleEntry *self);
@@ -32840,7 +33267,7 @@ void uat_sign_off_init(UatSignOff *self, SpecDocument *doc, const char *path);
 void uat_sign_off_free(UatSignOff *self);
 UatSignOffContentForm uat_sign_off_content(const UatSignOff *self);
 
-// A UAT test cycle entry [PD00-DEL-ACC-UAT-CYC-nn].
+// A UAT test cycle entry.
 //
 // Represents a distinct test execution round — e.g. Cycle 1 (initial),
 // Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
@@ -32872,7 +33299,7 @@ void uat_test_data_init(UatTestData *self, SpecDocument *doc, const char *path);
 void uat_test_data_free(UatTestData *self);
 UatTestDataContentForm uat_test_data_content(const UatTestData *self);
 
-// A UAT test step entry [PD00-DEL-ACC-UAT-nn-STP-mm].
+// A UAT test step entry.
 //
 // Individual step within a test scenario. Captures the action, input data,
 // expected result, and pass criteria at fine-grained level per IEEE 829
@@ -32888,7 +33315,7 @@ void uat_training_init(UatTraining *self, SpecDocument *doc, const char *path);
 void uat_training_free(UatTraining *self);
 UatTrainingContentForm uat_training_content(const UatTraining *self);
 
-// A UI component entry [PD00-USE-COM-SPE-nn].
+// A UI component entry.
 //
 // Comprehensive specification for a single UI component covering identity,
 // visual design, behavior, states, responsiveness, accessibility,
@@ -32988,7 +33415,7 @@ void ui_component_entry_surface_init(UiComponentEntrySurface *self, SpecDocument
 void ui_component_entry_surface_free(UiComponentEntrySurface *self);
 UiComponentEntrySurfaceContentForm ui_component_entry_surface_content(const UiComponentEntrySurface *self);
 
-// 10.11. UI Components [PD00-USE-COM].
+// 10.11. UI Components.
 //
 // Comprehensive UI component library specification covering design system,
 // component catalog, and detailed per-component specifications. Supports
@@ -33003,12 +33430,12 @@ UiComponentsVisualLanguage ui_components_visual_language(const UiComponents *sel
 UiComponentsComponentApproach ui_components_component_approach(const UiComponents *self);
 // Extension and theming boundaries.
 UiComponentsCustomization ui_components_customization(const UiComponents *self);
-// 10.11.1. Component Library [PD00-USE-COM-LIB].
+// 10.11.1. Component Library.
 ComponentLibrary ui_components_component_library(const UiComponents *self);
-// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+// 10.11.2. Component Specifications — contains 0+×.
 // Returns the list view; element type: UiComponentEntry (construct from item paths).
 SomList ui_components_component_specs(const UiComponents *self);
-// 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
+// 10.11.3. Component Families — contains 0+×.
 // Returns the list view; element type: ComponentFamilyEntry (construct from item paths).
 SomList ui_components_component_families(const UiComponents *self);
 
@@ -33030,7 +33457,7 @@ void ui_components_visual_language_init(UiComponentsVisualLanguage *self, SpecDo
 void ui_components_visual_language_free(UiComponentsVisualLanguage *self);
 UiComponentsVisualLanguageContentForm ui_components_visual_language_content(const UiComponentsVisualLanguage *self);
 
-// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
+// A design principle entry (form).
 //
 // Each principle guides UI decisions with rationale and examples.
 // Binds a UiDesignPrincipleEntry facade to a document and a path (path copied).
@@ -33038,50 +33465,7 @@ void ui_design_principle_entry_init(UiDesignPrincipleEntry *self, SpecDocument *
 void ui_design_principle_entry_free(UiDesignPrincipleEntry *self);
 UiDesignPrincipleEntryContentForm ui_design_principle_entry_content(const UiDesignPrincipleEntry *self);
 
-// UP00 UI Prototype.
-//
-// Full UI design and prototype specification — vision, screens,
-// screen flow, print, error handling, help, accessibility, responsive,
-// components, language/country selection, prototype, wireframes and
-// mockups.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int ui_prototype_new(UiPrototype *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *ui_prototype_object_model_version(const UiPrototype *self);
-void ui_prototype_free(UiPrototype *self);
-char *ui_prototype_content(const UiPrototype *self);
-void ui_prototype_set_content(UiPrototype *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader ui_prototype_header(const UiPrototype *self);
-// Design vision — PD00-USE-VIS.
-DesignVision ui_prototype_design_vision(const UiPrototype *self);
-// Screen descriptions — PD00-USE-SCR.
-ScreenDescriptions ui_prototype_screens(const UiPrototype *self);
-// Screen flow structure — PD00-USE-SCF.
-ScreenFlowStructure ui_prototype_screen_flow(const UiPrototype *self);
-// Print layout — PD00-USE-PRI.
-PrintLayout ui_prototype_print_layout(const UiPrototype *self);
-// Error handling concept — PD00-USE-ERR.
-ErrorHandlingConcept ui_prototype_error_handling(const UiPrototype *self);
-// Help concept — PD00-USE-HLP.
-HelpConcept ui_prototype_help_concept(const UiPrototype *self);
-// Accessibility — PD00-USE-ACC.
-Accessibility ui_prototype_accessibility(const UiPrototype *self);
-// Responsive design — PD00-USE-RES.
-ResponsiveDesign ui_prototype_responsive_design(const UiPrototype *self);
-// UI components — PD00-USE-COM.
-UiComponents ui_prototype_ui_components(const UiPrototype *self);
-// Language and country selection — PD00-USE-MUL-LCS.
-LanguageCountrySelection ui_prototype_language_country_selection(const UiPrototype *self);
-// Prototype — PD00-USE-PRO.
-Prototype ui_prototype_prototype(const UiPrototype *self);
-// Wireframes and mockups — PD00-USE-WIR (new in Phase A, HBSG AS10-WIR).
-// Returns the list view; element type: WireframesAndMockups (construct from item paths).
-SomList ui_prototype_wireframes_and_mockups(const UiPrototype *self);
-
-// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG].
+// 13.8. Upgrade Cycle Framework.
 //
 // Post-development upgrade cycle framework. Links the upgrade process
 // defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
@@ -33091,7 +33475,7 @@ void upgrade_cycle_framework_free(UpgradeCycleFramework *self);
 char *upgrade_cycle_framework_content(const UpgradeCycleFramework *self);
 void upgrade_cycle_framework_set_content(UpgradeCycleFramework *self, const char *value);
 
-// 11.2.1. Usability quality [PD00-SYQ-USE-USA].
+// 11.2.1. Usability quality.
 // Binds a UsabilityQuality facade to a document and a path (path copied).
 void usability_quality_init(UsabilityQuality *self, SpecDocument *doc, const char *path);
 void usability_quality_free(UsabilityQuality *self);
@@ -33154,7 +33538,7 @@ void use_case_scope_context_init(UseCaseScopeContext *self, SpecDocument *doc, c
 void use_case_scope_context_free(UseCaseScopeContext *self);
 UseCaseScopeContextContentForm use_case_scope_context_content(const UseCaseScopeContext *self);
 
-// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+// 6.2.5. Use Case Traceability.
 //
 // Use case ↔ requirement ↔ process ↔ test traceability.
 // Binds a UseCaseTraceability facade to a document and a path (path copied).
@@ -33163,39 +33547,7 @@ void use_case_traceability_free(UseCaseTraceability *self);
 char *use_case_traceability_content(const UseCaseTraceability *self);
 void use_case_traceability_set_content(UseCaseTraceability *self, const char *value);
 
-// UC00 Use Cases.
-//
-// Detailed use cases derived from the target process steps and actor
-// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-// and traceability.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int use_cases_new(UseCases *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *use_cases_object_model_version(const UseCases *self);
-void use_cases_free(UseCases *self);
-char *use_cases_content(const UseCases *self);
-void use_cases_set_content(UseCases *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader use_cases_header(const UseCases *self);
-// Process steps overview — PD00-TAR-STP-OVE.
-ProcessStepsOverview use_cases_process_steps_overview(const UseCases *self);
-// Actor overview — PD00-TAR-STP-ACT.
-ActorOverview use_cases_actor_overview(const UseCases *self);
-// Interaction catalog — PD00-TAR-STP-INT.
-InteractionCatalog use_cases_interaction_catalog(const UseCases *self);
-// Key scenarios — PD00-TAR-STP-SCE.
-KeyScenarios use_cases_key_scenarios(const UseCases *self);
-// Actor relationship diagram — PD00-TAR-STP-DIA.
-ActorRelationshipDiagram use_cases_actor_relationship_diagram(const UseCases *self);
-// End-to-end test scenarios — PD00-TAR-STP-E2E (covers HBSG AS24).
-// Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
-SomList use_cases_end_to_end_test_scenarios(const UseCases *self);
-// Use case traceability — PD00-TAR-STP-TRC.
-UseCaseTraceability use_cases_use_case_traceability(const UseCases *self);
-
-// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+// 14.2.3. User Acceptance Testing.
 //
 // Comprehensive UAT planning covering scope, environment, test data,
 // governance, scheduling, defect management, reporting, non-functional
@@ -33236,7 +33588,7 @@ SomList user_acceptance_testing_test_cycles(const UserAcceptanceTesting *self);
 // Returns the list view; element type: TestScenarioEntry (construct from item paths).
 SomList user_acceptance_testing_test_scenarios(const UserAcceptanceTesting *self);
 
-// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+// 4.1.4.n.4. Access and Permissions.
 //
 // Security and access control specifications for this user category.
 // Binds a UserAccessPermissions facade to a document and a path (path copied).
@@ -33266,7 +33618,7 @@ void user_access_permissions_restrictions_init(UserAccessPermissionsRestrictions
 void user_access_permissions_restrictions_free(UserAccessPermissionsRestrictions *self);
 UserAccessPermissionsRestrictionsContentForm user_access_permissions_restrictions_content(const UserAccessPermissionsRestrictions *self);
 
-// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+// 4.1.4.n.6. Accessibility Needs.
 //
 // Accessibility requirements and accommodations for this user category.
 // Binds a UserAccessibilityNeeds facade to a document and a path (path copied).
@@ -33289,13 +33641,13 @@ void user_account_states_definition_set_content(UserAccountStatesDefinition *sel
 // State Transition Diagram (mermaid).
 // (skipped: stateTransitionDiagram has no target type)
 
-// A user attribute entry (form) [PD00-ACC-USE-ATT-nn].
+// A user attribute entry (form).
 // Binds a UserAttributeEntry facade to a document and a path (path copied).
 void user_attribute_entry_init(UserAttributeEntry *self, SpecDocument *doc, const char *path);
 void user_attribute_entry_free(UserAttributeEntry *self);
 UserAttributeEntryContentForm user_attribute_entry_content(const UserAttributeEntry *self);
 
-// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+// 9.1.3. User Attributes.
 // Binds a UserAttributes facade to a document and a path (path copied).
 void user_attributes_init(UserAttributes *self, SpecDocument *doc, const char *path);
 void user_attributes_free(UserAttributes *self);
@@ -33305,7 +33657,7 @@ void user_attributes_set_content(UserAttributes *self, const char *value);
 // Returns the list view; element type: UserAttributeEntry (construct from item paths).
 SomList user_attributes_items(const UserAttributes *self);
 
-// 9.4. User Authorization [PD00-ACC-USA].
+// 9.4. User Authorization.
 //
 // Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 // Binds a UserAuthorization facade to a document and a path (path copied).
@@ -33313,32 +33665,32 @@ void user_authorization_init(UserAuthorization *self, SpecDocument *doc, const c
 void user_authorization_free(UserAuthorization *self);
 char *user_authorization_content(const UserAuthorization *self);
 void user_authorization_set_content(UserAuthorization *self, const char *value);
-// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+// 9.4.1. Authorization Model.
 AuthorizationModel user_authorization_authorization_model(const UserAuthorization *self);
-// 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
+// 9.4.2. Authorization Groups — contains 0+× Group.
 // Returns the list view; element type: AuthorizationGroupEntry (construct from item paths).
 SomList user_authorization_groups(const UserAuthorization *self);
-// 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+// 9.4.3. Role Definitions — contains 1+× Role.
 // Returns the list view; element type: AuthorizationRoleEntry (construct from item paths).
 SomList user_authorization_role_definitions(const UserAuthorization *self);
-// 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
+// 9.4.4. Entitlements — contains 1+× Entitlement.
 // Returns the list view; element type: EntitlementEntry (construct from item paths).
 SomList user_authorization_entitlements(const UserAuthorization *self);
-// 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
+// 9.4.5. Resource Keys — contains 0+× Resource Key.
 // Returns the list view; element type: ResourceKeyEntry (construct from item paths).
 SomList user_authorization_resource_keys(const UserAuthorization *self);
-// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+// 9.4.6. Role Hierarchy.
 RoleHierarchy user_authorization_role_hierarchy(const UserAuthorization *self);
-// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+// 9.4.7. Tenant Isolation.
 TenantIsolation user_authorization_tenant_isolation(const UserAuthorization *self);
 
-// A user category definition (form) [PD00-ACC-USE-CAT-nn].
+// A user category definition (form).
 // Binds a UserCategoryDefinition facade to a document and a path (path copied).
 void user_category_definition_init(UserCategoryDefinition *self, SpecDocument *doc, const char *path);
 void user_category_definition_free(UserCategoryDefinition *self);
 UserCategoryDefinitionContentForm user_category_definition_content(const UserCategoryDefinition *self);
 
-// A user category entry [PD00-SYO-SYD-USR-nn].
+// A user category entry.
 //
 // Comprehensive user persona definition including demographics, goals,
 // frustrations, technical proficiency, and system interaction patterns.
@@ -33350,20 +33702,20 @@ UserCategoryEntryContentForm user_category_entry_content(const UserCategoryEntry
 UserCategoryEntryUsage user_category_entry_usage(const UserCategoryEntry *self);
 // Growth and prioritization profile.
 UserCategoryEntryImportance user_category_entry_importance(const UserCategoryEntry *self);
-// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+// 4.1.4.n.1. User Persona Details.
 UserPersonaDetails user_category_entry_persona_details(const UserCategoryEntry *self);
-// 4.1.4.n.2. Role [PD00-SYO-SYD-USR-nn-ROL].
+// 4.1.4.n.2. Role.
 UserCategoryRoleEntry user_category_entry_role(const UserCategoryEntry *self);
-// 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+// 4.1.4.n.3. System Tasks — contains 1+× System Task.
 // Returns the list view; element type: SystemTaskEntry (construct from item paths).
 SomList user_category_entry_system_tasks(const UserCategoryEntry *self);
-// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+// 4.1.4.n.4. Access and Permissions.
 UserAccessPermissions user_category_entry_access_permissions(const UserCategoryEntry *self);
-// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+// 4.1.4.n.5. Training Requirements.
 UserTrainingRequirements user_category_entry_training_requirements(const UserCategoryEntry *self);
-// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+// 4.1.4.n.6. Accessibility Needs.
 UserAccessibilityNeeds user_category_entry_accessibility_needs(const UserCategoryEntry *self);
-// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+// 4.1.4.n.7. User Journey.
 UserJourney user_category_entry_user_journey(const UserCategoryEntry *self);
 
 // Growth and prioritization profile.
@@ -33378,7 +33730,7 @@ void user_category_entry_usage_init(UserCategoryEntryUsage *self, SpecDocument *
 void user_category_entry_usage_free(UserCategoryEntryUsage *self);
 UserCategoryEntryUsageContentForm user_category_entry_usage_content(const UserCategoryEntryUsage *self);
 
-// Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
+// Role within a user category.
 //
 // Organizational role and responsibilities associated with this user category.
 // Binds a UserCategoryRoleEntry facade to a document and a path (path copied).
@@ -33386,7 +33738,7 @@ void user_category_role_entry_init(UserCategoryRoleEntry *self, SpecDocument *do
 void user_category_role_entry_free(UserCategoryRoleEntry *self);
 UserCategoryRoleEntryContentForm user_category_role_entry_content(const UserCategoryRoleEntry *self);
 
-// User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn].
+// User group impact entry.
 // Binds a UserGroupImpactEntry facade to a document and a path (path copied).
 void user_group_impact_entry_init(UserGroupImpactEntry *self, SpecDocument *doc, const char *path);
 void user_group_impact_entry_free(UserGroupImpactEntry *self);
@@ -33422,7 +33774,7 @@ void user_growth_projections_thresholds_init(UserGrowthProjectionsThresholds *se
 void user_growth_projections_thresholds_free(UserGrowthProjectionsThresholds *self);
 UserGrowthProjectionsThresholdsContentForm user_growth_projections_thresholds_content(const UserGrowthProjectionsThresholds *self);
 
-// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+// 4.1.5. User Interaction Model.
 //
 // Describes how different user categories interact with the system including
 // access channels, interaction patterns, access levels, and session management.
@@ -33434,17 +33786,17 @@ char *user_interaction_model_content(const UserInteractionModel *self);
 void user_interaction_model_set_content(UserInteractionModel *self, const char *value);
 // Interaction model summary.
 UserInteractionModelSummary user_interaction_model_summary(const UserInteractionModel *self);
-// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+// 4.1.5.1. Access Channels.
 AccessChannels user_interaction_model_access_channels(const UserInteractionModel *self);
-// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+// 4.1.5.2. Interaction Patterns.
 InteractionPatterns user_interaction_model_interaction_patterns(const UserInteractionModel *self);
-// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+// 4.1.5.3. Access Levels.
 AccessLevels user_interaction_model_access_levels(const UserInteractionModel *self);
-// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+// 4.1.5.4. Session Model.
 SessionModel user_interaction_model_session_model(const UserInteractionModel *self);
-// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+// 4.1.5.5. Notification Model.
 NotificationModel user_interaction_model_notification_model(const UserInteractionModel *self);
-// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+// 4.1.5.6. Multi-Channel Experience.
 MultiChannelExperience user_interaction_model_multi_channel_experience(const UserInteractionModel *self);
 
 // Summary statistics for user interaction model.
@@ -33455,43 +33807,7 @@ void user_interaction_model_summary_free(UserInteractionModelSummary *self);
 char *user_interaction_model_summary_content(const UserInteractionModelSummary *self);
 void user_interaction_model_summary_set_content(UserInteractionModelSummary *self, const char *value);
 
-// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
-// Binds a UserInterfaceDesign facade to a document and a path (path copied).
-void user_interface_design_init(UserInterfaceDesign *self, SpecDocument *doc, const char *path);
-void user_interface_design_free(UserInterfaceDesign *self);
-char *user_interface_design_content(const UserInterfaceDesign *self);
-void user_interface_design_set_content(UserInterfaceDesign *self, const char *value);
-// 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
-DesignVision user_interface_design_design_vision(const UserInterfaceDesign *self);
-// 10.2. Screen Descriptions [PD00-USE-SCR]. Seeds → UP.
-ScreenDescriptions user_interface_design_screens(const UserInterfaceDesign *self);
-// 10.3. Screen Flow Structure [PD00-USE-SCF]. Seeds → UP.
-ScreenFlowStructure user_interface_design_screen_flow(const UserInterfaceDesign *self);
-// 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
-PrintLayout user_interface_design_print_layout(const UserInterfaceDesign *self);
-// Data Structure Alignment.
-// (skipped: dataStructureAlignment has no target type)
-// Authorization Compliance.
-// (skipped: authorizationCompliance has no target type)
-// 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
-ErrorHandlingConcept user_interface_design_error_handling(const UserInterfaceDesign *self);
-// 10.8. Help Concept [PD00-USE-HLP]. Seeds → UP.
-HelpConcept user_interface_design_help_concept(const UserInterfaceDesign *self);
-// 10.9. Accessibility [PD00-USE-ACC]. Seeds → UP.
-Accessibility user_interface_design_accessibility(const UserInterfaceDesign *self);
-// 10.10. Responsive Design [PD00-USE-RES]. Seeds → UP.
-ResponsiveDesign user_interface_design_responsive_design(const UserInterfaceDesign *self);
-// 10.11. UI Components [PD00-USE-COM]. Seeds → UP.
-UiComponents user_interface_design_ui_components(const UserInterfaceDesign *self);
-// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
-MultiLanguageAndRollout user_interface_design_multi_language(const UserInterfaceDesign *self);
-// 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
-Prototype user_interface_design_prototype(const UserInterfaceDesign *self);
-// 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
-// Returns the list view; element type: WireframesAndMockups (construct from item paths).
-SomList user_interface_design_wireframes_and_mockups(const UserInterfaceDesign *self);
-
-// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+// 4.1.4.n.7. User Journey.
 //
 // Key touchpoints and journey map for this user category's experience.
 // Binds a UserJourney facade to a document and a path (path copied).
@@ -33522,7 +33838,7 @@ void user_journey_pain_point_entry_free(UserJourneyPainPointEntry *self);
 char *user_journey_pain_point_entry_content(const UserJourneyPainPointEntry *self);
 void user_journey_pain_point_entry_set_content(UserJourneyPainPointEntry *self, const char *value);
 
-// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+// 9.1.2. User Lifecycle.
 //
 // Defines the complete user account lifecycle: states, transitions between
 // states, approval requirements for each transition, and operational policies
@@ -33554,7 +33870,7 @@ SelfServiceAccountManagement user_lifecycle_section_self_service(const UserLifec
 // Returns the list view; element type: ServiceAccountLifecycle (construct from item paths).
 SomList user_lifecycle_section_service_accounts(const UserLifecycleSection *self);
 
-// A lifecycle transition entry (form) [PD00-ACC-USE-LIF-nn].
+// A lifecycle transition entry (form).
 //
 // Defines a single permissible transition between two lifecycle states,
 // including trigger, approval, and side effects.
@@ -33604,20 +33920,20 @@ void user_lifecycle_transitions_set_content(UserLifecycleTransitions *self, cons
 // Returns the list view; element type: UserLifecycleTransitionEntry (construct from item paths).
 SomList user_lifecycle_transitions_items(const UserLifecycleTransitions *self);
 
-// 9.1. User Management [PD00-ACC-USE].
+// 9.1. User Management.
 // Binds a UserManagement facade to a document and a path (path copied).
 void user_management_init(UserManagement *self, SpecDocument *doc, const char *path);
 void user_management_free(UserManagement *self);
 char *user_management_content(const UserManagement *self);
 void user_management_set_content(UserManagement *self, const char *value);
-// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+// 9.1.1. User Categories.
 AccessUserCategories user_management_user_categories(const UserManagement *self);
-// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+// 9.1.2. User Lifecycle.
 UserLifecycleSection user_management_user_lifecycle(const UserManagement *self);
-// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+// 9.1.3. User Attributes.
 UserAttributes user_management_user_attributes(const UserManagement *self);
 
-// 15.3. User Manuals [PD00-ROL-DOC].
+// 15.3. User Manuals.
 //
 // End-user documentation deliverables covering DR15 User Manual content.
 // Binds a UserManuals facade to a document and a path (path copied).
@@ -33634,7 +33950,7 @@ void user_notification_preferences_free(UserNotificationPreferences *self);
 char *user_notification_preferences_content(const UserNotificationPreferences *self);
 void user_notification_preferences_set_content(UserNotificationPreferences *self, const char *value);
 
-// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+// 4.1.4.n.1. User Persona Details.
 //
 // Detailed persona information including demographics, goals, frustrations,
 // and behavioral characteristics for user-centered design.
@@ -33676,7 +33992,7 @@ void user_persona_details_goals_init(UserPersonaDetailsGoals *self, SpecDocument
 void user_persona_details_goals_free(UserPersonaDetailsGoals *self);
 UserPersonaDetailsGoalsContentForm user_persona_details_goals_content(const UserPersonaDetailsGoals *self);
 
-// 10.1.3. User Personas [PD00-USE-VIS-PER].
+// 10.1.3. User Personas.
 //
 // Container for user persona definitions. Each persona represents a distinct
 // user archetype with goals, pain points, and context.
@@ -33721,7 +34037,7 @@ void user_provisioning_tools_role_management_init(UserProvisioningToolsRoleManag
 void user_provisioning_tools_role_management_free(UserProvisioningToolsRoleManagement *self);
 UserProvisioningToolsRoleManagementContentForm user_provisioning_tools_role_management_content(const UserProvisioningToolsRoleManagement *self);
 
-// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+// 11.2. User-Related Quality Criteria.
 //
 // Quality criteria that directly affect user experience, including usability,
 // functional completeness, and correctness from the end-user perspective.
@@ -33731,11 +34047,11 @@ void user_quality_criteria_free(UserQualityCriteria *self);
 UserQualityCriteriaUserQualityContentForm user_quality_criteria_user_quality_content(const UserQualityCriteria *self);
 // User quality criteria overview.
 // (skipped: overview has no target type)
-// 11.2.1. Usability [PD00-SYQ-USE-USA].
+// 11.2.1. Usability.
 UsabilityQuality user_quality_criteria_usability(const UserQualityCriteria *self);
-// 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
+// 11.2.2. Functional Completeness.
 FunctionalCompletenessQuality user_quality_criteria_functional_completeness(const UserQualityCriteria *self);
-// 11.2.3. Correctness [PD00-SYQ-USE-COR].
+// 11.2.3. Correctness.
 CorrectnessQuality user_quality_criteria_correctness(const UserQualityCriteria *self);
 
 // 9.1.2.2. Registration Process (form).
@@ -33752,7 +34068,7 @@ void user_registration_process_set_content(UserRegistrationProcess *self, const 
 // Registration Flow Diagram (mermaid-sequence).
 // (skipped: registrationFlowDiagram has no target type)
 
-// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+// 4.1.4.n.5. Training Requirements.
 //
 // Training and onboarding requirements for this user category.
 // Binds a UserTrainingRequirements facade to a document and a path (path copied).
@@ -33766,7 +34082,7 @@ UserTrainingRequirementsTrainingFormForm user_training_requirements_training_for
 // Returns the list view; element type: TrainingTopicEntry (construct from item paths).
 SomList user_training_requirements_training_topics(const UserTrainingRequirements *self);
 
-// A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
+// A utility menu item entry (form).
 //
 // Entry in a utility popup/dropdown menu (e.g., user menu items).
 // Binds a UtilityMenuItemEntry facade to a document and a path (path copied).
@@ -33790,7 +34106,7 @@ void utility_menu_item_entry_behavior_init(UtilityMenuItemEntryBehavior *self, S
 void utility_menu_item_entry_behavior_free(UtilityMenuItemEntryBehavior *self);
 UtilityMenuItemEntryBehaviorContentForm utility_menu_item_entry_behavior_content(const UtilityMenuItemEntryBehavior *self);
 
-// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+// 10.3.1.5. Utility Navigation.
 //
 // Always-visible utility items: user menu, notifications, help, settings.
 // Binds a UtilityNavigation facade to a document and a path (path copied).
@@ -33802,7 +34118,7 @@ void utility_navigation_set_content(UtilityNavigation *self, const char *value);
 // Returns the list view; element type: UtilityNavigationItemEntry (construct from item paths).
 SomList utility_navigation_items(const UtilityNavigation *self);
 
-// A utility navigation item entry (form) [PD00-USE-SCF-NAV-UTL-nn].
+// A utility navigation item entry (form).
 //
 // A persistent utility element in the app bar: user avatar, notifications bell,
 // help icon, settings.
@@ -33830,7 +34146,7 @@ void utility_navigation_item_entry_display_init(UtilityNavigationItemEntryDispla
 void utility_navigation_item_entry_display_free(UtilityNavigationItemEntryDisplay *self);
 UtilityNavigationItemEntryDisplayContentForm utility_navigation_item_entry_display_content(const UtilityNavigationItemEntryDisplay *self);
 
-// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+// 7.1.6. Validation Constraints.
 //
 // Cross-entity validation policy. Per-field validation lives in entity
 // form fields; this section captures rules that span multiple fields or
@@ -33841,7 +34157,7 @@ void validation_constraints_free(ValidationConstraints *self);
 char *validation_constraints_content(const ValidationConstraints *self);
 void validation_constraints_set_content(ValidationConstraints *self, const char *value);
 
-// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+// 10.7.1. Validation Feedback.
 //
 // Field validation error display and feedback mechanisms.
 // Binds a ValidationFeedback facade to a document and a path (path copied).
@@ -33889,7 +34205,7 @@ void validation_feedback_placement_init(ValidationFeedbackPlacement *self, SpecD
 void validation_feedback_placement_free(ValidationFeedbackPlacement *self);
 ValidationFeedbackPlacementContentForm validation_feedback_placement_content(const ValidationFeedbackPlacement *self);
 
-// A validation message template [PD00-USE-ERR-VAL-MSG-nn].
+// A validation message template.
 // Binds a ValidationMessageTemplate facade to a document and a path (path copied).
 void validation_message_template_init(ValidationMessageTemplate *self, SpecDocument *doc, const char *path);
 void validation_message_template_free(ValidationMessageTemplate *self);
@@ -33902,7 +34218,7 @@ void validation_rule_entry_free(ValidationRuleEntry *self);
 char *validation_rule_entry_content(const ValidationRuleEntry *self);
 void validation_rule_entry_set_content(ValidationRuleEntry *self, const char *value);
 
-// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+// 4.1.1.4. Value Proposition.
 //
 // Clear articulation of the value this system provides, including
 // quantifiable benefits and return on investment analysis.
@@ -34090,7 +34406,7 @@ void vulnerability_management_policy_reporting_init(VulnerabilityManagementPolic
 void vulnerability_management_policy_reporting_free(VulnerabilityManagementPolicyReporting *self);
 VulnerabilityManagementPolicyReportingContentForm vulnerability_management_policy_reporting_content(const VulnerabilityManagementPolicyReporting *self);
 
-// 15.8. Warranty and Support [PD00-ROL-WAR].
+// 15.8. Warranty and Support.
 //
 // Post-acceptance warranty period terms and support arrangements. Covers
 // EK10 warranty content and feeds the SR top-level on the same topic.
@@ -34130,7 +34446,7 @@ void warranty_service_levels_init(WarrantyServiceLevels *self, SpecDocument *doc
 void warranty_service_levels_free(WarrantyServiceLevels *self);
 WarrantyServiceLevelsContentForm warranty_service_levels_content(const WarrantyServiceLevels *self);
 
-// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+// 14.2.6. Warranty.
 //
 // Post-acceptance warranty terms: duration, scope, service levels,
 // exclusions, and transition to standard support.
@@ -34160,7 +34476,7 @@ void warranty_transition_init(WarrantyTransition *self, SpecDocument *doc, const
 void warranty_transition_free(WarrantyTransition *self);
 WarrantyTransitionContentForm warranty_transition_content(const WarrantyTransition *self);
 
-// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+// 10.9.1. WCAG Compliance Level.
 // Binds a WcagCompliance facade to a document and a path (path copied).
 void wcag_compliance_init(WcagCompliance *self, SpecDocument *doc, const char *path);
 void wcag_compliance_free(WcagCompliance *self);
@@ -34195,13 +34511,13 @@ void wcag_compliance_understandable_init(WcagComplianceUnderstandable *self, Spe
 void wcag_compliance_understandable_free(WcagComplianceUnderstandable *self);
 WcagComplianceUnderstandableContentForm wcag_compliance_understandable_content(const WcagComplianceUnderstandable *self);
 
-// A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
+// A WCAG success criterion entry.
 // Binds a WcagSuccessCriterionEntry facade to a document and a path (path copied).
 void wcag_success_criterion_entry_init(WcagSuccessCriterionEntry *self, SpecDocument *doc, const char *path);
 void wcag_success_criterion_entry_free(WcagSuccessCriterionEntry *self);
 WcagSuccessCriterionEntryContentForm wcag_success_criterion_entry_content(const WcagSuccessCriterionEntry *self);
 
-// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+// 11.6.1. Weighted Quality Matrix.
 // Binds a WeightedQualityMatrix facade to a document and a path (path copied).
 void weighted_quality_matrix_init(WeightedQualityMatrix *self, SpecDocument *doc, const char *path);
 void weighted_quality_matrix_free(WeightedQualityMatrix *self);
@@ -34214,17 +34530,17 @@ SomList weighted_quality_matrix_weights(const WeightedQualityMatrix *self);
 // Quality matrix visualization.
 // (skipped: matrixVisualization has no target type)
 
-// 10.14. Wireframes and Mockups [PD00-USE-WIR].
+// 10.14. Wireframes and Mockups.
 //
 // Wireframe and mockup inventory beyond individual screen descriptions.
-// Covers HBSG AS10-WIR.
+// .
 // Binds a WireframesAndMockups facade to a document and a path (path copied).
 void wireframes_and_mockups_init(WireframesAndMockups *self, SpecDocument *doc, const char *path);
 void wireframes_and_mockups_free(WireframesAndMockups *self);
 char *wireframes_and_mockups_content(const WireframesAndMockups *self);
 void wireframes_and_mockups_set_content(WireframesAndMockups *self, const char *value);
 
-// A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
+// A workflow actor entry (form).
 //
 // Documentation of a participant in the workflow.
 // Binds a WorkflowActorEntry facade to a document and a path (path copied).
@@ -34247,10 +34563,10 @@ void workflow_decision_point_init(WorkflowDecisionPoint *self, SpecDocument *doc
 void workflow_decision_point_free(WorkflowDecisionPoint *self);
 WorkflowDecisionPointContentForm workflow_decision_point_content(const WorkflowDecisionPoint *self);
 
-// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+// 1.2.nn.1. Workflow Descriptions.
 //
 // Container for workflow entries within a business process.
-// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+// 1.2.nn.1. Workflow Descriptions.
 //
 // Container for workflow entries within a business process. Add one
 // subsection per current workflow relevant to the project.
@@ -34259,10 +34575,10 @@ void workflow_descriptions_init(WorkflowDescriptions *self, SpecDocument *doc, c
 void workflow_descriptions_free(WorkflowDescriptions *self);
 char *workflow_descriptions_content(const WorkflowDescriptions *self);
 void workflow_descriptions_set_content(WorkflowDescriptions *self, const char *value);
-// Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
+// Workflow overview diagram.
 char *workflow_descriptions_workflow_overview_diagram(const WorkflowDescriptions *self);
 void workflow_descriptions_set_workflow_overview_diagram(WorkflowDescriptions *self, const char *value);
-// Workflow summary table [PD00-CUR-PRO-xx-WOR-SUM].
+// Workflow summary table.
 WorkflowSummaryTable workflow_descriptions_summary_table(const WorkflowDescriptions *self);
 // Individual workflow entries.
 // Returns the list view; element type: CurrentWorkflowEntry (construct from item paths).
@@ -34296,7 +34612,7 @@ void workflow_output_entry_init(WorkflowOutputEntry *self, SpecDocument *doc, co
 void workflow_output_entry_free(WorkflowOutputEntry *self);
 WorkflowOutputEntryContentForm workflow_output_entry_content(const WorkflowOutputEntry *self);
 
-// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
+// A workflow step entry (form).
 //
 // Detailed documentation of a single step within a workflow.
 // Binds a WorkflowStepEntry facade to a document and a path (path copied).
@@ -34369,7 +34685,7 @@ void workflow_triggers_set_content(WorkflowTriggers *self, const char *value);
 // Returns the list view; element type: WorkflowTriggerEntry (construct from item paths).
 SomList workflow_triggers_triggers(const WorkflowTriggers *self);
 
-// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+// A workplace description entry (form, per user category).
 //
 // Comprehensive workplace requirements following workplace design best
 // practices (OSHA, ISO 9001, ergonomic standards). Covers physical,
@@ -34381,11 +34697,11 @@ void workplace_description_entry_free(WorkplaceDescriptionEntry *self);
 WorkplaceUserCategory workplace_description_entry_user_category(const WorkplaceDescriptionEntry *self);
 // Physical workplace layout and environment.
 PhysicalWorkplaceRequirements workplace_description_entry_physical_requirements(const WorkplaceDescriptionEntry *self);
-// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+// 5.3.1. Equipment Requirements.
 EquipmentRequirements workplace_description_entry_equipment_requirements(const WorkplaceDescriptionEntry *self);
 // Technical infrastructure requirements.
 TechnicalInfrastructure workplace_description_entry_technical_infrastructure(const WorkplaceDescriptionEntry *self);
-// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+// 5.3.2. Training Requirements.
 TrainingRequirements workplace_description_entry_training_requirements(const WorkplaceDescriptionEntry *self);
 // Support resources available to users.
 WorkplaceSupportResources workplace_description_entry_support_resources(const WorkplaceDescriptionEntry *self);
@@ -35822,6 +36138,18 @@ void application_security_requirements_validation_content_form_set_output_encodi
 char *application_security_requirements_validation_content_form_file_upload_security(const ApplicationSecurityRequirementsValidationContentForm *self);
 void application_security_requirements_validation_content_form_set_file_upload_security(ApplicationSecurityRequirementsValidationContentForm *self, const char *value);
 
+// ApprovalRecordContentForm is the generated form facade for the `content` @Form section.
+void approval_record_content_form_init(ApprovalRecordContentForm *self, SpecDocument *doc, const char *path);
+void approval_record_content_form_free(ApprovalRecordContentForm *self);
+char *approval_record_content_form_role(const ApprovalRecordContentForm *self);
+void approval_record_content_form_set_role(ApprovalRecordContentForm *self, const char *value);
+char *approval_record_content_form_name(const ApprovalRecordContentForm *self);
+void approval_record_content_form_set_name(ApprovalRecordContentForm *self, const char *value);
+char *approval_record_content_form_date(const ApprovalRecordContentForm *self);
+void approval_record_content_form_set_date(ApprovalRecordContentForm *self, const char *value);
+char *approval_record_content_form_status(const ApprovalRecordContentForm *self);
+void approval_record_content_form_set_status(ApprovalRecordContentForm *self, const char *value);
+
 // ArchitectureComponentEntryBoundariesContentForm is the generated form facade for the `content` @Form section.
 void architecture_component_entry_boundaries_content_form_init(ArchitectureComponentEntryBoundariesContentForm *self, SpecDocument *doc, const char *path);
 void architecture_component_entry_boundaries_content_form_free(ArchitectureComponentEntryBoundariesContentForm *self);
@@ -36069,6 +36397,20 @@ char *assumption_impact_content_form_contingency_timeline(const AssumptionImpact
 void assumption_impact_content_form_set_contingency_timeline(AssumptionImpactContentForm *self, const char *value);
 char *assumption_impact_content_form_related_risks(const AssumptionImpactContentForm *self);
 void assumption_impact_content_form_set_related_risks(AssumptionImpactContentForm *self, const char *value);
+
+// AssumptionRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+void assumption_register_entry_content_form_init(AssumptionRegisterEntryContentForm *self, SpecDocument *doc, const char *path);
+void assumption_register_entry_content_form_free(AssumptionRegisterEntryContentForm *self);
+char *assumption_register_entry_content_form_assumption_id(const AssumptionRegisterEntryContentForm *self);
+void assumption_register_entry_content_form_set_assumption_id(AssumptionRegisterEntryContentForm *self, const char *value);
+char *assumption_register_entry_content_form_description(const AssumptionRegisterEntryContentForm *self);
+void assumption_register_entry_content_form_set_description(AssumptionRegisterEntryContentForm *self, const char *value);
+char *assumption_register_entry_content_form_impact(const AssumptionRegisterEntryContentForm *self);
+void assumption_register_entry_content_form_set_impact(AssumptionRegisterEntryContentForm *self, const char *value);
+char *assumption_register_entry_content_form_validation(const AssumptionRegisterEntryContentForm *self);
+void assumption_register_entry_content_form_set_validation(AssumptionRegisterEntryContentForm *self, const char *value);
+char *assumption_register_entry_content_form_status(const AssumptionRegisterEntryContentForm *self);
+void assumption_register_entry_content_form_set_status(AssumptionRegisterEntryContentForm *self, const char *value);
 
 // AssumptionRelationshipsContentForm is the generated form facade for the `content` @Form section.
 void assumption_relationships_content_form_init(AssumptionRelationshipsContentForm *self, SpecDocument *doc, const char *path);
@@ -40447,6 +40789,20 @@ char *constraint_mitigation_content_form_fallback_plan(const ConstraintMitigatio
 void constraint_mitigation_content_form_set_fallback_plan(ConstraintMitigationContentForm *self, const char *value);
 char *constraint_mitigation_content_form_violation_consequences(const ConstraintMitigationContentForm *self);
 void constraint_mitigation_content_form_set_violation_consequences(ConstraintMitigationContentForm *self, const char *value);
+
+// ConstraintRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+void constraint_register_entry_content_form_init(ConstraintRegisterEntryContentForm *self, SpecDocument *doc, const char *path);
+void constraint_register_entry_content_form_free(ConstraintRegisterEntryContentForm *self);
+char *constraint_register_entry_content_form_constraint_id(const ConstraintRegisterEntryContentForm *self);
+void constraint_register_entry_content_form_set_constraint_id(ConstraintRegisterEntryContentForm *self, const char *value);
+char *constraint_register_entry_content_form_description(const ConstraintRegisterEntryContentForm *self);
+void constraint_register_entry_content_form_set_description(ConstraintRegisterEntryContentForm *self, const char *value);
+char *constraint_register_entry_content_form_type(const ConstraintRegisterEntryContentForm *self);
+void constraint_register_entry_content_form_set_type(ConstraintRegisterEntryContentForm *self, const char *value);
+char *constraint_register_entry_content_form_source(const ConstraintRegisterEntryContentForm *self);
+void constraint_register_entry_content_form_set_source(ConstraintRegisterEntryContentForm *self, const char *value);
+char *constraint_register_entry_content_form_impact(const ConstraintRegisterEntryContentForm *self);
+void constraint_register_entry_content_form_set_impact(ConstraintRegisterEntryContentForm *self, const char *value);
 
 // ConstraintTrackingContentForm is the generated form facade for the `content` @Form section.
 void constraint_tracking_content_form_init(ConstraintTrackingContentForm *self, SpecDocument *doc, const char *path);
@@ -47194,6 +47550,18 @@ void global_role_exclusion_entry_content_form_set_enforcement_level(GlobalRoleEx
 char *global_role_exclusion_entry_content_form_compliance_reference(const GlobalRoleExclusionEntryContentForm *self);
 void global_role_exclusion_entry_content_form_set_compliance_reference(GlobalRoleExclusionEntryContentForm *self, const char *value);
 
+// GlossaryEntryContentForm is the generated form facade for the `content` @Form section.
+void glossary_entry_content_form_init(GlossaryEntryContentForm *self, SpecDocument *doc, const char *path);
+void glossary_entry_content_form_free(GlossaryEntryContentForm *self);
+char *glossary_entry_content_form_term(const GlossaryEntryContentForm *self);
+void glossary_entry_content_form_set_term(GlossaryEntryContentForm *self, const char *value);
+char *glossary_entry_content_form_definition(const GlossaryEntryContentForm *self);
+void glossary_entry_content_form_set_definition(GlossaryEntryContentForm *self, const char *value);
+char *glossary_entry_content_form_acronym(const GlossaryEntryContentForm *self);
+void glossary_entry_content_form_set_acronym(GlossaryEntryContentForm *self, const char *value);
+char *glossary_entry_content_form_see_also(const GlossaryEntryContentForm *self);
+void glossary_entry_content_form_set_see_also(GlossaryEntryContentForm *self, const char *value);
+
 // GoalDependencyEntryContentForm is the generated form facade for the `content` @Form section.
 void goal_dependency_entry_content_form_init(GoalDependencyEntryContentForm *self, SpecDocument *doc, const char *path);
 void goal_dependency_entry_content_form_free(GoalDependencyEntryContentForm *self);
@@ -49287,6 +49655,16 @@ char *ip_ownership_entry_content_form_usage_rights(const IpOwnershipEntryContent
 void ip_ownership_entry_content_form_set_usage_rights(IpOwnershipEntryContentForm *self, const char *value);
 char *ip_ownership_entry_content_form_restrictions(const IpOwnershipEntryContentForm *self);
 void ip_ownership_entry_content_form_set_restrictions(IpOwnershipEntryContentForm *self, const char *value);
+
+// Iso25010CoverageEntryContentForm is the generated form facade for the `content` @Form section.
+void iso25010_coverage_entry_content_form_init(Iso25010CoverageEntryContentForm *self, SpecDocument *doc, const char *path);
+void iso25010_coverage_entry_content_form_free(Iso25010CoverageEntryContentForm *self);
+char *iso25010_coverage_entry_content_form_characteristic(const Iso25010CoverageEntryContentForm *self);
+void iso25010_coverage_entry_content_form_set_characteristic(Iso25010CoverageEntryContentForm *self, const char *value);
+char *iso25010_coverage_entry_content_form_addressed_by(const Iso25010CoverageEntryContentForm *self);
+void iso25010_coverage_entry_content_form_set_addressed_by(Iso25010CoverageEntryContentForm *self, const char *value);
+char *iso25010_coverage_entry_content_form_target_metric(const Iso25010CoverageEntryContentForm *self);
+void iso25010_coverage_entry_content_form_set_target_metric(Iso25010CoverageEntryContentForm *self, const char *value);
 
 // ItLandscapePositionPositionDetailsForm is the generated form facade for the `positionDetails` @Form section.
 void it_landscape_position_position_details_form_init(ItLandscapePositionPositionDetailsForm *self, SpecDocument *doc, const char *path);
@@ -58198,6 +58576,18 @@ void review_criterion_entry_result_content_form_set_assessment_notes(ReviewCrite
 char *review_criterion_entry_result_content_form_remediation_required(const ReviewCriterionEntryResultContentForm *self);
 void review_criterion_entry_result_content_form_set_remediation_required(ReviewCriterionEntryResultContentForm *self, const char *value);
 
+// RevisionEntryContentForm is the generated form facade for the `content` @Form section.
+void revision_entry_content_form_init(RevisionEntryContentForm *self, SpecDocument *doc, const char *path);
+void revision_entry_content_form_free(RevisionEntryContentForm *self);
+char *revision_entry_content_form_version(const RevisionEntryContentForm *self);
+void revision_entry_content_form_set_version(RevisionEntryContentForm *self, const char *value);
+char *revision_entry_content_form_date(const RevisionEntryContentForm *self);
+void revision_entry_content_form_set_date(RevisionEntryContentForm *self, const char *value);
+char *revision_entry_content_form_author(const RevisionEntryContentForm *self);
+void revision_entry_content_form_set_author(RevisionEntryContentForm *self, const char *value);
+char *revision_entry_content_form_summary(const RevisionEntryContentForm *self);
+void revision_entry_content_form_set_summary(RevisionEntryContentForm *self, const char *value);
+
 // RiskAnalysisContentForm is the generated form facade for the `content` @Form section.
 void risk_analysis_content_form_init(RiskAnalysisContentForm *self, SpecDocument *doc, const char *path);
 void risk_analysis_content_form_free(RiskAnalysisContentForm *self);
@@ -62280,6 +62670,24 @@ void stakeholder_entry_impact_content_form_set_expected_benefits(StakeholderEntr
 char *stakeholder_entry_impact_content_form_potential_concerns(const StakeholderEntryImpactContentForm *self);
 void stakeholder_entry_impact_content_form_set_potential_concerns(StakeholderEntryImpactContentForm *self, const char *value);
 
+// StakeholderRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+void stakeholder_register_entry_content_form_init(StakeholderRegisterEntryContentForm *self, SpecDocument *doc, const char *path);
+void stakeholder_register_entry_content_form_free(StakeholderRegisterEntryContentForm *self);
+char *stakeholder_register_entry_content_form_stakeholder_id(const StakeholderRegisterEntryContentForm *self);
+void stakeholder_register_entry_content_form_set_stakeholder_id(StakeholderRegisterEntryContentForm *self, const char *value);
+char *stakeholder_register_entry_content_form_name(const StakeholderRegisterEntryContentForm *self);
+void stakeholder_register_entry_content_form_set_name(StakeholderRegisterEntryContentForm *self, const char *value);
+char *stakeholder_register_entry_content_form_role(const StakeholderRegisterEntryContentForm *self);
+void stakeholder_register_entry_content_form_set_role(StakeholderRegisterEntryContentForm *self, const char *value);
+char *stakeholder_register_entry_content_form_interest(const StakeholderRegisterEntryContentForm *self);
+void stakeholder_register_entry_content_form_set_interest(StakeholderRegisterEntryContentForm *self, const char *value);
+char *stakeholder_register_entry_content_form_influence(const StakeholderRegisterEntryContentForm *self);
+void stakeholder_register_entry_content_form_set_influence(StakeholderRegisterEntryContentForm *self, const char *value);
+char *stakeholder_register_entry_content_form_concerns(const StakeholderRegisterEntryContentForm *self);
+void stakeholder_register_entry_content_form_set_concerns(StakeholderRegisterEntryContentForm *self, const char *value);
+char *stakeholder_register_entry_content_form_engagement_strategy(const StakeholderRegisterEntryContentForm *self);
+void stakeholder_register_entry_content_form_set_engagement_strategy(StakeholderRegisterEntryContentForm *self, const char *value);
+
 // StakeholdersAndInterestsContentForm is the generated form facade for the `content` @Form section.
 void stakeholders_and_interests_content_form_init(StakeholdersAndInterestsContentForm *self, SpecDocument *doc, const char *path);
 void stakeholders_and_interests_content_form_free(StakeholdersAndInterestsContentForm *self);
@@ -65101,6 +65509,18 @@ char *training_assessment_reporting_content_form_reporting_dashboard(const Train
 void training_assessment_reporting_content_form_set_reporting_dashboard(TrainingAssessmentReportingContentForm *self, const char *value);
 char *training_assessment_reporting_content_form_management_visibility(const TrainingAssessmentReportingContentForm *self);
 void training_assessment_reporting_content_form_set_management_visibility(TrainingAssessmentReportingContentForm *self, const char *value);
+
+// TrainingEnablementRequirementsContentForm is the generated form facade for the `content` @Form section.
+void training_enablement_requirements_content_form_init(TrainingEnablementRequirementsContentForm *self, SpecDocument *doc, const char *path);
+void training_enablement_requirements_content_form_free(TrainingEnablementRequirementsContentForm *self);
+char *training_enablement_requirements_content_form_target_audiences(const TrainingEnablementRequirementsContentForm *self);
+void training_enablement_requirements_content_form_set_target_audiences(TrainingEnablementRequirementsContentForm *self, const char *value);
+char *training_enablement_requirements_content_form_competency_outcomes(const TrainingEnablementRequirementsContentForm *self);
+void training_enablement_requirements_content_form_set_competency_outcomes(TrainingEnablementRequirementsContentForm *self, const char *value);
+char *training_enablement_requirements_content_form_certification_required(const TrainingEnablementRequirementsContentForm *self);
+void training_enablement_requirements_content_form_set_certification_required(TrainingEnablementRequirementsContentForm *self, const char *value);
+char *training_enablement_requirements_content_form_ongoing_enablement(const TrainingEnablementRequirementsContentForm *self);
+void training_enablement_requirements_content_form_set_ongoing_enablement(TrainingEnablementRequirementsContentForm *self, const char *value);
 
 // TrainingMaterialsContentForm is the generated form facade for the `content` @Form section.
 void training_materials_content_form_init(TrainingMaterialsContentForm *self, SpecDocument *doc, const char *path);

@@ -14,15 +14,15 @@ Map<String, dynamic> _fixtureJson() => {
       'modelVersion': 0,
       'roots': [
         {
-          'type': 'ProjectDefinition',
+          'type': 'SolutionBlueprint',
           'title': 'Project Definition',
           'sectionId': 'PD00',
           'description': 'The structured project overview.',
         },
       ],
       'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
+        'SolutionBlueprint': {
+          'name': 'SolutionBlueprint',
           'sectionId': 'PD00',
           'doc': 'Root of a project definition document.',
           'fields': [
@@ -61,7 +61,7 @@ Map<String, dynamic> _fixtureJson() => {
               'name': 'situation',
               'kind': 'complex',
               'sectionId': 'situation',
-              'type': 'CurrentSituation',
+              'type': 'CurrentLandscapeAssessment',
             },
           ],
         },
@@ -84,8 +84,8 @@ Map<String, dynamic> _fixtureJson() => {
             },
           ],
         },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
+        'CurrentLandscapeAssessment': {
+          'name': 'CurrentLandscapeAssessment',
           'sectionId': 'CS00',
           'fields': [
             {
@@ -347,13 +347,13 @@ void main() {
 
     test('documentRoots subsets the generated classes', () {
       final all = SomTypeScriptEmitter(_fixtureModel()).generateLibrary();
-      expect(all, contains('export class CurrentSituation extends SomNode'));
+      expect(all, contains('export class CurrentLandscapeAssessment extends SomNode'));
 
       final justRoot = SomTypeScriptEmitter(_fixtureModel(),
-              documentRoots: ['ProjectDefinition'])
+              documentRoots: ['SolutionBlueprint'])
           .generateLibrary();
       expect(
-          justRoot, contains('export class CurrentSituation extends SomNode'));
+          justRoot, contains('export class CurrentLandscapeAssessment extends SomNode'));
     });
   });
 }

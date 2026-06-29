@@ -1,0 +1,4705 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: architecture-technology-specification/1.0
+
+section-types:
+  ACCSTD-ACCE-LST:
+    prefix: accstd_acce_lst
+    pattern-check-id:
+      pattern: ^accstd_acce_lst-\d+$
+      error-message: ID must match accstd_acce_lst-NNN
+    description: Accessibility standards compliance.
+  ALDEEN-ALER-LST:
+    prefix: aldeen_aler_lst
+    pattern-check-id:
+      pattern: ^aldeen_aler_lst-\d+$
+      error-message: ID must match aldeen_aler_lst-NNN
+    description: Alert definitions.
+  ALRUEN-ALER-LST:
+    prefix: alruen_aler_lst
+    pattern-check-id:
+      pattern: ^alruen_aler_lst-\d+$
+      error-message: ID must match alruen_aler_lst-NNN
+    description: Alert rules catalog.
+  ALSURU-SUPP-LST:
+    prefix: alsuru_supp_lst
+    pattern-check-id:
+      pattern: ^alsuru_supp_lst-\d+$
+      error-message: ID must match alsuru_supp_lst-NNN
+    description: Alert suppression and maintenance windows.
+  BAPOEN-BACK-LST:
+    prefix: bapoen_back_lst
+    pattern-check-id:
+      pattern: ^bapoen_back_lst-\d+$
+      error-message: ID must match bapoen_back_lst-NNN
+    description: Backup policies by data type.
+  BOCOEN-BOUN-LST:
+    prefix: bocoen_boun_lst
+    pattern-check-id:
+      pattern: ^bocoen_boun_lst-\d+$
+      error-message: ID must match bocoen_boun_lst-NNN
+    description: Bounded contexts (DDD) definitions.
+  BRCOEN-BROW-LST:
+    prefix: brcoen_brow_lst
+    pattern-check-id:
+      pattern: ^brcoen_brow_lst-\d+$
+      error-message: ID must match brcoen_brow_lst-NNN
+    description: Browser compatibility requirements.
+  BRREEN-BROW-LST:
+    prefix: brreen_brow_lst
+    pattern-check-id:
+      pattern: ^brreen_brow_lst-\d+$
+      error-message: ID must match brreen_brow_lst-NNN
+    description: Web browser requirements.
+  BUCOEN-BUSI-LST:
+    prefix: bucoen_busi_lst
+    pattern-check-id:
+      pattern: ^bucoen_busi_lst-\d+$
+      error-message: ID must match bucoen_busi_lst-NNN
+    description: Business logic components.
+  COREEN-RESP-LST:
+    prefix: coreen_resp_lst
+    pattern-check-id:
+      pattern: ^coreen_resp_lst-\d+$
+      error-message: ID must match coreen_resp_lst-NNN
+    description: Responsibilities (form).
+  COSTEN-CODI-LST:
+    prefix: costen_codi_lst
+    pattern-check-id:
+      pattern: ^costen_codi_lst-\d+$
+      error-message: ID must match costen_codi_lst-NNN
+    description: Coding standards and style guidelines.
+  CUMEEN-CUST-LST:
+    prefix: cumeen_cust_lst
+    pattern-check-id:
+      pattern: ^cumeen_cust_lst-\d+$
+      error-message: ID must match cumeen_cust_lst-NNN
+    description: Custom metrics catalog.
+  DACOEN-DATA-LST:
+    prefix: dacoen_data_lst
+    pattern-check-id:
+      pattern: ^dacoen_data_lst-\d+$
+      error-message: ID must match dacoen_data_lst-NNN
+    description: Database compatibility requirements.
+  DECOEN-DEVE-LST:
+    prefix: decoen_deve_lst
+    pattern-check-id:
+      pattern: ^decoen_deve_lst-\d+$
+      error-message: ID must match decoen_deve_lst-NNN
+    description: Development conventions and best practices.
+  DEENEN-ENVI-LST:
+    prefix: deenen_envi_lst
+    pattern-check-id:
+      pattern: ^deenen_envi_lst-\d+$
+      error-message: ID must match deenen_envi_lst-NNN
+    description: Deployment environments.
+  DETAEN-DEPL-LST:
+    prefix: detaen_depl_lst
+    pattern-check-id:
+      pattern: ^detaen_depl_lst-\d+$
+      error-message: ID must match detaen_depl_lst-NNN
+    description: Deployment target specifications.
+  EXPAOP-OPER-LST:
+    prefix: expaop_oper_lst
+    pattern-check-id:
+      pattern: ^expaop_oper_lst-\d+$
+      error-message: ID must match expaop_oper_lst-NNN
+    description: Operations and contacts.
+  FTRMOD-FEAT-LST:
+    prefix: ftrmod_feat_lst
+    pattern-check-id:
+      pattern: ^ftrmod_feat_lst-\d+$
+      error-message: ID must match ftrmod_feat_lst-NNN
+    description: Feature module definitions (vertical slices).
+  IDREEN-IDER-LST:
+    prefix: idreen_ider_lst
+    pattern-check-id:
+      pattern: ^idreen_ider_lst-\d+$
+      error-message: ID must match idreen_ider_lst-NNN
+    description: IDE and editor requirements.
+  INCOE1-INTE-LST:
+    prefix: incoe1_inte_lst
+    pattern-check-id:
+      pattern: ^incoe1_inte_lst-\d+$
+      error-message: ID must match incoe1_inte_lst-NNN
+    description: Integration constraints — contains 0+× IntegrationConstraint.
+  INCOEN-INFR-LST:
+    prefix: incoen_infr_lst
+    pattern-check-id:
+      pattern: ^incoen_infr_lst-\d+$
+      error-message: ID must match incoen_infr_lst-NNN
+    description: Infrastructure components.
+  INSPEN-INTE-LST:
+    prefix: inspen_inte_lst
+    pattern-check-id:
+      pattern: ^inspen_inte_lst-\d+$
+      error-message: ID must match inspen_inte_lst-NNN
+    description: Interface specification standards.
+  INSTEN-INDU-LST:
+    prefix: insten_indu_lst
+    pattern-check-id:
+      pattern: ^insten_indu_lst-\d+$
+      error-message: ID must match insten_indu_lst-NNN
+    description: Industry standards compliance requirements.
+  LECOEN-LEGA-LST:
+    prefix: lecoen_lega_lst
+    pattern-check-id:
+      pattern: ^lecoen_lega_lst-\d+$
+      error-message: ID must match lecoen_lega_lst-NNN
+    description: Legacy system compatibility requirements.
+  MAWIEN-MAIN-LST:
+    prefix: mawien_main_lst
+    pattern-check-id:
+      pattern: ^mawien_main_lst-\d+$
+      error-message: ID must match mawien_main_lst-NNN
+    description: Maintenance window definitions.
+  MOCOEN-MOBI-LST:
+    prefix: mocoen_mobi_lst
+    pattern-check-id:
+      pattern: ^mocoen_mobi_lst-\d+$
+      error-message: ID must match mocoen_mobi_lst-NNN
+    description: Mobile device compatibility requirements.
+  OSCOEN-OSCO-LST:
+    prefix: oscoen_osco_lst
+    pattern-check-id:
+      pattern: ^oscoen_osco_lst-\d+$
+      error-message: ID must match oscoen_osco_lst-NNN
+    description: Operating system compatibility requirements.
+  PIJOEN-JOBS-LST:
+    prefix: pijoen_jobs_lst
+    pattern-check-id:
+      pattern: ^pijoen_jobs_lst-\d+$
+      error-message: ID must match pijoen_jobs_lst-NNN
+    description: Build jobs.
+  PISTEN-STAG-LST:
+    prefix: pisten_stag_lst
+    pattern-check-id:
+      pattern: ^pisten_stag_lst-\d+$
+      error-message: ID must match pisten_stag_lst-NNN
+    description: Pipeline stages.
+  RECOEN-REGU-LST:
+    prefix: recoen_regu_lst
+    pattern-check-id:
+      pattern: ^recoen_regu_lst-\d+$
+      error-message: ID must match recoen_regu_lst-NNN
+    description: Regulatory compliance requirements.
+  RUICMP-UICO-LST:
+    prefix: ruicmp_uico_lst
+    pattern-check-id:
+      pattern: ^ruicmp_uico_lst-\d+$
+      error-message: ID must match ruicmp_uico_lst-NNN
+    description: UI component library entries.
+  SEAUEN-AUDI-LST:
+    prefix: seauen_audi_lst
+    pattern-check-id:
+      pattern: ^seauen_audi_lst-\d+$
+      error-message: ID must match seauen_audi_lst-NNN
+    description: Individual security audit requirement entries — contains 0+× SecurityAudit.
+  SEENEN-ENVI-LST:
+    prefix: seenen_envi_lst
+    pattern-check-id:
+      pattern: ^seenen_envi_lst-\d+$
+      error-message: ID must match seenen_envi_lst-NNN
+    description: "Server environment tiers (dev, staging, production, DR)."
+  SEROEN-SERV-LST:
+    prefix: seroen_serv_lst
+    pattern-check-id:
+      pattern: ^seroen_serv_lst-\d+$
+      error-message: ID must match seroen_serv_lst-NNN
+    description: "Server role definitions (app server, db server, web server)."
+  SESTEN-STAN-LST:
+    prefix: sesten_stan_lst
+    pattern-check-id:
+      pattern: ^sesten_stan_lst-\d+$
+      error-message: ID must match sesten_stan_lst-NNN
+    description: Security standards and frameworks — contains 0+× SecurityStandard.
+  SOLAEN-SOFT-LST:
+    prefix: solaen_soft_lst
+    pattern-check-id:
+      pattern: ^solaen_soft_lst-\d+$
+      error-message: ID must match solaen_soft_lst-NNN
+    description: Software layer definitions.
+  TESTEN-TECH-LST:
+    prefix: testen_tech_lst
+    pattern-check-id:
+      pattern: ^testen_tech_lst-\d+$
+      error-message: ID must match testen_tech_lst-NNN
+    description: Technology standards — contains 0+× TechnologyStandard.
+  THPALI-THIR-LST:
+    prefix: thpali_thir_lst
+    pattern-check-id:
+      pattern: ^thpali_thir_lst-\d+$
+      error-message: ID must match thpali_thir_lst-NNN
+    description: Third-party frameworks and libraries.
+  VPREEN-VPNR-LST:
+    prefix: vpreen_vpnr_lst
+    pattern-check-id:
+      pattern: ^vpreen_vpnr_lst-\d+$
+      error-message: ID must match vpreen_vpnr_lst-NNN
+    description: VPN requirements.
+  BTCEN-BUIL-LST:
+    prefix: btcen_buil_lst
+    pattern-check-id:
+      pattern: ^btcen_buil_lst-\d+$
+      error-message: ID must match btcen_buil_lst-NNN
+    description: Build toolchain requirements.
+  CMPNT-COMP-LST:
+    prefix: cmpnt_comp_lst
+    pattern-check-id:
+      pattern: ^cmpnt_comp_lst-\d+$
+      error-message: ID must match cmpnt_comp_lst-NNN
+    description: 12.2. Component Catalog — contains 0+× Component.
+  DATAC-DATA-LST:
+    prefix: datac_data_lst
+    pattern-check-id:
+      pattern: ^datac_data_lst-\d+$
+      error-message: ID must match datac_data_lst-NNN
+    description: Data center and hosting environment details.
+  DEVOP-DEVO-LST:
+    prefix: devop_devo_lst
+    pattern-check-id:
+      pattern: ^devop_devo_lst-\d+$
+      error-message: ID must match devop_devo_lst-NNN
+    description: DevOps and deployment standards.
+  DORE1-DESK-LST:
+    prefix: dore1_desk_lst
+    pattern-check-id:
+      pattern: ^dore1_desk_lst-\d+$
+      error-message: ID must match dore1_desk_lst-NNN
+    description: Desktop operating system requirements.
+  EVCEN-ITEM-LST:
+    prefix: evcen_item_lst
+    pattern-check-id:
+      pattern: ^evcen_item_lst-\d+$
+      error-message: ID must match evcen_item_lst-NNN
+    description: Contains 0+× EvaluationCriterion.
+  FWREN-FRAM-LST:
+    prefix: fwren_fram_lst
+    pattern-check-id:
+      pattern: ^fwren_fram_lst-\d+$
+      error-message: ID must match fwren_fram_lst-NNN
+    description: Framework and library requirements.
+  MAINT-MAIN-LST:
+    prefix: maint_main_lst
+    pattern-check-id:
+      pattern: ^maint_main_lst-\d+$
+      error-message: ID must match maint_main_lst-NNN
+    description: Maintenance Procedures.
+  MNDEP-ITEM-LST:
+    prefix: mndep_item_lst
+    pattern-check-id:
+      pattern: ^mndep_item_lst-\d+$
+      error-message: ID must match mndep_item_lst-NNN
+    description: Contains 0+× Maintenance Dependency.
+  MOEN1-MODU-LST:
+    prefix: moen1_modu_lst
+    pattern-check-id:
+      pattern: ^moen1_modu_lst-\d+$
+      error-message: ID must match moen1_modu_lst-NNN
+    description: Module catalog with dependency information.
+  OBSER-OBSE-LST:
+    prefix: obser_obse_lst
+    pattern-check-id:
+      pattern: ^obser_obse_lst-\d+$
+      error-message: ID must match obser_obse_lst-NNN
+    description: Monitoring and observability requirements.
+  PLGEN-PROG-LST:
+    prefix: plgen_prog_lst
+    pattern-check-id:
+      pattern: ^plgen_prog_lst-\d+$
+      error-message: ID must match plgen_prog_lst-NNN
+    description: Programming language requirements.
+  QLSTD-QUAL-LST:
+    prefix: qlstd_qual_lst
+    pattern-check-id:
+      pattern: ^qlstd_qual_lst-\d+$
+      error-message: ID must match qlstd_qual_lst-NNN
+    description: Quality management standards.
+  RGUSE-REUS-LST:
+    prefix: rguse_reus_lst
+    pattern-check-id:
+      pattern: ^rguse_reus_lst-\d+$
+      error-message: ID must match rguse_reus_lst-NNN
+    description: 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
+  RNDEP-ITEM-LST:
+    prefix: rndep_item_lst
+    pattern-check-id:
+      pattern: ^rndep_item_lst-\d+$
+      error-message: ID must match rndep_item_lst-NNN
+    description: Contains 0+× Runtime Dependency.
+  SHLCP-SHAR-LST:
+    prefix: shlcp_shar_lst
+    pattern-check-id:
+      pattern: ^shlcp_shar_lst-\d+$
+      error-message: ID must match shlcp_shar_lst-NNN
+    description: Shared component library catalog.
+  SHLIB-SHAR-LST:
+    prefix: shlib_shar_lst
+    pattern-check-id:
+      pattern: ^shlib_shar_lst-\d+$
+      error-message: ID must match shlib_shar_lst-NNN
+    description: Shared libraries and common code.
+  TGPLT-TARG-LST:
+    prefix: tgplt_targ_lst
+    pattern-check-id:
+      pattern: ^tgplt_targ_lst-\d+$
+      error-message: ID must match tgplt_targ_lst-NNN
+    description: "Target platforms (operating systems, runtimes, containers)."
+  APCP-APIC-LST:
+    prefix: apcp_apic_lst
+    pattern-check-id:
+      pattern: ^apcp_apic_lst-\d+$
+      error-message: ID must match apcp_apic_lst-NNN
+    description: API and protocol compatibility requirements.
+  ARCM-COMP-LST:
+    prefix: arcm_comp_lst
+    pattern-check-id:
+      pattern: ^arcm_comp_lst-\d+$
+      error-message: ID must match arcm_comp_lst-NNN
+    description: Component/service catalog.
+  ARDE-DECI-LST:
+    prefix: arde_deci_lst
+    pattern-check-id:
+      pattern: ^arde_deci_lst-\d+$
+      error-message: ID must match arde_deci_lst-NNN
+    description: Architecture decision records.
+  ARPR-PRIN-LST:
+    prefix: arpr_prin_lst
+    pattern-check-id:
+      pattern: ^arpr_prin_lst-\d+$
+      error-message: ID must match arpr_prin_lst-NNN
+    description: Architecture principles guiding design decisions.
+  CMIF-INTE-LST:
+    prefix: cmif_inte_lst
+    pattern-check-id:
+      pattern: ^cmif_inte_lst-\d+$
+      error-message: ID must match cmif_inte_lst-NNN
+    description: Interfaces — contains 0+× ComponentInterface.
+  CMRS-RISK-LST:
+    prefix: cmrs_risk_lst
+    pattern-check-id:
+      pattern: ^cmrs_risk_lst-\d+$
+      error-message: ID must match cmrs_risk_lst-NNN
+    description: 12.6.1. Component Risks — contains 0+× Risk.
+  CODO-DOCS-LST:
+    prefix: codo_docs_lst
+    pattern-check-id:
+      pattern: ^codo_docs_lst-\d+$
+      error-message: ID must match codo_docs_lst-NNN
+    description: Documentation.
+  COPL-ITEM-LST:
+    prefix: copl_item_lst
+    pattern-check-id:
+      pattern: ^copl_item_lst-\d+$
+      error-message: ID must match copl_item_lst-NNN
+    description: Contains 0+× ContingencyPlan.
+  DAEN-DASH-LST:
+    prefix: daen_dash_lst
+    pattern-check-id:
+      pattern: ^daen_dash_lst-\d+$
+      error-message: ID must match daen_dash_lst-NNN
+    description: Dashboard catalog.
+  DATE-DASH-LST:
+    prefix: date_dash_lst
+    pattern-check-id:
+      pattern: ^date_dash_lst-\d+$
+      error-message: ID must match date_dash_lst-NNN
+    description: Dashboard template specifications.
+  DSPT-DESI-LST:
+    prefix: dspt_desi_lst
+    pattern-check-id:
+      pattern: ^dspt_desi_lst-\d+$
+      error-message: ID must match dspt_desi_lst-NNN
+    description: Required design patterns catalog.
+  EPCE-PART-LST:
+    prefix: epce_part_lst
+    pattern-check-id:
+      pattern: ^epce_part_lst-\d+$
+      error-message: ID must match epce_part_lst-NNN
+    description: External partner connections — contains 0+× ExternalPartnerConnection.
+  ESCE-ENTE-LST:
+    prefix: esce_ente_lst
+    pattern-check-id:
+      pattern: ^esce_ente_lst-\d+$
+      error-message: ID must match esce_ente_lst-NNN
+    description: Enterprise system compatibility requirements.
+  IPCE-INDU-LST:
+    prefix: ipce_indu_lst
+    pattern-check-id:
+      pattern: ^ipce_indu_lst-\d+$
+      error-message: ID must match ipce_indu_lst-NNN
+    description: Industry protocols compliance.
+  ISCE-ITST-LST:
+    prefix: isce_itst_lst
+    pattern-check-id:
+      pattern: ^isce_itst_lst-\d+$
+      error-message: ID must match isce_itst_lst-NNN
+    description: "IT standards compliance (ISO, IEEE, NIST)."
+  MDRE-MOBI-LST:
+    prefix: mdre_mobi_lst
+    pattern-check-id:
+      pattern: ^mdre_mobi_lst-\d+$
+      error-message: ID must match mdre_mobi_lst-NNN
+    description: Mobile device requirements.
+  PREN-PROT-LST:
+    prefix: pren_prot_lst
+    pattern-check-id:
+      pattern: ^pren_prot_lst-\d+$
+      error-message: ID must match pren_prot_lst-NNN
+    description: Protocol catalog — contains 0+× Protocol.
+  SLEN-SLOS-LST:
+    prefix: slen_slos_lst
+    pattern-check-id:
+      pattern: ^slen_slos_lst-\d+$
+      error-message: ID must match slen_slos_lst-NNN
+    description: SLO catalog.
+  SSCE-SECU-LST:
+    prefix: ssce_secu_lst
+    pattern-check-id:
+      pattern: ^ssce_secu_lst-\d+$
+      error-message: ID must match ssce_secu_lst-NNN
+    description: Security standards compliance.
+  TPCE-THIR-LST:
+    prefix: tpce_thir_lst
+    pattern-check-id:
+      pattern: ^tpce_thir_lst-\d+$
+      error-message: ID must match tpce_thir_lst-NNN
+    description: Third-party software compatibility requirements.
+  ACCSTD:
+    prefix: accstd
+    description: "Accessibility standard entry (WCAG, Section 508, ADA)."
+  ADENMA:
+    prefix: adenma
+    description: Administration environment management.
+  ADINRE:
+    prefix: adinre
+    description: Admin interface requirements.
+  ALESPO:
+    prefix: alespo
+    description: Alert escalation policies.
+  ALNOCH:
+    prefix: alnoch
+    description: Alert notification channels.
+  ALREDE:
+    prefix: alrede
+    description: De-duplication behavior.
+  ALRERE:
+    prefix: alrere
+    description: Response automation.
+  ALRERO:
+    prefix: alrero
+    description: Routing rules.
+  ALRESU:
+    prefix: alresu
+    description: Suppression rules.
+  ALSURU:
+    prefix: alsuru
+    description: Alert suppression and maintenance windows.
+  APDIPE:
+    prefix: apdipe
+    description: On-demand profiling and slow-request tracing.
+  APDIRU:
+    prefix: apdiru
+    description: Runtime queue and pool inspection.
+  APMESP:
+    prefix: apmesp
+    description: Application metrics specification.
+  APPEMO:
+    prefix: appemo
+    description: Application performance monitoring.
+  APSERE:
+    prefix: apsere
+    description: Application security requirements (OWASP-based).
+  APVEST:
+    prefix: apvest
+    description: API versioning strategy.
+  AROVCO:
+    prefix: arovco
+    description: Compliance considerations.
+  AROVDR:
+    prefix: arovdr
+    description: Architecture drivers.
+  AROVEV:
+    prefix: arovev
+    description: Evolution planning.
+  BACOAU:
+    prefix: bacoau
+    description: Audit controls.
+  BACOR1:
+    prefix: bacor1
+    description: Reporting obligations.
+  BACORE:
+    prefix: bacore
+    description: Backwards compatibility requirements.
+  BADACL:
+    prefix: badacl
+    description: Data classification for backup purposes.
+  BAINNE:
+    prefix: bainne
+    description: Network requirements.
+  BAINSE:
+    prefix: bainse
+    description: Security controls.
+  BAINSO:
+    prefix: bainso
+    description: Backup software configuration.
+  BAINST:
+    prefix: bainst
+    description: Performance and secondary storage.
+  BAJOMA:
+    prefix: bajoma
+    description: Batch job management.
+  BARECO:
+    prefix: bareco
+    description: Per-connection bandwidth requirements.
+  BAREDI:
+    prefix: baredi
+    description: Directional bandwidth requirements.
+  BAREQO:
+    prefix: bareqo
+    description: QoS requirements.
+  BARETR:
+    prefix: baretr
+    description: Traffic-pattern requirements.
+  BAVEDO:
+    prefix: bavedo
+    description: Documentation and follow-up.
+  BAVEEN:
+    prefix: baveen
+    description: Test environment constraints.
+  BAVERE:
+    prefix: bavere
+    description: Recovery testing.
+  BUMESP:
+    prefix: bumesp
+    description: Business metrics specification.
+  BUTOCO:
+    prefix: butoco
+    description: Build tools configuration.
+  CAREPR:
+    prefix: carepr
+    description: Capacity review process.
+  CEMAKE:
+    prefix: cemake
+    description: Key specifications.
+  CEMALI:
+    prefix: cemali
+    description: Lifecycle management.
+  CEMAMO:
+    prefix: cemamo
+    description: Monitoring rules.
+  CEMAST:
+    prefix: cemast
+    description: Storage and access controls.
+  CERESE:
+    prefix: cerese
+    description: Certification requirements section.
+  CLACRE:
+    prefix: clacre
+    description: Client accessibility requirements.
+  CLHARE:
+    prefix: clhare
+    description: Client hardware requirements.
+  CLNERE:
+    prefix: clnere
+    description: Client network requirements.
+  CLPRRE:
+    prefix: clprre
+    description: Cloud provider requirements.
+  CLSEIN:
+    prefix: clsein
+    description: Cloud service integrations.
+  CLSERE:
+    prefix: clsere
+    description: Client security requirements.
+  COAUSC:
+    prefix: coausc
+    description: Compliance audit planning and scheduling.
+  COGOCO:
+    prefix: cogoco
+    description: Contribution governance.
+  COGOLI:
+    prefix: cogoli
+    description: Lifecycle policies.
+  COGOME:
+    prefix: cogome
+    description: Metrics and notes.
+  COGOQU:
+    prefix: cogoqu
+    description: Quality expectations.
+  COLIEN:
+    prefix: colien
+    description: Component licensing sub-entry (form).
+  COMAEN:
+    prefix: comaen
+    description: Environment-configuration rules.
+  COMAFE:
+    prefix: comafe
+    description: Feature-configuration rules.
+  COMAIN:
+    prefix: comain
+    description: Configuration injection rules.
+  COMARE:
+    prefix: comare
+    description: "Consent collection, tracking and management requirements."
+  COMASE:
+    prefix: comase
+    description: Security controls.
+  COORCO:
+    prefix: coorco
+    description: Coupling guidance.
+  COORDE:
+    prefix: coorde
+    description: Dependency management rules.
+  COORDO:
+    prefix: coordo
+    description: Domain boundaries.
+  COORLA:
+    prefix: coorla
+    description: Layering rules.
+  COPAAS:
+    prefix: copaas
+    description: Asynchronous communication details.
+  COPAOB:
+    prefix: copaob
+    description: Observability settings.
+  COPARE:
+    prefix: copare
+    description: Reliability controls.
+  COPASY:
+    prefix: copasy
+    description: Synchronous communication details.
+  COQUME:
+    prefix: coqume
+    description: Code quality metrics and thresholds.
+  COREDI:
+    prefix: coredi
+    description: Discovery workflow.
+  COREDO:
+    prefix: coredo
+    description: Documentation requirements.
+  COREEN:
+    prefix: coreen
+    description: Component responsibilities sub-entry (form).
+  COREME:
+    prefix: coreme
+    description: Metadata requirements.
+  COREOF:
+    prefix: coreof
+    description: Offline and reconnection behavior.
+  COREOP:
+    prefix: coreop
+    description: Monitoring and alerting expectations.
+  COREP1:
+    prefix: corep1
+    description: Circuit breaking and isolation strategy.
+  COREPR:
+    prefix: corepr
+    description: Code review process configuration.
+  CORERE:
+    prefix: corere
+    description: Compute resource requirements.
+  COREUP:
+    prefix: coreup
+    description: Update communication.
+  CORIAS:
+    prefix: corias
+    description: 12.6. Risk Assessment.
+  COSTSE:
+    prefix: costse
+    description: Coding standards section.
+  COVESE:
+    prefix: covese
+    description: Compliance verification section.
+  CRCUCO:
+    prefix: crcuco
+    description: Cross-cutting concerns organization.
+  DAARAC:
+    prefix: daarac
+    description: Data access patterns.
+  DAARCO:
+    prefix: daarco
+    description: Consistency model and transactions.
+  DAARLI:
+    prefix: daarli
+    description: Lifecycle controls.
+  DAARSE:
+    prefix: daarse
+    description: Privacy and security controls.
+  DAARST:
+    prefix: daarst
+    description: Storage decisions.
+  DAENCO:
+    prefix: daenco
+    description: Refresh and data composition details.
+  DAENOP:
+    prefix: daenop
+    description: Alert ownership and notes.
+  DAFOCO:
+    prefix: dafoco
+    description: Data format and encoding compatibility.
+  DAGRPR:
+    prefix: dagrpr
+    description: Data growth projections.
+  DAPRCL:
+    prefix: daprcl
+    description: Data protection classification and handling rules.
+  DAREAC:
+    prefix: dareac
+    description: Access controls.
+  DAREFE:
+    prefix: darefe
+    description: Feature requirements.
+  DAREMO:
+    prefix: daremo
+    description: Mobile support and notes.
+  DARERE:
+    prefix: darere
+    description: Data residency and sovereignty requirements.
+  DAREST:
+    prefix: darest
+    description: Standard dashboards.
+  DECOBR:
+    prefix: decobr
+    description: Breakpoint and watch setup.
+  DECOER:
+    prefix: decoer
+    description: Error tracking details.
+  DECOFL:
+    prefix: decofl
+    description: Flutter-specific tooling.
+  DECOIN:
+    prefix: decoin
+    description: State and runtime inspection.
+  DECOLO:
+    prefix: decolo
+    description: Logging setup for debugging.
+  DEHEMO:
+    prefix: dehemo
+    description: Dependency health monitoring.
+  DEINST:
+    prefix: deinst
+    description: Dependency injection structure and configuration.
+  DEMAIN:
+    prefix: demain
+    description: Internal package and workspace strategy.
+  DEMAOP:
+    prefix: demaop
+    description: Caching and offline behavior.
+  DEMASE:
+    prefix: demase
+    description: Security and trust controls.
+  DEMAVE:
+    prefix: demave
+    description: Versioning and update policy.
+  DEMORE:
+    prefix: demore
+    description: Deployment model requirements.
+  DEONAC:
+    prefix: deonac
+    description: Access provisioning.
+  DEONLE:
+    prefix: deonle
+    description: Learning support.
+  DEONSE:
+    prefix: deonse
+    description: Setup expectations.
+  DEONVE:
+    prefix: deonve
+    description: Completion verification.
+  DEQUGA:
+    prefix: dequga
+    description: Development quality gates and metrics.
+  DESCRE:
+    prefix: descre
+    description: Dependency and supply-chain scanning requirements.
+  DESEAC:
+    prefix: deseac
+    description: Access control and audit.
+  DESERU:
+    prefix: deseru
+    description: Runtime security.
+  DETOAV:
+    prefix: detoav
+    description: High-availability settings.
+  DETOEN:
+    prefix: detoen
+    description: Environment layout.
+  DETOGE:
+    prefix: detoge
+    description: Geographic distribution.
+  DETOIN:
+    prefix: detoin
+    description: Infrastructure layout.
+  DIREC1:
+    prefix: direc1
+    description: Color and contrast support.
+  DIRELA:
+    prefix: direla
+    description: Aspect ratio and layout support.
+  DIRERE:
+    prefix: direre
+    description: Disaster recovery requirements.
+  DIRESC:
+    prefix: diresc
+    description: DPI and scaling support.
+  DITRSP:
+    prefix: ditrsp
+    description: Distributed tracing specification.
+  DNREAV:
+    prefix: dnreav
+    description: Availability requirements.
+  DNRERE:
+    prefix: dnrere
+    description: Record requirements.
+  DNREZO:
+    prefix: dnrezo
+    description: Zone requirements.
+  DORES1:
+    prefix: dores1
+    description: Software prerequisites.
+  DOSTAR:
+    prefix: dostar
+    description: Architecture documentation requirements.
+  DOSTCO:
+    prefix: dostco
+    description: Content requirements.
+  DOSTPR:
+    prefix: dostpr
+    description: Review and publication settings.
+  DOSTSE:
+    prefix: dostse
+    description: Documentation standards section.
+  DOSTVE:
+    prefix: dostve
+    description: Changelog and versioning requirements.
+  DSRMA1:
+    prefix: dsrma1
+    description: Automated decision safeguards.
+  EMMAPR:
+    prefix: emmapr
+    description: Emergency maintenance procedures.
+  ENMACO:
+    prefix: enmaco
+    description: Configuration settings.
+  ENMAPA:
+    prefix: enmapa
+    description: Parity and notes.
+  ENMASE:
+    prefix: enmase
+    description: Secrets handling.
+  ENMASW:
+    prefix: enmasw
+    description: Environment switching.
+  ENSTDE:
+    prefix: enstde
+    description: Development environment setup.
+  ENSTEP:
+    prefix: enstep
+    description: Ephemeral environment strategy.
+  ENSTPR:
+    prefix: enstpr
+    description: Production configuration.
+  ENSTST:
+    prefix: enstst
+    description: Staging configuration.
+  ENSTTE:
+    prefix: enstte
+    description: Test environment setup.
+  ERBUTR:
+    prefix: erbutr
+    description: Error budget tracking.
+  ERHAST:
+    prefix: erhast
+    description: Error handling and exception patterns.
+  EXNERE:
+    prefix: exnere
+    description: External network requirements.
+  EXPAAU:
+    prefix: expaau
+    description: Authentication settings.
+  EXPANE:
+    prefix: expane
+    description: Network configuration.
+  EXPAOP:
+    prefix: expaop
+    description: Operations and contacts.
+  EXPAPR:
+    prefix: expapr
+    description: Protocol and endpoint.
+  EXPARE:
+    prefix: expare
+    description: Reliability and SLA.
+  FIREAD:
+    prefix: firead
+    description: Advanced inspection features.
+  FIRELO:
+    prefix: firelo
+    description: Logging and alerts.
+  FIREPO:
+    prefix: firepo
+    description: Port requirements.
+  FIRERU:
+    prefix: fireru
+    description: Rule definitions.
+  FTRMOD:
+    prefix: ftrmod
+    description: Feature module entry — a vertical slice feature.
+  GEDIRE:
+    prefix: gedire
+    description: Geographic distribution requirements.
+  HECHEN:
+    prefix: hechen
+    description: Health check endpoint requirements.
+  HIAVRE:
+    prefix: hiavre
+    description: High availability requirements.
+  INARDA:
+    prefix: inarda
+    description: Data exchange approach.
+  INAROP:
+    prefix: inarop
+    description: Monitoring and SLA management.
+  INARRE:
+    prefix: inarre
+    description: Reliability controls.
+  INARSE:
+    prefix: inarse
+    description: Security model for integrations.
+  INARSY:
+    prefix: inarsy
+    description: External system landscape.
+  INASCO:
+    prefix: inasco
+    description: Infrastructure as Code requirements.
+  INMARE:
+    prefix: inmare
+    description: Incident management requirements.
+  INMESP:
+    prefix: inmesp
+    description: Infrastructure metrics specification.
+  INNERE:
+    prefix: innere
+    description: Internal network requirements.
+  INREGO:
+    prefix: inrego
+    description: Governance and fallback behavior.
+  INREPL:
+    prefix: inrepl
+    description: Incident response plan.
+  INREST:
+    prefix: inrest
+    description: Standards and certifications.
+  INRETE:
+    prefix: inrete
+    description: Interoperability testing.
+  INSEHA:
+    prefix: inseha
+    description: Infrastructure security hardening.
+  IPCEI1:
+    prefix: ipcei1
+    description: Interoperability notes.
+  LACORU:
+    prefix: lacoru
+    description: Layer communication rules and constraints.
+  LOAGRE:
+    prefix: loagre
+    description: Log aggregation and analysis requirements.
+  LODESE:
+    prefix: lodese
+    description: Local development setup configuration.
+  LOMARE:
+    prefix: lomare
+    description: Log management requirements.
+  LOPRRE:
+    prefix: loprre
+    description: Load profile requirements.
+  MACHMA:
+    prefix: machma
+    description: Change management for maintenance.
+  MAUSIM:
+    prefix: mausim
+    description: User impact and communication.
+  MEANOB:
+    prefix: meanob
+    description: 8.7.2.3. Metrics and Observability.
+  MECORE:
+    prefix: mecore
+    description: Metrics collection requirements.
+  MEFOST:
+    prefix: mefost
+    description: Message format standards.
+  MOENCO:
+    prefix: moenco
+    description: Configuration settings.
+  MOEND1:
+    prefix: moend1
+    description: Dependency information.
+  MOENDE:
+    prefix: moende
+    description: Purpose and API.
+  MOENOW:
+    prefix: moenow
+    description: Ownership information.
+  MOENTE:
+    prefix: moente
+    description: Testing and notes.
+  MOINAC:
+    prefix: moinac
+    description: Access and privacy controls.
+  MOINCO:
+    prefix: moinco
+    description: Collection model.
+  MOINDE:
+    prefix: moinde
+    description: Deployment model.
+  MONITO:
+    prefix: monito
+    description: 8.7.2. Monitoring.
+  MOVEST:
+    prefix: movest
+    description: Module versioning and compatibility strategy.
+  NAAPRE:
+    prefix: naapre
+    description: Native app requirements.
+  NEAVRE:
+    prefix: neavre
+    description: Network availability requirements.
+  NELARE:
+    prefix: nelare
+    description: Network latency requirements.
+  NESEPO:
+    prefix: nesepo
+    description: Network security and access control.
+  NESERE:
+    prefix: nesere
+    description: Network security requirements.
+  NLBRHC:
+    prefix: nlbrhc
+    description: Health-check behavior.
+  ONCAPR:
+    prefix: oncapr
+    description: On-call procedures.
+  PAORDE:
+    prefix: paorde
+    description: Dependency management rules.
+  PAORDO:
+    prefix: paordo
+    description: Documentation expectations.
+  PAORST:
+    prefix: paorst
+    description: Repository and directory structure.
+  PAORTY:
+    prefix: paorty
+    description: Package categorization.
+  PELOPA:
+    prefix: pelopa
+    description: Peak load patterns.
+  PETERE:
+    prefix: petere
+    description: Penetration testing requirements and schedule.
+  POMAVA:
+    prefix: pomava
+    description: Post-maintenance validation.
+  PRCORE:
+    prefix: prcore
+    description: Protocol compliance requirements.
+  PRRECO:
+    prefix: prreco
+    description: Privacy regulation compliance requirements.
+  PWREIC:
+    prefix: pwreic
+    description: Icon requirements.
+  PWREIN:
+    prefix: pwrein
+    description: Installation behavior.
+  PWREOF:
+    prefix: pwreof
+    description: Offline support.
+  PWREUP:
+    prefix: pwreup
+    description: Update handling.
+  RALIPO:
+    prefix: ralipo
+    description: Rate limiting and throttling.
+  RECABA:
+    prefix: recaba
+    description: Resource capacity baselines.
+  REPRAB:
+    prefix: reprab
+    description: Abstraction rules.
+  REPRAP:
+    prefix: reprap
+    description: Application recovery behavior.
+  REPRAU:
+    prefix: reprau
+    description: Recovery automation.
+  REPRDA:
+    prefix: reprda
+    description: Database recovery behavior.
+  REPROW:
+    prefix: reprow
+    description: Ownership and contribution.
+  REPRQU:
+    prefix: reprqu
+    description: Quality expectations.
+  REPRVA:
+    prefix: reprva
+    description: Validation after recovery.
+  REPRVE:
+    prefix: reprve
+    description: Versioning policy.
+  RESTCA:
+    prefix: restca
+    description: Canary deployment configuration.
+  RESTMA:
+    prefix: restma
+    description: Release management configuration.
+  ROSTDA:
+    prefix: rostda
+    description: Data rollback safeguards.
+  ROSTHE:
+    prefix: rosthe
+    description: Health-based rollback thresholds.
+  ROSTOP:
+    prefix: rostop
+    description: Manual procedure and follow-up.
+  ROSTTA:
+    prefix: rostta
+    description: Rollback target and artifact retention.
+  ROSTTR:
+    prefix: rosttr
+    description: Trigger and timing conditions.
+  RPRTRE:
+    prefix: rprtre
+    description: RPO and RTO requirements.
+  RUCED1:
+    prefix: ruced1
+    description: Design specifications for UI component.
+  RUCEI1:
+    prefix: rucei1
+    description: Implementation details for UI component.
+  RUENCP:
+    prefix: ruencp
+    description: CPU and graphics requirements.
+  RUENDE:
+    prefix: ruende
+    description: Runtime dependencies.
+  RUENME:
+    prefix: ruenme
+    description: Memory limits.
+  RUENNE:
+    prefix: ruenne
+    description: Network requirements.
+  RUENNO:
+    prefix: ruenno
+    description: Additional notes.
+  RUENSC:
+    prefix: ruensc
+    description: Scaling characteristics.
+  RUENST:
+    prefix: ruenst
+    description: Storage requirements.
+  RUENVA:
+    prefix: ruenva
+    description: Environment variables.
+  SCARCA:
+    prefix: scarca
+    description: Capacity planning assumptions.
+  SCAROP:
+    prefix: scarop
+    description: Resource optimization controls.
+  SCARPA:
+    prefix: scarpa
+    description: Performance patterns.
+  SCARTA:
+    prefix: scarta
+    description: Performance targets.
+  SCARTE:
+    prefix: scarte
+    description: Testing and benchmarks.
+  SCMAPO:
+    prefix: scmapo
+    description: Scheduled maintenance policy.
+  SCRECO:
+    prefix: screco
+    description: Budget and timing constraints.
+  SCREHO:
+    prefix: screho
+    description: Horizontal scaling configuration.
+  SCREVE:
+    prefix: screve
+    description: Vertical scaling configuration.
+  SECERE:
+    prefix: secere
+    description: Security certification and compliance requirements.
+  SEDELI:
+    prefix: sedeli
+    description: Security development lifecycle.
+  SELEIN:
+    prefix: selein
+    description: Service Level Indicators.
+  SEOSRE:
+    prefix: seosre
+    description: Server operating system requirements.
+  SESTRE:
+    prefix: sestre
+    description: Server storage requirements.
+  SETEAU:
+    prefix: seteau
+    description: Automated security testing integration.
+  SLENOP:
+    prefix: slenop
+    description: Alerting and ownership rules.
+  SLENTA:
+    prefix: slenta
+    description: Objective target and budget definition.
+  SLMORE:
+    prefix: slmore
+    description: SLA monitoring requirements.
+  SMAGLB:
+    prefix: smaglb
+    description: Load balancing and termination rules.
+  SSCES1:
+    prefix: ssces1
+    description: Scope details.
+  SSCES2:
+    prefix: ssces2
+    description: Overall status.
+  SYARSP:
+    prefix: syarsp
+    description: 8.9. System Architecture.
+  SYCOMA:
+    prefix: sycoma
+    description: System configuration management.
+  SYDITO:
+    prefix: sydito
+    description: System diagnostic tools.
+  TEFRCO:
+    prefix: tefrco
+    description: 4.6.3. Technical Framework Conditions. Seeds → TR.
+  TESTOR:
+    prefix: testor
+    description: Additional test types and organization.
+  TESTPA:
+    prefix: testpa
+    description: Preferred testing patterns.
+  TESTQU:
+    prefix: testqu
+    description: Quality requirements for tests.
+  TESTTO:
+    prefix: testto
+    description: Testing tools and CI integration.
+  THPALI:
+    prefix: thpali
+    description: Third-party library entry.
+  TLRECO:
+    prefix: tlreco
+    description: Compliance and HSTS settings.
+  TLRETE:
+    prefix: tlrete
+    description: Termination and internal encryption.
+  TPAIA1:
+    prefix: tpaia1
+    description: AI and translation providers.
+  TRCAAC:
+    prefix: trcaac
+    description: Break-glass and diagnostic access controls.
+  TRCACO:
+    prefix: trcaco
+    description: Incident communication and retrospective support.
+  TRCARU:
+    prefix: trcaru
+    description: Runbook and remediation support.
+  TRREFO:
+    prefix: trrefo
+    description: Locale-specific formatting rules.
+  TRRERT:
+    prefix: trrert
+    description: RTL and bidirectional support.
+  TRRETE:
+    prefix: trrete
+    description: Technical text and font support.
+  TRREVA:
+    prefix: trreva
+    description: Pluralization and variants.
+  USGRPR:
+    prefix: usgrpr
+    description: User growth projections.
+  USPRTO:
+    prefix: usprto
+    description: User provisioning and management tools.
+  VECOCO:
+    prefix: vecoco
+    description: Version control configuration.
+  VIRECO:
+    prefix: vireco
+    description: Container requirements.
+  VIREKU:
+    prefix: vireku
+    description: Kubernetes requirements.
+  VIRENE:
+    prefix: virene
+    description: Networking requirements.
+  VIREVM:
+    prefix: virevm
+    description: VM requirements.
+  VUMAPO:
+    prefix: vumapo
+    description: Vulnerability management policy.
+  ACEP1:
+    prefix: acep1
+    description: Compatibility policy.
+  ACET1:
+    prefix: acet1
+    description: Transport requirements.
+  ADRC1:
+    prefix: adrc1
+    description: Consequences and review.
+  AIRD1:
+    prefix: aird1
+    description: Data management tooling.
+  APEG1:
+    prefix: apeg1
+    description: Enforcement and applicability context.
+  APMUS:
+    prefix: apmus
+    description: User and synthetic monitoring settings.
+  BCED1:
+    prefix: bced1
+    description: Dependency mapping.
+  BCEI1:
+    prefix: bcei1
+    description: Integration and notes.
+  BCEI2:
+    prefix: bcei2
+    description: Public interface details.
+  BCES1:
+    prefix: bces1
+    description: Support level and priority.
+  BCET1:
+    prefix: bcet1
+    description: Testing notes.
+  BCRD1:
+    prefix: bcrd1
+    description: Database compatibility requirements.
+  BJMJT:
+    prefix: bjmjt
+    description: Supported job categories.
+  BMSFU:
+    prefix: bmsfu
+    description: Feature adoption and engagement metrics.
+  BPES1:
+    prefix: bpes1
+    description: Storage configuration for backup policy.
+  BTCBS:
+    prefix: btcbs
+    description: Build system settings.
+  BTCCF:
+    prefix: btccf
+    description: Configuration and plugins.
+  BTCEN:
+    prefix: btcen
+    description: Build toolchain requirement entry.
+  BTCVR:
+    prefix: btcvr
+    description: Version requirements.
+  BTEO1:
+    prefix: bteo1
+    description: Performance and rationale.
+  BTREQ:
+    prefix: btreq
+    description: |
+      Define the foundational technical requirements that govern all system
+      development. These decisions have far-reaching implications and should
+      be made early with careful stakeholder alignment.
+      **Subsections**:
+      - **Platform and Language**: Runtime environments, programming languages,
+        frameworks, build toolchain, deployment targets
+      - **Architecture Style**: Monolith, microservices, serverless, or hybrid;
+        component organization; communication patterns; scalability approach
+      - **Design Patterns and Standards**: Required patterns, coding standards,
+        industry compliance (ISO, OWASP, IEEE), quality metrics
+      **Decision Criteria**:
+      - Business requirements alignment (performance, availability, cost)
+      - Team capabilities and hiring market
+      - Ecosystem maturity and vendor support
+      - Long-term maintainability and evolution
+      - Regulatory and compliance requirements
+      **Reference Frameworks**: TOGAF, C4 Model, ISO/IEC 25010 (quality model),
+      OWASP guidelines, IEEE 1471 architectural description.
+  CCCS1:
+    prefix: cccs1
+    description: Other shared capabilities.
+  CCPRB:
+    prefix: ccprb
+    description: Build stage settings.
+  CCPRD:
+    prefix: ccprd
+    description: Deployment stage settings.
+  CCPRN:
+    prefix: ccprn
+    description: Notification and escalation settings.
+  CCPRQ:
+    prefix: ccprq
+    description: Quality gate settings.
+  CIES1:
+    prefix: cies1
+    description: SLA and monitoring for component interface.
+  CLEC1:
+    prefix: clec1
+    description: Compliance restrictions.
+  CLEC2:
+    prefix: clec2
+    description: Metering and capacity rules.
+  CLEC3:
+    prefix: clec3
+    description: Contract termination terms.
+  CMPDP:
+    prefix: cmpdp
+    description: Deployment for component.
+  CMPMT:
+    prefix: cmpmt
+    description: Maturity for component.
+  CMPNT:
+    prefix: cmpnt
+    description: A component entry (form) with sub-entries.
+  CMPPF:
+    prefix: cmppf
+    description: Performance for component.
+  CMPSP:
+    prefix: cmpsp
+    description: Support for component.
+  CMPVD:
+    prefix: cmpvd
+    description: Vendor for component.
+  CMRC1:
+    prefix: cmrc1
+    description: Compliance evidence and reporting.
+  CMRS1:
+    prefix: cmrs1
+    description: Consent record storage rules.
+  CMSTR:
+    prefix: cmstr
+    description: 12.1. Component Strategy.
+  CNRP1:
+    prefix: cnrp1
+    description: Proxy and firewall requirements.
+  COCO1:
+    prefix: coco1
+    description: Compliance for component.
+  COMA1:
+    prefix: coma1
+    description: Configuration management.
+  COPA1:
+    prefix: copa1
+    description: Communication patterns between components.
+  COPL1:
+    prefix: copl1
+    description: 12.6.2. Contingency Plans.
+  CORE1:
+    prefix: core1
+    description: Connectivity resilience requirements.
+  CPER1:
+    prefix: cper1
+    description: Responsibility and recovery targets for contingency plan.
+  CQMC1:
+    prefix: cqmc1
+    description: Coupling metrics.
+  CQMSA:
+    prefix: cqmsa
+    description: Static analysis thresholds.
+  CRED1:
+    prefix: cred1
+    description: Detection and monitoring for component risk.
+  CREG1:
+    prefix: creg1
+    description: Governance and ownership for component risk.
+  CRES1:
+    prefix: cres1
+    description: SLA commitments.
+  CRPM1:
+    prefix: crpm1
+    description: Monitoring and forecasting inputs for capacity review.
+  CSERD:
+    prefix: cserd
+    description: Rule description.
+  CSGOV:
+    prefix: csgov
+    description: Governance and evaluation process.
+  CSPLN:
+    prefix: cspln
+    description: Budget and pilot planning.
+  CSPOL:
+    prefix: cspol
+    description: Policy and baseline requirements.
+  CSPRT:
+    prefix: csprt
+    description: Portfolio management settings.
+  CSRCP:
+    prefix: csrcp
+    description: Code protection controls.
+  CSVND:
+    prefix: csvnd
+    description: Vendor preferences and exceptions.
+  CVSR1:
+    prefix: cvsr1
+    description: Reporting requirements.
+  DATAC:
+    prefix: datac
+    description: A single datacenter entry.
+  DCEVC:
+    prefix: dcevc
+    description: Version control requirements.
+  DEVOP:
+    prefix: devop
+    description: A single devops standard entry.
+  DFCDT:
+    prefix: dfcdt
+    description: Date and time formatting.
+  DOCHD:
+    prefix: dochd
+    description: Standard document header present at the top of every TomSpecs document.
+  DORE2:
+    prefix: dore2
+    description: Desktop operating system requirement entry.
+  DORER:
+    prefix: dorer
+    description: Hardware and display requirements.
+  DORES:
+    prefix: dores
+    description: Support prioritization.
+  DORET:
+    prefix: doret
+    description: Testing and known issues.
+  DPAPS:
+    prefix: dpaps
+    description: |
+      Specify data protection and privacy requirements including regulatory
+      compliance, data residency, consent management, and data subject rights.
+      Privacy compliance is mandatory in most jurisdictions.
+      **Privacy Regulations**:
+      - **GDPR** (EU): Consent, data minimization, right to erasure, DPO
+      - **CCPA/CPRA** (California): Consumer rights, opt-out, data sales
+      - **LGPD** (Brazil): Similar to GDPR, data protection officer
+      - **PIPEDA** (Canada): Consent and purpose limitation
+      - **Industry-specific**: HIPAA (health), FERPA (education), GLBA (finance)
+      **Data Residency**:
+      - Geographic data storage requirements
+      - Cross-border data transfer mechanisms
+      - Data localization requirements
+      - Cloud region selection considerations
+      - Data transfer impact assessments
+      **Consent Management**:
+      - Consent collection user experience
+      - Granular consent options
+      - Consent withdrawal mechanism
+      - Consent record keeping
+      - Cookie consent management
+      **Data Subject Rights**:
+      - **Right to Access**: Export user data in portable format
+      - **Right to Rectification**: Update incorrect data
+      - **Right to Erasure**: Delete all user data (right to be forgotten)
+      - **Right to Portability**: Transfer data to another provider
+      - **Right to Object**: Opt-out of processing
+      **Privacy by Design**:
+      - Data minimization
+      - Purpose limitation
+      - Privacy impact assessments (PIA/DPIA)
+      - Privacy-preserving technologies
+  DPARH:
+    prefix: dparh
+    description: Data-handling details.
+  DPARM:
+    prefix: dparm
+    description: Agreement-management details.
+  DPARS:
+    prefix: dpars
+    description: Security and audit details.
+  DPART:
+    prefix: dpart
+    description: International-transfer details.
+  DPEC2:
+    prefix: dpec2
+    description: Architectural context.
+  DPES1:
+    prefix: dpes1
+    description: Structural composition.
+  DQGC1:
+    prefix: dqgc1
+    description: Complexity thresholds.
+  DRRF1:
+    prefix: drrf1
+    description: Failback procedure.
+  DRRR1:
+    prefix: drrr1
+    description: "Backup, replication, and CDN placement rules."
+  DSRMA:
+    prefix: dsrma
+    description: Access and rectification handling.
+  DSRME:
+    prefix: dsrme
+    description: Erasure handling.
+  DSRMO:
+    prefix: dsrmo
+    description: Operational workflow and tracking.
+  DSRMP:
+    prefix: dsrmp
+    description: Portability handling.
+  DSRMR:
+    prefix: dsrmr
+    description: Restriction and objection handling.
+  DSRSC:
+    prefix: dsrsc
+    description: Supply-chain security rules.
+  DTEBO:
+    prefix: dtebo
+    description: Build output configuration for deployment target.
+  DTEP1:
+    prefix: dtep1
+    description: Deployment process configuration.
+  DTIAC:
+    prefix: dtiac
+    description: Infrastructure-as-code strategy.
+  DTSS1:
+    prefix: dtss1
+    description: Span metadata.
+  EHSR1:
+    prefix: ehsr1
+    description: Recovery guidance.
+  EHSUC:
+    prefix: ehsuc
+    description: User-facing communication rules.
+  ENRP1:
+    prefix: enrp1
+    description: Third-party connectivity.
+  EPCE1:
+    prefix: epce1
+    description: An external partner connection entry (form).
+  ESCE2:
+    prefix: esce2
+    description: Enterprise system compatibility entry.
+  ESCEI:
+    prefix: escei
+    description: Integration details.
+  ESCER:
+    prefix: escer
+    description: Setup requirements.
+  ESCES:
+    prefix: esces
+    description: Authentication and access.
+  ESCET:
+    prefix: escet
+    description: Testing and notes.
+  EVCEG:
+    prefix: evceg
+    description: Scoring guidelines and scope.
+  EVCEN:
+    prefix: evcen
+    description: An evaluation criterion entry (form).
+  EVCEP:
+    prefix: evcep
+    description: Evaluation process.
+  EVCES:
+    prefix: evces
+    description: Scoring settings.
+  EVCRI:
+    prefix: evcri
+    description: 12.1.2. Evaluation Criteria.
+  FMED1:
+    prefix: fmed1
+    description: Dependencies.
+  FWRCP:
+    prefix: fwrcp
+    description: Compatibility.
+  FWRID:
+    prefix: fwrid
+    description: Identity details.
+  FWRJT:
+    prefix: fwrjt
+    description: Justification.
+  FWRSC:
+    prefix: fwrsc
+    description: Scope and plugins.
+  FWRSP:
+    prefix: fwrsp
+    description: Support status.
+  FWRVR:
+    prefix: fwrvr
+    description: Version requirements.
+  HARDR:
+    prefix: hardr
+    description: Disaster recovery alignment.
+  HARLB:
+    prefix: harlb
+    description: Load balancing behavior.
+  HCADS:
+    prefix: hcads
+    description: |
+      Specify health check, diagnostics, and troubleshooting requirements.
+      Health checks enable rapid problem detection and automated remediation.
+      **Health Check Types**:
+      - **Liveness**: Is the process alive? (restart if not)
+      - **Readiness**: Is the service ready for traffic? (remove from LB if not)
+      - **Startup**: Is the service still starting? (give more time)
+      - **Deep Health**: Are all dependencies healthy?
+      **Health Check Endpoints**:
+      - Standard endpoints (/health, /ready, /live)
+      - Response format (JSON with details)
+      - Performance requirements (fast, non-blocking)
+      - Authentication considerations
+      **Diagnostics Capabilities**:
+      - Real-time log access
+      - Distributed tracing
+      - Request/response capture (debug mode)
+      - Performance profiling
+      - Memory and CPU analysis
+      **Troubleshooting Tools**:
+      - Log search and filtering
+      - Trace correlation
+      - Error aggregation and analysis
+      - Dependency graph visualization
+      - Runbook integration
+      **Self-Healing**:
+      - Automatic restart on failure
+      - Circuit breaker activation
+      - Traffic rerouting
+      - Resource scaling
+      - Alerting and escalation
+  HCEC1:
+    prefix: hcec1
+    description: Response content settings.
+  IACS1:
+    prefix: iacs1
+    description: Security and policy controls.
+  ICEC2:
+    prefix: icec2
+    description: Compliance rules.
+  ICED1:
+    prefix: iced1
+    description: Constraint details.
+  IMRPI:
+    prefix: imrpi
+    description: Post-incident expectations.
+  IMRWR:
+    prefix: imrwr
+    description: War room setup.
+  IMSC1:
+    prefix: imsc1
+    description: Cost attribution and notes.
+  INRIS:
+    prefix: inris
+    description: Inter-service communication controls.
+  IPCE1:
+    prefix: ipce1
+    description: Industry protocol compliance entry.
+  IPCEI:
+    prefix: ipcei
+    description: Implementation details.
+  IPCES:
+    prefix: ipces
+    description: Compliance scope and features.
+  IPCET:
+    prefix: ipcet
+    description: Testing details.
+  IRPPI:
+    prefix: irppi
+    description: Post-incident activities.
+  ISCE1:
+    prefix: isce1
+    description: "IT standard compliance entry (ISO, IEEE, NIST, OASIS)."
+  ISCEE:
+    prefix: iscee
+    description: Evidence and notes.
+  ISCEO:
+    prefix: isceo
+    description: Ownership and support.
+  ISCER:
+    prefix: iscer
+    description: Control requirements.
+  ISCES:
+    prefix: isces
+    description: Applicability and priority.
+  ISCET:
+    prefix: iscet
+    description: Compliance timeline.
+  ISEC1:
+    prefix: isec1
+    description: Certification details.
+  ISEC2:
+    prefix: isec2
+    description: Interface conventions.
+  ISED1:
+    prefix: ised1
+    description: Documentation expectations.
+  LDST1:
+    prefix: ldst1
+    description: Troubleshooting details.
+  LMRC1:
+    prefix: lmrc1
+    description: Compliance settings.
+  LPRPT:
+    prefix: lprpt
+    description: Performance target metrics.
+  LPRRL:
+    prefix: lprrl
+    description: Request volume assumptions.
+  MAINT:
+    prefix: maint
+    description: A single maintenance procedure entry.
+  MCED1:
+    prefix: mced1
+    description: Distribution details.
+  MCRC1:
+    prefix: mcrc1
+    description: Custom metrics settings.
+  MDRE1:
+    prefix: mdre1
+    description: Mobile device requirement entry.
+  MDREC:
+    prefix: mdrec
+    description: Capability requirements.
+  MDRED:
+    prefix: mdred
+    description: Device coverage.
+  MDREH:
+    prefix: mdreh
+    description: Hardware expectations.
+  MDRES:
+    prefix: mdres
+    description: Support prioritization.
+  MNDEP:
+    prefix: mndep
+    description: A maintenance dependency entry (form).
+  MUIGD:
+    prefix: muigd
+    description: Graceful-degradation strategy.
+  MVSC1:
+    prefix: mvsc1
+    description: Cross-module coordination.
+  MVSRM:
+    prefix: mvsrm
+    description: Release management process.
+  MWES1:
+    prefix: mwes1
+    description: Scope details.
+  NARR1:
+    prefix: narr1
+    description: Recovery objectives.
+  NLBRA:
+    prefix: nlbra
+    description: Availability settings.
+  NLBRR:
+    prefix: nlbrr
+    description: Routing strategy.
+  NLBRT:
+    prefix: nlbrt
+    description: TLS settings.
+  NLRS1:
+    prefix: nlrs1
+    description: Stability tolerances.
+  NSPD1:
+    prefix: nspd1
+    description: DNS controls and notes.
+  NSPIM:
+    prefix: nspim
+    description: IP management controls.
+  OBSER:
+    prefix: obser
+    description: A single observability requirement entry.
+  OCSCC:
+    prefix: ocscc
+    description: Override and coverage handling.
+  OCSCO:
+    prefix: ocsco
+    description: Compensation and tooling support.
+  PIAPA:
+    prefix: piapa
+    description: Assessment process inputs.
+  PIAPM:
+    prefix: piapm
+    description: Mitigation measures.
+  PIAPR:
+    prefix: piapr
+    description: Review and approval workflow.
+  PLGEN:
+    prefix: plgen
+    description: Programming language requirement entry.
+  PLGJT:
+    prefix: plgjt
+    description: Justification and notes for programming language.
+  PLGQU:
+    prefix: plgqu
+    description: Quality settings for programming language.
+  PLGSK:
+    prefix: plgsk
+    description: SDK configuration for programming language.
+  PLGUS:
+    prefix: plgus
+    description: Usage context for programming language.
+  PLGVR:
+    prefix: plgvr
+    description: Version requirements for programming language.
+  PLLNG:
+    prefix: pllng
+    description: |
+      Specify all platform targets, programming languages, frameworks, build
+      tools, and deployment configurations. These choices define the technical
+      foundation and constrain future development options.
+      **Coverage Areas**:
+      - **Target Platforms**: OS (Linux, Windows, macOS), runtimes (Node.js,
+        JVM, .NET), containers (Docker, Kubernetes), cloud platforms (AWS,
+        Azure, GCP), mobile (iOS, Android), embedded systems
+      - **Programming Languages**: Primary and secondary languages, version
+        requirements, SDK specifications, type safety requirements
+      - **Frameworks**: UI frameworks (Flutter, React, Angular), backend
+        frameworks (Spring, Django, Express), testing frameworks, ORM/database
+      - **Build Toolchain**: Build systems, code generators, bundlers, package
+        managers, CI/CD integration, artifact repositories
+      - **Deployment Targets**: Production environments, staging, development,
+        edge deployment, app stores, container registries
+      **Decision Factors**:
+      - Performance requirements and benchmarks
+      - Team expertise and learning curve
+      - Ecosystem maturity and community support
+      - License compatibility (MIT, Apache, GPL implications)
+      - Long-term support and vendor viability
+      - Cross-platform requirements and code sharing
+  QLSTD:
+    prefix: qlstd
+    description: "Quality standard entry (CMMI, ISO 9001)."
+  RCEA1:
+    prefix: rcea1
+    description: Applicability analysis.
+  RCER1:
+    prefix: rcer1
+    description: Compliance requirements.
+  RDER1:
+    prefix: rder1
+    description: Compatibility and transitive risk notes.
+  REPR1:
+    prefix: repr1
+    description: Recovery procedures.
+  RGENB:
+    prefix: rgenb
+    description: Delivery support and assets.
+  RGUGV:
+    prefix: rgugv
+    description: Governance and ownership.
+  RGUMS:
+    prefix: rgums
+    description: Measurement and scope.
+  RGUSE:
+    prefix: rguse
+    description: A reuse goal entry (form).
+  RNDEP:
+    prefix: rndep
+    description: A runtime dependency entry (form).
+  RRRBT:
+    prefix: rrrbt
+    description: Tier-based targets.
+  RUCEA:
+    prefix: rucea
+    description: Component API for UI component.
+  RUCED:
+    prefix: ruced
+    description: Description and use cases for UI component.
+  RUCEI:
+    prefix: rucei
+    description: Interaction and accessibility for UI component.
+  SAEFU:
+    prefix: saefu
+    description: "Deliverables, ownership, and notes."
+  SCRI1:
+    prefix: scri1
+    description: Industry-specific requirements.
+  SCRPF:
+    prefix: scrpf
+    description: Finding management and residual risk handling.
+  SCRPP:
+    prefix: scrpp
+    description: Review process guidance for security-focused code review.
+  SCRPR:
+    prefix: scrpr
+    description: Reviewer qualification and independence rules.
+  SDTSS:
+    prefix: sdtss
+    description: Self-service diagnostic entry points.
+  SEEL1:
+    prefix: seel1
+    description: Lifecycle rules.
+  SHLCP:
+    prefix: shlcp
+    description: Shared library component entry.
+  SLCED:
+    prefix: slced
+    description: Purpose and consumers for shared library component.
+  SLCEO:
+    prefix: slceo
+    description: Ownership and lifecycle for shared library component.
+  SLCEQ:
+    prefix: slceq
+    description: Quality and documentation for shared library component.
+  SLCET:
+    prefix: slcet
+    description: Technical API details for shared library component.
+  SLED1:
+    prefix: sled1
+    description: Description and usage.
+  SMAGM:
+    prefix: smagm
+    description: Service mesh configuration.
+  SMRC1:
+    prefix: smrc1
+    description: Customer-specific SLA rules.
+  SMREB:
+    prefix: smreb
+    description: Error-budget policy.
+  SMRM2:
+    prefix: smrm2
+    description: Monitoring mechanics.
+  SMRR1:
+    prefix: smrr1
+    description: Reporting and review.
+  SRES1:
+    prefix: sres1
+    description: Storage requirements.
+  SSCE1:
+    prefix: ssce1
+    description: "Security standard compliance entry (SOC2, ISO 27001, CIS)."
+  SSCEA:
+    prefix: sscea
+    description: Assessment schedule.
+  SSCEC:
+    prefix: sscec
+    description: Control definitions.
+  SSES2:
+    prefix: sses2
+    description: Applicability and regulatory scope.
+  SSRFS:
+    prefix: ssrfs
+    description: File storage requirements.
+  STATB:
+    prefix: statb
+    description: Scaling behavior.
+  STATM:
+    prefix: statm
+    description: Memory-based thresholds.
+  STATR:
+    prefix: statr
+    description: Request-based thresholds.
+  STATT:
+    prefix: statt
+    description: Scaling types and providers.
+  TEST1:
+    prefix: test1
+    description: Testing standards and requirements.
+  TFCS1:
+    prefix: tfcs1
+    description: Security and compliance requirements.
+  TGPLT:
+    prefix: tgplt
+    description: "Target platform entry (operating system, runtime, container)."
+  TPAIA:
+    prefix: tpaia
+    description: Analytics and monitoring providers.
+  TPAIC:
+    prefix: tpaic
+    description: Communication providers.
+  TPAIL:
+    prefix: tpail
+    description: Mapping and location providers.
+  TPAIM:
+    prefix: tpaim
+    description: Document and media providers.
+  TPAIO:
+    prefix: tpaio
+    description: Compliance and fallback controls.
+  TPCE1:
+    prefix: tpce1
+    description: Third-party software compatibility entry.
+  TPCEC:
+    prefix: tpcec
+    description: Compatibility characteristics.
+  TPCEI:
+    prefix: tpcei
+    description: Integration characteristics.
+  TPCES:
+    prefix: tpces
+    description: Support and escalation.
+  TPCET:
+    prefix: tpcet
+    description: Testing and certification details.
+  TPEAR:
+    prefix: tpear
+    description: Architecture details.
+  TPELC:
+    prefix: tpelc
+    description: Lifecycle and compliance.
+  TPERQ:
+    prefix: tperq
+    description: Requirements and constraints.
+  TPEVR:
+    prefix: tpevr
+    description: Version requirements.
+  TPLEE:
+    prefix: tplee
+    description: Evaluation and selection.
+  TPLEL:
+    prefix: tplel
+    description: Licensing details.
+  TPLEM:
+    prefix: tplem
+    description: Monitoring and notes.
+  TPLER:
+    prefix: tpler
+    description: Risk profile.
+  TPLEU:
+    prefix: tpleu
+    description: Usage and upgrade strategy.
+  TRRE1:
+    prefix: trre1
+    description: 10.12.5. Translation Handling Requirements.
+  UPTDI:
+    prefix: uptdi
+    description: Directory integration settings.
+  UPTRM:
+    prefix: uptrm
+    description: Role management and reviews.
+  VREP1:
+    prefix: vrep1
+    description: Performance expectations.
+  ACEB:
+    prefix: aceb
+    description: Public and private boundaries.
+  ACED:
+    prefix: aced
+    description: Dependency relationships.
+  ACEF:
+    prefix: acef
+    description: Data-format requirements.
+  ACEO:
+    prefix: aceo
+    description: Team ownership and service expectations.
+  ACEP:
+    prefix: acep
+    description: Purpose and ownership boundaries.
+  ACES:
+    prefix: aces
+    description: Specification references.
+  ACET:
+    prefix: acet
+    description: Technical delivery characteristics.
+  ADE1:
+    prefix: ade1
+    description: Alert definition entry.
+  ADEC:
+    prefix: adec
+    description: Trigger conditions.
+  ADEN:
+    prefix: aden
+    description: Notification details.
+  ADER:
+    prefix: ader
+    description: Recovery conditions.
+  ADFS:
+    prefix: adfs
+    description: Feature and resilience status indicators.
+  ADRC:
+    prefix: adrc
+    description: Decision context and constraints.
+  ADRO:
+    prefix: adro
+    description: Decision outcome and rationale.
+  ADRR:
+    prefix: adrr
+    description: Related decision links.
+  AEPB:
+    prefix: aepb
+    description: Escalation control behavior.
+  AEPS:
+    prefix: aeps
+    description: Schedule-specific policy variants.
+  AEPT:
+    prefix: aept
+    description: Management escalation path and timing thresholds.
+  AIRD:
+    prefix: aird
+    description: Dashboard widget requirements.
+  AIRO:
+    prefix: airo
+    description: Operational controls.
+  ALCO:
+    prefix: alco
+    description: 8.7.2.2. Alerting Configuration.
+  ALRE:
+    prefix: alre
+    description: Alerting requirements.
+  AMSA:
+    prefix: amsa
+    description: Application-specific metrics.
+  AMSL:
+    prefix: amsl
+    description: Labeling guidance.
+  AMSR:
+    prefix: amsr
+    description: USE metrics.
+  ANCD:
+    prefix: ancd
+    description: Secondary and escalation delivery methods.
+  ANCF:
+    prefix: ancf
+    description: "Message templates, enrichment, and grouping rules."
+  ANCR:
+    prefix: ancr
+    description: Severity-based channel routing.
+  AOTO:
+    prefix: aoto
+    description: Trade-offs and alternatives.
+  APCP:
+    prefix: apcp
+    description: API and protocol compatibility entry.
+  APDI:
+    prefix: apdi
+    description: Application diagnostics.
+  APEG:
+    prefix: apeg
+    description: Rationale and practical implications.
+  APME:
+    prefix: apme
+    description: Error tracking settings.
+  APMP:
+    prefix: apmp
+    description: Profiling settings.
+  APMT:
+    prefix: apmt
+    description: Tracing settings.
+  ARCM:
+    prefix: arcm
+    description: Architecture component/service entry.
+  ARDE:
+    prefix: arde
+    description: Architecture Decision Record (ADR) entry.
+  ARE1:
+    prefix: are1
+    description: An alert rule entry.
+  AREO:
+    prefix: areo
+    description: Ownership details.
+  ARER:
+    prefix: arer
+    description: Response actions.
+  ARET:
+    prefix: aret
+    description: Trigger conditions.
+  AROV:
+    prefix: arov
+    description: Architecture overview and primary style selection.
+  ARPR:
+    prefix: arpr
+    description: Architecture principle entry.
+  ASED:
+    prefix: ased
+    description: Documentation artifacts.
+  ASER:
+    prefix: aser
+    description: Conformance requirements.
+  ASES:
+    prefix: ases
+    description: Scope and affected users.
+  ASET:
+    prefix: aset
+    description: Testing approach.
+  ASRA:
+    prefix: asra
+    description: API and browser-facing protections.
+  ASRC:
+    prefix: asrc
+    description: Core protection controls.
+  ASRV:
+    prefix: asrv
+    description: Input and output validation.
+  AVSC:
+    prefix: avsc
+    description: Compatibility guarantees and migration expectations.
+  AVSD:
+    prefix: avsd
+    description: Documentation and client generation practices.
+  AVSS:
+    prefix: avss
+    description: Supported versions and deprecation commitments.
+  BACO:
+    prefix: baco
+    description: Backup compliance requirements.
+  BAIN:
+    prefix: bain
+    description: Backup infrastructure requirements.
+  BARE:
+    prefix: bare
+    description: Bandwidth requirements.
+  BARS:
+    prefix: bars
+    description: |
+      Specify backup, recovery, and disaster recovery requirements. Data
+      protection is critical for business continuity and compliance.
+      **Backup Strategy**:
+      - **Full Backups**: Complete data copy, longer duration, periodic
+      - **Incremental**: Changes since last backup, faster, continuous
+      - **Differential**: Changes since last full, balance of both
+      - **Snapshot**: Point-in-time copy, instant, storage overhead
+      **RPO and RTO Definitions**:
+      - **RPO (Recovery Point Objective)**: Maximum acceptable data loss
+        (e.g., 1 hour RPO = backups every hour)
+      - **RTO (Recovery Time Objective)**: Maximum acceptable downtime
+        (e.g., 4 hour RTO = must restore within 4 hours)
+      **Backup Requirements by Data Type**:
+      - Database: Transaction logs, consistent snapshots
+      - File storage: Object versioning, cross-region replication
+      - Configuration: Version control, secrets backup
+      - Application state: Stateful service backups
+      **Disaster Recovery Tiers**:
+      - **Tier 1**: Active-active, instant failover, highest cost
+      - **Tier 2**: Hot standby, minutes to failover
+      - **Tier 3**: Warm standby, hours to failover
+      - **Tier 4**: Cold standby, days to recover
+      **Backup Verification**:
+      - Regular restore testing
+      - Backup integrity validation
+      - Cross-region restore drills
+      - Documented recovery procedures
+  BAVE:
+    prefix: bave
+    description: Backup verification and testing.
+  BCE1:
+    prefix: bce1
+    description: Business logic component entry.
+  BCE2:
+    prefix: bce2
+    description: Browser compatibility entry.
+  BCEB:
+    prefix: bceb
+    description: Boundary relationships.
+  BCED:
+    prefix: bced
+    description: Purpose and business rules.
+  BCEF:
+    prefix: bcef
+    description: Feature support requirements.
+  BCEI:
+    prefix: bcei
+    description: Implementation footprint.
+  BCEM:
+    prefix: bcem
+    description: Mobile and PWA support.
+  BCER:
+    prefix: bcer
+    description: Reuse and customization notes.
+  BCES:
+    prefix: bces
+    description: Scope and language definitions.
+  BCET:
+    prefix: bcet
+    description: Testing details.
+  BCLH:
+    prefix: bclh
+    description: Legal hold support.
+  BCRA:
+    prefix: bcra
+    description: API compatibility requirements.
+  BCRC:
+    prefix: bcrc
+    description: Communication and support requirements.
+  BCRD:
+    prefix: bcrd
+    description: Data compatibility requirements.
+  BDCC:
+    prefix: bdcc
+    description: Included data categories for backup planning.
+  BDCE:
+    prefix: bdce
+    description: Exclusions and regeneration rules for backup planning.
+  BJME:
+    prefix: bjme
+    description: Execution controls.
+  BJMM:
+    prefix: bjmm
+    description: Monitoring and manual controls.
+  BMSK:
+    prefix: bmsk
+    description: KPI and customer outcome metrics.
+  BMSO:
+    prefix: bmso
+    description: Real-time dashboard and notes.
+  BMST:
+    prefix: bmst
+    description: Transaction and revenue metrics.
+  BPER:
+    prefix: bper
+    description: Retention policies for backup.
+  BPES:
+    prefix: bpes
+    description: Schedule settings for backup policy.
+  BPET:
+    prefix: bpet
+    description: Backup type configuration.
+  BRE1:
+    prefix: bre1
+    description: Browser requirement entry.
+  BREF:
+    prefix: bref
+    description: Required and optional features.
+  BREI:
+    prefix: brei
+    description: Known issues and workarounds.
+  BRES:
+    prefix: bres
+    description: Support level and user share.
+  BRET:
+    prefix: bret
+    description: Testing strategy.
+  BTCA:
+    prefix: btca
+    description: Artifact management.
+  BTCC:
+    prefix: btcc
+    description: Compilation settings.
+  BTCS:
+    prefix: btcs
+    description: Script integration.
+  BTEI:
+    prefix: btei
+    description: Integration touchpoints.
+  BTEO:
+    prefix: bteo
+    description: Output artifact settings.
+  BTEP:
+    prefix: btep
+    description: Build profile settings.
+  CARC:
+    prefix: carc
+    description: Cognitive accessibility support.
+  CARM:
+    prefix: carm
+    description: Motor accessibility support.
+  CARS:
+    prefix: cars
+    description: Standards and notes.
+  CARV:
+    prefix: carv
+    description: Visual accessibility support.
+  CASE:
+    prefix: case
+    description: Audit execution and evidence collection.
+  CASP:
+    prefix: casp
+    description: Annual planning and scoping rules.
+  CASR:
+    prefix: casr
+    description: Reporting and remediation follow-up.
+  CCCC:
+    prefix: cccc
+    description: Caching approach.
+  CCCE:
+    prefix: ccce
+    description: Error handling concerns.
+  CCCO:
+    prefix: ccco
+    description: Observability capabilities.
+  CCCS:
+    prefix: cccs
+    description: Security concerns.
+  CCPC:
+    prefix: ccpc
+    description: CI/CD pipeline configuration.
+  CCPR:
+    prefix: ccpr
+    description: CI/CD pipeline requirements.
+  CEMA:
+    prefix: cema
+    description: Certificate management.
+  CHRG:
+    prefix: chrg
+    description: Graphics requirements.
+  CHRM:
+    prefix: chrm
+    description: Memory requirements.
+  CHRP:
+    prefix: chrp
+    description: Peripheral requirements.
+  CHRS:
+    prefix: chrs
+    description: Storage requirements.
+  CIED:
+    prefix: cied
+    description: Data format configuration for component interface.
+  CIEN:
+    prefix: cien
+    description: Network configuration for component interface.
+  CIEO:
+    prefix: cieo
+    description: Operations and documentation for component interface.
+  CIES:
+    prefix: cies
+    description: Security settings for component interface.
+  CLEC:
+    prefix: clec
+    description: Cost and renewal details.
+  CLER:
+    prefix: cler
+    description: Usage rights and obligations.
+  CME1:
+    prefix: cme1
+    description: A custom metric entry.
+  CMIF:
+    prefix: cmif
+    description: A component interface entry (form).
+  CMRC:
+    prefix: cmrc
+    description: Collection requirements.
+  CMRM:
+    prefix: cmrm
+    description: Preference management workflow.
+  CMRS:
+    prefix: cmrs
+    description: A component risk entry (form).
+  CMRT:
+    prefix: cmrt
+    description: Cookie and tracking rules.
+  CNRC:
+    prefix: cnrc
+    description: Connection-type requirements.
+  CNRL:
+    prefix: cnrl
+    description: Latency requirements.
+  CNRP:
+    prefix: cnrp
+    description: Protocol requirements.
+  COCO:
+    prefix: coco
+    description: Cost for component.
+  CODO:
+    prefix: codo
+    description: Docs for component.
+  COGO:
+    prefix: cogo
+    description: Component governance and maintenance policies.
+  COMP:
+    prefix: comp
+    description: 12. Components to Use. Seeds → TR.
+  COOR:
+    prefix: coor
+    description: Component organization and boundaries.
+  COPL:
+    prefix: copl
+    description: A contingency plan entry (form).
+  CORE:
+    prefix: core
+    description: Component discovery and registry configuration.
+  CORI:
+    prefix: cori
+    description: Risk for component.
+  CPDE:
+    prefix: cpde
+    description: Data exchange contracts.
+  CPEA:
+    prefix: cpea
+    description: Action steps for contingency plan.
+  CPEC:
+    prefix: cpec
+    description: Communication plans for contingency.
+  CPER:
+    prefix: cper
+    description: Reference links for contingency plan.
+  CPET:
+    prefix: cpet
+    description: Testing and resources for contingency plan.
+  CPRA:
+    prefix: cpra
+    description: Account-structure requirements.
+  CPRC:
+    prefix: cprc
+    description: Compliance requirements.
+  CPRG:
+    prefix: cprg
+    description: Governance requirements.
+  CPRS:
+    prefix: cprs
+    description: Service requirements.
+  CQMC:
+    prefix: cqmc
+    description: Complexity limits.
+  CQMD:
+    prefix: cqmd
+    description: Duplication thresholds.
+  CQMT:
+    prefix: cqmt
+    description: Tooling and reporting.
+  CREA:
+    prefix: crea
+    description: Risk assessment for component risk.
+  CRED:
+    prefix: cred
+    description: Risk description and categorization.
+  CREG:
+    prefix: creg
+    description: Governance and planning.
+  CREM:
+    prefix: crem
+    description: Mitigation strategy for component risk.
+  CREO:
+    prefix: creo
+    description: Security and update operations.
+  CRES:
+    prefix: cres
+    description: Vendor support details.
+  CRPA:
+    prefix: crpa
+    description: Automation requirements.
+  CRPE:
+    prefix: crpe
+    description: Escalation and emergency scaling decisions for capacity review.
+  CRPM:
+    prefix: crpm
+    description: Merge policy.
+  CRPP:
+    prefix: crpp
+    description: Budgeting and rightsizing planning for capacity review.
+  CRPR:
+    prefix: crpr
+    description: Reviewer requirements.
+  CRPW:
+    prefix: crpw
+    description: Review workflow.
+  CRRG:
+    prefix: crrg
+    description: GPU requirements.
+  CRRM:
+    prefix: crrm
+    description: Memory requirements.
+  CRRS:
+    prefix: crrs
+    description: Special hardware requirements.
+  CRS1:
+    prefix: crs1
+    description: |
+      Specify client device requirements including browsers, operating systems,
+      display specifications, and accessibility needs. Client requirements
+      define the user experience boundary conditions.
+      **Browser Requirements**:
+      - Supported browsers with minimum versions
+      - Browser feature requirements (WebGL, WebRTC, Service Workers)
+      - Mobile browser considerations (Safari iOS, Chrome Android)
+      - Progressive Web App (PWA) requirements
+      **Desktop Requirements**:
+      - Operating systems: Windows 10/11, macOS 12+, Linux distributions
+      - Hardware minimums: CPU, RAM, disk space
+      - Required software: .NET runtime, Java, etc.
+      - Installation and update mechanisms
+      **Mobile Requirements**:
+      - iOS minimum version and device support
+      - Android API level and device compatibility
+      - Form factors: phone, tablet, foldable
+      - App store requirements and restrictions
+      **Display Requirements**:
+      - Minimum screen resolution
+      - Responsive design breakpoints
+      - Touch vs. mouse/keyboard interactions
+      - HiDPI and retina display support
+      **Accessibility Requirements**:
+      - WCAG 2.1 compliance level (A, AA, AAA)
+      - Screen reader compatibility
+      - Keyboard navigation
+      - Color contrast and visual accommodations
+  CRSC:
+    prefix: crsc
+    description: Cost requirements.
+  CRSM:
+    prefix: crsm
+    description: Marketing and notes.
+  CRSP:
+    prefix: crsp
+    description: Certification process.
+  CRST:
+    prefix: crst
+    description: Timeline requirements.
+  CSEE:
+    prefix: csee
+    description: Enforcement details.
+  CSEF:
+    prefix: csef
+    description: Formatting requirements.
+  CSEN:
+    prefix: csen
+    description: Naming requirements.
+  CSIC:
+    prefix: csic
+    description: Compliance and notes.
+  CSIN:
+    prefix: csin
+    description: Network connectivity.
+  CSIS:
+    prefix: csis
+    description: Managed services catalog.
+  CSRA:
+    prefix: csra
+    description: Authentication requirements.
+  CSRD:
+    prefix: csrd
+    description: Device security controls.
+  CSRN:
+    prefix: csrn
+    description: Network security controls.
+  CSSF:
+    prefix: cssf
+    description: Formatting and layout rules.
+  CSSN:
+    prefix: cssn
+    description: Naming and structure rules.
+  CSSP:
+    prefix: cssp
+    description: Development practices.
+  CSSQ:
+    prefix: cssq
+    description: Static quality checks.
+  CSSR:
+    prefix: cssr
+    description: Review expectations.
+  CVSA:
+    prefix: cvsa
+    description: Audit procedures.
+  CVSC:
+    prefix: cvsc
+    description: Continuous monitoring and improvement.
+  CVSR:
+    prefix: cvsr
+    description: Manual review procedures.
+  CVST:
+    prefix: cvst
+    description: Tooling and dashboards.
+  DAAR:
+    prefix: daar
+    description: Data architecture decisions.
+  DARE:
+    prefix: dare
+    description: Dashboard requirements.
+  DATE:
+    prefix: date
+    description: Dashboard templates specification.
+  DCE1:
+    prefix: dce1
+    description: Database compatibility entry.
+  DCEA:
+    prefix: dcea
+    description: Automation integration.
+  DCEC:
+    prefix: dcec
+    description: Connection requirements.
+  DCEE:
+    prefix: dcee
+    description: Enforcement and exceptions.
+  DCEF:
+    prefix: dcef
+    description: Feature requirements.
+  DCEO:
+    prefix: dceo
+    description: Background and workflow.
+  DCEP:
+    prefix: dcep
+    description: Performance and notes.
+  DCER:
+    prefix: dcer
+    description: Code review expectations.
+  DCES:
+    prefix: dces
+    description: Support options.
+  DECO:
+    prefix: deco
+    description: Debugging configuration.
+  DEEC:
+    prefix: deec
+    description: Configuration and secrets sourcing.
+  DEED:
+    prefix: deed
+    description: Deployment method and rollback controls.
+  DEEM:
+    prefix: deem
+    description: Health verification and environment notes.
+  DEEP:
+    prefix: deep
+    description: Approval and protection rules.
+  DEMA:
+    prefix: dema
+    description: Dependency management configuration.
+  DEON:
+    prefix: deon
+    description: Developer onboarding requirements.
+  DESE:
+    prefix: dese
+    description: Deployment security requirements.
+  DETO:
+    prefix: deto
+    description: Deployment topology and infrastructure.
+  DFCF:
+    prefix: dfcf
+    description: Data format compatibility.
+  DFCL:
+    prefix: dfcl
+    description: Locale settings.
+  DFCN:
+    prefix: dfcn
+    description: Numeric formatting.
+  DGPG:
+    prefix: dgpg
+    description: Growth-rate assumptions.
+  DGPL:
+    prefix: dgpl
+    description: Data lifecycle strategy.
+  DGPP:
+    prefix: dgpp
+    description: Volume projections.
+  DGPT:
+    prefix: dgpt
+    description: Thresholds and notes.
+  DHMC:
+    prefix: dhmc
+    description: Cache subsystem checks.
+  DHME:
+    prefix: dhme
+    description: External service and certificate checks.
+  DHMQ:
+    prefix: dhmq
+    description: Queue and dead-letter monitoring.
+  DHMT:
+    prefix: dhmt
+    description: Thresholds and cascade protection settings.
+  DIRE:
+    prefix: dire
+    description: Display and screen requirements.
+  DISB:
+    prefix: disb
+    description: Interface binding rules.
+  DISC:
+    prefix: disc
+    description: Environment-specific configuration.
+  DISR:
+    prefix: disr
+    description: Registration organization.
+  DIST:
+    prefix: dist
+    description: Troubleshooting support.
+  DMRC:
+    prefix: dmrc
+    description: Container image policies.
+  DMRN:
+    prefix: dmrn
+    description: Networking configuration.
+  DMRR:
+    prefix: dmrr
+    description: Resource allocation.
+  DMRS:
+    prefix: dmrs
+    description: Storage configuration.
+  DNRE:
+    prefix: dnre
+    description: DNS requirements.
+  DOFT:
+    prefix: doft
+    description: Early task expectations.
+  DOST:
+    prefix: dost
+    description: Documentation standards and requirements.
+  DPAR:
+    prefix: dpar
+    description: Data processing agreement requirements.
+  DPAS:
+    prefix: dpas
+    description: |
+      Specify required design patterns, coding standards, development conventions,
+      and industry standards compliance. Consistent patterns improve code
+      quality, maintainability, and team productivity.
+      **Design Patterns**:
+      - **Creational**: Factory, Builder, Singleton, Dependency Injection
+      - **Structural**: Adapter, Decorator, Facade, Proxy, Composite
+      - **Behavioral**: Observer, Strategy, Command, State, Chain of Responsibility
+      - **Architectural**: Repository, Unit of Work, CQRS, Event Sourcing
+      - **Concurrency**: Thread Pool, Producer-Consumer, Async/Await patterns
+      - **Integration**: API Gateway, Circuit Breaker, Retry, Bulkhead
+      **Coding Standards**:
+      - Language-specific style guides (PEP 8, Google Style, Airbnb)
+      - Naming conventions and code organization
+      - Documentation requirements (doc comments, README standards)
+      - Testing requirements (unit, integration, e2e coverage targets)
+      - Code review checklist and approval criteria
+      **Industry Standards**:
+      - **Security**: OWASP Top 10, OWASP ASVS, CWE
+      - **Quality**: ISO/IEC 25010, CMMI
+      - **Documentation**: IEEE 830, ISO/IEC 26514
+      - **Process**: ISO 27001, SOC 2, GDPR, HIPAA
+      **Enforcement**: Linters, static analysis, automated checks in CI/CD.
+  DPCH:
+    prefix: dpch
+    description: Handling rules.
+  DPCI:
+    prefix: dpci
+    description: Incident handling.
+  DPCM:
+    prefix: dpcm
+    description: Masking and de-identification rules.
+  DPCR:
+    prefix: dpcr
+    description: Retention and disposal rules.
+  DPEA:
+    prefix: dpea
+    description: Applicability guidance.
+  DPEE:
+    prefix: dpee
+    description: Enforcement and notes.
+  DPEI:
+    prefix: dpei
+    description: Implementation guidance.
+  DQGC:
+    prefix: dqgc
+    description: Coverage requirements.
+  DQGD:
+    prefix: dqgd
+    description: Documentation requirements.
+  DQGP:
+    prefix: dqgp
+    description: Performance checks.
+  DQGS:
+    prefix: dqgs
+    description: Security checks.
+  DRHC:
+    prefix: drhc
+    description: Health-check settings.
+  DRMD:
+    prefix: drmd
+    description: Multi-display support.
+  DRRC:
+    prefix: drrc
+    description: Continuity and coordination.
+  DRRF:
+    prefix: drrf
+    description: Failover execution.
+  DRRR:
+    prefix: drrr
+    description: Replication requirements.
+  DRRS:
+    prefix: drrs
+    description: Governing regulation and sovereignty constraints.
+  DRRV:
+    prefix: drrv
+    description: Verification and transparency requirements.
+  DSCD:
+    prefix: dscd
+    description: Code documentation requirements.
+  DSPT:
+    prefix: dspt
+    description: Design pattern entry — a specific design pattern to be used.
+  DSRL:
+    prefix: dsrl
+    description: License-compliance rules.
+  DSRM:
+    prefix: dsrm
+    description: Data subject rights management.
+  DSRS:
+    prefix: dsrs
+    description: SBOM requirements.
+  DSRV:
+    prefix: dsrv
+    description: Vulnerability-management rules.
+  DSSC:
+    prefix: dssc
+    description: Supply-chain security.
+  DSSP:
+    prefix: dssp
+    description: Documentation process rules.
+  DSSQ:
+    prefix: dssq
+    description: Documentation quality rules.
+  DSST:
+    prefix: dsst
+    description: Technical documentation standards.
+  DSSU:
+    prefix: dssu
+    description: User documentation standards.
+  DTE1:
+    prefix: dte1
+    description: Deployment target specification entry.
+  DTEC:
+    prefix: dtec
+    description: Compliance and notes for deployment target.
+  DTEP:
+    prefix: dtep
+    description: Platform specifics for deployment target.
+  DTER:
+    prefix: dter
+    description: Platform requirements for deployment target.
+  DTSO:
+    prefix: dtso
+    description: Correlation and retention.
+  DTSS:
+    prefix: dtss
+    description: Sampling strategy.
+  EBTG:
+    prefix: ebtg
+    description: Recovery policy and attribution rules.
+  EBTM:
+    prefix: ebtm
+    description: Burn-rate monitoring thresholds.
+  EHSE:
+    prefix: ehse
+    description: Exception type conventions.
+  EHSP:
+    prefix: ehsp
+    description: Handling pattern defaults.
+  EHSR:
+    prefix: ehsr
+    description: Reporting standards.
+  EMPC:
+    prefix: empc
+    description: Notification and stakeholder handling for emergency maintenance.
+  EMPE:
+    prefix: empe
+    description: Execution and follow-up details for emergency maintenance.
+  EMPG:
+    prefix: empg
+    description: Approval and documentation workflow for emergency maintenance.
+  ENMA:
+    prefix: enma
+    description: Environment management configuration.
+  ENRC:
+    prefix: enrc
+    description: Cloud connectivity.
+  ENRP:
+    prefix: enrp
+    description: Public endpoint requirements.
+  ENRS:
+    prefix: enrs
+    description: Security controls.
+  ENST:
+    prefix: enst
+    description: Environment strategy.
+  EPDH:
+    prefix: epdh
+    description: Data handling.
+  FIRE:
+    prefix: fire
+    description: Firewall requirements.
+  FMEC:
+    prefix: fmec
+    description: Feature configuration.
+  FMED:
+    prefix: fmed
+    description: Purpose and value.
+  FMEN:
+    prefix: fmen
+    description: Navigation and notes.
+  FMES:
+    prefix: fmes
+    description: Structural scope.
+  FRE1:
+    prefix: fre1
+    description: Framework or library requirement entry.
+  GDRA:
+    prefix: gdra
+    description: Anycast and global load balancing.
+  GDRC:
+    prefix: gdrc
+    description: CDN requirements.
+  GDRP:
+    prefix: gdrp
+    description: Performance considerations.
+  GDRR:
+    prefix: gdrr
+    description: Traffic routing requirements.
+  HARF:
+    prefix: harf
+    description: Failover behavior.
+  HARR:
+    prefix: harr
+    description: Redundancy model.
+  HCEC:
+    prefix: hcec
+    description: Response configuration.
+  HCET:
+    prefix: hcet
+    description: Timing thresholds.
+  IACD:
+    prefix: iacd
+    description: Drift detection settings.
+  IACE:
+    prefix: iace
+    description: Execution governance.
+  IACS:
+    prefix: iacs
+    description: State management.
+  ICE1:
+    prefix: ice1
+    description: An integration constraint entry (form).
+  ICE2:
+    prefix: ice2
+    description: Infrastructure component entry.
+  ICEC:
+    prefix: icec
+    description: Configuration requirements.
+  ICED:
+    prefix: iced
+    description: Purpose and technology choices.
+  ICEI:
+    prefix: icei
+    description: Integration lifecycle.
+  ICEM:
+    prefix: icem
+    description: Impact and mitigation.
+  ICEO:
+    prefix: iceo
+    description: Operational behavior.
+  ICER:
+    prefix: icer
+    description: Resiliency behavior.
+  ICES:
+    prefix: ices
+    description: Scope of impact.
+  IMRC:
+    prefix: imrc
+    description: Communication requirements.
+  IMRM:
+    prefix: imrm
+    description: Metrics and notes.
+  IMSC:
+    prefix: imsc
+    description: Cloud-managed services and edge metrics.
+  IMSK:
+    prefix: imsk
+    description: Container and orchestration metrics.
+  INAR:
+    prefix: inar
+    description: Integration architecture with external systems.
+  INRE:
+    prefix: inre
+    description: System interoperability requirements.
+  INRM:
+    prefix: inrm
+    description: Monitoring and notes.
+  INRR:
+    prefix: inrr
+    description: Routing and service discovery.
+  INRS:
+    prefix: inrs
+    description: Segmentation and isolation.
+  IRDE:
+    prefix: irde
+    description: Data-exchange definitions.
+  IREC:
+    prefix: irec
+    description: Extension and workspace configuration.
+  IREI:
+    prefix: irei
+    description: "Debugger, linting, and formatting integration."
+  IRES:
+    prefix: ires
+    description: Shared team standardization settings.
+  IRPC:
+    prefix: irpc
+    description: Communication requirements.
+  IRPP:
+    prefix: irpp
+    description: Response process.
+  ISE1:
+    prefix: ise1
+    description: "Interface specification entry (REST, GraphQL, gRPC, SOAP)."
+  ISEC:
+    prefix: isec
+    description: Requirement applicability.
+  ISED:
+    prefix: ised
+    description: Definition storage and validation.
+  ISER:
+    prefix: iser
+    description: Reference metadata.
+  ISES:
+    prefix: ises
+    description: Scope details.
+  ISET:
+    prefix: iset
+    description: Tooling and notes.
+  ISEV:
+    prefix: isev
+    description: Verification settings.
+  ISHA:
+    prefix: isha
+    description: Access hardening.
+  ISHC:
+    prefix: ishc
+    description: Container security.
+  ISHN:
+    prefix: ishn
+    description: Network hardening.
+  ISSS:
+    prefix: isss
+    description: |
+      Specify IT security standards including application security, infrastructure
+      security, vulnerability management, and security development practices.
+      Following established standards reduces security risk systematically.
+      **Application Security (OWASP)**:
+      - OWASP Top 10 mitigation (injection, XSS, CSRF, etc.)
+      - OWASP ASVS (Application Security Verification Standard)
+      - Secure coding guidelines by language
+      - Input validation and output encoding
+      - Authentication and session management
+      **Infrastructure Security**:
+      - Server hardening (CIS Benchmarks)
+      - Network security (firewall rules, segmentation)
+      - Cloud security configuration (AWS/Azure/GCP best practices)
+      - Container security (image scanning, runtime protection)
+      - Endpoint security (device management, AV/EDR)
+      **Security Development Lifecycle**:
+      - Threat modeling during design
+      - Security requirements in user stories
+      - Security code review process
+      - Security testing (SAST, DAST, IAST)
+      - Secure deployment practices
+      **Vulnerability Management**:
+      - Vulnerability scanning frequency
+      - CVE monitoring and response time
+      - Patch management procedures
+      - Risk-based prioritization
+      - Vulnerability disclosure process
+      **Incident Response**:
+      - Incident detection mechanisms
+      - Response playbooks
+      - Communication templates
+      - Recovery procedures
+      - Postmortem process
+  LAMS:
+    prefix: lams
+    description: |
+      Define software layering approach, module organization, and dependency
+      management rules. Clear boundaries prevent spaghetti architecture and
+      enable independent development and testing.
+      **Common Layering Approaches**:
+      - **Clean Architecture**: Entities → Use Cases → Interface Adapters →
+        Frameworks & Drivers (dependencies point inward)
+      - **Hexagonal (Ports & Adapters)**: Domain core with ports (interfaces)
+        and adapters (implementations)
+      - **Onion Architecture**: Domain Model → Domain Services → Application
+        Services → Infrastructure
+      - **Traditional N-Tier**: Presentation → Business Logic → Data Access
+      **Module Organization**:
+      - **By Feature/Domain**: Vertical slices containing all layers for a feature
+      - **By Layer**: Horizontal separation (all controllers, all repositories)
+      - **Bounded Contexts (DDD)**: Independent modules with clear context maps
+      - **Package-by-Component**: Self-contained components with public APIs
+      **Dependency Rules**:
+      - Define allowed and forbidden dependencies between layers/modules
+      - Enforce with architecture tests (ArchUnit, deptry, import linters)
+      - Use interfaces/abstractions for cross-cutting concerns
+      - Keep domain logic independent of frameworks
+      **Best Practices**: SOLID, DRY, KISS, YAGNI, Dependency Inversion.
+  LARA:
+    prefix: lara
+    description: Search and analysis capabilities.
+  LARC:
+    prefix: larc
+    description: Dynamic configuration and collection settings.
+  LARR:
+    prefix: larr
+    description: Retention and archival settings.
+  LCEC:
+    prefix: lcec
+    description: Constraints and limitations.
+  LCEI:
+    prefix: lcei
+    description: Integration approach.
+  LCEM:
+    prefix: lcem
+    description: Migration planning.
+  LCER:
+    prefix: lcer
+    description: Risk management.
+  LCRF:
+    prefix: lcrf
+    description: Cross-layer event and exception flow.
+  LCRG:
+    prefix: lcrg
+    description: Boundary enforcement and validation rules.
+  LCRI:
+    prefix: lcri
+    description: Interface requirements between layers.
+  LDSD:
+    prefix: ldsd
+    description: Dependencies and local services.
+  LDSR:
+    prefix: ldsr
+    description: Running configuration.
+  LDST:
+    prefix: ldst
+    description: Test setup.
+  LDSW:
+    prefix: ldsw
+    description: Setup workflow.
+  LMRA:
+    prefix: lmra
+    description: Search and analysis.
+  LMRC:
+    prefix: lmrc
+    description: Collection method.
+  LMRS:
+    prefix: lmrs
+    description: Storage settings.
+  LPRP:
+    prefix: lprp
+    description: Temporal and seasonal patterns.
+  MAAS:
+    prefix: maas
+    description: |
+      Specify monitoring, alerting, logging, and observability requirements.
+      Effective monitoring enables rapid issue detection and resolution.
+      **Three Pillars of Observability**:
+      - **Metrics**: Quantitative measurements (latency, throughput, errors)
+      - **Logs**: Discrete events with context
+      - **Traces**: Request flow across services
+      **Monitoring Infrastructure**:
+      - Metrics: Prometheus, Datadog, CloudWatch, New Relic
+      - Logging: ELK Stack, Splunk, CloudWatch Logs, Loki
+      - Tracing: Jaeger, Zipkin, AWS X-Ray, Honeycomb
+      - APM: Datadog APM, New Relic APM, Dynatrace
+      **Key Metrics**:
+      - **SLIs (Service Level Indicators)**: Latency, availability, error rate
+      - **SLOs (Service Level Objectives)**: Targets for SLIs
+      - **Error Budgets**: Acceptable error margin
+      - **Golden Signals**: Latency, traffic, errors, saturation
+      **Alerting Requirements**:
+      - Alert severity levels and response times
+      - Notification channels (PagerDuty, Slack, email)
+      - Alert routing and escalation
+      - Alert fatigue prevention
+      **Dashboards and Visualization**:
+      - Operational dashboards for on-call
+      - Business metrics dashboards
+      - Real-time vs. historical views
+      - SLO tracking dashboards
+      **Incident Management**:
+      - On-call rotation and coverage
+      - Incident response procedures
+      - Postmortem process
+      - Runbook integration
+  MADE:
+    prefix: made
+    description: 12.5. Maintenance Dependencies.
+  MCE1:
+    prefix: mce1
+    description: Mobile device compatibility entry.
+  MCEC:
+    prefix: mcec
+    description: Platform capabilities.
+  MCED:
+    prefix: mced
+    description: Supported devices.
+  MCEH:
+    prefix: mceh
+    description: Hardware requirements.
+  MCMA:
+    prefix: mcma
+    description: Logging and audit trail expectations.
+  MCMD:
+    prefix: mcmd
+    description: Required assessments and rollback planning.
+  MCMG:
+    prefix: mcmg
+    description: CAB cadence and documentation prerequisites.
+  MCMT:
+    prefix: mcmt
+    description: Testing and sign-off requirements.
+  MCRA:
+    prefix: mcra
+    description: Application metrics.
+  MCRB:
+    prefix: mcrb
+    description: Business metrics.
+  MCRC:
+    prefix: mcrc
+    description: Container and cluster metrics.
+  MDEC:
+    prefix: mdec
+    description: Classification and purpose.
+  MDER:
+    prefix: mder
+    description: Risk and fallback planning.
+  MDEU:
+    prefix: mdeu
+    description: Update coordination.
+  MFSC:
+    prefix: mfsc
+    description: Field conventions.
+  MFSR:
+    prefix: mfsr
+    description: Pagination and error envelopes.
+  MFSS:
+    prefix: mfss
+    description: Schema standards.
+  MFST:
+    prefix: mfst
+    description: Compression and negotiation.
+  MODA:
+    prefix: moda
+    description: 8.7.2.4. Monitoring Dashboards.
+  MOIN:
+    prefix: moin
+    description: Monitoring infrastructure requirements.
+  MUID:
+    prefix: muid
+    description: Communication during maintenance.
+  MUIP:
+    prefix: muip
+    description: Post-maintenance communication.
+  MVSC:
+    prefix: mvsc
+    description: Compatibility policy.
+  MVSD:
+    prefix: mvsd
+    description: Dependency versioning rules.
+  MWEI:
+    prefix: mwei
+    description: Impact details.
+  MWER:
+    prefix: mwer
+    description: Rollback details.
+  MWES:
+    prefix: mwes
+    description: Schedule details.
+  NARF:
+    prefix: narf
+    description: Failover configuration.
+  NARL:
+    prefix: narl
+    description: Deep-linking support.
+  NARP:
+    prefix: narp
+    description: Size and performance requirements.
+  NARR:
+    prefix: narr
+    description: Redundancy configuration.
+  NARS:
+    prefix: nars
+    description: Store presence requirements.
+  NART:
+    prefix: nart
+    description: Testing and notes.
+  NARV:
+    prefix: narv
+    description: SDK and version requirements.
+  NLBR:
+    prefix: nlbr
+    description: Network load balancing requirements.
+  NLRG:
+    prefix: nlrg
+    description: Geographic latency budgets.
+  NLRO:
+    prefix: nlro
+    description: Optimization strategies.
+  NLRS:
+    prefix: nlrs
+    description: Segment-level latency budgets.
+  NSPD:
+    prefix: nspd
+    description: DDoS protections.
+  NSPF:
+    prefix: nspf
+    description: Firewall rule details.
+  NSPV:
+    prefix: nspv
+    description: VPN configuration.
+  NSRA:
+    prefix: nsra
+    description: Access-control settings.
+  NSRC:
+    prefix: nsrc
+    description: Compliance settings.
+  NSRD:
+    prefix: nsrd
+    description: DDoS protection controls.
+  NSRM:
+    prefix: nsrm
+    description: Monitoring controls.
+  OCEL:
+    prefix: ocel
+    description: Lifecycle notes.
+  OCER:
+    prefix: ocer
+    description: Platform requirements.
+  OCES:
+    prefix: oces
+    description: Support level and prioritization.
+  OCET:
+    prefix: ocet
+    description: Testing expectations.
+  OCPD:
+    prefix: ocpd
+    description: Documentation requirements.
+  OCPE:
+    prefix: ocpe
+    description: Escalation rules.
+  OCPS:
+    prefix: ocps
+    description: Response SLAs.
+  OCPT:
+    prefix: ocpt
+    description: Team coverage.
+  OCSC:
+    prefix: ocsc
+    description: On-call schedule configuration.
+  PAOR:
+    prefix: paor
+    description: Package organization and naming structure.
+  PASS:
+    prefix: pass
+    description: |
+      Specify communication protocols, security standards, and API conventions.
+      Standardized protocols ensure interoperability and security.
+      **Network Protocols**:
+      - **Application Layer**: HTTP/1.1, HTTP/2, HTTP/3 (QUIC), gRPC, WebSocket
+      - **Transport**: TCP, UDP, QUIC
+      - **Security**: TLS 1.2/1.3, DTLS, SSH
+      **API Protocols**:
+      - **REST**: Resource-based, HTTP verbs, JSON/XML
+      - **GraphQL**: Query language, single endpoint, flexible queries
+      - **gRPC**: Binary protocol, Protocol Buffers, streaming support
+      - **WebSocket**: Full-duplex, real-time, persistent connection
+      **TLS/SSL Requirements**:
+      - Minimum TLS version (TLS 1.2 or 1.3)
+      - Cipher suites (AEAD, perfect forward secrecy)
+      - Certificate requirements (CA-signed, validity period)
+      - Certificate pinning considerations
+      **Certificate Management**:
+      - Certificate lifecycle (issuance, renewal, revocation)
+      - Automated certificate management (cert-manager, Let's Encrypt)
+      - Certificate monitoring and alerting
+      - Key rotation procedures
+      **API Versioning Strategy**:
+      - URL versioning (/v1/, /v2/)
+      - Header versioning (Accept-Version)
+      - Content negotiation (media type)
+      - Deprecation and sunset policies
+  PCRC:
+    prefix: pcrc
+    description: Caching requirements.
+  PCRE:
+    prefix: pcre
+    description: "Webhook, event, and health endpoint standards."
+  PCRO:
+    prefix: pcro
+    description: Request logging and trace propagation rules.
+  PIAP:
+    prefix: piap
+    description: Privacy impact assessment and DPIA process.
+  PJED:
+    prefix: pjed
+    description: Job dependencies.
+  PJEE:
+    prefix: pjee
+    description: Execution environment.
+  PJEO:
+    prefix: pjeo
+    description: Outputs and notes.
+  PJES:
+    prefix: pjes
+    description: Job steps.
+  PLPC:
+    prefix: plpc
+    description: Load multipliers.
+  PLPM:
+    prefix: plpm
+    description: Peak metrics.
+  PLPT:
+    prefix: plpt
+    description: Testing regime.
+  PMVC:
+    prefix: pmvc
+    description: Sign-off and reporting expectations.
+  PMVM:
+    prefix: pmvm
+    description: Monitoring requirements after maintenance.
+  PRCD:
+    prefix: prcd
+    description: Data Protection Officer details.
+  PRCG:
+    prefix: prcg
+    description: GDPR-specific requirements.
+  PRCR:
+    prefix: prcr
+    description: Records and documentation.
+  PRCT:
+    prefix: prct
+    description: Cross-border transfer controls.
+  PSEA:
+    prefix: psea
+    description: Artifact flow between stages.
+  PSEE:
+    prefix: psee
+    description: Execution environment and job strategy.
+  PSEF:
+    prefix: psef
+    description: Failure handling and retry behavior.
+  PSET:
+    prefix: pset
+    description: Triggering conditions and approval gates.
+  PTRE:
+    prefix: ptre
+    description: Execution rules.
+  PTRR:
+    prefix: ptrr
+    description: Reporting and remediation.
+  PTRS:
+    prefix: ptrs
+    description: Frequency and scheduling.
+  PWRE:
+    prefix: pwre
+    description: Progressive Web App (PWA) requirements.
+  QSEC:
+    prefix: qsec
+    description: Certification status.
+  QSEI:
+    prefix: qsei
+    description: Improvement implementation.
+  QSEM:
+    prefix: qsem
+    description: Maintenance expectations.
+  QSEP:
+    prefix: qsep
+    description: Process coverage.
+  RCBC:
+    prefix: rcbc
+    description: Cost baselines and notes.
+  RCBD:
+    prefix: rcbd
+    description: Database baselines.
+  RCBN:
+    prefix: rcbn
+    description: Network baselines.
+  RCBS:
+    prefix: rcbs
+    description: Storage baselines.
+  RCEO:
+    prefix: rceo
+    description: Ownership and review.
+  RCEP:
+    prefix: rcep
+    description: Penalties and reporting.
+  RDEC:
+    prefix: rdec
+    description: Versioning and business criticality.
+  RDEI:
+    prefix: rdei
+    description: Data flow and network characteristics.
+  RDER:
+    prefix: rder
+    description: Resilience behavior.
+  RDES:
+    prefix: rdes
+    description: Startup and health behavior.
+  REPR:
+    prefix: repr
+    description: Reusability principles and guidelines.
+  REST:
+    prefix: rest
+    description: Release strategy.
+  RLPB:
+    prefix: rlpb
+    description: Runtime response behavior when limits are exceeded.
+  RLPL:
+    prefix: rlpl
+    description: Rate-limit ceilings and burst handling.
+  RLPQ:
+    prefix: rlpq
+    description: Quota management and exceptions.
+  ROST:
+    prefix: rost
+    description: Rollback strategy.
+  RRRD:
+    prefix: rrrd
+    description: Degraded-mode guidance.
+  RRRS:
+    prefix: rrrs
+    description: System-specific recovery targets.
+  RSBG:
+    prefix: rsbg
+    description: Blue-green deployment configuration.
+  RSFF:
+    prefix: rsff
+    description: Feature flags configuration.
+  RUCE:
+    prefix: ruce
+    description: UI component entry — a reusable UI widget or pattern.
+  RUDE:
+    prefix: rude
+    description: 12.4. Runtime Dependencies.
+  RUEN:
+    prefix: ruen
+    description: Runtime environment constraints.
+  SAEE:
+    prefix: saee
+    description: "Scope, standards, and execution model."
+  SAES:
+    prefix: saes
+    description: Audit schedule and cadence.
+  SARS:
+    prefix: sars
+    description: |
+      Specify security audit requirements including penetration testing, code
+      review, dependency scanning, and compliance audits. Regular auditing
+      validates security controls and identifies weaknesses.
+      **Penetration Testing**:
+      - Testing scope (external, internal, web, mobile, API)
+      - Testing frequency (annual, quarterly, per release)
+      - Testing methodology (OWASP, PTES, NIST)
+      - Findings remediation timeline by severity
+      - Re-testing requirements
+      **Security Code Review**:
+      - Code review checklist for security
+      - Manual review requirements
+      - SAST tool integration
+      - High-risk code identification
+      - Security review gates
+      **Dependency Scanning**:
+      - Software composition analysis (SCA)
+      - CVE monitoring and alerting
+      - License compliance scanning
+      - Dependency update policy
+      - Vulnerable dependency remediation
+      **Security Certifications**:
+      - **SOC 2 Type II**: Trust services criteria (security, availability, etc.)
+      - **ISO 27001**: Information security management system
+      - **FedRAMP**: US government cloud security
+      - **Industry-specific**: HIPAA, PCI-DSS, HITRUST
+      **Compliance Audits**:
+      - Internal audit schedule
+      - External audit requirements
+      - Evidence collection and retention
+      - Gap remediation tracking
+      - Continuous compliance monitoring
+      **Automated Security Testing**:
+      - CI/CD security gates
+      - Dynamic security testing (DAST)
+      - Infrastructure security scanning
+      - Compliance as code
+  SASM:
+    prefix: sasm
+    description: 8.7.2.5. SLA and SLO Monitoring.
+  SCAR:
+    prefix: scar
+    description: Scalability and performance architecture.
+  SCMD:
+    prefix: scmd
+    description: Dynamic configuration and rollback behavior.
+  SCME:
+    prefix: scme
+    description: Environment overrides and secrets handling.
+  SCMG:
+    prefix: scmg
+    description: "Validation, diffing, and audit controls."
+  SCRE:
+    prefix: scre
+    description: Scaling requirements.
+  SCRI:
+    prefix: scri
+    description: ISO 27001 requirements.
+  SCRM:
+    prefix: scrm
+    description: Maintenance and budget.
+  SCRP:
+    prefix: scrp
+    description: Security-focused code review policy.
+  SCRS:
+    prefix: scrs
+    description: SOC 2 requirements.
+  SCS1:
+    prefix: scs1
+    description: |
+      Specify compliance requirements with IT standards, industry protocols,
+      regulatory frameworks, and certification requirements. Standards compliance
+      is often mandatory for enterprise and regulated industries.
+      **IT Standards**:
+      - **ISO/IEC**: 27001 (InfoSec), 9001 (Quality), 22301 (Business Continuity),
+        25010 (Software Quality), 12207 (Lifecycle)
+      - **IEEE**: 830 (Requirements), 1471 (Architecture), 29148 (Requirements)
+      - **NIST**: Cybersecurity Framework, SP 800-53 controls
+      **Industry Protocols**:
+      - **API**: REST, GraphQL, gRPC, OpenAPI/Swagger specifications
+      - **Data**: JSON, XML, Protocol Buffers, Avro schemas
+      - **Security**: OAuth 2.0, OIDC, SAML, JWT, mTLS
+      - **Messaging**: AMQP, MQTT, WebSocket, Server-Sent Events
+      **Regulatory Compliance**:
+      - **Privacy**: GDPR, CCPA, PIPEDA, LGPD, HIPAA
+      - **Financial**: PCI-DSS, SOX, Basel III
+      - **Industry**: FedRAMP, HITRUST, PSD2, MiFID II
+      **Certification Requirements**:
+      - SOC 2 Type I/II
+      - ISO 27001 certification
+      - Industry-specific certifications
+      - Third-party security assessments
+  SDLD:
+    prefix: sdld
+    description: Development-phase controls.
+  SDLR:
+    prefix: sdlr
+    description: Release-phase controls.
+  SDLT:
+    prefix: sdlt
+    description: Testing-phase controls.
+  SDTL:
+    prefix: sdtl
+    description: Log analysis capabilities.
+  SDTT:
+    prefix: sdtt
+    description: Trace and dependency inspection tools.
+  SEEA:
+    prefix: seea
+    description: Access rules.
+  SEEL:
+    prefix: seel
+    description: Location details.
+  SEES:
+    prefix: sees
+    description: Scale expectations.
+  SLE1:
+    prefix: sle1
+    description: Shared library entry — a reusable library or utility.
+  SLEA:
+    prefix: slea
+    description: API details.
+  SLEC:
+    prefix: slec
+    description: Typical components and organization.
+  SLED:
+    prefix: sled
+    description: Dependency rules.
+  SLEL:
+    prefix: slel
+    description: Constraints and lifecycle.
+  SLER:
+    prefix: sler
+    description: Responsibilities and constraints.
+  SLET:
+    prefix: slet
+    description: Technology and testing notes.
+  SLIM:
+    prefix: slim
+    description: Measurement method and location.
+  SLIP:
+    prefix: slip
+    description: Latency and throughput indicators.
+  SLIQ:
+    prefix: sliq
+    description: "Error, correctness, and freshness indicators."
+  SMAG:
+    prefix: smag
+    description: Service mesh and API gateway.
+  SMPA:
+    prefix: smpa
+    description: Approval requirements.
+  SMPD:
+    prefix: smpd
+    description: Duration constraints.
+  SMPN:
+    prefix: smpn
+    description: Notice requirements.
+  SMPS:
+    prefix: smps
+    description: Scheduling preferences.
+  SOAM:
+    prefix: soam
+    description: |
+      Define system operation, monitoring, and capacity planning requirements.
+      Day-to-day operations ensure the system runs reliably and efficiently.
+      **Subsections**:
+      - **System Operation**: Administration, maintenance procedures, user
+        provisioning, configuration management
+      - **Monitoring**: Health checks, alerting, metrics, dashboards, SLA/SLO
+        tracking, incident management
+      - **Capacity Planning**: Growth projections, scaling triggers, resource
+        baselines, capacity reviews
+      **Operational Excellence**:
+      - Runbook-driven operations
+      - Automation-first approach
+      - Self-healing capabilities
+      - Proactive problem detection
+      - Continuous improvement
+      **Key Operational Concerns**:
+      - System availability and uptime
+      - Performance and response times
+      - Resource utilization efficiency
+      - Security posture maintenance
+      - Compliance adherence
+      **Reference**: AWS Well-Architected Operational Excellence pillar,
+      Google SRE practices, Azure operational best practices.
+  SORH:
+    prefix: sorh
+    description: Hardening requirements.
+  SORL:
+    prefix: sorl
+    description: Licensing details.
+  SORM:
+    prefix: sorm
+    description: Monitoring setup.
+  SORS:
+    prefix: sors
+    description: Security controls.
+  SRAS:
+    prefix: sras
+    description: Auto-scaling thresholds.
+  SREC:
+    prefix: srec
+    description: Capacity requirements.
+  SREN:
+    prefix: sren
+    description: Networking requirements.
+  SRES:
+    prefix: sres
+    description: Software stack details.
+  SSEI:
+    prefix: ssei
+    description: Implementation status and planning.
+  SSEV:
+    prefix: ssev
+    description: Verification and ownership.
+  SSRB:
+    prefix: ssrb
+    description: Backup storage requirements.
+  SSRD:
+    prefix: ssrd
+    description: Database storage requirements.
+  SSRP:
+    prefix: ssrp
+    description: Performance requirements and notes.
+  STAD:
+    prefix: stad
+    description: Dynamic analysis configuration.
+  STAF:
+    prefix: staf
+    description: Fuzzing configuration.
+  STAG:
+    prefix: stag
+    description: Governance and reporting.
+  STAI:
+    prefix: stai
+    description: Interactive analysis configuration.
+  STAS:
+    prefix: stas
+    description: Container and IaC scanning.
+  STAT:
+    prefix: stat
+    description: Scaling triggers and thresholds.
+  TFCG:
+    prefix: tfcg
+    description: Architecture governance context.
+  TFCN:
+    prefix: tfcn
+    description: Network and infrastructure standards.
+  TFCS:
+    prefix: tfcs
+    description: Platform standards and preferred technologies.
+  TLRE:
+    prefix: tlre
+    description: TLS/SSL requirements.
+  TPAI:
+    prefix: tpai
+    description: Third-party API integrations.
+  TRCA:
+    prefix: trca
+    description: Troubleshooting capabilities.
+  TRCS:
+    prefix: trcs
+    description: Cipher suite policy.
+  TRCV:
+    prefix: trcv
+    description: Certificate validation rules.
+  TSEC:
+    prefix: tsec
+    description: Compliance settings.
+  TSED:
+    prefix: tsed
+    description: Standard details and sources.
+  TSEI:
+    prefix: tsei
+    description: Project impact notes.
+  TSES:
+    prefix: tses
+    description: Scope and applicability.
+  UGPF:
+    prefix: ugpf
+    description: Growth-rate assumptions and time-based projections.
+  UGPS:
+    prefix: ugps
+    description: User segmentation and geographic patterns.
+  UGPT:
+    prefix: ugpt
+    description: Capacity thresholds and planning notes.
+  UPTL:
+    prefix: uptl
+    description: Account lifecycle management.
+  VCCB:
+    prefix: vccb
+    description: Branching policy.
+  VCCC:
+    prefix: vccc
+    description: Commit and merge policy.
+  VCCM:
+    prefix: vccm
+    description: Tagging and file attribute settings.
+  VCCR:
+    prefix: vccr
+    description: Repository structure settings.
+  VIRE:
+    prefix: vire
+    description: Virtualization and containerization requirements.
+  VMPC:
+    prefix: vmpc
+    description: Severity classification.
+  VMPP:
+    prefix: vmpp
+    description: Remediation process.
+  VMPR:
+    prefix: vmpr
+    description: Reporting and disclosure.
+  VREA:
+    prefix: vrea
+    description: Availability and notes.
+  VREE:
+    prefix: vree
+    description: Endpoint configuration.
+  VREP:
+    prefix: vrep
+    description: Protocol and cryptography.
+  ARS:
+    prefix: ars
+    description: |
+      Specify system administration requirements including admin interfaces,
+      configuration management, and user provisioning. Good administration
+      tools reduce operational burden and error rates.
+      **Admin Interface Requirements**:
+      - Admin portal/dashboard functionality
+      - Role-based access for admin functions
+      - Audit logging of all admin actions
+      - Bulk operations and batch processing
+      - Search and reporting capabilities
+      **Configuration Management**:
+      - Centralized configuration store (Consul, etcd, Parameter Store)
+      - Environment-specific configurations
+      - Feature flags and toggles
+      - Dynamic configuration refresh
+      - Configuration versioning and rollback
+      **User Provisioning**:
+      - User lifecycle management (create, update, disable, delete)
+      - Role and permission assignment
+      - SCIM or directory synchronization
+      - Service account management
+      - Access review and certification
+      **Secrets Management**:
+      - Secrets storage (Vault, AWS Secrets Manager)
+      - Secret rotation automation
+      - Encryption key management
+      - Service-to-service credentials
+      - Developer access to secrets
+      **Batch Operations**:
+      - Batch user imports/exports
+      - Bulk data operations
+      - Scheduled maintenance scripts
+      - Report generation
+  BCE:
+    prefix: bce
+    description: Bounded context entry — a DDD bounded context.
+  BPE:
+    prefix: bpe
+    description: Backup policy entry.
+  CPS:
+    prefix: cps
+    description: |
+      Specify capacity planning requirements including growth projections,
+      scaling triggers, and resource management. Proactive capacity planning
+      prevents performance degradation and outages.
+      **Growth Projections**:
+      - User growth forecasts (monthly, yearly)
+      - Data volume growth estimates
+      - Transaction/request volume projections
+      - Storage growth calculations
+      - Geographic expansion plans
+      **Capacity Metrics**:
+      - CPU utilization thresholds
+      - Memory consumption patterns
+      - Storage capacity and growth rate
+      - Network bandwidth utilization
+      - Database connection pools
+      **Scaling Triggers**:
+      - Auto-scaling metric thresholds
+      - Manual scaling decision criteria
+      - Lead time for capacity additions
+      - Burst capacity requirements
+      - Cost vs. performance trade-offs
+      **Resource Baselines**:
+      - Current resource utilization
+      - Peak vs. average patterns
+      - Seasonal variations
+      - Performance benchmarks
+      - Efficiency metrics
+      **Capacity Review Process**:
+      - Review frequency (monthly, quarterly)
+      - Forecasting methodology
+      - Budget allocation process
+      - Capacity planning tools
+      - Stakeholder reporting
+  CR1:
+    prefix: cr1
+    description: |
+      Define network communication requirements including protocols, security,
+      and external connectivity. Communication architecture affects performance,
+      security, and integration capabilities.
+      **Subsections**:
+      - **Protocols and Standards**: Communication protocols, TLS/SSL, API
+        versioning, certificate management, data formats
+      - **External Connectivity**: Partner integrations, cloud services, third-
+        party APIs, service mesh, API gateway
+      **Communication Patterns**:
+      - **Synchronous**: HTTP/REST, gRPC, GraphQL (request-response)
+      - **Asynchronous**: Message queues, event streaming (fire-and-forget)
+      - **Real-time**: WebSocket, Server-Sent Events, WebRTC
+      - **Batch**: File transfer, scheduled data exchange
+      **Security Considerations**:
+      - Transport security (TLS 1.2/1.3, certificate pinning)
+      - API authentication (API keys, OAuth, mTLS)
+      - Data encryption in transit and at rest
+      - Rate limiting and throttling
+      **Integration Standards**:
+      - API design guidelines (REST, OpenAPI, AsyncAPI)
+      - Data format standards (JSON, Protocol Buffers, Avro)
+      - Error handling and response formats
+      - Idempotency and retry handling
+  CRS:
+    prefix: crs
+    description: |
+      Specify compatibility requirements with existing infrastructure, software,
+      and enterprise systems. Compatibility ensures smooth integration and
+      avoids costly surprises during deployment.
+      **Compatibility Dimensions**:
+      - **Operating System**: Desktop OS (Windows, macOS, Linux), server OS,
+        mobile OS (iOS, Android), embedded systems
+      - **Browser**: Chrome, Firefox, Safari, Edge with version minimums;
+        progressive enhancement vs. graceful degradation strategy
+      - **Database**: RDBMS (PostgreSQL, MySQL, SQL Server, Oracle), NoSQL
+        (MongoDB, Redis, Elasticsearch), compatibility modes and drivers
+      - **Enterprise Systems**: ERP (SAP, Oracle), CRM (Salesforce), LDAP/AD,
+        SSO providers, message queues, API gateways
+      **Compatibility Testing**:
+      - Browser testing matrix and automation (Playwright, Selenium)
+      - OS compatibility testing (virtual machines, device farms)
+      - Database compatibility and migration testing
+      - Integration testing with enterprise systems
+      - Backward compatibility verification
+      **Versioning Strategy**:
+      - API versioning approach (URL, header, media type)
+      - Database schema version management
+      - Client version compatibility windows
+      - Feature flags for gradual rollouts
+  CSE:
+    prefix: cse
+    description: Coding standard entry — a coding style or convention requirement.
+  DCE:
+    prefix: dce
+    description: Development convention entry — a development practice or workflow convention.
+  DE1:
+    prefix: de1
+    description: |
+      Specify development tools, workflows, and environment requirements.
+      A well-defined development environment accelerates onboarding and
+      ensures consistent quality across the team.
+      **IDE and Editor Requirements**:
+      - Recommended/required IDEs (VS Code, IntelliJ, Android Studio)
+      - Required extensions and plugins
+      - Code formatting and linting configuration
+      - Shared editor settings and configuration files
+      **Build Tools and Automation**:
+      - Build systems (Gradle, Maven, Make, Bazel, Melos)
+      - Code generation and preprocessing
+      - Dependency management and lockfiles
+      - Build profiles (debug, release, profile)
+      **Version Control**:
+      - Git workflow (trunk-based, Gitflow, GitHub Flow)
+      - Branch naming and commit message conventions
+      - Pull request / merge request requirements
+      - Code ownership and CODEOWNERS
+      **CI/CD Pipeline**:
+      - Pipeline stages and gates
+      - Automated testing requirements
+      - Quality gates and metrics thresholds
+      - Deployment automation and approvals
+      **Local Development**:
+      - Docker Compose / local Kubernetes setup
+      - Database seeding and test data
+      - Service stubbing and mocking
+      - Hot reload and fast feedback loops
+  DE2:
+    prefix: de2
+    description: A dashboard entry.
+  DEE:
+    prefix: dee
+    description: Deployment environment entry.
+  DSS:
+    prefix: dss
+    description: |
+      Specify deployment model, CI/CD pipeline, release strategy, and rollback
+      procedures. Reliable deployments enable fast iteration and reduce risk.
+      **Deployment Models**:
+      - **Containerized**: Docker, Kubernetes orchestration
+      - **VM-Based**: Traditional server deployment, AMI/image-based
+      - **Serverless**: Function deployment, managed scaling
+      - **Hybrid**: Mix of models for different components
+      **CI/CD Pipeline Stages**:
+      1. **Build**: Compile, lint, unit tests
+      2. **Test**: Integration tests, security scans
+      3. **Package**: Container image, artifact creation
+      4. **Deploy to Staging**: Automated deployment, smoke tests
+      5. **QA/Acceptance**: Manual or automated acceptance
+      6. **Deploy to Production**: Gated deployment, monitoring
+      **Release Strategies**:
+      - **Rolling**: Gradual instance replacement
+      - **Blue-Green**: Two identical environments, instant switch
+      - **Canary**: Small percentage rollout, gradual increase
+      - **Feature Flags**: Runtime feature toggling
+      **Rollback Strategy**:
+      - Automatic rollback on health check failure
+      - Manual rollback procedures and triggers
+      - Database migration rollback plan
+      - Configuration rollback
+      **Infrastructure as Code**:
+      - Terraform, Pulumi, CloudFormation, ARM templates
+      - GitOps workflow with ArgoCD, Flux
+      - Environment promotion pipeline
+  ECS:
+    prefix: ecs
+    description: |
+      Specify requirements for external connectivity including partner
+      integrations, cloud services, and third-party APIs. External connections
+      require careful security and reliability considerations.
+      **Partner Integrations**:
+      - B2B connections (EDI, API, file exchange)
+      - Partner onboarding process
+      - SLA and support agreements
+      - Data exchange formats and protocols
+      - Security requirements (VPN, mTLS, IP whitelisting)
+      **Cloud Service Integrations**:
+      - Cloud provider services (storage, messaging, ML)
+      - Multi-cloud considerations
+      - Vendor lock-in mitigation
+      - Cost management and optimization
+      **Third-Party API Integrations**:
+      - API consumption patterns and rate limits
+      - Authentication and credential management
+      - Error handling and fallback strategies
+      - Dependency health monitoring
+      - Vendor reliability and SLAs
+      **Service Mesh and API Gateway**:
+      - Traffic management (routing, load balancing)
+      - Security (authentication, authorization)
+      - Observability (tracing, logging, metrics)
+      - Rate limiting and throttling
+      **Resilience Patterns**:
+      - Circuit breaker implementation
+      - Retry with exponential backoff
+      - Bulkhead isolation
+      - Graceful degradation
+  IRE:
+    prefix: ire
+    description: IDE requirement entry — a required IDE or editor.
+  ISE:
+    prefix: ise
+    description: Industry standard entry — compliance with industry standards.
+  LCE:
+    prefix: lce
+    description: Legacy system compatibility entry.
+  ME1:
+    prefix: me1
+    description: Module entry — a discrete module or component.
+  MWE:
+    prefix: mwe
+    description: Maintenance window entry.
+  MWS:
+    prefix: mws
+    description: |
+      Specify maintenance window requirements including scheduling, duration,
+      communication, and change management. Planned maintenance minimizes
+      disruption while enabling necessary system updates.
+      **Maintenance Categories**:
+      - **Routine**: Regular patching, updates, housekeeping
+      - **Scheduled**: Planned changes requiring downtime
+      - **Emergency**: Unplanned urgent changes (security patches)
+      - **Zero-Downtime**: Changes without user impact
+      **Maintenance Window Scheduling**:
+      - Preferred days and times (low-traffic periods)
+      - Maximum frequency (weekly, monthly, quarterly)
+      - Maximum duration limits
+      - Blackout periods (year-end, high-traffic events)
+      **User Communication**:
+      - Notification lead time (24h, 72h, 1 week)
+      - Communication channels (email, in-app, status page)
+      - Status page updates during maintenance
+      - Post-maintenance notification
+      **Change Management**:
+      - Change approval process
+      - Risk assessment for changes
+      - Rollback criteria and procedures
+      - Post-change validation
+      **Zero-Downtime Strategies**:
+      - Blue-green deployment
+      - Rolling updates
+      - Database migration strategies
+      - Feature flags for gradual rollout
+  NRS:
+    prefix: nrs
+    description: |
+      Specify network infrastructure requirements including bandwidth, latency,
+      availability, security, and geographic distribution. Network architecture
+      underpins system performance and reliability.
+      **Network Architecture**:
+      - Internal networks: VPC/VLAN structure, subnets, routing
+      - External connectivity: Internet, partner connections, VPN
+      - Network topology: hub-spoke, mesh, star
+      - Segmentation: DMZ, application tiers, database isolation
+      **Performance Requirements**:
+      - Bandwidth: Upload/download throughput per user/service
+      - Latency: Maximum acceptable latency by operation type
+      - Packet loss: Acceptable thresholds
+      - Jitter: For real-time applications (VoIP, video)
+      **Availability Requirements**:
+      - Uptime target: 99.9%, 99.95%, 99.99%
+      - Redundancy: Dual ISP, multiple availability zones
+      - Failover: Automatic failover time requirements
+      - Disaster recovery: Cross-region connectivity
+      **Security Requirements**:
+      - Firewall rules and network ACLs
+      - DDoS protection and mitigation
+      - Intrusion detection/prevention (IDS/IPS)
+      - Network monitoring and traffic analysis
+      **Geographic Distribution**:
+      - CDN requirements for static assets
+      - Edge computing requirements
+      - Data residency constraints
+      - Multi-region deployment topology
+  OCE:
+    prefix: oce
+    description: Operating system compatibility entry.
+  OR1:
+    prefix: or1
+    description: |
+      Define operational requirements for running and maintaining the system
+      in production. Operations excellence directly impacts system availability,
+      user experience, and team efficiency.
+      **Subsections**:
+      - **Backup and Recovery**: Backup frequency, retention, RPO/RTO, disaster
+        recovery, backup verification
+      - **Deployment Strategy**: Deployment model, CI/CD pipeline, release
+        strategy, rollback, configuration management
+      - **Monitoring and Alerting**: Metrics, APM, logging, alerts, dashboards,
+        on-call, incident management
+      - **Maintenance Windows**: Scheduled maintenance, emergency procedures,
+        change management, user communication
+      **DevOps/SRE Principles**:
+      - Automation over manual processes
+      - Immutable infrastructure
+      - Everything as code (IaC, GitOps)
+      - Blameless postmortems
+      - Continuous improvement
+      **Operational Metrics**:
+      - MTTR (Mean Time To Recovery)
+      - MTBF (Mean Time Between Failures)
+      - Change failure rate
+      - Deployment frequency
+      - Lead time for changes
+      **Reference**: Google SRE book, DORA metrics, ITIL practices.
+  PJE:
+    prefix: pje
+    description: Pipeline job entry.
+  PSE:
+    prefix: pse
+    description: Pipeline stage entry.
+  RCE:
+    prefix: rce
+    description: "Regulatory compliance entry (GDPR, HIPAA, PCI-DSS, SOX)."
+  RCS:
+    prefix: rcs
+    description: |
+      Define strategy for creating and managing reusable components across
+      projects and modules. Effective reuse reduces duplication, ensures
+      consistency, and accelerates development.
+      **Component Categories**:
+      - **UI Components**: Design system components, widgets, layouts, themes
+      - **Business Logic**: Domain services, validation rules, calculations
+      - **Infrastructure**: Logging, caching, HTTP clients, database access
+      - **Utilities**: String manipulation, date handling, formatters
+      - **Third-Party Wrappers**: Abstraction layers over external libraries
+      **Reusability Principles**:
+      - Extract when used 3+ times (Rule of Three)
+      - Prefer composition over inheritance
+      - Design for extension, closed for modification (Open/Closed)
+      - Keep components focused (Single Responsibility)
+      - Version independently when appropriate
+      **Component Governance**:
+      - Ownership and maintenance responsibilities
+      - Contribution and review process
+      - Deprecation and migration policies
+      - Documentation requirements
+      - Testing and quality standards
+      **Discovery and Registry**:
+      - Component catalog and documentation portal
+      - Searchable API documentation
+      - Usage examples and integration guides
+      - Version compatibility matrix
+  SAE:
+    prefix: sae
+    description: A security audit requirement entry (form).
+  SDR:
+    prefix: sdr
+    description: |
+      Define software architecture, development environment, and component
+      reusability requirements. These decisions shape developer experience,
+      productivity, and code maintainability.
+      **Subsections**:
+      - **Layering and Module Structure**: Clean architecture, DDD bounded
+        contexts, package organization, dependency rules
+      - **Development Environment**: IDEs, build tools, version control, CI/CD
+        pipelines, code review process, local development setup
+      - **Reusable Components**: Shared libraries, UI components, business logic
+        extraction, component governance and discovery
+      **Key Considerations**:
+      - Developer productivity and fast feedback loops
+      - Onboarding time for new team members
+      - Code sharing and duplication prevention
+      - Build and test execution performance
+      - Local development parity with production
+      **Reference**: Clean Architecture (Uncle Bob), Domain-Driven Design,
+      SOLID principles, Twelve-Factor App methodology.
+  SEE:
+    prefix: see
+    description: "Server environment entry (development, staging, production, DR)."
+  SLE:
+    prefix: sle
+    description: Software layer entry — a horizontal layer in the architecture.
+  SRE:
+    prefix: sre
+    description: "Server role entry (application server, database server, web server)."
+  SRS:
+    prefix: srs
+    description: |
+      Specify server infrastructure requirements including compute, storage,
+      scaling, and high availability. Server sizing directly impacts
+      performance, cost, and reliability.
+      **Compute Requirements**:
+      - CPU: Core count, clock speed, architecture (x86, ARM, GPU)
+      - Memory: RAM size, memory-to-CPU ratio, swap configuration
+      - GPU: For ML/AI workloads, graphics processing, video transcoding
+      **Storage Requirements**:
+      - Storage type: SSD, NVMe, HDD, network storage (NAS, SAN)
+      - IOPS and throughput requirements
+      - Storage tiers (hot, warm, cold, archive)
+      - Backup and snapshot storage
+      **Environment Tiers**:
+      - Production: Full capacity, HA, all security controls
+      - Staging: Production-like for final testing
+      - Development: Minimal resources, rapid iteration
+      - Disaster Recovery: Standby capacity for failover
+      **Scaling Strategy**:
+      - Vertical scaling limits and upgrade paths
+      - Horizontal scaling: stateless design, load balancing
+      - Auto-scaling triggers and limits
+      - Database scaling: read replicas, sharding
+      **Cloud Provider Services**:
+      - Compute: EC2, Cloud Compute, Azure VMs, Cloud Run, Lambda
+      - Managed Kubernetes: EKS, GKE, AKS
+      - Serverless: Lambda, Cloud Functions, Azure Functions
+  SSE:
+    prefix: sse
+    description: A security standard entry (form).
+  SSR:
+    prefix: ssr
+    description: |
+      Define requirements for standard software, third-party components, and
+      compatibility with existing IT infrastructure. Enterprise integration
+      often requires alignment with established platforms and protocols.
+      **Subsections**:
+      - **Compatibility Requirements**: OS compatibility, browser support,
+        database compatibility, enterprise system integration
+      - **Standards Compliance**: IT standards (ISO, IEEE, NIST), industry
+        protocols, regulatory requirements, certification needs
+      **Evaluation Criteria for Commercial/Open-Source Software**:
+      - Functional fit with requirements
+      - Total cost of ownership (license, support, training)
+      - Vendor stability and roadmap alignment
+      - Community health and update frequency
+      - Security track record and vulnerability response
+      - Integration capabilities and API availability
+      - Data portability and exit strategy
+      **Enterprise Considerations**:
+      - Existing enterprise licenses and preferred vendors
+      - IT governance and procurement processes
+      - Support agreements and SLAs
+      - Training and documentation availability
+      - Scalability and high-availability options
+  TSE:
+    prefix: tse
+    description: A technology standard entry (form).
+  TSR:
+    prefix: tsr
+    description: |
+      Define comprehensive security requirements including IT security standards,
+      data protection, privacy, and security auditing. Security is foundational
+      and must be considered throughout the system lifecycle.
+      **Subsections**:
+      - **IT Security Standards**: OWASP compliance, infrastructure hardening,
+        vulnerability management, security development lifecycle
+      - **Data Protection and Privacy**: GDPR/CCPA compliance, data residency,
+        consent management, data subject rights, encryption
+      - **Security Audit Requirements**: Penetration testing, code review,
+        dependency scanning, certifications, compliance audits
+      **Security Principles**:
+      - Defense in depth
+      - Least privilege
+      - Zero trust architecture
+      - Secure by default
+      - Fail securely
+      **Security Domains**:
+      - Application security (OWASP Top 10, secure coding)
+      - Infrastructure security (network, cloud, endpoints)
+      - Data security (encryption, access control, DLP)
+      - Identity and access management (AuthN, AuthZ)
+      - Incident response (detection, response, recovery)
+      **Reference Frameworks**: NIST Cybersecurity Framework, ISO 27001,
+      CIS Controls, OWASP ASVS, SOC 2 Trust Criteria.
+  VRE:
+    prefix: vre
+    description: VPN requirement entry.
+  AS:
+    prefix: as
+    description: |
+      Define the system's architectural style and structural organization.
+      Architecture decisions have long-lasting impacts on maintainability,
+      scalability, team structure, and operational complexity.
+      **Architectural Styles**:
+      - **Monolith**: Single deployable unit; simple operations, harder to scale
+        teams; suitable for small-medium applications
+      - **Modular Monolith**: Monolith with internal module boundaries; clean
+        architecture within single deployment; migration path to microservices
+      - **Microservices**: Independent services; team autonomy, operational
+        complexity; requires mature DevOps practices
+      - **Event-Driven**: Loosely coupled via events; async communication,
+        eventual consistency; CQRS/Event Sourcing patterns
+      - **Serverless**: FaaS (Functions as a Service); auto-scaling, cold starts,
+        vendor lock-in considerations
+      - **Hybrid**: Combination of styles for different system parts
+      **Architecture Artifacts**:
+      - Component diagrams (C4 model: Context, Container, Component, Code)
+      - Data flow diagrams and integration maps
+      - Deployment topology and infrastructure architecture
+      - Architecture Decision Records (ADRs)
+      - Quality attribute scenarios (performance, security, availability)
+      **Reference**: ISO/IEC 42010, TOGAF ADM, arc42 template, C4 model.
+  HR:
+    prefix: hr
+    description: |
+      Define hardware infrastructure requirements for servers, clients, and
+      network. Hardware decisions impact performance, availability, cost,
+      and operational complexity.
+      **Subsections**:
+      - **Server Requirements**: Compute (CPU, memory, GPU), storage, load
+        profiles, scaling, virtualization, cloud providers
+      - **Client Requirements**: Browser requirements, desktop/mobile devices,
+        display specifications, accessibility devices
+      - **Network Requirements**: Bandwidth, latency, availability, geographic
+        distribution, VPN, firewall, CDN
+      **Deployment Models**:
+      - **On-Premises**: Full control, capital expenditure, data sovereignty
+      - **Cloud (IaaS)**: Virtual machines, managed infrastructure, OpEx model
+      - **Cloud (PaaS)**: Managed services, less control, faster development
+      - **Hybrid**: Mix of on-prem and cloud for compliance/optimization
+      - **Edge**: Distributed compute for latency-sensitive applications
+      **Capacity Planning Considerations**:
+      - Current and projected user load
+      - Data growth rate and retention
+      - Peak vs. average utilization
+      - Burst capacity requirements
+      - Geographic distribution needs
+  PE:
+    prefix: pe
+    description: A protocol or standard entry (form).
+  SE:
+    prefix: se
+    description: An SLO entry.
+  SO:
+    prefix: so
+    description: |
+      Specify day-to-day system operation requirements including administration,
+      maintenance, and user management. Efficient operations reduce toil and
+      improve system reliability.
+      **Administration Areas**:
+      - System configuration management
+      - User provisioning and access control
+      - Service lifecycle management
+      - Log management and retention
+      - Secret and credential management
+      **Maintenance Procedures**:
+      - Routine maintenance tasks
+      - Patch management process
+      - Database maintenance (vacuuming, indexing)
+      - Storage management and cleanup
+      - Certificate and key rotation
+      **Operational Automation**:
+      - Infrastructure as Code
+      - Configuration management (Ansible, Chef, Puppet)
+      - Scheduled jobs and batch processing
+      - Auto-remediation and self-healing
+      - Chatops and operational bots
+      **Documentation Requirements**:
+      - Runbooks for common operations
+      - Troubleshooting guides
+      - Architecture documentation
+      - Change management records
+      - Incident postmortems
+document:
+  sections:
+    header:
+      section-type: DOCHD
+      optional: true
+    basictechnicalrequirements:
+      section-type: BTREQ
+      optional: true
+    softwaredesignrequirements:
+      section-type: SDR
+      optional: true
+    standardsoftwarerequirements:
+      section-type: SSR
+      optional: true
+    hardwarerequirements:
+      section-type: HR
+      optional: true
+    operationsrequirements:
+      section-type: OR1
+      optional: true
+    communicationrequirements:
+      section-type: CR1
+      optional: true
+    systemoperationandmonitoring:
+      section-type: SOAM
+      optional: true
+    technicalsecurityrequirements:
+      section-type: TSR
+      optional: true
+    systemarchitecture:
+      section-type: SYARSP
+      optional: true
+    componentstouse:
+      section-type: COMP
+      optional: true
+    technicalframeworkconditions:
+      section-type: TEFRCO
+      optional: true
+    translationrequirements:
+      section-type: TRRE1
+      optional: true

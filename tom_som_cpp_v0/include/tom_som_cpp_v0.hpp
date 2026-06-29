@@ -26,7 +26,6 @@ class AcceptanceProcessTimeline;
 class AcceptanceStepEntry;
 class AcceptanceStepEntryFlow;
 class AcceptanceStepEntryOutcome;
-class AccessAndAuthorizationConcept;
 class AccessChannels;
 class AccessConstraintPolicies;
 class AccessControlModelSelection;
@@ -144,6 +143,7 @@ class ApplicationSecurityRequirements;
 class ApplicationSecurityRequirementsApi;
 class ApplicationSecurityRequirementsControls;
 class ApplicationSecurityRequirementsValidation;
+class ApprovalRecord;
 class ArchitectureComponentEntry;
 class ArchitectureComponentEntryBoundaries;
 class ArchitectureComponentEntryDependencies;
@@ -164,11 +164,15 @@ class ArchitecturePrincipleEntry;
 class ArchitecturePrincipleEntryGovernance;
 class ArchitecturePrincipleEntryGuidance;
 class ArchitectureStyle;
+class ArchitectureTechnologySpecification;
+class AssumptionConstraintRegister;
 class AssumptionEntry;
 class AssumptionIdentification;
 class AssumptionImpact;
+class AssumptionRegisterEntry;
 class AssumptionRelationships;
 class AssumptionValidation;
+class AssumptionsConstraintsDependencies;
 class AssumptionsOverview;
 class AttributeInterdependencyEntry;
 class AuditAndLogging;
@@ -187,7 +191,6 @@ class AuthenticationMethodEntryEnrollment;
 class AuthenticationMethodEntryOperations;
 class AuthenticationMethodEntrySecurity;
 class AuthenticationMethods;
-class AuthorizationConcept;
 class AuthorizationEventPolicy;
 class AuthorizationGroupEntry;
 class AuthorizationModel;
@@ -284,7 +287,6 @@ class BusinessComponentEntryDescription;
 class BusinessComponentEntryInterface;
 class BusinessComponentEntryReuse;
 class BusinessComponentEntryTesting;
-class BusinessDataModel;
 class BusinessGoalEntry;
 class BusinessGoalEntryDefinition;
 class BusinessGoalEntryGovernance;
@@ -296,7 +298,6 @@ class BusinessMetricsSpecFeatureUsage;
 class BusinessMetricsSpecKpis;
 class BusinessMetricsSpecOperations;
 class BusinessMetricsSpecTransactions;
-class BusinessObjectAndDataModel;
 class BusinessObjectAttributeEntry;
 class BusinessObjectAttributeEntryDefinition;
 class BusinessObjectAttributeEntryGovernance;
@@ -307,11 +308,8 @@ class BusinessPainPoints;
 class BusinessPainPointsSummary;
 class BusinessProcessDescriptions;
 class BusinessProcessEntry;
-class BusinessProcesses;
-class BusinessQualityPlan;
 class BusinessRuleEntry;
 class BusinessRuleReferenceEntry;
-class BusinessSystemInteractions;
 class CapacityPlanningSection;
 class CapacityReviewProcess;
 class CapacityReviewProcessEscalation;
@@ -585,6 +583,7 @@ class ConstraintEntry;
 class ConstraintImpact;
 class ConstraintLinkages;
 class ConstraintMitigation;
+class ConstraintRegisterEntry;
 class ConstraintTracking;
 class Constraints;
 class ConstraintsAndDependencies;
@@ -626,10 +625,10 @@ class CurrentBusinessProcess;
 class CurrentBusinessProcesses;
 class CurrentDataClassification;
 class CurrentDataLandscape;
+class CurrentLandscape;
+class CurrentLandscapeAssessment;
 class CurrentOperationalMetrics;
 class CurrentProcessImprovementEntry;
-class CurrentSituation;
-class CurrentStateAnalysis;
 class CurrentStateRiskAssessment;
 class CurrentWorkflowEntry;
 class CustomDistributionGroup;
@@ -799,8 +798,10 @@ class DeliveryAcceptanceCriterionEntryOwnership;
 class DeliveryAcceptanceCriterionEntryStatus;
 class DeliveryAcceptanceCriterionEntryTraceability;
 class DeliveryAcceptanceCriterionEntryVerification;
+class DeliveryRoadmap;
 class DeliveryScope;
 class DeliveryScopeAndAcceptance;
+class DeliveryTransitionAndRollout;
 class DependenciesAndIntegrations;
 class DependencyClassification;
 class DependencyDeliverable;
@@ -939,6 +940,7 @@ class DocCompletenessQuality;
 class DocCorrectnessQuality;
 class DocCorrectnessQualityAlignment;
 class DocCorrectnessQualityVerification;
+class DocumentControl;
 class DocumentHeader;
 class DocumentRelationships;
 class DocumentRelevantSections;
@@ -1065,6 +1067,8 @@ class ExistingSystemTechnology;
 class ExistingSystemUsage;
 class ExistingSystemsLandscape;
 class ExpectedImprovements;
+class ExperienceAndInterfaceDesign;
+class ExperienceDesignSpecification;
 class ExportAccess;
 class ExportDataFormat;
 class ExportDelimiter;
@@ -1209,6 +1213,9 @@ class GeographicDistributionRequirementsPerformance;
 class GeographicDistributionRequirementsRouting;
 class GlobalEntryPointEntry;
 class GlobalRoleExclusionEntry;
+class Glossary;
+class GlossaryAndAbbreviations;
+class GlossaryEntry;
 class GoalDependencies;
 class GoalDependencyEntry;
 class GoalKeyResults;
@@ -1286,7 +1293,10 @@ class IndustryStandardEntryCompliance;
 class IndustryStandardEntryReference;
 class IndustryStandardEntryScope;
 class IndustryStandardEntryVerification;
+class InformationAndDataModel;
 class InformationArchitecture;
+class InformationForUseRequirements;
+class InformationModel;
 class InfrastructureAsCode;
 class InfrastructureAsCodeDrift;
 class InfrastructureAsCodeExecution;
@@ -1329,6 +1339,7 @@ class IntegrationConstraintEntryDetails;
 class IntegrationConstraintEntryMitigation;
 class IntegrationConstraintEntryScope;
 class IntegrationHealthSummary;
+class IntegrationInterfaceSpecification;
 class IntegrationPatternEntry;
 class IntegrationPointEntry;
 class Integrations;
@@ -1354,6 +1365,7 @@ class InteractionPatterns;
 class InteractionPerformance;
 class InteractionPrioritization;
 class InteractionScenarioEntry;
+class InteractionScenarios;
 class InteractionSecurity;
 class InteractionTestingStrategy;
 class InteractionTraceability;
@@ -1401,7 +1413,10 @@ class InteroperabilityRequirementsDataExchange;
 class InteroperabilityRequirementsGovernance;
 class InteroperabilityRequirementsStandards;
 class InteroperabilityRequirementsTesting;
+class IntroductionAndScope;
 class IpOwnershipEntry;
+class Iso25010Coverage;
+class Iso25010CoverageEntry;
 class ItLandscapePosition;
 class ItSecurityOperationsQuality;
 class ItSecurityOperationsQualityAccess;
@@ -1474,6 +1489,8 @@ class LocalizationProcess;
 class LocalizationProcessDeployment;
 class LocalizationProcessFormatting;
 class LocalizationProcessReview;
+class LocalizationTranslationProcess;
+class LocalizationTranslationRequirements;
 class LogAggregationRequirements;
 class LogAggregationRequirementsAnalysis;
 class LogAggregationRequirementsCollection;
@@ -1961,10 +1978,8 @@ class ProgrammingLanguageEntryQuality;
 class ProgrammingLanguageEntrySdk;
 class ProgrammingLanguageEntryUsage;
 class ProgrammingLanguageEntryVersion;
-class ProjectDefinition;
 class ProjectOrganization;
 class ProjectOrganizationAndProcess;
-class ProjectPhasePlan;
 class ProjectTeamStaffing;
 class ProtocolComplianceRequirements;
 class ProtocolComplianceRequirementsCaching;
@@ -1990,6 +2005,8 @@ class PwaRequirementsIcons;
 class PwaRequirementsInstallation;
 class PwaRequirementsOffline;
 class PwaRequirementsUpdates;
+class QualityAcceptancePlan;
+class QualityAndAcceptanceModel;
 class QualityCategoryEntry;
 class QualityCategoryEntryDefinition;
 class QualityCategoryEntryGovernance;
@@ -2142,8 +2159,9 @@ class RequirementTraceability;
 class RequirementTraceabilityArtifacts;
 class RequirementTraceabilityImplementation;
 class RequirementUiSpecification;
-class RequirementsCatalog;
+class Requirements;
 class RequirementsOverview;
+class RequirementsSpecification;
 class ResourceAllocationEntry;
 class ResourceCapacityBaselines;
 class ResourceCapacityBaselinesCost;
@@ -2200,6 +2218,8 @@ class ReuseGoalEntryMeasurement;
 class ReviewCriterionEntry;
 class ReviewCriterionEntryAssessment;
 class ReviewCriterionEntryResult;
+class RevisionEntry;
+class RevisionHistory;
 class RiskAnalysis;
 class RiskBasedDecisionEntry;
 class RiskBusinessImpact;
@@ -2349,6 +2369,8 @@ class ScreenStateEntry;
 class ScreenStates;
 class ScreenUserCategoryEntry;
 class SecondaryNavigation;
+class SecurityAccessSpecification;
+class SecurityAndAccessModel;
 class SecurityAuditEntry;
 class SecurityAuditEntryExecution;
 class SecurityAuditEntryFollowUp;
@@ -2497,6 +2519,8 @@ class SoftwareLayerEntryComponents;
 class SoftwareLayerEntryDependencies;
 class SoftwareLayerEntryResponsibilities;
 class SoftwareLayerEntryTechnology;
+class SolutionArchitectureAndTechnology;
+class SolutionBlueprint;
 class SpecializedEquipmentEntry;
 class SpecializedEquipmentEntryPlanning;
 class SpecializedEquipmentEntryTechnical;
@@ -2582,7 +2606,10 @@ class StagingSuccessCriteria;
 class StakeholderEntry;
 class StakeholderEntryEngagement;
 class StakeholderEntryImpact;
+class StakeholderRegister;
+class StakeholderRegisterEntry;
 class StakeholdersAndBeneficiaries;
+class StakeholdersAndGovernance;
 class StakeholdersAndInterests;
 class StandardSoftwareRequirements;
 class StandardsComplianceSection;
@@ -2674,7 +2701,6 @@ class SystemMigrationPlanExecution;
 class SystemMigrationRiskEntry;
 class SystemOperation;
 class SystemOperationAndMonitoring;
-class SystemOverview;
 class SystemOverviewSummary;
 class SystemOverviewSummaryClassification;
 class SystemOverviewSummaryComplexity;
@@ -2689,7 +2715,6 @@ class SystemQualityGoalsResources;
 class SystemReplacementStrategy;
 class SystemReplacementStrategyCutover;
 class SystemReplacementStrategyTimeline;
-class SystemRollout;
 class SystemRolloutConcept;
 class SystemStagePlan;
 class SystemStagePlanCoordination;
@@ -2721,6 +2746,8 @@ class TabBarDefinitionEntryBehavior;
 class TabBarDefinitionEntryLoading;
 class TabItemEntry;
 class TargetBusinessProcessModel;
+class TargetOperatingModel;
+class TargetOperatingModelConcept;
 class TargetPlatformEntry;
 class TargetPlatformEntryArchitecture;
 class TargetPlatformEntryLifecycle;
@@ -2764,7 +2791,6 @@ class TechnicalRequirementEntryImpact;
 class TechnicalRequirementEntryMeasurement;
 class TechnicalRequirementEntryVerification;
 class TechnicalRequirements;
-class TechnicalRequirementsSpec;
 class TechnicalSecurityRequirements;
 class TechnologyDataVariations;
 class TechnologyStandardEntry;
@@ -2854,6 +2880,7 @@ class TrainingAssessmentEffectiveness;
 class TrainingAssessmentImprovement;
 class TrainingAssessmentReporting;
 class TrainingDeliverables;
+class TrainingEnablementRequirements;
 class TrainingMaterials;
 class TrainingMaterialsKnowledge;
 class TrainingMaterialsOperations;
@@ -2890,6 +2917,7 @@ class TransitionPhaseStakeholders;
 class TransitionRiskEntry;
 class TransitionRiskEntryAssessment;
 class TransitionRiskEntryResponse;
+class TransitionRolloutPlan;
 class TransitionSuccessMetrics;
 class TransitionSupportOverview;
 class TransitionSupportResourceEntry;
@@ -2944,7 +2972,6 @@ class UiComponentsComponentApproach;
 class UiComponentsCustomization;
 class UiComponentsVisualLanguage;
 class UiDesignPrincipleEntry;
-class UiPrototype;
 class UpgradeCycleFramework;
 class UsabilityQuality;
 class UsabilityQualityClarity;
@@ -2955,7 +2982,6 @@ class UsabilityQualityPerformance;
 class UseCaseExtensions;
 class UseCaseScopeContext;
 class UseCaseTraceability;
-class UseCases;
 class UserAcceptanceTesting;
 class UserAccessPermissions;
 class UserAccessPermissionsGovernance;
@@ -2977,7 +3003,6 @@ class UserGrowthProjectionsSegmentation;
 class UserGrowthProjectionsThresholds;
 class UserInteractionModel;
 class UserInteractionModelSummary;
-class UserInterfaceDesign;
 class UserJourney;
 class UserJourneyPainPointEntry;
 class UserLifecycleSection;
@@ -3186,6 +3211,7 @@ class ApplicationSecurityRequirementsApiContentForm;
 class ApplicationSecurityRequirementsContentForm;
 class ApplicationSecurityRequirementsControlsContentForm;
 class ApplicationSecurityRequirementsValidationContentForm;
+class ApprovalRecordContentForm;
 class ArchitectureComponentEntryBoundariesContentForm;
 class ArchitectureComponentEntryContentForm;
 class ArchitectureComponentEntryDependenciesContentForm;
@@ -3207,6 +3233,7 @@ class ArchitecturePrincipleEntryGovernanceContentForm;
 class ArchitecturePrincipleEntryGuidanceContentForm;
 class AssumptionIdentificationContentForm;
 class AssumptionImpactContentForm;
+class AssumptionRegisterEntryContentForm;
 class AssumptionRelationshipsContentForm;
 class AssumptionValidationContentForm;
 class AssumptionsOverviewContentForm;
@@ -3581,6 +3608,7 @@ class ConstraintEntryContentForm;
 class ConstraintImpactContentForm;
 class ConstraintLinkagesContentForm;
 class ConstraintMitigationContentForm;
+class ConstraintRegisterEntryContentForm;
 class ConstraintTrackingContentForm;
 class ConstraintsAndDependenciesContentForm;
 class ConstraintsContentForm;
@@ -4134,6 +4162,7 @@ class GeographicDistributionRequirementsContentForm;
 class GeographicDistributionRequirementsPerformanceContentForm;
 class GeographicDistributionRequirementsRoutingContentForm;
 class GlobalRoleExclusionEntryContentForm;
+class GlossaryEntryContentForm;
 class GoalDependencyEntryContentForm;
 class GoalMilestoneEntryContentForm;
 class GoalResourcesResourcesFormForm;
@@ -4306,6 +4335,7 @@ class InteroperabilityRequirementsGovernanceContentForm;
 class InteroperabilityRequirementsStandardsContentForm;
 class InteroperabilityRequirementsTestingContentForm;
 class IpOwnershipEntryContentForm;
+class Iso25010CoverageEntryContentForm;
 class ItLandscapePositionPositionDetailsForm;
 class ItSecurityOperationsQualityAccessContentForm;
 class ItSecurityOperationsQualityContentForm;
@@ -4995,6 +5025,7 @@ class ReuseGoalEntryMeasurementContentForm;
 class ReviewCriterionEntryAssessmentContentForm;
 class ReviewCriterionEntryContentForm;
 class ReviewCriterionEntryResultContentForm;
+class RevisionEntryContentForm;
 class RiskAnalysisContentForm;
 class RiskBusinessImpactContentForm;
 class RiskBusinessImpactDeliveryContentForm;
@@ -5332,6 +5363,7 @@ class StagingSuccessCriteriaContentForm;
 class StakeholderEntryContentForm;
 class StakeholderEntryEngagementContentForm;
 class StakeholderEntryImpactContentForm;
+class StakeholderRegisterEntryContentForm;
 class StakeholdersAndInterestsContentForm;
 class StrategicAlignmentAlignmentDetailsForm;
 class SubFunctionEntryContentForm;
@@ -5556,6 +5588,7 @@ class TrainingAssessmentContentForm;
 class TrainingAssessmentEffectivenessContentForm;
 class TrainingAssessmentImprovementContentForm;
 class TrainingAssessmentReportingContentForm;
+class TrainingEnablementRequirementsContentForm;
 class TrainingMaterialsContentForm;
 class TrainingMaterialsKnowledgeContentForm;
 class TrainingMaterialsOperationsContentForm;
@@ -5753,7 +5786,7 @@ class WorkplaceSupportResourcesIncidentsContentForm;
 class WorkplaceSupportResourcesSelfServiceContentForm;
 class WorkplaceUserCategoryContentForm;
 
-// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+// 14.2.1. Acceptance Criteria.
 class AcceptanceCriteriaList : public som::SomNode {
  public:
   AcceptanceCriteriaList(som::SpecDocument& doc, std::string path);
@@ -5764,7 +5797,7 @@ class AcceptanceCriteriaList : public som::SomNode {
   som::SomList items() const;
 };
 
-// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+// 11.7. Acceptance Criteria Summary.
 //
 // Quality acceptance criteria for the project including must-pass criteria
 // and quality gate checklists.
@@ -5774,9 +5807,9 @@ class AcceptanceCriteriaSummary : public som::SomNode {
   AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm acceptanceFrameworkContent() const;
   // Acceptance criteria overview.
   // (skipped: acceptanceOverview has no target type)
-  // 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+  // 11.7.1. Must-Pass Criteria.
   MustPassCriteria mustPassCriteria() const;
-  // 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+  // 11.7.2. Quality Gate Checklist.
   QualityGateChecklist qualityGateChecklist() const;
   // Acceptance test summary.
   // (skipped: acceptanceTestSummary has no target type)
@@ -5791,27 +5824,27 @@ class AcceptanceCriterionEntry : public som::SomNode {
   AcceptanceCriterionEntryContentForm content() const;
 };
 
-// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → BQP.
 class AcceptancePlan : public som::SomNode {
  public:
   AcceptancePlan(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+  // 14.2.1. Acceptance Criteria.
   AcceptanceCriteriaList acceptanceCriteria() const;
-  // 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+  // 14.2.2. Acceptance Process.
   AcceptanceProcess acceptanceProcess() const;
-  // 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+  // 14.2.3. User Acceptance Testing.
   UserAcceptanceTesting userAcceptanceTesting() const;
-  // 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+  // 14.2.4. Defect Resolution.
   DefectResolution defectResolution() const;
-  // 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+  // 14.2.5. Sign-off Process.
   SignOffProcess signOffProcess() const;
-  // 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+  // 14.2.6. Warranty.
   WarrantyTerms warranty() const;
 };
 
-// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+// 14.2.2. Acceptance Process.
 //
 // Defines the formal acceptance workflow from test initiation through
 // final sign-off. Covers roles, responsibilities, timelines, escalation,
@@ -5881,7 +5914,7 @@ class AcceptanceProcessTimeline : public som::SomNode {
   AcceptanceProcessTimelineContentForm content() const;
 };
 
-// An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
+// An acceptance step entry (form).
 //
 // A single step in the formal acceptance workflow, with entry/exit
 // conditions, responsible parties, and outputs.
@@ -5909,31 +5942,7 @@ class AcceptanceStepEntryOutcome : public som::SomNode {
   AcceptanceStepEntryOutcomeContentForm content() const;
 };
 
-// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
-class AccessAndAuthorizationConcept : public som::SomNode {
- public:
-  AccessAndAuthorizationConcept(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // 9.1. User Management [PD00-ACC-USE].
-  UserManagement userManagement() const;
-  // 9.2. Identification and Authentication [PD00-ACC-IDE].
-  IdentificationAndAuthentication authentication() const;
-  // 9.3. Resource Protection [PD00-ACC-RES].
-  ResourceProtection resourceProtection() const;
-  // 9.4. User Authorization [PD00-ACC-USA].
-  UserAuthorization authorization() const;
-  // 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
-  SensitiveDataEncryption encryption() const;
-  // 9.6. Audit and Logging [PD00-ACC-AUD].
-  AuditAndLogging auditAndLogging() const;
-  // 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
-  RoleMatrix roleMatrix() const;
-  // 9.8. Compliance Framework [PD00-ACC-CMP].
-  ComplianceFramework complianceFramework() const;
-};
-
-// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+// 4.1.5.1. Access Channels.
 //
 // Defines all channels through which users can access the system including
 // web, mobile, desktop applications, APIs, and other interfaces.
@@ -5977,7 +5986,7 @@ class AccessControlModelSelection : public som::SomNode {
   // (skipped: accessControlModelDetails has no target type)
 };
 
-// An access level entry (form) [PD00-SYO-SYD-USI-ACC-nn].
+// An access level entry (form).
 class AccessLevelEntry : public som::SomNode {
  public:
   AccessLevelEntry(som::SpecDocument& doc, std::string path);
@@ -6011,7 +6020,7 @@ class AccessLevelEntryScope : public som::SomNode {
   AccessLevelEntryScopeContentForm content() const;
 };
 
-// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+// 4.1.5.3. Access Levels.
 //
 // Defines the access level hierarchy and how permissions are structured
 // across user categories and system functions.
@@ -6031,7 +6040,7 @@ class AccessLevels : public som::SomNode {
   void setPermissionMatrix(const std::string& value);
 };
 
-// An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
+// An access restriction entry (form).
 //
 // Specific access restrictions for classified data.
 class AccessRestrictionEntry : public som::SomNode {
@@ -6040,7 +6049,7 @@ class AccessRestrictionEntry : public som::SomNode {
   AccessRestrictionEntryContentForm content() const;
 };
 
-// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+// 9.1.1. User Categories.
 class AccessUserCategories : public som::SomNode {
  public:
   AccessUserCategories(som::SpecDocument& doc, std::string path);
@@ -6051,7 +6060,7 @@ class AccessUserCategories : public som::SomNode {
   som::SomList items() const;
 };
 
-// 10.9. Accessibility [PD00-USE-ACC].
+// 10.9. Accessibility.
 //
 // Comprehensive accessibility requirements for the user interface following
 // WCAG guidelines and inclusive design principles.
@@ -6067,9 +6076,9 @@ class Accessibility : public som::SomNode {
   AccessibilitySupport support() const;
   // Accessibility overview narrative.
   // (skipped: accessibilityOverview has no target type)
-  // 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+  // 10.9.1. WCAG Compliance Level.
   WcagCompliance wcagComplianceLevel() const;
-  // 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+  // 10.9.2. Accessibility Checklist.
   AccessibilityChecklist accessibilityChecklist() const;
   // Keyboard navigation specification.
   // (skipped: keyboardNavigation has no target type)
@@ -6079,7 +6088,7 @@ class Accessibility : public som::SomNode {
   // (skipped: colorAndContrast has no target type)
 };
 
-// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
+// An accessibility check entry (form).
 class AccessibilityCheckEntry : public som::SomNode {
  public:
   AccessibilityCheckEntry(som::SpecDocument& doc, std::string path);
@@ -6113,7 +6122,7 @@ class AccessibilityCheckEntryRemediation : public som::SomNode {
   AccessibilityCheckEntryRemediationContentForm content() const;
 };
 
-// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+// 10.9.2. Accessibility Checklist.
 //
 // Comprehensive accessibility verification checklist.
 class AccessibilityChecklist : public som::SomNode {
@@ -6303,7 +6312,7 @@ class ActorDiagramOverview : public som::SomNode {
   ActorDiagramOverviewContentForm content() const;
 };
 
-// An actor entry [PD00-TAR-STP-ACT-nn].
+// An actor entry.
 //
 // Comprehensive actor definition following UML and Cockburn conventions.
 class ActorEntry : public som::SomNode {
@@ -6346,7 +6355,7 @@ class ActorInteractionsSummary : public som::SomNode {
   ActorInteractionsSummaryContentForm content() const;
 };
 
-// 6.2.1. Actor Overview [PD00-TAR-STP-ACT].
+// 6.2.1. Actor Overview.
 //
 // Actors represent roles that interact with the system. Follows UML actor
 // modeling conventions with Cockburn-style goal and scope annotations.
@@ -6378,7 +6387,7 @@ class ActorPermissions : public som::SomNode {
   ActorPermissionsContentForm content() const;
 };
 
-// 6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA].
+// 6.2. Actor Relationship Diagram.
 class ActorRelationshipDiagram : public som::SomNode {
  public:
   ActorRelationshipDiagram(som::SpecDocument& doc, std::string path);
@@ -6438,7 +6447,7 @@ class AdminInterfaceRequirementsOperations : public som::SomNode {
   AdminInterfaceRequirementsOperationsContentForm content() const;
 };
 
-// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+// 8.7.1.1. Administration Requirements.
 class AdministrationRequirementsSection : public som::SomNode {
  public:
   AdministrationRequirementsSection(som::SpecDocument& doc, std::string path);
@@ -6460,7 +6469,7 @@ class AdministrationRequirementsSection : public som::SomNode {
   SystemDiagnosticTools diagnosticTools() const;
 };
 
-// 3. Administrative [PD00-ADM].
+// 3. Administrative.
 //
 // Project-specific administrative information including team composition,
 // distribution channels, procedural agreements, and reference documentation.
@@ -6473,17 +6482,17 @@ class Administrative : public som::SomNode {
   void setContent(const std::string& value);
   // Administrative overview summary.
   AdministrativeSummary summary() const;
-  // 3.1. Project Organization [PD00-ADM-PRO].
+  // 3.1. Project Organization.
   ProjectOrganization projectOrganization() const;
-  // 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
+  // 3.2. Project Team Staffing — contains 1+× Team Member.
   ProjectTeamStaffing projectTeamStaffing() const;
-  // 3.3. Distribution List [PD00-ADM-DIS].
+  // 3.3. Distribution List.
   DistributionList distributionList() const;
-  // 3.4. Change Procedure [PD00-ADM-CHA].
+  // 3.4. Change Procedure.
   ChangeProcedure changeProcedure() const;
-  // 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
+  // 3.5. Reference Documents — contains 0+× Reference Document.
   ReferenceDocuments referenceDocuments() const;
-  // 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+  // 3.6. Other Administrative Requirements.
   OtherAdministrativeRequirements otherAdministrative() const;
 };
 
@@ -6505,14 +6514,14 @@ class AdministrativeSummary : public som::SomNode {
   AdministrativeSummaryContentForm content() const;
 };
 
-// An affected department entry [PD00-SYO-RES-ORG-DEP-nn].
+// An affected department entry.
 class AffectedDepartmentEntry : public som::SomNode {
  public:
   AffectedDepartmentEntry(som::SpecDocument& doc, std::string path);
   AffectedDepartmentEntryContentForm content() const;
 };
 
-// An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
+// An affected function reference entry (form).
 //
 // Functions where this rule applies.
 class AffectedFunctionEntry : public som::SomNode {
@@ -6523,7 +6532,7 @@ class AffectedFunctionEntry : public som::SomNode {
   void setFunctionRef(const std::string& value);
 };
 
-// An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
+// An affected object reference entry (form).
 //
 // Business objects affected by this rule.
 class AffectedObjectEntry : public som::SomNode {
@@ -6636,7 +6645,7 @@ class AlertNotificationChannelsRouting : public som::SomNode {
   AlertNotificationChannelsRoutingContentForm content() const;
 };
 
-// An alert rule entry [PD00-TEC-SYS-MON-ALR-nn].
+// An alert rule entry.
 class AlertRuleEntry : public som::SomNode {
  public:
   AlertRuleEntry(som::SpecDocument& doc, std::string path);
@@ -6677,7 +6686,7 @@ class AlertSuppressionRules : public som::SomNode {
   AlertSuppressionRulesContentForm content() const;
 };
 
-// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+// 8.7.2.2. Alerting Configuration.
 //
 // Comprehensive alerting rules, notification channels, and escalation
 // policies.
@@ -6744,7 +6753,7 @@ class AlertingRequirementsSuppression : public som::SomNode {
   AlertingRequirementsSuppressionContentForm content() const;
 };
 
-// An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn].
+// An alternative flow entry.
 class AlternativeFlowEntry : public som::SomNode {
  public:
   AlternativeFlowEntry(som::SpecDocument& doc, std::string path);
@@ -6754,7 +6763,7 @@ class AlternativeFlowEntry : public som::SomNode {
   som::SomList steps() const;
 };
 
-// An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn].
+// An alternative step entry.
 class AlternativeStepEntry : public som::SomNode {
  public:
   AlternativeStepEntry(som::SpecDocument& doc, std::string path);
@@ -6900,7 +6909,7 @@ class ApiRequestValidationPolicy : public som::SomNode {
   // (skipped: requestValidationDetails has no target type)
 };
 
-// 9.3.2. API Security [PD00-ACC-RES-API].
+// 9.3.2. API Security.
 //
 // Comprehensive API security specification covering authentication,
 // authorization, request validation, CORS policy, input sanitization,
@@ -7132,6 +7141,13 @@ class ApplicationSecurityRequirementsValidation : public som::SomNode {
   ApplicationSecurityRequirementsValidationContentForm content() const;
 };
 
+// A formal approval / sign-off record (form).
+class ApprovalRecord : public som::SomNode {
+ public:
+  ApprovalRecord(som::SpecDocument& doc, std::string path);
+  ApprovalRecordContentForm content() const;
+};
+
 // Architecture component/service entry.
 class ArchitectureComponentEntry : public som::SomNode {
  public:
@@ -7295,7 +7311,7 @@ class ArchitecturePrincipleEntryGuidance : public som::SomNode {
   ArchitecturePrincipleEntryGuidanceContentForm content() const;
 };
 
-// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+// 8.1.2. Architecture Style.
 //
 // Target architecture style specification: monolith, modular monolith,
 // microservices, event-driven, serverless, or hybrid. Includes justification
@@ -7330,7 +7346,67 @@ class ArchitectureStyle : public som::SomNode {
   som::SomList decisionRecords() const;
 };
 
-// An assumption entry [PD00-SYO-RIS-ASS-nn] (form).
+// TR00 Technical Requirements.
+//
+// Comprehensive technical requirements: basic / software / standard-
+// software / hardware / operations / communication / system-operation
+// / security / architecture, plus components, framework conditions,
+// and translation handling.
+class ArchitectureTechnologySpecification : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit ArchitectureTechnologySpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Basic technical requirements.
+  BasicTechnicalRequirements basicTechnicalRequirements() const;
+  // Software design requirements.
+  SoftwareDesignRequirements softwareDesignRequirements() const;
+  // Standard application software requirements.
+  StandardSoftwareRequirements standardSoftwareRequirements() const;
+  // Hardware concept requirements.
+  HardwareRequirements hardwareRequirements() const;
+  // Operations requirements.
+  OperationsRequirements operationsRequirements() const;
+  // Communication requirements.
+  CommunicationRequirements communicationRequirements() const;
+  // System operation and monitoring.
+  SystemOperationAndMonitoring systemOperationAndMonitoring() const;
+  // Technical security requirements.
+  TechnicalSecurityRequirements technicalSecurityRequirements() const;
+  // System architecture (new in Phase A).
+  SystemArchitectureSpec systemArchitecture() const;
+  // Components to use (whole).
+  ComponentsToUse componentsToUse() const;
+  // Technical framework conditions (whole).
+  TechnicalFrameworkConditions technicalFrameworkConditions() const;
+  // Translation handling requirements (whole).
+  TranslationRequirements translationRequirements() const;
+};
+
+// A consolidated register of assumptions and constraints.
+class AssumptionConstraintRegister : public som::SomNode {
+ public:
+  AssumptionConstraintRegister(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Assumptions the solution depends on being true.
+  // Returns the list view; element type: AssumptionRegisterEntry (construct from item paths).
+  som::SomList assumptions() const;
+  // Constraints the solution must operate within.
+  // Returns the list view; element type: ConstraintRegisterEntry (construct from item paths).
+  som::SomList constraints() const;
+};
+
+// An assumption entry (form).
 //
 // Documents a project assumption including its basis, validation approach,
 // and contingency plans if the assumption proves false.
@@ -7362,6 +7438,16 @@ class AssumptionImpact : public som::SomNode {
   AssumptionImpactContentForm content() const;
 };
 
+// A single assumption register entry (form).
+//
+// Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
+// `AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+class AssumptionRegisterEntry : public som::SomNode {
+ public:
+  AssumptionRegisterEntry(som::SpecDocument& doc, std::string path);
+  AssumptionRegisterEntryContentForm content() const;
+};
+
 // Relationships to other project elements.
 class AssumptionRelationships : public som::SomNode {
  public:
@@ -7374,6 +7460,16 @@ class AssumptionValidation : public som::SomNode {
  public:
   AssumptionValidation(som::SpecDocument& doc, std::string path);
   AssumptionValidationContentForm content() const;
+};
+
+// SBP.6 Assumptions, Constraints & Dependencies.
+class AssumptionsConstraintsDependencies : public som::SomNode {
+ public:
+  AssumptionsConstraintsDependencies(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // The consolidated assumption / constraint register.
+  AssumptionConstraintRegister register_() const;
 };
 
 // Overview of assumptions management.
@@ -7391,7 +7487,7 @@ class AttributeInterdependencyEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 9.6. Audit and Logging [PD00-ACC-AUD].
+// 9.6. Audit and Logging.
 //
 // Security audit and event logging requirements covering security event
 // definitions, audit log format and structure, and compliance reporting.
@@ -7402,11 +7498,11 @@ class AuditAndLogging : public som::SomNode {
   AuditAndLogging(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+  // 9.6.1. Security Events.
   SecurityEventsDefinition securityEvents() const;
-  // 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+  // 9.6.2. Audit Log Format.
   AuditLogFormat auditLogFormat() const;
-  // 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+  // 9.6.3. Compliance Reporting.
   ComplianceReporting complianceReporting() const;
 };
 
@@ -7434,7 +7530,7 @@ class AuditEvidenceTypeEntry : public som::SomNode {
   AuditEvidenceTypeEntryContentForm content() const;
 };
 
-// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+// 9.6.2. Audit Log Format.
 //
 // Defines the audit log format: fields to capture (who, what, when, where,
 // result), log retention period, and tamper protection requirements.
@@ -7455,7 +7551,7 @@ class AuditLogFormat : public som::SomNode {
   // (skipped: notes has no target type)
 };
 
-// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+// 3.6.4. Audit Requirements.
 //
 // Internal and external audit obligations.
 class AuditRequirements : public som::SomNode {
@@ -7470,19 +7566,19 @@ class AuditRequirements : public som::SomNode {
   AuditEvidenceRequirements evidenceRequirements() const;
 };
 
-// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+// 9.2.2. Authentication.
 class Authentication : public som::SomNode {
  public:
   Authentication(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+  // 9.2.2.1. Authentication Methods.
   AuthenticationMethods authenticationMethods() const;
-  // 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+  // 9.2.2.2. Authentication Flow.
   AuthenticationFlow authenticationFlow() const;
-  // 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+  // 9.2.3. Password and Credential Policy.
   PasswordAndCredentialPolicy passwordAndCredentialPolicy() const;
-  // 9.2.4. Session Management [PD00-ACC-IDE-SES].
+  // 9.2.4. Session Management.
   SessionManagement sessionManagement() const;
 };
 
@@ -7510,7 +7606,7 @@ class AuthenticationEventPolicy : public som::SomNode {
   // (skipped: notes has no target type)
 };
 
-// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+// 9.2.2.2. Authentication Flow.
 //
 // Comprehensive authentication flow specification covering the complete
 // login lifecycle: credential submission, validation, multi-factor challenges,
@@ -7542,7 +7638,7 @@ class AuthenticationFlow : public som::SomNode {
   som::SomList loginFlowSteps() const;
 };
 
-// An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
+// An authentication method entry (form).
 //
 // Detailed per-method specification aligned with NIST SP 800-63B
 // authenticator types (password, OTP, cryptographic, out-of-band).
@@ -7588,7 +7684,7 @@ class AuthenticationMethodEntrySecurity : public som::SomNode {
   AuthenticationMethodEntrySecurityContentForm content() const;
 };
 
-// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+// 9.2.2.1. Authentication Methods.
 //
 // Comprehensive authentication methods specification aligned with
 // NIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).
@@ -7616,44 +7712,6 @@ class AuthenticationMethods : public som::SomNode {
   som::SomList items() const;
 };
 
-// AC00 Authorization Concept.
-//
-// Complete access and authorization specification — user management,
-// identification and authentication, resource protection, user
-// authorization, encryption, audit/logging, role matrix, and
-// compliance framework.
-class AuthorizationConcept : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit AuthorizationConcept(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // User management — PD00-ACC-USE.
-  UserManagement userManagement() const;
-  // Identification and authentication — PD00-ACC-IDE.
-  IdentificationAndAuthentication identificationAndAuthentication() const;
-  // Resource protection — PD00-ACC-RES.
-  ResourceProtection resourceProtection() const;
-  // User authorization — PD00-ACC-USA.
-  UserAuthorization userAuthorization() const;
-  // Sensitive data encryption — PD00-ACC-SEN.
-  SensitiveDataEncryption sensitiveDataEncryption() const;
-  // Audit and logging — PD00-ACC-AUD.
-  AuditAndLogging auditAndLogging() const;
-  // Role matrix — PD00-ACC-ROL (covers HBSG AS22-AUM).
-  RoleMatrix roleMatrix() const;
-  // Compliance framework — PD00-ACC-CMP.
-  ComplianceFramework complianceFramework() const;
-};
-
 // Authorization event policy (form).
 //
 // Defines which authorization-related events are logged.
@@ -7665,7 +7723,7 @@ class AuthorizationEventPolicy : public som::SomNode {
   // (skipped: notes has no target type)
 };
 
-// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
+// An authorization group entry (form).
 class AuthorizationGroupEntry : public som::SomNode {
  public:
   AuthorizationGroupEntry(som::SpecDocument& doc, std::string path);
@@ -7675,7 +7733,7 @@ class AuthorizationGroupEntry : public som::SomNode {
   som::SomList containedRoles() const;
 };
 
-// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+// 9.4.1. Authorization Model.
 //
 // Describes the authorization model used by the system — RBAC, ABAC, ReBAC,
 // or hybrid. Covers access control model selection, permission granularity
@@ -7700,7 +7758,7 @@ class AuthorizationModel : public som::SomNode {
   // (skipped: authorizationModelNotes has no target type)
 };
 
-// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+// An authorization role entry (form).
 //
 // Defines a single authorization role with its category, scope, permission
 // assignments, activation rules, provisioning, and review requirements.
@@ -7765,7 +7823,7 @@ class AuthorizationRoleEntryStructure : public som::SomNode {
   AuthorizationRoleEntryStructureContentForm content() const;
 };
 
-// 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
+// 11.4.1. Availability quality.
 class AvailabilityQuality : public som::SomNode {
  public:
   AvailabilityQuality(som::SpecDocument& doc, std::string path);
@@ -7810,7 +7868,7 @@ class AvailabilityQualityVerification : public som::SomNode {
   AvailabilityQualityVerificationContentForm content() const;
 };
 
-// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
+// 8.5.1. Backup and Recovery.
 //
 // Backup frequency, retention period, recovery point objective (RPO),
 // recovery time objective (RTO), and backup verification procedures.
@@ -8119,17 +8177,17 @@ class BandwidthRequirementsTraffic : public som::SomNode {
   BandwidthRequirementsTrafficContentForm content() const;
 };
 
-// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+// 8.1. Basic Technical Requirements.
 class BasicTechnicalRequirements : public som::SomNode {
  public:
   BasicTechnicalRequirements(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+  // 8.1.1. Platform and Language.
   PlatformAndLanguage platformAndLanguage() const;
-  // 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+  // 8.1.2. Architecture Style.
   ArchitectureStyle architectureStyle() const;
-  // 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+  // 8.1.3. Design Patterns and Standards.
   DesignPatternsAndStandards designPatternsAndStandards() const;
 };
 
@@ -8188,7 +8246,7 @@ class BiometricAuthenticationPolicy : public som::SomNode {
   // (skipped: biometricDetails has no target type)
 };
 
-// A boundary assumption entry [PD00-SYO-SYB-ASS-nn] (form).
+// A boundary assumption entry (form).
 class BoundaryAssumptionEntry : public som::SomNode {
  public:
   BoundaryAssumptionEntry(som::SpecDocument& doc, std::string path);
@@ -8213,7 +8271,7 @@ class BoundaryAssumptionEntryValidation : public som::SomNode {
   BoundaryAssumptionEntryValidationContentForm content() const;
 };
 
-// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+// 4.5.3. Assumptions.
 //
 // Documents assumptions about external systems, data availability,
 // organizational readiness, and third-party services that must hold true
@@ -8229,7 +8287,7 @@ class BoundaryAssumptions : public som::SomNode {
   som::SomList items() const;
 };
 
-// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT].
+// 4.5.5. Boundary Interaction Patterns.
 //
 // Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
 // Named `BoundaryInteractionPatterns` to avoid colliding with the
@@ -8284,14 +8342,14 @@ class BoundedContextEntryScope : public som::SomNode {
   BoundedContextEntryScopeContentForm content() const;
 };
 
-// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+// 10.3.1.6.1. Breadcrumb Configuration.
 class BreadcrumbConfiguration : public som::SomNode {
  public:
   BreadcrumbConfiguration(som::SpecDocument& doc, std::string path);
   BreadcrumbConfigurationContentForm content() const;
 };
 
-// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+// 10.10.1. Breakpoints.
 //
 // Breakpoint definitions for responsive layouts.
 class BreakpointConfiguration : public som::SomNode {
@@ -8303,7 +8361,7 @@ class BreakpointConfiguration : public som::SomNode {
   som::SomList breakpoints() const;
 };
 
-// A breakpoint entry [PD00-USE-RES-BRE-nn].
+// A breakpoint entry.
 class BreakpointEntry : public som::SomNode {
  public:
   BreakpointEntry(som::SpecDocument& doc, std::string path);
@@ -8570,60 +8628,7 @@ class BusinessComponentEntryTesting : public som::SomNode {
   BusinessComponentEntryTestingContentForm content() const;
 };
 
-// BDM00 Business Data Model.
-//
-// Full business data model: entities, relationships, ER diagram, data
-// classification, business objects, function decomposition, function-
-// to-data matrix, business rules, data dictionary, and validation /
-// integrity constraints.
-class BusinessDataModel : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit BusinessDataModel(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Entity inventory — PD00-BUS-DAT-ENT (list).
-  // Returns the list view; element type: DataEntityEntry (construct from item paths).
-  som::SomList entities() const;
-  // Entity relationships — PD00-BUS-DAT-REL.
-  EntityRelationships entityRelationships() const;
-  // Entity-relationship diagram — PD00-BUS-DAT-DIA.
-  // (skipped: erDiagram has no target type)
-  // Data classification — PD00-BUS-DAT-CLA.
-  DataClassification dataClassification() const;
-  // Business object catalog — PD00-BUS-BUS-CAT (list).
-  // Returns the list view; element type: BusinessObjectEntry (construct from item paths).
-  som::SomList objectCatalog() const;
-  // Business object diagram — PD00-BUS-BUS-DIA.
-  // (skipped: objectDiagram has no target type)
-  // Function decomposition — PD00-BUS-FUN-DEC (list).
-  // Returns the list view; element type: FunctionEntry (construct from item paths).
-  som::SomList functionDecomposition() const;
-  // Function-to-data matrix — PD00-BUS-FUN-MAT (list).
-  // Returns the list view; element type: FunctionDataMatrixEntry (construct from item paths).
-  som::SomList functionToDataMatrix() const;
-  // Business rules catalog — PD00-BUS-FUN-RUL (list).
-  // Returns the list view; element type: BusinessRuleEntry (construct from item paths).
-  som::SomList businessRules() const;
-  // Data dictionary — PD00-BUS-DAT-DIC.
-  DataDictionary dataDictionary() const;
-  // Validation constraints — PD00-BUS-DAT-VAL.
-  // Returns the list view; element type: ValidationConstraints (construct from item paths).
-  som::SomList validationConstraints() const;
-  // Integrity constraints — PD00-BUS-DAT-CON.
-  // Returns the list view; element type: IntegrityConstraints (construct from item paths).
-  som::SomList integrityConstraints() const;
-};
-
-// A business goal entry [PD00-SYO-GOA-BUS-nn].
+// A business goal entry.
 //
 // Comprehensive business goal definition following SMART criteria with
 // OKR-style key results, ownership, and tracking information.
@@ -8639,15 +8644,15 @@ class BusinessGoalEntry : public som::SomNode {
   BusinessGoalEntryGovernance governance() const;
   // Business rationale and impact.
   BusinessGoalEntryStrategy strategy() const;
-  // 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+  // 4.2.1.n.1. Key Results.
   GoalKeyResults keyResults() const;
-  // 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+  // 4.2.1.n.2. Milestones.
   GoalMilestones milestones() const;
-  // 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+  // 4.2.1.n.3. Dependencies.
   GoalDependencies dependencies() const;
-  // 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+  // 4.2.1.n.4. Risks.
   GoalRisks risks() const;
-  // 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+  // 4.2.1.n.5. Resources.
   GoalResources resources() const;
 };
 
@@ -8679,7 +8684,7 @@ class BusinessGoalEntryStrategy : public som::SomNode {
   BusinessGoalEntryStrategyContentForm content() const;
 };
 
-// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+// 4.2.1. Business Goals.
 //
 // Container for business goal definitions. Business goals define what the
 // organization wants to achieve through this project in terms of business
@@ -8737,21 +8742,7 @@ class BusinessMetricsSpecTransactions : public som::SomNode {
   BusinessMetricsSpecTransactionsContentForm content() const;
 };
 
-// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
-class BusinessObjectAndDataModel : public som::SomNode {
- public:
-  BusinessObjectAndDataModel(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // 7.1. Data Model [PD00-BUS-DAT].
-  DataModel dataModel() const;
-  // 7.2. Business Object Model [PD00-BUS-BUS].
-  BusinessObjectModel businessObjectModel() const;
-  // 7.3. Function Model [PD00-BUS-FUN].
-  FunctionModel functionModel() const;
-};
-
-// A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
+// A business object attribute entry (form).
 //
 // Business-level attribute specification focusing on business meaning and rules.
 class BusinessObjectAttributeEntry : public som::SomNode {
@@ -8787,7 +8778,7 @@ class BusinessObjectAttributeEntryValidation : public som::SomNode {
   BusinessObjectAttributeEntryValidationContentForm content() const;
 };
 
-// A business object entry [PD00-BUS-BUS-CAT-nn] (form).
+// A business object entry (form).
 //
 // Comprehensive business object specification following domain-driven design
 // patterns. Business objects represent key domain concepts with behavior,
@@ -8803,40 +8794,40 @@ class BusinessObjectEntry : public som::SomNode {
   BusinessObjectEntryOwnershipForm ownership() const;
   // Returns the list view; element type: IntegrationPointEntry (construct from item paths).
   som::SomList integrationPoints() const;
-  // Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
+  // Contains 0+× BusinessObjectAttribute.
   // Returns the list view; element type: BusinessObjectAttributeEntry (construct from item paths).
   som::SomList attributes() const;
-  // Contains 0+× ObjectState [PD00-BUS-BUS-CAT-nn-STA].
+  // Contains 0+× ObjectState.
   // Returns the list view; element type: ObjectStateEntry (construct from item paths).
   som::SomList keyStates() const;
-  // Contains 0+× BusinessRuleReference [PD00-BUS-BUS-CAT-nn-BRR].
+  // Contains 0+× BusinessRuleReference.
   // Returns the list view; element type: BusinessRuleReferenceEntry (construct from item paths).
   som::SomList keyBusinessRules() const;
-  // Contains 0+× LifecycleTransition [PD00-BUS-BUS-CAT-nn-LIF].
+  // Contains 0+× LifecycleTransition.
   // Returns the list view; element type: LifecycleTransitionEntry (construct from item paths).
   som::SomList lifecycleTransitions() const;
-  // Contains 0+× ObjectOperation [PD00-BUS-BUS-CAT-nn-OPR].
+  // Contains 0+× ObjectOperation.
   // Returns the list view; element type: ObjectOperationEntry (construct from item paths).
   som::SomList operations() const;
-  // Contains 0+× ObjectInvariant [PD00-BUS-BUS-CAT-nn-INV].
+  // Contains 0+× ObjectInvariant.
   // Returns the list view; element type: ObjectInvariantEntry (construct from item paths).
   som::SomList invariants() const;
 };
 
-// 7.2. Business Object Model [PD00-BUS-BUS].
+// 7.2. Business Object Model.
 class BusinessObjectModel : public som::SomNode {
  public:
   BusinessObjectModel(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.
+  // 7.2.1. Object Catalog — contains 1+× Business Object.
   // Returns the list view; element type: BusinessObjectEntry (construct from item paths).
   som::SomList objects() const;
-  // 7.2.2. Business Object Diagram [PD00-BUS-BUS-DIA] (mermaid).
+  // 7.2.2. Business Object Diagram (mermaid).
   // (skipped: objectDiagram has no target type)
 };
 
-// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+// 1.3.2. Business Pain Points.
 //
 // Problems that affect business outcomes: lost revenue, compliance risk,
 // customer dissatisfaction, inability to scale, and missed opportunities.
@@ -8859,7 +8850,7 @@ class BusinessPainPointsSummary : public som::SomNode {
   BusinessPainPointsSummaryContentForm content() const;
 };
 
-// 6.1. Business Process Descriptions [PD00-TAR-PRO].
+// 6.1. Business Process Descriptions.
 //
 // Target business processes at a high level. Each process will be expanded
 // with detailed workflows, triggers, decision points, and exception handling
@@ -8869,31 +8860,31 @@ class BusinessProcessDescriptions : public som::SomNode {
   BusinessProcessDescriptions(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+  // 6.1.1. Process Vision.
   ProcessVision processVision() const;
-  // 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+  // 6.1.2. Design Principles.
   ProcessDesignPrinciples designPrinciples() const;
-  // 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
+  // 6.1.3. Process Catalog — contains 1+× Business Process.
   ProcessCatalog processCatalog() const;
-  // 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+  // 6.1.4. Process Overview Diagram.
   ProcessOverviewDiagram processOverviewDiagram() const;
-  // 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+  // 6.1.5. Improvement Summary.
   ProcessImprovementSummary improvementSummary() const;
-  // 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
+  // 6.1.6. Process Relationships.
   ProcessRelationships processRelationships() const;
-  // 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+  // 6.1.7. Detailed Process Workflows.
   // Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
   som::SomList detailedWorkflows() const;
-  // 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+  // 6.1.8. Cross-Process Analysis.
   CrossProcessAnalysis crossProcessAnalysis() const;
-  // 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+  // 6.1.9. Process Exception Handling.
   ProcessExceptionHandling exceptionHandling() const;
-  // 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+  // 6.1.10. Process Metrics and KPIs.
   // Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
   som::SomList processMetricsAndKpis() const;
 };
 
-// A business process entry [PD00-TAR-PRO-CAT-nn].
+// A business process entry.
 //
 // Comprehensive business process definition following BPMN 2.0 concepts.
 class BusinessProcessEntry : public som::SomNode {
@@ -8921,99 +8912,7 @@ class BusinessProcessEntry : public som::SomNode {
   // (skipped: processFlowPreview has no target type)
 };
 
-// BP00 Business Processes.
-//
-// Target business process specification — vision, principles, catalog,
-// diagrams, improvements, relationships, detailed workflows,
-// cross-process analysis, exception handling, and KPIs.
-class BusinessProcesses : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit BusinessProcesses(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Process vision — PD00-TAR-PRO-VIS.
-  ProcessVision processVision() const;
-  // Design principles — PD00-TAR-PRO-PRI.
-  ProcessDesignPrinciples designPrinciples() const;
-  // Process catalog — PD00-TAR-PRO-CAT.
-  ProcessCatalog processCatalog() const;
-  // Process overview diagram — PD00-TAR-PRO-FLO.
-  ProcessOverviewDiagram processOverviewDiagram() const;
-  // Improvement summary — PD00-TAR-PRO-IMP.
-  ProcessImprovementSummary improvementSummary() const;
-  // Process relationships — PD00-TAR-PRO-REL.
-  ProcessRelationships processRelationships() const;
-  // Detailed process workflows — PD00-TAR-PRO-DET.
-  // Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
-  som::SomList detailedWorkflows() const;
-  // Cross-process analysis — PD00-TAR-PRO-CRO.
-  CrossProcessAnalysis crossProcessAnalysis() const;
-  // Process exception handling — PD00-TAR-PRO-EXC.
-  ProcessExceptionHandling exceptionHandling() const;
-  // Process metrics and KPIs — PD00-TAR-PRO-MET.
-  // Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
-  som::SomList processMetricsAndKpis() const;
-};
-
-// BQP00 Business Quality Plan.
-//
-// Full quality plan combining quality goals (PD00-SYQ) and the
-// acceptance plan (PD00-DEL-ACC). Replaces HBSG AS11 + AS23 + partial
-// AS14 coverage.
-class BusinessQualityPlan : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit BusinessQualityPlan(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Quality framework — PD00-SYQ-FRA.
-  QualityFramework qualityFramework() const;
-  // User-related quality criteria — PD00-SYQ-USE.
-  UserQualityCriteria userQualityCriteria() const;
-  // Technical quality criteria — PD00-SYQ-TEC.
-  TechnicalQualityCriteria technicalQualityCriteria() const;
-  // Operations quality criteria — PD00-SYQ-OPE.
-  OperationsQualityCriteria operationsQualityCriteria() const;
-  // Documentation quality criteria — PD00-SYQ-DOC.
-  DocumentationQualityCriteria documentationQualityCriteria() const;
-  // Quality prioritization — PD00-SYQ-PRI.
-  QualityPrioritization qualityPrioritization() const;
-  // Acceptance criteria summary — PD00-SYQ-ACC.
-  AcceptanceCriteriaSummary acceptanceCriteriaSummary() const;
-  // Test strategy — PD00-SYQ-TST (new in Phase A, HBSG AS23).
-  TestStrategy testStrategy() const;
-  // Acceptance criteria — PD00-DEL-ACC-CRI.
-  AcceptanceCriteriaList acceptanceCriteria() const;
-  // Acceptance process — PD00-DEL-ACC-PRO.
-  AcceptanceProcess acceptanceProcess() const;
-  // User acceptance testing — PD00-DEL-ACC-UAT.
-  UserAcceptanceTesting userAcceptanceTesting() const;
-  // Defect resolution — PD00-DEL-ACC-DEF.
-  DefectResolution defectResolution() const;
-  // Sign-off process — PD00-DEL-ACC-SIG.
-  SignOffProcess signOffProcess() const;
-  // Warranty terms — PD00-DEL-ACC-WAR.
-  WarrantyTerms warranty() const;
-};
-
-// A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
+// A business rule entry (form).
 //
 // Comprehensive business rule specification following SBVR-like patterns.
 class BusinessRuleEntry : public som::SomNode {
@@ -9025,18 +8924,18 @@ class BusinessRuleEntry : public som::SomNode {
   BusinessRuleEntryImplementationForm implementation() const;
   BusinessRuleEntryExceptionHandlingForm exceptionHandling() const;
   BusinessRuleEntryGovernanceForm governance() const;
-  // Contains 0+× AffectedObject [PD00-BUS-FUN-RUL-nn-AOB].
+  // Contains 0+× AffectedObject.
   // Returns the list view; element type: AffectedObjectEntry (construct from item paths).
   som::SomList affectedObjects() const;
-  // Contains 0+× AffectedFunction [PD00-BUS-FUN-RUL-nn-AFU].
+  // Contains 0+× AffectedFunction.
   // Returns the list view; element type: AffectedFunctionEntry (construct from item paths).
   som::SomList affectedFunctions() const;
-  // Contains 0+× RuleExample [PD00-BUS-FUN-RUL-nn-EXA].
+  // Contains 0+× RuleExample.
   // Returns the list view; element type: RuleExampleEntry (construct from item paths).
   som::SomList examples() const;
 };
 
-// A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
+// A business rule reference entry (form).
 //
 // Reference to business rules that govern this object.
 class BusinessRuleReferenceEntry : public som::SomNode {
@@ -9047,51 +8946,7 @@ class BusinessRuleReferenceEntry : public som::SomNode {
   void setRuleRef(const std::string& value);
 };
 
-// BSI00 Business System Interactions.
-//
-// Complete interaction specification between the target system and
-// external systems: inventory, patterns, testing, dependencies,
-// migration, operational concerns, and cross-boundary error handling.
-class BusinessSystemInteractions : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit BusinessSystemInteractions(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // External interfaces — PD00-SYO-SYB-INT.
-  ExternalInterfaces externalInterfaces() const;
-  // Out of scope — PD00-SYO-SYB-OUT.
-  OutOfScope outOfScope() const;
-  // Boundary assumptions — PD00-SYO-SYB-ASS.
-  BoundaryAssumptions boundaryAssumptions() const;
-  // System landscape inventory — PD00-SYO-SYB-INV.
-  SystemLandscapeInventory systemInventory() const;
-  // Boundary interaction patterns — PD00-SYO-SYB-PAT.
-  // Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
-  som::SomList interactionPatterns() const;
-  // Interaction testing strategy — PD00-SYO-SYB-TST.
-  InteractionTestingStrategy testingStrategy() const;
-  // Interaction dependency analysis — PD00-SYO-SYB-DEP.
-  InteractionDependencyAnalysis dependencyAnalysis() const;
-  // Migration interactions — PD00-SYO-SYB-MIG.
-  // Returns the list view; element type: MigrationInteractions (construct from item paths).
-  som::SomList migrationInteractions() const;
-  // Cross-boundary operational considerations — PD00-SYO-SYB-OPE.
-  // Returns the list view; element type: CrossBoundaryOperationalConsiderations (construct from item paths).
-  som::SomList operationalConsiderations() const;
-  // Cross-boundary error handling — PD00-SYO-SYB-ERR.
-  CrossBoundaryErrorHandling crossBoundaryErrorHandling() const;
-};
-
-// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+// 8.7.3. Capacity Planning.
 class CapacityPlanningSection : public som::SomNode {
  public:
   CapacityPlanningSection(som::SpecDocument& doc, std::string path);
@@ -9232,7 +9087,7 @@ class CertificateManagementStorage : public som::SomNode {
   CertificateManagementStorageContentForm content() const;
 };
 
-// Certification entry (form) [PD00-ORG-WOR-nn-TRA-CER-nn].
+// Certification entry (form).
 class CertificationEntry : public som::SomNode {
  public:
   CertificationEntry(som::SpecDocument& doc, std::string path);
@@ -9335,7 +9190,7 @@ class ChangeAdvocateEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// A change category entry [PD00-ADM-CHA-CAT-nn].
+// A change category entry.
 //
 // Defines a category of changes with specific handling rules.
 class ChangeCategoryEntry : public som::SomNode {
@@ -9371,7 +9226,7 @@ class ChangeCategoryEntryScope : public som::SomNode {
   ChangeCategoryEntryScopeContentForm content() const;
 };
 
-// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+// 3.4.3. Change Control Board.
 //
 // Governance body responsible for major change decisions.
 class ChangeControlBoard : public som::SomNode {
@@ -9417,7 +9272,7 @@ class ChangeDecisionCriteria : public som::SomNode {
   ChangeDecisionCriteriaContentForm content() const;
 };
 
-// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+// 3.4.2. Change Impact Criteria.
 //
 // Criteria for determining the impact level of change requests,
 // which drives the approval path and stakeholder involvement.
@@ -9434,7 +9289,7 @@ class ChangeImpactCriteria : public som::SomNode {
   som::SomList items() const;
 };
 
-// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
+// A change impact criterion entry (form).
 //
 // Detailed criterion for assessing change impact in a specific dimension.
 class ChangeImpactCriterionEntry : public som::SomNode {
@@ -9486,7 +9341,7 @@ class ChangeNotificationRules : public som::SomNode {
   ChangeNotificationRulesContentForm content() const;
 };
 
-// 3.4. Change Procedure [PD00-ADM-CHA].
+// 3.4. Change Procedure.
 //
 // Procedure for requesting, evaluating, and approving changes to this
 // Project Definition and other project documents. Defines the change
@@ -9498,13 +9353,13 @@ class ChangeProcedure : public som::SomNode {
   void setContent(const std::string& value);
   // Change procedure summary.
   ChangeProcedureSummary summary() const;
-  // 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+  // 3.4.1. Change Process.
   ChangeProcess changeProcess() const;
-  // 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+  // 3.4.2. Change Impact Criteria.
   ChangeImpactCriteria changeImpactCriteria() const;
-  // 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+  // 3.4.3. Change Control Board.
   ChangeControlBoard changeControlBoard() const;
-  // 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
+  // 3.4.4. Change Categories — contains 0+× Category.
   // Returns the list view; element type: ChangeCategoryEntry (construct from item paths).
   som::SomList changeCategories() const;
 };
@@ -9516,7 +9371,7 @@ class ChangeProcedureSummary : public som::SomNode {
   ChangeProcedureSummaryContentForm content() const;
 };
 
-// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+// 3.4.1. Change Process.
 //
 // Detailed workflow for change request processing from submission
 // through evaluation, approval, implementation, and closure.
@@ -9557,14 +9412,14 @@ class ChangeReadinessOverview : public som::SomNode {
   ChangeReadinessOverviewContentForm content() const;
 };
 
-// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
+// A role involved in the change process (form).
 class ChangeRoleEntry : public som::SomNode {
  public:
   ChangeRoleEntry(som::SpecDocument& doc, std::string path);
   ChangeRoleEntryContentForm content() const;
 };
 
-// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
+// A change process step entry (form).
 //
 // Detailed description of a single step in the change process workflow.
 class ChangeStepEntry : public som::SomNode {
@@ -9628,7 +9483,7 @@ class ChangedRoleCompetencies : public som::SomNode {
   CompetencyGapAssessment gapAssessment() const;
 };
 
-// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+// A changed role entry (form).
 //
 // Documents modifications to existing roles with impact assessment,
 // transition planning, and incumbent management.
@@ -9730,7 +9585,7 @@ class ChangedRoleTransitionTraining : public som::SomNode {
   ChangedRoleTransitionTrainingContentForm content() const;
 };
 
-// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+// 5.1.1. Changes from Current Structure.
 //
 // Explicitly documents what changes from the current organization structure.
 // Identifies affected departments, changed reporting lines, and new roles
@@ -9954,7 +9809,7 @@ class ClientNetworkRequirementsProxy : public som::SomNode {
   ClientNetworkRequirementsProxyContentForm content() const;
 };
 
-// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+// 8.4.2. Client Requirements.
 //
 // Minimum client requirements: browser versions, operating systems, screen
 // resolution, network bandwidth, and device capabilities.
@@ -10300,7 +10155,7 @@ class CodingStandardsSectionReview : public som::SomNode {
   CodingStandardsSectionReviewContentForm content() const;
 };
 
-// A color palette entry [PD00-USE-COM-LIB-COL-nn].
+// A color palette entry.
 class ColorPaletteEntry : public som::SomNode {
  public:
   ColorPaletteEntry(som::SpecDocument& doc, std::string path);
@@ -10327,7 +10182,7 @@ class CommitteeCharter : public som::SomNode {
   CommitteeCharterContentForm content() const;
 };
 
-// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+// A steering committee member entry (form).
 //
 // Detailed information about a steering committee member.
 class CommitteeMemberEntry : public som::SomNode {
@@ -10347,7 +10202,7 @@ class CommitteeResponsibilityEntry : public som::SomNode {
 };
 
 // A communication channel encryption entry (form)
-// [PD00-ACC-SEN-TRA-CHA-nn].
+// .
 //
 // Defines encryption requirements for a specific communication channel
 // (e.g. client-to-server HTTPS, server-to-database, inter-service,
@@ -10359,7 +10214,7 @@ class CommunicationChannelEncryptionEntry : public som::SomNode {
   CommunicationChannelEncryptionEntryContentForm content() const;
 };
 
-// Communication event entry [PD00-ORG-STR-TIM-COM-nn] (form).
+// Communication event entry (form).
 class CommunicationEventEntry : public som::SomNode {
  public:
   CommunicationEventEntry(som::SpecDocument& doc, std::string path);
@@ -10457,15 +10312,15 @@ class CommunicationPreferenceEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 8.6. Communication Requirements [PD00-TEC-COM].
+// 8.6. Communication Requirements.
 class CommunicationRequirements : public som::SomNode {
  public:
   CommunicationRequirements(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+  // 8.6.1. Protocols and Standards.
   ProtocolsAndStandardsSection protocolsAndStandards() const;
-  // 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+  // 8.6.2. External Connectivity.
   ExternalConnectivitySection externalConnectivity() const;
 };
 
@@ -10483,7 +10338,7 @@ class CommunicationTypeEntry : public som::SomNode {
   CommunicationTypeEntryContentForm content() const;
 };
 
-// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+// 8.3.1. Compatibility Requirements.
 //
 // Compatibility requirements with existing IT infrastructure, standard software,
 // and enterprise systems.
@@ -10526,14 +10381,14 @@ class CompatibilityRequirementsSection : public som::SomNode {
   InteroperabilityRequirements interoperability() const;
 };
 
-// A competency entry (form) [PD00-ORG-JOB-CMP-xx-nn].
+// A competency entry (form).
 class CompetencyEntry : public som::SomNode {
  public:
   CompetencyEntry(som::SpecDocument& doc, std::string path);
   CompetencyEntryContentForm content() const;
 };
 
-// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+// 5.2.5. Competency Framework.
 class CompetencyFramework : public som::SomNode {
  public:
   CompetencyFramework(som::SpecDocument& doc, std::string path);
@@ -10571,7 +10426,7 @@ class CompetencyLevelChangeEntry : public som::SomNode {
   CompetencyLevelChangeEntryContentForm content() const;
 };
 
-// Compliance audit planning and scheduling [PD00-TEC-SEC-AUD].
+// Compliance audit planning and scheduling.
 class ComplianceAuditSchedule : public som::SomNode {
  public:
   ComplianceAuditSchedule(som::SpecDocument& doc, std::string path);
@@ -10605,7 +10460,7 @@ class ComplianceAuditScheduleReporting : public som::SomNode {
   ComplianceAuditScheduleReportingContentForm content() const;
 };
 
-// 9.8. Compliance Framework [PD00-ACC-CMP].
+// 9.8. Compliance Framework.
 //
 // NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
 // authorization. Pulls the compliance references currently scattered
@@ -10632,7 +10487,7 @@ class ComplianceMilestoneEntry : public som::SomNode {
   ComplianceMilestoneEntryContentForm content() const;
 };
 
-// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+// 9.6.3. Compliance Reporting.
 //
 // Describes compliance reporting requirements: periodic access reviews,
 // privilege usage reports, anomaly detection, and regulatory audit support.
@@ -10712,7 +10567,7 @@ class ComplianceVerificationSectionTools : public som::SomNode {
   ComplianceVerificationSectionToolsContentForm content() const;
 };
 
-// A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
+// A component action entry.
 //
 // Defines an action that can be triggered from the component.
 class ComponentActionEntry : public som::SomNode {
@@ -10767,7 +10622,7 @@ class ComponentDocs : public som::SomNode {
   ComponentDocsContentForm content() const;
 };
 
-// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+// A component entry (form) with sub-entries.
 //
 // Describes a single external or standard component planned for use:
 // vendor assessment, maturity, security, cost, deployment model, licensing,
@@ -10795,19 +10650,19 @@ class ComponentEntry : public som::SomNode {
   // Documentation.
   // Returns the list view; element type: ComponentDocs (construct from item paths).
   som::SomList docs() const;
-  // Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
+  // Interfaces — contains 0+× ComponentInterface.
   // Returns the list view; element type: ComponentInterfaceEntry (construct from item paths).
   som::SomList interfaces() const;
-  // Licensing [PD00-COM-COM-nn-LIC] (form).
+  // Licensing (form).
   ComponentLicensingEntry licensing() const;
-  // Usage Rights [PD00-COM-COM-nn-USE].
+  // Usage Rights.
   // (skipped: usageRights has no target type)
-  // Responsibilities [PD00-COM-COM-nn-RES] (form).
+  // Responsibilities (form).
   // Returns the list view; element type: ComponentResponsibilitiesEntry (construct from item paths).
   som::SomList responsibilities() const;
 };
 
-// A component family entry [PD00-USE-COM-FAM-nn].
+// A component family entry.
 //
 // Groups related components by function (buttons, inputs, navigation, etc.).
 class ComponentFamilyEntry : public som::SomNode {
@@ -10864,7 +10719,7 @@ class ComponentGovernanceQuality : public som::SomNode {
   ComponentGovernanceQualityContentForm content() const;
 };
 
-// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
+// A component interface entry (form).
 //
 // Describes one interface exposed or consumed by a component: protocol,
 // authentication, data format, rate limits, versioning, SLA, monitoring.
@@ -10919,7 +10774,7 @@ class ComponentInterfaceEntrySla : public som::SomNode {
   ComponentInterfaceEntrySlaContentForm content() const;
 };
 
-// 10.11.1. Component Library [PD00-USE-COM-LIB].
+// 10.11.1. Component Library.
 //
 // Design system and component catalog specification.
 class ComponentLibrary : public som::SomNode {
@@ -10984,7 +10839,7 @@ class ComponentLibraryVisuals : public som::SomNode {
   ComponentLibraryVisualsContentForm content() const;
 };
 
-// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+// Component licensing sub-entry (form).
 //
 // Detailed licensing information: model, cost, compliance, open-source
 // obligations, audit requirements, geographic restrictions, usage metrics.
@@ -11096,7 +10951,7 @@ class ComponentPerformance : public som::SomNode {
   ComponentPerformanceContentForm content() const;
 };
 
-// A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
+// A component property entry.
 //
 // Defines a configurable property of the component.
 class ComponentPropertyEntry : public som::SomNode {
@@ -11148,7 +11003,7 @@ class ComponentRegistryUpdates : public som::SomNode {
   ComponentRegistryUpdatesContentForm content() const;
 };
 
-// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+// Component responsibilities sub-entry (form).
 //
 // Who owns and maintains this component: primary/backup owners, SLA targets,
 // patch response time, security vulnerability handling, budget allocation.
@@ -11201,7 +11056,7 @@ class ComponentRisk : public som::SomNode {
   ComponentRiskContentForm content() const;
 };
 
-// 12.6. Risk Assessment [PD00-COM-RIS].
+// 12.6. Risk Assessment.
 //
 // Component risk assessment: identified risks with probability/impact,
 // monitoring, mitigation strategies, and contingency plans.
@@ -11210,14 +11065,14 @@ class ComponentRiskAssessment : public som::SomNode {
   ComponentRiskAssessment(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+  // 12.6.1. Component Risks — contains 0+× Risk.
   // Returns the list view; element type: ComponentRiskEntry (construct from item paths).
   som::SomList risks() const;
-  // 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+  // 12.6.2. Contingency Plans.
   ContingencyPlans contingencyPlans() const;
 };
 
-// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+// A component risk entry (form).
 //
 // Documents one component risk: category, probability, impact, detection
 // methods, mitigation strategy and status, residual risk, and ownership.
@@ -11272,7 +11127,7 @@ class ComponentRiskEntryMitigation : public som::SomNode {
   ComponentRiskEntryMitigationContentForm content() const;
 };
 
-// A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
+// A component slot entry.
 //
 // Defines a slot where child widgets can be placed.
 class ComponentSlotEntry : public som::SomNode {
@@ -11281,7 +11136,7 @@ class ComponentSlotEntry : public som::SomNode {
   ComponentSlotEntryContentForm content() const;
 };
 
-// A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
+// A component state entry.
 //
 // Defines a visual/functional state of the component.
 class ComponentStateEntry : public som::SomNode {
@@ -11319,7 +11174,7 @@ class ComponentStateEntryVisual : public som::SomNode {
   ComponentStateEntryVisualContentForm content() const;
 };
 
-// 12.1. Component Strategy [PD00-COM-STR].
+// 12.1. Component Strategy.
 //
 // Overall component strategy: build-vs-buy philosophy, preferred vendors,
 // technology stack alignment, governance, evaluation cadence, and portfolio
@@ -11338,10 +11193,10 @@ class ComponentStrategy : public som::SomNode {
   ComponentStrategyPolicies policies() const;
   // Budget and pilot planning.
   ComponentStrategyPlanning planning() const;
-  // 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+  // 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
   // Returns the list view; element type: ReuseGoalEntry (construct from item paths).
   som::SomList reuseGoals() const;
-  // 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+  // 12.1.2. Evaluation Criteria.
   EvaluationCriteria evaluationCriteria() const;
 };
 
@@ -11387,7 +11242,7 @@ class ComponentSupport : public som::SomNode {
   ComponentSupportContentForm content() const;
 };
 
-// A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
+// A component variant entry.
 //
 // Defines a variation of the component with different appearance or behavior.
 class ComponentVariantEntry : public som::SomNode {
@@ -11423,7 +11278,7 @@ class ComponentVendor : public som::SomNode {
   ComponentVendorContentForm content() const;
 };
 
-// 12. Components to Use [PD00-COM]. Seeds → TR.
+// 12. Components to Use. Seeds → TR.
 //
 // External and standard components planned for use in the system. All
 // subsections seed the TR document, where component choices are expanded
@@ -11434,18 +11289,18 @@ class ComponentsToUse : public som::SomNode {
   ComponentsToUse(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 12.1. Component Strategy [PD00-COM-STR].
+  // 12.1. Component Strategy.
   ComponentStrategy strategy() const;
-  // 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+  // 12.2. Component Catalog — contains 0+× Component.
   // Returns the list view; element type: ComponentEntry (construct from item paths).
   som::SomList componentCatalog() const;
-  // 12.3. Component Role In System [PD00-COM-ROL].
+  // 12.3. Component Role In System.
   // (skipped: componentRoleInSystem has no target type)
-  // 12.4. Runtime Dependencies [PD00-COM-RUN].
+  // 12.4. Runtime Dependencies.
   RuntimeDependencies runtimeDependencies() const;
-  // 12.5. Maintenance Dependencies [PD00-COM-MAI].
+  // 12.5. Maintenance Dependencies.
   MaintenanceDependencies maintenanceDependencies() const;
-  // 12.6. Risk Assessment [PD00-COM-RIS].
+  // 12.6. Risk Assessment.
   ComponentRiskAssessment riskAssessment() const;
 };
 
@@ -11483,7 +11338,7 @@ class ComputeResourceRequirementsSpecial : public som::SomNode {
   ComputeResourceRequirementsSpecialContentForm content() const;
 };
 
-// Computing equipment entry (form) [PD00-ORG-WOR-nn-EQU-PRI-nn].
+// Computing equipment entry (form).
 class ComputingEquipmentEntry : public som::SomNode {
  public:
   ComputingEquipmentEntry(som::SpecDocument& doc, std::string path);
@@ -11538,7 +11393,7 @@ class ConfidentialInfoCategoryEntry : public som::SomNode {
   ConfidentialInfoCategoryEntryContentForm content() const;
 };
 
-// 3.6.2. Confidentiality and NDA Requirements [PD00-ADM-OTH-NDA].
+// 3.6.2. Confidentiality and NDA Requirements.
 //
 // Non-disclosure agreements and confidentiality constraints.
 class ConfidentialityRequirements : public som::SomNode {
@@ -11629,7 +11484,7 @@ class ConnectivityResilienceProtection : public som::SomNode {
   ConnectivityResilienceProtectionContentForm content() const;
 };
 
-// Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
+// Consent collection, tracking and management requirements.
 class ConsentManagementRequirements : public som::SomNode {
  public:
   ConsentManagementRequirements(som::SpecDocument& doc, std::string path);
@@ -11695,7 +11550,7 @@ class ConstraintDetails : public som::SomNode {
   ConstraintDetailsContentForm content() const;
 };
 
-// A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
+// A constraint entry (form).
 //
 // Represents a single external constraint limiting project degrees of
 // freedom. Common constraint types include regulatory requirements,
@@ -11743,6 +11598,16 @@ class ConstraintMitigation : public som::SomNode {
   ConstraintMitigationContentForm content() const;
 };
 
+// A single constraint register entry (form).
+//
+// Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
+// `ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+class ConstraintRegisterEntry : public som::SomNode {
+ public:
+  ConstraintRegisterEntry(som::SpecDocument& doc, std::string path);
+  ConstraintRegisterEntryContentForm content() const;
+};
+
 // Tracking for constraint.
 class ConstraintTracking : public som::SomNode {
  public:
@@ -11750,7 +11615,7 @@ class ConstraintTracking : public som::SomNode {
   ConstraintTrackingContentForm content() const;
 };
 
-// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+// 4.6.4.1. Constraints.
 //
 // External constraints limiting project scope, schedule, budget, or
 // approach. Includes regulatory, contractual, organizational, technical,
@@ -11767,7 +11632,7 @@ class Constraints : public som::SomNode {
   // (skipped: constraintNarrative has no target type)
 };
 
-// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+// 4.6.4. Constraints and Dependencies.
 //
 // Documents external constraints (regulatory, contractual, budgetary,
 // timeline) and dependencies on other projects, teams, or organizational
@@ -11777,9 +11642,9 @@ class ConstraintsAndDependencies : public som::SomNode {
  public:
   ConstraintsAndDependencies(som::SpecDocument& doc, std::string path);
   ConstraintsAndDependenciesContentForm content() const;
-  // 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+  // 4.6.4.1. Constraints.
   Constraints constraints() const;
-  // 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+  // 4.6.4.2. Dependencies.
   FrameworkDependencies frameworkDependencies() const;
 };
 
@@ -11797,7 +11662,7 @@ class ContentScanningPolicy : public som::SomNode {
   // (skipped: contentScanningDetails has no target type)
 };
 
-// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+// 4.1.2.1. Context Diagram.
 //
 // Visual representation of the system as a black box showing external
 // entities and data flows (UML context diagram / DFD Level 0).
@@ -11814,7 +11679,7 @@ class ContextDiagram : public som::SomNode {
   void setLegend(const std::string& value);
 };
 
-// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+// 10.8.1. Contextual Help.
 class ContextualHelp : public som::SomNode {
  public:
   ContextualHelp(som::SpecDocument& doc, std::string path);
@@ -11862,7 +11727,7 @@ class ContextualHelpWhatsThis : public som::SomNode {
   ContextualHelpWhatsThisContentForm content() const;
 };
 
-// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+// 10.3.1.6. Contextual Navigation.
 //
 // Breadcrumbs, back navigation, related links.
 class ContextualNavigation : public som::SomNode {
@@ -11870,7 +11735,7 @@ class ContextualNavigation : public som::SomNode {
   ContextualNavigation(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+  // 10.3.1.6.1. Breadcrumb Configuration.
   BreadcrumbConfiguration breadcrumbs() const;
   // Back navigation behavior.
   // (skipped: backNavigation has no target type)
@@ -11878,7 +11743,7 @@ class ContextualNavigation : public som::SomNode {
   // (skipped: relatedLinks has no target type)
 };
 
-// A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
+// A contingency plan entry (form).
 //
 // Describes one contingency plan for a component risk: trigger conditions,
 // immediate/recovery actions, RTO/RPO, communication, testing frequency.
@@ -11933,7 +11798,7 @@ class ContingencyPlanEntryTesting : public som::SomNode {
   ContingencyPlanEntryTestingContentForm content() const;
 };
 
-// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+// 12.6.2. Contingency Plans.
 //
 // Container for contingency plans addressing critical component risks.
 class ContingencyPlans : public som::SomNode {
@@ -11946,7 +11811,7 @@ class ContingencyPlans : public som::SomNode {
   som::SomList items() const;
 };
 
-// 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
+// 11.2.3. Correctness quality.
 class CorrectnessQuality : public som::SomNode {
  public:
   CorrectnessQuality(som::SpecDocument& doc, std::string path);
@@ -12016,7 +11881,7 @@ class CriticalKnowledgeAreaEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+// 4.5.10. Cross-Boundary Error Handling.
 //
 // Failure-propagation policy that applies across system boundaries.
 // Distinct from per-interface error handling.
@@ -12027,7 +11892,7 @@ class CrossBoundaryErrorHandling : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+// 4.5.9. Cross-Boundary Operational Considerations.
 //
 // SLA, rate-limit, and change-window considerations applied at system
 // boundaries. Distinct from per-interface operational data captured
@@ -12091,10 +11956,10 @@ class CrossCuttingConcernsShared : public som::SomNode {
   CrossCuttingConcernsSharedContentForm content() const;
 };
 
-// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+// 6.1.8. Cross-Process Analysis.
 //
 // Hand-offs, shared data, and coordination patterns between processes.
-// Covers HBSG AS07-CRO.
+// .
 class CrossProcessAnalysis : public som::SomNode {
  public:
   CrossProcessAnalysis(som::SpecDocument& doc, std::string path);
@@ -12125,7 +11990,7 @@ class CulturalConsiderationEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+// 1.1.2. Current Architecture.
 //
 // Description of the current system architecture including deployment
 // topology, integration patterns, shared services, and data stores.
@@ -12134,21 +11999,21 @@ class CurrentArchitecture : public som::SomNode {
   CurrentArchitecture(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
+  // Architecture overview diagram.
   std::string architectureDiagram() const;
   void setArchitectureDiagram(const std::string& value);
-  // Deployment topology description [PD00-CUR-SYS-ARC-DEP].
+  // Deployment topology description.
   std::string deploymentTopology() const;
   void setDeploymentTopology(const std::string& value);
-  // Integration patterns used [PD00-CUR-SYS-ARC-INT].
+  // Integration patterns used.
   // Returns the list view; element type: IntegrationPatternEntry (construct from item paths).
   som::SomList integrationPatterns() const;
-  // Shared services inventory [PD00-CUR-SYS-ARC-SHR].
+  // Shared services inventory.
   // Returns the list view; element type: SharedServiceEntry (construct from item paths).
   som::SomList sharedServices() const;
 };
 
-// A current business process [PD00-CUR-PRO-nn].
+// A current business process.
 //
 // Detailed documentation of a single business process including its
 // workflows, actors, metrics, and pain points.
@@ -12158,15 +12023,15 @@ class CurrentBusinessProcess : public som::SomNode {
   CurrentBusinessProcessContentForm content() const;
   // Process context and purpose.
   ProcessContext processContext() const;
-  // 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
+  // 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
   WorkflowDescriptions workflowDescriptions() const;
-  // 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
+  // 1.2.nn.2. Process Metrics.
   ProcessMetrics processMetrics() const;
   // Process pain points and improvement opportunities.
   ProcessPainPoints processPainPoints() const;
 };
 
-// 1.2. Current Business Processes [PD00-CUR-PRO].
+// 1.2. Current Business Processes.
 //
 // Documents the current business processes that the project will impact,
 // replace, or enhance. Understanding existing workflows is critical for
@@ -12177,21 +12042,21 @@ class CurrentBusinessProcesses : public som::SomNode {
   CurrentBusinessProcesses(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Process landscape diagram [PD00-CUR-PRO-DIA].
+  // Process landscape diagram.
   std::string processLandscapeDiagram() const;
   void setProcessLandscapeDiagram(const std::string& value);
-  // Process scope summary [PD00-CUR-PRO-SCO].
+  // Process scope summary.
   ProcessScopeSummary scopeSummary() const;
-  // Process interdependency matrix [PD00-CUR-PRO-INT].
+  // Process interdependency matrix.
   ProcessInterdependencyMatrix interdependencyMatrix() const;
-  // Process performance summary [PD00-CUR-PRO-SUM].
+  // Process performance summary.
   ProcessPerformanceSummary performanceSummary() const;
-  // 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
+  // 1.2.nn. Business Processes — contains 1+× Business Process.
   // Returns the list view; element type: CurrentBusinessProcess (construct from item paths).
   som::SomList processes() const;
 };
 
-// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+// 1.4.8. Data Classification.
 //
 // Data classification framework, sensitivity levels, and current
 // classification status of data assets.
@@ -12210,7 +12075,7 @@ class CurrentDataClassification : public som::SomNode {
   som::SomList classificationStatus() const;
 };
 
-// 1.4. Current Data Landscape [PD00-CUR-DAT].
+// 1.4. Current Data Landscape.
 //
 // Comprehensive documentation of the current data situation including where
 // data lives, data quality issues, duplication, ownership, volumes, growth
@@ -12228,29 +12093,91 @@ class CurrentDataLandscape : public som::SomNode {
   void setDataArchitectureDiagram(const std::string& value);
   // Summary statistics and health indicators.
   DataLandscapeSummary dataLandscapeSummary() const;
-  // 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+  // 1.4.1. Data Source Inventory.
   DataSourceInventory dataSourceInventory() const;
-  // 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+  // 1.4.2. Data Quality Assessment.
   DataQualityAssessment dataQualityAssessment() const;
-  // 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+  // 1.4.3. Data Duplication Analysis.
   DataDuplicationAnalysis dataDuplicationAnalysis() const;
-  // 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+  // 1.4.4. Data Ownership and Stewardship.
   DataOwnership dataOwnership() const;
-  // 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+  // 1.4.5. Data Volumes and Growth.
   DataVolumesAndGrowth dataVolumesAndGrowth() const;
-  // 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+  // 1.4.6. Retention Policies.
   DataRetentionPolicies retentionPolicies() const;
-  // 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+  // 1.4.7. Data Governance.
   DataGovernance dataGovernance() const;
-  // 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+  // 1.4.8. Data Classification.
   CurrentDataClassification dataClassification() const;
-  // 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+  // 1.4.9. Data Integration Points.
   DataIntegrationPoints dataIntegrationPoints() const;
-  // 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+  // 1.4.10. Master Data Management.
   MasterDataManagement masterDataManagement() const;
 };
 
-// 1.5. Operational Metrics [PD00-CUR-MET].
+// 1. Current State Analysis. Seeds → CS.
+//
+// Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
+// CS together with the systems-to-replace inventory.
+class CurrentLandscape : public som::SomNode {
+ public:
+  CurrentLandscape(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 1.1. Existing Systems Landscape.
+  ExistingSystemsLandscape existingSystemsLandscape() const;
+  // 1.2. Current Business Processes.
+  CurrentBusinessProcesses currentBusinessProcesses() const;
+  // 1.3. Pain Points and Gaps.
+  PainPointsAndGaps painPointsAndGaps() const;
+  // 1.4. Current Data Landscape.
+  CurrentDataLandscape currentDataLandscape() const;
+  // 1.5. Operational Metrics.
+  // Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
+  som::SomList operationalMetrics() const;
+  // 1.6. Current State Risks.
+  CurrentStateRiskAssessment currentStateRisks() const;
+};
+
+// CS00 Current Situation.
+//
+// Detailed analysis of the current state: existing systems, business
+// processes, pain points, data landscape, operational metrics, risks,
+// and the inventory / migration plan for the systems being replaced.
+class CurrentLandscapeAssessment : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit CurrentLandscapeAssessment(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Existing systems landscape.
+  ExistingSystemsLandscape existingSystemsLandscape() const;
+  // Current business processes.
+  CurrentBusinessProcesses currentBusinessProcesses() const;
+  // Pain points and gaps.
+  PainPointsAndGaps painPointsAndGaps() const;
+  // Current data landscape.
+  CurrentDataLandscape currentDataLandscape() const;
+  // Current operational metrics.
+  // Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
+  som::SomList operationalMetrics() const;
+  // Current-state risk assessment.
+  CurrentStateRiskAssessment currentStateRisks() const;
+  // Replacement inventory.
+  ReplacementInventory replacementInventory() const;
+  // Migration considerations.
+  MigrationConsiderations migrationConsiderations() const;
+};
+
+// 1.5. Operational Metrics.
 //
 // Baseline metrics of the current systems: throughput, volume, uptime,
 // response times, user counts. Used to size the target system and to
@@ -12269,72 +12196,10 @@ class CurrentProcessImprovementEntry : public som::SomNode {
   CurrentProcessImprovementEntryContentForm content() const;
 };
 
-// CS00 Current Situation.
-//
-// Detailed analysis of the current state: existing systems, business
-// processes, pain points, data landscape, operational metrics, risks,
-// and the inventory / migration plan for the systems being replaced.
-class CurrentSituation : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit CurrentSituation(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Existing systems landscape — PD00-CUR-SYS.
-  ExistingSystemsLandscape existingSystemsLandscape() const;
-  // Current business processes — PD00-CUR-PRO.
-  CurrentBusinessProcesses currentBusinessProcesses() const;
-  // Pain points and gaps — PD00-CUR-PAI.
-  PainPointsAndGaps painPointsAndGaps() const;
-  // Current data landscape — PD00-CUR-DAT.
-  CurrentDataLandscape currentDataLandscape() const;
-  // Current operational metrics — PD00-CUR-MET.
-  // Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
-  som::SomList operationalMetrics() const;
-  // Current-state risk assessment — PD00-CUR-RIS.
-  CurrentStateRiskAssessment currentStateRisks() const;
-  // Replacement inventory — PD00-SYO-SYR-INV.
-  ReplacementInventory replacementInventory() const;
-  // Migration considerations — PD00-SYO-SYR-MIG.
-  MigrationConsiderations migrationConsiderations() const;
-};
-
-// 1. Current State Analysis [PD00-CUR]. Seeds → CS.
-//
-// Seeds the CS (Current Situation) Phase 3 DocSpec. Previously listed as
-// PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
-class CurrentStateAnalysis : public som::SomNode {
- public:
-  CurrentStateAnalysis(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // 1.1. Existing Systems Landscape [PD00-CUR-SYS].
-  ExistingSystemsLandscape existingSystemsLandscape() const;
-  // 1.2. Current Business Processes [PD00-CUR-PRO].
-  CurrentBusinessProcesses currentBusinessProcesses() const;
-  // 1.3. Pain Points and Gaps [PD00-CUR-PAI].
-  PainPointsAndGaps painPointsAndGaps() const;
-  // 1.4. Current Data Landscape [PD00-CUR-DAT].
-  CurrentDataLandscape currentDataLandscape() const;
-  // 1.5. Operational Metrics [PD00-CUR-MET].
-  // Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
-  som::SomList operationalMetrics() const;
-  // 1.6. Current State Risks [PD00-CUR-RIS].
-  CurrentStateRiskAssessment currentStateRisks() const;
-};
-
-// 1.6. Current State Risks [PD00-CUR-RIS].
+// 1.6. Current State Risks.
 //
 // Risks tied to the current state and to its replacement. Distinct from
-// PD00-SYO-RIS which covers target-side risks.
+// the target-side risks section which covers replacement risks.
 class CurrentStateRiskAssessment : public som::SomNode {
  public:
   CurrentStateRiskAssessment(som::SpecDocument& doc, std::string path);
@@ -12342,7 +12207,7 @@ class CurrentStateRiskAssessment : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+// A current workflow entry (form).
 //
 // Detailed documentation of a single workflow within a business process.
 // Includes triggers, steps, actors, inputs, outputs, and timing.
@@ -12350,7 +12215,7 @@ class CurrentWorkflowEntry : public som::SomNode {
  public:
   CurrentWorkflowEntry(som::SpecDocument& doc, std::string path);
   CurrentWorkflowEntryContentForm content() const;
-  // Workflow diagram [PD00-CUR-PRO-xx-WOR-xx-DIA].
+  // Workflow diagram.
   std::string workflowDiagram() const;
   void setWorkflowDiagram(const std::string& value);
   // Workflow triggers and initiation.
@@ -12395,14 +12260,14 @@ class CustomDistributionGroup : public som::SomNode {
   som::SomList members() const;
 };
 
-// A custom metric entry [PD00-TEC-SYS-MON-MET-nn].
+// A custom metric entry.
 class CustomMetricEntry : public som::SomNode {
  public:
   CustomMetricEntry(som::SpecDocument& doc, std::string path);
   CustomMetricEntryContentForm content() const;
 };
 
-// 15.6. Cutover Procedures [PD00-ROL-CUT].
+// 15.6. Cutover Procedures.
 //
 // Detailed cutover runbook for go-live. Minute-by-minute procedure
 // covering the transition from current operation to the target system.
@@ -12413,7 +12278,7 @@ class CutoverProcedures : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// A dashboard entry [PD00-TEC-SYS-MON-DAS-nn].
+// A dashboard entry.
 class DashboardEntry : public som::SomNode {
  public:
   DashboardEntry(som::SpecDocument& doc, std::string path);
@@ -12571,7 +12436,7 @@ class DataAttributeConstraintEntry : public som::SomNode {
   DataAttributeConstraintEntryContentForm content() const;
 };
 
-// A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
+// A data attribute entry (form).
 //
 // Comprehensive attribute specification for data dictionary and schema design.
 class DataAttributeEntry : public som::SomNode {
@@ -12588,17 +12453,17 @@ class DataAttributeEntry : public som::SomNode {
   som::SomList displayProperties() const;
 };
 
-// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+// 7.1.4. Data Classification.
 class DataClassification : public som::SomNode {
  public:
   DataClassification(som::SpecDocument& doc, std::string path);
   DataClassificationOverviewForm overview() const;
-  // Contains 0+× DataClassificationEntry [PD00-BUS-DAT-CLA-nn].
+  // Contains 0+× DataClassificationEntry.
   // Returns the list view; element type: DataClassificationEntry (construct from item paths).
   som::SomList items() const;
 };
 
-// A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
+// A data classification entry (form).
 //
 // Comprehensive data classification for security and compliance.
 class DataClassificationEntry : public som::SomNode {
@@ -12609,10 +12474,10 @@ class DataClassificationEntry : public som::SomNode {
   DataClassificationEntryAccessControlForm accessControl() const;
   DataClassificationEntryRetentionDisposalForm retentionDisposal() const;
   DataClassificationEntryComplianceForm compliance() const;
-  // Contains 0+× HandlingRequirement [PD00-BUS-DAT-CLA-nn-HAN].
+  // Contains 0+× HandlingRequirement.
   // Returns the list view; element type: HandlingRequirementEntry (construct from item paths).
   som::SomList handlingRequirements() const;
-  // Contains 0+× AccessRestriction [PD00-BUS-DAT-CLA-nn-ARE].
+  // Contains 0+× AccessRestriction.
   // Returns the list view; element type: AccessRestrictionEntry (construct from item paths).
   som::SomList accessRestrictions() const;
 };
@@ -12638,10 +12503,10 @@ class DataClassificationSummary : public som::SomNode {
   DataClassificationSummaryContentForm content() const;
 };
 
-// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC].
+// 7.1.5. Data Dictionary.
 //
 // Attribute-level dictionary that complements the entity overview
-// (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
+// ..
 class DataDictionary : public som::SomNode {
  public:
   DataDictionary(som::SpecDocument& doc, std::string path);
@@ -12649,7 +12514,7 @@ class DataDictionary : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+// 1.4.3. Data Duplication Analysis.
 //
 // Analysis of data duplication across systems, including redundant data
 // stores, duplicated records, and synchronization challenges.
@@ -12709,7 +12574,7 @@ class DataDuplicationSummary : public som::SomNode {
   DataDuplicationSummaryContentForm content() const;
 };
 
-// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+// A data entity entry (form).
 //
 // Comprehensive entity specification following data modeling best practices.
 // Captures conceptual, logical, and physical design aspects.
@@ -12726,24 +12591,24 @@ class DataEntityEntry : public som::SomNode {
   DataEntityEntryRelationshipSummaryForm relationshipSummary() const;
   // Returns the list view; element type: TechnicalCharacteristicEntry (construct from item paths).
   som::SomList technicalCharacteristics() const;
-  // Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
+  // Contains 0+× DataAttribute.
   // Returns the list view; element type: DataAttributeEntry (construct from item paths).
   som::SomList attributes() const;
-  // Contains 0+× KeyAttribute [PD00-BUS-DAT-ENT-nn-KEY].
+  // Contains 0+× KeyAttribute.
   // Returns the list view; element type: KeyAttributeEntry (construct from item paths).
   som::SomList keyAttributes() const;
-  // Contains 0+× EntityIndex [PD00-BUS-DAT-ENT-nn-IDX].
+  // Contains 0+× EntityIndex.
   // Returns the list view; element type: EntityIndexEntry (construct from item paths).
   som::SomList indexes() const;
-  // Contains 0+× EntityConstraint [PD00-BUS-DAT-ENT-nn-CON].
+  // Contains 0+× EntityConstraint.
   // Returns the list view; element type: EntityConstraintEntry (construct from item paths).
   som::SomList constraints() const;
-  // Contains 0+× MigrationMapping [PD00-BUS-DAT-ENT-nn-MIG] for data migration planning.
+  // Contains 0+× MigrationMapping for data migration planning.
   // Returns the list view; element type: MigrationMappingEntry (construct from item paths).
   som::SomList migrationMappings() const;
 };
 
-// A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn].
+// A data entity migration entry.
 class DataEntityMigrationEntry : public som::SomNode {
  public:
   DataEntityMigrationEntry(som::SpecDocument& doc, std::string path);
@@ -12802,7 +12667,7 @@ class DataFormatCompatibilityNumbers : public som::SomNode {
   DataFormatCompatibilityNumbersContentForm content() const;
 };
 
-// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+// 1.4.7. Data Governance.
 //
 // Current data governance structure, policies, processes, and maturity level.
 class DataGovernance : public som::SomNode {
@@ -12945,7 +12810,7 @@ class DataIntegrationEntryTransport : public som::SomNode {
   DataIntegrationEntryTransportContentForm content() const;
 };
 
-// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+// 1.4.9. Data Integration Points.
 //
 // Documentation of data integration points, ETL processes, APIs,
 // and data exchange mechanisms.
@@ -12978,7 +12843,7 @@ class DataLandscapeSummary : public som::SomNode {
   DataLandscapeSummaryContentForm content() const;
 };
 
-// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+// 9.3.1. Data-Level Security.
 //
 // Comprehensive data access protection specification covering database-level
 // security, row-level security, column-level security, tenant data isolation,
@@ -13019,7 +12884,7 @@ class DataMaskingPolicy : public som::SomNode {
   // (skipped: dataMaskingDetails has no target type)
 };
 
-// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+// 13.5. Data Migration Strategy.
 //
 // Comprehensive data migration strategy covering approach, methodology,
 // tooling, environment strategy, data quality governance, cutover
@@ -13062,38 +12927,38 @@ class DataMigrationStrategy : public som::SomNode {
   MigrationSchedule schedule() const;
   // Migration strategy narrative.
   // (skipped: migrationStrategyNarrative has no target type)
-  // 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+  // 13.5.1. Migration Phases.
   MigrationPhases migrationPhases() const;
-  // 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+  // 13.5.2. Migration Risks.
   StageMigrationRisks migrationRisks() const;
 };
 
-// 7.1. Data Model [PD00-BUS-DAT].
+// 7.1. Data Model.
 class DataModel : public som::SomNode {
  public:
   DataModel(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
+  // 7.1.1. Entity Overview — contains 1+× Data Entity.
   // Returns the list view; element type: DataEntityEntry (construct from item paths).
   som::SomList entities() const;
-  // 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+  // 7.1.2. Entity Relationships.
   EntityRelationships entityRelationships() const;
-  // 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
+  // 7.1.3. Entity-Relationship Diagram (mermaid).
   // (skipped: erDiagram has no target type)
-  // 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+  // 7.1.4. Data Classification.
   DataClassification dataClassification() const;
-  // 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
+  // 7.1.5. Data Dictionary..
   DataDictionary dataDictionary() const;
-  // 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+  // 7.1.6. Validation Constraints.
   // Returns the list view; element type: ValidationConstraints (construct from item paths).
   som::SomList validationConstraints() const;
-  // 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+  // 7.1.7. Integrity Constraints.
   // Returns the list view; element type: IntegrityConstraints (construct from item paths).
   som::SomList integrityConstraints() const;
 };
 
-// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+// 1.4.4. Data Ownership and Stewardship.
 //
 // Documentation of data ownership structures, stewardship roles,
 // and accountability for data assets.
@@ -13144,7 +13009,7 @@ class DataOwnershipSummary : public som::SomNode {
   DataOwnershipSummaryContentForm content() const;
 };
 
-// Data processing agreement requirements [PD00-TEC-SEC-PRI].
+// Data processing agreement requirements.
 class DataProcessingAgreementRequirements : public som::SomNode {
  public:
   DataProcessingAgreementRequirements(som::SpecDocument& doc, std::string path);
@@ -13187,7 +13052,7 @@ class DataProcessingAgreementRequirementsTransfers : public som::SomNode {
   DataProcessingAgreementRequirementsTransfersContentForm content() const;
 };
 
-// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+// 8.8.2. Data Protection and Privacy.
 //
 // Comprehensive data protection and privacy requirements including
 // GDPR compliance, data residency, consent management, data subject
@@ -13216,10 +13081,10 @@ class DataProtectionAndPrivacySection : public som::SomNode {
   DataProtectionClassification dataClassification() const;
 };
 
-// Data protection classification and handling rules [PD00-TEC-SEC-PRI].
+// Data protection classification and handling rules.
 //
 // Named DataProtectionClassification to avoid collision with
-// DataClassification in business_data_model.dart.
+// DataClassification in information_and_data_model.dart.
 class DataProtectionClassification : public som::SomNode {
  public:
   DataProtectionClassification(som::SpecDocument& doc, std::string path);
@@ -13262,7 +13127,7 @@ class DataProtectionClassificationRetention : public som::SomNode {
   DataProtectionClassificationRetentionContentForm content() const;
 };
 
-// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+// 1.4.2. Data Quality Assessment.
 //
 // Comprehensive assessment of data quality across the organization,
 // covering accuracy, completeness, consistency, timeliness, and validity.
@@ -13332,7 +13197,7 @@ class DataQualityIssueEntryResolution : public som::SomNode {
   DataQualityIssueEntryResolutionContentForm content() const;
 };
 
-// Data residency and sovereignty requirements [PD00-TEC-SEC-PRI].
+// Data residency and sovereignty requirements.
 class DataResidencyRequirements : public som::SomNode {
  public:
   DataResidencyRequirements(som::SpecDocument& doc, std::string path);
@@ -13366,7 +13231,7 @@ class DataResidencyRequirementsVerification : public som::SomNode {
   DataResidencyRequirementsVerificationContentForm content() const;
 };
 
-// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+// 1.4.6. Retention Policies.
 //
 // Documentation of data retention policies, legal requirements,
 // archival strategies, and data lifecycle management.
@@ -13396,7 +13261,7 @@ class DataSourceEntityEntry : public som::SomNode {
   DataSourceEntityEntryContentForm content() const;
 };
 
-// A data source entry (form) [PD00-CUR-DAT-SRC-nn].
+// A data source entry (form).
 //
 // Documents a specific data source/store with comprehensive details about
 // technology, format, volume, quality, ownership, and access patterns.
@@ -13432,7 +13297,7 @@ class DataSourceIntegration : public som::SomNode {
   DataSourceIntegrationContentForm content() const;
 };
 
-// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+// 1.4.1. Data Source Inventory.
 //
 // Comprehensive inventory of all data sources, stores, and repositories
 // in the current environment.
@@ -13491,7 +13356,7 @@ class DataSourceVolume : public som::SomNode {
   DataSourceVolumeContentForm content() const;
 };
 
-// Data subject rights management [PD00-TEC-SEC-PRI].
+// Data subject rights management.
 //
 // Covers GDPR Articles 15–22: right of access, rectification, erasure,
 // restriction, portability, objection, and automated decision-making.
@@ -13596,7 +13461,7 @@ class DataVolumeSummaryProjection : public som::SomNode {
   DataVolumeSummaryProjectionContentForm content() const;
 };
 
-// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+// 1.4.5. Data Volumes and Growth.
 //
 // Analysis of current data volumes, historical growth trends,
 // and projections for future capacity needs.
@@ -13753,14 +13618,14 @@ class DecisionAuthorityEntry : public som::SomNode {
   DecisionAuthorityEntryContentForm content() const;
 };
 
-// A decision maker entry [PD00-SYO-RES-ORG-DEC-nn].
+// A decision maker entry.
 class DecisionMakerEntry : public som::SomNode {
  public:
   DecisionMakerEntry(som::SpecDocument& doc, std::string path);
   DecisionMakerEntryContentForm content() const;
 };
 
-// A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
+// A decision option entry (form).
 //
 // One of the available options for a decision point, with full
 // impact analysis, feasibility assessment, and trade-off evaluation.
@@ -13806,7 +13671,7 @@ class DecisionOptionEntryTradeOffs : public som::SomNode {
   DecisionOptionEntryTradeOffsContentForm content() const;
 };
 
-// A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
+// A decision point entry (form).
 //
 // A single formal decision point with defined timing, criteria,
 // authority, available options with impact analysis, and recording
@@ -13858,7 +13723,7 @@ class DecisionPointEntryStakeholders : public som::SomNode {
   DecisionPointEntryStakeholdersContentForm content() const;
 };
 
-// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+// 13.6.2. Decision Points.
 //
 // Key decision points in the stage plan including go/no-go
 // decisions, scope adjustments, resource reallocations, and
@@ -13875,14 +13740,14 @@ class DecisionPoints : public som::SomNode {
   som::SomList items() const;
 };
 
-// A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn].
+// A deep link pattern entry (form).
 class DeepLinkPatternEntry : public som::SomNode {
  public:
   DeepLinkPatternEntry(som::SpecDocument& doc, std::string path);
   DeepLinkPatternEntryContentForm content() const;
 };
 
-// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+// 10.3.1.7. Deep Linking.
 //
 // External entry points, URL patterns, share links.
 class DeepLinking : public som::SomNode {
@@ -13897,7 +13762,7 @@ class DeepLinking : public som::SomNode {
   som::SomList patterns() const;
 };
 
-// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+// 14.2.4. Defect Resolution.
 //
 // Defines how defects found during acceptance testing are classified,
 // managed, resolved, and tracked. Covers severity classification,
@@ -13967,7 +13832,7 @@ class DeliverableDocumentation : public som::SomNode {
   DeliverableDocumentationContentForm content() const;
 };
 
-// A deliverable entry (form) [PD00-DEL-DEL-nn].
+// A deliverable entry (form).
 //
 // Represents a single deliverable item within any deliverable category.
 // Captures identification, delivery logistics, quality requirements,
@@ -14037,7 +13902,7 @@ class DeliverableVersion : public som::SomNode {
   DeliverableVersionContentForm content() const;
 };
 
-// An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
+// An acceptance criterion entry (form).
 //
 // A single criterion that must be met for formal project acceptance.
 // Aligned with IEEE 830 acceptance criteria structure and ISTQB
@@ -14093,35 +13958,96 @@ class DeliveryAcceptanceCriterionEntryVerification : public som::SomNode {
   DeliveryAcceptanceCriterionEntryVerificationContentForm content() const;
 };
 
-// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+// PPP00 Project Phase Plan.
+//
+// Full project phase plan — staging strategy, stage overview, per-stage
+// entries, feature prioritization, data migration, gate criteria,
+// decision processes, initial development flow, and upgrade cycle
+// framework.
+class DeliveryRoadmap : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit DeliveryRoadmap(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Staging strategy.
+  StagingStrategy stagingStrategy() const;
+  // Stage overview.
+  StageOverview stageOverview() const;
+  // Stages (list).
+  // Returns the list view; element type: StageEntry (construct from item paths).
+  som::SomList stages() const;
+  // Feature prioritization.
+  FeaturePrioritization featurePrioritization() const;
+  // Data migration strategy.
+  DataMigrationStrategy dataMigrationStrategy() const;
+  // Gate criteria (promoted from GOV).
+  PhaseGateReviews gateCriteria() const;
+  // Decision processes (promoted from GOV).
+  DecisionPoints decisionProcesses() const;
+  // Initial development flow.
+  InitialDevelopmentFlow initialDevelopmentFlow() const;
+  // Upgrade cycle framework (links tom_system_upgrade.md).
+  UpgradeCycleFramework upgradeCycleFramework() const;
+};
+
+// 14.1. Delivery and Service Scope.
 class DeliveryScope : public som::SomNode {
  public:
   DeliveryScope(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+  // 14.1.1. Software Deliverables.
   SoftwareDeliverables softwareDeliverables() const;
-  // 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+  // 14.1.2. Documentation Deliverables.
   DocumentationDeliverables documentationDeliverables() const;
-  // 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+  // 14.1.3. Training Deliverables.
   TrainingDeliverables trainingDeliverables() const;
-  // 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+  // 14.1.4. Support Deliverables.
   SupportDeliverables supportDeliverables() const;
 };
 
-// 14. Delivery Scope and Acceptance [PD00-DEL].
+// 14. Delivery Scope and Acceptance.
 class DeliveryScopeAndAcceptance : public som::SomNode {
  public:
   DeliveryScopeAndAcceptance(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+  // 14.1. Delivery and Service Scope.
   DeliveryScope deliveryScope() const;
-  // 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+  // 14.2. Acceptance Plan. Seeds → BQP.
   AcceptancePlan acceptancePlan() const;
 };
 
-// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+// SBP.15 Delivery, Transition & Rollout.
+//
+// Public anchor: PMBOK phasing + ISO 29148 transition requirements.
+class DeliveryTransitionAndRollout : public som::SomNode {
+ public:
+  DeliveryTransitionAndRollout(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Staged delivery / phase plan.
+  SystemStagePlan systemStagePlan() const;
+  // Rollout and transition concept.
+  SystemRolloutConcept systemRolloutConcept() const;
+  // Localization & translation *execution* processes (re-homed from MLAR in
+  // IP-6: the execution side of i18n, as opposed to the requirements that
+  // live in SBP.9).
+  LocalizationTranslationProcess localizationTranslationProcess() const;
+  // Multi-language rollout sequencing by region and time (re-homed from MLAR).
+  MultiLanguageAndRolloutPlan multiLanguageRolloutPlan() const;
+};
+
+// 1.1.3. Dependencies and Integrations.
 //
 // Documents how current systems depend on each other, on external services,
 // and on shared infrastructure. Identifies fragile integration points that
@@ -14131,18 +14057,18 @@ class DependenciesAndIntegrations : public som::SomNode {
   DependenciesAndIntegrations(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
+  // Dependency matrix diagram.
   std::string dependencyDiagram() const;
   void setDependencyDiagram(const std::string& value);
-  // 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+  // 1.1.3.1. Internal Dependencies.
   InternalDependencies internalDependencies() const;
-  // 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+  // 1.1.3.2. External Service Dependencies.
   ExternalServiceDependencies externalServiceDependencies() const;
-  // 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+  // 1.1.3.3. Shared Infrastructure Dependencies.
   SharedInfrastructureDependencies sharedInfrastructureDependencies() const;
-  // 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+  // 1.1.3.4. System Integrations.
   Integrations integrations() const;
-  // 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+  // 1.1.3.5. Integration Health Summary.
   IntegrationHealthSummary healthSummary() const;
 };
 
@@ -14332,7 +14258,7 @@ class DependencyRisk : public som::SomNode {
   DependencyRiskContentForm content() const;
 };
 
-// Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
+// Dependency and supply-chain scanning requirements.
 class DependencyScanningRequirements : public som::SomNode {
  public:
   DependencyScanningRequirements(som::SpecDocument& doc, std::string path);
@@ -14389,7 +14315,7 @@ class DependencyTracking : public som::SomNode {
   DependencyTrackingContentForm content() const;
 };
 
-// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+// 4.1.2.7. Deployment Context.
 //
 // Where and how the system will be deployed in the infrastructure
 // landscape.
@@ -14522,7 +14448,7 @@ class DeploymentSecuritySupplyChain : public som::SomNode {
   DeploymentSecuritySupplyChainContentForm content() const;
 };
 
-// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+// 8.5.2. Deployment Strategy.
 //
 // Deployment model (containerized, VM-based, serverless), deployment pipeline,
 // rollback strategy, and canary/blue-green deployment requirements.
@@ -14662,7 +14588,7 @@ class DesignFoundationEntry : public som::SomNode {
   DesignFoundationEntryContentForm content() const;
 };
 
-// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
+// A design goal entry (form).
 //
 // Each goal represents a measurable UI objective with success criteria.
 class DesignGoalEntry : public som::SomNode {
@@ -14671,7 +14597,7 @@ class DesignGoalEntry : public som::SomNode {
   DesignGoalEntryContentForm content() const;
 };
 
-// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+// 10.1.1. Design Goals.
 //
 // Primary design objectives that the UI must achieve: simplicity, efficiency,
 // accessibility, consistency, delight. Goals are prioritized for the project.
@@ -14739,7 +14665,7 @@ class DesignPatternEntryStructure : public som::SomNode {
   DesignPatternEntryStructureContentForm content() const;
 };
 
-// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+// 8.1.3. Design Patterns and Standards.
 //
 // Required design patterns, coding standards, development conventions, and
 // applicable industry standards (ISO, OWASP, IEEE).
@@ -14772,7 +14698,7 @@ class DesignPatternsAndStandards : public som::SomNode {
   TestingStandards testingStandards() const;
 };
 
-// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+// 10.1.2. Design Principles.
 //
 // Guiding principles for all UI decisions: progressive disclosure, direct
 // manipulation, feedback, consistency, error prevention.
@@ -14795,7 +14721,7 @@ class DesignPrinciplesOverview : public som::SomNode {
   DesignPrinciplesOverviewContentForm content() const;
 };
 
-// 10.1. Design Vision [PD00-USE-VIS].
+// 10.1. Design Vision.
 //
 // Overall design vision for the user interface, encompassing goals,
 // principles, and user personas that guide all UI decisions.
@@ -14804,11 +14730,11 @@ class DesignVision : public som::SomNode {
   DesignVision(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+  // 10.1.1. Design Goals.
   DesignGoals designGoals() const;
-  // 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+  // 10.1.2. Design Principles.
   DesignPrinciples designPrinciples() const;
-  // 10.1.3. User Personas [PD00-USE-VIS-PER].
+  // 10.1.3. User Personas.
   UserPersonas personas() const;
 };
 
@@ -14855,10 +14781,10 @@ class DesktopOsRequirementEntryTesting : public som::SomNode {
   DesktopOsRequirementEntryTestingContentForm content() const;
 };
 
-// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+// 6.1.7. Detailed Process Workflows.
 //
-// Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
-// Covers HBSG AS07-DET Detailed Process Descriptions.
+// Per-process workflow detail beyond the catalog overview.
+// .
 class DetailedProcessWorkflows : public som::SomNode {
  public:
   DetailedProcessWorkflows(som::SpecDocument& doc, std::string path);
@@ -14970,7 +14896,7 @@ class DevelopmentConventionEntryVersionControl : public som::SomNode {
   DevelopmentConventionEntryVersionControlContentForm content() const;
 };
 
-// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+// 8.2.2. Development Environment.
 //
 // Required IDEs, build tools, version control, CI/CD pipeline, code review
 // process, and development workflow.
@@ -15107,7 +15033,7 @@ class DisasterRecoveryRequirementsReplication : public som::SomNode {
   DisasterRecoveryRequirementsReplicationContentForm content() const;
 };
 
-// Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn].
+// Display equipment entry (form).
 class DisplayEquipmentEntry : public som::SomNode {
  public:
   DisplayEquipmentEntry(som::SpecDocument& doc, std::string path);
@@ -15232,7 +15158,7 @@ class DistributionGroupSummary : public som::SomNode {
   DistributionGroupSummaryContentForm content() const;
 };
 
-// 3.3. Distribution List [PD00-ADM-DIS].
+// 3.3. Distribution List.
 //
 // Defines who receives which project documents and communications.
 // Includes the communication matrix specifying information flow patterns,
@@ -15244,11 +15170,11 @@ class DistributionList : public som::SomNode {
   void setContent(const std::string& value);
   // Communication matrix overview.
   CommunicationMatrix communicationMatrix() const;
-  // 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+  // 3.3.1. Full Distribution.
   FullDistribution fullDistribution() const;
-  // 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
+  // 3.3.2. Executive Summary.
   ExecutiveSummaryDistribution executiveSummary() const;
-  // 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
+  // 3.3.3. Custom Distribution Groups — contains 0+× Group.
   // Returns the list view; element type: CustomDistributionGroup (construct from item paths).
   som::SomList customGroups() const;
 };
@@ -15274,7 +15200,7 @@ class DistributionRecipientContact : public som::SomNode {
   DistributionRecipientContactContentForm content() const;
 };
 
-// A distribution recipient entry (form) [PD00-ADM-DIS-nn].
+// A distribution recipient entry (form).
 //
 // Detailed information about a distribution list recipient including
 // their role, contact information, preferences, and access levels.
@@ -15352,7 +15278,7 @@ class DnsRequirementsZones : public som::SomNode {
   DnsRequirementsZonesContentForm content() const;
 };
 
-// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
+// 11.5.4. Documentation changeability quality.
 class DocChangeabilityQuality : public som::SomNode {
  public:
   DocChangeabilityQuality(som::SpecDocument& doc, std::string path);
@@ -15388,7 +15314,7 @@ class DocChangeabilityQualityStructure : public som::SomNode {
   DocChangeabilityQualityStructureContentForm content() const;
 };
 
-// 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].
+// 11.5.2. Documentation completeness quality.
 class DocCompletenessQuality : public som::SomNode {
  public:
   DocCompletenessQuality(som::SpecDocument& doc, std::string path);
@@ -15397,7 +15323,7 @@ class DocCompletenessQuality : public som::SomNode {
   // (skipped: narrative has no target type)
 };
 
-// 11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR].
+// 11.5.3. Documentation correctness quality.
 class DocCorrectnessQuality : public som::SomNode {
  public:
   DocCorrectnessQuality(som::SpecDocument& doc, std::string path);
@@ -15422,6 +15348,25 @@ class DocCorrectnessQualityVerification : public som::SomNode {
  public:
   DocCorrectnessQualityVerification(som::SpecDocument& doc, std::string path);
   DocCorrectnessQualityVerificationContentForm content() const;
+};
+
+// SBP.1 Document Control.
+//
+// Holds the [DocumentHeader] (id, project, version, date, author, status)
+// together with the document's [RevisionHistory] and the [ApprovalRecord]s
+// that gate its release.
+class DocumentControl : public som::SomNode {
+ public:
+  DocumentControl(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Document header form (id, project, version, date, author, status).
+  DocumentHeader header() const;
+  // Chronological revision history of this document.
+  RevisionHistory revisionHistory() const;
+  // Formal approvals (sign-offs) recorded for this document.
+  // Returns the list view; element type: ApprovalRecord (construct from item paths).
+  som::SomList approvals() const;
 };
 
 // Standard document header present at the top of every TomSpecs document.
@@ -15457,7 +15402,7 @@ class DocumentRelevantSections : public som::SomNode {
   som::SomList sections() const;
 };
 
-// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+// 10.12.3. Documentation and Training.
 //
 // End-user documentation and training materials.
 class DocumentationAndTraining : public som::SomNode {
@@ -15490,7 +15435,7 @@ class DocumentationAndTrainingLocalization : public som::SomNode {
   DocumentationAndTrainingLocalizationContentForm content() const;
 };
 
-// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+// 14.1.2. Documentation Deliverables.
 class DocumentationDeliverables : public som::SomNode {
  public:
   DocumentationDeliverables(som::SpecDocument& doc, std::string path);
@@ -15501,7 +15446,7 @@ class DocumentationDeliverables : public som::SomNode {
   som::SomList items() const;
 };
 
-// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+// 11.5. Documentation Quality Criteria.
 //
 // Quality criteria for project documentation including readability,
 // completeness, correctness, and changeability.
@@ -15511,13 +15456,13 @@ class DocumentationQualityCriteria : public som::SomNode {
   DocumentationQualityCriteriaDocumentationOverviewContentForm documentationOverviewContent() const;
   // Documentation quality overview narrative.
   // (skipped: overview has no target type)
-  // 11.5.1. Readability [PD00-SYQ-DOC-REA].
+  // 11.5.1. Readability.
   ReadabilityQuality readability() const;
-  // 11.5.2. Completeness [PD00-SYQ-DOC-COM].
+  // 11.5.2. Completeness.
   DocCompletenessQuality completeness() const;
-  // 11.5.3. Correctness [PD00-SYQ-DOC-COR].
+  // 11.5.3. Correctness.
   DocCorrectnessQuality correctness() const;
-  // 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
+  // 11.5.4. Changeability.
   DocChangeabilityQuality changeability() const;
 };
 
@@ -15616,7 +15561,7 @@ class DocumentationStandardsVersioning : public som::SomNode {
   DocumentationStandardsVersioningContentForm content() const;
 };
 
-// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+// 4.1.3.4. Domain Boundaries.
 //
 // Clear definition of what is within and outside the domain scope,
 // based on bounded context principles.
@@ -15664,7 +15609,7 @@ class DomainBusinessRuleEntryGovernance : public som::SomNode {
   DomainBusinessRuleEntryGovernanceContentForm content() const;
 };
 
-// 4.1.3.5. Domain Business Rules [PD00-SYO-SYD-DES-RUL].
+// 4.1.3.5. Domain Business Rules.
 //
 // Business rules, policies, and constraints that govern behavior
 // within this domain.
@@ -15685,7 +15630,7 @@ class DomainEventEntry : public som::SomNode {
   DomainEventEntryContentForm content() const;
 };
 
-// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+// 4.1.3.7. Domain Events.
 //
 // Significant business events that occur within this domain and
 // trigger actions or state changes.
@@ -15706,7 +15651,7 @@ class DomainInterfaceEntry : public som::SomNode {
   DomainInterfaceEntryContentForm content() const;
 };
 
-// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+// 4.1.3.1. Domain Overview.
 //
 // High-level description of the business domain including its purpose,
 // scope, and relationship to the overall business.
@@ -15746,7 +15691,7 @@ class DomainProcessEntryOperations : public som::SomNode {
   DomainProcessEntryOperationsContentForm content() const;
 };
 
-// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+// 4.1.3.6. Domain Processes.
 //
 // High-level business processes within this domain, showing the main
 // workflows and activities.
@@ -15770,7 +15715,7 @@ class DomainTermEntry : public som::SomNode {
   DomainTermEntryContentForm content() const;
 };
 
-// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+// 4.1.3.2. Domain Vocabulary.
 //
 // Glossary of domain-specific terms and definitions establishing the
 // ubiquitous language for the project.
@@ -15784,7 +15729,7 @@ class DomainVocabulary : public som::SomNode {
   som::SomList terms() const;
 };
 
-// 11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF].
+// 11.3.1. Efficiency quality.
 class EfficiencyQuality : public som::SomNode {
  public:
   EfficiencyQuality(som::SpecDocument& doc, std::string path);
@@ -15820,7 +15765,7 @@ class EfficiencyQualityVerification : public som::SomNode {
   EfficiencyQualityVerificationContentForm content() const;
 };
 
-// A validation rule entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-VAL-pp].
+// A validation rule entry (form).
 class ElementValidationRuleEntry : public som::SomNode {
  public:
   ElementValidationRuleEntry(som::SpecDocument& doc, std::string path);
@@ -15861,7 +15806,7 @@ class EmergencyMaintenanceProceduresGovernance : public som::SomNode {
   EmergencyMaintenanceProceduresGovernanceContentForm content() const;
 };
 
-// An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn].
+// An encrypted data category entry (form).
 //
 // Defines a specific category of data that requires encryption at rest,
 // including the data classification, encryption approach, algorithm override,
@@ -15873,7 +15818,7 @@ class EncryptedDataCategoryEntry : public som::SomNode {
   EncryptedDataCategoryEntryContentForm content() const;
 };
 
-// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+// 9.5.1. Encryption At Rest.
 //
 // Defines encryption requirements for stored data: algorithms, key lengths,
 // encryption layers (application, database, filesystem, hardware), field-level
@@ -15914,7 +15859,7 @@ class EncryptionAtRestPolicy : public som::SomNode {
   // (skipped: encryptionAtRestPolicyDetails has no target type)
 };
 
-// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+// 9.5.2. Encryption In Transit.
 //
 // Defines encryption requirements for data in transit: TLS protocol versions,
 // cipher suites, certificate management, HSTS policy, mutual TLS, certificate
@@ -15940,10 +15885,10 @@ class EncryptionInTransit : public som::SomNode {
   // (skipped: encryptionInTransitNotes has no target type)
 };
 
-// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E].
+// 6.2.4. End-to-End Test Scenarios.
 //
 // Test scenarios that exercise complete user journeys across processes
-// and use cases. Covers HBSG AS24.
+// and use cases..
 class EndToEndTestScenarios : public som::SomNode {
  public:
   EndToEndTestScenarios(som::SpecDocument& doc, std::string path);
@@ -15994,7 +15939,7 @@ class EnterpriseSystemCompatibilityEntryTesting : public som::SomNode {
   EnterpriseSystemCompatibilityEntryTestingContentForm content() const;
 };
 
-// An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
+// An entitlement entry (form).
 class EntitlementEntry : public som::SomNode {
  public:
   EntitlementEntry(som::SpecDocument& doc, std::string path);
@@ -16004,14 +15949,14 @@ class EntitlementEntry : public som::SomNode {
   som::SomList resourceKeyReferences() const;
 };
 
-// An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn].
+// An entitlement reference entry (form).
 class EntitlementReferenceEntry : public som::SomNode {
  public:
   EntitlementReferenceEntry(som::SpecDocument& doc, std::string path);
   EntitlementReferenceEntryContentForm content() const;
 };
 
-// An entity constraint entry (form) [PD00-BUS-DAT-ENT-nn-CON-nn].
+// An entity constraint entry (form).
 //
 // Business and technical constraints beyond keys.
 class EntityConstraintEntry : public som::SomNode {
@@ -16020,7 +15965,7 @@ class EntityConstraintEntry : public som::SomNode {
   EntityConstraintEntryContentForm content() const;
 };
 
-// An entity index entry (form) [PD00-BUS-DAT-ENT-nn-IDX-nn].
+// An entity index entry (form).
 //
 // Database index specification for query optimization.
 class EntityIndexEntry : public som::SomNode {
@@ -16029,7 +15974,7 @@ class EntityIndexEntry : public som::SomNode {
   EntityIndexEntryContentForm content() const;
 };
 
-// An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
+// An entity relationship entry (form).
 //
 // Comprehensive relationship specification following ER modeling best practices.
 class EntityRelationshipEntry : public som::SomNode {
@@ -16049,7 +15994,7 @@ class EntityRelationshipEntry : public som::SomNode {
   void setTargetEntityRef(const std::string& value);
 };
 
-// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+// 7.1.2. Entity Relationships.
 class EntityRelationships : public som::SomNode {
  public:
   EntityRelationships(som::SpecDocument& doc, std::string path);
@@ -16060,7 +16005,7 @@ class EntityRelationships : public som::SomNode {
   som::SomList items() const;
 };
 
-// An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-mm].
+// An entry point entry (form).
 class EntryPointEntry : public som::SomNode {
  public:
   EntryPointEntry(som::SpecDocument& doc, std::string path);
@@ -16109,7 +16054,7 @@ class EnvironmentDataManagement : public som::SomNode {
   EnvironmentDataManagementContentForm content() const;
 };
 
-// An environment entry (form) [PD00-POP-TOO-ENV-nn].
+// An environment entry (form).
 //
 // Comprehensive specification of a single project environment covering
 // identity, infrastructure, access, data management, configuration,
@@ -16283,7 +16228,7 @@ class EnvironmentStrategyTesting : public som::SomNode {
   EnvironmentStrategyTestingContentForm content() const;
 };
 
-// 2.4.2. Environments [PD00-POP-TOO-ENV].
+// 2.4.2. Environments.
 //
 // Operational overview of project environments and the inventory of
 // individual environment instances. Strategy-level decisions (tier
@@ -16305,7 +16250,7 @@ class EquipmentOverview : public som::SomNode {
   EquipmentOverviewContentForm content() const;
 };
 
-// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+// 5.3.1. Equipment Requirements.
 //
 // Hardware and peripheral requirements per workplace type.
 class EquipmentRequirements : public som::SomNode {
@@ -16358,7 +16303,7 @@ class ErrorBudgetTrackingMonitoring : public som::SomNode {
   ErrorBudgetTrackingMonitoringContentForm content() const;
 };
 
-// 10.7. Error Handling Concept [PD00-USE-ERR].
+// 10.7. Error Handling Concept.
 //
 // Comprehensive error handling user experience framework covering validation
 // feedback, system error presentation, and error recovery flows. Follows
@@ -16375,11 +16320,11 @@ class ErrorHandlingConcept : public som::SomNode {
   ErrorHandlingConceptOperations operations() const;
   // Error handling overview and strategy.
   // (skipped: errorHandlingOverview has no target type)
-  // 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+  // 10.7.1. Validation Feedback.
   ValidationFeedback validationFeedback() const;
-  // 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+  // 10.7.2. System Error Display.
   SystemErrorDisplay systemErrorDisplay() const;
-  // 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+  // 10.7.3. Error Recovery.
   ErrorRecovery errorRecovery() const;
   // Error message catalog.
   // (skipped: errorMessageCatalog has no target type)
@@ -16476,7 +16421,7 @@ class ErrorProcedureEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+// 10.7.3. Error Recovery.
 //
 // Error recovery flows including data preservation, retry mechanisms,
 // and guided recovery steps.
@@ -16547,7 +16492,7 @@ class EscalationProcedureEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+// 12.1.2. Evaluation Criteria.
 //
 // Container for component evaluation criteria used when assessing
 // candidate components for adoption.
@@ -16561,7 +16506,7 @@ class EvaluationCriteria : public som::SomNode {
   som::SomList items() const;
 };
 
-// An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
+// An evaluation criterion entry (form).
 //
 // Defines one criterion for evaluating candidate components: scoring scale,
 // threshold, evidence requirements, and evaluation method.
@@ -16610,7 +16555,7 @@ class EventAttributePolicy : public som::SomNode {
   // (skipped: notes has no target type)
 };
 
-// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+// 3.3.2. Executive Summary Distribution.
 //
 // Recipients who receive only executive summaries and milestone reports.
 class ExecutiveSummaryDistribution : public som::SomNode {
@@ -16632,7 +16577,7 @@ class ExistingSystemBusinessContext : public som::SomNode {
   ExistingSystemBusinessContextContentForm content() const;
 };
 
-// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+// An existing system entry (form).
 //
 // Captures comprehensive information about an existing system including
 // identity, technology, business context, usage metrics, lifecycle, and risks.
@@ -16640,22 +16585,22 @@ class ExistingSystemEntry : public som::SomNode {
  public:
   ExistingSystemEntry(som::SpecDocument& doc, std::string path);
   ExistingSystemEntryContentForm content() const;
-  // Technology stack details [PD00-CUR-SYS-INV-nn-TEC].
+  // Technology stack details.
   ExistingSystemTechnology technology() const;
-  // Business context [PD00-CUR-SYS-INV-nn-BUS].
+  // Business context.
   ExistingSystemBusinessContext businessContext() const;
-  // Usage metrics [PD00-CUR-SYS-INV-nn-USE].
+  // Usage metrics.
   ExistingSystemUsage usage() const;
-  // Lifecycle information [PD00-CUR-SYS-INV-nn-LIF].
+  // Lifecycle information.
   ExistingSystemLifecycle lifecycle() const;
-  // Integration profile [PD00-CUR-SYS-INV-nn-INT].
+  // Integration profile.
   ExistingSystemIntegration integrationProfile() const;
-  // Infrastructure details [PD00-CUR-SYS-INV-nn-INF].
+  // Infrastructure details.
   ExistingSystemInfrastructure infrastructure() const;
-  // Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
+  // Contains 0+× Limitation.
   // Returns the list view; element type: LimitationEntry (construct from item paths).
   som::SomList knownLimitations() const;
-  // Quality and risk assessment [PD00-CUR-SYS-INV-nn-QUA].
+  // Quality and risk assessment.
   ExistingSystemQuality quality() const;
 };
 
@@ -16701,7 +16646,7 @@ class ExistingSystemUsage : public som::SomNode {
   ExistingSystemUsageContentForm content() const;
 };
 
-// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+// 1.1. Existing Systems Landscape.
 //
 // Overview of the current systems in use, their roles, technology stacks,
 // and limitations. Provides the foundation for understanding the AS-IS state.
@@ -16710,11 +16655,11 @@ class ExistingSystemsLandscape : public som::SomNode {
   ExistingSystemsLandscape(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+  // 1.1.1. System Inventory.
   SystemInventory systemInventory() const;
-  // 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+  // 1.1.2. Current Architecture.
   CurrentArchitecture currentArchitecture() const;
-  // 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+  // 1.1.3. Dependencies and Integrations.
   DependenciesAndIntegrations dependenciesAndIntegrations() const;
 };
 
@@ -16723,6 +16668,90 @@ class ExpectedImprovements : public som::SomNode {
  public:
   ExpectedImprovements(som::SpecDocument& doc, std::string path);
   ExpectedImprovementsContentForm content() const;
+};
+
+// 10. User Interface Design and Prototype. Seeds → UP.
+class ExperienceAndInterfaceDesign : public som::SomNode {
+ public:
+  ExperienceAndInterfaceDesign(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 10.1. Design Vision. Seeds → UP.
+  DesignVision designVision() const;
+  // 10.2. Screen Descriptions. Seeds → UP.
+  ScreenDescriptions screens() const;
+  // 10.3. Screen Flow Structure. Seeds → UP.
+  ScreenFlowStructure screenFlow() const;
+  // 10.4. Print Layout. Seeds → UP.
+  PrintLayout printLayout() const;
+  // Data Structure Alignment.
+  // (skipped: dataStructureAlignment has no target type)
+  // Authorization Compliance.
+  // (skipped: authorizationCompliance has no target type)
+  // 10.7. Error Handling Concept. Seeds → UP.
+  ErrorHandlingConcept errorHandling() const;
+  // 10.8. Help Concept. Seeds → UP.
+  HelpConcept helpConcept() const;
+  // 10.9. Accessibility. Seeds → UP.
+  Accessibility accessibility() const;
+  // 10.10. Responsive Design. Seeds → UP.
+  ResponsiveDesign responsiveDesign() const;
+  // 10.11. UI Components. Seeds → UP.
+  UiComponents uiComponents() const;
+  // 10.12. Multi-language and Rollout Support.
+  MultiLanguageAndRollout multiLanguage() const;
+  // 10.13. Prototype. Seeds → UP.
+  Prototype prototype() const;
+  // 10.14. Wireframes and Mockups..
+  // Returns the list view; element type: WireframesAndMockups (construct from item paths).
+  som::SomList wireframesAndMockups() const;
+};
+
+// UP00 UI Prototype.
+//
+// Full UI design and prototype specification — vision, screens,
+// screen flow, print, error handling, help, accessibility, responsive,
+// components, language/country selection, prototype, wireframes and
+// mockups.
+class ExperienceDesignSpecification : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit ExperienceDesignSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Design vision.
+  DesignVision designVision() const;
+  // Screen descriptions.
+  ScreenDescriptions screens() const;
+  // Screen flow structure.
+  ScreenFlowStructure screenFlow() const;
+  // Print layout.
+  PrintLayout printLayout() const;
+  // Error handling concept.
+  ErrorHandlingConcept errorHandling() const;
+  // Help concept.
+  HelpConcept helpConcept() const;
+  // Accessibility.
+  Accessibility accessibility() const;
+  // Responsive design.
+  ResponsiveDesign responsiveDesign() const;
+  // UI components.
+  UiComponents uiComponents() const;
+  // Language and country selection.
+  LanguageCountrySelection languageCountrySelection() const;
+  // Prototype.
+  Prototype prototype() const;
+  // Wireframes and mockups (new in Phase A).
+  // Returns the list view; element type: WireframesAndMockups (construct from item paths).
+  som::SomList wireframesAndMockups() const;
 };
 
 // Export access and audit.
@@ -16746,7 +16775,7 @@ class ExportDelimiter : public som::SomNode {
   ExportDelimiterContentForm content() const;
 };
 
-// A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).
+// A field mapping within an export (form).
 class ExportFieldMappingEntry : public som::SomNode {
  public:
   ExportFieldMappingEntry(som::SpecDocument& doc, std::string path);
@@ -16796,7 +16825,7 @@ class ExportFileFormat : public som::SomNode {
   ExportFileFormatContentForm content() const;
 };
 
-// An export format entry (form) [PD00-USE-PRI-EXP-nn].
+// An export format entry (form).
 class ExportFormatEntry : public som::SomNode {
  public:
   ExportFormatEntry(som::SpecDocument& doc, std::string path);
@@ -16851,7 +16880,7 @@ class ExportSizeSettings : public som::SomNode {
   ExportSizeSettingsContentForm content() const;
 };
 
-// A reusable export template [PD00-USE-PRI-TPL-nn] (form).
+// A reusable export template (form).
 class ExportTemplateEntry : public som::SomNode {
  public:
   ExportTemplateEntry(som::SpecDocument& doc, std::string path);
@@ -16894,7 +16923,7 @@ class ExportTemplateEntryLayout : public som::SomNode {
   ExportTemplateEntryLayoutContentForm content() const;
 };
 
-// An extension entry [PD00-TAR-STP-INT-nn-EXT-nn].
+// An extension entry.
 class ExtensionEntry : public som::SomNode {
  public:
   ExtensionEntry(som::SpecDocument& doc, std::string path);
@@ -16904,7 +16933,7 @@ class ExtensionEntry : public som::SomNode {
   som::SomList steps() const;
 };
 
-// An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn].
+// An extension step entry.
 class ExtensionStepEntry : public som::SomNode {
  public:
   ExtensionStepEntry(som::SpecDocument& doc, std::string path);
@@ -16939,7 +16968,7 @@ class ExternalActorEntryInteraction : public som::SomNode {
   ExternalActorEntryInteractionContentForm content() const;
 };
 
-// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+// 4.1.2.3. External Actors.
 //
 // Human users and organizational entities that interact with the system
 // from outside the system boundary.
@@ -16953,7 +16982,7 @@ class ExternalActors : public som::SomNode {
   som::SomList actors() const;
 };
 
-// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+// 8.6.2. External Connectivity.
 class ExternalConnectivitySection : public som::SomNode {
  public:
   ExternalConnectivitySection(som::SpecDocument& doc, std::string path);
@@ -16976,7 +17005,7 @@ class ExternalConnectivitySection : public som::SomNode {
   ConnectivityResilience resilience() const;
 };
 
-// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+// An external interface entry (form).
 //
 // Comprehensive documentation of an external system interface covering
 // identification, technical details, data exchange specification, security,
@@ -17005,7 +17034,7 @@ class ExternalInterfaceEntry : public som::SomNode {
   InterfaceTesting testing() const;
 };
 
-// Container for external interface definitions [PD00-SYO-SYB-INT].
+// Container for external interface definitions.
 //
 // Provides structured inventory of all external system integrations with
 // categorization, prioritization, and governance information. Each interface
@@ -17076,7 +17105,7 @@ class ExternalPartnerAuthentication : public som::SomNode {
   ExternalPartnerAuthenticationContentForm content() const;
 };
 
-// An external partner connection entry (form) [PD00-TEC-COM-EXT-nn].
+// An external partner connection entry (form).
 class ExternalPartnerConnectionEntry : public som::SomNode {
  public:
   ExternalPartnerConnectionEntry(som::SpecDocument& doc, std::string path);
@@ -17131,7 +17160,7 @@ class ExternalPartnerReliability : public som::SomNode {
   ExternalPartnerReliabilityContentForm content() const;
 };
 
-// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+// 1.1.3.2. External Service Dependencies.
 //
 // Dependencies on external services, third-party APIs, SaaS platforms,
 // and cloud services not under direct organizational control.
@@ -17145,7 +17174,7 @@ class ExternalServiceDependencies : public som::SomNode {
   som::SomList items() const;
 };
 
-// An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn].
+// An external service dependency entry (form).
 //
 // Documents a dependency on an external service or third-party provider
 // including vendor details, SLA, risk assessment, and fallback options.
@@ -17220,7 +17249,7 @@ class ExternalSystemContextEntryOperations : public som::SomNode {
   ExternalSystemContextEntryOperationsContentForm content() const;
 };
 
-// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+// 4.1.2.4. External Systems.
 //
 // External systems, services, and APIs that the system integrates with.
 class ExternalSystemsContext : public som::SomNode {
@@ -17247,7 +17276,7 @@ class FeatureBusinessValue : public som::SomNode {
   FeatureBusinessValueContentForm content() const;
 };
 
-// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+// 13.4.4. Feature Dependencies.
 //
 // Cross-feature dependencies affecting staging order, critical path
 // analysis, and delivery sequencing.
@@ -17269,7 +17298,7 @@ class FeatureDependenciesInfo : public som::SomNode {
   FeatureDependenciesInfoContentForm content() const;
 };
 
-// A feature dependency entry (form) [PD00-SSP-FEA-DEP-nn].
+// A feature dependency entry (form).
 //
 // Describes a single directional dependency between two features,
 // including type, impact, and resolution strategy.
@@ -17345,7 +17374,7 @@ class FeatureModuleEntryStructure : public som::SomNode {
   FeatureModuleEntryStructureContentForm content() const;
 };
 
-// 13.4. Feature Prioritization [PD00-SSP-FEA].
+// 13.4. Feature Prioritization.
 //
 // Comprehensive feature prioritization framework for staged delivery.
 // Covers prioritization methodology, MoSCoW analysis, feature-stage
@@ -17370,13 +17399,13 @@ class FeaturePrioritization : public som::SomNode {
   FeaturePrioritizationTraceability traceability() const;
   // Prioritization rationale narrative.
   // (skipped: prioritizationRationale has no target type)
-  // 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+  // 13.4.1. MoSCoW Analysis.
   MoscowAnalysis moscowAnalysis() const;
-  // 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+  // 13.4.2. Feature-Stage Matrix.
   FeatureStageMatrix featureStageMatrix() const;
-  // 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+  // 13.4.3. Feature Priority Register.
   FeaturePriorityRegister featurePriorityRegister() const;
-  // 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+  // 13.4.4. Feature Dependencies.
   FeatureDependencies featureDependencies() const;
 };
 
@@ -17422,7 +17451,7 @@ class FeaturePrioritizationTraceability : public som::SomNode {
   FeaturePrioritizationTraceabilityContentForm content() const;
 };
 
-// An individual feature priority entry (form) [PD00-SSP-FEA-REG-nn].
+// An individual feature priority entry (form).
 //
 // Comprehensive record covering identity, classification, business
 // value, effort, priority scoring, stage assignment, dependencies,
@@ -17452,7 +17481,7 @@ class FeaturePriorityEntry : public som::SomNode {
   FeatureStatus status() const;
 };
 
-// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+// 13.4.3. Feature Priority Register.
 //
 // Master register of all features with comprehensive priority scoring,
 // business value analysis, effort estimates, stakeholder ownership,
@@ -17480,7 +17509,7 @@ class FeatureStageAssignment : public som::SomNode {
   FeatureStageAssignmentContentForm content() const;
 };
 
-// A feature-to-stage mapping entry (form) [PD00-SSP-FEA-MAT-nn].
+// A feature-to-stage mapping entry (form).
 //
 // Maps a single feature or feature group to its delivery stage with
 // readiness, confidence, and dependency information.
@@ -17526,7 +17555,7 @@ class FeatureStageMappingReadiness : public som::SomNode {
   FeatureStageMappingReadinessContentForm content() const;
 };
 
-// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+// 13.4.2. Feature-Stage Matrix.
 //
 // Maps every feature or feature group to the delivery stage, tracking
 // readiness, confidence, dependencies, and acceptance criteria.
@@ -17555,7 +17584,7 @@ class FeatureStatus : public som::SomNode {
   FeatureStatusContentForm content() const;
 };
 
-// A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
+// A feature tour entry.
 class FeatureTourEntry : public som::SomNode {
  public:
   FeatureTourEntry(som::SpecDocument& doc, std::string path);
@@ -17572,7 +17601,7 @@ class FeatureTraceability : public som::SomNode {
   FeatureTraceabilityContentForm content() const;
 };
 
-// A field help entry [PD00-USE-HLP-CON-FLD-nn].
+// A field help entry.
 class FieldHelpEntry : public som::SomNode {
  public:
   FieldHelpEntry(som::SpecDocument& doc, std::string path);
@@ -17608,7 +17637,7 @@ class FileAccessControlPolicy : public som::SomNode {
   // (skipped: fileAccessControlDetails has no target type)
 };
 
-// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+// 9.3.3. File and Storage Security.
 //
 // Comprehensive file and storage security specification covering upload
 // validation, storage encryption, access control on file resources, content
@@ -17721,7 +17750,7 @@ class FirewallRequirementsRules : public som::SomNode {
   FirewallRequirementsRulesContentForm content() const;
 };
 
-// 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
+// 11.3.3. Flexibility quality.
 class FlexibilityQuality : public som::SomNode {
  public:
   FlexibilityQuality(som::SpecDocument& doc, std::string path);
@@ -17772,7 +17801,7 @@ class FrameworkCompatibility : public som::SomNode {
   FrameworkCompatibilityContentForm content() const;
 };
 
-// 4.6. Framework Conditions [PD00-SYO-RES].
+// 4.6. Framework Conditions.
 //
 // Documents the organizational and technical environment in which the system
 // will operate. Covers organizational structure, functional responsibilities,
@@ -17783,17 +17812,17 @@ class FrameworkConditions : public som::SomNode {
   FrameworkConditions(som::SpecDocument& doc, std::string path);
   // Framework conditions overview.
   // (skipped: overview has no target type)
-  // 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+  // 4.6.1. Organizational Environment.
   OrganizationalEnvironment organizationalEnvironment() const;
-  // 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
+  // 4.6.2. Functional Responsibilities — contains 0+×.
   FunctionalResponsibilities functionalResponsibilities() const;
-  // 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+  // 4.6.3. Technical Framework Conditions. Seeds → TR.
   TechnicalFrameworkConditions technicalFrameworkConditions() const;
-  // 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
+  // 4.6.4. Constraints and Dependencies — contains 0+×.
   ConstraintsAndDependencies constraintsAndDependencies() const;
 };
 
-// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+// 4.6.4.2. Dependencies.
 //
 // External dependencies on other projects, teams, vendors, systems, or
 // organizational initiatives. Each dependency represents a point where
@@ -17828,7 +17857,7 @@ class FrameworkDependenciesManagement : public som::SomNode {
   FrameworkDependenciesManagementContentForm content() const;
 };
 
-// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+// A framework dependency entry (form).
 //
 // Represents a single external dependency where this project relies on
 // another party (project, team, vendor, system) to deliver something.
@@ -17913,7 +17942,7 @@ class FrameworkVersion : public som::SomNode {
   FrameworkVersionContentForm content() const;
 };
 
-// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+// 3.3.1. Full Distribution.
 //
 // Recipients who receive all project documents and communications.
 class FullDistribution : public som::SomNode {
@@ -17928,7 +17957,7 @@ class FullDistribution : public som::SomNode {
   som::SomList items() const;
 };
 
-// A function-to-data matrix entry (form) [PD00-BUS-FUN-MAT-nn].
+// A function-to-data matrix entry (form).
 //
 // Maps a function to the data entities it accesses.
 class FunctionDataMatrixEntry : public som::SomNode {
@@ -17937,7 +17966,7 @@ class FunctionDataMatrixEntry : public som::SomNode {
   FunctionDataMatrixEntryContentForm content() const;
 };
 
-// A function entry (form) [PD00-BUS-FUN-DEC-nn].
+// A function entry (form).
 //
 // Business function specification in the functional decomposition.
 class FunctionEntry : public som::SomNode {
@@ -17950,7 +17979,7 @@ class FunctionEntry : public som::SomNode {
   FunctionEntryOperations operations() const;
   // Automation and data handling summary.
   FunctionEntryImplementation implementation() const;
-  // Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
+  // Sub-functions — contains 0+× SubFunction.
   // Returns the list view; element type: SubFunctionEntry (construct from item paths).
   som::SomList subFunctions() const;
 };
@@ -17976,7 +18005,7 @@ class FunctionEntryOperations : public som::SomNode {
   FunctionEntryOperationsContentForm content() const;
 };
 
-// 7.3. Function Model [PD00-BUS-FUN].
+// 7.3. Function Model.
 //
 // Business functions, their decomposition, and relationships to data objects.
 class FunctionModel : public som::SomNode {
@@ -17984,18 +18013,18 @@ class FunctionModel : public som::SomNode {
   FunctionModel(som::SpecDocument& doc, std::string path);
   FunctionModelDecompositionOverviewForm decompositionOverview() const;
   FunctionModelMatrixOverviewForm matrixOverview() const;
-  // 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC] — contains 0+× Function.
+  // 7.3.1. Function Decomposition — contains 0+× Function.
   // Returns the list view; element type: FunctionEntry (construct from item paths).
   som::SomList functions() const;
-  // 7.3.2. Function-to-Data Matrix Entries [PD00-BUS-FUN-MAT] — contains 0+× MatrixEntry.
+  // 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
   // Returns the list view; element type: FunctionDataMatrixEntry (construct from item paths).
   som::SomList matrixEntries() const;
-  // 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
+  // 7.3.3. Business Rules — contains 1+× Business Rule.
   // Returns the list view; element type: BusinessRuleEntry (construct from item paths).
   som::SomList businessRules() const;
 };
 
-// 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
+// 11.2.2. Functional completeness quality.
 class FunctionalCompletenessQuality : public som::SomNode {
  public:
   FunctionalCompletenessQuality(som::SpecDocument& doc, std::string path);
@@ -18004,7 +18033,7 @@ class FunctionalCompletenessQuality : public som::SomNode {
   // (skipped: narrative has no target type)
 };
 
-// A functional requirement entry [PD00-SYO-REQ-FUN-nn].
+// A functional requirement entry.
 //
 // Comprehensive functional requirement definition following IEEE 830,
 // ISO 29148, and Volere requirements shell. Includes traceability,
@@ -18025,19 +18054,19 @@ class FunctionalRequirementEntry : public som::SomNode {
   FunctionalRequirementEntryConstraints constraints() const;
   // Version metadata.
   FunctionalRequirementEntryMetadata metadata() const;
-  // 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+  // 4.3.1.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria acceptanceCriteria() const;
-  // 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+  // 4.3.1.n.2. Business Rules.
   RequirementBusinessRules businessRules() const;
-  // 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+  // 4.3.1.n.3. Data Requirements.
   RequirementDataRequirements dataRequirements() const;
-  // 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+  // 4.3.1.n.4. UI Specification.
   RequirementUiSpecification uiSpecification() const;
-  // 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+  // 4.3.1.n.5. Dependencies.
   RequirementDependencies dependencies() const;
-  // 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+  // 4.3.1.n.6. Traceability.
   RequirementTraceability traceability() const;
-  // 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+  // 4.3.1.n.7. Test Cases.
   RequirementTestCases testCases() const;
 };
 
@@ -18083,7 +18112,7 @@ class FunctionalRequirementEntryVerification : public som::SomNode {
   FunctionalRequirementEntryVerificationContentForm content() const;
 };
 
-// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+// 4.3.1. Functional Requirements.
 //
 // Container for functional requirements. Functional requirements describe
 // what the system must do — its features, behaviors, processing rules,
@@ -18101,7 +18130,7 @@ class FunctionalRequirements : public som::SomNode {
   som::SomList requirements() const;
 };
 
-// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+// 4.6.2. Functional Responsibilities.
 //
 // Maps system functions to organizational units responsible for them.
 // Identifies domain owners, data stewards, and operational contacts for
@@ -18118,7 +18147,7 @@ class FunctionalResponsibilities : public som::SomNode {
   som::SomList items() const;
 };
 
-// A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
+// A gap entry (form) — a missing capability or feature.
 //
 // Documents a specific gap between current capabilities and business needs:
 // category, severity, quantified cost, stakeholders, compliance drivers,
@@ -18165,7 +18194,7 @@ class GapEntryWorkaround : public som::SomNode {
   GapEntryWorkaroundContentForm content() const;
 };
 
-// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+// 1.3.4. Gaps.
 class Gaps : public som::SomNode {
  public:
   Gaps(som::SpecDocument& doc, std::string path);
@@ -18227,7 +18256,7 @@ class GlobalEntryPointEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn].
+// A global role exclusion entry (form).
 //
 // Defines system-wide mutual exclusion rules that apply across all users,
 // independent of individual role definitions.
@@ -18237,7 +18266,35 @@ class GlobalRoleExclusionEntry : public som::SomNode {
   GlobalRoleExclusionEntryContentForm content() const;
 };
 
-// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+// An ordered collection of glossary entries.
+class Glossary : public som::SomNode {
+ public:
+  Glossary(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // One entry per defined term or acronym.
+  // Returns the list view; element type: GlossaryEntry (construct from item paths).
+  som::SomList entries() const;
+};
+
+// SBP.3 Glossary & Abbreviations.
+class GlossaryAndAbbreviations : public som::SomNode {
+ public:
+  GlossaryAndAbbreviations(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // The set of defined terms and abbreviations.
+  Glossary glossary() const;
+};
+
+// A single glossary entry (form).
+class GlossaryEntry : public som::SomNode {
+ public:
+  GlossaryEntry(som::SpecDocument& doc, std::string path);
+  GlossaryEntryContentForm content() const;
+};
+
+// 4.2.1.n.3. Dependencies.
 //
 // Dependencies that may affect goal achievement.
 class GoalDependencies : public som::SomNode {
@@ -18259,7 +18316,7 @@ class GoalDependencyEntry : public som::SomNode {
   void setRelatedGoal(const std::string& value);
 };
 
-// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+// 4.2.1.n.1. Key Results.
 //
 // OKR-style key results that indicate progress toward the goal.
 // Key results are specific, measurable outcomes that together constitute
@@ -18281,7 +18338,7 @@ class GoalMilestoneEntry : public som::SomNode {
   GoalMilestoneEntryContentForm content() const;
 };
 
-// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+// 4.2.1.n.2. Milestones.
 //
 // Key milestones marking progress toward the goal.
 class GoalMilestones : public som::SomNode {
@@ -18294,7 +18351,7 @@ class GoalMilestones : public som::SomNode {
   som::SomList items() const;
 };
 
-// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+// 4.2.1.n.5. Resources.
 //
 // Resources required to achieve the goal.
 class GoalResources : public som::SomNode {
@@ -18334,7 +18391,7 @@ class GoalRiskEntryResponse : public som::SomNode {
   GoalRiskEntryResponseContentForm content() const;
 };
 
-// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+// 4.2.1.n.4. Risks.
 //
 // Risks that may prevent or delay goal achievement.
 class GoalRisks : public som::SomNode {
@@ -18347,7 +18404,7 @@ class GoalRisks : public som::SomNode {
   som::SomList items() const;
 };
 
-// 4.2. Goals [PD00-SYO-GOA].
+// 4.2. Goals.
 //
 // Container for project goals organized by category. Goals provide measurable
 // objectives that guide project execution and define success. This section
@@ -18361,11 +18418,11 @@ class Goals : public som::SomNode {
   // Goal hierarchy diagram.
   std::string goalHierarchyDiagram() const;
   void setGoalHierarchyDiagram(const std::string& value);
-  // 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+  // 4.2.1. Business Goals.
   BusinessGoals businessGoals() const;
-  // 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+  // 4.2.2. Technical Goals.
   TechnicalGoals technicalGoals() const;
-  // 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+  // 4.2.3. Success Criteria.
   SuccessCriteria successCriteria() const;
 };
 
@@ -18379,7 +18436,7 @@ class GovernanceModel : public som::SomNode {
   som::SomList decisionAuthorities() const;
 };
 
-// A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
+// A data handling requirement entry (form).
 //
 // Specific handling procedures for classified data.
 class HandlingRequirementEntry : public som::SomNode {
@@ -18388,17 +18445,17 @@ class HandlingRequirementEntry : public som::SomNode {
   HandlingRequirementEntryContentForm content() const;
 };
 
-// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+// 8.4. Hardware Concept Requirements.
 class HardwareRequirements : public som::SomNode {
  public:
   HardwareRequirements(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+  // 8.4.1. Server Requirements.
   ServerRequirementsSection serverRequirements() const;
-  // 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+  // 8.4.2. Client Requirements.
   ClientRequirementsSection clientRequirements() const;
-  // 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+  // 8.4.3. Network Requirements.
   NetworkRequirementsSection networkRequirements() const;
 };
 
@@ -18436,7 +18493,7 @@ class HealthCheckEndpointsTiming : public som::SomNode {
   HealthCheckEndpointsTimingContentForm content() const;
 };
 
-// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+// 8.7.2.1. Health Checks and Diagnostics.
 class HealthChecksAndDiagnosticsSection : public som::SomNode {
  public:
   HealthChecksAndDiagnosticsSection(som::SpecDocument& doc, std::string path);
@@ -18456,7 +18513,7 @@ class HealthChecksAndDiagnosticsSection : public som::SomNode {
   DependencyHealthMonitoring dependencyHealth() const;
 };
 
-// 10.8. Help Concept [PD00-USE-HLP].
+// 10.8. Help Concept.
 //
 // Comprehensive in-app help system including contextual help, onboarding,
 // and support access mechanisms.
@@ -18470,11 +18527,11 @@ class HelpConcept : public som::SomNode {
   HelpConceptInsights insights() const;
   // Help system overview narrative.
   // (skipped: helpOverview has no target type)
-  // 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+  // 10.8.1. Contextual Help.
   ContextualHelp contextualHelp() const;
-  // 10.8.2. Onboarding [PD00-USE-HLP-ONB].
+  // 10.8.2. Onboarding.
   OnboardingHelp onboarding() const;
-  // 10.8.3. Support Access [PD00-USE-HLP-SUP].
+  // 10.8.3. Support Access.
   SupportAccess supportAccess() const;
   // Help content inventory.
   // (skipped: helpContentInventory has no target type)
@@ -18571,7 +18628,7 @@ class IdeRequirementEntryStandardization : public som::SomNode {
   IdeRequirementEntryStandardizationContentForm content() const;
 };
 
-// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+// 9.2.1. Identification.
 //
 // Defines the identity management model: how identities are created,
 // sourced, verified, federated, and mapped. Covers identity sources,
@@ -18584,33 +18641,33 @@ class Identification : public som::SomNode {
   // Identity Sources — contains 0+× Identity Source.
   // Returns the list view; element type: IdentitySourceEntry (construct from item paths).
   som::SomList identitySources() const;
-  // Identity Verification [PD00-ACC-IDE-IDN-VER].
+  // Identity Verification.
   IdentityVerificationPolicy identityVerification() const;
   // Identity Providers — contains 0+× Identity Provider.
   // Returns the list view; element type: IdentityProviderEntry (construct from item paths).
   som::SomList identityProviders() const;
-  // Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+  // Single Sign-On.
   SingleSignOnPolicy singleSignOn() const;
-  // Self-Registration [PD00-ACC-IDE-IDN-REG].
+  // Self-Registration.
   SelfRegistrationPolicy selfRegistration() const;
   // Attribute Mappings — contains 0+× Identity Attribute Mapping.
   // Returns the list view; element type: IdentityAttributeMappingEntry (construct from item paths).
   som::SomList attributeMappings() const;
 };
 
-// 9.2. Identification and Authentication [PD00-ACC-IDE].
+// 9.2. Identification and Authentication.
 class IdentificationAndAuthentication : public som::SomNode {
  public:
   IdentificationAndAuthentication(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 9.2.1. Identification [PD00-ACC-IDE-IDN].
+  // 9.2.1. Identification.
   Identification identification() const;
-  // 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+  // 9.2.2. Authentication.
   Authentication authentication() const;
 };
 
-// An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].
+// An identity attribute mapping entry (form).
 //
 // Defines how attributes map between identity sources and the application:
 // source/target field, data type, transformation, sync direction.
@@ -18661,7 +18718,7 @@ class IdentityProviderEndpoints : public som::SomNode {
   IdentityProviderEndpointsContentForm content() const;
 };
 
-// An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].
+// An identity provider entry (form).
 //
 // Configuration for a single Identity Provider (IdP): protocol, endpoints,
 // attribute mapping, trust level, certificate management.
@@ -18704,7 +18761,7 @@ class IdentityProviderTrust : public som::SomNode {
   IdentityProviderTrustContentForm content() const;
 };
 
-// An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn].
+// An identity source entry (form).
 //
 // Defines one source from which identities are obtained, e.g.
 // internal directory, LDAP, external IdP, HR system, self-registration.
@@ -18750,7 +18807,7 @@ class IdentitySourceEntryOperations : public som::SomNode {
   IdentitySourceEntryOperationsContentForm content() const;
 };
 
-// Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER].
+// Identity verification/proofing policy (form).
 //
 // Defines how identity claims are verified: verification level, required
 // documents, automation, proofing standards (NIST IAL), and re-verification.
@@ -19000,7 +19057,21 @@ class IndustryStandardEntryVerification : public som::SomNode {
   IndustryStandardEntryVerificationContentForm content() const;
 };
 
-// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+// 7. Business Object and Data Model. Seeds → BDM.
+class InformationAndDataModel : public som::SomNode {
+ public:
+  InformationAndDataModel(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 7.1. Data Model.
+  DataModel dataModel() const;
+  // 7.2. Business Object Model.
+  BusinessObjectModel businessObjectModel() const;
+  // 7.3. Function Model.
+  FunctionModel functionModel() const;
+};
+
+// 10.2.2. Information Architecture.
 //
 // Overall information architecture: site map, content hierarchy, navigation
 // structure, and entry points. Describes how screens relate to each other
@@ -19019,8 +19090,80 @@ class InformationArchitecture : public som::SomNode {
   // Global entry points.
   // Returns the list view; element type: GlobalEntryPointEntry (construct from item paths).
   som::SomList globalEntryPoints() const;
-  // 10.2.2.5. Information Architecture Diagram [PD00-USE-SCR-INF-DIA].
+  // 10.2.2.5. Information Architecture Diagram.
   // (skipped: architectureDiagram has no target type)
+};
+
+// Information-for-Use (user documentation) requirements.
+//
+// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
+// *quality criteria* cross-map lives in SBP.14
+// (`DocumentationQualityCriteria`).
+//
+// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
+// doc/training field-split (separating the documentation half from the
+// training half) is deferred to IP-8.
+class InformationForUseRequirements : public som::SomNode {
+ public:
+  InformationForUseRequirements(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Documentation (and, until the IP-8 split, training) requirements,
+  // re-homed from MLAR.
+  DocumentationAndTraining documentationAndTraining() const;
+};
+
+// BDM00 Business Data Model.
+//
+// Full business data model: entities, relationships, ER diagram, data
+// classification, business objects, function decomposition, function-
+// to-data matrix, business rules, data dictionary, and validation /
+// integrity constraints.
+class InformationModel : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit InformationModel(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Entity inventory (list).
+  // Returns the list view; element type: DataEntityEntry (construct from item paths).
+  som::SomList entities() const;
+  // Entity relationships.
+  EntityRelationships entityRelationships() const;
+  // Entity-relationship diagram.
+  // (skipped: erDiagram has no target type)
+  // Data classification.
+  DataClassification dataClassification() const;
+  // Business object catalog (list).
+  // Returns the list view; element type: BusinessObjectEntry (construct from item paths).
+  som::SomList objectCatalog() const;
+  // Business object diagram.
+  // (skipped: objectDiagram has no target type)
+  // Function decomposition (list).
+  // Returns the list view; element type: FunctionEntry (construct from item paths).
+  som::SomList functionDecomposition() const;
+  // Function-to-data matrix (list).
+  // Returns the list view; element type: FunctionDataMatrixEntry (construct from item paths).
+  som::SomList functionToDataMatrix() const;
+  // Business rules catalog (list).
+  // Returns the list view; element type: BusinessRuleEntry (construct from item paths).
+  som::SomList businessRules() const;
+  // Data dictionary.
+  DataDictionary dataDictionary() const;
+  // Validation constraints.
+  // Returns the list view; element type: ValidationConstraints (construct from item paths).
+  som::SomList validationConstraints() const;
+  // Integrity constraints.
+  // Returns the list view; element type: IntegrityConstraints (construct from item paths).
+  som::SomList integrityConstraints() const;
 };
 
 // Infrastructure as Code requirements.
@@ -19186,7 +19329,7 @@ class InfrastructureSecurityHardeningNetwork : public som::SomNode {
   InfrastructureSecurityHardeningNetworkContentForm content() const;
 };
 
-// 13.7. Initial Development Flow [PD00-SSP-IDV].
+// 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
 // `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
@@ -19226,7 +19369,7 @@ class InitialTrainingDelivery : public som::SomNode {
   InitialTrainingDeliveryContentForm content() const;
 };
 
-// Initial training entry (form) [PD00-ORG-WOR-nn-TRA-INI-nn].
+// Initial training entry (form).
 class InitialTrainingEntry : public som::SomNode {
  public:
   InitialTrainingEntry(som::SpecDocument& doc, std::string path);
@@ -19250,7 +19393,7 @@ class InitialTrainingSchedule : public som::SomNode {
   InitialTrainingScheduleContentForm content() const;
 };
 
-// Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn].
+// Input device entry (form).
 class InputDeviceEntry : public som::SomNode {
  public:
   InputDeviceEntry(som::SpecDocument& doc, std::string path);
@@ -19271,7 +19414,7 @@ class InsuranceEntry : public som::SomNode {
   InsuranceEntryContentForm content() const;
 };
 
-// 3.6.5. Insurance and Liability Requirements [PD00-ADM-OTH-INS].
+// 3.6.5. Insurance and Liability Requirements.
 //
 // Insurance coverage and liability agreements.
 class InsuranceLiabilityRequirements : public som::SomNode {
@@ -19339,7 +19482,7 @@ class IntegrationArchitectureSystems : public som::SomNode {
   IntegrationArchitectureSystemsContentForm content() const;
 };
 
-// An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
+// An integration constraint entry (form).
 //
 // Documents a technical constraint on system integration, including
 // protocol requirements, format restrictions, and platform mandates.
@@ -19385,16 +19528,60 @@ class IntegrationConstraintEntryScope : public som::SomNode {
   IntegrationConstraintEntryScopeContentForm content() const;
 };
 
-// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+// 1.1.3.5. Integration Health Summary.
 //
 // Executive summary of overall integration landscape health and risk areas.
 class IntegrationHealthSummary : public som::SomNode {
  public:
   IntegrationHealthSummary(som::SpecDocument& doc, std::string path);
   IntegrationHealthSummaryContentForm content() const;
-  // Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
+  // Fragile integration points requiring attention.
   // Returns the list view; element type: FragilePointEntry (construct from item paths).
   som::SomList fragilePoints() const;
+};
+
+// BSI00 Business System Interactions.
+//
+// Complete interaction specification between the target system and
+// external systems: inventory, patterns, testing, dependencies,
+// migration, operational concerns, and cross-boundary error handling.
+class IntegrationInterfaceSpecification : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit IntegrationInterfaceSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // External interfaces.
+  ExternalInterfaces externalInterfaces() const;
+  // Out of scope.
+  OutOfScope outOfScope() const;
+  // Boundary assumptions.
+  BoundaryAssumptions boundaryAssumptions() const;
+  // System landscape inventory.
+  SystemLandscapeInventory systemInventory() const;
+  // Boundary interaction patterns.
+  // Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
+  som::SomList interactionPatterns() const;
+  // Interaction testing strategy.
+  InteractionTestingStrategy testingStrategy() const;
+  // Interaction dependency analysis.
+  InteractionDependencyAnalysis dependencyAnalysis() const;
+  // Migration interactions.
+  // Returns the list view; element type: MigrationInteractions (construct from item paths).
+  som::SomList migrationInteractions() const;
+  // Cross-boundary operational considerations.
+  // Returns the list view; element type: CrossBoundaryOperationalConsiderations (construct from item paths).
+  som::SomList operationalConsiderations() const;
+  // Cross-boundary error handling.
+  CrossBoundaryErrorHandling crossBoundaryErrorHandling() const;
 };
 
 // A single integration pattern entry.
@@ -19412,7 +19599,7 @@ class IntegrationPointEntry : public som::SomNode {
   IntegrationPointEntryContentForm content() const;
 };
 
-// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+// 1.1.3.4. System Integrations.
 //
 // Active integrations between systems including protocols, data formats,
 // error handling, and monitoring.
@@ -19426,7 +19613,7 @@ class Integrations : public som::SomNode {
   som::SomList items() const;
 };
 
-// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+// 7.1.7. Integrity Constraints.
 //
 // Cross-entity integrity rules beyond simple referential integrity.
 class IntegrityConstraints : public som::SomNode {
@@ -19436,7 +19623,7 @@ class IntegrityConstraints : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 3.6.1. Intellectual Property Requirements [PD00-ADM-OTH-IPR].
+// 3.6.1. Intellectual Property Requirements.
 //
 // Defines ownership and usage rights for project deliverables and IP.
 class IntellectualPropertyRequirements : public som::SomNode {
@@ -19455,7 +19642,7 @@ class InteractionBusinessRules : public som::SomNode {
   InteractionBusinessRulesContentForm content() const;
 };
 
-// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT].
+// 6.2.2. Interaction Catalog.
 //
 // Container for key interaction descriptions. Each interaction seeds a use
 // case following Cockburn's fully dressed use case template.
@@ -19480,7 +19667,7 @@ class InteractionCatalogOverview : public som::SomNode {
   InteractionCatalogOverviewContentForm content() const;
 };
 
-// An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
+// An interaction channel entry (form).
 //
 // Comprehensive definition of an access channel including platform details,
 // features, constraints, and user experience considerations.
@@ -19531,7 +19718,7 @@ class InteractionChannelEntryPlatform : public som::SomNode {
   InteractionChannelEntryPlatformContentForm content() const;
 };
 
-// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP].
+// 4.5.7. Interaction Dependency Analysis.
 //
 // Critical-path and degraded-mode behavior analysis for system
 // dependencies. Covers BSI-DEP.
@@ -19542,7 +19729,7 @@ class InteractionDependencyAnalysis : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// An interaction entry [PD00-TAR-STP-INT-nn].
+// An interaction entry.
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
 // use case template. Seeds the UC (Use Case) document.
@@ -19589,7 +19776,7 @@ class InteractionIdentification : public som::SomNode {
   InteractionIdentificationContentForm content() const;
 };
 
-// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
+// An interaction pattern entry (form).
 //
 // Definition of a specific interaction pattern including timing, triggers,
 // and user experience considerations.
@@ -19635,7 +19822,7 @@ class InteractionPatternEntryUsage : public som::SomNode {
   InteractionPatternEntryUsageContentForm content() const;
 };
 
-// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+// 4.1.5.2. Interaction Patterns.
 //
 // Defines how users interact with the system including real-time interactions,
 // batch processing, workflow-driven tasks, and notification-driven actions.
@@ -19671,6 +19858,42 @@ class InteractionScenarioEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
+// UC00 Use Cases.
+//
+// Detailed use cases derived from the target process steps and actor
+// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+// and traceability.
+class InteractionScenarios : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit InteractionScenarios(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Process steps overview.
+  ProcessStepsOverview processStepsOverview() const;
+  // Actor overview.
+  ActorOverview actorOverview() const;
+  // Interaction catalog.
+  InteractionCatalog interactionCatalog() const;
+  // Key scenarios.
+  KeyScenarios keyScenarios() const;
+  // Actor relationship diagram.
+  ActorRelationshipDiagram actorRelationshipDiagram() const;
+  // End-to-end test scenarios.
+  // Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
+  som::SomList endToEndTestScenarios() const;
+  // Use case traceability.
+  UseCaseTraceability useCaseTraceability() const;
+};
+
 // Interaction security requirements.
 class InteractionSecurity : public som::SomNode {
  public:
@@ -19678,7 +19901,7 @@ class InteractionSecurity : public som::SomNode {
   InteractionSecurityContentForm content() const;
 };
 
-// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST].
+// 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
 // Covers BSI-TST.
@@ -19696,7 +19919,7 @@ class InteractionTraceability : public som::SomNode {
   InteractionTraceabilityContentForm content() const;
 };
 
-// Business context for an interface [PD00-SYO-SYB-INT-nn-BUS].
+// Business context for an interface.
 class InterfaceBusinessContext : public som::SomNode {
  public:
   InterfaceBusinessContext(som::SpecDocument& doc, std::string path);
@@ -19706,21 +19929,21 @@ class InterfaceBusinessContext : public som::SomNode {
   som::SomList dependentProcesses() const;
 };
 
-// Business process dependency entry [PD00-SYO-SYB-INT-nn-BUS-BP-nn].
+// Business process dependency entry.
 class InterfaceBusinessProcessEntry : public som::SomNode {
  public:
   InterfaceBusinessProcessEntry(som::SpecDocument& doc, std::string path);
   InterfaceBusinessProcessEntryContentForm content() const;
 };
 
-// Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn].
+// Data entity exchanged.
 class InterfaceDataEntityEntry : public som::SomNode {
  public:
   InterfaceDataEntityEntry(som::SpecDocument& doc, std::string path);
   InterfaceDataEntityEntryContentForm content() const;
 };
 
-// Data specification for an interface [PD00-SYO-SYB-INT-nn-DAT].
+// Data specification for an interface.
 class InterfaceDataSpec : public som::SomNode {
  public:
   InterfaceDataSpec(som::SpecDocument& doc, std::string path);
@@ -19736,7 +19959,7 @@ class InterfaceDataSpec : public som::SomNode {
   som::SomList validationRules() const;
 };
 
-// Error handling specification [PD00-SYO-SYB-INT-nn-ERR].
+// Error handling specification.
 class InterfaceErrorHandling : public som::SomNode {
  public:
   InterfaceErrorHandling(som::SpecDocument& doc, std::string path);
@@ -19773,7 +19996,7 @@ class InterfaceErrorHandlingTimeout : public som::SomNode {
   InterfaceErrorHandlingTimeoutContentForm content() const;
 };
 
-// Governance and contracts [PD00-SYO-SYB-INT-nn-GOV].
+// Governance and contracts.
 class InterfaceGovernance : public som::SomNode {
  public:
   InterfaceGovernance(som::SpecDocument& doc, std::string path);
@@ -19800,14 +20023,14 @@ class InterfaceGovernanceLifecycle : public som::SomNode {
   InterfaceGovernanceLifecycleContentForm content() const;
 };
 
-// API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn].
+// API operation entry.
 class InterfaceOperationEntry : public som::SomNode {
  public:
   InterfaceOperationEntry(som::SpecDocument& doc, std::string path);
   InterfaceOperationEntryContentForm content() const;
 };
 
-// Operational characteristics [PD00-SYO-SYB-INT-nn-OPS].
+// Operational characteristics.
 class InterfaceOperational : public som::SomNode {
  public:
   InterfaceOperational(som::SpecDocument& doc, std::string path);
@@ -19844,7 +20067,7 @@ class InterfaceOperationalSupport : public som::SomNode {
   InterfaceOperationalSupportContentForm content() const;
 };
 
-// Security specification for an interface [PD00-SYO-SYB-INT-nn-SEC].
+// Security specification for an interface.
 class InterfaceSecurity : public som::SomNode {
  public:
   InterfaceSecurity(som::SpecDocument& doc, std::string path);
@@ -19923,7 +20146,7 @@ class InterfaceSpecificationEntryTooling : public som::SomNode {
   InterfaceSpecificationEntryToolingContentForm content() const;
 };
 
-// Technical specification for an interface [PD00-SYO-SYB-INT-nn-TEC].
+// Technical specification for an interface.
 class InterfaceTechnicalSpec : public som::SomNode {
  public:
   InterfaceTechnicalSpec(som::SpecDocument& doc, std::string path);
@@ -19953,14 +20176,14 @@ class InterfaceTechnicalSpecEndpoints : public som::SomNode {
   InterfaceTechnicalSpecEndpointsContentForm content() const;
 };
 
-// Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn].
+// Test scenario entry.
 class InterfaceTestScenarioEntry : public som::SomNode {
  public:
   InterfaceTestScenarioEntry(som::SpecDocument& doc, std::string path);
   InterfaceTestScenarioEntryContentForm content() const;
 };
 
-// Testing specification [PD00-SYO-SYB-INT-nn-TST].
+// Testing specification.
 class InterfaceTesting : public som::SomNode {
  public:
   InterfaceTesting(som::SpecDocument& doc, std::string path);
@@ -19988,14 +20211,14 @@ class InterfaceTestingStrategy : public som::SomNode {
   InterfaceTestingStrategyContentForm content() const;
 };
 
-// Webhook specification [PD00-SYO-SYB-INT-nn-TEC-WH].
+// Webhook specification.
 class InterfaceWebhookSpec : public som::SomNode {
  public:
   InterfaceWebhookSpec(som::SpecDocument& doc, std::string path);
   InterfaceWebhookSpecContentForm content() const;
 };
 
-// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+// 1.1.3.1. Internal Dependencies.
 //
 // Dependencies between systems owned and operated internally.
 class InternalDependencies : public som::SomNode {
@@ -20094,6 +20317,37 @@ class InteroperabilityRequirementsTesting : public som::SomNode {
   InteroperabilityRequirementsTestingContentForm content() const;
 };
 
+// 4. System Overview.
+//
+// High-level overview of the system to be built: its purpose, goals,
+// scope boundaries, and the environment it operates in. This section
+// establishes the foundation for all subsequent specification work.
+class IntroductionAndScope : public som::SomNode {
+ public:
+  IntroductionAndScope(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // System overview summary statistics.
+  SystemOverviewSummary summary() const;
+  // System context diagram showing major system boundaries.
+  std::string systemContextDiagram() const;
+  void setSystemContextDiagram(const std::string& value);
+  // 4.1. System Description.
+  SystemDescription systemDescription() const;
+  // 4.2. Goals.
+  Goals goals() const;
+  // 4.3. Requirements Overview. Seeds → RC.
+  RequirementsOverview requirements() const;
+  // 4.4. Systems to Replace. Seeds → CS.
+  SystemsToReplace systemsToReplace() const;
+  // 4.5. System Boundaries. Seeds → BSI.
+  SystemBoundaries systemBoundaries() const;
+  // 4.6. Framework Conditions.
+  FrameworkConditions frameworkConditions() const;
+  // 4.7. Risks and Assumptions.
+  RisksAndAssumptions risksAndAssumptions() const;
+};
+
 // An IP ownership entry (form).
 class IpOwnershipEntry : public som::SomNode {
  public:
@@ -20101,7 +20355,29 @@ class IpOwnershipEntry : public som::SomNode {
   IpOwnershipEntryContentForm content() const;
 };
 
-// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+// ISO/IEC 25010 product-quality cross-map.
+//
+// Maps the system's quality goals onto the eight ISO/IEC 25010 product
+// quality characteristics so that compatibility and portability cannot be
+// silently missed.
+class Iso25010Coverage : public som::SomNode {
+ public:
+  Iso25010Coverage(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // One entry per ISO/IEC 25010 characteristic addressed.
+  // Returns the list view; element type: Iso25010CoverageEntry (construct from item paths).
+  som::SomList characteristics() const;
+};
+
+// A single ISO/IEC 25010 coverage entry (form).
+class Iso25010CoverageEntry : public som::SomNode {
+ public:
+  Iso25010CoverageEntry(som::SpecDocument& doc, std::string path);
+  Iso25010CoverageEntryContentForm content() const;
+};
+
+// 4.1.2.2. IT Landscape Position.
 //
 // How this system fits within the organization's overall IT architecture
 // and application portfolio.
@@ -20114,7 +20390,7 @@ class ItLandscapePosition : public som::SomNode {
   ItLandscapePositionPositionDetailsForm positionDetails() const;
 };
 
-// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
+// 11.4.4. IT Security Operations quality.
 class ItSecurityOperationsQuality : public som::SomNode {
  public:
   ItSecurityOperationsQuality(som::SpecDocument& doc, std::string path);
@@ -20159,7 +20435,7 @@ class ItSecurityOperationsQualityTesting : public som::SomNode {
   ItSecurityOperationsQualityTestingContentForm content() const;
 };
 
-// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+// 8.8.1. IT Security Standards.
 class ItSecurityStandardsSection : public som::SomNode {
  public:
   ItSecurityStandardsSection(som::SpecDocument& doc, std::string path);
@@ -20234,7 +20510,7 @@ class ItStandardComplianceEntryTimeline : public som::SomNode {
   ItStandardComplianceEntryTimelineContentForm content() const;
 };
 
-// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+// 5.2. Job Descriptions and Staffing Plans.
 //
 // Documents new and changed roles resulting from the system introduction,
 // following HR best practices and job analysis methodologies (O*NET, SHRM).
@@ -20244,18 +20520,18 @@ class JobDescriptionsAndStaffing : public som::SomNode {
   JobDescriptionsAndStaffing(som::SpecDocument& doc, std::string path);
   // Overview of the job architecture and role design approach.
   JobDescriptionsOverview overview() const;
-  // 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
+  // 5.2.1. New Roles — contains 0+× New Role.
   // Returns the list view; element type: NewRoleEntry (construct from item paths).
   som::SomList newRoles() const;
-  // 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
+  // 5.2.2. Changed Roles — contains 0+× Changed Role.
   // Returns the list view; element type: ChangedRoleEntry (construct from item paths).
   som::SomList changedRoles() const;
-  // 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
+  // 5.2.3. Removed Roles — contains 0+× role being eliminated.
   // Returns the list view; element type: RemovedRoleEntry (construct from item paths).
   som::SomList removedRoles() const;
-  // 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+  // 5.2.4. Staffing Plan.
   StaffingPlan staffingPlan() const;
-  // 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+  // 5.2.5. Competency Framework.
   CompetencyFramework competencyFramework() const;
 };
 
@@ -20281,7 +20557,7 @@ class KeyAssumptionEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+// 4.7.2. Key Assumptions.
 //
 // Documents project assumptions that must hold true for success.
 // Tracks validation status and contingency plans if assumptions prove false.
@@ -20295,7 +20571,7 @@ class KeyAssumptions : public som::SomNode {
   som::SomList items() const;
 };
 
-// A key attribute entry (form) [PD00-BUS-DAT-ENT-nn-KEY-nn].
+// A key attribute entry (form).
 //
 // Specification for primary, foreign, alternate, and composite keys.
 class KeyAttributeEntry : public som::SomNode {
@@ -20357,7 +20633,7 @@ class KeyConceptEntry : public som::SomNode {
   // (skipped: relationshipDetails has no target type)
 };
 
-// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+// 4.1.3.3. Key Concepts.
 //
 // Core business concepts and entities in the domain, their attributes,
 // and relationships (conceptual domain model).
@@ -20400,7 +20676,7 @@ class KeyGenerationPolicy : public som::SomNode {
   // (skipped: notes has no target type)
 };
 
-// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+// 9.5.3. Key Management.
 //
 // Defines cryptographic key management policies covering the full key
 // lifecycle: generation, storage, rotation, escrow/backup, and compromise
@@ -20444,7 +20720,7 @@ class KeyRotationPolicy : public som::SomNode {
   // (skipped: notes has no target type)
 };
 
-// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE].
+// 6.2.3. Key Scenarios.
 //
 // End-to-end scenario descriptions showing how users achieve business goals
 // through sequences of interactions.
@@ -20482,7 +20758,7 @@ class KeyTouchpointEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+// 15.7. Knowledge Transfer.
 //
 // Handover from delivery team to operations. Covers EK09 Handover
 // Agreement content.
@@ -20517,7 +20793,7 @@ class KpiEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+// 10.12.4. Language and Country Selection.
 //
 // UI specification for language and country selection.
 class LanguageCountrySelection : public som::SomNode {
@@ -20600,7 +20876,7 @@ class LayerCommunicationRulesInterfaces : public som::SomNode {
   LayerCommunicationRulesInterfacesContentForm content() const;
 };
 
-// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+// 8.2.1. Layering and Module Structure.
 //
 // Software layering (presentation, business logic, data access, infrastructure)
 // and module structure (bounded contexts, packages, libraries).
@@ -20688,7 +20964,7 @@ class LiabilityLimitations : public som::SomNode {
   LiabilityLimitationsContentForm content() const;
 };
 
-// A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
+// A lifecycle transition entry (form).
 //
 // Detailed state transition specification.
 class LifecycleTransitionEntry : public som::SomNode {
@@ -20724,7 +21000,7 @@ class LifecycleTransitionEntryTrigger : public som::SomNode {
   LifecycleTransitionEntryTriggerContentForm content() const;
 };
 
-// A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
+// A known limitation of an existing system (form).
 class LimitationEntry : public som::SomNode {
  public:
   LimitationEntry(som::SpecDocument& doc, std::string path);
@@ -20817,7 +21093,7 @@ class LocalDevelopmentSetupWorkflow : public som::SomNode {
   LocalDevelopmentSetupWorkflowContentForm content() const;
 };
 
-// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
+// 10.12.1. Localization Process.
 //
 // Workflow for identifying and preparing content for localization.
 class LocalizationProcess : public som::SomNode {
@@ -20855,6 +21131,38 @@ class LocalizationProcessReview : public som::SomNode {
  public:
   LocalizationProcessReview(som::SpecDocument& doc, std::string path);
   LocalizationProcessReviewContentForm content() const;
+};
+
+// Localization & Translation execution processes.
+//
+// Public anchor: ISO 29148 transition requirements. Bundles the localization
+// and translation *workflow* concerns re-homed from the former
+// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+// SBP.9 [LocalizationTranslationRequirements]).
+class LocalizationTranslationProcess : public som::SomNode {
+ public:
+  LocalizationTranslationProcess(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Localization workflow (content identification, externalization, review).
+  LocalizationProcess localizationProcess() const;
+  // Translation workflow (TMS, translation memory, vendors, QA).
+  TranslationProcess translationProcess() const;
+};
+
+// Localization & Translation requirements (the requirement side of i18n).
+//
+// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
+// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+class LocalizationTranslationRequirements : public som::SomNode {
+ public:
+  LocalizationTranslationRequirements(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Technical internationalization requirements (re-homed from MLAR).
+  TranslationRequirements translationRequirements() const;
+  // Locale modeling and fallback requirements (re-homed from MLAR).
+  MultiLanguageAndRolloutLocaleHandling localeHandling() const;
 };
 
 // Log aggregation and analysis requirements.
@@ -20981,7 +21289,7 @@ class LoginFlowConfiguration : public som::SomNode {
   // (skipped: loginFlowDetails has no target type)
 };
 
-// A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
+// A login flow step entry (form).
 //
 // Defines an individual step in the authentication flow sequence,
 // allowing detailed specification of each stage from initial request
@@ -21019,7 +21327,7 @@ class LoginFlowStepEntryValidation : public som::SomNode {
   LoginFlowStepEntryValidationContentForm content() const;
 };
 
-// A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn].
+// A main scenario step entry.
 class MainScenarioStepEntry : public som::SomNode {
  public:
   MainScenarioStepEntry(som::SpecDocument& doc, std::string path);
@@ -21036,7 +21344,7 @@ class MainSuccessScenario : public som::SomNode {
   som::SomList steps() const;
 };
 
-// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
+// 11.3.5. Maintainability quality.
 class MaintainabilityQuality : public som::SomNode {
  public:
   MaintainabilityQuality(som::SpecDocument& doc, std::string path);
@@ -21124,7 +21432,7 @@ class MaintenanceChangeManagementTesting : public som::SomNode {
   MaintenanceChangeManagementTestingContentForm content() const;
 };
 
-// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+// 12.5. Maintenance Dependencies.
 //
 // Maintenance dependencies: version compatibility matrix, coordinated
 // update sequences, and breaking-change handling.
@@ -21138,7 +21446,7 @@ class MaintenanceDependencies : public som::SomNode {
   som::SomList items() const;
 };
 
-// A maintenance dependency entry (form) [PD00-COM-MAI-nn].
+// A maintenance dependency entry (form).
 //
 // Documents one maintenance dependency: coordinated update sequences,
 // version compatibility, and breaking-change handling.
@@ -21260,7 +21568,7 @@ class MaintenanceWindowEntryScope : public som::SomNode {
   MaintenanceWindowEntryScopeContentForm content() const;
 };
 
-// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+// 8.5.4. Maintenance Windows.
 //
 // Maintenance window requirements: frequency, duration, notification period,
 // and impact on users.
@@ -21328,7 +21636,7 @@ class MasterDataDomainEntryUsage : public som::SomNode {
   MasterDataDomainEntryUsageContentForm content() const;
 };
 
-// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+// 1.4.10. Master Data Management.
 //
 // Master data management practices, golden records, and data
 // synchronization across systems.
@@ -21401,7 +21709,7 @@ class MethodologyDeviationSummary : public som::SomNode {
   MethodologyDeviationSummaryContentForm content() const;
 };
 
-// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+// 8.7.2.3. Metrics and Observability.
 //
 // Comprehensive metrics collection, distributed tracing, and observability
 // requirements.
@@ -21492,7 +21800,7 @@ class MetricsDashboardSummary : public som::SomNode {
   MetricsDashboardSummaryContentForm content() const;
 };
 
-// An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn].
+// An MFA enforcement per user category entry (form).
 //
 // Defines MFA requirements for a specific user category, allowing
 // different authentication assurance levels per role or access tier.
@@ -21565,7 +21873,7 @@ class MigrationCompliance : public som::SomNode {
   MigrationComplianceContentForm content() const;
 };
 
-// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+// 4.4.2. Migration Considerations (global).
 //
 // Cross-system migration concerns covering portfolio-wide strategy,
 // resource planning, and coordination. Complements per-system
@@ -21578,7 +21886,7 @@ class MigrationConsiderations : public som::SomNode {
   // (skipped: strategyNarrative has no target type)
   // Resource requirements for migration program.
   MigrationResources resources() const;
-  // Migration risks [PD00-SYO-SYR-MIG-RIS].
+  // Migration risks.
   MigrationRisks migrationRisks() const;
   // High-level migration timeline.
   // (skipped: timeline has no target type)
@@ -21621,11 +21929,11 @@ class MigrationEnvironments : public som::SomNode {
   MigrationEnvironmentsContentForm content() const;
 };
 
-// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG].
+// 4.5.8. Migration Interactions.
 //
 // Interactions specific to the migration window — cutover bridges,
-// reconciliation endpoints, and temporary shims. Back-refs
-// PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
+// reconciliation endpoints, and temporary shims. Back-refs the
+// Systems to Replace inventory. Covers BSI-MIG.
 class MigrationInteractions : public som::SomNode {
  public:
   MigrationInteractions(som::SpecDocument& doc, std::string path);
@@ -21633,7 +21941,7 @@ class MigrationInteractions : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// A migration mapping entry (form) [PD00-BUS-DAT-ENT-nn-MIG-nn].
+// A migration mapping entry (form).
 //
 // Maps source system data to target entity for data migration planning.
 class MigrationMappingEntry : public som::SomNode {
@@ -21649,7 +21957,7 @@ class MigrationMetrics : public som::SomNode {
   MigrationMetricsContentForm content() const;
 };
 
-// A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn].
+// A migration milestone entry.
 class MigrationMilestoneEntry : public som::SomNode {
  public:
   MigrationMilestoneEntry(som::SpecDocument& doc, std::string path);
@@ -21677,7 +21985,7 @@ class MigrationPhaseDryRuns : public som::SomNode {
   MigrationPhaseDryRunsContentForm content() const;
 };
 
-// A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
+// A migration phase entry (form).
 //
 // Represents a single migration phase targeting a specific data domain,
 // source system, or entity group. Covers data scope analysis, migration
@@ -21770,7 +22078,7 @@ class MigrationPhaseValidation : public som::SomNode {
   MigrationPhaseValidationContentForm content() const;
 };
 
-// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+// 13.5.1. Migration Phases.
 //
 // Staged migration phases defining the sequential or overlapping
 // execution plan. Each phase targets a specific data domain or source
@@ -21787,7 +22095,7 @@ class MigrationPhases : public som::SomNode {
   som::SomList items() const;
 };
 
-// 15.2. Migration Plan [PD00-ROL-MIG].
+// 15.2. Migration Plan.
 //
 // End-to-end system migration plan covering DR22 Migration Plan content:
 // data, configuration, integration, and user migration from the current
@@ -21799,7 +22107,7 @@ class MigrationPlan : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// Migration resource requirements [PD00-SYO-SYR-MIG-RES].
+// Migration resource requirements.
 class MigrationResources : public som::SomNode {
  public:
   MigrationResources(som::SpecDocument& doc, std::string path);
@@ -21815,7 +22123,7 @@ class MigrationRiskContingency : public som::SomNode {
   MigrationRiskContingencyContentForm content() const;
 };
 
-// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
+// A migration risk entry (form).
 //
 // Detailed migration risk documentation following enterprise risk
 // management practices. Captures full risk lifecycle from identification
@@ -21914,7 +22222,7 @@ class MigrationRiskTracking : public som::SomNode {
   MigrationRiskTrackingContentForm content() const;
 };
 
-// Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
+// Migration risks — program-level risks.
 //
 // Comprehensive migration risk management framework for program-level
 // risks across the entire migration portfolio. Covers risk governance,
@@ -22072,7 +22380,7 @@ class MobileCompatibilityEntryHardware : public som::SomNode {
   MobileCompatibilityEntryHardwareContentForm content() const;
 };
 
-// Mobile device entry (form) [PD00-ORG-WOR-nn-EQU-MOB-nn].
+// Mobile device entry (form).
 class MobileDeviceEntry : public som::SomNode {
  public:
   MobileDeviceEntry(som::SpecDocument& doc, std::string path);
@@ -22235,7 +22543,7 @@ class ModuleVersioningStrategyReleaseManagement : public som::SomNode {
   ModuleVersioningStrategyReleaseManagementContentForm content() const;
 };
 
-// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+// 8.7.2. Monitoring.
 //
 // Comprehensive monitoring specification covering health checks, alerting,
 // observability, dashboards, and SLA/SLO tracking.
@@ -22245,19 +22553,19 @@ class Monitoring : public som::SomNode {
   MonitoringMonitoringOverviewForm monitoringOverview() const;
   // Monitoring strategy narrative.
   // (skipped: overviewNarrative has no target type)
-  // 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+  // 8.7.2.1. Health Checks and Diagnostics.
   HealthChecksAndDiagnosticsSection healthChecksAndDiagnostics() const;
-  // 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+  // 8.7.2.2. Alerting Configuration.
   AlertingConfiguration alertingConfiguration() const;
-  // 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+  // 8.7.2.3. Metrics and Observability.
   MetricsAndObservability metricsAndObservability() const;
-  // 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+  // 8.7.2.4. Monitoring Dashboards.
   MonitoringDashboards dashboards() const;
-  // 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+  // 8.7.2.5. SLA and SLO Monitoring.
   SlaAndSloMonitoring slaAndSloMonitoring() const;
 };
 
-// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
+// 8.5.3. Monitoring and Alerting.
 //
 // Monitoring requirements: metrics to collect, alert thresholds, dashboard
 // requirements, on-call procedures, and escalation paths.
@@ -22291,7 +22599,7 @@ class MonitoringAndAlertingSection : public som::SomNode {
   SlaMonitoringRequirements slaMonitoring() const;
 };
 
-// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+// 8.7.2.4. Monitoring Dashboards.
 //
 // Operational dashboards for system monitoring.
 class MonitoringDashboards : public som::SomNode {
@@ -22350,7 +22658,7 @@ class MonitoringProcedureEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
+// 11.4.3. Monitoring quality.
 class MonitoringQuality : public som::SomNode {
  public:
   MonitoringQuality(som::SpecDocument& doc, std::string path);
@@ -22395,7 +22703,7 @@ class MonitoringQualityOperations : public som::SomNode {
   MonitoringQualityOperationsContentForm content() const;
 };
 
-// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+// 13.4.1. MoSCoW Analysis.
 //
 // Classifies every feature using the MoSCoW method (Must / Should /
 // Could / Won't) and maps each to its target delivery stage.
@@ -22410,7 +22718,7 @@ class MoscowAnalysis : public som::SomNode {
   som::SomList items() const;
 };
 
-// A MoSCoW classification entry (form) [PD00-SSP-FEA-MOS-nn].
+// A MoSCoW classification entry (form).
 //
 // Maps a single feature or feature group to its MoSCoW category and
 // target delivery stage, with justification and cross-references.
@@ -22456,7 +22764,7 @@ class MoscowEntryValue : public som::SomNode {
   MoscowEntryValueContentForm content() const;
 };
 
-// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+// 4.1.5.6. Multi-Channel Experience.
 //
 // Defines how the system provides a consistent experience across channels
 // and handles channel switching.
@@ -22469,31 +22777,21 @@ class MultiChannelExperience : public som::SomNode {
   MultiChannelExperienceMultiChannelConfigurationForm multiChannelConfiguration() const;
 };
 
-// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+// 10.12. Multi-language and Rollout Support.
 //
-// Comprehensive internationalization, localization, and system rollout
-// specification covering translation workflows, locale handling, user
-// documentation, training, and deployment planning.
+// Locale-picker / UX-side multi-language concerns that stay on the
+// Experience & Interface Design side. IP-6 re-homed the requirement-side
+// concerns (i18n requirements, documentation, training) to SBP.9 and the
+// execution-side concerns (localization/translation processes, rollout
+// sequencing) to SBP.15; only the stay-put UX members remain here.
 class MultiLanguageAndRollout : public som::SomNode {
  public:
   MultiLanguageAndRollout(som::SpecDocument& doc, std::string path);
   MultiLanguageAndRolloutMultiLanguageOverviewForm multiLanguageOverview() const;
-  // Locale modeling and fallback behavior.
-  MultiLanguageAndRolloutLocaleHandling localeHandling() const;
-  // Rollout sequencing by region and time.
-  MultiLanguageAndRolloutPlan rolloutPlan() const;
   // Multi-language overview narrative.
   // (skipped: overviewNarrative has no target type)
-  // 10.12.1. Localization Process [PD00-USE-MUL-LOC].
-  LocalizationProcess localizationProcess() const;
-  // 10.12.2. Translation Process [PD00-USE-MUL-TRA].
-  TranslationProcess translationProcess() const;
-  // 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
-  DocumentationAndTraining documentationAndTraining() const;
-  // 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+  // 10.12.4. Language and Country Selection.
   LanguageCountrySelection languageCountrySelection() const;
-  // 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
-  TranslationRequirements translationRequirements() const;
   // Supported locale entries.
   // Returns the list view; element type: SupportedLocaleEntry (construct from item paths).
   som::SomList supportedLocales() const;
@@ -22513,7 +22811,7 @@ class MultiLanguageAndRolloutPlan : public som::SomNode {
   MultiLanguageAndRolloutPlanContentForm content() const;
 };
 
-// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+// 11.7.1. Must-Pass Criteria.
 //
 // Criteria that must be met for the system to be accepted.
 class MustPassCriteria : public som::SomNode {
@@ -22527,7 +22825,7 @@ class MustPassCriteria : public som::SomNode {
   som::SomList items() const;
 };
 
-// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
+// A must-pass criterion entry (form).
 class MustPassCriterionEntry : public som::SomNode {
  public:
   MustPassCriterionEntry(som::SpecDocument& doc, std::string path);
@@ -22629,7 +22927,7 @@ class NativeAppRequirementsVersions : public som::SomNode {
   NativeAppRequirementsVersionsContentForm content() const;
 };
 
-// A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
+// A navigation group entry (form).
 //
 // Logical grouping of navigation items (e.g., "Sales", "Administration").
 class NavigationGroupEntry : public som::SomNode {
@@ -22668,7 +22966,7 @@ class NavigationGroupEntryStructure : public som::SomNode {
   NavigationGroupEntryStructureContentForm content() const;
 };
 
-// A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn].
+// A navigation guard entry (form).
 class NavigationGuardEntry : public som::SomNode {
  public:
   NavigationGuardEntry(som::SpecDocument& doc, std::string path);
@@ -22693,7 +22991,7 @@ class NavigationGuardEntryRouting : public som::SomNode {
   NavigationGuardEntryRoutingContentForm content() const;
 };
 
-// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+// 10.3.1.8. Navigation Guards.
 //
 // Route guards: unsaved changes, authentication redirects, permission checks.
 class NavigationGuards : public som::SomNode {
@@ -22708,7 +23006,7 @@ class NavigationGuards : public som::SomNode {
   som::SomList guards() const;
 };
 
-// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+// 10.3.1.2. Navigation Hierarchy.
 //
 // Full navigation tree: groups and items forming the app's navigation structure.
 class NavigationHierarchy : public som::SomNode {
@@ -22723,7 +23021,7 @@ class NavigationHierarchy : public som::SomNode {
   som::SomList groups() const;
 };
 
-// A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
+// A navigation item entry (form).
 //
 // A single navigable destination within a group.
 class NavigationItemEntry : public som::SomNode {
@@ -22777,7 +23075,7 @@ class NavigationItemEntryRouting : public som::SomNode {
   NavigationItemEntryRoutingContentForm content() const;
 };
 
-// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+// 10.3.1. Navigation Model.
 //
 // Comprehensive navigation structure: primary, secondary, utility, contextual
 // navigation, deep linking, navigation guards, and platform adaptation.
@@ -22786,25 +23084,25 @@ class NavigationModel : public som::SomNode {
   NavigationModel(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+  // 10.3.1.1. Navigation Overview.
   NavigationOverview overview() const;
-  // 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+  // 10.3.1.2. Navigation Hierarchy.
   NavigationHierarchy hierarchy() const;
-  // 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+  // 10.3.1.3. Primary Navigation.
   PrimaryNavigation primaryNavigation() const;
-  // 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+  // 10.3.1.4. Secondary Navigation.
   SecondaryNavigation secondaryNavigation() const;
-  // 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+  // 10.3.1.5. Utility Navigation.
   UtilityNavigation utilityNavigation() const;
-  // 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+  // 10.3.1.6. Contextual Navigation.
   ContextualNavigation contextualNavigation() const;
-  // 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+  // 10.3.1.7. Deep Linking.
   DeepLinking deepLinking() const;
-  // 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+  // 10.3.1.8. Navigation Guards.
   NavigationGuards navigationGuards() const;
 };
 
-// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+// 10.3.1.1. Navigation Overview.
 //
 // Overall navigation strategy, routing approach, and design decisions.
 class NavigationOverview : public som::SomNode {
@@ -22951,7 +23249,7 @@ class NetworkLoadBalancingRequirementsTls : public som::SomNode {
   NetworkLoadBalancingRequirementsTlsContentForm content() const;
 };
 
-// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+// 8.4.3. Network Requirements.
 //
 // Network requirements: bandwidth, latency, availability, VPN/firewall rules,
 // and geographic distribution.
@@ -23082,7 +23380,7 @@ class NetworkSecurityRequirementsMonitoring : public som::SomNode {
   NetworkSecurityRequirementsMonitoringContentForm content() const;
 };
 
-// 5.1. New Organization Structure [PD00-ORG-STR].
+// 5.1. New Organization Structure.
 //
 // Organizational changes required by the new system including new teams,
 // restructured departments, changed responsibilities, and new communication
@@ -23093,13 +23391,13 @@ class NewOrganizationStructure : public som::SomNode {
   NewOrganizationStructure(som::SpecDocument& doc, std::string path);
   // Overview of the target organization structure.
   // (skipped: overview has no target type)
-  // 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+  // 5.1.1. Changes from Current Structure.
   ChangesFromCurrentStructure changesFromCurrentStructure() const;
-  // 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+  // 5.1.2. Organizational Transition Timeline.
   OrganizationalTransitionTimeline transitionTimeline() const;
 };
 
-// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+// A new role entry (form).
 //
 // Comprehensive new role definition following HR job analysis best practices.
 // Includes competencies, responsibilities, system access, and success metrics.
@@ -23214,7 +23512,7 @@ class NotificationChannelEntry : public som::SomNode {
   NotificationChannelEntryContentForm content() const;
 };
 
-// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+// 4.1.5.5. Notification Model.
 //
 // Defines how the system notifies users of events, updates, and actions
 // across different channels.
@@ -23241,7 +23539,7 @@ class NotificationTypeEntry : public som::SomNode {
   NotificationTypeEntryContentForm content() const;
 };
 
-// An object invariant entry (form) [PD00-BUS-BUS-CAT-nn-INV-nn].
+// An object invariant entry (form).
 //
 // Business invariants that must always hold true.
 class ObjectInvariantEntry : public som::SomNode {
@@ -23250,7 +23548,7 @@ class ObjectInvariantEntry : public som::SomNode {
   ObjectInvariantEntryContentForm content() const;
 };
 
-// An object operation entry (form) [PD00-BUS-BUS-CAT-nn-OPR-nn].
+// An object operation entry (form).
 //
 // Business operations that can be performed on the object.
 class ObjectOperationEntry : public som::SomNode {
@@ -23286,7 +23584,7 @@ class ObjectOperationEntryLifecycle : public som::SomNode {
   ObjectOperationEntryLifecycleContentForm content() const;
 };
 
-// An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
+// An object state entry (form).
 //
 // Detailed state specification for business object lifecycle.
 class ObjectStateEntry : public som::SomNode {
@@ -23371,7 +23669,7 @@ class OnCallScheduleConfigOperations : public som::SomNode {
   OnCallScheduleConfigOperationsContentForm content() const;
 };
 
-// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
+// 10.8.2. Onboarding Help.
 class OnboardingHelp : public som::SomNode {
  public:
   OnboardingHelp(som::SpecDocument& doc, std::string path);
@@ -23428,7 +23726,7 @@ class OnboardingHelpTours : public som::SomNode {
   OnboardingHelpToursContentForm content() const;
 };
 
-// Ongoing training entry (form) [PD00-ORG-WOR-nn-TRA-ONG-nn].
+// Ongoing training entry (form).
 class OngoingTrainingEntry : public som::SomNode {
  public:
   OngoingTrainingEntry(som::SpecDocument& doc, std::string path);
@@ -23462,7 +23760,7 @@ class OngoingTrainingEntrySchedule : public som::SomNode {
   OngoingTrainingEntryScheduleContentForm content() const;
 };
 
-// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+// 1.3.1. Operational Pain Points.
 //
 // Problems that affect day-to-day operations: downtime, slow response,
 // data inconsistencies, manual workarounds, and process interruptions.
@@ -23485,7 +23783,7 @@ class OperationalPainPointsSummary : public som::SomNode {
   OperationalPainPointsSummaryContentForm content() const;
 };
 
-// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+// 11.4. Operations Quality Criteria.
 //
 // Quality criteria for system operations including availability, service
 // levels, monitoring, and IT security operations.
@@ -23495,33 +23793,33 @@ class OperationsQualityCriteria : public som::SomNode {
   OperationsQualityCriteriaOperationsOverviewContentForm operationsOverviewContent() const;
   // Operations quality overview narrative.
   // (skipped: overview has no target type)
-  // 11.4.1. Availability [PD00-SYQ-OPE-AVA].
+  // 11.4.1. Availability.
   AvailabilityQuality availability() const;
-  // 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
+  // 11.4.2. Service Level Requirements.
   ServiceLevelQuality serviceLevelRequirements() const;
-  // 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
+  // 11.4.3. Monitoring and Prevention.
   MonitoringQuality monitoringAndPrevention() const;
-  // 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
+  // 11.4.4. IT Security Operations.
   ItSecurityOperationsQuality itSecurityOperations() const;
 };
 
-// 8.5. Operations Requirements [PD00-TEC-OPE].
+// 8.5. Operations Requirements.
 class OperationsRequirements : public som::SomNode {
  public:
   OperationsRequirements(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
+  // 8.5.1. Backup And Recovery.
   BackupAndRecoverySection backupAndRecovery() const;
-  // 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+  // 8.5.2. Deployment Strategy.
   DeploymentStrategySection deploymentStrategy() const;
-  // 8.5.3. Monitoring And Alerting [PD00-TEC-OPE-MON].
+  // 8.5.3. Monitoring And Alerting.
   MonitoringAndAlertingSection monitoringAndAlerting() const;
-  // 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+  // 8.5.4. Maintenance Windows.
   MaintenanceWindowsSection maintenanceWindows() const;
 };
 
-// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+// 4.1.1.2. Opportunity Statement.
 //
 // Description of the opportunity this system enables — new capabilities,
 // competitive advantages, or improvements over current state.
@@ -23530,7 +23828,7 @@ class OpportunityStatement : public som::SomNode {
   OpportunityStatement(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Opportunity Details Form [PD00-SYO-SYD-PUR-OPP-DES].
+  // Opportunity Details Form.
   OpportunityStatementOpportunityDetailsForm opportunityDetails() const;
 };
 
@@ -23590,7 +23888,7 @@ class OrgImplementationActivity : public som::SomNode {
   OrgImplementationActivityContentForm content() const;
 };
 
-// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+// 4.3.4.n.2. Implementation Plan.
 //
 // Implementation plan for this organizational requirement.
 class OrgRequirementImplementationPlan : public som::SomNode {
@@ -23605,7 +23903,7 @@ class OrgRequirementImplementationPlan : public som::SomNode {
   som::SomList activities() const;
 };
 
-// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+// 3.1.1. Organization Structure.
 class OrganizationStructure : public som::SomNode {
  public:
   OrganizationStructure(som::SpecDocument& doc, std::string path);
@@ -23617,7 +23915,7 @@ class OrganizationStructure : public som::SomNode {
   // (skipped: orgChartDiagram has no target type)
 };
 
-// An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
+// An organizational change entry (form).
 //
 // Documents a specific structural change including current state, target
 // state, rationale, impact assessment, and transition requirements.
@@ -23642,7 +23940,7 @@ class OrganizationalChangeEntry : public som::SomNode {
   OrgChangeStatus status() const;
 };
 
-// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+// 4.1.2.6. Organizational Context.
 //
 // Organizational units, departments, and business areas that the system
 // serves or interacts with.
@@ -23659,7 +23957,7 @@ class OrganizationalContext : public som::SomNode {
   void setBusinessProcessCoverage(const std::string& value);
 };
 
-// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+// 4.6.1. Organizational Environment.
 //
 // Describes the organizational context in which the system will operate,
 // including departments, reporting structures, decision authority, and
@@ -23710,7 +24008,7 @@ class OrganizationalEnvironmentMaturity : public som::SomNode {
   OrganizationalEnvironmentMaturityContentForm content() const;
 };
 
-// 5. Organizational Framework [PD00-ORG].
+// 5. Organizational Framework.
 //
 // Organizational changes and structures required for the new system.
 // Covers organization structure changes, new and changed roles, staffing
@@ -23722,17 +24020,17 @@ class OrganizationalFramework : public som::SomNode {
   OrganizationalFramework(som::SpecDocument& doc, std::string path);
   // Overview of organizational changes required for the new system.
   // (skipped: overview has no target type)
-  // 5.1. New Organization Structure [PD00-ORG-STR].
+  // 5.1. New Organization Structure.
   NewOrganizationStructure organizationStructure() const;
-  // 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+  // 5.2. Job Descriptions and Staffing Plans.
   // Returns the list view; element type: JobDescriptionsAndStaffing (construct from item paths).
   som::SomList jobDescriptions() const;
-  // 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+  // 5.3. Workplace Descriptions — contains 1+× per user category.
   // Returns the list view; element type: WorkplaceDescriptionEntry (construct from item paths).
   som::SomList workplaceDescriptions() const;
 };
 
-// An organizational requirement entry [PD00-SYO-REQ-ORG-nn].
+// An organizational requirement entry.
 //
 // Comprehensive organizational requirement definition following change
 // management and organizational development best practices.
@@ -23746,11 +24044,11 @@ class OrganizationalRequirementEntry : public som::SomNode {
   OrganizationalRequirementEntryImpact impact() const;
   // Planning, ownership, and success tracking.
   OrganizationalRequirementEntryPlanning planning() const;
-  // 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
+  // 4.3.4.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria acceptanceCriteria() const;
-  // 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+  // 4.3.4.n.2. Implementation Plan.
   OrgRequirementImplementationPlan implementationPlan() const;
-  // 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
+  // 4.3.4.n.3. Dependencies.
   RequirementDependencies dependencies() const;
 };
 
@@ -23775,7 +24073,7 @@ class OrganizationalRequirementEntryPlanning : public som::SomNode {
   OrganizationalRequirementEntryPlanningContentForm content() const;
 };
 
-// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+// 4.3.4. Organizational Requirements.
 //
 // Container for organizational requirements. These describe needed changes
 // to organization, processes, training, or support that must be fulfilled
@@ -23793,7 +24091,7 @@ class OrganizationalRequirements : public som::SomNode {
   som::SomList requirements() const;
 };
 
-// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+// 5.1.2. Organizational Transition Timeline.
 //
 // Describes when organizational changes take effect, how the transition is
 // managed, and what training or communication is needed. Follows change
@@ -23872,7 +24170,7 @@ class OsCompatibilityEntryTesting : public som::SomNode {
   OsCompatibilityEntryTestingContentForm content() const;
 };
 
-// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+// 3.6. Other Administrative Requirements.
 //
 // Additional administrative agreements, constraints, or requirements not
 // covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -23882,17 +24180,17 @@ class OtherAdministrativeRequirements : public som::SomNode {
   OtherAdministrativeRequirements(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 3.6.1. Intellectual Property [PD00-ADM-OTH-IPR].
+  // 3.6.1. Intellectual Property.
   IntellectualPropertyRequirements intellectualProperty() const;
-  // 3.6.2. Confidentiality and NDAs [PD00-ADM-OTH-NDA].
+  // 3.6.2. Confidentiality and NDAs.
   ConfidentialityRequirements confidentiality() const;
-  // 3.6.3. Regulatory Compliance [PD00-ADM-OTH-REG].
+  // 3.6.3. Regulatory Compliance.
   RegulatoryComplianceRequirements regulatoryCompliance() const;
-  // 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+  // 3.6.4. Audit Requirements.
   AuditRequirements auditRequirements() const;
-  // 3.6.5. Insurance and Liability [PD00-ADM-OTH-INS].
+  // 3.6.5. Insurance and Liability.
   InsuranceLiabilityRequirements insuranceLiability() const;
-  // 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
+  // 3.6.6. Other Agreements — contains 0+× Agreement.
   // Returns the list view; element type: OtherAgreementEntry (construct from item paths).
   som::SomList otherAgreements() const;
 };
@@ -23904,7 +24202,7 @@ class OtherAgreementEntry : public som::SomNode {
   OtherAgreementEntryContentForm content() const;
 };
 
-// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+// 4.5.2. Out of Scope.
 //
 // Explicit documentation of functionality, systems, and integrations that
 // are excluded from the project scope. Provides clear boundaries and
@@ -23919,7 +24217,7 @@ class OutOfScope : public som::SomNode {
   som::SomList items() const;
 };
 
-// An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
+// An out-of-scope entry (form).
 class OutOfScopeEntry : public som::SomNode {
  public:
   OutOfScopeEntry(som::SpecDocument& doc, std::string path);
@@ -23994,7 +24292,7 @@ class PainPointClassification : public som::SomNode {
   PainPointClassificationContentForm content() const;
 };
 
-// A pain point entry (form) [PD00-CUR-PAI-nn].
+// A pain point entry (form).
 //
 // Documents a specific problem in the current state with comprehensive details:
 // root cause analysis, impact quantification, affected stakeholders,
@@ -24083,7 +24381,7 @@ class PainPointWorkaround : public som::SomNode {
   PainPointWorkaroundContentForm content() const;
 };
 
-// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+// 1.3. Pain Points and Gaps.
 //
 // Comprehensive documentation of specific problems, inefficiencies,
 // compliance gaps, and user frustrations in the current state.
@@ -24101,13 +24399,13 @@ class PainPointsAndGaps : public som::SomNode {
   void setPainPointsPriorityMatrix(const std::string& value);
   // Summary statistics for all pain points.
   PainPointsSummary painPointsSummary() const;
-  // 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+  // 1.3.1. Operational Pain Points.
   OperationalPainPoints operationalPainPoints() const;
-  // 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+  // 1.3.2. Business Pain Points.
   BusinessPainPoints businessPainPoints() const;
-  // 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+  // 1.3.3. Technical Pain Points.
   TechnicalPainPoints technicalPainPoints() const;
-  // 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+  // 1.3.4. Gaps.
   Gaps gaps() const;
   // Cross-reference between pain points and gaps.
   PainPointGapCorrelation painPointGapCorrelation() const;
@@ -24127,7 +24425,7 @@ class ParticipantEntry : public som::SomNode {
   ParticipantEntryContentForm content() const;
 };
 
-// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+// 9.2.3. Password and Credential Policy.
 //
 // Comprehensive password and credential policy aligned with NIST SP 800-63B
 // (Revision 4). Covers password requirements, storage, lifecycle, account
@@ -24234,7 +24532,7 @@ class PeakLoadPatternsTesting : public som::SomNode {
   PeakLoadPatternsTestingContentForm content() const;
 };
 
-// Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
+// Penetration testing requirements and schedule.
 class PenetrationTestingRequirements : public som::SomNode {
  public:
   PenetrationTestingRequirements(som::SpecDocument& doc, std::string path);
@@ -24279,7 +24577,7 @@ class PeriodicReviewPolicy : public som::SomNode {
   // (skipped: notes has no target type)
 };
 
-// Peripheral equipment entry (form) [PD00-ORG-WOR-nn-EQU-PER-nn].
+// Peripheral equipment entry (form).
 class PeripheralEquipmentEntry : public som::SomNode {
  public:
   PeripheralEquipmentEntry(som::SpecDocument& doc, std::string path);
@@ -24332,7 +24630,7 @@ class PermissionMatrixEntry : public som::SomNode {
   PermissionMatrixEntryContentForm content() const;
 };
 
-// A user persona entry [PD00-USE-VIS-PER-nn] (form).
+// A user persona entry (form).
 //
 // Represents a distinct user archetype with detailed context for UI design.
 class PersonaEntry : public som::SomNode {
@@ -24345,11 +24643,11 @@ class PersonaEntry : public som::SomNode {
   PersonaEntryContext context() const;
   // Motivations, frustrations, and success markers.
   PersonaEntryNeeds needs() const;
-  // 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+  // 10.1.3.n.1. Persona Goals.
   PersonaGoals goals() const;
-  // 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+  // 10.1.3.n.2. Persona Pain Points.
   PersonaPainPoints painPoints() const;
-  // 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+  // 10.1.3.n.3. Persona Scenarios.
   PersonaScenarios scenarios() const;
 };
 
@@ -24374,14 +24672,14 @@ class PersonaEntryProfile : public som::SomNode {
   PersonaEntryProfileContentForm content() const;
 };
 
-// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm].
+// A persona goal entry (form).
 class PersonaGoalEntry : public som::SomNode {
  public:
   PersonaGoalEntry(som::SpecDocument& doc, std::string path);
   PersonaGoalEntryContentForm content() const;
 };
 
-// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+// 10.1.3.n.1. Persona Goals.
 class PersonaGoals : public som::SomNode {
  public:
   PersonaGoals(som::SpecDocument& doc, std::string path);
@@ -24392,14 +24690,14 @@ class PersonaGoals : public som::SomNode {
   som::SomList items() const;
 };
 
-// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm].
+// A pain point entry (form).
 class PersonaPainPointEntry : public som::SomNode {
  public:
   PersonaPainPointEntry(som::SpecDocument& doc, std::string path);
   PersonaPainPointEntryContentForm content() const;
 };
 
-// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+// 10.1.3.n.2. Persona Pain Points.
 class PersonaPainPoints : public som::SomNode {
  public:
   PersonaPainPoints(som::SpecDocument& doc, std::string path);
@@ -24410,14 +24708,14 @@ class PersonaPainPoints : public som::SomNode {
   som::SomList items() const;
 };
 
-// A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm].
+// A persona scenario entry (form).
 class PersonaScenarioEntry : public som::SomNode {
  public:
   PersonaScenarioEntry(som::SpecDocument& doc, std::string path);
   PersonaScenarioEntryContentForm content() const;
 };
 
-// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+// 10.1.3.n.3. Persona Scenarios.
 //
 // Key usage scenarios for this persona — helps map personas to screens/flows.
 class PersonaScenarios : public som::SomNode {
@@ -24465,7 +24763,7 @@ class PhaseGateIdentity : public som::SomNode {
   PhaseGateIdentityContentForm content() const;
 };
 
-// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
+// A phase gate review entry (form).
 //
 // Defines a single phase gate with its criteria, participants,
 // required evidence, entry/exit conditions, and review schedule.
@@ -24492,7 +24790,7 @@ class PhaseGateReviewEntry : public som::SomNode {
   som::SomList reviewCriteria() const;
 };
 
-// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+// 13.6.1. Phase Gate Reviews.
 //
 // Defines the phase gate review process: what is reviewed at each
 // gate, who participates, what evidence is required, and what
@@ -24558,7 +24856,7 @@ class PhysicalWorkplaceRequirementsUsage : public som::SomNode {
   PhysicalWorkplaceRequirementsUsageContentForm content() const;
 };
 
-// 15.5. Pilot Plan [PD00-ROL-PIL].
+// 15.5. Pilot Plan.
 //
 // Pilot scope, cohort selection, success criteria, and exit decision rules.
 class PilotPlan : public som::SomNode {
@@ -24654,7 +24952,7 @@ class PipelineStageEntryTrigger : public som::SomNode {
   PipelineStageEntryTriggerContentForm content() const;
 };
 
-// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+// 8.1.1. Platform and Language.
 //
 // Required platforms (operating system, runtime), programming languages,
 // and framework choices with minimum versions and justification.
@@ -24686,7 +24984,7 @@ class PlatformAndLanguage : public som::SomNode {
   RuntimeEnvironment runtimeEnvironment() const;
 };
 
-// 11.3.2. Portability quality [PD00-SYQ-TEC-POR].
+// 11.3.2. Portability quality.
 class PortabilityQuality : public som::SomNode {
  public:
   PortabilityQuality(som::SpecDocument& doc, std::string path);
@@ -24751,7 +25049,7 @@ class PredecessorDependencyEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+// 10.3.1.3. Primary Navigation.
 //
 // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
 class PrimaryNavigation : public som::SomNode {
@@ -24789,7 +25087,7 @@ class PrimaryNavigationSidebar : public som::SomNode {
   PrimaryNavigationSidebarContentForm content() const;
 };
 
-// 10.4. Print Layout [PD00-USE-PRI].
+// 10.4. Print Layout.
 class PrintLayout : public som::SomNode {
  public:
   PrintLayout(som::SpecDocument& doc, std::string path);
@@ -24804,13 +25102,13 @@ class PrintLayout : public som::SomNode {
   PrintLayoutHeaderFooter headerFooter() const;
   // Archive and batch settings.
   PrintLayoutArchive archive() const;
-  // 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
+  // 10.4.1. Reports — contains 0+× Report.
   // Returns the list view; element type: ReportEntry (construct from item paths).
   som::SomList reports() const;
-  // 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
+  // 10.4.2. Export Formats — contains 0+× Export Format.
   // Returns the list view; element type: ExportFormatEntry (construct from item paths).
   som::SomList exportFormats() const;
-  // 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
+  // 10.4.3. Export Templates — contains 0+× Export
   // Template.
   // Returns the list view; element type: ExportTemplateEntry (construct from item paths).
   som::SomList exportTemplates() const;
@@ -24851,7 +25149,7 @@ class PrintLayoutWatermark : public som::SomNode {
   PrintLayoutWatermarkContentForm content() const;
 };
 
-// Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
+// Privacy impact assessment and DPIA process.
 class PrivacyImpactAssessmentProcess : public som::SomNode {
  public:
   PrivacyImpactAssessmentProcess(som::SpecDocument& doc, std::string path);
@@ -24885,7 +25183,7 @@ class PrivacyImpactAssessmentProcessReview : public som::SomNode {
   PrivacyImpactAssessmentProcessReviewContentForm content() const;
 };
 
-// Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
+// Privacy regulation compliance requirements.
 class PrivacyRegulationCompliance : public som::SomNode {
  public:
   PrivacyRegulationCompliance(som::SpecDocument& doc, std::string path);
@@ -24939,7 +25237,7 @@ class PrivilegeUsageReporting : public som::SomNode {
   // (skipped: notes has no target type)
 };
 
-// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+// 4.1.1.1. Problem Statement.
 //
 // Detailed description of the problem or pain point that this system will
 // address. Includes impact analysis and urgency assessment.
@@ -24948,7 +25246,7 @@ class ProblemStatement : public som::SomNode {
   ProblemStatement(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Problem Description Form [PD00-SYO-SYD-PUR-PRO-DES].
+  // Problem Description Form.
   ProblemStatementProblemDetailsForm problemDetails() const;
   // Related pain points from Current State Analysis.
   // Returns the list view; element type: RelatedPainPointEntry (construct from item paths).
@@ -24962,7 +25260,7 @@ class ProcessAdjustmentDetails : public som::SomNode {
   ProcessAdjustmentDetailsContentForm content() const;
 };
 
-// A process adjustment entry (form) [PD00-POP-PRC-nn].
+// A process adjustment entry (form).
 //
 // Documents a specific deviation from standard process steps, including
 // the type of modification, dependencies affected, risk assessment,
@@ -25028,7 +25326,7 @@ class ProcessAdjustmentSummary : public som::SomNode {
   ProcessAdjustmentSummaryContentForm content() const;
 };
 
-// 2.3. Process Adjustments [PD00-POP-PRC].
+// 2.3. Process Adjustments.
 //
 // Documents any deviations from the standard tom_system_creation.md or
 // tom_system_upgrade.md process. Includes skipped, reordered, or modified
@@ -25048,7 +25346,7 @@ class ProcessAdjustments : public som::SomNode {
   som::SomList items() const;
 };
 
-// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT].
+// 6.1.3. Process Catalog.
 //
 // Container for business process definitions.
 class ProcessCatalog : public som::SomNode {
@@ -25109,7 +25407,7 @@ class ProcessContext : public som::SomNode {
   ProcessContextContentForm content() const;
 };
 
-// A process control entry [PD00-TAR-PRO-CAT-nn-CTL-nn].
+// A process control entry.
 class ProcessControlEntry : public som::SomNode {
  public:
   ProcessControlEntry(som::SpecDocument& doc, std::string path);
@@ -25159,14 +25457,14 @@ class ProcessDependencyEntry : public som::SomNode {
   ProcessDependencyEntryContentForm content() const;
 };
 
-// A process design principle entry (form) [PD00-TAR-PRO-PRI-nn].
+// A process design principle entry (form).
 class ProcessDesignPrincipleEntry : public som::SomNode {
  public:
   ProcessDesignPrincipleEntry(som::SpecDocument& doc, std::string path);
   ProcessDesignPrincipleEntryContentForm content() const;
 };
 
-// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+// 6.1.2. Design Principles.
 //
 // Principles that guide process design decisions.
 class ProcessDesignPrinciples : public som::SomNode {
@@ -25186,14 +25484,14 @@ class ProcessDiagramOverview : public som::SomNode {
   ProcessDiagramOverviewContentForm content() const;
 };
 
-// A process end event entry [PD00-TAR-PRO-CAT-nn-END-nn].
+// A process end event entry.
 class ProcessEndEventEntry : public som::SomNode {
  public:
   ProcessEndEventEntry(som::SpecDocument& doc, std::string path);
   ProcessEndEventEntryContentForm content() const;
 };
 
-// A process exception entry [PD00-TAR-PRO-CAT-nn-EXC-nn].
+// A process exception entry.
 class ProcessExceptionEntry : public som::SomNode {
  public:
   ProcessExceptionEntry(som::SpecDocument& doc, std::string path);
@@ -25218,10 +25516,9 @@ class ProcessExceptionEntryResponse : public som::SomNode {
   ProcessExceptionEntryResponseContentForm content() const;
 };
 
-// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+// 6.1.9. Process Exception Handling.
 //
 // Exception flows, escalation paths, and compensation logic. Covers
-// HBSG AS07-EXC.
 class ProcessExceptionHandling : public som::SomNode {
  public:
   ProcessExceptionHandling(som::SpecDocument& doc, std::string path);
@@ -25281,7 +25578,7 @@ class ProcessIdentificationGovernance : public som::SomNode {
   ProcessIdentificationGovernanceContentForm content() const;
 };
 
-// A process improvement entry [PD00-TAR-PRO-IMP-nn].
+// A process improvement entry.
 class ProcessImprovementEntry : public som::SomNode {
  public:
   ProcessImprovementEntry(som::SpecDocument& doc, std::string path);
@@ -25306,7 +25603,7 @@ class ProcessImprovementEntryDelivery : public som::SomNode {
   ProcessImprovementEntryDeliveryContentForm content() const;
 };
 
-// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+// 6.1.5. Improvement Summary.
 //
 // Summary of expected improvements over current processes.
 class ProcessImprovementSummary : public som::SomNode {
@@ -25321,7 +25618,7 @@ class ProcessImprovementSummary : public som::SomNode {
   ImprovementBusinessCase businessCase() const;
 };
 
-// A process input entry [PD00-TAR-PRO-CAT-nn-INP-nn].
+// A process input entry.
 class ProcessInputEntry : public som::SomNode {
  public:
   ProcessInputEntry(som::SpecDocument& doc, std::string path);
@@ -25348,7 +25645,7 @@ class ProcessInterdependencyMatrix : public som::SomNode {
   ProcessInterdependencyMatrix(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Interdependency diagram [PD00-CUR-PRO-INT-DIA].
+  // Interdependency diagram.
   std::string dependencyDiagram() const;
   void setDependencyDiagram(const std::string& value);
   // Individual process dependencies.
@@ -25356,7 +25653,7 @@ class ProcessInterdependencyMatrix : public som::SomNode {
   som::SomList dependencies() const;
 };
 
-// A process KPI entry [PD00-TAR-PRO-CAT-nn-KPI-nn].
+// A process KPI entry.
 class ProcessKpiEntry : public som::SomNode {
  public:
   ProcessKpiEntry(som::SpecDocument& doc, std::string path);
@@ -25392,7 +25689,7 @@ class ProcessMetricCategory : public som::SomNode {
   som::SomList metrics() const;
 };
 
-// A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
+// A process metric entry (form).
 //
 // A single measurable metric with current value and measurement details.
 class ProcessMetricEntry : public som::SomNode {
@@ -25420,7 +25717,7 @@ class ProcessMetricEntryTargets : public som::SomNode {
   ProcessMetricEntryTargetsContentForm content() const;
 };
 
-// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+// 1.2.2. Process Metrics.
 //
 // Quantitative metrics for measuring process performance. These metrics
 // form the baseline against which improvements will be measured.
@@ -25429,31 +25726,31 @@ class ProcessMetrics : public som::SomNode {
   ProcessMetrics(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Metrics dashboard summary [PD00-CUR-PRO-xx-MET-SUM].
+  // Metrics dashboard summary.
   MetricsDashboardSummary dashboardSummary() const;
-  // Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+  // Efficiency metrics.
   // Returns the list view; element type: ProcessMetricCategory (construct from item paths).
   som::SomList efficiencyMetrics() const;
-  // Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+  // Quality metrics.
   // Returns the list view; element type: ProcessMetricCategory (construct from item paths).
   som::SomList qualityMetrics() const;
-  // Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+  // Volume metrics.
   // Returns the list view; element type: ProcessMetricCategory (construct from item paths).
   som::SomList volumeMetrics() const;
-  // Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+  // Cost metrics.
   // Returns the list view; element type: ProcessMetricCategory (construct from item paths).
   som::SomList costMetrics() const;
-  // Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+  // Manual intervention metrics.
   // Returns the list view; element type: ProcessMetricCategory (construct from item paths).
   som::SomList manualInterventionMetrics() const;
   // Individual metric entries.
   // Returns the list view; element type: ProcessMetricEntry (construct from item paths).
   som::SomList items() const;
-  // Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
+  // Baseline comparison table.
   MetricsBaselineTable baselineTable() const;
 };
 
-// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+// 6.1.10. Process Metrics and KPIs.
 //
 // Process-level KPIs, SLAs, and measurement strategy.
 class ProcessMetricsAndKpis : public som::SomNode {
@@ -25463,14 +25760,14 @@ class ProcessMetricsAndKpis : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// A process output entry [PD00-TAR-PRO-CAT-nn-OUT-nn].
+// A process output entry.
 class ProcessOutputEntry : public som::SomNode {
  public:
   ProcessOutputEntry(som::SpecDocument& doc, std::string path);
   ProcessOutputEntryContentForm content() const;
 };
 
-// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+// 6.1.4. Process Overview Diagram.
 //
 // High-level process flow diagram showing main processes and relationships.
 class ProcessOverviewDiagram : public som::SomNode {
@@ -25528,7 +25825,7 @@ class ProcessPerformanceSummary : public som::SomNode {
   som::SomList keyMetrics() const;
 };
 
-// A process relationship entry [PD00-TAR-PRO-REL-nn].
+// A process relationship entry.
 class ProcessRelationshipEntry : public som::SomNode {
  public:
   ProcessRelationshipEntry(som::SpecDocument& doc, std::string path);
@@ -25546,7 +25843,7 @@ class ProcessRelationships : public som::SomNode {
   som::SomList relationships() const;
 };
 
-// A process role entry [PD00-TAR-PRO-CAT-nn-ROL-nn].
+// A process role entry.
 class ProcessRoleEntry : public som::SomNode {
  public:
   ProcessRoleEntry(som::SpecDocument& doc, std::string path);
@@ -25609,14 +25906,14 @@ class ProcessScopeSummary : public som::SomNode {
   som::SomList outOfScopeProcesses() const;
 };
 
-// A process SLA entry [PD00-TAR-PRO-CAT-nn-SLA-nn].
+// A process SLA entry.
 class ProcessSlaEntry : public som::SomNode {
  public:
   ProcessSlaEntry(som::SpecDocument& doc, std::string path);
   ProcessSlaEntryContentForm content() const;
 };
 
-// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → UC.
 //
 // Key process steps with their actor interactions. Each interaction will be
 // expanded into a full use case with alternate paths, preconditions, and
@@ -25628,22 +25925,22 @@ class ProcessStepsAndActorInteractions : public som::SomNode {
   void setContent(const std::string& value);
   // Section overview.
   ProcessStepsOverview overview() const;
-  // 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
+  // 6.2.1. Actor Overview — contains 1+× Actor.
   ActorOverview actorOverview() const;
-  // 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
+  // 6.2.2. Interaction Catalog — contains 1+× Interaction.
   InteractionCatalog interactionCatalog() const;
-  // 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
+  // 6.2.3. Key Scenarios — contains 1+× Scenario.
   KeyScenarios keyScenarios() const;
   // Actor relationship diagram.
   ActorRelationshipDiagram actorRelationshipDiagram() const;
-  // 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
+  // 6.2.4. End-to-End Test Scenarios..
   // Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
   som::SomList endToEndTestScenarios() const;
-  // 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+  // 6.2.5. Use Case Traceability.
   UseCaseTraceability useCaseTraceability() const;
 };
 
-// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
+// 6.2. Process Steps Overview.
 class ProcessStepsOverview : public som::SomNode {
  public:
   ProcessStepsOverview(som::SpecDocument& doc, std::string path);
@@ -25682,7 +25979,7 @@ class ProcessTechnologyInformation : public som::SomNode {
   ProcessTechnologyInformationContentForm content() const;
 };
 
-// A process trigger entry [PD00-TAR-PRO-CAT-nn-TRG-nn].
+// A process trigger entry.
 class ProcessTriggerEntry : public som::SomNode {
  public:
   ProcessTriggerEntry(som::SpecDocument& doc, std::string path);
@@ -25703,7 +26000,7 @@ class ProcessTriggers : public som::SomNode {
   som::SomList endEvents() const;
 };
 
-// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+// 6.1.1. Process Vision.
 //
 // The overall vision for how business processes will work with the new system.
 class ProcessVision : public som::SomNode {
@@ -25779,68 +26076,19 @@ class ProgrammingLanguageEntryVersion : public som::SomNode {
   ProgrammingLanguageEntryVersionContentForm content() const;
 };
 
-// The complete Project Definition (PD) document.
-//
-// Contains a [DocumentHeader] and all 14 PD sections [PD00].
-class ProjectDefinition : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit ProjectDefinition(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Document header (form fields at top of document).
-  DocumentHeader header() const;
-  // 1. Current State Analysis [PD00-CUR].
-  CurrentStateAnalysis currentStateAnalysis() const;
-  // 2. Project Organization and Process [PD00-POP].
-  ProjectOrganizationAndProcess projectOrganizationProcess() const;
-  // 3. Administrative [PD00-ADM].
-  Administrative administrative() const;
-  // 4. System Overview [PD00-SYO].
-  SystemOverview systemOverview() const;
-  // 5. Organizational Framework [PD00-ORG].
-  OrganizationalFramework organizationalFramework() const;
-  // 6. Target Business Process Model [PD00-TAR].
-  TargetBusinessProcessModel targetBusinessProcess() const;
-  // 7. Business Object and Data Model [PD00-BUS].
-  BusinessObjectAndDataModel businessDataModel() const;
-  // 8. Technical Framework Concept [PD00-TEC].
-  TechnicalFrameworkConcept technicalFramework() const;
-  // 9. Access and Authorization Concept [PD00-ACC].
-  AccessAndAuthorizationConcept accessAuthorization() const;
-  // 10. User Interface Design [PD00-USE].
-  UserInterfaceDesign userInterfaceDesign() const;
-  // 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
-  SystemRolloutConcept systemRolloutConcept() const;
-  // 11. System Quality Goals [PD00-SYQ].
-  SystemQualityGoals systemQualityGoals() const;
-  // 12. Components to Use [PD00-COM].
-  ComponentsToUse componentsToUse() const;
-  // 13. System Stage Plan [PD00-SSP].
-  SystemStagePlan systemStagePlan() const;
-  // 14. Delivery Scope and Acceptance [PD00-DEL].
-  DeliveryScopeAndAcceptance deliveryAcceptance() const;
-};
-
-// 3.1. Project Organization [PD00-ADM-PRO].
+// 3.1. Project Organization.
 class ProjectOrganization : public som::SomNode {
  public:
   ProjectOrganization(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+  // 3.1.1. Organization Structure.
   OrganizationStructure organizationStructure() const;
-  // 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+  // 3.1.2. Steering Committee.
   SteeringCommittee steeringCommittee() const;
 };
 
-// 2. Project Organization and Process [PD00-POP].
+// 2. Project Organization and Process.
 //
 // Project-specific deviations from the standard TomSpecs methodology.
 // This section documents any customizations to standard roles, quality gates,
@@ -25855,58 +26103,17 @@ class ProjectOrganizationAndProcess : public som::SomNode {
   void setMethodologyDeviationDiagram(const std::string& value);
   // Summary of all methodology deviations.
   MethodologyDeviationSummary deviationSummary() const;
-  // 2.1. Role Adjustments [PD00-POP-ROL].
+  // 2.1. Role Adjustments.
   RoleAdjustments roleAdjustments() const;
-  // 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+  // 2.2. Quality Gate Adjustments.
   QualityGateAdjustments qualityGateAdjustments() const;
-  // 2.3. Process Adjustments [PD00-POP-PRC].
+  // 2.3. Process Adjustments.
   ProcessAdjustments processAdjustments() const;
-  // 2.4. Tooling and Environments [PD00-POP-TOO].
+  // 2.4. Tooling and Environments.
   ToolingAndEnvironments toolingAndEnvironments() const;
 };
 
-// PPP00 Project Phase Plan.
-//
-// Full project phase plan — staging strategy, stage overview, per-stage
-// entries, feature prioritization, data migration, gate criteria,
-// decision processes, initial development flow, and upgrade cycle
-// framework.
-class ProjectPhasePlan : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit ProjectPhasePlan(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Staging strategy — PD00-SSP-STR.
-  StagingStrategy stagingStrategy() const;
-  // Stage overview — PD00-SSP-STA.
-  StageOverview stageOverview() const;
-  // Stages — PD00-SSP-STG (list).
-  // Returns the list view; element type: StageEntry (construct from item paths).
-  som::SomList stages() const;
-  // Feature prioritization — PD00-SSP-FEA.
-  FeaturePrioritization featurePrioritization() const;
-  // Data migration strategy — PD00-SSP-MIG.
-  DataMigrationStrategy dataMigrationStrategy() const;
-  // Gate criteria — PD00-SSP-GOV-GAT (promoted from GOV).
-  PhaseGateReviews gateCriteria() const;
-  // Decision processes — PD00-SSP-GOV-DEC (promoted from GOV).
-  DecisionPoints decisionProcesses() const;
-  // Initial development flow — PD00-SSP-IDV.
-  InitialDevelopmentFlow initialDevelopmentFlow() const;
-  // Upgrade cycle framework — PD00-SSP-UPG (links tom_system_upgrade.md).
-  UpgradeCycleFramework upgradeCycleFramework() const;
-};
-
-// 3.2. Project Team Staffing [PD00-ADM-TEA].
+// 3.2. Project Team Staffing.
 //
 // Container for individual staff assignments including roles, responsibilities,
 // availability, and required competencies.
@@ -25959,14 +26166,14 @@ class ProtocolComplianceRequirementsObservability : public som::SomNode {
   ProtocolComplianceRequirementsObservabilityContentForm content() const;
 };
 
-// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
+// A protocol or standard entry (form).
 class ProtocolEntry : public som::SomNode {
  public:
   ProtocolEntry(som::SpecDocument& doc, std::string path);
   ProtocolEntryContentForm content() const;
 };
 
-// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+// 8.6.1. Protocols and Standards.
 class ProtocolsAndStandardsSection : public som::SomNode {
  public:
   ProtocolsAndStandardsSection(som::SpecDocument& doc, std::string path);
@@ -25991,7 +26198,7 @@ class ProtocolsAndStandardsSection : public som::SomNode {
   ProtocolComplianceRequirements compliance() const;
 };
 
-// 10.13. Prototype [PD00-USE-PRO].
+// 10.13. Prototype.
 //
 // Comprehensive prototype planning covering goals, feature selection,
 // prototype type, evaluation criteria, and stakeholder alignment.
@@ -26007,24 +26214,24 @@ class Prototype : public som::SomNode {
   PrototypeGovernance governance() const;
   // Prototype overview narrative.
   // (skipped: overviewNarrative has no target type)
-  // 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+  // 10.13.1. Prototype Goals.
   PrototypeGoals prototypeGoals() const;
-  // 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+  // 10.13.2. Selected Feature Subset.
   PrototypeFeatureSubset featureSubset() const;
-  // 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+  // 10.13.3. Prototype Type.
   PrototypeTypeSection prototypeType() const;
   // Prototype schedule.
   // (skipped: prototypeSchedule has no target type)
 };
 
-// A prototype feature entry [PD00-USE-PRO-FEA-nn].
+// A prototype feature entry.
 class PrototypeFeatureEntry : public som::SomNode {
  public:
   PrototypeFeatureEntry(som::SpecDocument& doc, std::string path);
   PrototypeFeatureEntryContentForm content() const;
 };
 
-// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+// 10.13.2. Selected Feature Subset.
 //
 // Features included in the prototype.
 class PrototypeFeatureSubset : public som::SomNode {
@@ -26056,14 +26263,14 @@ class PrototypeFeatureSubsetScope : public som::SomNode {
   PrototypeFeatureSubsetScopeContentForm content() const;
 };
 
-// A prototype goal entry [PD00-USE-PRO-GOA-nn].
+// A prototype goal entry.
 class PrototypeGoalEntry : public som::SomNode {
  public:
   PrototypeGoalEntry(som::SpecDocument& doc, std::string path);
   PrototypeGoalEntryContentForm content() const;
 };
 
-// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+// 10.13.1. Prototype Goals.
 //
 // What the prototype should validate.
 class PrototypeGoals : public som::SomNode {
@@ -26116,18 +26323,18 @@ class PrototypeTimeline : public som::SomNode {
   PrototypeTimelineContentForm content() const;
 };
 
-// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+// 10.13.3. Prototype Type.
 //
 // Classification and implications of the prototype type.
 class PrototypeTypeSection : public som::SomNode {
  public:
   PrototypeTypeSection(som::SpecDocument& doc, std::string path);
   PrototypeTypeSectionPrototypeTypeOverviewForm prototypeTypeOverview() const;
-  // 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+  // 10.13.3.1. Reusable Prototype.
   ReusablePrototype reusablePrototype() const;
-  // 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+  // 10.13.3.2. Training Prototype.
   TrainingPrototype trainingPrototype() const;
-  // 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+  // 10.13.3.3. Throwaway Prototype.
   ThrowawayPrototype throwawayPrototype() const;
 };
 
@@ -26174,7 +26381,70 @@ class PwaRequirementsUpdates : public som::SomNode {
   PwaRequirementsUpdatesContentForm content() const;
 };
 
-// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
+// BQP00 Business Quality Plan.
+//
+// Full quality plan combining quality goals and the acceptance plan.
+class QualityAcceptancePlan : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit QualityAcceptancePlan(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Quality framework.
+  QualityFramework qualityFramework() const;
+  // User-related quality criteria.
+  UserQualityCriteria userQualityCriteria() const;
+  // Technical quality criteria.
+  TechnicalQualityCriteria technicalQualityCriteria() const;
+  // Operations quality criteria.
+  OperationsQualityCriteria operationsQualityCriteria() const;
+  // Documentation quality criteria.
+  DocumentationQualityCriteria documentationQualityCriteria() const;
+  // Quality prioritization.
+  QualityPrioritization qualityPrioritization() const;
+  // Acceptance criteria summary.
+  AcceptanceCriteriaSummary acceptanceCriteriaSummary() const;
+  // Test strategy (new in Phase A).
+  TestStrategy testStrategy() const;
+  // Acceptance criteria.
+  AcceptanceCriteriaList acceptanceCriteria() const;
+  // Acceptance process.
+  AcceptanceProcess acceptanceProcess() const;
+  // User acceptance testing.
+  UserAcceptanceTesting userAcceptanceTesting() const;
+  // Defect resolution.
+  DefectResolution defectResolution() const;
+  // Sign-off process.
+  SignOffProcess signOffProcess() const;
+  // Warranty terms.
+  WarrantyTerms warranty() const;
+};
+
+// SBP.14 Quality & Acceptance Model.
+//
+// Public anchor: ISO/IEC 25010 product quality.
+class QualityAndAcceptanceModel : public som::SomNode {
+ public:
+  QualityAndAcceptanceModel(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Quality goals and attributes.
+  SystemQualityGoals systemQualityGoals() const;
+  // Delivery scope and acceptance criteria.
+  DeliveryScopeAndAcceptance deliveryAcceptance() const;
+  // ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+  Iso25010Coverage iso25010Coverage() const;
+};
+
+// A quality category entry (form).
 //
 // Defines a quality category with its attributes, weight, and relationship
 // to other categories.
@@ -26222,7 +26492,7 @@ class QualityCategoryEntryRelationships : public som::SomNode {
   QualityCategoryEntryRelationshipsContentForm content() const;
 };
 
-// 11.1. Quality Framework [PD00-SYQ-FRA].
+// 11.1. Quality Framework.
 //
 // Overall quality approach for the project defining objectives, categories,
 // and how quality is structured and governed across the system.
@@ -26236,11 +26506,11 @@ class QualityFramework : public som::SomNode {
   QualityFrameworkTradeOffs tradeOffs() const;
   // Verification and defect handling approach.
   QualityFrameworkVerification verification() const;
-  // 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
+  // 11.1.1. Quality Objectives Overview.
   // (skipped: qualityObjectivesOverview has no target type)
   // Quality objectives breakdown by category.
   // (skipped: objectivesBreakdown has no target type)
-  // 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
+  // 11.1.2. Quality Categories — contains 0+× QualityCategory.
   // Returns the list view; element type: QualityCategoryEntry (construct from item paths).
   som::SomList qualityCategories() const;
   // Quality dependencies map.
@@ -26276,7 +26546,7 @@ class QualityGateAdjustmentDetails : public som::SomNode {
   QualityGateAdjustmentDetailsContentForm content() const;
 };
 
-// A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
+// A quality gate adjustment entry (form).
 //
 // Documents a specific deviation from standard quality gate definitions,
 // including the type of change, impact on quality assurance, risk
@@ -26324,7 +26594,7 @@ class QualityGateAdjustmentSummary : public som::SomNode {
   QualityGateAdjustmentSummaryContentForm content() const;
 };
 
-// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+// 2.2. Quality Gate Adjustments.
 //
 // Documents any deviations from the standard quality gates defined in
 // tom_quality_gates.md. Includes skipped, added, or modified gates
@@ -26344,7 +26614,7 @@ class QualityGateAdjustments : public som::SomNode {
   som::SomList items() const;
 };
 
-// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
+// A quality gate check entry (form).
 class QualityGateCheckEntry : public som::SomNode {
  public:
   QualityGateCheckEntry(som::SpecDocument& doc, std::string path);
@@ -26396,7 +26666,7 @@ class QualityGateCheckEntryVerification : public som::SomNode {
   QualityGateCheckEntryVerificationContentForm content() const;
 };
 
-// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+// 11.7.2. Quality Gate Checklist.
 //
 // Quality gate checklist used during acceptance.
 class QualityGateChecklist : public som::SomNode {
@@ -26410,7 +26680,7 @@ class QualityGateChecklist : public som::SomNode {
   som::SomList items() const;
 };
 
-// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+// 11.6. Quality Prioritization.
 //
 // Prioritization and balancing of quality attributes including weighted
 // matrices and explicit trade-off decisions.
@@ -26420,9 +26690,9 @@ class QualityPrioritization : public som::SomNode {
   QualityPrioritizationPrioritizationFrameworkContentForm prioritizationFrameworkContent() const;
   // Prioritization approach overview.
   // (skipped: prioritizationOverview has no target type)
-  // 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+  // 11.6.1. Weighted Quality Matrix.
   WeightedQualityMatrix weightedQualityMatrix() const;
-  // 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+  // 11.6.2. Trade-off Decisions.
   TradeOffDecisions tradeOffDecisions() const;
 };
 
@@ -26433,7 +26703,7 @@ class QualityScenarioEntry : public som::SomNode {
   QualityScenarioEntryContentForm content() const;
 };
 
-// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+// 4.2.2.n.1. Quality Scenarios.
 //
 // Quality attribute scenarios that define concrete, testable situations
 // for verifying the technical goal (based on SEI quality attribute workshop).
@@ -26490,7 +26760,7 @@ class QualityStandardEntryProcesses : public som::SomNode {
   QualityStandardEntryProcessesContentForm content() const;
 };
 
-// A quality weight entry [PD00-SYQ-PRI-WEI-nn].
+// A quality weight entry.
 class QualityWeightEntry : public som::SomNode {
  public:
   QualityWeightEntry(som::SpecDocument& doc, std::string path);
@@ -26531,7 +26801,7 @@ class RateLimitingPolicyQuotas : public som::SomNode {
   RateLimitingPolicyQuotasContentForm content() const;
 };
 
-// 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
+// 11.5.1. Readability quality.
 class ReadabilityQuality : public som::SomNode {
  public:
   ReadabilityQuality(som::SpecDocument& doc, std::string path);
@@ -26576,7 +26846,7 @@ class ReadabilityQualityStyle : public som::SomNode {
   ReadabilityQualityStyleContentForm content() const;
 };
 
-// Readiness criteria entry [PD00-ORG-STR-TIM-RDY-nn] (form).
+// Readiness criteria entry (form).
 class ReadinessCriteriaEntry : public som::SomNode {
  public:
   ReadinessCriteriaEntry(som::SpecDocument& doc, std::string path);
@@ -26634,7 +26904,7 @@ class RecoveryProceduresValidation : public som::SomNode {
   RecoveryProceduresValidationContentForm content() const;
 };
 
-// A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
+// A recovery scenario entry.
 class RecoveryScenarioEntry : public som::SomNode {
  public:
   RecoveryScenarioEntry(som::SpecDocument& doc, std::string path);
@@ -26663,7 +26933,7 @@ class RedirectHandlingPolicy : public som::SomNode {
   // (skipped: redirectDetails has no target type)
 };
 
-// A reference document entry [PD00-ADM-REF-nn] (form).
+// A reference document entry (form).
 //
 // Detailed metadata for a single referenced document including
 // identification, classification, status, and applicability.
@@ -26704,7 +26974,7 @@ class ReferenceDocumentEntryMetadata : public som::SomNode {
   ReferenceDocumentEntryMetadataContentForm content() const;
 };
 
-// 3.5. Reference Documents [PD00-ADM-REF].
+// 3.5. Reference Documents.
 //
 // Catalog of all documents referenced by this project specification,
 // including enterprise standards, technical guidelines, regulatory
@@ -26773,7 +27043,7 @@ class RegulatoryComplianceEntryRequirements : public som::SomNode {
   RegulatoryComplianceEntryRequirementsContentForm content() const;
 };
 
-// 3.6.3. Regulatory Compliance Requirements [PD00-ADM-OTH-REG].
+// 3.6.3. Regulatory Compliance Requirements.
 //
 // Regulatory and compliance obligations affecting the project.
 class RegulatoryComplianceRequirements : public som::SomNode {
@@ -26789,7 +27059,7 @@ class RegulatoryComplianceRequirements : public som::SomNode {
   som::SomList milestones() const;
 };
 
-// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+// 4.1.2.8. Regulatory Context.
 //
 // Regulatory and compliance context that affects system design and
 // operations.
@@ -26882,7 +27152,7 @@ class RelevantSectionEntry : public som::SomNode {
   RelevantSectionEntryContentForm content() const;
 };
 
-// 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
+// 11.3.6. Reliability quality.
 class ReliabilityQuality : public som::SomNode {
  public:
   ReliabilityQuality(som::SpecDocument& doc, std::string path);
@@ -26948,7 +27218,7 @@ class RemoteAccessRequirements : public som::SomNode {
   RemoteAccessRequirementsContentForm content() const;
 };
 
-// A removed role entry [PD00-ORG-JOB-REM-nn] (form).
+// A removed role entry (form).
 //
 // Documents roles being eliminated with transition planning for incumbents.
 class RemovedRoleEntry : public som::SomNode {
@@ -26984,7 +27254,7 @@ class RemovedRoleEntryTransition : public som::SomNode {
   RemovedRoleEntryTransitionContentForm content() const;
 };
 
-// Container for systems to replace [PD00-SYO-SYR-INV].
+// Container for systems to replace.
 //
 // Provides a structured inventory of all systems targeted for replacement,
 // with portfolio-level metrics and prioritization guidance.
@@ -27000,14 +27270,14 @@ class ReplacementInventory : public som::SomNode {
   som::SomList systems() const;
 };
 
-// A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn].
+// A replacement phase entry.
 class ReplacementPhaseEntry : public som::SomNode {
  public:
   ReplacementPhaseEntry(som::SpecDocument& doc, std::string path);
   ReplacementPhaseEntryContentForm content() const;
 };
 
-// A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
+// A system dependency entry.
 //
 // Documents integrations and dependencies with other systems.
 class ReplacementSystemDependencyEntry : public som::SomNode {
@@ -27030,7 +27300,7 @@ class ReportChartDisplay : public som::SomNode {
   ReportChartDisplayContentForm content() const;
 };
 
-// A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
+// A chart/visualization in a report
 // (form).
 class ReportChartEntry : public som::SomNode {
  public:
@@ -27084,7 +27354,7 @@ class ReportColumnDataSource : public som::SomNode {
   ReportColumnDataSourceContentForm content() const;
 };
 
-// A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
+// A column in a tabular report section
 // (form).
 class ReportColumnEntry : public som::SomNode {
  public:
@@ -27130,7 +27400,7 @@ class ReportDataSource : public som::SomNode {
   ReportDataSourceContentForm content() const;
 };
 
-// Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form).
+// Distribution channel configuration (form).
 class ReportDistributionEntry : public som::SomNode {
  public:
   ReportDistributionEntry(som::SpecDocument& doc, std::string path);
@@ -27164,7 +27434,7 @@ class ReportDistributionEntryRecipients : public som::SomNode {
   ReportDistributionEntryRecipientsContentForm content() const;
 };
 
-// A report entry [PD00-USE-PRI-REP-nn] (form).
+// A report entry (form).
 class ReportEntry : public som::SomNode {
  public:
   ReportEntry(som::SpecDocument& doc, std::string path);
@@ -27208,7 +27478,7 @@ class ReportEntry : public som::SomNode {
   som::SomList recipients() const;
 };
 
-// A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form).
+// A filter parameter for a report (form).
 class ReportFilterEntry : public som::SomNode {
  public:
   ReportFilterEntry(som::SpecDocument& doc, std::string path);
@@ -27305,7 +27575,7 @@ class ReportPagination : public som::SomNode {
   ReportPaginationContentForm content() const;
 };
 
-// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
+// A recipient entry (form).
 class ReportRecipientEntry : public som::SomNode {
  public:
   ReportRecipientEntry(som::SpecDocument& doc, std::string path);
@@ -27339,7 +27609,7 @@ class ReportRecipientEntryLifecycle : public som::SomNode {
   ReportRecipientEntryLifecycleContentForm content() const;
 };
 
-// Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
+// Scheduling rules for report generation
 // (form).
 class ReportScheduleEntry : public som::SomNode {
  public:
@@ -27397,7 +27667,7 @@ class ReportSectionData : public som::SomNode {
   ReportSectionDataContentForm content() const;
 };
 
-// A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).
+// A section within a report (form).
 class ReportSectionEntry : public som::SomNode {
  public:
   ReportSectionEntry(som::SpecDocument& doc, std::string path);
@@ -27447,7 +27717,7 @@ class RepresentativeQuoteEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+// 4.3.1.n.1. Acceptance Criteria.
 //
 // Testable conditions that must be met for the requirement to be accepted.
 // Uses Given-When-Then format for clarity.
@@ -27468,7 +27738,7 @@ class RequirementBusinessRuleEntry : public som::SomNode {
   RequirementBusinessRuleEntryContentForm content() const;
 };
 
-// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+// 4.3.1.n.2. Business Rules.
 //
 // Business rules that constrain or guide this requirement's behavior.
 class RequirementBusinessRules : public som::SomNode {
@@ -27481,7 +27751,7 @@ class RequirementBusinessRules : public som::SomNode {
   som::SomList rules() const;
 };
 
-// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+// 4.3.6. Requirement Coverage.
 //
 // Coverage of requirements against goals, use cases, and tests.
 class RequirementCoverage : public som::SomNode {
@@ -27491,7 +27761,7 @@ class RequirementCoverage : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+// 4.3.1.n.3. Data Requirements.
 //
 // Data entities, attributes, and relationships needed by this requirement.
 class RequirementDataRequirements : public som::SomNode {
@@ -27504,7 +27774,7 @@ class RequirementDataRequirements : public som::SomNode {
   som::SomList entities() const;
 };
 
-// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+// 4.3.1.n.5. Dependencies.
 //
 // Dependencies this requirement has on other requirements.
 class RequirementDependencies : public som::SomNode {
@@ -27526,7 +27796,7 @@ class RequirementDependencyEntry : public som::SomNode {
   void setRelatedRequirement(const std::string& value);
 };
 
-// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+// 4.3.5. Requirement Relationships.
 //
 // Cross-requirement dependency and conflict graph.
 class RequirementRelationships : public som::SomNode {
@@ -27575,7 +27845,7 @@ class RequirementTestCaseEntryExecution : public som::SomNode {
   RequirementTestCaseEntryExecutionContentForm content() const;
 };
 
-// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+// 4.3.1.n.7. Test Cases.
 //
 // Test cases that verify this requirement is correctly implemented.
 class RequirementTestCases : public som::SomNode {
@@ -27588,7 +27858,7 @@ class RequirementTestCases : public som::SomNode {
   som::SomList testCases() const;
 };
 
-// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+// 4.3.1.n.6. Traceability.
 //
 // Traceability links to goals, use cases, processes, and other artifacts.
 class RequirementTraceability : public som::SomNode {
@@ -27618,7 +27888,7 @@ class RequirementTraceabilityImplementation : public som::SomNode {
   RequirementTraceabilityImplementationContentForm content() const;
 };
 
-// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+// 4.3.1.n.4. UI Specification.
 //
 // User interface specification for this requirement. Defines screens,
 // forms, and interactions needed to fulfill the requirement.
@@ -27647,48 +27917,25 @@ class RequirementUiSpecification : public som::SomNode {
   som::SomList behaviors() const;
 };
 
-// RC00 Requirements Catalog.
+// SBP.9 Requirements.
 //
-// Full requirements catalog covering functional, technical, security,
-// and organizational requirements, plus traceability, relationships,
-// and coverage analysis.
-class RequirementsCatalog : public som::SomNode {
+// Functional requirements seed the Requirements Specification (RSP); this
+// section currently carries the framework-uncovered NFR sub-areas re-homed in
+// IP-6. Functional-requirement modelling is expanded in a later IP step.
+class Requirements : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit RequirementsCatalog(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
+  Requirements(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Functional requirements — PD00-SYO-REQ-FUN.
-  FunctionalRequirements functionalRequirements() const;
-  // Technical (non-functional) requirements — PD00-SYO-REQ-TEC.
-  TechnicalRequirements technicalRequirements() const;
-  // Security requirements — PD00-SYO-REQ-SEC.
-  SecurityRequirements securityRequirements() const;
-  // Organizational requirements — PD00-SYO-REQ-ORG.
-  OrganizationalRequirements organizationalRequirements() const;
-  // Traceability matrix overview — PD00-SYO-REQ-TRC.
-  //
-  // Mirrors the PD00-side flat field on RequirementsOverview so the RC
-  // outline reaches it directly. The authoritative content lives on the
-  // PD00 side.
-  std::string traceabilityMatrix() const;
-  void setTraceabilityMatrix(const std::string& value);
-  // Requirement relationships — PD00-SYO-REQ-REL.
-  // Returns the list view; element type: RequirementRelationships (construct from item paths).
-  som::SomList requirementRelationships() const;
-  // Requirement coverage — PD00-SYO-REQ-COV.
-  RequirementCoverage requirementCoverage() const;
+  // Localization & Translation requirements (NFR-L10N-NNN).
+  LocalizationTranslationRequirements localizationTranslation() const;
+  // Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
+  InformationForUseRequirements informationForUse() const;
+  // Training & Enablement requirements (NFR-TRN-NNN).
+  TrainingEnablementRequirements trainingEnablement() const;
 };
 
-// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+// 4.3. Requirements Overview. Seeds → RC.
 //
 // Initial requirements overview organized by category. Each requirement
 // receives a unique ID and will be expanded into the RC (Requirements
@@ -27705,18 +27952,59 @@ class RequirementsOverview : public som::SomNode {
   // Traceability matrix overview.
   std::string traceabilityMatrix() const;
   void setTraceabilityMatrix(const std::string& value);
-  // 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+  // 4.3.1. Functional Requirements.
   FunctionalRequirements functionalRequirements() const;
-  // 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+  // 4.3.2. Technical Requirements.
   TechnicalRequirements technicalRequirements() const;
-  // 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+  // 4.3.3. Security Requirements.
   SecurityRequirements securityRequirements() const;
-  // 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+  // 4.3.4. Organizational Requirements.
   OrganizationalRequirements organizationalRequirements() const;
-  // 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+  // 4.3.5. Requirement Relationships.
   // Returns the list view; element type: RequirementRelationships (construct from item paths).
   som::SomList requirementRelationships() const;
-  // 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+  // 4.3.6. Requirement Coverage.
+  RequirementCoverage requirementCoverage() const;
+};
+
+// RC00 Requirements Catalog.
+//
+// Full requirements catalog covering functional, technical, security,
+// and organizational requirements, plus traceability, relationships,
+// and coverage analysis.
+class RequirementsSpecification : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit RequirementsSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Functional requirements.
+  FunctionalRequirements functionalRequirements() const;
+  // Technical (non-functional) requirements.
+  TechnicalRequirements technicalRequirements() const;
+  // Security requirements.
+  SecurityRequirements securityRequirements() const;
+  // Organizational requirements.
+  OrganizationalRequirements organizationalRequirements() const;
+  // Traceability matrix overview.
+  //
+  // Mirrors the flat field on RequirementsOverview so the RC outline
+  // reaches it directly. The authoritative content lives on the Solution
+  // Blueprint side.
+  std::string traceabilityMatrix() const;
+  void setTraceabilityMatrix(const std::string& value);
+  // Requirement relationships.
+  // Returns the list view; element type: RequirementRelationships (construct from item paths).
+  som::SomList requirementRelationships() const;
+  // Requirement coverage.
   RequirementCoverage requirementCoverage() const;
 };
 
@@ -27770,31 +28058,31 @@ class ResourceCapacityBaselinesStorage : public som::SomNode {
   ResourceCapacityBaselinesStorageContentForm content() const;
 };
 
-// A resource key entry [PD00-ACC-USA-RES-nn] (form).
+// A resource key entry (form).
 class ResourceKeyEntry : public som::SomNode {
  public:
   ResourceKeyEntry(som::SpecDocument& doc, std::string path);
   ResourceKeyEntryContentForm content() const;
 };
 
-// A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn].
+// A resource key reference entry (form).
 class ResourceKeyReferenceEntry : public som::SomNode {
  public:
   ResourceKeyReferenceEntry(som::SpecDocument& doc, std::string path);
   ResourceKeyReferenceEntryContentForm content() const;
 };
 
-// 9.3. Resource Protection [PD00-ACC-RES].
+// 9.3. Resource Protection.
 class ResourceProtection : public som::SomNode {
  public:
   ResourceProtection(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+  // 9.3.1. Data-Level Security.
   DataLevelSecurity dataLevelSecurity() const;
-  // 9.3.2. API Security [PD00-ACC-RES-API].
+  // 9.3.2. API Security.
   ApiSecurity apiSecurity() const;
-  // 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+  // 9.3.3. File and Storage Security.
   FileAndStorageSecurity fileAndStorageSecurity() const;
 };
 
@@ -27813,7 +28101,7 @@ class ResponseStrategyEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// Responsibility change entry [PD00-ORG-JOB-CHA-nn-xxx-nn] (form).
+// Responsibility change entry (form).
 class ResponsibilityChangeEntry : public som::SomNode {
  public:
   ResponsibilityChangeEntry(som::SpecDocument& doc, std::string path);
@@ -27827,14 +28115,14 @@ class ResponsibilityContacts : public som::SomNode {
   ResponsibilityContactsContentForm content() const;
 };
 
-// Detailed responsibility entry [PD00-ORG-JOB-NEW-nn-RSP-nn] (form).
+// Detailed responsibility entry (form).
 class ResponsibilityDetailEntry : public som::SomNode {
  public:
   ResponsibilityDetailEntry(som::SpecDocument& doc, std::string path);
   ResponsibilityDetailEntryContentForm content() const;
 };
 
-// A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+// A responsibility entry (form).
 //
 // Documents responsibility assignment for a specific functional area,
 // following RACI principles (Responsible, Accountable, Consulted, Informed)
@@ -27886,7 +28174,7 @@ class ResponsibilityRaci : public som::SomNode {
   ResponsibilityRaciContentForm content() const;
 };
 
-// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
+// A responsibility reference entry (form).
 class ResponsibilityReferenceEntry : public som::SomNode {
  public:
   ResponsibilityReferenceEntry(som::SpecDocument& doc, std::string path);
@@ -27900,7 +28188,7 @@ class ResponsibilitySystems : public som::SomNode {
   ResponsibilitySystemsContentForm content() const;
 };
 
-// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+// 10.10.2. Responsive Behavior.
 //
 // How the UI adapts across breakpoints.
 class ResponsiveBehavior : public som::SomNode {
@@ -27950,7 +28238,7 @@ class ResponsiveBehaviorVisibility : public som::SomNode {
   ResponsiveBehaviorVisibilityContentForm content() const;
 };
 
-// 10.10. Responsive Design [PD00-USE-RES].
+// 10.10. Responsive Design.
 //
 // Comprehensive responsive design specification covering breakpoints,
 // adaptive layouts, and device-specific behavior for Flutter applications.
@@ -27960,13 +28248,13 @@ class ResponsiveDesign : public som::SomNode {
   ResponsiveDesignResponsiveOverviewForm responsiveOverview() const;
   // Responsive design narrative.
   // (skipped: responsiveNarrative has no target type)
-  // 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+  // 10.10.1. Breakpoints.
   BreakpointConfiguration breakpointConfig() const;
-  // 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+  // 10.10.2. Responsive Behavior.
   ResponsiveBehavior responsiveBehavior() const;
 };
 
-// A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
+// A screen-specific responsive rule entry.
 class ResponsiveScreenRuleEntry : public som::SomNode {
  public:
   ResponsiveScreenRuleEntry(som::SpecDocument& doc, std::string path);
@@ -28057,7 +28345,7 @@ class ReusabilityPrinciplesVersioning : public som::SomNode {
   ReusabilityPrinciplesVersioningContentForm content() const;
 };
 
-// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+// 8.2.3. Reusable Components.
 //
 // Components, libraries, or frameworks designed for reuse across projects
 // or modules.
@@ -28091,7 +28379,7 @@ class ReusableComponentsSection : public som::SomNode {
   ComponentRegistry registry() const;
 };
 
-// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+// 10.13.3.1. Reusable Prototype.
 //
 // Prototype that becomes part of the final product.
 class ReusablePrototype : public som::SomNode {
@@ -28181,7 +28469,7 @@ class ReusableUiComponentEntryInteraction : public som::SomNode {
   ReusableUiComponentEntryInteractionContentForm content() const;
 };
 
-// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
+// A reuse goal entry (form).
 //
 // Defines a specific reuse target: what to reuse, why, at what percentage,
 // how to measure, and who owns the goal.
@@ -28218,7 +28506,7 @@ class ReuseGoalEntryMeasurement : public som::SomNode {
   ReuseGoalEntryMeasurementContentForm content() const;
 };
 
-// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
+// A review criterion entry (form).
 //
 // A single criterion evaluated at a phase gate, with weight,
 // evidence linkage, and assessment result.
@@ -28244,6 +28532,24 @@ class ReviewCriterionEntryResult : public som::SomNode {
  public:
   ReviewCriterionEntryResult(som::SpecDocument& doc, std::string path);
   ReviewCriterionEntryResultContentForm content() const;
+};
+
+// A single document revision entry (form).
+class RevisionEntry : public som::SomNode {
+ public:
+  RevisionEntry(som::SpecDocument& doc, std::string path);
+  RevisionEntryContentForm content() const;
+};
+
+// Chronological revision history.
+class RevisionHistory : public som::SomNode {
+ public:
+  RevisionHistory(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // One entry per published revision of the document.
+  // Returns the list view; element type: RevisionEntry (construct from item paths).
+  som::SomList revisions() const;
 };
 
 // Risk analysis — probability, impact, and risk scoring.
@@ -28294,7 +28600,7 @@ class RiskCategoryEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+// A risk entry (form).
 //
 // Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
 // Captures risk identification, analysis, response planning, ownership,
@@ -28408,7 +28714,7 @@ class RiskResponseResidual : public som::SomNode {
   RiskResponseResidualContentForm content() const;
 };
 
-// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+// 4.7. Risks and Assumptions.
 //
 // Documents identified project risks and underlying assumptions following
 // ISO 31000 Risk Management and PMBOK risk management best practices.
@@ -28419,10 +28725,10 @@ class RisksAndAssumptions : public som::SomNode {
   RisksAndAssumptions(som::SpecDocument& doc, std::string path);
   // Overview of the risk management approach for this project.
   RisksOverview overview() const;
-  // 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+  // 4.7.1. Key Risks — contains 0+× Risk.
   // Returns the list view; element type: RiskEntry (construct from item paths).
   som::SomList keyRisks() const;
-  // 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
+  // 4.7.2. Key Assumptions — contains 0+×.
   KeyAssumptions keyAssumptions() const;
 };
 
@@ -28433,7 +28739,7 @@ class RisksOverview : public som::SomNode {
   RisksOverviewContentForm content() const;
 };
 
-// A role adjustment entry (form) [PD00-POP-ROL-nn].
+// A role adjustment entry (form).
 //
 // Documents a specific deviation from standard TomSpecs role definitions,
 // including the type of adjustment, affected responsibilities, risk
@@ -28496,7 +28802,7 @@ class RoleAdjustmentSummary : public som::SomNode {
   RoleAdjustmentSummaryContentForm content() const;
 };
 
-// 2.1. Role Adjustments [PD00-POP-ROL].
+// 2.1. Role Adjustments.
 //
 // Documents any deviations from the standard TomSpecs roles defined in
 // tom_roles.md. Includes merged, split, omitted, or modified roles
@@ -28529,7 +28835,7 @@ class RoleCertificationPolicy : public som::SomNode {
   // (skipped: roleCertificationDetails has no target type)
 };
 
-// A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn].
+// A role combination constraint entry (form).
 //
 // Defines rules about which roles can or cannot be combined — supports
 // separation of duties, prerequisite roles, and co-requisite roles.
@@ -28539,14 +28845,14 @@ class RoleCombinationConstraintEntry : public som::SomNode {
   RoleCombinationConstraintEntryContentForm content() const;
 };
 
-// Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form).
+// Role competency entry (form).
 class RoleCompetencyEntry : public som::SomNode {
  public:
   RoleCompetencyEntry(som::SpecDocument& doc, std::string path);
   RoleCompetencyEntryContentForm content() const;
 };
 
-// A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn].
+// A data scope entry for a role (form).
 //
 // Specifies what data categories the role can access and at what level —
 // supports horizontal access control and data-level security.
@@ -28563,14 +28869,14 @@ class RoleDecisionAuthority : public som::SomNode {
   RoleDecisionAuthorityContentForm content() const;
 };
 
-// A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
+// A role exclusion entry (form).
 class RoleExclusionEntry : public som::SomNode {
  public:
   RoleExclusionEntry(som::SpecDocument& doc, std::string path);
   RoleExclusionEntryContentForm content() const;
 };
 
-// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+// 9.4.6. Role Hierarchy.
 //
 // Defines the role hierarchy: inheritance rules, mutual exclusions,
 // role combination constraints, hierarchy depth, and role certification
@@ -28610,14 +28916,14 @@ class RoleHierarchyPolicy : public som::SomNode {
   // (skipped: roleHierarchyPolicyDetails has no target type)
 };
 
-// A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
+// A role holder entry (form).
 class RoleHolderEntry : public som::SomNode {
  public:
   RoleHolderEntry(som::SpecDocument& doc, std::string path);
   RoleHolderEntryContentForm content() const;
 };
 
-// A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn].
+// A role inheritance rule entry (form).
 //
 // Defines a specific parent-child inheritance relationship between two roles,
 // including what is inherited and any restrictions.
@@ -28627,9 +28933,9 @@ class RoleInheritanceRuleEntry : public som::SomNode {
   RoleInheritanceRuleEntryContentForm content() const;
 };
 
-// 9.7. Role Matrix [PD00-ACC-ROL].
+// 9.7. Role Matrix.
 //
-// Role-to-permission assignment matrix covering HBSG AS22-AUM
+// Role-to-permission assignment matrix covering
 // Authorization Model.
 class RoleMatrix : public som::SomNode {
  public:
@@ -28638,7 +28944,7 @@ class RoleMatrix : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn].
+// A direct permission entry for a role (form).
 //
 // Captures direct permission assignments that complement or override
 // entitlement-based access — useful when fine-grained per-role permissions
@@ -28649,7 +28955,7 @@ class RolePermissionEntry : public som::SomNode {
   RolePermissionEntryContentForm content() const;
 };
 
-// A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn].
+// A role reference entry (form).
 class RoleReferenceEntry : public som::SomNode {
  public:
   RoleReferenceEntry(som::SpecDocument& doc, std::string path);
@@ -28708,7 +29014,7 @@ class RollbackStrategyTriggers : public som::SomNode {
   RollbackStrategyTriggersContentForm content() const;
 };
 
-// 15.1. Rollout Plan [PD00-ROL-PLN].
+// 15.1. Rollout Plan.
 //
 // Geographic and/or user-group rollout plan covering DR23 Rollout Plan
 // content: the sequencing of sites, countries, business units, and user
@@ -28720,7 +29026,7 @@ class RolloutPlan : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 15.4. Training Materials [PD00-ROL-TRN].
+// 15.4. Training Materials.
 //
 // Training deliverables covering DR17 Training Materials content.
 class RolloutTrainingMaterials : public som::SomNode {
@@ -28778,7 +29084,7 @@ class RpoRtoRequirementsSystems : public som::SomNode {
   RpoRtoRequirementsSystemsContentForm content() const;
 };
 
-// A rule example entry (form) [PD00-BUS-FUN-RUL-nn-EXA-nn].
+// A rule example entry (form).
 //
 // Examples illustrating rule application.
 class RuleExampleEntry : public som::SomNode {
@@ -28787,7 +29093,7 @@ class RuleExampleEntry : public som::SomNode {
   RuleExampleEntryContentForm content() const;
 };
 
-// 12.4. Runtime Dependencies [PD00-COM-RUN].
+// 12.4. Runtime Dependencies.
 //
 // Runtime dependencies between components: required services, startup order,
 // health-check dependencies, failover behavior, and version constraints.
@@ -28801,7 +29107,7 @@ class RuntimeDependencies : public som::SomNode {
   som::SomList items() const;
 };
 
-// A runtime dependency entry (form) [PD00-COM-RUN-nn].
+// A runtime dependency entry (form).
 //
 // Documents one runtime dependency: startup order, health checks,
 // failover, data flow, latency tolerance, and caching strategy.
@@ -29087,7 +29393,7 @@ class ScenarioData : public som::SomNode {
   ScenarioDataContentForm content() const;
 };
 
-// A scenario entry [PD00-TAR-STP-SCE-nn].
+// A scenario entry.
 //
 // Comprehensive scenario definition for end-to-end user journey.
 class ScenarioEntry : public som::SomNode {
@@ -29125,7 +29431,7 @@ class ScenarioOverview : public som::SomNode {
   ScenarioOverviewContentForm content() const;
 };
 
-// A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn].
+// A scenario step entry.
 class ScenarioStepEntry : public som::SomNode {
  public:
   ScenarioStepEntry(som::SpecDocument& doc, std::string path);
@@ -29215,7 +29521,7 @@ class ScopeAssumptionEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+// 4.1.1.6. Scope Boundaries.
 //
 // Clear definition of what is in scope and out of scope for this system.
 // Helps set expectations and prevent scope creep.
@@ -29224,13 +29530,13 @@ class ScopeBoundaries : public som::SomNode {
   ScopeBoundaries(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
+  // In-Scope Items — contains 1+× ScopeItem.
   // Returns the list view; element type: ScopeItemEntry (construct from item paths).
   som::SomList inScopeItems() const;
-  // Out-of-Scope Items [PD00-SYO-SYD-PUR-SCO-OUT] — contains 0+× ScopeItem.
+  // Out-of-Scope Items — contains 0+× ScopeItem.
   // Returns the list view; element type: ScopeItemEntry (construct from item paths).
   som::SomList outOfScopeItems() const;
-  // Deferred Items [PD00-SYO-SYD-PUR-SCO-DEF] — contains 0+× ScopeItem.
+  // Deferred Items — contains 0+× ScopeItem.
   // Returns the list view; element type: DeferredScopeItemEntry (construct from item paths).
   som::SomList deferredItems() const;
   // Scope Assumptions.
@@ -29245,7 +29551,7 @@ class ScopeItemEntry : public som::SomNode {
   ScopeItemEntryContentForm content() const;
 };
 
-// A screen action entry (form) [PD00-USE-SCR-INV-nn-ACT-mm].
+// A screen action entry (form).
 //
 // A top-level action available on the screen via toolbar, app bar, or FAB.
 class ScreenActionEntry : public som::SomNode {
@@ -29281,7 +29587,7 @@ class ScreenActionEntryVisual : public som::SomNode {
   ScreenActionEntryVisualContentForm content() const;
 };
 
-// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+// 10.2.1.n.2. Screen Actions.
 //
 // Top-level actions available on the screen (toolbar, app bar, FAB).
 class ScreenActions : public som::SomNode {
@@ -29304,15 +29610,15 @@ class ScreenBehaviorEntry : public som::SomNode {
   ScreenBehaviorEntryContentForm content() const;
 };
 
-// 10.2. Screen Descriptions [PD00-USE-SCR].
+// 10.2. Screen Descriptions.
 class ScreenDescriptions : public som::SomNode {
  public:
   ScreenDescriptions(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+  // 10.2.1. Screen Inventory.
   ScreenInventory screenInventory() const;
-  // 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+  // 10.2.2. Information Architecture.
   InformationArchitecture informationArchitecture() const;
 };
 
@@ -29370,7 +29676,7 @@ class ScreenElementDataDisplayOptions : public som::SomNode {
   ScreenElementDataDisplayOptionsContentForm content() const;
 };
 
-// A screen element entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk].
+// A screen element entry (form).
 //
 // Any interactive or display element within a screen section: buttons, fields,
 // data displays, icons, labels, status indicators.
@@ -29386,11 +29692,11 @@ class ScreenElementEntry : public som::SomNode {
   ScreenElementEntryBehavior behavior() const;
   // Styling and data binding.
   ScreenElementEntryPresentation presentation() const;
-  // 10.2.1.n.m.k.1. Element Action [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-ACN].
+  // 10.2.1.n.m.k.1. Element Action.
   ScreenElementAction elementAction() const;
-  // 10.2.1.n.m.k.2. Element Field Spec [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-FLD].
+  // 10.2.1.n.m.k.2. Element Field Spec.
   ScreenElementFieldSpec fieldSpec() const;
-  // 10.2.1.n.m.k.3. Element Data Display [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-DAT].
+  // 10.2.1.n.m.k.3. Element Data Display.
   ScreenElementDataDisplay dataDisplay() const;
   // Contains 0+× ElementValidationRule.
   // Returns the list view; element type: ElementValidationRuleEntry (construct from item paths).
@@ -29470,7 +29776,7 @@ class ScreenElementFieldSpecValidation : public som::SomNode {
   ScreenElementFieldSpecValidationContentForm content() const;
 };
 
-// A screen entry [PD00-USE-SCR-INV-nn] (form).
+// A screen entry (form).
 //
 // Comprehensive specification of a single application screen, covering
 // identity, purpose, authorization, layout, elements, and behavior.
@@ -29488,11 +29794,11 @@ class ScreenEntry : public som::SomNode {
   ScreenEntryPresentation presentation() const;
   // Screen design rationale and notes.
   // (skipped: designNotes has no target type)
-  // 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+  // 10.2.1.n.1. Screen Sections.
   ScreenSections sections() const;
-  // 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+  // 10.2.1.n.2. Screen Actions.
   ScreenActions actions() const;
-  // 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+  // 10.2.1.n.3. Screen States.
   ScreenStates states() const;
   // Contains 0+× ScreenUserCategory.
   // Returns the list view; element type: ScreenUserCategoryEntry (construct from item paths).
@@ -29581,19 +29887,19 @@ class ScreenFieldValidation : public som::SomNode {
   ScreenFieldValidationContentForm content() const;
 };
 
-// 10.3. Screen Flow Structure [PD00-USE-SCF].
+// 10.3. Screen Flow Structure.
 class ScreenFlowStructure : public som::SomNode {
  public:
   ScreenFlowStructure(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+  // 10.3.1. Navigation Model.
   NavigationModel navigationModel() const;
-  // 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid-flow).
+  // 10.3.2. Screen Flow Diagram (mermaid-flow).
   // (skipped: screenFlowDiagram has no target type)
 };
 
-// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+// 10.2.1. Screen Inventory.
 //
 // Container for screen definitions. Each entry fully describes one application
 // screen including its purpose, layout zones, elements, actions, and states.
@@ -29609,7 +29915,7 @@ class ScreenInventory : public som::SomNode {
   som::SomList items() const;
 };
 
-// A responsive rule entry (form) [PD00-USE-SCR-INV-nn-RSP-mm].
+// A responsive rule entry (form).
 //
 // How the screen adapts at different breakpoints.
 class ScreenResponsiveRuleEntry : public som::SomNode {
@@ -29618,7 +29924,7 @@ class ScreenResponsiveRuleEntry : public som::SomNode {
   ScreenResponsiveRuleEntryContentForm content() const;
 };
 
-// A screen section entry (form) [PD00-USE-SCR-INV-nn-SEC-mm].
+// A screen section entry (form).
 //
 // A logical zone within a screen: header, toolbar, content area, sidebar, etc.
 class ScreenSectionEntry : public som::SomNode {
@@ -29648,7 +29954,7 @@ class ScreenSectionEntryLayout : public som::SomNode {
   ScreenSectionEntryLayoutContentForm content() const;
 };
 
-// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+// 10.2.1.n.1. Screen Sections.
 //
 // Logical zones within a screen that group related elements.
 class ScreenSections : public som::SomNode {
@@ -29661,7 +29967,7 @@ class ScreenSections : public som::SomNode {
   som::SomList items() const;
 };
 
-// A screen state entry (form) [PD00-USE-SCR-INV-nn-STA-mm].
+// A screen state entry (form).
 //
 // A specific state the screen can be in: loading, empty, error, permission-denied.
 class ScreenStateEntry : public som::SomNode {
@@ -29670,7 +29976,7 @@ class ScreenStateEntry : public som::SomNode {
   ScreenStateEntryContentForm content() const;
 };
 
-// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+// 10.2.1.n.3. Screen States.
 //
 // Different visual/behavioral states the screen can be in.
 class ScreenStates : public som::SomNode {
@@ -29683,14 +29989,14 @@ class ScreenStates : public som::SomNode {
   som::SomList items() const;
 };
 
-// A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-mm].
+// A user category entry (form).
 class ScreenUserCategoryEntry : public som::SomNode {
  public:
   ScreenUserCategoryEntry(som::SpecDocument& doc, std::string path);
   ScreenUserCategoryEntryContentForm content() const;
 };
 
-// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+// 10.3.1.4. Secondary Navigation.
 //
 // In-page navigation: tab bars, segmented controls.
 class SecondaryNavigation : public som::SomNode {
@@ -29705,7 +30011,69 @@ class SecondaryNavigation : public som::SomNode {
   som::SomList tabBars() const;
 };
 
-// A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
+// AC00 Authorization Concept.
+//
+// Complete access and authorization specification — user management,
+// identification and authentication, resource protection, user
+// authorization, encryption, audit/logging, role matrix, and
+// compliance framework.
+class SecurityAccessSpecification : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit SecurityAccessSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // User management.
+  UserManagement userManagement() const;
+  // Identification and authentication.
+  IdentificationAndAuthentication identificationAndAuthentication() const;
+  // Resource protection.
+  ResourceProtection resourceProtection() const;
+  // User authorization.
+  UserAuthorization userAuthorization() const;
+  // Sensitive data encryption.
+  SensitiveDataEncryption sensitiveDataEncryption() const;
+  // Audit and logging.
+  AuditAndLogging auditAndLogging() const;
+  // Role matrix.
+  RoleMatrix roleMatrix() const;
+  // Compliance framework.
+  ComplianceFramework complianceFramework() const;
+};
+
+// 9. Access and Authorization Concept. Seeds → AC.
+class SecurityAndAccessModel : public som::SomNode {
+ public:
+  SecurityAndAccessModel(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 9.1. User Management.
+  UserManagement userManagement() const;
+  // 9.2. Identification and Authentication.
+  IdentificationAndAuthentication authentication() const;
+  // 9.3. Resource Protection.
+  ResourceProtection resourceProtection() const;
+  // 9.4. User Authorization.
+  UserAuthorization authorization() const;
+  // 9.5. Sensitive Data Encryption.
+  SensitiveDataEncryption encryption() const;
+  // 9.6. Audit and Logging.
+  AuditAndLogging auditAndLogging() const;
+  // 9.7. Role Matrix..
+  RoleMatrix roleMatrix() const;
+  // 9.8. Compliance Framework.
+  ComplianceFramework complianceFramework() const;
+};
+
+// A security audit requirement entry (form).
 class SecurityAuditEntry : public som::SomNode {
  public:
   SecurityAuditEntry(som::SpecDocument& doc, std::string path);
@@ -29739,7 +30107,7 @@ class SecurityAuditEntryScheduling : public som::SomNode {
   SecurityAuditEntrySchedulingContentForm content() const;
 };
 
-// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+// 8.8.3. Security Audit Requirements.
 //
 // Comprehensive security audit requirements covering penetration testing,
 // security-focused code review, dependency scanning, security certifications,
@@ -29768,7 +30136,7 @@ class SecurityAuditRequirementsSection : public som::SomNode {
   som::SomList auditEntries() const;
 };
 
-// Security certification and compliance requirements [PD00-TEC-SEC-AUD].
+// Security certification and compliance requirements.
 class SecurityCertificationRequirements : public som::SomNode {
  public:
   SecurityCertificationRequirements(som::SpecDocument& doc, std::string path);
@@ -29811,7 +30179,7 @@ class SecurityCertificationRequirementsSoc2 : public som::SomNode {
   SecurityCertificationRequirementsSoc2ContentForm content() const;
 };
 
-// Security-focused code review policy [PD00-TEC-SEC-AUD].
+// Security-focused code review policy.
 //
 // Distinct from CodeReviewProcess (section 8.4) which covers general
 // development code review. This section focuses specifically on
@@ -29882,7 +30250,7 @@ class SecurityControlEntryVerification : public som::SomNode {
   SecurityControlEntryVerificationContentForm content() const;
 };
 
-// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+// 4.3.3.n.2. Security Controls.
 //
 // Security controls that implement or support this requirement.
 class SecurityControls : public som::SomNode {
@@ -29929,7 +30297,7 @@ class SecurityDevelopmentLifecycleTesting : public som::SomNode {
   SecurityDevelopmentLifecycleTestingContentForm content() const;
 };
 
-// A custom security event entry (form) [PD00-ACC-AUD-EVE-nn].
+// A custom security event entry (form).
 //
 // Allows defining additional application-specific security events
 // beyond the standard categories.
@@ -29951,7 +30319,7 @@ class SecurityEventLoggingPolicy : public som::SomNode {
   // (skipped: notes has no target type)
 };
 
-// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+// 9.6.1. Security Events.
 //
 // Defines which security events must be logged: authentication attempts,
 // authorization failures, data access, configuration changes, admin actions,
@@ -29976,7 +30344,7 @@ class SecurityEventsDefinition : public som::SomNode {
   som::SomList customEvents() const;
 };
 
-// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
+// 11.3.4. Security quality.
 class SecurityQuality : public som::SomNode {
  public:
   SecurityQuality(som::SpecDocument& doc, std::string path);
@@ -30021,7 +30389,7 @@ class SecurityQualityVulnerability : public som::SomNode {
   SecurityQualityVulnerabilityContentForm content() const;
 };
 
-// A security requirement entry [PD00-SYO-REQ-SEC-nn].
+// A security requirement entry.
 //
 // Comprehensive security requirement definition following OWASP ASVS,
 // ISO 27001, and security best practices.
@@ -30037,13 +30405,13 @@ class SecurityRequirementEntry : public som::SomNode {
   SecurityRequirementEntryVerification verification() const;
   // Status and ownership.
   SecurityRequirementEntryStatus statusInfo() const;
-  // 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
+  // 4.3.3.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria acceptanceCriteria() const;
-  // 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+  // 4.3.3.n.2. Security Controls.
   SecurityControls controls() const;
-  // 4.3.3.n.3. Dependencies [PD00-SYO-REQ-SEC-nn-DEP].
+  // 4.3.3.n.3. Dependencies.
   RequirementDependencies dependencies() const;
-  // 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
+  // 4.3.3.n.4. Traceability.
   RequirementTraceability traceability() const;
 };
 
@@ -30075,7 +30443,7 @@ class SecurityRequirementEntryVerification : public som::SomNode {
   SecurityRequirementEntryVerificationContentForm content() const;
 };
 
-// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+// 4.3.3. Security Requirements.
 //
 // Container for security requirements. Security requirements describe
 // information protection, access control, authentication, authorization,
@@ -30136,7 +30504,7 @@ class SecurityStandardComplianceEntryStatus : public som::SomNode {
   SecurityStandardComplianceEntryStatusContentForm content() const;
 };
 
-// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
+// A security standard entry (form).
 class SecurityStandardEntry : public som::SomNode {
  public:
   SecurityStandardEntry(som::SpecDocument& doc, std::string path);
@@ -30170,7 +30538,7 @@ class SecurityStandardEntryVerification : public som::SomNode {
   SecurityStandardEntryVerificationContentForm content() const;
 };
 
-// Automated security testing integration [PD00-TEC-SEC-AUD].
+// Automated security testing integration.
 //
 // Requirements for SAST, DAST, IAST, and fuzzing integration
 // into the CI/CD pipeline and development workflow.
@@ -30225,7 +30593,7 @@ class SecurityTestingAutomationScanning : public som::SomNode {
   SecurityTestingAutomationScanningContentForm content() const;
 };
 
-// Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
+// Self-registration policy (form).
 //
 // Defines self-service identity creation: registration flow, required
 // fields, verification, approval, rate limiting, and domain restrictions.
@@ -30295,17 +30663,17 @@ class SelfServiceAccountManagement : public som::SomNode {
   // (skipped: selfServiceDescription has no target type)
 };
 
-// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+// 9.5. Sensitive Data Encryption.
 class SensitiveDataEncryption : public som::SomNode {
  public:
   SensitiveDataEncryption(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+  // 9.5.1. Encryption At Rest.
   EncryptionAtRest encryptionAtRest() const;
-  // 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+  // 9.5.2. Encryption In Transit.
   EncryptionInTransit encryptionInTransit() const;
-  // 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+  // 9.5.3. Key Management.
   KeyManagement keyManagement() const;
 };
 
@@ -30395,7 +30763,7 @@ class ServerOsRequirementsSecurity : public som::SomNode {
   ServerOsRequirementsSecurityContentForm content() const;
 };
 
-// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+// 8.4.1. Server Requirements.
 //
 // Server compute requirements: CPU, memory, storage, expected load profile,
 // and scaling requirements.
@@ -30542,7 +30910,7 @@ class ServiceAccountLifecycle : public som::SomNode {
   // (skipped: serviceAccountDescription has no target type)
 };
 
-// A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].
+// A service level agreement entry.
 class ServiceLevelAgreementEntry : public som::SomNode {
  public:
   ServiceLevelAgreementEntry(som::SpecDocument& doc, std::string path);
@@ -30583,7 +30951,7 @@ class ServiceLevelIndicatorsQuality : public som::SomNode {
   ServiceLevelIndicatorsQualityContentForm content() const;
 };
 
-// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
+// 11.4.2. Service level quality.
 class ServiceLevelQuality : public som::SomNode {
  public:
   ServiceLevelQuality(som::SpecDocument& doc, std::string path);
@@ -30692,7 +31060,7 @@ class SessionLifecycleMonitoring : public som::SomNode {
   // (skipped: sessionLifecycleDetails has no target type)
 };
 
-// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+// 9.2.4. Session Management.
 //
 // Comprehensive session management policy covering session timeouts,
 // concurrent session control, session revocation, remember-me functionality,
@@ -30720,7 +31088,7 @@ class SessionManagement : public som::SomNode {
   SessionLifecycleMonitoring sessionLifecycleMonitoring() const;
 };
 
-// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+// 4.1.5.4. Session Model.
 //
 // Defines session management including authentication, timeouts, and
 // multi-device session handling.
@@ -30794,7 +31162,7 @@ class SessionTimeoutPolicy : public som::SomNode {
   // (skipped: sessionTimeoutDetails has no target type)
 };
 
-// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+// 1.1.3.3. Shared Infrastructure Dependencies.
 //
 // Dependencies on shared infrastructure components used by multiple systems.
 class SharedInfrastructureDependencies : public som::SomNode {
@@ -30807,7 +31175,7 @@ class SharedInfrastructureDependencies : public som::SomNode {
   som::SomList items() const;
 };
 
-// A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
+// A shared infrastructure entry (form).
 //
 // Documents a shared infrastructure component that multiple systems depend on.
 class SharedInfrastructureEntry : public som::SomNode {
@@ -30928,7 +31296,7 @@ class SharedServiceEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+// 14.2.5. Sign-off Process.
 //
 // Formal sign-off process: who signs off (business acceptance board,
 // technical acceptance board), what documents are signed, legal and
@@ -30986,7 +31354,7 @@ class SignOffProcessTimeline : public som::SomNode {
   SignOffProcessTimelineContentForm content() const;
 };
 
-// Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO].
+// Single Sign-On policy (form).
 //
 // Defines SSO scope, protocol, session propagation, federation,
 // logout propagation, and platform-specific SSO strategies.
@@ -31034,7 +31402,7 @@ class SingleSignOnPolicySession : public som::SomNode {
   SingleSignOnPolicySessionContentForm content() const;
 };
 
-// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+// 8.7.2.5. SLA and SLO Monitoring.
 //
 // Service Level Agreement and Service Level Objective tracking.
 class SlaAndSloMonitoring : public som::SomNode {
@@ -31095,7 +31463,7 @@ class SlaMonitoringRequirementsReporting : public som::SomNode {
   SlaMonitoringRequirementsReportingContentForm content() const;
 };
 
-// An SLO entry [PD00-TEC-SYS-MON-SLA-nn].
+// An SLO entry.
 class SloEntry : public som::SomNode {
  public:
   SloEntry(som::SpecDocument& doc, std::string path);
@@ -31120,7 +31488,7 @@ class SloEntryTarget : public som::SomNode {
   SloEntryTargetContentForm content() const;
 };
 
-// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+// 14.1.1. Software Deliverables.
 class SoftwareDeliverables : public som::SomNode {
  public:
   SoftwareDeliverables(som::SpecDocument& doc, std::string path);
@@ -31131,17 +31499,17 @@ class SoftwareDeliverables : public som::SomNode {
   som::SomList items() const;
 };
 
-// 8.2. Software Design Requirements [PD00-TEC-SOF].
+// 8.2. Software Design Requirements.
 class SoftwareDesignRequirements : public som::SomNode {
  public:
   SoftwareDesignRequirements(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+  // 8.2.1. Layering and Module Structure.
   LayeringAndModuleStructure layeringAndModuleStructure() const;
-  // 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+  // 8.2.2. Development Environment.
   DevelopmentEnvironment developmentEnvironment() const;
-  // 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+  // 8.2.3. Reusable Components.
   ReusableComponentsSection reusableComponents() const;
 };
 
@@ -31188,7 +31556,67 @@ class SoftwareLayerEntryTechnology : public som::SomNode {
   SoftwareLayerEntryTechnologyContentForm content() const;
 };
 
-// Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn].
+// SBP.11 Solution Architecture & Technology.
+//
+// Public anchor: ISO/IEC/IEEE 42010 architecture description.
+class SolutionArchitectureAndTechnology : public som::SomNode {
+ public:
+  SolutionArchitectureAndTechnology(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Technical framework and platform concept.
+  TechnicalFrameworkConcept technicalFramework() const;
+  // Components, libraries, and services to reuse.
+  ComponentsToUse componentsToUse() const;
+};
+
+// The complete Solution Blueprint (SBP) document.
+//
+// Contains a [DocumentControl] header block and the SBP sections, sequenced
+// per the public-standards order (§4 of the redesign proposal).
+class SolutionBlueprint : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit SolutionBlueprint(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // SBP.1 Document Control (header + revision history + approvals).
+  DocumentControl documentControl() const;
+  // SBP.2 Introduction & Scope.
+  IntroductionAndScope introductionAndScope() const;
+  // SBP.3 Glossary & Abbreviations.
+  GlossaryAndAbbreviations glossaryAndAbbreviations() const;
+  // SBP.4 Stakeholders & Governance.
+  StakeholdersAndGovernance stakeholdersAndGovernance() const;
+  // SBP.5 Current Landscape. Seeds → CLA.
+  CurrentLandscape currentLandscape() const;
+  // SBP.6 Assumptions, Constraints & Dependencies.
+  AssumptionsConstraintsDependencies assumptionsConstraintsDependencies() const;
+  // SBP.7 Target Operating Model concept. Seeds → TOM.
+  TargetOperatingModelConcept targetOperatingModelConcept() const;
+  // SBP.8 Information & Data Model. Seeds → IFM.
+  InformationAndDataModel informationAndDataModel() const;
+  // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+  Requirements requirements() const;
+  // SBP.11 Solution Architecture & Technology. Seeds → ATS.
+  SolutionArchitectureAndTechnology solutionArchitectureAndTechnology() const;
+  // SBP.12 Security & Access Model. Seeds → SAS.
+  SecurityAndAccessModel securityAndAccessModel() const;
+  // SBP.13 Experience & Interface Design. Seeds → XDS.
+  ExperienceAndInterfaceDesign experienceAndInterfaceDesign() const;
+  // SBP.14 Quality & Acceptance Model. Seeds → QAP.
+  QualityAndAcceptanceModel qualityAndAcceptanceModel() const;
+  // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+  DeliveryTransitionAndRollout deliveryTransitionAndRollout() const;
+};
+
+// Specialized equipment entry (form).
 class SpecializedEquipmentEntry : public som::SomNode {
  public:
   SpecializedEquipmentEntry(som::SpecDocument& doc, std::string path);
@@ -31251,7 +31679,7 @@ class StaffingBudgetGovernance : public som::SomNode {
   StaffingBudgetGovernanceContentForm content() const;
 };
 
-// A staffing entry (form) [PD00-ORG-JOB-STA-nn].
+// A staffing entry (form).
 //
 // Represents one staffing position including role, competency requirements,
 // sourcing method, budget, timeline, and approval status.
@@ -31297,7 +31725,7 @@ class StaffingEntryRecruitment : public som::SomNode {
   StaffingEntryRecruitmentContentForm content() const;
 };
 
-// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+// 5.2.4. Staffing Plan.
 class StaffingPlan : public som::SomNode {
  public:
   StaffingPlan(som::SpecDocument& doc, std::string path);
@@ -31333,7 +31761,7 @@ class StageDeployment : public som::SomNode {
   StageDeploymentContentForm content() const;
 };
 
-// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+// A stage entry (form) with description subsections.
 //
 // Represents a single delivery stage — a self-contained increment of the
 // system that delivers measurable business value. Each stage has clear
@@ -31369,19 +31797,19 @@ class StageEntry : public som::SomNode {
   StageMetrics metrics() const;
   // Feature Scope narrative.
   // (skipped: featureScope has no target type)
-  // Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
+  // Sub-stages and Milestones — contains 0+× SubStage.
   // Returns the list view; element type: SubStageEntry (construct from item paths).
   som::SomList subStagesAndMilestones() const;
   // Timeline narrative.
   // (skipped: timelineNarrative has no target type)
-  // Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
+  // Success Criteria — contains 0+× StageSuccessCriterion.
   // Returns the list view; element type: StageSuccessCriterionEntry (construct from item paths).
   som::SomList successCriteria() const;
   // Rollout Plan narrative.
   // (skipped: rolloutPlan has no target type)
 };
 
-// 13.6. Governance [PD00-SSP-GOV].
+// 13.6. Governance.
 //
 // Governance framework for stage transitions, phase gate reviews,
 // and key decision points. Covers governance structure, authority
@@ -31409,9 +31837,9 @@ class StageGovernance : public som::SomNode {
   StageGovernanceTransition transition() const;
   // Governance narrative and rationale.
   // (skipped: governanceNarrative has no target type)
-  // 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+  // 13.6.1. Phase Gate Reviews.
   PhaseGateReviews phaseGateReviews() const;
-  // 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+  // 13.6.2. Decision Points.
   DecisionPoints decisionPoints() const;
 };
 
@@ -31492,7 +31920,7 @@ class StageMigrationRiskContingency : public som::SomNode {
   StageMigrationRiskContingencyContentForm content() const;
 };
 
-// A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
+// A stage migration risk entry (form).
 //
 // Individual risk in the data migration risk register. Covers risk
 // identification, categorization, probability/impact scoring,
@@ -31569,7 +31997,7 @@ class StageMigrationRiskStatus : public som::SomNode {
   StageMigrationRiskStatusContentForm content() const;
 };
 
-// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+// 13.5.2. Migration Risks.
 //
 // Risk register specific to data migration activities. Covers data
 // loss, corruption, downtime overrun, compliance violations,
@@ -31585,7 +32013,7 @@ class StageMigrationRisks : public som::SomNode {
   som::SomList items() const;
 };
 
-// 13.2. Stage Overview [PD00-SSP-STA].
+// 13.2. Stage Overview.
 //
 // High-level summary across all planned stages including aggregate
 // metrics, critical-path identification, resource allocation patterns,
@@ -31619,21 +32047,21 @@ class StageOverview : public som::SomNode {
   StageOverviewCommunication communication() const;
   // Assumptions and constraints.
   StageOverviewConstraints constraints() const;
-  // 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
+  // 13.2.1. Stage Summary — contains 1+× Stage
   // Summary Entry.
   // Returns the list view; element type: StageSummaryEntry (construct from item paths).
   som::SomList stageSummaries() const;
   // Stage Summary narrative.
   // (skipped: stageSummaryNarrative has no target type)
-  // 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
+  // 13.2.2. Stage Timeline Diagram (mermaid-gantt).
   // (skipped: timelineDiagram has no target type)
-  // 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
+  // 13.2.3. Resource Allocation Diagram
   // (mermaid-gantt).
   // (skipped: resourceAllocationDiagram has no target type)
-  // 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
+  // 13.2.4. Budget Distribution Diagram
   // (mermaid-flow).
   // (skipped: budgetDistributionDiagram has no target type)
-  // 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
+  // 13.2.5. Dependency Map (mermaid-flow).
   // (skipped: dependencyMap has no target type)
 };
 
@@ -31749,7 +32177,7 @@ class StageStakeholders : public som::SomNode {
   StageStakeholdersContentForm content() const;
 };
 
-// A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
+// A success criterion entry (form).
 //
 // Defines a measurable criterion that determines whether a stage has
 // achieved its objectives. Each criterion has a target metric,
@@ -31794,7 +32222,7 @@ class StageSummaryDependencies : public som::SomNode {
   StageSummaryDependenciesContentForm content() const;
 };
 
-// A stage summary entry [PD00-SSP-STA-SUM-nn] (form).
+// A stage summary entry (form).
 //
 // Quick-reference record for a single stage within the overview. Each
 // entry captures the essential identification, timeline, scope, and
@@ -31950,7 +32378,7 @@ class StagingRiskAssessment : public som::SomNode {
   StagingRiskAssessmentContentForm content() const;
 };
 
-// 13.1. Staging Strategy [PD00-SSP-STR].
+// 13.1. Staging Strategy.
 //
 // Document the rationale behind the chosen staging approach. Consider
 // PMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2
@@ -31988,14 +32416,14 @@ class StagingStrategy : public som::SomNode {
   som::SomList dependencies() const;
   // Governance and approvals.
   StagingGovernance governance() const;
-  // 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+  // 13.1.1. Staging Approach.
   // (skipped: stagingApproach has no target type)
-  // 13.1.2. Rationale [PD00-SSP-STR-RAT].
+  // 13.1.2. Rationale.
   // (skipped: rationaleNarrative has no target type)
-  // 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
+  // 13.1.3. Key Assumptions.
   // Returns the list view; element type: KeyAssumptionEntry (construct from item paths).
   som::SomList keyAssumptions() const;
-  // 13.1.4. Constraints [PD00-SSP-STR-CON].
+  // 13.1.4. Constraints.
   // Returns the list view; element type: StagingStrategyConstraintEntry (construct from item paths).
   som::SomList constraints() const;
 };
@@ -32040,7 +32468,30 @@ class StakeholderEntryImpact : public som::SomNode {
   StakeholderEntryImpactContentForm content() const;
 };
 
-// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+// A register of the project's stakeholders.
+//
+// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
+class StakeholderRegister : public som::SomNode {
+ public:
+  StakeholderRegister(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // One entry per stakeholder or stakeholder group.
+  // Returns the list view; element type: StakeholderRegisterEntry (construct from item paths).
+  som::SomList stakeholders() const;
+};
+
+// A single stakeholder register entry (form).
+//
+// Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
+// `StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+class StakeholderRegisterEntry : public som::SomNode {
+ public:
+  StakeholderRegisterEntry(som::SpecDocument& doc, std::string path);
+  StakeholderRegisterEntryContentForm content() const;
+};
+
+// 4.1.1.3. Stakeholders and Beneficiaries.
 //
 // Lists all stakeholders and beneficiaries of the system with their
 // interests, influence level, and expected benefits.
@@ -32057,6 +32508,22 @@ class StakeholdersAndBeneficiaries : public som::SomNode {
   som::SomList secondaryStakeholders() const;
 };
 
+// SBP.4 Stakeholders & Governance.
+//
+// Public anchor: BABOK stakeholder analysis + PMBOK governance.
+class StakeholdersAndGovernance : public som::SomNode {
+ public:
+  StakeholdersAndGovernance(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Governance, steering committee, RACI, process deviations.
+  ProjectOrganizationAndProcess projectOrganizationProcess() const;
+  // Team, distribution, reference documents, communication.
+  Administrative administrative() const;
+  // Stakeholder register (§5 completeness addition).
+  StakeholderRegister stakeholderRegister() const;
+};
+
 // Stakeholders and interests.
 class StakeholdersAndInterests : public som::SomNode {
  public:
@@ -32064,19 +32531,19 @@ class StakeholdersAndInterests : public som::SomNode {
   StakeholdersAndInterestsContentForm content() const;
 };
 
-// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+// 8.3. Standard Application Software Requirements.
 class StandardSoftwareRequirements : public som::SomNode {
  public:
   StandardSoftwareRequirements(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+  // 8.3.1. Compatibility Requirements.
   CompatibilityRequirementsSection compatibilityRequirements() const;
-  // 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+  // 8.3.2. Standards Compliance.
   StandardsComplianceSection standardsCompliance() const;
 };
 
-// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+// 8.3.2. Standards Compliance.
 //
 // Required compliance with IT standards, industry protocols, and interface
 // specifications.
@@ -32118,7 +32585,7 @@ class StandardsComplianceSection : public som::SomNode {
   ComplianceVerificationSection complianceVerification() const;
 };
 
-// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+// 3.1.2. Steering Committee.
 //
 // Container for steering committee member descriptions.
 class SteeringCommittee : public som::SomNode {
@@ -32183,7 +32650,7 @@ class StorageLifecyclePolicy : public som::SomNode {
   // (skipped: storageLifecycleDetails has no target type)
 };
 
-// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+// 4.1.1.5. Strategic Alignment.
 //
 // How this system aligns with organizational strategy, goals, and
 // initiatives. Demonstrates strategic justification for the project.
@@ -32196,7 +32663,7 @@ class StrategicAlignment : public som::SomNode {
   StrategicAlignmentAlignmentDetailsForm alignmentDetails() const;
 };
 
-// A sub-function entry (form) [PD00-BUS-FUN-DEC-nn-SUB-nn].
+// A sub-function entry (form).
 //
 // Lower-level function in the decomposition.
 class SubFunctionEntry : public som::SomNode {
@@ -32205,7 +32672,7 @@ class SubFunctionEntry : public som::SomNode {
   SubFunctionEntryContentForm content() const;
 };
 
-// A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
+// A sub-stage or milestone entry (form).
 //
 // Represents a discrete phase within a stage — alpha, beta, release
 // candidate, pilot, GA — or a key milestone. Sub-stages provide finer
@@ -32261,7 +32728,7 @@ class SubStageEntryTimeline : public som::SomNode {
   SubStageEntryTimelineContentForm content() const;
 };
 
-// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+// 4.2.3. Success Criteria.
 //
 // Overall project success criteria that determine whether the project
 // has achieved its objectives. These criteria will be used during
@@ -32327,7 +32794,7 @@ class SuccessCriteriaSummary : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+// A success criterion entry (form).
 //
 // Individual success criterion with comprehensive measurement details,
 // thresholds, and verification requirements.
@@ -32392,7 +32859,7 @@ class SuccessCriterionVerification : public som::SomNode {
   SuccessCriterionVerificationContentForm content() const;
 };
 
-// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+// 10.8.3. Support Access.
 class SupportAccess : public som::SomNode {
  public:
   SupportAccess(som::SpecDocument& doc, std::string path);
@@ -32446,7 +32913,7 @@ class SupportAccessTickets : public som::SomNode {
   SupportAccessTicketsContentForm content() const;
 };
 
-// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+// 14.1.4. Support Deliverables.
 class SupportDeliverables : public som::SomNode {
  public:
   SupportDeliverables(som::SpecDocument& doc, std::string path);
@@ -32457,7 +32924,7 @@ class SupportDeliverables : public som::SomNode {
   som::SomList items() const;
 };
 
-// A supported locale entry [PD00-USE-MUL-LOC-nn].
+// A supported locale entry.
 class SupportedLocaleEntry : public som::SomNode {
  public:
   SupportedLocaleEntry(som::SpecDocument& doc, std::string path);
@@ -32482,10 +32949,10 @@ class SupportedLocaleEntryRollout : public som::SomNode {
   SupportedLocaleEntryRolloutContentForm content() const;
 };
 
-// 8.9. System Architecture [PD00-TEC-ARC].
+// 8.9. System Architecture.
 //
 // Detailed internal architecture (layers, packages, patterns). Covers
-// HBSG AS09-SOF / DR30.
+//
 //
 // Class named `SystemArchitectureSpec` to avoid colliding with any other
 // architecture-related identifier in the model.
@@ -32496,7 +32963,7 @@ class SystemArchitectureSpec : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+// 4.5. System Boundaries. Seeds → BSI.
 //
 // Defines the scope boundaries of the system including external interfaces,
 // out-of-scope items, and operating assumptions. This section provides the
@@ -32507,32 +32974,32 @@ class SystemBoundaries : public som::SomNode {
   SystemBoundaries(som::SpecDocument& doc, std::string path);
   // Overview of system boundaries and scope definition approach.
   // (skipped: overview has no target type)
-  // 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+  // 4.5.1. Interfaces to External Systems — contains 0+×.
   ExternalInterfaces externalInterfaces() const;
-  // 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
+  // 4.5.2. Out of Scope — contains 0+×.
   OutOfScope outOfScope() const;
-  // 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
+  // 4.5.3. Assumptions — contains 0+×.
   BoundaryAssumptions assumptions() const;
-  // 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV]. Covers BSI-LAN-INV.
+  // 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
   SystemLandscapeInventory systemLandscapeInventory() const;
-  // 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
+  // 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
   // Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
   som::SomList boundaryInteractionPatterns() const;
-  // 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
+  // 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
   InteractionTestingStrategy interactionTestingStrategy() const;
-  // 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP]. Covers BSI-DEP.
+  // 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
   InteractionDependencyAnalysis interactionDependencyAnalysis() const;
-  // 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
+  // 4.5.8. Migration Interactions. Covers BSI-MIG.
   // Returns the list view; element type: MigrationInteractions (construct from item paths).
   som::SomList migrationInteractions() const;
-  // 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+  // 4.5.9. Cross-Boundary Operational Considerations.
   // Returns the list view; element type: CrossBoundaryOperationalConsiderations (construct from item paths).
   som::SomList operationalConsiderations() const;
-  // 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+  // 4.5.10. Cross-Boundary Error Handling.
   CrossBoundaryErrorHandling crossBoundaryErrorHandling() const;
 };
 
-// Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS].
+// Business criticality assessment.
 class SystemBusinessCriticality : public som::SomNode {
  public:
   SystemBusinessCriticality(som::SpecDocument& doc, std::string path);
@@ -32563,14 +33030,14 @@ class SystemBusinessCriticalityOperations : public som::SomNode {
   SystemBusinessCriticalityOperationsContentForm content() const;
 };
 
-// Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn].
+// Business process supported.
 class SystemBusinessProcessEntry : public som::SomNode {
  public:
   SystemBusinessProcessEntry(som::SpecDocument& doc, std::string path);
   SystemBusinessProcessEntryContentForm content() const;
 };
 
-// Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn].
+// Business unit using the system.
 class SystemBusinessUnitEntry : public som::SomNode {
  public:
   SystemBusinessUnitEntry(som::SpecDocument& doc, std::string path);
@@ -32611,7 +33078,7 @@ class SystemConfigurationManagementGovernance : public som::SomNode {
   SystemConfigurationManagementGovernanceContentForm content() const;
 };
 
-// 4.1.2. System Context [PD00-SYO-SYD-CON].
+// 4.1.2. System Context.
 //
 // Describes the system in its operational context: how it fits within the
 // organization's IT landscape, who interacts with it, and what external
@@ -32621,25 +33088,25 @@ class SystemContext : public som::SomNode {
   SystemContext(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+  // 4.1.2.1. Context Diagram.
   ContextDiagram contextDiagram() const;
-  // 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+  // 4.1.2.2. IT Landscape Position.
   ItLandscapePosition itLandscapePosition() const;
-  // 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+  // 4.1.2.3. External Actors.
   ExternalActors externalActors() const;
-  // 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+  // 4.1.2.4. External Systems.
   ExternalSystemsContext externalSystems() const;
-  // 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+  // 4.1.2.5. Trust Boundaries.
   TrustBoundaries trustBoundaries() const;
-  // 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+  // 4.1.2.6. Organizational Context.
   OrganizationalContext organizationalContext() const;
-  // 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+  // 4.1.2.7. Deployment Context.
   DeploymentContext deploymentContext() const;
-  // 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+  // 4.1.2.8. Regulatory Context.
   RegulatoryContext regulatoryContext() const;
 };
 
-// Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST].
+// Cost analysis for replacement.
 class SystemCostAnalysis : public som::SomNode {
  public:
   SystemCostAnalysis(som::SpecDocument& doc, std::string path);
@@ -32678,7 +33145,7 @@ class SystemCostAnalysisMigration : public som::SomNode {
   SystemCostAnalysisMigrationContentForm content() const;
 };
 
-// Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT].
+// Data scope and migration assessment.
 class SystemDataScope : public som::SomNode {
  public:
   SystemDataScope(som::SpecDocument& doc, std::string path);
@@ -32709,7 +33176,7 @@ class SystemDataScopeMigration : public som::SomNode {
   SystemDataScopeMigrationContentForm content() const;
 };
 
-// A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+// A system dependency entry (form).
 //
 // Documents one dependency between systems in the current landscape:
 // mechanism, coupling strength, data flow, failure impact, SLA,
@@ -32758,7 +33225,7 @@ class SystemDependencyEntryReliability : public som::SomNode {
   SystemDependencyEntryReliabilityContentForm content() const;
 };
 
-// 4.1. System Description [PD00-SYO-SYD].
+// 4.1. System Description.
 //
 // Concise description of the system to be created, its primary purpose,
 // and the business domain it addresses. This section provides the
@@ -32770,16 +33237,16 @@ class SystemDescription : public som::SomNode {
   void setContent(const std::string& value);
   // System description summary.
   SystemDescriptionSummary descriptionSummary() const;
-  // 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+  // 4.1.1. System Purpose.
   SystemPurpose systemPurpose() const;
-  // 4.1.2. System Context [PD00-SYO-SYD-CON].
+  // 4.1.2. System Context.
   SystemContext systemContext() const;
-  // 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+  // 4.1.3. Description of Task Area.
   TaskArea taskArea() const;
-  // 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+  // 4.1.4. User Categories — contains 1+× User Category.
   // Returns the list view; element type: UserCategoryEntry (construct from item paths).
   som::SomList userCategories() const;
-  // 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+  // 4.1.5. User Interaction Model.
   UserInteractionModel userInteractionModel() const;
 };
 
@@ -32829,7 +33296,7 @@ class SystemDiagnosticToolsTracing : public som::SomNode {
   SystemDiagnosticToolsTracingContentForm content() const;
 };
 
-// A system error code entry [PD00-USE-ERR-SYS-CODE-nn].
+// A system error code entry.
 class SystemErrorCodeEntry : public som::SomNode {
  public:
   SystemErrorCodeEntry(som::SpecDocument& doc, std::string path);
@@ -32854,7 +33321,7 @@ class SystemErrorCodeEntryOperations : public som::SomNode {
   SystemErrorCodeEntryOperationsContentForm content() const;
 };
 
-// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+// 10.7.2. System Error Display.
 //
 // System error presentation including server errors, network issues,
 // and timeouts.
@@ -32915,7 +33382,7 @@ class SystemIntegrationDataExchange : public som::SomNode {
   SystemIntegrationDataExchangeContentForm content() const;
 };
 
-// A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+// A system integration entry (form).
 //
 // Documents one integration between systems: type, pattern, protocol,
 // data format, throughput, error handling, monitoring, security,
@@ -32975,7 +33442,7 @@ class SystemIntegrationThroughput : public som::SomNode {
   SystemIntegrationThroughputContentForm content() const;
 };
 
-// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+// 1.1.1. System Inventory.
 //
 // Container for individual system descriptions. Add one entry per existing
 // system relevant to the project scope.
@@ -32984,12 +33451,12 @@ class SystemInventory : public som::SomNode {
   SystemInventory(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
+  // Contains 1+× Existing System.
   // Returns the list view; element type: ExistingSystemEntry (construct from item paths).
   som::SomList systems() const;
 };
 
-// Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW].
+// Knowledge transfer status.
 class SystemKnowledgeTransfer : public som::SomNode {
  public:
   SystemKnowledgeTransfer(som::SpecDocument& doc, std::string path);
@@ -33001,7 +33468,7 @@ class SystemKnowledgeTransfer : public som::SomNode {
   // (skipped: knowledgeTransferPlan has no target type)
 };
 
-// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV].
+// 4.5.4. System Landscape Inventory.
 //
 // Complete external-system inventory covering BSI-LAN-INV content.
 class SystemLandscapeInventory : public som::SomNode {
@@ -33011,7 +33478,7 @@ class SystemLandscapeInventory : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG].
+// Per-system migration plan.
 class SystemMigrationPlan : public som::SomNode {
  public:
   SystemMigrationPlan(som::SpecDocument& doc, std::string path);
@@ -33043,69 +33510,38 @@ class SystemMigrationPlanExecution : public som::SomNode {
   SystemMigrationPlanExecutionContentForm content() const;
 };
 
-// A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn].
+// A system migration risk entry.
 class SystemMigrationRiskEntry : public som::SomNode {
  public:
   SystemMigrationRiskEntry(som::SpecDocument& doc, std::string path);
   SystemMigrationRiskEntryContentForm content() const;
 };
 
-// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+// 8.7.1. System Operation.
 class SystemOperation : public som::SomNode {
  public:
   SystemOperation(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+  // 8.7.1.1. Administration Requirements.
   AdministrationRequirementsSection administrationRequirements() const;
   // Maintenance Procedures.
   // Returns the list view; element type: MaintenanceProcedureEntry (construct from item paths).
   som::SomList maintenanceProcedures() const;
 };
 
-// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+// 8.7. System Operation and Monitoring.
 class SystemOperationAndMonitoring : public som::SomNode {
  public:
   SystemOperationAndMonitoring(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+  // 8.7.1. System Operation.
   SystemOperation systemOperation() const;
-  // 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+  // 8.7.2. Monitoring.
   Monitoring monitoring() const;
-  // 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+  // 8.7.3. Capacity Planning.
   CapacityPlanningSection capacityPlanning() const;
-};
-
-// 4. System Overview [PD00-SYO].
-//
-// High-level overview of the system to be built: its purpose, goals,
-// scope boundaries, and the environment it operates in. This section
-// establishes the foundation for all subsequent specification work.
-class SystemOverview : public som::SomNode {
- public:
-  SystemOverview(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // System overview summary statistics.
-  SystemOverviewSummary summary() const;
-  // System context diagram showing major system boundaries.
-  std::string systemContextDiagram() const;
-  void setSystemContextDiagram(const std::string& value);
-  // 4.1. System Description [PD00-SYO-SYD].
-  SystemDescription systemDescription() const;
-  // 4.2. Goals [PD00-SYO-GOA].
-  Goals goals() const;
-  // 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
-  RequirementsOverview requirements() const;
-  // 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
-  SystemsToReplace systemsToReplace() const;
-  // 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
-  SystemBoundaries systemBoundaries() const;
-  // 4.6. Framework Conditions [PD00-SYO-RES].
-  FrameworkConditions frameworkConditions() const;
-  // 4.7. Risks and Assumptions [PD00-SYO-RIS].
-  RisksAndAssumptions risksAndAssumptions() const;
 };
 
 // System overview summary for quick reference.
@@ -33151,7 +33587,7 @@ class SystemOverviewSummaryStatus : public som::SomNode {
   SystemOverviewSummaryStatusContentForm content() const;
 };
 
-// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+// 4.1.1. System Purpose.
 //
 // Describes the overarching purpose of the system including the problem it
 // solves, the opportunity it enables, and who the primary beneficiaries are.
@@ -33161,24 +33597,24 @@ class SystemPurpose : public som::SomNode {
   SystemPurpose(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Vision Statement [PD00-SYO-SYD-PUR-VIS].
+  // Vision Statement.
   std::string visionStatement() const;
   void setVisionStatement(const std::string& value);
-  // 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+  // 4.1.1.1. Problem Statement.
   ProblemStatement problemStatement() const;
-  // 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+  // 4.1.1.2. Opportunity Statement.
   OpportunityStatement opportunityStatement() const;
-  // 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+  // 4.1.1.3. Stakeholders and Beneficiaries.
   StakeholdersAndBeneficiaries stakeholders() const;
-  // 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+  // 4.1.1.4. Value Proposition.
   ValueProposition valueProposition() const;
-  // 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+  // 4.1.1.5. Strategic Alignment.
   StrategicAlignment strategicAlignment() const;
-  // 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+  // 4.1.1.6. Scope Boundaries.
   ScopeBoundaries scopeBoundaries() const;
 };
 
-// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+// 11. System Quality Goals. Seeds → BQP.
 //
 // Quality goals selected from standard quality criteria and operationalized
 // for project-specific acceptance testing. Provides governing structure for
@@ -33208,21 +33644,21 @@ class SystemQualityGoals : public som::SomNode {
   som::SomList attributeInterdependencies() const;
   // Quality attribute priority radar.
   // (skipped: qualityRadar has no target type)
-  // 11.1. Quality Framework [PD00-SYQ-FRA].
+  // 11.1. Quality Framework.
   QualityFramework framework() const;
-  // 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+  // 11.2. User-Related Quality Criteria.
   UserQualityCriteria userQuality() const;
-  // 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+  // 11.3. Technical Quality Criteria.
   TechnicalQualityCriteria technicalQuality() const;
-  // 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+  // 11.4. Operations Quality Criteria.
   OperationsQualityCriteria operationsQuality() const;
-  // 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+  // 11.5. Documentation Quality Criteria.
   DocumentationQualityCriteria documentationQuality() const;
-  // 11.6. Quality Prioritization [PD00-SYQ-PRI].
+  // 11.6. Quality Prioritization.
   QualityPrioritization prioritization() const;
-  // 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+  // 11.7. Acceptance Criteria Summary.
   AcceptanceCriteriaSummary acceptanceCriteria() const;
-  // 11.8. Test Strategy [PD00-SYQ-TST]. Covers HBSG AS23.
+  // 11.8. Test Strategy..
   TestStrategy testStrategy() const;
 };
 
@@ -33254,7 +33690,7 @@ class SystemQualityGoalsResources : public som::SomNode {
   SystemQualityGoalsResourcesContentForm content() const;
 };
 
-// Replacement strategy details [PD00-SYO-SYR-INV-nn-STR].
+// Replacement strategy details.
 class SystemReplacementStrategy : public som::SomNode {
  public:
   SystemReplacementStrategy(som::SpecDocument& doc, std::string path);
@@ -33287,81 +33723,34 @@ class SystemReplacementStrategyTimeline : public som::SomNode {
   SystemReplacementStrategyTimelineContentForm content() const;
 };
 
-// SR00 System Rollout.
-//
-// End-to-end rollout specification — localization, translation,
-// documentation and training, plus rollout plan, migration plan,
-// user manuals, training materials, pilot, cutover, knowledge
-// transfer, and warranty/support.
-class SystemRollout : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit SystemRollout(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Localization process — PD00-USE-MUL-LOC.
-  LocalizationProcess localizationProcess() const;
-  // Translation process — PD00-USE-MUL-TRA.
-  TranslationProcess translationProcess() const;
-  // Documentation and training — PD00-USE-MUL-DOC.
-  DocumentationAndTraining documentationAndTraining() const;
-  // Rollout plan — PD00-ROL-PLN.
-  RolloutPlan rolloutPlan() const;
-  // Migration plan — PD00-ROL-MIG.
-  MigrationPlan migrationPlan() const;
-  // User manuals — PD00-ROL-DOC.
-  // Returns the list view; element type: UserManuals (construct from item paths).
-  som::SomList userManuals() const;
-  // Training materials — PD00-ROL-TRN.
-  // Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
-  som::SomList trainingMaterials() const;
-  // Pilot plan — PD00-ROL-PIL.
-  PilotPlan pilotPlan() const;
-  // Cutover procedures — PD00-ROL-CUT.
-  // Returns the list view; element type: CutoverProcedures (construct from item paths).
-  som::SomList cutoverProcedures() const;
-  // Knowledge transfer — PD00-ROL-KNO.
-  KnowledgeTransfer knowledgeTransfer() const;
-  // Warranty and support — PD00-ROL-WAR.
-  WarrantyAndSupport warrantyAndSupport() const;
-};
-
-// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
+// 15. System Rollout Concept. Seeds → SR.
 class SystemRolloutConcept : public som::SomNode {
  public:
   SystemRolloutConcept(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 15.1. Rollout Plan [PD00-ROL-PLN].
+  // 15.1. Rollout Plan.
   RolloutPlan rolloutPlan() const;
-  // 15.2. Migration Plan [PD00-ROL-MIG].
+  // 15.2. Migration Plan.
   MigrationPlan migrationPlan() const;
-  // 15.3. User Manuals [PD00-ROL-DOC].
+  // 15.3. User Manuals.
   // Returns the list view; element type: UserManuals (construct from item paths).
   som::SomList userManuals() const;
-  // 15.4. Training Materials [PD00-ROL-TRN].
+  // 15.4. Training Materials.
   // Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
   som::SomList trainingMaterials() const;
-  // 15.5. Pilot Plan [PD00-ROL-PIL].
+  // 15.5. Pilot Plan.
   PilotPlan pilotPlan() const;
-  // 15.6. Cutover Procedures [PD00-ROL-CUT].
+  // 15.6. Cutover Procedures.
   // Returns the list view; element type: CutoverProcedures (construct from item paths).
   som::SomList cutoverProcedures() const;
-  // 15.7. Knowledge Transfer [PD00-ROL-KNO].
+  // 15.7. Knowledge Transfer.
   KnowledgeTransfer knowledgeTransfer() const;
-  // 15.8. Warranty and Support [PD00-ROL-WAR].
+  // 15.8. Warranty and Support.
   WarrantyAndSupport warrantyAndSupport() const;
 };
 
-// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+// 13. System Stage Plan. Seeds → PPP.
 //
 // Define the overall staging strategy for the system rollout. A stage
 // is a meaningful, self-contained subset of the complete system that
@@ -33379,22 +33768,22 @@ class SystemStagePlan : public som::SomNode {
   SystemStagePlanCoordination coordination() const;
   // Organizational capacity and plan confidence.
   SystemStagePlanReadiness readiness() const;
-  // 13.1. Staging Strategy [PD00-SSP-STR].
+  // 13.1. Staging Strategy.
   StagingStrategy strategy() const;
-  // 13.2. Stage Overview [PD00-SSP-STA].
+  // 13.2. Stage Overview.
   StageOverview stageOverview() const;
-  // 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
+  // 13.3. Stages — contains 1+× Stage.
   // Returns the list view; element type: StageEntry (construct from item paths).
   som::SomList stages() const;
-  // 13.4. Feature Prioritization [PD00-SSP-FEA].
+  // 13.4. Feature Prioritization.
   FeaturePrioritization featurePrioritization() const;
-  // 13.5. Data Migration Strategy [PD00-SSP-MIG].
+  // 13.5. Data Migration Strategy.
   DataMigrationStrategy dataMigration() const;
-  // 13.6. Governance [PD00-SSP-GOV].
+  // 13.6. Governance.
   StageGovernance governance() const;
-  // 13.7. Initial Development Flow [PD00-SSP-IDV]. Covers PPP-IDV.
+  // 13.7. Initial Development Flow. Covers PPP-IDV.
   InitialDevelopmentFlow initialDevelopmentFlow() const;
-  // 13.8. Upgrade Cycle Framework [PD00-SSP-UPG]. Covers PPP-UPG.
+  // 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
   UpgradeCycleFramework upgradeCycleFramework() const;
 };
 
@@ -33419,7 +33808,7 @@ class SystemStagePlanTimeline : public som::SomNode {
   SystemStagePlanTimelineContentForm content() const;
 };
 
-// A system task entry [PD00-SYO-SYD-USR-nn-TSK-mm].
+// A system task entry.
 //
 // Describes one activity this user category performs with the system.
 // Tasks map to Use Cases in the UC document.
@@ -33472,7 +33861,7 @@ class SystemTaskWorkflowStepEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC].
+// Technical assessment for a system to replace.
 class SystemTechnicalAssessment : public som::SomNode {
  public:
   SystemTechnicalAssessment(som::SpecDocument& doc, std::string path);
@@ -33512,7 +33901,7 @@ class SystemTechnicalAssessmentQuality : public som::SomNode {
   SystemTechnicalAssessmentQualityContentForm content() const;
 };
 
-// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+// A system to replace entry (form).
 //
 // Comprehensive documentation of a legacy system to be replaced, covering
 // technical assessment, business criticality, replacement strategy, and
@@ -33561,7 +33950,7 @@ class SystemToReplaceEntryVendor : public som::SomNode {
   SystemToReplaceEntryVendorContentForm content() const;
 };
 
-// System training entry (form) [PD00-ORG-WOR-nn-TRA-SYS-nn].
+// System training entry (form).
 class SystemTrainingEntry : public som::SomNode {
  public:
   SystemTrainingEntry(som::SpecDocument& doc, std::string path);
@@ -33595,7 +33984,7 @@ class SystemTrainingEntrySupport : public som::SomNode {
   SystemTrainingEntrySupportContentForm content() const;
 };
 
-// User impact assessment [PD00-SYO-SYR-INV-nn-USR].
+// User impact assessment.
 class SystemUserImpact : public som::SomNode {
  public:
   SystemUserImpact(som::SpecDocument& doc, std::string path);
@@ -33632,7 +34021,7 @@ class SystemUserImpactEnablement : public som::SomNode {
   SystemUserImpactEnablementContentForm content() const;
 };
 
-// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+// 4.4. Systems to Replace. Seeds → CS.
 //
 // Documents existing systems that will be replaced, migrated, or decommissioned
 // as part of the project. Follows TOGAF migration planning patterns and
@@ -33643,13 +34032,13 @@ class SystemsToReplace : public som::SomNode {
   SystemsToReplace(som::SpecDocument& doc, std::string path);
   // Overview of the systems replacement scope and strategy.
   // (skipped: overview has no target type)
-  // 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+  // 4.4.1. Replacement Inventory — contains 0+×.
   ReplacementInventory replacementInventory() const;
-  // 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+  // 4.4.2. Migration Considerations.
   MigrationConsiderations migrationConsiderations() const;
 };
 
-// A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
+// A tab bar definition entry (form).
 //
 // Defines a tab bar or segmented control on a specific screen.
 class TabBarDefinitionEntry : public som::SomNode {
@@ -33679,23 +34068,80 @@ class TabBarDefinitionEntryLoading : public som::SomNode {
   TabBarDefinitionEntryLoadingContentForm content() const;
 };
 
-// A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
+// A tab item entry (form).
 class TabItemEntry : public som::SomNode {
  public:
   TabItemEntry(som::SpecDocument& doc, std::string path);
   TabItemEntryContentForm content() const;
 };
 
-// 6. Target Business Process Model [PD00-TAR].
+// 6. Target Business Process Model.
 class TargetBusinessProcessModel : public som::SomNode {
  public:
   TargetBusinessProcessModel(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
+  // 6.1. Business Process Descriptions. Seeds → BP.
   BusinessProcessDescriptions businessProcessDescriptions() const;
-  // 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+  // 6.2. Process Steps and Actor Interactions. Seeds → UC.
   ProcessStepsAndActorInteractions processStepsAndActorInteractions() const;
+};
+
+// BP00 Business Processes.
+//
+// Target business process specification — vision, principles, catalog,
+// diagrams, improvements, relationships, detailed workflows,
+// cross-process analysis, exception handling, and KPIs.
+class TargetOperatingModel : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit TargetOperatingModel(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Process vision.
+  ProcessVision processVision() const;
+  // Design principles.
+  ProcessDesignPrinciples designPrinciples() const;
+  // Process catalog.
+  ProcessCatalog processCatalog() const;
+  // Process overview diagram.
+  ProcessOverviewDiagram processOverviewDiagram() const;
+  // Improvement summary.
+  ProcessImprovementSummary improvementSummary() const;
+  // Process relationships.
+  ProcessRelationships processRelationships() const;
+  // Detailed process workflows.
+  // Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
+  som::SomList detailedWorkflows() const;
+  // Cross-process analysis.
+  CrossProcessAnalysis crossProcessAnalysis() const;
+  // Process exception handling.
+  ProcessExceptionHandling exceptionHandling() const;
+  // Process metrics and KPIs.
+  // Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
+  som::SomList processMetricsAndKpis() const;
+};
+
+// SBP.7 Target Operating Model concept.
+//
+// Public anchor: BABOK future-state analysis.
+class TargetOperatingModelConcept : public som::SomNode {
+ public:
+  TargetOperatingModelConcept(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Target organizational structure and roles.
+  OrganizationalFramework organizationalFramework() const;
+  // Target business process model.
+  TargetBusinessProcessModel targetBusinessProcess() const;
 };
 
 // Target platform entry (operating system, runtime, container).
@@ -33741,7 +34187,7 @@ class TargetPlatformEntryVersion : public som::SomNode {
   TargetPlatformEntryVersionContentForm content() const;
 };
 
-// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+// 4.1.3. Description of Task Area.
 //
 // Describes the business domain and task area the system addresses.
 // Defines the domain vocabulary and key concepts (ubiquitous language)
@@ -33752,19 +34198,19 @@ class TaskArea : public som::SomNode {
   TaskArea(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+  // 4.1.3.1. Domain Overview.
   DomainOverview domainOverview() const;
-  // 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+  // 4.1.3.2. Domain Vocabulary.
   DomainVocabulary domainVocabulary() const;
-  // 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+  // 4.1.3.3. Key Concepts.
   KeyConcepts keyConcepts() const;
-  // 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+  // 4.1.3.4. Domain Boundaries.
   DomainBoundaries domainBoundaries() const;
-  // 4.1.3.5. Business Rules [PD00-SYO-SYD-DES-RUL].
+  // 4.1.3.5. Business Rules.
   DomainBusinessRules businessRules() const;
-  // 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+  // 4.1.3.6. Domain Processes.
   DomainProcesses domainProcesses() const;
-  // 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+  // 4.1.3.7. Domain Events.
   DomainEvents domainEvents() const;
 };
 
@@ -33775,7 +34221,7 @@ class TeamMemberAvailability : public som::SomNode {
   TeamMemberAvailabilityContentForm content() const;
 };
 
-// A team member entry [PD00-ADM-TEA-nn] (form).
+// A team member entry (form).
 //
 // Detailed information about a project team member including their role,
 // responsibilities, availability, and competencies.
@@ -33873,33 +34319,33 @@ class TechnicalDependencyEntry : public som::SomNode {
   TechnicalDependencyEntryContentForm content() const;
 };
 
-// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+// 8. Technical Framework Concept. Seeds → TR.
 class TechnicalFrameworkConcept : public som::SomNode {
  public:
   TechnicalFrameworkConcept(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+  // 8.1. Basic Technical Requirements.
   BasicTechnicalRequirements basicRequirements() const;
-  // 8.2. Software Design Requirements [PD00-TEC-SOF].
+  // 8.2. Software Design Requirements.
   SoftwareDesignRequirements softwareDesign() const;
-  // 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+  // 8.3. Standard Application Software Requirements.
   StandardSoftwareRequirements standardSoftware() const;
-  // 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+  // 8.4. Hardware Concept Requirements.
   HardwareRequirements hardware() const;
-  // 8.5. Operations Requirements [PD00-TEC-OPE].
+  // 8.5. Operations Requirements.
   OperationsRequirements operations() const;
-  // 8.6. Communication Requirements [PD00-TEC-COM].
+  // 8.6. Communication Requirements.
   CommunicationRequirements communication() const;
-  // 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+  // 8.7. System Operation and Monitoring.
   SystemOperationAndMonitoring systemOperation() const;
-  // 8.8. Security Requirements [PD00-TEC-SEC].
+  // 8.8. Security Requirements.
   TechnicalSecurityRequirements security() const;
-  // 8.9. System Architecture [PD00-TEC-ARC]. Covers HBSG AS09-SOF / DR30.
+  // 8.9. System Architecture..
   SystemArchitectureSpec systemArchitecture() const;
 };
 
-// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → TR.
 //
 // Documents pre-existing technical constraints including mandated platforms,
 // network restrictions, compliance requirements, existing infrastructure
@@ -33927,12 +34373,12 @@ class TechnicalFrameworkConditions : public som::SomNode {
   // (skipped: networkTopology has no target type)
   // Technology standards that must be followed.
   // (skipped: standardsOverview has no target type)
-  // Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
+  // Technology standards — contains 0+× TechnologyStandard.
   // Returns the list view; element type: TechnologyStandardEntry (construct from item paths).
   som::SomList technologyStandards() const;
   // Integration constraints overview.
   // (skipped: integrationOverview has no target type)
-  // Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
+  // Integration constraints — contains 0+× IntegrationConstraint.
   // Returns the list view; element type: IntegrationConstraintEntry (construct from item paths).
   som::SomList integrationConstraints() const;
 };
@@ -33973,7 +34419,7 @@ class TechnicalFrameworkConditionsStandards : public som::SomNode {
   TechnicalFrameworkConditionsStandardsContentForm content() const;
 };
 
-// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+// 4.2.2.n.4. Constraints.
 //
 // Technical constraints that may limit or shape how the goal is achieved.
 class TechnicalGoalConstraints : public som::SomNode {
@@ -33986,7 +34432,7 @@ class TechnicalGoalConstraints : public som::SomNode {
   som::SomList items() const;
 };
 
-// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+// 4.2.2.n.3. Dependencies.
 //
 // Technical dependencies affecting goal achievement.
 class TechnicalGoalDependencies : public som::SomNode {
@@ -33999,7 +34445,7 @@ class TechnicalGoalDependencies : public som::SomNode {
   som::SomList items() const;
 };
 
-// A technical goal entry [PD00-SYO-GOA-TEC-nn].
+// A technical goal entry.
 //
 // Comprehensive technical goal definition with quality attributes,
 // architectural impact, and verification approach.
@@ -34011,13 +34457,13 @@ class TechnicalGoalEntry : public som::SomNode {
   TechnicalGoalEntryMeasurement measurement() const;
   // Scope and ownership details.
   TechnicalGoalEntryGovernance governance() const;
-  // 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+  // 4.2.2.n.1. Quality Scenarios.
   QualityScenarios qualityScenarios() const;
-  // 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+  // 4.2.2.n.2. Test Criteria.
   TechnicalGoalTestCriteria testCriteria() const;
-  // 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+  // 4.2.2.n.3. Dependencies.
   TechnicalGoalDependencies dependencies() const;
-  // 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+  // 4.2.2.n.4. Constraints.
   TechnicalGoalConstraints constraints() const;
 };
 
@@ -34042,7 +34488,7 @@ class TechnicalGoalTestCaseEntry : public som::SomNode {
   TechnicalGoalTestCaseEntryContentForm content() const;
 };
 
-// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+// 4.2.2.n.2. Test Criteria.
 //
 // Specific test criteria and acceptance thresholds for the technical goal.
 class TechnicalGoalTestCriteria : public som::SomNode {
@@ -34057,7 +34503,7 @@ class TechnicalGoalTestCriteria : public som::SomNode {
   som::SomList items() const;
 };
 
-// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+// 4.2.2. Technical Goals.
 //
 // Container for technical goal definitions. Technical goals define the
 // non-functional characteristics and technical capabilities the system
@@ -34087,7 +34533,7 @@ class TechnicalInfrastructure : public som::SomNode {
   som::SomList communicationTools() const;
 };
 
-// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+// 1.3.3. Technical Pain Points.
 //
 // Problems that affect development and maintenance: outdated technology,
 // security vulnerabilities, lack of documentation, vendor lock-in,
@@ -34111,7 +34557,7 @@ class TechnicalPainPointsSummary : public som::SomNode {
   TechnicalPainPointsSummaryContentForm content() const;
 };
 
-// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+// 11.3. Technical Quality Criteria.
 //
 // Quality criteria for the technical implementation including efficiency,
 // portability, flexibility, security, maintainability, and reliability.
@@ -34121,21 +34567,21 @@ class TechnicalQualityCriteria : public som::SomNode {
   TechnicalQualityCriteriaTechnicalQualityContentForm technicalQualityContent() const;
   // Technical quality overview.
   // (skipped: overview has no target type)
-  // 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
+  // 11.3.1. Efficiency.
   EfficiencyQuality efficiency() const;
-  // 11.3.2. Portability [PD00-SYQ-TEC-POR].
+  // 11.3.2. Portability.
   PortabilityQuality portability() const;
-  // 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
+  // 11.3.3. Flexibility.
   FlexibilityQuality flexibility() const;
-  // 11.3.4. Security [PD00-SYQ-TEC-SEC].
+  // 11.3.4. Security.
   SecurityQuality security() const;
-  // 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
+  // 11.3.5. Maintainability.
   MaintainabilityQuality maintainability() const;
-  // 11.3.6. Reliability [PD00-SYQ-TEC-REL].
+  // 11.3.6. Reliability.
   ReliabilityQuality reliability() const;
 };
 
-// A technical requirement entry [PD00-SYO-REQ-TEC-nn].
+// A technical requirement entry.
 //
 // Comprehensive technical requirement definition following ISO 25010
 // quality characteristics and architecture decision records.
@@ -34153,11 +34599,11 @@ class TechnicalRequirementEntry : public som::SomNode {
   TechnicalRequirementEntryImpact impact() const;
   // Assumptions and constraints.
   TechnicalRequirementEntryConstraints constraints() const;
-  // 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+  // 4.3.2.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria acceptanceCriteria() const;
-  // 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+  // 4.3.2.n.2. Dependencies.
   RequirementDependencies dependencies() const;
-  // 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+  // 4.3.2.n.3. Traceability.
   RequirementTraceability traceability() const;
 };
 
@@ -34196,7 +34642,7 @@ class TechnicalRequirementEntryVerification : public som::SomNode {
   TechnicalRequirementEntryVerificationContentForm content() const;
 };
 
-// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+// 4.3.2. Technical Requirements.
 //
 // Container for technical requirements. Technical requirements describe
 // constraints on how the system is built — platform, performance,
@@ -34214,63 +34660,17 @@ class TechnicalRequirements : public som::SomNode {
   som::SomList requirements() const;
 };
 
-// TR00 Technical Requirements.
-//
-// Comprehensive technical requirements: basic / software / standard-
-// software / hardware / operations / communication / system-operation
-// / security / architecture, plus components, framework conditions,
-// and translation handling.
-class TechnicalRequirementsSpec : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit TechnicalRequirementsSpec(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Basic technical requirements — PD00-TEC-BAS.
-  BasicTechnicalRequirements basicTechnicalRequirements() const;
-  // Software design requirements — PD00-TEC-SOF.
-  SoftwareDesignRequirements softwareDesignRequirements() const;
-  // Standard application software requirements — PD00-TEC-STA.
-  StandardSoftwareRequirements standardSoftwareRequirements() const;
-  // Hardware concept requirements — PD00-TEC-HAR.
-  HardwareRequirements hardwareRequirements() const;
-  // Operations requirements — PD00-TEC-OPE.
-  OperationsRequirements operationsRequirements() const;
-  // Communication requirements — PD00-TEC-COM.
-  CommunicationRequirements communicationRequirements() const;
-  // System operation and monitoring — PD00-TEC-SYS.
-  SystemOperationAndMonitoring systemOperationAndMonitoring() const;
-  // Technical security requirements — PD00-TEC-SEC.
-  TechnicalSecurityRequirements technicalSecurityRequirements() const;
-  // System architecture — PD00-TEC-ARC (new in Phase A, HBSG AS09-SOF/DR30).
-  SystemArchitectureSpec systemArchitecture() const;
-  // Components to use — PD00-COM (whole).
-  ComponentsToUse componentsToUse() const;
-  // Technical framework conditions — PD00-SYO-RES-TEC (whole).
-  TechnicalFrameworkConditions technicalFrameworkConditions() const;
-  // Translation handling requirements — PD00-USE-MUL-REQ (whole).
-  TranslationRequirements translationRequirements() const;
-};
-
-// 8.8. Security Requirements [PD00-TEC-SEC].
+// 8.8. Security Requirements.
 class TechnicalSecurityRequirements : public som::SomNode {
  public:
   TechnicalSecurityRequirements(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+  // 8.8.1. IT Security Standards.
   ItSecurityStandardsSection itSecurityStandards() const;
-  // 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+  // 8.8.2. Data Protection and Privacy.
   DataProtectionAndPrivacySection dataProtectionAndPrivacy() const;
-  // 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+  // 8.8.3. Security Audit Requirements.
   SecurityAuditRequirementsSection securityAuditRequirements() const;
 };
 
@@ -34281,7 +34681,7 @@ class TechnologyDataVariations : public som::SomNode {
   TechnologyDataVariationsContentForm content() const;
 };
 
-// A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
+// A technology standard entry (form).
 //
 // Documents a mandated or preferred technology standard that the solution
 // must adhere to. Includes scope, compliance requirements, and exceptions.
@@ -34358,7 +34758,7 @@ class TenantContextPolicy : public som::SomNode {
   // (skipped: tenantContextPolicyDetails has no target type)
 };
 
-// A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn].
+// A tenant customization entry (form).
 //
 // Describes a specific area where tenants can customize their authorization
 // model — custom roles, permissions, policies, or workflows. Covers scoping,
@@ -34382,14 +34782,14 @@ class TenantDataIsolationPolicy : public som::SomNode {
   // (skipped: tenantDataIsolationDetails has no target type)
 };
 
-// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+// 9.4.7. Tenant Isolation.
 //
 // Describes how multi-tenant authorization is structured: how tenant context
 // is established and propagated, how cross-tenant access is prevented or
 // controlled, how tenants can customize their authorization model, how tenant
 // onboarding/offboarding is handled from an authorization perspective, and
 // how tenant boundaries are enforced at the authorization layer.
-// Complements TenantDataIsolationPolicy (PD00-ACC-RES-DAT) which covers
+// Complements TenantDataIsolationPolicy which covers
 // data-level isolation; this section focuses on authorization-level isolation.
 class TenantIsolation : public som::SomNode {
  public:
@@ -34433,7 +34833,7 @@ class TestScenarioBusiness : public som::SomNode {
   TestScenarioBusinessContentForm content() const;
 };
 
-// A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
+// A test scenario entry (form).
 //
 // Represents a business-level test case covering a user journey, business
 // process, or acceptance criterion. Includes full traceability, preconditions,
@@ -34505,9 +34905,9 @@ class TestScenarioTraceability : public som::SomNode {
   TestScenarioTraceabilityContentForm content() const;
 };
 
-// 11.8. Test Strategy [PD00-SYQ-TST].
+// 11.8. Test Strategy.
 //
-// Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
+// Overall test strategy for the project..
 class TestStrategy : public som::SomNode {
  public:
   TestStrategy(som::SpecDocument& doc, std::string path);
@@ -34714,7 +35114,7 @@ class ThirdPartyLibraryEntryUsage : public som::SomNode {
   ThirdPartyLibraryEntryUsageContentForm content() const;
 };
 
-// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+// 10.13.3.3. Throwaway Prototype.
 //
 // Prototype evaluated and then discarded.
 class ThrowawayPrototype : public som::SomNode {
@@ -34857,7 +35257,7 @@ class ToolDocumentation : public som::SomNode {
   ToolDocumentationContentForm content() const;
 };
 
-// A tool entry (form) [PD00-POP-TOO-TOO-nn].
+// A tool entry (form).
 //
 // Comprehensive specification of a single tool covering identity,
 // licensing, versioning, access, integration, support, security,
@@ -34963,7 +35363,7 @@ class ToolVersioning : public som::SomNode {
   ToolVersioningContentForm content() const;
 };
 
-// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+// 2.4.1. Tooling.
 //
 // Container for the project's tool inventory and governance policies.
 // Covers all tool categories: development, CI/CD, communication,
@@ -34986,15 +35386,15 @@ class Tooling : public som::SomNode {
   som::SomList items() const;
 };
 
-// 2.4. Tooling and Environments [PD00-POP-TOO].
+// 2.4. Tooling and Environments.
 class ToolingAndEnvironments : public som::SomNode {
  public:
   ToolingAndEnvironments(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 2.4.1. Tooling [PD00-POP-TOO-TOO].
+  // 2.4.1. Tooling.
   Tooling tooling() const;
-  // 2.4.2. Environments [PD00-POP-TOO-ENV].
+  // 2.4.2. Environments.
   Environments environments() const;
 };
 
@@ -35026,7 +35426,7 @@ class TourStepEntry : public som::SomNode {
   TourStepEntryContentForm content() const;
 };
 
-// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
+// A trade-off decision entry (form).
 class TradeOffDecisionEntry : public som::SomNode {
  public:
   TradeOffDecisionEntry(som::SpecDocument& doc, std::string path);
@@ -35080,7 +35480,7 @@ class TradeOffDecisionEntryRationale : public som::SomNode {
   TradeOffDecisionEntryRationaleContentForm content() const;
 };
 
-// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+// 11.6.2. Trade-off Decisions.
 //
 // Explicit trade-off decisions between quality attributes.
 class TradeOffDecisions : public som::SomNode {
@@ -35128,7 +35528,7 @@ class TrainingAssessmentReporting : public som::SomNode {
   TrainingAssessmentReportingContentForm content() const;
 };
 
-// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+// 14.1.3. Training Deliverables.
 class TrainingDeliverables : public som::SomNode {
  public:
   TrainingDeliverables(som::SpecDocument& doc, std::string path);
@@ -35137,6 +35537,20 @@ class TrainingDeliverables : public som::SomNode {
   // Contains 0+× Deliverable.
   // Returns the list view; element type: DeliverableEntry (construct from item paths).
   som::SomList items() const;
+};
+
+// Training & Enablement requirements.
+//
+// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
+// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
+// detailed training-module catalogue currently lives inside
+// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
+// pending the IP-8 doc/training split.
+class TrainingEnablementRequirements : public som::SomNode {
+ public:
+  TrainingEnablementRequirements(som::SpecDocument& doc, std::string path);
+  // Training & enablement requirement form.
+  TrainingEnablementRequirementsContentForm content() const;
 };
 
 // Training materials and resources.
@@ -35173,7 +35587,7 @@ class TrainingMaterialsPractice : public som::SomNode {
   TrainingMaterialsPracticeContentForm content() const;
 };
 
-// A training module entry [PD00-USE-MUL-DOC-MOD-nn].
+// A training module entry.
 class TrainingModuleEntry : public som::SomNode {
  public:
   TrainingModuleEntry(som::SpecDocument& doc, std::string path);
@@ -35187,7 +35601,7 @@ class TrainingOverview : public som::SomNode {
   TrainingOverviewContentForm content() const;
 };
 
-// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+// 10.13.3.2. Training Prototype.
 //
 // Prototype where concepts are reused but not code.
 class TrainingPrototype : public som::SomNode {
@@ -35216,7 +35630,7 @@ class TrainingPrototypeOutputs : public som::SomNode {
   TrainingPrototypeOutputsContentForm content() const;
 };
 
-// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+// 5.3.2. Training Requirements.
 //
 // Comprehensive training program requirements following adult learning
 // principles (ADDIE, Kirkpatrick evaluation model).
@@ -35285,7 +35699,7 @@ class TransitionEscalationPaths : public som::SomNode {
   TransitionEscalationPathsContentForm content() const;
 };
 
-// Transition metric entry [PD00-ORG-STR-TIM-MET-nn] (form).
+// Transition metric entry (form).
 class TransitionMetricEntry : public som::SomNode {
  public:
   TransitionMetricEntry(som::SpecDocument& doc, std::string path);
@@ -35317,7 +35731,7 @@ class TransitionMetricsOverview : public som::SomNode {
   TransitionMetricsOverviewContentForm content() const;
 };
 
-// A transition milestone entry [PD00-ORG-STR-TIM-MIL-nn] (form).
+// A transition milestone entry (form).
 class TransitionMilestoneEntry : public som::SomNode {
  public:
   TransitionMilestoneEntry(som::SpecDocument& doc, std::string path);
@@ -35383,7 +35797,7 @@ class TransitionPhaseActivities : public som::SomNode {
   TransitionPhaseActivitiesContentForm content() const;
 };
 
-// A transition phase entry [PD00-ORG-STR-TIM-PHA-nn] (form).
+// A transition phase entry (form).
 //
 // Defines a distinct phase in the organizational transition sequence.
 class TransitionPhaseEntry : public som::SomNode {
@@ -35440,7 +35854,7 @@ class TransitionPhaseStakeholders : public som::SomNode {
   TransitionPhaseStakeholdersContentForm content() const;
 };
 
-// Transition risk entry [PD00-ORG-STR-TIM-RSK-nn] (form).
+// Transition risk entry (form).
 class TransitionRiskEntry : public som::SomNode {
  public:
   TransitionRiskEntry(som::SpecDocument& doc, std::string path);
@@ -35465,6 +35879,53 @@ class TransitionRiskEntryResponse : public som::SomNode {
   TransitionRiskEntryResponseContentForm content() const;
 };
 
+// SR00 System Rollout.
+//
+// End-to-end rollout specification — localization, translation,
+// documentation and training, plus rollout plan, migration plan,
+// user manuals, training materials, pilot, cutover, knowledge
+// transfer, and warranty/support.
+class TransitionRolloutPlan : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit TransitionRolloutPlan(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Localization process.
+  LocalizationProcess localizationProcess() const;
+  // Translation process.
+  TranslationProcess translationProcess() const;
+  // Documentation and training.
+  DocumentationAndTraining documentationAndTraining() const;
+  // Rollout plan.
+  RolloutPlan rolloutPlan() const;
+  // Migration plan.
+  MigrationPlan migrationPlan() const;
+  // User manuals.
+  // Returns the list view; element type: UserManuals (construct from item paths).
+  som::SomList userManuals() const;
+  // Training materials.
+  // Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
+  som::SomList trainingMaterials() const;
+  // Pilot plan.
+  PilotPlan pilotPlan() const;
+  // Cutover procedures.
+  // Returns the list view; element type: CutoverProcedures (construct from item paths).
+  som::SomList cutoverProcedures() const;
+  // Knowledge transfer.
+  KnowledgeTransfer knowledgeTransfer() const;
+  // Warranty and support.
+  WarrantyAndSupport warrantyAndSupport() const;
+};
+
 // Success metrics for the transition.
 class TransitionSuccessMetrics : public som::SomNode {
  public:
@@ -35483,7 +35944,7 @@ class TransitionSupportOverview : public som::SomNode {
   TransitionSupportOverviewContentForm content() const;
 };
 
-// Support resource entry [PD00-ORG-STR-TIM-SUP-nn] (form).
+// Support resource entry (form).
 class TransitionSupportResourceEntry : public som::SomNode {
  public:
   TransitionSupportResourceEntry(som::SpecDocument& doc, std::string path);
@@ -35504,7 +35965,7 @@ class TransitionSupportStructure : public som::SomNode {
   som::SomList escalationPaths() const;
 };
 
-// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
+// 10.12.2. Translation Process.
 //
 // Workflow for translating content.
 class TranslationProcess : public som::SomNode {
@@ -35554,7 +36015,7 @@ class TranslationProcessWorkflow : public som::SomNode {
   TranslationProcessWorkflowContentForm content() const;
 };
 
-// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+// 10.12.5. Translation Handling Requirements.
 //
 // Technical requirements for internationalization framework.
 class TranslationRequirements : public som::SomNode {
@@ -35601,7 +36062,7 @@ class TranslationRequirementsVariants : public som::SomNode {
   TranslationRequirementsVariantsContentForm content() const;
 };
 
-// A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].
+// A translation vendor entry.
 class TranslationVendorEntry : public som::SomNode {
  public:
   TranslationVendorEntry(som::SpecDocument& doc, std::string path);
@@ -35663,7 +36124,7 @@ class TroubleshootingCapabilitiesRunbooks : public som::SomNode {
   TroubleshootingCapabilitiesRunbooksContentForm content() const;
 };
 
-// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+// 4.1.2.5. Trust Boundaries.
 //
 // Security zones and trust boundaries that the system operates within
 // or crosses.
@@ -35684,7 +36145,7 @@ class TrustBoundaryEntry : public som::SomNode {
   TrustBoundaryEntryContentForm content() const;
 };
 
-// A typography style entry [PD00-USE-COM-LIB-TYP-nn].
+// A typography style entry.
 class TypographyStyleEntry : public som::SomNode {
  public:
   TypographyStyleEntry(som::SpecDocument& doc, std::string path);
@@ -35763,7 +36224,7 @@ class UatSignOff : public som::SomNode {
   UatSignOffContentForm content() const;
 };
 
-// A UAT test cycle entry [PD00-DEL-ACC-UAT-CYC-nn].
+// A UAT test cycle entry.
 //
 // Represents a distinct test execution round — e.g. Cycle 1 (initial),
 // Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
@@ -35799,7 +36260,7 @@ class UatTestData : public som::SomNode {
   UatTestDataContentForm content() const;
 };
 
-// A UAT test step entry [PD00-DEL-ACC-UAT-nn-STP-mm].
+// A UAT test step entry.
 //
 // Individual step within a test scenario. Captures the action, input data,
 // expected result, and pass criteria at fine-grained level per IEEE 829
@@ -35817,7 +36278,7 @@ class UatTraining : public som::SomNode {
   UatTrainingContentForm content() const;
 };
 
-// A UI component entry [PD00-USE-COM-SPE-nn].
+// A UI component entry.
 //
 // Comprehensive specification for a single UI component covering identity,
 // visual design, behavior, states, responsiveness, accessibility,
@@ -35926,7 +36387,7 @@ class UiComponentEntrySurface : public som::SomNode {
   UiComponentEntrySurfaceContentForm content() const;
 };
 
-// 10.11. UI Components [PD00-USE-COM].
+// 10.11. UI Components.
 //
 // Comprehensive UI component library specification covering design system,
 // component catalog, and detailed per-component specifications. Supports
@@ -35941,12 +36402,12 @@ class UiComponents : public som::SomNode {
   UiComponentsComponentApproach componentApproach() const;
   // Extension and theming boundaries.
   UiComponentsCustomization customization() const;
-  // 10.11.1. Component Library [PD00-USE-COM-LIB].
+  // 10.11.1. Component Library.
   ComponentLibrary componentLibrary() const;
-  // 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+  // 10.11.2. Component Specifications — contains 0+×.
   // Returns the list view; element type: UiComponentEntry (construct from item paths).
   som::SomList componentSpecs() const;
-  // 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
+  // 10.11.3. Component Families — contains 0+×.
   // Returns the list view; element type: ComponentFamilyEntry (construct from item paths).
   som::SomList componentFamilies() const;
 };
@@ -35972,7 +36433,7 @@ class UiComponentsVisualLanguage : public som::SomNode {
   UiComponentsVisualLanguageContentForm content() const;
 };
 
-// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
+// A design principle entry (form).
 //
 // Each principle guides UI decisions with rationale and examples.
 class UiDesignPrincipleEntry : public som::SomNode {
@@ -35981,54 +36442,7 @@ class UiDesignPrincipleEntry : public som::SomNode {
   UiDesignPrincipleEntryContentForm content() const;
 };
 
-// UP00 UI Prototype.
-//
-// Full UI design and prototype specification — vision, screens,
-// screen flow, print, error handling, help, accessibility, responsive,
-// components, language/country selection, prototype, wireframes and
-// mockups.
-class UiPrototype : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit UiPrototype(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Design vision — PD00-USE-VIS.
-  DesignVision designVision() const;
-  // Screen descriptions — PD00-USE-SCR.
-  ScreenDescriptions screens() const;
-  // Screen flow structure — PD00-USE-SCF.
-  ScreenFlowStructure screenFlow() const;
-  // Print layout — PD00-USE-PRI.
-  PrintLayout printLayout() const;
-  // Error handling concept — PD00-USE-ERR.
-  ErrorHandlingConcept errorHandling() const;
-  // Help concept — PD00-USE-HLP.
-  HelpConcept helpConcept() const;
-  // Accessibility — PD00-USE-ACC.
-  Accessibility accessibility() const;
-  // Responsive design — PD00-USE-RES.
-  ResponsiveDesign responsiveDesign() const;
-  // UI components — PD00-USE-COM.
-  UiComponents uiComponents() const;
-  // Language and country selection — PD00-USE-MUL-LCS.
-  LanguageCountrySelection languageCountrySelection() const;
-  // Prototype — PD00-USE-PRO.
-  Prototype prototype() const;
-  // Wireframes and mockups — PD00-USE-WIR (new in Phase A, HBSG AS10-WIR).
-  // Returns the list view; element type: WireframesAndMockups (construct from item paths).
-  som::SomList wireframesAndMockups() const;
-};
-
-// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG].
+// 13.8. Upgrade Cycle Framework.
 //
 // Post-development upgrade cycle framework. Links the upgrade process
 // defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
@@ -36039,7 +36453,7 @@ class UpgradeCycleFramework : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 11.2.1. Usability quality [PD00-SYQ-USE-USA].
+// 11.2.1. Usability quality.
 class UsabilityQuality : public som::SomNode {
  public:
   UsabilityQuality(som::SpecDocument& doc, std::string path);
@@ -36110,7 +36524,7 @@ class UseCaseScopeContext : public som::SomNode {
   UseCaseScopeContextContentForm content() const;
 };
 
-// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+// 6.2.5. Use Case Traceability.
 //
 // Use case ↔ requirement ↔ process ↔ test traceability.
 class UseCaseTraceability : public som::SomNode {
@@ -36120,43 +36534,7 @@ class UseCaseTraceability : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// UC00 Use Cases.
-//
-// Detailed use cases derived from the target process steps and actor
-// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-// and traceability.
-class UseCases : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit UseCases(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Process steps overview — PD00-TAR-STP-OVE.
-  ProcessStepsOverview processStepsOverview() const;
-  // Actor overview — PD00-TAR-STP-ACT.
-  ActorOverview actorOverview() const;
-  // Interaction catalog — PD00-TAR-STP-INT.
-  InteractionCatalog interactionCatalog() const;
-  // Key scenarios — PD00-TAR-STP-SCE.
-  KeyScenarios keyScenarios() const;
-  // Actor relationship diagram — PD00-TAR-STP-DIA.
-  ActorRelationshipDiagram actorRelationshipDiagram() const;
-  // End-to-end test scenarios — PD00-TAR-STP-E2E (covers HBSG AS24).
-  // Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
-  som::SomList endToEndTestScenarios() const;
-  // Use case traceability — PD00-TAR-STP-TRC.
-  UseCaseTraceability useCaseTraceability() const;
-};
-
-// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+// 14.2.3. User Acceptance Testing.
 //
 // Comprehensive UAT planning covering scope, environment, test data,
 // governance, scheduling, defect management, reporting, non-functional
@@ -36198,7 +36576,7 @@ class UserAcceptanceTesting : public som::SomNode {
   som::SomList testScenarios() const;
 };
 
-// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+// 4.1.4.n.4. Access and Permissions.
 //
 // Security and access control specifications for this user category.
 class UserAccessPermissions : public som::SomNode {
@@ -36231,7 +36609,7 @@ class UserAccessPermissionsRestrictions : public som::SomNode {
   UserAccessPermissionsRestrictionsContentForm content() const;
 };
 
-// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+// 4.1.4.n.6. Accessibility Needs.
 //
 // Accessibility requirements and accommodations for this user category.
 class UserAccessibilityNeeds : public som::SomNode {
@@ -36256,14 +36634,14 @@ class UserAccountStatesDefinition : public som::SomNode {
   // (skipped: stateTransitionDiagram has no target type)
 };
 
-// A user attribute entry (form) [PD00-ACC-USE-ATT-nn].
+// A user attribute entry (form).
 class UserAttributeEntry : public som::SomNode {
  public:
   UserAttributeEntry(som::SpecDocument& doc, std::string path);
   UserAttributeEntryContentForm content() const;
 };
 
-// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+// 9.1.3. User Attributes.
 class UserAttributes : public som::SomNode {
  public:
   UserAttributes(som::SpecDocument& doc, std::string path);
@@ -36274,7 +36652,7 @@ class UserAttributes : public som::SomNode {
   som::SomList items() const;
 };
 
-// 9.4. User Authorization [PD00-ACC-USA].
+// 9.4. User Authorization.
 //
 // Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 class UserAuthorization : public som::SomNode {
@@ -36282,34 +36660,34 @@ class UserAuthorization : public som::SomNode {
   UserAuthorization(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+  // 9.4.1. Authorization Model.
   AuthorizationModel authorizationModel() const;
-  // 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
+  // 9.4.2. Authorization Groups — contains 0+× Group.
   // Returns the list view; element type: AuthorizationGroupEntry (construct from item paths).
   som::SomList groups() const;
-  // 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+  // 9.4.3. Role Definitions — contains 1+× Role.
   // Returns the list view; element type: AuthorizationRoleEntry (construct from item paths).
   som::SomList roleDefinitions() const;
-  // 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
+  // 9.4.4. Entitlements — contains 1+× Entitlement.
   // Returns the list view; element type: EntitlementEntry (construct from item paths).
   som::SomList entitlements() const;
-  // 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
+  // 9.4.5. Resource Keys — contains 0+× Resource Key.
   // Returns the list view; element type: ResourceKeyEntry (construct from item paths).
   som::SomList resourceKeys() const;
-  // 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+  // 9.4.6. Role Hierarchy.
   RoleHierarchy roleHierarchy() const;
-  // 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+  // 9.4.7. Tenant Isolation.
   TenantIsolation tenantIsolation() const;
 };
 
-// A user category definition (form) [PD00-ACC-USE-CAT-nn].
+// A user category definition (form).
 class UserCategoryDefinition : public som::SomNode {
  public:
   UserCategoryDefinition(som::SpecDocument& doc, std::string path);
   UserCategoryDefinitionContentForm content() const;
 };
 
-// A user category entry [PD00-SYO-SYD-USR-nn].
+// A user category entry.
 //
 // Comprehensive user persona definition including demographics, goals,
 // frustrations, technical proficiency, and system interaction patterns.
@@ -36321,20 +36699,20 @@ class UserCategoryEntry : public som::SomNode {
   UserCategoryEntryUsage usage() const;
   // Growth and prioritization profile.
   UserCategoryEntryImportance importance() const;
-  // 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+  // 4.1.4.n.1. User Persona Details.
   UserPersonaDetails personaDetails() const;
-  // 4.1.4.n.2. Role [PD00-SYO-SYD-USR-nn-ROL].
+  // 4.1.4.n.2. Role.
   UserCategoryRoleEntry role() const;
-  // 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+  // 4.1.4.n.3. System Tasks — contains 1+× System Task.
   // Returns the list view; element type: SystemTaskEntry (construct from item paths).
   som::SomList systemTasks() const;
-  // 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+  // 4.1.4.n.4. Access and Permissions.
   UserAccessPermissions accessPermissions() const;
-  // 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+  // 4.1.4.n.5. Training Requirements.
   UserTrainingRequirements trainingRequirements() const;
-  // 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+  // 4.1.4.n.6. Accessibility Needs.
   UserAccessibilityNeeds accessibilityNeeds() const;
-  // 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+  // 4.1.4.n.7. User Journey.
   UserJourney userJourney() const;
 };
 
@@ -36352,7 +36730,7 @@ class UserCategoryEntryUsage : public som::SomNode {
   UserCategoryEntryUsageContentForm content() const;
 };
 
-// Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
+// Role within a user category.
 //
 // Organizational role and responsibilities associated with this user category.
 class UserCategoryRoleEntry : public som::SomNode {
@@ -36361,7 +36739,7 @@ class UserCategoryRoleEntry : public som::SomNode {
   UserCategoryRoleEntryContentForm content() const;
 };
 
-// User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn].
+// User group impact entry.
 class UserGroupImpactEntry : public som::SomNode {
  public:
   UserGroupImpactEntry(som::SpecDocument& doc, std::string path);
@@ -36402,7 +36780,7 @@ class UserGrowthProjectionsThresholds : public som::SomNode {
   UserGrowthProjectionsThresholdsContentForm content() const;
 };
 
-// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+// 4.1.5. User Interaction Model.
 //
 // Describes how different user categories interact with the system including
 // access channels, interaction patterns, access levels, and session management.
@@ -36414,17 +36792,17 @@ class UserInteractionModel : public som::SomNode {
   void setContent(const std::string& value);
   // Interaction model summary.
   UserInteractionModelSummary summary() const;
-  // 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+  // 4.1.5.1. Access Channels.
   AccessChannels accessChannels() const;
-  // 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+  // 4.1.5.2. Interaction Patterns.
   InteractionPatterns interactionPatterns() const;
-  // 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+  // 4.1.5.3. Access Levels.
   AccessLevels accessLevels() const;
-  // 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+  // 4.1.5.4. Session Model.
   SessionModel sessionModel() const;
-  // 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+  // 4.1.5.5. Notification Model.
   NotificationModel notificationModel() const;
-  // 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+  // 4.1.5.6. Multi-Channel Experience.
   MultiChannelExperience multiChannelExperience() const;
 };
 
@@ -36437,44 +36815,7 @@ class UserInteractionModelSummary : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
-class UserInterfaceDesign : public som::SomNode {
- public:
-  UserInterfaceDesign(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
-  DesignVision designVision() const;
-  // 10.2. Screen Descriptions [PD00-USE-SCR]. Seeds → UP.
-  ScreenDescriptions screens() const;
-  // 10.3. Screen Flow Structure [PD00-USE-SCF]. Seeds → UP.
-  ScreenFlowStructure screenFlow() const;
-  // 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
-  PrintLayout printLayout() const;
-  // Data Structure Alignment.
-  // (skipped: dataStructureAlignment has no target type)
-  // Authorization Compliance.
-  // (skipped: authorizationCompliance has no target type)
-  // 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
-  ErrorHandlingConcept errorHandling() const;
-  // 10.8. Help Concept [PD00-USE-HLP]. Seeds → UP.
-  HelpConcept helpConcept() const;
-  // 10.9. Accessibility [PD00-USE-ACC]. Seeds → UP.
-  Accessibility accessibility() const;
-  // 10.10. Responsive Design [PD00-USE-RES]. Seeds → UP.
-  ResponsiveDesign responsiveDesign() const;
-  // 10.11. UI Components [PD00-USE-COM]. Seeds → UP.
-  UiComponents uiComponents() const;
-  // 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
-  MultiLanguageAndRollout multiLanguage() const;
-  // 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
-  Prototype prototype() const;
-  // 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
-  // Returns the list view; element type: WireframesAndMockups (construct from item paths).
-  som::SomList wireframesAndMockups() const;
-};
-
-// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+// 4.1.4.n.7. User Journey.
 //
 // Key touchpoints and journey map for this user category's experience.
 class UserJourney : public som::SomNode {
@@ -36507,7 +36848,7 @@ class UserJourneyPainPointEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+// 9.1.2. User Lifecycle.
 //
 // Defines the complete user account lifecycle: states, transitions between
 // states, approval requirements for each transition, and operational policies
@@ -36540,7 +36881,7 @@ class UserLifecycleSection : public som::SomNode {
   som::SomList serviceAccounts() const;
 };
 
-// A lifecycle transition entry (form) [PD00-ACC-USE-LIF-nn].
+// A lifecycle transition entry (form).
 //
 // Defines a single permissible transition between two lifecycle states,
 // including trigger, approval, and side effects.
@@ -36595,21 +36936,21 @@ class UserLifecycleTransitions : public som::SomNode {
   som::SomList items() const;
 };
 
-// 9.1. User Management [PD00-ACC-USE].
+// 9.1. User Management.
 class UserManagement : public som::SomNode {
  public:
   UserManagement(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 9.1.1. User Categories [PD00-ACC-USE-CAT].
+  // 9.1.1. User Categories.
   AccessUserCategories userCategories() const;
-  // 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+  // 9.1.2. User Lifecycle.
   UserLifecycleSection userLifecycle() const;
-  // 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+  // 9.1.3. User Attributes.
   UserAttributes userAttributes() const;
 };
 
-// 15.3. User Manuals [PD00-ROL-DOC].
+// 15.3. User Manuals.
 //
 // End-user documentation deliverables covering DR15 User Manual content.
 class UserManuals : public som::SomNode {
@@ -36628,7 +36969,7 @@ class UserNotificationPreferences : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+// 4.1.4.n.1. User Persona Details.
 //
 // Detailed persona information including demographics, goals, frustrations,
 // and behavioral characteristics for user-centered design.
@@ -36674,7 +37015,7 @@ class UserPersonaDetailsGoals : public som::SomNode {
   UserPersonaDetailsGoalsContentForm content() const;
 };
 
-// 10.1.3. User Personas [PD00-USE-VIS-PER].
+// 10.1.3. User Personas.
 //
 // Container for user persona definitions. Each persona represents a distinct
 // user archetype with goals, pain points, and context.
@@ -36724,7 +37065,7 @@ class UserProvisioningToolsRoleManagement : public som::SomNode {
   UserProvisioningToolsRoleManagementContentForm content() const;
 };
 
-// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+// 11.2. User-Related Quality Criteria.
 //
 // Quality criteria that directly affect user experience, including usability,
 // functional completeness, and correctness from the end-user perspective.
@@ -36734,11 +37075,11 @@ class UserQualityCriteria : public som::SomNode {
   UserQualityCriteriaUserQualityContentForm userQualityContent() const;
   // User quality criteria overview.
   // (skipped: overview has no target type)
-  // 11.2.1. Usability [PD00-SYQ-USE-USA].
+  // 11.2.1. Usability.
   UsabilityQuality usability() const;
-  // 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
+  // 11.2.2. Functional Completeness.
   FunctionalCompletenessQuality functionalCompleteness() const;
-  // 11.2.3. Correctness [PD00-SYQ-USE-COR].
+  // 11.2.3. Correctness.
   CorrectnessQuality correctness() const;
 };
 
@@ -36757,7 +37098,7 @@ class UserRegistrationProcess : public som::SomNode {
   // (skipped: registrationFlowDiagram has no target type)
 };
 
-// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+// 4.1.4.n.5. Training Requirements.
 //
 // Training and onboarding requirements for this user category.
 class UserTrainingRequirements : public som::SomNode {
@@ -36772,7 +37113,7 @@ class UserTrainingRequirements : public som::SomNode {
   som::SomList trainingTopics() const;
 };
 
-// A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
+// A utility menu item entry (form).
 //
 // Entry in a utility popup/dropdown menu (e.g., user menu items).
 class UtilityMenuItemEntry : public som::SomNode {
@@ -36799,7 +37140,7 @@ class UtilityMenuItemEntryBehavior : public som::SomNode {
   UtilityMenuItemEntryBehaviorContentForm content() const;
 };
 
-// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+// 10.3.1.5. Utility Navigation.
 //
 // Always-visible utility items: user menu, notifications, help, settings.
 class UtilityNavigation : public som::SomNode {
@@ -36812,7 +37153,7 @@ class UtilityNavigation : public som::SomNode {
   som::SomList items() const;
 };
 
-// A utility navigation item entry (form) [PD00-USE-SCF-NAV-UTL-nn].
+// A utility navigation item entry (form).
 //
 // A persistent utility element in the app bar: user avatar, notifications bell,
 // help icon, settings.
@@ -36843,7 +37184,7 @@ class UtilityNavigationItemEntryDisplay : public som::SomNode {
   UtilityNavigationItemEntryDisplayContentForm content() const;
 };
 
-// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+// 7.1.6. Validation Constraints.
 //
 // Cross-entity validation policy. Per-field validation lives in entity
 // form fields; this section captures rules that span multiple fields or
@@ -36855,7 +37196,7 @@ class ValidationConstraints : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+// 10.7.1. Validation Feedback.
 //
 // Field validation error display and feedback mechanisms.
 class ValidationFeedback : public som::SomNode {
@@ -36908,7 +37249,7 @@ class ValidationFeedbackPlacement : public som::SomNode {
   ValidationFeedbackPlacementContentForm content() const;
 };
 
-// A validation message template [PD00-USE-ERR-VAL-MSG-nn].
+// A validation message template.
 class ValidationMessageTemplate : public som::SomNode {
  public:
   ValidationMessageTemplate(som::SpecDocument& doc, std::string path);
@@ -36923,7 +37264,7 @@ class ValidationRuleEntry : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+// 4.1.1.4. Value Proposition.
 //
 // Clear articulation of the value this system provides, including
 // quantifiable benefits and return on investment analysis.
@@ -37135,7 +37476,7 @@ class VulnerabilityManagementPolicyReporting : public som::SomNode {
   VulnerabilityManagementPolicyReportingContentForm content() const;
 };
 
-// 15.8. Warranty and Support [PD00-ROL-WAR].
+// 15.8. Warranty and Support.
 //
 // Post-acceptance warranty period terms and support arrangements. Covers
 // EK10 warranty content and feeds the SR top-level on the same topic.
@@ -37181,7 +37522,7 @@ class WarrantyServiceLevels : public som::SomNode {
   WarrantyServiceLevelsContentForm content() const;
 };
 
-// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+// 14.2.6. Warranty.
 //
 // Post-acceptance warranty terms: duration, scope, service levels,
 // exclusions, and transition to standard support.
@@ -37213,7 +37554,7 @@ class WarrantyTransition : public som::SomNode {
   WarrantyTransitionContentForm content() const;
 };
 
-// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+// 10.9.1. WCAG Compliance Level.
 class WcagCompliance : public som::SomNode {
  public:
   WcagCompliance(som::SpecDocument& doc, std::string path);
@@ -37252,14 +37593,14 @@ class WcagComplianceUnderstandable : public som::SomNode {
   WcagComplianceUnderstandableContentForm content() const;
 };
 
-// A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
+// A WCAG success criterion entry.
 class WcagSuccessCriterionEntry : public som::SomNode {
  public:
   WcagSuccessCriterionEntry(som::SpecDocument& doc, std::string path);
   WcagSuccessCriterionEntryContentForm content() const;
 };
 
-// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+// 11.6.1. Weighted Quality Matrix.
 class WeightedQualityMatrix : public som::SomNode {
  public:
   WeightedQualityMatrix(som::SpecDocument& doc, std::string path);
@@ -37273,10 +37614,10 @@ class WeightedQualityMatrix : public som::SomNode {
   // (skipped: matrixVisualization has no target type)
 };
 
-// 10.14. Wireframes and Mockups [PD00-USE-WIR].
+// 10.14. Wireframes and Mockups.
 //
 // Wireframe and mockup inventory beyond individual screen descriptions.
-// Covers HBSG AS10-WIR.
+// .
 class WireframesAndMockups : public som::SomNode {
  public:
   WireframesAndMockups(som::SpecDocument& doc, std::string path);
@@ -37284,7 +37625,7 @@ class WireframesAndMockups : public som::SomNode {
   void setContent(const std::string& value);
 };
 
-// A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
+// A workflow actor entry (form).
 //
 // Documentation of a participant in the workflow.
 class WorkflowActorEntry : public som::SomNode {
@@ -37310,10 +37651,10 @@ class WorkflowDecisionPoint : public som::SomNode {
   WorkflowDecisionPointContentForm content() const;
 };
 
-// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+// 1.2.nn.1. Workflow Descriptions.
 //
 // Container for workflow entries within a business process.
-// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+// 1.2.nn.1. Workflow Descriptions.
 //
 // Container for workflow entries within a business process. Add one
 // subsection per current workflow relevant to the project.
@@ -37322,10 +37663,10 @@ class WorkflowDescriptions : public som::SomNode {
   WorkflowDescriptions(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
+  // Workflow overview diagram.
   std::string workflowOverviewDiagram() const;
   void setWorkflowOverviewDiagram(const std::string& value);
-  // Workflow summary table [PD00-CUR-PRO-xx-WOR-SUM].
+  // Workflow summary table.
   WorkflowSummaryTable summaryTable() const;
   // Individual workflow entries.
   // Returns the list view; element type: CurrentWorkflowEntry (construct from item paths).
@@ -37364,7 +37705,7 @@ class WorkflowOutputEntry : public som::SomNode {
   WorkflowOutputEntryContentForm content() const;
 };
 
-// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
+// A workflow step entry (form).
 //
 // Detailed documentation of a single step within a workflow.
 class WorkflowStepEntry : public som::SomNode {
@@ -37445,7 +37786,7 @@ class WorkflowTriggers : public som::SomNode {
   som::SomList triggers() const;
 };
 
-// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+// A workplace description entry (form, per user category).
 //
 // Comprehensive workplace requirements following workplace design best
 // practices (OSHA, ISO 9001, ergonomic standards). Covers physical,
@@ -37457,11 +37798,11 @@ class WorkplaceDescriptionEntry : public som::SomNode {
   WorkplaceUserCategory userCategory() const;
   // Physical workplace layout and environment.
   PhysicalWorkplaceRequirements physicalRequirements() const;
-  // 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+  // 5.3.1. Equipment Requirements.
   EquipmentRequirements equipmentRequirements() const;
   // Technical infrastructure requirements.
   TechnicalInfrastructure technicalInfrastructure() const;
-  // 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+  // 5.3.2. Training Requirements.
   TrainingRequirements trainingRequirements() const;
   // Support resources available to users.
   WorkplaceSupportResources supportResources() const;
@@ -39120,6 +39461,20 @@ class ApplicationSecurityRequirementsValidationContentForm : public som::SomNode
 };
 
 // Generated form facade for the `content` @Form section.
+class ApprovalRecordContentForm : public som::SomNode {
+ public:
+  ApprovalRecordContentForm(som::SpecDocument& doc, std::string path);
+  std::string role() const;
+  void setRole(const std::string& value);
+  std::string name() const;
+  void setName(const std::string& value);
+  std::string date() const;
+  void setDate(const std::string& value);
+  std::string status() const;
+  void setStatus(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class ArchitectureComponentEntryBoundariesContentForm : public som::SomNode {
  public:
   ArchitectureComponentEntryBoundariesContentForm(som::SpecDocument& doc, std::string path);
@@ -39407,6 +39762,22 @@ class AssumptionImpactContentForm : public som::SomNode {
   void setContingencyTimeline(const std::string& value);
   std::string relatedRisks() const;
   void setRelatedRisks(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class AssumptionRegisterEntryContentForm : public som::SomNode {
+ public:
+  AssumptionRegisterEntryContentForm(som::SpecDocument& doc, std::string path);
+  std::string assumptionId() const;
+  void setAssumptionId(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
+  std::string impact() const;
+  void setImpact(const std::string& value);
+  std::string validation() const;
+  void setValidation(const std::string& value);
+  std::string status() const;
+  void setStatus(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -44533,6 +44904,22 @@ class ConstraintMitigationContentForm : public som::SomNode {
   void setFallbackPlan(const std::string& value);
   std::string violationConsequences() const;
   void setViolationConsequences(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class ConstraintRegisterEntryContentForm : public som::SomNode {
+ public:
+  ConstraintRegisterEntryContentForm(som::SpecDocument& doc, std::string path);
+  std::string constraintId() const;
+  void setConstraintId(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
+  std::string type() const;
+  void setType(const std::string& value);
+  std::string source() const;
+  void setSource(const std::string& value);
+  std::string impact() const;
+  void setImpact(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -52388,6 +52775,20 @@ class GlobalRoleExclusionEntryContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class GlossaryEntryContentForm : public som::SomNode {
+ public:
+  GlossaryEntryContentForm(som::SpecDocument& doc, std::string path);
+  std::string term() const;
+  void setTerm(const std::string& value);
+  std::string definition() const;
+  void setDefinition(const std::string& value);
+  std::string acronym() const;
+  void setAcronym(const std::string& value);
+  std::string seeAlso() const;
+  void setSeeAlso(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class GoalDependencyEntryContentForm : public som::SomNode {
  public:
   GoalDependencyEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -54823,6 +55224,18 @@ class IpOwnershipEntryContentForm : public som::SomNode {
   void setUsageRights(const std::string& value);
   std::string restrictions() const;
   void setRestrictions(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class Iso25010CoverageEntryContentForm : public som::SomNode {
+ public:
+  Iso25010CoverageEntryContentForm(som::SpecDocument& doc, std::string path);
+  std::string characteristic() const;
+  void setCharacteristic(const std::string& value);
+  std::string addressedBy() const;
+  void setAddressedBy(const std::string& value);
+  std::string targetMetric() const;
+  void setTargetMetric(const std::string& value);
 };
 
 // Generated form facade for the `positionDetails` @Form section.
@@ -65114,6 +65527,20 @@ class ReviewCriterionEntryResultContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class RevisionEntryContentForm : public som::SomNode {
+ public:
+  RevisionEntryContentForm(som::SpecDocument& doc, std::string path);
+  std::string version() const;
+  void setVersion(const std::string& value);
+  std::string date() const;
+  void setDate(const std::string& value);
+  std::string author() const;
+  void setAuthor(const std::string& value);
+  std::string summary() const;
+  void setSummary(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class RiskAnalysisContentForm : public som::SomNode {
  public:
   RiskAnalysisContentForm(som::SpecDocument& doc, std::string path);
@@ -69870,6 +70297,26 @@ class StakeholderEntryImpactContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
+class StakeholderRegisterEntryContentForm : public som::SomNode {
+ public:
+  StakeholderRegisterEntryContentForm(som::SpecDocument& doc, std::string path);
+  std::string stakeholderId() const;
+  void setStakeholderId(const std::string& value);
+  std::string name() const;
+  void setName(const std::string& value);
+  std::string role() const;
+  void setRole(const std::string& value);
+  std::string interest() const;
+  void setInterest(const std::string& value);
+  std::string influence() const;
+  void setInfluence(const std::string& value);
+  std::string concerns() const;
+  void setConcerns(const std::string& value);
+  std::string engagementStrategy() const;
+  void setEngagementStrategy(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
 class StakeholdersAndInterestsContentForm : public som::SomNode {
  public:
   StakeholdersAndInterestsContentForm(som::SpecDocument& doc, std::string path);
@@ -73137,6 +73584,20 @@ class TrainingAssessmentReportingContentForm : public som::SomNode {
   void setReportingDashboard(const std::string& value);
   std::string managementVisibility() const;
   void setManagementVisibility(const std::string& value);
+};
+
+// Generated form facade for the `content` @Form section.
+class TrainingEnablementRequirementsContentForm : public som::SomNode {
+ public:
+  TrainingEnablementRequirementsContentForm(som::SpecDocument& doc, std::string path);
+  std::string targetAudiences() const;
+  void setTargetAudiences(const std::string& value);
+  std::string competencyOutcomes() const;
+  void setCompetencyOutcomes(const std::string& value);
+  std::string certificationRequired() const;
+  void setCertificationRequired(const std::string& value);
+  std::string ongoingEnablement() const;
+  void setOngoingEnablement(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.

@@ -15,78 +15,23 @@ char *parse_probability(const char *token) {
   return som_strdup("");
 }
 
-void current_situation_init(CurrentSituation *self, SpecDocument *doc, const char *path) {
+void current_landscape_assessment_init(CurrentLandscapeAssessment *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void current_situation_free(CurrentSituation *self) {
+void current_landscape_assessment_free(CurrentLandscapeAssessment *self) {
   som_node_free(&self->node);
 }
-char *current_situation_summary(const CurrentSituation *self) {
+char *current_landscape_assessment_summary(const CurrentLandscapeAssessment *self) {
   char *path = spec_path_join(self->node.path, "summary");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
-void current_situation_set_summary(CurrentSituation *self, const char *value) {
+void current_landscape_assessment_set_summary(CurrentLandscapeAssessment *self, const char *value) {
   char *path = spec_path_join(self->node.path, "summary");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
-}
-
-int project_definition_new(ProjectDefinition *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(PROJECT_DEFINITION_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "PD00");
-  return 0;
-}
-const char *project_definition_object_model_version(const ProjectDefinition *self) {
-  (void)self;
-  return PROJECT_DEFINITION_MODEL_VERSION;
-}
-void project_definition_free(ProjectDefinition *self) {
-  som_node_free(&self->node);
-}
-char *project_definition_vision(const ProjectDefinition *self) {
-  char *path = spec_path_join(self->node.path, "vision");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void project_definition_set_vision(ProjectDefinition *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "vision");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-ProjectDefinitionOwnerForm project_definition_owner(const ProjectDefinition *self) {
-  char *path = spec_path_join(self->node.path, "owner");
-  ProjectDefinitionOwnerForm out;
-  project_definition_owner_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList project_definition_risks(const ProjectDefinition *self) {
-  char *path = spec_path_join(self->node.path, "risks");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList project_definition_tags(const ProjectDefinition *self) {
-  char *path = spec_path_join(self->node.path, "tags");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-CurrentSituation project_definition_situation(const ProjectDefinition *self) {
-  char *path = spec_path_join(self->node.path, "situation");
-  CurrentSituation out;
-  current_situation_init(&out, self->node.doc, path);
-  free(path);
-  return out;
 }
 
 void risk_init(Risk *self, SpecDocument *doc, const char *path) {
@@ -120,24 +65,79 @@ void risk_set_probability(Risk *self, const char *value) {
   free(path);
 }
 
-void project_definition_owner_form_init(ProjectDefinitionOwnerForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
+int solution_blueprint_new(SolutionBlueprint *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(SOLUTION_BLUEPRINT_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "PD00");
+  return 0;
 }
-void project_definition_owner_form_free(ProjectDefinitionOwnerForm *self) {
+const char *solution_blueprint_object_model_version(const SolutionBlueprint *self) {
+  (void)self;
+  return SOLUTION_BLUEPRINT_MODEL_VERSION;
+}
+void solution_blueprint_free(SolutionBlueprint *self) {
   som_node_free(&self->node);
 }
-char *project_definition_owner_form_name(const ProjectDefinitionOwnerForm *self) {
+char *solution_blueprint_vision(const SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "vision");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void solution_blueprint_set_vision(SolutionBlueprint *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "vision");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+SolutionBlueprintOwnerForm solution_blueprint_owner(const SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "owner");
+  SolutionBlueprintOwnerForm out;
+  solution_blueprint_owner_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList solution_blueprint_risks(const SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "risks");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList solution_blueprint_tags(const SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "tags");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+CurrentLandscapeAssessment solution_blueprint_situation(const SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "situation");
+  CurrentLandscapeAssessment out;
+  current_landscape_assessment_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void solution_blueprint_owner_form_init(SolutionBlueprintOwnerForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void solution_blueprint_owner_form_free(SolutionBlueprintOwnerForm *self) {
+  som_node_free(&self->node);
+}
+char *solution_blueprint_owner_form_name(const SolutionBlueprintOwnerForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
   return som_strdup(v != NULL ? v : "");
 }
-void project_definition_owner_form_set_name(ProjectDefinitionOwnerForm *self, const char *value) {
+void solution_blueprint_owner_form_set_name(SolutionBlueprintOwnerForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
 }
-char *project_definition_owner_form_role(const ProjectDefinitionOwnerForm *self) {
+char *solution_blueprint_owner_form_role(const SolutionBlueprintOwnerForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "role");
   return som_strdup(v != NULL ? v : "");
 }
-void project_definition_owner_form_set_role(ProjectDefinitionOwnerForm *self, const char *value) {
+void solution_blueprint_owner_form_set_role(SolutionBlueprintOwnerForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "role", value);
 }
 

@@ -9,7 +9,7 @@
 
 use tom_som_rust_runtime as som;
 
-/// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+/// 14.2.1. Acceptance Criteria.
 pub struct AcceptanceCriteriaList {
     pub node: som::SomNode,
 }
@@ -39,7 +39,7 @@ impl AcceptanceCriteriaList {
     }
 }
 
-/// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+/// 11.7. Acceptance Criteria Summary.
 ///
 /// Quality acceptance criteria for the project including must-pass criteria
 /// and quality gate checklists.
@@ -60,12 +60,12 @@ impl AcceptanceCriteriaSummary {
     // Acceptance criteria overview.
     // (skipped: acceptanceOverview has no target type)
 
-    /// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+    /// 11.7.1. Must-Pass Criteria.
     pub fn must_pass_criteria(&self) -> MustPassCriteria {
         MustPassCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "mustPassCriteria"))
     }
 
-    /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+    /// 11.7.2. Quality Gate Checklist.
     pub fn quality_gate_checklist(&self) -> QualityGateChecklist {
         QualityGateChecklist::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityGateChecklist"))
     }
@@ -92,7 +92,7 @@ impl AcceptanceCriterionEntry {
     }
 }
 
-/// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+/// 14.2. Acceptance Plan. Seeds → BQP.
 pub struct AcceptancePlan {
     pub node: som::SomNode,
 }
@@ -112,38 +112,38 @@ impl AcceptancePlan {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+    /// 14.2.1. Acceptance Criteria.
     pub fn acceptance_criteria(&self) -> AcceptanceCriteriaList {
         AcceptanceCriteriaList::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteria"))
     }
 
-    /// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+    /// 14.2.2. Acceptance Process.
     pub fn acceptance_process(&self) -> AcceptanceProcess {
         AcceptanceProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceProcess"))
     }
 
-    /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+    /// 14.2.3. User Acceptance Testing.
     pub fn user_acceptance_testing(&self) -> UserAcceptanceTesting {
         UserAcceptanceTesting::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAcceptanceTesting"))
     }
 
-    /// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+    /// 14.2.4. Defect Resolution.
     pub fn defect_resolution(&self) -> DefectResolution {
         DefectResolution::new(self.node.doc(), format!("{}/{}", self.node.path(), "defectResolution"))
     }
 
-    /// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+    /// 14.2.5. Sign-off Process.
     pub fn sign_off_process(&self) -> SignOffProcess {
         SignOffProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "signOffProcess"))
     }
 
-    /// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+    /// 14.2.6. Warranty.
     pub fn warranty(&self) -> WarrantyTerms {
         WarrantyTerms::new(self.node.doc(), format!("{}/{}", self.node.path(), "warranty"))
     }
 }
 
-/// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+/// 14.2.2. Acceptance Process.
 ///
 /// Defines the formal acceptance workflow from test initiation through
 /// final sign-off. Covers roles, responsibilities, timelines, escalation,
@@ -301,7 +301,7 @@ impl AcceptanceProcessTimeline {
     }
 }
 
-/// An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
+/// An acceptance step entry (form).
 ///
 /// A single step in the formal acceptance workflow, with entry/exit
 /// conditions, responsible parties, and outputs.
@@ -362,68 +362,7 @@ impl AcceptanceStepEntryOutcome {
     }
 }
 
-/// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
-pub struct AccessAndAuthorizationConcept {
-    pub node: som::SomNode,
-}
-
-impl AccessAndAuthorizationConcept {
-    /// Binds a AccessAndAuthorizationConcept facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> AccessAndAuthorizationConcept {
-        AccessAndAuthorizationConcept { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// 9.1. User Management [PD00-ACC-USE].
-    pub fn user_management(&self) -> UserManagement {
-        UserManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManagement"))
-    }
-
-    /// 9.2. Identification and Authentication [PD00-ACC-IDE].
-    pub fn authentication(&self) -> IdentificationAndAuthentication {
-        IdentificationAndAuthentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "authentication"))
-    }
-
-    /// 9.3. Resource Protection [PD00-ACC-RES].
-    pub fn resource_protection(&self) -> ResourceProtection {
-        ResourceProtection::new(self.node.doc(), format!("{}/{}", self.node.path(), "resourceProtection"))
-    }
-
-    /// 9.4. User Authorization [PD00-ACC-USA].
-    pub fn authorization(&self) -> UserAuthorization {
-        UserAuthorization::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorization"))
-    }
-
-    /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
-    pub fn encryption(&self) -> SensitiveDataEncryption {
-        SensitiveDataEncryption::new(self.node.doc(), format!("{}/{}", self.node.path(), "encryption"))
-    }
-
-    /// 9.6. Audit and Logging [PD00-ACC-AUD].
-    pub fn audit_and_logging(&self) -> AuditAndLogging {
-        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
-    }
-
-    /// 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
-    pub fn role_matrix(&self) -> RoleMatrix {
-        RoleMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "roleMatrix"))
-    }
-
-    /// 9.8. Compliance Framework [PD00-ACC-CMP].
-    pub fn compliance_framework(&self) -> ComplianceFramework {
-        ComplianceFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceFramework"))
-    }
-}
-
-/// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+/// 4.1.5.1. Access Channels.
 ///
 /// Defines all channels through which users can access the system including
 /// web, mobile, desktop applications, APIs, and other interfaces.
@@ -521,7 +460,7 @@ impl AccessControlModelSelection {
     // (skipped: accessControlModelDetails has no target type)
 }
 
-/// An access level entry (form) [PD00-SYO-SYD-USI-ACC-nn].
+/// An access level entry (form).
 pub struct AccessLevelEntry {
     pub node: som::SomNode,
 }
@@ -600,7 +539,7 @@ impl AccessLevelEntryScope {
     }
 }
 
-/// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+/// 4.1.5.3. Access Levels.
 ///
 /// Defines the access level hierarchy and how permissions are structured
 /// across user categories and system functions.
@@ -653,7 +592,7 @@ impl AccessLevels {
     }
 }
 
-/// An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
+/// An access restriction entry (form).
 ///
 /// Specific access restrictions for classified data.
 pub struct AccessRestrictionEntry {
@@ -671,7 +610,7 @@ impl AccessRestrictionEntry {
     }
 }
 
-/// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+/// 9.1.1. User Categories.
 pub struct AccessUserCategories {
     pub node: som::SomNode,
 }
@@ -701,7 +640,7 @@ impl AccessUserCategories {
     }
 }
 
-/// 10.9. Accessibility [PD00-USE-ACC].
+/// 10.9. Accessibility.
 ///
 /// Comprehensive accessibility requirements for the user interface following
 /// WCAG guidelines and inclusive design principles.
@@ -737,12 +676,12 @@ impl Accessibility {
     // Accessibility overview narrative.
     // (skipped: accessibilityOverview has no target type)
 
-    /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+    /// 10.9.1. WCAG Compliance Level.
     pub fn wcag_compliance_level(&self) -> WcagCompliance {
         WcagCompliance::new(self.node.doc(), format!("{}/{}", self.node.path(), "wcagComplianceLevel"))
     }
 
-    /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+    /// 10.9.2. Accessibility Checklist.
     pub fn accessibility_checklist(&self) -> AccessibilityChecklist {
         AccessibilityChecklist::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibilityChecklist"))
     }
@@ -757,7 +696,7 @@ impl Accessibility {
     // (skipped: colorAndContrast has no target type)
 }
 
-/// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
+/// An accessibility check entry (form).
 pub struct AccessibilityCheckEntry {
     pub node: som::SomNode,
 }
@@ -836,7 +775,7 @@ impl AccessibilityCheckEntryRemediation {
     }
 }
 
-/// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+/// 10.9.2. Accessibility Checklist.
 ///
 /// Comprehensive accessibility verification checklist.
 pub struct AccessibilityChecklist {
@@ -1256,7 +1195,7 @@ impl ActorDiagramOverview {
     }
 }
 
-/// An actor entry [PD00-TAR-STP-ACT-nn].
+/// An actor entry.
 ///
 /// Comprehensive actor definition following UML and Cockburn conventions.
 pub struct ActorEntry {
@@ -1356,7 +1295,7 @@ impl ActorInteractionsSummary {
     }
 }
 
-/// 6.2.1. Actor Overview [PD00-TAR-STP-ACT].
+/// 6.2.1. Actor Overview.
 ///
 /// Actors represent roles that interact with the system. Follows UML actor
 /// modeling conventions with Cockburn-style goal and scope annotations.
@@ -1431,7 +1370,7 @@ impl ActorPermissions {
     }
 }
 
-/// 6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA].
+/// 6.2. Actor Relationship Diagram.
 pub struct ActorRelationshipDiagram {
     pub node: som::SomNode,
 }
@@ -1565,7 +1504,7 @@ impl AdminInterfaceRequirementsOperations {
     }
 }
 
-/// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+/// 8.7.1.1. Administration Requirements.
 pub struct AdministrationRequirementsSection {
     pub node: som::SomNode,
 }
@@ -1619,7 +1558,7 @@ impl AdministrationRequirementsSection {
     }
 }
 
-/// 3. Administrative [PD00-ADM].
+/// 3. Administrative.
 ///
 /// Project-specific administrative information including team composition,
 /// distribution channels, procedural agreements, and reference documentation.
@@ -1649,32 +1588,32 @@ impl Administrative {
         AdministrativeSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "summary"))
     }
 
-    /// 3.1. Project Organization [PD00-ADM-PRO].
+    /// 3.1. Project Organization.
     pub fn project_organization(&self) -> ProjectOrganization {
         ProjectOrganization::new(self.node.doc(), format!("{}/{}", self.node.path(), "projectOrganization"))
     }
 
-    /// 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
+    /// 3.2. Project Team Staffing — contains 1+× Team Member.
     pub fn project_team_staffing(&self) -> ProjectTeamStaffing {
         ProjectTeamStaffing::new(self.node.doc(), format!("{}/{}", self.node.path(), "projectTeamStaffing"))
     }
 
-    /// 3.3. Distribution List [PD00-ADM-DIS].
+    /// 3.3. Distribution List.
     pub fn distribution_list(&self) -> DistributionList {
         DistributionList::new(self.node.doc(), format!("{}/{}", self.node.path(), "distributionList"))
     }
 
-    /// 3.4. Change Procedure [PD00-ADM-CHA].
+    /// 3.4. Change Procedure.
     pub fn change_procedure(&self) -> ChangeProcedure {
         ChangeProcedure::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeProcedure"))
     }
 
-    /// 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
+    /// 3.5. Reference Documents — contains 0+× Reference Document.
     pub fn reference_documents(&self) -> ReferenceDocuments {
         ReferenceDocuments::new(self.node.doc(), format!("{}/{}", self.node.path(), "referenceDocuments"))
     }
 
-    /// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+    /// 3.6. Other Administrative Requirements.
     pub fn other_administrative(&self) -> OtherAdministrativeRequirements {
         OtherAdministrativeRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "otherAdministrative"))
     }
@@ -1717,7 +1656,7 @@ impl AdministrativeSummary {
     }
 }
 
-/// An affected department entry [PD00-SYO-RES-ORG-DEP-nn].
+/// An affected department entry.
 pub struct AffectedDepartmentEntry {
     pub node: som::SomNode,
 }
@@ -1733,7 +1672,7 @@ impl AffectedDepartmentEntry {
     }
 }
 
-/// An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
+/// An affected function reference entry (form).
 ///
 /// Functions where this rule applies.
 pub struct AffectedFunctionEntry {
@@ -1760,7 +1699,7 @@ impl AffectedFunctionEntry {
     }
 }
 
-/// An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
+/// An affected object reference entry (form).
 ///
 /// Business objects affected by this rule.
 pub struct AffectedObjectEntry {
@@ -2024,7 +1963,7 @@ impl AlertNotificationChannelsRouting {
     }
 }
 
-/// An alert rule entry [PD00-TEC-SYS-MON-ALR-nn].
+/// An alert rule entry.
 pub struct AlertRuleEntry {
     pub node: som::SomNode,
 }
@@ -2119,7 +2058,7 @@ impl AlertSuppressionRules {
     }
 }
 
-/// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+/// 8.7.2.2. Alerting Configuration.
 ///
 /// Comprehensive alerting rules, notification channels, and escalation
 /// policies.
@@ -2274,7 +2213,7 @@ impl AlertingRequirementsSuppression {
     }
 }
 
-/// An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn].
+/// An alternative flow entry.
 pub struct AlternativeFlowEntry {
     pub node: som::SomNode,
 }
@@ -2299,7 +2238,7 @@ impl AlternativeFlowEntry {
     }
 }
 
-/// An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn].
+/// An alternative step entry.
 pub struct AlternativeStepEntry {
     pub node: som::SomNode,
 }
@@ -2605,7 +2544,7 @@ impl ApiRequestValidationPolicy {
     // (skipped: requestValidationDetails has no target type)
 }
 
-/// 9.3.2. API Security [PD00-ACC-RES-API].
+/// 9.3.2. API Security.
 ///
 /// Comprehensive API security specification covering authentication,
 /// authorization, request validation, CORS policy, input sanitization,
@@ -3135,6 +3074,22 @@ impl ApplicationSecurityRequirementsValidation {
     }
 }
 
+/// A formal approval / sign-off record (form).
+pub struct ApprovalRecord {
+    pub node: som::SomNode,
+}
+
+impl ApprovalRecord {
+    /// Binds a ApprovalRecord facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ApprovalRecord {
+        ApprovalRecord { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> ApprovalRecordContentForm {
+        ApprovalRecordContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Architecture component/service entry.
 pub struct ArchitectureComponentEntry {
     pub node: som::SomNode,
@@ -3514,7 +3469,7 @@ impl ArchitecturePrincipleEntryGuidance {
     }
 }
 
-/// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+/// 8.1.2. Architecture Style.
 ///
 /// Target architecture style specification: monolith, modular monolith,
 /// microservices, event-driven, serverless, or hybrid. Includes justification
@@ -3601,7 +3556,148 @@ impl ArchitectureStyle {
     }
 }
 
-/// An assumption entry [PD00-SYO-RIS-ASS-nn] (form).
+/// TR00 Technical Requirements.
+///
+/// Comprehensive technical requirements: basic / software / standard-
+/// software / hardware / operations / communication / system-operation
+/// / security / architecture, plus components, framework conditions,
+/// and translation handling.
+pub struct ArchitectureTechnologySpecification {
+    pub node: som::SomNode,
+}
+
+/// ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "0.0";
+
+impl ArchitectureTechnologySpecification {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<ArchitectureTechnologySpecification, som::SomVersionError> {
+        som::check_som_model_version(ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION, document_version)?;
+        Ok(ArchitectureTechnologySpecification { node: som::SomNode::new(doc, "ATS".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Basic technical requirements.
+    pub fn basic_technical_requirements(&self) -> BasicTechnicalRequirements {
+        BasicTechnicalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "basicTechnicalRequirements"))
+    }
+
+    /// Software design requirements.
+    pub fn software_design_requirements(&self) -> SoftwareDesignRequirements {
+        SoftwareDesignRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "softwareDesignRequirements"))
+    }
+
+    /// Standard application software requirements.
+    pub fn standard_software_requirements(&self) -> StandardSoftwareRequirements {
+        StandardSoftwareRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "standardSoftwareRequirements"))
+    }
+
+    /// Hardware concept requirements.
+    pub fn hardware_requirements(&self) -> HardwareRequirements {
+        HardwareRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "hardwareRequirements"))
+    }
+
+    /// Operations requirements.
+    pub fn operations_requirements(&self) -> OperationsRequirements {
+        OperationsRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsRequirements"))
+    }
+
+    /// Communication requirements.
+    pub fn communication_requirements(&self) -> CommunicationRequirements {
+        CommunicationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "communicationRequirements"))
+    }
+
+    /// System operation and monitoring.
+    pub fn system_operation_and_monitoring(&self) -> SystemOperationAndMonitoring {
+        SystemOperationAndMonitoring::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemOperationAndMonitoring"))
+    }
+
+    /// Technical security requirements.
+    pub fn technical_security_requirements(&self) -> TechnicalSecurityRequirements {
+        TechnicalSecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalSecurityRequirements"))
+    }
+
+    /// System architecture (new in Phase A).
+    pub fn system_architecture(&self) -> SystemArchitectureSpec {
+        SystemArchitectureSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemArchitecture"))
+    }
+
+    /// Components to use (whole).
+    pub fn components_to_use(&self) -> ComponentsToUse {
+        ComponentsToUse::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
+    }
+
+    /// Technical framework conditions (whole).
+    pub fn technical_framework_conditions(&self) -> TechnicalFrameworkConditions {
+        TechnicalFrameworkConditions::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFrameworkConditions"))
+    }
+
+    /// Translation handling requirements (whole).
+    pub fn translation_requirements(&self) -> TranslationRequirements {
+        TranslationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationRequirements"))
+    }
+}
+
+/// A consolidated register of assumptions and constraints.
+pub struct AssumptionConstraintRegister {
+    pub node: som::SomNode,
+}
+
+impl AssumptionConstraintRegister {
+    /// Binds a AssumptionConstraintRegister facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AssumptionConstraintRegister {
+        AssumptionConstraintRegister { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Assumptions the solution depends on being true.
+    pub fn assumptions(&self) -> som::SomList<AssumptionRegisterEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "ACRG-ASMP-LST"),
+            Box::new(|d, p| AssumptionRegisterEntry::new(d, p)),
+        )
+    }
+
+    /// Constraints the solution must operate within.
+    pub fn constraints(&self) -> som::SomList<ConstraintRegisterEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "ACRG-CONS-LST"),
+            Box::new(|d, p| ConstraintRegisterEntry::new(d, p)),
+        )
+    }
+}
+
+/// An assumption entry (form).
 ///
 /// Documents a project assumption including its basis, validation approach,
 /// and contingency plans if the assumption proves false.
@@ -3672,6 +3768,25 @@ impl AssumptionImpact {
     }
 }
 
+/// A single assumption register entry (form).
+///
+/// Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
+/// `AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+pub struct AssumptionRegisterEntry {
+    pub node: som::SomNode,
+}
+
+impl AssumptionRegisterEntry {
+    /// Binds a AssumptionRegisterEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AssumptionRegisterEntry {
+        AssumptionRegisterEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> AssumptionRegisterEntryContentForm {
+        AssumptionRegisterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Relationships to other project elements.
 pub struct AssumptionRelationships {
     pub node: som::SomNode,
@@ -3701,6 +3816,32 @@ impl AssumptionValidation {
 
     pub fn content(&self) -> AssumptionValidationContentForm {
         AssumptionValidationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// SBP.6 Assumptions, Constraints & Dependencies.
+pub struct AssumptionsConstraintsDependencies {
+    pub node: som::SomNode,
+}
+
+impl AssumptionsConstraintsDependencies {
+    /// Binds a AssumptionsConstraintsDependencies facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AssumptionsConstraintsDependencies {
+        AssumptionsConstraintsDependencies { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// The consolidated assumption / constraint register.
+    pub fn register(&self) -> AssumptionConstraintRegister {
+        AssumptionConstraintRegister::new(self.node.doc(), format!("{}/{}", self.node.path(), "register"))
     }
 }
 
@@ -3741,7 +3882,7 @@ impl AttributeInterdependencyEntry {
     }
 }
 
-/// 9.6. Audit and Logging [PD00-ACC-AUD].
+/// 9.6. Audit and Logging.
 ///
 /// Security audit and event logging requirements covering security event
 /// definitions, audit log format and structure, and compliance reporting.
@@ -3766,17 +3907,17 @@ impl AuditAndLogging {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+    /// 9.6.1. Security Events.
     pub fn security_events(&self) -> SecurityEventsDefinition {
         SecurityEventsDefinition::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityEvents"))
     }
 
-    /// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+    /// 9.6.2. Audit Log Format.
     pub fn audit_log_format(&self) -> AuditLogFormat {
         AuditLogFormat::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditLogFormat"))
     }
 
-    /// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+    /// 9.6.3. Compliance Reporting.
     pub fn compliance_reporting(&self) -> ComplianceReporting {
         ComplianceReporting::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceReporting"))
     }
@@ -3839,7 +3980,7 @@ impl AuditEvidenceTypeEntry {
     }
 }
 
-/// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+/// 9.6.2. Audit Log Format.
 ///
 /// Defines the audit log format: fields to capture (who, what, when, where,
 /// result), log retention period, and tamper protection requirements.
@@ -3886,7 +4027,7 @@ impl AuditLogFormat {
     // (skipped: notes has no target type)
 }
 
-/// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+/// 3.6.4. Audit Requirements.
 ///
 /// Internal and external audit obligations.
 pub struct AuditRequirements {
@@ -3923,7 +4064,7 @@ impl AuditRequirements {
     }
 }
 
-/// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+/// 9.2.2. Authentication.
 pub struct Authentication {
     pub node: som::SomNode,
 }
@@ -3943,22 +4084,22 @@ impl Authentication {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+    /// 9.2.2.1. Authentication Methods.
     pub fn authentication_methods(&self) -> AuthenticationMethods {
         AuthenticationMethods::new(self.node.doc(), format!("{}/{}", self.node.path(), "authenticationMethods"))
     }
 
-    /// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+    /// 9.2.2.2. Authentication Flow.
     pub fn authentication_flow(&self) -> AuthenticationFlow {
         AuthenticationFlow::new(self.node.doc(), format!("{}/{}", self.node.path(), "authenticationFlow"))
     }
 
-    /// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+    /// 9.2.3. Password and Credential Policy.
     pub fn password_and_credential_policy(&self) -> PasswordAndCredentialPolicy {
         PasswordAndCredentialPolicy::new(self.node.doc(), format!("{}/{}", self.node.path(), "passwordAndCredentialPolicy"))
     }
 
-    /// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+    /// 9.2.4. Session Management.
     pub fn session_management(&self) -> SessionManagement {
         SessionManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "sessionManagement"))
     }
@@ -4012,7 +4153,7 @@ impl AuthenticationEventPolicy {
     // (skipped: notes has no target type)
 }
 
-/// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+/// 9.2.2.2. Authentication Flow.
 ///
 /// Comprehensive authentication flow specification covering the complete
 /// login lifecycle: credential submission, validation, multi-factor challenges,
@@ -4083,7 +4224,7 @@ impl AuthenticationFlow {
     }
 }
 
-/// An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
+/// An authentication method entry (form).
 ///
 /// Detailed per-method specification aligned with NIST SP 800-63B
 /// authenticator types (password, OTP, cryptographic, out-of-band).
@@ -4186,7 +4327,7 @@ impl AuthenticationMethodEntrySecurity {
     }
 }
 
-/// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+/// 9.2.2.1. Authentication Methods.
 ///
 /// Comprehensive authentication methods specification aligned with
 /// NIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).
@@ -4249,88 +4390,6 @@ impl AuthenticationMethods {
     }
 }
 
-/// AC00 Authorization Concept.
-///
-/// Complete access and authorization specification — user management,
-/// identification and authentication, resource protection, user
-/// authorization, encryption, audit/logging, role matrix, and
-/// compliance framework.
-pub struct AuthorizationConcept {
-    pub node: som::SomNode,
-}
-
-/// AUTHORIZATION_CONCEPT_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const AUTHORIZATION_CONCEPT_MODEL_VERSION: &str = "0.0";
-
-impl AuthorizationConcept {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<AuthorizationConcept, som::SomVersionError> {
-        som::check_som_model_version(AUTHORIZATION_CONCEPT_MODEL_VERSION, document_version)?;
-        Ok(AuthorizationConcept { node: som::SomNode::new(doc, "AC".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        AUTHORIZATION_CONCEPT_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// User management — PD00-ACC-USE.
-    pub fn user_management(&self) -> UserManagement {
-        UserManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManagement"))
-    }
-
-    /// Identification and authentication — PD00-ACC-IDE.
-    pub fn identification_and_authentication(&self) -> IdentificationAndAuthentication {
-        IdentificationAndAuthentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "identificationAndAuthentication"))
-    }
-
-    /// Resource protection — PD00-ACC-RES.
-    pub fn resource_protection(&self) -> ResourceProtection {
-        ResourceProtection::new(self.node.doc(), format!("{}/{}", self.node.path(), "resourceProtection"))
-    }
-
-    /// User authorization — PD00-ACC-USA.
-    pub fn user_authorization(&self) -> UserAuthorization {
-        UserAuthorization::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAuthorization"))
-    }
-
-    /// Sensitive data encryption — PD00-ACC-SEN.
-    pub fn sensitive_data_encryption(&self) -> SensitiveDataEncryption {
-        SensitiveDataEncryption::new(self.node.doc(), format!("{}/{}", self.node.path(), "sensitiveDataEncryption"))
-    }
-
-    /// Audit and logging — PD00-ACC-AUD.
-    pub fn audit_and_logging(&self) -> AuditAndLogging {
-        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
-    }
-
-    /// Role matrix — PD00-ACC-ROL (covers HBSG AS22-AUM).
-    pub fn role_matrix(&self) -> RoleMatrix {
-        RoleMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "roleMatrix"))
-    }
-
-    /// Compliance framework — PD00-ACC-CMP.
-    pub fn compliance_framework(&self) -> ComplianceFramework {
-        ComplianceFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceFramework"))
-    }
-}
-
 /// Authorization event policy (form).
 ///
 /// Defines which authorization-related events are logged.
@@ -4352,7 +4411,7 @@ impl AuthorizationEventPolicy {
     // (skipped: notes has no target type)
 }
 
-/// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
+/// An authorization group entry (form).
 pub struct AuthorizationGroupEntry {
     pub node: som::SomNode,
 }
@@ -4377,7 +4436,7 @@ impl AuthorizationGroupEntry {
     }
 }
 
-/// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+/// 9.4.1. Authorization Model.
 ///
 /// Describes the authorization model used by the system — RBAC, ABAC, ReBAC,
 /// or hybrid. Covers access control model selection, permission granularity
@@ -4431,7 +4490,7 @@ impl AuthorizationModel {
     // (skipped: authorizationModelNotes has no target type)
 }
 
-/// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+/// An authorization role entry (form).
 ///
 /// Defines a single authorization role with its category, scope, permission
 /// assignments, activation rules, provisioning, and review requirements.
@@ -4589,7 +4648,7 @@ impl AuthorizationRoleEntryStructure {
     }
 }
 
-/// 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
+/// 11.4.1. Availability quality.
 pub struct AvailabilityQuality {
     pub node: som::SomNode,
 }
@@ -4692,7 +4751,7 @@ impl AvailabilityQualityVerification {
     }
 }
 
-/// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
+/// 8.5.1. Backup and Recovery.
 ///
 /// Backup frequency, retention period, recovery point objective (RPO),
 /// recovery time objective (RTO), and backup verification procedures.
@@ -5407,7 +5466,7 @@ impl BandwidthRequirementsTraffic {
     }
 }
 
-/// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+/// 8.1. Basic Technical Requirements.
 pub struct BasicTechnicalRequirements {
     pub node: som::SomNode,
 }
@@ -5427,17 +5486,17 @@ impl BasicTechnicalRequirements {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+    /// 8.1.1. Platform and Language.
     pub fn platform_and_language(&self) -> PlatformAndLanguage {
         PlatformAndLanguage::new(self.node.doc(), format!("{}/{}", self.node.path(), "platformAndLanguage"))
     }
 
-    /// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+    /// 8.1.2. Architecture Style.
     pub fn architecture_style(&self) -> ArchitectureStyle {
         ArchitectureStyle::new(self.node.doc(), format!("{}/{}", self.node.path(), "architectureStyle"))
     }
 
-    /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+    /// 8.1.3. Design Patterns and Standards.
     pub fn design_patterns_and_standards(&self) -> DesignPatternsAndStandards {
         DesignPatternsAndStandards::new(self.node.doc(), format!("{}/{}", self.node.path(), "designPatternsAndStandards"))
     }
@@ -5566,7 +5625,7 @@ impl BiometricAuthenticationPolicy {
     // (skipped: biometricDetails has no target type)
 }
 
-/// A boundary assumption entry [PD00-SYO-SYB-ASS-nn] (form).
+/// A boundary assumption entry (form).
 pub struct BoundaryAssumptionEntry {
     pub node: som::SomNode,
 }
@@ -5624,7 +5683,7 @@ impl BoundaryAssumptionEntryValidation {
     }
 }
 
-/// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+/// 4.5.3. Assumptions.
 ///
 /// Documents assumptions about external systems, data availability,
 /// organizational readiness, and third-party services that must hold true
@@ -5653,7 +5712,7 @@ impl BoundaryAssumptions {
     }
 }
 
-/// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT].
+/// 4.5.5. Boundary Interaction Patterns.
 ///
 /// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
 /// Named `BoundaryInteractionPatterns` to avoid colliding with the
@@ -5778,7 +5837,7 @@ impl BoundedContextEntryScope {
     }
 }
 
-/// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+/// 10.3.1.6.1. Breadcrumb Configuration.
 pub struct BreadcrumbConfiguration {
     pub node: som::SomNode,
 }
@@ -5794,7 +5853,7 @@ impl BreadcrumbConfiguration {
     }
 }
 
-/// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+/// 10.10.1. Breakpoints.
 ///
 /// Breakpoint definitions for responsive layouts.
 pub struct BreakpointConfiguration {
@@ -5821,7 +5880,7 @@ impl BreakpointConfiguration {
     }
 }
 
-/// A breakpoint entry [PD00-USE-RES-BRE-nn].
+/// A breakpoint entry.
 pub struct BreakpointEntry {
     pub node: som::SomNode,
 }
@@ -6442,133 +6501,7 @@ impl BusinessComponentEntryTesting {
     }
 }
 
-/// BDM00 Business Data Model.
-///
-/// Full business data model: entities, relationships, ER diagram, data
-/// classification, business objects, function decomposition, function-
-/// to-data matrix, business rules, data dictionary, and validation /
-/// integrity constraints.
-pub struct BusinessDataModel {
-    pub node: som::SomNode,
-}
-
-/// BUSINESS_DATA_MODEL_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const BUSINESS_DATA_MODEL_MODEL_VERSION: &str = "0.0";
-
-impl BusinessDataModel {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<BusinessDataModel, som::SomVersionError> {
-        som::check_som_model_version(BUSINESS_DATA_MODEL_MODEL_VERSION, document_version)?;
-        Ok(BusinessDataModel { node: som::SomNode::new(doc, "BDM".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        BUSINESS_DATA_MODEL_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Entity inventory — PD00-BUS-DAT-ENT (list).
-    pub fn entities(&self) -> som::SomList<DataEntityEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "DAENT-ENTI-LST"),
-            Box::new(|d, p| DataEntityEntry::new(d, p)),
-        )
-    }
-
-    /// Entity relationships — PD00-BUS-DAT-REL.
-    pub fn entity_relationships(&self) -> EntityRelationships {
-        EntityRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "entityRelationships"))
-    }
-
-    // Entity-relationship diagram — PD00-BUS-DAT-DIA.
-    // (skipped: erDiagram has no target type)
-
-    /// Data classification — PD00-BUS-DAT-CLA.
-    pub fn data_classification(&self) -> DataClassification {
-        DataClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataClassification"))
-    }
-
-    /// Business object catalog — PD00-BUS-BUS-CAT (list).
-    pub fn object_catalog(&self) -> som::SomList<BusinessObjectEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "BJOEN-OBJE-LST"),
-            Box::new(|d, p| BusinessObjectEntry::new(d, p)),
-        )
-    }
-
-    // Business object diagram — PD00-BUS-BUS-DIA.
-    // (skipped: objectDiagram has no target type)
-
-    /// Function decomposition — PD00-BUS-FUN-DEC (list).
-    pub fn function_decomposition(&self) -> som::SomList<FunctionEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "FUNCT-FUNC-LST"),
-            Box::new(|d, p| FunctionEntry::new(d, p)),
-        )
-    }
-
-    /// Function-to-data matrix — PD00-BUS-FUN-MAT (list).
-    pub fn function_to_data_matrix(&self) -> som::SomList<FunctionDataMatrixEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "FNDMX-FUNC-LST"),
-            Box::new(|d, p| FunctionDataMatrixEntry::new(d, p)),
-        )
-    }
-
-    /// Business rules catalog — PD00-BUS-FUN-RUL (list).
-    pub fn business_rules(&self) -> som::SomList<BusinessRuleEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "BIRU-BUSI-LST"),
-            Box::new(|d, p| BusinessRuleEntry::new(d, p)),
-        )
-    }
-
-    /// Data dictionary — PD00-BUS-DAT-DIC.
-    pub fn data_dictionary(&self) -> DataDictionary {
-        DataDictionary::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataDictionary"))
-    }
-
-    /// Validation constraints — PD00-BUS-DAT-VAL.
-    pub fn validation_constraints(&self) -> som::SomList<ValidationConstraints> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "VACO-VALI-LST"),
-            Box::new(|d, p| ValidationConstraints::new(d, p)),
-        )
-    }
-
-    /// Integrity constraints — PD00-BUS-DAT-CON.
-    pub fn integrity_constraints(&self) -> som::SomList<IntegrityConstraints> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "INCO-INTE-LST"),
-            Box::new(|d, p| IntegrityConstraints::new(d, p)),
-        )
-    }
-}
-
-/// A business goal entry [PD00-SYO-GOA-BUS-nn].
+/// A business goal entry.
 ///
 /// Comprehensive business goal definition following SMART criteria with
 /// OKR-style key results, ownership, and tracking information.
@@ -6606,27 +6539,27 @@ impl BusinessGoalEntry {
         BusinessGoalEntryStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "strategy"))
     }
 
-    /// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+    /// 4.2.1.n.1. Key Results.
     pub fn key_results(&self) -> GoalKeyResults {
         GoalKeyResults::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyResults"))
     }
 
-    /// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+    /// 4.2.1.n.2. Milestones.
     pub fn milestones(&self) -> GoalMilestones {
         GoalMilestones::new(self.node.doc(), format!("{}/{}", self.node.path(), "milestones"))
     }
 
-    /// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+    /// 4.2.1.n.3. Dependencies.
     pub fn dependencies(&self) -> GoalDependencies {
         GoalDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencies"))
     }
 
-    /// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+    /// 4.2.1.n.4. Risks.
     pub fn risks(&self) -> GoalRisks {
         GoalRisks::new(self.node.doc(), format!("{}/{}", self.node.path(), "risks"))
     }
 
-    /// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+    /// 4.2.1.n.5. Resources.
     pub fn resources(&self) -> GoalResources {
         GoalResources::new(self.node.doc(), format!("{}/{}", self.node.path(), "resources"))
     }
@@ -6696,7 +6629,7 @@ impl BusinessGoalEntryStrategy {
     }
 }
 
-/// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+/// 4.2.1. Business Goals.
 ///
 /// Container for business goal definitions. Business goals define what the
 /// organization wants to achieve through this project in terms of business
@@ -6830,43 +6763,7 @@ impl BusinessMetricsSpecTransactions {
     }
 }
 
-/// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
-pub struct BusinessObjectAndDataModel {
-    pub node: som::SomNode,
-}
-
-impl BusinessObjectAndDataModel {
-    /// Binds a BusinessObjectAndDataModel facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> BusinessObjectAndDataModel {
-        BusinessObjectAndDataModel { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// 7.1. Data Model [PD00-BUS-DAT].
-    pub fn data_model(&self) -> DataModel {
-        DataModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataModel"))
-    }
-
-    /// 7.2. Business Object Model [PD00-BUS-BUS].
-    pub fn business_object_model(&self) -> BusinessObjectModel {
-        BusinessObjectModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessObjectModel"))
-    }
-
-    /// 7.3. Function Model [PD00-BUS-FUN].
-    pub fn function_model(&self) -> FunctionModel {
-        FunctionModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionModel"))
-    }
-}
-
-/// A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
+/// A business object attribute entry (form).
 ///
 /// Business-level attribute specification focusing on business meaning and rules.
 pub struct BusinessObjectAttributeEntry {
@@ -6947,7 +6844,7 @@ impl BusinessObjectAttributeEntryValidation {
     }
 }
 
-/// A business object entry [PD00-BUS-BUS-CAT-nn] (form).
+/// A business object entry (form).
 ///
 /// Comprehensive business object specification following domain-driven design
 /// patterns. Business objects represent key domain concepts with behavior,
@@ -6994,7 +6891,7 @@ impl BusinessObjectEntry {
         )
     }
 
-    /// Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
+    /// Contains 0+× BusinessObjectAttribute.
     pub fn attributes(&self) -> som::SomList<BusinessObjectAttributeEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -7003,7 +6900,7 @@ impl BusinessObjectEntry {
         )
     }
 
-    /// Contains 0+× ObjectState [PD00-BUS-BUS-CAT-nn-STA].
+    /// Contains 0+× ObjectState.
     pub fn key_states(&self) -> som::SomList<ObjectStateEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -7012,7 +6909,7 @@ impl BusinessObjectEntry {
         )
     }
 
-    /// Contains 0+× BusinessRuleReference [PD00-BUS-BUS-CAT-nn-BRR].
+    /// Contains 0+× BusinessRuleReference.
     pub fn key_business_rules(&self) -> som::SomList<BusinessRuleReferenceEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -7021,7 +6918,7 @@ impl BusinessObjectEntry {
         )
     }
 
-    /// Contains 0+× LifecycleTransition [PD00-BUS-BUS-CAT-nn-LIF].
+    /// Contains 0+× LifecycleTransition.
     pub fn lifecycle_transitions(&self) -> som::SomList<LifecycleTransitionEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -7030,7 +6927,7 @@ impl BusinessObjectEntry {
         )
     }
 
-    /// Contains 0+× ObjectOperation [PD00-BUS-BUS-CAT-nn-OPR].
+    /// Contains 0+× ObjectOperation.
     pub fn operations(&self) -> som::SomList<ObjectOperationEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -7039,7 +6936,7 @@ impl BusinessObjectEntry {
         )
     }
 
-    /// Contains 0+× ObjectInvariant [PD00-BUS-BUS-CAT-nn-INV].
+    /// Contains 0+× ObjectInvariant.
     pub fn invariants(&self) -> som::SomList<ObjectInvariantEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -7049,7 +6946,7 @@ impl BusinessObjectEntry {
     }
 }
 
-/// 7.2. Business Object Model [PD00-BUS-BUS].
+/// 7.2. Business Object Model.
 pub struct BusinessObjectModel {
     pub node: som::SomNode,
 }
@@ -7069,7 +6966,7 @@ impl BusinessObjectModel {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.
+    /// 7.2.1. Object Catalog — contains 1+× Business Object.
     pub fn objects(&self) -> som::SomList<BusinessObjectEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -7078,11 +6975,11 @@ impl BusinessObjectModel {
         )
     }
 
-    // 7.2.2. Business Object Diagram [PD00-BUS-BUS-DIA] (mermaid).
+    // 7.2.2. Business Object Diagram (mermaid).
     // (skipped: objectDiagram has no target type)
 }
 
-/// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+/// 1.3.2. Business Pain Points.
 ///
 /// Problems that affect business outcomes: lost revenue, compliance risk,
 /// customer dissatisfaction, inability to scale, and missed opportunities.
@@ -7136,7 +7033,7 @@ impl BusinessPainPointsSummary {
     }
 }
 
-/// 6.1. Business Process Descriptions [PD00-TAR-PRO].
+/// 6.1. Business Process Descriptions.
 ///
 /// Target business processes at a high level. Each process will be expanded
 /// with detailed workflows, triggers, decision points, and exception handling
@@ -7160,37 +7057,37 @@ impl BusinessProcessDescriptions {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+    /// 6.1.1. Process Vision.
     pub fn process_vision(&self) -> ProcessVision {
         ProcessVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "processVision"))
     }
 
-    /// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+    /// 6.1.2. Design Principles.
     pub fn design_principles(&self) -> ProcessDesignPrinciples {
         ProcessDesignPrinciples::new(self.node.doc(), format!("{}/{}", self.node.path(), "designPrinciples"))
     }
 
-    /// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
+    /// 6.1.3. Process Catalog — contains 1+× Business Process.
     pub fn process_catalog(&self) -> ProcessCatalog {
         ProcessCatalog::new(self.node.doc(), format!("{}/{}", self.node.path(), "processCatalog"))
     }
 
-    /// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+    /// 6.1.4. Process Overview Diagram.
     pub fn process_overview_diagram(&self) -> ProcessOverviewDiagram {
         ProcessOverviewDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "processOverviewDiagram"))
     }
 
-    /// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+    /// 6.1.5. Improvement Summary.
     pub fn improvement_summary(&self) -> ProcessImprovementSummary {
         ProcessImprovementSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "improvementSummary"))
     }
 
-    /// 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
+    /// 6.1.6. Process Relationships.
     pub fn process_relationships(&self) -> ProcessRelationships {
         ProcessRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "processRelationships"))
     }
 
-    /// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+    /// 6.1.7. Detailed Process Workflows.
     pub fn detailed_workflows(&self) -> som::SomList<DetailedProcessWorkflows> {
         som::SomList::new(
             self.node.doc(),
@@ -7199,17 +7096,17 @@ impl BusinessProcessDescriptions {
         )
     }
 
-    /// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+    /// 6.1.8. Cross-Process Analysis.
     pub fn cross_process_analysis(&self) -> CrossProcessAnalysis {
         CrossProcessAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "crossProcessAnalysis"))
     }
 
-    /// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+    /// 6.1.9. Process Exception Handling.
     pub fn exception_handling(&self) -> ProcessExceptionHandling {
         ProcessExceptionHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "exceptionHandling"))
     }
 
-    /// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+    /// 6.1.10. Process Metrics and KPIs.
     pub fn process_metrics_and_kpis(&self) -> som::SomList<ProcessMetricsAndKpis> {
         som::SomList::new(
             self.node.doc(),
@@ -7219,7 +7116,7 @@ impl BusinessProcessDescriptions {
     }
 }
 
-/// A business process entry [PD00-TAR-PRO-CAT-nn].
+/// A business process entry.
 ///
 /// Comprehensive business process definition following BPMN 2.0 concepts.
 pub struct BusinessProcessEntry {
@@ -7281,217 +7178,7 @@ impl BusinessProcessEntry {
     // (skipped: processFlowPreview has no target type)
 }
 
-/// BP00 Business Processes.
-///
-/// Target business process specification — vision, principles, catalog,
-/// diagrams, improvements, relationships, detailed workflows,
-/// cross-process analysis, exception handling, and KPIs.
-pub struct BusinessProcesses {
-    pub node: som::SomNode,
-}
-
-/// BUSINESS_PROCESSES_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const BUSINESS_PROCESSES_MODEL_VERSION: &str = "0.0";
-
-impl BusinessProcesses {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<BusinessProcesses, som::SomVersionError> {
-        som::check_som_model_version(BUSINESS_PROCESSES_MODEL_VERSION, document_version)?;
-        Ok(BusinessProcesses { node: som::SomNode::new(doc, "BP".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        BUSINESS_PROCESSES_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Process vision — PD00-TAR-PRO-VIS.
-    pub fn process_vision(&self) -> ProcessVision {
-        ProcessVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "processVision"))
-    }
-
-    /// Design principles — PD00-TAR-PRO-PRI.
-    pub fn design_principles(&self) -> ProcessDesignPrinciples {
-        ProcessDesignPrinciples::new(self.node.doc(), format!("{}/{}", self.node.path(), "designPrinciples"))
-    }
-
-    /// Process catalog — PD00-TAR-PRO-CAT.
-    pub fn process_catalog(&self) -> ProcessCatalog {
-        ProcessCatalog::new(self.node.doc(), format!("{}/{}", self.node.path(), "processCatalog"))
-    }
-
-    /// Process overview diagram — PD00-TAR-PRO-FLO.
-    pub fn process_overview_diagram(&self) -> ProcessOverviewDiagram {
-        ProcessOverviewDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "processOverviewDiagram"))
-    }
-
-    /// Improvement summary — PD00-TAR-PRO-IMP.
-    pub fn improvement_summary(&self) -> ProcessImprovementSummary {
-        ProcessImprovementSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "improvementSummary"))
-    }
-
-    /// Process relationships — PD00-TAR-PRO-REL.
-    pub fn process_relationships(&self) -> ProcessRelationships {
-        ProcessRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "processRelationships"))
-    }
-
-    /// Detailed process workflows — PD00-TAR-PRO-DET.
-    pub fn detailed_workflows(&self) -> som::SomList<DetailedProcessWorkflows> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "DEPRWO-DETA-LST"),
-            Box::new(|d, p| DetailedProcessWorkflows::new(d, p)),
-        )
-    }
-
-    /// Cross-process analysis — PD00-TAR-PRO-CRO.
-    pub fn cross_process_analysis(&self) -> CrossProcessAnalysis {
-        CrossProcessAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "crossProcessAnalysis"))
-    }
-
-    /// Process exception handling — PD00-TAR-PRO-EXC.
-    pub fn exception_handling(&self) -> ProcessExceptionHandling {
-        ProcessExceptionHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "exceptionHandling"))
-    }
-
-    /// Process metrics and KPIs — PD00-TAR-PRO-MET.
-    pub fn process_metrics_and_kpis(&self) -> som::SomList<ProcessMetricsAndKpis> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "PMAK-PROC-LST"),
-            Box::new(|d, p| ProcessMetricsAndKpis::new(d, p)),
-        )
-    }
-}
-
-/// BQP00 Business Quality Plan.
-///
-/// Full quality plan combining quality goals (PD00-SYQ) and the
-/// acceptance plan (PD00-DEL-ACC). Replaces HBSG AS11 + AS23 + partial
-/// AS14 coverage.
-pub struct BusinessQualityPlan {
-    pub node: som::SomNode,
-}
-
-/// BUSINESS_QUALITY_PLAN_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const BUSINESS_QUALITY_PLAN_MODEL_VERSION: &str = "0.0";
-
-impl BusinessQualityPlan {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<BusinessQualityPlan, som::SomVersionError> {
-        som::check_som_model_version(BUSINESS_QUALITY_PLAN_MODEL_VERSION, document_version)?;
-        Ok(BusinessQualityPlan { node: som::SomNode::new(doc, "BQP".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        BUSINESS_QUALITY_PLAN_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Quality framework — PD00-SYQ-FRA.
-    pub fn quality_framework(&self) -> QualityFramework {
-        QualityFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityFramework"))
-    }
-
-    /// User-related quality criteria — PD00-SYQ-USE.
-    pub fn user_quality_criteria(&self) -> UserQualityCriteria {
-        UserQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "userQualityCriteria"))
-    }
-
-    /// Technical quality criteria — PD00-SYQ-TEC.
-    pub fn technical_quality_criteria(&self) -> TechnicalQualityCriteria {
-        TechnicalQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalQualityCriteria"))
-    }
-
-    /// Operations quality criteria — PD00-SYQ-OPE.
-    pub fn operations_quality_criteria(&self) -> OperationsQualityCriteria {
-        OperationsQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsQualityCriteria"))
-    }
-
-    /// Documentation quality criteria — PD00-SYQ-DOC.
-    pub fn documentation_quality_criteria(&self) -> DocumentationQualityCriteria {
-        DocumentationQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationQualityCriteria"))
-    }
-
-    /// Quality prioritization — PD00-SYQ-PRI.
-    pub fn quality_prioritization(&self) -> QualityPrioritization {
-        QualityPrioritization::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityPrioritization"))
-    }
-
-    /// Acceptance criteria summary — PD00-SYQ-ACC.
-    pub fn acceptance_criteria_summary(&self) -> AcceptanceCriteriaSummary {
-        AcceptanceCriteriaSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteriaSummary"))
-    }
-
-    /// Test strategy — PD00-SYQ-TST (new in Phase A, HBSG AS23).
-    pub fn test_strategy(&self) -> TestStrategy {
-        TestStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "testStrategy"))
-    }
-
-    /// Acceptance criteria — PD00-DEL-ACC-CRI.
-    pub fn acceptance_criteria(&self) -> AcceptanceCriteriaList {
-        AcceptanceCriteriaList::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteria"))
-    }
-
-    /// Acceptance process — PD00-DEL-ACC-PRO.
-    pub fn acceptance_process(&self) -> AcceptanceProcess {
-        AcceptanceProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceProcess"))
-    }
-
-    /// User acceptance testing — PD00-DEL-ACC-UAT.
-    pub fn user_acceptance_testing(&self) -> UserAcceptanceTesting {
-        UserAcceptanceTesting::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAcceptanceTesting"))
-    }
-
-    /// Defect resolution — PD00-DEL-ACC-DEF.
-    pub fn defect_resolution(&self) -> DefectResolution {
-        DefectResolution::new(self.node.doc(), format!("{}/{}", self.node.path(), "defectResolution"))
-    }
-
-    /// Sign-off process — PD00-DEL-ACC-SIG.
-    pub fn sign_off_process(&self) -> SignOffProcess {
-        SignOffProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "signOffProcess"))
-    }
-
-    /// Warranty terms — PD00-DEL-ACC-WAR.
-    pub fn warranty(&self) -> WarrantyTerms {
-        WarrantyTerms::new(self.node.doc(), format!("{}/{}", self.node.path(), "warranty"))
-    }
-}
-
-/// A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
+/// A business rule entry (form).
 ///
 /// Comprehensive business rule specification following SBVR-like patterns.
 pub struct BusinessRuleEntry {
@@ -7528,7 +7215,7 @@ impl BusinessRuleEntry {
         BusinessRuleEntryGovernanceForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
     }
 
-    /// Contains 0+× AffectedObject [PD00-BUS-FUN-RUL-nn-AOB].
+    /// Contains 0+× AffectedObject.
     pub fn affected_objects(&self) -> som::SomList<AffectedObjectEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -7537,7 +7224,7 @@ impl BusinessRuleEntry {
         )
     }
 
-    /// Contains 0+× AffectedFunction [PD00-BUS-FUN-RUL-nn-AFU].
+    /// Contains 0+× AffectedFunction.
     pub fn affected_functions(&self) -> som::SomList<AffectedFunctionEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -7546,7 +7233,7 @@ impl BusinessRuleEntry {
         )
     }
 
-    /// Contains 0+× RuleExample [PD00-BUS-FUN-RUL-nn-EXA].
+    /// Contains 0+× RuleExample.
     pub fn examples(&self) -> som::SomList<RuleExampleEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -7556,7 +7243,7 @@ impl BusinessRuleEntry {
     }
 }
 
-/// A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
+/// A business rule reference entry (form).
 ///
 /// Reference to business rules that govern this object.
 pub struct BusinessRuleReferenceEntry {
@@ -7583,110 +7270,7 @@ impl BusinessRuleReferenceEntry {
     }
 }
 
-/// BSI00 Business System Interactions.
-///
-/// Complete interaction specification between the target system and
-/// external systems: inventory, patterns, testing, dependencies,
-/// migration, operational concerns, and cross-boundary error handling.
-pub struct BusinessSystemInteractions {
-    pub node: som::SomNode,
-}
-
-/// BUSINESS_SYSTEM_INTERACTIONS_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const BUSINESS_SYSTEM_INTERACTIONS_MODEL_VERSION: &str = "0.0";
-
-impl BusinessSystemInteractions {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<BusinessSystemInteractions, som::SomVersionError> {
-        som::check_som_model_version(BUSINESS_SYSTEM_INTERACTIONS_MODEL_VERSION, document_version)?;
-        Ok(BusinessSystemInteractions { node: som::SomNode::new(doc, "BSI".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        BUSINESS_SYSTEM_INTERACTIONS_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// External interfaces — PD00-SYO-SYB-INT.
-    pub fn external_interfaces(&self) -> ExternalInterfaces {
-        ExternalInterfaces::new(self.node.doc(), format!("{}/{}", self.node.path(), "externalInterfaces"))
-    }
-
-    /// Out of scope — PD00-SYO-SYB-OUT.
-    pub fn out_of_scope(&self) -> OutOfScope {
-        OutOfScope::new(self.node.doc(), format!("{}/{}", self.node.path(), "outOfScope"))
-    }
-
-    /// Boundary assumptions — PD00-SYO-SYB-ASS.
-    pub fn boundary_assumptions(&self) -> BoundaryAssumptions {
-        BoundaryAssumptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "boundaryAssumptions"))
-    }
-
-    /// System landscape inventory — PD00-SYO-SYB-INV.
-    pub fn system_inventory(&self) -> SystemLandscapeInventory {
-        SystemLandscapeInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemInventory"))
-    }
-
-    /// Boundary interaction patterns — PD00-SYO-SYB-PAT.
-    pub fn interaction_patterns(&self) -> som::SomList<BoundaryInteractionPatterns> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "BOINPA-INTE-LST"),
-            Box::new(|d, p| BoundaryInteractionPatterns::new(d, p)),
-        )
-    }
-
-    /// Interaction testing strategy — PD00-SYO-SYB-TST.
-    pub fn testing_strategy(&self) -> InteractionTestingStrategy {
-        InteractionTestingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "testingStrategy"))
-    }
-
-    /// Interaction dependency analysis — PD00-SYO-SYB-DEP.
-    pub fn dependency_analysis(&self) -> InteractionDependencyAnalysis {
-        InteractionDependencyAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencyAnalysis"))
-    }
-
-    /// Migration interactions — PD00-SYO-SYB-MIG.
-    pub fn migration_interactions(&self) -> som::SomList<MigrationInteractions> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "MIIN-MIGR-LST"),
-            Box::new(|d, p| MigrationInteractions::new(d, p)),
-        )
-    }
-
-    /// Cross-boundary operational considerations — PD00-SYO-SYB-OPE.
-    pub fn operational_considerations(&self) -> som::SomList<CrossBoundaryOperationalConsiderations> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "CBOC-OPER-LST"),
-            Box::new(|d, p| CrossBoundaryOperationalConsiderations::new(d, p)),
-        )
-    }
-
-    /// Cross-boundary error handling — PD00-SYO-SYB-ERR.
-    pub fn cross_boundary_error_handling(&self) -> CrossBoundaryErrorHandling {
-        CrossBoundaryErrorHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "crossBoundaryErrorHandling"))
-    }
-}
-
-/// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+/// 8.7.3. Capacity Planning.
 pub struct CapacityPlanningSection {
     pub node: som::SomNode,
 }
@@ -8011,7 +7595,7 @@ impl CertificateManagementStorage {
     }
 }
 
-/// Certification entry (form) [PD00-ORG-WOR-nn-TRA-CER-nn].
+/// Certification entry (form).
 pub struct CertificationEntry {
     pub node: som::SomNode,
 }
@@ -8253,7 +7837,7 @@ impl ChangeAdvocateEntry {
     }
 }
 
-/// A change category entry [PD00-ADM-CHA-CAT-nn].
+/// A change category entry.
 ///
 /// Defines a category of changes with specific handling rules.
 pub struct ChangeCategoryEntry {
@@ -8334,7 +7918,7 @@ impl ChangeCategoryEntryScope {
     }
 }
 
-/// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+/// 3.4.3. Change Control Board.
 ///
 /// Governance body responsible for major change decisions.
 pub struct ChangeControlBoard {
@@ -8440,7 +8024,7 @@ impl ChangeDecisionCriteria {
     }
 }
 
-/// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+/// 3.4.2. Change Impact Criteria.
 ///
 /// Criteria for determining the impact level of change requests,
 /// which drives the approval path and stakeholder involvement.
@@ -8482,7 +8066,7 @@ impl ChangeImpactCriteria {
     }
 }
 
-/// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
+/// A change impact criterion entry (form).
 ///
 /// Detailed criterion for assessing change impact in a specific dimension.
 pub struct ChangeImpactCriterionEntry {
@@ -8600,7 +8184,7 @@ impl ChangeNotificationRules {
     }
 }
 
-/// 3.4. Change Procedure [PD00-ADM-CHA].
+/// 3.4. Change Procedure.
 ///
 /// Procedure for requesting, evaluating, and approving changes to this
 /// Project Definition and other project documents. Defines the change
@@ -8629,22 +8213,22 @@ impl ChangeProcedure {
         ChangeProcedureSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "summary"))
     }
 
-    /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+    /// 3.4.1. Change Process.
     pub fn change_process(&self) -> ChangeProcess {
         ChangeProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeProcess"))
     }
 
-    /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+    /// 3.4.2. Change Impact Criteria.
     pub fn change_impact_criteria(&self) -> ChangeImpactCriteria {
         ChangeImpactCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeImpactCriteria"))
     }
 
-    /// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+    /// 3.4.3. Change Control Board.
     pub fn change_control_board(&self) -> ChangeControlBoard {
         ChangeControlBoard::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeControlBoard"))
     }
 
-    /// 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
+    /// 3.4.4. Change Categories — contains 0+× Category.
     pub fn change_categories(&self) -> som::SomList<ChangeCategoryEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -8670,7 +8254,7 @@ impl ChangeProcedureSummary {
     }
 }
 
-/// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+/// 3.4.1. Change Process.
 ///
 /// Detailed workflow for change request processing from submission
 /// through evaluation, approval, implementation, and closure.
@@ -8766,7 +8350,7 @@ impl ChangeReadinessOverview {
     }
 }
 
-/// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
+/// A role involved in the change process (form).
 pub struct ChangeRoleEntry {
     pub node: som::SomNode,
 }
@@ -8782,7 +8366,7 @@ impl ChangeRoleEntry {
     }
 }
 
-/// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
+/// A change process step entry (form).
 ///
 /// Detailed description of a single step in the change process workflow.
 pub struct ChangeStepEntry {
@@ -8931,7 +8515,7 @@ impl ChangedRoleCompetencies {
     }
 }
 
-/// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+/// A changed role entry (form).
 ///
 /// Documents modifications to existing roles with impact assessment,
 /// transition planning, and incumbent management.
@@ -9168,7 +8752,7 @@ impl ChangedRoleTransitionTraining {
     }
 }
 
-/// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+/// 5.1.1. Changes from Current Structure.
 ///
 /// Explicitly documents what changes from the current organization structure.
 /// Identifies affected departments, changed reporting lines, and new roles
@@ -9690,7 +9274,7 @@ impl ClientNetworkRequirementsProxy {
     }
 }
 
-/// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+/// 8.4.2. Client Requirements.
 ///
 /// Minimum client requirements: browser versions, operating systems, screen
 /// resolution, network bandwidth, and device capabilities.
@@ -10500,7 +10084,7 @@ impl CodingStandardsSectionReview {
     }
 }
 
-/// A color palette entry [PD00-USE-COM-LIB-COL-nn].
+/// A color palette entry.
 pub struct ColorPaletteEntry {
     pub node: som::SomNode,
 }
@@ -10559,7 +10143,7 @@ impl CommitteeCharter {
     }
 }
 
-/// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+/// A steering committee member entry (form).
 ///
 /// Detailed information about a steering committee member.
 pub struct CommitteeMemberEntry {
@@ -10603,7 +10187,7 @@ impl CommitteeResponsibilityEntry {
 }
 
 /// A communication channel encryption entry (form)
-/// [PD00-ACC-SEN-TRA-CHA-nn].
+/// .
 ///
 /// Defines encryption requirements for a specific communication channel
 /// (e.g. client-to-server HTTPS, server-to-database, inter-service,
@@ -10624,7 +10208,7 @@ impl CommunicationChannelEncryptionEntry {
     }
 }
 
-/// Communication event entry [PD00-ORG-STR-TIM-COM-nn] (form).
+/// Communication event entry (form).
 pub struct CommunicationEventEntry {
     pub node: som::SomNode,
 }
@@ -10859,7 +10443,7 @@ impl CommunicationPreferenceEntry {
     }
 }
 
-/// 8.6. Communication Requirements [PD00-TEC-COM].
+/// 8.6. Communication Requirements.
 pub struct CommunicationRequirements {
     pub node: som::SomNode,
 }
@@ -10879,12 +10463,12 @@ impl CommunicationRequirements {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+    /// 8.6.1. Protocols and Standards.
     pub fn protocols_and_standards(&self) -> ProtocolsAndStandardsSection {
         ProtocolsAndStandardsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "protocolsAndStandards"))
     }
 
-    /// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+    /// 8.6.2. External Connectivity.
     pub fn external_connectivity(&self) -> ExternalConnectivitySection {
         ExternalConnectivitySection::new(self.node.doc(), format!("{}/{}", self.node.path(), "externalConnectivity"))
     }
@@ -10922,7 +10506,7 @@ impl CommunicationTypeEntry {
     }
 }
 
-/// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+/// 8.3.1. Compatibility Requirements.
 ///
 /// Compatibility requirements with existing IT infrastructure, standard software,
 /// and enterprise systems.
@@ -11036,7 +10620,7 @@ impl CompatibilityRequirementsSection {
     }
 }
 
-/// A competency entry (form) [PD00-ORG-JOB-CMP-xx-nn].
+/// A competency entry (form).
 pub struct CompetencyEntry {
     pub node: som::SomNode,
 }
@@ -11052,7 +10636,7 @@ impl CompetencyEntry {
     }
 }
 
-/// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+/// 5.2.5. Competency Framework.
 pub struct CompetencyFramework {
     pub node: som::SomNode,
 }
@@ -11144,7 +10728,7 @@ impl CompetencyLevelChangeEntry {
     }
 }
 
-/// Compliance audit planning and scheduling [PD00-TEC-SEC-AUD].
+/// Compliance audit planning and scheduling.
 pub struct ComplianceAuditSchedule {
     pub node: som::SomNode,
 }
@@ -11223,7 +10807,7 @@ impl ComplianceAuditScheduleReporting {
     }
 }
 
-/// 9.8. Compliance Framework [PD00-ACC-CMP].
+/// 9.8. Compliance Framework.
 ///
 /// NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
 /// authorization. Pulls the compliance references currently scattered
@@ -11285,7 +10869,7 @@ impl ComplianceMilestoneEntry {
     }
 }
 
-/// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+/// 9.6.3. Compliance Reporting.
 ///
 /// Describes compliance reporting requirements: periodic access reviews,
 /// privilege usage reports, anomaly detection, and regulatory audit support.
@@ -11469,7 +11053,7 @@ impl ComplianceVerificationSectionTools {
     }
 }
 
-/// A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
+/// A component action entry.
 ///
 /// Defines an action that can be triggered from the component.
 pub struct ComponentActionEntry {
@@ -11593,7 +11177,7 @@ impl ComponentDocs {
     }
 }
 
-/// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+/// A component entry (form) with sub-entries.
 ///
 /// Describes a single external or standard component planned for use:
 /// vendor assessment, maturity, security, cost, deployment model, licensing,
@@ -11661,7 +11245,7 @@ impl ComponentEntry {
         )
     }
 
-    /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
+    /// Interfaces — contains 0+× ComponentInterface.
     pub fn interfaces(&self) -> som::SomList<ComponentInterfaceEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -11670,15 +11254,15 @@ impl ComponentEntry {
         )
     }
 
-    /// Licensing [PD00-COM-COM-nn-LIC] (form).
+    /// Licensing (form).
     pub fn licensing(&self) -> ComponentLicensingEntry {
         ComponentLicensingEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "licensing"))
     }
 
-    // Usage Rights [PD00-COM-COM-nn-USE].
+    // Usage Rights.
     // (skipped: usageRights has no target type)
 
-    /// Responsibilities [PD00-COM-COM-nn-RES] (form).
+    /// Responsibilities (form).
     pub fn responsibilities(&self) -> som::SomList<ComponentResponsibilitiesEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -11688,7 +11272,7 @@ impl ComponentEntry {
     }
 }
 
-/// A component family entry [PD00-USE-COM-FAM-nn].
+/// A component family entry.
 ///
 /// Groups related components by function (buttons, inputs, navigation, etc.).
 pub struct ComponentFamilyEntry {
@@ -11818,7 +11402,7 @@ impl ComponentGovernanceQuality {
     }
 }
 
-/// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
+/// A component interface entry (form).
 ///
 /// Describes one interface exposed or consumed by a component: protocol,
 /// authentication, data format, rate limits, versioning, SLA, monitoring.
@@ -11942,7 +11526,7 @@ impl ComponentInterfaceEntrySla {
     }
 }
 
-/// 10.11.1. Component Library [PD00-USE-COM-LIB].
+/// 10.11.1. Component Library.
 ///
 /// Design system and component catalog specification.
 pub struct ComponentLibrary {
@@ -12093,7 +11677,7 @@ impl ComponentLibraryVisuals {
     }
 }
 
-/// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+/// Component licensing sub-entry (form).
 ///
 /// Detailed licensing information: model, cost, compliance, open-source
 /// obligations, audit requirements, geographic restrictions, usage metrics.
@@ -12349,7 +11933,7 @@ impl ComponentPerformance {
     }
 }
 
-/// A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
+/// A component property entry.
 ///
 /// Defines a configurable property of the component.
 pub struct ComponentPropertyEntry {
@@ -12467,7 +12051,7 @@ impl ComponentRegistryUpdates {
     }
 }
 
-/// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+/// Component responsibilities sub-entry (form).
 ///
 /// Who owns and maintains this component: primary/backup owners, SLA targets,
 /// patch response time, security vulnerability handling, budget allocation.
@@ -12586,7 +12170,7 @@ impl ComponentRisk {
     }
 }
 
-/// 12.6. Risk Assessment [PD00-COM-RIS].
+/// 12.6. Risk Assessment.
 ///
 /// Component risk assessment: identified risks with probability/impact,
 /// monitoring, mitigation strategies, and contingency plans.
@@ -12609,7 +12193,7 @@ impl ComponentRiskAssessment {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+    /// 12.6.1. Component Risks — contains 0+× Risk.
     pub fn risks(&self) -> som::SomList<ComponentRiskEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -12618,13 +12202,13 @@ impl ComponentRiskAssessment {
         )
     }
 
-    /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+    /// 12.6.2. Contingency Plans.
     pub fn contingency_plans(&self) -> ContingencyPlans {
         ContingencyPlans::new(self.node.doc(), format!("{}/{}", self.node.path(), "contingencyPlans"))
     }
 }
 
-/// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+/// A component risk entry (form).
 ///
 /// Documents one component risk: category, probability, impact, detection
 /// methods, mitigation strategy and status, residual risk, and ownership.
@@ -12748,7 +12332,7 @@ impl ComponentRiskEntryMitigation {
     }
 }
 
-/// A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
+/// A component slot entry.
 ///
 /// Defines a slot where child widgets can be placed.
 pub struct ComponentSlotEntry {
@@ -12766,7 +12350,7 @@ impl ComponentSlotEntry {
     }
 }
 
-/// A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
+/// A component state entry.
 ///
 /// Defines a visual/functional state of the component.
 pub struct ComponentStateEntry {
@@ -12850,7 +12434,7 @@ impl ComponentStateEntryVisual {
     }
 }
 
-/// 12.1. Component Strategy [PD00-COM-STR].
+/// 12.1. Component Strategy.
 ///
 /// Overall component strategy: build-vs-buy philosophy, preferred vendors,
 /// technology stack alignment, governance, evaluation cadence, and portfolio
@@ -12894,7 +12478,7 @@ impl ComponentStrategy {
         ComponentStrategyPlanning::new(self.node.doc(), format!("{}/{}", self.node.path(), "planning"))
     }
 
-    /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+    /// 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
     pub fn reuse_goals(&self) -> som::SomList<ReuseGoalEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -12903,7 +12487,7 @@ impl ComponentStrategy {
         )
     }
 
-    /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+    /// 12.1.2. Evaluation Criteria.
     pub fn evaluation_criteria(&self) -> EvaluationCriteria {
         EvaluationCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "evaluationCriteria"))
     }
@@ -13005,7 +12589,7 @@ impl ComponentSupport {
     }
 }
 
-/// A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
+/// A component variant entry.
 ///
 /// Defines a variation of the component with different appearance or behavior.
 pub struct ComponentVariantEntry {
@@ -13084,7 +12668,7 @@ impl ComponentVendor {
     }
 }
 
-/// 12. Components to Use [PD00-COM]. Seeds → TR.
+/// 12. Components to Use. Seeds → TR.
 ///
 /// External and standard components planned for use in the system. All
 /// subsections seed the TR document, where component choices are expanded
@@ -13109,12 +12693,12 @@ impl ComponentsToUse {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 12.1. Component Strategy [PD00-COM-STR].
+    /// 12.1. Component Strategy.
     pub fn strategy(&self) -> ComponentStrategy {
         ComponentStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "strategy"))
     }
 
-    /// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+    /// 12.2. Component Catalog — contains 0+× Component.
     pub fn component_catalog(&self) -> som::SomList<ComponentEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -13123,20 +12707,20 @@ impl ComponentsToUse {
         )
     }
 
-    // 12.3. Component Role In System [PD00-COM-ROL].
+    // 12.3. Component Role In System.
     // (skipped: componentRoleInSystem has no target type)
 
-    /// 12.4. Runtime Dependencies [PD00-COM-RUN].
+    /// 12.4. Runtime Dependencies.
     pub fn runtime_dependencies(&self) -> RuntimeDependencies {
         RuntimeDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "runtimeDependencies"))
     }
 
-    /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+    /// 12.5. Maintenance Dependencies.
     pub fn maintenance_dependencies(&self) -> MaintenanceDependencies {
         MaintenanceDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintenanceDependencies"))
     }
 
-    /// 12.6. Risk Assessment [PD00-COM-RIS].
+    /// 12.6. Risk Assessment.
     pub fn risk_assessment(&self) -> ComponentRiskAssessment {
         ComponentRiskAssessment::new(self.node.doc(), format!("{}/{}", self.node.path(), "riskAssessment"))
     }
@@ -13221,7 +12805,7 @@ impl ComputeResourceRequirementsSpecial {
     }
 }
 
-/// Computing equipment entry (form) [PD00-ORG-WOR-nn-EQU-PRI-nn].
+/// Computing equipment entry (form).
 pub struct ComputingEquipmentEntry {
     pub node: som::SomNode,
 }
@@ -13344,7 +12928,7 @@ impl ConfidentialInfoCategoryEntry {
     }
 }
 
-/// 3.6.2. Confidentiality and NDA Requirements [PD00-ADM-OTH-NDA].
+/// 3.6.2. Confidentiality and NDA Requirements.
 ///
 /// Non-disclosure agreements and confidentiality constraints.
 pub struct ConfidentialityRequirements {
@@ -13555,7 +13139,7 @@ impl ConnectivityResilienceProtection {
     }
 }
 
-/// Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
+/// Consent collection, tracking and management requirements.
 pub struct ConsentManagementRequirements {
     pub node: som::SomNode,
 }
@@ -13708,7 +13292,7 @@ impl ConstraintDetails {
     }
 }
 
-/// A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
+/// A constraint entry (form).
 ///
 /// Represents a single external constraint limiting project degrees of
 /// freedom. Common constraint types include regulatory requirements,
@@ -13816,6 +13400,25 @@ impl ConstraintMitigation {
     }
 }
 
+/// A single constraint register entry (form).
+///
+/// Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
+/// `ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+pub struct ConstraintRegisterEntry {
+    pub node: som::SomNode,
+}
+
+impl ConstraintRegisterEntry {
+    /// Binds a ConstraintRegisterEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ConstraintRegisterEntry {
+        ConstraintRegisterEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> ConstraintRegisterEntryContentForm {
+        ConstraintRegisterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Tracking for constraint.
 pub struct ConstraintTracking {
     pub node: som::SomNode,
@@ -13832,7 +13435,7 @@ impl ConstraintTracking {
     }
 }
 
-/// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+/// 4.6.4.1. Constraints.
 ///
 /// External constraints limiting project scope, schedule, budget, or
 /// approach. Includes regulatory, contractual, organizational, technical,
@@ -13865,7 +13468,7 @@ impl Constraints {
     // (skipped: constraintNarrative has no target type)
 }
 
-/// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+/// 4.6.4. Constraints and Dependencies.
 ///
 /// Documents external constraints (regulatory, contractual, budgetary,
 /// timeline) and dependencies on other projects, teams, or organizational
@@ -13885,12 +13488,12 @@ impl ConstraintsAndDependencies {
         ConstraintsAndDependenciesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
-    /// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+    /// 4.6.4.1. Constraints.
     pub fn constraints(&self) -> Constraints {
         Constraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "constraints"))
     }
 
-    /// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+    /// 4.6.4.2. Dependencies.
     pub fn framework_dependencies(&self) -> FrameworkDependencies {
         FrameworkDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "frameworkDependencies"))
     }
@@ -13924,7 +13527,7 @@ impl ContentScanningPolicy {
     // (skipped: contentScanningDetails has no target type)
 }
 
-/// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+/// 4.1.2.1. Context Diagram.
 ///
 /// Visual representation of the system as a black box showing external
 /// entities and data flows (UML context diagram / DFD Level 0).
@@ -13968,7 +13571,7 @@ impl ContextDiagram {
     }
 }
 
-/// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+/// 10.8.1. Contextual Help.
 pub struct ContextualHelp {
     pub node: som::SomNode,
 }
@@ -14080,7 +13683,7 @@ impl ContextualHelpWhatsThis {
     }
 }
 
-/// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+/// 10.3.1.6. Contextual Navigation.
 ///
 /// Breadcrumbs, back navigation, related links.
 pub struct ContextualNavigation {
@@ -14102,7 +13705,7 @@ impl ContextualNavigation {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+    /// 10.3.1.6.1. Breadcrumb Configuration.
     pub fn breadcrumbs(&self) -> BreadcrumbConfiguration {
         BreadcrumbConfiguration::new(self.node.doc(), format!("{}/{}", self.node.path(), "breadcrumbs"))
     }
@@ -14114,7 +13717,7 @@ impl ContextualNavigation {
     // (skipped: relatedLinks has no target type)
 }
 
-/// A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
+/// A contingency plan entry (form).
 ///
 /// Describes one contingency plan for a component risk: trigger conditions,
 /// immediate/recovery actions, RTO/RPO, communication, testing frequency.
@@ -14238,7 +13841,7 @@ impl ContingencyPlanEntryTesting {
     }
 }
 
-/// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+/// 12.6.2. Contingency Plans.
 ///
 /// Container for contingency plans addressing critical component risks.
 pub struct ContingencyPlans {
@@ -14270,7 +13873,7 @@ impl ContingencyPlans {
     }
 }
 
-/// 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
+/// 11.2.3. Correctness quality.
 pub struct CorrectnessQuality {
     pub node: som::SomNode,
 }
@@ -14427,7 +14030,7 @@ impl CriticalKnowledgeAreaEntry {
     }
 }
 
-/// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+/// 4.5.10. Cross-Boundary Error Handling.
 ///
 /// Failure-propagation policy that applies across system boundaries.
 /// Distinct from per-interface error handling.
@@ -14451,7 +14054,7 @@ impl CrossBoundaryErrorHandling {
     }
 }
 
-/// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+/// 4.5.9. Cross-Boundary Operational Considerations.
 ///
 /// SLA, rate-limit, and change-window considerations applied at system
 /// boundaries. Distinct from per-interface operational data captured
@@ -14597,10 +14200,10 @@ impl CrossCuttingConcernsShared {
     }
 }
 
-/// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+/// 6.1.8. Cross-Process Analysis.
 ///
 /// Hand-offs, shared data, and coordination patterns between processes.
-/// Covers HBSG AS07-CRO.
+/// .
 pub struct CrossProcessAnalysis {
     pub node: som::SomNode,
 }
@@ -14671,7 +14274,7 @@ impl CulturalConsiderationEntry {
     }
 }
 
-/// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+/// 1.1.2. Current Architecture.
 ///
 /// Description of the current system architecture including deployment
 /// topology, integration patterns, shared services, and data stores.
@@ -14694,7 +14297,7 @@ impl CurrentArchitecture {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
+    /// Architecture overview diagram.
     pub fn architecture_diagram(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "architectureDiagram"))
     }
@@ -14704,7 +14307,7 @@ impl CurrentArchitecture {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Deployment topology description [PD00-CUR-SYS-ARC-DEP].
+    /// Deployment topology description.
     pub fn deployment_topology(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "deploymentTopology"))
     }
@@ -14714,7 +14317,7 @@ impl CurrentArchitecture {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Integration patterns used [PD00-CUR-SYS-ARC-INT].
+    /// Integration patterns used.
     pub fn integration_patterns(&self) -> som::SomList<IntegrationPatternEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -14723,7 +14326,7 @@ impl CurrentArchitecture {
         )
     }
 
-    /// Shared services inventory [PD00-CUR-SYS-ARC-SHR].
+    /// Shared services inventory.
     pub fn shared_services(&self) -> som::SomList<SharedServiceEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -14733,7 +14336,7 @@ impl CurrentArchitecture {
     }
 }
 
-/// A current business process [PD00-CUR-PRO-nn].
+/// A current business process.
 ///
 /// Detailed documentation of a single business process including its
 /// workflows, actors, metrics, and pain points.
@@ -14756,12 +14359,12 @@ impl CurrentBusinessProcess {
         ProcessContext::new(self.node.doc(), format!("{}/{}", self.node.path(), "processContext"))
     }
 
-    /// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
+    /// 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
     pub fn workflow_descriptions(&self) -> WorkflowDescriptions {
         WorkflowDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "workflowDescriptions"))
     }
 
-    /// 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
+    /// 1.2.nn.2. Process Metrics.
     pub fn process_metrics(&self) -> ProcessMetrics {
         ProcessMetrics::new(self.node.doc(), format!("{}/{}", self.node.path(), "processMetrics"))
     }
@@ -14772,7 +14375,7 @@ impl CurrentBusinessProcess {
     }
 }
 
-/// 1.2. Current Business Processes [PD00-CUR-PRO].
+/// 1.2. Current Business Processes.
 ///
 /// Documents the current business processes that the project will impact,
 /// replace, or enhance. Understanding existing workflows is critical for
@@ -14797,7 +14400,7 @@ impl CurrentBusinessProcesses {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Process landscape diagram [PD00-CUR-PRO-DIA].
+    /// Process landscape diagram.
     pub fn process_landscape_diagram(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "processLandscapeDiagram"))
     }
@@ -14807,22 +14410,22 @@ impl CurrentBusinessProcesses {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Process scope summary [PD00-CUR-PRO-SCO].
+    /// Process scope summary.
     pub fn scope_summary(&self) -> ProcessScopeSummary {
         ProcessScopeSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "scopeSummary"))
     }
 
-    /// Process interdependency matrix [PD00-CUR-PRO-INT].
+    /// Process interdependency matrix.
     pub fn interdependency_matrix(&self) -> ProcessInterdependencyMatrix {
         ProcessInterdependencyMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "interdependencyMatrix"))
     }
 
-    /// Process performance summary [PD00-CUR-PRO-SUM].
+    /// Process performance summary.
     pub fn performance_summary(&self) -> ProcessPerformanceSummary {
         ProcessPerformanceSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "performanceSummary"))
     }
 
-    /// 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
+    /// 1.2.nn. Business Processes — contains 1+× Business Process.
     pub fn processes(&self) -> som::SomList<CurrentBusinessProcess> {
         som::SomList::new(
             self.node.doc(),
@@ -14832,7 +14435,7 @@ impl CurrentBusinessProcesses {
     }
 }
 
-/// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+/// 1.4.8. Data Classification.
 ///
 /// Data classification framework, sensitivity levels, and current
 /// classification status of data assets.
@@ -14879,7 +14482,7 @@ impl CurrentDataClassification {
     }
 }
 
-/// 1.4. Current Data Landscape [PD00-CUR-DAT].
+/// 1.4. Current Data Landscape.
 ///
 /// Comprehensive documentation of the current data situation including where
 /// data lives, data quality issues, duplication, ownership, volumes, growth
@@ -14928,58 +14531,201 @@ impl CurrentDataLandscape {
         DataLandscapeSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataLandscapeSummary"))
     }
 
-    /// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+    /// 1.4.1. Data Source Inventory.
     pub fn data_source_inventory(&self) -> DataSourceInventory {
         DataSourceInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataSourceInventory"))
     }
 
-    /// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+    /// 1.4.2. Data Quality Assessment.
     pub fn data_quality_assessment(&self) -> DataQualityAssessment {
         DataQualityAssessment::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataQualityAssessment"))
     }
 
-    /// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+    /// 1.4.3. Data Duplication Analysis.
     pub fn data_duplication_analysis(&self) -> DataDuplicationAnalysis {
         DataDuplicationAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataDuplicationAnalysis"))
     }
 
-    /// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+    /// 1.4.4. Data Ownership and Stewardship.
     pub fn data_ownership(&self) -> DataOwnership {
         DataOwnership::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataOwnership"))
     }
 
-    /// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+    /// 1.4.5. Data Volumes and Growth.
     pub fn data_volumes_and_growth(&self) -> DataVolumesAndGrowth {
         DataVolumesAndGrowth::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataVolumesAndGrowth"))
     }
 
-    /// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+    /// 1.4.6. Retention Policies.
     pub fn retention_policies(&self) -> DataRetentionPolicies {
         DataRetentionPolicies::new(self.node.doc(), format!("{}/{}", self.node.path(), "retentionPolicies"))
     }
 
-    /// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+    /// 1.4.7. Data Governance.
     pub fn data_governance(&self) -> DataGovernance {
         DataGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataGovernance"))
     }
 
-    /// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+    /// 1.4.8. Data Classification.
     pub fn data_classification(&self) -> CurrentDataClassification {
         CurrentDataClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataClassification"))
     }
 
-    /// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+    /// 1.4.9. Data Integration Points.
     pub fn data_integration_points(&self) -> DataIntegrationPoints {
         DataIntegrationPoints::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataIntegrationPoints"))
     }
 
-    /// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+    /// 1.4.10. Master Data Management.
     pub fn master_data_management(&self) -> MasterDataManagement {
         MasterDataManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "masterDataManagement"))
     }
 }
 
-/// 1.5. Operational Metrics [PD00-CUR-MET].
+/// 1. Current State Analysis. Seeds → CS.
+///
+/// Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
+/// CS together with the systems-to-replace inventory.
+pub struct CurrentLandscape {
+    pub node: som::SomNode,
+}
+
+impl CurrentLandscape {
+    /// Binds a CurrentLandscape facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CurrentLandscape {
+        CurrentLandscape { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 1.1. Existing Systems Landscape.
+    pub fn existing_systems_landscape(&self) -> ExistingSystemsLandscape {
+        ExistingSystemsLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "existingSystemsLandscape"))
+    }
+
+    /// 1.2. Current Business Processes.
+    pub fn current_business_processes(&self) -> CurrentBusinessProcesses {
+        CurrentBusinessProcesses::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentBusinessProcesses"))
+    }
+
+    /// 1.3. Pain Points and Gaps.
+    pub fn pain_points_and_gaps(&self) -> PainPointsAndGaps {
+        PainPointsAndGaps::new(self.node.doc(), format!("{}/{}", self.node.path(), "painPointsAndGaps"))
+    }
+
+    /// 1.4. Current Data Landscape.
+    pub fn current_data_landscape(&self) -> CurrentDataLandscape {
+        CurrentDataLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentDataLandscape"))
+    }
+
+    /// 1.5. Operational Metrics.
+    pub fn operational_metrics(&self) -> som::SomList<CurrentOperationalMetrics> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CUOPME-OPER-LST"),
+            Box::new(|d, p| CurrentOperationalMetrics::new(d, p)),
+        )
+    }
+
+    /// 1.6. Current State Risks.
+    pub fn current_state_risks(&self) -> CurrentStateRiskAssessment {
+        CurrentStateRiskAssessment::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentStateRisks"))
+    }
+}
+
+/// CS00 Current Situation.
+///
+/// Detailed analysis of the current state: existing systems, business
+/// processes, pain points, data landscape, operational metrics, risks,
+/// and the inventory / migration plan for the systems being replaced.
+pub struct CurrentLandscapeAssessment {
+    pub node: som::SomNode,
+}
+
+/// CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "0.0";
+
+impl CurrentLandscapeAssessment {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<CurrentLandscapeAssessment, som::SomVersionError> {
+        som::check_som_model_version(CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION, document_version)?;
+        Ok(CurrentLandscapeAssessment { node: som::SomNode::new(doc, "CLA".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Existing systems landscape.
+    pub fn existing_systems_landscape(&self) -> ExistingSystemsLandscape {
+        ExistingSystemsLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "existingSystemsLandscape"))
+    }
+
+    /// Current business processes.
+    pub fn current_business_processes(&self) -> CurrentBusinessProcesses {
+        CurrentBusinessProcesses::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentBusinessProcesses"))
+    }
+
+    /// Pain points and gaps.
+    pub fn pain_points_and_gaps(&self) -> PainPointsAndGaps {
+        PainPointsAndGaps::new(self.node.doc(), format!("{}/{}", self.node.path(), "painPointsAndGaps"))
+    }
+
+    /// Current data landscape.
+    pub fn current_data_landscape(&self) -> CurrentDataLandscape {
+        CurrentDataLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentDataLandscape"))
+    }
+
+    /// Current operational metrics.
+    pub fn operational_metrics(&self) -> som::SomList<CurrentOperationalMetrics> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CUOPME-OPER-LST"),
+            Box::new(|d, p| CurrentOperationalMetrics::new(d, p)),
+        )
+    }
+
+    /// Current-state risk assessment.
+    pub fn current_state_risks(&self) -> CurrentStateRiskAssessment {
+        CurrentStateRiskAssessment::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentStateRisks"))
+    }
+
+    /// Replacement inventory.
+    pub fn replacement_inventory(&self) -> ReplacementInventory {
+        ReplacementInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "replacementInventory"))
+    }
+
+    /// Migration considerations.
+    pub fn migration_considerations(&self) -> MigrationConsiderations {
+        MigrationConsiderations::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationConsiderations"))
+    }
+}
+
+/// 1.5. Operational Metrics.
 ///
 /// Baseline metrics of the current systems: throughput, volume, uptime,
 /// response times, user counts. Used to size the target system and to
@@ -15020,153 +14766,10 @@ impl CurrentProcessImprovementEntry {
     }
 }
 
-/// CS00 Current Situation.
-///
-/// Detailed analysis of the current state: existing systems, business
-/// processes, pain points, data landscape, operational metrics, risks,
-/// and the inventory / migration plan for the systems being replaced.
-pub struct CurrentSituation {
-    pub node: som::SomNode,
-}
-
-/// CURRENT_SITUATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const CURRENT_SITUATION_MODEL_VERSION: &str = "0.0";
-
-impl CurrentSituation {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<CurrentSituation, som::SomVersionError> {
-        som::check_som_model_version(CURRENT_SITUATION_MODEL_VERSION, document_version)?;
-        Ok(CurrentSituation { node: som::SomNode::new(doc, "CS".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        CURRENT_SITUATION_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Existing systems landscape — PD00-CUR-SYS.
-    pub fn existing_systems_landscape(&self) -> ExistingSystemsLandscape {
-        ExistingSystemsLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "existingSystemsLandscape"))
-    }
-
-    /// Current business processes — PD00-CUR-PRO.
-    pub fn current_business_processes(&self) -> CurrentBusinessProcesses {
-        CurrentBusinessProcesses::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentBusinessProcesses"))
-    }
-
-    /// Pain points and gaps — PD00-CUR-PAI.
-    pub fn pain_points_and_gaps(&self) -> PainPointsAndGaps {
-        PainPointsAndGaps::new(self.node.doc(), format!("{}/{}", self.node.path(), "painPointsAndGaps"))
-    }
-
-    /// Current data landscape — PD00-CUR-DAT.
-    pub fn current_data_landscape(&self) -> CurrentDataLandscape {
-        CurrentDataLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentDataLandscape"))
-    }
-
-    /// Current operational metrics — PD00-CUR-MET.
-    pub fn operational_metrics(&self) -> som::SomList<CurrentOperationalMetrics> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "CUOPME-OPER-LST"),
-            Box::new(|d, p| CurrentOperationalMetrics::new(d, p)),
-        )
-    }
-
-    /// Current-state risk assessment — PD00-CUR-RIS.
-    pub fn current_state_risks(&self) -> CurrentStateRiskAssessment {
-        CurrentStateRiskAssessment::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentStateRisks"))
-    }
-
-    /// Replacement inventory — PD00-SYO-SYR-INV.
-    pub fn replacement_inventory(&self) -> ReplacementInventory {
-        ReplacementInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "replacementInventory"))
-    }
-
-    /// Migration considerations — PD00-SYO-SYR-MIG.
-    pub fn migration_considerations(&self) -> MigrationConsiderations {
-        MigrationConsiderations::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationConsiderations"))
-    }
-}
-
-/// 1. Current State Analysis [PD00-CUR]. Seeds → CS.
-///
-/// Seeds the CS (Current Situation) Phase 3 DocSpec. Previously listed as
-/// PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
-pub struct CurrentStateAnalysis {
-    pub node: som::SomNode,
-}
-
-impl CurrentStateAnalysis {
-    /// Binds a CurrentStateAnalysis facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> CurrentStateAnalysis {
-        CurrentStateAnalysis { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
-    pub fn existing_systems_landscape(&self) -> ExistingSystemsLandscape {
-        ExistingSystemsLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "existingSystemsLandscape"))
-    }
-
-    /// 1.2. Current Business Processes [PD00-CUR-PRO].
-    pub fn current_business_processes(&self) -> CurrentBusinessProcesses {
-        CurrentBusinessProcesses::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentBusinessProcesses"))
-    }
-
-    /// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
-    pub fn pain_points_and_gaps(&self) -> PainPointsAndGaps {
-        PainPointsAndGaps::new(self.node.doc(), format!("{}/{}", self.node.path(), "painPointsAndGaps"))
-    }
-
-    /// 1.4. Current Data Landscape [PD00-CUR-DAT].
-    pub fn current_data_landscape(&self) -> CurrentDataLandscape {
-        CurrentDataLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentDataLandscape"))
-    }
-
-    /// 1.5. Operational Metrics [PD00-CUR-MET].
-    pub fn operational_metrics(&self) -> som::SomList<CurrentOperationalMetrics> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "CUOPME-OPER-LST"),
-            Box::new(|d, p| CurrentOperationalMetrics::new(d, p)),
-        )
-    }
-
-    /// 1.6. Current State Risks [PD00-CUR-RIS].
-    pub fn current_state_risks(&self) -> CurrentStateRiskAssessment {
-        CurrentStateRiskAssessment::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentStateRisks"))
-    }
-}
-
-/// 1.6. Current State Risks [PD00-CUR-RIS].
+/// 1.6. Current State Risks.
 ///
 /// Risks tied to the current state and to its replacement. Distinct from
-/// PD00-SYO-RIS which covers target-side risks.
+/// the target-side risks section which covers replacement risks.
 pub struct CurrentStateRiskAssessment {
     pub node: som::SomNode,
 }
@@ -15187,7 +14790,7 @@ impl CurrentStateRiskAssessment {
     }
 }
 
-/// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+/// A current workflow entry (form).
 ///
 /// Detailed documentation of a single workflow within a business process.
 /// Includes triggers, steps, actors, inputs, outputs, and timing.
@@ -15205,7 +14808,7 @@ impl CurrentWorkflowEntry {
         CurrentWorkflowEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
-    /// Workflow diagram [PD00-CUR-PRO-xx-WOR-xx-DIA].
+    /// Workflow diagram.
     pub fn workflow_diagram(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "workflowDiagram"))
     }
@@ -15328,7 +14931,7 @@ impl CustomDistributionGroup {
     }
 }
 
-/// A custom metric entry [PD00-TEC-SYS-MON-MET-nn].
+/// A custom metric entry.
 pub struct CustomMetricEntry {
     pub node: som::SomNode,
 }
@@ -15344,7 +14947,7 @@ impl CustomMetricEntry {
     }
 }
 
-/// 15.6. Cutover Procedures [PD00-ROL-CUT].
+/// 15.6. Cutover Procedures.
 ///
 /// Detailed cutover runbook for go-live. Minute-by-minute procedure
 /// covering the transition from current operation to the target system.
@@ -15368,7 +14971,7 @@ impl CutoverProcedures {
     }
 }
 
-/// A dashboard entry [PD00-TEC-SYS-MON-DAS-nn].
+/// A dashboard entry.
 pub struct DashboardEntry {
     pub node: som::SomNode,
 }
@@ -15727,7 +15330,7 @@ impl DataAttributeConstraintEntry {
     }
 }
 
-/// A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
+/// A data attribute entry (form).
 ///
 /// Comprehensive attribute specification for data dictionary and schema design.
 pub struct DataAttributeEntry {
@@ -15777,7 +15380,7 @@ impl DataAttributeEntry {
     }
 }
 
-/// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+/// 7.1.4. Data Classification.
 pub struct DataClassification {
     pub node: som::SomNode,
 }
@@ -15792,7 +15395,7 @@ impl DataClassification {
         DataClassificationOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "overview"))
     }
 
-    /// Contains 0+× DataClassificationEntry [PD00-BUS-DAT-CLA-nn].
+    /// Contains 0+× DataClassificationEntry.
     pub fn items(&self) -> som::SomList<DataClassificationEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -15802,7 +15405,7 @@ impl DataClassification {
     }
 }
 
-/// A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
+/// A data classification entry (form).
 ///
 /// Comprehensive data classification for security and compliance.
 pub struct DataClassificationEntry {
@@ -15835,7 +15438,7 @@ impl DataClassificationEntry {
         DataClassificationEntryComplianceForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "compliance"))
     }
 
-    /// Contains 0+× HandlingRequirement [PD00-BUS-DAT-CLA-nn-HAN].
+    /// Contains 0+× HandlingRequirement.
     pub fn handling_requirements(&self) -> som::SomList<HandlingRequirementEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -15844,7 +15447,7 @@ impl DataClassificationEntry {
         )
     }
 
-    /// Contains 0+× AccessRestriction [PD00-BUS-DAT-CLA-nn-ARE].
+    /// Contains 0+× AccessRestriction.
     pub fn access_restrictions(&self) -> som::SomList<AccessRestrictionEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -15902,10 +15505,10 @@ impl DataClassificationSummary {
     }
 }
 
-/// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC].
+/// 7.1.5. Data Dictionary.
 ///
 /// Attribute-level dictionary that complements the entity overview
-/// (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
+/// ..
 pub struct DataDictionary {
     pub node: som::SomNode,
 }
@@ -15926,7 +15529,7 @@ impl DataDictionary {
     }
 }
 
-/// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+/// 1.4.3. Data Duplication Analysis.
 ///
 /// Analysis of data duplication across systems, including redundant data
 /// stores, duplicated records, and synchronization challenges.
@@ -16069,7 +15672,7 @@ impl DataDuplicationSummary {
     }
 }
 
-/// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+/// A data entity entry (form).
 ///
 /// Comprehensive entity specification following data modeling best practices.
 /// Captures conceptual, logical, and physical design aspects.
@@ -16123,7 +15726,7 @@ impl DataEntityEntry {
         )
     }
 
-    /// Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
+    /// Contains 0+× DataAttribute.
     pub fn attributes(&self) -> som::SomList<DataAttributeEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -16132,7 +15735,7 @@ impl DataEntityEntry {
         )
     }
 
-    /// Contains 0+× KeyAttribute [PD00-BUS-DAT-ENT-nn-KEY].
+    /// Contains 0+× KeyAttribute.
     pub fn key_attributes(&self) -> som::SomList<KeyAttributeEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -16141,7 +15744,7 @@ impl DataEntityEntry {
         )
     }
 
-    /// Contains 0+× EntityIndex [PD00-BUS-DAT-ENT-nn-IDX].
+    /// Contains 0+× EntityIndex.
     pub fn indexes(&self) -> som::SomList<EntityIndexEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -16150,7 +15753,7 @@ impl DataEntityEntry {
         )
     }
 
-    /// Contains 0+× EntityConstraint [PD00-BUS-DAT-ENT-nn-CON].
+    /// Contains 0+× EntityConstraint.
     pub fn constraints(&self) -> som::SomList<EntityConstraintEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -16159,7 +15762,7 @@ impl DataEntityEntry {
         )
     }
 
-    /// Contains 0+× MigrationMapping [PD00-BUS-DAT-ENT-nn-MIG] for data migration planning.
+    /// Contains 0+× MigrationMapping for data migration planning.
     pub fn migration_mappings(&self) -> som::SomList<MigrationMappingEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -16169,7 +15772,7 @@ impl DataEntityEntry {
     }
 }
 
-/// A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn].
+/// A data entity migration entry.
 pub struct DataEntityMigrationEntry {
     pub node: som::SomNode,
 }
@@ -16310,7 +15913,7 @@ impl DataFormatCompatibilityNumbers {
     }
 }
 
-/// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+/// 1.4.7. Data Governance.
 ///
 /// Current data governance structure, policies, processes, and maturity level.
 pub struct DataGovernance {
@@ -16647,7 +16250,7 @@ impl DataIntegrationEntryTransport {
     }
 }
 
-/// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+/// 1.4.9. Data Integration Points.
 ///
 /// Documentation of data integration points, ETL processes, APIs,
 /// and data exchange mechanisms.
@@ -16727,7 +16330,7 @@ impl DataLandscapeSummary {
     }
 }
 
-/// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+/// 9.3.1. Data-Level Security.
 ///
 /// Comprehensive data access protection specification covering database-level
 /// security, row-level security, column-level security, tenant data isolation,
@@ -16814,7 +16417,7 @@ impl DataMaskingPolicy {
     // (skipped: dataMaskingDetails has no target type)
 }
 
-/// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+/// 13.5. Data Migration Strategy.
 ///
 /// Comprehensive data migration strategy covering approach, methodology,
 /// tooling, environment strategy, data quality governance, cutover
@@ -16919,18 +16522,18 @@ impl DataMigrationStrategy {
     // Migration strategy narrative.
     // (skipped: migrationStrategyNarrative has no target type)
 
-    /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+    /// 13.5.1. Migration Phases.
     pub fn migration_phases(&self) -> MigrationPhases {
         MigrationPhases::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationPhases"))
     }
 
-    /// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+    /// 13.5.2. Migration Risks.
     pub fn migration_risks(&self) -> StageMigrationRisks {
         StageMigrationRisks::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationRisks"))
     }
 }
 
-/// 7.1. Data Model [PD00-BUS-DAT].
+/// 7.1. Data Model.
 pub struct DataModel {
     pub node: som::SomNode,
 }
@@ -16950,7 +16553,7 @@ impl DataModel {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
+    /// 7.1.1. Entity Overview — contains 1+× Data Entity.
     pub fn entities(&self) -> som::SomList<DataEntityEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -16959,25 +16562,25 @@ impl DataModel {
         )
     }
 
-    /// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+    /// 7.1.2. Entity Relationships.
     pub fn entity_relationships(&self) -> EntityRelationships {
         EntityRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "entityRelationships"))
     }
 
-    // 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
+    // 7.1.3. Entity-Relationship Diagram (mermaid).
     // (skipped: erDiagram has no target type)
 
-    /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+    /// 7.1.4. Data Classification.
     pub fn data_classification(&self) -> DataClassification {
         DataClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataClassification"))
     }
 
-    /// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
+    /// 7.1.5. Data Dictionary..
     pub fn data_dictionary(&self) -> DataDictionary {
         DataDictionary::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataDictionary"))
     }
 
-    /// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+    /// 7.1.6. Validation Constraints.
     pub fn validation_constraints(&self) -> som::SomList<ValidationConstraints> {
         som::SomList::new(
             self.node.doc(),
@@ -16986,7 +16589,7 @@ impl DataModel {
         )
     }
 
-    /// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+    /// 7.1.7. Integrity Constraints.
     pub fn integrity_constraints(&self) -> som::SomList<IntegrityConstraints> {
         som::SomList::new(
             self.node.doc(),
@@ -16996,7 +16599,7 @@ impl DataModel {
     }
 }
 
-/// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+/// 1.4.4. Data Ownership and Stewardship.
 ///
 /// Documentation of data ownership structures, stewardship roles,
 /// and accountability for data assets.
@@ -17118,7 +16721,7 @@ impl DataOwnershipSummary {
     }
 }
 
-/// Data processing agreement requirements [PD00-TEC-SEC-PRI].
+/// Data processing agreement requirements.
 pub struct DataProcessingAgreementRequirements {
     pub node: som::SomNode,
 }
@@ -17218,7 +16821,7 @@ impl DataProcessingAgreementRequirementsTransfers {
     }
 }
 
-/// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+/// 8.8.2. Data Protection and Privacy.
 ///
 /// Comprehensive data protection and privacy requirements including
 /// GDPR compliance, data residency, consent management, data subject
@@ -17282,10 +16885,10 @@ impl DataProtectionAndPrivacySection {
     }
 }
 
-/// Data protection classification and handling rules [PD00-TEC-SEC-PRI].
+/// Data protection classification and handling rules.
 ///
 /// Named DataProtectionClassification to avoid collision with
-/// DataClassification in business_data_model.dart.
+/// DataClassification in information_and_data_model.dart.
 pub struct DataProtectionClassification {
     pub node: som::SomNode,
 }
@@ -17385,7 +16988,7 @@ impl DataProtectionClassificationRetention {
     }
 }
 
-/// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+/// 1.4.2. Data Quality Assessment.
 ///
 /// Comprehensive assessment of data quality across the organization,
 /// covering accuracy, completeness, consistency, timeliness, and validity.
@@ -17553,7 +17156,7 @@ impl DataQualityIssueEntryResolution {
     }
 }
 
-/// Data residency and sovereignty requirements [PD00-TEC-SEC-PRI].
+/// Data residency and sovereignty requirements.
 pub struct DataResidencyRequirements {
     pub node: som::SomNode,
 }
@@ -17632,7 +17235,7 @@ impl DataResidencyRequirementsVerification {
     }
 }
 
-/// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+/// 1.4.6. Retention Policies.
 ///
 /// Documentation of data retention policies, legal requirements,
 /// archival strategies, and data lifecycle management.
@@ -17702,7 +17305,7 @@ impl DataSourceEntityEntry {
     }
 }
 
-/// A data source entry (form) [PD00-CUR-DAT-SRC-nn].
+/// A data source entry (form).
 ///
 /// Documents a specific data source/store with comprehensive details about
 /// technology, format, volume, quality, ownership, and access patterns.
@@ -17786,7 +17389,7 @@ impl DataSourceIntegration {
     }
 }
 
-/// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+/// 1.4.1. Data Source Inventory.
 ///
 /// Comprehensive inventory of all data sources, stores, and repositories
 /// in the current environment.
@@ -17925,7 +17528,7 @@ impl DataSourceVolume {
     }
 }
 
-/// Data subject rights management [PD00-TEC-SEC-PRI].
+/// Data subject rights management.
 ///
 /// Covers GDPR Articles 15–22: right of access, rectification, erasure,
 /// restriction, portability, objection, and automated decision-making.
@@ -18165,7 +17768,7 @@ impl DataVolumeSummaryProjection {
     }
 }
 
-/// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+/// 1.4.5. Data Volumes and Growth.
 ///
 /// Analysis of current data volumes, historical growth trends,
 /// and projections for future capacity needs.
@@ -18527,7 +18130,7 @@ impl DecisionAuthorityEntry {
     }
 }
 
-/// A decision maker entry [PD00-SYO-RES-ORG-DEC-nn].
+/// A decision maker entry.
 pub struct DecisionMakerEntry {
     pub node: som::SomNode,
 }
@@ -18543,7 +18146,7 @@ impl DecisionMakerEntry {
     }
 }
 
-/// A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
+/// A decision option entry (form).
 ///
 /// One of the available options for a decision point, with full
 /// impact analysis, feasibility assessment, and trade-off evaluation.
@@ -18646,7 +18249,7 @@ impl DecisionOptionEntryTradeOffs {
     }
 }
 
-/// A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
+/// A decision point entry (form).
 ///
 /// A single formal decision point with defined timing, criteria,
 /// authority, available options with impact analysis, and recording
@@ -18762,7 +18365,7 @@ impl DecisionPointEntryStakeholders {
     }
 }
 
-/// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+/// 13.6.2. Decision Points.
 ///
 /// Key decision points in the stage plan including go/no-go
 /// decisions, scope adjustments, resource reallocations, and
@@ -18795,7 +18398,7 @@ impl DecisionPoints {
     }
 }
 
-/// A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn].
+/// A deep link pattern entry (form).
 pub struct DeepLinkPatternEntry {
     pub node: som::SomNode,
 }
@@ -18811,7 +18414,7 @@ impl DeepLinkPatternEntry {
     }
 }
 
-/// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+/// 10.3.1.7. Deep Linking.
 ///
 /// External entry points, URL patterns, share links.
 pub struct DeepLinking {
@@ -18846,7 +18449,7 @@ impl DeepLinking {
     }
 }
 
-/// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+/// 14.2.4. Defect Resolution.
 ///
 /// Defines how defects found during acceptance testing are classified,
 /// managed, resolved, and tracked. Covers severity classification,
@@ -19001,7 +18604,7 @@ impl DeliverableDocumentation {
     }
 }
 
-/// A deliverable entry (form) [PD00-DEL-DEL-nn].
+/// A deliverable entry (form).
 ///
 /// Represents a single deliverable item within any deliverable category.
 /// Captures identification, delivery logistics, quality requirements,
@@ -19161,7 +18764,7 @@ impl DeliverableVersion {
     }
 }
 
-/// An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
+/// An acceptance criterion entry (form).
 ///
 /// A single criterion that must be met for formal project acceptance.
 /// Aligned with IEEE 830 acceptance criteria structure and ISTQB
@@ -19286,7 +18889,98 @@ impl DeliveryAcceptanceCriterionEntryVerification {
     }
 }
 
-/// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+/// PPP00 Project Phase Plan.
+///
+/// Full project phase plan — staging strategy, stage overview, per-stage
+/// entries, feature prioritization, data migration, gate criteria,
+/// decision processes, initial development flow, and upgrade cycle
+/// framework.
+pub struct DeliveryRoadmap {
+    pub node: som::SomNode,
+}
+
+/// DELIVERY_ROADMAP_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const DELIVERY_ROADMAP_MODEL_VERSION: &str = "0.0";
+
+impl DeliveryRoadmap {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<DeliveryRoadmap, som::SomVersionError> {
+        som::check_som_model_version(DELIVERY_ROADMAP_MODEL_VERSION, document_version)?;
+        Ok(DeliveryRoadmap { node: som::SomNode::new(doc, "DRM".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        DELIVERY_ROADMAP_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Staging strategy.
+    pub fn staging_strategy(&self) -> StagingStrategy {
+        StagingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "stagingStrategy"))
+    }
+
+    /// Stage overview.
+    pub fn stage_overview(&self) -> StageOverview {
+        StageOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "stageOverview"))
+    }
+
+    /// Stages (list).
+    pub fn stages(&self) -> som::SomList<StageEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "STAGE-STAG-LST"),
+            Box::new(|d, p| StageEntry::new(d, p)),
+        )
+    }
+
+    /// Feature prioritization.
+    pub fn feature_prioritization(&self) -> FeaturePrioritization {
+        FeaturePrioritization::new(self.node.doc(), format!("{}/{}", self.node.path(), "featurePrioritization"))
+    }
+
+    /// Data migration strategy.
+    pub fn data_migration_strategy(&self) -> DataMigrationStrategy {
+        DataMigrationStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataMigrationStrategy"))
+    }
+
+    /// Gate criteria (promoted from GOV).
+    pub fn gate_criteria(&self) -> PhaseGateReviews {
+        PhaseGateReviews::new(self.node.doc(), format!("{}/{}", self.node.path(), "gateCriteria"))
+    }
+
+    /// Decision processes (promoted from GOV).
+    pub fn decision_processes(&self) -> DecisionPoints {
+        DecisionPoints::new(self.node.doc(), format!("{}/{}", self.node.path(), "decisionProcesses"))
+    }
+
+    /// Initial development flow.
+    pub fn initial_development_flow(&self) -> InitialDevelopmentFlow {
+        InitialDevelopmentFlow::new(self.node.doc(), format!("{}/{}", self.node.path(), "initialDevelopmentFlow"))
+    }
+
+    /// Upgrade cycle framework (links tom_system_upgrade.md).
+    pub fn upgrade_cycle_framework(&self) -> UpgradeCycleFramework {
+        UpgradeCycleFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "upgradeCycleFramework"))
+    }
+}
+
+/// 14.1. Delivery and Service Scope.
 pub struct DeliveryScope {
     pub node: som::SomNode,
 }
@@ -19306,28 +19000,28 @@ impl DeliveryScope {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+    /// 14.1.1. Software Deliverables.
     pub fn software_deliverables(&self) -> SoftwareDeliverables {
         SoftwareDeliverables::new(self.node.doc(), format!("{}/{}", self.node.path(), "softwareDeliverables"))
     }
 
-    /// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+    /// 14.1.2. Documentation Deliverables.
     pub fn documentation_deliverables(&self) -> DocumentationDeliverables {
         DocumentationDeliverables::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationDeliverables"))
     }
 
-    /// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+    /// 14.1.3. Training Deliverables.
     pub fn training_deliverables(&self) -> TrainingDeliverables {
         TrainingDeliverables::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingDeliverables"))
     }
 
-    /// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+    /// 14.1.4. Support Deliverables.
     pub fn support_deliverables(&self) -> SupportDeliverables {
         SupportDeliverables::new(self.node.doc(), format!("{}/{}", self.node.path(), "supportDeliverables"))
     }
 }
 
-/// 14. Delivery Scope and Acceptance [PD00-DEL].
+/// 14. Delivery Scope and Acceptance.
 pub struct DeliveryScopeAndAcceptance {
     pub node: som::SomNode,
 }
@@ -19347,18 +19041,63 @@ impl DeliveryScopeAndAcceptance {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+    /// 14.1. Delivery and Service Scope.
     pub fn delivery_scope(&self) -> DeliveryScope {
         DeliveryScope::new(self.node.doc(), format!("{}/{}", self.node.path(), "deliveryScope"))
     }
 
-    /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+    /// 14.2. Acceptance Plan. Seeds → BQP.
     pub fn acceptance_plan(&self) -> AcceptancePlan {
         AcceptancePlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptancePlan"))
     }
 }
 
-/// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+/// SBP.15 Delivery, Transition & Rollout.
+///
+/// Public anchor: PMBOK phasing + ISO 29148 transition requirements.
+pub struct DeliveryTransitionAndRollout {
+    pub node: som::SomNode,
+}
+
+impl DeliveryTransitionAndRollout {
+    /// Binds a DeliveryTransitionAndRollout facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DeliveryTransitionAndRollout {
+        DeliveryTransitionAndRollout { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Staged delivery / phase plan.
+    pub fn system_stage_plan(&self) -> SystemStagePlan {
+        SystemStagePlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemStagePlan"))
+    }
+
+    /// Rollout and transition concept.
+    pub fn system_rollout_concept(&self) -> SystemRolloutConcept {
+        SystemRolloutConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemRolloutConcept"))
+    }
+
+    /// Localization & translation *execution* processes (re-homed from MLAR in
+    /// IP-6: the execution side of i18n, as opposed to the requirements that
+    /// live in SBP.9).
+    pub fn localization_translation_process(&self) -> LocalizationTranslationProcess {
+        LocalizationTranslationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationTranslationProcess"))
+    }
+
+    /// Multi-language rollout sequencing by region and time (re-homed from MLAR).
+    pub fn multi_language_rollout_plan(&self) -> MultiLanguageAndRolloutPlan {
+        MultiLanguageAndRolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguageRolloutPlan"))
+    }
+}
+
+/// 1.1.3. Dependencies and Integrations.
 ///
 /// Documents how current systems depend on each other, on external services,
 /// and on shared infrastructure. Identifies fragile integration points that
@@ -19382,7 +19121,7 @@ impl DependenciesAndIntegrations {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
+    /// Dependency matrix diagram.
     pub fn dependency_diagram(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "dependencyDiagram"))
     }
@@ -19392,27 +19131,27 @@ impl DependenciesAndIntegrations {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+    /// 1.1.3.1. Internal Dependencies.
     pub fn internal_dependencies(&self) -> InternalDependencies {
         InternalDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "internalDependencies"))
     }
 
-    /// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+    /// 1.1.3.2. External Service Dependencies.
     pub fn external_service_dependencies(&self) -> ExternalServiceDependencies {
         ExternalServiceDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "externalServiceDependencies"))
     }
 
-    /// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+    /// 1.1.3.3. Shared Infrastructure Dependencies.
     pub fn shared_infrastructure_dependencies(&self) -> SharedInfrastructureDependencies {
         SharedInfrastructureDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "sharedInfrastructureDependencies"))
     }
 
-    /// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+    /// 1.1.3.4. System Integrations.
     pub fn integrations(&self) -> Integrations {
         Integrations::new(self.node.doc(), format!("{}/{}", self.node.path(), "integrations"))
     }
 
-    /// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+    /// 1.1.3.5. Integration Health Summary.
     pub fn health_summary(&self) -> IntegrationHealthSummary {
         IntegrationHealthSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "healthSummary"))
     }
@@ -19851,7 +19590,7 @@ impl DependencyRisk {
     }
 }
 
-/// Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
+/// Dependency and supply-chain scanning requirements.
 pub struct DependencyScanningRequirements {
     pub node: som::SomNode,
 }
@@ -19983,7 +19722,7 @@ impl DependencyTracking {
     }
 }
 
-/// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+/// 4.1.2.7. Deployment Context.
 ///
 /// Where and how the system will be deployed in the infrastructure
 /// landscape.
@@ -20291,7 +20030,7 @@ impl DeploymentSecuritySupplyChain {
     }
 }
 
-/// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+/// 8.5.2. Deployment Strategy.
 ///
 /// Deployment model (containerized, VM-based, serverless), deployment pipeline,
 /// rollback strategy, and canary/blue-green deployment requirements.
@@ -20616,7 +20355,7 @@ impl DesignFoundationEntry {
     }
 }
 
-/// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
+/// A design goal entry (form).
 ///
 /// Each goal represents a measurable UI objective with success criteria.
 pub struct DesignGoalEntry {
@@ -20634,7 +20373,7 @@ impl DesignGoalEntry {
     }
 }
 
-/// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+/// 10.1.1. Design Goals.
 ///
 /// Primary design objectives that the UI must achieve: simplicity, efficiency,
 /// accessibility, consistency, delight. Goals are prioritized for the project.
@@ -20791,7 +20530,7 @@ impl DesignPatternEntryStructure {
     }
 }
 
-/// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+/// 8.1.3. Design Patterns and Standards.
 ///
 /// Required design patterns, coding standards, development conventions, and
 /// applicable industry standards (ISO, OWASP, IEEE).
@@ -20874,7 +20613,7 @@ impl DesignPatternsAndStandards {
     }
 }
 
-/// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+/// 10.1.2. Design Principles.
 ///
 /// Guiding principles for all UI decisions: progressive disclosure, direct
 /// manipulation, feedback, consistency, error prevention.
@@ -20926,7 +20665,7 @@ impl DesignPrinciplesOverview {
     }
 }
 
-/// 10.1. Design Vision [PD00-USE-VIS].
+/// 10.1. Design Vision.
 ///
 /// Overall design vision for the user interface, encompassing goals,
 /// principles, and user personas that guide all UI decisions.
@@ -20949,17 +20688,17 @@ impl DesignVision {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+    /// 10.1.1. Design Goals.
     pub fn design_goals(&self) -> DesignGoals {
         DesignGoals::new(self.node.doc(), format!("{}/{}", self.node.path(), "designGoals"))
     }
 
-    /// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+    /// 10.1.2. Design Principles.
     pub fn design_principles(&self) -> DesignPrinciples {
         DesignPrinciples::new(self.node.doc(), format!("{}/{}", self.node.path(), "designPrinciples"))
     }
 
-    /// 10.1.3. User Personas [PD00-USE-VIS-PER].
+    /// 10.1.3. User Personas.
     pub fn personas(&self) -> UserPersonas {
         UserPersonas::new(self.node.doc(), format!("{}/{}", self.node.path(), "personas"))
     }
@@ -21065,10 +20804,10 @@ impl DesktopOsRequirementEntryTesting {
     }
 }
 
-/// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+/// 6.1.7. Detailed Process Workflows.
 ///
-/// Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
-/// Covers HBSG AS07-DET Detailed Process Descriptions.
+/// Per-process workflow detail beyond the catalog overview.
+/// .
 pub struct DetailedProcessWorkflows {
     pub node: som::SomNode,
 }
@@ -21331,7 +21070,7 @@ impl DevelopmentConventionEntryVersionControl {
     }
 }
 
-/// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+/// 8.2.2. Development Environment.
 ///
 /// Required IDEs, build tools, version control, CI/CD pipeline, code review
 /// process, and development workflow.
@@ -21654,7 +21393,7 @@ impl DisasterRecoveryRequirementsReplication {
     }
 }
 
-/// Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn].
+/// Display equipment entry (form).
 pub struct DisplayEquipmentEntry {
     pub node: som::SomNode,
 }
@@ -21944,7 +21683,7 @@ impl DistributionGroupSummary {
     }
 }
 
-/// 3.3. Distribution List [PD00-ADM-DIS].
+/// 3.3. Distribution List.
 ///
 /// Defines who receives which project documents and communications.
 /// Includes the communication matrix specifying information flow patterns,
@@ -21973,17 +21712,17 @@ impl DistributionList {
         CommunicationMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "communicationMatrix"))
     }
 
-    /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+    /// 3.3.1. Full Distribution.
     pub fn full_distribution(&self) -> FullDistribution {
         FullDistribution::new(self.node.doc(), format!("{}/{}", self.node.path(), "fullDistribution"))
     }
 
-    /// 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
+    /// 3.3.2. Executive Summary.
     pub fn executive_summary(&self) -> ExecutiveSummaryDistribution {
         ExecutiveSummaryDistribution::new(self.node.doc(), format!("{}/{}", self.node.path(), "executiveSummary"))
     }
 
-    /// 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
+    /// 3.3.3. Custom Distribution Groups — contains 0+× Group.
     pub fn custom_groups(&self) -> som::SomList<CustomDistributionGroup> {
         som::SomList::new(
             self.node.doc(),
@@ -22041,7 +21780,7 @@ impl DistributionRecipientContact {
     }
 }
 
-/// A distribution recipient entry (form) [PD00-ADM-DIS-nn].
+/// A distribution recipient entry (form).
 ///
 /// Detailed information about a distribution list recipient including
 /// their role, contact information, preferences, and access levels.
@@ -22221,7 +21960,7 @@ impl DnsRequirementsZones {
     }
 }
 
-/// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
+/// 11.5.4. Documentation changeability quality.
 pub struct DocChangeabilityQuality {
     pub node: som::SomNode,
 }
@@ -22303,7 +22042,7 @@ impl DocChangeabilityQualityStructure {
     }
 }
 
-/// 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].
+/// 11.5.2. Documentation completeness quality.
 pub struct DocCompletenessQuality {
     pub node: som::SomNode,
 }
@@ -22322,7 +22061,7 @@ impl DocCompletenessQuality {
     // (skipped: narrative has no target type)
 }
 
-/// 11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR].
+/// 11.5.3. Documentation correctness quality.
 pub struct DocCorrectnessQuality {
     pub node: som::SomNode,
 }
@@ -22380,6 +22119,50 @@ impl DocCorrectnessQualityVerification {
 
     pub fn content(&self) -> DocCorrectnessQualityVerificationContentForm {
         DocCorrectnessQualityVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// SBP.1 Document Control.
+///
+/// Holds the [DocumentHeader] (id, project, version, date, author, status)
+/// together with the document's [RevisionHistory] and the [ApprovalRecord]s
+/// that gate its release.
+pub struct DocumentControl {
+    pub node: som::SomNode,
+}
+
+impl DocumentControl {
+    /// Binds a DocumentControl facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DocumentControl {
+        DocumentControl { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Document header form (id, project, version, date, author, status).
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Chronological revision history of this document.
+    pub fn revision_history(&self) -> RevisionHistory {
+        RevisionHistory::new(self.node.doc(), format!("{}/{}", self.node.path(), "revisionHistory"))
+    }
+
+    /// Formal approvals (sign-offs) recorded for this document.
+    pub fn approvals(&self) -> som::SomList<ApprovalRecord> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DOCTL-APRV-LST"),
+            Box::new(|d, p| ApprovalRecord::new(d, p)),
+        )
     }
 }
 
@@ -22459,7 +22242,7 @@ impl DocumentRelevantSections {
     }
 }
 
-/// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+/// 10.12.3. Documentation and Training.
 ///
 /// End-user documentation and training materials.
 pub struct DocumentationAndTraining {
@@ -22535,7 +22318,7 @@ impl DocumentationAndTrainingLocalization {
     }
 }
 
-/// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+/// 14.1.2. Documentation Deliverables.
 pub struct DocumentationDeliverables {
     pub node: som::SomNode,
 }
@@ -22565,7 +22348,7 @@ impl DocumentationDeliverables {
     }
 }
 
-/// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+/// 11.5. Documentation Quality Criteria.
 ///
 /// Quality criteria for project documentation including readability,
 /// completeness, correctness, and changeability.
@@ -22586,22 +22369,22 @@ impl DocumentationQualityCriteria {
     // Documentation quality overview narrative.
     // (skipped: overview has no target type)
 
-    /// 11.5.1. Readability [PD00-SYQ-DOC-REA].
+    /// 11.5.1. Readability.
     pub fn readability(&self) -> ReadabilityQuality {
         ReadabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "readability"))
     }
 
-    /// 11.5.2. Completeness [PD00-SYQ-DOC-COM].
+    /// 11.5.2. Completeness.
     pub fn completeness(&self) -> DocCompletenessQuality {
         DocCompletenessQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "completeness"))
     }
 
-    /// 11.5.3. Correctness [PD00-SYQ-DOC-COR].
+    /// 11.5.3. Correctness.
     pub fn correctness(&self) -> DocCorrectnessQuality {
         DocCorrectnessQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "correctness"))
     }
 
-    /// 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
+    /// 11.5.4. Changeability.
     pub fn changeability(&self) -> DocChangeabilityQuality {
         DocChangeabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeability"))
     }
@@ -22828,7 +22611,7 @@ impl DocumentationStandardsVersioning {
     }
 }
 
-/// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+/// 4.1.3.4. Domain Boundaries.
 ///
 /// Clear definition of what is within and outside the domain scope,
 /// based on bounded context principles.
@@ -22949,7 +22732,7 @@ impl DomainBusinessRuleEntryGovernance {
     }
 }
 
-/// 4.1.3.5. Domain Business Rules [PD00-SYO-SYD-DES-RUL].
+/// 4.1.3.5. Domain Business Rules.
 ///
 /// Business rules, policies, and constraints that govern behavior
 /// within this domain.
@@ -22998,7 +22781,7 @@ impl DomainEventEntry {
     }
 }
 
-/// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+/// 4.1.3.7. Domain Events.
 ///
 /// Significant business events that occur within this domain and
 /// trigger actions or state changes.
@@ -23047,7 +22830,7 @@ impl DomainInterfaceEntry {
     }
 }
 
-/// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+/// 4.1.3.1. Domain Overview.
 ///
 /// High-level description of the business domain including its purpose,
 /// scope, and relationship to the overall business.
@@ -23137,7 +22920,7 @@ impl DomainProcessEntryOperations {
     }
 }
 
-/// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+/// 4.1.3.6. Domain Processes.
 ///
 /// High-level business processes within this domain, showing the main
 /// workflows and activities.
@@ -23196,7 +22979,7 @@ impl DomainTermEntry {
     }
 }
 
-/// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+/// 4.1.3.2. Domain Vocabulary.
 ///
 /// Glossary of domain-specific terms and definitions establishing the
 /// ubiquitous language for the project.
@@ -23229,7 +23012,7 @@ impl DomainVocabulary {
     }
 }
 
-/// 11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF].
+/// 11.3.1. Efficiency quality.
 pub struct EfficiencyQuality {
     pub node: som::SomNode,
 }
@@ -23311,7 +23094,7 @@ impl EfficiencyQualityVerification {
     }
 }
 
-/// A validation rule entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-VAL-pp].
+/// A validation rule entry (form).
 pub struct ElementValidationRuleEntry {
     pub node: som::SomNode,
 }
@@ -23406,7 +23189,7 @@ impl EmergencyMaintenanceProceduresGovernance {
     }
 }
 
-/// An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn].
+/// An encrypted data category entry (form).
 ///
 /// Defines a specific category of data that requires encryption at rest,
 /// including the data classification, encryption approach, algorithm override,
@@ -23427,7 +23210,7 @@ impl EncryptedDataCategoryEntry {
     }
 }
 
-/// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+/// 9.5.1. Encryption At Rest.
 ///
 /// Defines encryption requirements for stored data: algorithms, key lengths,
 /// encryption layers (application, database, filesystem, hardware), field-level
@@ -23514,7 +23297,7 @@ impl EncryptionAtRestPolicy {
     // (skipped: encryptionAtRestPolicyDetails has no target type)
 }
 
-/// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+/// 9.5.2. Encryption In Transit.
 ///
 /// Defines encryption requirements for data in transit: TLS protocol versions,
 /// cipher suites, certificate management, HSTS policy, mutual TLS, certificate
@@ -23572,10 +23355,10 @@ impl EncryptionInTransit {
     // (skipped: encryptionInTransitNotes has no target type)
 }
 
-/// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E].
+/// 6.2.4. End-to-End Test Scenarios.
 ///
 /// Test scenarios that exercise complete user journeys across processes
-/// and use cases. Covers HBSG AS24.
+/// and use cases..
 pub struct EndToEndTestScenarios {
     pub node: som::SomNode,
 }
@@ -23696,7 +23479,7 @@ impl EnterpriseSystemCompatibilityEntryTesting {
     }
 }
 
-/// An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
+/// An entitlement entry (form).
 pub struct EntitlementEntry {
     pub node: som::SomNode,
 }
@@ -23721,7 +23504,7 @@ impl EntitlementEntry {
     }
 }
 
-/// An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn].
+/// An entitlement reference entry (form).
 pub struct EntitlementReferenceEntry {
     pub node: som::SomNode,
 }
@@ -23737,7 +23520,7 @@ impl EntitlementReferenceEntry {
     }
 }
 
-/// An entity constraint entry (form) [PD00-BUS-DAT-ENT-nn-CON-nn].
+/// An entity constraint entry (form).
 ///
 /// Business and technical constraints beyond keys.
 pub struct EntityConstraintEntry {
@@ -23755,7 +23538,7 @@ impl EntityConstraintEntry {
     }
 }
 
-/// An entity index entry (form) [PD00-BUS-DAT-ENT-nn-IDX-nn].
+/// An entity index entry (form).
 ///
 /// Database index specification for query optimization.
 pub struct EntityIndexEntry {
@@ -23773,7 +23556,7 @@ impl EntityIndexEntry {
     }
 }
 
-/// An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
+/// An entity relationship entry (form).
 ///
 /// Comprehensive relationship specification following ER modeling best practices.
 pub struct EntityRelationshipEntry {
@@ -23837,7 +23620,7 @@ impl EntityRelationshipEntry {
     }
 }
 
-/// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+/// 7.1.2. Entity Relationships.
 pub struct EntityRelationships {
     pub node: som::SomNode,
 }
@@ -23867,7 +23650,7 @@ impl EntityRelationships {
     }
 }
 
-/// An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-mm].
+/// An entry point entry (form).
 pub struct EntryPointEntry {
     pub node: som::SomNode,
 }
@@ -23979,7 +23762,7 @@ impl EnvironmentDataManagement {
     }
 }
 
-/// An environment entry (form) [PD00-POP-TOO-ENV-nn].
+/// An environment entry (form).
 ///
 /// Comprehensive specification of a single project environment covering
 /// identity, infrastructure, access, data management, configuration,
@@ -24378,7 +24161,7 @@ impl EnvironmentStrategyTesting {
     }
 }
 
-/// 2.4.2. Environments [PD00-POP-TOO-ENV].
+/// 2.4.2. Environments.
 ///
 /// Operational overview of project environments and the inventory of
 /// individual environment instances. Strategy-level decisions (tier
@@ -24424,7 +24207,7 @@ impl EquipmentOverview {
     }
 }
 
-/// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+/// 5.3.1. Equipment Requirements.
 ///
 /// Hardware and peripheral requirements per workplace type.
 pub struct EquipmentRequirements {
@@ -24555,7 +24338,7 @@ impl ErrorBudgetTrackingMonitoring {
     }
 }
 
-/// 10.7. Error Handling Concept [PD00-USE-ERR].
+/// 10.7. Error Handling Concept.
 ///
 /// Comprehensive error handling user experience framework covering validation
 /// feedback, system error presentation, and error recovery flows. Follows
@@ -24592,17 +24375,17 @@ impl ErrorHandlingConcept {
     // Error handling overview and strategy.
     // (skipped: errorHandlingOverview has no target type)
 
-    /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+    /// 10.7.1. Validation Feedback.
     pub fn validation_feedback(&self) -> ValidationFeedback {
         ValidationFeedback::new(self.node.doc(), format!("{}/{}", self.node.path(), "validationFeedback"))
     }
 
-    /// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+    /// 10.7.2. System Error Display.
     pub fn system_error_display(&self) -> SystemErrorDisplay {
         SystemErrorDisplay::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemErrorDisplay"))
     }
 
-    /// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+    /// 10.7.3. Error Recovery.
     pub fn error_recovery(&self) -> ErrorRecovery {
         ErrorRecovery::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorRecovery"))
     }
@@ -24825,7 +24608,7 @@ impl ErrorProcedureEntry {
     }
 }
 
-/// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+/// 10.7.3. Error Recovery.
 ///
 /// Error recovery flows including data preservation, retry mechanisms,
 /// and guided recovery steps.
@@ -24991,7 +24774,7 @@ impl EscalationProcedureEntry {
     }
 }
 
-/// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+/// 12.1.2. Evaluation Criteria.
 ///
 /// Container for component evaluation criteria used when assessing
 /// candidate components for adoption.
@@ -25024,7 +24807,7 @@ impl EvaluationCriteria {
     }
 }
 
-/// An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
+/// An evaluation criterion entry (form).
 ///
 /// Defines one criterion for evaluating candidate components: scoring scale,
 /// threshold, evidence requirements, and evaluation method.
@@ -25128,7 +24911,7 @@ impl EventAttributePolicy {
     // (skipped: notes has no target type)
 }
 
-/// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+/// 3.3.2. Executive Summary Distribution.
 ///
 /// Recipients who receive only executive summaries and milestone reports.
 pub struct ExecutiveSummaryDistribution {
@@ -25181,7 +24964,7 @@ impl ExistingSystemBusinessContext {
     }
 }
 
-/// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+/// An existing system entry (form).
 ///
 /// Captures comprehensive information about an existing system including
 /// identity, technology, business context, usage metrics, lifecycle, and risks.
@@ -25199,37 +24982,37 @@ impl ExistingSystemEntry {
         ExistingSystemEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
-    /// Technology stack details [PD00-CUR-SYS-INV-nn-TEC].
+    /// Technology stack details.
     pub fn technology(&self) -> ExistingSystemTechnology {
         ExistingSystemTechnology::new(self.node.doc(), format!("{}/{}", self.node.path(), "technology"))
     }
 
-    /// Business context [PD00-CUR-SYS-INV-nn-BUS].
+    /// Business context.
     pub fn business_context(&self) -> ExistingSystemBusinessContext {
         ExistingSystemBusinessContext::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessContext"))
     }
 
-    /// Usage metrics [PD00-CUR-SYS-INV-nn-USE].
+    /// Usage metrics.
     pub fn usage(&self) -> ExistingSystemUsage {
         ExistingSystemUsage::new(self.node.doc(), format!("{}/{}", self.node.path(), "usage"))
     }
 
-    /// Lifecycle information [PD00-CUR-SYS-INV-nn-LIF].
+    /// Lifecycle information.
     pub fn lifecycle(&self) -> ExistingSystemLifecycle {
         ExistingSystemLifecycle::new(self.node.doc(), format!("{}/{}", self.node.path(), "lifecycle"))
     }
 
-    /// Integration profile [PD00-CUR-SYS-INV-nn-INT].
+    /// Integration profile.
     pub fn integration_profile(&self) -> ExistingSystemIntegration {
         ExistingSystemIntegration::new(self.node.doc(), format!("{}/{}", self.node.path(), "integrationProfile"))
     }
 
-    /// Infrastructure details [PD00-CUR-SYS-INV-nn-INF].
+    /// Infrastructure details.
     pub fn infrastructure(&self) -> ExistingSystemInfrastructure {
         ExistingSystemInfrastructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "infrastructure"))
     }
 
-    /// Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
+    /// Contains 0+× Limitation.
     pub fn known_limitations(&self) -> som::SomList<LimitationEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -25238,7 +25021,7 @@ impl ExistingSystemEntry {
         )
     }
 
-    /// Quality and risk assessment [PD00-CUR-SYS-INV-nn-QUA].
+    /// Quality and risk assessment.
     pub fn quality(&self) -> ExistingSystemQuality {
         ExistingSystemQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "quality"))
     }
@@ -25340,7 +25123,7 @@ impl ExistingSystemUsage {
     }
 }
 
-/// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+/// 1.1. Existing Systems Landscape.
 ///
 /// Overview of the current systems in use, their roles, technology stacks,
 /// and limitations. Provides the foundation for understanding the AS-IS state.
@@ -25363,17 +25146,17 @@ impl ExistingSystemsLandscape {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+    /// 1.1.1. System Inventory.
     pub fn system_inventory(&self) -> SystemInventory {
         SystemInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemInventory"))
     }
 
-    /// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+    /// 1.1.2. Current Architecture.
     pub fn current_architecture(&self) -> CurrentArchitecture {
         CurrentArchitecture::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentArchitecture"))
     }
 
-    /// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+    /// 1.1.3. Dependencies and Integrations.
     pub fn dependencies_and_integrations(&self) -> DependenciesAndIntegrations {
         DependenciesAndIntegrations::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependenciesAndIntegrations"))
     }
@@ -25392,6 +25175,203 @@ impl ExpectedImprovements {
 
     pub fn content(&self) -> ExpectedImprovementsContentForm {
         ExpectedImprovementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 10. User Interface Design and Prototype. Seeds → UP.
+pub struct ExperienceAndInterfaceDesign {
+    pub node: som::SomNode,
+}
+
+impl ExperienceAndInterfaceDesign {
+    /// Binds a ExperienceAndInterfaceDesign facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExperienceAndInterfaceDesign {
+        ExperienceAndInterfaceDesign { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 10.1. Design Vision. Seeds → UP.
+    pub fn design_vision(&self) -> DesignVision {
+        DesignVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "designVision"))
+    }
+
+    /// 10.2. Screen Descriptions. Seeds → UP.
+    pub fn screens(&self) -> ScreenDescriptions {
+        ScreenDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "screens"))
+    }
+
+    /// 10.3. Screen Flow Structure. Seeds → UP.
+    pub fn screen_flow(&self) -> ScreenFlowStructure {
+        ScreenFlowStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "screenFlow"))
+    }
+
+    /// 10.4. Print Layout. Seeds → UP.
+    pub fn print_layout(&self) -> PrintLayout {
+        PrintLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
+    }
+
+    // Data Structure Alignment.
+    // (skipped: dataStructureAlignment has no target type)
+
+    // Authorization Compliance.
+    // (skipped: authorizationCompliance has no target type)
+
+    /// 10.7. Error Handling Concept. Seeds → UP.
+    pub fn error_handling(&self) -> ErrorHandlingConcept {
+        ErrorHandlingConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
+    }
+
+    /// 10.8. Help Concept. Seeds → UP.
+    pub fn help_concept(&self) -> HelpConcept {
+        HelpConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpConcept"))
+    }
+
+    /// 10.9. Accessibility. Seeds → UP.
+    pub fn accessibility(&self) -> Accessibility {
+        Accessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
+    }
+
+    /// 10.10. Responsive Design. Seeds → UP.
+    pub fn responsive_design(&self) -> ResponsiveDesign {
+        ResponsiveDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveDesign"))
+    }
+
+    /// 10.11. UI Components. Seeds → UP.
+    pub fn ui_components(&self) -> UiComponents {
+        UiComponents::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiComponents"))
+    }
+
+    /// 10.12. Multi-language and Rollout Support.
+    pub fn multi_language(&self) -> MultiLanguageAndRollout {
+        MultiLanguageAndRollout::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguage"))
+    }
+
+    /// 10.13. Prototype. Seeds → UP.
+    pub fn prototype(&self) -> Prototype {
+        Prototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototype"))
+    }
+
+    /// 10.14. Wireframes and Mockups..
+    pub fn wireframes_and_mockups(&self) -> som::SomList<WireframesAndMockups> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "WIANMO-WIRE-LST"),
+            Box::new(|d, p| WireframesAndMockups::new(d, p)),
+        )
+    }
+}
+
+/// UP00 UI Prototype.
+///
+/// Full UI design and prototype specification — vision, screens,
+/// screen flow, print, error handling, help, accessibility, responsive,
+/// components, language/country selection, prototype, wireframes and
+/// mockups.
+pub struct ExperienceDesignSpecification {
+    pub node: som::SomNode,
+}
+
+/// EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "0.0";
+
+impl ExperienceDesignSpecification {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<ExperienceDesignSpecification, som::SomVersionError> {
+        som::check_som_model_version(EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION, document_version)?;
+        Ok(ExperienceDesignSpecification { node: som::SomNode::new(doc, "XDS".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Design vision.
+    pub fn design_vision(&self) -> DesignVision {
+        DesignVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "designVision"))
+    }
+
+    /// Screen descriptions.
+    pub fn screens(&self) -> ScreenDescriptions {
+        ScreenDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "screens"))
+    }
+
+    /// Screen flow structure.
+    pub fn screen_flow(&self) -> ScreenFlowStructure {
+        ScreenFlowStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "screenFlow"))
+    }
+
+    /// Print layout.
+    pub fn print_layout(&self) -> PrintLayout {
+        PrintLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
+    }
+
+    /// Error handling concept.
+    pub fn error_handling(&self) -> ErrorHandlingConcept {
+        ErrorHandlingConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
+    }
+
+    /// Help concept.
+    pub fn help_concept(&self) -> HelpConcept {
+        HelpConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpConcept"))
+    }
+
+    /// Accessibility.
+    pub fn accessibility(&self) -> Accessibility {
+        Accessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
+    }
+
+    /// Responsive design.
+    pub fn responsive_design(&self) -> ResponsiveDesign {
+        ResponsiveDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveDesign"))
+    }
+
+    /// UI components.
+    pub fn ui_components(&self) -> UiComponents {
+        UiComponents::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiComponents"))
+    }
+
+    /// Language and country selection.
+    pub fn language_country_selection(&self) -> LanguageCountrySelection {
+        LanguageCountrySelection::new(self.node.doc(), format!("{}/{}", self.node.path(), "languageCountrySelection"))
+    }
+
+    /// Prototype.
+    pub fn prototype(&self) -> Prototype {
+        Prototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototype"))
+    }
+
+    /// Wireframes and mockups (new in Phase A).
+    pub fn wireframes_and_mockups(&self) -> som::SomList<WireframesAndMockups> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "WIANMO-WIRE-LST"),
+            Box::new(|d, p| WireframesAndMockups::new(d, p)),
+        )
     }
 }
 
@@ -25443,7 +25423,7 @@ impl ExportDelimiter {
     }
 }
 
-/// A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).
+/// A field mapping within an export (form).
 pub struct ExportFieldMappingEntry {
     pub node: som::SomNode,
 }
@@ -25559,7 +25539,7 @@ impl ExportFileFormat {
     }
 }
 
-/// An export format entry (form) [PD00-USE-PRI-EXP-nn].
+/// An export format entry (form).
 pub struct ExportFormatEntry {
     pub node: som::SomNode,
 }
@@ -25692,7 +25672,7 @@ impl ExportSizeSettings {
     }
 }
 
-/// A reusable export template [PD00-USE-PRI-TPL-nn] (form).
+/// A reusable export template (form).
 pub struct ExportTemplateEntry {
     pub node: som::SomNode,
 }
@@ -25792,7 +25772,7 @@ impl ExportTemplateEntryLayout {
     }
 }
 
-/// An extension entry [PD00-TAR-STP-INT-nn-EXT-nn].
+/// An extension entry.
 pub struct ExtensionEntry {
     pub node: som::SomNode,
 }
@@ -25817,7 +25797,7 @@ impl ExtensionEntry {
     }
 }
 
-/// An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn].
+/// An extension step entry.
 pub struct ExtensionStepEntry {
     pub node: som::SomNode,
 }
@@ -25900,7 +25880,7 @@ impl ExternalActorEntryInteraction {
     }
 }
 
-/// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+/// 4.1.2.3. External Actors.
 ///
 /// Human users and organizational entities that interact with the system
 /// from outside the system boundary.
@@ -25933,7 +25913,7 @@ impl ExternalActors {
     }
 }
 
-/// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+/// 8.6.2. External Connectivity.
 pub struct ExternalConnectivitySection {
     pub node: som::SomNode,
 }
@@ -25991,7 +25971,7 @@ impl ExternalConnectivitySection {
     }
 }
 
-/// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+/// An external interface entry (form).
 ///
 /// Comprehensive documentation of an external system interface covering
 /// identification, technical details, data exchange specification, security,
@@ -26053,7 +26033,7 @@ impl ExternalInterfaceEntry {
     }
 }
 
-/// Container for external interface definitions [PD00-SYO-SYB-INT].
+/// Container for external interface definitions.
 ///
 /// Provides structured inventory of all external system integrations with
 /// categorization, prioritization, and governance information. Each interface
@@ -26205,7 +26185,7 @@ impl ExternalPartnerAuthentication {
     }
 }
 
-/// An external partner connection entry (form) [PD00-TEC-COM-EXT-nn].
+/// An external partner connection entry (form).
 pub struct ExternalPartnerConnectionEntry {
     pub node: som::SomNode,
 }
@@ -26335,7 +26315,7 @@ impl ExternalPartnerReliability {
     }
 }
 
-/// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+/// 1.1.3.2. External Service Dependencies.
 ///
 /// Dependencies on external services, third-party APIs, SaaS platforms,
 /// and cloud services not under direct organizational control.
@@ -26368,7 +26348,7 @@ impl ExternalServiceDependencies {
     }
 }
 
-/// An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn].
+/// An external service dependency entry (form).
 ///
 /// Documents a dependency on an external service or third-party provider
 /// including vendor details, SLA, risk assessment, and fallback options.
@@ -26543,7 +26523,7 @@ impl ExternalSystemContextEntryOperations {
     }
 }
 
-/// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+/// 4.1.2.4. External Systems.
 ///
 /// External systems, services, and APIs that the system integrates with.
 pub struct ExternalSystemsContext {
@@ -26607,7 +26587,7 @@ impl FeatureBusinessValue {
     }
 }
 
-/// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+/// 13.4.4. Feature Dependencies.
 ///
 /// Cross-feature dependencies affecting staging order, critical path
 /// analysis, and delivery sequencing.
@@ -26654,7 +26634,7 @@ impl FeatureDependenciesInfo {
     }
 }
 
-/// A feature dependency entry (form) [PD00-SSP-FEA-DEP-nn].
+/// A feature dependency entry (form).
 ///
 /// Describes a single directional dependency between two features,
 /// including type, impact, and resolution strategy.
@@ -26826,7 +26806,7 @@ impl FeatureModuleEntryStructure {
     }
 }
 
-/// 13.4. Feature Prioritization [PD00-SSP-FEA].
+/// 13.4. Feature Prioritization.
 ///
 /// Comprehensive feature prioritization framework for staged delivery.
 /// Covers prioritization methodology, MoSCoW analysis, feature-stage
@@ -26880,22 +26860,22 @@ impl FeaturePrioritization {
     // Prioritization rationale narrative.
     // (skipped: prioritizationRationale has no target type)
 
-    /// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+    /// 13.4.1. MoSCoW Analysis.
     pub fn moscow_analysis(&self) -> MoscowAnalysis {
         MoscowAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "moscowAnalysis"))
     }
 
-    /// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+    /// 13.4.2. Feature-Stage Matrix.
     pub fn feature_stage_matrix(&self) -> FeatureStageMatrix {
         FeatureStageMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "featureStageMatrix"))
     }
 
-    /// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+    /// 13.4.3. Feature Priority Register.
     pub fn feature_priority_register(&self) -> FeaturePriorityRegister {
         FeaturePriorityRegister::new(self.node.doc(), format!("{}/{}", self.node.path(), "featurePriorityRegister"))
     }
 
-    /// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+    /// 13.4.4. Feature Dependencies.
     pub fn feature_dependencies(&self) -> FeatureDependencies {
         FeatureDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "featureDependencies"))
     }
@@ -26997,7 +26977,7 @@ impl FeaturePrioritizationTraceability {
     }
 }
 
-/// An individual feature priority entry (form) [PD00-SSP-FEA-REG-nn].
+/// An individual feature priority entry (form).
 ///
 /// Comprehensive record covering identity, classification, business
 /// value, effort, priority scoring, stage assignment, dependencies,
@@ -27066,7 +27046,7 @@ impl FeaturePriorityEntry {
     }
 }
 
-/// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+/// 13.4.3. Feature Priority Register.
 ///
 /// Master register of all features with comprehensive priority scoring,
 /// business value analysis, effort estimates, stakeholder ownership,
@@ -27127,7 +27107,7 @@ impl FeatureStageAssignment {
     }
 }
 
-/// A feature-to-stage mapping entry (form) [PD00-SSP-FEA-MAT-nn].
+/// A feature-to-stage mapping entry (form).
 ///
 /// Maps a single feature or feature group to its delivery stage with
 /// readiness, confidence, and dependency information.
@@ -27230,7 +27210,7 @@ impl FeatureStageMappingReadiness {
     }
 }
 
-/// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+/// 13.4.2. Feature-Stage Matrix.
 ///
 /// Maps every feature or feature group to the delivery stage, tracking
 /// readiness, confidence, dependencies, and acceptance criteria.
@@ -27293,7 +27273,7 @@ impl FeatureStatus {
     }
 }
 
-/// A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
+/// A feature tour entry.
 pub struct FeatureTourEntry {
     pub node: som::SomNode,
 }
@@ -27334,7 +27314,7 @@ impl FeatureTraceability {
     }
 }
 
-/// A field help entry [PD00-USE-HLP-CON-FLD-nn].
+/// A field help entry.
 pub struct FieldHelpEntry {
     pub node: som::SomNode,
 }
@@ -27415,7 +27395,7 @@ impl FileAccessControlPolicy {
     // (skipped: fileAccessControlDetails has no target type)
 }
 
-/// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+/// 9.3.3. File and Storage Security.
 ///
 /// Comprehensive file and storage security specification covering upload
 /// validation, storage encryption, access control on file resources, content
@@ -27659,7 +27639,7 @@ impl FirewallRequirementsRules {
     }
 }
 
-/// 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
+/// 11.3.3. Flexibility quality.
 pub struct FlexibilityQuality {
     pub node: som::SomNode,
 }
@@ -27778,7 +27758,7 @@ impl FrameworkCompatibility {
     }
 }
 
-/// 4.6. Framework Conditions [PD00-SYO-RES].
+/// 4.6. Framework Conditions.
 ///
 /// Documents the organizational and technical environment in which the system
 /// will operate. Covers organizational structure, functional responsibilities,
@@ -27797,28 +27777,28 @@ impl FrameworkConditions {
     // Framework conditions overview.
     // (skipped: overview has no target type)
 
-    /// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+    /// 4.6.1. Organizational Environment.
     pub fn organizational_environment(&self) -> OrganizationalEnvironment {
         OrganizationalEnvironment::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalEnvironment"))
     }
 
-    /// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
+    /// 4.6.2. Functional Responsibilities — contains 0+×.
     pub fn functional_responsibilities(&self) -> FunctionalResponsibilities {
         FunctionalResponsibilities::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalResponsibilities"))
     }
 
-    /// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+    /// 4.6.3. Technical Framework Conditions. Seeds → TR.
     pub fn technical_framework_conditions(&self) -> TechnicalFrameworkConditions {
         TechnicalFrameworkConditions::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFrameworkConditions"))
     }
 
-    /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
+    /// 4.6.4. Constraints and Dependencies — contains 0+×.
     pub fn constraints_and_dependencies(&self) -> ConstraintsAndDependencies {
         ConstraintsAndDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "constraintsAndDependencies"))
     }
 }
 
-/// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+/// 4.6.4.2. Dependencies.
 ///
 /// External dependencies on other projects, teams, vendors, systems, or
 /// organizational initiatives. Each dependency represents a point where
@@ -27893,7 +27873,7 @@ impl FrameworkDependenciesManagement {
     }
 }
 
-/// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+/// A framework dependency entry (form).
 ///
 /// Represents a single external dependency where this project relies on
 /// another party (project, team, vendor, system) to deliver something.
@@ -28089,7 +28069,7 @@ impl FrameworkVersion {
     }
 }
 
-/// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+/// 3.3.1. Full Distribution.
 ///
 /// Recipients who receive all project documents and communications.
 pub struct FullDistribution {
@@ -28126,7 +28106,7 @@ impl FullDistribution {
     }
 }
 
-/// A function-to-data matrix entry (form) [PD00-BUS-FUN-MAT-nn].
+/// A function-to-data matrix entry (form).
 ///
 /// Maps a function to the data entities it accesses.
 pub struct FunctionDataMatrixEntry {
@@ -28144,7 +28124,7 @@ impl FunctionDataMatrixEntry {
     }
 }
 
-/// A function entry (form) [PD00-BUS-FUN-DEC-nn].
+/// A function entry (form).
 ///
 /// Business function specification in the functional decomposition.
 pub struct FunctionEntry {
@@ -28176,7 +28156,7 @@ impl FunctionEntry {
         FunctionEntryImplementation::new(self.node.doc(), format!("{}/{}", self.node.path(), "implementation"))
     }
 
-    /// Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
+    /// Sub-functions — contains 0+× SubFunction.
     pub fn sub_functions(&self) -> som::SomList<SubFunctionEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -28234,7 +28214,7 @@ impl FunctionEntryOperations {
     }
 }
 
-/// 7.3. Function Model [PD00-BUS-FUN].
+/// 7.3. Function Model.
 ///
 /// Business functions, their decomposition, and relationships to data objects.
 pub struct FunctionModel {
@@ -28255,7 +28235,7 @@ impl FunctionModel {
         FunctionModelMatrixOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "matrixOverview"))
     }
 
-    /// 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC] — contains 0+× Function.
+    /// 7.3.1. Function Decomposition — contains 0+× Function.
     pub fn functions(&self) -> som::SomList<FunctionEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -28264,7 +28244,7 @@ impl FunctionModel {
         )
     }
 
-    /// 7.3.2. Function-to-Data Matrix Entries [PD00-BUS-FUN-MAT] — contains 0+× MatrixEntry.
+    /// 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
     pub fn matrix_entries(&self) -> som::SomList<FunctionDataMatrixEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -28273,7 +28253,7 @@ impl FunctionModel {
         )
     }
 
-    /// 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
+    /// 7.3.3. Business Rules — contains 1+× Business Rule.
     pub fn business_rules(&self) -> som::SomList<BusinessRuleEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -28283,7 +28263,7 @@ impl FunctionModel {
     }
 }
 
-/// 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
+/// 11.2.2. Functional completeness quality.
 pub struct FunctionalCompletenessQuality {
     pub node: som::SomNode,
 }
@@ -28302,7 +28282,7 @@ impl FunctionalCompletenessQuality {
     // (skipped: narrative has no target type)
 }
 
-/// A functional requirement entry [PD00-SYO-REQ-FUN-nn].
+/// A functional requirement entry.
 ///
 /// Comprehensive functional requirement definition following IEEE 830,
 /// ISO 29148, and Volere requirements shell. Includes traceability,
@@ -28351,37 +28331,37 @@ impl FunctionalRequirementEntry {
         FunctionalRequirementEntryMetadata::new(self.node.doc(), format!("{}/{}", self.node.path(), "metadata"))
     }
 
-    /// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+    /// 4.3.1.n.1. Acceptance Criteria.
     pub fn acceptance_criteria(&self) -> RequirementAcceptanceCriteria {
         RequirementAcceptanceCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteria"))
     }
 
-    /// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+    /// 4.3.1.n.2. Business Rules.
     pub fn business_rules(&self) -> RequirementBusinessRules {
         RequirementBusinessRules::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessRules"))
     }
 
-    /// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+    /// 4.3.1.n.3. Data Requirements.
     pub fn data_requirements(&self) -> RequirementDataRequirements {
         RequirementDataRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataRequirements"))
     }
 
-    /// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+    /// 4.3.1.n.4. UI Specification.
     pub fn ui_specification(&self) -> RequirementUiSpecification {
         RequirementUiSpecification::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiSpecification"))
     }
 
-    /// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+    /// 4.3.1.n.5. Dependencies.
     pub fn dependencies(&self) -> RequirementDependencies {
         RequirementDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencies"))
     }
 
-    /// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+    /// 4.3.1.n.6. Traceability.
     pub fn traceability(&self) -> RequirementTraceability {
         RequirementTraceability::new(self.node.doc(), format!("{}/{}", self.node.path(), "traceability"))
     }
 
-    /// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+    /// 4.3.1.n.7. Test Cases.
     pub fn test_cases(&self) -> RequirementTestCases {
         RequirementTestCases::new(self.node.doc(), format!("{}/{}", self.node.path(), "testCases"))
     }
@@ -28483,7 +28463,7 @@ impl FunctionalRequirementEntryVerification {
     }
 }
 
-/// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+/// 4.3.1. Functional Requirements.
 ///
 /// Container for functional requirements. Functional requirements describe
 /// what the system must do — its features, behaviors, processing rules,
@@ -28523,7 +28503,7 @@ impl FunctionalRequirements {
     }
 }
 
-/// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+/// 4.6.2. Functional Responsibilities.
 ///
 /// Maps system functions to organizational units responsible for them.
 /// Identifies domain owners, data stewards, and operational contacts for
@@ -28556,7 +28536,7 @@ impl FunctionalResponsibilities {
     }
 }
 
-/// A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
+/// A gap entry (form) — a missing capability or feature.
 ///
 /// Documents a specific gap between current capabilities and business needs:
 /// category, severity, quantified cost, stakeholders, compliance drivers,
@@ -28660,7 +28640,7 @@ impl GapEntryWorkaround {
     }
 }
 
-/// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+/// 1.3.4. Gaps.
 pub struct Gaps {
     pub node: som::SomNode,
 }
@@ -28811,7 +28791,7 @@ impl GlobalEntryPointEntry {
     }
 }
 
-/// A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn].
+/// A global role exclusion entry (form).
 ///
 /// Defines system-wide mutual exclusion rules that apply across all users,
 /// independent of individual role definitions.
@@ -28830,7 +28810,79 @@ impl GlobalRoleExclusionEntry {
     }
 }
 
-/// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+/// An ordered collection of glossary entries.
+pub struct Glossary {
+    pub node: som::SomNode,
+}
+
+impl Glossary {
+    /// Binds a Glossary facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Glossary {
+        Glossary { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// One entry per defined term or acronym.
+    pub fn entries(&self) -> som::SomList<GlossaryEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "GLOSS-ENTR-LST"),
+            Box::new(|d, p| GlossaryEntry::new(d, p)),
+        )
+    }
+}
+
+/// SBP.3 Glossary & Abbreviations.
+pub struct GlossaryAndAbbreviations {
+    pub node: som::SomNode,
+}
+
+impl GlossaryAndAbbreviations {
+    /// Binds a GlossaryAndAbbreviations facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GlossaryAndAbbreviations {
+        GlossaryAndAbbreviations { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// The set of defined terms and abbreviations.
+    pub fn glossary(&self) -> Glossary {
+        Glossary::new(self.node.doc(), format!("{}/{}", self.node.path(), "glossary"))
+    }
+}
+
+/// A single glossary entry (form).
+pub struct GlossaryEntry {
+    pub node: som::SomNode,
+}
+
+impl GlossaryEntry {
+    /// Binds a GlossaryEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GlossaryEntry {
+        GlossaryEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> GlossaryEntryContentForm {
+        GlossaryEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 4.2.1.n.3. Dependencies.
 ///
 /// Dependencies that may affect goal achievement.
 pub struct GoalDependencies {
@@ -28887,7 +28939,7 @@ impl GoalDependencyEntry {
     }
 }
 
-/// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+/// 4.2.1.n.1. Key Results.
 ///
 /// OKR-style key results that indicate progress toward the goal.
 /// Key results are specific, measurable outcomes that together constitute
@@ -28937,7 +28989,7 @@ impl GoalMilestoneEntry {
     }
 }
 
-/// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+/// 4.2.1.n.2. Milestones.
 ///
 /// Key milestones marking progress toward the goal.
 pub struct GoalMilestones {
@@ -28969,7 +29021,7 @@ impl GoalMilestones {
     }
 }
 
-/// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+/// 4.2.1.n.5. Resources.
 ///
 /// Resources required to achieve the goal.
 pub struct GoalResources {
@@ -29064,7 +29116,7 @@ impl GoalRiskEntryResponse {
     }
 }
 
-/// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+/// 4.2.1.n.4. Risks.
 ///
 /// Risks that may prevent or delay goal achievement.
 pub struct GoalRisks {
@@ -29096,7 +29148,7 @@ impl GoalRisks {
     }
 }
 
-/// 4.2. Goals [PD00-SYO-GOA].
+/// 4.2. Goals.
 ///
 /// Container for project goals organized by category. Goals provide measurable
 /// objectives that guide project execution and define success. This section
@@ -29131,17 +29183,17 @@ impl Goals {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+    /// 4.2.1. Business Goals.
     pub fn business_goals(&self) -> BusinessGoals {
         BusinessGoals::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessGoals"))
     }
 
-    /// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+    /// 4.2.2. Technical Goals.
     pub fn technical_goals(&self) -> TechnicalGoals {
         TechnicalGoals::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalGoals"))
     }
 
-    /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+    /// 4.2.3. Success Criteria.
     pub fn success_criteria(&self) -> SuccessCriteria {
         SuccessCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "successCriteria"))
     }
@@ -29172,7 +29224,7 @@ impl GovernanceModel {
     }
 }
 
-/// A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
+/// A data handling requirement entry (form).
 ///
 /// Specific handling procedures for classified data.
 pub struct HandlingRequirementEntry {
@@ -29190,7 +29242,7 @@ impl HandlingRequirementEntry {
     }
 }
 
-/// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+/// 8.4. Hardware Concept Requirements.
 pub struct HardwareRequirements {
     pub node: som::SomNode,
 }
@@ -29210,17 +29262,17 @@ impl HardwareRequirements {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+    /// 8.4.1. Server Requirements.
     pub fn server_requirements(&self) -> ServerRequirementsSection {
         ServerRequirementsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "serverRequirements"))
     }
 
-    /// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+    /// 8.4.2. Client Requirements.
     pub fn client_requirements(&self) -> ClientRequirementsSection {
         ClientRequirementsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "clientRequirements"))
     }
 
-    /// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+    /// 8.4.3. Network Requirements.
     pub fn network_requirements(&self) -> NetworkRequirementsSection {
         NetworkRequirementsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "networkRequirements"))
     }
@@ -29305,7 +29357,7 @@ impl HealthCheckEndpointsTiming {
     }
 }
 
-/// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+/// 8.7.2.1. Health Checks and Diagnostics.
 pub struct HealthChecksAndDiagnosticsSection {
     pub node: som::SomNode,
 }
@@ -29354,7 +29406,7 @@ impl HealthChecksAndDiagnosticsSection {
     }
 }
 
-/// 10.8. Help Concept [PD00-USE-HLP].
+/// 10.8. Help Concept.
 ///
 /// Comprehensive in-app help system including contextual help, onboarding,
 /// and support access mechanisms.
@@ -29385,17 +29437,17 @@ impl HelpConcept {
     // Help system overview narrative.
     // (skipped: helpOverview has no target type)
 
-    /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+    /// 10.8.1. Contextual Help.
     pub fn contextual_help(&self) -> ContextualHelp {
         ContextualHelp::new(self.node.doc(), format!("{}/{}", self.node.path(), "contextualHelp"))
     }
 
-    /// 10.8.2. Onboarding [PD00-USE-HLP-ONB].
+    /// 10.8.2. Onboarding.
     pub fn onboarding(&self) -> OnboardingHelp {
         OnboardingHelp::new(self.node.doc(), format!("{}/{}", self.node.path(), "onboarding"))
     }
 
-    /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+    /// 10.8.3. Support Access.
     pub fn support_access(&self) -> SupportAccess {
         SupportAccess::new(self.node.doc(), format!("{}/{}", self.node.path(), "supportAccess"))
     }
@@ -29615,7 +29667,7 @@ impl IdeRequirementEntryStandardization {
     }
 }
 
-/// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+/// 9.2.1. Identification.
 ///
 /// Defines the identity management model: how identities are created,
 /// sourced, verified, federated, and mapped. Covers identity sources,
@@ -29644,7 +29696,7 @@ impl Identification {
         )
     }
 
-    /// Identity Verification [PD00-ACC-IDE-IDN-VER].
+    /// Identity Verification.
     pub fn identity_verification(&self) -> IdentityVerificationPolicy {
         IdentityVerificationPolicy::new(self.node.doc(), format!("{}/{}", self.node.path(), "identityVerification"))
     }
@@ -29658,12 +29710,12 @@ impl Identification {
         )
     }
 
-    /// Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+    /// Single Sign-On.
     pub fn single_sign_on(&self) -> SingleSignOnPolicy {
         SingleSignOnPolicy::new(self.node.doc(), format!("{}/{}", self.node.path(), "singleSignOn"))
     }
 
-    /// Self-Registration [PD00-ACC-IDE-IDN-REG].
+    /// Self-Registration.
     pub fn self_registration(&self) -> SelfRegistrationPolicy {
         SelfRegistrationPolicy::new(self.node.doc(), format!("{}/{}", self.node.path(), "selfRegistration"))
     }
@@ -29678,7 +29730,7 @@ impl Identification {
     }
 }
 
-/// 9.2. Identification and Authentication [PD00-ACC-IDE].
+/// 9.2. Identification and Authentication.
 pub struct IdentificationAndAuthentication {
     pub node: som::SomNode,
 }
@@ -29698,18 +29750,18 @@ impl IdentificationAndAuthentication {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+    /// 9.2.1. Identification.
     pub fn identification(&self) -> Identification {
         Identification::new(self.node.doc(), format!("{}/{}", self.node.path(), "identification"))
     }
 
-    /// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+    /// 9.2.2. Authentication.
     pub fn authentication(&self) -> Authentication {
         Authentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "authentication"))
     }
 }
 
-/// An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].
+/// An identity attribute mapping entry (form).
 ///
 /// Defines how attributes map between identity sources and the application:
 /// source/target field, data type, transformation, sync direction.
@@ -29823,7 +29875,7 @@ impl IdentityProviderEndpoints {
     }
 }
 
-/// An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].
+/// An identity provider entry (form).
 ///
 /// Configuration for a single Identity Provider (IdP): protocol, endpoints,
 /// attribute mapping, trust level, certificate management.
@@ -29923,7 +29975,7 @@ impl IdentityProviderTrust {
     }
 }
 
-/// An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn].
+/// An identity source entry (form).
 ///
 /// Defines one source from which identities are obtained, e.g.
 /// internal directory, LDAP, external IdP, HR system, self-registration.
@@ -30026,7 +30078,7 @@ impl IdentitySourceEntryOperations {
     }
 }
 
-/// Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER].
+/// Identity verification/proofing policy (form).
 ///
 /// Defines how identity claims are verified: verification level, required
 /// documents, automation, proofing standards (NIST IAL), and re-verification.
@@ -30601,7 +30653,43 @@ impl IndustryStandardEntryVerification {
     }
 }
 
-/// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+/// 7. Business Object and Data Model. Seeds → BDM.
+pub struct InformationAndDataModel {
+    pub node: som::SomNode,
+}
+
+impl InformationAndDataModel {
+    /// Binds a InformationAndDataModel facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> InformationAndDataModel {
+        InformationAndDataModel { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 7.1. Data Model.
+    pub fn data_model(&self) -> DataModel {
+        DataModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataModel"))
+    }
+
+    /// 7.2. Business Object Model.
+    pub fn business_object_model(&self) -> BusinessObjectModel {
+        BusinessObjectModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessObjectModel"))
+    }
+
+    /// 7.3. Function Model.
+    pub fn function_model(&self) -> FunctionModel {
+        FunctionModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionModel"))
+    }
+}
+
+/// 10.2.2. Information Architecture.
 ///
 /// Overall information architecture: site map, content hierarchy, navigation
 /// structure, and entry points. Describes how screens relate to each other
@@ -30643,8 +30731,169 @@ impl InformationArchitecture {
         )
     }
 
-    // 10.2.2.5. Information Architecture Diagram [PD00-USE-SCR-INF-DIA].
+    // 10.2.2.5. Information Architecture Diagram.
     // (skipped: architectureDiagram has no target type)
+}
+
+/// Information-for-Use (user documentation) requirements.
+///
+/// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
+/// *quality criteria* cross-map lives in SBP.14
+/// (`DocumentationQualityCriteria`).
+///
+/// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
+/// doc/training field-split (separating the documentation half from the
+/// training half) is deferred to IP-8.
+pub struct InformationForUseRequirements {
+    pub node: som::SomNode,
+}
+
+impl InformationForUseRequirements {
+    /// Binds a InformationForUseRequirements facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> InformationForUseRequirements {
+        InformationForUseRequirements { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Documentation (and, until the IP-8 split, training) requirements,
+    /// re-homed from MLAR.
+    pub fn documentation_and_training(&self) -> DocumentationAndTraining {
+        DocumentationAndTraining::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationAndTraining"))
+    }
+}
+
+/// BDM00 Business Data Model.
+///
+/// Full business data model: entities, relationships, ER diagram, data
+/// classification, business objects, function decomposition, function-
+/// to-data matrix, business rules, data dictionary, and validation /
+/// integrity constraints.
+pub struct InformationModel {
+    pub node: som::SomNode,
+}
+
+/// INFORMATION_MODEL_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const INFORMATION_MODEL_MODEL_VERSION: &str = "0.0";
+
+impl InformationModel {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<InformationModel, som::SomVersionError> {
+        som::check_som_model_version(INFORMATION_MODEL_MODEL_VERSION, document_version)?;
+        Ok(InformationModel { node: som::SomNode::new(doc, "IFM".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        INFORMATION_MODEL_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Entity inventory (list).
+    pub fn entities(&self) -> som::SomList<DataEntityEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DAENT-ENTI-LST"),
+            Box::new(|d, p| DataEntityEntry::new(d, p)),
+        )
+    }
+
+    /// Entity relationships.
+    pub fn entity_relationships(&self) -> EntityRelationships {
+        EntityRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "entityRelationships"))
+    }
+
+    // Entity-relationship diagram.
+    // (skipped: erDiagram has no target type)
+
+    /// Data classification.
+    pub fn data_classification(&self) -> DataClassification {
+        DataClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataClassification"))
+    }
+
+    /// Business object catalog (list).
+    pub fn object_catalog(&self) -> som::SomList<BusinessObjectEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "BJOEN-OBJE-LST"),
+            Box::new(|d, p| BusinessObjectEntry::new(d, p)),
+        )
+    }
+
+    // Business object diagram.
+    // (skipped: objectDiagram has no target type)
+
+    /// Function decomposition (list).
+    pub fn function_decomposition(&self) -> som::SomList<FunctionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "FUNCT-FUNC-LST"),
+            Box::new(|d, p| FunctionEntry::new(d, p)),
+        )
+    }
+
+    /// Function-to-data matrix (list).
+    pub fn function_to_data_matrix(&self) -> som::SomList<FunctionDataMatrixEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "FNDMX-FUNC-LST"),
+            Box::new(|d, p| FunctionDataMatrixEntry::new(d, p)),
+        )
+    }
+
+    /// Business rules catalog (list).
+    pub fn business_rules(&self) -> som::SomList<BusinessRuleEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "BIRU-BUSI-LST"),
+            Box::new(|d, p| BusinessRuleEntry::new(d, p)),
+        )
+    }
+
+    /// Data dictionary.
+    pub fn data_dictionary(&self) -> DataDictionary {
+        DataDictionary::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataDictionary"))
+    }
+
+    /// Validation constraints.
+    pub fn validation_constraints(&self) -> som::SomList<ValidationConstraints> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "VACO-VALI-LST"),
+            Box::new(|d, p| ValidationConstraints::new(d, p)),
+        )
+    }
+
+    /// Integrity constraints.
+    pub fn integrity_constraints(&self) -> som::SomList<IntegrityConstraints> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "INCO-INTE-LST"),
+            Box::new(|d, p| IntegrityConstraints::new(d, p)),
+        )
+    }
 }
 
 /// Infrastructure as Code requirements.
@@ -31026,7 +31275,7 @@ impl InfrastructureSecurityHardeningNetwork {
     }
 }
 
-/// 13.7. Initial Development Flow [PD00-SSP-IDV].
+/// 13.7. Initial Development Flow.
 ///
 /// Inter-phase dependencies during the initial build (Phases 1–7 of
 /// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
@@ -31115,7 +31364,7 @@ impl InitialTrainingDelivery {
     }
 }
 
-/// Initial training entry (form) [PD00-ORG-WOR-nn-TRA-INI-nn].
+/// Initial training entry (form).
 pub struct InitialTrainingEntry {
     pub node: som::SomNode,
 }
@@ -31172,7 +31421,7 @@ impl InitialTrainingSchedule {
     }
 }
 
-/// Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn].
+/// Input device entry (form).
 pub struct InputDeviceEntry {
     pub node: som::SomNode,
 }
@@ -31220,7 +31469,7 @@ impl InsuranceEntry {
     }
 }
 
-/// 3.6.5. Insurance and Liability Requirements [PD00-ADM-OTH-INS].
+/// 3.6.5. Insurance and Liability Requirements.
 ///
 /// Insurance coverage and liability agreements.
 pub struct InsuranceLiabilityRequirements {
@@ -31382,7 +31631,7 @@ impl IntegrationArchitectureSystems {
     }
 }
 
-/// An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
+/// An integration constraint entry (form).
 ///
 /// Documents a technical constraint on system integration, including
 /// protocol requirements, format restrictions, and platform mandates.
@@ -31485,7 +31734,7 @@ impl IntegrationConstraintEntryScope {
     }
 }
 
-/// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+/// 1.1.3.5. Integration Health Summary.
 ///
 /// Executive summary of overall integration landscape health and risk areas.
 pub struct IntegrationHealthSummary {
@@ -31502,13 +31751,116 @@ impl IntegrationHealthSummary {
         IntegrationHealthSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
-    /// Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
+    /// Fragile integration points requiring attention.
     pub fn fragile_points(&self) -> som::SomList<FragilePointEntry> {
         som::SomList::new(
             self.node.doc(),
             format!("{}/{}", self.node.path(), "FRAGI-FRAG-LST"),
             Box::new(|d, p| FragilePointEntry::new(d, p)),
         )
+    }
+}
+
+/// BSI00 Business System Interactions.
+///
+/// Complete interaction specification between the target system and
+/// external systems: inventory, patterns, testing, dependencies,
+/// migration, operational concerns, and cross-boundary error handling.
+pub struct IntegrationInterfaceSpecification {
+    pub node: som::SomNode,
+}
+
+/// INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "0.0";
+
+impl IntegrationInterfaceSpecification {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<IntegrationInterfaceSpecification, som::SomVersionError> {
+        som::check_som_model_version(INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION, document_version)?;
+        Ok(IntegrationInterfaceSpecification { node: som::SomNode::new(doc, "IIS".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// External interfaces.
+    pub fn external_interfaces(&self) -> ExternalInterfaces {
+        ExternalInterfaces::new(self.node.doc(), format!("{}/{}", self.node.path(), "externalInterfaces"))
+    }
+
+    /// Out of scope.
+    pub fn out_of_scope(&self) -> OutOfScope {
+        OutOfScope::new(self.node.doc(), format!("{}/{}", self.node.path(), "outOfScope"))
+    }
+
+    /// Boundary assumptions.
+    pub fn boundary_assumptions(&self) -> BoundaryAssumptions {
+        BoundaryAssumptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "boundaryAssumptions"))
+    }
+
+    /// System landscape inventory.
+    pub fn system_inventory(&self) -> SystemLandscapeInventory {
+        SystemLandscapeInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemInventory"))
+    }
+
+    /// Boundary interaction patterns.
+    pub fn interaction_patterns(&self) -> som::SomList<BoundaryInteractionPatterns> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "BOINPA-INTE-LST"),
+            Box::new(|d, p| BoundaryInteractionPatterns::new(d, p)),
+        )
+    }
+
+    /// Interaction testing strategy.
+    pub fn testing_strategy(&self) -> InteractionTestingStrategy {
+        InteractionTestingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "testingStrategy"))
+    }
+
+    /// Interaction dependency analysis.
+    pub fn dependency_analysis(&self) -> InteractionDependencyAnalysis {
+        InteractionDependencyAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencyAnalysis"))
+    }
+
+    /// Migration interactions.
+    pub fn migration_interactions(&self) -> som::SomList<MigrationInteractions> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "MIIN-MIGR-LST"),
+            Box::new(|d, p| MigrationInteractions::new(d, p)),
+        )
+    }
+
+    /// Cross-boundary operational considerations.
+    pub fn operational_considerations(&self) -> som::SomList<CrossBoundaryOperationalConsiderations> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CBOC-OPER-LST"),
+            Box::new(|d, p| CrossBoundaryOperationalConsiderations::new(d, p)),
+        )
+    }
+
+    /// Cross-boundary error handling.
+    pub fn cross_boundary_error_handling(&self) -> CrossBoundaryErrorHandling {
+        CrossBoundaryErrorHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "crossBoundaryErrorHandling"))
     }
 }
 
@@ -31549,7 +31901,7 @@ impl IntegrationPointEntry {
     }
 }
 
-/// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+/// 1.1.3.4. System Integrations.
 ///
 /// Active integrations between systems including protocols, data formats,
 /// error handling, and monitoring.
@@ -31582,7 +31934,7 @@ impl Integrations {
     }
 }
 
-/// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+/// 7.1.7. Integrity Constraints.
 ///
 /// Cross-entity integrity rules beyond simple referential integrity.
 pub struct IntegrityConstraints {
@@ -31605,7 +31957,7 @@ impl IntegrityConstraints {
     }
 }
 
-/// 3.6.1. Intellectual Property Requirements [PD00-ADM-OTH-IPR].
+/// 3.6.1. Intellectual Property Requirements.
 ///
 /// Defines ownership and usage rights for project deliverables and IP.
 pub struct IntellectualPropertyRequirements {
@@ -31648,7 +32000,7 @@ impl InteractionBusinessRules {
     }
 }
 
-/// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT].
+/// 6.2.2. Interaction Catalog.
 ///
 /// Container for key interaction descriptions. Each interaction seeds a use
 /// case following Cockburn's fully dressed use case template.
@@ -31707,7 +32059,7 @@ impl InteractionCatalogOverview {
     }
 }
 
-/// An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
+/// An interaction channel entry (form).
 ///
 /// Comprehensive definition of an access channel including platform details,
 /// features, constraints, and user experience considerations.
@@ -31824,7 +32176,7 @@ impl InteractionChannelEntryPlatform {
     }
 }
 
-/// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP].
+/// 4.5.7. Interaction Dependency Analysis.
 ///
 /// Critical-path and degraded-mode behavior analysis for system
 /// dependencies. Covers BSI-DEP.
@@ -31848,7 +32200,7 @@ impl InteractionDependencyAnalysis {
     }
 }
 
-/// An interaction entry [PD00-TAR-STP-INT-nn].
+/// An interaction entry.
 ///
 /// Comprehensive interaction definition following Cockburn's fully dressed
 /// use case template. Seeds the UC (Use Case) document.
@@ -31964,7 +32316,7 @@ impl InteractionIdentification {
     }
 }
 
-/// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
+/// An interaction pattern entry (form).
 ///
 /// Definition of a specific interaction pattern including timing, triggers,
 /// and user experience considerations.
@@ -32067,7 +32419,7 @@ impl InteractionPatternEntryUsage {
     }
 }
 
-/// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+/// 4.1.5.2. Interaction Patterns.
 ///
 /// Defines how users interact with the system including real-time interactions,
 /// batch processing, workflow-driven tasks, and notification-driven actions.
@@ -32153,6 +32505,86 @@ impl InteractionScenarioEntry {
     }
 }
 
+/// UC00 Use Cases.
+///
+/// Detailed use cases derived from the target process steps and actor
+/// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+/// and traceability.
+pub struct InteractionScenarios {
+    pub node: som::SomNode,
+}
+
+/// INTERACTION_SCENARIOS_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const INTERACTION_SCENARIOS_MODEL_VERSION: &str = "0.0";
+
+impl InteractionScenarios {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<InteractionScenarios, som::SomVersionError> {
+        som::check_som_model_version(INTERACTION_SCENARIOS_MODEL_VERSION, document_version)?;
+        Ok(InteractionScenarios { node: som::SomNode::new(doc, "ISC".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        INTERACTION_SCENARIOS_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Process steps overview.
+    pub fn process_steps_overview(&self) -> ProcessStepsOverview {
+        ProcessStepsOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "processStepsOverview"))
+    }
+
+    /// Actor overview.
+    pub fn actor_overview(&self) -> ActorOverview {
+        ActorOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "actorOverview"))
+    }
+
+    /// Interaction catalog.
+    pub fn interaction_catalog(&self) -> InteractionCatalog {
+        InteractionCatalog::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionCatalog"))
+    }
+
+    /// Key scenarios.
+    pub fn key_scenarios(&self) -> KeyScenarios {
+        KeyScenarios::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyScenarios"))
+    }
+
+    /// Actor relationship diagram.
+    pub fn actor_relationship_diagram(&self) -> ActorRelationshipDiagram {
+        ActorRelationshipDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "actorRelationshipDiagram"))
+    }
+
+    /// End-to-end test scenarios.
+    pub fn end_to_end_test_scenarios(&self) -> som::SomList<EndToEndTestScenarios> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "ETETS-ENDT-LST"),
+            Box::new(|d, p| EndToEndTestScenarios::new(d, p)),
+        )
+    }
+
+    /// Use case traceability.
+    pub fn use_case_traceability(&self) -> UseCaseTraceability {
+        UseCaseTraceability::new(self.node.doc(), format!("{}/{}", self.node.path(), "useCaseTraceability"))
+    }
+}
+
 /// Interaction security requirements.
 pub struct InteractionSecurity {
     pub node: som::SomNode,
@@ -32169,7 +32601,7 @@ impl InteractionSecurity {
     }
 }
 
-/// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST].
+/// 4.5.6. Interaction Testing Strategy.
 ///
 /// Contract / integration / failure-mode testing for system boundaries.
 /// Covers BSI-TST.
@@ -32209,7 +32641,7 @@ impl InteractionTraceability {
     }
 }
 
-/// Business context for an interface [PD00-SYO-SYB-INT-nn-BUS].
+/// Business context for an interface.
 pub struct InterfaceBusinessContext {
     pub node: som::SomNode,
 }
@@ -32234,7 +32666,7 @@ impl InterfaceBusinessContext {
     }
 }
 
-/// Business process dependency entry [PD00-SYO-SYB-INT-nn-BUS-BP-nn].
+/// Business process dependency entry.
 pub struct InterfaceBusinessProcessEntry {
     pub node: som::SomNode,
 }
@@ -32250,7 +32682,7 @@ impl InterfaceBusinessProcessEntry {
     }
 }
 
-/// Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn].
+/// Data entity exchanged.
 pub struct InterfaceDataEntityEntry {
     pub node: som::SomNode,
 }
@@ -32266,7 +32698,7 @@ impl InterfaceDataEntityEntry {
     }
 }
 
-/// Data specification for an interface [PD00-SYO-SYB-INT-nn-DAT].
+/// Data specification for an interface.
 pub struct InterfaceDataSpec {
     pub node: som::SomNode,
 }
@@ -32309,7 +32741,7 @@ impl InterfaceDataSpec {
     }
 }
 
-/// Error handling specification [PD00-SYO-SYB-INT-nn-ERR].
+/// Error handling specification.
 pub struct InterfaceErrorHandling {
     pub node: som::SomNode,
 }
@@ -32397,7 +32829,7 @@ impl InterfaceErrorHandlingTimeout {
     }
 }
 
-/// Governance and contracts [PD00-SYO-SYB-INT-nn-GOV].
+/// Governance and contracts.
 pub struct InterfaceGovernance {
     pub node: som::SomNode,
 }
@@ -32458,7 +32890,7 @@ impl InterfaceGovernanceLifecycle {
     }
 }
 
-/// API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn].
+/// API operation entry.
 pub struct InterfaceOperationEntry {
     pub node: som::SomNode,
 }
@@ -32474,7 +32906,7 @@ impl InterfaceOperationEntry {
     }
 }
 
-/// Operational characteristics [PD00-SYO-SYB-INT-nn-OPS].
+/// Operational characteristics.
 pub struct InterfaceOperational {
     pub node: som::SomNode,
 }
@@ -32562,7 +32994,7 @@ impl InterfaceOperationalSupport {
     }
 }
 
-/// Security specification for an interface [PD00-SYO-SYB-INT-nn-SEC].
+/// Security specification for an interface.
 pub struct InterfaceSecurity {
     pub node: som::SomNode,
 }
@@ -32744,7 +33176,7 @@ impl InterfaceSpecificationEntryTooling {
     }
 }
 
-/// Technical specification for an interface [PD00-SYO-SYB-INT-nn-TEC].
+/// Technical specification for an interface.
 pub struct InterfaceTechnicalSpec {
     pub node: som::SomNode,
 }
@@ -32816,7 +33248,7 @@ impl InterfaceTechnicalSpecEndpoints {
     }
 }
 
-/// Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn].
+/// Test scenario entry.
 pub struct InterfaceTestScenarioEntry {
     pub node: som::SomNode,
 }
@@ -32832,7 +33264,7 @@ impl InterfaceTestScenarioEntry {
     }
 }
 
-/// Testing specification [PD00-SYO-SYB-INT-nn-TST].
+/// Testing specification.
 pub struct InterfaceTesting {
     pub node: som::SomNode,
 }
@@ -32899,7 +33331,7 @@ impl InterfaceTestingStrategy {
     }
 }
 
-/// Webhook specification [PD00-SYO-SYB-INT-nn-TEC-WH].
+/// Webhook specification.
 pub struct InterfaceWebhookSpec {
     pub node: som::SomNode,
 }
@@ -32915,7 +33347,7 @@ impl InterfaceWebhookSpec {
     }
 }
 
-/// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+/// 1.1.3.1. Internal Dependencies.
 ///
 /// Dependencies between systems owned and operated internally.
 pub struct InternalDependencies {
@@ -33147,6 +33579,81 @@ impl InteroperabilityRequirementsTesting {
     }
 }
 
+/// 4. System Overview.
+///
+/// High-level overview of the system to be built: its purpose, goals,
+/// scope boundaries, and the environment it operates in. This section
+/// establishes the foundation for all subsequent specification work.
+pub struct IntroductionAndScope {
+    pub node: som::SomNode,
+}
+
+impl IntroductionAndScope {
+    /// Binds a IntroductionAndScope facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> IntroductionAndScope {
+        IntroductionAndScope { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// System overview summary statistics.
+    pub fn summary(&self) -> SystemOverviewSummary {
+        SystemOverviewSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "summary"))
+    }
+
+    /// System context diagram showing major system boundaries.
+    pub fn system_context_diagram(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "systemContextDiagram"))
+    }
+
+    pub fn set_system_context_diagram(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "systemContextDiagram");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 4.1. System Description.
+    pub fn system_description(&self) -> SystemDescription {
+        SystemDescription::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemDescription"))
+    }
+
+    /// 4.2. Goals.
+    pub fn goals(&self) -> Goals {
+        Goals::new(self.node.doc(), format!("{}/{}", self.node.path(), "goals"))
+    }
+
+    /// 4.3. Requirements Overview. Seeds → RC.
+    pub fn requirements(&self) -> RequirementsOverview {
+        RequirementsOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirements"))
+    }
+
+    /// 4.4. Systems to Replace. Seeds → CS.
+    pub fn systems_to_replace(&self) -> SystemsToReplace {
+        SystemsToReplace::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemsToReplace"))
+    }
+
+    /// 4.5. System Boundaries. Seeds → BSI.
+    pub fn system_boundaries(&self) -> SystemBoundaries {
+        SystemBoundaries::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemBoundaries"))
+    }
+
+    /// 4.6. Framework Conditions.
+    pub fn framework_conditions(&self) -> FrameworkConditions {
+        FrameworkConditions::new(self.node.doc(), format!("{}/{}", self.node.path(), "frameworkConditions"))
+    }
+
+    /// 4.7. Risks and Assumptions.
+    pub fn risks_and_assumptions(&self) -> RisksAndAssumptions {
+        RisksAndAssumptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "risksAndAssumptions"))
+    }
+}
+
 /// An IP ownership entry (form).
 pub struct IpOwnershipEntry {
     pub node: som::SomNode,
@@ -33163,7 +33670,57 @@ impl IpOwnershipEntry {
     }
 }
 
-/// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+/// ISO/IEC 25010 product-quality cross-map.
+///
+/// Maps the system's quality goals onto the eight ISO/IEC 25010 product
+/// quality characteristics so that compatibility and portability cannot be
+/// silently missed.
+pub struct Iso25010Coverage {
+    pub node: som::SomNode,
+}
+
+impl Iso25010Coverage {
+    /// Binds a Iso25010Coverage facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Iso25010Coverage {
+        Iso25010Coverage { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// One entry per ISO/IEC 25010 characteristic addressed.
+    pub fn characteristics(&self) -> som::SomList<Iso25010CoverageEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "I25CV-CHAR-LST"),
+            Box::new(|d, p| Iso25010CoverageEntry::new(d, p)),
+        )
+    }
+}
+
+/// A single ISO/IEC 25010 coverage entry (form).
+pub struct Iso25010CoverageEntry {
+    pub node: som::SomNode,
+}
+
+impl Iso25010CoverageEntry {
+    /// Binds a Iso25010CoverageEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Iso25010CoverageEntry {
+        Iso25010CoverageEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> Iso25010CoverageEntryContentForm {
+        Iso25010CoverageEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 4.1.2.2. IT Landscape Position.
 ///
 /// How this system fits within the organization's overall IT architecture
 /// and application portfolio.
@@ -33192,7 +33749,7 @@ impl ItLandscapePosition {
     }
 }
 
-/// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
+/// 11.4.4. IT Security Operations quality.
 pub struct ItSecurityOperationsQuality {
     pub node: som::SomNode,
 }
@@ -33295,7 +33852,7 @@ impl ItSecurityOperationsQualityTesting {
     }
 }
 
-/// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+/// 8.8.1. IT Security Standards.
 pub struct ItSecurityStandardsSection {
     pub node: som::SomNode,
 }
@@ -33474,7 +34031,7 @@ impl ItStandardComplianceEntryTimeline {
     }
 }
 
-/// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+/// 5.2. Job Descriptions and Staffing Plans.
 ///
 /// Documents new and changed roles resulting from the system introduction,
 /// following HR best practices and job analysis methodologies (O*NET, SHRM).
@@ -33494,7 +34051,7 @@ impl JobDescriptionsAndStaffing {
         JobDescriptionsOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "overview"))
     }
 
-    /// 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
+    /// 5.2.1. New Roles — contains 0+× New Role.
     pub fn new_roles(&self) -> som::SomList<NewRoleEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -33503,7 +34060,7 @@ impl JobDescriptionsAndStaffing {
         )
     }
 
-    /// 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
+    /// 5.2.2. Changed Roles — contains 0+× Changed Role.
     pub fn changed_roles(&self) -> som::SomList<ChangedRoleEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -33512,7 +34069,7 @@ impl JobDescriptionsAndStaffing {
         )
     }
 
-    /// 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
+    /// 5.2.3. Removed Roles — contains 0+× role being eliminated.
     pub fn removed_roles(&self) -> som::SomList<RemovedRoleEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -33521,12 +34078,12 @@ impl JobDescriptionsAndStaffing {
         )
     }
 
-    /// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+    /// 5.2.4. Staffing Plan.
     pub fn staffing_plan(&self) -> StaffingPlan {
         StaffingPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "staffingPlan"))
     }
 
-    /// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+    /// 5.2.5. Competency Framework.
     pub fn competency_framework(&self) -> CompetencyFramework {
         CompetencyFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "competencyFramework"))
     }
@@ -33585,7 +34142,7 @@ impl KeyAssumptionEntry {
     }
 }
 
-/// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+/// 4.7.2. Key Assumptions.
 ///
 /// Documents project assumptions that must hold true for success.
 /// Tracks validation status and contingency plans if assumptions prove false.
@@ -33614,7 +34171,7 @@ impl KeyAssumptions {
     }
 }
 
-/// A key attribute entry (form) [PD00-BUS-DAT-ENT-nn-KEY-nn].
+/// A key attribute entry (form).
 ///
 /// Specification for primary, foreign, alternate, and composite keys.
 pub struct KeyAttributeEntry {
@@ -33749,7 +34306,7 @@ impl KeyConceptEntry {
     // (skipped: relationshipDetails has no target type)
 }
 
-/// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+/// 4.1.3.3. Key Concepts.
 ///
 /// Core business concepts and entities in the domain, their attributes,
 /// and relationships (conceptual domain model).
@@ -33838,7 +34395,7 @@ impl KeyGenerationPolicy {
     // (skipped: notes has no target type)
 }
 
-/// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+/// 9.5.3. Key Management.
 ///
 /// Defines cryptographic key management policies covering the full key
 /// lifecycle: generation, storage, rotation, escrow/backup, and compromise
@@ -33930,7 +34487,7 @@ impl KeyRotationPolicy {
     // (skipped: notes has no target type)
 }
 
-/// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE].
+/// 6.2.3. Key Scenarios.
 ///
 /// End-to-end scenario descriptions showing how users achieve business goals
 /// through sequences of interactions.
@@ -34013,7 +34570,7 @@ impl KeyTouchpointEntry {
     }
 }
 
-/// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+/// 15.7. Knowledge Transfer.
 ///
 /// Handover from delivery team to operations. Covers EK09 Handover
 /// Agreement content.
@@ -34100,7 +34657,7 @@ impl KpiEntry {
     }
 }
 
-/// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+/// 10.12.4. Language and Country Selection.
 ///
 /// UI specification for language and country selection.
 pub struct LanguageCountrySelection {
@@ -34287,7 +34844,7 @@ impl LayerCommunicationRulesInterfaces {
     }
 }
 
-/// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+/// 8.2.1. Layering and Module Structure.
 ///
 /// Software layering (presentation, business logic, data access, infrastructure)
 /// and module structure (bounded contexts, packages, libraries).
@@ -34500,7 +35057,7 @@ impl LiabilityLimitations {
     }
 }
 
-/// A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
+/// A lifecycle transition entry (form).
 ///
 /// Detailed state transition specification.
 pub struct LifecycleTransitionEntry {
@@ -34581,7 +35138,7 @@ impl LifecycleTransitionEntryTrigger {
     }
 }
 
-/// A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
+/// A known limitation of an existing system (form).
 pub struct LimitationEntry {
     pub node: som::SomNode,
 }
@@ -34797,7 +35354,7 @@ impl LocalDevelopmentSetupWorkflow {
     }
 }
 
-/// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
+/// 10.12.1. Localization Process.
 ///
 /// Workflow for identifying and preparing content for localization.
 pub struct LocalizationProcess {
@@ -34881,6 +35438,76 @@ impl LocalizationProcessReview {
 
     pub fn content(&self) -> LocalizationProcessReviewContentForm {
         LocalizationProcessReviewContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Localization & Translation execution processes.
+///
+/// Public anchor: ISO 29148 transition requirements. Bundles the localization
+/// and translation *workflow* concerns re-homed from the former
+/// `MultiLanguageAndRollout` cluster (their requirement counterparts live in
+/// SBP.9 [LocalizationTranslationRequirements]).
+pub struct LocalizationTranslationProcess {
+    pub node: som::SomNode,
+}
+
+impl LocalizationTranslationProcess {
+    /// Binds a LocalizationTranslationProcess facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocalizationTranslationProcess {
+        LocalizationTranslationProcess { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Localization workflow (content identification, externalization, review).
+    pub fn localization_process(&self) -> LocalizationProcess {
+        LocalizationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationProcess"))
+    }
+
+    /// Translation workflow (TMS, translation memory, vendors, QA).
+    pub fn translation_process(&self) -> TranslationProcess {
+        TranslationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationProcess"))
+    }
+}
+
+/// Localization & Translation requirements (the requirement side of i18n).
+///
+/// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
+/// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+pub struct LocalizationTranslationRequirements {
+    pub node: som::SomNode,
+}
+
+impl LocalizationTranslationRequirements {
+    /// Binds a LocalizationTranslationRequirements facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LocalizationTranslationRequirements {
+        LocalizationTranslationRequirements { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Technical internationalization requirements (re-homed from MLAR).
+    pub fn translation_requirements(&self) -> TranslationRequirements {
+        TranslationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationRequirements"))
+    }
+
+    /// Locale modeling and fallback requirements (re-homed from MLAR).
+    pub fn locale_handling(&self) -> MultiLanguageAndRolloutLocaleHandling {
+        MultiLanguageAndRolloutLocaleHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "localeHandling"))
     }
 }
 
@@ -35154,7 +35781,7 @@ impl LoginFlowConfiguration {
     // (skipped: loginFlowDetails has no target type)
 }
 
-/// A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
+/// A login flow step entry (form).
 ///
 /// Defines an individual step in the authentication flow sequence,
 /// allowing detailed specification of each stage from initial request
@@ -35237,7 +35864,7 @@ impl LoginFlowStepEntryValidation {
     }
 }
 
-/// A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn].
+/// A main scenario step entry.
 pub struct MainScenarioStepEntry {
     pub node: som::SomNode,
 }
@@ -35278,7 +35905,7 @@ impl MainSuccessScenario {
     }
 }
 
-/// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
+/// 11.3.5. Maintainability quality.
 pub struct MaintainabilityQuality {
     pub node: som::SomNode,
 }
@@ -35481,7 +36108,7 @@ impl MaintenanceChangeManagementTesting {
     }
 }
 
-/// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+/// 12.5. Maintenance Dependencies.
 ///
 /// Maintenance dependencies: version compatibility matrix, coordinated
 /// update sequences, and breaking-change handling.
@@ -35514,7 +36141,7 @@ impl MaintenanceDependencies {
     }
 }
 
-/// A maintenance dependency entry (form) [PD00-COM-MAI-nn].
+/// A maintenance dependency entry (form).
 ///
 /// Documents one maintenance dependency: coordinated update sequences,
 /// version compatibility, and breaking-change handling.
@@ -35796,7 +36423,7 @@ impl MaintenanceWindowEntryScope {
     }
 }
 
-/// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+/// 8.5.4. Maintenance Windows.
 ///
 /// Maintenance window requirements: frequency, duration, notification period,
 /// and impact on users.
@@ -35957,7 +36584,7 @@ impl MasterDataDomainEntryUsage {
     }
 }
 
-/// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+/// 1.4.10. Master Data Management.
 ///
 /// Master data management practices, golden records, and data
 /// synchronization across systems.
@@ -36127,7 +36754,7 @@ impl MethodologyDeviationSummary {
     }
 }
 
-/// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+/// 8.7.2.3. Metrics and Observability.
 ///
 /// Comprehensive metrics collection, distributed tracing, and observability
 /// requirements.
@@ -36340,7 +36967,7 @@ impl MetricsDashboardSummary {
     }
 }
 
-/// An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn].
+/// An MFA enforcement per user category entry (form).
 ///
 /// Defines MFA requirements for a specific user category, allowing
 /// different authentication assurance levels per role or access tier.
@@ -36508,7 +37135,7 @@ impl MigrationCompliance {
     }
 }
 
-/// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+/// 4.4.2. Migration Considerations (global).
 ///
 /// Cross-system migration concerns covering portfolio-wide strategy,
 /// resource planning, and coordination. Complements per-system
@@ -36535,7 +37162,7 @@ impl MigrationConsiderations {
         MigrationResources::new(self.node.doc(), format!("{}/{}", self.node.path(), "resources"))
     }
 
-    /// Migration risks [PD00-SYO-SYR-MIG-RIS].
+    /// Migration risks.
     pub fn migration_risks(&self) -> MigrationRisks {
         MigrationRisks::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationRisks"))
     }
@@ -36625,11 +37252,11 @@ impl MigrationEnvironments {
     }
 }
 
-/// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG].
+/// 4.5.8. Migration Interactions.
 ///
 /// Interactions specific to the migration window — cutover bridges,
-/// reconciliation endpoints, and temporary shims. Back-refs
-/// PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
+/// reconciliation endpoints, and temporary shims. Back-refs the
+/// Systems to Replace inventory. Covers BSI-MIG.
 pub struct MigrationInteractions {
     pub node: som::SomNode,
 }
@@ -36650,7 +37277,7 @@ impl MigrationInteractions {
     }
 }
 
-/// A migration mapping entry (form) [PD00-BUS-DAT-ENT-nn-MIG-nn].
+/// A migration mapping entry (form).
 ///
 /// Maps source system data to target entity for data migration planning.
 pub struct MigrationMappingEntry {
@@ -36684,7 +37311,7 @@ impl MigrationMetrics {
     }
 }
 
-/// A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn].
+/// A migration milestone entry.
 pub struct MigrationMilestoneEntry {
     pub node: som::SomNode,
 }
@@ -36748,7 +37375,7 @@ impl MigrationPhaseDryRuns {
     }
 }
 
-/// A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
+/// A migration phase entry (form).
 ///
 /// Represents a single migration phase targeting a specific data domain,
 /// source system, or entity group. Covers data scope analysis, migration
@@ -36961,7 +37588,7 @@ impl MigrationPhaseValidation {
     }
 }
 
-/// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+/// 13.5.1. Migration Phases.
 ///
 /// Staged migration phases defining the sequential or overlapping
 /// execution plan. Each phase targets a specific data domain or source
@@ -36994,7 +37621,7 @@ impl MigrationPhases {
     }
 }
 
-/// 15.2. Migration Plan [PD00-ROL-MIG].
+/// 15.2. Migration Plan.
 ///
 /// End-to-end system migration plan covering DR22 Migration Plan content:
 /// data, configuration, integration, and user migration from the current
@@ -37019,7 +37646,7 @@ impl MigrationPlan {
     }
 }
 
-/// Migration resource requirements [PD00-SYO-SYR-MIG-RES].
+/// Migration resource requirements.
 pub struct MigrationResources {
     pub node: som::SomNode,
 }
@@ -37054,7 +37681,7 @@ impl MigrationRiskContingency {
     }
 }
 
-/// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
+/// A migration risk entry (form).
 ///
 /// Detailed migration risk documentation following enterprise risk
 /// management practices. Captures full risk lifecycle from identification
@@ -37278,7 +37905,7 @@ impl MigrationRiskTracking {
     }
 }
 
-/// Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
+/// Migration risks — program-level risks.
 ///
 /// Comprehensive migration risk management framework for program-level
 /// risks across the entire migration portfolio. Covers risk governance,
@@ -37639,7 +38266,7 @@ impl MobileCompatibilityEntryHardware {
     }
 }
 
-/// Mobile device entry (form) [PD00-ORG-WOR-nn-EQU-MOB-nn].
+/// Mobile device entry (form).
 pub struct MobileDeviceEntry {
     pub node: som::SomNode,
 }
@@ -38018,7 +38645,7 @@ impl ModuleVersioningStrategyReleaseManagement {
     }
 }
 
-/// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+/// 8.7.2. Monitoring.
 ///
 /// Comprehensive monitoring specification covering health checks, alerting,
 /// observability, dashboards, and SLA/SLO tracking.
@@ -38039,33 +38666,33 @@ impl Monitoring {
     // Monitoring strategy narrative.
     // (skipped: overviewNarrative has no target type)
 
-    /// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+    /// 8.7.2.1. Health Checks and Diagnostics.
     pub fn health_checks_and_diagnostics(&self) -> HealthChecksAndDiagnosticsSection {
         HealthChecksAndDiagnosticsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "healthChecksAndDiagnostics"))
     }
 
-    /// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+    /// 8.7.2.2. Alerting Configuration.
     pub fn alerting_configuration(&self) -> AlertingConfiguration {
         AlertingConfiguration::new(self.node.doc(), format!("{}/{}", self.node.path(), "alertingConfiguration"))
     }
 
-    /// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+    /// 8.7.2.3. Metrics and Observability.
     pub fn metrics_and_observability(&self) -> MetricsAndObservability {
         MetricsAndObservability::new(self.node.doc(), format!("{}/{}", self.node.path(), "metricsAndObservability"))
     }
 
-    /// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+    /// 8.7.2.4. Monitoring Dashboards.
     pub fn dashboards(&self) -> MonitoringDashboards {
         MonitoringDashboards::new(self.node.doc(), format!("{}/{}", self.node.path(), "dashboards"))
     }
 
-    /// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+    /// 8.7.2.5. SLA and SLO Monitoring.
     pub fn sla_and_slo_monitoring(&self) -> SlaAndSloMonitoring {
         SlaAndSloMonitoring::new(self.node.doc(), format!("{}/{}", self.node.path(), "slaAndSloMonitoring"))
     }
 }
 
-/// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
+/// 8.5.3. Monitoring and Alerting.
 ///
 /// Monitoring requirements: metrics to collect, alert thresholds, dashboard
 /// requirements, on-call procedures, and escalation paths.
@@ -38146,7 +38773,7 @@ impl MonitoringAndAlertingSection {
     }
 }
 
-/// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+/// 8.7.2.4. Monitoring Dashboards.
 ///
 /// Operational dashboards for system monitoring.
 pub struct MonitoringDashboards {
@@ -38285,7 +38912,7 @@ impl MonitoringProcedureEntry {
     }
 }
 
-/// 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
+/// 11.4.3. Monitoring quality.
 pub struct MonitoringQuality {
     pub node: som::SomNode,
 }
@@ -38388,7 +39015,7 @@ impl MonitoringQualityOperations {
     }
 }
 
-/// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+/// 13.4.1. MoSCoW Analysis.
 ///
 /// Classifies every feature using the MoSCoW method (Must / Should /
 /// Could / Won't) and maps each to its target delivery stage.
@@ -38419,7 +39046,7 @@ impl MoscowAnalysis {
     }
 }
 
-/// A MoSCoW classification entry (form) [PD00-SSP-FEA-MOS-nn].
+/// A MoSCoW classification entry (form).
 ///
 /// Maps a single feature or feature group to its MoSCoW category and
 /// target delivery stage, with justification and cross-references.
@@ -38522,7 +39149,7 @@ impl MoscowEntryValue {
     }
 }
 
-/// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+/// 4.1.5.6. Multi-Channel Experience.
 ///
 /// Defines how the system provides a consistent experience across channels
 /// and handles channel switching.
@@ -38551,11 +39178,13 @@ impl MultiChannelExperience {
     }
 }
 
-/// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+/// 10.12. Multi-language and Rollout Support.
 ///
-/// Comprehensive internationalization, localization, and system rollout
-/// specification covering translation workflows, locale handling, user
-/// documentation, training, and deployment planning.
+/// Locale-picker / UX-side multi-language concerns that stay on the
+/// Experience & Interface Design side. IP-6 re-homed the requirement-side
+/// concerns (i18n requirements, documentation, training) to SBP.9 and the
+/// execution-side concerns (localization/translation processes, rollout
+/// sequencing) to SBP.15; only the stay-put UX members remain here.
 pub struct MultiLanguageAndRollout {
     pub node: som::SomNode,
 }
@@ -38570,42 +39199,12 @@ impl MultiLanguageAndRollout {
         MultiLanguageAndRolloutMultiLanguageOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguageOverview"))
     }
 
-    /// Locale modeling and fallback behavior.
-    pub fn locale_handling(&self) -> MultiLanguageAndRolloutLocaleHandling {
-        MultiLanguageAndRolloutLocaleHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "localeHandling"))
-    }
-
-    /// Rollout sequencing by region and time.
-    pub fn rollout_plan(&self) -> MultiLanguageAndRolloutPlan {
-        MultiLanguageAndRolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "rolloutPlan"))
-    }
-
     // Multi-language overview narrative.
     // (skipped: overviewNarrative has no target type)
 
-    /// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
-    pub fn localization_process(&self) -> LocalizationProcess {
-        LocalizationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationProcess"))
-    }
-
-    /// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
-    pub fn translation_process(&self) -> TranslationProcess {
-        TranslationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationProcess"))
-    }
-
-    /// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
-    pub fn documentation_and_training(&self) -> DocumentationAndTraining {
-        DocumentationAndTraining::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationAndTraining"))
-    }
-
-    /// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+    /// 10.12.4. Language and Country Selection.
     pub fn language_country_selection(&self) -> LanguageCountrySelection {
         LanguageCountrySelection::new(self.node.doc(), format!("{}/{}", self.node.path(), "languageCountrySelection"))
-    }
-
-    /// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
-    pub fn translation_requirements(&self) -> TranslationRequirements {
-        TranslationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationRequirements"))
     }
 
     /// Supported locale entries.
@@ -38650,7 +39249,7 @@ impl MultiLanguageAndRolloutPlan {
     }
 }
 
-/// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+/// 11.7.1. Must-Pass Criteria.
 ///
 /// Criteria that must be met for the system to be accepted.
 pub struct MustPassCriteria {
@@ -38680,7 +39279,7 @@ impl MustPassCriteria {
     }
 }
 
-/// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
+/// A must-pass criterion entry (form).
 pub struct MustPassCriterionEntry {
     pub node: som::SomNode,
 }
@@ -38911,7 +39510,7 @@ impl NativeAppRequirementsVersions {
     }
 }
 
-/// A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
+/// A navigation group entry (form).
 ///
 /// Logical grouping of navigation items (e.g., "Sales", "Administration").
 pub struct NavigationGroupEntry {
@@ -39001,7 +39600,7 @@ impl NavigationGroupEntryStructure {
     }
 }
 
-/// A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn].
+/// A navigation guard entry (form).
 pub struct NavigationGuardEntry {
     pub node: som::SomNode,
 }
@@ -39059,7 +39658,7 @@ impl NavigationGuardEntryRouting {
     }
 }
 
-/// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+/// 10.3.1.8. Navigation Guards.
 ///
 /// Route guards: unsaved changes, authentication redirects, permission checks.
 pub struct NavigationGuards {
@@ -39094,7 +39693,7 @@ impl NavigationGuards {
     }
 }
 
-/// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+/// 10.3.1.2. Navigation Hierarchy.
 ///
 /// Full navigation tree: groups and items forming the app's navigation structure.
 pub struct NavigationHierarchy {
@@ -39129,7 +39728,7 @@ impl NavigationHierarchy {
     }
 }
 
-/// A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
+/// A navigation item entry (form).
 ///
 /// A single navigable destination within a group.
 pub struct NavigationItemEntry {
@@ -39252,7 +39851,7 @@ impl NavigationItemEntryRouting {
     }
 }
 
-/// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+/// 10.3.1. Navigation Model.
 ///
 /// Comprehensive navigation structure: primary, secondary, utility, contextual
 /// navigation, deep linking, navigation guards, and platform adaptation.
@@ -39275,48 +39874,48 @@ impl NavigationModel {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+    /// 10.3.1.1. Navigation Overview.
     pub fn overview(&self) -> NavigationOverview {
         NavigationOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "overview"))
     }
 
-    /// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+    /// 10.3.1.2. Navigation Hierarchy.
     pub fn hierarchy(&self) -> NavigationHierarchy {
         NavigationHierarchy::new(self.node.doc(), format!("{}/{}", self.node.path(), "hierarchy"))
     }
 
-    /// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+    /// 10.3.1.3. Primary Navigation.
     pub fn primary_navigation(&self) -> PrimaryNavigation {
         PrimaryNavigation::new(self.node.doc(), format!("{}/{}", self.node.path(), "primaryNavigation"))
     }
 
-    /// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+    /// 10.3.1.4. Secondary Navigation.
     pub fn secondary_navigation(&self) -> SecondaryNavigation {
         SecondaryNavigation::new(self.node.doc(), format!("{}/{}", self.node.path(), "secondaryNavigation"))
     }
 
-    /// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+    /// 10.3.1.5. Utility Navigation.
     pub fn utility_navigation(&self) -> UtilityNavigation {
         UtilityNavigation::new(self.node.doc(), format!("{}/{}", self.node.path(), "utilityNavigation"))
     }
 
-    /// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+    /// 10.3.1.6. Contextual Navigation.
     pub fn contextual_navigation(&self) -> ContextualNavigation {
         ContextualNavigation::new(self.node.doc(), format!("{}/{}", self.node.path(), "contextualNavigation"))
     }
 
-    /// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+    /// 10.3.1.7. Deep Linking.
     pub fn deep_linking(&self) -> DeepLinking {
         DeepLinking::new(self.node.doc(), format!("{}/{}", self.node.path(), "deepLinking"))
     }
 
-    /// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+    /// 10.3.1.8. Navigation Guards.
     pub fn navigation_guards(&self) -> NavigationGuards {
         NavigationGuards::new(self.node.doc(), format!("{}/{}", self.node.path(), "navigationGuards"))
     }
 }
 
-/// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+/// 10.3.1.1. Navigation Overview.
 ///
 /// Overall navigation strategy, routing approach, and design decisions.
 pub struct NavigationOverview {
@@ -39653,7 +40252,7 @@ impl NetworkLoadBalancingRequirementsTls {
     }
 }
 
-/// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+/// 8.4.3. Network Requirements.
 ///
 /// Network requirements: bandwidth, latency, availability, VPN/firewall rules,
 /// and geographic distribution.
@@ -39960,7 +40559,7 @@ impl NetworkSecurityRequirementsMonitoring {
     }
 }
 
-/// 5.1. New Organization Structure [PD00-ORG-STR].
+/// 5.1. New Organization Structure.
 ///
 /// Organizational changes required by the new system including new teams,
 /// restructured departments, changed responsibilities, and new communication
@@ -39979,18 +40578,18 @@ impl NewOrganizationStructure {
     // Overview of the target organization structure.
     // (skipped: overview has no target type)
 
-    /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+    /// 5.1.1. Changes from Current Structure.
     pub fn changes_from_current_structure(&self) -> ChangesFromCurrentStructure {
         ChangesFromCurrentStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "changesFromCurrentStructure"))
     }
 
-    /// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+    /// 5.1.2. Organizational Transition Timeline.
     pub fn transition_timeline(&self) -> OrganizationalTransitionTimeline {
         OrganizationalTransitionTimeline::new(self.node.doc(), format!("{}/{}", self.node.path(), "transitionTimeline"))
     }
 }
 
-/// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+/// A new role entry (form).
 ///
 /// Comprehensive new role definition following HR job analysis best practices.
 /// Includes competencies, responsibilities, system access, and success metrics.
@@ -40259,7 +40858,7 @@ impl NotificationChannelEntry {
     }
 }
 
-/// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+/// 4.1.5.5. Notification Model.
 ///
 /// Defines how the system notifies users of events, updates, and actions
 /// across different channels.
@@ -40326,7 +40925,7 @@ impl NotificationTypeEntry {
     }
 }
 
-/// An object invariant entry (form) [PD00-BUS-BUS-CAT-nn-INV-nn].
+/// An object invariant entry (form).
 ///
 /// Business invariants that must always hold true.
 pub struct ObjectInvariantEntry {
@@ -40344,7 +40943,7 @@ impl ObjectInvariantEntry {
     }
 }
 
-/// An object operation entry (form) [PD00-BUS-BUS-CAT-nn-OPR-nn].
+/// An object operation entry (form).
 ///
 /// Business operations that can be performed on the object.
 pub struct ObjectOperationEntry {
@@ -40425,7 +41024,7 @@ impl ObjectOperationEntryLifecycle {
     }
 }
 
-/// An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
+/// An object state entry (form).
 ///
 /// Detailed state specification for business object lifecycle.
 pub struct ObjectStateEntry {
@@ -40622,7 +41221,7 @@ impl OnCallScheduleConfigOperations {
     }
 }
 
-/// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
+/// 10.8.2. Onboarding Help.
 pub struct OnboardingHelp {
     pub node: som::SomNode,
 }
@@ -40755,7 +41354,7 @@ impl OnboardingHelpTours {
     }
 }
 
-/// Ongoing training entry (form) [PD00-ORG-WOR-nn-TRA-ONG-nn].
+/// Ongoing training entry (form).
 pub struct OngoingTrainingEntry {
     pub node: som::SomNode,
 }
@@ -40834,7 +41433,7 @@ impl OngoingTrainingEntrySchedule {
     }
 }
 
-/// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+/// 1.3.1. Operational Pain Points.
 ///
 /// Problems that affect day-to-day operations: downtime, slow response,
 /// data inconsistencies, manual workarounds, and process interruptions.
@@ -40888,7 +41487,7 @@ impl OperationalPainPointsSummary {
     }
 }
 
-/// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+/// 11.4. Operations Quality Criteria.
 ///
 /// Quality criteria for system operations including availability, service
 /// levels, monitoring, and IT security operations.
@@ -40909,28 +41508,28 @@ impl OperationsQualityCriteria {
     // Operations quality overview narrative.
     // (skipped: overview has no target type)
 
-    /// 11.4.1. Availability [PD00-SYQ-OPE-AVA].
+    /// 11.4.1. Availability.
     pub fn availability(&self) -> AvailabilityQuality {
         AvailabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "availability"))
     }
 
-    /// 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
+    /// 11.4.2. Service Level Requirements.
     pub fn service_level_requirements(&self) -> ServiceLevelQuality {
         ServiceLevelQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "serviceLevelRequirements"))
     }
 
-    /// 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
+    /// 11.4.3. Monitoring and Prevention.
     pub fn monitoring_and_prevention(&self) -> MonitoringQuality {
         MonitoringQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "monitoringAndPrevention"))
     }
 
-    /// 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
+    /// 11.4.4. IT Security Operations.
     pub fn it_security_operations(&self) -> ItSecurityOperationsQuality {
         ItSecurityOperationsQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "itSecurityOperations"))
     }
 }
 
-/// 8.5. Operations Requirements [PD00-TEC-OPE].
+/// 8.5. Operations Requirements.
 pub struct OperationsRequirements {
     pub node: som::SomNode,
 }
@@ -40950,28 +41549,28 @@ impl OperationsRequirements {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
+    /// 8.5.1. Backup And Recovery.
     pub fn backup_and_recovery(&self) -> BackupAndRecoverySection {
         BackupAndRecoverySection::new(self.node.doc(), format!("{}/{}", self.node.path(), "backupAndRecovery"))
     }
 
-    /// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+    /// 8.5.2. Deployment Strategy.
     pub fn deployment_strategy(&self) -> DeploymentStrategySection {
         DeploymentStrategySection::new(self.node.doc(), format!("{}/{}", self.node.path(), "deploymentStrategy"))
     }
 
-    /// 8.5.3. Monitoring And Alerting [PD00-TEC-OPE-MON].
+    /// 8.5.3. Monitoring And Alerting.
     pub fn monitoring_and_alerting(&self) -> MonitoringAndAlertingSection {
         MonitoringAndAlertingSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "monitoringAndAlerting"))
     }
 
-    /// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+    /// 8.5.4. Maintenance Windows.
     pub fn maintenance_windows(&self) -> MaintenanceWindowsSection {
         MaintenanceWindowsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintenanceWindows"))
     }
 }
 
-/// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+/// 4.1.1.2. Opportunity Statement.
 ///
 /// Description of the opportunity this system enables — new capabilities,
 /// competitive advantages, or improvements over current state.
@@ -40994,7 +41593,7 @@ impl OpportunityStatement {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Opportunity Details Form [PD00-SYO-SYD-PUR-OPP-DES].
+    /// Opportunity Details Form.
     pub fn opportunity_details(&self) -> OpportunityStatementOpportunityDetailsForm {
         OpportunityStatementOpportunityDetailsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "opportunityDetails"))
     }
@@ -41128,7 +41727,7 @@ impl OrgImplementationActivity {
     }
 }
 
-/// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+/// 4.3.4.n.2. Implementation Plan.
 ///
 /// Implementation plan for this organizational requirement.
 pub struct OrgRequirementImplementationPlan {
@@ -41165,7 +41764,7 @@ impl OrgRequirementImplementationPlan {
     }
 }
 
-/// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+/// 3.1.1. Organization Structure.
 pub struct OrganizationStructure {
     pub node: som::SomNode,
 }
@@ -41194,7 +41793,7 @@ impl OrganizationStructure {
     // (skipped: orgChartDiagram has no target type)
 }
 
-/// An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
+/// An organizational change entry (form).
 ///
 /// Documents a specific structural change including current state, target
 /// state, rationale, impact assessment, and transition requirements.
@@ -41252,7 +41851,7 @@ impl OrganizationalChangeEntry {
     }
 }
 
-/// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+/// 4.1.2.6. Organizational Context.
 ///
 /// Organizational units, departments, and business areas that the system
 /// serves or interacts with.
@@ -41295,7 +41894,7 @@ impl OrganizationalContext {
     }
 }
 
-/// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+/// 4.6.1. Organizational Environment.
 ///
 /// Describes the organizational context in which the system will operate,
 /// including departments, reporting structures, decision authority, and
@@ -41412,7 +42011,7 @@ impl OrganizationalEnvironmentMaturity {
     }
 }
 
-/// 5. Organizational Framework [PD00-ORG].
+/// 5. Organizational Framework.
 ///
 /// Organizational changes and structures required for the new system.
 /// Covers organization structure changes, new and changed roles, staffing
@@ -41432,12 +42031,12 @@ impl OrganizationalFramework {
     // Overview of organizational changes required for the new system.
     // (skipped: overview has no target type)
 
-    /// 5.1. New Organization Structure [PD00-ORG-STR].
+    /// 5.1. New Organization Structure.
     pub fn organization_structure(&self) -> NewOrganizationStructure {
         NewOrganizationStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationStructure"))
     }
 
-    /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+    /// 5.2. Job Descriptions and Staffing Plans.
     pub fn job_descriptions(&self) -> som::SomList<JobDescriptionsAndStaffing> {
         som::SomList::new(
             self.node.doc(),
@@ -41446,7 +42045,7 @@ impl OrganizationalFramework {
         )
     }
 
-    /// 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+    /// 5.3. Workplace Descriptions — contains 1+× per user category.
     pub fn workplace_descriptions(&self) -> som::SomList<WorkplaceDescriptionEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -41456,7 +42055,7 @@ impl OrganizationalFramework {
     }
 }
 
-/// An organizational requirement entry [PD00-SYO-REQ-ORG-nn].
+/// An organizational requirement entry.
 ///
 /// Comprehensive organizational requirement definition following change
 /// management and organizational development best practices.
@@ -41489,17 +42088,17 @@ impl OrganizationalRequirementEntry {
         OrganizationalRequirementEntryPlanning::new(self.node.doc(), format!("{}/{}", self.node.path(), "planning"))
     }
 
-    /// 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
+    /// 4.3.4.n.1. Acceptance Criteria.
     pub fn acceptance_criteria(&self) -> RequirementAcceptanceCriteria {
         RequirementAcceptanceCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteria"))
     }
 
-    /// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+    /// 4.3.4.n.2. Implementation Plan.
     pub fn implementation_plan(&self) -> OrgRequirementImplementationPlan {
         OrgRequirementImplementationPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "implementationPlan"))
     }
 
-    /// 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
+    /// 4.3.4.n.3. Dependencies.
     pub fn dependencies(&self) -> RequirementDependencies {
         RequirementDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencies"))
     }
@@ -41553,7 +42152,7 @@ impl OrganizationalRequirementEntryPlanning {
     }
 }
 
-/// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+/// 4.3.4. Organizational Requirements.
 ///
 /// Container for organizational requirements. These describe needed changes
 /// to organization, processes, training, or support that must be fulfilled
@@ -41593,7 +42192,7 @@ impl OrganizationalRequirements {
     }
 }
 
-/// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+/// 5.1.2. Organizational Transition Timeline.
 ///
 /// Describes when organizational changes take effect, how the transition is
 /// managed, and what training or communication is needed. Follows change
@@ -41777,7 +42376,7 @@ impl OsCompatibilityEntryTesting {
     }
 }
 
-/// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+/// 3.6. Other Administrative Requirements.
 ///
 /// Additional administrative agreements, constraints, or requirements not
 /// covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -41801,32 +42400,32 @@ impl OtherAdministrativeRequirements {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 3.6.1. Intellectual Property [PD00-ADM-OTH-IPR].
+    /// 3.6.1. Intellectual Property.
     pub fn intellectual_property(&self) -> IntellectualPropertyRequirements {
         IntellectualPropertyRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "intellectualProperty"))
     }
 
-    /// 3.6.2. Confidentiality and NDAs [PD00-ADM-OTH-NDA].
+    /// 3.6.2. Confidentiality and NDAs.
     pub fn confidentiality(&self) -> ConfidentialityRequirements {
         ConfidentialityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "confidentiality"))
     }
 
-    /// 3.6.3. Regulatory Compliance [PD00-ADM-OTH-REG].
+    /// 3.6.3. Regulatory Compliance.
     pub fn regulatory_compliance(&self) -> RegulatoryComplianceRequirements {
         RegulatoryComplianceRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "regulatoryCompliance"))
     }
 
-    /// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+    /// 3.6.4. Audit Requirements.
     pub fn audit_requirements(&self) -> AuditRequirements {
         AuditRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditRequirements"))
     }
 
-    /// 3.6.5. Insurance and Liability [PD00-ADM-OTH-INS].
+    /// 3.6.5. Insurance and Liability.
     pub fn insurance_liability(&self) -> InsuranceLiabilityRequirements {
         InsuranceLiabilityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "insuranceLiability"))
     }
 
-    /// 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
+    /// 3.6.6. Other Agreements — contains 0+× Agreement.
     pub fn other_agreements(&self) -> som::SomList<OtherAgreementEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -41852,7 +42451,7 @@ impl OtherAgreementEntry {
     }
 }
 
-/// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+/// 4.5.2. Out of Scope.
 ///
 /// Explicit documentation of functionality, systems, and integrations that
 /// are excluded from the project scope. Provides clear boundaries and
@@ -41880,7 +42479,7 @@ impl OutOfScope {
     }
 }
 
-/// An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
+/// An out-of-scope entry (form).
 pub struct OutOfScopeEntry {
     pub node: som::SomNode,
 }
@@ -42054,7 +42653,7 @@ impl PainPointClassification {
     }
 }
 
-/// A pain point entry (form) [PD00-CUR-PAI-nn].
+/// A pain point entry (form).
 ///
 /// Documents a specific problem in the current state with comprehensive details:
 /// root cause analysis, impact quantification, affected stakeholders,
@@ -42265,7 +42864,7 @@ impl PainPointWorkaround {
     }
 }
 
-/// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+/// 1.3. Pain Points and Gaps.
 ///
 /// Comprehensive documentation of specific problems, inefficiencies,
 /// compliance gaps, and user frustrations in the current state.
@@ -42314,22 +42913,22 @@ impl PainPointsAndGaps {
         PainPointsSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "painPointsSummary"))
     }
 
-    /// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+    /// 1.3.1. Operational Pain Points.
     pub fn operational_pain_points(&self) -> OperationalPainPoints {
         OperationalPainPoints::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationalPainPoints"))
     }
 
-    /// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+    /// 1.3.2. Business Pain Points.
     pub fn business_pain_points(&self) -> BusinessPainPoints {
         BusinessPainPoints::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessPainPoints"))
     }
 
-    /// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+    /// 1.3.3. Technical Pain Points.
     pub fn technical_pain_points(&self) -> TechnicalPainPoints {
         TechnicalPainPoints::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalPainPoints"))
     }
 
-    /// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+    /// 1.3.4. Gaps.
     pub fn gaps(&self) -> Gaps {
         Gaps::new(self.node.doc(), format!("{}/{}", self.node.path(), "gaps"))
     }
@@ -42372,7 +42971,7 @@ impl ParticipantEntry {
     }
 }
 
-/// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+/// 9.2.3. Password and Credential Policy.
 ///
 /// Comprehensive password and credential policy aligned with NIST SP 800-63B
 /// (Revision 4). Covers password requirements, storage, lifecycle, account
@@ -42607,7 +43206,7 @@ impl PeakLoadPatternsTesting {
     }
 }
 
-/// Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
+/// Penetration testing requirements and schedule.
 pub struct PenetrationTestingRequirements {
     pub node: som::SomNode,
 }
@@ -42707,7 +43306,7 @@ impl PeriodicReviewPolicy {
     // (skipped: notes has no target type)
 }
 
-/// Peripheral equipment entry (form) [PD00-ORG-WOR-nn-EQU-PER-nn].
+/// Peripheral equipment entry (form).
 pub struct PeripheralEquipmentEntry {
     pub node: som::SomNode,
 }
@@ -42820,7 +43419,7 @@ impl PermissionMatrixEntry {
     }
 }
 
-/// A user persona entry [PD00-USE-VIS-PER-nn] (form).
+/// A user persona entry (form).
 ///
 /// Represents a distinct user archetype with detailed context for UI design.
 pub struct PersonaEntry {
@@ -42852,17 +43451,17 @@ impl PersonaEntry {
         PersonaEntryNeeds::new(self.node.doc(), format!("{}/{}", self.node.path(), "needs"))
     }
 
-    /// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+    /// 10.1.3.n.1. Persona Goals.
     pub fn goals(&self) -> PersonaGoals {
         PersonaGoals::new(self.node.doc(), format!("{}/{}", self.node.path(), "goals"))
     }
 
-    /// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+    /// 10.1.3.n.2. Persona Pain Points.
     pub fn pain_points(&self) -> PersonaPainPoints {
         PersonaPainPoints::new(self.node.doc(), format!("{}/{}", self.node.path(), "painPoints"))
     }
 
-    /// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+    /// 10.1.3.n.3. Persona Scenarios.
     pub fn scenarios(&self) -> PersonaScenarios {
         PersonaScenarios::new(self.node.doc(), format!("{}/{}", self.node.path(), "scenarios"))
     }
@@ -42916,7 +43515,7 @@ impl PersonaEntryProfile {
     }
 }
 
-/// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm].
+/// A persona goal entry (form).
 pub struct PersonaGoalEntry {
     pub node: som::SomNode,
 }
@@ -42932,7 +43531,7 @@ impl PersonaGoalEntry {
     }
 }
 
-/// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+/// 10.1.3.n.1. Persona Goals.
 pub struct PersonaGoals {
     pub node: som::SomNode,
 }
@@ -42962,7 +43561,7 @@ impl PersonaGoals {
     }
 }
 
-/// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm].
+/// A pain point entry (form).
 pub struct PersonaPainPointEntry {
     pub node: som::SomNode,
 }
@@ -42978,7 +43577,7 @@ impl PersonaPainPointEntry {
     }
 }
 
-/// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+/// 10.1.3.n.2. Persona Pain Points.
 pub struct PersonaPainPoints {
     pub node: som::SomNode,
 }
@@ -43008,7 +43607,7 @@ impl PersonaPainPoints {
     }
 }
 
-/// A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm].
+/// A persona scenario entry (form).
 pub struct PersonaScenarioEntry {
     pub node: som::SomNode,
 }
@@ -43024,7 +43623,7 @@ impl PersonaScenarioEntry {
     }
 }
 
-/// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+/// 10.1.3.n.3. Persona Scenarios.
 ///
 /// Key usage scenarios for this persona — helps map personas to screens/flows.
 pub struct PersonaScenarios {
@@ -43136,7 +43735,7 @@ impl PhaseGateIdentity {
     }
 }
 
-/// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
+/// A phase gate review entry (form).
 ///
 /// Defines a single phase gate with its criteria, participants,
 /// required evidence, entry/exit conditions, and review schedule.
@@ -43197,7 +43796,7 @@ impl PhaseGateReviewEntry {
     }
 }
 
-/// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+/// 13.6.1. Phase Gate Reviews.
 ///
 /// Defines the phase gate review process: what is reviewed at each
 /// gate, who participates, what evidence is required, and what
@@ -43345,7 +43944,7 @@ impl PhysicalWorkplaceRequirementsUsage {
     }
 }
 
-/// 15.5. Pilot Plan [PD00-ROL-PIL].
+/// 15.5. Pilot Plan.
 ///
 /// Pilot scope, cohort selection, success criteria, and exit decision rules.
 pub struct PilotPlan {
@@ -43568,7 +44167,7 @@ impl PipelineStageEntryTrigger {
     }
 }
 
-/// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+/// 8.1.1. Platform and Language.
 ///
 /// Required platforms (operating system, runtime), programming languages,
 /// and framework choices with minimum versions and justification.
@@ -43650,7 +44249,7 @@ impl PlatformAndLanguage {
     }
 }
 
-/// 11.3.2. Portability quality [PD00-SYQ-TEC-POR].
+/// 11.3.2. Portability quality.
 pub struct PortabilityQuality {
     pub node: som::SomNode,
 }
@@ -43802,7 +44401,7 @@ impl PredecessorDependencyEntry {
     }
 }
 
-/// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+/// 10.3.1.3. Primary Navigation.
 ///
 /// How the main navigation appears across platforms: drawer, sidebar, bottom nav.
 pub struct PrimaryNavigation {
@@ -43886,7 +44485,7 @@ impl PrimaryNavigationSidebar {
     }
 }
 
-/// 10.4. Print Layout [PD00-USE-PRI].
+/// 10.4. Print Layout.
 pub struct PrintLayout {
     pub node: som::SomNode,
 }
@@ -43926,7 +44525,7 @@ impl PrintLayout {
         PrintLayoutArchive::new(self.node.doc(), format!("{}/{}", self.node.path(), "archive"))
     }
 
-    /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
+    /// 10.4.1. Reports — contains 0+× Report.
     pub fn reports(&self) -> som::SomList<ReportEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -43935,7 +44534,7 @@ impl PrintLayout {
         )
     }
 
-    /// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
+    /// 10.4.2. Export Formats — contains 0+× Export Format.
     pub fn export_formats(&self) -> som::SomList<ExportFormatEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -43944,7 +44543,7 @@ impl PrintLayout {
         )
     }
 
-    /// 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
+    /// 10.4.3. Export Templates — contains 0+× Export
     /// Template.
     pub fn export_templates(&self) -> som::SomList<ExportTemplateEntry> {
         som::SomList::new(
@@ -44035,7 +44634,7 @@ impl PrintLayoutWatermark {
     }
 }
 
-/// Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
+/// Privacy impact assessment and DPIA process.
 pub struct PrivacyImpactAssessmentProcess {
     pub node: som::SomNode,
 }
@@ -44114,7 +44713,7 @@ impl PrivacyImpactAssessmentProcessReview {
     }
 }
 
-/// Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
+/// Privacy regulation compliance requirements.
 pub struct PrivacyRegulationCompliance {
     pub node: som::SomNode,
 }
@@ -44235,7 +44834,7 @@ impl PrivilegeUsageReporting {
     // (skipped: notes has no target type)
 }
 
-/// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+/// 4.1.1.1. Problem Statement.
 ///
 /// Detailed description of the problem or pain point that this system will
 /// address. Includes impact analysis and urgency assessment.
@@ -44258,7 +44857,7 @@ impl ProblemStatement {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Problem Description Form [PD00-SYO-SYD-PUR-PRO-DES].
+    /// Problem Description Form.
     pub fn problem_details(&self) -> ProblemStatementProblemDetailsForm {
         ProblemStatementProblemDetailsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "problemDetails"))
     }
@@ -44289,7 +44888,7 @@ impl ProcessAdjustmentDetails {
     }
 }
 
-/// A process adjustment entry (form) [PD00-POP-PRC-nn].
+/// A process adjustment entry (form).
 ///
 /// Documents a specific deviation from standard process steps, including
 /// the type of modification, dependencies affected, risk assessment,
@@ -44439,7 +45038,7 @@ impl ProcessAdjustmentSummary {
     }
 }
 
-/// 2.3. Process Adjustments [PD00-POP-PRC].
+/// 2.3. Process Adjustments.
 ///
 /// Documents any deviations from the standard tom_system_creation.md or
 /// tom_system_upgrade.md process. Includes skipped, reordered, or modified
@@ -44488,7 +45087,7 @@ impl ProcessAdjustments {
     }
 }
 
-/// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT].
+/// 6.1.3. Process Catalog.
 ///
 /// Container for business process definitions.
 pub struct ProcessCatalog {
@@ -44627,7 +45226,7 @@ impl ProcessContext {
     }
 }
 
-/// A process control entry [PD00-TAR-PRO-CAT-nn-CTL-nn].
+/// A process control entry.
 pub struct ProcessControlEntry {
     pub node: som::SomNode,
 }
@@ -44743,7 +45342,7 @@ impl ProcessDependencyEntry {
     }
 }
 
-/// A process design principle entry (form) [PD00-TAR-PRO-PRI-nn].
+/// A process design principle entry (form).
 pub struct ProcessDesignPrincipleEntry {
     pub node: som::SomNode,
 }
@@ -44759,7 +45358,7 @@ impl ProcessDesignPrincipleEntry {
     }
 }
 
-/// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+/// 6.1.2. Design Principles.
 ///
 /// Principles that guide process design decisions.
 pub struct ProcessDesignPrinciples {
@@ -44803,7 +45402,7 @@ impl ProcessDiagramOverview {
     }
 }
 
-/// A process end event entry [PD00-TAR-PRO-CAT-nn-END-nn].
+/// A process end event entry.
 pub struct ProcessEndEventEntry {
     pub node: som::SomNode,
 }
@@ -44819,7 +45418,7 @@ impl ProcessEndEventEntry {
     }
 }
 
-/// A process exception entry [PD00-TAR-PRO-CAT-nn-EXC-nn].
+/// A process exception entry.
 pub struct ProcessExceptionEntry {
     pub node: som::SomNode,
 }
@@ -44877,10 +45476,9 @@ impl ProcessExceptionEntryResponse {
     }
 }
 
-/// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+/// 6.1.9. Process Exception Handling.
 ///
 /// Exception flows, escalation paths, and compensation logic. Covers
-/// HBSG AS07-EXC.
 pub struct ProcessExceptionHandling {
     pub node: som::SomNode,
 }
@@ -45022,7 +45620,7 @@ impl ProcessIdentificationGovernance {
     }
 }
 
-/// A process improvement entry [PD00-TAR-PRO-IMP-nn].
+/// A process improvement entry.
 pub struct ProcessImprovementEntry {
     pub node: som::SomNode,
 }
@@ -45080,7 +45678,7 @@ impl ProcessImprovementEntryDelivery {
     }
 }
 
-/// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+/// 6.1.5. Improvement Summary.
 ///
 /// Summary of expected improvements over current processes.
 pub struct ProcessImprovementSummary {
@@ -45113,7 +45711,7 @@ impl ProcessImprovementSummary {
     }
 }
 
-/// A process input entry [PD00-TAR-PRO-CAT-nn-INP-nn].
+/// A process input entry.
 pub struct ProcessInputEntry {
     pub node: som::SomNode,
 }
@@ -45184,7 +45782,7 @@ impl ProcessInterdependencyMatrix {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Interdependency diagram [PD00-CUR-PRO-INT-DIA].
+    /// Interdependency diagram.
     pub fn dependency_diagram(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "dependencyDiagram"))
     }
@@ -45204,7 +45802,7 @@ impl ProcessInterdependencyMatrix {
     }
 }
 
-/// A process KPI entry [PD00-TAR-PRO-CAT-nn-KPI-nn].
+/// A process KPI entry.
 pub struct ProcessKpiEntry {
     pub node: som::SomNode,
 }
@@ -45292,7 +45890,7 @@ impl ProcessMetricCategory {
     }
 }
 
-/// A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
+/// A process metric entry (form).
 ///
 /// A single measurable metric with current value and measurement details.
 pub struct ProcessMetricEntry {
@@ -45356,7 +45954,7 @@ impl ProcessMetricEntryTargets {
     }
 }
 
-/// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+/// 1.2.2. Process Metrics.
 ///
 /// Quantitative metrics for measuring process performance. These metrics
 /// form the baseline against which improvements will be measured.
@@ -45379,12 +45977,12 @@ impl ProcessMetrics {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Metrics dashboard summary [PD00-CUR-PRO-xx-MET-SUM].
+    /// Metrics dashboard summary.
     pub fn dashboard_summary(&self) -> MetricsDashboardSummary {
         MetricsDashboardSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "dashboardSummary"))
     }
 
-    /// Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+    /// Efficiency metrics.
     pub fn efficiency_metrics(&self) -> som::SomList<ProcessMetricCategory> {
         som::SomList::new(
             self.node.doc(),
@@ -45393,7 +45991,7 @@ impl ProcessMetrics {
         )
     }
 
-    /// Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+    /// Quality metrics.
     pub fn quality_metrics(&self) -> som::SomList<ProcessMetricCategory> {
         som::SomList::new(
             self.node.doc(),
@@ -45402,7 +46000,7 @@ impl ProcessMetrics {
         )
     }
 
-    /// Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+    /// Volume metrics.
     pub fn volume_metrics(&self) -> som::SomList<ProcessMetricCategory> {
         som::SomList::new(
             self.node.doc(),
@@ -45411,7 +46009,7 @@ impl ProcessMetrics {
         )
     }
 
-    /// Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+    /// Cost metrics.
     pub fn cost_metrics(&self) -> som::SomList<ProcessMetricCategory> {
         som::SomList::new(
             self.node.doc(),
@@ -45420,7 +46018,7 @@ impl ProcessMetrics {
         )
     }
 
-    /// Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+    /// Manual intervention metrics.
     pub fn manual_intervention_metrics(&self) -> som::SomList<ProcessMetricCategory> {
         som::SomList::new(
             self.node.doc(),
@@ -45438,13 +46036,13 @@ impl ProcessMetrics {
         )
     }
 
-    /// Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
+    /// Baseline comparison table.
     pub fn baseline_table(&self) -> MetricsBaselineTable {
         MetricsBaselineTable::new(self.node.doc(), format!("{}/{}", self.node.path(), "baselineTable"))
     }
 }
 
-/// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+/// 6.1.10. Process Metrics and KPIs.
 ///
 /// Process-level KPIs, SLAs, and measurement strategy.
 pub struct ProcessMetricsAndKpis {
@@ -45467,7 +46065,7 @@ impl ProcessMetricsAndKpis {
     }
 }
 
-/// A process output entry [PD00-TAR-PRO-CAT-nn-OUT-nn].
+/// A process output entry.
 pub struct ProcessOutputEntry {
     pub node: som::SomNode,
 }
@@ -45483,7 +46081,7 @@ impl ProcessOutputEntry {
     }
 }
 
-/// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+/// 6.1.4. Process Overview Diagram.
 ///
 /// High-level process flow diagram showing main processes and relationships.
 pub struct ProcessOverviewDiagram {
@@ -45617,7 +46215,7 @@ impl ProcessPerformanceSummary {
     }
 }
 
-/// A process relationship entry [PD00-TAR-PRO-REL-nn].
+/// A process relationship entry.
 pub struct ProcessRelationshipEntry {
     pub node: som::SomNode,
 }
@@ -45663,7 +46261,7 @@ impl ProcessRelationships {
     }
 }
 
-/// A process role entry [PD00-TAR-PRO-CAT-nn-ROL-nn].
+/// A process role entry.
 pub struct ProcessRoleEntry {
     pub node: som::SomNode,
 }
@@ -45813,7 +46411,7 @@ impl ProcessScopeSummary {
     }
 }
 
-/// A process SLA entry [PD00-TAR-PRO-CAT-nn-SLA-nn].
+/// A process SLA entry.
 pub struct ProcessSlaEntry {
     pub node: som::SomNode,
 }
@@ -45829,7 +46427,7 @@ impl ProcessSlaEntry {
     }
 }
 
-/// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+/// 6.2. Process Steps and Actor Interactions. Seeds → UC.
 ///
 /// Key process steps with their actor interactions. Each interaction will be
 /// expanded into a full use case with alternate paths, preconditions, and
@@ -45858,17 +46456,17 @@ impl ProcessStepsAndActorInteractions {
         ProcessStepsOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "overview"))
     }
 
-    /// 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
+    /// 6.2.1. Actor Overview — contains 1+× Actor.
     pub fn actor_overview(&self) -> ActorOverview {
         ActorOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "actorOverview"))
     }
 
-    /// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
+    /// 6.2.2. Interaction Catalog — contains 1+× Interaction.
     pub fn interaction_catalog(&self) -> InteractionCatalog {
         InteractionCatalog::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionCatalog"))
     }
 
-    /// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
+    /// 6.2.3. Key Scenarios — contains 1+× Scenario.
     pub fn key_scenarios(&self) -> KeyScenarios {
         KeyScenarios::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyScenarios"))
     }
@@ -45878,7 +46476,7 @@ impl ProcessStepsAndActorInteractions {
         ActorRelationshipDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "actorRelationshipDiagram"))
     }
 
-    /// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
+    /// 6.2.4. End-to-End Test Scenarios..
     pub fn end_to_end_test_scenarios(&self) -> som::SomList<EndToEndTestScenarios> {
         som::SomList::new(
             self.node.doc(),
@@ -45887,13 +46485,13 @@ impl ProcessStepsAndActorInteractions {
         )
     }
 
-    /// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+    /// 6.2.5. Use Case Traceability.
     pub fn use_case_traceability(&self) -> UseCaseTraceability {
         UseCaseTraceability::new(self.node.doc(), format!("{}/{}", self.node.path(), "useCaseTraceability"))
     }
 }
 
-/// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
+/// 6.2. Process Steps Overview.
 pub struct ProcessStepsOverview {
     pub node: som::SomNode,
 }
@@ -45983,7 +46581,7 @@ impl ProcessTechnologyInformation {
     }
 }
 
-/// A process trigger entry [PD00-TAR-PRO-CAT-nn-TRG-nn].
+/// A process trigger entry.
 pub struct ProcessTriggerEntry {
     pub node: som::SomNode,
 }
@@ -46034,7 +46632,7 @@ impl ProcessTriggers {
     }
 }
 
-/// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+/// 6.1.1. Process Vision.
 ///
 /// The overall vision for how business processes will work with the new system.
 pub struct ProcessVision {
@@ -46207,121 +46805,7 @@ impl ProgrammingLanguageEntryVersion {
     }
 }
 
-/// The complete Project Definition (PD) document.
-///
-/// Contains a [DocumentHeader] and all 14 PD sections [PD00].
-pub struct ProjectDefinition {
-    pub node: som::SomNode,
-}
-
-/// PROJECT_DEFINITION_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const PROJECT_DEFINITION_MODEL_VERSION: &str = "0.0";
-
-impl ProjectDefinition {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<ProjectDefinition, som::SomVersionError> {
-        som::check_som_model_version(PROJECT_DEFINITION_MODEL_VERSION, document_version)?;
-        Ok(ProjectDefinition { node: som::SomNode::new(doc, "PD".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        PROJECT_DEFINITION_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Document header (form fields at top of document).
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// 1. Current State Analysis [PD00-CUR].
-    pub fn current_state_analysis(&self) -> CurrentStateAnalysis {
-        CurrentStateAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentStateAnalysis"))
-    }
-
-    /// 2. Project Organization and Process [PD00-POP].
-    pub fn project_organization_process(&self) -> ProjectOrganizationAndProcess {
-        ProjectOrganizationAndProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "projectOrganizationProcess"))
-    }
-
-    /// 3. Administrative [PD00-ADM].
-    pub fn administrative(&self) -> Administrative {
-        Administrative::new(self.node.doc(), format!("{}/{}", self.node.path(), "administrative"))
-    }
-
-    /// 4. System Overview [PD00-SYO].
-    pub fn system_overview(&self) -> SystemOverview {
-        SystemOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemOverview"))
-    }
-
-    /// 5. Organizational Framework [PD00-ORG].
-    pub fn organizational_framework(&self) -> OrganizationalFramework {
-        OrganizationalFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalFramework"))
-    }
-
-    /// 6. Target Business Process Model [PD00-TAR].
-    pub fn target_business_process(&self) -> TargetBusinessProcessModel {
-        TargetBusinessProcessModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "targetBusinessProcess"))
-    }
-
-    /// 7. Business Object and Data Model [PD00-BUS].
-    pub fn business_data_model(&self) -> BusinessObjectAndDataModel {
-        BusinessObjectAndDataModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessDataModel"))
-    }
-
-    /// 8. Technical Framework Concept [PD00-TEC].
-    pub fn technical_framework(&self) -> TechnicalFrameworkConcept {
-        TechnicalFrameworkConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFramework"))
-    }
-
-    /// 9. Access and Authorization Concept [PD00-ACC].
-    pub fn access_authorization(&self) -> AccessAndAuthorizationConcept {
-        AccessAndAuthorizationConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessAuthorization"))
-    }
-
-    /// 10. User Interface Design [PD00-USE].
-    pub fn user_interface_design(&self) -> UserInterfaceDesign {
-        UserInterfaceDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "userInterfaceDesign"))
-    }
-
-    /// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
-    pub fn system_rollout_concept(&self) -> SystemRolloutConcept {
-        SystemRolloutConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemRolloutConcept"))
-    }
-
-    /// 11. System Quality Goals [PD00-SYQ].
-    pub fn system_quality_goals(&self) -> SystemQualityGoals {
-        SystemQualityGoals::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemQualityGoals"))
-    }
-
-    /// 12. Components to Use [PD00-COM].
-    pub fn components_to_use(&self) -> ComponentsToUse {
-        ComponentsToUse::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
-    }
-
-    /// 13. System Stage Plan [PD00-SSP].
-    pub fn system_stage_plan(&self) -> SystemStagePlan {
-        SystemStagePlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemStagePlan"))
-    }
-
-    /// 14. Delivery Scope and Acceptance [PD00-DEL].
-    pub fn delivery_acceptance(&self) -> DeliveryScopeAndAcceptance {
-        DeliveryScopeAndAcceptance::new(self.node.doc(), format!("{}/{}", self.node.path(), "deliveryAcceptance"))
-    }
-}
-
-/// 3.1. Project Organization [PD00-ADM-PRO].
+/// 3.1. Project Organization.
 pub struct ProjectOrganization {
     pub node: som::SomNode,
 }
@@ -46341,18 +46825,18 @@ impl ProjectOrganization {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+    /// 3.1.1. Organization Structure.
     pub fn organization_structure(&self) -> OrganizationStructure {
         OrganizationStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationStructure"))
     }
 
-    /// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+    /// 3.1.2. Steering Committee.
     pub fn steering_committee(&self) -> SteeringCommittee {
         SteeringCommittee::new(self.node.doc(), format!("{}/{}", self.node.path(), "steeringCommittee"))
     }
 }
 
-/// 2. Project Organization and Process [PD00-POP].
+/// 2. Project Organization and Process.
 ///
 /// Project-specific deviations from the standard TomSpecs methodology.
 /// This section documents any customizations to standard roles, quality gates,
@@ -46391,119 +46875,28 @@ impl ProjectOrganizationAndProcess {
         MethodologyDeviationSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "deviationSummary"))
     }
 
-    /// 2.1. Role Adjustments [PD00-POP-ROL].
+    /// 2.1. Role Adjustments.
     pub fn role_adjustments(&self) -> RoleAdjustments {
         RoleAdjustments::new(self.node.doc(), format!("{}/{}", self.node.path(), "roleAdjustments"))
     }
 
-    /// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+    /// 2.2. Quality Gate Adjustments.
     pub fn quality_gate_adjustments(&self) -> QualityGateAdjustments {
         QualityGateAdjustments::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityGateAdjustments"))
     }
 
-    /// 2.3. Process Adjustments [PD00-POP-PRC].
+    /// 2.3. Process Adjustments.
     pub fn process_adjustments(&self) -> ProcessAdjustments {
         ProcessAdjustments::new(self.node.doc(), format!("{}/{}", self.node.path(), "processAdjustments"))
     }
 
-    /// 2.4. Tooling and Environments [PD00-POP-TOO].
+    /// 2.4. Tooling and Environments.
     pub fn tooling_and_environments(&self) -> ToolingAndEnvironments {
         ToolingAndEnvironments::new(self.node.doc(), format!("{}/{}", self.node.path(), "toolingAndEnvironments"))
     }
 }
 
-/// PPP00 Project Phase Plan.
-///
-/// Full project phase plan — staging strategy, stage overview, per-stage
-/// entries, feature prioritization, data migration, gate criteria,
-/// decision processes, initial development flow, and upgrade cycle
-/// framework.
-pub struct ProjectPhasePlan {
-    pub node: som::SomNode,
-}
-
-/// PROJECT_PHASE_PLAN_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const PROJECT_PHASE_PLAN_MODEL_VERSION: &str = "0.0";
-
-impl ProjectPhasePlan {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<ProjectPhasePlan, som::SomVersionError> {
-        som::check_som_model_version(PROJECT_PHASE_PLAN_MODEL_VERSION, document_version)?;
-        Ok(ProjectPhasePlan { node: som::SomNode::new(doc, "PPP".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        PROJECT_PHASE_PLAN_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Staging strategy — PD00-SSP-STR.
-    pub fn staging_strategy(&self) -> StagingStrategy {
-        StagingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "stagingStrategy"))
-    }
-
-    /// Stage overview — PD00-SSP-STA.
-    pub fn stage_overview(&self) -> StageOverview {
-        StageOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "stageOverview"))
-    }
-
-    /// Stages — PD00-SSP-STG (list).
-    pub fn stages(&self) -> som::SomList<StageEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "STAGE-STAG-LST"),
-            Box::new(|d, p| StageEntry::new(d, p)),
-        )
-    }
-
-    /// Feature prioritization — PD00-SSP-FEA.
-    pub fn feature_prioritization(&self) -> FeaturePrioritization {
-        FeaturePrioritization::new(self.node.doc(), format!("{}/{}", self.node.path(), "featurePrioritization"))
-    }
-
-    /// Data migration strategy — PD00-SSP-MIG.
-    pub fn data_migration_strategy(&self) -> DataMigrationStrategy {
-        DataMigrationStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataMigrationStrategy"))
-    }
-
-    /// Gate criteria — PD00-SSP-GOV-GAT (promoted from GOV).
-    pub fn gate_criteria(&self) -> PhaseGateReviews {
-        PhaseGateReviews::new(self.node.doc(), format!("{}/{}", self.node.path(), "gateCriteria"))
-    }
-
-    /// Decision processes — PD00-SSP-GOV-DEC (promoted from GOV).
-    pub fn decision_processes(&self) -> DecisionPoints {
-        DecisionPoints::new(self.node.doc(), format!("{}/{}", self.node.path(), "decisionProcesses"))
-    }
-
-    /// Initial development flow — PD00-SSP-IDV.
-    pub fn initial_development_flow(&self) -> InitialDevelopmentFlow {
-        InitialDevelopmentFlow::new(self.node.doc(), format!("{}/{}", self.node.path(), "initialDevelopmentFlow"))
-    }
-
-    /// Upgrade cycle framework — PD00-SSP-UPG (links tom_system_upgrade.md).
-    pub fn upgrade_cycle_framework(&self) -> UpgradeCycleFramework {
-        UpgradeCycleFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "upgradeCycleFramework"))
-    }
-}
-
-/// 3.2. Project Team Staffing [PD00-ADM-TEA].
+/// 3.2. Project Team Staffing.
 ///
 /// Container for individual staff assignments including roles, responsibilities,
 /// availability, and required competencies.
@@ -46629,7 +47022,7 @@ impl ProtocolComplianceRequirementsObservability {
     }
 }
 
-/// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
+/// A protocol or standard entry (form).
 pub struct ProtocolEntry {
     pub node: som::SomNode,
 }
@@ -46645,7 +47038,7 @@ impl ProtocolEntry {
     }
 }
 
-/// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+/// 8.6.1. Protocols and Standards.
 pub struct ProtocolsAndStandardsSection {
     pub node: som::SomNode,
 }
@@ -46708,7 +47101,7 @@ impl ProtocolsAndStandardsSection {
     }
 }
 
-/// 10.13. Prototype [PD00-USE-PRO].
+/// 10.13. Prototype.
 ///
 /// Comprehensive prototype planning covering goals, feature selection,
 /// prototype type, evaluation criteria, and stakeholder alignment.
@@ -46744,17 +47137,17 @@ impl Prototype {
     // Prototype overview narrative.
     // (skipped: overviewNarrative has no target type)
 
-    /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+    /// 10.13.1. Prototype Goals.
     pub fn prototype_goals(&self) -> PrototypeGoals {
         PrototypeGoals::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototypeGoals"))
     }
 
-    /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+    /// 10.13.2. Selected Feature Subset.
     pub fn feature_subset(&self) -> PrototypeFeatureSubset {
         PrototypeFeatureSubset::new(self.node.doc(), format!("{}/{}", self.node.path(), "featureSubset"))
     }
 
-    /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+    /// 10.13.3. Prototype Type.
     pub fn prototype_type(&self) -> PrototypeTypeSection {
         PrototypeTypeSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototypeType"))
     }
@@ -46763,7 +47156,7 @@ impl Prototype {
     // (skipped: prototypeSchedule has no target type)
 }
 
-/// A prototype feature entry [PD00-USE-PRO-FEA-nn].
+/// A prototype feature entry.
 pub struct PrototypeFeatureEntry {
     pub node: som::SomNode,
 }
@@ -46779,7 +47172,7 @@ impl PrototypeFeatureEntry {
     }
 }
 
-/// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+/// 10.13.2. Selected Feature Subset.
 ///
 /// Features included in the prototype.
 pub struct PrototypeFeatureSubset {
@@ -46851,7 +47244,7 @@ impl PrototypeFeatureSubsetScope {
     }
 }
 
-/// A prototype goal entry [PD00-USE-PRO-GOA-nn].
+/// A prototype goal entry.
 pub struct PrototypeGoalEntry {
     pub node: som::SomNode,
 }
@@ -46867,7 +47260,7 @@ impl PrototypeGoalEntry {
     }
 }
 
-/// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+/// 10.13.1. Prototype Goals.
 ///
 /// What the prototype should validate.
 pub struct PrototypeGoals {
@@ -46987,7 +47380,7 @@ impl PrototypeTimeline {
     }
 }
 
-/// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+/// 10.13.3. Prototype Type.
 ///
 /// Classification and implications of the prototype type.
 pub struct PrototypeTypeSection {
@@ -47004,17 +47397,17 @@ impl PrototypeTypeSection {
         PrototypeTypeSectionPrototypeTypeOverviewForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototypeTypeOverview"))
     }
 
-    /// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+    /// 10.13.3.1. Reusable Prototype.
     pub fn reusable_prototype(&self) -> ReusablePrototype {
         ReusablePrototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "reusablePrototype"))
     }
 
-    /// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+    /// 10.13.3.2. Training Prototype.
     pub fn training_prototype(&self) -> TrainingPrototype {
         TrainingPrototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingPrototype"))
     }
 
-    /// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+    /// 10.13.3.3. Throwaway Prototype.
     pub fn throwaway_prototype(&self) -> ThrowawayPrototype {
         ThrowawayPrototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "throwawayPrototype"))
     }
@@ -47120,7 +47513,154 @@ impl PwaRequirementsUpdates {
     }
 }
 
-/// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
+/// BQP00 Business Quality Plan.
+///
+/// Full quality plan combining quality goals and the acceptance plan.
+pub struct QualityAcceptancePlan {
+    pub node: som::SomNode,
+}
+
+/// QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "0.0";
+
+impl QualityAcceptancePlan {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<QualityAcceptancePlan, som::SomVersionError> {
+        som::check_som_model_version(QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION, document_version)?;
+        Ok(QualityAcceptancePlan { node: som::SomNode::new(doc, "QAP".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Quality framework.
+    pub fn quality_framework(&self) -> QualityFramework {
+        QualityFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityFramework"))
+    }
+
+    /// User-related quality criteria.
+    pub fn user_quality_criteria(&self) -> UserQualityCriteria {
+        UserQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "userQualityCriteria"))
+    }
+
+    /// Technical quality criteria.
+    pub fn technical_quality_criteria(&self) -> TechnicalQualityCriteria {
+        TechnicalQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalQualityCriteria"))
+    }
+
+    /// Operations quality criteria.
+    pub fn operations_quality_criteria(&self) -> OperationsQualityCriteria {
+        OperationsQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsQualityCriteria"))
+    }
+
+    /// Documentation quality criteria.
+    pub fn documentation_quality_criteria(&self) -> DocumentationQualityCriteria {
+        DocumentationQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationQualityCriteria"))
+    }
+
+    /// Quality prioritization.
+    pub fn quality_prioritization(&self) -> QualityPrioritization {
+        QualityPrioritization::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityPrioritization"))
+    }
+
+    /// Acceptance criteria summary.
+    pub fn acceptance_criteria_summary(&self) -> AcceptanceCriteriaSummary {
+        AcceptanceCriteriaSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteriaSummary"))
+    }
+
+    /// Test strategy (new in Phase A).
+    pub fn test_strategy(&self) -> TestStrategy {
+        TestStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "testStrategy"))
+    }
+
+    /// Acceptance criteria.
+    pub fn acceptance_criteria(&self) -> AcceptanceCriteriaList {
+        AcceptanceCriteriaList::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteria"))
+    }
+
+    /// Acceptance process.
+    pub fn acceptance_process(&self) -> AcceptanceProcess {
+        AcceptanceProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceProcess"))
+    }
+
+    /// User acceptance testing.
+    pub fn user_acceptance_testing(&self) -> UserAcceptanceTesting {
+        UserAcceptanceTesting::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAcceptanceTesting"))
+    }
+
+    /// Defect resolution.
+    pub fn defect_resolution(&self) -> DefectResolution {
+        DefectResolution::new(self.node.doc(), format!("{}/{}", self.node.path(), "defectResolution"))
+    }
+
+    /// Sign-off process.
+    pub fn sign_off_process(&self) -> SignOffProcess {
+        SignOffProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "signOffProcess"))
+    }
+
+    /// Warranty terms.
+    pub fn warranty(&self) -> WarrantyTerms {
+        WarrantyTerms::new(self.node.doc(), format!("{}/{}", self.node.path(), "warranty"))
+    }
+}
+
+/// SBP.14 Quality & Acceptance Model.
+///
+/// Public anchor: ISO/IEC 25010 product quality.
+pub struct QualityAndAcceptanceModel {
+    pub node: som::SomNode,
+}
+
+impl QualityAndAcceptanceModel {
+    /// Binds a QualityAndAcceptanceModel facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> QualityAndAcceptanceModel {
+        QualityAndAcceptanceModel { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Quality goals and attributes.
+    pub fn system_quality_goals(&self) -> SystemQualityGoals {
+        SystemQualityGoals::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemQualityGoals"))
+    }
+
+    /// Delivery scope and acceptance criteria.
+    pub fn delivery_acceptance(&self) -> DeliveryScopeAndAcceptance {
+        DeliveryScopeAndAcceptance::new(self.node.doc(), format!("{}/{}", self.node.path(), "deliveryAcceptance"))
+    }
+
+    /// ISO/IEC 25010 product-quality cross-map (§5 completeness addition).
+    pub fn iso25010_coverage(&self) -> Iso25010Coverage {
+        Iso25010Coverage::new(self.node.doc(), format!("{}/{}", self.node.path(), "iso25010Coverage"))
+    }
+}
+
+/// A quality category entry (form).
 ///
 /// Defines a quality category with its attributes, weight, and relationship
 /// to other categories.
@@ -47226,7 +47766,7 @@ impl QualityCategoryEntryRelationships {
     }
 }
 
-/// 11.1. Quality Framework [PD00-SYQ-FRA].
+/// 11.1. Quality Framework.
 ///
 /// Overall quality approach for the project defining objectives, categories,
 /// and how quality is structured and governed across the system.
@@ -47259,13 +47799,13 @@ impl QualityFramework {
         QualityFrameworkVerification::new(self.node.doc(), format!("{}/{}", self.node.path(), "verification"))
     }
 
-    // 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
+    // 11.1.1. Quality Objectives Overview.
     // (skipped: qualityObjectivesOverview has no target type)
 
     // Quality objectives breakdown by category.
     // (skipped: objectivesBreakdown has no target type)
 
-    /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
+    /// 11.1.2. Quality Categories — contains 0+× QualityCategory.
     pub fn quality_categories(&self) -> som::SomList<QualityCategoryEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -47348,7 +47888,7 @@ impl QualityGateAdjustmentDetails {
     }
 }
 
-/// A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
+/// A quality gate adjustment entry (form).
 ///
 /// Documents a specific deviation from standard quality gate definitions,
 /// including the type of change, impact on quality assurance, risk
@@ -47456,7 +47996,7 @@ impl QualityGateAdjustmentSummary {
     }
 }
 
-/// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+/// 2.2. Quality Gate Adjustments.
 ///
 /// Documents any deviations from the standard quality gates defined in
 /// tom_quality_gates.md. Includes skipped, added, or modified gates
@@ -47505,7 +48045,7 @@ impl QualityGateAdjustments {
     }
 }
 
-/// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
+/// A quality gate check entry (form).
 pub struct QualityGateCheckEntry {
     pub node: som::SomNode,
 }
@@ -47626,7 +48166,7 @@ impl QualityGateCheckEntryVerification {
     }
 }
 
-/// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+/// 11.7.2. Quality Gate Checklist.
 ///
 /// Quality gate checklist used during acceptance.
 pub struct QualityGateChecklist {
@@ -47656,7 +48196,7 @@ impl QualityGateChecklist {
     }
 }
 
-/// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+/// 11.6. Quality Prioritization.
 ///
 /// Prioritization and balancing of quality attributes including weighted
 /// matrices and explicit trade-off decisions.
@@ -47677,12 +48217,12 @@ impl QualityPrioritization {
     // Prioritization approach overview.
     // (skipped: prioritizationOverview has no target type)
 
-    /// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+    /// 11.6.1. Weighted Quality Matrix.
     pub fn weighted_quality_matrix(&self) -> WeightedQualityMatrix {
         WeightedQualityMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "weightedQualityMatrix"))
     }
 
-    /// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+    /// 11.6.2. Trade-off Decisions.
     pub fn trade_off_decisions(&self) -> TradeOffDecisions {
         TradeOffDecisions::new(self.node.doc(), format!("{}/{}", self.node.path(), "tradeOffDecisions"))
     }
@@ -47704,7 +48244,7 @@ impl QualityScenarioEntry {
     }
 }
 
-/// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+/// 4.2.2.n.1. Quality Scenarios.
 ///
 /// Quality attribute scenarios that define concrete, testable situations
 /// for verifying the technical goal (based on SEI quality attribute workshop).
@@ -47837,7 +48377,7 @@ impl QualityStandardEntryProcesses {
     }
 }
 
-/// A quality weight entry [PD00-SYQ-PRI-WEI-nn].
+/// A quality weight entry.
 pub struct QualityWeightEntry {
     pub node: som::SomNode,
 }
@@ -47932,7 +48472,7 @@ impl RateLimitingPolicyQuotas {
     }
 }
 
-/// 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
+/// 11.5.1. Readability quality.
 pub struct ReadabilityQuality {
     pub node: som::SomNode,
 }
@@ -48035,7 +48575,7 @@ impl ReadabilityQualityStyle {
     }
 }
 
-/// Readiness criteria entry [PD00-ORG-STR-TIM-RDY-nn] (form).
+/// Readiness criteria entry (form).
 pub struct ReadinessCriteriaEntry {
     pub node: som::SomNode,
 }
@@ -48172,7 +48712,7 @@ impl RecoveryProceduresValidation {
     }
 }
 
-/// A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
+/// A recovery scenario entry.
 pub struct RecoveryScenarioEntry {
     pub node: som::SomNode,
 }
@@ -48234,7 +48774,7 @@ impl RedirectHandlingPolicy {
     // (skipped: redirectDetails has no target type)
 }
 
-/// A reference document entry [PD00-ADM-REF-nn] (form).
+/// A reference document entry (form).
 ///
 /// Detailed metadata for a single referenced document including
 /// identification, classification, status, and applicability.
@@ -48326,7 +48866,7 @@ impl ReferenceDocumentEntryMetadata {
     }
 }
 
-/// 3.5. Reference Documents [PD00-ADM-REF].
+/// 3.5. Reference Documents.
 ///
 /// Catalog of all documents referenced by this project specification,
 /// including enterprise standards, technical guidelines, regulatory
@@ -48481,7 +49021,7 @@ impl RegulatoryComplianceEntryRequirements {
     }
 }
 
-/// 3.6.3. Regulatory Compliance Requirements [PD00-ADM-OTH-REG].
+/// 3.6.3. Regulatory Compliance Requirements.
 ///
 /// Regulatory and compliance obligations affecting the project.
 pub struct RegulatoryComplianceRequirements {
@@ -48522,7 +49062,7 @@ impl RegulatoryComplianceRequirements {
     }
 }
 
-/// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+/// 4.1.2.8. Regulatory Context.
 ///
 /// Regulatory and compliance context that affects system design and
 /// operations.
@@ -48740,7 +49280,7 @@ impl RelevantSectionEntry {
     }
 }
 
-/// 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
+/// 11.3.6. Reliability quality.
 pub struct ReliabilityQuality {
     pub node: som::SomNode,
 }
@@ -48887,7 +49427,7 @@ impl RemoteAccessRequirements {
     }
 }
 
-/// A removed role entry [PD00-ORG-JOB-REM-nn] (form).
+/// A removed role entry (form).
 ///
 /// Documents roles being eliminated with transition planning for incumbents.
 pub struct RemovedRoleEntry {
@@ -48968,7 +49508,7 @@ impl RemovedRoleEntryTransition {
     }
 }
 
-/// Container for systems to replace [PD00-SYO-SYR-INV].
+/// Container for systems to replace.
 ///
 /// Provides a structured inventory of all systems targeted for replacement,
 /// with portfolio-level metrics and prioritization guidance.
@@ -48998,7 +49538,7 @@ impl ReplacementInventory {
     }
 }
 
-/// A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn].
+/// A replacement phase entry.
 pub struct ReplacementPhaseEntry {
     pub node: som::SomNode,
 }
@@ -49014,7 +49554,7 @@ impl ReplacementPhaseEntry {
     }
 }
 
-/// A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
+/// A system dependency entry.
 ///
 /// Documents integrations and dependencies with other systems.
 pub struct ReplacementSystemDependencyEntry {
@@ -49064,7 +49604,7 @@ impl ReportChartDisplay {
     }
 }
 
-/// A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
+/// A chart/visualization in a report
 /// (form).
 pub struct ReportChartEntry {
     pub node: som::SomNode,
@@ -49190,7 +49730,7 @@ impl ReportColumnDataSource {
     }
 }
 
-/// A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
+/// A column in a tabular report section
 /// (form).
 pub struct ReportColumnEntry {
     pub node: som::SomNode,
@@ -49296,7 +49836,7 @@ impl ReportDataSource {
     }
 }
 
-/// Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form).
+/// Distribution channel configuration (form).
 pub struct ReportDistributionEntry {
     pub node: som::SomNode,
 }
@@ -49375,7 +49915,7 @@ impl ReportDistributionEntryRecipients {
     }
 }
 
-/// A report entry [PD00-USE-PRI-REP-nn] (form).
+/// A report entry (form).
 pub struct ReportEntry {
     pub node: som::SomNode,
 }
@@ -49491,7 +50031,7 @@ impl ReportEntry {
     }
 }
 
-/// A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form).
+/// A filter parameter for a report (form).
 pub struct ReportFilterEntry {
     pub node: som::SomNode,
 }
@@ -49714,7 +50254,7 @@ impl ReportPagination {
     }
 }
 
-/// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
+/// A recipient entry (form).
 pub struct ReportRecipientEntry {
     pub node: som::SomNode,
 }
@@ -49793,7 +50333,7 @@ impl ReportRecipientEntryLifecycle {
     }
 }
 
-/// Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
+/// Scheduling rules for report generation
 /// (form).
 pub struct ReportScheduleEntry {
     pub node: som::SomNode,
@@ -49926,7 +50466,7 @@ impl ReportSectionData {
     }
 }
 
-/// A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).
+/// A section within a report (form).
 pub struct ReportSectionEntry {
     pub node: som::SomNode,
 }
@@ -50049,7 +50589,7 @@ impl RepresentativeQuoteEntry {
     }
 }
 
-/// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+/// 4.3.1.n.1. Acceptance Criteria.
 ///
 /// Testable conditions that must be met for the requirement to be accepted.
 /// Uses Given-When-Then format for clarity.
@@ -50098,7 +50638,7 @@ impl RequirementBusinessRuleEntry {
     }
 }
 
-/// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+/// 4.3.1.n.2. Business Rules.
 ///
 /// Business rules that constrain or guide this requirement's behavior.
 pub struct RequirementBusinessRules {
@@ -50130,7 +50670,7 @@ impl RequirementBusinessRules {
     }
 }
 
-/// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+/// 4.3.6. Requirement Coverage.
 ///
 /// Coverage of requirements against goals, use cases, and tests.
 pub struct RequirementCoverage {
@@ -50153,7 +50693,7 @@ impl RequirementCoverage {
     }
 }
 
-/// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+/// 4.3.1.n.3. Data Requirements.
 ///
 /// Data entities, attributes, and relationships needed by this requirement.
 pub struct RequirementDataRequirements {
@@ -50185,7 +50725,7 @@ impl RequirementDataRequirements {
     }
 }
 
-/// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+/// 4.3.1.n.5. Dependencies.
 ///
 /// Dependencies this requirement has on other requirements.
 pub struct RequirementDependencies {
@@ -50242,7 +50782,7 @@ impl RequirementDependencyEntry {
     }
 }
 
-/// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+/// 4.3.5. Requirement Relationships.
 ///
 /// Cross-requirement dependency and conflict graph.
 pub struct RequirementRelationships {
@@ -50359,7 +50899,7 @@ impl RequirementTestCaseEntryExecution {
     }
 }
 
-/// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+/// 4.3.1.n.7. Test Cases.
 ///
 /// Test cases that verify this requirement is correctly implemented.
 pub struct RequirementTestCases {
@@ -50391,7 +50931,7 @@ impl RequirementTestCases {
     }
 }
 
-/// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+/// 4.3.1.n.6. Traceability.
 ///
 /// Traceability links to goals, use cases, processes, and other artifacts.
 pub struct RequirementTraceability {
@@ -50461,7 +51001,7 @@ impl RequirementTraceabilityImplementation {
     }
 }
 
-/// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+/// 4.3.1.n.4. UI Specification.
 ///
 /// User interface specification for this requirement. Defines screens,
 /// forms, and interactions needed to fulfill the requirement.
@@ -50538,30 +51078,19 @@ impl RequirementUiSpecification {
     }
 }
 
-/// RC00 Requirements Catalog.
+/// SBP.9 Requirements.
 ///
-/// Full requirements catalog covering functional, technical, security,
-/// and organizational requirements, plus traceability, relationships,
-/// and coverage analysis.
-pub struct RequirementsCatalog {
+/// Functional requirements seed the Requirements Specification (RSP); this
+/// section currently carries the framework-uncovered NFR sub-areas re-homed in
+/// IP-6. Functional-requirement modelling is expanded in a later IP step.
+pub struct Requirements {
     pub node: som::SomNode,
 }
 
-/// REQUIREMENTS_CATALOG_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const REQUIREMENTS_CATALOG_MODEL_VERSION: &str = "0.0";
-
-impl RequirementsCatalog {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<RequirementsCatalog, som::SomVersionError> {
-        som::check_som_model_version(REQUIREMENTS_CATALOG_MODEL_VERSION, document_version)?;
-        Ok(RequirementsCatalog { node: som::SomNode::new(doc, "RC".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        REQUIREMENTS_CATALOG_MODEL_VERSION
+impl Requirements {
+    /// Binds a Requirements facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Requirements {
+        Requirements { node: som::SomNode::new(doc, path) }
     }
 
     pub fn content(&self) -> String {
@@ -50573,61 +51102,23 @@ impl RequirementsCatalog {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    /// Localization & Translation requirements (NFR-L10N-NNN).
+    pub fn localization_translation(&self) -> LocalizationTranslationRequirements {
+        LocalizationTranslationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationTranslation"))
     }
 
-    /// Functional requirements — PD00-SYO-REQ-FUN.
-    pub fn functional_requirements(&self) -> FunctionalRequirements {
-        FunctionalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalRequirements"))
+    /// Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
+    pub fn information_for_use(&self) -> InformationForUseRequirements {
+        InformationForUseRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "informationForUse"))
     }
 
-    /// Technical (non-functional) requirements — PD00-SYO-REQ-TEC.
-    pub fn technical_requirements(&self) -> TechnicalRequirements {
-        TechnicalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalRequirements"))
-    }
-
-    /// Security requirements — PD00-SYO-REQ-SEC.
-    pub fn security_requirements(&self) -> SecurityRequirements {
-        SecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityRequirements"))
-    }
-
-    /// Organizational requirements — PD00-SYO-REQ-ORG.
-    pub fn organizational_requirements(&self) -> OrganizationalRequirements {
-        OrganizationalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalRequirements"))
-    }
-
-    /// Traceability matrix overview — PD00-SYO-REQ-TRC.
-    ///
-    /// Mirrors the PD00-side flat field on RequirementsOverview so the RC
-    /// outline reaches it directly. The authoritative content lives on the
-    /// PD00 side.
-    pub fn traceability_matrix(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "traceabilityMatrix"))
-    }
-
-    pub fn set_traceability_matrix(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "traceabilityMatrix");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Requirement relationships — PD00-SYO-REQ-REL.
-    pub fn requirement_relationships(&self) -> som::SomList<RequirementRelationships> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "RERE-REQU-LST"),
-            Box::new(|d, p| RequirementRelationships::new(d, p)),
-        )
-    }
-
-    /// Requirement coverage — PD00-SYO-REQ-COV.
-    pub fn requirement_coverage(&self) -> RequirementCoverage {
-        RequirementCoverage::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirementCoverage"))
+    /// Training & Enablement requirements (NFR-TRN-NNN).
+    pub fn training_enablement(&self) -> TrainingEnablementRequirements {
+        TrainingEnablementRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingEnablement"))
     }
 }
 
-/// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+/// 4.3. Requirements Overview. Seeds → RC.
 ///
 /// Initial requirements overview organized by category. Each requirement
 /// receives a unique ID and will be expanded into the RC (Requirements
@@ -50668,27 +51159,27 @@ impl RequirementsOverview {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+    /// 4.3.1. Functional Requirements.
     pub fn functional_requirements(&self) -> FunctionalRequirements {
         FunctionalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalRequirements"))
     }
 
-    /// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+    /// 4.3.2. Technical Requirements.
     pub fn technical_requirements(&self) -> TechnicalRequirements {
         TechnicalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalRequirements"))
     }
 
-    /// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+    /// 4.3.3. Security Requirements.
     pub fn security_requirements(&self) -> SecurityRequirements {
         SecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityRequirements"))
     }
 
-    /// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+    /// 4.3.4. Organizational Requirements.
     pub fn organizational_requirements(&self) -> OrganizationalRequirements {
         OrganizationalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalRequirements"))
     }
 
-    /// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+    /// 4.3.5. Requirement Relationships.
     pub fn requirement_relationships(&self) -> som::SomList<RequirementRelationships> {
         som::SomList::new(
             self.node.doc(),
@@ -50697,7 +51188,96 @@ impl RequirementsOverview {
         )
     }
 
-    /// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+    /// 4.3.6. Requirement Coverage.
+    pub fn requirement_coverage(&self) -> RequirementCoverage {
+        RequirementCoverage::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirementCoverage"))
+    }
+}
+
+/// RC00 Requirements Catalog.
+///
+/// Full requirements catalog covering functional, technical, security,
+/// and organizational requirements, plus traceability, relationships,
+/// and coverage analysis.
+pub struct RequirementsSpecification {
+    pub node: som::SomNode,
+}
+
+/// REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "0.0";
+
+impl RequirementsSpecification {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<RequirementsSpecification, som::SomVersionError> {
+        som::check_som_model_version(REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version)?;
+        Ok(RequirementsSpecification { node: som::SomNode::new(doc, "RSP".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        REQUIREMENTS_SPECIFICATION_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Functional requirements.
+    pub fn functional_requirements(&self) -> FunctionalRequirements {
+        FunctionalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalRequirements"))
+    }
+
+    /// Technical (non-functional) requirements.
+    pub fn technical_requirements(&self) -> TechnicalRequirements {
+        TechnicalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalRequirements"))
+    }
+
+    /// Security requirements.
+    pub fn security_requirements(&self) -> SecurityRequirements {
+        SecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityRequirements"))
+    }
+
+    /// Organizational requirements.
+    pub fn organizational_requirements(&self) -> OrganizationalRequirements {
+        OrganizationalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalRequirements"))
+    }
+
+    /// Traceability matrix overview.
+    ///
+    /// Mirrors the flat field on RequirementsOverview so the RC outline
+    /// reaches it directly. The authoritative content lives on the Solution
+    /// Blueprint side.
+    pub fn traceability_matrix(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "traceabilityMatrix"))
+    }
+
+    pub fn set_traceability_matrix(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "traceabilityMatrix");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Requirement relationships.
+    pub fn requirement_relationships(&self) -> som::SomList<RequirementRelationships> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RERE-REQU-LST"),
+            Box::new(|d, p| RequirementRelationships::new(d, p)),
+        )
+    }
+
+    /// Requirement coverage.
     pub fn requirement_coverage(&self) -> RequirementCoverage {
         RequirementCoverage::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirementCoverage"))
     }
@@ -50819,7 +51399,7 @@ impl ResourceCapacityBaselinesStorage {
     }
 }
 
-/// A resource key entry [PD00-ACC-USA-RES-nn] (form).
+/// A resource key entry (form).
 pub struct ResourceKeyEntry {
     pub node: som::SomNode,
 }
@@ -50835,7 +51415,7 @@ impl ResourceKeyEntry {
     }
 }
 
-/// A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn].
+/// A resource key reference entry (form).
 pub struct ResourceKeyReferenceEntry {
     pub node: som::SomNode,
 }
@@ -50851,7 +51431,7 @@ impl ResourceKeyReferenceEntry {
     }
 }
 
-/// 9.3. Resource Protection [PD00-ACC-RES].
+/// 9.3. Resource Protection.
 pub struct ResourceProtection {
     pub node: som::SomNode,
 }
@@ -50871,17 +51451,17 @@ impl ResourceProtection {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+    /// 9.3.1. Data-Level Security.
     pub fn data_level_security(&self) -> DataLevelSecurity {
         DataLevelSecurity::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataLevelSecurity"))
     }
 
-    /// 9.3.2. API Security [PD00-ACC-RES-API].
+    /// 9.3.2. API Security.
     pub fn api_security(&self) -> ApiSecurity {
         ApiSecurity::new(self.node.doc(), format!("{}/{}", self.node.path(), "apiSecurity"))
     }
 
-    /// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+    /// 9.3.3. File and Storage Security.
     pub fn file_and_storage_security(&self) -> FileAndStorageSecurity {
         FileAndStorageSecurity::new(self.node.doc(), format!("{}/{}", self.node.path(), "fileAndStorageSecurity"))
     }
@@ -50924,7 +51504,7 @@ impl ResponseStrategyEntry {
     }
 }
 
-/// Responsibility change entry [PD00-ORG-JOB-CHA-nn-xxx-nn] (form).
+/// Responsibility change entry (form).
 pub struct ResponsibilityChangeEntry {
     pub node: som::SomNode,
 }
@@ -50956,7 +51536,7 @@ impl ResponsibilityContacts {
     }
 }
 
-/// Detailed responsibility entry [PD00-ORG-JOB-NEW-nn-RSP-nn] (form).
+/// Detailed responsibility entry (form).
 pub struct ResponsibilityDetailEntry {
     pub node: som::SomNode,
 }
@@ -50972,7 +51552,7 @@ impl ResponsibilityDetailEntry {
     }
 }
 
-/// A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+/// A responsibility entry (form).
 ///
 /// Documents responsibility assignment for a specific functional area,
 /// following RACI principles (Responsible, Accountable, Consulted, Informed)
@@ -51093,7 +51673,7 @@ impl ResponsibilityRaci {
     }
 }
 
-/// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
+/// A responsibility reference entry (form).
 pub struct ResponsibilityReferenceEntry {
     pub node: som::SomNode,
 }
@@ -51125,7 +51705,7 @@ impl ResponsibilitySystems {
     }
 }
 
-/// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+/// 10.10.2. Responsive Behavior.
 ///
 /// How the UI adapts across breakpoints.
 pub struct ResponsiveBehavior {
@@ -51239,7 +51819,7 @@ impl ResponsiveBehaviorVisibility {
     }
 }
 
-/// 10.10. Responsive Design [PD00-USE-RES].
+/// 10.10. Responsive Design.
 ///
 /// Comprehensive responsive design specification covering breakpoints,
 /// adaptive layouts, and device-specific behavior for Flutter applications.
@@ -51260,18 +51840,18 @@ impl ResponsiveDesign {
     // Responsive design narrative.
     // (skipped: responsiveNarrative has no target type)
 
-    /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+    /// 10.10.1. Breakpoints.
     pub fn breakpoint_config(&self) -> BreakpointConfiguration {
         BreakpointConfiguration::new(self.node.doc(), format!("{}/{}", self.node.path(), "breakpointConfig"))
     }
 
-    /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+    /// 10.10.2. Responsive Behavior.
     pub fn responsive_behavior(&self) -> ResponsiveBehavior {
         ResponsiveBehavior::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveBehavior"))
     }
 }
 
-/// A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
+/// A screen-specific responsive rule entry.
 pub struct ResponsiveScreenRuleEntry {
     pub node: som::SomNode,
 }
@@ -51482,7 +52062,7 @@ impl ReusabilityPrinciplesVersioning {
     }
 }
 
-/// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+/// 8.2.3. Reusable Components.
 ///
 /// Components, libraries, or frameworks designed for reuse across projects
 /// or modules.
@@ -51569,7 +52149,7 @@ impl ReusableComponentsSection {
     }
 }
 
-/// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+/// 10.13.3.1. Reusable Prototype.
 ///
 /// Prototype that becomes part of the final product.
 pub struct ReusablePrototype {
@@ -51774,7 +52354,7 @@ impl ReusableUiComponentEntryInteraction {
     }
 }
 
-/// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
+/// A reuse goal entry (form).
 ///
 /// Defines a specific reuse target: what to reuse, why, at what percentage,
 /// how to measure, and who owns the goal.
@@ -51856,7 +52436,7 @@ impl ReuseGoalEntryMeasurement {
     }
 }
 
-/// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
+/// A review criterion entry (form).
 ///
 /// A single criterion evaluated at a phase gate, with weight,
 /// evidence linkage, and assessment result.
@@ -51914,6 +52494,52 @@ impl ReviewCriterionEntryResult {
 
     pub fn content(&self) -> ReviewCriterionEntryResultContentForm {
         ReviewCriterionEntryResultContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// A single document revision entry (form).
+pub struct RevisionEntry {
+    pub node: som::SomNode,
+}
+
+impl RevisionEntry {
+    /// Binds a RevisionEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RevisionEntry {
+        RevisionEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> RevisionEntryContentForm {
+        RevisionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Chronological revision history.
+pub struct RevisionHistory {
+    pub node: som::SomNode,
+}
+
+impl RevisionHistory {
+    /// Binds a RevisionHistory facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RevisionHistory {
+        RevisionHistory { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// One entry per published revision of the document.
+    pub fn revisions(&self) -> som::SomList<RevisionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RVHST-REVS-LST"),
+            Box::new(|d, p| RevisionEntry::new(d, p)),
+        )
     }
 }
 
@@ -52033,7 +52659,7 @@ impl RiskCategoryEntry {
     }
 }
 
-/// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+/// A risk entry (form).
 ///
 /// Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
 /// Captures risk identification, analysis, response planning, ownership,
@@ -52294,7 +52920,7 @@ impl RiskResponseResidual {
     }
 }
 
-/// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+/// 4.7. Risks and Assumptions.
 ///
 /// Documents identified project risks and underlying assumptions following
 /// ISO 31000 Risk Management and PMBOK risk management best practices.
@@ -52315,7 +52941,7 @@ impl RisksAndAssumptions {
         RisksOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "overview"))
     }
 
-    /// 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+    /// 4.7.1. Key Risks — contains 0+× Risk.
     pub fn key_risks(&self) -> som::SomList<RiskEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -52324,7 +52950,7 @@ impl RisksAndAssumptions {
         )
     }
 
-    /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
+    /// 4.7.2. Key Assumptions — contains 0+×.
     pub fn key_assumptions(&self) -> KeyAssumptions {
         KeyAssumptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyAssumptions"))
     }
@@ -52346,7 +52972,7 @@ impl RisksOverview {
     }
 }
 
-/// A role adjustment entry (form) [PD00-POP-ROL-nn].
+/// A role adjustment entry (form).
 ///
 /// Documents a specific deviation from standard TomSpecs role definitions,
 /// including the type of adjustment, affected responsibilities, risk
@@ -52487,7 +53113,7 @@ impl RoleAdjustmentSummary {
     }
 }
 
-/// 2.1. Role Adjustments [PD00-POP-ROL].
+/// 2.1. Role Adjustments.
 ///
 /// Documents any deviations from the standard TomSpecs roles defined in
 /// tom_roles.md. Includes merged, split, omitted, or modified roles
@@ -52563,7 +53189,7 @@ impl RoleCertificationPolicy {
     // (skipped: roleCertificationDetails has no target type)
 }
 
-/// A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn].
+/// A role combination constraint entry (form).
 ///
 /// Defines rules about which roles can or cannot be combined — supports
 /// separation of duties, prerequisite roles, and co-requisite roles.
@@ -52582,7 +53208,7 @@ impl RoleCombinationConstraintEntry {
     }
 }
 
-/// Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form).
+/// Role competency entry (form).
 pub struct RoleCompetencyEntry {
     pub node: som::SomNode,
 }
@@ -52598,7 +53224,7 @@ impl RoleCompetencyEntry {
     }
 }
 
-/// A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn].
+/// A data scope entry for a role (form).
 ///
 /// Specifies what data categories the role can access and at what level —
 /// supports horizontal access control and data-level security.
@@ -52633,7 +53259,7 @@ impl RoleDecisionAuthority {
     }
 }
 
-/// A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
+/// A role exclusion entry (form).
 pub struct RoleExclusionEntry {
     pub node: som::SomNode,
 }
@@ -52649,7 +53275,7 @@ impl RoleExclusionEntry {
     }
 }
 
-/// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+/// 9.4.6. Role Hierarchy.
 ///
 /// Defines the role hierarchy: inheritance rules, mutual exclusions,
 /// role combination constraints, hierarchy depth, and role certification
@@ -52741,7 +53367,7 @@ impl RoleHierarchyPolicy {
     // (skipped: roleHierarchyPolicyDetails has no target type)
 }
 
-/// A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
+/// A role holder entry (form).
 pub struct RoleHolderEntry {
     pub node: som::SomNode,
 }
@@ -52757,7 +53383,7 @@ impl RoleHolderEntry {
     }
 }
 
-/// A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn].
+/// A role inheritance rule entry (form).
 ///
 /// Defines a specific parent-child inheritance relationship between two roles,
 /// including what is inherited and any restrictions.
@@ -52776,9 +53402,9 @@ impl RoleInheritanceRuleEntry {
     }
 }
 
-/// 9.7. Role Matrix [PD00-ACC-ROL].
+/// 9.7. Role Matrix.
 ///
-/// Role-to-permission assignment matrix covering HBSG AS22-AUM
+/// Role-to-permission assignment matrix covering
 /// Authorization Model.
 pub struct RoleMatrix {
     pub node: som::SomNode,
@@ -52800,7 +53426,7 @@ impl RoleMatrix {
     }
 }
 
-/// A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn].
+/// A direct permission entry for a role (form).
 ///
 /// Captures direct permission assignments that complement or override
 /// entitlement-based access — useful when fine-grained per-role permissions
@@ -52820,7 +53446,7 @@ impl RolePermissionEntry {
     }
 }
 
-/// A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn].
+/// A role reference entry (form).
 pub struct RoleReferenceEntry {
     pub node: som::SomNode,
 }
@@ -52957,7 +53583,7 @@ impl RollbackStrategyTriggers {
     }
 }
 
-/// 15.1. Rollout Plan [PD00-ROL-PLN].
+/// 15.1. Rollout Plan.
 ///
 /// Geographic and/or user-group rollout plan covering DR23 Rollout Plan
 /// content: the sequencing of sites, countries, business units, and user
@@ -52982,7 +53608,7 @@ impl RolloutPlan {
     }
 }
 
-/// 15.4. Training Materials [PD00-ROL-TRN].
+/// 15.4. Training Materials.
 ///
 /// Training deliverables covering DR17 Training Materials content.
 pub struct RolloutTrainingMaterials {
@@ -53112,7 +53738,7 @@ impl RpoRtoRequirementsSystems {
     }
 }
 
-/// A rule example entry (form) [PD00-BUS-FUN-RUL-nn-EXA-nn].
+/// A rule example entry (form).
 ///
 /// Examples illustrating rule application.
 pub struct RuleExampleEntry {
@@ -53130,7 +53756,7 @@ impl RuleExampleEntry {
     }
 }
 
-/// 12.4. Runtime Dependencies [PD00-COM-RUN].
+/// 12.4. Runtime Dependencies.
 ///
 /// Runtime dependencies between components: required services, startup order,
 /// health-check dependencies, failover behavior, and version constraints.
@@ -53163,7 +53789,7 @@ impl RuntimeDependencies {
     }
 }
 
-/// A runtime dependency entry (form) [PD00-COM-RUN-nn].
+/// A runtime dependency entry (form).
 ///
 /// Documents one runtime dependency: startup order, health checks,
 /// failover, data flow, latency tolerance, and caching strategy.
@@ -53824,7 +54450,7 @@ impl ScenarioData {
     }
 }
 
-/// A scenario entry [PD00-TAR-STP-SCE-nn].
+/// A scenario entry.
 ///
 /// Comprehensive scenario definition for end-to-end user journey.
 pub struct ScenarioEntry {
@@ -53913,7 +54539,7 @@ impl ScenarioOverview {
     }
 }
 
-/// A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn].
+/// A scenario step entry.
 pub struct ScenarioStepEntry {
     pub node: som::SomNode,
 }
@@ -54124,7 +54750,7 @@ impl ScopeAssumptionEntry {
     }
 }
 
-/// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+/// 4.1.1.6. Scope Boundaries.
 ///
 /// Clear definition of what is in scope and out of scope for this system.
 /// Helps set expectations and prevent scope creep.
@@ -54147,7 +54773,7 @@ impl ScopeBoundaries {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
+    /// In-Scope Items — contains 1+× ScopeItem.
     pub fn in_scope_items(&self) -> som::SomList<ScopeItemEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -54156,7 +54782,7 @@ impl ScopeBoundaries {
         )
     }
 
-    /// Out-of-Scope Items [PD00-SYO-SYD-PUR-SCO-OUT] — contains 0+× ScopeItem.
+    /// Out-of-Scope Items — contains 0+× ScopeItem.
     pub fn out_of_scope_items(&self) -> som::SomList<ScopeItemEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -54165,7 +54791,7 @@ impl ScopeBoundaries {
         )
     }
 
-    /// Deferred Items [PD00-SYO-SYD-PUR-SCO-DEF] — contains 0+× ScopeItem.
+    /// Deferred Items — contains 0+× ScopeItem.
     pub fn deferred_items(&self) -> som::SomList<DeferredScopeItemEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -54200,7 +54826,7 @@ impl ScopeItemEntry {
     }
 }
 
-/// A screen action entry (form) [PD00-USE-SCR-INV-nn-ACT-mm].
+/// A screen action entry (form).
 ///
 /// A top-level action available on the screen via toolbar, app bar, or FAB.
 pub struct ScreenActionEntry {
@@ -54281,7 +54907,7 @@ impl ScreenActionEntryVisual {
     }
 }
 
-/// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+/// 10.2.1.n.2. Screen Actions.
 ///
 /// Top-level actions available on the screen (toolbar, app bar, FAB).
 pub struct ScreenActions {
@@ -54332,7 +54958,7 @@ impl ScreenBehaviorEntry {
     }
 }
 
-/// 10.2. Screen Descriptions [PD00-USE-SCR].
+/// 10.2. Screen Descriptions.
 pub struct ScreenDescriptions {
     pub node: som::SomNode,
 }
@@ -54352,12 +54978,12 @@ impl ScreenDescriptions {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+    /// 10.2.1. Screen Inventory.
     pub fn screen_inventory(&self) -> ScreenInventory {
         ScreenInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "screenInventory"))
     }
 
-    /// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+    /// 10.2.2. Information Architecture.
     pub fn information_architecture(&self) -> InformationArchitecture {
         InformationArchitecture::new(self.node.doc(), format!("{}/{}", self.node.path(), "informationArchitecture"))
     }
@@ -54483,7 +55109,7 @@ impl ScreenElementDataDisplayOptions {
     }
 }
 
-/// A screen element entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk].
+/// A screen element entry (form).
 ///
 /// Any interactive or display element within a screen section: buttons, fields,
 /// data displays, icons, labels, status indicators.
@@ -54521,17 +55147,17 @@ impl ScreenElementEntry {
         ScreenElementEntryPresentation::new(self.node.doc(), format!("{}/{}", self.node.path(), "presentation"))
     }
 
-    /// 10.2.1.n.m.k.1. Element Action [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-ACN].
+    /// 10.2.1.n.m.k.1. Element Action.
     pub fn element_action(&self) -> ScreenElementAction {
         ScreenElementAction::new(self.node.doc(), format!("{}/{}", self.node.path(), "elementAction"))
     }
 
-    /// 10.2.1.n.m.k.2. Element Field Spec [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-FLD].
+    /// 10.2.1.n.m.k.2. Element Field Spec.
     pub fn field_spec(&self) -> ScreenElementFieldSpec {
         ScreenElementFieldSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "fieldSpec"))
     }
 
-    /// 10.2.1.n.m.k.3. Element Data Display [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-DAT].
+    /// 10.2.1.n.m.k.3. Element Data Display.
     pub fn data_display(&self) -> ScreenElementDataDisplay {
         ScreenElementDataDisplay::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataDisplay"))
     }
@@ -54712,7 +55338,7 @@ impl ScreenElementFieldSpecValidation {
     }
 }
 
-/// A screen entry [PD00-USE-SCR-INV-nn] (form).
+/// A screen entry (form).
 ///
 /// Comprehensive specification of a single application screen, covering
 /// identity, purpose, authorization, layout, elements, and behavior.
@@ -54753,17 +55379,17 @@ impl ScreenEntry {
     // Screen design rationale and notes.
     // (skipped: designNotes has no target type)
 
-    /// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+    /// 10.2.1.n.1. Screen Sections.
     pub fn sections(&self) -> ScreenSections {
         ScreenSections::new(self.node.doc(), format!("{}/{}", self.node.path(), "sections"))
     }
 
-    /// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+    /// 10.2.1.n.2. Screen Actions.
     pub fn actions(&self) -> ScreenActions {
         ScreenActions::new(self.node.doc(), format!("{}/{}", self.node.path(), "actions"))
     }
 
-    /// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+    /// 10.2.1.n.3. Screen States.
     pub fn states(&self) -> ScreenStates {
         ScreenStates::new(self.node.doc(), format!("{}/{}", self.node.path(), "states"))
     }
@@ -54971,7 +55597,7 @@ impl ScreenFieldValidation {
     }
 }
 
-/// 10.3. Screen Flow Structure [PD00-USE-SCF].
+/// 10.3. Screen Flow Structure.
 pub struct ScreenFlowStructure {
     pub node: som::SomNode,
 }
@@ -54991,16 +55617,16 @@ impl ScreenFlowStructure {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+    /// 10.3.1. Navigation Model.
     pub fn navigation_model(&self) -> NavigationModel {
         NavigationModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "navigationModel"))
     }
 
-    // 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid-flow).
+    // 10.3.2. Screen Flow Diagram (mermaid-flow).
     // (skipped: screenFlowDiagram has no target type)
 }
 
-/// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+/// 10.2.1. Screen Inventory.
 ///
 /// Container for screen definitions. Each entry fully describes one application
 /// screen including its purpose, layout zones, elements, actions, and states.
@@ -55036,7 +55662,7 @@ impl ScreenInventory {
     }
 }
 
-/// A responsive rule entry (form) [PD00-USE-SCR-INV-nn-RSP-mm].
+/// A responsive rule entry (form).
 ///
 /// How the screen adapts at different breakpoints.
 pub struct ScreenResponsiveRuleEntry {
@@ -55054,7 +55680,7 @@ impl ScreenResponsiveRuleEntry {
     }
 }
 
-/// A screen section entry (form) [PD00-USE-SCR-INV-nn-SEC-mm].
+/// A screen section entry (form).
 ///
 /// A logical zone within a screen: header, toolbar, content area, sidebar, etc.
 pub struct ScreenSectionEntry {
@@ -55123,7 +55749,7 @@ impl ScreenSectionEntryLayout {
     }
 }
 
-/// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+/// 10.2.1.n.1. Screen Sections.
 ///
 /// Logical zones within a screen that group related elements.
 pub struct ScreenSections {
@@ -55155,7 +55781,7 @@ impl ScreenSections {
     }
 }
 
-/// A screen state entry (form) [PD00-USE-SCR-INV-nn-STA-mm].
+/// A screen state entry (form).
 ///
 /// A specific state the screen can be in: loading, empty, error, permission-denied.
 pub struct ScreenStateEntry {
@@ -55173,7 +55799,7 @@ impl ScreenStateEntry {
     }
 }
 
-/// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+/// 10.2.1.n.3. Screen States.
 ///
 /// Different visual/behavioral states the screen can be in.
 pub struct ScreenStates {
@@ -55205,7 +55831,7 @@ impl ScreenStates {
     }
 }
 
-/// A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-mm].
+/// A user category entry (form).
 pub struct ScreenUserCategoryEntry {
     pub node: som::SomNode,
 }
@@ -55221,7 +55847,7 @@ impl ScreenUserCategoryEntry {
     }
 }
 
-/// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+/// 10.3.1.4. Secondary Navigation.
 ///
 /// In-page navigation: tab bars, segmented controls.
 pub struct SecondaryNavigation {
@@ -55256,7 +55882,150 @@ impl SecondaryNavigation {
     }
 }
 
-/// A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
+/// AC00 Authorization Concept.
+///
+/// Complete access and authorization specification — user management,
+/// identification and authentication, resource protection, user
+/// authorization, encryption, audit/logging, role matrix, and
+/// compliance framework.
+pub struct SecurityAccessSpecification {
+    pub node: som::SomNode,
+}
+
+/// SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "0.0";
+
+impl SecurityAccessSpecification {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<SecurityAccessSpecification, som::SomVersionError> {
+        som::check_som_model_version(SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION, document_version)?;
+        Ok(SecurityAccessSpecification { node: som::SomNode::new(doc, "SAS".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// User management.
+    pub fn user_management(&self) -> UserManagement {
+        UserManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManagement"))
+    }
+
+    /// Identification and authentication.
+    pub fn identification_and_authentication(&self) -> IdentificationAndAuthentication {
+        IdentificationAndAuthentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "identificationAndAuthentication"))
+    }
+
+    /// Resource protection.
+    pub fn resource_protection(&self) -> ResourceProtection {
+        ResourceProtection::new(self.node.doc(), format!("{}/{}", self.node.path(), "resourceProtection"))
+    }
+
+    /// User authorization.
+    pub fn user_authorization(&self) -> UserAuthorization {
+        UserAuthorization::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAuthorization"))
+    }
+
+    /// Sensitive data encryption.
+    pub fn sensitive_data_encryption(&self) -> SensitiveDataEncryption {
+        SensitiveDataEncryption::new(self.node.doc(), format!("{}/{}", self.node.path(), "sensitiveDataEncryption"))
+    }
+
+    /// Audit and logging.
+    pub fn audit_and_logging(&self) -> AuditAndLogging {
+        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
+    }
+
+    /// Role matrix.
+    pub fn role_matrix(&self) -> RoleMatrix {
+        RoleMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "roleMatrix"))
+    }
+
+    /// Compliance framework.
+    pub fn compliance_framework(&self) -> ComplianceFramework {
+        ComplianceFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceFramework"))
+    }
+}
+
+/// 9. Access and Authorization Concept. Seeds → AC.
+pub struct SecurityAndAccessModel {
+    pub node: som::SomNode,
+}
+
+impl SecurityAndAccessModel {
+    /// Binds a SecurityAndAccessModel facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SecurityAndAccessModel {
+        SecurityAndAccessModel { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 9.1. User Management.
+    pub fn user_management(&self) -> UserManagement {
+        UserManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManagement"))
+    }
+
+    /// 9.2. Identification and Authentication.
+    pub fn authentication(&self) -> IdentificationAndAuthentication {
+        IdentificationAndAuthentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "authentication"))
+    }
+
+    /// 9.3. Resource Protection.
+    pub fn resource_protection(&self) -> ResourceProtection {
+        ResourceProtection::new(self.node.doc(), format!("{}/{}", self.node.path(), "resourceProtection"))
+    }
+
+    /// 9.4. User Authorization.
+    pub fn authorization(&self) -> UserAuthorization {
+        UserAuthorization::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorization"))
+    }
+
+    /// 9.5. Sensitive Data Encryption.
+    pub fn encryption(&self) -> SensitiveDataEncryption {
+        SensitiveDataEncryption::new(self.node.doc(), format!("{}/{}", self.node.path(), "encryption"))
+    }
+
+    /// 9.6. Audit and Logging.
+    pub fn audit_and_logging(&self) -> AuditAndLogging {
+        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
+    }
+
+    /// 9.7. Role Matrix..
+    pub fn role_matrix(&self) -> RoleMatrix {
+        RoleMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "roleMatrix"))
+    }
+
+    /// 9.8. Compliance Framework.
+    pub fn compliance_framework(&self) -> ComplianceFramework {
+        ComplianceFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceFramework"))
+    }
+}
+
+/// A security audit requirement entry (form).
 pub struct SecurityAuditEntry {
     pub node: som::SomNode,
 }
@@ -55335,7 +56104,7 @@ impl SecurityAuditEntryScheduling {
     }
 }
 
-/// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+/// 8.8.3. Security Audit Requirements.
 ///
 /// Comprehensive security audit requirements covering penetration testing,
 /// security-focused code review, dependency scanning, security certifications,
@@ -55402,7 +56171,7 @@ impl SecurityAuditRequirementsSection {
     }
 }
 
-/// Security certification and compliance requirements [PD00-TEC-SEC-AUD].
+/// Security certification and compliance requirements.
 pub struct SecurityCertificationRequirements {
     pub node: som::SomNode,
 }
@@ -55502,7 +56271,7 @@ impl SecurityCertificationRequirementsSoc2 {
     }
 }
 
-/// Security-focused code review policy [PD00-TEC-SEC-AUD].
+/// Security-focused code review policy.
 ///
 /// Distinct from CodeReviewProcess (section 8.4) which covers general
 /// development code review. This section focuses specifically on
@@ -55664,7 +56433,7 @@ impl SecurityControlEntryVerification {
     }
 }
 
-/// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+/// 4.3.3.n.2. Security Controls.
 ///
 /// Security controls that implement or support this requirement.
 pub struct SecurityControls {
@@ -55775,7 +56544,7 @@ impl SecurityDevelopmentLifecycleTesting {
     }
 }
 
-/// A custom security event entry (form) [PD00-ACC-AUD-EVE-nn].
+/// A custom security event entry (form).
 ///
 /// Allows defining additional application-specific security events
 /// beyond the standard categories.
@@ -55816,7 +56585,7 @@ impl SecurityEventLoggingPolicy {
     // (skipped: notes has no target type)
 }
 
-/// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+/// 9.6.1. Security Events.
 ///
 /// Defines which security events must be logged: authentication attempts,
 /// authorization failures, data access, configuration changes, admin actions,
@@ -55875,7 +56644,7 @@ impl SecurityEventsDefinition {
     }
 }
 
-/// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
+/// 11.3.4. Security quality.
 pub struct SecurityQuality {
     pub node: som::SomNode,
 }
@@ -55978,7 +56747,7 @@ impl SecurityQualityVulnerability {
     }
 }
 
-/// A security requirement entry [PD00-SYO-REQ-SEC-nn].
+/// A security requirement entry.
 ///
 /// Comprehensive security requirement definition following OWASP ASVS,
 /// ISO 27001, and security best practices.
@@ -56016,22 +56785,22 @@ impl SecurityRequirementEntry {
         SecurityRequirementEntryStatus::new(self.node.doc(), format!("{}/{}", self.node.path(), "statusInfo"))
     }
 
-    /// 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
+    /// 4.3.3.n.1. Acceptance Criteria.
     pub fn acceptance_criteria(&self) -> RequirementAcceptanceCriteria {
         RequirementAcceptanceCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteria"))
     }
 
-    /// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+    /// 4.3.3.n.2. Security Controls.
     pub fn controls(&self) -> SecurityControls {
         SecurityControls::new(self.node.doc(), format!("{}/{}", self.node.path(), "controls"))
     }
 
-    /// 4.3.3.n.3. Dependencies [PD00-SYO-REQ-SEC-nn-DEP].
+    /// 4.3.3.n.3. Dependencies.
     pub fn dependencies(&self) -> RequirementDependencies {
         RequirementDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencies"))
     }
 
-    /// 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
+    /// 4.3.3.n.4. Traceability.
     pub fn traceability(&self) -> RequirementTraceability {
         RequirementTraceability::new(self.node.doc(), format!("{}/{}", self.node.path(), "traceability"))
     }
@@ -56101,7 +56870,7 @@ impl SecurityRequirementEntryVerification {
     }
 }
 
-/// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+/// 4.3.3. Security Requirements.
 ///
 /// Container for security requirements. Security requirements describe
 /// information protection, access control, authentication, authorization,
@@ -56241,7 +57010,7 @@ impl SecurityStandardComplianceEntryStatus {
     }
 }
 
-/// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
+/// A security standard entry (form).
 pub struct SecurityStandardEntry {
     pub node: som::SomNode,
 }
@@ -56320,7 +57089,7 @@ impl SecurityStandardEntryVerification {
     }
 }
 
-/// Automated security testing integration [PD00-TEC-SEC-AUD].
+/// Automated security testing integration.
 ///
 /// Requirements for SAST, DAST, IAST, and fuzzing integration
 /// into the CI/CD pipeline and development workflow.
@@ -56444,7 +57213,7 @@ impl SecurityTestingAutomationScanning {
     }
 }
 
-/// Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
+/// Self-registration policy (form).
 ///
 /// Defines self-service identity creation: registration flow, required
 /// fields, verification, approval, rate limiting, and domain restrictions.
@@ -56598,7 +57367,7 @@ impl SelfServiceAccountManagement {
     // (skipped: selfServiceDescription has no target type)
 }
 
-/// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+/// 9.5. Sensitive Data Encryption.
 pub struct SensitiveDataEncryption {
     pub node: som::SomNode,
 }
@@ -56618,17 +57387,17 @@ impl SensitiveDataEncryption {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+    /// 9.5.1. Encryption At Rest.
     pub fn encryption_at_rest(&self) -> EncryptionAtRest {
         EncryptionAtRest::new(self.node.doc(), format!("{}/{}", self.node.path(), "encryptionAtRest"))
     }
 
-    /// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+    /// 9.5.2. Encryption In Transit.
     pub fn encryption_in_transit(&self) -> EncryptionInTransit {
         EncryptionInTransit::new(self.node.doc(), format!("{}/{}", self.node.path(), "encryptionInTransit"))
     }
 
-    /// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+    /// 9.5.3. Key Management.
     pub fn key_management(&self) -> KeyManagement {
         KeyManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyManagement"))
     }
@@ -56834,7 +57603,7 @@ impl ServerOsRequirementsSecurity {
     }
 }
 
-/// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+/// 8.4.1. Server Requirements.
 ///
 /// Server compute requirements: CPU, memory, storage, expected load profile,
 /// and scaling requirements.
@@ -57173,7 +57942,7 @@ impl ServiceAccountLifecycle {
     // (skipped: serviceAccountDescription has no target type)
 }
 
-/// A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].
+/// A service level agreement entry.
 pub struct ServiceLevelAgreementEntry {
     pub node: som::SomNode,
 }
@@ -57268,7 +58037,7 @@ impl ServiceLevelIndicatorsQuality {
     }
 }
 
-/// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
+/// 11.4.2. Service level quality.
 pub struct ServiceLevelQuality {
     pub node: som::SomNode,
 }
@@ -57514,7 +58283,7 @@ impl SessionLifecycleMonitoring {
     // (skipped: sessionLifecycleDetails has no target type)
 }
 
-/// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+/// 9.2.4. Session Management.
 ///
 /// Comprehensive session management policy covering session timeouts,
 /// concurrent session control, session revocation, remember-me functionality,
@@ -57574,7 +58343,7 @@ impl SessionManagement {
     }
 }
 
-/// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+/// 4.1.5.4. Session Model.
 ///
 /// Defines session management including authentication, timeouts, and
 /// multi-device session handling.
@@ -57730,7 +58499,7 @@ impl SessionTimeoutPolicy {
     // (skipped: sessionTimeoutDetails has no target type)
 }
 
-/// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+/// 1.1.3.3. Shared Infrastructure Dependencies.
 ///
 /// Dependencies on shared infrastructure components used by multiple systems.
 pub struct SharedInfrastructureDependencies {
@@ -57762,7 +58531,7 @@ impl SharedInfrastructureDependencies {
     }
 }
 
-/// A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
+/// A shared infrastructure entry (form).
 ///
 /// Documents a shared infrastructure component that multiple systems depend on.
 pub struct SharedInfrastructureEntry {
@@ -58043,7 +58812,7 @@ impl SharedServiceEntry {
     }
 }
 
-/// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+/// 14.2.5. Sign-off Process.
 ///
 /// Formal sign-off process: who signs off (business acceptance board,
 /// technical acceptance board), what documents are signed, legal and
@@ -58171,7 +58940,7 @@ impl SignOffProcessTimeline {
     }
 }
 
-/// Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO].
+/// Single Sign-On policy (form).
 ///
 /// Defines SSO scope, protocol, session propagation, federation,
 /// logout propagation, and platform-specific SSO strategies.
@@ -58277,7 +59046,7 @@ impl SingleSignOnPolicySession {
     }
 }
 
-/// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+/// 8.7.2.5. SLA and SLO Monitoring.
 ///
 /// Service Level Agreement and Service Level Objective tracking.
 pub struct SlaAndSloMonitoring {
@@ -58417,7 +59186,7 @@ impl SlaMonitoringRequirementsReporting {
     }
 }
 
-/// An SLO entry [PD00-TEC-SYS-MON-SLA-nn].
+/// An SLO entry.
 pub struct SloEntry {
     pub node: som::SomNode,
 }
@@ -58475,7 +59244,7 @@ impl SloEntryTarget {
     }
 }
 
-/// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+/// 14.1.1. Software Deliverables.
 pub struct SoftwareDeliverables {
     pub node: som::SomNode,
 }
@@ -58505,7 +59274,7 @@ impl SoftwareDeliverables {
     }
 }
 
-/// 8.2. Software Design Requirements [PD00-TEC-SOF].
+/// 8.2. Software Design Requirements.
 pub struct SoftwareDesignRequirements {
     pub node: som::SomNode,
 }
@@ -58525,17 +59294,17 @@ impl SoftwareDesignRequirements {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+    /// 8.2.1. Layering and Module Structure.
     pub fn layering_and_module_structure(&self) -> LayeringAndModuleStructure {
         LayeringAndModuleStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "layeringAndModuleStructure"))
     }
 
-    /// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+    /// 8.2.2. Development Environment.
     pub fn development_environment(&self) -> DevelopmentEnvironment {
         DevelopmentEnvironment::new(self.node.doc(), format!("{}/{}", self.node.path(), "developmentEnvironment"))
     }
 
-    /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+    /// 8.2.3. Reusable Components.
     pub fn reusable_components(&self) -> ReusableComponentsSection {
         ReusableComponentsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "reusableComponents"))
     }
@@ -58641,7 +59410,145 @@ impl SoftwareLayerEntryTechnology {
     }
 }
 
-/// Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn].
+/// SBP.11 Solution Architecture & Technology.
+///
+/// Public anchor: ISO/IEC/IEEE 42010 architecture description.
+pub struct SolutionArchitectureAndTechnology {
+    pub node: som::SomNode,
+}
+
+impl SolutionArchitectureAndTechnology {
+    /// Binds a SolutionArchitectureAndTechnology facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SolutionArchitectureAndTechnology {
+        SolutionArchitectureAndTechnology { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Technical framework and platform concept.
+    pub fn technical_framework(&self) -> TechnicalFrameworkConcept {
+        TechnicalFrameworkConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFramework"))
+    }
+
+    /// Components, libraries, and services to reuse.
+    pub fn components_to_use(&self) -> ComponentsToUse {
+        ComponentsToUse::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
+    }
+}
+
+/// The complete Solution Blueprint (SBP) document.
+///
+/// Contains a [DocumentControl] header block and the SBP sections, sequenced
+/// per the public-standards order (§4 of the redesign proposal).
+pub struct SolutionBlueprint {
+    pub node: som::SomNode,
+}
+
+/// SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "0.0";
+
+impl SolutionBlueprint {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<SolutionBlueprint, som::SomVersionError> {
+        som::check_som_model_version(SOLUTION_BLUEPRINT_MODEL_VERSION, document_version)?;
+        Ok(SolutionBlueprint { node: som::SomNode::new(doc, "SBP".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        SOLUTION_BLUEPRINT_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// SBP.1 Document Control (header + revision history + approvals).
+    pub fn document_control(&self) -> DocumentControl {
+        DocumentControl::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentControl"))
+    }
+
+    /// SBP.2 Introduction & Scope.
+    pub fn introduction_and_scope(&self) -> IntroductionAndScope {
+        IntroductionAndScope::new(self.node.doc(), format!("{}/{}", self.node.path(), "introductionAndScope"))
+    }
+
+    /// SBP.3 Glossary & Abbreviations.
+    pub fn glossary_and_abbreviations(&self) -> GlossaryAndAbbreviations {
+        GlossaryAndAbbreviations::new(self.node.doc(), format!("{}/{}", self.node.path(), "glossaryAndAbbreviations"))
+    }
+
+    /// SBP.4 Stakeholders & Governance.
+    pub fn stakeholders_and_governance(&self) -> StakeholdersAndGovernance {
+        StakeholdersAndGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "stakeholdersAndGovernance"))
+    }
+
+    /// SBP.5 Current Landscape. Seeds → CLA.
+    pub fn current_landscape(&self) -> CurrentLandscape {
+        CurrentLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentLandscape"))
+    }
+
+    /// SBP.6 Assumptions, Constraints & Dependencies.
+    pub fn assumptions_constraints_dependencies(&self) -> AssumptionsConstraintsDependencies {
+        AssumptionsConstraintsDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "assumptionsConstraintsDependencies"))
+    }
+
+    /// SBP.7 Target Operating Model concept. Seeds → TOM.
+    pub fn target_operating_model_concept(&self) -> TargetOperatingModelConcept {
+        TargetOperatingModelConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "targetOperatingModelConcept"))
+    }
+
+    /// SBP.8 Information & Data Model. Seeds → IFM.
+    pub fn information_and_data_model(&self) -> InformationAndDataModel {
+        InformationAndDataModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "informationAndDataModel"))
+    }
+
+    /// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+    pub fn requirements(&self) -> Requirements {
+        Requirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirements"))
+    }
+
+    /// SBP.11 Solution Architecture & Technology. Seeds → ATS.
+    pub fn solution_architecture_and_technology(&self) -> SolutionArchitectureAndTechnology {
+        SolutionArchitectureAndTechnology::new(self.node.doc(), format!("{}/{}", self.node.path(), "solutionArchitectureAndTechnology"))
+    }
+
+    /// SBP.12 Security & Access Model. Seeds → SAS.
+    pub fn security_and_access_model(&self) -> SecurityAndAccessModel {
+        SecurityAndAccessModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityAndAccessModel"))
+    }
+
+    /// SBP.13 Experience & Interface Design. Seeds → XDS.
+    pub fn experience_and_interface_design(&self) -> ExperienceAndInterfaceDesign {
+        ExperienceAndInterfaceDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "experienceAndInterfaceDesign"))
+    }
+
+    /// SBP.14 Quality & Acceptance Model. Seeds → QAP.
+    pub fn quality_and_acceptance_model(&self) -> QualityAndAcceptanceModel {
+        QualityAndAcceptanceModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityAndAcceptanceModel"))
+    }
+
+    /// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+    pub fn delivery_transition_and_rollout(&self) -> DeliveryTransitionAndRollout {
+        DeliveryTransitionAndRollout::new(self.node.doc(), format!("{}/{}", self.node.path(), "deliveryTransitionAndRollout"))
+    }
+}
+
+/// Specialized equipment entry (form).
 pub struct SpecializedEquipmentEntry {
     pub node: som::SomNode,
 }
@@ -58784,7 +59691,7 @@ impl StaffingBudgetGovernance {
     }
 }
 
-/// A staffing entry (form) [PD00-ORG-JOB-STA-nn].
+/// A staffing entry (form).
 ///
 /// Represents one staffing position including role, competency requirements,
 /// sourcing method, budget, timeline, and approval status.
@@ -58887,7 +59794,7 @@ impl StaffingEntryRecruitment {
     }
 }
 
-/// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+/// 5.2.4. Staffing Plan.
 pub struct StaffingPlan {
     pub node: som::SomNode,
 }
@@ -58971,7 +59878,7 @@ impl StageDeployment {
     }
 }
 
-/// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+/// A stage entry (form) with description subsections.
 ///
 /// Represents a single delivery stage — a self-contained increment of the
 /// system that delivers measurable business value. Each stage has clear
@@ -59057,7 +59964,7 @@ impl StageEntry {
     // Feature Scope narrative.
     // (skipped: featureScope has no target type)
 
-    /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
+    /// Sub-stages and Milestones — contains 0+× SubStage.
     pub fn sub_stages_and_milestones(&self) -> som::SomList<SubStageEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -59069,7 +59976,7 @@ impl StageEntry {
     // Timeline narrative.
     // (skipped: timelineNarrative has no target type)
 
-    /// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
+    /// Success Criteria — contains 0+× StageSuccessCriterion.
     pub fn success_criteria(&self) -> som::SomList<StageSuccessCriterionEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -59082,7 +59989,7 @@ impl StageEntry {
     // (skipped: rolloutPlan has no target type)
 }
 
-/// 13.6. Governance [PD00-SSP-GOV].
+/// 13.6. Governance.
 ///
 /// Governance framework for stage transitions, phase gate reviews,
 /// and key decision points. Covers governance structure, authority
@@ -59142,12 +60049,12 @@ impl StageGovernance {
     // Governance narrative and rationale.
     // (skipped: governanceNarrative has no target type)
 
-    /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+    /// 13.6.1. Phase Gate Reviews.
     pub fn phase_gate_reviews(&self) -> PhaseGateReviews {
         PhaseGateReviews::new(self.node.doc(), format!("{}/{}", self.node.path(), "phaseGateReviews"))
     }
 
-    /// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+    /// 13.6.2. Decision Points.
     pub fn decision_points(&self) -> DecisionPoints {
         DecisionPoints::new(self.node.doc(), format!("{}/{}", self.node.path(), "decisionPoints"))
     }
@@ -59329,7 +60236,7 @@ impl StageMigrationRiskContingency {
     }
 }
 
-/// A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
+/// A stage migration risk entry (form).
 ///
 /// Individual risk in the data migration risk register. Covers risk
 /// identification, categorization, probability/impact scoring,
@@ -59502,7 +60409,7 @@ impl StageMigrationRiskStatus {
     }
 }
 
-/// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+/// 13.5.2. Migration Risks.
 ///
 /// Risk register specific to data migration activities. Covers data
 /// loss, corruption, downtime overrun, compliance violations,
@@ -59534,7 +60441,7 @@ impl StageMigrationRisks {
     }
 }
 
-/// 13.2. Stage Overview [PD00-SSP-STA].
+/// 13.2. Stage Overview.
 ///
 /// High-level summary across all planned stages including aggregate
 /// metrics, critical-path identification, resource allocation patterns,
@@ -59611,7 +60518,7 @@ impl StageOverview {
         StageOverviewConstraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "constraints"))
     }
 
-    /// 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
+    /// 13.2.1. Stage Summary — contains 1+× Stage
     /// Summary Entry.
     pub fn stage_summaries(&self) -> som::SomList<StageSummaryEntry> {
         som::SomList::new(
@@ -59624,18 +60531,18 @@ impl StageOverview {
     // Stage Summary narrative.
     // (skipped: stageSummaryNarrative has no target type)
 
-    // 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
+    // 13.2.2. Stage Timeline Diagram (mermaid-gantt).
     // (skipped: timelineDiagram has no target type)
 
-    // 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
+    // 13.2.3. Resource Allocation Diagram
     // (mermaid-gantt).
     // (skipped: resourceAllocationDiagram has no target type)
 
-    // 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
+    // 13.2.4. Budget Distribution Diagram
     // (mermaid-flow).
     // (skipped: budgetDistributionDiagram has no target type)
 
-    // 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
+    // 13.2.5. Dependency Map (mermaid-flow).
     // (skipped: dependencyMap has no target type)
 }
 
@@ -59895,7 +60802,7 @@ impl StageStakeholders {
     }
 }
 
-/// A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
+/// A success criterion entry (form).
 ///
 /// Defines a measurable criterion that determines whether a stage has
 /// achieved its objectives. Each criterion has a target metric,
@@ -59994,7 +60901,7 @@ impl StageSummaryDependencies {
     }
 }
 
-/// A stage summary entry [PD00-SSP-STA-SUM-nn] (form).
+/// A stage summary entry (form).
 ///
 /// Quick-reference record for a single stage within the overview. Each
 /// entry captures the essential identification, timeline, scope, and
@@ -60348,7 +61255,7 @@ impl StagingRiskAssessment {
     }
 }
 
-/// 13.1. Staging Strategy [PD00-SSP-STR].
+/// 13.1. Staging Strategy.
 ///
 /// Document the rationale behind the chosen staging approach. Consider
 /// PMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2
@@ -60438,13 +61345,13 @@ impl StagingStrategy {
         StagingGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
     }
 
-    // 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+    // 13.1.1. Staging Approach.
     // (skipped: stagingApproach has no target type)
 
-    // 13.1.2. Rationale [PD00-SSP-STR-RAT].
+    // 13.1.2. Rationale.
     // (skipped: rationaleNarrative has no target type)
 
-    /// 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
+    /// 13.1.3. Key Assumptions.
     pub fn key_assumptions(&self) -> som::SomList<KeyAssumptionEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -60453,7 +61360,7 @@ impl StagingStrategy {
         )
     }
 
-    /// 13.1.4. Constraints [PD00-SSP-STR-CON].
+    /// 13.1.4. Constraints.
     pub fn constraints(&self) -> som::SomList<StagingStrategyConstraintEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -60558,7 +61465,58 @@ impl StakeholderEntryImpact {
     }
 }
 
-/// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+/// A register of the project's stakeholders.
+///
+/// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
+pub struct StakeholderRegister {
+    pub node: som::SomNode,
+}
+
+impl StakeholderRegister {
+    /// Binds a StakeholderRegister facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StakeholderRegister {
+        StakeholderRegister { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// One entry per stakeholder or stakeholder group.
+    pub fn stakeholders(&self) -> som::SomList<StakeholderRegisterEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "STKRG-STAK-LST"),
+            Box::new(|d, p| StakeholderRegisterEntry::new(d, p)),
+        )
+    }
+}
+
+/// A single stakeholder register entry (form).
+///
+/// Named `StakeholderRegisterEntry` to avoid collision with the pre-existing
+/// `StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).
+pub struct StakeholderRegisterEntry {
+    pub node: som::SomNode,
+}
+
+impl StakeholderRegisterEntry {
+    /// Binds a StakeholderRegisterEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StakeholderRegisterEntry {
+        StakeholderRegisterEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> StakeholderRegisterEntryContentForm {
+        StakeholderRegisterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 4.1.1.3. Stakeholders and Beneficiaries.
 ///
 /// Lists all stakeholders and beneficiaries of the system with their
 /// interests, influence level, and expected benefits.
@@ -60600,6 +61558,44 @@ impl StakeholdersAndBeneficiaries {
     }
 }
 
+/// SBP.4 Stakeholders & Governance.
+///
+/// Public anchor: BABOK stakeholder analysis + PMBOK governance.
+pub struct StakeholdersAndGovernance {
+    pub node: som::SomNode,
+}
+
+impl StakeholdersAndGovernance {
+    /// Binds a StakeholdersAndGovernance facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StakeholdersAndGovernance {
+        StakeholdersAndGovernance { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Governance, steering committee, RACI, process deviations.
+    pub fn project_organization_process(&self) -> ProjectOrganizationAndProcess {
+        ProjectOrganizationAndProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "projectOrganizationProcess"))
+    }
+
+    /// Team, distribution, reference documents, communication.
+    pub fn administrative(&self) -> Administrative {
+        Administrative::new(self.node.doc(), format!("{}/{}", self.node.path(), "administrative"))
+    }
+
+    /// Stakeholder register (§5 completeness addition).
+    pub fn stakeholder_register(&self) -> StakeholderRegister {
+        StakeholderRegister::new(self.node.doc(), format!("{}/{}", self.node.path(), "stakeholderRegister"))
+    }
+}
+
 /// Stakeholders and interests.
 pub struct StakeholdersAndInterests {
     pub node: som::SomNode,
@@ -60616,7 +61612,7 @@ impl StakeholdersAndInterests {
     }
 }
 
-/// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+/// 8.3. Standard Application Software Requirements.
 pub struct StandardSoftwareRequirements {
     pub node: som::SomNode,
 }
@@ -60636,18 +61632,18 @@ impl StandardSoftwareRequirements {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+    /// 8.3.1. Compatibility Requirements.
     pub fn compatibility_requirements(&self) -> CompatibilityRequirementsSection {
         CompatibilityRequirementsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "compatibilityRequirements"))
     }
 
-    /// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+    /// 8.3.2. Standards Compliance.
     pub fn standards_compliance(&self) -> StandardsComplianceSection {
         StandardsComplianceSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "standardsCompliance"))
     }
 }
 
-/// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+/// 8.3.2. Standards Compliance.
 ///
 /// Required compliance with IT standards, industry protocols, and interface
 /// specifications.
@@ -60757,7 +61753,7 @@ impl StandardsComplianceSection {
     }
 }
 
-/// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+/// 3.1.2. Steering Committee.
 ///
 /// Container for steering committee member descriptions.
 pub struct SteeringCommittee {
@@ -60904,7 +61900,7 @@ impl StorageLifecyclePolicy {
     // (skipped: storageLifecycleDetails has no target type)
 }
 
-/// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+/// 4.1.1.5. Strategic Alignment.
 ///
 /// How this system aligns with organizational strategy, goals, and
 /// initiatives. Demonstrates strategic justification for the project.
@@ -60933,7 +61929,7 @@ impl StrategicAlignment {
     }
 }
 
-/// A sub-function entry (form) [PD00-BUS-FUN-DEC-nn-SUB-nn].
+/// A sub-function entry (form).
 ///
 /// Lower-level function in the decomposition.
 pub struct SubFunctionEntry {
@@ -60951,7 +61947,7 @@ impl SubFunctionEntry {
     }
 }
 
-/// A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
+/// A sub-stage or milestone entry (form).
 ///
 /// Represents a discrete phase within a stage — alpha, beta, release
 /// candidate, pilot, GA — or a key milestone. Sub-stages provide finer
@@ -61076,7 +62072,7 @@ impl SubStageEntryTimeline {
     }
 }
 
-/// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+/// 4.2.3. Success Criteria.
 ///
 /// Overall project success criteria that determine whether the project
 /// has achieved its objectives. These criteria will be used during
@@ -61247,7 +62243,7 @@ impl SuccessCriteriaSummary {
     }
 }
 
-/// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+/// A success criterion entry (form).
 ///
 /// Individual success criterion with comprehensive measurement details,
 /// thresholds, and verification requirements.
@@ -61396,7 +62392,7 @@ impl SuccessCriterionVerification {
     }
 }
 
-/// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+/// 10.8.3. Support Access.
 pub struct SupportAccess {
     pub node: som::SomNode,
 }
@@ -61520,7 +62516,7 @@ impl SupportAccessTickets {
     }
 }
 
-/// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+/// 14.1.4. Support Deliverables.
 pub struct SupportDeliverables {
     pub node: som::SomNode,
 }
@@ -61550,7 +62546,7 @@ impl SupportDeliverables {
     }
 }
 
-/// A supported locale entry [PD00-USE-MUL-LOC-nn].
+/// A supported locale entry.
 pub struct SupportedLocaleEntry {
     pub node: som::SomNode,
 }
@@ -61608,10 +62604,10 @@ impl SupportedLocaleEntryRollout {
     }
 }
 
-/// 8.9. System Architecture [PD00-TEC-ARC].
+/// 8.9. System Architecture.
 ///
 /// Detailed internal architecture (layers, packages, patterns). Covers
-/// HBSG AS09-SOF / DR30.
+///
 ///
 /// Class named `SystemArchitectureSpec` to avoid colliding with any other
 /// architecture-related identifier in the model.
@@ -61635,7 +62631,7 @@ impl SystemArchitectureSpec {
     }
 }
 
-/// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+/// 4.5. System Boundaries. Seeds → BSI.
 ///
 /// Defines the scope boundaries of the system including external interfaces,
 /// out-of-scope items, and operating assumptions. This section provides the
@@ -61654,27 +62650,27 @@ impl SystemBoundaries {
     // Overview of system boundaries and scope definition approach.
     // (skipped: overview has no target type)
 
-    /// 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+    /// 4.5.1. Interfaces to External Systems — contains 0+×.
     pub fn external_interfaces(&self) -> ExternalInterfaces {
         ExternalInterfaces::new(self.node.doc(), format!("{}/{}", self.node.path(), "externalInterfaces"))
     }
 
-    /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
+    /// 4.5.2. Out of Scope — contains 0+×.
     pub fn out_of_scope(&self) -> OutOfScope {
         OutOfScope::new(self.node.doc(), format!("{}/{}", self.node.path(), "outOfScope"))
     }
 
-    /// 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
+    /// 4.5.3. Assumptions — contains 0+×.
     pub fn assumptions(&self) -> BoundaryAssumptions {
         BoundaryAssumptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "assumptions"))
     }
 
-    /// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV]. Covers BSI-LAN-INV.
+    /// 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
     pub fn system_landscape_inventory(&self) -> SystemLandscapeInventory {
         SystemLandscapeInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemLandscapeInventory"))
     }
 
-    /// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
+    /// 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
     pub fn boundary_interaction_patterns(&self) -> som::SomList<BoundaryInteractionPatterns> {
         som::SomList::new(
             self.node.doc(),
@@ -61683,17 +62679,17 @@ impl SystemBoundaries {
         )
     }
 
-    /// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
+    /// 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
     pub fn interaction_testing_strategy(&self) -> InteractionTestingStrategy {
         InteractionTestingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionTestingStrategy"))
     }
 
-    /// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP]. Covers BSI-DEP.
+    /// 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
     pub fn interaction_dependency_analysis(&self) -> InteractionDependencyAnalysis {
         InteractionDependencyAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionDependencyAnalysis"))
     }
 
-    /// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
+    /// 4.5.8. Migration Interactions. Covers BSI-MIG.
     pub fn migration_interactions(&self) -> som::SomList<MigrationInteractions> {
         som::SomList::new(
             self.node.doc(),
@@ -61702,7 +62698,7 @@ impl SystemBoundaries {
         )
     }
 
-    /// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+    /// 4.5.9. Cross-Boundary Operational Considerations.
     pub fn operational_considerations(&self) -> som::SomList<CrossBoundaryOperationalConsiderations> {
         som::SomList::new(
             self.node.doc(),
@@ -61711,13 +62707,13 @@ impl SystemBoundaries {
         )
     }
 
-    /// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+    /// 4.5.10. Cross-Boundary Error Handling.
     pub fn cross_boundary_error_handling(&self) -> CrossBoundaryErrorHandling {
         CrossBoundaryErrorHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "crossBoundaryErrorHandling"))
     }
 }
 
-/// Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS].
+/// Business criticality assessment.
 pub struct SystemBusinessCriticality {
     pub node: som::SomNode,
 }
@@ -61793,7 +62789,7 @@ impl SystemBusinessCriticalityOperations {
     }
 }
 
-/// Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn].
+/// Business process supported.
 pub struct SystemBusinessProcessEntry {
     pub node: som::SomNode,
 }
@@ -61809,7 +62805,7 @@ impl SystemBusinessProcessEntry {
     }
 }
 
-/// Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn].
+/// Business unit using the system.
 pub struct SystemBusinessUnitEntry {
     pub node: som::SomNode,
 }
@@ -61904,7 +62900,7 @@ impl SystemConfigurationManagementGovernance {
     }
 }
 
-/// 4.1.2. System Context [PD00-SYO-SYD-CON].
+/// 4.1.2. System Context.
 ///
 /// Describes the system in its operational context: how it fits within the
 /// organization's IT landscape, who interacts with it, and what external
@@ -61928,48 +62924,48 @@ impl SystemContext {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+    /// 4.1.2.1. Context Diagram.
     pub fn context_diagram(&self) -> ContextDiagram {
         ContextDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "contextDiagram"))
     }
 
-    /// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+    /// 4.1.2.2. IT Landscape Position.
     pub fn it_landscape_position(&self) -> ItLandscapePosition {
         ItLandscapePosition::new(self.node.doc(), format!("{}/{}", self.node.path(), "itLandscapePosition"))
     }
 
-    /// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+    /// 4.1.2.3. External Actors.
     pub fn external_actors(&self) -> ExternalActors {
         ExternalActors::new(self.node.doc(), format!("{}/{}", self.node.path(), "externalActors"))
     }
 
-    /// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+    /// 4.1.2.4. External Systems.
     pub fn external_systems(&self) -> ExternalSystemsContext {
         ExternalSystemsContext::new(self.node.doc(), format!("{}/{}", self.node.path(), "externalSystems"))
     }
 
-    /// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+    /// 4.1.2.5. Trust Boundaries.
     pub fn trust_boundaries(&self) -> TrustBoundaries {
         TrustBoundaries::new(self.node.doc(), format!("{}/{}", self.node.path(), "trustBoundaries"))
     }
 
-    /// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+    /// 4.1.2.6. Organizational Context.
     pub fn organizational_context(&self) -> OrganizationalContext {
         OrganizationalContext::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalContext"))
     }
 
-    /// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+    /// 4.1.2.7. Deployment Context.
     pub fn deployment_context(&self) -> DeploymentContext {
         DeploymentContext::new(self.node.doc(), format!("{}/{}", self.node.path(), "deploymentContext"))
     }
 
-    /// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+    /// 4.1.2.8. Regulatory Context.
     pub fn regulatory_context(&self) -> RegulatoryContext {
         RegulatoryContext::new(self.node.doc(), format!("{}/{}", self.node.path(), "regulatoryContext"))
     }
 }
 
-/// Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST].
+/// Cost analysis for replacement.
 pub struct SystemCostAnalysis {
     pub node: som::SomNode,
 }
@@ -62060,7 +63056,7 @@ impl SystemCostAnalysisMigration {
     }
 }
 
-/// Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT].
+/// Data scope and migration assessment.
 pub struct SystemDataScope {
     pub node: som::SomNode,
 }
@@ -62136,7 +63132,7 @@ impl SystemDataScopeMigration {
     }
 }
 
-/// A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+/// A system dependency entry (form).
 ///
 /// Documents one dependency between systems in the current landscape:
 /// mechanism, coupling strength, data flow, failure impact, SLA,
@@ -62248,7 +63244,7 @@ impl SystemDependencyEntryReliability {
     }
 }
 
-/// 4.1. System Description [PD00-SYO-SYD].
+/// 4.1. System Description.
 ///
 /// Concise description of the system to be created, its primary purpose,
 /// and the business domain it addresses. This section provides the
@@ -62277,22 +63273,22 @@ impl SystemDescription {
         SystemDescriptionSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "descriptionSummary"))
     }
 
-    /// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+    /// 4.1.1. System Purpose.
     pub fn system_purpose(&self) -> SystemPurpose {
         SystemPurpose::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemPurpose"))
     }
 
-    /// 4.1.2. System Context [PD00-SYO-SYD-CON].
+    /// 4.1.2. System Context.
     pub fn system_context(&self) -> SystemContext {
         SystemContext::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemContext"))
     }
 
-    /// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+    /// 4.1.3. Description of Task Area.
     pub fn task_area(&self) -> TaskArea {
         TaskArea::new(self.node.doc(), format!("{}/{}", self.node.path(), "taskArea"))
     }
 
-    /// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+    /// 4.1.4. User Categories — contains 1+× User Category.
     pub fn user_categories(&self) -> som::SomList<UserCategoryEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -62301,7 +63297,7 @@ impl SystemDescription {
         )
     }
 
-    /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+    /// 4.1.5. User Interaction Model.
     pub fn user_interaction_model(&self) -> UserInteractionModel {
         UserInteractionModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "userInteractionModel"))
     }
@@ -62411,7 +63407,7 @@ impl SystemDiagnosticToolsTracing {
     }
 }
 
-/// A system error code entry [PD00-USE-ERR-SYS-CODE-nn].
+/// A system error code entry.
 pub struct SystemErrorCodeEntry {
     pub node: som::SomNode,
 }
@@ -62469,7 +63465,7 @@ impl SystemErrorCodeEntryOperations {
     }
 }
 
-/// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+/// 10.7.2. System Error Display.
 ///
 /// System error presentation including server errors, network issues,
 /// and timeouts.
@@ -62609,7 +63605,7 @@ impl SystemIntegrationDataExchange {
     }
 }
 
-/// A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+/// A system integration entry (form).
 ///
 /// Documents one integration between systems: type, pattern, protocol,
 /// data format, throughput, error handling, monitoring, security,
@@ -62747,7 +63743,7 @@ impl SystemIntegrationThroughput {
     }
 }
 
-/// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+/// 1.1.1. System Inventory.
 ///
 /// Container for individual system descriptions. Add one entry per existing
 /// system relevant to the project scope.
@@ -62770,7 +63766,7 @@ impl SystemInventory {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
+    /// Contains 1+× Existing System.
     pub fn systems(&self) -> som::SomList<ExistingSystemEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -62780,7 +63776,7 @@ impl SystemInventory {
     }
 }
 
-/// Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW].
+/// Knowledge transfer status.
 pub struct SystemKnowledgeTransfer {
     pub node: som::SomNode,
 }
@@ -62808,7 +63804,7 @@ impl SystemKnowledgeTransfer {
     // (skipped: knowledgeTransferPlan has no target type)
 }
 
-/// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV].
+/// 4.5.4. System Landscape Inventory.
 ///
 /// Complete external-system inventory covering BSI-LAN-INV content.
 pub struct SystemLandscapeInventory {
@@ -62831,7 +63827,7 @@ impl SystemLandscapeInventory {
     }
 }
 
-/// Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG].
+/// Per-system migration plan.
 pub struct SystemMigrationPlan {
     pub node: som::SomNode,
 }
@@ -62904,7 +63900,7 @@ impl SystemMigrationPlanExecution {
     }
 }
 
-/// A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn].
+/// A system migration risk entry.
 pub struct SystemMigrationRiskEntry {
     pub node: som::SomNode,
 }
@@ -62920,7 +63916,7 @@ impl SystemMigrationRiskEntry {
     }
 }
 
-/// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+/// 8.7.1. System Operation.
 pub struct SystemOperation {
     pub node: som::SomNode,
 }
@@ -62940,7 +63936,7 @@ impl SystemOperation {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+    /// 8.7.1.1. Administration Requirements.
     pub fn administration_requirements(&self) -> AdministrationRequirementsSection {
         AdministrationRequirementsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "administrationRequirements"))
     }
@@ -62955,7 +63951,7 @@ impl SystemOperation {
     }
 }
 
-/// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+/// 8.7. System Operation and Monitoring.
 pub struct SystemOperationAndMonitoring {
     pub node: som::SomNode,
 }
@@ -62975,94 +63971,19 @@ impl SystemOperationAndMonitoring {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+    /// 8.7.1. System Operation.
     pub fn system_operation(&self) -> SystemOperation {
         SystemOperation::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemOperation"))
     }
 
-    /// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+    /// 8.7.2. Monitoring.
     pub fn monitoring(&self) -> Monitoring {
         Monitoring::new(self.node.doc(), format!("{}/{}", self.node.path(), "monitoring"))
     }
 
-    /// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+    /// 8.7.3. Capacity Planning.
     pub fn capacity_planning(&self) -> CapacityPlanningSection {
         CapacityPlanningSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "capacityPlanning"))
-    }
-}
-
-/// 4. System Overview [PD00-SYO].
-///
-/// High-level overview of the system to be built: its purpose, goals,
-/// scope boundaries, and the environment it operates in. This section
-/// establishes the foundation for all subsequent specification work.
-pub struct SystemOverview {
-    pub node: som::SomNode,
-}
-
-impl SystemOverview {
-    /// Binds a SystemOverview facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> SystemOverview {
-        SystemOverview { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// System overview summary statistics.
-    pub fn summary(&self) -> SystemOverviewSummary {
-        SystemOverviewSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "summary"))
-    }
-
-    /// System context diagram showing major system boundaries.
-    pub fn system_context_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "systemContextDiagram"))
-    }
-
-    pub fn set_system_context_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "systemContextDiagram");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// 4.1. System Description [PD00-SYO-SYD].
-    pub fn system_description(&self) -> SystemDescription {
-        SystemDescription::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemDescription"))
-    }
-
-    /// 4.2. Goals [PD00-SYO-GOA].
-    pub fn goals(&self) -> Goals {
-        Goals::new(self.node.doc(), format!("{}/{}", self.node.path(), "goals"))
-    }
-
-    /// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
-    pub fn requirements(&self) -> RequirementsOverview {
-        RequirementsOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirements"))
-    }
-
-    /// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
-    pub fn systems_to_replace(&self) -> SystemsToReplace {
-        SystemsToReplace::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemsToReplace"))
-    }
-
-    /// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
-    pub fn system_boundaries(&self) -> SystemBoundaries {
-        SystemBoundaries::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemBoundaries"))
-    }
-
-    /// 4.6. Framework Conditions [PD00-SYO-RES].
-    pub fn framework_conditions(&self) -> FrameworkConditions {
-        FrameworkConditions::new(self.node.doc(), format!("{}/{}", self.node.path(), "frameworkConditions"))
-    }
-
-    /// 4.7. Risks and Assumptions [PD00-SYO-RIS].
-    pub fn risks_and_assumptions(&self) -> RisksAndAssumptions {
-        RisksAndAssumptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "risksAndAssumptions"))
     }
 }
 
@@ -63166,7 +64087,7 @@ impl SystemOverviewSummaryStatus {
     }
 }
 
-/// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+/// 4.1.1. System Purpose.
 ///
 /// Describes the overarching purpose of the system including the problem it
 /// solves, the opportunity it enables, and who the primary beneficiaries are.
@@ -63190,7 +64111,7 @@ impl SystemPurpose {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Vision Statement [PD00-SYO-SYD-PUR-VIS].
+    /// Vision Statement.
     pub fn vision_statement(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "visionStatement"))
     }
@@ -63200,38 +64121,38 @@ impl SystemPurpose {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+    /// 4.1.1.1. Problem Statement.
     pub fn problem_statement(&self) -> ProblemStatement {
         ProblemStatement::new(self.node.doc(), format!("{}/{}", self.node.path(), "problemStatement"))
     }
 
-    /// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+    /// 4.1.1.2. Opportunity Statement.
     pub fn opportunity_statement(&self) -> OpportunityStatement {
         OpportunityStatement::new(self.node.doc(), format!("{}/{}", self.node.path(), "opportunityStatement"))
     }
 
-    /// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+    /// 4.1.1.3. Stakeholders and Beneficiaries.
     pub fn stakeholders(&self) -> StakeholdersAndBeneficiaries {
         StakeholdersAndBeneficiaries::new(self.node.doc(), format!("{}/{}", self.node.path(), "stakeholders"))
     }
 
-    /// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+    /// 4.1.1.4. Value Proposition.
     pub fn value_proposition(&self) -> ValueProposition {
         ValueProposition::new(self.node.doc(), format!("{}/{}", self.node.path(), "valueProposition"))
     }
 
-    /// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+    /// 4.1.1.5. Strategic Alignment.
     pub fn strategic_alignment(&self) -> StrategicAlignment {
         StrategicAlignment::new(self.node.doc(), format!("{}/{}", self.node.path(), "strategicAlignment"))
     }
 
-    /// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+    /// 4.1.1.6. Scope Boundaries.
     pub fn scope_boundaries(&self) -> ScopeBoundaries {
         ScopeBoundaries::new(self.node.doc(), format!("{}/{}", self.node.path(), "scopeBoundaries"))
     }
 }
 
-/// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+/// 11. System Quality Goals. Seeds → BQP.
 ///
 /// Quality goals selected from standard quality criteria and operationalized
 /// for project-specific acceptance testing. Provides governing structure for
@@ -63293,42 +64214,42 @@ impl SystemQualityGoals {
     // Quality attribute priority radar.
     // (skipped: qualityRadar has no target type)
 
-    /// 11.1. Quality Framework [PD00-SYQ-FRA].
+    /// 11.1. Quality Framework.
     pub fn framework(&self) -> QualityFramework {
         QualityFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "framework"))
     }
 
-    /// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+    /// 11.2. User-Related Quality Criteria.
     pub fn user_quality(&self) -> UserQualityCriteria {
         UserQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "userQuality"))
     }
 
-    /// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+    /// 11.3. Technical Quality Criteria.
     pub fn technical_quality(&self) -> TechnicalQualityCriteria {
         TechnicalQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalQuality"))
     }
 
-    /// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+    /// 11.4. Operations Quality Criteria.
     pub fn operations_quality(&self) -> OperationsQualityCriteria {
         OperationsQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsQuality"))
     }
 
-    /// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+    /// 11.5. Documentation Quality Criteria.
     pub fn documentation_quality(&self) -> DocumentationQualityCriteria {
         DocumentationQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationQuality"))
     }
 
-    /// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+    /// 11.6. Quality Prioritization.
     pub fn prioritization(&self) -> QualityPrioritization {
         QualityPrioritization::new(self.node.doc(), format!("{}/{}", self.node.path(), "prioritization"))
     }
 
-    /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+    /// 11.7. Acceptance Criteria Summary.
     pub fn acceptance_criteria(&self) -> AcceptanceCriteriaSummary {
         AcceptanceCriteriaSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteria"))
     }
 
-    /// 11.8. Test Strategy [PD00-SYQ-TST]. Covers HBSG AS23.
+    /// 11.8. Test Strategy..
     pub fn test_strategy(&self) -> TestStrategy {
         TestStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "testStrategy"))
     }
@@ -63398,7 +64319,7 @@ impl SystemQualityGoalsResources {
     }
 }
 
-/// Replacement strategy details [PD00-SYO-SYR-INV-nn-STR].
+/// Replacement strategy details.
 pub struct SystemReplacementStrategy {
     pub node: som::SomNode,
 }
@@ -63477,116 +64398,7 @@ impl SystemReplacementStrategyTimeline {
     }
 }
 
-/// SR00 System Rollout.
-///
-/// End-to-end rollout specification — localization, translation,
-/// documentation and training, plus rollout plan, migration plan,
-/// user manuals, training materials, pilot, cutover, knowledge
-/// transfer, and warranty/support.
-pub struct SystemRollout {
-    pub node: som::SomNode,
-}
-
-/// SYSTEM_ROLLOUT_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const SYSTEM_ROLLOUT_MODEL_VERSION: &str = "0.0";
-
-impl SystemRollout {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<SystemRollout, som::SomVersionError> {
-        som::check_som_model_version(SYSTEM_ROLLOUT_MODEL_VERSION, document_version)?;
-        Ok(SystemRollout { node: som::SomNode::new(doc, "SR".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        SYSTEM_ROLLOUT_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Localization process — PD00-USE-MUL-LOC.
-    pub fn localization_process(&self) -> LocalizationProcess {
-        LocalizationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationProcess"))
-    }
-
-    /// Translation process — PD00-USE-MUL-TRA.
-    pub fn translation_process(&self) -> TranslationProcess {
-        TranslationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationProcess"))
-    }
-
-    /// Documentation and training — PD00-USE-MUL-DOC.
-    pub fn documentation_and_training(&self) -> DocumentationAndTraining {
-        DocumentationAndTraining::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationAndTraining"))
-    }
-
-    /// Rollout plan — PD00-ROL-PLN.
-    pub fn rollout_plan(&self) -> RolloutPlan {
-        RolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "rolloutPlan"))
-    }
-
-    /// Migration plan — PD00-ROL-MIG.
-    pub fn migration_plan(&self) -> MigrationPlan {
-        MigrationPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationPlan"))
-    }
-
-    /// User manuals — PD00-ROL-DOC.
-    pub fn user_manuals(&self) -> som::SomList<UserManuals> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "USRMAN-USER-LST"),
-            Box::new(|d, p| UserManuals::new(d, p)),
-        )
-    }
-
-    /// Training materials — PD00-ROL-TRN.
-    pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterials> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "RLTTM-TRAI-LST"),
-            Box::new(|d, p| RolloutTrainingMaterials::new(d, p)),
-        )
-    }
-
-    /// Pilot plan — PD00-ROL-PIL.
-    pub fn pilot_plan(&self) -> PilotPlan {
-        PilotPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "pilotPlan"))
-    }
-
-    /// Cutover procedures — PD00-ROL-CUT.
-    pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedures> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "CUTPRC-CUTO-LST"),
-            Box::new(|d, p| CutoverProcedures::new(d, p)),
-        )
-    }
-
-    /// Knowledge transfer — PD00-ROL-KNO.
-    pub fn knowledge_transfer(&self) -> KnowledgeTransfer {
-        KnowledgeTransfer::new(self.node.doc(), format!("{}/{}", self.node.path(), "knowledgeTransfer"))
-    }
-
-    /// Warranty and support — PD00-ROL-WAR.
-    pub fn warranty_and_support(&self) -> WarrantyAndSupport {
-        WarrantyAndSupport::new(self.node.doc(), format!("{}/{}", self.node.path(), "warrantyAndSupport"))
-    }
-}
-
-/// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
+/// 15. System Rollout Concept. Seeds → SR.
 pub struct SystemRolloutConcept {
     pub node: som::SomNode,
 }
@@ -63606,17 +64418,17 @@ impl SystemRolloutConcept {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 15.1. Rollout Plan [PD00-ROL-PLN].
+    /// 15.1. Rollout Plan.
     pub fn rollout_plan(&self) -> RolloutPlan {
         RolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "rolloutPlan"))
     }
 
-    /// 15.2. Migration Plan [PD00-ROL-MIG].
+    /// 15.2. Migration Plan.
     pub fn migration_plan(&self) -> MigrationPlan {
         MigrationPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationPlan"))
     }
 
-    /// 15.3. User Manuals [PD00-ROL-DOC].
+    /// 15.3. User Manuals.
     pub fn user_manuals(&self) -> som::SomList<UserManuals> {
         som::SomList::new(
             self.node.doc(),
@@ -63625,7 +64437,7 @@ impl SystemRolloutConcept {
         )
     }
 
-    /// 15.4. Training Materials [PD00-ROL-TRN].
+    /// 15.4. Training Materials.
     pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterials> {
         som::SomList::new(
             self.node.doc(),
@@ -63634,12 +64446,12 @@ impl SystemRolloutConcept {
         )
     }
 
-    /// 15.5. Pilot Plan [PD00-ROL-PIL].
+    /// 15.5. Pilot Plan.
     pub fn pilot_plan(&self) -> PilotPlan {
         PilotPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "pilotPlan"))
     }
 
-    /// 15.6. Cutover Procedures [PD00-ROL-CUT].
+    /// 15.6. Cutover Procedures.
     pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedures> {
         som::SomList::new(
             self.node.doc(),
@@ -63648,18 +64460,18 @@ impl SystemRolloutConcept {
         )
     }
 
-    /// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+    /// 15.7. Knowledge Transfer.
     pub fn knowledge_transfer(&self) -> KnowledgeTransfer {
         KnowledgeTransfer::new(self.node.doc(), format!("{}/{}", self.node.path(), "knowledgeTransfer"))
     }
 
-    /// 15.8. Warranty and Support [PD00-ROL-WAR].
+    /// 15.8. Warranty and Support.
     pub fn warranty_and_support(&self) -> WarrantyAndSupport {
         WarrantyAndSupport::new(self.node.doc(), format!("{}/{}", self.node.path(), "warrantyAndSupport"))
     }
 }
 
-/// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+/// 13. System Stage Plan. Seeds → PPP.
 ///
 /// Define the overall staging strategy for the system rollout. A stage
 /// is a meaningful, self-contained subset of the complete system that
@@ -63696,17 +64508,17 @@ impl SystemStagePlan {
         SystemStagePlanReadiness::new(self.node.doc(), format!("{}/{}", self.node.path(), "readiness"))
     }
 
-    /// 13.1. Staging Strategy [PD00-SSP-STR].
+    /// 13.1. Staging Strategy.
     pub fn strategy(&self) -> StagingStrategy {
         StagingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "strategy"))
     }
 
-    /// 13.2. Stage Overview [PD00-SSP-STA].
+    /// 13.2. Stage Overview.
     pub fn stage_overview(&self) -> StageOverview {
         StageOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "stageOverview"))
     }
 
-    /// 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
+    /// 13.3. Stages — contains 1+× Stage.
     pub fn stages(&self) -> som::SomList<StageEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -63715,27 +64527,27 @@ impl SystemStagePlan {
         )
     }
 
-    /// 13.4. Feature Prioritization [PD00-SSP-FEA].
+    /// 13.4. Feature Prioritization.
     pub fn feature_prioritization(&self) -> FeaturePrioritization {
         FeaturePrioritization::new(self.node.doc(), format!("{}/{}", self.node.path(), "featurePrioritization"))
     }
 
-    /// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+    /// 13.5. Data Migration Strategy.
     pub fn data_migration(&self) -> DataMigrationStrategy {
         DataMigrationStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataMigration"))
     }
 
-    /// 13.6. Governance [PD00-SSP-GOV].
+    /// 13.6. Governance.
     pub fn governance(&self) -> StageGovernance {
         StageGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
     }
 
-    /// 13.7. Initial Development Flow [PD00-SSP-IDV]. Covers PPP-IDV.
+    /// 13.7. Initial Development Flow. Covers PPP-IDV.
     pub fn initial_development_flow(&self) -> InitialDevelopmentFlow {
         InitialDevelopmentFlow::new(self.node.doc(), format!("{}/{}", self.node.path(), "initialDevelopmentFlow"))
     }
 
-    /// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG]. Covers PPP-UPG.
+    /// 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
     pub fn upgrade_cycle_framework(&self) -> UpgradeCycleFramework {
         UpgradeCycleFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "upgradeCycleFramework"))
     }
@@ -63789,7 +64601,7 @@ impl SystemStagePlanTimeline {
     }
 }
 
-/// A system task entry [PD00-SYO-SYD-USR-nn-TSK-mm].
+/// A system task entry.
 ///
 /// Describes one activity this user category performs with the system.
 /// Tasks map to Use Cases in the UC document.
@@ -63919,7 +64731,7 @@ impl SystemTaskWorkflowStepEntry {
     }
 }
 
-/// Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC].
+/// Technical assessment for a system to replace.
 pub struct SystemTechnicalAssessment {
     pub node: som::SomNode,
 }
@@ -64016,7 +64828,7 @@ impl SystemTechnicalAssessmentQuality {
     }
 }
 
-/// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+/// A system to replace entry (form).
 ///
 /// Comprehensive documentation of a legacy system to be replaced, covering
 /// technical assessment, business criticality, replacement strategy, and
@@ -64128,7 +64940,7 @@ impl SystemToReplaceEntryVendor {
     }
 }
 
-/// System training entry (form) [PD00-ORG-WOR-nn-TRA-SYS-nn].
+/// System training entry (form).
 pub struct SystemTrainingEntry {
     pub node: som::SomNode,
 }
@@ -64207,7 +65019,7 @@ impl SystemTrainingEntrySupport {
     }
 }
 
-/// User impact assessment [PD00-SYO-SYR-INV-nn-USR].
+/// User impact assessment.
 pub struct SystemUserImpact {
     pub node: som::SomNode,
 }
@@ -64295,7 +65107,7 @@ impl SystemUserImpactEnablement {
     }
 }
 
-/// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+/// 4.4. Systems to Replace. Seeds → CS.
 ///
 /// Documents existing systems that will be replaced, migrated, or decommissioned
 /// as part of the project. Follows TOGAF migration planning patterns and
@@ -64314,18 +65126,18 @@ impl SystemsToReplace {
     // Overview of the systems replacement scope and strategy.
     // (skipped: overview has no target type)
 
-    /// 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+    /// 4.4.1. Replacement Inventory — contains 0+×.
     pub fn replacement_inventory(&self) -> ReplacementInventory {
         ReplacementInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "replacementInventory"))
     }
 
-    /// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+    /// 4.4.2. Migration Considerations.
     pub fn migration_considerations(&self) -> MigrationConsiderations {
         MigrationConsiderations::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationConsiderations"))
     }
 }
 
-/// A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
+/// A tab bar definition entry (form).
 ///
 /// Defines a tab bar or segmented control on a specific screen.
 pub struct TabBarDefinitionEntry {
@@ -64394,7 +65206,7 @@ impl TabBarDefinitionEntryLoading {
     }
 }
 
-/// A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
+/// A tab item entry (form).
 pub struct TabItemEntry {
     pub node: som::SomNode,
 }
@@ -64410,7 +65222,7 @@ impl TabItemEntry {
     }
 }
 
-/// 6. Target Business Process Model [PD00-TAR].
+/// 6. Target Business Process Model.
 pub struct TargetBusinessProcessModel {
     pub node: som::SomNode,
 }
@@ -64430,14 +65242,146 @@ impl TargetBusinessProcessModel {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
+    /// 6.1. Business Process Descriptions. Seeds → BP.
     pub fn business_process_descriptions(&self) -> BusinessProcessDescriptions {
         BusinessProcessDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessProcessDescriptions"))
     }
 
-    /// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+    /// 6.2. Process Steps and Actor Interactions. Seeds → UC.
     pub fn process_steps_and_actor_interactions(&self) -> ProcessStepsAndActorInteractions {
         ProcessStepsAndActorInteractions::new(self.node.doc(), format!("{}/{}", self.node.path(), "processStepsAndActorInteractions"))
+    }
+}
+
+/// BP00 Business Processes.
+///
+/// Target business process specification — vision, principles, catalog,
+/// diagrams, improvements, relationships, detailed workflows,
+/// cross-process analysis, exception handling, and KPIs.
+pub struct TargetOperatingModel {
+    pub node: som::SomNode,
+}
+
+/// TARGET_OPERATING_MODEL_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "0.0";
+
+impl TargetOperatingModel {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<TargetOperatingModel, som::SomVersionError> {
+        som::check_som_model_version(TARGET_OPERATING_MODEL_MODEL_VERSION, document_version)?;
+        Ok(TargetOperatingModel { node: som::SomNode::new(doc, "TOM".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        TARGET_OPERATING_MODEL_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Process vision.
+    pub fn process_vision(&self) -> ProcessVision {
+        ProcessVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "processVision"))
+    }
+
+    /// Design principles.
+    pub fn design_principles(&self) -> ProcessDesignPrinciples {
+        ProcessDesignPrinciples::new(self.node.doc(), format!("{}/{}", self.node.path(), "designPrinciples"))
+    }
+
+    /// Process catalog.
+    pub fn process_catalog(&self) -> ProcessCatalog {
+        ProcessCatalog::new(self.node.doc(), format!("{}/{}", self.node.path(), "processCatalog"))
+    }
+
+    /// Process overview diagram.
+    pub fn process_overview_diagram(&self) -> ProcessOverviewDiagram {
+        ProcessOverviewDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "processOverviewDiagram"))
+    }
+
+    /// Improvement summary.
+    pub fn improvement_summary(&self) -> ProcessImprovementSummary {
+        ProcessImprovementSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "improvementSummary"))
+    }
+
+    /// Process relationships.
+    pub fn process_relationships(&self) -> ProcessRelationships {
+        ProcessRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "processRelationships"))
+    }
+
+    /// Detailed process workflows.
+    pub fn detailed_workflows(&self) -> som::SomList<DetailedProcessWorkflows> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DEPRWO-DETA-LST"),
+            Box::new(|d, p| DetailedProcessWorkflows::new(d, p)),
+        )
+    }
+
+    /// Cross-process analysis.
+    pub fn cross_process_analysis(&self) -> CrossProcessAnalysis {
+        CrossProcessAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "crossProcessAnalysis"))
+    }
+
+    /// Process exception handling.
+    pub fn exception_handling(&self) -> ProcessExceptionHandling {
+        ProcessExceptionHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "exceptionHandling"))
+    }
+
+    /// Process metrics and KPIs.
+    pub fn process_metrics_and_kpis(&self) -> som::SomList<ProcessMetricsAndKpis> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "PMAK-PROC-LST"),
+            Box::new(|d, p| ProcessMetricsAndKpis::new(d, p)),
+        )
+    }
+}
+
+/// SBP.7 Target Operating Model concept.
+///
+/// Public anchor: BABOK future-state analysis.
+pub struct TargetOperatingModelConcept {
+    pub node: som::SomNode,
+}
+
+impl TargetOperatingModelConcept {
+    /// Binds a TargetOperatingModelConcept facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TargetOperatingModelConcept {
+        TargetOperatingModelConcept { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Target organizational structure and roles.
+    pub fn organizational_framework(&self) -> OrganizationalFramework {
+        OrganizationalFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalFramework"))
+    }
+
+    /// Target business process model.
+    pub fn target_business_process(&self) -> TargetBusinessProcessModel {
+        TargetBusinessProcessModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "targetBusinessProcess"))
     }
 }
 
@@ -64541,7 +65485,7 @@ impl TargetPlatformEntryVersion {
     }
 }
 
-/// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+/// 4.1.3. Description of Task Area.
 ///
 /// Describes the business domain and task area the system addresses.
 /// Defines the domain vocabulary and key concepts (ubiquitous language)
@@ -64566,37 +65510,37 @@ impl TaskArea {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+    /// 4.1.3.1. Domain Overview.
     pub fn domain_overview(&self) -> DomainOverview {
         DomainOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainOverview"))
     }
 
-    /// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+    /// 4.1.3.2. Domain Vocabulary.
     pub fn domain_vocabulary(&self) -> DomainVocabulary {
         DomainVocabulary::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainVocabulary"))
     }
 
-    /// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+    /// 4.1.3.3. Key Concepts.
     pub fn key_concepts(&self) -> KeyConcepts {
         KeyConcepts::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyConcepts"))
     }
 
-    /// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+    /// 4.1.3.4. Domain Boundaries.
     pub fn domain_boundaries(&self) -> DomainBoundaries {
         DomainBoundaries::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainBoundaries"))
     }
 
-    /// 4.1.3.5. Business Rules [PD00-SYO-SYD-DES-RUL].
+    /// 4.1.3.5. Business Rules.
     pub fn business_rules(&self) -> DomainBusinessRules {
         DomainBusinessRules::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessRules"))
     }
 
-    /// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+    /// 4.1.3.6. Domain Processes.
     pub fn domain_processes(&self) -> DomainProcesses {
         DomainProcesses::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainProcesses"))
     }
 
-    /// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+    /// 4.1.3.7. Domain Events.
     pub fn domain_events(&self) -> DomainEvents {
         DomainEvents::new(self.node.doc(), format!("{}/{}", self.node.path(), "domainEvents"))
     }
@@ -64618,7 +65562,7 @@ impl TeamMemberAvailability {
     }
 }
 
-/// A team member entry [PD00-ADM-TEA-nn] (form).
+/// A team member entry (form).
 ///
 /// Detailed information about a project team member including their role,
 /// responsibilities, availability, and competencies.
@@ -64843,7 +65787,7 @@ impl TechnicalDependencyEntry {
     }
 }
 
-/// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+/// 8. Technical Framework Concept. Seeds → TR.
 pub struct TechnicalFrameworkConcept {
     pub node: som::SomNode,
 }
@@ -64863,53 +65807,53 @@ impl TechnicalFrameworkConcept {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+    /// 8.1. Basic Technical Requirements.
     pub fn basic_requirements(&self) -> BasicTechnicalRequirements {
         BasicTechnicalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "basicRequirements"))
     }
 
-    /// 8.2. Software Design Requirements [PD00-TEC-SOF].
+    /// 8.2. Software Design Requirements.
     pub fn software_design(&self) -> SoftwareDesignRequirements {
         SoftwareDesignRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "softwareDesign"))
     }
 
-    /// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+    /// 8.3. Standard Application Software Requirements.
     pub fn standard_software(&self) -> StandardSoftwareRequirements {
         StandardSoftwareRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "standardSoftware"))
     }
 
-    /// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+    /// 8.4. Hardware Concept Requirements.
     pub fn hardware(&self) -> HardwareRequirements {
         HardwareRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "hardware"))
     }
 
-    /// 8.5. Operations Requirements [PD00-TEC-OPE].
+    /// 8.5. Operations Requirements.
     pub fn operations(&self) -> OperationsRequirements {
         OperationsRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "operations"))
     }
 
-    /// 8.6. Communication Requirements [PD00-TEC-COM].
+    /// 8.6. Communication Requirements.
     pub fn communication(&self) -> CommunicationRequirements {
         CommunicationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "communication"))
     }
 
-    /// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+    /// 8.7. System Operation and Monitoring.
     pub fn system_operation(&self) -> SystemOperationAndMonitoring {
         SystemOperationAndMonitoring::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemOperation"))
     }
 
-    /// 8.8. Security Requirements [PD00-TEC-SEC].
+    /// 8.8. Security Requirements.
     pub fn security(&self) -> TechnicalSecurityRequirements {
         TechnicalSecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "security"))
     }
 
-    /// 8.9. System Architecture [PD00-TEC-ARC]. Covers HBSG AS09-SOF / DR30.
+    /// 8.9. System Architecture..
     pub fn system_architecture(&self) -> SystemArchitectureSpec {
         SystemArchitectureSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemArchitecture"))
     }
 }
 
-/// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+/// 4.6.3. Technical Framework Conditions. Seeds → TR.
 ///
 /// Documents pre-existing technical constraints including mandated platforms,
 /// network restrictions, compliance requirements, existing infrastructure
@@ -64968,7 +65912,7 @@ impl TechnicalFrameworkConditions {
     // Technology standards that must be followed.
     // (skipped: standardsOverview has no target type)
 
-    /// Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
+    /// Technology standards — contains 0+× TechnologyStandard.
     pub fn technology_standards(&self) -> som::SomList<TechnologyStandardEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -64980,7 +65924,7 @@ impl TechnicalFrameworkConditions {
     // Integration constraints overview.
     // (skipped: integrationOverview has no target type)
 
-    /// Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
+    /// Integration constraints — contains 0+× IntegrationConstraint.
     pub fn integration_constraints(&self) -> som::SomList<IntegrationConstraintEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -65075,7 +66019,7 @@ impl TechnicalFrameworkConditionsStandards {
     }
 }
 
-/// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+/// 4.2.2.n.4. Constraints.
 ///
 /// Technical constraints that may limit or shape how the goal is achieved.
 pub struct TechnicalGoalConstraints {
@@ -65107,7 +66051,7 @@ impl TechnicalGoalConstraints {
     }
 }
 
-/// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+/// 4.2.2.n.3. Dependencies.
 ///
 /// Technical dependencies affecting goal achievement.
 pub struct TechnicalGoalDependencies {
@@ -65139,7 +66083,7 @@ impl TechnicalGoalDependencies {
     }
 }
 
-/// A technical goal entry [PD00-SYO-GOA-TEC-nn].
+/// A technical goal entry.
 ///
 /// Comprehensive technical goal definition with quality attributes,
 /// architectural impact, and verification approach.
@@ -65167,22 +66111,22 @@ impl TechnicalGoalEntry {
         TechnicalGoalEntryGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
     }
 
-    /// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+    /// 4.2.2.n.1. Quality Scenarios.
     pub fn quality_scenarios(&self) -> QualityScenarios {
         QualityScenarios::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityScenarios"))
     }
 
-    /// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+    /// 4.2.2.n.2. Test Criteria.
     pub fn test_criteria(&self) -> TechnicalGoalTestCriteria {
         TechnicalGoalTestCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "testCriteria"))
     }
 
-    /// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+    /// 4.2.2.n.3. Dependencies.
     pub fn dependencies(&self) -> TechnicalGoalDependencies {
         TechnicalGoalDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencies"))
     }
 
-    /// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+    /// 4.2.2.n.4. Constraints.
     pub fn constraints(&self) -> TechnicalGoalConstraints {
         TechnicalGoalConstraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "constraints"))
     }
@@ -65236,7 +66180,7 @@ impl TechnicalGoalTestCaseEntry {
     }
 }
 
-/// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+/// 4.2.2.n.2. Test Criteria.
 ///
 /// Specific test criteria and acceptance thresholds for the technical goal.
 pub struct TechnicalGoalTestCriteria {
@@ -65273,7 +66217,7 @@ impl TechnicalGoalTestCriteria {
     }
 }
 
-/// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+/// 4.2.2. Technical Goals.
 ///
 /// Container for technical goal definitions. Technical goals define the
 /// non-functional characteristics and technical capabilities the system
@@ -65343,7 +66287,7 @@ impl TechnicalInfrastructure {
     }
 }
 
-/// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+/// 1.3.3. Technical Pain Points.
 ///
 /// Problems that affect development and maintenance: outdated technology,
 /// security vulnerabilities, lack of documentation, vendor lock-in,
@@ -65398,7 +66342,7 @@ impl TechnicalPainPointsSummary {
     }
 }
 
-/// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+/// 11.3. Technical Quality Criteria.
 ///
 /// Quality criteria for the technical implementation including efficiency,
 /// portability, flexibility, security, maintainability, and reliability.
@@ -65419,38 +66363,38 @@ impl TechnicalQualityCriteria {
     // Technical quality overview.
     // (skipped: overview has no target type)
 
-    /// 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
+    /// 11.3.1. Efficiency.
     pub fn efficiency(&self) -> EfficiencyQuality {
         EfficiencyQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "efficiency"))
     }
 
-    /// 11.3.2. Portability [PD00-SYQ-TEC-POR].
+    /// 11.3.2. Portability.
     pub fn portability(&self) -> PortabilityQuality {
         PortabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "portability"))
     }
 
-    /// 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
+    /// 11.3.3. Flexibility.
     pub fn flexibility(&self) -> FlexibilityQuality {
         FlexibilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "flexibility"))
     }
 
-    /// 11.3.4. Security [PD00-SYQ-TEC-SEC].
+    /// 11.3.4. Security.
     pub fn security(&self) -> SecurityQuality {
         SecurityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "security"))
     }
 
-    /// 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
+    /// 11.3.5. Maintainability.
     pub fn maintainability(&self) -> MaintainabilityQuality {
         MaintainabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "maintainability"))
     }
 
-    /// 11.3.6. Reliability [PD00-SYQ-TEC-REL].
+    /// 11.3.6. Reliability.
     pub fn reliability(&self) -> ReliabilityQuality {
         ReliabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "reliability"))
     }
 }
 
-/// A technical requirement entry [PD00-SYO-REQ-TEC-nn].
+/// A technical requirement entry.
 ///
 /// Comprehensive technical requirement definition following ISO 25010
 /// quality characteristics and architecture decision records.
@@ -65493,17 +66437,17 @@ impl TechnicalRequirementEntry {
         TechnicalRequirementEntryConstraints::new(self.node.doc(), format!("{}/{}", self.node.path(), "constraints"))
     }
 
-    /// 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+    /// 4.3.2.n.1. Acceptance Criteria.
     pub fn acceptance_criteria(&self) -> RequirementAcceptanceCriteria {
         RequirementAcceptanceCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteria"))
     }
 
-    /// 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+    /// 4.3.2.n.2. Dependencies.
     pub fn dependencies(&self) -> RequirementDependencies {
         RequirementDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencies"))
     }
 
-    /// 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+    /// 4.3.2.n.3. Traceability.
     pub fn traceability(&self) -> RequirementTraceability {
         RequirementTraceability::new(self.node.doc(), format!("{}/{}", self.node.path(), "traceability"))
     }
@@ -65589,7 +66533,7 @@ impl TechnicalRequirementEntryVerification {
     }
 }
 
-/// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+/// 4.3.2. Technical Requirements.
 ///
 /// Container for technical requirements. Technical requirements describe
 /// constraints on how the system is built — platform, performance,
@@ -65629,109 +66573,7 @@ impl TechnicalRequirements {
     }
 }
 
-/// TR00 Technical Requirements.
-///
-/// Comprehensive technical requirements: basic / software / standard-
-/// software / hardware / operations / communication / system-operation
-/// / security / architecture, plus components, framework conditions,
-/// and translation handling.
-pub struct TechnicalRequirementsSpec {
-    pub node: som::SomNode,
-}
-
-/// TECHNICAL_REQUIREMENTS_SPEC_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const TECHNICAL_REQUIREMENTS_SPEC_MODEL_VERSION: &str = "0.0";
-
-impl TechnicalRequirementsSpec {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<TechnicalRequirementsSpec, som::SomVersionError> {
-        som::check_som_model_version(TECHNICAL_REQUIREMENTS_SPEC_MODEL_VERSION, document_version)?;
-        Ok(TechnicalRequirementsSpec { node: som::SomNode::new(doc, "TR".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        TECHNICAL_REQUIREMENTS_SPEC_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Basic technical requirements — PD00-TEC-BAS.
-    pub fn basic_technical_requirements(&self) -> BasicTechnicalRequirements {
-        BasicTechnicalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "basicTechnicalRequirements"))
-    }
-
-    /// Software design requirements — PD00-TEC-SOF.
-    pub fn software_design_requirements(&self) -> SoftwareDesignRequirements {
-        SoftwareDesignRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "softwareDesignRequirements"))
-    }
-
-    /// Standard application software requirements — PD00-TEC-STA.
-    pub fn standard_software_requirements(&self) -> StandardSoftwareRequirements {
-        StandardSoftwareRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "standardSoftwareRequirements"))
-    }
-
-    /// Hardware concept requirements — PD00-TEC-HAR.
-    pub fn hardware_requirements(&self) -> HardwareRequirements {
-        HardwareRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "hardwareRequirements"))
-    }
-
-    /// Operations requirements — PD00-TEC-OPE.
-    pub fn operations_requirements(&self) -> OperationsRequirements {
-        OperationsRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsRequirements"))
-    }
-
-    /// Communication requirements — PD00-TEC-COM.
-    pub fn communication_requirements(&self) -> CommunicationRequirements {
-        CommunicationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "communicationRequirements"))
-    }
-
-    /// System operation and monitoring — PD00-TEC-SYS.
-    pub fn system_operation_and_monitoring(&self) -> SystemOperationAndMonitoring {
-        SystemOperationAndMonitoring::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemOperationAndMonitoring"))
-    }
-
-    /// Technical security requirements — PD00-TEC-SEC.
-    pub fn technical_security_requirements(&self) -> TechnicalSecurityRequirements {
-        TechnicalSecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalSecurityRequirements"))
-    }
-
-    /// System architecture — PD00-TEC-ARC (new in Phase A, HBSG AS09-SOF/DR30).
-    pub fn system_architecture(&self) -> SystemArchitectureSpec {
-        SystemArchitectureSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemArchitecture"))
-    }
-
-    /// Components to use — PD00-COM (whole).
-    pub fn components_to_use(&self) -> ComponentsToUse {
-        ComponentsToUse::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
-    }
-
-    /// Technical framework conditions — PD00-SYO-RES-TEC (whole).
-    pub fn technical_framework_conditions(&self) -> TechnicalFrameworkConditions {
-        TechnicalFrameworkConditions::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFrameworkConditions"))
-    }
-
-    /// Translation handling requirements — PD00-USE-MUL-REQ (whole).
-    pub fn translation_requirements(&self) -> TranslationRequirements {
-        TranslationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationRequirements"))
-    }
-}
-
-/// 8.8. Security Requirements [PD00-TEC-SEC].
+/// 8.8. Security Requirements.
 pub struct TechnicalSecurityRequirements {
     pub node: som::SomNode,
 }
@@ -65751,17 +66593,17 @@ impl TechnicalSecurityRequirements {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+    /// 8.8.1. IT Security Standards.
     pub fn it_security_standards(&self) -> ItSecurityStandardsSection {
         ItSecurityStandardsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "itSecurityStandards"))
     }
 
-    /// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+    /// 8.8.2. Data Protection and Privacy.
     pub fn data_protection_and_privacy(&self) -> DataProtectionAndPrivacySection {
         DataProtectionAndPrivacySection::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataProtectionAndPrivacy"))
     }
 
-    /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+    /// 8.8.3. Security Audit Requirements.
     pub fn security_audit_requirements(&self) -> SecurityAuditRequirementsSection {
         SecurityAuditRequirementsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityAuditRequirements"))
     }
@@ -65783,7 +66625,7 @@ impl TechnologyDataVariations {
     }
 }
 
-/// A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
+/// A technology standard entry (form).
 ///
 /// Documents a mandated or preferred technology standard that the solution
 /// must adhere to. Includes scope, compliance requirements, and exceptions.
@@ -65945,7 +66787,7 @@ impl TenantContextPolicy {
     // (skipped: tenantContextPolicyDetails has no target type)
 }
 
-/// A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn].
+/// A tenant customization entry (form).
 ///
 /// Describes a specific area where tenants can customize their authorization
 /// model — custom roles, permissions, policies, or workflows. Covers scoping,
@@ -65992,14 +66834,14 @@ impl TenantDataIsolationPolicy {
     // (skipped: tenantDataIsolationDetails has no target type)
 }
 
-/// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+/// 9.4.7. Tenant Isolation.
 ///
 /// Describes how multi-tenant authorization is structured: how tenant context
 /// is established and propagated, how cross-tenant access is prevented or
 /// controlled, how tenants can customize their authorization model, how tenant
 /// onboarding/offboarding is handled from an authorization perspective, and
 /// how tenant boundaries are enforced at the authorization layer.
-/// Complements TenantDataIsolationPolicy (PD00-ACC-RES-DAT) which covers
+/// Complements TenantDataIsolationPolicy which covers
 /// data-level isolation; this section focuses on authorization-level isolation.
 pub struct TenantIsolation {
     pub node: som::SomNode,
@@ -66098,7 +66940,7 @@ impl TestScenarioBusiness {
     }
 }
 
-/// A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
+/// A test scenario entry (form).
 ///
 /// Represents a business-level test case covering a user journey, business
 /// process, or acceptance criterion. Includes full traceability, preconditions,
@@ -66263,9 +67105,9 @@ impl TestScenarioTraceability {
     }
 }
 
-/// 11.8. Test Strategy [PD00-SYQ-TST].
+/// 11.8. Test Strategy.
 ///
-/// Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
+/// Overall test strategy for the project..
 pub struct TestStrategy {
     pub node: som::SomNode,
 }
@@ -66749,7 +67591,7 @@ impl ThirdPartyLibraryEntryUsage {
     }
 }
 
-/// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+/// 10.13.3.3. Throwaway Prototype.
 ///
 /// Prototype evaluated and then discarded.
 pub struct ThrowawayPrototype {
@@ -67068,7 +67910,7 @@ impl ToolDocumentation {
     }
 }
 
-/// A tool entry (form) [PD00-POP-TOO-TOO-nn].
+/// A tool entry (form).
 ///
 /// Comprehensive specification of a single tool covering identity,
 /// licensing, versioning, access, integration, support, security,
@@ -67307,7 +68149,7 @@ impl ToolVersioning {
     }
 }
 
-/// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+/// 2.4.1. Tooling.
 ///
 /// Container for the project's tool inventory and governance policies.
 /// Covers all tool categories: development, CI/CD, communication,
@@ -67355,7 +68197,7 @@ impl Tooling {
     }
 }
 
-/// 2.4. Tooling and Environments [PD00-POP-TOO].
+/// 2.4. Tooling and Environments.
 pub struct ToolingAndEnvironments {
     pub node: som::SomNode,
 }
@@ -67375,12 +68217,12 @@ impl ToolingAndEnvironments {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+    /// 2.4.1. Tooling.
     pub fn tooling(&self) -> Tooling {
         Tooling::new(self.node.doc(), format!("{}/{}", self.node.path(), "tooling"))
     }
 
-    /// 2.4.2. Environments [PD00-POP-TOO-ENV].
+    /// 2.4.2. Environments.
     pub fn environments(&self) -> Environments {
         Environments::new(self.node.doc(), format!("{}/{}", self.node.path(), "environments"))
     }
@@ -67450,7 +68292,7 @@ impl TourStepEntry {
     }
 }
 
-/// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
+/// A trade-off decision entry (form).
 pub struct TradeOffDecisionEntry {
     pub node: som::SomNode,
 }
@@ -67574,7 +68416,7 @@ impl TradeOffDecisionEntryRationale {
     }
 }
 
-/// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+/// 11.6.2. Trade-off Decisions.
 ///
 /// Explicit trade-off decisions between quality attributes.
 pub struct TradeOffDecisions {
@@ -67683,7 +68525,7 @@ impl TrainingAssessmentReporting {
     }
 }
 
-/// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+/// 14.1.3. Training Deliverables.
 pub struct TrainingDeliverables {
     pub node: som::SomNode,
 }
@@ -67710,6 +68552,29 @@ impl TrainingDeliverables {
             format!("{}/{}", self.node.path(), "DLVEN-ITEM-LST"),
             Box::new(|d, p| DeliverableEntry::new(d, p)),
         )
+    }
+}
+
+/// Training & Enablement requirements.
+///
+/// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
+/// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
+/// detailed training-module catalogue currently lives inside
+/// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
+/// pending the IP-8 doc/training split.
+pub struct TrainingEnablementRequirements {
+    pub node: som::SomNode,
+}
+
+impl TrainingEnablementRequirements {
+    /// Binds a TrainingEnablementRequirements facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TrainingEnablementRequirements {
+        TrainingEnablementRequirements { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Training & enablement requirement form.
+    pub fn content(&self) -> TrainingEnablementRequirementsContentForm {
+        TrainingEnablementRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -67792,7 +68657,7 @@ impl TrainingMaterialsPractice {
     }
 }
 
-/// A training module entry [PD00-USE-MUL-DOC-MOD-nn].
+/// A training module entry.
 pub struct TrainingModuleEntry {
     pub node: som::SomNode,
 }
@@ -67824,7 +68689,7 @@ impl TrainingOverview {
     }
 }
 
-/// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+/// 10.13.3.2. Training Prototype.
 ///
 /// Prototype where concepts are reused but not code.
 pub struct TrainingPrototype {
@@ -67887,7 +68752,7 @@ impl TrainingPrototypeOutputs {
     }
 }
 
-/// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+/// 5.3.2. Training Requirements.
 ///
 /// Comprehensive training program requirements following adult learning
 /// principles (ADDIE, Kirkpatrick evaluation model).
@@ -68052,7 +68917,7 @@ impl TransitionEscalationPaths {
     }
 }
 
-/// Transition metric entry [PD00-ORG-STR-TIM-MET-nn] (form).
+/// Transition metric entry (form).
 pub struct TransitionMetricEntry {
     pub node: som::SomNode,
 }
@@ -68126,7 +68991,7 @@ impl TransitionMetricsOverview {
     }
 }
 
-/// A transition milestone entry [PD00-ORG-STR-TIM-MIL-nn] (form).
+/// A transition milestone entry (form).
 pub struct TransitionMilestoneEntry {
     pub node: som::SomNode,
 }
@@ -68279,7 +69144,7 @@ impl TransitionPhaseActivities {
     }
 }
 
-/// A transition phase entry [PD00-ORG-STR-TIM-PHA-nn] (form).
+/// A transition phase entry (form).
 ///
 /// Defines a distinct phase in the organizational transition sequence.
 pub struct TransitionPhaseEntry {
@@ -68411,7 +69276,7 @@ impl TransitionPhaseStakeholders {
     }
 }
 
-/// Transition risk entry [PD00-ORG-STR-TIM-RSK-nn] (form).
+/// Transition risk entry (form).
 pub struct TransitionRiskEntry {
     pub node: som::SomNode,
 }
@@ -68469,6 +69334,115 @@ impl TransitionRiskEntryResponse {
     }
 }
 
+/// SR00 System Rollout.
+///
+/// End-to-end rollout specification — localization, translation,
+/// documentation and training, plus rollout plan, migration plan,
+/// user manuals, training materials, pilot, cutover, knowledge
+/// transfer, and warranty/support.
+pub struct TransitionRolloutPlan {
+    pub node: som::SomNode,
+}
+
+/// TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "0.0";
+
+impl TransitionRolloutPlan {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<TransitionRolloutPlan, som::SomVersionError> {
+        som::check_som_model_version(TRANSITION_ROLLOUT_PLAN_MODEL_VERSION, document_version)?;
+        Ok(TransitionRolloutPlan { node: som::SomNode::new(doc, "TRP".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        TRANSITION_ROLLOUT_PLAN_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Localization process.
+    pub fn localization_process(&self) -> LocalizationProcess {
+        LocalizationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationProcess"))
+    }
+
+    /// Translation process.
+    pub fn translation_process(&self) -> TranslationProcess {
+        TranslationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationProcess"))
+    }
+
+    /// Documentation and training.
+    pub fn documentation_and_training(&self) -> DocumentationAndTraining {
+        DocumentationAndTraining::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationAndTraining"))
+    }
+
+    /// Rollout plan.
+    pub fn rollout_plan(&self) -> RolloutPlan {
+        RolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "rolloutPlan"))
+    }
+
+    /// Migration plan.
+    pub fn migration_plan(&self) -> MigrationPlan {
+        MigrationPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationPlan"))
+    }
+
+    /// User manuals.
+    pub fn user_manuals(&self) -> som::SomList<UserManuals> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "USRMAN-USER-LST"),
+            Box::new(|d, p| UserManuals::new(d, p)),
+        )
+    }
+
+    /// Training materials.
+    pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterials> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RLTTM-TRAI-LST"),
+            Box::new(|d, p| RolloutTrainingMaterials::new(d, p)),
+        )
+    }
+
+    /// Pilot plan.
+    pub fn pilot_plan(&self) -> PilotPlan {
+        PilotPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "pilotPlan"))
+    }
+
+    /// Cutover procedures.
+    pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedures> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CUTPRC-CUTO-LST"),
+            Box::new(|d, p| CutoverProcedures::new(d, p)),
+        )
+    }
+
+    /// Knowledge transfer.
+    pub fn knowledge_transfer(&self) -> KnowledgeTransfer {
+        KnowledgeTransfer::new(self.node.doc(), format!("{}/{}", self.node.path(), "knowledgeTransfer"))
+    }
+
+    /// Warranty and support.
+    pub fn warranty_and_support(&self) -> WarrantyAndSupport {
+        WarrantyAndSupport::new(self.node.doc(), format!("{}/{}", self.node.path(), "warrantyAndSupport"))
+    }
+}
+
 /// Success metrics for the transition.
 pub struct TransitionSuccessMetrics {
     pub node: som::SomNode,
@@ -68511,7 +69485,7 @@ impl TransitionSupportOverview {
     }
 }
 
-/// Support resource entry [PD00-ORG-STR-TIM-SUP-nn] (form).
+/// Support resource entry (form).
 pub struct TransitionSupportResourceEntry {
     pub node: som::SomNode,
 }
@@ -68562,7 +69536,7 @@ impl TransitionSupportStructure {
     }
 }
 
-/// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
+/// 10.12.2. Translation Process.
 ///
 /// Workflow for translating content.
 pub struct TranslationProcess {
@@ -68676,7 +69650,7 @@ impl TranslationProcessWorkflow {
     }
 }
 
-/// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+/// 10.12.5. Translation Handling Requirements.
 ///
 /// Technical requirements for internationalization framework.
 pub struct TranslationRequirements {
@@ -68781,7 +69755,7 @@ impl TranslationRequirementsVariants {
     }
 }
 
-/// A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].
+/// A translation vendor entry.
 pub struct TranslationVendorEntry {
     pub node: som::SomNode,
 }
@@ -68920,7 +69894,7 @@ impl TroubleshootingCapabilitiesRunbooks {
     }
 }
 
-/// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+/// 4.1.2.5. Trust Boundaries.
 ///
 /// Security zones and trust boundaries that the system operates within
 /// or crosses.
@@ -68969,7 +69943,7 @@ impl TrustBoundaryEntry {
     }
 }
 
-/// A typography style entry [PD00-USE-COM-LIB-TYP-nn].
+/// A typography style entry.
 pub struct TypographyStyleEntry {
     pub node: som::SomNode,
 }
@@ -69148,7 +70122,7 @@ impl UatSignOff {
     }
 }
 
-/// A UAT test cycle entry [PD00-DEL-ACC-UAT-CYC-nn].
+/// A UAT test cycle entry.
 ///
 /// Represents a distinct test execution round — e.g. Cycle 1 (initial),
 /// Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
@@ -69226,7 +70200,7 @@ impl UatTestData {
     }
 }
 
-/// A UAT test step entry [PD00-DEL-ACC-UAT-nn-STP-mm].
+/// A UAT test step entry.
 ///
 /// Individual step within a test scenario. Captures the action, input data,
 /// expected result, and pass criteria at fine-grained level per IEEE 829
@@ -69262,7 +70236,7 @@ impl UatTraining {
     }
 }
 
-/// A UI component entry [PD00-USE-COM-SPE-nn].
+/// A UI component entry.
 ///
 /// Comprehensive specification for a single UI component covering identity,
 /// visual design, behavior, states, responsiveness, accessibility,
@@ -69529,7 +70503,7 @@ impl UiComponentEntrySurface {
     }
 }
 
-/// 10.11. UI Components [PD00-USE-COM].
+/// 10.11. UI Components.
 ///
 /// Comprehensive UI component library specification covering design system,
 /// component catalog, and detailed per-component specifications. Supports
@@ -69563,12 +70537,12 @@ impl UiComponents {
         UiComponentsCustomization::new(self.node.doc(), format!("{}/{}", self.node.path(), "customization"))
     }
 
-    /// 10.11.1. Component Library [PD00-USE-COM-LIB].
+    /// 10.11.1. Component Library.
     pub fn component_library(&self) -> ComponentLibrary {
         ComponentLibrary::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentLibrary"))
     }
 
-    /// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+    /// 10.11.2. Component Specifications — contains 0+×.
     pub fn component_specs(&self) -> som::SomList<UiComponentEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -69577,7 +70551,7 @@ impl UiComponents {
         )
     }
 
-    /// 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
+    /// 10.11.3. Component Families — contains 0+×.
     pub fn component_families(&self) -> som::SomList<ComponentFamilyEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -69635,7 +70609,7 @@ impl UiComponentsVisualLanguage {
     }
 }
 
-/// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
+/// A design principle entry (form).
 ///
 /// Each principle guides UI decisions with rationale and examples.
 pub struct UiDesignPrincipleEntry {
@@ -69653,113 +70627,7 @@ impl UiDesignPrincipleEntry {
     }
 }
 
-/// UP00 UI Prototype.
-///
-/// Full UI design and prototype specification — vision, screens,
-/// screen flow, print, error handling, help, accessibility, responsive,
-/// components, language/country selection, prototype, wireframes and
-/// mockups.
-pub struct UiPrototype {
-    pub node: som::SomNode,
-}
-
-/// UI_PROTOTYPE_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const UI_PROTOTYPE_MODEL_VERSION: &str = "0.0";
-
-impl UiPrototype {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<UiPrototype, som::SomVersionError> {
-        som::check_som_model_version(UI_PROTOTYPE_MODEL_VERSION, document_version)?;
-        Ok(UiPrototype { node: som::SomNode::new(doc, "UP".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        UI_PROTOTYPE_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Design vision — PD00-USE-VIS.
-    pub fn design_vision(&self) -> DesignVision {
-        DesignVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "designVision"))
-    }
-
-    /// Screen descriptions — PD00-USE-SCR.
-    pub fn screens(&self) -> ScreenDescriptions {
-        ScreenDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "screens"))
-    }
-
-    /// Screen flow structure — PD00-USE-SCF.
-    pub fn screen_flow(&self) -> ScreenFlowStructure {
-        ScreenFlowStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "screenFlow"))
-    }
-
-    /// Print layout — PD00-USE-PRI.
-    pub fn print_layout(&self) -> PrintLayout {
-        PrintLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
-    }
-
-    /// Error handling concept — PD00-USE-ERR.
-    pub fn error_handling(&self) -> ErrorHandlingConcept {
-        ErrorHandlingConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
-    }
-
-    /// Help concept — PD00-USE-HLP.
-    pub fn help_concept(&self) -> HelpConcept {
-        HelpConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpConcept"))
-    }
-
-    /// Accessibility — PD00-USE-ACC.
-    pub fn accessibility(&self) -> Accessibility {
-        Accessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
-    }
-
-    /// Responsive design — PD00-USE-RES.
-    pub fn responsive_design(&self) -> ResponsiveDesign {
-        ResponsiveDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveDesign"))
-    }
-
-    /// UI components — PD00-USE-COM.
-    pub fn ui_components(&self) -> UiComponents {
-        UiComponents::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiComponents"))
-    }
-
-    /// Language and country selection — PD00-USE-MUL-LCS.
-    pub fn language_country_selection(&self) -> LanguageCountrySelection {
-        LanguageCountrySelection::new(self.node.doc(), format!("{}/{}", self.node.path(), "languageCountrySelection"))
-    }
-
-    /// Prototype — PD00-USE-PRO.
-    pub fn prototype(&self) -> Prototype {
-        Prototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototype"))
-    }
-
-    /// Wireframes and mockups — PD00-USE-WIR (new in Phase A, HBSG AS10-WIR).
-    pub fn wireframes_and_mockups(&self) -> som::SomList<WireframesAndMockups> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "WIANMO-WIRE-LST"),
-            Box::new(|d, p| WireframesAndMockups::new(d, p)),
-        )
-    }
-}
-
-/// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG].
+/// 13.8. Upgrade Cycle Framework.
 ///
 /// Post-development upgrade cycle framework. Links the upgrade process
 /// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
@@ -69783,7 +70651,7 @@ impl UpgradeCycleFramework {
     }
 }
 
-/// 11.2.1. Usability quality [PD00-SYQ-USE-USA].
+/// 11.2.1. Usability quality.
 pub struct UsabilityQuality {
     pub node: som::SomNode,
 }
@@ -69948,7 +70816,7 @@ impl UseCaseScopeContext {
     }
 }
 
-/// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+/// 6.2.5. Use Case Traceability.
 ///
 /// Use case ↔ requirement ↔ process ↔ test traceability.
 pub struct UseCaseTraceability {
@@ -69971,87 +70839,7 @@ impl UseCaseTraceability {
     }
 }
 
-/// UC00 Use Cases.
-///
-/// Detailed use cases derived from the target process steps and actor
-/// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-/// and traceability.
-pub struct UseCases {
-    pub node: som::SomNode,
-}
-
-/// USE_CASES_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const USE_CASES_MODEL_VERSION: &str = "0.0";
-
-impl UseCases {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<UseCases, som::SomVersionError> {
-        som::check_som_model_version(USE_CASES_MODEL_VERSION, document_version)?;
-        Ok(UseCases { node: som::SomNode::new(doc, "UC".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        USE_CASES_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Process steps overview — PD00-TAR-STP-OVE.
-    pub fn process_steps_overview(&self) -> ProcessStepsOverview {
-        ProcessStepsOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "processStepsOverview"))
-    }
-
-    /// Actor overview — PD00-TAR-STP-ACT.
-    pub fn actor_overview(&self) -> ActorOverview {
-        ActorOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "actorOverview"))
-    }
-
-    /// Interaction catalog — PD00-TAR-STP-INT.
-    pub fn interaction_catalog(&self) -> InteractionCatalog {
-        InteractionCatalog::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionCatalog"))
-    }
-
-    /// Key scenarios — PD00-TAR-STP-SCE.
-    pub fn key_scenarios(&self) -> KeyScenarios {
-        KeyScenarios::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyScenarios"))
-    }
-
-    /// Actor relationship diagram — PD00-TAR-STP-DIA.
-    pub fn actor_relationship_diagram(&self) -> ActorRelationshipDiagram {
-        ActorRelationshipDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "actorRelationshipDiagram"))
-    }
-
-    /// End-to-end test scenarios — PD00-TAR-STP-E2E (covers HBSG AS24).
-    pub fn end_to_end_test_scenarios(&self) -> som::SomList<EndToEndTestScenarios> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "ETETS-ENDT-LST"),
-            Box::new(|d, p| EndToEndTestScenarios::new(d, p)),
-        )
-    }
-
-    /// Use case traceability — PD00-TAR-STP-TRC.
-    pub fn use_case_traceability(&self) -> UseCaseTraceability {
-        UseCaseTraceability::new(self.node.doc(), format!("{}/{}", self.node.path(), "useCaseTraceability"))
-    }
-}
-
-/// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+/// 14.2.3. User Acceptance Testing.
 ///
 /// Comprehensive UAT planning covering scope, environment, test data,
 /// governance, scheduling, defect management, reporting, non-functional
@@ -70148,7 +70936,7 @@ impl UserAcceptanceTesting {
     }
 }
 
-/// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+/// 4.1.4.n.4. Access and Permissions.
 ///
 /// Security and access control specifications for this user category.
 pub struct UserAccessPermissions {
@@ -70227,7 +71015,7 @@ impl UserAccessPermissionsRestrictions {
     }
 }
 
-/// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+/// 4.1.4.n.6. Accessibility Needs.
 ///
 /// Accessibility requirements and accommodations for this user category.
 pub struct UserAccessibilityNeeds {
@@ -70282,7 +71070,7 @@ impl UserAccountStatesDefinition {
     // (skipped: stateTransitionDiagram has no target type)
 }
 
-/// A user attribute entry (form) [PD00-ACC-USE-ATT-nn].
+/// A user attribute entry (form).
 pub struct UserAttributeEntry {
     pub node: som::SomNode,
 }
@@ -70298,7 +71086,7 @@ impl UserAttributeEntry {
     }
 }
 
-/// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+/// 9.1.3. User Attributes.
 pub struct UserAttributes {
     pub node: som::SomNode,
 }
@@ -70328,7 +71116,7 @@ impl UserAttributes {
     }
 }
 
-/// 9.4. User Authorization [PD00-ACC-USA].
+/// 9.4. User Authorization.
 ///
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 pub struct UserAuthorization {
@@ -70350,12 +71138,12 @@ impl UserAuthorization {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+    /// 9.4.1. Authorization Model.
     pub fn authorization_model(&self) -> AuthorizationModel {
         AuthorizationModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorizationModel"))
     }
 
-    /// 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
+    /// 9.4.2. Authorization Groups — contains 0+× Group.
     pub fn groups(&self) -> som::SomList<AuthorizationGroupEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -70364,7 +71152,7 @@ impl UserAuthorization {
         )
     }
 
-    /// 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+    /// 9.4.3. Role Definitions — contains 1+× Role.
     pub fn role_definitions(&self) -> som::SomList<AuthorizationRoleEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -70373,7 +71161,7 @@ impl UserAuthorization {
         )
     }
 
-    /// 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
+    /// 9.4.4. Entitlements — contains 1+× Entitlement.
     pub fn entitlements(&self) -> som::SomList<EntitlementEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -70382,7 +71170,7 @@ impl UserAuthorization {
         )
     }
 
-    /// 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
+    /// 9.4.5. Resource Keys — contains 0+× Resource Key.
     pub fn resource_keys(&self) -> som::SomList<ResourceKeyEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -70391,18 +71179,18 @@ impl UserAuthorization {
         )
     }
 
-    /// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+    /// 9.4.6. Role Hierarchy.
     pub fn role_hierarchy(&self) -> RoleHierarchy {
         RoleHierarchy::new(self.node.doc(), format!("{}/{}", self.node.path(), "roleHierarchy"))
     }
 
-    /// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+    /// 9.4.7. Tenant Isolation.
     pub fn tenant_isolation(&self) -> TenantIsolation {
         TenantIsolation::new(self.node.doc(), format!("{}/{}", self.node.path(), "tenantIsolation"))
     }
 }
 
-/// A user category definition (form) [PD00-ACC-USE-CAT-nn].
+/// A user category definition (form).
 pub struct UserCategoryDefinition {
     pub node: som::SomNode,
 }
@@ -70418,7 +71206,7 @@ impl UserCategoryDefinition {
     }
 }
 
-/// A user category entry [PD00-SYO-SYD-USR-nn].
+/// A user category entry.
 ///
 /// Comprehensive user persona definition including demographics, goals,
 /// frustrations, technical proficiency, and system interaction patterns.
@@ -70446,17 +71234,17 @@ impl UserCategoryEntry {
         UserCategoryEntryImportance::new(self.node.doc(), format!("{}/{}", self.node.path(), "importance"))
     }
 
-    /// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+    /// 4.1.4.n.1. User Persona Details.
     pub fn persona_details(&self) -> UserPersonaDetails {
         UserPersonaDetails::new(self.node.doc(), format!("{}/{}", self.node.path(), "personaDetails"))
     }
 
-    /// 4.1.4.n.2. Role [PD00-SYO-SYD-USR-nn-ROL].
+    /// 4.1.4.n.2. Role.
     pub fn role(&self) -> UserCategoryRoleEntry {
         UserCategoryRoleEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "role"))
     }
 
-    /// 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+    /// 4.1.4.n.3. System Tasks — contains 1+× System Task.
     pub fn system_tasks(&self) -> som::SomList<SystemTaskEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -70465,22 +71253,22 @@ impl UserCategoryEntry {
         )
     }
 
-    /// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+    /// 4.1.4.n.4. Access and Permissions.
     pub fn access_permissions(&self) -> UserAccessPermissions {
         UserAccessPermissions::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessPermissions"))
     }
 
-    /// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+    /// 4.1.4.n.5. Training Requirements.
     pub fn training_requirements(&self) -> UserTrainingRequirements {
         UserTrainingRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingRequirements"))
     }
 
-    /// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+    /// 4.1.4.n.6. Accessibility Needs.
     pub fn accessibility_needs(&self) -> UserAccessibilityNeeds {
         UserAccessibilityNeeds::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibilityNeeds"))
     }
 
-    /// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+    /// 4.1.4.n.7. User Journey.
     pub fn user_journey(&self) -> UserJourney {
         UserJourney::new(self.node.doc(), format!("{}/{}", self.node.path(), "userJourney"))
     }
@@ -70518,7 +71306,7 @@ impl UserCategoryEntryUsage {
     }
 }
 
-/// Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
+/// Role within a user category.
 ///
 /// Organizational role and responsibilities associated with this user category.
 pub struct UserCategoryRoleEntry {
@@ -70536,7 +71324,7 @@ impl UserCategoryRoleEntry {
     }
 }
 
-/// User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn].
+/// User group impact entry.
 pub struct UserGroupImpactEntry {
     pub node: som::SomNode,
 }
@@ -70631,7 +71419,7 @@ impl UserGrowthProjectionsThresholds {
     }
 }
 
-/// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+/// 4.1.5. User Interaction Model.
 ///
 /// Describes how different user categories interact with the system including
 /// access channels, interaction patterns, access levels, and session management.
@@ -70660,32 +71448,32 @@ impl UserInteractionModel {
         UserInteractionModelSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "summary"))
     }
 
-    /// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+    /// 4.1.5.1. Access Channels.
     pub fn access_channels(&self) -> AccessChannels {
         AccessChannels::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessChannels"))
     }
 
-    /// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+    /// 4.1.5.2. Interaction Patterns.
     pub fn interaction_patterns(&self) -> InteractionPatterns {
         InteractionPatterns::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionPatterns"))
     }
 
-    /// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+    /// 4.1.5.3. Access Levels.
     pub fn access_levels(&self) -> AccessLevels {
         AccessLevels::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessLevels"))
     }
 
-    /// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+    /// 4.1.5.4. Session Model.
     pub fn session_model(&self) -> SessionModel {
         SessionModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "sessionModel"))
     }
 
-    /// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+    /// 4.1.5.5. Notification Model.
     pub fn notification_model(&self) -> NotificationModel {
         NotificationModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "notificationModel"))
     }
 
-    /// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+    /// 4.1.5.6. Multi-Channel Experience.
     pub fn multi_channel_experience(&self) -> MultiChannelExperience {
         MultiChannelExperience::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiChannelExperience"))
     }
@@ -70713,98 +71501,7 @@ impl UserInteractionModelSummary {
     }
 }
 
-/// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
-pub struct UserInterfaceDesign {
-    pub node: som::SomNode,
-}
-
-impl UserInterfaceDesign {
-    /// Binds a UserInterfaceDesign facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> UserInterfaceDesign {
-        UserInterfaceDesign { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
-    pub fn design_vision(&self) -> DesignVision {
-        DesignVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "designVision"))
-    }
-
-    /// 10.2. Screen Descriptions [PD00-USE-SCR]. Seeds → UP.
-    pub fn screens(&self) -> ScreenDescriptions {
-        ScreenDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "screens"))
-    }
-
-    /// 10.3. Screen Flow Structure [PD00-USE-SCF]. Seeds → UP.
-    pub fn screen_flow(&self) -> ScreenFlowStructure {
-        ScreenFlowStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "screenFlow"))
-    }
-
-    /// 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
-    pub fn print_layout(&self) -> PrintLayout {
-        PrintLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
-    }
-
-    // Data Structure Alignment.
-    // (skipped: dataStructureAlignment has no target type)
-
-    // Authorization Compliance.
-    // (skipped: authorizationCompliance has no target type)
-
-    /// 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
-    pub fn error_handling(&self) -> ErrorHandlingConcept {
-        ErrorHandlingConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
-    }
-
-    /// 10.8. Help Concept [PD00-USE-HLP]. Seeds → UP.
-    pub fn help_concept(&self) -> HelpConcept {
-        HelpConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpConcept"))
-    }
-
-    /// 10.9. Accessibility [PD00-USE-ACC]. Seeds → UP.
-    pub fn accessibility(&self) -> Accessibility {
-        Accessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
-    }
-
-    /// 10.10. Responsive Design [PD00-USE-RES]. Seeds → UP.
-    pub fn responsive_design(&self) -> ResponsiveDesign {
-        ResponsiveDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveDesign"))
-    }
-
-    /// 10.11. UI Components [PD00-USE-COM]. Seeds → UP.
-    pub fn ui_components(&self) -> UiComponents {
-        UiComponents::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiComponents"))
-    }
-
-    /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
-    pub fn multi_language(&self) -> MultiLanguageAndRollout {
-        MultiLanguageAndRollout::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguage"))
-    }
-
-    /// 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
-    pub fn prototype(&self) -> Prototype {
-        Prototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototype"))
-    }
-
-    /// 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
-    pub fn wireframes_and_mockups(&self) -> som::SomList<WireframesAndMockups> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "WIANMO-WIRE-LST"),
-            Box::new(|d, p| WireframesAndMockups::new(d, p)),
-        )
-    }
-}
-
-/// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+/// 4.1.4.n.7. User Journey.
 ///
 /// Key touchpoints and journey map for this user category's experience.
 pub struct UserJourney {
@@ -70895,7 +71592,7 @@ impl UserJourneyPainPointEntry {
     }
 }
 
-/// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+/// 9.1.2. User Lifecycle.
 ///
 /// Defines the complete user account lifecycle: states, transitions between
 /// states, approval requirements for each transition, and operational policies
@@ -70972,7 +71669,7 @@ impl UserLifecycleSection {
     }
 }
 
-/// A lifecycle transition entry (form) [PD00-ACC-USE-LIF-nn].
+/// A lifecycle transition entry (form).
 ///
 /// Defines a single permissible transition between two lifecycle states,
 /// including trigger, approval, and side effects.
@@ -71093,7 +71790,7 @@ impl UserLifecycleTransitions {
     }
 }
 
-/// 9.1. User Management [PD00-ACC-USE].
+/// 9.1. User Management.
 pub struct UserManagement {
     pub node: som::SomNode,
 }
@@ -71113,23 +71810,23 @@ impl UserManagement {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+    /// 9.1.1. User Categories.
     pub fn user_categories(&self) -> AccessUserCategories {
         AccessUserCategories::new(self.node.doc(), format!("{}/{}", self.node.path(), "userCategories"))
     }
 
-    /// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+    /// 9.1.2. User Lifecycle.
     pub fn user_lifecycle(&self) -> UserLifecycleSection {
         UserLifecycleSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "userLifecycle"))
     }
 
-    /// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+    /// 9.1.3. User Attributes.
     pub fn user_attributes(&self) -> UserAttributes {
         UserAttributes::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAttributes"))
     }
 }
 
-/// 15.3. User Manuals [PD00-ROL-DOC].
+/// 15.3. User Manuals.
 ///
 /// End-user documentation deliverables covering DR15 User Manual content.
 pub struct UserManuals {
@@ -71174,7 +71871,7 @@ impl UserNotificationPreferences {
     }
 }
 
-/// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+/// 4.1.4.n.1. User Persona Details.
 ///
 /// Detailed persona information including demographics, goals, frustrations,
 /// and behavioral characteristics for user-centered design.
@@ -71285,7 +71982,7 @@ impl UserPersonaDetailsGoals {
     }
 }
 
-/// 10.1.3. User Personas [PD00-USE-VIS-PER].
+/// 10.1.3. User Personas.
 ///
 /// Container for user persona definitions. Each persona represents a distinct
 /// user archetype with goals, pain points, and context.
@@ -71400,7 +72097,7 @@ impl UserProvisioningToolsRoleManagement {
     }
 }
 
-/// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+/// 11.2. User-Related Quality Criteria.
 ///
 /// Quality criteria that directly affect user experience, including usability,
 /// functional completeness, and correctness from the end-user perspective.
@@ -71421,17 +72118,17 @@ impl UserQualityCriteria {
     // User quality criteria overview.
     // (skipped: overview has no target type)
 
-    /// 11.2.1. Usability [PD00-SYQ-USE-USA].
+    /// 11.2.1. Usability.
     pub fn usability(&self) -> UsabilityQuality {
         UsabilityQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "usability"))
     }
 
-    /// 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
+    /// 11.2.2. Functional Completeness.
     pub fn functional_completeness(&self) -> FunctionalCompletenessQuality {
         FunctionalCompletenessQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalCompleteness"))
     }
 
-    /// 11.2.3. Correctness [PD00-SYQ-USE-COR].
+    /// 11.2.3. Correctness.
     pub fn correctness(&self) -> CorrectnessQuality {
         CorrectnessQuality::new(self.node.doc(), format!("{}/{}", self.node.path(), "correctness"))
     }
@@ -71467,7 +72164,7 @@ impl UserRegistrationProcess {
     // (skipped: registrationFlowDiagram has no target type)
 }
 
-/// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+/// 4.1.4.n.5. Training Requirements.
 ///
 /// Training and onboarding requirements for this user category.
 pub struct UserTrainingRequirements {
@@ -71504,7 +72201,7 @@ impl UserTrainingRequirements {
     }
 }
 
-/// A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
+/// A utility menu item entry (form).
 ///
 /// Entry in a utility popup/dropdown menu (e.g., user menu items).
 pub struct UtilityMenuItemEntry {
@@ -71564,7 +72261,7 @@ impl UtilityMenuItemEntryBehavior {
     }
 }
 
-/// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+/// 10.3.1.5. Utility Navigation.
 ///
 /// Always-visible utility items: user menu, notifications, help, settings.
 pub struct UtilityNavigation {
@@ -71596,7 +72293,7 @@ impl UtilityNavigation {
     }
 }
 
-/// A utility navigation item entry (form) [PD00-USE-SCF-NAV-UTL-nn].
+/// A utility navigation item entry (form).
 ///
 /// A persistent utility element in the app bar: user avatar, notifications bell,
 /// help icon, settings.
@@ -71666,7 +72363,7 @@ impl UtilityNavigationItemEntryDisplay {
     }
 }
 
-/// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+/// 7.1.6. Validation Constraints.
 ///
 /// Cross-entity validation policy. Per-field validation lives in entity
 /// form fields; this section captures rules that span multiple fields or
@@ -71691,7 +72388,7 @@ impl ValidationConstraints {
     }
 }
 
-/// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+/// 10.7.1. Validation Feedback.
 ///
 /// Field validation error display and feedback mechanisms.
 pub struct ValidationFeedback {
@@ -71814,7 +72511,7 @@ impl ValidationFeedbackPlacement {
     }
 }
 
-/// A validation message template [PD00-USE-ERR-VAL-MSG-nn].
+/// A validation message template.
 pub struct ValidationMessageTemplate {
     pub node: som::SomNode,
 }
@@ -71851,7 +72548,7 @@ impl ValidationRuleEntry {
     }
 }
 
-/// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+/// 4.1.1.4. Value Proposition.
 ///
 /// Clear articulation of the value this system provides, including
 /// quantifiable benefits and return on investment analysis.
@@ -72347,7 +73044,7 @@ impl VulnerabilityManagementPolicyReporting {
     }
 }
 
-/// 15.8. Warranty and Support [PD00-ROL-WAR].
+/// 15.8. Warranty and Support.
 ///
 /// Post-acceptance warranty period terms and support arrangements. Covers
 /// EK10 warranty content and feeds the SR top-level on the same topic.
@@ -72451,7 +73148,7 @@ impl WarrantyServiceLevels {
     }
 }
 
-/// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+/// 14.2.6. Warranty.
 ///
 /// Post-acceptance warranty terms: duration, scope, service levels,
 /// exclusions, and transition to standard support.
@@ -72523,7 +73220,7 @@ impl WarrantyTransition {
     }
 }
 
-/// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+/// 10.9.1. WCAG Compliance Level.
 pub struct WcagCompliance {
     pub node: som::SomNode,
 }
@@ -72614,7 +73311,7 @@ impl WcagComplianceUnderstandable {
     }
 }
 
-/// A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
+/// A WCAG success criterion entry.
 pub struct WcagSuccessCriterionEntry {
     pub node: som::SomNode,
 }
@@ -72630,7 +73327,7 @@ impl WcagSuccessCriterionEntry {
     }
 }
 
-/// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+/// 11.6.1. Weighted Quality Matrix.
 pub struct WeightedQualityMatrix {
     pub node: som::SomNode,
 }
@@ -72661,10 +73358,10 @@ impl WeightedQualityMatrix {
     // (skipped: matrixVisualization has no target type)
 }
 
-/// 10.14. Wireframes and Mockups [PD00-USE-WIR].
+/// 10.14. Wireframes and Mockups.
 ///
 /// Wireframe and mockup inventory beyond individual screen descriptions.
-/// Covers HBSG AS10-WIR.
+/// .
 pub struct WireframesAndMockups {
     pub node: som::SomNode,
 }
@@ -72685,7 +73382,7 @@ impl WireframesAndMockups {
     }
 }
 
-/// A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
+/// A workflow actor entry (form).
 ///
 /// Documentation of a participant in the workflow.
 pub struct WorkflowActorEntry {
@@ -72744,10 +73441,10 @@ impl WorkflowDecisionPoint {
     }
 }
 
-/// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+/// 1.2.nn.1. Workflow Descriptions.
 ///
 /// Container for workflow entries within a business process.
-/// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+/// 1.2.nn.1. Workflow Descriptions.
 ///
 /// Container for workflow entries within a business process. Add one
 /// subsection per current workflow relevant to the project.
@@ -72770,7 +73467,7 @@ impl WorkflowDescriptions {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
+    /// Workflow overview diagram.
     pub fn workflow_overview_diagram(&self) -> String {
         self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "workflowOverviewDiagram"))
     }
@@ -72780,7 +73477,7 @@ impl WorkflowDescriptions {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// Workflow summary table [PD00-CUR-PRO-xx-WOR-SUM].
+    /// Workflow summary table.
     pub fn summary_table(&self) -> WorkflowSummaryTable {
         WorkflowSummaryTable::new(self.node.doc(), format!("{}/{}", self.node.path(), "summaryTable"))
     }
@@ -72873,7 +73570,7 @@ impl WorkflowOutputEntry {
     }
 }
 
-/// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
+/// A workflow step entry (form).
 ///
 /// Detailed documentation of a single step within a workflow.
 pub struct WorkflowStepEntry {
@@ -73076,7 +73773,7 @@ impl WorkflowTriggers {
     }
 }
 
-/// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+/// A workplace description entry (form, per user category).
 ///
 /// Comprehensive workplace requirements following workplace design best
 /// practices (OSHA, ISO 9001, ergonomic standards). Covers physical,
@@ -73101,7 +73798,7 @@ impl WorkplaceDescriptionEntry {
         PhysicalWorkplaceRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "physicalRequirements"))
     }
 
-    /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+    /// 5.3.1. Equipment Requirements.
     pub fn equipment_requirements(&self) -> EquipmentRequirements {
         EquipmentRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "equipmentRequirements"))
     }
@@ -73111,7 +73808,7 @@ impl WorkplaceDescriptionEntry {
         TechnicalInfrastructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalInfrastructure"))
     }
 
-    /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+    /// 5.3.2. Training Requirements.
     pub fn training_requirements(&self) -> TrainingRequirements {
         TrainingRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "trainingRequirements"))
     }
@@ -78822,6 +79519,54 @@ impl ApplicationSecurityRequirementsValidationContentForm {
     }
 }
 
+/// ApprovalRecordContentForm is the generated form facade for the `content` @Form section.
+pub struct ApprovalRecordContentForm {
+    pub node: som::SomNode,
+}
+
+impl ApprovalRecordContentForm {
+    /// Binds a ApprovalRecordContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ApprovalRecordContentForm {
+        ApprovalRecordContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn role(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "role")
+    }
+
+    pub fn set_role(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "role", value);
+    }
+
+    pub fn name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "name")
+    }
+
+    pub fn set_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "name", value);
+    }
+
+    pub fn date(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "date")
+    }
+
+    pub fn set_date(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "date", value);
+    }
+
+    pub fn status(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "status")
+    }
+
+    pub fn set_status(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "status", value);
+    }
+}
+
 /// ArchitectureComponentEntryBoundariesContentForm is the generated form facade for the `content` @Form section.
 pub struct ArchitectureComponentEntryBoundariesContentForm {
     pub node: som::SomNode,
@@ -79809,6 +80554,63 @@ impl AssumptionImpactContentForm {
     pub fn set_related_risks(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "relatedRisks", value);
+    }
+}
+
+/// AssumptionRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+pub struct AssumptionRegisterEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl AssumptionRegisterEntryContentForm {
+    /// Binds a AssumptionRegisterEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AssumptionRegisterEntryContentForm {
+        AssumptionRegisterEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn assumption_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "assumptionId")
+    }
+
+    pub fn set_assumption_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "assumptionId", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
+    }
+
+    pub fn impact(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "impact")
+    }
+
+    pub fn set_impact(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "impact", value);
+    }
+
+    pub fn validation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "validation")
+    }
+
+    pub fn set_validation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "validation", value);
+    }
+
+    pub fn status(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "status")
+    }
+
+    pub fn set_status(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "status", value);
     }
 }
 
@@ -97266,6 +98068,63 @@ impl ConstraintMitigationContentForm {
     pub fn set_violation_consequences(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "violationConsequences", value);
+    }
+}
+
+/// ConstraintRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+pub struct ConstraintRegisterEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ConstraintRegisterEntryContentForm {
+    /// Binds a ConstraintRegisterEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ConstraintRegisterEntryContentForm {
+        ConstraintRegisterEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn constraint_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "constraintId")
+    }
+
+    pub fn set_constraint_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "constraintId", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
+    }
+
+    pub fn type_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "type")
+    }
+
+    pub fn set_type_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "type", value);
+    }
+
+    pub fn source(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "source")
+    }
+
+    pub fn set_source(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "source", value);
+    }
+
+    pub fn impact(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "impact")
+    }
+
+    pub fn set_impact(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "impact", value);
     }
 }
 
@@ -124308,6 +125167,54 @@ impl GlobalRoleExclusionEntryContentForm {
     }
 }
 
+/// GlossaryEntryContentForm is the generated form facade for the `content` @Form section.
+pub struct GlossaryEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl GlossaryEntryContentForm {
+    /// Binds a GlossaryEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GlossaryEntryContentForm {
+        GlossaryEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn term(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "term")
+    }
+
+    pub fn set_term(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "term", value);
+    }
+
+    pub fn definition(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "definition")
+    }
+
+    pub fn set_definition(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "definition", value);
+    }
+
+    pub fn acronym(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "acronym")
+    }
+
+    pub fn set_acronym(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "acronym", value);
+    }
+
+    pub fn see_also(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "seeAlso")
+    }
+
+    pub fn set_see_also(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "seeAlso", value);
+    }
+}
+
 /// GoalDependencyEntryContentForm is the generated form facade for the `content` @Form section.
 pub struct GoalDependencyEntryContentForm {
     pub node: som::SomNode,
@@ -132696,6 +133603,45 @@ impl IpOwnershipEntryContentForm {
     pub fn set_restrictions(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "restrictions", value);
+    }
+}
+
+/// Iso25010CoverageEntryContentForm is the generated form facade for the `content` @Form section.
+pub struct Iso25010CoverageEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl Iso25010CoverageEntryContentForm {
+    /// Binds a Iso25010CoverageEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> Iso25010CoverageEntryContentForm {
+        Iso25010CoverageEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn characteristic(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "characteristic")
+    }
+
+    pub fn set_characteristic(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "characteristic", value);
+    }
+
+    pub fn addressed_by(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "addressedBy")
+    }
+
+    pub fn set_addressed_by(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "addressedBy", value);
+    }
+
+    pub fn target_metric(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "targetMetric")
+    }
+
+    pub fn set_target_metric(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "targetMetric", value);
     }
 }
 
@@ -168660,6 +169606,54 @@ impl ReviewCriterionEntryResultContentForm {
     }
 }
 
+/// RevisionEntryContentForm is the generated form facade for the `content` @Form section.
+pub struct RevisionEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl RevisionEntryContentForm {
+    /// Binds a RevisionEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RevisionEntryContentForm {
+        RevisionEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "version")
+    }
+
+    pub fn set_version(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "version", value);
+    }
+
+    pub fn date(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "date")
+    }
+
+    pub fn set_date(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "date", value);
+    }
+
+    pub fn author(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "author")
+    }
+
+    pub fn set_author(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "author", value);
+    }
+
+    pub fn summary(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "summary")
+    }
+
+    pub fn set_summary(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "summary", value);
+    }
+}
+
 /// RiskAnalysisContentForm is the generated form facade for the `content` @Form section.
 pub struct RiskAnalysisContentForm {
     pub node: som::SomNode,
@@ -185007,6 +186001,81 @@ impl StakeholderEntryImpactContentForm {
     }
 }
 
+/// StakeholderRegisterEntryContentForm is the generated form facade for the `content` @Form section.
+pub struct StakeholderRegisterEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl StakeholderRegisterEntryContentForm {
+    /// Binds a StakeholderRegisterEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StakeholderRegisterEntryContentForm {
+        StakeholderRegisterEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn stakeholder_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stakeholderId")
+    }
+
+    pub fn set_stakeholder_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stakeholderId", value);
+    }
+
+    pub fn name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "name")
+    }
+
+    pub fn set_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "name", value);
+    }
+
+    pub fn role(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "role")
+    }
+
+    pub fn set_role(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "role", value);
+    }
+
+    pub fn interest(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "interest")
+    }
+
+    pub fn set_interest(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "interest", value);
+    }
+
+    pub fn influence(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "influence")
+    }
+
+    pub fn set_influence(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "influence", value);
+    }
+
+    pub fn concerns(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "concerns")
+    }
+
+    pub fn set_concerns(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "concerns", value);
+    }
+
+    pub fn engagement_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "engagementStrategy")
+    }
+
+    pub fn set_engagement_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "engagementStrategy", value);
+    }
+}
+
 /// StakeholdersAndInterestsContentForm is the generated form facade for the `content` @Form section.
 pub struct StakeholdersAndInterestsContentForm {
     pub node: som::SomNode,
@@ -196359,6 +197428,54 @@ impl TrainingAssessmentReportingContentForm {
     pub fn set_management_visibility(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "managementVisibility", value);
+    }
+}
+
+/// TrainingEnablementRequirementsContentForm is the generated form facade for the `content` @Form section.
+pub struct TrainingEnablementRequirementsContentForm {
+    pub node: som::SomNode,
+}
+
+impl TrainingEnablementRequirementsContentForm {
+    /// Binds a TrainingEnablementRequirementsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TrainingEnablementRequirementsContentForm {
+        TrainingEnablementRequirementsContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    pub fn target_audiences(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "targetAudiences")
+    }
+
+    pub fn set_target_audiences(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "targetAudiences", value);
+    }
+
+    pub fn competency_outcomes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "competencyOutcomes")
+    }
+
+    pub fn set_competency_outcomes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "competencyOutcomes", value);
+    }
+
+    pub fn certification_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certificationRequired")
+    }
+
+    pub fn set_certification_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certificationRequired", value);
+    }
+
+    pub fn ongoing_enablement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ongoingEnablement")
+    }
+
+    pub fn set_ongoing_enablement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ongoingEnablement", value);
     }
 }
 

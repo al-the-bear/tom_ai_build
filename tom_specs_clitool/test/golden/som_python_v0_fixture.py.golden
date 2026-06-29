@@ -29,7 +29,7 @@ def _parse_Probability(token):
             return v
     return None
 
-class CurrentSituation(SomNode):
+class CurrentLandscapeAssessment(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -40,45 +40,6 @@ class CurrentSituation(SomNode):
     @summary.setter
     def summary(self, value):
         self.doc.set_content(f"{self.path}/summary", value)
-
-class ProjectDefinition(SomNode):
-    """Root of a project definition document."""
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "PD00")
-        check_som_model_version(ProjectDefinition.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return ProjectDefinition.model_version
-
-    # Why the system exists.
-    @property
-    def vision(self):
-        return self.doc.content(f"{self.path}/vision") or ""
-
-    @vision.setter
-    def vision(self, value):
-        self.doc.set_content(f"{self.path}/vision", value)
-
-    @property
-    def owner(self):
-        return ProjectDefinitionOwnerForm(self.doc, f"{self.path}/owner")
-
-    @property
-    def risks(self):
-        return SomList(self.doc, f"{self.path}/risks", lambda d, p: Risk(d, p))
-
-    @property
-    def tags(self):
-        return SomList(self.doc, f"{self.path}/tags", lambda d, p: SomScalar(d, p))
-
-    @property
-    def situation(self):
-        return CurrentSituation(self.doc, f"{self.path}/situation")
 
 class Risk(SomNode):
     def __init__(self, doc, path):
@@ -100,7 +61,46 @@ class Risk(SomNode):
     def probability(self, value):
         self.doc.set_content(f"{self.path}/prob", value.value if value is not None else "")
 
-class ProjectDefinitionOwnerForm(SomNode):
+class SolutionBlueprint(SomNode):
+    """Root of a project definition document."""
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "PD00")
+        check_som_model_version(SolutionBlueprint.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return SolutionBlueprint.model_version
+
+    # Why the system exists.
+    @property
+    def vision(self):
+        return self.doc.content(f"{self.path}/vision") or ""
+
+    @vision.setter
+    def vision(self, value):
+        self.doc.set_content(f"{self.path}/vision", value)
+
+    @property
+    def owner(self):
+        return SolutionBlueprintOwnerForm(self.doc, f"{self.path}/owner")
+
+    @property
+    def risks(self):
+        return SomList(self.doc, f"{self.path}/risks", lambda d, p: Risk(d, p))
+
+    @property
+    def tags(self):
+        return SomList(self.doc, f"{self.path}/tags", lambda d, p: SomScalar(d, p))
+
+    @property
+    def situation(self):
+        return CurrentLandscapeAssessment(self.doc, f"{self.path}/situation")
+
+class SolutionBlueprintOwnerForm(SomNode):
     """Generated form facade for the `owner` @Form section."""
 
     def __init__(self, doc, path):

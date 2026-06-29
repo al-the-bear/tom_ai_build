@@ -1,0 +1,141 @@
+# Generated from the TomSpecs object model — do not edit.
+# Schema: transition-rollout-plan/1.0
+
+section-types:
+  CUTPRC-CUTO-LST:
+    prefix: cutprc_cuto_lst
+    pattern-check-id:
+      pattern: ^cutprc_cuto_lst-\d+$
+      error-message: ID must match cutprc_cuto_lst-NNN
+    description: Cutover procedures.
+  TRMOEN-TRAI-LST:
+    prefix: trmoen_trai_lst
+    pattern-check-id:
+      pattern: ^trmoen_trai_lst-\d+$
+      error-message: ID must match trmoen_trai_lst-NNN
+    description: Training module entries.
+  TRVEEN-VEND-LST:
+    prefix: trveen_vend_lst
+    pattern-check-id:
+      pattern: ^trveen_vend_lst-\d+$
+      error-message: ID must match trveen_vend_lst-NNN
+    description: Translation vendor entries.
+  USRMAN-USER-LST:
+    prefix: usrman_user_lst
+    pattern-check-id:
+      pattern: ^usrman_user_lst-\d+$
+      error-message: ID must match usrman_user_lst-NNN
+    description: User manuals.
+  RLTTM-TRAI-LST:
+    prefix: rlttm_trai_lst
+    pattern-check-id:
+      pattern: ^rlttm_trai_lst-\d+$
+      error-message: ID must match rlttm_trai_lst-NNN
+    description: Training materials.
+  CUTPRC:
+    prefix: cutprc
+    description: 15.6. Cutover Procedures.
+  DOANTR:
+    prefix: doantr
+    description: 10.12.3. Documentation and Training.
+  LOPRDE:
+    prefix: loprde
+    description: Deployment settings.
+  LOPRFO:
+    prefix: loprfo
+    description: Formatting rules.
+  LOPRR1:
+    prefix: loprr1
+    description: Review process.
+  MIGPLN:
+    prefix: migpln
+    description: 15.2. Migration Plan.
+  PLTPLN:
+    prefix: pltpln
+    description: 15.5. Pilot Plan.
+  RLTPLN:
+    prefix: rltpln
+    description: 15.1. Rollout Plan.
+  TRPRON:
+    prefix: trpron
+    description: Ongoing localization operations.
+  TRPRQU:
+    prefix: trprqu
+    description: Quality assurance.
+  TRPRTE:
+    prefix: trprte
+    description: Terminology and voice management.
+  TRPRWO:
+    prefix: trprwo
+    description: Translation workflow.
+  USRMAN:
+    prefix: usrman
+    description: 15.3. User Manuals.
+  DOCHD:
+    prefix: dochd
+    description: Standard document header present at the top of every TomSpecs document.
+  KNTFR:
+    prefix: kntfr
+    description: 15.7. Knowledge Transfer.
+  RLTTM:
+    prefix: rlttm
+    description: 15.4. Training Materials.
+  WRTSP:
+    prefix: wrtsp
+    description: 15.8. Warranty and Support.
+  DATD:
+    prefix: datd
+    description: Documentation deliverables provided to users.
+  DATL:
+    prefix: datl
+    description: Documentation localization approach.
+  LOPR:
+    prefix: lopr
+    description: 10.12.1. Localization Process.
+  TRPR:
+    prefix: trpr
+    description: 10.12.2. Translation Process.
+  TME:
+    prefix: tme
+    description: A training module entry.
+  TVE:
+    prefix: tve
+    description: A translation vendor entry.
+document:
+  sections:
+    header:
+      section-type: DOCHD
+      optional: true
+    localizationprocess:
+      section-type: LOPR
+      optional: true
+    translationprocess:
+      section-type: TRPR
+      optional: true
+    documentationandtraining:
+      section-type: DOANTR
+      optional: true
+    rolloutplan:
+      section-type: RLTPLN
+      optional: true
+    migrationplan:
+      section-type: MIGPLN
+      optional: true
+    usermanuals:
+      section-type: USRMAN-USER-LST
+      optional: true
+    trainingmaterials:
+      section-type: RLTTM-TRAI-LST
+      optional: true
+    pilotplan:
+      section-type: PLTPLN
+      optional: true
+    cutoverprocedures:
+      section-type: CUTPRC-CUTO-LST
+      optional: true
+    knowledgetransfer:
+      section-type: KNTFR
+      optional: true
+    warrantyandsupport:
+      section-type: WRTSP
+      optional: true

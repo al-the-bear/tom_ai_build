@@ -72,7 +72,7 @@ void main() {
     // type of the single outer class.
     final source = File(result.sourcePath).readAsStringSync();
     expect(source, contains('public final class TomSomV0'));
-    expect(source, contains('class ProjectDefinition extends SomNode'));
+    expect(source, contains('class SolutionBlueprint extends SomNode'));
     expect(result.sourcePath, endsWith(p.join('tom_som_java_v0', 'TomSomV0.java')));
 
     // One DocSpecs schema per @Document root (13).

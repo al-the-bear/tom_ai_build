@@ -13,15 +13,15 @@ Map<String, dynamic> _fixtureJson() => {
       'modelVersion': 0,
       'roots': [
         {
-          'type': 'ProjectDefinition',
+          'type': 'SolutionBlueprint',
           'title': 'Project Definition',
           'sectionId': 'PD00',
           'description': 'The structured project overview.',
         },
       ],
       'classes': {
-        'ProjectDefinition': {
-          'name': 'ProjectDefinition',
+        'SolutionBlueprint': {
+          'name': 'SolutionBlueprint',
           'sectionId': 'PD00',
           'doc': 'Root of a project definition document.',
           'fields': [
@@ -60,7 +60,7 @@ Map<String, dynamic> _fixtureJson() => {
               'name': 'situation',
               'kind': 'complex',
               'sectionId': 'situation',
-              'type': 'CurrentSituation',
+              'type': 'CurrentLandscapeAssessment',
             },
           ],
         },
@@ -83,8 +83,8 @@ Map<String, dynamic> _fixtureJson() => {
             },
           ],
         },
-        'CurrentSituation': {
-          'name': 'CurrentSituation',
+        'CurrentLandscapeAssessment': {
+          'name': 'CurrentLandscapeAssessment',
           'sectionId': 'CS00',
           'fields': [
             {
@@ -349,7 +349,7 @@ void main() {
       expect(emitter.modelVersionString, '0.0');
       // The generated source pins the same value as a module-level constant.
       expect(emitter.generateLibrary(),
-          contains('pub const PROJECT_DEFINITION_MODEL_VERSION: &str = "0.0";'));
+          contains('pub const SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "0.0";'));
     });
 
     test('v1 label yields major 1', () {
@@ -416,12 +416,12 @@ void main() {
 
     test('documentRoots subsets the generated structs', () {
       final all = SomRustEmitter(_fixtureModel()).generateLibrary();
-      expect(all, contains('pub struct CurrentSituation {'));
+      expect(all, contains('pub struct CurrentLandscapeAssessment {'));
 
       final justRoot = SomRustEmitter(_fixtureModel(),
-              documentRoots: ['ProjectDefinition'])
+              documentRoots: ['SolutionBlueprint'])
           .generateLibrary();
-      expect(justRoot, contains('pub struct CurrentSituation {'));
+      expect(justRoot, contains('pub struct CurrentLandscapeAssessment {'));
     });
   });
 }
