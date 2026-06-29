@@ -19,10 +19,10 @@ dependencies:
   # there is no longer an analyzer ^8/^10 conflict with the Flutter editor's
   # tom_dart_editor. (The plan/Q4's earlier `^1.8.25` note is superseded — see
   # d4rt_and_llm_tools_decisions.md D1 + F4.)
-  tom_d4rt: ^1.10.1
+  tom_d4rt: ">=1.11.0"
   # dcli bridged into D4rt — the raw surface the `files` scope facade (step 8)
   # wraps. Pinned to the latest published line (^1.1.6 — F4).
-  tom_d4rt_dcli: ^1.1.6
+  tom_d4rt_dcli: ">=1.1.6"
   # The generic SOM runtime — the document memory representation + reflection +
   # validator the `spec` scope (step 7) exposes to D4rt. publish_to: none →
   # consumed by path per the workspace convention for unpublished siblings.
@@ -59,4 +59,4 @@ dev_dependencies:
   # The D4rt bridge generator that produces the SOM `*.b.dart` binding surface
   # from the `d4rtgen:` block in buildkit.yaml. Used only by
   # tool/regenerate_bridges.dart — see _copilot_guidelines/bridge_regeneration.md.
-  tom_d4rt_generator: ^1.11.0
+  tom_d4rt_generator: ">=1.12.1"
