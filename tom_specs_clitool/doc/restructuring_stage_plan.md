@@ -121,7 +121,7 @@ Apply these rules uniformly to every class and field:
 
 **Section classes (containers):**
 ```dart
-/// N.M. Section Title [PD00-XXX-YYY].
+/// N.M. Section Title [SBP-XXX-YYY].
 class SectionName {
 ```
 - Every section class MUST have a section ID in brackets
@@ -129,7 +129,7 @@ class SectionName {
 
 **Entry/form classes (list items):**
 ```dart
-/// A descriptive name [PD00-XXX-YYY-nn] (form).
+/// A descriptive name [SBP-XXX-YYY-nn] (form).
 class EntryName {
 ```
 - ID pattern uses `-nn` suffix (tooling converts to `-xx`)
@@ -137,7 +137,7 @@ class EntryName {
 
 **List fields with items:**
 ```dart
-/// N.M.K. Section Title [PD00-XXX-YYY] — contains 1+× Item Name.
+/// N.M.K. Section Title [SBP-XXX-YYY] — contains 1+× Item Name.
 List<ItemType> items = [];
 ```
 - Cardinality MUST be stated: `contains 1+×` or `contains 0+×`
@@ -179,15 +179,15 @@ needing explanation → use wrapper class with section ID.
 
 **~130 entry/form classes are missing IDs.** For each:
 
-1. Determine parent section ID (e.g., parent is `[PD00-BUS-DAT-ENT]`)
+1. Determine parent section ID (e.g., parent is `[SBP-BUS-DAT-ENT]`)
 2. Assign a 3-letter code to the sub-entry (e.g., `ATT` for attributes)
-3. Add `-nn` pattern: `[PD00-BUS-DAT-ENT-nn-ATT-nn]`
+3. Add `-nn` pattern: `[SBP-BUS-DAT-ENT-nn-ATT-nn]`
 
 Example for the DataEntityEntry subtree:
 ```
-DataEntityEntry         [PD00-BUS-DAT-ENT-nn]          ← already has ID
-  DataAttributeEntry    [PD00-BUS-DAT-ENT-nn-ATT-nn]   ← needs ID
-  KeyAttributeEntry     [PD00-BUS-DAT-ENT-nn-KEY-nn]   ← needs ID
+DataEntityEntry         [SBP-BUS-DAT-ENT-nn]          ← already has ID
+  DataAttributeEntry    [SBP-BUS-DAT-ENT-nn-ATT-nn]   ← needs ID
+  KeyAttributeEntry     [SBP-BUS-DAT-ENT-nn-KEY-nn]   ← needs ID
 ```
 
 **Where sub-entries are deeply nested (4+ levels), flatten IDs sensibly.**
@@ -267,7 +267,7 @@ to `TextSection` children.
 
 **Before:**
 ```dart
-/// A data attribute entry [PD00-BUS-DAT-ENT-nn-ATT-nn] (form).
+/// A data attribute entry [SBP-BUS-DAT-ENT-nn-ATT-nn] (form).
 class DataAttributeEntry {
   String? content;
   String? attributeName;
@@ -281,7 +281,7 @@ class DataAttributeEntry {
 
 **After:**
 ```dart
-/// A data attribute entry [PD00-BUS-DAT-ENT-nn-ATT-nn] (form).
+/// A data attribute entry [SBP-BUS-DAT-ENT-nn-ATT-nn] (form).
 class DataAttributeEntry {
   @Form([
     Field('attributeName', String, 'Name of the attribute'),
@@ -297,7 +297,7 @@ class DataAttributeEntry {
 
 **For entries with mixed form values + long text sections:**
 ```dart
-/// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+/// A data entity entry [SBP-BUS-DAT-ENT-nn] (form).
 class DataEntityEntry {
   @Form([
     Field('entityName', String, 'Name of the data entity', required: true),
@@ -307,16 +307,16 @@ class DataEntityEntry {
   ])
   String? content;
 
-  /// N.M.K. Description [PD00-BUS-DAT-ENT-nn-DES].
+  /// N.M.K. Description [SBP-BUS-DAT-ENT-nn-DES].
   TextSection description = TextSection();
 
-  /// N.M.K. Retention Policy [PD00-BUS-DAT-ENT-nn-RET].
+  /// N.M.K. Retention Policy [SBP-BUS-DAT-ENT-nn-RET].
   TextSection retentionPolicyDetails = TextSection();
 
-  /// N.M.K. Attributes [PD00-BUS-DAT-ENT-nn-ATT] — contains 0+× Data Attribute.
+  /// N.M.K. Attributes [SBP-BUS-DAT-ENT-nn-ATT] — contains 0+× Data Attribute.
   List<DataAttributeEntry> attributes = [];
 
-  /// N.M.K. Key Attributes [PD00-BUS-DAT-ENT-nn-KEY] — contains 0+× Key Attribute.
+  /// N.M.K. Key Attributes [SBP-BUS-DAT-ENT-nn-KEY] — contains 0+× Key Attribute.
   List<KeyAttributeEntry> keyAttributes = [];
 }
 ```

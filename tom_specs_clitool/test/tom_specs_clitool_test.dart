@@ -168,8 +168,8 @@ void main() {
       final pureProjectionErrors = result.errors
           .where((e) => e.contains('§8.6 pure-projection'))
           .toList();
-      // Each Phase 3 root aggregates PD00 sections only — no projection-local
-      // content without a PD counterpart (N12).
+      // Each Phase 3 root aggregates Solution Blueprint sections only — no
+      // projection-local content without a blueprint counterpart (N12).
       expect(pureProjectionErrors, isEmpty,
           reason: pureProjectionErrors.join('\n'));
     });
@@ -184,20 +184,20 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [
             _field('alpha', 'Alpha'),
             _field('beta', 'Beta'),
           ],
         ),
-        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'PD00-DUP'})]),
-        'Beta': _cls('Beta', [AnnotationData('SectionId', {'id': 'PD00-DUP'})]),
+        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'TST-DUP'})]),
+        'Beta': _cls('Beta', [AnnotationData('SectionId', {'id': 'TST-DUP'})]),
       };
       final result = validateStructuralInvariants(classes);
       expect(
         result.errors.any((e) => e.contains('§8.6 @SectionId uniqueness')),
         isTrue,
-        reason: 'Expected a uniqueness error for "PD00-DUP"',
+        reason: 'Expected a uniqueness error for "TST-DUP"',
       );
     });
 
@@ -205,14 +205,14 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [
             _field('alpha', 'Alpha'),
             _field('beta', 'Beta'),
           ],
         ),
-        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'PD00-AAA'})]),
-        'Beta': _cls('Beta', [AnnotationData('SectionId', {'id': 'PD00-BBB'})]),
+        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'TST-AAA'})]),
+        'Beta': _cls('Beta', [AnnotationData('SectionId', {'id': 'TST-BBB'})]),
       };
       final result = validateStructuralInvariants(classes);
       final dupeErrors = result.errors.where((e) => e.contains('uniqueness')).toList();
@@ -225,7 +225,7 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('noId', 'NoId')],
         ),
         'NoId': _cls('NoId', []), // deliberately missing @SectionId
@@ -242,15 +242,15 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
         'Container': _cls(
           'Container',
-          [AnnotationData('SectionId', {'id': 'PD00-CON'})],
+          [AnnotationData('SectionId', {'id': 'TST-CON'})],
           [
             _listField('items', 'ListItem', [
-              AnnotationData('SectionIdPattern', {'pattern': 'PD00-CON-xx'}),
+              AnnotationData('SectionIdPattern', {'pattern': 'TST-CON-xx'}),
             ]),
           ],
         ),
@@ -269,18 +269,18 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
         'Container': _cls(
           'Container',
-          [AnnotationData('SectionId', {'id': 'PD00-CON'})],
+          [AnnotationData('SectionId', {'id': 'TST-CON'})],
           [
             // List field with NO @SectionIdPattern and no @Reference.
             _listField('items', 'ListItem'),
           ],
         ),
-        'ListItem': _cls('ListItem', [AnnotationData('SectionId', {'id': 'PD00-ITM'})]),
+        'ListItem': _cls('ListItem', [AnnotationData('SectionId', {'id': 'TST-ITM'})]),
       };
       final result = validateStructuralInvariants(classes);
       expect(
@@ -296,12 +296,12 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
         'Container': _cls(
           'Container',
-          [AnnotationData('SectionId', {'id': 'PD00-CON'})],
+          [AnnotationData('SectionId', {'id': 'TST-CON'})],
           [
             _listField('items', 'ListItem', [
               AnnotationData('SectionId', {'id': 'ITM-LST'}),
@@ -322,12 +322,12 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
         'Container': _cls(
           'Container',
-          [AnnotationData('SectionId', {'id': 'PD00-CON'})],
+          [AnnotationData('SectionId', {'id': 'TST-CON'})],
           [
             // @Reference list fields point at sections owned elsewhere —
             // they are exempt from the list-coverage requirement.
@@ -358,12 +358,12 @@ void main() {
         {
           'ProjectDefinition': _cls(
             'ProjectDefinition',
-            [AnnotationData('SectionId', {'id': 'PD00'})],
+            [AnnotationData('SectionId', {'id': 'TST'})],
             [_field('scope', 'Scope')],
           ),
           'Scope': _cls(
             'Scope',
-            [AnnotationData('SectionId', {'id': 'PD00-SCO'})],
+            [AnnotationData('SectionId', {'id': 'TST-SCO'})],
             [
               _listField('inItems', 'Item', [
                 AnnotationData('SectionId', {'id': idA}),
@@ -412,12 +412,12 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('a', 'AHolder'), _field('b', 'BHolder')],
         ),
         'AHolder': _cls(
           'AHolder',
-          [AnnotationData('SectionId', {'id': 'PD00-AH'})],
+          [AnnotationData('SectionId', {'id': 'TST-AH'})],
           [
             _listField('xs', 'Alpha', [
               AnnotationData('SectionId', {'id': 'SHARED-XS-LST'}),
@@ -427,7 +427,7 @@ void main() {
         ),
         'BHolder': _cls(
           'BHolder',
-          [AnnotationData('SectionId', {'id': 'PD00-BH'})],
+          [AnnotationData('SectionId', {'id': 'TST-BH'})],
           [
             _listField('xs', 'Beta', [
               AnnotationData('SectionId', {'id': 'SHARED-XS-LST'}),
@@ -450,12 +450,12 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('h', 'Holder')],
         ),
         'Holder': _cls(
           'Holder',
-          [AnnotationData('SectionId', {'id': 'PD00-H'})],
+          [AnnotationData('SectionId', {'id': 'TST-H'})],
           [
             _listField('items', 'Item', [
               AnnotationData('SectionId', {'id': 'ITM-ITEMS-LST'}),
@@ -482,11 +482,11 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('sec', 'SecClass')],
         ),
         'SecClass': _cls('SecClass', [
-          AnnotationData('SectionId', {'id': 'PD00-SEC'}),
+          AnnotationData('SectionId', {'id': 'TST-SEC'}),
           // @SecondLevelSectionId(DocA, 'DA-SEC') but no @DetailedIn(DocA)!
           AnnotationData('SecondLevelSectionId', {'documentClass': 'DocA', 'id': 'DA-SEC'}),
         ]),
@@ -502,12 +502,12 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'}),
+          [AnnotationData('SectionId', {'id': 'TST'}),
            AnnotationData('MapsTo', {'documentClass': 'DocA'})],
           [_field('sec', 'SecClass')],
         ),
         'SecClass': _cls('SecClass', [
-          AnnotationData('SectionId', {'id': 'PD00-SEC'}),
+          AnnotationData('SectionId', {'id': 'TST-SEC'}),
           AnnotationData('DetailedIn', {'documentClass': 'DocA'}),
           AnnotationData('SecondLevelSectionId', {'documentClass': 'DocA', 'id': 'DA-SEC'}),
         ]),
@@ -524,11 +524,11 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('seed', 'SeedClass')],
         ),
         'SeedClass': _cls('SeedClass', [
-          AnnotationData('SectionId', {'id': 'PD00-SEED'}),
+          AnnotationData('SectionId', {'id': 'TST-SEED'}),
           // @DetailedIn(DocA) but NO @MapsTo(DocA) here or on any ancestor!
           AnnotationData('DetailedIn', {'documentClass': 'DocA'}),
         ]),
@@ -544,11 +544,11 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('seed', 'SeedClass')],
         ),
         'SeedClass': _cls('SeedClass', [
-          AnnotationData('SectionId', {'id': 'PD00-SEED'}),
+          AnnotationData('SectionId', {'id': 'TST-SEED'}),
           AnnotationData('MapsTo', {'documentClass': 'DocA'}),
           AnnotationData('DetailedIn', {'documentClass': 'DocA'}),
         ]),
@@ -563,17 +563,17 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('seed', 'SeedClass')],
         ),
         'SeedClass': _cls('SeedClass', [
-          AnnotationData('SectionId', {'id': 'PD00-SEED'}),
+          AnnotationData('SectionId', {'id': 'TST-SEED'}),
           AnnotationData('MapsTo', {'documentClass': 'DocA'}), // ancestor has @MapsTo
         ], [
           _field('child', 'ChildClass'),
         ]),
         'ChildClass': _cls('ChildClass', [
-          AnnotationData('SectionId', {'id': 'PD00-SEED-CHD'}),
+          AnnotationData('SectionId', {'id': 'TST-SEED-CHD'}),
           AnnotationData('DetailedIn', {'documentClass': 'DocA'}),
         ]),
       };
@@ -592,11 +592,11 @@ void main() {
           ]),
           'ProjectDefinition': _cls(
             'ProjectDefinition',
-            [AnnotationData('SectionId', {'id': 'PD00'})],
+            [AnnotationData('SectionId', {'id': 'TST'})],
             [_field('shared', 'SharedSection')],
           ),
           'SharedSection':
-              _cls('SharedSection', [AnnotationData('SectionId', {'id': 'PD00-SHR'})]),
+              _cls('SharedSection', [AnnotationData('SectionId', {'id': 'TST-SHR'})]),
           'BusinessProcesses': _cls('BusinessProcesses', [
             AnnotationData('Document', {'name': 'Business Processes'}),
             AnnotationData('SectionId', {'id': 'BP'}),
@@ -613,7 +613,7 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('shared', 'SharedSection')],
         ),
         'SharedSection': _cls('SharedSection', []),
@@ -642,11 +642,11 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('shared', 'SharedSection')],
         ),
         'SharedSection':
-            _cls('SharedSection', [AnnotationData('SectionId', {'id': 'PD00-SHR'})]),
+            _cls('SharedSection', [AnnotationData('SectionId', {'id': 'TST-SHR'})]),
         'BizProc': _cls('BizProc', [
           AnnotationData('Document', {'name': 'Business Processes'}),
           AnnotationData('SectionId', {'id': 'BP'}),
@@ -672,11 +672,11 @@ void main() {
       final classes = {
         'ProjectDefinition': _cls(
           'ProjectDefinition',
-          [AnnotationData('SectionId', {'id': 'PD00'})],
+          [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('shared', 'SharedSection')],
         ),
         'SharedSection':
-            _cls('SharedSection', [AnnotationData('SectionId', {'id': 'PD00-SHR'})]),
+            _cls('SharedSection', [AnnotationData('SectionId', {'id': 'TST-SHR'})]),
         'BizProc': _cls('BizProc', [
           AnnotationData('Document', {'name': 'Business Processes'}),
           AnnotationData('SectionId', {'id': 'BP'}),

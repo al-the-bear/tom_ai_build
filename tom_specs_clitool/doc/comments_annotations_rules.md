@@ -5,16 +5,16 @@ conventions used in the `pd_project_definition` model code.
 
 ---
 
-## 1. `@SectionId` — from `[PD00-XXX]` in class comment
+## 1. `@SectionId` — from `[SBP-XXX]` in class comment
 
-**Pattern:** Class doc-comment contains `[PD00-XXX-YYY]`.
+**Pattern:** Class doc-comment contains `[SBP-XXX-YYY]`.
 
 ```dart
-/// 4.1. System Description [PD00-SYO-SYD].
+/// 4.1. System Description [SBP-SYO-SYD].
 class SystemDescription { … }
 ```
 
-**Rule:** Extract the bracket-enclosed ID → `@SectionId('PD00-SYO-SYD')`.
+**Rule:** Extract the bracket-enclosed ID → `@SectionId('SBP-SYO-SYD')`.
 
 **Applies to:** Section classes (non-entry, non-form classes).
 
@@ -23,21 +23,21 @@ parent list field instead (see rule 2).
 
 ---
 
-## 2. `@SectionIdPattern` — from `[PD00-XXX-nn]` in entry-class comment
+## 2. `@SectionIdPattern` — from `[SBP-XXX-nn]` in entry-class comment
 
 **Pattern:** Entry-class doc-comment contains an ID with `-nn` suffix.
 
 ```dart
-/// A team member entry [PD00-ADM-TEA-nn] (form).
+/// A team member entry [SBP-ADM-TEA-nn] (form).
 class TeamMemberEntry { … }
 ```
 
-**Rule:** Place `@SectionIdPattern('PD00-ADM-TEA-xx')` on the **parent list
+**Rule:** Place `@SectionIdPattern('SBP-ADM-TEA-xx')` on the **parent list
 field** that holds these entries (replace `-nn` with `-xx`).
 
 ```dart
-/// 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
-@SectionIdPattern('PD00-ADM-TEA-xx')
+/// 3.2. Project Team Staffing [SBP-ADM-TEA] — contains 1+× Team Member.
+@SectionIdPattern('SBP-ADM-TEA-xx')
 List<TeamMemberEntry> members = [];
 ```
 
@@ -51,7 +51,7 @@ the list field.
 **Pattern:** Comment says `contains 1+× Something` or `contains 0+× Something`.
 
 ```dart
-/// 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
+/// 3.2. Project Team Staffing [SBP-ADM-TEA] — contains 1+× Team Member.
 List<TeamMemberEntry> members = [];
 ```
 
@@ -102,7 +102,7 @@ descriptions, explanations, overviews) become typed `TextSection` children:
 String? detailedDescription;
 
 // After:
-/// N.M.K. Detailed Description [PD00-XXX-DES].
+/// N.M.K. Detailed Description [SBP-XXX-DES].
 TextSection detailedDescription = TextSection();
 ```
 
@@ -113,11 +113,11 @@ typed diagram section instances:
 
 ```dart
 // Before:
-/// 7.1.3. ER Diagram [PD00-BUS-DAT-DIA] (mermaid).
+/// 7.1.3. ER Diagram [SBP-BUS-DAT-DIA] (mermaid).
 String? erDiagram;
 
 // After:
-/// 7.1.3. ER Diagram [PD00-BUS-DAT-DIA].
+/// 7.1.3. ER Diagram [SBP-BUS-DAT-DIA].
 ErDiagramSection erDiagram = ErDiagramSection();
 ```
 
@@ -145,7 +145,7 @@ annotation on the `content` field. The individual `String?` fields are removed.
 
 ### Before (explicit fields):
 ```dart
-/// A data attribute entry [PD00-BUS-DAT-ENT-nn-ATT-nn] (form).
+/// A data attribute entry [SBP-BUS-DAT-ENT-nn-ATT-nn] (form).
 class DataAttributeEntry {
   String? content;
   String? attributeName;
@@ -158,7 +158,7 @@ class DataAttributeEntry {
 
 ### After (`@Form` annotation):
 ```dart
-/// A data attribute entry [PD00-BUS-DAT-ENT-nn-ATT-nn] (form).
+/// A data attribute entry [SBP-BUS-DAT-ENT-nn-ATT-nn] (form).
 class DataAttributeEntry {
   @Form([
     Field('attributeName', String, 'Name of the attribute'),
@@ -217,10 +217,10 @@ The outliner shows `@Form` fields inline:
 **Pattern:** Comment ends with `Seeds → XX` (or `Seeds → XX, YY`).
 
 ```dart
-/// 6. Target Business Process Model [PD00-TAR]. Seeds → BP, UC.
+/// 6. Target Business Process Model [SBP-TAR]. Seeds → BP, UC.
 class TargetBusinessProcessModel { … }
 
-/// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+/// 4.3. Requirements Overview [SBP-SYO-REQ]. Seeds → RC.
 class RequirementsOverview { … }
 ```
 
@@ -237,12 +237,12 @@ expressed by a more specific annotation.
 sections.
 
 ```dart
-/// 9.1. User Management [PD00-ACC-USE].
+/// 9.1. User Management [SBP-ACC-USE].
 class UserManagement { … }
-  // children: PD00-ACC-USE-CAT, PD00-ACC-USE-LIF, PD00-ACC-USE-ATT
+  // children: SBP-ACC-USE-CAT, SBP-ACC-USE-LIF, SBP-ACC-USE-ATT
 ```
 
-**Rule:** `@Prefix('PD00-ACC-USE')` — enables two-stage ID resolution where the
+**Rule:** `@Prefix('SBP-ACC-USE')` — enables two-stage ID resolution where the
 heading prefix determines the section type.
 
 **Applies to:** Section classes (not entry classes). Derived from the `@SectionId`
@@ -255,10 +255,10 @@ value when the class has child sections.
 **Pattern:** Hierarchical section numbering implies a fixed ordering.
 
 ```dart
-/// 4.1. System Description [PD00-SYO-SYD].
+/// 4.1. System Description [SBP-SYO-SYD].
 SystemDescription systemDescription = SystemDescription();
 
-/// 4.2. Goals [PD00-SYO-GOA].
+/// 4.2. Goals [SBP-SYO-GOA].
 Goals goals = Goals();
 ```
 
@@ -278,7 +278,7 @@ matches the section number order.
 empty content makes no sense.
 
 ```dart
-/// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+/// 4.1.1. System Purpose [SBP-SYO-SYD-PUR].
 String? systemPurpose;
 ```
 
@@ -438,7 +438,7 @@ applied manually based on domain knowledge.
 **Pattern:** Lists that must correspond 1:1 with entries in another registry.
 
 ```dart
-/// 6.6. Process Catalog [PD00-TAR-CAT] — contains 1+× Target Business Process.
+/// 6.6. Process Catalog [SBP-TAR-CAT] — contains 1+× Target Business Process.
 List<TargetBusinessProcess> processCatalog = [];
 ```
 
@@ -463,11 +463,11 @@ must be added by domain experts for AI-assisted validation.
 **Pattern:** Section IDs follow strict patterns.
 
 **Rule:** Classes with `@SectionId` whose children follow a predictable pattern
-(e.g., `PD00-XXX-nn`) should get `@PatternCheckId` to validate the full ID
+(e.g., `SBP-XXX-nn`) should get `@PatternCheckId` to validate the full ID
 format.
 
 ```dart
-@PatternCheckId(r'PD00-ADM-TEA-\d{2}')
+@PatternCheckId(r'SBP-ADM-TEA-\d{2}')
 ```
 
 ---
@@ -477,10 +477,10 @@ format.
 **Pattern:** Comment says `Seeds → XX` where `XX` is a single document type.
 
 ```dart
-/// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+/// 4.3. Requirements Overview [SBP-SYO-REQ]. Seeds → RC.
 class RequirementsOverview { … }
 
-/// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+/// 4.6.3. Technical Framework Conditions [SBP-SYO-RES-TEC]. Seeds → TR.
 TechnicalFrameworkConditions technicalFrameworkConditions = ...;
 ```
 
@@ -553,8 +553,8 @@ position in the model hierarchy and explicit naming.
 
 | Rule | Annotation / Pattern | Confidence | Source signal |
 |------|---------------------|------------|--------------|
-| 1 | `@SectionId` | **High** | Explicit `[PD00-XXX]` in comment |
-| 2 | `@SectionIdPattern` | **High** | Explicit `[PD00-XXX-nn]` in comment |
+| 1 | `@SectionId` | **High** | Explicit `[SBP-XXX]` in comment |
+| 2 | `@SectionIdPattern` | **High** | Explicit `[SBP-XXX-nn]` in comment |
 | 3 | `@Min` | **High** | Explicit `contains N+×` in comment |
 | 4 | Section base types | **High** | Explicit `(text)` / `(mermaid-*)` / `(code-*)` → typed fields |
 | 4a | `@Form` / `Field` | **High** | Form classes with scalar `String?` fields → `@Form` on content |
