@@ -45,16 +45,16 @@ a quick understanding without reading the full specification.
   /// 4.2. Goals.
   Goals goals = Goals();
 
-  /// 4.3. Requirements Overview. Seeds → RC.
-  @Comment('Seeds → RC')
+  /// 4.3. Requirements Overview. Seeds → RSP.
+  @Comment('Seeds → RSP')
   RequirementsOverview requirements = RequirementsOverview();
 
-  /// 4.4. Systems to Replace. Seeds → CS.
-  @Comment('Seeds → CS')
+  /// 4.4. Systems to Replace. Seeds → CLA.
+  @Comment('Seeds → CLA')
   SystemsToReplace systemsToReplace = SystemsToReplace();
 
-  /// 4.5. System Boundaries. Seeds → BSI.
-  @Comment('Seeds → BSI')
+  /// 4.5. System Boundaries. Seeds → IIS.
+  @Comment('Seeds → IIS')
   SystemBoundaries systemBoundaries = SystemBoundaries();
 
   /// 4.6. Framework Conditions.
@@ -2399,7 +2399,7 @@ class UserCategoryRoleEntry {
 /// A system task entry.
 ///
 /// Describes one activity this user category performs with the system.
-/// Tasks map to Use Cases in the UC document.
+/// Tasks map to interaction scenarios in the ISC document.
 @SectionId('SYTS')
 class SystemTaskEntry {
   @Form([
@@ -3642,17 +3642,17 @@ class PostImplementationReview {
 }
 
 // ---------------------------------------------------------------------------
-// 4.3 Requirements Overview (seeds → RC)
+// 4.3 Requirements Overview (seeds → RSP)
 // ---------------------------------------------------------------------------
 
-/// 4.3. Requirements Overview. Seeds → RC.
+/// 4.3. Requirements Overview. Seeds → RSP.
 ///
 /// Initial requirements overview organized by category. Each requirement
-/// receives a unique ID and will be expanded into the RC (Requirements
-/// Catalog) document with full traceability. This section provides the
+/// receives a unique ID and will be expanded into the RSP (Requirements
+/// Specification) document with full traceability. This section provides the
 /// foundation for requirements management throughout the project lifecycle.
 /// Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
-@Comment('Seeds → RC')
+@Comment('Seeds → RSP')
 @MapsTo(D04RequirementsSpecification)
 @ContentHelp('Define initial requirements at a level sufficient for project '
     'scoping and planning. Each requirement should be traceable to business '
@@ -4943,17 +4943,17 @@ class OrgImplementationActivity {
 }
 
 // ---------------------------------------------------------------------------
-// 4.4 Systems to Replace (seeds → CS)
+// 4.4 Systems to Replace (seeds → CLA)
 // ---------------------------------------------------------------------------
 
-/// 4.4. Systems to Replace. Seeds → CS.
+/// 4.4. Systems to Replace. Seeds → CLA.
 ///
 /// Documents existing systems that will be replaced, migrated, or decommissioned
 /// as part of the project. Follows TOGAF migration planning patterns and
 /// Gartner application rationalization frameworks. Each system entry provides
 /// comprehensive assessment for informed replacement decisions.
 @SectionId('SYTOR1')
-@Comment('Seeds → CS')
+@Comment('Seeds → CLA')
 @MapsTo(D01CurrentLandscapeAssessment)
 class SystemsToReplace {
   /// Overview of the systems replacement scope and strategy.
@@ -6143,17 +6143,17 @@ class MigrationRiskHistory {
 }
 
 // ---------------------------------------------------------------------------
-// 4.5 System Boundaries (seeds → BSI)
+// 4.5 System Boundaries (seeds → IIS)
 // ---------------------------------------------------------------------------
 
-/// 4.5. System Boundaries. Seeds → BSI.
+/// 4.5. System Boundaries. Seeds → IIS.
 ///
 /// Defines the scope boundaries of the system including external interfaces,
 /// out-of-scope items, and operating assumptions. This section provides the
 /// foundation for integration planning and scope management. Follows TOGAF
 /// system context patterns and enterprise integration best practices.
 @SectionId('SYBO')
-@Comment('Seeds → BSI')
+@Comment('Seeds → IIS')
 @MapsTo(D07IntegrationInterfaceSpecification)
 class SystemBoundaries {
   /// Overview of system boundaries and scope definition approach.
@@ -6209,9 +6209,9 @@ class SystemBoundaries {
 ///
 /// Provides structured inventory of all external system integrations with
 /// categorization, prioritization, and governance information. Each interface
-/// seeds detailed specification in the BSI (Business System Interactions)
-/// document. Follows enterprise integration patterns (EIP) and API-first
-/// design principles.
+/// seeds detailed specification in the IIS (Integration & Interface
+/// Specification) document. Follows enterprise integration patterns (EIP) and
+/// API-first design principles.
 @SectionId('EXIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
 @SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-INT')
@@ -6947,8 +6947,8 @@ class FrameworkConditions {
   FunctionalResponsibilities functionalResponsibilities =
       FunctionalResponsibilities();
 
-  /// 4.6.3. Technical Framework Conditions. Seeds → TR.
-  @Comment('Seeds → TR')
+  /// 4.6.3. Technical Framework Conditions. Seeds → ATS.
+  @Comment('Seeds → ATS')
   TechnicalFrameworkConditions technicalFrameworkConditions =
       TechnicalFrameworkConditions();
 
@@ -7280,15 +7280,15 @@ class ResponsibilityGovernance {
   String? content;
 }
 
-/// 4.6.3. Technical Framework Conditions. Seeds → TR.
+/// 4.6.3. Technical Framework Conditions. Seeds → ATS.
 ///
 /// Documents pre-existing technical constraints including mandated platforms,
 /// network restrictions, compliance requirements, existing infrastructure
 /// that must be reused, and technology standards to follow. Provides the
-/// technical landscape in which the solution must operate. Seeds detailed
-/// Technical Requirements (TR) document.
+/// technical landscape in which the solution must operate. Seeds the detailed
+/// Architecture & Technology Specification (ATS) document.
 @SectionId('TEFRCO')
-@Comment('Seeds → TR')
+@Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-TEC')

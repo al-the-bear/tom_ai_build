@@ -5724,7 +5724,7 @@ section-types:
     description: Technical assessment for a system to replace.
   SYTOR1:
     prefix: sytor1
-    description: 4.4. Systems to Replace. Seeds → CS.
+    description: 4.4. Systems to Replace. Seeds → CLA.
   SYTORE:
     prefix: sytore
     description: A system to replace entry (form).
@@ -5739,7 +5739,7 @@ section-types:
     description: Technology and data variations.
   TEFRCO:
     prefix: tefrco
-    description: 4.6.3. Technical Framework Conditions. Seeds → TR.
+    description: 4.6.3. Technical Framework Conditions. Seeds → ATS.
   TEGOTS:
     prefix: tegots
     description: A test case entry for technical goal verification (form).
@@ -12100,7 +12100,7 @@ section-types:
     description: Training and enablement plan for impacted users.
   SYBO:
     prefix: sybo
-    description: 4.5. System Boundaries. Seeds → BSI.
+    description: 4.5. System Boundaries. Seeds → IIS.
   SYDE:
     prefix: syde
     description: A system dependency entry (form).

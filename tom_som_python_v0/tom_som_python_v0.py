@@ -18661,9 +18661,9 @@ class ExternalInterfaces(SomNode):
     
     Provides structured inventory of all external system integrations with
     categorization, prioritization, and governance information. Each interface
-    seeds detailed specification in the BSI (Business System Interactions)
-    document. Follows enterprise integration patterns (EIP) and API-first
-    design principles.
+    seeds detailed specification in the IIS (Integration & Interface
+    Specification) document. Follows enterprise integration patterns (EIP) and
+    API-first design principles.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -19869,7 +19869,7 @@ class FrameworkConditions(SomNode):
     def functionalResponsibilities(self):
         return FunctionalResponsibilities(self.doc, f"{self.path}/functionalResponsibilities")
 
-    # 4.6.3. Technical Framework Conditions. Seeds → TR.
+    # 4.6.3. Technical Framework Conditions. Seeds → ATS.
     @property
     def technicalFrameworkConditions(self):
         return TechnicalFrameworkConditions(self.doc, f"{self.path}/technicalFrameworkConditions")
@@ -23590,17 +23590,17 @@ class IntroductionAndScope(SomNode):
     def goals(self):
         return Goals(self.doc, f"{self.path}/goals")
 
-    # 4.3. Requirements Overview. Seeds → RC.
+    # 4.3. Requirements Overview. Seeds → RSP.
     @property
     def requirements(self):
         return RequirementsOverview(self.doc, f"{self.path}/requirements")
 
-    # 4.4. Systems to Replace. Seeds → CS.
+    # 4.4. Systems to Replace. Seeds → CLA.
     @property
     def systemsToReplace(self):
         return SystemsToReplace(self.doc, f"{self.path}/systemsToReplace")
 
-    # 4.5. System Boundaries. Seeds → BSI.
+    # 4.5. System Boundaries. Seeds → IIS.
     @property
     def systemBoundaries(self):
         return SystemBoundaries(self.doc, f"{self.path}/systemBoundaries")
@@ -35406,11 +35406,11 @@ class Requirements(SomNode):
         return TrainingEnablementRequirements(self.doc, f"{self.path}/trainingEnablement")
 
 class RequirementsOverview(SomNode):
-    """4.3. Requirements Overview. Seeds → RC.
+    """4.3. Requirements Overview. Seeds → RSP.
     
     Initial requirements overview organized by category. Each requirement
-    receives a unique ID and will be expanded into the RC (Requirements
-    Catalog) document with full traceability. This section provides the
+    receives a unique ID and will be expanded into the RSP (Requirements
+    Specification) document with full traceability. This section provides the
     foundation for requirements management throughout the project lifecycle.
     Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
     """
@@ -43068,7 +43068,7 @@ class SystemArchitectureSpec(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class SystemBoundaries(SomNode):
-    """4.5. System Boundaries. Seeds → BSI.
+    """4.5. System Boundaries. Seeds → IIS.
     
     Defines the scope boundaries of the system including external interfaces,
     out-of-scope items, and operating assumptions. This section provides the
@@ -44473,7 +44473,7 @@ class SystemTaskEntry(SomNode):
     """A system task entry.
     
     Describes one activity this user category performs with the system.
-    Tasks map to Use Cases in the UC document.
+    Tasks map to interaction scenarios in the ISC document.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -44812,7 +44812,7 @@ class SystemUserImpactEnablement(SomNode):
         return SystemUserImpactEnablementContentForm(self.doc, f"{self.path}/content")
 
 class SystemsToReplace(SomNode):
-    """4.4. Systems to Replace. Seeds → CS.
+    """4.4. Systems to Replace. Seeds → CLA.
     
     Documents existing systems that will be replaced, migrated, or decommissioned
     as part of the project. Follows TOGAF migration planning patterns and
@@ -45270,13 +45270,13 @@ class TechnicalFrameworkConcept(SomNode):
         return SystemArchitectureSpec(self.doc, f"{self.path}/systemArchitecture")
 
 class TechnicalFrameworkConditions(SomNode):
-    """4.6.3. Technical Framework Conditions. Seeds → TR.
+    """4.6.3. Technical Framework Conditions. Seeds → ATS.
     
     Documents pre-existing technical constraints including mandated platforms,
     network restrictions, compliance requirements, existing infrastructure
     that must be reused, and technology standards to follow. Provides the
-    technical landscape in which the solution must operate. Seeds detailed
-    Technical Requirements (TR) document.
+    technical landscape in which the solution must operate. Seeds the detailed
+    Architecture & Technology Specification (ATS) document.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)

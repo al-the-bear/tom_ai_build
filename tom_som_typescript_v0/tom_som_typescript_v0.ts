@@ -20446,9 +20446,9 @@ export class ExternalInterfaceEntry extends SomNode {
 //
 // Provides structured inventory of all external system integrations with
 // categorization, prioritization, and governance information. Each interface
-// seeds detailed specification in the BSI (Business System Interactions)
-// document. Follows enterprise integration patterns (EIP) and API-first
-// design principles.
+// seeds detailed specification in the IIS (Integration & Interface
+// Specification) document. Follows enterprise integration patterns (EIP) and
+// API-first design principles.
 export class ExternalInterfaces extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -21765,7 +21765,7 @@ export class FrameworkConditions extends SomNode {
     return new FunctionalResponsibilities(this.doc, this.path + "/functionalResponsibilities");
   }
 
-  // 4.6.3. Technical Framework Conditions. Seeds → TR.
+  // 4.6.3. Technical Framework Conditions. Seeds → ATS.
   get technicalFrameworkConditions(): TechnicalFrameworkConditions {
     return new TechnicalFrameworkConditions(this.doc, this.path + "/technicalFrameworkConditions");
   }
@@ -25894,17 +25894,17 @@ export class IntroductionAndScope extends SomNode {
     return new Goals(this.doc, this.path + "/goals");
   }
 
-  // 4.3. Requirements Overview. Seeds → RC.
+  // 4.3. Requirements Overview. Seeds → RSP.
   get requirements(): RequirementsOverview {
     return new RequirementsOverview(this.doc, this.path + "/requirements");
   }
 
-  // 4.4. Systems to Replace. Seeds → CS.
+  // 4.4. Systems to Replace. Seeds → CLA.
   get systemsToReplace(): SystemsToReplace {
     return new SystemsToReplace(this.doc, this.path + "/systemsToReplace");
   }
 
-  // 4.5. System Boundaries. Seeds → BSI.
+  // 4.5. System Boundaries. Seeds → IIS.
   get systemBoundaries(): SystemBoundaries {
     return new SystemBoundaries(this.doc, this.path + "/systemBoundaries");
   }
@@ -38864,11 +38864,11 @@ export class Requirements extends SomNode {
   }
 }
 
-// 4.3. Requirements Overview. Seeds → RC.
+// 4.3. Requirements Overview. Seeds → RSP.
 //
 // Initial requirements overview organized by category. Each requirement
-// receives a unique ID and will be expanded into the RC (Requirements
-// Catalog) document with full traceability. This section provides the
+// receives a unique ID and will be expanded into the RSP (Requirements
+// Specification) document with full traceability. This section provides the
 // foundation for requirements management throughout the project lifecycle.
 // Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
 export class RequirementsOverview extends SomNode {
@@ -47306,7 +47306,7 @@ export class SystemArchitectureSpec extends SomNode {
   }
 }
 
-// 4.5. System Boundaries. Seeds → BSI.
+// 4.5. System Boundaries. Seeds → IIS.
 //
 // Defines the scope boundaries of the system including external interfaces,
 // out-of-scope items, and operating assumptions. This section provides the
@@ -48821,7 +48821,7 @@ export class SystemStagePlanTimeline extends SomNode {
 // A system task entry.
 //
 // Describes one activity this user category performs with the system.
-// Tasks map to Use Cases in the UC document.
+// Tasks map to interaction scenarios in the ISC document.
 export class SystemTaskEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -49198,7 +49198,7 @@ export class SystemUserImpactEnablement extends SomNode {
   }
 }
 
-// 4.4. Systems to Replace. Seeds → CS.
+// 4.4. Systems to Replace. Seeds → CLA.
 //
 // Documents existing systems that will be replaced, migrated, or decommissioned
 // as part of the project. Follows TOGAF migration planning patterns and
@@ -49699,13 +49699,13 @@ export class TechnicalFrameworkConcept extends SomNode {
   }
 }
 
-// 4.6.3. Technical Framework Conditions. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → ATS.
 //
 // Documents pre-existing technical constraints including mandated platforms,
 // network restrictions, compliance requirements, existing infrastructure
 // that must be reused, and technology standards to follow. Provides the
-// technical landscape in which the solution must operate. Seeds detailed
-// Technical Requirements (TR) document.
+// technical landscape in which the solution must operate. Seeds the detailed
+// Architecture & Technology Specification (ATS) document.
 export class TechnicalFrameworkConditions extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);

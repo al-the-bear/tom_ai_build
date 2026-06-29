@@ -1276,7 +1276,7 @@ section-types:
     description: System diagnostic tools.
   TEFRCO:
     prefix: tefrco
-    description: 4.6.3. Technical Framework Conditions. Seeds → TR.
+    description: 4.6.3. Technical Framework Conditions. Seeds → ATS.
   TESTOR:
     prefix: testor
     description: Additional test types and organization.

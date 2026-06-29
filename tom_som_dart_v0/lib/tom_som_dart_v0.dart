@@ -12904,9 +12904,9 @@ class ExternalInterfaceEntry extends SomNode {
 /// 
 /// Provides structured inventory of all external system integrations with
 /// categorization, prioritization, and governance information. Each interface
-/// seeds detailed specification in the BSI (Business System Interactions)
-/// document. Follows enterprise integration patterns (EIP) and API-first
-/// design principles.
+/// seeds detailed specification in the IIS (Integration & Interface
+/// Specification) document. Follows enterprise integration patterns (EIP) and
+/// API-first design principles.
 class ExternalInterfaces extends SomNode {
   ExternalInterfaces(super.doc, super.path);
 
@@ -13753,7 +13753,7 @@ class FrameworkConditions extends SomNode {
   /// 4.6.2. Functional Responsibilities — contains 0+×.
   FunctionalResponsibilities get functionalResponsibilities => FunctionalResponsibilities(doc, '$path/functionalResponsibilities');
 
-  /// 4.6.3. Technical Framework Conditions. Seeds → TR.
+  /// 4.6.3. Technical Framework Conditions. Seeds → ATS.
   TechnicalFrameworkConditions get technicalFrameworkConditions => TechnicalFrameworkConditions(doc, '$path/technicalFrameworkConditions');
 
   /// 4.6.4. Constraints and Dependencies — contains 0+×.
@@ -16349,13 +16349,13 @@ class IntroductionAndScope extends SomNode {
   /// 4.2. Goals.
   Goals get goals => Goals(doc, '$path/goals');
 
-  /// 4.3. Requirements Overview. Seeds → RC.
+  /// 4.3. Requirements Overview. Seeds → RSP.
   RequirementsOverview get requirements => RequirementsOverview(doc, '$path/requirements');
 
-  /// 4.4. Systems to Replace. Seeds → CS.
+  /// 4.4. Systems to Replace. Seeds → CLA.
   SystemsToReplace get systemsToReplace => SystemsToReplace(doc, '$path/systemsToReplace');
 
-  /// 4.5. System Boundaries. Seeds → BSI.
+  /// 4.5. System Boundaries. Seeds → IIS.
   SystemBoundaries get systemBoundaries => SystemBoundaries(doc, '$path/systemBoundaries');
 
   /// 4.6. Framework Conditions.
@@ -24571,11 +24571,11 @@ class Requirements extends SomNode {
   TrainingEnablementRequirements get trainingEnablement => TrainingEnablementRequirements(doc, '$path/trainingEnablement');
 }
 
-/// 4.3. Requirements Overview. Seeds → RC.
+/// 4.3. Requirements Overview. Seeds → RSP.
 /// 
 /// Initial requirements overview organized by category. Each requirement
-/// receives a unique ID and will be expanded into the RC (Requirements
-/// Catalog) document with full traceability. This section provides the
+/// receives a unique ID and will be expanded into the RSP (Requirements
+/// Specification) document with full traceability. This section provides the
 /// foundation for requirements management throughout the project lifecycle.
 /// Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
 class RequirementsOverview extends SomNode {
@@ -29915,7 +29915,7 @@ class SystemArchitectureSpec extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 }
 
-/// 4.5. System Boundaries. Seeds → BSI.
+/// 4.5. System Boundaries. Seeds → IIS.
 /// 
 /// Defines the scope boundaries of the system including external interfaces,
 /// out-of-scope items, and operating assumptions. This section provides the
@@ -30872,7 +30872,7 @@ class SystemStagePlanTimeline extends SomNode {
 /// A system task entry.
 /// 
 /// Describes one activity this user category performs with the system.
-/// Tasks map to Use Cases in the UC document.
+/// Tasks map to interaction scenarios in the ISC document.
 class SystemTaskEntry extends SomNode {
   SystemTaskEntry(super.doc, super.path);
 
@@ -31105,7 +31105,7 @@ class SystemUserImpactEnablement extends SomNode {
   SystemUserImpactEnablementContentForm get content => SystemUserImpactEnablementContentForm(doc, '$path/content');
 }
 
-/// 4.4. Systems to Replace. Seeds → CS.
+/// 4.4. Systems to Replace. Seeds → CLA.
 /// 
 /// Documents existing systems that will be replaced, migrated, or decommissioned
 /// as part of the project. Follows TOGAF migration planning patterns and
@@ -31420,13 +31420,13 @@ class TechnicalFrameworkConcept extends SomNode {
   SystemArchitectureSpec get systemArchitecture => SystemArchitectureSpec(doc, '$path/systemArchitecture');
 }
 
-/// 4.6.3. Technical Framework Conditions. Seeds → TR.
+/// 4.6.3. Technical Framework Conditions. Seeds → ATS.
 /// 
 /// Documents pre-existing technical constraints including mandated platforms,
 /// network restrictions, compliance requirements, existing infrastructure
 /// that must be reused, and technology standards to follow. Provides the
-/// technical landscape in which the solution must operate. Seeds detailed
-/// Technical Requirements (TR) document.
+/// technical landscape in which the solution must operate. Seeds the detailed
+/// Architecture & Technology Specification (ATS) document.
 class TechnicalFrameworkConditions extends SomNode {
   TechnicalFrameworkConditions(super.doc, super.path);
 

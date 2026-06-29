@@ -16323,9 +16323,9 @@ InterfaceTesting external_interface_entry_testing(const ExternalInterfaceEntry *
 //
 // Provides structured inventory of all external system integrations with
 // categorization, prioritization, and governance information. Each interface
-// seeds detailed specification in the BSI (Business System Interactions)
-// document. Follows enterprise integration patterns (EIP) and API-first
-// design principles.
+// seeds detailed specification in the IIS (Integration & Interface
+// Specification) document. Follows enterprise integration patterns (EIP) and
+// API-first design principles.
 // Binds a ExternalInterfaces facade to a document and a path (path copied).
 void external_interfaces_init(ExternalInterfaces *self, SpecDocument *doc, const char *path);
 void external_interfaces_free(ExternalInterfaces *self);
@@ -17025,7 +17025,7 @@ void framework_conditions_free(FrameworkConditions *self);
 OrganizationalEnvironment framework_conditions_organizational_environment(const FrameworkConditions *self);
 // 4.6.2. Functional Responsibilities — contains 0+×.
 FunctionalResponsibilities framework_conditions_functional_responsibilities(const FrameworkConditions *self);
-// 4.6.3. Technical Framework Conditions. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → ATS.
 TechnicalFrameworkConditions framework_conditions_technical_framework_conditions(const FrameworkConditions *self);
 // 4.6.4. Constraints and Dependencies — contains 0+×.
 ConstraintsAndDependencies framework_conditions_constraints_and_dependencies(const FrameworkConditions *self);
@@ -19174,11 +19174,11 @@ void introduction_and_scope_set_system_context_diagram(IntroductionAndScope *sel
 SystemDescription introduction_and_scope_system_description(const IntroductionAndScope *self);
 // 4.2. Goals.
 Goals introduction_and_scope_goals(const IntroductionAndScope *self);
-// 4.3. Requirements Overview. Seeds → RC.
+// 4.3. Requirements Overview. Seeds → RSP.
 RequirementsOverview introduction_and_scope_requirements(const IntroductionAndScope *self);
-// 4.4. Systems to Replace. Seeds → CS.
+// 4.4. Systems to Replace. Seeds → CLA.
 SystemsToReplace introduction_and_scope_systems_to_replace(const IntroductionAndScope *self);
-// 4.5. System Boundaries. Seeds → BSI.
+// 4.5. System Boundaries. Seeds → IIS.
 SystemBoundaries introduction_and_scope_system_boundaries(const IntroductionAndScope *self);
 // 4.6. Framework Conditions.
 FrameworkConditions introduction_and_scope_framework_conditions(const IntroductionAndScope *self);
@@ -25980,11 +25980,11 @@ InformationForUseRequirements requirements_information_for_use(const Requirement
 // Training & Enablement requirements (NFR-TRN-NNN).
 TrainingEnablementRequirements requirements_training_enablement(const Requirements *self);
 
-// 4.3. Requirements Overview. Seeds → RC.
+// 4.3. Requirements Overview. Seeds → RSP.
 //
 // Initial requirements overview organized by category. Each requirement
-// receives a unique ID and will be expanded into the RC (Requirements
-// Catalog) document with full traceability. This section provides the
+// receives a unique ID and will be expanded into the RSP (Requirements
+// Specification) document with full traceability. This section provides the
 // foundation for requirements management throughout the project lifecycle.
 // Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
 // Binds a RequirementsOverview facade to a document and a path (path copied).
@@ -30398,7 +30398,7 @@ void system_architecture_spec_free(SystemArchitectureSpec *self);
 char *system_architecture_spec_content(const SystemArchitectureSpec *self);
 void system_architecture_spec_set_content(SystemArchitectureSpec *self, const char *value);
 
-// 4.5. System Boundaries. Seeds → BSI.
+// 4.5. System Boundaries. Seeds → IIS.
 //
 // Defines the scope boundaries of the system including external interfaces,
 // out-of-scope items, and operating assumptions. This section provides the
@@ -31174,7 +31174,7 @@ SystemStagePlanTimelineContentForm system_stage_plan_timeline_content(const Syst
 // A system task entry.
 //
 // Describes one activity this user category performs with the system.
-// Tasks map to Use Cases in the UC document.
+// Tasks map to interaction scenarios in the ISC document.
 // Binds a SystemTaskEntry facade to a document and a path (path copied).
 void system_task_entry_init(SystemTaskEntry *self, SpecDocument *doc, const char *path);
 void system_task_entry_free(SystemTaskEntry *self);
@@ -31364,7 +31364,7 @@ void system_user_impact_enablement_init(SystemUserImpactEnablement *self, SpecDo
 void system_user_impact_enablement_free(SystemUserImpactEnablement *self);
 SystemUserImpactEnablementContentForm system_user_impact_enablement_content(const SystemUserImpactEnablement *self);
 
-// 4.4. Systems to Replace. Seeds → CS.
+// 4.4. Systems to Replace. Seeds → CLA.
 //
 // Documents existing systems that will be replaced, migrated, or decommissioned
 // as part of the project. Follows TOGAF migration planning patterns and
@@ -31619,13 +31619,13 @@ TechnicalSecurityRequirements technical_framework_concept_security(const Technic
 // 8.9. System Architecture..
 SystemArchitectureSpec technical_framework_concept_system_architecture(const TechnicalFrameworkConcept *self);
 
-// 4.6.3. Technical Framework Conditions. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → ATS.
 //
 // Documents pre-existing technical constraints including mandated platforms,
 // network restrictions, compliance requirements, existing infrastructure
 // that must be reused, and technology standards to follow. Provides the
-// technical landscape in which the solution must operate. Seeds detailed
-// Technical Requirements (TR) document.
+// technical landscape in which the solution must operate. Seeds the detailed
+// Architecture & Technology Specification (ATS) document.
 // Binds a TechnicalFrameworkConditions facade to a document and a path (path copied).
 void technical_framework_conditions_init(TechnicalFrameworkConditions *self, SpecDocument *doc, const char *path);
 void technical_framework_conditions_free(TechnicalFrameworkConditions *self);

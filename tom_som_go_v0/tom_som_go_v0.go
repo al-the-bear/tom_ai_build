@@ -24197,9 +24197,9 @@ func (x *ExternalInterfaceEntry) Testing() *InterfaceTesting {
 //
 // Provides structured inventory of all external system integrations with
 // categorization, prioritization, and governance information. Each interface
-// seeds detailed specification in the BSI (Business System Interactions)
-// document. Follows enterprise integration patterns (EIP) and API-first
-// design principles.
+// seeds detailed specification in the IIS (Integration & Interface
+// Specification) document. Follows enterprise integration patterns (EIP) and
+// API-first design principles.
 type ExternalInterfaces struct {
 	som.SomNode
 }
@@ -25766,7 +25766,7 @@ func (x *FrameworkConditions) FunctionalResponsibilities() *FunctionalResponsibi
 	return NewFunctionalResponsibilities(x.Doc(), x.Path() + "/functionalResponsibilities")
 }
 
-// 4.6.3. Technical Framework Conditions. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → ATS.
 func (x *FrameworkConditions) TechnicalFrameworkConditions() *TechnicalFrameworkConditions {
 	return NewTechnicalFrameworkConditions(x.Doc(), x.Path() + "/technicalFrameworkConditions")
 }
@@ -30699,17 +30699,17 @@ func (x *IntroductionAndScope) Goals() *Goals {
 	return NewGoals(x.Doc(), x.Path() + "/goals")
 }
 
-// 4.3. Requirements Overview. Seeds → RC.
+// 4.3. Requirements Overview. Seeds → RSP.
 func (x *IntroductionAndScope) Requirements() *RequirementsOverview {
 	return NewRequirementsOverview(x.Doc(), x.Path() + "/requirements")
 }
 
-// 4.4. Systems to Replace. Seeds → CS.
+// 4.4. Systems to Replace. Seeds → CLA.
 func (x *IntroductionAndScope) SystemsToReplace() *SystemsToReplace {
 	return NewSystemsToReplace(x.Doc(), x.Path() + "/systemsToReplace")
 }
 
-// 4.5. System Boundaries. Seeds → BSI.
+// 4.5. System Boundaries. Seeds → IIS.
 func (x *IntroductionAndScope) SystemBoundaries() *SystemBoundaries {
 	return NewSystemBoundaries(x.Doc(), x.Path() + "/systemBoundaries")
 }
@@ -46191,11 +46191,11 @@ func (x *Requirements) TrainingEnablement() *TrainingEnablementRequirements {
 	return NewTrainingEnablementRequirements(x.Doc(), x.Path() + "/trainingEnablement")
 }
 
-// 4.3. Requirements Overview. Seeds → RC.
+// 4.3. Requirements Overview. Seeds → RSP.
 //
 // Initial requirements overview organized by category. Each requirement
-// receives a unique ID and will be expanded into the RC (Requirements
-// Catalog) document with full traceability. This section provides the
+// receives a unique ID and will be expanded into the RSP (Requirements
+// Specification) document with full traceability. This section provides the
 // foundation for requirements management throughout the project lifecycle.
 // Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
 type RequirementsOverview struct {
@@ -56236,7 +56236,7 @@ func (x *SystemArchitectureSpec) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 4.5. System Boundaries. Seeds → BSI.
+// 4.5. System Boundaries. Seeds → IIS.
 //
 // Defines the scope boundaries of the system including external interfaces,
 // out-of-scope items, and operating assumptions. This section provides the
@@ -58011,7 +58011,7 @@ func (x *SystemStagePlanTimeline) Content() *SystemStagePlanTimelineContentForm 
 // A system task entry.
 //
 // Describes one activity this user category performs with the system.
-// Tasks map to Use Cases in the UC document.
+// Tasks map to interaction scenarios in the ISC document.
 type SystemTaskEntry struct {
 	som.SomNode
 }
@@ -58460,7 +58460,7 @@ func (x *SystemUserImpactEnablement) Content() *SystemUserImpactEnablementConten
 	return NewSystemUserImpactEnablementContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.4. Systems to Replace. Seeds → CS.
+// 4.4. Systems to Replace. Seeds → CLA.
 //
 // Documents existing systems that will be replaced, migrated, or decommissioned
 // as part of the project. Follows TOGAF migration planning patterns and
@@ -59045,13 +59045,13 @@ func (x *TechnicalFrameworkConcept) SystemArchitecture() *SystemArchitectureSpec
 	return NewSystemArchitectureSpec(x.Doc(), x.Path() + "/systemArchitecture")
 }
 
-// 4.6.3. Technical Framework Conditions. Seeds → TR.
+// 4.6.3. Technical Framework Conditions. Seeds → ATS.
 //
 // Documents pre-existing technical constraints including mandated platforms,
 // network restrictions, compliance requirements, existing infrastructure
 // that must be reused, and technology standards to follow. Provides the
-// technical landscape in which the solution must operate. Seeds detailed
-// Technical Requirements (TR) document.
+// technical landscape in which the solution must operate. Seeds the detailed
+// Architecture & Technology Specification (ATS) document.
 type TechnicalFrameworkConditions struct {
 	som.SomNode
 }
