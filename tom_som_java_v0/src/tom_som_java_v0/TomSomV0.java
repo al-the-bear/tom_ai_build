@@ -11334,7 +11334,7 @@ public final class TomSomV0 {
     }
   }
 
-  // CS00 Current Situation.
+  // CLA00 Current Landscape Assessment.
   //
   // Detailed analysis of the current state: existing systems, business
   // processes, pain points, data landscape, operational metrics, risks,
@@ -11414,7 +11414,7 @@ public final class TomSomV0 {
     }
   }
 
-  // BP00 Business Processes.
+  // TOM00 Target Operating Model.
   //
   // Target business process specification — vision, principles, catalog,
   // diagrams, improvements, relationships, detailed workflows,
@@ -11504,7 +11504,7 @@ public final class TomSomV0 {
     }
   }
 
-  // BDM00 Business Data Model.
+  // IFM00 Information Model.
   //
   // Full business data model: entities, relationships, ER diagram, data
   // classification, business objects, function decomposition, function-
@@ -11601,7 +11601,7 @@ public final class TomSomV0 {
     }
   }
 
-  // RC00 Requirements Catalog.
+  // RSP00 Requirements Specification.
   //
   // Full requirements catalog covering functional, technical, security,
   // and organizational requirements, plus traceability, relationships,
@@ -11685,7 +11685,7 @@ public final class TomSomV0 {
     }
   }
 
-  // UC00 Use Cases.
+  // ISC00 Interaction Scenarios.
   //
   // Detailed use cases derived from the target process steps and actor
   // interactions — Cockburn-style catalog, scenarios, end-to-end tests,
@@ -11760,7 +11760,7 @@ public final class TomSomV0 {
     }
   }
 
-  // TR00 Technical Requirements.
+  // ATS00 Architecture & Technology Specification.
   //
   // Comprehensive technical requirements: basic / software / standard-
   // software / hardware / operations / communication / system-operation
@@ -11861,7 +11861,7 @@ public final class TomSomV0 {
     }
   }
 
-  // BSI00 Business System Interactions.
+  // IIS00 Integration & Interface Specification.
   //
   // Complete interaction specification between the target system and
   // external systems: inventory, patterns, testing, dependencies,
@@ -11951,7 +11951,7 @@ public final class TomSomV0 {
     }
   }
 
-  // AC00 Authorization Concept.
+  // SAS00 Security & Access Specification.
   //
   // Complete access and authorization specification — user management,
   // identification and authentication, resource protection, user
@@ -12032,7 +12032,7 @@ public final class TomSomV0 {
     }
   }
 
-  // UP00 UI Prototype.
+  // XDS00 Experience Design Specification.
   //
   // Full UI design and prototype specification — vision, screens,
   // screen flow, print, error handling, help, accessibility, responsive,
@@ -12133,7 +12133,7 @@ public final class TomSomV0 {
     }
   }
 
-  // BQP00 Business Quality Plan.
+  // QAP00 Quality & Acceptance Plan.
   //
   // Full quality plan combining quality goals and the acceptance plan.
   public static final class D10QualityAcceptancePlan extends SomNode {
@@ -12241,7 +12241,7 @@ public final class TomSomV0 {
     }
   }
 
-  // PPP00 Project Phase Plan.
+  // DRM00 Delivery Roadmap.
   //
   // Full project phase plan — staging strategy, stage overview, per-stage
   // entries, feature prioritization, data migration, gate criteria,
@@ -12327,7 +12327,7 @@ public final class TomSomV0 {
     }
   }
 
-  // SR00 System Rollout.
+  // TRP00 Transition & Rollout Plan.
   //
   // End-to-end rollout specification — localization, translation,
   // documentation and training, plus rollout plan, migration plan,

@@ -13323,7 +13323,7 @@ func (x *D00SolutionBlueprint) DeliveryTransitionAndRollout() *DeliveryTransitio
 	return NewDeliveryTransitionAndRollout(x.Doc(), x.Path() + "/deliveryTransitionAndRollout")
 }
 
-// CS00 Current Situation.
+// CLA00 Current Landscape Assessment.
 //
 // Detailed analysis of the current state: existing systems, business
 // processes, pain points, data landscape, operational metrics, risks,
@@ -13407,7 +13407,7 @@ func (x *D01CurrentLandscapeAssessment) MigrationConsiderations() *MigrationCons
 	return NewMigrationConsiderations(x.Doc(), x.Path() + "/migrationConsiderations")
 }
 
-// BP00 Business Processes.
+// TOM00 Target Operating Model.
 //
 // Target business process specification — vision, principles, catalog,
 // diagrams, improvements, relationships, detailed workflows,
@@ -13503,7 +13503,7 @@ func (x *D02TargetOperatingModel) ProcessMetricsAndKpis() *som.SomList[*ProcessM
 	})
 }
 
-// BDM00 Business Data Model.
+// IFM00 Information Model.
 //
 // Full business data model: entities, relationships, ER diagram, data
 // classification, business objects, function decomposition, function-
@@ -13616,7 +13616,7 @@ func (x *D03InformationModel) IntegrityConstraints() *som.SomList[*IntegrityCons
 	})
 }
 
-// RC00 Requirements Catalog.
+// RSP00 Requirements Specification.
 //
 // Full requirements catalog covering functional, technical, security,
 // and organizational requirements, plus traceability, relationships,
@@ -13703,7 +13703,7 @@ func (x *D04RequirementsSpecification) RequirementCoverage() *RequirementCoverag
 	return NewRequirementCoverage(x.Doc(), x.Path() + "/requirementCoverage")
 }
 
-// UC00 Use Cases.
+// ISC00 Interaction Scenarios.
 //
 // Detailed use cases derived from the target process steps and actor
 // interactions — Cockburn-style catalog, scenarios, end-to-end tests,
@@ -13782,7 +13782,7 @@ func (x *D05InteractionScenarios) UseCaseTraceability() *UseCaseTraceability {
 	return NewUseCaseTraceability(x.Doc(), x.Path() + "/useCaseTraceability")
 }
 
-// TR00 Technical Requirements.
+// ATS00 Architecture & Technology Specification.
 //
 // Comprehensive technical requirements: basic / software / standard-
 // software / hardware / operations / communication / system-operation
@@ -13885,7 +13885,7 @@ func (x *D06ArchitectureTechnologySpecification) TranslationRequirements() *Tran
 	return NewTranslationRequirements(x.Doc(), x.Path() + "/translationRequirements")
 }
 
-// BSI00 Business System Interactions.
+// IIS00 Integration & Interface Specification.
 //
 // Complete interaction specification between the target system and
 // external systems: inventory, patterns, testing, dependencies,
@@ -13983,7 +13983,7 @@ func (x *D07IntegrationInterfaceSpecification) CrossBoundaryErrorHandling() *Cro
 	return NewCrossBoundaryErrorHandling(x.Doc(), x.Path() + "/crossBoundaryErrorHandling")
 }
 
-// AC00 Authorization Concept.
+// SAS00 Security & Access Specification.
 //
 // Complete access and authorization specification — user management,
 // identification and authentication, resource protection, user
@@ -14066,7 +14066,7 @@ func (x *D08SecurityAccessSpecification) ComplianceFramework() *ComplianceFramew
 	return NewComplianceFramework(x.Doc(), x.Path() + "/complianceFramework")
 }
 
-// UP00 UI Prototype.
+// XDS00 Experience Design Specification.
 //
 // Full UI design and prototype specification — vision, screens,
 // screen flow, print, error handling, help, accessibility, responsive,
@@ -14171,7 +14171,7 @@ func (x *D09ExperienceDesignSpecification) WireframesAndMockups() *som.SomList[*
 	})
 }
 
-// BQP00 Business Quality Plan.
+// QAP00 Quality & Acceptance Plan.
 //
 // Full quality plan combining quality goals and the acceptance plan.
 type D10QualityAcceptancePlan struct {
@@ -14281,7 +14281,7 @@ func (x *D10QualityAcceptancePlan) Warranty() *WarrantyTerms {
 	return NewWarrantyTerms(x.Doc(), x.Path() + "/warranty")
 }
 
-// PPP00 Project Phase Plan.
+// DRM00 Delivery Roadmap.
 //
 // Full project phase plan — staging strategy, stage overview, per-stage
 // entries, feature prioritization, data migration, gate criteria,
@@ -14371,7 +14371,7 @@ func (x *D11DeliveryRoadmap) UpgradeCycleFramework() *UpgradeCycleFramework {
 	return NewUpgradeCycleFramework(x.Doc(), x.Path() + "/upgradeCycleFramework")
 }
 
-// SR00 System Rollout.
+// TRP00 Transition & Rollout Plan.
 //
 // End-to-end rollout specification — localization, translation,
 // documentation and training, plus rollout plan, migration plan,

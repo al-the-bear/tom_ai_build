@@ -10253,7 +10253,7 @@ class D00SolutionBlueprint(SomNode):
         return DeliveryTransitionAndRollout(self.doc, f"{self.path}/deliveryTransitionAndRollout")
 
 class D01CurrentLandscapeAssessment(SomNode):
-    """CS00 Current Situation.
+    """CLA00 Current Landscape Assessment.
     
     Detailed analysis of the current state: existing systems, business
     processes, pain points, data landscape, operational metrics, risks,
@@ -10325,7 +10325,7 @@ class D01CurrentLandscapeAssessment(SomNode):
         return MigrationConsiderations(self.doc, f"{self.path}/migrationConsiderations")
 
 class D02TargetOperatingModel(SomNode):
-    """BP00 Business Processes.
+    """TOM00 Target Operating Model.
     
     Target business process specification — vision, principles, catalog,
     diagrams, improvements, relationships, detailed workflows,
@@ -10407,7 +10407,7 @@ class D02TargetOperatingModel(SomNode):
         return SomList(self.doc, f"{self.path}/PMAK-PROC-LST", lambda d, p: ProcessMetricsAndKpis(d, p))
 
 class D03InformationModel(SomNode):
-    """BDM00 Business Data Model.
+    """IFM00 Information Model.
     
     Full business data model: entities, relationships, ER diagram, data
     classification, business objects, function decomposition, function-
@@ -10500,7 +10500,7 @@ class D03InformationModel(SomNode):
         return SomList(self.doc, f"{self.path}/INCO-INTE-LST", lambda d, p: IntegrityConstraints(d, p))
 
 class D04RequirementsSpecification(SomNode):
-    """RC00 Requirements Catalog.
+    """RSP00 Requirements Specification.
     
     Full requirements catalog covering functional, technical, security,
     and organizational requirements, plus traceability, relationships,
@@ -10575,7 +10575,7 @@ class D04RequirementsSpecification(SomNode):
         return RequirementCoverage(self.doc, f"{self.path}/requirementCoverage")
 
 class D05InteractionScenarios(SomNode):
-    """UC00 Use Cases.
+    """ISC00 Interaction Scenarios.
     
     Detailed use cases derived from the target process steps and actor
     interactions — Cockburn-style catalog, scenarios, end-to-end tests,
@@ -10642,7 +10642,7 @@ class D05InteractionScenarios(SomNode):
         return UseCaseTraceability(self.doc, f"{self.path}/useCaseTraceability")
 
 class D06ArchitectureTechnologySpecification(SomNode):
-    """TR00 Technical Requirements.
+    """ATS00 Architecture & Technology Specification.
     
     Comprehensive technical requirements: basic / software / standard-
     software / hardware / operations / communication / system-operation
@@ -10735,7 +10735,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
         return TranslationRequirements(self.doc, f"{self.path}/translationRequirements")
 
 class D07IntegrationInterfaceSpecification(SomNode):
-    """BSI00 Business System Interactions.
+    """IIS00 Integration & Interface Specification.
     
     Complete interaction specification between the target system and
     external systems: inventory, patterns, testing, dependencies,
@@ -10817,7 +10817,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
         return CrossBoundaryErrorHandling(self.doc, f"{self.path}/crossBoundaryErrorHandling")
 
 class D08SecurityAccessSpecification(SomNode):
-    """AC00 Authorization Concept.
+    """SAS00 Security & Access Specification.
     
     Complete access and authorization specification — user management,
     identification and authentication, resource protection, user
@@ -10890,7 +10890,7 @@ class D08SecurityAccessSpecification(SomNode):
         return ComplianceFramework(self.doc, f"{self.path}/complianceFramework")
 
 class D09ExperienceDesignSpecification(SomNode):
-    """UP00 UI Prototype.
+    """XDS00 Experience Design Specification.
     
     Full UI design and prototype specification — vision, screens,
     screen flow, print, error handling, help, accessibility, responsive,
@@ -10983,7 +10983,7 @@ class D09ExperienceDesignSpecification(SomNode):
         return SomList(self.doc, f"{self.path}/WIANMO-WIRE-LST", lambda d, p: WireframesAndMockups(d, p))
 
 class D10QualityAcceptancePlan(SomNode):
-    """BQP00 Business Quality Plan.
+    """QAP00 Quality & Acceptance Plan.
     
     Full quality plan combining quality goals and the acceptance plan.
     """
@@ -11083,7 +11083,7 @@ class D10QualityAcceptancePlan(SomNode):
         return WarrantyTerms(self.doc, f"{self.path}/warranty")
 
 class D11DeliveryRoadmap(SomNode):
-    """PPP00 Project Phase Plan.
+    """DRM00 Delivery Roadmap.
     
     Full project phase plan — staging strategy, stage overview, per-stage
     entries, feature prioritization, data migration, gate criteria,
@@ -11161,7 +11161,7 @@ class D11DeliveryRoadmap(SomNode):
         return UpgradeCycleFramework(self.doc, f"{self.path}/upgradeCycleFramework")
 
 class D12TransitionRolloutPlan(SomNode):
-    """SR00 System Rollout.
+    """TRP00 Transition & Rollout Plan.
     
     End-to-end rollout specification — localization, translation,
     documentation and training, plus rollout plan, migration plan,

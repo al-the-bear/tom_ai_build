@@ -1,4 +1,4 @@
-/// BP — Business Processes.
+/// D02 — Target Operating Model.
 ///
 /// Phase 3 DocSpec root class. Aggregates 10 top-level sections projected
 /// (flattened) from the Solution Blueprint target-process sections.
@@ -9,7 +9,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// BP00 Business Processes.
+/// TOM00 Target Operating Model.
 ///
 /// Target business process specification — vision, principles, catalog,
 /// diagrams, improvements, relationships, detailed workflows,

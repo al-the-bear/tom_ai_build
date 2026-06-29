@@ -21,18 +21,19 @@ void main() {
       expect(SpecRegistry.opsFor(CurrentLandscape), isNotNull);
     });
 
-    test('toYaml serializes a content leaf reachable from the PD root', () {
+    test('toYaml serializes a content leaf reachable from the SBP root', () {
       final project = DocSpecsProject();
-      project.projectDefinition.documentControl.header.content = 'doc-id: PD-DEMO';
+      project.solutionBlueprint.documentControl.header.content =
+          'doc-id: SBP-DEMO';
 
       final yaml = project.toYaml();
-      expect(yaml, contains('doc-id: PD-DEMO'));
+      expect(yaml, contains('doc-id: SBP-DEMO'));
     });
 
     test('COW snapshot shares an unchanged tree but re-clones the edited path',
         () {
       final project = DocSpecsProject();
-      final pd = project.projectDefinition;
+      final pd = project.solutionBlueprint;
 
       // First snapshot: a full independent copy.
       final s1 = SpecSnapshotter.snapshot(pd);

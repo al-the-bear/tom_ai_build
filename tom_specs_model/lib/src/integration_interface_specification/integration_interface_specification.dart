@@ -1,4 +1,4 @@
-/// BSI — Business System Interactions.
+/// D07 — Integration & Interface Specification.
 ///
 /// Phase 3 DocSpec root class. Aggregates 10 top-level sections projected
 /// from the corresponding Solution Blueprint system-boundary sections.
@@ -9,7 +9,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// BSI00 Business System Interactions.
+/// IIS00 Integration & Interface Specification.
 ///
 /// Complete interaction specification between the target system and
 /// external systems: inventory, patterns, testing, dependencies,

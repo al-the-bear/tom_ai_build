@@ -27,7 +27,7 @@ import 'experience_design_specification/experience_design_specification.dart';
 /// **Not a document node (N9).** The container carries **no `@SectionId`** and
 /// **no `@Document`** annotation: it is the tree root the tooling walks, *not* a
 /// fourteenth sibling document. It never renders in the root navigator as
-/// content — the navigator lists [projectDefinition] first, then the twelve
+/// content — the navigator lists [solutionBlueprint] first, then the twelve
 /// projection roots. Tooling (`ModelJsonExporter`, the §8.6 validator, the
 /// outliner) treats it as the canonical root and exempts it from `@SectionId`
 /// coverage/uniqueness (T1).
@@ -36,11 +36,12 @@ import 'experience_design_specification/experience_design_specification.dart';
 /// are `@Document(basedOn: [D00SolutionBlueprint])` *projections* that reference
 /// the same SBP sections through their `@MapsTo` / `@DetailedIn` links; they do
 /// not own copies. Editing through any projection edits the shared underlying
-/// PD sections (§14).
+/// Solution Blueprint sections (§14).
 ///
-/// This class is the structural anchor only. The global `toYaml` save (PD-only,
-/// §15.1) and the projection connect pass (N11) are added in a later step; here
-/// the container simply wires the thirteen roots onto one tree.
+/// This class is the structural anchor only. The global `toYaml` save
+/// (Solution-Blueprint-only, §15.1) and the projection connect pass (N11) are
+/// added in a later step; here the container simply wires the thirteen roots
+/// onto one tree.
 class DocSpecsProject {
   /// Constructs the container and ensures the generated snapshot/serialization
   /// ops are registered (idempotent), so [toYaml] / [toYamlForRoot] and the
@@ -49,65 +50,69 @@ class DocSpecsProject {
     registerSpecOps();
   }
 
-  /// SBP — the Project Definition master and source of truth for all shared
+  /// D00 — the Solution Blueprint master and source of truth for all shared
   /// content. Listed first in the root navigator (§14).
-  D00SolutionBlueprint projectDefinition = D00SolutionBlueprint();
+  D00SolutionBlueprint solutionBlueprint = D00SolutionBlueprint();
 
-  /// AC — Authorization Concept (Phase 3 projection).
-  D08SecurityAccessSpecification authorizationConcept = D08SecurityAccessSpecification();
+  /// D08 — Security & Access Specification (Phase 3 projection).
+  D08SecurityAccessSpecification securityAccessSpecification =
+      D08SecurityAccessSpecification();
 
-  /// BDM — Business Data Model (Phase 3 projection).
-  D03InformationModel businessDataModel = D03InformationModel();
+  /// D03 — Information Model (Phase 3 projection).
+  D03InformationModel informationModel = D03InformationModel();
 
-  /// BP — Business Processes (Phase 3 projection).
-  D02TargetOperatingModel businessProcesses = D02TargetOperatingModel();
+  /// D02 — Target Operating Model (Phase 3 projection).
+  D02TargetOperatingModel targetOperatingModel = D02TargetOperatingModel();
 
-  /// BQP — Business Quality Plan (Phase 3 projection).
-  D10QualityAcceptancePlan businessQualityPlan = D10QualityAcceptancePlan();
+  /// D10 — Quality & Acceptance Plan (Phase 3 projection).
+  D10QualityAcceptancePlan qualityAcceptancePlan = D10QualityAcceptancePlan();
 
-  /// BSI — Business System Interactions (Phase 3 projection).
-  D07IntegrationInterfaceSpecification businessSystemInteractions =
+  /// D07 — Integration & Interface Specification (Phase 3 projection).
+  D07IntegrationInterfaceSpecification integrationInterfaceSpecification =
       D07IntegrationInterfaceSpecification();
 
-  /// CS — Current Situation (Phase 3 projection).
-  D01CurrentLandscapeAssessment currentSituation = D01CurrentLandscapeAssessment();
+  /// D01 — Current Landscape Assessment (Phase 3 projection).
+  D01CurrentLandscapeAssessment currentLandscapeAssessment =
+      D01CurrentLandscapeAssessment();
 
-  /// PPP — Project Phase Plan (Phase 3 projection).
-  D11DeliveryRoadmap projectPhasePlan = D11DeliveryRoadmap();
+  /// D11 — Delivery Roadmap (Phase 3 projection).
+  D11DeliveryRoadmap deliveryRoadmap = D11DeliveryRoadmap();
 
-  /// RC — Requirements Catalog (Phase 3 projection).
-  D04RequirementsSpecification requirementsCatalog = D04RequirementsSpecification();
+  /// D04 — Requirements Specification (Phase 3 projection).
+  D04RequirementsSpecification requirementsSpecification =
+      D04RequirementsSpecification();
 
-  /// SR — System Rollout (Phase 3 projection).
-  D12TransitionRolloutPlan systemRollout = D12TransitionRolloutPlan();
+  /// D12 — Transition & Rollout Plan (Phase 3 projection).
+  D12TransitionRolloutPlan transitionRolloutPlan = D12TransitionRolloutPlan();
 
-  /// TR — Technical Requirements (Phase 3 projection).
-  D06ArchitectureTechnologySpecification technicalRequirementsSpec =
+  /// D06 — Architecture & Technology Specification (Phase 3 projection).
+  D06ArchitectureTechnologySpecification architectureTechnologySpecification =
       D06ArchitectureTechnologySpecification();
 
-  /// UC — Use Cases (Phase 3 projection).
-  D05InteractionScenarios useCases = D05InteractionScenarios();
+  /// D05 — Interaction Scenarios (Phase 3 projection).
+  D05InteractionScenarios interactionScenarios = D05InteractionScenarios();
 
-  /// UP — UI Prototype (Phase 3 projection).
-  D09ExperienceDesignSpecification uiPrototype = D09ExperienceDesignSpecification();
+  /// D09 — Experience Design Specification (Phase 3 projection).
+  D09ExperienceDesignSpecification experienceDesignSpecification =
+      D09ExperienceDesignSpecification();
 
-  /// The global `document:` save (§15.1): serializes the [projectDefinition]
+  /// The global `document:` save (§15.1): serializes the [solutionBlueprint]
   /// master alone. Because the twelve projection roots are views over the same
-  /// SBP sections, the PD tree contains every section exactly once, so the
-  /// output never duplicates a subtree.
-  String toYaml() => SpecYaml.toYaml(projectDefinition);
+  /// SBP sections, the Solution Blueprint tree contains every section exactly
+  /// once, so the output never duplicates a subtree.
+  String toYaml() => SpecYaml.toYaml(solutionBlueprint);
 
-  /// Per-root save. For [projectDefinition] this is the global [toYaml]; for a
+  /// Per-root save. For [solutionBlueprint] this is the global [toYaml]; for a
   /// projection root it runs the connect pass first — re-pointing the
-  /// projection's references onto the live PD sections (§15.2) — when a connect
-  /// binding is registered for that root, then serializes it.
+  /// projection's references onto the live Solution Blueprint sections (§15.2) —
+  /// when a connect binding is registered for that root, then serializes it.
   ///
   /// The twelve per-root `connect` bindings are not yet generated (they require
-  /// resolving each projection's `@MapsTo` / `@DetailedIn` links onto PD field
-  /// paths); until then a projection serializes whatever references it already
-  /// holds. See the OE-2 questions note.
+  /// resolving each projection's `@MapsTo` / `@DetailedIn` links onto Solution
+  /// Blueprint field paths); until then a projection serializes whatever
+  /// references it already holds. See the OE-2 questions note.
   String toYamlForRoot(Object root) {
-    if (identical(root, projectDefinition)) return toYaml();
-    return SpecYaml.toYamlForProjection(root, projectDefinition);
+    if (identical(root, solutionBlueprint)) return toYaml();
+    return SpecYaml.toYamlForProjection(root, solutionBlueprint);
   }
 }

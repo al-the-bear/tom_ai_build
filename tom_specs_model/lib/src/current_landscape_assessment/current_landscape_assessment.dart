@@ -1,4 +1,4 @@
-/// CS — Current Situation.
+/// D01 — Current Landscape Assessment.
 ///
 /// Phase 3 DocSpec root class. Aggregates 8 top-level sections projected
 /// from the corresponding Solution Blueprint current-landscape and
@@ -10,7 +10,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// CS00 Current Situation.
+/// CLA00 Current Landscape Assessment.
 ///
 /// Detailed analysis of the current state: existing systems, business
 /// processes, pain points, data landscape, operational metrics, risks,

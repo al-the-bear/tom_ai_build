@@ -14,38 +14,38 @@
 /// replaced each stub with the re-export below.
 library;
 
-// Step 8 — BSI (Business System Interactions).
+// D07 — Integration & Interface Specification.
 export 'integration_interface_specification/integration_interface_specification.dart';
 
-// Step 9 — CS (Current Situation).
+// D01 — Current Landscape Assessment.
 export 'current_landscape_assessment/current_landscape_assessment.dart';
 
-// Step 10 — RC (Requirements Catalog).
+// D04 — Requirements Specification.
 export 'requirements_specification/requirements_specification.dart';
 
-// Step 11 — BP (Business Processes).
+// D02 — Target Operating Model.
 export 'target_operating_model/target_operating_model.dart';
 
-// Step 12 — UC (Use Cases).
+// D05 — Interaction Scenarios.
 export 'interaction_scenarios/interaction_scenarios.dart';
 
-// Step 13 — BDM (Business Data Model).
+// D03 — Information Model.
 export 'information_model/information_model.dart';
 
-// Step 14 — AC (Authorization Concept).
+// D08 — Security & Access Specification.
 export 'security_access_specification/security_access_specification.dart';
 
-// Step 15 — PPP (Project Phase Plan).
+// D11 — Delivery Roadmap.
 export 'delivery_roadmap/delivery_roadmap.dart';
 
-// Step 16 — TR (Technical Requirements).
+// D06 — Architecture & Technology Specification.
 export 'architecture_technology_specification/architecture_technology_specification.dart';
 
-// Step 17 — UP (UI Prototype).
+// D09 — Experience Design Specification.
 export 'experience_design_specification/experience_design_specification.dart';
 
-// Step 18 — SR (System Rollout).
+// D12 — Transition & Rollout Plan.
 export 'transition_rollout_plan/transition_rollout_plan.dart';
 
-// Step 19 — BQP (Business Quality Plan).
+// D10 — Quality & Acceptance Plan.
 export 'quality_acceptance_plan/quality_acceptance_plan.dart';

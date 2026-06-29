@@ -1,4 +1,4 @@
-/// UC — Use Cases.
+/// D05 — Interaction Scenarios.
 ///
 /// Phase 3 DocSpec root class. Aggregates 7 top-level sections projected
 /// (flattened) from the Solution Blueprint target-process-step sections.
@@ -9,7 +9,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// UC00 Use Cases.
+/// ISC00 Interaction Scenarios.
 ///
 /// Detailed use cases derived from the target process steps and actor
 /// interactions — Cockburn-style catalog, scenarios, end-to-end tests,

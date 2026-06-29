@@ -1,4 +1,4 @@
-/// BDM — Business Data Model.
+/// D03 — Information Model.
 ///
 /// Phase 3 DocSpec root class. Aggregates 12 top-level sections projected
 /// (flattened two levels deep) from the Solution Blueprint business
@@ -11,7 +11,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// BDM00 Business Data Model.
+/// IFM00 Information Model.
 ///
 /// Full business data model: entities, relationships, ER diagram, data
 /// classification, business objects, function decomposition, function-

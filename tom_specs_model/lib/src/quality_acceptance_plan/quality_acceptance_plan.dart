@@ -1,4 +1,4 @@
-/// BQP — Business Quality Plan.
+/// D10 — Quality & Acceptance Plan.
 ///
 /// Phase 3 DocSpec root class. Aggregates 14 top-level sections projected
 /// (flattened) from the Solution Blueprint quality-goal and acceptance
@@ -10,7 +10,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// BQP00 Business Quality Plan.
+/// QAP00 Quality & Acceptance Plan.
 ///
 /// Full quality plan combining quality goals and the acceptance plan.
 @Document(

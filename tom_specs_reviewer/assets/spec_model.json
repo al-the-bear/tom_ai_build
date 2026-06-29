@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T14:12:34.443223Z",
+  "generatedAt": "2026-06-29T14:36:53.795827Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+5.67662f0",
@@ -19,84 +19,84 @@
       "title": "Current Landscape Assessment",
       "sectionId": "CLA",
       "description": "Detailed analysis of the current systems and processes the target system will replace — landscape, pain points, metrics, risks, replacement inventory, and migration considerations.",
-      "doc": "CS00 Current Situation.\n\nDetailed analysis of the current state: existing systems, business\nprocesses, pain points, data landscape, operational metrics, risks,\nand the inventory / migration plan for the systems being replaced."
+      "doc": "CLA00 Current Landscape Assessment.\n\nDetailed analysis of the current state: existing systems, business\nprocesses, pain points, data landscape, operational metrics, risks,\nand the inventory / migration plan for the systems being replaced."
     },
     {
       "type": "D02TargetOperatingModel",
       "title": "Target Operating Model",
       "sectionId": "TOM",
       "description": "Target business process specification — vision, design principles, catalog, diagrams, improvements, relationships, workflows, cross-process analysis, exceptions, and KPIs.",
-      "doc": "BP00 Business Processes.\n\nTarget business process specification — vision, principles, catalog,\ndiagrams, improvements, relationships, detailed workflows,\ncross-process analysis, exception handling, and KPIs."
+      "doc": "TOM00 Target Operating Model.\n\nTarget business process specification — vision, principles, catalog,\ndiagrams, improvements, relationships, detailed workflows,\ncross-process analysis, exception handling, and KPIs."
     },
     {
       "type": "D03InformationModel",
       "title": "Information Model",
       "sectionId": "IFM",
       "description": "Complete business data model — entities, relationships, data classification, business objects, functions, rules, dictionary, and validation/integrity constraints.",
-      "doc": "BDM00 Business Data Model.\n\nFull business data model: entities, relationships, ER diagram, data\nclassification, business objects, function decomposition, function-\nto-data matrix, business rules, data dictionary, and validation /\nintegrity constraints."
+      "doc": "IFM00 Information Model.\n\nFull business data model: entities, relationships, ER diagram, data\nclassification, business objects, function decomposition, function-\nto-data matrix, business rules, data dictionary, and validation /\nintegrity constraints."
     },
     {
       "type": "D04RequirementsSpecification",
       "title": "Requirements Specification",
       "sectionId": "RSP",
       "description": "Complete requirements catalog — functional, technical, security, organizational — with traceability, relationships, and coverage against goals, use cases, and tests.",
-      "doc": "RC00 Requirements Catalog.\n\nFull requirements catalog covering functional, technical, security,\nand organizational requirements, plus traceability, relationships,\nand coverage analysis."
+      "doc": "RSP00 Requirements Specification.\n\nFull requirements catalog covering functional, technical, security,\nand organizational requirements, plus traceability, relationships,\nand coverage analysis."
     },
     {
       "type": "D05InteractionScenarios",
       "title": "Interaction Scenarios",
       "sectionId": "ISC",
       "description": "Use cases derived from the target process steps and actor interactions — catalog, scenarios, diagrams, end-to-end test scenarios, and traceability.",
-      "doc": "UC00 Use Cases.\n\nDetailed use cases derived from the target process steps and actor\ninteractions — Cockburn-style catalog, scenarios, end-to-end tests,\nand traceability."
+      "doc": "ISC00 Interaction Scenarios.\n\nDetailed use cases derived from the target process steps and actor\ninteractions — Cockburn-style catalog, scenarios, end-to-end tests,\nand traceability."
     },
     {
       "type": "D06ArchitectureTechnologySpecification",
       "title": "Architecture & Technology Specification",
       "sectionId": "ATS",
       "description": "Comprehensive technical requirements — platform, software design, standard software, hardware, operations, communication, system operation, security, architecture, components, framework conditions, and translation handling.",
-      "doc": "TR00 Technical Requirements.\n\nComprehensive technical requirements: basic / software / standard-\nsoftware / hardware / operations / communication / system-operation\n/ security / architecture, plus components, framework conditions,\nand translation handling."
+      "doc": "ATS00 Architecture & Technology Specification.\n\nComprehensive technical requirements: basic / software / standard-\nsoftware / hardware / operations / communication / system-operation\n/ security / architecture, plus components, framework conditions,\nand translation handling."
     },
     {
       "type": "D07IntegrationInterfaceSpecification",
       "title": "Integration & Interface Specification",
       "sectionId": "IIS",
       "description": "Complete specification of interactions between the target system and external systems — inventory, patterns, testing, dependencies, migration, operations, and error handling.",
-      "doc": "BSI00 Business System Interactions.\n\nComplete interaction specification between the target system and\nexternal systems: inventory, patterns, testing, dependencies,\nmigration, operational concerns, and cross-boundary error handling."
+      "doc": "IIS00 Integration & Interface Specification.\n\nComplete interaction specification between the target system and\nexternal systems: inventory, patterns, testing, dependencies,\nmigration, operational concerns, and cross-boundary error handling."
     },
     {
       "type": "D08SecurityAccessSpecification",
       "title": "Security & Access Specification",
       "sectionId": "SAS",
       "description": "Complete access and authorization specification — user management, authentication, resource protection, authorization, encryption, audit, role matrix, and compliance framework.",
-      "doc": "AC00 Authorization Concept.\n\nComplete access and authorization specification — user management,\nidentification and authentication, resource protection, user\nauthorization, encryption, audit/logging, role matrix, and\ncompliance framework."
+      "doc": "SAS00 Security & Access Specification.\n\nComplete access and authorization specification — user management,\nidentification and authentication, resource protection, user\nauthorization, encryption, audit/logging, role matrix, and\ncompliance framework."
     },
     {
       "type": "D09ExperienceDesignSpecification",
       "title": "Experience Design Specification",
       "sectionId": "XDS",
       "description": "Full UI design and prototype specification — vision, screens, flow, print, errors, help, accessibility, responsive design, components, language selection, prototype, and wireframes/mockups.",
-      "doc": "UP00 UI Prototype.\n\nFull UI design and prototype specification — vision, screens,\nscreen flow, print, error handling, help, accessibility, responsive,\ncomponents, language/country selection, prototype, wireframes and\nmockups."
+      "doc": "XDS00 Experience Design Specification.\n\nFull UI design and prototype specification — vision, screens,\nscreen flow, print, error handling, help, accessibility, responsive,\ncomponents, language/country selection, prototype, wireframes and\nmockups."
     },
     {
       "type": "D10QualityAcceptancePlan",
       "title": "Quality & Acceptance Plan",
       "sectionId": "QAP",
       "description": "Business-facing quality plan — quality framework, user / technical / operations / documentation criteria, prioritization, acceptance criteria summary, test strategy, and the full acceptance plan (criteria, process, UAT, defects, sign-off, warranty).",
-      "doc": "BQP00 Business Quality Plan.\n\nFull quality plan combining quality goals and the acceptance plan."
+      "doc": "QAP00 Quality & Acceptance Plan.\n\nFull quality plan combining quality goals and the acceptance plan."
     },
     {
       "type": "D11DeliveryRoadmap",
       "title": "Delivery Roadmap",
       "sectionId": "DRM",
       "description": "Comprehensive project phase plan — staging strategy, stages, feature prioritization, migration, gates, decisions, initial development flow, and upgrade cycle framework (bridge to tom_system_upgrade.md).",
-      "doc": "PPP00 Project Phase Plan.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework."
+      "doc": "DRM00 Delivery Roadmap.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework."
     },
     {
       "type": "D12TransitionRolloutPlan",
       "title": "Transition & Rollout Plan",
       "sectionId": "TRP",
       "description": "End-to-end rollout specification — localization, translation, documentation and training, rollout plan, migration plan, user manuals, training materials, pilot, cutover, knowledge transfer, and warranty/support.",
-      "doc": "SR00 System Rollout.\n\nEnd-to-end rollout specification — localization, translation,\ndocumentation and training, plus rollout plan, migration plan,\nuser manuals, training materials, pilot, cutover, knowledge\ntransfer, and warranty/support."
+      "doc": "TRP00 Transition & Rollout Plan.\n\nEnd-to-end rollout specification — localization, translation,\ndocumentation and training, plus rollout plan, migration plan,\nuser manuals, training materials, pilot, cutover, knowledge\ntransfer, and warranty/support."
     }
   ],
   "classes": {
@@ -39860,7 +39860,7 @@
     "D01CurrentLandscapeAssessment": {
       "name": "D01CurrentLandscapeAssessment",
       "sectionId": "CLA",
-      "doc": "CS00 Current Situation.\n\nDetailed analysis of the current state: existing systems, business\nprocesses, pain points, data landscape, operational metrics, risks,\nand the inventory / migration plan for the systems being replaced.",
+      "doc": "CLA00 Current Landscape Assessment.\n\nDetailed analysis of the current state: existing systems, business\nprocesses, pain points, data landscape, operational metrics, risks,\nand the inventory / migration plan for the systems being replaced.",
       "annotations": [
         {
           "name": "Document",
@@ -39970,7 +39970,7 @@
     "D02TargetOperatingModel": {
       "name": "D02TargetOperatingModel",
       "sectionId": "TOM",
-      "doc": "BP00 Business Processes.\n\nTarget business process specification — vision, principles, catalog,\ndiagrams, improvements, relationships, detailed workflows,\ncross-process analysis, exception handling, and KPIs.",
+      "doc": "TOM00 Target Operating Model.\n\nTarget business process specification — vision, principles, catalog,\ndiagrams, improvements, relationships, detailed workflows,\ncross-process analysis, exception handling, and KPIs.",
       "annotations": [
         {
           "name": "Document",
@@ -40109,7 +40109,7 @@
     "D03InformationModel": {
       "name": "D03InformationModel",
       "sectionId": "IFM",
-      "doc": "BDM00 Business Data Model.\n\nFull business data model: entities, relationships, ER diagram, data\nclassification, business objects, function decomposition, function-\nto-data matrix, business rules, data dictionary, and validation /\nintegrity constraints.",
+      "doc": "IFM00 Information Model.\n\nFull business data model: entities, relationships, ER diagram, data\nclassification, business objects, function decomposition, function-\nto-data matrix, business rules, data dictionary, and validation /\nintegrity constraints.",
       "annotations": [
         {
           "name": "Document",
@@ -40368,7 +40368,7 @@
     "D04RequirementsSpecification": {
       "name": "D04RequirementsSpecification",
       "sectionId": "RSP",
-      "doc": "RC00 Requirements Catalog.\n\nFull requirements catalog covering functional, technical, security,\nand organizational requirements, plus traceability, relationships,\nand coverage analysis.",
+      "doc": "RSP00 Requirements Specification.\n\nFull requirements catalog covering functional, technical, security,\nand organizational requirements, plus traceability, relationships,\nand coverage analysis.",
       "annotations": [
         {
           "name": "Document",
@@ -40481,7 +40481,7 @@
     "D05InteractionScenarios": {
       "name": "D05InteractionScenarios",
       "sectionId": "ISC",
-      "doc": "UC00 Use Cases.\n\nDetailed use cases derived from the target process steps and actor\ninteractions — Cockburn-style catalog, scenarios, end-to-end tests,\nand traceability.",
+      "doc": "ISC00 Interaction Scenarios.\n\nDetailed use cases derived from the target process steps and actor\ninteractions — Cockburn-style catalog, scenarios, end-to-end tests,\nand traceability.",
       "annotations": [
         {
           "name": "Document",
@@ -40585,7 +40585,7 @@
     "D06ArchitectureTechnologySpecification": {
       "name": "D06ArchitectureTechnologySpecification",
       "sectionId": "ATS",
-      "doc": "TR00 Technical Requirements.\n\nComprehensive technical requirements: basic / software / standard-\nsoftware / hardware / operations / communication / system-operation\n/ security / architecture, plus components, framework conditions,\nand translation handling.",
+      "doc": "ATS00 Architecture & Technology Specification.\n\nComprehensive technical requirements: basic / software / standard-\nsoftware / hardware / operations / communication / system-operation\n/ security / architecture, plus components, framework conditions,\nand translation handling.",
       "annotations": [
         {
           "name": "Document",
@@ -40702,7 +40702,7 @@
     "D07IntegrationInterfaceSpecification": {
       "name": "D07IntegrationInterfaceSpecification",
       "sectionId": "IIS",
-      "doc": "BSI00 Business System Interactions.\n\nComplete interaction specification between the target system and\nexternal systems: inventory, patterns, testing, dependencies,\nmigration, operational concerns, and cross-boundary error handling.",
+      "doc": "IIS00 Integration & Interface Specification.\n\nComplete interaction specification between the target system and\nexternal systems: inventory, patterns, testing, dependencies,\nmigration, operational concerns, and cross-boundary error handling.",
       "annotations": [
         {
           "name": "Document",
@@ -40858,7 +40858,7 @@
     "D08SecurityAccessSpecification": {
       "name": "D08SecurityAccessSpecification",
       "sectionId": "SAS",
-      "doc": "AC00 Authorization Concept.\n\nComplete access and authorization specification — user management,\nidentification and authentication, resource protection, user\nauthorization, encryption, audit/logging, role matrix, and\ncompliance framework.",
+      "doc": "SAS00 Security & Access Specification.\n\nComplete access and authorization specification — user management,\nidentification and authentication, resource protection, user\nauthorization, encryption, audit/logging, role matrix, and\ncompliance framework.",
       "annotations": [
         {
           "name": "Document",
@@ -40951,7 +40951,7 @@
     "D09ExperienceDesignSpecification": {
       "name": "D09ExperienceDesignSpecification",
       "sectionId": "XDS",
-      "doc": "UP00 UI Prototype.\n\nFull UI design and prototype specification — vision, screens,\nscreen flow, print, error handling, help, accessibility, responsive,\ncomponents, language/country selection, prototype, wireframes and\nmockups.",
+      "doc": "XDS00 Experience Design Specification.\n\nFull UI design and prototype specification — vision, screens,\nscreen flow, print, error handling, help, accessibility, responsive,\ncomponents, language/country selection, prototype, wireframes and\nmockups.",
       "annotations": [
         {
           "name": "Document",
@@ -41085,7 +41085,7 @@
     "D10QualityAcceptancePlan": {
       "name": "D10QualityAcceptancePlan",
       "sectionId": "QAP",
-      "doc": "BQP00 Business Quality Plan.\n\nFull quality plan combining quality goals and the acceptance plan.",
+      "doc": "QAP00 Quality & Acceptance Plan.\n\nFull quality plan combining quality goals and the acceptance plan.",
       "annotations": [
         {
           "name": "Document",
@@ -41214,7 +41214,7 @@
     "D11DeliveryRoadmap": {
       "name": "D11DeliveryRoadmap",
       "sectionId": "DRM",
-      "doc": "PPP00 Project Phase Plan.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework.",
+      "doc": "DRM00 Delivery Roadmap.\n\nFull project phase plan — staging strategy, stage overview, per-stage\nentries, feature prioritization, data migration, gate criteria,\ndecision processes, initial development flow, and upgrade cycle\nframework.",
       "annotations": [
         {
           "name": "Document",
@@ -41337,7 +41337,7 @@
     "D12TransitionRolloutPlan": {
       "name": "D12TransitionRolloutPlan",
       "sectionId": "TRP",
-      "doc": "SR00 System Rollout.\n\nEnd-to-end rollout specification — localization, translation,\ndocumentation and training, plus rollout plan, migration plan,\nuser manuals, training materials, pilot, cutover, knowledge\ntransfer, and warranty/support.",
+      "doc": "TRP00 Transition & Rollout Plan.\n\nEnd-to-end rollout specification — localization, translation,\ndocumentation and training, plus rollout plan, migration plan,\nuser manuals, training materials, pilot, cutover, knowledge\ntransfer, and warranty/support.",
       "annotations": [
         {
           "name": "Document",
@@ -61266,84 +61266,84 @@
     },
     "DocSpecsProject": {
       "name": "DocSpecsProject",
-      "doc": "Canonical container root for the whole TomSpecs object model (V2, N9).\n\nA spec is **one document** with thirteen entry points: the\n[D00SolutionBlueprint] master plus the twelve Phase 3 projection roots. This\nclass gives that document a **single true root** — every document root hangs\noff one object, so the editor can load, serialize, snapshot, and undo the\nentire spec by operating on a single [DocSpecsProject] instance instead of\nthirteen disconnected entry points.\n\n**Not a document node (N9).** The container carries **no `@SectionId`** and\n**no `@Document`** annotation: it is the tree root the tooling walks, *not* a\nfourteenth sibling document. It never renders in the root navigator as\ncontent — the navigator lists [projectDefinition] first, then the twelve\nprojection roots. Tooling (`ModelJsonExporter`, the §8.6 validator, the\noutliner) treats it as the canonical root and exempts it from `@SectionId`\ncoverage/uniqueness (T1).\n\n**The D00SolutionBlueprint is the source of truth.** The twelve Phase 3 roots\nare `@Document(basedOn: [D00SolutionBlueprint])` *projections* that reference\nthe same SBP sections through their `@MapsTo` / `@DetailedIn` links; they do\nnot own copies. Editing through any projection edits the shared underlying\nPD sections (§14).\n\nThis class is the structural anchor only. The global `toYaml` save (PD-only,\n§15.1) and the projection connect pass (N11) are added in a later step; here\nthe container simply wires the thirteen roots onto one tree.",
+      "doc": "Canonical container root for the whole TomSpecs object model (V2, N9).\n\nA spec is **one document** with thirteen entry points: the\n[D00SolutionBlueprint] master plus the twelve Phase 3 projection roots. This\nclass gives that document a **single true root** — every document root hangs\noff one object, so the editor can load, serialize, snapshot, and undo the\nentire spec by operating on a single [DocSpecsProject] instance instead of\nthirteen disconnected entry points.\n\n**Not a document node (N9).** The container carries **no `@SectionId`** and\n**no `@Document`** annotation: it is the tree root the tooling walks, *not* a\nfourteenth sibling document. It never renders in the root navigator as\ncontent — the navigator lists [solutionBlueprint] first, then the twelve\nprojection roots. Tooling (`ModelJsonExporter`, the §8.6 validator, the\noutliner) treats it as the canonical root and exempts it from `@SectionId`\ncoverage/uniqueness (T1).\n\n**The D00SolutionBlueprint is the source of truth.** The twelve Phase 3 roots\nare `@Document(basedOn: [D00SolutionBlueprint])` *projections* that reference\nthe same SBP sections through their `@MapsTo` / `@DetailedIn` links; they do\nnot own copies. Editing through any projection edits the shared underlying\nSolution Blueprint sections (§14).\n\nThis class is the structural anchor only. The global `toYaml` save\n(Solution-Blueprint-only, §15.1) and the projection connect pass (N11) are\nadded in a later step; here the container simply wires the thirteen roots\nonto one tree.",
       "fields": [
         {
-          "name": "projectDefinition",
+          "name": "solutionBlueprint",
           "kind": "complex",
-          "doc": "SBP — the Project Definition master and source of truth for all shared\ncontent. Listed first in the root navigator (§14).",
+          "doc": "D00 — the Solution Blueprint master and source of truth for all shared\ncontent. Listed first in the root navigator (§14).",
           "type": "D00SolutionBlueprint"
         },
         {
-          "name": "authorizationConcept",
+          "name": "securityAccessSpecification",
           "kind": "complex",
-          "doc": "AC — Authorization Concept (Phase 3 projection).",
+          "doc": "D08 — Security & Access Specification (Phase 3 projection).",
           "type": "D08SecurityAccessSpecification"
         },
         {
-          "name": "businessDataModel",
+          "name": "informationModel",
           "kind": "complex",
-          "doc": "BDM — Business Data Model (Phase 3 projection).",
+          "doc": "D03 — Information Model (Phase 3 projection).",
           "type": "D03InformationModel"
         },
         {
-          "name": "businessProcesses",
+          "name": "targetOperatingModel",
           "kind": "complex",
-          "doc": "BP — Business Processes (Phase 3 projection).",
+          "doc": "D02 — Target Operating Model (Phase 3 projection).",
           "type": "D02TargetOperatingModel"
         },
         {
-          "name": "businessQualityPlan",
+          "name": "qualityAcceptancePlan",
           "kind": "complex",
-          "doc": "BQP — Business Quality Plan (Phase 3 projection).",
+          "doc": "D10 — Quality & Acceptance Plan (Phase 3 projection).",
           "type": "D10QualityAcceptancePlan"
         },
         {
-          "name": "businessSystemInteractions",
+          "name": "integrationInterfaceSpecification",
           "kind": "complex",
-          "doc": "BSI — Business System Interactions (Phase 3 projection).",
+          "doc": "D07 — Integration & Interface Specification (Phase 3 projection).",
           "type": "D07IntegrationInterfaceSpecification"
         },
         {
-          "name": "currentSituation",
+          "name": "currentLandscapeAssessment",
           "kind": "complex",
-          "doc": "CS — Current Situation (Phase 3 projection).",
+          "doc": "D01 — Current Landscape Assessment (Phase 3 projection).",
           "type": "D01CurrentLandscapeAssessment"
         },
         {
-          "name": "projectPhasePlan",
+          "name": "deliveryRoadmap",
           "kind": "complex",
-          "doc": "PPP — Project Phase Plan (Phase 3 projection).",
+          "doc": "D11 — Delivery Roadmap (Phase 3 projection).",
           "type": "D11DeliveryRoadmap"
         },
         {
-          "name": "requirementsCatalog",
+          "name": "requirementsSpecification",
           "kind": "complex",
-          "doc": "RC — Requirements Catalog (Phase 3 projection).",
+          "doc": "D04 — Requirements Specification (Phase 3 projection).",
           "type": "D04RequirementsSpecification"
         },
         {
-          "name": "systemRollout",
+          "name": "transitionRolloutPlan",
           "kind": "complex",
-          "doc": "SR — System Rollout (Phase 3 projection).",
+          "doc": "D12 — Transition & Rollout Plan (Phase 3 projection).",
           "type": "D12TransitionRolloutPlan"
         },
         {
-          "name": "technicalRequirementsSpec",
+          "name": "architectureTechnologySpecification",
           "kind": "complex",
-          "doc": "TR — Technical Requirements (Phase 3 projection).",
+          "doc": "D06 — Architecture & Technology Specification (Phase 3 projection).",
           "type": "D06ArchitectureTechnologySpecification"
         },
         {
-          "name": "useCases",
+          "name": "interactionScenarios",
           "kind": "complex",
-          "doc": "UC — Use Cases (Phase 3 projection).",
+          "doc": "D05 — Interaction Scenarios (Phase 3 projection).",
           "type": "D05InteractionScenarios"
         },
         {
-          "name": "uiPrototype",
+          "name": "experienceDesignSpecification",
           "kind": "complex",
-          "doc": "UP — UI Prototype (Phase 3 projection).",
+          "doc": "D09 — Experience Design Specification (Phase 3 projection).",
           "type": "D09ExperienceDesignSpecification"
         }
       ]
@@ -140526,7 +140526,7 @@
     "Requirement": {
       "name": "Requirement",
       "sectionId": "REQ",
-      "doc": "Base requirement shared across documents.\n\nDocument-specific requirement types extend this with additional fields.\nFor example, PD functional requirements add [relatedUseCase],\n[relatedBusinessProcess], and [affectedDataEntities].",
+      "doc": "Base requirement shared across documents.\n\nDocument-specific requirement types extend this with additional fields.\nFor example, Solution Blueprint functional requirements add\n[relatedUseCase], [relatedBusinessProcess], and [affectedDataEntities].",
       "annotations": [
         {
           "name": "SectionId",

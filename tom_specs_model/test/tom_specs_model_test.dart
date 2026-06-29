@@ -52,23 +52,28 @@ void main() {
     test('default-constructs the full tree with all 13 document roots', () {
       final spec = DocSpecsProject();
 
-      // Project Definition master + the 12 Phase 3 projection roots.
-      expect(spec.projectDefinition, isA<D00SolutionBlueprint>());
-      expect(spec.authorizationConcept, isA<D08SecurityAccessSpecification>());
-      expect(spec.businessDataModel, isA<D03InformationModel>());
-      expect(spec.businessProcesses, isA<D02TargetOperatingModel>());
-      expect(spec.businessQualityPlan, isA<D10QualityAcceptancePlan>());
+      // Solution Blueprint master + the 12 Phase 3 projection roots.
+      expect(spec.solutionBlueprint, isA<D00SolutionBlueprint>());
+      expect(spec.securityAccessSpecification,
+          isA<D08SecurityAccessSpecification>());
+      expect(spec.informationModel, isA<D03InformationModel>());
+      expect(spec.targetOperatingModel, isA<D02TargetOperatingModel>());
+      expect(spec.qualityAcceptancePlan, isA<D10QualityAcceptancePlan>());
       expect(
-        spec.businessSystemInteractions,
+        spec.integrationInterfaceSpecification,
         isA<D07IntegrationInterfaceSpecification>(),
       );
-      expect(spec.currentSituation, isA<D01CurrentLandscapeAssessment>());
-      expect(spec.projectPhasePlan, isA<D11DeliveryRoadmap>());
-      expect(spec.requirementsCatalog, isA<D04RequirementsSpecification>());
-      expect(spec.systemRollout, isA<D12TransitionRolloutPlan>());
-      expect(spec.technicalRequirementsSpec, isA<D06ArchitectureTechnologySpecification>());
-      expect(spec.useCases, isA<D05InteractionScenarios>());
-      expect(spec.uiPrototype, isA<D09ExperienceDesignSpecification>());
+      expect(spec.currentLandscapeAssessment,
+          isA<D01CurrentLandscapeAssessment>());
+      expect(spec.deliveryRoadmap, isA<D11DeliveryRoadmap>());
+      expect(spec.requirementsSpecification,
+          isA<D04RequirementsSpecification>());
+      expect(spec.transitionRolloutPlan, isA<D12TransitionRolloutPlan>());
+      expect(spec.architectureTechnologySpecification,
+          isA<D06ArchitectureTechnologySpecification>());
+      expect(spec.interactionScenarios, isA<D05InteractionScenarios>());
+      expect(spec.experienceDesignSpecification,
+          isA<D09ExperienceDesignSpecification>());
     });
 
     test('is not a document node — carries no @Document / @SectionId (N9)', () {

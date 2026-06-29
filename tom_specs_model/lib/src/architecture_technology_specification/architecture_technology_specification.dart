@@ -1,4 +1,4 @@
-/// TR — Technical Requirements.
+/// D06 — Architecture & Technology Specification.
 ///
 /// Phase 3 DocSpec root class. Aggregates 12 top-level sections projected
 /// from the Solution Blueprint technical-framework, components,
@@ -10,7 +10,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// TR00 Technical Requirements.
+/// ATS00 Architecture & Technology Specification.
 ///
 /// Comprehensive technical requirements: basic / software / standard-
 /// software / hardware / operations / communication / system-operation

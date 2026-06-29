@@ -11638,7 +11638,7 @@ QualityAndAcceptanceModel d00_solution_blueprint_quality_and_acceptance_model(co
 // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
 DeliveryTransitionAndRollout d00_solution_blueprint_delivery_transition_and_rollout(const D00SolutionBlueprint *self);
 
-// CS00 Current Situation.
+// CLA00 Current Landscape Assessment.
 //
 // Detailed analysis of the current state: existing systems, business
 // processes, pain points, data landscape, operational metrics, risks,
@@ -11672,7 +11672,7 @@ ReplacementInventory d01_current_landscape_assessment_replacement_inventory(cons
 // Migration considerations.
 MigrationConsiderations d01_current_landscape_assessment_migration_considerations(const D01CurrentLandscapeAssessment *self);
 
-// BP00 Business Processes.
+// TOM00 Target Operating Model.
 //
 // Target business process specification — vision, principles, catalog,
 // diagrams, improvements, relationships, detailed workflows,
@@ -11711,7 +11711,7 @@ ProcessExceptionHandling d02_target_operating_model_exception_handling(const D02
 // Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
 SomList d02_target_operating_model_process_metrics_and_kpis(const D02TargetOperatingModel *self);
 
-// BDM00 Business Data Model.
+// IFM00 Information Model.
 //
 // Full business data model: entities, relationships, ER diagram, data
 // classification, business objects, function decomposition, function-
@@ -11760,7 +11760,7 @@ SomList d03_information_model_validation_constraints(const D03InformationModel *
 // Returns the list view; element type: IntegrityConstraints (construct from item paths).
 SomList d03_information_model_integrity_constraints(const D03InformationModel *self);
 
-// RC00 Requirements Catalog.
+// RSP00 Requirements Specification.
 //
 // Full requirements catalog covering functional, technical, security,
 // and organizational requirements, plus traceability, relationships,
@@ -11797,7 +11797,7 @@ SomList d04_requirements_specification_requirement_relationships(const D04Requir
 // Requirement coverage.
 RequirementCoverage d04_requirements_specification_requirement_coverage(const D04RequirementsSpecification *self);
 
-// UC00 Use Cases.
+// ISC00 Interaction Scenarios.
 //
 // Detailed use cases derived from the target process steps and actor
 // interactions — Cockburn-style catalog, scenarios, end-to-end tests,
@@ -11829,7 +11829,7 @@ SomList d05_interaction_scenarios_end_to_end_test_scenarios(const D05Interaction
 // Use case traceability.
 UseCaseTraceability d05_interaction_scenarios_use_case_traceability(const D05InteractionScenarios *self);
 
-// TR00 Technical Requirements.
+// ATS00 Architecture & Technology Specification.
 //
 // Comprehensive technical requirements: basic / software / standard-
 // software / hardware / operations / communication / system-operation
@@ -11871,7 +11871,7 @@ TechnicalFrameworkConditions d06_architecture_technology_specification_technical
 // Translation handling requirements (whole).
 TranslationRequirements d06_architecture_technology_specification_translation_requirements(const D06ArchitectureTechnologySpecification *self);
 
-// BSI00 Business System Interactions.
+// IIS00 Integration & Interface Specification.
 //
 // Complete interaction specification between the target system and
 // external systems: inventory, patterns, testing, dependencies,
@@ -11911,7 +11911,7 @@ SomList d07_integration_interface_specification_operational_considerations(const
 // Cross-boundary error handling.
 CrossBoundaryErrorHandling d07_integration_interface_specification_cross_boundary_error_handling(const D07IntegrationInterfaceSpecification *self);
 
-// AC00 Authorization Concept.
+// SAS00 Security & Access Specification.
 //
 // Complete access and authorization specification — user management,
 // identification and authentication, resource protection, user
@@ -11945,7 +11945,7 @@ RoleMatrix d08_security_access_specification_role_matrix(const D08SecurityAccess
 // Compliance framework.
 ComplianceFramework d08_security_access_specification_compliance_framework(const D08SecurityAccessSpecification *self);
 
-// UP00 UI Prototype.
+// XDS00 Experience Design Specification.
 //
 // Full UI design and prototype specification — vision, screens,
 // screen flow, print, error handling, help, accessibility, responsive,
@@ -11988,7 +11988,7 @@ Prototype d09_experience_design_specification_prototype(const D09ExperienceDesig
 // Returns the list view; element type: WireframesAndMockups (construct from item paths).
 SomList d09_experience_design_specification_wireframes_and_mockups(const D09ExperienceDesignSpecification *self);
 
-// BQP00 Business Quality Plan.
+// QAP00 Quality & Acceptance Plan.
 //
 // Full quality plan combining quality goals and the acceptance plan.
 // Creates the typed facade at the document root and verifies the document's
@@ -12031,7 +12031,7 @@ SignOffProcess d10_quality_acceptance_plan_sign_off_process(const D10QualityAcce
 // Warranty terms.
 WarrantyTerms d10_quality_acceptance_plan_warranty(const D10QualityAcceptancePlan *self);
 
-// PPP00 Project Phase Plan.
+// DRM00 Delivery Roadmap.
 //
 // Full project phase plan — staging strategy, stage overview, per-stage
 // entries, feature prioritization, data migration, gate criteria,
@@ -12068,7 +12068,7 @@ InitialDevelopmentFlow d11_delivery_roadmap_initial_development_flow(const D11De
 // Upgrade cycle framework (links tom_system_upgrade.md).
 UpgradeCycleFramework d11_delivery_roadmap_upgrade_cycle_framework(const D11DeliveryRoadmap *self);
 
-// SR00 System Rollout.
+// TRP00 Transition & Rollout Plan.
 //
 // End-to-end rollout specification — localization, translation,
 // documentation and training, plus rollout plan, migration plan,

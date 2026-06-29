@@ -1,4 +1,4 @@
-/// PPP — Project Phase Plan.
+/// D11 — Delivery Roadmap.
 ///
 /// Phase 3 DocSpec root class. Aggregates 9 top-level sections projected
 /// (with governance flattened) from the Solution Blueprint system-stage
@@ -10,7 +10,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// PPP00 Project Phase Plan.
+/// DRM00 Delivery Roadmap.
 ///
 /// Full project phase plan — staging strategy, stage overview, per-stage
 /// entries, feature prioritization, data migration, gate criteria,

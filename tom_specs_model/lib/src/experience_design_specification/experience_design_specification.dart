@@ -1,4 +1,4 @@
-/// UP — UI Prototype.
+/// D09 — Experience Design Specification.
 ///
 /// Phase 3 DocSpec root class. Aggregates 12 top-level sections projected
 /// from the corresponding Solution Blueprint experience-design sections.
@@ -9,7 +9,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// UP00 UI Prototype.
+/// XDS00 Experience Design Specification.
 ///
 /// Full UI design and prototype specification — vision, screens,
 /// screen flow, print, error handling, help, accessibility, responsive,

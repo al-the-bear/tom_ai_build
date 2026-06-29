@@ -1,4 +1,4 @@
-/// SR — System Rollout.
+/// D12 — Transition & Rollout Plan.
 ///
 /// Phase 3 DocSpec root class. Aggregates 11 top-level sections projected
 /// from the Solution Blueprint localization, translation, and
@@ -10,7 +10,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// SR00 System Rollout.
+/// TRP00 Transition & Rollout Plan.
 ///
 /// End-to-end rollout specification — localization, translation,
 /// documentation and training, plus rollout plan, migration plan,

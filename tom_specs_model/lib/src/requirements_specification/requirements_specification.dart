@@ -1,4 +1,4 @@
-/// RC — Requirements Catalog.
+/// D04 — Requirements Specification.
 ///
 /// Phase 3 DocSpec root class. Aggregates 7 top-level sections projected
 /// (flattened) from the Solution Blueprint requirements sections.
@@ -9,7 +9,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// RC00 Requirements Catalog.
+/// RSP00 Requirements Specification.
 ///
 /// Full requirements catalog covering functional, technical, security,
 /// and organizational requirements, plus traceability, relationships,

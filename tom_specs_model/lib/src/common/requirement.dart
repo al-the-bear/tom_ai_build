@@ -6,8 +6,8 @@ import 'enums.dart';
 /// Base requirement shared across documents.
 ///
 /// Document-specific requirement types extend this with additional fields.
-/// For example, PD functional requirements add [relatedUseCase],
-/// [relatedBusinessProcess], and [affectedDataEntities].
+/// For example, Solution Blueprint functional requirements add
+/// [relatedUseCase], [relatedBusinessProcess], and [affectedDataEntities].
 @SectionId('REQ')
 class Requirement {
   @Form([

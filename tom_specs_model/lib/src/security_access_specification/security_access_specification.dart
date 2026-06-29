@@ -1,7 +1,7 @@
-/// AC — Authorization Concept.
+/// D08 — Security & Access Specification.
 ///
 /// Phase 3 DocSpec root class. Aggregates 8 top-level sections projected
-/// (flattened) from the Solution Blueprint authorization-concept sections.
+/// (flattened) from the Solution Blueprint security-and-access sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -9,7 +9,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 import '../common/document_header.dart';
 import '../solution_blueprint/solution_blueprint.dart';
 
-/// AC00 Authorization Concept.
+/// SAS00 Security & Access Specification.
 ///
 /// Complete access and authorization specification — user management,
 /// identification and authentication, resource protection, user

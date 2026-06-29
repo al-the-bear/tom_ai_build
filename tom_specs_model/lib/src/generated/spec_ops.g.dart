@@ -12067,37 +12067,37 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as DocSpecsProject;
       return [
-        SpecSlot.node(() => n.projectDefinition, (v) => n.projectDefinition = v as D00SolutionBlueprint, label: 'projectDefinition'),
-        SpecSlot.node(() => n.authorizationConcept, (v) => n.authorizationConcept = v as D08SecurityAccessSpecification, label: 'authorizationConcept'),
-        SpecSlot.node(() => n.businessDataModel, (v) => n.businessDataModel = v as D03InformationModel, label: 'businessDataModel'),
-        SpecSlot.node(() => n.businessProcesses, (v) => n.businessProcesses = v as D02TargetOperatingModel, label: 'businessProcesses'),
-        SpecSlot.node(() => n.businessQualityPlan, (v) => n.businessQualityPlan = v as D10QualityAcceptancePlan, label: 'businessQualityPlan'),
-        SpecSlot.node(() => n.businessSystemInteractions, (v) => n.businessSystemInteractions = v as D07IntegrationInterfaceSpecification, label: 'businessSystemInteractions'),
-        SpecSlot.node(() => n.currentSituation, (v) => n.currentSituation = v as D01CurrentLandscapeAssessment, label: 'currentSituation'),
-        SpecSlot.node(() => n.projectPhasePlan, (v) => n.projectPhasePlan = v as D11DeliveryRoadmap, label: 'projectPhasePlan'),
-        SpecSlot.node(() => n.requirementsCatalog, (v) => n.requirementsCatalog = v as D04RequirementsSpecification, label: 'requirementsCatalog'),
-        SpecSlot.node(() => n.systemRollout, (v) => n.systemRollout = v as D12TransitionRolloutPlan, label: 'systemRollout'),
-        SpecSlot.node(() => n.technicalRequirementsSpec, (v) => n.technicalRequirementsSpec = v as D06ArchitectureTechnologySpecification, label: 'technicalRequirementsSpec'),
-        SpecSlot.node(() => n.useCases, (v) => n.useCases = v as D05InteractionScenarios, label: 'useCases'),
-        SpecSlot.node(() => n.uiPrototype, (v) => n.uiPrototype = v as D09ExperienceDesignSpecification, label: 'uiPrototype'),
+        SpecSlot.node(() => n.solutionBlueprint, (v) => n.solutionBlueprint = v as D00SolutionBlueprint, label: 'solutionBlueprint'),
+        SpecSlot.node(() => n.securityAccessSpecification, (v) => n.securityAccessSpecification = v as D08SecurityAccessSpecification, label: 'securityAccessSpecification'),
+        SpecSlot.node(() => n.informationModel, (v) => n.informationModel = v as D03InformationModel, label: 'informationModel'),
+        SpecSlot.node(() => n.targetOperatingModel, (v) => n.targetOperatingModel = v as D02TargetOperatingModel, label: 'targetOperatingModel'),
+        SpecSlot.node(() => n.qualityAcceptancePlan, (v) => n.qualityAcceptancePlan = v as D10QualityAcceptancePlan, label: 'qualityAcceptancePlan'),
+        SpecSlot.node(() => n.integrationInterfaceSpecification, (v) => n.integrationInterfaceSpecification = v as D07IntegrationInterfaceSpecification, label: 'integrationInterfaceSpecification'),
+        SpecSlot.node(() => n.currentLandscapeAssessment, (v) => n.currentLandscapeAssessment = v as D01CurrentLandscapeAssessment, label: 'currentLandscapeAssessment'),
+        SpecSlot.node(() => n.deliveryRoadmap, (v) => n.deliveryRoadmap = v as D11DeliveryRoadmap, label: 'deliveryRoadmap'),
+        SpecSlot.node(() => n.requirementsSpecification, (v) => n.requirementsSpecification = v as D04RequirementsSpecification, label: 'requirementsSpecification'),
+        SpecSlot.node(() => n.transitionRolloutPlan, (v) => n.transitionRolloutPlan = v as D12TransitionRolloutPlan, label: 'transitionRolloutPlan'),
+        SpecSlot.node(() => n.architectureTechnologySpecification, (v) => n.architectureTechnologySpecification = v as D06ArchitectureTechnologySpecification, label: 'architectureTechnologySpecification'),
+        SpecSlot.node(() => n.interactionScenarios, (v) => n.interactionScenarios = v as D05InteractionScenarios, label: 'interactionScenarios'),
+        SpecSlot.node(() => n.experienceDesignSpecification, (v) => n.experienceDesignSpecification = v as D09ExperienceDesignSpecification, label: 'experienceDesignSpecification'),
       ];
     },
     cloneShallow: (o) {
       final n = o as DocSpecsProject;
       return DocSpecsProject()
-        ..projectDefinition = n.projectDefinition
-        ..authorizationConcept = n.authorizationConcept
-        ..businessDataModel = n.businessDataModel
-        ..businessProcesses = n.businessProcesses
-        ..businessQualityPlan = n.businessQualityPlan
-        ..businessSystemInteractions = n.businessSystemInteractions
-        ..currentSituation = n.currentSituation
-        ..projectPhasePlan = n.projectPhasePlan
-        ..requirementsCatalog = n.requirementsCatalog
-        ..systemRollout = n.systemRollout
-        ..technicalRequirementsSpec = n.technicalRequirementsSpec
-        ..useCases = n.useCases
-        ..uiPrototype = n.uiPrototype;
+        ..solutionBlueprint = n.solutionBlueprint
+        ..securityAccessSpecification = n.securityAccessSpecification
+        ..informationModel = n.informationModel
+        ..targetOperatingModel = n.targetOperatingModel
+        ..qualityAcceptancePlan = n.qualityAcceptancePlan
+        ..integrationInterfaceSpecification = n.integrationInterfaceSpecification
+        ..currentLandscapeAssessment = n.currentLandscapeAssessment
+        ..deliveryRoadmap = n.deliveryRoadmap
+        ..requirementsSpecification = n.requirementsSpecification
+        ..transitionRolloutPlan = n.transitionRolloutPlan
+        ..architectureTechnologySpecification = n.architectureTechnologySpecification
+        ..interactionScenarios = n.interactionScenarios
+        ..experienceDesignSpecification = n.experienceDesignSpecification;
     },
   ));
   SpecRegistry.register(DocumentControl, SpecClassOps(
