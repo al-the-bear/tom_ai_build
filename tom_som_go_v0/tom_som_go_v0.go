@@ -6213,7 +6213,7 @@ func (x *BusinessPainPointsSummary) Content() *BusinessPainPointsSummaryContentF
 //
 // Target business processes at a high level. Each process will be expanded
 // with detailed workflows, triggers, decision points, and exception handling
-// in the BP (Business Processes) document.
+// in the TOM (Target Operating Model) document.
 type BusinessProcessDescriptions struct {
 	som.SomNode
 }
@@ -29507,7 +29507,7 @@ func (x *InteractionDependencyAnalysis) SetContent(value string) {
 // An interaction entry.
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
-// use case template. Seeds the UC (Use Case) document.
+// use case template. Seeds the ISC (Interaction Scenarios) document.
 type InteractionEntry struct {
 	som.SomNode
 }
@@ -42109,11 +42109,11 @@ func (x *ProcessSlaEntry) Content() *ProcessSlaEntryContentForm {
 	return NewProcessSlaEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 6.2. Process Steps and Actor Interactions. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
 //
 // Key process steps with their actor interactions. Each interaction will be
 // expanded into a full use case with alternate paths, preconditions, and
-// postconditions in the UC document. Follows Cockburn-style use case modeling.
+// postconditions in the ISC document. Follows Cockburn-style use case modeling.
 type ProcessStepsAndActorInteractions struct {
 	som.SomNode
 }
@@ -57600,12 +57600,12 @@ func (x *SystemPurpose) ScopeBoundaries() *ScopeBoundaries {
 	return NewScopeBoundaries(x.Doc(), x.Path() + "/scopeBoundaries")
 }
 
-// 11. System Quality Goals. Seeds → BQP.
+// 11. System Quality Goals. Seeds → QAP.
 //
 // Quality goals selected from standard quality criteria and operationalized
 // for project-specific acceptance testing. Provides governing structure for
-// all quality attributes and acceptance criteria. Seeds the BQP (Business
-// Quality Plan) document where quality goals are expanded into measurable
+// all quality attributes and acceptance criteria. Seeds the QAP (Quality &
+// Acceptance Plan) document where quality goals are expanded into measurable
 // targets, verification methods, and acceptance criteria.
 type SystemQualityGoals struct {
 	som.SomNode
@@ -58581,12 +58581,12 @@ func (x *TargetBusinessProcessModel) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 6.1. Business Process Descriptions. Seeds → BP.
+// 6.1. Business Process Descriptions. Seeds → TOM.
 func (x *TargetBusinessProcessModel) BusinessProcessDescriptions() *BusinessProcessDescriptions {
 	return NewBusinessProcessDescriptions(x.Doc(), x.Path() + "/businessProcessDescriptions")
 }
 
-// 6.2. Process Steps and Actor Interactions. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
 func (x *TargetBusinessProcessModel) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractions {
 	return NewProcessStepsAndActorInteractions(x.Doc(), x.Path() + "/processStepsAndActorInteractions")
 }

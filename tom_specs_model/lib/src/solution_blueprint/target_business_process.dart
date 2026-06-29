@@ -1,7 +1,7 @@
 /// Section 6: Target Business Process Model.
 ///
 /// Target business processes the system will support. Splits into process
-/// descriptions (seeds → BP) and actor interactions (seeds → UC).
+/// descriptions (seeds → TOM) and actor interactions (seeds → ISC).
 /// Follows BPM best practices (BPMN 2.0, APQC PCF, BPM CBOK).
 library;
 
@@ -11,7 +11,7 @@ import '../document_stubs.dart';
 
 /// 6. Target Business Process Model.
 @SectionId('TBPM')
-@Comment('Seeds → BP, UC')
+@Comment('Seeds → TOM, ISC')
 class TargetBusinessProcessModel {
   @ContentHelp('''
 Overview of target business processes the system will support. This section
@@ -35,13 +35,13 @@ interactions that seed use case development.
 ''')
   String? content;
 
-  /// 6.1. Business Process Descriptions. Seeds → BP.
-  @Comment('Seeds → BP')
+  /// 6.1. Business Process Descriptions. Seeds → TOM.
+  @Comment('Seeds → TOM')
   BusinessProcessDescriptions businessProcessDescriptions =
       BusinessProcessDescriptions();
 
-  /// 6.2. Process Steps and Actor Interactions. Seeds → UC.
-  @Comment('Seeds → UC')
+  /// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
+  @Comment('Seeds → ISC')
   ProcessStepsAndActorInteractions processStepsAndActorInteractions =
       ProcessStepsAndActorInteractions();
 }
@@ -54,15 +54,15 @@ interactions that seed use case development.
 ///
 /// Target business processes at a high level. Each process will be expanded
 /// with detailed workflows, triggers, decision points, and exception handling
-/// in the BP (Business Processes) document.
+/// in the TOM (Target Operating Model) document.
 @SectionId('BPDSC')
-@Comment('Seeds → BP')
+@Comment('Seeds → TOM')
 @MapsTo(D02TargetOperatingModel)
 class BusinessProcessDescriptions {
   @ContentHelp('''
 Target business processes at a high level. Each process will be expanded with
 detailed workflows, triggers, decision points, and exception handling in the
-BP (Business Processes) document.
+TOM (Target Operating Model) document.
 
 **Subsections:**
 - Process Vision — overall transformation vision and success criteria
@@ -71,7 +71,7 @@ BP (Business Processes) document.
 - Process Overview Diagram — landscape and value chain views
 - Improvement Summary — expected benefits and business case
 
-**Seeds:** BP (Business Processes) document
+**Seeds:** TOM (Target Operating Model) document
 ''')
   String? content;
 
@@ -1178,19 +1178,19 @@ class ProcessRelationshipEntry {
 // 6.2 Process Steps and Actor Interactions
 // ---------------------------------------------------------------------------
 
-/// 6.2. Process Steps and Actor Interactions. Seeds → UC.
+/// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
 ///
 /// Key process steps with their actor interactions. Each interaction will be
 /// expanded into a full use case with alternate paths, preconditions, and
-/// postconditions in the UC document. Follows Cockburn-style use case modeling.
+/// postconditions in the ISC document. Follows Cockburn-style use case modeling.
 @SectionId('PSAAI')
-@Comment('Seeds → UC')
+@Comment('Seeds → ISC')
 @MapsTo(D05InteractionScenarios)
 class ProcessStepsAndActorInteractions {
   @ContentHelp('''
 Key process steps with their actor interactions. Each interaction will be
 expanded into a full use case with alternate paths, preconditions, and
-postconditions in the UC (Use Cases) document.
+postconditions in the ISC (Interaction Scenarios) document.
 
 **Subsections:**
 - Actor Overview — comprehensive actor definitions with goals and permissions
@@ -1203,7 +1203,7 @@ postconditions in the UC (Use Cases) document.
 - Include MoSCoW prioritization (must/should/could/won't)
 - Map interactions to processes (BP-xxx) and requirements (REQ-xxx)
 
-**Seeds:** UC (Use Cases) document
+**Seeds:** ISC (Interaction Scenarios) document
 ''')
   String? content;
 
@@ -1249,7 +1249,7 @@ class ProcessStepsOverview {
     Field('useCaseNamingConvention', String,
         'Use Case Naming Convention — UC-xxx pattern'),
     Field('traceabilityApproach', String,
-        'Traceability Approach — link to BP, UC documents'),
+        'Traceability Approach — link to TOM, ISC documents'),
     Field('detailLevel', String,
         'Detail Level — brief, casual, fully dressed'),
     Field('notationStandard', String,
@@ -1761,7 +1761,7 @@ class InteractionPrioritization {
 /// An interaction entry.
 ///
 /// Comprehensive interaction definition following Cockburn's fully dressed
-/// use case template. Seeds the UC (Use Case) document.
+/// use case template. Seeds the ISC (Interaction Scenarios) document.
 @SectionId('INEN')
 class InteractionEntry {
   /// Interaction identification (use case header).

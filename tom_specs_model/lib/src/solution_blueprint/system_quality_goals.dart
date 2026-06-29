@@ -1,4 +1,4 @@
-/// Section 11: System Quality Goals. Seeds → BQP.
+/// Section 11: System Quality Goals. Seeds → QAP.
 ///
 /// Quality goals for acceptance testing, organized by quality category.
 /// Comprehensive quality management framework covering user-related,
@@ -10,15 +10,15 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 11. System Quality Goals. Seeds → BQP.
+/// 11. System Quality Goals. Seeds → QAP.
 ///
 /// Quality goals selected from standard quality criteria and operationalized
 /// for project-specific acceptance testing. Provides governing structure for
-/// all quality attributes and acceptance criteria. Seeds the BQP (Business
-/// Quality Plan) document where quality goals are expanded into measurable
+/// all quality attributes and acceptance criteria. Seeds the QAP (Quality &
+/// Acceptance Plan) document where quality goals are expanded into measurable
 /// targets, verification methods, and acceptance criteria.
 @SectionId('SYQG')
-@Comment('Seeds → BQP')
+@Comment('Seeds → QAP')
 @MapsTo(D10QualityAcceptancePlan)
 class SystemQualityGoals {
   @Form([

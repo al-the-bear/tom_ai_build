@@ -18780,7 +18780,7 @@
     "BusinessProcessDescriptions": {
       "name": "BusinessProcessDescriptions",
       "sectionId": "BPDSC",
-      "doc": "6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the BP (Business Processes) document.",
+      "doc": "6.1. Business Process Descriptions.\n\nTarget business processes at a high level. Each process will be expanded\nwith detailed workflows, triggers, decision points, and exception handling\nin the TOM (Target Operating Model) document.",
       "mapsTo": "D02TargetOperatingModel",
       "annotations": [
         {
@@ -18792,7 +18792,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → BP"
+            "text": "Seeds → TOM"
           }
         },
         {
@@ -18806,12 +18806,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Target business processes at a high level. Each process will be expanded with\ndetailed workflows, triggers, decision points, and exception handling in the\nBP (Business Processes) document.\n\n**Subsections:**\n- Process Vision — overall transformation vision and success criteria\n- Design Principles — guiding principles for process design\n- Process Catalog — comprehensive process definitions (1+ required)\n- Process Overview Diagram — landscape and value chain views\n- Improvement Summary — expected benefits and business case\n\n**Seeds:** BP (Business Processes) document\n",
+          "help": "Target business processes at a high level. Each process will be expanded with\ndetailed workflows, triggers, decision points, and exception handling in the\nTOM (Target Operating Model) document.\n\n**Subsections:**\n- Process Vision — overall transformation vision and success criteria\n- Design Principles — guiding principles for process design\n- Process Catalog — comprehensive process definitions (1+ required)\n- Process Overview Diagram — landscape and value chain views\n- Improvement Summary — expected benefits and business case\n\n**Seeds:** TOM (Target Operating Model) document\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Target business processes at a high level. Each process will be expanded with\ndetailed workflows, triggers, decision points, and exception handling in the\nBP (Business Processes) document.\n\n**Subsections:**\n- Process Vision — overall transformation vision and success criteria\n- Design Principles — guiding principles for process design\n- Process Catalog — comprehensive process definitions (1+ required)\n- Process Overview Diagram — landscape and value chain views\n- Improvement Summary — expected benefits and business case\n\n**Seeds:** BP (Business Processes) document\n"
+                "guidance": "Target business processes at a high level. Each process will be expanded with\ndetailed workflows, triggers, decision points, and exception handling in the\nTOM (Target Operating Model) document.\n\n**Subsections:**\n- Process Vision — overall transformation vision and success criteria\n- Design Principles — guiding principles for process design\n- Process Catalog — comprehensive process definitions (1+ required)\n- Process Overview Diagram — landscape and value chain views\n- Improvement Summary — expected benefits and business case\n\n**Seeds:** TOM (Target Operating Model) document\n"
               }
             }
           ],
@@ -88379,7 +88379,7 @@
     "InteractionEntry": {
       "name": "InteractionEntry",
       "sectionId": "INEN",
-      "doc": "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the UC (Use Case) document.",
+      "doc": "An interaction entry.\n\nComprehensive interaction definition following Cockburn's fully dressed\nuse case template. Seeds the ISC (Interaction Scenarios) document.",
       "annotations": [
         {
           "name": "SectionId",
@@ -128493,7 +128493,7 @@
     "ProcessStepsAndActorInteractions": {
       "name": "ProcessStepsAndActorInteractions",
       "sectionId": "PSAAI",
-      "doc": "6.2. Process Steps and Actor Interactions. Seeds → UC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the UC document. Follows Cockburn-style use case modeling.",
+      "doc": "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.",
       "mapsTo": "D05InteractionScenarios",
       "annotations": [
         {
@@ -128505,7 +128505,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → UC"
+            "text": "Seeds → ISC"
           }
         },
         {
@@ -128519,12 +128519,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Key process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the UC (Use Cases) document.\n\n**Subsections:**\n- Actor Overview — comprehensive actor definitions with goals and permissions\n- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)\n- Key Scenarios — end-to-end user journey descriptions (1+ required)\n\n**Best Practices:**\n- Follow Cockburn goal levels: +summary, !user, -subfunction\n- Use active verb phrases for interaction names (\"Submit Registration\")\n- Include MoSCoW prioritization (must/should/could/won't)\n- Map interactions to processes (BP-xxx) and requirements (REQ-xxx)\n\n**Seeds:** UC (Use Cases) document\n",
+          "help": "Key process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC (Interaction Scenarios) document.\n\n**Subsections:**\n- Actor Overview — comprehensive actor definitions with goals and permissions\n- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)\n- Key Scenarios — end-to-end user journey descriptions (1+ required)\n\n**Best Practices:**\n- Follow Cockburn goal levels: +summary, !user, -subfunction\n- Use active verb phrases for interaction names (\"Submit Registration\")\n- Include MoSCoW prioritization (must/should/could/won't)\n- Map interactions to processes (BP-xxx) and requirements (REQ-xxx)\n\n**Seeds:** ISC (Interaction Scenarios) document\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Key process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the UC (Use Cases) document.\n\n**Subsections:**\n- Actor Overview — comprehensive actor definitions with goals and permissions\n- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)\n- Key Scenarios — end-to-end user journey descriptions (1+ required)\n\n**Best Practices:**\n- Follow Cockburn goal levels: +summary, !user, -subfunction\n- Use active verb phrases for interaction names (\"Submit Registration\")\n- Include MoSCoW prioritization (must/should/could/won't)\n- Map interactions to processes (BP-xxx) and requirements (REQ-xxx)\n\n**Seeds:** UC (Use Cases) document\n"
+                "guidance": "Key process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC (Interaction Scenarios) document.\n\n**Subsections:**\n- Actor Overview — comprehensive actor definitions with goals and permissions\n- Interaction Catalog — use case seeds following Cockburn patterns (1+ required)\n- Key Scenarios — end-to-end user journey descriptions (1+ required)\n\n**Best Practices:**\n- Follow Cockburn goal levels: +summary, !user, -subfunction\n- Use active verb phrases for interaction names (\"Submit Registration\")\n- Include MoSCoW prioritization (must/should/could/won't)\n- Map interactions to processes (BP-xxx) and requirements (REQ-xxx)\n\n**Seeds:** ISC (Interaction Scenarios) document\n"
               }
             }
           ],
@@ -128662,7 +128662,7 @@
             },
             {
               "name": "traceabilityApproach",
-              "label": "Traceability Approach — link to BP, UC documents",
+              "label": "Traceability Approach — link to TOM, ISC documents",
               "type": "String",
               "required": false
             },
@@ -176768,7 +176768,7 @@
     "SystemQualityGoals": {
       "name": "SystemQualityGoals",
       "sectionId": "SYQG",
-      "doc": "11. System Quality Goals. Seeds → BQP.\n\nQuality goals selected from standard quality criteria and operationalized\nfor project-specific acceptance testing. Provides governing structure for\nall quality attributes and acceptance criteria. Seeds the BQP (Business\nQuality Plan) document where quality goals are expanded into measurable\ntargets, verification methods, and acceptance criteria.",
+      "doc": "11. System Quality Goals. Seeds → QAP.\n\nQuality goals selected from standard quality criteria and operationalized\nfor project-specific acceptance testing. Provides governing structure for\nall quality attributes and acceptance criteria. Seeds the QAP (Quality &\nAcceptance Plan) document where quality goals are expanded into measurable\ntargets, verification methods, and acceptance criteria.",
       "mapsTo": "D10QualityAcceptancePlan",
       "annotations": [
         {
@@ -176780,7 +176780,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → BQP"
+            "text": "Seeds → QAP"
           }
         },
         {
@@ -179542,7 +179542,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → BP, UC"
+            "text": "Seeds → TOM, ISC"
           }
         }
       ],
@@ -179564,12 +179564,12 @@
         {
           "name": "businessProcessDescriptions",
           "kind": "complex",
-          "doc": "6.1. Business Process Descriptions. Seeds → BP.",
+          "doc": "6.1. Business Process Descriptions. Seeds → TOM.",
           "annotations": [
             {
               "name": "Comment",
               "arguments": {
-                "text": "Seeds → BP"
+                "text": "Seeds → TOM"
               }
             }
           ],
@@ -179578,12 +179578,12 @@
         {
           "name": "processStepsAndActorInteractions",
           "kind": "complex",
-          "doc": "6.2. Process Steps and Actor Interactions. Seeds → UC.",
+          "doc": "6.2. Process Steps and Actor Interactions. Seeds → ISC.",
           "annotations": [
             {
               "name": "Comment",
               "arguments": {
-                "text": "Seeds → UC"
+                "text": "Seeds → ISC"
               }
             }
           ],

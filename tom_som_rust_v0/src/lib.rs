@@ -6935,7 +6935,7 @@ impl BusinessPainPointsSummary {
 ///
 /// Target business processes at a high level. Each process will be expanded
 /// with detailed workflows, triggers, decision points, and exception handling
-/// in the BP (Business Processes) document.
+/// in the TOM (Target Operating Model) document.
 pub struct BusinessProcessDescriptions {
     pub node: som::SomNode,
 }
@@ -32876,7 +32876,7 @@ impl InteractionDependencyAnalysis {
 /// An interaction entry.
 ///
 /// Comprehensive interaction definition following Cockburn's fully dressed
-/// use case template. Seeds the UC (Use Case) document.
+/// use case template. Seeds the ISC (Interaction Scenarios) document.
 pub struct InteractionEntry {
     pub node: som::SomNode,
 }
@@ -47020,11 +47020,11 @@ impl ProcessSlaEntry {
     }
 }
 
-/// 6.2. Process Steps and Actor Interactions. Seeds → UC.
+/// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
 ///
 /// Key process steps with their actor interactions. Each interaction will be
 /// expanded into a full use case with alternate paths, preconditions, and
-/// postconditions in the UC document. Follows Cockburn-style use case modeling.
+/// postconditions in the ISC document. Follows Cockburn-style use case modeling.
 pub struct ProcessStepsAndActorInteractions {
     pub node: som::SomNode,
 }
@@ -64360,12 +64360,12 @@ impl SystemPurpose {
     }
 }
 
-/// 11. System Quality Goals. Seeds → BQP.
+/// 11. System Quality Goals. Seeds → QAP.
 ///
 /// Quality goals selected from standard quality criteria and operationalized
 /// for project-specific acceptance testing. Provides governing structure for
-/// all quality attributes and acceptance criteria. Seeds the BQP (Business
-/// Quality Plan) document where quality goals are expanded into measurable
+/// all quality attributes and acceptance criteria. Seeds the QAP (Quality &
+/// Acceptance Plan) document where quality goals are expanded into measurable
 /// targets, verification methods, and acceptance criteria.
 pub struct SystemQualityGoals {
     pub node: som::SomNode,
@@ -65450,12 +65450,12 @@ impl TargetBusinessProcessModel {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 6.1. Business Process Descriptions. Seeds → BP.
+    /// 6.1. Business Process Descriptions. Seeds → TOM.
     pub fn business_process_descriptions(&self) -> BusinessProcessDescriptions {
         BusinessProcessDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "businessProcessDescriptions"))
     }
 
-    /// 6.2. Process Steps and Actor Interactions. Seeds → UC.
+    /// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
     pub fn process_steps_and_actor_interactions(&self) -> ProcessStepsAndActorInteractions {
         ProcessStepsAndActorInteractions::new(self.node.doc(), format!("{}/{}", self.node.path(), "processStepsAndActorInteractions"))
     }

@@ -8808,7 +8808,7 @@ class BusinessPainPointsSummary : public som::SomNode {
 //
 // Target business processes at a high level. Each process will be expanded
 // with detailed workflows, triggers, decision points, and exception handling
-// in the BP (Business Processes) document.
+// in the TOM (Target Operating Model) document.
 class BusinessProcessDescriptions : public som::SomNode {
  public:
   BusinessProcessDescriptions(som::SpecDocument& doc, std::string path);
@@ -20030,7 +20030,7 @@ class InteractionDependencyAnalysis : public som::SomNode {
 // An interaction entry.
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
-// use case template. Seeds the UC (Use Case) document.
+// use case template. Seeds the ISC (Interaction Scenarios) document.
 class InteractionEntry : public som::SomNode {
  public:
   InteractionEntry(som::SpecDocument& doc, std::string path);
@@ -26175,11 +26175,11 @@ class ProcessSlaEntry : public som::SomNode {
   ProcessSlaEntryContentForm content() const;
 };
 
-// 6.2. Process Steps and Actor Interactions. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
 //
 // Key process steps with their actor interactions. Each interaction will be
 // expanded into a full use case with alternate paths, preconditions, and
-// postconditions in the UC document. Follows Cockburn-style use case modeling.
+// postconditions in the ISC document. Follows Cockburn-style use case modeling.
 class ProcessStepsAndActorInteractions : public som::SomNode {
  public:
   ProcessStepsAndActorInteractions(som::SpecDocument& doc, std::string path);
@@ -33704,12 +33704,12 @@ class SystemPurpose : public som::SomNode {
   ScopeBoundaries scopeBoundaries() const;
 };
 
-// 11. System Quality Goals. Seeds → BQP.
+// 11. System Quality Goals. Seeds → QAP.
 //
 // Quality goals selected from standard quality criteria and operationalized
 // for project-specific acceptance testing. Provides governing structure for
-// all quality attributes and acceptance criteria. Seeds the BQP (Business
-// Quality Plan) document where quality goals are expanded into measurable
+// all quality attributes and acceptance criteria. Seeds the QAP (Quality &
+// Acceptance Plan) document where quality goals are expanded into measurable
 // targets, verification methods, and acceptance criteria.
 class SystemQualityGoals : public som::SomNode {
  public:
@@ -34171,9 +34171,9 @@ class TargetBusinessProcessModel : public som::SomNode {
   TargetBusinessProcessModel(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 6.1. Business Process Descriptions. Seeds → BP.
+  // 6.1. Business Process Descriptions. Seeds → TOM.
   BusinessProcessDescriptions businessProcessDescriptions() const;
-  // 6.2. Process Steps and Actor Interactions. Seeds → UC.
+  // 6.2. Process Steps and Actor Interactions. Seeds → ISC.
   ProcessStepsAndActorInteractions processStepsAndActorInteractions() const;
 };
 

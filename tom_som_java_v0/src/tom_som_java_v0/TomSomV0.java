@@ -5296,7 +5296,7 @@ public final class TomSomV0 {
   //
   // Target business processes at a high level. Each process will be expanded
   // with detailed workflows, triggers, decision points, and exception handling
-  // in the BP (Business Processes) document.
+  // in the TOM (Target Operating Model) document.
   public static final class BusinessProcessDescriptions extends SomNode {
     public BusinessProcessDescriptions(SpecDocument doc, String path) {
       super(doc, path);
@@ -25181,7 +25181,7 @@ public final class TomSomV0 {
   // An interaction entry.
   //
   // Comprehensive interaction definition following Cockburn's fully dressed
-  // use case template. Seeds the UC (Use Case) document.
+  // use case template. Seeds the ISC (Interaction Scenarios) document.
   public static final class InteractionEntry extends SomNode {
     public InteractionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -35802,11 +35802,11 @@ public final class TomSomV0 {
     }
   }
 
-  // 6.2. Process Steps and Actor Interactions. Seeds → UC.
+  // 6.2. Process Steps and Actor Interactions. Seeds → ISC.
   //
   // Key process steps with their actor interactions. Each interaction will be
   // expanded into a full use case with alternate paths, preconditions, and
-  // postconditions in the UC document. Follows Cockburn-style use case modeling.
+  // postconditions in the ISC document. Follows Cockburn-style use case modeling.
   public static final class ProcessStepsAndActorInteractions extends SomNode {
     public ProcessStepsAndActorInteractions(SpecDocument doc, String path) {
       super(doc, path);
@@ -48933,12 +48933,12 @@ public final class TomSomV0 {
     }
   }
 
-  // 11. System Quality Goals. Seeds → BQP.
+  // 11. System Quality Goals. Seeds → QAP.
   //
   // Quality goals selected from standard quality criteria and operationalized
   // for project-specific acceptance testing. Provides governing structure for
-  // all quality attributes and acceptance criteria. Seeds the BQP (Business
-  // Quality Plan) document where quality goals are expanded into measurable
+  // all quality attributes and acceptance criteria. Seeds the QAP (Quality &
+  // Acceptance Plan) document where quality goals are expanded into measurable
   // targets, verification methods, and acceptance criteria.
   public static final class SystemQualityGoals extends SomNode {
     public SystemQualityGoals(SpecDocument doc, String path) {
@@ -49772,12 +49772,12 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 6.1. Business Process Descriptions. Seeds → BP.
+    // 6.1. Business Process Descriptions. Seeds → TOM.
     public BusinessProcessDescriptions businessProcessDescriptions() {
       return new BusinessProcessDescriptions(doc, path + "/businessProcessDescriptions");
     }
 
-    // 6.2. Process Steps and Actor Interactions. Seeds → UC.
+    // 6.2. Process Steps and Actor Interactions. Seeds → ISC.
     public ProcessStepsAndActorInteractions processStepsAndActorInteractions() {
       return new ProcessStepsAndActorInteractions(doc, path + "/processStepsAndActorInteractions");
     }

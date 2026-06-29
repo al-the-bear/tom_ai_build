@@ -4806,7 +4806,7 @@ class BusinessProcessDescriptions(SomNode):
     
     Target business processes at a high level. Each process will be expanded
     with detailed workflows, triggers, decision points, and exception handling
-    in the BP (Business Processes) document.
+    in the TOM (Target Operating Model) document.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -22714,7 +22714,7 @@ class InteractionEntry(SomNode):
     """An interaction entry.
     
     Comprehensive interaction definition following Cockburn's fully dressed
-    use case template. Seeds the UC (Use Case) document.
+    use case template. Seeds the ISC (Interaction Scenarios) document.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -32305,11 +32305,11 @@ class ProcessSlaEntry(SomNode):
         return ProcessSlaEntryContentForm(self.doc, f"{self.path}/content")
 
 class ProcessStepsAndActorInteractions(SomNode):
-    """6.2. Process Steps and Actor Interactions. Seeds → UC.
+    """6.2. Process Steps and Actor Interactions. Seeds → ISC.
     
     Key process steps with their actor interactions. Each interaction will be
     expanded into a full use case with alternate paths, preconditions, and
-    postconditions in the UC document. Follows Cockburn-style use case modeling.
+    postconditions in the ISC document. Follows Cockburn-style use case modeling.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -44129,12 +44129,12 @@ class SystemPurpose(SomNode):
         return ScopeBoundaries(self.doc, f"{self.path}/scopeBoundaries")
 
 class SystemQualityGoals(SomNode):
-    """11. System Quality Goals. Seeds → BQP.
+    """11. System Quality Goals. Seeds → QAP.
     
     Quality goals selected from standard quality criteria and operationalized
     for project-specific acceptance testing. Provides governing structure for
-    all quality attributes and acceptance criteria. Seeds the BQP (Business
-    Quality Plan) document where quality goals are expanded into measurable
+    all quality attributes and acceptance criteria. Seeds the QAP (Quality &
+    Acceptance Plan) document where quality goals are expanded into measurable
     targets, verification methods, and acceptance criteria.
     """
     def __init__(self, doc, path):
@@ -44904,12 +44904,12 @@ class TargetBusinessProcessModel(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 6.1. Business Process Descriptions. Seeds → BP.
+    # 6.1. Business Process Descriptions. Seeds → TOM.
     @property
     def businessProcessDescriptions(self):
         return BusinessProcessDescriptions(self.doc, f"{self.path}/businessProcessDescriptions")
 
-    # 6.2. Process Steps and Actor Interactions. Seeds → UC.
+    # 6.2. Process Steps and Actor Interactions. Seeds → ISC.
     @property
     def processStepsAndActorInteractions(self):
         return ProcessStepsAndActorInteractions(self.doc, f"{self.path}/processStepsAndActorInteractions")

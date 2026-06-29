@@ -8537,7 +8537,7 @@ BusinessPainPointsSummaryContentForm business_pain_points_summary_content(const 
 //
 // Target business processes at a high level. Each process will be expanded
 // with detailed workflows, triggers, decision points, and exception handling
-// in the BP (Business Processes) document.
+// in the TOM (Target Operating Model) document.
 // Binds a BusinessProcessDescriptions facade to a document and a path (path copied).
 void business_process_descriptions_init(BusinessProcessDescriptions *self, SpecDocument *doc, const char *path);
 void business_process_descriptions_free(BusinessProcessDescriptions *self);
@@ -18664,7 +18664,7 @@ void interaction_dependency_analysis_set_content(InteractionDependencyAnalysis *
 // An interaction entry.
 //
 // Comprehensive interaction definition following Cockburn's fully dressed
-// use case template. Seeds the UC (Use Case) document.
+// use case template. Seeds the ISC (Interaction Scenarios) document.
 // Binds a InteractionEntry facade to a document and a path (path copied).
 void interaction_entry_init(InteractionEntry *self, SpecDocument *doc, const char *path);
 void interaction_entry_free(InteractionEntry *self);
@@ -24202,11 +24202,11 @@ void process_sla_entry_init(ProcessSlaEntry *self, SpecDocument *doc, const char
 void process_sla_entry_free(ProcessSlaEntry *self);
 ProcessSlaEntryContentForm process_sla_entry_content(const ProcessSlaEntry *self);
 
-// 6.2. Process Steps and Actor Interactions. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
 //
 // Key process steps with their actor interactions. Each interaction will be
 // expanded into a full use case with alternate paths, preconditions, and
-// postconditions in the UC document. Follows Cockburn-style use case modeling.
+// postconditions in the ISC document. Follows Cockburn-style use case modeling.
 // Binds a ProcessStepsAndActorInteractions facade to a document and a path (path copied).
 void process_steps_and_actor_interactions_init(ProcessStepsAndActorInteractions *self, SpecDocument *doc, const char *path);
 void process_steps_and_actor_interactions_free(ProcessStepsAndActorInteractions *self);
@@ -30990,12 +30990,12 @@ StrategicAlignment system_purpose_strategic_alignment(const SystemPurpose *self)
 // 4.1.1.6. Scope Boundaries.
 ScopeBoundaries system_purpose_scope_boundaries(const SystemPurpose *self);
 
-// 11. System Quality Goals. Seeds → BQP.
+// 11. System Quality Goals. Seeds → QAP.
 //
 // Quality goals selected from standard quality criteria and operationalized
 // for project-specific acceptance testing. Provides governing structure for
-// all quality attributes and acceptance criteria. Seeds the BQP (Business
-// Quality Plan) document where quality goals are expanded into measurable
+// all quality attributes and acceptance criteria. Seeds the QAP (Quality &
+// Acceptance Plan) document where quality goals are expanded into measurable
 // targets, verification methods, and acceptance criteria.
 // Binds a SystemQualityGoals facade to a document and a path (path copied).
 void system_quality_goals_init(SystemQualityGoals *self, SpecDocument *doc, const char *path);
@@ -31419,9 +31419,9 @@ void target_business_process_model_init(TargetBusinessProcessModel *self, SpecDo
 void target_business_process_model_free(TargetBusinessProcessModel *self);
 char *target_business_process_model_content(const TargetBusinessProcessModel *self);
 void target_business_process_model_set_content(TargetBusinessProcessModel *self, const char *value);
-// 6.1. Business Process Descriptions. Seeds → BP.
+// 6.1. Business Process Descriptions. Seeds → TOM.
 BusinessProcessDescriptions target_business_process_model_business_process_descriptions(const TargetBusinessProcessModel *self);
-// 6.2. Process Steps and Actor Interactions. Seeds → UC.
+// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
 ProcessStepsAndActorInteractions target_business_process_model_process_steps_and_actor_interactions(const TargetBusinessProcessModel *self);
 
 // SBP.7 Target Operating Model concept.

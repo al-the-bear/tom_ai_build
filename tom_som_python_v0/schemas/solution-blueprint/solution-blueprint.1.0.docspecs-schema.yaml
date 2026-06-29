@@ -7590,7 +7590,7 @@ section-types:
     description: 6.1.1. Process Vision.
   PSAAI:
     prefix: psaai
-    description: 6.2. Process Steps and Actor Interactions. Seeds → UC.
+    description: 6.2. Process Steps and Actor Interactions. Seeds → ISC.
   PSCEN:
     prefix: pscen
     description: A persona scenario entry (form).
@@ -12112,7 +12112,7 @@ section-types:
     description: 4. System Overview.
   SYQG:
     prefix: syqg
-    description: 11. System Quality Goals. Seeds → BQP.
+    description: 11. System Quality Goals. Seeds → QAP.
   SYTR:
     prefix: sytr
     description: System training entry (form).
