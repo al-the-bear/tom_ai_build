@@ -11424,7 +11424,7 @@ section-types:
     description: 9.4.6. Role Hierarchy.
   ROLC:
     prefix: rolc
-    description: 15. System Rollout Concept. Seeds → SR.
+    description: 15. System Rollout Concept. Seeds → TRP.
   ROMA:
     prefix: roma
     description: 9.7. Role Matrix.
@@ -11983,7 +11983,7 @@ section-types:
     description: Single Sign-On policy (form).
   SSPL:
     prefix: sspl
-    description: 13. System Stage Plan. Seeds → PPP.
+    description: 13. System Stage Plan. Seeds → DRM.
   SSRB:
     prefix: ssrb
     description: Backup storage requirements.

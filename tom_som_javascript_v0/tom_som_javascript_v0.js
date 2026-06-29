@@ -26910,8 +26910,8 @@ class KeyTouchpointEntry extends SomNode {
 
 // 15.7. Knowledge Transfer.
 //
-// Handover from delivery team to operations. Covers EK09 Handover
-// Agreement content.
+// Handover from delivery team to operations. Covers handover-agreement
+// content.
 class KnowledgeTransfer extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -29231,7 +29231,7 @@ class MigrationPhases extends SomNode {
 
 // 15.2. Migration Plan.
 //
-// End-to-end system migration plan covering DR22 Migration Plan content:
+// End-to-end system migration plan covering migration-plan content:
 // data, configuration, integration, and user migration from the current
 // landscape to the target.
 class MigrationPlan extends SomNode {
@@ -41110,7 +41110,7 @@ class RollbackStrategyTriggers extends SomNode {
 
 // 15.1. Rollout Plan.
 //
-// Geographic and/or user-group rollout plan covering DR23 Rollout Plan
+// Geographic and/or user-group rollout plan covering rollout-plan
 // content: the sequencing of sites, countries, business units, and user
 // cohorts across the go-live waves.
 class RolloutPlan extends SomNode {
@@ -41129,7 +41129,7 @@ class RolloutPlan extends SomNode {
 
 // 15.4. Training Materials.
 //
-// Training deliverables covering DR17 Training Materials content.
+// Training deliverables covering training-material content.
 class RolloutTrainingMaterials extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -49239,7 +49239,7 @@ class SystemReplacementStrategyTimeline extends SomNode {
   }
 }
 
-// 15. System Rollout Concept. Seeds → SR.
+// 15. System Rollout Concept. Seeds → TRP.
 class SystemRolloutConcept extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -49294,7 +49294,7 @@ class SystemRolloutConcept extends SomNode {
   }
 }
 
-// 13. System Stage Plan. Seeds → PPP.
+// 13. System Stage Plan. Seeds → DRM.
 //
 // Define the overall staging strategy for the system rollout. A stage
 // is a meaningful, self-contained subset of the complete system that
@@ -54746,7 +54746,7 @@ class UserManagement extends SomNode {
 
 // 15.3. User Manuals.
 //
-// End-user documentation deliverables covering DR15 User Manual content.
+// End-user documentation deliverables covering user-manual content.
 class UserManuals extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -55666,7 +55666,7 @@ class VulnerabilityManagementPolicyReporting extends SomNode {
 // 15.8. Warranty and Support.
 //
 // Post-acceptance warranty period terms and support arrangements. Covers
-// EK10 warranty content and feeds the SR top-level on the same topic.
+// warranty content and feeds the TRP top-level on the same topic.
 class WarrantyAndSupport extends SomNode {
   constructor(doc, path) {
     super(doc, path);

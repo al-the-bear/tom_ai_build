@@ -19561,8 +19561,8 @@ void key_touchpoint_entry_set_content(KeyTouchpointEntry *self, const char *valu
 
 // 15.7. Knowledge Transfer.
 //
-// Handover from delivery team to operations. Covers EK09 Handover
-// Agreement content.
+// Handover from delivery team to operations. Covers handover-agreement
+// content.
 // Binds a KnowledgeTransfer facade to a document and a path (path copied).
 void knowledge_transfer_init(KnowledgeTransfer *self, SpecDocument *doc, const char *path);
 void knowledge_transfer_free(KnowledgeTransfer *self);
@@ -20761,7 +20761,7 @@ SomList migration_phases_items(const MigrationPhases *self);
 
 // 15.2. Migration Plan.
 //
-// End-to-end system migration plan covering DR22 Migration Plan content:
+// End-to-end system migration plan covering migration-plan content:
 // data, configuration, integration, and user migration from the current
 // landscape to the target.
 // Binds a MigrationPlan facade to a document and a path (path copied).
@@ -26914,7 +26914,7 @@ RollbackStrategyTriggersContentForm rollback_strategy_triggers_content(const Rol
 
 // 15.1. Rollout Plan.
 //
-// Geographic and/or user-group rollout plan covering DR23 Rollout Plan
+// Geographic and/or user-group rollout plan covering rollout-plan
 // content: the sequencing of sites, countries, business units, and user
 // cohorts across the go-live waves.
 // Binds a RolloutPlan facade to a document and a path (path copied).
@@ -26925,7 +26925,7 @@ void rollout_plan_set_content(RolloutPlan *self, const char *value);
 
 // 15.4. Training Materials.
 //
-// Training deliverables covering DR17 Training Materials content.
+// Training deliverables covering training-material content.
 // Binds a RolloutTrainingMaterials facade to a document and a path (path copied).
 void rollout_training_materials_init(RolloutTrainingMaterials *self, SpecDocument *doc, const char *path);
 void rollout_training_materials_free(RolloutTrainingMaterials *self);
@@ -31091,7 +31091,7 @@ void system_replacement_strategy_timeline_init(SystemReplacementStrategyTimeline
 void system_replacement_strategy_timeline_free(SystemReplacementStrategyTimeline *self);
 SystemReplacementStrategyTimelineContentForm system_replacement_strategy_timeline_content(const SystemReplacementStrategyTimeline *self);
 
-// 15. System Rollout Concept. Seeds → SR.
+// 15. System Rollout Concept. Seeds → TRP.
 // Binds a SystemRolloutConcept facade to a document and a path (path copied).
 void system_rollout_concept_init(SystemRolloutConcept *self, SpecDocument *doc, const char *path);
 void system_rollout_concept_free(SystemRolloutConcept *self);
@@ -31117,7 +31117,7 @@ KnowledgeTransfer system_rollout_concept_knowledge_transfer(const SystemRolloutC
 // 15.8. Warranty and Support.
 WarrantyAndSupport system_rollout_concept_warranty_and_support(const SystemRolloutConcept *self);
 
-// 13. System Stage Plan. Seeds → PPP.
+// 13. System Stage Plan. Seeds → DRM.
 //
 // Define the overall staging strategy for the system rollout. A stage
 // is a meaningful, self-contained subset of the complete system that
@@ -33935,7 +33935,7 @@ UserAttributes user_management_user_attributes(const UserManagement *self);
 
 // 15.3. User Manuals.
 //
-// End-user documentation deliverables covering DR15 User Manual content.
+// End-user documentation deliverables covering user-manual content.
 // Binds a UserManuals facade to a document and a path (path copied).
 void user_manuals_init(UserManuals *self, SpecDocument *doc, const char *path);
 void user_manuals_free(UserManuals *self);
@@ -34409,7 +34409,7 @@ VulnerabilityManagementPolicyReportingContentForm vulnerability_management_polic
 // 15.8. Warranty and Support.
 //
 // Post-acceptance warranty period terms and support arrangements. Covers
-// EK10 warranty content and feeds the SR top-level on the same topic.
+// warranty content and feeds the TRP top-level on the same topic.
 // Binds a WarrantyAndSupport facade to a document and a path (path copied).
 void warranty_and_support_init(WarrantyAndSupport *self, SpecDocument *doc, const char *path);
 void warranty_and_support_free(WarrantyAndSupport *self);

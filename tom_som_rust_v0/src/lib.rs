@@ -35165,8 +35165,8 @@ impl KeyTouchpointEntry {
 
 /// 15.7. Knowledge Transfer.
 ///
-/// Handover from delivery team to operations. Covers EK09 Handover
-/// Agreement content.
+/// Handover from delivery team to operations. Covers handover-agreement
+/// content.
 pub struct KnowledgeTransfer {
     pub node: som::SomNode,
 }
@@ -38216,7 +38216,7 @@ impl MigrationPhases {
 
 /// 15.2. Migration Plan.
 ///
-/// End-to-end system migration plan covering DR22 Migration Plan content:
+/// End-to-end system migration plan covering migration-plan content:
 /// data, configuration, integration, and user migration from the current
 /// landscape to the target.
 pub struct MigrationPlan {
@@ -53980,7 +53980,7 @@ impl RollbackStrategyTriggers {
 
 /// 15.1. Rollout Plan.
 ///
-/// Geographic and/or user-group rollout plan covering DR23 Rollout Plan
+/// Geographic and/or user-group rollout plan covering rollout-plan
 /// content: the sequencing of sites, countries, business units, and user
 /// cohorts across the go-live waves.
 pub struct RolloutPlan {
@@ -54005,7 +54005,7 @@ impl RolloutPlan {
 
 /// 15.4. Training Materials.
 ///
-/// Training deliverables covering DR17 Training Materials content.
+/// Training deliverables covering training-material content.
 pub struct RolloutTrainingMaterials {
     pub node: som::SomNode,
 }
@@ -64606,7 +64606,7 @@ impl SystemReplacementStrategyTimeline {
     }
 }
 
-/// 15. System Rollout Concept. Seeds → SR.
+/// 15. System Rollout Concept. Seeds → TRP.
 pub struct SystemRolloutConcept {
     pub node: som::SomNode,
 }
@@ -64679,7 +64679,7 @@ impl SystemRolloutConcept {
     }
 }
 
-/// 13. System Stage Plan. Seeds → PPP.
+/// 13. System Stage Plan. Seeds → DRM.
 ///
 /// Define the overall staging strategy for the system rollout. A stage
 /// is a meaningful, self-contained subset of the complete system that
@@ -71828,7 +71828,7 @@ impl UserManagement {
 
 /// 15.3. User Manuals.
 ///
-/// End-user documentation deliverables covering DR15 User Manual content.
+/// End-user documentation deliverables covering user-manual content.
 pub struct UserManuals {
     pub node: som::SomNode,
 }
@@ -73047,7 +73047,7 @@ impl VulnerabilityManagementPolicyReporting {
 /// 15.8. Warranty and Support.
 ///
 /// Post-acceptance warranty period terms and support arrangements. Covers
-/// EK10 warranty content and feeds the SR top-level on the same topic.
+/// warranty content and feeds the TRP top-level on the same topic.
 pub struct WarrantyAndSupport {
     pub node: som::SomNode,
 }

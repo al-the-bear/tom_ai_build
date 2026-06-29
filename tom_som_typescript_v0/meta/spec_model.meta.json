@@ -94675,7 +94675,7 @@
     "KnowledgeTransfer": {
       "name": "KnowledgeTransfer",
       "sectionId": "KNTFR",
-      "doc": "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers EK09 Handover\nAgreement content.",
+      "doc": "15.7. Knowledge Transfer.\n\nHandover from delivery team to operations. Covers handover-agreement\ncontent.",
       "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {
@@ -103354,7 +103354,7 @@
     "MigrationPlan": {
       "name": "MigrationPlan",
       "sectionId": "MIGPLN",
-      "doc": "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering DR22 Migration Plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.",
+      "doc": "15.2. Migration Plan.\n\nEnd-to-end system migration plan covering migration-plan content:\ndata, configuration, integration, and user migration from the current\nlandscape to the target.",
       "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {
@@ -103381,12 +103381,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "System migration plan distinct from DR22 per-data-entity mapping\n. Focuses on the execution plan.\n\n**What to capture:**\n- Migration scope (systems, data domains, users, integrations)\n- Migration approach (big-bang / trickle / parallel run)\n- Data extract / transform / load windows\n- Validation rules and reconciliation approach\n- Dress-rehearsal schedule and acceptance criteria\n- Fallback / rollback procedure and triggers\n- Roles and responsibilities during migration\n",
+          "help": "System migration plan distinct from the per-data-entity migration\nmapping. Focuses on the execution plan.\n\n**What to capture:**\n- Migration scope (systems, data domains, users, integrations)\n- Migration approach (big-bang / trickle / parallel run)\n- Data extract / transform / load windows\n- Validation rules and reconciliation approach\n- Dress-rehearsal schedule and acceptance criteria\n- Fallback / rollback procedure and triggers\n- Roles and responsibilities during migration\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "System migration plan distinct from DR22 per-data-entity mapping\n. Focuses on the execution plan.\n\n**What to capture:**\n- Migration scope (systems, data domains, users, integrations)\n- Migration approach (big-bang / trickle / parallel run)\n- Data extract / transform / load windows\n- Validation rules and reconciliation approach\n- Dress-rehearsal schedule and acceptance criteria\n- Fallback / rollback procedure and triggers\n- Roles and responsibilities during migration\n"
+                "guidance": "System migration plan distinct from the per-data-entity migration\nmapping. Focuses on the execution plan.\n\n**What to capture:**\n- Migration scope (systems, data domains, users, integrations)\n- Migration approach (big-bang / trickle / parallel run)\n- Data extract / transform / load windows\n- Validation rules and reconciliation approach\n- Dress-rehearsal schedule and acceptance criteria\n- Fallback / rollback procedure and triggers\n- Roles and responsibilities during migration\n"
               }
             }
           ],
@@ -148717,7 +148717,7 @@
     "RolloutPlan": {
       "name": "RolloutPlan",
       "sectionId": "RLTPLN",
-      "doc": "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering DR23 Rollout Plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.",
+      "doc": "15.1. Rollout Plan.\n\nGeographic and/or user-group rollout plan covering rollout-plan\ncontent: the sequencing of sites, countries, business units, and user\ncohorts across the go-live waves.",
       "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {
@@ -148760,7 +148760,7 @@
     "RolloutTrainingMaterials": {
       "name": "RolloutTrainingMaterials",
       "sectionId": "RLTTM",
-      "doc": "15.4. Training Materials.\n\nTraining deliverables covering DR17 Training Materials content.",
+      "doc": "15.4. Training Materials.\n\nTraining deliverables covering training-material content.",
       "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {
@@ -177435,7 +177435,7 @@
     "SystemRolloutConcept": {
       "name": "SystemRolloutConcept",
       "sectionId": "ROLC",
-      "doc": "15. System Rollout Concept. Seeds → SR.",
+      "doc": "15. System Rollout Concept. Seeds → TRP.",
       "mapsTo": "D12TransitionRolloutPlan",
       "annotations": [
         {
@@ -177447,7 +177447,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → SR"
+            "text": "Seeds → TRP"
           }
         },
         {
@@ -177461,12 +177461,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Executive summary of the rollout approach: from pilot through phased\nrollout, migration, user enablement, cutover, knowledge transfer, and\npost-go-live support. Seeds the SR document (Phase 3) together with the\nlocalization, translation, and documentation subtrees.\n",
+          "help": "Executive summary of the rollout approach: from pilot through phased\nrollout, migration, user enablement, cutover, knowledge transfer, and\npost-go-live support. Seeds the TRP document (Phase 3) together with the\nlocalization, translation, and documentation subtrees.\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Executive summary of the rollout approach: from pilot through phased\nrollout, migration, user enablement, cutover, knowledge transfer, and\npost-go-live support. Seeds the SR document (Phase 3) together with the\nlocalization, translation, and documentation subtrees.\n"
+                "guidance": "Executive summary of the rollout approach: from pilot through phased\nrollout, migration, user enablement, cutover, knowledge transfer, and\npost-go-live support. Seeds the TRP document (Phase 3) together with the\nlocalization, translation, and documentation subtrees.\n"
               }
             }
           ],
@@ -177576,7 +177576,7 @@
     "SystemStagePlan": {
       "name": "SystemStagePlan",
       "sectionId": "SSPL",
-      "doc": "13. System Stage Plan. Seeds → PPP.\n\nDefine the overall staging strategy for the system rollout. A stage\nis a meaningful, self-contained subset of the complete system that\ndelivers measurable business value. Stages build upon each other\nprogressively until the full system is operational. Aligns with\nPMBOK phase-gate methodology, SAFe PI planning, and PRINCE2 stage\nboundary management.",
+      "doc": "13. System Stage Plan. Seeds → DRM.\n\nDefine the overall staging strategy for the system rollout. A stage\nis a meaningful, self-contained subset of the complete system that\ndelivers measurable business value. Stages build upon each other\nprogressively until the full system is operational. Aligns with\nPMBOK phase-gate methodology, SAFe PI planning, and PRINCE2 stage\nboundary management.",
       "mapsTo": "D11DeliveryRoadmap",
       "annotations": [
         {
@@ -177588,7 +177588,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → PPP"
+            "text": "Seeds → DRM"
           }
         },
         {
@@ -197753,7 +197753,7 @@
     "UserManuals": {
       "name": "UserManuals",
       "sectionId": "USRMAN",
-      "doc": "15.3. User Manuals.\n\nEnd-user documentation deliverables covering DR15 User Manual content.",
+      "doc": "15.3. User Manuals.\n\nEnd-user documentation deliverables covering user-manual content.",
       "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {
@@ -201083,7 +201083,7 @@
     "WarrantyAndSupport": {
       "name": "WarrantyAndSupport",
       "sectionId": "WRTSP",
-      "doc": "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nEK10 warranty content and feeds the SR top-level on the same topic.",
+      "doc": "15.8. Warranty and Support.\n\nPost-acceptance warranty period terms and support arrangements. Covers\nwarranty content and feeds the TRP top-level on the same topic.",
       "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {

@@ -1,28 +1,28 @@
 /// Section 15: System Rollout Concept.
 ///
-/// Rollout-related planning that seeds the SR (System Rollout) Phase 3
-/// DocSpec. Covers rollout plan, migration, user documentation, training,
-/// pilot, cutover, knowledge transfer, and warranty.
+/// Rollout-related planning that seeds the TRP (Transition & Rollout Plan)
+/// Phase 3 DocSpec. Covers rollout plan, migration, user documentation,
+/// training, pilot, cutover, knowledge transfer, and warranty.
 ///
 /// This class is named `SystemRolloutConcept` so the `…Concept` suffix
 /// matches the convention used by `TechnicalFrameworkConcept` and
 /// `SecurityAndAccessModel`. The clean name `D12TransitionRolloutPlan` is
-/// reserved for the SR target-doc class.
+/// reserved for the TRP target-doc class.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 15. System Rollout Concept. Seeds → SR.
+/// 15. System Rollout Concept. Seeds → TRP.
 @SectionId('ROLC')
-@Comment('Seeds → SR')
+@Comment('Seeds → TRP')
 @MapsTo(D12TransitionRolloutPlan)
 class SystemRolloutConcept {
   @ContentHelp('''
 Executive summary of the rollout approach: from pilot through phased
 rollout, migration, user enablement, cutover, knowledge transfer, and
-post-go-live support. Seeds the SR document (Phase 3) together with the
+post-go-live support. Seeds the TRP document (Phase 3) together with the
 localization, translation, and documentation subtrees.
 ''')
   String? content;
@@ -64,7 +64,7 @@ localization, translation, and documentation subtrees.
 
 /// 15.1. Rollout Plan.
 ///
-/// Geographic and/or user-group rollout plan covering DR23 Rollout Plan
+/// Geographic and/or user-group rollout plan covering rollout-plan
 /// content: the sequencing of sites, countries, business units, and user
 /// cohorts across the go-live waves.
 @SectionId('RLTPLN')
@@ -92,7 +92,7 @@ pre-go-live to production.
 
 /// 15.2. Migration Plan.
 ///
-/// End-to-end system migration plan covering DR22 Migration Plan content:
+/// End-to-end system migration plan covering migration-plan content:
 /// data, configuration, integration, and user migration from the current
 /// landscape to the target.
 @SectionId('MIGPLN')
@@ -100,8 +100,8 @@ pre-go-live to production.
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-MIG')
 class MigrationPlan {
   @ContentHelp('''
-System migration plan distinct from DR22 per-data-entity mapping
-. Focuses on the execution plan.
+System migration plan distinct from the per-data-entity migration
+mapping. Focuses on the execution plan.
 
 **What to capture:**
 - Migration scope (systems, data domains, users, integrations)
@@ -121,7 +121,7 @@ System migration plan distinct from DR22 per-data-entity mapping
 
 /// 15.3. User Manuals.
 ///
-/// End-user documentation deliverables covering DR15 User Manual content.
+/// End-user documentation deliverables covering user-manual content.
 @SectionId('USRMAN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-DOC')
@@ -149,7 +149,7 @@ the help-concept section).
 
 /// 15.4. Training Materials.
 ///
-/// Training deliverables covering DR17 Training Materials content.
+/// Training deliverables covering training-material content.
 @SectionId('RLTTM')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-TRN')
@@ -232,8 +232,8 @@ waves — and than the Migration Plan — which covers data execution.
 
 /// 15.7. Knowledge Transfer.
 ///
-/// Handover from delivery team to operations. Covers EK09 Handover
-/// Agreement content.
+/// Handover from delivery team to operations. Covers handover-agreement
+/// content.
 @SectionId('KNTFR')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-KNO')
@@ -259,7 +259,7 @@ Formal handover of system knowledge to operations and support teams.
 /// 15.8. Warranty and Support.
 ///
 /// Post-acceptance warranty period terms and support arrangements. Covers
-/// EK10 warranty content and feeds the SR top-level on the same topic.
+/// warranty content and feeds the TRP top-level on the same topic.
 @SectionId('WRTSP')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-WAR')

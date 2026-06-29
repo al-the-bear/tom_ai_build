@@ -1,4 +1,4 @@
-/// Section 13: System Stage Plan. Seeds → PPP.
+/// Section 13: System Stage Plan. Seeds → DRM.
 ///
 /// System stages are meaningful subsets of the functional system.
 library;
@@ -9,7 +9,7 @@ import '../document_stubs.dart';
 
 
 
-/// 13. System Stage Plan. Seeds → PPP.
+/// 13. System Stage Plan. Seeds → DRM.
 ///
 /// Define the overall staging strategy for the system rollout. A stage
 /// is a meaningful, self-contained subset of the complete system that
@@ -18,7 +18,7 @@ import '../document_stubs.dart';
 /// PMBOK phase-gate methodology, SAFe PI planning, and PRINCE2 stage
 /// boundary management.
 @SectionId('SSPL')
-@Comment('Seeds → PPP')
+@Comment('Seeds → DRM')
 @MapsTo(D11DeliveryRoadmap)
 class SystemStagePlan {
   @Form([
