@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T15:44:47.600797Z",
+  "generatedAt": "2026-06-29T15:51:28.430383Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+5.67662f0",
@@ -84847,7 +84847,7 @@
     "InformationAndDataModel": {
       "name": "InformationAndDataModel",
       "sectionId": "BODM",
-      "doc": "7. Business Object and Data Model. Seeds → BDM.",
+      "doc": "7. Business Object and Data Model. Seeds → IFM.",
       "mapsTo": "D03InformationModel",
       "annotations": [
         {
@@ -84859,7 +84859,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → BDM"
+            "text": "Seeds → IFM"
           }
         },
         {
@@ -84873,12 +84873,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Conceptual overview of the business data the system manages. This chapter\nestablishes the foundation for all data-related specifications and seeds the\nBDM (Business Data Model) document.\n\n**Key Components:**\n- **Data Model** — Entity definitions with attributes, keys, indexes, and relationships\n- **Business Object Model** — Domain objects with lifecycle states, operations, and invariants\n- **Function Model** — Business functions with decomposition and data access matrix\n\n**Best Practices:**\n- Follow Domain-Driven Design patterns (AggregateRoot, Entity, ValueObject)\n- Use SBVR-style business rule statements\n- Apply data classification framework (ISO 27001, NIST)\n- Document CRUD access patterns in function-to-data matrix\n- Include compliance frameworks (GDPR, HIPAA, SOX, PCI-DSS) for PII/PHI data\n",
+          "help": "Conceptual overview of the business data the system manages. This chapter\nestablishes the foundation for all data-related specifications and seeds the\nIFM (Information Model) document.\n\n**Key Components:**\n- **Data Model** — Entity definitions with attributes, keys, indexes, and relationships\n- **Business Object Model** — Domain objects with lifecycle states, operations, and invariants\n- **Function Model** — Business functions with decomposition and data access matrix\n\n**Best Practices:**\n- Follow Domain-Driven Design patterns (AggregateRoot, Entity, ValueObject)\n- Use SBVR-style business rule statements\n- Apply data classification framework (ISO 27001, NIST)\n- Document CRUD access patterns in function-to-data matrix\n- Include compliance frameworks (GDPR, HIPAA, SOX, PCI-DSS) for PII/PHI data\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Conceptual overview of the business data the system manages. This chapter\nestablishes the foundation for all data-related specifications and seeds the\nBDM (Business Data Model) document.\n\n**Key Components:**\n- **Data Model** — Entity definitions with attributes, keys, indexes, and relationships\n- **Business Object Model** — Domain objects with lifecycle states, operations, and invariants\n- **Function Model** — Business functions with decomposition and data access matrix\n\n**Best Practices:**\n- Follow Domain-Driven Design patterns (AggregateRoot, Entity, ValueObject)\n- Use SBVR-style business rule statements\n- Apply data classification framework (ISO 27001, NIST)\n- Document CRUD access patterns in function-to-data matrix\n- Include compliance frameworks (GDPR, HIPAA, SOX, PCI-DSS) for PII/PHI data\n"
+                "guidance": "Conceptual overview of the business data the system manages. This chapter\nestablishes the foundation for all data-related specifications and seeds the\nIFM (Information Model) document.\n\n**Key Components:**\n- **Data Model** — Entity definitions with attributes, keys, indexes, and relationships\n- **Business Object Model** — Domain objects with lifecycle states, operations, and invariants\n- **Function Model** — Business functions with decomposition and data access matrix\n\n**Best Practices:**\n- Follow Domain-Driven Design patterns (AggregateRoot, Entity, ValueObject)\n- Use SBVR-style business rule statements\n- Apply data classification framework (ISO 27001, NIST)\n- Document CRUD access patterns in function-to-data matrix\n- Include compliance frameworks (GDPR, HIPAA, SOX, PCI-DSS) for PII/PHI data\n"
               }
             }
           ],

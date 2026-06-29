@@ -21828,7 +21828,7 @@ class IndustryStandardEntryVerification(SomNode):
         return IndustryStandardEntryVerificationContentForm(self.doc, f"{self.path}/content")
 
 class InformationAndDataModel(SomNode):
-    """7. Business Object and Data Model. Seeds → BDM."""
+    """7. Business Object and Data Model. Seeds → IFM."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 

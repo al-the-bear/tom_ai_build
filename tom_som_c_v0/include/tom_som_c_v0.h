@@ -18145,7 +18145,7 @@ void industry_standard_entry_verification_init(IndustryStandardEntryVerification
 void industry_standard_entry_verification_free(IndustryStandardEntryVerification *self);
 IndustryStandardEntryVerificationContentForm industry_standard_entry_verification_content(const IndustryStandardEntryVerification *self);
 
-// 7. Business Object and Data Model. Seeds → BDM.
+// 7. Business Object and Data Model. Seeds → IFM.
 // Binds a InformationAndDataModel facade to a document and a path (path copied).
 void information_and_data_model_init(InformationAndDataModel *self, SpecDocument *doc, const char *path);
 void information_and_data_model_free(InformationAndDataModel *self);

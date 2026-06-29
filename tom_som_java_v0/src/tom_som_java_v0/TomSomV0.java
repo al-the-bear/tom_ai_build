@@ -24187,7 +24187,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 7. Business Object and Data Model. Seeds → BDM.
+  // 7. Business Object and Data Model. Seeds → IFM.
   public static final class InformationAndDataModel extends SomNode {
     public InformationAndDataModel(SpecDocument doc, String path) {
       super(doc, path);

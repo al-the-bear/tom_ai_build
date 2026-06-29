@@ -9018,7 +9018,7 @@ section-types:
     description: 4.5.3. Assumptions.
   BODM:
     prefix: bodm
-    description: 7. Business Object and Data Model. Seeds → BDM.
+    description: 7. Business Object and Data Model. Seeds → IFM.
   BPER:
     prefix: bper
     description: Retention policies for backup.

@@ -19452,7 +19452,7 @@ class IndustryStandardEntryVerification : public som::SomNode {
   IndustryStandardEntryVerificationContentForm content() const;
 };
 
-// 7. Business Object and Data Model. Seeds → BDM.
+// 7. Business Object and Data Model. Seeds → IFM.
 class InformationAndDataModel : public som::SomNode {
  public:
   InformationAndDataModel(som::SpecDocument& doc, std::string path);

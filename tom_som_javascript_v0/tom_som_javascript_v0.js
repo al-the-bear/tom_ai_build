@@ -24188,7 +24188,7 @@ class IndustryStandardEntryVerification extends SomNode {
   }
 }
 
-// 7. Business Object and Data Model. Seeds → BDM.
+// 7. Business Object and Data Model. Seeds → IFM.
 class InformationAndDataModel extends SomNode {
   constructor(doc, path) {
     super(doc, path);

@@ -31555,7 +31555,7 @@ impl IndustryStandardEntryVerification {
     }
 }
 
-/// 7. Business Object and Data Model. Seeds → BDM.
+/// 7. Business Object and Data Model. Seeds → IFM.
 pub struct InformationAndDataModel {
     pub node: som::SomNode,
 }

@@ -15113,7 +15113,7 @@ class IndustryStandardEntryVerification extends SomNode {
   IndustryStandardEntryVerificationContentForm get content => IndustryStandardEntryVerificationContentForm(doc, '$path/content');
 }
 
-/// 7. Business Object and Data Model. Seeds → BDM.
+/// 7. Business Object and Data Model. Seeds → IFM.
 class InformationAndDataModel extends SomNode {
   InformationAndDataModel(super.doc, super.path);
 

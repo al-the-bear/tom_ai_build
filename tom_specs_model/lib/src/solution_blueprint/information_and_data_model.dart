@@ -1,4 +1,4 @@
-/// Section 7: Business Object and Data Model. Seeds → BDM.
+/// Section 7: Business Object and Data Model. Seeds → IFM.
 ///
 /// Conceptual overview of the business data the system manages.
 library;
@@ -9,15 +9,15 @@ import '../document_stubs.dart';
 
 
 
-/// 7. Business Object and Data Model. Seeds → BDM.
+/// 7. Business Object and Data Model. Seeds → IFM.
 @SectionId('BODM')
-@Comment('Seeds → BDM')
+@Comment('Seeds → IFM')
 @MapsTo(D03InformationModel)
 class InformationAndDataModel {
   @ContentHelp('''
 Conceptual overview of the business data the system manages. This chapter
 establishes the foundation for all data-related specifications and seeds the
-BDM (Business Data Model) document.
+IFM (Information Model) document.
 
 **Key Components:**
 - **Data Model** — Entity definitions with attributes, keys, indexes, and relationships

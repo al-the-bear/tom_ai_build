@@ -28330,7 +28330,7 @@ func (x *IndustryStandardEntryVerification) Content() *IndustryStandardEntryVeri
 	return NewIndustryStandardEntryVerificationContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 7. Business Object and Data Model. Seeds → BDM.
+// 7. Business Object and Data Model. Seeds → IFM.
 type InformationAndDataModel struct {
 	som.SomNode
 }
