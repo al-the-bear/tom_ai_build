@@ -31,27 +31,27 @@ int main(void) {
   SpecDocument doc;
   spec_document_init(&doc);
 
-  ProjectDefinition pd;
-  if (project_definition_new(&pd, &doc, "", NULL) != 0) {
-    fprintf(stderr, "failed to create ProjectDefinition\n");
+  D00SolutionBlueprint pd;
+  if (d00_solution_blueprint_new(&pd, &doc, "", NULL) != 0) {
+    fprintf(stderr, "failed to create D00SolutionBlueprint\n");
     return 1;
   }
 
   printf("Model version of this typed facade: %s\n",
-         project_definition_object_model_version(&pd));
+         d00_solution_blueprint_object_model_version(&pd));
   printf("Root path: %s\n\n", som_node_path(&pd.node));
 
   /* 1) A content leaf directly on the root. */
-  project_definition_set_content(
+  d00_solution_blueprint_set_content(
       &pd, "A platform that unifies our fragmented order systems.");
 
   /* 2) Navigate into a nested complex section and edit its own content leaf. */
-  CurrentStateAnalysis csa = project_definition_current_state_analysis(&pd);
-  current_state_analysis_set_content(
+  CurrentLandscape csa = d00_solution_blueprint_current_landscape(&pd);
+  current_landscape_set_content(
       &csa, "Three legacy systems with no shared customer record.");
 
   /* 3) The path-based collection API: append two list items and edit each. */
-  SomList metrics = current_state_analysis_operational_metrics(&csa);
+  SomList metrics = current_landscape_operational_metrics(&csa);
   char *p0 = som_list_add(&metrics);
   CurrentOperationalMetrics m0;
   current_operational_metrics_init(&m0, &doc, p0);
@@ -69,10 +69,10 @@ int main(void) {
   free(p1);
 
   /* Read everything back through the typed accessors. */
-  char *pd_content = project_definition_content(&pd);
-  char *csa_content = current_state_analysis_content(&csa);
-  printf("PD.content              = %s\n", pd_content);
-  printf("PD.currentStateAnalysis = %s\n", csa_content);
+  char *pd_content = d00_solution_blueprint_content(&pd);
+  char *csa_content = current_landscape_content(&csa);
+  printf("SBP.content              = %s\n", pd_content);
+  printf("SBP.currentLandscape = %s\n", csa_content);
   printf("operationalMetrics.length = %zu\n", som_list_length(&metrics));
   free(pd_content);
   free(csa_content);
@@ -91,12 +91,12 @@ int main(void) {
    * the generic document API (this is exactly what sample (b) uses). */
   printf("\nSame value via the generic path (%s/content):\n",
          som_node_path(&csa.node));
-  const char *raw = spec_document_content(&doc, "PD/currentStateAnalysis/content");
+  const char *raw = spec_document_content(&doc, "SBP/currentLandscape/content");
   printf("  %s\n", raw != NULL ? raw : "");
 
   som_list_free(&metrics);
-  current_state_analysis_free(&csa);
-  project_definition_free(&pd);
+  current_landscape_free(&csa);
+  d00_solution_blueprint_free(&pd);
   spec_document_free(&doc);
   return 0;
 }

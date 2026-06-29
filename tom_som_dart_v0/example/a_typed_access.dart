@@ -20,7 +20,7 @@ void main() {
   // A typed root over a fresh, empty document. The constructor also runs the
   // §2.2 instantiation-time version check (an unstamped document is editable).
   final doc = SpecDocument();
-  final pd = ProjectDefinition(doc);
+  final pd = D00SolutionBlueprint(doc);
 
   print('Model version of this typed facade: ${pd.objectModelVersion}');
   print('Root path: ${pd.path}\n');
@@ -30,7 +30,7 @@ void main() {
 
   // 2) Navigate into a nested complex section and edit its own content leaf —
   //    no string paths, just typed accessors.
-  final csa = pd.currentStateAnalysis;
+  final csa = pd.currentLandscape;
   csa.content = 'Three legacy systems with no shared customer record.';
 
   // 3) The typed collection API: append two list items and edit each.
@@ -39,8 +39,8 @@ void main() {
   metrics.add().content = 'Manual reconciliation: ~12 hours / week.';
 
   // Read everything back through the typed getters.
-  print('PD.content              = ${pd.content}');
-  print('PD.currentStateAnalysis = ${csa.content}');
+  print('SBP.content              = ${pd.content}');
+  print('SBP.currentLandscape = ${csa.content}');
   print('operationalMetrics.length = ${metrics.length}');
   for (var i = 0; i < metrics.length; i++) {
     print('  metric[$i] = ${metrics[i].content}');

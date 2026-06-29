@@ -43,25 +43,25 @@ def main() -> int:
 
     # Content leaves are addressed by their full path from the root segment.
     doc.set_content(
-        "PD/content",
+        "SBP/content",
         "A platform that unifies our fragmented order systems.",
     )
     doc.set_content(
-        "PD/currentStateAnalysis/content",
+        "SBP/currentLandscape/content",
         "Three legacy systems with no shared customer record.",
     )
 
     # A list: append items (each call returns the new item's path), then set a
     # content leaf under each. The list path mirrors the typed facade's
     # ``operationalMetrics`` accessor.
-    list_path = "PD/currentStateAnalysis/CUOPME-OPER-LST"
+    list_path = "SBP/currentLandscape/CUOPME-OPER-LST"
     item0 = doc.add_list_item(list_path)
     doc.set_content(f"{item0}/content", "Average order turnaround: 4.2 days.")
     item1 = doc.add_list_item(list_path)
     doc.set_content(f"{item1}/content", "Manual reconciliation: ~12 hours / week.")
 
     # Read back generically.
-    print(f"PD/content = {doc.content('PD/content')}")
+    print(f"SBP/content = {doc.content('SBP/content')}")
     print(f"list item count = {doc.list_item_count(list_path)}")
     for item_path in doc.list_items(list_path):
         print(f"  {item_path}/content = {doc.content(f'{item_path}/content')}")

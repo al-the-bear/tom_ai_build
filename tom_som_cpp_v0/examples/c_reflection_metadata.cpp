@@ -58,10 +58,10 @@ int main(int argc, char** argv) {
               << root.title << "\n";
   }
 
-  // Inspect the fields of the ProjectDefinition root class.
-  const som::SpecRoot* pdRoot = ref.rootForSegment("PD");
+  // Inspect the fields of the D00SolutionBlueprint root class.
+  const som::SpecRoot* pdRoot = ref.rootForSegment("SBP");
   if (pdRoot == nullptr) {
-    std::cout << "PD root not found\n";
+    std::cout << "SBP root not found\n";
     return 1;
   }
   const som::SpecClass* pdCls = model->classNamed(pdRoot->type);
@@ -80,10 +80,10 @@ int main(int argc, char** argv) {
   // Resolve concrete document paths to model nodes (value-free).
   std::cout << "\nPath resolution:\n";
   const std::string paths[] = {
-      "PD",
-      "PD/content",
-      "PD/currentStateAnalysis",
-      "PD/currentStateAnalysis/CUOPME-OPER-LST",
+      "SBP",
+      "SBP/content",
+      "SBP/currentLandscape",
+      "SBP/currentLandscape/CUOPME-OPER-LST",
   };
   for (const std::string& path : paths) {
     std::optional<som::SpecResolution> res = ref.resolve(path);

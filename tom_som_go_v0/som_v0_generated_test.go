@@ -5,7 +5,7 @@
 // against the generic `tom_som_go_runtime` and proves the typed facade is a
 // faithful editing surface over the shared document (spec §3):
 //
-//   - the `ProjectDefinition` root is anchored at the `PD` segment;
+//   - the `D00SolutionBlueprint` root is anchored at the `PD` segment;
 //   - a content leaf round-trips typed → generic and generic → typed;
 //   - a nested complex section derives its path under the root;
 //   - the typed `SomList` collection maps onto the generic list store;
@@ -26,52 +26,52 @@ import (
 
 func TestRootAndParity(t *testing.T) {
 	doc := som.NewSpecDocument()
-	pd, err := NewProjectDefinition(doc, "")
+	pd, err := NewD00SolutionBlueprint(doc, "")
 	if err != nil {
-		t.Fatalf("NewProjectDefinition: %v", err)
+		t.Fatalf("NewD00SolutionBlueprint: %v", err)
 	}
 
-	if pd.Path() != "PD" {
+	if pd.Path() != "SBP" {
 		t.Errorf("root segment = %q, want PD", pd.Path())
 	}
 
 	// Typed write → generic read.
 	pd.SetContent("A clear vision")
-	if got := doc.ContentOr("PD/content"); got != "A clear vision" {
+	if got := doc.ContentOr("SBP/content"); got != "A clear vision" {
 		t.Errorf("content typed->generic = %q, want %q", got, "A clear vision")
 	}
 
 	// Generic write → typed read.
-	doc.SetContent("PD/content", "Revised vision")
+	doc.SetContent("SBP/content", "Revised vision")
 	if got := pd.Content(); got != "Revised vision" {
 		t.Errorf("content generic->typed = %q, want %q", got, "Revised vision")
 	}
 
 	// Unset leaf reads as empty string.
-	fresh, _ := NewProjectDefinition(som.NewSpecDocument(), "")
+	fresh, _ := NewD00SolutionBlueprint(som.NewSpecDocument(), "")
 	if got := fresh.Content(); got != "" {
 		t.Errorf("unset content = %q, want empty", got)
 	}
 
 	// Nested complex section path derivation (camelCase accessor preserved as
 	// the stored segment).
-	csa := pd.CurrentStateAnalysis()
-	if csa.Path() != "PD/currentStateAnalysis" {
-		t.Errorf("nested path = %q, want PD/currentStateAnalysis", csa.Path())
+	csa := pd.CurrentLandscape()
+	if csa.Path() != "SBP/currentLandscape" {
+		t.Errorf("nested path = %q, want SBP/currentLandscape", csa.Path())
 	}
 
 	// A generic value under the nested typed node is addressable via the
 	// expected literal path (typed path == generic path).
 	doc.SetContent(csa.Path()+"/probe", "x")
-	if doc.ContentOr("PD/currentStateAnalysis/probe") != "x" {
+	if doc.ContentOr("SBP/currentLandscape/probe") != "x" {
 		t.Errorf("nested typed-path != generic path")
 	}
 }
 
 func TestTypedList(t *testing.T) {
 	doc := som.NewSpecDocument()
-	pd, _ := NewProjectDefinition(doc, "")
-	metrics := pd.CurrentStateAnalysis().OperationalMetrics()
+	pd, _ := NewD00SolutionBlueprint(doc, "")
+	metrics := pd.CurrentLandscape().OperationalMetrics()
 
 	metrics.Add().SetContent("Average order turnaround: 4.2 days.")
 	metrics.Add().SetContent("Manual reconciliation: ~12 hours / week.")
@@ -83,18 +83,18 @@ func TestTypedList(t *testing.T) {
 		t.Errorf("metric[0] = %q", got)
 	}
 	// Typed list writes land in the generic list store under the same path.
-	listPath := "PD/currentStateAnalysis/CUOPME-OPER-LST"
+	listPath := "SBP/currentLandscape/CUOPME-OPER-LST"
 	if doc.ListItemCount(listPath) != 2 {
 		t.Errorf("generic list count = %d, want 2", doc.ListItemCount(listPath))
 	}
 }
 
 func TestModelVersion(t *testing.T) {
-	if ProjectDefinitionModelVersion != "0.0" {
-		t.Errorf("ProjectDefinitionModelVersion = %q, want 0.0",
-			ProjectDefinitionModelVersion)
+	if D00SolutionBlueprintModelVersion != "0.0" {
+		t.Errorf("D00SolutionBlueprintModelVersion = %q, want 0.0",
+			D00SolutionBlueprintModelVersion)
 	}
-	pd, _ := NewProjectDefinition(som.NewSpecDocument(), "")
+	pd, _ := NewD00SolutionBlueprint(som.NewSpecDocument(), "")
 	if pd.ObjectModelVersion() != "0.0" {
 		t.Errorf("ObjectModelVersion() = %q, want 0.0", pd.ObjectModelVersion())
 	}
@@ -102,22 +102,22 @@ func TestModelVersion(t *testing.T) {
 
 func TestVersionCheck(t *testing.T) {
 	// New / equal-stamp document → accepted.
-	if _, err := NewProjectDefinition(som.NewSpecDocument(), ""); err != nil {
+	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), ""); err != nil {
 		t.Errorf("empty stamp rejected: %v", err)
 	}
-	if _, err := NewProjectDefinition(som.NewSpecDocument(), "0.0"); err != nil {
+	if _, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "0.0"); err != nil {
 		t.Errorf("equal stamp rejected: %v", err)
 	}
 
 	// Newer minor → rejected with a SomVersionError.
-	_, err := NewProjectDefinition(som.NewSpecDocument(), "0.1")
+	_, err := NewD00SolutionBlueprint(som.NewSpecDocument(), "0.1")
 	var verr *som.SomVersionError
 	if err == nil || !errors.As(err, &verr) {
 		t.Errorf("newer-minor stamp: got %v, want *SomVersionError", err)
 	}
 
 	// Different major → rejected with a SomVersionError.
-	_, err = NewProjectDefinition(som.NewSpecDocument(), "1.0")
+	_, err = NewD00SolutionBlueprint(som.NewSpecDocument(), "1.0")
 	if err == nil || !errors.As(err, &verr) {
 		t.Errorf("cross-major stamp: got %v, want *SomVersionError", err)
 	}

@@ -16,13 +16,13 @@
 // crate's Cargo.toml), so the sample is portable across checkouts.
 
 use tom_som_rust_runtime as som;
-use tom_som_rust_v0::ProjectDefinition;
+use tom_som_rust_v0::D00SolutionBlueprint;
 
 fn main() {
     // A typed root over a fresh, empty document. The constructor also runs the
     // §2.2 instantiation-time version check (an empty stamp is editable).
     let doc = som::doc_ref(som::SpecDocument::new());
-    let pd = ProjectDefinition::new(doc.clone(), "").expect("new ProjectDefinition");
+    let pd = D00SolutionBlueprint::new(doc.clone(), "").expect("new D00SolutionBlueprint");
 
     println!(
         "Model version of this typed facade: {}",
@@ -34,7 +34,7 @@ fn main() {
     pd.set_content("A platform that unifies our fragmented order systems.");
 
     // 2) Navigate into a nested complex section and edit its own content leaf.
-    let csa = pd.current_state_analysis();
+    let csa = pd.current_landscape();
     csa.set_content("Three legacy systems with no shared customer record.");
 
     // 3) The typed collection API: append two list items and edit each.
@@ -47,8 +47,8 @@ fn main() {
         .set_content("Manual reconciliation: ~12 hours / week.");
 
     // Read everything back through the typed accessors.
-    println!("PD.content              = {}", pd.content());
-    println!("PD.currentStateAnalysis = {}", csa.content());
+    println!("SBP.content              = {}", pd.content());
+    println!("SBP.currentLandscape = {}", csa.content());
     println!("operationalMetrics.length = {}", metrics.length());
     for i in 0..metrics.length() {
         println!("  metric[{}] = {}", i, metrics.at(i).content());

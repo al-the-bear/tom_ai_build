@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:json2yaml/json2yaml.dart';
+import 'package:path/path.dart' as p;
 import 'package:tom_doc_specs/tom_doc_specs.dart';
 
 import 'model_reader.dart';
@@ -108,6 +111,39 @@ class DocSpecsSchemaGenerator {
   /// The on-disk filename for a schema (e.g. `project-definition.1.0`).
   static String fileNameFor(DocSpecSchema schema) =>
       '${schema.id}.${schema.version}.docspecs-schema.yaml';
+
+  /// Writes the full DocSpecs schema tree under `<outputRoot>/schemas/` and
+  /// returns the written file paths (sorted).
+  ///
+  /// The `schemas/` directory is owned wholesale by the generator, so any
+  /// subdirectory whose name is not a current schema id is **pruned** first.
+  /// Without this, a root that gets renamed or removed leaves a stale
+  /// `*.docspecs-schema.yaml` orphan behind — the per-language emitters write
+  /// new files but never delete obsolete ones, so regeneration was not
+  /// idempotent. Pruning keeps the committed tree a faithful image of the model.
+  static List<String> writeSchemaTree(
+    String outputRoot,
+    Map<String, DocSpecSchema> schemas,
+  ) {
+    final schemasDir = Directory(p.join(outputRoot, 'schemas'));
+    final keepIds = schemas.values.map((s) => s.id).toSet();
+    if (schemasDir.existsSync()) {
+      for (final entity in schemasDir.listSync()) {
+        if (entity is Directory && !keepIds.contains(p.basename(entity.path))) {
+          entity.deleteSync(recursive: true);
+        }
+      }
+    }
+    final paths = <String>[];
+    for (final schema in schemas.values) {
+      final file = File(p.join(outputRoot, 'schemas', schema.id, fileNameFor(schema)))
+        ..parent.createSync(recursive: true);
+      file.writeAsStringSync(toYamlString(schema));
+      paths.add(file.path);
+    }
+    paths.sort();
+    return paths;
+  }
 
   /// Schema id slug derived from the `@Document` name (fallback: class name).
   static String _schemaId(ModelClass root) {

@@ -5612,7 +5612,7 @@ impl BoundaryAssumptions {
 
 /// 4.5.5. Boundary Interaction Patterns.
 ///
-/// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
+/// Sync / async / batch interaction-pattern catalog. Covers IIS-PAT.
 /// Named `BoundaryInteractionPatterns` to avoid colliding with the
 /// existing intra-system `InteractionPatterns` class.
 pub struct BoundaryInteractionPatterns {
@@ -32054,8 +32054,8 @@ impl InfrastructureSecurityHardeningNetwork {
 /// 13.7. Initial Development Flow.
 ///
 /// Inter-phase dependencies during the initial build (Phases 1–7 of
-/// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
-/// as "new in PPP".
+/// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+/// as "new in DRM".
 pub struct InitialDevelopmentFlow {
     pub node: som::SomNode,
 }
@@ -32852,7 +32852,7 @@ impl InteractionChannelEntryPlatform {
 /// 4.5.7. Interaction Dependency Analysis.
 ///
 /// Critical-path and degraded-mode behavior analysis for system
-/// dependencies. Covers BSI-DEP.
+/// dependencies. Covers IIS-DEP.
 pub struct InteractionDependencyAnalysis {
     pub node: som::SomNode,
 }
@@ -33197,7 +33197,7 @@ impl InteractionSecurity {
 /// 4.5.6. Interaction Testing Strategy.
 ///
 /// Contract / integration / failure-mode testing for system boundaries.
-/// Covers BSI-TST.
+/// Covers IIS-TST.
 pub struct InteractionTestingStrategy {
     pub node: som::SomNode,
 }
@@ -37849,7 +37849,7 @@ impl MigrationEnvironments {
 ///
 /// Interactions specific to the migration window — cutover bridges,
 /// reconciliation endpoints, and temporary shims. Back-refs the
-/// Systems to Replace inventory. Covers BSI-MIG.
+/// Systems to Replace inventory. Covers IIS-MIG.
 pub struct MigrationInteractions {
     pub node: som::SomNode,
 }
@@ -62873,12 +62873,12 @@ impl SystemBoundaries {
         BoundaryAssumptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "assumptions"))
     }
 
-    /// 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
+    /// 4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.
     pub fn system_landscape_inventory(&self) -> SystemLandscapeInventory {
         SystemLandscapeInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemLandscapeInventory"))
     }
 
-    /// 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
+    /// 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
     pub fn boundary_interaction_patterns(&self) -> som::SomList<BoundaryInteractionPatterns> {
         som::SomList::new(
             self.node.doc(),
@@ -62887,17 +62887,17 @@ impl SystemBoundaries {
         )
     }
 
-    /// 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
+    /// 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
     pub fn interaction_testing_strategy(&self) -> InteractionTestingStrategy {
         InteractionTestingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionTestingStrategy"))
     }
 
-    /// 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
+    /// 4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.
     pub fn interaction_dependency_analysis(&self) -> InteractionDependencyAnalysis {
         InteractionDependencyAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionDependencyAnalysis"))
     }
 
-    /// 4.5.8. Migration Interactions. Covers BSI-MIG.
+    /// 4.5.8. Migration Interactions. Covers IIS-MIG.
     pub fn migration_interactions(&self) -> som::SomList<MigrationInteractions> {
         som::SomList::new(
             self.node.doc(),
@@ -64014,7 +64014,7 @@ impl SystemKnowledgeTransfer {
 
 /// 4.5.4. System Landscape Inventory.
 ///
-/// Complete external-system inventory covering BSI-LAN-INV content.
+/// Complete external-system inventory covering IIS-LAN-INV content.
 pub struct SystemLandscapeInventory {
     pub node: som::SomNode,
 }
@@ -64750,12 +64750,12 @@ impl SystemStagePlan {
         StageGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "governance"))
     }
 
-    /// 13.7. Initial Development Flow. Covers PPP-IDV.
+    /// 13.7. Initial Development Flow. Covers DRM-IDV.
     pub fn initial_development_flow(&self) -> InitialDevelopmentFlow {
         InitialDevelopmentFlow::new(self.node.doc(), format!("{}/{}", self.node.path(), "initialDevelopmentFlow"))
     }
 
-    /// 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
+    /// 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
     pub fn upgrade_cycle_framework(&self) -> UpgradeCycleFramework {
         UpgradeCycleFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "upgradeCycleFramework"))
     }

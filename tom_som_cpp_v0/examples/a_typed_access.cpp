@@ -25,7 +25,7 @@ int main() {
   // A typed root over a fresh, empty document. The constructor also runs the
   // §2.2 instantiation-time version check (an empty stamp is editable).
   som::SpecDocument doc;
-  tom_som_v0::ProjectDefinition pd(doc);
+  tom_som_v0::D00SolutionBlueprint pd(doc);
 
   std::cout << "Model version of this typed facade: "
             << pd.objectModelVersion() << "\n";
@@ -35,7 +35,7 @@ int main() {
   pd.setContent("A platform that unifies our fragmented order systems.");
 
   // 2) Navigate into a nested complex section and edit its own content leaf.
-  tom_som_v0::CurrentStateAnalysis csa = pd.currentStateAnalysis();
+  tom_som_v0::CurrentLandscape csa = pd.currentLandscape();
   csa.setContent("Three legacy systems with no shared customer record.");
 
   // 3) The path-based collection API: append two list items and edit each.
@@ -49,8 +49,8 @@ int main() {
   m1.setContent("Manual reconciliation: ~12 hours / week.");
 
   // Read everything back through the typed accessors.
-  std::cout << "PD.content              = " << pd.content() << "\n";
-  std::cout << "PD.currentStateAnalysis = " << csa.content() << "\n";
+  std::cout << "SBP.content              = " << pd.content() << "\n";
+  std::cout << "SBP.currentLandscape = " << csa.content() << "\n";
   std::cout << "operationalMetrics.length = " << metrics.length() << "\n";
 
   for (std::size_t i = 0; i < metrics.length(); i++) {
@@ -62,7 +62,7 @@ int main() {
   // the generic document API (this is exactly what sample (b) uses).
   std::cout << "\nSame value via the generic path (" << csa.path()
             << "/content):\n";
-  std::cout << "  " << doc.content("PD/currentStateAnalysis/content") << "\n";
+  std::cout << "  " << doc.content("SBP/currentLandscape/content") << "\n";
 
   return 0;
 }

@@ -53,8 +53,8 @@ public final class CReflectionMetadata {
       System.out.printf("  %-4s %s%n", reflection.rootSegment(root), root.title);
     }
 
-    // Inspect the fields of the ProjectDefinition root class.
-    SpecRoot pdRoot = reflection.rootForSegment("PD");
+    // Inspect the fields of the D00SolutionBlueprint root class.
+    SpecRoot pdRoot = reflection.rootForSegment("SBP");
     List<SpecField> pdFields = reflection.fieldsOf(pdRoot.type);
     System.out.println("\nFirst fields of " + pdRoot.type
         + " (" + pdFields.size() + " total):");
@@ -73,10 +73,10 @@ public final class CReflectionMetadata {
     // Resolve concrete document paths to model nodes (value-free).
     System.out.println("\nPath resolution:");
     String[] paths = {
-        "PD",
-        "PD/content",
-        "PD/currentStateAnalysis",
-        "PD/currentStateAnalysis/CUOPME-OPER-LST",
+        "SBP",
+        "SBP/content",
+        "SBP/currentLandscape",
+        "SBP/currentLandscape/CUOPME-OPER-LST",
     };
     for (String path : paths) {
       SpecResolution res = reflection.resolve(path);

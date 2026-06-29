@@ -63,10 +63,10 @@ func main() {
 		fmt.Printf("  %-4s %s\n", reflection.RootSegment(root), root.Title)
 	}
 
-	// Inspect the fields of the ProjectDefinition root class.
-	pdRoot := reflection.RootForSegment("PD")
+	// Inspect the fields of the D00SolutionBlueprint root class.
+	pdRoot := reflection.RootForSegment("SBP")
 	if pdRoot == nil {
-		fmt.Println("PD root not found")
+		fmt.Println("SBP root not found")
 		os.Exit(1)
 	}
 	pdFields := reflection.FieldsOf(pdRoot.Type)
@@ -88,10 +88,10 @@ func main() {
 	// Resolve concrete document paths to model nodes (value-free).
 	fmt.Println("\nPath resolution:")
 	for _, p := range []string{
-		"PD",
-		"PD/content",
-		"PD/currentStateAnalysis",
-		"PD/currentStateAnalysis/CUOPME-OPER-LST",
+		"SBP",
+		"SBP/content",
+		"SBP/currentLandscape",
+		"SBP/currentLandscape/CUOPME-OPER-LST",
 	} {
 		res := reflection.Resolve(p)
 		if res == nil {

@@ -44,25 +44,25 @@ function main() {
 
   // Content leaves are addressed by their full path from the root segment.
   doc.setContent(
-    'PD/content',
+    'SBP/content',
     'A platform that unifies our fragmented order systems.',
   );
   doc.setContent(
-    'PD/currentStateAnalysis/content',
+    'SBP/currentLandscape/content',
     'Three legacy systems with no shared customer record.',
   );
 
   // A list: append items (each call returns the new item's path), then set a
   // content leaf under each. The list path mirrors the typed facade's
   // `operationalMetrics` accessor.
-  const listPath = 'PD/currentStateAnalysis/CUOPME-OPER-LST';
+  const listPath = 'SBP/currentLandscape/CUOPME-OPER-LST';
   const item0 = doc.addListItem(listPath);
   doc.setContent(`${item0}/content`, 'Average order turnaround: 4.2 days.');
   const item1 = doc.addListItem(listPath);
   doc.setContent(`${item1}/content`, 'Manual reconciliation: ~12 hours / week.');
 
   // Read back generically.
-  console.log(`PD/content = ${doc.content('PD/content')}`);
+  console.log(`SBP/content = ${doc.content('SBP/content')}`);
   console.log(`list item count = ${doc.listItemCount(listPath)}`);
   for (const itemPath of doc.listItems(listPath)) {
     console.log(`  ${itemPath}/content = ${doc.content(`${itemPath}/content`)}`);

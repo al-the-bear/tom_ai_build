@@ -155,15 +155,8 @@ SomRustGenerationResult writeSomRustProject({
   // Identical to every other language path — schemas are language-agnostic.
   final schemas =
       DocSpecsSchemaGenerator(classes).generateAll(modelVersion: modelVersion);
-  final schemaPaths = <String>[];
-  for (final schema in schemas.values) {
-    final fileName = DocSpecsSchemaGenerator.fileNameFor(schema);
-    final file = File(p.join(outputRoot, 'schemas', schema.id, fileName))
-      ..parent.createSync(recursive: true);
-    file.writeAsStringSync(DocSpecsSchemaGenerator.toYamlString(schema));
-    schemaPaths.add(file.path);
-  }
-  schemaPaths.sort();
+  final schemaPaths =
+      DocSpecsSchemaGenerator.writeSchemaTree(outputRoot, schemas);
 
   // ── Cargo.toml (relative `path` dependency on the runtime) ─────────────────
   // The generated Rust source depends on the runtime by a fixed crate name, so

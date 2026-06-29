@@ -23,15 +23,15 @@ int main() {
   som::SpecDocument doc;
 
   // Content leaves are addressed by their full path from the root segment.
-  doc.setContent("PD/content",
+  doc.setContent("SBP/content",
                  "A platform that unifies our fragmented order systems.");
-  doc.setContent("PD/currentStateAnalysis/content",
+  doc.setContent("SBP/currentLandscape/content",
                  "Three legacy systems with no shared customer record.");
 
   // A list: append items (each call returns the new item's path), then set a
   // content leaf under each. The list path mirrors the typed facade's
   // `operationalMetrics` accessor.
-  const std::string listPath = "PD/currentStateAnalysis/CUOPME-OPER-LST";
+  const std::string listPath = "SBP/currentLandscape/CUOPME-OPER-LST";
   const std::string item0 = doc.addListItem(listPath);
   doc.setContent(som::joinPath(item0, "content"),
                  "Average order turnaround: 4.2 days.");
@@ -40,7 +40,7 @@ int main() {
                  "Manual reconciliation: ~12 hours / week.");
 
   // Read back generically.
-  std::cout << "PD/content = " << doc.content("PD/content") << "\n";
+  std::cout << "SBP/content = " << doc.content("SBP/content") << "\n";
   std::cout << "list item count = " << doc.listItemCount(listPath) << "\n";
   for (const std::string& item : doc.listItems(listPath)) {
     std::cout << "  " << item << "/content = "

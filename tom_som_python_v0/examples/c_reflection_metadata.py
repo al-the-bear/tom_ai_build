@@ -59,8 +59,8 @@ def main() -> int:
     for root in roots:
         print(f"  {reflection.root_segment(root):<4} {root.title}")
 
-    # Inspect the fields of the ProjectDefinition root class.
-    pd_root = reflection.root_for_segment("PD")
+    # Inspect the fields of the D00SolutionBlueprint root class.
+    pd_root = reflection.root_for_segment("SBP")
     pd_fields = reflection.fields_of(pd_root.type)
     print(f"\nFirst fields of {pd_root.type} ({len(pd_fields)} total):")
     for field in pd_fields[:6]:
@@ -74,10 +74,10 @@ def main() -> int:
     # Resolve concrete document paths to model nodes (value-free).
     print("\nPath resolution:")
     for path in (
-        "PD",
-        "PD/content",
-        "PD/currentStateAnalysis",
-        "PD/currentStateAnalysis/CUOPME-OPER-LST",
+        "SBP",
+        "SBP/content",
+        "SBP/currentLandscape",
+        "SBP/currentLandscape/CUOPME-OPER-LST",
     ):
         res = reflection.resolve(path)
         if res is None:

@@ -4311,7 +4311,7 @@ public final class TomSomV0 {
 
   // 4.5.5. Boundary Interaction Patterns.
   //
-  // Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
+  // Sync / async / batch interaction-pattern catalog. Covers IIS-PAT.
   // Named `BoundaryInteractionPatterns` to avoid colliding with the
   // existing intra-system `InteractionPatterns` class.
   public static final class BoundaryInteractionPatterns extends SomNode {
@@ -24572,8 +24572,8 @@ public final class TomSomV0 {
   // 13.7. Initial Development Flow.
   //
   // Inter-phase dependencies during the initial build (Phases 1–7 of
-  // `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
-  // as "new in PPP".
+  // `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+  // as "new in DRM".
   public static final class InitialDevelopmentFlow extends SomNode {
     public InitialDevelopmentFlow(SpecDocument doc, String path) {
       super(doc, path);
@@ -25162,7 +25162,7 @@ public final class TomSomV0 {
   // 4.5.7. Interaction Dependency Analysis.
   //
   // Critical-path and degraded-mode behavior analysis for system
-  // dependencies. Covers BSI-DEP.
+  // dependencies. Covers IIS-DEP.
   public static final class InteractionDependencyAnalysis extends SomNode {
     public InteractionDependencyAnalysis(SpecDocument doc, String path) {
       super(doc, path);
@@ -25418,7 +25418,7 @@ public final class TomSomV0 {
   // 4.5.6. Interaction Testing Strategy.
   //
   // Contract / integration / failure-mode testing for system boundaries.
-  // Covers BSI-TST.
+  // Covers IIS-TST.
   public static final class InteractionTestingStrategy extends SomNode {
     public InteractionTestingStrategy(SpecDocument doc, String path) {
       super(doc, path);
@@ -28931,7 +28931,7 @@ public final class TomSomV0 {
   //
   // Interactions specific to the migration window — cutover bridges,
   // reconciliation endpoints, and temporary shims. Back-refs the
-  // Systems to Replace inventory. Covers BSI-MIG.
+  // Systems to Replace inventory. Covers IIS-MIG.
   public static final class MigrationInteractions extends SomNode {
     public MigrationInteractions(SpecDocument doc, String path) {
       super(doc, path);
@@ -47796,27 +47796,27 @@ public final class TomSomV0 {
       return new BoundaryAssumptions(doc, path + "/assumptions");
     }
 
-    // 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
+    // 4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.
     public SystemLandscapeInventory systemLandscapeInventory() {
       return new SystemLandscapeInventory(doc, path + "/systemLandscapeInventory");
     }
 
-    // 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
+    // 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
     public SomList<BoundaryInteractionPatterns> boundaryInteractionPatterns() {
       return new SomList<>(doc, path + "/BOINPA-BOUN-LST", (d, p) -> new BoundaryInteractionPatterns(d, p));
     }
 
-    // 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
+    // 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
     public InteractionTestingStrategy interactionTestingStrategy() {
       return new InteractionTestingStrategy(doc, path + "/interactionTestingStrategy");
     }
 
-    // 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
+    // 4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.
     public InteractionDependencyAnalysis interactionDependencyAnalysis() {
       return new InteractionDependencyAnalysis(doc, path + "/interactionDependencyAnalysis");
     }
 
-    // 4.5.8. Migration Interactions. Covers BSI-MIG.
+    // 4.5.8. Migration Interactions. Covers IIS-MIG.
     public SomList<MigrationInteractions> migrationInteractions() {
       return new SomList<>(doc, path + "/MIIN-MIGR-LST", (d, p) -> new MigrationInteractions(d, p));
     }
@@ -48660,7 +48660,7 @@ public final class TomSomV0 {
 
   // 4.5.4. System Landscape Inventory.
   //
-  // Complete external-system inventory covering BSI-LAN-INV content.
+  // Complete external-system inventory covering IIS-LAN-INV content.
   public static final class SystemLandscapeInventory extends SomNode {
     public SystemLandscapeInventory(SpecDocument doc, String path) {
       super(doc, path);
@@ -49245,12 +49245,12 @@ public final class TomSomV0 {
       return new StageGovernance(doc, path + "/governance");
     }
 
-    // 13.7. Initial Development Flow. Covers PPP-IDV.
+    // 13.7. Initial Development Flow. Covers DRM-IDV.
     public InitialDevelopmentFlow initialDevelopmentFlow() {
       return new InitialDevelopmentFlow(doc, path + "/initialDevelopmentFlow");
     }
 
-    // 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
+    // 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
     public UpgradeCycleFramework upgradeCycleFramework() {
       return new UpgradeCycleFramework(doc, path + "/upgradeCycleFramework");
     }

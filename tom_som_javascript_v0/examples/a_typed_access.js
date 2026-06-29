@@ -33,7 +33,7 @@ function main() {
   // A typed root over a fresh, empty document. The constructor also runs the
   // §2.2 instantiation-time version check (an unstamped document is editable).
   const doc = new SpecDocument();
-  const pd = new m.ProjectDefinition(doc);
+  const pd = new m.D00SolutionBlueprint(doc);
 
   console.log(`Model version of this typed facade: ${pd.objectModelVersion}`);
   console.log(`Root path: ${pd.path}\n`);
@@ -42,7 +42,7 @@ function main() {
   pd.content = 'A platform that unifies our fragmented order systems.';
 
   // 2) Navigate into a nested complex section and edit its own content leaf.
-  const csa = pd.currentStateAnalysis;
+  const csa = pd.currentLandscape;
   csa.content = 'Three legacy systems with no shared customer record.';
 
   // 3) The typed collection API: append two list items and edit each.
@@ -51,8 +51,8 @@ function main() {
   metrics.add().content = 'Manual reconciliation: ~12 hours / week.';
 
   // Read everything back through the typed accessors.
-  console.log(`PD.content              = ${pd.content}`);
-  console.log(`PD.currentStateAnalysis = ${csa.content}`);
+  console.log(`SBP.content              = ${pd.content}`);
+  console.log(`SBP.currentLandscape = ${csa.content}`);
   console.log(`operationalMetrics.length = ${metrics.length}`);
   for (let i = 0; i < metrics.length; i++) {
     console.log(`  metric[${i}] = ${metrics.at(i).content}`);

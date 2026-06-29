@@ -9,7 +9,7 @@
  * (spec §3):
  *
  *   * the real module compiles + loads cleanly against the runtime;
- *   * the `ProjectDefinition` root is anchored at the `PD` segment;
+ *   * the `D00SolutionBlueprint` root is anchored at the `PD` segment;
  *   * a content leaf round-trips typed → generic and generic → typed;
  *   * a nested complex section derives its path under the root;
  *   * the generated model-version accessor returns `0.0`;
@@ -23,7 +23,7 @@
  */
 
 import { SpecDocument, SomVersionError } from 'tom_som_typescript_runtime';
-import { ProjectDefinition } from '../tom_som_typescript_v0';
+import { D00SolutionBlueprint } from '../tom_som_typescript_v0';
 
 let _passed = 0;
 const _failed: string[] = [];
@@ -38,58 +38,58 @@ function check(name: string, condition: boolean, detail?: string): void {
 
 function testRootAndParity(): void {
   const doc = new SpecDocument();
-  const pd = new ProjectDefinition(doc);
+  const pd = new D00SolutionBlueprint(doc);
 
-  check('root.segment', pd.path === 'PD', pd.path);
+  check('root.segment', pd.path === 'SBP', pd.path);
 
   // Typed write → generic read.
   pd.content = 'A clear vision';
   check(
     'content.typed->generic',
-    doc.content('PD/content') === 'A clear vision',
-    String(doc.content('PD/content')),
+    doc.content('SBP/content') === 'A clear vision',
+    String(doc.content('SBP/content')),
   );
 
   // Generic write → typed read.
-  doc.setContent('PD/content', 'Revised vision');
+  doc.setContent('SBP/content', 'Revised vision');
   check('content.generic->typed', pd.content === 'Revised vision', pd.content);
 
   // Unset leaf reads as empty string.
   check(
     'content.unset-empty',
-    new ProjectDefinition(new SpecDocument()).content === '',
+    new D00SolutionBlueprint(new SpecDocument()).content === '',
   );
 
   // Nested complex section path derivation. The TS emitter preserves the
   // model's camelCase accessor names.
   check(
     'nested.path',
-    pd.currentStateAnalysis.path === 'PD/currentStateAnalysis',
-    pd.currentStateAnalysis.path,
+    pd.currentLandscape.path === 'SBP/currentLandscape',
+    pd.currentLandscape.path,
   );
 
   // A generic value under the nested typed node is addressable via the expected
   // literal path (proves typed path == generic path).
-  const headerPath = pd.header.path;
+  const headerPath = pd.documentControl.path;
   doc.setContent(`${headerPath}/probe`, 'x');
-  check('nested.typed-path==generic', doc.content('PD/header/probe') === 'x');
+  check('nested.typed-path==generic', doc.content('SBP/documentControl/probe') === 'x');
 }
 
 function testModelVersion(): void {
   check(
     'version.classattr',
-    ProjectDefinition.MODEL_VERSION === '0.0',
-    ProjectDefinition.MODEL_VERSION,
+    D00SolutionBlueprint.MODEL_VERSION === '0.0',
+    D00SolutionBlueprint.MODEL_VERSION,
   );
-  const pd = new ProjectDefinition(new SpecDocument());
+  const pd = new D00SolutionBlueprint(new SpecDocument());
   check('version.accessor', pd.objectModelVersion === '0.0', pd.objectModelVersion);
 }
 
 function testVersionCheck(): void {
   // New / equal-stamp document → accepted.
   try {
-    new ProjectDefinition(new SpecDocument());
-    new ProjectDefinition(new SpecDocument(), '0.0');
+    new D00SolutionBlueprint(new SpecDocument());
+    new D00SolutionBlueprint(new SpecDocument(), '0.0');
     check('version.editable', true);
   } catch (e) {
     check('version.editable', false, String(e));
@@ -97,7 +97,7 @@ function testVersionCheck(): void {
 
   // Newer minor → rejected.
   try {
-    new ProjectDefinition(new SpecDocument(), '0.1');
+    new D00SolutionBlueprint(new SpecDocument(), '0.1');
     check('version.newer-rejected', false, 'expected SomVersionError');
   } catch (e) {
     check('version.newer-rejected', e instanceof SomVersionError, String(e));
@@ -105,7 +105,7 @@ function testVersionCheck(): void {
 
   // Different major → rejected.
   try {
-    new ProjectDefinition(new SpecDocument(), '1.0');
+    new D00SolutionBlueprint(new SpecDocument(), '1.0');
     check('version.cross-major-rejected', false, 'expected SomVersionError');
   } catch (e) {
     check('version.cross-major-rejected', e instanceof SomVersionError, String(e));

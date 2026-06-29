@@ -97,7 +97,7 @@ section-types:
     pattern-check-id:
       pattern: ^boinpa_boun_lst-\d+$
       error-message: ID must match boinpa_boun_lst-NNN
-    description: 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
+    description: 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
   BRCOEN-BROW-LST:
     prefix: brcoen_brow_lst
     pattern-check-id:
@@ -2905,7 +2905,7 @@ section-types:
     pattern-check-id:
       pattern: ^miin_migr_lst-\d+$
       error-message: ID must match miin_migr_lst-NNN
-    description: 4.5.8. Migration Interactions. Covers BSI-MIG.
+    description: 4.5.8. Migration Interactions. Covers IIS-MIG.
   MIST-STAK-LST:
     prefix: mist_stak_lst
     pattern-check-id:

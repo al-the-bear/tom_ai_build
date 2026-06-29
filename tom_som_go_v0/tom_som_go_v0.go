@@ -5034,7 +5034,7 @@ func (x *BoundaryAssumptions) Items() *som.SomList[*BoundaryAssumptionEntry] {
 
 // 4.5.5. Boundary Interaction Patterns.
 //
-// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
+// Sync / async / batch interaction-pattern catalog. Covers IIS-PAT.
 // Named `BoundaryInteractionPatterns` to avoid colliding with the
 // existing intra-system `InteractionPatterns` class.
 type BoundaryInteractionPatterns struct {
@@ -28780,8 +28780,8 @@ func (x *InfrastructureSecurityHardeningNetwork) Content() *InfrastructureSecuri
 // 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
-// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
-// as "new in PPP".
+// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+// as "new in DRM".
 type InitialDevelopmentFlow struct {
 	som.SomNode
 }
@@ -29486,7 +29486,7 @@ func (x *InteractionChannelEntryPlatform) Content() *InteractionChannelEntryPlat
 // 4.5.7. Interaction Dependency Analysis.
 //
 // Critical-path and degraded-mode behavior analysis for system
-// dependencies. Covers BSI-DEP.
+// dependencies. Covers IIS-DEP.
 type InteractionDependencyAnalysis struct {
 	som.SomNode
 }
@@ -29790,7 +29790,7 @@ func (x *InteractionSecurity) Content() *InteractionSecurityContentForm {
 // 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
-// Covers BSI-TST.
+// Covers IIS-TST.
 type InteractionTestingStrategy struct {
 	som.SomNode
 }
@@ -33944,7 +33944,7 @@ func (x *MigrationEnvironments) Content() *MigrationEnvironmentsContentForm {
 //
 // Interactions specific to the migration window — cutover bridges,
 // reconciliation endpoints, and temporary shims. Back-refs the
-// Systems to Replace inventory. Covers BSI-MIG.
+// Systems to Replace inventory. Covers IIS-MIG.
 type MigrationInteractions struct {
 	som.SomNode
 }
@@ -56269,29 +56269,29 @@ func (x *SystemBoundaries) Assumptions() *BoundaryAssumptions {
 	return NewBoundaryAssumptions(x.Doc(), x.Path() + "/assumptions")
 }
 
-// 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
+// 4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.
 func (x *SystemBoundaries) SystemLandscapeInventory() *SystemLandscapeInventory {
 	return NewSystemLandscapeInventory(x.Doc(), x.Path() + "/systemLandscapeInventory")
 }
 
-// 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
+// 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
 func (x *SystemBoundaries) BoundaryInteractionPatterns() *som.SomList[*BoundaryInteractionPatterns] {
 	return som.NewSomList(x.Doc(), x.Path() + "/BOINPA-BOUN-LST", func(d *som.SpecDocument, p string) *BoundaryInteractionPatterns {
 		return NewBoundaryInteractionPatterns(d, p)
 	})
 }
 
-// 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
+// 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
 func (x *SystemBoundaries) InteractionTestingStrategy() *InteractionTestingStrategy {
 	return NewInteractionTestingStrategy(x.Doc(), x.Path() + "/interactionTestingStrategy")
 }
 
-// 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
+// 4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.
 func (x *SystemBoundaries) InteractionDependencyAnalysis() *InteractionDependencyAnalysis {
 	return NewInteractionDependencyAnalysis(x.Doc(), x.Path() + "/interactionDependencyAnalysis")
 }
 
-// 4.5.8. Migration Interactions. Covers BSI-MIG.
+// 4.5.8. Migration Interactions. Covers IIS-MIG.
 func (x *SystemBoundaries) MigrationInteractions() *som.SomList[*MigrationInteractions] {
 	return som.NewSomList(x.Doc(), x.Path() + "/MIIN-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationInteractions {
 		return NewMigrationInteractions(d, p)
@@ -57289,7 +57289,7 @@ func (x *SystemKnowledgeTransfer) CriticalKnowledgeAreas() *som.SomList[*Critica
 
 // 4.5.4. System Landscape Inventory.
 //
-// Complete external-system inventory covering BSI-LAN-INV content.
+// Complete external-system inventory covering IIS-LAN-INV content.
 type SystemLandscapeInventory struct {
 	som.SomNode
 }
@@ -57956,12 +57956,12 @@ func (x *SystemStagePlan) Governance() *StageGovernance {
 	return NewStageGovernance(x.Doc(), x.Path() + "/governance")
 }
 
-// 13.7. Initial Development Flow. Covers PPP-IDV.
+// 13.7. Initial Development Flow. Covers DRM-IDV.
 func (x *SystemStagePlan) InitialDevelopmentFlow() *InitialDevelopmentFlow {
 	return NewInitialDevelopmentFlow(x.Doc(), x.Path() + "/initialDevelopmentFlow")
 }
 
-// 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
+// 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
 func (x *SystemStagePlan) UpgradeCycleFramework() *UpgradeCycleFramework {
 	return NewUpgradeCycleFramework(x.Doc(), x.Path() + "/upgradeCycleFramework")
 }

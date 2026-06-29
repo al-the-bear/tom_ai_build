@@ -8243,7 +8243,7 @@ class BoundaryAssumptions : public som::SomNode {
 
 // 4.5.5. Boundary Interaction Patterns.
 //
-// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
+// Sync / async / batch interaction-pattern catalog. Covers IIS-PAT.
 // Named `BoundaryInteractionPatterns` to avoid colliding with the
 // existing intra-system `InteractionPatterns` class.
 class BoundaryInteractionPatterns : public som::SomNode {
@@ -19674,8 +19674,8 @@ class InfrastructureSecurityHardeningNetwork : public som::SomNode {
 // 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
-// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
-// as "new in PPP".
+// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+// as "new in DRM".
 class InitialDevelopmentFlow : public som::SomNode {
  public:
   InitialDevelopmentFlow(som::SpecDocument& doc, std::string path);
@@ -20019,7 +20019,7 @@ class InteractionChannelEntryPlatform : public som::SomNode {
 // 4.5.7. Interaction Dependency Analysis.
 //
 // Critical-path and degraded-mode behavior analysis for system
-// dependencies. Covers BSI-DEP.
+// dependencies. Covers IIS-DEP.
 class InteractionDependencyAnalysis : public som::SomNode {
  public:
   InteractionDependencyAnalysis(som::SpecDocument& doc, std::string path);
@@ -20166,7 +20166,7 @@ class InteractionSecurity : public som::SomNode {
 // 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
-// Covers BSI-TST.
+// Covers IIS-TST.
 class InteractionTestingStrategy : public som::SomNode {
  public:
   InteractionTestingStrategy(som::SpecDocument& doc, std::string path);
@@ -22195,7 +22195,7 @@ class MigrationEnvironments : public som::SomNode {
 //
 // Interactions specific to the migration window — cutover bridges,
 // reconciliation endpoints, and temporary shims. Back-refs the
-// Systems to Replace inventory. Covers BSI-MIG.
+// Systems to Replace inventory. Covers IIS-MIG.
 class MigrationInteractions : public som::SomNode {
  public:
   MigrationInteractions(som::SpecDocument& doc, std::string path);
@@ -33070,16 +33070,16 @@ class SystemBoundaries : public som::SomNode {
   OutOfScope outOfScope() const;
   // 4.5.3. Assumptions — contains 0+×.
   BoundaryAssumptions assumptions() const;
-  // 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
+  // 4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.
   SystemLandscapeInventory systemLandscapeInventory() const;
-  // 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
+  // 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
   // Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
   som::SomList boundaryInteractionPatterns() const;
-  // 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
+  // 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
   InteractionTestingStrategy interactionTestingStrategy() const;
-  // 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
+  // 4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.
   InteractionDependencyAnalysis interactionDependencyAnalysis() const;
-  // 4.5.8. Migration Interactions. Covers BSI-MIG.
+  // 4.5.8. Migration Interactions. Covers IIS-MIG.
   // Returns the list view; element type: MigrationInteractions (construct from item paths).
   som::SomList migrationInteractions() const;
   // 4.5.9. Cross-Boundary Operational Considerations.
@@ -33560,7 +33560,7 @@ class SystemKnowledgeTransfer : public som::SomNode {
 
 // 4.5.4. System Landscape Inventory.
 //
-// Complete external-system inventory covering BSI-LAN-INV content.
+// Complete external-system inventory covering IIS-LAN-INV content.
 class SystemLandscapeInventory : public som::SomNode {
  public:
   SystemLandscapeInventory(som::SpecDocument& doc, std::string path);
@@ -33871,9 +33871,9 @@ class SystemStagePlan : public som::SomNode {
   DataMigrationStrategy dataMigration() const;
   // 13.6. Governance.
   StageGovernance governance() const;
-  // 13.7. Initial Development Flow. Covers PPP-IDV.
+  // 13.7. Initial Development Flow. Covers DRM-IDV.
   InitialDevelopmentFlow initialDevelopmentFlow() const;
-  // 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
+  // 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
   UpgradeCycleFramework upgradeCycleFramework() const;
 };
 

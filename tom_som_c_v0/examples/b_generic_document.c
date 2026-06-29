@@ -27,16 +27,16 @@ int main(void) {
 
   /* Content leaves are addressed by their full path from the root segment. */
   spec_document_set_content(
-      &doc, "PD/content",
+      &doc, "SBP/content",
       "A platform that unifies our fragmented order systems.");
   spec_document_set_content(
-      &doc, "PD/currentStateAnalysis/content",
+      &doc, "SBP/currentLandscape/content",
       "Three legacy systems with no shared customer record.");
 
   /* A list: append items (each call returns the new item's owned path), then
    * set a content leaf under each. The list path mirrors the typed facade's
    * `operationalMetrics` accessor. */
-  const char *list_path = "PD/currentStateAnalysis/CUOPME-OPER-LST";
+  const char *list_path = "SBP/currentLandscape/CUOPME-OPER-LST";
   char *item0 = spec_document_add_list_item(&doc, list_path);
   char *buf = spec_path_join(item0, "content");
   spec_document_set_content(&doc, buf, "Average order turnaround: 4.2 days.");
@@ -50,7 +50,7 @@ int main(void) {
   free(item1);
 
   /* Read back generically. */
-  printf("PD/content = %s\n", spec_document_content(&doc, "PD/content"));
+  printf("SBP/content = %s\n", spec_document_content(&doc, "SBP/content"));
   printf("list item count = %zu\n",
          spec_document_list_item_count(&doc, list_path));
   const SomStrList *items = spec_document_list_items(&doc, list_path);

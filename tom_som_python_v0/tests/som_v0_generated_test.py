@@ -8,7 +8,7 @@ emitter *golden fixture* — this suite imports the real, full
 over the shared document (spec §3):
 
   * the real module imports cleanly against the runtime;
-  * the ``ProjectDefinition`` root is anchored at the ``PD`` segment;
+  * the ``D00SolutionBlueprint`` root is anchored at the ``PD`` segment;
   * a content leaf round-trips typed -> generic and generic -> typed;
   * a nested complex section derives its path under the root;
   * the generated model-version accessor returns ``0.0``;
@@ -64,38 +64,38 @@ def _check(name: str, condition: bool, detail: str = "") -> None:
 
 def test_root_and_parity() -> None:
     doc = SpecDocument()
-    pd = m.ProjectDefinition(doc)
+    pd = m.D00SolutionBlueprint(doc)
 
-    _check("root.segment", pd.path == "PD", pd.path)
+    _check("root.segment", pd.path == "SBP", pd.path)
 
     # Typed write -> generic read.
     pd.content = "A clear vision"
-    _check("content.typed->generic", doc.content("PD/content") == "A clear vision",
-           str(doc.content("PD/content")))
+    _check("content.typed->generic", doc.content("SBP/content") == "A clear vision",
+           str(doc.content("SBP/content")))
 
     # Generic write -> typed read.
-    doc.set_content("PD/content", "Revised vision")
+    doc.set_content("SBP/content", "Revised vision")
     _check("content.generic->typed", pd.content == "Revised vision", pd.content)
 
     # Unset leaf reads as empty string.
-    _check("content.unset-empty", m.ProjectDefinition(SpecDocument()).content == "")
+    _check("content.unset-empty", m.D00SolutionBlueprint(SpecDocument()).content == "")
 
     # Nested complex section path derivation. The Python emitter preserves the
     # model's camelCase accessor names (no snake_case translation).
-    _check("nested.path", pd.currentStateAnalysis.path == "PD/currentStateAnalysis",
-           pd.currentStateAnalysis.path)
+    _check("nested.path", pd.currentLandscape.path == "SBP/currentLandscape",
+           pd.currentLandscape.path)
 
     # A generic value under the nested typed node is addressable via the
     # expected literal path (proves typed path == generic path).
-    header_path = pd.header.path
+    header_path = pd.documentControl.path
     doc.set_content(f"{header_path}/probe", "x")
-    _check("nested.typed-path==generic", doc.content("PD/header/probe") == "x")
+    _check("nested.typed-path==generic", doc.content("SBP/documentControl/probe") == "x")
 
 
 def test_model_version() -> None:
-    _check("version.classattr", m.ProjectDefinition.model_version == "0.0",
-           m.ProjectDefinition.model_version)
-    pd = m.ProjectDefinition(SpecDocument())
+    _check("version.classattr", m.D00SolutionBlueprint.model_version == "0.0",
+           m.D00SolutionBlueprint.model_version)
+    pd = m.D00SolutionBlueprint(SpecDocument())
     _check("version.accessor", pd.object_model_version == "0.0",
            pd.object_model_version)
 
@@ -103,22 +103,22 @@ def test_model_version() -> None:
 def test_version_check() -> None:
     # New / equal-stamp document → accepted.
     try:
-        m.ProjectDefinition(SpecDocument())
-        m.ProjectDefinition(SpecDocument(), document_version="0.0")
+        m.D00SolutionBlueprint(SpecDocument())
+        m.D00SolutionBlueprint(SpecDocument(), document_version="0.0")
         _check("version.editable", True)
     except SomVersionError as e:  # pragma: no cover
         _check("version.editable", False, str(e))
 
     # Newer minor → rejected.
     try:
-        m.ProjectDefinition(SpecDocument(), document_version="0.1")
+        m.D00SolutionBlueprint(SpecDocument(), document_version="0.1")
         _check("version.newer-rejected", False, "expected SomVersionError")
     except SomVersionError:
         _check("version.newer-rejected", True)
 
     # Different major → rejected.
     try:
-        m.ProjectDefinition(SpecDocument(), document_version="1.0")
+        m.D00SolutionBlueprint(SpecDocument(), document_version="1.0")
         _check("version.cross-major-rejected", False, "expected SomVersionError")
     except SomVersionError:
         _check("version.cross-major-rejected", True)

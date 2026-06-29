@@ -51,11 +51,11 @@ fn main() {
         println!("  {:<4} {}", reflection.root_segment(root), root.title);
     }
 
-    // Inspect the fields of the ProjectDefinition root class.
-    let pd_root = match reflection.root_for_segment("PD") {
+    // Inspect the fields of the D00SolutionBlueprint root class.
+    let pd_root = match reflection.root_for_segment("SBP") {
         Some(r) => r,
         None => {
-            println!("PD root not found");
+            println!("SBP root not found");
             exit(1);
         }
     };
@@ -79,10 +79,10 @@ fn main() {
     // Resolve concrete document paths to model nodes (value-free).
     println!("\nPath resolution:");
     for path in [
-        "PD",
-        "PD/content",
-        "PD/currentStateAnalysis",
-        "PD/currentStateAnalysis/CUOPME-OPER-LST",
+        "SBP",
+        "SBP/content",
+        "SBP/currentLandscape",
+        "SBP/currentLandscape/CUOPME-OPER-LST",
     ] {
         match reflection.resolve(path) {
             None => println!("  {}  ->  (unresolved)", path),

@@ -22,18 +22,18 @@ fn main() {
 
     // Content leaves are addressed by their full path from the root segment.
     doc.set_content(
-        "PD/content",
+        "SBP/content",
         "A platform that unifies our fragmented order systems.",
     );
     doc.set_content(
-        "PD/currentStateAnalysis/content",
+        "SBP/currentLandscape/content",
         "Three legacy systems with no shared customer record.",
     );
 
     // A list: append items (each call returns the new item's path), then set a
     // content leaf under each. The list path mirrors the typed facade's
     // `operationalMetrics` accessor.
-    let list_path = "PD/currentStateAnalysis/CUOPME-OPER-LST";
+    let list_path = "SBP/currentLandscape/CUOPME-OPER-LST";
     let item0 = doc.add_list_item(list_path);
     doc.set_content(&format!("{}/content", item0), "Average order turnaround: 4.2 days.");
     let item1 = doc.add_list_item(list_path);
@@ -43,7 +43,7 @@ fn main() {
     );
 
     // Read back generically.
-    println!("PD/content = {}", doc.content_or("PD/content"));
+    println!("SBP/content = {}", doc.content_or("SBP/content"));
     println!("list item count = {}", doc.list_item_count(list_path));
     for item_path in doc.list_items(list_path) {
         println!(

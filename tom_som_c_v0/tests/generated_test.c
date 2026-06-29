@@ -5,7 +5,7 @@
  * typed facade structs) against the generic `tom_som_c_runtime` and proves the
  * typed facade is a faithful editing surface over the shared document (spec §3):
  *
- *   - the `ProjectDefinition` root is anchored at the `PD` segment;
+ *   - the `D00SolutionBlueprint` root is anchored at the `PD` segment;
  *   - a content leaf round-trips typed -> generic and generic -> typed;
  *   - a nested complex section derives its path under the root;
  *   - the path-based `SomList` collection maps onto the generic list store;
@@ -48,50 +48,50 @@ static void eq_str(const char *got, const char *want, const char *name) {
   }
 }
 
-/* The PD root, a content leaf, and a nested complex section round-trip in both
+/* The SBP root, a content leaf, and a nested complex section round-trip in both
  * directions between the typed facade and the generic document. */
 static void test_root_and_parity(void) {
   SpecDocument doc;
   spec_document_init(&doc);
 
-  ProjectDefinition pd;
-  ok(project_definition_new(&pd, &doc, "", NULL) == 0, "new ProjectDefinition");
-  eq_str(som_node_path(&pd.node), "PD", "root segment");
+  D00SolutionBlueprint pd;
+  ok(d00_solution_blueprint_new(&pd, &doc, "", NULL) == 0, "new D00SolutionBlueprint");
+  eq_str(som_node_path(&pd.node), "SBP", "root segment");
 
   /* Typed write -> generic read. */
-  project_definition_set_content(&pd, "A clear vision");
-  eq_str(spec_document_content(&doc, "PD/content"), "A clear vision",
+  d00_solution_blueprint_set_content(&pd, "A clear vision");
+  eq_str(spec_document_content(&doc, "SBP/content"), "A clear vision",
          "typed write visible generically");
 
   /* Generic write -> typed read. */
-  spec_document_set_content(&doc, "PD/content", "Revised vision");
-  char *c = project_definition_content(&pd);
+  spec_document_set_content(&doc, "SBP/content", "Revised vision");
+  char *c = d00_solution_blueprint_content(&pd);
   eq_str(c, "Revised vision", "generic write visible through typed getter");
   free(c);
 
   /* An unset leaf reads as the empty string (never NULL). */
   SpecDocument fresh;
   spec_document_init(&fresh);
-  ProjectDefinition pd2;
-  project_definition_new(&pd2, &fresh, "", NULL);
-  char *empty = project_definition_content(&pd2);
+  D00SolutionBlueprint pd2;
+  d00_solution_blueprint_new(&pd2, &fresh, "", NULL);
+  char *empty = d00_solution_blueprint_content(&pd2);
   eq_str(empty, "", "unset leaf reads as empty string");
   free(empty);
 
   /* Nested complex section path derivation (camelCase segment preserved). */
-  CurrentStateAnalysis csa = project_definition_current_state_analysis(&pd);
-  eq_str(som_node_path(&csa.node), "PD/currentStateAnalysis",
+  CurrentLandscape csa = d00_solution_blueprint_current_landscape(&pd);
+  eq_str(som_node_path(&csa.node), "SBP/currentLandscape",
          "nested section path");
 
   /* A generic value under the nested typed node is addressable via the literal
    * path (typed path == generic path). */
-  spec_document_set_content(&doc, "PD/currentStateAnalysis/probe", "x");
-  eq_str(spec_document_content(&doc, "PD/currentStateAnalysis/probe"), "x",
+  spec_document_set_content(&doc, "SBP/currentLandscape/probe", "x");
+  eq_str(spec_document_content(&doc, "SBP/currentLandscape/probe"), "x",
          "typed path is the generic path");
 
-  current_state_analysis_free(&csa);
-  project_definition_free(&pd);
-  project_definition_free(&pd2);
+  current_landscape_free(&csa);
+  d00_solution_blueprint_free(&pd);
+  d00_solution_blueprint_free(&pd2);
   spec_document_free(&fresh);
   spec_document_free(&doc);
 }
@@ -101,11 +101,11 @@ static void test_root_and_parity(void) {
 static void test_typed_list(void) {
   SpecDocument doc;
   spec_document_init(&doc);
-  ProjectDefinition pd;
-  project_definition_new(&pd, &doc, "", NULL);
+  D00SolutionBlueprint pd;
+  d00_solution_blueprint_new(&pd, &doc, "", NULL);
 
-  CurrentStateAnalysis csa = project_definition_current_state_analysis(&pd);
-  SomList metrics = current_state_analysis_operational_metrics(&csa);
+  CurrentLandscape csa = d00_solution_blueprint_current_landscape(&pd);
+  SomList metrics = current_landscape_operational_metrics(&csa);
 
   /* Append two items, constructing the element facade from each new path. */
   char *p0 = som_list_add(&metrics);
@@ -135,26 +135,26 @@ static void test_typed_list(void) {
 
   /* Typed list writes land in the generic list store under the same path. */
   ok(spec_document_list_item_count(
-         &doc, "PD/currentStateAnalysis/CUOPME-OPER-LST") == 2,
+         &doc, "SBP/currentLandscape/CUOPME-OPER-LST") == 2,
      "generic list store mirrors typed list");
 
   som_list_free(&metrics);
-  current_state_analysis_free(&csa);
-  project_definition_free(&pd);
+  current_landscape_free(&csa);
+  d00_solution_blueprint_free(&pd);
   spec_document_free(&doc);
 }
 
 /* The generated model version is reported by both the macro and the accessor. */
 static void test_model_version(void) {
-  eq_str(PROJECT_DEFINITION_MODEL_VERSION, "0.0", "MODEL_VERSION macro");
+  eq_str(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, "0.0", "MODEL_VERSION macro");
 
   SpecDocument doc;
   spec_document_init(&doc);
-  ProjectDefinition pd;
-  project_definition_new(&pd, &doc, "", NULL);
-  eq_str(project_definition_object_model_version(&pd), "0.0",
+  D00SolutionBlueprint pd;
+  d00_solution_blueprint_new(&pd, &doc, "", NULL);
+  eq_str(d00_solution_blueprint_object_model_version(&pd), "0.0",
          "object_model_version accessor");
-  project_definition_free(&pd);
+  d00_solution_blueprint_free(&pd);
   spec_document_free(&doc);
 }
 
@@ -164,26 +164,26 @@ static void test_version_check(void) {
   SpecDocument doc;
   spec_document_init(&doc);
 
-  ProjectDefinition a;
-  ok(project_definition_new(&a, &doc, "", NULL) == 0, "empty stamp accepted");
-  project_definition_free(&a);
+  D00SolutionBlueprint a;
+  ok(d00_solution_blueprint_new(&a, &doc, "", NULL) == 0, "empty stamp accepted");
+  d00_solution_blueprint_free(&a);
 
-  ProjectDefinition b;
-  ok(project_definition_new(&b, &doc, "0.0", NULL) == 0, "equal stamp accepted");
-  project_definition_free(&b);
+  D00SolutionBlueprint b;
+  ok(d00_solution_blueprint_new(&b, &doc, "0.0", NULL) == 0, "equal stamp accepted");
+  d00_solution_blueprint_free(&b);
 
   /* Newer minor -> rejected (no node bound, so nothing to free on the facade). */
   char *err = NULL;
-  ProjectDefinition c;
-  ok(project_definition_new(&c, &doc, "0.1", &err) != 0,
+  D00SolutionBlueprint c;
+  ok(d00_solution_blueprint_new(&c, &doc, "0.1", &err) != 0,
      "newer-minor stamp rejected");
   ok(err != NULL, "rejection writes an owned message");
   free(err);
   err = NULL;
 
   /* Different major -> rejected. */
-  ProjectDefinition d;
-  ok(project_definition_new(&d, &doc, "1.0", &err) != 0,
+  D00SolutionBlueprint d;
+  ok(d00_solution_blueprint_new(&d, &doc, "1.0", &err) != 0,
      "cross-major stamp rejected");
   free(err);
 

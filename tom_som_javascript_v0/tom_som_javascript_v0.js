@@ -4355,7 +4355,7 @@ class BoundaryAssumptions extends SomNode {
 
 // 4.5.5. Boundary Interaction Patterns.
 //
-// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
+// Sync / async / batch interaction-pattern catalog. Covers IIS-PAT.
 // Named `BoundaryInteractionPatterns` to avoid colliding with the
 // existing intra-system `InteractionPatterns` class.
 class BoundaryInteractionPatterns extends SomNode {
@@ -24578,8 +24578,8 @@ class InfrastructureSecurityHardeningNetwork extends SomNode {
 // 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
-// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
-// as "new in PPP".
+// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+// as "new in DRM".
 class InitialDevelopmentFlow extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -25162,7 +25162,7 @@ class InteractionChannelEntryPlatform extends SomNode {
 // 4.5.7. Interaction Dependency Analysis.
 //
 // Critical-path and degraded-mode behavior analysis for system
-// dependencies. Covers BSI-DEP.
+// dependencies. Covers IIS-DEP.
 class InteractionDependencyAnalysis extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -25415,7 +25415,7 @@ class InteractionSecurity extends SomNode {
 // 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
-// Covers BSI-TST.
+// Covers IIS-TST.
 class InteractionTestingStrategy extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -28960,7 +28960,7 @@ class MigrationEnvironments extends SomNode {
 //
 // Interactions specific to the migration window — cutover bridges,
 // reconciliation endpoints, and temporary shims. Back-refs the
-// Systems to Replace inventory. Covers BSI-MIG.
+// Systems to Replace inventory. Covers IIS-MIG.
 class MigrationInteractions extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -47897,27 +47897,27 @@ class SystemBoundaries extends SomNode {
     return new BoundaryAssumptions(this.doc, this.path + "/assumptions");
   }
 
-  // 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
+  // 4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.
   get systemLandscapeInventory() {
     return new SystemLandscapeInventory(this.doc, this.path + "/systemLandscapeInventory");
   }
 
-  // 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
+  // 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
   get boundaryInteractionPatterns() {
     return new SomList(this.doc, this.path + "/BOINPA-BOUN-LST", (d, p) => new BoundaryInteractionPatterns(d, p));
   }
 
-  // 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
+  // 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
   get interactionTestingStrategy() {
     return new InteractionTestingStrategy(this.doc, this.path + "/interactionTestingStrategy");
   }
 
-  // 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
+  // 4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.
   get interactionDependencyAnalysis() {
     return new InteractionDependencyAnalysis(this.doc, this.path + "/interactionDependencyAnalysis");
   }
 
-  // 4.5.8. Migration Interactions. Covers BSI-MIG.
+  // 4.5.8. Migration Interactions. Covers IIS-MIG.
   get migrationInteractions() {
     return new SomList(this.doc, this.path + "/MIIN-MIGR-LST", (d, p) => new MigrationInteractions(d, p));
   }
@@ -48763,7 +48763,7 @@ class SystemKnowledgeTransfer extends SomNode {
 
 // 4.5.4. System Landscape Inventory.
 //
-// Complete external-system inventory covering BSI-LAN-INV content.
+// Complete external-system inventory covering IIS-LAN-INV content.
 class SystemLandscapeInventory extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -49356,12 +49356,12 @@ class SystemStagePlan extends SomNode {
     return new StageGovernance(this.doc, this.path + "/governance");
   }
 
-  // 13.7. Initial Development Flow. Covers PPP-IDV.
+  // 13.7. Initial Development Flow. Covers DRM-IDV.
   get initialDevelopmentFlow() {
     return new InitialDevelopmentFlow(this.doc, this.path + "/initialDevelopmentFlow");
   }
 
-  // 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
+  // 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
   get upgradeCycleFramework() {
     return new UpgradeCycleFramework(this.doc, this.path + "/upgradeCycleFramework");
   }

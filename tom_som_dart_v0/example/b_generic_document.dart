@@ -17,22 +17,22 @@ void main() {
   final doc = SpecDocument();
 
   // Content leaves are addressed by their full path from the root segment.
-  doc.setContent('PD/content',
+  doc.setContent('SBP/content',
       'A platform that unifies our fragmented order systems.');
-  doc.setContent('PD/currentStateAnalysis/content',
+  doc.setContent('SBP/currentLandscape/content',
       'Three legacy systems with no shared customer record.');
 
   // A list: append items (each call returns the new item's path), then set a
   // content leaf under each. The list path mirrors the typed facade's
   // `operationalMetrics` accessor.
-  const listPath = 'PD/currentStateAnalysis/CUOPME-OPER-LST';
+  const listPath = 'SBP/currentLandscape/CUOPME-OPER-LST';
   final item0 = doc.addListItem(listPath);
   doc.setContent('$item0/content', 'Average order turnaround: 4.2 days.');
   final item1 = doc.addListItem(listPath);
   doc.setContent('$item1/content', 'Manual reconciliation: ~12 hours / week.');
 
   // Read back generically.
-  print('PD/content = ${doc.content('PD/content')}');
+  print('SBP/content = ${doc.content('SBP/content')}');
   print('list item count = ${doc.listItemCount(listPath)}');
   for (final itemPath in doc.listItems(listPath)) {
     print('  $itemPath/content = ${doc.content('$itemPath/content')}');

@@ -146,15 +146,8 @@ SomPythonGenerationResult writeSomPythonProject({
   // Identical to the Dart path — schemas are language-agnostic.
   final schemas =
       DocSpecsSchemaGenerator(classes).generateAll(modelVersion: modelVersion);
-  final schemaPaths = <String>[];
-  for (final schema in schemas.values) {
-    final fileName = DocSpecsSchemaGenerator.fileNameFor(schema);
-    final file = File(p.join(outputRoot, 'schemas', schema.id, fileName))
-      ..parent.createSync(recursive: true);
-    file.writeAsStringSync(DocSpecsSchemaGenerator.toYamlString(schema));
-    schemaPaths.add(file.path);
-  }
-  schemaPaths.sort();
+  final schemaPaths =
+      DocSpecsSchemaGenerator.writeSchemaTree(outputRoot, schemas);
 
   // ── project manifest (relative runtime path for portability) ───────────────
   final runtimeRel =

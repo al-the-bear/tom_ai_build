@@ -8030,7 +8030,7 @@ SomList boundary_assumptions_items(const BoundaryAssumptions *self);
 
 // 4.5.5. Boundary Interaction Patterns.
 //
-// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
+// Sync / async / batch interaction-pattern catalog. Covers IIS-PAT.
 // Named `BoundaryInteractionPatterns` to avoid colliding with the
 // existing intra-system `InteractionPatterns` class.
 // Binds a BoundaryInteractionPatterns facade to a document and a path (path copied).
@@ -18345,8 +18345,8 @@ InfrastructureSecurityHardeningNetworkContentForm infrastructure_security_harden
 // 13.7. Initial Development Flow.
 //
 // Inter-phase dependencies during the initial build (Phases 1–7 of
-// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
-// as "new in PPP".
+// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+// as "new in DRM".
 // Binds a InitialDevelopmentFlow facade to a document and a path (path copied).
 void initial_development_flow_init(InitialDevelopmentFlow *self, SpecDocument *doc, const char *path);
 void initial_development_flow_free(InitialDevelopmentFlow *self);
@@ -18654,7 +18654,7 @@ InteractionChannelEntryPlatformContentForm interaction_channel_entry_platform_co
 // 4.5.7. Interaction Dependency Analysis.
 //
 // Critical-path and degraded-mode behavior analysis for system
-// dependencies. Covers BSI-DEP.
+// dependencies. Covers IIS-DEP.
 // Binds a InteractionDependencyAnalysis facade to a document and a path (path copied).
 void interaction_dependency_analysis_init(InteractionDependencyAnalysis *self, SpecDocument *doc, const char *path);
 void interaction_dependency_analysis_free(InteractionDependencyAnalysis *self);
@@ -18788,7 +18788,7 @@ InteractionSecurityContentForm interaction_security_content(const InteractionSec
 // 4.5.6. Interaction Testing Strategy.
 //
 // Contract / integration / failure-mode testing for system boundaries.
-// Covers BSI-TST.
+// Covers IIS-TST.
 // Binds a InteractionTestingStrategy facade to a document and a path (path copied).
 void interaction_testing_strategy_init(InteractionTestingStrategy *self, SpecDocument *doc, const char *path);
 void interaction_testing_strategy_free(InteractionTestingStrategy *self);
@@ -20614,7 +20614,7 @@ MigrationEnvironmentsContentForm migration_environments_content(const MigrationE
 //
 // Interactions specific to the migration window — cutover bridges,
 // reconciliation endpoints, and temporary shims. Back-refs the
-// Systems to Replace inventory. Covers BSI-MIG.
+// Systems to Replace inventory. Covers IIS-MIG.
 // Binds a MigrationInteractions facade to a document and a path (path copied).
 void migration_interactions_init(MigrationInteractions *self, SpecDocument *doc, const char *path);
 void migration_interactions_free(MigrationInteractions *self);
@@ -30415,16 +30415,16 @@ ExternalInterfaces system_boundaries_external_interfaces(const SystemBoundaries 
 OutOfScope system_boundaries_out_of_scope(const SystemBoundaries *self);
 // 4.5.3. Assumptions — contains 0+×.
 BoundaryAssumptions system_boundaries_assumptions(const SystemBoundaries *self);
-// 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
+// 4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.
 SystemLandscapeInventory system_boundaries_system_landscape_inventory(const SystemBoundaries *self);
-// 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
+// 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
 // Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
 SomList system_boundaries_boundary_interaction_patterns(const SystemBoundaries *self);
-// 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
+// 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
 InteractionTestingStrategy system_boundaries_interaction_testing_strategy(const SystemBoundaries *self);
-// 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
+// 4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.
 InteractionDependencyAnalysis system_boundaries_interaction_dependency_analysis(const SystemBoundaries *self);
-// 4.5.8. Migration Interactions. Covers BSI-MIG.
+// 4.5.8. Migration Interactions. Covers IIS-MIG.
 // Returns the list view; element type: MigrationInteractions (construct from item paths).
 SomList system_boundaries_migration_interactions(const SystemBoundaries *self);
 // 4.5.9. Cross-Boundary Operational Considerations.
@@ -30859,7 +30859,7 @@ SomList system_knowledge_transfer_critical_knowledge_areas(const SystemKnowledge
 
 // 4.5.4. System Landscape Inventory.
 //
-// Complete external-system inventory covering BSI-LAN-INV content.
+// Complete external-system inventory covering IIS-LAN-INV content.
 // Binds a SystemLandscapeInventory facade to a document and a path (path copied).
 void system_landscape_inventory_init(SystemLandscapeInventory *self, SpecDocument *doc, const char *path);
 void system_landscape_inventory_free(SystemLandscapeInventory *self);
@@ -31148,9 +31148,9 @@ FeaturePrioritization system_stage_plan_feature_prioritization(const SystemStage
 DataMigrationStrategy system_stage_plan_data_migration(const SystemStagePlan *self);
 // 13.6. Governance.
 StageGovernance system_stage_plan_governance(const SystemStagePlan *self);
-// 13.7. Initial Development Flow. Covers PPP-IDV.
+// 13.7. Initial Development Flow. Covers DRM-IDV.
 InitialDevelopmentFlow system_stage_plan_initial_development_flow(const SystemStagePlan *self);
-// 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
+// 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
 UpgradeCycleFramework system_stage_plan_upgrade_cycle_framework(const SystemStagePlan *self);
 
 // Dependencies, risks, and compliance constraints across stages.

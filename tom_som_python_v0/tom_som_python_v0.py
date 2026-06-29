@@ -3932,7 +3932,7 @@ class BoundaryAssumptions(SomNode):
 class BoundaryInteractionPatterns(SomNode):
     """4.5.5. Boundary Interaction Patterns.
     
-    Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
+    Sync / async / batch interaction-pattern catalog. Covers IIS-PAT.
     Named `BoundaryInteractionPatterns` to avoid colliding with the
     existing intra-system `InteractionPatterns` class.
     """
@@ -22176,8 +22176,8 @@ class InitialDevelopmentFlow(SomNode):
     """13.7. Initial Development Flow.
     
     Inter-phase dependencies during the initial build (Phases 1–7 of
-    `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
-    as "new in PPP".
+    `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+    as "new in DRM".
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -22697,7 +22697,7 @@ class InteractionDependencyAnalysis(SomNode):
     """4.5.7. Interaction Dependency Analysis.
     
     Critical-path and degraded-mode behavior analysis for system
-    dependencies. Covers BSI-DEP.
+    dependencies. Covers IIS-DEP.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -22928,7 +22928,7 @@ class InteractionTestingStrategy(SomNode):
     """4.5.6. Interaction Testing Strategy.
     
     Contract / integration / failure-mode testing for system boundaries.
-    Covers BSI-TST.
+    Covers IIS-TST.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -26103,7 +26103,7 @@ class MigrationInteractions(SomNode):
     
     Interactions specific to the migration window — cutover bridges,
     reconciliation endpoints, and temporary shims. Back-refs the
-    Systems to Replace inventory. Covers BSI-MIG.
+    Systems to Replace inventory. Covers IIS-MIG.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -43098,27 +43098,27 @@ class SystemBoundaries(SomNode):
     def assumptions(self):
         return BoundaryAssumptions(self.doc, f"{self.path}/assumptions")
 
-    # 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
+    # 4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.
     @property
     def systemLandscapeInventory(self):
         return SystemLandscapeInventory(self.doc, f"{self.path}/systemLandscapeInventory")
 
-    # 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
+    # 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
     @property
     def boundaryInteractionPatterns(self):
         return SomList(self.doc, f"{self.path}/BOINPA-BOUN-LST", lambda d, p: BoundaryInteractionPatterns(d, p))
 
-    # 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
+    # 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
     @property
     def interactionTestingStrategy(self):
         return InteractionTestingStrategy(self.doc, f"{self.path}/interactionTestingStrategy")
 
-    # 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
+    # 4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.
     @property
     def interactionDependencyAnalysis(self):
         return InteractionDependencyAnalysis(self.doc, f"{self.path}/interactionDependencyAnalysis")
 
-    # 4.5.8. Migration Interactions. Covers BSI-MIG.
+    # 4.5.8. Migration Interactions. Covers IIS-MIG.
     @property
     def migrationInteractions(self):
         return SomList(self.doc, f"{self.path}/MIIN-MIGR-LST", lambda d, p: MigrationInteractions(d, p))
@@ -43881,7 +43881,7 @@ class SystemKnowledgeTransfer(SomNode):
 class SystemLandscapeInventory(SomNode):
     """4.5.4. System Landscape Inventory.
     
-    Complete external-system inventory covering BSI-LAN-INV content.
+    Complete external-system inventory covering IIS-LAN-INV content.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -44432,12 +44432,12 @@ class SystemStagePlan(SomNode):
     def governance(self):
         return StageGovernance(self.doc, f"{self.path}/governance")
 
-    # 13.7. Initial Development Flow. Covers PPP-IDV.
+    # 13.7. Initial Development Flow. Covers DRM-IDV.
     @property
     def initialDevelopmentFlow(self):
         return InitialDevelopmentFlow(self.doc, f"{self.path}/initialDevelopmentFlow")
 
-    # 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
+    # 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
     @property
     def upgradeCycleFramework(self):
         return UpgradeCycleFramework(self.doc, f"{self.path}/upgradeCycleFramework")

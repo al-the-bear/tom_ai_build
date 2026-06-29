@@ -6,7 +6,7 @@
 // proves the typed facade is a faithful editing surface over the shared document
 // (spec §3):
 //
-//   - the `ProjectDefinition` root is anchored at the `PD` segment;
+//   - the `D00SolutionBlueprint` root is anchored at the `PD` segment;
 //   - a content leaf round-trips typed -> generic and generic -> typed;
 //   - a nested complex section derives its path under the root;
 //   - the path-based `som::SomList` collection maps onto the generic list store;
@@ -49,36 +49,36 @@ void eqStr(const std::string& got, const std::string& want,
   }
 }
 
-// The PD root, a content leaf, and a nested complex section round-trip in both
+// The SBP root, a content leaf, and a nested complex section round-trip in both
 // directions between the typed facade and the generic document.
 void testRootAndParity() {
   som::SpecDocument doc;
-  tom_som_v0::ProjectDefinition pd(doc);
-  eqStr(pd.path(), "PD", "root segment");
+  tom_som_v0::D00SolutionBlueprint pd(doc);
+  eqStr(pd.path(), "SBP", "root segment");
 
   // Typed write -> generic read.
   pd.setContent("A clear vision");
-  eqStr(doc.content("PD/content"), "A clear vision",
+  eqStr(doc.content("SBP/content"), "A clear vision",
         "typed write visible generically");
 
   // Generic write -> typed read.
-  doc.setContent("PD/content", "Revised vision");
+  doc.setContent("SBP/content", "Revised vision");
   eqStr(pd.content(), "Revised vision",
         "generic write visible through typed getter");
 
   // An unset leaf reads as the empty string.
   som::SpecDocument fresh;
-  tom_som_v0::ProjectDefinition pd2(fresh);
+  tom_som_v0::D00SolutionBlueprint pd2(fresh);
   eqStr(pd2.content(), "", "unset leaf reads as empty string");
 
   // Nested complex section path derivation (camelCase segment preserved).
-  tom_som_v0::CurrentStateAnalysis csa = pd.currentStateAnalysis();
-  eqStr(csa.path(), "PD/currentStateAnalysis", "nested section path");
+  tom_som_v0::CurrentLandscape csa = pd.currentLandscape();
+  eqStr(csa.path(), "SBP/currentLandscape", "nested section path");
 
   // A generic value under the nested typed node is addressable via the literal
   // path (typed path == generic path).
-  doc.setContent("PD/currentStateAnalysis/probe", "x");
-  eqStr(doc.content("PD/currentStateAnalysis/probe"), "x",
+  doc.setContent("SBP/currentLandscape/probe", "x");
+  eqStr(doc.content("SBP/currentLandscape/probe"), "x",
         "typed path is the generic path");
 }
 
@@ -86,8 +86,8 @@ void testRootAndParity() {
 // are constructed from the item paths the list yields.
 void testTypedList() {
   som::SpecDocument doc;
-  tom_som_v0::ProjectDefinition pd(doc);
-  tom_som_v0::CurrentStateAnalysis csa = pd.currentStateAnalysis();
+  tom_som_v0::D00SolutionBlueprint pd(doc);
+  tom_som_v0::CurrentLandscape csa = pd.currentLandscape();
   som::SomList metrics = csa.operationalMetrics();
 
   // Append two items, constructing the element facade from each new path.
@@ -107,17 +107,17 @@ void testTypedList() {
         "typed list item content");
 
   // Typed list writes land in the generic list store under the same path.
-  ok(doc.listItemCount("PD/currentStateAnalysis/CUOPME-OPER-LST") == 2,
+  ok(doc.listItemCount("SBP/currentLandscape/CUOPME-OPER-LST") == 2,
      "generic list store mirrors typed list");
 }
 
 // The generated model version is reported by both the constant and the accessor.
 void testModelVersion() {
-  eqStr(tom_som_v0::ProjectDefinition::kModelVersion, "0.0",
+  eqStr(tom_som_v0::D00SolutionBlueprint::kModelVersion, "0.0",
         "kModelVersion constant");
 
   som::SpecDocument doc;
-  tom_som_v0::ProjectDefinition pd(doc);
+  tom_som_v0::D00SolutionBlueprint pd(doc);
   eqStr(pd.objectModelVersion(), "0.0", "objectModelVersion accessor");
 }
 
@@ -128,7 +128,7 @@ void testVersionCheck() {
 
   bool emptyOk = true;
   try {
-    tom_som_v0::ProjectDefinition a(doc, "");
+    tom_som_v0::D00SolutionBlueprint a(doc, "");
   } catch (const som::SomVersionError&) {
     emptyOk = false;
   }
@@ -136,7 +136,7 @@ void testVersionCheck() {
 
   bool equalOk = true;
   try {
-    tom_som_v0::ProjectDefinition b(doc, "0.0");
+    tom_som_v0::D00SolutionBlueprint b(doc, "0.0");
   } catch (const som::SomVersionError&) {
     equalOk = false;
   }
@@ -146,7 +146,7 @@ void testVersionCheck() {
   bool minorRejected = false;
   std::string minorMsg;
   try {
-    tom_som_v0::ProjectDefinition c(doc, "0.1");
+    tom_som_v0::D00SolutionBlueprint c(doc, "0.1");
   } catch (const som::SomVersionError& e) {
     minorRejected = true;
     minorMsg = e.what();
@@ -157,7 +157,7 @@ void testVersionCheck() {
   // Different major -> rejected.
   bool majorRejected = false;
   try {
-    tom_som_v0::ProjectDefinition d(doc, "1.0");
+    tom_som_v0::D00SolutionBlueprint d(doc, "1.0");
   } catch (const som::SomVersionError&) {
     majorRejected = true;
   }

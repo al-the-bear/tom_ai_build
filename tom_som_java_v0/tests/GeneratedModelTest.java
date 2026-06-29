@@ -8,7 +8,7 @@
 // typed facade is a faithful editing surface over the shared document (spec §3):
 //
 //   * the real module compiles + loads against the runtime;
-//   * the ProjectDefinition root is anchored at the `PD` segment;
+//   * the D00SolutionBlueprint root is anchored at the `PD` segment;
 //   * a content leaf round-trips typed -> generic and generic -> typed;
 //   * a nested complex section derives its path under the root;
 //   * the typed SomList collection parity (add / length / get) lands in the
@@ -44,36 +44,36 @@ public final class GeneratedModelTest {
 
   private static void testRootAndParity() {
     SpecDocument doc = new SpecDocument();
-    TomSomV0.ProjectDefinition pd = new TomSomV0.ProjectDefinition(doc);
+    TomSomV0.D00SolutionBlueprint pd = new TomSomV0.D00SolutionBlueprint(doc);
 
-    check("root.segment", pd.path.equals("PD"), pd.path);
+    check("root.segment", pd.path.equals("SBP"), pd.path);
 
     // Typed write -> generic read.
     pd.content("A clear vision");
-    check("content.typed->generic", "A clear vision".equals(doc.content("PD/content")),
-        String.valueOf(doc.content("PD/content")));
+    check("content.typed->generic", "A clear vision".equals(doc.content("SBP/content")),
+        String.valueOf(doc.content("SBP/content")));
 
     // Generic write -> typed read.
-    doc.setContent("PD/content", "Revised vision");
+    doc.setContent("SBP/content", "Revised vision");
     check("content.generic->typed", "Revised vision".equals(pd.content()), pd.content());
 
     // Unset leaf reads as empty string.
     check("content.unset-empty",
-        new TomSomV0.ProjectDefinition(new SpecDocument()).content().isEmpty());
+        new TomSomV0.D00SolutionBlueprint(new SpecDocument()).content().isEmpty());
 
     // Nested complex section path derivation (camelCase accessor preserved).
-    TomSomV0.CurrentStateAnalysis csa = pd.currentStateAnalysis();
-    check("nested.path", csa.path.equals("PD/currentStateAnalysis"), csa.path);
+    TomSomV0.CurrentLandscape csa = pd.currentLandscape();
+    check("nested.path", csa.path.equals("SBP/currentLandscape"), csa.path);
 
     // A generic value under the nested typed node is addressable via the
     // expected literal path (proves typed path == generic path).
-    String headerPath = pd.header().path;
+    String headerPath = pd.documentControl().path;
     doc.setContent(headerPath + "/probe", "x");
-    check("nested.typed-path==generic", "x".equals(doc.content("PD/header/probe")));
+    check("nested.typed-path==generic", "x".equals(doc.content("SBP/documentControl/probe")));
 
     // Typed SomList collection parity: append items, read them back, and prove
     // they land in the same generic store under the list segment.
-    TomSomV0.CurrentStateAnalysis csa2 = pd.currentStateAnalysis();
+    TomSomV0.CurrentLandscape csa2 = pd.currentLandscape();
     csa2.operationalMetrics().add().content("Average order turnaround: 4.2 days.");
     csa2.operationalMetrics().add().content("Manual reconciliation: ~12h / week.");
     check("list.length", csa2.operationalMetrics().length() == 2,
@@ -82,13 +82,13 @@ public final class GeneratedModelTest {
         csa2.operationalMetrics().get(0).content().equals(
             "Average order turnaround: 4.2 days."));
     check("list.generic-count",
-        doc.listItemCount("PD/currentStateAnalysis/CUOPME-OPER-LST") == 2);
+        doc.listItemCount("SBP/currentLandscape/CUOPME-OPER-LST") == 2);
   }
 
   private static void testModelVersion() {
-    check("version.classattr", TomSomV0.ProjectDefinition.MODEL_VERSION.equals("0.0"),
-        TomSomV0.ProjectDefinition.MODEL_VERSION);
-    TomSomV0.ProjectDefinition pd = new TomSomV0.ProjectDefinition(new SpecDocument());
+    check("version.classattr", TomSomV0.D00SolutionBlueprint.MODEL_VERSION.equals("0.0"),
+        TomSomV0.D00SolutionBlueprint.MODEL_VERSION);
+    TomSomV0.D00SolutionBlueprint pd = new TomSomV0.D00SolutionBlueprint(new SpecDocument());
     check("version.accessor", pd.objectModelVersion().equals("0.0"),
         pd.objectModelVersion());
   }
@@ -96,8 +96,8 @@ public final class GeneratedModelTest {
   private static void testVersionCheck() {
     // New / equal-stamp document → accepted.
     try {
-      new TomSomV0.ProjectDefinition(new SpecDocument());
-      new TomSomV0.ProjectDefinition(new SpecDocument(), "0.0");
+      new TomSomV0.D00SolutionBlueprint(new SpecDocument());
+      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "0.0");
       check("version.editable", true);
     } catch (SomVersionError e) {
       check("version.editable", false, e.getMessage());
@@ -105,7 +105,7 @@ public final class GeneratedModelTest {
 
     // Newer minor → rejected.
     try {
-      new TomSomV0.ProjectDefinition(new SpecDocument(), "0.1");
+      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "0.1");
       check("version.newer-rejected", false, "expected SomVersionError");
     } catch (SomVersionError e) {
       check("version.newer-rejected", true);
@@ -113,7 +113,7 @@ public final class GeneratedModelTest {
 
     // Different major → rejected.
     try {
-      new TomSomV0.ProjectDefinition(new SpecDocument(), "1.0");
+      new TomSomV0.D00SolutionBlueprint(new SpecDocument(), "1.0");
       check("version.cross-major-rejected", false, "expected SomVersionError");
     } catch (SomVersionError e) {
       check("version.cross-major-rejected", true);

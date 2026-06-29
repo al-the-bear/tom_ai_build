@@ -2709,7 +2709,7 @@ class BoundaryAssumptions extends SomNode {
 
 /// 4.5.5. Boundary Interaction Patterns.
 /// 
-/// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
+/// Sync / async / batch interaction-pattern catalog. Covers IIS-PAT.
 /// Named `BoundaryInteractionPatterns` to avoid colliding with the
 /// existing intra-system `InteractionPatterns` class.
 class BoundaryInteractionPatterns extends SomNode {
@@ -15358,8 +15358,8 @@ class InfrastructureSecurityHardeningNetwork extends SomNode {
 /// 13.7. Initial Development Flow.
 /// 
 /// Inter-phase dependencies during the initial build (Phases 1–7 of
-/// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
-/// as "new in PPP".
+/// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+/// as "new in DRM".
 class InitialDevelopmentFlow extends SomNode {
   InitialDevelopmentFlow(super.doc, super.path);
 
@@ -15724,7 +15724,7 @@ class InteractionChannelEntryPlatform extends SomNode {
 /// 4.5.7. Interaction Dependency Analysis.
 /// 
 /// Critical-path and degraded-mode behavior analysis for system
-/// dependencies. Covers BSI-DEP.
+/// dependencies. Covers IIS-DEP.
 class InteractionDependencyAnalysis extends SomNode {
   InteractionDependencyAnalysis(super.doc, super.path);
 
@@ -15882,7 +15882,7 @@ class InteractionSecurity extends SomNode {
 /// 4.5.6. Interaction Testing Strategy.
 /// 
 /// Contract / integration / failure-mode testing for system boundaries.
-/// Covers BSI-TST.
+/// Covers IIS-TST.
 class InteractionTestingStrategy extends SomNode {
   InteractionTestingStrategy(super.doc, super.path);
 
@@ -18095,7 +18095,7 @@ class MigrationEnvironments extends SomNode {
 /// 
 /// Interactions specific to the migration window — cutover bridges,
 /// reconciliation endpoints, and temporary shims. Back-refs the
-/// Systems to Replace inventory. Covers BSI-MIG.
+/// Systems to Replace inventory. Covers IIS-MIG.
 class MigrationInteractions extends SomNode {
   MigrationInteractions(super.doc, super.path);
 
@@ -29936,19 +29936,19 @@ class SystemBoundaries extends SomNode {
   /// 4.5.3. Assumptions — contains 0+×.
   BoundaryAssumptions get assumptions => BoundaryAssumptions(doc, '$path/assumptions');
 
-  /// 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
+  /// 4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.
   SystemLandscapeInventory get systemLandscapeInventory => SystemLandscapeInventory(doc, '$path/systemLandscapeInventory');
 
-  /// 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
+  /// 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
   SomList<BoundaryInteractionPatterns> get boundaryInteractionPatterns => SomList<BoundaryInteractionPatterns>(doc, '$path/BOINPA-BOUN-LST', (d, p) => BoundaryInteractionPatterns(d, p));
 
-  /// 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
+  /// 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
   InteractionTestingStrategy get interactionTestingStrategy => InteractionTestingStrategy(doc, '$path/interactionTestingStrategy');
 
-  /// 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
+  /// 4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.
   InteractionDependencyAnalysis get interactionDependencyAnalysis => InteractionDependencyAnalysis(doc, '$path/interactionDependencyAnalysis');
 
-  /// 4.5.8. Migration Interactions. Covers BSI-MIG.
+  /// 4.5.8. Migration Interactions. Covers IIS-MIG.
   SomList<MigrationInteractions> get migrationInteractions => SomList<MigrationInteractions>(doc, '$path/MIIN-MIGR-LST', (d, p) => MigrationInteractions(d, p));
 
   /// 4.5.9. Cross-Boundary Operational Considerations.
@@ -30478,7 +30478,7 @@ class SystemKnowledgeTransfer extends SomNode {
 
 /// 4.5.4. System Landscape Inventory.
 /// 
-/// Complete external-system inventory covering BSI-LAN-INV content.
+/// Complete external-system inventory covering IIS-LAN-INV content.
 class SystemLandscapeInventory extends SomNode {
   SystemLandscapeInventory(super.doc, super.path);
 
@@ -30841,10 +30841,10 @@ class SystemStagePlan extends SomNode {
   /// 13.6. Governance.
   StageGovernance get governance => StageGovernance(doc, '$path/governance');
 
-  /// 13.7. Initial Development Flow. Covers PPP-IDV.
+  /// 13.7. Initial Development Flow. Covers DRM-IDV.
   InitialDevelopmentFlow get initialDevelopmentFlow => InitialDevelopmentFlow(doc, '$path/initialDevelopmentFlow');
 
-  /// 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
+  /// 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
   UpgradeCycleFramework get upgradeCycleFramework => UpgradeCycleFramework(doc, '$path/upgradeCycleFramework');
 }
 

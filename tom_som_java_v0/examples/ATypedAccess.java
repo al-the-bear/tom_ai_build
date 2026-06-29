@@ -24,7 +24,7 @@ public final class ATypedAccess {
     // A typed root over a fresh, empty document. The constructor also runs the
     // §2.2 instantiation-time version check (an unstamped document is editable).
     SpecDocument doc = new SpecDocument();
-    TomSomV0.ProjectDefinition pd = new TomSomV0.ProjectDefinition(doc);
+    TomSomV0.D00SolutionBlueprint pd = new TomSomV0.D00SolutionBlueprint(doc);
 
     System.out.println("Model version of this typed facade: "
         + pd.objectModelVersion());
@@ -34,7 +34,7 @@ public final class ATypedAccess {
     pd.content("A platform that unifies our fragmented order systems.");
 
     // 2) Navigate into a nested complex section and edit its own content leaf.
-    TomSomV0.CurrentStateAnalysis csa = pd.currentStateAnalysis();
+    TomSomV0.CurrentLandscape csa = pd.currentLandscape();
     csa.content("Three legacy systems with no shared customer record.");
 
     // 3) The typed collection API: append two list items and edit each.
@@ -44,8 +44,8 @@ public final class ATypedAccess {
     m1.content("Manual reconciliation: ~12 hours / week.");
 
     // Read everything back through the typed accessors.
-    System.out.println("PD.content              = " + pd.content());
-    System.out.println("PD.currentStateAnalysis = " + csa.content());
+    System.out.println("SBP.content              = " + pd.content());
+    System.out.println("SBP.currentLandscape = " + csa.content());
     int len = csa.operationalMetrics().length();
     System.out.println("operationalMetrics.length = " + len);
     for (int i = 0; i < len; i++) {

@@ -49,8 +49,8 @@ function main() {
     console.log(`  ${reflection.rootSegment(root).padEnd(4)} ${root.title}`);
   }
 
-  // Inspect the fields of the ProjectDefinition root class.
-  const pdRoot = reflection.rootForSegment('PD');
+  // Inspect the fields of the D00SolutionBlueprint root class.
+  const pdRoot = reflection.rootForSegment('SBP');
   const pdFields = reflection.fieldsOf(pdRoot.type);
   console.log(`\nFirst fields of ${pdRoot.type} (${pdFields.length} total):`);
   for (const field of pdFields.slice(0, 6)) {
@@ -67,10 +67,10 @@ function main() {
   // Resolve concrete document paths to model nodes (value-free).
   console.log('\nPath resolution:');
   for (const p of [
-    'PD',
-    'PD/content',
-    'PD/currentStateAnalysis',
-    'PD/currentStateAnalysis/CUOPME-OPER-LST',
+    'SBP',
+    'SBP/content',
+    'SBP/currentLandscape',
+    'SBP/currentLandscape/CUOPME-OPER-LST',
   ]) {
     const res = reflection.resolve(p);
     if (res == null) {

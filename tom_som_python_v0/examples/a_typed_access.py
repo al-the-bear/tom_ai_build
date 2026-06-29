@@ -46,7 +46,7 @@ def main() -> int:
     # A typed root over a fresh, empty document. The constructor also runs the
     # §2.2 instantiation-time version check (an unstamped document is editable).
     doc = SpecDocument()
-    pd = m.ProjectDefinition(doc)
+    pd = m.D00SolutionBlueprint(doc)
 
     print(f"Model version of this typed facade: {pd.object_model_version}")
     print(f"Root path: {pd.path}\n")
@@ -55,7 +55,7 @@ def main() -> int:
     pd.content = "A platform that unifies our fragmented order systems."
 
     # 2) Navigate into a nested complex section and edit its own content leaf.
-    csa = pd.currentStateAnalysis
+    csa = pd.currentLandscape
     csa.content = "Three legacy systems with no shared customer record."
 
     # 3) The typed collection API: append two list items and edit each.
@@ -64,8 +64,8 @@ def main() -> int:
     metrics.add().content = "Manual reconciliation: ~12 hours / week."
 
     # Read everything back through the typed properties.
-    print(f"PD.content              = {pd.content}")
-    print(f"PD.currentStateAnalysis = {csa.content}")
+    print(f"SBP.content              = {pd.content}")
+    print(f"SBP.currentLandscape = {csa.content}")
     print(f"operationalMetrics.length = {metrics.length}")
     for i in range(metrics.length):
         print(f"  metric[{i}] = {metrics[i].content}")

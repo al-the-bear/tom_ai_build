@@ -4,7 +4,7 @@
 // Behavioural suite for the **actually-committed** generated typed object model
 // (`tom_som_dart_v0`), as opposed to the emitter-golden *fixture* exercised by
 // `tom_specs_clitool/test/som_dart_emitter_test.dart`. It instantiates the real
-// `ProjectDefinition` root over a generic `SpecDocument` and proves the typed
+// `D00SolutionBlueprint` root over a generic `SpecDocument` and proves the typed
 // facade is a faithful editing surface over the shared document (spec §3):
 // typed↔generic parity, nested-section path derivation, the generated model
 // version, and the instantiation-time version check (§2.2).
@@ -17,68 +17,68 @@ import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('tom_som_dart_v0 generated ProjectDefinition', () {
+  group('tom_som_dart_v0 generated D00SolutionBlueprint', () {
     test('roots at the PD segment', () {
-      final pd = ProjectDefinition(SpecDocument());
-      expect(pd.path, 'PD');
+      final pd = D00SolutionBlueprint(SpecDocument());
+      expect(pd.path, 'SBP');
     });
 
     test('content round-trips typed -> generic and generic -> typed', () {
       final doc = SpecDocument();
-      final pd = ProjectDefinition(doc);
+      final pd = D00SolutionBlueprint(doc);
 
       // Typed write, generic read.
       pd.content = 'A clear vision';
-      expect(doc.content('PD/content'), 'A clear vision');
+      expect(doc.content('SBP/content'), 'A clear vision');
 
       // Generic write, typed read.
-      doc.setContent('PD/content', 'Revised vision');
+      doc.setContent('SBP/content', 'Revised vision');
       expect(pd.content, 'Revised vision');
     });
 
     test('an unset content leaf reads as the empty string', () {
-      expect(ProjectDefinition(SpecDocument()).content, '');
+      expect(D00SolutionBlueprint(SpecDocument()).content, '');
     });
 
     test('nested complex sections derive their path under the root', () {
-      final pd = ProjectDefinition(SpecDocument());
+      final pd = D00SolutionBlueprint(SpecDocument());
       // A representative nested section accessor returns a SomNode rooted at
       // the parent path — the same path the generic API would address.
-      expect(pd.currentStateAnalysis.path, 'PD/currentStateAnalysis');
-      expect(pd.systemOverview.path, 'PD/systemOverview');
+      expect(pd.currentLandscape.path, 'SBP/currentLandscape');
+      expect(pd.introductionAndScope.path, 'SBP/introductionAndScope');
     });
 
     test('a value written through a nested typed section is visible generically',
         () {
       final doc = SpecDocument();
-      final pd = ProjectDefinition(doc);
-      final headerPath = pd.header.path;
-      // The header is a form section; set a generic content leaf beneath the
-      // nested node and confirm the typed path addresses the same place.
+      final pd = D00SolutionBlueprint(doc);
+      final headerPath = pd.documentControl.path;
+      // documentControl is a nested section; set a generic content leaf beneath
+      // the nested node and confirm the typed path addresses the same place.
       doc.setContent('$headerPath/probe', 'x');
-      expect(doc.content('PD/header/probe'), 'x');
+      expect(doc.content('SBP/documentControl/probe'), 'x');
     });
 
     test('reports the generated v0 model version (0.0)', () {
-      expect(ProjectDefinition.modelVersion, '0.0');
-      expect(ProjectDefinition(SpecDocument()).objectModelVersion, '0.0');
+      expect(D00SolutionBlueprint.modelVersion, '0.0');
+      expect(D00SolutionBlueprint(SpecDocument()).objectModelVersion, '0.0');
     });
   });
 
   group('tom_som_dart_v0 instantiation-time version check (§2.2)', () {
     test('a new / unstamped document is editable', () {
-      expect(() => ProjectDefinition(SpecDocument()), returnsNormally);
-      expect(() => ProjectDefinition(SpecDocument(), documentVersion: '0.0'),
+      expect(() => D00SolutionBlueprint(SpecDocument()), returnsNormally);
+      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '0.0'),
           returnsNormally);
     });
 
     test('a newer same-major document is rejected', () {
-      expect(() => ProjectDefinition(SpecDocument(), documentVersion: '0.1'),
+      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '0.1'),
           throwsA(isA<SomVersionException>()));
     });
 
     test('a different major document is rejected', () {
-      expect(() => ProjectDefinition(SpecDocument(), documentVersion: '1.0'),
+      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.0'),
           throwsA(isA<SomVersionException>()));
     });
   });

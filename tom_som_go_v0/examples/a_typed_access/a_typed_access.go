@@ -27,7 +27,7 @@ func main() {
 	// A typed root over a fresh, empty document. The constructor also runs the
 	// §2.2 instantiation-time version check (an empty stamp is editable).
 	doc := som.NewSpecDocument()
-	pd, err := somv0.NewProjectDefinition(doc, "")
+	pd, err := somv0.NewD00SolutionBlueprint(doc, "")
 	if err != nil {
 		panic(err)
 	}
@@ -39,7 +39,7 @@ func main() {
 	pd.SetContent("A platform that unifies our fragmented order systems.")
 
 	// 2) Navigate into a nested complex section and edit its own content leaf.
-	csa := pd.CurrentStateAnalysis()
+	csa := pd.CurrentLandscape()
 	csa.SetContent("Three legacy systems with no shared customer record.")
 
 	// 3) The typed collection API: append two list items and edit each.
@@ -48,8 +48,8 @@ func main() {
 	metrics.Add().SetContent("Manual reconciliation: ~12 hours / week.")
 
 	// Read everything back through the typed accessors.
-	fmt.Printf("PD.content              = %s\n", pd.Content())
-	fmt.Printf("PD.currentStateAnalysis = %s\n", csa.Content())
+	fmt.Printf("SBP.content              = %s\n", pd.Content())
+	fmt.Printf("SBP.currentLandscape = %s\n", csa.Content())
 	fmt.Printf("operationalMetrics.length = %d\n", metrics.Length())
 	for i := 0; i < metrics.Length(); i++ {
 		fmt.Printf("  metric[%d] = %s\n", i, metrics.At(i).Content())

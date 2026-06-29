@@ -27,22 +27,22 @@ func main() {
 	doc := som.NewSpecDocument()
 
 	// Content leaves are addressed by their full path from the root segment.
-	doc.SetContent("PD/content",
+	doc.SetContent("SBP/content",
 		"A platform that unifies our fragmented order systems.")
-	doc.SetContent("PD/currentStateAnalysis/content",
+	doc.SetContent("SBP/currentLandscape/content",
 		"Three legacy systems with no shared customer record.")
 
 	// A list: append items (each call returns the new item's path), then set a
 	// content leaf under each. The list path mirrors the typed facade's
 	// `operationalMetrics` accessor.
-	listPath := "PD/currentStateAnalysis/CUOPME-OPER-LST"
+	listPath := "SBP/currentLandscape/CUOPME-OPER-LST"
 	item0 := doc.AddListItem(listPath)
 	doc.SetContent(item0+"/content", "Average order turnaround: 4.2 days.")
 	item1 := doc.AddListItem(listPath)
 	doc.SetContent(item1+"/content", "Manual reconciliation: ~12 hours / week.")
 
 	// Read back generically.
-	fmt.Printf("PD/content = %s\n", doc.ContentOr("PD/content"))
+	fmt.Printf("SBP/content = %s\n", doc.ContentOr("SBP/content"))
 	fmt.Printf("list item count = %d\n", doc.ListItemCount(listPath))
 	for _, itemPath := range doc.ListItems(listPath) {
 		fmt.Printf("  %s/content = %s\n", itemPath, doc.ContentOr(itemPath+"/content"))

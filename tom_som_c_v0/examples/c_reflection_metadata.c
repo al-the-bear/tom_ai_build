@@ -79,10 +79,10 @@ int main(int argc, char **argv) {
            root->title != NULL ? root->title : "");
   }
 
-  /* Inspect the fields of the ProjectDefinition root class. */
-  const SpecRoot *pd_root = spec_reflection_root_for_segment(&ref, "PD");
+  /* Inspect the fields of the D00SolutionBlueprint root class. */
+  const SpecRoot *pd_root = spec_reflection_root_for_segment(&ref, "SBP");
   if (pd_root == NULL) {
-    printf("PD root not found\n");
+    printf("SBP root not found\n");
     spec_model_free(model);
     return 1;
   }
@@ -104,10 +104,10 @@ int main(int argc, char **argv) {
   /* Resolve concrete document paths to model nodes (value-free). */
   printf("\nPath resolution:\n");
   const char *paths[] = {
-      "PD",
-      "PD/content",
-      "PD/currentStateAnalysis",
-      "PD/currentStateAnalysis/CUOPME-OPER-LST",
+      "SBP",
+      "SBP/content",
+      "SBP/currentLandscape",
+      "SBP/currentLandscape/CUOPME-OPER-LST",
   };
   for (size_t i = 0; i < sizeof(paths) / sizeof(paths[0]); i++) {
     SpecResolution res;

@@ -37,8 +37,8 @@ void main() {
     print('  ${reflection.rootSegment(root).padRight(4)} ${root.title}');
   }
 
-  // Inspect the fields of the ProjectDefinition root class.
-  final pdRoot = reflection.rootForSegment('PD')!;
+  // Inspect the fields of the D00SolutionBlueprint root class.
+  final pdRoot = reflection.rootForSegment('SBP')!;
   final pdFields = reflection.fieldsOf(pdRoot.type);
   print('\nFirst fields of ${pdRoot.type} (${pdFields.length} total):');
   for (final field in pdFields.take(6)) {
@@ -51,10 +51,10 @@ void main() {
   // Resolve concrete document paths to model nodes (value-free).
   print('\nPath resolution:');
   for (final path in [
-    'PD',
-    'PD/content',
-    'PD/currentStateAnalysis',
-    'PD/currentStateAnalysis/CUOPME-OPER-LST',
+    'SBP',
+    'SBP/content',
+    'SBP/currentLandscape',
+    'SBP/currentLandscape/CUOPME-OPER-LST',
   ]) {
     final res = reflection.resolve(path);
     if (res == null) {
