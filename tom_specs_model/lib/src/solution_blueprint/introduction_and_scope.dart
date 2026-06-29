@@ -16,7 +16,7 @@ import '../document_stubs.dart';
 /// scope boundaries, and the environment it operates in. This section
 /// establishes the foundation for all subsequent specification work.
 @SectionId('SYOV')
-class SystemOverview {
+class IntroductionAndScope {
   @ContentHelp('''
 Executive summary of the system being specified.
 Provide a high-level overview that allows readers to quickly understand:

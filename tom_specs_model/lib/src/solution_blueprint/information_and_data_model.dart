@@ -13,7 +13,7 @@ import '../document_stubs.dart';
 @SectionId('BODM')
 @Comment('Seeds → BDM')
 @MapsTo(InformationModel)
-class BusinessObjectAndDataModel {
+class InformationAndDataModel {
   @ContentHelp('''
 Conceptual overview of the business data the system manages. This chapter
 establishes the foundation for all data-related specifications and seeds the

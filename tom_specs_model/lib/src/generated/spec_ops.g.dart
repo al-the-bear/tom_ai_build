@@ -258,35 +258,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as AcceptanceStepEntryOutcome).content,
   ));
-  SpecRegistry.register(AccessAndAuthorizationConcept, SpecClassOps(
-    slots: (o) {
-      final n = o as AccessAndAuthorizationConcept;
-      return [
-        SpecSlot.node(() => n.userManagement, (v) => n.userManagement = v as UserManagement, label: 'userManagement'),
-        SpecSlot.node(() => n.authentication, (v) => n.authentication = v as IdentificationAndAuthentication, label: 'authentication'),
-        SpecSlot.node(() => n.resourceProtection, (v) => n.resourceProtection = v as ResourceProtection, label: 'resourceProtection'),
-        SpecSlot.node(() => n.authorization, (v) => n.authorization = v as UserAuthorization, label: 'authorization'),
-        SpecSlot.node(() => n.encryption, (v) => n.encryption = v as SensitiveDataEncryption, label: 'encryption'),
-        SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
-        SpecSlot.node(() => n.roleMatrix, (v) => n.roleMatrix = v as RoleMatrix, label: 'roleMatrix'),
-        SpecSlot.node(() => n.complianceFramework, (v) => n.complianceFramework = v as ComplianceFramework, label: 'complianceFramework'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as AccessAndAuthorizationConcept;
-      return AccessAndAuthorizationConcept()
-        ..content = n.content
-        ..userManagement = n.userManagement
-        ..authentication = n.authentication
-        ..resourceProtection = n.resourceProtection
-        ..authorization = n.authorization
-        ..encryption = n.encryption
-        ..auditAndLogging = n.auditAndLogging
-        ..roleMatrix = n.roleMatrix
-        ..complianceFramework = n.complianceFramework;
-    },
-    yamlScalar: (o) => (o as AccessAndAuthorizationConcept).content,
-  ));
   SpecRegistry.register(AccessChannels, SpecClassOps(
     slots: (o) {
       final n = o as AccessChannels;
@@ -2019,6 +1990,45 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ArchitectureStyle).content,
   ));
+  SpecRegistry.register(ArchitectureTechnologySpecification, SpecClassOps(
+    slots: (o) {
+      final n = o as ArchitectureTechnologySpecification;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.basicTechnicalRequirements, (v) => n.basicTechnicalRequirements = v as BasicTechnicalRequirements, label: 'basicTechnicalRequirements'),
+        SpecSlot.node(() => n.softwareDesignRequirements, (v) => n.softwareDesignRequirements = v as SoftwareDesignRequirements, label: 'softwareDesignRequirements'),
+        SpecSlot.node(() => n.standardSoftwareRequirements, (v) => n.standardSoftwareRequirements = v as StandardSoftwareRequirements, label: 'standardSoftwareRequirements'),
+        SpecSlot.node(() => n.hardwareRequirements, (v) => n.hardwareRequirements = v as HardwareRequirements, label: 'hardwareRequirements'),
+        SpecSlot.node(() => n.operationsRequirements, (v) => n.operationsRequirements = v as OperationsRequirements, label: 'operationsRequirements'),
+        SpecSlot.node(() => n.communicationRequirements, (v) => n.communicationRequirements = v as CommunicationRequirements, label: 'communicationRequirements'),
+        SpecSlot.node(() => n.systemOperationAndMonitoring, (v) => n.systemOperationAndMonitoring = v as SystemOperationAndMonitoring, label: 'systemOperationAndMonitoring'),
+        SpecSlot.node(() => n.technicalSecurityRequirements, (v) => n.technicalSecurityRequirements = v as TechnicalSecurityRequirements, label: 'technicalSecurityRequirements'),
+        SpecSlot.node(() => n.systemArchitecture, (v) => n.systemArchitecture = v as SystemArchitectureSpec, label: 'systemArchitecture'),
+        SpecSlot.node(() => n.componentsToUse, (v) => n.componentsToUse = v as ComponentsToUse, label: 'componentsToUse'),
+        SpecSlot.node(() => n.technicalFrameworkConditions, (v) => n.technicalFrameworkConditions = v as TechnicalFrameworkConditions, label: 'technicalFrameworkConditions'),
+        SpecSlot.node(() => n.translationRequirements, (v) => n.translationRequirements = v as TranslationRequirements, label: 'translationRequirements'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ArchitectureTechnologySpecification;
+      return ArchitectureTechnologySpecification()
+        ..content = n.content
+        ..header = n.header
+        ..basicTechnicalRequirements = n.basicTechnicalRequirements
+        ..softwareDesignRequirements = n.softwareDesignRequirements
+        ..standardSoftwareRequirements = n.standardSoftwareRequirements
+        ..hardwareRequirements = n.hardwareRequirements
+        ..operationsRequirements = n.operationsRequirements
+        ..communicationRequirements = n.communicationRequirements
+        ..systemOperationAndMonitoring = n.systemOperationAndMonitoring
+        ..technicalSecurityRequirements = n.technicalSecurityRequirements
+        ..systemArchitecture = n.systemArchitecture
+        ..componentsToUse = n.componentsToUse
+        ..technicalFrameworkConditions = n.technicalFrameworkConditions
+        ..translationRequirements = n.translationRequirements;
+    },
+    yamlScalar: (o) => (o as ArchitectureTechnologySpecification).content,
+  ));
   SpecRegistry.register(AssumptionEntry, SpecClassOps(
     slots: (o) {
       final n = o as AssumptionEntry;
@@ -2349,37 +2359,6 @@ void registerSpecOps() {
         ..items = n.items;
     },
     yamlScalar: (o) => (o as AuthenticationMethods).content,
-  ));
-  SpecRegistry.register(SecurityAccessSpecification, SpecClassOps(
-    slots: (o) {
-      final n = o as SecurityAccessSpecification;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.userManagement, (v) => n.userManagement = v as UserManagement, label: 'userManagement'),
-        SpecSlot.node(() => n.identificationAndAuthentication, (v) => n.identificationAndAuthentication = v as IdentificationAndAuthentication, label: 'identificationAndAuthentication'),
-        SpecSlot.node(() => n.resourceProtection, (v) => n.resourceProtection = v as ResourceProtection, label: 'resourceProtection'),
-        SpecSlot.node(() => n.userAuthorization, (v) => n.userAuthorization = v as UserAuthorization, label: 'userAuthorization'),
-        SpecSlot.node(() => n.sensitiveDataEncryption, (v) => n.sensitiveDataEncryption = v as SensitiveDataEncryption, label: 'sensitiveDataEncryption'),
-        SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
-        SpecSlot.node(() => n.roleMatrix, (v) => n.roleMatrix = v as RoleMatrix, label: 'roleMatrix'),
-        SpecSlot.node(() => n.complianceFramework, (v) => n.complianceFramework = v as ComplianceFramework, label: 'complianceFramework'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as SecurityAccessSpecification;
-      return SecurityAccessSpecification()
-        ..content = n.content
-        ..header = n.header
-        ..userManagement = n.userManagement
-        ..identificationAndAuthentication = n.identificationAndAuthentication
-        ..resourceProtection = n.resourceProtection
-        ..userAuthorization = n.userAuthorization
-        ..sensitiveDataEncryption = n.sensitiveDataEncryption
-        ..auditAndLogging = n.auditAndLogging
-        ..roleMatrix = n.roleMatrix
-        ..complianceFramework = n.complianceFramework;
-    },
-    yamlScalar: (o) => (o as SecurityAccessSpecification).content,
   ));
   SpecRegistry.register(AuthorizationEventPolicy, SpecClassOps(
     slots: (o) {
@@ -3547,45 +3526,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as BusinessComponentEntryTesting).content,
   ));
-  SpecRegistry.register(InformationModel, SpecClassOps(
-    slots: (o) {
-      final n = o as InformationModel;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.list(() => n.entities, (v) => n.entities = v.cast<DataEntityEntry>(), label: 'entities'),
-        SpecSlot.node(() => n.entityRelationships, (v) => n.entityRelationships = v as EntityRelationships, label: 'entityRelationships'),
-        SpecSlot.node(() => n.erDiagram, (v) => n.erDiagram = v as ErDiagramSection, label: 'erDiagram'),
-        SpecSlot.node(() => n.dataClassification, (v) => n.dataClassification = v as DataClassification, label: 'dataClassification'),
-        SpecSlot.list(() => n.objectCatalog, (v) => n.objectCatalog = v.cast<BusinessObjectEntry>(), label: 'objectCatalog'),
-        SpecSlot.node(() => n.objectDiagram, (v) => n.objectDiagram = v as DiagramSection, label: 'objectDiagram'),
-        SpecSlot.list(() => n.functionDecomposition, (v) => n.functionDecomposition = v.cast<FunctionEntry>(), label: 'functionDecomposition'),
-        SpecSlot.list(() => n.functionToDataMatrix, (v) => n.functionToDataMatrix = v.cast<FunctionDataMatrixEntry>(), label: 'functionToDataMatrix'),
-        SpecSlot.list(() => n.businessRules, (v) => n.businessRules = v.cast<BusinessRuleEntry>(), label: 'businessRules'),
-        SpecSlot.node(() => n.dataDictionary, (v) => n.dataDictionary = v as DataDictionary, label: 'dataDictionary'),
-        SpecSlot.list(() => n.validationConstraints, (v) => n.validationConstraints = v.cast<ValidationConstraints>(), label: 'validationConstraints'),
-        SpecSlot.list(() => n.integrityConstraints, (v) => n.integrityConstraints = v.cast<IntegrityConstraints>(), label: 'integrityConstraints'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as InformationModel;
-      return InformationModel()
-        ..content = n.content
-        ..header = n.header
-        ..entities = n.entities
-        ..entityRelationships = n.entityRelationships
-        ..erDiagram = n.erDiagram
-        ..dataClassification = n.dataClassification
-        ..objectCatalog = n.objectCatalog
-        ..objectDiagram = n.objectDiagram
-        ..functionDecomposition = n.functionDecomposition
-        ..functionToDataMatrix = n.functionToDataMatrix
-        ..businessRules = n.businessRules
-        ..dataDictionary = n.dataDictionary
-        ..validationConstraints = n.validationConstraints
-        ..integrityConstraints = n.integrityConstraints;
-    },
-    yamlScalar: (o) => (o as InformationModel).content,
-  ));
   SpecRegistry.register(BusinessGoalEntry, SpecClassOps(
     slots: (o) {
       final n = o as BusinessGoalEntry;
@@ -3724,25 +3664,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as BusinessMetricsSpecTransactions).content,
-  ));
-  SpecRegistry.register(BusinessObjectAndDataModel, SpecClassOps(
-    slots: (o) {
-      final n = o as BusinessObjectAndDataModel;
-      return [
-        SpecSlot.node(() => n.dataModel, (v) => n.dataModel = v as DataModel, label: 'dataModel'),
-        SpecSlot.node(() => n.businessObjectModel, (v) => n.businessObjectModel = v as BusinessObjectModel, label: 'businessObjectModel'),
-        SpecSlot.node(() => n.functionModel, (v) => n.functionModel = v as FunctionModel, label: 'functionModel'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as BusinessObjectAndDataModel;
-      return BusinessObjectAndDataModel()
-        ..content = n.content
-        ..dataModel = n.dataModel
-        ..businessObjectModel = n.businessObjectModel
-        ..functionModel = n.functionModel;
-    },
-    yamlScalar: (o) => (o as BusinessObjectAndDataModel).content,
   ));
   SpecRegistry.register(BusinessObjectAttributeEntry, SpecClassOps(
     slots: (o) {
@@ -3928,84 +3849,6 @@ void registerSpecOps() {
         ..processFlowPreview = n.processFlowPreview;
     },
   ));
-  SpecRegistry.register(TargetOperatingModel, SpecClassOps(
-    slots: (o) {
-      final n = o as TargetOperatingModel;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.processVision, (v) => n.processVision = v as ProcessVision, label: 'processVision'),
-        SpecSlot.node(() => n.designPrinciples, (v) => n.designPrinciples = v as ProcessDesignPrinciples, label: 'designPrinciples'),
-        SpecSlot.node(() => n.processCatalog, (v) => n.processCatalog = v as ProcessCatalog, label: 'processCatalog'),
-        SpecSlot.node(() => n.processOverviewDiagram, (v) => n.processOverviewDiagram = v as ProcessOverviewDiagram, label: 'processOverviewDiagram'),
-        SpecSlot.node(() => n.improvementSummary, (v) => n.improvementSummary = v as ProcessImprovementSummary, label: 'improvementSummary'),
-        SpecSlot.node(() => n.processRelationships, (v) => n.processRelationships = v as ProcessRelationships, label: 'processRelationships'),
-        SpecSlot.list(() => n.detailedWorkflows, (v) => n.detailedWorkflows = v.cast<DetailedProcessWorkflows>(), label: 'detailedWorkflows'),
-        SpecSlot.node(() => n.crossProcessAnalysis, (v) => n.crossProcessAnalysis = v as CrossProcessAnalysis, label: 'crossProcessAnalysis'),
-        SpecSlot.node(() => n.exceptionHandling, (v) => n.exceptionHandling = v as ProcessExceptionHandling, label: 'exceptionHandling'),
-        SpecSlot.list(() => n.processMetricsAndKpis, (v) => n.processMetricsAndKpis = v.cast<ProcessMetricsAndKpis>(), label: 'processMetricsAndKpis'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as TargetOperatingModel;
-      return TargetOperatingModel()
-        ..content = n.content
-        ..header = n.header
-        ..processVision = n.processVision
-        ..designPrinciples = n.designPrinciples
-        ..processCatalog = n.processCatalog
-        ..processOverviewDiagram = n.processOverviewDiagram
-        ..improvementSummary = n.improvementSummary
-        ..processRelationships = n.processRelationships
-        ..detailedWorkflows = n.detailedWorkflows
-        ..crossProcessAnalysis = n.crossProcessAnalysis
-        ..exceptionHandling = n.exceptionHandling
-        ..processMetricsAndKpis = n.processMetricsAndKpis;
-    },
-    yamlScalar: (o) => (o as TargetOperatingModel).content,
-  ));
-  SpecRegistry.register(QualityAcceptancePlan, SpecClassOps(
-    slots: (o) {
-      final n = o as QualityAcceptancePlan;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.qualityFramework, (v) => n.qualityFramework = v as QualityFramework, label: 'qualityFramework'),
-        SpecSlot.node(() => n.userQualityCriteria, (v) => n.userQualityCriteria = v as UserQualityCriteria, label: 'userQualityCriteria'),
-        SpecSlot.node(() => n.technicalQualityCriteria, (v) => n.technicalQualityCriteria = v as TechnicalQualityCriteria, label: 'technicalQualityCriteria'),
-        SpecSlot.node(() => n.operationsQualityCriteria, (v) => n.operationsQualityCriteria = v as OperationsQualityCriteria, label: 'operationsQualityCriteria'),
-        SpecSlot.node(() => n.documentationQualityCriteria, (v) => n.documentationQualityCriteria = v as DocumentationQualityCriteria, label: 'documentationQualityCriteria'),
-        SpecSlot.node(() => n.qualityPrioritization, (v) => n.qualityPrioritization = v as QualityPrioritization, label: 'qualityPrioritization'),
-        SpecSlot.node(() => n.acceptanceCriteriaSummary, (v) => n.acceptanceCriteriaSummary = v as AcceptanceCriteriaSummary, label: 'acceptanceCriteriaSummary'),
-        SpecSlot.node(() => n.testStrategy, (v) => n.testStrategy = v as TestStrategy, label: 'testStrategy'),
-        SpecSlot.node(() => n.acceptanceCriteria, (v) => n.acceptanceCriteria = v as AcceptanceCriteriaList, label: 'acceptanceCriteria'),
-        SpecSlot.node(() => n.acceptanceProcess, (v) => n.acceptanceProcess = v as AcceptanceProcess, label: 'acceptanceProcess'),
-        SpecSlot.node(() => n.userAcceptanceTesting, (v) => n.userAcceptanceTesting = v as UserAcceptanceTesting, label: 'userAcceptanceTesting'),
-        SpecSlot.node(() => n.defectResolution, (v) => n.defectResolution = v as DefectResolution, label: 'defectResolution'),
-        SpecSlot.node(() => n.signOffProcess, (v) => n.signOffProcess = v as SignOffProcess, label: 'signOffProcess'),
-        SpecSlot.node(() => n.warranty, (v) => n.warranty = v as WarrantyTerms, label: 'warranty'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as QualityAcceptancePlan;
-      return QualityAcceptancePlan()
-        ..content = n.content
-        ..header = n.header
-        ..qualityFramework = n.qualityFramework
-        ..userQualityCriteria = n.userQualityCriteria
-        ..technicalQualityCriteria = n.technicalQualityCriteria
-        ..operationsQualityCriteria = n.operationsQualityCriteria
-        ..documentationQualityCriteria = n.documentationQualityCriteria
-        ..qualityPrioritization = n.qualityPrioritization
-        ..acceptanceCriteriaSummary = n.acceptanceCriteriaSummary
-        ..testStrategy = n.testStrategy
-        ..acceptanceCriteria = n.acceptanceCriteria
-        ..acceptanceProcess = n.acceptanceProcess
-        ..userAcceptanceTesting = n.userAcceptanceTesting
-        ..defectResolution = n.defectResolution
-        ..signOffProcess = n.signOffProcess
-        ..warranty = n.warranty;
-    },
-    yamlScalar: (o) => (o as QualityAcceptancePlan).content,
-  ));
   SpecRegistry.register(BusinessRuleEntry, SpecClassOps(
     slots: (o) {
       final n = o as BusinessRuleEntry;
@@ -4038,41 +3881,6 @@ void registerSpecOps() {
         ..ruleRef = n.ruleRef;
     },
     yamlScalar: (o) => (o as BusinessRuleReferenceEntry).content,
-  ));
-  SpecRegistry.register(IntegrationInterfaceSpecification, SpecClassOps(
-    slots: (o) {
-      final n = o as IntegrationInterfaceSpecification;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.externalInterfaces, (v) => n.externalInterfaces = v as ExternalInterfaces, label: 'externalInterfaces'),
-        SpecSlot.node(() => n.outOfScope, (v) => n.outOfScope = v as OutOfScope, label: 'outOfScope'),
-        SpecSlot.node(() => n.boundaryAssumptions, (v) => n.boundaryAssumptions = v as BoundaryAssumptions, label: 'boundaryAssumptions'),
-        SpecSlot.node(() => n.systemInventory, (v) => n.systemInventory = v as SystemLandscapeInventory, label: 'systemInventory'),
-        SpecSlot.list(() => n.interactionPatterns, (v) => n.interactionPatterns = v.cast<BoundaryInteractionPatterns>(), label: 'interactionPatterns'),
-        SpecSlot.node(() => n.testingStrategy, (v) => n.testingStrategy = v as InteractionTestingStrategy, label: 'testingStrategy'),
-        SpecSlot.node(() => n.dependencyAnalysis, (v) => n.dependencyAnalysis = v as InteractionDependencyAnalysis, label: 'dependencyAnalysis'),
-        SpecSlot.list(() => n.migrationInteractions, (v) => n.migrationInteractions = v.cast<MigrationInteractions>(), label: 'migrationInteractions'),
-        SpecSlot.list(() => n.operationalConsiderations, (v) => n.operationalConsiderations = v.cast<CrossBoundaryOperationalConsiderations>(), label: 'operationalConsiderations'),
-        SpecSlot.node(() => n.crossBoundaryErrorHandling, (v) => n.crossBoundaryErrorHandling = v as CrossBoundaryErrorHandling, label: 'crossBoundaryErrorHandling'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as IntegrationInterfaceSpecification;
-      return IntegrationInterfaceSpecification()
-        ..content = n.content
-        ..header = n.header
-        ..externalInterfaces = n.externalInterfaces
-        ..outOfScope = n.outOfScope
-        ..boundaryAssumptions = n.boundaryAssumptions
-        ..systemInventory = n.systemInventory
-        ..interactionPatterns = n.interactionPatterns
-        ..testingStrategy = n.testingStrategy
-        ..dependencyAnalysis = n.dependencyAnalysis
-        ..migrationInteractions = n.migrationInteractions
-        ..operationalConsiderations = n.operationalConsiderations
-        ..crossBoundaryErrorHandling = n.crossBoundaryErrorHandling;
-    },
-    yamlScalar: (o) => (o as IntegrationInterfaceSpecification).content,
   ));
   SpecRegistry.register(CapacityPlanningSection, SpecClassOps(
     slots: (o) {
@@ -7918,23 +7726,30 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as CurrentDataLandscape).content,
   ));
-  SpecRegistry.register(CurrentOperationalMetrics, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as CurrentOperationalMetrics;
-      return CurrentOperationalMetrics()
-        ..content = n.content;
+  SpecRegistry.register(CurrentLandscape, SpecClassOps(
+    slots: (o) {
+      final n = o as CurrentLandscape;
+      return [
+        SpecSlot.node(() => n.existingSystemsLandscape, (v) => n.existingSystemsLandscape = v as ExistingSystemsLandscape, label: 'existingSystemsLandscape'),
+        SpecSlot.node(() => n.currentBusinessProcesses, (v) => n.currentBusinessProcesses = v as CurrentBusinessProcesses, label: 'currentBusinessProcesses'),
+        SpecSlot.node(() => n.painPointsAndGaps, (v) => n.painPointsAndGaps = v as PainPointsAndGaps, label: 'painPointsAndGaps'),
+        SpecSlot.node(() => n.currentDataLandscape, (v) => n.currentDataLandscape = v as CurrentDataLandscape, label: 'currentDataLandscape'),
+        SpecSlot.list(() => n.operationalMetrics, (v) => n.operationalMetrics = v.cast<CurrentOperationalMetrics>(), label: 'operationalMetrics'),
+        SpecSlot.node(() => n.currentStateRisks, (v) => n.currentStateRisks = v as CurrentStateRiskAssessment, label: 'currentStateRisks'),
+      ];
     },
-    yamlScalar: (o) => (o as CurrentOperationalMetrics).content,
-  ));
-  SpecRegistry.register(CurrentProcessImprovementEntry, SpecClassOps(
-    slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as CurrentProcessImprovementEntry;
-      return CurrentProcessImprovementEntry()
-        ..content = n.content;
+      final n = o as CurrentLandscape;
+      return CurrentLandscape()
+        ..content = n.content
+        ..existingSystemsLandscape = n.existingSystemsLandscape
+        ..currentBusinessProcesses = n.currentBusinessProcesses
+        ..painPointsAndGaps = n.painPointsAndGaps
+        ..currentDataLandscape = n.currentDataLandscape
+        ..operationalMetrics = n.operationalMetrics
+        ..currentStateRisks = n.currentStateRisks;
     },
-    yamlScalar: (o) => (o as CurrentProcessImprovementEntry).content,
+    yamlScalar: (o) => (o as CurrentLandscape).content,
   ));
   SpecRegistry.register(CurrentLandscapeAssessment, SpecClassOps(
     slots: (o) {
@@ -7967,30 +7782,23 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as CurrentLandscapeAssessment).content,
   ));
-  SpecRegistry.register(CurrentStateAnalysis, SpecClassOps(
-    slots: (o) {
-      final n = o as CurrentStateAnalysis;
-      return [
-        SpecSlot.node(() => n.existingSystemsLandscape, (v) => n.existingSystemsLandscape = v as ExistingSystemsLandscape, label: 'existingSystemsLandscape'),
-        SpecSlot.node(() => n.currentBusinessProcesses, (v) => n.currentBusinessProcesses = v as CurrentBusinessProcesses, label: 'currentBusinessProcesses'),
-        SpecSlot.node(() => n.painPointsAndGaps, (v) => n.painPointsAndGaps = v as PainPointsAndGaps, label: 'painPointsAndGaps'),
-        SpecSlot.node(() => n.currentDataLandscape, (v) => n.currentDataLandscape = v as CurrentDataLandscape, label: 'currentDataLandscape'),
-        SpecSlot.list(() => n.operationalMetrics, (v) => n.operationalMetrics = v.cast<CurrentOperationalMetrics>(), label: 'operationalMetrics'),
-        SpecSlot.node(() => n.currentStateRisks, (v) => n.currentStateRisks = v as CurrentStateRiskAssessment, label: 'currentStateRisks'),
-      ];
-    },
+  SpecRegistry.register(CurrentOperationalMetrics, SpecClassOps(
+    slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as CurrentStateAnalysis;
-      return CurrentStateAnalysis()
-        ..content = n.content
-        ..existingSystemsLandscape = n.existingSystemsLandscape
-        ..currentBusinessProcesses = n.currentBusinessProcesses
-        ..painPointsAndGaps = n.painPointsAndGaps
-        ..currentDataLandscape = n.currentDataLandscape
-        ..operationalMetrics = n.operationalMetrics
-        ..currentStateRisks = n.currentStateRisks;
+      final n = o as CurrentOperationalMetrics;
+      return CurrentOperationalMetrics()
+        ..content = n.content;
     },
-    yamlScalar: (o) => (o as CurrentStateAnalysis).content,
+    yamlScalar: (o) => (o as CurrentOperationalMetrics).content,
+  ));
+  SpecRegistry.register(CurrentProcessImprovementEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as CurrentProcessImprovementEntry;
+      return CurrentProcessImprovementEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as CurrentProcessImprovementEntry).content,
   ));
   SpecRegistry.register(CurrentStateRiskAssessment, SpecClassOps(
     slots: (o) => const [],
@@ -10100,6 +9908,39 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as DeliveryAcceptanceCriterionEntryVerification).content,
   ));
+  SpecRegistry.register(DeliveryRoadmap, SpecClassOps(
+    slots: (o) {
+      final n = o as DeliveryRoadmap;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.stagingStrategy, (v) => n.stagingStrategy = v as StagingStrategy, label: 'stagingStrategy'),
+        SpecSlot.node(() => n.stageOverview, (v) => n.stageOverview = v as StageOverview, label: 'stageOverview'),
+        SpecSlot.list(() => n.stages, (v) => n.stages = v.cast<StageEntry>(), label: 'stages'),
+        SpecSlot.node(() => n.featurePrioritization, (v) => n.featurePrioritization = v as FeaturePrioritization, label: 'featurePrioritization'),
+        SpecSlot.node(() => n.dataMigrationStrategy, (v) => n.dataMigrationStrategy = v as DataMigrationStrategy, label: 'dataMigrationStrategy'),
+        SpecSlot.node(() => n.gateCriteria, (v) => n.gateCriteria = v as PhaseGateReviews, label: 'gateCriteria'),
+        SpecSlot.node(() => n.decisionProcesses, (v) => n.decisionProcesses = v as DecisionPoints, label: 'decisionProcesses'),
+        SpecSlot.node(() => n.initialDevelopmentFlow, (v) => n.initialDevelopmentFlow = v as InitialDevelopmentFlow, label: 'initialDevelopmentFlow'),
+        SpecSlot.node(() => n.upgradeCycleFramework, (v) => n.upgradeCycleFramework = v as UpgradeCycleFramework, label: 'upgradeCycleFramework'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as DeliveryRoadmap;
+      return DeliveryRoadmap()
+        ..content = n.content
+        ..header = n.header
+        ..stagingStrategy = n.stagingStrategy
+        ..stageOverview = n.stageOverview
+        ..stages = n.stages
+        ..featurePrioritization = n.featurePrioritization
+        ..dataMigrationStrategy = n.dataMigrationStrategy
+        ..gateCriteria = n.gateCriteria
+        ..decisionProcesses = n.decisionProcesses
+        ..initialDevelopmentFlow = n.initialDevelopmentFlow
+        ..upgradeCycleFramework = n.upgradeCycleFramework;
+    },
+    yamlScalar: (o) => (o as DeliveryRoadmap).content,
+  ));
   SpecRegistry.register(DeliveryScope, SpecClassOps(
     slots: (o) {
       final n = o as DeliveryScope;
@@ -10137,6 +9978,23 @@ void registerSpecOps() {
         ..acceptancePlan = n.acceptancePlan;
     },
     yamlScalar: (o) => (o as DeliveryScopeAndAcceptance).content,
+  ));
+  SpecRegistry.register(DeliveryTransitionAndRollout, SpecClassOps(
+    slots: (o) {
+      final n = o as DeliveryTransitionAndRollout;
+      return [
+        SpecSlot.node(() => n.systemStagePlan, (v) => n.systemStagePlan = v as SystemStagePlan, label: 'systemStagePlan'),
+        SpecSlot.node(() => n.systemRolloutConcept, (v) => n.systemRolloutConcept = v as SystemRolloutConcept, label: 'systemRolloutConcept'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as DeliveryTransitionAndRollout;
+      return DeliveryTransitionAndRollout()
+        ..content = n.content
+        ..systemStagePlan = n.systemStagePlan
+        ..systemRolloutConcept = n.systemRolloutConcept;
+    },
+    yamlScalar: (o) => (o as DeliveryTransitionAndRollout).content,
   ));
   SpecRegistry.register(DependenciesAndIntegrations, SpecClassOps(
     slots: (o) {
@@ -13371,6 +13229,86 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ExpectedImprovements).content,
   ));
+  SpecRegistry.register(ExperienceAndInterfaceDesign, SpecClassOps(
+    slots: (o) {
+      final n = o as ExperienceAndInterfaceDesign;
+      return [
+        SpecSlot.node(() => n.designVision, (v) => n.designVision = v as DesignVision, label: 'designVision'),
+        SpecSlot.node(() => n.screens, (v) => n.screens = v as ScreenDescriptions, label: 'screens'),
+        SpecSlot.node(() => n.screenFlow, (v) => n.screenFlow = v as ScreenFlowStructure, label: 'screenFlow'),
+        SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintLayout, label: 'printLayout'),
+        SpecSlot.node(() => n.dataStructureAlignment, (v) => n.dataStructureAlignment = v as TextSection, label: 'dataStructureAlignment'),
+        SpecSlot.node(() => n.authorizationCompliance, (v) => n.authorizationCompliance = v as TextSection, label: 'authorizationCompliance'),
+        SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandlingConcept, label: 'errorHandling'),
+        SpecSlot.node(() => n.helpConcept, (v) => n.helpConcept = v as HelpConcept, label: 'helpConcept'),
+        SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as Accessibility, label: 'accessibility'),
+        SpecSlot.node(() => n.responsiveDesign, (v) => n.responsiveDesign = v as ResponsiveDesign, label: 'responsiveDesign'),
+        SpecSlot.node(() => n.uiComponents, (v) => n.uiComponents = v as UiComponents, label: 'uiComponents'),
+        SpecSlot.node(() => n.multiLanguage, (v) => n.multiLanguage = v as MultiLanguageAndRollout, label: 'multiLanguage'),
+        SpecSlot.node(() => n.prototype, (v) => n.prototype = v as Prototype, label: 'prototype'),
+        SpecSlot.list(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v.cast<WireframesAndMockups>(), label: 'wireframesAndMockups'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ExperienceAndInterfaceDesign;
+      return ExperienceAndInterfaceDesign()
+        ..content = n.content
+        ..designVision = n.designVision
+        ..screens = n.screens
+        ..screenFlow = n.screenFlow
+        ..printLayout = n.printLayout
+        ..dataStructureAlignment = n.dataStructureAlignment
+        ..authorizationCompliance = n.authorizationCompliance
+        ..errorHandling = n.errorHandling
+        ..helpConcept = n.helpConcept
+        ..accessibility = n.accessibility
+        ..responsiveDesign = n.responsiveDesign
+        ..uiComponents = n.uiComponents
+        ..multiLanguage = n.multiLanguage
+        ..prototype = n.prototype
+        ..wireframesAndMockups = n.wireframesAndMockups;
+    },
+    yamlScalar: (o) => (o as ExperienceAndInterfaceDesign).content,
+  ));
+  SpecRegistry.register(ExperienceDesignSpecification, SpecClassOps(
+    slots: (o) {
+      final n = o as ExperienceDesignSpecification;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.designVision, (v) => n.designVision = v as DesignVision, label: 'designVision'),
+        SpecSlot.node(() => n.screens, (v) => n.screens = v as ScreenDescriptions, label: 'screens'),
+        SpecSlot.node(() => n.screenFlow, (v) => n.screenFlow = v as ScreenFlowStructure, label: 'screenFlow'),
+        SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintLayout, label: 'printLayout'),
+        SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandlingConcept, label: 'errorHandling'),
+        SpecSlot.node(() => n.helpConcept, (v) => n.helpConcept = v as HelpConcept, label: 'helpConcept'),
+        SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as Accessibility, label: 'accessibility'),
+        SpecSlot.node(() => n.responsiveDesign, (v) => n.responsiveDesign = v as ResponsiveDesign, label: 'responsiveDesign'),
+        SpecSlot.node(() => n.uiComponents, (v) => n.uiComponents = v as UiComponents, label: 'uiComponents'),
+        SpecSlot.node(() => n.languageCountrySelection, (v) => n.languageCountrySelection = v as LanguageCountrySelection, label: 'languageCountrySelection'),
+        SpecSlot.node(() => n.prototype, (v) => n.prototype = v as Prototype, label: 'prototype'),
+        SpecSlot.list(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v.cast<WireframesAndMockups>(), label: 'wireframesAndMockups'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ExperienceDesignSpecification;
+      return ExperienceDesignSpecification()
+        ..content = n.content
+        ..header = n.header
+        ..designVision = n.designVision
+        ..screens = n.screens
+        ..screenFlow = n.screenFlow
+        ..printLayout = n.printLayout
+        ..errorHandling = n.errorHandling
+        ..helpConcept = n.helpConcept
+        ..accessibility = n.accessibility
+        ..responsiveDesign = n.responsiveDesign
+        ..uiComponents = n.uiComponents
+        ..languageCountrySelection = n.languageCountrySelection
+        ..prototype = n.prototype
+        ..wireframesAndMockups = n.wireframesAndMockups;
+    },
+    yamlScalar: (o) => (o as ExperienceDesignSpecification).content,
+  ));
   SpecRegistry.register(ExportAccess, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -16137,6 +16075,25 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as IndustryStandardEntryVerification).content,
   ));
+  SpecRegistry.register(InformationAndDataModel, SpecClassOps(
+    slots: (o) {
+      final n = o as InformationAndDataModel;
+      return [
+        SpecSlot.node(() => n.dataModel, (v) => n.dataModel = v as DataModel, label: 'dataModel'),
+        SpecSlot.node(() => n.businessObjectModel, (v) => n.businessObjectModel = v as BusinessObjectModel, label: 'businessObjectModel'),
+        SpecSlot.node(() => n.functionModel, (v) => n.functionModel = v as FunctionModel, label: 'functionModel'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as InformationAndDataModel;
+      return InformationAndDataModel()
+        ..content = n.content
+        ..dataModel = n.dataModel
+        ..businessObjectModel = n.businessObjectModel
+        ..functionModel = n.functionModel;
+    },
+    yamlScalar: (o) => (o as InformationAndDataModel).content,
+  ));
   SpecRegistry.register(InformationArchitecture, SpecClassOps(
     slots: (o) {
       final n = o as InformationArchitecture;
@@ -16159,6 +16116,45 @@ void registerSpecOps() {
         ..architectureDiagram = n.architectureDiagram;
     },
     yamlScalar: (o) => (o as InformationArchitecture).content,
+  ));
+  SpecRegistry.register(InformationModel, SpecClassOps(
+    slots: (o) {
+      final n = o as InformationModel;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.list(() => n.entities, (v) => n.entities = v.cast<DataEntityEntry>(), label: 'entities'),
+        SpecSlot.node(() => n.entityRelationships, (v) => n.entityRelationships = v as EntityRelationships, label: 'entityRelationships'),
+        SpecSlot.node(() => n.erDiagram, (v) => n.erDiagram = v as ErDiagramSection, label: 'erDiagram'),
+        SpecSlot.node(() => n.dataClassification, (v) => n.dataClassification = v as DataClassification, label: 'dataClassification'),
+        SpecSlot.list(() => n.objectCatalog, (v) => n.objectCatalog = v.cast<BusinessObjectEntry>(), label: 'objectCatalog'),
+        SpecSlot.node(() => n.objectDiagram, (v) => n.objectDiagram = v as DiagramSection, label: 'objectDiagram'),
+        SpecSlot.list(() => n.functionDecomposition, (v) => n.functionDecomposition = v.cast<FunctionEntry>(), label: 'functionDecomposition'),
+        SpecSlot.list(() => n.functionToDataMatrix, (v) => n.functionToDataMatrix = v.cast<FunctionDataMatrixEntry>(), label: 'functionToDataMatrix'),
+        SpecSlot.list(() => n.businessRules, (v) => n.businessRules = v.cast<BusinessRuleEntry>(), label: 'businessRules'),
+        SpecSlot.node(() => n.dataDictionary, (v) => n.dataDictionary = v as DataDictionary, label: 'dataDictionary'),
+        SpecSlot.list(() => n.validationConstraints, (v) => n.validationConstraints = v.cast<ValidationConstraints>(), label: 'validationConstraints'),
+        SpecSlot.list(() => n.integrityConstraints, (v) => n.integrityConstraints = v.cast<IntegrityConstraints>(), label: 'integrityConstraints'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as InformationModel;
+      return InformationModel()
+        ..content = n.content
+        ..header = n.header
+        ..entities = n.entities
+        ..entityRelationships = n.entityRelationships
+        ..erDiagram = n.erDiagram
+        ..dataClassification = n.dataClassification
+        ..objectCatalog = n.objectCatalog
+        ..objectDiagram = n.objectDiagram
+        ..functionDecomposition = n.functionDecomposition
+        ..functionToDataMatrix = n.functionToDataMatrix
+        ..businessRules = n.businessRules
+        ..dataDictionary = n.dataDictionary
+        ..validationConstraints = n.validationConstraints
+        ..integrityConstraints = n.integrityConstraints;
+    },
+    yamlScalar: (o) => (o as InformationModel).content,
   ));
   SpecRegistry.register(InfrastructureAsCode, SpecClassOps(
     slots: (o) {
@@ -16638,6 +16634,41 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as IntegrationHealthSummary).content,
   ));
+  SpecRegistry.register(IntegrationInterfaceSpecification, SpecClassOps(
+    slots: (o) {
+      final n = o as IntegrationInterfaceSpecification;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.externalInterfaces, (v) => n.externalInterfaces = v as ExternalInterfaces, label: 'externalInterfaces'),
+        SpecSlot.node(() => n.outOfScope, (v) => n.outOfScope = v as OutOfScope, label: 'outOfScope'),
+        SpecSlot.node(() => n.boundaryAssumptions, (v) => n.boundaryAssumptions = v as BoundaryAssumptions, label: 'boundaryAssumptions'),
+        SpecSlot.node(() => n.systemInventory, (v) => n.systemInventory = v as SystemLandscapeInventory, label: 'systemInventory'),
+        SpecSlot.list(() => n.interactionPatterns, (v) => n.interactionPatterns = v.cast<BoundaryInteractionPatterns>(), label: 'interactionPatterns'),
+        SpecSlot.node(() => n.testingStrategy, (v) => n.testingStrategy = v as InteractionTestingStrategy, label: 'testingStrategy'),
+        SpecSlot.node(() => n.dependencyAnalysis, (v) => n.dependencyAnalysis = v as InteractionDependencyAnalysis, label: 'dependencyAnalysis'),
+        SpecSlot.list(() => n.migrationInteractions, (v) => n.migrationInteractions = v.cast<MigrationInteractions>(), label: 'migrationInteractions'),
+        SpecSlot.list(() => n.operationalConsiderations, (v) => n.operationalConsiderations = v.cast<CrossBoundaryOperationalConsiderations>(), label: 'operationalConsiderations'),
+        SpecSlot.node(() => n.crossBoundaryErrorHandling, (v) => n.crossBoundaryErrorHandling = v as CrossBoundaryErrorHandling, label: 'crossBoundaryErrorHandling'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as IntegrationInterfaceSpecification;
+      return IntegrationInterfaceSpecification()
+        ..content = n.content
+        ..header = n.header
+        ..externalInterfaces = n.externalInterfaces
+        ..outOfScope = n.outOfScope
+        ..boundaryAssumptions = n.boundaryAssumptions
+        ..systemInventory = n.systemInventory
+        ..interactionPatterns = n.interactionPatterns
+        ..testingStrategy = n.testingStrategy
+        ..dependencyAnalysis = n.dependencyAnalysis
+        ..migrationInteractions = n.migrationInteractions
+        ..operationalConsiderations = n.operationalConsiderations
+        ..crossBoundaryErrorHandling = n.crossBoundaryErrorHandling;
+    },
+    yamlScalar: (o) => (o as IntegrationInterfaceSpecification).content,
+  ));
   SpecRegistry.register(IntegrationPatternEntry, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -16946,6 +16977,35 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as InteractionScenarioEntry).content,
+  ));
+  SpecRegistry.register(InteractionScenarios, SpecClassOps(
+    slots: (o) {
+      final n = o as InteractionScenarios;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.processStepsOverview, (v) => n.processStepsOverview = v as ProcessStepsOverview, label: 'processStepsOverview'),
+        SpecSlot.node(() => n.actorOverview, (v) => n.actorOverview = v as ActorOverview, label: 'actorOverview'),
+        SpecSlot.node(() => n.interactionCatalog, (v) => n.interactionCatalog = v as InteractionCatalog, label: 'interactionCatalog'),
+        SpecSlot.node(() => n.keyScenarios, (v) => n.keyScenarios = v as KeyScenarios, label: 'keyScenarios'),
+        SpecSlot.node(() => n.actorRelationshipDiagram, (v) => n.actorRelationshipDiagram = v as ActorRelationshipDiagram, label: 'actorRelationshipDiagram'),
+        SpecSlot.list(() => n.endToEndTestScenarios, (v) => n.endToEndTestScenarios = v.cast<EndToEndTestScenarios>(), label: 'endToEndTestScenarios'),
+        SpecSlot.node(() => n.useCaseTraceability, (v) => n.useCaseTraceability = v as UseCaseTraceability, label: 'useCaseTraceability'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as InteractionScenarios;
+      return InteractionScenarios()
+        ..content = n.content
+        ..header = n.header
+        ..processStepsOverview = n.processStepsOverview
+        ..actorOverview = n.actorOverview
+        ..interactionCatalog = n.interactionCatalog
+        ..keyScenarios = n.keyScenarios
+        ..actorRelationshipDiagram = n.actorRelationshipDiagram
+        ..endToEndTestScenarios = n.endToEndTestScenarios
+        ..useCaseTraceability = n.useCaseTraceability;
+    },
+    yamlScalar: (o) => (o as InteractionScenarios).content,
   ));
   SpecRegistry.register(InteractionSecurity, SpecClassOps(
     slots: (o) => const [],
@@ -17495,6 +17555,36 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as InteroperabilityRequirementsTesting).content,
+  ));
+  SpecRegistry.register(IntroductionAndScope, SpecClassOps(
+    slots: (o) {
+      final n = o as IntroductionAndScope;
+      return [
+        SpecSlot.node(() => n.summary, (v) => n.summary = v as SystemOverviewSummary, label: 'summary'),
+        SpecSlot.node(() => n.systemDescription, (v) => n.systemDescription = v as SystemDescription, label: 'systemDescription'),
+        SpecSlot.node(() => n.goals, (v) => n.goals = v as Goals, label: 'goals'),
+        SpecSlot.node(() => n.requirements, (v) => n.requirements = v as RequirementsOverview, label: 'requirements'),
+        SpecSlot.node(() => n.systemsToReplace, (v) => n.systemsToReplace = v as SystemsToReplace, label: 'systemsToReplace'),
+        SpecSlot.node(() => n.systemBoundaries, (v) => n.systemBoundaries = v as SystemBoundaries, label: 'systemBoundaries'),
+        SpecSlot.node(() => n.frameworkConditions, (v) => n.frameworkConditions = v as FrameworkConditions, label: 'frameworkConditions'),
+        SpecSlot.node(() => n.risksAndAssumptions, (v) => n.risksAndAssumptions = v as RisksAndAssumptions, label: 'risksAndAssumptions'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as IntroductionAndScope;
+      return IntroductionAndScope()
+        ..content = n.content
+        ..summary = n.summary
+        ..systemContextDiagram = n.systemContextDiagram
+        ..systemDescription = n.systemDescription
+        ..goals = n.goals
+        ..requirements = n.requirements
+        ..systemsToReplace = n.systemsToReplace
+        ..systemBoundaries = n.systemBoundaries
+        ..frameworkConditions = n.frameworkConditions
+        ..risksAndAssumptions = n.risksAndAssumptions;
+    },
+    yamlScalar: (o) => (o as IntroductionAndScope).content,
   ));
   SpecRegistry.register(IpOwnershipEntry, SpecClassOps(
     slots: (o) => const [],
@@ -24455,51 +24545,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ProgrammingLanguageEntryVersion).content,
   ));
-  SpecRegistry.register(SolutionBlueprint, SpecClassOps(
-    slots: (o) {
-      final n = o as SolutionBlueprint;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.currentStateAnalysis, (v) => n.currentStateAnalysis = v as CurrentStateAnalysis, label: 'currentStateAnalysis'),
-        SpecSlot.node(() => n.projectOrganizationProcess, (v) => n.projectOrganizationProcess = v as ProjectOrganizationAndProcess, label: 'projectOrganizationProcess'),
-        SpecSlot.node(() => n.administrative, (v) => n.administrative = v as Administrative, label: 'administrative'),
-        SpecSlot.node(() => n.systemOverview, (v) => n.systemOverview = v as SystemOverview, label: 'systemOverview'),
-        SpecSlot.node(() => n.organizationalFramework, (v) => n.organizationalFramework = v as OrganizationalFramework, label: 'organizationalFramework'),
-        SpecSlot.node(() => n.targetBusinessProcess, (v) => n.targetBusinessProcess = v as TargetBusinessProcessModel, label: 'targetBusinessProcess'),
-        SpecSlot.node(() => n.businessDataModel, (v) => n.businessDataModel = v as BusinessObjectAndDataModel, label: 'businessDataModel'),
-        SpecSlot.node(() => n.technicalFramework, (v) => n.technicalFramework = v as TechnicalFrameworkConcept, label: 'technicalFramework'),
-        SpecSlot.node(() => n.accessAuthorization, (v) => n.accessAuthorization = v as AccessAndAuthorizationConcept, label: 'accessAuthorization'),
-        SpecSlot.node(() => n.userInterfaceDesign, (v) => n.userInterfaceDesign = v as UserInterfaceDesign, label: 'userInterfaceDesign'),
-        SpecSlot.node(() => n.systemRolloutConcept, (v) => n.systemRolloutConcept = v as SystemRolloutConcept, label: 'systemRolloutConcept'),
-        SpecSlot.node(() => n.systemQualityGoals, (v) => n.systemQualityGoals = v as SystemQualityGoals, label: 'systemQualityGoals'),
-        SpecSlot.node(() => n.componentsToUse, (v) => n.componentsToUse = v as ComponentsToUse, label: 'componentsToUse'),
-        SpecSlot.node(() => n.systemStagePlan, (v) => n.systemStagePlan = v as SystemStagePlan, label: 'systemStagePlan'),
-        SpecSlot.node(() => n.deliveryAcceptance, (v) => n.deliveryAcceptance = v as DeliveryScopeAndAcceptance, label: 'deliveryAcceptance'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as SolutionBlueprint;
-      return SolutionBlueprint()
-        ..content = n.content
-        ..header = n.header
-        ..currentStateAnalysis = n.currentStateAnalysis
-        ..projectOrganizationProcess = n.projectOrganizationProcess
-        ..administrative = n.administrative
-        ..systemOverview = n.systemOverview
-        ..organizationalFramework = n.organizationalFramework
-        ..targetBusinessProcess = n.targetBusinessProcess
-        ..businessDataModel = n.businessDataModel
-        ..technicalFramework = n.technicalFramework
-        ..accessAuthorization = n.accessAuthorization
-        ..userInterfaceDesign = n.userInterfaceDesign
-        ..systemRolloutConcept = n.systemRolloutConcept
-        ..systemQualityGoals = n.systemQualityGoals
-        ..componentsToUse = n.componentsToUse
-        ..systemStagePlan = n.systemStagePlan
-        ..deliveryAcceptance = n.deliveryAcceptance;
-    },
-    yamlScalar: (o) => (o as SolutionBlueprint).content,
-  ));
   SpecRegistry.register(ProjectOrganization, SpecClassOps(
     slots: (o) {
       final n = o as ProjectOrganization;
@@ -24540,39 +24585,6 @@ void registerSpecOps() {
         ..toolingAndEnvironments = n.toolingAndEnvironments;
     },
     yamlScalar: (o) => (o as ProjectOrganizationAndProcess).content,
-  ));
-  SpecRegistry.register(DeliveryRoadmap, SpecClassOps(
-    slots: (o) {
-      final n = o as DeliveryRoadmap;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.stagingStrategy, (v) => n.stagingStrategy = v as StagingStrategy, label: 'stagingStrategy'),
-        SpecSlot.node(() => n.stageOverview, (v) => n.stageOverview = v as StageOverview, label: 'stageOverview'),
-        SpecSlot.list(() => n.stages, (v) => n.stages = v.cast<StageEntry>(), label: 'stages'),
-        SpecSlot.node(() => n.featurePrioritization, (v) => n.featurePrioritization = v as FeaturePrioritization, label: 'featurePrioritization'),
-        SpecSlot.node(() => n.dataMigrationStrategy, (v) => n.dataMigrationStrategy = v as DataMigrationStrategy, label: 'dataMigrationStrategy'),
-        SpecSlot.node(() => n.gateCriteria, (v) => n.gateCriteria = v as PhaseGateReviews, label: 'gateCriteria'),
-        SpecSlot.node(() => n.decisionProcesses, (v) => n.decisionProcesses = v as DecisionPoints, label: 'decisionProcesses'),
-        SpecSlot.node(() => n.initialDevelopmentFlow, (v) => n.initialDevelopmentFlow = v as InitialDevelopmentFlow, label: 'initialDevelopmentFlow'),
-        SpecSlot.node(() => n.upgradeCycleFramework, (v) => n.upgradeCycleFramework = v as UpgradeCycleFramework, label: 'upgradeCycleFramework'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as DeliveryRoadmap;
-      return DeliveryRoadmap()
-        ..content = n.content
-        ..header = n.header
-        ..stagingStrategy = n.stagingStrategy
-        ..stageOverview = n.stageOverview
-        ..stages = n.stages
-        ..featurePrioritization = n.featurePrioritization
-        ..dataMigrationStrategy = n.dataMigrationStrategy
-        ..gateCriteria = n.gateCriteria
-        ..decisionProcesses = n.decisionProcesses
-        ..initialDevelopmentFlow = n.initialDevelopmentFlow
-        ..upgradeCycleFramework = n.upgradeCycleFramework;
-    },
-    yamlScalar: (o) => (o as DeliveryRoadmap).content,
   ));
   SpecRegistry.register(ProjectTeamStaffing, SpecClassOps(
     slots: (o) {
@@ -24940,6 +24952,66 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as PwaRequirementsUpdates).content,
+  ));
+  SpecRegistry.register(QualityAcceptancePlan, SpecClassOps(
+    slots: (o) {
+      final n = o as QualityAcceptancePlan;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.qualityFramework, (v) => n.qualityFramework = v as QualityFramework, label: 'qualityFramework'),
+        SpecSlot.node(() => n.userQualityCriteria, (v) => n.userQualityCriteria = v as UserQualityCriteria, label: 'userQualityCriteria'),
+        SpecSlot.node(() => n.technicalQualityCriteria, (v) => n.technicalQualityCriteria = v as TechnicalQualityCriteria, label: 'technicalQualityCriteria'),
+        SpecSlot.node(() => n.operationsQualityCriteria, (v) => n.operationsQualityCriteria = v as OperationsQualityCriteria, label: 'operationsQualityCriteria'),
+        SpecSlot.node(() => n.documentationQualityCriteria, (v) => n.documentationQualityCriteria = v as DocumentationQualityCriteria, label: 'documentationQualityCriteria'),
+        SpecSlot.node(() => n.qualityPrioritization, (v) => n.qualityPrioritization = v as QualityPrioritization, label: 'qualityPrioritization'),
+        SpecSlot.node(() => n.acceptanceCriteriaSummary, (v) => n.acceptanceCriteriaSummary = v as AcceptanceCriteriaSummary, label: 'acceptanceCriteriaSummary'),
+        SpecSlot.node(() => n.testStrategy, (v) => n.testStrategy = v as TestStrategy, label: 'testStrategy'),
+        SpecSlot.node(() => n.acceptanceCriteria, (v) => n.acceptanceCriteria = v as AcceptanceCriteriaList, label: 'acceptanceCriteria'),
+        SpecSlot.node(() => n.acceptanceProcess, (v) => n.acceptanceProcess = v as AcceptanceProcess, label: 'acceptanceProcess'),
+        SpecSlot.node(() => n.userAcceptanceTesting, (v) => n.userAcceptanceTesting = v as UserAcceptanceTesting, label: 'userAcceptanceTesting'),
+        SpecSlot.node(() => n.defectResolution, (v) => n.defectResolution = v as DefectResolution, label: 'defectResolution'),
+        SpecSlot.node(() => n.signOffProcess, (v) => n.signOffProcess = v as SignOffProcess, label: 'signOffProcess'),
+        SpecSlot.node(() => n.warranty, (v) => n.warranty = v as WarrantyTerms, label: 'warranty'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as QualityAcceptancePlan;
+      return QualityAcceptancePlan()
+        ..content = n.content
+        ..header = n.header
+        ..qualityFramework = n.qualityFramework
+        ..userQualityCriteria = n.userQualityCriteria
+        ..technicalQualityCriteria = n.technicalQualityCriteria
+        ..operationsQualityCriteria = n.operationsQualityCriteria
+        ..documentationQualityCriteria = n.documentationQualityCriteria
+        ..qualityPrioritization = n.qualityPrioritization
+        ..acceptanceCriteriaSummary = n.acceptanceCriteriaSummary
+        ..testStrategy = n.testStrategy
+        ..acceptanceCriteria = n.acceptanceCriteria
+        ..acceptanceProcess = n.acceptanceProcess
+        ..userAcceptanceTesting = n.userAcceptanceTesting
+        ..defectResolution = n.defectResolution
+        ..signOffProcess = n.signOffProcess
+        ..warranty = n.warranty;
+    },
+    yamlScalar: (o) => (o as QualityAcceptancePlan).content,
+  ));
+  SpecRegistry.register(QualityAndAcceptanceModel, SpecClassOps(
+    slots: (o) {
+      final n = o as QualityAndAcceptanceModel;
+      return [
+        SpecSlot.node(() => n.systemQualityGoals, (v) => n.systemQualityGoals = v as SystemQualityGoals, label: 'systemQualityGoals'),
+        SpecSlot.node(() => n.deliveryAcceptance, (v) => n.deliveryAcceptance = v as DeliveryScopeAndAcceptance, label: 'deliveryAcceptance'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as QualityAndAcceptanceModel;
+      return QualityAndAcceptanceModel()
+        ..content = n.content
+        ..systemQualityGoals = n.systemQualityGoals
+        ..deliveryAcceptance = n.deliveryAcceptance;
+    },
+    yamlScalar: (o) => (o as QualityAndAcceptanceModel).content,
   ));
   SpecRegistry.register(QualityCategoryEntry, SpecClassOps(
     slots: (o) {
@@ -26761,6 +26833,33 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as RequirementUiSpecification).content,
   ));
+  SpecRegistry.register(RequirementsOverview, SpecClassOps(
+    slots: (o) {
+      final n = o as RequirementsOverview;
+      return [
+        SpecSlot.node(() => n.functionalRequirements, (v) => n.functionalRequirements = v as FunctionalRequirements, label: 'functionalRequirements'),
+        SpecSlot.node(() => n.technicalRequirements, (v) => n.technicalRequirements = v as TechnicalRequirements, label: 'technicalRequirements'),
+        SpecSlot.node(() => n.securityRequirements, (v) => n.securityRequirements = v as SecurityRequirements, label: 'securityRequirements'),
+        SpecSlot.node(() => n.organizationalRequirements, (v) => n.organizationalRequirements = v as OrganizationalRequirements, label: 'organizationalRequirements'),
+        SpecSlot.list(() => n.requirementRelationships, (v) => n.requirementRelationships = v.cast<RequirementRelationships>(), label: 'requirementRelationships'),
+        SpecSlot.node(() => n.requirementCoverage, (v) => n.requirementCoverage = v as RequirementCoverage, label: 'requirementCoverage'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as RequirementsOverview;
+      return RequirementsOverview()
+        ..content = n.content
+        ..requirementsForm = n.requirementsForm
+        ..traceabilityMatrix = n.traceabilityMatrix
+        ..functionalRequirements = n.functionalRequirements
+        ..technicalRequirements = n.technicalRequirements
+        ..securityRequirements = n.securityRequirements
+        ..organizationalRequirements = n.organizationalRequirements
+        ..requirementRelationships = n.requirementRelationships
+        ..requirementCoverage = n.requirementCoverage;
+    },
+    yamlScalar: (o) => (o as RequirementsOverview).content,
+  ));
   SpecRegistry.register(RequirementsSpecification, SpecClassOps(
     slots: (o) {
       final n = o as RequirementsSpecification;
@@ -26788,33 +26887,6 @@ void registerSpecOps() {
         ..requirementCoverage = n.requirementCoverage;
     },
     yamlScalar: (o) => (o as RequirementsSpecification).content,
-  ));
-  SpecRegistry.register(RequirementsOverview, SpecClassOps(
-    slots: (o) {
-      final n = o as RequirementsOverview;
-      return [
-        SpecSlot.node(() => n.functionalRequirements, (v) => n.functionalRequirements = v as FunctionalRequirements, label: 'functionalRequirements'),
-        SpecSlot.node(() => n.technicalRequirements, (v) => n.technicalRequirements = v as TechnicalRequirements, label: 'technicalRequirements'),
-        SpecSlot.node(() => n.securityRequirements, (v) => n.securityRequirements = v as SecurityRequirements, label: 'securityRequirements'),
-        SpecSlot.node(() => n.organizationalRequirements, (v) => n.organizationalRequirements = v as OrganizationalRequirements, label: 'organizationalRequirements'),
-        SpecSlot.list(() => n.requirementRelationships, (v) => n.requirementRelationships = v.cast<RequirementRelationships>(), label: 'requirementRelationships'),
-        SpecSlot.node(() => n.requirementCoverage, (v) => n.requirementCoverage = v as RequirementCoverage, label: 'requirementCoverage'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as RequirementsOverview;
-      return RequirementsOverview()
-        ..content = n.content
-        ..requirementsForm = n.requirementsForm
-        ..traceabilityMatrix = n.traceabilityMatrix
-        ..functionalRequirements = n.functionalRequirements
-        ..technicalRequirements = n.technicalRequirements
-        ..securityRequirements = n.securityRequirements
-        ..organizationalRequirements = n.organizationalRequirements
-        ..requirementRelationships = n.requirementRelationships
-        ..requirementCoverage = n.requirementCoverage;
-    },
-    yamlScalar: (o) => (o as RequirementsOverview).content,
   ));
   SpecRegistry.register(ResourceAllocationEntry, SpecClassOps(
     slots: (o) => const [],
@@ -29250,6 +29322,66 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SecondaryNavigation).content,
   ));
+  SpecRegistry.register(SecurityAccessSpecification, SpecClassOps(
+    slots: (o) {
+      final n = o as SecurityAccessSpecification;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.userManagement, (v) => n.userManagement = v as UserManagement, label: 'userManagement'),
+        SpecSlot.node(() => n.identificationAndAuthentication, (v) => n.identificationAndAuthentication = v as IdentificationAndAuthentication, label: 'identificationAndAuthentication'),
+        SpecSlot.node(() => n.resourceProtection, (v) => n.resourceProtection = v as ResourceProtection, label: 'resourceProtection'),
+        SpecSlot.node(() => n.userAuthorization, (v) => n.userAuthorization = v as UserAuthorization, label: 'userAuthorization'),
+        SpecSlot.node(() => n.sensitiveDataEncryption, (v) => n.sensitiveDataEncryption = v as SensitiveDataEncryption, label: 'sensitiveDataEncryption'),
+        SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
+        SpecSlot.node(() => n.roleMatrix, (v) => n.roleMatrix = v as RoleMatrix, label: 'roleMatrix'),
+        SpecSlot.node(() => n.complianceFramework, (v) => n.complianceFramework = v as ComplianceFramework, label: 'complianceFramework'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as SecurityAccessSpecification;
+      return SecurityAccessSpecification()
+        ..content = n.content
+        ..header = n.header
+        ..userManagement = n.userManagement
+        ..identificationAndAuthentication = n.identificationAndAuthentication
+        ..resourceProtection = n.resourceProtection
+        ..userAuthorization = n.userAuthorization
+        ..sensitiveDataEncryption = n.sensitiveDataEncryption
+        ..auditAndLogging = n.auditAndLogging
+        ..roleMatrix = n.roleMatrix
+        ..complianceFramework = n.complianceFramework;
+    },
+    yamlScalar: (o) => (o as SecurityAccessSpecification).content,
+  ));
+  SpecRegistry.register(SecurityAndAccessModel, SpecClassOps(
+    slots: (o) {
+      final n = o as SecurityAndAccessModel;
+      return [
+        SpecSlot.node(() => n.userManagement, (v) => n.userManagement = v as UserManagement, label: 'userManagement'),
+        SpecSlot.node(() => n.authentication, (v) => n.authentication = v as IdentificationAndAuthentication, label: 'authentication'),
+        SpecSlot.node(() => n.resourceProtection, (v) => n.resourceProtection = v as ResourceProtection, label: 'resourceProtection'),
+        SpecSlot.node(() => n.authorization, (v) => n.authorization = v as UserAuthorization, label: 'authorization'),
+        SpecSlot.node(() => n.encryption, (v) => n.encryption = v as SensitiveDataEncryption, label: 'encryption'),
+        SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
+        SpecSlot.node(() => n.roleMatrix, (v) => n.roleMatrix = v as RoleMatrix, label: 'roleMatrix'),
+        SpecSlot.node(() => n.complianceFramework, (v) => n.complianceFramework = v as ComplianceFramework, label: 'complianceFramework'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as SecurityAndAccessModel;
+      return SecurityAndAccessModel()
+        ..content = n.content
+        ..userManagement = n.userManagement
+        ..authentication = n.authentication
+        ..resourceProtection = n.resourceProtection
+        ..authorization = n.authorization
+        ..encryption = n.encryption
+        ..auditAndLogging = n.auditAndLogging
+        ..roleMatrix = n.roleMatrix
+        ..complianceFramework = n.complianceFramework;
+    },
+    yamlScalar: (o) => (o as SecurityAndAccessModel).content,
+  ));
   SpecRegistry.register(SecurityAuditEntry, SpecClassOps(
     slots: (o) {
       final n = o as SecurityAuditEntry;
@@ -31105,6 +31237,58 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SoftwareLayerEntryTechnology).content,
   ));
+  SpecRegistry.register(SolutionArchitectureAndTechnology, SpecClassOps(
+    slots: (o) {
+      final n = o as SolutionArchitectureAndTechnology;
+      return [
+        SpecSlot.node(() => n.technicalFramework, (v) => n.technicalFramework = v as TechnicalFrameworkConcept, label: 'technicalFramework'),
+        SpecSlot.node(() => n.componentsToUse, (v) => n.componentsToUse = v as ComponentsToUse, label: 'componentsToUse'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as SolutionArchitectureAndTechnology;
+      return SolutionArchitectureAndTechnology()
+        ..content = n.content
+        ..technicalFramework = n.technicalFramework
+        ..componentsToUse = n.componentsToUse;
+    },
+    yamlScalar: (o) => (o as SolutionArchitectureAndTechnology).content,
+  ));
+  SpecRegistry.register(SolutionBlueprint, SpecClassOps(
+    slots: (o) {
+      final n = o as SolutionBlueprint;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.introductionAndScope, (v) => n.introductionAndScope = v as IntroductionAndScope, label: 'introductionAndScope'),
+        SpecSlot.node(() => n.stakeholdersAndGovernance, (v) => n.stakeholdersAndGovernance = v as StakeholdersAndGovernance, label: 'stakeholdersAndGovernance'),
+        SpecSlot.node(() => n.currentLandscape, (v) => n.currentLandscape = v as CurrentLandscape, label: 'currentLandscape'),
+        SpecSlot.node(() => n.targetOperatingModelConcept, (v) => n.targetOperatingModelConcept = v as TargetOperatingModelConcept, label: 'targetOperatingModelConcept'),
+        SpecSlot.node(() => n.informationAndDataModel, (v) => n.informationAndDataModel = v as InformationAndDataModel, label: 'informationAndDataModel'),
+        SpecSlot.node(() => n.solutionArchitectureAndTechnology, (v) => n.solutionArchitectureAndTechnology = v as SolutionArchitectureAndTechnology, label: 'solutionArchitectureAndTechnology'),
+        SpecSlot.node(() => n.securityAndAccessModel, (v) => n.securityAndAccessModel = v as SecurityAndAccessModel, label: 'securityAndAccessModel'),
+        SpecSlot.node(() => n.experienceAndInterfaceDesign, (v) => n.experienceAndInterfaceDesign = v as ExperienceAndInterfaceDesign, label: 'experienceAndInterfaceDesign'),
+        SpecSlot.node(() => n.qualityAndAcceptanceModel, (v) => n.qualityAndAcceptanceModel = v as QualityAndAcceptanceModel, label: 'qualityAndAcceptanceModel'),
+        SpecSlot.node(() => n.deliveryTransitionAndRollout, (v) => n.deliveryTransitionAndRollout = v as DeliveryTransitionAndRollout, label: 'deliveryTransitionAndRollout'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as SolutionBlueprint;
+      return SolutionBlueprint()
+        ..content = n.content
+        ..header = n.header
+        ..introductionAndScope = n.introductionAndScope
+        ..stakeholdersAndGovernance = n.stakeholdersAndGovernance
+        ..currentLandscape = n.currentLandscape
+        ..targetOperatingModelConcept = n.targetOperatingModelConcept
+        ..informationAndDataModel = n.informationAndDataModel
+        ..solutionArchitectureAndTechnology = n.solutionArchitectureAndTechnology
+        ..securityAndAccessModel = n.securityAndAccessModel
+        ..experienceAndInterfaceDesign = n.experienceAndInterfaceDesign
+        ..qualityAndAcceptanceModel = n.qualityAndAcceptanceModel
+        ..deliveryTransitionAndRollout = n.deliveryTransitionAndRollout;
+    },
+    yamlScalar: (o) => (o as SolutionBlueprint).content,
+  ));
   SpecRegistry.register(SpecializedEquipmentEntry, SpecClassOps(
     slots: (o) {
       final n = o as SpecializedEquipmentEntry;
@@ -32126,6 +32310,23 @@ void registerSpecOps() {
         ..secondaryStakeholders = n.secondaryStakeholders;
     },
     yamlScalar: (o) => (o as StakeholdersAndBeneficiaries).content,
+  ));
+  SpecRegistry.register(StakeholdersAndGovernance, SpecClassOps(
+    slots: (o) {
+      final n = o as StakeholdersAndGovernance;
+      return [
+        SpecSlot.node(() => n.projectOrganizationProcess, (v) => n.projectOrganizationProcess = v as ProjectOrganizationAndProcess, label: 'projectOrganizationProcess'),
+        SpecSlot.node(() => n.administrative, (v) => n.administrative = v as Administrative, label: 'administrative'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as StakeholdersAndGovernance;
+      return StakeholdersAndGovernance()
+        ..content = n.content
+        ..projectOrganizationProcess = n.projectOrganizationProcess
+        ..administrative = n.administrative;
+    },
+    yamlScalar: (o) => (o as StakeholdersAndGovernance).content,
   ));
   SpecRegistry.register(StakeholdersAndInterests, SpecClassOps(
     slots: (o) => const [],
@@ -33318,36 +33519,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SystemOperationAndMonitoring).content,
   ));
-  SpecRegistry.register(SystemOverview, SpecClassOps(
-    slots: (o) {
-      final n = o as SystemOverview;
-      return [
-        SpecSlot.node(() => n.summary, (v) => n.summary = v as SystemOverviewSummary, label: 'summary'),
-        SpecSlot.node(() => n.systemDescription, (v) => n.systemDescription = v as SystemDescription, label: 'systemDescription'),
-        SpecSlot.node(() => n.goals, (v) => n.goals = v as Goals, label: 'goals'),
-        SpecSlot.node(() => n.requirements, (v) => n.requirements = v as RequirementsOverview, label: 'requirements'),
-        SpecSlot.node(() => n.systemsToReplace, (v) => n.systemsToReplace = v as SystemsToReplace, label: 'systemsToReplace'),
-        SpecSlot.node(() => n.systemBoundaries, (v) => n.systemBoundaries = v as SystemBoundaries, label: 'systemBoundaries'),
-        SpecSlot.node(() => n.frameworkConditions, (v) => n.frameworkConditions = v as FrameworkConditions, label: 'frameworkConditions'),
-        SpecSlot.node(() => n.risksAndAssumptions, (v) => n.risksAndAssumptions = v as RisksAndAssumptions, label: 'risksAndAssumptions'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as SystemOverview;
-      return SystemOverview()
-        ..content = n.content
-        ..summary = n.summary
-        ..systemContextDiagram = n.systemContextDiagram
-        ..systemDescription = n.systemDescription
-        ..goals = n.goals
-        ..requirements = n.requirements
-        ..systemsToReplace = n.systemsToReplace
-        ..systemBoundaries = n.systemBoundaries
-        ..frameworkConditions = n.frameworkConditions
-        ..risksAndAssumptions = n.risksAndAssumptions;
-    },
-    yamlScalar: (o) => (o as SystemOverview).content,
-  ));
   SpecRegistry.register(SystemOverviewSummary, SpecClassOps(
     slots: (o) {
       final n = o as SystemOverviewSummary;
@@ -33554,43 +33725,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as SystemReplacementStrategyTimeline).content,
-  ));
-  SpecRegistry.register(TransitionRolloutPlan, SpecClassOps(
-    slots: (o) {
-      final n = o as TransitionRolloutPlan;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.localizationProcess, (v) => n.localizationProcess = v as LocalizationProcess, label: 'localizationProcess'),
-        SpecSlot.node(() => n.translationProcess, (v) => n.translationProcess = v as TranslationProcess, label: 'translationProcess'),
-        SpecSlot.node(() => n.documentationAndTraining, (v) => n.documentationAndTraining = v as DocumentationAndTraining, label: 'documentationAndTraining'),
-        SpecSlot.node(() => n.rolloutPlan, (v) => n.rolloutPlan = v as RolloutPlan, label: 'rolloutPlan'),
-        SpecSlot.node(() => n.migrationPlan, (v) => n.migrationPlan = v as MigrationPlan, label: 'migrationPlan'),
-        SpecSlot.list(() => n.userManuals, (v) => n.userManuals = v.cast<UserManuals>(), label: 'userManuals'),
-        SpecSlot.list(() => n.trainingMaterials, (v) => n.trainingMaterials = v.cast<RolloutTrainingMaterials>(), label: 'trainingMaterials'),
-        SpecSlot.node(() => n.pilotPlan, (v) => n.pilotPlan = v as PilotPlan, label: 'pilotPlan'),
-        SpecSlot.list(() => n.cutoverProcedures, (v) => n.cutoverProcedures = v.cast<CutoverProcedures>(), label: 'cutoverProcedures'),
-        SpecSlot.node(() => n.knowledgeTransfer, (v) => n.knowledgeTransfer = v as KnowledgeTransfer, label: 'knowledgeTransfer'),
-        SpecSlot.node(() => n.warrantyAndSupport, (v) => n.warrantyAndSupport = v as WarrantyAndSupport, label: 'warrantyAndSupport'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as TransitionRolloutPlan;
-      return TransitionRolloutPlan()
-        ..content = n.content
-        ..header = n.header
-        ..localizationProcess = n.localizationProcess
-        ..translationProcess = n.translationProcess
-        ..documentationAndTraining = n.documentationAndTraining
-        ..rolloutPlan = n.rolloutPlan
-        ..migrationPlan = n.migrationPlan
-        ..userManuals = n.userManuals
-        ..trainingMaterials = n.trainingMaterials
-        ..pilotPlan = n.pilotPlan
-        ..cutoverProcedures = n.cutoverProcedures
-        ..knowledgeTransfer = n.knowledgeTransfer
-        ..warrantyAndSupport = n.warrantyAndSupport;
-    },
-    yamlScalar: (o) => (o as TransitionRolloutPlan).content,
   ));
   SpecRegistry.register(SystemRolloutConcept, SpecClassOps(
     slots: (o) {
@@ -34019,6 +34153,58 @@ void registerSpecOps() {
         ..processStepsAndActorInteractions = n.processStepsAndActorInteractions;
     },
     yamlScalar: (o) => (o as TargetBusinessProcessModel).content,
+  ));
+  SpecRegistry.register(TargetOperatingModel, SpecClassOps(
+    slots: (o) {
+      final n = o as TargetOperatingModel;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.processVision, (v) => n.processVision = v as ProcessVision, label: 'processVision'),
+        SpecSlot.node(() => n.designPrinciples, (v) => n.designPrinciples = v as ProcessDesignPrinciples, label: 'designPrinciples'),
+        SpecSlot.node(() => n.processCatalog, (v) => n.processCatalog = v as ProcessCatalog, label: 'processCatalog'),
+        SpecSlot.node(() => n.processOverviewDiagram, (v) => n.processOverviewDiagram = v as ProcessOverviewDiagram, label: 'processOverviewDiagram'),
+        SpecSlot.node(() => n.improvementSummary, (v) => n.improvementSummary = v as ProcessImprovementSummary, label: 'improvementSummary'),
+        SpecSlot.node(() => n.processRelationships, (v) => n.processRelationships = v as ProcessRelationships, label: 'processRelationships'),
+        SpecSlot.list(() => n.detailedWorkflows, (v) => n.detailedWorkflows = v.cast<DetailedProcessWorkflows>(), label: 'detailedWorkflows'),
+        SpecSlot.node(() => n.crossProcessAnalysis, (v) => n.crossProcessAnalysis = v as CrossProcessAnalysis, label: 'crossProcessAnalysis'),
+        SpecSlot.node(() => n.exceptionHandling, (v) => n.exceptionHandling = v as ProcessExceptionHandling, label: 'exceptionHandling'),
+        SpecSlot.list(() => n.processMetricsAndKpis, (v) => n.processMetricsAndKpis = v.cast<ProcessMetricsAndKpis>(), label: 'processMetricsAndKpis'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as TargetOperatingModel;
+      return TargetOperatingModel()
+        ..content = n.content
+        ..header = n.header
+        ..processVision = n.processVision
+        ..designPrinciples = n.designPrinciples
+        ..processCatalog = n.processCatalog
+        ..processOverviewDiagram = n.processOverviewDiagram
+        ..improvementSummary = n.improvementSummary
+        ..processRelationships = n.processRelationships
+        ..detailedWorkflows = n.detailedWorkflows
+        ..crossProcessAnalysis = n.crossProcessAnalysis
+        ..exceptionHandling = n.exceptionHandling
+        ..processMetricsAndKpis = n.processMetricsAndKpis;
+    },
+    yamlScalar: (o) => (o as TargetOperatingModel).content,
+  ));
+  SpecRegistry.register(TargetOperatingModelConcept, SpecClassOps(
+    slots: (o) {
+      final n = o as TargetOperatingModelConcept;
+      return [
+        SpecSlot.node(() => n.organizationalFramework, (v) => n.organizationalFramework = v as OrganizationalFramework, label: 'organizationalFramework'),
+        SpecSlot.node(() => n.targetBusinessProcess, (v) => n.targetBusinessProcess = v as TargetBusinessProcessModel, label: 'targetBusinessProcess'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as TargetOperatingModelConcept;
+      return TargetOperatingModelConcept()
+        ..content = n.content
+        ..organizationalFramework = n.organizationalFramework
+        ..targetBusinessProcess = n.targetBusinessProcess;
+    },
+    yamlScalar: (o) => (o as TargetOperatingModelConcept).content,
   ));
   SpecRegistry.register(TargetPlatformEntry, SpecClassOps(
     slots: (o) {
@@ -34626,45 +34812,6 @@ void registerSpecOps() {
         ..requirements = n.requirements;
     },
     yamlScalar: (o) => (o as TechnicalRequirements).content,
-  ));
-  SpecRegistry.register(ArchitectureTechnologySpecification, SpecClassOps(
-    slots: (o) {
-      final n = o as ArchitectureTechnologySpecification;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.basicTechnicalRequirements, (v) => n.basicTechnicalRequirements = v as BasicTechnicalRequirements, label: 'basicTechnicalRequirements'),
-        SpecSlot.node(() => n.softwareDesignRequirements, (v) => n.softwareDesignRequirements = v as SoftwareDesignRequirements, label: 'softwareDesignRequirements'),
-        SpecSlot.node(() => n.standardSoftwareRequirements, (v) => n.standardSoftwareRequirements = v as StandardSoftwareRequirements, label: 'standardSoftwareRequirements'),
-        SpecSlot.node(() => n.hardwareRequirements, (v) => n.hardwareRequirements = v as HardwareRequirements, label: 'hardwareRequirements'),
-        SpecSlot.node(() => n.operationsRequirements, (v) => n.operationsRequirements = v as OperationsRequirements, label: 'operationsRequirements'),
-        SpecSlot.node(() => n.communicationRequirements, (v) => n.communicationRequirements = v as CommunicationRequirements, label: 'communicationRequirements'),
-        SpecSlot.node(() => n.systemOperationAndMonitoring, (v) => n.systemOperationAndMonitoring = v as SystemOperationAndMonitoring, label: 'systemOperationAndMonitoring'),
-        SpecSlot.node(() => n.technicalSecurityRequirements, (v) => n.technicalSecurityRequirements = v as TechnicalSecurityRequirements, label: 'technicalSecurityRequirements'),
-        SpecSlot.node(() => n.systemArchitecture, (v) => n.systemArchitecture = v as SystemArchitectureSpec, label: 'systemArchitecture'),
-        SpecSlot.node(() => n.componentsToUse, (v) => n.componentsToUse = v as ComponentsToUse, label: 'componentsToUse'),
-        SpecSlot.node(() => n.technicalFrameworkConditions, (v) => n.technicalFrameworkConditions = v as TechnicalFrameworkConditions, label: 'technicalFrameworkConditions'),
-        SpecSlot.node(() => n.translationRequirements, (v) => n.translationRequirements = v as TranslationRequirements, label: 'translationRequirements'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as ArchitectureTechnologySpecification;
-      return ArchitectureTechnologySpecification()
-        ..content = n.content
-        ..header = n.header
-        ..basicTechnicalRequirements = n.basicTechnicalRequirements
-        ..softwareDesignRequirements = n.softwareDesignRequirements
-        ..standardSoftwareRequirements = n.standardSoftwareRequirements
-        ..hardwareRequirements = n.hardwareRequirements
-        ..operationsRequirements = n.operationsRequirements
-        ..communicationRequirements = n.communicationRequirements
-        ..systemOperationAndMonitoring = n.systemOperationAndMonitoring
-        ..technicalSecurityRequirements = n.technicalSecurityRequirements
-        ..systemArchitecture = n.systemArchitecture
-        ..componentsToUse = n.componentsToUse
-        ..technicalFrameworkConditions = n.technicalFrameworkConditions
-        ..translationRequirements = n.translationRequirements;
-    },
-    yamlScalar: (o) => (o as ArchitectureTechnologySpecification).content,
   ));
   SpecRegistry.register(TechnicalSecurityRequirements, SpecClassOps(
     slots: (o) {
@@ -36155,6 +36302,43 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as TransitionRiskEntryResponse).content,
   ));
+  SpecRegistry.register(TransitionRolloutPlan, SpecClassOps(
+    slots: (o) {
+      final n = o as TransitionRolloutPlan;
+      return [
+        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
+        SpecSlot.node(() => n.localizationProcess, (v) => n.localizationProcess = v as LocalizationProcess, label: 'localizationProcess'),
+        SpecSlot.node(() => n.translationProcess, (v) => n.translationProcess = v as TranslationProcess, label: 'translationProcess'),
+        SpecSlot.node(() => n.documentationAndTraining, (v) => n.documentationAndTraining = v as DocumentationAndTraining, label: 'documentationAndTraining'),
+        SpecSlot.node(() => n.rolloutPlan, (v) => n.rolloutPlan = v as RolloutPlan, label: 'rolloutPlan'),
+        SpecSlot.node(() => n.migrationPlan, (v) => n.migrationPlan = v as MigrationPlan, label: 'migrationPlan'),
+        SpecSlot.list(() => n.userManuals, (v) => n.userManuals = v.cast<UserManuals>(), label: 'userManuals'),
+        SpecSlot.list(() => n.trainingMaterials, (v) => n.trainingMaterials = v.cast<RolloutTrainingMaterials>(), label: 'trainingMaterials'),
+        SpecSlot.node(() => n.pilotPlan, (v) => n.pilotPlan = v as PilotPlan, label: 'pilotPlan'),
+        SpecSlot.list(() => n.cutoverProcedures, (v) => n.cutoverProcedures = v.cast<CutoverProcedures>(), label: 'cutoverProcedures'),
+        SpecSlot.node(() => n.knowledgeTransfer, (v) => n.knowledgeTransfer = v as KnowledgeTransfer, label: 'knowledgeTransfer'),
+        SpecSlot.node(() => n.warrantyAndSupport, (v) => n.warrantyAndSupport = v as WarrantyAndSupport, label: 'warrantyAndSupport'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as TransitionRolloutPlan;
+      return TransitionRolloutPlan()
+        ..content = n.content
+        ..header = n.header
+        ..localizationProcess = n.localizationProcess
+        ..translationProcess = n.translationProcess
+        ..documentationAndTraining = n.documentationAndTraining
+        ..rolloutPlan = n.rolloutPlan
+        ..migrationPlan = n.migrationPlan
+        ..userManuals = n.userManuals
+        ..trainingMaterials = n.trainingMaterials
+        ..pilotPlan = n.pilotPlan
+        ..cutoverProcedures = n.cutoverProcedures
+        ..knowledgeTransfer = n.knowledgeTransfer
+        ..warrantyAndSupport = n.warrantyAndSupport;
+    },
+    yamlScalar: (o) => (o as TransitionRolloutPlan).content,
+  ));
   SpecRegistry.register(TransitionSuccessMetrics, SpecClassOps(
     slots: (o) {
       final n = o as TransitionSuccessMetrics;
@@ -36777,45 +36961,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as UiDesignPrincipleEntry).content,
   ));
-  SpecRegistry.register(ExperienceDesignSpecification, SpecClassOps(
-    slots: (o) {
-      final n = o as ExperienceDesignSpecification;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.designVision, (v) => n.designVision = v as DesignVision, label: 'designVision'),
-        SpecSlot.node(() => n.screens, (v) => n.screens = v as ScreenDescriptions, label: 'screens'),
-        SpecSlot.node(() => n.screenFlow, (v) => n.screenFlow = v as ScreenFlowStructure, label: 'screenFlow'),
-        SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintLayout, label: 'printLayout'),
-        SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandlingConcept, label: 'errorHandling'),
-        SpecSlot.node(() => n.helpConcept, (v) => n.helpConcept = v as HelpConcept, label: 'helpConcept'),
-        SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as Accessibility, label: 'accessibility'),
-        SpecSlot.node(() => n.responsiveDesign, (v) => n.responsiveDesign = v as ResponsiveDesign, label: 'responsiveDesign'),
-        SpecSlot.node(() => n.uiComponents, (v) => n.uiComponents = v as UiComponents, label: 'uiComponents'),
-        SpecSlot.node(() => n.languageCountrySelection, (v) => n.languageCountrySelection = v as LanguageCountrySelection, label: 'languageCountrySelection'),
-        SpecSlot.node(() => n.prototype, (v) => n.prototype = v as Prototype, label: 'prototype'),
-        SpecSlot.list(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v.cast<WireframesAndMockups>(), label: 'wireframesAndMockups'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as ExperienceDesignSpecification;
-      return ExperienceDesignSpecification()
-        ..content = n.content
-        ..header = n.header
-        ..designVision = n.designVision
-        ..screens = n.screens
-        ..screenFlow = n.screenFlow
-        ..printLayout = n.printLayout
-        ..errorHandling = n.errorHandling
-        ..helpConcept = n.helpConcept
-        ..accessibility = n.accessibility
-        ..responsiveDesign = n.responsiveDesign
-        ..uiComponents = n.uiComponents
-        ..languageCountrySelection = n.languageCountrySelection
-        ..prototype = n.prototype
-        ..wireframesAndMockups = n.wireframesAndMockups;
-    },
-    yamlScalar: (o) => (o as ExperienceDesignSpecification).content,
-  ));
   SpecRegistry.register(UpgradeCycleFramework, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -36927,35 +37072,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as UseCaseTraceability).content,
-  ));
-  SpecRegistry.register(InteractionScenarios, SpecClassOps(
-    slots: (o) {
-      final n = o as InteractionScenarios;
-      return [
-        SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
-        SpecSlot.node(() => n.processStepsOverview, (v) => n.processStepsOverview = v as ProcessStepsOverview, label: 'processStepsOverview'),
-        SpecSlot.node(() => n.actorOverview, (v) => n.actorOverview = v as ActorOverview, label: 'actorOverview'),
-        SpecSlot.node(() => n.interactionCatalog, (v) => n.interactionCatalog = v as InteractionCatalog, label: 'interactionCatalog'),
-        SpecSlot.node(() => n.keyScenarios, (v) => n.keyScenarios = v as KeyScenarios, label: 'keyScenarios'),
-        SpecSlot.node(() => n.actorRelationshipDiagram, (v) => n.actorRelationshipDiagram = v as ActorRelationshipDiagram, label: 'actorRelationshipDiagram'),
-        SpecSlot.list(() => n.endToEndTestScenarios, (v) => n.endToEndTestScenarios = v.cast<EndToEndTestScenarios>(), label: 'endToEndTestScenarios'),
-        SpecSlot.node(() => n.useCaseTraceability, (v) => n.useCaseTraceability = v as UseCaseTraceability, label: 'useCaseTraceability'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as InteractionScenarios;
-      return InteractionScenarios()
-        ..content = n.content
-        ..header = n.header
-        ..processStepsOverview = n.processStepsOverview
-        ..actorOverview = n.actorOverview
-        ..interactionCatalog = n.interactionCatalog
-        ..keyScenarios = n.keyScenarios
-        ..actorRelationshipDiagram = n.actorRelationshipDiagram
-        ..endToEndTestScenarios = n.endToEndTestScenarios
-        ..useCaseTraceability = n.useCaseTraceability;
-    },
-    yamlScalar: (o) => (o as InteractionScenarios).content,
   ));
   SpecRegistry.register(UserAcceptanceTesting, SpecClassOps(
     slots: (o) {
@@ -37285,47 +37401,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as UserInteractionModelSummary).content,
-  ));
-  SpecRegistry.register(UserInterfaceDesign, SpecClassOps(
-    slots: (o) {
-      final n = o as UserInterfaceDesign;
-      return [
-        SpecSlot.node(() => n.designVision, (v) => n.designVision = v as DesignVision, label: 'designVision'),
-        SpecSlot.node(() => n.screens, (v) => n.screens = v as ScreenDescriptions, label: 'screens'),
-        SpecSlot.node(() => n.screenFlow, (v) => n.screenFlow = v as ScreenFlowStructure, label: 'screenFlow'),
-        SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintLayout, label: 'printLayout'),
-        SpecSlot.node(() => n.dataStructureAlignment, (v) => n.dataStructureAlignment = v as TextSection, label: 'dataStructureAlignment'),
-        SpecSlot.node(() => n.authorizationCompliance, (v) => n.authorizationCompliance = v as TextSection, label: 'authorizationCompliance'),
-        SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandlingConcept, label: 'errorHandling'),
-        SpecSlot.node(() => n.helpConcept, (v) => n.helpConcept = v as HelpConcept, label: 'helpConcept'),
-        SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as Accessibility, label: 'accessibility'),
-        SpecSlot.node(() => n.responsiveDesign, (v) => n.responsiveDesign = v as ResponsiveDesign, label: 'responsiveDesign'),
-        SpecSlot.node(() => n.uiComponents, (v) => n.uiComponents = v as UiComponents, label: 'uiComponents'),
-        SpecSlot.node(() => n.multiLanguage, (v) => n.multiLanguage = v as MultiLanguageAndRollout, label: 'multiLanguage'),
-        SpecSlot.node(() => n.prototype, (v) => n.prototype = v as Prototype, label: 'prototype'),
-        SpecSlot.list(() => n.wireframesAndMockups, (v) => n.wireframesAndMockups = v.cast<WireframesAndMockups>(), label: 'wireframesAndMockups'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as UserInterfaceDesign;
-      return UserInterfaceDesign()
-        ..content = n.content
-        ..designVision = n.designVision
-        ..screens = n.screens
-        ..screenFlow = n.screenFlow
-        ..printLayout = n.printLayout
-        ..dataStructureAlignment = n.dataStructureAlignment
-        ..authorizationCompliance = n.authorizationCompliance
-        ..errorHandling = n.errorHandling
-        ..helpConcept = n.helpConcept
-        ..accessibility = n.accessibility
-        ..responsiveDesign = n.responsiveDesign
-        ..uiComponents = n.uiComponents
-        ..multiLanguage = n.multiLanguage
-        ..prototype = n.prototype
-        ..wireframesAndMockups = n.wireframesAndMockups;
-    },
-    yamlScalar: (o) => (o as UserInterfaceDesign).content,
   ));
   SpecRegistry.register(UserJourney, SpecClassOps(
     slots: (o) {

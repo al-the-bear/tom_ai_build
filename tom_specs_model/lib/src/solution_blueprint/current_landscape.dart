@@ -14,7 +14,7 @@ import '../document_stubs.dart';
 /// PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
 @SectionId('CUSA')
 @MapsTo(CurrentLandscapeAssessment)
-class CurrentStateAnalysis {
+class CurrentLandscape {
   @ContentHelp('''
 Executive summary of the current state: existing systems landscape, business
 processes today, known pain points, current data landscape, operational

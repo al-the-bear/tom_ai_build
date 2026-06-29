@@ -13,7 +13,7 @@ import '../document_stubs.dart';
 @SectionId('ACAZ')
 @Comment('Seeds → AC')
 @MapsTo(SecurityAccessSpecification)
-class AccessAndAuthorizationConcept {
+class SecurityAndAccessModel {
   @ContentHelp('''
 Provide a high-level overview of the application's security architecture for
 protecting data and functions. This section serves as the entry point for all

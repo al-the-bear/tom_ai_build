@@ -19770,7 +19770,7 @@ class DataProcessingAgreementRequirementsTransfers {
 /// Data protection classification and handling rules [PD00-TEC-SEC-PRI].
 ///
 /// Named DataProtectionClassification to avoid collision with
-/// DataClassification in business_data_model.dart.
+/// DataClassification in information_and_data_model.dart.
 @SectionId('DAPRCL')
 class DataProtectionClassification {
   @Form([

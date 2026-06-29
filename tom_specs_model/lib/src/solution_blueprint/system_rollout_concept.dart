@@ -6,7 +6,7 @@
 ///
 /// The PD00-ROL class is named `SystemRolloutConcept` so the `…Concept`
 /// suffix matches the convention used by `TechnicalFrameworkConcept`
-/// (PD00-TEC) and `AccessAndAuthorizationConcept` (PD00-ACC). The clean
+/// (PD00-TEC) and `SecurityAndAccessModel` (PD00-ACC). The clean
 /// name `TransitionRolloutPlan` is reserved for the SR target-doc class.
 library;
 

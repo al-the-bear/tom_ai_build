@@ -1,105 +1,99 @@
-/// Top-level Project Definition document model.
+/// Top-level Solution Blueprint document model.
 ///
-/// Aggregates all 14 PD sections plus the document header.
+/// Aggregates the Solution Blueprint (SBP) sections plus the document header.
+/// The section sequence follows the public-standards order (SBP.1 … SBP.15);
+/// the new SBP.1/3/6/9/10 sections are added in IP-6.
 library;
 
 
-export 'access_authorization.dart';
 export 'administrative.dart';
-export 'business_data_model.dart';
 export 'components.dart';
-export 'current_state_analysis.dart';
+export 'current_landscape.dart';
 export 'delivery_acceptance.dart';
+export 'delivery_transition_and_rollout.dart';
+export 'experience_and_interface_design.dart';
+export 'information_and_data_model.dart';
+export 'introduction_and_scope.dart';
 export 'organizational_framework.dart';
 export 'project_organization_process.dart';
-export 'system_overview.dart';
+export 'quality_and_acceptance_model.dart';
+export 'security_and_access_model.dart';
+export 'solution_architecture_and_technology.dart';
+export 'stakeholders_and_governance.dart';
 export 'system_quality_goals.dart';
 export 'system_rollout_concept.dart';
 export 'system_stage_plan.dart';
 export 'target_business_process.dart';
+export 'target_operating_model_concept.dart';
 export 'technical_framework.dart';
-export 'user_interface_design.dart';
 
 import 'package:tom_specs_model/src/common/document_header.dart';
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-import 'access_authorization.dart';
-import 'administrative.dart';
-import 'business_data_model.dart';
-import 'components.dart';
-import 'current_state_analysis.dart';
-import 'delivery_acceptance.dart';
-import 'organizational_framework.dart';
-import 'project_organization_process.dart';
-import 'system_overview.dart';
-import 'system_quality_goals.dart';
-import 'system_rollout_concept.dart';
-import 'system_stage_plan.dart';
-import 'target_business_process.dart';
-import 'technical_framework.dart';
-import 'user_interface_design.dart';
+import 'current_landscape.dart';
+import 'delivery_transition_and_rollout.dart';
+import 'experience_and_interface_design.dart';
+import 'information_and_data_model.dart';
+import 'introduction_and_scope.dart';
+import 'quality_and_acceptance_model.dart';
+import 'security_and_access_model.dart';
+import 'solution_architecture_and_technology.dart';
+import 'stakeholders_and_governance.dart';
+import 'target_operating_model_concept.dart';
 
-/// The complete Project Definition (PD) document.
+/// The complete Solution Blueprint (SBP) document.
 ///
-/// Contains a [DocumentHeader] and all 14 PD sections [PD00].
+/// Contains a [DocumentHeader] and the SBP sections, sequenced per the
+/// public-standards order (§4 of the redesign proposal).
 @Document(
   name: 'Solution Blueprint',
   description: 'Comprehensive specification document covering all aspects of '
-      'the system from current state analysis through implementation planning, '
-      'organizational framework, business processes, data models, technical '
-      'framework, security, and user interface design.',
+      'the system from current landscape through target operating model, '
+      'information model, solution architecture, security, experience design, '
+      'quality & acceptance, and delivery / transition planning.',
 )
 @SectionId('SBP')
 class SolutionBlueprint {
   @Unused()
   String? content;
 
-  /// Document header (form fields at top of document).
+  /// SBP.1 Document Control seed (document header). Expanded in IP-6.
   DocumentHeader header = DocumentHeader();
 
-  /// 1. Current State Analysis [PD00-CUR].
-  CurrentStateAnalysis currentStateAnalysis = CurrentStateAnalysis();
+  /// SBP.2 Introduction & Scope.
+  IntroductionAndScope introductionAndScope = IntroductionAndScope();
 
-  /// 2. Project Organization and Process [PD00-POP].
-  ProjectOrganizationAndProcess projectOrganizationProcess = ProjectOrganizationAndProcess();
+  /// SBP.4 Stakeholders & Governance.
+  StakeholdersAndGovernance stakeholdersAndGovernance =
+      StakeholdersAndGovernance();
 
-  /// 3. Administrative [PD00-ADM].
-  Administrative administrative = Administrative();
+  /// SBP.5 Current Landscape. Seeds → CLA.
+  CurrentLandscape currentLandscape = CurrentLandscape();
 
-  /// 4. System Overview [PD00-SYO].
-  SystemOverview systemOverview = SystemOverview();
+  /// SBP.7 Target Operating Model concept. Seeds → TOM.
+  TargetOperatingModelConcept targetOperatingModelConcept =
+      TargetOperatingModelConcept();
 
-  /// 5. Organizational Framework [PD00-ORG].
-  OrganizationalFramework organizationalFramework = OrganizationalFramework();
+  /// SBP.8 Information & Data Model. Seeds → IFM.
+  InformationAndDataModel informationAndDataModel = InformationAndDataModel();
 
-  /// 6. Target Business Process Model [PD00-TAR].
-  TargetBusinessProcessModel targetBusinessProcess = TargetBusinessProcessModel();
+  /// SBP.11 Solution Architecture & Technology. Seeds → ATS.
+  SolutionArchitectureAndTechnology solutionArchitectureAndTechnology =
+      SolutionArchitectureAndTechnology();
 
-  /// 7. Business Object and Data Model [PD00-BUS].
-  BusinessObjectAndDataModel businessDataModel = BusinessObjectAndDataModel();
+  /// SBP.12 Security & Access Model. Seeds → SAS.
+  SecurityAndAccessModel securityAndAccessModel = SecurityAndAccessModel();
 
-  /// 8. Technical Framework Concept [PD00-TEC].
-  TechnicalFrameworkConcept technicalFramework = TechnicalFrameworkConcept();
+  /// SBP.13 Experience & Interface Design. Seeds → XDS.
+  ExperienceAndInterfaceDesign experienceAndInterfaceDesign =
+      ExperienceAndInterfaceDesign();
 
-  /// 9. Access and Authorization Concept [PD00-ACC].
-  AccessAndAuthorizationConcept accessAuthorization = AccessAndAuthorizationConcept();
+  /// SBP.14 Quality & Acceptance Model. Seeds → QAP.
+  QualityAndAcceptanceModel qualityAndAcceptanceModel =
+      QualityAndAcceptanceModel();
 
-  /// 10. User Interface Design [PD00-USE].
-  UserInterfaceDesign userInterfaceDesign = UserInterfaceDesign();
-
-  /// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
-  SystemRolloutConcept systemRolloutConcept = SystemRolloutConcept();
-
-  /// 11. System Quality Goals [PD00-SYQ].
-  SystemQualityGoals systemQualityGoals = SystemQualityGoals();
-
-  /// 12. Components to Use [PD00-COM].
-  ComponentsToUse componentsToUse = ComponentsToUse();
-
-  /// 13. System Stage Plan [PD00-SSP].
-  SystemStagePlan systemStagePlan = SystemStagePlan();
-
-  /// 14. Delivery Scope and Acceptance [PD00-DEL].
-  DeliveryScopeAndAcceptance deliveryAcceptance = DeliveryScopeAndAcceptance();
+  /// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+  DeliveryTransitionAndRollout deliveryTransitionAndRollout =
+      DeliveryTransitionAndRollout();
 }

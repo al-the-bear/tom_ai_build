@@ -12,7 +12,7 @@ import '../document_stubs.dart';
 /// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
 @SectionId('UIDI')
 @Comment('Seeds → UP')
-class UserInterfaceDesign {
+class ExperienceAndInterfaceDesign {
   @ContentHelp('''
 Provide an executive overview of the User Interface Design, establishing the
 foundation for all visual and interactive aspects of the application.

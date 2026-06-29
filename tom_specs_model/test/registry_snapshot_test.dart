@@ -18,7 +18,7 @@ void main() {
       // mixin fast-path, plus the 10 tom_specs_core section content leaves.
       expect(SpecRegistry.length, greaterThanOrEqualTo(3079 - 2 + 10));
       // A representative deep model class resolves to real ops.
-      expect(SpecRegistry.opsFor(CurrentStateAnalysis), isNotNull);
+      expect(SpecRegistry.opsFor(CurrentLandscape), isNotNull);
     });
 
     test('toYaml serializes a content leaf reachable from the PD root', () {

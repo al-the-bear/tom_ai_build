@@ -9,8 +9,8 @@ void main() {
     test('can be constructed with all defaults', () {
       final pd = SolutionBlueprint();
       expect(pd.header.content, isNull);
-      expect(pd.currentStateAnalysis.content, isNull);
-      expect(pd.systemOverview.content, isNull);
+      expect(pd.currentLandscape.content, isNull);
+      expect(pd.introductionAndScope.content, isNull);
     });
 
     test('header has @Form annotation on content', () {
@@ -20,7 +20,7 @@ void main() {
     });
 
     test('section classes have content field', () {
-      final section = CurrentStateAnalysis()
+      final section = CurrentLandscape()
         ..content = 'Overview of current state.';
       expect(section.content, 'Overview of current state.');
       expect(section.existingSystemsLandscape.content, isNull);
@@ -30,7 +30,7 @@ void main() {
       final goal = BusinessGoalEntry()
         ..content = 'BG-001 — Increase revenue';
       final goals = Goals()..businessGoals = (BusinessGoals()..goals = [goal]);
-      final overview = SystemOverview()..goals = goals;
+      final overview = IntroductionAndScope()..goals = goals;
       expect(overview.goals.businessGoals.goals, hasLength(1));
       expect(
         overview.goals.businessGoals.goals.first.content,
