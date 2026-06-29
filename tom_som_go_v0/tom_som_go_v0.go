@@ -50353,7 +50353,7 @@ func (x *SecondaryNavigation) TabBars() *som.SomList[*TabBarDefinitionEntry] {
 	})
 }
 
-// 9. Access and Authorization Concept. Seeds → AC.
+// 9. Security & Access Model. Seeds → SAS.
 type SecurityAndAccessModel struct {
 	som.SomNode
 }

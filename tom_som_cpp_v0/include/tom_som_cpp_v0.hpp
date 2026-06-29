@@ -30185,7 +30185,7 @@ class SecondaryNavigation : public som::SomNode {
   som::SomList tabBars() const;
 };
 
-// 9. Access and Authorization Concept. Seeds → AC.
+// 9. Security & Access Model. Seeds → SAS.
 class SecurityAndAccessModel : public som::SomNode {
  public:
   SecurityAndAccessModel(som::SpecDocument& doc, std::string path);

@@ -27807,7 +27807,7 @@ void secondary_navigation_set_content(SecondaryNavigation *self, const char *val
 // Returns the list view; element type: TabBarDefinitionEntry (construct from item paths).
 SomList secondary_navigation_tab_bars(const SecondaryNavigation *self);
 
-// 9. Access and Authorization Concept. Seeds → AC.
+// 9. Security & Access Model. Seeds → SAS.
 // Binds a SecurityAndAccessModel facade to a document and a path (path copied).
 void security_and_access_model_init(SecurityAndAccessModel *self, SpecDocument *doc, const char *path);
 void security_and_access_model_free(SecurityAndAccessModel *self);

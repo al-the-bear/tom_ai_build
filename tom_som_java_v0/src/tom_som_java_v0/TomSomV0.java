@@ -42746,7 +42746,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 9. Access and Authorization Concept. Seeds → AC.
+  // 9. Security & Access Model. Seeds → SAS.
   public static final class SecurityAndAccessModel extends SomNode {
     public SecurityAndAccessModel(SpecDocument doc, String path) {
       super(doc, path);

@@ -42822,7 +42822,7 @@ class SecondaryNavigation extends SomNode {
   }
 }
 
-// 9. Access and Authorization Concept. Seeds → AC.
+// 9. Security & Access Model. Seeds → SAS.
 class SecurityAndAccessModel extends SomNode {
   constructor(doc, path) {
     super(doc, path);

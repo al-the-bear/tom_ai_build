@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T14:55:51.778334Z",
+  "generatedAt": "2026-06-29T15:01:51.130753Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+5.67662f0",
@@ -155054,7 +155054,7 @@
     "SecurityAndAccessModel": {
       "name": "SecurityAndAccessModel",
       "sectionId": "ACAZ",
-      "doc": "9. Access and Authorization Concept. Seeds → AC.",
+      "doc": "9. Security & Access Model. Seeds → SAS.",
       "mapsTo": "D08SecurityAccessSpecification",
       "annotations": [
         {
@@ -155066,7 +155066,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → AC"
+            "text": "Seeds → SAS"
           }
         },
         {

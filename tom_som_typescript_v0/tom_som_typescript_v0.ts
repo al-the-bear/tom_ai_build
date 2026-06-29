@@ -42332,7 +42332,7 @@ export class SecondaryNavigation extends SomNode {
   }
 }
 
-// 9. Access and Authorization Concept. Seeds → AC.
+// 9. Security & Access Model. Seeds → SAS.
 export class SecurityAndAccessModel extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);

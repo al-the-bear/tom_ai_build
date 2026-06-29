@@ -1,4 +1,4 @@
-/// Section 9: Access and Authorization Concept. Seeds → AC.
+/// Section 9: Security & Access Model. Seeds → SAS.
 ///
 /// Application security for data and functions.
 library;
@@ -9,9 +9,9 @@ import '../document_stubs.dart';
 
 
 
-/// 9. Access and Authorization Concept. Seeds → AC.
+/// 9. Security & Access Model. Seeds → SAS.
 @SectionId('ACAZ')
-@Comment('Seeds → AC')
+@Comment('Seeds → SAS')
 @MapsTo(D08SecurityAccessSpecification)
 class SecurityAndAccessModel {
   @ContentHelp('''

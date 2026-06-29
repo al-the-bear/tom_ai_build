@@ -26764,7 +26764,7 @@ class SecondaryNavigation extends SomNode {
   SomList<TabBarDefinitionEntry> get tabBars => SomList<TabBarDefinitionEntry>(doc, '$path/TBDE-TABB-LST', (d, p) => TabBarDefinitionEntry(d, p));
 }
 
-/// 9. Access and Authorization Concept. Seeds → AC.
+/// 9. Security & Access Model. Seeds → SAS.
 class SecurityAndAccessModel extends SomNode {
   SecurityAndAccessModel(super.doc, super.path);
 

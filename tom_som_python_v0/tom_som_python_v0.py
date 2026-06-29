@@ -38526,7 +38526,7 @@ class SecondaryNavigation(SomNode):
         return SomList(self.doc, f"{self.path}/TBDE-TABB-LST", lambda d, p: TabBarDefinitionEntry(d, p))
 
 class SecurityAndAccessModel(SomNode):
-    """9. Access and Authorization Concept. Seeds → AC."""
+    """9. Security & Access Model. Seeds → SAS."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 

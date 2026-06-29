@@ -56277,7 +56277,7 @@ impl SecondaryNavigation {
     }
 }
 
-/// 9. Access and Authorization Concept. Seeds → AC.
+/// 9. Security & Access Model. Seeds → SAS.
 pub struct SecurityAndAccessModel {
     pub node: som::SomNode,
 }

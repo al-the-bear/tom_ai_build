@@ -155054,7 +155054,7 @@
     "SecurityAndAccessModel": {
       "name": "SecurityAndAccessModel",
       "sectionId": "ACAZ",
-      "doc": "9. Access and Authorization Concept. Seeds → AC.",
+      "doc": "9. Security & Access Model. Seeds → SAS.",
       "mapsTo": "D08SecurityAccessSpecification",
       "annotations": [
         {
@@ -155066,7 +155066,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → AC"
+            "text": "Seeds → SAS"
           }
         },
         {

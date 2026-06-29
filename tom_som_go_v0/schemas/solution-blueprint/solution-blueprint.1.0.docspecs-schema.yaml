@@ -8574,7 +8574,7 @@ section-types:
     description: API authorization policy — how API access decisions are made.
   ACAZ:
     prefix: acaz
-    description: 9. Access and Authorization Concept. Seeds → AC.
+    description: "9. Security & Access Model. Seeds → SAS."
   ACCH:
     prefix: acch
     description: An accessibility check entry (form).
