@@ -1,19 +1,19 @@
 import 'generated/spec_ops.g.dart';
 import 'serialization/spec_yaml.dart';
 
-import 'ac_authorization_concept/ac_authorization_concept.dart';
-import 'bdm_business_data_model/bdm_business_data_model.dart';
-import 'bp_business_processes/bp_business_processes.dart';
-import 'bqp_business_quality_plan/bqp_business_quality_plan.dart';
-import 'bsi_business_system_interactions/bsi_business_system_interactions.dart';
-import 'cs_current_situation/cs_current_situation.dart';
-import 'pd_project_definition/pd_project_definition.dart';
-import 'ppp_project_phase_plan/ppp_project_phase_plan.dart';
-import 'rc_requirements_catalog/rc_requirements_catalog.dart';
-import 'sr_system_rollout/sr_system_rollout.dart';
-import 'tr_technical_requirements/tr_technical_requirements.dart';
-import 'uc_use_cases/uc_use_cases.dart';
-import 'up_ui_prototype/up_ui_prototype.dart';
+import 'security_access_specification/security_access_specification.dart';
+import 'information_model/information_model.dart';
+import 'target_operating_model/target_operating_model.dart';
+import 'quality_acceptance_plan/quality_acceptance_plan.dart';
+import 'integration_interface_specification/integration_interface_specification.dart';
+import 'current_landscape_assessment/current_landscape_assessment.dart';
+import 'solution_blueprint/solution_blueprint.dart';
+import 'delivery_roadmap/delivery_roadmap.dart';
+import 'requirements_specification/requirements_specification.dart';
+import 'transition_rollout_plan/transition_rollout_plan.dart';
+import 'architecture_technology_specification/architecture_technology_specification.dart';
+import 'interaction_scenarios/interaction_scenarios.dart';
+import 'experience_design_specification/experience_design_specification.dart';
 
 /// Canonical container root for the whole TomSpecs object model (V2, N9).
 ///

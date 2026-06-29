@@ -9,7 +9,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../common/document_header.dart';
-import '../pd_project_definition/pd_project_definition.dart';
+import '../solution_blueprint/solution_blueprint.dart';
 
 /// BQP00 Business Quality Plan.
 ///

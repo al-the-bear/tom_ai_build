@@ -2,24 +2,24 @@
 ///
 /// Provides typed Dart classes for all TomSpecs specification documents.
 /// Common types (enums, base classes) live in `src/common/`.
-/// Each document has its own subfolder, e.g. `src/pd_project_definition/`.
+/// Each document has its own subfolder, e.g. `src/solution_blueprint/`.
 library;
 
-export 'src/ac_authorization_concept/ac_authorization_concept.dart';
-export 'src/bdm_business_data_model/bdm_business_data_model.dart';
-export 'src/bp_business_processes/bp_business_processes.dart';
-export 'src/bqp_business_quality_plan/bqp_business_quality_plan.dart';
-export 'src/bsi_business_system_interactions/bsi_business_system_interactions.dart';
+export 'src/architecture_technology_specification/architecture_technology_specification.dart';
 export 'src/common/common.dart';
-export 'src/cs_current_situation/cs_current_situation.dart';
+export 'src/current_landscape_assessment/current_landscape_assessment.dart';
+export 'src/delivery_roadmap/delivery_roadmap.dart';
 export 'src/docspecs_project.dart';
 export 'src/document_stubs.dart';
-export 'src/pd_project_definition/pd_project_definition.dart';
-export 'src/ppp_project_phase_plan/ppp_project_phase_plan.dart';
-export 'src/rc_requirements_catalog/rc_requirements_catalog.dart';
+export 'src/experience_design_specification/experience_design_specification.dart';
+export 'src/information_model/information_model.dart';
+export 'src/integration_interface_specification/integration_interface_specification.dart';
+export 'src/interaction_scenarios/interaction_scenarios.dart';
+export 'src/quality_acceptance_plan/quality_acceptance_plan.dart';
+export 'src/requirements_specification/requirements_specification.dart';
+export 'src/security_access_specification/security_access_specification.dart';
 export 'src/serialization/serialization.dart';
 export 'src/snapshot/snapshot.dart';
-export 'src/sr_system_rollout/sr_system_rollout.dart';
-export 'src/tr_technical_requirements/tr_technical_requirements.dart';
-export 'src/uc_use_cases/uc_use_cases.dart';
-export 'src/up_ui_prototype/up_ui_prototype.dart';
+export 'src/solution_blueprint/solution_blueprint.dart';
+export 'src/target_operating_model/target_operating_model.dart';
+export 'src/transition_rollout_plan/transition_rollout_plan.dart';

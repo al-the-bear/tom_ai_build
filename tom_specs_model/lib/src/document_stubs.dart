@@ -4,7 +4,7 @@
 /// (`@DetailedIn(<DocName>)` / `@MapsTo(<DocName>)` /
 /// `@SecondLevelSectionId(<DocName>, ...)`) to the actual target-doc root
 /// classes. All 12 Phase 3 document roots now live in their own folders
-/// under `lib/src/<code>_<name>/`; this file re-exports them so PD00
+/// under `lib/src/<document_name>/`; this file re-exports them so PD00
 /// source files can resolve the Type references via a single import
 /// (`import '../document_stubs.dart';`).
 ///
@@ -15,37 +15,37 @@
 library;
 
 // Step 8 — BSI (Business System Interactions).
-export 'bsi_business_system_interactions/bsi_business_system_interactions.dart';
+export 'integration_interface_specification/integration_interface_specification.dart';
 
 // Step 9 — CS (Current Situation).
-export 'cs_current_situation/cs_current_situation.dart';
+export 'current_landscape_assessment/current_landscape_assessment.dart';
 
 // Step 10 — RC (Requirements Catalog).
-export 'rc_requirements_catalog/rc_requirements_catalog.dart';
+export 'requirements_specification/requirements_specification.dart';
 
 // Step 11 — BP (Business Processes).
-export 'bp_business_processes/bp_business_processes.dart';
+export 'target_operating_model/target_operating_model.dart';
 
 // Step 12 — UC (Use Cases).
-export 'uc_use_cases/uc_use_cases.dart';
+export 'interaction_scenarios/interaction_scenarios.dart';
 
 // Step 13 — BDM (Business Data Model).
-export 'bdm_business_data_model/bdm_business_data_model.dart';
+export 'information_model/information_model.dart';
 
 // Step 14 — AC (Authorization Concept).
-export 'ac_authorization_concept/ac_authorization_concept.dart';
+export 'security_access_specification/security_access_specification.dart';
 
 // Step 15 — PPP (Project Phase Plan).
-export 'ppp_project_phase_plan/ppp_project_phase_plan.dart';
+export 'delivery_roadmap/delivery_roadmap.dart';
 
 // Step 16 — TR (Technical Requirements).
-export 'tr_technical_requirements/tr_technical_requirements.dart';
+export 'architecture_technology_specification/architecture_technology_specification.dart';
 
 // Step 17 — UP (UI Prototype).
-export 'up_ui_prototype/up_ui_prototype.dart';
+export 'experience_design_specification/experience_design_specification.dart';
 
 // Step 18 — SR (System Rollout).
-export 'sr_system_rollout/sr_system_rollout.dart';
+export 'transition_rollout_plan/transition_rollout_plan.dart';
 
 // Step 19 — BQP (Business Quality Plan).
-export 'bqp_business_quality_plan/bqp_business_quality_plan.dart';
+export 'quality_acceptance_plan/quality_acceptance_plan.dart';
