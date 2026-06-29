@@ -6,7 +6,7 @@ import 'model_reader.dart';
 /// warnings are reported but don't block generation.
 ///
 /// Also runs [validateStructuralInvariants] for the §8.6 structural checks
-/// whenever [ProjectDefinition] is present in [classes].
+/// whenever [SolutionBlueprint] is present in [classes].
 ({List<String> errors, List<String> warnings}) validateModel(
   Map<String, ModelClass> classes,
   String rootTypeName,
@@ -81,7 +81,7 @@ import 'model_reader.dart';
     errors.add(cycleError);
   }
 
-  // §8.6 — structural invariants (PD-global, runs whenever ProjectDefinition
+  // §8.6 — structural invariants (SBP-global, runs whenever SolutionBlueprint
   // is present in the classes map regardless of the current root type).
   _validateStructuralInvariants(classes, errors, warnings);
 
@@ -94,11 +94,11 @@ import 'model_reader.dart';
 
 /// Validates the §8.6 structural invariants of the TomSpecs object model.
 ///
-/// These checks operate globally from [ProjectDefinition] as the root and are
+/// These checks operate globally from [SolutionBlueprint] as the root and are
 /// independent of the `rootTypeName` passed to [validateModel]:
 ///
 /// - **`@SectionId` global uniqueness** — no two classes reachable from
-///   `ProjectDefinition` may carry the same class-level `@SectionId` string.
+///   `SolutionBlueprint` may carry the same class-level `@SectionId` string.
 ///   Field-level `@SectionId` values (the `-LST` container IDs on list fields)
 ///   occupy a *separate* namespace and are checked independently (see the
 ///   `-LST` checks below).
@@ -114,7 +114,7 @@ import 'model_reader.dart';
 ///   ID). The `@SectionIdPattern` must mirror the container ID
 ///   (`<E>-<FIELDSUFFIX>-xxx` ↔ `<E>-<FIELDSUFFIX>-LST`).
 /// - **`@SectionId` coverage** — every class reachable from
-///   `ProjectDefinition` must carry a class-level `@SectionId`, unless it is
+///   `SolutionBlueprint` must carry a class-level `@SectionId`, unless it is
 ///   exempt by `@SectionIdPattern`. The exemption is transitive: a direct
 ///   list-element type reached via a `@SectionIdPattern` field is exempt, and
 ///   so is the entire subtree reachable from that element type (those nested
@@ -128,13 +128,13 @@ import 'model_reader.dart';
 ///   `@SecondLevelSectionId(D, …)` must also carry `@DetailedIn(D)`.
 /// - **`@DetailedIn` → ancestor `@MapsTo` check** — for every class
 ///   `C` carrying `@DetailedIn(D)`, some class on the path from
-///   `ProjectDefinition` to `C` (inclusive) must carry `@MapsTo(D)`.
+///   `SolutionBlueprint` to `C` (inclusive) must carry `@MapsTo(D)`.
 /// - **Detail-count per `@Document` class** — warns if a `@Document`-tagged
-///   class has zero `@DetailedIn` entries in the PD tree (likely omission).
+///   class has zero `@DetailedIn` entries in the SBP tree (likely omission).
 ///
-/// If [ProjectDefinition] is not present in [classes] the function is a
+/// If [SolutionBlueprint] is not present in [classes] the function is a
 /// no-op (useful for unit tests against small synthetic models that don't
-/// include a full PD tree).
+/// include a full SBP tree).
 ({List<String> errors, List<String> warnings}) validateStructuralInvariants(
   Map<String, ModelClass> classes,
 ) {
@@ -153,13 +153,13 @@ void _validateStructuralInvariants(
   List<String> errors,
   List<String> warnings,
 ) {
-  const pdRoot = 'ProjectDefinition';
-  if (!classes.containsKey(pdRoot)) return;
+  const sbpRoot = 'SolutionBlueprint';
+  if (!classes.containsKey(sbpRoot)) return;
 
-  final reachable = _findReachableTypes(classes, pdRoot);
+  final reachable = _findReachableTypes(classes, sbpRoot);
 
   // Collect all @Document classes from the full map (Phase 3 roots are NOT
-  // reachable from PD — they type against PD classes, not the other way).
+  // reachable from SBP — they type against SBP classes, not the other way).
   final documentClasses = <String>{};
   for (final entry in classes.entries) {
     if (entry.value.getAnnotation('Document') != null) {
@@ -251,7 +251,7 @@ void _validateStructuralInvariants(
       // covered by a @SectionIdPattern field.
       warnings.add(
         '§8.6 @SectionId coverage: $className is reachable from '
-        'ProjectDefinition but has no class-level @SectionId and is not '
+        'SolutionBlueprint but has no class-level @SectionId and is not '
         'a @SectionIdPattern list-element type',
       );
     }
@@ -384,7 +384,7 @@ void _validateStructuralInvariants(
 
   // --- 4. @DetailedIn → ancestor @MapsTo check ----------------------------
 
-  // Build a reverse-adjacency (parent) map for the PD-reachable subgraph.
+  // Build a reverse-adjacency (parent) map for the SBP-reachable subgraph.
   // childType → set of parent class names that own a field of that type.
   // @Reference fields are excluded — they don't represent ownership.
   final parentMap = <String, Set<String>>{};
@@ -428,7 +428,7 @@ void _validateStructuralInvariants(
         errors.add(
           '§8.6 @DetailedIn ancestor check: $className has '
           '@DetailedIn($docType) but no @MapsTo($docType) on itself or '
-          'any ancestor in the ProjectDefinition tree',
+          'any ancestor in the SolutionBlueprint tree',
         );
       }
     }
@@ -437,42 +437,42 @@ void _validateStructuralInvariants(
   // --- 5. Detail-count per @Document class (warn if 0) --------------------
 
   for (final docClassName in documentClasses) {
-    if (docClassName == pdRoot) continue; // PD is the root, not a target
+    if (docClassName == sbpRoot) continue; // SBP is the root, not a target
     final count = reachable
         .where((c) => detailedInByClass[c]?.contains(docClassName) ?? false)
         .length;
     if (count == 0) {
       warnings.add(
         '§8.6 detail-count: @Document class $docClassName has no '
-        '@DetailedIn($docClassName) entries in the ProjectDefinition tree',
+        '@DetailedIn($docClassName) entries in the SolutionBlueprint tree',
       );
     }
   }
 
   // --- 6. Pure-projection invariant (T2, N12) ------------------------------
   //
-  // The twelve Phase 3 roots are `@Document(basedOn: [ProjectDefinition])`
-  // *projections*: they aggregate PD00 sections and own no content of their own
+  // The twelve Phase 3 roots are `@Document(basedOn: [SolutionBlueprint])`
+  // *projections*: they aggregate SBP00 sections and own no content of their own
   // (§14). The single-tree model is sound only if a projection root contains
   // **no content absent from the Project Definition** — otherwise the global
   // `toYaml` could not emit each section exactly once, and the connect pass
   // (§15.1) would have to invent or drop content.
   //
   // Check: every type reachable from a projection root (other than the root
-  // class itself) must also be reachable from ProjectDefinition. A reachable
-  // type with no PD counterpart is projection-local content — a violation.
+  // class itself) must also be reachable from SolutionBlueprint. A reachable
+  // type with no SBP counterpart is projection-local content — a violation.
   // The unannotated container is structural, never a projection target, so it
   // is excluded here.
   for (final docClassName in documentClasses) {
-    if (docClassName == pdRoot) continue;
+    if (docClassName == sbpRoot) continue;
     final projectionReachable = _findReachableTypes(classes, docClassName);
     for (final type in projectionReachable) {
       if (type == docClassName) continue; // the projection root class itself
-      if (reachable.contains(type)) continue; // has a PD counterpart
+      if (reachable.contains(type)) continue; // has a SBP counterpart
       errors.add(
         '§8.6 pure-projection: projection root $docClassName reaches "$type", '
-        'which is not present in the ProjectDefinition tree — a projection '
-        'root must contain no content without a PD counterpart (N12)',
+        'which is not present in the SolutionBlueprint tree — a projection '
+        'root must contain no content without a SBP counterpart (N12)',
       );
     }
   }

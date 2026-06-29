@@ -55,7 +55,7 @@ void main() {
     final config = SpecObjectModelConfig.fromMap({
       'version-label': 'v0',
       'output-base': 'tom_ai/ai_build',
-      'document-roots': ['ProjectDefinition', 'CsCurrentSituation'],
+      'document-roots': ['SolutionBlueprint', 'CurrentLandscapeAssessment'],
       'languages': [
         'dart',
         {'language': 'java', 'output': 'custom/java/tom_som_java'},
@@ -69,7 +69,7 @@ void main() {
 
     test('parses the requested document roots', () {
       expect(config.documentRoots,
-          ['ProjectDefinition', 'CsCurrentSituation']);
+          ['SolutionBlueprint', 'CurrentLandscapeAssessment']);
       expect(config.generatesAllRoots, isFalse);
     });
 

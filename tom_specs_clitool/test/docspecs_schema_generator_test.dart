@@ -278,10 +278,10 @@ Detailed behaviour, edge cases, and error handling are described here.
     setUp(() => dir = Directory.systemTemp.createTempSync('specs_schema_e2e_'));
     tearDown(() => dir.deleteSync(recursive: true));
 
-    test('S1: generates exactly 13 schemas (1 global PD + 12 projections)', () {
+    test('S1: generates exactly 13 schemas (1 global SBP + 12 projections)', () {
       final schemas = DocSpecsSchemaGenerator(classes).generateAll();
       expect(schemas.length, 13);
-      expect(schemas.keys, contains('project-definition'));
+      expect(schemas.keys, contains('solution-blueprint'));
     });
 
     test('every generated schema round-trips through the DocSpecs loader', () {

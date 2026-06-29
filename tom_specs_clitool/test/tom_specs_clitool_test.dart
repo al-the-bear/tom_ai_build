@@ -54,7 +54,7 @@ void main() {
       classes = reader.classes;
     });
 
-    test('§8.6: no duplicate @SectionId strings across ProjectDefinition tree', () {
+    test('§8.6: no duplicate @SectionId strings across SolutionBlueprint tree', () {
       final result = validateStructuralInvariants(classes);
       final dupeErrors = result.errors
           .where((e) => e.contains('§8.6 @SectionId uniqueness'))
@@ -69,7 +69,7 @@ void main() {
         final coverageWarnings = result.warnings
             .where((w) => w.contains('§8.6 @SectionId coverage'))
             .toList();
-        // ~1082 coverage gaps remain across multiple PD files after CS-02.
+        // ~1082 coverage gaps remain across multiple SBP files after CS-02.
         // Bulk: technical_framework.dart (~929), user_interface_design.dart (~199),
         // system_overview.dart (~180), system_stage_plan.dart (~131), and others.
         // See completion_steps.tom_specs.md.
@@ -101,7 +101,7 @@ void main() {
       expect(secondLevelErrors, isEmpty, reason: secondLevelErrors.join('\n'));
     });
 
-    test('§8.6: every @Document class has at least one @DetailedIn entry in PD tree', () {
+    test('§8.6: every @Document class has at least one @DetailedIn entry in SBP tree', () {
       final result = validateStructuralInvariants(classes);
       final detailCountWarnings = result.warnings
           .where((w) => w.contains('§8.6 detail-count'))
@@ -143,9 +143,9 @@ void main() {
       },
     );
 
-    test('outliner validates BusinessSystemInteractions root without errors', () {
-      // BSI is a smoke-test root known to be clean of §6.1 ContentType issues.
-      final result = validateModel(classes, 'BusinessSystemInteractions');
+    test('outliner validates IntegrationInterfaceSpecification root without errors', () {
+      // IIS is a smoke-test root known to be clean of §6.1 ContentType issues.
+      final result = validateModel(classes, 'IntegrationInterfaceSpecification');
       expect(result.errors, isEmpty, reason: result.errors.join('\n'));
     });
 
@@ -163,7 +163,7 @@ void main() {
       expect((json['classes'] as Map).containsKey('DocSpecsProject'), isTrue);
     });
 
-    test('T2: every projection root is a pure projection of the PD tree', () {
+    test('T2: every projection root is a pure projection of the SBP tree', () {
       final result = validateStructuralInvariants(classes);
       final pureProjectionErrors = result.errors
           .where((e) => e.contains('§8.6 pure-projection'))
@@ -182,8 +182,8 @@ void main() {
   group('unit: @SectionId uniqueness check', () {
     test('detects duplicate @SectionId across two sibling classes', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [
             _field('alpha', 'Alpha'),
@@ -203,8 +203,8 @@ void main() {
 
     test('passes when all @SectionIds are distinct', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [
             _field('alpha', 'Alpha'),
@@ -223,8 +223,8 @@ void main() {
   group('unit: @SectionId coverage check', () {
     test('warns when a reachable class has no @SectionId and no @SectionIdPattern coverage', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('noId', 'NoId')],
         ),
@@ -240,8 +240,8 @@ void main() {
 
     test('does not warn for list-element types covered by @SectionIdPattern', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
@@ -267,8 +267,8 @@ void main() {
   group('unit: @SectionIdPattern list-coverage check', () {
     test('errors when a complex List<T> field lacks @SectionIdPattern', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
@@ -294,8 +294,8 @@ void main() {
 
     test('passes when the complex List<T> field carries @SectionIdPattern', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
@@ -320,8 +320,8 @@ void main() {
 
     test('does not error for a @Reference list field without @SectionIdPattern', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
@@ -356,8 +356,8 @@ void main() {
       required String patB,
     }) =>
         {
-          'ProjectDefinition': _cls(
-            'ProjectDefinition',
+          'SolutionBlueprint': _cls(
+            'SolutionBlueprint',
             [AnnotationData('SectionId', {'id': 'TST'})],
             [_field('scope', 'Scope')],
           ),
@@ -410,8 +410,8 @@ void main() {
 
     test('errors when one container ID maps to two element types (type-consistency)', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('a', 'AHolder'), _field('b', 'BHolder')],
         ),
@@ -448,8 +448,8 @@ void main() {
 
     test('errors when @SectionIdPattern does not mirror the container ID (pairing)', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('h', 'Holder')],
         ),
@@ -480,8 +480,8 @@ void main() {
   group('unit: @SecondLevelSectionId implies @DetailedIn', () {
     test('errors when @SecondLevelSectionId exists without matching @DetailedIn', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('sec', 'SecClass')],
         ),
@@ -500,8 +500,8 @@ void main() {
 
     test('passes when @SecondLevelSectionId is accompanied by @DetailedIn', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'}),
            AnnotationData('MapsTo', {'documentClass': 'DocA'})],
           [_field('sec', 'SecClass')],
@@ -522,8 +522,8 @@ void main() {
   group('unit: @DetailedIn ancestor @MapsTo check', () {
     test('errors when @DetailedIn(D) has no @MapsTo(D) on self or ancestor', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('seed', 'SeedClass')],
         ),
@@ -542,8 +542,8 @@ void main() {
 
     test('passes when @MapsTo(D) is on the same class as @DetailedIn(D)', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('seed', 'SeedClass')],
         ),
@@ -561,8 +561,8 @@ void main() {
 
     test('passes when @MapsTo(D) is on an ancestor of the @DetailedIn(D) class', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('seed', 'SeedClass')],
         ),
@@ -587,32 +587,32 @@ void main() {
   group('unit: canonical container root (T1)', () {
     Map<String, ModelClass> modelWithContainer() => {
           'DocSpecsProject': _cls('DocSpecsProject', [], [
-            _field('projectDefinition', 'ProjectDefinition'),
-            _field('businessProcesses', 'BusinessProcesses'),
+            _field('projectDefinition', 'SolutionBlueprint'),
+            _field('businessProcesses', 'TargetOperatingModel'),
           ]),
-          'ProjectDefinition': _cls(
-            'ProjectDefinition',
+          'SolutionBlueprint': _cls(
+            'SolutionBlueprint',
             [AnnotationData('SectionId', {'id': 'TST'})],
             [_field('shared', 'SharedSection')],
           ),
           'SharedSection':
               _cls('SharedSection', [AnnotationData('SectionId', {'id': 'TST-SHR'})]),
-          'BusinessProcesses': _cls('BusinessProcesses', [
-            AnnotationData('Document', {'name': 'Business Processes'}),
-            AnnotationData('SectionId', {'id': 'BP'}),
+          'TargetOperatingModel': _cls('TargetOperatingModel', [
+            AnnotationData('Document', {'name': 'Target Operating Model'}),
+            AnnotationData('SectionId', {'id': 'TOM'}),
           ], [
             _field('shared', 'SharedSection'),
           ]),
         };
 
-    test('findContainerRoot detects the unannotated PD-owning class', () {
+    test('findContainerRoot detects the unannotated SBP-owning class', () {
       expect(findContainerRoot(modelWithContainer()), 'DocSpecsProject');
     });
 
     test('findContainerRoot returns null when no container is present', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('shared', 'SharedSection')],
         ),
@@ -638,21 +638,21 @@ void main() {
   });
 
   group('unit: pure-projection invariant (T2)', () {
-    test('errors when a projection root reaches a non-PD (projection-local) type', () {
+    test('errors when a projection root reaches a non-SBP (projection-local) type', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('shared', 'SharedSection')],
         ),
         'SharedSection':
             _cls('SharedSection', [AnnotationData('SectionId', {'id': 'TST-SHR'})]),
         'BizProc': _cls('BizProc', [
-          AnnotationData('Document', {'name': 'Business Processes'}),
-          AnnotationData('SectionId', {'id': 'BP'}),
+          AnnotationData('Document', {'name': 'Target Operating Model'}),
+          AnnotationData('SectionId', {'id': 'TOM'}),
         ], [
-          _field('shared', 'SharedSection'), // OK — has a PD counterpart
-          _field('local', 'ProjLocal'), // violation — no PD counterpart
+          _field('shared', 'SharedSection'), // OK — has a SBP counterpart
+          _field('local', 'ProjLocal'), // violation — no SBP counterpart
         ]),
         'ProjLocal':
             _cls('ProjLocal', [AnnotationData('SectionId', {'id': 'BP-LOC'})]),
@@ -668,18 +668,18 @@ void main() {
       );
     });
 
-    test('passes when a projection root reaches only PD-reachable types', () {
+    test('passes when a projection root reaches only SBP-reachable types', () {
       final classes = {
-        'ProjectDefinition': _cls(
-          'ProjectDefinition',
+        'SolutionBlueprint': _cls(
+          'SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('shared', 'SharedSection')],
         ),
         'SharedSection':
             _cls('SharedSection', [AnnotationData('SectionId', {'id': 'TST-SHR'})]),
         'BizProc': _cls('BizProc', [
-          AnnotationData('Document', {'name': 'Business Processes'}),
-          AnnotationData('SectionId', {'id': 'BP'}),
+          AnnotationData('Document', {'name': 'Target Operating Model'}),
+          AnnotationData('SectionId', {'id': 'TOM'}),
         ], [
           _field('shared', 'SharedSection'),
         ]),
@@ -816,7 +816,7 @@ void main() {
       final classes = <String, ModelClass>{
         'Doc': _cls('Doc', [
           AnnotationData('SectionId', {'id': 'DC00'}),
-          AnnotationData('MapsTo', {'documentClass': 'BusinessDataModel'}),
+          AnnotationData('MapsTo', {'documentClass': 'InformationModel'}),
           AnnotationData('ContentHelp', {'guidance': 'help text'}),
         ], [
           ModelField(
@@ -842,7 +842,7 @@ void main() {
         containsAll(['SectionId', 'MapsTo', 'ContentHelp']),
       );
       expect((classByName['MapsTo']!['arguments'] as Map)['documentClass'],
-          'BusinessDataModel');
+          'InformationModel');
       expect((classByName['SectionId']!['arguments'] as Map)['id'], 'DC00');
 
       // Field-level: @Min/@Max/@PatternCheck/@ContentType round-trip in full.
@@ -871,7 +871,7 @@ void main() {
         AnnotationData('SectionId', {'id': 'DC00'}),
         AnnotationData('Document', {'name': 'Doc'}),
         AnnotationData(
-            'DetailedIn', {'documentClass': 'TechnicalRequirementsSpec'}),
+            'DetailedIn', {'documentClass': 'ArchitectureTechnologySpecification'}),
       ];
       final fieldAnnos = [
         AnnotationData('Min', {'count': 1}),

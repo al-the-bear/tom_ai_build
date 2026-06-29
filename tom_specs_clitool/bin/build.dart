@@ -148,6 +148,14 @@ Future<void> main(List<String> arguments) async {
   // what actually ships in the app bundle.
   _step(4, 'generate DocSpecs schemas (versioned, → .tom tree + flat assets)');
   final schemaTree = p.join(editorDir, '.tom', 'docspecs-schema');
+  // Clear the resolver tree first. Schema dirs are named after the document
+  // root, so a rename leaves the old-named dir behind; without this prune the
+  // stale schema would survive and be resurrected by the recursive flat-copy
+  // below. Regenerating from scratch keeps the tree a faithful mirror.
+  final schemaTreeDir = Directory(schemaTree);
+  if (schemaTreeDir.existsSync()) {
+    schemaTreeDir.deleteSync(recursive: true);
+  }
   await _run(
     'dart',
     [
