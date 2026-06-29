@@ -1,4 +1,4 @@
-# Business Processes Outline
+# Target Operating Model Outline
 
   - content
   - header: `DocumentHeader`

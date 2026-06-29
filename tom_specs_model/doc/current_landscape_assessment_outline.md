@@ -1,4 +1,4 @@
-# Current Situation Outline
+# Current Landscape Assessment Outline
 
   - content
   - header: `DocumentHeader`

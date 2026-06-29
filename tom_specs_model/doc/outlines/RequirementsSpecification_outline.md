@@ -1,4 +1,4 @@
-# Requirements Catalog Outline
+# Requirements Specification Outline
 
   - content, traceabilityMatrix
   - header: `DocumentHeader`
@@ -154,7 +154,7 @@
         - content @description
         - items: `RequirementDependencyEntry`
           - content @Form(dependencyType, description, impact), relatedRequirement
-  - `RequirementRelationships`
+  - requirementRelationships: `RequirementRelationships`
     - content
   - `RequirementCoverage`
     - content

@@ -1,4 +1,4 @@
-# Technical Requirements Spec Outline
+# Architecture Technology Specification Outline
 
   - content
   - header: `DocumentHeader`

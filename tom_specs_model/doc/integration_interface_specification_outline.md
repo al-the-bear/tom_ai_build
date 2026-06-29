@@ -1,4 +1,4 @@
-# Business System Interactions Outline
+# Integration Interface Specification Outline
 
   - content
   - header: `DocumentHeader`
@@ -22,10 +22,13 @@
         - webhookSpec: `InterfaceWebhookSpec`
           - content @Form(webhooksUsed, webhookEndpoint, eventTypes, signatureVerification, retryPolicy, idempotencyHandling)
       - dataSpec: `InterfaceDataSpec`
-        - content @Form(dataExchangeSummary, dataDirection, dataSensitivity, dataRetentionExternal, frequency, batchSchedule, volumePerTransaction, dailyVolume, peakVolume, payloadSizeLimit),
-          mappingRules @text, validationRules @text
+        - content @Form(dataExchangeSummary, dataDirection, dataSensitivity, dataRetentionExternal, frequency, batchSchedule, volumePerTransaction, dailyVolume, peakVolume, payloadSizeLimit)
         - dataEntities: `InterfaceDataEntityEntry`
           - content @Form(entityName, direction, fieldCount, requiredFields, sensitiveFields, internalMapping, transformationNeeded)
+        - mappingRules: `MappingRuleEntry`
+          - content @text
+        - validationRules: `ValidationRuleEntry`
+          - content @text
       - security: `InterfaceSecurity`
         - content @Form(authMethod, authDetails, credentialStorage, credentialRotation), securityContacts @text
         - authorization: `InterfaceSecurityAuthorization`
@@ -35,21 +38,25 @@
         - compliance: `InterfaceSecurityCompliance`
           - content @Form(complianceRequirements, auditLogging, dataResidency)
       - operational: `InterfaceOperational`
-        - content @Form(availabilitySla, scheduledDowntime, responseTimeSla, throughputSla), dependencies @text
+        - content @Form(availabilitySla, scheduledDowntime, responseTimeSla, throughputSla)
         - rateLimiting: `InterfaceOperationalRateLimiting`
           - content @Form(rateLimits, quotaLimits, burstCapacity)
         - monitoring: `InterfaceOperationalMonitoring`
           - content @Form(healthCheckEndpoint, statusPageUrl, monitoringApproach, alertingThresholds)
         - support: `InterfaceOperationalSupport`
           - content @Form(supportHours, supportContact, incidentProcess, escalationPath)
+        - dependencies: `DependencyEntry`
+          - content @text
       - errorHandling: `InterfaceErrorHandling`
-        - content @Form(errorFormat, errorCodes, retryableErrors), errorProcedures @text
+        - content @Form(errorFormat, errorCodes, retryableErrors)
         - retry: `InterfaceErrorHandlingRetry`
           - content @Form(fatalErrors, retryStrategy, maxRetries, retryInterval, circuitBreakerConfig)
         - fallback: `InterfaceErrorHandlingFallback`
           - content @Form(fallbackBehavior, degradedMode, manualRecovery)
         - timeout: `InterfaceErrorHandlingTimeout`
           - content @Form(connectionTimeout, readTimeout, overallTimeout)
+        - errorProcedures: `ErrorProcedureEntry`
+          - content @text
       - governance: `InterfaceGovernance`
         - content @Form(externalOwner, internalOwner, technicalContact, businessContact), changelog @text
         - contract: `InterfaceGovernanceContract`
@@ -88,7 +95,7 @@
     - content
   - dependencyAnalysis: `InteractionDependencyAnalysis`
     - content
-  - `MigrationInteractions`
+  - migrationInteractions: `MigrationInteractions`
     - content
   - operationalConsiderations: `CrossBoundaryOperationalConsiderations`
     - content

@@ -1,4 +1,4 @@
-# Ui Prototype Outline
+# Experience Design Specification Outline
 
   - content
   - header: `DocumentHeader`
@@ -112,8 +112,9 @@
         - responsiveRules: `ScreenResponsiveRuleEntry`
           - content @Form(breakpoint, layoutChanges, hiddenElements, collapsedSections, navigationMode)
     - `InformationArchitecture`
-      - content, siteMap @text, contentHierarchy @text, navigationStructure @text, globalEntryPoints @text,
-        architectureDiagram @mermaid-flow
+      - content, siteMap @text, contentHierarchy @text, navigationStructure @text, architectureDiagram @mermaid-flow
+      - globalEntryPoints: `GlobalEntryPointEntry`
+        - content @text
   - screenFlow: `ScreenFlowStructure`
     - content, screenFlowDiagram @mermaid-flow
     - `NavigationModel`
@@ -342,7 +343,7 @@
     - operations: `ErrorHandlingConceptOperations`
       - content @Form(errorLocalization, dynamicContentHandling, errorTrackingApproach, userFrustrationDetection)
     - `ValidationFeedback`
-      - validationDisplayContent, validationNarrative @text, fieldValidationRules @text
+      - validationDisplayContent, validationNarrative @text
       - placement: `ValidationFeedbackPlacement`
         - content @Form(errorMessagePlacement, summaryPosition, fieldHighlighting, fieldErrorIcon, fieldErrorIconPosition)
       - messages: `ValidationFeedbackMessages`
@@ -353,8 +354,10 @@
         - content @Form(errorAnimation, clearAnimation, scrollToError, focusOnError)
       - messageTemplates: `ValidationMessageTemplate`
         - content @Form(messageId, validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
+      - fieldValidationRules: `FieldValidationRuleEntry`
+        - content @text
     - `SystemErrorDisplay`
-      - systemErrorContent, systemErrorNarrative @text, errorPageDesigns @text
+      - systemErrorContent, systemErrorNarrative @text
       - errorTypes: `SystemErrorDisplayErrorTypes`
         - content @Form(serverErrorHandling, timeoutHandling, authenticationErrorHandling, permissionErrorHandling, maintenanceModeHandling)
       - displayMethods: `SystemErrorDisplayMethods`
@@ -363,6 +366,8 @@
         - content @Form(showTechnicalDetails, showRetryOption, showContactSupport, showStatusPageLink, offlineModeMessage)
       - fallback: `SystemErrorDisplayFallback`
         - content @Form(cachedDataFallback, retryStrategy, maxRetryAttempts, retryDelaySeconds)
+      - errorPageDesigns: `ErrorPageDesignEntry`
+        - content @text
       - errorCodes: `SystemErrorCodeEntry`
         - content @Form(errorCode, httpStatus, errorCategory, userMessage)
         - handling: `SystemErrorCodeEntryHandling`
@@ -370,7 +375,7 @@
         - operations: `SystemErrorCodeEntryOperations`
           - content @Form(notifySupport, logLevel)
     - `ErrorRecovery`
-      - recoveryMechanismsContent, recoveryNarrative @text, recoveryFlows @mermaid-flow
+      - recoveryMechanismsContent, recoveryNarrative @text
       - dataPreservation: `ErrorRecoveryDataPreservation`
         - content @Form(draftAutoSave, draftSaveInterval, draftStorageMethod, draftRetentionPeriod, draftRecoveryPrompt)
       - retryMechanisms: `ErrorRecoveryRetryMechanisms`
@@ -381,6 +386,8 @@
         - content @Form(supportAvailability, errorReportSubmission, includeDebugInfo)
       - sessionHandling: `ErrorRecoverySessionHandling`
         - content @Form(reauthenticationFlow, preserveContextOnReauth)
+      - recoveryFlows: `RecoveryFlowEntry`
+        - content @text
       - recoveryScenarios: `RecoveryScenarioEntry`
         - content @Form(scenarioId, scenarioName, triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
           detailedFlow @text
@@ -490,7 +497,9 @@
     - customization: `UiComponentsCustomization`
       - content @Form(extensionModel, themingApproach, customizationBoundaries)
     - `ComponentLibrary`
-      - designFoundations, designSystemNarrative @text, designTokenCatalog @text
+      - designSystemNarrative @text, designTokenCatalog @text
+      - designFoundations: `DesignFoundationEntry`
+        - content @Form(primaryColor, fontFamilyPrimary, spacingScale)
       - colors: `ComponentLibraryColors`
         - content @Form(secondaryColor, tertiaryColor, errorColor, warningColor, successColor, infoColor, surfaceColors, colorTokenFormat)
       - typography: `ComponentLibraryTypography`
@@ -611,5 +620,5 @@
           - content @Form(disposalPlan, archivingApproach, nextSteps)
         - value: `ThrowawayPrototypeValue`
           - content @Form(insightsCaptured, futureReference)
-  - `WireframesAndMockups`
+  - wireframesAndMockups: `WireframesAndMockups`
     - content

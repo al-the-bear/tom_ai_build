@@ -1,4 +1,4 @@
-# Business Processes Outline
+# Target Operating Model Outline
 
   - content
   - header: `DocumentHeader`
@@ -7,7 +7,7 @@
     - visionNarrative @text
     - overview: `ProcessVisionOverview`
       - content @Form(visionStatement, strategicAlignment, transformationTheme, targetMaturityLevel, timeHorizon, keyEnabler, changeScope, stakeholderImpact)
-    - `ExpectedImprovements`
+    - expectedImprovements: `ExpectedImprovements`
       - content @Form(efficiencyGains, qualityImprovements, costReduction, automationRate, customerExperience, employeeExperience, complianceImprovement, visibilityGains, flexibilityGains, integrationBenefits)
     - successCriteria: `ProcessSuccessCriteria`
       - content @Form(kpiTargets, timeToValue, adoptionTargets, qualityTargets, performanceTargets, userSatisfaction, businessOutcomes, measurementApproach)
@@ -120,5 +120,5 @@
     - content
   - exceptionHandling: `ProcessExceptionHandling`
     - content
-  - `ProcessMetricsAndKpis`
+  - processMetricsAndKpis: `ProcessMetricsAndKpis`
     - content

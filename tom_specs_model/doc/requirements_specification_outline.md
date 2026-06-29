@@ -1,4 +1,4 @@
-# Requirements Catalog Outline
+# Requirements Specification Outline
 
   - content, traceabilityMatrix
   - header: `DocumentHeader`

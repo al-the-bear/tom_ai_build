@@ -1,11 +1,11 @@
-# Project Phase Plan Outline
+# Delivery Roadmap Outline
 
   - content
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
   - `StagingStrategy`
     - content @Form(stagingApproachType, primaryRationale, overallRiskLevel), stagingApproach @text,
-      rationaleNarrative @text, keyAssumptions @text, constraints @text
+      rationaleNarrative @text
     - approachSelection: `StagingApproachSelection`
       - content @Form(approachDescription, alternativesConsidered, selectionCriteria)
     - rationale: `StagingRationale`
@@ -30,6 +30,10 @@
       - content @Form(criticalPrerequisites, externalDependencies, internalDependencies, dependencyRisks)
     - governance: `StagingGovernance`
       - content @Form(governanceApproach, approvalAuthority, escalationPath, exceptionHandling)
+    - keyAssumptions: `KeyAssumptionEntry`
+      - content @text
+    - constraints: `StagingStrategyConstraintEntry`
+      - content @text
   - `StageOverview`
     - content @Form(numberOfStages, totalDurationMonths, totalBudgetAllocation), stageSummaryNarrative @text,
       timelineDiagram @mermaid-gantt, resourceAllocationDiagram @mermaid-gantt,

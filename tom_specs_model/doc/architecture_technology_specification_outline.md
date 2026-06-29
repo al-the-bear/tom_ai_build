@@ -1,4 +1,4 @@
-# Technical Requirements Spec Outline
+# Architecture Technology Specification Outline
 
   - content
   - header: `DocumentHeader`
@@ -1610,7 +1610,7 @@
   - `SystemOperationAndMonitoring`
     - content
     - `SystemOperation`
-      - content, maintenanceProcedures @text
+      - content
       - administrationRequirements: `AdministrationRequirementsSection`
         - content, overview @text
         - adminInterface: `AdminInterfaceRequirements`
@@ -1655,6 +1655,8 @@
             - content @Form(logAggregation, logSearchCapability, correlatedLogView)
           - selfService: `SystemDiagnosticToolsSelfService`
             - content @Form(adminDiagnosticEndpoints, databaseQueryConsole, notes)
+      - maintenanceProcedures: `MaintenanceProcedureEntry`
+        - content @text
     - `Monitoring`
       - monitoringOverview, overviewNarrative @text
       - healthChecksAndDiagnostics: `HealthChecksAndDiagnosticsSection`
@@ -1781,7 +1783,7 @@
             - content @Form(refreshInterval, timeRangeDefault, keyPanels, dataSource)
           - operations: `DashboardEntryOperations`
             - content @Form(alertIntegration, ownerTeam, notes)
-        - `DashboardTemplates`
+        - dashboardTemplates: `DashboardTemplates`
           - content @Form(serviceTemplateLayout, serviceTemplateVariables, infraTemplateLayout, k8sTemplateLayout, databaseTemplateLayout, customTemplateProcess, templateVersioning, notes)
       - `SlaAndSloMonitoring`
         - slaOverview, overviewNarrative @text
@@ -2194,8 +2196,8 @@
           - testing: `ContingencyPlanEntryTesting`
             - content @Form(testingFrequency, lastTestedDate, lastTestResult, dependencies, estimatedCost, priority, fallbackPlan, documentLocation)
   - `TechnicalFrameworkConditions`
-    - technicalOverviewContent, existingInfrastructure @text, datacenters @text, networkTopology @text,
-      standardsOverview @text, integrationOverview @text
+    - technicalOverviewContent, existingInfrastructure @text, networkTopology @text, standardsOverview @text,
+      integrationOverview @text
     - governance: `TechnicalFrameworkConditionsGovernance`
       - content @Form(secondaryCloudProviders, technologyGovernance)
     - standards: `TechnicalFrameworkConditionsStandards`
@@ -2204,7 +2206,13 @@
       - content @Form(securityFramework, complianceRequirements, dataClassificationScheme, encryptionStandards, identityProvider)
     - network: `TechnicalFrameworkConditionsNetwork`
       - content @Form(networkArchitecture, firewallPolicies, vpnRequirements, loadBalancingStandards, cdnStrategy),
-        devopsStandards @text, observabilityRequirements @text, disasterRecovery @text
+        disasterRecovery @text
+      - devopsStandards: `DevopsStandardEntry`
+        - content @text
+      - observabilityRequirements: `ObservabilityRequirementEntry`
+        - content @text
+    - datacenters: `DatacenterEntry`
+      - content @text
     - technologyStandards: `TechnologyStandardEntry`
       - content @Form(standardId, standardName, standardCategory)
       - details: `TechnologyStandardEntryDetails`

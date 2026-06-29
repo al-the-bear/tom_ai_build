@@ -1,4 +1,4 @@
-# Authorization Concept Outline
+# Security Access Specification Outline
 
   - content
   - header: `DocumentHeader`

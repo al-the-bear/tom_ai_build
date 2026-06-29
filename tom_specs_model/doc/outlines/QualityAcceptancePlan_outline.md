@@ -1,4 +1,4 @@
-# Business Quality Plan Outline
+# Quality Acceptance Plan Outline
 
   - content
   - header: `DocumentHeader`

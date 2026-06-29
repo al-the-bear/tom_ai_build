@@ -1,13 +1,22 @@
-# Business Data Model Outline
+# Information Model Outline
 
   - content, erDiagram @mermaid-er, objectDiagram @mermaid
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
   - [1,] entities: `DataEntityEntry`
-    - identity, classification, volumeMetrics, lifecyclePolicy, complianceRequirements, relationshipSummary,
-      technicalCharacteristics
+    - identity, classification, lifecyclePolicy, relationshipSummary
+    - volumeMetrics: `VolumeMetricEntry`
+      - content @Form(estimatedRecordCount, growthRate, peakTransactionVolume, averageRecordSize, storageEstimate, partitioningStrategy)
+    - complianceRequirements: `ComplianceRequirementEntry`
+      - content @Form(sensitivityLevel, containsPii, containsPhi, complianceFrameworks, encryptionRequirements, accessRestrictions)
+    - technicalCharacteristics: `TechnicalCharacteristicEntry`
+      - content @Form(indexingStrategy, cachingStrategy, consistencyRequirements, replicationStrategy, backupRequirements, scalingApproach)
     - attributes: `DataAttributeEntry`
-      - identity, dataTypeSpec, constraints, derivation, securityClassification, migrationLineage, displayProperties
+      - identity, dataTypeSpec, derivation, securityClassification, migrationLineage
+      - constraints: `DataAttributeConstraintEntry`
+        - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
+      - displayProperties: `DisplayPropertyEntry`
+        - content @Form(displayLabel, displayOrder, displayGroup, helpText)
     - keyAttributes: `KeyAttributeEntry`
       - content @Form(keyName, keyType, keyColumns, description), referencedEntityRef
       - generation: `KeyAttributeEntryGeneration`
@@ -25,8 +34,11 @@
   - `EntityRelationships`
     - content
     - items: `EntityRelationshipEntry`
-      - identity, participants, cardinality, referentialIntegrity, navigation, relationshipAttributes, sourceEntityRef,
-        targetEntityRef
+      - identity, cardinality, referentialIntegrity, navigation, sourceEntityRef, targetEntityRef
+      - participants: `ParticipantEntry`
+        - content @Form(sourceEntityName, sourceRole, targetEntityName, targetRole)
+      - relationshipAttributes: `RelationshipAttributeEntry`
+        - content @Form(hasRelationshipAttributes, relationshipAttributes, temporalAspects)
   - `DataClassification`
     - overview
     - items: `DataClassificationEntry`
@@ -36,7 +48,11 @@
       - accessRestrictions: `AccessRestrictionEntry`
         - content @Form(restrictionId, restrictionType, restriction, scope, enforcement, effectiveConditions, overridePolicy)
   - [1,] objectCatalog: `BusinessObjectEntry`
-    - identity, domainContext, lifecycleSummary, behaviorRules, ownership, integrationPoints
+    - identity, domainContext, lifecycleSummary, ownership
+    - behaviorRules: `BehaviorRuleEntry`
+      - content @Form(keyBusinessRules, invariants, keyOperations, validationRules, calculatedProperties)
+    - integrationPoints: `IntegrationPointEntry`
+      - content @Form(exposedInApis, eventPublished, eventSubscribed, externalSystemMapping)
     - attributes: `BusinessObjectAttributeEntry`
       - content @Form(attributeName, description, type)
       - definition: `BusinessObjectAttributeEntryDefinition`
@@ -90,7 +106,7 @@
       - content @Form(exampleName, scenario, inputData, expectedOutcome, exampleType)
   - `DataDictionary`
     - content
-  - `ValidationConstraints`
+  - validationConstraints: `ValidationConstraints`
     - content
-  - `IntegrityConstraints`
+  - integrityConstraints: `IntegrityConstraints`
     - content

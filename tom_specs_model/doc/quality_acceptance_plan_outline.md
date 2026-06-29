@@ -1,10 +1,10 @@
-# Business Quality Plan Outline
+# Quality Acceptance Plan Outline
 
   - content
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
   - `QualityFramework`
-    - frameworkContent, qualityObjectivesOverview @text, objectivesBreakdown @text, categoryDependencies @mermaid
+    - frameworkContent, qualityObjectivesOverview @text, objectivesBreakdown @text
     - objectives: `QualityFrameworkObjectives`
       - content @Form(objectivesHierarchy, objectivesAlignment, objectivesMeasurability)
     - tradeOffs: `QualityFrameworkTradeOffs`
@@ -21,6 +21,8 @@
         - content @Form(categoryOwner, reviewFrequency, escalationThreshold)
       - metrics: `QualityCategoryEntryMetrics`
         - content @Form(primaryMetric, secondaryMetrics, targetValue, currentBaseline)
+    - categoryDependencies: `CategoryDependencyEntry`
+      - content @text
   - `UserQualityCriteria`
     - userQualityContent, overview @text
     - usability: `UsabilityQuality`

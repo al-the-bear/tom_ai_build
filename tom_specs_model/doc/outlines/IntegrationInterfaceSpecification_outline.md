@@ -1,4 +1,4 @@
-# Business System Interactions Outline
+# Integration Interface Specification Outline
 
   - content
   - header: `DocumentHeader`

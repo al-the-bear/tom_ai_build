@@ -1,4 +1,4 @@
-# Current Situation Outline
+# Current Landscape Assessment Outline
 
   - content
   - header: `DocumentHeader`
@@ -26,7 +26,11 @@
         - quality: `ExistingSystemQuality` ← (Quality and risk)
           - content @Form(technicalDebtLevel, codeQuality, documentationStatus, availabilitySla, securityComplianceStatus, lastSecurityAudit, lastPenetrationTest, accessibilityCompliance)
     - `CurrentArchitecture`
-      - content, architectureDiagram, deploymentTopology, integrationPatterns, sharedServices
+      - content, architectureDiagram, deploymentTopology
+      - integrationPatterns: `IntegrationPatternEntry`
+        - content @text
+      - sharedServices: `SharedServiceEntry`
+        - content @text
     - `DependenciesAndIntegrations`
       - content, dependencyDiagram
       - `InternalDependencies` ← (Dependencies between internal systems)
@@ -83,8 +87,9 @@
           - sourceSystem: `ExistingSystemEntry` (ref: Source System)
           - targetSystem: `ExistingSystemEntry` (ref: Target System)
       - healthSummary: `IntegrationHealthSummary` ← (Overall assessment of integration landscape health)
-        - content @Form(overallHealthRating, totalDependencies, criticalDependencies, highRiskDependencies, singlePointsOfFailure, undocumentedIntegrations, technicalDebtSummary, priorityRemediationAreas, impactOnProject),
-          fragilePoints
+        - content @Form(overallHealthRating, totalDependencies, criticalDependencies, highRiskDependencies, singlePointsOfFailure, undocumentedIntegrations, technicalDebtSummary, priorityRemediationAreas, impactOnProject)
+        - fragilePoints: `FragilePointEntry`
+          - content @text
   - `CurrentBusinessProcesses`
     - content, processLandscapeDiagram
     - scopeSummary: `ProcessScopeSummary` ← (Defines which processes are in/out of scope)
@@ -474,14 +479,17 @@
       - vendor: `SystemToReplaceEntryVendor`
         - content @Form(vendorName, contractStatus, contractEndDate)
       - technicalAssessment: `SystemTechnicalAssessment`
-        - content @Form(primaryTechnology, technologyVersion, databasePlatform, hostingEnvironment), knownIssues @text,
-          securityConcerns @text
+        - content @Form(primaryTechnology, technologyVersion, databasePlatform, hostingEnvironment)
         - platform: `SystemTechnicalAssessmentPlatform`
           - content @Form(operatingSystem, middlewareComponents, deploymentDate, systemAge, lastMajorUpgrade)
         - lifecycle: `SystemTechnicalAssessmentLifecycle`
           - content @Form(vendorSupportStatus, endOfSupportDate)
         - quality: `SystemTechnicalAssessmentQuality`
           - content @Form(technicalDebtRating, securityPosture, performanceStatus, scalabilityLimitations, maintainability, documentationQuality)
+        - knownIssues: `KnownIssueEntry`
+          - content @text
+        - securityConcerns: `SecurityConcernEntry`
+          - content @text
       - businessCriticality: `SystemBusinessCriticality`
         - content @Form(criticalityRating, businessValueScore, timeModelClassification, activeUsers)
         - operations: `SystemBusinessCriticalityOperations`
@@ -493,22 +501,25 @@
         - supportedProcesses: `SystemBusinessProcessEntry`
           - content @Form(processName, processId, systemRole, automationLevel, processFrequency)
       - replacementStrategy: `SystemReplacementStrategy`
-        - content @Form(strategyType, strategyRationale, targetSolution, targetSolutionType),
-          predecessorDependencies @text, successCriteria @text
+        - content @Form(strategyType, strategyRationale, targetSolution, targetSolutionType), successCriteria @text
         - timeline: `SystemReplacementStrategyTimeline`
           - content @Form(plannedStartDate, targetCutoverDate, decommissionDate, parallelRunPeriod)
         - cutover: `SystemReplacementStrategyCutover`
           - content @Form(cutoverStrategy, rollbackCapability, rollbackWindow)
         - phases: `ReplacementPhaseEntry`
           - content @Form(phaseNumber, phaseName, phaseScope, startDate, endDate, exitCriteria)
+        - predecessorDependencies: `PredecessorDependencyEntry`
+          - content @text
       - dataScope: `SystemDataScope`
-        - content @Form(totalRecords, dataSize, growthRate, dataTypes), knownQualityIssues @text
+        - content @Form(totalRecords, dataSize, growthRate, dataTypes)
         - governance: `SystemDataScopeGovernance`
           - content @Form(sensitivityLevel, retentionRequirements, dataQuality, cleansingRequired)
         - migration: `SystemDataScopeMigration`
           - content @Form(deduplicationNeeded, transformationComplexity, migrationScope, archiveStrategy)
         - entities: `DataEntityMigrationEntry`
           - content @Form(entityName, recordCount, targetMapping, transformationNotes, validationRules, migrationPriority)
+        - knownQualityIssues: `KnownQualityIssueEntry`
+          - content @text
       - dependencies: `ReplacementSystemDependencyEntry`
         - content @Form(integrationId, connectedSystem, systemStatus, direction, integrationType, protocol, dataExchanged, frequency, volume, criticality, impactIfBroken, owningSystem, replacementMapping, migrationApproach)
       - userImpact: `SystemUserImpact`
@@ -522,14 +533,15 @@
         - userGroups: `UserGroupImpactEntry`
           - content @Form(groupName, userCount, impactLevel, specialConsiderations, trainingNeeds)
       - costAnalysis: `SystemCostAnalysis`
-        - content @Form(annualLicenseCost, annualMaintenanceCost, annualOperationsCost), costBreakdown @text,
-          nonFinancialBenefits @text
+        - content @Form(annualLicenseCost, annualMaintenanceCost, annualOperationsCost), costBreakdown @text
         - currentCosts: `SystemCostAnalysisCurrentCosts`
           - content @Form(annualSupportCost, totalCurrentAnnualCost)
         - migration: `SystemCostAnalysisMigration`
           - content @Form(migrationProjectCost, dataConversionCost, integrationCost, trainingCost, parallelRunCost)
         - benefits: `SystemCostAnalysisBenefits`
           - content @Form(newSystemAnnualCost, annualSavings, paybackPeriod, fiveYearTco)
+        - nonFinancialBenefits: `NonFinancialBenefitEntry`
+          - content @text
       - migrationPlan: `SystemMigrationPlan`
         - content @Form(migrationApproach, dataTransformationNeeds, estimatedEffort, teamSize), rollbackStrategy @text,
           postMigrationValidation @text
@@ -541,17 +553,18 @@
           - content @Form(riskId, riskDescription, probability, impact, riskScore, mitigation, contingency, owner)
       - knowledgeTransfer: `SystemKnowledgeTransfer`
         - content @Form(technicalDocStatus, businessDocStatus, dataDocStatus, primarySme, smeAvailability, smeRiskLevel, backupSme, knowledgeCaptureNeeded, captureApproach, captureDeadline),
-          criticalKnowledgeAreas @text, knowledgeTransferPlan @text
+          knowledgeTransferPlan @text
+        - criticalKnowledgeAreas: `CriticalKnowledgeAreaEntry`
+          - content @text
   - `MigrationConsiderations`
     - strategyContent, strategyNarrative @text, timeline @text, dataMapping @text, masterDataApproach @text,
-      rollbackStrategy @text, goNoGosCriteria @text, communicationPlan @text, escalationProcedures @text
+      rollbackStrategy @text, goNoGosCriteria @text, communicationPlan @text
     - resources: `MigrationResources`
       - content @Form(migrationLead, technicalResources, businessResources, testingResources, vendorSupport, consultingSupport, contractorNeeds, migrationEnvironments, dataStorageNeeds, networkBandwidth),
         resourceTimeline @text
     - `MigrationRisks`
-      - governanceContent, riskOverview @text, assessmentMethodology @text, riskCategories @text,
-        riskBasedDecisions @text, monitoringProcedures @text, responseStrategies @text, riskAggregation @text,
-        riskMatrix @mermaid, riskTimeline @mermaid-gantt
+      - governanceContent, riskOverview @text, assessmentMethodology @text, riskAggregation @text, riskMatrix @mermaid,
+        riskTimeline @mermaid-gantt
       - governance: `MigrationRisksGovernance`
         - content @Form(riskEscalationPath, riskToleranceLevel, riskDecisionAuthority)
       - assessment: `MigrationRisksAssessment`
@@ -560,6 +573,14 @@
         - content @Form(criticalRiskThreshold, highRiskThreshold, mediumRiskThreshold, emergentRiskTriggers)
       - reporting: `MigrationRisksReporting`
         - content @Form(riskReportingCadence, riskDashboardTools, riskRegisterRepository)
+      - riskCategories: `RiskCategoryEntry`
+        - content @text
+      - riskBasedDecisions: `RiskBasedDecisionEntry`
+        - content @text
+      - monitoringProcedures: `MonitoringProcedureEntry`
+        - content @text
+      - responseStrategies: `ResponseStrategyEntry`
+        - content @text
       - items: `MigrationRiskEntry`
         - content @Form(riskId, riskTitle, riskOwner), analysisNarrative @text, mitigationDetails @text
         - identification: `MigrationRiskIdentification`
@@ -584,3 +605,5 @@
           - content @Form(previousScores, previousStatuses, lessonsLearned)
     - milestones: `MigrationMilestoneEntry`
       - content @Form(milestoneName, targetDate, systemsIncluded, deliverables, successCriteria, gateName)
+    - escalationProcedures: `EscalationProcedureEntry`
+      - content @text

@@ -1,4 +1,4 @@
-# System Rollout Outline
+# Transition Rollout Plan Outline
 
   - content
   - header: `DocumentHeader`
@@ -35,13 +35,13 @@
     - content
   - `MigrationPlan`
     - content
-  - `UserManuals`
+  - userManuals: `UserManuals`
     - content
   - trainingMaterials: `RolloutTrainingMaterials`
     - content
   - `PilotPlan`
     - content
-  - `CutoverProcedures`
+  - cutoverProcedures: `CutoverProcedures`
     - content
   - `KnowledgeTransfer`
     - content

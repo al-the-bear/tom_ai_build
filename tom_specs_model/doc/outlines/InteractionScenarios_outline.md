@@ -1,4 +1,4 @@
-# Use Cases Outline
+# Interaction Scenarios Outline
 
   - content
   - header: `DocumentHeader`
@@ -97,7 +97,7 @@
     - actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
     - overview: `ActorDiagramOverview`
       - content @Form(diagramPurpose, actorCategories, systemBoundary, notation)
-  - `EndToEndTestScenarios`
+  - endToEndTestScenarios: `EndToEndTestScenarios`
     - content
   - `UseCaseTraceability`
     - content

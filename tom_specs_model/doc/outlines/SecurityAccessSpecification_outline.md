@@ -1,4 +1,4 @@
-# Authorization Concept Outline
+# Security Access Specification Outline
 
   - content
   - header: `DocumentHeader`
@@ -114,7 +114,9 @@
       - `AuthenticationMethods`
         - content, overview @text
         - `MfaConfiguration`
-          - content, mfaDetails @text
+          - content
+          - mfaDetails: `MfaDetailEntry`
+            - content @text
         - `SsoPolicy`
           - content, ssoDetails @text
         - certificateAuthentication: `CertificateAuthenticationPolicy`
@@ -146,7 +148,9 @@
         - errorHandling: `AuthenticationErrorHandling`
           - content, errorHandlingDetails @text
         - stepUpAuthentication: `StepUpAuthenticationPolicy`
-          - content, stepUpDetails @text
+          - content
+          - stepUpDetails: `StepUpDetailEntry`
+            - content @text
         - loginFlowSteps: `LoginFlowStepEntry`
           - content @Form(stepName, stepOrder, stepType, actor)
           - validation: `LoginFlowStepEntryValidation`

@@ -7,7 +7,7 @@ The **Specs Model Outliner** is a Dart-based generator that reads the `tom_specs
 ## 2. Input
 
 - **Source**: All Dart files under `lib/src/` of the `tom_specs_model` package.
-- **Root type**: `ProjectDefinition` (the single top-level aggregator class). The root class name is the key parameter of the generator besides the dart project name it is in. All classes in the dependency tree of the root class are included. For large projects these could even be in other dart projects.
+- **Root type**: `SolutionBlueprint` (the single top-level aggregator class). The root class name is the key parameter of the generator besides the dart project name it is in. All classes in the dependency tree of the root class are included. For large projects these could even be in other dart projects.
 - **Analyzer**: Use `package:analyzer` to resolve types, enumerate fields, and inspect annotations.
 
 ## 3. Output
@@ -121,7 +121,7 @@ Fields annotated with `@Reference` are shown with both field name and type name,
 The reference path uses `-` to separate 1:1 relationships and `:` to separate 1:n (List) relationships:
 
 ```
--> basedOnRequirement:FunctionalRequirementEntry:ProjectDefinition-SystemOverview-RequirementsOverview:functionalRequirements
+-> basedOnRequirement:FunctionalRequirementEntry:SolutionBlueprint-SystemOverview-RequirementsOverview:functionalRequirements
 ```
 
 > **Note:** The current model has no cross-references. This notation is defined for future use.
@@ -269,7 +269,7 @@ These are the rules for how model classes must be designed. The validator checks
 
 ### 6.5 Reachability
 
-Only types reachable from the root type (`ProjectDefinition`) are included in the outline. Unreachable types (e.g., common utility types not referenced by any reachable class) are silently omitted.
+Only types reachable from the root type (`SolutionBlueprint`) are included in the outline. Unreachable types (e.g., common utility types not referenced by any reachable class) are silently omitted.
 
 ### 6.6 Inheritance
 
@@ -381,7 +381,7 @@ ignored by tooling.
 - Applied to: `content` fields.
 - Effect: The section serves only as a structural container for subsections.
   No narrative text is expected, and any text present will be ignored.
-- Example: Applied to container sections like `ProjectDefinition` that exist
+- Example: Applied to container sections like `SolutionBlueprint` that exist
   only to hold child sections.
 
 ### 7.6 `@ContentType(String type, String description)`
@@ -428,7 +428,7 @@ class DataModel {
 
 **Example — Unused content:**
 ```dart
-class ProjectDefinition {
+class SolutionBlueprint {
   @Unused()
   String? content;
 }
@@ -575,7 +575,7 @@ Provides content creation guidance for a section or field.
 Marks a class as a document root in the specification model.
 
 - Applied to: top-level classes representing complete document types
-  (e.g., `ProjectDefinition`, `TechnicalRequirements`).
+  (e.g., `SolutionBlueprint`, `TechnicalRequirements`).
 - Parameters:
   - `name`: Display name of the document (e.g., `'Project Definition'`).
   - `description`: Description of the document's purpose and scope.
@@ -592,7 +592,7 @@ they are not yet all applied to the model.
 ```
 # Project Definition Outline
 
-ProjectDefinition
+SolutionBlueprint
     -> header:DocumentHeader
         -> content, documentId, project, version,
             date @date, author, status
@@ -745,7 +745,7 @@ ProjectDefinition
 1. **Entry point**: A Dart CLI tool in `tom_specs_model/tool/generate_outline.dart`.
 2. **Analyzer setup**: Use `SummaryBasedDartSdk` with an embedded SDK summary bundle (no installed SDK required). The `sdk_summary.sum` file (~3 MB) is split into ~50 base64-encoded Dart source files in `lib/src/sdk_summary/`, reassembled at runtime. Model source files are analyzed directly from disk. See `tom_specs_clitool/doc/analyzer_wo_sdk.md` for full details.
 3. **Annotation reading**: Read `@Reference`, `@SectionId`, `@SectionIdPattern`, `@Comment`, `@ContentType`, `@Form`, `@Unused`, `@Prefix`, `@PatternCheckId`, `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`, `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`, `@MaxLength`, `@SeedFor` from the analyzer's element model. All model classes in the package are scanned — no marker annotation is required.
-4. **Tree walk**: Start from `ProjectDefinition`, recursively visit each field:
+4. **Tree walk**: Start from `SolutionBlueprint`, recursively visit each field:
    - If `String` / `String?` → collect as leaf.
    - If enum → format with values inline.
    - If `List<T>` → emit `(min,max)-: fieldName:TypeName` (with constraints from `@Min`/`@Max`) and recurse into `T`.
@@ -779,7 +779,7 @@ Create `tom_specs_clitool/bin/generate_outline.dart`:
 
 USER: check in tom_dart_editor/tom_dart_editor_test how instantiate the analyzer so it doesn't require an installed SDK. I want it to be instantiated this way. Write short tutorial how to do this in tom_spec_clitool/doc/analyzer_wo_sdk.md
 
-1. **Model discovery** — locate the root `ProjectDefinition` class, collect all fields/types reachable from there.
+1. **Model discovery** — locate the root `SolutionBlueprint` class, collect all fields/types reachable from there.
 2. **Validation engine** — implement all §6 rules as a validation pass:
    - Iterate all discovered types.
    - Check type constraints (no `List<String>`, no primitive non-String, etc.).
@@ -791,7 +791,7 @@ USER: check in tom_dart_editor/tom_dart_editor_test how instantiate the analyzer
 
 USER: double check the document for additional rules again
 
-3. **Tree walker** — recursive visitor starting from `ProjectDefinition`:
+3. **Tree walker** — recursive visitor starting from `SolutionBlueprint`:
    - Classify each field: leaf, enum, complex singular, complex list, reference.
    - Collect leaf fields into comma-separated `->` lines with wrapping.
    - Emit complex singular as `-> TypeName` or `-> fieldName:TypeName` and recurse.
@@ -801,7 +801,7 @@ USER: double check the document for additional rules again
    - Append `@Type` hints after field names.
    - Append `@ContentType` hints after `content` field.
 4. **Output writer** — write the indented tree to the output text file.
-5. **CLI** — accept arguments: `--output` (file path, default is <root-type>_outline.txt), `--max-line-length` (default 120), `--root-type` (default `ProjectDefinition`), `--show-schema-annotations` (prepend schema annotations header, see §4.14).
+5. **CLI** — accept arguments: `--output` (file path, default is <root-type>_outline.txt), `--max-line-length` (default 120), `--root-type` (default `SolutionBlueprint`), `--show-schema-annotations` (prepend schema annotations header, see §4.14).
 
 ### Phase 3: Integration
 
@@ -857,7 +857,7 @@ class ExistingSystemEntry {
 4. For complex type fields with defaults: change `final T x;` with `this.x = const T()` → `T x = T();`. (Requires `T` to also have dropped its `const` constructor, so process leaf types first.)
 5. For `String?` and nullable complex types: simply remove `final` (they default to `null`).
 
-**Processing order:** Process files bottom-up in the dependency tree — leaf entry types first (they have no complex children), then container types, then section types, then `ProjectDefinition` last.
+**Processing order:** Process files bottom-up in the dependency tree — leaf entry types first (they have no complex children), then container types, then section types, then `SolutionBlueprint` last.
 
 ### Step 3: Verify Naming Rule Compliance
 

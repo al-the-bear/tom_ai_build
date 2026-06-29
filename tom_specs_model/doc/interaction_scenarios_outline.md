@@ -1,4 +1,4 @@
-# Use Cases Outline
+# Interaction Scenarios Outline
 
   - content
   - header: `DocumentHeader`
