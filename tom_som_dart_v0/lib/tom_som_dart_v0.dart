@@ -45,7 +45,7 @@ class AcceptanceCriterionEntry extends SomNode {
   AcceptanceCriterionEntryContentForm get content => AcceptanceCriterionEntryContentForm(doc, '$path/content');
 }
 
-/// 14.2. Acceptance Plan. Seeds → BQP.
+/// 14.2. Acceptance Plan. Seeds → QAP.
 class AcceptancePlan extends SomNode {
   AcceptancePlan(super.doc, super.path);
 
@@ -5973,10 +5973,10 @@ class ComponentVendor extends SomNode {
   ComponentVendorContentForm get content => ComponentVendorContentForm(doc, '$path/content');
 }
 
-/// 12. Components to Use. Seeds → TR.
+/// 12. Components to Use. Seeds → ATS.
 /// 
 /// External and standard components planned for use in the system. All
-/// subsections seed the TR document, where component choices are expanded
+/// subsections seed the ATS document, where component choices are expanded
 /// into detailed dependency analysis, version requirements, licensing,
 /// and integration patterns.
 class ComponentsToUse extends SomNode {
@@ -9643,7 +9643,7 @@ class DeliveryScopeAndAcceptance extends SomNode {
   /// 14.1. Delivery and Service Scope.
   DeliveryScope get deliveryScope => DeliveryScope(doc, '$path/deliveryScope');
 
-  /// 14.2. Acceptance Plan. Seeds → BQP.
+  /// 14.2. Acceptance Plan. Seeds → QAP.
   AcceptancePlan get acceptancePlan => AcceptancePlan(doc, '$path/acceptancePlan');
 }
 

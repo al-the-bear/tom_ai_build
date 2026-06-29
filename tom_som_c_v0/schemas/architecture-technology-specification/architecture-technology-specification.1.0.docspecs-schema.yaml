@@ -2584,7 +2584,7 @@ section-types:
     description: Component governance and maintenance policies.
   COMP:
     prefix: comp
-    description: 12. Components to Use. Seeds → TR.
+    description: 12. Components to Use. Seeds → ATS.
   COOR:
     prefix: coor
     description: Component organization and boundaries.

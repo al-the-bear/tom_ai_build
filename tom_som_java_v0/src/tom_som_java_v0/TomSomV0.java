@@ -75,7 +75,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 14.2. Acceptance Plan. Seeds → BQP.
+  // 14.2. Acceptance Plan. Seeds → QAP.
   public static final class AcceptancePlan extends SomNode {
     public AcceptancePlan(SpecDocument doc, String path) {
       super(doc, path);
@@ -9515,10 +9515,10 @@ public final class TomSomV0 {
     }
   }
 
-  // 12. Components to Use. Seeds → TR.
+  // 12. Components to Use. Seeds → ATS.
   //
   // External and standard components planned for use in the system. All
-  // subsections seed the TR document, where component choices are expanded
+  // subsections seed the ATS document, where component choices are expanded
   // into detailed dependency analysis, version requirements, licensing,
   // and integration patterns.
   public static final class ComponentsToUse extends SomNode {
@@ -15441,7 +15441,7 @@ public final class TomSomV0 {
       return new DeliveryScope(doc, path + "/deliveryScope");
     }
 
-    // 14.2. Acceptance Plan. Seeds → BQP.
+    // 14.2. Acceptance Plan. Seeds → QAP.
     public AcceptancePlan acceptancePlan() {
       return new AcceptancePlan(doc, path + "/acceptancePlan");
     }

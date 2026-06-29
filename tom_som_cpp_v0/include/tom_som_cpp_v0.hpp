@@ -5824,7 +5824,7 @@ class AcceptanceCriterionEntry : public som::SomNode {
   AcceptanceCriterionEntryContentForm content() const;
 };
 
-// 14.2. Acceptance Plan. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → QAP.
 class AcceptancePlan : public som::SomNode {
  public:
   AcceptancePlan(som::SpecDocument& doc, std::string path);
@@ -11232,10 +11232,10 @@ class ComponentVendor : public som::SomNode {
   ComponentVendorContentForm content() const;
 };
 
-// 12. Components to Use. Seeds → TR.
+// 12. Components to Use. Seeds → ATS.
 //
 // External and standard components planned for use in the system. All
-// subsections seed the TR document, where component choices are expanded
+// subsections seed the ATS document, where component choices are expanded
 // into detailed dependency analysis, version requirements, licensing,
 // and integration patterns.
 class ComponentsToUse : public som::SomNode {
@@ -14465,7 +14465,7 @@ class DeliveryScopeAndAcceptance : public som::SomNode {
   void setContent(const std::string& value);
   // 14.1. Delivery and Service Scope.
   DeliveryScope deliveryScope() const;
-  // 14.2. Acceptance Plan. Seeds → BQP.
+  // 14.2. Acceptance Plan. Seeds → QAP.
   AcceptancePlan acceptancePlan() const;
 };
 

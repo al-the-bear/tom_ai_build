@@ -20,7 +20,7 @@ for the system. Covers two major subsections:
 - 14.2. Acceptance Plan — how deliverables are accepted (criteria, process, UAT,
   defect resolution, sign-off, warranty)
 
-Seeds the BQP (Business Quality Plan) document for full quality planning.
+Seeds the QAP (Quality & Acceptance Plan) document for full quality planning.
 All deliverable and acceptance definitions should be objectively verifiable
 and contractually precise.
 ''')
@@ -29,8 +29,8 @@ and contractually precise.
   /// 14.1. Delivery and Service Scope.
   DeliveryScope deliveryScope = DeliveryScope();
 
-  /// 14.2. Acceptance Plan. Seeds → BQP.
-  @Comment('Seeds → BQP')
+  /// 14.2. Acceptance Plan. Seeds → QAP.
+  @Comment('Seeds → QAP')
   AcceptancePlan acceptancePlan = AcceptancePlan();
 }
 
@@ -296,9 +296,9 @@ class DeliverableDocumentation {
   String? content;
 }
 
-/// 14.2. Acceptance Plan. Seeds → BQP.
+/// 14.2. Acceptance Plan. Seeds → QAP.
 @SectionId('ACPLN')
-@Comment('Seeds → BQP')
+@Comment('Seeds → QAP')
 @MapsTo(D10QualityAcceptancePlan)
 class AcceptancePlan {
   @ContentHelp('''
@@ -311,7 +311,7 @@ formally accepted by the client/business. Covers:
 - 14.2.5. Sign-off Process \u2014 formal approval workflow
 - 14.2.6. Warranty \u2014 post-acceptance support terms
 
-Seeds the BQP (Business Quality Plan) for comprehensive quality planning.
+Seeds the QAP (Quality & Acceptance Plan) for comprehensive quality planning.
 All criteria must be objectively measurable and verifiable.
 ''')
   String? content;

@@ -92,7 +92,7 @@ impl AcceptanceCriterionEntry {
     }
 }
 
-/// 14.2. Acceptance Plan. Seeds → BQP.
+/// 14.2. Acceptance Plan. Seeds → QAP.
 pub struct AcceptancePlan {
     pub node: som::SomNode,
 }
@@ -12566,10 +12566,10 @@ impl ComponentVendor {
     }
 }
 
-/// 12. Components to Use. Seeds → TR.
+/// 12. Components to Use. Seeds → ATS.
 ///
 /// External and standard components planned for use in the system. All
-/// subsections seed the TR document, where component choices are expanded
+/// subsections seed the ATS document, where component choices are expanded
 /// into detailed dependency analysis, version requirements, licensing,
 /// and integration patterns.
 pub struct ComponentsToUse {
@@ -20054,7 +20054,7 @@ impl DeliveryScopeAndAcceptance {
         DeliveryScope::new(self.node.doc(), format!("{}/{}", self.node.path(), "deliveryScope"))
     }
 
-    /// 14.2. Acceptance Plan. Seeds → BQP.
+    /// 14.2. Acceptance Plan. Seeds → QAP.
     pub fn acceptance_plan(&self) -> AcceptancePlan {
         AcceptancePlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptancePlan"))
     }

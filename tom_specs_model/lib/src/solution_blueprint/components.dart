@@ -1,4 +1,4 @@
-/// Section 12: Components to Use. Seeds → TR.
+/// Section 12: Components to Use. Seeds → ATS.
 ///
 /// External and standard components planned for use in the system.
 library;
@@ -7,14 +7,14 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 12. Components to Use. Seeds → TR.
+/// 12. Components to Use. Seeds → ATS.
 ///
 /// External and standard components planned for use in the system. All
-/// subsections seed the TR document, where component choices are expanded
+/// subsections seed the ATS document, where component choices are expanded
 /// into detailed dependency analysis, version requirements, licensing,
 /// and integration patterns.
 @SectionId('COMP')
-@Comment('Seeds → TR')
+@Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-COM')
@@ -33,7 +33,7 @@ External and standard components planned for the system.
 - **12.6 Risk Assessment** — Component risks and contingency plans
 
 ### Seeds
-All subsections seed the **TR (Technical Requirements)** document.
+All subsections seed the **ATS (Architecture & Technology Specification)** document.
 
 ### Specification Depth
 Each component should specify:

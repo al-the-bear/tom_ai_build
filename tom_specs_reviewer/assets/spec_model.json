@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T15:51:28.430383Z",
+  "generatedAt": "2026-06-29T15:57:59.666021Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+5.67662f0",
@@ -394,7 +394,7 @@
     "AcceptancePlan": {
       "name": "AcceptancePlan",
       "sectionId": "ACPLN",
-      "doc": "14.2. Acceptance Plan. Seeds → BQP.",
+      "doc": "14.2. Acceptance Plan. Seeds → QAP.",
       "mapsTo": "D10QualityAcceptancePlan",
       "annotations": [
         {
@@ -406,7 +406,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → BQP"
+            "text": "Seeds → QAP"
           }
         },
         {
@@ -420,12 +420,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Acceptance plan overview: defines how the project deliverables will be\nformally accepted by the client/business. Covers:\n- 14.2.1. Acceptance Criteria — what must be true for acceptance\n- 14.2.2. Acceptance Process — the workflow from testing to sign-off\n- 14.2.3. User Acceptance Testing — detailed UAT plan\n- 14.2.4. Defect Resolution — handling defects found during acceptance\n- 14.2.5. Sign-off Process — formal approval workflow\n- 14.2.6. Warranty — post-acceptance support terms\n\nSeeds the BQP (Business Quality Plan) for comprehensive quality planning.\nAll criteria must be objectively measurable and verifiable.\n",
+          "help": "Acceptance plan overview: defines how the project deliverables will be\nformally accepted by the client/business. Covers:\n- 14.2.1. Acceptance Criteria — what must be true for acceptance\n- 14.2.2. Acceptance Process — the workflow from testing to sign-off\n- 14.2.3. User Acceptance Testing — detailed UAT plan\n- 14.2.4. Defect Resolution — handling defects found during acceptance\n- 14.2.5. Sign-off Process — formal approval workflow\n- 14.2.6. Warranty — post-acceptance support terms\n\nSeeds the QAP (Quality & Acceptance Plan) for comprehensive quality planning.\nAll criteria must be objectively measurable and verifiable.\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Acceptance plan overview: defines how the project deliverables will be\nformally accepted by the client/business. Covers:\n- 14.2.1. Acceptance Criteria — what must be true for acceptance\n- 14.2.2. Acceptance Process — the workflow from testing to sign-off\n- 14.2.3. User Acceptance Testing — detailed UAT plan\n- 14.2.4. Defect Resolution — handling defects found during acceptance\n- 14.2.5. Sign-off Process — formal approval workflow\n- 14.2.6. Warranty — post-acceptance support terms\n\nSeeds the BQP (Business Quality Plan) for comprehensive quality planning.\nAll criteria must be objectively measurable and verifiable.\n"
+                "guidance": "Acceptance plan overview: defines how the project deliverables will be\nformally accepted by the client/business. Covers:\n- 14.2.1. Acceptance Criteria — what must be true for acceptance\n- 14.2.2. Acceptance Process — the workflow from testing to sign-off\n- 14.2.3. User Acceptance Testing — detailed UAT plan\n- 14.2.4. Defect Resolution — handling defects found during acceptance\n- 14.2.5. Sign-off Process — formal approval workflow\n- 14.2.6. Warranty — post-acceptance support terms\n\nSeeds the QAP (Quality & Acceptance Plan) for comprehensive quality planning.\nAll criteria must be objectively measurable and verifiable.\n"
               }
             }
           ],
@@ -34331,7 +34331,7 @@
     "ComponentsToUse": {
       "name": "ComponentsToUse",
       "sectionId": "COMP",
-      "doc": "12. Components to Use. Seeds → TR.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the TR document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.",
+      "doc": "12. Components to Use. Seeds → ATS.\n\nExternal and standard components planned for use in the system. All\nsubsections seed the ATS document, where component choices are expanded\ninto detailed dependency analysis, version requirements, licensing,\nand integration patterns.",
       "mapsTo": "D06ArchitectureTechnologySpecification",
       "detailedIn": "D06ArchitectureTechnologySpecification",
       "annotations": [
@@ -34344,7 +34344,7 @@
         {
           "name": "Comment",
           "arguments": {
-            "text": "Seeds → TR"
+            "text": "Seeds → ATS"
           }
         },
         {
@@ -34371,12 +34371,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "## Components to Use (Chapter 12)\n\nExternal and standard components planned for the system.\n\n### Subsections\n- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence\n- **12.2 Component Catalog** — Individual component specifications\n- **12.3 Component Role in System** — Mapping to architecture\n- **12.4 Runtime Dependencies** — Startup order, health checks, failover\n- **12.5 Maintenance Dependencies** — Version matrix, update sequences\n- **12.6 Risk Assessment** — Component risks and contingency plans\n\n### Seeds\nAll subsections seed the **TR (Technical Requirements)** document.\n\n### Specification Depth\nEach component should specify:\n- Identity (name, version, vendor)\n- Licensing and costs\n- Integration interfaces\n- Security baseline\n- Support model\n- Risk profile\n",
+          "help": "## Components to Use (Chapter 12)\n\nExternal and standard components planned for the system.\n\n### Subsections\n- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence\n- **12.2 Component Catalog** — Individual component specifications\n- **12.3 Component Role in System** — Mapping to architecture\n- **12.4 Runtime Dependencies** — Startup order, health checks, failover\n- **12.5 Maintenance Dependencies** — Version matrix, update sequences\n- **12.6 Risk Assessment** — Component risks and contingency plans\n\n### Seeds\nAll subsections seed the **ATS (Architecture & Technology Specification)** document.\n\n### Specification Depth\nEach component should specify:\n- Identity (name, version, vendor)\n- Licensing and costs\n- Integration interfaces\n- Security baseline\n- Support model\n- Risk profile\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "## Components to Use (Chapter 12)\n\nExternal and standard components planned for the system.\n\n### Subsections\n- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence\n- **12.2 Component Catalog** — Individual component specifications\n- **12.3 Component Role in System** — Mapping to architecture\n- **12.4 Runtime Dependencies** — Startup order, health checks, failover\n- **12.5 Maintenance Dependencies** — Version matrix, update sequences\n- **12.6 Risk Assessment** — Component risks and contingency plans\n\n### Seeds\nAll subsections seed the **TR (Technical Requirements)** document.\n\n### Specification Depth\nEach component should specify:\n- Identity (name, version, vendor)\n- Licensing and costs\n- Integration interfaces\n- Security baseline\n- Support model\n- Risk profile\n"
+                "guidance": "## Components to Use (Chapter 12)\n\nExternal and standard components planned for the system.\n\n### Subsections\n- **12.1 Component Strategy** — Build vs buy, governance, evaluation cadence\n- **12.2 Component Catalog** — Individual component specifications\n- **12.3 Component Role in System** — Mapping to architecture\n- **12.4 Runtime Dependencies** — Startup order, health checks, failover\n- **12.5 Maintenance Dependencies** — Version matrix, update sequences\n- **12.6 Risk Assessment** — Component risks and contingency plans\n\n### Seeds\nAll subsections seed the **ATS (Architecture & Technology Specification)** document.\n\n### Specification Depth\nEach component should specify:\n- Identity (name, version, vendor)\n- Licensing and costs\n- Integration interfaces\n- Security baseline\n- Support model\n- Risk profile\n"
               }
             }
           ],
@@ -53004,12 +53004,12 @@
         {
           "name": "content",
           "kind": "content",
-          "help": "Chapter overview: defines agreements regarding delivery scope and acceptance\nfor the system. Covers two major subsections:\n- 14.1. Delivery and Service Scope — what is delivered (software, documentation,\n  training, support)\n- 14.2. Acceptance Plan — how deliverables are accepted (criteria, process, UAT,\n  defect resolution, sign-off, warranty)\n\nSeeds the BQP (Business Quality Plan) document for full quality planning.\nAll deliverable and acceptance definitions should be objectively verifiable\nand contractually precise.\n",
+          "help": "Chapter overview: defines agreements regarding delivery scope and acceptance\nfor the system. Covers two major subsections:\n- 14.1. Delivery and Service Scope — what is delivered (software, documentation,\n  training, support)\n- 14.2. Acceptance Plan — how deliverables are accepted (criteria, process, UAT,\n  defect resolution, sign-off, warranty)\n\nSeeds the QAP (Quality & Acceptance Plan) document for full quality planning.\nAll deliverable and acceptance definitions should be objectively verifiable\nand contractually precise.\n",
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Chapter overview: defines agreements regarding delivery scope and acceptance\nfor the system. Covers two major subsections:\n- 14.1. Delivery and Service Scope — what is delivered (software, documentation,\n  training, support)\n- 14.2. Acceptance Plan — how deliverables are accepted (criteria, process, UAT,\n  defect resolution, sign-off, warranty)\n\nSeeds the BQP (Business Quality Plan) document for full quality planning.\nAll deliverable and acceptance definitions should be objectively verifiable\nand contractually precise.\n"
+                "guidance": "Chapter overview: defines agreements regarding delivery scope and acceptance\nfor the system. Covers two major subsections:\n- 14.1. Delivery and Service Scope — what is delivered (software, documentation,\n  training, support)\n- 14.2. Acceptance Plan — how deliverables are accepted (criteria, process, UAT,\n  defect resolution, sign-off, warranty)\n\nSeeds the QAP (Quality & Acceptance Plan) document for full quality planning.\nAll deliverable and acceptance definitions should be objectively verifiable\nand contractually precise.\n"
               }
             }
           ],
@@ -53024,12 +53024,12 @@
         {
           "name": "acceptancePlan",
           "kind": "complex",
-          "doc": "14.2. Acceptance Plan. Seeds → BQP.",
+          "doc": "14.2. Acceptance Plan. Seeds → QAP.",
           "annotations": [
             {
               "name": "Comment",
               "arguments": {
-                "text": "Seeds → BQP"
+                "text": "Seeds → QAP"
               }
             }
           ],

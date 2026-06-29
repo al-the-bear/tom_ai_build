@@ -6066,7 +6066,7 @@ section-types:
     description: 9.1.2.4. Account Modification (form).
   ACPLN:
     prefix: acpln
-    description: 14.2. Acceptance Plan. Seeds → BQP.
+    description: 14.2. Acceptance Plan. Seeds → QAP.
   ACPR1:
     prefix: acpr1
     description: 14.2.2. Acceptance Process.
@@ -9285,7 +9285,7 @@ section-types:
     description: Mitigation for constraint.
   COMP:
     prefix: comp
-    description: 12. Components to Use. Seeds → TR.
+    description: 12. Components to Use. Seeds → ATS.
   CONA:
     prefix: cona
     description: 10.3.1.6. Contextual Navigation.

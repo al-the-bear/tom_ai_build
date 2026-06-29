@@ -5843,7 +5843,7 @@ void acceptance_criterion_entry_init(AcceptanceCriterionEntry *self, SpecDocumen
 void acceptance_criterion_entry_free(AcceptanceCriterionEntry *self);
 AcceptanceCriterionEntryContentForm acceptance_criterion_entry_content(const AcceptanceCriterionEntry *self);
 
-// 14.2. Acceptance Plan. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → QAP.
 // Binds a AcceptancePlan facade to a document and a path (path copied).
 void acceptance_plan_init(AcceptancePlan *self, SpecDocument *doc, const char *path);
 void acceptance_plan_free(AcceptancePlan *self);
@@ -10717,10 +10717,10 @@ void component_vendor_init(ComponentVendor *self, SpecDocument *doc, const char 
 void component_vendor_free(ComponentVendor *self);
 ComponentVendorContentForm component_vendor_content(const ComponentVendor *self);
 
-// 12. Components to Use. Seeds → TR.
+// 12. Components to Use. Seeds → ATS.
 //
 // External and standard components planned for use in the system. All
-// subsections seed the TR document, where component choices are expanded
+// subsections seed the ATS document, where component choices are expanded
 // into detailed dependency analysis, version requirements, licensing,
 // and integration patterns.
 // Binds a ComponentsToUse facade to a document and a path (path copied).
@@ -13650,7 +13650,7 @@ char *delivery_scope_and_acceptance_content(const DeliveryScopeAndAcceptance *se
 void delivery_scope_and_acceptance_set_content(DeliveryScopeAndAcceptance *self, const char *value);
 // 14.1. Delivery and Service Scope.
 DeliveryScope delivery_scope_and_acceptance_delivery_scope(const DeliveryScopeAndAcceptance *self);
-// 14.2. Acceptance Plan. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → QAP.
 AcceptancePlan delivery_scope_and_acceptance_acceptance_plan(const DeliveryScopeAndAcceptance *self);
 
 // SBP.15 Delivery, Transition & Rollout.

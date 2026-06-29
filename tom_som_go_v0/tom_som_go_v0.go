@@ -83,7 +83,7 @@ func (x *AcceptanceCriterionEntry) Content() *AcceptanceCriterionEntryContentFor
 	return NewAcceptanceCriterionEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 14.2. Acceptance Plan. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → QAP.
 type AcceptancePlan struct {
 	som.SomNode
 }
@@ -11239,10 +11239,10 @@ func (x *ComponentVendor) Content() *ComponentVendorContentForm {
 	return NewComponentVendorContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 12. Components to Use. Seeds → TR.
+// 12. Components to Use. Seeds → ATS.
 //
 // External and standard components planned for use in the system. All
-// subsections seed the TR document, where component choices are expanded
+// subsections seed the ATS document, where component choices are expanded
 // into detailed dependency analysis, version requirements, licensing,
 // and integration patterns.
 type ComponentsToUse struct {
@@ -18032,7 +18032,7 @@ func (x *DeliveryScopeAndAcceptance) DeliveryScope() *DeliveryScope {
 	return NewDeliveryScope(x.Doc(), x.Path() + "/deliveryScope")
 }
 
-// 14.2. Acceptance Plan. Seeds → BQP.
+// 14.2. Acceptance Plan. Seeds → QAP.
 func (x *DeliveryScopeAndAcceptance) AcceptancePlan() *AcceptancePlan {
 	return NewAcceptancePlan(x.Doc(), x.Path() + "/acceptancePlan")
 }

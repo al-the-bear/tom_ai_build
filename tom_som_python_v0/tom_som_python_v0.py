@@ -75,7 +75,7 @@ class AcceptanceCriterionEntry(SomNode):
         return AcceptanceCriterionEntryContentForm(self.doc, f"{self.path}/content")
 
 class AcceptancePlan(SomNode):
-    """14.2. Acceptance Plan. Seeds → BQP."""
+    """14.2. Acceptance Plan. Seeds → QAP."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -8588,10 +8588,10 @@ class ComponentVendor(SomNode):
         return ComponentVendorContentForm(self.doc, f"{self.path}/content")
 
 class ComponentsToUse(SomNode):
-    """12. Components to Use. Seeds → TR.
+    """12. Components to Use. Seeds → ATS.
     
     External and standard components planned for use in the system. All
-    subsections seed the TR document, where component choices are expanded
+    subsections seed the ATS document, where component choices are expanded
     into detailed dependency analysis, version requirements, licensing,
     and integration patterns.
     """
@@ -13963,7 +13963,7 @@ class DeliveryScopeAndAcceptance(SomNode):
     def deliveryScope(self):
         return DeliveryScope(self.doc, f"{self.path}/deliveryScope")
 
-    # 14.2. Acceptance Plan. Seeds → BQP.
+    # 14.2. Acceptance Plan. Seeds → QAP.
     @property
     def acceptancePlan(self):
         return AcceptancePlan(self.doc, f"{self.path}/acceptancePlan")
