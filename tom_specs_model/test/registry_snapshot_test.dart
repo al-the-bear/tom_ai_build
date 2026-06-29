@@ -23,7 +23,7 @@ void main() {
 
     test('toYaml serializes a content leaf reachable from the PD root', () {
       final project = DocSpecsProject();
-      project.projectDefinition.header.content = 'doc-id: PD-DEMO';
+      project.projectDefinition.documentControl.header.content = 'doc-id: PD-DEMO';
 
       final yaml = project.toYaml();
       expect(yaml, contains('doc-id: PD-DEMO'));
@@ -43,8 +43,8 @@ void main() {
           reason: 'an unchanged tree shares its predecessor by identity');
 
       // Edit one leaf and mark it dirty, then snapshot again.
-      pd.header.content = 'edited';
-      markDirtyNode(pd.header);
+      pd.documentControl.header.content = 'edited';
+      markDirtyNode(pd.documentControl.header);
       final s3 = SpecSnapshotter.snapshot(pd, previous: s2);
 
       // The root is re-cloned (the edited-leaf→root path changed) ...

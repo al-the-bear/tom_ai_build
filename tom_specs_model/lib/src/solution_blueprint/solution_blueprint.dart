@@ -7,16 +7,20 @@ library;
 
 
 export 'administrative.dart';
+export 'assumptions_constraints_dependencies.dart';
 export 'components.dart';
 export 'current_landscape.dart';
 export 'delivery_acceptance.dart';
 export 'delivery_transition_and_rollout.dart';
+export 'document_control.dart';
 export 'experience_and_interface_design.dart';
+export 'glossary_and_abbreviations.dart';
 export 'information_and_data_model.dart';
 export 'introduction_and_scope.dart';
 export 'organizational_framework.dart';
 export 'project_organization_process.dart';
 export 'quality_and_acceptance_model.dart';
+export 'requirements.dart';
 export 'security_and_access_model.dart';
 export 'solution_architecture_and_technology.dart';
 export 'stakeholders_and_governance.dart';
@@ -27,16 +31,18 @@ export 'target_business_process.dart';
 export 'target_operating_model_concept.dart';
 export 'technical_framework.dart';
 
-import 'package:tom_specs_model/src/common/document_header.dart';
-
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import 'assumptions_constraints_dependencies.dart';
 import 'current_landscape.dart';
 import 'delivery_transition_and_rollout.dart';
+import 'document_control.dart';
 import 'experience_and_interface_design.dart';
+import 'glossary_and_abbreviations.dart';
 import 'information_and_data_model.dart';
 import 'introduction_and_scope.dart';
 import 'quality_and_acceptance_model.dart';
+import 'requirements.dart';
 import 'security_and_access_model.dart';
 import 'solution_architecture_and_technology.dart';
 import 'stakeholders_and_governance.dart';
@@ -44,8 +50,8 @@ import 'target_operating_model_concept.dart';
 
 /// The complete Solution Blueprint (SBP) document.
 ///
-/// Contains a [DocumentHeader] and the SBP sections, sequenced per the
-/// public-standards order (§4 of the redesign proposal).
+/// Contains a [DocumentControl] header block and the SBP sections, sequenced
+/// per the public-standards order (§4 of the redesign proposal).
 @Document(
   name: 'Solution Blueprint',
   description: 'Comprehensive specification document covering all aspects of '
@@ -58,11 +64,15 @@ class SolutionBlueprint {
   @Unused()
   String? content;
 
-  /// SBP.1 Document Control seed (document header). Expanded in IP-6.
-  DocumentHeader header = DocumentHeader();
+  /// SBP.1 Document Control (header + revision history + approvals).
+  DocumentControl documentControl = DocumentControl();
 
   /// SBP.2 Introduction & Scope.
   IntroductionAndScope introductionAndScope = IntroductionAndScope();
+
+  /// SBP.3 Glossary & Abbreviations.
+  GlossaryAndAbbreviations glossaryAndAbbreviations =
+      GlossaryAndAbbreviations();
 
   /// SBP.4 Stakeholders & Governance.
   StakeholdersAndGovernance stakeholdersAndGovernance =
@@ -71,12 +81,19 @@ class SolutionBlueprint {
   /// SBP.5 Current Landscape. Seeds → CLA.
   CurrentLandscape currentLandscape = CurrentLandscape();
 
+  /// SBP.6 Assumptions, Constraints & Dependencies.
+  AssumptionsConstraintsDependencies assumptionsConstraintsDependencies =
+      AssumptionsConstraintsDependencies();
+
   /// SBP.7 Target Operating Model concept. Seeds → TOM.
   TargetOperatingModelConcept targetOperatingModelConcept =
       TargetOperatingModelConcept();
 
   /// SBP.8 Information & Data Model. Seeds → IFM.
   InformationAndDataModel informationAndDataModel = InformationAndDataModel();
+
+  /// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+  Requirements requirements = Requirements();
 
   /// SBP.11 Solution Architecture & Technology. Seeds → ATS.
   SolutionArchitectureAndTechnology solutionArchitectureAndTechnology =

@@ -6350,9 +6350,11 @@ class ComponentPropertyEntry {
 
 /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
 ///
-/// Comprehensive internationalization, localization, and system rollout
-/// specification covering translation workflows, locale handling, user
-/// documentation, training, and deployment planning.
+/// Locale-picker / UX-side multi-language concerns that stay on the
+/// Experience & Interface Design side. IP-6 re-homed the requirement-side
+/// concerns (i18n requirements, documentation, training) to SBP.9 and the
+/// execution-side concerns (localization/translation processes, rollout
+/// sequencing) to SBP.15; only the stay-put UX members remain here.
 @SectionId('MLAR')
 class MultiLanguageAndRollout {
   // ─────────────────────────────────────────────────────────────────────────
@@ -6372,32 +6374,13 @@ class MultiLanguageAndRollout {
   ])
   String? multiLanguageOverview;
 
-  /// Locale modeling and fallback behavior.
-  MultiLanguageAndRolloutLocaleHandling localeHandling =
-      MultiLanguageAndRolloutLocaleHandling();
-
-  /// Rollout sequencing by region and time.
-  MultiLanguageAndRolloutPlan rolloutPlan = MultiLanguageAndRolloutPlan();
-
   /// Multi-language overview narrative.
   @ContentHelp('Executive summary of internationalization and '
       'localization approach for the system.')
   TextSection overviewNarrative = TextSection();
 
-  /// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
-  LocalizationProcess localizationProcess = LocalizationProcess();
-
-  /// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
-  TranslationProcess translationProcess = TranslationProcess();
-
-  /// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
-  DocumentationAndTraining documentationAndTraining = DocumentationAndTraining();
-
   /// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
   LanguageCountrySelection languageCountrySelection = LanguageCountrySelection();
-
-  /// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
-  TranslationRequirements translationRequirements = TranslationRequirements();
 
   /// Supported locale entries.
   @SectionId('SULOEN-SUPP-LST')

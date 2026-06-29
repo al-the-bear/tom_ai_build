@@ -8,7 +8,7 @@ void main() {
   group('SolutionBlueprint', () {
     test('can be constructed with all defaults', () {
       final pd = SolutionBlueprint();
-      expect(pd.header.content, isNull);
+      expect(pd.documentControl.header.content, isNull);
       expect(pd.currentLandscape.content, isNull);
       expect(pd.introductionAndScope.content, isNull);
     });

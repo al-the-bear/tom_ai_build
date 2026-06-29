@@ -1,0 +1,109 @@
+/// SBP.9 — Requirements.
+///
+/// Home for the framework-uncovered non-functional requirement sub-areas that
+/// were previously conflated inside the mis-homed `MultiLanguageAndRollout`
+/// (`PD00-USE-MUL`) cluster under UI design. IP-6 splits that cluster **by
+/// concern** and re-homes each requirement-side concern here (§4.1):
+///
+///  * Localization & Translation → [LocalizationTranslationRequirements]
+///  * Information for Use         → [InformationForUseRequirements]
+///  * Training & Enablement       → [TrainingEnablementRequirements]
+///
+/// The execution-side concerns (localization/translation *processes*, rollout
+/// sequencing) re-home to SBP.15 (Delivery, Transition & Rollout) instead.
+///
+/// Public anchors: ISO/IEC/IEEE 29148 (SRS/SyRS); ISO/IEC 25010 portability;
+/// ISO/IEC/IEEE 26511/26514/26515 (information for use).
+library;
+
+import 'package:tom_specs_core/tom_specs_core.dart';
+
+import 'experience_and_interface_design.dart'
+    show
+        DocumentationAndTraining,
+        MultiLanguageAndRolloutLocaleHandling,
+        TranslationRequirements;
+
+/// SBP.9 Requirements.
+///
+/// Functional requirements seed the Requirements Specification (RSP); this
+/// section currently carries the framework-uncovered NFR sub-areas re-homed in
+/// IP-6. Functional-requirement modelling is expanded in a later IP step.
+@SectionId('REQS')
+class Requirements {
+  @ContentType('description', 'Summarize the functional and non-functional '
+      'requirement landscape; seeds the Requirements Specification (RSP).')
+  String? content;
+
+  /// Localization & Translation requirements (NFR-L10N-NNN).
+  LocalizationTranslationRequirements localizationTranslation =
+      LocalizationTranslationRequirements();
+
+  /// Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
+  InformationForUseRequirements informationForUse =
+      InformationForUseRequirements();
+
+  /// Training & Enablement requirements (NFR-TRN-NNN).
+  TrainingEnablementRequirements trainingEnablement =
+      TrainingEnablementRequirements();
+}
+
+/// Localization & Translation requirements (the requirement side of i18n).
+///
+/// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
+/// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+@SectionId('LCTR')
+class LocalizationTranslationRequirements {
+  @ContentType('description', 'Localization and translation requirements: '
+      'supported locales, i18n framework, formatting, RTL, pluralization.')
+  String? content;
+
+  /// Technical internationalization requirements (re-homed from MLAR).
+  TranslationRequirements translationRequirements = TranslationRequirements();
+
+  /// Locale modeling and fallback requirements (re-homed from MLAR).
+  MultiLanguageAndRolloutLocaleHandling localeHandling =
+      MultiLanguageAndRolloutLocaleHandling();
+}
+
+/// Information-for-Use (user documentation) requirements.
+///
+/// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
+/// *quality criteria* cross-map lives in SBP.14
+/// (`DocumentationQualityCriteria`).
+///
+/// Note: [DocumentationAndTraining] is re-homed here whole for IP-6; the
+/// doc/training field-split (separating the documentation half from the
+/// training half) is deferred to IP-8.
+@SectionId('IFUR')
+class InformationForUseRequirements {
+  @ContentType('description', 'User documentation requirements: deliverables, '
+      'formats, platforms, versioning, and documentation localization.')
+  String? content;
+
+  /// Documentation (and, until the IP-8 split, training) requirements,
+  /// re-homed from MLAR.
+  DocumentationAndTraining documentationAndTraining = DocumentationAndTraining();
+}
+
+/// Training & Enablement requirements.
+///
+/// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
+/// training-materials *delivery* and rollout sequencing re-home to SBP.15; the
+/// detailed training-module catalogue currently lives inside
+/// [DocumentationAndTraining] (re-homed under [InformationForUseRequirements])
+/// pending the IP-8 doc/training split.
+@SectionId('TREQ')
+class TrainingEnablementRequirements {
+  /// Training & enablement requirement form.
+  @Form([
+    Field('targetAudiences', String, 'Target Audiences',
+        hint: 'End users, admins, power users, support'),
+    Field('competencyOutcomes', String, 'Competency Outcomes',
+        hint: 'What learners must be able to do'),
+    Field('certificationRequired', bool, 'Certification Required'),
+    Field('ongoingEnablement', String, 'Ongoing Enablement',
+        hint: 'Refresher and continuous-enablement expectations'),
+  ])
+  String? content;
+}
