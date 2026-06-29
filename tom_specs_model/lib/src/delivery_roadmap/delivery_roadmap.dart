@@ -1,8 +1,8 @@
 /// PPP — Project Phase Plan.
 ///
-/// Phase 3 DocSpec root class. Aggregates 9 top-level sections from
-/// PD00-SSP (single seed, GOV flattened) per §5.11 of
-/// second_wave_documents.md.
+/// Phase 3 DocSpec root class. Aggregates 9 top-level sections projected
+/// (with governance flattened) from the Solution Blueprint system-stage
+/// sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -32,33 +32,33 @@ class DeliveryRoadmap {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  /// Staging strategy — PD00-SSP-STR.
+  /// Staging strategy.
   StagingStrategy stagingStrategy = StagingStrategy();
 
-  /// Stage overview — PD00-SSP-STA.
+  /// Stage overview.
   StageOverview stageOverview = StageOverview();
 
-  /// Stages — PD00-SSP-STG (list).
+  /// Stages (list).
   @SectionId('STAGE-STAG-LST')
   @SectionIdPattern('STAGE-STAG-xxx')
   @Min(1)
   List<StageEntry> stages = [];
 
-  /// Feature prioritization — PD00-SSP-FEA.
+  /// Feature prioritization.
   FeaturePrioritization featurePrioritization = FeaturePrioritization();
 
-  /// Data migration strategy — PD00-SSP-MIG.
+  /// Data migration strategy.
   DataMigrationStrategy dataMigrationStrategy = DataMigrationStrategy();
 
-  /// Gate criteria — PD00-SSP-GOV-GAT (promoted from GOV).
+  /// Gate criteria (promoted from GOV).
   PhaseGateReviews gateCriteria = PhaseGateReviews();
 
-  /// Decision processes — PD00-SSP-GOV-DEC (promoted from GOV).
+  /// Decision processes (promoted from GOV).
   DecisionPoints decisionProcesses = DecisionPoints();
 
-  /// Initial development flow — PD00-SSP-IDV.
+  /// Initial development flow.
   InitialDevelopmentFlow initialDevelopmentFlow = InitialDevelopmentFlow();
 
-  /// Upgrade cycle framework — PD00-SSP-UPG (links tom_system_upgrade.md).
+  /// Upgrade cycle framework (links tom_system_upgrade.md).
   UpgradeCycleFramework upgradeCycleFramework = UpgradeCycleFramework();
 }

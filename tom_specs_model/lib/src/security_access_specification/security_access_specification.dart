@@ -1,8 +1,7 @@
 /// AC — Authorization Concept.
 ///
-/// Phase 3 DocSpec root class. Aggregates 8 top-level sections from
-/// PD00-ACC (single seed, flattened) per §5.6 of
-/// second_wave_documents.md.
+/// Phase 3 DocSpec root class. Aggregates 8 top-level sections projected
+/// (flattened) from the Solution Blueprint authorization-concept sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -31,28 +30,28 @@ class SecurityAccessSpecification {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  /// User management — PD00-ACC-USE.
+  /// User management.
   UserManagement userManagement = UserManagement();
 
-  /// Identification and authentication — PD00-ACC-IDE.
+  /// Identification and authentication.
   IdentificationAndAuthentication identificationAndAuthentication =
       IdentificationAndAuthentication();
 
-  /// Resource protection — PD00-ACC-RES.
+  /// Resource protection.
   ResourceProtection resourceProtection = ResourceProtection();
 
-  /// User authorization — PD00-ACC-USA.
+  /// User authorization.
   UserAuthorization userAuthorization = UserAuthorization();
 
-  /// Sensitive data encryption — PD00-ACC-SEN.
+  /// Sensitive data encryption.
   SensitiveDataEncryption sensitiveDataEncryption = SensitiveDataEncryption();
 
-  /// Audit and logging — PD00-ACC-AUD.
+  /// Audit and logging.
   AuditAndLogging auditAndLogging = AuditAndLogging();
 
-  /// Role matrix — PD00-ACC-ROL (covers HBSG AS22-AUM).
+  /// Role matrix.
   RoleMatrix roleMatrix = RoleMatrix();
 
-  /// Compliance framework — PD00-ACC-CMP.
+  /// Compliance framework.
   ComplianceFramework complianceFramework = ComplianceFramework();
 }

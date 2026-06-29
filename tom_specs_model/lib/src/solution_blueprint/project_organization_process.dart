@@ -1,4 +1,4 @@
-/// Section 2: Project Organization and Process [PD00-POP].
+/// Section 2: Project Organization and Process.
 ///
 /// Project-specific deviations from the standard TomSpecs methodology.
 /// Documents customizations to standard roles, quality gates, processes,
@@ -7,7 +7,7 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-/// 2. Project Organization and Process [PD00-POP].
+/// 2. Project Organization and Process.
 ///
 /// Project-specific deviations from the standard TomSpecs methodology.
 /// This section documents any customizations to standard roles, quality gates,
@@ -29,16 +29,16 @@ the overall impact on governance, and how deviations are tracked and approved.
   /// Summary of all methodology deviations.
   MethodologyDeviationSummary deviationSummary = MethodologyDeviationSummary();
 
-  /// 2.1. Role Adjustments [PD00-POP-ROL].
+  /// 2.1. Role Adjustments.
   RoleAdjustments roleAdjustments = RoleAdjustments();
 
-  /// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+  /// 2.2. Quality Gate Adjustments.
   QualityGateAdjustments qualityGateAdjustments = QualityGateAdjustments();
 
-  /// 2.3. Process Adjustments [PD00-POP-PRC].
+  /// 2.3. Process Adjustments.
   ProcessAdjustments processAdjustments = ProcessAdjustments();
 
-  /// 2.4. Tooling and Environments [PD00-POP-TOO].
+  /// 2.4. Tooling and Environments.
   ToolingAndEnvironments toolingAndEnvironments = ToolingAndEnvironments();
 }
 
@@ -74,7 +74,7 @@ class MethodologyDeviationSummary {
 // 2.1 Role Adjustments
 // ---------------------------------------------------------------------------
 
-/// 2.1. Role Adjustments [PD00-POP-ROL].
+/// 2.1. Role Adjustments.
 ///
 /// Documents any deviations from the standard TomSpecs roles defined in
 /// tom_roles.md. Includes merged, split, omitted, or modified roles
@@ -126,7 +126,7 @@ class RoleAdjustmentSummary {
   String? content;
 }
 
-/// A role adjustment entry (form) [PD00-POP-ROL-nn].
+/// A role adjustment entry (form).
 ///
 /// Documents a specific deviation from standard TomSpecs role definitions,
 /// including the type of adjustment, affected responsibilities, risk
@@ -241,7 +241,7 @@ class RoleAdjustmentEntryGovernance {
 // 2.2 Quality Gate Adjustments
 // ---------------------------------------------------------------------------
 
-/// 2.2. Quality Gate Adjustments [PD00-POP-QGA].
+/// 2.2. Quality Gate Adjustments.
 ///
 /// Documents any deviations from the standard quality gates defined in
 /// tom_quality_gates.md. Includes skipped, added, or modified gates
@@ -294,7 +294,7 @@ class QualityGateAdjustmentSummary {
   String? content;
 }
 
-/// A quality gate adjustment entry (form) [PD00-POP-QGA-nn].
+/// A quality gate adjustment entry (form).
 ///
 /// Documents a specific deviation from standard quality gate definitions,
 /// including the type of change, impact on quality assurance, risk
@@ -404,7 +404,7 @@ class QualityGateAdjustmentGovernance {
 // 2.3 Process Adjustments
 // ---------------------------------------------------------------------------
 
-/// 2.3. Process Adjustments [PD00-POP-PRC].
+/// 2.3. Process Adjustments.
 ///
 /// Documents any deviations from the standard tom_system_creation.md or
 /// tom_system_upgrade.md process. Includes skipped, reordered, or modified
@@ -461,7 +461,7 @@ class ProcessAdjustmentSummary {
   String? content;
 }
 
-/// A process adjustment entry (form) [PD00-POP-PRC-nn].
+/// A process adjustment entry (form).
 ///
 /// Documents a specific deviation from standard process steps, including
 /// the type of modification, dependencies affected, risk assessment,
@@ -604,20 +604,20 @@ class ProcessAdjustmentGovernance {
 // 2.4 Tooling and Environments
 // ---------------------------------------------------------------------------
 
-/// 2.4. Tooling and Environments [PD00-POP-TOO].
+/// 2.4. Tooling and Environments.
 @SectionId('TOENV')
 class ToolingAndEnvironments {
   @Unused()
   String? content;
 
-  /// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+  /// 2.4.1. Tooling.
   Tooling tooling = Tooling();
 
-  /// 2.4.2. Environments [PD00-POP-TOO-ENV].
+  /// 2.4.2. Environments.
   Environments environments = Environments();
 }
 
-/// 2.4.1. Tooling [PD00-POP-TOO-TOO].
+/// 2.4.1. Tooling.
 ///
 /// Container for the project's tool inventory and governance policies.
 /// Covers all tool categories: development, CI/CD, communication,
@@ -721,7 +721,7 @@ class ToolingGovernance {
     String? content;
 }
 
-/// A tool entry (form) [PD00-POP-TOO-TOO-nn].
+/// A tool entry (form).
 ///
 /// Comprehensive specification of a single tool covering identity,
 /// licensing, versioning, access, integration, support, security,
@@ -1258,7 +1258,7 @@ class ToolApproval {
   String? content;
 }
 
-/// 2.4.2. Environments [PD00-POP-TOO-ENV].
+/// 2.4.2. Environments.
 ///
 /// Operational overview of project environments and the inventory of
 /// individual environment instances. Strategy-level decisions (tier
@@ -1294,7 +1294,7 @@ class Environments {
   List<EnvironmentEntry> items = [];
 }
 
-/// An environment entry (form) [PD00-POP-TOO-ENV-nn].
+/// An environment entry (form).
 ///
 /// Comprehensive specification of a single project environment covering
 /// identity, infrastructure, access, data management, configuration,

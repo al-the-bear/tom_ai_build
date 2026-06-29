@@ -1,9 +1,8 @@
 /// BQP — Business Quality Plan.
 ///
-/// Phase 3 DocSpec root class. Aggregates 14 top-level sections from
-/// two PD00 seeds (both flattened) per §5.10 of
-/// second_wave_documents.md: PD00-SYQ (7 existing + TST new) and
-/// PD00-DEL-ACC (6 children).
+/// Phase 3 DocSpec root class. Aggregates 14 top-level sections projected
+/// (flattened) from the Solution Blueprint quality-goal and acceptance
+/// sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -13,9 +12,7 @@ import '../solution_blueprint/solution_blueprint.dart';
 
 /// BQP00 Business Quality Plan.
 ///
-/// Full quality plan combining quality goals (PD00-SYQ) and the
-/// acceptance plan (PD00-DEL-ACC). Replaces HBSG AS11 + AS23 + partial
-/// AS14 coverage.
+/// Full quality plan combining quality goals and the acceptance plan.
 @Document(
   name: 'Quality & Acceptance Plan',
   description: 'Business-facing quality plan — quality framework, '
@@ -33,53 +30,53 @@ class QualityAcceptancePlan {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  // ─── From PD00-SYQ (System Quality Goals), flattened ─────────────────────
+  // ─── System Quality Goals (flattened) ────────────────────────────────────
 
-  /// Quality framework — PD00-SYQ-FRA.
+  /// Quality framework.
   QualityFramework qualityFramework = QualityFramework();
 
-  /// User-related quality criteria — PD00-SYQ-USE.
+  /// User-related quality criteria.
   UserQualityCriteria userQualityCriteria = UserQualityCriteria();
 
-  /// Technical quality criteria — PD00-SYQ-TEC.
+  /// Technical quality criteria.
   TechnicalQualityCriteria technicalQualityCriteria =
       TechnicalQualityCriteria();
 
-  /// Operations quality criteria — PD00-SYQ-OPE.
+  /// Operations quality criteria.
   OperationsQualityCriteria operationsQualityCriteria =
       OperationsQualityCriteria();
 
-  /// Documentation quality criteria — PD00-SYQ-DOC.
+  /// Documentation quality criteria.
   DocumentationQualityCriteria documentationQualityCriteria =
       DocumentationQualityCriteria();
 
-  /// Quality prioritization — PD00-SYQ-PRI.
+  /// Quality prioritization.
   QualityPrioritization qualityPrioritization = QualityPrioritization();
 
-  /// Acceptance criteria summary — PD00-SYQ-ACC.
+  /// Acceptance criteria summary.
   AcceptanceCriteriaSummary acceptanceCriteriaSummary =
       AcceptanceCriteriaSummary();
 
-  /// Test strategy — PD00-SYQ-TST (new in Phase A, HBSG AS23).
+  /// Test strategy (new in Phase A).
   TestStrategy testStrategy = TestStrategy();
 
-  // ─── From PD00-DEL-ACC (Acceptance Plan), flattened ──────────────────────
+  // ─── Acceptance Plan (flattened) ─────────────────────────────────────────
 
-  /// Acceptance criteria — PD00-DEL-ACC-CRI.
+  /// Acceptance criteria.
   AcceptanceCriteriaList acceptanceCriteria = AcceptanceCriteriaList();
 
-  /// Acceptance process — PD00-DEL-ACC-PRO.
+  /// Acceptance process.
   AcceptanceProcess acceptanceProcess = AcceptanceProcess();
 
-  /// User acceptance testing — PD00-DEL-ACC-UAT.
+  /// User acceptance testing.
   UserAcceptanceTesting userAcceptanceTesting = UserAcceptanceTesting();
 
-  /// Defect resolution — PD00-DEL-ACC-DEF.
+  /// Defect resolution.
   DefectResolution defectResolution = DefectResolution();
 
-  /// Sign-off process — PD00-DEL-ACC-SIG.
+  /// Sign-off process.
   SignOffProcess signOffProcess = SignOffProcess();
 
-  /// Warranty terms — PD00-DEL-ACC-WAR.
+  /// Warranty terms.
   WarrantyTerms warranty = WarrantyTerms();
 }

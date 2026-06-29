@@ -1,4 +1,4 @@
-/// Section 4: System Overview [PD00-SYO].
+/// Section 4: System Overview.
 ///
 /// High-level overview of the system: purpose, goals, scope, requirements,
 /// boundaries, and environment. This chapter provides the foundational
@@ -10,7 +10,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 4. System Overview [PD00-SYO].
+/// 4. System Overview.
 ///
 /// High-level overview of the system to be built: its purpose, goals,
 /// scope boundaries, and the environment it operates in. This section
@@ -39,28 +39,28 @@ a quick understanding without reading the full specification.
       'its users, and external system interfaces')
   String? systemContextDiagram;
 
-  /// 4.1. System Description [PD00-SYO-SYD].
+  /// 4.1. System Description.
   SystemDescription systemDescription = SystemDescription();
 
-  /// 4.2. Goals [PD00-SYO-GOA].
+  /// 4.2. Goals.
   Goals goals = Goals();
 
-  /// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+  /// 4.3. Requirements Overview. Seeds → RC.
   @Comment('Seeds → RC')
   RequirementsOverview requirements = RequirementsOverview();
 
-  /// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+  /// 4.4. Systems to Replace. Seeds → CS.
   @Comment('Seeds → CS')
   SystemsToReplace systemsToReplace = SystemsToReplace();
 
-  /// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+  /// 4.5. System Boundaries. Seeds → BSI.
   @Comment('Seeds → BSI')
   SystemBoundaries systemBoundaries = SystemBoundaries();
 
-  /// 4.6. Framework Conditions [PD00-SYO-RES].
+  /// 4.6. Framework Conditions.
   FrameworkConditions frameworkConditions = FrameworkConditions();
 
-  /// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+  /// 4.7. Risks and Assumptions.
   RisksAndAssumptions risksAndAssumptions = RisksAndAssumptions();
 }
 
@@ -160,7 +160,7 @@ class SystemOverviewSummaryComplexity {
 // 4.1 System Description
 // ---------------------------------------------------------------------------
 
-/// 4.1. System Description [PD00-SYO-SYD].
+/// 4.1. System Description.
 ///
 /// Concise description of the system to be created, its primary purpose,
 /// and the business domain it addresses. This section provides the
@@ -179,22 +179,22 @@ that all stakeholders can refer to.
   /// System description summary.
   SystemDescriptionSummary descriptionSummary = SystemDescriptionSummary();
 
-  /// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+  /// 4.1.1. System Purpose.
   SystemPurpose systemPurpose = SystemPurpose();
 
-  /// 4.1.2. System Context [PD00-SYO-SYD-CON].
+  /// 4.1.2. System Context.
   SystemContext systemContext = SystemContext();
 
-  /// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+  /// 4.1.3. Description of Task Area.
   TaskArea taskArea = TaskArea();
 
-  /// 4.1.4. User Categories [PD00-SYO-SYD-USR] — contains 1+× User Category.
+  /// 4.1.4. User Categories — contains 1+× User Category.
   @SectionId('USCA-USER-LST')
   @SectionIdPattern('USCA-USER-xxx')
   @Min(1)
   List<UserCategoryEntry> userCategories = [];
 
-  /// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+  /// 4.1.5. User Interaction Model.
   UserInteractionModel userInteractionModel = UserInteractionModel();
 }
 
@@ -254,7 +254,7 @@ class SystemDescriptionSummary {
 // 4.1.1 System Purpose
 // ---------------------------------------------------------------------------
 
-/// 4.1.1. System Purpose [PD00-SYO-SYD-PUR].
+/// 4.1.1. System Purpose.
 ///
 /// Describes the overarching purpose of the system including the problem it
 /// solves, the opportunity it enables, and who the primary beneficiaries are.
@@ -267,33 +267,33 @@ class SystemDescriptionSummary {
 class SystemPurpose {
   String? content;
 
-  /// Vision Statement [PD00-SYO-SYD-PUR-VIS].
+  /// Vision Statement.
   @ContentType('description', 'A concise, memorable statement (1-3 sentences) '
       'that captures the essence of what the system will achieve.')
   @ContentHelp('Write a clear and inspiring vision statement that describes '
       'what success looks like when this system is fully operational.')
   String? visionStatement;
 
-  /// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+  /// 4.1.1.1. Problem Statement.
   ProblemStatement problemStatement = ProblemStatement();
 
-  /// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+  /// 4.1.1.2. Opportunity Statement.
   OpportunityStatement opportunityStatement = OpportunityStatement();
 
-  /// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+  /// 4.1.1.3. Stakeholders and Beneficiaries.
   StakeholdersAndBeneficiaries stakeholders = StakeholdersAndBeneficiaries();
 
-  /// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+  /// 4.1.1.4. Value Proposition.
   ValueProposition valueProposition = ValueProposition();
 
-  /// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+  /// 4.1.1.5. Strategic Alignment.
   StrategicAlignment strategicAlignment = StrategicAlignment();
 
-  /// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+  /// 4.1.1.6. Scope Boundaries.
   ScopeBoundaries scopeBoundaries = ScopeBoundaries();
 }
 
-/// 4.1.1.1. Problem Statement [PD00-SYO-SYD-PUR-PRO].
+/// 4.1.1.1. Problem Statement.
 ///
 /// Detailed description of the problem or pain point that this system will
 /// address. Includes impact analysis and urgency assessment.
@@ -303,7 +303,7 @@ class SystemPurpose {
 class ProblemStatement {
   String? content;
 
-  /// Problem Description Form [PD00-SYO-SYD-PUR-PRO-DES].
+  /// Problem Description Form.
   @Form([
     Field('problemSummary', String, 'Problem Summary (one sentence)',
         required: true),
@@ -333,7 +333,7 @@ class ProblemStatement {
   List<RelatedPainPointEntry> relatedPainPoints = [];
 }
 
-/// 4.1.1.2. Opportunity Statement [PD00-SYO-SYD-PUR-OPP].
+/// 4.1.1.2. Opportunity Statement.
 ///
 /// Description of the opportunity this system enables — new capabilities,
 /// competitive advantages, or improvements over current state.
@@ -344,7 +344,7 @@ class ProblemStatement {
 class OpportunityStatement {
   String? content;
 
-  /// Opportunity Details Form [PD00-SYO-SYD-PUR-OPP-DES].
+  /// Opportunity Details Form.
   @Form([
     Field('opportunitySummary', String, 'Opportunity Summary (one sentence)',
         required: true),
@@ -368,7 +368,7 @@ class OpportunityStatement {
   TextSection? opportunityDetails;
 }
 
-/// 4.1.1.3. Stakeholders and Beneficiaries [PD00-SYO-SYD-PUR-STA].
+/// 4.1.1.3. Stakeholders and Beneficiaries.
 ///
 /// Lists all stakeholders and beneficiaries of the system with their
 /// interests, influence level, and expected benefits.
@@ -448,7 +448,7 @@ class StakeholderEntryEngagement {
   String? content;
 }
 
-/// 4.1.1.4. Value Proposition [PD00-SYO-SYD-PUR-VAL].
+/// 4.1.1.4. Value Proposition.
 ///
 /// Clear articulation of the value this system provides, including
 /// quantifiable benefits and return on investment analysis.
@@ -514,7 +514,7 @@ class ValuePropositionReturnProfile {
     String? content;
 }
 
-/// 4.1.1.5. Strategic Alignment [PD00-SYO-SYD-PUR-ALI].
+/// 4.1.1.5. Strategic Alignment.
 ///
 /// How this system aligns with organizational strategy, goals, and
 /// initiatives. Demonstrates strategic justification for the project.
@@ -548,7 +548,7 @@ class StrategicAlignment {
   TextSection? alignmentDetails;
 }
 
-/// 4.1.1.6. Scope Boundaries [PD00-SYO-SYD-PUR-SCO].
+/// 4.1.1.6. Scope Boundaries.
 ///
 /// Clear definition of what is in scope and out of scope for this system.
 /// Helps set expectations and prevent scope creep.
@@ -559,7 +559,7 @@ class StrategicAlignment {
 class ScopeBoundaries {
   String? content;
 
-  /// In-Scope Items [PD00-SYO-SYD-PUR-SCO-IN] — contains 1+× ScopeItem.
+  /// In-Scope Items — contains 1+× ScopeItem.
   @SectionId('SCITE-INSC-LST')
   @SectionIdPattern('SCITE-INSC-xxx')
   @Min(1)
@@ -567,14 +567,14 @@ class ScopeBoundaries {
       'Be specific about features, processes, user groups, and systems.')
   List<ScopeItemEntry> inScopeItems = [];
 
-  /// Out-of-Scope Items [PD00-SYO-SYD-PUR-SCO-OUT] — contains 0+× ScopeItem.
+  /// Out-of-Scope Items — contains 0+× ScopeItem.
   @SectionId('SCITE-OUTO-LST')
   @SectionIdPattern('SCITE-OUTO-xxx')
   @ContentHelp('List items explicitly excluded. This is as important as '
       'in-scope items to prevent misunderstandings and scope creep.')
   List<ScopeItemEntry> outOfScopeItems = [];
 
-  /// Deferred Items [PD00-SYO-SYD-PUR-SCO-DEF] — contains 0+× ScopeItem.
+  /// Deferred Items — contains 0+× ScopeItem.
   @SectionId('DFSCP-DEFE-LST')
   @SectionIdPattern('DFSCP-DEFE-xxx')
   @ContentHelp('Items deferred to future phases. Include tentative timing.')
@@ -620,7 +620,7 @@ class DeferredScopeItemEntry {
 // 4.1.2 System Context
 // ---------------------------------------------------------------------------
 
-/// 4.1.2. System Context [PD00-SYO-SYD-CON].
+/// 4.1.2. System Context.
 ///
 /// Describes the system in its operational context: how it fits within the
 /// organization's IT landscape, who interacts with it, and what external
@@ -634,32 +634,32 @@ class SystemContext {
       'and its position in the overall enterprise architecture.')
   String? content;
 
-  /// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+  /// 4.1.2.1. Context Diagram.
   ContextDiagram contextDiagram = ContextDiagram();
 
-  /// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+  /// 4.1.2.2. IT Landscape Position.
   ItLandscapePosition itLandscapePosition = ItLandscapePosition();
 
-  /// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+  /// 4.1.2.3. External Actors.
   ExternalActors externalActors = ExternalActors();
 
-  /// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+  /// 4.1.2.4. External Systems.
   ExternalSystemsContext externalSystems = ExternalSystemsContext();
 
-  /// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+  /// 4.1.2.5. Trust Boundaries.
   TrustBoundaries trustBoundaries = TrustBoundaries();
 
-  /// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+  /// 4.1.2.6. Organizational Context.
   OrganizationalContext organizationalContext = OrganizationalContext();
 
-  /// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+  /// 4.1.2.7. Deployment Context.
   DeploymentContext deploymentContext = DeploymentContext();
 
-  /// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+  /// 4.1.2.8. Regulatory Context.
   RegulatoryContext regulatoryContext = RegulatoryContext();
 }
 
-/// 4.1.2.1. Context Diagram [PD00-SYO-SYD-CON-DIA].
+/// 4.1.2.1. Context Diagram.
 ///
 /// Visual representation of the system as a black box showing external
 /// entities and data flows (UML context diagram / DFD Level 0).
@@ -685,7 +685,7 @@ class ContextDiagram {
   String? legend;
 }
 
-/// 4.1.2.2. IT Landscape Position [PD00-SYO-SYD-CON-ITP].
+/// 4.1.2.2. IT Landscape Position.
 ///
 /// How this system fits within the organization's overall IT architecture
 /// and application portfolio.
@@ -719,7 +719,7 @@ class ItLandscapePosition {
   TextSection? positionDetails;
 }
 
-/// 4.1.2.3. External Actors [PD00-SYO-SYD-CON-ACT].
+/// 4.1.2.3. External Actors.
 ///
 /// Human users and organizational entities that interact with the system
 /// from outside the system boundary.
@@ -796,7 +796,7 @@ class ExternalActorEntryContext {
   String? content;
 }
 
-/// 4.1.2.4. External Systems [PD00-SYO-SYD-CON-SYS].
+/// 4.1.2.4. External Systems.
 ///
 /// External systems, services, and APIs that the system integrates with.
 @ContentHelp('List all external systems, services, and APIs that this '
@@ -892,7 +892,7 @@ class ExternalSystemContextEntryGovernance {
   String? content;
 }
 
-/// 4.1.2.5. Trust Boundaries [PD00-SYO-SYD-CON-TRU].
+/// 4.1.2.5. Trust Boundaries.
 ///
 /// Security zones and trust boundaries that the system operates within
 /// or crosses.
@@ -932,7 +932,7 @@ class TrustBoundaryEntry {
   String? content;
 }
 
-/// 4.1.2.6. Organizational Context [PD00-SYO-SYD-CON-ORG].
+/// 4.1.2.6. Organizational Context.
 ///
 /// Organizational units, departments, and business areas that the system
 /// serves or interacts with.
@@ -975,7 +975,7 @@ class OrganizationalUnitContextEntry {
   String? content;
 }
 
-/// 4.1.2.7. Deployment Context [PD00-SYO-SYD-CON-DEP].
+/// 4.1.2.7. Deployment Context.
 ///
 /// Where and how the system will be deployed in the infrastructure
 /// landscape.
@@ -1011,7 +1011,7 @@ class DeploymentContext {
   TextSection? deploymentDetails;
 }
 
-/// 4.1.2.8. Regulatory Context [PD00-SYO-SYD-CON-REG].
+/// 4.1.2.8. Regulatory Context.
 ///
 /// Regulatory and compliance context that affects system design and
 /// operations.
@@ -1068,7 +1068,7 @@ class ApplicableRegulationEntry {
 // 4.1.3 Description of Task Area
 // ---------------------------------------------------------------------------
 
-/// 4.1.3. Description of Task Area [PD00-SYO-SYD-DES].
+/// 4.1.3. Description of Task Area.
 ///
 /// Describes the business domain and task area the system addresses.
 /// Defines the domain vocabulary and key concepts (ubiquitous language)
@@ -1085,29 +1085,29 @@ class TaskArea {
       'this system will support.')
   String? content;
 
-  /// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+  /// 4.1.3.1. Domain Overview.
   DomainOverview domainOverview = DomainOverview();
 
-  /// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+  /// 4.1.3.2. Domain Vocabulary.
   DomainVocabulary domainVocabulary = DomainVocabulary();
 
-  /// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+  /// 4.1.3.3. Key Concepts.
   KeyConcepts keyConcepts = KeyConcepts();
 
-  /// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+  /// 4.1.3.4. Domain Boundaries.
   DomainBoundaries domainBoundaries = DomainBoundaries();
 
-  /// 4.1.3.5. Business Rules [PD00-SYO-SYD-DES-RUL].
+  /// 4.1.3.5. Business Rules.
   DomainBusinessRules businessRules = DomainBusinessRules();
 
-  /// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+  /// 4.1.3.6. Domain Processes.
   DomainProcesses domainProcesses = DomainProcesses();
 
-  /// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+  /// 4.1.3.7. Domain Events.
   DomainEvents domainEvents = DomainEvents();
 }
 
-/// 4.1.3.1. Domain Overview [PD00-SYO-SYD-DES-OVE].
+/// 4.1.3.1. Domain Overview.
 ///
 /// High-level description of the business domain including its purpose,
 /// scope, and relationship to the overall business.
@@ -1141,7 +1141,7 @@ class DomainOverview {
   TextSection? domainDetails;
 }
 
-/// 4.1.3.2. Domain Vocabulary [PD00-SYO-SYD-DES-VOC].
+/// 4.1.3.2. Domain Vocabulary.
 ///
 /// Glossary of domain-specific terms and definitions establishing the
 /// ubiquitous language for the project.
@@ -1183,7 +1183,7 @@ class DomainTermEntry {
   String? content;
 }
 
-/// 4.1.3.3. Key Concepts [PD00-SYO-SYD-DES-CON].
+/// 4.1.3.3. Key Concepts.
 ///
 /// Core business concepts and entities in the domain, their attributes,
 /// and relationships (conceptual domain model).
@@ -1243,7 +1243,7 @@ class KeyConceptEntry {
   TextSection? relationshipDetails;
 }
 
-/// 4.1.3.4. Domain Boundaries [PD00-SYO-SYD-DES-BOU].
+/// 4.1.3.4. Domain Boundaries.
 ///
 /// Clear definition of what is within and outside the domain scope,
 /// based on bounded context principles.
@@ -1302,7 +1302,7 @@ class DomainInterfaceEntry {
   String? content;
 }
 
-/// 4.1.3.5. Domain Business Rules [PD00-SYO-SYD-DES-RUL].
+/// 4.1.3.5. Domain Business Rules.
 ///
 /// Business rules, policies, and constraints that govern behavior
 /// within this domain.
@@ -1375,7 +1375,7 @@ class DomainBusinessRuleEntryGovernance {
   String? content;
 }
 
-/// 4.1.3.6. Domain Processes [PD00-SYO-SYD-DES-PRO].
+/// 4.1.3.6. Domain Processes.
 ///
 /// High-level business processes within this domain, showing the main
 /// workflows and activities.
@@ -1454,7 +1454,7 @@ class DomainProcessEntryOperations {
   String? content;
 }
 
-/// 4.1.3.7. Domain Events [PD00-SYO-SYD-DES-EVE].
+/// 4.1.3.7. Domain Events.
 ///
 /// Significant business events that occur within this domain and
 /// trigger actions or state changes.
@@ -1501,7 +1501,7 @@ class DomainEventEntry {
   String? content;
 }
 
-/// 4.1.5. User Interaction Model [PD00-SYO-SYD-USI].
+/// 4.1.5. User Interaction Model.
 ///
 /// Describes how different user categories interact with the system including
 /// access channels, interaction patterns, access levels, and session management.
@@ -1520,22 +1520,22 @@ class UserInteractionModel {
   /// Interaction model summary.
   UserInteractionModelSummary summary = UserInteractionModelSummary();
 
-  /// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+  /// 4.1.5.1. Access Channels.
   AccessChannels accessChannels = AccessChannels();
 
-  /// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+  /// 4.1.5.2. Interaction Patterns.
   InteractionPatterns interactionPatterns = InteractionPatterns();
 
-  /// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+  /// 4.1.5.3. Access Levels.
   AccessLevels accessLevels = AccessLevels();
 
-  /// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+  /// 4.1.5.4. Session Model.
   SessionModel sessionModel = SessionModel();
 
-  /// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+  /// 4.1.5.5. Notification Model.
   NotificationModel notificationModel = NotificationModel();
 
-  /// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+  /// 4.1.5.6. Multi-Channel Experience.
   MultiChannelExperience multiChannelExperience = MultiChannelExperience();
 }
 
@@ -1567,7 +1567,7 @@ class UserInteractionModelSummary {
 // 4.1.5.1 Access Channels
 // ---------------------------------------------------------------------------
 
-/// 4.1.5.1. Access Channels [PD00-SYO-SYD-USI-CHA].
+/// 4.1.5.1. Access Channels.
 ///
 /// Defines all channels through which users can access the system including
 /// web, mobile, desktop applications, APIs, and other interfaces.
@@ -1594,7 +1594,7 @@ class AccessChannels {
   List<InteractionChannelEntry> channels = [];
 }
 
-/// An interaction channel entry (form) [PD00-SYO-SYD-USI-CHA-nn].
+/// An interaction channel entry (form).
 ///
 /// Comprehensive definition of an access channel including platform details,
 /// features, constraints, and user experience considerations.
@@ -1755,7 +1755,7 @@ class ChannelIntegrations {
 // 4.1.5.2 Interaction Patterns
 // ---------------------------------------------------------------------------
 
-/// 4.1.5.2. Interaction Patterns [PD00-SYO-SYD-USI-PAT].
+/// 4.1.5.2. Interaction Patterns.
 ///
 /// Defines how users interact with the system including real-time interactions,
 /// batch processing, workflow-driven tasks, and notification-driven actions.
@@ -1776,7 +1776,7 @@ class InteractionPatterns {
   List<InteractionPatternEntry> patterns = [];
 }
 
-/// An interaction pattern entry (form) [PD00-SYO-SYD-USI-PAT-nn].
+/// An interaction pattern entry (form).
 ///
 /// Definition of a specific interaction pattern including timing, triggers,
 /// and user experience considerations.
@@ -1866,7 +1866,7 @@ class InteractionPatternEntryUsage {
 // 4.1.5.3 Access Levels
 // ---------------------------------------------------------------------------
 
-/// 4.1.5.3. Access Levels [PD00-SYO-SYD-USI-ACC].
+/// 4.1.5.3. Access Levels.
 ///
 /// Defines the access level hierarchy and how permissions are structured
 /// across user categories and system functions.
@@ -1897,7 +1897,7 @@ class AccessLevels {
   String? permissionMatrix;
 }
 
-/// An access level entry (form) [PD00-SYO-SYD-USI-ACC-nn].
+/// An access level entry (form).
 @SectionId('ACLV')
 class AccessLevelEntry {
   @Form([
@@ -1968,7 +1968,7 @@ class AccessLevelEntryGovernance {
 // 4.1.5.4 Session Model
 // ---------------------------------------------------------------------------
 
-/// 4.1.5.4. Session Model [PD00-SYO-SYD-USI-SES].
+/// 4.1.5.4. Session Model.
 ///
 /// Defines session management including authentication, timeouts, and
 /// multi-device session handling.
@@ -2034,7 +2034,7 @@ class SessionModelSecurity {
 // 4.1.5.5 Notification Model
 // ---------------------------------------------------------------------------
 
-/// 4.1.5.5. Notification Model [PD00-SYO-SYD-USI-NOT].
+/// 4.1.5.5. Notification Model.
 ///
 /// Defines how the system notifies users of events, updates, and actions
 /// across different channels.
@@ -2139,7 +2139,7 @@ class UserNotificationPreferences {
 // 4.1.5.6 Multi-Channel Experience
 // ---------------------------------------------------------------------------
 
-/// 4.1.5.6. Multi-Channel Experience [PD00-SYO-SYD-USI-MUL].
+/// 4.1.5.6. Multi-Channel Experience.
 ///
 /// Defines how the system provides a consistent experience across channels
 /// and handles channel switching.
@@ -2177,7 +2177,7 @@ class MultiChannelExperience {
 // 4.1.4 User Categories
 // ---------------------------------------------------------------------------
 
-/// 4.1.4. User Categories [PD00-SYO-SYD-USR].
+/// 4.1.4. User Categories.
 ///
 /// Container for user category definitions. Each user category describes a
 /// distinct group of users with shared characteristics, access needs, and
@@ -2211,7 +2211,7 @@ class UserCategories {
   List<UserCategoryEntry> categories = [];
 }
 
-/// A user category entry [PD00-SYO-SYD-USR-nn].
+/// A user category entry.
 ///
 /// Comprehensive user persona definition including demographics, goals,
 /// frustrations, technical proficiency, and system interaction patterns.
@@ -2234,28 +2234,28 @@ class UserCategoryEntry {
   /// Growth and prioritization profile.
   UserCategoryEntryImportance importance = UserCategoryEntryImportance();
 
-  /// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+  /// 4.1.4.n.1. User Persona Details.
   UserPersonaDetails personaDetails = UserPersonaDetails();
 
-  /// 4.1.4.n.2. Role [PD00-SYO-SYD-USR-nn-ROL].
+  /// 4.1.4.n.2. Role.
   UserCategoryRoleEntry? role;
 
-  /// 4.1.4.n.3. System Tasks [PD00-SYO-SYD-USR-nn-TSK] — contains 1+× System Task.
+  /// 4.1.4.n.3. System Tasks — contains 1+× System Task.
   @SectionId('SYTS-SYST-LST')
   @SectionIdPattern('SYTS-SYST-xxx')
   @Min(1)
   List<SystemTaskEntry> systemTasks = [];
 
-  /// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+  /// 4.1.4.n.4. Access and Permissions.
   UserAccessPermissions accessPermissions = UserAccessPermissions();
 
-  /// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+  /// 4.1.4.n.5. Training Requirements.
   UserTrainingRequirements trainingRequirements = UserTrainingRequirements();
 
-  /// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+  /// 4.1.4.n.6. Accessibility Needs.
   UserAccessibilityNeeds accessibilityNeeds = UserAccessibilityNeeds();
 
-  /// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+  /// 4.1.4.n.7. User Journey.
   UserJourney userJourney = UserJourney();
 }
 
@@ -2289,7 +2289,7 @@ class UserCategoryEntryImportance {
     String? content;
 }
 
-/// 4.1.4.n.1. User Persona Details [PD00-SYO-SYD-USR-nn-PER].
+/// 4.1.4.n.1. User Persona Details.
 ///
 /// Detailed persona information including demographics, goals, frustrations,
 /// and behavioral characteristics for user-centered design.
@@ -2371,7 +2371,7 @@ class UserPersonaDetailsBehavior {
     String? content;
 }
 
-/// Role within a user category [PD00-SYO-SYD-USR-nn-ROL].
+/// Role within a user category.
 ///
 /// Organizational role and responsibilities associated with this user category.
 @SectionId('UCRE')
@@ -2396,7 +2396,7 @@ class UserCategoryRoleEntry {
   String? content;
 }
 
-/// A system task entry [PD00-SYO-SYD-USR-nn-TSK-mm].
+/// A system task entry.
 ///
 /// Describes one activity this user category performs with the system.
 /// Tasks map to Use Cases in the UC document.
@@ -2469,7 +2469,7 @@ class SystemTaskEntryContext {
     String? content;
 }
 
-/// 4.1.4.n.4. Access and Permissions [PD00-SYO-SYD-USR-nn-ACC].
+/// 4.1.4.n.4. Access and Permissions.
 ///
 /// Security and access control specifications for this user category.
 @ContentHelp('Define the access rights, permissions, and security '
@@ -2552,7 +2552,7 @@ class PermissionMatrixEntry {
   String? content;
 }
 
-/// 4.1.4.n.5. Training Requirements [PD00-SYO-SYD-USR-nn-TRA].
+/// 4.1.4.n.5. Training Requirements.
 ///
 /// Training and onboarding requirements for this user category.
 @SectionId('USTRRE')
@@ -2604,7 +2604,7 @@ class TrainingTopicEntry {
   String? content;
 }
 
-/// 4.1.4.n.6. Accessibility Needs [PD00-SYO-SYD-USR-nn-ACS].
+/// 4.1.4.n.6. Accessibility Needs.
 ///
 /// Accessibility requirements and accommodations for this user category.
 @ContentHelp('Document any accessibility requirements or accommodations '
@@ -2635,7 +2635,7 @@ class UserAccessibilityNeeds {
   String? accessibilityForm;
 }
 
-/// 4.1.4.n.7. User Journey [PD00-SYO-SYD-USR-nn-JOU].
+/// 4.1.4.n.7. User Journey.
 ///
 /// Key touchpoints and journey map for this user category's experience.
 @ContentHelp('Document the user journey - key touchpoints and stages '
@@ -2694,7 +2694,7 @@ class JourneyStageEntry {
 // 4.2 Goals
 // ---------------------------------------------------------------------------
 
-/// 4.2. Goals [PD00-SYO-GOA].
+/// 4.2. Goals.
 ///
 /// Container for project goals organized by category. Goals provide measurable
 /// objectives that guide project execution and define success. This section
@@ -2714,13 +2714,13 @@ class Goals {
       'and alignment to strategic objectives.')
   String? goalHierarchyDiagram;
 
-  /// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+  /// 4.2.1. Business Goals.
   BusinessGoals businessGoals = BusinessGoals();
 
-  /// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+  /// 4.2.2. Technical Goals.
   TechnicalGoals technicalGoals = TechnicalGoals();
 
-  /// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+  /// 4.2.3. Success Criteria.
   SuccessCriteria successCriteria = SuccessCriteria();
 }
 
@@ -2728,7 +2728,7 @@ class Goals {
 // 4.2.1 Business Goals
 // ---------------------------------------------------------------------------
 
-/// 4.2.1. Business Goals [PD00-SYO-GOA-BUS].
+/// 4.2.1. Business Goals.
 ///
 /// Container for business goal definitions. Business goals define what the
 /// organization wants to achieve through this project in terms of business
@@ -2752,7 +2752,7 @@ class BusinessGoals {
   List<BusinessGoalEntry> goals = [];
 }
 
-/// A business goal entry [PD00-SYO-GOA-BUS-nn].
+/// A business goal entry.
 ///
 /// Comprehensive business goal definition following SMART criteria with
 /// OKR-style key results, ownership, and tracking information.
@@ -2780,19 +2780,19 @@ class BusinessGoalEntry {
   /// Business rationale and impact.
   BusinessGoalEntryStrategy strategy = BusinessGoalEntryStrategy();
 
-  /// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+  /// 4.2.1.n.1. Key Results.
   GoalKeyResults keyResults = GoalKeyResults();
 
-  /// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+  /// 4.2.1.n.2. Milestones.
   GoalMilestones milestones = GoalMilestones();
 
-  /// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+  /// 4.2.1.n.3. Dependencies.
   GoalDependencies dependencies = GoalDependencies();
 
-  /// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+  /// 4.2.1.n.4. Risks.
   GoalRisks risks = GoalRisks();
 
-  /// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+  /// 4.2.1.n.5. Resources.
   GoalResources resources = GoalResources();
 }
 
@@ -2863,7 +2863,7 @@ class BusinessGoalEntryStrategy {
   String? content;
 }
 
-/// 4.2.1.n.1. Key Results [PD00-SYO-GOA-BUS-nn-KR].
+/// 4.2.1.n.1. Key Results.
 ///
 /// OKR-style key results that indicate progress toward the goal.
 /// Key results are specific, measurable outcomes that together constitute
@@ -2903,7 +2903,7 @@ class KeyResultEntry {
   String? content;
 }
 
-/// 4.2.1.n.2. Milestones [PD00-SYO-GOA-BUS-nn-MIL].
+/// 4.2.1.n.2. Milestones.
 ///
 /// Key milestones marking progress toward the goal.
 @SectionId('GOMI')
@@ -2936,7 +2936,7 @@ class GoalMilestoneEntry {
   String? content;
 }
 
-/// 4.2.1.n.3. Dependencies [PD00-SYO-GOA-BUS-nn-DEP].
+/// 4.2.1.n.3. Dependencies.
 ///
 /// Dependencies that may affect goal achievement.
 @SectionId('GODE')
@@ -2977,7 +2977,7 @@ class GoalDependencyEntry {
   String? relatedGoal;
 }
 
-/// 4.2.1.n.4. Risks [PD00-SYO-GOA-BUS-nn-RSK].
+/// 4.2.1.n.4. Risks.
 ///
 /// Risks that may prevent or delay goal achievement.
 @SectionId('GORI')
@@ -3037,7 +3037,7 @@ class GoalRiskEntryResponse {
     String? content;
 }
 
-/// 4.2.1.n.5. Resources [PD00-SYO-GOA-BUS-nn-RES].
+/// 4.2.1.n.5. Resources.
 ///
 /// Resources required to achieve the goal.
 @SectionId('GORE')
@@ -3085,7 +3085,7 @@ class ResourceAllocationEntry {
 // 4.2.2 Technical Goals
 // ---------------------------------------------------------------------------
 
-/// 4.2.2. Technical Goals [PD00-SYO-GOA-TEC].
+/// 4.2.2. Technical Goals.
 ///
 /// Container for technical goal definitions. Technical goals define the
 /// non-functional characteristics and technical capabilities the system
@@ -3110,7 +3110,7 @@ class TechnicalGoals {
   List<TechnicalGoalEntry> goals = [];
 }
 
-/// A technical goal entry [PD00-SYO-GOA-TEC-nn].
+/// A technical goal entry.
 ///
 /// Comprehensive technical goal definition with quality attributes,
 /// architectural impact, and verification approach.
@@ -3138,16 +3138,16 @@ class TechnicalGoalEntry {
   /// Scope and ownership details.
   TechnicalGoalEntryGovernance governance = TechnicalGoalEntryGovernance();
 
-  /// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+  /// 4.2.2.n.1. Quality Scenarios.
   QualityScenarios qualityScenarios = QualityScenarios();
 
-  /// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+  /// 4.2.2.n.2. Test Criteria.
   TechnicalGoalTestCriteria testCriteria = TechnicalGoalTestCriteria();
 
-  /// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+  /// 4.2.2.n.3. Dependencies.
   TechnicalGoalDependencies dependencies = TechnicalGoalDependencies();
 
-  /// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+  /// 4.2.2.n.4. Constraints.
   TechnicalGoalConstraints constraints = TechnicalGoalConstraints();
 }
 
@@ -3187,7 +3187,7 @@ class TechnicalGoalEntryGovernance {
     String? content;
 }
 
-/// 4.2.2.n.1. Quality Scenarios [PD00-SYO-GOA-TEC-nn-QS].
+/// 4.2.2.n.1. Quality Scenarios.
 ///
 /// Quality attribute scenarios that define concrete, testable situations
 /// for verifying the technical goal (based on SEI quality attribute workshop).
@@ -3230,7 +3230,7 @@ class QualityScenarioEntry {
   String? content;
 }
 
-/// 4.2.2.n.2. Test Criteria [PD00-SYO-GOA-TEC-nn-TST].
+/// 4.2.2.n.2. Test Criteria.
 ///
 /// Specific test criteria and acceptance thresholds for the technical goal.
 @ContentHelp('Define specific test criteria that will be used to verify '
@@ -3275,7 +3275,7 @@ class TechnicalGoalTestCaseEntry {
   String? content;
 }
 
-/// 4.2.2.n.3. Dependencies [PD00-SYO-GOA-TEC-nn-DEP].
+/// 4.2.2.n.3. Dependencies.
 ///
 /// Technical dependencies affecting goal achievement.
 @ContentHelp('Identify technical dependencies: infrastructure, APIs, '
@@ -3310,7 +3310,7 @@ class TechnicalDependencyEntry {
   String? content;
 }
 
-/// 4.2.2.n.4. Constraints [PD00-SYO-GOA-TEC-nn-CON].
+/// 4.2.2.n.4. Constraints.
 ///
 /// Technical constraints that may limit or shape how the goal is achieved.
 @ContentHelp('Document constraints: technology choices, standards, '
@@ -3350,7 +3350,7 @@ class TechnicalConstraintEntry {
 // 4.2.3 Success Criteria
 // ---------------------------------------------------------------------------
 
-/// 4.2.3. Success Criteria [PD00-SYO-GOA-SUC].
+/// 4.2.3. Success Criteria.
 ///
 /// Overall project success criteria that determine whether the project
 /// has achieved its objectives. These criteria will be used during
@@ -3479,7 +3479,7 @@ class SuccessCriteriaByCategory {
   String? projectCriteria;
 }
 
-/// A success criterion entry [PD00-SYO-GOA-SUC-nn] (form).
+/// A success criterion entry (form).
 ///
 /// Individual success criterion with comprehensive measurement details,
 /// thresholds, and verification requirements.
@@ -3645,7 +3645,7 @@ class PostImplementationReview {
 // 4.3 Requirements Overview (seeds → RC)
 // ---------------------------------------------------------------------------
 
-/// 4.3. Requirements Overview [PD00-SYO-REQ]. Seeds → RC.
+/// 4.3. Requirements Overview. Seeds → RC.
 ///
 /// Initial requirements overview organized by category. Each requirement
 /// receives a unique ID and will be expanded into the RC (Requirements
@@ -3685,25 +3685,25 @@ class RequirementsOverview {
   @ContentHelp('Provide a high-level view of requirement traceability.')
   String? traceabilityMatrix;
 
-  /// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+  /// 4.3.1. Functional Requirements.
   FunctionalRequirements functionalRequirements = FunctionalRequirements();
 
-  /// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+  /// 4.3.2. Technical Requirements.
   TechnicalRequirements technicalRequirements = TechnicalRequirements();
 
-  /// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+  /// 4.3.3. Security Requirements.
   SecurityRequirements securityRequirements = SecurityRequirements();
 
-  /// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+  /// 4.3.4. Organizational Requirements.
   OrganizationalRequirements organizationalRequirements =
       OrganizationalRequirements();
 
-  /// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+  /// 4.3.5. Requirement Relationships.
   @SectionId('RERE-REQU-LST')
   @SectionIdPattern('RERE-REQU-xxx')
   List<RequirementRelationships> requirementRelationships = [];
 
-  /// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+  /// 4.3.6. Requirement Coverage.
   RequirementCoverage requirementCoverage = RequirementCoverage();
 }
 
@@ -3711,7 +3711,7 @@ class RequirementsOverview {
 // 4.3.1 Functional Requirements
 // ---------------------------------------------------------------------------
 
-/// 4.3.1. Functional Requirements [PD00-SYO-REQ-FUN].
+/// 4.3.1. Functional Requirements.
 ///
 /// Container for functional requirements. Functional requirements describe
 /// what the system must do — its features, behaviors, processing rules,
@@ -3748,7 +3748,7 @@ class FunctionalRequirements {
   List<FunctionalRequirementEntry> requirements = [];
 }
 
-/// A functional requirement entry [PD00-SYO-REQ-FUN-nn].
+/// A functional requirement entry.
 ///
 /// Comprehensive functional requirement definition following IEEE 830,
 /// ISO 29148, and Volere requirements shell. Includes traceability,
@@ -3788,26 +3788,26 @@ class FunctionalRequirementEntry {
   FunctionalRequirementEntryMetadata metadata =
       FunctionalRequirementEntryMetadata();
 
-  /// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+  /// 4.3.1.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria acceptanceCriteria =
       RequirementAcceptanceCriteria();
 
-  /// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+  /// 4.3.1.n.2. Business Rules.
   RequirementBusinessRules businessRules = RequirementBusinessRules();
 
-  /// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+  /// 4.3.1.n.3. Data Requirements.
   RequirementDataRequirements dataRequirements = RequirementDataRequirements();
 
-  /// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+  /// 4.3.1.n.4. UI Specification.
   RequirementUiSpecification uiSpecification = RequirementUiSpecification();
 
-  /// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+  /// 4.3.1.n.5. Dependencies.
   RequirementDependencies dependencies = RequirementDependencies();
 
-  /// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+  /// 4.3.1.n.6. Traceability.
   RequirementTraceability traceability = RequirementTraceability();
 
-  /// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+  /// 4.3.1.n.7. Test Cases.
   RequirementTestCases testCases = RequirementTestCases();
 }
 
@@ -3896,7 +3896,7 @@ class FunctionalRequirementEntryMetadata {
   String? content;
 }
 
-/// 4.3.1.n.1. Acceptance Criteria [PD00-SYO-REQ-FUN-nn-ACR].
+/// 4.3.1.n.1. Acceptance Criteria.
 ///
 /// Testable conditions that must be met for the requirement to be accepted.
 /// Uses Given-When-Then format for clarity.
@@ -3937,7 +3937,7 @@ class AcceptanceCriterionEntry {
   String? content;
 }
 
-/// 4.3.1.n.2. Business Rules [PD00-SYO-REQ-FUN-nn-BRU].
+/// 4.3.1.n.2. Business Rules.
 ///
 /// Business rules that constrain or guide this requirement's behavior.
 @ContentHelp('Define business rules that affect this requirement. Business '
@@ -3976,7 +3976,7 @@ class RequirementBusinessRuleEntry {
   String? content;
 }
 
-/// 4.3.1.n.3. Data Requirements [PD00-SYO-REQ-FUN-nn-DAT].
+/// 4.3.1.n.3. Data Requirements.
 ///
 /// Data entities, attributes, and relationships needed by this requirement.
 @ContentHelp('Define the data entities and attributes this requirement '
@@ -4014,7 +4014,7 @@ class DataEntityReferenceEntry {
   String? relatedEntity;
 }
 
-/// 4.3.1.n.4. UI Specification [PD00-SYO-REQ-FUN-nn-UI].
+/// 4.3.1.n.4. UI Specification.
 ///
 /// User interface specification for this requirement. Defines screens,
 /// forms, and interactions needed to fulfill the requirement.
@@ -4251,7 +4251,7 @@ class ScreenBehaviorEntry {
   String? content;
 }
 
-/// 4.3.1.n.5. Dependencies [PD00-SYO-REQ-FUN-nn-DEP].
+/// 4.3.1.n.5. Dependencies.
 ///
 /// Dependencies this requirement has on other requirements.
 @ContentHelp('Identify requirements that must be implemented before or '
@@ -4284,7 +4284,7 @@ class RequirementDependencyEntry {
   String? relatedRequirement;
 }
 
-/// 4.3.1.n.6. Traceability [PD00-SYO-REQ-FUN-nn-TRC].
+/// 4.3.1.n.6. Traceability.
 ///
 /// Traceability links to goals, use cases, processes, and other artifacts.
 @ContentHelp('Document traceability links to maintain visibility of '
@@ -4336,7 +4336,7 @@ class RequirementTraceabilityImplementation {
     String? content;
 }
 
-/// 4.3.1.n.7. Test Cases [PD00-SYO-REQ-FUN-nn-TST].
+/// 4.3.1.n.7. Test Cases.
 ///
 /// Test cases that verify this requirement is correctly implemented.
 @SectionId('RETECA')
@@ -4404,7 +4404,7 @@ class RequirementTestCaseEntryAutomation {
 // 4.3.2 Technical Requirements
 // ---------------------------------------------------------------------------
 
-/// 4.3.2. Technical Requirements [PD00-SYO-REQ-TEC].
+/// 4.3.2. Technical Requirements.
 ///
 /// Container for technical requirements. Technical requirements describe
 /// constraints on how the system is built — platform, performance,
@@ -4438,7 +4438,7 @@ class TechnicalRequirements {
   List<TechnicalRequirementEntry> requirements = [];
 }
 
-/// A technical requirement entry [PD00-SYO-REQ-TEC-nn].
+/// A technical requirement entry.
 ///
 /// Comprehensive technical requirement definition following ISO 25010
 /// quality characteristics and architecture decision records.
@@ -4471,14 +4471,14 @@ class TechnicalRequirementEntry {
   TechnicalRequirementEntryConstraints constraints =
       TechnicalRequirementEntryConstraints();
 
-  /// 4.3.2.n.1. Acceptance Criteria [PD00-SYO-REQ-TEC-nn-ACR].
+  /// 4.3.2.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria acceptanceCriteria =
       RequirementAcceptanceCriteria();
 
-  /// 4.3.2.n.2. Dependencies [PD00-SYO-REQ-TEC-nn-DEP].
+  /// 4.3.2.n.2. Dependencies.
   RequirementDependencies dependencies = RequirementDependencies();
 
-  /// 4.3.2.n.3. Traceability [PD00-SYO-REQ-TEC-nn-TRC].
+  /// 4.3.2.n.3. Traceability.
   RequirementTraceability traceability = RequirementTraceability();
 }
 
@@ -4556,7 +4556,7 @@ class TechnicalRequirementEntryConstraints {
 // 4.3.3 Security Requirements
 // ---------------------------------------------------------------------------
 
-/// 4.3.3. Security Requirements [PD00-SYO-REQ-SEC].
+/// 4.3.3. Security Requirements.
 ///
 /// Container for security requirements. Security requirements describe
 /// information protection, access control, authentication, authorization,
@@ -4593,7 +4593,7 @@ class SecurityRequirements {
   List<SecurityRequirementEntry> requirements = [];
 }
 
-/// A security requirement entry [PD00-SYO-REQ-SEC-nn].
+/// A security requirement entry.
 ///
 /// Comprehensive security requirement definition following OWASP ASVS,
 /// ISO 27001, and security best practices.
@@ -4624,17 +4624,17 @@ class SecurityRequirementEntry {
   SecurityRequirementEntryStatus statusInfo =
       SecurityRequirementEntryStatus();
 
-  /// 4.3.3.n.1. Acceptance Criteria [PD00-SYO-REQ-SEC-nn-ACR].
+  /// 4.3.3.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria acceptanceCriteria =
       RequirementAcceptanceCriteria();
 
-  /// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+  /// 4.3.3.n.2. Security Controls.
   SecurityControls controls = SecurityControls();
 
-  /// 4.3.3.n.3. Dependencies [PD00-SYO-REQ-SEC-nn-DEP].
+  /// 4.3.3.n.3. Dependencies.
   RequirementDependencies dependencies = RequirementDependencies();
 
-  /// 4.3.3.n.4. Traceability [PD00-SYO-REQ-SEC-nn-TRC].
+  /// 4.3.3.n.4. Traceability.
   RequirementTraceability traceability = RequirementTraceability();
 }
 
@@ -4703,7 +4703,7 @@ class SecurityRequirementEntryStatus {
   String? content;
 }
 
-/// 4.3.3.n.2. Security Controls [PD00-SYO-REQ-SEC-nn-CTL].
+/// 4.3.3.n.2. Security Controls.
 ///
 /// Security controls that implement or support this requirement.
 @SectionId('SECO')
@@ -4770,7 +4770,7 @@ class SecurityControlEntryVerification {
 // 4.3.4 Organizational Requirements
 // ---------------------------------------------------------------------------
 
-/// 4.3.4. Organizational Requirements [PD00-SYO-REQ-ORG].
+/// 4.3.4. Organizational Requirements.
 ///
 /// Container for organizational requirements. These describe needed changes
 /// to organization, processes, training, or support that must be fulfilled
@@ -4805,7 +4805,7 @@ class OrganizationalRequirements {
   List<OrganizationalRequirementEntry> requirements = [];
 }
 
-/// An organizational requirement entry [PD00-SYO-REQ-ORG-nn].
+/// An organizational requirement entry.
 ///
 /// Comprehensive organizational requirement definition following change
 /// management and organizational development best practices.
@@ -4832,15 +4832,15 @@ class OrganizationalRequirementEntry {
   OrganizationalRequirementEntryPlanning planning =
       OrganizationalRequirementEntryPlanning();
 
-  /// 4.3.4.n.1. Acceptance Criteria [PD00-SYO-REQ-ORG-nn-ACR].
+  /// 4.3.4.n.1. Acceptance Criteria.
   RequirementAcceptanceCriteria acceptanceCriteria =
       RequirementAcceptanceCriteria();
 
-  /// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+  /// 4.3.4.n.2. Implementation Plan.
   OrgRequirementImplementationPlan implementationPlan =
       OrgRequirementImplementationPlan();
 
-  /// 4.3.4.n.3. Dependencies [PD00-SYO-REQ-ORG-nn-DEP].
+  /// 4.3.4.n.3. Dependencies.
   RequirementDependencies dependencies = RequirementDependencies();
 }
 
@@ -4895,7 +4895,7 @@ class OrganizationalRequirementEntryPlanning {
     String? content;
 }
 
-/// 4.3.4.n.2. Implementation Plan [PD00-SYO-REQ-ORG-nn-IMP].
+/// 4.3.4.n.2. Implementation Plan.
 ///
 /// Implementation plan for this organizational requirement.
 @ContentHelp('Define the implementation approach for this organizational '
@@ -4946,7 +4946,7 @@ class OrgImplementationActivity {
 // 4.4 Systems to Replace (seeds → CS)
 // ---------------------------------------------------------------------------
 
-/// 4.4. Systems to Replace [PD00-SYO-SYR]. Seeds → CS.
+/// 4.4. Systems to Replace. Seeds → CS.
 ///
 /// Documents existing systems that will be replaced, migrated, or decommissioned
 /// as part of the project. Follows TOGAF migration planning patterns and
@@ -4962,10 +4962,10 @@ class SystemsToReplace {
       'and overall migration approach.')
   TextSection overview = TextSection();
 
-  /// 4.4.1. Replacement Inventory [PD00-SYO-SYR-INV] — contains 0+×.
+  /// 4.4.1. Replacement Inventory — contains 0+×.
   ReplacementInventory replacementInventory = ReplacementInventory();
 
-  /// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG].
+  /// 4.4.2. Migration Considerations.
   MigrationConsiderations migrationConsiderations = MigrationConsiderations();
 }
 
@@ -4973,7 +4973,7 @@ class SystemsToReplace {
 // 4.4.1. Replacement Inventory
 // ---------------------------------------------------------------------------
 
-/// Container for systems to replace [PD00-SYO-SYR-INV].
+/// Container for systems to replace.
 ///
 /// Provides a structured inventory of all systems targeted for replacement,
 /// with portfolio-level metrics and prioritization guidance.
@@ -4997,7 +4997,7 @@ class ReplacementInventory {
   List<SystemToReplaceEntry> systems = [];
 }
 
-/// A system to replace entry [PD00-SYO-SYR-INV-nn] (form).
+/// A system to replace entry (form).
 ///
 /// Comprehensive documentation of a legacy system to be replaced, covering
 /// technical assessment, business criticality, replacement strategy, and
@@ -5078,7 +5078,7 @@ class SystemToReplaceEntryVendor {
     String? content;
 }
 
-/// Technical assessment for a system to replace [PD00-SYO-SYR-INV-nn-TEC].
+/// Technical assessment for a system to replace.
 @SectionId('SYTEAS')
 class SystemTechnicalAssessment {
   @Form([
@@ -5153,7 +5153,7 @@ class SystemTechnicalAssessmentQuality {
     String? content;
 }
 
-/// Business criticality assessment [PD00-SYO-SYR-INV-nn-BUS].
+/// Business criticality assessment.
 @SectionId('SYBUCR')
 class SystemBusinessCriticality {
   @Form([
@@ -5210,7 +5210,7 @@ class SystemBusinessCriticalityGovernance {
     String? content;
 }
 
-/// Business unit using the system [PD00-SYO-SYR-INV-nn-BUS-BU-nn].
+/// Business unit using the system.
 @SectionId('SBUE1')
 class SystemBusinessUnitEntry {
   @Form([
@@ -5224,7 +5224,7 @@ class SystemBusinessUnitEntry {
   String? content;
 }
 
-/// Business process supported [PD00-SYO-SYR-INV-nn-BUS-BP-nn].
+/// Business process supported.
 @SectionId('SBPE1')
 class SystemBusinessProcessEntry {
   @Form([
@@ -5237,7 +5237,7 @@ class SystemBusinessProcessEntry {
   String? content;
 }
 
-/// Replacement strategy details [PD00-SYO-SYR-INV-nn-STR].
+/// Replacement strategy details.
 @SectionId('SYREST')
 class SystemReplacementStrategy {
   @Form([
@@ -5297,7 +5297,7 @@ class SystemReplacementStrategyCutover {
     String? content;
 }
 
-/// A replacement phase entry [PD00-SYO-SYR-INV-nn-STR-PH-nn].
+/// A replacement phase entry.
 @SectionId('REPPHS')
 class ReplacementPhaseEntry {
   @Form([
@@ -5311,7 +5311,7 @@ class ReplacementPhaseEntry {
   String? content;
 }
 
-/// Data scope and migration assessment [PD00-SYO-SYR-INV-nn-DAT].
+/// Data scope and migration assessment.
 @SectionId('SYDASC')
 class SystemDataScope {
   @Form([
@@ -5365,7 +5365,7 @@ class SystemDataScopeMigration {
     String? content;
 }
 
-/// A data entity migration entry [PD00-SYO-SYR-INV-nn-DAT-ENT-nn].
+/// A data entity migration entry.
 @SectionId('DEME1')
 class DataEntityMigrationEntry {
   @Form([
@@ -5379,7 +5379,7 @@ class DataEntityMigrationEntry {
   String? content;
 }
 
-/// A system dependency entry [PD00-SYO-SYR-INV-nn-DEP-nn].
+/// A system dependency entry.
 ///
 /// Documents integrations and dependencies with other systems.
 @SectionId('REPSDEP')
@@ -5405,7 +5405,7 @@ class ReplacementSystemDependencyEntry {
   String? content;
 }
 
-/// User impact assessment [PD00-SYO-SYR-INV-nn-USR].
+/// User impact assessment.
 @SectionId('SYUSIM')
 class SystemUserImpact {
   @Form([
@@ -5465,7 +5465,7 @@ class SystemUserImpactAdoption {
     String? content;
 }
 
-/// User group impact entry [PD00-SYO-SYR-INV-nn-USR-GR-nn].
+/// User group impact entry.
 @SectionId('UGIE1')
 class UserGroupImpactEntry {
   @Form([
@@ -5478,7 +5478,7 @@ class UserGroupImpactEntry {
   String? content;
 }
 
-/// Cost analysis for replacement [PD00-SYO-SYR-INV-nn-CST].
+/// Cost analysis for replacement.
 @SectionId('SYCOAN')
 class SystemCostAnalysis {
   @Form([
@@ -5542,7 +5542,7 @@ class SystemCostAnalysisBenefits {
     String? content;
 }
 
-/// Per-system migration plan [PD00-SYO-SYR-INV-nn-MIG].
+/// Per-system migration plan.
 @SectionId('SYMIPL')
 class SystemMigrationPlan {
   @Form([
@@ -5595,7 +5595,7 @@ class SystemMigrationPlanCutover {
     String? content;
 }
 
-/// A system migration risk entry [PD00-SYO-SYR-INV-nn-MIG-RSK-nn].
+/// A system migration risk entry.
 @SectionId('SMRE1')
 class SystemMigrationRiskEntry {
   @Form([
@@ -5611,7 +5611,7 @@ class SystemMigrationRiskEntry {
   String? content;
 }
 
-/// Knowledge transfer status [PD00-SYO-SYR-INV-nn-KNW].
+/// Knowledge transfer status.
 @SectionId('SYKNTR')
 class SystemKnowledgeTransfer {
   @Form([
@@ -5643,7 +5643,7 @@ class SystemKnowledgeTransfer {
 // 4.4.2. Migration Considerations (Global)
 // ---------------------------------------------------------------------------
 
-/// 4.4.2. Migration Considerations [PD00-SYO-SYR-MIG] (global).
+/// 4.4.2. Migration Considerations (global).
 ///
 /// Cross-system migration concerns covering portfolio-wide strategy,
 /// resource planning, and coordination. Complements per-system
@@ -5669,7 +5669,7 @@ class MigrationConsiderations {
   /// Resource requirements for migration program.
   MigrationResources resources = MigrationResources();
 
-  /// Migration risks [PD00-SYO-SYR-MIG-RIS].
+  /// Migration risks.
   MigrationRisks migrationRisks = MigrationRisks();
 
   /// High-level migration timeline.
@@ -5701,7 +5701,7 @@ class MigrationConsiderations {
   List<EscalationProcedureEntry> escalationProcedures = [];
 }
 
-/// Migration resource requirements [PD00-SYO-SYR-MIG-RES].
+/// Migration resource requirements.
 @SectionId('MIRE')
 class MigrationResources {
   @Form([
@@ -5722,7 +5722,7 @@ class MigrationResources {
   TextSection resourceTimeline = TextSection();
 }
 
-/// A migration milestone entry [PD00-SYO-SYR-MIG-MIL-nn].
+/// A migration milestone entry.
 @SectionId('MGMLS')
 class MigrationMilestoneEntry {
   @Form([
@@ -5736,7 +5736,7 @@ class MigrationMilestoneEntry {
   String? content;
 }
 
-/// Migration risks [PD00-SYO-SYR-MIG-RIS] — program-level risks.
+/// Migration risks — program-level risks.
 ///
 /// Comprehensive migration risk management framework for program-level
 /// risks across the entire migration portfolio. Covers risk governance,
@@ -5873,7 +5873,7 @@ class MigrationRisksReporting {
     String? content;
 }
 
-/// A migration risk entry (form) [PD00-SYO-SYR-MIG-RIS-nn].
+/// A migration risk entry (form).
 ///
 /// Detailed migration risk documentation following enterprise risk
 /// management practices. Captures full risk lifecycle from identification
@@ -6146,7 +6146,7 @@ class MigrationRiskHistory {
 // 4.5 System Boundaries (seeds → BSI)
 // ---------------------------------------------------------------------------
 
-/// 4.5. System Boundaries [PD00-SYO-SYB]. Seeds → BSI.
+/// 4.5. System Boundaries. Seeds → BSI.
 ///
 /// Defines the scope boundaries of the system including external interfaces,
 /// out-of-scope items, and operating assumptions. This section provides the
@@ -6161,42 +6161,42 @@ class SystemBoundaries {
       'integration count, scope philosophy, and boundary governance approach.')
   TextSection overview = TextSection();
 
-  /// 4.5.1. Interfaces to External Systems [PD00-SYO-SYB-INT] — contains 0+×.
+  /// 4.5.1. Interfaces to External Systems — contains 0+×.
   ExternalInterfaces externalInterfaces = ExternalInterfaces();
 
-  /// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT] — contains 0+×.
+  /// 4.5.2. Out of Scope — contains 0+×.
   OutOfScope outOfScope = OutOfScope();
 
-  /// 4.5.3. Assumptions [PD00-SYO-SYB-ASS] — contains 0+×.
+  /// 4.5.3. Assumptions — contains 0+×.
   BoundaryAssumptions assumptions = BoundaryAssumptions();
 
-  /// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV]. Covers BSI-LAN-INV.
+  /// 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
   SystemLandscapeInventory systemLandscapeInventory = SystemLandscapeInventory();
 
-  /// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT]. Covers BSI-PAT.
+  /// 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
   @SectionId('BOINPA-BOUN-LST')
   @SectionIdPattern('BOINPA-BOUN-xxx')
   List<BoundaryInteractionPatterns> boundaryInteractionPatterns = [];
 
-  /// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST]. Covers BSI-TST.
+  /// 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
   InteractionTestingStrategy interactionTestingStrategy =
       InteractionTestingStrategy();
 
-  /// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP]. Covers BSI-DEP.
+  /// 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
   InteractionDependencyAnalysis interactionDependencyAnalysis =
       InteractionDependencyAnalysis();
 
-  /// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG]. Covers BSI-MIG.
+  /// 4.5.8. Migration Interactions. Covers BSI-MIG.
   @SectionId('MIIN-MIGR-LST')
   @SectionIdPattern('MIIN-MIGR-xxx')
   List<MigrationInteractions> migrationInteractions = [];
 
-  /// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+  /// 4.5.9. Cross-Boundary Operational Considerations.
   @SectionId('CBOC-OPER-LST')
   @SectionIdPattern('CBOC-OPER-xxx')
   List<CrossBoundaryOperationalConsiderations> operationalConsiderations = [];
 
-  /// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+  /// 4.5.10. Cross-Boundary Error Handling.
   CrossBoundaryErrorHandling crossBoundaryErrorHandling =
       CrossBoundaryErrorHandling();
 }
@@ -6205,7 +6205,7 @@ class SystemBoundaries {
 // 4.5.1. External Interfaces
 // ---------------------------------------------------------------------------
 
-/// Container for external interface definitions [PD00-SYO-SYB-INT].
+/// Container for external interface definitions.
 ///
 /// Provides structured inventory of all external system integrations with
 /// categorization, prioritization, and governance information. Each interface
@@ -6237,7 +6237,7 @@ class ExternalInterfaces {
   List<ExternalInterfaceEntry> interfaces = [];
 }
 
-/// An external interface entry [PD00-SYO-SYB-INT-nn] (form).
+/// An external interface entry (form).
 ///
 /// Comprehensive documentation of an external system interface covering
 /// identification, technical details, data exchange specification, security,
@@ -6318,7 +6318,7 @@ class ExternalInterfaceEntry {
   InterfaceTesting testing = InterfaceTesting();
 }
 
-/// Business context for an interface [PD00-SYO-SYB-INT-nn-BUS].
+/// Business context for an interface.
 @SectionId('INBUCO')
 class InterfaceBusinessContext {
   @Form([
@@ -6339,7 +6339,7 @@ class InterfaceBusinessContext {
   List<InterfaceBusinessProcessEntry> dependentProcesses = [];
 }
 
-/// Business process dependency entry [PD00-SYO-SYB-INT-nn-BUS-BP-nn].
+/// Business process dependency entry.
 @SectionId('IBPE1')
 class InterfaceBusinessProcessEntry {
   @Form([
@@ -6351,7 +6351,7 @@ class InterfaceBusinessProcessEntry {
   String? content;
 }
 
-/// Technical specification for an interface [PD00-SYO-SYB-INT-nn-TEC].
+/// Technical specification for an interface.
 @SectionId('INTESP')
 class InterfaceTechnicalSpec {
   @Form([
@@ -6406,7 +6406,7 @@ class InterfaceTechnicalSpecEndpoints {
     String? content;
 }
 
-/// API operation entry [PD00-SYO-SYB-INT-nn-TEC-OP-nn].
+/// API operation entry.
 @SectionId('IOE')
 class InterfaceOperationEntry {
   @Form([
@@ -6424,7 +6424,7 @@ class InterfaceOperationEntry {
   String? content;
 }
 
-/// Webhook specification [PD00-SYO-SYB-INT-nn-TEC-WH].
+/// Webhook specification.
 @SectionId('INWESP')
 class InterfaceWebhookSpec {
   @Form([
@@ -6438,7 +6438,7 @@ class InterfaceWebhookSpec {
   String? content;
 }
 
-/// Data specification for an interface [PD00-SYO-SYB-INT-nn-DAT].
+/// Data specification for an interface.
 @SectionId('INDASP')
 class InterfaceDataSpec {
   @Form([
@@ -6477,7 +6477,7 @@ class InterfaceDataSpec {
   List<ValidationRuleEntry> validationRules = [];
 }
 
-/// Data entity exchanged [PD00-SYO-SYB-INT-nn-DAT-ENT-nn].
+/// Data entity exchanged.
 @SectionId('IDEE1')
 class InterfaceDataEntityEntry {
   @Form([
@@ -6492,7 +6492,7 @@ class InterfaceDataEntityEntry {
   String? content;
 }
 
-/// Security specification for an interface [PD00-SYO-SYB-INT-nn-SEC].
+/// Security specification for an interface.
 @SectionId('INSE1')
 class InterfaceSecurity {
   @Form([
@@ -6552,7 +6552,7 @@ class InterfaceSecurityCompliance {
     String? content;
 }
 
-/// Operational characteristics [PD00-SYO-SYB-INT-nn-OPS].
+/// Operational characteristics.
 @SectionId('INOP')
 class InterfaceOperational {
   @Form([
@@ -6614,7 +6614,7 @@ class InterfaceOperationalSupport {
     String? content;
 }
 
-/// Error handling specification [PD00-SYO-SYB-INT-nn-ERR].
+/// Error handling specification.
 @SectionId('INERHA')
 class InterfaceErrorHandling {
   @Form([
@@ -6675,7 +6675,7 @@ class InterfaceErrorHandlingTimeout {
     String? content;
 }
 
-/// Governance and contracts [PD00-SYO-SYB-INT-nn-GOV].
+/// Governance and contracts.
 @SectionId('INGO')
 class InterfaceGovernance {
   @Form([
@@ -6721,7 +6721,7 @@ class InterfaceGovernanceLifecycle {
     String? content;
 }
 
-/// Testing specification [PD00-SYO-SYB-INT-nn-TST].
+/// Testing specification.
 @SectionId('INTE')
 class InterfaceTesting {
   @Form([
@@ -6768,7 +6768,7 @@ class InterfaceTestingStrategy {
     String? content;
 }
 
-/// Test scenario entry [PD00-SYO-SYB-INT-nn-TST-SC-nn].
+/// Test scenario entry.
 @SectionId('ITSE2')
 class InterfaceTestScenarioEntry {
   @Form([
@@ -6787,7 +6787,7 @@ class InterfaceTestScenarioEntry {
 // 4.5.2. Out of Scope
 // ---------------------------------------------------------------------------
 
-/// 4.5.2. Out of Scope [PD00-SYO-SYB-OUT].
+/// 4.5.2. Out of Scope.
 ///
 /// Explicit documentation of functionality, systems, and integrations that
 /// are excluded from the project scope. Provides clear boundaries and
@@ -6807,7 +6807,7 @@ class OutOfScope {
   List<OutOfScopeEntry> items = [];
 }
 
-/// An out-of-scope entry [PD00-SYO-SYB-OUT-nn] (form).
+/// An out-of-scope entry (form).
 @SectionId('OOSE1')
 class OutOfScopeEntry {
   @Form([
@@ -6854,7 +6854,7 @@ class OutOfScopeEntryMitigation {
 // 4.5.3. Assumptions
 // ---------------------------------------------------------------------------
 
-/// 4.5.3. Assumptions [PD00-SYO-SYB-ASS].
+/// 4.5.3. Assumptions.
 ///
 /// Documents assumptions about external systems, data availability,
 /// organizational readiness, and third-party services that must hold true
@@ -6875,7 +6875,7 @@ class BoundaryAssumptions {
   List<BoundaryAssumptionEntry> items = [];
 }
 
-/// A boundary assumption entry [PD00-SYO-SYB-ASS-nn] (form).
+/// A boundary assumption entry (form).
 @SectionId('BAE')
 class BoundaryAssumptionEntry {
   @Form([
@@ -6925,7 +6925,7 @@ class BoundaryAssumptionEntryRisk {
 // 4.6 Framework Conditions
 // ---------------------------------------------------------------------------
 
-/// 4.6. Framework Conditions [PD00-SYO-RES].
+/// 4.6. Framework Conditions.
 ///
 /// Documents the organizational and technical environment in which the system
 /// will operate. Covers organizational structure, functional responsibilities,
@@ -6939,25 +6939,25 @@ class FrameworkConditions {
       'and critical dependencies affecting project execution.')
   TextSection overview = TextSection();
 
-  /// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+  /// 4.6.1. Organizational Environment.
   OrganizationalEnvironment organizationalEnvironment =
       OrganizationalEnvironment();
 
-  /// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN] — contains 0+×.
+  /// 4.6.2. Functional Responsibilities — contains 0+×.
   FunctionalResponsibilities functionalResponsibilities =
       FunctionalResponsibilities();
 
-  /// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+  /// 4.6.3. Technical Framework Conditions. Seeds → TR.
   @Comment('Seeds → TR')
   TechnicalFrameworkConditions technicalFrameworkConditions =
       TechnicalFrameworkConditions();
 
-  /// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON] — contains 0+×.
+  /// 4.6.4. Constraints and Dependencies — contains 0+×.
   ConstraintsAndDependencies constraintsAndDependencies =
       ConstraintsAndDependencies();
 }
 
-/// 4.6.1. Organizational Environment [PD00-SYO-RES-ORG].
+/// 4.6.1. Organizational Environment.
 ///
 /// Describes the organizational context in which the system will operate,
 /// including departments, reporting structures, decision authority, and
@@ -7078,7 +7078,7 @@ class OrganizationalEnvironmentDecisionMaking {
     String? content;
 }
 
-/// An affected department entry [PD00-SYO-RES-ORG-DEP-nn].
+/// An affected department entry.
 @SectionId('ADE')
 class AffectedDepartmentEntry {
   @Form([
@@ -7096,7 +7096,7 @@ class AffectedDepartmentEntry {
   String? content;
 }
 
-/// A decision maker entry [PD00-SYO-RES-ORG-DEC-nn].
+/// A decision maker entry.
 @SectionId('DME')
 class DecisionMakerEntry {
   @Form([
@@ -7117,7 +7117,7 @@ class DecisionMakerEntry {
   String? content;
 }
 
-/// 4.6.2. Functional Responsibilities [PD00-SYO-RES-FUN].
+/// 4.6.2. Functional Responsibilities.
 ///
 /// Maps system functions to organizational units responsible for them.
 /// Identifies domain owners, data stewards, and operational contacts for
@@ -7155,7 +7155,7 @@ class FunctionalResponsibilities {
   List<ResponsibilityEntry> items = [];
 }
 
-/// A responsibility entry [PD00-SYO-RES-FUN-nn] (form).
+/// A responsibility entry (form).
 ///
 /// Documents responsibility assignment for a specific functional area,
 /// following RACI principles (Responsible, Accountable, Consulted, Informed)
@@ -7280,7 +7280,7 @@ class ResponsibilityGovernance {
   String? content;
 }
 
-/// 4.6.3. Technical Framework Conditions [PD00-SYO-RES-TEC]. Seeds → TR.
+/// 4.6.3. Technical Framework Conditions. Seeds → TR.
 ///
 /// Documents pre-existing technical constraints including mandated platforms,
 /// network restrictions, compliance requirements, existing infrastructure
@@ -7351,7 +7351,7 @@ class TechnicalFrameworkConditions {
       'exception process, standard review cycle, and compliance monitoring.')
   TextSection standardsOverview = TextSection();
 
-  /// Technology standards [PD00-SYO-RES-TEC-STD] — contains 0+× TechnologyStandard.
+  /// Technology standards — contains 0+× TechnologyStandard.
   @SectionId('TESTEN-TECH-LST')
   @SectionIdPattern('TESTEN-TECH-xxx')
   List<TechnologyStandardEntry> technologyStandards = [];
@@ -7366,7 +7366,7 @@ class TechnicalFrameworkConditions {
       'integration platform mandates.')
   TextSection integrationOverview = TextSection();
 
-  /// Integration constraints [PD00-SYO-RES-TEC-INT] — contains 0+× IntegrationConstraint.
+  /// Integration constraints — contains 0+× IntegrationConstraint.
   @SectionId('INCOE1-INTE-LST')
   @SectionIdPattern('INCOE1-INTE-xxx')
   List<IntegrationConstraintEntry> integrationConstraints = [];
@@ -7455,7 +7455,7 @@ class TechnicalFrameworkConditionsNetwork {
   TextSection disasterRecovery = TextSection();
 }
 
-/// A technology standard entry (form) [PD00-SYO-RES-TEC-STD-nn].
+/// A technology standard entry (form).
 ///
 /// Documents a mandated or preferred technology standard that the solution
 /// must adhere to. Includes scope, compliance requirements, and exceptions.
@@ -7547,7 +7547,7 @@ class TechnologyStandardEntryImpact {
   String? content;
 }
 
-/// An integration constraint entry (form) [PD00-SYO-RES-TEC-INT-nn].
+/// An integration constraint entry (form).
 ///
 /// Documents a technical constraint on system integration, including
 /// protocol requirements, format restrictions, and platform mandates.
@@ -7635,7 +7635,7 @@ class IntegrationConstraintEntryCompliance {
   String? content;
 }
 
-/// 4.6.4. Constraints and Dependencies [PD00-SYO-RES-CON].
+/// 4.6.4. Constraints and Dependencies.
 ///
 /// Documents external constraints (regulatory, contractual, budgetary,
 /// timeline) and dependencies on other projects, teams, or organizational
@@ -7690,14 +7690,14 @@ class ConstraintsAndDependencies {
   ])
   String? content;
 
-  /// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+  /// 4.6.4.1. Constraints.
   Constraints constraints = Constraints();
 
-  /// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+  /// 4.6.4.2. Dependencies.
   FrameworkDependencies frameworkDependencies = FrameworkDependencies();
 }
 
-/// 4.6.4.1. Constraints [PD00-SYO-RES-CON-CON].
+/// 4.6.4.1. Constraints.
 ///
 /// External constraints limiting project scope, schedule, budget, or
 /// approach. Includes regulatory, contractual, organizational, technical,
@@ -7764,7 +7764,7 @@ class Constraints {
   TextSection constraintNarrative = TextSection();
 }
 
-/// A constraint entry [PD00-SYO-RES-CON-CON-nn] (form).
+/// A constraint entry (form).
 ///
 /// Represents a single external constraint limiting project degrees of
 /// freedom. Common constraint types include regulatory requirements,
@@ -7913,7 +7913,7 @@ class ConstraintLinkages {
   String? content;
 }
 
-/// 4.6.4.2. Dependencies [PD00-SYO-RES-CON-DEP].
+/// 4.6.4.2. Dependencies.
 ///
 /// External dependencies on other projects, teams, vendors, systems, or
 /// organizational initiatives. Each dependency represents a point where
@@ -8011,7 +8011,7 @@ class FrameworkDependenciesManagement {
     String? content;
 }
 
-/// A framework dependency entry [PD00-SYO-RES-CON-DEP-nn] (form).
+/// A framework dependency entry (form).
 ///
 /// Represents a single external dependency where this project relies on
 /// another party (project, team, vendor, system) to deliver something.
@@ -8214,7 +8214,7 @@ class DependencyLinkages {
 // 4.7 Risks and Assumptions
 // ---------------------------------------------------------------------------
 
-/// 4.7. Risks and Assumptions [PD00-SYO-RIS].
+/// 4.7. Risks and Assumptions.
 ///
 /// Documents identified project risks and underlying assumptions following
 /// ISO 31000 Risk Management and PMBOK risk management best practices.
@@ -8225,12 +8225,12 @@ class RisksAndAssumptions {
   /// Overview of the risk management approach for this project.
   RisksOverview overview = RisksOverview();
 
-  /// 4.7.1. Key Risks [PD00-SYO-RIS-RIS] — contains 0+× Risk.
+  /// 4.7.1. Key Risks — contains 0+× Risk.
   @SectionId('RIEN-KEYR-LST')
   @SectionIdPattern('RIEN-KEYR-xxx')
   List<RiskEntry> keyRisks = [];
 
-  /// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS] — contains 0+×.
+  /// 4.7.2. Key Assumptions — contains 0+×.
   KeyAssumptions keyAssumptions = KeyAssumptions();
 }
 
@@ -8260,7 +8260,7 @@ class RisksOverview {
   String? content;
 }
 
-/// A risk entry [PD00-SYO-RIS-RIS-nn] (form).
+/// A risk entry (form).
 ///
 /// Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
 /// Captures risk identification, analysis, response planning, ownership,
@@ -8569,7 +8569,7 @@ class RiskRelationships {
 // Key Assumptions
 // ────────────────────────────────────────────────────────────────
 
-/// 4.7.2. Key Assumptions [PD00-SYO-RIS-ASS].
+/// 4.7.2. Key Assumptions.
 ///
 /// Documents project assumptions that must hold true for success.
 /// Tracks validation status and contingency plans if assumptions prove false.
@@ -8600,7 +8600,7 @@ class AssumptionsOverview {
   String? content;
 }
 
-/// An assumption entry [PD00-SYO-RIS-ASS-nn] (form).
+/// An assumption entry (form).
 ///
 /// Documents a project assumption including its basis, validation approach,
 /// and contingency plans if the assumption proves false.
@@ -8710,10 +8710,10 @@ class AssumptionRelationships {
 }
 
 // ---------------------------------------------------------------------------
-// 4.5.4 System Landscape Inventory [PD00-SYO-SYB-INV]
+// 4.5.4 System Landscape Inventory
 // ---------------------------------------------------------------------------
 
-/// 4.5.4. System Landscape Inventory [PD00-SYO-SYB-INV].
+/// 4.5.4. System Landscape Inventory.
 ///
 /// Complete external-system inventory covering BSI-LAN-INV content.
 @SectionId('SYLAIN')
@@ -8738,10 +8738,10 @@ organization's landscape.
 }
 
 // ---------------------------------------------------------------------------
-// 4.5.5 Boundary Interaction Patterns [PD00-SYO-SYB-PAT]
+// 4.5.5 Boundary Interaction Patterns
 // ---------------------------------------------------------------------------
 
-/// 4.5.5. Boundary Interaction Patterns [PD00-SYO-SYB-PAT].
+/// 4.5.5. Boundary Interaction Patterns.
 ///
 /// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
 /// Named `BoundaryInteractionPatterns` to avoid colliding with the
@@ -8752,7 +8752,7 @@ organization's landscape.
 class BoundaryInteractionPatterns {
   @ContentHelp('''
 Reusable interaction patterns applied at system boundaries. Distinct
-from `InteractionPatterns` (PD00-SYO-RES-?) which documents patterns
+from `InteractionPatterns` which documents patterns
 within the target system.
 
 **What to capture:**
@@ -8768,10 +8768,10 @@ within the target system.
 }
 
 // ---------------------------------------------------------------------------
-// 4.5.6 Interaction Testing Strategy [PD00-SYO-SYB-TST]
+// 4.5.6 Interaction Testing Strategy
 // ---------------------------------------------------------------------------
 
-/// 4.5.6. Interaction Testing Strategy [PD00-SYO-SYB-TST].
+/// 4.5.6. Interaction Testing Strategy.
 ///
 /// Contract / integration / failure-mode testing for system boundaries.
 /// Covers BSI-TST.
@@ -8781,7 +8781,7 @@ within the target system.
 class InteractionTestingStrategy {
   @ContentHelp('''
 Strategy for testing boundary interactions specifically. Complements the
-broader PD00-SYQ-TST test strategy.
+broader system-wide test strategy.
 
 **What to capture:**
 - Contract-testing approach (consumer-driven / provider-driven)
@@ -8796,10 +8796,10 @@ broader PD00-SYQ-TST test strategy.
 }
 
 // ---------------------------------------------------------------------------
-// 4.5.7 Interaction Dependency Analysis [PD00-SYO-SYB-DEP]
+// 4.5.7 Interaction Dependency Analysis
 // ---------------------------------------------------------------------------
 
-/// 4.5.7. Interaction Dependency Analysis [PD00-SYO-SYB-DEP].
+/// 4.5.7. Interaction Dependency Analysis.
 ///
 /// Critical-path and degraded-mode behavior analysis for system
 /// dependencies. Covers BSI-DEP.
@@ -8824,14 +8824,14 @@ which of them lie on the critical path of user-facing flows.
 }
 
 // ---------------------------------------------------------------------------
-// 4.5.8 Migration Interactions [PD00-SYO-SYB-MIG]
+// 4.5.8 Migration Interactions
 // ---------------------------------------------------------------------------
 
-/// 4.5.8. Migration Interactions [PD00-SYO-SYB-MIG].
+/// 4.5.8. Migration Interactions.
 ///
 /// Interactions specific to the migration window — cutover bridges,
-/// reconciliation endpoints, and temporary shims. Back-refs
-/// PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
+/// reconciliation endpoints, and temporary shims. Back-refs the
+/// Systems to Replace inventory. Covers BSI-MIG.
 @SectionId('MIIN')
 @DetailedIn(IntegrationInterfaceSpecification)
 @SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-MIG')
@@ -8853,10 +8853,10 @@ dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
 }
 
 // ---------------------------------------------------------------------------
-// 4.3.5 Requirement Relationships [PD00-SYO-REQ-REL]
+// 4.3.5 Requirement Relationships
 // ---------------------------------------------------------------------------
 
-/// 4.3.5. Requirement Relationships [PD00-SYO-REQ-REL].
+/// 4.3.5. Requirement Relationships.
 ///
 /// Cross-requirement dependency and conflict graph.
 @SectionId('RERE')
@@ -8879,10 +8879,10 @@ FUN/TEC/SEC/ORG into a network.
 }
 
 // ---------------------------------------------------------------------------
-// 4.3.6 Requirement Coverage [PD00-SYO-REQ-COV]
+// 4.3.6 Requirement Coverage
 // ---------------------------------------------------------------------------
 
-/// 4.3.6. Requirement Coverage [PD00-SYO-REQ-COV].
+/// 4.3.6. Requirement Coverage.
 ///
 /// Coverage of requirements against goals, use cases, and tests.
 @SectionId('RECO1')
@@ -8904,10 +8904,10 @@ falls through.
 }
 
 // ---------------------------------------------------------------------------
-// 4.5.9 Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE]
+// 4.5.9 Cross-Boundary Operational Considerations
 // ---------------------------------------------------------------------------
 
-/// 4.5.9. Cross-Boundary Operational Considerations [PD00-SYO-SYB-OPE].
+/// 4.5.9. Cross-Boundary Operational Considerations.
 ///
 /// SLA, rate-limit, and change-window considerations applied at system
 /// boundaries. Distinct from per-interface operational data captured
@@ -8932,10 +8932,10 @@ than being specific to one partner.
 }
 
 // ---------------------------------------------------------------------------
-// 4.5.10 Cross-Boundary Error Handling [PD00-SYO-SYB-ERR]
+// 4.5.10 Cross-Boundary Error Handling
 // ---------------------------------------------------------------------------
 
-/// 4.5.10. Cross-Boundary Error Handling [PD00-SYO-SYB-ERR].
+/// 4.5.10. Cross-Boundary Error Handling.
 ///
 /// Failure-propagation policy that applies across system boundaries.
 /// Distinct from per-interface error handling.

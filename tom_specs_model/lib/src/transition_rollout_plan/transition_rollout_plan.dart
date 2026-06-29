@@ -1,9 +1,8 @@
 /// SR — System Rollout.
 ///
-/// Phase 3 DocSpec root class. Aggregates 11 top-level sections from
-/// multi-source seeds per §5.9 of second_wave_documents.md:
-/// PD00-USE-MUL-{LOC, TRA, DOC} (whole each) plus the Phase-A-new
-/// PD00-ROL and its 8 children.
+/// Phase 3 DocSpec root class. Aggregates 11 top-level sections projected
+/// from the Solution Blueprint localization, translation, and
+/// documentation sections plus the system-rollout-concept subtree.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -33,47 +32,47 @@ class TransitionRolloutPlan {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  // ─── From PD00-USE-MUL-{LOC,TRA,DOC} (whole each) ────────────────────────
+  // ─── Localization, Translation & Documentation ───────────────────────────
 
-  /// Localization process — PD00-USE-MUL-LOC.
+  /// Localization process.
   LocalizationProcess localizationProcess = LocalizationProcess();
 
-  /// Translation process — PD00-USE-MUL-TRA.
+  /// Translation process.
   TranslationProcess translationProcess = TranslationProcess();
 
-  /// Documentation and training — PD00-USE-MUL-DOC.
+  /// Documentation and training.
   DocumentationAndTraining documentationAndTraining =
       DocumentationAndTraining();
 
-  // ─── From PD00-ROL (new in Phase A, flattened) ───────────────────────────
+  // ─── System Rollout Concept (flattened) ──────────────────────────────────
 
-  /// Rollout plan — PD00-ROL-PLN.
+  /// Rollout plan.
   RolloutPlan rolloutPlan = RolloutPlan();
 
-  /// Migration plan — PD00-ROL-MIG.
+  /// Migration plan.
   MigrationPlan migrationPlan = MigrationPlan();
 
-  /// User manuals — PD00-ROL-DOC.
+  /// User manuals.
   @SectionId('USRMAN-USER-LST')
   @SectionIdPattern('USRMAN-USER-xxx')
   List<UserManuals> userManuals = [];
 
-  /// Training materials — PD00-ROL-TRN.
+  /// Training materials.
   @SectionId('RLTTM-TRAI-LST')
   @SectionIdPattern('RLTTM-TRAI-xxx')
   List<RolloutTrainingMaterials> trainingMaterials = [];
 
-  /// Pilot plan — PD00-ROL-PIL.
+  /// Pilot plan.
   PilotPlan pilotPlan = PilotPlan();
 
-  /// Cutover procedures — PD00-ROL-CUT.
+  /// Cutover procedures.
   @SectionId('CUTPRC-CUTO-LST')
   @SectionIdPattern('CUTPRC-CUTO-xxx')
   List<CutoverProcedures> cutoverProcedures = [];
 
-  /// Knowledge transfer — PD00-ROL-KNO.
+  /// Knowledge transfer.
   KnowledgeTransfer knowledgeTransfer = KnowledgeTransfer();
 
-  /// Warranty and support — PD00-ROL-WAR.
+  /// Warranty and support.
   WarrantyAndSupport warrantyAndSupport = WarrantyAndSupport();
 }

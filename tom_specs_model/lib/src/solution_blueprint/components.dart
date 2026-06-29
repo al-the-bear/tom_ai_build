@@ -1,4 +1,4 @@
-/// Section 12: Components to Use [PD00-COM]. Seeds → TR.
+/// Section 12: Components to Use. Seeds → TR.
 ///
 /// External and standard components planned for use in the system.
 library;
@@ -7,7 +7,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 12. Components to Use [PD00-COM]. Seeds → TR.
+/// 12. Components to Use. Seeds → TR.
 ///
 /// External and standard components planned for use in the system. All
 /// subsections seed the TR document, where component choices are expanded
@@ -46,24 +46,24 @@ Each component should specify:
 ''')
     String? content;
 
-    /// 12.1. Component Strategy [PD00-COM-STR].
+    /// 12.1. Component Strategy.
     ComponentStrategy strategy = ComponentStrategy();
 
-    /// 12.2. Component Catalog [PD00-COM-COM] — contains 0+× Component.
+    /// 12.2. Component Catalog — contains 0+× Component.
     @SectionId('CMPNT-COMP-LST')
     @SectionIdPattern('CMPNT-COMP-xxx')
     List<ComponentEntry> componentCatalog = [];
 
-    /// 12.3. Component Role In System [PD00-COM-ROL].
+    /// 12.3. Component Role In System.
     TextSection componentRoleInSystem = TextSection();
 
-    /// 12.4. Runtime Dependencies [PD00-COM-RUN].
+    /// 12.4. Runtime Dependencies.
     RuntimeDependencies runtimeDependencies = RuntimeDependencies();
 
-    /// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+    /// 12.5. Maintenance Dependencies.
     MaintenanceDependencies maintenanceDependencies = MaintenanceDependencies();
 
-    /// 12.6. Risk Assessment [PD00-COM-RIS].
+    /// 12.6. Risk Assessment.
     ComponentRiskAssessment riskAssessment = ComponentRiskAssessment();
 }
 
@@ -71,7 +71,7 @@ Each component should specify:
 // 12.1. Component Strategy
 // ---------------------------------------------------------------------------
 
-/// 12.1. Component Strategy [PD00-COM-STR].
+/// 12.1. Component Strategy.
 ///
 /// Overall component strategy: build-vs-buy philosophy, preferred vendors,
 /// technology stack alignment, governance, evaluation cadence, and portfolio
@@ -107,12 +107,12 @@ class ComponentStrategy {
     /// Budget and pilot planning.
     ComponentStrategyPlanning planning = ComponentStrategyPlanning();
 
-    /// 12.1.1. Reuse Goals [PD00-COM-STR-GOA] — contains 0+× ReuseGoal.
+    /// 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
     @SectionId('RGUSE-REUS-LST')
     @SectionIdPattern('RGUSE-REUS-xxx')
     List<ReuseGoalEntry> reuseGoals = [];
 
-    /// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+    /// 12.1.2. Evaluation Criteria.
     EvaluationCriteria evaluationCriteria = EvaluationCriteria();
 }
 
@@ -207,7 +207,7 @@ class ComponentStrategyPlanning {
     String? content;
 }
 
-/// A reuse goal entry (form) [PD00-COM-STR-GOA-nn].
+/// A reuse goal entry (form).
 ///
 /// Defines a specific reuse target: what to reuse, why, at what percentage,
 /// how to measure, and who owns the goal.
@@ -287,7 +287,7 @@ class ReuseGoalEntryEnablement {
   String? content;
 }
 
-/// 12.1.2. Evaluation Criteria [PD00-COM-STR-EVA].
+/// 12.1.2. Evaluation Criteria.
 ///
 /// Container for component evaluation criteria used when assessing
 /// candidate components for adoption.
@@ -322,7 +322,7 @@ Each criterion includes:
   List<EvaluationCriterionEntry> items = [];
 }
 
-/// An evaluation criterion entry (form) [PD00-COM-STR-EVA-nn].
+/// An evaluation criterion entry (form).
 ///
 /// Defines one criterion for evaluating candidate components: scoring scale,
 /// threshold, evidence requirements, and evaluation method.
@@ -409,7 +409,7 @@ class EvaluationCriterionEntryGuidelines {
 // 12.2. Component Catalog
 // ---------------------------------------------------------------------------
 
-/// A component entry [PD00-COM-COM-nn] (form) with sub-entries.
+/// A component entry (form) with sub-entries.
 ///
 /// Describes a single external or standard component planned for use:
 /// vendor assessment, maturity, security, cost, deployment model, licensing,
@@ -455,18 +455,18 @@ class ComponentEntry {
   @SectionIdPattern('CODO-DOCS-xxx')
   List<ComponentDocs> docs = [];
 
-  /// Interfaces [PD00-COM-COM-nn-INT] — contains 0+× ComponentInterface.
+  /// Interfaces — contains 0+× ComponentInterface.
   @SectionId('CMIF-INTE-LST')
   @SectionIdPattern('CMIF-INTE-xxx')
   List<ComponentInterfaceEntry> interfaces = [];
 
-  /// Licensing [PD00-COM-COM-nn-LIC] (form).
+  /// Licensing (form).
   ComponentLicensingEntry? licensing;
 
-  /// Usage Rights [PD00-COM-COM-nn-USE].
+  /// Usage Rights.
   TextSection usageRights = TextSection();
 
-  /// Responsibilities [PD00-COM-COM-nn-RES] (form).
+  /// Responsibilities (form).
   @SectionId('COREEN-RESP-LST')
   @SectionIdPattern('COREEN-RESP-xxx')
   List<ComponentResponsibilitiesEntry> responsibilities = [];
@@ -594,7 +594,7 @@ class ComponentDocs {
   String? content;
 }
 
-/// A component interface entry (form) [PD00-COM-COM-nn-INT-nn].
+/// A component interface entry (form).
 ///
 /// Describes one interface exposed or consumed by a component: protocol,
 /// authentication, data format, rate limits, versioning, SLA, monitoring.
@@ -703,7 +703,7 @@ class ComponentInterfaceEntryOperations {
   String? content;
 }
 
-/// Component licensing sub-entry [PD00-COM-COM-nn-LIC] (form).
+/// Component licensing sub-entry (form).
 ///
 /// Detailed licensing information: model, cost, compliance, open-source
 /// obligations, audit requirements, geographic restrictions, usage metrics.
@@ -815,7 +815,7 @@ class ComponentLicensingEntryContract {
   String? content;
 }
 
-/// Component responsibilities sub-entry [PD00-COM-COM-nn-RES] (form).
+/// Component responsibilities sub-entry (form).
 ///
 /// Who owns and maintains this component: primary/backup owners, SLA targets,
 /// patch response time, security vulnerability handling, budget allocation.
@@ -919,7 +919,7 @@ class ComponentResponsibilitiesEntryGovernance {
 // 12.4. Runtime Dependencies
 // ---------------------------------------------------------------------------
 
-/// 12.4. Runtime Dependencies [PD00-COM-RUN].
+/// 12.4. Runtime Dependencies.
 ///
 /// Runtime dependencies between components: required services, startup order,
 /// health-check dependencies, failover behavior, and version constraints.
@@ -954,7 +954,7 @@ strategy, and fallback alternatives.
   List<RuntimeDependencyEntry> items = [];
 }
 
-/// 12.5. Maintenance Dependencies [PD00-COM-MAI].
+/// 12.5. Maintenance Dependencies.
 ///
 /// Maintenance dependencies: version compatibility matrix, coordinated
 /// update sequences, and breaking-change handling.
@@ -988,7 +988,7 @@ Maintenance relationships and update coordination.
   List<MaintenanceDependencyEntry> items = [];
 }
 
-/// A runtime dependency entry (form) [PD00-COM-RUN-nn].
+/// A runtime dependency entry (form).
 ///
 /// Documents one runtime dependency: startup order, health checks,
 /// failover, data flow, latency tolerance, and caching strategy.
@@ -1104,7 +1104,7 @@ class RuntimeDependencyEntryRisk {
   String? content;
 }
 
-/// A maintenance dependency entry (form) [PD00-COM-MAI-nn].
+/// A maintenance dependency entry (form).
 ///
 /// Documents one maintenance dependency: coordinated update sequences,
 /// version compatibility, and breaking-change handling.
@@ -1192,7 +1192,7 @@ class MaintenanceDependencyEntryRisk {
 // 12.6. Risk Assessment
 // ---------------------------------------------------------------------------
 
-/// 12.6. Risk Assessment [PD00-COM-RIS].
+/// 12.6. Risk Assessment.
 ///
 /// Component risk assessment: identified risks with probability/impact,
 /// monitoring, mitigation strategies, and contingency plans.
@@ -1222,16 +1222,16 @@ Each risk includes:
 ''')
   String? content;
 
-  /// 12.6.1. Component Risks [PD00-COM-RIS-RIS] — contains 0+× Risk.
+  /// 12.6.1. Component Risks — contains 0+× Risk.
   @SectionId('CMRS-RISK-LST')
   @SectionIdPattern('CMRS-RISK-xxx')
   List<ComponentRiskEntry> risks = [];
 
-  /// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+  /// 12.6.2. Contingency Plans.
   ContingencyPlans contingencyPlans = ContingencyPlans();
 }
 
-/// 12.6.2. Contingency Plans [PD00-COM-RIS-CON].
+/// 12.6.2. Contingency Plans.
 ///
 /// Container for contingency plans addressing critical component risks.
 @SectionId('COPL1')
@@ -1264,7 +1264,7 @@ Document tools, access, and backups required to execute.
   List<ContingencyPlanEntry> items = [];
 }
 
-/// A contingency plan entry (form) [PD00-COM-RIS-CON-nn].
+/// A contingency plan entry (form).
 ///
 /// Describes one contingency plan for a component risk: trigger conditions,
 /// immediate/recovery actions, RTO/RPO, communication, testing frequency.
@@ -1376,7 +1376,7 @@ class ContingencyPlanEntryTesting {
   String? content;
 }
 
-/// A component risk entry [PD00-COM-RIS-RIS-nn] (form).
+/// A component risk entry (form).
 ///
 /// Documents one component risk: category, probability, impact, detection
 /// methods, mitigation strategy and status, residual risk, and ownership.

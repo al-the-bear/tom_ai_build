@@ -1,20 +1,20 @@
-/// Section 15: System Rollout Concept [PD00-ROL].
+/// Section 15: System Rollout Concept.
 ///
 /// Rollout-related planning that seeds the SR (System Rollout) Phase 3
 /// DocSpec. Covers rollout plan, migration, user documentation, training,
 /// pilot, cutover, knowledge transfer, and warranty.
 ///
-/// The PD00-ROL class is named `SystemRolloutConcept` so the `…Concept`
-/// suffix matches the convention used by `TechnicalFrameworkConcept`
-/// (PD00-TEC) and `SecurityAndAccessModel` (PD00-ACC). The clean
-/// name `TransitionRolloutPlan` is reserved for the SR target-doc class.
+/// This class is named `SystemRolloutConcept` so the `…Concept` suffix
+/// matches the convention used by `TechnicalFrameworkConcept` and
+/// `SecurityAndAccessModel`. The clean name `TransitionRolloutPlan` is
+/// reserved for the SR target-doc class.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
+/// 15. System Rollout Concept. Seeds → SR.
 @SectionId('ROLC')
 @Comment('Seeds → SR')
 @MapsTo(TransitionRolloutPlan)
@@ -23,46 +23,46 @@ class SystemRolloutConcept {
 Executive summary of the rollout approach: from pilot through phased
 rollout, migration, user enablement, cutover, knowledge transfer, and
 post-go-live support. Seeds the SR document (Phase 3) together with the
-PD00-USE-MUL localization/translation/documentation subtrees.
+localization, translation, and documentation subtrees.
 ''')
   String? content;
 
-  /// 15.1. Rollout Plan [PD00-ROL-PLN].
+  /// 15.1. Rollout Plan.
   RolloutPlan rolloutPlan = RolloutPlan();
 
-  /// 15.2. Migration Plan [PD00-ROL-MIG].
+  /// 15.2. Migration Plan.
   MigrationPlan migrationPlan = MigrationPlan();
 
-  /// 15.3. User Manuals [PD00-ROL-DOC].
+  /// 15.3. User Manuals.
   @SectionId('USRMAN-USER-LST')
   @SectionIdPattern('USRMAN-USER-xxx')
   List<UserManuals> userManuals = [];
 
-  /// 15.4. Training Materials [PD00-ROL-TRN].
+  /// 15.4. Training Materials.
   @SectionId('RLTTM-TRAI-LST')
   @SectionIdPattern('RLTTM-TRAI-xxx')
   List<RolloutTrainingMaterials> trainingMaterials = [];
 
-  /// 15.5. Pilot Plan [PD00-ROL-PIL].
+  /// 15.5. Pilot Plan.
   PilotPlan pilotPlan = PilotPlan();
 
-  /// 15.6. Cutover Procedures [PD00-ROL-CUT].
+  /// 15.6. Cutover Procedures.
   @SectionId('CUTPRC-CUTO-LST')
   @SectionIdPattern('CUTPRC-CUTO-xxx')
   List<CutoverProcedures> cutoverProcedures = [];
 
-  /// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+  /// 15.7. Knowledge Transfer.
   KnowledgeTransfer knowledgeTransfer = KnowledgeTransfer();
 
-  /// 15.8. Warranty and Support [PD00-ROL-WAR].
+  /// 15.8. Warranty and Support.
   WarrantyAndSupport warrantyAndSupport = WarrantyAndSupport();
 }
 
 // ---------------------------------------------------------------------------
-// 15.1 Rollout Plan [PD00-ROL-PLN]
+// 15.1 Rollout Plan
 // ---------------------------------------------------------------------------
 
-/// 15.1. Rollout Plan [PD00-ROL-PLN].
+/// 15.1. Rollout Plan.
 ///
 /// Geographic and/or user-group rollout plan covering DR23 Rollout Plan
 /// content: the sequencing of sites, countries, business units, and user
@@ -87,10 +87,10 @@ pre-go-live to production.
 }
 
 // ---------------------------------------------------------------------------
-// 15.2 Migration Plan [PD00-ROL-MIG]
+// 15.2 Migration Plan
 // ---------------------------------------------------------------------------
 
-/// 15.2. Migration Plan [PD00-ROL-MIG].
+/// 15.2. Migration Plan.
 ///
 /// End-to-end system migration plan covering DR22 Migration Plan content:
 /// data, configuration, integration, and user migration from the current
@@ -101,7 +101,7 @@ pre-go-live to production.
 class MigrationPlan {
   @ContentHelp('''
 System migration plan distinct from DR22 per-data-entity mapping
-(PD00-BUS-DAT-ENT-xx handles that). Focuses on the execution plan.
+. Focuses on the execution plan.
 
 **What to capture:**
 - Migration scope (systems, data domains, users, integrations)
@@ -116,10 +116,10 @@ System migration plan distinct from DR22 per-data-entity mapping
 }
 
 // ---------------------------------------------------------------------------
-// 15.3 User Manuals [PD00-ROL-DOC]
+// 15.3 User Manuals
 // ---------------------------------------------------------------------------
 
-/// 15.3. User Manuals [PD00-ROL-DOC].
+/// 15.3. User Manuals.
 ///
 /// End-user documentation deliverables covering DR15 User Manual content.
 @SectionId('USRMAN')
@@ -130,7 +130,7 @@ class UserManuals {
 User manual deliverables: what documents are produced, for which user
 categories, in which languages, on what delivery channel (in-app help,
 PDF, wiki, print). Not the in-app contextual help itself (that lives in
-PD00-USE-HLP).
+the help-concept section).
 
 **What to capture:**
 - Document catalog (title, audience, scope, format)
@@ -144,10 +144,10 @@ PD00-USE-HLP).
 }
 
 // ---------------------------------------------------------------------------
-// 15.4 Training Materials [PD00-ROL-TRN]
+// 15.4 Training Materials
 // ---------------------------------------------------------------------------
 
-/// 15.4. Training Materials [PD00-ROL-TRN].
+/// 15.4. Training Materials.
 ///
 /// Training deliverables covering DR17 Training Materials content.
 @SectionId('RLTTM')
@@ -156,8 +156,8 @@ PD00-USE-HLP).
 class RolloutTrainingMaterials {
   @ContentHelp('''
 Training plan and materials: courses, content packages, trainers, and
-delivery mechanism. Complements PD00-USE-MUL-DOC.trainingModules which
-captures the catalog of training modules at PD00 level.
+delivery mechanism. Complements the training-module catalogue which
+captures the catalog of training modules.
 
 **What to capture:**
 - Training catalog per user category (course names, duration, format)
@@ -171,10 +171,10 @@ captures the catalog of training modules at PD00 level.
 }
 
 // ---------------------------------------------------------------------------
-// 15.5 Pilot Plan [PD00-ROL-PIL]
+// 15.5 Pilot Plan
 // ---------------------------------------------------------------------------
 
-/// 15.5. Pilot Plan [PD00-ROL-PIL].
+/// 15.5. Pilot Plan.
 ///
 /// Pilot scope, cohort selection, success criteria, and exit decision rules.
 @SectionId('PLTPLN')
@@ -198,10 +198,10 @@ success is measured, and the decision gate that authorizes rollout.
 }
 
 // ---------------------------------------------------------------------------
-// 15.6 Cutover Procedures [PD00-ROL-CUT]
+// 15.6 Cutover Procedures
 // ---------------------------------------------------------------------------
 
-/// 15.6. Cutover Procedures [PD00-ROL-CUT].
+/// 15.6. Cutover Procedures.
 ///
 /// Detailed cutover runbook for go-live. Minute-by-minute procedure
 /// covering the transition from current operation to the target system.
@@ -227,10 +227,10 @@ waves — and than the Migration Plan — which covers data execution.
 }
 
 // ---------------------------------------------------------------------------
-// 15.7 Knowledge Transfer [PD00-ROL-KNO]
+// 15.7 Knowledge Transfer
 // ---------------------------------------------------------------------------
 
-/// 15.7. Knowledge Transfer [PD00-ROL-KNO].
+/// 15.7. Knowledge Transfer.
 ///
 /// Handover from delivery team to operations. Covers EK09 Handover
 /// Agreement content.
@@ -253,10 +253,10 @@ Formal handover of system knowledge to operations and support teams.
 }
 
 // ---------------------------------------------------------------------------
-// 15.8 Warranty and Support [PD00-ROL-WAR]
+// 15.8 Warranty and Support
 // ---------------------------------------------------------------------------
 
-/// 15.8. Warranty and Support [PD00-ROL-WAR].
+/// 15.8. Warranty and Support.
 ///
 /// Post-acceptance warranty period terms and support arrangements. Covers
 /// EK10 warranty content and feeds the SR top-level on the same topic.
@@ -266,8 +266,8 @@ Formal handover of system knowledge to operations and support teams.
 class WarrantyAndSupport {
   @ContentHelp('''
 Terms governing the warranty window that follows acceptance. Distinct
-from the long-term operations SLA (PD00-DEL-ACC-WAR covers acceptance-
-time warranty; this entry captures the execution plan).
+from the long-term operations SLA (the acceptance-plan warranty section
+covers acceptance-time warranty; this entry captures the execution plan).
 
 **What to capture:**
 - Warranty period length and scope (functional / non-functional / data)

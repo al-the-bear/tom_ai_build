@@ -1,4 +1,4 @@
-/// Section 11: System Quality Goals [PD00-SYQ]. Seeds → BQP.
+/// Section 11: System Quality Goals. Seeds → BQP.
 ///
 /// Quality goals for acceptance testing, organized by quality category.
 /// Comprehensive quality management framework covering user-related,
@@ -10,7 +10,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 11. System Quality Goals [PD00-SYQ]. Seeds → BQP.
+/// 11. System Quality Goals. Seeds → BQP.
 ///
 /// Quality goals selected from standard quality criteria and operationalized
 /// for project-specific acceptance testing. Provides governing structure for
@@ -67,29 +67,29 @@ class SystemQualityGoals {
   @ContentHelp('Visual showing relative importance of quality attributes.')
   DiagramSection qualityRadar = DiagramSection();
 
-  /// 11.1. Quality Framework [PD00-SYQ-FRA].
+  /// 11.1. Quality Framework.
   QualityFramework framework = QualityFramework();
 
-  /// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+  /// 11.2. User-Related Quality Criteria.
   UserQualityCriteria userQuality = UserQualityCriteria();
 
-  /// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+  /// 11.3. Technical Quality Criteria.
   TechnicalQualityCriteria technicalQuality = TechnicalQualityCriteria();
 
-  /// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+  /// 11.4. Operations Quality Criteria.
   OperationsQualityCriteria operationsQuality = OperationsQualityCriteria();
 
-  /// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+  /// 11.5. Documentation Quality Criteria.
   DocumentationQualityCriteria documentationQuality =
       DocumentationQualityCriteria();
 
-  /// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+  /// 11.6. Quality Prioritization.
   QualityPrioritization prioritization = QualityPrioritization();
 
-  /// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+  /// 11.7. Acceptance Criteria Summary.
   AcceptanceCriteriaSummary acceptanceCriteria = AcceptanceCriteriaSummary();
 
-  /// 11.8. Test Strategy [PD00-SYQ-TST]. Covers HBSG AS23.
+  /// 11.8. Test Strategy..
   TestStrategy testStrategy = TestStrategy();
 }
 
@@ -156,7 +156,7 @@ class SystemQualityGoalsResources {
     String? content;
 }
 
-/// 11.1. Quality Framework [PD00-SYQ-FRA].
+/// 11.1. Quality Framework.
 ///
 /// Overall quality approach for the project defining objectives, categories,
 /// and how quality is structured and governed across the system.
@@ -188,7 +188,7 @@ class QualityFramework {
   QualityFrameworkVerification verification =
       QualityFrameworkVerification();
 
-  /// 11.1.1. Quality Objectives Overview [PD00-SYQ-FRA-OBJ].
+  /// 11.1.1. Quality Objectives Overview.
   @ContentHelp('Overall quality objectives: expected quality level, '
       'how quality will be measured, acceptable trade-offs.')
   TextSection qualityObjectivesOverview = TextSection();
@@ -198,7 +198,7 @@ class QualityFramework {
       'category with measurable targets.')
   TextSection objectivesBreakdown = TextSection();
 
-  /// 11.1.2. Quality Categories [PD00-SYQ-FRA-CAT] — contains 0+× QualityCategory.
+  /// 11.1.2. Quality Categories — contains 0+× QualityCategory.
   @SectionId('QCATE-QUAL-LST')
   @SectionIdPattern('QCATE-QUAL-xxx')
   List<QualityCategoryEntry> qualityCategories = [];
@@ -254,7 +254,7 @@ class QualityFrameworkVerification {
     String? content;
 }
 
-/// A quality category entry (form) [PD00-SYQ-FRA-CAT-nn].
+/// A quality category entry (form).
 ///
 /// Defines a quality category with its attributes, weight, and relationship
 /// to other categories.
@@ -350,7 +350,7 @@ class QualityCategoryEntryMetrics {
   String? content;
 }
 
-/// 11.2. User-Related Quality Criteria [PD00-SYQ-USE].
+/// 11.2. User-Related Quality Criteria.
 ///
 /// Quality criteria that directly affect user experience, including usability,
 /// functional completeness, and correctness from the end-user perspective.
@@ -382,18 +382,18 @@ class UserQualityCriteria {
       'target user experience, and key user quality metrics.')
   TextSection overview = TextSection();
 
-  /// 11.2.1. Usability [PD00-SYQ-USE-USA].
+  /// 11.2.1. Usability.
   UsabilityQuality usability = UsabilityQuality();
 
-  /// 11.2.2. Functional Completeness [PD00-SYQ-USE-FUN].
+  /// 11.2.2. Functional Completeness.
   FunctionalCompletenessQuality functionalCompleteness =
       FunctionalCompletenessQuality();
 
-  /// 11.2.3. Correctness [PD00-SYQ-USE-COR].
+  /// 11.2.3. Correctness.
   CorrectnessQuality correctness = CorrectnessQuality();
 }
 
-/// 11.2.1. Usability quality [PD00-SYQ-USE-USA].
+/// 11.2.1. Usability quality.
 @SectionId('USAQL')
 class UsabilityQuality {
   @Form([
@@ -495,7 +495,7 @@ class UsabilityQualityPerformance {
   String? content;
 }
 
-/// 11.2.2. Functional completeness quality [PD00-SYQ-USE-FUN].
+/// 11.2.2. Functional completeness quality.
 @SectionId('FNCOQ')
 class FunctionalCompletenessQuality {
   @Form([
@@ -527,7 +527,7 @@ class FunctionalCompletenessQuality {
   TextSection narrative = TextSection();
 }
 
-/// 11.2.3. Correctness quality [PD00-SYQ-USE-COR].
+/// 11.2.3. Correctness quality.
 @SectionId('COQU')
 class CorrectnessQuality {
   @Form([
@@ -596,7 +596,7 @@ class CorrectnessQualityVerification {
   String? content;
 }
 
-/// 11.3. Technical Quality Criteria [PD00-SYQ-TEC].
+/// 11.3. Technical Quality Criteria.
 ///
 /// Quality criteria for the technical implementation including efficiency,
 /// portability, flexibility, security, maintainability, and reliability.
@@ -626,26 +626,26 @@ class TechnicalQualityCriteria {
       'architectural decisions, and key technical metrics.')
   TextSection overview = TextSection();
 
-  /// 11.3.1. Efficiency [PD00-SYQ-TEC-EFF].
+  /// 11.3.1. Efficiency.
   EfficiencyQuality efficiency = EfficiencyQuality();
 
-  /// 11.3.2. Portability [PD00-SYQ-TEC-POR].
+  /// 11.3.2. Portability.
   PortabilityQuality portability = PortabilityQuality();
 
-  /// 11.3.3. Flexibility [PD00-SYQ-TEC-FLE].
+  /// 11.3.3. Flexibility.
   FlexibilityQuality flexibility = FlexibilityQuality();
 
-  /// 11.3.4. Security [PD00-SYQ-TEC-SEC].
+  /// 11.3.4. Security.
   SecurityQuality security = SecurityQuality();
 
-  /// 11.3.5. Maintainability [PD00-SYQ-TEC-MAI].
+  /// 11.3.5. Maintainability.
   MaintainabilityQuality maintainability = MaintainabilityQuality();
 
-  /// 11.3.6. Reliability [PD00-SYQ-TEC-REL].
+  /// 11.3.6. Reliability.
   ReliabilityQuality reliability = ReliabilityQuality();
 }
 
-/// 11.3.1. Efficiency quality [PD00-SYQ-TEC-EFF].
+/// 11.3.1. Efficiency quality.
 @SectionId('EFQU')
 class EfficiencyQuality {
   @Form([
@@ -719,7 +719,7 @@ class EfficiencyQualityVerification {
   String? content;
 }
 
-/// 11.3.2. Portability quality [PD00-SYQ-TEC-POR].
+/// 11.3.2. Portability quality.
 @SectionId('POQU')
 class PortabilityQuality {
   @Form([
@@ -754,7 +754,7 @@ class PortabilityQuality {
   TextSection narrative = TextSection();
 }
 
-/// 11.3.3. Flexibility quality [PD00-SYQ-TEC-FLE].
+/// 11.3.3. Flexibility quality.
 @SectionId('FLQU')
 class FlexibilityQuality {
   @Form([
@@ -823,7 +823,7 @@ class FlexibilityQualityExtensibility {
   String? content;
 }
 
-/// 11.3.4. Security quality [PD00-SYQ-TEC-SEC].
+/// 11.3.4. Security quality.
 @SectionId('SEQU')
 class SecurityQuality {
   @Form([
@@ -915,7 +915,7 @@ class SecurityQualityCompliance {
   String? content;
 }
 
-/// 11.3.5. Maintainability quality [PD00-SYQ-TEC-MAI].
+/// 11.3.5. Maintainability quality.
 @SectionId('MAQU')
 class MaintainabilityQuality {
   @Form([
@@ -1006,7 +1006,7 @@ class MaintainabilityQualityGovernance {
   String? content;
 }
 
-/// 11.3.6. Reliability quality [PD00-SYQ-TEC-REL].
+/// 11.3.6. Reliability quality.
 @SectionId('REQU')
 class ReliabilityQuality {
   @Form([
@@ -1094,7 +1094,7 @@ class ReliabilityQualityVerification {
   String? content;
 }
 
-/// 11.4. Operations Quality Criteria [PD00-SYQ-OPE].
+/// 11.4. Operations Quality Criteria.
 ///
 /// Quality criteria for system operations including availability, service
 /// levels, monitoring, and IT security operations.
@@ -1126,21 +1126,21 @@ class OperationsQualityCriteria {
       'support model, and key operational metrics.')
   TextSection overview = TextSection();
 
-  /// 11.4.1. Availability [PD00-SYQ-OPE-AVA].
+  /// 11.4.1. Availability.
   AvailabilityQuality availability = AvailabilityQuality();
 
-  /// 11.4.2. Service Level Requirements [PD00-SYQ-OPE-SER].
+  /// 11.4.2. Service Level Requirements.
   ServiceLevelQuality serviceLevelRequirements = ServiceLevelQuality();
 
-  /// 11.4.3. Monitoring and Prevention [PD00-SYQ-OPE-MON].
+  /// 11.4.3. Monitoring and Prevention.
   MonitoringQuality monitoringAndPrevention = MonitoringQuality();
 
-  /// 11.4.4. IT Security Operations [PD00-SYQ-OPE-ITS].
+  /// 11.4.4. IT Security Operations.
   ItSecurityOperationsQuality itSecurityOperations =
       ItSecurityOperationsQuality();
 }
 
-/// 11.4.1. Availability quality [PD00-SYQ-OPE-AVA].
+/// 11.4.1. Availability quality.
 @SectionId('AVQU')
 class AvailabilityQuality {
   @Form([
@@ -1229,7 +1229,7 @@ class AvailabilityQualityVerification {
   String? content;
 }
 
-/// 11.4.2. Service level quality [PD00-SYQ-OPE-SER].
+/// 11.4.2. Service level quality.
 @SectionId('SELEQU')
 class ServiceLevelQuality {
   @Form([
@@ -1335,7 +1335,7 @@ class ServiceLevelQualityRestoration {
     String? content;
 }
 
-/// A service level agreement entry [PD00-SYQ-OPE-SER-SLA-nn].
+/// A service level agreement entry.
 @SectionId('SLAE')
 class ServiceLevelAgreementEntry {
   @Form([
@@ -1356,7 +1356,7 @@ class ServiceLevelAgreementEntry {
   String? content;
 }
 
-/// 11.4.3. Monitoring quality [PD00-SYQ-OPE-MON].
+/// 11.4.3. Monitoring quality.
 @SectionId('MOQU')
 class MonitoringQuality {
   @Form([
@@ -1449,7 +1449,7 @@ class MonitoringQualityOperations {
   String? content;
 }
 
-/// 11.4.4. IT Security Operations quality [PD00-SYQ-OPE-ITS].
+/// 11.4.4. IT Security Operations quality.
 @SectionId('ISOQ')
 class ItSecurityOperationsQuality {
   @Form([
@@ -1542,7 +1542,7 @@ class ItSecurityOperationsQualityIncident {
   String? content;
 }
 
-/// 11.5. Documentation Quality Criteria [PD00-SYQ-DOC].
+/// 11.5. Documentation Quality Criteria.
 ///
 /// Quality criteria for project documentation including readability,
 /// completeness, correctness, and changeability.
@@ -1574,20 +1574,20 @@ class DocumentationQualityCriteria {
       'target audiences, and key documentation metrics.')
   TextSection overview = TextSection();
 
-  /// 11.5.1. Readability [PD00-SYQ-DOC-REA].
+  /// 11.5.1. Readability.
   ReadabilityQuality readability = ReadabilityQuality();
 
-  /// 11.5.2. Completeness [PD00-SYQ-DOC-COM].
+  /// 11.5.2. Completeness.
   DocCompletenessQuality completeness = DocCompletenessQuality();
 
-  /// 11.5.3. Correctness [PD00-SYQ-DOC-COR].
+  /// 11.5.3. Correctness.
   DocCorrectnessQuality correctness = DocCorrectnessQuality();
 
-  /// 11.5.4. Changeability [PD00-SYQ-DOC-CHA].
+  /// 11.5.4. Changeability.
   DocChangeabilityQuality changeability = DocChangeabilityQuality();
 }
 
-/// 11.5.1. Readability quality [PD00-SYQ-DOC-REA].
+/// 11.5.1. Readability quality.
 @SectionId('REQU1')
 class ReadabilityQuality {
   @Form([
@@ -1673,7 +1673,7 @@ class ReadabilityQualityStyle {
   String? content;
 }
 
-/// 11.5.2. Documentation completeness quality [PD00-SYQ-DOC-COM].
+/// 11.5.2. Documentation completeness quality.
 @SectionId('DOCOQU')
 class DocCompletenessQuality {
   @Form([
@@ -1708,7 +1708,7 @@ class DocCompletenessQuality {
   TextSection narrative = TextSection();
 }
 
-/// 11.5.3. Documentation correctness quality [PD00-SYQ-DOC-COR].
+/// 11.5.3. Documentation correctness quality.
 @SectionId('DOCOQ1')
 class DocCorrectnessQuality {
   @Form([
@@ -1766,7 +1766,7 @@ class DocCorrectnessQualityVerification {
     String? content;
 }
 
-/// 11.5.4. Documentation changeability quality [PD00-SYQ-DOC-CHA].
+/// 11.5.4. Documentation changeability quality.
 @SectionId('DOCHQU')
 class DocChangeabilityQuality {
   @Form([
@@ -1837,7 +1837,7 @@ class DocChangeabilityQualityMaintenance {
   String? content;
 }
 
-/// 11.6. Quality Prioritization [PD00-SYQ-PRI].
+/// 11.6. Quality Prioritization.
 ///
 /// Prioritization and balancing of quality attributes including weighted
 /// matrices and explicit trade-off decisions.
@@ -1869,14 +1869,14 @@ class QualityPrioritization {
       'including stakeholder involvement and decision process.')
   TextSection prioritizationOverview = TextSection();
 
-  /// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+  /// 11.6.1. Weighted Quality Matrix.
   WeightedQualityMatrix weightedQualityMatrix = WeightedQualityMatrix();
 
-  /// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+  /// 11.6.2. Trade-off Decisions.
   TradeOffDecisions tradeOffDecisions = TradeOffDecisions();
 }
 
-/// 11.6.1. Weighted Quality Matrix [PD00-SYQ-PRI-WEI].
+/// 11.6.1. Weighted Quality Matrix.
 @SectionId('WEQUMA')
 class WeightedQualityMatrix {
   @Form([
@@ -1907,7 +1907,7 @@ class WeightedQualityMatrix {
   DiagramSection matrixVisualization = DiagramSection();
 }
 
-/// A quality weight entry [PD00-SYQ-PRI-WEI-nn].
+/// A quality weight entry.
 @SectionId('QLWGT')
 class QualityWeightEntry {
   @Form([
@@ -1927,7 +1927,7 @@ class QualityWeightEntry {
   String? content;
 }
 
-/// 11.6.2. Trade-off Decisions [PD00-SYQ-PRI-TRA].
+/// 11.6.2. Trade-off Decisions.
 ///
 /// Explicit trade-off decisions between quality attributes.
 @SectionId('TROFDE')
@@ -1955,7 +1955,7 @@ class TradeOffDecisions {
   List<TradeOffDecisionEntry> items = [];
 }
 
-/// A trade-off decision entry (form) [PD00-SYQ-PRI-TRA-nn].
+/// A trade-off decision entry (form).
 @SectionId('TODE')
 class TradeOffDecisionEntry {
   @Form([
@@ -2066,7 +2066,7 @@ class TradeOffDecisionEntryApproval {
   String? content;
 }
 
-/// 11.7. Acceptance Criteria Summary [PD00-SYQ-ACC].
+/// 11.7. Acceptance Criteria Summary.
 ///
 /// Quality acceptance criteria for the project including must-pass criteria
 /// and quality gate checklists.
@@ -2100,10 +2100,10 @@ class AcceptanceCriteriaSummary {
       'and acceptance governance.')
   TextSection acceptanceOverview = TextSection();
 
-  /// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+  /// 11.7.1. Must-Pass Criteria.
   MustPassCriteria mustPassCriteria = MustPassCriteria();
 
-  /// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+  /// 11.7.2. Quality Gate Checklist.
   QualityGateChecklist qualityGateChecklist = QualityGateChecklist();
 
   /// Acceptance test summary.
@@ -2111,7 +2111,7 @@ class AcceptanceCriteriaSummary {
   TextSection acceptanceTestSummary = TextSection();
 }
 
-/// 11.7.1. Must-Pass Criteria [PD00-SYQ-ACC-MUS].
+/// 11.7.1. Must-Pass Criteria.
 ///
 /// Criteria that must be met for the system to be accepted.
 @SectionId('MUPACR')
@@ -2140,7 +2140,7 @@ class MustPassCriteria {
   List<MustPassCriterionEntry> items = [];
 }
 
-/// A must-pass criterion entry (form) [PD00-SYQ-ACC-MUS-nn].
+/// A must-pass criterion entry (form).
 @SectionId('MSTPCR')
 class MustPassCriterionEntry {
   @Form([
@@ -2237,7 +2237,7 @@ class MustPassCriterionEntryStatus {
   String? content;
 }
 
-/// 11.7.2. Quality Gate Checklist [PD00-SYQ-ACC-GAT].
+/// 11.7.2. Quality Gate Checklist.
 ///
 /// Quality gate checklist used during acceptance.
 @SectionId('QUGACH')
@@ -2266,7 +2266,7 @@ class QualityGateChecklist {
   List<QualityGateCheckEntry> items = [];
 }
 
-/// A quality gate check entry (form) [PD00-SYQ-ACC-GAT-nn].
+/// A quality gate check entry (form).
 @SectionId('QGCHK')
 class QualityGateCheckEntry {
   @Form([
@@ -2370,20 +2370,21 @@ class QualityGateCheckEntryBlocking {
 }
 
 // ---------------------------------------------------------------------------
-// 11.8 Test Strategy [PD00-SYQ-TST]
+// 11.8 Test Strategy
 // ---------------------------------------------------------------------------
 
-/// 11.8. Test Strategy [PD00-SYQ-TST].
+/// 11.8. Test Strategy.
 ///
-/// Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
+/// Overall test strategy for the project..
 @SectionId('TEST')
 @DetailedIn(QualityAcceptancePlan)
 @SecondLevelSectionId(QualityAcceptancePlan, 'BQP-TST')
 class TestStrategy {
   @ContentHelp('''
 High-level strategy for verifying quality across the system. Distinct
-from the acceptance plan (PD00-DEL-ACC) and from the per-quality-attribute
-criteria in PD00-SYQ-USE/TEC/OPE/DOC; this section integrates them.
+from the acceptance plan and from the per-quality-attribute
+criteria in the usability, technical, operational, and documentation
+quality-goal sections; this section integrates them.
 
 **What to capture:**
 - Test levels (unit, integration, system, acceptance, regression)

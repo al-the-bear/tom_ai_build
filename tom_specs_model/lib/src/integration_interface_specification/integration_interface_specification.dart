@@ -1,7 +1,7 @@
 /// BSI — Business System Interactions.
 ///
-/// Phase 3 DocSpec root class. Aggregates 10 top-level sections, all
-/// reachable from PD00-SYO-SYB per §5.12 of second_wave_documents.md.
+/// Phase 3 DocSpec root class. Aggregates 10 top-level sections projected
+/// from the corresponding Solution Blueprint system-boundary sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -30,41 +30,41 @@ class IntegrationInterfaceSpecification {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  /// External interfaces — PD00-SYO-SYB-INT.
+  /// External interfaces.
   ExternalInterfaces externalInterfaces = ExternalInterfaces();
 
-  /// Out of scope — PD00-SYO-SYB-OUT.
+  /// Out of scope.
   OutOfScope outOfScope = OutOfScope();
 
-  /// Boundary assumptions — PD00-SYO-SYB-ASS.
+  /// Boundary assumptions.
   BoundaryAssumptions boundaryAssumptions = BoundaryAssumptions();
 
-  /// System landscape inventory — PD00-SYO-SYB-INV.
+  /// System landscape inventory.
   SystemLandscapeInventory systemInventory = SystemLandscapeInventory();
 
-  /// Boundary interaction patterns — PD00-SYO-SYB-PAT.
+  /// Boundary interaction patterns.
   @SectionId('BOINPA-INTE-LST')
   @SectionIdPattern('BOINPA-INTE-xxx')
   List<BoundaryInteractionPatterns> interactionPatterns = [];
 
-  /// Interaction testing strategy — PD00-SYO-SYB-TST.
+  /// Interaction testing strategy.
   InteractionTestingStrategy testingStrategy = InteractionTestingStrategy();
 
-  /// Interaction dependency analysis — PD00-SYO-SYB-DEP.
+  /// Interaction dependency analysis.
   InteractionDependencyAnalysis dependencyAnalysis =
       InteractionDependencyAnalysis();
 
-  /// Migration interactions — PD00-SYO-SYB-MIG.
+  /// Migration interactions.
   @SectionId('MIIN-MIGR-LST')
   @SectionIdPattern('MIIN-MIGR-xxx')
   List<MigrationInteractions> migrationInteractions = [];
 
-  /// Cross-boundary operational considerations — PD00-SYO-SYB-OPE.
+  /// Cross-boundary operational considerations.
   @SectionId('CBOC-OPER-LST')
   @SectionIdPattern('CBOC-OPER-xxx')
   List<CrossBoundaryOperationalConsiderations> operationalConsiderations = [];
 
-  /// Cross-boundary error handling — PD00-SYO-SYB-ERR.
+  /// Cross-boundary error handling.
   CrossBoundaryErrorHandling crossBoundaryErrorHandling =
       CrossBoundaryErrorHandling();
 }

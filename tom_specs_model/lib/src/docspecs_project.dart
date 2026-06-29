@@ -34,7 +34,7 @@ import 'experience_design_specification/experience_design_specification.dart';
 ///
 /// **The SolutionBlueprint is the source of truth.** The twelve Phase 3 roots
 /// are `@Document(basedOn: [SolutionBlueprint])` *projections* that reference
-/// the same PD00 sections through their `@MapsTo` / `@DetailedIn` links; they do
+/// the same SBP sections through their `@MapsTo` / `@DetailedIn` links; they do
 /// not own copies. Editing through any projection edits the shared underlying
 /// PD sections (§14).
 ///
@@ -49,51 +49,51 @@ class DocSpecsProject {
     registerSpecOps();
   }
 
-  /// PD00 — the Project Definition master and source of truth for all shared
+  /// SBP — the Project Definition master and source of truth for all shared
   /// content. Listed first in the root navigator (§14).
   SolutionBlueprint projectDefinition = SolutionBlueprint();
 
-  /// AC — Authorization Concept (Phase 3 projection over PD00).
+  /// AC — Authorization Concept (Phase 3 projection).
   SecurityAccessSpecification authorizationConcept = SecurityAccessSpecification();
 
-  /// BDM — Business Data Model (Phase 3 projection over PD00).
+  /// BDM — Business Data Model (Phase 3 projection).
   InformationModel businessDataModel = InformationModel();
 
-  /// BP — Business Processes (Phase 3 projection over PD00).
+  /// BP — Business Processes (Phase 3 projection).
   TargetOperatingModel businessProcesses = TargetOperatingModel();
 
-  /// BQP — Business Quality Plan (Phase 3 projection over PD00).
+  /// BQP — Business Quality Plan (Phase 3 projection).
   QualityAcceptancePlan businessQualityPlan = QualityAcceptancePlan();
 
-  /// BSI — Business System Interactions (Phase 3 projection over PD00).
+  /// BSI — Business System Interactions (Phase 3 projection).
   IntegrationInterfaceSpecification businessSystemInteractions =
       IntegrationInterfaceSpecification();
 
-  /// CS — Current Situation (Phase 3 projection over PD00).
+  /// CS — Current Situation (Phase 3 projection).
   CurrentLandscapeAssessment currentSituation = CurrentLandscapeAssessment();
 
-  /// PPP — Project Phase Plan (Phase 3 projection over PD00).
+  /// PPP — Project Phase Plan (Phase 3 projection).
   DeliveryRoadmap projectPhasePlan = DeliveryRoadmap();
 
-  /// RC — Requirements Catalog (Phase 3 projection over PD00).
+  /// RC — Requirements Catalog (Phase 3 projection).
   RequirementsSpecification requirementsCatalog = RequirementsSpecification();
 
-  /// SR — System Rollout (Phase 3 projection over PD00).
+  /// SR — System Rollout (Phase 3 projection).
   TransitionRolloutPlan systemRollout = TransitionRolloutPlan();
 
-  /// TR — Technical Requirements (Phase 3 projection over PD00).
+  /// TR — Technical Requirements (Phase 3 projection).
   ArchitectureTechnologySpecification technicalRequirementsSpec =
       ArchitectureTechnologySpecification();
 
-  /// UC — Use Cases (Phase 3 projection over PD00).
+  /// UC — Use Cases (Phase 3 projection).
   InteractionScenarios useCases = InteractionScenarios();
 
-  /// UP — UI Prototype (Phase 3 projection over PD00).
+  /// UP — UI Prototype (Phase 3 projection).
   ExperienceDesignSpecification uiPrototype = ExperienceDesignSpecification();
 
   /// The global `document:` save (§15.1): serializes the [projectDefinition]
   /// master alone. Because the twelve projection roots are views over the same
-  /// PD00 sections, the PD tree contains every section exactly once, so the
+  /// SBP sections, the PD tree contains every section exactly once, so the
   /// output never duplicates a subtree.
   String toYaml() => SpecYaml.toYaml(projectDefinition);
 

@@ -5,7 +5,7 @@
 ///
 /// A spec is **one document** with thirteen entry points: the Project
 /// Definition master plus twelve Phase 3 *projection* roots that reference the
-/// same PD00 sections (§14). Two serialization rules follow from that:
+/// same SBP sections (§14). Two serialization rules follow from that:
 ///
 ///  - **Global save (`*.docspecs.yaml`) writes only the Project Definition.**
 ///    Because every projection is a view over the same PD sections, serializing

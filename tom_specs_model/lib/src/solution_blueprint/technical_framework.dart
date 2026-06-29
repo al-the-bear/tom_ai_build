@@ -1,4 +1,4 @@
-/// Section 8: Technical Framework Concept [PD00-TEC]. Seeds → TR.
+/// Section 8: Technical Framework Concept. Seeds → TR.
 ///
 /// Technical framework requirements and constraints.
 library;
@@ -7,7 +7,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 8. Technical Framework Concept [PD00-TEC]. Seeds → TR.
+/// 8. Technical Framework Concept. Seeds → TR.
 @Comment('Seeds → TR')
 @MapsTo(ArchitectureTechnologySpecification)
 @ContentHelp('''
@@ -30,8 +30,9 @@ and infrastructure requirements that guide all development work.
 - **Security**: IT security standards, privacy, auditing
 
 **Integration Points**: All subsections feed into TR document. Decisions
-must align with business requirements from PD00-TAR and system overview
-from PD00-SYS. Security requirements coordinate with PD00-ACC.
+must align with business requirements from the target-process sections
+and the system overview. Security requirements coordinate with the
+authorization concept.
 ''')
 @SectionId('TECH')
 class TechnicalFrameworkConcept {
@@ -54,35 +55,35 @@ Provide an executive summary of the technical framework approach.
 ''')
   String? content;
 
-  /// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+  /// 8.1. Basic Technical Requirements.
   BasicTechnicalRequirements basicRequirements = BasicTechnicalRequirements();
 
-  /// 8.2. Software Design Requirements [PD00-TEC-SOF].
+  /// 8.2. Software Design Requirements.
   SoftwareDesignRequirements softwareDesign = SoftwareDesignRequirements();
 
-  /// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+  /// 8.3. Standard Application Software Requirements.
   StandardSoftwareRequirements standardSoftware = StandardSoftwareRequirements();
 
-  /// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+  /// 8.4. Hardware Concept Requirements.
   HardwareRequirements hardware = HardwareRequirements();
 
-  /// 8.5. Operations Requirements [PD00-TEC-OPE].
+  /// 8.5. Operations Requirements.
   OperationsRequirements operations = OperationsRequirements();
 
-  /// 8.6. Communication Requirements [PD00-TEC-COM].
+  /// 8.6. Communication Requirements.
   CommunicationRequirements communication = CommunicationRequirements();
 
-  /// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+  /// 8.7. System Operation and Monitoring.
   SystemOperationAndMonitoring systemOperation = SystemOperationAndMonitoring();
 
-  /// 8.8. Security Requirements [PD00-TEC-SEC].
+  /// 8.8. Security Requirements.
   TechnicalSecurityRequirements security = TechnicalSecurityRequirements();
 
-  /// 8.9. System Architecture [PD00-TEC-ARC]. Covers HBSG AS09-SOF / DR30.
+  /// 8.9. System Architecture..
   SystemArchitectureSpec systemArchitecture = SystemArchitectureSpec();
 }
 
-/// 8.1. Basic Technical Requirements [PD00-TEC-BAS].
+/// 8.1. Basic Technical Requirements.
 @DetailedIn(ArchitectureTechnologySpecification)
 @SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-BAS')
 @ContentHelp('''
@@ -129,22 +130,22 @@ Provide an overview of basic technical requirements and key decisions.
 ''')
   String? content;
 
-  /// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+  /// 8.1.1. Platform and Language.
   PlatformAndLanguage platformAndLanguage = PlatformAndLanguage();
 
-  /// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+  /// 8.1.2. Architecture Style.
   ArchitectureStyle architectureStyle = ArchitectureStyle();
 
-  /// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+  /// 8.1.3. Design Patterns and Standards.
   DesignPatternsAndStandards designPatternsAndStandards =
       DesignPatternsAndStandards();
 }
 
 // =============================================================================
-// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA]
+// 8.1.1. Platform and Language
 // =============================================================================
 
-/// 8.1.1. Platform and Language [PD00-TEC-BAS-PLA].
+/// 8.1.1. Platform and Language.
 ///
 /// Required platforms (operating system, runtime), programming languages,
 /// and framework choices with minimum versions and justification.
@@ -981,10 +982,10 @@ class RuntimeEnvironmentNotes {
 }
 
 // =============================================================================
-// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC]
+// 8.1.2. Architecture Style
 // =============================================================================
 
-/// 8.1.2. Architecture Style [PD00-TEC-BAS-ARC].
+/// 8.1.2. Architecture Style.
 ///
 /// Target architecture style specification: monolith, modular monolith,
 /// microservices, event-driven, serverless, or hybrid. Includes justification
@@ -2001,10 +2002,10 @@ class ArchitectureDecisionRecordRelations {
 }
 
 // =============================================================================
-// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT]
+// 8.1.3. Design Patterns and Standards
 // =============================================================================
 
-/// 8.1.3. Design Patterns and Standards [PD00-TEC-BAS-PAT].
+/// 8.1.3. Design Patterns and Standards.
 ///
 /// Required design patterns, coding standards, development conventions, and
 /// applicable industry standards (ISO, OWASP, IEEE).
@@ -2884,7 +2885,7 @@ class TestingStandardsTooling {
   String? content;
 }
 
-/// 8.2. Software Design Requirements [PD00-TEC-SOF].
+/// 8.2. Software Design Requirements.
 @DetailedIn(ArchitectureTechnologySpecification)
 @SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-SOF')
 @ContentHelp('''
@@ -2931,22 +2932,22 @@ Provide an overview of software design approach and key decisions.
 ''')
   String? content;
 
-  /// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+  /// 8.2.1. Layering and Module Structure.
   LayeringAndModuleStructure layeringAndModuleStructure =
       LayeringAndModuleStructure();
 
-  /// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+  /// 8.2.2. Development Environment.
   DevelopmentEnvironment developmentEnvironment = DevelopmentEnvironment();
 
-  /// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+  /// 8.2.3. Reusable Components.
   ReusableComponentsSection reusableComponents = ReusableComponentsSection();
 }
 
 // =============================================================================
-// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY]
+// 8.2.1. Layering and Module Structure
 // =============================================================================
 
-/// 8.2.1. Layering and Module Structure [PD00-TEC-SOF-LAY].
+/// 8.2.1. Layering and Module Structure.
 ///
 /// Software layering (presentation, business logic, data access, infrastructure)
 /// and module structure (bounded contexts, packages, libraries).
@@ -3916,10 +3917,10 @@ class ModuleVersioningStrategyCoordination {
 }
 
 // =============================================================================
-// 8.2.2. Development Environment [PD00-TEC-SOF-DEV]
+// 8.2.2. Development Environment
 // =============================================================================
 
-/// 8.2.2. Development Environment [PD00-TEC-SOF-DEV].
+/// 8.2.2. Development Environment.
 ///
 /// Required IDEs, build tools, version control, CI/CD pipeline, code review
 /// process, and development workflow.
@@ -5105,10 +5106,10 @@ class DevelopmentQualityGatesPerformance {
 }
 
 // =============================================================================
-// 8.2.3. Reusable Components [PD00-TEC-SOF-REU]
+// 8.2.3. Reusable Components
 // =============================================================================
 
-/// 8.2.3. Reusable Components [PD00-TEC-SOF-REU].
+/// 8.2.3. Reusable Components.
 ///
 /// Components, libraries, or frameworks designed for reuse across projects
 /// or modules.
@@ -5961,7 +5962,7 @@ class ComponentRegistryUpdates {
   String? content;
 }
 
-/// 8.3. Standard Application Software Requirements [PD00-TEC-STA].
+/// 8.3. Standard Application Software Requirements.
 @DetailedIn(ArchitectureTechnologySpecification)
 @SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-STA')
 @ContentHelp('''
@@ -6012,19 +6013,19 @@ Provide an overview of standard software requirements approach.
 ''')
   String? content;
 
-  /// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+  /// 8.3.1. Compatibility Requirements.
   CompatibilityRequirementsSection compatibilityRequirements =
       CompatibilityRequirementsSection();
 
-  /// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+  /// 8.3.2. Standards Compliance.
   StandardsComplianceSection standardsCompliance = StandardsComplianceSection();
 }
 
 // =============================================================================
-// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM]
+// 8.3.1. Compatibility Requirements
 // =============================================================================
 
-/// 8.3.1. Compatibility Requirements [PD00-TEC-STA-COM].
+/// 8.3.1. Compatibility Requirements.
 ///
 /// Compatibility requirements with existing IT infrastructure, standard software,
 /// and enterprise systems.
@@ -7081,10 +7082,10 @@ class InteroperabilityRequirementsGovernance {
 }
 
 // =============================================================================
-// 8.3.2. Standards Compliance [PD00-TEC-STA-STD]
+// 8.3.2. Standards Compliance
 // =============================================================================
 
-/// 8.3.2. Standards Compliance [PD00-TEC-STA-STD].
+/// 8.3.2. Standards Compliance.
 ///
 /// Required compliance with IT standards, industry protocols, and interface
 /// specifications.
@@ -8205,7 +8206,7 @@ class ComplianceVerificationSectionContinuous {
   String? content;
 }
 
-/// 8.4. Hardware Concept Requirements [PD00-TEC-HAR].
+/// 8.4. Hardware Concept Requirements.
 @DetailedIn(ArchitectureTechnologySpecification)
 @SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-HAR')
 @ContentHelp('''
@@ -8256,21 +8257,21 @@ Provide an overview of hardware strategy and infrastructure approach.
 ''')
   String? content;
 
-  /// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+  /// 8.4.1. Server Requirements.
   ServerRequirementsSection serverRequirements = ServerRequirementsSection();
 
-  /// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+  /// 8.4.2. Client Requirements.
   ClientRequirementsSection clientRequirements = ClientRequirementsSection();
 
-  /// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+  /// 8.4.3. Network Requirements.
   NetworkRequirementsSection networkRequirements = NetworkRequirementsSection();
 }
 
 // =============================================================================
-// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV]
+// 8.4.1. Server Requirements
 // =============================================================================
 
-/// 8.4.1. Server Requirements [PD00-TEC-HAR-SRV].
+/// 8.4.1. Server Requirements.
 ///
 /// Server compute requirements: CPU, memory, storage, expected load profile,
 /// and scaling requirements.
@@ -9205,10 +9206,10 @@ class ServerOsRequirementsLicensing {
 }
 
 // =============================================================================
-// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI]
+// 8.4.2. Client Requirements
 // =============================================================================
 
-/// 8.4.2. Client Requirements [PD00-TEC-HAR-CLI].
+/// 8.4.2. Client Requirements.
 ///
 /// Minimum client requirements: browser versions, operating systems, screen
 /// resolution, network bandwidth, and device capabilities.
@@ -10184,10 +10185,10 @@ class ClientSecurityRequirementsCodeProtection {
 }
 
 // =============================================================================
-// 8.4.3. Network Requirements [PD00-TEC-HAR-NET]
+// 8.4.3. Network Requirements
 // =============================================================================
 
-/// 8.4.3. Network Requirements [PD00-TEC-HAR-NET].
+/// 8.4.3. Network Requirements.
 ///
 /// Network requirements: bandwidth, latency, availability, VPN/firewall rules,
 /// and geographic distribution.
@@ -11242,7 +11243,7 @@ class NetworkSecurityRequirementsCompliance {
   String? content;
 }
 
-/// 8.5. Operations Requirements [PD00-TEC-OPE].
+/// 8.5. Operations Requirements.
 @DetailedIn(ArchitectureTechnologySpecification)
 @SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-OPE')
 @ContentHelp('''
@@ -11297,25 +11298,25 @@ Provide an overview of operational philosophy and key requirements.
 ''')
   String? content;
 
-  /// 8.5.1. Backup And Recovery [PD00-TEC-OPE-BAC].
+  /// 8.5.1. Backup And Recovery.
   BackupAndRecoverySection backupAndRecovery = BackupAndRecoverySection();
 
-  /// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+  /// 8.5.2. Deployment Strategy.
   DeploymentStrategySection deploymentStrategy = DeploymentStrategySection();
 
-  /// 8.5.3. Monitoring And Alerting [PD00-TEC-OPE-MON].
+  /// 8.5.3. Monitoring And Alerting.
   MonitoringAndAlertingSection monitoringAndAlerting =
       MonitoringAndAlertingSection();
 
-  /// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+  /// 8.5.4. Maintenance Windows.
   MaintenanceWindowsSection maintenanceWindows = MaintenanceWindowsSection();
 }
 
 // =============================================================================
-// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC]
+// 8.5.1. Backup and Recovery
 // =============================================================================
 
-/// 8.5.1. Backup and Recovery [PD00-TEC-OPE-BAC].
+/// 8.5.1. Backup and Recovery.
 ///
 /// Backup frequency, retention period, recovery point objective (RPO),
 /// recovery time objective (RTO), and backup verification procedures.
@@ -12043,10 +12044,10 @@ class BackupComplianceLegalHold {
 }
 
 // =============================================================================
-// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP]
+// 8.5.2. Deployment Strategy
 // =============================================================================
 
-/// 8.5.2. Deployment Strategy [PD00-TEC-OPE-DEP].
+/// 8.5.2. Deployment Strategy.
 ///
 /// Deployment model (containerized, VM-based, serverless), deployment pipeline,
 /// rollback strategy, and canary/blue-green deployment requirements.
@@ -12854,10 +12855,10 @@ class DeploymentSecurityAccess {
 }
 
 // =============================================================================
-// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON]
+// 8.5.3. Monitoring and Alerting
 // =============================================================================
 
-/// 8.5.3. Monitoring and Alerting [PD00-TEC-OPE-MON].
+/// 8.5.3. Monitoring and Alerting.
 ///
 /// Monitoring requirements: metrics to collect, alert thresholds, dashboard
 /// requirements, on-call procedures, and escalation paths.
@@ -13815,10 +13816,10 @@ class SlaMonitoringRequirementsReporting {
 }
 
 // =============================================================================
-// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI]
+// 8.5.4. Maintenance Windows
 // =============================================================================
 
-/// 8.5.4. Maintenance Windows [PD00-TEC-OPE-MAI].
+/// 8.5.4. Maintenance Windows.
 ///
 /// Maintenance window requirements: frequency, duration, notification period,
 /// and impact on users.
@@ -14368,7 +14369,7 @@ class PostMaintenanceValidationClosure {
   String? content;
 }
 
-/// 8.6. Communication Requirements [PD00-TEC-COM].
+/// 8.6. Communication Requirements.
 @DetailedIn(ArchitectureTechnologySpecification)
 @SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-COM')
 @ContentHelp('''
@@ -14421,16 +14422,16 @@ Provide an overview of communication architecture and strategy.
 ''')
   String? content;
 
-  /// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+  /// 8.6.1. Protocols and Standards.
   ProtocolsAndStandardsSection protocolsAndStandards =
       ProtocolsAndStandardsSection();
 
-  /// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+  /// 8.6.2. External Connectivity.
   ExternalConnectivitySection externalConnectivity =
       ExternalConnectivitySection();
 }
 
-/// 8.6.1. Protocols and Standards [PD00-TEC-COM-PRO].
+/// 8.6.1. Protocols and Standards.
 @ContentHelp('''
 Specify communication protocols, security standards, and API conventions.
 Standardized protocols ensure interoperability and security.
@@ -14512,7 +14513,7 @@ Provide an overview of protocol and standards approach.
   ProtocolComplianceRequirements compliance = ProtocolComplianceRequirements();
 }
 
-/// A protocol or standard entry (form) [PD00-TEC-COM-PRO-nn].
+/// A protocol or standard entry (form).
 @SectionId('PE')
 class ProtocolEntry {
   @Form([
@@ -15063,7 +15064,7 @@ class ProtocolComplianceRequirementsEvents {
   String? content;
 }
 
-/// 8.6.2. External Connectivity [PD00-TEC-COM-EXT].
+/// 8.6.2. External Connectivity.
 @ContentHelp('''
 Specify requirements for external connectivity including partner
 integrations, cloud services, and third-party APIs. External connections
@@ -15146,7 +15147,7 @@ Provide an overview of external connectivity landscape.
   ConnectivityResilience resilience = ConnectivityResilience();
 }
 
-/// An external partner connection entry (form) [PD00-TEC-COM-EXT-nn].
+/// An external partner connection entry (form).
 @SectionId('EPCE1')
 class ExternalPartnerConnectionEntry {
   @Form([
@@ -15692,7 +15693,7 @@ class ConnectivityResilienceOperations {
   String? content;
 }
 
-/// 8.7. System Operation and Monitoring [PD00-TEC-SYS].
+/// 8.7. System Operation and Monitoring.
 @DetailedIn(ArchitectureTechnologySpecification)
 @SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-SYS')
 @ContentHelp('''
@@ -15745,17 +15746,17 @@ Provide an overview of operational approach and responsibilities.
 ''')
   String? content;
 
-  /// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+  /// 8.7.1. System Operation.
   SystemOperation systemOperation = SystemOperation();
 
-  /// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+  /// 8.7.2. Monitoring.
   Monitoring monitoring = Monitoring();
 
-  /// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+  /// 8.7.3. Capacity Planning.
   CapacityPlanningSection capacityPlanning = CapacityPlanningSection();
 }
 
-/// 8.7.1. System Operation [PD00-TEC-SYS-OPE].
+/// 8.7.1. System Operation.
 @ContentHelp('''
 Specify day-to-day system operation requirements including administration,
 maintenance, and user management. Efficient operations reduce toil and
@@ -15810,7 +15811,7 @@ Provide an overview of system operation approach.
 ''')
   String? content;
 
-  /// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+  /// 8.7.1.1. Administration Requirements.
   AdministrationRequirementsSection administrationRequirements =
       AdministrationRequirementsSection();
 
@@ -15820,7 +15821,7 @@ Provide an overview of system operation approach.
   List<MaintenanceProcedureEntry> maintenanceProcedures = [];
 }
 
-/// 8.7.1.1. Administration Requirements [PD00-TEC-SYS-ADM].
+/// 8.7.1.1. Administration Requirements.
 @ContentHelp('''
 Specify system administration requirements including admin interfaces,
 configuration management, and user provisioning. Good administration
@@ -16310,7 +16311,7 @@ class SystemDiagnosticToolsSelfService {
   String? content;
 }
 
-/// 8.7.2. Monitoring [PD00-TEC-SYS-MON].
+/// 8.7.2. Monitoring.
 ///
 /// Comprehensive monitoring specification covering health checks, alerting,
 /// observability, dashboards, and SLA/SLO tracking.
@@ -16351,20 +16352,20 @@ class Monitoring {
       'selection rationale, and observability goals.')
   TextSection overviewNarrative = TextSection();
 
-  /// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+  /// 8.7.2.1. Health Checks and Diagnostics.
   HealthChecksAndDiagnosticsSection healthChecksAndDiagnostics =
       HealthChecksAndDiagnosticsSection();
 
-  /// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+  /// 8.7.2.2. Alerting Configuration.
   AlertingConfiguration alertingConfiguration = AlertingConfiguration();
 
-  /// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+  /// 8.7.2.3. Metrics and Observability.
   MetricsAndObservability metricsAndObservability = MetricsAndObservability();
 
-  /// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+  /// 8.7.2.4. Monitoring Dashboards.
   MonitoringDashboards dashboards = MonitoringDashboards();
 
-  /// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+  /// 8.7.2.5. SLA and SLO Monitoring.
   SlaAndSloMonitoring slaAndSloMonitoring = SlaAndSloMonitoring();
 }
 
@@ -16372,7 +16373,7 @@ class Monitoring {
 // 8.7.2.2 Alerting Configuration
 // ---------------------------------------------------------------------------
 
-/// 8.7.2.2. Alerting Configuration [PD00-TEC-SYS-MON-ALR].
+/// 8.7.2.2. Alerting Configuration.
 ///
 /// Comprehensive alerting rules, notification channels, and escalation
 /// policies.
@@ -16501,7 +16502,7 @@ class AlertNotificationChannelsFormatting {
   String? content;
 }
 
-/// An alert rule entry [PD00-TEC-SYS-MON-ALR-nn].
+/// An alert rule entry.
 @SectionId('ARE1')
 class AlertRuleEntry {
   @Form([
@@ -16727,7 +16728,7 @@ class OnCallScheduleConfigOperations {
 // 8.7.2.3 Metrics and Observability
 // ---------------------------------------------------------------------------
 
-/// 8.7.2.3. Metrics and Observability [PD00-TEC-SYS-MON-MET].
+/// 8.7.2.3. Metrics and Observability.
 ///
 /// Comprehensive metrics collection, distributed tracing, and observability
 /// requirements.
@@ -17074,7 +17075,7 @@ class DistributedTracingSpecOperations {
   String? content;
 }
 
-/// A custom metric entry [PD00-TEC-SYS-MON-MET-nn].
+/// A custom metric entry.
 @SectionId('CME1')
 class CustomMetricEntry {
   @Form([
@@ -17102,7 +17103,7 @@ class CustomMetricEntry {
 // 8.7.2.4 Monitoring Dashboards
 // ---------------------------------------------------------------------------
 
-/// 8.7.2.4. Monitoring Dashboards [PD00-TEC-SYS-MON-DAS].
+/// 8.7.2.4. Monitoring Dashboards.
 ///
 /// Operational dashboards for system monitoring.
 @SectionId('MODA')
@@ -17148,7 +17149,7 @@ class MonitoringDashboards {
   List<DashboardTemplates> dashboardTemplates = [];
 }
 
-/// A dashboard entry [PD00-TEC-SYS-MON-DAS-nn].
+/// A dashboard entry.
 @SectionId('DE2')
 class DashboardEntry {
   @Form([
@@ -17227,7 +17228,7 @@ class DashboardTemplates {
 // 8.7.2.5 SLA and SLO Monitoring
 // ---------------------------------------------------------------------------
 
-/// 8.7.2.5. SLA and SLO Monitoring [PD00-TEC-SYS-MON-SLA].
+/// 8.7.2.5. SLA and SLO Monitoring.
 ///
 /// Service Level Agreement and Service Level Objective tracking.
 @SectionId('SASM')
@@ -17338,7 +17339,7 @@ class ServiceLevelIndicatorsMeasurement {
   String? content;
 }
 
-/// An SLO entry [PD00-TEC-SYS-MON-SLA-nn].
+/// An SLO entry.
 @SectionId('SE')
 class SloEntry {
   @Form([
@@ -17439,7 +17440,7 @@ class ErrorBudgetTrackingGovernance {
   String? content;
 }
 
-/// 8.7.2.1. Health Checks and Diagnostics [PD00-TEC-SYS-HEA].
+/// 8.7.2.1. Health Checks and Diagnostics.
 @ContentHelp('''
 Specify health check, diagnostics, and troubleshooting requirements.
 Health checks enable rapid problem detection and automated remediation.
@@ -17903,7 +17904,7 @@ class DependencyHealthMonitoringThresholds {
   String? content;
 }
 
-/// 8.7.3. Capacity Planning [PD00-TEC-SYS-CAP].
+/// 8.7.3. Capacity Planning.
 @ContentHelp('''
 Specify capacity planning requirements including growth projections,
 scaling triggers, and resource management. Proactive capacity planning
@@ -18456,7 +18457,7 @@ class CapacityReviewProcessPlanning {
   String? content;
 }
 
-/// 8.8. Security Requirements [PD00-TEC-SEC].
+/// 8.8. Security Requirements.
 @DetailedIn(ArchitectureTechnologySpecification)
 @SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-SEC')
 @ContentHelp('''
@@ -18510,20 +18511,20 @@ Provide an overview of security approach and governance.
 ''')
   String? content;
 
-  /// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+  /// 8.8.1. IT Security Standards.
   ItSecurityStandardsSection itSecurityStandards =
       ItSecurityStandardsSection();
 
-  /// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+  /// 8.8.2. Data Protection and Privacy.
   DataProtectionAndPrivacySection dataProtectionAndPrivacy =
       DataProtectionAndPrivacySection();
 
-  /// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+  /// 8.8.3. Security Audit Requirements.
   SecurityAuditRequirementsSection securityAuditRequirements =
       SecurityAuditRequirementsSection();
 }
 
-/// 8.8.1. IT Security Standards [PD00-TEC-SEC-ITS].
+/// 8.8.1. IT Security Standards.
 @ContentHelp('''
 Specify IT security standards including application security, infrastructure
 security, vulnerability management, and security development practices.
@@ -18613,7 +18614,7 @@ Provide an overview of IT security standards approach.
   IncidentResponsePlan incidentResponse = IncidentResponsePlan();
 }
 
-/// A security standard entry (form) [PD00-TEC-SEC-ITS-nn].
+/// A security standard entry (form).
 @SectionId('SSE')
 class SecurityStandardEntry {
   @Form([
@@ -19060,10 +19061,10 @@ class IncidentResponsePlanPostIncident {
 }
 
 // ---------------------------------------------------------------------------
-// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI]
+// 8.8.2. Data Protection and Privacy
 // ---------------------------------------------------------------------------
 
-/// 8.8.2. Data Protection and Privacy [PD00-TEC-SEC-PRI].
+/// 8.8.2. Data Protection and Privacy.
 ///
 /// Comprehensive data protection and privacy requirements including
 /// GDPR compliance, data residency, consent management, data subject
@@ -19160,7 +19161,7 @@ Provide an overview of data protection and privacy strategy.
       DataProtectionClassification();
 }
 
-/// Privacy regulation compliance requirements [PD00-TEC-SEC-PRI].
+/// Privacy regulation compliance requirements.
 @SectionId('PRRECO')
 class PrivacyRegulationCompliance {
   @Form([
@@ -19254,7 +19255,7 @@ class PrivacyRegulationComplianceTransfers {
   String? content;
 }
 
-/// Data residency and sovereignty requirements [PD00-TEC-SEC-PRI].
+/// Data residency and sovereignty requirements.
 @SectionId('DARERE')
 class DataResidencyRequirements {
   @Form([
@@ -19331,7 +19332,7 @@ class DataResidencyRequirementsVerification {
   String? content;
 }
 
-/// Consent collection, tracking and management requirements [PD00-TEC-SEC-PRI].
+/// Consent collection, tracking and management requirements.
 @SectionId('COMARE')
 class ConsentManagementRequirements {
   @Form([
@@ -19445,7 +19446,7 @@ class ConsentManagementRequirementsCompliance {
   String? content;
 }
 
-/// Data subject rights management [PD00-TEC-SEC-PRI].
+/// Data subject rights management.
 ///
 /// Covers GDPR Articles 15–22: right of access, rectification, erasure,
 /// restriction, portability, objection, and automated decision-making.
@@ -19578,7 +19579,7 @@ class DataSubjectRightsManagementOperations {
   String? content;
 }
 
-/// Privacy impact assessment and DPIA process [PD00-TEC-SEC-PRI].
+/// Privacy impact assessment and DPIA process.
 @SectionId('PIAP')
 class PrivacyImpactAssessmentProcess {
   @Form([
@@ -19669,7 +19670,7 @@ class PrivacyImpactAssessmentProcessReview {
   String? content;
 }
 
-/// Data processing agreement requirements [PD00-TEC-SEC-PRI].
+/// Data processing agreement requirements.
 @SectionId('DPAR')
 class DataProcessingAgreementRequirements {
   @Form([
@@ -19767,7 +19768,7 @@ class DataProcessingAgreementRequirementsTransfers {
   String? content;
 }
 
-/// Data protection classification and handling rules [PD00-TEC-SEC-PRI].
+/// Data protection classification and handling rules.
 ///
 /// Named DataProtectionClassification to avoid collision with
 /// DataClassification in information_and_data_model.dart.
@@ -19867,10 +19868,10 @@ class DataProtectionClassificationIncident {
 }
 
 // ---------------------------------------------------------------------------
-// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD]
+// 8.8.3. Security Audit Requirements
 // ---------------------------------------------------------------------------
 
-/// 8.8.3. Security Audit Requirements [PD00-TEC-SEC-AUD].
+/// 8.8.3. Security Audit Requirements.
 ///
 /// Comprehensive security audit requirements covering penetration testing,
 /// security-focused code review, dependency scanning, security certifications,
@@ -19972,7 +19973,7 @@ Provide an overview of security audit strategy.
   List<SecurityAuditEntry> auditEntries = [];
 }
 
-/// Penetration testing requirements and schedule [PD00-TEC-SEC-AUD].
+/// Penetration testing requirements and schedule.
 @SectionId('PETERE')
 class PenetrationTestingRequirements {
   @Form([
@@ -20055,7 +20056,7 @@ class PenetrationTestingRequirementsReporting {
   String? content;
 }
 
-/// Security-focused code review policy [PD00-TEC-SEC-AUD].
+/// Security-focused code review policy.
 ///
 /// Distinct from CodeReviewProcess (section 8.4) which covers general
 /// development code review. This section focuses specifically on
@@ -20136,7 +20137,7 @@ class SecurityCodeReviewPolicyFindings {
   String? content;
 }
 
-/// Dependency and supply-chain scanning requirements [PD00-TEC-SEC-AUD].
+/// Dependency and supply-chain scanning requirements.
 @SectionId('DESCRE')
 class DependencyScanningRequirements {
   @Form([
@@ -20228,7 +20229,7 @@ class DependencyScanningRequirementsSupplyChain {
   String? content;
 }
 
-/// Security certification and compliance requirements [PD00-TEC-SEC-AUD].
+/// Security certification and compliance requirements.
 @SectionId('SECERE')
 class SecurityCertificationRequirements {
   @Form([
@@ -20318,7 +20319,7 @@ class SecurityCertificationRequirementsMaintenance {
   String? content;
 }
 
-/// Compliance audit planning and scheduling [PD00-TEC-SEC-AUD].
+/// Compliance audit planning and scheduling.
 @SectionId('COAUSC')
 class ComplianceAuditSchedule {
   @Form([
@@ -20394,7 +20395,7 @@ class ComplianceAuditScheduleReporting {
   String? content;
 }
 
-/// Automated security testing integration [PD00-TEC-SEC-AUD].
+/// Automated security testing integration.
 ///
 /// Requirements for SAST, DAST, IAST, and fuzzing integration
 /// into the CI/CD pipeline and development workflow.
@@ -20503,7 +20504,7 @@ class SecurityTestingAutomationGovernance {
   String? content;
 }
 
-/// A security audit requirement entry (form) [PD00-TEC-SEC-AUD-nn].
+/// A security audit requirement entry (form).
 @SectionId('SAE')
 class SecurityAuditEntry {
   @Form([
@@ -20575,13 +20576,13 @@ class SecurityAuditEntryFollowUp {
 }
 
 // ---------------------------------------------------------------------------
-// 8.9 System Architecture [PD00-TEC-ARC]
+// 8.9 System Architecture
 // ---------------------------------------------------------------------------
 
-/// 8.9. System Architecture [PD00-TEC-ARC].
+/// 8.9. System Architecture.
 ///
 /// Detailed internal architecture (layers, packages, patterns). Covers
-/// HBSG AS09-SOF / DR30.
+///
 ///
 /// Class named `SystemArchitectureSpec` to avoid colliding with any other
 /// architecture-related identifier in the model.

@@ -1,4 +1,4 @@
-/// Section 5: Organizational Framework [PD00-ORG].
+/// Section 5: Organizational Framework.
 ///
 /// Organizational changes and structures required for the new system.
 library;
@@ -7,7 +7,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 
 
-/// 5. Organizational Framework [PD00-ORG].
+/// 5. Organizational Framework.
 ///
 /// Organizational changes and structures required for the new system.
 /// Covers organization structure changes, new and changed roles, staffing
@@ -22,15 +22,15 @@ class OrganizationalFramework {
       'design principles, change management approach, and timeline overview.')
   TextSection overview = TextSection();
 
-  /// 5.1. New Organization Structure [PD00-ORG-STR].
+  /// 5.1. New Organization Structure.
   NewOrganizationStructure organizationStructure = NewOrganizationStructure();
 
-  /// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+  /// 5.2. Job Descriptions and Staffing Plans.
   @SectionId('JDAS-JOBD-LST')
   @SectionIdPattern('JDAS-JOBD-xxx')
   List<JobDescriptionsAndStaffing> jobDescriptions = [];
 
-  /// 5.3. Workplace Descriptions [PD00-ORG-WOR] — contains 1+× per user category.
+  /// 5.3. Workplace Descriptions — contains 1+× per user category.
   @SectionId('WPDE-WORK-LST')
   @SectionIdPattern('WPDE-WORK-xxx')
   @Min(1)
@@ -42,7 +42,7 @@ class OrganizationalFramework {
 // 5.1 New Organization Structure
 // ---------------------------------------------------------------------------
 
-/// 5.1. New Organization Structure [PD00-ORG-STR].
+/// 5.1. New Organization Structure.
 ///
 /// Organizational changes required by the new system including new teams,
 /// restructured departments, changed responsibilities, and new communication
@@ -56,16 +56,16 @@ class NewOrganizationStructure {
       'decision-making framework, and expected benefits.')
   TextSection overview = TextSection();
 
-  /// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+  /// 5.1.1. Changes from Current Structure.
   ChangesFromCurrentStructure changesFromCurrentStructure =
       ChangesFromCurrentStructure();
 
-  /// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+  /// 5.1.2. Organizational Transition Timeline.
   OrganizationalTransitionTimeline transitionTimeline =
       OrganizationalTransitionTimeline();
 }
 
-/// 5.1.1. Changes from Current Structure [PD00-ORG-STR-CHA].
+/// 5.1.1. Changes from Current Structure.
 ///
 /// Explicitly documents what changes from the current organization structure.
 /// Identifies affected departments, changed reporting lines, and new roles
@@ -112,7 +112,7 @@ class ChangesFromCurrentStructure {
   List<OrganizationalChangeEntry> items = [];
 }
 
-/// An organizational change entry (form) [PD00-ORG-STR-CHA-nn].
+/// An organizational change entry (form).
 ///
 /// Documents a specific structural change including current state, target
 /// state, rationale, impact assessment, and transition requirements.
@@ -278,7 +278,7 @@ class OrgChangeStatus {
 // 5.1.2 Organizational Transition Timeline
 // ---------------------------------------------------------------------------
 
-/// 5.1.2. Organizational Transition Timeline [PD00-ORG-STR-TIM].
+/// 5.1.2. Organizational Transition Timeline.
 ///
 /// Describes when organizational changes take effect, how the transition is
 /// managed, and what training or communication is needed. Follows change
@@ -366,7 +366,7 @@ class TransitionOverviewGovernance {
   String? content;
 }
 
-/// A transition phase entry [PD00-ORG-STR-TIM-PHA-nn] (form).
+/// A transition phase entry (form).
 ///
 /// Defines a distinct phase in the organizational transition sequence.
 @SectionId('TRPHE')
@@ -494,7 +494,7 @@ class TransitionPhaseExitCriteria {
   String? content;
 }
 
-/// A transition milestone entry [PD00-ORG-STR-TIM-MIL-nn] (form).
+/// A transition milestone entry (form).
 @SectionId('TRMIL')
 class TransitionMilestoneEntry {
   @Form([
@@ -592,7 +592,7 @@ class ChangeReadinessOverview {
   String? content;
 }
 
-/// Readiness criteria entry [PD00-ORG-STR-TIM-RDY-nn] (form).
+/// Readiness criteria entry (form).
 @SectionId('RDRCE')
 class ReadinessCriteriaEntry {
   @Form([
@@ -658,7 +658,7 @@ class TransitionCommunicationStrategy {
   String? content;
 }
 
-/// Communication event entry [PD00-ORG-STR-TIM-COM-nn] (form).
+/// Communication event entry (form).
 @SectionId('COEV')
 class CommunicationEventEntry {
   @Form([
@@ -764,7 +764,7 @@ class TransitionSupportOverview {
   String? content;
 }
 
-/// Support resource entry [PD00-ORG-STR-TIM-SUP-nn] (form).
+/// Support resource entry (form).
 @SectionId('TRSPRE')
 class TransitionSupportResourceEntry {
   @Form([
@@ -836,7 +836,7 @@ class TransitionMetricsOverview {
   String? content;
 }
 
-/// Transition metric entry [PD00-ORG-STR-TIM-MET-nn] (form).
+/// Transition metric entry (form).
 @SectionId('TRME')
 class TransitionMetricEntry {
   @Form([
@@ -881,7 +881,7 @@ class TransitionMetricEntryStatus {
     String? content;
 }
 
-/// Transition risk entry [PD00-ORG-STR-TIM-RSK-nn] (form).
+/// Transition risk entry (form).
 @SectionId('TRRS')
 class TransitionRiskEntry {
   @Form([
@@ -928,7 +928,7 @@ class TransitionRiskEntryResponse {
 // 5.2 Job Descriptions and Staffing Plans
 // ---------------------------------------------------------------------------
 
-/// 5.2. Job Descriptions and Staffing Plans [PD00-ORG-JOB].
+/// 5.2. Job Descriptions and Staffing Plans.
 ///
 /// Documents new and changed roles resulting from the system introduction,
 /// following HR best practices and job analysis methodologies (O*NET, SHRM).
@@ -938,25 +938,25 @@ class JobDescriptionsAndStaffing {
   /// Overview of the job architecture and role design approach.
   JobDescriptionsOverview overview = JobDescriptionsOverview();
 
-  /// 5.2.1. New Roles [PD00-ORG-JOB-NEW] — contains 0+× New Role.
+  /// 5.2.1. New Roles — contains 0+× New Role.
   @SectionId('NWROL-NEWR-LST')
   @SectionIdPattern('NWROL-NEWR-xxx')
   List<NewRoleEntry> newRoles = [];
 
-  /// 5.2.2. Changed Roles [PD00-ORG-JOB-CHA] — contains 0+× Changed Role.
+  /// 5.2.2. Changed Roles — contains 0+× Changed Role.
   @SectionId('CHAROL-CHAN-LST')
   @SectionIdPattern('CHAROL-CHAN-xxx')
   List<ChangedRoleEntry> changedRoles = [];
 
-  /// 5.2.3. Removed Roles [PD00-ORG-JOB-REM] — contains 0+× role being eliminated.
+  /// 5.2.3. Removed Roles — contains 0+× role being eliminated.
   @SectionId('REMROL-REMO-LST')
   @SectionIdPattern('REMROL-REMO-xxx')
   List<RemovedRoleEntry> removedRoles = [];
 
-  /// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+  /// 5.2.4. Staffing Plan.
   StaffingPlan staffingPlan = StaffingPlan();
 
-  /// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+  /// 5.2.5. Competency Framework.
   CompetencyFramework competencyFramework = CompetencyFramework();
 }
 
@@ -985,7 +985,7 @@ class JobDescriptionsOverview {
   String? content;
 }
 
-/// 5.2.4. Staffing Plan [PD00-ORG-JOB-STA].
+/// 5.2.4. Staffing Plan.
 @SectionId('STPL')
 class StaffingPlan {
   /// Staffing plan overview.
@@ -1097,7 +1097,7 @@ class StaffingBudgetGovernance {
   String? content;
 }
 
-/// A staffing entry (form) [PD00-ORG-JOB-STA-nn].
+/// A staffing entry (form).
 ///
 /// Represents one staffing position including role, competency requirements,
 /// sourcing method, budget, timeline, and approval status.
@@ -1216,7 +1216,7 @@ class RecruitmentTimeline {
   String? content;
 }
 
-/// 5.2.5. Competency Framework [PD00-ORG-JOB-CMP].
+/// 5.2.5. Competency Framework.
 @SectionId('COFR')
 class CompetencyFramework {
   /// Framework overview.
@@ -1256,7 +1256,7 @@ class CompetencyFrameworkOverview {
   String? content;
 }
 
-/// A competency entry (form) [PD00-ORG-JOB-CMP-xx-nn].
+/// A competency entry (form).
 @SectionId('COMPE')
 class CompetencyEntry {
   @Form([
@@ -1281,7 +1281,7 @@ class CompetencyEntry {
   String? content;
 }
 
-/// A new role entry [PD00-ORG-JOB-NEW-nn] (form).
+/// A new role entry (form).
 ///
 /// Comprehensive new role definition following HR job analysis best practices.
 /// Includes competencies, responsibilities, system access, and success metrics.
@@ -1366,7 +1366,7 @@ class NewRoleResponsibilities {
   RoleDecisionAuthority decisionAuthority = RoleDecisionAuthority();
 }
 
-/// Detailed responsibility entry [PD00-ORG-JOB-NEW-nn-RSP-nn] (form).
+/// Detailed responsibility entry (form).
 @SectionId('RSPDT')
 class ResponsibilityDetailEntry {
   @Form([
@@ -1466,7 +1466,7 @@ class NewRoleQualificationsScreening {
   String? content;
 }
 
-/// Role competency entry [PD00-ORG-JOB-NEW-nn-CMP-nn] (form).
+/// Role competency entry (form).
 @SectionId('ROLCP')
 class RoleCompetencyEntry {
   @Form([
@@ -1562,7 +1562,7 @@ class NewRoleOnboarding {
   String? content;
 }
 
-/// A changed role entry [PD00-ORG-JOB-CHA-nn] (form).
+/// A changed role entry (form).
 ///
 /// Documents modifications to existing roles with impact assessment,
 /// transition planning, and incumbent management.
@@ -1656,7 +1656,7 @@ class ChangedRoleResponsibilities {
   ResponsibilityImpactSummary impactSummary = ResponsibilityImpactSummary();
 }
 
-/// Responsibility change entry [PD00-ORG-JOB-CHA-nn-xxx-nn] (form).
+/// Responsibility change entry (form).
 @SectionId('RSPCH')
 class ResponsibilityChangeEntry {
   @Form([
@@ -1848,7 +1848,7 @@ class ChangedRoleTransitionSupport {
   String? content;
 }
 
-/// A removed role entry [PD00-ORG-JOB-REM-nn] (form).
+/// A removed role entry (form).
 ///
 /// Documents roles being eliminated with transition planning for incumbents.
 @SectionId('REMROL')
@@ -1914,7 +1914,7 @@ class RemovedRoleEntryContinuity {
   String? content;
 }
 
-/// A responsibility entry (form) [PD00-ORG-JOB-nn-RSP-nn].
+/// A responsibility entry (form).
 @SectionId('ROREEN')
 class RoleResponsibilityEntry {
   @Form([
@@ -1924,7 +1924,7 @@ class RoleResponsibilityEntry {
   String? content;
 }
 
-/// A skill entry (form) [PD00-ORG-JOB-nn-SKL-nn].
+/// A skill entry (form).
 @SectionId('SKEN')
 class SkillEntry {
   @Form([
@@ -1938,7 +1938,7 @@ class SkillEntry {
 // 5.3 Workplace Descriptions
 // ---------------------------------------------------------------------------
 
-/// A workplace description entry [PD00-ORG-WOR-nn] (form, per user category).
+/// A workplace description entry (form, per user category).
 ///
 /// Comprehensive workplace requirements following workplace design best
 /// practices (OSHA, ISO 9001, ergonomic standards). Covers physical,
@@ -1953,13 +1953,13 @@ class WorkplaceDescriptionEntry {
   PhysicalWorkplaceRequirements physicalRequirements =
       PhysicalWorkplaceRequirements();
 
-  /// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+  /// 5.3.1. Equipment Requirements.
   EquipmentRequirements equipmentRequirements = EquipmentRequirements();
 
   /// Technical infrastructure requirements.
   TechnicalInfrastructure technicalInfrastructure = TechnicalInfrastructure();
 
-  /// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+  /// 5.3.2. Training Requirements.
   TrainingRequirements trainingRequirements = TrainingRequirements();
 
   /// Support resources available to users.
@@ -2044,7 +2044,7 @@ class PhysicalWorkplaceRequirementsUsage {
   String? content;
 }
 
-/// 5.3.1. Equipment Requirements [PD00-ORG-WOR-EQU].
+/// 5.3.1. Equipment Requirements.
 ///
 /// Hardware and peripheral requirements per workplace type.
 @SectionId('EQRE')
@@ -2105,7 +2105,7 @@ class EquipmentOverview {
   String? content;
 }
 
-/// Computing equipment entry (form) [PD00-ORG-WOR-nn-EQU-PRI-nn].
+/// Computing equipment entry (form).
 @SectionId('COEQ')
 class ComputingEquipmentEntry {
   @Form([
@@ -2166,7 +2166,7 @@ class ComputingEquipmentEntryPlanning {
     String? content;
 }
 
-/// Display equipment entry (form) [PD00-ORG-WOR-nn-EQU-DSP-nn].
+/// Display equipment entry (form).
 @SectionId('DSEQ')
 class DisplayEquipmentEntry {
   @Form([
@@ -2226,7 +2226,7 @@ class DisplayEquipmentEntryPlanning {
     String? content;
 }
 
-/// Input device entry (form) [PD00-ORG-WOR-nn-EQU-INP-nn].
+/// Input device entry (form).
 @SectionId('IDE')
 class InputDeviceEntry {
   @Form([
@@ -2247,7 +2247,7 @@ class InputDeviceEntry {
   String? content;
 }
 
-/// Peripheral equipment entry (form) [PD00-ORG-WOR-nn-EQU-PER-nn].
+/// Peripheral equipment entry (form).
 @SectionId('PEREQ')
 class PeripheralEquipmentEntry {
   @Form([
@@ -2267,7 +2267,7 @@ class PeripheralEquipmentEntry {
   String? content;
 }
 
-/// Mobile device entry (form) [PD00-ORG-WOR-nn-EQU-MOB-nn].
+/// Mobile device entry (form).
 @SectionId('MOBDE')
 class MobileDeviceEntry {
   @Form([
@@ -2315,7 +2315,7 @@ class MobileDeviceEntryPlanning {
     String? content;
 }
 
-/// Specialized equipment entry (form) [PD00-ORG-WOR-nn-EQU-SPE-nn].
+/// Specialized equipment entry (form).
 @SectionId('SPEQ')
 class SpecializedEquipmentEntry {
   @Form([
@@ -2516,7 +2516,7 @@ class CommunicationToolsRequirements {
   String? content;
 }
 
-/// 5.3.2. Training Requirements [PD00-ORG-WOR-TRA].
+/// 5.3.2. Training Requirements.
 ///
 /// Comprehensive training program requirements following adult learning
 /// principles (ADDIE, Kirkpatrick evaluation model).
@@ -2580,7 +2580,7 @@ class TrainingOverview {
   String? content;
 }
 
-/// Initial training entry (form) [PD00-ORG-WOR-nn-TRA-INI-nn].
+/// Initial training entry (form).
 @SectionId('ITE')
 class InitialTrainingEntry {
   @Form([
@@ -2678,7 +2678,7 @@ class InitialTrainingAssessment {
   String? content;
 }
 
-/// Ongoing training entry (form) [PD00-ORG-WOR-nn-TRA-ONG-nn].
+/// Ongoing training entry (form).
 @SectionId('ONGTR')
 class OngoingTrainingEntry {
   @Form([
@@ -2745,7 +2745,7 @@ class OngoingTrainingEntryCompliance {
   String? content;
 }
 
-/// System training entry (form) [PD00-ORG-WOR-nn-TRA-SYS-nn].
+/// System training entry (form).
 @SectionId('SYTR')
 class SystemTrainingEntry {
   @Form([
@@ -2814,7 +2814,7 @@ class SystemTrainingEntrySupport {
   String? content;
 }
 
-/// Certification entry (form) [PD00-ORG-WOR-nn-TRA-CER-nn].
+/// Certification entry (form).
 @SectionId('CRT')
 class CertificationEntry {
   @Form([

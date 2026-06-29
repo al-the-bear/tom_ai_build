@@ -1,8 +1,7 @@
 /// UC — Use Cases.
 ///
-/// Phase 3 DocSpec root class. Aggregates 7 top-level sections from
-/// PD00-TAR-STP (single seed, flattened) per §5.4 of
-/// second_wave_documents.md.
+/// Phase 3 DocSpec root class. Aggregates 7 top-level sections projected
+/// (flattened) from the Solution Blueprint target-process-step sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -19,7 +18,7 @@ import '../solution_blueprint/solution_blueprint.dart';
   name: 'Interaction Scenarios',
   description: 'Use cases derived from the target process steps and actor '
       'interactions — catalog, scenarios, diagrams, end-to-end test '
-      'scenarios (HBSG AS24), and traceability.',
+      'scenarios, and traceability.',
   basedOn: [SolutionBlueprint],
 )
 @SectionId('ISC')
@@ -30,27 +29,27 @@ class InteractionScenarios {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  /// Process steps overview — PD00-TAR-STP-OVE.
+  /// Process steps overview.
   ProcessStepsOverview processStepsOverview = ProcessStepsOverview();
 
-  /// Actor overview — PD00-TAR-STP-ACT.
+  /// Actor overview.
   ActorOverview actorOverview = ActorOverview();
 
-  /// Interaction catalog — PD00-TAR-STP-INT.
+  /// Interaction catalog.
   InteractionCatalog interactionCatalog = InteractionCatalog();
 
-  /// Key scenarios — PD00-TAR-STP-SCE.
+  /// Key scenarios.
   KeyScenarios keyScenarios = KeyScenarios();
 
-  /// Actor relationship diagram — PD00-TAR-STP-DIA.
+  /// Actor relationship diagram.
   ActorRelationshipDiagram actorRelationshipDiagram =
       ActorRelationshipDiagram();
 
-  /// End-to-end test scenarios — PD00-TAR-STP-E2E (covers HBSG AS24).
+  /// End-to-end test scenarios.
   @SectionId('ETETS-ENDT-LST')
   @SectionIdPattern('ETETS-ENDT-xxx')
   List<EndToEndTestScenarios> endToEndTestScenarios = [];
 
-  /// Use case traceability — PD00-TAR-STP-TRC.
+  /// Use case traceability.
   UseCaseTraceability useCaseTraceability = UseCaseTraceability();
 }

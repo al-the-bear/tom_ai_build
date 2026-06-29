@@ -1,4 +1,4 @@
-/// Section 14: Delivery Scope and Acceptance [PD00-DEL].
+/// Section 14: Delivery Scope and Acceptance.
 ///
 /// Agreements regarding delivery scope and acceptance for the system.
 library;
@@ -9,7 +9,7 @@ import '../document_stubs.dart';
 
 
 
-/// 14. Delivery Scope and Acceptance [PD00-DEL].
+/// 14. Delivery Scope and Acceptance.
 @SectionId('DLVA')
 class DeliveryScopeAndAcceptance {
   @ContentHelp('''
@@ -26,15 +26,15 @@ and contractually precise.
 ''')
   String? content;
 
-  /// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+  /// 14.1. Delivery and Service Scope.
   DeliveryScope deliveryScope = DeliveryScope();
 
-  /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+  /// 14.2. Acceptance Plan. Seeds → BQP.
   @Comment('Seeds → BQP')
   AcceptancePlan acceptancePlan = AcceptancePlan();
 }
 
-/// 14.1. Delivery and Service Scope [PD00-DEL-DEL].
+/// 14.1. Delivery and Service Scope.
 @SectionId('DLVSC')
 class DeliveryScope {
   @ContentHelp('''
@@ -50,20 +50,20 @@ commitments.
 ''')
   String? content;
 
-  /// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+  /// 14.1.1. Software Deliverables.
   SoftwareDeliverables softwareDeliverables = SoftwareDeliverables();
 
-  /// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+  /// 14.1.2. Documentation Deliverables.
   DocumentationDeliverables documentationDeliverables = DocumentationDeliverables();
 
-  /// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+  /// 14.1.3. Training Deliverables.
   TrainingDeliverables trainingDeliverables = TrainingDeliverables();
 
-  /// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+  /// 14.1.4. Support Deliverables.
   SupportDeliverables supportDeliverables = SupportDeliverables();
 }
 
-/// 14.1.1. Software Deliverables [PD00-DEL-DEL-SOF].
+/// 14.1.1. Software Deliverables.
 @SectionId('SWDLV')
 class SoftwareDeliverables {
   @ContentHelp('''
@@ -83,7 +83,7 @@ configuration files, deployment artifacts. Define for each:
   List<DeliverableEntry> items = [];
 }
 
-/// 14.1.2. Documentation Deliverables [PD00-DEL-DEL-DOC].
+/// 14.1.2. Documentation Deliverables.
 @SectionId('DCDLV')
 class DocumentationDeliverables {
   @ContentHelp('''
@@ -100,7 +100,7 @@ delivery channel, language(s), and maintenance responsibility post-delivery.
   List<DeliverableEntry> items = [];
 }
 
-/// 14.1.3. Training Deliverables [PD00-DEL-DEL-TRA].
+/// 14.1.3. Training Deliverables.
 @SectionId('TRDLV')
 class TrainingDeliverables {
   @ContentHelp('''
@@ -117,7 +117,7 @@ assessment criteria, and ongoing refresh schedule.
   List<DeliverableEntry> items = [];
 }
 
-/// 14.1.4. Support Deliverables [PD00-DEL-DEL-SUP].
+/// 14.1.4. Support Deliverables.
 @SectionId('SPDLV')
 class SupportDeliverables {
   @ContentHelp('''
@@ -134,7 +134,7 @@ response times, coverage period, and handover criteria.
   List<DeliverableEntry> items = [];
 }
 
-/// A deliverable entry (form) [PD00-DEL-DEL-nn].
+/// A deliverable entry (form).
 ///
 /// Represents a single deliverable item within any deliverable category.
 /// Captures identification, delivery logistics, quality requirements,
@@ -296,7 +296,7 @@ class DeliverableDocumentation {
   String? content;
 }
 
-/// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
+/// 14.2. Acceptance Plan. Seeds → BQP.
 @SectionId('ACPLN')
 @Comment('Seeds → BQP')
 @MapsTo(QualityAcceptancePlan)
@@ -316,26 +316,26 @@ All criteria must be objectively measurable and verifiable.
 ''')
   String? content;
 
-  /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+  /// 14.2.1. Acceptance Criteria.
   AcceptanceCriteriaList acceptanceCriteria = AcceptanceCriteriaList();
 
-  /// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+  /// 14.2.2. Acceptance Process.
   AcceptanceProcess acceptanceProcess = AcceptanceProcess();
 
-  /// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+  /// 14.2.3. User Acceptance Testing.
   UserAcceptanceTesting userAcceptanceTesting = UserAcceptanceTesting();
 
-  /// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+  /// 14.2.4. Defect Resolution.
   DefectResolution defectResolution = DefectResolution();
 
-  /// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+  /// 14.2.5. Sign-off Process.
   SignOffProcess signOffProcess = SignOffProcess();
 
-  /// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+  /// 14.2.6. Warranty.
   WarrantyTerms warranty = WarrantyTerms();
 }
 
-/// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
+/// 14.2.1. Acceptance Criteria.
 @SectionId('ACRITL')
 @DetailedIn(QualityAcceptancePlan)
 @SecondLevelSectionId(QualityAcceptancePlan, 'BQP-CRI')
@@ -357,7 +357,7 @@ Each criterion must be:
   List<DeliveryAcceptanceCriterionEntry> items = [];
 }
 
-/// An acceptance criterion entry (form) [PD00-DEL-ACC-CRI-nn].
+/// An acceptance criterion entry (form).
 ///
 /// A single criterion that must be met for formal project acceptance.
 /// Aligned with IEEE 830 acceptance criteria structure and ISTQB
@@ -475,7 +475,7 @@ class DeliveryAcceptanceCriterionEntryStatus {
   String? content;
 }
 
-/// 14.2.2. Acceptance Process [PD00-DEL-ACC-PRO].
+/// 14.2.2. Acceptance Process.
 ///
 /// Defines the formal acceptance workflow from test initiation through
 /// final sign-off. Covers roles, responsibilities, timelines, escalation,
@@ -616,7 +616,7 @@ class AcceptanceProcessDocumentation {
   String? content;
 }
 
-/// An acceptance step entry (form) [PD00-DEL-ACC-PRO-nn].
+/// An acceptance step entry (form).
 ///
 /// A single step in the formal acceptance workflow, with entry/exit
 /// conditions, responsible parties, and outputs.
@@ -674,7 +674,7 @@ class AcceptanceStepEntryOutcome {
   String? content;
 }
 
-/// 14.2.3. User Acceptance Testing [PD00-DEL-ACC-UAT].
+/// 14.2.3. User Acceptance Testing.
 ///
 /// Comprehensive UAT planning covering scope, environment, test data,
 /// governance, scheduling, defect management, reporting, non-functional
@@ -923,7 +923,7 @@ class UatTraining {
   String? content;
 }
 
-/// A UAT test cycle entry [PD00-DEL-ACC-UAT-CYC-nn].
+/// A UAT test cycle entry.
 ///
 /// Represents a distinct test execution round — e.g. Cycle 1 (initial),
 /// Cycle 2 (regression/retest). Each cycle defines scope, dates, entry/exit
@@ -983,7 +983,7 @@ class UatTestCycleEntryExecution {
   String? content;
 }
 
-/// A test scenario entry (form) [PD00-DEL-ACC-UAT-nn].
+/// A test scenario entry (form).
 ///
 /// Represents a business-level test case covering a user journey, business
 /// process, or acceptance criterion. Includes full traceability, preconditions,
@@ -1138,7 +1138,7 @@ class TestScenarioNotes {
   String? content;
 }
 
-/// A UAT test step entry [PD00-DEL-ACC-UAT-nn-STP-mm].
+/// A UAT test step entry.
 ///
 /// Individual step within a test scenario. Captures the action, input data,
 /// expected result, and pass criteria at fine-grained level per IEEE 829
@@ -1171,7 +1171,7 @@ class UatTestStepEntry {
 // 14.2.4. Defect Resolution
 // ═══════════════════════════════════════════════════════════════════════════
 
-/// 14.2.4. Defect Resolution [PD00-DEL-ACC-DEF].
+/// 14.2.4. Defect Resolution.
 ///
 /// Defines how defects found during acceptance testing are classified,
 /// managed, resolved, and tracked. Covers severity classification,
@@ -1302,7 +1302,7 @@ class DefectResolutionReporting {
 // 14.2.5. Sign-off Process
 // ═══════════════════════════════════════════════════════════════════════════
 
-/// 14.2.5. Sign-off Process [PD00-DEL-ACC-SIG].
+/// 14.2.5. Sign-off Process.
 ///
 /// Formal sign-off process: who signs off (business acceptance board,
 /// technical acceptance board), what documents are signed, legal and
@@ -1453,7 +1453,7 @@ class SignOffProcessTimeline {
 // 14.2.6. Warranty
 // ═══════════════════════════════════════════════════════════════════════════
 
-/// 14.2.6. Warranty [PD00-DEL-ACC-WAR].
+/// 14.2.6. Warranty.
 ///
 /// Post-acceptance warranty terms: duration, scope, service levels,
 /// exclusions, and transition to standard support.

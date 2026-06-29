@@ -1,4 +1,4 @@
-/// Section 10: User Interface Design and Prototype [PD00-USE].
+/// Section 10: User Interface Design and Prototype.
 ///
 /// Seeds → UP, SR, TR depending on subsection.
 library;
@@ -9,7 +9,7 @@ import '../document_stubs.dart';
 
 
 
-/// 10. User Interface Design and Prototype [PD00-USE]. Seeds → UP.
+/// 10. User Interface Design and Prototype. Seeds → UP.
 @SectionId('UIDI')
 @Comment('Seeds → UP')
 class ExperienceAndInterfaceDesign {
@@ -60,16 +60,16 @@ to pixel-perfect designs with exact typography and spacing.
 ''')
   String? content;
 
-  /// 10.1. Design Vision [PD00-USE-VIS]. Seeds → UP.
+  /// 10.1. Design Vision. Seeds → UP.
   DesignVision designVision = DesignVision();
 
-  /// 10.2. Screen Descriptions [PD00-USE-SCR]. Seeds → UP.
+  /// 10.2. Screen Descriptions. Seeds → UP.
   ScreenDescriptions screens = ScreenDescriptions();
 
-  /// 10.3. Screen Flow Structure [PD00-USE-SCF]. Seeds → UP.
+  /// 10.3. Screen Flow Structure. Seeds → UP.
   ScreenFlowStructure screenFlow = ScreenFlowStructure();
 
-  /// 10.4. Print Layout [PD00-USE-PRI]. Seeds → UP.
+  /// 10.4. Print Layout. Seeds → UP.
   PrintLayout printLayout = PrintLayout();
 
   /// Data Structure Alignment.
@@ -78,28 +78,28 @@ to pixel-perfect designs with exact typography and spacing.
   /// Authorization Compliance.
   TextSection authorizationCompliance = TextSection();
 
-  /// 10.7. Error Handling Concept [PD00-USE-ERR]. Seeds → UP.
+  /// 10.7. Error Handling Concept. Seeds → UP.
   ErrorHandlingConcept errorHandling = ErrorHandlingConcept();
 
-  /// 10.8. Help Concept [PD00-USE-HLP]. Seeds → UP.
+  /// 10.8. Help Concept. Seeds → UP.
   HelpConcept helpConcept = HelpConcept();
 
-  /// 10.9. Accessibility [PD00-USE-ACC]. Seeds → UP.
+  /// 10.9. Accessibility. Seeds → UP.
   Accessibility accessibility = Accessibility();
 
-  /// 10.10. Responsive Design [PD00-USE-RES]. Seeds → UP.
+  /// 10.10. Responsive Design. Seeds → UP.
   ResponsiveDesign responsiveDesign = ResponsiveDesign();
 
-  /// 10.11. UI Components [PD00-USE-COM]. Seeds → UP.
+  /// 10.11. UI Components. Seeds → UP.
   UiComponents uiComponents = UiComponents();
 
-  /// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+  /// 10.12. Multi-language and Rollout Support.
   MultiLanguageAndRollout multiLanguage = MultiLanguageAndRollout();
 
-  /// 10.13. Prototype [PD00-USE-PRO]. Seeds → UP.
+  /// 10.13. Prototype. Seeds → UP.
   Prototype prototype = Prototype();
 
-  /// 10.14. Wireframes and Mockups [PD00-USE-WIR]. Covers HBSG AS10-WIR.
+  /// 10.14. Wireframes and Mockups..
   @SectionId('WIANMO-WIRE-LST')
   @SectionIdPattern('WIANMO-WIRE-xxx')
   List<WireframesAndMockups> wireframesAndMockups = [];
@@ -109,7 +109,7 @@ to pixel-perfect designs with exact typography and spacing.
 // 10.1 Design Vision
 // ---------------------------------------------------------------------------
 
-/// 10.1. Design Vision [PD00-USE-VIS].
+/// 10.1. Design Vision.
 ///
 /// Overall design vision for the user interface, encompassing goals,
 /// principles, and user personas that guide all UI decisions.
@@ -141,13 +141,13 @@ library will be configured and extended to express this vision.
 ''')
   String? content;
 
-  /// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+  /// 10.1.1. Design Goals.
   DesignGoals designGoals = DesignGoals();
 
-  /// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+  /// 10.1.2. Design Principles.
   DesignPrinciples designPrinciples = DesignPrinciples();
 
-  /// 10.1.3. User Personas [PD00-USE-VIS-PER].
+  /// 10.1.3. User Personas.
   UserPersonas personas = UserPersonas();
 }
 
@@ -155,7 +155,7 @@ library will be configured and extended to express this vision.
 // 10.1.1 Design Goals
 // ---------------------------------------------------------------------------
 
-/// 10.1.1. Design Goals [PD00-USE-VIS-GOA].
+/// 10.1.1. Design Goals.
 ///
 /// Primary design objectives that the UI must achieve: simplicity, efficiency,
 /// accessibility, consistency, delight. Goals are prioritized for the project.
@@ -194,7 +194,7 @@ accessibility goals → semantic labels and focus management.
   List<DesignGoalEntry> items = [];
 }
 
-/// A design goal entry (form) [PD00-USE-VIS-GOA-nn].
+/// A design goal entry (form).
 ///
 /// Each goal represents a measurable UI objective with success criteria.
 @SectionId('DGOEN')
@@ -221,7 +221,7 @@ class DesignGoalEntry {
 // 10.1.2 Design Principles
 // ---------------------------------------------------------------------------
 
-/// 10.1.2. Design Principles [PD00-USE-VIS-PRI].
+/// 10.1.2. Design Principles.
 ///
 /// Guiding principles for all UI decisions: progressive disclosure, direct
 /// manipulation, feedback, consistency, error prevention.
@@ -263,7 +263,7 @@ Principles configure shared behaviors:
   List<UiDesignPrincipleEntry> items = [];
 }
 
-/// A design principle entry (form) [PD00-USE-VIS-PRI-nn].
+/// A design principle entry (form).
 ///
 /// Each principle guides UI decisions with rationale and examples.
 @SectionId('UDPEN')
@@ -292,7 +292,7 @@ class UiDesignPrincipleEntry {
 // 10.1.3 User Personas
 // ---------------------------------------------------------------------------
 
-/// 10.1.3. User Personas [PD00-USE-VIS-PER].
+/// 10.1.3. User Personas.
 ///
 /// Container for user persona definitions. Each persona represents a distinct
 /// user archetype with goals, pain points, and context.
@@ -336,7 +336,7 @@ Personas inform:
   List<PersonaEntry> items = [];
 }
 
-/// A user persona entry [PD00-USE-VIS-PER-nn] (form).
+/// A user persona entry (form).
 ///
 /// Represents a distinct user archetype with detailed context for UI design.
 @SectionId('PEREN')
@@ -360,13 +360,13 @@ class PersonaEntry {
   /// Motivations, frustrations, and success markers.
   PersonaEntryNeeds needs = PersonaEntryNeeds();
 
-  /// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+  /// 10.1.3.n.1. Persona Goals.
   PersonaGoals goals = PersonaGoals();
 
-  /// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+  /// 10.1.3.n.2. Persona Pain Points.
   PersonaPainPoints painPoints = PersonaPainPoints();
 
-  /// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+  /// 10.1.3.n.3. Persona Scenarios.
   PersonaScenarios scenarios = PersonaScenarios();
 }
 
@@ -416,7 +416,7 @@ class PersonaEntryNeeds {
     String? content;
 }
 
-/// 10.1.3.n.1. Persona Goals [PD00-USE-VIS-PER-nn-GOA].
+/// 10.1.3.n.1. Persona Goals.
 @SectionId('PERGL')
 class PersonaGoals {
   @ContentHelp('''
@@ -442,7 +442,7 @@ High-priority goals drive primary screen actions and dashboard widgets.
   List<PersonaGoalEntry> items = [];
 }
 
-/// A persona goal entry (form) [PD00-USE-VIS-PER-nn-GOA-mm].
+/// A persona goal entry (form).
 @SectionId('PGOEN')
 class PersonaGoalEntry {
   @Form([
@@ -459,7 +459,7 @@ class PersonaGoalEntry {
   String? content;
 }
 
-/// 10.1.3.n.2. Persona Pain Points [PD00-USE-VIS-PER-nn-PAI].
+/// 10.1.3.n.2. Persona Pain Points.
 @SectionId('PEPPT')
 class PersonaPainPoints {
   @ContentHelp('''
@@ -489,7 +489,7 @@ High-severity pain points become design priorities:
   List<PersonaPainPointEntry> items = [];
 }
 
-/// A pain point entry (form) [PD00-USE-VIS-PER-nn-PAI-mm].
+/// A pain point entry (form).
 @SectionId('PPPEN')
 class PersonaPainPointEntry {
   @Form([
@@ -508,7 +508,7 @@ class PersonaPainPointEntry {
   String? content;
 }
 
-/// 10.1.3.n.3. Persona Scenarios [PD00-USE-VIS-PER-nn-SCE].
+/// 10.1.3.n.3. Persona Scenarios.
 ///
 /// Key usage scenarios for this persona — helps map personas to screens/flows.
 @SectionId('PERSC')
@@ -540,7 +540,7 @@ Scenarios link to:
   List<PersonaScenarioEntry> items = [];
 }
 
-/// A persona scenario entry (form) [PD00-USE-VIS-PER-nn-SCE-mm].
+/// A persona scenario entry (form).
 @SectionId('PSCEN')
 class PersonaScenarioEntry {
   @Form([
@@ -565,7 +565,7 @@ class PersonaScenarioEntry {
 // 10.2 Screen Descriptions
 // ---------------------------------------------------------------------------
 
-/// 10.2. Screen Descriptions [PD00-USE-SCR].
+/// 10.2. Screen Descriptions.
 @SectionId('SCRDZ')
 @MapsTo(ExperienceDesignSpecification)
 @DetailedIn(ExperienceDesignSpecification)
@@ -598,10 +598,10 @@ Each screen should have enough detail to generate:
 ''')
   String? content;
 
-  /// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+  /// 10.2.1. Screen Inventory.
   ScreenInventory screenInventory = ScreenInventory();
 
-  /// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+  /// 10.2.2. Information Architecture.
   InformationArchitecture informationArchitecture = InformationArchitecture();
 }
 
@@ -609,7 +609,7 @@ Each screen should have enough detail to generate:
 // 10.2.1 Screen Inventory
 // ---------------------------------------------------------------------------
 
-/// 10.2.1. Screen Inventory [PD00-USE-SCR-INV].
+/// 10.2.1. Screen Inventory.
 ///
 /// Container for screen definitions. Each entry fully describes one application
 /// screen including its purpose, layout zones, elements, actions, and states.
@@ -658,7 +658,7 @@ Screens generate TomScaffold configurations with:
   List<ScreenEntry> items = [];
 }
 
-/// A screen entry [PD00-USE-SCR-INV-nn] (form).
+/// A screen entry (form).
 ///
 /// Comprehensive specification of a single application screen, covering
 /// identity, purpose, authorization, layout, elements, and behavior.
@@ -689,13 +689,13 @@ class ScreenEntry {
   /// Screen design rationale and notes.
   TextSection designNotes = TextSection();
 
-  /// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+  /// 10.2.1.n.1. Screen Sections.
   ScreenSections sections = ScreenSections();
 
-  /// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+  /// 10.2.1.n.2. Screen Actions.
   ScreenActions actions = ScreenActions();
 
-  /// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+  /// 10.2.1.n.3. Screen States.
   ScreenStates states = ScreenStates();
 
   /// Contains 0+× ScreenUserCategory.
@@ -784,7 +784,7 @@ class ScreenEntryPresentation {
 // 10.2.1.n.1 Screen Sections (Zones)
 // ---------------------------------------------------------------------------
 
-/// 10.2.1.n.1. Screen Sections [PD00-USE-SCR-INV-nn-SEC].
+/// 10.2.1.n.1. Screen Sections.
 ///
 /// Logical zones within a screen that group related elements.
 @SectionId('SCSE')
@@ -823,7 +823,7 @@ Sections map to Flutter layout widgets:
   List<ScreenSectionEntry> items = [];
 }
 
-/// A screen section entry (form) [PD00-USE-SCR-INV-nn-SEC-mm].
+/// A screen section entry (form).
 ///
 /// A logical zone within a screen: header, toolbar, content area, sidebar, etc.
 @SectionId('SCRSC')
@@ -883,7 +883,7 @@ class ScreenSectionEntryBehavior {
     String? content;
 }
 
-/// A screen element entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk].
+/// A screen element entry (form).
 ///
 /// Any interactive or display element within a screen section: buttons, fields,
 /// data displays, icons, labels, status indicators.
@@ -915,13 +915,13 @@ class ScreenElementEntry {
   ScreenElementEntryPresentation presentation =
       ScreenElementEntryPresentation();
 
-  /// 10.2.1.n.m.k.1. Element Action [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-ACN].
+  /// 10.2.1.n.m.k.1. Element Action.
   ScreenElementAction? elementAction;
 
-  /// 10.2.1.n.m.k.2. Element Field Spec [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-FLD].
+  /// 10.2.1.n.m.k.2. Element Field Spec.
   ScreenElementFieldSpec? fieldSpec;
 
-  /// 10.2.1.n.m.k.3. Element Data Display [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-DAT].
+  /// 10.2.1.n.m.k.3. Element Data Display.
   ScreenElementDataDisplay? dataDisplay;
 
   /// Contains 0+× ElementValidationRule.
@@ -1220,7 +1220,7 @@ class ScreenElementDataDisplayOptions {
   String? content;
 }
 
-/// A validation rule entry (form) [PD00-USE-SCR-INV-nn-SEC-mm-ELE-kk-VAL-pp].
+/// A validation rule entry (form).
 @SectionId('EVRE1')
 class ElementValidationRuleEntry {
   @Form([
@@ -1244,7 +1244,7 @@ class ElementValidationRuleEntry {
 // 10.2.1.n.2 Screen Actions
 // ---------------------------------------------------------------------------
 
-/// 10.2.1.n.2. Screen Actions [PD00-USE-SCR-INV-nn-ACT].
+/// 10.2.1.n.2. Screen Actions.
 ///
 /// Top-level actions available on the screen (toolbar, app bar, FAB).
 @SectionId('SCAC')
@@ -1276,7 +1276,7 @@ Actions integrate with `TomAction` system:
   List<ScreenActionEntry> items = [];
 }
 
-/// A screen action entry (form) [PD00-USE-SCR-INV-nn-ACT-mm].
+/// A screen action entry (form).
 ///
 /// A top-level action available on the screen via toolbar, app bar, or FAB.
 @SectionId('SCRAC')
@@ -1354,7 +1354,7 @@ class ScreenActionEntryBehavior {
 // 10.2.1.n.3 Screen States
 // ---------------------------------------------------------------------------
 
-/// 10.2.1.n.3. Screen States [PD00-USE-SCR-INV-nn-STA].
+/// 10.2.1.n.3. Screen States.
 ///
 /// Different visual/behavioral states the screen can be in.
 @SectionId('SCST')
@@ -1392,7 +1392,7 @@ empty states, and error displays.
   List<ScreenStateEntry> items = [];
 }
 
-/// A screen state entry (form) [PD00-USE-SCR-INV-nn-STA-mm].
+/// A screen state entry (form).
 ///
 /// A specific state the screen can be in: loading, empty, error, permission-denied.
 @SectionId('SCRST')
@@ -1419,7 +1419,7 @@ class ScreenStateEntry {
   String? content;
 }
 
-/// A user category entry (form) [PD00-USE-SCR-INV-nn-UCT-mm].
+/// A user category entry (form).
 @SectionId('SUCE')
 class ScreenUserCategoryEntry {
   @Form([
@@ -1432,7 +1432,7 @@ class ScreenUserCategoryEntry {
   String? content;
 }
 
-/// An entry point entry (form) [PD00-USE-SCR-INV-nn-EPT-mm].
+/// An entry point entry (form).
 @SectionId('EPNT')
 class EntryPointEntry {
   @Form([
@@ -1446,7 +1446,7 @@ class EntryPointEntry {
   String? content;
 }
 
-/// A responsive rule entry (form) [PD00-USE-SCR-INV-nn-RSP-mm].
+/// A responsive rule entry (form).
 ///
 /// How the screen adapts at different breakpoints.
 @SectionId('SRRE1')
@@ -1470,7 +1470,7 @@ class ScreenResponsiveRuleEntry {
 // 10.2.2 Information Architecture
 // ---------------------------------------------------------------------------
 
-/// 10.2.2. Information Architecture [PD00-USE-SCR-INF].
+/// 10.2.2. Information Architecture.
 ///
 /// Overall information architecture: site map, content hierarchy, navigation
 /// structure, and entry points. Describes how screens relate to each other
@@ -1511,7 +1511,7 @@ Overall content organization and navigation structure.
   @SectionIdPattern('GLOBA-GLOB-xxx')
   List<GlobalEntryPointEntry> globalEntryPoints = [];
 
-  /// 10.2.2.5. Information Architecture Diagram [PD00-USE-SCR-INF-DIA].
+  /// 10.2.2.5. Information Architecture Diagram.
   FlowDiagramSection architectureDiagram = FlowDiagramSection();
 }
 
@@ -1519,7 +1519,7 @@ Overall content organization and navigation structure.
 // 10.3 Screen Flow Structure
 // ---------------------------------------------------------------------------
 
-/// 10.3. Screen Flow Structure [PD00-USE-SCF].
+/// 10.3. Screen Flow Structure.
 @SectionId('SCFLST')
 @MapsTo(ExperienceDesignSpecification)
 @DetailedIn(ExperienceDesignSpecification)
@@ -1543,10 +1543,10 @@ Screen flow drives:
 ''')
   String? content;
 
-  /// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+  /// 10.3.1. Navigation Model.
   NavigationModel navigationModel = NavigationModel();
 
-  /// 10.3.2. Screen Flow Diagram [PD00-USE-SCF-DIA] (mermaid-flow).
+  /// 10.3.2. Screen Flow Diagram (mermaid-flow).
   FlowDiagramSection screenFlowDiagram = FlowDiagramSection();
 }
 
@@ -1554,7 +1554,7 @@ Screen flow drives:
 // 10.3.1 Navigation Model
 // ---------------------------------------------------------------------------
 
-/// 10.3.1. Navigation Model [PD00-USE-SCF-NAV].
+/// 10.3.1. Navigation Model.
 ///
 /// Comprehensive navigation structure: primary, secondary, utility, contextual
 /// navigation, deep linking, navigation guards, and platform adaptation.
@@ -1583,28 +1583,28 @@ Navigation model generates:
 ''')
   String? content;
 
-  /// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+  /// 10.3.1.1. Navigation Overview.
   NavigationOverview overview = NavigationOverview();
 
-  /// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+  /// 10.3.1.2. Navigation Hierarchy.
   NavigationHierarchy hierarchy = NavigationHierarchy();
 
-  /// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+  /// 10.3.1.3. Primary Navigation.
   PrimaryNavigation primaryNavigation = PrimaryNavigation();
 
-  /// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+  /// 10.3.1.4. Secondary Navigation.
   SecondaryNavigation secondaryNavigation = SecondaryNavigation();
 
-  /// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+  /// 10.3.1.5. Utility Navigation.
   UtilityNavigation utilityNavigation = UtilityNavigation();
 
-  /// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+  /// 10.3.1.6. Contextual Navigation.
   ContextualNavigation contextualNavigation = ContextualNavigation();
 
-  /// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+  /// 10.3.1.7. Deep Linking.
   DeepLinking deepLinking = DeepLinking();
 
-  /// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+  /// 10.3.1.8. Navigation Guards.
   NavigationGuards navigationGuards = NavigationGuards();
 }
 
@@ -1612,7 +1612,7 @@ Navigation model generates:
 // 10.3.1.1 Navigation Overview
 // ---------------------------------------------------------------------------
 
-/// 10.3.1.1. Navigation Overview [PD00-USE-SCF-NAV-OVR].
+/// 10.3.1.1. Navigation Overview.
 ///
 /// Overall navigation strategy, routing approach, and design decisions.
 @SectionId('NAOV')
@@ -1643,7 +1643,7 @@ class NavigationOverview {
 // 10.3.1.2 Navigation Hierarchy
 // ---------------------------------------------------------------------------
 
-/// 10.3.1.2. Navigation Hierarchy [PD00-USE-SCF-NAV-HIE].
+/// 10.3.1.2. Navigation Hierarchy.
 ///
 /// Full navigation tree: groups and items forming the app's navigation structure.
 @SectionId('NAHI')
@@ -1681,7 +1681,7 @@ Full navigation tree: groups and items.
   List<NavigationGroupEntry> groups = [];
 }
 
-/// A navigation group entry (form) [PD00-USE-SCF-NAV-HIE-nn].
+/// A navigation group entry (form).
 ///
 /// Logical grouping of navigation items (e.g., "Sales", "Administration").
 @SectionId('NAVGRP')
@@ -1761,7 +1761,7 @@ class NavigationGroupEntryStructure {
   String? content;
 }
 
-/// A navigation item entry (form) [PD00-USE-SCF-NAV-HIE-nn-ITM-mm].
+/// A navigation item entry (form).
 ///
 /// A single navigable destination within a group.
 @SectionId('NAVIIT')
@@ -1876,7 +1876,7 @@ class NavigationItemEntryInteraction {
 // 10.3.1.3 Primary Navigation
 // ---------------------------------------------------------------------------
 
-/// 10.3.1.3. Primary Navigation [PD00-USE-SCF-NAV-PRI].
+/// 10.3.1.3. Primary Navigation.
 ///
 /// How the main navigation appears across platforms: drawer, sidebar, bottom nav.
 @SectionId('PRNA')
@@ -1954,7 +1954,7 @@ class PrimaryNavigationSidebar {
 // 10.3.1.4 Secondary Navigation
 // ---------------------------------------------------------------------------
 
-/// 10.3.1.4. Secondary Navigation [PD00-USE-SCF-NAV-SEC].
+/// 10.3.1.4. Secondary Navigation.
 ///
 /// In-page navigation: tab bars, segmented controls.
 @SectionId('SENA')
@@ -1993,7 +1993,7 @@ Tab bars map to `TomTabBar` with:
   List<TabBarDefinitionEntry> tabBars = [];
 }
 
-/// A tab bar definition entry (form) [PD00-USE-SCF-NAV-SEC-nn].
+/// A tab bar definition entry (form).
 ///
 /// Defines a tab bar or segmented control on a specific screen.
 @SectionId('TBDE1')
@@ -2053,7 +2053,7 @@ class TabBarDefinitionEntryLoading {
     String? content;
 }
 
-/// A tab item entry (form) [PD00-USE-SCF-NAV-SEC-nn-TAB-mm].
+/// A tab item entry (form).
 @SectionId('TIE')
 class TabItemEntry {
   @Form([
@@ -2085,7 +2085,7 @@ class TabItemEntry {
 // 10.3.1.5 Utility Navigation
 // ---------------------------------------------------------------------------
 
-/// 10.3.1.5. Utility Navigation [PD00-USE-SCF-NAV-UTL].
+/// 10.3.1.5. Utility Navigation.
 ///
 /// Always-visible utility items: user menu, notifications, help, settings.
 @SectionId('UTNA')
@@ -2121,7 +2121,7 @@ Dropdown/popup menus have nested items with:
   List<UtilityNavigationItemEntry> items = [];
 }
 
-/// A utility navigation item entry (form) [PD00-USE-SCF-NAV-UTL-nn].
+/// A utility navigation item entry (form).
 ///
 /// A persistent utility element in the app bar: user avatar, notifications bell,
 /// help icon, settings.
@@ -2186,7 +2186,7 @@ class UtilityNavigationItemEntryBehavior {
   String? content;
 }
 
-/// A utility menu item entry (form) [PD00-USE-SCF-NAV-UTL-nn-MEN-mm].
+/// A utility menu item entry (form).
 ///
 /// Entry in a utility popup/dropdown menu (e.g., user menu items).
 @SectionId('UMIE1')
@@ -2243,7 +2243,7 @@ class UtilityMenuItemEntryBehavior {
 // 10.3.1.6 Contextual Navigation
 // ---------------------------------------------------------------------------
 
-/// 10.3.1.6. Contextual Navigation [PD00-USE-SCF-NAV-CTX].
+/// 10.3.1.6. Contextual Navigation.
 ///
 /// Breadcrumbs, back navigation, related links.
 @SectionId('CONA')
@@ -2270,7 +2270,7 @@ Breadcrumbs, back navigation, related links.
 ''')
   String? content;
 
-  /// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+  /// 10.3.1.6.1. Breadcrumb Configuration.
   BreadcrumbConfiguration breadcrumbs = BreadcrumbConfiguration();
 
   /// Back navigation behavior.
@@ -2280,7 +2280,7 @@ Breadcrumbs, back navigation, related links.
   TextSection relatedLinks = TextSection();
 }
 
-/// 10.3.1.6.1. Breadcrumb Configuration [PD00-USE-SCF-NAV-CTX-BRD].
+/// 10.3.1.6.1. Breadcrumb Configuration.
 @SectionId('BRCO')
 class BreadcrumbConfiguration {
   @Form([
@@ -2312,7 +2312,7 @@ class BreadcrumbConfiguration {
 // 10.3.1.7 Deep Linking
 // ---------------------------------------------------------------------------
 
-/// 10.3.1.7. Deep Linking [PD00-USE-SCF-NAV-DPL].
+/// 10.3.1.7. Deep Linking.
 ///
 /// External entry points, URL patterns, share links.
 @SectionId('DELI')
@@ -2347,7 +2347,7 @@ External entry points and shareable URLs.
   List<DeepLinkPatternEntry> patterns = [];
 }
 
-/// A deep link pattern entry (form) [PD00-USE-SCF-NAV-DPL-nn].
+/// A deep link pattern entry (form).
 @SectionId('DELNPT')
 class DeepLinkPatternEntry {
   @Form([
@@ -2374,7 +2374,7 @@ class DeepLinkPatternEntry {
 // 10.3.1.8 Navigation Guards
 // ---------------------------------------------------------------------------
 
-/// 10.3.1.8. Navigation Guards [PD00-USE-SCF-NAV-GRD].
+/// 10.3.1.8. Navigation Guards.
 ///
 /// Route guards: unsaved changes, authentication redirects, permission checks.
 @SectionId('NAGU')
@@ -2413,7 +2413,7 @@ Guards integrate with `TomRouter` middleware.
   List<NavigationGuardEntry> guards = [];
 }
 
-/// A navigation guard entry (form) [PD00-USE-SCF-NAV-GRD-nn].
+/// A navigation guard entry (form).
 @SectionId('NAVGRD')
 class NavigationGuardEntry {
   @Form([
@@ -2471,7 +2471,7 @@ class NavigationGuardEntryRouting {
 // 10.4 Print Layout
 // ---------------------------------------------------------------------------
 
-/// 10.4. Print Layout [PD00-USE-PRI].
+/// 10.4. Print Layout.
 @SectionId('PRLA')
 @MapsTo(ExperienceDesignSpecification)
 @DetailedIn(ExperienceDesignSpecification)
@@ -2502,17 +2502,17 @@ class PrintLayout {
   /// Archive and batch settings.
   PrintLayoutArchive archive = PrintLayoutArchive();
 
-  /// 10.4.1. Reports [PD00-USE-PRI-REP] — contains 0+× Report.
+  /// 10.4.1. Reports — contains 0+× Report.
   @SectionId('REEN-REPO-LST')
   @SectionIdPattern('REEN-REPO-xxx')
   List<ReportEntry> reports = [];
 
-  /// 10.4.2. Export Formats [PD00-USE-PRI-EXP] — contains 0+× Export Format.
+  /// 10.4.2. Export Formats — contains 0+× Export Format.
   @SectionId('EXFOEN-EXPO-LST')
   @SectionIdPattern('EXFOEN-EXPO-xxx')
   List<ExportFormatEntry> exportFormats = [];
 
-  /// 10.4.3. Export Templates [PD00-USE-PRI-TPL] — contains 0+× Export
+  /// 10.4.3. Export Templates — contains 0+× Export
   /// Template.
   @SectionId('EXTEEN-EXPO-LST')
   @SectionIdPattern('EXTEEN-EXPO-xxx')
@@ -2613,7 +2613,7 @@ class PrintLayoutArchive {
 // 10.4.1 Reports
 // ---------------------------------------------------------------------------
 
-/// A report entry [PD00-USE-PRI-REP-nn] (form).
+/// A report entry (form).
 @SectionId('RE2')
 class ReportEntry {
   @Form([
@@ -2859,7 +2859,7 @@ class ReportLifecycle {
   String? content;
 }
 
-/// A section within a report [PD00-USE-PRI-REP-nn-SEC-nn] (form).
+/// A section within a report (form).
 @SectionId('RSE')
 class ReportSectionEntry {
   @Form([
@@ -2968,7 +2968,7 @@ class ReportSectionAggregation {
   String? content;
 }
 
-/// A column in a tabular report section [PD00-USE-PRI-REP-nn-SEC-nn-COL-nn]
+/// A column in a tabular report section
 /// (form).
 @SectionId('RCE1')
 class ReportColumnEntry {
@@ -3078,7 +3078,7 @@ class ReportColumnLayout {
   String? content;
 }
 
-/// A chart/visualization in a report [PD00-USE-PRI-REP-nn-SEC-nn-CHT-nn]
+/// A chart/visualization in a report
 /// (form).
 @SectionId('RCE2')
 class ReportChartEntry {
@@ -3203,7 +3203,7 @@ class ReportChartLayout {
 // 10.4.1 Report Filters, Schedules, Distribution, Recipients
 // ---------------------------------------------------------------------------
 
-/// A filter parameter for a report [PD00-USE-PRI-REP-nn-FLT-nn] (form).
+/// A filter parameter for a report (form).
 @SectionId('RFE')
 class ReportFilterEntry {
   @Form([
@@ -3290,7 +3290,7 @@ class ReportFilterEntryPresentation {
   String? content;
 }
 
-/// Scheduling rules for report generation [PD00-USE-PRI-REP-nn-SCH-nn]
+/// Scheduling rules for report generation
 /// (form).
 @SectionId('RSE1')
 class ReportScheduleEntry {
@@ -3387,7 +3387,7 @@ class ReportScheduleEntryOutput {
   String? content;
 }
 
-/// Distribution channel configuration [PD00-USE-PRI-REP-nn-DST-nn] (form).
+/// Distribution channel configuration (form).
 @SectionId('RDE')
 class ReportDistributionEntry {
   @Form([
@@ -3477,7 +3477,7 @@ class ReportDistributionEntryDelivery {
   String? content;
 }
 
-/// A recipient entry (form) [PD00-USE-PRI-REP-nn-REC-nn].
+/// A recipient entry (form).
 @SectionId('RRE')
 class ReportRecipientEntry {
   @Form([
@@ -3555,7 +3555,7 @@ class ReportRecipientEntryLifecycle {
 // 10.4.2 Export Formats
 // ---------------------------------------------------------------------------
 
-/// An export format entry (form) [PD00-USE-PRI-EXP-nn].
+/// An export format entry (form).
 @SectionId('EFE')
 class ExportFormatEntry {
   @Form([
@@ -3727,7 +3727,7 @@ class ExportAccess {
   String? content;
 }
 
-/// A field mapping within an export [PD00-USE-PRI-EXP-nn-FLD-nn] (form).
+/// A field mapping within an export (form).
 @SectionId('EFME1')
 class ExportFieldMappingEntry {
   @Form([
@@ -3825,7 +3825,7 @@ class ExportFieldMappingEntryLayout {
 // 10.4.3 Export Templates
 // ---------------------------------------------------------------------------
 
-/// A reusable export template [PD00-USE-PRI-TPL-nn] (form).
+/// A reusable export template (form).
 @SectionId('ETE')
 class ExportTemplateEntry {
   @Form([
@@ -3922,7 +3922,7 @@ class ExportTemplateEntryAccess {
 // 10.7 Error Handling
 // ---------------------------------------------------------------------------
 
-/// 10.7. Error Handling Concept [PD00-USE-ERR].
+/// 10.7. Error Handling Concept.
 ///
 /// Comprehensive error handling user experience framework covering validation
 /// feedback, system error presentation, and error recovery flows. Follows
@@ -3965,13 +3965,13 @@ class ErrorHandlingConcept {
       'key principles, and user experience goals.')
   TextSection errorHandlingOverview = TextSection();
 
-  /// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+  /// 10.7.1. Validation Feedback.
   ValidationFeedback validationFeedback = ValidationFeedback();
 
-  /// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+  /// 10.7.2. System Error Display.
   SystemErrorDisplay systemErrorDisplay = SystemErrorDisplay();
 
-  /// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+  /// 10.7.3. Error Recovery.
   ErrorRecovery errorRecovery = ErrorRecovery();
 
   /// Error message catalog.
@@ -4029,7 +4029,7 @@ class ErrorHandlingConceptOperations {
     String? content;
 }
 
-/// 10.7.1. Validation Feedback [PD00-USE-ERR-VAL].
+/// 10.7.1. Validation Feedback.
 ///
 /// Field validation error display and feedback mechanisms.
 @SectionId('VAFE')
@@ -4136,7 +4136,7 @@ class ValidationFeedbackBehavior {
     String? content;
 }
 
-/// A validation message template [PD00-USE-ERR-VAL-MSG-nn].
+/// A validation message template.
 @SectionId('VMT')
 class ValidationMessageTemplate {
   @Form([
@@ -4164,7 +4164,7 @@ class ValidationMessageTemplate {
   String? content;
 }
 
-/// 10.7.2. System Error Display [PD00-USE-ERR-SYS].
+/// 10.7.2. System Error Display.
 ///
 /// System error presentation including server errors, network issues,
 /// and timeouts.
@@ -4276,7 +4276,7 @@ class SystemErrorDisplayFallback {
   String? content;
 }
 
-/// A system error code entry [PD00-USE-ERR-SYS-CODE-nn].
+/// A system error code entry.
 @SectionId('SECE1')
 class SystemErrorCodeEntry {
   @Form([
@@ -4329,7 +4329,7 @@ class SystemErrorCodeEntryOperations {
   String? content;
 }
 
-/// 10.7.3. Error Recovery [PD00-USE-ERR-REC].
+/// 10.7.3. Error Recovery.
 ///
 /// Error recovery flows including data preservation, retry mechanisms,
 /// and guided recovery steps.
@@ -4459,7 +4459,7 @@ class ErrorRecoverySessionHandling {
   String? content;
 }
 
-/// A recovery scenario entry [PD00-USE-ERR-REC-SCE-nn].
+/// A recovery scenario entry.
 @SectionId('RCVSCN')
 class RecoveryScenarioEntry {
   @Form([
@@ -4492,7 +4492,7 @@ class RecoveryScenarioEntry {
 // 10.8 Help Concept
 // ---------------------------------------------------------------------------
 
-/// 10.8. Help Concept [PD00-USE-HLP].
+/// 10.8. Help Concept.
 ///
 /// Comprehensive in-app help system including contextual help, onboarding,
 /// and support access mechanisms.
@@ -4529,13 +4529,13 @@ class HelpConcept {
       'content strategy, and user empowerment goals.')
   TextSection helpOverview = TextSection();
 
-  /// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+  /// 10.8.1. Contextual Help.
   ContextualHelp contextualHelp = ContextualHelp();
 
-  /// 10.8.2. Onboarding [PD00-USE-HLP-ONB].
+  /// 10.8.2. Onboarding.
   OnboardingHelp onboarding = OnboardingHelp();
 
-  /// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+  /// 10.8.3. Support Access.
   SupportAccess supportAccess = SupportAccess();
 
   /// Help content inventory.
@@ -4573,7 +4573,7 @@ class HelpConceptInsights {
     String? content;
 }
 
-/// 10.8.1. Contextual Help [PD00-USE-HLP-CON].
+/// 10.8.1. Contextual Help.
 @SectionId('COHE')
 class ContextualHelp {
   @Form([
@@ -4665,7 +4665,7 @@ class ContextualHelpRich {
     String? content;
 }
 
-/// A field help entry [PD00-USE-HLP-CON-FLD-nn].
+/// A field help entry.
 @SectionId('FLDHP')
 class FieldHelpEntry {
   @Form([
@@ -4687,7 +4687,7 @@ class FieldHelpEntry {
   String? content;
 }
 
-/// 10.8.2. Onboarding Help [PD00-USE-HLP-ONB].
+/// 10.8.2. Onboarding Help.
 @SectionId('ONHE')
 class OnboardingHelp {
   @Form([
@@ -4791,7 +4791,7 @@ class OnboardingHelpReengagement {
     String? content;
 }
 
-/// A feature tour entry [PD00-USE-HLP-ONB-TOUR-nn].
+/// A feature tour entry.
 @SectionId('FTRTUR')
 class FeatureTourEntry {
   @Form([
@@ -4835,7 +4835,7 @@ class TourStepEntry {
   String? content;
 }
 
-/// 10.8.3. Support Access [PD00-USE-HLP-SUP].
+/// 10.8.3. Support Access.
 @SectionId('SUAC')
 class SupportAccess {
   @Form([
@@ -4940,7 +4940,7 @@ class SupportAccessSelfService {
 // 10.9 Accessibility
 // ---------------------------------------------------------------------------
 
-/// 10.9. Accessibility [PD00-USE-ACC].
+/// 10.9. Accessibility.
 ///
 /// Comprehensive accessibility requirements for the user interface following
 /// WCAG guidelines and inclusive design principles.
@@ -4978,10 +4978,10 @@ class Accessibility {
       'compliance targets, and inclusive design principles.')
   TextSection accessibilityOverview = TextSection();
 
-  /// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+  /// 10.9.1. WCAG Compliance Level.
   WcagCompliance wcagComplianceLevel = WcagCompliance();
 
-  /// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+  /// 10.9.2. Accessibility Checklist.
   AccessibilityChecklist accessibilityChecklist = AccessibilityChecklist();
 
   /// Keyboard navigation specification.
@@ -5042,7 +5042,7 @@ class AccessibilitySupport {
     String? content;
 }
 
-/// 10.9.1. WCAG Compliance Level [PD00-USE-ACC-WCA].
+/// 10.9.1. WCAG Compliance Level.
 @SectionId('WCCO')
 class WcagCompliance {
   @Form([
@@ -5118,7 +5118,7 @@ class WcagComplianceRobust {
     String? content;
 }
 
-/// A WCAG success criterion entry [PD00-USE-ACC-WCA-SC-nn].
+/// A WCAG success criterion entry.
 @SectionId('WSCE1')
 class WcagSuccessCriterionEntry {
   @Form([
@@ -5141,7 +5141,7 @@ class WcagSuccessCriterionEntry {
   String? content;
 }
 
-/// 10.9.2. Accessibility Checklist [PD00-USE-ACC-CHK].
+/// 10.9.2. Accessibility Checklist.
 ///
 /// Comprehensive accessibility verification checklist.
 @SectionId('ACCHLS')
@@ -5175,7 +5175,7 @@ class AccessibilityChecklist {
   List<AccessibilityCheckEntry> items = [];
 }
 
-/// An accessibility check entry (form) [PD00-USE-ACC-CHK-nn].
+/// An accessibility check entry (form).
 @SectionId('ACCH')
 class AccessibilityCheckEntry {
   @Form([
@@ -5248,7 +5248,7 @@ class AccessibilityCheckEntryRemediation {
 // 10.10 Responsive Design
 // ---------------------------------------------------------------------------
 
-/// 10.10. Responsive Design [PD00-USE-RES].
+/// 10.10. Responsive Design.
 ///
 /// Comprehensive responsive design specification covering breakpoints,
 /// adaptive layouts, and device-specific behavior for Flutter applications.
@@ -5288,14 +5288,14 @@ class ResponsiveDesign {
       'key decisions, and implementation strategy.')
   TextSection responsiveNarrative = TextSection();
 
-  /// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+  /// 10.10.1. Breakpoints.
   BreakpointConfiguration breakpointConfig = BreakpointConfiguration();
 
-  /// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+  /// 10.10.2. Responsive Behavior.
   ResponsiveBehavior responsiveBehavior = ResponsiveBehavior();
 }
 
-/// 10.10.1. Breakpoints [PD00-USE-RES-BRE].
+/// 10.10.1. Breakpoints.
 ///
 /// Breakpoint definitions for responsive layouts.
 @SectionId('BRCO1')
@@ -5333,7 +5333,7 @@ class BreakpointConfiguration {
   List<BreakpointEntry> breakpoints = [];
 }
 
-/// A breakpoint entry [PD00-USE-RES-BRE-nn].
+/// A breakpoint entry.
 @SectionId('BE')
 class BreakpointEntry {
   @Form([
@@ -5387,7 +5387,7 @@ class BreakpointEntryScaling {
   String? content;
 }
 
-/// 10.10.2. Responsive Behavior [PD00-USE-RES-BEH].
+/// 10.10.2. Responsive Behavior.
 ///
 /// How the UI adapts across breakpoints.
 @SectionId('REBE')
@@ -5484,7 +5484,7 @@ class ResponsiveBehaviorContent {
     String? content;
 }
 
-/// A screen-specific responsive rule entry [PD00-USE-RES-BEH-SCR-nn].
+/// A screen-specific responsive rule entry.
 @SectionId('RESPSR')
 class ResponsiveScreenRuleEntry {
   @Form([
@@ -5502,7 +5502,7 @@ class ResponsiveScreenRuleEntry {
 // 10.11 UI Components
 // ---------------------------------------------------------------------------
 
-/// 10.11. UI Components [PD00-USE-COM].
+/// 10.11. UI Components.
 ///
 /// Comprehensive UI component library specification covering design system,
 /// component catalog, and detailed per-component specifications. Supports
@@ -5536,15 +5536,15 @@ class UiComponents {
   /// Extension and theming boundaries.
   UiComponentsCustomization customization = UiComponentsCustomization();
 
-  /// 10.11.1. Component Library [PD00-USE-COM-LIB].
+  /// 10.11.1. Component Library.
   ComponentLibrary componentLibrary = ComponentLibrary();
 
-  /// 10.11.2. Component Specifications [PD00-USE-COM-SPE] — contains 0+×.
+  /// 10.11.2. Component Specifications — contains 0+×.
   @SectionId('UICOEN-COMP-LST')
   @SectionIdPattern('UICOEN-COMP-xxx')
   List<UiComponentEntry> componentSpecs = [];
 
-  /// 10.11.3. Component Families [PD00-USE-COM-FAM] — contains 0+×.
+  /// 10.11.3. Component Families — contains 0+×.
   @SectionId('CMFA-COMP-LST')
   @SectionIdPattern('CMFA-COMP-xxx')
   List<ComponentFamilyEntry> componentFamilies = [];
@@ -5592,7 +5592,7 @@ class UiComponentsCustomization {
     String? content;
 }
 
-/// 10.11.1. Component Library [PD00-USE-COM-LIB].
+/// 10.11.1. Component Library.
 ///
 /// Design system and component catalog specification.
 @SectionId('COLI')
@@ -5710,7 +5710,7 @@ class ComponentLibraryVisuals {
   String? content;
 }
 
-/// A color palette entry [PD00-USE-COM-LIB-COL-nn].
+/// A color palette entry.
 @SectionId('COPA')
 class ColorPaletteEntry {
   @Form([
@@ -5735,7 +5735,7 @@ class ColorPaletteEntry {
   String? content;
 }
 
-/// A typography style entry [PD00-USE-COM-LIB-TYP-nn].
+/// A typography style entry.
 @SectionId('TYST')
 class TypographyStyleEntry {
   @Form([
@@ -5757,7 +5757,7 @@ class TypographyStyleEntry {
   String? content;
 }
 
-/// A component family entry [PD00-USE-COM-FAM-nn].
+/// A component family entry.
 ///
 /// Groups related components by function (buttons, inputs, navigation, etc.).
 @SectionId('CMFA')
@@ -5799,7 +5799,7 @@ class FamilyComponentRef {
   String? content;
 }
 
-/// A UI component entry [PD00-USE-COM-SPE-nn].
+/// A UI component entry.
 ///
 /// Comprehensive specification for a single UI component covering identity,
 /// visual design, behavior, states, responsiveness, accessibility,
@@ -6124,7 +6124,7 @@ class UiComponentEntryScroll {
     String? content;
 }
 
-/// A component state entry [PD00-USE-COM-SPE-nn-STA-nn].
+/// A component state entry.
 ///
 /// Defines a visual/functional state of the component.
 @SectionId('CSE1')
@@ -6191,7 +6191,7 @@ class ComponentStateEntryTransitions {
     String? content;
 }
 
-/// A component variant entry [PD00-USE-COM-SPE-nn-VAR-nn].
+/// A component variant entry.
 ///
 /// Defines a variation of the component with different appearance or behavior.
 @SectionId('CVE')
@@ -6243,7 +6243,7 @@ class ComponentVariantEntryBehavior {
     String? content;
 }
 
-/// A component action entry [PD00-USE-COM-SPE-nn-ACT-nn].
+/// A component action entry.
 ///
 /// Defines an action that can be triggered from the component.
 @SectionId('CMAC')
@@ -6296,7 +6296,7 @@ class ComponentActionEntryExecution {
     String? content;
 }
 
-/// A component slot entry [PD00-USE-COM-SPE-nn-SLT-nn].
+/// A component slot entry.
 ///
 /// Defines a slot where child widgets can be placed.
 @SectionId('CMSL')
@@ -6319,7 +6319,7 @@ class ComponentSlotEntry {
   String? content;
 }
 
-/// A component property entry [PD00-USE-COM-SPE-nn-PRP-nn].
+/// A component property entry.
 ///
 /// Defines a configurable property of the component.
 @SectionId('CMPR')
@@ -6348,7 +6348,7 @@ class ComponentPropertyEntry {
 // 10.12 Multi-language and Rollout
 // ---------------------------------------------------------------------------
 
-/// 10.12. Multi-language and Rollout Support [PD00-USE-MUL].
+/// 10.12. Multi-language and Rollout Support.
 ///
 /// Locale-picker / UX-side multi-language concerns that stay on the
 /// Experience & Interface Design side. IP-6 re-homed the requirement-side
@@ -6379,7 +6379,7 @@ class MultiLanguageAndRollout {
       'localization approach for the system.')
   TextSection overviewNarrative = TextSection();
 
-  /// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+  /// 10.12.4. Language and Country Selection.
   LanguageCountrySelection languageCountrySelection = LanguageCountrySelection();
 
   /// Supported locale entries.
@@ -6418,7 +6418,7 @@ class MultiLanguageAndRolloutPlan {
     String? content;
 }
 
-/// 10.12.1. Localization Process [PD00-USE-MUL-LOC].
+/// 10.12.1. Localization Process.
 ///
 /// Workflow for identifying and preparing content for localization.
 @SectionId('LOPR')
@@ -6500,7 +6500,7 @@ class LocalizationProcessDeployment {
     String? content;
 }
 
-/// 10.12.2. Translation Process [PD00-USE-MUL-TRA].
+/// 10.12.2. Translation Process.
 ///
 /// Workflow for translating content.
 @SectionId('TRPR')
@@ -6598,7 +6598,7 @@ class TranslationProcessOngoing {
     String? content;
 }
 
-/// A translation vendor entry [PD00-USE-MUL-TRA-VEN-nn].
+/// A translation vendor entry.
 @SectionId('TVE')
 class TranslationVendorEntry {
   @Form([
@@ -6616,7 +6616,7 @@ class TranslationVendorEntry {
   String? content;
 }
 
-/// 10.12.3. Documentation and Training [PD00-USE-MUL-DOC].
+/// 10.12.3. Documentation and Training.
 ///
 /// End-user documentation and training materials.
 @SectionId('DOANTR')
@@ -6709,7 +6709,7 @@ class DocumentationAndTrainingLocalization {
     String? content;
 }
 
-/// A training module entry [PD00-USE-MUL-DOC-MOD-nn].
+/// A training module entry.
 @SectionId('TME')
 class TrainingModuleEntry {
   @Form([
@@ -6727,7 +6727,7 @@ class TrainingModuleEntry {
   String? content;
 }
 
-/// 10.12.4. Language and Country Selection [PD00-USE-MUL-LCS].
+/// 10.12.4. Language and Country Selection.
 ///
 /// UI specification for language and country selection.
 @SectionId('LACOSE')
@@ -6827,7 +6827,7 @@ class LanguageCountrySelectionUx {
     String? content;
 }
 
-/// 10.12.5. Translation Handling Requirements [PD00-USE-MUL-REQ].
+/// 10.12.5. Translation Handling Requirements.
 ///
 /// Technical requirements for internationalization framework.
 @SectionId('TRRE1')
@@ -6924,7 +6924,7 @@ class TranslationRequirementsTechnical {
   String? content;
 }
 
-/// A supported locale entry [PD00-USE-MUL-LOC-nn].
+/// A supported locale entry.
 @SectionId('SLE2')
 class SupportedLocaleEntry {
   @Form([
@@ -6980,7 +6980,7 @@ class SupportedLocaleEntryRollout {
 // 10.13 Prototype
 // ---------------------------------------------------------------------------
 
-/// 10.13. Prototype [PD00-USE-PRO].
+/// 10.13. Prototype.
 ///
 /// Comprehensive prototype planning covering goals, feature selection,
 /// prototype type, evaluation criteria, and stakeholder alignment.
@@ -7018,13 +7018,13 @@ class Prototype {
       'objectives, and expected outcomes.')
   TextSection overviewNarrative = TextSection();
 
-  /// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+  /// 10.13.1. Prototype Goals.
   PrototypeGoals prototypeGoals = PrototypeGoals();
 
-  /// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+  /// 10.13.2. Selected Feature Subset.
   PrototypeFeatureSubset featureSubset = PrototypeFeatureSubset();
 
-  /// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+  /// 10.13.3. Prototype Type.
   PrototypeTypeSection prototypeType = PrototypeTypeSection();
 
   /// Prototype schedule.
@@ -7072,7 +7072,7 @@ class PrototypeGovernance {
     String? content;
 }
 
-/// 10.13.1. Prototype Goals [PD00-USE-PRO-GOA].
+/// 10.13.1. Prototype Goals.
 ///
 /// What the prototype should validate.
 @SectionId('PRGO1')
@@ -7135,7 +7135,7 @@ class PrototypeGoalsFeedback {
     String? content;
 }
 
-/// A prototype goal entry [PD00-USE-PRO-GOA-nn].
+/// A prototype goal entry.
 @SectionId('PGE')
 class PrototypeGoalEntry {
   @Form([
@@ -7157,7 +7157,7 @@ class PrototypeGoalEntry {
   String? content;
 }
 
-/// 10.13.2. Selected Feature Subset [PD00-USE-PRO-FEA].
+/// 10.13.2. Selected Feature Subset.
 ///
 /// Features included in the prototype.
 @SectionId('PRFESU')
@@ -7221,7 +7221,7 @@ class PrototypeFeatureSubsetFidelity {
     String? content;
 }
 
-/// A prototype feature entry [PD00-USE-PRO-FEA-nn].
+/// A prototype feature entry.
 @SectionId('PFE')
 class PrototypeFeatureEntry {
   @Form([
@@ -7241,7 +7241,7 @@ class PrototypeFeatureEntry {
   String? content;
 }
 
-/// 10.13.3. Prototype Type [PD00-USE-PRO-TYP].
+/// 10.13.3. Prototype Type.
 ///
 /// Classification and implications of the prototype type.
 @SectionId('PRTYSE')
@@ -7262,17 +7262,17 @@ class PrototypeTypeSection {
   ])
   String? prototypeTypeOverview;
 
-  /// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+  /// 10.13.3.1. Reusable Prototype.
   ReusablePrototype reusablePrototype = ReusablePrototype();
 
-  /// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+  /// 10.13.3.2. Training Prototype.
   TrainingPrototype trainingPrototype = TrainingPrototype();
 
-  /// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+  /// 10.13.3.3. Throwaway Prototype.
   ThrowawayPrototype throwawayPrototype = ThrowawayPrototype();
 }
 
-/// 10.13.3.1. Reusable Prototype [PD00-USE-PRO-TYP-REU].
+/// 10.13.3.1. Reusable Prototype.
 ///
 /// Prototype that becomes part of the final product.
 @SectionId('REPR3')
@@ -7341,7 +7341,7 @@ class ReusablePrototypeTransition {
     String? content;
 }
 
-/// 10.13.3.2. Training Prototype [PD00-USE-PRO-TYP-TRA].
+/// 10.13.3.2. Training Prototype.
 ///
 /// Prototype where concepts are reused but not code.
 @SectionId('TRPR1')
@@ -7399,7 +7399,7 @@ class TrainingPrototypeOutputs {
     String? content;
 }
 
-/// 10.13.3.3. Throwaway Prototype [PD00-USE-PRO-TYP-THR].
+/// 10.13.3.3. Throwaway Prototype.
 ///
 /// Prototype evaluated and then discarded.
 @SectionId('THPR')
@@ -7469,13 +7469,13 @@ class ThrowawayPrototypeValue {
 }
 
 // ---------------------------------------------------------------------------
-// 10.14 Wireframes and Mockups [PD00-USE-WIR]
+// 10.14 Wireframes and Mockups
 // ---------------------------------------------------------------------------
 
-/// 10.14. Wireframes and Mockups [PD00-USE-WIR].
+/// 10.14. Wireframes and Mockups.
 ///
 /// Wireframe and mockup inventory beyond individual screen descriptions.
-/// Covers HBSG AS10-WIR.
+///.
 @SectionId('WIANMO')
 @MapsTo(ExperienceDesignSpecification)
 @DetailedIn(ExperienceDesignSpecification)
@@ -7483,8 +7483,8 @@ class ThrowawayPrototypeValue {
 class WireframesAndMockups {
   @ContentHelp('''
 Catalog of wireframes and mockups across the UI. Complements the
-per-screen content in PD00-USE-SCR with cross-cutting, comparison, and
-narrative-flow views.
+per-screen content in the screen-design section with cross-cutting,
+comparison, and narrative-flow views.
 
 **What to capture:**
 - Wireframe catalog (name, fidelity level, screen coverage)

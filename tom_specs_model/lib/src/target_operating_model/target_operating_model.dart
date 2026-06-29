@@ -1,8 +1,7 @@
 /// BP — Business Processes.
 ///
-/// Phase 3 DocSpec root class. Aggregates 10 top-level sections from
-/// PD00-TAR-PRO (single seed, flattened) per §5.3 of
-/// second_wave_documents.md.
+/// Phase 3 DocSpec root class. Aggregates 10 top-level sections projected
+/// (flattened) from the Solution Blueprint target-process sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -30,36 +29,36 @@ class TargetOperatingModel {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  /// Process vision — PD00-TAR-PRO-VIS.
+  /// Process vision.
   ProcessVision processVision = ProcessVision();
 
-  /// Design principles — PD00-TAR-PRO-PRI.
+  /// Design principles.
   ProcessDesignPrinciples designPrinciples = ProcessDesignPrinciples();
 
-  /// Process catalog — PD00-TAR-PRO-CAT.
+  /// Process catalog.
   ProcessCatalog processCatalog = ProcessCatalog();
 
-  /// Process overview diagram — PD00-TAR-PRO-FLO.
+  /// Process overview diagram.
   ProcessOverviewDiagram processOverviewDiagram = ProcessOverviewDiagram();
 
-  /// Improvement summary — PD00-TAR-PRO-IMP.
+  /// Improvement summary.
   ProcessImprovementSummary improvementSummary = ProcessImprovementSummary();
 
-  /// Process relationships — PD00-TAR-PRO-REL.
+  /// Process relationships.
   ProcessRelationships processRelationships = ProcessRelationships();
 
-  /// Detailed process workflows — PD00-TAR-PRO-DET.
+  /// Detailed process workflows.
   @SectionId('DEPRWO-DETA-LST')
   @SectionIdPattern('DEPRWO-DETA-xxx')
   List<DetailedProcessWorkflows> detailedWorkflows = [];
 
-  /// Cross-process analysis — PD00-TAR-PRO-CRO.
+  /// Cross-process analysis.
   CrossProcessAnalysis crossProcessAnalysis = CrossProcessAnalysis();
 
-  /// Process exception handling — PD00-TAR-PRO-EXC.
+  /// Process exception handling.
   ProcessExceptionHandling exceptionHandling = ProcessExceptionHandling();
 
-  /// Process metrics and KPIs — PD00-TAR-PRO-MET.
+  /// Process metrics and KPIs.
   @SectionId('PMAK-PROC-LST')
   @SectionIdPattern('PMAK-PROC-xxx')
   List<ProcessMetricsAndKpis> processMetricsAndKpis = [];

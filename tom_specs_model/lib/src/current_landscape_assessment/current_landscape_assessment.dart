@@ -1,8 +1,8 @@
 /// CS — Current Situation.
 ///
-/// Phase 3 DocSpec root class. Aggregates 8 top-level sections from two
-/// PD00 seeds — PD00-CUR (whole) and PD00-SYO-SYR (whole) — per §5.1 of
-/// second_wave_documents.md.
+/// Phase 3 DocSpec root class. Aggregates 8 top-level sections projected
+/// from the corresponding Solution Blueprint current-landscape and
+/// systems-to-replace sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -31,35 +31,35 @@ class CurrentLandscapeAssessment {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  // ─── From PD00-CUR (Current State Analysis) ──────────────────────────────
+  // ─── Current State Analysis ──────────────────────────────────────────────
 
-  /// Existing systems landscape — PD00-CUR-SYS.
+  /// Existing systems landscape.
   ExistingSystemsLandscape existingSystemsLandscape =
       ExistingSystemsLandscape();
 
-  /// Current business processes — PD00-CUR-PRO.
+  /// Current business processes.
   CurrentBusinessProcesses currentBusinessProcesses =
       CurrentBusinessProcesses();
 
-  /// Pain points and gaps — PD00-CUR-PAI.
+  /// Pain points and gaps.
   PainPointsAndGaps painPointsAndGaps = PainPointsAndGaps();
 
-  /// Current data landscape — PD00-CUR-DAT.
+  /// Current data landscape.
   CurrentDataLandscape currentDataLandscape = CurrentDataLandscape();
 
-  /// Current operational metrics — PD00-CUR-MET.
+  /// Current operational metrics.
   @SectionId('CUOPME-OPER-LST')
   @SectionIdPattern('CUOPME-OPER-xxx')
   List<CurrentOperationalMetrics> operationalMetrics = [];
 
-  /// Current-state risk assessment — PD00-CUR-RIS.
+  /// Current-state risk assessment.
   CurrentStateRiskAssessment currentStateRisks = CurrentStateRiskAssessment();
 
-  // ─── From PD00-SYO-SYR (Systems to Replace) ──────────────────────────────
+  // ─── Systems to Replace ──────────────────────────────────────────────────
 
-  /// Replacement inventory — PD00-SYO-SYR-INV.
+  /// Replacement inventory.
   ReplacementInventory replacementInventory = ReplacementInventory();
 
-  /// Migration considerations — PD00-SYO-SYR-MIG.
+  /// Migration considerations.
   MigrationConsiderations migrationConsiderations = MigrationConsiderations();
 }

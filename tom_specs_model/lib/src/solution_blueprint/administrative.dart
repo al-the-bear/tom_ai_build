@@ -1,4 +1,4 @@
-/// Section 3: Administrative [PD00-ADM].
+/// Section 3: Administrative.
 ///
 /// Project administration: team, distribution, change procedure, references.
 /// Covers organizational aspects of the project including governance structure,
@@ -7,7 +7,7 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-/// 3. Administrative [PD00-ADM].
+/// 3. Administrative.
 ///
 /// Project-specific administrative information including team composition,
 /// distribution channels, procedural agreements, and reference documentation.
@@ -26,22 +26,22 @@ from standard organizational project governance procedures.
   /// Administrative overview summary.
   AdministrativeSummary summary = AdministrativeSummary();
 
-  /// 3.1. Project Organization [PD00-ADM-PRO].
+  /// 3.1. Project Organization.
   ProjectOrganization projectOrganization = ProjectOrganization();
 
-  /// 3.2. Project Team Staffing [PD00-ADM-TEA] — contains 1+× Team Member.
+  /// 3.2. Project Team Staffing — contains 1+× Team Member.
   ProjectTeamStaffing projectTeamStaffing = ProjectTeamStaffing();
 
-  /// 3.3. Distribution List [PD00-ADM-DIS].
+  /// 3.3. Distribution List.
   DistributionList distributionList = DistributionList();
 
-  /// 3.4. Change Procedure [PD00-ADM-CHA].
+  /// 3.4. Change Procedure.
   ChangeProcedure changeProcedure = ChangeProcedure();
 
-  /// 3.5. Reference Documents [PD00-ADM-REF] — contains 0+× Reference Document.
+  /// 3.5. Reference Documents — contains 0+× Reference Document.
   ReferenceDocuments referenceDocuments = ReferenceDocuments();
 
-  /// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+  /// 3.6. Other Administrative Requirements.
   OtherAdministrativeRequirements otherAdministrative =
       OtherAdministrativeRequirements();
 }
@@ -78,7 +78,7 @@ class AdministrativeSummary {
   String? content;
 }
 
-/// 3.1. Project Organization [PD00-ADM-PRO].
+/// 3.1. Project Organization.
 @SectionId('PRJOG')
 class ProjectOrganization {
   @ContentHelp('''
@@ -88,14 +88,14 @@ Describe the organizational model and key decision-making paths.
 ''')
   String? content;
 
-  /// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+  /// 3.1.1. Organization Structure.
   OrganizationStructure organizationStructure = OrganizationStructure();
 
-  /// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+  /// 3.1.2. Steering Committee.
   SteeringCommittee steeringCommittee = SteeringCommittee();
 }
 
-/// 3.1.1. Organization Structure [PD00-ADM-PRO-STR].
+/// 3.1.1. Organization Structure.
 @SectionId('ORGST')
 class OrganizationStructure {
   @ContentType('description', 'Project organization chart with reporting '
@@ -142,7 +142,7 @@ class DecisionAuthorityEntry {
   String? content;
 }
 
-/// 3.1.2. Steering Committee [PD00-ADM-PRO-STE].
+/// 3.1.2. Steering Committee.
 ///
 /// Container for steering committee member descriptions.
 @ContentHelp('List all steering committee members with their roles, '
@@ -176,7 +176,7 @@ class CommitteeCharter {
   String? content;
 }
 
-/// A steering committee member entry [PD00-ADM-PRO-STE-nn] (form).
+/// A steering committee member entry (form).
 ///
 /// Detailed information about a steering committee member.
 @ContentHelp('Document each committee member with their organizational role, '
@@ -217,7 +217,7 @@ class CommitteeResponsibilityEntry {
 // 3.2 Project Team Staffing
 // ---------------------------------------------------------------------------
 
-/// 3.2. Project Team Staffing [PD00-ADM-TEA].
+/// 3.2. Project Team Staffing.
 ///
 /// Container for individual staff assignments including roles, responsibilities,
 /// availability, and required competencies.
@@ -276,7 +276,7 @@ class ResourceRequirementEntry {
   String? content;
 }
 
-/// A team member entry [PD00-ADM-TEA-nn] (form).
+/// A team member entry (form).
 ///
 /// Detailed information about a project team member including their role,
 /// responsibilities, availability, and competencies.
@@ -407,7 +407,7 @@ class TeamMemberResponsibilityEntry {
 // 3.3 Distribution List
 // ---------------------------------------------------------------------------
 
-/// 3.3. Distribution List [PD00-ADM-DIS].
+/// 3.3. Distribution List.
 ///
 /// Defines who receives which project documents and communications.
 /// Includes the communication matrix specifying information flow patterns,
@@ -425,13 +425,13 @@ channels and frequency for different types of information.
   /// Communication matrix overview.
   CommunicationMatrix communicationMatrix = CommunicationMatrix();
 
-  /// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+  /// 3.3.1. Full Distribution.
   FullDistribution fullDistribution = FullDistribution();
 
-  /// 3.3.2. Executive Summary [PD00-ADM-DIS-EXE].
+  /// 3.3.2. Executive Summary.
   ExecutiveSummaryDistribution executiveSummary = ExecutiveSummaryDistribution();
 
-  /// 3.3.3. Custom Distribution Groups [PD00-ADM-DIS-CUS] — contains 0+× Group.
+  /// 3.3.3. Custom Distribution Groups — contains 0+× Group.
   @SectionId('CSDSGR-CUST-LST')
   @SectionIdPattern('CSDSGR-CUST-xxx')
   List<CustomDistributionGroup> customGroups = [];
@@ -518,7 +518,7 @@ class CustomDistributionGroup {
   List<DistributionRecipientEntry> members = [];
 }
 
-/// 3.3.1. Full Distribution [PD00-ADM-DIS-FUL].
+/// 3.3.1. Full Distribution.
 ///
 /// Recipients who receive all project documents and communications.
 @SectionId('FUDI')
@@ -539,7 +539,7 @@ full visibility into all project activities and decisions.
   List<DistributionRecipientEntry> items = [];
 }
 
-/// 3.3.2. Executive Summary Distribution [PD00-ADM-DIS-EXE].
+/// 3.3.2. Executive Summary Distribution.
 ///
 /// Recipients who receive only executive summaries and milestone reports.
 @SectionId('EXSUDI')
@@ -578,7 +578,7 @@ class DistributionGroupSummary {
   String? content;
 }
 
-/// A distribution recipient entry (form) [PD00-ADM-DIS-nn].
+/// A distribution recipient entry (form).
 ///
 /// Detailed information about a distribution list recipient including
 /// their role, contact information, preferences, and access levels.
@@ -701,7 +701,7 @@ class DistributionRecipientBackup {
 // 3.4 Change Procedure
 // ---------------------------------------------------------------------------
 
-/// 3.4. Change Procedure [PD00-ADM-CHA].
+/// 3.4. Change Procedure.
 ///
 /// Procedure for requesting, evaluating, and approving changes to this
 /// Project Definition and other project documents. Defines the change
@@ -718,16 +718,16 @@ are required, and how the process balances agility with governance needs.
   /// Change procedure summary.
   ChangeProcedureSummary summary = ChangeProcedureSummary();
 
-  /// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+  /// 3.4.1. Change Process.
   ChangeProcess changeProcess = ChangeProcess();
 
-  /// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+  /// 3.4.2. Change Impact Criteria.
   ChangeImpactCriteria changeImpactCriteria = ChangeImpactCriteria();
 
-  /// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+  /// 3.4.3. Change Control Board.
   ChangeControlBoard changeControlBoard = ChangeControlBoard();
 
-  /// 3.4.4. Change Categories [PD00-ADM-CHA-CAT] — contains 0+× Category.
+  /// 3.4.4. Change Categories — contains 0+× Category.
   @SectionId('CHCA-CHAN-LST')
   @SectionIdPattern('CHCA-CHAN-xxx')
   List<ChangeCategoryEntry> changeCategories = [];
@@ -753,7 +753,7 @@ class ChangeProcedureSummary {
   String? content;
 }
 
-/// 3.4.1. Change Process [PD00-ADM-CHA-PRO].
+/// 3.4.1. Change Process.
 ///
 /// Detailed workflow for change request processing from submission
 /// through evaluation, approval, implementation, and closure.
@@ -846,7 +846,7 @@ class ChangeNotificationRules {
   String? content;
 }
 
-/// A role involved in the change process (form) [PD00-ADM-CHA-PRO-ROL-nn].
+/// A role involved in the change process (form).
 @SectionId('CHRO')
 class ChangeRoleEntry {
   @Form([
@@ -868,7 +868,7 @@ class ChangeRoleEntry {
   String? content;
 }
 
-/// A change process step entry (form) [PD00-ADM-CHA-PRO-STP-nn].
+/// A change process step entry (form).
 ///
 /// Detailed description of a single step in the change process workflow.
 @SectionId('CHST')
@@ -966,7 +966,7 @@ class ChangeStepEntryDecision {
   String? content;
 }
 
-/// 3.4.2. Change Impact Criteria [PD00-ADM-CHA-CRI].
+/// 3.4.2. Change Impact Criteria.
 ///
 /// Criteria for determining the impact level of change requests,
 /// which drives the approval path and stakeholder involvement.
@@ -1014,7 +1014,7 @@ class ImpactLevelDefinitions {
   String? content;
 }
 
-/// A change impact criterion entry (form) [PD00-ADM-CHA-CRI-nn].
+/// A change impact criterion entry (form).
 ///
 /// Detailed criterion for assessing change impact in a specific dimension.
 @SectionId('CHIMCR')
@@ -1108,7 +1108,7 @@ class ChangeImpactCriterionEntryGovernance {
   String? content;
 }
 
-/// 3.4.3. Change Control Board [PD00-ADM-CHA-CCB].
+/// 3.4.3. Change Control Board.
 ///
 /// Governance body responsible for major change decisions.
 @SectionId('CHCOBO')
@@ -1206,7 +1206,7 @@ class CcbMemberEntry {
   String? content;
 }
 
-/// A change category entry [PD00-ADM-CHA-CAT-nn].
+/// A change category entry.
 ///
 /// Defines a category of changes with specific handling rules.
 @SectionId('CHCA')
@@ -1280,7 +1280,7 @@ class ChangeCategoryEntryGovernance {
 // 3.5 Reference Documents
 // ---------------------------------------------------------------------------
 
-/// 3.5. Reference Documents [PD00-ADM-REF].
+/// 3.5. Reference Documents.
 ///
 /// Catalog of all documents referenced by this project specification,
 /// including enterprise standards, technical guidelines, regulatory
@@ -1301,7 +1301,7 @@ class ReferenceDocuments {
   List<ReferenceDocumentEntry> documents = [];
 }
 
-/// A reference document entry [PD00-ADM-REF-nn] (form).
+/// A reference document entry (form).
 ///
 /// Detailed metadata for a single referenced document including
 /// identification, classification, status, and applicability.
@@ -1447,7 +1447,7 @@ class RelatedDocumentEntry {
 // 3.6 Other Administrative Requirements
 // ---------------------------------------------------------------------------
 
-/// 3.6. Other Administrative Requirements [PD00-ADM-OTH].
+/// 3.6. Other Administrative Requirements.
 ///
 /// Additional administrative agreements, constraints, or requirements not
 /// covered by other sections: IP ownership, NDAs, regulatory compliance,
@@ -1461,31 +1461,31 @@ class OtherAdministrativeRequirements {
       'requirements and their impact on the project.')
   String? content;
 
-  /// 3.6.1. Intellectual Property [PD00-ADM-OTH-IPR].
+  /// 3.6.1. Intellectual Property.
   IntellectualPropertyRequirements intellectualProperty =
       IntellectualPropertyRequirements();
 
-  /// 3.6.2. Confidentiality and NDAs [PD00-ADM-OTH-NDA].
+  /// 3.6.2. Confidentiality and NDAs.
   ConfidentialityRequirements confidentiality = ConfidentialityRequirements();
 
-  /// 3.6.3. Regulatory Compliance [PD00-ADM-OTH-REG].
+  /// 3.6.3. Regulatory Compliance.
   RegulatoryComplianceRequirements regulatoryCompliance =
       RegulatoryComplianceRequirements();
 
-  /// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+  /// 3.6.4. Audit Requirements.
   AuditRequirements auditRequirements = AuditRequirements();
 
-  /// 3.6.5. Insurance and Liability [PD00-ADM-OTH-INS].
+  /// 3.6.5. Insurance and Liability.
   InsuranceLiabilityRequirements insuranceLiability =
       InsuranceLiabilityRequirements();
 
-  /// 3.6.6. Other Agreements [PD00-ADM-OTH-AGR] — contains 0+× Agreement.
+  /// 3.6.6. Other Agreements — contains 0+× Agreement.
   @SectionId('OTAGR-OTHE-LST')
   @SectionIdPattern('OTAGR-OTHE-xxx')
   List<OtherAgreementEntry> otherAgreements = [];
 }
 
-/// 3.6.1. Intellectual Property Requirements [PD00-ADM-OTH-IPR].
+/// 3.6.1. Intellectual Property Requirements.
 ///
 /// Defines ownership and usage rights for project deliverables and IP.
 @ContentHelp('Specify who owns intellectual property created during the project, '
@@ -1520,7 +1520,7 @@ class IpOwnershipEntry {
   String? content;
 }
 
-/// 3.6.2. Confidentiality and NDA Requirements [PD00-ADM-OTH-NDA].
+/// 3.6.2. Confidentiality and NDA Requirements.
 ///
 /// Non-disclosure agreements and confidentiality constraints.
 @ContentHelp('Document all NDA and confidentiality requirements, including '
@@ -1569,7 +1569,7 @@ class DataHandlingProcedures {
   String? content;
 }
 
-/// 3.6.3. Regulatory Compliance Requirements [PD00-ADM-OTH-REG].
+/// 3.6.3. Regulatory Compliance Requirements.
 ///
 /// Regulatory and compliance obligations affecting the project.
 @ContentHelp('List all regulatory requirements the project must comply with, '
@@ -1621,7 +1621,7 @@ class ComplianceMilestoneEntry {
   String? content;
 }
 
-/// 3.6.4. Audit Requirements [PD00-ADM-OTH-AUD].
+/// 3.6.4. Audit Requirements.
 ///
 /// Internal and external audit obligations.
 @ContentHelp('Document audit requirements including scope, frequency, '
@@ -1684,7 +1684,7 @@ class AuditEvidenceTypeEntry {
   String? content;
 }
 
-/// 3.6.5. Insurance and Liability Requirements [PD00-ADM-OTH-INS].
+/// 3.6.5. Insurance and Liability Requirements.
 ///
 /// Insurance coverage and liability agreements.
 @ContentHelp('Document insurance requirements and liability limitations '

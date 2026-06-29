@@ -1,9 +1,8 @@
 /// TR — Technical Requirements.
 ///
-/// Phase 3 DocSpec root class. Aggregates 12 top-level sections from
-/// four PD00 seeds (multi-source) per §5.7 of second_wave_documents.md:
-/// PD00-TEC (flattened), PD00-COM (whole), PD00-SYO-RES-TEC (whole),
-/// and PD00-USE-MUL-REQ (whole).
+/// Phase 3 DocSpec root class. Aggregates 12 top-level sections projected
+/// from the Solution Blueprint technical-framework, components,
+/// technical-framework-conditions, and translation-handling sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -33,50 +32,50 @@ class ArchitectureTechnologySpecification {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  // ─── From PD00-TEC (Technical Framework Concept), flattened ──────────────
+  // ─── Technical Framework Concept (flattened) ─────────────────────────────
 
-  /// Basic technical requirements — PD00-TEC-BAS.
+  /// Basic technical requirements.
   BasicTechnicalRequirements basicTechnicalRequirements =
       BasicTechnicalRequirements();
 
-  /// Software design requirements — PD00-TEC-SOF.
+  /// Software design requirements.
   SoftwareDesignRequirements softwareDesignRequirements =
       SoftwareDesignRequirements();
 
-  /// Standard application software requirements — PD00-TEC-STA.
+  /// Standard application software requirements.
   StandardSoftwareRequirements standardSoftwareRequirements =
       StandardSoftwareRequirements();
 
-  /// Hardware concept requirements — PD00-TEC-HAR.
+  /// Hardware concept requirements.
   HardwareRequirements hardwareRequirements = HardwareRequirements();
 
-  /// Operations requirements — PD00-TEC-OPE.
+  /// Operations requirements.
   OperationsRequirements operationsRequirements = OperationsRequirements();
 
-  /// Communication requirements — PD00-TEC-COM.
+  /// Communication requirements.
   CommunicationRequirements communicationRequirements =
       CommunicationRequirements();
 
-  /// System operation and monitoring — PD00-TEC-SYS.
+  /// System operation and monitoring.
   SystemOperationAndMonitoring systemOperationAndMonitoring =
       SystemOperationAndMonitoring();
 
-  /// Technical security requirements — PD00-TEC-SEC.
+  /// Technical security requirements.
   TechnicalSecurityRequirements technicalSecurityRequirements =
       TechnicalSecurityRequirements();
 
-  /// System architecture — PD00-TEC-ARC (new in Phase A, HBSG AS09-SOF/DR30).
+  /// System architecture (new in Phase A).
   SystemArchitectureSpec systemArchitecture = SystemArchitectureSpec();
 
-  // ─── Whole seeds from other PD00 branches ────────────────────────────────
+  // ─── Whole seeds from other SBP branches ────────────────────────────────
 
-  /// Components to use — PD00-COM (whole).
+  /// Components to use (whole).
   ComponentsToUse componentsToUse = ComponentsToUse();
 
-  /// Technical framework conditions — PD00-SYO-RES-TEC (whole).
+  /// Technical framework conditions (whole).
   TechnicalFrameworkConditions technicalFrameworkConditions =
       TechnicalFrameworkConditions();
 
-  /// Translation handling requirements — PD00-USE-MUL-REQ (whole).
+  /// Translation handling requirements (whole).
   TranslationRequirements translationRequirements = TranslationRequirements();
 }

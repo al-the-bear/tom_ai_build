@@ -1,8 +1,7 @@
 /// RC — Requirements Catalog.
 ///
-/// Phase 3 DocSpec root class. Aggregates 7 top-level sections from
-/// PD00-SYO-REQ (single seed, flattened) per §5.2 of
-/// second_wave_documents.md.
+/// Phase 3 DocSpec root class. Aggregates 7 top-level sections projected
+/// (flattened) from the Solution Blueprint requirements sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -31,33 +30,33 @@ class RequirementsSpecification {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  /// Functional requirements — PD00-SYO-REQ-FUN.
+  /// Functional requirements.
   FunctionalRequirements functionalRequirements = FunctionalRequirements();
 
-  /// Technical (non-functional) requirements — PD00-SYO-REQ-TEC.
+  /// Technical (non-functional) requirements.
   TechnicalRequirements technicalRequirements = TechnicalRequirements();
 
-  /// Security requirements — PD00-SYO-REQ-SEC.
+  /// Security requirements.
   SecurityRequirements securityRequirements = SecurityRequirements();
 
-  /// Organizational requirements — PD00-SYO-REQ-ORG.
+  /// Organizational requirements.
   OrganizationalRequirements organizationalRequirements =
       OrganizationalRequirements();
 
-  /// Traceability matrix overview — PD00-SYO-REQ-TRC.
+  /// Traceability matrix overview.
   ///
-  /// Mirrors the PD00-side flat field on RequirementsOverview so the RC
-  /// outline reaches it directly. The authoritative content lives on the
-  /// PD00 side.
+  /// Mirrors the flat field on RequirementsOverview so the RC outline
+  /// reaches it directly. The authoritative content lives on the Solution
+  /// Blueprint side.
   @ContentType('description', 'Summary of traceability matrix showing '
       'connections between requirements, goals, use cases, and tests.')
   String? traceabilityMatrix;
 
-  /// Requirement relationships — PD00-SYO-REQ-REL.
+  /// Requirement relationships.
   @SectionId('RERE-REQU-LST')
   @SectionIdPattern('RERE-REQU-xxx')
   List<RequirementRelationships> requirementRelationships = [];
 
-  /// Requirement coverage — PD00-SYO-REQ-COV.
+  /// Requirement coverage.
   RequirementCoverage requirementCoverage = RequirementCoverage();
 }

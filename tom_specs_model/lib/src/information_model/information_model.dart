@@ -1,9 +1,9 @@
 /// BDM — Business Data Model.
 ///
-/// Phase 3 DocSpec root class. Aggregates 12 top-level sections from
-/// PD00-BUS (single seed, flattened two levels deep) per §5.5 of
-/// second_wave_documents.md — top-levels are at PD00-BUS-{DAT,BUS,FUN}-*
-/// level to avoid duplication with their parent containers.
+/// Phase 3 DocSpec root class. Aggregates 12 top-level sections projected
+/// (flattened two levels deep) from the Solution Blueprint business
+/// data, business-object, and function-model sections — promoting the
+/// leaf groups so they don't duplicate their parent containers.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -32,63 +32,63 @@ class InformationModel {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  // ─── From PD00-BUS-DAT (Data Model) ──────────────────────────────────────
+  // ─── Data Model ──────────────────────────────────────────────────────────
 
-  /// Entity inventory — PD00-BUS-DAT-ENT (list).
+  /// Entity inventory (list).
   @SectionId('DAENT-ENTI-LST')
   @SectionIdPattern('DAENT-ENTI-xxx')
   @Min(1)
   List<DataEntityEntry> entities = [];
 
-  /// Entity relationships — PD00-BUS-DAT-REL.
+  /// Entity relationships.
   EntityRelationships entityRelationships = EntityRelationships();
 
-  /// Entity-relationship diagram — PD00-BUS-DAT-DIA.
+  /// Entity-relationship diagram.
   ErDiagramSection erDiagram = ErDiagramSection();
 
-  /// Data classification — PD00-BUS-DAT-CLA.
+  /// Data classification.
   DataClassification dataClassification = DataClassification();
 
-  // ─── From PD00-BUS-BUS (Business Object Model) ───────────────────────────
+  // ─── Business Object Model ───────────────────────────────────────────────
 
-  /// Business object catalog — PD00-BUS-BUS-CAT (list).
+  /// Business object catalog (list).
   @SectionId('BJOEN-OBJE-LST')
   @SectionIdPattern('BJOEN-OBJE-xxx')
   @Min(1)
   List<BusinessObjectEntry> objectCatalog = [];
 
-  /// Business object diagram — PD00-BUS-BUS-DIA.
+  /// Business object diagram.
   DiagramSection objectDiagram = DiagramSection();
 
-  // ─── From PD00-BUS-FUN (Function Model) ──────────────────────────────────
+  // ─── Function Model ──────────────────────────────────────────────────────
 
-  /// Function decomposition — PD00-BUS-FUN-DEC (list).
+  /// Function decomposition (list).
   @SectionId('FUNCT-FUNC-LST')
   @SectionIdPattern('FUNCT-FUNC-xxx')
   List<FunctionEntry> functionDecomposition = [];
 
-  /// Function-to-data matrix — PD00-BUS-FUN-MAT (list).
+  /// Function-to-data matrix (list).
   @SectionId('FNDMX-FUNC-LST')
   @SectionIdPattern('FNDMX-FUNC-xxx')
   List<FunctionDataMatrixEntry> functionToDataMatrix = [];
 
-  /// Business rules catalog — PD00-BUS-FUN-RUL (list).
+  /// Business rules catalog (list).
   @SectionId('BIRU-BUSI-LST')
   @SectionIdPattern('BIRU-BUSI-xxx')
   @Min(1)
   List<BusinessRuleEntry> businessRules = [];
 
-  // ─── Added in Phase A §7 (Track 1 + Track 3 under PD00-BUS-DAT) ──────────
+  // ─── Data dictionary and constraints ─────────────────────────────────────
 
-  /// Data dictionary — PD00-BUS-DAT-DIC.
+  /// Data dictionary.
   DataDictionary dataDictionary = DataDictionary();
 
-  /// Validation constraints — PD00-BUS-DAT-VAL.
+  /// Validation constraints.
   @SectionId('VACO-VALI-LST')
   @SectionIdPattern('VACO-VALI-xxx')
   List<ValidationConstraints> validationConstraints = [];
 
-  /// Integrity constraints — PD00-BUS-DAT-CON.
+  /// Integrity constraints.
   @SectionId('INCO-INTE-LST')
   @SectionIdPattern('INCO-INTE-xxx')
   List<IntegrityConstraints> integrityConstraints = [];

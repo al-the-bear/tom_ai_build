@@ -1,4 +1,4 @@
-/// Section 13: System Stage Plan [PD00-SSP]. Seeds → PPP.
+/// Section 13: System Stage Plan. Seeds → PPP.
 ///
 /// System stages are meaningful subsets of the functional system.
 library;
@@ -9,7 +9,7 @@ import '../document_stubs.dart';
 
 
 
-/// 13. System Stage Plan [PD00-SSP]. Seeds → PPP.
+/// 13. System Stage Plan. Seeds → PPP.
 ///
 /// Define the overall staging strategy for the system rollout. A stage
 /// is a meaningful, self-contained subset of the complete system that
@@ -46,31 +46,31 @@ class SystemStagePlan {
   /// Organizational capacity and plan confidence.
   SystemStagePlanReadiness readiness = SystemStagePlanReadiness();
 
-  /// 13.1. Staging Strategy [PD00-SSP-STR].
+  /// 13.1. Staging Strategy.
   StagingStrategy strategy = StagingStrategy();
 
-  /// 13.2. Stage Overview [PD00-SSP-STA].
+  /// 13.2. Stage Overview.
   StageOverview stageOverview = StageOverview();
 
-  /// 13.3. Stages [PD00-SSP-STG] — contains 1+× Stage.
+  /// 13.3. Stages — contains 1+× Stage.
   @SectionId('STAGE-STAG-LST')
   @SectionIdPattern('STAGE-STAG-xxx')
   @Min(1)
   List<StageEntry> stages = [];
 
-  /// 13.4. Feature Prioritization [PD00-SSP-FEA].
+  /// 13.4. Feature Prioritization.
   FeaturePrioritization featurePrioritization = FeaturePrioritization();
 
-  /// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+  /// 13.5. Data Migration Strategy.
   DataMigrationStrategy dataMigration = DataMigrationStrategy();
 
-  /// 13.6. Governance [PD00-SSP-GOV].
+  /// 13.6. Governance.
   StageGovernance governance = StageGovernance();
 
-  /// 13.7. Initial Development Flow [PD00-SSP-IDV]. Covers PPP-IDV.
+  /// 13.7. Initial Development Flow. Covers PPP-IDV.
   InitialDevelopmentFlow initialDevelopmentFlow = InitialDevelopmentFlow();
 
-  /// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG]. Covers PPP-UPG.
+  /// 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
   UpgradeCycleFramework upgradeCycleFramework = UpgradeCycleFramework();
 }
 
@@ -138,7 +138,7 @@ class SystemStagePlanReadiness {
     String? content;
 }
 
-/// 13.1. Staging Strategy [PD00-SSP-STR].
+/// 13.1. Staging Strategy.
 ///
 /// Document the rationale behind the chosen staging approach. Consider
 /// PMBOK phase-gate methodology, SAFe PI planning cadence, PRINCE2
@@ -202,26 +202,26 @@ class StagingStrategy {
   /// Governance and approvals.
   StagingGovernance governance = StagingGovernance();
 
-  /// 13.1.1. Staging Approach [PD00-SSP-STR-APP].
+  /// 13.1.1. Staging Approach.
   @ContentHelp('Detailed description of the staging approach: how stages '
       'are defined, sequenced, and executed. Cover big bang vs phased '
       'rollout, geography-based vs function-based staging, pilot groups, '
       'parallel operation periods, and cutover methodologies.')
   TextSection stagingApproach = TextSection();
 
-  /// 13.1.2. Rationale [PD00-SSP-STR-RAT].
+  /// 13.1.2. Rationale.
   @ContentHelp('Justification for the chosen staging approach: risk '
       'reduction benefits, early value delivery opportunities, resource '
       'optimization factors, alternatives considered and why rejected, '
       'alignment with organizational change capacity.')
   TextSection rationaleNarrative = TextSection();
 
-  /// 13.1.3. Key Assumptions [PD00-SSP-STR-ASM].
+  /// 13.1.3. Key Assumptions.
   @SectionId('KEYAS-KEYA-LST')
   @SectionIdPattern('KEYAS-KEYA-xxx')
   List<KeyAssumptionEntry> keyAssumptions = [];
 
-  /// 13.1.4. Constraints [PD00-SSP-STR-CON].
+  /// 13.1.4. Constraints.
   @SectionId('STAGI-CONS-LST')
   @SectionIdPattern('STAGI-CONS-xxx')
   List<StagingStrategyConstraintEntry> constraints = [];
@@ -447,7 +447,7 @@ class StagingGovernance {
   String? content;
 }
 
-/// 13.2. Stage Overview [PD00-SSP-STA].
+/// 13.2. Stage Overview.
 ///
 /// High-level summary across all planned stages including aggregate
 /// metrics, critical-path identification, resource allocation patterns,
@@ -507,7 +507,7 @@ class StageOverview {
   /// Assumptions and constraints.
   StageOverviewConstraints constraints = StageOverviewConstraints();
 
-  /// 13.2.1. Stage Summary [PD00-SSP-STA-SUM] — contains 1+× Stage
+  /// 13.2.1. Stage Summary — contains 1+× Stage
   /// Summary Entry.
   @SectionId('STAGSE-STAG-LST')
   @SectionIdPattern('STAGSE-STAG-xxx')
@@ -521,27 +521,27 @@ class StageOverview {
       'resource allocation patterns, and major dependencies.')
   TextSection stageSummaryNarrative = TextSection();
 
-  /// 13.2.2. Stage Timeline Diagram [PD00-SSP-STA-DIA] (mermaid-gantt).
+  /// 13.2.2. Stage Timeline Diagram (mermaid-gantt).
   @ContentHelp('Gantt chart showing all stages with start/end dates, '
       'milestones, parallel activities, critical path, buffer allocations, '
       'and key decision points. Show dependencies between stages.')
   GanttDiagramSection timelineDiagram = GanttDiagramSection();
 
-  /// 13.2.3. Resource Allocation Diagram [PD00-SSP-STA-RAD]
+  /// 13.2.3. Resource Allocation Diagram
   /// (mermaid-gantt).
   @ContentHelp('Gantt-style resource allocation across stages: '
       'team assignments, role transitions, ramp-up/ramp-down periods, '
       'shared resources, external consultants, training periods.')
   GanttDiagramSection resourceAllocationDiagram = GanttDiagramSection();
 
-  /// 13.2.4. Budget Distribution Diagram [PD00-SSP-STA-BDD]
+  /// 13.2.4. Budget Distribution Diagram
   /// (mermaid-flow).
   @ContentHelp('Visual budget distribution: percentage per stage, '
       'capital vs operational split, contingency allocation, '
       'major cost drivers per stage, cumulative spend curve.')
   FlowDiagramSection budgetDistributionDiagram = FlowDiagramSection();
 
-  /// 13.2.5. Dependency Map [PD00-SSP-STA-DEP] (mermaid-flow).
+  /// 13.2.5. Dependency Map (mermaid-flow).
   @ContentHelp('Visual map of cross-stage dependencies and critical paths: '
       'mandatory sequencing, shared resources, data dependencies, '
       'integration touchpoints, and external milestones.')
@@ -789,7 +789,7 @@ class StageOverviewConstraints {
   String? content;
 }
 
-/// A stage summary entry [PD00-SSP-STA-SUM-nn] (form).
+/// A stage summary entry (form).
 ///
 /// Quick-reference record for a single stage within the overview. Each
 /// entry captures the essential identification, timeline, scope, and
@@ -950,7 +950,7 @@ class StageSummaryStatus {
   String? content;
 }
 
-/// A stage entry [PD00-SSP-STG-nn] (form) with description subsections.
+/// A stage entry (form) with description subsections.
 ///
 /// Represents a single delivery stage — a self-contained increment of the
 /// system that delivers measurable business value. Each stage has clear
@@ -1014,7 +1014,7 @@ class StageEntry {
       'criteria for scope completeness.')
   TextSection featureScope = TextSection();
 
-  /// Sub-stages and Milestones [PD00-SSP-STG-nn-SUB] — contains 0+× SubStage.
+  /// Sub-stages and Milestones — contains 0+× SubStage.
   @SectionId('SUSST-SUBS-LST')
   @SectionIdPattern('SUSST-SUBS-xxx')
   List<SubStageEntry> subStagesAndMilestones = [];
@@ -1025,7 +1025,7 @@ class StageEntry {
       'schedule risks, compression options, and go/no-go checkpoints.')
   TextSection timelineNarrative = TextSection();
 
-  /// Success Criteria [PD00-SSP-STG-nn-SUC] — contains 0+× StageSuccessCriterion.
+  /// Success Criteria — contains 0+× StageSuccessCriterion.
   @SectionId('STGSUC-SUCC-LST')
   @SectionIdPattern('STGSUC-SUCC-xxx')
   List<StageSuccessCriterionEntry> successCriteria = [];
@@ -1239,7 +1239,7 @@ class StageMetrics {
   String? content;
 }
 
-/// A sub-stage or milestone entry (form) [PD00-SSP-STG-nn-SUB-nn].
+/// A sub-stage or milestone entry (form).
 ///
 /// Represents a discrete phase within a stage — alpha, beta, release
 /// candidate, pilot, GA — or a key milestone. Sub-stages provide finer
@@ -1359,7 +1359,7 @@ class SubStageEntryStatus {
   String? content;
 }
 
-/// A success criterion entry (form) [PD00-SSP-STG-nn-SUC-nn].
+/// A success criterion entry (form).
 ///
 /// Defines a measurable criterion that determines whether a stage has
 /// achieved its objectives. Each criterion has a target metric,
@@ -1445,7 +1445,7 @@ class StageSuccessCriterionEntryStatus {
   String? content;
 }
 
-/// 13.4. Feature Prioritization [PD00-SSP-FEA].
+/// 13.4. Feature Prioritization.
 ///
 /// Comprehensive feature prioritization framework for staged delivery.
 /// Covers prioritization methodology, MoSCoW analysis, feature-stage
@@ -1499,17 +1499,17 @@ class FeaturePrioritization {
       'trade-offs made, and how priorities map to stage planning.')
   TextSection prioritizationRationale = TextSection();
 
-  /// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+  /// 13.4.1. MoSCoW Analysis.
   MoscowAnalysis moscowAnalysis = MoscowAnalysis();
 
-  /// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+  /// 13.4.2. Feature-Stage Matrix.
   FeatureStageMatrix featureStageMatrix = FeatureStageMatrix();
 
-  /// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+  /// 13.4.3. Feature Priority Register.
   FeaturePriorityRegister featurePriorityRegister =
       FeaturePriorityRegister();
 
-  /// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+  /// 13.4.4. Feature Dependencies.
   FeatureDependencies featureDependencies = FeatureDependencies();
 }
 
@@ -1605,7 +1605,7 @@ class FeaturePrioritizationTraceability {
   String? content;
 }
 
-/// 13.4.1. MoSCoW Analysis [PD00-SSP-FEA-MOS].
+/// 13.4.1. MoSCoW Analysis.
 ///
 /// Classifies every feature using the MoSCoW method (Must / Should /
 /// Could / Won't) and maps each to its target delivery stage.
@@ -1654,7 +1654,7 @@ class MoscowAnalysis {
   List<MoscowEntry> items = [];
 }
 
-/// A MoSCoW classification entry (form) [PD00-SSP-FEA-MOS-nn].
+/// A MoSCoW classification entry (form).
 ///
 /// Maps a single feature or feature group to its MoSCoW category and
 /// target delivery stage, with justification and cross-references.
@@ -1758,7 +1758,7 @@ class MoscowEntryTraceability {
   String? content;
 }
 
-/// 13.4.2. Feature-Stage Matrix [PD00-SSP-FEA-MAT].
+/// 13.4.2. Feature-Stage Matrix.
 ///
 /// Maps every feature or feature group to the delivery stage, tracking
 /// readiness, confidence, dependencies, and acceptance criteria.
@@ -1799,7 +1799,7 @@ class FeatureStageMatrix {
   List<FeatureStageMapping> items = [];
 }
 
-/// A feature-to-stage mapping entry (form) [PD00-SSP-FEA-MAT-nn].
+/// A feature-to-stage mapping entry (form).
 ///
 /// Maps a single feature or feature group to its delivery stage with
 /// readiness, confidence, and dependency information.
@@ -1904,7 +1904,7 @@ class FeatureStageMappingAcceptance {
   String? content;
 }
 
-/// 13.4.3. Feature Priority Register [PD00-SSP-FEA-REG].
+/// 13.4.3. Feature Priority Register.
 ///
 /// Master register of all features with comprehensive priority scoring,
 /// business value analysis, effort estimates, stakeholder ownership,
@@ -1931,7 +1931,7 @@ class FeaturePriorityRegister {
   List<FeaturePriorityEntry> items = [];
 }
 
-/// An individual feature priority entry (form) [PD00-SSP-FEA-REG-nn].
+/// An individual feature priority entry (form).
 ///
 /// Comprehensive record covering identity, classification, business
 /// value, effort, priority scoring, stage assignment, dependencies,
@@ -2175,7 +2175,7 @@ class FeatureStatus {
   String? content;
 }
 
-/// 13.4.4. Feature Dependencies [PD00-SSP-FEA-DEP].
+/// 13.4.4. Feature Dependencies.
 ///
 /// Cross-feature dependencies affecting staging order, critical path
 /// analysis, and delivery sequencing.
@@ -2217,7 +2217,7 @@ class FeatureDependencies {
   List<FeatureDependencyEntry> items = [];
 }
 
-/// A feature dependency entry (form) [PD00-SSP-FEA-DEP-nn].
+/// A feature dependency entry (form).
 ///
 /// Describes a single directional dependency between two features,
 /// including type, impact, and resolution strategy.
@@ -2270,7 +2270,7 @@ class FeatureDependencyEntry {
   String? content;
 }
 
-/// 13.5. Data Migration Strategy [PD00-SSP-MIG].
+/// 13.5. Data Migration Strategy.
 ///
 /// Comprehensive data migration strategy covering approach, methodology,
 /// tooling, environment strategy, data quality governance, cutover
@@ -2348,10 +2348,10 @@ class DataMigrationStrategy {
       'parallel operation strategy, and hypercare support model.')
   TextSection migrationStrategyNarrative = TextSection();
 
-  /// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+  /// 13.5.1. Migration Phases.
   MigrationPhases migrationPhases = MigrationPhases();
 
-  /// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+  /// 13.5.2. Migration Risks.
   StageMigrationRisks migrationRisks = StageMigrationRisks();
 }
 
@@ -2594,7 +2594,7 @@ class MigrationSchedule {
   String? content;
 }
 
-/// 13.5.1. Migration Phases [PD00-SSP-MIG-PHA].
+/// 13.5.1. Migration Phases.
 ///
 /// Staged migration phases defining the sequential or overlapping
 /// execution plan. Each phase targets a specific data domain or source
@@ -2661,7 +2661,7 @@ class MigrationPhases {
   List<MigrationPhaseEntry> items = [];
 }
 
-/// A migration phase entry (form) [PD00-SSP-MIG-PHA-nn].
+/// A migration phase entry (form).
 ///
 /// Represents a single migration phase targeting a specific data domain,
 /// source system, or entity group. Covers data scope analysis, migration
@@ -2940,7 +2940,7 @@ class MigrationPhaseStatus {
   String? content;
 }
 
-/// 13.5.2. Migration Risks [PD00-SSP-MIG-RIS].
+/// 13.5.2. Migration Risks.
 ///
 /// Risk register specific to data migration activities. Covers data
 /// loss, corruption, downtime overrun, compliance violations,
@@ -3008,7 +3008,7 @@ class StageMigrationRisks {
   List<StageMigrationRiskEntry> items = [];
 }
 
-/// A stage migration risk entry (form) [PD00-SSP-MIG-RIS-nn].
+/// A stage migration risk entry (form).
 ///
 /// Individual risk in the data migration risk register. Covers risk
 /// identification, categorization, probability/impact scoring,
@@ -3178,7 +3178,7 @@ class StageMigrationRiskStatus {
   String? content;
 }
 
-/// 13.6. Governance [PD00-SSP-GOV].
+/// 13.6. Governance.
 ///
 /// Governance framework for stage transitions, phase gate reviews,
 /// and key decision points. Covers governance structure, authority
@@ -3230,10 +3230,10 @@ class StageGovernance {
       'emergency bypass procedures.')
   TextSection governanceNarrative = TextSection();
 
-  /// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+  /// 13.6.1. Phase Gate Reviews.
   PhaseGateReviews phaseGateReviews = PhaseGateReviews();
 
-  /// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+  /// 13.6.2. Decision Points.
   DecisionPoints decisionPoints = DecisionPoints();
 }
 
@@ -3348,7 +3348,7 @@ class StageGovernanceTransition {
   String? content;
 }
 
-/// 13.6.1. Phase Gate Reviews [PD00-SSP-GOV-GAT].
+/// 13.6.1. Phase Gate Reviews.
 ///
 /// Defines the phase gate review process: what is reviewed at each
 /// gate, who participates, what evidence is required, and what
@@ -3451,7 +3451,7 @@ class PhaseGateReviewsOutcomes {
   String? content;
 }
 
-/// A phase gate review entry (form) [PD00-SSP-GOV-GAT-nn].
+/// A phase gate review entry (form).
 ///
 /// Defines a single phase gate with its criteria, participants,
 /// required evidence, entry/exit conditions, and review schedule.
@@ -3587,7 +3587,7 @@ class PhaseGateExit {
   String? content;
 }
 
-/// A review criterion entry (form) [PD00-SSP-GOV-GAT-nn-RCR-nn].
+/// A review criterion entry (form).
 ///
 /// A single criterion evaluated at a phase gate, with weight,
 /// evidence linkage, and assessment result.
@@ -3666,7 +3666,7 @@ class ReviewCriterionEntryResult {
   String? content;
 }
 
-/// 13.6.2. Decision Points [PD00-SSP-GOV-DEC].
+/// 13.6.2. Decision Points.
 ///
 /// Key decision points in the stage plan including go/no-go
 /// decisions, scope adjustments, resource reallocations, and
@@ -3722,7 +3722,7 @@ class DecisionPoints {
   List<DecisionPointEntry> items = [];
 }
 
-/// A decision point entry (form) [PD00-SSP-GOV-DEC-nn].
+/// A decision point entry (form).
 ///
 /// A single formal decision point with defined timing, criteria,
 /// authority, available options with impact analysis, and recording
@@ -3863,7 +3863,7 @@ class DecisionPointEntryResolution {
   List<DecisionOptionEntry> options = [];
 }
 
-/// A decision option entry (form) [PD00-SSP-GOV-DEC-nn-OPT-nn].
+/// A decision option entry (form).
 ///
 /// One of the available options for a decision point, with full
 /// impact analysis, feasibility assessment, and trade-off evaluation.
@@ -3991,10 +3991,10 @@ class DecisionOptionEntryTradeOffs {
 }
 
 // ---------------------------------------------------------------------------
-// 13.7 Initial Development Flow [PD00-SSP-IDV]
+// 13.7 Initial Development Flow
 // ---------------------------------------------------------------------------
 
-/// 13.7. Initial Development Flow [PD00-SSP-IDV].
+/// 13.7. Initial Development Flow.
 ///
 /// Inter-phase dependencies during the initial build (Phases 1–7 of
 /// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
@@ -4019,10 +4019,10 @@ dependencies, parallel work streams, and synchronization points.
 }
 
 // ---------------------------------------------------------------------------
-// 13.8 Upgrade Cycle Framework [PD00-SSP-UPG]
+// 13.8 Upgrade Cycle Framework
 // ---------------------------------------------------------------------------
 
-/// 13.8. Upgrade Cycle Framework [PD00-SSP-UPG].
+/// 13.8. Upgrade Cycle Framework.
 ///
 /// Post-development upgrade cycle framework. Links the upgrade process
 /// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.

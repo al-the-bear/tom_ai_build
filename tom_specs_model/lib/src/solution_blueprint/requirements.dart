@@ -2,7 +2,7 @@
 ///
 /// Home for the framework-uncovered non-functional requirement sub-areas that
 /// were previously conflated inside the mis-homed `MultiLanguageAndRollout`
-/// (`PD00-USE-MUL`) cluster under UI design. IP-6 splits that cluster **by
+/// cluster under UI design. IP-6 splits that cluster **by
 /// concern** and re-homes each requirement-side concern here (§4.1):
 ///
 ///  * Localization & Translation → [LocalizationTranslationRequirements]

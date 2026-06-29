@@ -1,4 +1,4 @@
-/// Section 7: Business Object and Data Model [PD00-BUS]. Seeds → BDM.
+/// Section 7: Business Object and Data Model. Seeds → BDM.
 ///
 /// Conceptual overview of the business data the system manages.
 library;
@@ -9,7 +9,7 @@ import '../document_stubs.dart';
 
 
 
-/// 7. Business Object and Data Model [PD00-BUS]. Seeds → BDM.
+/// 7. Business Object and Data Model. Seeds → BDM.
 @SectionId('BODM')
 @Comment('Seeds → BDM')
 @MapsTo(InformationModel)
@@ -33,13 +33,13 @@ BDM (Business Data Model) document.
 ''')
   String? content;
 
-  /// 7.1. Data Model [PD00-BUS-DAT].
+  /// 7.1. Data Model.
   DataModel dataModel = DataModel();
 
-  /// 7.2. Business Object Model [PD00-BUS-BUS].
+  /// 7.2. Business Object Model.
   BusinessObjectModel businessObjectModel = BusinessObjectModel();
 
-  /// 7.3. Function Model [PD00-BUS-FUN].
+  /// 7.3. Function Model.
   FunctionModel functionModel = FunctionModel();
 }
 
@@ -47,7 +47,7 @@ BDM (Business Data Model) document.
 // 7.1 Data Model
 // ---------------------------------------------------------------------------
 
-/// 7.1. Data Model [PD00-BUS-DAT].
+/// 7.1. Data Model.
 @SectionId('DATMD')
 @MapsTo(InformationModel)
 class DataModel {
@@ -72,36 +72,36 @@ attributes, relationships, and constraints that represent core business data.
 ''')
   String? content;
 
-  /// 7.1.1. Entity Overview [PD00-BUS-DAT-ENT] — contains 1+× Data Entity.
+  /// 7.1.1. Entity Overview — contains 1+× Data Entity.
   @SectionId('DAENT-ENTI-LST')
   @SectionIdPattern('DAENT-ENTI-xxx')
   @Min(1)
   List<DataEntityEntry> entities = [];
 
-  /// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+  /// 7.1.2. Entity Relationships.
   EntityRelationships entityRelationships = EntityRelationships();
 
-  /// 7.1.3. Entity-Relationship Diagram [PD00-BUS-DAT-DIA] (mermaid).
+  /// 7.1.3. Entity-Relationship Diagram (mermaid).
   ErDiagramSection erDiagram = ErDiagramSection();
 
-  /// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+  /// 7.1.4. Data Classification.
   DataClassification dataClassification = DataClassification();
 
-  /// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC]. Covers HBSG AS08-DAT.
+  /// 7.1.5. Data Dictionary..
   DataDictionary dataDictionary = DataDictionary();
 
-  /// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+  /// 7.1.6. Validation Constraints.
   @SectionId('VACO-VALI-LST')
   @SectionIdPattern('VACO-VALI-xxx')
   List<ValidationConstraints> validationConstraints = [];
 
-  /// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+  /// 7.1.7. Integrity Constraints.
   @SectionId('INCO-INTE-LST')
   @SectionIdPattern('INCO-INTE-xxx')
   List<IntegrityConstraints> integrityConstraints = [];
 }
 
-/// A data entity entry [PD00-BUS-DAT-ENT-nn] (form).
+/// A data entity entry (form).
 ///
 /// Comprehensive entity specification following data modeling best practices.
 /// Captures conceptual, logical, and physical design aspects.
@@ -205,33 +205,33 @@ class DataEntityEntry {
   @SectionIdPattern('TECHN-TECH-xxx')
   List<TechnicalCharacteristicEntry> technicalCharacteristics = [];
 
-  /// Contains 0+× DataAttribute [PD00-BUS-DAT-ENT-nn-ATT].
+  /// Contains 0+× DataAttribute.
   @SectionId('DAATT-ATTR-LST')
   @SectionIdPattern('DAATT-ATTR-xxx')
   List<DataAttributeEntry> attributes = [];
 
-  /// Contains 0+× KeyAttribute [PD00-BUS-DAT-ENT-nn-KEY].
+  /// Contains 0+× KeyAttribute.
   @SectionId('KEATT-KEYA-LST')
   @SectionIdPattern('KEATT-KEYA-xxx')
   List<KeyAttributeEntry> keyAttributes = [];
 
-  /// Contains 0+× EntityIndex [PD00-BUS-DAT-ENT-nn-IDX].
+  /// Contains 0+× EntityIndex.
   @SectionId('ENIDX-INDE-LST')
   @SectionIdPattern('ENIDX-INDE-xxx')
   List<EntityIndexEntry> indexes = [];
 
-  /// Contains 0+× EntityConstraint [PD00-BUS-DAT-ENT-nn-CON].
+  /// Contains 0+× EntityConstraint.
   @SectionId('ENCNS-CONS-LST')
   @SectionIdPattern('ENCNS-CONS-xxx')
   List<EntityConstraintEntry> constraints = [];
 
-  /// Contains 0+× MigrationMapping [PD00-BUS-DAT-ENT-nn-MIG] for data migration planning.
+  /// Contains 0+× MigrationMapping for data migration planning.
   @SectionId('MIGME-MIGR-LST')
   @SectionIdPattern('MIGME-MIGR-xxx')
   List<MigrationMappingEntry> migrationMappings = [];
 }
 
-/// A data attribute entry (form) [PD00-BUS-DAT-ENT-nn-ATT-nn].
+/// A data attribute entry (form).
 ///
 /// Comprehensive attribute specification for data dictionary and schema design.
 @SectionId('DAATT')
@@ -340,7 +340,7 @@ class DataAttributeEntry {
   List<DisplayPropertyEntry> displayProperties = [];
 }
 
-/// A key attribute entry (form) [PD00-BUS-DAT-ENT-nn-KEY-nn].
+/// A key attribute entry (form).
 ///
 /// Specification for primary, foreign, alternate, and composite keys.
 @SectionId('KEATT')
@@ -410,7 +410,7 @@ class KeyAttributeEntryGovernance {
   String? content;
 }
 
-/// An entity index entry (form) [PD00-BUS-DAT-ENT-nn-IDX-nn].
+/// An entity index entry (form).
 ///
 /// Database index specification for query optimization.
 @SectionId('ENIDX')
@@ -438,7 +438,7 @@ class EntityIndexEntry {
   String? content;
 }
 
-/// An entity constraint entry (form) [PD00-BUS-DAT-ENT-nn-CON-nn].
+/// An entity constraint entry (form).
 ///
 /// Business and technical constraints beyond keys.
 @SectionId('ENCNS')
@@ -462,7 +462,7 @@ class EntityConstraintEntry {
   String? content;
 }
 
-/// A migration mapping entry (form) [PD00-BUS-DAT-ENT-nn-MIG-nn].
+/// A migration mapping entry (form).
 ///
 /// Maps source system data to target entity for data migration planning.
 @SectionId('MIGME')
@@ -492,7 +492,7 @@ class MigrationMappingEntry {
   String? content;
 }
 
-/// 7.1.2. Entity Relationships [PD00-BUS-DAT-REL].
+/// 7.1.2. Entity Relationships.
 @SectionId('ENREL')
 @DetailedIn(InformationModel)
 @SecondLevelSectionId(InformationModel, 'BDM-REL')
@@ -523,7 +523,7 @@ referential integrity rules, and navigation patterns.
   List<EntityRelationshipEntry> items = [];
 }
 
-/// An entity relationship entry (form) [PD00-BUS-DAT-REL-nn].
+/// An entity relationship entry (form).
 ///
 /// Comprehensive relationship specification following ER modeling best practices.
 @SectionId('ENRLE')
@@ -621,7 +621,7 @@ class EntityRelationshipEntry {
   String? targetEntityRef;
 }
 
-/// 7.1.4. Data Classification [PD00-BUS-DAT-CLA].
+/// 7.1.4. Data Classification.
 @SectionId('DATCL')
 @DetailedIn(InformationModel)
 @SecondLevelSectionId(InformationModel, 'BDM-CLA')
@@ -641,13 +641,13 @@ class DataClassification {
   ])
   String? overview;
 
-  /// Contains 0+× DataClassificationEntry [PD00-BUS-DAT-CLA-nn].
+  /// Contains 0+× DataClassificationEntry.
   @SectionId('DCLSE-ITEM-LST')
   @SectionIdPattern('DCLSE-ITEM-xxx')
   List<DataClassificationEntry> items = [];
 }
 
-/// A data classification entry (form) [PD00-BUS-DAT-CLA-nn].
+/// A data classification entry (form).
 ///
 /// Comprehensive data classification for security and compliance.
 @SectionId('DCLSE')
@@ -735,18 +735,18 @@ class DataClassificationEntry {
   ])
   String? compliance;
 
-  /// Contains 0+× HandlingRequirement [PD00-BUS-DAT-CLA-nn-HAN].
+  /// Contains 0+× HandlingRequirement.
   @SectionId('HNDRE-HAND-LST')
   @SectionIdPattern('HNDRE-HAND-xxx')
   List<HandlingRequirementEntry> handlingRequirements = [];
 
-  /// Contains 0+× AccessRestriction [PD00-BUS-DAT-CLA-nn-ARE].
+  /// Contains 0+× AccessRestriction.
   @SectionId('ACRSE-ACCE-LST')
   @SectionIdPattern('ACRSE-ACCE-xxx')
   List<AccessRestrictionEntry> accessRestrictions = [];
 }
 
-/// A data handling requirement entry (form) [PD00-BUS-DAT-CLA-nn-HAN-nn].
+/// A data handling requirement entry (form).
 ///
 /// Specific handling procedures for classified data.
 @SectionId('HNDRE')
@@ -770,7 +770,7 @@ class HandlingRequirementEntry {
   String? content;
 }
 
-/// An access restriction entry (form) [PD00-BUS-DAT-CLA-nn-ARE-nn].
+/// An access restriction entry (form).
 ///
 /// Specific access restrictions for classified data.
 @SectionId('ACRSE')
@@ -798,7 +798,7 @@ class AccessRestrictionEntry {
 // 7.2 Business Object Model
 // ---------------------------------------------------------------------------
 
-/// 7.2. Business Object Model [PD00-BUS-BUS].
+/// 7.2. Business Object Model.
 @SectionId('BJOMD')
 @MapsTo(InformationModel)
 class BusinessObjectModel {
@@ -824,17 +824,17 @@ Domain-Driven Design patterns for rich domain modeling.
 ''')
   String? content;
 
-  /// 7.2.1. Object Catalog [PD00-BUS-BUS-CAT] — contains 1+× Business Object.
+  /// 7.2.1. Object Catalog — contains 1+× Business Object.
   @SectionId('BJOEN-OBJE-LST')
   @SectionIdPattern('BJOEN-OBJE-xxx')
   @Min(1)
   List<BusinessObjectEntry> objects = [];
 
-  /// 7.2.2. Business Object Diagram [PD00-BUS-BUS-DIA] (mermaid).
+  /// 7.2.2. Business Object Diagram (mermaid).
   DiagramSection objectDiagram = DiagramSection();
 }
 
-/// A business object entry [PD00-BUS-BUS-CAT-nn] (form).
+/// A business object entry (form).
 ///
 /// Comprehensive business object specification following domain-driven design
 /// patterns. Business objects represent key domain concepts with behavior,
@@ -925,38 +925,38 @@ class BusinessObjectEntry {
   @SectionIdPattern('INTEG-INTE-xxx')
   List<IntegrationPointEntry> integrationPoints = [];
 
-  /// Contains 0+× BusinessObjectAttribute [PD00-BUS-BUS-CAT-nn-BOA].
+  /// Contains 0+× BusinessObjectAttribute.
   @SectionId('BIOBAT-ATTR-LST')
   @SectionIdPattern('BIOBAT-ATTR-xxx')
   List<BusinessObjectAttributeEntry> attributes = [];
 
-  /// Contains 0+× ObjectState [PD00-BUS-BUS-CAT-nn-STA].
+  /// Contains 0+× ObjectState.
   @SectionId('OBST-KEYS-LST')
   @SectionIdPattern('OBST-KEYS-xxx')
   List<ObjectStateEntry> keyStates = [];
 
-  /// Contains 0+× BusinessRuleReference [PD00-BUS-BUS-CAT-nn-BRR].
+  /// Contains 0+× BusinessRuleReference.
   @SectionId('BIRURE-KEYB-LST')
   @SectionIdPattern('BIRURE-KEYB-xxx')
   List<BusinessRuleReferenceEntry> keyBusinessRules = [];
 
-  /// Contains 0+× LifecycleTransition [PD00-BUS-BUS-CAT-nn-LIF].
+  /// Contains 0+× LifecycleTransition.
   @SectionId('LFTRS-LIFE-LST')
   @SectionIdPattern('LFTRS-LIFE-xxx')
   List<LifecycleTransitionEntry> lifecycleTransitions = [];
 
-  /// Contains 0+× ObjectOperation [PD00-BUS-BUS-CAT-nn-OPR].
+  /// Contains 0+× ObjectOperation.
   @SectionId('OBOP-OPER-LST')
   @SectionIdPattern('OBOP-OPER-xxx')
   List<ObjectOperationEntry> operations = [];
 
-  /// Contains 0+× ObjectInvariant [PD00-BUS-BUS-CAT-nn-INV].
+  /// Contains 0+× ObjectInvariant.
   @SectionId('OBINV-INVA-LST')
   @SectionIdPattern('OBINV-INVA-xxx')
   List<ObjectInvariantEntry> invariants = [];
 }
 
-/// A business object attribute entry (form) [PD00-BUS-BUS-CAT-nn-BOA-nn].
+/// A business object attribute entry (form).
 ///
 /// Business-level attribute specification focusing on business meaning and rules.
 @SectionId('BIOBAT')
@@ -1026,7 +1026,7 @@ class BusinessObjectAttributeEntryGovernance {
   String? content;
 }
 
-/// An object state entry (form) [PD00-BUS-BUS-CAT-nn-STA-nn].
+/// An object state entry (form).
 ///
 /// Detailed state specification for business object lifecycle.
 @SectionId('OBST')
@@ -1056,7 +1056,7 @@ class ObjectStateEntry {
   String? content;
 }
 
-/// A business rule reference entry (form) [PD00-BUS-BUS-CAT-nn-BRR-nn].
+/// A business rule reference entry (form).
 ///
 /// Reference to business rules that govern this object.
 @SectionId('BIRURE')
@@ -1085,7 +1085,7 @@ class BusinessRuleReferenceEntry {
   String? ruleRef;
 }
 
-/// A lifecycle transition entry (form) [PD00-BUS-BUS-CAT-nn-LIF-nn].
+/// A lifecycle transition entry (form).
 ///
 /// Detailed state transition specification.
 @SectionId('LFTRS')
@@ -1156,7 +1156,7 @@ class LifecycleTransitionEntryExecution {
   String? content;
 }
 
-/// An object operation entry (form) [PD00-BUS-BUS-CAT-nn-OPR-nn].
+/// An object operation entry (form).
 ///
 /// Business operations that can be performed on the object.
 @SectionId('OBOP')
@@ -1226,7 +1226,7 @@ class ObjectOperationEntryGovernance {
   String? content;
 }
 
-/// An object invariant entry (form) [PD00-BUS-BUS-CAT-nn-INV-nn].
+/// An object invariant entry (form).
 ///
 /// Business invariants that must always hold true.
 @SectionId('OBINV')
@@ -1254,7 +1254,7 @@ class ObjectInvariantEntry {
 // 7.3 Function Model
 // ---------------------------------------------------------------------------
 
-/// 7.3. Function Model [PD00-BUS-FUN].
+/// 7.3. Function Model.
 ///
 /// Business functions, their decomposition, and relationships to data objects.
 @SectionId('FUMO')
@@ -1290,24 +1290,24 @@ class FunctionModel {
   ])
   String? matrixOverview;
 
-  /// 7.3.1. Function Decomposition [PD00-BUS-FUN-DEC] — contains 0+× Function.
+  /// 7.3.1. Function Decomposition — contains 0+× Function.
   @SectionId('FUNCT-FUNC-LST')
   @SectionIdPattern('FUNCT-FUNC-xxx')
   List<FunctionEntry> functions = [];
 
-  /// 7.3.2. Function-to-Data Matrix Entries [PD00-BUS-FUN-MAT] — contains 0+× MatrixEntry.
+  /// 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
   @SectionId('FNDMX-MATR-LST')
   @SectionIdPattern('FNDMX-MATR-xxx')
   List<FunctionDataMatrixEntry> matrixEntries = [];
 
-  /// 7.3.3. Business Rules [PD00-BUS-FUN-RUL] — contains 1+× Business Rule.
+  /// 7.3.3. Business Rules — contains 1+× Business Rule.
   @SectionId('BIRU-BUSI-LST')
   @SectionIdPattern('BIRU-BUSI-xxx')
   @Min(1)
   List<BusinessRuleEntry> businessRules = [];
 }
 
-/// A function entry (form) [PD00-BUS-FUN-DEC-nn].
+/// A function entry (form).
 ///
 /// Business function specification in the functional decomposition.
 @SectionId('FUNCT')
@@ -1333,7 +1333,7 @@ class FunctionEntry {
   /// Automation and data handling summary.
   FunctionEntryImplementation implementation = FunctionEntryImplementation();
 
-  /// Sub-functions [PD00-BUS-FUN-DEC-nn-SUB] — contains 0+× SubFunction.
+  /// Sub-functions — contains 0+× SubFunction.
   @SectionId('SUFN-SUBF-LST')
   @SectionIdPattern('SUFN-SUBF-xxx')
   List<SubFunctionEntry> subFunctions = [];
@@ -1379,7 +1379,7 @@ class FunctionEntryImplementation {
   String? content;
 }
 
-/// A sub-function entry (form) [PD00-BUS-FUN-DEC-nn-SUB-nn].
+/// A sub-function entry (form).
 ///
 /// Lower-level function in the decomposition.
 @SectionId('SUFN')
@@ -1397,7 +1397,7 @@ class SubFunctionEntry {
   String? content;
 }
 
-/// A function-to-data matrix entry (form) [PD00-BUS-FUN-MAT-nn].
+/// A function-to-data matrix entry (form).
 ///
 /// Maps a function to the data entities it accesses.
 @SectionId('FNDMX')
@@ -1419,7 +1419,7 @@ class FunctionDataMatrixEntry {
   String? content;
 }
 
-/// A business rule entry [PD00-BUS-FUN-RUL-nn] (form).
+/// A business rule entry (form).
 ///
 /// Comprehensive business rule specification following SBVR-like patterns.
 @SectionId('BIRU')
@@ -1522,23 +1522,23 @@ class BusinessRuleEntry {
   ])
   String? governance;
 
-  /// Contains 0+× AffectedObject [PD00-BUS-FUN-RUL-nn-AOB].
+  /// Contains 0+× AffectedObject.
   @SectionId('AFOB-AFFE-LST')
   @SectionIdPattern('AFOB-AFFE-xxx')
   List<AffectedObjectEntry> affectedObjects = [];
 
-  /// Contains 0+× AffectedFunction [PD00-BUS-FUN-RUL-nn-AFU].
+  /// Contains 0+× AffectedFunction.
   @SectionId('AFFN-AFFE-LST')
   @SectionIdPattern('AFFN-AFFE-xxx')
   List<AffectedFunctionEntry> affectedFunctions = [];
 
-  /// Contains 0+× RuleExample [PD00-BUS-FUN-RUL-nn-EXA].
+  /// Contains 0+× RuleExample.
   @SectionId('RULEXM-EXAM-LST')
   @SectionIdPattern('RULEXM-EXAM-xxx')
   List<RuleExampleEntry> examples = [];
 }
 
-/// An affected object reference entry (form) [PD00-BUS-FUN-RUL-nn-AOB-nn].
+/// An affected object reference entry (form).
 ///
 /// Business objects affected by this rule.
 @SectionId('AFOB')
@@ -1559,7 +1559,7 @@ class AffectedObjectEntry {
   String? objectRef;
 }
 
-/// An affected function reference entry (form) [PD00-BUS-FUN-RUL-nn-AFU-nn].
+/// An affected function reference entry (form).
 ///
 /// Functions where this rule applies.
 @SectionId('AFFN')
@@ -1580,7 +1580,7 @@ class AffectedFunctionEntry {
   String? functionRef;
 }
 
-/// A rule example entry (form) [PD00-BUS-FUN-RUL-nn-EXA-nn].
+/// A rule example entry (form).
 ///
 /// Examples illustrating rule application.
 @SectionId('RULEXM')
@@ -1601,13 +1601,13 @@ class RuleExampleEntry {
 }
 
 // ---------------------------------------------------------------------------
-// 7.1.5 Data Dictionary [PD00-BUS-DAT-DIC]
+// 7.1.5 Data Dictionary
 // ---------------------------------------------------------------------------
 
-/// 7.1.5. Data Dictionary [PD00-BUS-DAT-DIC].
+/// 7.1.5. Data Dictionary.
 ///
 /// Attribute-level dictionary that complements the entity overview
-/// (PD00-BUS-DAT-ENT). Covers HBSG AS08-DAT.
+///..
 @SectionId('DADI')
 @DetailedIn(InformationModel)
 @SecondLevelSectionId(InformationModel, 'BDM-DIC')
@@ -1622,16 +1622,16 @@ Single authoritative registry for data attributes across the system.
 - Provenance (where the attribute is first set, where it is read)
 - Format / unit / precision conventions
 - Default value and required-ness
-- Cross-references to validation constraints (PD00-BUS-DAT-VAL)
+- Cross-references to validation constraints
 ''')
   String? content;
 }
 
 // ---------------------------------------------------------------------------
-// 7.1.6 Validation Constraints [PD00-BUS-DAT-VAL]
+// 7.1.6 Validation Constraints
 // ---------------------------------------------------------------------------
 
-/// 7.1.6. Validation Constraints [PD00-BUS-DAT-VAL].
+/// 7.1.6. Validation Constraints.
 ///
 /// Cross-entity validation policy. Per-field validation lives in entity
 /// form fields; this section captures rules that span multiple fields or
@@ -1657,10 +1657,10 @@ constraints (which are database-level) and from per-field form hints
 }
 
 // ---------------------------------------------------------------------------
-// 7.1.7 Integrity Constraints [PD00-BUS-DAT-CON]
+// 7.1.7 Integrity Constraints
 // ---------------------------------------------------------------------------
 
-/// 7.1.7. Integrity Constraints [PD00-BUS-DAT-CON].
+/// 7.1.7. Integrity Constraints.
 ///
 /// Cross-entity integrity rules beyond simple referential integrity.
 @SectionId('INCO')

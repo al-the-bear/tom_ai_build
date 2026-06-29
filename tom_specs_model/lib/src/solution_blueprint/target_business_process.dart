@@ -1,4 +1,4 @@
-/// Section 6: Target Business Process Model [PD00-TAR].
+/// Section 6: Target Business Process Model.
 ///
 /// Target business processes the system will support. Splits into process
 /// descriptions (seeds → BP) and actor interactions (seeds → UC).
@@ -9,7 +9,7 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 6. Target Business Process Model [PD00-TAR].
+/// 6. Target Business Process Model.
 @SectionId('TBPM')
 @Comment('Seeds → BP, UC')
 class TargetBusinessProcessModel {
@@ -35,22 +35,22 @@ interactions that seed use case development.
 ''')
   String? content;
 
-  /// 6.1. Business Process Descriptions [PD00-TAR-PRO]. Seeds → BP.
+  /// 6.1. Business Process Descriptions. Seeds → BP.
   @Comment('Seeds → BP')
   BusinessProcessDescriptions businessProcessDescriptions =
       BusinessProcessDescriptions();
 
-  /// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+  /// 6.2. Process Steps and Actor Interactions. Seeds → UC.
   @Comment('Seeds → UC')
   ProcessStepsAndActorInteractions processStepsAndActorInteractions =
       ProcessStepsAndActorInteractions();
 }
 
 // ---------------------------------------------------------------------------
-// 6.1 Business Process Descriptions [PD00-TAR-PRO]
+// 6.1 Business Process Descriptions
 // ---------------------------------------------------------------------------
 
-/// 6.1. Business Process Descriptions [PD00-TAR-PRO].
+/// 6.1. Business Process Descriptions.
 ///
 /// Target business processes at a high level. Each process will be expanded
 /// with detailed workflows, triggers, decision points, and exception handling
@@ -75,42 +75,42 @@ BP (Business Processes) document.
 ''')
   String? content;
 
-  /// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+  /// 6.1.1. Process Vision.
   ProcessVision processVision = ProcessVision();
 
-  /// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+  /// 6.1.2. Design Principles.
   ProcessDesignPrinciples designPrinciples = ProcessDesignPrinciples();
 
-  /// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT] — contains 1+× Business Process.
+  /// 6.1.3. Process Catalog — contains 1+× Business Process.
   ProcessCatalog processCatalog = ProcessCatalog();
 
-  /// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+  /// 6.1.4. Process Overview Diagram.
   ProcessOverviewDiagram processOverviewDiagram = ProcessOverviewDiagram();
 
-  /// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+  /// 6.1.5. Improvement Summary.
   ProcessImprovementSummary improvementSummary = ProcessImprovementSummary();
 
-  /// 6.1.6. Process Relationships [PD00-TAR-PRO-REL].
+  /// 6.1.6. Process Relationships.
   ProcessRelationships processRelationships = ProcessRelationships();
 
-  /// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+  /// 6.1.7. Detailed Process Workflows.
   @SectionId('DEPRWO-DETA-LST')
   @SectionIdPattern('DEPRWO-DETA-xxx')
   List<DetailedProcessWorkflows> detailedWorkflows = [];
 
-  /// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+  /// 6.1.8. Cross-Process Analysis.
   CrossProcessAnalysis crossProcessAnalysis = CrossProcessAnalysis();
 
-  /// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+  /// 6.1.9. Process Exception Handling.
   ProcessExceptionHandling exceptionHandling = ProcessExceptionHandling();
 
-  /// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+  /// 6.1.10. Process Metrics and KPIs.
   @SectionId('PMAK-PROC-LST')
   @SectionIdPattern('PMAK-PROC-xxx')
   List<ProcessMetricsAndKpis> processMetricsAndKpis = [];
 }
 
-/// 6.1.1. Process Vision [PD00-TAR-PRO-VIS].
+/// 6.1.1. Process Vision.
 ///
 /// The overall vision for how business processes will work with the new system.
 @SectionId('PRVIZ')
@@ -203,7 +203,7 @@ class ProcessSuccessCriteria {
   String? content;
 }
 
-/// 6.1.2. Design Principles [PD00-TAR-PRO-PRI].
+/// 6.1.2. Design Principles.
 ///
 /// Principles that guide process design decisions.
 @SectionId('PDPRI')
@@ -235,7 +235,7 @@ class DesignPrinciplesOverview {
   String? content;
 }
 
-/// A process design principle entry (form) [PD00-TAR-PRO-PRI-nn].
+/// A process design principle entry (form).
 @SectionId('PDPEN')
 class ProcessDesignPrincipleEntry {
   @Form([
@@ -256,7 +256,7 @@ class ProcessDesignPrincipleEntry {
   String? content;
 }
 
-/// 6.1.3. Process Catalog [PD00-TAR-PRO-CAT].
+/// 6.1.3. Process Catalog.
 ///
 /// Container for business process definitions.
 @SectionId('PRCAT')
@@ -319,7 +319,7 @@ class ProcessClassification {
   String? content;
 }
 
-/// A business process entry [PD00-TAR-PRO-CAT-nn].
+/// A business process entry.
 ///
 /// Comprehensive business process definition following BPMN 2.0 concepts.
 @SectionId('BPREN')
@@ -498,7 +498,7 @@ class TriggerOverview {
   String? content;
 }
 
-/// A process trigger entry [PD00-TAR-PRO-CAT-nn-TRG-nn].
+/// A process trigger entry.
 @SectionId('PTREN')
 class ProcessTriggerEntry {
   @Form([
@@ -517,7 +517,7 @@ class ProcessTriggerEntry {
   String? content;
 }
 
-/// A process end event entry [PD00-TAR-PRO-CAT-nn-END-nn].
+/// A process end event entry.
 @SectionId('PEEVT')
 class ProcessEndEventEntry {
   @Form([
@@ -566,7 +566,7 @@ class InputsOutputsOverview {
   String? content;
 }
 
-/// A process input entry [PD00-TAR-PRO-CAT-nn-INP-nn].
+/// A process input entry.
 @SectionId('PCINP')
 class ProcessInputEntry {
   @Form([
@@ -586,7 +586,7 @@ class ProcessInputEntry {
   String? content;
 }
 
-/// A process output entry [PD00-TAR-PRO-CAT-nn-OUT-nn].
+/// A process output entry.
 @SectionId('PCOUT')
 class ProcessOutputEntry {
   @Form([
@@ -636,7 +636,7 @@ class ProcessRolesOverview {
   String? content;
 }
 
-/// A process role entry [PD00-TAR-PRO-CAT-nn-ROL-nn].
+/// A process role entry.
 @SectionId('PCROL')
 class ProcessRoleEntry {
   @Form([
@@ -720,7 +720,7 @@ class ProcessPerformanceOverview {
   String? content;
 }
 
-/// A process KPI entry [PD00-TAR-PRO-CAT-nn-KPI-nn].
+/// A process KPI entry.
 @SectionId('PCKPI')
 class ProcessKpiEntry {
   @Form([
@@ -766,7 +766,7 @@ class ProcessKpiEntryOperations {
   String? content;
 }
 
-/// A process SLA entry [PD00-TAR-PRO-CAT-nn-SLA-nn].
+/// A process SLA entry.
 @SectionId('PCSLA')
 class ProcessSlaEntry {
   @Form([
@@ -820,7 +820,7 @@ class ProcessControlsOverview {
   String? content;
 }
 
-/// A process control entry [PD00-TAR-PRO-CAT-nn-CTL-nn].
+/// A process control entry.
 @SectionId('PCCTL')
 class ProcessControlEntry {
   @Form([
@@ -948,7 +948,7 @@ class ProcessExceptionsOverview {
   String? content;
 }
 
-/// A process exception entry [PD00-TAR-PRO-CAT-nn-EXC-nn].
+/// A process exception entry.
 @SectionId('PCEXC')
 class ProcessExceptionEntry {
   @Form([
@@ -994,7 +994,7 @@ class ProcessExceptionEntryResponse {
   String? content;
 }
 
-/// 6.1.4. Process Overview Diagram [PD00-TAR-PRO-FLO].
+/// 6.1.4. Process Overview Diagram.
 ///
 /// High-level process flow diagram showing main processes and relationships.
 @SectionId('PROVDI')
@@ -1028,7 +1028,7 @@ class ProcessDiagramOverview {
   String? content;
 }
 
-/// 6.1.5. Improvement Summary [PD00-TAR-PRO-IMP].
+/// 6.1.5. Improvement Summary.
 ///
 /// Summary of expected improvements over current processes.
 @SectionId('PRIMSU')
@@ -1063,7 +1063,7 @@ class ImprovementOverview {
   String? content;
 }
 
-/// A process improvement entry [PD00-TAR-PRO-IMP-nn].
+/// A process improvement entry.
 @SectionId('PCIMV')
 class ProcessImprovementEntry {
   @Form([
@@ -1154,7 +1154,7 @@ design and identifying optimization opportunities.
   List<ProcessRelationshipEntry> relationships = [];
 }
 
-/// A process relationship entry [PD00-TAR-PRO-REL-nn].
+/// A process relationship entry.
 @SectionId('PCRLT')
 class ProcessRelationshipEntry {
   @Form([
@@ -1175,10 +1175,10 @@ class ProcessRelationshipEntry {
 }
 
 // ---------------------------------------------------------------------------
-// 6.2 Process Steps and Actor Interactions [PD00-TAR-STP]
+// 6.2 Process Steps and Actor Interactions
 // ---------------------------------------------------------------------------
 
-/// 6.2. Process Steps and Actor Interactions [PD00-TAR-STP]. Seeds → UC.
+/// 6.2. Process Steps and Actor Interactions. Seeds → UC.
 ///
 /// Key process steps with their actor interactions. Each interaction will be
 /// expanded into a full use case with alternate paths, preconditions, and
@@ -1210,29 +1210,29 @@ postconditions in the UC (Use Cases) document.
   /// Section overview.
   ProcessStepsOverview overview = ProcessStepsOverview();
 
-  /// 6.2.1. Actor Overview [PD00-TAR-STP-ACT] — contains 1+× Actor.
+  /// 6.2.1. Actor Overview — contains 1+× Actor.
   ActorOverview actorOverview = ActorOverview();
 
-  /// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT] — contains 1+× Interaction.
+  /// 6.2.2. Interaction Catalog — contains 1+× Interaction.
   InteractionCatalog interactionCatalog = InteractionCatalog();
 
-  /// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE] — contains 1+× Scenario.
+  /// 6.2.3. Key Scenarios — contains 1+× Scenario.
   KeyScenarios keyScenarios = KeyScenarios();
 
   /// Actor relationship diagram.
   ActorRelationshipDiagram actorRelationshipDiagram =
       ActorRelationshipDiagram();
 
-  /// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E]. Covers HBSG AS24.
+  /// 6.2.4. End-to-End Test Scenarios..
   @SectionId('ETETS-ENDT-LST')
   @SectionIdPattern('ETETS-ENDT-xxx')
   List<EndToEndTestScenarios> endToEndTestScenarios = [];
 
-  /// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+  /// 6.2.5. Use Case Traceability.
   UseCaseTraceability useCaseTraceability = UseCaseTraceability();
 }
 
-/// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
+/// 6.2. Process Steps Overview.
 @SectionId('PRSTOV')
 @DetailedIn(InteractionScenarios)
 @SecondLevelSectionId(InteractionScenarios, 'UC-OVE')
@@ -1258,7 +1258,7 @@ class ProcessStepsOverview {
   String? content;
 }
 
-/// 6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA].
+/// 6.2. Actor Relationship Diagram.
 @SectionId('ACREDI')
 @DetailedIn(InteractionScenarios)
 @SecondLevelSectionId(InteractionScenarios, 'UC-DIA')
@@ -1274,13 +1274,13 @@ class ActorRelationshipDiagram {
 }
 
 // ---------------------------------------------------------------------------
-// 6.1.7 Detailed Process Workflows [PD00-TAR-PRO-DET]
+// 6.1.7 Detailed Process Workflows
 // ---------------------------------------------------------------------------
 
-/// 6.1.7. Detailed Process Workflows [PD00-TAR-PRO-DET].
+/// 6.1.7. Detailed Process Workflows.
 ///
-/// Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
-/// Covers HBSG AS07-DET Detailed Process Descriptions.
+/// Per-process workflow detail beyond the catalog overview.
+///.
 @SectionId('DEPRWO')
 @DetailedIn(TargetOperatingModel)
 @SecondLevelSectionId(TargetOperatingModel, 'BP-DET')
@@ -1295,20 +1295,20 @@ actor responsibility.
 - Decision points with branch conditions
 - Handoff points between actors / systems
 - Timing expectations and SLAs per step
-- Error and exception branches (cross-ref PD00-TAR-PRO-EXC)
+- Error and exception branches
 - BPMN-style diagram per process
 ''')
   String? content;
 }
 
 // ---------------------------------------------------------------------------
-// 6.1.8 Cross-Process Analysis [PD00-TAR-PRO-CRO]
+// 6.1.8 Cross-Process Analysis
 // ---------------------------------------------------------------------------
 
-/// 6.1.8. Cross-Process Analysis [PD00-TAR-PRO-CRO].
+/// 6.1.8. Cross-Process Analysis.
 ///
 /// Hand-offs, shared data, and coordination patterns between processes.
-/// Covers HBSG AS07-CRO.
+///.
 @SectionId('CRPRAN')
 @DetailedIn(TargetOperatingModel)
 @SecondLevelSectionId(TargetOperatingModel, 'BP-CRO')
@@ -1328,20 +1328,20 @@ exchanged, synchronization points, and conflicts.
 }
 
 // ---------------------------------------------------------------------------
-// 6.1.9 Process Exception Handling [PD00-TAR-PRO-EXC]
+// 6.1.9 Process Exception Handling
 // ---------------------------------------------------------------------------
 
-/// 6.1.9. Process Exception Handling [PD00-TAR-PRO-EXC].
+/// 6.1.9. Process Exception Handling.
 ///
 /// Exception flows, escalation paths, and compensation logic. Covers
-/// HBSG AS07-EXC.
+///
 @SectionId('PREXHA')
 @DetailedIn(TargetOperatingModel)
 @SecondLevelSectionId(TargetOperatingModel, 'BP-EXC')
 class ProcessExceptionHandling {
   @ContentHelp('''
 Handling of exceptions that interrupt a normal process flow. Distinct
-from UI-level error handling (PD00-USE-ERR) — this is about business
+from UI-level error handling — this is about business
 process recovery.
 
 **What to capture:**
@@ -1356,13 +1356,13 @@ process recovery.
 }
 
 // ---------------------------------------------------------------------------
-// 6.2.4 End-to-End Test Scenarios [PD00-TAR-STP-E2E]
+// 6.2.4 End-to-End Test Scenarios
 // ---------------------------------------------------------------------------
 
-/// 6.2.4. End-to-End Test Scenarios [PD00-TAR-STP-E2E].
+/// 6.2.4. End-to-End Test Scenarios.
 ///
 /// Test scenarios that exercise complete user journeys across processes
-/// and use cases. Covers HBSG AS24.
+/// and use cases..
 @SectionId('ETETS')
 @DetailedIn(InteractionScenarios)
 @SecondLevelSectionId(InteractionScenarios, 'UC-E2E')
@@ -1397,10 +1397,10 @@ class ActorDiagramOverview {
 }
 
 // ---------------------------------------------------------------------------
-// 6.2.1 Actor Overview [PD00-TAR-STP-ACT]
+// 6.2.1 Actor Overview
 // ---------------------------------------------------------------------------
 
-/// 6.2.1. Actor Overview [PD00-TAR-STP-ACT].
+/// 6.2.1. Actor Overview.
 ///
 /// Actors represent roles that interact with the system. Follows UML actor
 /// modeling conventions with Cockburn-style goal and scope annotations.
@@ -1476,7 +1476,7 @@ class ActorCategorizationSummary {
   String? content;
 }
 
-/// An actor entry [PD00-TAR-STP-ACT-nn].
+/// An actor entry.
 ///
 /// Comprehensive actor definition following UML and Cockburn conventions.
 @SectionId('ACEN')
@@ -1671,10 +1671,10 @@ class ActorInteractionsSummary {
 }
 
 // ---------------------------------------------------------------------------
-// 6.2.2 Interaction Catalog [PD00-TAR-STP-INT]
+// 6.2.2 Interaction Catalog
 // ---------------------------------------------------------------------------
 
-/// 6.2.2. Interaction Catalog [PD00-TAR-STP-INT].
+/// 6.2.2. Interaction Catalog.
 ///
 /// Container for key interaction descriptions. Each interaction seeds a use
 /// case following Cockburn's fully dressed use case template.
@@ -1758,7 +1758,7 @@ class InteractionPrioritization {
   String? content;
 }
 
-/// An interaction entry [PD00-TAR-STP-INT-nn].
+/// An interaction entry.
 ///
 /// Comprehensive interaction definition following Cockburn's fully dressed
 /// use case template. Seeds the UC (Use Case) document.
@@ -1931,7 +1931,7 @@ class MainSuccessScenario {
   List<MainScenarioStepEntry> steps = [];
 }
 
-/// A main scenario step entry [PD00-TAR-STP-INT-nn-MSS-nn].
+/// A main scenario step entry.
 @SectionId('MNSST')
 class MainScenarioStepEntry {
   @Form([
@@ -1966,7 +1966,7 @@ class UseCaseExtensions {
   List<ExtensionEntry> extensions = [];
 }
 
-/// An extension entry [PD00-TAR-STP-INT-nn-EXT-nn].
+/// An extension entry.
 @SectionId('EXTEN')
 class ExtensionEntry {
   @Form([
@@ -1991,7 +1991,7 @@ class ExtensionEntry {
   List<ExtensionStepEntry> steps = [];
 }
 
-/// An extension step entry [PD00-TAR-STP-INT-nn-EXT-nn-EST-nn].
+/// An extension step entry.
 @SectionId('EXTST')
 class ExtensionStepEntry {
   @Form([
@@ -2124,10 +2124,10 @@ class InteractionTraceability {
 }
 
 // ---------------------------------------------------------------------------
-// 6.2.3 Key Scenarios [PD00-TAR-STP-SCE]
+// 6.2.3 Key Scenarios
 // ---------------------------------------------------------------------------
 
-/// 6.2.3. Key Scenarios [PD00-TAR-STP-SCE].
+/// 6.2.3. Key Scenarios.
 ///
 /// End-to-end scenario descriptions showing how users achieve business goals
 /// through sequences of interactions.
@@ -2187,7 +2187,7 @@ class ScenarioOverview {
   String? content;
 }
 
-/// A scenario entry [PD00-TAR-STP-SCE-nn].
+/// A scenario entry.
 ///
 /// Comprehensive scenario definition for end-to-end user journey.
 @SectionId('SCNRY')
@@ -2255,7 +2255,7 @@ class ScenarioContext {
   String? content;
 }
 
-/// A scenario step entry [PD00-TAR-STP-SCE-nn-SST-nn].
+/// A scenario step entry.
 @SectionId('SCNST')
 class ScenarioStepEntry {
   @Form([
@@ -2298,7 +2298,7 @@ class ScenarioStepEntryExecution {
   String? content;
 }
 
-/// An alternative flow entry [PD00-TAR-STP-SCE-nn-AFL-nn].
+/// An alternative flow entry.
 @SectionId('ALFL')
 class AlternativeFlowEntry {
   @Form([
@@ -2321,7 +2321,7 @@ class AlternativeFlowEntry {
   List<AlternativeStepEntry> steps = [];
 }
 
-/// An alternative step entry [PD00-TAR-STP-SCE-nn-AFL-nn-AST-nn].
+/// An alternative step entry.
 @SectionId('ALST')
 class AlternativeStepEntry {
   @Form([
@@ -2385,10 +2385,10 @@ class ScenarioValidation {
 }
 
 // ---------------------------------------------------------------------------
-// 6.1.10 Process Metrics and KPIs [PD00-TAR-PRO-MET]
+// 6.1.10 Process Metrics and KPIs
 // ---------------------------------------------------------------------------
 
-/// 6.1.10. Process Metrics and KPIs [PD00-TAR-PRO-MET].
+/// 6.1.10. Process Metrics and KPIs.
 ///
 /// Process-level KPIs, SLAs, and measurement strategy.
 @SectionId('PMAK')
@@ -2404,16 +2404,16 @@ How each business process is measured for success once in production.
 - Measurement frequency and data source
 - Dashboard / report ownership
 - Thresholds for corrective action
-- Baseline values (from PD00-CUR-MET) for comparison
+- Baseline values for comparison
 ''')
   String? content;
 }
 
 // ---------------------------------------------------------------------------
-// 6.2.5 Use Case Traceability [PD00-TAR-STP-TRC]
+// 6.2.5 Use Case Traceability
 // ---------------------------------------------------------------------------
 
-/// 6.2.5. Use Case Traceability [PD00-TAR-STP-TRC].
+/// 6.2.5. Use Case Traceability.
 ///
 /// Use case ↔ requirement ↔ process ↔ test traceability.
 @SectionId('USCATR')

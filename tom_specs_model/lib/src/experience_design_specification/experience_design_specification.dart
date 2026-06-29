@@ -1,8 +1,7 @@
 /// UP — UI Prototype.
 ///
-/// Phase 3 DocSpec root class. Aggregates 12 top-level sections from
-/// 11 PD00-USE-* seeds plus PD00-USE-MUL-LCS (multi-source) per §5.8
-/// of second_wave_documents.md.
+/// Phase 3 DocSpec root class. Aggregates 12 top-level sections projected
+/// from the corresponding Solution Blueprint experience-design sections.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -32,41 +31,41 @@ class ExperienceDesignSpecification {
   /// Standard TomSpecs document header.
   DocumentHeader header = DocumentHeader();
 
-  /// Design vision — PD00-USE-VIS.
+  /// Design vision.
   DesignVision designVision = DesignVision();
 
-  /// Screen descriptions — PD00-USE-SCR.
+  /// Screen descriptions.
   ScreenDescriptions screens = ScreenDescriptions();
 
-  /// Screen flow structure — PD00-USE-SCF.
+  /// Screen flow structure.
   ScreenFlowStructure screenFlow = ScreenFlowStructure();
 
-  /// Print layout — PD00-USE-PRI.
+  /// Print layout.
   PrintLayout printLayout = PrintLayout();
 
-  /// Error handling concept — PD00-USE-ERR.
+  /// Error handling concept.
   ErrorHandlingConcept errorHandling = ErrorHandlingConcept();
 
-  /// Help concept — PD00-USE-HLP.
+  /// Help concept.
   HelpConcept helpConcept = HelpConcept();
 
-  /// Accessibility — PD00-USE-ACC.
+  /// Accessibility.
   Accessibility accessibility = Accessibility();
 
-  /// Responsive design — PD00-USE-RES.
+  /// Responsive design.
   ResponsiveDesign responsiveDesign = ResponsiveDesign();
 
-  /// UI components — PD00-USE-COM.
+  /// UI components.
   UiComponents uiComponents = UiComponents();
 
-  /// Language and country selection — PD00-USE-MUL-LCS.
+  /// Language and country selection.
   LanguageCountrySelection languageCountrySelection =
       LanguageCountrySelection();
 
-  /// Prototype — PD00-USE-PRO.
+  /// Prototype.
   Prototype prototype = Prototype();
 
-  /// Wireframes and mockups — PD00-USE-WIR (new in Phase A, HBSG AS10-WIR).
+  /// Wireframes and mockups (new in Phase A).
   @SectionId('WIANMO-WIRE-LST')
   @SectionIdPattern('WIANMO-WIRE-xxx')
   List<WireframesAndMockups> wireframesAndMockups = [];

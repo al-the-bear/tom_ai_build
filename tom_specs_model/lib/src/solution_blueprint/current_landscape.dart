@@ -1,4 +1,4 @@
-/// Section 1: Current State Analysis [PD00-CUR].
+/// Section 1: Current State Analysis.
 ///
 /// Analysis of existing systems, processes, and pain points that motivate
 /// this project.
@@ -8,10 +8,10 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 1. Current State Analysis [PD00-CUR]. Seeds → CS.
+/// 1. Current State Analysis. Seeds → CS.
 ///
-/// Seeds the CS (Current Situation) Phase 3 DocSpec. Previously listed as
-/// PD-only; its subtree now flows to CS together with PD00-SYO-SYR.
+/// Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
+/// CS together with the systems-to-replace inventory.
 @SectionId('CUSA')
 @MapsTo(CurrentLandscapeAssessment)
 class CurrentLandscape {
@@ -19,28 +19,28 @@ class CurrentLandscape {
 Executive summary of the current state: existing systems landscape, business
 processes today, known pain points, current data landscape, operational
 metrics, and risks tied to the current state or to replacement. Seeds the CS
-document alongside the PD00-SYO-SYR replacement inventory.
+document alongside the systems-to-replace inventory.
 ''')
   String? content;
 
-  /// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+  /// 1.1. Existing Systems Landscape.
   ExistingSystemsLandscape existingSystemsLandscape = ExistingSystemsLandscape();
 
-  /// 1.2. Current Business Processes [PD00-CUR-PRO].
+  /// 1.2. Current Business Processes.
   CurrentBusinessProcesses currentBusinessProcesses = CurrentBusinessProcesses();
 
-  /// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+  /// 1.3. Pain Points and Gaps.
   PainPointsAndGaps painPointsAndGaps = PainPointsAndGaps();
 
-  /// 1.4. Current Data Landscape [PD00-CUR-DAT].
+  /// 1.4. Current Data Landscape.
   CurrentDataLandscape currentDataLandscape = CurrentDataLandscape();
 
-  /// 1.5. Operational Metrics [PD00-CUR-MET].
+  /// 1.5. Operational Metrics.
   @SectionId('CUOPME-OPER-LST')
   @SectionIdPattern('CUOPME-OPER-xxx')
   List<CurrentOperationalMetrics> operationalMetrics = [];
 
-  /// 1.6. Current State Risks [PD00-CUR-RIS].
+  /// 1.6. Current State Risks.
   CurrentStateRiskAssessment currentStateRisks = CurrentStateRiskAssessment();
 }
 
@@ -48,7 +48,7 @@ document alongside the PD00-SYO-SYR replacement inventory.
 // 1.1 Existing Systems Landscape
 // ---------------------------------------------------------------------------
 
-/// 1.1. Existing Systems Landscape [PD00-CUR-SYS].
+/// 1.1. Existing Systems Landscape.
 ///
 /// Overview of the current systems in use, their roles, technology stacks,
 /// and limitations. Provides the foundation for understanding the AS-IS state.
@@ -60,18 +60,18 @@ class ExistingSystemsLandscape {
       'landscape. Include a context diagram showing how systems interact.')
   String? content;
 
-  /// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+  /// 1.1.1. System Inventory.
   SystemInventory systemInventory = SystemInventory();
 
-  /// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+  /// 1.1.2. Current Architecture.
   CurrentArchitecture currentArchitecture = CurrentArchitecture();
 
-  /// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+  /// 1.1.3. Dependencies and Integrations.
   DependenciesAndIntegrations dependenciesAndIntegrations =
       DependenciesAndIntegrations();
 }
 
-/// 1.1.1. System Inventory [PD00-CUR-SYS-INV].
+/// 1.1.1. System Inventory.
 ///
 /// Container for individual system descriptions. Add one entry per existing
 /// system relevant to the project scope.
@@ -81,7 +81,7 @@ class SystemInventory {
       'Describe the criteria for including systems and the overall landscape.')
   String? content;
 
-  /// Contains 1+× Existing System [PD00-CUR-SYS-INV-nn].
+  /// Contains 1+× Existing System.
   @SectionId('ESENT-SYST-LST')
   @SectionIdPattern('ESENT-SYST-xxx')
   @Min(1)
@@ -91,7 +91,7 @@ class SystemInventory {
   List<ExistingSystemEntry> systems = [];
 }
 
-/// 1.1.2. Current Architecture [PD00-CUR-SYS-ARC].
+/// 1.1.2. Current Architecture.
 ///
 /// Description of the current system architecture including deployment
 /// topology, integration patterns, shared services, and data stores.
@@ -99,30 +99,30 @@ class SystemInventory {
 class CurrentArchitecture {
   String? content;
 
-  /// Architecture overview diagram [PD00-CUR-SYS-ARC-DIA].
+  /// Architecture overview diagram.
   @ContentType('mermaid-flowchart', 'Architecture overview diagram showing '
       'systems, their connections, and data flows')
   @ContentHelp('Provide a Mermaid flowchart showing the current architecture. '
       'Include all major systems, their connections, and data flow directions.')
   String? architectureDiagram;
 
-  /// Deployment topology description [PD00-CUR-SYS-ARC-DEP].
+  /// Deployment topology description.
   @ContentType('description', 'Description of how systems are deployed '
       'across infrastructure')
   String? deploymentTopology;
 
-  /// Integration patterns used [PD00-CUR-SYS-ARC-INT].
+  /// Integration patterns used.
   @SectionId('INTEG1-INTE-LST')
   @SectionIdPattern('INTEG1-INTE-xxx')
   List<IntegrationPatternEntry> integrationPatterns = [];
 
-  /// Shared services inventory [PD00-CUR-SYS-ARC-SHR].
+  /// Shared services inventory.
   @SectionId('SHARE-SHAR-LST')
   @SectionIdPattern('SHARE-SHAR-xxx')
   List<SharedServiceEntry> sharedServices = [];
 }
 
-/// An existing system entry [PD00-CUR-SYS-INV-nn] (form).
+/// An existing system entry (form).
 ///
 /// Captures comprehensive information about an existing system including
 /// identity, technology, business context, usage metrics, lifecycle, and risks.
@@ -148,7 +148,7 @@ class ExistingSystemEntry {
   // Technology Stack
   // -------------------------------------------------------------------------
 
-  /// Technology stack details [PD00-CUR-SYS-INV-nn-TEC].
+  /// Technology stack details.
   @Comment('Technology stack')
   ExistingSystemTechnology? technology;
 
@@ -156,7 +156,7 @@ class ExistingSystemEntry {
   // Business Context
   // -------------------------------------------------------------------------
 
-  /// Business context [PD00-CUR-SYS-INV-nn-BUS].
+  /// Business context.
   @Comment('Business context')
   ExistingSystemBusinessContext? businessContext;
 
@@ -164,7 +164,7 @@ class ExistingSystemEntry {
   // Usage Metrics
   // -------------------------------------------------------------------------
 
-  /// Usage metrics [PD00-CUR-SYS-INV-nn-USE].
+  /// Usage metrics.
   @Comment('Usage metrics')
   ExistingSystemUsage? usage;
 
@@ -172,7 +172,7 @@ class ExistingSystemEntry {
   // Lifecycle Information
   // -------------------------------------------------------------------------
 
-  /// Lifecycle information [PD00-CUR-SYS-INV-nn-LIF].
+  /// Lifecycle information.
   @Comment('Lifecycle information')
   ExistingSystemLifecycle? lifecycle;
 
@@ -180,7 +180,7 @@ class ExistingSystemEntry {
   // Integration Profile
   // -------------------------------------------------------------------------
 
-  /// Integration profile [PD00-CUR-SYS-INV-nn-INT].
+  /// Integration profile.
   @Comment('Integration profile')
   ExistingSystemIntegration? integrationProfile;
 
@@ -188,7 +188,7 @@ class ExistingSystemEntry {
   // Infrastructure
   // -------------------------------------------------------------------------
 
-  /// Infrastructure details [PD00-CUR-SYS-INV-nn-INF].
+  /// Infrastructure details.
   @Comment('Infrastructure')
   ExistingSystemInfrastructure? infrastructure;
 
@@ -196,14 +196,14 @@ class ExistingSystemEntry {
   // Quality & Risk
   // -------------------------------------------------------------------------
 
-  /// Contains 0+× Limitation [PD00-CUR-SYS-INV-nn-LIM-nn].
+  /// Contains 0+× Limitation.
   @SectionId('LIMET-KNOW-LST')
   @SectionIdPattern('LIMET-KNOW-xxx')
   @ContentHelp('Document each known limitation with its impact on current '
       'operations and any workarounds in place.')
   List<LimitationEntry> knownLimitations = [];
 
-  /// Quality and risk assessment [PD00-CUR-SYS-INV-nn-QUA].
+  /// Quality and risk assessment.
   @Comment('Quality and risk')
   ExistingSystemQuality? quality;
 }
@@ -326,7 +326,7 @@ class ExistingSystemQuality {
   String? content;
 }
 
-/// A known limitation of an existing system (form) [PD00-CUR-SYS-INV-nn-LIM-nn].
+/// A known limitation of an existing system (form).
 @SectionId('LIMET')
 class LimitationEntry {
   @Form([
@@ -336,7 +336,7 @@ class LimitationEntry {
   String? content;
 }
 
-/// 1.1.3. Dependencies and Integrations [PD00-CUR-SYS-DEP].
+/// 1.1.3. Dependencies and Integrations.
 ///
 /// Documents how current systems depend on each other, on external services,
 /// and on shared infrastructure. Identifies fragile integration points that
@@ -345,7 +345,7 @@ class LimitationEntry {
 class DependenciesAndIntegrations {
   String? content;
 
-  /// Dependency matrix diagram [PD00-CUR-SYS-DEP-DIA].
+  /// Dependency matrix diagram.
   @ContentType('mermaid-flowchart', 'Visual representation of system '
       'dependencies showing data flows and coupling strength')
   @ContentHelp('Create a Mermaid flowchart showing dependencies between '
@@ -353,30 +353,30 @@ class DependenciesAndIntegrations {
       'tight coupling, dashed for loose coupling. Add labels for data types.')
   String? dependencyDiagram;
 
-  /// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+  /// 1.1.3.1. Internal Dependencies.
   @Comment('Dependencies between internal systems')
   InternalDependencies internalDependencies = InternalDependencies();
 
-  /// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+  /// 1.1.3.2. External Service Dependencies.
   @Comment('Dependencies on external/third-party services')
   ExternalServiceDependencies externalServiceDependencies =
       ExternalServiceDependencies();
 
-  /// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+  /// 1.1.3.3. Shared Infrastructure Dependencies.
   @Comment('Dependencies on shared infrastructure components')
   SharedInfrastructureDependencies sharedInfrastructureDependencies =
       SharedInfrastructureDependencies();
 
-  /// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+  /// 1.1.3.4. System Integrations.
   @Comment('Active integrations between systems')
   Integrations integrations = Integrations();
 
-  /// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+  /// 1.1.3.5. Integration Health Summary.
   @Comment('Overall assessment of integration landscape health')
   IntegrationHealthSummary? healthSummary;
 }
 
-/// 1.1.3.1. Internal Dependencies [PD00-CUR-SYS-DEP-INT].
+/// 1.1.3.1. Internal Dependencies.
 ///
 /// Dependencies between systems owned and operated internally.
 @SectionId('INTDP')
@@ -393,7 +393,7 @@ class InternalDependencies {
   List<SystemDependencyEntry> items = [];
 }
 
-/// 1.1.3.2. External Service Dependencies [PD00-CUR-SYS-DEP-EXT].
+/// 1.1.3.2. External Service Dependencies.
 ///
 /// Dependencies on external services, third-party APIs, SaaS platforms,
 /// and cloud services not under direct organizational control.
@@ -411,7 +411,7 @@ class ExternalServiceDependencies {
   List<ExternalServiceDependencyEntry> items = [];
 }
 
-/// An external service dependency entry (form) [PD00-CUR-SYS-DEP-EXT-nn].
+/// An external service dependency entry (form).
 ///
 /// Documents a dependency on an external service or third-party provider
 /// including vendor details, SLA, risk assessment, and fallback options.
@@ -494,7 +494,7 @@ class ExternalServiceDependencyEntryRisk {
   String? content;
 }
 
-/// 1.1.3.3. Shared Infrastructure Dependencies [PD00-CUR-SYS-DEP-SHR].
+/// 1.1.3.3. Shared Infrastructure Dependencies.
 ///
 /// Dependencies on shared infrastructure components used by multiple systems.
 @SectionId('SHDEP')
@@ -512,7 +512,7 @@ class SharedInfrastructureDependencies {
   List<SharedInfrastructureEntry> items = [];
 }
 
-/// A shared infrastructure entry (form) [PD00-CUR-SYS-DEP-SHR-nn].
+/// A shared infrastructure entry (form).
 ///
 /// Documents a shared infrastructure component that multiple systems depend on.
 @SectionId('SHIEN')
@@ -584,7 +584,7 @@ class SharedInfrastructureEntryOperations {
   String? content;
 }
 
-/// 1.1.3.5. Integration Health Summary [PD00-CUR-SYS-DEP-HEA].
+/// 1.1.3.5. Integration Health Summary.
 ///
 /// Executive summary of overall integration landscape health and risk areas.
 @SectionId('INHESU')
@@ -606,13 +606,13 @@ class IntegrationHealthSummary {
   ])
   String? content;
 
-  /// Fragile integration points requiring attention [PD00-CUR-SYS-DEP-HEA-FRA].
+  /// Fragile integration points requiring attention.
   @SectionId('FRAGI-FRAG-LST')
   @SectionIdPattern('FRAGI-FRAG-xxx')
   List<FragilePointEntry> fragilePoints = [];
 }
 
-/// 1.1.3.4. System Integrations [PD00-CUR-SYS-DEP-SYS].
+/// 1.1.3.4. System Integrations.
 ///
 /// Active integrations between systems including protocols, data formats,
 /// error handling, and monitoring.
@@ -630,7 +630,7 @@ class Integrations {
   List<SystemIntegrationEntry> items = [];
 }
 
-/// A system dependency entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+/// A system dependency entry (form).
 ///
 /// Documents one dependency between systems in the current landscape:
 /// mechanism, coupling strength, data flow, failure impact, SLA,
@@ -738,7 +738,7 @@ class SystemDependencyEntryOperations {
   String? content;
 }
 
-/// A system integration entry (form) [PD00-CUR-SYS-DEP-INT-nn].
+/// A system integration entry (form).
 ///
 /// Documents one integration between systems: type, pattern, protocol,
 /// data format, throughput, error handling, monitoring, security,
@@ -882,7 +882,7 @@ class SystemIntegrationOwnership {
 // 1.2 Current Business Processes
 // ---------------------------------------------------------------------------
 
-/// 1.2. Current Business Processes [PD00-CUR-PRO].
+/// 1.2. Current Business Processes.
 ///
 /// Documents the current business processes that the project will impact,
 /// replace, or enhance. Understanding existing workflows is critical for
@@ -894,7 +894,7 @@ class SystemIntegrationOwnership {
 class CurrentBusinessProcesses {
   String? content;
 
-  /// Process landscape diagram [PD00-CUR-PRO-DIA].
+  /// Process landscape diagram.
   @ContentType('mermaid-flowchart', 'Visual map of business processes showing '
       'hierarchy, relationships, and data flows between processes')
   @ContentHelp('Create a Mermaid flowchart showing the process landscape. '
@@ -902,19 +902,19 @@ class CurrentBusinessProcesses {
       'Show handoffs and data flows between processes.')
   String? processLandscapeDiagram;
 
-  /// Process scope summary [PD00-CUR-PRO-SCO].
+  /// Process scope summary.
   @Comment('Defines which processes are in/out of scope')
   ProcessScopeSummary? scopeSummary;
 
-  /// Process interdependency matrix [PD00-CUR-PRO-INT].
+  /// Process interdependency matrix.
   @Comment('How processes depend on and interact with each other')
   ProcessInterdependencyMatrix? interdependencyMatrix;
 
-  /// Process performance summary [PD00-CUR-PRO-SUM].
+  /// Process performance summary.
   @Comment('High-level summary of process performance')
   ProcessPerformanceSummary? performanceSummary;
 
-  /// 1.2.nn. Business Processes [PD00-CUR-PRO-nn] — contains 1+× Business Process.
+  /// 1.2.nn. Business Processes — contains 1+× Business Process.
   @SectionId('CUBIPR-PROC-LST')
   @SectionIdPattern('CUBIPR-PROC-xxx')
   @Min(1)
@@ -965,7 +965,7 @@ class ProcessScopeEntry {
 class ProcessInterdependencyMatrix {
   String? content;
 
-  /// Interdependency diagram [PD00-CUR-PRO-INT-DIA].
+  /// Interdependency diagram.
   @ContentType('mermaid-flowchart', 'Visual matrix of process dependencies')
   @ContentHelp('Create a Mermaid flowchart showing process dependencies. '
       'Use edge labels to describe the data/artifact exchanged.')
@@ -1023,7 +1023,7 @@ class ProcessPerformanceSummary {
   List<ProcessMetricEntry> keyMetrics = [];
 }
 
-/// A current business process [PD00-CUR-PRO-nn].
+/// A current business process.
 ///
 /// Detailed documentation of a single business process including its
 /// workflows, actors, metrics, and pain points.
@@ -1044,10 +1044,10 @@ class CurrentBusinessProcess {
   /// Process context and purpose.
   ProcessContext processContext = ProcessContext();
 
-  /// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR] — contains 1+× Workflow.
+  /// 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
   WorkflowDescriptions workflowDescriptions = WorkflowDescriptions();
 
-  /// 1.2.nn.2. Process Metrics [PD00-CUR-PRO-MET].
+  /// 1.2.nn.2. Process Metrics.
   ProcessMetrics processMetrics = ProcessMetrics();
 
   /// Process pain points and improvement opportunities.
@@ -1097,10 +1097,10 @@ class CurrentProcessImprovementEntry {
   String? content;
 }
 
-/// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+/// 1.2.nn.1. Workflow Descriptions.
 ///
 /// Container for workflow entries within a business process.
-/// 1.2.nn.1. Workflow Descriptions [PD00-CUR-PRO-WOR].
+/// 1.2.nn.1. Workflow Descriptions.
 ///
 /// Container for workflow entries within a business process. Add one
 /// subsection per current workflow relevant to the project.
@@ -1108,7 +1108,7 @@ class CurrentProcessImprovementEntry {
 class WorkflowDescriptions {
   String? content;
 
-  /// Workflow overview diagram [PD00-CUR-PRO-xx-WOR-DIA].
+  /// Workflow overview diagram.
   @ContentType('mermaid-flowchart', 'Visual overview of all workflows in this '
       'process showing relationships and handoffs')
   @ContentHelp('Create a Mermaid flowchart showing how workflows within this '
@@ -1116,7 +1116,7 @@ class WorkflowDescriptions {
       'Include decision points and actor swim-lanes if helpful.')
   String? workflowOverviewDiagram;
 
-  /// Workflow summary table [PD00-CUR-PRO-xx-WOR-SUM].
+  /// Workflow summary table.
   @Comment('Quick reference summary of all workflows')
   WorkflowSummaryTable? summaryTable;
 
@@ -1163,7 +1163,7 @@ class WorkflowSummaryEntry {
   String? content;
 }
 
-/// A current workflow entry [PD00-CUR-PRO-WOR-nn] (form).
+/// A current workflow entry (form).
 ///
 /// Detailed documentation of a single workflow within a business process.
 /// Includes triggers, steps, actors, inputs, outputs, and timing.
@@ -1182,7 +1182,7 @@ class CurrentWorkflowEntry {
   ])
   String? content;
 
-  /// Workflow diagram [PD00-CUR-PRO-xx-WOR-xx-DIA].
+  /// Workflow diagram.
   @ContentType('mermaid-flowchart', 'Visual representation of this workflow '
       'showing steps, decisions, and actors in a BPMN-style diagram')
   @ContentHelp('Create a Mermaid flowchart or sequence diagram showing the '
@@ -1274,7 +1274,7 @@ class WorkflowStepSystem {
   String? name;
 }
 
-/// A workflow step entry (form) [PD00-CUR-PRO-nn-WOR-nn-STP-nn].
+/// A workflow step entry (form).
 ///
 /// Detailed documentation of a single step within a workflow.
 @ContentHelp('Document each step with enough detail for process analysis and '
@@ -1332,7 +1332,7 @@ class WorkflowStepIssue {
   String? content;
 }
 
-/// A workflow actor entry (form) [PD00-CUR-PRO-nn-WOR-nn-ACT-nn].
+/// A workflow actor entry (form).
 ///
 /// Documentation of a participant in the workflow.
 @ContentHelp('Document all actors including their roles, responsibilities, '
@@ -1451,7 +1451,7 @@ class WorkflowExceptionEntry {
   String? content;
 }
 
-/// 1.2.2. Process Metrics [PD00-CUR-PRO-MET].
+/// 1.2.2. Process Metrics.
 ///
 /// Quantitative metrics for measuring process performance. These metrics
 /// form the baseline against which improvements will be measured.
@@ -1465,35 +1465,35 @@ class ProcessMetrics {
       'Include data collection methods, measurement periods, and data quality notes.')
   String? content;
 
-  /// Metrics dashboard summary [PD00-CUR-PRO-xx-MET-SUM].
+  /// Metrics dashboard summary.
   @Comment('Executive summary of key metrics')
   MetricsDashboardSummary? dashboardSummary;
 
-  /// Efficiency metrics [PD00-CUR-PRO-xx-MET-EFF].
+  /// Efficiency metrics.
   @SectionId('PRMECA-EFFI-LST')
   @SectionIdPattern('PRMECA-EFFI-xxx')
   @Comment('Throughput, cycle times, utilization')
   List<ProcessMetricCategory> efficiencyMetrics = [];
 
-  /// Quality metrics [PD00-CUR-PRO-xx-MET-QUA].
+  /// Quality metrics.
   @SectionId('PRMECA-QUAL-LST')
   @SectionIdPattern('PRMECA-QUAL-xxx')
   @Comment('Error rates, defect rates, rework rates')
   List<ProcessMetricCategory> qualityMetrics = [];
 
-  /// Volume metrics [PD00-CUR-PRO-xx-MET-VOL].
+  /// Volume metrics.
   @SectionId('PRMECA-VOLU-LST')
   @SectionIdPattern('PRMECA-VOLU-xxx')
   @Comment('Transaction counts, throughput volumes')
   List<ProcessMetricCategory> volumeMetrics = [];
 
-  /// Cost metrics [PD00-CUR-PRO-xx-MET-COS].
+  /// Cost metrics.
   @SectionId('PRMECA-COST-LST')
   @SectionIdPattern('PRMECA-COST-xxx')
   @Comment('Cost per transaction, resource costs')
   List<ProcessMetricCategory> costMetrics = [];
 
-  /// Manual intervention metrics [PD00-CUR-PRO-xx-MET-MAN].
+  /// Manual intervention metrics.
   @SectionId('PRMECA-MANU-LST')
   @SectionIdPattern('PRMECA-MANU-xxx')
   @Comment('Manual steps, human intervention frequency')
@@ -1504,7 +1504,7 @@ class ProcessMetrics {
   @SectionIdPattern('PME-ITEM-xxx')
   List<ProcessMetricEntry> items = [];
 
-  /// Baseline comparison table [PD00-CUR-PRO-xx-MET-BAS].
+  /// Baseline comparison table.
   @Comment('Summary table for baseline tracking')
   MetricsBaselineTable? baselineTable;
 }
@@ -1580,7 +1580,7 @@ class ProcessMetricCategory {
   List<ProcessMetricEntry> metrics = [];
 }
 
-/// A process metric entry (form) [PD00-CUR-PRO-nn-MET-nn].
+/// A process metric entry (form).
 ///
 /// A single measurable metric with current value and measurement details.
 @ContentHelp('Define each metric clearly with current baseline values, '
@@ -1632,7 +1632,7 @@ class ProcessMetricEntryTargets {
 // 1.3 Pain Points and Gaps
 // ---------------------------------------------------------------------------
 
-/// 1.3. Pain Points and Gaps [PD00-CUR-PAI].
+/// 1.3. Pain Points and Gaps.
 ///
 /// Comprehensive documentation of specific problems, inefficiencies,
 /// compliance gaps, and user frustrations in the current state.
@@ -1662,16 +1662,16 @@ and technical capabilities. Highlight interdependencies between pain points.
   /// Summary statistics for all pain points.
   PainPointsSummary painPointsSummary = PainPointsSummary();
 
-  /// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+  /// 1.3.1. Operational Pain Points.
   OperationalPainPoints operationalPainPoints = OperationalPainPoints();
 
-  /// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+  /// 1.3.2. Business Pain Points.
   BusinessPainPoints businessPainPoints = BusinessPainPoints();
 
-  /// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+  /// 1.3.3. Technical Pain Points.
   TechnicalPainPoints technicalPainPoints = TechnicalPainPoints();
 
-  /// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+  /// 1.3.4. Gaps.
   Gaps gaps = Gaps();
 
   /// Cross-reference between pain points and gaps.
@@ -1706,7 +1706,7 @@ class PainPointsSummary {
   String? content;
 }
 
-/// 1.3.1. Operational Pain Points [PD00-CUR-PAI-OPE].
+/// 1.3.1. Operational Pain Points.
 ///
 /// Problems that affect day-to-day operations: downtime, slow response,
 /// data inconsistencies, manual workarounds, and process interruptions.
@@ -1746,7 +1746,7 @@ class OperationalPainPointsSummary {
   String? content;
 }
 
-/// 1.3.2. Business Pain Points [PD00-CUR-PAI-BUS].
+/// 1.3.2. Business Pain Points.
 ///
 /// Problems that affect business outcomes: lost revenue, compliance risk,
 /// customer dissatisfaction, inability to scale, and missed opportunities.
@@ -1788,7 +1788,7 @@ class BusinessPainPointsSummary {
   String? content;
 }
 
-/// 1.3.3. Technical Pain Points [PD00-CUR-PAI-TEC].
+/// 1.3.3. Technical Pain Points.
 ///
 /// Problems that affect development and maintenance: outdated technology,
 /// security vulnerabilities, lack of documentation, vendor lock-in,
@@ -1833,7 +1833,7 @@ class TechnicalPainPointsSummary {
   String? content;
 }
 
-/// A pain point entry (form) [PD00-CUR-PAI-nn].
+/// A pain point entry (form).
 ///
 /// Documents a specific problem in the current state with comprehensive details:
 /// root cause analysis, impact quantification, affected stakeholders,
@@ -2036,7 +2036,7 @@ class PainPointGapCorrelationEntry {
   String? content;
 }
 
-/// 1.3.4. Gaps [PD00-CUR-PAI-GAP].
+/// 1.3.4. Gaps.
 @SectionId('GAPS')
 class Gaps {
   @Unused()
@@ -2048,7 +2048,7 @@ class Gaps {
   List<GapEntry> items = [];
 }
 
-/// A gap entry (form) — a missing capability or feature [PD00-CUR-PAI-GAP-nn].
+/// A gap entry (form) — a missing capability or feature.
 ///
 /// Documents a specific gap between current capabilities and business needs:
 /// category, severity, quantified cost, stakeholders, compliance drivers,
@@ -2150,7 +2150,7 @@ class GapEntryResolution {
 // 1.4 Current Data Landscape
 // ---------------------------------------------------------------------------
 
-/// 1.4. Current Data Landscape [PD00-CUR-DAT].
+/// 1.4. Current Data Landscape.
 ///
 /// Comprehensive documentation of the current data situation including where
 /// data lives, data quality issues, duplication, ownership, volumes, growth
@@ -2179,34 +2179,34 @@ to the organization. Highlight critical data dependencies and risks.
   /// Summary statistics and health indicators.
   DataLandscapeSummary dataLandscapeSummary = DataLandscapeSummary();
 
-  /// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+  /// 1.4.1. Data Source Inventory.
   DataSourceInventory dataSourceInventory = DataSourceInventory();
 
-  /// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+  /// 1.4.2. Data Quality Assessment.
   DataQualityAssessment dataQualityAssessment = DataQualityAssessment();
 
-  /// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+  /// 1.4.3. Data Duplication Analysis.
   DataDuplicationAnalysis dataDuplicationAnalysis = DataDuplicationAnalysis();
 
-  /// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+  /// 1.4.4. Data Ownership and Stewardship.
   DataOwnership dataOwnership = DataOwnership();
 
-  /// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+  /// 1.4.5. Data Volumes and Growth.
   DataVolumesAndGrowth dataVolumesAndGrowth = DataVolumesAndGrowth();
 
-  /// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+  /// 1.4.6. Retention Policies.
   DataRetentionPolicies retentionPolicies = DataRetentionPolicies();
 
-  /// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+  /// 1.4.7. Data Governance.
   DataGovernance dataGovernance = DataGovernance();
 
-  /// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+  /// 1.4.8. Data Classification.
     CurrentDataClassification dataClassification = CurrentDataClassification();
 
-  /// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+  /// 1.4.9. Data Integration Points.
   DataIntegrationPoints dataIntegrationPoints = DataIntegrationPoints();
 
-  /// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+  /// 1.4.10. Master Data Management.
   MasterDataManagement masterDataManagement = MasterDataManagement();
 }
 
@@ -2238,7 +2238,7 @@ class DataLandscapeSummary {
   String? content;
 }
 
-/// 1.4.1. Data Source Inventory [PD00-CUR-DAT-SRC].
+/// 1.4.1. Data Source Inventory.
 ///
 /// Comprehensive inventory of all data sources, stores, and repositories
 /// in the current environment.
@@ -2261,7 +2261,7 @@ catalog data sources, coverage of the inventory, and any known gaps.
   List<DataSourceEntry> dataSources = [];
 }
 
-/// A data source entry (form) [PD00-CUR-DAT-SRC-nn].
+/// A data source entry (form).
 ///
 /// Documents a specific data source/store with comprehensive details about
 /// technology, format, volume, quality, ownership, and access patterns.
@@ -2462,7 +2462,7 @@ class DataSourceEntityEntry {
   String? content;
 }
 
-/// 1.4.2. Data Quality Assessment [PD00-CUR-DAT-QUA].
+/// 1.4.2. Data Quality Assessment.
 ///
 /// Comprehensive assessment of data quality across the organization,
 /// covering accuracy, completeness, consistency, timeliness, and validity.
@@ -2618,7 +2618,7 @@ class DataQualityInitiativeEntry {
   String? content;
 }
 
-/// 1.4.3. Data Duplication Analysis [PD00-CUR-DAT-DUP].
+/// 1.4.3. Data Duplication Analysis.
 ///
 /// Analysis of data duplication across systems, including redundant data
 /// stores, duplicated records, and synchronization challenges.
@@ -2737,7 +2737,7 @@ class DataDuplicationEntryGovernance {
   String? content;
 }
 
-/// 1.4.4. Data Ownership and Stewardship [PD00-CUR-DAT-OWN].
+/// 1.4.4. Data Ownership and Stewardship.
 ///
 /// Documentation of data ownership structures, stewardship roles,
 /// and accountability for data assets.
@@ -2840,7 +2840,7 @@ class DataOwnershipEntryGovernance {
   String? content;
 }
 
-/// 1.4.5. Data Volumes and Growth [PD00-CUR-DAT-VOL].
+/// 1.4.5. Data Volumes and Growth.
 ///
 /// Analysis of current data volumes, historical growth trends,
 /// and projections for future capacity needs.
@@ -2959,7 +2959,7 @@ class DataVolumeEntry {
   String? content;
 }
 
-/// 1.4.6. Retention Policies [PD00-CUR-DAT-RET].
+/// 1.4.6. Retention Policies.
 ///
 /// Documentation of data retention policies, legal requirements,
 /// archival strategies, and data lifecycle management.
@@ -3073,7 +3073,7 @@ class RetentionPolicyEntryGovernance {
   String? content;
 }
 
-/// 1.4.7. Data Governance [PD00-CUR-DAT-GOV].
+/// 1.4.7. Data Governance.
 ///
 /// Current data governance structure, policies, processes, and maturity level.
 @SectionId('DAGO')
@@ -3181,7 +3181,7 @@ class DataGovernancePolicyEntryGovernance {
   String? content;
 }
 
-/// 1.4.8. Data Classification [PD00-CUR-DAT-CLA].
+/// 1.4.8. Data Classification.
 ///
 /// Data classification framework, sensitivity levels, and current
 /// classification status of data assets.
@@ -3284,7 +3284,7 @@ class DataClassificationStatusEntry {
   String? content;
 }
 
-/// 1.4.9. Data Integration Points [PD00-CUR-DAT-INT].
+/// 1.4.9. Data Integration Points.
 ///
 /// Documentation of data integration points, ETL processes, APIs,
 /// and data exchange mechanisms.
@@ -3432,7 +3432,7 @@ class DataIntegrationEntryOwnership {
   String? content;
 }
 
-/// 1.4.10. Master Data Management [PD00-CUR-DAT-MDM].
+/// 1.4.10. Master Data Management.
 ///
 /// Master data management practices, golden records, and data
 /// synchronization across systems.
@@ -3552,10 +3552,10 @@ class MasterDataDomainEntryGovernance {
 }
 
 // ---------------------------------------------------------------------------
-// 1.5 Operational Metrics [PD00-CUR-MET]
+// 1.5 Operational Metrics
 // ---------------------------------------------------------------------------
 
-/// 1.5. Operational Metrics [PD00-CUR-MET].
+/// 1.5. Operational Metrics.
 ///
 /// Baseline metrics of the current systems: throughput, volume, uptime,
 /// response times, user counts. Used to size the target system and to
@@ -3583,20 +3583,20 @@ replacement underperforms the baseline).
 }
 
 // ---------------------------------------------------------------------------
-// 1.6 Current State Risks [PD00-CUR-RIS]
+// 1.6 Current State Risks
 // ---------------------------------------------------------------------------
 
-/// 1.6. Current State Risks [PD00-CUR-RIS].
+/// 1.6. Current State Risks.
 ///
 /// Risks tied to the current state and to its replacement. Distinct from
-/// PD00-SYO-RIS which covers target-side risks.
+/// the target-side risks section which covers replacement risks.
 @SectionId('CSRA1')
 @DetailedIn(CurrentLandscapeAssessment)
 @SecondLevelSectionId(CurrentLandscapeAssessment, 'CS-RIS')
 class CurrentStateRiskAssessment {
   @ContentHelp('''
 Risks that originate from the current systems landscape or from the act of
-replacing them. Not to be confused with target-state risks (PD00-SYO-RIS).
+replacing them. Not to be confused with target-state risks.
 
 **What to capture:**
 - Stability / reliability risks of the current systems

@@ -1,4 +1,4 @@
-/// Section 9: Access and Authorization Concept [PD00-ACC]. Seeds → AC.
+/// Section 9: Access and Authorization Concept. Seeds → AC.
 ///
 /// Application security for data and functions.
 library;
@@ -9,7 +9,7 @@ import '../document_stubs.dart';
 
 
 
-/// 9. Access and Authorization Concept [PD00-ACC]. Seeds → AC.
+/// 9. Access and Authorization Concept. Seeds → AC.
 @SectionId('ACAZ')
 @Comment('Seeds → AC')
 @MapsTo(SecurityAccessSpecification)
@@ -36,32 +36,32 @@ access and authorization concerns.
 ''')
   String? content;
 
-  /// 9.1. User Management [PD00-ACC-USE].
+  /// 9.1. User Management.
   UserManagement userManagement = UserManagement();
 
-  /// 9.2. Identification and Authentication [PD00-ACC-IDE].
+  /// 9.2. Identification and Authentication.
   IdentificationAndAuthentication authentication = IdentificationAndAuthentication();
 
-  /// 9.3. Resource Protection [PD00-ACC-RES].
+  /// 9.3. Resource Protection.
   ResourceProtection resourceProtection = ResourceProtection();
 
-  /// 9.4. User Authorization [PD00-ACC-USA].
+  /// 9.4. User Authorization.
   UserAuthorization authorization = UserAuthorization();
 
-  /// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+  /// 9.5. Sensitive Data Encryption.
   SensitiveDataEncryption encryption = SensitiveDataEncryption();
 
-  /// 9.6. Audit and Logging [PD00-ACC-AUD].
+  /// 9.6. Audit and Logging.
   AuditAndLogging auditAndLogging = AuditAndLogging();
 
-  /// 9.7. Role Matrix [PD00-ACC-ROL]. Covers HBSG AS22-AUM.
+  /// 9.7. Role Matrix..
   RoleMatrix roleMatrix = RoleMatrix();
 
-  /// 9.8. Compliance Framework [PD00-ACC-CMP].
+  /// 9.8. Compliance Framework.
   ComplianceFramework complianceFramework = ComplianceFramework();
 }
 
-/// 9.1. User Management [PD00-ACC-USE].
+/// 9.1. User Management.
 @SectionId('USMGT')
 @DetailedIn(SecurityAccessSpecification)
 @SecondLevelSectionId(SecurityAccessSpecification, 'AC-USE')
@@ -85,17 +85,17 @@ authentication and authorization by defining who the users are.
 ''')
   String? content;
 
-  /// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+  /// 9.1.1. User Categories.
     AccessUserCategories userCategories = AccessUserCategories();
 
-  /// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+  /// 9.1.2. User Lifecycle.
   UserLifecycleSection userLifecycle = UserLifecycleSection();
 
-  /// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+  /// 9.1.3. User Attributes.
   UserAttributes userAttributes = UserAttributes();
 }
 
-/// 9.1.1. User Categories [PD00-ACC-USE-CAT].
+/// 9.1.1. User Categories.
 @SectionId('AUSCT')
 class AccessUserCategories {
   @ContentHelp('''
@@ -127,7 +127,7 @@ relationships.
   List<UserCategoryDefinition> items = [];
 }
 
-/// A user category definition (form) [PD00-ACC-USE-CAT-nn].
+/// A user category definition (form).
 @SectionId('USCDF')
 class UserCategoryDefinition {
   @Form([
@@ -139,7 +139,7 @@ class UserCategoryDefinition {
   String? content;
 }
 
-/// 9.1.2. User Lifecycle [PD00-ACC-USE-LIF].
+/// 9.1.2. User Lifecycle.
 ///
 /// Defines the complete user account lifecycle: states, transitions between
 /// states, approval requirements for each transition, and operational policies
@@ -547,7 +547,7 @@ class UserLifecycleTransitions {
   List<UserLifecycleTransitionEntry> items = [];
 }
 
-/// A lifecycle transition entry (form) [PD00-ACC-USE-LIF-nn].
+/// A lifecycle transition entry (form).
 ///
 /// Defines a single permissible transition between two lifecycle states,
 /// including trigger, approval, and side effects.
@@ -724,7 +724,7 @@ class ServiceAccountLifecycle {
   TextSection serviceAccountDescription = TextSection();
 }
 
-/// 9.1.3. User Attributes [PD00-ACC-USE-ATT].
+/// 9.1.3. User Attributes.
 @SectionId('USATT')
 class UserAttributes {
   @ContentHelp('''
@@ -764,7 +764,7 @@ compliance requirements.
   List<UserAttributeEntry> items = [];
 }
 
-/// A user attribute entry (form) [PD00-ACC-USE-ATT-nn].
+/// A user attribute entry (form).
 @SectionId('USATE')
 class UserAttributeEntry {
   @Form([
@@ -776,7 +776,7 @@ class UserAttributeEntry {
   String? content;
 }
 
-/// 9.2. Identification and Authentication [PD00-ACC-IDE].
+/// 9.2. Identification and Authentication.
 @SectionId('IDAUT')
 @DetailedIn(SecurityAccessSpecification)
 @SecondLevelSectionId(SecurityAccessSpecification, 'AC-IDE')
@@ -809,14 +809,14 @@ user identification.
 ''')
   String? content;
 
-  /// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+  /// 9.2.1. Identification.
   Identification identification = Identification();
 
-  /// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+  /// 9.2.2. Authentication.
   Authentication authentication = Authentication();
 }
 
-/// 9.2.1. Identification [PD00-ACC-IDE-IDN].
+/// 9.2.1. Identification.
 ///
 /// Defines the identity management model: how identities are created,
 /// sourced, verified, federated, and mapped. Covers identity sources,
@@ -863,7 +863,7 @@ class Identification {
   @SectionIdPattern('IDTSR-IDEN-xxx')
   List<IdentitySourceEntry> identitySources = [];
 
-  /// Identity Verification [PD00-ACC-IDE-IDN-VER].
+  /// Identity Verification.
   IdentityVerificationPolicy identityVerification =
       IdentityVerificationPolicy();
 
@@ -872,10 +872,10 @@ class Identification {
   @SectionIdPattern('IDTPV-IDEN-xxx')
   List<IdentityProviderEntry> identityProviders = [];
 
-  /// Single Sign-On [PD00-ACC-IDE-IDN-SSO].
+  /// Single Sign-On.
   SingleSignOnPolicy singleSignOn = SingleSignOnPolicy();
 
-  /// Self-Registration [PD00-ACC-IDE-IDN-REG].
+  /// Self-Registration.
   SelfRegistrationPolicy selfRegistration = SelfRegistrationPolicy();
 
   /// Attribute Mappings — contains 0+× Identity Attribute Mapping.
@@ -884,7 +884,7 @@ class Identification {
   List<IdentityAttributeMappingEntry> attributeMappings = [];
 }
 
-/// An identity source entry (form) [PD00-ACC-IDE-IDN-SRC-nn].
+/// An identity source entry (form).
 ///
 /// Defines one source from which identities are obtained, e.g.
 /// internal directory, LDAP, external IdP, HR system, self-registration.
@@ -989,7 +989,7 @@ class IdentitySourceEntryOperations {
   String? content;
 }
 
-/// Identity verification/proofing policy (form) [PD00-ACC-IDE-IDN-VER].
+/// Identity verification/proofing policy (form).
 ///
 /// Defines how identity claims are verified: verification level, required
 /// documents, automation, proofing standards (NIST IAL), and re-verification.
@@ -1110,7 +1110,7 @@ class IdentityVerificationPolicyFailure {
   String? content;
 }
 
-/// An identity provider entry (form) [PD00-ACC-IDE-IDN-IDP-nn].
+/// An identity provider entry (form).
 ///
 /// Configuration for a single Identity Provider (IdP): protocol, endpoints,
 /// attribute mapping, trust level, certificate management.
@@ -1227,7 +1227,7 @@ class IdentityProviderSecurity {
   String? content;
 }
 
-/// Single Sign-On policy (form) [PD00-ACC-IDE-IDN-SSO].
+/// Single Sign-On policy (form).
 ///
 /// Defines SSO scope, protocol, session propagation, federation,
 /// logout propagation, and platform-specific SSO strategies.
@@ -1335,7 +1335,7 @@ class SingleSignOnPolicyOperations {
   String? content;
 }
 
-/// Self-registration policy (form) [PD00-ACC-IDE-IDN-REG].
+/// Self-registration policy (form).
 ///
 /// Defines self-service identity creation: registration flow, required
 /// fields, verification, approval, rate limiting, and domain restrictions.
@@ -1448,7 +1448,7 @@ class SelfRegistrationPolicySecurity {
   String? content;
 }
 
-/// An identity attribute mapping entry (form) [PD00-ACC-IDE-IDN-MAP-nn].
+/// An identity attribute mapping entry (form).
 ///
 /// Defines how attributes map between identity sources and the application:
 /// source/target field, data type, transformation, sync direction.
@@ -1534,7 +1534,7 @@ class IdentityAttributeMappingEntryGovernance {
   String? content;
 }
 
-/// 9.2.2. Authentication [PD00-ACC-IDE-AUT].
+/// 9.2.2. Authentication.
 @SectionId('AUTHEN')
 class Authentication {
   @ContentHelp('''
@@ -1561,21 +1561,21 @@ policies, session management, and authentication flows.
 ''')
   String? content;
 
-  /// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+  /// 9.2.2.1. Authentication Methods.
   AuthenticationMethods authenticationMethods = AuthenticationMethods();
 
-  /// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+  /// 9.2.2.2. Authentication Flow.
   AuthenticationFlow authenticationFlow = AuthenticationFlow();
 
-  /// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+  /// 9.2.3. Password and Credential Policy.
   PasswordAndCredentialPolicy passwordAndCredentialPolicy =
       PasswordAndCredentialPolicy();
 
-  /// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+  /// 9.2.4. Session Management.
   SessionManagement sessionManagement = SessionManagement();
 }
 
-/// 9.2.2.1. Authentication Methods [PD00-ACC-IDE-AUT-MET].
+/// 9.2.2.1. Authentication Methods.
 ///
 /// Comprehensive authentication methods specification aligned with
 /// NIST SP 800-63B Authentication Assurance Levels (AAL1–AAL3).
@@ -1875,7 +1875,7 @@ class ApiKeyManagementPolicy {
   TextSection apiKeyDetails = TextSection();
 }
 
-/// An authentication method entry (form) [PD00-ACC-IDE-AUT-MET-nn].
+/// An authentication method entry (form).
 ///
 /// Detailed per-method specification aligned with NIST SP 800-63B
 /// authenticator types (password, OTP, cryptographic, out-of-band).
@@ -1987,7 +1987,7 @@ class AuthenticationMethodEntryOperations {
   String? content;
 }
 
-/// 9.2.2.2. Authentication Flow [PD00-ACC-IDE-FLO].
+/// 9.2.2.2. Authentication Flow.
 ///
 /// Comprehensive authentication flow specification covering the complete
 /// login lifecycle: credential submission, validation, multi-factor challenges,
@@ -2369,7 +2369,7 @@ class StepUpAuthenticationPolicy {
   List<StepUpDetailEntry> stepUpDetails = [];
 }
 
-/// A login flow step entry (form) [PD00-ACC-IDE-FLO-nn].
+/// A login flow step entry (form).
 ///
 /// Defines an individual step in the authentication flow sequence,
 /// allowing detailed specification of each stage from initial request
@@ -2448,7 +2448,7 @@ class LoginFlowStepEntryProtocol {
   String? content;
 }
 
-/// 9.2.3. Password and Credential Policy [PD00-ACC-IDE-POL].
+/// 9.2.3. Password and Credential Policy.
 ///
 /// Comprehensive password and credential policy aligned with NIST SP 800-63B
 /// (Revision 4). Covers password requirements, storage, lifecycle, account
@@ -2900,7 +2900,7 @@ class ServiceAccountCredentialPolicy {
   TextSection serviceAccountDetails = TextSection();
 }
 
-/// An MFA enforcement per user category entry (form) [PD00-ACC-IDE-POL-nn].
+/// An MFA enforcement per user category entry (form).
 ///
 /// Defines MFA requirements for a specific user category, allowing
 /// different authentication assurance levels per role or access tier.
@@ -2988,7 +2988,7 @@ class MfaCategoryRequirementEntryOperations {
   String? content;
 }
 
-/// 9.2.4. Session Management [PD00-ACC-IDE-SES].
+/// 9.2.4. Session Management.
 ///
 /// Comprehensive session management policy covering session timeouts,
 /// concurrent session control, session revocation, remember-me functionality,
@@ -3382,7 +3382,7 @@ class SessionLifecycleMonitoring {
   TextSection sessionLifecycleDetails = TextSection();
 }
 
-/// 9.3. Resource Protection [PD00-ACC-RES].
+/// 9.3. Resource Protection.
 @SectionId('REPR2')
 @DetailedIn(SecurityAccessSpecification)
 @SecondLevelSectionId(SecurityAccessSpecification, 'AC-RES')
@@ -3416,17 +3416,17 @@ can only access the specific resources they are entitled to.
 ''')
   String? content;
 
-  /// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+  /// 9.3.1. Data-Level Security.
   DataLevelSecurity dataLevelSecurity = DataLevelSecurity();
 
-  /// 9.3.2. API Security [PD00-ACC-RES-API].
+  /// 9.3.2. API Security.
   ApiSecurity apiSecurity = ApiSecurity();
 
-  /// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+  /// 9.3.3. File and Storage Security.
   FileAndStorageSecurity fileAndStorageSecurity = FileAndStorageSecurity();
 }
 
-/// 9.3.1. Data-Level Security [PD00-ACC-RES-DAT].
+/// 9.3.1. Data-Level Security.
 ///
 /// Comprehensive data access protection specification covering database-level
 /// security, row-level security, column-level security, tenant data isolation,
@@ -3798,10 +3798,10 @@ class DataAccessAuditPolicy {
 }
 
 // ---------------------------------------------------------------------------
-// 9.3.2. API Security [PD00-ACC-RES-API]
+// 9.3.2. API Security
 // ---------------------------------------------------------------------------
 
-/// 9.3.2. API Security [PD00-ACC-RES-API].
+/// 9.3.2. API Security.
 ///
 /// Comprehensive API security specification covering authentication,
 /// authorization, request validation, CORS policy, input sanitization,
@@ -4293,10 +4293,10 @@ class ApiSecurityMonitoring {
 }
 
 // ---------------------------------------------------------------------------
-// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL]
+// 9.3.3. File and Storage Security
 // ---------------------------------------------------------------------------
 
-/// 9.3.3. File and Storage Security [PD00-ACC-RES-FIL].
+/// 9.3.3. File and Storage Security.
 ///
 /// Comprehensive file and storage security specification covering upload
 /// validation, storage encryption, access control on file resources, content
@@ -4793,10 +4793,10 @@ class StorageLifecyclePolicy {
 }
 
 // ---------------------------------------------------------------------------
-// 9.4.1. Authorization Model [PD00-ACC-USA-MOD]
+// 9.4.1. Authorization Model
 // ---------------------------------------------------------------------------
 
-/// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+/// 9.4.1. Authorization Model.
 ///
 /// Describes the authorization model used by the system — RBAC, ABAC, ReBAC,
 /// or hybrid. Covers access control model selection, permission granularity
@@ -5141,7 +5141,7 @@ class PermissionEvaluationBehavior {
   TextSection permissionEvaluationDetails = TextSection();
 }
 
-/// 9.4. User Authorization [PD00-ACC-USA].
+/// 9.4. User Authorization.
 ///
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 @SectionId('USAU')
@@ -5178,43 +5178,43 @@ Aligned with Tom Core authorization model.
 ''')
   String? content;
 
-  /// 9.4.1. Authorization Model [PD00-ACC-USA-MOD].
+  /// 9.4.1. Authorization Model.
   AuthorizationModel authorizationModel = AuthorizationModel();
 
-  /// 9.4.2. Authorization Groups [PD00-ACC-USA-GRP] — contains 0+× Group.
+  /// 9.4.2. Authorization Groups — contains 0+× Group.
   @SectionId('AZGR-GROU-LST')
   @SectionIdPattern('AZGR-GROU-xxx')
   List<AuthorizationGroupEntry> groups = [];
 
-  /// 9.4.3. Role Definitions [PD00-ACC-USA-ROL] — contains 1+× Role.
+  /// 9.4.3. Role Definitions — contains 1+× Role.
   @SectionId('AZRO-ROLE-LST')
   @SectionIdPattern('AZRO-ROLE-xxx')
   @Min(1)
   List<AuthorizationRoleEntry> roleDefinitions = [];
 
-  /// 9.4.4. Entitlements [PD00-ACC-USA-ENT] — contains 1+× Entitlement.
+  /// 9.4.4. Entitlements — contains 1+× Entitlement.
   @SectionId('ENT-ENTI-LST')
   @SectionIdPattern('ENT-ENTI-xxx')
   @Min(1)
   List<EntitlementEntry> entitlements = [];
 
-  /// 9.4.5. Resource Keys [PD00-ACC-USA-RES] — contains 0+× Resource Key.
+  /// 9.4.5. Resource Keys — contains 0+× Resource Key.
   @SectionId('RESKEY-RESO-LST')
   @SectionIdPattern('RESKEY-RESO-xxx')
   List<ResourceKeyEntry> resourceKeys = [];
 
-  /// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+  /// 9.4.6. Role Hierarchy.
   RoleHierarchy roleHierarchy = RoleHierarchy();
 
-  /// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+  /// 9.4.7. Tenant Isolation.
   TenantIsolation tenantIsolation = TenantIsolation();
 }
 
 // ---------------------------------------------------------------------------
-// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH]
+// 9.4.6. Role Hierarchy
 // ---------------------------------------------------------------------------
 
-/// 9.4.6. Role Hierarchy [PD00-ACC-USA-ROH].
+/// 9.4.6. Role Hierarchy.
 ///
 /// Defines the role hierarchy: inheritance rules, mutual exclusions,
 /// role combination constraints, hierarchy depth, and role certification
@@ -5337,7 +5337,7 @@ class RoleHierarchyPolicy {
   TextSection roleHierarchyPolicyDetails = TextSection();
 }
 
-/// A role inheritance rule entry (form) [PD00-ACC-USA-ROH-INH-nn].
+/// A role inheritance rule entry (form).
 ///
 /// Defines a specific parent-child inheritance relationship between two roles,
 /// including what is inherited and any restrictions.
@@ -5370,7 +5370,7 @@ class RoleInheritanceRuleEntry {
   String? content;
 }
 
-/// A role combination constraint entry (form) [PD00-ACC-USA-ROH-CMB-nn].
+/// A role combination constraint entry (form).
 ///
 /// Defines rules about which roles can or cannot be combined — supports
 /// separation of duties, prerequisite roles, and co-requisite roles.
@@ -5406,7 +5406,7 @@ class RoleCombinationConstraintEntry {
   String? content;
 }
 
-/// A global role exclusion entry (form) [PD00-ACC-USA-ROH-GEX-nn].
+/// A global role exclusion entry (form).
 ///
 /// Defines system-wide mutual exclusion rules that apply across all users,
 /// independent of individual role definitions.
@@ -5480,23 +5480,23 @@ class RoleCertificationPolicy {
 }
 
 // ---------------------------------------------------------------------------
-// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN]
+// 9.4.7. Tenant Isolation
 // ---------------------------------------------------------------------------
 
-/// 9.4.7. Tenant Isolation [PD00-ACC-USA-TEN].
+/// 9.4.7. Tenant Isolation.
 ///
 /// Describes how multi-tenant authorization is structured: how tenant context
 /// is established and propagated, how cross-tenant access is prevented or
 /// controlled, how tenants can customize their authorization model, how tenant
 /// onboarding/offboarding is handled from an authorization perspective, and
 /// how tenant boundaries are enforced at the authorization layer.
-/// Complements TenantDataIsolationPolicy (PD00-ACC-RES-DAT) which covers
+/// Complements TenantDataIsolationPolicy which covers
 /// data-level isolation; this section focuses on authorization-level isolation.
 @SectionId('TEIS')
 class TenantIsolation {
   @ContentHelp('''
 Define how multi-tenant authorization is structured at the application layer.
-Complements data-level tenant isolation (PD00-ACC-RES-DAT).
+Complements data-level tenant isolation.
 
 **Tenant context establishment:**
 - How tenant is identified (subdomain, header, token claim, path)
@@ -5647,7 +5647,7 @@ class CrossTenantAccessPolicy {
   TextSection crossTenantAccessPolicyDetails = TextSection();
 }
 
-/// A tenant customization entry (form) [PD00-ACC-USA-TEN-CUS-nn].
+/// A tenant customization entry (form).
 ///
 /// Describes a specific area where tenants can customize their authorization
 /// model — custom roles, permissions, policies, or workflows. Covers scoping,
@@ -5805,7 +5805,7 @@ class TenantBoundaryEnforcementPolicy {
   TextSection boundaryEnforcementDetails = TextSection();
 }
 
-/// An authorization group entry [PD00-ACC-USA-GRP-nn] (form).
+/// An authorization group entry (form).
 @SectionId('AZGR')
 class AuthorizationGroupEntry {
   @Form([
@@ -5821,7 +5821,7 @@ class AuthorizationGroupEntry {
   List<RoleReferenceEntry> containedRoles = [];
 }
 
-/// A role reference entry (form) [PD00-ACC-USA-GRP-nn-ROL-nn].
+/// A role reference entry (form).
 @SectionId('ROLREF')
 class RoleReferenceEntry {
   @Form([
@@ -5830,7 +5830,7 @@ class RoleReferenceEntry {
   String? content;
 }
 
-/// An authorization role entry [PD00-ACC-USA-ROL-nn] (form).
+/// An authorization role entry (form).
 ///
 /// Defines a single authorization role with its category, scope, permission
 /// assignments, activation rules, provisioning, and review requirements.
@@ -5976,7 +5976,7 @@ class AuthorizationRoleEntryStatus {
     String? content;
 }
 
-/// A responsibility reference entry (form) [PD00-ACC-USA-ROL-nn-RSP-nn].
+/// A responsibility reference entry (form).
 @SectionId('RSPREF')
 class ResponsibilityReferenceEntry {
   @Form([
@@ -5994,7 +5994,7 @@ class ResponsibilityReferenceEntry {
   String? content;
 }
 
-/// An entitlement reference entry (form) [PD00-ACC-USA-ROL-nn-ENT-nn].
+/// An entitlement reference entry (form).
 @SectionId('ENREFE')
 class EntitlementReferenceEntry {
   @Form([
@@ -6015,7 +6015,7 @@ class EntitlementReferenceEntry {
   String? content;
 }
 
-/// A direct permission entry for a role (form) [PD00-ACC-USA-ROL-nn-PRM-nn].
+/// A direct permission entry for a role (form).
 ///
 /// Captures direct permission assignments that complement or override
 /// entitlement-based access — useful when fine-grained per-role permissions
@@ -6044,7 +6044,7 @@ class RolePermissionEntry {
   String? content;
 }
 
-/// A data scope entry for a role (form) [PD00-ACC-USA-ROL-nn-DAS-nn].
+/// A data scope entry for a role (form).
 ///
 /// Specifies what data categories the role can access and at what level —
 /// supports horizontal access control and data-level security.
@@ -6072,7 +6072,7 @@ class RoleDataScopeEntry {
   String? content;
 }
 
-/// A role exclusion entry (form) [PD00-ACC-USA-ROL-nn-EXC-nn].
+/// A role exclusion entry (form).
 @SectionId('ROLEXC')
 class RoleExclusionEntry {
   @Form([
@@ -6091,7 +6091,7 @@ class RoleExclusionEntry {
   String? content;
 }
 
-/// A role holder entry (form) [PD00-ACC-USA-ROL-nn-HOL-nn].
+/// A role holder entry (form).
 @SectionId('ROLHLD')
 class RoleHolderEntry {
   @Form([
@@ -6109,7 +6109,7 @@ class RoleHolderEntry {
   String? content;
 }
 
-/// An entitlement entry [PD00-ACC-USA-ENT-nn] (form).
+/// An entitlement entry (form).
 @SectionId('ENT')
 class EntitlementEntry {
   @Form([
@@ -6126,7 +6126,7 @@ class EntitlementEntry {
   List<ResourceKeyReferenceEntry> resourceKeyReferences = [];
 }
 
-/// A resource key reference entry (form) [PD00-ACC-USA-ENT-nn-RKR-nn].
+/// A resource key reference entry (form).
 @SectionId('RESKREF')
 class ResourceKeyReferenceEntry {
   @Form([
@@ -6135,7 +6135,7 @@ class ResourceKeyReferenceEntry {
   String? content;
 }
 
-/// A resource key entry [PD00-ACC-USA-RES-nn] (form).
+/// A resource key entry (form).
 @SectionId('RESKEY')
 class ResourceKeyEntry {
   @Form([
@@ -6147,7 +6147,7 @@ class ResourceKeyEntry {
   String? content;
 }
 
-/// 9.5. Sensitive Data Encryption [PD00-ACC-SEN].
+/// 9.5. Sensitive Data Encryption.
 @SectionId('SEDAEN')
 @DetailedIn(SecurityAccessSpecification)
 @SecondLevelSectionId(SecurityAccessSpecification, 'AC-SEN')
@@ -6188,21 +6188,21 @@ other controls fail.
 ''')
   String? content;
 
-  /// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+  /// 9.5.1. Encryption At Rest.
   EncryptionAtRest encryptionAtRest = EncryptionAtRest();
 
-  /// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+  /// 9.5.2. Encryption In Transit.
   EncryptionInTransit encryptionInTransit = EncryptionInTransit();
 
-  /// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+  /// 9.5.3. Key Management.
   KeyManagement keyManagement = KeyManagement();
 }
 
 // ---------------------------------------------------------------------------
-// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES]
+// 9.5.1. Encryption At Rest
 // ---------------------------------------------------------------------------
 
-/// 9.5.1. Encryption At Rest [PD00-ACC-SEN-RES].
+/// 9.5.1. Encryption At Rest.
 ///
 /// Defines encryption requirements for stored data: algorithms, key lengths,
 /// encryption layers (application, database, filesystem, hardware), field-level
@@ -6333,7 +6333,7 @@ class EncryptionAtRestPolicy {
   TextSection encryptionAtRestPolicyDetails = TextSection();
 }
 
-/// An encrypted data category entry (form) [PD00-ACC-SEN-RES-CAT-nn].
+/// An encrypted data category entry (form).
 ///
 /// Defines a specific category of data that requires encryption at rest,
 /// including the data classification, encryption approach, algorithm override,
@@ -6516,10 +6516,10 @@ class BackupEncryptionPolicy {
 }
 
 // ---------------------------------------------------------------------------
-// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA]
+// 9.5.2. Encryption In Transit
 // ---------------------------------------------------------------------------
 
-/// 9.5.2. Encryption In Transit [PD00-ACC-SEN-TRA].
+/// 9.5.2. Encryption In Transit.
 ///
 /// Defines encryption requirements for data in transit: TLS protocol versions,
 /// cipher suites, certificate management, HSTS policy, mutual TLS, certificate
@@ -6703,7 +6703,7 @@ class CertificateManagementPolicy {
 }
 
 /// A communication channel encryption entry (form)
-/// [PD00-ACC-SEN-TRA-CHA-nn].
+///.
 ///
 /// Defines encryption requirements for a specific communication channel
 /// (e.g. client-to-server HTTPS, server-to-database, inter-service,
@@ -6850,10 +6850,10 @@ class TransportSecurityPolicy {
 }
 
 // ---------------------------------------------------------------------------
-// 9.5.3. Key Management [PD00-ACC-SEN-KEY]
+// 9.5.3. Key Management
 // ---------------------------------------------------------------------------
 
-/// 9.5.3. Key Management [PD00-ACC-SEN-KEY].
+/// 9.5.3. Key Management.
 ///
 /// Defines cryptographic key management policies covering the full key
 /// lifecycle: generation, storage, rotation, escrow/backup, and compromise
@@ -7101,7 +7101,7 @@ class KeyCompromiseRecoveryPolicy {
   TextSection notes = TextSection();
 }
 
-/// 9.6. Audit and Logging [PD00-ACC-AUD].
+/// 9.6. Audit and Logging.
 ///
 /// Security audit and event logging requirements covering security event
 /// definitions, audit log format and structure, and compliance reporting.
@@ -7151,21 +7151,21 @@ incident detection, forensic investigation, and compliance reporting.
 ''')
   String? content;
 
-  /// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+  /// 9.6.1. Security Events.
   SecurityEventsDefinition securityEvents = SecurityEventsDefinition();
 
-  /// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+  /// 9.6.2. Audit Log Format.
   AuditLogFormat auditLogFormat = AuditLogFormat();
 
-  /// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+  /// 9.6.3. Compliance Reporting.
   ComplianceReporting complianceReporting = ComplianceReporting();
 }
 
 // ---------------------------------------------------------------------------
-// 9.6.1. Security Events [PD00-ACC-AUD-EVE]
+// 9.6.1. Security Events
 // ---------------------------------------------------------------------------
 
-/// 9.6.1. Security Events [PD00-ACC-AUD-EVE].
+/// 9.6.1. Security Events.
 ///
 /// Defines which security events must be logged: authentication attempts,
 /// authorization failures, data access, configuration changes, admin actions,
@@ -7373,7 +7373,7 @@ class AdministrativeEventPolicy {
   TextSection notes = TextSection();
 }
 
-/// A custom security event entry (form) [PD00-ACC-AUD-EVE-nn].
+/// A custom security event entry (form).
 ///
 /// Allows defining additional application-specific security events
 /// beyond the standard categories.
@@ -7399,10 +7399,10 @@ class SecurityEventEntry {
 }
 
 // ---------------------------------------------------------------------------
-// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT]
+// 9.6.2. Audit Log Format
 // ---------------------------------------------------------------------------
 
-/// 9.6.2. Audit Log Format [PD00-ACC-AUD-FMT].
+/// 9.6.2. Audit Log Format.
 ///
 /// Defines the audit log format: fields to capture (who, what, when, where,
 /// result), log retention period, and tamper protection requirements.
@@ -7576,10 +7576,10 @@ class LogRetentionPolicy {
 }
 
 // ---------------------------------------------------------------------------
-// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM]
+// 9.6.3. Compliance Reporting
 // ---------------------------------------------------------------------------
 
-/// 9.6.3. Compliance Reporting [PD00-ACC-AUD-COM].
+/// 9.6.3. Compliance Reporting.
 ///
 /// Describes compliance reporting requirements: periodic access reviews,
 /// privilege usage reports, anomaly detection, and regulatory audit support.
@@ -7751,12 +7751,12 @@ class RegulatoryAuditSupport {
 }
 
 // ---------------------------------------------------------------------------
-// 9.7 Role Matrix [PD00-ACC-ROL]
+// 9.7 Role Matrix
 // ---------------------------------------------------------------------------
 
-/// 9.7. Role Matrix [PD00-ACC-ROL].
+/// 9.7. Role Matrix.
 ///
-/// Role-to-permission assignment matrix covering HBSG AS22-AUM
+/// Role-to-permission assignment matrix covering
 /// Authorization Model.
 @SectionId('ROMA')
 @DetailedIn(SecurityAccessSpecification)
@@ -7764,7 +7764,7 @@ class RegulatoryAuditSupport {
 class RoleMatrix {
   @ContentHelp('''
 Authoritative mapping of system roles to the permissions they hold.
-Complements PD00-ACC-USA (User Authorization) which describes the
+Complements the User Authorization section which describes the
 authorization model; this section captures the concrete assignment.
 
 **What to capture:**
@@ -7780,10 +7780,10 @@ authorization model; this section captures the concrete assignment.
 }
 
 // ---------------------------------------------------------------------------
-// 9.8 Compliance Framework [PD00-ACC-CMP]
+// 9.8 Compliance Framework
 // ---------------------------------------------------------------------------
 
-/// 9.8. Compliance Framework [PD00-ACC-CMP].
+/// 9.8. Compliance Framework.
 ///
 /// NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
 /// authorization. Pulls the compliance references currently scattered
@@ -7793,7 +7793,7 @@ authorization model; this section captures the concrete assignment.
 @SecondLevelSectionId(SecurityAccessSpecification, 'AC-CMP')
 class ComplianceFramework {
   @ContentHelp('''
-Explicit mapping from the access/auth controls in PD00-ACC-* to the
+Explicit mapping from the access/auth controls in this concept to the
 compliance frameworks the project must satisfy.
 
 **What to capture:**
