@@ -164,7 +164,6 @@ class ArchitecturePrincipleEntry;
 class ArchitecturePrincipleEntryGovernance;
 class ArchitecturePrincipleEntryGuidance;
 class ArchitectureStyle;
-class ArchitectureTechnologySpecification;
 class AssumptionConstraintRegister;
 class AssumptionEntry;
 class AssumptionIdentification;
@@ -626,7 +625,6 @@ class CurrentBusinessProcesses;
 class CurrentDataClassification;
 class CurrentDataLandscape;
 class CurrentLandscape;
-class CurrentLandscapeAssessment;
 class CurrentOperationalMetrics;
 class CurrentProcessImprovementEntry;
 class CurrentStateRiskAssessment;
@@ -634,6 +632,19 @@ class CurrentWorkflowEntry;
 class CustomDistributionGroup;
 class CustomMetricEntry;
 class CutoverProcedures;
+class D00SolutionBlueprint;
+class D01CurrentLandscapeAssessment;
+class D02TargetOperatingModel;
+class D03InformationModel;
+class D04RequirementsSpecification;
+class D05InteractionScenarios;
+class D06ArchitectureTechnologySpecification;
+class D07IntegrationInterfaceSpecification;
+class D08SecurityAccessSpecification;
+class D09ExperienceDesignSpecification;
+class D10QualityAcceptancePlan;
+class D11DeliveryRoadmap;
+class D12TransitionRolloutPlan;
 class DashboardEntry;
 class DashboardEntryConfiguration;
 class DashboardEntryOperations;
@@ -798,7 +809,6 @@ class DeliveryAcceptanceCriterionEntryOwnership;
 class DeliveryAcceptanceCriterionEntryStatus;
 class DeliveryAcceptanceCriterionEntryTraceability;
 class DeliveryAcceptanceCriterionEntryVerification;
-class DeliveryRoadmap;
 class DeliveryScope;
 class DeliveryScopeAndAcceptance;
 class DeliveryTransitionAndRollout;
@@ -1068,7 +1078,6 @@ class ExistingSystemUsage;
 class ExistingSystemsLandscape;
 class ExpectedImprovements;
 class ExperienceAndInterfaceDesign;
-class ExperienceDesignSpecification;
 class ExportAccess;
 class ExportDataFormat;
 class ExportDelimiter;
@@ -1296,7 +1305,6 @@ class IndustryStandardEntryVerification;
 class InformationAndDataModel;
 class InformationArchitecture;
 class InformationForUseRequirements;
-class InformationModel;
 class InfrastructureAsCode;
 class InfrastructureAsCodeDrift;
 class InfrastructureAsCodeExecution;
@@ -1339,7 +1347,6 @@ class IntegrationConstraintEntryDetails;
 class IntegrationConstraintEntryMitigation;
 class IntegrationConstraintEntryScope;
 class IntegrationHealthSummary;
-class IntegrationInterfaceSpecification;
 class IntegrationPatternEntry;
 class IntegrationPointEntry;
 class Integrations;
@@ -1365,7 +1372,6 @@ class InteractionPatterns;
 class InteractionPerformance;
 class InteractionPrioritization;
 class InteractionScenarioEntry;
-class InteractionScenarios;
 class InteractionSecurity;
 class InteractionTestingStrategy;
 class InteractionTraceability;
@@ -2005,7 +2011,6 @@ class PwaRequirementsIcons;
 class PwaRequirementsInstallation;
 class PwaRequirementsOffline;
 class PwaRequirementsUpdates;
-class QualityAcceptancePlan;
 class QualityAndAcceptanceModel;
 class QualityCategoryEntry;
 class QualityCategoryEntryDefinition;
@@ -2161,7 +2166,6 @@ class RequirementTraceabilityImplementation;
 class RequirementUiSpecification;
 class Requirements;
 class RequirementsOverview;
-class RequirementsSpecification;
 class ResourceAllocationEntry;
 class ResourceCapacityBaselines;
 class ResourceCapacityBaselinesCost;
@@ -2369,7 +2373,6 @@ class ScreenStateEntry;
 class ScreenStates;
 class ScreenUserCategoryEntry;
 class SecondaryNavigation;
-class SecurityAccessSpecification;
 class SecurityAndAccessModel;
 class SecurityAuditEntry;
 class SecurityAuditEntryExecution;
@@ -2520,7 +2523,6 @@ class SoftwareLayerEntryDependencies;
 class SoftwareLayerEntryResponsibilities;
 class SoftwareLayerEntryTechnology;
 class SolutionArchitectureAndTechnology;
-class SolutionBlueprint;
 class SpecializedEquipmentEntry;
 class SpecializedEquipmentEntryPlanning;
 class SpecializedEquipmentEntryTechnical;
@@ -2746,7 +2748,6 @@ class TabBarDefinitionEntryBehavior;
 class TabBarDefinitionEntryLoading;
 class TabItemEntry;
 class TargetBusinessProcessModel;
-class TargetOperatingModel;
 class TargetOperatingModelConcept;
 class TargetPlatformEntry;
 class TargetPlatformEntryArchitecture;
@@ -2917,7 +2918,6 @@ class TransitionPhaseStakeholders;
 class TransitionRiskEntry;
 class TransitionRiskEntryAssessment;
 class TransitionRiskEntryResponse;
-class TransitionRolloutPlan;
 class TransitionSuccessMetrics;
 class TransitionSupportOverview;
 class TransitionSupportResourceEntry;
@@ -7344,52 +7344,6 @@ class ArchitectureStyle : public som::SomNode {
   // Architecture decision records.
   // Returns the list view; element type: ArchitectureDecisionRecord (construct from item paths).
   som::SomList decisionRecords() const;
-};
-
-// TR00 Technical Requirements.
-//
-// Comprehensive technical requirements: basic / software / standard-
-// software / hardware / operations / communication / system-operation
-// / security / architecture, plus components, framework conditions,
-// and translation handling.
-class ArchitectureTechnologySpecification : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit ArchitectureTechnologySpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Basic technical requirements.
-  BasicTechnicalRequirements basicTechnicalRequirements() const;
-  // Software design requirements.
-  SoftwareDesignRequirements softwareDesignRequirements() const;
-  // Standard application software requirements.
-  StandardSoftwareRequirements standardSoftwareRequirements() const;
-  // Hardware concept requirements.
-  HardwareRequirements hardwareRequirements() const;
-  // Operations requirements.
-  OperationsRequirements operationsRequirements() const;
-  // Communication requirements.
-  CommunicationRequirements communicationRequirements() const;
-  // System operation and monitoring.
-  SystemOperationAndMonitoring systemOperationAndMonitoring() const;
-  // Technical security requirements.
-  TechnicalSecurityRequirements technicalSecurityRequirements() const;
-  // System architecture (new in Phase A).
-  SystemArchitectureSpec systemArchitecture() const;
-  // Components to use (whole).
-  ComponentsToUse componentsToUse() const;
-  // Technical framework conditions (whole).
-  TechnicalFrameworkConditions technicalFrameworkConditions() const;
-  // Translation handling requirements (whole).
-  TranslationRequirements translationRequirements() const;
 };
 
 // A consolidated register of assumptions and constraints.
@@ -12139,44 +12093,6 @@ class CurrentLandscape : public som::SomNode {
   CurrentStateRiskAssessment currentStateRisks() const;
 };
 
-// CS00 Current Situation.
-//
-// Detailed analysis of the current state: existing systems, business
-// processes, pain points, data landscape, operational metrics, risks,
-// and the inventory / migration plan for the systems being replaced.
-class CurrentLandscapeAssessment : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit CurrentLandscapeAssessment(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Existing systems landscape.
-  ExistingSystemsLandscape existingSystemsLandscape() const;
-  // Current business processes.
-  CurrentBusinessProcesses currentBusinessProcesses() const;
-  // Pain points and gaps.
-  PainPointsAndGaps painPointsAndGaps() const;
-  // Current data landscape.
-  CurrentDataLandscape currentDataLandscape() const;
-  // Current operational metrics.
-  // Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
-  som::SomList operationalMetrics() const;
-  // Current-state risk assessment.
-  CurrentStateRiskAssessment currentStateRisks() const;
-  // Replacement inventory.
-  ReplacementInventory replacementInventory() const;
-  // Migration considerations.
-  MigrationConsiderations migrationConsiderations() const;
-};
-
 // 1.5. Operational Metrics.
 //
 // Baseline metrics of the current systems: throughput, volume, uptime,
@@ -12276,6 +12192,573 @@ class CutoverProcedures : public som::SomNode {
   CutoverProcedures(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
+};
+
+// The complete Solution Blueprint (SBP) document.
+//
+// Contains a [DocumentControl] header block and the SBP sections, sequenced
+// per the public-standards order (§4 of the redesign proposal).
+class D00SolutionBlueprint : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D00SolutionBlueprint(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // SBP.1 Document Control (header + revision history + approvals).
+  DocumentControl documentControl() const;
+  // SBP.2 Introduction & Scope.
+  IntroductionAndScope introductionAndScope() const;
+  // SBP.3 Glossary & Abbreviations.
+  GlossaryAndAbbreviations glossaryAndAbbreviations() const;
+  // SBP.4 Stakeholders & Governance.
+  StakeholdersAndGovernance stakeholdersAndGovernance() const;
+  // SBP.5 Current Landscape. Seeds → CLA.
+  CurrentLandscape currentLandscape() const;
+  // SBP.6 Assumptions, Constraints & Dependencies.
+  AssumptionsConstraintsDependencies assumptionsConstraintsDependencies() const;
+  // SBP.7 Target Operating Model concept. Seeds → TOM.
+  TargetOperatingModelConcept targetOperatingModelConcept() const;
+  // SBP.8 Information & Data Model. Seeds → IFM.
+  InformationAndDataModel informationAndDataModel() const;
+  // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+  Requirements requirements() const;
+  // SBP.11 Solution Architecture & Technology. Seeds → ATS.
+  SolutionArchitectureAndTechnology solutionArchitectureAndTechnology() const;
+  // SBP.12 Security & Access Model. Seeds → SAS.
+  SecurityAndAccessModel securityAndAccessModel() const;
+  // SBP.13 Experience & Interface Design. Seeds → XDS.
+  ExperienceAndInterfaceDesign experienceAndInterfaceDesign() const;
+  // SBP.14 Quality & Acceptance Model. Seeds → QAP.
+  QualityAndAcceptanceModel qualityAndAcceptanceModel() const;
+  // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+  DeliveryTransitionAndRollout deliveryTransitionAndRollout() const;
+};
+
+// CS00 Current Situation.
+//
+// Detailed analysis of the current state: existing systems, business
+// processes, pain points, data landscape, operational metrics, risks,
+// and the inventory / migration plan for the systems being replaced.
+class D01CurrentLandscapeAssessment : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D01CurrentLandscapeAssessment(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Existing systems landscape.
+  ExistingSystemsLandscape existingSystemsLandscape() const;
+  // Current business processes.
+  CurrentBusinessProcesses currentBusinessProcesses() const;
+  // Pain points and gaps.
+  PainPointsAndGaps painPointsAndGaps() const;
+  // Current data landscape.
+  CurrentDataLandscape currentDataLandscape() const;
+  // Current operational metrics.
+  // Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
+  som::SomList operationalMetrics() const;
+  // Current-state risk assessment.
+  CurrentStateRiskAssessment currentStateRisks() const;
+  // Replacement inventory.
+  ReplacementInventory replacementInventory() const;
+  // Migration considerations.
+  MigrationConsiderations migrationConsiderations() const;
+};
+
+// BP00 Business Processes.
+//
+// Target business process specification — vision, principles, catalog,
+// diagrams, improvements, relationships, detailed workflows,
+// cross-process analysis, exception handling, and KPIs.
+class D02TargetOperatingModel : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D02TargetOperatingModel(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Process vision.
+  ProcessVision processVision() const;
+  // Design principles.
+  ProcessDesignPrinciples designPrinciples() const;
+  // Process catalog.
+  ProcessCatalog processCatalog() const;
+  // Process overview diagram.
+  ProcessOverviewDiagram processOverviewDiagram() const;
+  // Improvement summary.
+  ProcessImprovementSummary improvementSummary() const;
+  // Process relationships.
+  ProcessRelationships processRelationships() const;
+  // Detailed process workflows.
+  // Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
+  som::SomList detailedWorkflows() const;
+  // Cross-process analysis.
+  CrossProcessAnalysis crossProcessAnalysis() const;
+  // Process exception handling.
+  ProcessExceptionHandling exceptionHandling() const;
+  // Process metrics and KPIs.
+  // Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
+  som::SomList processMetricsAndKpis() const;
+};
+
+// BDM00 Business Data Model.
+//
+// Full business data model: entities, relationships, ER diagram, data
+// classification, business objects, function decomposition, function-
+// to-data matrix, business rules, data dictionary, and validation /
+// integrity constraints.
+class D03InformationModel : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D03InformationModel(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Entity inventory (list).
+  // Returns the list view; element type: DataEntityEntry (construct from item paths).
+  som::SomList entities() const;
+  // Entity relationships.
+  EntityRelationships entityRelationships() const;
+  // Entity-relationship diagram.
+  // (skipped: erDiagram has no target type)
+  // Data classification.
+  DataClassification dataClassification() const;
+  // Business object catalog (list).
+  // Returns the list view; element type: BusinessObjectEntry (construct from item paths).
+  som::SomList objectCatalog() const;
+  // Business object diagram.
+  // (skipped: objectDiagram has no target type)
+  // Function decomposition (list).
+  // Returns the list view; element type: FunctionEntry (construct from item paths).
+  som::SomList functionDecomposition() const;
+  // Function-to-data matrix (list).
+  // Returns the list view; element type: FunctionDataMatrixEntry (construct from item paths).
+  som::SomList functionToDataMatrix() const;
+  // Business rules catalog (list).
+  // Returns the list view; element type: BusinessRuleEntry (construct from item paths).
+  som::SomList businessRules() const;
+  // Data dictionary.
+  DataDictionary dataDictionary() const;
+  // Validation constraints.
+  // Returns the list view; element type: ValidationConstraints (construct from item paths).
+  som::SomList validationConstraints() const;
+  // Integrity constraints.
+  // Returns the list view; element type: IntegrityConstraints (construct from item paths).
+  som::SomList integrityConstraints() const;
+};
+
+// RC00 Requirements Catalog.
+//
+// Full requirements catalog covering functional, technical, security,
+// and organizational requirements, plus traceability, relationships,
+// and coverage analysis.
+class D04RequirementsSpecification : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D04RequirementsSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Functional requirements.
+  FunctionalRequirements functionalRequirements() const;
+  // Technical (non-functional) requirements.
+  TechnicalRequirements technicalRequirements() const;
+  // Security requirements.
+  SecurityRequirements securityRequirements() const;
+  // Organizational requirements.
+  OrganizationalRequirements organizationalRequirements() const;
+  // Traceability matrix overview.
+  //
+  // Mirrors the flat field on RequirementsOverview so the RC outline
+  // reaches it directly. The authoritative content lives on the Solution
+  // Blueprint side.
+  std::string traceabilityMatrix() const;
+  void setTraceabilityMatrix(const std::string& value);
+  // Requirement relationships.
+  // Returns the list view; element type: RequirementRelationships (construct from item paths).
+  som::SomList requirementRelationships() const;
+  // Requirement coverage.
+  RequirementCoverage requirementCoverage() const;
+};
+
+// UC00 Use Cases.
+//
+// Detailed use cases derived from the target process steps and actor
+// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+// and traceability.
+class D05InteractionScenarios : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D05InteractionScenarios(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Process steps overview.
+  ProcessStepsOverview processStepsOverview() const;
+  // Actor overview.
+  ActorOverview actorOverview() const;
+  // Interaction catalog.
+  InteractionCatalog interactionCatalog() const;
+  // Key scenarios.
+  KeyScenarios keyScenarios() const;
+  // Actor relationship diagram.
+  ActorRelationshipDiagram actorRelationshipDiagram() const;
+  // End-to-end test scenarios.
+  // Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
+  som::SomList endToEndTestScenarios() const;
+  // Use case traceability.
+  UseCaseTraceability useCaseTraceability() const;
+};
+
+// TR00 Technical Requirements.
+//
+// Comprehensive technical requirements: basic / software / standard-
+// software / hardware / operations / communication / system-operation
+// / security / architecture, plus components, framework conditions,
+// and translation handling.
+class D06ArchitectureTechnologySpecification : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D06ArchitectureTechnologySpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Basic technical requirements.
+  BasicTechnicalRequirements basicTechnicalRequirements() const;
+  // Software design requirements.
+  SoftwareDesignRequirements softwareDesignRequirements() const;
+  // Standard application software requirements.
+  StandardSoftwareRequirements standardSoftwareRequirements() const;
+  // Hardware concept requirements.
+  HardwareRequirements hardwareRequirements() const;
+  // Operations requirements.
+  OperationsRequirements operationsRequirements() const;
+  // Communication requirements.
+  CommunicationRequirements communicationRequirements() const;
+  // System operation and monitoring.
+  SystemOperationAndMonitoring systemOperationAndMonitoring() const;
+  // Technical security requirements.
+  TechnicalSecurityRequirements technicalSecurityRequirements() const;
+  // System architecture (new in Phase A).
+  SystemArchitectureSpec systemArchitecture() const;
+  // Components to use (whole).
+  ComponentsToUse componentsToUse() const;
+  // Technical framework conditions (whole).
+  TechnicalFrameworkConditions technicalFrameworkConditions() const;
+  // Translation handling requirements (whole).
+  TranslationRequirements translationRequirements() const;
+};
+
+// BSI00 Business System Interactions.
+//
+// Complete interaction specification between the target system and
+// external systems: inventory, patterns, testing, dependencies,
+// migration, operational concerns, and cross-boundary error handling.
+class D07IntegrationInterfaceSpecification : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D07IntegrationInterfaceSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // External interfaces.
+  ExternalInterfaces externalInterfaces() const;
+  // Out of scope.
+  OutOfScope outOfScope() const;
+  // Boundary assumptions.
+  BoundaryAssumptions boundaryAssumptions() const;
+  // System landscape inventory.
+  SystemLandscapeInventory systemInventory() const;
+  // Boundary interaction patterns.
+  // Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
+  som::SomList interactionPatterns() const;
+  // Interaction testing strategy.
+  InteractionTestingStrategy testingStrategy() const;
+  // Interaction dependency analysis.
+  InteractionDependencyAnalysis dependencyAnalysis() const;
+  // Migration interactions.
+  // Returns the list view; element type: MigrationInteractions (construct from item paths).
+  som::SomList migrationInteractions() const;
+  // Cross-boundary operational considerations.
+  // Returns the list view; element type: CrossBoundaryOperationalConsiderations (construct from item paths).
+  som::SomList operationalConsiderations() const;
+  // Cross-boundary error handling.
+  CrossBoundaryErrorHandling crossBoundaryErrorHandling() const;
+};
+
+// AC00 Authorization Concept.
+//
+// Complete access and authorization specification — user management,
+// identification and authentication, resource protection, user
+// authorization, encryption, audit/logging, role matrix, and
+// compliance framework.
+class D08SecurityAccessSpecification : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D08SecurityAccessSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // User management.
+  UserManagement userManagement() const;
+  // Identification and authentication.
+  IdentificationAndAuthentication identificationAndAuthentication() const;
+  // Resource protection.
+  ResourceProtection resourceProtection() const;
+  // User authorization.
+  UserAuthorization userAuthorization() const;
+  // Sensitive data encryption.
+  SensitiveDataEncryption sensitiveDataEncryption() const;
+  // Audit and logging.
+  AuditAndLogging auditAndLogging() const;
+  // Role matrix.
+  RoleMatrix roleMatrix() const;
+  // Compliance framework.
+  ComplianceFramework complianceFramework() const;
+};
+
+// UP00 UI Prototype.
+//
+// Full UI design and prototype specification — vision, screens,
+// screen flow, print, error handling, help, accessibility, responsive,
+// components, language/country selection, prototype, wireframes and
+// mockups.
+class D09ExperienceDesignSpecification : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D09ExperienceDesignSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Design vision.
+  DesignVision designVision() const;
+  // Screen descriptions.
+  ScreenDescriptions screens() const;
+  // Screen flow structure.
+  ScreenFlowStructure screenFlow() const;
+  // Print layout.
+  PrintLayout printLayout() const;
+  // Error handling concept.
+  ErrorHandlingConcept errorHandling() const;
+  // Help concept.
+  HelpConcept helpConcept() const;
+  // Accessibility.
+  Accessibility accessibility() const;
+  // Responsive design.
+  ResponsiveDesign responsiveDesign() const;
+  // UI components.
+  UiComponents uiComponents() const;
+  // Language and country selection.
+  LanguageCountrySelection languageCountrySelection() const;
+  // Prototype.
+  Prototype prototype() const;
+  // Wireframes and mockups (new in Phase A).
+  // Returns the list view; element type: WireframesAndMockups (construct from item paths).
+  som::SomList wireframesAndMockups() const;
+};
+
+// BQP00 Business Quality Plan.
+//
+// Full quality plan combining quality goals and the acceptance plan.
+class D10QualityAcceptancePlan : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D10QualityAcceptancePlan(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Quality framework.
+  QualityFramework qualityFramework() const;
+  // User-related quality criteria.
+  UserQualityCriteria userQualityCriteria() const;
+  // Technical quality criteria.
+  TechnicalQualityCriteria technicalQualityCriteria() const;
+  // Operations quality criteria.
+  OperationsQualityCriteria operationsQualityCriteria() const;
+  // Documentation quality criteria.
+  DocumentationQualityCriteria documentationQualityCriteria() const;
+  // Quality prioritization.
+  QualityPrioritization qualityPrioritization() const;
+  // Acceptance criteria summary.
+  AcceptanceCriteriaSummary acceptanceCriteriaSummary() const;
+  // Test strategy (new in Phase A).
+  TestStrategy testStrategy() const;
+  // Acceptance criteria.
+  AcceptanceCriteriaList acceptanceCriteria() const;
+  // Acceptance process.
+  AcceptanceProcess acceptanceProcess() const;
+  // User acceptance testing.
+  UserAcceptanceTesting userAcceptanceTesting() const;
+  // Defect resolution.
+  DefectResolution defectResolution() const;
+  // Sign-off process.
+  SignOffProcess signOffProcess() const;
+  // Warranty terms.
+  WarrantyTerms warranty() const;
+};
+
+// PPP00 Project Phase Plan.
+//
+// Full project phase plan — staging strategy, stage overview, per-stage
+// entries, feature prioritization, data migration, gate criteria,
+// decision processes, initial development flow, and upgrade cycle
+// framework.
+class D11DeliveryRoadmap : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D11DeliveryRoadmap(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Staging strategy.
+  StagingStrategy stagingStrategy() const;
+  // Stage overview.
+  StageOverview stageOverview() const;
+  // Stages (list).
+  // Returns the list view; element type: StageEntry (construct from item paths).
+  som::SomList stages() const;
+  // Feature prioritization.
+  FeaturePrioritization featurePrioritization() const;
+  // Data migration strategy.
+  DataMigrationStrategy dataMigrationStrategy() const;
+  // Gate criteria (promoted from GOV).
+  PhaseGateReviews gateCriteria() const;
+  // Decision processes (promoted from GOV).
+  DecisionPoints decisionProcesses() const;
+  // Initial development flow.
+  InitialDevelopmentFlow initialDevelopmentFlow() const;
+  // Upgrade cycle framework (links tom_system_upgrade.md).
+  UpgradeCycleFramework upgradeCycleFramework() const;
+};
+
+// SR00 System Rollout.
+//
+// End-to-end rollout specification — localization, translation,
+// documentation and training, plus rollout plan, migration plan,
+// user manuals, training materials, pilot, cutover, knowledge
+// transfer, and warranty/support.
+class D12TransitionRolloutPlan : public som::SomNode {
+ public:
+  // The model version this object model was generated against (§2.1).
+  static constexpr const char* kModelVersion = "0.0";
+  // Creates the typed facade at the document root and verifies the document's
+  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // when it is not.
+  explicit D12TransitionRolloutPlan(som::SpecDocument& doc, const std::string& documentVersion = "");
+  // This object model's own model version (major.minor), per §2.1.
+  std::string objectModelVersion() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // Standard TomSpecs document header.
+  DocumentHeader header() const;
+  // Localization process.
+  LocalizationProcess localizationProcess() const;
+  // Translation process.
+  TranslationProcess translationProcess() const;
+  // Documentation and training.
+  DocumentationAndTraining documentationAndTraining() const;
+  // Rollout plan.
+  RolloutPlan rolloutPlan() const;
+  // Migration plan.
+  MigrationPlan migrationPlan() const;
+  // User manuals.
+  // Returns the list view; element type: UserManuals (construct from item paths).
+  som::SomList userManuals() const;
+  // Training materials.
+  // Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
+  som::SomList trainingMaterials() const;
+  // Pilot plan.
+  PilotPlan pilotPlan() const;
+  // Cutover procedures.
+  // Returns the list view; element type: CutoverProcedures (construct from item paths).
+  som::SomList cutoverProcedures() const;
+  // Knowledge transfer.
+  KnowledgeTransfer knowledgeTransfer() const;
+  // Warranty and support.
+  WarrantyAndSupport warrantyAndSupport() const;
 };
 
 // A dashboard entry.
@@ -13956,47 +14439,6 @@ class DeliveryAcceptanceCriterionEntryVerification : public som::SomNode {
  public:
   DeliveryAcceptanceCriterionEntryVerification(som::SpecDocument& doc, std::string path);
   DeliveryAcceptanceCriterionEntryVerificationContentForm content() const;
-};
-
-// PPP00 Project Phase Plan.
-//
-// Full project phase plan — staging strategy, stage overview, per-stage
-// entries, feature prioritization, data migration, gate criteria,
-// decision processes, initial development flow, and upgrade cycle
-// framework.
-class DeliveryRoadmap : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit DeliveryRoadmap(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Staging strategy.
-  StagingStrategy stagingStrategy() const;
-  // Stage overview.
-  StageOverview stageOverview() const;
-  // Stages (list).
-  // Returns the list view; element type: StageEntry (construct from item paths).
-  som::SomList stages() const;
-  // Feature prioritization.
-  FeaturePrioritization featurePrioritization() const;
-  // Data migration strategy.
-  DataMigrationStrategy dataMigrationStrategy() const;
-  // Gate criteria (promoted from GOV).
-  PhaseGateReviews gateCriteria() const;
-  // Decision processes (promoted from GOV).
-  DecisionPoints decisionProcesses() const;
-  // Initial development flow.
-  InitialDevelopmentFlow initialDevelopmentFlow() const;
-  // Upgrade cycle framework (links tom_system_upgrade.md).
-  UpgradeCycleFramework upgradeCycleFramework() const;
 };
 
 // 14.1. Delivery and Service Scope.
@@ -16707,53 +17149,6 @@ class ExperienceAndInterfaceDesign : public som::SomNode {
   som::SomList wireframesAndMockups() const;
 };
 
-// UP00 UI Prototype.
-//
-// Full UI design and prototype specification — vision, screens,
-// screen flow, print, error handling, help, accessibility, responsive,
-// components, language/country selection, prototype, wireframes and
-// mockups.
-class ExperienceDesignSpecification : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit ExperienceDesignSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Design vision.
-  DesignVision designVision() const;
-  // Screen descriptions.
-  ScreenDescriptions screens() const;
-  // Screen flow structure.
-  ScreenFlowStructure screenFlow() const;
-  // Print layout.
-  PrintLayout printLayout() const;
-  // Error handling concept.
-  ErrorHandlingConcept errorHandling() const;
-  // Help concept.
-  HelpConcept helpConcept() const;
-  // Accessibility.
-  Accessibility accessibility() const;
-  // Responsive design.
-  ResponsiveDesign responsiveDesign() const;
-  // UI components.
-  UiComponents uiComponents() const;
-  // Language and country selection.
-  LanguageCountrySelection languageCountrySelection() const;
-  // Prototype.
-  Prototype prototype() const;
-  // Wireframes and mockups (new in Phase A).
-  // Returns the list view; element type: WireframesAndMockups (construct from item paths).
-  som::SomList wireframesAndMockups() const;
-};
-
 // Export access and audit.
 class ExportAccess : public som::SomNode {
  public:
@@ -19113,59 +19508,6 @@ class InformationForUseRequirements : public som::SomNode {
   DocumentationAndTraining documentationAndTraining() const;
 };
 
-// BDM00 Business Data Model.
-//
-// Full business data model: entities, relationships, ER diagram, data
-// classification, business objects, function decomposition, function-
-// to-data matrix, business rules, data dictionary, and validation /
-// integrity constraints.
-class InformationModel : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit InformationModel(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Entity inventory (list).
-  // Returns the list view; element type: DataEntityEntry (construct from item paths).
-  som::SomList entities() const;
-  // Entity relationships.
-  EntityRelationships entityRelationships() const;
-  // Entity-relationship diagram.
-  // (skipped: erDiagram has no target type)
-  // Data classification.
-  DataClassification dataClassification() const;
-  // Business object catalog (list).
-  // Returns the list view; element type: BusinessObjectEntry (construct from item paths).
-  som::SomList objectCatalog() const;
-  // Business object diagram.
-  // (skipped: objectDiagram has no target type)
-  // Function decomposition (list).
-  // Returns the list view; element type: FunctionEntry (construct from item paths).
-  som::SomList functionDecomposition() const;
-  // Function-to-data matrix (list).
-  // Returns the list view; element type: FunctionDataMatrixEntry (construct from item paths).
-  som::SomList functionToDataMatrix() const;
-  // Business rules catalog (list).
-  // Returns the list view; element type: BusinessRuleEntry (construct from item paths).
-  som::SomList businessRules() const;
-  // Data dictionary.
-  DataDictionary dataDictionary() const;
-  // Validation constraints.
-  // Returns the list view; element type: ValidationConstraints (construct from item paths).
-  som::SomList validationConstraints() const;
-  // Integrity constraints.
-  // Returns the list view; element type: IntegrityConstraints (construct from item paths).
-  som::SomList integrityConstraints() const;
-};
-
 // Infrastructure as Code requirements.
 class InfrastructureAsCode : public som::SomNode {
  public:
@@ -19540,50 +19882,6 @@ class IntegrationHealthSummary : public som::SomNode {
   som::SomList fragilePoints() const;
 };
 
-// BSI00 Business System Interactions.
-//
-// Complete interaction specification between the target system and
-// external systems: inventory, patterns, testing, dependencies,
-// migration, operational concerns, and cross-boundary error handling.
-class IntegrationInterfaceSpecification : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit IntegrationInterfaceSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // External interfaces.
-  ExternalInterfaces externalInterfaces() const;
-  // Out of scope.
-  OutOfScope outOfScope() const;
-  // Boundary assumptions.
-  BoundaryAssumptions boundaryAssumptions() const;
-  // System landscape inventory.
-  SystemLandscapeInventory systemInventory() const;
-  // Boundary interaction patterns.
-  // Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
-  som::SomList interactionPatterns() const;
-  // Interaction testing strategy.
-  InteractionTestingStrategy testingStrategy() const;
-  // Interaction dependency analysis.
-  InteractionDependencyAnalysis dependencyAnalysis() const;
-  // Migration interactions.
-  // Returns the list view; element type: MigrationInteractions (construct from item paths).
-  som::SomList migrationInteractions() const;
-  // Cross-boundary operational considerations.
-  // Returns the list view; element type: CrossBoundaryOperationalConsiderations (construct from item paths).
-  som::SomList operationalConsiderations() const;
-  // Cross-boundary error handling.
-  CrossBoundaryErrorHandling crossBoundaryErrorHandling() const;
-};
-
 // A single integration pattern entry.
 class IntegrationPatternEntry : public som::SomNode {
  public:
@@ -19856,42 +20154,6 @@ class InteractionScenarioEntry : public som::SomNode {
   InteractionScenarioEntry(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-};
-
-// UC00 Use Cases.
-//
-// Detailed use cases derived from the target process steps and actor
-// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-// and traceability.
-class InteractionScenarios : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit InteractionScenarios(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Process steps overview.
-  ProcessStepsOverview processStepsOverview() const;
-  // Actor overview.
-  ActorOverview actorOverview() const;
-  // Interaction catalog.
-  InteractionCatalog interactionCatalog() const;
-  // Key scenarios.
-  KeyScenarios keyScenarios() const;
-  // Actor relationship diagram.
-  ActorRelationshipDiagram actorRelationshipDiagram() const;
-  // End-to-end test scenarios.
-  // Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
-  som::SomList endToEndTestScenarios() const;
-  // Use case traceability.
-  UseCaseTraceability useCaseTraceability() const;
 };
 
 // Interaction security requirements.
@@ -26381,53 +26643,6 @@ class PwaRequirementsUpdates : public som::SomNode {
   PwaRequirementsUpdatesContentForm content() const;
 };
 
-// BQP00 Business Quality Plan.
-//
-// Full quality plan combining quality goals and the acceptance plan.
-class QualityAcceptancePlan : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit QualityAcceptancePlan(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Quality framework.
-  QualityFramework qualityFramework() const;
-  // User-related quality criteria.
-  UserQualityCriteria userQualityCriteria() const;
-  // Technical quality criteria.
-  TechnicalQualityCriteria technicalQualityCriteria() const;
-  // Operations quality criteria.
-  OperationsQualityCriteria operationsQualityCriteria() const;
-  // Documentation quality criteria.
-  DocumentationQualityCriteria documentationQualityCriteria() const;
-  // Quality prioritization.
-  QualityPrioritization qualityPrioritization() const;
-  // Acceptance criteria summary.
-  AcceptanceCriteriaSummary acceptanceCriteriaSummary() const;
-  // Test strategy (new in Phase A).
-  TestStrategy testStrategy() const;
-  // Acceptance criteria.
-  AcceptanceCriteriaList acceptanceCriteria() const;
-  // Acceptance process.
-  AcceptanceProcess acceptanceProcess() const;
-  // User acceptance testing.
-  UserAcceptanceTesting userAcceptanceTesting() const;
-  // Defect resolution.
-  DefectResolution defectResolution() const;
-  // Sign-off process.
-  SignOffProcess signOffProcess() const;
-  // Warranty terms.
-  WarrantyTerms warranty() const;
-};
-
 // SBP.14 Quality & Acceptance Model.
 //
 // Public anchor: ISO/IEC 25010 product quality.
@@ -27964,47 +28179,6 @@ class RequirementsOverview : public som::SomNode {
   // Returns the list view; element type: RequirementRelationships (construct from item paths).
   som::SomList requirementRelationships() const;
   // 4.3.6. Requirement Coverage.
-  RequirementCoverage requirementCoverage() const;
-};
-
-// RC00 Requirements Catalog.
-//
-// Full requirements catalog covering functional, technical, security,
-// and organizational requirements, plus traceability, relationships,
-// and coverage analysis.
-class RequirementsSpecification : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit RequirementsSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Functional requirements.
-  FunctionalRequirements functionalRequirements() const;
-  // Technical (non-functional) requirements.
-  TechnicalRequirements technicalRequirements() const;
-  // Security requirements.
-  SecurityRequirements securityRequirements() const;
-  // Organizational requirements.
-  OrganizationalRequirements organizationalRequirements() const;
-  // Traceability matrix overview.
-  //
-  // Mirrors the flat field on RequirementsOverview so the RC outline
-  // reaches it directly. The authoritative content lives on the Solution
-  // Blueprint side.
-  std::string traceabilityMatrix() const;
-  void setTraceabilityMatrix(const std::string& value);
-  // Requirement relationships.
-  // Returns the list view; element type: RequirementRelationships (construct from item paths).
-  som::SomList requirementRelationships() const;
-  // Requirement coverage.
   RequirementCoverage requirementCoverage() const;
 };
 
@@ -30011,44 +30185,6 @@ class SecondaryNavigation : public som::SomNode {
   som::SomList tabBars() const;
 };
 
-// AC00 Authorization Concept.
-//
-// Complete access and authorization specification — user management,
-// identification and authentication, resource protection, user
-// authorization, encryption, audit/logging, role matrix, and
-// compliance framework.
-class SecurityAccessSpecification : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit SecurityAccessSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // User management.
-  UserManagement userManagement() const;
-  // Identification and authentication.
-  IdentificationAndAuthentication identificationAndAuthentication() const;
-  // Resource protection.
-  ResourceProtection resourceProtection() const;
-  // User authorization.
-  UserAuthorization userAuthorization() const;
-  // Sensitive data encryption.
-  SensitiveDataEncryption sensitiveDataEncryption() const;
-  // Audit and logging.
-  AuditAndLogging auditAndLogging() const;
-  // Role matrix.
-  RoleMatrix roleMatrix() const;
-  // Compliance framework.
-  ComplianceFramework complianceFramework() const;
-};
-
 // 9. Access and Authorization Concept. Seeds → AC.
 class SecurityAndAccessModel : public som::SomNode {
  public:
@@ -31568,52 +31704,6 @@ class SolutionArchitectureAndTechnology : public som::SomNode {
   TechnicalFrameworkConcept technicalFramework() const;
   // Components, libraries, and services to reuse.
   ComponentsToUse componentsToUse() const;
-};
-
-// The complete Solution Blueprint (SBP) document.
-//
-// Contains a [DocumentControl] header block and the SBP sections, sequenced
-// per the public-standards order (§4 of the redesign proposal).
-class SolutionBlueprint : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit SolutionBlueprint(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // SBP.1 Document Control (header + revision history + approvals).
-  DocumentControl documentControl() const;
-  // SBP.2 Introduction & Scope.
-  IntroductionAndScope introductionAndScope() const;
-  // SBP.3 Glossary & Abbreviations.
-  GlossaryAndAbbreviations glossaryAndAbbreviations() const;
-  // SBP.4 Stakeholders & Governance.
-  StakeholdersAndGovernance stakeholdersAndGovernance() const;
-  // SBP.5 Current Landscape. Seeds → CLA.
-  CurrentLandscape currentLandscape() const;
-  // SBP.6 Assumptions, Constraints & Dependencies.
-  AssumptionsConstraintsDependencies assumptionsConstraintsDependencies() const;
-  // SBP.7 Target Operating Model concept. Seeds → TOM.
-  TargetOperatingModelConcept targetOperatingModelConcept() const;
-  // SBP.8 Information & Data Model. Seeds → IFM.
-  InformationAndDataModel informationAndDataModel() const;
-  // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
-  Requirements requirements() const;
-  // SBP.11 Solution Architecture & Technology. Seeds → ATS.
-  SolutionArchitectureAndTechnology solutionArchitectureAndTechnology() const;
-  // SBP.12 Security & Access Model. Seeds → SAS.
-  SecurityAndAccessModel securityAndAccessModel() const;
-  // SBP.13 Experience & Interface Design. Seeds → XDS.
-  ExperienceAndInterfaceDesign experienceAndInterfaceDesign() const;
-  // SBP.14 Quality & Acceptance Model. Seeds → QAP.
-  QualityAndAcceptanceModel qualityAndAcceptanceModel() const;
-  // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
-  DeliveryTransitionAndRollout deliveryTransitionAndRollout() const;
 };
 
 // Specialized equipment entry (form).
@@ -34087,49 +34177,6 @@ class TargetBusinessProcessModel : public som::SomNode {
   ProcessStepsAndActorInteractions processStepsAndActorInteractions() const;
 };
 
-// BP00 Business Processes.
-//
-// Target business process specification — vision, principles, catalog,
-// diagrams, improvements, relationships, detailed workflows,
-// cross-process analysis, exception handling, and KPIs.
-class TargetOperatingModel : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit TargetOperatingModel(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Process vision.
-  ProcessVision processVision() const;
-  // Design principles.
-  ProcessDesignPrinciples designPrinciples() const;
-  // Process catalog.
-  ProcessCatalog processCatalog() const;
-  // Process overview diagram.
-  ProcessOverviewDiagram processOverviewDiagram() const;
-  // Improvement summary.
-  ProcessImprovementSummary improvementSummary() const;
-  // Process relationships.
-  ProcessRelationships processRelationships() const;
-  // Detailed process workflows.
-  // Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
-  som::SomList detailedWorkflows() const;
-  // Cross-process analysis.
-  CrossProcessAnalysis crossProcessAnalysis() const;
-  // Process exception handling.
-  ProcessExceptionHandling exceptionHandling() const;
-  // Process metrics and KPIs.
-  // Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
-  som::SomList processMetricsAndKpis() const;
-};
-
 // SBP.7 Target Operating Model concept.
 //
 // Public anchor: BABOK future-state analysis.
@@ -35877,53 +35924,6 @@ class TransitionRiskEntryResponse : public som::SomNode {
  public:
   TransitionRiskEntryResponse(som::SpecDocument& doc, std::string path);
   TransitionRiskEntryResponseContentForm content() const;
-};
-
-// SR00 System Rollout.
-//
-// End-to-end rollout specification — localization, translation,
-// documentation and training, plus rollout plan, migration plan,
-// user manuals, training materials, pilot, cutover, knowledge
-// transfer, and warranty/support.
-class TransitionRolloutPlan : public som::SomNode {
- public:
-  // The model version this object model was generated against (§2.1).
-  static constexpr const char* kModelVersion = "0.0";
-  // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
-  // when it is not.
-  explicit TransitionRolloutPlan(som::SpecDocument& doc, const std::string& documentVersion = "");
-  // This object model's own model version (major.minor), per §2.1.
-  std::string objectModelVersion() const;
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Standard TomSpecs document header.
-  DocumentHeader header() const;
-  // Localization process.
-  LocalizationProcess localizationProcess() const;
-  // Translation process.
-  TranslationProcess translationProcess() const;
-  // Documentation and training.
-  DocumentationAndTraining documentationAndTraining() const;
-  // Rollout plan.
-  RolloutPlan rolloutPlan() const;
-  // Migration plan.
-  MigrationPlan migrationPlan() const;
-  // User manuals.
-  // Returns the list view; element type: UserManuals (construct from item paths).
-  som::SomList userManuals() const;
-  // Training materials.
-  // Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
-  som::SomList trainingMaterials() const;
-  // Pilot plan.
-  PilotPlan pilotPlan() const;
-  // Cutover procedures.
-  // Returns the list view; element type: CutoverProcedures (construct from item paths).
-  som::SomList cutoverProcedures() const;
-  // Knowledge transfer.
-  KnowledgeTransfer knowledgeTransfer() const;
-  // Warranty and support.
-  WarrantyAndSupport warrantyAndSupport() const;
 };
 
 // Success metrics for the transition.

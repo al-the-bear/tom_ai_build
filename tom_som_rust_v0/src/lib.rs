@@ -3556,108 +3556,6 @@ impl ArchitectureStyle {
     }
 }
 
-/// TR00 Technical Requirements.
-///
-/// Comprehensive technical requirements: basic / software / standard-
-/// software / hardware / operations / communication / system-operation
-/// / security / architecture, plus components, framework conditions,
-/// and translation handling.
-pub struct ArchitectureTechnologySpecification {
-    pub node: som::SomNode,
-}
-
-/// ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "0.0";
-
-impl ArchitectureTechnologySpecification {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<ArchitectureTechnologySpecification, som::SomVersionError> {
-        som::check_som_model_version(ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION, document_version)?;
-        Ok(ArchitectureTechnologySpecification { node: som::SomNode::new(doc, "ATS".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Basic technical requirements.
-    pub fn basic_technical_requirements(&self) -> BasicTechnicalRequirements {
-        BasicTechnicalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "basicTechnicalRequirements"))
-    }
-
-    /// Software design requirements.
-    pub fn software_design_requirements(&self) -> SoftwareDesignRequirements {
-        SoftwareDesignRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "softwareDesignRequirements"))
-    }
-
-    /// Standard application software requirements.
-    pub fn standard_software_requirements(&self) -> StandardSoftwareRequirements {
-        StandardSoftwareRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "standardSoftwareRequirements"))
-    }
-
-    /// Hardware concept requirements.
-    pub fn hardware_requirements(&self) -> HardwareRequirements {
-        HardwareRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "hardwareRequirements"))
-    }
-
-    /// Operations requirements.
-    pub fn operations_requirements(&self) -> OperationsRequirements {
-        OperationsRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsRequirements"))
-    }
-
-    /// Communication requirements.
-    pub fn communication_requirements(&self) -> CommunicationRequirements {
-        CommunicationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "communicationRequirements"))
-    }
-
-    /// System operation and monitoring.
-    pub fn system_operation_and_monitoring(&self) -> SystemOperationAndMonitoring {
-        SystemOperationAndMonitoring::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemOperationAndMonitoring"))
-    }
-
-    /// Technical security requirements.
-    pub fn technical_security_requirements(&self) -> TechnicalSecurityRequirements {
-        TechnicalSecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalSecurityRequirements"))
-    }
-
-    /// System architecture (new in Phase A).
-    pub fn system_architecture(&self) -> SystemArchitectureSpec {
-        SystemArchitectureSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemArchitecture"))
-    }
-
-    /// Components to use (whole).
-    pub fn components_to_use(&self) -> ComponentsToUse {
-        ComponentsToUse::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
-    }
-
-    /// Technical framework conditions (whole).
-    pub fn technical_framework_conditions(&self) -> TechnicalFrameworkConditions {
-        TechnicalFrameworkConditions::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFrameworkConditions"))
-    }
-
-    /// Translation handling requirements (whole).
-    pub fn translation_requirements(&self) -> TranslationRequirements {
-        TranslationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationRequirements"))
-    }
-}
-
 /// A consolidated register of assumptions and constraints.
 pub struct AssumptionConstraintRegister {
     pub node: som::SomNode,
@@ -14640,91 +14538,6 @@ impl CurrentLandscape {
     }
 }
 
-/// CS00 Current Situation.
-///
-/// Detailed analysis of the current state: existing systems, business
-/// processes, pain points, data landscape, operational metrics, risks,
-/// and the inventory / migration plan for the systems being replaced.
-pub struct CurrentLandscapeAssessment {
-    pub node: som::SomNode,
-}
-
-/// CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "0.0";
-
-impl CurrentLandscapeAssessment {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<CurrentLandscapeAssessment, som::SomVersionError> {
-        som::check_som_model_version(CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION, document_version)?;
-        Ok(CurrentLandscapeAssessment { node: som::SomNode::new(doc, "CLA".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Existing systems landscape.
-    pub fn existing_systems_landscape(&self) -> ExistingSystemsLandscape {
-        ExistingSystemsLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "existingSystemsLandscape"))
-    }
-
-    /// Current business processes.
-    pub fn current_business_processes(&self) -> CurrentBusinessProcesses {
-        CurrentBusinessProcesses::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentBusinessProcesses"))
-    }
-
-    /// Pain points and gaps.
-    pub fn pain_points_and_gaps(&self) -> PainPointsAndGaps {
-        PainPointsAndGaps::new(self.node.doc(), format!("{}/{}", self.node.path(), "painPointsAndGaps"))
-    }
-
-    /// Current data landscape.
-    pub fn current_data_landscape(&self) -> CurrentDataLandscape {
-        CurrentDataLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentDataLandscape"))
-    }
-
-    /// Current operational metrics.
-    pub fn operational_metrics(&self) -> som::SomList<CurrentOperationalMetrics> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "CUOPME-OPER-LST"),
-            Box::new(|d, p| CurrentOperationalMetrics::new(d, p)),
-        )
-    }
-
-    /// Current-state risk assessment.
-    pub fn current_state_risks(&self) -> CurrentStateRiskAssessment {
-        CurrentStateRiskAssessment::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentStateRisks"))
-    }
-
-    /// Replacement inventory.
-    pub fn replacement_inventory(&self) -> ReplacementInventory {
-        ReplacementInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "replacementInventory"))
-    }
-
-    /// Migration considerations.
-    pub fn migration_considerations(&self) -> MigrationConsiderations {
-        MigrationConsiderations::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationConsiderations"))
-    }
-}
-
 /// 1.5. Operational Metrics.
 ///
 /// Baseline metrics of the current systems: throughput, volume, uptime,
@@ -14968,6 +14781,1292 @@ impl CutoverProcedures {
     pub fn set_content(&self, value: &str) {
         let path = format!("{}/{}", self.node.path(), "content");
         self.node.doc().borrow_mut().set_content(&path, value);
+    }
+}
+
+/// The complete Solution Blueprint (SBP) document.
+///
+/// Contains a [DocumentControl] header block and the SBP sections, sequenced
+/// per the public-standards order (§4 of the redesign proposal).
+pub struct D00SolutionBlueprint {
+    pub node: som::SomNode,
+}
+
+/// D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "0.0";
+
+impl D00SolutionBlueprint {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D00SolutionBlueprint, som::SomVersionError> {
+        som::check_som_model_version(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, document_version)?;
+        Ok(D00SolutionBlueprint { node: som::SomNode::new(doc, "SBP".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D00_SOLUTION_BLUEPRINT_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// SBP.1 Document Control (header + revision history + approvals).
+    pub fn document_control(&self) -> DocumentControl {
+        DocumentControl::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentControl"))
+    }
+
+    /// SBP.2 Introduction & Scope.
+    pub fn introduction_and_scope(&self) -> IntroductionAndScope {
+        IntroductionAndScope::new(self.node.doc(), format!("{}/{}", self.node.path(), "introductionAndScope"))
+    }
+
+    /// SBP.3 Glossary & Abbreviations.
+    pub fn glossary_and_abbreviations(&self) -> GlossaryAndAbbreviations {
+        GlossaryAndAbbreviations::new(self.node.doc(), format!("{}/{}", self.node.path(), "glossaryAndAbbreviations"))
+    }
+
+    /// SBP.4 Stakeholders & Governance.
+    pub fn stakeholders_and_governance(&self) -> StakeholdersAndGovernance {
+        StakeholdersAndGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "stakeholdersAndGovernance"))
+    }
+
+    /// SBP.5 Current Landscape. Seeds → CLA.
+    pub fn current_landscape(&self) -> CurrentLandscape {
+        CurrentLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentLandscape"))
+    }
+
+    /// SBP.6 Assumptions, Constraints & Dependencies.
+    pub fn assumptions_constraints_dependencies(&self) -> AssumptionsConstraintsDependencies {
+        AssumptionsConstraintsDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "assumptionsConstraintsDependencies"))
+    }
+
+    /// SBP.7 Target Operating Model concept. Seeds → TOM.
+    pub fn target_operating_model_concept(&self) -> TargetOperatingModelConcept {
+        TargetOperatingModelConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "targetOperatingModelConcept"))
+    }
+
+    /// SBP.8 Information & Data Model. Seeds → IFM.
+    pub fn information_and_data_model(&self) -> InformationAndDataModel {
+        InformationAndDataModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "informationAndDataModel"))
+    }
+
+    /// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+    pub fn requirements(&self) -> Requirements {
+        Requirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirements"))
+    }
+
+    /// SBP.11 Solution Architecture & Technology. Seeds → ATS.
+    pub fn solution_architecture_and_technology(&self) -> SolutionArchitectureAndTechnology {
+        SolutionArchitectureAndTechnology::new(self.node.doc(), format!("{}/{}", self.node.path(), "solutionArchitectureAndTechnology"))
+    }
+
+    /// SBP.12 Security & Access Model. Seeds → SAS.
+    pub fn security_and_access_model(&self) -> SecurityAndAccessModel {
+        SecurityAndAccessModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityAndAccessModel"))
+    }
+
+    /// SBP.13 Experience & Interface Design. Seeds → XDS.
+    pub fn experience_and_interface_design(&self) -> ExperienceAndInterfaceDesign {
+        ExperienceAndInterfaceDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "experienceAndInterfaceDesign"))
+    }
+
+    /// SBP.14 Quality & Acceptance Model. Seeds → QAP.
+    pub fn quality_and_acceptance_model(&self) -> QualityAndAcceptanceModel {
+        QualityAndAcceptanceModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityAndAcceptanceModel"))
+    }
+
+    /// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+    pub fn delivery_transition_and_rollout(&self) -> DeliveryTransitionAndRollout {
+        DeliveryTransitionAndRollout::new(self.node.doc(), format!("{}/{}", self.node.path(), "deliveryTransitionAndRollout"))
+    }
+}
+
+/// CS00 Current Situation.
+///
+/// Detailed analysis of the current state: existing systems, business
+/// processes, pain points, data landscape, operational metrics, risks,
+/// and the inventory / migration plan for the systems being replaced.
+pub struct D01CurrentLandscapeAssessment {
+    pub node: som::SomNode,
+}
+
+/// D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "0.0";
+
+impl D01CurrentLandscapeAssessment {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D01CurrentLandscapeAssessment, som::SomVersionError> {
+        som::check_som_model_version(D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION, document_version)?;
+        Ok(D01CurrentLandscapeAssessment { node: som::SomNode::new(doc, "CLA".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Existing systems landscape.
+    pub fn existing_systems_landscape(&self) -> ExistingSystemsLandscape {
+        ExistingSystemsLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "existingSystemsLandscape"))
+    }
+
+    /// Current business processes.
+    pub fn current_business_processes(&self) -> CurrentBusinessProcesses {
+        CurrentBusinessProcesses::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentBusinessProcesses"))
+    }
+
+    /// Pain points and gaps.
+    pub fn pain_points_and_gaps(&self) -> PainPointsAndGaps {
+        PainPointsAndGaps::new(self.node.doc(), format!("{}/{}", self.node.path(), "painPointsAndGaps"))
+    }
+
+    /// Current data landscape.
+    pub fn current_data_landscape(&self) -> CurrentDataLandscape {
+        CurrentDataLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentDataLandscape"))
+    }
+
+    /// Current operational metrics.
+    pub fn operational_metrics(&self) -> som::SomList<CurrentOperationalMetrics> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CUOPME-OPER-LST"),
+            Box::new(|d, p| CurrentOperationalMetrics::new(d, p)),
+        )
+    }
+
+    /// Current-state risk assessment.
+    pub fn current_state_risks(&self) -> CurrentStateRiskAssessment {
+        CurrentStateRiskAssessment::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentStateRisks"))
+    }
+
+    /// Replacement inventory.
+    pub fn replacement_inventory(&self) -> ReplacementInventory {
+        ReplacementInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "replacementInventory"))
+    }
+
+    /// Migration considerations.
+    pub fn migration_considerations(&self) -> MigrationConsiderations {
+        MigrationConsiderations::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationConsiderations"))
+    }
+}
+
+/// BP00 Business Processes.
+///
+/// Target business process specification — vision, principles, catalog,
+/// diagrams, improvements, relationships, detailed workflows,
+/// cross-process analysis, exception handling, and KPIs.
+pub struct D02TargetOperatingModel {
+    pub node: som::SomNode,
+}
+
+/// D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "0.0";
+
+impl D02TargetOperatingModel {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D02TargetOperatingModel, som::SomVersionError> {
+        som::check_som_model_version(D02_TARGET_OPERATING_MODEL_MODEL_VERSION, document_version)?;
+        Ok(D02TargetOperatingModel { node: som::SomNode::new(doc, "TOM".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D02_TARGET_OPERATING_MODEL_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Process vision.
+    pub fn process_vision(&self) -> ProcessVision {
+        ProcessVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "processVision"))
+    }
+
+    /// Design principles.
+    pub fn design_principles(&self) -> ProcessDesignPrinciples {
+        ProcessDesignPrinciples::new(self.node.doc(), format!("{}/{}", self.node.path(), "designPrinciples"))
+    }
+
+    /// Process catalog.
+    pub fn process_catalog(&self) -> ProcessCatalog {
+        ProcessCatalog::new(self.node.doc(), format!("{}/{}", self.node.path(), "processCatalog"))
+    }
+
+    /// Process overview diagram.
+    pub fn process_overview_diagram(&self) -> ProcessOverviewDiagram {
+        ProcessOverviewDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "processOverviewDiagram"))
+    }
+
+    /// Improvement summary.
+    pub fn improvement_summary(&self) -> ProcessImprovementSummary {
+        ProcessImprovementSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "improvementSummary"))
+    }
+
+    /// Process relationships.
+    pub fn process_relationships(&self) -> ProcessRelationships {
+        ProcessRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "processRelationships"))
+    }
+
+    /// Detailed process workflows.
+    pub fn detailed_workflows(&self) -> som::SomList<DetailedProcessWorkflows> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DEPRWO-DETA-LST"),
+            Box::new(|d, p| DetailedProcessWorkflows::new(d, p)),
+        )
+    }
+
+    /// Cross-process analysis.
+    pub fn cross_process_analysis(&self) -> CrossProcessAnalysis {
+        CrossProcessAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "crossProcessAnalysis"))
+    }
+
+    /// Process exception handling.
+    pub fn exception_handling(&self) -> ProcessExceptionHandling {
+        ProcessExceptionHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "exceptionHandling"))
+    }
+
+    /// Process metrics and KPIs.
+    pub fn process_metrics_and_kpis(&self) -> som::SomList<ProcessMetricsAndKpis> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "PMAK-PROC-LST"),
+            Box::new(|d, p| ProcessMetricsAndKpis::new(d, p)),
+        )
+    }
+}
+
+/// BDM00 Business Data Model.
+///
+/// Full business data model: entities, relationships, ER diagram, data
+/// classification, business objects, function decomposition, function-
+/// to-data matrix, business rules, data dictionary, and validation /
+/// integrity constraints.
+pub struct D03InformationModel {
+    pub node: som::SomNode,
+}
+
+/// D03_INFORMATION_MODEL_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "0.0";
+
+impl D03InformationModel {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D03InformationModel, som::SomVersionError> {
+        som::check_som_model_version(D03_INFORMATION_MODEL_MODEL_VERSION, document_version)?;
+        Ok(D03InformationModel { node: som::SomNode::new(doc, "IFM".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D03_INFORMATION_MODEL_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Entity inventory (list).
+    pub fn entities(&self) -> som::SomList<DataEntityEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DAENT-ENTI-LST"),
+            Box::new(|d, p| DataEntityEntry::new(d, p)),
+        )
+    }
+
+    /// Entity relationships.
+    pub fn entity_relationships(&self) -> EntityRelationships {
+        EntityRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "entityRelationships"))
+    }
+
+    // Entity-relationship diagram.
+    // (skipped: erDiagram has no target type)
+
+    /// Data classification.
+    pub fn data_classification(&self) -> DataClassification {
+        DataClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataClassification"))
+    }
+
+    /// Business object catalog (list).
+    pub fn object_catalog(&self) -> som::SomList<BusinessObjectEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "BJOEN-OBJE-LST"),
+            Box::new(|d, p| BusinessObjectEntry::new(d, p)),
+        )
+    }
+
+    // Business object diagram.
+    // (skipped: objectDiagram has no target type)
+
+    /// Function decomposition (list).
+    pub fn function_decomposition(&self) -> som::SomList<FunctionEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "FUNCT-FUNC-LST"),
+            Box::new(|d, p| FunctionEntry::new(d, p)),
+        )
+    }
+
+    /// Function-to-data matrix (list).
+    pub fn function_to_data_matrix(&self) -> som::SomList<FunctionDataMatrixEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "FNDMX-FUNC-LST"),
+            Box::new(|d, p| FunctionDataMatrixEntry::new(d, p)),
+        )
+    }
+
+    /// Business rules catalog (list).
+    pub fn business_rules(&self) -> som::SomList<BusinessRuleEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "BIRU-BUSI-LST"),
+            Box::new(|d, p| BusinessRuleEntry::new(d, p)),
+        )
+    }
+
+    /// Data dictionary.
+    pub fn data_dictionary(&self) -> DataDictionary {
+        DataDictionary::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataDictionary"))
+    }
+
+    /// Validation constraints.
+    pub fn validation_constraints(&self) -> som::SomList<ValidationConstraints> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "VACO-VALI-LST"),
+            Box::new(|d, p| ValidationConstraints::new(d, p)),
+        )
+    }
+
+    /// Integrity constraints.
+    pub fn integrity_constraints(&self) -> som::SomList<IntegrityConstraints> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "INCO-INTE-LST"),
+            Box::new(|d, p| IntegrityConstraints::new(d, p)),
+        )
+    }
+}
+
+/// RC00 Requirements Catalog.
+///
+/// Full requirements catalog covering functional, technical, security,
+/// and organizational requirements, plus traceability, relationships,
+/// and coverage analysis.
+pub struct D04RequirementsSpecification {
+    pub node: som::SomNode,
+}
+
+/// D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "0.0";
+
+impl D04RequirementsSpecification {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D04RequirementsSpecification, som::SomVersionError> {
+        som::check_som_model_version(D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version)?;
+        Ok(D04RequirementsSpecification { node: som::SomNode::new(doc, "RSP".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Functional requirements.
+    pub fn functional_requirements(&self) -> FunctionalRequirements {
+        FunctionalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalRequirements"))
+    }
+
+    /// Technical (non-functional) requirements.
+    pub fn technical_requirements(&self) -> TechnicalRequirements {
+        TechnicalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalRequirements"))
+    }
+
+    /// Security requirements.
+    pub fn security_requirements(&self) -> SecurityRequirements {
+        SecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityRequirements"))
+    }
+
+    /// Organizational requirements.
+    pub fn organizational_requirements(&self) -> OrganizationalRequirements {
+        OrganizationalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalRequirements"))
+    }
+
+    /// Traceability matrix overview.
+    ///
+    /// Mirrors the flat field on RequirementsOverview so the RC outline
+    /// reaches it directly. The authoritative content lives on the Solution
+    /// Blueprint side.
+    pub fn traceability_matrix(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "traceabilityMatrix"))
+    }
+
+    pub fn set_traceability_matrix(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "traceabilityMatrix");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Requirement relationships.
+    pub fn requirement_relationships(&self) -> som::SomList<RequirementRelationships> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RERE-REQU-LST"),
+            Box::new(|d, p| RequirementRelationships::new(d, p)),
+        )
+    }
+
+    /// Requirement coverage.
+    pub fn requirement_coverage(&self) -> RequirementCoverage {
+        RequirementCoverage::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirementCoverage"))
+    }
+}
+
+/// UC00 Use Cases.
+///
+/// Detailed use cases derived from the target process steps and actor
+/// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+/// and traceability.
+pub struct D05InteractionScenarios {
+    pub node: som::SomNode,
+}
+
+/// D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "0.0";
+
+impl D05InteractionScenarios {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D05InteractionScenarios, som::SomVersionError> {
+        som::check_som_model_version(D05_INTERACTION_SCENARIOS_MODEL_VERSION, document_version)?;
+        Ok(D05InteractionScenarios { node: som::SomNode::new(doc, "ISC".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D05_INTERACTION_SCENARIOS_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Process steps overview.
+    pub fn process_steps_overview(&self) -> ProcessStepsOverview {
+        ProcessStepsOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "processStepsOverview"))
+    }
+
+    /// Actor overview.
+    pub fn actor_overview(&self) -> ActorOverview {
+        ActorOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "actorOverview"))
+    }
+
+    /// Interaction catalog.
+    pub fn interaction_catalog(&self) -> InteractionCatalog {
+        InteractionCatalog::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionCatalog"))
+    }
+
+    /// Key scenarios.
+    pub fn key_scenarios(&self) -> KeyScenarios {
+        KeyScenarios::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyScenarios"))
+    }
+
+    /// Actor relationship diagram.
+    pub fn actor_relationship_diagram(&self) -> ActorRelationshipDiagram {
+        ActorRelationshipDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "actorRelationshipDiagram"))
+    }
+
+    /// End-to-end test scenarios.
+    pub fn end_to_end_test_scenarios(&self) -> som::SomList<EndToEndTestScenarios> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "ETETS-ENDT-LST"),
+            Box::new(|d, p| EndToEndTestScenarios::new(d, p)),
+        )
+    }
+
+    /// Use case traceability.
+    pub fn use_case_traceability(&self) -> UseCaseTraceability {
+        UseCaseTraceability::new(self.node.doc(), format!("{}/{}", self.node.path(), "useCaseTraceability"))
+    }
+}
+
+/// TR00 Technical Requirements.
+///
+/// Comprehensive technical requirements: basic / software / standard-
+/// software / hardware / operations / communication / system-operation
+/// / security / architecture, plus components, framework conditions,
+/// and translation handling.
+pub struct D06ArchitectureTechnologySpecification {
+    pub node: som::SomNode,
+}
+
+/// D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "0.0";
+
+impl D06ArchitectureTechnologySpecification {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D06ArchitectureTechnologySpecification, som::SomVersionError> {
+        som::check_som_model_version(D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION, document_version)?;
+        Ok(D06ArchitectureTechnologySpecification { node: som::SomNode::new(doc, "ATS".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Basic technical requirements.
+    pub fn basic_technical_requirements(&self) -> BasicTechnicalRequirements {
+        BasicTechnicalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "basicTechnicalRequirements"))
+    }
+
+    /// Software design requirements.
+    pub fn software_design_requirements(&self) -> SoftwareDesignRequirements {
+        SoftwareDesignRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "softwareDesignRequirements"))
+    }
+
+    /// Standard application software requirements.
+    pub fn standard_software_requirements(&self) -> StandardSoftwareRequirements {
+        StandardSoftwareRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "standardSoftwareRequirements"))
+    }
+
+    /// Hardware concept requirements.
+    pub fn hardware_requirements(&self) -> HardwareRequirements {
+        HardwareRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "hardwareRequirements"))
+    }
+
+    /// Operations requirements.
+    pub fn operations_requirements(&self) -> OperationsRequirements {
+        OperationsRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsRequirements"))
+    }
+
+    /// Communication requirements.
+    pub fn communication_requirements(&self) -> CommunicationRequirements {
+        CommunicationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "communicationRequirements"))
+    }
+
+    /// System operation and monitoring.
+    pub fn system_operation_and_monitoring(&self) -> SystemOperationAndMonitoring {
+        SystemOperationAndMonitoring::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemOperationAndMonitoring"))
+    }
+
+    /// Technical security requirements.
+    pub fn technical_security_requirements(&self) -> TechnicalSecurityRequirements {
+        TechnicalSecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalSecurityRequirements"))
+    }
+
+    /// System architecture (new in Phase A).
+    pub fn system_architecture(&self) -> SystemArchitectureSpec {
+        SystemArchitectureSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemArchitecture"))
+    }
+
+    /// Components to use (whole).
+    pub fn components_to_use(&self) -> ComponentsToUse {
+        ComponentsToUse::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
+    }
+
+    /// Technical framework conditions (whole).
+    pub fn technical_framework_conditions(&self) -> TechnicalFrameworkConditions {
+        TechnicalFrameworkConditions::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFrameworkConditions"))
+    }
+
+    /// Translation handling requirements (whole).
+    pub fn translation_requirements(&self) -> TranslationRequirements {
+        TranslationRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationRequirements"))
+    }
+}
+
+/// BSI00 Business System Interactions.
+///
+/// Complete interaction specification between the target system and
+/// external systems: inventory, patterns, testing, dependencies,
+/// migration, operational concerns, and cross-boundary error handling.
+pub struct D07IntegrationInterfaceSpecification {
+    pub node: som::SomNode,
+}
+
+/// D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "0.0";
+
+impl D07IntegrationInterfaceSpecification {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D07IntegrationInterfaceSpecification, som::SomVersionError> {
+        som::check_som_model_version(D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION, document_version)?;
+        Ok(D07IntegrationInterfaceSpecification { node: som::SomNode::new(doc, "IIS".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// External interfaces.
+    pub fn external_interfaces(&self) -> ExternalInterfaces {
+        ExternalInterfaces::new(self.node.doc(), format!("{}/{}", self.node.path(), "externalInterfaces"))
+    }
+
+    /// Out of scope.
+    pub fn out_of_scope(&self) -> OutOfScope {
+        OutOfScope::new(self.node.doc(), format!("{}/{}", self.node.path(), "outOfScope"))
+    }
+
+    /// Boundary assumptions.
+    pub fn boundary_assumptions(&self) -> BoundaryAssumptions {
+        BoundaryAssumptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "boundaryAssumptions"))
+    }
+
+    /// System landscape inventory.
+    pub fn system_inventory(&self) -> SystemLandscapeInventory {
+        SystemLandscapeInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemInventory"))
+    }
+
+    /// Boundary interaction patterns.
+    pub fn interaction_patterns(&self) -> som::SomList<BoundaryInteractionPatterns> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "BOINPA-INTE-LST"),
+            Box::new(|d, p| BoundaryInteractionPatterns::new(d, p)),
+        )
+    }
+
+    /// Interaction testing strategy.
+    pub fn testing_strategy(&self) -> InteractionTestingStrategy {
+        InteractionTestingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "testingStrategy"))
+    }
+
+    /// Interaction dependency analysis.
+    pub fn dependency_analysis(&self) -> InteractionDependencyAnalysis {
+        InteractionDependencyAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencyAnalysis"))
+    }
+
+    /// Migration interactions.
+    pub fn migration_interactions(&self) -> som::SomList<MigrationInteractions> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "MIIN-MIGR-LST"),
+            Box::new(|d, p| MigrationInteractions::new(d, p)),
+        )
+    }
+
+    /// Cross-boundary operational considerations.
+    pub fn operational_considerations(&self) -> som::SomList<CrossBoundaryOperationalConsiderations> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CBOC-OPER-LST"),
+            Box::new(|d, p| CrossBoundaryOperationalConsiderations::new(d, p)),
+        )
+    }
+
+    /// Cross-boundary error handling.
+    pub fn cross_boundary_error_handling(&self) -> CrossBoundaryErrorHandling {
+        CrossBoundaryErrorHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "crossBoundaryErrorHandling"))
+    }
+}
+
+/// AC00 Authorization Concept.
+///
+/// Complete access and authorization specification — user management,
+/// identification and authentication, resource protection, user
+/// authorization, encryption, audit/logging, role matrix, and
+/// compliance framework.
+pub struct D08SecurityAccessSpecification {
+    pub node: som::SomNode,
+}
+
+/// D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "0.0";
+
+impl D08SecurityAccessSpecification {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D08SecurityAccessSpecification, som::SomVersionError> {
+        som::check_som_model_version(D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION, document_version)?;
+        Ok(D08SecurityAccessSpecification { node: som::SomNode::new(doc, "SAS".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// User management.
+    pub fn user_management(&self) -> UserManagement {
+        UserManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManagement"))
+    }
+
+    /// Identification and authentication.
+    pub fn identification_and_authentication(&self) -> IdentificationAndAuthentication {
+        IdentificationAndAuthentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "identificationAndAuthentication"))
+    }
+
+    /// Resource protection.
+    pub fn resource_protection(&self) -> ResourceProtection {
+        ResourceProtection::new(self.node.doc(), format!("{}/{}", self.node.path(), "resourceProtection"))
+    }
+
+    /// User authorization.
+    pub fn user_authorization(&self) -> UserAuthorization {
+        UserAuthorization::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAuthorization"))
+    }
+
+    /// Sensitive data encryption.
+    pub fn sensitive_data_encryption(&self) -> SensitiveDataEncryption {
+        SensitiveDataEncryption::new(self.node.doc(), format!("{}/{}", self.node.path(), "sensitiveDataEncryption"))
+    }
+
+    /// Audit and logging.
+    pub fn audit_and_logging(&self) -> AuditAndLogging {
+        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
+    }
+
+    /// Role matrix.
+    pub fn role_matrix(&self) -> RoleMatrix {
+        RoleMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "roleMatrix"))
+    }
+
+    /// Compliance framework.
+    pub fn compliance_framework(&self) -> ComplianceFramework {
+        ComplianceFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceFramework"))
+    }
+}
+
+/// UP00 UI Prototype.
+///
+/// Full UI design and prototype specification — vision, screens,
+/// screen flow, print, error handling, help, accessibility, responsive,
+/// components, language/country selection, prototype, wireframes and
+/// mockups.
+pub struct D09ExperienceDesignSpecification {
+    pub node: som::SomNode,
+}
+
+/// D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "0.0";
+
+impl D09ExperienceDesignSpecification {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D09ExperienceDesignSpecification, som::SomVersionError> {
+        som::check_som_model_version(D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION, document_version)?;
+        Ok(D09ExperienceDesignSpecification { node: som::SomNode::new(doc, "XDS".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Design vision.
+    pub fn design_vision(&self) -> DesignVision {
+        DesignVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "designVision"))
+    }
+
+    /// Screen descriptions.
+    pub fn screens(&self) -> ScreenDescriptions {
+        ScreenDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "screens"))
+    }
+
+    /// Screen flow structure.
+    pub fn screen_flow(&self) -> ScreenFlowStructure {
+        ScreenFlowStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "screenFlow"))
+    }
+
+    /// Print layout.
+    pub fn print_layout(&self) -> PrintLayout {
+        PrintLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
+    }
+
+    /// Error handling concept.
+    pub fn error_handling(&self) -> ErrorHandlingConcept {
+        ErrorHandlingConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
+    }
+
+    /// Help concept.
+    pub fn help_concept(&self) -> HelpConcept {
+        HelpConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpConcept"))
+    }
+
+    /// Accessibility.
+    pub fn accessibility(&self) -> Accessibility {
+        Accessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
+    }
+
+    /// Responsive design.
+    pub fn responsive_design(&self) -> ResponsiveDesign {
+        ResponsiveDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveDesign"))
+    }
+
+    /// UI components.
+    pub fn ui_components(&self) -> UiComponents {
+        UiComponents::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiComponents"))
+    }
+
+    /// Language and country selection.
+    pub fn language_country_selection(&self) -> LanguageCountrySelection {
+        LanguageCountrySelection::new(self.node.doc(), format!("{}/{}", self.node.path(), "languageCountrySelection"))
+    }
+
+    /// Prototype.
+    pub fn prototype(&self) -> Prototype {
+        Prototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototype"))
+    }
+
+    /// Wireframes and mockups (new in Phase A).
+    pub fn wireframes_and_mockups(&self) -> som::SomList<WireframesAndMockups> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "WIANMO-WIRE-LST"),
+            Box::new(|d, p| WireframesAndMockups::new(d, p)),
+        )
+    }
+}
+
+/// BQP00 Business Quality Plan.
+///
+/// Full quality plan combining quality goals and the acceptance plan.
+pub struct D10QualityAcceptancePlan {
+    pub node: som::SomNode,
+}
+
+/// D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "0.0";
+
+impl D10QualityAcceptancePlan {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D10QualityAcceptancePlan, som::SomVersionError> {
+        som::check_som_model_version(D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION, document_version)?;
+        Ok(D10QualityAcceptancePlan { node: som::SomNode::new(doc, "QAP".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Quality framework.
+    pub fn quality_framework(&self) -> QualityFramework {
+        QualityFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityFramework"))
+    }
+
+    /// User-related quality criteria.
+    pub fn user_quality_criteria(&self) -> UserQualityCriteria {
+        UserQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "userQualityCriteria"))
+    }
+
+    /// Technical quality criteria.
+    pub fn technical_quality_criteria(&self) -> TechnicalQualityCriteria {
+        TechnicalQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalQualityCriteria"))
+    }
+
+    /// Operations quality criteria.
+    pub fn operations_quality_criteria(&self) -> OperationsQualityCriteria {
+        OperationsQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsQualityCriteria"))
+    }
+
+    /// Documentation quality criteria.
+    pub fn documentation_quality_criteria(&self) -> DocumentationQualityCriteria {
+        DocumentationQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationQualityCriteria"))
+    }
+
+    /// Quality prioritization.
+    pub fn quality_prioritization(&self) -> QualityPrioritization {
+        QualityPrioritization::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityPrioritization"))
+    }
+
+    /// Acceptance criteria summary.
+    pub fn acceptance_criteria_summary(&self) -> AcceptanceCriteriaSummary {
+        AcceptanceCriteriaSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteriaSummary"))
+    }
+
+    /// Test strategy (new in Phase A).
+    pub fn test_strategy(&self) -> TestStrategy {
+        TestStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "testStrategy"))
+    }
+
+    /// Acceptance criteria.
+    pub fn acceptance_criteria(&self) -> AcceptanceCriteriaList {
+        AcceptanceCriteriaList::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteria"))
+    }
+
+    /// Acceptance process.
+    pub fn acceptance_process(&self) -> AcceptanceProcess {
+        AcceptanceProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceProcess"))
+    }
+
+    /// User acceptance testing.
+    pub fn user_acceptance_testing(&self) -> UserAcceptanceTesting {
+        UserAcceptanceTesting::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAcceptanceTesting"))
+    }
+
+    /// Defect resolution.
+    pub fn defect_resolution(&self) -> DefectResolution {
+        DefectResolution::new(self.node.doc(), format!("{}/{}", self.node.path(), "defectResolution"))
+    }
+
+    /// Sign-off process.
+    pub fn sign_off_process(&self) -> SignOffProcess {
+        SignOffProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "signOffProcess"))
+    }
+
+    /// Warranty terms.
+    pub fn warranty(&self) -> WarrantyTerms {
+        WarrantyTerms::new(self.node.doc(), format!("{}/{}", self.node.path(), "warranty"))
+    }
+}
+
+/// PPP00 Project Phase Plan.
+///
+/// Full project phase plan — staging strategy, stage overview, per-stage
+/// entries, feature prioritization, data migration, gate criteria,
+/// decision processes, initial development flow, and upgrade cycle
+/// framework.
+pub struct D11DeliveryRoadmap {
+    pub node: som::SomNode,
+}
+
+/// D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "0.0";
+
+impl D11DeliveryRoadmap {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D11DeliveryRoadmap, som::SomVersionError> {
+        som::check_som_model_version(D11_DELIVERY_ROADMAP_MODEL_VERSION, document_version)?;
+        Ok(D11DeliveryRoadmap { node: som::SomNode::new(doc, "DRM".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D11_DELIVERY_ROADMAP_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Staging strategy.
+    pub fn staging_strategy(&self) -> StagingStrategy {
+        StagingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "stagingStrategy"))
+    }
+
+    /// Stage overview.
+    pub fn stage_overview(&self) -> StageOverview {
+        StageOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "stageOverview"))
+    }
+
+    /// Stages (list).
+    pub fn stages(&self) -> som::SomList<StageEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "STAGE-STAG-LST"),
+            Box::new(|d, p| StageEntry::new(d, p)),
+        )
+    }
+
+    /// Feature prioritization.
+    pub fn feature_prioritization(&self) -> FeaturePrioritization {
+        FeaturePrioritization::new(self.node.doc(), format!("{}/{}", self.node.path(), "featurePrioritization"))
+    }
+
+    /// Data migration strategy.
+    pub fn data_migration_strategy(&self) -> DataMigrationStrategy {
+        DataMigrationStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataMigrationStrategy"))
+    }
+
+    /// Gate criteria (promoted from GOV).
+    pub fn gate_criteria(&self) -> PhaseGateReviews {
+        PhaseGateReviews::new(self.node.doc(), format!("{}/{}", self.node.path(), "gateCriteria"))
+    }
+
+    /// Decision processes (promoted from GOV).
+    pub fn decision_processes(&self) -> DecisionPoints {
+        DecisionPoints::new(self.node.doc(), format!("{}/{}", self.node.path(), "decisionProcesses"))
+    }
+
+    /// Initial development flow.
+    pub fn initial_development_flow(&self) -> InitialDevelopmentFlow {
+        InitialDevelopmentFlow::new(self.node.doc(), format!("{}/{}", self.node.path(), "initialDevelopmentFlow"))
+    }
+
+    /// Upgrade cycle framework (links tom_system_upgrade.md).
+    pub fn upgrade_cycle_framework(&self) -> UpgradeCycleFramework {
+        UpgradeCycleFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "upgradeCycleFramework"))
+    }
+}
+
+/// SR00 System Rollout.
+///
+/// End-to-end rollout specification — localization, translation,
+/// documentation and training, plus rollout plan, migration plan,
+/// user manuals, training materials, pilot, cutover, knowledge
+/// transfer, and warranty/support.
+pub struct D12TransitionRolloutPlan {
+    pub node: som::SomNode,
+}
+
+/// D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version this object model was generated against (§2.1).
+pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "0.0";
+
+impl D12TransitionRolloutPlan {
+    /// Creates the typed facade at the document root and verifies the
+    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// stamp yields a `som::SomVersionError`.
+    pub fn new(doc: som::DocRef, document_version: &str) -> Result<D12TransitionRolloutPlan, som::SomVersionError> {
+        som::check_som_model_version(D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION, document_version)?;
+        Ok(D12TransitionRolloutPlan { node: som::SomNode::new(doc, "TRP".to_string()) })
+    }
+
+    /// Returns this object model's own model version (major.minor), per §2.1.
+    pub fn object_model_version(&self) -> &'static str {
+        D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Standard TomSpecs document header.
+    pub fn header(&self) -> DocumentHeader {
+        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
+    }
+
+    /// Localization process.
+    pub fn localization_process(&self) -> LocalizationProcess {
+        LocalizationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationProcess"))
+    }
+
+    /// Translation process.
+    pub fn translation_process(&self) -> TranslationProcess {
+        TranslationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationProcess"))
+    }
+
+    /// Documentation and training.
+    pub fn documentation_and_training(&self) -> DocumentationAndTraining {
+        DocumentationAndTraining::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationAndTraining"))
+    }
+
+    /// Rollout plan.
+    pub fn rollout_plan(&self) -> RolloutPlan {
+        RolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "rolloutPlan"))
+    }
+
+    /// Migration plan.
+    pub fn migration_plan(&self) -> MigrationPlan {
+        MigrationPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationPlan"))
+    }
+
+    /// User manuals.
+    pub fn user_manuals(&self) -> som::SomList<UserManuals> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "USRMAN-USER-LST"),
+            Box::new(|d, p| UserManuals::new(d, p)),
+        )
+    }
+
+    /// Training materials.
+    pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterials> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RLTTM-TRAI-LST"),
+            Box::new(|d, p| RolloutTrainingMaterials::new(d, p)),
+        )
+    }
+
+    /// Pilot plan.
+    pub fn pilot_plan(&self) -> PilotPlan {
+        PilotPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "pilotPlan"))
+    }
+
+    /// Cutover procedures.
+    pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedures> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CUTPRC-CUTO-LST"),
+            Box::new(|d, p| CutoverProcedures::new(d, p)),
+        )
+    }
+
+    /// Knowledge transfer.
+    pub fn knowledge_transfer(&self) -> KnowledgeTransfer {
+        KnowledgeTransfer::new(self.node.doc(), format!("{}/{}", self.node.path(), "knowledgeTransfer"))
+    }
+
+    /// Warranty and support.
+    pub fn warranty_and_support(&self) -> WarrantyAndSupport {
+        WarrantyAndSupport::new(self.node.doc(), format!("{}/{}", self.node.path(), "warrantyAndSupport"))
     }
 }
 
@@ -18886,97 +19985,6 @@ impl DeliveryAcceptanceCriterionEntryVerification {
 
     pub fn content(&self) -> DeliveryAcceptanceCriterionEntryVerificationContentForm {
         DeliveryAcceptanceCriterionEntryVerificationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// PPP00 Project Phase Plan.
-///
-/// Full project phase plan — staging strategy, stage overview, per-stage
-/// entries, feature prioritization, data migration, gate criteria,
-/// decision processes, initial development flow, and upgrade cycle
-/// framework.
-pub struct DeliveryRoadmap {
-    pub node: som::SomNode,
-}
-
-/// DELIVERY_ROADMAP_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const DELIVERY_ROADMAP_MODEL_VERSION: &str = "0.0";
-
-impl DeliveryRoadmap {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<DeliveryRoadmap, som::SomVersionError> {
-        som::check_som_model_version(DELIVERY_ROADMAP_MODEL_VERSION, document_version)?;
-        Ok(DeliveryRoadmap { node: som::SomNode::new(doc, "DRM".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        DELIVERY_ROADMAP_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Staging strategy.
-    pub fn staging_strategy(&self) -> StagingStrategy {
-        StagingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "stagingStrategy"))
-    }
-
-    /// Stage overview.
-    pub fn stage_overview(&self) -> StageOverview {
-        StageOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "stageOverview"))
-    }
-
-    /// Stages (list).
-    pub fn stages(&self) -> som::SomList<StageEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "STAGE-STAG-LST"),
-            Box::new(|d, p| StageEntry::new(d, p)),
-        )
-    }
-
-    /// Feature prioritization.
-    pub fn feature_prioritization(&self) -> FeaturePrioritization {
-        FeaturePrioritization::new(self.node.doc(), format!("{}/{}", self.node.path(), "featurePrioritization"))
-    }
-
-    /// Data migration strategy.
-    pub fn data_migration_strategy(&self) -> DataMigrationStrategy {
-        DataMigrationStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataMigrationStrategy"))
-    }
-
-    /// Gate criteria (promoted from GOV).
-    pub fn gate_criteria(&self) -> PhaseGateReviews {
-        PhaseGateReviews::new(self.node.doc(), format!("{}/{}", self.node.path(), "gateCriteria"))
-    }
-
-    /// Decision processes (promoted from GOV).
-    pub fn decision_processes(&self) -> DecisionPoints {
-        DecisionPoints::new(self.node.doc(), format!("{}/{}", self.node.path(), "decisionProcesses"))
-    }
-
-    /// Initial development flow.
-    pub fn initial_development_flow(&self) -> InitialDevelopmentFlow {
-        InitialDevelopmentFlow::new(self.node.doc(), format!("{}/{}", self.node.path(), "initialDevelopmentFlow"))
-    }
-
-    /// Upgrade cycle framework (links tom_system_upgrade.md).
-    pub fn upgrade_cycle_framework(&self) -> UpgradeCycleFramework {
-        UpgradeCycleFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "upgradeCycleFramework"))
     }
 }
 
@@ -25269,112 +26277,6 @@ impl ExperienceAndInterfaceDesign {
     }
 }
 
-/// UP00 UI Prototype.
-///
-/// Full UI design and prototype specification — vision, screens,
-/// screen flow, print, error handling, help, accessibility, responsive,
-/// components, language/country selection, prototype, wireframes and
-/// mockups.
-pub struct ExperienceDesignSpecification {
-    pub node: som::SomNode,
-}
-
-/// EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "0.0";
-
-impl ExperienceDesignSpecification {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<ExperienceDesignSpecification, som::SomVersionError> {
-        som::check_som_model_version(EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION, document_version)?;
-        Ok(ExperienceDesignSpecification { node: som::SomNode::new(doc, "XDS".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Design vision.
-    pub fn design_vision(&self) -> DesignVision {
-        DesignVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "designVision"))
-    }
-
-    /// Screen descriptions.
-    pub fn screens(&self) -> ScreenDescriptions {
-        ScreenDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "screens"))
-    }
-
-    /// Screen flow structure.
-    pub fn screen_flow(&self) -> ScreenFlowStructure {
-        ScreenFlowStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "screenFlow"))
-    }
-
-    /// Print layout.
-    pub fn print_layout(&self) -> PrintLayout {
-        PrintLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
-    }
-
-    /// Error handling concept.
-    pub fn error_handling(&self) -> ErrorHandlingConcept {
-        ErrorHandlingConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
-    }
-
-    /// Help concept.
-    pub fn help_concept(&self) -> HelpConcept {
-        HelpConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpConcept"))
-    }
-
-    /// Accessibility.
-    pub fn accessibility(&self) -> Accessibility {
-        Accessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
-    }
-
-    /// Responsive design.
-    pub fn responsive_design(&self) -> ResponsiveDesign {
-        ResponsiveDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveDesign"))
-    }
-
-    /// UI components.
-    pub fn ui_components(&self) -> UiComponents {
-        UiComponents::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiComponents"))
-    }
-
-    /// Language and country selection.
-    pub fn language_country_selection(&self) -> LanguageCountrySelection {
-        LanguageCountrySelection::new(self.node.doc(), format!("{}/{}", self.node.path(), "languageCountrySelection"))
-    }
-
-    /// Prototype.
-    pub fn prototype(&self) -> Prototype {
-        Prototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototype"))
-    }
-
-    /// Wireframes and mockups (new in Phase A).
-    pub fn wireframes_and_mockups(&self) -> som::SomList<WireframesAndMockups> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "WIANMO-WIRE-LST"),
-            Box::new(|d, p| WireframesAndMockups::new(d, p)),
-        )
-    }
-}
-
 /// Export access and audit.
 pub struct ExportAccess {
     pub node: som::SomNode,
@@ -30770,132 +31672,6 @@ impl InformationForUseRequirements {
     }
 }
 
-/// BDM00 Business Data Model.
-///
-/// Full business data model: entities, relationships, ER diagram, data
-/// classification, business objects, function decomposition, function-
-/// to-data matrix, business rules, data dictionary, and validation /
-/// integrity constraints.
-pub struct InformationModel {
-    pub node: som::SomNode,
-}
-
-/// INFORMATION_MODEL_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const INFORMATION_MODEL_MODEL_VERSION: &str = "0.0";
-
-impl InformationModel {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<InformationModel, som::SomVersionError> {
-        som::check_som_model_version(INFORMATION_MODEL_MODEL_VERSION, document_version)?;
-        Ok(InformationModel { node: som::SomNode::new(doc, "IFM".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        INFORMATION_MODEL_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Entity inventory (list).
-    pub fn entities(&self) -> som::SomList<DataEntityEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "DAENT-ENTI-LST"),
-            Box::new(|d, p| DataEntityEntry::new(d, p)),
-        )
-    }
-
-    /// Entity relationships.
-    pub fn entity_relationships(&self) -> EntityRelationships {
-        EntityRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "entityRelationships"))
-    }
-
-    // Entity-relationship diagram.
-    // (skipped: erDiagram has no target type)
-
-    /// Data classification.
-    pub fn data_classification(&self) -> DataClassification {
-        DataClassification::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataClassification"))
-    }
-
-    /// Business object catalog (list).
-    pub fn object_catalog(&self) -> som::SomList<BusinessObjectEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "BJOEN-OBJE-LST"),
-            Box::new(|d, p| BusinessObjectEntry::new(d, p)),
-        )
-    }
-
-    // Business object diagram.
-    // (skipped: objectDiagram has no target type)
-
-    /// Function decomposition (list).
-    pub fn function_decomposition(&self) -> som::SomList<FunctionEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "FUNCT-FUNC-LST"),
-            Box::new(|d, p| FunctionEntry::new(d, p)),
-        )
-    }
-
-    /// Function-to-data matrix (list).
-    pub fn function_to_data_matrix(&self) -> som::SomList<FunctionDataMatrixEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "FNDMX-FUNC-LST"),
-            Box::new(|d, p| FunctionDataMatrixEntry::new(d, p)),
-        )
-    }
-
-    /// Business rules catalog (list).
-    pub fn business_rules(&self) -> som::SomList<BusinessRuleEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "BIRU-BUSI-LST"),
-            Box::new(|d, p| BusinessRuleEntry::new(d, p)),
-        )
-    }
-
-    /// Data dictionary.
-    pub fn data_dictionary(&self) -> DataDictionary {
-        DataDictionary::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataDictionary"))
-    }
-
-    /// Validation constraints.
-    pub fn validation_constraints(&self) -> som::SomList<ValidationConstraints> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "VACO-VALI-LST"),
-            Box::new(|d, p| ValidationConstraints::new(d, p)),
-        )
-    }
-
-    /// Integrity constraints.
-    pub fn integrity_constraints(&self) -> som::SomList<IntegrityConstraints> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "INCO-INTE-LST"),
-            Box::new(|d, p| IntegrityConstraints::new(d, p)),
-        )
-    }
-}
-
 /// Infrastructure as Code requirements.
 pub struct InfrastructureAsCode {
     pub node: som::SomNode,
@@ -31761,109 +32537,6 @@ impl IntegrationHealthSummary {
     }
 }
 
-/// BSI00 Business System Interactions.
-///
-/// Complete interaction specification between the target system and
-/// external systems: inventory, patterns, testing, dependencies,
-/// migration, operational concerns, and cross-boundary error handling.
-pub struct IntegrationInterfaceSpecification {
-    pub node: som::SomNode,
-}
-
-/// INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "0.0";
-
-impl IntegrationInterfaceSpecification {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<IntegrationInterfaceSpecification, som::SomVersionError> {
-        som::check_som_model_version(INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION, document_version)?;
-        Ok(IntegrationInterfaceSpecification { node: som::SomNode::new(doc, "IIS".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// External interfaces.
-    pub fn external_interfaces(&self) -> ExternalInterfaces {
-        ExternalInterfaces::new(self.node.doc(), format!("{}/{}", self.node.path(), "externalInterfaces"))
-    }
-
-    /// Out of scope.
-    pub fn out_of_scope(&self) -> OutOfScope {
-        OutOfScope::new(self.node.doc(), format!("{}/{}", self.node.path(), "outOfScope"))
-    }
-
-    /// Boundary assumptions.
-    pub fn boundary_assumptions(&self) -> BoundaryAssumptions {
-        BoundaryAssumptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "boundaryAssumptions"))
-    }
-
-    /// System landscape inventory.
-    pub fn system_inventory(&self) -> SystemLandscapeInventory {
-        SystemLandscapeInventory::new(self.node.doc(), format!("{}/{}", self.node.path(), "systemInventory"))
-    }
-
-    /// Boundary interaction patterns.
-    pub fn interaction_patterns(&self) -> som::SomList<BoundaryInteractionPatterns> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "BOINPA-INTE-LST"),
-            Box::new(|d, p| BoundaryInteractionPatterns::new(d, p)),
-        )
-    }
-
-    /// Interaction testing strategy.
-    pub fn testing_strategy(&self) -> InteractionTestingStrategy {
-        InteractionTestingStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "testingStrategy"))
-    }
-
-    /// Interaction dependency analysis.
-    pub fn dependency_analysis(&self) -> InteractionDependencyAnalysis {
-        InteractionDependencyAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "dependencyAnalysis"))
-    }
-
-    /// Migration interactions.
-    pub fn migration_interactions(&self) -> som::SomList<MigrationInteractions> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "MIIN-MIGR-LST"),
-            Box::new(|d, p| MigrationInteractions::new(d, p)),
-        )
-    }
-
-    /// Cross-boundary operational considerations.
-    pub fn operational_considerations(&self) -> som::SomList<CrossBoundaryOperationalConsiderations> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "CBOC-OPER-LST"),
-            Box::new(|d, p| CrossBoundaryOperationalConsiderations::new(d, p)),
-        )
-    }
-
-    /// Cross-boundary error handling.
-    pub fn cross_boundary_error_handling(&self) -> CrossBoundaryErrorHandling {
-        CrossBoundaryErrorHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "crossBoundaryErrorHandling"))
-    }
-}
-
 /// A single integration pattern entry.
 pub struct IntegrationPatternEntry {
     pub node: som::SomNode,
@@ -32502,86 +33175,6 @@ impl InteractionScenarioEntry {
     pub fn set_content(&self, value: &str) {
         let path = format!("{}/{}", self.node.path(), "content");
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-}
-
-/// UC00 Use Cases.
-///
-/// Detailed use cases derived from the target process steps and actor
-/// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-/// and traceability.
-pub struct InteractionScenarios {
-    pub node: som::SomNode,
-}
-
-/// INTERACTION_SCENARIOS_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const INTERACTION_SCENARIOS_MODEL_VERSION: &str = "0.0";
-
-impl InteractionScenarios {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<InteractionScenarios, som::SomVersionError> {
-        som::check_som_model_version(INTERACTION_SCENARIOS_MODEL_VERSION, document_version)?;
-        Ok(InteractionScenarios { node: som::SomNode::new(doc, "ISC".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        INTERACTION_SCENARIOS_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Process steps overview.
-    pub fn process_steps_overview(&self) -> ProcessStepsOverview {
-        ProcessStepsOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "processStepsOverview"))
-    }
-
-    /// Actor overview.
-    pub fn actor_overview(&self) -> ActorOverview {
-        ActorOverview::new(self.node.doc(), format!("{}/{}", self.node.path(), "actorOverview"))
-    }
-
-    /// Interaction catalog.
-    pub fn interaction_catalog(&self) -> InteractionCatalog {
-        InteractionCatalog::new(self.node.doc(), format!("{}/{}", self.node.path(), "interactionCatalog"))
-    }
-
-    /// Key scenarios.
-    pub fn key_scenarios(&self) -> KeyScenarios {
-        KeyScenarios::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyScenarios"))
-    }
-
-    /// Actor relationship diagram.
-    pub fn actor_relationship_diagram(&self) -> ActorRelationshipDiagram {
-        ActorRelationshipDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "actorRelationshipDiagram"))
-    }
-
-    /// End-to-end test scenarios.
-    pub fn end_to_end_test_scenarios(&self) -> som::SomList<EndToEndTestScenarios> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "ETETS-ENDT-LST"),
-            Box::new(|d, p| EndToEndTestScenarios::new(d, p)),
-        )
-    }
-
-    /// Use case traceability.
-    pub fn use_case_traceability(&self) -> UseCaseTraceability {
-        UseCaseTraceability::new(self.node.doc(), format!("{}/{}", self.node.path(), "useCaseTraceability"))
     }
 }
 
@@ -47513,115 +48106,6 @@ impl PwaRequirementsUpdates {
     }
 }
 
-/// BQP00 Business Quality Plan.
-///
-/// Full quality plan combining quality goals and the acceptance plan.
-pub struct QualityAcceptancePlan {
-    pub node: som::SomNode,
-}
-
-/// QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "0.0";
-
-impl QualityAcceptancePlan {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<QualityAcceptancePlan, som::SomVersionError> {
-        som::check_som_model_version(QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION, document_version)?;
-        Ok(QualityAcceptancePlan { node: som::SomNode::new(doc, "QAP".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Quality framework.
-    pub fn quality_framework(&self) -> QualityFramework {
-        QualityFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityFramework"))
-    }
-
-    /// User-related quality criteria.
-    pub fn user_quality_criteria(&self) -> UserQualityCriteria {
-        UserQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "userQualityCriteria"))
-    }
-
-    /// Technical quality criteria.
-    pub fn technical_quality_criteria(&self) -> TechnicalQualityCriteria {
-        TechnicalQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalQualityCriteria"))
-    }
-
-    /// Operations quality criteria.
-    pub fn operations_quality_criteria(&self) -> OperationsQualityCriteria {
-        OperationsQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "operationsQualityCriteria"))
-    }
-
-    /// Documentation quality criteria.
-    pub fn documentation_quality_criteria(&self) -> DocumentationQualityCriteria {
-        DocumentationQualityCriteria::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationQualityCriteria"))
-    }
-
-    /// Quality prioritization.
-    pub fn quality_prioritization(&self) -> QualityPrioritization {
-        QualityPrioritization::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityPrioritization"))
-    }
-
-    /// Acceptance criteria summary.
-    pub fn acceptance_criteria_summary(&self) -> AcceptanceCriteriaSummary {
-        AcceptanceCriteriaSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteriaSummary"))
-    }
-
-    /// Test strategy (new in Phase A).
-    pub fn test_strategy(&self) -> TestStrategy {
-        TestStrategy::new(self.node.doc(), format!("{}/{}", self.node.path(), "testStrategy"))
-    }
-
-    /// Acceptance criteria.
-    pub fn acceptance_criteria(&self) -> AcceptanceCriteriaList {
-        AcceptanceCriteriaList::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceCriteria"))
-    }
-
-    /// Acceptance process.
-    pub fn acceptance_process(&self) -> AcceptanceProcess {
-        AcceptanceProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "acceptanceProcess"))
-    }
-
-    /// User acceptance testing.
-    pub fn user_acceptance_testing(&self) -> UserAcceptanceTesting {
-        UserAcceptanceTesting::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAcceptanceTesting"))
-    }
-
-    /// Defect resolution.
-    pub fn defect_resolution(&self) -> DefectResolution {
-        DefectResolution::new(self.node.doc(), format!("{}/{}", self.node.path(), "defectResolution"))
-    }
-
-    /// Sign-off process.
-    pub fn sign_off_process(&self) -> SignOffProcess {
-        SignOffProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "signOffProcess"))
-    }
-
-    /// Warranty terms.
-    pub fn warranty(&self) -> WarrantyTerms {
-        WarrantyTerms::new(self.node.doc(), format!("{}/{}", self.node.path(), "warranty"))
-    }
-}
-
 /// SBP.14 Quality & Acceptance Model.
 ///
 /// Public anchor: ISO/IEC 25010 product quality.
@@ -51189,95 +51673,6 @@ impl RequirementsOverview {
     }
 
     /// 4.3.6. Requirement Coverage.
-    pub fn requirement_coverage(&self) -> RequirementCoverage {
-        RequirementCoverage::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirementCoverage"))
-    }
-}
-
-/// RC00 Requirements Catalog.
-///
-/// Full requirements catalog covering functional, technical, security,
-/// and organizational requirements, plus traceability, relationships,
-/// and coverage analysis.
-pub struct RequirementsSpecification {
-    pub node: som::SomNode,
-}
-
-/// REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "0.0";
-
-impl RequirementsSpecification {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<RequirementsSpecification, som::SomVersionError> {
-        som::check_som_model_version(REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version)?;
-        Ok(RequirementsSpecification { node: som::SomNode::new(doc, "RSP".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        REQUIREMENTS_SPECIFICATION_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Functional requirements.
-    pub fn functional_requirements(&self) -> FunctionalRequirements {
-        FunctionalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "functionalRequirements"))
-    }
-
-    /// Technical (non-functional) requirements.
-    pub fn technical_requirements(&self) -> TechnicalRequirements {
-        TechnicalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalRequirements"))
-    }
-
-    /// Security requirements.
-    pub fn security_requirements(&self) -> SecurityRequirements {
-        SecurityRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityRequirements"))
-    }
-
-    /// Organizational requirements.
-    pub fn organizational_requirements(&self) -> OrganizationalRequirements {
-        OrganizationalRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "organizationalRequirements"))
-    }
-
-    /// Traceability matrix overview.
-    ///
-    /// Mirrors the flat field on RequirementsOverview so the RC outline
-    /// reaches it directly. The authoritative content lives on the Solution
-    /// Blueprint side.
-    pub fn traceability_matrix(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "traceabilityMatrix"))
-    }
-
-    pub fn set_traceability_matrix(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "traceabilityMatrix");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Requirement relationships.
-    pub fn requirement_relationships(&self) -> som::SomList<RequirementRelationships> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "RERE-REQU-LST"),
-            Box::new(|d, p| RequirementRelationships::new(d, p)),
-        )
-    }
-
-    /// Requirement coverage.
     pub fn requirement_coverage(&self) -> RequirementCoverage {
         RequirementCoverage::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirementCoverage"))
     }
@@ -55882,88 +56277,6 @@ impl SecondaryNavigation {
     }
 }
 
-/// AC00 Authorization Concept.
-///
-/// Complete access and authorization specification — user management,
-/// identification and authentication, resource protection, user
-/// authorization, encryption, audit/logging, role matrix, and
-/// compliance framework.
-pub struct SecurityAccessSpecification {
-    pub node: som::SomNode,
-}
-
-/// SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "0.0";
-
-impl SecurityAccessSpecification {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<SecurityAccessSpecification, som::SomVersionError> {
-        som::check_som_model_version(SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION, document_version)?;
-        Ok(SecurityAccessSpecification { node: som::SomNode::new(doc, "SAS".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// User management.
-    pub fn user_management(&self) -> UserManagement {
-        UserManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "userManagement"))
-    }
-
-    /// Identification and authentication.
-    pub fn identification_and_authentication(&self) -> IdentificationAndAuthentication {
-        IdentificationAndAuthentication::new(self.node.doc(), format!("{}/{}", self.node.path(), "identificationAndAuthentication"))
-    }
-
-    /// Resource protection.
-    pub fn resource_protection(&self) -> ResourceProtection {
-        ResourceProtection::new(self.node.doc(), format!("{}/{}", self.node.path(), "resourceProtection"))
-    }
-
-    /// User authorization.
-    pub fn user_authorization(&self) -> UserAuthorization {
-        UserAuthorization::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAuthorization"))
-    }
-
-    /// Sensitive data encryption.
-    pub fn sensitive_data_encryption(&self) -> SensitiveDataEncryption {
-        SensitiveDataEncryption::new(self.node.doc(), format!("{}/{}", self.node.path(), "sensitiveDataEncryption"))
-    }
-
-    /// Audit and logging.
-    pub fn audit_and_logging(&self) -> AuditAndLogging {
-        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
-    }
-
-    /// Role matrix.
-    pub fn role_matrix(&self) -> RoleMatrix {
-        RoleMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "roleMatrix"))
-    }
-
-    /// Compliance framework.
-    pub fn compliance_framework(&self) -> ComplianceFramework {
-        ComplianceFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceFramework"))
-    }
-}
-
 /// 9. Access and Authorization Concept. Seeds → AC.
 pub struct SecurityAndAccessModel {
     pub node: som::SomNode,
@@ -59440,111 +59753,6 @@ impl SolutionArchitectureAndTechnology {
     /// Components, libraries, and services to reuse.
     pub fn components_to_use(&self) -> ComponentsToUse {
         ComponentsToUse::new(self.node.doc(), format!("{}/{}", self.node.path(), "componentsToUse"))
-    }
-}
-
-/// The complete Solution Blueprint (SBP) document.
-///
-/// Contains a [DocumentControl] header block and the SBP sections, sequenced
-/// per the public-standards order (§4 of the redesign proposal).
-pub struct SolutionBlueprint {
-    pub node: som::SomNode,
-}
-
-/// SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "0.0";
-
-impl SolutionBlueprint {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<SolutionBlueprint, som::SomVersionError> {
-        som::check_som_model_version(SOLUTION_BLUEPRINT_MODEL_VERSION, document_version)?;
-        Ok(SolutionBlueprint { node: som::SomNode::new(doc, "SBP".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        SOLUTION_BLUEPRINT_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// SBP.1 Document Control (header + revision history + approvals).
-    pub fn document_control(&self) -> DocumentControl {
-        DocumentControl::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentControl"))
-    }
-
-    /// SBP.2 Introduction & Scope.
-    pub fn introduction_and_scope(&self) -> IntroductionAndScope {
-        IntroductionAndScope::new(self.node.doc(), format!("{}/{}", self.node.path(), "introductionAndScope"))
-    }
-
-    /// SBP.3 Glossary & Abbreviations.
-    pub fn glossary_and_abbreviations(&self) -> GlossaryAndAbbreviations {
-        GlossaryAndAbbreviations::new(self.node.doc(), format!("{}/{}", self.node.path(), "glossaryAndAbbreviations"))
-    }
-
-    /// SBP.4 Stakeholders & Governance.
-    pub fn stakeholders_and_governance(&self) -> StakeholdersAndGovernance {
-        StakeholdersAndGovernance::new(self.node.doc(), format!("{}/{}", self.node.path(), "stakeholdersAndGovernance"))
-    }
-
-    /// SBP.5 Current Landscape. Seeds → CLA.
-    pub fn current_landscape(&self) -> CurrentLandscape {
-        CurrentLandscape::new(self.node.doc(), format!("{}/{}", self.node.path(), "currentLandscape"))
-    }
-
-    /// SBP.6 Assumptions, Constraints & Dependencies.
-    pub fn assumptions_constraints_dependencies(&self) -> AssumptionsConstraintsDependencies {
-        AssumptionsConstraintsDependencies::new(self.node.doc(), format!("{}/{}", self.node.path(), "assumptionsConstraintsDependencies"))
-    }
-
-    /// SBP.7 Target Operating Model concept. Seeds → TOM.
-    pub fn target_operating_model_concept(&self) -> TargetOperatingModelConcept {
-        TargetOperatingModelConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "targetOperatingModelConcept"))
-    }
-
-    /// SBP.8 Information & Data Model. Seeds → IFM.
-    pub fn information_and_data_model(&self) -> InformationAndDataModel {
-        InformationAndDataModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "informationAndDataModel"))
-    }
-
-    /// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
-    pub fn requirements(&self) -> Requirements {
-        Requirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "requirements"))
-    }
-
-    /// SBP.11 Solution Architecture & Technology. Seeds → ATS.
-    pub fn solution_architecture_and_technology(&self) -> SolutionArchitectureAndTechnology {
-        SolutionArchitectureAndTechnology::new(self.node.doc(), format!("{}/{}", self.node.path(), "solutionArchitectureAndTechnology"))
-    }
-
-    /// SBP.12 Security & Access Model. Seeds → SAS.
-    pub fn security_and_access_model(&self) -> SecurityAndAccessModel {
-        SecurityAndAccessModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityAndAccessModel"))
-    }
-
-    /// SBP.13 Experience & Interface Design. Seeds → XDS.
-    pub fn experience_and_interface_design(&self) -> ExperienceAndInterfaceDesign {
-        ExperienceAndInterfaceDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "experienceAndInterfaceDesign"))
-    }
-
-    /// SBP.14 Quality & Acceptance Model. Seeds → QAP.
-    pub fn quality_and_acceptance_model(&self) -> QualityAndAcceptanceModel {
-        QualityAndAcceptanceModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "qualityAndAcceptanceModel"))
-    }
-
-    /// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
-    pub fn delivery_transition_and_rollout(&self) -> DeliveryTransitionAndRollout {
-        DeliveryTransitionAndRollout::new(self.node.doc(), format!("{}/{}", self.node.path(), "deliveryTransitionAndRollout"))
     }
 }
 
@@ -65253,105 +65461,6 @@ impl TargetBusinessProcessModel {
     }
 }
 
-/// BP00 Business Processes.
-///
-/// Target business process specification — vision, principles, catalog,
-/// diagrams, improvements, relationships, detailed workflows,
-/// cross-process analysis, exception handling, and KPIs.
-pub struct TargetOperatingModel {
-    pub node: som::SomNode,
-}
-
-/// TARGET_OPERATING_MODEL_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "0.0";
-
-impl TargetOperatingModel {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<TargetOperatingModel, som::SomVersionError> {
-        som::check_som_model_version(TARGET_OPERATING_MODEL_MODEL_VERSION, document_version)?;
-        Ok(TargetOperatingModel { node: som::SomNode::new(doc, "TOM".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        TARGET_OPERATING_MODEL_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Process vision.
-    pub fn process_vision(&self) -> ProcessVision {
-        ProcessVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "processVision"))
-    }
-
-    /// Design principles.
-    pub fn design_principles(&self) -> ProcessDesignPrinciples {
-        ProcessDesignPrinciples::new(self.node.doc(), format!("{}/{}", self.node.path(), "designPrinciples"))
-    }
-
-    /// Process catalog.
-    pub fn process_catalog(&self) -> ProcessCatalog {
-        ProcessCatalog::new(self.node.doc(), format!("{}/{}", self.node.path(), "processCatalog"))
-    }
-
-    /// Process overview diagram.
-    pub fn process_overview_diagram(&self) -> ProcessOverviewDiagram {
-        ProcessOverviewDiagram::new(self.node.doc(), format!("{}/{}", self.node.path(), "processOverviewDiagram"))
-    }
-
-    /// Improvement summary.
-    pub fn improvement_summary(&self) -> ProcessImprovementSummary {
-        ProcessImprovementSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "improvementSummary"))
-    }
-
-    /// Process relationships.
-    pub fn process_relationships(&self) -> ProcessRelationships {
-        ProcessRelationships::new(self.node.doc(), format!("{}/{}", self.node.path(), "processRelationships"))
-    }
-
-    /// Detailed process workflows.
-    pub fn detailed_workflows(&self) -> som::SomList<DetailedProcessWorkflows> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "DEPRWO-DETA-LST"),
-            Box::new(|d, p| DetailedProcessWorkflows::new(d, p)),
-        )
-    }
-
-    /// Cross-process analysis.
-    pub fn cross_process_analysis(&self) -> CrossProcessAnalysis {
-        CrossProcessAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "crossProcessAnalysis"))
-    }
-
-    /// Process exception handling.
-    pub fn exception_handling(&self) -> ProcessExceptionHandling {
-        ProcessExceptionHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "exceptionHandling"))
-    }
-
-    /// Process metrics and KPIs.
-    pub fn process_metrics_and_kpis(&self) -> som::SomList<ProcessMetricsAndKpis> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "PMAK-PROC-LST"),
-            Box::new(|d, p| ProcessMetricsAndKpis::new(d, p)),
-        )
-    }
-}
-
 /// SBP.7 Target Operating Model concept.
 ///
 /// Public anchor: BABOK future-state analysis.
@@ -69331,115 +69440,6 @@ impl TransitionRiskEntryResponse {
 
     pub fn content(&self) -> TransitionRiskEntryResponseContentForm {
         TransitionRiskEntryResponseContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
-    }
-}
-
-/// SR00 System Rollout.
-///
-/// End-to-end rollout specification — localization, translation,
-/// documentation and training, plus rollout plan, migration plan,
-/// user manuals, training materials, pilot, cutover, knowledge
-/// transfer, and warranty/support.
-pub struct TransitionRolloutPlan {
-    pub node: som::SomNode,
-}
-
-/// TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version this object model was generated against (§2.1).
-pub const TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "0.0";
-
-impl TransitionRolloutPlan {
-    /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
-    /// stamp yields a `som::SomVersionError`.
-    pub fn new(doc: som::DocRef, document_version: &str) -> Result<TransitionRolloutPlan, som::SomVersionError> {
-        som::check_som_model_version(TRANSITION_ROLLOUT_PLAN_MODEL_VERSION, document_version)?;
-        Ok(TransitionRolloutPlan { node: som::SomNode::new(doc, "TRP".to_string()) })
-    }
-
-    /// Returns this object model's own model version (major.minor), per §2.1.
-    pub fn object_model_version(&self) -> &'static str {
-        TRANSITION_ROLLOUT_PLAN_MODEL_VERSION
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Standard TomSpecs document header.
-    pub fn header(&self) -> DocumentHeader {
-        DocumentHeader::new(self.node.doc(), format!("{}/{}", self.node.path(), "header"))
-    }
-
-    /// Localization process.
-    pub fn localization_process(&self) -> LocalizationProcess {
-        LocalizationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationProcess"))
-    }
-
-    /// Translation process.
-    pub fn translation_process(&self) -> TranslationProcess {
-        TranslationProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "translationProcess"))
-    }
-
-    /// Documentation and training.
-    pub fn documentation_and_training(&self) -> DocumentationAndTraining {
-        DocumentationAndTraining::new(self.node.doc(), format!("{}/{}", self.node.path(), "documentationAndTraining"))
-    }
-
-    /// Rollout plan.
-    pub fn rollout_plan(&self) -> RolloutPlan {
-        RolloutPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "rolloutPlan"))
-    }
-
-    /// Migration plan.
-    pub fn migration_plan(&self) -> MigrationPlan {
-        MigrationPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "migrationPlan"))
-    }
-
-    /// User manuals.
-    pub fn user_manuals(&self) -> som::SomList<UserManuals> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "USRMAN-USER-LST"),
-            Box::new(|d, p| UserManuals::new(d, p)),
-        )
-    }
-
-    /// Training materials.
-    pub fn training_materials(&self) -> som::SomList<RolloutTrainingMaterials> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "RLTTM-TRAI-LST"),
-            Box::new(|d, p| RolloutTrainingMaterials::new(d, p)),
-        )
-    }
-
-    /// Pilot plan.
-    pub fn pilot_plan(&self) -> PilotPlan {
-        PilotPlan::new(self.node.doc(), format!("{}/{}", self.node.path(), "pilotPlan"))
-    }
-
-    /// Cutover procedures.
-    pub fn cutover_procedures(&self) -> som::SomList<CutoverProcedures> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "CUTPRC-CUTO-LST"),
-            Box::new(|d, p| CutoverProcedures::new(d, p)),
-        )
-    }
-
-    /// Knowledge transfer.
-    pub fn knowledge_transfer(&self) -> KnowledgeTransfer {
-        KnowledgeTransfer::new(self.node.doc(), format!("{}/{}", self.node.path(), "knowledgeTransfer"))
-    }
-
-    /// Warranty and support.
-    pub fn warranty_and_support(&self) -> WarrantyAndSupport {
-        WarrantyAndSupport::new(self.node.doc(), format!("{}/{}", self.node.path(), "warrantyAndSupport"))
     }
 }
 

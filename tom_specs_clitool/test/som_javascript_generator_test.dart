@@ -70,7 +70,7 @@ void main() {
 
     // Typed facade module exists and declares + exports the global root class.
     final source = File(result.modulePath).readAsStringSync();
-    expect(source, contains('class SolutionBlueprint extends SomNode'));
+    expect(source, contains('class D00SolutionBlueprint extends SomNode'));
     expect(source, contains('module.exports = {'));
     expect(result.modulePath, endsWith('tom_som_javascript_v0.js'));
 
@@ -201,7 +201,7 @@ void main() {
     final check = '''
 const m = require(${jsonEncode(modulePath)});
 const { SpecDocument } = require(${jsonEncode(jsRuntimeDir.replaceAll(r'\', '/'))});
-const pd = new m.SolutionBlueprint(new SpecDocument());
+const pd = new m.D00SolutionBlueprint(new SpecDocument());
 if (pd.objectModelVersion !== '0.0') throw new Error('version ' + pd.objectModelVersion);
 if (typeof pd.path !== 'string' || pd.path.length === 0) throw new Error('root path');
 process.stdout.write('OK');

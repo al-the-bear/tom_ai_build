@@ -71,7 +71,7 @@ void main() {
     // Typed facade source exists at the crate root and declares the global root
     // struct.
     final source = File(result.libPath).readAsStringSync();
-    expect(source, contains('pub struct SolutionBlueprint {'));
+    expect(source, contains('pub struct D00SolutionBlueprint {'));
     expect(source, contains('use tom_som_rust_runtime as som;'));
     expect(result.libPath, endsWith(p.join('src', 'lib.rs')));
 

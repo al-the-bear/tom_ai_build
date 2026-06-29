@@ -3191,109 +3191,6 @@ func (x *ArchitectureStyle) DecisionRecords() *som.SomList[*ArchitectureDecision
 	})
 }
 
-// TR00 Technical Requirements.
-//
-// Comprehensive technical requirements: basic / software / standard-
-// software / hardware / operations / communication / system-operation
-// / security / architecture, plus components, framework conditions,
-// and translation handling.
-type ArchitectureTechnologySpecification struct {
-	som.SomNode
-}
-
-// ArchitectureTechnologySpecificationModelVersion is the model version this object model was generated
-// against (§2.1).
-const ArchitectureTechnologySpecificationModelVersion = "0.0"
-
-// NewArchitectureTechnologySpecification creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewArchitectureTechnologySpecification(doc *som.SpecDocument, documentVersion string) (*ArchitectureTechnologySpecification, error) {
-	if err := som.CheckSomModelVersion(ArchitectureTechnologySpecificationModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &ArchitectureTechnologySpecification{SomNode: som.NewSomNode(doc, "ATS")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *ArchitectureTechnologySpecification) ObjectModelVersion() string {
-	return ArchitectureTechnologySpecificationModelVersion
-}
-
-func (x *ArchitectureTechnologySpecification) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ArchitectureTechnologySpecification) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *ArchitectureTechnologySpecification) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Basic technical requirements.
-func (x *ArchitectureTechnologySpecification) BasicTechnicalRequirements() *BasicTechnicalRequirements {
-	return NewBasicTechnicalRequirements(x.Doc(), x.Path() + "/basicTechnicalRequirements")
-}
-
-// Software design requirements.
-func (x *ArchitectureTechnologySpecification) SoftwareDesignRequirements() *SoftwareDesignRequirements {
-	return NewSoftwareDesignRequirements(x.Doc(), x.Path() + "/softwareDesignRequirements")
-}
-
-// Standard application software requirements.
-func (x *ArchitectureTechnologySpecification) StandardSoftwareRequirements() *StandardSoftwareRequirements {
-	return NewStandardSoftwareRequirements(x.Doc(), x.Path() + "/standardSoftwareRequirements")
-}
-
-// Hardware concept requirements.
-func (x *ArchitectureTechnologySpecification) HardwareRequirements() *HardwareRequirements {
-	return NewHardwareRequirements(x.Doc(), x.Path() + "/hardwareRequirements")
-}
-
-// Operations requirements.
-func (x *ArchitectureTechnologySpecification) OperationsRequirements() *OperationsRequirements {
-	return NewOperationsRequirements(x.Doc(), x.Path() + "/operationsRequirements")
-}
-
-// Communication requirements.
-func (x *ArchitectureTechnologySpecification) CommunicationRequirements() *CommunicationRequirements {
-	return NewCommunicationRequirements(x.Doc(), x.Path() + "/communicationRequirements")
-}
-
-// System operation and monitoring.
-func (x *ArchitectureTechnologySpecification) SystemOperationAndMonitoring() *SystemOperationAndMonitoring {
-	return NewSystemOperationAndMonitoring(x.Doc(), x.Path() + "/systemOperationAndMonitoring")
-}
-
-// Technical security requirements.
-func (x *ArchitectureTechnologySpecification) TechnicalSecurityRequirements() *TechnicalSecurityRequirements {
-	return NewTechnicalSecurityRequirements(x.Doc(), x.Path() + "/technicalSecurityRequirements")
-}
-
-// System architecture (new in Phase A).
-func (x *ArchitectureTechnologySpecification) SystemArchitecture() *SystemArchitectureSpec {
-	return NewSystemArchitectureSpec(x.Doc(), x.Path() + "/systemArchitecture")
-}
-
-// Components to use (whole).
-func (x *ArchitectureTechnologySpecification) ComponentsToUse() *ComponentsToUse {
-	return NewComponentsToUse(x.Doc(), x.Path() + "/componentsToUse")
-}
-
-// Technical framework conditions (whole).
-func (x *ArchitectureTechnologySpecification) TechnicalFrameworkConditions() *TechnicalFrameworkConditions {
-	return NewTechnicalFrameworkConditions(x.Doc(), x.Path() + "/technicalFrameworkConditions")
-}
-
-// Translation handling requirements (whole).
-func (x *ArchitectureTechnologySpecification) TranslationRequirements() *TranslationRequirements {
-	return NewTranslationRequirements(x.Doc(), x.Path() + "/translationRequirements")
-}
-
 // A consolidated register of assumptions and constraints.
 type AssumptionConstraintRegister struct {
 	som.SomNode
@@ -13110,90 +13007,6 @@ func (x *CurrentLandscape) CurrentStateRisks() *CurrentStateRiskAssessment {
 	return NewCurrentStateRiskAssessment(x.Doc(), x.Path() + "/currentStateRisks")
 }
 
-// CS00 Current Situation.
-//
-// Detailed analysis of the current state: existing systems, business
-// processes, pain points, data landscape, operational metrics, risks,
-// and the inventory / migration plan for the systems being replaced.
-type CurrentLandscapeAssessment struct {
-	som.SomNode
-}
-
-// CurrentLandscapeAssessmentModelVersion is the model version this object model was generated
-// against (§2.1).
-const CurrentLandscapeAssessmentModelVersion = "0.0"
-
-// NewCurrentLandscapeAssessment creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewCurrentLandscapeAssessment(doc *som.SpecDocument, documentVersion string) (*CurrentLandscapeAssessment, error) {
-	if err := som.CheckSomModelVersion(CurrentLandscapeAssessmentModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &CurrentLandscapeAssessment{SomNode: som.NewSomNode(doc, "CLA")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *CurrentLandscapeAssessment) ObjectModelVersion() string {
-	return CurrentLandscapeAssessmentModelVersion
-}
-
-func (x *CurrentLandscapeAssessment) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CurrentLandscapeAssessment) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *CurrentLandscapeAssessment) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Existing systems landscape.
-func (x *CurrentLandscapeAssessment) ExistingSystemsLandscape() *ExistingSystemsLandscape {
-	return NewExistingSystemsLandscape(x.Doc(), x.Path() + "/existingSystemsLandscape")
-}
-
-// Current business processes.
-func (x *CurrentLandscapeAssessment) CurrentBusinessProcesses() *CurrentBusinessProcesses {
-	return NewCurrentBusinessProcesses(x.Doc(), x.Path() + "/currentBusinessProcesses")
-}
-
-// Pain points and gaps.
-func (x *CurrentLandscapeAssessment) PainPointsAndGaps() *PainPointsAndGaps {
-	return NewPainPointsAndGaps(x.Doc(), x.Path() + "/painPointsAndGaps")
-}
-
-// Current data landscape.
-func (x *CurrentLandscapeAssessment) CurrentDataLandscape() *CurrentDataLandscape {
-	return NewCurrentDataLandscape(x.Doc(), x.Path() + "/currentDataLandscape")
-}
-
-// Current operational metrics.
-func (x *CurrentLandscapeAssessment) OperationalMetrics() *som.SomList[*CurrentOperationalMetrics] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetrics {
-		return NewCurrentOperationalMetrics(d, p)
-	})
-}
-
-// Current-state risk assessment.
-func (x *CurrentLandscapeAssessment) CurrentStateRisks() *CurrentStateRiskAssessment {
-	return NewCurrentStateRiskAssessment(x.Doc(), x.Path() + "/currentStateRisks")
-}
-
-// Replacement inventory.
-func (x *CurrentLandscapeAssessment) ReplacementInventory() *ReplacementInventory {
-	return NewReplacementInventory(x.Doc(), x.Path() + "/replacementInventory")
-}
-
-// Migration considerations.
-func (x *CurrentLandscapeAssessment) MigrationConsiderations() *MigrationConsiderations {
-	return NewMigrationConsiderations(x.Doc(), x.Path() + "/migrationConsiderations")
-}
-
 // 1.5. Operational Metrics.
 //
 // Baseline metrics of the current systems: throughput, volume, uptime,
@@ -13402,6 +13215,1264 @@ func (x *CutoverProcedures) Content() string {
 
 func (x *CutoverProcedures) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// The complete Solution Blueprint (SBP) document.
+//
+// Contains a [DocumentControl] header block and the SBP sections, sequenced
+// per the public-standards order (§4 of the redesign proposal).
+type D00SolutionBlueprint struct {
+	som.SomNode
+}
+
+// D00SolutionBlueprintModelVersion is the model version this object model was generated
+// against (§2.1).
+const D00SolutionBlueprintModelVersion = "0.0"
+
+// NewD00SolutionBlueprint creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD00SolutionBlueprint(doc *som.SpecDocument, documentVersion string) (*D00SolutionBlueprint, error) {
+	if err := som.CheckSomModelVersion(D00SolutionBlueprintModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D00SolutionBlueprint{SomNode: som.NewSomNode(doc, "SBP")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D00SolutionBlueprint) ObjectModelVersion() string {
+	return D00SolutionBlueprintModelVersion
+}
+
+func (x *D00SolutionBlueprint) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D00SolutionBlueprint) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// SBP.1 Document Control (header + revision history + approvals).
+func (x *D00SolutionBlueprint) DocumentControl() *DocumentControl {
+	return NewDocumentControl(x.Doc(), x.Path() + "/documentControl")
+}
+
+// SBP.2 Introduction & Scope.
+func (x *D00SolutionBlueprint) IntroductionAndScope() *IntroductionAndScope {
+	return NewIntroductionAndScope(x.Doc(), x.Path() + "/introductionAndScope")
+}
+
+// SBP.3 Glossary & Abbreviations.
+func (x *D00SolutionBlueprint) GlossaryAndAbbreviations() *GlossaryAndAbbreviations {
+	return NewGlossaryAndAbbreviations(x.Doc(), x.Path() + "/glossaryAndAbbreviations")
+}
+
+// SBP.4 Stakeholders & Governance.
+func (x *D00SolutionBlueprint) StakeholdersAndGovernance() *StakeholdersAndGovernance {
+	return NewStakeholdersAndGovernance(x.Doc(), x.Path() + "/stakeholdersAndGovernance")
+}
+
+// SBP.5 Current Landscape. Seeds → CLA.
+func (x *D00SolutionBlueprint) CurrentLandscape() *CurrentLandscape {
+	return NewCurrentLandscape(x.Doc(), x.Path() + "/currentLandscape")
+}
+
+// SBP.6 Assumptions, Constraints & Dependencies.
+func (x *D00SolutionBlueprint) AssumptionsConstraintsDependencies() *AssumptionsConstraintsDependencies {
+	return NewAssumptionsConstraintsDependencies(x.Doc(), x.Path() + "/assumptionsConstraintsDependencies")
+}
+
+// SBP.7 Target Operating Model concept. Seeds → TOM.
+func (x *D00SolutionBlueprint) TargetOperatingModelConcept() *TargetOperatingModelConcept {
+	return NewTargetOperatingModelConcept(x.Doc(), x.Path() + "/targetOperatingModelConcept")
+}
+
+// SBP.8 Information & Data Model. Seeds → IFM.
+func (x *D00SolutionBlueprint) InformationAndDataModel() *InformationAndDataModel {
+	return NewInformationAndDataModel(x.Doc(), x.Path() + "/informationAndDataModel")
+}
+
+// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+func (x *D00SolutionBlueprint) Requirements() *Requirements {
+	return NewRequirements(x.Doc(), x.Path() + "/requirements")
+}
+
+// SBP.11 Solution Architecture & Technology. Seeds → ATS.
+func (x *D00SolutionBlueprint) SolutionArchitectureAndTechnology() *SolutionArchitectureAndTechnology {
+	return NewSolutionArchitectureAndTechnology(x.Doc(), x.Path() + "/solutionArchitectureAndTechnology")
+}
+
+// SBP.12 Security & Access Model. Seeds → SAS.
+func (x *D00SolutionBlueprint) SecurityAndAccessModel() *SecurityAndAccessModel {
+	return NewSecurityAndAccessModel(x.Doc(), x.Path() + "/securityAndAccessModel")
+}
+
+// SBP.13 Experience & Interface Design. Seeds → XDS.
+func (x *D00SolutionBlueprint) ExperienceAndInterfaceDesign() *ExperienceAndInterfaceDesign {
+	return NewExperienceAndInterfaceDesign(x.Doc(), x.Path() + "/experienceAndInterfaceDesign")
+}
+
+// SBP.14 Quality & Acceptance Model. Seeds → QAP.
+func (x *D00SolutionBlueprint) QualityAndAcceptanceModel() *QualityAndAcceptanceModel {
+	return NewQualityAndAcceptanceModel(x.Doc(), x.Path() + "/qualityAndAcceptanceModel")
+}
+
+// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+func (x *D00SolutionBlueprint) DeliveryTransitionAndRollout() *DeliveryTransitionAndRollout {
+	return NewDeliveryTransitionAndRollout(x.Doc(), x.Path() + "/deliveryTransitionAndRollout")
+}
+
+// CS00 Current Situation.
+//
+// Detailed analysis of the current state: existing systems, business
+// processes, pain points, data landscape, operational metrics, risks,
+// and the inventory / migration plan for the systems being replaced.
+type D01CurrentLandscapeAssessment struct {
+	som.SomNode
+}
+
+// D01CurrentLandscapeAssessmentModelVersion is the model version this object model was generated
+// against (§2.1).
+const D01CurrentLandscapeAssessmentModelVersion = "0.0"
+
+// NewD01CurrentLandscapeAssessment creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD01CurrentLandscapeAssessment(doc *som.SpecDocument, documentVersion string) (*D01CurrentLandscapeAssessment, error) {
+	if err := som.CheckSomModelVersion(D01CurrentLandscapeAssessmentModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D01CurrentLandscapeAssessment{SomNode: som.NewSomNode(doc, "CLA")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D01CurrentLandscapeAssessment) ObjectModelVersion() string {
+	return D01CurrentLandscapeAssessmentModelVersion
+}
+
+func (x *D01CurrentLandscapeAssessment) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D01CurrentLandscapeAssessment) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D01CurrentLandscapeAssessment) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Existing systems landscape.
+func (x *D01CurrentLandscapeAssessment) ExistingSystemsLandscape() *ExistingSystemsLandscape {
+	return NewExistingSystemsLandscape(x.Doc(), x.Path() + "/existingSystemsLandscape")
+}
+
+// Current business processes.
+func (x *D01CurrentLandscapeAssessment) CurrentBusinessProcesses() *CurrentBusinessProcesses {
+	return NewCurrentBusinessProcesses(x.Doc(), x.Path() + "/currentBusinessProcesses")
+}
+
+// Pain points and gaps.
+func (x *D01CurrentLandscapeAssessment) PainPointsAndGaps() *PainPointsAndGaps {
+	return NewPainPointsAndGaps(x.Doc(), x.Path() + "/painPointsAndGaps")
+}
+
+// Current data landscape.
+func (x *D01CurrentLandscapeAssessment) CurrentDataLandscape() *CurrentDataLandscape {
+	return NewCurrentDataLandscape(x.Doc(), x.Path() + "/currentDataLandscape")
+}
+
+// Current operational metrics.
+func (x *D01CurrentLandscapeAssessment) OperationalMetrics() *som.SomList[*CurrentOperationalMetrics] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CUOPME-OPER-LST", func(d *som.SpecDocument, p string) *CurrentOperationalMetrics {
+		return NewCurrentOperationalMetrics(d, p)
+	})
+}
+
+// Current-state risk assessment.
+func (x *D01CurrentLandscapeAssessment) CurrentStateRisks() *CurrentStateRiskAssessment {
+	return NewCurrentStateRiskAssessment(x.Doc(), x.Path() + "/currentStateRisks")
+}
+
+// Replacement inventory.
+func (x *D01CurrentLandscapeAssessment) ReplacementInventory() *ReplacementInventory {
+	return NewReplacementInventory(x.Doc(), x.Path() + "/replacementInventory")
+}
+
+// Migration considerations.
+func (x *D01CurrentLandscapeAssessment) MigrationConsiderations() *MigrationConsiderations {
+	return NewMigrationConsiderations(x.Doc(), x.Path() + "/migrationConsiderations")
+}
+
+// BP00 Business Processes.
+//
+// Target business process specification — vision, principles, catalog,
+// diagrams, improvements, relationships, detailed workflows,
+// cross-process analysis, exception handling, and KPIs.
+type D02TargetOperatingModel struct {
+	som.SomNode
+}
+
+// D02TargetOperatingModelModelVersion is the model version this object model was generated
+// against (§2.1).
+const D02TargetOperatingModelModelVersion = "0.0"
+
+// NewD02TargetOperatingModel creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD02TargetOperatingModel(doc *som.SpecDocument, documentVersion string) (*D02TargetOperatingModel, error) {
+	if err := som.CheckSomModelVersion(D02TargetOperatingModelModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D02TargetOperatingModel{SomNode: som.NewSomNode(doc, "TOM")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D02TargetOperatingModel) ObjectModelVersion() string {
+	return D02TargetOperatingModelModelVersion
+}
+
+func (x *D02TargetOperatingModel) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D02TargetOperatingModel) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D02TargetOperatingModel) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Process vision.
+func (x *D02TargetOperatingModel) ProcessVision() *ProcessVision {
+	return NewProcessVision(x.Doc(), x.Path() + "/processVision")
+}
+
+// Design principles.
+func (x *D02TargetOperatingModel) DesignPrinciples() *ProcessDesignPrinciples {
+	return NewProcessDesignPrinciples(x.Doc(), x.Path() + "/designPrinciples")
+}
+
+// Process catalog.
+func (x *D02TargetOperatingModel) ProcessCatalog() *ProcessCatalog {
+	return NewProcessCatalog(x.Doc(), x.Path() + "/processCatalog")
+}
+
+// Process overview diagram.
+func (x *D02TargetOperatingModel) ProcessOverviewDiagram() *ProcessOverviewDiagram {
+	return NewProcessOverviewDiagram(x.Doc(), x.Path() + "/processOverviewDiagram")
+}
+
+// Improvement summary.
+func (x *D02TargetOperatingModel) ImprovementSummary() *ProcessImprovementSummary {
+	return NewProcessImprovementSummary(x.Doc(), x.Path() + "/improvementSummary")
+}
+
+// Process relationships.
+func (x *D02TargetOperatingModel) ProcessRelationships() *ProcessRelationships {
+	return NewProcessRelationships(x.Doc(), x.Path() + "/processRelationships")
+}
+
+// Detailed process workflows.
+func (x *D02TargetOperatingModel) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflows] {
+	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflows {
+		return NewDetailedProcessWorkflows(d, p)
+	})
+}
+
+// Cross-process analysis.
+func (x *D02TargetOperatingModel) CrossProcessAnalysis() *CrossProcessAnalysis {
+	return NewCrossProcessAnalysis(x.Doc(), x.Path() + "/crossProcessAnalysis")
+}
+
+// Process exception handling.
+func (x *D02TargetOperatingModel) ExceptionHandling() *ProcessExceptionHandling {
+	return NewProcessExceptionHandling(x.Doc(), x.Path() + "/exceptionHandling")
+}
+
+// Process metrics and KPIs.
+func (x *D02TargetOperatingModel) ProcessMetricsAndKpis() *som.SomList[*ProcessMetricsAndKpis] {
+	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetricsAndKpis {
+		return NewProcessMetricsAndKpis(d, p)
+	})
+}
+
+// BDM00 Business Data Model.
+//
+// Full business data model: entities, relationships, ER diagram, data
+// classification, business objects, function decomposition, function-
+// to-data matrix, business rules, data dictionary, and validation /
+// integrity constraints.
+type D03InformationModel struct {
+	som.SomNode
+}
+
+// D03InformationModelModelVersion is the model version this object model was generated
+// against (§2.1).
+const D03InformationModelModelVersion = "0.0"
+
+// NewD03InformationModel creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD03InformationModel(doc *som.SpecDocument, documentVersion string) (*D03InformationModel, error) {
+	if err := som.CheckSomModelVersion(D03InformationModelModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D03InformationModel{SomNode: som.NewSomNode(doc, "IFM")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D03InformationModel) ObjectModelVersion() string {
+	return D03InformationModelModelVersion
+}
+
+func (x *D03InformationModel) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D03InformationModel) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D03InformationModel) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Entity inventory (list).
+func (x *D03InformationModel) Entities() *som.SomList[*DataEntityEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/DAENT-ENTI-LST", func(d *som.SpecDocument, p string) *DataEntityEntry {
+		return NewDataEntityEntry(d, p)
+	})
+}
+
+// Entity relationships.
+func (x *D03InformationModel) EntityRelationships() *EntityRelationships {
+	return NewEntityRelationships(x.Doc(), x.Path() + "/entityRelationships")
+}
+
+// Entity-relationship diagram.
+// (skipped: erDiagram has no target type)
+
+// Data classification.
+func (x *D03InformationModel) DataClassification() *DataClassification {
+	return NewDataClassification(x.Doc(), x.Path() + "/dataClassification")
+}
+
+// Business object catalog (list).
+func (x *D03InformationModel) ObjectCatalog() *som.SomList[*BusinessObjectEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/BJOEN-OBJE-LST", func(d *som.SpecDocument, p string) *BusinessObjectEntry {
+		return NewBusinessObjectEntry(d, p)
+	})
+}
+
+// Business object diagram.
+// (skipped: objectDiagram has no target type)
+
+// Function decomposition (list).
+func (x *D03InformationModel) FunctionDecomposition() *som.SomList[*FunctionEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/FUNCT-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionEntry {
+		return NewFunctionEntry(d, p)
+	})
+}
+
+// Function-to-data matrix (list).
+func (x *D03InformationModel) FunctionToDataMatrix() *som.SomList[*FunctionDataMatrixEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/FNDMX-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionDataMatrixEntry {
+		return NewFunctionDataMatrixEntry(d, p)
+	})
+}
+
+// Business rules catalog (list).
+func (x *D03InformationModel) BusinessRules() *som.SomList[*BusinessRuleEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/BIRU-BUSI-LST", func(d *som.SpecDocument, p string) *BusinessRuleEntry {
+		return NewBusinessRuleEntry(d, p)
+	})
+}
+
+// Data dictionary.
+func (x *D03InformationModel) DataDictionary() *DataDictionary {
+	return NewDataDictionary(x.Doc(), x.Path() + "/dataDictionary")
+}
+
+// Validation constraints.
+func (x *D03InformationModel) ValidationConstraints() *som.SomList[*ValidationConstraints] {
+	return som.NewSomList(x.Doc(), x.Path() + "/VACO-VALI-LST", func(d *som.SpecDocument, p string) *ValidationConstraints {
+		return NewValidationConstraints(d, p)
+	})
+}
+
+// Integrity constraints.
+func (x *D03InformationModel) IntegrityConstraints() *som.SomList[*IntegrityConstraints] {
+	return som.NewSomList(x.Doc(), x.Path() + "/INCO-INTE-LST", func(d *som.SpecDocument, p string) *IntegrityConstraints {
+		return NewIntegrityConstraints(d, p)
+	})
+}
+
+// RC00 Requirements Catalog.
+//
+// Full requirements catalog covering functional, technical, security,
+// and organizational requirements, plus traceability, relationships,
+// and coverage analysis.
+type D04RequirementsSpecification struct {
+	som.SomNode
+}
+
+// D04RequirementsSpecificationModelVersion is the model version this object model was generated
+// against (§2.1).
+const D04RequirementsSpecificationModelVersion = "0.0"
+
+// NewD04RequirementsSpecification creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD04RequirementsSpecification(doc *som.SpecDocument, documentVersion string) (*D04RequirementsSpecification, error) {
+	if err := som.CheckSomModelVersion(D04RequirementsSpecificationModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D04RequirementsSpecification{SomNode: som.NewSomNode(doc, "RSP")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D04RequirementsSpecification) ObjectModelVersion() string {
+	return D04RequirementsSpecificationModelVersion
+}
+
+func (x *D04RequirementsSpecification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D04RequirementsSpecification) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D04RequirementsSpecification) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Functional requirements.
+func (x *D04RequirementsSpecification) FunctionalRequirements() *FunctionalRequirements {
+	return NewFunctionalRequirements(x.Doc(), x.Path() + "/functionalRequirements")
+}
+
+// Technical (non-functional) requirements.
+func (x *D04RequirementsSpecification) TechnicalRequirements() *TechnicalRequirements {
+	return NewTechnicalRequirements(x.Doc(), x.Path() + "/technicalRequirements")
+}
+
+// Security requirements.
+func (x *D04RequirementsSpecification) SecurityRequirements() *SecurityRequirements {
+	return NewSecurityRequirements(x.Doc(), x.Path() + "/securityRequirements")
+}
+
+// Organizational requirements.
+func (x *D04RequirementsSpecification) OrganizationalRequirements() *OrganizationalRequirements {
+	return NewOrganizationalRequirements(x.Doc(), x.Path() + "/organizationalRequirements")
+}
+
+// Traceability matrix overview.
+//
+// Mirrors the flat field on RequirementsOverview so the RC outline
+// reaches it directly. The authoritative content lives on the Solution
+// Blueprint side.
+func (x *D04RequirementsSpecification) TraceabilityMatrix() string {
+	return x.Doc().ContentOr(x.Path() + "/traceabilityMatrix")
+}
+
+func (x *D04RequirementsSpecification) SetTraceabilityMatrix(value string) {
+	x.Doc().SetContent(x.Path() + "/traceabilityMatrix", value)
+}
+
+// Requirement relationships.
+func (x *D04RequirementsSpecification) RequirementRelationships() *som.SomList[*RequirementRelationships] {
+	return som.NewSomList(x.Doc(), x.Path() + "/RERE-REQU-LST", func(d *som.SpecDocument, p string) *RequirementRelationships {
+		return NewRequirementRelationships(d, p)
+	})
+}
+
+// Requirement coverage.
+func (x *D04RequirementsSpecification) RequirementCoverage() *RequirementCoverage {
+	return NewRequirementCoverage(x.Doc(), x.Path() + "/requirementCoverage")
+}
+
+// UC00 Use Cases.
+//
+// Detailed use cases derived from the target process steps and actor
+// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+// and traceability.
+type D05InteractionScenarios struct {
+	som.SomNode
+}
+
+// D05InteractionScenariosModelVersion is the model version this object model was generated
+// against (§2.1).
+const D05InteractionScenariosModelVersion = "0.0"
+
+// NewD05InteractionScenarios creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD05InteractionScenarios(doc *som.SpecDocument, documentVersion string) (*D05InteractionScenarios, error) {
+	if err := som.CheckSomModelVersion(D05InteractionScenariosModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D05InteractionScenarios{SomNode: som.NewSomNode(doc, "ISC")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D05InteractionScenarios) ObjectModelVersion() string {
+	return D05InteractionScenariosModelVersion
+}
+
+func (x *D05InteractionScenarios) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D05InteractionScenarios) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D05InteractionScenarios) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Process steps overview.
+func (x *D05InteractionScenarios) ProcessStepsOverview() *ProcessStepsOverview {
+	return NewProcessStepsOverview(x.Doc(), x.Path() + "/processStepsOverview")
+}
+
+// Actor overview.
+func (x *D05InteractionScenarios) ActorOverview() *ActorOverview {
+	return NewActorOverview(x.Doc(), x.Path() + "/actorOverview")
+}
+
+// Interaction catalog.
+func (x *D05InteractionScenarios) InteractionCatalog() *InteractionCatalog {
+	return NewInteractionCatalog(x.Doc(), x.Path() + "/interactionCatalog")
+}
+
+// Key scenarios.
+func (x *D05InteractionScenarios) KeyScenarios() *KeyScenarios {
+	return NewKeyScenarios(x.Doc(), x.Path() + "/keyScenarios")
+}
+
+// Actor relationship diagram.
+func (x *D05InteractionScenarios) ActorRelationshipDiagram() *ActorRelationshipDiagram {
+	return NewActorRelationshipDiagram(x.Doc(), x.Path() + "/actorRelationshipDiagram")
+}
+
+// End-to-end test scenarios.
+func (x *D05InteractionScenarios) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenarios] {
+	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenarios {
+		return NewEndToEndTestScenarios(d, p)
+	})
+}
+
+// Use case traceability.
+func (x *D05InteractionScenarios) UseCaseTraceability() *UseCaseTraceability {
+	return NewUseCaseTraceability(x.Doc(), x.Path() + "/useCaseTraceability")
+}
+
+// TR00 Technical Requirements.
+//
+// Comprehensive technical requirements: basic / software / standard-
+// software / hardware / operations / communication / system-operation
+// / security / architecture, plus components, framework conditions,
+// and translation handling.
+type D06ArchitectureTechnologySpecification struct {
+	som.SomNode
+}
+
+// D06ArchitectureTechnologySpecificationModelVersion is the model version this object model was generated
+// against (§2.1).
+const D06ArchitectureTechnologySpecificationModelVersion = "0.0"
+
+// NewD06ArchitectureTechnologySpecification creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD06ArchitectureTechnologySpecification(doc *som.SpecDocument, documentVersion string) (*D06ArchitectureTechnologySpecification, error) {
+	if err := som.CheckSomModelVersion(D06ArchitectureTechnologySpecificationModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D06ArchitectureTechnologySpecification{SomNode: som.NewSomNode(doc, "ATS")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D06ArchitectureTechnologySpecification) ObjectModelVersion() string {
+	return D06ArchitectureTechnologySpecificationModelVersion
+}
+
+func (x *D06ArchitectureTechnologySpecification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D06ArchitectureTechnologySpecification) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D06ArchitectureTechnologySpecification) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Basic technical requirements.
+func (x *D06ArchitectureTechnologySpecification) BasicTechnicalRequirements() *BasicTechnicalRequirements {
+	return NewBasicTechnicalRequirements(x.Doc(), x.Path() + "/basicTechnicalRequirements")
+}
+
+// Software design requirements.
+func (x *D06ArchitectureTechnologySpecification) SoftwareDesignRequirements() *SoftwareDesignRequirements {
+	return NewSoftwareDesignRequirements(x.Doc(), x.Path() + "/softwareDesignRequirements")
+}
+
+// Standard application software requirements.
+func (x *D06ArchitectureTechnologySpecification) StandardSoftwareRequirements() *StandardSoftwareRequirements {
+	return NewStandardSoftwareRequirements(x.Doc(), x.Path() + "/standardSoftwareRequirements")
+}
+
+// Hardware concept requirements.
+func (x *D06ArchitectureTechnologySpecification) HardwareRequirements() *HardwareRequirements {
+	return NewHardwareRequirements(x.Doc(), x.Path() + "/hardwareRequirements")
+}
+
+// Operations requirements.
+func (x *D06ArchitectureTechnologySpecification) OperationsRequirements() *OperationsRequirements {
+	return NewOperationsRequirements(x.Doc(), x.Path() + "/operationsRequirements")
+}
+
+// Communication requirements.
+func (x *D06ArchitectureTechnologySpecification) CommunicationRequirements() *CommunicationRequirements {
+	return NewCommunicationRequirements(x.Doc(), x.Path() + "/communicationRequirements")
+}
+
+// System operation and monitoring.
+func (x *D06ArchitectureTechnologySpecification) SystemOperationAndMonitoring() *SystemOperationAndMonitoring {
+	return NewSystemOperationAndMonitoring(x.Doc(), x.Path() + "/systemOperationAndMonitoring")
+}
+
+// Technical security requirements.
+func (x *D06ArchitectureTechnologySpecification) TechnicalSecurityRequirements() *TechnicalSecurityRequirements {
+	return NewTechnicalSecurityRequirements(x.Doc(), x.Path() + "/technicalSecurityRequirements")
+}
+
+// System architecture (new in Phase A).
+func (x *D06ArchitectureTechnologySpecification) SystemArchitecture() *SystemArchitectureSpec {
+	return NewSystemArchitectureSpec(x.Doc(), x.Path() + "/systemArchitecture")
+}
+
+// Components to use (whole).
+func (x *D06ArchitectureTechnologySpecification) ComponentsToUse() *ComponentsToUse {
+	return NewComponentsToUse(x.Doc(), x.Path() + "/componentsToUse")
+}
+
+// Technical framework conditions (whole).
+func (x *D06ArchitectureTechnologySpecification) TechnicalFrameworkConditions() *TechnicalFrameworkConditions {
+	return NewTechnicalFrameworkConditions(x.Doc(), x.Path() + "/technicalFrameworkConditions")
+}
+
+// Translation handling requirements (whole).
+func (x *D06ArchitectureTechnologySpecification) TranslationRequirements() *TranslationRequirements {
+	return NewTranslationRequirements(x.Doc(), x.Path() + "/translationRequirements")
+}
+
+// BSI00 Business System Interactions.
+//
+// Complete interaction specification between the target system and
+// external systems: inventory, patterns, testing, dependencies,
+// migration, operational concerns, and cross-boundary error handling.
+type D07IntegrationInterfaceSpecification struct {
+	som.SomNode
+}
+
+// D07IntegrationInterfaceSpecificationModelVersion is the model version this object model was generated
+// against (§2.1).
+const D07IntegrationInterfaceSpecificationModelVersion = "0.0"
+
+// NewD07IntegrationInterfaceSpecification creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD07IntegrationInterfaceSpecification(doc *som.SpecDocument, documentVersion string) (*D07IntegrationInterfaceSpecification, error) {
+	if err := som.CheckSomModelVersion(D07IntegrationInterfaceSpecificationModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D07IntegrationInterfaceSpecification{SomNode: som.NewSomNode(doc, "IIS")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D07IntegrationInterfaceSpecification) ObjectModelVersion() string {
+	return D07IntegrationInterfaceSpecificationModelVersion
+}
+
+func (x *D07IntegrationInterfaceSpecification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D07IntegrationInterfaceSpecification) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D07IntegrationInterfaceSpecification) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// External interfaces.
+func (x *D07IntegrationInterfaceSpecification) ExternalInterfaces() *ExternalInterfaces {
+	return NewExternalInterfaces(x.Doc(), x.Path() + "/externalInterfaces")
+}
+
+// Out of scope.
+func (x *D07IntegrationInterfaceSpecification) OutOfScope() *OutOfScope {
+	return NewOutOfScope(x.Doc(), x.Path() + "/outOfScope")
+}
+
+// Boundary assumptions.
+func (x *D07IntegrationInterfaceSpecification) BoundaryAssumptions() *BoundaryAssumptions {
+	return NewBoundaryAssumptions(x.Doc(), x.Path() + "/boundaryAssumptions")
+}
+
+// System landscape inventory.
+func (x *D07IntegrationInterfaceSpecification) SystemInventory() *SystemLandscapeInventory {
+	return NewSystemLandscapeInventory(x.Doc(), x.Path() + "/systemInventory")
+}
+
+// Boundary interaction patterns.
+func (x *D07IntegrationInterfaceSpecification) InteractionPatterns() *som.SomList[*BoundaryInteractionPatterns] {
+	return som.NewSomList(x.Doc(), x.Path() + "/BOINPA-INTE-LST", func(d *som.SpecDocument, p string) *BoundaryInteractionPatterns {
+		return NewBoundaryInteractionPatterns(d, p)
+	})
+}
+
+// Interaction testing strategy.
+func (x *D07IntegrationInterfaceSpecification) TestingStrategy() *InteractionTestingStrategy {
+	return NewInteractionTestingStrategy(x.Doc(), x.Path() + "/testingStrategy")
+}
+
+// Interaction dependency analysis.
+func (x *D07IntegrationInterfaceSpecification) DependencyAnalysis() *InteractionDependencyAnalysis {
+	return NewInteractionDependencyAnalysis(x.Doc(), x.Path() + "/dependencyAnalysis")
+}
+
+// Migration interactions.
+func (x *D07IntegrationInterfaceSpecification) MigrationInteractions() *som.SomList[*MigrationInteractions] {
+	return som.NewSomList(x.Doc(), x.Path() + "/MIIN-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationInteractions {
+		return NewMigrationInteractions(d, p)
+	})
+}
+
+// Cross-boundary operational considerations.
+func (x *D07IntegrationInterfaceSpecification) OperationalConsiderations() *som.SomList[*CrossBoundaryOperationalConsiderations] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CBOC-OPER-LST", func(d *som.SpecDocument, p string) *CrossBoundaryOperationalConsiderations {
+		return NewCrossBoundaryOperationalConsiderations(d, p)
+	})
+}
+
+// Cross-boundary error handling.
+func (x *D07IntegrationInterfaceSpecification) CrossBoundaryErrorHandling() *CrossBoundaryErrorHandling {
+	return NewCrossBoundaryErrorHandling(x.Doc(), x.Path() + "/crossBoundaryErrorHandling")
+}
+
+// AC00 Authorization Concept.
+//
+// Complete access and authorization specification — user management,
+// identification and authentication, resource protection, user
+// authorization, encryption, audit/logging, role matrix, and
+// compliance framework.
+type D08SecurityAccessSpecification struct {
+	som.SomNode
+}
+
+// D08SecurityAccessSpecificationModelVersion is the model version this object model was generated
+// against (§2.1).
+const D08SecurityAccessSpecificationModelVersion = "0.0"
+
+// NewD08SecurityAccessSpecification creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD08SecurityAccessSpecification(doc *som.SpecDocument, documentVersion string) (*D08SecurityAccessSpecification, error) {
+	if err := som.CheckSomModelVersion(D08SecurityAccessSpecificationModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D08SecurityAccessSpecification{SomNode: som.NewSomNode(doc, "SAS")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D08SecurityAccessSpecification) ObjectModelVersion() string {
+	return D08SecurityAccessSpecificationModelVersion
+}
+
+func (x *D08SecurityAccessSpecification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D08SecurityAccessSpecification) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D08SecurityAccessSpecification) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// User management.
+func (x *D08SecurityAccessSpecification) UserManagement() *UserManagement {
+	return NewUserManagement(x.Doc(), x.Path() + "/userManagement")
+}
+
+// Identification and authentication.
+func (x *D08SecurityAccessSpecification) IdentificationAndAuthentication() *IdentificationAndAuthentication {
+	return NewIdentificationAndAuthentication(x.Doc(), x.Path() + "/identificationAndAuthentication")
+}
+
+// Resource protection.
+func (x *D08SecurityAccessSpecification) ResourceProtection() *ResourceProtection {
+	return NewResourceProtection(x.Doc(), x.Path() + "/resourceProtection")
+}
+
+// User authorization.
+func (x *D08SecurityAccessSpecification) UserAuthorization() *UserAuthorization {
+	return NewUserAuthorization(x.Doc(), x.Path() + "/userAuthorization")
+}
+
+// Sensitive data encryption.
+func (x *D08SecurityAccessSpecification) SensitiveDataEncryption() *SensitiveDataEncryption {
+	return NewSensitiveDataEncryption(x.Doc(), x.Path() + "/sensitiveDataEncryption")
+}
+
+// Audit and logging.
+func (x *D08SecurityAccessSpecification) AuditAndLogging() *AuditAndLogging {
+	return NewAuditAndLogging(x.Doc(), x.Path() + "/auditAndLogging")
+}
+
+// Role matrix.
+func (x *D08SecurityAccessSpecification) RoleMatrix() *RoleMatrix {
+	return NewRoleMatrix(x.Doc(), x.Path() + "/roleMatrix")
+}
+
+// Compliance framework.
+func (x *D08SecurityAccessSpecification) ComplianceFramework() *ComplianceFramework {
+	return NewComplianceFramework(x.Doc(), x.Path() + "/complianceFramework")
+}
+
+// UP00 UI Prototype.
+//
+// Full UI design and prototype specification — vision, screens,
+// screen flow, print, error handling, help, accessibility, responsive,
+// components, language/country selection, prototype, wireframes and
+// mockups.
+type D09ExperienceDesignSpecification struct {
+	som.SomNode
+}
+
+// D09ExperienceDesignSpecificationModelVersion is the model version this object model was generated
+// against (§2.1).
+const D09ExperienceDesignSpecificationModelVersion = "0.0"
+
+// NewD09ExperienceDesignSpecification creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD09ExperienceDesignSpecification(doc *som.SpecDocument, documentVersion string) (*D09ExperienceDesignSpecification, error) {
+	if err := som.CheckSomModelVersion(D09ExperienceDesignSpecificationModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D09ExperienceDesignSpecification{SomNode: som.NewSomNode(doc, "XDS")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D09ExperienceDesignSpecification) ObjectModelVersion() string {
+	return D09ExperienceDesignSpecificationModelVersion
+}
+
+func (x *D09ExperienceDesignSpecification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D09ExperienceDesignSpecification) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D09ExperienceDesignSpecification) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Design vision.
+func (x *D09ExperienceDesignSpecification) DesignVision() *DesignVision {
+	return NewDesignVision(x.Doc(), x.Path() + "/designVision")
+}
+
+// Screen descriptions.
+func (x *D09ExperienceDesignSpecification) Screens() *ScreenDescriptions {
+	return NewScreenDescriptions(x.Doc(), x.Path() + "/screens")
+}
+
+// Screen flow structure.
+func (x *D09ExperienceDesignSpecification) ScreenFlow() *ScreenFlowStructure {
+	return NewScreenFlowStructure(x.Doc(), x.Path() + "/screenFlow")
+}
+
+// Print layout.
+func (x *D09ExperienceDesignSpecification) PrintLayout() *PrintLayout {
+	return NewPrintLayout(x.Doc(), x.Path() + "/printLayout")
+}
+
+// Error handling concept.
+func (x *D09ExperienceDesignSpecification) ErrorHandling() *ErrorHandlingConcept {
+	return NewErrorHandlingConcept(x.Doc(), x.Path() + "/errorHandling")
+}
+
+// Help concept.
+func (x *D09ExperienceDesignSpecification) HelpConcept() *HelpConcept {
+	return NewHelpConcept(x.Doc(), x.Path() + "/helpConcept")
+}
+
+// Accessibility.
+func (x *D09ExperienceDesignSpecification) Accessibility() *Accessibility {
+	return NewAccessibility(x.Doc(), x.Path() + "/accessibility")
+}
+
+// Responsive design.
+func (x *D09ExperienceDesignSpecification) ResponsiveDesign() *ResponsiveDesign {
+	return NewResponsiveDesign(x.Doc(), x.Path() + "/responsiveDesign")
+}
+
+// UI components.
+func (x *D09ExperienceDesignSpecification) UiComponents() *UiComponents {
+	return NewUiComponents(x.Doc(), x.Path() + "/uiComponents")
+}
+
+// Language and country selection.
+func (x *D09ExperienceDesignSpecification) LanguageCountrySelection() *LanguageCountrySelection {
+	return NewLanguageCountrySelection(x.Doc(), x.Path() + "/languageCountrySelection")
+}
+
+// Prototype.
+func (x *D09ExperienceDesignSpecification) Prototype() *Prototype {
+	return NewPrototype(x.Doc(), x.Path() + "/prototype")
+}
+
+// Wireframes and mockups (new in Phase A).
+func (x *D09ExperienceDesignSpecification) WireframesAndMockups() *som.SomList[*WireframesAndMockups] {
+	return som.NewSomList(x.Doc(), x.Path() + "/WIANMO-WIRE-LST", func(d *som.SpecDocument, p string) *WireframesAndMockups {
+		return NewWireframesAndMockups(d, p)
+	})
+}
+
+// BQP00 Business Quality Plan.
+//
+// Full quality plan combining quality goals and the acceptance plan.
+type D10QualityAcceptancePlan struct {
+	som.SomNode
+}
+
+// D10QualityAcceptancePlanModelVersion is the model version this object model was generated
+// against (§2.1).
+const D10QualityAcceptancePlanModelVersion = "0.0"
+
+// NewD10QualityAcceptancePlan creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD10QualityAcceptancePlan(doc *som.SpecDocument, documentVersion string) (*D10QualityAcceptancePlan, error) {
+	if err := som.CheckSomModelVersion(D10QualityAcceptancePlanModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D10QualityAcceptancePlan{SomNode: som.NewSomNode(doc, "QAP")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D10QualityAcceptancePlan) ObjectModelVersion() string {
+	return D10QualityAcceptancePlanModelVersion
+}
+
+func (x *D10QualityAcceptancePlan) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D10QualityAcceptancePlan) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D10QualityAcceptancePlan) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Quality framework.
+func (x *D10QualityAcceptancePlan) QualityFramework() *QualityFramework {
+	return NewQualityFramework(x.Doc(), x.Path() + "/qualityFramework")
+}
+
+// User-related quality criteria.
+func (x *D10QualityAcceptancePlan) UserQualityCriteria() *UserQualityCriteria {
+	return NewUserQualityCriteria(x.Doc(), x.Path() + "/userQualityCriteria")
+}
+
+// Technical quality criteria.
+func (x *D10QualityAcceptancePlan) TechnicalQualityCriteria() *TechnicalQualityCriteria {
+	return NewTechnicalQualityCriteria(x.Doc(), x.Path() + "/technicalQualityCriteria")
+}
+
+// Operations quality criteria.
+func (x *D10QualityAcceptancePlan) OperationsQualityCriteria() *OperationsQualityCriteria {
+	return NewOperationsQualityCriteria(x.Doc(), x.Path() + "/operationsQualityCriteria")
+}
+
+// Documentation quality criteria.
+func (x *D10QualityAcceptancePlan) DocumentationQualityCriteria() *DocumentationQualityCriteria {
+	return NewDocumentationQualityCriteria(x.Doc(), x.Path() + "/documentationQualityCriteria")
+}
+
+// Quality prioritization.
+func (x *D10QualityAcceptancePlan) QualityPrioritization() *QualityPrioritization {
+	return NewQualityPrioritization(x.Doc(), x.Path() + "/qualityPrioritization")
+}
+
+// Acceptance criteria summary.
+func (x *D10QualityAcceptancePlan) AcceptanceCriteriaSummary() *AcceptanceCriteriaSummary {
+	return NewAcceptanceCriteriaSummary(x.Doc(), x.Path() + "/acceptanceCriteriaSummary")
+}
+
+// Test strategy (new in Phase A).
+func (x *D10QualityAcceptancePlan) TestStrategy() *TestStrategy {
+	return NewTestStrategy(x.Doc(), x.Path() + "/testStrategy")
+}
+
+// Acceptance criteria.
+func (x *D10QualityAcceptancePlan) AcceptanceCriteria() *AcceptanceCriteriaList {
+	return NewAcceptanceCriteriaList(x.Doc(), x.Path() + "/acceptanceCriteria")
+}
+
+// Acceptance process.
+func (x *D10QualityAcceptancePlan) AcceptanceProcess() *AcceptanceProcess {
+	return NewAcceptanceProcess(x.Doc(), x.Path() + "/acceptanceProcess")
+}
+
+// User acceptance testing.
+func (x *D10QualityAcceptancePlan) UserAcceptanceTesting() *UserAcceptanceTesting {
+	return NewUserAcceptanceTesting(x.Doc(), x.Path() + "/userAcceptanceTesting")
+}
+
+// Defect resolution.
+func (x *D10QualityAcceptancePlan) DefectResolution() *DefectResolution {
+	return NewDefectResolution(x.Doc(), x.Path() + "/defectResolution")
+}
+
+// Sign-off process.
+func (x *D10QualityAcceptancePlan) SignOffProcess() *SignOffProcess {
+	return NewSignOffProcess(x.Doc(), x.Path() + "/signOffProcess")
+}
+
+// Warranty terms.
+func (x *D10QualityAcceptancePlan) Warranty() *WarrantyTerms {
+	return NewWarrantyTerms(x.Doc(), x.Path() + "/warranty")
+}
+
+// PPP00 Project Phase Plan.
+//
+// Full project phase plan — staging strategy, stage overview, per-stage
+// entries, feature prioritization, data migration, gate criteria,
+// decision processes, initial development flow, and upgrade cycle
+// framework.
+type D11DeliveryRoadmap struct {
+	som.SomNode
+}
+
+// D11DeliveryRoadmapModelVersion is the model version this object model was generated
+// against (§2.1).
+const D11DeliveryRoadmapModelVersion = "0.0"
+
+// NewD11DeliveryRoadmap creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD11DeliveryRoadmap(doc *som.SpecDocument, documentVersion string) (*D11DeliveryRoadmap, error) {
+	if err := som.CheckSomModelVersion(D11DeliveryRoadmapModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D11DeliveryRoadmap{SomNode: som.NewSomNode(doc, "DRM")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D11DeliveryRoadmap) ObjectModelVersion() string {
+	return D11DeliveryRoadmapModelVersion
+}
+
+func (x *D11DeliveryRoadmap) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D11DeliveryRoadmap) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D11DeliveryRoadmap) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Staging strategy.
+func (x *D11DeliveryRoadmap) StagingStrategy() *StagingStrategy {
+	return NewStagingStrategy(x.Doc(), x.Path() + "/stagingStrategy")
+}
+
+// Stage overview.
+func (x *D11DeliveryRoadmap) StageOverview() *StageOverview {
+	return NewStageOverview(x.Doc(), x.Path() + "/stageOverview")
+}
+
+// Stages (list).
+func (x *D11DeliveryRoadmap) Stages() *som.SomList[*StageEntry] {
+	return som.NewSomList(x.Doc(), x.Path() + "/STAGE-STAG-LST", func(d *som.SpecDocument, p string) *StageEntry {
+		return NewStageEntry(d, p)
+	})
+}
+
+// Feature prioritization.
+func (x *D11DeliveryRoadmap) FeaturePrioritization() *FeaturePrioritization {
+	return NewFeaturePrioritization(x.Doc(), x.Path() + "/featurePrioritization")
+}
+
+// Data migration strategy.
+func (x *D11DeliveryRoadmap) DataMigrationStrategy() *DataMigrationStrategy {
+	return NewDataMigrationStrategy(x.Doc(), x.Path() + "/dataMigrationStrategy")
+}
+
+// Gate criteria (promoted from GOV).
+func (x *D11DeliveryRoadmap) GateCriteria() *PhaseGateReviews {
+	return NewPhaseGateReviews(x.Doc(), x.Path() + "/gateCriteria")
+}
+
+// Decision processes (promoted from GOV).
+func (x *D11DeliveryRoadmap) DecisionProcesses() *DecisionPoints {
+	return NewDecisionPoints(x.Doc(), x.Path() + "/decisionProcesses")
+}
+
+// Initial development flow.
+func (x *D11DeliveryRoadmap) InitialDevelopmentFlow() *InitialDevelopmentFlow {
+	return NewInitialDevelopmentFlow(x.Doc(), x.Path() + "/initialDevelopmentFlow")
+}
+
+// Upgrade cycle framework (links tom_system_upgrade.md).
+func (x *D11DeliveryRoadmap) UpgradeCycleFramework() *UpgradeCycleFramework {
+	return NewUpgradeCycleFramework(x.Doc(), x.Path() + "/upgradeCycleFramework")
+}
+
+// SR00 System Rollout.
+//
+// End-to-end rollout specification — localization, translation,
+// documentation and training, plus rollout plan, migration plan,
+// user manuals, training materials, pilot, cutover, knowledge
+// transfer, and warranty/support.
+type D12TransitionRolloutPlan struct {
+	som.SomNode
+}
+
+// D12TransitionRolloutPlanModelVersion is the model version this object model was generated
+// against (§2.1).
+const D12TransitionRolloutPlanModelVersion = "0.0"
+
+// NewD12TransitionRolloutPlan creates the typed facade at the document root and verifies the
+// document's authoring documentVersion is editable (§2.2). A non-editable
+// stamp yields a *som.SomVersionError.
+func NewD12TransitionRolloutPlan(doc *som.SpecDocument, documentVersion string) (*D12TransitionRolloutPlan, error) {
+	if err := som.CheckSomModelVersion(D12TransitionRolloutPlanModelVersion, documentVersion); err != nil {
+		return nil, err
+	}
+	return &D12TransitionRolloutPlan{SomNode: som.NewSomNode(doc, "TRP")}, nil
+}
+
+// ObjectModelVersion returns this object model's own model version (major.minor),
+// per §2.1.
+func (x *D12TransitionRolloutPlan) ObjectModelVersion() string {
+	return D12TransitionRolloutPlanModelVersion
+}
+
+func (x *D12TransitionRolloutPlan) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *D12TransitionRolloutPlan) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
+}
+
+// Standard TomSpecs document header.
+func (x *D12TransitionRolloutPlan) Header() *DocumentHeader {
+	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
+}
+
+// Localization process.
+func (x *D12TransitionRolloutPlan) LocalizationProcess() *LocalizationProcess {
+	return NewLocalizationProcess(x.Doc(), x.Path() + "/localizationProcess")
+}
+
+// Translation process.
+func (x *D12TransitionRolloutPlan) TranslationProcess() *TranslationProcess {
+	return NewTranslationProcess(x.Doc(), x.Path() + "/translationProcess")
+}
+
+// Documentation and training.
+func (x *D12TransitionRolloutPlan) DocumentationAndTraining() *DocumentationAndTraining {
+	return NewDocumentationAndTraining(x.Doc(), x.Path() + "/documentationAndTraining")
+}
+
+// Rollout plan.
+func (x *D12TransitionRolloutPlan) RolloutPlan() *RolloutPlan {
+	return NewRolloutPlan(x.Doc(), x.Path() + "/rolloutPlan")
+}
+
+// Migration plan.
+func (x *D12TransitionRolloutPlan) MigrationPlan() *MigrationPlan {
+	return NewMigrationPlan(x.Doc(), x.Path() + "/migrationPlan")
+}
+
+// User manuals.
+func (x *D12TransitionRolloutPlan) UserManuals() *som.SomList[*UserManuals] {
+	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManuals {
+		return NewUserManuals(d, p)
+	})
+}
+
+// Training materials.
+func (x *D12TransitionRolloutPlan) TrainingMaterials() *som.SomList[*RolloutTrainingMaterials] {
+	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterials {
+		return NewRolloutTrainingMaterials(d, p)
+	})
+}
+
+// Pilot plan.
+func (x *D12TransitionRolloutPlan) PilotPlan() *PilotPlan {
+	return NewPilotPlan(x.Doc(), x.Path() + "/pilotPlan")
+}
+
+// Cutover procedures.
+func (x *D12TransitionRolloutPlan) CutoverProcedures() *som.SomList[*CutoverProcedures] {
+	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedures {
+		return NewCutoverProcedures(d, p)
+	})
+}
+
+// Knowledge transfer.
+func (x *D12TransitionRolloutPlan) KnowledgeTransfer() *KnowledgeTransfer {
+	return NewKnowledgeTransfer(x.Doc(), x.Path() + "/knowledgeTransfer")
+}
+
+// Warranty and support.
+func (x *D12TransitionRolloutPlan) WarrantyAndSupport() *WarrantyAndSupport {
+	return NewWarrantyAndSupport(x.Doc(), x.Path() + "/warrantyAndSupport")
 }
 
 // A dashboard entry.
@@ -16898,96 +17969,6 @@ func NewDeliveryAcceptanceCriterionEntryVerification(doc *som.SpecDocument, path
 
 func (x *DeliveryAcceptanceCriterionEntryVerification) Content() *DeliveryAcceptanceCriterionEntryVerificationContentForm {
 	return NewDeliveryAcceptanceCriterionEntryVerificationContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// PPP00 Project Phase Plan.
-//
-// Full project phase plan — staging strategy, stage overview, per-stage
-// entries, feature prioritization, data migration, gate criteria,
-// decision processes, initial development flow, and upgrade cycle
-// framework.
-type DeliveryRoadmap struct {
-	som.SomNode
-}
-
-// DeliveryRoadmapModelVersion is the model version this object model was generated
-// against (§2.1).
-const DeliveryRoadmapModelVersion = "0.0"
-
-// NewDeliveryRoadmap creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewDeliveryRoadmap(doc *som.SpecDocument, documentVersion string) (*DeliveryRoadmap, error) {
-	if err := som.CheckSomModelVersion(DeliveryRoadmapModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &DeliveryRoadmap{SomNode: som.NewSomNode(doc, "DRM")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *DeliveryRoadmap) ObjectModelVersion() string {
-	return DeliveryRoadmapModelVersion
-}
-
-func (x *DeliveryRoadmap) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *DeliveryRoadmap) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *DeliveryRoadmap) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Staging strategy.
-func (x *DeliveryRoadmap) StagingStrategy() *StagingStrategy {
-	return NewStagingStrategy(x.Doc(), x.Path() + "/stagingStrategy")
-}
-
-// Stage overview.
-func (x *DeliveryRoadmap) StageOverview() *StageOverview {
-	return NewStageOverview(x.Doc(), x.Path() + "/stageOverview")
-}
-
-// Stages (list).
-func (x *DeliveryRoadmap) Stages() *som.SomList[*StageEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/STAGE-STAG-LST", func(d *som.SpecDocument, p string) *StageEntry {
-		return NewStageEntry(d, p)
-	})
-}
-
-// Feature prioritization.
-func (x *DeliveryRoadmap) FeaturePrioritization() *FeaturePrioritization {
-	return NewFeaturePrioritization(x.Doc(), x.Path() + "/featurePrioritization")
-}
-
-// Data migration strategy.
-func (x *DeliveryRoadmap) DataMigrationStrategy() *DataMigrationStrategy {
-	return NewDataMigrationStrategy(x.Doc(), x.Path() + "/dataMigrationStrategy")
-}
-
-// Gate criteria (promoted from GOV).
-func (x *DeliveryRoadmap) GateCriteria() *PhaseGateReviews {
-	return NewPhaseGateReviews(x.Doc(), x.Path() + "/gateCriteria")
-}
-
-// Decision processes (promoted from GOV).
-func (x *DeliveryRoadmap) DecisionProcesses() *DecisionPoints {
-	return NewDecisionPoints(x.Doc(), x.Path() + "/decisionProcesses")
-}
-
-// Initial development flow.
-func (x *DeliveryRoadmap) InitialDevelopmentFlow() *InitialDevelopmentFlow {
-	return NewInitialDevelopmentFlow(x.Doc(), x.Path() + "/initialDevelopmentFlow")
-}
-
-// Upgrade cycle framework (links tom_system_upgrade.md).
-func (x *DeliveryRoadmap) UpgradeCycleFramework() *UpgradeCycleFramework {
-	return NewUpgradeCycleFramework(x.Doc(), x.Path() + "/upgradeCycleFramework")
 }
 
 // 14.1. Delivery and Service Scope.
@@ -22622,111 +23603,6 @@ func (x *ExperienceAndInterfaceDesign) WireframesAndMockups() *som.SomList[*Wire
 	})
 }
 
-// UP00 UI Prototype.
-//
-// Full UI design and prototype specification — vision, screens,
-// screen flow, print, error handling, help, accessibility, responsive,
-// components, language/country selection, prototype, wireframes and
-// mockups.
-type ExperienceDesignSpecification struct {
-	som.SomNode
-}
-
-// ExperienceDesignSpecificationModelVersion is the model version this object model was generated
-// against (§2.1).
-const ExperienceDesignSpecificationModelVersion = "0.0"
-
-// NewExperienceDesignSpecification creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewExperienceDesignSpecification(doc *som.SpecDocument, documentVersion string) (*ExperienceDesignSpecification, error) {
-	if err := som.CheckSomModelVersion(ExperienceDesignSpecificationModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &ExperienceDesignSpecification{SomNode: som.NewSomNode(doc, "XDS")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *ExperienceDesignSpecification) ObjectModelVersion() string {
-	return ExperienceDesignSpecificationModelVersion
-}
-
-func (x *ExperienceDesignSpecification) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ExperienceDesignSpecification) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *ExperienceDesignSpecification) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Design vision.
-func (x *ExperienceDesignSpecification) DesignVision() *DesignVision {
-	return NewDesignVision(x.Doc(), x.Path() + "/designVision")
-}
-
-// Screen descriptions.
-func (x *ExperienceDesignSpecification) Screens() *ScreenDescriptions {
-	return NewScreenDescriptions(x.Doc(), x.Path() + "/screens")
-}
-
-// Screen flow structure.
-func (x *ExperienceDesignSpecification) ScreenFlow() *ScreenFlowStructure {
-	return NewScreenFlowStructure(x.Doc(), x.Path() + "/screenFlow")
-}
-
-// Print layout.
-func (x *ExperienceDesignSpecification) PrintLayout() *PrintLayout {
-	return NewPrintLayout(x.Doc(), x.Path() + "/printLayout")
-}
-
-// Error handling concept.
-func (x *ExperienceDesignSpecification) ErrorHandling() *ErrorHandlingConcept {
-	return NewErrorHandlingConcept(x.Doc(), x.Path() + "/errorHandling")
-}
-
-// Help concept.
-func (x *ExperienceDesignSpecification) HelpConcept() *HelpConcept {
-	return NewHelpConcept(x.Doc(), x.Path() + "/helpConcept")
-}
-
-// Accessibility.
-func (x *ExperienceDesignSpecification) Accessibility() *Accessibility {
-	return NewAccessibility(x.Doc(), x.Path() + "/accessibility")
-}
-
-// Responsive design.
-func (x *ExperienceDesignSpecification) ResponsiveDesign() *ResponsiveDesign {
-	return NewResponsiveDesign(x.Doc(), x.Path() + "/responsiveDesign")
-}
-
-// UI components.
-func (x *ExperienceDesignSpecification) UiComponents() *UiComponents {
-	return NewUiComponents(x.Doc(), x.Path() + "/uiComponents")
-}
-
-// Language and country selection.
-func (x *ExperienceDesignSpecification) LanguageCountrySelection() *LanguageCountrySelection {
-	return NewLanguageCountrySelection(x.Doc(), x.Path() + "/languageCountrySelection")
-}
-
-// Prototype.
-func (x *ExperienceDesignSpecification) Prototype() *Prototype {
-	return NewPrototype(x.Doc(), x.Path() + "/prototype")
-}
-
-// Wireframes and mockups (new in Phase A).
-func (x *ExperienceDesignSpecification) WireframesAndMockups() *som.SomList[*WireframesAndMockups] {
-	return som.NewSomList(x.Doc(), x.Path() + "/WIANMO-WIRE-LST", func(d *som.SpecDocument, p string) *WireframesAndMockups {
-		return NewWireframesAndMockups(d, p)
-	})
-}
-
 // Export access and audit.
 type ExportAccess struct {
 	som.SomNode
@@ -27560,119 +28436,6 @@ func (x *InformationForUseRequirements) DocumentationAndTraining() *Documentatio
 	return NewDocumentationAndTraining(x.Doc(), x.Path() + "/documentationAndTraining")
 }
 
-// BDM00 Business Data Model.
-//
-// Full business data model: entities, relationships, ER diagram, data
-// classification, business objects, function decomposition, function-
-// to-data matrix, business rules, data dictionary, and validation /
-// integrity constraints.
-type InformationModel struct {
-	som.SomNode
-}
-
-// InformationModelModelVersion is the model version this object model was generated
-// against (§2.1).
-const InformationModelModelVersion = "0.0"
-
-// NewInformationModel creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewInformationModel(doc *som.SpecDocument, documentVersion string) (*InformationModel, error) {
-	if err := som.CheckSomModelVersion(InformationModelModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &InformationModel{SomNode: som.NewSomNode(doc, "IFM")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *InformationModel) ObjectModelVersion() string {
-	return InformationModelModelVersion
-}
-
-func (x *InformationModel) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *InformationModel) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *InformationModel) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Entity inventory (list).
-func (x *InformationModel) Entities() *som.SomList[*DataEntityEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DAENT-ENTI-LST", func(d *som.SpecDocument, p string) *DataEntityEntry {
-		return NewDataEntityEntry(d, p)
-	})
-}
-
-// Entity relationships.
-func (x *InformationModel) EntityRelationships() *EntityRelationships {
-	return NewEntityRelationships(x.Doc(), x.Path() + "/entityRelationships")
-}
-
-// Entity-relationship diagram.
-// (skipped: erDiagram has no target type)
-
-// Data classification.
-func (x *InformationModel) DataClassification() *DataClassification {
-	return NewDataClassification(x.Doc(), x.Path() + "/dataClassification")
-}
-
-// Business object catalog (list).
-func (x *InformationModel) ObjectCatalog() *som.SomList[*BusinessObjectEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/BJOEN-OBJE-LST", func(d *som.SpecDocument, p string) *BusinessObjectEntry {
-		return NewBusinessObjectEntry(d, p)
-	})
-}
-
-// Business object diagram.
-// (skipped: objectDiagram has no target type)
-
-// Function decomposition (list).
-func (x *InformationModel) FunctionDecomposition() *som.SomList[*FunctionEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/FUNCT-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionEntry {
-		return NewFunctionEntry(d, p)
-	})
-}
-
-// Function-to-data matrix (list).
-func (x *InformationModel) FunctionToDataMatrix() *som.SomList[*FunctionDataMatrixEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/FNDMX-FUNC-LST", func(d *som.SpecDocument, p string) *FunctionDataMatrixEntry {
-		return NewFunctionDataMatrixEntry(d, p)
-	})
-}
-
-// Business rules catalog (list).
-func (x *InformationModel) BusinessRules() *som.SomList[*BusinessRuleEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/BIRU-BUSI-LST", func(d *som.SpecDocument, p string) *BusinessRuleEntry {
-		return NewBusinessRuleEntry(d, p)
-	})
-}
-
-// Data dictionary.
-func (x *InformationModel) DataDictionary() *DataDictionary {
-	return NewDataDictionary(x.Doc(), x.Path() + "/dataDictionary")
-}
-
-// Validation constraints.
-func (x *InformationModel) ValidationConstraints() *som.SomList[*ValidationConstraints] {
-	return som.NewSomList(x.Doc(), x.Path() + "/VACO-VALI-LST", func(d *som.SpecDocument, p string) *ValidationConstraints {
-		return NewValidationConstraints(d, p)
-	})
-}
-
-// Integrity constraints.
-func (x *InformationModel) IntegrityConstraints() *som.SomList[*IntegrityConstraints] {
-	return som.NewSomList(x.Doc(), x.Path() + "/INCO-INTE-LST", func(d *som.SpecDocument, p string) *IntegrityConstraints {
-		return NewIntegrityConstraints(d, p)
-	})
-}
-
 // Infrastructure as Code requirements.
 type InfrastructureAsCode struct {
 	som.SomNode
@@ -28446,104 +29209,6 @@ func (x *IntegrationHealthSummary) FragilePoints() *som.SomList[*FragilePointEnt
 	})
 }
 
-// BSI00 Business System Interactions.
-//
-// Complete interaction specification between the target system and
-// external systems: inventory, patterns, testing, dependencies,
-// migration, operational concerns, and cross-boundary error handling.
-type IntegrationInterfaceSpecification struct {
-	som.SomNode
-}
-
-// IntegrationInterfaceSpecificationModelVersion is the model version this object model was generated
-// against (§2.1).
-const IntegrationInterfaceSpecificationModelVersion = "0.0"
-
-// NewIntegrationInterfaceSpecification creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewIntegrationInterfaceSpecification(doc *som.SpecDocument, documentVersion string) (*IntegrationInterfaceSpecification, error) {
-	if err := som.CheckSomModelVersion(IntegrationInterfaceSpecificationModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &IntegrationInterfaceSpecification{SomNode: som.NewSomNode(doc, "IIS")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *IntegrationInterfaceSpecification) ObjectModelVersion() string {
-	return IntegrationInterfaceSpecificationModelVersion
-}
-
-func (x *IntegrationInterfaceSpecification) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *IntegrationInterfaceSpecification) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *IntegrationInterfaceSpecification) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// External interfaces.
-func (x *IntegrationInterfaceSpecification) ExternalInterfaces() *ExternalInterfaces {
-	return NewExternalInterfaces(x.Doc(), x.Path() + "/externalInterfaces")
-}
-
-// Out of scope.
-func (x *IntegrationInterfaceSpecification) OutOfScope() *OutOfScope {
-	return NewOutOfScope(x.Doc(), x.Path() + "/outOfScope")
-}
-
-// Boundary assumptions.
-func (x *IntegrationInterfaceSpecification) BoundaryAssumptions() *BoundaryAssumptions {
-	return NewBoundaryAssumptions(x.Doc(), x.Path() + "/boundaryAssumptions")
-}
-
-// System landscape inventory.
-func (x *IntegrationInterfaceSpecification) SystemInventory() *SystemLandscapeInventory {
-	return NewSystemLandscapeInventory(x.Doc(), x.Path() + "/systemInventory")
-}
-
-// Boundary interaction patterns.
-func (x *IntegrationInterfaceSpecification) InteractionPatterns() *som.SomList[*BoundaryInteractionPatterns] {
-	return som.NewSomList(x.Doc(), x.Path() + "/BOINPA-INTE-LST", func(d *som.SpecDocument, p string) *BoundaryInteractionPatterns {
-		return NewBoundaryInteractionPatterns(d, p)
-	})
-}
-
-// Interaction testing strategy.
-func (x *IntegrationInterfaceSpecification) TestingStrategy() *InteractionTestingStrategy {
-	return NewInteractionTestingStrategy(x.Doc(), x.Path() + "/testingStrategy")
-}
-
-// Interaction dependency analysis.
-func (x *IntegrationInterfaceSpecification) DependencyAnalysis() *InteractionDependencyAnalysis {
-	return NewInteractionDependencyAnalysis(x.Doc(), x.Path() + "/dependencyAnalysis")
-}
-
-// Migration interactions.
-func (x *IntegrationInterfaceSpecification) MigrationInteractions() *som.SomList[*MigrationInteractions] {
-	return som.NewSomList(x.Doc(), x.Path() + "/MIIN-MIGR-LST", func(d *som.SpecDocument, p string) *MigrationInteractions {
-		return NewMigrationInteractions(d, p)
-	})
-}
-
-// Cross-boundary operational considerations.
-func (x *IntegrationInterfaceSpecification) OperationalConsiderations() *som.SomList[*CrossBoundaryOperationalConsiderations] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CBOC-OPER-LST", func(d *som.SpecDocument, p string) *CrossBoundaryOperationalConsiderations {
-		return NewCrossBoundaryOperationalConsiderations(d, p)
-	})
-}
-
-// Cross-boundary error handling.
-func (x *IntegrationInterfaceSpecification) CrossBoundaryErrorHandling() *CrossBoundaryErrorHandling {
-	return NewCrossBoundaryErrorHandling(x.Doc(), x.Path() + "/crossBoundaryErrorHandling")
-}
-
 // A single integration pattern entry.
 type IntegrationPatternEntry struct {
 	som.SomNode
@@ -29106,85 +29771,6 @@ func (x *InteractionScenarioEntry) Content() string {
 
 func (x *InteractionScenarioEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// UC00 Use Cases.
-//
-// Detailed use cases derived from the target process steps and actor
-// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-// and traceability.
-type InteractionScenarios struct {
-	som.SomNode
-}
-
-// InteractionScenariosModelVersion is the model version this object model was generated
-// against (§2.1).
-const InteractionScenariosModelVersion = "0.0"
-
-// NewInteractionScenarios creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewInteractionScenarios(doc *som.SpecDocument, documentVersion string) (*InteractionScenarios, error) {
-	if err := som.CheckSomModelVersion(InteractionScenariosModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &InteractionScenarios{SomNode: som.NewSomNode(doc, "ISC")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *InteractionScenarios) ObjectModelVersion() string {
-	return InteractionScenariosModelVersion
-}
-
-func (x *InteractionScenarios) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *InteractionScenarios) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *InteractionScenarios) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Process steps overview.
-func (x *InteractionScenarios) ProcessStepsOverview() *ProcessStepsOverview {
-	return NewProcessStepsOverview(x.Doc(), x.Path() + "/processStepsOverview")
-}
-
-// Actor overview.
-func (x *InteractionScenarios) ActorOverview() *ActorOverview {
-	return NewActorOverview(x.Doc(), x.Path() + "/actorOverview")
-}
-
-// Interaction catalog.
-func (x *InteractionScenarios) InteractionCatalog() *InteractionCatalog {
-	return NewInteractionCatalog(x.Doc(), x.Path() + "/interactionCatalog")
-}
-
-// Key scenarios.
-func (x *InteractionScenarios) KeyScenarios() *KeyScenarios {
-	return NewKeyScenarios(x.Doc(), x.Path() + "/keyScenarios")
-}
-
-// Actor relationship diagram.
-func (x *InteractionScenarios) ActorRelationshipDiagram() *ActorRelationshipDiagram {
-	return NewActorRelationshipDiagram(x.Doc(), x.Path() + "/actorRelationshipDiagram")
-}
-
-// End-to-end test scenarios.
-func (x *InteractionScenarios) EndToEndTestScenarios() *som.SomList[*EndToEndTestScenarios] {
-	return som.NewSomList(x.Doc(), x.Path() + "/ETETS-ENDT-LST", func(d *som.SpecDocument, p string) *EndToEndTestScenarios {
-		return NewEndToEndTestScenarios(d, p)
-	})
-}
-
-// Use case traceability.
-func (x *InteractionScenarios) UseCaseTraceability() *UseCaseTraceability {
-	return NewUseCaseTraceability(x.Doc(), x.Path() + "/useCaseTraceability")
 }
 
 // Interaction security requirements.
@@ -42499,116 +43085,6 @@ func (x *PwaRequirementsUpdates) Content() *PwaRequirementsUpdatesContentForm {
 	return NewPwaRequirementsUpdatesContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// BQP00 Business Quality Plan.
-//
-// Full quality plan combining quality goals and the acceptance plan.
-type QualityAcceptancePlan struct {
-	som.SomNode
-}
-
-// QualityAcceptancePlanModelVersion is the model version this object model was generated
-// against (§2.1).
-const QualityAcceptancePlanModelVersion = "0.0"
-
-// NewQualityAcceptancePlan creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewQualityAcceptancePlan(doc *som.SpecDocument, documentVersion string) (*QualityAcceptancePlan, error) {
-	if err := som.CheckSomModelVersion(QualityAcceptancePlanModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &QualityAcceptancePlan{SomNode: som.NewSomNode(doc, "QAP")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *QualityAcceptancePlan) ObjectModelVersion() string {
-	return QualityAcceptancePlanModelVersion
-}
-
-func (x *QualityAcceptancePlan) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *QualityAcceptancePlan) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *QualityAcceptancePlan) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Quality framework.
-func (x *QualityAcceptancePlan) QualityFramework() *QualityFramework {
-	return NewQualityFramework(x.Doc(), x.Path() + "/qualityFramework")
-}
-
-// User-related quality criteria.
-func (x *QualityAcceptancePlan) UserQualityCriteria() *UserQualityCriteria {
-	return NewUserQualityCriteria(x.Doc(), x.Path() + "/userQualityCriteria")
-}
-
-// Technical quality criteria.
-func (x *QualityAcceptancePlan) TechnicalQualityCriteria() *TechnicalQualityCriteria {
-	return NewTechnicalQualityCriteria(x.Doc(), x.Path() + "/technicalQualityCriteria")
-}
-
-// Operations quality criteria.
-func (x *QualityAcceptancePlan) OperationsQualityCriteria() *OperationsQualityCriteria {
-	return NewOperationsQualityCriteria(x.Doc(), x.Path() + "/operationsQualityCriteria")
-}
-
-// Documentation quality criteria.
-func (x *QualityAcceptancePlan) DocumentationQualityCriteria() *DocumentationQualityCriteria {
-	return NewDocumentationQualityCriteria(x.Doc(), x.Path() + "/documentationQualityCriteria")
-}
-
-// Quality prioritization.
-func (x *QualityAcceptancePlan) QualityPrioritization() *QualityPrioritization {
-	return NewQualityPrioritization(x.Doc(), x.Path() + "/qualityPrioritization")
-}
-
-// Acceptance criteria summary.
-func (x *QualityAcceptancePlan) AcceptanceCriteriaSummary() *AcceptanceCriteriaSummary {
-	return NewAcceptanceCriteriaSummary(x.Doc(), x.Path() + "/acceptanceCriteriaSummary")
-}
-
-// Test strategy (new in Phase A).
-func (x *QualityAcceptancePlan) TestStrategy() *TestStrategy {
-	return NewTestStrategy(x.Doc(), x.Path() + "/testStrategy")
-}
-
-// Acceptance criteria.
-func (x *QualityAcceptancePlan) AcceptanceCriteria() *AcceptanceCriteriaList {
-	return NewAcceptanceCriteriaList(x.Doc(), x.Path() + "/acceptanceCriteria")
-}
-
-// Acceptance process.
-func (x *QualityAcceptancePlan) AcceptanceProcess() *AcceptanceProcess {
-	return NewAcceptanceProcess(x.Doc(), x.Path() + "/acceptanceProcess")
-}
-
-// User acceptance testing.
-func (x *QualityAcceptancePlan) UserAcceptanceTesting() *UserAcceptanceTesting {
-	return NewUserAcceptanceTesting(x.Doc(), x.Path() + "/userAcceptanceTesting")
-}
-
-// Defect resolution.
-func (x *QualityAcceptancePlan) DefectResolution() *DefectResolution {
-	return NewDefectResolution(x.Doc(), x.Path() + "/defectResolution")
-}
-
-// Sign-off process.
-func (x *QualityAcceptancePlan) SignOffProcess() *SignOffProcess {
-	return NewSignOffProcess(x.Doc(), x.Path() + "/signOffProcess")
-}
-
-// Warranty terms.
-func (x *QualityAcceptancePlan) Warranty() *WarrantyTerms {
-	return NewWarrantyTerms(x.Doc(), x.Path() + "/warranty")
-}
-
 // SBP.14 Quality & Acceptance Model.
 //
 // Public anchor: ISO/IEC 25010 product quality.
@@ -45782,93 +46258,6 @@ func (x *RequirementsOverview) RequirementRelationships() *som.SomList[*Requirem
 
 // 4.3.6. Requirement Coverage.
 func (x *RequirementsOverview) RequirementCoverage() *RequirementCoverage {
-	return NewRequirementCoverage(x.Doc(), x.Path() + "/requirementCoverage")
-}
-
-// RC00 Requirements Catalog.
-//
-// Full requirements catalog covering functional, technical, security,
-// and organizational requirements, plus traceability, relationships,
-// and coverage analysis.
-type RequirementsSpecification struct {
-	som.SomNode
-}
-
-// RequirementsSpecificationModelVersion is the model version this object model was generated
-// against (§2.1).
-const RequirementsSpecificationModelVersion = "0.0"
-
-// NewRequirementsSpecification creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewRequirementsSpecification(doc *som.SpecDocument, documentVersion string) (*RequirementsSpecification, error) {
-	if err := som.CheckSomModelVersion(RequirementsSpecificationModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &RequirementsSpecification{SomNode: som.NewSomNode(doc, "RSP")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *RequirementsSpecification) ObjectModelVersion() string {
-	return RequirementsSpecificationModelVersion
-}
-
-func (x *RequirementsSpecification) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RequirementsSpecification) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *RequirementsSpecification) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Functional requirements.
-func (x *RequirementsSpecification) FunctionalRequirements() *FunctionalRequirements {
-	return NewFunctionalRequirements(x.Doc(), x.Path() + "/functionalRequirements")
-}
-
-// Technical (non-functional) requirements.
-func (x *RequirementsSpecification) TechnicalRequirements() *TechnicalRequirements {
-	return NewTechnicalRequirements(x.Doc(), x.Path() + "/technicalRequirements")
-}
-
-// Security requirements.
-func (x *RequirementsSpecification) SecurityRequirements() *SecurityRequirements {
-	return NewSecurityRequirements(x.Doc(), x.Path() + "/securityRequirements")
-}
-
-// Organizational requirements.
-func (x *RequirementsSpecification) OrganizationalRequirements() *OrganizationalRequirements {
-	return NewOrganizationalRequirements(x.Doc(), x.Path() + "/organizationalRequirements")
-}
-
-// Traceability matrix overview.
-//
-// Mirrors the flat field on RequirementsOverview so the RC outline
-// reaches it directly. The authoritative content lives on the Solution
-// Blueprint side.
-func (x *RequirementsSpecification) TraceabilityMatrix() string {
-	return x.Doc().ContentOr(x.Path() + "/traceabilityMatrix")
-}
-
-func (x *RequirementsSpecification) SetTraceabilityMatrix(value string) {
-	x.Doc().SetContent(x.Path() + "/traceabilityMatrix", value)
-}
-
-// Requirement relationships.
-func (x *RequirementsSpecification) RequirementRelationships() *som.SomList[*RequirementRelationships] {
-	return som.NewSomList(x.Doc(), x.Path() + "/RERE-REQU-LST", func(d *som.SpecDocument, p string) *RequirementRelationships {
-		return NewRequirementRelationships(d, p)
-	})
-}
-
-// Requirement coverage.
-func (x *RequirementsSpecification) RequirementCoverage() *RequirementCoverage {
 	return NewRequirementCoverage(x.Doc(), x.Path() + "/requirementCoverage")
 }
 
@@ -49964,89 +50353,6 @@ func (x *SecondaryNavigation) TabBars() *som.SomList[*TabBarDefinitionEntry] {
 	})
 }
 
-// AC00 Authorization Concept.
-//
-// Complete access and authorization specification — user management,
-// identification and authentication, resource protection, user
-// authorization, encryption, audit/logging, role matrix, and
-// compliance framework.
-type SecurityAccessSpecification struct {
-	som.SomNode
-}
-
-// SecurityAccessSpecificationModelVersion is the model version this object model was generated
-// against (§2.1).
-const SecurityAccessSpecificationModelVersion = "0.0"
-
-// NewSecurityAccessSpecification creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewSecurityAccessSpecification(doc *som.SpecDocument, documentVersion string) (*SecurityAccessSpecification, error) {
-	if err := som.CheckSomModelVersion(SecurityAccessSpecificationModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &SecurityAccessSpecification{SomNode: som.NewSomNode(doc, "SAS")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *SecurityAccessSpecification) ObjectModelVersion() string {
-	return SecurityAccessSpecificationModelVersion
-}
-
-func (x *SecurityAccessSpecification) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SecurityAccessSpecification) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *SecurityAccessSpecification) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// User management.
-func (x *SecurityAccessSpecification) UserManagement() *UserManagement {
-	return NewUserManagement(x.Doc(), x.Path() + "/userManagement")
-}
-
-// Identification and authentication.
-func (x *SecurityAccessSpecification) IdentificationAndAuthentication() *IdentificationAndAuthentication {
-	return NewIdentificationAndAuthentication(x.Doc(), x.Path() + "/identificationAndAuthentication")
-}
-
-// Resource protection.
-func (x *SecurityAccessSpecification) ResourceProtection() *ResourceProtection {
-	return NewResourceProtection(x.Doc(), x.Path() + "/resourceProtection")
-}
-
-// User authorization.
-func (x *SecurityAccessSpecification) UserAuthorization() *UserAuthorization {
-	return NewUserAuthorization(x.Doc(), x.Path() + "/userAuthorization")
-}
-
-// Sensitive data encryption.
-func (x *SecurityAccessSpecification) SensitiveDataEncryption() *SensitiveDataEncryption {
-	return NewSensitiveDataEncryption(x.Doc(), x.Path() + "/sensitiveDataEncryption")
-}
-
-// Audit and logging.
-func (x *SecurityAccessSpecification) AuditAndLogging() *AuditAndLogging {
-	return NewAuditAndLogging(x.Doc(), x.Path() + "/auditAndLogging")
-}
-
-// Role matrix.
-func (x *SecurityAccessSpecification) RoleMatrix() *RoleMatrix {
-	return NewRoleMatrix(x.Doc(), x.Path() + "/roleMatrix")
-}
-
-// Compliance framework.
-func (x *SecurityAccessSpecification) ComplianceFramework() *ComplianceFramework {
-	return NewComplianceFramework(x.Doc(), x.Path() + "/complianceFramework")
-}
-
 // 9. Access and Authorization Concept. Seeds → AC.
 type SecurityAndAccessModel struct {
 	som.SomNode
@@ -53181,112 +53487,6 @@ func (x *SolutionArchitectureAndTechnology) TechnicalFramework() *TechnicalFrame
 // Components, libraries, and services to reuse.
 func (x *SolutionArchitectureAndTechnology) ComponentsToUse() *ComponentsToUse {
 	return NewComponentsToUse(x.Doc(), x.Path() + "/componentsToUse")
-}
-
-// The complete Solution Blueprint (SBP) document.
-//
-// Contains a [DocumentControl] header block and the SBP sections, sequenced
-// per the public-standards order (§4 of the redesign proposal).
-type SolutionBlueprint struct {
-	som.SomNode
-}
-
-// SolutionBlueprintModelVersion is the model version this object model was generated
-// against (§2.1).
-const SolutionBlueprintModelVersion = "0.0"
-
-// NewSolutionBlueprint creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewSolutionBlueprint(doc *som.SpecDocument, documentVersion string) (*SolutionBlueprint, error) {
-	if err := som.CheckSomModelVersion(SolutionBlueprintModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &SolutionBlueprint{SomNode: som.NewSomNode(doc, "SBP")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *SolutionBlueprint) ObjectModelVersion() string {
-	return SolutionBlueprintModelVersion
-}
-
-func (x *SolutionBlueprint) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SolutionBlueprint) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// SBP.1 Document Control (header + revision history + approvals).
-func (x *SolutionBlueprint) DocumentControl() *DocumentControl {
-	return NewDocumentControl(x.Doc(), x.Path() + "/documentControl")
-}
-
-// SBP.2 Introduction & Scope.
-func (x *SolutionBlueprint) IntroductionAndScope() *IntroductionAndScope {
-	return NewIntroductionAndScope(x.Doc(), x.Path() + "/introductionAndScope")
-}
-
-// SBP.3 Glossary & Abbreviations.
-func (x *SolutionBlueprint) GlossaryAndAbbreviations() *GlossaryAndAbbreviations {
-	return NewGlossaryAndAbbreviations(x.Doc(), x.Path() + "/glossaryAndAbbreviations")
-}
-
-// SBP.4 Stakeholders & Governance.
-func (x *SolutionBlueprint) StakeholdersAndGovernance() *StakeholdersAndGovernance {
-	return NewStakeholdersAndGovernance(x.Doc(), x.Path() + "/stakeholdersAndGovernance")
-}
-
-// SBP.5 Current Landscape. Seeds → CLA.
-func (x *SolutionBlueprint) CurrentLandscape() *CurrentLandscape {
-	return NewCurrentLandscape(x.Doc(), x.Path() + "/currentLandscape")
-}
-
-// SBP.6 Assumptions, Constraints & Dependencies.
-func (x *SolutionBlueprint) AssumptionsConstraintsDependencies() *AssumptionsConstraintsDependencies {
-	return NewAssumptionsConstraintsDependencies(x.Doc(), x.Path() + "/assumptionsConstraintsDependencies")
-}
-
-// SBP.7 Target Operating Model concept. Seeds → TOM.
-func (x *SolutionBlueprint) TargetOperatingModelConcept() *TargetOperatingModelConcept {
-	return NewTargetOperatingModelConcept(x.Doc(), x.Path() + "/targetOperatingModelConcept")
-}
-
-// SBP.8 Information & Data Model. Seeds → IFM.
-func (x *SolutionBlueprint) InformationAndDataModel() *InformationAndDataModel {
-	return NewInformationAndDataModel(x.Doc(), x.Path() + "/informationAndDataModel")
-}
-
-// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
-func (x *SolutionBlueprint) Requirements() *Requirements {
-	return NewRequirements(x.Doc(), x.Path() + "/requirements")
-}
-
-// SBP.11 Solution Architecture & Technology. Seeds → ATS.
-func (x *SolutionBlueprint) SolutionArchitectureAndTechnology() *SolutionArchitectureAndTechnology {
-	return NewSolutionArchitectureAndTechnology(x.Doc(), x.Path() + "/solutionArchitectureAndTechnology")
-}
-
-// SBP.12 Security & Access Model. Seeds → SAS.
-func (x *SolutionBlueprint) SecurityAndAccessModel() *SecurityAndAccessModel {
-	return NewSecurityAndAccessModel(x.Doc(), x.Path() + "/securityAndAccessModel")
-}
-
-// SBP.13 Experience & Interface Design. Seeds → XDS.
-func (x *SolutionBlueprint) ExperienceAndInterfaceDesign() *ExperienceAndInterfaceDesign {
-	return NewExperienceAndInterfaceDesign(x.Doc(), x.Path() + "/experienceAndInterfaceDesign")
-}
-
-// SBP.14 Quality & Acceptance Model. Seeds → QAP.
-func (x *SolutionBlueprint) QualityAndAcceptanceModel() *QualityAndAcceptanceModel {
-	return NewQualityAndAcceptanceModel(x.Doc(), x.Path() + "/qualityAndAcceptanceModel")
-}
-
-// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
-func (x *SolutionBlueprint) DeliveryTransitionAndRollout() *DeliveryTransitionAndRollout {
-	return NewDeliveryTransitionAndRollout(x.Doc(), x.Path() + "/deliveryTransitionAndRollout")
 }
 
 // Specialized equipment entry (form).
@@ -58391,102 +58591,6 @@ func (x *TargetBusinessProcessModel) ProcessStepsAndActorInteractions() *Process
 	return NewProcessStepsAndActorInteractions(x.Doc(), x.Path() + "/processStepsAndActorInteractions")
 }
 
-// BP00 Business Processes.
-//
-// Target business process specification — vision, principles, catalog,
-// diagrams, improvements, relationships, detailed workflows,
-// cross-process analysis, exception handling, and KPIs.
-type TargetOperatingModel struct {
-	som.SomNode
-}
-
-// TargetOperatingModelModelVersion is the model version this object model was generated
-// against (§2.1).
-const TargetOperatingModelModelVersion = "0.0"
-
-// NewTargetOperatingModel creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewTargetOperatingModel(doc *som.SpecDocument, documentVersion string) (*TargetOperatingModel, error) {
-	if err := som.CheckSomModelVersion(TargetOperatingModelModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &TargetOperatingModel{SomNode: som.NewSomNode(doc, "TOM")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *TargetOperatingModel) ObjectModelVersion() string {
-	return TargetOperatingModelModelVersion
-}
-
-func (x *TargetOperatingModel) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TargetOperatingModel) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *TargetOperatingModel) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Process vision.
-func (x *TargetOperatingModel) ProcessVision() *ProcessVision {
-	return NewProcessVision(x.Doc(), x.Path() + "/processVision")
-}
-
-// Design principles.
-func (x *TargetOperatingModel) DesignPrinciples() *ProcessDesignPrinciples {
-	return NewProcessDesignPrinciples(x.Doc(), x.Path() + "/designPrinciples")
-}
-
-// Process catalog.
-func (x *TargetOperatingModel) ProcessCatalog() *ProcessCatalog {
-	return NewProcessCatalog(x.Doc(), x.Path() + "/processCatalog")
-}
-
-// Process overview diagram.
-func (x *TargetOperatingModel) ProcessOverviewDiagram() *ProcessOverviewDiagram {
-	return NewProcessOverviewDiagram(x.Doc(), x.Path() + "/processOverviewDiagram")
-}
-
-// Improvement summary.
-func (x *TargetOperatingModel) ImprovementSummary() *ProcessImprovementSummary {
-	return NewProcessImprovementSummary(x.Doc(), x.Path() + "/improvementSummary")
-}
-
-// Process relationships.
-func (x *TargetOperatingModel) ProcessRelationships() *ProcessRelationships {
-	return NewProcessRelationships(x.Doc(), x.Path() + "/processRelationships")
-}
-
-// Detailed process workflows.
-func (x *TargetOperatingModel) DetailedWorkflows() *som.SomList[*DetailedProcessWorkflows] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DEPRWO-DETA-LST", func(d *som.SpecDocument, p string) *DetailedProcessWorkflows {
-		return NewDetailedProcessWorkflows(d, p)
-	})
-}
-
-// Cross-process analysis.
-func (x *TargetOperatingModel) CrossProcessAnalysis() *CrossProcessAnalysis {
-	return NewCrossProcessAnalysis(x.Doc(), x.Path() + "/crossProcessAnalysis")
-}
-
-// Process exception handling.
-func (x *TargetOperatingModel) ExceptionHandling() *ProcessExceptionHandling {
-	return NewProcessExceptionHandling(x.Doc(), x.Path() + "/exceptionHandling")
-}
-
-// Process metrics and KPIs.
-func (x *TargetOperatingModel) ProcessMetricsAndKpis() *som.SomList[*ProcessMetricsAndKpis] {
-	return som.NewSomList(x.Doc(), x.Path() + "/PMAK-PROC-LST", func(d *som.SpecDocument, p string) *ProcessMetricsAndKpis {
-		return NewProcessMetricsAndKpis(d, p)
-	})
-}
-
 // SBP.7 Target Operating Model concept.
 //
 // Public anchor: BABOK future-state analysis.
@@ -62051,110 +62155,6 @@ func NewTransitionRiskEntryResponse(doc *som.SpecDocument, path string) *Transit
 
 func (x *TransitionRiskEntryResponse) Content() *TransitionRiskEntryResponseContentForm {
 	return NewTransitionRiskEntryResponseContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// SR00 System Rollout.
-//
-// End-to-end rollout specification — localization, translation,
-// documentation and training, plus rollout plan, migration plan,
-// user manuals, training materials, pilot, cutover, knowledge
-// transfer, and warranty/support.
-type TransitionRolloutPlan struct {
-	som.SomNode
-}
-
-// TransitionRolloutPlanModelVersion is the model version this object model was generated
-// against (§2.1).
-const TransitionRolloutPlanModelVersion = "0.0"
-
-// NewTransitionRolloutPlan creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
-// stamp yields a *som.SomVersionError.
-func NewTransitionRolloutPlan(doc *som.SpecDocument, documentVersion string) (*TransitionRolloutPlan, error) {
-	if err := som.CheckSomModelVersion(TransitionRolloutPlanModelVersion, documentVersion); err != nil {
-		return nil, err
-	}
-	return &TransitionRolloutPlan{SomNode: som.NewSomNode(doc, "TRP")}, nil
-}
-
-// ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
-func (x *TransitionRolloutPlan) ObjectModelVersion() string {
-	return TransitionRolloutPlanModelVersion
-}
-
-func (x *TransitionRolloutPlan) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TransitionRolloutPlan) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Standard TomSpecs document header.
-func (x *TransitionRolloutPlan) Header() *DocumentHeader {
-	return NewDocumentHeader(x.Doc(), x.Path() + "/header")
-}
-
-// Localization process.
-func (x *TransitionRolloutPlan) LocalizationProcess() *LocalizationProcess {
-	return NewLocalizationProcess(x.Doc(), x.Path() + "/localizationProcess")
-}
-
-// Translation process.
-func (x *TransitionRolloutPlan) TranslationProcess() *TranslationProcess {
-	return NewTranslationProcess(x.Doc(), x.Path() + "/translationProcess")
-}
-
-// Documentation and training.
-func (x *TransitionRolloutPlan) DocumentationAndTraining() *DocumentationAndTraining {
-	return NewDocumentationAndTraining(x.Doc(), x.Path() + "/documentationAndTraining")
-}
-
-// Rollout plan.
-func (x *TransitionRolloutPlan) RolloutPlan() *RolloutPlan {
-	return NewRolloutPlan(x.Doc(), x.Path() + "/rolloutPlan")
-}
-
-// Migration plan.
-func (x *TransitionRolloutPlan) MigrationPlan() *MigrationPlan {
-	return NewMigrationPlan(x.Doc(), x.Path() + "/migrationPlan")
-}
-
-// User manuals.
-func (x *TransitionRolloutPlan) UserManuals() *som.SomList[*UserManuals] {
-	return som.NewSomList(x.Doc(), x.Path() + "/USRMAN-USER-LST", func(d *som.SpecDocument, p string) *UserManuals {
-		return NewUserManuals(d, p)
-	})
-}
-
-// Training materials.
-func (x *TransitionRolloutPlan) TrainingMaterials() *som.SomList[*RolloutTrainingMaterials] {
-	return som.NewSomList(x.Doc(), x.Path() + "/RLTTM-TRAI-LST", func(d *som.SpecDocument, p string) *RolloutTrainingMaterials {
-		return NewRolloutTrainingMaterials(d, p)
-	})
-}
-
-// Pilot plan.
-func (x *TransitionRolloutPlan) PilotPlan() *PilotPlan {
-	return NewPilotPlan(x.Doc(), x.Path() + "/pilotPlan")
-}
-
-// Cutover procedures.
-func (x *TransitionRolloutPlan) CutoverProcedures() *som.SomList[*CutoverProcedures] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CUTPRC-CUTO-LST", func(d *som.SpecDocument, p string) *CutoverProcedures {
-		return NewCutoverProcedures(d, p)
-	})
-}
-
-// Knowledge transfer.
-func (x *TransitionRolloutPlan) KnowledgeTransfer() *KnowledgeTransfer {
-	return NewKnowledgeTransfer(x.Doc(), x.Path() + "/knowledgeTransfer")
-}
-
-// Warranty and support.
-func (x *TransitionRolloutPlan) WarrantyAndSupport() *WarrantyAndSupport {
-	return NewWarrantyAndSupport(x.Doc(), x.Path() + "/warrantyAndSupport")
 }
 
 // Success metrics for the transition.

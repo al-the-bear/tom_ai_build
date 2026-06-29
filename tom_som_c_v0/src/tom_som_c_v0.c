@@ -3273,124 +3273,6 @@ SomList architecture_style_decision_records(const ArchitectureStyle *self) {
   return out;
 }
 
-int architecture_technology_specification_new(ArchitectureTechnologySpecification *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "ATS");
-  return 0;
-}
-const char *architecture_technology_specification_object_model_version(const ArchitectureTechnologySpecification *self) {
-  (void)self;
-  return ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION;
-}
-void architecture_technology_specification_free(ArchitectureTechnologySpecification *self) {
-  som_node_free(&self->node);
-}
-char *architecture_technology_specification_content(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void architecture_technology_specification_set_content(ArchitectureTechnologySpecification *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader architecture_technology_specification_header(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-BasicTechnicalRequirements architecture_technology_specification_basic_technical_requirements(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "basicTechnicalRequirements");
-  BasicTechnicalRequirements out;
-  basic_technical_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SoftwareDesignRequirements architecture_technology_specification_software_design_requirements(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "softwareDesignRequirements");
-  SoftwareDesignRequirements out;
-  software_design_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-StandardSoftwareRequirements architecture_technology_specification_standard_software_requirements(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "standardSoftwareRequirements");
-  StandardSoftwareRequirements out;
-  standard_software_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-HardwareRequirements architecture_technology_specification_hardware_requirements(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "hardwareRequirements");
-  HardwareRequirements out;
-  hardware_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-OperationsRequirements architecture_technology_specification_operations_requirements(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "operationsRequirements");
-  OperationsRequirements out;
-  operations_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-CommunicationRequirements architecture_technology_specification_communication_requirements(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "communicationRequirements");
-  CommunicationRequirements out;
-  communication_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SystemOperationAndMonitoring architecture_technology_specification_system_operation_and_monitoring(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "systemOperationAndMonitoring");
-  SystemOperationAndMonitoring out;
-  system_operation_and_monitoring_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-TechnicalSecurityRequirements architecture_technology_specification_technical_security_requirements(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "technicalSecurityRequirements");
-  TechnicalSecurityRequirements out;
-  technical_security_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SystemArchitectureSpec architecture_technology_specification_system_architecture(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "systemArchitecture");
-  SystemArchitectureSpec out;
-  system_architecture_spec_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ComponentsToUse architecture_technology_specification_components_to_use(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "componentsToUse");
-  ComponentsToUse out;
-  components_to_use_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-TechnicalFrameworkConditions architecture_technology_specification_technical_framework_conditions(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "technicalFrameworkConditions");
-  TechnicalFrameworkConditions out;
-  technical_framework_conditions_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-TranslationRequirements architecture_technology_specification_translation_requirements(const ArchitectureTechnologySpecification *self) {
-  char *path = spec_path_join(self->node.path, "translationRequirements");
-  TranslationRequirements out;
-  translation_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void assumption_constraint_register_init(AssumptionConstraintRegister *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -13703,96 +13585,6 @@ CurrentStateRiskAssessment current_landscape_current_state_risks(const CurrentLa
   return out;
 }
 
-int current_landscape_assessment_new(CurrentLandscapeAssessment *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "CLA");
-  return 0;
-}
-const char *current_landscape_assessment_object_model_version(const CurrentLandscapeAssessment *self) {
-  (void)self;
-  return CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION;
-}
-void current_landscape_assessment_free(CurrentLandscapeAssessment *self) {
-  som_node_free(&self->node);
-}
-char *current_landscape_assessment_content(const CurrentLandscapeAssessment *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void current_landscape_assessment_set_content(CurrentLandscapeAssessment *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader current_landscape_assessment_header(const CurrentLandscapeAssessment *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ExistingSystemsLandscape current_landscape_assessment_existing_systems_landscape(const CurrentLandscapeAssessment *self) {
-  char *path = spec_path_join(self->node.path, "existingSystemsLandscape");
-  ExistingSystemsLandscape out;
-  existing_systems_landscape_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-CurrentBusinessProcesses current_landscape_assessment_current_business_processes(const CurrentLandscapeAssessment *self) {
-  char *path = spec_path_join(self->node.path, "currentBusinessProcesses");
-  CurrentBusinessProcesses out;
-  current_business_processes_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-PainPointsAndGaps current_landscape_assessment_pain_points_and_gaps(const CurrentLandscapeAssessment *self) {
-  char *path = spec_path_join(self->node.path, "painPointsAndGaps");
-  PainPointsAndGaps out;
-  pain_points_and_gaps_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-CurrentDataLandscape current_landscape_assessment_current_data_landscape(const CurrentLandscapeAssessment *self) {
-  char *path = spec_path_join(self->node.path, "currentDataLandscape");
-  CurrentDataLandscape out;
-  current_data_landscape_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList current_landscape_assessment_operational_metrics(const CurrentLandscapeAssessment *self) {
-  char *path = spec_path_join(self->node.path, "CUOPME-OPER-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-CurrentStateRiskAssessment current_landscape_assessment_current_state_risks(const CurrentLandscapeAssessment *self) {
-  char *path = spec_path_join(self->node.path, "currentStateRisks");
-  CurrentStateRiskAssessment out;
-  current_state_risk_assessment_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ReplacementInventory current_landscape_assessment_replacement_inventory(const CurrentLandscapeAssessment *self) {
-  char *path = spec_path_join(self->node.path, "replacementInventory");
-  ReplacementInventory out;
-  replacement_inventory_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-MigrationConsiderations current_landscape_assessment_migration_considerations(const CurrentLandscapeAssessment *self) {
-  char *path = spec_path_join(self->node.path, "migrationConsiderations");
-  MigrationConsiderations out;
-  migration_considerations_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void current_operational_metrics_init(CurrentOperationalMetrics *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -14000,6 +13792,1370 @@ void cutover_procedures_set_content(CutoverProcedures *self, const char *value) 
   char *path = spec_path_join(self->node.path, "content");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
+}
+
+int d00_solution_blueprint_new(D00SolutionBlueprint *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D00_SOLUTION_BLUEPRINT_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "SBP");
+  return 0;
+}
+const char *d00_solution_blueprint_object_model_version(const D00SolutionBlueprint *self) {
+  (void)self;
+  return D00_SOLUTION_BLUEPRINT_MODEL_VERSION;
+}
+void d00_solution_blueprint_free(D00SolutionBlueprint *self) {
+  som_node_free(&self->node);
+}
+char *d00_solution_blueprint_content(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d00_solution_blueprint_set_content(D00SolutionBlueprint *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentControl d00_solution_blueprint_document_control(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "documentControl");
+  DocumentControl out;
+  document_control_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+IntroductionAndScope d00_solution_blueprint_introduction_and_scope(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "introductionAndScope");
+  IntroductionAndScope out;
+  introduction_and_scope_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+GlossaryAndAbbreviations d00_solution_blueprint_glossary_and_abbreviations(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "glossaryAndAbbreviations");
+  GlossaryAndAbbreviations out;
+  glossary_and_abbreviations_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+StakeholdersAndGovernance d00_solution_blueprint_stakeholders_and_governance(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "stakeholdersAndGovernance");
+  StakeholdersAndGovernance out;
+  stakeholders_and_governance_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+CurrentLandscape d00_solution_blueprint_current_landscape(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "currentLandscape");
+  CurrentLandscape out;
+  current_landscape_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AssumptionsConstraintsDependencies d00_solution_blueprint_assumptions_constraints_dependencies(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "assumptionsConstraintsDependencies");
+  AssumptionsConstraintsDependencies out;
+  assumptions_constraints_dependencies_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+TargetOperatingModelConcept d00_solution_blueprint_target_operating_model_concept(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "targetOperatingModelConcept");
+  TargetOperatingModelConcept out;
+  target_operating_model_concept_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+InformationAndDataModel d00_solution_blueprint_information_and_data_model(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "informationAndDataModel");
+  InformationAndDataModel out;
+  information_and_data_model_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Requirements d00_solution_blueprint_requirements(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "requirements");
+  Requirements out;
+  requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SolutionArchitectureAndTechnology d00_solution_blueprint_solution_architecture_and_technology(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "solutionArchitectureAndTechnology");
+  SolutionArchitectureAndTechnology out;
+  solution_architecture_and_technology_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SecurityAndAccessModel d00_solution_blueprint_security_and_access_model(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "securityAndAccessModel");
+  SecurityAndAccessModel out;
+  security_and_access_model_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ExperienceAndInterfaceDesign d00_solution_blueprint_experience_and_interface_design(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "experienceAndInterfaceDesign");
+  ExperienceAndInterfaceDesign out;
+  experience_and_interface_design_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+QualityAndAcceptanceModel d00_solution_blueprint_quality_and_acceptance_model(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "qualityAndAcceptanceModel");
+  QualityAndAcceptanceModel out;
+  quality_and_acceptance_model_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DeliveryTransitionAndRollout d00_solution_blueprint_delivery_transition_and_rollout(const D00SolutionBlueprint *self) {
+  char *path = spec_path_join(self->node.path, "deliveryTransitionAndRollout");
+  DeliveryTransitionAndRollout out;
+  delivery_transition_and_rollout_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d01_current_landscape_assessment_new(D01CurrentLandscapeAssessment *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "CLA");
+  return 0;
+}
+const char *d01_current_landscape_assessment_object_model_version(const D01CurrentLandscapeAssessment *self) {
+  (void)self;
+  return D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION;
+}
+void d01_current_landscape_assessment_free(D01CurrentLandscapeAssessment *self) {
+  som_node_free(&self->node);
+}
+char *d01_current_landscape_assessment_content(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d01_current_landscape_assessment_set_content(D01CurrentLandscapeAssessment *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d01_current_landscape_assessment_header(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ExistingSystemsLandscape d01_current_landscape_assessment_existing_systems_landscape(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "existingSystemsLandscape");
+  ExistingSystemsLandscape out;
+  existing_systems_landscape_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+CurrentBusinessProcesses d01_current_landscape_assessment_current_business_processes(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "currentBusinessProcesses");
+  CurrentBusinessProcesses out;
+  current_business_processes_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+PainPointsAndGaps d01_current_landscape_assessment_pain_points_and_gaps(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "painPointsAndGaps");
+  PainPointsAndGaps out;
+  pain_points_and_gaps_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+CurrentDataLandscape d01_current_landscape_assessment_current_data_landscape(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "currentDataLandscape");
+  CurrentDataLandscape out;
+  current_data_landscape_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d01_current_landscape_assessment_operational_metrics(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "CUOPME-OPER-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+CurrentStateRiskAssessment d01_current_landscape_assessment_current_state_risks(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "currentStateRisks");
+  CurrentStateRiskAssessment out;
+  current_state_risk_assessment_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReplacementInventory d01_current_landscape_assessment_replacement_inventory(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "replacementInventory");
+  ReplacementInventory out;
+  replacement_inventory_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+MigrationConsiderations d01_current_landscape_assessment_migration_considerations(const D01CurrentLandscapeAssessment *self) {
+  char *path = spec_path_join(self->node.path, "migrationConsiderations");
+  MigrationConsiderations out;
+  migration_considerations_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d02_target_operating_model_new(D02TargetOperatingModel *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D02_TARGET_OPERATING_MODEL_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "TOM");
+  return 0;
+}
+const char *d02_target_operating_model_object_model_version(const D02TargetOperatingModel *self) {
+  (void)self;
+  return D02_TARGET_OPERATING_MODEL_MODEL_VERSION;
+}
+void d02_target_operating_model_free(D02TargetOperatingModel *self) {
+  som_node_free(&self->node);
+}
+char *d02_target_operating_model_content(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d02_target_operating_model_set_content(D02TargetOperatingModel *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d02_target_operating_model_header(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ProcessVision d02_target_operating_model_process_vision(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "processVision");
+  ProcessVision out;
+  process_vision_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ProcessDesignPrinciples d02_target_operating_model_design_principles(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "designPrinciples");
+  ProcessDesignPrinciples out;
+  process_design_principles_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ProcessCatalog d02_target_operating_model_process_catalog(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "processCatalog");
+  ProcessCatalog out;
+  process_catalog_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ProcessOverviewDiagram d02_target_operating_model_process_overview_diagram(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "processOverviewDiagram");
+  ProcessOverviewDiagram out;
+  process_overview_diagram_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ProcessImprovementSummary d02_target_operating_model_improvement_summary(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "improvementSummary");
+  ProcessImprovementSummary out;
+  process_improvement_summary_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ProcessRelationships d02_target_operating_model_process_relationships(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "processRelationships");
+  ProcessRelationships out;
+  process_relationships_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d02_target_operating_model_detailed_workflows(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "DEPRWO-DETA-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+CrossProcessAnalysis d02_target_operating_model_cross_process_analysis(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "crossProcessAnalysis");
+  CrossProcessAnalysis out;
+  cross_process_analysis_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ProcessExceptionHandling d02_target_operating_model_exception_handling(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "exceptionHandling");
+  ProcessExceptionHandling out;
+  process_exception_handling_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d02_target_operating_model_process_metrics_and_kpis(const D02TargetOperatingModel *self) {
+  char *path = spec_path_join(self->node.path, "PMAK-PROC-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d03_information_model_new(D03InformationModel *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D03_INFORMATION_MODEL_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "IFM");
+  return 0;
+}
+const char *d03_information_model_object_model_version(const D03InformationModel *self) {
+  (void)self;
+  return D03_INFORMATION_MODEL_MODEL_VERSION;
+}
+void d03_information_model_free(D03InformationModel *self) {
+  som_node_free(&self->node);
+}
+char *d03_information_model_content(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d03_information_model_set_content(D03InformationModel *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d03_information_model_header(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d03_information_model_entities(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "DAENT-ENTI-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+EntityRelationships d03_information_model_entity_relationships(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "entityRelationships");
+  EntityRelationships out;
+  entity_relationships_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DataClassification d03_information_model_data_classification(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "dataClassification");
+  DataClassification out;
+  data_classification_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d03_information_model_object_catalog(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "BJOEN-OBJE-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d03_information_model_function_decomposition(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "FUNCT-FUNC-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d03_information_model_function_to_data_matrix(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "FNDMX-FUNC-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d03_information_model_business_rules(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "BIRU-BUSI-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DataDictionary d03_information_model_data_dictionary(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "dataDictionary");
+  DataDictionary out;
+  data_dictionary_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d03_information_model_validation_constraints(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "VACO-VALI-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d03_information_model_integrity_constraints(const D03InformationModel *self) {
+  char *path = spec_path_join(self->node.path, "INCO-INTE-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d04_requirements_specification_new(D04RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "RSP");
+  return 0;
+}
+const char *d04_requirements_specification_object_model_version(const D04RequirementsSpecification *self) {
+  (void)self;
+  return D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION;
+}
+void d04_requirements_specification_free(D04RequirementsSpecification *self) {
+  som_node_free(&self->node);
+}
+char *d04_requirements_specification_content(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d04_requirements_specification_set_content(D04RequirementsSpecification *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d04_requirements_specification_header(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+FunctionalRequirements d04_requirements_specification_functional_requirements(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "functionalRequirements");
+  FunctionalRequirements out;
+  functional_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+TechnicalRequirements d04_requirements_specification_technical_requirements(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "technicalRequirements");
+  TechnicalRequirements out;
+  technical_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SecurityRequirements d04_requirements_specification_security_requirements(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "securityRequirements");
+  SecurityRequirements out;
+  security_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+OrganizationalRequirements d04_requirements_specification_organizational_requirements(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "organizationalRequirements");
+  OrganizationalRequirements out;
+  organizational_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+char *d04_requirements_specification_traceability_matrix(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "traceabilityMatrix");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d04_requirements_specification_set_traceability_matrix(D04RequirementsSpecification *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "traceabilityMatrix");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+SomList d04_requirements_specification_requirement_relationships(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "RERE-REQU-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+RequirementCoverage d04_requirements_specification_requirement_coverage(const D04RequirementsSpecification *self) {
+  char *path = spec_path_join(self->node.path, "requirementCoverage");
+  RequirementCoverage out;
+  requirement_coverage_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d05_interaction_scenarios_new(D05InteractionScenarios *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D05_INTERACTION_SCENARIOS_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "ISC");
+  return 0;
+}
+const char *d05_interaction_scenarios_object_model_version(const D05InteractionScenarios *self) {
+  (void)self;
+  return D05_INTERACTION_SCENARIOS_MODEL_VERSION;
+}
+void d05_interaction_scenarios_free(D05InteractionScenarios *self) {
+  som_node_free(&self->node);
+}
+char *d05_interaction_scenarios_content(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d05_interaction_scenarios_set_content(D05InteractionScenarios *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d05_interaction_scenarios_header(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ProcessStepsOverview d05_interaction_scenarios_process_steps_overview(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "processStepsOverview");
+  ProcessStepsOverview out;
+  process_steps_overview_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ActorOverview d05_interaction_scenarios_actor_overview(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "actorOverview");
+  ActorOverview out;
+  actor_overview_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+InteractionCatalog d05_interaction_scenarios_interaction_catalog(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "interactionCatalog");
+  InteractionCatalog out;
+  interaction_catalog_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+KeyScenarios d05_interaction_scenarios_key_scenarios(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "keyScenarios");
+  KeyScenarios out;
+  key_scenarios_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ActorRelationshipDiagram d05_interaction_scenarios_actor_relationship_diagram(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "actorRelationshipDiagram");
+  ActorRelationshipDiagram out;
+  actor_relationship_diagram_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d05_interaction_scenarios_end_to_end_test_scenarios(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "ETETS-ENDT-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+UseCaseTraceability d05_interaction_scenarios_use_case_traceability(const D05InteractionScenarios *self) {
+  char *path = spec_path_join(self->node.path, "useCaseTraceability");
+  UseCaseTraceability out;
+  use_case_traceability_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d06_architecture_technology_specification_new(D06ArchitectureTechnologySpecification *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "ATS");
+  return 0;
+}
+const char *d06_architecture_technology_specification_object_model_version(const D06ArchitectureTechnologySpecification *self) {
+  (void)self;
+  return D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION;
+}
+void d06_architecture_technology_specification_free(D06ArchitectureTechnologySpecification *self) {
+  som_node_free(&self->node);
+}
+char *d06_architecture_technology_specification_content(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d06_architecture_technology_specification_set_content(D06ArchitectureTechnologySpecification *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d06_architecture_technology_specification_header(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+BasicTechnicalRequirements d06_architecture_technology_specification_basic_technical_requirements(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "basicTechnicalRequirements");
+  BasicTechnicalRequirements out;
+  basic_technical_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SoftwareDesignRequirements d06_architecture_technology_specification_software_design_requirements(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "softwareDesignRequirements");
+  SoftwareDesignRequirements out;
+  software_design_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+StandardSoftwareRequirements d06_architecture_technology_specification_standard_software_requirements(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "standardSoftwareRequirements");
+  StandardSoftwareRequirements out;
+  standard_software_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+HardwareRequirements d06_architecture_technology_specification_hardware_requirements(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "hardwareRequirements");
+  HardwareRequirements out;
+  hardware_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+OperationsRequirements d06_architecture_technology_specification_operations_requirements(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "operationsRequirements");
+  OperationsRequirements out;
+  operations_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+CommunicationRequirements d06_architecture_technology_specification_communication_requirements(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "communicationRequirements");
+  CommunicationRequirements out;
+  communication_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SystemOperationAndMonitoring d06_architecture_technology_specification_system_operation_and_monitoring(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "systemOperationAndMonitoring");
+  SystemOperationAndMonitoring out;
+  system_operation_and_monitoring_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+TechnicalSecurityRequirements d06_architecture_technology_specification_technical_security_requirements(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "technicalSecurityRequirements");
+  TechnicalSecurityRequirements out;
+  technical_security_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SystemArchitectureSpec d06_architecture_technology_specification_system_architecture(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "systemArchitecture");
+  SystemArchitectureSpec out;
+  system_architecture_spec_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ComponentsToUse d06_architecture_technology_specification_components_to_use(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "componentsToUse");
+  ComponentsToUse out;
+  components_to_use_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+TechnicalFrameworkConditions d06_architecture_technology_specification_technical_framework_conditions(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "technicalFrameworkConditions");
+  TechnicalFrameworkConditions out;
+  technical_framework_conditions_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+TranslationRequirements d06_architecture_technology_specification_translation_requirements(const D06ArchitectureTechnologySpecification *self) {
+  char *path = spec_path_join(self->node.path, "translationRequirements");
+  TranslationRequirements out;
+  translation_requirements_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d07_integration_interface_specification_new(D07IntegrationInterfaceSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "IIS");
+  return 0;
+}
+const char *d07_integration_interface_specification_object_model_version(const D07IntegrationInterfaceSpecification *self) {
+  (void)self;
+  return D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION;
+}
+void d07_integration_interface_specification_free(D07IntegrationInterfaceSpecification *self) {
+  som_node_free(&self->node);
+}
+char *d07_integration_interface_specification_content(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d07_integration_interface_specification_set_content(D07IntegrationInterfaceSpecification *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d07_integration_interface_specification_header(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ExternalInterfaces d07_integration_interface_specification_external_interfaces(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "externalInterfaces");
+  ExternalInterfaces out;
+  external_interfaces_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+OutOfScope d07_integration_interface_specification_out_of_scope(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "outOfScope");
+  OutOfScope out;
+  out_of_scope_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+BoundaryAssumptions d07_integration_interface_specification_boundary_assumptions(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "boundaryAssumptions");
+  BoundaryAssumptions out;
+  boundary_assumptions_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SystemLandscapeInventory d07_integration_interface_specification_system_inventory(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "systemInventory");
+  SystemLandscapeInventory out;
+  system_landscape_inventory_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d07_integration_interface_specification_interaction_patterns(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "BOINPA-INTE-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+InteractionTestingStrategy d07_integration_interface_specification_testing_strategy(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "testingStrategy");
+  InteractionTestingStrategy out;
+  interaction_testing_strategy_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+InteractionDependencyAnalysis d07_integration_interface_specification_dependency_analysis(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "dependencyAnalysis");
+  InteractionDependencyAnalysis out;
+  interaction_dependency_analysis_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d07_integration_interface_specification_migration_interactions(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "MIIN-MIGR-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d07_integration_interface_specification_operational_considerations(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "CBOC-OPER-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+CrossBoundaryErrorHandling d07_integration_interface_specification_cross_boundary_error_handling(const D07IntegrationInterfaceSpecification *self) {
+  char *path = spec_path_join(self->node.path, "crossBoundaryErrorHandling");
+  CrossBoundaryErrorHandling out;
+  cross_boundary_error_handling_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d08_security_access_specification_new(D08SecurityAccessSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "SAS");
+  return 0;
+}
+const char *d08_security_access_specification_object_model_version(const D08SecurityAccessSpecification *self) {
+  (void)self;
+  return D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION;
+}
+void d08_security_access_specification_free(D08SecurityAccessSpecification *self) {
+  som_node_free(&self->node);
+}
+char *d08_security_access_specification_content(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d08_security_access_specification_set_content(D08SecurityAccessSpecification *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d08_security_access_specification_header(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+UserManagement d08_security_access_specification_user_management(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "userManagement");
+  UserManagement out;
+  user_management_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+IdentificationAndAuthentication d08_security_access_specification_identification_and_authentication(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "identificationAndAuthentication");
+  IdentificationAndAuthentication out;
+  identification_and_authentication_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ResourceProtection d08_security_access_specification_resource_protection(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "resourceProtection");
+  ResourceProtection out;
+  resource_protection_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+UserAuthorization d08_security_access_specification_user_authorization(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "userAuthorization");
+  UserAuthorization out;
+  user_authorization_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SensitiveDataEncryption d08_security_access_specification_sensitive_data_encryption(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "sensitiveDataEncryption");
+  SensitiveDataEncryption out;
+  sensitive_data_encryption_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuditAndLogging d08_security_access_specification_audit_and_logging(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "auditAndLogging");
+  AuditAndLogging out;
+  audit_and_logging_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+RoleMatrix d08_security_access_specification_role_matrix(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "roleMatrix");
+  RoleMatrix out;
+  role_matrix_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ComplianceFramework d08_security_access_specification_compliance_framework(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "complianceFramework");
+  ComplianceFramework out;
+  compliance_framework_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d09_experience_design_specification_new(D09ExperienceDesignSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "XDS");
+  return 0;
+}
+const char *d09_experience_design_specification_object_model_version(const D09ExperienceDesignSpecification *self) {
+  (void)self;
+  return D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION;
+}
+void d09_experience_design_specification_free(D09ExperienceDesignSpecification *self) {
+  som_node_free(&self->node);
+}
+char *d09_experience_design_specification_content(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d09_experience_design_specification_set_content(D09ExperienceDesignSpecification *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d09_experience_design_specification_header(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DesignVision d09_experience_design_specification_design_vision(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "designVision");
+  DesignVision out;
+  design_vision_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ScreenDescriptions d09_experience_design_specification_screens(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "screens");
+  ScreenDescriptions out;
+  screen_descriptions_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ScreenFlowStructure d09_experience_design_specification_screen_flow(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "screenFlow");
+  ScreenFlowStructure out;
+  screen_flow_structure_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+PrintLayout d09_experience_design_specification_print_layout(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "printLayout");
+  PrintLayout out;
+  print_layout_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ErrorHandlingConcept d09_experience_design_specification_error_handling(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "errorHandling");
+  ErrorHandlingConcept out;
+  error_handling_concept_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+HelpConcept d09_experience_design_specification_help_concept(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "helpConcept");
+  HelpConcept out;
+  help_concept_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Accessibility d09_experience_design_specification_accessibility(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "accessibility");
+  Accessibility out;
+  accessibility_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ResponsiveDesign d09_experience_design_specification_responsive_design(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "responsiveDesign");
+  ResponsiveDesign out;
+  responsive_design_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+UiComponents d09_experience_design_specification_ui_components(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "uiComponents");
+  UiComponents out;
+  ui_components_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+LanguageCountrySelection d09_experience_design_specification_language_country_selection(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "languageCountrySelection");
+  LanguageCountrySelection out;
+  language_country_selection_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+Prototype d09_experience_design_specification_prototype(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "prototype");
+  Prototype out;
+  prototype_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d09_experience_design_specification_wireframes_and_mockups(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "WIANMO-WIRE-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d10_quality_acceptance_plan_new(D10QualityAcceptancePlan *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "QAP");
+  return 0;
+}
+const char *d10_quality_acceptance_plan_object_model_version(const D10QualityAcceptancePlan *self) {
+  (void)self;
+  return D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION;
+}
+void d10_quality_acceptance_plan_free(D10QualityAcceptancePlan *self) {
+  som_node_free(&self->node);
+}
+char *d10_quality_acceptance_plan_content(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d10_quality_acceptance_plan_set_content(D10QualityAcceptancePlan *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d10_quality_acceptance_plan_header(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+QualityFramework d10_quality_acceptance_plan_quality_framework(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "qualityFramework");
+  QualityFramework out;
+  quality_framework_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+UserQualityCriteria d10_quality_acceptance_plan_user_quality_criteria(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "userQualityCriteria");
+  UserQualityCriteria out;
+  user_quality_criteria_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+TechnicalQualityCriteria d10_quality_acceptance_plan_technical_quality_criteria(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "technicalQualityCriteria");
+  TechnicalQualityCriteria out;
+  technical_quality_criteria_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+OperationsQualityCriteria d10_quality_acceptance_plan_operations_quality_criteria(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "operationsQualityCriteria");
+  OperationsQualityCriteria out;
+  operations_quality_criteria_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DocumentationQualityCriteria d10_quality_acceptance_plan_documentation_quality_criteria(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "documentationQualityCriteria");
+  DocumentationQualityCriteria out;
+  documentation_quality_criteria_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+QualityPrioritization d10_quality_acceptance_plan_quality_prioritization(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "qualityPrioritization");
+  QualityPrioritization out;
+  quality_prioritization_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AcceptanceCriteriaSummary d10_quality_acceptance_plan_acceptance_criteria_summary(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "acceptanceCriteriaSummary");
+  AcceptanceCriteriaSummary out;
+  acceptance_criteria_summary_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+TestStrategy d10_quality_acceptance_plan_test_strategy(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "testStrategy");
+  TestStrategy out;
+  test_strategy_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AcceptanceCriteriaList d10_quality_acceptance_plan_acceptance_criteria(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "acceptanceCriteria");
+  AcceptanceCriteriaList out;
+  acceptance_criteria_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AcceptanceProcess d10_quality_acceptance_plan_acceptance_process(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "acceptanceProcess");
+  AcceptanceProcess out;
+  acceptance_process_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+UserAcceptanceTesting d10_quality_acceptance_plan_user_acceptance_testing(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "userAcceptanceTesting");
+  UserAcceptanceTesting out;
+  user_acceptance_testing_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DefectResolution d10_quality_acceptance_plan_defect_resolution(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "defectResolution");
+  DefectResolution out;
+  defect_resolution_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SignOffProcess d10_quality_acceptance_plan_sign_off_process(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "signOffProcess");
+  SignOffProcess out;
+  sign_off_process_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+WarrantyTerms d10_quality_acceptance_plan_warranty(const D10QualityAcceptancePlan *self) {
+  char *path = spec_path_join(self->node.path, "warranty");
+  WarrantyTerms out;
+  warranty_terms_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d11_delivery_roadmap_new(D11DeliveryRoadmap *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D11_DELIVERY_ROADMAP_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "DRM");
+  return 0;
+}
+const char *d11_delivery_roadmap_object_model_version(const D11DeliveryRoadmap *self) {
+  (void)self;
+  return D11_DELIVERY_ROADMAP_MODEL_VERSION;
+}
+void d11_delivery_roadmap_free(D11DeliveryRoadmap *self) {
+  som_node_free(&self->node);
+}
+char *d11_delivery_roadmap_content(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d11_delivery_roadmap_set_content(D11DeliveryRoadmap *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d11_delivery_roadmap_header(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+StagingStrategy d11_delivery_roadmap_staging_strategy(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "stagingStrategy");
+  StagingStrategy out;
+  staging_strategy_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+StageOverview d11_delivery_roadmap_stage_overview(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "stageOverview");
+  StageOverview out;
+  stage_overview_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d11_delivery_roadmap_stages(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "STAGE-STAG-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+FeaturePrioritization d11_delivery_roadmap_feature_prioritization(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "featurePrioritization");
+  FeaturePrioritization out;
+  feature_prioritization_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DataMigrationStrategy d11_delivery_roadmap_data_migration_strategy(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "dataMigrationStrategy");
+  DataMigrationStrategy out;
+  data_migration_strategy_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+PhaseGateReviews d11_delivery_roadmap_gate_criteria(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "gateCriteria");
+  PhaseGateReviews out;
+  phase_gate_reviews_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DecisionPoints d11_delivery_roadmap_decision_processes(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "decisionProcesses");
+  DecisionPoints out;
+  decision_points_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+InitialDevelopmentFlow d11_delivery_roadmap_initial_development_flow(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "initialDevelopmentFlow");
+  InitialDevelopmentFlow out;
+  initial_development_flow_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+UpgradeCycleFramework d11_delivery_roadmap_upgrade_cycle_framework(const D11DeliveryRoadmap *self) {
+  char *path = spec_path_join(self->node.path, "upgradeCycleFramework");
+  UpgradeCycleFramework out;
+  upgrade_cycle_framework_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+int d12_transition_rollout_plan_new(D12TransitionRolloutPlan *self, SpecDocument *doc, const char *document_version, char **err) {
+  if (check_som_model_version(D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION, document_version, err) != 0) {
+    return 1;
+  }
+  som_node_init(&self->node, doc, "TRP");
+  return 0;
+}
+const char *d12_transition_rollout_plan_object_model_version(const D12TransitionRolloutPlan *self) {
+  (void)self;
+  return D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION;
+}
+void d12_transition_rollout_plan_free(D12TransitionRolloutPlan *self) {
+  som_node_free(&self->node);
+}
+char *d12_transition_rollout_plan_content(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void d12_transition_rollout_plan_set_content(D12TransitionRolloutPlan *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+DocumentHeader d12_transition_rollout_plan_header(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "header");
+  DocumentHeader out;
+  document_header_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+LocalizationProcess d12_transition_rollout_plan_localization_process(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "localizationProcess");
+  LocalizationProcess out;
+  localization_process_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+TranslationProcess d12_transition_rollout_plan_translation_process(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "translationProcess");
+  TranslationProcess out;
+  translation_process_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DocumentationAndTraining d12_transition_rollout_plan_documentation_and_training(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "documentationAndTraining");
+  DocumentationAndTraining out;
+  documentation_and_training_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+RolloutPlan d12_transition_rollout_plan_rollout_plan(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "rolloutPlan");
+  RolloutPlan out;
+  rollout_plan_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+MigrationPlan d12_transition_rollout_plan_migration_plan(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "migrationPlan");
+  MigrationPlan out;
+  migration_plan_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d12_transition_rollout_plan_user_manuals(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "USRMAN-USER-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d12_transition_rollout_plan_training_materials(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "RLTTM-TRAI-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+PilotPlan d12_transition_rollout_plan_pilot_plan(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "pilotPlan");
+  PilotPlan out;
+  pilot_plan_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList d12_transition_rollout_plan_cutover_procedures(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "CUTPRC-CUTO-LST");
+  SomList out;
+  som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+KnowledgeTransfer d12_transition_rollout_plan_knowledge_transfer(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "knowledgeTransfer");
+  KnowledgeTransfer out;
+  knowledge_transfer_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+WarrantyAndSupport d12_transition_rollout_plan_warranty_and_support(const D12TransitionRolloutPlan *self) {
+  char *path = spec_path_join(self->node.path, "warrantyAndSupport");
+  WarrantyAndSupport out;
+  warranty_and_support_init(&out, self->node.doc, path);
+  free(path);
+  return out;
 }
 
 void dashboard_entry_init(DashboardEntry *self, SpecDocument *doc, const char *path) {
@@ -17691,103 +18847,6 @@ DeliveryAcceptanceCriterionEntryVerificationContentForm delivery_acceptance_crit
   char *path = spec_path_join(self->node.path, "content");
   DeliveryAcceptanceCriterionEntryVerificationContentForm out;
   delivery_acceptance_criterion_entry_verification_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-int delivery_roadmap_new(DeliveryRoadmap *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(DELIVERY_ROADMAP_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "DRM");
-  return 0;
-}
-const char *delivery_roadmap_object_model_version(const DeliveryRoadmap *self) {
-  (void)self;
-  return DELIVERY_ROADMAP_MODEL_VERSION;
-}
-void delivery_roadmap_free(DeliveryRoadmap *self) {
-  som_node_free(&self->node);
-}
-char *delivery_roadmap_content(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void delivery_roadmap_set_content(DeliveryRoadmap *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader delivery_roadmap_header(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-StagingStrategy delivery_roadmap_staging_strategy(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "stagingStrategy");
-  StagingStrategy out;
-  staging_strategy_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-StageOverview delivery_roadmap_stage_overview(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "stageOverview");
-  StageOverview out;
-  stage_overview_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList delivery_roadmap_stages(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "STAGE-STAG-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-FeaturePrioritization delivery_roadmap_feature_prioritization(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "featurePrioritization");
-  FeaturePrioritization out;
-  feature_prioritization_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DataMigrationStrategy delivery_roadmap_data_migration_strategy(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "dataMigrationStrategy");
-  DataMigrationStrategy out;
-  data_migration_strategy_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-PhaseGateReviews delivery_roadmap_gate_criteria(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "gateCriteria");
-  PhaseGateReviews out;
-  phase_gate_reviews_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DecisionPoints delivery_roadmap_decision_processes(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "decisionProcesses");
-  DecisionPoints out;
-  decision_points_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-InitialDevelopmentFlow delivery_roadmap_initial_development_flow(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "initialDevelopmentFlow");
-  InitialDevelopmentFlow out;
-  initial_development_flow_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-UpgradeCycleFramework delivery_roadmap_upgrade_cycle_framework(const DeliveryRoadmap *self) {
-  char *path = spec_path_join(self->node.path, "upgradeCycleFramework");
-  UpgradeCycleFramework out;
-  upgrade_cycle_framework_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -23761,124 +24820,6 @@ SomList experience_and_interface_design_wireframes_and_mockups(const ExperienceA
   return out;
 }
 
-int experience_design_specification_new(ExperienceDesignSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "XDS");
-  return 0;
-}
-const char *experience_design_specification_object_model_version(const ExperienceDesignSpecification *self) {
-  (void)self;
-  return EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION;
-}
-void experience_design_specification_free(ExperienceDesignSpecification *self) {
-  som_node_free(&self->node);
-}
-char *experience_design_specification_content(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void experience_design_specification_set_content(ExperienceDesignSpecification *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader experience_design_specification_header(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DesignVision experience_design_specification_design_vision(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "designVision");
-  DesignVision out;
-  design_vision_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ScreenDescriptions experience_design_specification_screens(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "screens");
-  ScreenDescriptions out;
-  screen_descriptions_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ScreenFlowStructure experience_design_specification_screen_flow(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "screenFlow");
-  ScreenFlowStructure out;
-  screen_flow_structure_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-PrintLayout experience_design_specification_print_layout(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "printLayout");
-  PrintLayout out;
-  print_layout_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ErrorHandlingConcept experience_design_specification_error_handling(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "errorHandling");
-  ErrorHandlingConcept out;
-  error_handling_concept_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-HelpConcept experience_design_specification_help_concept(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "helpConcept");
-  HelpConcept out;
-  help_concept_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-Accessibility experience_design_specification_accessibility(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "accessibility");
-  Accessibility out;
-  accessibility_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ResponsiveDesign experience_design_specification_responsive_design(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "responsiveDesign");
-  ResponsiveDesign out;
-  responsive_design_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-UiComponents experience_design_specification_ui_components(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "uiComponents");
-  UiComponents out;
-  ui_components_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-LanguageCountrySelection experience_design_specification_language_country_selection(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "languageCountrySelection");
-  LanguageCountrySelection out;
-  language_country_selection_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-Prototype experience_design_specification_prototype(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "prototype");
-  Prototype out;
-  prototype_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList experience_design_specification_wireframes_and_mockups(const ExperienceDesignSpecification *self) {
-  char *path = spec_path_join(self->node.path, "WIANMO-WIRE-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void export_access_init(ExportAccess *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -28911,110 +29852,6 @@ DocumentationAndTraining information_for_use_requirements_documentation_and_trai
   return out;
 }
 
-int information_model_new(InformationModel *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(INFORMATION_MODEL_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "IFM");
-  return 0;
-}
-const char *information_model_object_model_version(const InformationModel *self) {
-  (void)self;
-  return INFORMATION_MODEL_MODEL_VERSION;
-}
-void information_model_free(InformationModel *self) {
-  som_node_free(&self->node);
-}
-char *information_model_content(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void information_model_set_content(InformationModel *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader information_model_header(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList information_model_entities(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "DAENT-ENTI-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-EntityRelationships information_model_entity_relationships(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "entityRelationships");
-  EntityRelationships out;
-  entity_relationships_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DataClassification information_model_data_classification(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "dataClassification");
-  DataClassification out;
-  data_classification_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList information_model_object_catalog(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "BJOEN-OBJE-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList information_model_function_decomposition(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "FUNCT-FUNC-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList information_model_function_to_data_matrix(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "FNDMX-FUNC-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList information_model_business_rules(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "BIRU-BUSI-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DataDictionary information_model_data_dictionary(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "dataDictionary");
-  DataDictionary out;
-  data_dictionary_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList information_model_validation_constraints(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "VACO-VALI-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList information_model_integrity_constraints(const InformationModel *self) {
-  char *path = spec_path_join(self->node.path, "INCO-INTE-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void infrastructure_as_code_init(InfrastructureAsCode *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -29837,110 +30674,6 @@ SomList integration_health_summary_fragile_points(const IntegrationHealthSummary
   return out;
 }
 
-int integration_interface_specification_new(IntegrationInterfaceSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "IIS");
-  return 0;
-}
-const char *integration_interface_specification_object_model_version(const IntegrationInterfaceSpecification *self) {
-  (void)self;
-  return INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION;
-}
-void integration_interface_specification_free(IntegrationInterfaceSpecification *self) {
-  som_node_free(&self->node);
-}
-char *integration_interface_specification_content(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void integration_interface_specification_set_content(IntegrationInterfaceSpecification *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader integration_interface_specification_header(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ExternalInterfaces integration_interface_specification_external_interfaces(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "externalInterfaces");
-  ExternalInterfaces out;
-  external_interfaces_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-OutOfScope integration_interface_specification_out_of_scope(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "outOfScope");
-  OutOfScope out;
-  out_of_scope_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-BoundaryAssumptions integration_interface_specification_boundary_assumptions(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "boundaryAssumptions");
-  BoundaryAssumptions out;
-  boundary_assumptions_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SystemLandscapeInventory integration_interface_specification_system_inventory(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "systemInventory");
-  SystemLandscapeInventory out;
-  system_landscape_inventory_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList integration_interface_specification_interaction_patterns(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "BOINPA-INTE-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-InteractionTestingStrategy integration_interface_specification_testing_strategy(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "testingStrategy");
-  InteractionTestingStrategy out;
-  interaction_testing_strategy_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-InteractionDependencyAnalysis integration_interface_specification_dependency_analysis(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "dependencyAnalysis");
-  InteractionDependencyAnalysis out;
-  interaction_dependency_analysis_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList integration_interface_specification_migration_interactions(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "MIIN-MIGR-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList integration_interface_specification_operational_considerations(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "CBOC-OPER-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-CrossBoundaryErrorHandling integration_interface_specification_cross_boundary_error_handling(const IntegrationInterfaceSpecification *self) {
-  char *path = spec_path_join(self->node.path, "crossBoundaryErrorHandling");
-  CrossBoundaryErrorHandling out;
-  cross_boundary_error_handling_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void integration_pattern_entry_init(IntegrationPatternEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -30520,89 +31253,6 @@ void interaction_scenario_entry_set_content(InteractionScenarioEntry *self, cons
   char *path = spec_path_join(self->node.path, "content");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
-}
-
-int interaction_scenarios_new(InteractionScenarios *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(INTERACTION_SCENARIOS_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "ISC");
-  return 0;
-}
-const char *interaction_scenarios_object_model_version(const InteractionScenarios *self) {
-  (void)self;
-  return INTERACTION_SCENARIOS_MODEL_VERSION;
-}
-void interaction_scenarios_free(InteractionScenarios *self) {
-  som_node_free(&self->node);
-}
-char *interaction_scenarios_content(const InteractionScenarios *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void interaction_scenarios_set_content(InteractionScenarios *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader interaction_scenarios_header(const InteractionScenarios *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ProcessStepsOverview interaction_scenarios_process_steps_overview(const InteractionScenarios *self) {
-  char *path = spec_path_join(self->node.path, "processStepsOverview");
-  ProcessStepsOverview out;
-  process_steps_overview_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ActorOverview interaction_scenarios_actor_overview(const InteractionScenarios *self) {
-  char *path = spec_path_join(self->node.path, "actorOverview");
-  ActorOverview out;
-  actor_overview_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-InteractionCatalog interaction_scenarios_interaction_catalog(const InteractionScenarios *self) {
-  char *path = spec_path_join(self->node.path, "interactionCatalog");
-  InteractionCatalog out;
-  interaction_catalog_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-KeyScenarios interaction_scenarios_key_scenarios(const InteractionScenarios *self) {
-  char *path = spec_path_join(self->node.path, "keyScenarios");
-  KeyScenarios out;
-  key_scenarios_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ActorRelationshipDiagram interaction_scenarios_actor_relationship_diagram(const InteractionScenarios *self) {
-  char *path = spec_path_join(self->node.path, "actorRelationshipDiagram");
-  ActorRelationshipDiagram out;
-  actor_relationship_diagram_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList interaction_scenarios_end_to_end_test_scenarios(const InteractionScenarios *self) {
-  char *path = spec_path_join(self->node.path, "ETETS-ENDT-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-UseCaseTraceability interaction_scenarios_use_case_traceability(const InteractionScenarios *self) {
-  char *path = spec_path_join(self->node.path, "useCaseTraceability");
-  UseCaseTraceability out;
-  use_case_traceability_init(&out, self->node.doc, path);
-  free(path);
-  return out;
 }
 
 void interaction_security_init(InteractionSecurity *self, SpecDocument *doc, const char *path) {
@@ -44373,138 +45023,6 @@ PwaRequirementsUpdatesContentForm pwa_requirements_updates_content(const PwaRequ
   return out;
 }
 
-int quality_acceptance_plan_new(QualityAcceptancePlan *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "QAP");
-  return 0;
-}
-const char *quality_acceptance_plan_object_model_version(const QualityAcceptancePlan *self) {
-  (void)self;
-  return QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION;
-}
-void quality_acceptance_plan_free(QualityAcceptancePlan *self) {
-  som_node_free(&self->node);
-}
-char *quality_acceptance_plan_content(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void quality_acceptance_plan_set_content(QualityAcceptancePlan *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader quality_acceptance_plan_header(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-QualityFramework quality_acceptance_plan_quality_framework(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "qualityFramework");
-  QualityFramework out;
-  quality_framework_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-UserQualityCriteria quality_acceptance_plan_user_quality_criteria(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "userQualityCriteria");
-  UserQualityCriteria out;
-  user_quality_criteria_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-TechnicalQualityCriteria quality_acceptance_plan_technical_quality_criteria(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "technicalQualityCriteria");
-  TechnicalQualityCriteria out;
-  technical_quality_criteria_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-OperationsQualityCriteria quality_acceptance_plan_operations_quality_criteria(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "operationsQualityCriteria");
-  OperationsQualityCriteria out;
-  operations_quality_criteria_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DocumentationQualityCriteria quality_acceptance_plan_documentation_quality_criteria(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "documentationQualityCriteria");
-  DocumentationQualityCriteria out;
-  documentation_quality_criteria_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-QualityPrioritization quality_acceptance_plan_quality_prioritization(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "qualityPrioritization");
-  QualityPrioritization out;
-  quality_prioritization_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-AcceptanceCriteriaSummary quality_acceptance_plan_acceptance_criteria_summary(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "acceptanceCriteriaSummary");
-  AcceptanceCriteriaSummary out;
-  acceptance_criteria_summary_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-TestStrategy quality_acceptance_plan_test_strategy(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "testStrategy");
-  TestStrategy out;
-  test_strategy_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-AcceptanceCriteriaList quality_acceptance_plan_acceptance_criteria(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "acceptanceCriteria");
-  AcceptanceCriteriaList out;
-  acceptance_criteria_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-AcceptanceProcess quality_acceptance_plan_acceptance_process(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "acceptanceProcess");
-  AcceptanceProcess out;
-  acceptance_process_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-UserAcceptanceTesting quality_acceptance_plan_user_acceptance_testing(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "userAcceptanceTesting");
-  UserAcceptanceTesting out;
-  user_acceptance_testing_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DefectResolution quality_acceptance_plan_defect_resolution(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "defectResolution");
-  DefectResolution out;
-  defect_resolution_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SignOffProcess quality_acceptance_plan_sign_off_process(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "signOffProcess");
-  SignOffProcess out;
-  sign_off_process_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-WarrantyTerms quality_acceptance_plan_warranty(const QualityAcceptancePlan *self) {
-  char *path = spec_path_join(self->node.path, "warranty");
-  WarrantyTerms out;
-  warranty_terms_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void quality_and_acceptance_model_init(QualityAndAcceptanceModel *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -47802,94 +48320,6 @@ SomList requirements_overview_requirement_relationships(const RequirementsOvervi
   return out;
 }
 RequirementCoverage requirements_overview_requirement_coverage(const RequirementsOverview *self) {
-  char *path = spec_path_join(self->node.path, "requirementCoverage");
-  RequirementCoverage out;
-  requirement_coverage_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-int requirements_specification_new(RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(REQUIREMENTS_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "RSP");
-  return 0;
-}
-const char *requirements_specification_object_model_version(const RequirementsSpecification *self) {
-  (void)self;
-  return REQUIREMENTS_SPECIFICATION_MODEL_VERSION;
-}
-void requirements_specification_free(RequirementsSpecification *self) {
-  som_node_free(&self->node);
-}
-char *requirements_specification_content(const RequirementsSpecification *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void requirements_specification_set_content(RequirementsSpecification *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader requirements_specification_header(const RequirementsSpecification *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-FunctionalRequirements requirements_specification_functional_requirements(const RequirementsSpecification *self) {
-  char *path = spec_path_join(self->node.path, "functionalRequirements");
-  FunctionalRequirements out;
-  functional_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-TechnicalRequirements requirements_specification_technical_requirements(const RequirementsSpecification *self) {
-  char *path = spec_path_join(self->node.path, "technicalRequirements");
-  TechnicalRequirements out;
-  technical_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SecurityRequirements requirements_specification_security_requirements(const RequirementsSpecification *self) {
-  char *path = spec_path_join(self->node.path, "securityRequirements");
-  SecurityRequirements out;
-  security_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-OrganizationalRequirements requirements_specification_organizational_requirements(const RequirementsSpecification *self) {
-  char *path = spec_path_join(self->node.path, "organizationalRequirements");
-  OrganizationalRequirements out;
-  organizational_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-char *requirements_specification_traceability_matrix(const RequirementsSpecification *self) {
-  char *path = spec_path_join(self->node.path, "traceabilityMatrix");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void requirements_specification_set_traceability_matrix(RequirementsSpecification *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "traceabilityMatrix");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-SomList requirements_specification_requirement_relationships(const RequirementsSpecification *self) {
-  char *path = spec_path_join(self->node.path, "RERE-REQU-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-RequirementCoverage requirements_specification_requirement_coverage(const RequirementsSpecification *self) {
   char *path = spec_path_join(self->node.path, "requirementCoverage");
   RequirementCoverage out;
   requirement_coverage_init(&out, self->node.doc, path);
@@ -52131,96 +52561,6 @@ SomList secondary_navigation_tab_bars(const SecondaryNavigation *self) {
   return out;
 }
 
-int security_access_specification_new(SecurityAccessSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "SAS");
-  return 0;
-}
-const char *security_access_specification_object_model_version(const SecurityAccessSpecification *self) {
-  (void)self;
-  return SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION;
-}
-void security_access_specification_free(SecurityAccessSpecification *self) {
-  som_node_free(&self->node);
-}
-char *security_access_specification_content(const SecurityAccessSpecification *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void security_access_specification_set_content(SecurityAccessSpecification *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader security_access_specification_header(const SecurityAccessSpecification *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-UserManagement security_access_specification_user_management(const SecurityAccessSpecification *self) {
-  char *path = spec_path_join(self->node.path, "userManagement");
-  UserManagement out;
-  user_management_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-IdentificationAndAuthentication security_access_specification_identification_and_authentication(const SecurityAccessSpecification *self) {
-  char *path = spec_path_join(self->node.path, "identificationAndAuthentication");
-  IdentificationAndAuthentication out;
-  identification_and_authentication_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ResourceProtection security_access_specification_resource_protection(const SecurityAccessSpecification *self) {
-  char *path = spec_path_join(self->node.path, "resourceProtection");
-  ResourceProtection out;
-  resource_protection_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-UserAuthorization security_access_specification_user_authorization(const SecurityAccessSpecification *self) {
-  char *path = spec_path_join(self->node.path, "userAuthorization");
-  UserAuthorization out;
-  user_authorization_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SensitiveDataEncryption security_access_specification_sensitive_data_encryption(const SecurityAccessSpecification *self) {
-  char *path = spec_path_join(self->node.path, "sensitiveDataEncryption");
-  SensitiveDataEncryption out;
-  sensitive_data_encryption_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-AuditAndLogging security_access_specification_audit_and_logging(const SecurityAccessSpecification *self) {
-  char *path = spec_path_join(self->node.path, "auditAndLogging");
-  AuditAndLogging out;
-  audit_and_logging_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-RoleMatrix security_access_specification_role_matrix(const SecurityAccessSpecification *self) {
-  char *path = spec_path_join(self->node.path, "roleMatrix");
-  RoleMatrix out;
-  role_matrix_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ComplianceFramework security_access_specification_compliance_framework(const SecurityAccessSpecification *self) {
-  char *path = spec_path_join(self->node.path, "complianceFramework");
-  ComplianceFramework out;
-  compliance_framework_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void security_and_access_model_init(SecurityAndAccessModel *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -55524,131 +55864,6 @@ ComponentsToUse solution_architecture_and_technology_components_to_use(const Sol
   char *path = spec_path_join(self->node.path, "componentsToUse");
   ComponentsToUse out;
   components_to_use_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-int solution_blueprint_new(SolutionBlueprint *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(SOLUTION_BLUEPRINT_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "SBP");
-  return 0;
-}
-const char *solution_blueprint_object_model_version(const SolutionBlueprint *self) {
-  (void)self;
-  return SOLUTION_BLUEPRINT_MODEL_VERSION;
-}
-void solution_blueprint_free(SolutionBlueprint *self) {
-  som_node_free(&self->node);
-}
-char *solution_blueprint_content(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void solution_blueprint_set_content(SolutionBlueprint *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentControl solution_blueprint_document_control(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "documentControl");
-  DocumentControl out;
-  document_control_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-IntroductionAndScope solution_blueprint_introduction_and_scope(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "introductionAndScope");
-  IntroductionAndScope out;
-  introduction_and_scope_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-GlossaryAndAbbreviations solution_blueprint_glossary_and_abbreviations(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "glossaryAndAbbreviations");
-  GlossaryAndAbbreviations out;
-  glossary_and_abbreviations_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-StakeholdersAndGovernance solution_blueprint_stakeholders_and_governance(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "stakeholdersAndGovernance");
-  StakeholdersAndGovernance out;
-  stakeholders_and_governance_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-CurrentLandscape solution_blueprint_current_landscape(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "currentLandscape");
-  CurrentLandscape out;
-  current_landscape_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-AssumptionsConstraintsDependencies solution_blueprint_assumptions_constraints_dependencies(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "assumptionsConstraintsDependencies");
-  AssumptionsConstraintsDependencies out;
-  assumptions_constraints_dependencies_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-TargetOperatingModelConcept solution_blueprint_target_operating_model_concept(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "targetOperatingModelConcept");
-  TargetOperatingModelConcept out;
-  target_operating_model_concept_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-InformationAndDataModel solution_blueprint_information_and_data_model(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "informationAndDataModel");
-  InformationAndDataModel out;
-  information_and_data_model_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-Requirements solution_blueprint_requirements(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "requirements");
-  Requirements out;
-  requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SolutionArchitectureAndTechnology solution_blueprint_solution_architecture_and_technology(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "solutionArchitectureAndTechnology");
-  SolutionArchitectureAndTechnology out;
-  solution_architecture_and_technology_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SecurityAndAccessModel solution_blueprint_security_and_access_model(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "securityAndAccessModel");
-  SecurityAndAccessModel out;
-  security_and_access_model_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ExperienceAndInterfaceDesign solution_blueprint_experience_and_interface_design(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "experienceAndInterfaceDesign");
-  ExperienceAndInterfaceDesign out;
-  experience_and_interface_design_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-QualityAndAcceptanceModel solution_blueprint_quality_and_acceptance_model(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "qualityAndAcceptanceModel");
-  QualityAndAcceptanceModel out;
-  quality_and_acceptance_model_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DeliveryTransitionAndRollout solution_blueprint_delivery_transition_and_rollout(const SolutionBlueprint *self) {
-  char *path = spec_path_join(self->node.path, "deliveryTransitionAndRollout");
-  DeliveryTransitionAndRollout out;
-  delivery_transition_and_rollout_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -60990,110 +61205,6 @@ ProcessStepsAndActorInteractions target_business_process_model_process_steps_and
   return out;
 }
 
-int target_operating_model_new(TargetOperatingModel *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(TARGET_OPERATING_MODEL_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "TOM");
-  return 0;
-}
-const char *target_operating_model_object_model_version(const TargetOperatingModel *self) {
-  (void)self;
-  return TARGET_OPERATING_MODEL_MODEL_VERSION;
-}
-void target_operating_model_free(TargetOperatingModel *self) {
-  som_node_free(&self->node);
-}
-char *target_operating_model_content(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void target_operating_model_set_content(TargetOperatingModel *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader target_operating_model_header(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ProcessVision target_operating_model_process_vision(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "processVision");
-  ProcessVision out;
-  process_vision_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ProcessDesignPrinciples target_operating_model_design_principles(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "designPrinciples");
-  ProcessDesignPrinciples out;
-  process_design_principles_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ProcessCatalog target_operating_model_process_catalog(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "processCatalog");
-  ProcessCatalog out;
-  process_catalog_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ProcessOverviewDiagram target_operating_model_process_overview_diagram(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "processOverviewDiagram");
-  ProcessOverviewDiagram out;
-  process_overview_diagram_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ProcessImprovementSummary target_operating_model_improvement_summary(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "improvementSummary");
-  ProcessImprovementSummary out;
-  process_improvement_summary_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ProcessRelationships target_operating_model_process_relationships(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "processRelationships");
-  ProcessRelationships out;
-  process_relationships_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList target_operating_model_detailed_workflows(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "DEPRWO-DETA-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-CrossProcessAnalysis target_operating_model_cross_process_analysis(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "crossProcessAnalysis");
-  CrossProcessAnalysis out;
-  cross_process_analysis_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ProcessExceptionHandling target_operating_model_exception_handling(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "exceptionHandling");
-  ProcessExceptionHandling out;
-  process_exception_handling_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList target_operating_model_process_metrics_and_kpis(const TargetOperatingModel *self) {
-  char *path = spec_path_join(self->node.path, "PMAK-PROC-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void target_operating_model_concept_init(TargetOperatingModelConcept *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -64781,117 +64892,6 @@ TransitionRiskEntryResponseContentForm transition_risk_entry_response_content(co
   char *path = spec_path_join(self->node.path, "content");
   TransitionRiskEntryResponseContentForm out;
   transition_risk_entry_response_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-int transition_rollout_plan_new(TransitionRolloutPlan *self, SpecDocument *doc, const char *document_version, char **err) {
-  if (check_som_model_version(TRANSITION_ROLLOUT_PLAN_MODEL_VERSION, document_version, err) != 0) {
-    return 1;
-  }
-  som_node_init(&self->node, doc, "TRP");
-  return 0;
-}
-const char *transition_rollout_plan_object_model_version(const TransitionRolloutPlan *self) {
-  (void)self;
-  return TRANSITION_ROLLOUT_PLAN_MODEL_VERSION;
-}
-void transition_rollout_plan_free(TransitionRolloutPlan *self) {
-  som_node_free(&self->node);
-}
-char *transition_rollout_plan_content(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void transition_rollout_plan_set_content(TransitionRolloutPlan *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-DocumentHeader transition_rollout_plan_header(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "header");
-  DocumentHeader out;
-  document_header_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-LocalizationProcess transition_rollout_plan_localization_process(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "localizationProcess");
-  LocalizationProcess out;
-  localization_process_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-TranslationProcess transition_rollout_plan_translation_process(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "translationProcess");
-  TranslationProcess out;
-  translation_process_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DocumentationAndTraining transition_rollout_plan_documentation_and_training(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "documentationAndTraining");
-  DocumentationAndTraining out;
-  documentation_and_training_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-RolloutPlan transition_rollout_plan_rollout_plan(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "rolloutPlan");
-  RolloutPlan out;
-  rollout_plan_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-MigrationPlan transition_rollout_plan_migration_plan(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "migrationPlan");
-  MigrationPlan out;
-  migration_plan_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList transition_rollout_plan_user_manuals(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "USRMAN-USER-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList transition_rollout_plan_training_materials(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "RLTTM-TRAI-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-PilotPlan transition_rollout_plan_pilot_plan(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "pilotPlan");
-  PilotPlan out;
-  pilot_plan_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList transition_rollout_plan_cutover_procedures(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "CUTPRC-CUTO-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-KnowledgeTransfer transition_rollout_plan_knowledge_transfer(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "knowledgeTransfer");
-  KnowledgeTransfer out;
-  knowledge_transfer_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-WarrantyAndSupport transition_rollout_plan_warranty_and_support(const TransitionRolloutPlan *self) {
-  char *path = spec_path_join(self->node.path, "warrantyAndSupport");
-  WarrantyAndSupport out;
-  warranty_and_support_init(&out, self->node.doc, path);
   free(path);
   return out;
 }

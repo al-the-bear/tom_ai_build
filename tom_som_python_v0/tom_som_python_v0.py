@@ -2492,99 +2492,6 @@ class ArchitectureStyle(SomNode):
     def decisionRecords(self):
         return SomList(self.doc, f"{self.path}/ARDE-DECI-LST", lambda d, p: ArchitectureDecisionRecord(d, p))
 
-class ArchitectureTechnologySpecification(SomNode):
-    """TR00 Technical Requirements.
-    
-    Comprehensive technical requirements: basic / software / standard-
-    software / hardware / operations / communication / system-operation
-    / security / architecture, plus components, framework conditions,
-    and translation handling.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "ATS")
-        check_som_model_version(ArchitectureTechnologySpecification.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return ArchitectureTechnologySpecification.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Basic technical requirements.
-    @property
-    def basicTechnicalRequirements(self):
-        return BasicTechnicalRequirements(self.doc, f"{self.path}/basicTechnicalRequirements")
-
-    # Software design requirements.
-    @property
-    def softwareDesignRequirements(self):
-        return SoftwareDesignRequirements(self.doc, f"{self.path}/softwareDesignRequirements")
-
-    # Standard application software requirements.
-    @property
-    def standardSoftwareRequirements(self):
-        return StandardSoftwareRequirements(self.doc, f"{self.path}/standardSoftwareRequirements")
-
-    # Hardware concept requirements.
-    @property
-    def hardwareRequirements(self):
-        return HardwareRequirements(self.doc, f"{self.path}/hardwareRequirements")
-
-    # Operations requirements.
-    @property
-    def operationsRequirements(self):
-        return OperationsRequirements(self.doc, f"{self.path}/operationsRequirements")
-
-    # Communication requirements.
-    @property
-    def communicationRequirements(self):
-        return CommunicationRequirements(self.doc, f"{self.path}/communicationRequirements")
-
-    # System operation and monitoring.
-    @property
-    def systemOperationAndMonitoring(self):
-        return SystemOperationAndMonitoring(self.doc, f"{self.path}/systemOperationAndMonitoring")
-
-    # Technical security requirements.
-    @property
-    def technicalSecurityRequirements(self):
-        return TechnicalSecurityRequirements(self.doc, f"{self.path}/technicalSecurityRequirements")
-
-    # System architecture (new in Phase A).
-    @property
-    def systemArchitecture(self):
-        return SystemArchitectureSpec(self.doc, f"{self.path}/systemArchitecture")
-
-    # Components to use (whole).
-    @property
-    def componentsToUse(self):
-        return ComponentsToUse(self.doc, f"{self.path}/componentsToUse")
-
-    # Technical framework conditions (whole).
-    @property
-    def technicalFrameworkConditions(self):
-        return TechnicalFrameworkConditions(self.doc, f"{self.path}/technicalFrameworkConditions")
-
-    # Translation handling requirements (whole).
-    @property
-    def translationRequirements(self):
-        return TranslationRequirements(self.doc, f"{self.path}/translationRequirements")
-
 class AssumptionConstraintRegister(SomNode):
     """A consolidated register of assumptions and constraints."""
     def __init__(self, doc, path):
@@ -10088,78 +9995,6 @@ class CurrentLandscape(SomNode):
     def currentStateRisks(self):
         return CurrentStateRiskAssessment(self.doc, f"{self.path}/currentStateRisks")
 
-class CurrentLandscapeAssessment(SomNode):
-    """CS00 Current Situation.
-    
-    Detailed analysis of the current state: existing systems, business
-    processes, pain points, data landscape, operational metrics, risks,
-    and the inventory / migration plan for the systems being replaced.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "CLA")
-        check_som_model_version(CurrentLandscapeAssessment.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return CurrentLandscapeAssessment.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Existing systems landscape.
-    @property
-    def existingSystemsLandscape(self):
-        return ExistingSystemsLandscape(self.doc, f"{self.path}/existingSystemsLandscape")
-
-    # Current business processes.
-    @property
-    def currentBusinessProcesses(self):
-        return CurrentBusinessProcesses(self.doc, f"{self.path}/currentBusinessProcesses")
-
-    # Pain points and gaps.
-    @property
-    def painPointsAndGaps(self):
-        return PainPointsAndGaps(self.doc, f"{self.path}/painPointsAndGaps")
-
-    # Current data landscape.
-    @property
-    def currentDataLandscape(self):
-        return CurrentDataLandscape(self.doc, f"{self.path}/currentDataLandscape")
-
-    # Current operational metrics.
-    @property
-    def operationalMetrics(self):
-        return SomList(self.doc, f"{self.path}/CUOPME-OPER-LST", lambda d, p: CurrentOperationalMetrics(d, p))
-
-    # Current-state risk assessment.
-    @property
-    def currentStateRisks(self):
-        return CurrentStateRiskAssessment(self.doc, f"{self.path}/currentStateRisks")
-
-    # Replacement inventory.
-    @property
-    def replacementInventory(self):
-        return ReplacementInventory(self.doc, f"{self.path}/replacementInventory")
-
-    # Migration considerations.
-    @property
-    def migrationConsiderations(self):
-        return MigrationConsiderations(self.doc, f"{self.path}/migrationConsiderations")
-
 class CurrentOperationalMetrics(SomNode):
     """1.5. Operational Metrics.
     
@@ -10320,6 +10155,1098 @@ class CutoverProcedures(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
+
+class D00SolutionBlueprint(SomNode):
+    """The complete Solution Blueprint (SBP) document.
+    
+    Contains a [DocumentControl] header block and the SBP sections, sequenced
+    per the public-standards order (§4 of the redesign proposal).
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "SBP")
+        check_som_model_version(D00SolutionBlueprint.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D00SolutionBlueprint.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # SBP.1 Document Control (header + revision history + approvals).
+    @property
+    def documentControl(self):
+        return DocumentControl(self.doc, f"{self.path}/documentControl")
+
+    # SBP.2 Introduction & Scope.
+    @property
+    def introductionAndScope(self):
+        return IntroductionAndScope(self.doc, f"{self.path}/introductionAndScope")
+
+    # SBP.3 Glossary & Abbreviations.
+    @property
+    def glossaryAndAbbreviations(self):
+        return GlossaryAndAbbreviations(self.doc, f"{self.path}/glossaryAndAbbreviations")
+
+    # SBP.4 Stakeholders & Governance.
+    @property
+    def stakeholdersAndGovernance(self):
+        return StakeholdersAndGovernance(self.doc, f"{self.path}/stakeholdersAndGovernance")
+
+    # SBP.5 Current Landscape. Seeds → CLA.
+    @property
+    def currentLandscape(self):
+        return CurrentLandscape(self.doc, f"{self.path}/currentLandscape")
+
+    # SBP.6 Assumptions, Constraints & Dependencies.
+    @property
+    def assumptionsConstraintsDependencies(self):
+        return AssumptionsConstraintsDependencies(self.doc, f"{self.path}/assumptionsConstraintsDependencies")
+
+    # SBP.7 Target Operating Model concept. Seeds → TOM.
+    @property
+    def targetOperatingModelConcept(self):
+        return TargetOperatingModelConcept(self.doc, f"{self.path}/targetOperatingModelConcept")
+
+    # SBP.8 Information & Data Model. Seeds → IFM.
+    @property
+    def informationAndDataModel(self):
+        return InformationAndDataModel(self.doc, f"{self.path}/informationAndDataModel")
+
+    # SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+    @property
+    def requirements(self):
+        return Requirements(self.doc, f"{self.path}/requirements")
+
+    # SBP.11 Solution Architecture & Technology. Seeds → ATS.
+    @property
+    def solutionArchitectureAndTechnology(self):
+        return SolutionArchitectureAndTechnology(self.doc, f"{self.path}/solutionArchitectureAndTechnology")
+
+    # SBP.12 Security & Access Model. Seeds → SAS.
+    @property
+    def securityAndAccessModel(self):
+        return SecurityAndAccessModel(self.doc, f"{self.path}/securityAndAccessModel")
+
+    # SBP.13 Experience & Interface Design. Seeds → XDS.
+    @property
+    def experienceAndInterfaceDesign(self):
+        return ExperienceAndInterfaceDesign(self.doc, f"{self.path}/experienceAndInterfaceDesign")
+
+    # SBP.14 Quality & Acceptance Model. Seeds → QAP.
+    @property
+    def qualityAndAcceptanceModel(self):
+        return QualityAndAcceptanceModel(self.doc, f"{self.path}/qualityAndAcceptanceModel")
+
+    # SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+    @property
+    def deliveryTransitionAndRollout(self):
+        return DeliveryTransitionAndRollout(self.doc, f"{self.path}/deliveryTransitionAndRollout")
+
+class D01CurrentLandscapeAssessment(SomNode):
+    """CS00 Current Situation.
+    
+    Detailed analysis of the current state: existing systems, business
+    processes, pain points, data landscape, operational metrics, risks,
+    and the inventory / migration plan for the systems being replaced.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "CLA")
+        check_som_model_version(D01CurrentLandscapeAssessment.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D01CurrentLandscapeAssessment.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Existing systems landscape.
+    @property
+    def existingSystemsLandscape(self):
+        return ExistingSystemsLandscape(self.doc, f"{self.path}/existingSystemsLandscape")
+
+    # Current business processes.
+    @property
+    def currentBusinessProcesses(self):
+        return CurrentBusinessProcesses(self.doc, f"{self.path}/currentBusinessProcesses")
+
+    # Pain points and gaps.
+    @property
+    def painPointsAndGaps(self):
+        return PainPointsAndGaps(self.doc, f"{self.path}/painPointsAndGaps")
+
+    # Current data landscape.
+    @property
+    def currentDataLandscape(self):
+        return CurrentDataLandscape(self.doc, f"{self.path}/currentDataLandscape")
+
+    # Current operational metrics.
+    @property
+    def operationalMetrics(self):
+        return SomList(self.doc, f"{self.path}/CUOPME-OPER-LST", lambda d, p: CurrentOperationalMetrics(d, p))
+
+    # Current-state risk assessment.
+    @property
+    def currentStateRisks(self):
+        return CurrentStateRiskAssessment(self.doc, f"{self.path}/currentStateRisks")
+
+    # Replacement inventory.
+    @property
+    def replacementInventory(self):
+        return ReplacementInventory(self.doc, f"{self.path}/replacementInventory")
+
+    # Migration considerations.
+    @property
+    def migrationConsiderations(self):
+        return MigrationConsiderations(self.doc, f"{self.path}/migrationConsiderations")
+
+class D02TargetOperatingModel(SomNode):
+    """BP00 Business Processes.
+    
+    Target business process specification — vision, principles, catalog,
+    diagrams, improvements, relationships, detailed workflows,
+    cross-process analysis, exception handling, and KPIs.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "TOM")
+        check_som_model_version(D02TargetOperatingModel.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D02TargetOperatingModel.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Process vision.
+    @property
+    def processVision(self):
+        return ProcessVision(self.doc, f"{self.path}/processVision")
+
+    # Design principles.
+    @property
+    def designPrinciples(self):
+        return ProcessDesignPrinciples(self.doc, f"{self.path}/designPrinciples")
+
+    # Process catalog.
+    @property
+    def processCatalog(self):
+        return ProcessCatalog(self.doc, f"{self.path}/processCatalog")
+
+    # Process overview diagram.
+    @property
+    def processOverviewDiagram(self):
+        return ProcessOverviewDiagram(self.doc, f"{self.path}/processOverviewDiagram")
+
+    # Improvement summary.
+    @property
+    def improvementSummary(self):
+        return ProcessImprovementSummary(self.doc, f"{self.path}/improvementSummary")
+
+    # Process relationships.
+    @property
+    def processRelationships(self):
+        return ProcessRelationships(self.doc, f"{self.path}/processRelationships")
+
+    # Detailed process workflows.
+    @property
+    def detailedWorkflows(self):
+        return SomList(self.doc, f"{self.path}/DEPRWO-DETA-LST", lambda d, p: DetailedProcessWorkflows(d, p))
+
+    # Cross-process analysis.
+    @property
+    def crossProcessAnalysis(self):
+        return CrossProcessAnalysis(self.doc, f"{self.path}/crossProcessAnalysis")
+
+    # Process exception handling.
+    @property
+    def exceptionHandling(self):
+        return ProcessExceptionHandling(self.doc, f"{self.path}/exceptionHandling")
+
+    # Process metrics and KPIs.
+    @property
+    def processMetricsAndKpis(self):
+        return SomList(self.doc, f"{self.path}/PMAK-PROC-LST", lambda d, p: ProcessMetricsAndKpis(d, p))
+
+class D03InformationModel(SomNode):
+    """BDM00 Business Data Model.
+    
+    Full business data model: entities, relationships, ER diagram, data
+    classification, business objects, function decomposition, function-
+    to-data matrix, business rules, data dictionary, and validation /
+    integrity constraints.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "IFM")
+        check_som_model_version(D03InformationModel.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D03InformationModel.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Entity inventory (list).
+    @property
+    def entities(self):
+        return SomList(self.doc, f"{self.path}/DAENT-ENTI-LST", lambda d, p: DataEntityEntry(d, p))
+
+    # Entity relationships.
+    @property
+    def entityRelationships(self):
+        return EntityRelationships(self.doc, f"{self.path}/entityRelationships")
+
+    # Entity-relationship diagram.
+    @property
+    def erDiagram(self):
+        return None  # (skipped: no target type)
+
+    # Data classification.
+    @property
+    def dataClassification(self):
+        return DataClassification(self.doc, f"{self.path}/dataClassification")
+
+    # Business object catalog (list).
+    @property
+    def objectCatalog(self):
+        return SomList(self.doc, f"{self.path}/BJOEN-OBJE-LST", lambda d, p: BusinessObjectEntry(d, p))
+
+    # Business object diagram.
+    @property
+    def objectDiagram(self):
+        return None  # (skipped: no target type)
+
+    # Function decomposition (list).
+    @property
+    def functionDecomposition(self):
+        return SomList(self.doc, f"{self.path}/FUNCT-FUNC-LST", lambda d, p: FunctionEntry(d, p))
+
+    # Function-to-data matrix (list).
+    @property
+    def functionToDataMatrix(self):
+        return SomList(self.doc, f"{self.path}/FNDMX-FUNC-LST", lambda d, p: FunctionDataMatrixEntry(d, p))
+
+    # Business rules catalog (list).
+    @property
+    def businessRules(self):
+        return SomList(self.doc, f"{self.path}/BIRU-BUSI-LST", lambda d, p: BusinessRuleEntry(d, p))
+
+    # Data dictionary.
+    @property
+    def dataDictionary(self):
+        return DataDictionary(self.doc, f"{self.path}/dataDictionary")
+
+    # Validation constraints.
+    @property
+    def validationConstraints(self):
+        return SomList(self.doc, f"{self.path}/VACO-VALI-LST", lambda d, p: ValidationConstraints(d, p))
+
+    # Integrity constraints.
+    @property
+    def integrityConstraints(self):
+        return SomList(self.doc, f"{self.path}/INCO-INTE-LST", lambda d, p: IntegrityConstraints(d, p))
+
+class D04RequirementsSpecification(SomNode):
+    """RC00 Requirements Catalog.
+    
+    Full requirements catalog covering functional, technical, security,
+    and organizational requirements, plus traceability, relationships,
+    and coverage analysis.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "RSP")
+        check_som_model_version(D04RequirementsSpecification.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D04RequirementsSpecification.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Functional requirements.
+    @property
+    def functionalRequirements(self):
+        return FunctionalRequirements(self.doc, f"{self.path}/functionalRequirements")
+
+    # Technical (non-functional) requirements.
+    @property
+    def technicalRequirements(self):
+        return TechnicalRequirements(self.doc, f"{self.path}/technicalRequirements")
+
+    # Security requirements.
+    @property
+    def securityRequirements(self):
+        return SecurityRequirements(self.doc, f"{self.path}/securityRequirements")
+
+    # Organizational requirements.
+    @property
+    def organizationalRequirements(self):
+        return OrganizationalRequirements(self.doc, f"{self.path}/organizationalRequirements")
+
+    # Traceability matrix overview.
+    #
+    # Mirrors the flat field on RequirementsOverview so the RC outline
+    # reaches it directly. The authoritative content lives on the Solution
+    # Blueprint side.
+    @property
+    def traceabilityMatrix(self):
+        return self.doc.content(f"{self.path}/traceabilityMatrix") or ""
+
+    @traceabilityMatrix.setter
+    def traceabilityMatrix(self, value):
+        self.doc.set_content(f"{self.path}/traceabilityMatrix", value)
+
+    # Requirement relationships.
+    @property
+    def requirementRelationships(self):
+        return SomList(self.doc, f"{self.path}/RERE-REQU-LST", lambda d, p: RequirementRelationships(d, p))
+
+    # Requirement coverage.
+    @property
+    def requirementCoverage(self):
+        return RequirementCoverage(self.doc, f"{self.path}/requirementCoverage")
+
+class D05InteractionScenarios(SomNode):
+    """UC00 Use Cases.
+    
+    Detailed use cases derived from the target process steps and actor
+    interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+    and traceability.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "ISC")
+        check_som_model_version(D05InteractionScenarios.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D05InteractionScenarios.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Process steps overview.
+    @property
+    def processStepsOverview(self):
+        return ProcessStepsOverview(self.doc, f"{self.path}/processStepsOverview")
+
+    # Actor overview.
+    @property
+    def actorOverview(self):
+        return ActorOverview(self.doc, f"{self.path}/actorOverview")
+
+    # Interaction catalog.
+    @property
+    def interactionCatalog(self):
+        return InteractionCatalog(self.doc, f"{self.path}/interactionCatalog")
+
+    # Key scenarios.
+    @property
+    def keyScenarios(self):
+        return KeyScenarios(self.doc, f"{self.path}/keyScenarios")
+
+    # Actor relationship diagram.
+    @property
+    def actorRelationshipDiagram(self):
+        return ActorRelationshipDiagram(self.doc, f"{self.path}/actorRelationshipDiagram")
+
+    # End-to-end test scenarios.
+    @property
+    def endToEndTestScenarios(self):
+        return SomList(self.doc, f"{self.path}/ETETS-ENDT-LST", lambda d, p: EndToEndTestScenarios(d, p))
+
+    # Use case traceability.
+    @property
+    def useCaseTraceability(self):
+        return UseCaseTraceability(self.doc, f"{self.path}/useCaseTraceability")
+
+class D06ArchitectureTechnologySpecification(SomNode):
+    """TR00 Technical Requirements.
+    
+    Comprehensive technical requirements: basic / software / standard-
+    software / hardware / operations / communication / system-operation
+    / security / architecture, plus components, framework conditions,
+    and translation handling.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "ATS")
+        check_som_model_version(D06ArchitectureTechnologySpecification.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D06ArchitectureTechnologySpecification.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Basic technical requirements.
+    @property
+    def basicTechnicalRequirements(self):
+        return BasicTechnicalRequirements(self.doc, f"{self.path}/basicTechnicalRequirements")
+
+    # Software design requirements.
+    @property
+    def softwareDesignRequirements(self):
+        return SoftwareDesignRequirements(self.doc, f"{self.path}/softwareDesignRequirements")
+
+    # Standard application software requirements.
+    @property
+    def standardSoftwareRequirements(self):
+        return StandardSoftwareRequirements(self.doc, f"{self.path}/standardSoftwareRequirements")
+
+    # Hardware concept requirements.
+    @property
+    def hardwareRequirements(self):
+        return HardwareRequirements(self.doc, f"{self.path}/hardwareRequirements")
+
+    # Operations requirements.
+    @property
+    def operationsRequirements(self):
+        return OperationsRequirements(self.doc, f"{self.path}/operationsRequirements")
+
+    # Communication requirements.
+    @property
+    def communicationRequirements(self):
+        return CommunicationRequirements(self.doc, f"{self.path}/communicationRequirements")
+
+    # System operation and monitoring.
+    @property
+    def systemOperationAndMonitoring(self):
+        return SystemOperationAndMonitoring(self.doc, f"{self.path}/systemOperationAndMonitoring")
+
+    # Technical security requirements.
+    @property
+    def technicalSecurityRequirements(self):
+        return TechnicalSecurityRequirements(self.doc, f"{self.path}/technicalSecurityRequirements")
+
+    # System architecture (new in Phase A).
+    @property
+    def systemArchitecture(self):
+        return SystemArchitectureSpec(self.doc, f"{self.path}/systemArchitecture")
+
+    # Components to use (whole).
+    @property
+    def componentsToUse(self):
+        return ComponentsToUse(self.doc, f"{self.path}/componentsToUse")
+
+    # Technical framework conditions (whole).
+    @property
+    def technicalFrameworkConditions(self):
+        return TechnicalFrameworkConditions(self.doc, f"{self.path}/technicalFrameworkConditions")
+
+    # Translation handling requirements (whole).
+    @property
+    def translationRequirements(self):
+        return TranslationRequirements(self.doc, f"{self.path}/translationRequirements")
+
+class D07IntegrationInterfaceSpecification(SomNode):
+    """BSI00 Business System Interactions.
+    
+    Complete interaction specification between the target system and
+    external systems: inventory, patterns, testing, dependencies,
+    migration, operational concerns, and cross-boundary error handling.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "IIS")
+        check_som_model_version(D07IntegrationInterfaceSpecification.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D07IntegrationInterfaceSpecification.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # External interfaces.
+    @property
+    def externalInterfaces(self):
+        return ExternalInterfaces(self.doc, f"{self.path}/externalInterfaces")
+
+    # Out of scope.
+    @property
+    def outOfScope(self):
+        return OutOfScope(self.doc, f"{self.path}/outOfScope")
+
+    # Boundary assumptions.
+    @property
+    def boundaryAssumptions(self):
+        return BoundaryAssumptions(self.doc, f"{self.path}/boundaryAssumptions")
+
+    # System landscape inventory.
+    @property
+    def systemInventory(self):
+        return SystemLandscapeInventory(self.doc, f"{self.path}/systemInventory")
+
+    # Boundary interaction patterns.
+    @property
+    def interactionPatterns(self):
+        return SomList(self.doc, f"{self.path}/BOINPA-INTE-LST", lambda d, p: BoundaryInteractionPatterns(d, p))
+
+    # Interaction testing strategy.
+    @property
+    def testingStrategy(self):
+        return InteractionTestingStrategy(self.doc, f"{self.path}/testingStrategy")
+
+    # Interaction dependency analysis.
+    @property
+    def dependencyAnalysis(self):
+        return InteractionDependencyAnalysis(self.doc, f"{self.path}/dependencyAnalysis")
+
+    # Migration interactions.
+    @property
+    def migrationInteractions(self):
+        return SomList(self.doc, f"{self.path}/MIIN-MIGR-LST", lambda d, p: MigrationInteractions(d, p))
+
+    # Cross-boundary operational considerations.
+    @property
+    def operationalConsiderations(self):
+        return SomList(self.doc, f"{self.path}/CBOC-OPER-LST", lambda d, p: CrossBoundaryOperationalConsiderations(d, p))
+
+    # Cross-boundary error handling.
+    @property
+    def crossBoundaryErrorHandling(self):
+        return CrossBoundaryErrorHandling(self.doc, f"{self.path}/crossBoundaryErrorHandling")
+
+class D08SecurityAccessSpecification(SomNode):
+    """AC00 Authorization Concept.
+    
+    Complete access and authorization specification — user management,
+    identification and authentication, resource protection, user
+    authorization, encryption, audit/logging, role matrix, and
+    compliance framework.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "SAS")
+        check_som_model_version(D08SecurityAccessSpecification.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D08SecurityAccessSpecification.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # User management.
+    @property
+    def userManagement(self):
+        return UserManagement(self.doc, f"{self.path}/userManagement")
+
+    # Identification and authentication.
+    @property
+    def identificationAndAuthentication(self):
+        return IdentificationAndAuthentication(self.doc, f"{self.path}/identificationAndAuthentication")
+
+    # Resource protection.
+    @property
+    def resourceProtection(self):
+        return ResourceProtection(self.doc, f"{self.path}/resourceProtection")
+
+    # User authorization.
+    @property
+    def userAuthorization(self):
+        return UserAuthorization(self.doc, f"{self.path}/userAuthorization")
+
+    # Sensitive data encryption.
+    @property
+    def sensitiveDataEncryption(self):
+        return SensitiveDataEncryption(self.doc, f"{self.path}/sensitiveDataEncryption")
+
+    # Audit and logging.
+    @property
+    def auditAndLogging(self):
+        return AuditAndLogging(self.doc, f"{self.path}/auditAndLogging")
+
+    # Role matrix.
+    @property
+    def roleMatrix(self):
+        return RoleMatrix(self.doc, f"{self.path}/roleMatrix")
+
+    # Compliance framework.
+    @property
+    def complianceFramework(self):
+        return ComplianceFramework(self.doc, f"{self.path}/complianceFramework")
+
+class D09ExperienceDesignSpecification(SomNode):
+    """UP00 UI Prototype.
+    
+    Full UI design and prototype specification — vision, screens,
+    screen flow, print, error handling, help, accessibility, responsive,
+    components, language/country selection, prototype, wireframes and
+    mockups.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "XDS")
+        check_som_model_version(D09ExperienceDesignSpecification.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D09ExperienceDesignSpecification.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Design vision.
+    @property
+    def designVision(self):
+        return DesignVision(self.doc, f"{self.path}/designVision")
+
+    # Screen descriptions.
+    @property
+    def screens(self):
+        return ScreenDescriptions(self.doc, f"{self.path}/screens")
+
+    # Screen flow structure.
+    @property
+    def screenFlow(self):
+        return ScreenFlowStructure(self.doc, f"{self.path}/screenFlow")
+
+    # Print layout.
+    @property
+    def printLayout(self):
+        return PrintLayout(self.doc, f"{self.path}/printLayout")
+
+    # Error handling concept.
+    @property
+    def errorHandling(self):
+        return ErrorHandlingConcept(self.doc, f"{self.path}/errorHandling")
+
+    # Help concept.
+    @property
+    def helpConcept(self):
+        return HelpConcept(self.doc, f"{self.path}/helpConcept")
+
+    # Accessibility.
+    @property
+    def accessibility(self):
+        return Accessibility(self.doc, f"{self.path}/accessibility")
+
+    # Responsive design.
+    @property
+    def responsiveDesign(self):
+        return ResponsiveDesign(self.doc, f"{self.path}/responsiveDesign")
+
+    # UI components.
+    @property
+    def uiComponents(self):
+        return UiComponents(self.doc, f"{self.path}/uiComponents")
+
+    # Language and country selection.
+    @property
+    def languageCountrySelection(self):
+        return LanguageCountrySelection(self.doc, f"{self.path}/languageCountrySelection")
+
+    # Prototype.
+    @property
+    def prototype(self):
+        return Prototype(self.doc, f"{self.path}/prototype")
+
+    # Wireframes and mockups (new in Phase A).
+    @property
+    def wireframesAndMockups(self):
+        return SomList(self.doc, f"{self.path}/WIANMO-WIRE-LST", lambda d, p: WireframesAndMockups(d, p))
+
+class D10QualityAcceptancePlan(SomNode):
+    """BQP00 Business Quality Plan.
+    
+    Full quality plan combining quality goals and the acceptance plan.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "QAP")
+        check_som_model_version(D10QualityAcceptancePlan.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D10QualityAcceptancePlan.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Quality framework.
+    @property
+    def qualityFramework(self):
+        return QualityFramework(self.doc, f"{self.path}/qualityFramework")
+
+    # User-related quality criteria.
+    @property
+    def userQualityCriteria(self):
+        return UserQualityCriteria(self.doc, f"{self.path}/userQualityCriteria")
+
+    # Technical quality criteria.
+    @property
+    def technicalQualityCriteria(self):
+        return TechnicalQualityCriteria(self.doc, f"{self.path}/technicalQualityCriteria")
+
+    # Operations quality criteria.
+    @property
+    def operationsQualityCriteria(self):
+        return OperationsQualityCriteria(self.doc, f"{self.path}/operationsQualityCriteria")
+
+    # Documentation quality criteria.
+    @property
+    def documentationQualityCriteria(self):
+        return DocumentationQualityCriteria(self.doc, f"{self.path}/documentationQualityCriteria")
+
+    # Quality prioritization.
+    @property
+    def qualityPrioritization(self):
+        return QualityPrioritization(self.doc, f"{self.path}/qualityPrioritization")
+
+    # Acceptance criteria summary.
+    @property
+    def acceptanceCriteriaSummary(self):
+        return AcceptanceCriteriaSummary(self.doc, f"{self.path}/acceptanceCriteriaSummary")
+
+    # Test strategy (new in Phase A).
+    @property
+    def testStrategy(self):
+        return TestStrategy(self.doc, f"{self.path}/testStrategy")
+
+    # Acceptance criteria.
+    @property
+    def acceptanceCriteria(self):
+        return AcceptanceCriteriaList(self.doc, f"{self.path}/acceptanceCriteria")
+
+    # Acceptance process.
+    @property
+    def acceptanceProcess(self):
+        return AcceptanceProcess(self.doc, f"{self.path}/acceptanceProcess")
+
+    # User acceptance testing.
+    @property
+    def userAcceptanceTesting(self):
+        return UserAcceptanceTesting(self.doc, f"{self.path}/userAcceptanceTesting")
+
+    # Defect resolution.
+    @property
+    def defectResolution(self):
+        return DefectResolution(self.doc, f"{self.path}/defectResolution")
+
+    # Sign-off process.
+    @property
+    def signOffProcess(self):
+        return SignOffProcess(self.doc, f"{self.path}/signOffProcess")
+
+    # Warranty terms.
+    @property
+    def warranty(self):
+        return WarrantyTerms(self.doc, f"{self.path}/warranty")
+
+class D11DeliveryRoadmap(SomNode):
+    """PPP00 Project Phase Plan.
+    
+    Full project phase plan — staging strategy, stage overview, per-stage
+    entries, feature prioritization, data migration, gate criteria,
+    decision processes, initial development flow, and upgrade cycle
+    framework.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "DRM")
+        check_som_model_version(D11DeliveryRoadmap.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D11DeliveryRoadmap.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Staging strategy.
+    @property
+    def stagingStrategy(self):
+        return StagingStrategy(self.doc, f"{self.path}/stagingStrategy")
+
+    # Stage overview.
+    @property
+    def stageOverview(self):
+        return StageOverview(self.doc, f"{self.path}/stageOverview")
+
+    # Stages (list).
+    @property
+    def stages(self):
+        return SomList(self.doc, f"{self.path}/STAGE-STAG-LST", lambda d, p: StageEntry(d, p))
+
+    # Feature prioritization.
+    @property
+    def featurePrioritization(self):
+        return FeaturePrioritization(self.doc, f"{self.path}/featurePrioritization")
+
+    # Data migration strategy.
+    @property
+    def dataMigrationStrategy(self):
+        return DataMigrationStrategy(self.doc, f"{self.path}/dataMigrationStrategy")
+
+    # Gate criteria (promoted from GOV).
+    @property
+    def gateCriteria(self):
+        return PhaseGateReviews(self.doc, f"{self.path}/gateCriteria")
+
+    # Decision processes (promoted from GOV).
+    @property
+    def decisionProcesses(self):
+        return DecisionPoints(self.doc, f"{self.path}/decisionProcesses")
+
+    # Initial development flow.
+    @property
+    def initialDevelopmentFlow(self):
+        return InitialDevelopmentFlow(self.doc, f"{self.path}/initialDevelopmentFlow")
+
+    # Upgrade cycle framework (links tom_system_upgrade.md).
+    @property
+    def upgradeCycleFramework(self):
+        return UpgradeCycleFramework(self.doc, f"{self.path}/upgradeCycleFramework")
+
+class D12TransitionRolloutPlan(SomNode):
+    """SR00 System Rollout.
+    
+    End-to-end rollout specification — localization, translation,
+    documentation and training, plus rollout plan, migration plan,
+    user manuals, training materials, pilot, cutover, knowledge
+    transfer, and warranty/support.
+    """
+    #: The model version this object model was generated against (§2.1).
+    model_version = '0.0'
+
+    def __init__(self, doc, document_version=None):
+        super().__init__(doc, "TRP")
+        check_som_model_version(D12TransitionRolloutPlan.model_version, document_version)
+
+    @property
+    def object_model_version(self):
+        """This object model's own model version (major.minor), per §2.1."""
+        return D12TransitionRolloutPlan.model_version
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # Standard TomSpecs document header.
+    @property
+    def header(self):
+        return DocumentHeader(self.doc, f"{self.path}/header")
+
+    # Localization process.
+    @property
+    def localizationProcess(self):
+        return LocalizationProcess(self.doc, f"{self.path}/localizationProcess")
+
+    # Translation process.
+    @property
+    def translationProcess(self):
+        return TranslationProcess(self.doc, f"{self.path}/translationProcess")
+
+    # Documentation and training.
+    @property
+    def documentationAndTraining(self):
+        return DocumentationAndTraining(self.doc, f"{self.path}/documentationAndTraining")
+
+    # Rollout plan.
+    @property
+    def rolloutPlan(self):
+        return RolloutPlan(self.doc, f"{self.path}/rolloutPlan")
+
+    # Migration plan.
+    @property
+    def migrationPlan(self):
+        return MigrationPlan(self.doc, f"{self.path}/migrationPlan")
+
+    # User manuals.
+    @property
+    def userManuals(self):
+        return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManuals(d, p))
+
+    # Training materials.
+    @property
+    def trainingMaterials(self):
+        return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterials(d, p))
+
+    # Pilot plan.
+    @property
+    def pilotPlan(self):
+        return PilotPlan(self.doc, f"{self.path}/pilotPlan")
+
+    # Cutover procedures.
+    @property
+    def cutoverProcedures(self):
+        return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedures(d, p))
+
+    # Knowledge transfer.
+    @property
+    def knowledgeTransfer(self):
+        return KnowledgeTransfer(self.doc, f"{self.path}/knowledgeTransfer")
+
+    # Warranty and support.
+    @property
+    def warrantyAndSupport(self):
+        return WarrantyAndSupport(self.doc, f"{self.path}/warrantyAndSupport")
 
 class DashboardEntry(SomNode):
     """A dashboard entry."""
@@ -12984,84 +13911,6 @@ class DeliveryAcceptanceCriterionEntryVerification(SomNode):
     @property
     def content(self):
         return DeliveryAcceptanceCriterionEntryVerificationContentForm(self.doc, f"{self.path}/content")
-
-class DeliveryRoadmap(SomNode):
-    """PPP00 Project Phase Plan.
-    
-    Full project phase plan — staging strategy, stage overview, per-stage
-    entries, feature prioritization, data migration, gate criteria,
-    decision processes, initial development flow, and upgrade cycle
-    framework.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "DRM")
-        check_som_model_version(DeliveryRoadmap.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return DeliveryRoadmap.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Staging strategy.
-    @property
-    def stagingStrategy(self):
-        return StagingStrategy(self.doc, f"{self.path}/stagingStrategy")
-
-    # Stage overview.
-    @property
-    def stageOverview(self):
-        return StageOverview(self.doc, f"{self.path}/stageOverview")
-
-    # Stages (list).
-    @property
-    def stages(self):
-        return SomList(self.doc, f"{self.path}/STAGE-STAG-LST", lambda d, p: StageEntry(d, p))
-
-    # Feature prioritization.
-    @property
-    def featurePrioritization(self):
-        return FeaturePrioritization(self.doc, f"{self.path}/featurePrioritization")
-
-    # Data migration strategy.
-    @property
-    def dataMigrationStrategy(self):
-        return DataMigrationStrategy(self.doc, f"{self.path}/dataMigrationStrategy")
-
-    # Gate criteria (promoted from GOV).
-    @property
-    def gateCriteria(self):
-        return PhaseGateReviews(self.doc, f"{self.path}/gateCriteria")
-
-    # Decision processes (promoted from GOV).
-    @property
-    def decisionProcesses(self):
-        return DecisionPoints(self.doc, f"{self.path}/decisionProcesses")
-
-    # Initial development flow.
-    @property
-    def initialDevelopmentFlow(self):
-        return InitialDevelopmentFlow(self.doc, f"{self.path}/initialDevelopmentFlow")
-
-    # Upgrade cycle framework (links tom_system_upgrade.md).
-    @property
-    def upgradeCycleFramework(self):
-        return UpgradeCycleFramework(self.doc, f"{self.path}/upgradeCycleFramework")
 
 class DeliveryScope(SomNode):
     """14.1. Delivery and Service Scope."""
@@ -17360,99 +18209,6 @@ class ExperienceAndInterfaceDesign(SomNode):
     def wireframesAndMockups(self):
         return SomList(self.doc, f"{self.path}/WIANMO-WIRE-LST", lambda d, p: WireframesAndMockups(d, p))
 
-class ExperienceDesignSpecification(SomNode):
-    """UP00 UI Prototype.
-    
-    Full UI design and prototype specification — vision, screens,
-    screen flow, print, error handling, help, accessibility, responsive,
-    components, language/country selection, prototype, wireframes and
-    mockups.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "XDS")
-        check_som_model_version(ExperienceDesignSpecification.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return ExperienceDesignSpecification.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Design vision.
-    @property
-    def designVision(self):
-        return DesignVision(self.doc, f"{self.path}/designVision")
-
-    # Screen descriptions.
-    @property
-    def screens(self):
-        return ScreenDescriptions(self.doc, f"{self.path}/screens")
-
-    # Screen flow structure.
-    @property
-    def screenFlow(self):
-        return ScreenFlowStructure(self.doc, f"{self.path}/screenFlow")
-
-    # Print layout.
-    @property
-    def printLayout(self):
-        return PrintLayout(self.doc, f"{self.path}/printLayout")
-
-    # Error handling concept.
-    @property
-    def errorHandling(self):
-        return ErrorHandlingConcept(self.doc, f"{self.path}/errorHandling")
-
-    # Help concept.
-    @property
-    def helpConcept(self):
-        return HelpConcept(self.doc, f"{self.path}/helpConcept")
-
-    # Accessibility.
-    @property
-    def accessibility(self):
-        return Accessibility(self.doc, f"{self.path}/accessibility")
-
-    # Responsive design.
-    @property
-    def responsiveDesign(self):
-        return ResponsiveDesign(self.doc, f"{self.path}/responsiveDesign")
-
-    # UI components.
-    @property
-    def uiComponents(self):
-        return UiComponents(self.doc, f"{self.path}/uiComponents")
-
-    # Language and country selection.
-    @property
-    def languageCountrySelection(self):
-        return LanguageCountrySelection(self.doc, f"{self.path}/languageCountrySelection")
-
-    # Prototype.
-    @property
-    def prototype(self):
-        return Prototype(self.doc, f"{self.path}/prototype")
-
-    # Wireframes and mockups (new in Phase A).
-    @property
-    def wireframesAndMockups(self):
-        return SomList(self.doc, f"{self.path}/WIANMO-WIRE-LST", lambda d, p: WireframesAndMockups(d, p))
-
 class ExportAccess(SomNode):
     """Export access and audit."""
     def __init__(self, doc, path):
@@ -21170,99 +21926,6 @@ class InformationForUseRequirements(SomNode):
     def documentationAndTraining(self):
         return DocumentationAndTraining(self.doc, f"{self.path}/documentationAndTraining")
 
-class InformationModel(SomNode):
-    """BDM00 Business Data Model.
-    
-    Full business data model: entities, relationships, ER diagram, data
-    classification, business objects, function decomposition, function-
-    to-data matrix, business rules, data dictionary, and validation /
-    integrity constraints.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "IFM")
-        check_som_model_version(InformationModel.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return InformationModel.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Entity inventory (list).
-    @property
-    def entities(self):
-        return SomList(self.doc, f"{self.path}/DAENT-ENTI-LST", lambda d, p: DataEntityEntry(d, p))
-
-    # Entity relationships.
-    @property
-    def entityRelationships(self):
-        return EntityRelationships(self.doc, f"{self.path}/entityRelationships")
-
-    # Entity-relationship diagram.
-    @property
-    def erDiagram(self):
-        return None  # (skipped: no target type)
-
-    # Data classification.
-    @property
-    def dataClassification(self):
-        return DataClassification(self.doc, f"{self.path}/dataClassification")
-
-    # Business object catalog (list).
-    @property
-    def objectCatalog(self):
-        return SomList(self.doc, f"{self.path}/BJOEN-OBJE-LST", lambda d, p: BusinessObjectEntry(d, p))
-
-    # Business object diagram.
-    @property
-    def objectDiagram(self):
-        return None  # (skipped: no target type)
-
-    # Function decomposition (list).
-    @property
-    def functionDecomposition(self):
-        return SomList(self.doc, f"{self.path}/FUNCT-FUNC-LST", lambda d, p: FunctionEntry(d, p))
-
-    # Function-to-data matrix (list).
-    @property
-    def functionToDataMatrix(self):
-        return SomList(self.doc, f"{self.path}/FNDMX-FUNC-LST", lambda d, p: FunctionDataMatrixEntry(d, p))
-
-    # Business rules catalog (list).
-    @property
-    def businessRules(self):
-        return SomList(self.doc, f"{self.path}/BIRU-BUSI-LST", lambda d, p: BusinessRuleEntry(d, p))
-
-    # Data dictionary.
-    @property
-    def dataDictionary(self):
-        return DataDictionary(self.doc, f"{self.path}/dataDictionary")
-
-    # Validation constraints.
-    @property
-    def validationConstraints(self):
-        return SomList(self.doc, f"{self.path}/VACO-VALI-LST", lambda d, p: ValidationConstraints(d, p))
-
-    # Integrity constraints.
-    @property
-    def integrityConstraints(self):
-        return SomList(self.doc, f"{self.path}/INCO-INTE-LST", lambda d, p: IntegrityConstraints(d, p))
-
 class InfrastructureAsCode(SomNode):
     """Infrastructure as Code requirements."""
     def __init__(self, doc, path):
@@ -21824,88 +22487,6 @@ class IntegrationHealthSummary(SomNode):
     def fragilePoints(self):
         return SomList(self.doc, f"{self.path}/FRAGI-FRAG-LST", lambda d, p: FragilePointEntry(d, p))
 
-class IntegrationInterfaceSpecification(SomNode):
-    """BSI00 Business System Interactions.
-    
-    Complete interaction specification between the target system and
-    external systems: inventory, patterns, testing, dependencies,
-    migration, operational concerns, and cross-boundary error handling.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "IIS")
-        check_som_model_version(IntegrationInterfaceSpecification.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return IntegrationInterfaceSpecification.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # External interfaces.
-    @property
-    def externalInterfaces(self):
-        return ExternalInterfaces(self.doc, f"{self.path}/externalInterfaces")
-
-    # Out of scope.
-    @property
-    def outOfScope(self):
-        return OutOfScope(self.doc, f"{self.path}/outOfScope")
-
-    # Boundary assumptions.
-    @property
-    def boundaryAssumptions(self):
-        return BoundaryAssumptions(self.doc, f"{self.path}/boundaryAssumptions")
-
-    # System landscape inventory.
-    @property
-    def systemInventory(self):
-        return SystemLandscapeInventory(self.doc, f"{self.path}/systemInventory")
-
-    # Boundary interaction patterns.
-    @property
-    def interactionPatterns(self):
-        return SomList(self.doc, f"{self.path}/BOINPA-INTE-LST", lambda d, p: BoundaryInteractionPatterns(d, p))
-
-    # Interaction testing strategy.
-    @property
-    def testingStrategy(self):
-        return InteractionTestingStrategy(self.doc, f"{self.path}/testingStrategy")
-
-    # Interaction dependency analysis.
-    @property
-    def dependencyAnalysis(self):
-        return InteractionDependencyAnalysis(self.doc, f"{self.path}/dependencyAnalysis")
-
-    # Migration interactions.
-    @property
-    def migrationInteractions(self):
-        return SomList(self.doc, f"{self.path}/MIIN-MIGR-LST", lambda d, p: MigrationInteractions(d, p))
-
-    # Cross-boundary operational considerations.
-    @property
-    def operationalConsiderations(self):
-        return SomList(self.doc, f"{self.path}/CBOC-OPER-LST", lambda d, p: CrossBoundaryOperationalConsiderations(d, p))
-
-    # Cross-boundary error handling.
-    @property
-    def crossBoundaryErrorHandling(self):
-        return CrossBoundaryErrorHandling(self.doc, f"{self.path}/crossBoundaryErrorHandling")
-
 class IntegrationPatternEntry(SomNode):
     """A single integration pattern entry."""
     def __init__(self, doc, path):
@@ -22333,73 +22914,6 @@ class InteractionScenarioEntry(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
-
-class InteractionScenarios(SomNode):
-    """UC00 Use Cases.
-    
-    Detailed use cases derived from the target process steps and actor
-    interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-    and traceability.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "ISC")
-        check_som_model_version(InteractionScenarios.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return InteractionScenarios.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Process steps overview.
-    @property
-    def processStepsOverview(self):
-        return ProcessStepsOverview(self.doc, f"{self.path}/processStepsOverview")
-
-    # Actor overview.
-    @property
-    def actorOverview(self):
-        return ActorOverview(self.doc, f"{self.path}/actorOverview")
-
-    # Interaction catalog.
-    @property
-    def interactionCatalog(self):
-        return InteractionCatalog(self.doc, f"{self.path}/interactionCatalog")
-
-    # Key scenarios.
-    @property
-    def keyScenarios(self):
-        return KeyScenarios(self.doc, f"{self.path}/keyScenarios")
-
-    # Actor relationship diagram.
-    @property
-    def actorRelationshipDiagram(self):
-        return ActorRelationshipDiagram(self.doc, f"{self.path}/actorRelationshipDiagram")
-
-    # End-to-end test scenarios.
-    @property
-    def endToEndTestScenarios(self):
-        return SomList(self.doc, f"{self.path}/ETETS-ENDT-LST", lambda d, p: EndToEndTestScenarios(d, p))
-
-    # Use case traceability.
-    @property
-    def useCaseTraceability(self):
-        return UseCaseTraceability(self.doc, f"{self.path}/useCaseTraceability")
 
 class InteractionSecurity(SomNode):
     """Interaction security requirements."""
@@ -32553,106 +33067,6 @@ class PwaRequirementsUpdates(SomNode):
     def content(self):
         return PwaRequirementsUpdatesContentForm(self.doc, f"{self.path}/content")
 
-class QualityAcceptancePlan(SomNode):
-    """BQP00 Business Quality Plan.
-    
-    Full quality plan combining quality goals and the acceptance plan.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "QAP")
-        check_som_model_version(QualityAcceptancePlan.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return QualityAcceptancePlan.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Quality framework.
-    @property
-    def qualityFramework(self):
-        return QualityFramework(self.doc, f"{self.path}/qualityFramework")
-
-    # User-related quality criteria.
-    @property
-    def userQualityCriteria(self):
-        return UserQualityCriteria(self.doc, f"{self.path}/userQualityCriteria")
-
-    # Technical quality criteria.
-    @property
-    def technicalQualityCriteria(self):
-        return TechnicalQualityCriteria(self.doc, f"{self.path}/technicalQualityCriteria")
-
-    # Operations quality criteria.
-    @property
-    def operationsQualityCriteria(self):
-        return OperationsQualityCriteria(self.doc, f"{self.path}/operationsQualityCriteria")
-
-    # Documentation quality criteria.
-    @property
-    def documentationQualityCriteria(self):
-        return DocumentationQualityCriteria(self.doc, f"{self.path}/documentationQualityCriteria")
-
-    # Quality prioritization.
-    @property
-    def qualityPrioritization(self):
-        return QualityPrioritization(self.doc, f"{self.path}/qualityPrioritization")
-
-    # Acceptance criteria summary.
-    @property
-    def acceptanceCriteriaSummary(self):
-        return AcceptanceCriteriaSummary(self.doc, f"{self.path}/acceptanceCriteriaSummary")
-
-    # Test strategy (new in Phase A).
-    @property
-    def testStrategy(self):
-        return TestStrategy(self.doc, f"{self.path}/testStrategy")
-
-    # Acceptance criteria.
-    @property
-    def acceptanceCriteria(self):
-        return AcceptanceCriteriaList(self.doc, f"{self.path}/acceptanceCriteria")
-
-    # Acceptance process.
-    @property
-    def acceptanceProcess(self):
-        return AcceptanceProcess(self.doc, f"{self.path}/acceptanceProcess")
-
-    # User acceptance testing.
-    @property
-    def userAcceptanceTesting(self):
-        return UserAcceptanceTesting(self.doc, f"{self.path}/userAcceptanceTesting")
-
-    # Defect resolution.
-    @property
-    def defectResolution(self):
-        return DefectResolution(self.doc, f"{self.path}/defectResolution")
-
-    # Sign-off process.
-    @property
-    def signOffProcess(self):
-        return SignOffProcess(self.doc, f"{self.path}/signOffProcess")
-
-    # Warranty terms.
-    @property
-    def warranty(self):
-        return WarrantyTerms(self.doc, f"{self.path}/warranty")
-
 class QualityAndAcceptanceModel(SomNode):
     """SBP.14 Quality & Acceptance Model.
     
@@ -35051,81 +35465,6 @@ class RequirementsOverview(SomNode):
         return SomList(self.doc, f"{self.path}/RERE-REQU-LST", lambda d, p: RequirementRelationships(d, p))
 
     # 4.3.6. Requirement Coverage.
-    @property
-    def requirementCoverage(self):
-        return RequirementCoverage(self.doc, f"{self.path}/requirementCoverage")
-
-class RequirementsSpecification(SomNode):
-    """RC00 Requirements Catalog.
-    
-    Full requirements catalog covering functional, technical, security,
-    and organizational requirements, plus traceability, relationships,
-    and coverage analysis.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "RSP")
-        check_som_model_version(RequirementsSpecification.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return RequirementsSpecification.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Functional requirements.
-    @property
-    def functionalRequirements(self):
-        return FunctionalRequirements(self.doc, f"{self.path}/functionalRequirements")
-
-    # Technical (non-functional) requirements.
-    @property
-    def technicalRequirements(self):
-        return TechnicalRequirements(self.doc, f"{self.path}/technicalRequirements")
-
-    # Security requirements.
-    @property
-    def securityRequirements(self):
-        return SecurityRequirements(self.doc, f"{self.path}/securityRequirements")
-
-    # Organizational requirements.
-    @property
-    def organizationalRequirements(self):
-        return OrganizationalRequirements(self.doc, f"{self.path}/organizationalRequirements")
-
-    # Traceability matrix overview.
-    #
-    # Mirrors the flat field on RequirementsOverview so the RC outline
-    # reaches it directly. The authoritative content lives on the Solution
-    # Blueprint side.
-    @property
-    def traceabilityMatrix(self):
-        return self.doc.content(f"{self.path}/traceabilityMatrix") or ""
-
-    @traceabilityMatrix.setter
-    def traceabilityMatrix(self, value):
-        self.doc.set_content(f"{self.path}/traceabilityMatrix", value)
-
-    # Requirement relationships.
-    @property
-    def requirementRelationships(self):
-        return SomList(self.doc, f"{self.path}/RERE-REQU-LST", lambda d, p: RequirementRelationships(d, p))
-
-    # Requirement coverage.
     @property
     def requirementCoverage(self):
         return RequirementCoverage(self.doc, f"{self.path}/requirementCoverage")
@@ -38186,79 +38525,6 @@ class SecondaryNavigation(SomNode):
     def tabBars(self):
         return SomList(self.doc, f"{self.path}/TBDE-TABB-LST", lambda d, p: TabBarDefinitionEntry(d, p))
 
-class SecurityAccessSpecification(SomNode):
-    """AC00 Authorization Concept.
-    
-    Complete access and authorization specification — user management,
-    identification and authentication, resource protection, user
-    authorization, encryption, audit/logging, role matrix, and
-    compliance framework.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "SAS")
-        check_som_model_version(SecurityAccessSpecification.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return SecurityAccessSpecification.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # User management.
-    @property
-    def userManagement(self):
-        return UserManagement(self.doc, f"{self.path}/userManagement")
-
-    # Identification and authentication.
-    @property
-    def identificationAndAuthentication(self):
-        return IdentificationAndAuthentication(self.doc, f"{self.path}/identificationAndAuthentication")
-
-    # Resource protection.
-    @property
-    def resourceProtection(self):
-        return ResourceProtection(self.doc, f"{self.path}/resourceProtection")
-
-    # User authorization.
-    @property
-    def userAuthorization(self):
-        return UserAuthorization(self.doc, f"{self.path}/userAuthorization")
-
-    # Sensitive data encryption.
-    @property
-    def sensitiveDataEncryption(self):
-        return SensitiveDataEncryption(self.doc, f"{self.path}/sensitiveDataEncryption")
-
-    # Audit and logging.
-    @property
-    def auditAndLogging(self):
-        return AuditAndLogging(self.doc, f"{self.path}/auditAndLogging")
-
-    # Role matrix.
-    @property
-    def roleMatrix(self):
-        return RoleMatrix(self.doc, f"{self.path}/roleMatrix")
-
-    # Compliance framework.
-    @property
-    def complianceFramework(self):
-        return ComplianceFramework(self.doc, f"{self.path}/complianceFramework")
-
 class SecurityAndAccessModel(SomNode):
     """9. Access and Authorization Concept. Seeds → AC."""
     def __init__(self, doc, path):
@@ -40687,102 +40953,6 @@ class SolutionArchitectureAndTechnology(SomNode):
     @property
     def componentsToUse(self):
         return ComponentsToUse(self.doc, f"{self.path}/componentsToUse")
-
-class SolutionBlueprint(SomNode):
-    """The complete Solution Blueprint (SBP) document.
-    
-    Contains a [DocumentControl] header block and the SBP sections, sequenced
-    per the public-standards order (§4 of the redesign proposal).
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "SBP")
-        check_som_model_version(SolutionBlueprint.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return SolutionBlueprint.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # SBP.1 Document Control (header + revision history + approvals).
-    @property
-    def documentControl(self):
-        return DocumentControl(self.doc, f"{self.path}/documentControl")
-
-    # SBP.2 Introduction & Scope.
-    @property
-    def introductionAndScope(self):
-        return IntroductionAndScope(self.doc, f"{self.path}/introductionAndScope")
-
-    # SBP.3 Glossary & Abbreviations.
-    @property
-    def glossaryAndAbbreviations(self):
-        return GlossaryAndAbbreviations(self.doc, f"{self.path}/glossaryAndAbbreviations")
-
-    # SBP.4 Stakeholders & Governance.
-    @property
-    def stakeholdersAndGovernance(self):
-        return StakeholdersAndGovernance(self.doc, f"{self.path}/stakeholdersAndGovernance")
-
-    # SBP.5 Current Landscape. Seeds → CLA.
-    @property
-    def currentLandscape(self):
-        return CurrentLandscape(self.doc, f"{self.path}/currentLandscape")
-
-    # SBP.6 Assumptions, Constraints & Dependencies.
-    @property
-    def assumptionsConstraintsDependencies(self):
-        return AssumptionsConstraintsDependencies(self.doc, f"{self.path}/assumptionsConstraintsDependencies")
-
-    # SBP.7 Target Operating Model concept. Seeds → TOM.
-    @property
-    def targetOperatingModelConcept(self):
-        return TargetOperatingModelConcept(self.doc, f"{self.path}/targetOperatingModelConcept")
-
-    # SBP.8 Information & Data Model. Seeds → IFM.
-    @property
-    def informationAndDataModel(self):
-        return InformationAndDataModel(self.doc, f"{self.path}/informationAndDataModel")
-
-    # SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
-    @property
-    def requirements(self):
-        return Requirements(self.doc, f"{self.path}/requirements")
-
-    # SBP.11 Solution Architecture & Technology. Seeds → ATS.
-    @property
-    def solutionArchitectureAndTechnology(self):
-        return SolutionArchitectureAndTechnology(self.doc, f"{self.path}/solutionArchitectureAndTechnology")
-
-    # SBP.12 Security & Access Model. Seeds → SAS.
-    @property
-    def securityAndAccessModel(self):
-        return SecurityAndAccessModel(self.doc, f"{self.path}/securityAndAccessModel")
-
-    # SBP.13 Experience & Interface Design. Seeds → XDS.
-    @property
-    def experienceAndInterfaceDesign(self):
-        return ExperienceAndInterfaceDesign(self.doc, f"{self.path}/experienceAndInterfaceDesign")
-
-    # SBP.14 Quality & Acceptance Model. Seeds → QAP.
-    @property
-    def qualityAndAcceptanceModel(self):
-        return QualityAndAcceptanceModel(self.doc, f"{self.path}/qualityAndAcceptanceModel")
-
-    # SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
-    @property
-    def deliveryTransitionAndRollout(self):
-        return DeliveryTransitionAndRollout(self.doc, f"{self.path}/deliveryTransitionAndRollout")
 
 class SpecializedEquipmentEntry(SomNode):
     """Specialized equipment entry (form)."""
@@ -44744,88 +44914,6 @@ class TargetBusinessProcessModel(SomNode):
     def processStepsAndActorInteractions(self):
         return ProcessStepsAndActorInteractions(self.doc, f"{self.path}/processStepsAndActorInteractions")
 
-class TargetOperatingModel(SomNode):
-    """BP00 Business Processes.
-    
-    Target business process specification — vision, principles, catalog,
-    diagrams, improvements, relationships, detailed workflows,
-    cross-process analysis, exception handling, and KPIs.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "TOM")
-        check_som_model_version(TargetOperatingModel.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return TargetOperatingModel.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Process vision.
-    @property
-    def processVision(self):
-        return ProcessVision(self.doc, f"{self.path}/processVision")
-
-    # Design principles.
-    @property
-    def designPrinciples(self):
-        return ProcessDesignPrinciples(self.doc, f"{self.path}/designPrinciples")
-
-    # Process catalog.
-    @property
-    def processCatalog(self):
-        return ProcessCatalog(self.doc, f"{self.path}/processCatalog")
-
-    # Process overview diagram.
-    @property
-    def processOverviewDiagram(self):
-        return ProcessOverviewDiagram(self.doc, f"{self.path}/processOverviewDiagram")
-
-    # Improvement summary.
-    @property
-    def improvementSummary(self):
-        return ProcessImprovementSummary(self.doc, f"{self.path}/improvementSummary")
-
-    # Process relationships.
-    @property
-    def processRelationships(self):
-        return ProcessRelationships(self.doc, f"{self.path}/processRelationships")
-
-    # Detailed process workflows.
-    @property
-    def detailedWorkflows(self):
-        return SomList(self.doc, f"{self.path}/DEPRWO-DETA-LST", lambda d, p: DetailedProcessWorkflows(d, p))
-
-    # Cross-process analysis.
-    @property
-    def crossProcessAnalysis(self):
-        return CrossProcessAnalysis(self.doc, f"{self.path}/crossProcessAnalysis")
-
-    # Process exception handling.
-    @property
-    def exceptionHandling(self):
-        return ProcessExceptionHandling(self.doc, f"{self.path}/exceptionHandling")
-
-    # Process metrics and KPIs.
-    @property
-    def processMetricsAndKpis(self):
-        return SomList(self.doc, f"{self.path}/PMAK-PROC-LST", lambda d, p: ProcessMetricsAndKpis(d, p))
-
 class TargetOperatingModelConcept(SomNode):
     """SBP.7 Target Operating Model concept.
     
@@ -47557,94 +47645,6 @@ class TransitionRiskEntryResponse(SomNode):
     @property
     def content(self):
         return TransitionRiskEntryResponseContentForm(self.doc, f"{self.path}/content")
-
-class TransitionRolloutPlan(SomNode):
-    """SR00 System Rollout.
-    
-    End-to-end rollout specification — localization, translation,
-    documentation and training, plus rollout plan, migration plan,
-    user manuals, training materials, pilot, cutover, knowledge
-    transfer, and warranty/support.
-    """
-    #: The model version this object model was generated against (§2.1).
-    model_version = '0.0'
-
-    def __init__(self, doc, document_version=None):
-        super().__init__(doc, "TRP")
-        check_som_model_version(TransitionRolloutPlan.model_version, document_version)
-
-    @property
-    def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
-        return TransitionRolloutPlan.model_version
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Standard TomSpecs document header.
-    @property
-    def header(self):
-        return DocumentHeader(self.doc, f"{self.path}/header")
-
-    # Localization process.
-    @property
-    def localizationProcess(self):
-        return LocalizationProcess(self.doc, f"{self.path}/localizationProcess")
-
-    # Translation process.
-    @property
-    def translationProcess(self):
-        return TranslationProcess(self.doc, f"{self.path}/translationProcess")
-
-    # Documentation and training.
-    @property
-    def documentationAndTraining(self):
-        return DocumentationAndTraining(self.doc, f"{self.path}/documentationAndTraining")
-
-    # Rollout plan.
-    @property
-    def rolloutPlan(self):
-        return RolloutPlan(self.doc, f"{self.path}/rolloutPlan")
-
-    # Migration plan.
-    @property
-    def migrationPlan(self):
-        return MigrationPlan(self.doc, f"{self.path}/migrationPlan")
-
-    # User manuals.
-    @property
-    def userManuals(self):
-        return SomList(self.doc, f"{self.path}/USRMAN-USER-LST", lambda d, p: UserManuals(d, p))
-
-    # Training materials.
-    @property
-    def trainingMaterials(self):
-        return SomList(self.doc, f"{self.path}/RLTTM-TRAI-LST", lambda d, p: RolloutTrainingMaterials(d, p))
-
-    # Pilot plan.
-    @property
-    def pilotPlan(self):
-        return PilotPlan(self.doc, f"{self.path}/pilotPlan")
-
-    # Cutover procedures.
-    @property
-    def cutoverProcedures(self):
-        return SomList(self.doc, f"{self.path}/CUTPRC-CUTO-LST", lambda d, p: CutoverProcedures(d, p))
-
-    # Knowledge transfer.
-    @property
-    def knowledgeTransfer(self):
-        return KnowledgeTransfer(self.doc, f"{self.path}/knowledgeTransfer")
-
-    # Warranty and support.
-    @property
-    def warrantyAndSupport(self):
-        return WarrantyAndSupport(self.doc, f"{self.path}/warrantyAndSupport")
 
 class TransitionSuccessMetrics(SomNode):
     """Success metrics for the transition."""

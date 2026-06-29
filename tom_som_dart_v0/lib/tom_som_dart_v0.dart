@@ -1718,69 +1718,6 @@ class ArchitectureStyle extends SomNode {
   SomList<ArchitectureDecisionRecord> get decisionRecords => SomList<ArchitectureDecisionRecord>(doc, '$path/ARDE-DECI-LST', (d, p) => ArchitectureDecisionRecord(d, p));
 }
 
-/// TR00 Technical Requirements.
-/// 
-/// Comprehensive technical requirements: basic / software / standard-
-/// software / hardware / operations / communication / system-operation
-/// / security / architecture, plus components, framework conditions,
-/// and translation handling.
-class ArchitectureTechnologySpecification extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  ArchitectureTechnologySpecification(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'ATS') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Basic technical requirements.
-  BasicTechnicalRequirements get basicTechnicalRequirements => BasicTechnicalRequirements(doc, '$path/basicTechnicalRequirements');
-
-  /// Software design requirements.
-  SoftwareDesignRequirements get softwareDesignRequirements => SoftwareDesignRequirements(doc, '$path/softwareDesignRequirements');
-
-  /// Standard application software requirements.
-  StandardSoftwareRequirements get standardSoftwareRequirements => StandardSoftwareRequirements(doc, '$path/standardSoftwareRequirements');
-
-  /// Hardware concept requirements.
-  HardwareRequirements get hardwareRequirements => HardwareRequirements(doc, '$path/hardwareRequirements');
-
-  /// Operations requirements.
-  OperationsRequirements get operationsRequirements => OperationsRequirements(doc, '$path/operationsRequirements');
-
-  /// Communication requirements.
-  CommunicationRequirements get communicationRequirements => CommunicationRequirements(doc, '$path/communicationRequirements');
-
-  /// System operation and monitoring.
-  SystemOperationAndMonitoring get systemOperationAndMonitoring => SystemOperationAndMonitoring(doc, '$path/systemOperationAndMonitoring');
-
-  /// Technical security requirements.
-  TechnicalSecurityRequirements get technicalSecurityRequirements => TechnicalSecurityRequirements(doc, '$path/technicalSecurityRequirements');
-
-  /// System architecture (new in Phase A).
-  SystemArchitectureSpec get systemArchitecture => SystemArchitectureSpec(doc, '$path/systemArchitecture');
-
-  /// Components to use (whole).
-  ComponentsToUse get componentsToUse => ComponentsToUse(doc, '$path/componentsToUse');
-
-  /// Technical framework conditions (whole).
-  TechnicalFrameworkConditions get technicalFrameworkConditions => TechnicalFrameworkConditions(doc, '$path/technicalFrameworkConditions');
-
-  /// Translation handling requirements (whole).
-  TranslationRequirements get translationRequirements => TranslationRequirements(doc, '$path/translationRequirements');
-}
-
 /// A consolidated register of assumptions and constraints.
 class AssumptionConstraintRegister extends SomNode {
   AssumptionConstraintRegister(super.doc, super.path);
@@ -6986,56 +6923,6 @@ class CurrentLandscape extends SomNode {
   CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
 }
 
-/// CS00 Current Situation.
-/// 
-/// Detailed analysis of the current state: existing systems, business
-/// processes, pain points, data landscape, operational metrics, risks,
-/// and the inventory / migration plan for the systems being replaced.
-class CurrentLandscapeAssessment extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  CurrentLandscapeAssessment(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'CLA') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Existing systems landscape.
-  ExistingSystemsLandscape get existingSystemsLandscape => ExistingSystemsLandscape(doc, '$path/existingSystemsLandscape');
-
-  /// Current business processes.
-  CurrentBusinessProcesses get currentBusinessProcesses => CurrentBusinessProcesses(doc, '$path/currentBusinessProcesses');
-
-  /// Pain points and gaps.
-  PainPointsAndGaps get painPointsAndGaps => PainPointsAndGaps(doc, '$path/painPointsAndGaps');
-
-  /// Current data landscape.
-  CurrentDataLandscape get currentDataLandscape => CurrentDataLandscape(doc, '$path/currentDataLandscape');
-
-  /// Current operational metrics.
-  SomList<CurrentOperationalMetrics> get operationalMetrics => SomList<CurrentOperationalMetrics>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetrics(d, p));
-
-  /// Current-state risk assessment.
-  CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
-
-  /// Replacement inventory.
-  ReplacementInventory get replacementInventory => ReplacementInventory(doc, '$path/replacementInventory');
-
-  /// Migration considerations.
-  MigrationConsiderations get migrationConsiderations => MigrationConsiderations(doc, '$path/migrationConsiderations');
-}
-
 /// 1.5. Operational Metrics.
 /// 
 /// Baseline metrics of the current systems: throughput, volume, uptime,
@@ -7139,6 +7026,751 @@ class CutoverProcedures extends SomNode {
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
+}
+
+/// The complete Solution Blueprint (SBP) document.
+/// 
+/// Contains a [DocumentControl] header block and the SBP sections, sequenced
+/// per the public-standards order (§4 of the redesign proposal).
+class D00SolutionBlueprint extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D00SolutionBlueprint(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'SBP') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// SBP.1 Document Control (header + revision history + approvals).
+  DocumentControl get documentControl => DocumentControl(doc, '$path/documentControl');
+
+  /// SBP.2 Introduction & Scope.
+  IntroductionAndScope get introductionAndScope => IntroductionAndScope(doc, '$path/introductionAndScope');
+
+  /// SBP.3 Glossary & Abbreviations.
+  GlossaryAndAbbreviations get glossaryAndAbbreviations => GlossaryAndAbbreviations(doc, '$path/glossaryAndAbbreviations');
+
+  /// SBP.4 Stakeholders & Governance.
+  StakeholdersAndGovernance get stakeholdersAndGovernance => StakeholdersAndGovernance(doc, '$path/stakeholdersAndGovernance');
+
+  /// SBP.5 Current Landscape. Seeds → CLA.
+  CurrentLandscape get currentLandscape => CurrentLandscape(doc, '$path/currentLandscape');
+
+  /// SBP.6 Assumptions, Constraints & Dependencies.
+  AssumptionsConstraintsDependencies get assumptionsConstraintsDependencies => AssumptionsConstraintsDependencies(doc, '$path/assumptionsConstraintsDependencies');
+
+  /// SBP.7 Target Operating Model concept. Seeds → TOM.
+  TargetOperatingModelConcept get targetOperatingModelConcept => TargetOperatingModelConcept(doc, '$path/targetOperatingModelConcept');
+
+  /// SBP.8 Information & Data Model. Seeds → IFM.
+  InformationAndDataModel get informationAndDataModel => InformationAndDataModel(doc, '$path/informationAndDataModel');
+
+  /// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+  Requirements get requirements => Requirements(doc, '$path/requirements');
+
+  /// SBP.11 Solution Architecture & Technology. Seeds → ATS.
+  SolutionArchitectureAndTechnology get solutionArchitectureAndTechnology => SolutionArchitectureAndTechnology(doc, '$path/solutionArchitectureAndTechnology');
+
+  /// SBP.12 Security & Access Model. Seeds → SAS.
+  SecurityAndAccessModel get securityAndAccessModel => SecurityAndAccessModel(doc, '$path/securityAndAccessModel');
+
+  /// SBP.13 Experience & Interface Design. Seeds → XDS.
+  ExperienceAndInterfaceDesign get experienceAndInterfaceDesign => ExperienceAndInterfaceDesign(doc, '$path/experienceAndInterfaceDesign');
+
+  /// SBP.14 Quality & Acceptance Model. Seeds → QAP.
+  QualityAndAcceptanceModel get qualityAndAcceptanceModel => QualityAndAcceptanceModel(doc, '$path/qualityAndAcceptanceModel');
+
+  /// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+  DeliveryTransitionAndRollout get deliveryTransitionAndRollout => DeliveryTransitionAndRollout(doc, '$path/deliveryTransitionAndRollout');
+}
+
+/// CS00 Current Situation.
+/// 
+/// Detailed analysis of the current state: existing systems, business
+/// processes, pain points, data landscape, operational metrics, risks,
+/// and the inventory / migration plan for the systems being replaced.
+class D01CurrentLandscapeAssessment extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D01CurrentLandscapeAssessment(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'CLA') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Existing systems landscape.
+  ExistingSystemsLandscape get existingSystemsLandscape => ExistingSystemsLandscape(doc, '$path/existingSystemsLandscape');
+
+  /// Current business processes.
+  CurrentBusinessProcesses get currentBusinessProcesses => CurrentBusinessProcesses(doc, '$path/currentBusinessProcesses');
+
+  /// Pain points and gaps.
+  PainPointsAndGaps get painPointsAndGaps => PainPointsAndGaps(doc, '$path/painPointsAndGaps');
+
+  /// Current data landscape.
+  CurrentDataLandscape get currentDataLandscape => CurrentDataLandscape(doc, '$path/currentDataLandscape');
+
+  /// Current operational metrics.
+  SomList<CurrentOperationalMetrics> get operationalMetrics => SomList<CurrentOperationalMetrics>(doc, '$path/CUOPME-OPER-LST', (d, p) => CurrentOperationalMetrics(d, p));
+
+  /// Current-state risk assessment.
+  CurrentStateRiskAssessment get currentStateRisks => CurrentStateRiskAssessment(doc, '$path/currentStateRisks');
+
+  /// Replacement inventory.
+  ReplacementInventory get replacementInventory => ReplacementInventory(doc, '$path/replacementInventory');
+
+  /// Migration considerations.
+  MigrationConsiderations get migrationConsiderations => MigrationConsiderations(doc, '$path/migrationConsiderations');
+}
+
+/// BP00 Business Processes.
+/// 
+/// Target business process specification — vision, principles, catalog,
+/// diagrams, improvements, relationships, detailed workflows,
+/// cross-process analysis, exception handling, and KPIs.
+class D02TargetOperatingModel extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D02TargetOperatingModel(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'TOM') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Process vision.
+  ProcessVision get processVision => ProcessVision(doc, '$path/processVision');
+
+  /// Design principles.
+  ProcessDesignPrinciples get designPrinciples => ProcessDesignPrinciples(doc, '$path/designPrinciples');
+
+  /// Process catalog.
+  ProcessCatalog get processCatalog => ProcessCatalog(doc, '$path/processCatalog');
+
+  /// Process overview diagram.
+  ProcessOverviewDiagram get processOverviewDiagram => ProcessOverviewDiagram(doc, '$path/processOverviewDiagram');
+
+  /// Improvement summary.
+  ProcessImprovementSummary get improvementSummary => ProcessImprovementSummary(doc, '$path/improvementSummary');
+
+  /// Process relationships.
+  ProcessRelationships get processRelationships => ProcessRelationships(doc, '$path/processRelationships');
+
+  /// Detailed process workflows.
+  SomList<DetailedProcessWorkflows> get detailedWorkflows => SomList<DetailedProcessWorkflows>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflows(d, p));
+
+  /// Cross-process analysis.
+  CrossProcessAnalysis get crossProcessAnalysis => CrossProcessAnalysis(doc, '$path/crossProcessAnalysis');
+
+  /// Process exception handling.
+  ProcessExceptionHandling get exceptionHandling => ProcessExceptionHandling(doc, '$path/exceptionHandling');
+
+  /// Process metrics and KPIs.
+  SomList<ProcessMetricsAndKpis> get processMetricsAndKpis => SomList<ProcessMetricsAndKpis>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetricsAndKpis(d, p));
+}
+
+/// BDM00 Business Data Model.
+/// 
+/// Full business data model: entities, relationships, ER diagram, data
+/// classification, business objects, function decomposition, function-
+/// to-data matrix, business rules, data dictionary, and validation /
+/// integrity constraints.
+class D03InformationModel extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D03InformationModel(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'IFM') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Entity inventory (list).
+  SomList<DataEntityEntry> get entities => SomList<DataEntityEntry>(doc, '$path/DAENT-ENTI-LST', (d, p) => DataEntityEntry(d, p));
+
+  /// Entity relationships.
+  EntityRelationships get entityRelationships => EntityRelationships(doc, '$path/entityRelationships');
+
+  /// Entity-relationship diagram.
+  // (skipped: erDiagram has no target type)
+
+  /// Data classification.
+  DataClassification get dataClassification => DataClassification(doc, '$path/dataClassification');
+
+  /// Business object catalog (list).
+  SomList<BusinessObjectEntry> get objectCatalog => SomList<BusinessObjectEntry>(doc, '$path/BJOEN-OBJE-LST', (d, p) => BusinessObjectEntry(d, p));
+
+  /// Business object diagram.
+  // (skipped: objectDiagram has no target type)
+
+  /// Function decomposition (list).
+  SomList<FunctionEntry> get functionDecomposition => SomList<FunctionEntry>(doc, '$path/FUNCT-FUNC-LST', (d, p) => FunctionEntry(d, p));
+
+  /// Function-to-data matrix (list).
+  SomList<FunctionDataMatrixEntry> get functionToDataMatrix => SomList<FunctionDataMatrixEntry>(doc, '$path/FNDMX-FUNC-LST', (d, p) => FunctionDataMatrixEntry(d, p));
+
+  /// Business rules catalog (list).
+  SomList<BusinessRuleEntry> get businessRules => SomList<BusinessRuleEntry>(doc, '$path/BIRU-BUSI-LST', (d, p) => BusinessRuleEntry(d, p));
+
+  /// Data dictionary.
+  DataDictionary get dataDictionary => DataDictionary(doc, '$path/dataDictionary');
+
+  /// Validation constraints.
+  SomList<ValidationConstraints> get validationConstraints => SomList<ValidationConstraints>(doc, '$path/VACO-VALI-LST', (d, p) => ValidationConstraints(d, p));
+
+  /// Integrity constraints.
+  SomList<IntegrityConstraints> get integrityConstraints => SomList<IntegrityConstraints>(doc, '$path/INCO-INTE-LST', (d, p) => IntegrityConstraints(d, p));
+}
+
+/// RC00 Requirements Catalog.
+/// 
+/// Full requirements catalog covering functional, technical, security,
+/// and organizational requirements, plus traceability, relationships,
+/// and coverage analysis.
+class D04RequirementsSpecification extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D04RequirementsSpecification(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'RSP') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Functional requirements.
+  FunctionalRequirements get functionalRequirements => FunctionalRequirements(doc, '$path/functionalRequirements');
+
+  /// Technical (non-functional) requirements.
+  TechnicalRequirements get technicalRequirements => TechnicalRequirements(doc, '$path/technicalRequirements');
+
+  /// Security requirements.
+  SecurityRequirements get securityRequirements => SecurityRequirements(doc, '$path/securityRequirements');
+
+  /// Organizational requirements.
+  OrganizationalRequirements get organizationalRequirements => OrganizationalRequirements(doc, '$path/organizationalRequirements');
+
+  /// Traceability matrix overview.
+  /// 
+  /// Mirrors the flat field on RequirementsOverview so the RC outline
+  /// reaches it directly. The authoritative content lives on the Solution
+  /// Blueprint side.
+  String get traceabilityMatrix => doc.content('$path/traceabilityMatrix') ?? '';
+  set traceabilityMatrix(String value) => doc.setContent('$path/traceabilityMatrix', value);
+
+  /// Requirement relationships.
+  SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p));
+
+  /// Requirement coverage.
+  RequirementCoverage get requirementCoverage => RequirementCoverage(doc, '$path/requirementCoverage');
+}
+
+/// UC00 Use Cases.
+/// 
+/// Detailed use cases derived from the target process steps and actor
+/// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+/// and traceability.
+class D05InteractionScenarios extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D05InteractionScenarios(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'ISC') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Process steps overview.
+  ProcessStepsOverview get processStepsOverview => ProcessStepsOverview(doc, '$path/processStepsOverview');
+
+  /// Actor overview.
+  ActorOverview get actorOverview => ActorOverview(doc, '$path/actorOverview');
+
+  /// Interaction catalog.
+  InteractionCatalog get interactionCatalog => InteractionCatalog(doc, '$path/interactionCatalog');
+
+  /// Key scenarios.
+  KeyScenarios get keyScenarios => KeyScenarios(doc, '$path/keyScenarios');
+
+  /// Actor relationship diagram.
+  ActorRelationshipDiagram get actorRelationshipDiagram => ActorRelationshipDiagram(doc, '$path/actorRelationshipDiagram');
+
+  /// End-to-end test scenarios.
+  SomList<EndToEndTestScenarios> get endToEndTestScenarios => SomList<EndToEndTestScenarios>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenarios(d, p));
+
+  /// Use case traceability.
+  UseCaseTraceability get useCaseTraceability => UseCaseTraceability(doc, '$path/useCaseTraceability');
+}
+
+/// TR00 Technical Requirements.
+/// 
+/// Comprehensive technical requirements: basic / software / standard-
+/// software / hardware / operations / communication / system-operation
+/// / security / architecture, plus components, framework conditions,
+/// and translation handling.
+class D06ArchitectureTechnologySpecification extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D06ArchitectureTechnologySpecification(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'ATS') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Basic technical requirements.
+  BasicTechnicalRequirements get basicTechnicalRequirements => BasicTechnicalRequirements(doc, '$path/basicTechnicalRequirements');
+
+  /// Software design requirements.
+  SoftwareDesignRequirements get softwareDesignRequirements => SoftwareDesignRequirements(doc, '$path/softwareDesignRequirements');
+
+  /// Standard application software requirements.
+  StandardSoftwareRequirements get standardSoftwareRequirements => StandardSoftwareRequirements(doc, '$path/standardSoftwareRequirements');
+
+  /// Hardware concept requirements.
+  HardwareRequirements get hardwareRequirements => HardwareRequirements(doc, '$path/hardwareRequirements');
+
+  /// Operations requirements.
+  OperationsRequirements get operationsRequirements => OperationsRequirements(doc, '$path/operationsRequirements');
+
+  /// Communication requirements.
+  CommunicationRequirements get communicationRequirements => CommunicationRequirements(doc, '$path/communicationRequirements');
+
+  /// System operation and monitoring.
+  SystemOperationAndMonitoring get systemOperationAndMonitoring => SystemOperationAndMonitoring(doc, '$path/systemOperationAndMonitoring');
+
+  /// Technical security requirements.
+  TechnicalSecurityRequirements get technicalSecurityRequirements => TechnicalSecurityRequirements(doc, '$path/technicalSecurityRequirements');
+
+  /// System architecture (new in Phase A).
+  SystemArchitectureSpec get systemArchitecture => SystemArchitectureSpec(doc, '$path/systemArchitecture');
+
+  /// Components to use (whole).
+  ComponentsToUse get componentsToUse => ComponentsToUse(doc, '$path/componentsToUse');
+
+  /// Technical framework conditions (whole).
+  TechnicalFrameworkConditions get technicalFrameworkConditions => TechnicalFrameworkConditions(doc, '$path/technicalFrameworkConditions');
+
+  /// Translation handling requirements (whole).
+  TranslationRequirements get translationRequirements => TranslationRequirements(doc, '$path/translationRequirements');
+}
+
+/// BSI00 Business System Interactions.
+/// 
+/// Complete interaction specification between the target system and
+/// external systems: inventory, patterns, testing, dependencies,
+/// migration, operational concerns, and cross-boundary error handling.
+class D07IntegrationInterfaceSpecification extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D07IntegrationInterfaceSpecification(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'IIS') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// External interfaces.
+  ExternalInterfaces get externalInterfaces => ExternalInterfaces(doc, '$path/externalInterfaces');
+
+  /// Out of scope.
+  OutOfScope get outOfScope => OutOfScope(doc, '$path/outOfScope');
+
+  /// Boundary assumptions.
+  BoundaryAssumptions get boundaryAssumptions => BoundaryAssumptions(doc, '$path/boundaryAssumptions');
+
+  /// System landscape inventory.
+  SystemLandscapeInventory get systemInventory => SystemLandscapeInventory(doc, '$path/systemInventory');
+
+  /// Boundary interaction patterns.
+  SomList<BoundaryInteractionPatterns> get interactionPatterns => SomList<BoundaryInteractionPatterns>(doc, '$path/BOINPA-INTE-LST', (d, p) => BoundaryInteractionPatterns(d, p));
+
+  /// Interaction testing strategy.
+  InteractionTestingStrategy get testingStrategy => InteractionTestingStrategy(doc, '$path/testingStrategy');
+
+  /// Interaction dependency analysis.
+  InteractionDependencyAnalysis get dependencyAnalysis => InteractionDependencyAnalysis(doc, '$path/dependencyAnalysis');
+
+  /// Migration interactions.
+  SomList<MigrationInteractions> get migrationInteractions => SomList<MigrationInteractions>(doc, '$path/MIIN-MIGR-LST', (d, p) => MigrationInteractions(d, p));
+
+  /// Cross-boundary operational considerations.
+  SomList<CrossBoundaryOperationalConsiderations> get operationalConsiderations => SomList<CrossBoundaryOperationalConsiderations>(doc, '$path/CBOC-OPER-LST', (d, p) => CrossBoundaryOperationalConsiderations(d, p));
+
+  /// Cross-boundary error handling.
+  CrossBoundaryErrorHandling get crossBoundaryErrorHandling => CrossBoundaryErrorHandling(doc, '$path/crossBoundaryErrorHandling');
+}
+
+/// AC00 Authorization Concept.
+/// 
+/// Complete access and authorization specification — user management,
+/// identification and authentication, resource protection, user
+/// authorization, encryption, audit/logging, role matrix, and
+/// compliance framework.
+class D08SecurityAccessSpecification extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D08SecurityAccessSpecification(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'SAS') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// User management.
+  UserManagement get userManagement => UserManagement(doc, '$path/userManagement');
+
+  /// Identification and authentication.
+  IdentificationAndAuthentication get identificationAndAuthentication => IdentificationAndAuthentication(doc, '$path/identificationAndAuthentication');
+
+  /// Resource protection.
+  ResourceProtection get resourceProtection => ResourceProtection(doc, '$path/resourceProtection');
+
+  /// User authorization.
+  UserAuthorization get userAuthorization => UserAuthorization(doc, '$path/userAuthorization');
+
+  /// Sensitive data encryption.
+  SensitiveDataEncryption get sensitiveDataEncryption => SensitiveDataEncryption(doc, '$path/sensitiveDataEncryption');
+
+  /// Audit and logging.
+  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
+
+  /// Role matrix.
+  RoleMatrix get roleMatrix => RoleMatrix(doc, '$path/roleMatrix');
+
+  /// Compliance framework.
+  ComplianceFramework get complianceFramework => ComplianceFramework(doc, '$path/complianceFramework');
+}
+
+/// UP00 UI Prototype.
+/// 
+/// Full UI design and prototype specification — vision, screens,
+/// screen flow, print, error handling, help, accessibility, responsive,
+/// components, language/country selection, prototype, wireframes and
+/// mockups.
+class D09ExperienceDesignSpecification extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D09ExperienceDesignSpecification(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'XDS') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Design vision.
+  DesignVision get designVision => DesignVision(doc, '$path/designVision');
+
+  /// Screen descriptions.
+  ScreenDescriptions get screens => ScreenDescriptions(doc, '$path/screens');
+
+  /// Screen flow structure.
+  ScreenFlowStructure get screenFlow => ScreenFlowStructure(doc, '$path/screenFlow');
+
+  /// Print layout.
+  PrintLayout get printLayout => PrintLayout(doc, '$path/printLayout');
+
+  /// Error handling concept.
+  ErrorHandlingConcept get errorHandling => ErrorHandlingConcept(doc, '$path/errorHandling');
+
+  /// Help concept.
+  HelpConcept get helpConcept => HelpConcept(doc, '$path/helpConcept');
+
+  /// Accessibility.
+  Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
+
+  /// Responsive design.
+  ResponsiveDesign get responsiveDesign => ResponsiveDesign(doc, '$path/responsiveDesign');
+
+  /// UI components.
+  UiComponents get uiComponents => UiComponents(doc, '$path/uiComponents');
+
+  /// Language and country selection.
+  LanguageCountrySelection get languageCountrySelection => LanguageCountrySelection(doc, '$path/languageCountrySelection');
+
+  /// Prototype.
+  Prototype get prototype => Prototype(doc, '$path/prototype');
+
+  /// Wireframes and mockups (new in Phase A).
+  SomList<WireframesAndMockups> get wireframesAndMockups => SomList<WireframesAndMockups>(doc, '$path/WIANMO-WIRE-LST', (d, p) => WireframesAndMockups(d, p));
+}
+
+/// BQP00 Business Quality Plan.
+/// 
+/// Full quality plan combining quality goals and the acceptance plan.
+class D10QualityAcceptancePlan extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D10QualityAcceptancePlan(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'QAP') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Quality framework.
+  QualityFramework get qualityFramework => QualityFramework(doc, '$path/qualityFramework');
+
+  /// User-related quality criteria.
+  UserQualityCriteria get userQualityCriteria => UserQualityCriteria(doc, '$path/userQualityCriteria');
+
+  /// Technical quality criteria.
+  TechnicalQualityCriteria get technicalQualityCriteria => TechnicalQualityCriteria(doc, '$path/technicalQualityCriteria');
+
+  /// Operations quality criteria.
+  OperationsQualityCriteria get operationsQualityCriteria => OperationsQualityCriteria(doc, '$path/operationsQualityCriteria');
+
+  /// Documentation quality criteria.
+  DocumentationQualityCriteria get documentationQualityCriteria => DocumentationQualityCriteria(doc, '$path/documentationQualityCriteria');
+
+  /// Quality prioritization.
+  QualityPrioritization get qualityPrioritization => QualityPrioritization(doc, '$path/qualityPrioritization');
+
+  /// Acceptance criteria summary.
+  AcceptanceCriteriaSummary get acceptanceCriteriaSummary => AcceptanceCriteriaSummary(doc, '$path/acceptanceCriteriaSummary');
+
+  /// Test strategy (new in Phase A).
+  TestStrategy get testStrategy => TestStrategy(doc, '$path/testStrategy');
+
+  /// Acceptance criteria.
+  AcceptanceCriteriaList get acceptanceCriteria => AcceptanceCriteriaList(doc, '$path/acceptanceCriteria');
+
+  /// Acceptance process.
+  AcceptanceProcess get acceptanceProcess => AcceptanceProcess(doc, '$path/acceptanceProcess');
+
+  /// User acceptance testing.
+  UserAcceptanceTesting get userAcceptanceTesting => UserAcceptanceTesting(doc, '$path/userAcceptanceTesting');
+
+  /// Defect resolution.
+  DefectResolution get defectResolution => DefectResolution(doc, '$path/defectResolution');
+
+  /// Sign-off process.
+  SignOffProcess get signOffProcess => SignOffProcess(doc, '$path/signOffProcess');
+
+  /// Warranty terms.
+  WarrantyTerms get warranty => WarrantyTerms(doc, '$path/warranty');
+}
+
+/// PPP00 Project Phase Plan.
+/// 
+/// Full project phase plan — staging strategy, stage overview, per-stage
+/// entries, feature prioritization, data migration, gate criteria,
+/// decision processes, initial development flow, and upgrade cycle
+/// framework.
+class D11DeliveryRoadmap extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D11DeliveryRoadmap(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'DRM') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Staging strategy.
+  StagingStrategy get stagingStrategy => StagingStrategy(doc, '$path/stagingStrategy');
+
+  /// Stage overview.
+  StageOverview get stageOverview => StageOverview(doc, '$path/stageOverview');
+
+  /// Stages (list).
+  SomList<StageEntry> get stages => SomList<StageEntry>(doc, '$path/STAGE-STAG-LST', (d, p) => StageEntry(d, p));
+
+  /// Feature prioritization.
+  FeaturePrioritization get featurePrioritization => FeaturePrioritization(doc, '$path/featurePrioritization');
+
+  /// Data migration strategy.
+  DataMigrationStrategy get dataMigrationStrategy => DataMigrationStrategy(doc, '$path/dataMigrationStrategy');
+
+  /// Gate criteria (promoted from GOV).
+  PhaseGateReviews get gateCriteria => PhaseGateReviews(doc, '$path/gateCriteria');
+
+  /// Decision processes (promoted from GOV).
+  DecisionPoints get decisionProcesses => DecisionPoints(doc, '$path/decisionProcesses');
+
+  /// Initial development flow.
+  InitialDevelopmentFlow get initialDevelopmentFlow => InitialDevelopmentFlow(doc, '$path/initialDevelopmentFlow');
+
+  /// Upgrade cycle framework (links tom_system_upgrade.md).
+  UpgradeCycleFramework get upgradeCycleFramework => UpgradeCycleFramework(doc, '$path/upgradeCycleFramework');
+}
+
+/// SR00 System Rollout.
+/// 
+/// End-to-end rollout specification — localization, translation,
+/// documentation and training, plus rollout plan, migration plan,
+/// user manuals, training materials, pilot, cutover, knowledge
+/// transfer, and warranty/support.
+class D12TransitionRolloutPlan extends SomNode {
+  /// The model version this object model was generated against (§2.1).
+  static const String modelVersion = '0.0';
+
+  /// Creates the typed facade over [doc] at the document root and verifies
+  /// the document's authoring [documentVersion] is editable (§2.2).
+  D12TransitionRolloutPlan(SpecDocument doc, {String? documentVersion})
+      : super(doc, 'TRP') {
+    checkSomModelVersion(modelVersion, documentVersion);
+  }
+
+  /// This object model's own model version (`major.minor`), per spec §2.1.
+  String get objectModelVersion => modelVersion;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// Standard TomSpecs document header.
+  DocumentHeader get header => DocumentHeader(doc, '$path/header');
+
+  /// Localization process.
+  LocalizationProcess get localizationProcess => LocalizationProcess(doc, '$path/localizationProcess');
+
+  /// Translation process.
+  TranslationProcess get translationProcess => TranslationProcess(doc, '$path/translationProcess');
+
+  /// Documentation and training.
+  DocumentationAndTraining get documentationAndTraining => DocumentationAndTraining(doc, '$path/documentationAndTraining');
+
+  /// Rollout plan.
+  RolloutPlan get rolloutPlan => RolloutPlan(doc, '$path/rolloutPlan');
+
+  /// Migration plan.
+  MigrationPlan get migrationPlan => MigrationPlan(doc, '$path/migrationPlan');
+
+  /// User manuals.
+  SomList<UserManuals> get userManuals => SomList<UserManuals>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManuals(d, p));
+
+  /// Training materials.
+  SomList<RolloutTrainingMaterials> get trainingMaterials => SomList<RolloutTrainingMaterials>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterials(d, p));
+
+  /// Pilot plan.
+  PilotPlan get pilotPlan => PilotPlan(doc, '$path/pilotPlan');
+
+  /// Cutover procedures.
+  SomList<CutoverProcedures> get cutoverProcedures => SomList<CutoverProcedures>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedures(d, p));
+
+  /// Knowledge transfer.
+  KnowledgeTransfer get knowledgeTransfer => KnowledgeTransfer(doc, '$path/knowledgeTransfer');
+
+  /// Warranty and support.
+  WarrantyAndSupport get warrantyAndSupport => WarrantyAndSupport(doc, '$path/warrantyAndSupport');
 }
 
 /// A dashboard entry.
@@ -8979,60 +9611,6 @@ class DeliveryAcceptanceCriterionEntryVerification extends SomNode {
   DeliveryAcceptanceCriterionEntryVerification(super.doc, super.path);
 
   DeliveryAcceptanceCriterionEntryVerificationContentForm get content => DeliveryAcceptanceCriterionEntryVerificationContentForm(doc, '$path/content');
-}
-
-/// PPP00 Project Phase Plan.
-/// 
-/// Full project phase plan — staging strategy, stage overview, per-stage
-/// entries, feature prioritization, data migration, gate criteria,
-/// decision processes, initial development flow, and upgrade cycle
-/// framework.
-class DeliveryRoadmap extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  DeliveryRoadmap(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'DRM') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Staging strategy.
-  StagingStrategy get stagingStrategy => StagingStrategy(doc, '$path/stagingStrategy');
-
-  /// Stage overview.
-  StageOverview get stageOverview => StageOverview(doc, '$path/stageOverview');
-
-  /// Stages (list).
-  SomList<StageEntry> get stages => SomList<StageEntry>(doc, '$path/STAGE-STAG-LST', (d, p) => StageEntry(d, p));
-
-  /// Feature prioritization.
-  FeaturePrioritization get featurePrioritization => FeaturePrioritization(doc, '$path/featurePrioritization');
-
-  /// Data migration strategy.
-  DataMigrationStrategy get dataMigrationStrategy => DataMigrationStrategy(doc, '$path/dataMigrationStrategy');
-
-  /// Gate criteria (promoted from GOV).
-  PhaseGateReviews get gateCriteria => PhaseGateReviews(doc, '$path/gateCriteria');
-
-  /// Decision processes (promoted from GOV).
-  DecisionPoints get decisionProcesses => DecisionPoints(doc, '$path/decisionProcesses');
-
-  /// Initial development flow.
-  InitialDevelopmentFlow get initialDevelopmentFlow => InitialDevelopmentFlow(doc, '$path/initialDevelopmentFlow');
-
-  /// Upgrade cycle framework (links tom_system_upgrade.md).
-  UpgradeCycleFramework get upgradeCycleFramework => UpgradeCycleFramework(doc, '$path/upgradeCycleFramework');
 }
 
 /// 14.1. Delivery and Service Scope.
@@ -12011,69 +12589,6 @@ class ExperienceAndInterfaceDesign extends SomNode {
   SomList<WireframesAndMockups> get wireframesAndMockups => SomList<WireframesAndMockups>(doc, '$path/WIANMO-WIRE-LST', (d, p) => WireframesAndMockups(d, p));
 }
 
-/// UP00 UI Prototype.
-/// 
-/// Full UI design and prototype specification — vision, screens,
-/// screen flow, print, error handling, help, accessibility, responsive,
-/// components, language/country selection, prototype, wireframes and
-/// mockups.
-class ExperienceDesignSpecification extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  ExperienceDesignSpecification(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'XDS') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Design vision.
-  DesignVision get designVision => DesignVision(doc, '$path/designVision');
-
-  /// Screen descriptions.
-  ScreenDescriptions get screens => ScreenDescriptions(doc, '$path/screens');
-
-  /// Screen flow structure.
-  ScreenFlowStructure get screenFlow => ScreenFlowStructure(doc, '$path/screenFlow');
-
-  /// Print layout.
-  PrintLayout get printLayout => PrintLayout(doc, '$path/printLayout');
-
-  /// Error handling concept.
-  ErrorHandlingConcept get errorHandling => ErrorHandlingConcept(doc, '$path/errorHandling');
-
-  /// Help concept.
-  HelpConcept get helpConcept => HelpConcept(doc, '$path/helpConcept');
-
-  /// Accessibility.
-  Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
-
-  /// Responsive design.
-  ResponsiveDesign get responsiveDesign => ResponsiveDesign(doc, '$path/responsiveDesign');
-
-  /// UI components.
-  UiComponents get uiComponents => UiComponents(doc, '$path/uiComponents');
-
-  /// Language and country selection.
-  LanguageCountrySelection get languageCountrySelection => LanguageCountrySelection(doc, '$path/languageCountrySelection');
-
-  /// Prototype.
-  Prototype get prototype => Prototype(doc, '$path/prototype');
-
-  /// Wireframes and mockups (new in Phase A).
-  SomList<WireframesAndMockups> get wireframesAndMockups => SomList<WireframesAndMockups>(doc, '$path/WIANMO-WIRE-LST', (d, p) => WireframesAndMockups(d, p));
-}
-
 /// Export access and audit.
 class ExportAccess extends SomNode {
   ExportAccess(super.doc, super.path);
@@ -14662,69 +15177,6 @@ class InformationForUseRequirements extends SomNode {
   DocumentationAndTraining get documentationAndTraining => DocumentationAndTraining(doc, '$path/documentationAndTraining');
 }
 
-/// BDM00 Business Data Model.
-/// 
-/// Full business data model: entities, relationships, ER diagram, data
-/// classification, business objects, function decomposition, function-
-/// to-data matrix, business rules, data dictionary, and validation /
-/// integrity constraints.
-class InformationModel extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  InformationModel(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'IFM') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Entity inventory (list).
-  SomList<DataEntityEntry> get entities => SomList<DataEntityEntry>(doc, '$path/DAENT-ENTI-LST', (d, p) => DataEntityEntry(d, p));
-
-  /// Entity relationships.
-  EntityRelationships get entityRelationships => EntityRelationships(doc, '$path/entityRelationships');
-
-  /// Entity-relationship diagram.
-  // (skipped: erDiagram has no target type)
-
-  /// Data classification.
-  DataClassification get dataClassification => DataClassification(doc, '$path/dataClassification');
-
-  /// Business object catalog (list).
-  SomList<BusinessObjectEntry> get objectCatalog => SomList<BusinessObjectEntry>(doc, '$path/BJOEN-OBJE-LST', (d, p) => BusinessObjectEntry(d, p));
-
-  /// Business object diagram.
-  // (skipped: objectDiagram has no target type)
-
-  /// Function decomposition (list).
-  SomList<FunctionEntry> get functionDecomposition => SomList<FunctionEntry>(doc, '$path/FUNCT-FUNC-LST', (d, p) => FunctionEntry(d, p));
-
-  /// Function-to-data matrix (list).
-  SomList<FunctionDataMatrixEntry> get functionToDataMatrix => SomList<FunctionDataMatrixEntry>(doc, '$path/FNDMX-FUNC-LST', (d, p) => FunctionDataMatrixEntry(d, p));
-
-  /// Business rules catalog (list).
-  SomList<BusinessRuleEntry> get businessRules => SomList<BusinessRuleEntry>(doc, '$path/BIRU-BUSI-LST', (d, p) => BusinessRuleEntry(d, p));
-
-  /// Data dictionary.
-  DataDictionary get dataDictionary => DataDictionary(doc, '$path/dataDictionary');
-
-  /// Validation constraints.
-  SomList<ValidationConstraints> get validationConstraints => SomList<ValidationConstraints>(doc, '$path/VACO-VALI-LST', (d, p) => ValidationConstraints(d, p));
-
-  /// Integrity constraints.
-  SomList<IntegrityConstraints> get integrityConstraints => SomList<IntegrityConstraints>(doc, '$path/INCO-INTE-LST', (d, p) => IntegrityConstraints(d, p));
-}
-
 /// Infrastructure as Code requirements.
 class InfrastructureAsCode extends SomNode {
   InfrastructureAsCode(super.doc, super.path);
@@ -15128,62 +15580,6 @@ class IntegrationHealthSummary extends SomNode {
   SomList<FragilePointEntry> get fragilePoints => SomList<FragilePointEntry>(doc, '$path/FRAGI-FRAG-LST', (d, p) => FragilePointEntry(d, p));
 }
 
-/// BSI00 Business System Interactions.
-/// 
-/// Complete interaction specification between the target system and
-/// external systems: inventory, patterns, testing, dependencies,
-/// migration, operational concerns, and cross-boundary error handling.
-class IntegrationInterfaceSpecification extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  IntegrationInterfaceSpecification(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'IIS') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// External interfaces.
-  ExternalInterfaces get externalInterfaces => ExternalInterfaces(doc, '$path/externalInterfaces');
-
-  /// Out of scope.
-  OutOfScope get outOfScope => OutOfScope(doc, '$path/outOfScope');
-
-  /// Boundary assumptions.
-  BoundaryAssumptions get boundaryAssumptions => BoundaryAssumptions(doc, '$path/boundaryAssumptions');
-
-  /// System landscape inventory.
-  SystemLandscapeInventory get systemInventory => SystemLandscapeInventory(doc, '$path/systemInventory');
-
-  /// Boundary interaction patterns.
-  SomList<BoundaryInteractionPatterns> get interactionPatterns => SomList<BoundaryInteractionPatterns>(doc, '$path/BOINPA-INTE-LST', (d, p) => BoundaryInteractionPatterns(d, p));
-
-  /// Interaction testing strategy.
-  InteractionTestingStrategy get testingStrategy => InteractionTestingStrategy(doc, '$path/testingStrategy');
-
-  /// Interaction dependency analysis.
-  InteractionDependencyAnalysis get dependencyAnalysis => InteractionDependencyAnalysis(doc, '$path/dependencyAnalysis');
-
-  /// Migration interactions.
-  SomList<MigrationInteractions> get migrationInteractions => SomList<MigrationInteractions>(doc, '$path/MIIN-MIGR-LST', (d, p) => MigrationInteractions(d, p));
-
-  /// Cross-boundary operational considerations.
-  SomList<CrossBoundaryOperationalConsiderations> get operationalConsiderations => SomList<CrossBoundaryOperationalConsiderations>(doc, '$path/CBOC-OPER-LST', (d, p) => CrossBoundaryOperationalConsiderations(d, p));
-
-  /// Cross-boundary error handling.
-  CrossBoundaryErrorHandling get crossBoundaryErrorHandling => CrossBoundaryErrorHandling(doc, '$path/crossBoundaryErrorHandling');
-}
-
 /// A single integration pattern entry.
 class IntegrationPatternEntry extends SomNode {
   IntegrationPatternEntry(super.doc, super.path);
@@ -15474,53 +15870,6 @@ class InteractionScenarioEntry extends SomNode {
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
-}
-
-/// UC00 Use Cases.
-/// 
-/// Detailed use cases derived from the target process steps and actor
-/// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-/// and traceability.
-class InteractionScenarios extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  InteractionScenarios(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'ISC') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Process steps overview.
-  ProcessStepsOverview get processStepsOverview => ProcessStepsOverview(doc, '$path/processStepsOverview');
-
-  /// Actor overview.
-  ActorOverview get actorOverview => ActorOverview(doc, '$path/actorOverview');
-
-  /// Interaction catalog.
-  InteractionCatalog get interactionCatalog => InteractionCatalog(doc, '$path/interactionCatalog');
-
-  /// Key scenarios.
-  KeyScenarios get keyScenarios => KeyScenarios(doc, '$path/keyScenarios');
-
-  /// Actor relationship diagram.
-  ActorRelationshipDiagram get actorRelationshipDiagram => ActorRelationshipDiagram(doc, '$path/actorRelationshipDiagram');
-
-  /// End-to-end test scenarios.
-  SomList<EndToEndTestScenarios> get endToEndTestScenarios => SomList<EndToEndTestScenarios>(doc, '$path/ETETS-ENDT-LST', (d, p) => EndToEndTestScenarios(d, p));
-
-  /// Use case traceability.
-  UseCaseTraceability get useCaseTraceability => UseCaseTraceability(doc, '$path/useCaseTraceability');
 }
 
 /// Interaction security requirements.
@@ -22596,72 +22945,6 @@ class PwaRequirementsUpdates extends SomNode {
   PwaRequirementsUpdatesContentForm get content => PwaRequirementsUpdatesContentForm(doc, '$path/content');
 }
 
-/// BQP00 Business Quality Plan.
-/// 
-/// Full quality plan combining quality goals and the acceptance plan.
-class QualityAcceptancePlan extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  QualityAcceptancePlan(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'QAP') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Quality framework.
-  QualityFramework get qualityFramework => QualityFramework(doc, '$path/qualityFramework');
-
-  /// User-related quality criteria.
-  UserQualityCriteria get userQualityCriteria => UserQualityCriteria(doc, '$path/userQualityCriteria');
-
-  /// Technical quality criteria.
-  TechnicalQualityCriteria get technicalQualityCriteria => TechnicalQualityCriteria(doc, '$path/technicalQualityCriteria');
-
-  /// Operations quality criteria.
-  OperationsQualityCriteria get operationsQualityCriteria => OperationsQualityCriteria(doc, '$path/operationsQualityCriteria');
-
-  /// Documentation quality criteria.
-  DocumentationQualityCriteria get documentationQualityCriteria => DocumentationQualityCriteria(doc, '$path/documentationQualityCriteria');
-
-  /// Quality prioritization.
-  QualityPrioritization get qualityPrioritization => QualityPrioritization(doc, '$path/qualityPrioritization');
-
-  /// Acceptance criteria summary.
-  AcceptanceCriteriaSummary get acceptanceCriteriaSummary => AcceptanceCriteriaSummary(doc, '$path/acceptanceCriteriaSummary');
-
-  /// Test strategy (new in Phase A).
-  TestStrategy get testStrategy => TestStrategy(doc, '$path/testStrategy');
-
-  /// Acceptance criteria.
-  AcceptanceCriteriaList get acceptanceCriteria => AcceptanceCriteriaList(doc, '$path/acceptanceCriteria');
-
-  /// Acceptance process.
-  AcceptanceProcess get acceptanceProcess => AcceptanceProcess(doc, '$path/acceptanceProcess');
-
-  /// User acceptance testing.
-  UserAcceptanceTesting get userAcceptanceTesting => UserAcceptanceTesting(doc, '$path/userAcceptanceTesting');
-
-  /// Defect resolution.
-  DefectResolution get defectResolution => DefectResolution(doc, '$path/defectResolution');
-
-  /// Sign-off process.
-  SignOffProcess get signOffProcess => SignOffProcess(doc, '$path/signOffProcess');
-
-  /// Warranty terms.
-  WarrantyTerms get warranty => WarrantyTerms(doc, '$path/warranty');
-}
-
 /// SBP.14 Quality & Acceptance Model.
 /// 
 /// Public anchor: ISO/IEC 25010 product quality.
@@ -24324,58 +24607,6 @@ class RequirementsOverview extends SomNode {
   SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p));
 
   /// 4.3.6. Requirement Coverage.
-  RequirementCoverage get requirementCoverage => RequirementCoverage(doc, '$path/requirementCoverage');
-}
-
-/// RC00 Requirements Catalog.
-/// 
-/// Full requirements catalog covering functional, technical, security,
-/// and organizational requirements, plus traceability, relationships,
-/// and coverage analysis.
-class RequirementsSpecification extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  RequirementsSpecification(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'RSP') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Functional requirements.
-  FunctionalRequirements get functionalRequirements => FunctionalRequirements(doc, '$path/functionalRequirements');
-
-  /// Technical (non-functional) requirements.
-  TechnicalRequirements get technicalRequirements => TechnicalRequirements(doc, '$path/technicalRequirements');
-
-  /// Security requirements.
-  SecurityRequirements get securityRequirements => SecurityRequirements(doc, '$path/securityRequirements');
-
-  /// Organizational requirements.
-  OrganizationalRequirements get organizationalRequirements => OrganizationalRequirements(doc, '$path/organizationalRequirements');
-
-  /// Traceability matrix overview.
-  /// 
-  /// Mirrors the flat field on RequirementsOverview so the RC outline
-  /// reaches it directly. The authoritative content lives on the Solution
-  /// Blueprint side.
-  String get traceabilityMatrix => doc.content('$path/traceabilityMatrix') ?? '';
-  set traceabilityMatrix(String value) => doc.setContent('$path/traceabilityMatrix', value);
-
-  /// Requirement relationships.
-  SomList<RequirementRelationships> get requirementRelationships => SomList<RequirementRelationships>(doc, '$path/RERE-REQU-LST', (d, p) => RequirementRelationships(d, p));
-
-  /// Requirement coverage.
   RequirementCoverage get requirementCoverage => RequirementCoverage(doc, '$path/requirementCoverage');
 }
 
@@ -26533,57 +26764,6 @@ class SecondaryNavigation extends SomNode {
   SomList<TabBarDefinitionEntry> get tabBars => SomList<TabBarDefinitionEntry>(doc, '$path/TBDE-TABB-LST', (d, p) => TabBarDefinitionEntry(d, p));
 }
 
-/// AC00 Authorization Concept.
-/// 
-/// Complete access and authorization specification — user management,
-/// identification and authentication, resource protection, user
-/// authorization, encryption, audit/logging, role matrix, and
-/// compliance framework.
-class SecurityAccessSpecification extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  SecurityAccessSpecification(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'SAS') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// User management.
-  UserManagement get userManagement => UserManagement(doc, '$path/userManagement');
-
-  /// Identification and authentication.
-  IdentificationAndAuthentication get identificationAndAuthentication => IdentificationAndAuthentication(doc, '$path/identificationAndAuthentication');
-
-  /// Resource protection.
-  ResourceProtection get resourceProtection => ResourceProtection(doc, '$path/resourceProtection');
-
-  /// User authorization.
-  UserAuthorization get userAuthorization => UserAuthorization(doc, '$path/userAuthorization');
-
-  /// Sensitive data encryption.
-  SensitiveDataEncryption get sensitiveDataEncryption => SensitiveDataEncryption(doc, '$path/sensitiveDataEncryption');
-
-  /// Audit and logging.
-  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
-
-  /// Role matrix.
-  RoleMatrix get roleMatrix => RoleMatrix(doc, '$path/roleMatrix');
-
-  /// Compliance framework.
-  ComplianceFramework get complianceFramework => ComplianceFramework(doc, '$path/complianceFramework');
-}
-
 /// 9. Access and Authorization Concept. Seeds → AC.
 class SecurityAndAccessModel extends SomNode {
   SecurityAndAccessModel(super.doc, super.path);
@@ -28267,70 +28447,6 @@ class SolutionArchitectureAndTechnology extends SomNode {
 
   /// Components, libraries, and services to reuse.
   ComponentsToUse get componentsToUse => ComponentsToUse(doc, '$path/componentsToUse');
-}
-
-/// The complete Solution Blueprint (SBP) document.
-/// 
-/// Contains a [DocumentControl] header block and the SBP sections, sequenced
-/// per the public-standards order (§4 of the redesign proposal).
-class SolutionBlueprint extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  SolutionBlueprint(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'SBP') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// SBP.1 Document Control (header + revision history + approvals).
-  DocumentControl get documentControl => DocumentControl(doc, '$path/documentControl');
-
-  /// SBP.2 Introduction & Scope.
-  IntroductionAndScope get introductionAndScope => IntroductionAndScope(doc, '$path/introductionAndScope');
-
-  /// SBP.3 Glossary & Abbreviations.
-  GlossaryAndAbbreviations get glossaryAndAbbreviations => GlossaryAndAbbreviations(doc, '$path/glossaryAndAbbreviations');
-
-  /// SBP.4 Stakeholders & Governance.
-  StakeholdersAndGovernance get stakeholdersAndGovernance => StakeholdersAndGovernance(doc, '$path/stakeholdersAndGovernance');
-
-  /// SBP.5 Current Landscape. Seeds → CLA.
-  CurrentLandscape get currentLandscape => CurrentLandscape(doc, '$path/currentLandscape');
-
-  /// SBP.6 Assumptions, Constraints & Dependencies.
-  AssumptionsConstraintsDependencies get assumptionsConstraintsDependencies => AssumptionsConstraintsDependencies(doc, '$path/assumptionsConstraintsDependencies');
-
-  /// SBP.7 Target Operating Model concept. Seeds → TOM.
-  TargetOperatingModelConcept get targetOperatingModelConcept => TargetOperatingModelConcept(doc, '$path/targetOperatingModelConcept');
-
-  /// SBP.8 Information & Data Model. Seeds → IFM.
-  InformationAndDataModel get informationAndDataModel => InformationAndDataModel(doc, '$path/informationAndDataModel');
-
-  /// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
-  Requirements get requirements => Requirements(doc, '$path/requirements');
-
-  /// SBP.11 Solution Architecture & Technology. Seeds → ATS.
-  SolutionArchitectureAndTechnology get solutionArchitectureAndTechnology => SolutionArchitectureAndTechnology(doc, '$path/solutionArchitectureAndTechnology');
-
-  /// SBP.12 Security & Access Model. Seeds → SAS.
-  SecurityAndAccessModel get securityAndAccessModel => SecurityAndAccessModel(doc, '$path/securityAndAccessModel');
-
-  /// SBP.13 Experience & Interface Design. Seeds → XDS.
-  ExperienceAndInterfaceDesign get experienceAndInterfaceDesign => ExperienceAndInterfaceDesign(doc, '$path/experienceAndInterfaceDesign');
-
-  /// SBP.14 Quality & Acceptance Model. Seeds → QAP.
-  QualityAndAcceptanceModel get qualityAndAcceptanceModel => QualityAndAcceptanceModel(doc, '$path/qualityAndAcceptanceModel');
-
-  /// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
-  DeliveryTransitionAndRollout get deliveryTransitionAndRollout => DeliveryTransitionAndRollout(doc, '$path/deliveryTransitionAndRollout');
 }
 
 /// Specialized equipment entry (form).
@@ -31061,62 +31177,6 @@ class TargetBusinessProcessModel extends SomNode {
   ProcessStepsAndActorInteractions get processStepsAndActorInteractions => ProcessStepsAndActorInteractions(doc, '$path/processStepsAndActorInteractions');
 }
 
-/// BP00 Business Processes.
-/// 
-/// Target business process specification — vision, principles, catalog,
-/// diagrams, improvements, relationships, detailed workflows,
-/// cross-process analysis, exception handling, and KPIs.
-class TargetOperatingModel extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  TargetOperatingModel(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'TOM') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Process vision.
-  ProcessVision get processVision => ProcessVision(doc, '$path/processVision');
-
-  /// Design principles.
-  ProcessDesignPrinciples get designPrinciples => ProcessDesignPrinciples(doc, '$path/designPrinciples');
-
-  /// Process catalog.
-  ProcessCatalog get processCatalog => ProcessCatalog(doc, '$path/processCatalog');
-
-  /// Process overview diagram.
-  ProcessOverviewDiagram get processOverviewDiagram => ProcessOverviewDiagram(doc, '$path/processOverviewDiagram');
-
-  /// Improvement summary.
-  ProcessImprovementSummary get improvementSummary => ProcessImprovementSummary(doc, '$path/improvementSummary');
-
-  /// Process relationships.
-  ProcessRelationships get processRelationships => ProcessRelationships(doc, '$path/processRelationships');
-
-  /// Detailed process workflows.
-  SomList<DetailedProcessWorkflows> get detailedWorkflows => SomList<DetailedProcessWorkflows>(doc, '$path/DEPRWO-DETA-LST', (d, p) => DetailedProcessWorkflows(d, p));
-
-  /// Cross-process analysis.
-  CrossProcessAnalysis get crossProcessAnalysis => CrossProcessAnalysis(doc, '$path/crossProcessAnalysis');
-
-  /// Process exception handling.
-  ProcessExceptionHandling get exceptionHandling => ProcessExceptionHandling(doc, '$path/exceptionHandling');
-
-  /// Process metrics and KPIs.
-  SomList<ProcessMetricsAndKpis> get processMetricsAndKpis => SomList<ProcessMetricsAndKpis>(doc, '$path/PMAK-PROC-LST', (d, p) => ProcessMetricsAndKpis(d, p));
-}
-
 /// SBP.7 Target Operating Model concept.
 /// 
 /// Public anchor: BABOK future-state analysis.
@@ -33029,66 +33089,6 @@ class TransitionRiskEntryResponse extends SomNode {
   TransitionRiskEntryResponse(super.doc, super.path);
 
   TransitionRiskEntryResponseContentForm get content => TransitionRiskEntryResponseContentForm(doc, '$path/content');
-}
-
-/// SR00 System Rollout.
-/// 
-/// End-to-end rollout specification — localization, translation,
-/// documentation and training, plus rollout plan, migration plan,
-/// user manuals, training materials, pilot, cutover, knowledge
-/// transfer, and warranty/support.
-class TransitionRolloutPlan extends SomNode {
-  /// The model version this object model was generated against (§2.1).
-  static const String modelVersion = '0.0';
-
-  /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
-  TransitionRolloutPlan(SpecDocument doc, {String? documentVersion})
-      : super(doc, 'TRP') {
-    checkSomModelVersion(modelVersion, documentVersion);
-  }
-
-  /// This object model's own model version (`major.minor`), per spec §2.1.
-  String get objectModelVersion => modelVersion;
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Standard TomSpecs document header.
-  DocumentHeader get header => DocumentHeader(doc, '$path/header');
-
-  /// Localization process.
-  LocalizationProcess get localizationProcess => LocalizationProcess(doc, '$path/localizationProcess');
-
-  /// Translation process.
-  TranslationProcess get translationProcess => TranslationProcess(doc, '$path/translationProcess');
-
-  /// Documentation and training.
-  DocumentationAndTraining get documentationAndTraining => DocumentationAndTraining(doc, '$path/documentationAndTraining');
-
-  /// Rollout plan.
-  RolloutPlan get rolloutPlan => RolloutPlan(doc, '$path/rolloutPlan');
-
-  /// Migration plan.
-  MigrationPlan get migrationPlan => MigrationPlan(doc, '$path/migrationPlan');
-
-  /// User manuals.
-  SomList<UserManuals> get userManuals => SomList<UserManuals>(doc, '$path/USRMAN-USER-LST', (d, p) => UserManuals(d, p));
-
-  /// Training materials.
-  SomList<RolloutTrainingMaterials> get trainingMaterials => SomList<RolloutTrainingMaterials>(doc, '$path/RLTTM-TRAI-LST', (d, p) => RolloutTrainingMaterials(d, p));
-
-  /// Pilot plan.
-  PilotPlan get pilotPlan => PilotPlan(doc, '$path/pilotPlan');
-
-  /// Cutover procedures.
-  SomList<CutoverProcedures> get cutoverProcedures => SomList<CutoverProcedures>(doc, '$path/CUTPRC-CUTO-LST', (d, p) => CutoverProcedures(d, p));
-
-  /// Knowledge transfer.
-  KnowledgeTransfer get knowledgeTransfer => KnowledgeTransfer(doc, '$path/knowledgeTransfer');
-
-  /// Warranty and support.
-  WarrantyAndSupport get warrantyAndSupport => WarrantyAndSupport(doc, '$path/warrantyAndSupport');
 }
 
 /// Success metrics for the transition.

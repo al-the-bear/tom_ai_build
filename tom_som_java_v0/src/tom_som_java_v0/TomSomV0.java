@@ -2734,107 +2734,6 @@ public final class TomSomV0 {
     }
   }
 
-  // TR00 Technical Requirements.
-  //
-  // Comprehensive technical requirements: basic / software / standard-
-  // software / hardware / operations / communication / system-operation
-  // / security / architecture, plus components, framework conditions,
-  // and translation handling.
-  public static final class ArchitectureTechnologySpecification extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public ArchitectureTechnologySpecification(SpecDocument doc, String documentVersion) {
-      super(doc, "ATS");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public ArchitectureTechnologySpecification(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Basic technical requirements.
-    public BasicTechnicalRequirements basicTechnicalRequirements() {
-      return new BasicTechnicalRequirements(doc, path + "/basicTechnicalRequirements");
-    }
-
-    // Software design requirements.
-    public SoftwareDesignRequirements softwareDesignRequirements() {
-      return new SoftwareDesignRequirements(doc, path + "/softwareDesignRequirements");
-    }
-
-    // Standard application software requirements.
-    public StandardSoftwareRequirements standardSoftwareRequirements() {
-      return new StandardSoftwareRequirements(doc, path + "/standardSoftwareRequirements");
-    }
-
-    // Hardware concept requirements.
-    public HardwareRequirements hardwareRequirements() {
-      return new HardwareRequirements(doc, path + "/hardwareRequirements");
-    }
-
-    // Operations requirements.
-    public OperationsRequirements operationsRequirements() {
-      return new OperationsRequirements(doc, path + "/operationsRequirements");
-    }
-
-    // Communication requirements.
-    public CommunicationRequirements communicationRequirements() {
-      return new CommunicationRequirements(doc, path + "/communicationRequirements");
-    }
-
-    // System operation and monitoring.
-    public SystemOperationAndMonitoring systemOperationAndMonitoring() {
-      return new SystemOperationAndMonitoring(doc, path + "/systemOperationAndMonitoring");
-    }
-
-    // Technical security requirements.
-    public TechnicalSecurityRequirements technicalSecurityRequirements() {
-      return new TechnicalSecurityRequirements(doc, path + "/technicalSecurityRequirements");
-    }
-
-    // System architecture (new in Phase A).
-    public SystemArchitectureSpec systemArchitecture() {
-      return new SystemArchitectureSpec(doc, path + "/systemArchitecture");
-    }
-
-    // Components to use (whole).
-    public ComponentsToUse componentsToUse() {
-      return new ComponentsToUse(doc, path + "/componentsToUse");
-    }
-
-    // Technical framework conditions (whole).
-    public TechnicalFrameworkConditions technicalFrameworkConditions() {
-      return new TechnicalFrameworkConditions(doc, path + "/technicalFrameworkConditions");
-    }
-
-    // Translation handling requirements (whole).
-    public TranslationRequirements translationRequirements() {
-      return new TranslationRequirements(doc, path + "/translationRequirements");
-    }
-  }
-
   // A consolidated register of assumptions and constraints.
   public static final class AssumptionConstraintRegister extends SomNode {
     public AssumptionConstraintRegister(SpecDocument doc, String path) {
@@ -11156,86 +11055,6 @@ public final class TomSomV0 {
     }
   }
 
-  // CS00 Current Situation.
-  //
-  // Detailed analysis of the current state: existing systems, business
-  // processes, pain points, data landscape, operational metrics, risks,
-  // and the inventory / migration plan for the systems being replaced.
-  public static final class CurrentLandscapeAssessment extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public CurrentLandscapeAssessment(SpecDocument doc, String documentVersion) {
-      super(doc, "CLA");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public CurrentLandscapeAssessment(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Existing systems landscape.
-    public ExistingSystemsLandscape existingSystemsLandscape() {
-      return new ExistingSystemsLandscape(doc, path + "/existingSystemsLandscape");
-    }
-
-    // Current business processes.
-    public CurrentBusinessProcesses currentBusinessProcesses() {
-      return new CurrentBusinessProcesses(doc, path + "/currentBusinessProcesses");
-    }
-
-    // Pain points and gaps.
-    public PainPointsAndGaps painPointsAndGaps() {
-      return new PainPointsAndGaps(doc, path + "/painPointsAndGaps");
-    }
-
-    // Current data landscape.
-    public CurrentDataLandscape currentDataLandscape() {
-      return new CurrentDataLandscape(doc, path + "/currentDataLandscape");
-    }
-
-    // Current operational metrics.
-    public SomList<CurrentOperationalMetrics> operationalMetrics() {
-      return new SomList<>(doc, path + "/CUOPME-OPER-LST", (d, p) -> new CurrentOperationalMetrics(d, p));
-    }
-
-    // Current-state risk assessment.
-    public CurrentStateRiskAssessment currentStateRisks() {
-      return new CurrentStateRiskAssessment(doc, path + "/currentStateRisks");
-    }
-
-    // Replacement inventory.
-    public ReplacementInventory replacementInventory() {
-      return new ReplacementInventory(doc, path + "/replacementInventory");
-    }
-
-    // Migration considerations.
-    public MigrationConsiderations migrationConsiderations() {
-      return new MigrationConsiderations(doc, path + "/migrationConsiderations");
-    }
-  }
-
   // 1.5. Operational Metrics.
   //
   // Baseline metrics of the current systems: throughput, volume, uptime,
@@ -11408,6 +11227,1199 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path + "/content", value);
+    }
+  }
+
+  // The complete Solution Blueprint (SBP) document.
+  //
+  // Contains a [DocumentControl] header block and the SBP sections, sequenced
+  // per the public-standards order (§4 of the redesign proposal).
+  public static final class D00SolutionBlueprint extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D00SolutionBlueprint(SpecDocument doc, String documentVersion) {
+      super(doc, "SBP");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D00SolutionBlueprint(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // SBP.1 Document Control (header + revision history + approvals).
+    public DocumentControl documentControl() {
+      return new DocumentControl(doc, path + "/documentControl");
+    }
+
+    // SBP.2 Introduction & Scope.
+    public IntroductionAndScope introductionAndScope() {
+      return new IntroductionAndScope(doc, path + "/introductionAndScope");
+    }
+
+    // SBP.3 Glossary & Abbreviations.
+    public GlossaryAndAbbreviations glossaryAndAbbreviations() {
+      return new GlossaryAndAbbreviations(doc, path + "/glossaryAndAbbreviations");
+    }
+
+    // SBP.4 Stakeholders & Governance.
+    public StakeholdersAndGovernance stakeholdersAndGovernance() {
+      return new StakeholdersAndGovernance(doc, path + "/stakeholdersAndGovernance");
+    }
+
+    // SBP.5 Current Landscape. Seeds → CLA.
+    public CurrentLandscape currentLandscape() {
+      return new CurrentLandscape(doc, path + "/currentLandscape");
+    }
+
+    // SBP.6 Assumptions, Constraints & Dependencies.
+    public AssumptionsConstraintsDependencies assumptionsConstraintsDependencies() {
+      return new AssumptionsConstraintsDependencies(doc, path + "/assumptionsConstraintsDependencies");
+    }
+
+    // SBP.7 Target Operating Model concept. Seeds → TOM.
+    public TargetOperatingModelConcept targetOperatingModelConcept() {
+      return new TargetOperatingModelConcept(doc, path + "/targetOperatingModelConcept");
+    }
+
+    // SBP.8 Information & Data Model. Seeds → IFM.
+    public InformationAndDataModel informationAndDataModel() {
+      return new InformationAndDataModel(doc, path + "/informationAndDataModel");
+    }
+
+    // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+    public Requirements requirements() {
+      return new Requirements(doc, path + "/requirements");
+    }
+
+    // SBP.11 Solution Architecture & Technology. Seeds → ATS.
+    public SolutionArchitectureAndTechnology solutionArchitectureAndTechnology() {
+      return new SolutionArchitectureAndTechnology(doc, path + "/solutionArchitectureAndTechnology");
+    }
+
+    // SBP.12 Security & Access Model. Seeds → SAS.
+    public SecurityAndAccessModel securityAndAccessModel() {
+      return new SecurityAndAccessModel(doc, path + "/securityAndAccessModel");
+    }
+
+    // SBP.13 Experience & Interface Design. Seeds → XDS.
+    public ExperienceAndInterfaceDesign experienceAndInterfaceDesign() {
+      return new ExperienceAndInterfaceDesign(doc, path + "/experienceAndInterfaceDesign");
+    }
+
+    // SBP.14 Quality & Acceptance Model. Seeds → QAP.
+    public QualityAndAcceptanceModel qualityAndAcceptanceModel() {
+      return new QualityAndAcceptanceModel(doc, path + "/qualityAndAcceptanceModel");
+    }
+
+    // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+    public DeliveryTransitionAndRollout deliveryTransitionAndRollout() {
+      return new DeliveryTransitionAndRollout(doc, path + "/deliveryTransitionAndRollout");
+    }
+  }
+
+  // CS00 Current Situation.
+  //
+  // Detailed analysis of the current state: existing systems, business
+  // processes, pain points, data landscape, operational metrics, risks,
+  // and the inventory / migration plan for the systems being replaced.
+  public static final class D01CurrentLandscapeAssessment extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D01CurrentLandscapeAssessment(SpecDocument doc, String documentVersion) {
+      super(doc, "CLA");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D01CurrentLandscapeAssessment(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Existing systems landscape.
+    public ExistingSystemsLandscape existingSystemsLandscape() {
+      return new ExistingSystemsLandscape(doc, path + "/existingSystemsLandscape");
+    }
+
+    // Current business processes.
+    public CurrentBusinessProcesses currentBusinessProcesses() {
+      return new CurrentBusinessProcesses(doc, path + "/currentBusinessProcesses");
+    }
+
+    // Pain points and gaps.
+    public PainPointsAndGaps painPointsAndGaps() {
+      return new PainPointsAndGaps(doc, path + "/painPointsAndGaps");
+    }
+
+    // Current data landscape.
+    public CurrentDataLandscape currentDataLandscape() {
+      return new CurrentDataLandscape(doc, path + "/currentDataLandscape");
+    }
+
+    // Current operational metrics.
+    public SomList<CurrentOperationalMetrics> operationalMetrics() {
+      return new SomList<>(doc, path + "/CUOPME-OPER-LST", (d, p) -> new CurrentOperationalMetrics(d, p));
+    }
+
+    // Current-state risk assessment.
+    public CurrentStateRiskAssessment currentStateRisks() {
+      return new CurrentStateRiskAssessment(doc, path + "/currentStateRisks");
+    }
+
+    // Replacement inventory.
+    public ReplacementInventory replacementInventory() {
+      return new ReplacementInventory(doc, path + "/replacementInventory");
+    }
+
+    // Migration considerations.
+    public MigrationConsiderations migrationConsiderations() {
+      return new MigrationConsiderations(doc, path + "/migrationConsiderations");
+    }
+  }
+
+  // BP00 Business Processes.
+  //
+  // Target business process specification — vision, principles, catalog,
+  // diagrams, improvements, relationships, detailed workflows,
+  // cross-process analysis, exception handling, and KPIs.
+  public static final class D02TargetOperatingModel extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D02TargetOperatingModel(SpecDocument doc, String documentVersion) {
+      super(doc, "TOM");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D02TargetOperatingModel(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Process vision.
+    public ProcessVision processVision() {
+      return new ProcessVision(doc, path + "/processVision");
+    }
+
+    // Design principles.
+    public ProcessDesignPrinciples designPrinciples() {
+      return new ProcessDesignPrinciples(doc, path + "/designPrinciples");
+    }
+
+    // Process catalog.
+    public ProcessCatalog processCatalog() {
+      return new ProcessCatalog(doc, path + "/processCatalog");
+    }
+
+    // Process overview diagram.
+    public ProcessOverviewDiagram processOverviewDiagram() {
+      return new ProcessOverviewDiagram(doc, path + "/processOverviewDiagram");
+    }
+
+    // Improvement summary.
+    public ProcessImprovementSummary improvementSummary() {
+      return new ProcessImprovementSummary(doc, path + "/improvementSummary");
+    }
+
+    // Process relationships.
+    public ProcessRelationships processRelationships() {
+      return new ProcessRelationships(doc, path + "/processRelationships");
+    }
+
+    // Detailed process workflows.
+    public SomList<DetailedProcessWorkflows> detailedWorkflows() {
+      return new SomList<>(doc, path + "/DEPRWO-DETA-LST", (d, p) -> new DetailedProcessWorkflows(d, p));
+    }
+
+    // Cross-process analysis.
+    public CrossProcessAnalysis crossProcessAnalysis() {
+      return new CrossProcessAnalysis(doc, path + "/crossProcessAnalysis");
+    }
+
+    // Process exception handling.
+    public ProcessExceptionHandling exceptionHandling() {
+      return new ProcessExceptionHandling(doc, path + "/exceptionHandling");
+    }
+
+    // Process metrics and KPIs.
+    public SomList<ProcessMetricsAndKpis> processMetricsAndKpis() {
+      return new SomList<>(doc, path + "/PMAK-PROC-LST", (d, p) -> new ProcessMetricsAndKpis(d, p));
+    }
+  }
+
+  // BDM00 Business Data Model.
+  //
+  // Full business data model: entities, relationships, ER diagram, data
+  // classification, business objects, function decomposition, function-
+  // to-data matrix, business rules, data dictionary, and validation /
+  // integrity constraints.
+  public static final class D03InformationModel extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D03InformationModel(SpecDocument doc, String documentVersion) {
+      super(doc, "IFM");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D03InformationModel(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Entity inventory (list).
+    public SomList<DataEntityEntry> entities() {
+      return new SomList<>(doc, path + "/DAENT-ENTI-LST", (d, p) -> new DataEntityEntry(d, p));
+    }
+
+    // Entity relationships.
+    public EntityRelationships entityRelationships() {
+      return new EntityRelationships(doc, path + "/entityRelationships");
+    }
+
+    // Entity-relationship diagram.
+    // (skipped: erDiagram has no target type)
+
+    // Data classification.
+    public DataClassification dataClassification() {
+      return new DataClassification(doc, path + "/dataClassification");
+    }
+
+    // Business object catalog (list).
+    public SomList<BusinessObjectEntry> objectCatalog() {
+      return new SomList<>(doc, path + "/BJOEN-OBJE-LST", (d, p) -> new BusinessObjectEntry(d, p));
+    }
+
+    // Business object diagram.
+    // (skipped: objectDiagram has no target type)
+
+    // Function decomposition (list).
+    public SomList<FunctionEntry> functionDecomposition() {
+      return new SomList<>(doc, path + "/FUNCT-FUNC-LST", (d, p) -> new FunctionEntry(d, p));
+    }
+
+    // Function-to-data matrix (list).
+    public SomList<FunctionDataMatrixEntry> functionToDataMatrix() {
+      return new SomList<>(doc, path + "/FNDMX-FUNC-LST", (d, p) -> new FunctionDataMatrixEntry(d, p));
+    }
+
+    // Business rules catalog (list).
+    public SomList<BusinessRuleEntry> businessRules() {
+      return new SomList<>(doc, path + "/BIRU-BUSI-LST", (d, p) -> new BusinessRuleEntry(d, p));
+    }
+
+    // Data dictionary.
+    public DataDictionary dataDictionary() {
+      return new DataDictionary(doc, path + "/dataDictionary");
+    }
+
+    // Validation constraints.
+    public SomList<ValidationConstraints> validationConstraints() {
+      return new SomList<>(doc, path + "/VACO-VALI-LST", (d, p) -> new ValidationConstraints(d, p));
+    }
+
+    // Integrity constraints.
+    public SomList<IntegrityConstraints> integrityConstraints() {
+      return new SomList<>(doc, path + "/INCO-INTE-LST", (d, p) -> new IntegrityConstraints(d, p));
+    }
+  }
+
+  // RC00 Requirements Catalog.
+  //
+  // Full requirements catalog covering functional, technical, security,
+  // and organizational requirements, plus traceability, relationships,
+  // and coverage analysis.
+  public static final class D04RequirementsSpecification extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D04RequirementsSpecification(SpecDocument doc, String documentVersion) {
+      super(doc, "RSP");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D04RequirementsSpecification(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Functional requirements.
+    public FunctionalRequirements functionalRequirements() {
+      return new FunctionalRequirements(doc, path + "/functionalRequirements");
+    }
+
+    // Technical (non-functional) requirements.
+    public TechnicalRequirements technicalRequirements() {
+      return new TechnicalRequirements(doc, path + "/technicalRequirements");
+    }
+
+    // Security requirements.
+    public SecurityRequirements securityRequirements() {
+      return new SecurityRequirements(doc, path + "/securityRequirements");
+    }
+
+    // Organizational requirements.
+    public OrganizationalRequirements organizationalRequirements() {
+      return new OrganizationalRequirements(doc, path + "/organizationalRequirements");
+    }
+
+    // Traceability matrix overview.
+    //
+    // Mirrors the flat field on RequirementsOverview so the RC outline
+    // reaches it directly. The authoritative content lives on the Solution
+    // Blueprint side.
+    public String traceabilityMatrix() {
+      String v = doc.content(path + "/traceabilityMatrix");
+      return v == null ? "" : v;
+    }
+
+    public void traceabilityMatrix(String value) {
+      doc.setContent(path + "/traceabilityMatrix", value);
+    }
+
+    // Requirement relationships.
+    public SomList<RequirementRelationships> requirementRelationships() {
+      return new SomList<>(doc, path + "/RERE-REQU-LST", (d, p) -> new RequirementRelationships(d, p));
+    }
+
+    // Requirement coverage.
+    public RequirementCoverage requirementCoverage() {
+      return new RequirementCoverage(doc, path + "/requirementCoverage");
+    }
+  }
+
+  // UC00 Use Cases.
+  //
+  // Detailed use cases derived from the target process steps and actor
+  // interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+  // and traceability.
+  public static final class D05InteractionScenarios extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D05InteractionScenarios(SpecDocument doc, String documentVersion) {
+      super(doc, "ISC");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D05InteractionScenarios(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Process steps overview.
+    public ProcessStepsOverview processStepsOverview() {
+      return new ProcessStepsOverview(doc, path + "/processStepsOverview");
+    }
+
+    // Actor overview.
+    public ActorOverview actorOverview() {
+      return new ActorOverview(doc, path + "/actorOverview");
+    }
+
+    // Interaction catalog.
+    public InteractionCatalog interactionCatalog() {
+      return new InteractionCatalog(doc, path + "/interactionCatalog");
+    }
+
+    // Key scenarios.
+    public KeyScenarios keyScenarios() {
+      return new KeyScenarios(doc, path + "/keyScenarios");
+    }
+
+    // Actor relationship diagram.
+    public ActorRelationshipDiagram actorRelationshipDiagram() {
+      return new ActorRelationshipDiagram(doc, path + "/actorRelationshipDiagram");
+    }
+
+    // End-to-end test scenarios.
+    public SomList<EndToEndTestScenarios> endToEndTestScenarios() {
+      return new SomList<>(doc, path + "/ETETS-ENDT-LST", (d, p) -> new EndToEndTestScenarios(d, p));
+    }
+
+    // Use case traceability.
+    public UseCaseTraceability useCaseTraceability() {
+      return new UseCaseTraceability(doc, path + "/useCaseTraceability");
+    }
+  }
+
+  // TR00 Technical Requirements.
+  //
+  // Comprehensive technical requirements: basic / software / standard-
+  // software / hardware / operations / communication / system-operation
+  // / security / architecture, plus components, framework conditions,
+  // and translation handling.
+  public static final class D06ArchitectureTechnologySpecification extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D06ArchitectureTechnologySpecification(SpecDocument doc, String documentVersion) {
+      super(doc, "ATS");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D06ArchitectureTechnologySpecification(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Basic technical requirements.
+    public BasicTechnicalRequirements basicTechnicalRequirements() {
+      return new BasicTechnicalRequirements(doc, path + "/basicTechnicalRequirements");
+    }
+
+    // Software design requirements.
+    public SoftwareDesignRequirements softwareDesignRequirements() {
+      return new SoftwareDesignRequirements(doc, path + "/softwareDesignRequirements");
+    }
+
+    // Standard application software requirements.
+    public StandardSoftwareRequirements standardSoftwareRequirements() {
+      return new StandardSoftwareRequirements(doc, path + "/standardSoftwareRequirements");
+    }
+
+    // Hardware concept requirements.
+    public HardwareRequirements hardwareRequirements() {
+      return new HardwareRequirements(doc, path + "/hardwareRequirements");
+    }
+
+    // Operations requirements.
+    public OperationsRequirements operationsRequirements() {
+      return new OperationsRequirements(doc, path + "/operationsRequirements");
+    }
+
+    // Communication requirements.
+    public CommunicationRequirements communicationRequirements() {
+      return new CommunicationRequirements(doc, path + "/communicationRequirements");
+    }
+
+    // System operation and monitoring.
+    public SystemOperationAndMonitoring systemOperationAndMonitoring() {
+      return new SystemOperationAndMonitoring(doc, path + "/systemOperationAndMonitoring");
+    }
+
+    // Technical security requirements.
+    public TechnicalSecurityRequirements technicalSecurityRequirements() {
+      return new TechnicalSecurityRequirements(doc, path + "/technicalSecurityRequirements");
+    }
+
+    // System architecture (new in Phase A).
+    public SystemArchitectureSpec systemArchitecture() {
+      return new SystemArchitectureSpec(doc, path + "/systemArchitecture");
+    }
+
+    // Components to use (whole).
+    public ComponentsToUse componentsToUse() {
+      return new ComponentsToUse(doc, path + "/componentsToUse");
+    }
+
+    // Technical framework conditions (whole).
+    public TechnicalFrameworkConditions technicalFrameworkConditions() {
+      return new TechnicalFrameworkConditions(doc, path + "/technicalFrameworkConditions");
+    }
+
+    // Translation handling requirements (whole).
+    public TranslationRequirements translationRequirements() {
+      return new TranslationRequirements(doc, path + "/translationRequirements");
+    }
+  }
+
+  // BSI00 Business System Interactions.
+  //
+  // Complete interaction specification between the target system and
+  // external systems: inventory, patterns, testing, dependencies,
+  // migration, operational concerns, and cross-boundary error handling.
+  public static final class D07IntegrationInterfaceSpecification extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D07IntegrationInterfaceSpecification(SpecDocument doc, String documentVersion) {
+      super(doc, "IIS");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D07IntegrationInterfaceSpecification(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // External interfaces.
+    public ExternalInterfaces externalInterfaces() {
+      return new ExternalInterfaces(doc, path + "/externalInterfaces");
+    }
+
+    // Out of scope.
+    public OutOfScope outOfScope() {
+      return new OutOfScope(doc, path + "/outOfScope");
+    }
+
+    // Boundary assumptions.
+    public BoundaryAssumptions boundaryAssumptions() {
+      return new BoundaryAssumptions(doc, path + "/boundaryAssumptions");
+    }
+
+    // System landscape inventory.
+    public SystemLandscapeInventory systemInventory() {
+      return new SystemLandscapeInventory(doc, path + "/systemInventory");
+    }
+
+    // Boundary interaction patterns.
+    public SomList<BoundaryInteractionPatterns> interactionPatterns() {
+      return new SomList<>(doc, path + "/BOINPA-INTE-LST", (d, p) -> new BoundaryInteractionPatterns(d, p));
+    }
+
+    // Interaction testing strategy.
+    public InteractionTestingStrategy testingStrategy() {
+      return new InteractionTestingStrategy(doc, path + "/testingStrategy");
+    }
+
+    // Interaction dependency analysis.
+    public InteractionDependencyAnalysis dependencyAnalysis() {
+      return new InteractionDependencyAnalysis(doc, path + "/dependencyAnalysis");
+    }
+
+    // Migration interactions.
+    public SomList<MigrationInteractions> migrationInteractions() {
+      return new SomList<>(doc, path + "/MIIN-MIGR-LST", (d, p) -> new MigrationInteractions(d, p));
+    }
+
+    // Cross-boundary operational considerations.
+    public SomList<CrossBoundaryOperationalConsiderations> operationalConsiderations() {
+      return new SomList<>(doc, path + "/CBOC-OPER-LST", (d, p) -> new CrossBoundaryOperationalConsiderations(d, p));
+    }
+
+    // Cross-boundary error handling.
+    public CrossBoundaryErrorHandling crossBoundaryErrorHandling() {
+      return new CrossBoundaryErrorHandling(doc, path + "/crossBoundaryErrorHandling");
+    }
+  }
+
+  // AC00 Authorization Concept.
+  //
+  // Complete access and authorization specification — user management,
+  // identification and authentication, resource protection, user
+  // authorization, encryption, audit/logging, role matrix, and
+  // compliance framework.
+  public static final class D08SecurityAccessSpecification extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D08SecurityAccessSpecification(SpecDocument doc, String documentVersion) {
+      super(doc, "SAS");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D08SecurityAccessSpecification(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // User management.
+    public UserManagement userManagement() {
+      return new UserManagement(doc, path + "/userManagement");
+    }
+
+    // Identification and authentication.
+    public IdentificationAndAuthentication identificationAndAuthentication() {
+      return new IdentificationAndAuthentication(doc, path + "/identificationAndAuthentication");
+    }
+
+    // Resource protection.
+    public ResourceProtection resourceProtection() {
+      return new ResourceProtection(doc, path + "/resourceProtection");
+    }
+
+    // User authorization.
+    public UserAuthorization userAuthorization() {
+      return new UserAuthorization(doc, path + "/userAuthorization");
+    }
+
+    // Sensitive data encryption.
+    public SensitiveDataEncryption sensitiveDataEncryption() {
+      return new SensitiveDataEncryption(doc, path + "/sensitiveDataEncryption");
+    }
+
+    // Audit and logging.
+    public AuditAndLogging auditAndLogging() {
+      return new AuditAndLogging(doc, path + "/auditAndLogging");
+    }
+
+    // Role matrix.
+    public RoleMatrix roleMatrix() {
+      return new RoleMatrix(doc, path + "/roleMatrix");
+    }
+
+    // Compliance framework.
+    public ComplianceFramework complianceFramework() {
+      return new ComplianceFramework(doc, path + "/complianceFramework");
+    }
+  }
+
+  // UP00 UI Prototype.
+  //
+  // Full UI design and prototype specification — vision, screens,
+  // screen flow, print, error handling, help, accessibility, responsive,
+  // components, language/country selection, prototype, wireframes and
+  // mockups.
+  public static final class D09ExperienceDesignSpecification extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D09ExperienceDesignSpecification(SpecDocument doc, String documentVersion) {
+      super(doc, "XDS");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D09ExperienceDesignSpecification(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Design vision.
+    public DesignVision designVision() {
+      return new DesignVision(doc, path + "/designVision");
+    }
+
+    // Screen descriptions.
+    public ScreenDescriptions screens() {
+      return new ScreenDescriptions(doc, path + "/screens");
+    }
+
+    // Screen flow structure.
+    public ScreenFlowStructure screenFlow() {
+      return new ScreenFlowStructure(doc, path + "/screenFlow");
+    }
+
+    // Print layout.
+    public PrintLayout printLayout() {
+      return new PrintLayout(doc, path + "/printLayout");
+    }
+
+    // Error handling concept.
+    public ErrorHandlingConcept errorHandling() {
+      return new ErrorHandlingConcept(doc, path + "/errorHandling");
+    }
+
+    // Help concept.
+    public HelpConcept helpConcept() {
+      return new HelpConcept(doc, path + "/helpConcept");
+    }
+
+    // Accessibility.
+    public Accessibility accessibility() {
+      return new Accessibility(doc, path + "/accessibility");
+    }
+
+    // Responsive design.
+    public ResponsiveDesign responsiveDesign() {
+      return new ResponsiveDesign(doc, path + "/responsiveDesign");
+    }
+
+    // UI components.
+    public UiComponents uiComponents() {
+      return new UiComponents(doc, path + "/uiComponents");
+    }
+
+    // Language and country selection.
+    public LanguageCountrySelection languageCountrySelection() {
+      return new LanguageCountrySelection(doc, path + "/languageCountrySelection");
+    }
+
+    // Prototype.
+    public Prototype prototype() {
+      return new Prototype(doc, path + "/prototype");
+    }
+
+    // Wireframes and mockups (new in Phase A).
+    public SomList<WireframesAndMockups> wireframesAndMockups() {
+      return new SomList<>(doc, path + "/WIANMO-WIRE-LST", (d, p) -> new WireframesAndMockups(d, p));
+    }
+  }
+
+  // BQP00 Business Quality Plan.
+  //
+  // Full quality plan combining quality goals and the acceptance plan.
+  public static final class D10QualityAcceptancePlan extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D10QualityAcceptancePlan(SpecDocument doc, String documentVersion) {
+      super(doc, "QAP");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D10QualityAcceptancePlan(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Quality framework.
+    public QualityFramework qualityFramework() {
+      return new QualityFramework(doc, path + "/qualityFramework");
+    }
+
+    // User-related quality criteria.
+    public UserQualityCriteria userQualityCriteria() {
+      return new UserQualityCriteria(doc, path + "/userQualityCriteria");
+    }
+
+    // Technical quality criteria.
+    public TechnicalQualityCriteria technicalQualityCriteria() {
+      return new TechnicalQualityCriteria(doc, path + "/technicalQualityCriteria");
+    }
+
+    // Operations quality criteria.
+    public OperationsQualityCriteria operationsQualityCriteria() {
+      return new OperationsQualityCriteria(doc, path + "/operationsQualityCriteria");
+    }
+
+    // Documentation quality criteria.
+    public DocumentationQualityCriteria documentationQualityCriteria() {
+      return new DocumentationQualityCriteria(doc, path + "/documentationQualityCriteria");
+    }
+
+    // Quality prioritization.
+    public QualityPrioritization qualityPrioritization() {
+      return new QualityPrioritization(doc, path + "/qualityPrioritization");
+    }
+
+    // Acceptance criteria summary.
+    public AcceptanceCriteriaSummary acceptanceCriteriaSummary() {
+      return new AcceptanceCriteriaSummary(doc, path + "/acceptanceCriteriaSummary");
+    }
+
+    // Test strategy (new in Phase A).
+    public TestStrategy testStrategy() {
+      return new TestStrategy(doc, path + "/testStrategy");
+    }
+
+    // Acceptance criteria.
+    public AcceptanceCriteriaList acceptanceCriteria() {
+      return new AcceptanceCriteriaList(doc, path + "/acceptanceCriteria");
+    }
+
+    // Acceptance process.
+    public AcceptanceProcess acceptanceProcess() {
+      return new AcceptanceProcess(doc, path + "/acceptanceProcess");
+    }
+
+    // User acceptance testing.
+    public UserAcceptanceTesting userAcceptanceTesting() {
+      return new UserAcceptanceTesting(doc, path + "/userAcceptanceTesting");
+    }
+
+    // Defect resolution.
+    public DefectResolution defectResolution() {
+      return new DefectResolution(doc, path + "/defectResolution");
+    }
+
+    // Sign-off process.
+    public SignOffProcess signOffProcess() {
+      return new SignOffProcess(doc, path + "/signOffProcess");
+    }
+
+    // Warranty terms.
+    public WarrantyTerms warranty() {
+      return new WarrantyTerms(doc, path + "/warranty");
+    }
+  }
+
+  // PPP00 Project Phase Plan.
+  //
+  // Full project phase plan — staging strategy, stage overview, per-stage
+  // entries, feature prioritization, data migration, gate criteria,
+  // decision processes, initial development flow, and upgrade cycle
+  // framework.
+  public static final class D11DeliveryRoadmap extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D11DeliveryRoadmap(SpecDocument doc, String documentVersion) {
+      super(doc, "DRM");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D11DeliveryRoadmap(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Staging strategy.
+    public StagingStrategy stagingStrategy() {
+      return new StagingStrategy(doc, path + "/stagingStrategy");
+    }
+
+    // Stage overview.
+    public StageOverview stageOverview() {
+      return new StageOverview(doc, path + "/stageOverview");
+    }
+
+    // Stages (list).
+    public SomList<StageEntry> stages() {
+      return new SomList<>(doc, path + "/STAGE-STAG-LST", (d, p) -> new StageEntry(d, p));
+    }
+
+    // Feature prioritization.
+    public FeaturePrioritization featurePrioritization() {
+      return new FeaturePrioritization(doc, path + "/featurePrioritization");
+    }
+
+    // Data migration strategy.
+    public DataMigrationStrategy dataMigrationStrategy() {
+      return new DataMigrationStrategy(doc, path + "/dataMigrationStrategy");
+    }
+
+    // Gate criteria (promoted from GOV).
+    public PhaseGateReviews gateCriteria() {
+      return new PhaseGateReviews(doc, path + "/gateCriteria");
+    }
+
+    // Decision processes (promoted from GOV).
+    public DecisionPoints decisionProcesses() {
+      return new DecisionPoints(doc, path + "/decisionProcesses");
+    }
+
+    // Initial development flow.
+    public InitialDevelopmentFlow initialDevelopmentFlow() {
+      return new InitialDevelopmentFlow(doc, path + "/initialDevelopmentFlow");
+    }
+
+    // Upgrade cycle framework (links tom_system_upgrade.md).
+    public UpgradeCycleFramework upgradeCycleFramework() {
+      return new UpgradeCycleFramework(doc, path + "/upgradeCycleFramework");
+    }
+  }
+
+  // SR00 System Rollout.
+  //
+  // End-to-end rollout specification — localization, translation,
+  // documentation and training, plus rollout plan, migration plan,
+  // user manuals, training materials, pilot, cutover, knowledge
+  // transfer, and warranty/support.
+  public static final class D12TransitionRolloutPlan extends SomNode {
+    // The model version this object model was generated against (§2.1).
+    public static final String MODEL_VERSION = "0.0";
+
+    // Creates the typed facade over doc at the document root and verifies the
+    // document's authoring documentVersion is editable (§2.2).
+    public D12TransitionRolloutPlan(SpecDocument doc, String documentVersion) {
+      super(doc, "TRP");
+      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
+    }
+
+    public D12TransitionRolloutPlan(SpecDocument doc) {
+      this(doc, null);
+    }
+
+    // This object model's own model version (major.minor), per §2.1.
+    public String objectModelVersion() {
+      return MODEL_VERSION;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // Standard TomSpecs document header.
+    public DocumentHeader header() {
+      return new DocumentHeader(doc, path + "/header");
+    }
+
+    // Localization process.
+    public LocalizationProcess localizationProcess() {
+      return new LocalizationProcess(doc, path + "/localizationProcess");
+    }
+
+    // Translation process.
+    public TranslationProcess translationProcess() {
+      return new TranslationProcess(doc, path + "/translationProcess");
+    }
+
+    // Documentation and training.
+    public DocumentationAndTraining documentationAndTraining() {
+      return new DocumentationAndTraining(doc, path + "/documentationAndTraining");
+    }
+
+    // Rollout plan.
+    public RolloutPlan rolloutPlan() {
+      return new RolloutPlan(doc, path + "/rolloutPlan");
+    }
+
+    // Migration plan.
+    public MigrationPlan migrationPlan() {
+      return new MigrationPlan(doc, path + "/migrationPlan");
+    }
+
+    // User manuals.
+    public SomList<UserManuals> userManuals() {
+      return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManuals(d, p));
+    }
+
+    // Training materials.
+    public SomList<RolloutTrainingMaterials> trainingMaterials() {
+      return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterials(d, p));
+    }
+
+    // Pilot plan.
+    public PilotPlan pilotPlan() {
+      return new PilotPlan(doc, path + "/pilotPlan");
+    }
+
+    // Cutover procedures.
+    public SomList<CutoverProcedures> cutoverProcedures() {
+      return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedures(d, p));
+    }
+
+    // Knowledge transfer.
+    public KnowledgeTransfer knowledgeTransfer() {
+      return new KnowledgeTransfer(doc, path + "/knowledgeTransfer");
+    }
+
+    // Warranty and support.
+    public WarrantyAndSupport warrantyAndSupport() {
+      return new WarrantyAndSupport(doc, path + "/warrantyAndSupport");
     }
   }
 
@@ -14370,92 +15382,6 @@ public final class TomSomV0 {
 
     public DeliveryAcceptanceCriterionEntryVerificationContentForm content() {
       return new DeliveryAcceptanceCriterionEntryVerificationContentForm(doc, path + "/content");
-    }
-  }
-
-  // PPP00 Project Phase Plan.
-  //
-  // Full project phase plan — staging strategy, stage overview, per-stage
-  // entries, feature prioritization, data migration, gate criteria,
-  // decision processes, initial development flow, and upgrade cycle
-  // framework.
-  public static final class DeliveryRoadmap extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public DeliveryRoadmap(SpecDocument doc, String documentVersion) {
-      super(doc, "DRM");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public DeliveryRoadmap(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Staging strategy.
-    public StagingStrategy stagingStrategy() {
-      return new StagingStrategy(doc, path + "/stagingStrategy");
-    }
-
-    // Stage overview.
-    public StageOverview stageOverview() {
-      return new StageOverview(doc, path + "/stageOverview");
-    }
-
-    // Stages (list).
-    public SomList<StageEntry> stages() {
-      return new SomList<>(doc, path + "/STAGE-STAG-LST", (d, p) -> new StageEntry(d, p));
-    }
-
-    // Feature prioritization.
-    public FeaturePrioritization featurePrioritization() {
-      return new FeaturePrioritization(doc, path + "/featurePrioritization");
-    }
-
-    // Data migration strategy.
-    public DataMigrationStrategy dataMigrationStrategy() {
-      return new DataMigrationStrategy(doc, path + "/dataMigrationStrategy");
-    }
-
-    // Gate criteria (promoted from GOV).
-    public PhaseGateReviews gateCriteria() {
-      return new PhaseGateReviews(doc, path + "/gateCriteria");
-    }
-
-    // Decision processes (promoted from GOV).
-    public DecisionPoints decisionProcesses() {
-      return new DecisionPoints(doc, path + "/decisionProcesses");
-    }
-
-    // Initial development flow.
-    public InitialDevelopmentFlow initialDevelopmentFlow() {
-      return new InitialDevelopmentFlow(doc, path + "/initialDevelopmentFlow");
-    }
-
-    // Upgrade cycle framework (links tom_system_upgrade.md).
-    public UpgradeCycleFramework upgradeCycleFramework() {
-      return new UpgradeCycleFramework(doc, path + "/upgradeCycleFramework");
     }
   }
 
@@ -19251,107 +20177,6 @@ public final class TomSomV0 {
     }
   }
 
-  // UP00 UI Prototype.
-  //
-  // Full UI design and prototype specification — vision, screens,
-  // screen flow, print, error handling, help, accessibility, responsive,
-  // components, language/country selection, prototype, wireframes and
-  // mockups.
-  public static final class ExperienceDesignSpecification extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public ExperienceDesignSpecification(SpecDocument doc, String documentVersion) {
-      super(doc, "XDS");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public ExperienceDesignSpecification(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Design vision.
-    public DesignVision designVision() {
-      return new DesignVision(doc, path + "/designVision");
-    }
-
-    // Screen descriptions.
-    public ScreenDescriptions screens() {
-      return new ScreenDescriptions(doc, path + "/screens");
-    }
-
-    // Screen flow structure.
-    public ScreenFlowStructure screenFlow() {
-      return new ScreenFlowStructure(doc, path + "/screenFlow");
-    }
-
-    // Print layout.
-    public PrintLayout printLayout() {
-      return new PrintLayout(doc, path + "/printLayout");
-    }
-
-    // Error handling concept.
-    public ErrorHandlingConcept errorHandling() {
-      return new ErrorHandlingConcept(doc, path + "/errorHandling");
-    }
-
-    // Help concept.
-    public HelpConcept helpConcept() {
-      return new HelpConcept(doc, path + "/helpConcept");
-    }
-
-    // Accessibility.
-    public Accessibility accessibility() {
-      return new Accessibility(doc, path + "/accessibility");
-    }
-
-    // Responsive design.
-    public ResponsiveDesign responsiveDesign() {
-      return new ResponsiveDesign(doc, path + "/responsiveDesign");
-    }
-
-    // UI components.
-    public UiComponents uiComponents() {
-      return new UiComponents(doc, path + "/uiComponents");
-    }
-
-    // Language and country selection.
-    public LanguageCountrySelection languageCountrySelection() {
-      return new LanguageCountrySelection(doc, path + "/languageCountrySelection");
-    }
-
-    // Prototype.
-    public Prototype prototype() {
-      return new Prototype(doc, path + "/prototype");
-    }
-
-    // Wireframes and mockups (new in Phase A).
-    public SomList<WireframesAndMockups> wireframesAndMockups() {
-      return new SomList<>(doc, path + "/WIANMO-WIRE-LST", (d, p) -> new WireframesAndMockups(d, p));
-    }
-  }
-
   // Export access and audit.
   public static final class ExportAccess extends SomNode {
     public ExportAccess(SpecDocument doc, String path) {
@@ -23460,103 +24285,6 @@ public final class TomSomV0 {
     }
   }
 
-  // BDM00 Business Data Model.
-  //
-  // Full business data model: entities, relationships, ER diagram, data
-  // classification, business objects, function decomposition, function-
-  // to-data matrix, business rules, data dictionary, and validation /
-  // integrity constraints.
-  public static final class InformationModel extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public InformationModel(SpecDocument doc, String documentVersion) {
-      super(doc, "IFM");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public InformationModel(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Entity inventory (list).
-    public SomList<DataEntityEntry> entities() {
-      return new SomList<>(doc, path + "/DAENT-ENTI-LST", (d, p) -> new DataEntityEntry(d, p));
-    }
-
-    // Entity relationships.
-    public EntityRelationships entityRelationships() {
-      return new EntityRelationships(doc, path + "/entityRelationships");
-    }
-
-    // Entity-relationship diagram.
-    // (skipped: erDiagram has no target type)
-
-    // Data classification.
-    public DataClassification dataClassification() {
-      return new DataClassification(doc, path + "/dataClassification");
-    }
-
-    // Business object catalog (list).
-    public SomList<BusinessObjectEntry> objectCatalog() {
-      return new SomList<>(doc, path + "/BJOEN-OBJE-LST", (d, p) -> new BusinessObjectEntry(d, p));
-    }
-
-    // Business object diagram.
-    // (skipped: objectDiagram has no target type)
-
-    // Function decomposition (list).
-    public SomList<FunctionEntry> functionDecomposition() {
-      return new SomList<>(doc, path + "/FUNCT-FUNC-LST", (d, p) -> new FunctionEntry(d, p));
-    }
-
-    // Function-to-data matrix (list).
-    public SomList<FunctionDataMatrixEntry> functionToDataMatrix() {
-      return new SomList<>(doc, path + "/FNDMX-FUNC-LST", (d, p) -> new FunctionDataMatrixEntry(d, p));
-    }
-
-    // Business rules catalog (list).
-    public SomList<BusinessRuleEntry> businessRules() {
-      return new SomList<>(doc, path + "/BIRU-BUSI-LST", (d, p) -> new BusinessRuleEntry(d, p));
-    }
-
-    // Data dictionary.
-    public DataDictionary dataDictionary() {
-      return new DataDictionary(doc, path + "/dataDictionary");
-    }
-
-    // Validation constraints.
-    public SomList<ValidationConstraints> validationConstraints() {
-      return new SomList<>(doc, path + "/VACO-VALI-LST", (d, p) -> new ValidationConstraints(d, p));
-    }
-
-    // Integrity constraints.
-    public SomList<IntegrityConstraints> integrityConstraints() {
-      return new SomList<>(doc, path + "/INCO-INTE-LST", (d, p) -> new IntegrityConstraints(d, p));
-    }
-  }
-
   // Infrastructure as Code requirements.
   public static final class InfrastructureAsCode extends SomNode {
     public InfrastructureAsCode(SpecDocument doc, String path) {
@@ -24200,96 +24928,6 @@ public final class TomSomV0 {
     }
   }
 
-  // BSI00 Business System Interactions.
-  //
-  // Complete interaction specification between the target system and
-  // external systems: inventory, patterns, testing, dependencies,
-  // migration, operational concerns, and cross-boundary error handling.
-  public static final class IntegrationInterfaceSpecification extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public IntegrationInterfaceSpecification(SpecDocument doc, String documentVersion) {
-      super(doc, "IIS");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public IntegrationInterfaceSpecification(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // External interfaces.
-    public ExternalInterfaces externalInterfaces() {
-      return new ExternalInterfaces(doc, path + "/externalInterfaces");
-    }
-
-    // Out of scope.
-    public OutOfScope outOfScope() {
-      return new OutOfScope(doc, path + "/outOfScope");
-    }
-
-    // Boundary assumptions.
-    public BoundaryAssumptions boundaryAssumptions() {
-      return new BoundaryAssumptions(doc, path + "/boundaryAssumptions");
-    }
-
-    // System landscape inventory.
-    public SystemLandscapeInventory systemInventory() {
-      return new SystemLandscapeInventory(doc, path + "/systemInventory");
-    }
-
-    // Boundary interaction patterns.
-    public SomList<BoundaryInteractionPatterns> interactionPatterns() {
-      return new SomList<>(doc, path + "/BOINPA-INTE-LST", (d, p) -> new BoundaryInteractionPatterns(d, p));
-    }
-
-    // Interaction testing strategy.
-    public InteractionTestingStrategy testingStrategy() {
-      return new InteractionTestingStrategy(doc, path + "/testingStrategy");
-    }
-
-    // Interaction dependency analysis.
-    public InteractionDependencyAnalysis dependencyAnalysis() {
-      return new InteractionDependencyAnalysis(doc, path + "/dependencyAnalysis");
-    }
-
-    // Migration interactions.
-    public SomList<MigrationInteractions> migrationInteractions() {
-      return new SomList<>(doc, path + "/MIIN-MIGR-LST", (d, p) -> new MigrationInteractions(d, p));
-    }
-
-    // Cross-boundary operational considerations.
-    public SomList<CrossBoundaryOperationalConsiderations> operationalConsiderations() {
-      return new SomList<>(doc, path + "/CBOC-OPER-LST", (d, p) -> new CrossBoundaryOperationalConsiderations(d, p));
-    }
-
-    // Cross-boundary error handling.
-    public CrossBoundaryErrorHandling crossBoundaryErrorHandling() {
-      return new CrossBoundaryErrorHandling(doc, path + "/crossBoundaryErrorHandling");
-    }
-  }
-
   // A single integration pattern entry.
   public static final class IntegrationPatternEntry extends SomNode {
     public IntegrationPatternEntry(SpecDocument doc, String path) {
@@ -24763,81 +25401,6 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path + "/content", value);
-    }
-  }
-
-  // UC00 Use Cases.
-  //
-  // Detailed use cases derived from the target process steps and actor
-  // interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-  // and traceability.
-  public static final class InteractionScenarios extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public InteractionScenarios(SpecDocument doc, String documentVersion) {
-      super(doc, "ISC");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public InteractionScenarios(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Process steps overview.
-    public ProcessStepsOverview processStepsOverview() {
-      return new ProcessStepsOverview(doc, path + "/processStepsOverview");
-    }
-
-    // Actor overview.
-    public ActorOverview actorOverview() {
-      return new ActorOverview(doc, path + "/actorOverview");
-    }
-
-    // Interaction catalog.
-    public InteractionCatalog interactionCatalog() {
-      return new InteractionCatalog(doc, path + "/interactionCatalog");
-    }
-
-    // Key scenarios.
-    public KeyScenarios keyScenarios() {
-      return new KeyScenarios(doc, path + "/keyScenarios");
-    }
-
-    // Actor relationship diagram.
-    public ActorRelationshipDiagram actorRelationshipDiagram() {
-      return new ActorRelationshipDiagram(doc, path + "/actorRelationshipDiagram");
-    }
-
-    // End-to-end test scenarios.
-    public SomList<EndToEndTestScenarios> endToEndTestScenarios() {
-      return new SomList<>(doc, path + "/ETETS-ENDT-LST", (d, p) -> new EndToEndTestScenarios(d, p));
-    }
-
-    // Use case traceability.
-    public UseCaseTraceability useCaseTraceability() {
-      return new UseCaseTraceability(doc, path + "/useCaseTraceability");
     }
   }
 
@@ -36074,114 +36637,6 @@ public final class TomSomV0 {
     }
   }
 
-  // BQP00 Business Quality Plan.
-  //
-  // Full quality plan combining quality goals and the acceptance plan.
-  public static final class QualityAcceptancePlan extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public QualityAcceptancePlan(SpecDocument doc, String documentVersion) {
-      super(doc, "QAP");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public QualityAcceptancePlan(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Quality framework.
-    public QualityFramework qualityFramework() {
-      return new QualityFramework(doc, path + "/qualityFramework");
-    }
-
-    // User-related quality criteria.
-    public UserQualityCriteria userQualityCriteria() {
-      return new UserQualityCriteria(doc, path + "/userQualityCriteria");
-    }
-
-    // Technical quality criteria.
-    public TechnicalQualityCriteria technicalQualityCriteria() {
-      return new TechnicalQualityCriteria(doc, path + "/technicalQualityCriteria");
-    }
-
-    // Operations quality criteria.
-    public OperationsQualityCriteria operationsQualityCriteria() {
-      return new OperationsQualityCriteria(doc, path + "/operationsQualityCriteria");
-    }
-
-    // Documentation quality criteria.
-    public DocumentationQualityCriteria documentationQualityCriteria() {
-      return new DocumentationQualityCriteria(doc, path + "/documentationQualityCriteria");
-    }
-
-    // Quality prioritization.
-    public QualityPrioritization qualityPrioritization() {
-      return new QualityPrioritization(doc, path + "/qualityPrioritization");
-    }
-
-    // Acceptance criteria summary.
-    public AcceptanceCriteriaSummary acceptanceCriteriaSummary() {
-      return new AcceptanceCriteriaSummary(doc, path + "/acceptanceCriteriaSummary");
-    }
-
-    // Test strategy (new in Phase A).
-    public TestStrategy testStrategy() {
-      return new TestStrategy(doc, path + "/testStrategy");
-    }
-
-    // Acceptance criteria.
-    public AcceptanceCriteriaList acceptanceCriteria() {
-      return new AcceptanceCriteriaList(doc, path + "/acceptanceCriteria");
-    }
-
-    // Acceptance process.
-    public AcceptanceProcess acceptanceProcess() {
-      return new AcceptanceProcess(doc, path + "/acceptanceProcess");
-    }
-
-    // User acceptance testing.
-    public UserAcceptanceTesting userAcceptanceTesting() {
-      return new UserAcceptanceTesting(doc, path + "/userAcceptanceTesting");
-    }
-
-    // Defect resolution.
-    public DefectResolution defectResolution() {
-      return new DefectResolution(doc, path + "/defectResolution");
-    }
-
-    // Sign-off process.
-    public SignOffProcess signOffProcess() {
-      return new SignOffProcess(doc, path + "/signOffProcess");
-    }
-
-    // Warranty terms.
-    public WarrantyTerms warranty() {
-      return new WarrantyTerms(doc, path + "/warranty");
-    }
-  }
-
   // SBP.14 Quality & Acceptance Model.
   //
   // Public anchor: ISO/IEC 25010 product quality.
@@ -38858,90 +39313,6 @@ public final class TomSomV0 {
     }
 
     // 4.3.6. Requirement Coverage.
-    public RequirementCoverage requirementCoverage() {
-      return new RequirementCoverage(doc, path + "/requirementCoverage");
-    }
-  }
-
-  // RC00 Requirements Catalog.
-  //
-  // Full requirements catalog covering functional, technical, security,
-  // and organizational requirements, plus traceability, relationships,
-  // and coverage analysis.
-  public static final class RequirementsSpecification extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public RequirementsSpecification(SpecDocument doc, String documentVersion) {
-      super(doc, "RSP");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public RequirementsSpecification(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Functional requirements.
-    public FunctionalRequirements functionalRequirements() {
-      return new FunctionalRequirements(doc, path + "/functionalRequirements");
-    }
-
-    // Technical (non-functional) requirements.
-    public TechnicalRequirements technicalRequirements() {
-      return new TechnicalRequirements(doc, path + "/technicalRequirements");
-    }
-
-    // Security requirements.
-    public SecurityRequirements securityRequirements() {
-      return new SecurityRequirements(doc, path + "/securityRequirements");
-    }
-
-    // Organizational requirements.
-    public OrganizationalRequirements organizationalRequirements() {
-      return new OrganizationalRequirements(doc, path + "/organizationalRequirements");
-    }
-
-    // Traceability matrix overview.
-    //
-    // Mirrors the flat field on RequirementsOverview so the RC outline
-    // reaches it directly. The authoritative content lives on the Solution
-    // Blueprint side.
-    public String traceabilityMatrix() {
-      String v = doc.content(path + "/traceabilityMatrix");
-      return v == null ? "" : v;
-    }
-
-    public void traceabilityMatrix(String value) {
-      doc.setContent(path + "/traceabilityMatrix", value);
-    }
-
-    // Requirement relationships.
-    public SomList<RequirementRelationships> requirementRelationships() {
-      return new SomList<>(doc, path + "/RERE-REQU-LST", (d, p) -> new RequirementRelationships(d, p));
-    }
-
-    // Requirement coverage.
     public RequirementCoverage requirementCoverage() {
       return new RequirementCoverage(doc, path + "/requirementCoverage");
     }
@@ -42375,87 +42746,6 @@ public final class TomSomV0 {
     }
   }
 
-  // AC00 Authorization Concept.
-  //
-  // Complete access and authorization specification — user management,
-  // identification and authentication, resource protection, user
-  // authorization, encryption, audit/logging, role matrix, and
-  // compliance framework.
-  public static final class SecurityAccessSpecification extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public SecurityAccessSpecification(SpecDocument doc, String documentVersion) {
-      super(doc, "SAS");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public SecurityAccessSpecification(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // User management.
-    public UserManagement userManagement() {
-      return new UserManagement(doc, path + "/userManagement");
-    }
-
-    // Identification and authentication.
-    public IdentificationAndAuthentication identificationAndAuthentication() {
-      return new IdentificationAndAuthentication(doc, path + "/identificationAndAuthentication");
-    }
-
-    // Resource protection.
-    public ResourceProtection resourceProtection() {
-      return new ResourceProtection(doc, path + "/resourceProtection");
-    }
-
-    // User authorization.
-    public UserAuthorization userAuthorization() {
-      return new UserAuthorization(doc, path + "/userAuthorization");
-    }
-
-    // Sensitive data encryption.
-    public SensitiveDataEncryption sensitiveDataEncryption() {
-      return new SensitiveDataEncryption(doc, path + "/sensitiveDataEncryption");
-    }
-
-    // Audit and logging.
-    public AuditAndLogging auditAndLogging() {
-      return new AuditAndLogging(doc, path + "/auditAndLogging");
-    }
-
-    // Role matrix.
-    public RoleMatrix roleMatrix() {
-      return new RoleMatrix(doc, path + "/roleMatrix");
-    }
-
-    // Compliance framework.
-    public ComplianceFramework complianceFramework() {
-      return new ComplianceFramework(doc, path + "/complianceFramework");
-    }
-  }
-
   // 9. Access and Authorization Concept. Seeds → AC.
   public static final class SecurityAndAccessModel extends SomNode {
     public SecurityAndAccessModel(SpecDocument doc, String path) {
@@ -45142,110 +45432,6 @@ public final class TomSomV0 {
     // Components, libraries, and services to reuse.
     public ComponentsToUse componentsToUse() {
       return new ComponentsToUse(doc, path + "/componentsToUse");
-    }
-  }
-
-  // The complete Solution Blueprint (SBP) document.
-  //
-  // Contains a [DocumentControl] header block and the SBP sections, sequenced
-  // per the public-standards order (§4 of the redesign proposal).
-  public static final class SolutionBlueprint extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public SolutionBlueprint(SpecDocument doc, String documentVersion) {
-      super(doc, "SBP");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public SolutionBlueprint(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // SBP.1 Document Control (header + revision history + approvals).
-    public DocumentControl documentControl() {
-      return new DocumentControl(doc, path + "/documentControl");
-    }
-
-    // SBP.2 Introduction & Scope.
-    public IntroductionAndScope introductionAndScope() {
-      return new IntroductionAndScope(doc, path + "/introductionAndScope");
-    }
-
-    // SBP.3 Glossary & Abbreviations.
-    public GlossaryAndAbbreviations glossaryAndAbbreviations() {
-      return new GlossaryAndAbbreviations(doc, path + "/glossaryAndAbbreviations");
-    }
-
-    // SBP.4 Stakeholders & Governance.
-    public StakeholdersAndGovernance stakeholdersAndGovernance() {
-      return new StakeholdersAndGovernance(doc, path + "/stakeholdersAndGovernance");
-    }
-
-    // SBP.5 Current Landscape. Seeds → CLA.
-    public CurrentLandscape currentLandscape() {
-      return new CurrentLandscape(doc, path + "/currentLandscape");
-    }
-
-    // SBP.6 Assumptions, Constraints & Dependencies.
-    public AssumptionsConstraintsDependencies assumptionsConstraintsDependencies() {
-      return new AssumptionsConstraintsDependencies(doc, path + "/assumptionsConstraintsDependencies");
-    }
-
-    // SBP.7 Target Operating Model concept. Seeds → TOM.
-    public TargetOperatingModelConcept targetOperatingModelConcept() {
-      return new TargetOperatingModelConcept(doc, path + "/targetOperatingModelConcept");
-    }
-
-    // SBP.8 Information & Data Model. Seeds → IFM.
-    public InformationAndDataModel informationAndDataModel() {
-      return new InformationAndDataModel(doc, path + "/informationAndDataModel");
-    }
-
-    // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
-    public Requirements requirements() {
-      return new Requirements(doc, path + "/requirements");
-    }
-
-    // SBP.11 Solution Architecture & Technology. Seeds → ATS.
-    public SolutionArchitectureAndTechnology solutionArchitectureAndTechnology() {
-      return new SolutionArchitectureAndTechnology(doc, path + "/solutionArchitectureAndTechnology");
-    }
-
-    // SBP.12 Security & Access Model. Seeds → SAS.
-    public SecurityAndAccessModel securityAndAccessModel() {
-      return new SecurityAndAccessModel(doc, path + "/securityAndAccessModel");
-    }
-
-    // SBP.13 Experience & Interface Design. Seeds → XDS.
-    public ExperienceAndInterfaceDesign experienceAndInterfaceDesign() {
-      return new ExperienceAndInterfaceDesign(doc, path + "/experienceAndInterfaceDesign");
-    }
-
-    // SBP.14 Quality & Acceptance Model. Seeds → QAP.
-    public QualityAndAcceptanceModel qualityAndAcceptanceModel() {
-      return new QualityAndAcceptanceModel(doc, path + "/qualityAndAcceptanceModel");
-    }
-
-    // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
-    public DeliveryTransitionAndRollout deliveryTransitionAndRollout() {
-      return new DeliveryTransitionAndRollout(doc, path + "/deliveryTransitionAndRollout");
     }
   }
 
@@ -49597,96 +49783,6 @@ public final class TomSomV0 {
     }
   }
 
-  // BP00 Business Processes.
-  //
-  // Target business process specification — vision, principles, catalog,
-  // diagrams, improvements, relationships, detailed workflows,
-  // cross-process analysis, exception handling, and KPIs.
-  public static final class TargetOperatingModel extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public TargetOperatingModel(SpecDocument doc, String documentVersion) {
-      super(doc, "TOM");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public TargetOperatingModel(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Process vision.
-    public ProcessVision processVision() {
-      return new ProcessVision(doc, path + "/processVision");
-    }
-
-    // Design principles.
-    public ProcessDesignPrinciples designPrinciples() {
-      return new ProcessDesignPrinciples(doc, path + "/designPrinciples");
-    }
-
-    // Process catalog.
-    public ProcessCatalog processCatalog() {
-      return new ProcessCatalog(doc, path + "/processCatalog");
-    }
-
-    // Process overview diagram.
-    public ProcessOverviewDiagram processOverviewDiagram() {
-      return new ProcessOverviewDiagram(doc, path + "/processOverviewDiagram");
-    }
-
-    // Improvement summary.
-    public ProcessImprovementSummary improvementSummary() {
-      return new ProcessImprovementSummary(doc, path + "/improvementSummary");
-    }
-
-    // Process relationships.
-    public ProcessRelationships processRelationships() {
-      return new ProcessRelationships(doc, path + "/processRelationships");
-    }
-
-    // Detailed process workflows.
-    public SomList<DetailedProcessWorkflows> detailedWorkflows() {
-      return new SomList<>(doc, path + "/DEPRWO-DETA-LST", (d, p) -> new DetailedProcessWorkflows(d, p));
-    }
-
-    // Cross-process analysis.
-    public CrossProcessAnalysis crossProcessAnalysis() {
-      return new CrossProcessAnalysis(doc, path + "/crossProcessAnalysis");
-    }
-
-    // Process exception handling.
-    public ProcessExceptionHandling exceptionHandling() {
-      return new ProcessExceptionHandling(doc, path + "/exceptionHandling");
-    }
-
-    // Process metrics and KPIs.
-    public SomList<ProcessMetricsAndKpis> processMetricsAndKpis() {
-      return new SomList<>(doc, path + "/PMAK-PROC-LST", (d, p) -> new ProcessMetricsAndKpis(d, p));
-    }
-  }
-
   // SBP.7 Target Operating Model concept.
   //
   // Public anchor: BABOK future-state analysis.
@@ -52704,102 +52800,6 @@ public final class TomSomV0 {
 
     public TransitionRiskEntryResponseContentForm content() {
       return new TransitionRiskEntryResponseContentForm(doc, path + "/content");
-    }
-  }
-
-  // SR00 System Rollout.
-  //
-  // End-to-end rollout specification — localization, translation,
-  // documentation and training, plus rollout plan, migration plan,
-  // user manuals, training materials, pilot, cutover, knowledge
-  // transfer, and warranty/support.
-  public static final class TransitionRolloutPlan extends SomNode {
-    // The model version this object model was generated against (§2.1).
-    public static final String MODEL_VERSION = "0.0";
-
-    // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
-    public TransitionRolloutPlan(SpecDocument doc, String documentVersion) {
-      super(doc, "TRP");
-      SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
-    }
-
-    public TransitionRolloutPlan(SpecDocument doc) {
-      this(doc, null);
-    }
-
-    // This object model's own model version (major.minor), per §2.1.
-    public String objectModelVersion() {
-      return MODEL_VERSION;
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Standard TomSpecs document header.
-    public DocumentHeader header() {
-      return new DocumentHeader(doc, path + "/header");
-    }
-
-    // Localization process.
-    public LocalizationProcess localizationProcess() {
-      return new LocalizationProcess(doc, path + "/localizationProcess");
-    }
-
-    // Translation process.
-    public TranslationProcess translationProcess() {
-      return new TranslationProcess(doc, path + "/translationProcess");
-    }
-
-    // Documentation and training.
-    public DocumentationAndTraining documentationAndTraining() {
-      return new DocumentationAndTraining(doc, path + "/documentationAndTraining");
-    }
-
-    // Rollout plan.
-    public RolloutPlan rolloutPlan() {
-      return new RolloutPlan(doc, path + "/rolloutPlan");
-    }
-
-    // Migration plan.
-    public MigrationPlan migrationPlan() {
-      return new MigrationPlan(doc, path + "/migrationPlan");
-    }
-
-    // User manuals.
-    public SomList<UserManuals> userManuals() {
-      return new SomList<>(doc, path + "/USRMAN-USER-LST", (d, p) -> new UserManuals(d, p));
-    }
-
-    // Training materials.
-    public SomList<RolloutTrainingMaterials> trainingMaterials() {
-      return new SomList<>(doc, path + "/RLTTM-TRAI-LST", (d, p) -> new RolloutTrainingMaterials(d, p));
-    }
-
-    // Pilot plan.
-    public PilotPlan pilotPlan() {
-      return new PilotPlan(doc, path + "/pilotPlan");
-    }
-
-    // Cutover procedures.
-    public SomList<CutoverProcedures> cutoverProcedures() {
-      return new SomList<>(doc, path + "/CUTPRC-CUTO-LST", (d, p) -> new CutoverProcedures(d, p));
-    }
-
-    // Knowledge transfer.
-    public KnowledgeTransfer knowledgeTransfer() {
-      return new KnowledgeTransfer(doc, path + "/knowledgeTransfer");
-    }
-
-    // Warranty and support.
-    public WarrantyAndSupport warrantyAndSupport() {
-      return new WarrantyAndSupport(doc, path + "/warrantyAndSupport");
     }
   }
 

@@ -55,7 +55,18 @@ class ModelJsonExporter {
       }
     }
 
-    roots.sort((a, b) => (a['title'] as String).compareTo(b['title'] as String));
+    // Roots sort by their document number — the `Dxx` prefix parsed from the
+    // root class name (D00SolutionBlueprint → 0, …, D12TransitionRolloutPlan →
+    // 12) — so generated outlines and the editor navigator list documents in
+    // D00→D12 order automatically. `Dxx` lives on the class name only, never on
+    // a `@SectionId`. Roots without a `Dxx` prefix sort after the numbered ones,
+    // alphabetically by title.
+    roots.sort((a, b) {
+      final ka = _docOrderKey(a['type'] as String);
+      final kb = _docOrderKey(b['type'] as String);
+      if (ka != kb) return ka.compareTo(kb);
+      return (a['title'] as String).compareTo(b['title'] as String);
+    });
 
     return {
       'generatedAt': DateTime.now().toUtc().toIso8601String(),
@@ -220,4 +231,14 @@ class ModelJsonExporter {
   String _splitPascal(String name) => name
       .replaceAllMapped(RegExp(r'(?<=[a-z0-9])([A-Z])'), (m) => ' ${m[1]}')
       .replaceFirstMapped(RegExp(r'^.'), (m) => m[0]!.toUpperCase());
+
+  /// Parses the leading `Dxx` document number from a root class name (e.g.
+  /// `D07IntegrationInterfaceSpecification` → `7`). Returns a large sentinel
+  /// for class names without a `Dxx` prefix so they sort after the numbered
+  /// document roots.
+  static final RegExp _docNumberPattern = RegExp(r'^D(\d+)');
+  int _docOrderKey(String className) {
+    final m = _docNumberPattern.firstMatch(className);
+    return m == null ? 1 << 30 : int.parse(m.group(1)!);
+  }
 }

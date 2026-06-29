@@ -6,32 +6,32 @@
 
 #include "tom_som_c_runtime.h"
 
-// ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the ArchitectureTechnologySpecification object model was generated against (§2.1).
-#define ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "0.0"
-// CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the CurrentLandscapeAssessment object model was generated against (§2.1).
-#define CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "0.0"
-// DELIVERY_ROADMAP_MODEL_VERSION is the model version the DeliveryRoadmap object model was generated against (§2.1).
-#define DELIVERY_ROADMAP_MODEL_VERSION "0.0"
-// EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the ExperienceDesignSpecification object model was generated against (§2.1).
-#define EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "0.0"
-// INFORMATION_MODEL_MODEL_VERSION is the model version the InformationModel object model was generated against (§2.1).
-#define INFORMATION_MODEL_MODEL_VERSION "0.0"
-// INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the IntegrationInterfaceSpecification object model was generated against (§2.1).
-#define INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "0.0"
-// INTERACTION_SCENARIOS_MODEL_VERSION is the model version the InteractionScenarios object model was generated against (§2.1).
-#define INTERACTION_SCENARIOS_MODEL_VERSION "0.0"
-// QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the QualityAcceptancePlan object model was generated against (§2.1).
-#define QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "0.0"
-// REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the RequirementsSpecification object model was generated against (§2.1).
-#define REQUIREMENTS_SPECIFICATION_MODEL_VERSION "0.0"
-// SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the SecurityAccessSpecification object model was generated against (§2.1).
-#define SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "0.0"
-// SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the SolutionBlueprint object model was generated against (§2.1).
-#define SOLUTION_BLUEPRINT_MODEL_VERSION "0.0"
-// TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the TargetOperatingModel object model was generated against (§2.1).
-#define TARGET_OPERATING_MODEL_MODEL_VERSION "0.0"
-// TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the TransitionRolloutPlan object model was generated against (§2.1).
-#define TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "0.0"
+// D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (§2.1).
+#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "0.0"
+// D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (§2.1).
+#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "0.0"
+// D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the D02TargetOperatingModel object model was generated against (§2.1).
+#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "0.0"
+// D03_INFORMATION_MODEL_MODEL_VERSION is the model version the D03InformationModel object model was generated against (§2.1).
+#define D03_INFORMATION_MODEL_MODEL_VERSION "0.0"
+// D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the D04RequirementsSpecification object model was generated against (§2.1).
+#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "0.0"
+// D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version the D05InteractionScenarios object model was generated against (§2.1).
+#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "0.0"
+// D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the D06ArchitectureTechnologySpecification object model was generated against (§2.1).
+#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "0.0"
+// D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the D07IntegrationInterfaceSpecification object model was generated against (§2.1).
+#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "0.0"
+// D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the D08SecurityAccessSpecification object model was generated against (§2.1).
+#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "0.0"
+// D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the D09ExperienceDesignSpecification object model was generated against (§2.1).
+#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "0.0"
+// D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the D10QualityAcceptancePlan object model was generated against (§2.1).
+#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "0.0"
+// D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version the D11DeliveryRoadmap object model was generated against (§2.1).
+#define D11_DELIVERY_ROADMAP_MODEL_VERSION "0.0"
+// D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (§2.1).
+#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "0.0"
 
 // Typed facade structs — each binds a node (document + path).
 typedef struct { SomNode node; } AcceptanceCriteriaList;
@@ -186,7 +186,6 @@ typedef struct { SomNode node; } ArchitecturePrincipleEntry;
 typedef struct { SomNode node; } ArchitecturePrincipleEntryGovernance;
 typedef struct { SomNode node; } ArchitecturePrincipleEntryGuidance;
 typedef struct { SomNode node; } ArchitectureStyle;
-typedef struct { SomNode node; } ArchitectureTechnologySpecification;
 typedef struct { SomNode node; } AssumptionConstraintRegister;
 typedef struct { SomNode node; } AssumptionEntry;
 typedef struct { SomNode node; } AssumptionIdentification;
@@ -648,7 +647,6 @@ typedef struct { SomNode node; } CurrentBusinessProcesses;
 typedef struct { SomNode node; } CurrentDataClassification;
 typedef struct { SomNode node; } CurrentDataLandscape;
 typedef struct { SomNode node; } CurrentLandscape;
-typedef struct { SomNode node; } CurrentLandscapeAssessment;
 typedef struct { SomNode node; } CurrentOperationalMetrics;
 typedef struct { SomNode node; } CurrentProcessImprovementEntry;
 typedef struct { SomNode node; } CurrentStateRiskAssessment;
@@ -656,6 +654,19 @@ typedef struct { SomNode node; } CurrentWorkflowEntry;
 typedef struct { SomNode node; } CustomDistributionGroup;
 typedef struct { SomNode node; } CustomMetricEntry;
 typedef struct { SomNode node; } CutoverProcedures;
+typedef struct { SomNode node; } D00SolutionBlueprint;
+typedef struct { SomNode node; } D01CurrentLandscapeAssessment;
+typedef struct { SomNode node; } D02TargetOperatingModel;
+typedef struct { SomNode node; } D03InformationModel;
+typedef struct { SomNode node; } D04RequirementsSpecification;
+typedef struct { SomNode node; } D05InteractionScenarios;
+typedef struct { SomNode node; } D06ArchitectureTechnologySpecification;
+typedef struct { SomNode node; } D07IntegrationInterfaceSpecification;
+typedef struct { SomNode node; } D08SecurityAccessSpecification;
+typedef struct { SomNode node; } D09ExperienceDesignSpecification;
+typedef struct { SomNode node; } D10QualityAcceptancePlan;
+typedef struct { SomNode node; } D11DeliveryRoadmap;
+typedef struct { SomNode node; } D12TransitionRolloutPlan;
 typedef struct { SomNode node; } DashboardEntry;
 typedef struct { SomNode node; } DashboardEntryConfiguration;
 typedef struct { SomNode node; } DashboardEntryOperations;
@@ -820,7 +831,6 @@ typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryOwnership;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryStatus;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryTraceability;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryVerification;
-typedef struct { SomNode node; } DeliveryRoadmap;
 typedef struct { SomNode node; } DeliveryScope;
 typedef struct { SomNode node; } DeliveryScopeAndAcceptance;
 typedef struct { SomNode node; } DeliveryTransitionAndRollout;
@@ -1090,7 +1100,6 @@ typedef struct { SomNode node; } ExistingSystemUsage;
 typedef struct { SomNode node; } ExistingSystemsLandscape;
 typedef struct { SomNode node; } ExpectedImprovements;
 typedef struct { SomNode node; } ExperienceAndInterfaceDesign;
-typedef struct { SomNode node; } ExperienceDesignSpecification;
 typedef struct { SomNode node; } ExportAccess;
 typedef struct { SomNode node; } ExportDataFormat;
 typedef struct { SomNode node; } ExportDelimiter;
@@ -1318,7 +1327,6 @@ typedef struct { SomNode node; } IndustryStandardEntryVerification;
 typedef struct { SomNode node; } InformationAndDataModel;
 typedef struct { SomNode node; } InformationArchitecture;
 typedef struct { SomNode node; } InformationForUseRequirements;
-typedef struct { SomNode node; } InformationModel;
 typedef struct { SomNode node; } InfrastructureAsCode;
 typedef struct { SomNode node; } InfrastructureAsCodeDrift;
 typedef struct { SomNode node; } InfrastructureAsCodeExecution;
@@ -1361,7 +1369,6 @@ typedef struct { SomNode node; } IntegrationConstraintEntryDetails;
 typedef struct { SomNode node; } IntegrationConstraintEntryMitigation;
 typedef struct { SomNode node; } IntegrationConstraintEntryScope;
 typedef struct { SomNode node; } IntegrationHealthSummary;
-typedef struct { SomNode node; } IntegrationInterfaceSpecification;
 typedef struct { SomNode node; } IntegrationPatternEntry;
 typedef struct { SomNode node; } IntegrationPointEntry;
 typedef struct { SomNode node; } Integrations;
@@ -1387,7 +1394,6 @@ typedef struct { SomNode node; } InteractionPatterns;
 typedef struct { SomNode node; } InteractionPerformance;
 typedef struct { SomNode node; } InteractionPrioritization;
 typedef struct { SomNode node; } InteractionScenarioEntry;
-typedef struct { SomNode node; } InteractionScenarios;
 typedef struct { SomNode node; } InteractionSecurity;
 typedef struct { SomNode node; } InteractionTestingStrategy;
 typedef struct { SomNode node; } InteractionTraceability;
@@ -2027,7 +2033,6 @@ typedef struct { SomNode node; } PwaRequirementsIcons;
 typedef struct { SomNode node; } PwaRequirementsInstallation;
 typedef struct { SomNode node; } PwaRequirementsOffline;
 typedef struct { SomNode node; } PwaRequirementsUpdates;
-typedef struct { SomNode node; } QualityAcceptancePlan;
 typedef struct { SomNode node; } QualityAndAcceptanceModel;
 typedef struct { SomNode node; } QualityCategoryEntry;
 typedef struct { SomNode node; } QualityCategoryEntryDefinition;
@@ -2183,7 +2188,6 @@ typedef struct { SomNode node; } RequirementTraceabilityImplementation;
 typedef struct { SomNode node; } RequirementUiSpecification;
 typedef struct { SomNode node; } Requirements;
 typedef struct { SomNode node; } RequirementsOverview;
-typedef struct { SomNode node; } RequirementsSpecification;
 typedef struct { SomNode node; } ResourceAllocationEntry;
 typedef struct { SomNode node; } ResourceCapacityBaselines;
 typedef struct { SomNode node; } ResourceCapacityBaselinesCost;
@@ -2391,7 +2395,6 @@ typedef struct { SomNode node; } ScreenStateEntry;
 typedef struct { SomNode node; } ScreenStates;
 typedef struct { SomNode node; } ScreenUserCategoryEntry;
 typedef struct { SomNode node; } SecondaryNavigation;
-typedef struct { SomNode node; } SecurityAccessSpecification;
 typedef struct { SomNode node; } SecurityAndAccessModel;
 typedef struct { SomNode node; } SecurityAuditEntry;
 typedef struct { SomNode node; } SecurityAuditEntryExecution;
@@ -2542,7 +2545,6 @@ typedef struct { SomNode node; } SoftwareLayerEntryDependencies;
 typedef struct { SomNode node; } SoftwareLayerEntryResponsibilities;
 typedef struct { SomNode node; } SoftwareLayerEntryTechnology;
 typedef struct { SomNode node; } SolutionArchitectureAndTechnology;
-typedef struct { SomNode node; } SolutionBlueprint;
 typedef struct { SomNode node; } SpecializedEquipmentEntry;
 typedef struct { SomNode node; } SpecializedEquipmentEntryPlanning;
 typedef struct { SomNode node; } SpecializedEquipmentEntryTechnical;
@@ -2768,7 +2770,6 @@ typedef struct { SomNode node; } TabBarDefinitionEntryBehavior;
 typedef struct { SomNode node; } TabBarDefinitionEntryLoading;
 typedef struct { SomNode node; } TabItemEntry;
 typedef struct { SomNode node; } TargetBusinessProcessModel;
-typedef struct { SomNode node; } TargetOperatingModel;
 typedef struct { SomNode node; } TargetOperatingModelConcept;
 typedef struct { SomNode node; } TargetPlatformEntry;
 typedef struct { SomNode node; } TargetPlatformEntryArchitecture;
@@ -2939,7 +2940,6 @@ typedef struct { SomNode node; } TransitionPhaseStakeholders;
 typedef struct { SomNode node; } TransitionRiskEntry;
 typedef struct { SomNode node; } TransitionRiskEntryAssessment;
 typedef struct { SomNode node; } TransitionRiskEntryResponse;
-typedef struct { SomNode node; } TransitionRolloutPlan;
 typedef struct { SomNode node; } TransitionSuccessMetrics;
 typedef struct { SomNode node; } TransitionSupportOverview;
 typedef struct { SomNode node; } TransitionSupportResourceEntry;
@@ -7215,48 +7215,6 @@ DeploymentTopology architecture_style_deployment_topology(const ArchitectureStyl
 // Architecture decision records.
 // Returns the list view; element type: ArchitectureDecisionRecord (construct from item paths).
 SomList architecture_style_decision_records(const ArchitectureStyle *self);
-
-// TR00 Technical Requirements.
-//
-// Comprehensive technical requirements: basic / software / standard-
-// software / hardware / operations / communication / system-operation
-// / security / architecture, plus components, framework conditions,
-// and translation handling.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int architecture_technology_specification_new(ArchitectureTechnologySpecification *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *architecture_technology_specification_object_model_version(const ArchitectureTechnologySpecification *self);
-void architecture_technology_specification_free(ArchitectureTechnologySpecification *self);
-char *architecture_technology_specification_content(const ArchitectureTechnologySpecification *self);
-void architecture_technology_specification_set_content(ArchitectureTechnologySpecification *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader architecture_technology_specification_header(const ArchitectureTechnologySpecification *self);
-// Basic technical requirements.
-BasicTechnicalRequirements architecture_technology_specification_basic_technical_requirements(const ArchitectureTechnologySpecification *self);
-// Software design requirements.
-SoftwareDesignRequirements architecture_technology_specification_software_design_requirements(const ArchitectureTechnologySpecification *self);
-// Standard application software requirements.
-StandardSoftwareRequirements architecture_technology_specification_standard_software_requirements(const ArchitectureTechnologySpecification *self);
-// Hardware concept requirements.
-HardwareRequirements architecture_technology_specification_hardware_requirements(const ArchitectureTechnologySpecification *self);
-// Operations requirements.
-OperationsRequirements architecture_technology_specification_operations_requirements(const ArchitectureTechnologySpecification *self);
-// Communication requirements.
-CommunicationRequirements architecture_technology_specification_communication_requirements(const ArchitectureTechnologySpecification *self);
-// System operation and monitoring.
-SystemOperationAndMonitoring architecture_technology_specification_system_operation_and_monitoring(const ArchitectureTechnologySpecification *self);
-// Technical security requirements.
-TechnicalSecurityRequirements architecture_technology_specification_technical_security_requirements(const ArchitectureTechnologySpecification *self);
-// System architecture (new in Phase A).
-SystemArchitectureSpec architecture_technology_specification_system_architecture(const ArchitectureTechnologySpecification *self);
-// Components to use (whole).
-ComponentsToUse architecture_technology_specification_components_to_use(const ArchitectureTechnologySpecification *self);
-// Technical framework conditions (whole).
-TechnicalFrameworkConditions architecture_technology_specification_technical_framework_conditions(const ArchitectureTechnologySpecification *self);
-// Translation handling requirements (whole).
-TranslationRequirements architecture_technology_specification_translation_requirements(const ArchitectureTechnologySpecification *self);
 
 // A consolidated register of assumptions and constraints.
 // Binds a AssumptionConstraintRegister facade to a document and a path (path copied).
@@ -11544,40 +11502,6 @@ SomList current_landscape_operational_metrics(const CurrentLandscape *self);
 // 1.6. Current State Risks.
 CurrentStateRiskAssessment current_landscape_current_state_risks(const CurrentLandscape *self);
 
-// CS00 Current Situation.
-//
-// Detailed analysis of the current state: existing systems, business
-// processes, pain points, data landscape, operational metrics, risks,
-// and the inventory / migration plan for the systems being replaced.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int current_landscape_assessment_new(CurrentLandscapeAssessment *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *current_landscape_assessment_object_model_version(const CurrentLandscapeAssessment *self);
-void current_landscape_assessment_free(CurrentLandscapeAssessment *self);
-char *current_landscape_assessment_content(const CurrentLandscapeAssessment *self);
-void current_landscape_assessment_set_content(CurrentLandscapeAssessment *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader current_landscape_assessment_header(const CurrentLandscapeAssessment *self);
-// Existing systems landscape.
-ExistingSystemsLandscape current_landscape_assessment_existing_systems_landscape(const CurrentLandscapeAssessment *self);
-// Current business processes.
-CurrentBusinessProcesses current_landscape_assessment_current_business_processes(const CurrentLandscapeAssessment *self);
-// Pain points and gaps.
-PainPointsAndGaps current_landscape_assessment_pain_points_and_gaps(const CurrentLandscapeAssessment *self);
-// Current data landscape.
-CurrentDataLandscape current_landscape_assessment_current_data_landscape(const CurrentLandscapeAssessment *self);
-// Current operational metrics.
-// Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
-SomList current_landscape_assessment_operational_metrics(const CurrentLandscapeAssessment *self);
-// Current-state risk assessment.
-CurrentStateRiskAssessment current_landscape_assessment_current_state_risks(const CurrentLandscapeAssessment *self);
-// Replacement inventory.
-ReplacementInventory current_landscape_assessment_replacement_inventory(const CurrentLandscapeAssessment *self);
-// Migration considerations.
-MigrationConsiderations current_landscape_assessment_migration_considerations(const CurrentLandscapeAssessment *self);
-
 // 1.5. Operational Metrics.
 //
 // Baseline metrics of the current systems: throughput, volume, uptime,
@@ -11671,6 +11595,521 @@ void cutover_procedures_init(CutoverProcedures *self, SpecDocument *doc, const c
 void cutover_procedures_free(CutoverProcedures *self);
 char *cutover_procedures_content(const CutoverProcedures *self);
 void cutover_procedures_set_content(CutoverProcedures *self, const char *value);
+
+// The complete Solution Blueprint (SBP) document.
+//
+// Contains a [DocumentControl] header block and the SBP sections, sequenced
+// per the public-standards order (§4 of the redesign proposal).
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d00_solution_blueprint_new(D00SolutionBlueprint *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d00_solution_blueprint_object_model_version(const D00SolutionBlueprint *self);
+void d00_solution_blueprint_free(D00SolutionBlueprint *self);
+char *d00_solution_blueprint_content(const D00SolutionBlueprint *self);
+void d00_solution_blueprint_set_content(D00SolutionBlueprint *self, const char *value);
+// SBP.1 Document Control (header + revision history + approvals).
+DocumentControl d00_solution_blueprint_document_control(const D00SolutionBlueprint *self);
+// SBP.2 Introduction & Scope.
+IntroductionAndScope d00_solution_blueprint_introduction_and_scope(const D00SolutionBlueprint *self);
+// SBP.3 Glossary & Abbreviations.
+GlossaryAndAbbreviations d00_solution_blueprint_glossary_and_abbreviations(const D00SolutionBlueprint *self);
+// SBP.4 Stakeholders & Governance.
+StakeholdersAndGovernance d00_solution_blueprint_stakeholders_and_governance(const D00SolutionBlueprint *self);
+// SBP.5 Current Landscape. Seeds → CLA.
+CurrentLandscape d00_solution_blueprint_current_landscape(const D00SolutionBlueprint *self);
+// SBP.6 Assumptions, Constraints & Dependencies.
+AssumptionsConstraintsDependencies d00_solution_blueprint_assumptions_constraints_dependencies(const D00SolutionBlueprint *self);
+// SBP.7 Target Operating Model concept. Seeds → TOM.
+TargetOperatingModelConcept d00_solution_blueprint_target_operating_model_concept(const D00SolutionBlueprint *self);
+// SBP.8 Information & Data Model. Seeds → IFM.
+InformationAndDataModel d00_solution_blueprint_information_and_data_model(const D00SolutionBlueprint *self);
+// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+Requirements d00_solution_blueprint_requirements(const D00SolutionBlueprint *self);
+// SBP.11 Solution Architecture & Technology. Seeds → ATS.
+SolutionArchitectureAndTechnology d00_solution_blueprint_solution_architecture_and_technology(const D00SolutionBlueprint *self);
+// SBP.12 Security & Access Model. Seeds → SAS.
+SecurityAndAccessModel d00_solution_blueprint_security_and_access_model(const D00SolutionBlueprint *self);
+// SBP.13 Experience & Interface Design. Seeds → XDS.
+ExperienceAndInterfaceDesign d00_solution_blueprint_experience_and_interface_design(const D00SolutionBlueprint *self);
+// SBP.14 Quality & Acceptance Model. Seeds → QAP.
+QualityAndAcceptanceModel d00_solution_blueprint_quality_and_acceptance_model(const D00SolutionBlueprint *self);
+// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+DeliveryTransitionAndRollout d00_solution_blueprint_delivery_transition_and_rollout(const D00SolutionBlueprint *self);
+
+// CS00 Current Situation.
+//
+// Detailed analysis of the current state: existing systems, business
+// processes, pain points, data landscape, operational metrics, risks,
+// and the inventory / migration plan for the systems being replaced.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d01_current_landscape_assessment_new(D01CurrentLandscapeAssessment *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d01_current_landscape_assessment_object_model_version(const D01CurrentLandscapeAssessment *self);
+void d01_current_landscape_assessment_free(D01CurrentLandscapeAssessment *self);
+char *d01_current_landscape_assessment_content(const D01CurrentLandscapeAssessment *self);
+void d01_current_landscape_assessment_set_content(D01CurrentLandscapeAssessment *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d01_current_landscape_assessment_header(const D01CurrentLandscapeAssessment *self);
+// Existing systems landscape.
+ExistingSystemsLandscape d01_current_landscape_assessment_existing_systems_landscape(const D01CurrentLandscapeAssessment *self);
+// Current business processes.
+CurrentBusinessProcesses d01_current_landscape_assessment_current_business_processes(const D01CurrentLandscapeAssessment *self);
+// Pain points and gaps.
+PainPointsAndGaps d01_current_landscape_assessment_pain_points_and_gaps(const D01CurrentLandscapeAssessment *self);
+// Current data landscape.
+CurrentDataLandscape d01_current_landscape_assessment_current_data_landscape(const D01CurrentLandscapeAssessment *self);
+// Current operational metrics.
+// Returns the list view; element type: CurrentOperationalMetrics (construct from item paths).
+SomList d01_current_landscape_assessment_operational_metrics(const D01CurrentLandscapeAssessment *self);
+// Current-state risk assessment.
+CurrentStateRiskAssessment d01_current_landscape_assessment_current_state_risks(const D01CurrentLandscapeAssessment *self);
+// Replacement inventory.
+ReplacementInventory d01_current_landscape_assessment_replacement_inventory(const D01CurrentLandscapeAssessment *self);
+// Migration considerations.
+MigrationConsiderations d01_current_landscape_assessment_migration_considerations(const D01CurrentLandscapeAssessment *self);
+
+// BP00 Business Processes.
+//
+// Target business process specification — vision, principles, catalog,
+// diagrams, improvements, relationships, detailed workflows,
+// cross-process analysis, exception handling, and KPIs.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d02_target_operating_model_new(D02TargetOperatingModel *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d02_target_operating_model_object_model_version(const D02TargetOperatingModel *self);
+void d02_target_operating_model_free(D02TargetOperatingModel *self);
+char *d02_target_operating_model_content(const D02TargetOperatingModel *self);
+void d02_target_operating_model_set_content(D02TargetOperatingModel *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d02_target_operating_model_header(const D02TargetOperatingModel *self);
+// Process vision.
+ProcessVision d02_target_operating_model_process_vision(const D02TargetOperatingModel *self);
+// Design principles.
+ProcessDesignPrinciples d02_target_operating_model_design_principles(const D02TargetOperatingModel *self);
+// Process catalog.
+ProcessCatalog d02_target_operating_model_process_catalog(const D02TargetOperatingModel *self);
+// Process overview diagram.
+ProcessOverviewDiagram d02_target_operating_model_process_overview_diagram(const D02TargetOperatingModel *self);
+// Improvement summary.
+ProcessImprovementSummary d02_target_operating_model_improvement_summary(const D02TargetOperatingModel *self);
+// Process relationships.
+ProcessRelationships d02_target_operating_model_process_relationships(const D02TargetOperatingModel *self);
+// Detailed process workflows.
+// Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
+SomList d02_target_operating_model_detailed_workflows(const D02TargetOperatingModel *self);
+// Cross-process analysis.
+CrossProcessAnalysis d02_target_operating_model_cross_process_analysis(const D02TargetOperatingModel *self);
+// Process exception handling.
+ProcessExceptionHandling d02_target_operating_model_exception_handling(const D02TargetOperatingModel *self);
+// Process metrics and KPIs.
+// Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
+SomList d02_target_operating_model_process_metrics_and_kpis(const D02TargetOperatingModel *self);
+
+// BDM00 Business Data Model.
+//
+// Full business data model: entities, relationships, ER diagram, data
+// classification, business objects, function decomposition, function-
+// to-data matrix, business rules, data dictionary, and validation /
+// integrity constraints.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d03_information_model_new(D03InformationModel *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d03_information_model_object_model_version(const D03InformationModel *self);
+void d03_information_model_free(D03InformationModel *self);
+char *d03_information_model_content(const D03InformationModel *self);
+void d03_information_model_set_content(D03InformationModel *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d03_information_model_header(const D03InformationModel *self);
+// Entity inventory (list).
+// Returns the list view; element type: DataEntityEntry (construct from item paths).
+SomList d03_information_model_entities(const D03InformationModel *self);
+// Entity relationships.
+EntityRelationships d03_information_model_entity_relationships(const D03InformationModel *self);
+// Entity-relationship diagram.
+// (skipped: erDiagram has no target type)
+// Data classification.
+DataClassification d03_information_model_data_classification(const D03InformationModel *self);
+// Business object catalog (list).
+// Returns the list view; element type: BusinessObjectEntry (construct from item paths).
+SomList d03_information_model_object_catalog(const D03InformationModel *self);
+// Business object diagram.
+// (skipped: objectDiagram has no target type)
+// Function decomposition (list).
+// Returns the list view; element type: FunctionEntry (construct from item paths).
+SomList d03_information_model_function_decomposition(const D03InformationModel *self);
+// Function-to-data matrix (list).
+// Returns the list view; element type: FunctionDataMatrixEntry (construct from item paths).
+SomList d03_information_model_function_to_data_matrix(const D03InformationModel *self);
+// Business rules catalog (list).
+// Returns the list view; element type: BusinessRuleEntry (construct from item paths).
+SomList d03_information_model_business_rules(const D03InformationModel *self);
+// Data dictionary.
+DataDictionary d03_information_model_data_dictionary(const D03InformationModel *self);
+// Validation constraints.
+// Returns the list view; element type: ValidationConstraints (construct from item paths).
+SomList d03_information_model_validation_constraints(const D03InformationModel *self);
+// Integrity constraints.
+// Returns the list view; element type: IntegrityConstraints (construct from item paths).
+SomList d03_information_model_integrity_constraints(const D03InformationModel *self);
+
+// RC00 Requirements Catalog.
+//
+// Full requirements catalog covering functional, technical, security,
+// and organizational requirements, plus traceability, relationships,
+// and coverage analysis.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d04_requirements_specification_new(D04RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d04_requirements_specification_object_model_version(const D04RequirementsSpecification *self);
+void d04_requirements_specification_free(D04RequirementsSpecification *self);
+char *d04_requirements_specification_content(const D04RequirementsSpecification *self);
+void d04_requirements_specification_set_content(D04RequirementsSpecification *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d04_requirements_specification_header(const D04RequirementsSpecification *self);
+// Functional requirements.
+FunctionalRequirements d04_requirements_specification_functional_requirements(const D04RequirementsSpecification *self);
+// Technical (non-functional) requirements.
+TechnicalRequirements d04_requirements_specification_technical_requirements(const D04RequirementsSpecification *self);
+// Security requirements.
+SecurityRequirements d04_requirements_specification_security_requirements(const D04RequirementsSpecification *self);
+// Organizational requirements.
+OrganizationalRequirements d04_requirements_specification_organizational_requirements(const D04RequirementsSpecification *self);
+// Traceability matrix overview.
+//
+// Mirrors the flat field on RequirementsOverview so the RC outline
+// reaches it directly. The authoritative content lives on the Solution
+// Blueprint side.
+char *d04_requirements_specification_traceability_matrix(const D04RequirementsSpecification *self);
+void d04_requirements_specification_set_traceability_matrix(D04RequirementsSpecification *self, const char *value);
+// Requirement relationships.
+// Returns the list view; element type: RequirementRelationships (construct from item paths).
+SomList d04_requirements_specification_requirement_relationships(const D04RequirementsSpecification *self);
+// Requirement coverage.
+RequirementCoverage d04_requirements_specification_requirement_coverage(const D04RequirementsSpecification *self);
+
+// UC00 Use Cases.
+//
+// Detailed use cases derived from the target process steps and actor
+// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+// and traceability.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d05_interaction_scenarios_new(D05InteractionScenarios *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d05_interaction_scenarios_object_model_version(const D05InteractionScenarios *self);
+void d05_interaction_scenarios_free(D05InteractionScenarios *self);
+char *d05_interaction_scenarios_content(const D05InteractionScenarios *self);
+void d05_interaction_scenarios_set_content(D05InteractionScenarios *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d05_interaction_scenarios_header(const D05InteractionScenarios *self);
+// Process steps overview.
+ProcessStepsOverview d05_interaction_scenarios_process_steps_overview(const D05InteractionScenarios *self);
+// Actor overview.
+ActorOverview d05_interaction_scenarios_actor_overview(const D05InteractionScenarios *self);
+// Interaction catalog.
+InteractionCatalog d05_interaction_scenarios_interaction_catalog(const D05InteractionScenarios *self);
+// Key scenarios.
+KeyScenarios d05_interaction_scenarios_key_scenarios(const D05InteractionScenarios *self);
+// Actor relationship diagram.
+ActorRelationshipDiagram d05_interaction_scenarios_actor_relationship_diagram(const D05InteractionScenarios *self);
+// End-to-end test scenarios.
+// Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
+SomList d05_interaction_scenarios_end_to_end_test_scenarios(const D05InteractionScenarios *self);
+// Use case traceability.
+UseCaseTraceability d05_interaction_scenarios_use_case_traceability(const D05InteractionScenarios *self);
+
+// TR00 Technical Requirements.
+//
+// Comprehensive technical requirements: basic / software / standard-
+// software / hardware / operations / communication / system-operation
+// / security / architecture, plus components, framework conditions,
+// and translation handling.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d06_architecture_technology_specification_new(D06ArchitectureTechnologySpecification *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d06_architecture_technology_specification_object_model_version(const D06ArchitectureTechnologySpecification *self);
+void d06_architecture_technology_specification_free(D06ArchitectureTechnologySpecification *self);
+char *d06_architecture_technology_specification_content(const D06ArchitectureTechnologySpecification *self);
+void d06_architecture_technology_specification_set_content(D06ArchitectureTechnologySpecification *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d06_architecture_technology_specification_header(const D06ArchitectureTechnologySpecification *self);
+// Basic technical requirements.
+BasicTechnicalRequirements d06_architecture_technology_specification_basic_technical_requirements(const D06ArchitectureTechnologySpecification *self);
+// Software design requirements.
+SoftwareDesignRequirements d06_architecture_technology_specification_software_design_requirements(const D06ArchitectureTechnologySpecification *self);
+// Standard application software requirements.
+StandardSoftwareRequirements d06_architecture_technology_specification_standard_software_requirements(const D06ArchitectureTechnologySpecification *self);
+// Hardware concept requirements.
+HardwareRequirements d06_architecture_technology_specification_hardware_requirements(const D06ArchitectureTechnologySpecification *self);
+// Operations requirements.
+OperationsRequirements d06_architecture_technology_specification_operations_requirements(const D06ArchitectureTechnologySpecification *self);
+// Communication requirements.
+CommunicationRequirements d06_architecture_technology_specification_communication_requirements(const D06ArchitectureTechnologySpecification *self);
+// System operation and monitoring.
+SystemOperationAndMonitoring d06_architecture_technology_specification_system_operation_and_monitoring(const D06ArchitectureTechnologySpecification *self);
+// Technical security requirements.
+TechnicalSecurityRequirements d06_architecture_technology_specification_technical_security_requirements(const D06ArchitectureTechnologySpecification *self);
+// System architecture (new in Phase A).
+SystemArchitectureSpec d06_architecture_technology_specification_system_architecture(const D06ArchitectureTechnologySpecification *self);
+// Components to use (whole).
+ComponentsToUse d06_architecture_technology_specification_components_to_use(const D06ArchitectureTechnologySpecification *self);
+// Technical framework conditions (whole).
+TechnicalFrameworkConditions d06_architecture_technology_specification_technical_framework_conditions(const D06ArchitectureTechnologySpecification *self);
+// Translation handling requirements (whole).
+TranslationRequirements d06_architecture_technology_specification_translation_requirements(const D06ArchitectureTechnologySpecification *self);
+
+// BSI00 Business System Interactions.
+//
+// Complete interaction specification between the target system and
+// external systems: inventory, patterns, testing, dependencies,
+// migration, operational concerns, and cross-boundary error handling.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d07_integration_interface_specification_new(D07IntegrationInterfaceSpecification *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d07_integration_interface_specification_object_model_version(const D07IntegrationInterfaceSpecification *self);
+void d07_integration_interface_specification_free(D07IntegrationInterfaceSpecification *self);
+char *d07_integration_interface_specification_content(const D07IntegrationInterfaceSpecification *self);
+void d07_integration_interface_specification_set_content(D07IntegrationInterfaceSpecification *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d07_integration_interface_specification_header(const D07IntegrationInterfaceSpecification *self);
+// External interfaces.
+ExternalInterfaces d07_integration_interface_specification_external_interfaces(const D07IntegrationInterfaceSpecification *self);
+// Out of scope.
+OutOfScope d07_integration_interface_specification_out_of_scope(const D07IntegrationInterfaceSpecification *self);
+// Boundary assumptions.
+BoundaryAssumptions d07_integration_interface_specification_boundary_assumptions(const D07IntegrationInterfaceSpecification *self);
+// System landscape inventory.
+SystemLandscapeInventory d07_integration_interface_specification_system_inventory(const D07IntegrationInterfaceSpecification *self);
+// Boundary interaction patterns.
+// Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
+SomList d07_integration_interface_specification_interaction_patterns(const D07IntegrationInterfaceSpecification *self);
+// Interaction testing strategy.
+InteractionTestingStrategy d07_integration_interface_specification_testing_strategy(const D07IntegrationInterfaceSpecification *self);
+// Interaction dependency analysis.
+InteractionDependencyAnalysis d07_integration_interface_specification_dependency_analysis(const D07IntegrationInterfaceSpecification *self);
+// Migration interactions.
+// Returns the list view; element type: MigrationInteractions (construct from item paths).
+SomList d07_integration_interface_specification_migration_interactions(const D07IntegrationInterfaceSpecification *self);
+// Cross-boundary operational considerations.
+// Returns the list view; element type: CrossBoundaryOperationalConsiderations (construct from item paths).
+SomList d07_integration_interface_specification_operational_considerations(const D07IntegrationInterfaceSpecification *self);
+// Cross-boundary error handling.
+CrossBoundaryErrorHandling d07_integration_interface_specification_cross_boundary_error_handling(const D07IntegrationInterfaceSpecification *self);
+
+// AC00 Authorization Concept.
+//
+// Complete access and authorization specification — user management,
+// identification and authentication, resource protection, user
+// authorization, encryption, audit/logging, role matrix, and
+// compliance framework.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d08_security_access_specification_new(D08SecurityAccessSpecification *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d08_security_access_specification_object_model_version(const D08SecurityAccessSpecification *self);
+void d08_security_access_specification_free(D08SecurityAccessSpecification *self);
+char *d08_security_access_specification_content(const D08SecurityAccessSpecification *self);
+void d08_security_access_specification_set_content(D08SecurityAccessSpecification *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d08_security_access_specification_header(const D08SecurityAccessSpecification *self);
+// User management.
+UserManagement d08_security_access_specification_user_management(const D08SecurityAccessSpecification *self);
+// Identification and authentication.
+IdentificationAndAuthentication d08_security_access_specification_identification_and_authentication(const D08SecurityAccessSpecification *self);
+// Resource protection.
+ResourceProtection d08_security_access_specification_resource_protection(const D08SecurityAccessSpecification *self);
+// User authorization.
+UserAuthorization d08_security_access_specification_user_authorization(const D08SecurityAccessSpecification *self);
+// Sensitive data encryption.
+SensitiveDataEncryption d08_security_access_specification_sensitive_data_encryption(const D08SecurityAccessSpecification *self);
+// Audit and logging.
+AuditAndLogging d08_security_access_specification_audit_and_logging(const D08SecurityAccessSpecification *self);
+// Role matrix.
+RoleMatrix d08_security_access_specification_role_matrix(const D08SecurityAccessSpecification *self);
+// Compliance framework.
+ComplianceFramework d08_security_access_specification_compliance_framework(const D08SecurityAccessSpecification *self);
+
+// UP00 UI Prototype.
+//
+// Full UI design and prototype specification — vision, screens,
+// screen flow, print, error handling, help, accessibility, responsive,
+// components, language/country selection, prototype, wireframes and
+// mockups.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d09_experience_design_specification_new(D09ExperienceDesignSpecification *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d09_experience_design_specification_object_model_version(const D09ExperienceDesignSpecification *self);
+void d09_experience_design_specification_free(D09ExperienceDesignSpecification *self);
+char *d09_experience_design_specification_content(const D09ExperienceDesignSpecification *self);
+void d09_experience_design_specification_set_content(D09ExperienceDesignSpecification *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d09_experience_design_specification_header(const D09ExperienceDesignSpecification *self);
+// Design vision.
+DesignVision d09_experience_design_specification_design_vision(const D09ExperienceDesignSpecification *self);
+// Screen descriptions.
+ScreenDescriptions d09_experience_design_specification_screens(const D09ExperienceDesignSpecification *self);
+// Screen flow structure.
+ScreenFlowStructure d09_experience_design_specification_screen_flow(const D09ExperienceDesignSpecification *self);
+// Print layout.
+PrintLayout d09_experience_design_specification_print_layout(const D09ExperienceDesignSpecification *self);
+// Error handling concept.
+ErrorHandlingConcept d09_experience_design_specification_error_handling(const D09ExperienceDesignSpecification *self);
+// Help concept.
+HelpConcept d09_experience_design_specification_help_concept(const D09ExperienceDesignSpecification *self);
+// Accessibility.
+Accessibility d09_experience_design_specification_accessibility(const D09ExperienceDesignSpecification *self);
+// Responsive design.
+ResponsiveDesign d09_experience_design_specification_responsive_design(const D09ExperienceDesignSpecification *self);
+// UI components.
+UiComponents d09_experience_design_specification_ui_components(const D09ExperienceDesignSpecification *self);
+// Language and country selection.
+LanguageCountrySelection d09_experience_design_specification_language_country_selection(const D09ExperienceDesignSpecification *self);
+// Prototype.
+Prototype d09_experience_design_specification_prototype(const D09ExperienceDesignSpecification *self);
+// Wireframes and mockups (new in Phase A).
+// Returns the list view; element type: WireframesAndMockups (construct from item paths).
+SomList d09_experience_design_specification_wireframes_and_mockups(const D09ExperienceDesignSpecification *self);
+
+// BQP00 Business Quality Plan.
+//
+// Full quality plan combining quality goals and the acceptance plan.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d10_quality_acceptance_plan_new(D10QualityAcceptancePlan *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d10_quality_acceptance_plan_object_model_version(const D10QualityAcceptancePlan *self);
+void d10_quality_acceptance_plan_free(D10QualityAcceptancePlan *self);
+char *d10_quality_acceptance_plan_content(const D10QualityAcceptancePlan *self);
+void d10_quality_acceptance_plan_set_content(D10QualityAcceptancePlan *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d10_quality_acceptance_plan_header(const D10QualityAcceptancePlan *self);
+// Quality framework.
+QualityFramework d10_quality_acceptance_plan_quality_framework(const D10QualityAcceptancePlan *self);
+// User-related quality criteria.
+UserQualityCriteria d10_quality_acceptance_plan_user_quality_criteria(const D10QualityAcceptancePlan *self);
+// Technical quality criteria.
+TechnicalQualityCriteria d10_quality_acceptance_plan_technical_quality_criteria(const D10QualityAcceptancePlan *self);
+// Operations quality criteria.
+OperationsQualityCriteria d10_quality_acceptance_plan_operations_quality_criteria(const D10QualityAcceptancePlan *self);
+// Documentation quality criteria.
+DocumentationQualityCriteria d10_quality_acceptance_plan_documentation_quality_criteria(const D10QualityAcceptancePlan *self);
+// Quality prioritization.
+QualityPrioritization d10_quality_acceptance_plan_quality_prioritization(const D10QualityAcceptancePlan *self);
+// Acceptance criteria summary.
+AcceptanceCriteriaSummary d10_quality_acceptance_plan_acceptance_criteria_summary(const D10QualityAcceptancePlan *self);
+// Test strategy (new in Phase A).
+TestStrategy d10_quality_acceptance_plan_test_strategy(const D10QualityAcceptancePlan *self);
+// Acceptance criteria.
+AcceptanceCriteriaList d10_quality_acceptance_plan_acceptance_criteria(const D10QualityAcceptancePlan *self);
+// Acceptance process.
+AcceptanceProcess d10_quality_acceptance_plan_acceptance_process(const D10QualityAcceptancePlan *self);
+// User acceptance testing.
+UserAcceptanceTesting d10_quality_acceptance_plan_user_acceptance_testing(const D10QualityAcceptancePlan *self);
+// Defect resolution.
+DefectResolution d10_quality_acceptance_plan_defect_resolution(const D10QualityAcceptancePlan *self);
+// Sign-off process.
+SignOffProcess d10_quality_acceptance_plan_sign_off_process(const D10QualityAcceptancePlan *self);
+// Warranty terms.
+WarrantyTerms d10_quality_acceptance_plan_warranty(const D10QualityAcceptancePlan *self);
+
+// PPP00 Project Phase Plan.
+//
+// Full project phase plan — staging strategy, stage overview, per-stage
+// entries, feature prioritization, data migration, gate criteria,
+// decision processes, initial development flow, and upgrade cycle
+// framework.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d11_delivery_roadmap_new(D11DeliveryRoadmap *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d11_delivery_roadmap_object_model_version(const D11DeliveryRoadmap *self);
+void d11_delivery_roadmap_free(D11DeliveryRoadmap *self);
+char *d11_delivery_roadmap_content(const D11DeliveryRoadmap *self);
+void d11_delivery_roadmap_set_content(D11DeliveryRoadmap *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d11_delivery_roadmap_header(const D11DeliveryRoadmap *self);
+// Staging strategy.
+StagingStrategy d11_delivery_roadmap_staging_strategy(const D11DeliveryRoadmap *self);
+// Stage overview.
+StageOverview d11_delivery_roadmap_stage_overview(const D11DeliveryRoadmap *self);
+// Stages (list).
+// Returns the list view; element type: StageEntry (construct from item paths).
+SomList d11_delivery_roadmap_stages(const D11DeliveryRoadmap *self);
+// Feature prioritization.
+FeaturePrioritization d11_delivery_roadmap_feature_prioritization(const D11DeliveryRoadmap *self);
+// Data migration strategy.
+DataMigrationStrategy d11_delivery_roadmap_data_migration_strategy(const D11DeliveryRoadmap *self);
+// Gate criteria (promoted from GOV).
+PhaseGateReviews d11_delivery_roadmap_gate_criteria(const D11DeliveryRoadmap *self);
+// Decision processes (promoted from GOV).
+DecisionPoints d11_delivery_roadmap_decision_processes(const D11DeliveryRoadmap *self);
+// Initial development flow.
+InitialDevelopmentFlow d11_delivery_roadmap_initial_development_flow(const D11DeliveryRoadmap *self);
+// Upgrade cycle framework (links tom_system_upgrade.md).
+UpgradeCycleFramework d11_delivery_roadmap_upgrade_cycle_framework(const D11DeliveryRoadmap *self);
+
+// SR00 System Rollout.
+//
+// End-to-end rollout specification — localization, translation,
+// documentation and training, plus rollout plan, migration plan,
+// user manuals, training materials, pilot, cutover, knowledge
+// transfer, and warranty/support.
+// Creates the typed facade at the document root and verifies the document's
+// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
+int d12_transition_rollout_plan_new(D12TransitionRolloutPlan *self, SpecDocument *doc, const char *document_version, char **err);
+// Returns this object model's own model version (major.minor), per §2.1.
+const char *d12_transition_rollout_plan_object_model_version(const D12TransitionRolloutPlan *self);
+void d12_transition_rollout_plan_free(D12TransitionRolloutPlan *self);
+char *d12_transition_rollout_plan_content(const D12TransitionRolloutPlan *self);
+void d12_transition_rollout_plan_set_content(D12TransitionRolloutPlan *self, const char *value);
+// Standard TomSpecs document header.
+DocumentHeader d12_transition_rollout_plan_header(const D12TransitionRolloutPlan *self);
+// Localization process.
+LocalizationProcess d12_transition_rollout_plan_localization_process(const D12TransitionRolloutPlan *self);
+// Translation process.
+TranslationProcess d12_transition_rollout_plan_translation_process(const D12TransitionRolloutPlan *self);
+// Documentation and training.
+DocumentationAndTraining d12_transition_rollout_plan_documentation_and_training(const D12TransitionRolloutPlan *self);
+// Rollout plan.
+RolloutPlan d12_transition_rollout_plan_rollout_plan(const D12TransitionRolloutPlan *self);
+// Migration plan.
+MigrationPlan d12_transition_rollout_plan_migration_plan(const D12TransitionRolloutPlan *self);
+// User manuals.
+// Returns the list view; element type: UserManuals (construct from item paths).
+SomList d12_transition_rollout_plan_user_manuals(const D12TransitionRolloutPlan *self);
+// Training materials.
+// Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
+SomList d12_transition_rollout_plan_training_materials(const D12TransitionRolloutPlan *self);
+// Pilot plan.
+PilotPlan d12_transition_rollout_plan_pilot_plan(const D12TransitionRolloutPlan *self);
+// Cutover procedures.
+// Returns the list view; element type: CutoverProcedures (construct from item paths).
+SomList d12_transition_rollout_plan_cutover_procedures(const D12TransitionRolloutPlan *self);
+// Knowledge transfer.
+KnowledgeTransfer d12_transition_rollout_plan_knowledge_transfer(const D12TransitionRolloutPlan *self);
+// Warranty and support.
+WarrantyAndSupport d12_transition_rollout_plan_warranty_and_support(const D12TransitionRolloutPlan *self);
 
 // A dashboard entry.
 // Binds a DashboardEntry facade to a document and a path (path copied).
@@ -13187,43 +13626,6 @@ DeliveryAcceptanceCriterionEntryTraceabilityContentForm delivery_acceptance_crit
 void delivery_acceptance_criterion_entry_verification_init(DeliveryAcceptanceCriterionEntryVerification *self, SpecDocument *doc, const char *path);
 void delivery_acceptance_criterion_entry_verification_free(DeliveryAcceptanceCriterionEntryVerification *self);
 DeliveryAcceptanceCriterionEntryVerificationContentForm delivery_acceptance_criterion_entry_verification_content(const DeliveryAcceptanceCriterionEntryVerification *self);
-
-// PPP00 Project Phase Plan.
-//
-// Full project phase plan — staging strategy, stage overview, per-stage
-// entries, feature prioritization, data migration, gate criteria,
-// decision processes, initial development flow, and upgrade cycle
-// framework.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int delivery_roadmap_new(DeliveryRoadmap *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *delivery_roadmap_object_model_version(const DeliveryRoadmap *self);
-void delivery_roadmap_free(DeliveryRoadmap *self);
-char *delivery_roadmap_content(const DeliveryRoadmap *self);
-void delivery_roadmap_set_content(DeliveryRoadmap *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader delivery_roadmap_header(const DeliveryRoadmap *self);
-// Staging strategy.
-StagingStrategy delivery_roadmap_staging_strategy(const DeliveryRoadmap *self);
-// Stage overview.
-StageOverview delivery_roadmap_stage_overview(const DeliveryRoadmap *self);
-// Stages (list).
-// Returns the list view; element type: StageEntry (construct from item paths).
-SomList delivery_roadmap_stages(const DeliveryRoadmap *self);
-// Feature prioritization.
-FeaturePrioritization delivery_roadmap_feature_prioritization(const DeliveryRoadmap *self);
-// Data migration strategy.
-DataMigrationStrategy delivery_roadmap_data_migration_strategy(const DeliveryRoadmap *self);
-// Gate criteria (promoted from GOV).
-PhaseGateReviews delivery_roadmap_gate_criteria(const DeliveryRoadmap *self);
-// Decision processes (promoted from GOV).
-DecisionPoints delivery_roadmap_decision_processes(const DeliveryRoadmap *self);
-// Initial development flow.
-InitialDevelopmentFlow delivery_roadmap_initial_development_flow(const DeliveryRoadmap *self);
-// Upgrade cycle framework (links tom_system_upgrade.md).
-UpgradeCycleFramework delivery_roadmap_upgrade_cycle_framework(const DeliveryRoadmap *self);
 
 // 14.1. Delivery and Service Scope.
 // Binds a DeliveryScope facade to a document and a path (path copied).
@@ -15664,49 +16066,6 @@ Prototype experience_and_interface_design_prototype(const ExperienceAndInterface
 // Returns the list view; element type: WireframesAndMockups (construct from item paths).
 SomList experience_and_interface_design_wireframes_and_mockups(const ExperienceAndInterfaceDesign *self);
 
-// UP00 UI Prototype.
-//
-// Full UI design and prototype specification — vision, screens,
-// screen flow, print, error handling, help, accessibility, responsive,
-// components, language/country selection, prototype, wireframes and
-// mockups.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int experience_design_specification_new(ExperienceDesignSpecification *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *experience_design_specification_object_model_version(const ExperienceDesignSpecification *self);
-void experience_design_specification_free(ExperienceDesignSpecification *self);
-char *experience_design_specification_content(const ExperienceDesignSpecification *self);
-void experience_design_specification_set_content(ExperienceDesignSpecification *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader experience_design_specification_header(const ExperienceDesignSpecification *self);
-// Design vision.
-DesignVision experience_design_specification_design_vision(const ExperienceDesignSpecification *self);
-// Screen descriptions.
-ScreenDescriptions experience_design_specification_screens(const ExperienceDesignSpecification *self);
-// Screen flow structure.
-ScreenFlowStructure experience_design_specification_screen_flow(const ExperienceDesignSpecification *self);
-// Print layout.
-PrintLayout experience_design_specification_print_layout(const ExperienceDesignSpecification *self);
-// Error handling concept.
-ErrorHandlingConcept experience_design_specification_error_handling(const ExperienceDesignSpecification *self);
-// Help concept.
-HelpConcept experience_design_specification_help_concept(const ExperienceDesignSpecification *self);
-// Accessibility.
-Accessibility experience_design_specification_accessibility(const ExperienceDesignSpecification *self);
-// Responsive design.
-ResponsiveDesign experience_design_specification_responsive_design(const ExperienceDesignSpecification *self);
-// UI components.
-UiComponents experience_design_specification_ui_components(const ExperienceDesignSpecification *self);
-// Language and country selection.
-LanguageCountrySelection experience_design_specification_language_country_selection(const ExperienceDesignSpecification *self);
-// Prototype.
-Prototype experience_design_specification_prototype(const ExperienceDesignSpecification *self);
-// Wireframes and mockups (new in Phase A).
-// Returns the list view; element type: WireframesAndMockups (construct from item paths).
-SomList experience_design_specification_wireframes_and_mockups(const ExperienceDesignSpecification *self);
-
 // Export access and audit.
 // Binds a ExportAccess facade to a document and a path (path copied).
 void export_access_init(ExportAccess *self, SpecDocument *doc, const char *path);
@@ -17839,55 +18198,6 @@ void information_for_use_requirements_set_content(InformationForUseRequirements 
 // re-homed from MLAR.
 DocumentationAndTraining information_for_use_requirements_documentation_and_training(const InformationForUseRequirements *self);
 
-// BDM00 Business Data Model.
-//
-// Full business data model: entities, relationships, ER diagram, data
-// classification, business objects, function decomposition, function-
-// to-data matrix, business rules, data dictionary, and validation /
-// integrity constraints.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int information_model_new(InformationModel *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *information_model_object_model_version(const InformationModel *self);
-void information_model_free(InformationModel *self);
-char *information_model_content(const InformationModel *self);
-void information_model_set_content(InformationModel *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader information_model_header(const InformationModel *self);
-// Entity inventory (list).
-// Returns the list view; element type: DataEntityEntry (construct from item paths).
-SomList information_model_entities(const InformationModel *self);
-// Entity relationships.
-EntityRelationships information_model_entity_relationships(const InformationModel *self);
-// Entity-relationship diagram.
-// (skipped: erDiagram has no target type)
-// Data classification.
-DataClassification information_model_data_classification(const InformationModel *self);
-// Business object catalog (list).
-// Returns the list view; element type: BusinessObjectEntry (construct from item paths).
-SomList information_model_object_catalog(const InformationModel *self);
-// Business object diagram.
-// (skipped: objectDiagram has no target type)
-// Function decomposition (list).
-// Returns the list view; element type: FunctionEntry (construct from item paths).
-SomList information_model_function_decomposition(const InformationModel *self);
-// Function-to-data matrix (list).
-// Returns the list view; element type: FunctionDataMatrixEntry (construct from item paths).
-SomList information_model_function_to_data_matrix(const InformationModel *self);
-// Business rules catalog (list).
-// Returns the list view; element type: BusinessRuleEntry (construct from item paths).
-SomList information_model_business_rules(const InformationModel *self);
-// Data dictionary.
-DataDictionary information_model_data_dictionary(const InformationModel *self);
-// Validation constraints.
-// Returns the list view; element type: ValidationConstraints (construct from item paths).
-SomList information_model_validation_constraints(const InformationModel *self);
-// Integrity constraints.
-// Returns the list view; element type: IntegrityConstraints (construct from item paths).
-SomList information_model_integrity_constraints(const InformationModel *self);
-
 // Infrastructure as Code requirements.
 // Binds a InfrastructureAsCode facade to a document and a path (path copied).
 void infrastructure_as_code_init(InfrastructureAsCode *self, SpecDocument *doc, const char *path);
@@ -18220,46 +18530,6 @@ IntegrationHealthSummaryContentForm integration_health_summary_content(const Int
 // Returns the list view; element type: FragilePointEntry (construct from item paths).
 SomList integration_health_summary_fragile_points(const IntegrationHealthSummary *self);
 
-// BSI00 Business System Interactions.
-//
-// Complete interaction specification between the target system and
-// external systems: inventory, patterns, testing, dependencies,
-// migration, operational concerns, and cross-boundary error handling.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int integration_interface_specification_new(IntegrationInterfaceSpecification *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *integration_interface_specification_object_model_version(const IntegrationInterfaceSpecification *self);
-void integration_interface_specification_free(IntegrationInterfaceSpecification *self);
-char *integration_interface_specification_content(const IntegrationInterfaceSpecification *self);
-void integration_interface_specification_set_content(IntegrationInterfaceSpecification *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader integration_interface_specification_header(const IntegrationInterfaceSpecification *self);
-// External interfaces.
-ExternalInterfaces integration_interface_specification_external_interfaces(const IntegrationInterfaceSpecification *self);
-// Out of scope.
-OutOfScope integration_interface_specification_out_of_scope(const IntegrationInterfaceSpecification *self);
-// Boundary assumptions.
-BoundaryAssumptions integration_interface_specification_boundary_assumptions(const IntegrationInterfaceSpecification *self);
-// System landscape inventory.
-SystemLandscapeInventory integration_interface_specification_system_inventory(const IntegrationInterfaceSpecification *self);
-// Boundary interaction patterns.
-// Returns the list view; element type: BoundaryInteractionPatterns (construct from item paths).
-SomList integration_interface_specification_interaction_patterns(const IntegrationInterfaceSpecification *self);
-// Interaction testing strategy.
-InteractionTestingStrategy integration_interface_specification_testing_strategy(const IntegrationInterfaceSpecification *self);
-// Interaction dependency analysis.
-InteractionDependencyAnalysis integration_interface_specification_dependency_analysis(const IntegrationInterfaceSpecification *self);
-// Migration interactions.
-// Returns the list view; element type: MigrationInteractions (construct from item paths).
-SomList integration_interface_specification_migration_interactions(const IntegrationInterfaceSpecification *self);
-// Cross-boundary operational considerations.
-// Returns the list view; element type: CrossBoundaryOperationalConsiderations (construct from item paths).
-SomList integration_interface_specification_operational_considerations(const IntegrationInterfaceSpecification *self);
-// Cross-boundary error handling.
-CrossBoundaryErrorHandling integration_interface_specification_cross_boundary_error_handling(const IntegrationInterfaceSpecification *self);
-
 // A single integration pattern entry.
 // Binds a IntegrationPatternEntry facade to a document and a path (path copied).
 void integration_pattern_entry_init(IntegrationPatternEntry *self, SpecDocument *doc, const char *path);
@@ -18508,38 +18778,6 @@ void interaction_scenario_entry_init(InteractionScenarioEntry *self, SpecDocumen
 void interaction_scenario_entry_free(InteractionScenarioEntry *self);
 char *interaction_scenario_entry_content(const InteractionScenarioEntry *self);
 void interaction_scenario_entry_set_content(InteractionScenarioEntry *self, const char *value);
-
-// UC00 Use Cases.
-//
-// Detailed use cases derived from the target process steps and actor
-// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-// and traceability.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int interaction_scenarios_new(InteractionScenarios *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *interaction_scenarios_object_model_version(const InteractionScenarios *self);
-void interaction_scenarios_free(InteractionScenarios *self);
-char *interaction_scenarios_content(const InteractionScenarios *self);
-void interaction_scenarios_set_content(InteractionScenarios *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader interaction_scenarios_header(const InteractionScenarios *self);
-// Process steps overview.
-ProcessStepsOverview interaction_scenarios_process_steps_overview(const InteractionScenarios *self);
-// Actor overview.
-ActorOverview interaction_scenarios_actor_overview(const InteractionScenarios *self);
-// Interaction catalog.
-InteractionCatalog interaction_scenarios_interaction_catalog(const InteractionScenarios *self);
-// Key scenarios.
-KeyScenarios interaction_scenarios_key_scenarios(const InteractionScenarios *self);
-// Actor relationship diagram.
-ActorRelationshipDiagram interaction_scenarios_actor_relationship_diagram(const InteractionScenarios *self);
-// End-to-end test scenarios.
-// Returns the list view; element type: EndToEndTestScenarios (construct from item paths).
-SomList interaction_scenarios_end_to_end_test_scenarios(const InteractionScenarios *self);
-// Use case traceability.
-UseCaseTraceability interaction_scenarios_use_case_traceability(const InteractionScenarios *self);
 
 // Interaction security requirements.
 // Binds a InteractionSecurity facade to a document and a path (path copied).
@@ -24389,49 +24627,6 @@ void pwa_requirements_updates_init(PwaRequirementsUpdates *self, SpecDocument *d
 void pwa_requirements_updates_free(PwaRequirementsUpdates *self);
 PwaRequirementsUpdatesContentForm pwa_requirements_updates_content(const PwaRequirementsUpdates *self);
 
-// BQP00 Business Quality Plan.
-//
-// Full quality plan combining quality goals and the acceptance plan.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int quality_acceptance_plan_new(QualityAcceptancePlan *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *quality_acceptance_plan_object_model_version(const QualityAcceptancePlan *self);
-void quality_acceptance_plan_free(QualityAcceptancePlan *self);
-char *quality_acceptance_plan_content(const QualityAcceptancePlan *self);
-void quality_acceptance_plan_set_content(QualityAcceptancePlan *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader quality_acceptance_plan_header(const QualityAcceptancePlan *self);
-// Quality framework.
-QualityFramework quality_acceptance_plan_quality_framework(const QualityAcceptancePlan *self);
-// User-related quality criteria.
-UserQualityCriteria quality_acceptance_plan_user_quality_criteria(const QualityAcceptancePlan *self);
-// Technical quality criteria.
-TechnicalQualityCriteria quality_acceptance_plan_technical_quality_criteria(const QualityAcceptancePlan *self);
-// Operations quality criteria.
-OperationsQualityCriteria quality_acceptance_plan_operations_quality_criteria(const QualityAcceptancePlan *self);
-// Documentation quality criteria.
-DocumentationQualityCriteria quality_acceptance_plan_documentation_quality_criteria(const QualityAcceptancePlan *self);
-// Quality prioritization.
-QualityPrioritization quality_acceptance_plan_quality_prioritization(const QualityAcceptancePlan *self);
-// Acceptance criteria summary.
-AcceptanceCriteriaSummary quality_acceptance_plan_acceptance_criteria_summary(const QualityAcceptancePlan *self);
-// Test strategy (new in Phase A).
-TestStrategy quality_acceptance_plan_test_strategy(const QualityAcceptancePlan *self);
-// Acceptance criteria.
-AcceptanceCriteriaList quality_acceptance_plan_acceptance_criteria(const QualityAcceptancePlan *self);
-// Acceptance process.
-AcceptanceProcess quality_acceptance_plan_acceptance_process(const QualityAcceptancePlan *self);
-// User acceptance testing.
-UserAcceptanceTesting quality_acceptance_plan_user_acceptance_testing(const QualityAcceptancePlan *self);
-// Defect resolution.
-DefectResolution quality_acceptance_plan_defect_resolution(const QualityAcceptancePlan *self);
-// Sign-off process.
-SignOffProcess quality_acceptance_plan_sign_off_process(const QualityAcceptancePlan *self);
-// Warranty terms.
-WarrantyTerms quality_acceptance_plan_warranty(const QualityAcceptancePlan *self);
-
 // SBP.14 Quality & Acceptance Model.
 //
 // Public anchor: ISO/IEC 25010 product quality.
@@ -25815,43 +26010,6 @@ OrganizationalRequirements requirements_overview_organizational_requirements(con
 SomList requirements_overview_requirement_relationships(const RequirementsOverview *self);
 // 4.3.6. Requirement Coverage.
 RequirementCoverage requirements_overview_requirement_coverage(const RequirementsOverview *self);
-
-// RC00 Requirements Catalog.
-//
-// Full requirements catalog covering functional, technical, security,
-// and organizational requirements, plus traceability, relationships,
-// and coverage analysis.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int requirements_specification_new(RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *requirements_specification_object_model_version(const RequirementsSpecification *self);
-void requirements_specification_free(RequirementsSpecification *self);
-char *requirements_specification_content(const RequirementsSpecification *self);
-void requirements_specification_set_content(RequirementsSpecification *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader requirements_specification_header(const RequirementsSpecification *self);
-// Functional requirements.
-FunctionalRequirements requirements_specification_functional_requirements(const RequirementsSpecification *self);
-// Technical (non-functional) requirements.
-TechnicalRequirements requirements_specification_technical_requirements(const RequirementsSpecification *self);
-// Security requirements.
-SecurityRequirements requirements_specification_security_requirements(const RequirementsSpecification *self);
-// Organizational requirements.
-OrganizationalRequirements requirements_specification_organizational_requirements(const RequirementsSpecification *self);
-// Traceability matrix overview.
-//
-// Mirrors the flat field on RequirementsOverview so the RC outline
-// reaches it directly. The authoritative content lives on the Solution
-// Blueprint side.
-char *requirements_specification_traceability_matrix(const RequirementsSpecification *self);
-void requirements_specification_set_traceability_matrix(RequirementsSpecification *self, const char *value);
-// Requirement relationships.
-// Returns the list view; element type: RequirementRelationships (construct from item paths).
-SomList requirements_specification_requirement_relationships(const RequirementsSpecification *self);
-// Requirement coverage.
-RequirementCoverage requirements_specification_requirement_coverage(const RequirementsSpecification *self);
 
 // A resource allocation entry (form).
 // Binds a ResourceAllocationEntry facade to a document and a path (path copied).
@@ -27649,40 +27807,6 @@ void secondary_navigation_set_content(SecondaryNavigation *self, const char *val
 // Returns the list view; element type: TabBarDefinitionEntry (construct from item paths).
 SomList secondary_navigation_tab_bars(const SecondaryNavigation *self);
 
-// AC00 Authorization Concept.
-//
-// Complete access and authorization specification — user management,
-// identification and authentication, resource protection, user
-// authorization, encryption, audit/logging, role matrix, and
-// compliance framework.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int security_access_specification_new(SecurityAccessSpecification *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *security_access_specification_object_model_version(const SecurityAccessSpecification *self);
-void security_access_specification_free(SecurityAccessSpecification *self);
-char *security_access_specification_content(const SecurityAccessSpecification *self);
-void security_access_specification_set_content(SecurityAccessSpecification *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader security_access_specification_header(const SecurityAccessSpecification *self);
-// User management.
-UserManagement security_access_specification_user_management(const SecurityAccessSpecification *self);
-// Identification and authentication.
-IdentificationAndAuthentication security_access_specification_identification_and_authentication(const SecurityAccessSpecification *self);
-// Resource protection.
-ResourceProtection security_access_specification_resource_protection(const SecurityAccessSpecification *self);
-// User authorization.
-UserAuthorization security_access_specification_user_authorization(const SecurityAccessSpecification *self);
-// Sensitive data encryption.
-SensitiveDataEncryption security_access_specification_sensitive_data_encryption(const SecurityAccessSpecification *self);
-// Audit and logging.
-AuditAndLogging security_access_specification_audit_and_logging(const SecurityAccessSpecification *self);
-// Role matrix.
-RoleMatrix security_access_specification_role_matrix(const SecurityAccessSpecification *self);
-// Compliance framework.
-ComplianceFramework security_access_specification_compliance_framework(const SecurityAccessSpecification *self);
-
 // 9. Access and Authorization Concept. Seeds → AC.
 // Binds a SecurityAndAccessModel facade to a document and a path (path copied).
 void security_and_access_model_init(SecurityAndAccessModel *self, SpecDocument *doc, const char *path);
@@ -29053,48 +29177,6 @@ void solution_architecture_and_technology_set_content(SolutionArchitectureAndTec
 TechnicalFrameworkConcept solution_architecture_and_technology_technical_framework(const SolutionArchitectureAndTechnology *self);
 // Components, libraries, and services to reuse.
 ComponentsToUse solution_architecture_and_technology_components_to_use(const SolutionArchitectureAndTechnology *self);
-
-// The complete Solution Blueprint (SBP) document.
-//
-// Contains a [DocumentControl] header block and the SBP sections, sequenced
-// per the public-standards order (§4 of the redesign proposal).
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int solution_blueprint_new(SolutionBlueprint *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *solution_blueprint_object_model_version(const SolutionBlueprint *self);
-void solution_blueprint_free(SolutionBlueprint *self);
-char *solution_blueprint_content(const SolutionBlueprint *self);
-void solution_blueprint_set_content(SolutionBlueprint *self, const char *value);
-// SBP.1 Document Control (header + revision history + approvals).
-DocumentControl solution_blueprint_document_control(const SolutionBlueprint *self);
-// SBP.2 Introduction & Scope.
-IntroductionAndScope solution_blueprint_introduction_and_scope(const SolutionBlueprint *self);
-// SBP.3 Glossary & Abbreviations.
-GlossaryAndAbbreviations solution_blueprint_glossary_and_abbreviations(const SolutionBlueprint *self);
-// SBP.4 Stakeholders & Governance.
-StakeholdersAndGovernance solution_blueprint_stakeholders_and_governance(const SolutionBlueprint *self);
-// SBP.5 Current Landscape. Seeds → CLA.
-CurrentLandscape solution_blueprint_current_landscape(const SolutionBlueprint *self);
-// SBP.6 Assumptions, Constraints & Dependencies.
-AssumptionsConstraintsDependencies solution_blueprint_assumptions_constraints_dependencies(const SolutionBlueprint *self);
-// SBP.7 Target Operating Model concept. Seeds → TOM.
-TargetOperatingModelConcept solution_blueprint_target_operating_model_concept(const SolutionBlueprint *self);
-// SBP.8 Information & Data Model. Seeds → IFM.
-InformationAndDataModel solution_blueprint_information_and_data_model(const SolutionBlueprint *self);
-// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
-Requirements solution_blueprint_requirements(const SolutionBlueprint *self);
-// SBP.11 Solution Architecture & Technology. Seeds → ATS.
-SolutionArchitectureAndTechnology solution_blueprint_solution_architecture_and_technology(const SolutionBlueprint *self);
-// SBP.12 Security & Access Model. Seeds → SAS.
-SecurityAndAccessModel solution_blueprint_security_and_access_model(const SolutionBlueprint *self);
-// SBP.13 Experience & Interface Design. Seeds → XDS.
-ExperienceAndInterfaceDesign solution_blueprint_experience_and_interface_design(const SolutionBlueprint *self);
-// SBP.14 Quality & Acceptance Model. Seeds → QAP.
-QualityAndAcceptanceModel solution_blueprint_quality_and_acceptance_model(const SolutionBlueprint *self);
-// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
-DeliveryTransitionAndRollout solution_blueprint_delivery_transition_and_rollout(const SolutionBlueprint *self);
 
 // Specialized equipment entry (form).
 // Binds a SpecializedEquipmentEntry facade to a document and a path (path copied).
@@ -31342,45 +31424,6 @@ BusinessProcessDescriptions target_business_process_model_business_process_descr
 // 6.2. Process Steps and Actor Interactions. Seeds → UC.
 ProcessStepsAndActorInteractions target_business_process_model_process_steps_and_actor_interactions(const TargetBusinessProcessModel *self);
 
-// BP00 Business Processes.
-//
-// Target business process specification — vision, principles, catalog,
-// diagrams, improvements, relationships, detailed workflows,
-// cross-process analysis, exception handling, and KPIs.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int target_operating_model_new(TargetOperatingModel *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *target_operating_model_object_model_version(const TargetOperatingModel *self);
-void target_operating_model_free(TargetOperatingModel *self);
-char *target_operating_model_content(const TargetOperatingModel *self);
-void target_operating_model_set_content(TargetOperatingModel *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader target_operating_model_header(const TargetOperatingModel *self);
-// Process vision.
-ProcessVision target_operating_model_process_vision(const TargetOperatingModel *self);
-// Design principles.
-ProcessDesignPrinciples target_operating_model_design_principles(const TargetOperatingModel *self);
-// Process catalog.
-ProcessCatalog target_operating_model_process_catalog(const TargetOperatingModel *self);
-// Process overview diagram.
-ProcessOverviewDiagram target_operating_model_process_overview_diagram(const TargetOperatingModel *self);
-// Improvement summary.
-ProcessImprovementSummary target_operating_model_improvement_summary(const TargetOperatingModel *self);
-// Process relationships.
-ProcessRelationships target_operating_model_process_relationships(const TargetOperatingModel *self);
-// Detailed process workflows.
-// Returns the list view; element type: DetailedProcessWorkflows (construct from item paths).
-SomList target_operating_model_detailed_workflows(const TargetOperatingModel *self);
-// Cross-process analysis.
-CrossProcessAnalysis target_operating_model_cross_process_analysis(const TargetOperatingModel *self);
-// Process exception handling.
-ProcessExceptionHandling target_operating_model_exception_handling(const TargetOperatingModel *self);
-// Process metrics and KPIs.
-// Returns the list view; element type: ProcessMetricsAndKpis (construct from item paths).
-SomList target_operating_model_process_metrics_and_kpis(const TargetOperatingModel *self);
-
 // SBP.7 Target Operating Model concept.
 //
 // Public anchor: BABOK future-state analysis.
@@ -32959,49 +33002,6 @@ TransitionRiskEntryAssessmentContentForm transition_risk_entry_assessment_conten
 void transition_risk_entry_response_init(TransitionRiskEntryResponse *self, SpecDocument *doc, const char *path);
 void transition_risk_entry_response_free(TransitionRiskEntryResponse *self);
 TransitionRiskEntryResponseContentForm transition_risk_entry_response_content(const TransitionRiskEntryResponse *self);
-
-// SR00 System Rollout.
-//
-// End-to-end rollout specification — localization, translation,
-// documentation and training, plus rollout plan, migration plan,
-// user manuals, training materials, pilot, cutover, knowledge
-// transfer, and warranty/support.
-// Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
-// stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
-int transition_rollout_plan_new(TransitionRolloutPlan *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
-const char *transition_rollout_plan_object_model_version(const TransitionRolloutPlan *self);
-void transition_rollout_plan_free(TransitionRolloutPlan *self);
-char *transition_rollout_plan_content(const TransitionRolloutPlan *self);
-void transition_rollout_plan_set_content(TransitionRolloutPlan *self, const char *value);
-// Standard TomSpecs document header.
-DocumentHeader transition_rollout_plan_header(const TransitionRolloutPlan *self);
-// Localization process.
-LocalizationProcess transition_rollout_plan_localization_process(const TransitionRolloutPlan *self);
-// Translation process.
-TranslationProcess transition_rollout_plan_translation_process(const TransitionRolloutPlan *self);
-// Documentation and training.
-DocumentationAndTraining transition_rollout_plan_documentation_and_training(const TransitionRolloutPlan *self);
-// Rollout plan.
-RolloutPlan transition_rollout_plan_rollout_plan(const TransitionRolloutPlan *self);
-// Migration plan.
-MigrationPlan transition_rollout_plan_migration_plan(const TransitionRolloutPlan *self);
-// User manuals.
-// Returns the list view; element type: UserManuals (construct from item paths).
-SomList transition_rollout_plan_user_manuals(const TransitionRolloutPlan *self);
-// Training materials.
-// Returns the list view; element type: RolloutTrainingMaterials (construct from item paths).
-SomList transition_rollout_plan_training_materials(const TransitionRolloutPlan *self);
-// Pilot plan.
-PilotPlan transition_rollout_plan_pilot_plan(const TransitionRolloutPlan *self);
-// Cutover procedures.
-// Returns the list view; element type: CutoverProcedures (construct from item paths).
-SomList transition_rollout_plan_cutover_procedures(const TransitionRolloutPlan *self);
-// Knowledge transfer.
-KnowledgeTransfer transition_rollout_plan_knowledge_transfer(const TransitionRolloutPlan *self);
-// Warranty and support.
-WarrantyAndSupport transition_rollout_plan_warranty_and_support(const TransitionRolloutPlan *self);
 
 // Success metrics for the transition.
 // Binds a TransitionSuccessMetrics facade to a document and a path (path copied).

@@ -2767,102 +2767,6 @@ class ArchitectureStyle extends SomNode {
   }
 }
 
-// TR00 Technical Requirements.
-//
-// Comprehensive technical requirements: basic / software / standard-
-// software / hardware / operations / communication / system-operation
-// / security / architecture, plus components, framework conditions,
-// and translation handling.
-class ArchitectureTechnologySpecification extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "ATS");
-    checkSomModelVersion(ArchitectureTechnologySpecification.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return ArchitectureTechnologySpecification.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Basic technical requirements.
-  get basicTechnicalRequirements() {
-    return new BasicTechnicalRequirements(this.doc, this.path + "/basicTechnicalRequirements");
-  }
-
-  // Software design requirements.
-  get softwareDesignRequirements() {
-    return new SoftwareDesignRequirements(this.doc, this.path + "/softwareDesignRequirements");
-  }
-
-  // Standard application software requirements.
-  get standardSoftwareRequirements() {
-    return new StandardSoftwareRequirements(this.doc, this.path + "/standardSoftwareRequirements");
-  }
-
-  // Hardware concept requirements.
-  get hardwareRequirements() {
-    return new HardwareRequirements(this.doc, this.path + "/hardwareRequirements");
-  }
-
-  // Operations requirements.
-  get operationsRequirements() {
-    return new OperationsRequirements(this.doc, this.path + "/operationsRequirements");
-  }
-
-  // Communication requirements.
-  get communicationRequirements() {
-    return new CommunicationRequirements(this.doc, this.path + "/communicationRequirements");
-  }
-
-  // System operation and monitoring.
-  get systemOperationAndMonitoring() {
-    return new SystemOperationAndMonitoring(this.doc, this.path + "/systemOperationAndMonitoring");
-  }
-
-  // Technical security requirements.
-  get technicalSecurityRequirements() {
-    return new TechnicalSecurityRequirements(this.doc, this.path + "/technicalSecurityRequirements");
-  }
-
-  // System architecture (new in Phase A).
-  get systemArchitecture() {
-    return new SystemArchitectureSpec(this.doc, this.path + "/systemArchitecture");
-  }
-
-  // Components to use (whole).
-  get componentsToUse() {
-    return new ComponentsToUse(this.doc, this.path + "/componentsToUse");
-  }
-
-  // Technical framework conditions (whole).
-  get technicalFrameworkConditions() {
-    return new TechnicalFrameworkConditions(this.doc, this.path + "/technicalFrameworkConditions");
-  }
-
-  // Translation handling requirements (whole).
-  get translationRequirements() {
-    return new TranslationRequirements(this.doc, this.path + "/translationRequirements");
-  }
-}
-
 // A consolidated register of assumptions and constraints.
 class AssumptionConstraintRegister extends SomNode {
   constructor(doc, path) {
@@ -11204,81 +11108,6 @@ class CurrentLandscape extends SomNode {
   }
 }
 
-// CS00 Current Situation.
-//
-// Detailed analysis of the current state: existing systems, business
-// processes, pain points, data landscape, operational metrics, risks,
-// and the inventory / migration plan for the systems being replaced.
-class CurrentLandscapeAssessment extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "CLA");
-    checkSomModelVersion(CurrentLandscapeAssessment.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return CurrentLandscapeAssessment.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Existing systems landscape.
-  get existingSystemsLandscape() {
-    return new ExistingSystemsLandscape(this.doc, this.path + "/existingSystemsLandscape");
-  }
-
-  // Current business processes.
-  get currentBusinessProcesses() {
-    return new CurrentBusinessProcesses(this.doc, this.path + "/currentBusinessProcesses");
-  }
-
-  // Pain points and gaps.
-  get painPointsAndGaps() {
-    return new PainPointsAndGaps(this.doc, this.path + "/painPointsAndGaps");
-  }
-
-  // Current data landscape.
-  get currentDataLandscape() {
-    return new CurrentDataLandscape(this.doc, this.path + "/currentDataLandscape");
-  }
-
-  // Current operational metrics.
-  get operationalMetrics() {
-    return new SomList(this.doc, this.path + "/CUOPME-OPER-LST", (d, p) => new CurrentOperationalMetrics(d, p));
-  }
-
-  // Current-state risk assessment.
-  get currentStateRisks() {
-    return new CurrentStateRiskAssessment(this.doc, this.path + "/currentStateRisks");
-  }
-
-  // Replacement inventory.
-  get replacementInventory() {
-    return new ReplacementInventory(this.doc, this.path + "/replacementInventory");
-  }
-
-  // Migration considerations.
-  get migrationConsiderations() {
-    return new MigrationConsiderations(this.doc, this.path + "/migrationConsiderations");
-  }
-}
-
 // 1.5. Operational Metrics.
 //
 // Baseline metrics of the current systems: throughput, volume, uptime,
@@ -11447,6 +11276,1137 @@ class CutoverProcedures extends SomNode {
 
   set content(value) {
     this.doc.setContent(this.path + "/content", value);
+  }
+}
+
+// The complete Solution Blueprint (SBP) document.
+//
+// Contains a [DocumentControl] header block and the SBP sections, sequenced
+// per the public-standards order (§4 of the redesign proposal).
+class D00SolutionBlueprint extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "SBP");
+    checkSomModelVersion(D00SolutionBlueprint.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D00SolutionBlueprint.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // SBP.1 Document Control (header + revision history + approvals).
+  get documentControl() {
+    return new DocumentControl(this.doc, this.path + "/documentControl");
+  }
+
+  // SBP.2 Introduction & Scope.
+  get introductionAndScope() {
+    return new IntroductionAndScope(this.doc, this.path + "/introductionAndScope");
+  }
+
+  // SBP.3 Glossary & Abbreviations.
+  get glossaryAndAbbreviations() {
+    return new GlossaryAndAbbreviations(this.doc, this.path + "/glossaryAndAbbreviations");
+  }
+
+  // SBP.4 Stakeholders & Governance.
+  get stakeholdersAndGovernance() {
+    return new StakeholdersAndGovernance(this.doc, this.path + "/stakeholdersAndGovernance");
+  }
+
+  // SBP.5 Current Landscape. Seeds → CLA.
+  get currentLandscape() {
+    return new CurrentLandscape(this.doc, this.path + "/currentLandscape");
+  }
+
+  // SBP.6 Assumptions, Constraints & Dependencies.
+  get assumptionsConstraintsDependencies() {
+    return new AssumptionsConstraintsDependencies(this.doc, this.path + "/assumptionsConstraintsDependencies");
+  }
+
+  // SBP.7 Target Operating Model concept. Seeds → TOM.
+  get targetOperatingModelConcept() {
+    return new TargetOperatingModelConcept(this.doc, this.path + "/targetOperatingModelConcept");
+  }
+
+  // SBP.8 Information & Data Model. Seeds → IFM.
+  get informationAndDataModel() {
+    return new InformationAndDataModel(this.doc, this.path + "/informationAndDataModel");
+  }
+
+  // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+  get requirements() {
+    return new Requirements(this.doc, this.path + "/requirements");
+  }
+
+  // SBP.11 Solution Architecture & Technology. Seeds → ATS.
+  get solutionArchitectureAndTechnology() {
+    return new SolutionArchitectureAndTechnology(this.doc, this.path + "/solutionArchitectureAndTechnology");
+  }
+
+  // SBP.12 Security & Access Model. Seeds → SAS.
+  get securityAndAccessModel() {
+    return new SecurityAndAccessModel(this.doc, this.path + "/securityAndAccessModel");
+  }
+
+  // SBP.13 Experience & Interface Design. Seeds → XDS.
+  get experienceAndInterfaceDesign() {
+    return new ExperienceAndInterfaceDesign(this.doc, this.path + "/experienceAndInterfaceDesign");
+  }
+
+  // SBP.14 Quality & Acceptance Model. Seeds → QAP.
+  get qualityAndAcceptanceModel() {
+    return new QualityAndAcceptanceModel(this.doc, this.path + "/qualityAndAcceptanceModel");
+  }
+
+  // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+  get deliveryTransitionAndRollout() {
+    return new DeliveryTransitionAndRollout(this.doc, this.path + "/deliveryTransitionAndRollout");
+  }
+}
+
+// CS00 Current Situation.
+//
+// Detailed analysis of the current state: existing systems, business
+// processes, pain points, data landscape, operational metrics, risks,
+// and the inventory / migration plan for the systems being replaced.
+class D01CurrentLandscapeAssessment extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "CLA");
+    checkSomModelVersion(D01CurrentLandscapeAssessment.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D01CurrentLandscapeAssessment.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Existing systems landscape.
+  get existingSystemsLandscape() {
+    return new ExistingSystemsLandscape(this.doc, this.path + "/existingSystemsLandscape");
+  }
+
+  // Current business processes.
+  get currentBusinessProcesses() {
+    return new CurrentBusinessProcesses(this.doc, this.path + "/currentBusinessProcesses");
+  }
+
+  // Pain points and gaps.
+  get painPointsAndGaps() {
+    return new PainPointsAndGaps(this.doc, this.path + "/painPointsAndGaps");
+  }
+
+  // Current data landscape.
+  get currentDataLandscape() {
+    return new CurrentDataLandscape(this.doc, this.path + "/currentDataLandscape");
+  }
+
+  // Current operational metrics.
+  get operationalMetrics() {
+    return new SomList(this.doc, this.path + "/CUOPME-OPER-LST", (d, p) => new CurrentOperationalMetrics(d, p));
+  }
+
+  // Current-state risk assessment.
+  get currentStateRisks() {
+    return new CurrentStateRiskAssessment(this.doc, this.path + "/currentStateRisks");
+  }
+
+  // Replacement inventory.
+  get replacementInventory() {
+    return new ReplacementInventory(this.doc, this.path + "/replacementInventory");
+  }
+
+  // Migration considerations.
+  get migrationConsiderations() {
+    return new MigrationConsiderations(this.doc, this.path + "/migrationConsiderations");
+  }
+}
+
+// BP00 Business Processes.
+//
+// Target business process specification — vision, principles, catalog,
+// diagrams, improvements, relationships, detailed workflows,
+// cross-process analysis, exception handling, and KPIs.
+class D02TargetOperatingModel extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "TOM");
+    checkSomModelVersion(D02TargetOperatingModel.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D02TargetOperatingModel.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Process vision.
+  get processVision() {
+    return new ProcessVision(this.doc, this.path + "/processVision");
+  }
+
+  // Design principles.
+  get designPrinciples() {
+    return new ProcessDesignPrinciples(this.doc, this.path + "/designPrinciples");
+  }
+
+  // Process catalog.
+  get processCatalog() {
+    return new ProcessCatalog(this.doc, this.path + "/processCatalog");
+  }
+
+  // Process overview diagram.
+  get processOverviewDiagram() {
+    return new ProcessOverviewDiagram(this.doc, this.path + "/processOverviewDiagram");
+  }
+
+  // Improvement summary.
+  get improvementSummary() {
+    return new ProcessImprovementSummary(this.doc, this.path + "/improvementSummary");
+  }
+
+  // Process relationships.
+  get processRelationships() {
+    return new ProcessRelationships(this.doc, this.path + "/processRelationships");
+  }
+
+  // Detailed process workflows.
+  get detailedWorkflows() {
+    return new SomList(this.doc, this.path + "/DEPRWO-DETA-LST", (d, p) => new DetailedProcessWorkflows(d, p));
+  }
+
+  // Cross-process analysis.
+  get crossProcessAnalysis() {
+    return new CrossProcessAnalysis(this.doc, this.path + "/crossProcessAnalysis");
+  }
+
+  // Process exception handling.
+  get exceptionHandling() {
+    return new ProcessExceptionHandling(this.doc, this.path + "/exceptionHandling");
+  }
+
+  // Process metrics and KPIs.
+  get processMetricsAndKpis() {
+    return new SomList(this.doc, this.path + "/PMAK-PROC-LST", (d, p) => new ProcessMetricsAndKpis(d, p));
+  }
+}
+
+// BDM00 Business Data Model.
+//
+// Full business data model: entities, relationships, ER diagram, data
+// classification, business objects, function decomposition, function-
+// to-data matrix, business rules, data dictionary, and validation /
+// integrity constraints.
+class D03InformationModel extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "IFM");
+    checkSomModelVersion(D03InformationModel.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D03InformationModel.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Entity inventory (list).
+  get entities() {
+    return new SomList(this.doc, this.path + "/DAENT-ENTI-LST", (d, p) => new DataEntityEntry(d, p));
+  }
+
+  // Entity relationships.
+  get entityRelationships() {
+    return new EntityRelationships(this.doc, this.path + "/entityRelationships");
+  }
+
+  // Entity-relationship diagram.
+  get erDiagram() {
+    return null; // (skipped: no target type)
+  }
+
+  // Data classification.
+  get dataClassification() {
+    return new DataClassification(this.doc, this.path + "/dataClassification");
+  }
+
+  // Business object catalog (list).
+  get objectCatalog() {
+    return new SomList(this.doc, this.path + "/BJOEN-OBJE-LST", (d, p) => new BusinessObjectEntry(d, p));
+  }
+
+  // Business object diagram.
+  get objectDiagram() {
+    return null; // (skipped: no target type)
+  }
+
+  // Function decomposition (list).
+  get functionDecomposition() {
+    return new SomList(this.doc, this.path + "/FUNCT-FUNC-LST", (d, p) => new FunctionEntry(d, p));
+  }
+
+  // Function-to-data matrix (list).
+  get functionToDataMatrix() {
+    return new SomList(this.doc, this.path + "/FNDMX-FUNC-LST", (d, p) => new FunctionDataMatrixEntry(d, p));
+  }
+
+  // Business rules catalog (list).
+  get businessRules() {
+    return new SomList(this.doc, this.path + "/BIRU-BUSI-LST", (d, p) => new BusinessRuleEntry(d, p));
+  }
+
+  // Data dictionary.
+  get dataDictionary() {
+    return new DataDictionary(this.doc, this.path + "/dataDictionary");
+  }
+
+  // Validation constraints.
+  get validationConstraints() {
+    return new SomList(this.doc, this.path + "/VACO-VALI-LST", (d, p) => new ValidationConstraints(d, p));
+  }
+
+  // Integrity constraints.
+  get integrityConstraints() {
+    return new SomList(this.doc, this.path + "/INCO-INTE-LST", (d, p) => new IntegrityConstraints(d, p));
+  }
+}
+
+// RC00 Requirements Catalog.
+//
+// Full requirements catalog covering functional, technical, security,
+// and organizational requirements, plus traceability, relationships,
+// and coverage analysis.
+class D04RequirementsSpecification extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "RSP");
+    checkSomModelVersion(D04RequirementsSpecification.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D04RequirementsSpecification.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Functional requirements.
+  get functionalRequirements() {
+    return new FunctionalRequirements(this.doc, this.path + "/functionalRequirements");
+  }
+
+  // Technical (non-functional) requirements.
+  get technicalRequirements() {
+    return new TechnicalRequirements(this.doc, this.path + "/technicalRequirements");
+  }
+
+  // Security requirements.
+  get securityRequirements() {
+    return new SecurityRequirements(this.doc, this.path + "/securityRequirements");
+  }
+
+  // Organizational requirements.
+  get organizationalRequirements() {
+    return new OrganizationalRequirements(this.doc, this.path + "/organizationalRequirements");
+  }
+
+  // Traceability matrix overview.
+  //
+  // Mirrors the flat field on RequirementsOverview so the RC outline
+  // reaches it directly. The authoritative content lives on the Solution
+  // Blueprint side.
+  get traceabilityMatrix() {
+    return this.doc.content(this.path + "/traceabilityMatrix") || '';
+  }
+
+  set traceabilityMatrix(value) {
+    this.doc.setContent(this.path + "/traceabilityMatrix", value);
+  }
+
+  // Requirement relationships.
+  get requirementRelationships() {
+    return new SomList(this.doc, this.path + "/RERE-REQU-LST", (d, p) => new RequirementRelationships(d, p));
+  }
+
+  // Requirement coverage.
+  get requirementCoverage() {
+    return new RequirementCoverage(this.doc, this.path + "/requirementCoverage");
+  }
+}
+
+// UC00 Use Cases.
+//
+// Detailed use cases derived from the target process steps and actor
+// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
+// and traceability.
+class D05InteractionScenarios extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "ISC");
+    checkSomModelVersion(D05InteractionScenarios.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D05InteractionScenarios.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Process steps overview.
+  get processStepsOverview() {
+    return new ProcessStepsOverview(this.doc, this.path + "/processStepsOverview");
+  }
+
+  // Actor overview.
+  get actorOverview() {
+    return new ActorOverview(this.doc, this.path + "/actorOverview");
+  }
+
+  // Interaction catalog.
+  get interactionCatalog() {
+    return new InteractionCatalog(this.doc, this.path + "/interactionCatalog");
+  }
+
+  // Key scenarios.
+  get keyScenarios() {
+    return new KeyScenarios(this.doc, this.path + "/keyScenarios");
+  }
+
+  // Actor relationship diagram.
+  get actorRelationshipDiagram() {
+    return new ActorRelationshipDiagram(this.doc, this.path + "/actorRelationshipDiagram");
+  }
+
+  // End-to-end test scenarios.
+  get endToEndTestScenarios() {
+    return new SomList(this.doc, this.path + "/ETETS-ENDT-LST", (d, p) => new EndToEndTestScenarios(d, p));
+  }
+
+  // Use case traceability.
+  get useCaseTraceability() {
+    return new UseCaseTraceability(this.doc, this.path + "/useCaseTraceability");
+  }
+}
+
+// TR00 Technical Requirements.
+//
+// Comprehensive technical requirements: basic / software / standard-
+// software / hardware / operations / communication / system-operation
+// / security / architecture, plus components, framework conditions,
+// and translation handling.
+class D06ArchitectureTechnologySpecification extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "ATS");
+    checkSomModelVersion(D06ArchitectureTechnologySpecification.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D06ArchitectureTechnologySpecification.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Basic technical requirements.
+  get basicTechnicalRequirements() {
+    return new BasicTechnicalRequirements(this.doc, this.path + "/basicTechnicalRequirements");
+  }
+
+  // Software design requirements.
+  get softwareDesignRequirements() {
+    return new SoftwareDesignRequirements(this.doc, this.path + "/softwareDesignRequirements");
+  }
+
+  // Standard application software requirements.
+  get standardSoftwareRequirements() {
+    return new StandardSoftwareRequirements(this.doc, this.path + "/standardSoftwareRequirements");
+  }
+
+  // Hardware concept requirements.
+  get hardwareRequirements() {
+    return new HardwareRequirements(this.doc, this.path + "/hardwareRequirements");
+  }
+
+  // Operations requirements.
+  get operationsRequirements() {
+    return new OperationsRequirements(this.doc, this.path + "/operationsRequirements");
+  }
+
+  // Communication requirements.
+  get communicationRequirements() {
+    return new CommunicationRequirements(this.doc, this.path + "/communicationRequirements");
+  }
+
+  // System operation and monitoring.
+  get systemOperationAndMonitoring() {
+    return new SystemOperationAndMonitoring(this.doc, this.path + "/systemOperationAndMonitoring");
+  }
+
+  // Technical security requirements.
+  get technicalSecurityRequirements() {
+    return new TechnicalSecurityRequirements(this.doc, this.path + "/technicalSecurityRequirements");
+  }
+
+  // System architecture (new in Phase A).
+  get systemArchitecture() {
+    return new SystemArchitectureSpec(this.doc, this.path + "/systemArchitecture");
+  }
+
+  // Components to use (whole).
+  get componentsToUse() {
+    return new ComponentsToUse(this.doc, this.path + "/componentsToUse");
+  }
+
+  // Technical framework conditions (whole).
+  get technicalFrameworkConditions() {
+    return new TechnicalFrameworkConditions(this.doc, this.path + "/technicalFrameworkConditions");
+  }
+
+  // Translation handling requirements (whole).
+  get translationRequirements() {
+    return new TranslationRequirements(this.doc, this.path + "/translationRequirements");
+  }
+}
+
+// BSI00 Business System Interactions.
+//
+// Complete interaction specification between the target system and
+// external systems: inventory, patterns, testing, dependencies,
+// migration, operational concerns, and cross-boundary error handling.
+class D07IntegrationInterfaceSpecification extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "IIS");
+    checkSomModelVersion(D07IntegrationInterfaceSpecification.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D07IntegrationInterfaceSpecification.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // External interfaces.
+  get externalInterfaces() {
+    return new ExternalInterfaces(this.doc, this.path + "/externalInterfaces");
+  }
+
+  // Out of scope.
+  get outOfScope() {
+    return new OutOfScope(this.doc, this.path + "/outOfScope");
+  }
+
+  // Boundary assumptions.
+  get boundaryAssumptions() {
+    return new BoundaryAssumptions(this.doc, this.path + "/boundaryAssumptions");
+  }
+
+  // System landscape inventory.
+  get systemInventory() {
+    return new SystemLandscapeInventory(this.doc, this.path + "/systemInventory");
+  }
+
+  // Boundary interaction patterns.
+  get interactionPatterns() {
+    return new SomList(this.doc, this.path + "/BOINPA-INTE-LST", (d, p) => new BoundaryInteractionPatterns(d, p));
+  }
+
+  // Interaction testing strategy.
+  get testingStrategy() {
+    return new InteractionTestingStrategy(this.doc, this.path + "/testingStrategy");
+  }
+
+  // Interaction dependency analysis.
+  get dependencyAnalysis() {
+    return new InteractionDependencyAnalysis(this.doc, this.path + "/dependencyAnalysis");
+  }
+
+  // Migration interactions.
+  get migrationInteractions() {
+    return new SomList(this.doc, this.path + "/MIIN-MIGR-LST", (d, p) => new MigrationInteractions(d, p));
+  }
+
+  // Cross-boundary operational considerations.
+  get operationalConsiderations() {
+    return new SomList(this.doc, this.path + "/CBOC-OPER-LST", (d, p) => new CrossBoundaryOperationalConsiderations(d, p));
+  }
+
+  // Cross-boundary error handling.
+  get crossBoundaryErrorHandling() {
+    return new CrossBoundaryErrorHandling(this.doc, this.path + "/crossBoundaryErrorHandling");
+  }
+}
+
+// AC00 Authorization Concept.
+//
+// Complete access and authorization specification — user management,
+// identification and authentication, resource protection, user
+// authorization, encryption, audit/logging, role matrix, and
+// compliance framework.
+class D08SecurityAccessSpecification extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "SAS");
+    checkSomModelVersion(D08SecurityAccessSpecification.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D08SecurityAccessSpecification.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // User management.
+  get userManagement() {
+    return new UserManagement(this.doc, this.path + "/userManagement");
+  }
+
+  // Identification and authentication.
+  get identificationAndAuthentication() {
+    return new IdentificationAndAuthentication(this.doc, this.path + "/identificationAndAuthentication");
+  }
+
+  // Resource protection.
+  get resourceProtection() {
+    return new ResourceProtection(this.doc, this.path + "/resourceProtection");
+  }
+
+  // User authorization.
+  get userAuthorization() {
+    return new UserAuthorization(this.doc, this.path + "/userAuthorization");
+  }
+
+  // Sensitive data encryption.
+  get sensitiveDataEncryption() {
+    return new SensitiveDataEncryption(this.doc, this.path + "/sensitiveDataEncryption");
+  }
+
+  // Audit and logging.
+  get auditAndLogging() {
+    return new AuditAndLogging(this.doc, this.path + "/auditAndLogging");
+  }
+
+  // Role matrix.
+  get roleMatrix() {
+    return new RoleMatrix(this.doc, this.path + "/roleMatrix");
+  }
+
+  // Compliance framework.
+  get complianceFramework() {
+    return new ComplianceFramework(this.doc, this.path + "/complianceFramework");
+  }
+}
+
+// UP00 UI Prototype.
+//
+// Full UI design and prototype specification — vision, screens,
+// screen flow, print, error handling, help, accessibility, responsive,
+// components, language/country selection, prototype, wireframes and
+// mockups.
+class D09ExperienceDesignSpecification extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "XDS");
+    checkSomModelVersion(D09ExperienceDesignSpecification.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D09ExperienceDesignSpecification.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Design vision.
+  get designVision() {
+    return new DesignVision(this.doc, this.path + "/designVision");
+  }
+
+  // Screen descriptions.
+  get screens() {
+    return new ScreenDescriptions(this.doc, this.path + "/screens");
+  }
+
+  // Screen flow structure.
+  get screenFlow() {
+    return new ScreenFlowStructure(this.doc, this.path + "/screenFlow");
+  }
+
+  // Print layout.
+  get printLayout() {
+    return new PrintLayout(this.doc, this.path + "/printLayout");
+  }
+
+  // Error handling concept.
+  get errorHandling() {
+    return new ErrorHandlingConcept(this.doc, this.path + "/errorHandling");
+  }
+
+  // Help concept.
+  get helpConcept() {
+    return new HelpConcept(this.doc, this.path + "/helpConcept");
+  }
+
+  // Accessibility.
+  get accessibility() {
+    return new Accessibility(this.doc, this.path + "/accessibility");
+  }
+
+  // Responsive design.
+  get responsiveDesign() {
+    return new ResponsiveDesign(this.doc, this.path + "/responsiveDesign");
+  }
+
+  // UI components.
+  get uiComponents() {
+    return new UiComponents(this.doc, this.path + "/uiComponents");
+  }
+
+  // Language and country selection.
+  get languageCountrySelection() {
+    return new LanguageCountrySelection(this.doc, this.path + "/languageCountrySelection");
+  }
+
+  // Prototype.
+  get prototype_() {
+    return new Prototype(this.doc, this.path + "/prototype");
+  }
+
+  // Wireframes and mockups (new in Phase A).
+  get wireframesAndMockups() {
+    return new SomList(this.doc, this.path + "/WIANMO-WIRE-LST", (d, p) => new WireframesAndMockups(d, p));
+  }
+}
+
+// BQP00 Business Quality Plan.
+//
+// Full quality plan combining quality goals and the acceptance plan.
+class D10QualityAcceptancePlan extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "QAP");
+    checkSomModelVersion(D10QualityAcceptancePlan.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D10QualityAcceptancePlan.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Quality framework.
+  get qualityFramework() {
+    return new QualityFramework(this.doc, this.path + "/qualityFramework");
+  }
+
+  // User-related quality criteria.
+  get userQualityCriteria() {
+    return new UserQualityCriteria(this.doc, this.path + "/userQualityCriteria");
+  }
+
+  // Technical quality criteria.
+  get technicalQualityCriteria() {
+    return new TechnicalQualityCriteria(this.doc, this.path + "/technicalQualityCriteria");
+  }
+
+  // Operations quality criteria.
+  get operationsQualityCriteria() {
+    return new OperationsQualityCriteria(this.doc, this.path + "/operationsQualityCriteria");
+  }
+
+  // Documentation quality criteria.
+  get documentationQualityCriteria() {
+    return new DocumentationQualityCriteria(this.doc, this.path + "/documentationQualityCriteria");
+  }
+
+  // Quality prioritization.
+  get qualityPrioritization() {
+    return new QualityPrioritization(this.doc, this.path + "/qualityPrioritization");
+  }
+
+  // Acceptance criteria summary.
+  get acceptanceCriteriaSummary() {
+    return new AcceptanceCriteriaSummary(this.doc, this.path + "/acceptanceCriteriaSummary");
+  }
+
+  // Test strategy (new in Phase A).
+  get testStrategy() {
+    return new TestStrategy(this.doc, this.path + "/testStrategy");
+  }
+
+  // Acceptance criteria.
+  get acceptanceCriteria() {
+    return new AcceptanceCriteriaList(this.doc, this.path + "/acceptanceCriteria");
+  }
+
+  // Acceptance process.
+  get acceptanceProcess() {
+    return new AcceptanceProcess(this.doc, this.path + "/acceptanceProcess");
+  }
+
+  // User acceptance testing.
+  get userAcceptanceTesting() {
+    return new UserAcceptanceTesting(this.doc, this.path + "/userAcceptanceTesting");
+  }
+
+  // Defect resolution.
+  get defectResolution() {
+    return new DefectResolution(this.doc, this.path + "/defectResolution");
+  }
+
+  // Sign-off process.
+  get signOffProcess() {
+    return new SignOffProcess(this.doc, this.path + "/signOffProcess");
+  }
+
+  // Warranty terms.
+  get warranty() {
+    return new WarrantyTerms(this.doc, this.path + "/warranty");
+  }
+}
+
+// PPP00 Project Phase Plan.
+//
+// Full project phase plan — staging strategy, stage overview, per-stage
+// entries, feature prioritization, data migration, gate criteria,
+// decision processes, initial development flow, and upgrade cycle
+// framework.
+class D11DeliveryRoadmap extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "DRM");
+    checkSomModelVersion(D11DeliveryRoadmap.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D11DeliveryRoadmap.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Staging strategy.
+  get stagingStrategy() {
+    return new StagingStrategy(this.doc, this.path + "/stagingStrategy");
+  }
+
+  // Stage overview.
+  get stageOverview() {
+    return new StageOverview(this.doc, this.path + "/stageOverview");
+  }
+
+  // Stages (list).
+  get stages() {
+    return new SomList(this.doc, this.path + "/STAGE-STAG-LST", (d, p) => new StageEntry(d, p));
+  }
+
+  // Feature prioritization.
+  get featurePrioritization() {
+    return new FeaturePrioritization(this.doc, this.path + "/featurePrioritization");
+  }
+
+  // Data migration strategy.
+  get dataMigrationStrategy() {
+    return new DataMigrationStrategy(this.doc, this.path + "/dataMigrationStrategy");
+  }
+
+  // Gate criteria (promoted from GOV).
+  get gateCriteria() {
+    return new PhaseGateReviews(this.doc, this.path + "/gateCriteria");
+  }
+
+  // Decision processes (promoted from GOV).
+  get decisionProcesses() {
+    return new DecisionPoints(this.doc, this.path + "/decisionProcesses");
+  }
+
+  // Initial development flow.
+  get initialDevelopmentFlow() {
+    return new InitialDevelopmentFlow(this.doc, this.path + "/initialDevelopmentFlow");
+  }
+
+  // Upgrade cycle framework (links tom_system_upgrade.md).
+  get upgradeCycleFramework() {
+    return new UpgradeCycleFramework(this.doc, this.path + "/upgradeCycleFramework");
+  }
+}
+
+// SR00 System Rollout.
+//
+// End-to-end rollout specification — localization, translation,
+// documentation and training, plus rollout plan, migration plan,
+// user manuals, training materials, pilot, cutover, knowledge
+// transfer, and warranty/support.
+class D12TransitionRolloutPlan extends SomNode {
+  // The model version this object model was generated against (§2.1).
+  static MODEL_VERSION = "0.0";
+
+  // Creates the typed facade at the document root and verifies the
+  // document's authoring documentVersion is editable (§2.2).
+  constructor(doc, documentVersion = null) {
+    super(doc, "TRP");
+    checkSomModelVersion(D12TransitionRolloutPlan.MODEL_VERSION, documentVersion);
+  }
+
+  // This object model's own model version (major.minor), per §2.1.
+  get objectModelVersion() {
+    return D12TransitionRolloutPlan.MODEL_VERSION;
+  }
+
+  get content() {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Standard TomSpecs document header.
+  get header() {
+    return new DocumentHeader(this.doc, this.path + "/header");
+  }
+
+  // Localization process.
+  get localizationProcess() {
+    return new LocalizationProcess(this.doc, this.path + "/localizationProcess");
+  }
+
+  // Translation process.
+  get translationProcess() {
+    return new TranslationProcess(this.doc, this.path + "/translationProcess");
+  }
+
+  // Documentation and training.
+  get documentationAndTraining() {
+    return new DocumentationAndTraining(this.doc, this.path + "/documentationAndTraining");
+  }
+
+  // Rollout plan.
+  get rolloutPlan() {
+    return new RolloutPlan(this.doc, this.path + "/rolloutPlan");
+  }
+
+  // Migration plan.
+  get migrationPlan() {
+    return new MigrationPlan(this.doc, this.path + "/migrationPlan");
+  }
+
+  // User manuals.
+  get userManuals() {
+    return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d, p) => new UserManuals(d, p));
+  }
+
+  // Training materials.
+  get trainingMaterials() {
+    return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d, p) => new RolloutTrainingMaterials(d, p));
+  }
+
+  // Pilot plan.
+  get pilotPlan() {
+    return new PilotPlan(this.doc, this.path + "/pilotPlan");
+  }
+
+  // Cutover procedures.
+  get cutoverProcedures() {
+    return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d, p) => new CutoverProcedures(d, p));
+  }
+
+  // Knowledge transfer.
+  get knowledgeTransfer() {
+    return new KnowledgeTransfer(this.doc, this.path + "/knowledgeTransfer");
+  }
+
+  // Warranty and support.
+  get warrantyAndSupport() {
+    return new WarrantyAndSupport(this.doc, this.path + "/warrantyAndSupport");
   }
 }
 
@@ -14409,87 +15369,6 @@ class DeliveryAcceptanceCriterionEntryVerification extends SomNode {
 
   get content() {
     return new DeliveryAcceptanceCriterionEntryVerificationContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// PPP00 Project Phase Plan.
-//
-// Full project phase plan — staging strategy, stage overview, per-stage
-// entries, feature prioritization, data migration, gate criteria,
-// decision processes, initial development flow, and upgrade cycle
-// framework.
-class DeliveryRoadmap extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "DRM");
-    checkSomModelVersion(DeliveryRoadmap.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return DeliveryRoadmap.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Staging strategy.
-  get stagingStrategy() {
-    return new StagingStrategy(this.doc, this.path + "/stagingStrategy");
-  }
-
-  // Stage overview.
-  get stageOverview() {
-    return new StageOverview(this.doc, this.path + "/stageOverview");
-  }
-
-  // Stages (list).
-  get stages() {
-    return new SomList(this.doc, this.path + "/STAGE-STAG-LST", (d, p) => new StageEntry(d, p));
-  }
-
-  // Feature prioritization.
-  get featurePrioritization() {
-    return new FeaturePrioritization(this.doc, this.path + "/featurePrioritization");
-  }
-
-  // Data migration strategy.
-  get dataMigrationStrategy() {
-    return new DataMigrationStrategy(this.doc, this.path + "/dataMigrationStrategy");
-  }
-
-  // Gate criteria (promoted from GOV).
-  get gateCriteria() {
-    return new PhaseGateReviews(this.doc, this.path + "/gateCriteria");
-  }
-
-  // Decision processes (promoted from GOV).
-  get decisionProcesses() {
-    return new DecisionPoints(this.doc, this.path + "/decisionProcesses");
-  }
-
-  // Initial development flow.
-  get initialDevelopmentFlow() {
-    return new InitialDevelopmentFlow(this.doc, this.path + "/initialDevelopmentFlow");
-  }
-
-  // Upgrade cycle framework (links tom_system_upgrade.md).
-  get upgradeCycleFramework() {
-    return new UpgradeCycleFramework(this.doc, this.path + "/upgradeCycleFramework");
   }
 }
 
@@ -19286,102 +20165,6 @@ class ExperienceAndInterfaceDesign extends SomNode {
   }
 }
 
-// UP00 UI Prototype.
-//
-// Full UI design and prototype specification — vision, screens,
-// screen flow, print, error handling, help, accessibility, responsive,
-// components, language/country selection, prototype, wireframes and
-// mockups.
-class ExperienceDesignSpecification extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "XDS");
-    checkSomModelVersion(ExperienceDesignSpecification.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return ExperienceDesignSpecification.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Design vision.
-  get designVision() {
-    return new DesignVision(this.doc, this.path + "/designVision");
-  }
-
-  // Screen descriptions.
-  get screens() {
-    return new ScreenDescriptions(this.doc, this.path + "/screens");
-  }
-
-  // Screen flow structure.
-  get screenFlow() {
-    return new ScreenFlowStructure(this.doc, this.path + "/screenFlow");
-  }
-
-  // Print layout.
-  get printLayout() {
-    return new PrintLayout(this.doc, this.path + "/printLayout");
-  }
-
-  // Error handling concept.
-  get errorHandling() {
-    return new ErrorHandlingConcept(this.doc, this.path + "/errorHandling");
-  }
-
-  // Help concept.
-  get helpConcept() {
-    return new HelpConcept(this.doc, this.path + "/helpConcept");
-  }
-
-  // Accessibility.
-  get accessibility() {
-    return new Accessibility(this.doc, this.path + "/accessibility");
-  }
-
-  // Responsive design.
-  get responsiveDesign() {
-    return new ResponsiveDesign(this.doc, this.path + "/responsiveDesign");
-  }
-
-  // UI components.
-  get uiComponents() {
-    return new UiComponents(this.doc, this.path + "/uiComponents");
-  }
-
-  // Language and country selection.
-  get languageCountrySelection() {
-    return new LanguageCountrySelection(this.doc, this.path + "/languageCountrySelection");
-  }
-
-  // Prototype.
-  get prototype_() {
-    return new Prototype(this.doc, this.path + "/prototype");
-  }
-
-  // Wireframes and mockups (new in Phase A).
-  get wireframesAndMockups() {
-    return new SomList(this.doc, this.path + "/WIANMO-WIRE-LST", (d, p) => new WireframesAndMockups(d, p));
-  }
-}
-
 // Export access and audit.
 class ExportAccess extends SomNode {
   constructor(doc, path) {
@@ -23508,102 +24291,6 @@ class InformationForUseRequirements extends SomNode {
   }
 }
 
-// BDM00 Business Data Model.
-//
-// Full business data model: entities, relationships, ER diagram, data
-// classification, business objects, function decomposition, function-
-// to-data matrix, business rules, data dictionary, and validation /
-// integrity constraints.
-class InformationModel extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "IFM");
-    checkSomModelVersion(InformationModel.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return InformationModel.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Entity inventory (list).
-  get entities() {
-    return new SomList(this.doc, this.path + "/DAENT-ENTI-LST", (d, p) => new DataEntityEntry(d, p));
-  }
-
-  // Entity relationships.
-  get entityRelationships() {
-    return new EntityRelationships(this.doc, this.path + "/entityRelationships");
-  }
-
-  // Entity-relationship diagram.
-  get erDiagram() {
-    return null; // (skipped: no target type)
-  }
-
-  // Data classification.
-  get dataClassification() {
-    return new DataClassification(this.doc, this.path + "/dataClassification");
-  }
-
-  // Business object catalog (list).
-  get objectCatalog() {
-    return new SomList(this.doc, this.path + "/BJOEN-OBJE-LST", (d, p) => new BusinessObjectEntry(d, p));
-  }
-
-  // Business object diagram.
-  get objectDiagram() {
-    return null; // (skipped: no target type)
-  }
-
-  // Function decomposition (list).
-  get functionDecomposition() {
-    return new SomList(this.doc, this.path + "/FUNCT-FUNC-LST", (d, p) => new FunctionEntry(d, p));
-  }
-
-  // Function-to-data matrix (list).
-  get functionToDataMatrix() {
-    return new SomList(this.doc, this.path + "/FNDMX-FUNC-LST", (d, p) => new FunctionDataMatrixEntry(d, p));
-  }
-
-  // Business rules catalog (list).
-  get businessRules() {
-    return new SomList(this.doc, this.path + "/BIRU-BUSI-LST", (d, p) => new BusinessRuleEntry(d, p));
-  }
-
-  // Data dictionary.
-  get dataDictionary() {
-    return new DataDictionary(this.doc, this.path + "/dataDictionary");
-  }
-
-  // Validation constraints.
-  get validationConstraints() {
-    return new SomList(this.doc, this.path + "/VACO-VALI-LST", (d, p) => new ValidationConstraints(d, p));
-  }
-
-  // Integrity constraints.
-  get integrityConstraints() {
-    return new SomList(this.doc, this.path + "/INCO-INTE-LST", (d, p) => new IntegrityConstraints(d, p));
-  }
-}
-
 // Infrastructure as Code requirements.
 class InfrastructureAsCode extends SomNode {
   constructor(doc, path) {
@@ -24245,91 +24932,6 @@ class IntegrationHealthSummary extends SomNode {
   }
 }
 
-// BSI00 Business System Interactions.
-//
-// Complete interaction specification between the target system and
-// external systems: inventory, patterns, testing, dependencies,
-// migration, operational concerns, and cross-boundary error handling.
-class IntegrationInterfaceSpecification extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "IIS");
-    checkSomModelVersion(IntegrationInterfaceSpecification.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return IntegrationInterfaceSpecification.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // External interfaces.
-  get externalInterfaces() {
-    return new ExternalInterfaces(this.doc, this.path + "/externalInterfaces");
-  }
-
-  // Out of scope.
-  get outOfScope() {
-    return new OutOfScope(this.doc, this.path + "/outOfScope");
-  }
-
-  // Boundary assumptions.
-  get boundaryAssumptions() {
-    return new BoundaryAssumptions(this.doc, this.path + "/boundaryAssumptions");
-  }
-
-  // System landscape inventory.
-  get systemInventory() {
-    return new SystemLandscapeInventory(this.doc, this.path + "/systemInventory");
-  }
-
-  // Boundary interaction patterns.
-  get interactionPatterns() {
-    return new SomList(this.doc, this.path + "/BOINPA-INTE-LST", (d, p) => new BoundaryInteractionPatterns(d, p));
-  }
-
-  // Interaction testing strategy.
-  get testingStrategy() {
-    return new InteractionTestingStrategy(this.doc, this.path + "/testingStrategy");
-  }
-
-  // Interaction dependency analysis.
-  get dependencyAnalysis() {
-    return new InteractionDependencyAnalysis(this.doc, this.path + "/dependencyAnalysis");
-  }
-
-  // Migration interactions.
-  get migrationInteractions() {
-    return new SomList(this.doc, this.path + "/MIIN-MIGR-LST", (d, p) => new MigrationInteractions(d, p));
-  }
-
-  // Cross-boundary operational considerations.
-  get operationalConsiderations() {
-    return new SomList(this.doc, this.path + "/CBOC-OPER-LST", (d, p) => new CrossBoundaryOperationalConsiderations(d, p));
-  }
-
-  // Cross-boundary error handling.
-  get crossBoundaryErrorHandling() {
-    return new CrossBoundaryErrorHandling(this.doc, this.path + "/crossBoundaryErrorHandling");
-  }
-}
-
 // A single integration pattern entry.
 class IntegrationPatternEntry extends SomNode {
   constructor(doc, path) {
@@ -24796,76 +25398,6 @@ class InteractionScenarioEntry extends SomNode {
 
   set content(value) {
     this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// UC00 Use Cases.
-//
-// Detailed use cases derived from the target process steps and actor
-// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
-// and traceability.
-class InteractionScenarios extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "ISC");
-    checkSomModelVersion(InteractionScenarios.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return InteractionScenarios.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Process steps overview.
-  get processStepsOverview() {
-    return new ProcessStepsOverview(this.doc, this.path + "/processStepsOverview");
-  }
-
-  // Actor overview.
-  get actorOverview() {
-    return new ActorOverview(this.doc, this.path + "/actorOverview");
-  }
-
-  // Interaction catalog.
-  get interactionCatalog() {
-    return new InteractionCatalog(this.doc, this.path + "/interactionCatalog");
-  }
-
-  // Key scenarios.
-  get keyScenarios() {
-    return new KeyScenarios(this.doc, this.path + "/keyScenarios");
-  }
-
-  // Actor relationship diagram.
-  get actorRelationshipDiagram() {
-    return new ActorRelationshipDiagram(this.doc, this.path + "/actorRelationshipDiagram");
-  }
-
-  // End-to-end test scenarios.
-  get endToEndTestScenarios() {
-    return new SomList(this.doc, this.path + "/ETETS-ENDT-LST", (d, p) => new EndToEndTestScenarios(d, p));
-  }
-
-  // Use case traceability.
-  get useCaseTraceability() {
-    return new UseCaseTraceability(this.doc, this.path + "/useCaseTraceability");
   }
 }
 
@@ -36184,109 +36716,6 @@ class PwaRequirementsUpdates extends SomNode {
   }
 }
 
-// BQP00 Business Quality Plan.
-//
-// Full quality plan combining quality goals and the acceptance plan.
-class QualityAcceptancePlan extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "QAP");
-    checkSomModelVersion(QualityAcceptancePlan.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return QualityAcceptancePlan.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Quality framework.
-  get qualityFramework() {
-    return new QualityFramework(this.doc, this.path + "/qualityFramework");
-  }
-
-  // User-related quality criteria.
-  get userQualityCriteria() {
-    return new UserQualityCriteria(this.doc, this.path + "/userQualityCriteria");
-  }
-
-  // Technical quality criteria.
-  get technicalQualityCriteria() {
-    return new TechnicalQualityCriteria(this.doc, this.path + "/technicalQualityCriteria");
-  }
-
-  // Operations quality criteria.
-  get operationsQualityCriteria() {
-    return new OperationsQualityCriteria(this.doc, this.path + "/operationsQualityCriteria");
-  }
-
-  // Documentation quality criteria.
-  get documentationQualityCriteria() {
-    return new DocumentationQualityCriteria(this.doc, this.path + "/documentationQualityCriteria");
-  }
-
-  // Quality prioritization.
-  get qualityPrioritization() {
-    return new QualityPrioritization(this.doc, this.path + "/qualityPrioritization");
-  }
-
-  // Acceptance criteria summary.
-  get acceptanceCriteriaSummary() {
-    return new AcceptanceCriteriaSummary(this.doc, this.path + "/acceptanceCriteriaSummary");
-  }
-
-  // Test strategy (new in Phase A).
-  get testStrategy() {
-    return new TestStrategy(this.doc, this.path + "/testStrategy");
-  }
-
-  // Acceptance criteria.
-  get acceptanceCriteria() {
-    return new AcceptanceCriteriaList(this.doc, this.path + "/acceptanceCriteria");
-  }
-
-  // Acceptance process.
-  get acceptanceProcess() {
-    return new AcceptanceProcess(this.doc, this.path + "/acceptanceProcess");
-  }
-
-  // User acceptance testing.
-  get userAcceptanceTesting() {
-    return new UserAcceptanceTesting(this.doc, this.path + "/userAcceptanceTesting");
-  }
-
-  // Defect resolution.
-  get defectResolution() {
-    return new DefectResolution(this.doc, this.path + "/defectResolution");
-  }
-
-  // Sign-off process.
-  get signOffProcess() {
-    return new SignOffProcess(this.doc, this.path + "/signOffProcess");
-  }
-
-  // Warranty terms.
-  get warranty() {
-    return new WarrantyTerms(this.doc, this.path + "/warranty");
-  }
-}
-
 // SBP.14 Quality & Acceptance Model.
 //
 // Public anchor: ISO/IEC 25010 product quality.
@@ -38961,84 +39390,6 @@ class RequirementsOverview extends SomNode {
   }
 
   // 4.3.6. Requirement Coverage.
-  get requirementCoverage() {
-    return new RequirementCoverage(this.doc, this.path + "/requirementCoverage");
-  }
-}
-
-// RC00 Requirements Catalog.
-//
-// Full requirements catalog covering functional, technical, security,
-// and organizational requirements, plus traceability, relationships,
-// and coverage analysis.
-class RequirementsSpecification extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "RSP");
-    checkSomModelVersion(RequirementsSpecification.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return RequirementsSpecification.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Functional requirements.
-  get functionalRequirements() {
-    return new FunctionalRequirements(this.doc, this.path + "/functionalRequirements");
-  }
-
-  // Technical (non-functional) requirements.
-  get technicalRequirements() {
-    return new TechnicalRequirements(this.doc, this.path + "/technicalRequirements");
-  }
-
-  // Security requirements.
-  get securityRequirements() {
-    return new SecurityRequirements(this.doc, this.path + "/securityRequirements");
-  }
-
-  // Organizational requirements.
-  get organizationalRequirements() {
-    return new OrganizationalRequirements(this.doc, this.path + "/organizationalRequirements");
-  }
-
-  // Traceability matrix overview.
-  //
-  // Mirrors the flat field on RequirementsOverview so the RC outline
-  // reaches it directly. The authoritative content lives on the Solution
-  // Blueprint side.
-  get traceabilityMatrix() {
-    return this.doc.content(this.path + "/traceabilityMatrix") || '';
-  }
-
-  set traceabilityMatrix(value) {
-    this.doc.setContent(this.path + "/traceabilityMatrix", value);
-  }
-
-  // Requirement relationships.
-  get requirementRelationships() {
-    return new SomList(this.doc, this.path + "/RERE-REQU-LST", (d, p) => new RequirementRelationships(d, p));
-  }
-
-  // Requirement coverage.
   get requirementCoverage() {
     return new RequirementCoverage(this.doc, this.path + "/requirementCoverage");
   }
@@ -42471,82 +42822,6 @@ class SecondaryNavigation extends SomNode {
   }
 }
 
-// AC00 Authorization Concept.
-//
-// Complete access and authorization specification — user management,
-// identification and authentication, resource protection, user
-// authorization, encryption, audit/logging, role matrix, and
-// compliance framework.
-class SecurityAccessSpecification extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "SAS");
-    checkSomModelVersion(SecurityAccessSpecification.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return SecurityAccessSpecification.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // User management.
-  get userManagement() {
-    return new UserManagement(this.doc, this.path + "/userManagement");
-  }
-
-  // Identification and authentication.
-  get identificationAndAuthentication() {
-    return new IdentificationAndAuthentication(this.doc, this.path + "/identificationAndAuthentication");
-  }
-
-  // Resource protection.
-  get resourceProtection() {
-    return new ResourceProtection(this.doc, this.path + "/resourceProtection");
-  }
-
-  // User authorization.
-  get userAuthorization() {
-    return new UserAuthorization(this.doc, this.path + "/userAuthorization");
-  }
-
-  // Sensitive data encryption.
-  get sensitiveDataEncryption() {
-    return new SensitiveDataEncryption(this.doc, this.path + "/sensitiveDataEncryption");
-  }
-
-  // Audit and logging.
-  get auditAndLogging() {
-    return new AuditAndLogging(this.doc, this.path + "/auditAndLogging");
-  }
-
-  // Role matrix.
-  get roleMatrix() {
-    return new RoleMatrix(this.doc, this.path + "/roleMatrix");
-  }
-
-  // Compliance framework.
-  get complianceFramework() {
-    return new ComplianceFramework(this.doc, this.path + "/complianceFramework");
-  }
-}
-
 // 9. Access and Authorization Concept. Seeds → AC.
 class SecurityAndAccessModel extends SomNode {
   constructor(doc, path) {
@@ -45246,105 +45521,6 @@ class SolutionArchitectureAndTechnology extends SomNode {
   // Components, libraries, and services to reuse.
   get componentsToUse() {
     return new ComponentsToUse(this.doc, this.path + "/componentsToUse");
-  }
-}
-
-// The complete Solution Blueprint (SBP) document.
-//
-// Contains a [DocumentControl] header block and the SBP sections, sequenced
-// per the public-standards order (§4 of the redesign proposal).
-class SolutionBlueprint extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "SBP");
-    checkSomModelVersion(SolutionBlueprint.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return SolutionBlueprint.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // SBP.1 Document Control (header + revision history + approvals).
-  get documentControl() {
-    return new DocumentControl(this.doc, this.path + "/documentControl");
-  }
-
-  // SBP.2 Introduction & Scope.
-  get introductionAndScope() {
-    return new IntroductionAndScope(this.doc, this.path + "/introductionAndScope");
-  }
-
-  // SBP.3 Glossary & Abbreviations.
-  get glossaryAndAbbreviations() {
-    return new GlossaryAndAbbreviations(this.doc, this.path + "/glossaryAndAbbreviations");
-  }
-
-  // SBP.4 Stakeholders & Governance.
-  get stakeholdersAndGovernance() {
-    return new StakeholdersAndGovernance(this.doc, this.path + "/stakeholdersAndGovernance");
-  }
-
-  // SBP.5 Current Landscape. Seeds → CLA.
-  get currentLandscape() {
-    return new CurrentLandscape(this.doc, this.path + "/currentLandscape");
-  }
-
-  // SBP.6 Assumptions, Constraints & Dependencies.
-  get assumptionsConstraintsDependencies() {
-    return new AssumptionsConstraintsDependencies(this.doc, this.path + "/assumptionsConstraintsDependencies");
-  }
-
-  // SBP.7 Target Operating Model concept. Seeds → TOM.
-  get targetOperatingModelConcept() {
-    return new TargetOperatingModelConcept(this.doc, this.path + "/targetOperatingModelConcept");
-  }
-
-  // SBP.8 Information & Data Model. Seeds → IFM.
-  get informationAndDataModel() {
-    return new InformationAndDataModel(this.doc, this.path + "/informationAndDataModel");
-  }
-
-  // SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
-  get requirements() {
-    return new Requirements(this.doc, this.path + "/requirements");
-  }
-
-  // SBP.11 Solution Architecture & Technology. Seeds → ATS.
-  get solutionArchitectureAndTechnology() {
-    return new SolutionArchitectureAndTechnology(this.doc, this.path + "/solutionArchitectureAndTechnology");
-  }
-
-  // SBP.12 Security & Access Model. Seeds → SAS.
-  get securityAndAccessModel() {
-    return new SecurityAndAccessModel(this.doc, this.path + "/securityAndAccessModel");
-  }
-
-  // SBP.13 Experience & Interface Design. Seeds → XDS.
-  get experienceAndInterfaceDesign() {
-    return new ExperienceAndInterfaceDesign(this.doc, this.path + "/experienceAndInterfaceDesign");
-  }
-
-  // SBP.14 Quality & Acceptance Model. Seeds → QAP.
-  get qualityAndAcceptanceModel() {
-    return new QualityAndAcceptanceModel(this.doc, this.path + "/qualityAndAcceptanceModel");
-  }
-
-  // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
-  get deliveryTransitionAndRollout() {
-    return new DeliveryTransitionAndRollout(this.doc, this.path + "/deliveryTransitionAndRollout");
   }
 }
 
@@ -49717,91 +49893,6 @@ class TargetBusinessProcessModel extends SomNode {
   }
 }
 
-// BP00 Business Processes.
-//
-// Target business process specification — vision, principles, catalog,
-// diagrams, improvements, relationships, detailed workflows,
-// cross-process analysis, exception handling, and KPIs.
-class TargetOperatingModel extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "TOM");
-    checkSomModelVersion(TargetOperatingModel.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return TargetOperatingModel.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Process vision.
-  get processVision() {
-    return new ProcessVision(this.doc, this.path + "/processVision");
-  }
-
-  // Design principles.
-  get designPrinciples() {
-    return new ProcessDesignPrinciples(this.doc, this.path + "/designPrinciples");
-  }
-
-  // Process catalog.
-  get processCatalog() {
-    return new ProcessCatalog(this.doc, this.path + "/processCatalog");
-  }
-
-  // Process overview diagram.
-  get processOverviewDiagram() {
-    return new ProcessOverviewDiagram(this.doc, this.path + "/processOverviewDiagram");
-  }
-
-  // Improvement summary.
-  get improvementSummary() {
-    return new ProcessImprovementSummary(this.doc, this.path + "/improvementSummary");
-  }
-
-  // Process relationships.
-  get processRelationships() {
-    return new ProcessRelationships(this.doc, this.path + "/processRelationships");
-  }
-
-  // Detailed process workflows.
-  get detailedWorkflows() {
-    return new SomList(this.doc, this.path + "/DEPRWO-DETA-LST", (d, p) => new DetailedProcessWorkflows(d, p));
-  }
-
-  // Cross-process analysis.
-  get crossProcessAnalysis() {
-    return new CrossProcessAnalysis(this.doc, this.path + "/crossProcessAnalysis");
-  }
-
-  // Process exception handling.
-  get exceptionHandling() {
-    return new ProcessExceptionHandling(this.doc, this.path + "/exceptionHandling");
-  }
-
-  // Process metrics and KPIs.
-  get processMetricsAndKpis() {
-    return new SomList(this.doc, this.path + "/PMAK-PROC-LST", (d, p) => new ProcessMetricsAndKpis(d, p));
-  }
-}
-
 // SBP.7 Target Operating Model concept.
 //
 // Public anchor: BABOK future-state analysis.
@@ -52839,97 +52930,6 @@ class TransitionRiskEntryResponse extends SomNode {
 
   get content() {
     return new TransitionRiskEntryResponseContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// SR00 System Rollout.
-//
-// End-to-end rollout specification — localization, translation,
-// documentation and training, plus rollout plan, migration plan,
-// user manuals, training materials, pilot, cutover, knowledge
-// transfer, and warranty/support.
-class TransitionRolloutPlan extends SomNode {
-  // The model version this object model was generated against (§2.1).
-  static MODEL_VERSION = "0.0";
-
-  // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
-  constructor(doc, documentVersion = null) {
-    super(doc, "TRP");
-    checkSomModelVersion(TransitionRolloutPlan.MODEL_VERSION, documentVersion);
-  }
-
-  // This object model's own model version (major.minor), per §2.1.
-  get objectModelVersion() {
-    return TransitionRolloutPlan.MODEL_VERSION;
-  }
-
-  get content() {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Standard TomSpecs document header.
-  get header() {
-    return new DocumentHeader(this.doc, this.path + "/header");
-  }
-
-  // Localization process.
-  get localizationProcess() {
-    return new LocalizationProcess(this.doc, this.path + "/localizationProcess");
-  }
-
-  // Translation process.
-  get translationProcess() {
-    return new TranslationProcess(this.doc, this.path + "/translationProcess");
-  }
-
-  // Documentation and training.
-  get documentationAndTraining() {
-    return new DocumentationAndTraining(this.doc, this.path + "/documentationAndTraining");
-  }
-
-  // Rollout plan.
-  get rolloutPlan() {
-    return new RolloutPlan(this.doc, this.path + "/rolloutPlan");
-  }
-
-  // Migration plan.
-  get migrationPlan() {
-    return new MigrationPlan(this.doc, this.path + "/migrationPlan");
-  }
-
-  // User manuals.
-  get userManuals() {
-    return new SomList(this.doc, this.path + "/USRMAN-USER-LST", (d, p) => new UserManuals(d, p));
-  }
-
-  // Training materials.
-  get trainingMaterials() {
-    return new SomList(this.doc, this.path + "/RLTTM-TRAI-LST", (d, p) => new RolloutTrainingMaterials(d, p));
-  }
-
-  // Pilot plan.
-  get pilotPlan() {
-    return new PilotPlan(this.doc, this.path + "/pilotPlan");
-  }
-
-  // Cutover procedures.
-  get cutoverProcedures() {
-    return new SomList(this.doc, this.path + "/CUTPRC-CUTO-LST", (d, p) => new CutoverProcedures(d, p));
-  }
-
-  // Knowledge transfer.
-  get knowledgeTransfer() {
-    return new KnowledgeTransfer(this.doc, this.path + "/knowledgeTransfer");
-  }
-
-  // Warranty and support.
-  get warrantyAndSupport() {
-    return new WarrantyAndSupport(this.doc, this.path + "/warrantyAndSupport");
   }
 }
 
@@ -165557,7 +165557,6 @@ module.exports = {
   ArchitecturePrincipleEntryGovernance,
   ArchitecturePrincipleEntryGuidance,
   ArchitectureStyle,
-  ArchitectureTechnologySpecification,
   AssumptionConstraintRegister,
   AssumptionEntry,
   AssumptionIdentification,
@@ -166019,7 +166018,6 @@ module.exports = {
   CurrentDataClassification,
   CurrentDataLandscape,
   CurrentLandscape,
-  CurrentLandscapeAssessment,
   CurrentOperationalMetrics,
   CurrentProcessImprovementEntry,
   CurrentStateRiskAssessment,
@@ -166027,6 +166025,19 @@ module.exports = {
   CustomDistributionGroup,
   CustomMetricEntry,
   CutoverProcedures,
+  D00SolutionBlueprint,
+  D01CurrentLandscapeAssessment,
+  D02TargetOperatingModel,
+  D03InformationModel,
+  D04RequirementsSpecification,
+  D05InteractionScenarios,
+  D06ArchitectureTechnologySpecification,
+  D07IntegrationInterfaceSpecification,
+  D08SecurityAccessSpecification,
+  D09ExperienceDesignSpecification,
+  D10QualityAcceptancePlan,
+  D11DeliveryRoadmap,
+  D12TransitionRolloutPlan,
   DashboardEntry,
   DashboardEntryConfiguration,
   DashboardEntryOperations,
@@ -166191,7 +166202,6 @@ module.exports = {
   DeliveryAcceptanceCriterionEntryStatus,
   DeliveryAcceptanceCriterionEntryTraceability,
   DeliveryAcceptanceCriterionEntryVerification,
-  DeliveryRoadmap,
   DeliveryScope,
   DeliveryScopeAndAcceptance,
   DeliveryTransitionAndRollout,
@@ -166461,7 +166471,6 @@ module.exports = {
   ExistingSystemsLandscape,
   ExpectedImprovements,
   ExperienceAndInterfaceDesign,
-  ExperienceDesignSpecification,
   ExportAccess,
   ExportDataFormat,
   ExportDelimiter,
@@ -166689,7 +166698,6 @@ module.exports = {
   InformationAndDataModel,
   InformationArchitecture,
   InformationForUseRequirements,
-  InformationModel,
   InfrastructureAsCode,
   InfrastructureAsCodeDrift,
   InfrastructureAsCodeExecution,
@@ -166732,7 +166740,6 @@ module.exports = {
   IntegrationConstraintEntryMitigation,
   IntegrationConstraintEntryScope,
   IntegrationHealthSummary,
-  IntegrationInterfaceSpecification,
   IntegrationPatternEntry,
   IntegrationPointEntry,
   Integrations,
@@ -166758,7 +166765,6 @@ module.exports = {
   InteractionPerformance,
   InteractionPrioritization,
   InteractionScenarioEntry,
-  InteractionScenarios,
   InteractionSecurity,
   InteractionTestingStrategy,
   InteractionTraceability,
@@ -167398,7 +167404,6 @@ module.exports = {
   PwaRequirementsInstallation,
   PwaRequirementsOffline,
   PwaRequirementsUpdates,
-  QualityAcceptancePlan,
   QualityAndAcceptanceModel,
   QualityCategoryEntry,
   QualityCategoryEntryDefinition,
@@ -167554,7 +167559,6 @@ module.exports = {
   RequirementUiSpecification,
   Requirements,
   RequirementsOverview,
-  RequirementsSpecification,
   ResourceAllocationEntry,
   ResourceCapacityBaselines,
   ResourceCapacityBaselinesCost,
@@ -167762,7 +167766,6 @@ module.exports = {
   ScreenStates,
   ScreenUserCategoryEntry,
   SecondaryNavigation,
-  SecurityAccessSpecification,
   SecurityAndAccessModel,
   SecurityAuditEntry,
   SecurityAuditEntryExecution,
@@ -167913,7 +167916,6 @@ module.exports = {
   SoftwareLayerEntryResponsibilities,
   SoftwareLayerEntryTechnology,
   SolutionArchitectureAndTechnology,
-  SolutionBlueprint,
   SpecializedEquipmentEntry,
   SpecializedEquipmentEntryPlanning,
   SpecializedEquipmentEntryTechnical,
@@ -168139,7 +168141,6 @@ module.exports = {
   TabBarDefinitionEntryLoading,
   TabItemEntry,
   TargetBusinessProcessModel,
-  TargetOperatingModel,
   TargetOperatingModelConcept,
   TargetPlatformEntry,
   TargetPlatformEntryArchitecture,
@@ -168310,7 +168311,6 @@ module.exports = {
   TransitionRiskEntry,
   TransitionRiskEntryAssessment,
   TransitionRiskEntryResponse,
-  TransitionRolloutPlan,
   TransitionSuccessMetrics,
   TransitionSupportOverview,
   TransitionSupportResourceEntry,

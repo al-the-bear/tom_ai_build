@@ -54,7 +54,7 @@ void main() {
       classes = reader.classes;
     });
 
-    test('§8.6: no duplicate @SectionId strings across SolutionBlueprint tree', () {
+    test('§8.6: no duplicate @SectionId strings across D00SolutionBlueprint tree', () {
       final result = validateStructuralInvariants(classes);
       final dupeErrors = result.errors
           .where((e) => e.contains('§8.6 @SectionId uniqueness'))
@@ -145,7 +145,7 @@ void main() {
 
     test('outliner validates IntegrationInterfaceSpecification root without errors', () {
       // IIS is a smoke-test root known to be clean of §6.1 ContentType issues.
-      final result = validateModel(classes, 'IntegrationInterfaceSpecification');
+      final result = validateModel(classes, 'D07IntegrationInterfaceSpecification');
       expect(result.errors, isEmpty, reason: result.errors.join('\n'));
     });
 
@@ -182,8 +182,8 @@ void main() {
   group('unit: @SectionId uniqueness check', () {
     test('detects duplicate @SectionId across two sibling classes', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [
             _field('alpha', 'Alpha'),
@@ -203,8 +203,8 @@ void main() {
 
     test('passes when all @SectionIds are distinct', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [
             _field('alpha', 'Alpha'),
@@ -223,8 +223,8 @@ void main() {
   group('unit: @SectionId coverage check', () {
     test('warns when a reachable class has no @SectionId and no @SectionIdPattern coverage', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('noId', 'NoId')],
         ),
@@ -240,8 +240,8 @@ void main() {
 
     test('does not warn for list-element types covered by @SectionIdPattern', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
@@ -267,8 +267,8 @@ void main() {
   group('unit: @SectionIdPattern list-coverage check', () {
     test('errors when a complex List<T> field lacks @SectionIdPattern', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
@@ -294,8 +294,8 @@ void main() {
 
     test('passes when the complex List<T> field carries @SectionIdPattern', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
@@ -320,8 +320,8 @@ void main() {
 
     test('does not error for a @Reference list field without @SectionIdPattern', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('container', 'Container')],
         ),
@@ -356,8 +356,8 @@ void main() {
       required String patB,
     }) =>
         {
-          'SolutionBlueprint': _cls(
-            'SolutionBlueprint',
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
             [AnnotationData('SectionId', {'id': 'TST'})],
             [_field('scope', 'Scope')],
           ),
@@ -410,8 +410,8 @@ void main() {
 
     test('errors when one container ID maps to two element types (type-consistency)', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('a', 'AHolder'), _field('b', 'BHolder')],
         ),
@@ -448,8 +448,8 @@ void main() {
 
     test('errors when @SectionIdPattern does not mirror the container ID (pairing)', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('h', 'Holder')],
         ),
@@ -480,8 +480,8 @@ void main() {
   group('unit: @SecondLevelSectionId implies @DetailedIn', () {
     test('errors when @SecondLevelSectionId exists without matching @DetailedIn', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('sec', 'SecClass')],
         ),
@@ -500,8 +500,8 @@ void main() {
 
     test('passes when @SecondLevelSectionId is accompanied by @DetailedIn', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'}),
            AnnotationData('MapsTo', {'documentClass': 'DocA'})],
           [_field('sec', 'SecClass')],
@@ -522,8 +522,8 @@ void main() {
   group('unit: @DetailedIn ancestor @MapsTo check', () {
     test('errors when @DetailedIn(D) has no @MapsTo(D) on self or ancestor', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('seed', 'SeedClass')],
         ),
@@ -542,8 +542,8 @@ void main() {
 
     test('passes when @MapsTo(D) is on the same class as @DetailedIn(D)', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('seed', 'SeedClass')],
         ),
@@ -561,8 +561,8 @@ void main() {
 
     test('passes when @MapsTo(D) is on an ancestor of the @DetailedIn(D) class', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('seed', 'SeedClass')],
         ),
@@ -587,11 +587,11 @@ void main() {
   group('unit: canonical container root (T1)', () {
     Map<String, ModelClass> modelWithContainer() => {
           'DocSpecsProject': _cls('DocSpecsProject', [], [
-            _field('projectDefinition', 'SolutionBlueprint'),
+            _field('projectDefinition', 'D00SolutionBlueprint'),
             _field('businessProcesses', 'TargetOperatingModel'),
           ]),
-          'SolutionBlueprint': _cls(
-            'SolutionBlueprint',
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
             [AnnotationData('SectionId', {'id': 'TST'})],
             [_field('shared', 'SharedSection')],
           ),
@@ -611,8 +611,8 @@ void main() {
 
     test('findContainerRoot returns null when no container is present', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('shared', 'SharedSection')],
         ),
@@ -640,8 +640,8 @@ void main() {
   group('unit: pure-projection invariant (T2)', () {
     test('errors when a projection root reaches a non-SBP (projection-local) type', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('shared', 'SharedSection')],
         ),
@@ -670,8 +670,8 @@ void main() {
 
     test('passes when a projection root reaches only SBP-reachable types', () {
       final classes = {
-        'SolutionBlueprint': _cls(
-          'SolutionBlueprint',
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
           [AnnotationData('SectionId', {'id': 'TST'})],
           [_field('shared', 'SharedSection')],
         ),
@@ -693,26 +693,32 @@ void main() {
   });
 
   group('unit: ModelJsonExporter', () {
-    test('emits roots from @Document classes, sorted by title', () {
+    test('emits roots from @Document classes, sorted by Dxx then title', () {
+      // Roots carry a `Dxx` document-number prefix on their class name (never
+      // on `@SectionId`). They must sort by that number (D00→D12), regardless
+      // of `@Document(name:)` title. A root without a `Dxx` prefix sorts after
+      // the numbered ones, alphabetically by title.
       final classes = <String, ModelClass>{
-        'Zeta': _cls('Zeta', [
+        'D02Zeta': _cls('D02Zeta', [
           AnnotationData('Document', {'name': 'Zeta Doc'}),
           AnnotationData('SectionId', {'id': 'ZD00'}),
         ]),
-        'Alpha': _cls('Alpha', [
+        'D00Alpha': _cls('D00Alpha', [
           AnnotationData('Document', {'name': 'Alpha Doc'}),
           AnnotationData('SectionId', {'id': 'AL00'}),
         ]),
         'Plain': _cls('Plain', [
+          AnnotationData('Document', {'name': 'Plain Doc'}),
           AnnotationData('SectionId', {'id': 'PL00'}),
         ]),
       };
       final json = ModelJsonExporter(classes).export();
       expect(json['classCount'], 3);
-      expect(json['rootCount'], 2);
+      expect(json['rootCount'], 3);
       final roots = json['roots'] as List;
+      // D00Alpha (0) → D02Zeta (2) → Plain (no Dxx, sorts last by title).
       expect(roots.map((r) => (r as Map)['title']),
-          ['Alpha Doc', 'Zeta Doc']);
+          ['Alpha Doc', 'Zeta Doc', 'Plain Doc']);
       expect((roots.first as Map)['sectionId'], 'AL00');
     });
 

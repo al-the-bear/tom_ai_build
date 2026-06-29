@@ -141,23 +141,24 @@ class ModelClass {
 /// Finds the canonical container root of the TomSpecs model (V2, N9).
 ///
 /// The container is the **unannotated** top-level class that owns the
-/// `SolutionBlueprint` store plus the twelve projection roots, giving the whole
-/// spec a single tree root for load/save/snapshot/undo. It is *not* a document
-/// node — it carries no `@Document` and no `@SectionId` — so the tooling must
-/// recognise it structurally rather than by annotation (T1).
+/// `D00SolutionBlueprint` store plus the twelve projection roots, giving the
+/// whole spec a single tree root for load/save/snapshot/undo. It is *not* a
+/// document node — it carries no `@Document` and no `@SectionId` — so the
+/// tooling must recognise it structurally rather than by annotation (T1).
 ///
 /// Identification is by ownership: a non-`@Document` class that declares a
-/// (non-list) field whose type is `SolutionBlueprint`. Only the container holds
-/// SBP by value — the projection roots reference SBP00 *sections*, not the SBP
-/// root itself — so this is unambiguous. Returns the class name, or `null` if no
-/// container is present (e.g. a small synthetic model).
+/// (non-list) field whose type is `D00SolutionBlueprint`. Only the container
+/// holds SBP by value — the projection roots reference SBP00 *sections*, not the
+/// SBP root itself — so this is unambiguous. Returns the class name, or `null`
+/// if no container is present (e.g. a small synthetic model).
 String? findContainerRoot(Map<String, ModelClass> classes) {
   for (final entry in classes.entries) {
     final cls = entry.value;
-    if (cls.name == 'SolutionBlueprint') continue;
+    if (cls.name == 'D00SolutionBlueprint') continue;
     if (cls.getAnnotation('Document') != null) continue;
     final ownsSolutionBlueprint = cls.fields.any(
-      (f) => !f.isList && f.typeName.replaceAll('?', '') == 'SolutionBlueprint',
+      (f) =>
+          !f.isList && f.typeName.replaceAll('?', '') == 'D00SolutionBlueprint',
     );
     if (ownsSolutionBlueprint) return entry.key;
   }
