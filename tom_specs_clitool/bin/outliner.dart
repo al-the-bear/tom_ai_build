@@ -16,7 +16,7 @@ Future<void> main(List<String> arguments) async {
       'root-type',
       abbr: 'r',
       help: 'Name of the root class to start the outline from.',
-      defaultsTo: 'ProjectDefinition',
+      defaultsTo: 'SolutionBlueprint',
     )
     ..addOption(
       'output',
