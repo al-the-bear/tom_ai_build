@@ -338,7 +338,7 @@ All criteria must be objectively measurable and verifiable.
 /// 14.2.1. Acceptance Criteria.
 @SectionId('ACRITL')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-CRI')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-CRI')
 class AcceptanceCriteriaList {
   @ContentHelp('''
 Formal acceptance criteria that must be met for project sign-off.
@@ -482,7 +482,7 @@ class DeliveryAcceptanceCriterionEntryStatus {
 /// and decision criteria.
 @SectionId('ACPR1')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-PRO')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PRO')
 class AcceptanceProcess {
   @Form([
     Field('processName', String, 'Process Name',
@@ -682,7 +682,7 @@ class AcceptanceStepEntryOutcome {
 /// test documentation structure and ISTQB best practices.
 @SectionId('USACTE')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-UAT')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-UAT')
 class UserAcceptanceTesting {
   @Form([
     Field('uatObjective', String, 'UAT Objective',
@@ -1178,7 +1178,7 @@ class UatTestStepEntry {
 /// resolution timeframes, blocking thresholds, and post-fix verification.
 @SectionId('DERE')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-DEF')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-DEF')
 class DefectResolution {
   @Form([
     Field('severityScheme', String, 'Severity Scheme',
@@ -1309,7 +1309,7 @@ class DefectResolutionReporting {
 /// contractual implications, and conditional acceptance handling.
 @SectionId('SIOFPR')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-SIG')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-SIG')
 class SignOffProcess {
   @Form([
     Field('signOffAuthority', String, 'Sign-Off Authority',
@@ -1459,7 +1459,7 @@ class SignOffProcessTimeline {
 /// exclusions, and transition to standard support.
 @SectionId('WATE')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-WAR')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-WAR')
 class WarrantyTerms {
   @Form([
     Field('warrantyDuration', String, 'Warranty Duration',

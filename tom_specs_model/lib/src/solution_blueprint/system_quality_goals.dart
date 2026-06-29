@@ -162,7 +162,7 @@ class SystemQualityGoalsResources {
 /// and how quality is structured and governed across the system.
 @SectionId('QLFWK')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-FRA')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-FRA')
 class QualityFramework {
   // ─────────────────────────────────────────────────────────────────────────
   // Framework Configuration
@@ -356,7 +356,7 @@ class QualityCategoryEntryMetrics {
 /// functional completeness, and correctness from the end-user perspective.
 @SectionId('USQCR')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-USE')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-USE')
 class UserQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // User Quality Overview
@@ -602,7 +602,7 @@ class CorrectnessQualityVerification {
 /// portability, flexibility, security, maintainability, and reliability.
 @SectionId('TEQUCR')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-TEC')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-TEC')
 class TechnicalQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Technical Quality Overview
@@ -1100,7 +1100,7 @@ class ReliabilityQualityVerification {
 /// levels, monitoring, and IT security operations.
 @SectionId('OPQUCR')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-OPE')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-OPE')
 class OperationsQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Operations Quality Overview
@@ -1548,7 +1548,7 @@ class ItSecurityOperationsQualityIncident {
 /// completeness, correctness, and changeability.
 @SectionId('DOQUCR')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-DOC')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-DOC')
 class DocumentationQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation Quality Overview
@@ -1843,7 +1843,7 @@ class DocChangeabilityQualityMaintenance {
 /// matrices and explicit trade-off decisions.
 @SectionId('QUPR')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-PRI')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-PRI')
 class QualityPrioritization {
   // ─────────────────────────────────────────────────────────────────────────
   // Prioritization Framework
@@ -2072,7 +2072,7 @@ class TradeOffDecisionEntryApproval {
 /// and quality gate checklists.
 @SectionId('ACCRSU')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-ACC')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-ACC')
 class AcceptanceCriteriaSummary {
   // ─────────────────────────────────────────────────────────────────────────
   // Acceptance Framework
@@ -2378,7 +2378,7 @@ class QualityGateCheckEntryBlocking {
 /// Overall test strategy for the project..
 @SectionId('TEST')
 @DetailedIn(D10QualityAcceptancePlan)
-@SecondLevelSectionId(D10QualityAcceptancePlan, 'BQP-TST')
+@SecondLevelSectionId(D10QualityAcceptancePlan, 'QAP-TST')
 class TestStrategy {
   @ContentHelp('''
 High-level strategy for verifying quality across the system. Distinct

@@ -3718,7 +3718,7 @@ class RequirementsOverview {
 /// and user interactions. Each requirement is uniquely identified and
 /// traceable to business goals and use cases.
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RC-FUN')
+@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-FUN')
 @ContentHelp('Functional requirements describe system capabilities, behaviors, '
     'and features. Use clear, testable language. Each requirement should '
     'answer: What must the system do? For whom? Under what conditions?')
@@ -4411,7 +4411,7 @@ class RequirementTestCaseEntryAutomation {
 /// scalability, reliability, and standards compliance. These requirements
 /// often drive architectural decisions.
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RC-TEC')
+@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-TEC')
 @ContentHelp('Technical requirements describe non-functional aspects and '
     'constraints. Each should be measurable and testable. Common categories: '
     'Performance, Scalability, Availability, Security, Maintainability.')
@@ -4563,7 +4563,7 @@ class TechnicalRequirementEntryConstraints {
 /// audit, and compliance needs. Based on OWASP, ISO 27001, and common
 /// security frameworks.
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RC-SEC')
+@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-SEC')
 @ContentHelp('Security requirements protect confidentiality, integrity, '
     'and availability of information. Include authentication, authorization, '
     'data protection, and compliance requirements.')
@@ -4777,7 +4777,7 @@ class SecurityControlEntryVerification {
 /// for the system to succeed. Based on change management and organizational
 /// readiness assessment practices.
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RC-ORG')
+@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-ORG')
 @ContentHelp('Organizational requirements describe non-technical changes '
     'needed for system success: training, process changes, role changes, '
     'support structures, and communication.')
@@ -4979,7 +4979,7 @@ class SystemsToReplace {
 /// with portfolio-level metrics and prioritization guidance.
 @SectionId('REIN1')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-INV')
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-INV')
 class ReplacementInventory {
   /// Portfolio summary before listing individual systems.
   @ContentHelp('Summarize the replacement portfolio: total system count, '
@@ -5650,7 +5650,7 @@ class SystemKnowledgeTransfer {
 /// migration details with global governance.
 @SectionId('MICO1')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-MIG')
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-MIG')
 class MigrationConsiderations {
   @Form([
     Field('overallStrategy', String,
@@ -6170,23 +6170,23 @@ class SystemBoundaries {
   /// 4.5.3. Assumptions — contains 0+×.
   BoundaryAssumptions assumptions = BoundaryAssumptions();
 
-  /// 4.5.4. System Landscape Inventory. Covers BSI-LAN-INV.
+  /// 4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.
   SystemLandscapeInventory systemLandscapeInventory = SystemLandscapeInventory();
 
-  /// 4.5.5. Boundary Interaction Patterns. Covers BSI-PAT.
+  /// 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
   @SectionId('BOINPA-BOUN-LST')
   @SectionIdPattern('BOINPA-BOUN-xxx')
   List<BoundaryInteractionPatterns> boundaryInteractionPatterns = [];
 
-  /// 4.5.6. Interaction Testing Strategy. Covers BSI-TST.
+  /// 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
   InteractionTestingStrategy interactionTestingStrategy =
       InteractionTestingStrategy();
 
-  /// 4.5.7. Interaction Dependency Analysis. Covers BSI-DEP.
+  /// 4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.
   InteractionDependencyAnalysis interactionDependencyAnalysis =
       InteractionDependencyAnalysis();
 
-  /// 4.5.8. Migration Interactions. Covers BSI-MIG.
+  /// 4.5.8. Migration Interactions. Covers IIS-MIG.
   @SectionId('MIIN-MIGR-LST')
   @SectionIdPattern('MIIN-MIGR-xxx')
   List<MigrationInteractions> migrationInteractions = [];
@@ -6214,7 +6214,7 @@ class SystemBoundaries {
 /// API-first design principles.
 @SectionId('EXIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-INT')
+@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-INT')
 class ExternalInterfaces {
   /// Summary of the integration landscape.
   @ContentHelp('Summarize integration portfolio: total count by category, '
@@ -6794,7 +6794,7 @@ class InterfaceTestScenarioEntry {
 /// rationale to prevent scope creep and manage stakeholder expectations.
 @SectionId('OUOFSC')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-OUT')
+@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-OUT')
 class OutOfScope {
   /// Overview of scope exclusion approach.
   @ContentHelp('Describe the scope philosophy and how exclusions were '
@@ -6862,7 +6862,7 @@ class OutOfScopeEntryMitigation {
 /// tracked as a potential risk if proven incorrect.
 @SectionId('BOAS')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-ASS')
+@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-ASS')
 class BoundaryAssumptions {
   /// Overview of assumption categories and validation approach.
   @ContentHelp('Describe assumption categories, validation timeline, '
@@ -7291,7 +7291,7 @@ class ResponsibilityGovernance {
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-TEC')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-TEC')
 class TechnicalFrameworkConditions {
   // -------------------------------------------------------------------------
   // Technical Landscape Overview
@@ -8715,10 +8715,10 @@ class AssumptionRelationships {
 
 /// 4.5.4. System Landscape Inventory.
 ///
-/// Complete external-system inventory covering BSI-LAN-INV content.
+/// Complete external-system inventory covering IIS-LAN-INV content.
 @SectionId('SYLAIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-INV')
+@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-INV')
 class SystemLandscapeInventory {
   @ContentHelp('''
 Enumerates every external system the target system interacts with, with
@@ -8743,12 +8743,12 @@ organization's landscape.
 
 /// 4.5.5. Boundary Interaction Patterns.
 ///
-/// Sync / async / batch interaction-pattern catalog. Covers BSI-PAT.
+/// Sync / async / batch interaction-pattern catalog. Covers IIS-PAT.
 /// Named `BoundaryInteractionPatterns` to avoid colliding with the
 /// existing intra-system `InteractionPatterns` class.
 @SectionId('BOINPA')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-PAT')
+@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-PAT')
 class BoundaryInteractionPatterns {
   @ContentHelp('''
 Reusable interaction patterns applied at system boundaries. Distinct
@@ -8774,10 +8774,10 @@ within the target system.
 /// 4.5.6. Interaction Testing Strategy.
 ///
 /// Contract / integration / failure-mode testing for system boundaries.
-/// Covers BSI-TST.
+/// Covers IIS-TST.
 @SectionId('INTES1')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-TST')
+@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-TST')
 class InteractionTestingStrategy {
   @ContentHelp('''
 Strategy for testing boundary interactions specifically. Complements the
@@ -8802,10 +8802,10 @@ broader system-wide test strategy.
 /// 4.5.7. Interaction Dependency Analysis.
 ///
 /// Critical-path and degraded-mode behavior analysis for system
-/// dependencies. Covers BSI-DEP.
+/// dependencies. Covers IIS-DEP.
 @SectionId('INDEAN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-DEP')
+@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-DEP')
 class InteractionDependencyAnalysis {
   @ContentHelp('''
 What happens when external interactions are slow or unavailable, and
@@ -8831,10 +8831,10 @@ which of them lie on the critical path of user-facing flows.
 ///
 /// Interactions specific to the migration window — cutover bridges,
 /// reconciliation endpoints, and temporary shims. Back-refs the
-/// Systems to Replace inventory. Covers BSI-MIG.
+/// Systems to Replace inventory. Covers IIS-MIG.
 @SectionId('MIIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-MIG')
+@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-MIG')
 class MigrationInteractions {
   @ContentHelp('''
 Transitional interactions that exist only during the migration window:
@@ -8861,7 +8861,7 @@ dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
 /// Cross-requirement dependency and conflict graph.
 @SectionId('RERE')
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RC-REL')
+@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-REL')
 class RequirementRelationships {
   @ContentHelp('''
 Explicit relationships between requirements: dependencies, conflicts,
@@ -8887,7 +8887,7 @@ FUN/TEC/SEC/ORG into a network.
 /// Coverage of requirements against goals, use cases, and tests.
 @SectionId('RECO1')
 @DetailedIn(D04RequirementsSpecification)
-@SecondLevelSectionId(D04RequirementsSpecification, 'RC-COV')
+@SecondLevelSectionId(D04RequirementsSpecification, 'RSP-COV')
 class RequirementCoverage {
   @ContentHelp('''
 Reports coverage of requirements from multiple angles to ensure nothing
@@ -8914,7 +8914,7 @@ falls through.
 /// inside individual interface entries.
 @SectionId('CBOC')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-OPE')
+@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-OPE')
 class CrossBoundaryOperationalConsiderations {
   @ContentHelp('''
 Operational considerations that span all boundary interactions rather
@@ -8941,7 +8941,7 @@ than being specific to one partner.
 /// Distinct from per-interface error handling.
 @SectionId('CBEH')
 @DetailedIn(D07IntegrationInterfaceSpecification)
-@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'BSI-ERR')
+@SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-ERR')
 class CrossBoundaryErrorHandling {
   @ContentHelp('''
 Policy for how failures propagate or are contained across boundary

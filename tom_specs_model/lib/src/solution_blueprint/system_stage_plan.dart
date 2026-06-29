@@ -67,10 +67,10 @@ class SystemStagePlan {
   /// 13.6. Governance.
   StageGovernance governance = StageGovernance();
 
-  /// 13.7. Initial Development Flow. Covers PPP-IDV.
+  /// 13.7. Initial Development Flow. Covers DRM-IDV.
   InitialDevelopmentFlow initialDevelopmentFlow = InitialDevelopmentFlow();
 
-  /// 13.8. Upgrade Cycle Framework. Covers PPP-UPG.
+  /// 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
   UpgradeCycleFramework upgradeCycleFramework = UpgradeCycleFramework();
 }
 
@@ -148,7 +148,7 @@ class SystemStagePlanReadiness {
 /// delivery.
 @SectionId('STAGST')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'PPP-STR')
+@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-STR')
 class StagingStrategy {
   @Form([
     Field('stagingApproachType', String, 'Staging Approach Type',
@@ -457,7 +457,7 @@ class StagingGovernance {
 /// TOGAF architecture road-mapping.
 @SectionId('STAGOV')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'PPP-STA')
+@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-STA')
 class StageOverview {
   @Form([
     Field('numberOfStages', String, 'Number of Stages',
@@ -1454,7 +1454,7 @@ class StageSuccessCriterionEntryStatus {
 /// delivery, MoSCoW (DSDM), and Kano model classification.
 @SectionId('FEPR')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'PPP-FEA')
+@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-FEA')
 class FeaturePrioritization {
   @Form([
     Field('prioritizationMethodology', String,
@@ -2279,7 +2279,7 @@ class FeatureDependencyEntry {
 /// principles, TOGAF migration planning, and PMBOK risk-aware delivery.
 @SectionId('DAMIST')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'PPP-MIG')
+@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-MIG')
 class DataMigrationStrategy {
   @Form([
     Field('migrationApproach', String, 'Migration Approach',
@@ -3355,7 +3355,7 @@ class StageGovernanceTransition {
 /// outcomes are possible (proceed, rework, cancel, conditional).
 @SectionId('PHGARE')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'PPP-GAT')
+@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-GAT')
 class PhaseGateReviews {
   @Form([
     Field('gateNamingConvention', String,
@@ -3674,7 +3674,7 @@ class ReviewCriterionEntryResult {
 /// criteria, authority, options, and impact analysis.
 @SectionId('DEPO')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'PPP-DEC')
+@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-DEC')
 class DecisionPoints {
   @Form([
     // --- Decision Framework ---
@@ -3997,11 +3997,11 @@ class DecisionOptionEntryTradeOffs {
 /// 13.7. Initial Development Flow.
 ///
 /// Inter-phase dependencies during the initial build (Phases 1–7 of
-/// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
-/// as "new in PPP".
+/// `tom_system_creation.md`). Covers DRM-IDV content the mapping calls out
+/// as "new in DRM".
 @SectionId('INDEFL')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'PPP-IDV')
+@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-IDV')
 class InitialDevelopmentFlow {
   @ContentHelp('''
 Describes how the initial-development phases hand off to each other:
@@ -4013,7 +4013,7 @@ dependencies, parallel work streams, and synchronization points.
 - Synchronization points / integration checkpoints
 - Shared artifact touchpoints (same document updated in multiple phases)
 - Team coordination model during the initial build
-- Transition criteria to post-development (where PPP-UPG takes over)
+- Transition criteria to post-development (where DRM-UPG takes over)
 ''')
   String? content;
 }
@@ -4028,7 +4028,7 @@ dependencies, parallel work streams, and synchronization points.
 /// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
 @SectionId('UPCYFR')
 @DetailedIn(D11DeliveryRoadmap)
-@SecondLevelSectionId(D11DeliveryRoadmap, 'PPP-UPG')
+@SecondLevelSectionId(D11DeliveryRoadmap, 'DRM-UPG')
 class UpgradeCycleFramework {
   @ContentHelp('''
 Framework that governs the upgrade cycle once initial development

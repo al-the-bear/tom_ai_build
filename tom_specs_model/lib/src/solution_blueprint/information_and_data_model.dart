@@ -495,7 +495,7 @@ class MigrationMappingEntry {
 /// 7.1.2. Entity Relationships.
 @SectionId('ENREL')
 @DetailedIn(D03InformationModel)
-@SecondLevelSectionId(D03InformationModel, 'BDM-REL')
+@SecondLevelSectionId(D03InformationModel, 'IFM-REL')
 class EntityRelationships {
   @ContentHelp('''
 Relationship specifications between data entities. Captures cardinality,
@@ -624,7 +624,7 @@ class EntityRelationshipEntry {
 /// 7.1.4. Data Classification.
 @SectionId('DATCL')
 @DetailedIn(D03InformationModel)
-@SecondLevelSectionId(D03InformationModel, 'BDM-CLA')
+@SecondLevelSectionId(D03InformationModel, 'IFM-CLA')
 class DataClassification {
   // ---------------------------------------------------------------------------
   // Classification Overview (4 fields)
@@ -1610,7 +1610,7 @@ class RuleExampleEntry {
 ///..
 @SectionId('DADI')
 @DetailedIn(D03InformationModel)
-@SecondLevelSectionId(D03InformationModel, 'BDM-DIC')
+@SecondLevelSectionId(D03InformationModel, 'IFM-DIC')
 class DataDictionary {
   @ContentHelp('''
 Single authoritative registry for data attributes across the system.
@@ -1638,7 +1638,7 @@ Single authoritative registry for data attributes across the system.
 /// entities.
 @SectionId('VACO')
 @DetailedIn(D03InformationModel)
-@SecondLevelSectionId(D03InformationModel, 'BDM-VAL')
+@SecondLevelSectionId(D03InformationModel, 'IFM-VAL')
 class ValidationConstraints {
   @ContentHelp('''
 Business-level validation rules enforced on data. Distinct from schema
@@ -1665,7 +1665,7 @@ constraints (which are database-level) and from per-field form hints
 /// Cross-entity integrity rules beyond simple referential integrity.
 @SectionId('INCO')
 @DetailedIn(D03InformationModel)
-@SecondLevelSectionId(D03InformationModel, 'BDM-CON')
+@SecondLevelSectionId(D03InformationModel, 'IFM-CON')
 class IntegrityConstraints {
   @ContentHelp('''
 Integrity rules that preserve invariants across the data model.

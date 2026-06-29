@@ -69,7 +69,7 @@ localization, translation, and documentation subtrees.
 /// cohorts across the go-live waves.
 @SectionId('RLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-PLN')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-PLN')
 class RolloutPlan {
   @ContentHelp('''
 Rollout plan: sequencing, waves, and criteria for moving each cohort from
@@ -97,7 +97,7 @@ pre-go-live to production.
 /// landscape to the target.
 @SectionId('MIGPLN')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-MIG')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-MIG')
 class MigrationPlan {
   @ContentHelp('''
 System migration plan distinct from the per-data-entity migration
@@ -124,7 +124,7 @@ mapping. Focuses on the execution plan.
 /// End-user documentation deliverables covering user-manual content.
 @SectionId('USRMAN')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-DOC')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
 class UserManuals {
   @ContentHelp('''
 User manual deliverables: what documents are produced, for which user
@@ -152,7 +152,7 @@ the help-concept section).
 /// Training deliverables covering training-material content.
 @SectionId('RLTTM')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-TRN')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRN')
 class RolloutTrainingMaterials {
   @ContentHelp('''
 Training plan and materials: courses, content packages, trainers, and
@@ -179,7 +179,7 @@ captures the catalog of training modules.
 /// Pilot scope, cohort selection, success criteria, and exit decision rules.
 @SectionId('PLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-PIL')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-PIL')
 class PilotPlan {
   @ContentHelp('''
 Pilot definition: who participates, what is in/out of pilot scope, how
@@ -207,7 +207,7 @@ success is measured, and the decision gate that authorizes rollout.
 /// covering the transition from current operation to the target system.
 @SectionId('CUTPRC')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-CUT')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-CUT')
 class CutoverProcedures {
   @ContentHelp('''
 Cutover runbook: the operational plan that executes the go-live moment.
@@ -236,7 +236,7 @@ waves — and than the Migration Plan — which covers data execution.
 /// content.
 @SectionId('KNTFR')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-KNO')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-KNO')
 class KnowledgeTransfer {
   @ContentHelp('''
 Formal handover of system knowledge to operations and support teams.
@@ -262,7 +262,7 @@ Formal handover of system knowledge to operations and support teams.
 /// warranty content and feeds the TRP top-level on the same topic.
 @SectionId('WRTSP')
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-WAR')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-WAR')
 class WarrantyAndSupport {
   @ContentHelp('''
 Terms governing the warranty window that follows acceptance. Distinct

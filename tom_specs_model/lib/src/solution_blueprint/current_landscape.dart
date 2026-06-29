@@ -54,7 +54,7 @@ document alongside the systems-to-replace inventory.
 /// and limitations. Provides the foundation for understanding the AS-IS state.
 @SectionId('ESLAN')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-SYS')
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-SYS')
 class ExistingSystemsLandscape {
   @ContentType('description', 'High-level overview of the existing systems '
       'landscape. Include a context diagram showing how systems interact.')
@@ -890,7 +890,7 @@ class SystemIntegrationOwnership {
 /// operational needs.
 @SectionId('CUBUPR')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-PRO')
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-PRO')
 class CurrentBusinessProcesses {
   String? content;
 
@@ -1639,7 +1639,7 @@ class ProcessMetricEntryTargets {
 /// Each pain point includes business impact quantification and root cause.
 @SectionId('PPAG')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-PAI')
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-PAI')
 class PainPointsAndGaps {
   @ContentHelp('''
 Executive overview of pain points and gaps in the current state.
@@ -2157,7 +2157,7 @@ class GapEntryResolution {
 /// trends, retention policies, and governance structures.
 @SectionId('CUDALA')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-DAT')
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-DAT')
 class CurrentDataLandscape {
   @ContentHelp('''
 Executive overview of the current data landscape. Summarize the overall data
@@ -3562,7 +3562,7 @@ class MasterDataDomainEntryGovernance {
 /// derive non-functional requirements.
 @SectionId('CUOPME')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-MET')
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-MET')
 class CurrentOperationalMetrics {
   @ContentHelp('''
 Captures measurable operational characteristics of the current systems
@@ -3592,7 +3592,7 @@ replacement underperforms the baseline).
 /// the target-side risks section which covers replacement risks.
 @SectionId('CSRA1')
 @DetailedIn(D01CurrentLandscapeAssessment)
-@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-RIS')
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-RIS')
 class CurrentStateRiskAssessment {
   @ContentHelp('''
 Risks that originate from the current systems landscape or from the act of

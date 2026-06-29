@@ -64,7 +64,7 @@ access and authorization concerns.
 /// 9.1. User Management.
 @SectionId('USMGT')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-USE')
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-USE')
 class UserManagement {
   @ContentHelp('''
 Describe how users are organized, categorized, and managed throughout their
@@ -779,7 +779,7 @@ class UserAttributeEntry {
 /// 9.2. Identification and Authentication.
 @SectionId('IDAUT')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-IDE')
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-IDE')
 @SectionId('IDAUT')
 class IdentificationAndAuthentication {
   @ContentHelp('''
@@ -3385,7 +3385,7 @@ class SessionLifecycleMonitoring {
 /// 9.3. Resource Protection.
 @SectionId('REPR2')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-RES')
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-RES')
 class ResourceProtection {
   @ContentHelp('''
 Overview of resource protection strategies covering data, APIs, and file
@@ -5146,7 +5146,7 @@ class PermissionEvaluationBehavior {
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 @SectionId('USAU')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-USA')
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-USA')
 class UserAuthorization {
   @ContentHelp('''
 Define the complete authorization structure that controls what users can do.
@@ -6150,7 +6150,7 @@ class ResourceKeyEntry {
 /// 9.5. Sensitive Data Encryption.
 @SectionId('SEDAEN')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-SEN')
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-SEN')
 class SensitiveDataEncryption {
   @ContentHelp('''
 Define encryption requirements for sensitive data both at rest and in transit.
@@ -7109,7 +7109,7 @@ class KeyCompromiseRecoveryPolicy {
 /// Computer Security Log Management).
 @SectionId('AUANLO')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-AUD')
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-AUD')
 class AuditAndLogging {
   @ContentHelp('''
 Define security audit and logging requirements. Comprehensive logging enables
@@ -7760,7 +7760,7 @@ class RegulatoryAuditSupport {
 /// Authorization Model.
 @SectionId('ROMA')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-ROL')
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-ROL')
 class RoleMatrix {
   @ContentHelp('''
 Authoritative mapping of system roles to the permissions they hold.
@@ -7790,7 +7790,7 @@ authorization model; this section captures the concrete assignment.
 /// across @ContentHelp strings into an explicit section.
 @SectionId('COFR1')
 @DetailedIn(D08SecurityAccessSpecification)
-@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-CMP')
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-CMP')
 class ComplianceFramework {
   @ContentHelp('''
 Explicit mapping from the access/auth controls in this concept to the

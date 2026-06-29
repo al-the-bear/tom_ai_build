@@ -17,7 +17,7 @@ import '../document_stubs.dart';
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-COM')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-COM')
 class ComponentsToUse {
     @ContentHelp('''
 ## Components to Use (Chapter 12)

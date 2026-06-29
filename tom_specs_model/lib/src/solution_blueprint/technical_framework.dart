@@ -85,7 +85,7 @@ Provide an executive summary of the technical framework approach.
 
 /// 8.1. Basic Technical Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-BAS')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-BAS')
 @ContentHelp('''
 Define the foundational technical requirements that govern all system
 development. These decisions have far-reaching implications and should
@@ -2887,7 +2887,7 @@ class TestingStandardsTooling {
 
 /// 8.2. Software Design Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-SOF')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-SOF')
 @ContentHelp('''
 Define software architecture, development environment, and component
 reusability requirements. These decisions shape developer experience,
@@ -5964,7 +5964,7 @@ class ComponentRegistryUpdates {
 
 /// 8.3. Standard Application Software Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-STA')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-STA')
 @ContentHelp('''
 Define requirements for standard software, third-party components, and
 compatibility with existing IT infrastructure. Enterprise integration
@@ -8208,7 +8208,7 @@ class ComplianceVerificationSectionContinuous {
 
 /// 8.4. Hardware Concept Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-HAR')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-HAR')
 @ContentHelp('''
 Define hardware infrastructure requirements for servers, clients, and
 network. Hardware decisions impact performance, availability, cost,
@@ -11245,7 +11245,7 @@ class NetworkSecurityRequirementsCompliance {
 
 /// 8.5. Operations Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-OPE')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-OPE')
 @ContentHelp('''
 Define operational requirements for running and maintaining the system
 in production. Operations excellence directly impacts system availability,
@@ -14371,7 +14371,7 @@ class PostMaintenanceValidationClosure {
 
 /// 8.6. Communication Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-COM')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-COM')
 @ContentHelp('''
 Define network communication requirements including protocols, security,
 and external connectivity. Communication architecture affects performance,
@@ -15695,7 +15695,7 @@ class ConnectivityResilienceOperations {
 
 /// 8.7. System Operation and Monitoring.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-SYS')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-SYS')
 @ContentHelp('''
 Define system operation, monitoring, and capacity planning requirements.
 Day-to-day operations ensure the system runs reliably and efficiently.
@@ -18459,7 +18459,7 @@ class CapacityReviewProcessPlanning {
 
 /// 8.8. Security Requirements.
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-SEC')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-SEC')
 @ContentHelp('''
 Define comprehensive security requirements including IT security standards,
 data protection, privacy, and security auditing. Security is foundational
@@ -20588,7 +20588,7 @@ class SecurityAuditEntryFollowUp {
 /// architecture-related identifier in the model.
 @SectionId('SYARSP')
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-ARC')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-ARC')
 class SystemArchitectureSpec {
   @ContentHelp('''
 System-level architecture description: layering, package structure,

@@ -116,7 +116,7 @@ to pixel-perfect designs with exact typography and spacing.
 @SectionId('DEVIZ')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-VIS')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-VIS')
 class DesignVision {
   @ContentHelp('''
 ## Design Vision (10.1)
@@ -530,7 +530,7 @@ Key usage scenarios for this persona — maps personas to screens/flows.
 Scenarios link to:
 - Screen Inventory (SCR-INV) via requiredScreens
 - Screen Flow (SCF) via navigation paths
-- Use Cases (UC-xxx) via related requirements
+- Use Cases (ISC-xxx) via related requirements
 ''')
   String? content;
 
@@ -569,7 +569,7 @@ class PersonaScenarioEntry {
 @SectionId('SCRDZ')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-SCR')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-SCR')
 @SectionId('SCRDZ')
 class ScreenDescriptions {
   @ContentHelp('''
@@ -750,13 +750,13 @@ class ScreenEntryAccess {
 class ScreenEntryTraceability {
   @Form([
     Field('relatedUseCases', String, 'Related Use Cases',
-        hint: 'UC references this screen serves'),
+        hint: 'ISC references this screen serves'),
     Field('relatedRequirements', String, 'Related Requirements',
-        hint: 'RC references this screen satisfies'),
+        hint: 'RSP references this screen satisfies'),
     Field('relatedBusinessProcesses', String, 'Related Business Processes',
-        hint: 'BP references where this screen appears'),
+        hint: 'TOM references where this screen appears'),
     Field('dataEntities', String, 'Data Entities',
-        hint: 'BDM entity references displayed/edited'),
+        hint: 'IFM entity references displayed/edited'),
     Field('primaryAction', String, 'Primary Action',
         hint: 'Main user action on this screen'),
   ])
@@ -1523,7 +1523,7 @@ Overall content organization and navigation structure.
 @SectionId('SCFLST')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-SCF')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-SCF')
 class ScreenFlowStructure {
   @ContentHelp('''
 ## Screen Flow Structure (10.3)
@@ -2475,7 +2475,7 @@ class NavigationGuardEntryRouting {
 @SectionId('PRLA')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-PRI')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-PRI')
 class PrintLayout {
   @Form([
     Field('printStrategy', String, 'Print Strategy',
@@ -2694,11 +2694,11 @@ class ReportIdentity {
     Field('reportCategory', String, 'Report Category',
         hint: 'Operational / Analytical / Compliance / Financial / Audit'),
     Field('relatedUseCases', String, 'Related Use Cases',
-        hint: 'UC references this report serves'),
+        hint: 'ISC references this report serves'),
     Field('relatedBusinessProcesses', String, 'Related Business Processes',
-        hint: 'BP references where this report is used'),
+        hint: 'TOM references where this report is used'),
     Field('relatedDataEntities', String, 'Related Data Entities',
-        hint: 'BDM entity references used as data sources'),
+        hint: 'IFM entity references used as data sources'),
   ])
   String? content;
 }
@@ -3607,7 +3607,7 @@ class ExportIdentity {
     Field('description', String, 'Description',
         hint: 'Business purpose of this export'),
     Field('relatedDataEntities', String, 'Related Data Entities',
-        hint: 'BDM entity references included in export'),
+        hint: 'IFM entity references included in export'),
     Field('dataSource', String, 'Data Source',
         hint: 'Data source or query reference'),
     Field('dataScope', String, 'Data Scope',
@@ -3930,7 +3930,7 @@ class ExportTemplateEntryAccess {
 @SectionId('ERHACO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-ERR')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-ERR')
 class ErrorHandlingConcept {
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
@@ -4499,7 +4499,7 @@ class RecoveryScenarioEntry {
 @SectionId('HECO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-HLP')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-HLP')
 class HelpConcept {
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
@@ -4947,7 +4947,7 @@ class SupportAccessSelfService {
 @SectionId('ACCESS')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-ACC')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-ACC')
 class Accessibility {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility Overview
@@ -5255,7 +5255,7 @@ class AccessibilityCheckEntryRemediation {
 @SectionId('REDE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-RES')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-RES')
 class ResponsiveDesign {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsive Design Overview
@@ -5338,7 +5338,7 @@ class BreakpointConfiguration {
 class BreakpointEntry {
   @Form([
     Field('breakpointId', String, 'Breakpoint ID', required: true,
-        hint: 'Unique identifier (e.g., BP-MOBILE)'),
+        hint: 'Unique identifier (e.g., TOM-MOBILE)'),
     Field('breakpointName', String, 'Breakpoint Name', required: true,
         hint: 'Mobile, Tablet, Desktop, Large Desktop'),
     Field('minWidth', String, 'Min Width',
@@ -5510,7 +5510,7 @@ class ResponsiveScreenRuleEntry {
 @SectionId('UICO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-COM')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-COM')
 class UiComponents {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Library Overview
@@ -6424,7 +6424,7 @@ class MultiLanguageAndRolloutPlan {
 @SectionId('LOPR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-LOC')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-LOC')
 class LocalizationProcess {
   @Form([
     Field('contentIdentification', String, 'Content Identification',
@@ -6506,7 +6506,7 @@ class LocalizationProcessDeployment {
 @SectionId('TRPR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-TRA')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRA')
 class TranslationProcess {
   @Form([
     Field('translationManagementSystem', String, 'Translation Management System',
@@ -6622,7 +6622,7 @@ class TranslationVendorEntry {
 @SectionId('DOANTR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
-@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-DOC')
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
 class DocumentationAndTraining {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation
@@ -6733,7 +6733,7 @@ class TrainingModuleEntry {
 @SectionId('LACOSE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-LCS')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-LCS')
 class LanguageCountrySelection {
   @Form([
     Field('pickerLocation', String, 'Picker Location',
@@ -6833,7 +6833,7 @@ class LanguageCountrySelectionUx {
 @SectionId('TRRE1')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-REQ')
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-REQ')
 class TranslationRequirements {
   @Form([
     Field('i18nFramework', String, 'I18N Framework',
@@ -6987,7 +6987,7 @@ class SupportedLocaleEntryRollout {
 @SectionId('PROTOT')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-PRO')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-PRO')
 class Prototype {
   // ─────────────────────────────────────────────────────────────────────────
   // Prototype Overview
@@ -7479,7 +7479,7 @@ class ThrowawayPrototypeValue {
 @SectionId('WIANMO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-WIR')
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'XDS-WIR')
 class WireframesAndMockups {
   @ContentHelp('''
 Catalog of wireframes and mockups across the UI. Complements the
