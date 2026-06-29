@@ -12374,7 +12374,7 @@ section-types:
     description: 10.11. UI Components.
   UIDI:
     prefix: uidi
-    description: 10. User Interface Design and Prototype. Seeds → UP.
+    description: "10. Experience & Interface Design. Seeds → XDS."
   UIMS:
     prefix: uims
     description: Summary statistics for user interaction model.

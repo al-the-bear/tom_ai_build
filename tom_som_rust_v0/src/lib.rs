@@ -26186,7 +26186,7 @@ impl ExpectedImprovements {
     }
 }
 
-/// 10. User Interface Design and Prototype. Seeds → UP.
+/// 10. Experience & Interface Design. Seeds → XDS.
 pub struct ExperienceAndInterfaceDesign {
     pub node: som::SomNode,
 }
@@ -26206,22 +26206,22 @@ impl ExperienceAndInterfaceDesign {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 10.1. Design Vision. Seeds → UP.
+    /// 10.1. Design Vision. Seeds → XDS.
     pub fn design_vision(&self) -> DesignVision {
         DesignVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "designVision"))
     }
 
-    /// 10.2. Screen Descriptions. Seeds → UP.
+    /// 10.2. Screen Descriptions. Seeds → XDS.
     pub fn screens(&self) -> ScreenDescriptions {
         ScreenDescriptions::new(self.node.doc(), format!("{}/{}", self.node.path(), "screens"))
     }
 
-    /// 10.3. Screen Flow Structure. Seeds → UP.
+    /// 10.3. Screen Flow Structure. Seeds → XDS.
     pub fn screen_flow(&self) -> ScreenFlowStructure {
         ScreenFlowStructure::new(self.node.doc(), format!("{}/{}", self.node.path(), "screenFlow"))
     }
 
-    /// 10.4. Print Layout. Seeds → UP.
+    /// 10.4. Print Layout. Seeds → XDS.
     pub fn print_layout(&self) -> PrintLayout {
         PrintLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
     }
@@ -26232,27 +26232,27 @@ impl ExperienceAndInterfaceDesign {
     // Authorization Compliance.
     // (skipped: authorizationCompliance has no target type)
 
-    /// 10.7. Error Handling Concept. Seeds → UP.
+    /// 10.7. Error Handling Concept. Seeds → XDS.
     pub fn error_handling(&self) -> ErrorHandlingConcept {
         ErrorHandlingConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
     }
 
-    /// 10.8. Help Concept. Seeds → UP.
+    /// 10.8. Help Concept. Seeds → XDS.
     pub fn help_concept(&self) -> HelpConcept {
         HelpConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "helpConcept"))
     }
 
-    /// 10.9. Accessibility. Seeds → UP.
+    /// 10.9. Accessibility. Seeds → XDS.
     pub fn accessibility(&self) -> Accessibility {
         Accessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
     }
 
-    /// 10.10. Responsive Design. Seeds → UP.
+    /// 10.10. Responsive Design. Seeds → XDS.
     pub fn responsive_design(&self) -> ResponsiveDesign {
         ResponsiveDesign::new(self.node.doc(), format!("{}/{}", self.node.path(), "responsiveDesign"))
     }
 
-    /// 10.11. UI Components. Seeds → UP.
+    /// 10.11. UI Components. Seeds → XDS.
     pub fn ui_components(&self) -> UiComponents {
         UiComponents::new(self.node.doc(), format!("{}/{}", self.node.path(), "uiComponents"))
     }
@@ -26262,7 +26262,7 @@ impl ExperienceAndInterfaceDesign {
         MultiLanguageAndRollout::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguage"))
     }
 
-    /// 10.13. Prototype. Seeds → UP.
+    /// 10.13. Prototype. Seeds → XDS.
     pub fn prototype(&self) -> Prototype {
         Prototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototype"))
     }

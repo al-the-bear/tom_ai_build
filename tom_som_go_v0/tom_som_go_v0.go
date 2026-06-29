@@ -23517,7 +23517,7 @@ func (x *ExpectedImprovements) Content() *ExpectedImprovementsContentForm {
 	return NewExpectedImprovementsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 10. User Interface Design and Prototype. Seeds → UP.
+// 10. Experience & Interface Design. Seeds → XDS.
 type ExperienceAndInterfaceDesign struct {
 	som.SomNode
 }
@@ -23535,22 +23535,22 @@ func (x *ExperienceAndInterfaceDesign) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
-// 10.1. Design Vision. Seeds → UP.
+// 10.1. Design Vision. Seeds → XDS.
 func (x *ExperienceAndInterfaceDesign) DesignVision() *DesignVision {
 	return NewDesignVision(x.Doc(), x.Path() + "/designVision")
 }
 
-// 10.2. Screen Descriptions. Seeds → UP.
+// 10.2. Screen Descriptions. Seeds → XDS.
 func (x *ExperienceAndInterfaceDesign) Screens() *ScreenDescriptions {
 	return NewScreenDescriptions(x.Doc(), x.Path() + "/screens")
 }
 
-// 10.3. Screen Flow Structure. Seeds → UP.
+// 10.3. Screen Flow Structure. Seeds → XDS.
 func (x *ExperienceAndInterfaceDesign) ScreenFlow() *ScreenFlowStructure {
 	return NewScreenFlowStructure(x.Doc(), x.Path() + "/screenFlow")
 }
 
-// 10.4. Print Layout. Seeds → UP.
+// 10.4. Print Layout. Seeds → XDS.
 func (x *ExperienceAndInterfaceDesign) PrintLayout() *PrintLayout {
 	return NewPrintLayout(x.Doc(), x.Path() + "/printLayout")
 }
@@ -23561,27 +23561,27 @@ func (x *ExperienceAndInterfaceDesign) PrintLayout() *PrintLayout {
 // Authorization Compliance.
 // (skipped: authorizationCompliance has no target type)
 
-// 10.7. Error Handling Concept. Seeds → UP.
+// 10.7. Error Handling Concept. Seeds → XDS.
 func (x *ExperienceAndInterfaceDesign) ErrorHandling() *ErrorHandlingConcept {
 	return NewErrorHandlingConcept(x.Doc(), x.Path() + "/errorHandling")
 }
 
-// 10.8. Help Concept. Seeds → UP.
+// 10.8. Help Concept. Seeds → XDS.
 func (x *ExperienceAndInterfaceDesign) HelpConcept() *HelpConcept {
 	return NewHelpConcept(x.Doc(), x.Path() + "/helpConcept")
 }
 
-// 10.9. Accessibility. Seeds → UP.
+// 10.9. Accessibility. Seeds → XDS.
 func (x *ExperienceAndInterfaceDesign) Accessibility() *Accessibility {
 	return NewAccessibility(x.Doc(), x.Path() + "/accessibility")
 }
 
-// 10.10. Responsive Design. Seeds → UP.
+// 10.10. Responsive Design. Seeds → XDS.
 func (x *ExperienceAndInterfaceDesign) ResponsiveDesign() *ResponsiveDesign {
 	return NewResponsiveDesign(x.Doc(), x.Path() + "/responsiveDesign")
 }
 
-// 10.11. UI Components. Seeds → UP.
+// 10.11. UI Components. Seeds → XDS.
 func (x *ExperienceAndInterfaceDesign) UiComponents() *UiComponents {
 	return NewUiComponents(x.Doc(), x.Path() + "/uiComponents")
 }
@@ -23591,7 +23591,7 @@ func (x *ExperienceAndInterfaceDesign) MultiLanguage() *MultiLanguageAndRollout 
 	return NewMultiLanguageAndRollout(x.Doc(), x.Path() + "/multiLanguage")
 }
 
-// 10.13. Prototype. Seeds → UP.
+// 10.13. Prototype. Seeds → XDS.
 func (x *ExperienceAndInterfaceDesign) Prototype() *Prototype {
 	return NewPrototype(x.Doc(), x.Path() + "/prototype")
 }

@@ -18127,7 +18127,7 @@ class ExpectedImprovements(SomNode):
         return ExpectedImprovementsContentForm(self.doc, f"{self.path}/content")
 
 class ExperienceAndInterfaceDesign(SomNode):
-    """10. User Interface Design and Prototype. Seeds → UP."""
+    """10. Experience & Interface Design. Seeds → XDS."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -18139,22 +18139,22 @@ class ExperienceAndInterfaceDesign(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 10.1. Design Vision. Seeds → UP.
+    # 10.1. Design Vision. Seeds → XDS.
     @property
     def designVision(self):
         return DesignVision(self.doc, f"{self.path}/designVision")
 
-    # 10.2. Screen Descriptions. Seeds → UP.
+    # 10.2. Screen Descriptions. Seeds → XDS.
     @property
     def screens(self):
         return ScreenDescriptions(self.doc, f"{self.path}/screens")
 
-    # 10.3. Screen Flow Structure. Seeds → UP.
+    # 10.3. Screen Flow Structure. Seeds → XDS.
     @property
     def screenFlow(self):
         return ScreenFlowStructure(self.doc, f"{self.path}/screenFlow")
 
-    # 10.4. Print Layout. Seeds → UP.
+    # 10.4. Print Layout. Seeds → XDS.
     @property
     def printLayout(self):
         return PrintLayout(self.doc, f"{self.path}/printLayout")
@@ -18169,27 +18169,27 @@ class ExperienceAndInterfaceDesign(SomNode):
     def authorizationCompliance(self):
         return None  # (skipped: no target type)
 
-    # 10.7. Error Handling Concept. Seeds → UP.
+    # 10.7. Error Handling Concept. Seeds → XDS.
     @property
     def errorHandling(self):
         return ErrorHandlingConcept(self.doc, f"{self.path}/errorHandling")
 
-    # 10.8. Help Concept. Seeds → UP.
+    # 10.8. Help Concept. Seeds → XDS.
     @property
     def helpConcept(self):
         return HelpConcept(self.doc, f"{self.path}/helpConcept")
 
-    # 10.9. Accessibility. Seeds → UP.
+    # 10.9. Accessibility. Seeds → XDS.
     @property
     def accessibility(self):
         return Accessibility(self.doc, f"{self.path}/accessibility")
 
-    # 10.10. Responsive Design. Seeds → UP.
+    # 10.10. Responsive Design. Seeds → XDS.
     @property
     def responsiveDesign(self):
         return ResponsiveDesign(self.doc, f"{self.path}/responsiveDesign")
 
-    # 10.11. UI Components. Seeds → UP.
+    # 10.11. UI Components. Seeds → XDS.
     @property
     def uiComponents(self):
         return UiComponents(self.doc, f"{self.path}/uiComponents")
@@ -18199,7 +18199,7 @@ class ExperienceAndInterfaceDesign(SomNode):
     def multiLanguage(self):
         return MultiLanguageAndRollout(self.doc, f"{self.path}/multiLanguage")
 
-    # 10.13. Prototype. Seeds → UP.
+    # 10.13. Prototype. Seeds → XDS.
     @property
     def prototype(self):
         return Prototype(self.doc, f"{self.path}/prototype")

@@ -20080,7 +20080,7 @@ class ExpectedImprovements extends SomNode {
   }
 }
 
-// 10. User Interface Design and Prototype. Seeds → UP.
+// 10. Experience & Interface Design. Seeds → XDS.
 class ExperienceAndInterfaceDesign extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -20094,22 +20094,22 @@ class ExperienceAndInterfaceDesign extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 10.1. Design Vision. Seeds → UP.
+  // 10.1. Design Vision. Seeds → XDS.
   get designVision() {
     return new DesignVision(this.doc, this.path + "/designVision");
   }
 
-  // 10.2. Screen Descriptions. Seeds → UP.
+  // 10.2. Screen Descriptions. Seeds → XDS.
   get screens() {
     return new ScreenDescriptions(this.doc, this.path + "/screens");
   }
 
-  // 10.3. Screen Flow Structure. Seeds → UP.
+  // 10.3. Screen Flow Structure. Seeds → XDS.
   get screenFlow() {
     return new ScreenFlowStructure(this.doc, this.path + "/screenFlow");
   }
 
-  // 10.4. Print Layout. Seeds → UP.
+  // 10.4. Print Layout. Seeds → XDS.
   get printLayout() {
     return new PrintLayout(this.doc, this.path + "/printLayout");
   }
@@ -20124,27 +20124,27 @@ class ExperienceAndInterfaceDesign extends SomNode {
     return null; // (skipped: no target type)
   }
 
-  // 10.7. Error Handling Concept. Seeds → UP.
+  // 10.7. Error Handling Concept. Seeds → XDS.
   get errorHandling() {
     return new ErrorHandlingConcept(this.doc, this.path + "/errorHandling");
   }
 
-  // 10.8. Help Concept. Seeds → UP.
+  // 10.8. Help Concept. Seeds → XDS.
   get helpConcept() {
     return new HelpConcept(this.doc, this.path + "/helpConcept");
   }
 
-  // 10.9. Accessibility. Seeds → UP.
+  // 10.9. Accessibility. Seeds → XDS.
   get accessibility() {
     return new Accessibility(this.doc, this.path + "/accessibility");
   }
 
-  // 10.10. Responsive Design. Seeds → UP.
+  // 10.10. Responsive Design. Seeds → XDS.
   get responsiveDesign() {
     return new ResponsiveDesign(this.doc, this.path + "/responsiveDesign");
   }
 
-  // 10.11. UI Components. Seeds → UP.
+  // 10.11. UI Components. Seeds → XDS.
   get uiComponents() {
     return new UiComponents(this.doc, this.path + "/uiComponents");
   }
@@ -20154,7 +20154,7 @@ class ExperienceAndInterfaceDesign extends SomNode {
     return new MultiLanguageAndRollout(this.doc, this.path + "/multiLanguage");
   }
 
-  // 10.13. Prototype. Seeds → UP.
+  // 10.13. Prototype. Seeds → XDS.
   get prototype_() {
     return new Prototype(this.doc, this.path + "/prototype");
   }

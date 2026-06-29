@@ -12539,23 +12539,23 @@ class ExpectedImprovements extends SomNode {
   ExpectedImprovementsContentForm get content => ExpectedImprovementsContentForm(doc, '$path/content');
 }
 
-/// 10. User Interface Design and Prototype. Seeds → UP.
+/// 10. Experience & Interface Design. Seeds → XDS.
 class ExperienceAndInterfaceDesign extends SomNode {
   ExperienceAndInterfaceDesign(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 10.1. Design Vision. Seeds → UP.
+  /// 10.1. Design Vision. Seeds → XDS.
   DesignVision get designVision => DesignVision(doc, '$path/designVision');
 
-  /// 10.2. Screen Descriptions. Seeds → UP.
+  /// 10.2. Screen Descriptions. Seeds → XDS.
   ScreenDescriptions get screens => ScreenDescriptions(doc, '$path/screens');
 
-  /// 10.3. Screen Flow Structure. Seeds → UP.
+  /// 10.3. Screen Flow Structure. Seeds → XDS.
   ScreenFlowStructure get screenFlow => ScreenFlowStructure(doc, '$path/screenFlow');
 
-  /// 10.4. Print Layout. Seeds → UP.
+  /// 10.4. Print Layout. Seeds → XDS.
   PrintLayout get printLayout => PrintLayout(doc, '$path/printLayout');
 
   /// Data Structure Alignment.
@@ -12564,25 +12564,25 @@ class ExperienceAndInterfaceDesign extends SomNode {
   /// Authorization Compliance.
   // (skipped: authorizationCompliance has no target type)
 
-  /// 10.7. Error Handling Concept. Seeds → UP.
+  /// 10.7. Error Handling Concept. Seeds → XDS.
   ErrorHandlingConcept get errorHandling => ErrorHandlingConcept(doc, '$path/errorHandling');
 
-  /// 10.8. Help Concept. Seeds → UP.
+  /// 10.8. Help Concept. Seeds → XDS.
   HelpConcept get helpConcept => HelpConcept(doc, '$path/helpConcept');
 
-  /// 10.9. Accessibility. Seeds → UP.
+  /// 10.9. Accessibility. Seeds → XDS.
   Accessibility get accessibility => Accessibility(doc, '$path/accessibility');
 
-  /// 10.10. Responsive Design. Seeds → UP.
+  /// 10.10. Responsive Design. Seeds → XDS.
   ResponsiveDesign get responsiveDesign => ResponsiveDesign(doc, '$path/responsiveDesign');
 
-  /// 10.11. UI Components. Seeds → UP.
+  /// 10.11. UI Components. Seeds → XDS.
   UiComponents get uiComponents => UiComponents(doc, '$path/uiComponents');
 
   /// 10.12. Multi-language and Rollout Support.
   MultiLanguageAndRollout get multiLanguage => MultiLanguageAndRollout(doc, '$path/multiLanguage');
 
-  /// 10.13. Prototype. Seeds → UP.
+  /// 10.13. Prototype. Seeds → XDS.
   Prototype get prototype => Prototype(doc, '$path/prototype');
 
   /// 10.14. Wireframes and Mockups..

@@ -16030,37 +16030,37 @@ void expected_improvements_init(ExpectedImprovements *self, SpecDocument *doc, c
 void expected_improvements_free(ExpectedImprovements *self);
 ExpectedImprovementsContentForm expected_improvements_content(const ExpectedImprovements *self);
 
-// 10. User Interface Design and Prototype. Seeds → UP.
+// 10. Experience & Interface Design. Seeds → XDS.
 // Binds a ExperienceAndInterfaceDesign facade to a document and a path (path copied).
 void experience_and_interface_design_init(ExperienceAndInterfaceDesign *self, SpecDocument *doc, const char *path);
 void experience_and_interface_design_free(ExperienceAndInterfaceDesign *self);
 char *experience_and_interface_design_content(const ExperienceAndInterfaceDesign *self);
 void experience_and_interface_design_set_content(ExperienceAndInterfaceDesign *self, const char *value);
-// 10.1. Design Vision. Seeds → UP.
+// 10.1. Design Vision. Seeds → XDS.
 DesignVision experience_and_interface_design_design_vision(const ExperienceAndInterfaceDesign *self);
-// 10.2. Screen Descriptions. Seeds → UP.
+// 10.2. Screen Descriptions. Seeds → XDS.
 ScreenDescriptions experience_and_interface_design_screens(const ExperienceAndInterfaceDesign *self);
-// 10.3. Screen Flow Structure. Seeds → UP.
+// 10.3. Screen Flow Structure. Seeds → XDS.
 ScreenFlowStructure experience_and_interface_design_screen_flow(const ExperienceAndInterfaceDesign *self);
-// 10.4. Print Layout. Seeds → UP.
+// 10.4. Print Layout. Seeds → XDS.
 PrintLayout experience_and_interface_design_print_layout(const ExperienceAndInterfaceDesign *self);
 // Data Structure Alignment.
 // (skipped: dataStructureAlignment has no target type)
 // Authorization Compliance.
 // (skipped: authorizationCompliance has no target type)
-// 10.7. Error Handling Concept. Seeds → UP.
+// 10.7. Error Handling Concept. Seeds → XDS.
 ErrorHandlingConcept experience_and_interface_design_error_handling(const ExperienceAndInterfaceDesign *self);
-// 10.8. Help Concept. Seeds → UP.
+// 10.8. Help Concept. Seeds → XDS.
 HelpConcept experience_and_interface_design_help_concept(const ExperienceAndInterfaceDesign *self);
-// 10.9. Accessibility. Seeds → UP.
+// 10.9. Accessibility. Seeds → XDS.
 Accessibility experience_and_interface_design_accessibility(const ExperienceAndInterfaceDesign *self);
-// 10.10. Responsive Design. Seeds → UP.
+// 10.10. Responsive Design. Seeds → XDS.
 ResponsiveDesign experience_and_interface_design_responsive_design(const ExperienceAndInterfaceDesign *self);
-// 10.11. UI Components. Seeds → UP.
+// 10.11. UI Components. Seeds → XDS.
 UiComponents experience_and_interface_design_ui_components(const ExperienceAndInterfaceDesign *self);
 // 10.12. Multi-language and Rollout Support.
 MultiLanguageAndRollout experience_and_interface_design_multi_language(const ExperienceAndInterfaceDesign *self);
-// 10.13. Prototype. Seeds → UP.
+// 10.13. Prototype. Seeds → XDS.
 Prototype experience_and_interface_design_prototype(const ExperienceAndInterfaceDesign *self);
 // 10.14. Wireframes and Mockups..
 // Returns the list view; element type: WireframesAndMockups (construct from item paths).

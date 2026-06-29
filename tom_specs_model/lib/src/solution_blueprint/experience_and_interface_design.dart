@@ -1,6 +1,6 @@
-/// Section 10: User Interface Design and Prototype.
+/// Section 10: Experience & Interface Design.
 ///
-/// Seeds → UP, SR, TR depending on subsection.
+/// Seeds → XDS, TRP, ATS depending on subsection.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -9,9 +9,9 @@ import '../document_stubs.dart';
 
 
 
-/// 10. User Interface Design and Prototype. Seeds → UP.
+/// 10. Experience & Interface Design. Seeds → XDS.
 @SectionId('UIDI')
-@Comment('Seeds → UP')
+@Comment('Seeds → XDS')
 class ExperienceAndInterfaceDesign {
   @ContentHelp('''
 Provide an executive overview of the User Interface Design, establishing the
@@ -54,22 +54,22 @@ to pixel-perfect designs with exact typography and spacing.
 
 **Cross-references:**
 - Data Model (section 7) → field mappings and data types
-- Authorization Concept (section 9) → role-based UI visibility
+- Security & Access Model (section 9) → role-based UI visibility
 - Business Processes (section 6) → user task flows
 - Requirements (section 4) → functional requirements for each screen
 ''')
   String? content;
 
-  /// 10.1. Design Vision. Seeds → UP.
+  /// 10.1. Design Vision. Seeds → XDS.
   DesignVision designVision = DesignVision();
 
-  /// 10.2. Screen Descriptions. Seeds → UP.
+  /// 10.2. Screen Descriptions. Seeds → XDS.
   ScreenDescriptions screens = ScreenDescriptions();
 
-  /// 10.3. Screen Flow Structure. Seeds → UP.
+  /// 10.3. Screen Flow Structure. Seeds → XDS.
   ScreenFlowStructure screenFlow = ScreenFlowStructure();
 
-  /// 10.4. Print Layout. Seeds → UP.
+  /// 10.4. Print Layout. Seeds → XDS.
   PrintLayout printLayout = PrintLayout();
 
   /// Data Structure Alignment.
@@ -78,25 +78,25 @@ to pixel-perfect designs with exact typography and spacing.
   /// Authorization Compliance.
   TextSection authorizationCompliance = TextSection();
 
-  /// 10.7. Error Handling Concept. Seeds → UP.
+  /// 10.7. Error Handling Concept. Seeds → XDS.
   ErrorHandlingConcept errorHandling = ErrorHandlingConcept();
 
-  /// 10.8. Help Concept. Seeds → UP.
+  /// 10.8. Help Concept. Seeds → XDS.
   HelpConcept helpConcept = HelpConcept();
 
-  /// 10.9. Accessibility. Seeds → UP.
+  /// 10.9. Accessibility. Seeds → XDS.
   Accessibility accessibility = Accessibility();
 
-  /// 10.10. Responsive Design. Seeds → UP.
+  /// 10.10. Responsive Design. Seeds → XDS.
   ResponsiveDesign responsiveDesign = ResponsiveDesign();
 
-  /// 10.11. UI Components. Seeds → UP.
+  /// 10.11. UI Components. Seeds → XDS.
   UiComponents uiComponents = UiComponents();
 
   /// 10.12. Multi-language and Rollout Support.
   MultiLanguageAndRollout multiLanguage = MultiLanguageAndRollout();
 
-  /// 10.13. Prototype. Seeds → UP.
+  /// 10.13. Prototype. Seeds → XDS.
   Prototype prototype = Prototype();
 
   /// 10.14. Wireframes and Mockups..

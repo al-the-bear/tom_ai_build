@@ -20095,7 +20095,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 10. User Interface Design and Prototype. Seeds → UP.
+  // 10. Experience & Interface Design. Seeds → XDS.
   public static final class ExperienceAndInterfaceDesign extends SomNode {
     public ExperienceAndInterfaceDesign(SpecDocument doc, String path) {
       super(doc, path);
@@ -20110,22 +20110,22 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 10.1. Design Vision. Seeds → UP.
+    // 10.1. Design Vision. Seeds → XDS.
     public DesignVision designVision() {
       return new DesignVision(doc, path + "/designVision");
     }
 
-    // 10.2. Screen Descriptions. Seeds → UP.
+    // 10.2. Screen Descriptions. Seeds → XDS.
     public ScreenDescriptions screens() {
       return new ScreenDescriptions(doc, path + "/screens");
     }
 
-    // 10.3. Screen Flow Structure. Seeds → UP.
+    // 10.3. Screen Flow Structure. Seeds → XDS.
     public ScreenFlowStructure screenFlow() {
       return new ScreenFlowStructure(doc, path + "/screenFlow");
     }
 
-    // 10.4. Print Layout. Seeds → UP.
+    // 10.4. Print Layout. Seeds → XDS.
     public PrintLayout printLayout() {
       return new PrintLayout(doc, path + "/printLayout");
     }
@@ -20136,27 +20136,27 @@ public final class TomSomV0 {
     // Authorization Compliance.
     // (skipped: authorizationCompliance has no target type)
 
-    // 10.7. Error Handling Concept. Seeds → UP.
+    // 10.7. Error Handling Concept. Seeds → XDS.
     public ErrorHandlingConcept errorHandling() {
       return new ErrorHandlingConcept(doc, path + "/errorHandling");
     }
 
-    // 10.8. Help Concept. Seeds → UP.
+    // 10.8. Help Concept. Seeds → XDS.
     public HelpConcept helpConcept() {
       return new HelpConcept(doc, path + "/helpConcept");
     }
 
-    // 10.9. Accessibility. Seeds → UP.
+    // 10.9. Accessibility. Seeds → XDS.
     public Accessibility accessibility() {
       return new Accessibility(doc, path + "/accessibility");
     }
 
-    // 10.10. Responsive Design. Seeds → UP.
+    // 10.10. Responsive Design. Seeds → XDS.
     public ResponsiveDesign responsiveDesign() {
       return new ResponsiveDesign(doc, path + "/responsiveDesign");
     }
 
-    // 10.11. UI Components. Seeds → UP.
+    // 10.11. UI Components. Seeds → XDS.
     public UiComponents uiComponents() {
       return new UiComponents(doc, path + "/uiComponents");
     }
@@ -20166,7 +20166,7 @@ public final class TomSomV0 {
       return new MultiLanguageAndRollout(doc, path + "/multiLanguage");
     }
 
-    // 10.13. Prototype. Seeds → UP.
+    // 10.13. Prototype. Seeds → XDS.
     public Prototype prototype() {
       return new Prototype(doc, path + "/prototype");
     }
