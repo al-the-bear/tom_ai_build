@@ -19,10 +19,10 @@ import '../solution_blueprint/solution_blueprint.dart';
   description: 'Complete requirements catalog — functional, technical, '
       'security, organizational — with traceability, relationships, and '
       'coverage against goals, use cases, and tests.',
-  basedOn: [SolutionBlueprint],
+  basedOn: [D00SolutionBlueprint],
 )
 @SectionId('RSP')
-class RequirementsSpecification {
+class D04RequirementsSpecification {
   @ContentHelp('Executive overview of the requirements catalog and its '
       'traceability model.')
   String? content;

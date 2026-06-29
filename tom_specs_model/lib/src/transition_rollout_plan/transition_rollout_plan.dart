@@ -22,10 +22,10 @@ import '../solution_blueprint/solution_blueprint.dart';
       'translation, documentation and training, rollout plan, migration '
       'plan, user manuals, training materials, pilot, cutover, knowledge '
       'transfer, and warranty/support.',
-  basedOn: [SolutionBlueprint],
+  basedOn: [D00SolutionBlueprint],
 )
 @SectionId('TRP')
-class TransitionRolloutPlan {
+class D12TransitionRolloutPlan {
   @ContentHelp('Executive overview of the rollout approach.')
   String? content;
 

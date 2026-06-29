@@ -20,10 +20,10 @@ import '../solution_blueprint/solution_blueprint.dart';
       'prioritization, acceptance criteria summary, test strategy, and '
       'the full acceptance plan (criteria, process, UAT, defects, '
       'sign-off, warranty).',
-  basedOn: [SolutionBlueprint],
+  basedOn: [D00SolutionBlueprint],
 )
 @SectionId('QAP')
-class QualityAcceptancePlan {
+class D10QualityAcceptancePlan {
   @ContentHelp('Executive overview of the business quality plan.')
   String? content;
 

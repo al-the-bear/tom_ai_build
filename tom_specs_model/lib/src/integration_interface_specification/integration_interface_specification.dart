@@ -19,10 +19,10 @@ import '../solution_blueprint/solution_blueprint.dart';
   description: 'Complete specification of interactions between the target '
       'system and external systems — inventory, patterns, testing, '
       'dependencies, migration, operations, and error handling.',
-  basedOn: [SolutionBlueprint],
+  basedOn: [D00SolutionBlueprint],
 )
 @SectionId('IIS')
-class IntegrationInterfaceSpecification {
+class D07IntegrationInterfaceSpecification {
   @ContentHelp('Executive overview of the system-boundary interaction '
       'specification.')
   String? content;

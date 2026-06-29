@@ -21,10 +21,10 @@ import '../solution_blueprint/solution_blueprint.dart';
       'screens, flow, print, errors, help, accessibility, responsive '
       'design, components, language selection, prototype, and '
       'wireframes/mockups.',
-  basedOn: [SolutionBlueprint],
+  basedOn: [D00SolutionBlueprint],
 )
 @SectionId('XDS')
-class ExperienceDesignSpecification {
+class D09ExperienceDesignSpecification {
   @ContentHelp('Executive overview of the UI prototype and design system.')
   String? content;
 

@@ -12,7 +12,7 @@ import '../document_stubs.dart';
 /// 7. Business Object and Data Model. Seeds → BDM.
 @SectionId('BODM')
 @Comment('Seeds → BDM')
-@MapsTo(InformationModel)
+@MapsTo(D03InformationModel)
 class InformationAndDataModel {
   @ContentHelp('''
 Conceptual overview of the business data the system manages. This chapter
@@ -49,7 +49,7 @@ BDM (Business Data Model) document.
 
 /// 7.1. Data Model.
 @SectionId('DATMD')
-@MapsTo(InformationModel)
+@MapsTo(D03InformationModel)
 class DataModel {
   @ContentHelp('''
 Conceptual data model from a business perspective. Defines the entities,
@@ -494,8 +494,8 @@ class MigrationMappingEntry {
 
 /// 7.1.2. Entity Relationships.
 @SectionId('ENREL')
-@DetailedIn(InformationModel)
-@SecondLevelSectionId(InformationModel, 'BDM-REL')
+@DetailedIn(D03InformationModel)
+@SecondLevelSectionId(D03InformationModel, 'BDM-REL')
 class EntityRelationships {
   @ContentHelp('''
 Relationship specifications between data entities. Captures cardinality,
@@ -623,8 +623,8 @@ class EntityRelationshipEntry {
 
 /// 7.1.4. Data Classification.
 @SectionId('DATCL')
-@DetailedIn(InformationModel)
-@SecondLevelSectionId(InformationModel, 'BDM-CLA')
+@DetailedIn(D03InformationModel)
+@SecondLevelSectionId(D03InformationModel, 'BDM-CLA')
 class DataClassification {
   // ---------------------------------------------------------------------------
   // Classification Overview (4 fields)
@@ -800,7 +800,7 @@ class AccessRestrictionEntry {
 
 /// 7.2. Business Object Model.
 @SectionId('BJOMD')
-@MapsTo(InformationModel)
+@MapsTo(D03InformationModel)
 class BusinessObjectModel {
   @ContentHelp('''
 Key business objects, their properties, states, and behaviors. Following
@@ -1258,7 +1258,7 @@ class ObjectInvariantEntry {
 ///
 /// Business functions, their decomposition, and relationships to data objects.
 @SectionId('FUMO')
-@MapsTo(InformationModel)
+@MapsTo(D03InformationModel)
 class FunctionModel {
   // ---------------------------------------------------------------------------
   // Function Decomposition Overview (4 fields)
@@ -1609,8 +1609,8 @@ class RuleExampleEntry {
 /// Attribute-level dictionary that complements the entity overview
 ///..
 @SectionId('DADI')
-@DetailedIn(InformationModel)
-@SecondLevelSectionId(InformationModel, 'BDM-DIC')
+@DetailedIn(D03InformationModel)
+@SecondLevelSectionId(D03InformationModel, 'BDM-DIC')
 class DataDictionary {
   @ContentHelp('''
 Single authoritative registry for data attributes across the system.
@@ -1637,8 +1637,8 @@ Single authoritative registry for data attributes across the system.
 /// form fields; this section captures rules that span multiple fields or
 /// entities.
 @SectionId('VACO')
-@DetailedIn(InformationModel)
-@SecondLevelSectionId(InformationModel, 'BDM-VAL')
+@DetailedIn(D03InformationModel)
+@SecondLevelSectionId(D03InformationModel, 'BDM-VAL')
 class ValidationConstraints {
   @ContentHelp('''
 Business-level validation rules enforced on data. Distinct from schema
@@ -1664,8 +1664,8 @@ constraints (which are database-level) and from per-field form hints
 ///
 /// Cross-entity integrity rules beyond simple referential integrity.
 @SectionId('INCO')
-@DetailedIn(InformationModel)
-@SecondLevelSectionId(InformationModel, 'BDM-CON')
+@DetailedIn(D03InformationModel)
+@SecondLevelSectionId(D03InformationModel, 'BDM-CON')
 class IntegrityConstraints {
   @ContentHelp('''
 Integrity rules that preserve invariants across the data model.

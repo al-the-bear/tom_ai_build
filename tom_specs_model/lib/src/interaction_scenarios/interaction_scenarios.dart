@@ -19,10 +19,10 @@ import '../solution_blueprint/solution_blueprint.dart';
   description: 'Use cases derived from the target process steps and actor '
       'interactions — catalog, scenarios, diagrams, end-to-end test '
       'scenarios, and traceability.',
-  basedOn: [SolutionBlueprint],
+  basedOn: [D00SolutionBlueprint],
 )
 @SectionId('ISC')
-class InteractionScenarios {
+class D05InteractionScenarios {
   @ContentHelp('Executive overview of the use-case model and its coverage.')
   String? content;
 

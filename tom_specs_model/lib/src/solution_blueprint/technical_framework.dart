@@ -9,7 +9,7 @@ import '../document_stubs.dart';
 
 /// 8. Technical Framework Concept. Seeds → TR.
 @Comment('Seeds → TR')
-@MapsTo(ArchitectureTechnologySpecification)
+@MapsTo(D06ArchitectureTechnologySpecification)
 @ContentHelp('''
 Describe the complete technical foundation for building and operating
 the target system. This section seeds the Technical Requirements (TR)
@@ -84,8 +84,8 @@ Provide an executive summary of the technical framework approach.
 }
 
 /// 8.1. Basic Technical Requirements.
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-BAS')
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-BAS')
 @ContentHelp('''
 Define the foundational technical requirements that govern all system
 development. These decisions have far-reaching implications and should
@@ -2886,8 +2886,8 @@ class TestingStandardsTooling {
 }
 
 /// 8.2. Software Design Requirements.
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-SOF')
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-SOF')
 @ContentHelp('''
 Define software architecture, development environment, and component
 reusability requirements. These decisions shape developer experience,
@@ -5963,8 +5963,8 @@ class ComponentRegistryUpdates {
 }
 
 /// 8.3. Standard Application Software Requirements.
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-STA')
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-STA')
 @ContentHelp('''
 Define requirements for standard software, third-party components, and
 compatibility with existing IT infrastructure. Enterprise integration
@@ -8207,8 +8207,8 @@ class ComplianceVerificationSectionContinuous {
 }
 
 /// 8.4. Hardware Concept Requirements.
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-HAR')
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-HAR')
 @ContentHelp('''
 Define hardware infrastructure requirements for servers, clients, and
 network. Hardware decisions impact performance, availability, cost,
@@ -11244,8 +11244,8 @@ class NetworkSecurityRequirementsCompliance {
 }
 
 /// 8.5. Operations Requirements.
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-OPE')
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-OPE')
 @ContentHelp('''
 Define operational requirements for running and maintaining the system
 in production. Operations excellence directly impacts system availability,
@@ -14370,8 +14370,8 @@ class PostMaintenanceValidationClosure {
 }
 
 /// 8.6. Communication Requirements.
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-COM')
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-COM')
 @ContentHelp('''
 Define network communication requirements including protocols, security,
 and external connectivity. Communication architecture affects performance,
@@ -15694,8 +15694,8 @@ class ConnectivityResilienceOperations {
 }
 
 /// 8.7. System Operation and Monitoring.
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-SYS')
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-SYS')
 @ContentHelp('''
 Define system operation, monitoring, and capacity planning requirements.
 Day-to-day operations ensure the system runs reliably and efficiently.
@@ -18458,8 +18458,8 @@ class CapacityReviewProcessPlanning {
 }
 
 /// 8.8. Security Requirements.
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-SEC')
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-SEC')
 @ContentHelp('''
 Define comprehensive security requirements including IT security standards,
 data protection, privacy, and security auditing. Security is foundational
@@ -20587,8 +20587,8 @@ class SecurityAuditEntryFollowUp {
 /// Class named `SystemArchitectureSpec` to avoid colliding with any other
 /// architecture-related identifier in the model.
 @SectionId('SYARSP')
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-ARC')
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-ARC')
 class SystemArchitectureSpec {
   @ContentHelp('''
 System-level architecture description: layering, package structure,

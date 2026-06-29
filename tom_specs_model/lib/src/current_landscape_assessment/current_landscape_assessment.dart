@@ -20,10 +20,10 @@ import '../solution_blueprint/solution_blueprint.dart';
   description: 'Detailed analysis of the current systems and processes the '
       'target system will replace — landscape, pain points, metrics, '
       'risks, replacement inventory, and migration considerations.',
-  basedOn: [SolutionBlueprint],
+  basedOn: [D00SolutionBlueprint],
 )
 @SectionId('CLA')
-class CurrentLandscapeAssessment {
+class D01CurrentLandscapeAssessment {
   @ContentHelp('Executive overview of the current-state analysis that '
       'motivates the project.')
   String? content;

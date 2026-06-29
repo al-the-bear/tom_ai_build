@@ -13,7 +13,7 @@ import '../document_stubs.dart';
 /// Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
 /// CS together with the systems-to-replace inventory.
 @SectionId('CUSA')
-@MapsTo(CurrentLandscapeAssessment)
+@MapsTo(D01CurrentLandscapeAssessment)
 class CurrentLandscape {
   @ContentHelp('''
 Executive summary of the current state: existing systems landscape, business
@@ -53,8 +53,8 @@ document alongside the systems-to-replace inventory.
 /// Overview of the current systems in use, their roles, technology stacks,
 /// and limitations. Provides the foundation for understanding the AS-IS state.
 @SectionId('ESLAN')
-@DetailedIn(CurrentLandscapeAssessment)
-@SecondLevelSectionId(CurrentLandscapeAssessment, 'CS-SYS')
+@DetailedIn(D01CurrentLandscapeAssessment)
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-SYS')
 class ExistingSystemsLandscape {
   @ContentType('description', 'High-level overview of the existing systems '
       'landscape. Include a context diagram showing how systems interact.')
@@ -889,8 +889,8 @@ class SystemIntegrationOwnership {
 /// gap analysis, migration planning, and ensuring the new system meets
 /// operational needs.
 @SectionId('CUBUPR')
-@DetailedIn(CurrentLandscapeAssessment)
-@SecondLevelSectionId(CurrentLandscapeAssessment, 'CS-PRO')
+@DetailedIn(D01CurrentLandscapeAssessment)
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-PRO')
 class CurrentBusinessProcesses {
   String? content;
 
@@ -1638,8 +1638,8 @@ class ProcessMetricEntryTargets {
 /// compliance gaps, and user frustrations in the current state.
 /// Each pain point includes business impact quantification and root cause.
 @SectionId('PPAG')
-@DetailedIn(CurrentLandscapeAssessment)
-@SecondLevelSectionId(CurrentLandscapeAssessment, 'CS-PAI')
+@DetailedIn(D01CurrentLandscapeAssessment)
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-PAI')
 class PainPointsAndGaps {
   @ContentHelp('''
 Executive overview of pain points and gaps in the current state.
@@ -2156,8 +2156,8 @@ class GapEntryResolution {
 /// data lives, data quality issues, duplication, ownership, volumes, growth
 /// trends, retention policies, and governance structures.
 @SectionId('CUDALA')
-@DetailedIn(CurrentLandscapeAssessment)
-@SecondLevelSectionId(CurrentLandscapeAssessment, 'CS-DAT')
+@DetailedIn(D01CurrentLandscapeAssessment)
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-DAT')
 class CurrentDataLandscape {
   @ContentHelp('''
 Executive overview of the current data landscape. Summarize the overall data
@@ -3561,8 +3561,8 @@ class MasterDataDomainEntryGovernance {
 /// response times, user counts. Used to size the target system and to
 /// derive non-functional requirements.
 @SectionId('CUOPME')
-@DetailedIn(CurrentLandscapeAssessment)
-@SecondLevelSectionId(CurrentLandscapeAssessment, 'CS-MET')
+@DetailedIn(D01CurrentLandscapeAssessment)
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-MET')
 class CurrentOperationalMetrics {
   @ContentHelp('''
 Captures measurable operational characteristics of the current systems
@@ -3591,8 +3591,8 @@ replacement underperforms the baseline).
 /// Risks tied to the current state and to its replacement. Distinct from
 /// the target-side risks section which covers replacement risks.
 @SectionId('CSRA1')
-@DetailedIn(CurrentLandscapeAssessment)
-@SecondLevelSectionId(CurrentLandscapeAssessment, 'CS-RIS')
+@DetailedIn(D01CurrentLandscapeAssessment)
+@SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CS-RIS')
 class CurrentStateRiskAssessment {
   @ContentHelp('''
 Risks that originate from the current systems landscape or from the act of

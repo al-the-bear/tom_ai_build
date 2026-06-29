@@ -20,10 +20,10 @@ import '../solution_blueprint/solution_blueprint.dart';
   description: 'Complete access and authorization specification — user '
       'management, authentication, resource protection, authorization, '
       'encryption, audit, role matrix, and compliance framework.',
-  basedOn: [SolutionBlueprint],
+  basedOn: [D00SolutionBlueprint],
 )
 @SectionId('SAS')
-class SecurityAccessSpecification {
+class D08SecurityAccessSpecification {
   @ContentHelp('Executive overview of the access and authorization concept.')
   String? content;
 

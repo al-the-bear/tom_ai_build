@@ -5,9 +5,9 @@ import 'package:tom_specs_model/tom_specs_model.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('SolutionBlueprint', () {
+  group('D00SolutionBlueprint', () {
     test('can be constructed with all defaults', () {
-      final pd = SolutionBlueprint();
+      final pd = D00SolutionBlueprint();
       expect(pd.documentControl.header.content, isNull);
       expect(pd.currentLandscape.content, isNull);
       expect(pd.introductionAndScope.content, isNull);
@@ -53,22 +53,22 @@ void main() {
       final spec = DocSpecsProject();
 
       // Project Definition master + the 12 Phase 3 projection roots.
-      expect(spec.projectDefinition, isA<SolutionBlueprint>());
-      expect(spec.authorizationConcept, isA<SecurityAccessSpecification>());
-      expect(spec.businessDataModel, isA<InformationModel>());
-      expect(spec.businessProcesses, isA<TargetOperatingModel>());
-      expect(spec.businessQualityPlan, isA<QualityAcceptancePlan>());
+      expect(spec.projectDefinition, isA<D00SolutionBlueprint>());
+      expect(spec.authorizationConcept, isA<D08SecurityAccessSpecification>());
+      expect(spec.businessDataModel, isA<D03InformationModel>());
+      expect(spec.businessProcesses, isA<D02TargetOperatingModel>());
+      expect(spec.businessQualityPlan, isA<D10QualityAcceptancePlan>());
       expect(
         spec.businessSystemInteractions,
-        isA<IntegrationInterfaceSpecification>(),
+        isA<D07IntegrationInterfaceSpecification>(),
       );
-      expect(spec.currentSituation, isA<CurrentLandscapeAssessment>());
-      expect(spec.projectPhasePlan, isA<DeliveryRoadmap>());
-      expect(spec.requirementsCatalog, isA<RequirementsSpecification>());
-      expect(spec.systemRollout, isA<TransitionRolloutPlan>());
-      expect(spec.technicalRequirementsSpec, isA<ArchitectureTechnologySpecification>());
-      expect(spec.useCases, isA<InteractionScenarios>());
-      expect(spec.uiPrototype, isA<ExperienceDesignSpecification>());
+      expect(spec.currentSituation, isA<D01CurrentLandscapeAssessment>());
+      expect(spec.projectPhasePlan, isA<D11DeliveryRoadmap>());
+      expect(spec.requirementsCatalog, isA<D04RequirementsSpecification>());
+      expect(spec.systemRollout, isA<D12TransitionRolloutPlan>());
+      expect(spec.technicalRequirementsSpec, isA<D06ArchitectureTechnologySpecification>());
+      expect(spec.useCases, isA<D05InteractionScenarios>());
+      expect(spec.uiPrototype, isA<D09ExperienceDesignSpecification>());
     });
 
     test('is not a document node — carries no @Document / @SectionId (N9)', () {

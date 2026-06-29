@@ -114,9 +114,9 @@ to pixel-perfect designs with exact typography and spacing.
 /// Overall design vision for the user interface, encompassing goals,
 /// principles, and user personas that guide all UI decisions.
 @SectionId('DEVIZ')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-VIS')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-VIS')
 class DesignVision {
   @ContentHelp('''
 ## Design Vision (10.1)
@@ -567,9 +567,9 @@ class PersonaScenarioEntry {
 
 /// 10.2. Screen Descriptions.
 @SectionId('SCRDZ')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-SCR')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-SCR')
 @SectionId('SCRDZ')
 class ScreenDescriptions {
   @ContentHelp('''
@@ -1521,9 +1521,9 @@ Overall content organization and navigation structure.
 
 /// 10.3. Screen Flow Structure.
 @SectionId('SCFLST')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-SCF')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-SCF')
 class ScreenFlowStructure {
   @ContentHelp('''
 ## Screen Flow Structure (10.3)
@@ -2473,9 +2473,9 @@ class NavigationGuardEntryRouting {
 
 /// 10.4. Print Layout.
 @SectionId('PRLA')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-PRI')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-PRI')
 class PrintLayout {
   @Form([
     Field('printStrategy', String, 'Print Strategy',
@@ -3928,9 +3928,9 @@ class ExportTemplateEntryAccess {
 /// feedback, system error presentation, and error recovery flows. Follows
 /// UX best practices for error prevention, detection, and graceful recovery.
 @SectionId('ERHACO')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-ERR')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-ERR')
 class ErrorHandlingConcept {
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
@@ -4497,9 +4497,9 @@ class RecoveryScenarioEntry {
 /// Comprehensive in-app help system including contextual help, onboarding,
 /// and support access mechanisms.
 @SectionId('HECO')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-HLP')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-HLP')
 class HelpConcept {
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
@@ -4945,9 +4945,9 @@ class SupportAccessSelfService {
 /// Comprehensive accessibility requirements for the user interface following
 /// WCAG guidelines and inclusive design principles.
 @SectionId('ACCESS')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-ACC')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-ACC')
 class Accessibility {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility Overview
@@ -5253,9 +5253,9 @@ class AccessibilityCheckEntryRemediation {
 /// Comprehensive responsive design specification covering breakpoints,
 /// adaptive layouts, and device-specific behavior for Flutter applications.
 @SectionId('REDE')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-RES')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-RES')
 class ResponsiveDesign {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsive Design Overview
@@ -5508,9 +5508,9 @@ class ResponsiveScreenRuleEntry {
 /// component catalog, and detailed per-component specifications. Supports
 /// Flutter-based implementation with Tom framework integration.
 @SectionId('UICO')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-COM')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-COM')
 class UiComponents {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Library Overview
@@ -6422,9 +6422,9 @@ class MultiLanguageAndRolloutPlan {
 ///
 /// Workflow for identifying and preparing content for localization.
 @SectionId('LOPR')
-@MapsTo(TransitionRolloutPlan)
-@DetailedIn(TransitionRolloutPlan)
-@SecondLevelSectionId(TransitionRolloutPlan, 'SR-LOC')
+@MapsTo(D12TransitionRolloutPlan)
+@DetailedIn(D12TransitionRolloutPlan)
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-LOC')
 class LocalizationProcess {
   @Form([
     Field('contentIdentification', String, 'Content Identification',
@@ -6504,9 +6504,9 @@ class LocalizationProcessDeployment {
 ///
 /// Workflow for translating content.
 @SectionId('TRPR')
-@MapsTo(TransitionRolloutPlan)
-@DetailedIn(TransitionRolloutPlan)
-@SecondLevelSectionId(TransitionRolloutPlan, 'SR-TRA')
+@MapsTo(D12TransitionRolloutPlan)
+@DetailedIn(D12TransitionRolloutPlan)
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-TRA')
 class TranslationProcess {
   @Form([
     Field('translationManagementSystem', String, 'Translation Management System',
@@ -6620,9 +6620,9 @@ class TranslationVendorEntry {
 ///
 /// End-user documentation and training materials.
 @SectionId('DOANTR')
-@MapsTo(TransitionRolloutPlan)
-@DetailedIn(TransitionRolloutPlan)
-@SecondLevelSectionId(TransitionRolloutPlan, 'SR-DOC')
+@MapsTo(D12TransitionRolloutPlan)
+@DetailedIn(D12TransitionRolloutPlan)
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'SR-DOC')
 class DocumentationAndTraining {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation
@@ -6731,9 +6731,9 @@ class TrainingModuleEntry {
 ///
 /// UI specification for language and country selection.
 @SectionId('LACOSE')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-LCS')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-LCS')
 class LanguageCountrySelection {
   @Form([
     Field('pickerLocation', String, 'Picker Location',
@@ -6831,9 +6831,9 @@ class LanguageCountrySelectionUx {
 ///
 /// Technical requirements for internationalization framework.
 @SectionId('TRRE1')
-@MapsTo(ArchitectureTechnologySpecification)
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-REQ')
+@MapsTo(D06ArchitectureTechnologySpecification)
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-REQ')
 class TranslationRequirements {
   @Form([
     Field('i18nFramework', String, 'I18N Framework',
@@ -6985,9 +6985,9 @@ class SupportedLocaleEntryRollout {
 /// Comprehensive prototype planning covering goals, feature selection,
 /// prototype type, evaluation criteria, and stakeholder alignment.
 @SectionId('PROTOT')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-PRO')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-PRO')
 class Prototype {
   // ─────────────────────────────────────────────────────────────────────────
   // Prototype Overview
@@ -7477,9 +7477,9 @@ class ThrowawayPrototypeValue {
 /// Wireframe and mockup inventory beyond individual screen descriptions.
 ///.
 @SectionId('WIANMO')
-@MapsTo(ExperienceDesignSpecification)
-@DetailedIn(ExperienceDesignSpecification)
-@SecondLevelSectionId(ExperienceDesignSpecification, 'UP-WIR')
+@MapsTo(D09ExperienceDesignSpecification)
+@DetailedIn(D09ExperienceDesignSpecification)
+@SecondLevelSectionId(D09ExperienceDesignSpecification, 'UP-WIR')
 class WireframesAndMockups {
   @ContentHelp('''
 Catalog of wireframes and mockups across the UI. Complements the

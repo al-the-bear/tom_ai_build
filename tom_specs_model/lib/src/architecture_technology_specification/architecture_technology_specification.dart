@@ -22,10 +22,10 @@ import '../solution_blueprint/solution_blueprint.dart';
       'software design, standard software, hardware, operations, '
       'communication, system operation, security, architecture, '
       'components, framework conditions, and translation handling.',
-  basedOn: [SolutionBlueprint],
+  basedOn: [D00SolutionBlueprint],
 )
 @SectionId('ATS')
-class ArchitectureTechnologySpecification {
+class D06ArchitectureTechnologySpecification {
   @ContentHelp('Executive overview of the technical-requirements set.')
   String? content;
 

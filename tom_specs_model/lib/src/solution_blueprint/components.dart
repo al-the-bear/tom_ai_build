@@ -15,9 +15,9 @@ import '../document_stubs.dart';
 /// and integration patterns.
 @SectionId('COMP')
 @Comment('Seeds → TR')
-@MapsTo(ArchitectureTechnologySpecification)
-@DetailedIn(ArchitectureTechnologySpecification)
-@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-COM')
+@MapsTo(D06ArchitectureTechnologySpecification)
+@DetailedIn(D06ArchitectureTechnologySpecification)
+@SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'TR-COM')
 class ComponentsToUse {
     @ContentHelp('''
 ## Components to Use (Chapter 12)

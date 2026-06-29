@@ -60,7 +60,7 @@ import 'target_operating_model_concept.dart';
       'quality & acceptance, and delivery / transition planning.',
 )
 @SectionId('SBP')
-class SolutionBlueprint {
+class D00SolutionBlueprint {
   @Unused()
   String? content;
 

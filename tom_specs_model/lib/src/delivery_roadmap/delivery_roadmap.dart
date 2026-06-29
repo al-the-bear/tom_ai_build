@@ -22,10 +22,10 @@ import '../solution_blueprint/solution_blueprint.dart';
       'stages, feature prioritization, migration, gates, decisions, '
       'initial development flow, and upgrade cycle framework (bridge '
       'to tom_system_upgrade.md).',
-  basedOn: [SolutionBlueprint],
+  basedOn: [D00SolutionBlueprint],
 )
 @SectionId('DRM')
-class DeliveryRoadmap {
+class D11DeliveryRoadmap {
   @ContentHelp('Executive overview of the phase plan and its gate model.')
   String? content;
 

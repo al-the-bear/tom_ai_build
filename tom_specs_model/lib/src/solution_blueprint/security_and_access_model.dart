@@ -12,7 +12,7 @@ import '../document_stubs.dart';
 /// 9. Access and Authorization Concept. Seeds → AC.
 @SectionId('ACAZ')
 @Comment('Seeds → AC')
-@MapsTo(SecurityAccessSpecification)
+@MapsTo(D08SecurityAccessSpecification)
 class SecurityAndAccessModel {
   @ContentHelp('''
 Provide a high-level overview of the application's security architecture for
@@ -63,8 +63,8 @@ access and authorization concerns.
 
 /// 9.1. User Management.
 @SectionId('USMGT')
-@DetailedIn(SecurityAccessSpecification)
-@SecondLevelSectionId(SecurityAccessSpecification, 'AC-USE')
+@DetailedIn(D08SecurityAccessSpecification)
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-USE')
 class UserManagement {
   @ContentHelp('''
 Describe how users are organized, categorized, and managed throughout their
@@ -778,8 +778,8 @@ class UserAttributeEntry {
 
 /// 9.2. Identification and Authentication.
 @SectionId('IDAUT')
-@DetailedIn(SecurityAccessSpecification)
-@SecondLevelSectionId(SecurityAccessSpecification, 'AC-IDE')
+@DetailedIn(D08SecurityAccessSpecification)
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-IDE')
 @SectionId('IDAUT')
 class IdentificationAndAuthentication {
   @ContentHelp('''
@@ -3384,8 +3384,8 @@ class SessionLifecycleMonitoring {
 
 /// 9.3. Resource Protection.
 @SectionId('REPR2')
-@DetailedIn(SecurityAccessSpecification)
-@SecondLevelSectionId(SecurityAccessSpecification, 'AC-RES')
+@DetailedIn(D08SecurityAccessSpecification)
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-RES')
 class ResourceProtection {
   @ContentHelp('''
 Overview of resource protection strategies covering data, APIs, and file
@@ -5145,8 +5145,8 @@ class PermissionEvaluationBehavior {
 ///
 /// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
 @SectionId('USAU')
-@DetailedIn(SecurityAccessSpecification)
-@SecondLevelSectionId(SecurityAccessSpecification, 'AC-USA')
+@DetailedIn(D08SecurityAccessSpecification)
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-USA')
 class UserAuthorization {
   @ContentHelp('''
 Define the complete authorization structure that controls what users can do.
@@ -6149,8 +6149,8 @@ class ResourceKeyEntry {
 
 /// 9.5. Sensitive Data Encryption.
 @SectionId('SEDAEN')
-@DetailedIn(SecurityAccessSpecification)
-@SecondLevelSectionId(SecurityAccessSpecification, 'AC-SEN')
+@DetailedIn(D08SecurityAccessSpecification)
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-SEN')
 class SensitiveDataEncryption {
   @ContentHelp('''
 Define encryption requirements for sensitive data both at rest and in transit.
@@ -7108,8 +7108,8 @@ class KeyCompromiseRecoveryPolicy {
 /// Aligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to
 /// Computer Security Log Management).
 @SectionId('AUANLO')
-@DetailedIn(SecurityAccessSpecification)
-@SecondLevelSectionId(SecurityAccessSpecification, 'AC-AUD')
+@DetailedIn(D08SecurityAccessSpecification)
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-AUD')
 class AuditAndLogging {
   @ContentHelp('''
 Define security audit and logging requirements. Comprehensive logging enables
@@ -7759,8 +7759,8 @@ class RegulatoryAuditSupport {
 /// Role-to-permission assignment matrix covering
 /// Authorization Model.
 @SectionId('ROMA')
-@DetailedIn(SecurityAccessSpecification)
-@SecondLevelSectionId(SecurityAccessSpecification, 'AC-ROL')
+@DetailedIn(D08SecurityAccessSpecification)
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-ROL')
 class RoleMatrix {
   @ContentHelp('''
 Authoritative mapping of system roles to the permissions they hold.
@@ -7789,8 +7789,8 @@ authorization model; this section captures the concrete assignment.
 /// authorization. Pulls the compliance references currently scattered
 /// across @ContentHelp strings into an explicit section.
 @SectionId('COFR1')
-@DetailedIn(SecurityAccessSpecification)
-@SecondLevelSectionId(SecurityAccessSpecification, 'AC-CMP')
+@DetailedIn(D08SecurityAccessSpecification)
+@SecondLevelSectionId(D08SecurityAccessSpecification, 'AC-CMP')
 class ComplianceFramework {
   @ContentHelp('''
 Explicit mapping from the access/auth controls in this concept to the
