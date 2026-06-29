@@ -16,14 +16,14 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// and organizational requirements, plus traceability, relationships,
 /// and coverage analysis.
 @Document(
-  name: 'Requirements Catalog',
+  name: 'Requirements Specification',
   description: 'Complete requirements catalog — functional, technical, '
       'security, organizational — with traceability, relationships, and '
       'coverage against goals, use cases, and tests.',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('RC')
-class RequirementsCatalog {
+@SectionId('RSP')
+class RequirementsSpecification {
   @ContentHelp('Executive overview of the requirements catalog and its '
       'traceability model.')
   String? content;

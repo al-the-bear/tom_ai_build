@@ -18,14 +18,14 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// to-data matrix, business rules, data dictionary, and validation /
 /// integrity constraints.
 @Document(
-  name: 'Business Data Model',
+  name: 'Information Model',
   description: 'Complete business data model — entities, relationships, '
       'data classification, business objects, functions, rules, '
       'dictionary, and validation/integrity constraints.',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('BDM')
-class BusinessDataModel {
+@SectionId('IFM')
+class InformationModel {
   @ContentHelp('Executive overview of the business data model.')
   String? content;
 

@@ -299,7 +299,7 @@ class DeliverableDocumentation {
 /// 14.2. Acceptance Plan [PD00-DEL-ACC]. Seeds → BQP.
 @SectionId('ACPLN')
 @Comment('Seeds → BQP')
-@MapsTo(BusinessQualityPlan)
+@MapsTo(QualityAcceptancePlan)
 class AcceptancePlan {
   @ContentHelp('''
 Acceptance plan overview: defines how the project deliverables will be
@@ -337,8 +337,8 @@ All criteria must be objectively measurable and verifiable.
 
 /// 14.2.1. Acceptance Criteria [PD00-DEL-ACC-CRI].
 @SectionId('ACRITL')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-CRI')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-CRI')
 class AcceptanceCriteriaList {
   @ContentHelp('''
 Formal acceptance criteria that must be met for project sign-off.
@@ -481,8 +481,8 @@ class DeliveryAcceptanceCriterionEntryStatus {
 /// final sign-off. Covers roles, responsibilities, timelines, escalation,
 /// and decision criteria.
 @SectionId('ACPR1')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-PRO')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-PRO')
 class AcceptanceProcess {
   @Form([
     Field('processName', String, 'Process Name',
@@ -681,8 +681,8 @@ class AcceptanceStepEntryOutcome {
 /// acceptance, and formal sign-off. Aligned with IEEE 829 / ISO 29119
 /// test documentation structure and ISTQB best practices.
 @SectionId('USACTE')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-UAT')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-UAT')
 class UserAcceptanceTesting {
   @Form([
     Field('uatObjective', String, 'UAT Objective',
@@ -1177,8 +1177,8 @@ class UatTestStepEntry {
 /// managed, resolved, and tracked. Covers severity classification,
 /// resolution timeframes, blocking thresholds, and post-fix verification.
 @SectionId('DERE')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-DEF')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-DEF')
 class DefectResolution {
   @Form([
     Field('severityScheme', String, 'Severity Scheme',
@@ -1308,8 +1308,8 @@ class DefectResolutionReporting {
 /// technical acceptance board), what documents are signed, legal and
 /// contractual implications, and conditional acceptance handling.
 @SectionId('SIOFPR')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-SIG')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-SIG')
 class SignOffProcess {
   @Form([
     Field('signOffAuthority', String, 'Sign-Off Authority',
@@ -1458,8 +1458,8 @@ class SignOffProcessTimeline {
 /// Post-acceptance warranty terms: duration, scope, service levels,
 /// exclusions, and transition to standard support.
 @SectionId('WATE')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-WAR')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-WAR')
 class WarrantyTerms {
   @Form([
     Field('warrantyDuration', String, 'Warranty Duration',

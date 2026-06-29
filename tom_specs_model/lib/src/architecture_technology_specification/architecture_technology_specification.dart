@@ -18,15 +18,15 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// / security / architecture, plus components, framework conditions,
 /// and translation handling.
 @Document(
-  name: 'Technical Requirements',
+  name: 'Architecture & Technology Specification',
   description: 'Comprehensive technical requirements — platform, '
       'software design, standard software, hardware, operations, '
       'communication, system operation, security, architecture, '
       'components, framework conditions, and translation handling.',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('TR')
-class TechnicalRequirementsSpec {
+@SectionId('ATS')
+class ArchitectureTechnologySpecification {
   @ContentHelp('Executive overview of the technical-requirements set.')
   String? content;
 

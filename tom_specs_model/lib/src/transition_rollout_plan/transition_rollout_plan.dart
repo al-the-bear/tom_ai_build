@@ -18,15 +18,15 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// user manuals, training materials, pilot, cutover, knowledge
 /// transfer, and warranty/support.
 @Document(
-  name: 'System Rollout',
+  name: 'Transition & Rollout Plan',
   description: 'End-to-end rollout specification — localization, '
       'translation, documentation and training, rollout plan, migration '
       'plan, user manuals, training materials, pilot, cutover, knowledge '
       'transfer, and warranty/support.',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('SR')
-class SystemRollout {
+@SectionId('TRP')
+class TransitionRolloutPlan {
   @ContentHelp('Executive overview of the rollout approach.')
   String? content;
 

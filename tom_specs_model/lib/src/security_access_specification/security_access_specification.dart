@@ -17,14 +17,14 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// authorization, encryption, audit/logging, role matrix, and
 /// compliance framework.
 @Document(
-  name: 'Authorization Concept',
+  name: 'Security & Access Specification',
   description: 'Complete access and authorization specification — user '
       'management, authentication, resource protection, authorization, '
       'encryption, audit, role matrix, and compliance framework.',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('AC')
-class AuthorizationConcept {
+@SectionId('SAS')
+class SecurityAccessSpecification {
   @ContentHelp('Executive overview of the access and authorization concept.')
   String? content;
 

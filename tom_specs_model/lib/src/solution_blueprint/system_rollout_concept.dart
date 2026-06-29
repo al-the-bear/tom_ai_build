@@ -7,7 +7,7 @@
 /// The PD00-ROL class is named `SystemRolloutConcept` so the `…Concept`
 /// suffix matches the convention used by `TechnicalFrameworkConcept`
 /// (PD00-TEC) and `AccessAndAuthorizationConcept` (PD00-ACC). The clean
-/// name `SystemRollout` is reserved for the SR target-doc class.
+/// name `TransitionRolloutPlan` is reserved for the SR target-doc class.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -17,7 +17,7 @@ import '../document_stubs.dart';
 /// 15. System Rollout Concept [PD00-ROL]. Seeds → SR.
 @SectionId('ROLC')
 @Comment('Seeds → SR')
-@MapsTo(SystemRollout)
+@MapsTo(TransitionRolloutPlan)
 class SystemRolloutConcept {
   @ContentHelp('''
 Executive summary of the rollout approach: from pilot through phased
@@ -68,8 +68,8 @@ PD00-USE-MUL localization/translation/documentation subtrees.
 /// content: the sequencing of sites, countries, business units, and user
 /// cohorts across the go-live waves.
 @SectionId('RLTPLN')
-@DetailedIn(SystemRollout)
-@SecondLevelSectionId(SystemRollout, 'SR-PLN')
+@DetailedIn(TransitionRolloutPlan)
+@SecondLevelSectionId(TransitionRolloutPlan, 'SR-PLN')
 class RolloutPlan {
   @ContentHelp('''
 Rollout plan: sequencing, waves, and criteria for moving each cohort from
@@ -96,8 +96,8 @@ pre-go-live to production.
 /// data, configuration, integration, and user migration from the current
 /// landscape to the target.
 @SectionId('MIGPLN')
-@DetailedIn(SystemRollout)
-@SecondLevelSectionId(SystemRollout, 'SR-MIG')
+@DetailedIn(TransitionRolloutPlan)
+@SecondLevelSectionId(TransitionRolloutPlan, 'SR-MIG')
 class MigrationPlan {
   @ContentHelp('''
 System migration plan distinct from DR22 per-data-entity mapping
@@ -123,8 +123,8 @@ System migration plan distinct from DR22 per-data-entity mapping
 ///
 /// End-user documentation deliverables covering DR15 User Manual content.
 @SectionId('USRMAN')
-@DetailedIn(SystemRollout)
-@SecondLevelSectionId(SystemRollout, 'SR-DOC')
+@DetailedIn(TransitionRolloutPlan)
+@SecondLevelSectionId(TransitionRolloutPlan, 'SR-DOC')
 class UserManuals {
   @ContentHelp('''
 User manual deliverables: what documents are produced, for which user
@@ -151,8 +151,8 @@ PD00-USE-HLP).
 ///
 /// Training deliverables covering DR17 Training Materials content.
 @SectionId('RLTTM')
-@DetailedIn(SystemRollout)
-@SecondLevelSectionId(SystemRollout, 'SR-TRN')
+@DetailedIn(TransitionRolloutPlan)
+@SecondLevelSectionId(TransitionRolloutPlan, 'SR-TRN')
 class RolloutTrainingMaterials {
   @ContentHelp('''
 Training plan and materials: courses, content packages, trainers, and
@@ -178,8 +178,8 @@ captures the catalog of training modules at PD00 level.
 ///
 /// Pilot scope, cohort selection, success criteria, and exit decision rules.
 @SectionId('PLTPLN')
-@DetailedIn(SystemRollout)
-@SecondLevelSectionId(SystemRollout, 'SR-PIL')
+@DetailedIn(TransitionRolloutPlan)
+@SecondLevelSectionId(TransitionRolloutPlan, 'SR-PIL')
 class PilotPlan {
   @ContentHelp('''
 Pilot definition: who participates, what is in/out of pilot scope, how
@@ -206,8 +206,8 @@ success is measured, and the decision gate that authorizes rollout.
 /// Detailed cutover runbook for go-live. Minute-by-minute procedure
 /// covering the transition from current operation to the target system.
 @SectionId('CUTPRC')
-@DetailedIn(SystemRollout)
-@SecondLevelSectionId(SystemRollout, 'SR-CUT')
+@DetailedIn(TransitionRolloutPlan)
+@SecondLevelSectionId(TransitionRolloutPlan, 'SR-CUT')
 class CutoverProcedures {
   @ContentHelp('''
 Cutover runbook: the operational plan that executes the go-live moment.
@@ -235,8 +235,8 @@ waves — and than the Migration Plan — which covers data execution.
 /// Handover from delivery team to operations. Covers EK09 Handover
 /// Agreement content.
 @SectionId('KNTFR')
-@DetailedIn(SystemRollout)
-@SecondLevelSectionId(SystemRollout, 'SR-KNO')
+@DetailedIn(TransitionRolloutPlan)
+@SecondLevelSectionId(TransitionRolloutPlan, 'SR-KNO')
 class KnowledgeTransfer {
   @ContentHelp('''
 Formal handover of system knowledge to operations and support teams.
@@ -261,8 +261,8 @@ Formal handover of system knowledge to operations and support teams.
 /// Post-acceptance warranty period terms and support arrangements. Covers
 /// EK10 warranty content and feeds the SR top-level on the same topic.
 @SectionId('WRTSP')
-@DetailedIn(SystemRollout)
-@SecondLevelSectionId(SystemRollout, 'SR-WAR')
+@DetailedIn(TransitionRolloutPlan)
+@SecondLevelSectionId(TransitionRolloutPlan, 'SR-WAR')
 class WarrantyAndSupport {
   @ContentHelp('''
 Terms governing the warranty window that follows acceptance. Distinct

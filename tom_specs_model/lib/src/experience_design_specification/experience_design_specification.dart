@@ -17,15 +17,15 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// components, language/country selection, prototype, wireframes and
 /// mockups.
 @Document(
-  name: 'UI Prototype',
+  name: 'Experience Design Specification',
   description: 'Full UI design and prototype specification — vision, '
       'screens, flow, print, errors, help, accessibility, responsive '
       'design, components, language selection, prototype, and '
       'wireframes/mockups.',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('UP')
-class UiPrototype {
+@SectionId('XDS')
+class ExperienceDesignSpecification {
   @ContentHelp('Executive overview of the UI prototype and design system.')
   String? content;
 

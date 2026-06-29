@@ -15,14 +15,14 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// external systems: inventory, patterns, testing, dependencies,
 /// migration, operational concerns, and cross-boundary error handling.
 @Document(
-  name: 'Business System Interactions',
+  name: 'Integration & Interface Specification',
   description: 'Complete specification of interactions between the target '
       'system and external systems — inventory, patterns, testing, '
       'dependencies, migration, operations, and error handling.',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('BSI')
-class BusinessSystemInteractions {
+@SectionId('IIS')
+class IntegrationInterfaceSpecification {
   @ContentHelp('Executive overview of the system-boundary interaction '
       'specification.')
   String? content;

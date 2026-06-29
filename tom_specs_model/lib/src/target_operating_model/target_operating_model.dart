@@ -16,14 +16,14 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// diagrams, improvements, relationships, detailed workflows,
 /// cross-process analysis, exception handling, and KPIs.
 @Document(
-  name: 'Business Processes',
+  name: 'Target Operating Model',
   description: 'Target business process specification — vision, design '
       'principles, catalog, diagrams, improvements, relationships, '
       'workflows, cross-process analysis, exceptions, and KPIs.',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('BP')
-class BusinessProcesses {
+@SectionId('TOM')
+class TargetOperatingModel {
   @ContentHelp('Executive overview of the target business process model.')
   String? content;
 

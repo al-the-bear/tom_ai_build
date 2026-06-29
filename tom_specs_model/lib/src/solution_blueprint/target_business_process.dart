@@ -57,7 +57,7 @@ interactions that seed use case development.
 /// in the BP (Business Processes) document.
 @SectionId('BPDSC')
 @Comment('Seeds → BP')
-@MapsTo(BusinessProcesses)
+@MapsTo(TargetOperatingModel)
 class BusinessProcessDescriptions {
   @ContentHelp('''
 Target business processes at a high level. Each process will be expanded with
@@ -114,8 +114,8 @@ BP (Business Processes) document.
 ///
 /// The overall vision for how business processes will work with the new system.
 @SectionId('PRVIZ')
-@DetailedIn(BusinessProcesses)
-@SecondLevelSectionId(BusinessProcesses, 'BP-VIS')
+@DetailedIn(TargetOperatingModel)
+@SecondLevelSectionId(TargetOperatingModel, 'BP-VIS')
 class ProcessVision {
   /// Process vision overview.
   ProcessVisionOverview overview = ProcessVisionOverview();
@@ -207,8 +207,8 @@ class ProcessSuccessCriteria {
 ///
 /// Principles that guide process design decisions.
 @SectionId('PDPRI')
-@DetailedIn(BusinessProcesses)
-@SecondLevelSectionId(BusinessProcesses, 'BP-PRI')
+@DetailedIn(TargetOperatingModel)
+@SecondLevelSectionId(TargetOperatingModel, 'BP-PRI')
 class ProcessDesignPrinciples {
   /// Design principles overview.
   DesignPrinciplesOverview overview = DesignPrinciplesOverview();
@@ -260,8 +260,8 @@ class ProcessDesignPrincipleEntry {
 ///
 /// Container for business process definitions.
 @SectionId('PRCAT')
-@DetailedIn(BusinessProcesses)
-@SecondLevelSectionId(BusinessProcesses, 'BP-CAT')
+@DetailedIn(TargetOperatingModel)
+@SecondLevelSectionId(TargetOperatingModel, 'BP-CAT')
 class ProcessCatalog {
   /// Process catalog overview.
   ProcessCatalogOverview overview = ProcessCatalogOverview();
@@ -998,8 +998,8 @@ class ProcessExceptionEntryResponse {
 ///
 /// High-level process flow diagram showing main processes and relationships.
 @SectionId('PROVDI')
-@DetailedIn(BusinessProcesses)
-@SecondLevelSectionId(BusinessProcesses, 'BP-FLO')
+@DetailedIn(TargetOperatingModel)
+@SecondLevelSectionId(TargetOperatingModel, 'BP-FLO')
 class ProcessOverviewDiagram {
   /// Diagram overview.
   ProcessDiagramOverview overview = ProcessDiagramOverview();
@@ -1032,8 +1032,8 @@ class ProcessDiagramOverview {
 ///
 /// Summary of expected improvements over current processes.
 @SectionId('PRIMSU')
-@DetailedIn(BusinessProcesses)
-@SecondLevelSectionId(BusinessProcesses, 'BP-IMP')
+@DetailedIn(TargetOperatingModel)
+@SecondLevelSectionId(TargetOperatingModel, 'BP-IMP')
 class ProcessImprovementSummary {
   /// Improvement overview.
   ImprovementOverview overview = ImprovementOverview();
@@ -1126,8 +1126,8 @@ class ImprovementBusinessCase {
 
 /// Process relationships and dependencies (supplementary section).
 @SectionId('PRRE1')
-@DetailedIn(BusinessProcesses)
-@SecondLevelSectionId(BusinessProcesses, 'BP-REL')
+@DetailedIn(TargetOperatingModel)
+@SecondLevelSectionId(TargetOperatingModel, 'BP-REL')
 class ProcessRelationships {
   @ContentHelp('''
 Process relationships map dependencies, data flows, and sequencing between
@@ -1185,7 +1185,7 @@ class ProcessRelationshipEntry {
 /// postconditions in the UC document. Follows Cockburn-style use case modeling.
 @SectionId('PSAAI')
 @Comment('Seeds → UC')
-@MapsTo(UseCases)
+@MapsTo(InteractionScenarios)
 class ProcessStepsAndActorInteractions {
   @ContentHelp('''
 Key process steps with their actor interactions. Each interaction will be
@@ -1234,8 +1234,8 @@ postconditions in the UC (Use Cases) document.
 
 /// 6.2. Process Steps Overview [PD00-TAR-STP-OVE].
 @SectionId('PRSTOV')
-@DetailedIn(UseCases)
-@SecondLevelSectionId(UseCases, 'UC-OVE')
+@DetailedIn(InteractionScenarios)
+@SecondLevelSectionId(InteractionScenarios, 'UC-OVE')
 class ProcessStepsOverview {
   @Form([
     Field('useCaseScope', String,
@@ -1260,8 +1260,8 @@ class ProcessStepsOverview {
 
 /// 6.2. Actor Relationship Diagram [PD00-TAR-STP-DIA].
 @SectionId('ACREDI')
-@DetailedIn(UseCases)
-@SecondLevelSectionId(UseCases, 'UC-DIA')
+@DetailedIn(InteractionScenarios)
+@SecondLevelSectionId(InteractionScenarios, 'UC-DIA')
 class ActorRelationshipDiagram {
   /// Diagram overview.
   ActorDiagramOverview overview = ActorDiagramOverview();
@@ -1282,8 +1282,8 @@ class ActorRelationshipDiagram {
 /// Per-process workflow detail beyond the catalog overview (PD00-TAR-PRO-CAT).
 /// Covers HBSG AS07-DET Detailed Process Descriptions.
 @SectionId('DEPRWO')
-@DetailedIn(BusinessProcesses)
-@SecondLevelSectionId(BusinessProcesses, 'BP-DET')
+@DetailedIn(TargetOperatingModel)
+@SecondLevelSectionId(TargetOperatingModel, 'BP-DET')
 class DetailedProcessWorkflows {
   @ContentHelp('''
 Step-level detail for each process in the catalog: activity sequence,
@@ -1310,8 +1310,8 @@ actor responsibility.
 /// Hand-offs, shared data, and coordination patterns between processes.
 /// Covers HBSG AS07-CRO.
 @SectionId('CRPRAN')
-@DetailedIn(BusinessProcesses)
-@SecondLevelSectionId(BusinessProcesses, 'BP-CRO')
+@DetailedIn(TargetOperatingModel)
+@SecondLevelSectionId(TargetOperatingModel, 'BP-CRO')
 class CrossProcessAnalysis {
   @ContentHelp('''
 Cross-cutting view of how processes interact: shared entities, data
@@ -1336,8 +1336,8 @@ exchanged, synchronization points, and conflicts.
 /// Exception flows, escalation paths, and compensation logic. Covers
 /// HBSG AS07-EXC.
 @SectionId('PREXHA')
-@DetailedIn(BusinessProcesses)
-@SecondLevelSectionId(BusinessProcesses, 'BP-EXC')
+@DetailedIn(TargetOperatingModel)
+@SecondLevelSectionId(TargetOperatingModel, 'BP-EXC')
 class ProcessExceptionHandling {
   @ContentHelp('''
 Handling of exceptions that interrupt a normal process flow. Distinct
@@ -1364,8 +1364,8 @@ process recovery.
 /// Test scenarios that exercise complete user journeys across processes
 /// and use cases. Covers HBSG AS24.
 @SectionId('ETETS')
-@DetailedIn(UseCases)
-@SecondLevelSectionId(UseCases, 'UC-E2E')
+@DetailedIn(InteractionScenarios)
+@SecondLevelSectionId(InteractionScenarios, 'UC-E2E')
 class EndToEndTestScenarios {
   @ContentHelp('''
 End-to-end test scenarios derived from use cases and key user journeys.
@@ -1405,8 +1405,8 @@ class ActorDiagramOverview {
 /// Actors represent roles that interact with the system. Follows UML actor
 /// modeling conventions with Cockburn-style goal and scope annotations.
 @SectionId('ACOV')
-@DetailedIn(UseCases)
-@SecondLevelSectionId(UseCases, 'UC-ACT')
+@DetailedIn(InteractionScenarios)
+@SecondLevelSectionId(InteractionScenarios, 'UC-ACT')
 class ActorOverview {
   @ContentHelp('''
 Actors represent roles that interact with the system. Following UML actor
@@ -1679,8 +1679,8 @@ class ActorInteractionsSummary {
 /// Container for key interaction descriptions. Each interaction seeds a use
 /// case following Cockburn's fully dressed use case template.
 @SectionId('INCA')
-@DetailedIn(UseCases)
-@SecondLevelSectionId(UseCases, 'UC-INT')
+@DetailedIn(InteractionScenarios)
+@SecondLevelSectionId(InteractionScenarios, 'UC-INT')
 class InteractionCatalog {
   @ContentHelp('''
 Container for key interaction descriptions. Each interaction seeds a use case
@@ -2132,8 +2132,8 @@ class InteractionTraceability {
 /// End-to-end scenario descriptions showing how users achieve business goals
 /// through sequences of interactions.
 @SectionId('KESC')
-@DetailedIn(UseCases)
-@SecondLevelSectionId(UseCases, 'UC-SCE')
+@DetailedIn(InteractionScenarios)
+@SecondLevelSectionId(InteractionScenarios, 'UC-SCE')
 class KeyScenarios {
   @ContentHelp('''
 End-to-end scenario descriptions showing how users achieve business goals
@@ -2392,8 +2392,8 @@ class ScenarioValidation {
 ///
 /// Process-level KPIs, SLAs, and measurement strategy.
 @SectionId('PMAK')
-@DetailedIn(BusinessProcesses)
-@SecondLevelSectionId(BusinessProcesses, 'BP-MET')
+@DetailedIn(TargetOperatingModel)
+@SecondLevelSectionId(TargetOperatingModel, 'BP-MET')
 class ProcessMetricsAndKpis {
   @ContentHelp('''
 How each business process is measured for success once in production.
@@ -2417,8 +2417,8 @@ How each business process is measured for success once in production.
 ///
 /// Use case ↔ requirement ↔ process ↔ test traceability.
 @SectionId('USCATR')
-@DetailedIn(UseCases)
-@SecondLevelSectionId(UseCases, 'UC-TRC')
+@DetailedIn(InteractionScenarios)
+@SecondLevelSectionId(InteractionScenarios, 'UC-TRC')
 class UseCaseTraceability {
   @ContentHelp('''
 Traceability matrix linking use cases to requirements, processes, and

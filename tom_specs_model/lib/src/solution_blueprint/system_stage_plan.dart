@@ -19,7 +19,7 @@ import '../document_stubs.dart';
 /// boundary management.
 @SectionId('SSPL')
 @Comment('Seeds → PPP')
-@MapsTo(ProjectPhasePlan)
+@MapsTo(DeliveryRoadmap)
 class SystemStagePlan {
   @Form([
     // --- Strategic Overview ---
@@ -147,8 +147,8 @@ class SystemStagePlanReadiness {
 /// controlled increments, balancing risk mitigation with early value
 /// delivery.
 @SectionId('STAGST')
-@DetailedIn(ProjectPhasePlan)
-@SecondLevelSectionId(ProjectPhasePlan, 'PPP-STR')
+@DetailedIn(DeliveryRoadmap)
+@SecondLevelSectionId(DeliveryRoadmap, 'PPP-STR')
 class StagingStrategy {
   @Form([
     Field('stagingApproachType', String, 'Staging Approach Type',
@@ -456,8 +456,8 @@ class StagingGovernance {
 /// SAFe PI planning cadence, PRINCE2 stage boundary management, and
 /// TOGAF architecture road-mapping.
 @SectionId('STAGOV')
-@DetailedIn(ProjectPhasePlan)
-@SecondLevelSectionId(ProjectPhasePlan, 'PPP-STA')
+@DetailedIn(DeliveryRoadmap)
+@SecondLevelSectionId(DeliveryRoadmap, 'PPP-STA')
 class StageOverview {
   @Form([
     Field('numberOfStages', String, 'Number of Stages',
@@ -1453,8 +1453,8 @@ class StageSuccessCriterionEntryStatus {
 /// dependency tracking. Aligns with SAFe WSJF, PMBOK value-driven
 /// delivery, MoSCoW (DSDM), and Kano model classification.
 @SectionId('FEPR')
-@DetailedIn(ProjectPhasePlan)
-@SecondLevelSectionId(ProjectPhasePlan, 'PPP-FEA')
+@DetailedIn(DeliveryRoadmap)
+@SecondLevelSectionId(DeliveryRoadmap, 'PPP-FEA')
 class FeaturePrioritization {
   @Form([
     Field('prioritizationMethodology', String,
@@ -2278,8 +2278,8 @@ class FeatureDependencyEntry {
 /// and stakeholder sign-off. Aligns with DAMA-DMBOK data management
 /// principles, TOGAF migration planning, and PMBOK risk-aware delivery.
 @SectionId('DAMIST')
-@DetailedIn(ProjectPhasePlan)
-@SecondLevelSectionId(ProjectPhasePlan, 'PPP-MIG')
+@DetailedIn(DeliveryRoadmap)
+@SecondLevelSectionId(DeliveryRoadmap, 'PPP-MIG')
 class DataMigrationStrategy {
   @Form([
     Field('migrationApproach', String, 'Migration Approach',
@@ -3187,7 +3187,7 @@ class StageMigrationRiskStatus {
 /// governance gates, SAFe Program Increment boundaries, PRINCE2
 /// stage gates, and TOGAF architecture governance.
 @SectionId('STGO')
-@MapsTo(ProjectPhasePlan)
+@MapsTo(DeliveryRoadmap)
 class StageGovernance {
   @Form([
     Field('governanceModel', String, 'Governance Model',
@@ -3354,8 +3354,8 @@ class StageGovernanceTransition {
 /// gate, who participates, what evidence is required, and what
 /// outcomes are possible (proceed, rework, cancel, conditional).
 @SectionId('PHGARE')
-@DetailedIn(ProjectPhasePlan)
-@SecondLevelSectionId(ProjectPhasePlan, 'PPP-GAT')
+@DetailedIn(DeliveryRoadmap)
+@SecondLevelSectionId(DeliveryRoadmap, 'PPP-GAT')
 class PhaseGateReviews {
   @Form([
     Field('gateNamingConvention', String,
@@ -3673,8 +3673,8 @@ class ReviewCriterionEntryResult {
 /// technology selections. Each decision point has defined timing,
 /// criteria, authority, options, and impact analysis.
 @SectionId('DEPO')
-@DetailedIn(ProjectPhasePlan)
-@SecondLevelSectionId(ProjectPhasePlan, 'PPP-DEC')
+@DetailedIn(DeliveryRoadmap)
+@SecondLevelSectionId(DeliveryRoadmap, 'PPP-DEC')
 class DecisionPoints {
   @Form([
     // --- Decision Framework ---
@@ -4000,8 +4000,8 @@ class DecisionOptionEntryTradeOffs {
 /// `tom_system_creation.md`). Covers PPP-IDV content the mapping calls out
 /// as "new in PPP".
 @SectionId('INDEFL')
-@DetailedIn(ProjectPhasePlan)
-@SecondLevelSectionId(ProjectPhasePlan, 'PPP-IDV')
+@DetailedIn(DeliveryRoadmap)
+@SecondLevelSectionId(DeliveryRoadmap, 'PPP-IDV')
 class InitialDevelopmentFlow {
   @ContentHelp('''
 Describes how the initial-development phases hand off to each other:
@@ -4027,8 +4027,8 @@ dependencies, parallel work streams, and synchronization points.
 /// Post-development upgrade cycle framework. Links the upgrade process
 /// defined in `_ai/quests/tom_specs/tom_system_upgrade.md`.
 @SectionId('UPCYFR')
-@DetailedIn(ProjectPhasePlan)
-@SecondLevelSectionId(ProjectPhasePlan, 'PPP-UPG')
+@DetailedIn(DeliveryRoadmap)
+@SecondLevelSectionId(DeliveryRoadmap, 'PPP-UPG')
 class UpgradeCycleFramework {
   @ContentHelp('''
 Framework that governs the upgrade cycle once initial development

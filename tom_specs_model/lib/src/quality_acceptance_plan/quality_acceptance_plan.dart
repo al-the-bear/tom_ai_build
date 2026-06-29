@@ -17,16 +17,16 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// acceptance plan (PD00-DEL-ACC). Replaces HBSG AS11 + AS23 + partial
 /// AS14 coverage.
 @Document(
-  name: 'Business Quality Plan',
+  name: 'Quality & Acceptance Plan',
   description: 'Business-facing quality plan — quality framework, '
       'user / technical / operations / documentation criteria, '
       'prioritization, acceptance criteria summary, test strategy, and '
       'the full acceptance plan (criteria, process, UAT, defects, '
       'sign-off, warranty).',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('BQP')
-class BusinessQualityPlan {
+@SectionId('QAP')
+class QualityAcceptancePlan {
   @ContentHelp('Executive overview of the business quality plan.')
   String? content;
 

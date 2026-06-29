@@ -16,14 +16,14 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// interactions — Cockburn-style catalog, scenarios, end-to-end tests,
 /// and traceability.
 @Document(
-  name: 'Use Cases',
+  name: 'Interaction Scenarios',
   description: 'Use cases derived from the target process steps and actor '
       'interactions — catalog, scenarios, diagrams, end-to-end test '
       'scenarios (HBSG AS24), and traceability.',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('UC')
-class UseCases {
+@SectionId('ISC')
+class InteractionScenarios {
   @ContentHelp('Executive overview of the use-case model and its coverage.')
   String? content;
 

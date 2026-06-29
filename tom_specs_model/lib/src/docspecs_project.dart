@@ -18,7 +18,7 @@ import 'experience_design_specification/experience_design_specification.dart';
 /// Canonical container root for the whole TomSpecs object model (V2, N9).
 ///
 /// A spec is **one document** with thirteen entry points: the
-/// [ProjectDefinition] master plus the twelve Phase 3 projection roots. This
+/// [SolutionBlueprint] master plus the twelve Phase 3 projection roots. This
 /// class gives that document a **single true root** — every document root hangs
 /// off one object, so the editor can load, serialize, snapshot, and undo the
 /// entire spec by operating on a single [DocSpecsProject] instance instead of
@@ -32,8 +32,8 @@ import 'experience_design_specification/experience_design_specification.dart';
 /// outliner) treats it as the canonical root and exempts it from `@SectionId`
 /// coverage/uniqueness (T1).
 ///
-/// **The ProjectDefinition is the source of truth.** The twelve Phase 3 roots
-/// are `@Document(basedOn: [ProjectDefinition])` *projections* that reference
+/// **The SolutionBlueprint is the source of truth.** The twelve Phase 3 roots
+/// are `@Document(basedOn: [SolutionBlueprint])` *projections* that reference
 /// the same PD00 sections through their `@MapsTo` / `@DetailedIn` links; they do
 /// not own copies. Editing through any projection edits the shared underlying
 /// PD sections (§14).
@@ -51,45 +51,45 @@ class DocSpecsProject {
 
   /// PD00 — the Project Definition master and source of truth for all shared
   /// content. Listed first in the root navigator (§14).
-  ProjectDefinition projectDefinition = ProjectDefinition();
+  SolutionBlueprint projectDefinition = SolutionBlueprint();
 
   /// AC — Authorization Concept (Phase 3 projection over PD00).
-  AuthorizationConcept authorizationConcept = AuthorizationConcept();
+  SecurityAccessSpecification authorizationConcept = SecurityAccessSpecification();
 
   /// BDM — Business Data Model (Phase 3 projection over PD00).
-  BusinessDataModel businessDataModel = BusinessDataModel();
+  InformationModel businessDataModel = InformationModel();
 
   /// BP — Business Processes (Phase 3 projection over PD00).
-  BusinessProcesses businessProcesses = BusinessProcesses();
+  TargetOperatingModel businessProcesses = TargetOperatingModel();
 
   /// BQP — Business Quality Plan (Phase 3 projection over PD00).
-  BusinessQualityPlan businessQualityPlan = BusinessQualityPlan();
+  QualityAcceptancePlan businessQualityPlan = QualityAcceptancePlan();
 
   /// BSI — Business System Interactions (Phase 3 projection over PD00).
-  BusinessSystemInteractions businessSystemInteractions =
-      BusinessSystemInteractions();
+  IntegrationInterfaceSpecification businessSystemInteractions =
+      IntegrationInterfaceSpecification();
 
   /// CS — Current Situation (Phase 3 projection over PD00).
-  CurrentSituation currentSituation = CurrentSituation();
+  CurrentLandscapeAssessment currentSituation = CurrentLandscapeAssessment();
 
   /// PPP — Project Phase Plan (Phase 3 projection over PD00).
-  ProjectPhasePlan projectPhasePlan = ProjectPhasePlan();
+  DeliveryRoadmap projectPhasePlan = DeliveryRoadmap();
 
   /// RC — Requirements Catalog (Phase 3 projection over PD00).
-  RequirementsCatalog requirementsCatalog = RequirementsCatalog();
+  RequirementsSpecification requirementsCatalog = RequirementsSpecification();
 
   /// SR — System Rollout (Phase 3 projection over PD00).
-  SystemRollout systemRollout = SystemRollout();
+  TransitionRolloutPlan systemRollout = TransitionRolloutPlan();
 
   /// TR — Technical Requirements (Phase 3 projection over PD00).
-  TechnicalRequirementsSpec technicalRequirementsSpec =
-      TechnicalRequirementsSpec();
+  ArchitectureTechnologySpecification technicalRequirementsSpec =
+      ArchitectureTechnologySpecification();
 
   /// UC — Use Cases (Phase 3 projection over PD00).
-  UseCases useCases = UseCases();
+  InteractionScenarios useCases = InteractionScenarios();
 
   /// UP — UI Prototype (Phase 3 projection over PD00).
-  UiPrototype uiPrototype = UiPrototype();
+  ExperienceDesignSpecification uiPrototype = ExperienceDesignSpecification();
 
   /// The global `document:` save (§15.1): serializes the [projectDefinition]
   /// master alone. Because the twelve projection roots are views over the same

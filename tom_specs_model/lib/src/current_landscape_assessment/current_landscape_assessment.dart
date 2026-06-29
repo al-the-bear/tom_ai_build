@@ -16,14 +16,14 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// processes, pain points, data landscape, operational metrics, risks,
 /// and the inventory / migration plan for the systems being replaced.
 @Document(
-  name: 'Current Situation',
+  name: 'Current Landscape Assessment',
   description: 'Detailed analysis of the current systems and processes the '
       'target system will replace — landscape, pain points, metrics, '
       'risks, replacement inventory, and migration considerations.',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('CS')
-class CurrentSituation {
+@SectionId('CLA')
+class CurrentLandscapeAssessment {
   @ContentHelp('Executive overview of the current-state analysis that '
       'motivates the project.')
   String? content;

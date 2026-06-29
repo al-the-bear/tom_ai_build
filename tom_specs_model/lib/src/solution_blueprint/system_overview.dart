@@ -3653,7 +3653,7 @@ class PostImplementationReview {
 /// foundation for requirements management throughout the project lifecycle.
 /// Based on IEEE 830, ISO 29148, BABOK, and Volere requirements shell.
 @Comment('Seeds → RC')
-@MapsTo(RequirementsCatalog)
+@MapsTo(RequirementsSpecification)
 @ContentHelp('Define initial requirements at a level sufficient for project '
     'scoping and planning. Each requirement should be traceable to business '
     'goals and verifiable through acceptance criteria.')
@@ -3717,8 +3717,8 @@ class RequirementsOverview {
 /// what the system must do — its features, behaviors, processing rules,
 /// and user interactions. Each requirement is uniquely identified and
 /// traceable to business goals and use cases.
-@DetailedIn(RequirementsCatalog)
-@SecondLevelSectionId(RequirementsCatalog, 'RC-FUN')
+@DetailedIn(RequirementsSpecification)
+@SecondLevelSectionId(RequirementsSpecification, 'RC-FUN')
 @ContentHelp('Functional requirements describe system capabilities, behaviors, '
     'and features. Use clear, testable language. Each requirement should '
     'answer: What must the system do? For whom? Under what conditions?')
@@ -4410,8 +4410,8 @@ class RequirementTestCaseEntryAutomation {
 /// constraints on how the system is built — platform, performance,
 /// scalability, reliability, and standards compliance. These requirements
 /// often drive architectural decisions.
-@DetailedIn(RequirementsCatalog)
-@SecondLevelSectionId(RequirementsCatalog, 'RC-TEC')
+@DetailedIn(RequirementsSpecification)
+@SecondLevelSectionId(RequirementsSpecification, 'RC-TEC')
 @ContentHelp('Technical requirements describe non-functional aspects and '
     'constraints. Each should be measurable and testable. Common categories: '
     'Performance, Scalability, Availability, Security, Maintainability.')
@@ -4562,8 +4562,8 @@ class TechnicalRequirementEntryConstraints {
 /// information protection, access control, authentication, authorization,
 /// audit, and compliance needs. Based on OWASP, ISO 27001, and common
 /// security frameworks.
-@DetailedIn(RequirementsCatalog)
-@SecondLevelSectionId(RequirementsCatalog, 'RC-SEC')
+@DetailedIn(RequirementsSpecification)
+@SecondLevelSectionId(RequirementsSpecification, 'RC-SEC')
 @ContentHelp('Security requirements protect confidentiality, integrity, '
     'and availability of information. Include authentication, authorization, '
     'data protection, and compliance requirements.')
@@ -4776,8 +4776,8 @@ class SecurityControlEntryVerification {
 /// to organization, processes, training, or support that must be fulfilled
 /// for the system to succeed. Based on change management and organizational
 /// readiness assessment practices.
-@DetailedIn(RequirementsCatalog)
-@SecondLevelSectionId(RequirementsCatalog, 'RC-ORG')
+@DetailedIn(RequirementsSpecification)
+@SecondLevelSectionId(RequirementsSpecification, 'RC-ORG')
 @ContentHelp('Organizational requirements describe non-technical changes '
     'needed for system success: training, process changes, role changes, '
     'support structures, and communication.')
@@ -4954,7 +4954,7 @@ class OrgImplementationActivity {
 /// comprehensive assessment for informed replacement decisions.
 @SectionId('SYTOR1')
 @Comment('Seeds → CS')
-@MapsTo(CurrentSituation)
+@MapsTo(CurrentLandscapeAssessment)
 class SystemsToReplace {
   /// Overview of the systems replacement scope and strategy.
   @ContentHelp('Provide executive summary of systems being replaced: '
@@ -4978,8 +4978,8 @@ class SystemsToReplace {
 /// Provides a structured inventory of all systems targeted for replacement,
 /// with portfolio-level metrics and prioritization guidance.
 @SectionId('REIN1')
-@DetailedIn(CurrentSituation)
-@SecondLevelSectionId(CurrentSituation, 'CS-INV')
+@DetailedIn(CurrentLandscapeAssessment)
+@SecondLevelSectionId(CurrentLandscapeAssessment, 'CS-INV')
 class ReplacementInventory {
   /// Portfolio summary before listing individual systems.
   @ContentHelp('Summarize the replacement portfolio: total system count, '
@@ -5649,8 +5649,8 @@ class SystemKnowledgeTransfer {
 /// resource planning, and coordination. Complements per-system
 /// migration details with global governance.
 @SectionId('MICO1')
-@DetailedIn(CurrentSituation)
-@SecondLevelSectionId(CurrentSituation, 'CS-MIG')
+@DetailedIn(CurrentLandscapeAssessment)
+@SecondLevelSectionId(CurrentLandscapeAssessment, 'CS-MIG')
 class MigrationConsiderations {
   @Form([
     Field('overallStrategy', String,
@@ -6154,7 +6154,7 @@ class MigrationRiskHistory {
 /// system context patterns and enterprise integration best practices.
 @SectionId('SYBO')
 @Comment('Seeds → BSI')
-@MapsTo(BusinessSystemInteractions)
+@MapsTo(IntegrationInterfaceSpecification)
 class SystemBoundaries {
   /// Overview of system boundaries and scope definition approach.
   @ContentHelp('Provide executive summary of system boundaries: '
@@ -6213,8 +6213,8 @@ class SystemBoundaries {
 /// document. Follows enterprise integration patterns (EIP) and API-first
 /// design principles.
 @SectionId('EXIN')
-@DetailedIn(BusinessSystemInteractions)
-@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-INT')
+@DetailedIn(IntegrationInterfaceSpecification)
+@SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-INT')
 class ExternalInterfaces {
   /// Summary of the integration landscape.
   @ContentHelp('Summarize integration portfolio: total count by category, '
@@ -6793,8 +6793,8 @@ class InterfaceTestScenarioEntry {
 /// are excluded from the project scope. Provides clear boundaries and
 /// rationale to prevent scope creep and manage stakeholder expectations.
 @SectionId('OUOFSC')
-@DetailedIn(BusinessSystemInteractions)
-@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-OUT')
+@DetailedIn(IntegrationInterfaceSpecification)
+@SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-OUT')
 class OutOfScope {
   /// Overview of scope exclusion approach.
   @ContentHelp('Describe the scope philosophy and how exclusions were '
@@ -6861,8 +6861,8 @@ class OutOfScopeEntryMitigation {
 /// for the project to succeed. Each assumption should be validated and
 /// tracked as a potential risk if proven incorrect.
 @SectionId('BOAS')
-@DetailedIn(BusinessSystemInteractions)
-@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-ASS')
+@DetailedIn(IntegrationInterfaceSpecification)
+@SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-ASS')
 class BoundaryAssumptions {
   /// Overview of assumption categories and validation approach.
   @ContentHelp('Describe assumption categories, validation timeline, '
@@ -7289,9 +7289,9 @@ class ResponsibilityGovernance {
 /// Technical Requirements (TR) document.
 @SectionId('TEFRCO')
 @Comment('Seeds → TR')
-@MapsTo(TechnicalRequirementsSpec)
-@DetailedIn(TechnicalRequirementsSpec)
-@SecondLevelSectionId(TechnicalRequirementsSpec, 'TR-TEC')
+@MapsTo(ArchitectureTechnologySpecification)
+@DetailedIn(ArchitectureTechnologySpecification)
+@SecondLevelSectionId(ArchitectureTechnologySpecification, 'TR-TEC')
 class TechnicalFrameworkConditions {
   // -------------------------------------------------------------------------
   // Technical Landscape Overview
@@ -8717,8 +8717,8 @@ class AssumptionRelationships {
 ///
 /// Complete external-system inventory covering BSI-LAN-INV content.
 @SectionId('SYLAIN')
-@DetailedIn(BusinessSystemInteractions)
-@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-INV')
+@DetailedIn(IntegrationInterfaceSpecification)
+@SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-INV')
 class SystemLandscapeInventory {
   @ContentHelp('''
 Enumerates every external system the target system interacts with, with
@@ -8747,8 +8747,8 @@ organization's landscape.
 /// Named `BoundaryInteractionPatterns` to avoid colliding with the
 /// existing intra-system `InteractionPatterns` class.
 @SectionId('BOINPA')
-@DetailedIn(BusinessSystemInteractions)
-@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-PAT')
+@DetailedIn(IntegrationInterfaceSpecification)
+@SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-PAT')
 class BoundaryInteractionPatterns {
   @ContentHelp('''
 Reusable interaction patterns applied at system boundaries. Distinct
@@ -8776,8 +8776,8 @@ within the target system.
 /// Contract / integration / failure-mode testing for system boundaries.
 /// Covers BSI-TST.
 @SectionId('INTES1')
-@DetailedIn(BusinessSystemInteractions)
-@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-TST')
+@DetailedIn(IntegrationInterfaceSpecification)
+@SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-TST')
 class InteractionTestingStrategy {
   @ContentHelp('''
 Strategy for testing boundary interactions specifically. Complements the
@@ -8804,8 +8804,8 @@ broader PD00-SYQ-TST test strategy.
 /// Critical-path and degraded-mode behavior analysis for system
 /// dependencies. Covers BSI-DEP.
 @SectionId('INDEAN')
-@DetailedIn(BusinessSystemInteractions)
-@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-DEP')
+@DetailedIn(IntegrationInterfaceSpecification)
+@SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-DEP')
 class InteractionDependencyAnalysis {
   @ContentHelp('''
 What happens when external interactions are slow or unavailable, and
@@ -8833,8 +8833,8 @@ which of them lie on the critical path of user-facing flows.
 /// reconciliation endpoints, and temporary shims. Back-refs
 /// PD00-SYO-SYR (Systems to Replace). Covers BSI-MIG.
 @SectionId('MIIN')
-@DetailedIn(BusinessSystemInteractions)
-@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-MIG')
+@DetailedIn(IntegrationInterfaceSpecification)
+@SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-MIG')
 class MigrationInteractions {
   @ContentHelp('''
 Transitional interactions that exist only during the migration window:
@@ -8860,8 +8860,8 @@ dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
 ///
 /// Cross-requirement dependency and conflict graph.
 @SectionId('RERE')
-@DetailedIn(RequirementsCatalog)
-@SecondLevelSectionId(RequirementsCatalog, 'RC-REL')
+@DetailedIn(RequirementsSpecification)
+@SecondLevelSectionId(RequirementsSpecification, 'RC-REL')
 class RequirementRelationships {
   @ContentHelp('''
 Explicit relationships between requirements: dependencies, conflicts,
@@ -8886,8 +8886,8 @@ FUN/TEC/SEC/ORG into a network.
 ///
 /// Coverage of requirements against goals, use cases, and tests.
 @SectionId('RECO1')
-@DetailedIn(RequirementsCatalog)
-@SecondLevelSectionId(RequirementsCatalog, 'RC-COV')
+@DetailedIn(RequirementsSpecification)
+@SecondLevelSectionId(RequirementsSpecification, 'RC-COV')
 class RequirementCoverage {
   @ContentHelp('''
 Reports coverage of requirements from multiple angles to ensure nothing
@@ -8913,8 +8913,8 @@ falls through.
 /// boundaries. Distinct from per-interface operational data captured
 /// inside individual interface entries.
 @SectionId('CBOC')
-@DetailedIn(BusinessSystemInteractions)
-@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-OPE')
+@DetailedIn(IntegrationInterfaceSpecification)
+@SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-OPE')
 class CrossBoundaryOperationalConsiderations {
   @ContentHelp('''
 Operational considerations that span all boundary interactions rather
@@ -8940,8 +8940,8 @@ than being specific to one partner.
 /// Failure-propagation policy that applies across system boundaries.
 /// Distinct from per-interface error handling.
 @SectionId('CBEH')
-@DetailedIn(BusinessSystemInteractions)
-@SecondLevelSectionId(BusinessSystemInteractions, 'BSI-ERR')
+@DetailedIn(IntegrationInterfaceSpecification)
+@SecondLevelSectionId(IntegrationInterfaceSpecification, 'BSI-ERR')
 class CrossBoundaryErrorHandling {
   @ContentHelp('''
 Policy for how failures propagate or are contained across boundary

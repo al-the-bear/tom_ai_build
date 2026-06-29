@@ -17,15 +17,15 @@ import '../solution_blueprint/solution_blueprint.dart';
 /// decision processes, initial development flow, and upgrade cycle
 /// framework.
 @Document(
-  name: 'Project Phase Plan',
+  name: 'Delivery Roadmap',
   description: 'Comprehensive project phase plan — staging strategy, '
       'stages, feature prioritization, migration, gates, decisions, '
       'initial development flow, and upgrade cycle framework (bridge '
       'to tom_system_upgrade.md).',
-  basedOn: [ProjectDefinition],
+  basedOn: [SolutionBlueprint],
 )
-@SectionId('PPP')
-class ProjectPhasePlan {
+@SectionId('DRM')
+class DeliveryRoadmap {
   @ContentHelp('Executive overview of the phase plan and its gate model.')
   String? content;
 

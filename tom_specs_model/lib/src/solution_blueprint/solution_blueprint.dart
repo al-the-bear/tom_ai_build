@@ -44,14 +44,14 @@ import 'user_interface_design.dart';
 ///
 /// Contains a [DocumentHeader] and all 14 PD sections [PD00].
 @Document(
-  name: 'Project Definition',
+  name: 'Solution Blueprint',
   description: 'Comprehensive specification document covering all aspects of '
       'the system from current state analysis through implementation planning, '
       'organizational framework, business processes, data models, technical '
       'framework, security, and user interface design.',
 )
-@SectionId('PD')
-class ProjectDefinition {
+@SectionId('SBP')
+class SolutionBlueprint {
   @Unused()
   String? content;
 

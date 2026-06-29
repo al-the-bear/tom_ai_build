@@ -19,7 +19,7 @@ import '../document_stubs.dart';
 /// targets, verification methods, and acceptance criteria.
 @SectionId('SYQG')
 @Comment('Seeds → BQP')
-@MapsTo(BusinessQualityPlan)
+@MapsTo(QualityAcceptancePlan)
 class SystemQualityGoals {
   @Form([
     Field('qualityApproach', String, 'Quality Approach',
@@ -161,8 +161,8 @@ class SystemQualityGoalsResources {
 /// Overall quality approach for the project defining objectives, categories,
 /// and how quality is structured and governed across the system.
 @SectionId('QLFWK')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-FRA')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-FRA')
 class QualityFramework {
   // ─────────────────────────────────────────────────────────────────────────
   // Framework Configuration
@@ -355,8 +355,8 @@ class QualityCategoryEntryMetrics {
 /// Quality criteria that directly affect user experience, including usability,
 /// functional completeness, and correctness from the end-user perspective.
 @SectionId('USQCR')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-USE')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-USE')
 class UserQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // User Quality Overview
@@ -601,8 +601,8 @@ class CorrectnessQualityVerification {
 /// Quality criteria for the technical implementation including efficiency,
 /// portability, flexibility, security, maintainability, and reliability.
 @SectionId('TEQUCR')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-TEC')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-TEC')
 class TechnicalQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Technical Quality Overview
@@ -1099,8 +1099,8 @@ class ReliabilityQualityVerification {
 /// Quality criteria for system operations including availability, service
 /// levels, monitoring, and IT security operations.
 @SectionId('OPQUCR')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-OPE')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-OPE')
 class OperationsQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Operations Quality Overview
@@ -1547,8 +1547,8 @@ class ItSecurityOperationsQualityIncident {
 /// Quality criteria for project documentation including readability,
 /// completeness, correctness, and changeability.
 @SectionId('DOQUCR')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-DOC')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-DOC')
 class DocumentationQualityCriteria {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation Quality Overview
@@ -1842,8 +1842,8 @@ class DocChangeabilityQualityMaintenance {
 /// Prioritization and balancing of quality attributes including weighted
 /// matrices and explicit trade-off decisions.
 @SectionId('QUPR')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-PRI')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-PRI')
 class QualityPrioritization {
   // ─────────────────────────────────────────────────────────────────────────
   // Prioritization Framework
@@ -2071,8 +2071,8 @@ class TradeOffDecisionEntryApproval {
 /// Quality acceptance criteria for the project including must-pass criteria
 /// and quality gate checklists.
 @SectionId('ACCRSU')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-ACC')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-ACC')
 class AcceptanceCriteriaSummary {
   // ─────────────────────────────────────────────────────────────────────────
   // Acceptance Framework
@@ -2377,8 +2377,8 @@ class QualityGateCheckEntryBlocking {
 ///
 /// Overall test strategy for the project. Covers HBSG AS23 Test Strategy.
 @SectionId('TEST')
-@DetailedIn(BusinessQualityPlan)
-@SecondLevelSectionId(BusinessQualityPlan, 'BQP-TST')
+@DetailedIn(QualityAcceptancePlan)
+@SecondLevelSectionId(QualityAcceptancePlan, 'BQP-TST')
 class TestStrategy {
   @ContentHelp('''
 High-level strategy for verifying quality across the system. Distinct
