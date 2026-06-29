@@ -11,7 +11,8 @@ import 'enums.dart';
 @SectionId('REQ')
 class Requirement {
   @Form([
-    Field('requirementId', String, 'Requirement Id', required: true),
+    Field('requirementId', String, 'Requirement ID (REQ-NNN; NFR-NNN '
+        'for non-functional)', required: true),
     Field('title', String, 'Title', required: true),
     Field('description', String, 'Short description'),
     Field('priority', Priority, 'Priority level'),

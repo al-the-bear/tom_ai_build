@@ -7,7 +7,7 @@ import 'enums.dart';
 @SectionId('RISK')
 class Risk {
   @Form([
-    Field('riskId', String, 'Risk Id', required: true),
+    Field('riskId', String, 'Risk ID (RISK-NNN)', required: true),
     Field('name', String, 'Name', required: true),
     Field('description', String, 'Short description'),
     Field('probability', Probability, 'Probability'),
