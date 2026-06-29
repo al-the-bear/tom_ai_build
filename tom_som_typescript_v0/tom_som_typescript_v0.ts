@@ -49639,7 +49639,7 @@ export class TechnicalDependencyEntry extends SomNode {
   }
 }
 
-// 8. Technical Framework Concept. Seeds → TR.
+// 8. Technical Framework Concept. Seeds → ATS.
 export class TechnicalFrameworkConcept extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);

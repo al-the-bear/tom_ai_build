@@ -50115,7 +50115,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 8. Technical Framework Concept. Seeds → TR.
+  // 8. Technical Framework Concept. Seeds → ATS.
   public static final class TechnicalFrameworkConcept extends SomNode {
     public TechnicalFrameworkConcept(SpecDocument doc, String path) {
       super(doc, path);

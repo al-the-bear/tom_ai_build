@@ -65896,7 +65896,7 @@ impl TechnicalDependencyEntry {
     }
 }
 
-/// 8. Technical Framework Concept. Seeds → TR.
+/// 8. Technical Framework Concept. Seeds → ATS.
 pub struct TechnicalFrameworkConcept {
     pub node: som::SomNode,
 }

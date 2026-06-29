@@ -31594,7 +31594,7 @@ void technical_dependency_entry_init(TechnicalDependencyEntry *self, SpecDocumen
 void technical_dependency_entry_free(TechnicalDependencyEntry *self);
 TechnicalDependencyEntryContentForm technical_dependency_entry_content(const TechnicalDependencyEntry *self);
 
-// 8. Technical Framework Concept. Seeds → TR.
+// 8. Technical Framework Concept. Seeds → ATS.
 // Binds a TechnicalFrameworkConcept facade to a document and a path (path copied).
 void technical_framework_concept_init(TechnicalFrameworkConcept *self, SpecDocument *doc, const char *path);
 void technical_framework_concept_free(TechnicalFrameworkConcept *self);

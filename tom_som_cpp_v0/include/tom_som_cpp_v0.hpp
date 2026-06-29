@@ -34366,7 +34366,7 @@ class TechnicalDependencyEntry : public som::SomNode {
   TechnicalDependencyEntryContentForm content() const;
 };
 
-// 8. Technical Framework Concept. Seeds → TR.
+// 8. Technical Framework Concept. Seeds → ATS.
 class TechnicalFrameworkConcept : public som::SomNode {
  public:
   TechnicalFrameworkConcept(som::SpecDocument& doc, std::string path);

@@ -31385,7 +31385,7 @@ class TechnicalDependencyEntry extends SomNode {
   TechnicalDependencyEntryContentForm get content => TechnicalDependencyEntryContentForm(doc, '$path/content');
 }
 
-/// 8. Technical Framework Concept. Seeds → TR.
+/// 8. Technical Framework Concept. Seeds → ATS.
 class TechnicalFrameworkConcept extends SomNode {
   TechnicalFrameworkConcept(super.doc, super.path);
 

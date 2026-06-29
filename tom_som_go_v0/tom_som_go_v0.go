@@ -58982,7 +58982,7 @@ func (x *TechnicalDependencyEntry) Content() *TechnicalDependencyEntryContentFor
 	return NewTechnicalDependencyEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 8. Technical Framework Concept. Seeds → TR.
+// 8. Technical Framework Concept. Seeds → ATS.
 type TechnicalFrameworkConcept struct {
 	som.SomNode
 }

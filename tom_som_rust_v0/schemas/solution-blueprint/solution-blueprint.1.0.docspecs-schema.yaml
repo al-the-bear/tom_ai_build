@@ -12132,9 +12132,9 @@ section-types:
     prefix: tech
     description: |
       Describe the complete technical foundation for building and operating
-      the target system. This section seeds the Technical Requirements (TR)
-      document where all technical decisions will be expanded into detailed
-      implementation specifications.
+      the target system. This section seeds the Architecture & Technology
+      Specification (ATS) document where all technical decisions will be
+      expanded into detailed implementation specifications.
       **Purpose**: Establish technical constraints, architectural decisions,
       and infrastructure requirements that guide all development work.
       **Structure Overview**:
@@ -12146,10 +12146,10 @@ section-types:
       - **Communication**: Protocols, external connectivity
       - **System Operation**: Administration, health checks, capacity
       - **Security**: IT security standards, privacy, auditing
-      **Integration Points**: All subsections feed into TR document. Decisions
-      must align with business requirements from the target-process sections
-      and the system overview. Security requirements coordinate with the
-      authorization concept.
+      **Integration Points**: All subsections feed into the ATS document.
+      Decisions must align with business requirements from the target-process
+      sections and the system overview. Security requirements coordinate with
+      the security and access model.
   TECN:
     prefix: tecn
     description: A technical constraint entry (form).

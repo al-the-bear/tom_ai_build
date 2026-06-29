@@ -1,4 +1,4 @@
-/// Section 8: Technical Framework Concept. Seeds → TR.
+/// Section 8: Technical Framework Concept. Seeds → ATS.
 ///
 /// Technical framework requirements and constraints.
 library;
@@ -7,14 +7,14 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// 8. Technical Framework Concept. Seeds → TR.
-@Comment('Seeds → TR')
+/// 8. Technical Framework Concept. Seeds → ATS.
+@Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @ContentHelp('''
 Describe the complete technical foundation for building and operating
-the target system. This section seeds the Technical Requirements (TR)
-document where all technical decisions will be expanded into detailed
-implementation specifications.
+the target system. This section seeds the Architecture & Technology
+Specification (ATS) document where all technical decisions will be
+expanded into detailed implementation specifications.
 
 **Purpose**: Establish technical constraints, architectural decisions,
 and infrastructure requirements that guide all development work.
@@ -29,10 +29,10 @@ and infrastructure requirements that guide all development work.
 - **System Operation**: Administration, health checks, capacity
 - **Security**: IT security standards, privacy, auditing
 
-**Integration Points**: All subsections feed into TR document. Decisions
-must align with business requirements from the target-process sections
-and the system overview. Security requirements coordinate with the
-authorization concept.
+**Integration Points**: All subsections feed into the ATS document.
+Decisions must align with business requirements from the target-process
+sections and the system overview. Security requirements coordinate with
+the security and access model.
 ''')
 @SectionId('TECH')
 class TechnicalFrameworkConcept {

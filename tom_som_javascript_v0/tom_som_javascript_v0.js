@@ -50225,7 +50225,7 @@ class TechnicalDependencyEntry extends SomNode {
   }
 }
 
-// 8. Technical Framework Concept. Seeds → TR.
+// 8. Technical Framework Concept. Seeds → ATS.
 class TechnicalFrameworkConcept extends SomNode {
   constructor(doc, path) {
     super(doc, path);

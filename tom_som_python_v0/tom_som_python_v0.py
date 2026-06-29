@@ -45212,7 +45212,7 @@ class TechnicalDependencyEntry(SomNode):
         return TechnicalDependencyEntryContentForm(self.doc, f"{self.path}/content")
 
 class TechnicalFrameworkConcept(SomNode):
-    """8. Technical Framework Concept. Seeds → TR."""
+    """8. Technical Framework Concept. Seeds → ATS."""
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
