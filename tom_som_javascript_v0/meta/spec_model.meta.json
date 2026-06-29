@@ -38974,7 +38974,7 @@
     "CurrentLandscape": {
       "name": "CurrentLandscape",
       "sectionId": "CUSA",
-      "doc": "1. Current State Analysis. Seeds → CS.\n\nSeeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to\nCS together with the systems-to-replace inventory.",
+      "doc": "1. Current Landscape. Seeds → CLA.\n\nSeeds the CLA (Current Landscape Assessment) Phase 3 DocSpec. Its subtree\nflows to CLA together with the systems-to-replace inventory.",
       "mapsTo": "D01CurrentLandscapeAssessment",
       "annotations": [
         {

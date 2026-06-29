@@ -9532,7 +9532,7 @@ section-types:
     description: Cross-Tenant Access Policy (form).
   CUSA:
     prefix: cusa
-    description: 1. Current State Analysis. Seeds → CS.
+    description: 1. Current Landscape. Seeds → CLA.
   CUWF:
     prefix: cuwf
     description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.

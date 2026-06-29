@@ -11479,10 +11479,10 @@ DataIntegrationPoints current_data_landscape_data_integration_points(const Curre
 // 1.4.10. Master Data Management.
 MasterDataManagement current_data_landscape_master_data_management(const CurrentDataLandscape *self);
 
-// 1. Current State Analysis. Seeds → CS.
+// 1. Current Landscape. Seeds → CLA.
 //
-// Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
-// CS together with the systems-to-replace inventory.
+// Seeds the CLA (Current Landscape Assessment) Phase 3 DocSpec. Its subtree
+// flows to CLA together with the systems-to-replace inventory.
 // Binds a CurrentLandscape facade to a document and a path (path copied).
 void current_landscape_init(CurrentLandscape *self, SpecDocument *doc, const char *path);
 void current_landscape_free(CurrentLandscape *self);

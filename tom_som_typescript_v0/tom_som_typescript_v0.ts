@@ -10914,10 +10914,10 @@ export class CurrentDataLandscape extends SomNode {
   }
 }
 
-// 1. Current State Analysis. Seeds → CS.
+// 1. Current Landscape. Seeds → CLA.
 //
-// Seeds the CS (Current Situation) Phase 3 DocSpec. Its subtree flows to
-// CS together with the systems-to-replace inventory.
+// Seeds the CLA (Current Landscape Assessment) Phase 3 DocSpec. Its subtree
+// flows to CLA together with the systems-to-replace inventory.
 export class CurrentLandscape extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
