@@ -14,8 +14,8 @@ tom-spec-object-model:
   version-label: v0            # optional, default "v0" — suffix on tom_som_<slug>_<label>
   output-base: tom_ai/ai_build # optional, default "."  — base for default output roots
   document-roots:              # optional — absent/empty ⇒ generate ALL document roots
-    - ProjectDefinition
-    - CsCurrentSituation
+    - SolutionBlueprint
+    - CurrentLandscapeAssessment
   languages:                   # required, non-empty
     - dart                     # short form: default output root
     - language: java           # map form: explicit output override

@@ -12,7 +12,7 @@ The **Specs Model Outliner** is a Dart-based generator that reads the `tom_specs
 
 ## 3. Output
 
-A single text file (e.g., `doc/pd_project_definition_outline.txt`) containing the full model tree in the outliner notation described below.
+A single text file (e.g., `doc/solution_blueprint_outline.txt`) containing the full model tree in the outliner notation described below.
 
 ## 4. Notation
 

@@ -1,7 +1,7 @@
 # Comment → Annotation Mapping Rules
 
 Rules for automatically deriving `tom_specs_core` annotations from doc-comment
-conventions used in the `pd_project_definition` model code.
+conventions used in the `solution_blueprint` model code.
 
 ---
 
@@ -336,7 +336,7 @@ narrative text of its own, apply `@Unused()` to the content field. Section text
 is not expected and will be ignored.
 
 ```dart
-class ProjectDefinition {
+class SolutionBlueprint {
   @Unused()
   String? content;
 }
@@ -528,8 +528,8 @@ experts or AI assistants based on content analysis.
 
 ## 19. `@Document` — document root marker
 
-**Pattern:** Top-level document classes (e.g., `ProjectDefinition`,
-`TechnicalRequirements`) are identified by their structural position and
+**Pattern:** Top-level document classes (e.g., `SolutionBlueprint`,
+`ArchitectureTechnologySpecification`) are identified by their structural position and
 doc-comment descriptions.
 
 **Rule:** Apply `@Document(name, description, basedOn)` to classes that
@@ -537,11 +537,11 @@ represent complete document types:
 
 ```dart
 @Document(
-  name: 'Project Definition',
+  name: 'Solution Blueprint',
   description: 'Comprehensive specification document covering all aspects '
       'of the system from current state through implementation.',
 )
-class ProjectDefinition { ... }
+class SolutionBlueprint { ... }
 ```
 
 **Confidence:** High — document roots are structurally identifiable by their

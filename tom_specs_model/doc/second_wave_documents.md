@@ -1,5 +1,15 @@
 # Second-Wave Documents: PD00 → Phase 3 DocSpec Class Mapping
 
+> **Historical record.** This is the planning note that mapped the Phase 3
+> documents onto the master document *before* the public-standards redesign. It
+> uses the pre-redesign vocabulary throughout — `ProjectDefinition`/`PD00` (now
+> `SolutionBlueprint`/`SBP`), the old root class names (`BusinessProcesses`,
+> `BusinessDataModel`, `UseCases`, `RequirementsCatalog`, …), the
+> `lib/src/pd_project_definition/` folder (now `lib/src/solution_blueprint/`),
+> and source files that have since been removed. These names are retained
+> verbatim as a faithful record of the planning at that time and are **not**
+> current; for the current root↔class names see `doc/outlines/index.md`.
+
 **Purpose:** Plan the Dart object-model classes for the 12 Phase 3 DocSpec documents that are derived from the PD00 Project Definition. For each target document this note identifies the PD00 subtrees that become its top-level entries, at the shallowest depth at which the subtree below flows to a single target.
 
 **Sources consulted:**

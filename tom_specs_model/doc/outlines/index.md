@@ -50,6 +50,4 @@ dart run bin/outliner.dart --package ../tom_specs_model --root-type SolutionBlue
 | [field_classification.md](../field_classification.md) | Field classification rules and examples |
 | [form_decomposition.md](../form_decomposition.md) | Form decomposition guidelines |
 | [nested_lists_remodeling.md](../nested_lists_remodeling.md) | Nested list remodeling patterns |
-| [pd_project_definition_model.md](../pd_project_definition_model.md) | Project Definition model documentation |
-| [pd_template_model_update.md](../pd_template_model_update.md) | PD template model update notes |
-| [second_wave_documents.md](../second_wave_documents.md) | Second-wave document planning |
+| [second_wave_documents.md](../second_wave_documents.md) | Second-wave document planning (historical PD00 → Phase 3 mapping record) |

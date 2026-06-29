@@ -1,5 +1,12 @@
 # Model Restructuring Stage Plan
 
+> **Historical record.** This plan describes a completed restructuring carried
+> out *before* the public-standards redesign. Names such as
+> `pd_project_definition`, `ProjectDefinition`, and `pd_*.dart` files reflect the
+> model layout **at that time**; the current model uses `solution_blueprint` /
+> `SolutionBlueprint`. Old names are retained here as a faithful record and are
+> **not** current.
+
 Plan for restructuring `tom_specs_model` (pd_project_definition) to use typed
 section classes, `@Form` field annotations, and consistent section IDs.
 

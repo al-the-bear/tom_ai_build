@@ -84,7 +84,7 @@ cd tom_ai/ai_build/tom_som_dart_v0 && dart pub get && dart analyze
 cd tom_ai/ai_build
 python3 -m py_compile tom_som_python_v0/tom_som_python_v0.py
 PYTHONPATH="tom_som_python_runtime:tom_som_python_v0" \
-  python3 -c "import tom_som_python_v0 as m; print(hasattr(m,'ProjectDefinition'))"
+  python3 -c "import tom_som_python_v0 as m; print(hasattr(m,'SolutionBlueprint'))"
 
 # Present-but-projectless toolchains — trivial smoke
 node -e "console.log(1+1)"
