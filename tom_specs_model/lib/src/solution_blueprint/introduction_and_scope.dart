@@ -8211,6 +8211,15 @@ class OrgImplementationActivity {
 /// as part of the project. Follows TOGAF migration planning patterns and
 /// Gartner application rationalization frameworks. Each system entry provides
 /// comprehensive assessment for informed replacement decisions.
+@StandardReferences(
+  [
+    'TOGAF — migration planning & application portfolio management',
+    'Gartner TIME model (Tolerate, Invest, Migrate, Eliminate) — application rationalization',
+    'ISO/IEC/IEEE 29148 §6 — scope / systems to replace',
+  ],
+  'Captures the full portfolio of existing systems to be replaced, migrated, or '
+  'decommissioned, anchoring informed replacement decisions for the project.',
+)
 @SectionId('SYTOR1')
 @Comment('Seeds → CLA')
 @MapsTo(D01CurrentLandscapeAssessment)
@@ -8239,6 +8248,14 @@ class SystemsToReplace {
 ///
 /// Provides a structured inventory of all systems targeted for replacement,
 /// with portfolio-level metrics and prioritization guidance.
+@StandardReferences(
+  [
+    'TOGAF — application portfolio management',
+    'Gartner TIME model (Tolerate, Invest, Migrate, Eliminate) — application rationalization',
+  ],
+  'Provides the structured inventory of all systems targeted for replacement, '
+  'with portfolio-level metrics and prioritization sequencing.',
+)
 @SectionId('RI')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-INV')
@@ -8256,8 +8273,18 @@ class ReplacementInventory {
   TextSection prioritizationCriteria = TextSection();
 
   /// Contains 0+× SystemToReplaceEntry.
+  @StandardReferences(
+    [
+      'TOGAF — application portfolio management',
+      'Gartner TIME model (Tolerate, Invest, Migrate, Eliminate) — application rationalization',
+    ],
+    'Lists each individual system to be replaced as a comprehensive '
+    'assessment entry within the replacement portfolio.',
+  )
   @SectionId('SYTORE-SYST-LST')
   @SectionIdPattern('SYTORE-SYST-xxx')
+  @ContentHelp('Add one entry per legacy system targeted for replacement; '
+      'each entry captures its full technical, business, and migration assessment.')
   @SerializationOrder(2)
   List<SystemToReplaceEntry> systems = [];
 }
@@ -8268,6 +8295,14 @@ class ReplacementInventory {
 /// technical assessment, business criticality, replacement strategy, and
 /// migration planning. Follows Gartner's TIME (Tolerate, Invest, Migrate,
 /// Eliminate) model and TOGAF application portfolio management patterns.
+@StandardReferences(
+  [
+    'Gartner TIME model (Tolerate, Invest, Migrate, Eliminate) — application rationalization',
+    'TOGAF — application portfolio management',
+  ],
+  'Captures the comprehensive assessment of a single legacy system — technical, '
+  'business, replacement, data, and migration dimensions — for replacement decisions.',
+)
 @SectionId('SYTORE')
 class SystemToReplaceEntry {
   // -------------------------------------------------------------------------
@@ -8275,10 +8310,14 @@ class SystemToReplaceEntry {
   // -------------------------------------------------------------------------
 
   @Form([
-    Field('systemId', String, 'System ID (e.g., SYS-CRM-001)', required: true),
-    Field('systemName', String, 'System Name', required: true),
-    Field('officialName', String, 'Official/Vendor Name'),
-    Field('systemDescription', String, 'Description'),
+    Field('systemId', String, 'System ID (e.g., SYS-CRM-001)', required: true,
+        hint: 'Stable identifier for the legacy system being replaced'),
+    Field('systemName', String, 'System Name', required: true,
+        hint: 'Common name the organization uses for this system'),
+    Field('officialName', String, 'Official/Vendor Name',
+        hint: 'Vendor/product name and edition, if a commercial system'),
+    Field('systemDescription', String, 'Description',
+        hint: 'Brief description of what the system does and who uses it'),
   ])
   @SerializationOrder(0)
   String? identificationContent;
@@ -8308,8 +8347,17 @@ class SystemToReplaceEntry {
   SystemDataScope dataScope = SystemDataScope();
 
     /// Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
+  @StandardReferences(
+    [
+      'TOGAF — application portfolio management (integration dependencies)',
+    ],
+    'Lists integrations and dependencies between this system and others, so '
+    'replacement sequencing accounts for connected systems.',
+  )
   @SectionId('REPSDEP-DEPE-LST')
   @SectionIdPattern('REPSDEP-DEPE-xxx')
+    @ContentHelp('Add one entry per integration or dependency; capture direction, '
+        'criticality, and how the link will be rebuilt or eliminated.')
     @SerializationOrder(7)
     List<ReplacementSystemDependencyEntry> dependencies = [];
 
@@ -8331,41 +8379,74 @@ class SystemToReplaceEntry {
 }
 
 /// Classification and ownership details.
+@StandardReferences(
+  [
+    'TOGAF — application portfolio management (classification & ownership)',
+  ],
+  'Captures the system classification, application tier, and business/technical '
+  'ownership used to position it within the portfolio.',
+)
 @SectionId('STREP')
 class SystemToReplaceEntryProfile {
     @Form([
-        Field('systemCategory', String, 'Category (CRM, ERP, HR, Finance, etc.)'),
+        Field('systemCategory', String, 'Category (CRM, ERP, HR, Finance, etc.)',
+                hint: 'Functional category of the system'),
         Field('applicationTier', String,
-                'Tier (Mission Critical, Business Critical, Operational)'),
-        Field('businessOwner', String, 'Business Owner'),
-        Field('technicalOwner', String, 'Technical Owner'),
+                'Tier (Mission Critical, Business Critical, Operational)',
+                hint: 'Criticality tier of the application'),
+        Field('businessOwner', String, 'Business Owner',
+                hint: 'Person or role accountable for the business function'),
+        Field('technicalOwner', String, 'Technical Owner',
+                hint: 'Person or role accountable for the technical platform'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Vendor and contract status.
+@StandardReferences(
+  [
+    'TOGAF — application portfolio management (vendor & contract status)',
+  ],
+  'Captures the vendor, contract status, and contract end date that constrain '
+  'replacement timing and commercial decisions.',
+)
 @SectionId('STREV')
 class SystemToReplaceEntryVendor {
     @Form([
-        Field('vendorName', String, 'Vendor/Provider'),
+        Field('vendorName', String, 'Vendor/Provider',
+                hint: 'Name of the supplying vendor or provider'),
         Field('contractStatus', String,
-                'Contract Status (Active, Expired, Month-to-month)'),
-        Field('contractEndDate', String, 'Contract End Date'),
+                'Contract Status (Active, Expired, Month-to-month)',
+                hint: 'Current state of the vendor contract'),
+        Field('contractEndDate', String, 'Contract End Date',
+                hint: 'Date the current contract expires'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Technical assessment for a system to replace.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (technical assessment)',
+    'TOGAF — application portfolio management',
+  ],
+  'Captures the technology stack, hosting, lifecycle, quality, and known '
+  'technical/security issues of the system being replaced.',
+)
 @SectionId('SYTEAS')
 class SystemTechnicalAssessment {
   @Form([
-    Field('primaryTechnology', String, 'Primary Technology/Platform'),
-    Field('technologyVersion', String, 'Version'),
-    Field('databasePlatform', String, 'Database Platform'),
+    Field('primaryTechnology', String, 'Primary Technology/Platform',
+        hint: 'Core technology or platform the system runs on'),
+    Field('technologyVersion', String, 'Version',
+        hint: 'Version of the primary technology'),
+    Field('databasePlatform', String, 'Database Platform',
+        hint: 'Database engine and version backing the system'),
     Field('hostingEnvironment', String,
-        'Hosting (On-premises, Cloud, Hybrid, SaaS)'),
+        'Hosting (On-premises, Cloud, Hybrid, SaaS)',
+        hint: 'Where the system is currently hosted'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -8385,73 +8466,138 @@ class SystemTechnicalAssessment {
   SystemTechnicalAssessmentQuality quality = SystemTechnicalAssessmentQuality();
 
   /// Known technical issues and deficiencies.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — product quality (defects & maintainability)',
+    ],
+    'Lists known technical issues and deficiencies that strengthen the case '
+    'for replacement and inform migration risk.',
+  )
   @SectionId('KIE-KNOW-LST')
   @SectionIdPattern('KIE-KNOW-xxx')
+  @ContentHelp('Add one entry per significant known technical issue, defect, '
+      'or deficiency affecting the system.')
   @SerializationOrder(4)
   List<KnownIssueEntry> knownIssues = [];
 
   /// Security vulnerabilities and compliance gaps.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)',
+    ],
+    'Lists security vulnerabilities and compliance gaps in the system that '
+    'raise replacement urgency and shape migration controls.',
+  )
   @SectionId('SECUR-SECU-LST')
   @SectionIdPattern('SECUR-SECU-xxx')
+  @ContentHelp('Add one entry per security vulnerability or compliance gap; '
+      'note severity and remediation status.')
   @SerializationOrder(5)
   List<SecurityConcernEntry> securityConcerns = [];
 }
 
 /// Platform and age details.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (platform & maintainability)',
+  ],
+  'Captures the operating environment, middleware, and age indicators that '
+  'signal the platform obsolescence driving replacement.',
+)
 @SectionId('STAP')
 class SystemTechnicalAssessmentPlatform {
     @Form([
-        Field('operatingSystem', String, 'Operating System'),
-        Field('middlewareComponents', String, 'Middleware Components'),
-        Field('deploymentDate', String, 'Initial Deployment Date'),
-        Field('systemAge', int, 'System Age (Years)'),
-        Field('lastMajorUpgrade', String, 'Last Major Upgrade'),
+        Field('operatingSystem', String, 'Operating System',
+                hint: 'OS the system runs on'),
+        Field('middlewareComponents', String, 'Middleware Components',
+                hint: 'Application servers, message brokers, or other middleware'),
+        Field('deploymentDate', String, 'Initial Deployment Date',
+                hint: 'When the system was first put into production'),
+        Field('systemAge', int, 'System Age (Years)',
+                hint: 'Age of the system in years'),
+        Field('lastMajorUpgrade', String, 'Last Major Upgrade',
+                hint: 'Date or version of the most recent major upgrade'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Support and lifecycle details.
+@StandardReferences(
+  [
+    'TOGAF — application portfolio management (lifecycle status)',
+    'ISO/IEC 25010 — product quality',
+  ],
+  'Captures vendor support status and end-of-support dates that bound the '
+  'window in which the system must be replaced.',
+)
 @SectionId('STAL')
 class SystemTechnicalAssessmentLifecycle {
     @Form([
         Field('vendorSupportStatus', String,
-                'Support Status (Full, Extended, End of Life)'),
-        Field('endOfSupportDate', String, 'End of Support Date'),
+                'Support Status (Full, Extended, End of Life)',
+                hint: 'Current vendor support level for the system'),
+        Field('endOfSupportDate', String, 'End of Support Date',
+                hint: 'Date after which the vendor no longer supports the system'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Technical quality indicators.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (maintainability, performance, security)',
+  ],
+  'Captures technical-debt, performance, scalability, maintainability, and '
+  'documentation quality indicators that justify replacement.',
+)
 @SectionId('STAQ')
 class SystemTechnicalAssessmentQuality {
     @Form([
         Field('technicalDebtRating', String,
-                'Technical Debt (Low, Medium, High, Critical)'),
-        Field('securityPosture', String, 'Security Posture'),
+                'Technical Debt (Low, Medium, High, Critical)',
+                hint: 'Overall accumulated technical debt of the system'),
+        Field('securityPosture', String, 'Security Posture',
+                hint: 'Overall security health of the system'),
         Field('performanceStatus', String,
-                'Performance (Acceptable, Degraded, Poor)'),
-        Field('scalabilityLimitations', String, 'Scalability Limitations'),
-        Field('maintainability', String, 'Maintainability Rating'),
+                'Performance (Acceptable, Degraded, Poor)',
+                hint: 'Current runtime performance state'),
+        Field('scalabilityLimitations', String, 'Scalability Limitations',
+                hint: 'Known limits on scaling the system'),
+        Field('maintainability', String, 'Maintainability Rating',
+                hint: 'How easily the system can be changed or maintained'),
         Field('documentationQuality', String,
-                'Documentation (Complete, Partial, Outdated, Missing)'),
+                'Documentation (Complete, Partial, Outdated, Missing)',
+                hint: 'Quality and completeness of system documentation'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Business criticality assessment.
+@StandardReferences(
+  [
+    'Gartner TIME model (Tolerate, Invest, Migrate, Eliminate) — application rationalization',
+    'TOGAF — application portfolio management (business value)',
+  ],
+  'Captures the business value, criticality rating, and TIME classification '
+  'that drive prioritization of the system within the replacement portfolio.',
+)
 @SectionId('SYBUCR')
 class SystemBusinessCriticality {
   @Form([
     Field('criticalityRating', String,
         'Criticality (1=Mission Critical, 2=Business, 3=Operational)',
-        required: true),
-    Field('businessValueScore', int, 'Business Value Score (1-10)'),
+        required: true,
+        hint: 'How critical the system is to business operations'),
+    Field('businessValueScore', int, 'Business Value Score (1-10)',
+        hint: 'Relative business value on a 1-10 scale'),
     Field('timeModelClassification', String,
-        'TIME Classification (Tolerate, Invest, Migrate, Eliminate)'),
-    Field('activeUsers', int, 'Active Users'),
+        'TIME Classification (Tolerate, Invest, Migrate, Eliminate)',
+        hint: 'Gartner TIME disposition for the system'),
+    Field('activeUsers', int, 'Active Users',
+        hint: 'Number of users actively using the system'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -8467,84 +8613,160 @@ class SystemBusinessCriticality {
       SystemBusinessCriticalityGovernance();
 
   /// Business units and departments using this system.
+  @StandardReferences(
+    [
+      'TOGAF — application portfolio management (business usage)',
+    ],
+    'Lists the business units and departments that depend on the system, '
+    'quantifying organizational reach for impact planning.',
+  )
   @SectionId('SBUE-BUSI-LST')
   @SectionIdPattern('SBUE-BUSI-xxx')
+  @ContentHelp('Add one entry per business unit using the system; note user '
+      'count and dependency level.')
   @SerializationOrder(3)
   List<SystemBusinessUnitEntry> businessUnits = [];
 
   /// Business processes supported by this system.
+  @StandardReferences(
+    [
+      'TOGAF — application portfolio management (business processes)',
+    ],
+    'Lists the business processes the system supports, establishing the '
+    'functional footprint that the replacement must preserve.',
+  )
   @SectionId('SBPE-SUPP-LST')
   @SectionIdPattern('SBPE-SUPP-xxx')
+  @ContentHelp('Add one entry per business process the system supports; note '
+      'its role and execution frequency.')
   @SerializationOrder(4)
   List<SystemBusinessProcessEntry> supportedProcesses = [];
 }
 
 /// Usage scale and commercial impact.
+@StandardReferences(
+  [
+    'TOGAF — application portfolio management (operational scale & revenue impact)',
+  ],
+  'Captures usage scale and commercial impact — concurrency, volumes, and '
+  'revenue dependency — that weigh on the criticality assessment.',
+)
 @SectionId('SBCO')
 class SystemBusinessCriticalityOperations {
     @Form([
-        Field('peakConcurrentUsers', int, 'Peak Concurrent Users'),
-        Field('transactionVolume', String, 'Transaction Volume'),
-        Field('dataVolume', String, 'Data Volume'),
-        Field('revenueImpact', String, 'Revenue Impact (Direct, Indirect, None)'),
+        Field('peakConcurrentUsers', int, 'Peak Concurrent Users',
+                hint: 'Maximum simultaneous users observed'),
+        Field('transactionVolume', String, 'Transaction Volume',
+                hint: 'Typical transaction throughput'),
+        Field('dataVolume', String, 'Data Volume',
+                hint: 'Approximate volume of data handled'),
+        Field('revenueImpact', String, 'Revenue Impact (Direct, Indirect, None)',
+                hint: 'How the system affects revenue'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Delivery and compliance constraints.
+@StandardReferences(
+  [
+    'TOGAF — application portfolio management (governance constraints)',
+    'ISO/IEC 27001 — information security (compliance role)',
+  ],
+  'Captures operational impact, compliance role, and recovery objectives that '
+  'constrain how and when the system can be replaced.',
+)
 @SectionId('SBCG')
 class SystemBusinessCriticalityGovernance {
     @Form([
         Field('operationsImpact', String,
-                'Operations Impact (Severe, Moderate, Minor, None)'),
-        Field('complianceRole', String, 'Compliance/Regulatory Role'),
-        Field('maxDowntime', String, 'Max Acceptable Downtime (RTO)'),
+                'Operations Impact (Severe, Moderate, Minor, None)',
+                hint: 'Severity of disruption if the system is unavailable'),
+        Field('complianceRole', String, 'Compliance/Regulatory Role',
+                hint: 'Regulatory or compliance function the system serves'),
+        Field('maxDowntime', String, 'Max Acceptable Downtime (RTO)',
+                hint: 'Maximum tolerable outage / recovery time objective'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Business unit using the system.
+@StandardReferences(
+  [
+    'TOGAF — application portfolio management (business usage)',
+  ],
+  'Captures a single business unit that uses the system, with its usage '
+  'pattern, dependency level, and impact if the system is removed.',
+)
 @SectionId('SYBUUNEN')
 class SystemBusinessUnitEntry {
   @Form([
-    Field('unitName', String, 'Business Unit', required: true),
-    Field('userCount', int, 'User Count'),
-    Field('usagePattern', String, 'Usage Pattern (Daily, Weekly, etc.)'),
+    Field('unitName', String, 'Business Unit', required: true,
+        hint: 'Name of the business unit'),
+    Field('userCount', int, 'User Count',
+        hint: 'Number of users in this unit'),
+    Field('usagePattern', String, 'Usage Pattern (Daily, Weekly, etc.)',
+        hint: 'How frequently the unit uses the system'),
     Field('dependencyLevel', String,
-        'Dependency Level (Primary, Secondary, Occasional)'),
-    Field('impactIfRemoved', String, 'Impact if System Removed'),
+        'Dependency Level (Primary, Secondary, Occasional)',
+        hint: 'How dependent the unit is on the system'),
+    Field('impactIfRemoved', String, 'Impact if System Removed',
+        hint: 'Consequence to the unit if the system is removed'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Business process supported.
+@StandardReferences(
+  [
+    'TOGAF — application portfolio management (business processes)',
+  ],
+  'Captures a single business process the system supports, with its role and '
+  'execution frequency, defining functionality the replacement must cover.',
+)
 @SectionId('SYBUPREN')
 class SystemBusinessProcessEntry {
   @Form([
-    Field('processName', String, 'Process Name', required: true),
-    Field('processId', String, 'Process ID'),
-    Field('systemRole', String, 'System Role (Primary, Data Source, etc.)'),
-    Field('automationLevel', String, 'Automation Level'),
-    Field('processFrequency', String, 'Execution Frequency'),
+    Field('processName', String, 'Process Name', required: true,
+        hint: 'Name of the supported business process'),
+    Field('processId', String, 'Process ID',
+        hint: 'Identifier for the process if one exists'),
+    Field('systemRole', String, 'System Role (Primary, Data Source, etc.)',
+        hint: 'Role the system plays in the process'),
+    Field('automationLevel', String, 'Automation Level',
+        hint: 'Degree to which the process is automated'),
+    Field('processFrequency', String, 'Execution Frequency',
+        hint: 'How often the process runs'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Replacement strategy details.
+@StandardReferences(
+  [
+    'Gartner TIME model (Tolerate, Invest, Migrate, Eliminate) — application rationalization',
+    'TOGAF — migration planning',
+  ],
+  'Captures the chosen replacement strategy, target solution, timeline, '
+  'cutover approach, phases, and success criteria for the system.',
+)
 @SectionId('SYREST')
 class SystemReplacementStrategy {
   @Form([
     Field('strategyType', String,
         'Strategy (Replace, Consolidate, Retire, Rehost, Replatform)',
-        required: true),
-    Field('strategyRationale', String, 'Rationale'),
-    Field('targetSolution', String, 'Target Solution'),
+        required: true,
+        hint: 'Disposition strategy chosen for the system'),
+    Field('strategyRationale', String, 'Rationale',
+        hint: 'Why this strategy was selected'),
+    Field('targetSolution', String, 'Target Solution',
+        hint: 'The system or platform replacing this one'),
     Field('targetSolutionType', String,
-        'Target Type (COTS, SaaS, Custom, Platform)'),
+        'Target Type (COTS, SaaS, Custom, Platform)',
+        hint: 'Category of the target solution'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -8560,71 +8782,138 @@ class SystemReplacementStrategy {
       SystemReplacementStrategyCutover();
 
   /// Replacement phases if phased approach.
+  @StandardReferences(
+    [
+      'TOGAF — migration planning (phased transition)',
+    ],
+    'Lists the phases of a phased replacement approach, sequencing scope and '
+    'exit criteria across the transition.',
+  )
   @SectionId('REPPHS-PHAS-LST')
   @SectionIdPattern('REPPHS-PHAS-xxx')
+  @ContentHelp('Add one entry per replacement phase; capture scope, dates, and '
+      'exit criteria for each.')
   @SerializationOrder(3)
   List<ReplacementPhaseEntry> phases = [];
 
   /// Predecessor systems that must be addressed first.
+  @StandardReferences(
+    [
+      'TOGAF — migration planning (dependency sequencing)',
+    ],
+    'Lists predecessor systems that must be addressed before this one, '
+    'capturing sequencing constraints in the replacement roadmap.',
+  )
   @SectionId('PREDE-PRED-LST')
   @SectionIdPattern('PREDE-PRED-xxx')
+  @ContentHelp('Add one entry per predecessor system that must be replaced or '
+      'addressed before this system can proceed.')
   @SerializationOrder(4)
   List<PredecessorDependencyEntry> predecessorDependencies = [];
 
   /// Success criteria for replacement completion.
+  @ContentHelp('Describe the measurable criteria that confirm the replacement '
+      'is complete and successful.')
   @SerializationOrder(5)
   TextSection successCriteria = TextSection();
 }
 
 /// Replacement timeline milestones.
+@StandardReferences(
+  [
+    'TOGAF — migration planning (timeline & milestones)',
+    'PMBOK — schedule management',
+  ],
+  'Captures the key replacement timeline milestones — start, cutover, '
+  'decommission, and parallel-run period — for the system.',
+)
 @SectionId('SRST')
 class SystemReplacementStrategyTimeline {
     @Form([
-        Field('plannedStartDate', String, 'Planned Start Date'),
-        Field('targetCutoverDate', String, 'Target Cutover Date'),
-        Field('decommissionDate', String, 'Decommission Date'),
-        Field('parallelRunPeriod', String, 'Parallel Run Period'),
+        Field('plannedStartDate', String, 'Planned Start Date',
+                hint: 'When replacement work is scheduled to begin'),
+        Field('targetCutoverDate', String, 'Target Cutover Date',
+                hint: 'Planned date to switch over to the new system'),
+        Field('decommissionDate', String, 'Decommission Date',
+                hint: 'When the old system will be retired'),
+        Field('parallelRunPeriod', String, 'Parallel Run Period',
+                hint: 'How long old and new systems run side by side'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Cutover and rollback profile.
+@StandardReferences(
+  [
+    'TOGAF — migration planning (cutover & rollback)',
+  ],
+  'Captures the cutover approach and rollback capability that govern how the '
+  'switch to the replacement is executed and reversed if needed.',
+)
 @SectionId('SRSC')
 class SystemReplacementStrategyCutover {
     @Form([
         Field('cutoverStrategy', String,
-                'Cutover (Big Bang, Phased, Parallel Run, Pilot)'),
-        Field('rollbackCapability', String, 'Rollback Capability (Full, Partial)'),
-        Field('rollbackWindow', String, 'Rollback Window'),
+                'Cutover (Big Bang, Phased, Parallel Run, Pilot)',
+                hint: 'How the switchover to the new system is performed'),
+        Field('rollbackCapability', String, 'Rollback Capability (Full, Partial)',
+                hint: 'Extent to which the cutover can be reversed'),
+        Field('rollbackWindow', String, 'Rollback Window',
+                hint: 'Time window during which rollback remains possible'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// A replacement phase entry.
+@StandardReferences(
+  [
+    'TOGAF — migration planning (phased transition)',
+  ],
+  'Captures a single phase of a phased replacement, with its scope, dates, and '
+  'exit criteria within the transition sequence.',
+)
 @SectionId('REPPHS')
 class ReplacementPhaseEntry {
   @Form([
-    Field('phaseNumber', int, 'Phase Number', required: true),
-    Field('phaseName', String, 'Phase Name', required: true),
-    Field('phaseScope', String, 'Scope'),
-    Field('startDate', String, 'Start Date'),
-    Field('endDate', String, 'End Date'),
-    Field('exitCriteria', String, 'Exit Criteria'),
+    Field('phaseNumber', int, 'Phase Number', required: true,
+        hint: 'Ordinal position of the phase'),
+    Field('phaseName', String, 'Phase Name', required: true,
+        hint: 'Descriptive name for the phase'),
+    Field('phaseScope', String, 'Scope',
+        hint: 'What this phase covers'),
+    Field('startDate', String, 'Start Date',
+        hint: 'When the phase begins'),
+    Field('endDate', String, 'End Date',
+        hint: 'When the phase ends'),
+    Field('exitCriteria', String, 'Exit Criteria',
+        hint: 'Conditions that mark the phase complete'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Data scope and migration assessment.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data migration',
+    'TOGAF — migration planning (data scope)',
+  ],
+  'Captures the volume, sensitivity, quality, and entity scope of the data '
+  'that must be migrated when the system is replaced.',
+)
 @SectionId('SYDASC')
 class SystemDataScope {
   @Form([
-    Field('totalRecords', String, 'Total Records'),
-    Field('dataSize', String, 'Data Size (GB/TB)'),
-    Field('growthRate', String, 'Growth Rate'),
-    Field('dataTypes', String, 'Data Types (Master, Transactional, etc.)'),
+    Field('totalRecords', String, 'Total Records',
+        hint: 'Approximate total number of records'),
+    Field('dataSize', String, 'Data Size (GB/TB)',
+        hint: 'Total size of the data set'),
+    Field('growthRate', String, 'Growth Rate',
+        hint: 'Rate at which the data grows'),
+    Field('dataTypes', String, 'Data Types (Master, Transactional, etc.)',
+        hint: 'Categories of data the system holds'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -8638,56 +8927,110 @@ class SystemDataScope {
     SystemDataScopeMigration migration = SystemDataScopeMigration();
 
   /// Data entities to migrate.
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — data migration (entity mapping)',
+    ],
+    'Lists the data entities to migrate, with target mappings and '
+    'transformation notes that drive the data-migration work.',
+  )
   @SectionId('DEME-ENTI-LST')
   @SectionIdPattern('DEME-ENTI-xxx')
+  @ContentHelp('Add one entry per data entity to migrate; capture record count, '
+      'target mapping, and transformation rules.')
   @SerializationOrder(3)
   List<DataEntityMigrationEntry> entities = [];
 
   /// Data quality issues to address.
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — data quality & migration',
+    ],
+    'Lists known data-quality issues that must be cleansed or resolved before '
+    'or during migration to the replacement system.',
+  )
   @SectionId('KNOWN-KNOW-LST')
   @SectionIdPattern('KNOWN-KNOW-xxx')
+  @ContentHelp('Add one entry per data-quality issue to address; note severity '
+      'and remediation approach.')
   @SerializationOrder(4)
   List<KnownQualityIssueEntry> knownQualityIssues = [];
 }
 
 /// Data sensitivity and quality posture.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data governance & quality',
+    'ISO/IEC 27001 — information security (data sensitivity)',
+  ],
+  'Captures data sensitivity, retention requirements, and quality posture that '
+  'govern how the data must be handled during migration.',
+)
 @SectionId('SDSG')
 class SystemDataScopeGovernance {
     @Form([
         Field('sensitivityLevel', String,
-                'Sensitivity (Public, Internal, Confidential, PII)'),
-        Field('retentionRequirements', String, 'Retention Requirements'),
-        Field('dataQuality', String, 'Quality Rating (Excellent to Poor)'),
-        Field('cleansingRequired', String, 'Cleansing Required'),
+                'Sensitivity (Public, Internal, Confidential, PII)',
+                hint: 'Confidentiality classification of the data'),
+        Field('retentionRequirements', String, 'Retention Requirements',
+                hint: 'Legal or policy retention obligations'),
+        Field('dataQuality', String, 'Quality Rating (Excellent to Poor)',
+                hint: 'Overall quality of the data'),
+        Field('cleansingRequired', String, 'Cleansing Required',
+                hint: 'Whether and what data cleansing is needed'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Migration preparation and archive handling.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data migration (preparation & archiving)',
+  ],
+  'Captures migration preparation choices — deduplication, transformation '
+  'complexity, scope, and archive strategy — for the system data.',
+)
 @SectionId('SYDASCMI')
 class SystemDataScopeMigration {
     @Form([
-        Field('deduplicationNeeded', bool, 'Deduplication Needed'),
-        Field('transformationComplexity', String, 'Transformation Complexity'),
+        Field('deduplicationNeeded', bool, 'Deduplication Needed',
+                hint: 'Whether duplicate records must be removed'),
+        Field('transformationComplexity', String, 'Transformation Complexity',
+                hint: 'How complex the data transformation will be'),
         Field('migrationScope', String,
-                'Scope (Full, Recent, Active records, Reference)'),
-        Field('archiveStrategy', String, 'Archive Strategy'),
+                'Scope (Full, Recent, Active records, Reference)',
+                hint: 'Which subset of data will be migrated'),
+        Field('archiveStrategy', String, 'Archive Strategy',
+                hint: 'How non-migrated data will be archived'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// A data entity migration entry.
+@StandardReferences(
+  [
+    'DAMA-DMBOK2 — data migration (entity mapping & validation)',
+  ],
+  'Captures a single data entity to migrate, with its target mapping, '
+  'transformation notes, and validation rules.',
+)
 @SectionId('DAENMIEN')
 class DataEntityMigrationEntry {
   @Form([
-    Field('entityName', String, 'Entity Name', required: true),
-    Field('recordCount', String, 'Record Count'),
-    Field('targetMapping', String, 'Target Mapping'),
-    Field('transformationNotes', String, 'Transformation Notes'),
-    Field('validationRules', String, 'Validation Rules'),
-    Field('migrationPriority', String, 'Priority'),
+    Field('entityName', String, 'Entity Name', required: true,
+        hint: 'Name of the data entity'),
+    Field('recordCount', String, 'Record Count',
+        hint: 'Approximate number of records for this entity'),
+    Field('targetMapping', String, 'Target Mapping',
+        hint: 'Where the entity maps to in the target system'),
+    Field('transformationNotes', String, 'Transformation Notes',
+        hint: 'Transformations required during migration'),
+    Field('validationRules', String, 'Validation Rules',
+        hint: 'Rules to verify migrated data correctness'),
+    Field('migrationPriority', String, 'Priority',
+        hint: 'Migration priority of this entity'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -8696,38 +9039,71 @@ class DataEntityMigrationEntry {
 /// A system dependency entry.
 ///
 /// Documents integrations and dependencies with other systems.
+@StandardReferences(
+  [
+    'TOGAF — application portfolio management (integration dependencies)',
+  ],
+  'Captures a single integration or dependency with another system, with '
+  'direction, criticality, and how it will be migrated or eliminated.',
+)
 @SectionId('REPSDEP')
 class ReplacementSystemDependencyEntry {
   @Form([
-    Field('integrationId', String, 'Integration ID'),
-    Field('connectedSystem', String, 'Connected System', required: true),
+    Field('integrationId', String, 'Integration ID',
+        hint: 'Identifier for the integration'),
+    Field('connectedSystem', String, 'Connected System', required: true,
+        hint: 'The other system this one integrates with'),
     Field('systemStatus', String,
-        'Status (Also being replaced, Remaining, External)'),
-    Field('direction', String, 'Direction (Inbound, Outbound, Bidirectional)'),
-    Field('integrationType', String, 'Type (API, File, Database, Message)'),
-    Field('protocol', String, 'Protocol'),
-    Field('dataExchanged', String, 'Data Exchanged'),
-    Field('frequency', String, 'Frequency'),
-    Field('volume', String, 'Volume'),
-    Field('criticality', String, 'Criticality (Critical, Important)'),
-    Field('impactIfBroken', String, 'Impact if Broken'),
-    Field('owningSystem', String, 'Integration Owner'),
-    Field('replacementMapping', String, 'Replacement Mapping'),
+        'Status (Also being replaced, Remaining, External)',
+        hint: 'Disposition of the connected system'),
+    Field('direction', String, 'Direction (Inbound, Outbound, Bidirectional)',
+        hint: 'Flow direction of the integration'),
+    Field('integrationType', String, 'Type (API, File, Database, Message)',
+        hint: 'Mechanism used for the integration'),
+    Field('protocol', String, 'Protocol',
+        hint: 'Protocol or standard used'),
+    Field('dataExchanged', String, 'Data Exchanged',
+        hint: 'What data flows across the integration'),
+    Field('frequency', String, 'Frequency',
+        hint: 'How often data is exchanged'),
+    Field('volume', String, 'Volume',
+        hint: 'Volume of data exchanged'),
+    Field('criticality', String, 'Criticality (Critical, Important)',
+        hint: 'How critical the integration is'),
+    Field('impactIfBroken', String, 'Impact if Broken',
+        hint: 'Consequence if the integration fails'),
+    Field('owningSystem', String, 'Integration Owner',
+        hint: 'Who owns or maintains the integration'),
+    Field('replacementMapping', String, 'Replacement Mapping',
+        hint: 'How the integration maps in the target state'),
     Field('migrationApproach', String,
-        'Migration Approach (Rebuild, Adapt, Bridge, Eliminate)'),
+        'Migration Approach (Rebuild, Adapt, Bridge, Eliminate)',
+        hint: 'How the integration will be migrated'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// User impact assessment.
+@StandardReferences(
+  [
+    'TOGAF — migration planning (stakeholder & change impact)',
+    'PMBOK — stakeholder management',
+  ],
+  'Captures the scale and nature of user impact — population, change profile, '
+  'training, and adoption — for the system being replaced.',
+)
 @SectionId('SYUSIM')
 class SystemUserImpact {
   @Form([
-    Field('totalUserCount', int, 'Total Users'),
-    Field('activeUserCount', int, 'Active Users (last 30 days)'),
-    Field('powerUsers', int, 'Power Users'),
-    Field('userLocations', String, 'User Locations'),
+    Field('totalUserCount', int, 'Total Users',
+        hint: 'Total number of users of the system'),
+    Field('activeUserCount', int, 'Active Users (last 30 days)',
+        hint: 'Users active within the last 30 days'),
+    Field('powerUsers', int, 'Power Users',
+        hint: 'Number of advanced or heavy users'),
+    Field('userLocations', String, 'User Locations',
+        hint: 'Geographic or organizational user locations'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -8746,69 +9122,131 @@ class SystemUserImpact {
     SystemUserImpactAdoption adoption = SystemUserImpactAdoption();
 
   /// User groups requiring specific handling.
+  @StandardReferences(
+    [
+      'PMBOK — stakeholder management (user groups)',
+    ],
+    'Lists user groups that require specific handling during replacement, '
+    'capturing impact level and tailored change considerations.',
+  )
   @SectionId('UGIE-USER-LST')
   @SectionIdPattern('UGIE-USER-xxx')
+  @ContentHelp('Add one entry per user group needing special handling; note '
+      'impact level and special considerations.')
   @SerializationOrder(4)
   List<UserGroupImpactEntry> userGroups = [];
 }
 
 /// User-facing change profile for system replacement.
+@StandardReferences(
+  [
+    'PMBOK — stakeholder management (change impact)',
+  ],
+  'Captures the degree of user-facing change — workflow, UI, and functionality '
+  '— introduced by replacing the system.',
+)
 @SectionId('SUICP')
 class SystemUserImpactChangeProfile {
     @Form([
-        Field('workflowChange', String, 'Workflow Change Level'),
-        Field('uiChange', String, 'UI Change Level'),
-        Field('functionalityChange', String, 'Functionality Change'),
+        Field('workflowChange', String, 'Workflow Change Level',
+                hint: 'How much user workflows change'),
+        Field('uiChange', String, 'UI Change Level',
+                hint: 'How much the user interface changes'),
+        Field('functionalityChange', String, 'Functionality Change',
+                hint: 'How much functionality changes for users'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Training and enablement plan for impacted users.
+@StandardReferences(
+  [
+    'PMBOK — stakeholder management (training & enablement)',
+  ],
+  'Captures the training and enablement plan needed to prepare impacted users '
+  'for the replacement system.',
+)
 @SectionId('SUIE')
 class SystemUserImpactEnablement {
     @Form([
-        Field('trainingRequired', String, 'Training Required'),
-        Field('estimatedTrainingHours', int, 'Training Hours per User'),
-        Field('trainingApproach', String, 'Training Approach'),
-        Field('trainingMaterials', String, 'Materials Needed'),
+        Field('trainingRequired', String, 'Training Required',
+                hint: 'What training users will need'),
+        Field('estimatedTrainingHours', int, 'Training Hours per User',
+                hint: 'Estimated training time per user'),
+        Field('trainingApproach', String, 'Training Approach',
+                hint: 'How training will be delivered'),
+        Field('trainingMaterials', String, 'Materials Needed',
+                hint: 'Training materials that must be produced'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Communication and adoption support for impacted users.
+@StandardReferences(
+  [
+    'PMBOK — stakeholder management (communication & adoption)',
+  ],
+  'Captures the communication plan and change-champion support that drive user '
+  'adoption of the replacement system.',
+)
 @SectionId('SUIA')
 class SystemUserImpactAdoption {
     @Form([
-        Field('communicationPlan', String, 'Communication Plan'),
-        Field('changeChampions', String, 'Change Champions'),
+        Field('communicationPlan', String, 'Communication Plan',
+                hint: 'How change will be communicated to users'),
+        Field('changeChampions', String, 'Change Champions',
+                hint: 'People who will advocate for adoption'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// User group impact entry.
+@StandardReferences(
+  [
+    'PMBOK — stakeholder management (user groups)',
+  ],
+  'Captures a single user group, its impact level, and the special handling or '
+  'training it requires during the replacement.',
+)
 @SectionId('USGRIMEN')
 class UserGroupImpactEntry {
   @Form([
-    Field('groupName', String, 'User Group', required: true),
-    Field('userCount', int, 'User Count'),
-    Field('impactLevel', String, 'Impact Level (High, Medium, Low)'),
-    Field('specialConsiderations', String, 'Special Considerations'),
-    Field('trainingNeeds', String, 'Training Needs'),
+    Field('groupName', String, 'User Group', required: true,
+        hint: 'Name of the user group'),
+    Field('userCount', int, 'User Count',
+        hint: 'Number of users in the group'),
+    Field('impactLevel', String, 'Impact Level (High, Medium, Low)',
+        hint: 'How strongly the group is impacted'),
+    Field('specialConsiderations', String, 'Special Considerations',
+        hint: 'Any special handling the group needs'),
+    Field('trainingNeeds', String, 'Training Needs',
+        hint: 'Training specific to this group'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Cost analysis for replacement.
+@StandardReferences(
+  [
+    'PMBOK — cost management',
+    'TOGAF — migration planning (cost/benefit)',
+  ],
+  'Captures the financial case for replacement — current costs, migration '
+  'investment, target-state cost, and ROI — driving the decision.',
+)
 @SectionId('SYCOAN')
 class SystemCostAnalysis {
   @Form([
-    Field('annualLicenseCost', String, 'Annual License Cost'),
-    Field('annualMaintenanceCost', String, 'Annual Maintenance Cost'),
-    Field('annualOperationsCost', String, 'Annual Operations Cost'),
+    Field('annualLicenseCost', String, 'Annual License Cost',
+        hint: 'Yearly licensing cost of the current system'),
+    Field('annualMaintenanceCost', String, 'Annual Maintenance Cost',
+        hint: 'Yearly maintenance cost of the current system'),
+    Field('annualOperationsCost', String, 'Annual Operations Cost',
+        hint: 'Yearly operational cost of running the system'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -8827,63 +9265,118 @@ class SystemCostAnalysis {
     SystemCostAnalysisBenefits benefits = SystemCostAnalysisBenefits();
 
   /// Cost breakdown by category if detailed analysis available.
+  @ContentHelp('Provide a detailed cost breakdown by category if available, '
+      'beyond the summary fields above.')
   @SerializationOrder(4)
   TextSection costBreakdown = TextSection();
 
   /// Non-financial benefits to include in ROI.
+  @StandardReferences(
+    [
+      'PMBOK — cost management (benefits realization)',
+    ],
+    'Lists non-financial benefits of the replacement that complement the '
+    'monetary ROI in the investment decision.',
+  )
   @SectionId('NONFI-NONF-LST')
   @SectionIdPattern('NONFI-NONF-xxx')
+  @ContentHelp('Add one entry per non-financial benefit (e.g. risk reduction, '
+      'agility) to weigh in the ROI case.')
   @SerializationOrder(5)
   List<NonFinancialBenefitEntry> nonFinancialBenefits = [];
 }
 
 /// Current-state support and total annual cost.
+@StandardReferences(
+  [
+    'PMBOK — cost management (current-state baseline)',
+  ],
+  'Captures the current-state support cost and total annual cost that form the '
+  'baseline for the replacement business case.',
+)
 @SectionId('SCACC')
 class SystemCostAnalysisCurrentCosts {
     @Form([
-        Field('annualSupportCost', String, 'Annual Support Cost'),
-        Field('totalCurrentAnnualCost', String, 'Total Current Annual Cost'),
+        Field('annualSupportCost', String, 'Annual Support Cost',
+                hint: 'Yearly support cost of the current system'),
+        Field('totalCurrentAnnualCost', String, 'Total Current Annual Cost',
+                hint: 'Total yearly cost of operating the current system'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// One-time migration and transition investments.
+@StandardReferences(
+  [
+    'PMBOK — cost management (project & transition costs)',
+  ],
+  'Captures the one-time migration and transition investments — project, data, '
+  'integration, training, and parallel-run costs — for the replacement.',
+)
 @SectionId('SCAM')
 class SystemCostAnalysisMigration {
     @Form([
-        Field('migrationProjectCost', String, 'Migration Project Cost'),
-        Field('dataConversionCost', String, 'Data Conversion Cost'),
-        Field('integrationCost', String, 'Integration Rebuild Cost'),
-        Field('trainingCost', String, 'Training Cost'),
-        Field('parallelRunCost', String, 'Parallel Run Cost'),
+        Field('migrationProjectCost', String, 'Migration Project Cost',
+                hint: 'Cost of the migration project itself'),
+        Field('dataConversionCost', String, 'Data Conversion Cost',
+                hint: 'Cost to convert and migrate data'),
+        Field('integrationCost', String, 'Integration Rebuild Cost',
+                hint: 'Cost to rebuild integrations'),
+        Field('trainingCost', String, 'Training Cost',
+                hint: 'Cost of user training'),
+        Field('parallelRunCost', String, 'Parallel Run Cost',
+                hint: 'Cost of running old and new systems together'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Target-state cost and ROI indicators.
+@StandardReferences(
+  [
+    'PMBOK — cost management (ROI & TCO)',
+  ],
+  'Captures target-state cost and ROI indicators — annual savings, payback '
+  'period, and five-year TCO — that justify the replacement.',
+)
 @SectionId('SCAB')
 class SystemCostAnalysisBenefits {
     @Form([
-        Field('newSystemAnnualCost', String, 'New System Annual Cost'),
-        Field('annualSavings', String, 'Annual Savings'),
-        Field('paybackPeriod', String, 'Payback Period'),
-        Field('fiveYearTco', String, '5-Year TCO'),
+        Field('newSystemAnnualCost', String, 'New System Annual Cost',
+                hint: 'Expected yearly cost of the replacement system'),
+        Field('annualSavings', String, 'Annual Savings',
+                hint: 'Expected yearly savings versus the current system'),
+        Field('paybackPeriod', String, 'Payback Period',
+                hint: 'Time to recoup the migration investment'),
+        Field('fiveYearTco', String, '5-Year TCO',
+                hint: 'Total cost of ownership over five years'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Per-system migration plan.
+@StandardReferences(
+  [
+    'TOGAF — migration planning',
+    'PMBOK — project & risk management',
+  ],
+  'Captures the per-system migration plan — approach, effort, execution, '
+  'cutover, risks, rollback, and validation — for the replacement.',
+)
 @SectionId('SYMIPL')
 class SystemMigrationPlan {
   @Form([
     Field('migrationApproach', String,
-        'Approach (Big Bang, Phased, Parallel, Strangler)'),
-    Field('dataTransformationNeeds', String, 'Data Transformation Needs'),
-    Field('estimatedEffort', String, 'Estimated Effort'),
-    Field('teamSize', String, 'Team Size'),
+        'Approach (Big Bang, Phased, Parallel, Strangler)',
+        hint: 'Overall migration strategy for the system'),
+    Field('dataTransformationNeeds', String, 'Data Transformation Needs',
+        hint: 'Data transformations the migration requires'),
+    Field('estimatedEffort', String, 'Estimated Effort',
+        hint: 'Estimated effort to complete the migration'),
+    Field('teamSize', String, 'Team Size',
+        hint: 'Size of the team needed for migration'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -8897,89 +9390,169 @@ class SystemMigrationPlan {
     SystemMigrationPlanCutover cutover = SystemMigrationPlanCutover();
 
   /// Contains 0+× MigrationRiskEntry — per-system migration risks.
+  @StandardReferences(
+    [
+      'PMBOK — risk management',
+    ],
+    'Lists the migration risks specific to this system, with probability, '
+    'impact, mitigation, and contingency for each.',
+  )
   @SectionId('SMRE-RISK-LST')
   @SectionIdPattern('SMRE-RISK-xxx')
+  @ContentHelp('Add one entry per migration risk; capture probability, impact, '
+      'mitigation, and contingency.')
   @SerializationOrder(3)
   List<SystemMigrationRiskEntry> risks = [];
 
   /// Rollback strategy and procedures.
+  @ContentHelp('Describe the rollback strategy and procedures to revert if the '
+      'migration fails.')
   @SerializationOrder(4)
   TextSection rollbackStrategy = TextSection();
 
   /// Post-migration validation steps.
+  @ContentHelp('Describe the validation steps performed after migration to '
+      'confirm the new system works correctly.')
   @SerializationOrder(5)
   TextSection postMigrationValidation = TextSection();
 }
 
 /// Migration execution and validation details.
+@StandardReferences(
+  [
+    'TOGAF — migration planning (execution & validation)',
+    'PMBOK — quality management',
+  ],
+  'Captures migration execution and validation details — duration, testing, '
+  'data validation, and UAT scope — for the system migration.',
+)
 @SectionId('SMPE')
 class SystemMigrationPlanExecution {
     @Form([
-        Field('duration', String, 'Estimated Duration'),
-        Field('testingApproach', String, 'Testing Approach'),
-        Field('dataValidationMethod', String, 'Data Validation Method'),
-        Field('uatScope', String, 'UAT Scope'),
+        Field('duration', String, 'Estimated Duration',
+                hint: 'Expected duration of the migration execution'),
+        Field('testingApproach', String, 'Testing Approach',
+                hint: 'How the migration will be tested'),
+        Field('dataValidationMethod', String, 'Data Validation Method',
+                hint: 'How migrated data will be validated'),
+        Field('uatScope', String, 'UAT Scope',
+                hint: 'Scope of user acceptance testing'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Cutover window and business fallback.
+@StandardReferences(
+  [
+    'TOGAF — migration planning (cutover & contingency)',
+    'PMBOK — risk management',
+  ],
+  'Captures the cutover window, duration, and business contingency that govern '
+  'the operational switch to the replacement system.',
+)
 @SectionId('SMPC')
 class SystemMigrationPlanCutover {
     @Form([
-        Field('cutoverWindow', String, 'Cutover Window'),
-        Field('cutoverDuration', String, 'Cutover Duration'),
-        Field('businessContingency', String, 'Business Contingency'),
+        Field('cutoverWindow', String, 'Cutover Window',
+                hint: 'Scheduled window for performing the cutover'),
+        Field('cutoverDuration', String, 'Cutover Duration',
+                hint: 'How long the cutover is expected to take'),
+        Field('businessContingency', String, 'Business Contingency',
+                hint: 'Business fallback if the cutover fails'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// A system migration risk entry.
+@StandardReferences(
+  [
+    'PMBOK — risk management',
+  ],
+  'Captures a single migration risk with its probability, impact, score, '
+  'mitigation, contingency, and owner.',
+)
 @SectionId('SYMIRIEN')
 class SystemMigrationRiskEntry {
   @Form([
-    Field('riskId', String, 'Risk ID'),
-    Field('riskDescription', String, 'Risk Description', required: true),
-    Field('probability', String, 'Probability (High, Medium, Low)'),
-    Field('impact', String, 'Impact (High, Medium, Low)'),
-    Field('riskScore', String, 'Risk Score'),
-    Field('mitigation', String, 'Mitigation Strategy'),
-    Field('contingency', String, 'Contingency Plan'),
-    Field('owner', String, 'Risk Owner'),
+    Field('riskId', String, 'Risk ID',
+        hint: 'Identifier for the risk'),
+    Field('riskDescription', String, 'Risk Description', required: true,
+        hint: 'What the risk is'),
+    Field('probability', String, 'Probability (High, Medium, Low)',
+        hint: 'Likelihood the risk occurs'),
+    Field('impact', String, 'Impact (High, Medium, Low)',
+        hint: 'Severity if the risk occurs'),
+    Field('riskScore', String, 'Risk Score',
+        hint: 'Combined probability/impact score'),
+    Field('mitigation', String, 'Mitigation Strategy',
+        hint: 'How the risk will be reduced'),
+    Field('contingency', String, 'Contingency Plan',
+        hint: 'Fallback if the risk materializes'),
+    Field('owner', String, 'Risk Owner',
+        hint: 'Person accountable for the risk'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Knowledge transfer status.
+@StandardReferences(
+  [
+    'TOGAF — migration planning (knowledge transfer)',
+    'PMBOK — resource & knowledge management',
+  ],
+  'Captures documentation status, SME availability, and knowledge-capture '
+  'needs so critical system knowledge survives the replacement.',
+)
 @SectionId('SYKNTR')
 class SystemKnowledgeTransfer {
   @Form([
     Field('technicalDocStatus', String,
-        'Technical Doc Status (Complete, Partial, Outdated, Missing)'),
-    Field('businessDocStatus', String, 'Business Documentation Status'),
-    Field('dataDocStatus', String, 'Data Documentation Status'),
-    Field('primarySme', String, 'Primary SME'),
+        'Technical Doc Status (Complete, Partial, Outdated, Missing)',
+        hint: 'Completeness of technical documentation'),
+    Field('businessDocStatus', String, 'Business Documentation Status',
+        hint: 'Completeness of business documentation'),
+    Field('dataDocStatus', String, 'Data Documentation Status',
+        hint: 'Completeness of data documentation'),
+    Field('primarySme', String, 'Primary SME',
+        hint: 'Main subject-matter expert for the system'),
     Field('smeAvailability', String,
-        'SME Availability (Available, Partial, Leaving)'),
-    Field('smeRiskLevel', String, 'SME Risk Level'),
-    Field('backupSme', String, 'Backup SME'),
-    Field('knowledgeCaptureNeeded', bool, 'Knowledge Capture Needed'),
-    Field('captureApproach', String, 'Capture Approach'),
-    Field('captureDeadline', String, 'Capture Deadline'),
+        'SME Availability (Available, Partial, Leaving)',
+        hint: 'How available the SME is for transfer'),
+    Field('smeRiskLevel', String, 'SME Risk Level',
+        hint: 'Risk of losing SME knowledge'),
+    Field('backupSme', String, 'Backup SME',
+        hint: 'Secondary expert who can cover'),
+    Field('knowledgeCaptureNeeded', bool, 'Knowledge Capture Needed',
+        hint: 'Whether knowledge must be formally captured'),
+    Field('captureApproach', String, 'Capture Approach',
+        hint: 'How knowledge will be captured'),
+    Field('captureDeadline', String, 'Capture Deadline',
+        hint: 'When knowledge capture must be complete'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Critical knowledge areas to preserve.
+  @StandardReferences(
+    [
+      'PMBOK — resource & knowledge management',
+    ],
+    'Lists the critical knowledge areas that must be preserved before the '
+    'system is decommissioned and its experts disperse.',
+  )
   @SectionId('CRITI-CRIT-LST')
   @SectionIdPattern('CRITI-CRIT-xxx')
+  @ContentHelp('Add one entry per critical knowledge area at risk of being '
+      'lost when the system is retired.')
   @SerializationOrder(1)
   List<CriticalKnowledgeAreaEntry> criticalKnowledgeAreas = [];
 
   /// Knowledge transfer plan if SME risk is high.
+  @ContentHelp('Describe the knowledge-transfer plan to follow when SME risk is '
+      'high, so expertise is retained before cutover.')
   @SerializationOrder(2)
   TextSection knowledgeTransferPlan = TextSection();
 }
@@ -8993,18 +9566,34 @@ class SystemKnowledgeTransfer {
 /// Cross-system migration concerns covering portfolio-wide strategy,
 /// resource planning, and coordination. Complements per-system
 /// migration details with global governance.
+@StandardReferences(
+  [
+    'TOGAF — migration & transition planning',
+    'PMBOK — schedule / risk / cost management',
+    'DAMA-DMBOK2 — data migration',
+  ],
+  'Captures the portfolio-wide migration strategy, sequencing, resourcing, '
+  'risks, and coordination that govern moving from the current landscape to '
+  'the target systems.',
+)
 @SectionId('MIGCON')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-MIG')
 class MigrationConsiderations {
   @Form([
     Field('overallStrategy', String,
-        'Overall Strategy (Big Bang, Phased, Parallel, Strangler)'),
-    Field('sequencingApproach', String, 'Sequencing Approach'),
-    Field('interdependencyHandling', String, 'Interdependency Handling'),
-    Field('migrationWindowStrategy', String, 'Migration Window Strategy'),
-    Field('blackoutPeriods', String, 'Blackout Periods'),
-    Field('parallelRunDuration', String, 'Parallel Run Duration'),
+        'Overall Strategy (Big Bang, Phased, Parallel, Strangler)',
+        hint: 'Chosen cutover pattern for the migration program'),
+    Field('sequencingApproach', String, 'Sequencing Approach',
+        hint: 'Order in which systems are migrated and why'),
+    Field('interdependencyHandling', String, 'Interdependency Handling',
+        hint: 'How cross-system dependencies are coordinated'),
+    Field('migrationWindowStrategy', String, 'Migration Window Strategy',
+        hint: 'When migrations run, e.g. weekends, off-hours'),
+    Field('blackoutPeriods', String, 'Blackout Periods',
+        hint: 'Times when no migration activity is permitted'),
+    Field('parallelRunDuration', String, 'Parallel Run Duration',
+        hint: 'How long old and new run side by side'),
   ])
   @SerializationOrder(0)
   String? strategyContent;
@@ -9026,8 +9615,18 @@ class MigrationConsiderations {
   TextSection timeline = TextSection();
 
   /// Migration milestones.
+  @StandardReferences(
+    [
+      'TOGAF — migration & transition planning',
+      'PMBOK — schedule / risk / cost management',
+    ],
+    'The set of program-level migration milestones marking key gates and '
+    'deliverables across the transition timeline.',
+  )
   @SectionId('MGMLS-MILE-LST')
   @SectionIdPattern('MGMLS-MILE-xxx')
+  @ContentHelp('Add one entry per program milestone, with its target date, '
+      'systems included, and the success/gate criteria that must be met.')
   @SerializationOrder(5)
   List<MigrationMilestoneEntry> milestones = [];
 
@@ -9052,26 +9651,54 @@ class MigrationConsiderations {
   TextSection communicationPlan = TextSection();
 
   /// Escalation procedures during migration.
+  @StandardReferences(
+    [
+      'ITIL — service transition / change enablement',
+      'ISO 31000 — risk management (migration risk)',
+    ],
+    'The defined escalation paths and triggers used to raise migration issues '
+    'to the appropriate authority during the transition.',
+  )
   @SectionId('ESCAL-ESCA-LST')
   @SectionIdPattern('ESCAL-ESCA-xxx')
+  @ContentHelp('Add one entry per escalation procedure, describing the trigger '
+      'condition, the escalation path, and the responsible decision authority.')
   @SerializationOrder(11)
   List<EscalationProcedureEntry> escalationProcedures = [];
 }
 
 /// Migration resource requirements.
+@StandardReferences(
+  [
+    'PMBOK — schedule / risk / cost management',
+    'TOGAF — migration & transition planning',
+  ],
+  'Captures the people, vendors, environments, and infrastructure resources '
+  'required to deliver the migration program.',
+)
 @SectionId('MIRE')
 class MigrationResources {
   @Form([
-    Field('migrationLead', String, 'Migration Lead'),
-    Field('technicalResources', String, 'Technical Resources'),
-    Field('businessResources', String, 'Business Resources'),
-    Field('testingResources', String, 'Testing Resources'),
-    Field('vendorSupport', String, 'Vendor Support'),
-    Field('consultingSupport', String, 'Consulting Support'),
-    Field('contractorNeeds', String, 'Contractor Needs'),
-    Field('migrationEnvironments', String, 'Migration Environments'),
-    Field('dataStorageNeeds', String, 'Data Storage'),
-    Field('networkBandwidth', String, 'Network Bandwidth'),
+    Field('migrationLead', String, 'Migration Lead',
+        hint: 'Person accountable for the migration program'),
+    Field('technicalResources', String, 'Technical Resources',
+        hint: 'Engineering staff and skills needed'),
+    Field('businessResources', String, 'Business Resources',
+        hint: 'Business/SME staff supporting migration'),
+    Field('testingResources', String, 'Testing Resources',
+        hint: 'QA staff and test capacity required'),
+    Field('vendorSupport', String, 'Vendor Support',
+        hint: 'Vendor involvement and support agreements'),
+    Field('consultingSupport', String, 'Consulting Support',
+        hint: 'External consulting engagement needs'),
+    Field('contractorNeeds', String, 'Contractor Needs',
+        hint: 'Temporary or contract staffing required'),
+    Field('migrationEnvironments', String, 'Migration Environments',
+        hint: 'Staging/test environments for migration'),
+    Field('dataStorageNeeds', String, 'Data Storage',
+        hint: 'Storage capacity required during migration'),
+    Field('networkBandwidth', String, 'Network Bandwidth',
+        hint: 'Bandwidth needed for data transfer'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -9082,15 +9709,29 @@ class MigrationResources {
 }
 
 /// A migration milestone entry.
+@StandardReferences(
+  [
+    'PMBOK — schedule / risk / cost management',
+    'TOGAF — migration & transition planning',
+  ],
+  'Captures a single program migration milestone — its target date, scope, '
+  'deliverables, and the gate criteria that mark its completion.',
+)
 @SectionId('MGMLS')
 class MigrationMilestoneEntry {
   @Form([
-    Field('milestoneName', String, 'Milestone Name', required: true),
-    Field('targetDate', String, 'Target Date'),
-    Field('systemsIncluded', String, 'Systems Included'),
-    Field('deliverables', String, 'Deliverables'),
-    Field('successCriteria', String, 'Success Criteria'),
-    Field('gateName', String, 'Gate Name'),
+    Field('milestoneName', String, 'Milestone Name', required: true,
+        hint: 'Concise name for the milestone'),
+    Field('targetDate', String, 'Target Date',
+        hint: 'Planned date the milestone is reached'),
+    Field('systemsIncluded', String, 'Systems Included',
+        hint: 'Systems covered by this milestone'),
+    Field('deliverables', String, 'Deliverables',
+        hint: 'Outputs produced at this milestone'),
+    Field('successCriteria', String, 'Success Criteria',
+        hint: 'Conditions that confirm milestone success'),
+    Field('gateName', String, 'Gate Name',
+        hint: 'Associated stage-gate or checkpoint'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -9102,12 +9743,22 @@ class MigrationMilestoneEntry {
 /// risks across the entire migration portfolio. Covers risk governance,
 /// assessment methodology, monitoring, and escalation procedures.
 /// Follows PMI risk management practices and enterprise risk frameworks.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the program-level migration risk management framework — '
+  'governance, assessment, monitoring, response, and escalation across the '
+  'entire migration portfolio.',
+)
 @SectionId('MIRI')
 class MigrationRisks {
   @Form([
     Field('riskGovernanceModel', String, 'Risk Governance Model',
         hint: 'Centralized, federated, hybrid approach'),
-    Field('riskCommitteeCharter', String, 'Risk Committee Charter'),
+    Field('riskCommitteeCharter', String, 'Risk Committee Charter',
+        hint: 'Mandate and remit of the risk committee'),
     Field('riskReviewFrequency', String, 'Risk Review Frequency',
         hint: 'Weekly, bi-weekly, monthly cycles'),
   ])
@@ -9143,26 +9794,66 @@ class MigrationRisks {
   TextSection assessmentMethodology = TextSection();
 
   /// Risk categories and taxonomy.
+  @StandardReferences(
+    [
+      'ISO 31000 — risk management (migration risk)',
+      'PMBOK — schedule / risk / cost management',
+    ],
+    'The taxonomy of migration risk categories used to classify and organize '
+    'risks across the program.',
+  )
   @SectionId('RISKC-RISK-LST')
   @SectionIdPattern('RISKC-RISK-xxx')
+  @ContentHelp('Add one entry per risk category, naming the category and the '
+      'kinds of migration risks it groups.')
   @SerializationOrder(7)
   List<RiskCategoryEntry> riskCategories = [];
 
   /// Risk-based decision making criteria.
+  @StandardReferences(
+    [
+      'ISO 31000 — risk management (migration risk)',
+      'PMBOK — schedule / risk / cost management',
+    ],
+    'The decision criteria that govern how migration risks drive go/no-go and '
+    'acceptance choices.',
+  )
   @SectionId('RISKB-RISK-LST')
   @SectionIdPattern('RISKB-RISK-xxx')
+  @ContentHelp('Add one entry per risk-based decision rule, describing the '
+      'threshold or criterion and the decision it triggers.')
   @SerializationOrder(8)
   List<RiskBasedDecisionEntry> riskBasedDecisions = [];
 
   /// Risk monitoring and control procedures.
+  @StandardReferences(
+    [
+      'ISO 31000 — risk management (migration risk)',
+      'ITIL — service transition / change enablement',
+    ],
+    'The procedures used to monitor and control migration risks throughout the '
+    'transition.',
+  )
   @SectionId('MONIT-MONI-LST')
   @SectionIdPattern('MONIT-MONI-xxx')
+  @ContentHelp('Add one entry per monitoring procedure, describing what is '
+      'tracked, how often, and the control action taken.')
   @SerializationOrder(9)
   List<MonitoringProcedureEntry> monitoringProcedures = [];
 
   /// Risk response strategies by category.
+  @StandardReferences(
+    [
+      'ISO 31000 — risk management (migration risk)',
+      'PMBOK — schedule / risk / cost management',
+    ],
+    'The response strategies — avoid, mitigate, transfer, accept — applied per '
+    'category of migration risk.',
+  )
   @SectionId('RESPO-RESP-LST')
   @SectionIdPattern('RESPO-RESP-xxx')
+  @ContentHelp('Add one entry per response strategy, mapping a risk category to '
+      'its chosen response approach and rationale.')
   @SerializationOrder(10)
   List<ResponseStrategyEntry> responseStrategies = [];
 
@@ -9183,13 +9874,31 @@ class MigrationRisks {
   GanttDiagramSection riskTimeline = GanttDiagramSection();
 
   /// Contains 0+× MigrationRiskEntry.
+  @StandardReferences(
+    [
+      'ISO 31000 — risk management (migration risk)',
+      'PMBOK — schedule / risk / cost management',
+    ],
+    'The register of individual migration risk entries that make up the '
+    'program-level risk portfolio.',
+  )
   @SectionId('MGRSK-ITEM-LST')
   @SectionIdPattern('MGRSK-ITEM-xxx')
+  @ContentHelp('Add one entry per identified migration risk, each capturing its '
+      'full lifecycle from identification through resolution.')
   @SerializationOrder(14)
   List<MigrationRiskEntry> items = [];
 }
 
 /// Governance and decision authority.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the governance model and decision authority for accepting, '
+  'transferring, or escalating migration risks.',
+)
 @SectionId('MIRIGO')
 class MigrationRisksGovernance {
     @Form([
@@ -9205,6 +9914,14 @@ class MigrationRisksGovernance {
 }
 
 /// Assessment methodology settings.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the methodology used to assess migration risks, including the '
+  'framework, probability/impact scales, and scoring approach.',
+)
 @SectionId('MIRIAS')
 class MigrationRisksAssessment {
     @Form([
@@ -9224,13 +9941,23 @@ class MigrationRisksAssessment {
 }
 
 /// Threshold and trigger settings.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the score thresholds and triggers that classify migration risk '
+  'severity and prompt review or escalation.',
+)
 @SectionId('MIRITH')
 class MigrationRisksThresholds {
     @Form([
         Field('criticalRiskThreshold', String, 'Critical Risk Threshold',
                 hint: 'Score ≥ X requires executive attention'),
-        Field('highRiskThreshold', String, 'High Risk Threshold'),
-        Field('mediumRiskThreshold', String, 'Medium Risk Threshold'),
+        Field('highRiskThreshold', String, 'High Risk Threshold',
+                hint: 'Score range classified as high risk'),
+        Field('mediumRiskThreshold', String, 'Medium Risk Threshold',
+                hint: 'Score range classified as medium risk'),
         Field('emergentRiskTriggers', String, 'Emergent Risk Triggers',
                 hint: 'Indicators requiring immediate risk review'),
     ])
@@ -9239,10 +9966,19 @@ class MigrationRisksThresholds {
 }
 
 /// Reporting settings.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures how migration risk status is reported — cadence, dashboards, and '
+  'where the risk register is maintained.',
+)
 @SectionId('MIRIRE')
 class MigrationRisksReporting {
     @Form([
-        Field('riskReportingCadence', String, 'Reporting Cadence'),
+        Field('riskReportingCadence', String, 'Reporting Cadence',
+                hint: 'How often risk reports are produced'),
         Field('riskDashboardTools', String, 'Dashboard Tools',
                 hint: 'Tools for risk visualization'),
         Field('riskRegisterRepository', String, 'Risk Register Repository',
@@ -9257,6 +9993,15 @@ class MigrationRisksReporting {
 /// Detailed migration risk documentation following enterprise risk
 /// management practices. Captures full risk lifecycle from identification
 /// through resolution.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures a single migration risk across its full lifecycle — '
+  'identification, probability, impact, quantification, mitigation, '
+  'contingency, and tracking.',
+)
 @SectionId('MGRSK')
 class MigrationRiskEntry {
   @Form([
@@ -9297,8 +10042,18 @@ class MigrationRiskEntry {
   MigrationRiskContingency contingency = MigrationRiskContingency();
 
   /// Risk indicators and monitoring.
+  @StandardReferences(
+    [
+      'ISO 31000 — risk management (migration risk)',
+      'PMBOK — schedule / risk / cost management',
+    ],
+    'The early-warning indicators and key risk indicators used to monitor '
+    'whether this migration risk is materializing.',
+  )
   @SectionId('MIRIIN-INDI-LST')
   @SectionIdPattern('MIRIIN-INDI-xxx')
+  @ContentHelp('Add one entry per indicator set, describing the metrics, '
+      'thresholds, and monitoring frequency that signal the risk.')
   @SerializationOrder(7)
   List<MigrationRiskIndicators> indicators = [];
 
@@ -9328,6 +10083,14 @@ class MigrationRiskEntry {
 }
 
 /// Risk identification details.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures how a migration risk was identified — its description, category, '
+  'source, and the systems, phases, and workstreams it affects.',
+)
 @SectionId('MIRIID')
 class MigrationRiskIdentification {
   @Form([
@@ -9337,7 +10100,8 @@ class MigrationRiskIdentification {
         hint: 'Technical, schedule, resource, business, regulatory'),
     Field('riskSubcategory', String, 'Risk Subcategory',
         hint: 'More specific categorization'),
-    Field('identifiedDate', String, 'Identified Date'),
+    Field('identifiedDate', String, 'Identified Date',
+        hint: 'Date the risk was first recorded'),
     Field('identifiedBy', String, 'Identified By',
         hint: 'Person/role who identified the risk'),
     Field('identificationMethod', String, 'Identification Method',
@@ -9354,6 +10118,14 @@ class MigrationRiskIdentification {
 }
 
 /// Probability assessment for migration risk.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the likelihood that a migration risk will occur, including its '
+  'rating, numeric score, rationale, and trend.',
+)
 @SectionId('MIRIPR')
 class MigrationRiskProbability {
   @Form([
@@ -9371,21 +10143,33 @@ class MigrationRiskProbability {
 }
 
 /// Impact assessment for migration risk.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the consequences if a migration risk materializes across schedule, '
+  'cost, business, data integrity, compliance, and reputation dimensions.',
+)
 @SectionId('MIRIIM')
 class MigrationRiskImpact {
   @Form([
     Field('overallImpactRating', String, 'Overall Impact Rating',
         hint: 'Critical, High, Medium, Low, Minimal'),
-    Field('overallImpactScore', int, 'Overall Impact Score (1-5)'),
+    Field('overallImpactScore', int, 'Overall Impact Score (1-5)',
+        hint: 'Numeric overall impact for calculations'),
     Field('scheduleImpact', String, 'Schedule Impact',
         hint: 'Days/weeks delay if risk materializes'),
-    Field('scheduleImpactScore', int, 'Schedule Impact Score'),
+    Field('scheduleImpactScore', int, 'Schedule Impact Score',
+        hint: 'Numeric schedule impact (1-5)'),
     Field('costImpact', String, 'Cost Impact',
         hint: 'Budget impact if risk materializes'),
-    Field('costImpactScore', int, 'Cost Impact Score'),
+    Field('costImpactScore', int, 'Cost Impact Score',
+        hint: 'Numeric cost impact (1-5)'),
     Field('businessImpact', String, 'Business Impact',
         hint: 'Business disruption level'),
-    Field('businessImpactScore', int, 'Business Impact Score'),
+    Field('businessImpactScore', int, 'Business Impact Score',
+        hint: 'Numeric business impact (1-5)'),
     Field('reputationImpact', String, 'Reputation Impact',
         hint: 'Customer/market perception impact'),
     Field('dataIntegrityImpact', String, 'Data Integrity Impact',
@@ -9400,6 +10184,14 @@ class MigrationRiskImpact {
 }
 
 /// Risk quantification for migration risk.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the quantified exposure of a migration risk — its score, priority, '
+  'expected monetary value, and best/worst/most-likely scenarios.',
+)
 @SectionId('MIRIQU')
 class MigrationRiskQuantification {
   @Form([
@@ -9413,13 +10205,22 @@ class MigrationRiskQuantification {
         hint: 'Maximum potential impact'),
     Field('bestCaseScenario', String, 'Best Case Scenario',
         hint: 'Minimum impact if mitigated'),
-    Field('mostLikelyScenario', String, 'Most Likely Scenario'),
+    Field('mostLikelyScenario', String, 'Most Likely Scenario',
+        hint: 'Expected impact under typical conditions'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Mitigation strategy for migration risk.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the chosen response and actions to reduce a migration risk, '
+  'including ownership, cost, status, and residual exposure after mitigation.',
+)
 @SectionId('MIRIMI')
 class MigrationRiskMitigation {
   @Form([
@@ -9431,7 +10232,8 @@ class MigrationRiskMitigation {
         hint: 'Specific actions to reduce risk'),
     Field('mitigationOwner', String, 'Mitigation Owner',
         hint: 'Responsible for mitigation execution'),
-    Field('mitigationDueDate', String, 'Mitigation Due Date'),
+    Field('mitigationDueDate', String, 'Mitigation Due Date',
+        hint: 'Target completion date for mitigation'),
     Field('mitigationCost', String, 'Mitigation Cost',
         hint: 'Cost to implement mitigation'),
     Field('mitigationStatus', String, 'Mitigation Status',
@@ -9448,6 +10250,14 @@ class MigrationRiskMitigation {
 }
 
 /// Contingency planning for migration risk.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the fallback plan if a migration risk materializes — its trigger, '
+  'owner, reserved budget, rollback steps, and recovery objectives.',
+)
 @SectionId('MIRICO')
 class MigrationRiskContingency {
   @Form([
@@ -9455,7 +10265,8 @@ class MigrationRiskContingency {
         hint: 'Actions if risk materializes'),
     Field('contingencyTrigger', String, 'Contingency Trigger',
         hint: 'What triggers contingency execution'),
-    Field('contingencyOwner', String, 'Contingency Owner'),
+    Field('contingencyOwner', String, 'Contingency Owner',
+        hint: 'Responsible for executing the contingency'),
     Field('contingencyBudget', String, 'Contingency Budget',
         hint: 'Reserved budget for contingency'),
     Field('rollbackProcedure', String, 'Rollback Procedure',
@@ -9468,6 +10279,14 @@ class MigrationRiskContingency {
 }
 
 /// Risk indicators and monitoring.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the early-warning indicators, triggers, and key risk indicators '
+  'used to monitor a migration risk and its escalation thresholds.',
+)
 @SectionId('MIRIIN')
 class MigrationRiskIndicators {
   @Form([
@@ -9487,6 +10306,14 @@ class MigrationRiskIndicators {
 }
 
 /// Ownership and tracking for migration risk.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the ownership, status, and review cadence used to track a '
+  'migration risk from open through closure.',
+)
 @SectionId('MIRITR')
 class MigrationRiskTracking {
   @Form([
@@ -9500,7 +10327,8 @@ class MigrationRiskTracking {
         hint: 'Last status update'),
     Field('statusNotes', String, 'Status Notes',
         hint: 'Current status commentary'),
-    Field('nextReviewDate', String, 'Next Review Date'),
+    Field('nextReviewDate', String, 'Next Review Date',
+        hint: 'When the risk is next scheduled for review'),
     Field('closureDate', String, 'Closure Date',
         hint: 'When risk was closed'),
     Field('closureReason', String, 'Closure Reason',
@@ -9511,6 +10339,14 @@ class MigrationRiskTracking {
 }
 
 /// Related items for migration risk.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the relationships between this migration risk and other risks, '
+  'issues, requirements, decisions, and dependency chains.',
+)
 @SectionId('MIRIR1')
 class MigrationRiskRelated {
   @Form([
@@ -9530,6 +10366,14 @@ class MigrationRiskRelated {
 }
 
 /// History and lessons learned for migration risk.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (migration risk)',
+    'PMBOK — schedule / risk / cost management',
+  ],
+  'Captures the change history and lessons learned for a migration risk — its '
+  'past scores, status changes, and insights from handling it.',
+)
 @SectionId('MIRIHI')
 class MigrationRiskHistory {
   @Form([
@@ -9554,6 +10398,14 @@ class MigrationRiskHistory {
 /// out-of-scope items, and operating assumptions. This section provides the
 /// foundation for integration planning and scope management. Follows TOGAF
 /// system context patterns and enterprise integration best practices.
+@StandardReferences(
+  [
+    'TOGAF — system context & boundary definition',
+    'ISO/IEC/IEEE 29148 §6 — scope & external interfaces',
+    'Enterprise Integration Patterns (EIP) — integration styles',
+  ],
+  'Defines the overall system boundary and scope, anchoring integration planning and preventing scope ambiguity across the project.',
+)
 @SectionId('SYBO')
 @Comment('Seeds → IIS')
 @MapsTo(D07IntegrationInterfaceSpecification)
@@ -9581,8 +10433,17 @@ class SystemBoundaries {
   SystemLandscapeInventory systemLandscapeInventory = SystemLandscapeInventory();
 
   /// 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
+  @StandardReferences(
+    [
+      'Enterprise Integration Patterns (EIP) — integration styles',
+      'TOGAF — system context & boundary definition',
+    ],
+    'Catalogs the recurring interaction patterns at the system boundary so integrations can be designed consistently.',
+  )
   @SectionId('BOINPA-BOUN-LST')
   @SectionIdPattern('BOINPA-BOUN-xxx')
+  @ContentHelp('List the boundary interaction patterns used across '
+      'integrations: request-reply, pub-sub, event-driven, batch, etc.')
   @SerializationOrder(5)
   List<BoundaryInteractionPatterns> boundaryInteractionPatterns = [];
 
@@ -9597,14 +10458,32 @@ class SystemBoundaries {
       InteractionDependencyAnalysis();
 
   /// 4.5.8. Migration Interactions. Covers IIS-MIG.
+  @StandardReferences(
+    [
+      'TOGAF — system context & boundary definition',
+      'Enterprise Integration Patterns (EIP) — integration styles',
+    ],
+    'Records interactions that exist only during migration so transitional integration work is planned and later retired.',
+  )
   @SectionId('MIIN-MIGR-LST')
   @SectionIdPattern('MIIN-MIGR-xxx')
+  @ContentHelp('List interactions specific to the migration period, '
+      'including data backfills, dual-run sync, and cutover handoffs.')
   @SerializationOrder(8)
   List<MigrationInteractions> migrationInteractions = [];
 
   /// 4.5.9. Cross-Boundary Operational Considerations.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — product quality (operational considerations)',
+      'Enterprise Integration Patterns (EIP) — integration styles',
+    ],
+    'Captures operational concerns that span the system boundary, such as monitoring, capacity, and support across integrations.',
+  )
   @SectionId('CBOC-OPER-LST')
   @SectionIdPattern('CBOC-OPER-xxx')
+  @ContentHelp('List cross-boundary operational concerns: end-to-end '
+      'monitoring, capacity planning, joint support, and run-book ownership.')
   @SerializationOrder(9)
   List<CrossBoundaryOperationalConsiderations> operationalConsiderations = [];
 
@@ -9625,6 +10504,14 @@ class SystemBoundaries {
 /// seeds detailed specification in the IIS (Integration & Interface
 /// Specification) document. Follows enterprise integration patterns (EIP) and
 /// API-first design principles.
+@StandardReferences(
+  [
+    'Enterprise Integration Patterns (EIP) — integration styles',
+    'OpenAPI / AsyncAPI — API specification',
+    'TOGAF — system context & boundary definition',
+  ],
+  'Provides the structured inventory of external system integrations that seeds the detailed Integration & Interface Specification.',
+)
 @SectionId('EXIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
 @SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-INT')
@@ -9648,8 +10535,17 @@ class ExternalInterfaces {
   TextSection governanceModel = TextSection();
 
   /// Contains 0+× ExternalInterfaceEntry.
+  @StandardReferences(
+    [
+      'OpenAPI / AsyncAPI — API specification',
+      'Enterprise Integration Patterns (EIP) — integration styles',
+    ],
+    'Holds one entry per external interface, the core inventory from which integration specifications are derived.',
+  )
   @SectionId('EXINEN-INTE-LST')
   @SectionIdPattern('EXINEN-INTE-xxx')
+  @ContentHelp('Add one entry per external system interface, each '
+      'documenting identification, technical, data, security, and governance details.')
   @SerializationOrder(3)
   List<ExternalInterfaceEntry> interfaces = [];
 }
@@ -9661,6 +10557,14 @@ class ExternalInterfaces {
 /// operational characteristics, and contractual governance. Follows
 /// OpenAPI/AsyncAPI patterns for API documentation and enterprise
 /// integration best practices.
+@StandardReferences(
+  [
+    'OpenAPI / AsyncAPI — API specification',
+    'Enterprise Integration Patterns (EIP) — integration styles',
+    'ISO/IEC 27001 — information security (interface security)',
+  ],
+  'Comprehensively documents a single external interface across identification, technical, data, security, operational, and governance facets.',
+)
 @SectionId('EIE')
 class ExternalInterfaceEntry {
   // -------------------------------------------------------------------------
@@ -9669,16 +10573,23 @@ class ExternalInterfaceEntry {
 
   @Form([
     Field('interfaceId', String, 'Interface ID (e.g., IF-PAY-001)',
-        required: true),
-    Field('interfaceName', String, 'Interface Name', required: true),
-    Field('externalSystem', String, 'External System Name', required: true),
-    Field('externalSystemVendor', String, 'Vendor/Provider'),
+        required: true, hint: 'Unique stable identifier for this interface'),
+    Field('interfaceName', String, 'Interface Name',
+        required: true, hint: 'Human-readable name of the interface'),
+    Field('externalSystem', String, 'External System Name',
+        required: true, hint: 'Name of the external system being integrated'),
+    Field('externalSystemVendor', String, 'Vendor/Provider',
+        hint: 'Vendor or provider that owns the external system'),
     Field('interfaceCategory', String,
-        'Category (Payment, Identity, Data, Messaging, etc.)'),
+        'Category (Payment, Identity, Data, Messaging, etc.)',
+        hint: 'Functional category of the interface'),
     Field('integrationPattern', String,
-        'Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)'),
-    Field('priority', String, 'Priority (Critical, High, Medium, Low)'),
-    Field('status', String, 'Status (Existing, New, To be replaced)'),
+        'Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)',
+        hint: 'Primary integration pattern used'),
+    Field('priority', String, 'Priority (Critical, High, Medium, Low)',
+        hint: 'Relative importance of this interface'),
+    Field('status', String, 'Status (Existing, New, To be replaced)',
+        hint: 'Lifecycle status of the interface'),
   ])
   @SerializationOrder(0)
   String? identificationContent;
@@ -9745,50 +10656,93 @@ class ExternalInterfaceEntry {
 }
 
 /// Business context for an interface.
+@StandardReferences(
+  [
+    'TOGAF — system context & boundary definition',
+    'ISO/IEC/IEEE 29148 §6 — scope & external interfaces',
+  ],
+  'Captures why the interface exists in business terms, linking the integration to value, ownership, and regulatory drivers.',
+)
 @SectionId('INBUCO')
 class InterfaceBusinessContext {
   @Form([
-    Field('businessPurpose', String, 'Business Purpose'),
-    Field('businessValue', String, 'Business Value'),
-    Field('businessOwner', String, 'Business Owner'),
-    Field('useCases', String, 'Primary Use Cases'),
+    Field('businessPurpose', String, 'Business Purpose',
+        hint: 'What business need this interface serves'),
+    Field('businessValue', String, 'Business Value',
+        hint: 'Value delivered by the integration'),
+    Field('businessOwner', String, 'Business Owner',
+        hint: 'Business stakeholder accountable for the interface'),
+    Field('useCases', String, 'Primary Use Cases',
+        hint: 'Main business use cases supported'),
     Field('businessCriticality', String,
-        'Criticality (Mission Critical, Business Critical, Operational)'),
-    Field('revenueImpact', String, 'Revenue Impact (Direct, Indirect, None)'),
-    Field('regulatoryDriver', String, 'Regulatory/Compliance Driver'),
+        'Criticality (Mission Critical, Business Critical, Operational)',
+        hint: 'How critical the interface is to the business'),
+    Field('revenueImpact', String, 'Revenue Impact (Direct, Indirect, None)',
+        hint: 'How the interface affects revenue'),
+    Field('regulatoryDriver', String, 'Regulatory/Compliance Driver',
+        hint: 'Regulatory or compliance reason for the interface'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Business processes that depend on this interface.
+  @StandardReferences(
+    [
+      'TOGAF — system context & boundary definition',
+    ],
+    'Lists the business processes that rely on this interface so dependency and fallback impact can be assessed.',
+  )
   @SectionId('IBPE-DEPE-LST')
   @SectionIdPattern('IBPE-DEPE-xxx')
+  @ContentHelp('List business processes that depend on this interface, '
+      'noting dependency type and fallback if the interface is unavailable.')
   @SerializationOrder(1)
   List<InterfaceBusinessProcessEntry> dependentProcesses = [];
 }
 
 /// Business process dependency entry.
+@StandardReferences(
+  [
+    'TOGAF — system context & boundary definition',
+  ],
+  'Documents a single business process dependency on the interface and how it copes when the interface is unavailable.',
+)
 @SectionId('INBUPREN')
 class InterfaceBusinessProcessEntry {
   @Form([
-    Field('processName', String, 'Process Name', required: true),
-    Field('processId', String, 'Process ID'),
-    Field('dependencyType', String, 'Dependency (Critical Path, Supporting)'),
-    Field('fallbackBehavior', String, 'Fallback if Interface Unavailable'),
+    Field('processName', String, 'Process Name',
+        required: true, hint: 'Name of the dependent business process'),
+    Field('processId', String, 'Process ID',
+        hint: 'Identifier of the business process'),
+    Field('dependencyType', String, 'Dependency (Critical Path, Supporting)',
+        hint: 'Nature of the dependency on the interface'),
+    Field('fallbackBehavior', String, 'Fallback if Interface Unavailable',
+        hint: 'Process behavior when the interface is down'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Technical specification for an interface.
+@StandardReferences(
+  [
+    'OpenAPI / AsyncAPI — API specification',
+    'Enterprise Integration Patterns (EIP) — integration styles',
+  ],
+  'Captures the technical mechanics of the interface: protocol, transport security, message format, and encoding.',
+)
 @SectionId('INTESP')
 class InterfaceTechnicalSpec {
   @Form([
     Field('protocol', String,
-        'Protocol (REST/HTTPS, SOAP/HTTPS, gRPC, GraphQL, SFTP, etc.)'),
-    Field('transportSecurity', String, 'Transport Security (TLS 1.2, TLS 1.3)'),
-    Field('messageFormat', String, 'Message Format (JSON, XML, Protobuf, CSV)'),
-    Field('encoding', String, 'Character Encoding (UTF-8, etc.)'),
+        'Protocol (REST/HTTPS, SOAP/HTTPS, gRPC, GraphQL, SFTP, etc.)',
+        hint: 'Transport/application protocol used'),
+    Field('transportSecurity', String, 'Transport Security (TLS 1.2, TLS 1.3)',
+        hint: 'Transport-layer security applied'),
+    Field('messageFormat', String, 'Message Format (JSON, XML, Protobuf, CSV)',
+        hint: 'Serialization format of exchanged messages'),
+    Field('encoding', String, 'Character Encoding (UTF-8, etc.)',
+        hint: 'Character encoding of payloads'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -9804,8 +10758,16 @@ class InterfaceTechnicalSpec {
       InterfaceTechnicalSpecEndpoints();
 
   /// API operations/methods exposed or consumed.
+  @StandardReferences(
+    [
+      'OpenAPI / AsyncAPI — API specification',
+    ],
+    'Enumerates the API operations exposed or consumed across this interface, the basis for contract documentation.',
+  )
   @SectionId('INOPEN-OPER-LST')
   @SectionIdPattern('INOPEN-OPER-xxx')
+  @ContentHelp('List the API operations or methods used: each with method, '
+      'path, purpose, and request/response formats.')
   @SerializationOrder(3)
   List<InterfaceOperationEntry> operations = [];
 
@@ -9815,135 +10777,249 @@ class InterfaceTechnicalSpec {
 }
 
 /// Directionality and messaging pattern.
+@StandardReferences(
+  [
+    'Enterprise Integration Patterns (EIP) — integration styles',
+  ],
+  'Describes the direction, initiator, style, and delivery guarantee of communication across the interface.',
+)
 @SectionId('ITSC')
 class InterfaceTechnicalSpecCommunication {
     @Form([
-        Field('direction', String, 'Direction (Inbound, Outbound, Bidirectional)'),
-        Field('initiator', String, 'Initiator (Our System, External System)'),
+        Field('direction', String, 'Direction (Inbound, Outbound, Bidirectional)',
+                hint: 'Flow direction relative to our system'),
+        Field('initiator', String, 'Initiator (Our System, External System)',
+                hint: 'Which side initiates the exchange'),
         Field('communicationStyle', String,
-                'Style (Synchronous, Asynchronous, Event-Driven)'),
+                'Style (Synchronous, Asynchronous, Event-Driven)',
+                hint: 'Synchronicity style of communication'),
         Field('deliveryGuarantee', String,
-                'Delivery (At-most-once, At-least-once, Exactly-once)'),
+                'Delivery (At-most-once, At-least-once, Exactly-once)',
+                hint: 'Message delivery guarantee provided'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Endpoint and documentation references.
+@StandardReferences(
+  [
+    'OpenAPI / AsyncAPI — API specification',
+  ],
+  'Records the endpoints, version, and documentation references needed to locate and call the interface.',
+)
 @SectionId('ITSE')
 class InterfaceTechnicalSpecEndpoints {
     @Form([
-        Field('baseEndpoint', String, 'Base URL/Endpoint'),
-        Field('apiVersion', String, 'API Version'),
-        Field('documentationUrl', String, 'API Documentation URL'),
-        Field('sandboxEndpoint', String, 'Sandbox/Test Endpoint'),
+        Field('baseEndpoint', String, 'Base URL/Endpoint',
+                hint: 'Primary base URL of the interface'),
+        Field('apiVersion', String, 'API Version',
+                hint: 'Version of the API consumed'),
+        Field('documentationUrl', String, 'API Documentation URL',
+                hint: 'Link to the external API documentation'),
+        Field('sandboxEndpoint', String, 'Sandbox/Test Endpoint',
+                hint: 'Base URL of the sandbox/test environment'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// API operation entry.
+@StandardReferences(
+  [
+    'OpenAPI / AsyncAPI — API specification',
+  ],
+  'Documents a single API operation including method, path, idempotency, and request/response formats.',
+)
 @SectionId('IOE')
 class InterfaceOperationEntry {
   @Form([
-    Field('operationId', String, 'Operation ID', required: true),
-    Field('operationName', String, 'Operation Name', required: true),
-    Field('httpMethod', String, 'HTTP Method (GET, POST, PUT, DELETE, etc.)'),
-    Field('path', String, 'Path/Endpoint'),
-    Field('purpose', String, 'Purpose'),
-    Field('idempotent', bool, 'Idempotent'),
-    Field('requestFormat', String, 'Request Format'),
-    Field('responseFormat', String, 'Response Format'),
-    Field('paginationSupport', bool, 'Pagination Supported'),
-    Field('filteringSupport', String, 'Filtering/Query Parameters'),
+    Field('operationId', String, 'Operation ID',
+        required: true, hint: 'Unique identifier for the operation'),
+    Field('operationName', String, 'Operation Name',
+        required: true, hint: 'Human-readable operation name'),
+    Field('httpMethod', String, 'HTTP Method (GET, POST, PUT, DELETE, etc.)',
+        hint: 'HTTP verb used by the operation'),
+    Field('path', String, 'Path/Endpoint',
+        hint: 'Resource path or endpoint for the operation'),
+    Field('purpose', String, 'Purpose',
+        hint: 'What the operation does'),
+    Field('idempotent', bool, 'Idempotent',
+        hint: 'Whether repeated calls have the same effect'),
+    Field('requestFormat', String, 'Request Format',
+        hint: 'Format/schema of the request payload'),
+    Field('responseFormat', String, 'Response Format',
+        hint: 'Format/schema of the response payload'),
+    Field('paginationSupport', bool, 'Pagination Supported',
+        hint: 'Whether the operation supports pagination'),
+    Field('filteringSupport', String, 'Filtering/Query Parameters',
+        hint: 'Supported filtering or query parameters'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Webhook specification.
+@StandardReferences(
+  [
+    'AsyncAPI — API specification',
+    'Enterprise Integration Patterns (EIP) — integration styles',
+  ],
+  'Specifies inbound webhook/callback handling, including endpoints, signature verification, and idempotency.',
+)
 @SectionId('INWESP')
 class InterfaceWebhookSpec {
   @Form([
-    Field('webhooksUsed', bool, 'Webhooks/Callbacks Used'),
-    Field('webhookEndpoint', String, 'Our Webhook Endpoint'),
-    Field('eventTypes', String, 'Event Types Received'),
-    Field('signatureVerification', String, 'Signature Verification Method'),
-    Field('retryPolicy', String, 'External System Retry Policy'),
-    Field('idempotencyHandling', String, 'Idempotency Handling'),
+    Field('webhooksUsed', bool, 'Webhooks/Callbacks Used',
+        hint: 'Whether the interface uses webhooks/callbacks'),
+    Field('webhookEndpoint', String, 'Our Webhook Endpoint',
+        hint: 'Our endpoint that receives callbacks'),
+    Field('eventTypes', String, 'Event Types Received',
+        hint: 'Event types delivered via webhook'),
+    Field('signatureVerification', String, 'Signature Verification Method',
+        hint: 'How webhook authenticity is verified'),
+    Field('retryPolicy', String, 'External System Retry Policy',
+        hint: 'External retry behavior on delivery failure'),
+    Field('idempotencyHandling', String, 'Idempotency Handling',
+        hint: 'How duplicate webhook deliveries are handled'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Data specification for an interface.
+@StandardReferences(
+  [
+    'OpenAPI / AsyncAPI — API specification',
+    'ISO/IEC 27001 — information security (data sensitivity)',
+  ],
+  'Specifies the data exchanged over the interface: entities, sensitivity, volume, mapping, and validation.',
+)
 @SectionId('INDASP')
 class InterfaceDataSpec {
   @Form([
     // Data Exchange Overview
-    Field('dataExchangeSummary', String, 'Data Exchange Summary'),
+    Field('dataExchangeSummary', String, 'Data Exchange Summary',
+        hint: 'High-level summary of data exchanged'),
     Field('dataDirection', String,
-        'Data Flow (Send, Receive, Bidirectional)'),
+        'Data Flow (Send, Receive, Bidirectional)',
+        hint: 'Direction of data flow'),
     Field('dataSensitivity', String,
-        'Sensitivity (Public, Internal, Confidential, PII/PHI)'),
-    Field('dataRetentionExternal', String, 'External System Data Retention'),
+        'Sensitivity (Public, Internal, Confidential, PII/PHI)',
+        hint: 'Sensitivity classification of the data'),
+    Field('dataRetentionExternal', String, 'External System Data Retention',
+        hint: 'How long the external system retains the data'),
 
     // Volume & Frequency
     Field('frequency', String,
-        'Frequency (Real-time, Near real-time, Batch, On-demand)'),
-    Field('batchSchedule', String, 'Batch Schedule (if applicable)'),
-    Field('volumePerTransaction', String, 'Volume per Transaction'),
-    Field('dailyVolume', String, 'Expected Daily Volume'),
-    Field('peakVolume', String, 'Peak Volume'),
-    Field('payloadSizeLimit', String, 'Payload Size Limit'),
+        'Frequency (Real-time, Near real-time, Batch, On-demand)',
+        hint: 'How often data is exchanged'),
+    Field('batchSchedule', String, 'Batch Schedule (if applicable)',
+        hint: 'Schedule for batch exchanges'),
+    Field('volumePerTransaction', String, 'Volume per Transaction',
+        hint: 'Typical data volume per transaction'),
+    Field('dailyVolume', String, 'Expected Daily Volume',
+        hint: 'Expected daily data volume'),
+    Field('peakVolume', String, 'Peak Volume',
+        hint: 'Peak data volume to plan for'),
+    Field('payloadSizeLimit', String, 'Payload Size Limit',
+        hint: 'Maximum allowed payload size'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Data entities exchanged.
+  @StandardReferences(
+    [
+      'OpenAPI / AsyncAPI — API specification',
+    ],
+    'Lists the data entities exchanged with their direction, required and sensitive fields, and internal mapping.',
+  )
   @SectionId('IDEE-DATA-LST')
   @SectionIdPattern('IDEE-DATA-xxx')
+  @ContentHelp('List each data entity exchanged, noting direction, field '
+      'count, sensitive fields, and the internal entity it maps to.')
   @SerializationOrder(1)
   List<InterfaceDataEntityEntry> dataEntities = [];
 
   /// Data mapping and transformation rules.
+  @StandardReferences(
+    [
+      'Enterprise Integration Patterns (EIP) — integration styles',
+    ],
+    'Captures the mapping and transformation rules applied between external and internal data representations.',
+  )
   @SectionId('MAPPI-MAPP-LST')
   @SectionIdPattern('MAPPI-MAPP-xxx')
+  @ContentHelp('List data mapping and transformation rules between external '
+      'and internal representations.')
   @SerializationOrder(2)
   List<MappingRuleEntry> mappingRules = [];
 
   /// Data validation rules.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §6 — scope & external interfaces',
+    ],
+    'Captures the validation rules applied to exchanged data to ensure integrity at the boundary.',
+  )
   @SectionId('VALID-VALI-LST')
   @SectionIdPattern('VALID-VALI-xxx')
+  @ContentHelp('List data validation rules applied to inbound and outbound '
+      'payloads at the interface boundary.')
   @SerializationOrder(3)
   List<ValidationRuleEntry> validationRules = [];
 }
 
 /// Data entity exchanged.
+@StandardReferences(
+  [
+    'OpenAPI / AsyncAPI — API specification',
+  ],
+  'Documents a single data entity exchanged over the interface and how it maps to the internal model.',
+)
 @SectionId('INDAENEN')
 class InterfaceDataEntityEntry {
   @Form([
-    Field('entityName', String, 'Entity Name', required: true),
-    Field('direction', String, 'Direction (Send, Receive)'),
-    Field('fieldCount', int, 'Field Count'),
-    Field('requiredFields', String, 'Required Fields'),
-    Field('sensitiveFields', String, 'Sensitive Fields (PII, etc.)'),
-    Field('internalMapping', String, 'Maps to Internal Entity'),
-    Field('transformationNeeded', String, 'Transformation Required'),
+    Field('entityName', String, 'Entity Name',
+        required: true, hint: 'Name of the exchanged data entity'),
+    Field('direction', String, 'Direction (Send, Receive)',
+        hint: 'Whether the entity is sent or received'),
+    Field('fieldCount', int, 'Field Count',
+        hint: 'Number of fields in the entity'),
+    Field('requiredFields', String, 'Required Fields',
+        hint: 'Fields that must be present'),
+    Field('sensitiveFields', String, 'Sensitive Fields (PII, etc.)',
+        hint: 'Fields carrying sensitive data'),
+    Field('internalMapping', String, 'Maps to Internal Entity',
+        hint: 'Internal entity this maps to'),
+    Field('transformationNeeded', String, 'Transformation Required',
+        hint: 'Transformation needed between formats'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Security specification for an interface.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security (for interface security)',
+    'OpenAPI / AsyncAPI — API specification',
+  ],
+  'Specifies authentication, credential handling, and the security posture governing access to the interface.',
+)
 @SectionId('IS')
 class InterfaceSecurity {
   @Form([
     Field('authMethod', String,
-        'Authentication (API Key, OAuth 2.0, mTLS, Basic, SAML, etc.)'),
-    Field('authDetails', String, 'Authentication Details'),
-    Field('credentialStorage', String, 'Credential Storage Method'),
-    Field('credentialRotation', String, 'Credential Rotation Policy'),
+        'Authentication (API Key, OAuth 2.0, mTLS, Basic, SAML, etc.)',
+        hint: 'Authentication mechanism used'),
+    Field('authDetails', String, 'Authentication Details',
+        hint: 'Details of the authentication setup'),
+    Field('credentialStorage', String, 'Credential Storage Method',
+        hint: 'Where and how credentials are stored'),
+    Field('credentialRotation', String, 'Credential Rotation Policy',
+        hint: 'How often credentials are rotated'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -9967,50 +11043,87 @@ class InterfaceSecurity {
 }
 
 /// Authorization boundaries for an interface.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security (for interface security)',
+  ],
+  'Defines the authorization model, scopes, and network restrictions controlling who may use the interface.',
+)
 @SectionId('INSEAU')
 class InterfaceSecurityAuthorization {
     @Form([
-        Field('authorizationModel', String, 'Authorization Model'),
-        Field('scopesPermissions', String, 'Scopes/Permissions Required'),
-        Field('ipWhitelisting', String, 'IP Whitelisting Required'),
+        Field('authorizationModel', String, 'Authorization Model',
+                hint: 'Authorization model governing access'),
+        Field('scopesPermissions', String, 'Scopes/Permissions Required',
+                hint: 'Scopes or permissions required to call'),
+        Field('ipWhitelisting', String, 'IP Whitelisting Required',
+                hint: 'Whether IP allowlisting is enforced'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Encryption controls for an interface.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security (for interface security)',
+  ],
+  'Specifies the encryption controls protecting data in transit, at rest, and at field level for the interface.',
+)
 @SectionId('INSEEN')
 class InterfaceSecurityEncryption {
     @Form([
-        Field('encryptionInTransit', String, 'Encryption in Transit'),
-        Field('encryptionAtRest', String, 'Encryption at Rest (if applicable)'),
-        Field('fieldLevelEncryption', String, 'Field-Level Encryption'),
+        Field('encryptionInTransit', String, 'Encryption in Transit',
+                hint: 'Encryption applied to data in transit'),
+        Field('encryptionAtRest', String, 'Encryption at Rest (if applicable)',
+                hint: 'Encryption applied to data at rest'),
+        Field('fieldLevelEncryption', String, 'Field-Level Encryption',
+                hint: 'Field-level encryption for sensitive data'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Compliance and audit expectations for an interface.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — information security (for interface security)',
+  ],
+  'Captures compliance, audit-logging, and data-residency expectations the interface must satisfy.',
+)
 @SectionId('INSECO')
 class InterfaceSecurityCompliance {
     @Form([
         Field('complianceRequirements', String,
-                'Compliance (PCI-DSS, HIPAA, GDPR, SOC2, etc.)'),
-        Field('auditLogging', String, 'Audit Logging Requirements'),
-        Field('dataResidency', String, 'Data Residency Requirements'),
+                'Compliance (PCI-DSS, HIPAA, GDPR, SOC2, etc.)',
+                hint: 'Compliance regimes the interface must meet'),
+        Field('auditLogging', String, 'Audit Logging Requirements',
+                hint: 'Audit logging the interface must produce'),
+        Field('dataResidency', String, 'Data Residency Requirements',
+                hint: 'Geographic data residency constraints'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Operational characteristics.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (operational/performance)',
+  ],
+  'Captures the operational and SLA characteristics of the interface: availability, response time, and throughput.',
+)
 @SectionId('INOP')
 class InterfaceOperational {
   @Form([
-    Field('availabilitySla', String, 'Availability SLA (e.g., 99.9%)'),
-    Field('scheduledDowntime', String, 'Scheduled Downtime Windows'),
-    Field('responseTimeSla', String, 'Response Time SLA (e.g., p95 < 200ms)'),
-    Field('throughputSla', String, 'Throughput SLA'),
+    Field('availabilitySla', String, 'Availability SLA (e.g., 99.9%)',
+        hint: 'Committed availability target'),
+    Field('scheduledDowntime', String, 'Scheduled Downtime Windows',
+        hint: 'Planned maintenance windows'),
+    Field('responseTimeSla', String, 'Response Time SLA (e.g., p95 < 200ms)',
+        hint: 'Committed response-time target'),
+    Field('throughputSla', String, 'Throughput SLA',
+        hint: 'Committed throughput target'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -10029,58 +11142,105 @@ class InterfaceOperational {
     InterfaceOperationalSupport support = InterfaceOperationalSupport();
 
   /// Operational dependencies.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — product quality (operational/performance)',
+    ],
+    'Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about.',
+  )
   @SectionId('DEPEN-DEPE-LST')
   @SectionIdPattern('DEPEN-DEPE-xxx')
+  @ContentHelp('List operational dependencies of the interface, such as '
+      'upstream services, network paths, and shared infrastructure.')
   @SerializationOrder(4)
   List<DependencyEntry> dependencies = [];
 }
 
 /// Rate limiting rules.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (operational/performance)',
+  ],
+  'Specifies the rate, quota, and burst limits the interface enforces or must respect.',
+)
 @SectionId('IORL')
 class InterfaceOperationalRateLimiting {
     @Form([
-        Field('rateLimits', String, 'Rate Limits (requests/minute)'),
-        Field('quotaLimits', String, 'Quota Limits (requests/day)'),
-        Field('burstCapacity', String, 'Burst Capacity'),
+        Field('rateLimits', String, 'Rate Limits (requests/minute)',
+                hint: 'Sustained request-rate limit'),
+        Field('quotaLimits', String, 'Quota Limits (requests/day)',
+                hint: 'Longer-period quota limit'),
+        Field('burstCapacity', String, 'Burst Capacity',
+                hint: 'Short-term burst allowance'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Monitoring configuration.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (operational/performance)',
+  ],
+  'Defines how the interface is monitored, including health checks, status pages, and alerting thresholds.',
+)
 @SectionId('INOPMO')
 class InterfaceOperationalMonitoring {
     @Form([
-        Field('healthCheckEndpoint', String, 'Health Check Endpoint'),
-        Field('statusPageUrl', String, 'Status Page URL'),
-        Field('monitoringApproach', String, 'Monitoring Approach'),
-        Field('alertingThresholds', String, 'Alerting Thresholds'),
+        Field('healthCheckEndpoint', String, 'Health Check Endpoint',
+                hint: 'Endpoint used for health checks'),
+        Field('statusPageUrl', String, 'Status Page URL',
+                hint: 'External status page for the system'),
+        Field('monitoringApproach', String, 'Monitoring Approach',
+                hint: 'How the interface is monitored'),
+        Field('alertingThresholds', String, 'Alerting Thresholds',
+                hint: 'Thresholds that trigger alerts'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Support model.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (operational/performance)',
+  ],
+  'Captures the support model for the interface: hours, contacts, incident process, and escalation path.',
+)
 @SectionId('INOPSU')
 class InterfaceOperationalSupport {
     @Form([
-        Field('supportHours', String, 'Support Hours'),
-        Field('supportContact', String, 'Support Contact'),
-        Field('incidentProcess', String, 'Incident Process'),
-        Field('escalationPath', String, 'Escalation Path'),
+        Field('supportHours', String, 'Support Hours',
+                hint: 'Hours during which support is available'),
+        Field('supportContact', String, 'Support Contact',
+                hint: 'Primary support contact'),
+        Field('incidentProcess', String, 'Incident Process',
+                hint: 'Process for raising incidents'),
+        Field('escalationPath', String, 'Escalation Path',
+                hint: 'Escalation path for unresolved issues'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Error handling specification.
+@StandardReferences(
+  [
+    'Enterprise Integration Patterns (EIP) — integration styles',
+    'ISO/IEC 25010 — product quality (reliability)',
+  ],
+  'Specifies how errors from the interface are detected, classified, and handled to keep integrations resilient.',
+)
 @SectionId('INERHA')
 class InterfaceErrorHandling {
   @Form([
     // Error Responses
-    Field('errorFormat', String, 'Error Response Format'),
-    Field('errorCodes', String, 'Error Codes Used'),
-    Field('retryableErrors', String, 'Retryable Error Codes'),
+    Field('errorFormat', String, 'Error Response Format',
+        hint: 'Format/schema of error responses'),
+    Field('errorCodes', String, 'Error Codes Used',
+        hint: 'Error codes the interface returns'),
+    Field('retryableErrors', String, 'Retryable Error Codes',
+        hint: 'Which error codes are safe to retry'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -10098,58 +11258,106 @@ class InterfaceErrorHandling {
     InterfaceErrorHandlingTimeout timeout = InterfaceErrorHandlingTimeout();
 
   /// Error handling procedures.
+  @StandardReferences(
+    [
+      'Enterprise Integration Patterns (EIP) — integration styles',
+    ],
+    'Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface.',
+  )
   @SectionId('ERROR-ERRO-LST')
   @SectionIdPattern('ERROR-ERRO-xxx')
+  @ContentHelp('List error-handling procedures for the interface, mapping '
+      'error conditions to detection and recovery steps.')
   @SerializationOrder(4)
   List<ErrorProcedureEntry> errorProcedures = [];
 }
 
 /// Non-retryable errors and retry strategy.
+@StandardReferences(
+  [
+    'Enterprise Integration Patterns (EIP) — integration styles',
+  ],
+  'Defines which errors are fatal versus retryable and the retry/circuit-breaker strategy for transient failures.',
+)
 @SectionId('IEHR')
 class InterfaceErrorHandlingRetry {
     @Form([
-        Field('fatalErrors', String, 'Fatal/Non-Retryable Errors'),
-        Field('retryStrategy', String, 'Retry Strategy (Exponential backoff, etc.)'),
-        Field('maxRetries', int, 'Max Retries'),
-        Field('retryInterval', String, 'Retry Interval'),
-        Field('circuitBreakerConfig', String, 'Circuit Breaker Configuration'),
+        Field('fatalErrors', String, 'Fatal/Non-Retryable Errors',
+                hint: 'Errors that must not be retried'),
+        Field('retryStrategy', String, 'Retry Strategy (Exponential backoff, etc.)',
+                hint: 'Strategy used when retrying'),
+        Field('maxRetries', int, 'Max Retries',
+                hint: 'Maximum number of retry attempts'),
+        Field('retryInterval', String, 'Retry Interval',
+                hint: 'Delay between retry attempts'),
+        Field('circuitBreakerConfig', String, 'Circuit Breaker Configuration',
+                hint: 'Circuit-breaker thresholds and behavior'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Fallback behavior and manual recovery.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (reliability)',
+  ],
+  'Describes fallback and degraded-mode behavior plus manual recovery when the interface is unavailable.',
+)
 @SectionId('IEHF')
 class InterfaceErrorHandlingFallback {
     @Form([
-        Field('fallbackBehavior', String, 'Fallback Behavior'),
-        Field('degradedMode', String, 'Degraded Mode Operation'),
-        Field('manualRecovery', String, 'Manual Recovery Procedure'),
+        Field('fallbackBehavior', String, 'Fallback Behavior',
+                hint: 'Behavior when the interface fails'),
+        Field('degradedMode', String, 'Degraded Mode Operation',
+                hint: 'How the system runs in degraded mode'),
+        Field('manualRecovery', String, 'Manual Recovery Procedure',
+                hint: 'Manual steps to recover from failure'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Connection and transaction timeouts.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (performance efficiency)',
+  ],
+  'Specifies the connection, read, and overall transaction timeouts that bound interface calls.',
+)
 @SectionId('IEHT')
 class InterfaceErrorHandlingTimeout {
     @Form([
-        Field('connectionTimeout', String, 'Connection Timeout'),
-        Field('readTimeout', String, 'Read Timeout'),
-        Field('overallTimeout', String, 'Overall Transaction Timeout'),
+        Field('connectionTimeout', String, 'Connection Timeout',
+                hint: 'Timeout for establishing a connection'),
+        Field('readTimeout', String, 'Read Timeout',
+                hint: 'Timeout for reading a response'),
+        Field('overallTimeout', String, 'Overall Transaction Timeout',
+                hint: 'Total timeout for the whole transaction'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Governance and contracts.
+@StandardReferences(
+  [
+    'TOGAF — system context & boundary definition',
+    'ISO/IEC/IEEE 29148 §6 — scope & external interfaces',
+  ],
+  'Captures ownership, contacts, and contractual governance that keep the interface accountable over its lifecycle.',
+)
 @SectionId('INGO')
 class InterfaceGovernance {
   @Form([
-    Field('externalOwner', String, 'External System Owner'),
-    Field('internalOwner', String, 'Internal Owner/Steward'),
-    Field('technicalContact', String, 'Technical Contact'),
-    Field('businessContact', String, 'Business Contact'),
+    Field('externalOwner', String, 'External System Owner',
+        hint: 'Owner on the external system side'),
+    Field('internalOwner', String, 'Internal Owner/Steward',
+        hint: 'Internal owner accountable for the interface'),
+    Field('technicalContact', String, 'Technical Contact',
+        hint: 'Technical point of contact'),
+    Field('businessContact', String, 'Business Contact',
+        hint: 'Business point of contact'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -10168,40 +11376,72 @@ class InterfaceGovernance {
 }
 
 /// Contract and commercial terms for an interface.
+@StandardReferences(
+  [
+    'TOGAF — system context & boundary definition',
+  ],
+  'Records the contractual and commercial terms governing the interface, including cost model and renewal.',
+)
 @SectionId('INGOCO')
 class InterfaceGovernanceContract {
     @Form([
-        Field('contractType', String, 'Contract Type (SLA, Agreement, Partnership)'),
-        Field('contractExpiry', String, 'Contract Expiry Date'),
-        Field('renewalTerms', String, 'Renewal Terms'),
-        Field('costModel', String, 'Cost Model (Per-call, Subscription, etc.)'),
-        Field('estimatedCost', String, 'Estimated Monthly/Annual Cost'),
+        Field('contractType', String, 'Contract Type (SLA, Agreement, Partnership)',
+                hint: 'Type of contract in place'),
+        Field('contractExpiry', String, 'Contract Expiry Date',
+                hint: 'When the contract expires'),
+        Field('renewalTerms', String, 'Renewal Terms',
+                hint: 'Terms governing renewal'),
+        Field('costModel', String, 'Cost Model (Per-call, Subscription, etc.)',
+                hint: 'How usage is billed'),
+        Field('estimatedCost', String, 'Estimated Monthly/Annual Cost',
+                hint: 'Estimated recurring cost'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Change management expectations for an interface.
+@StandardReferences(
+  [
+    'OpenAPI / AsyncAPI — API specification',
+    'TOGAF — system context & boundary definition',
+  ],
+  'Defines versioning, deprecation, and breaking-change policies that govern how the interface evolves.',
+)
 @SectionId('INGOLI')
 class InterfaceGovernanceLifecycle {
     @Form([
-        Field('versioningStrategy', String, 'Versioning Strategy'),
-        Field('deprecationPolicy', String, 'Deprecation Policy'),
-        Field('changeNotificationLead', String, 'Change Notification Lead Time'),
-        Field('breakingChangePolicy', String, 'Breaking Change Policy'),
+        Field('versioningStrategy', String, 'Versioning Strategy',
+                hint: 'How the interface is versioned'),
+        Field('deprecationPolicy', String, 'Deprecation Policy',
+                hint: 'Policy for deprecating versions'),
+        Field('changeNotificationLead', String, 'Change Notification Lead Time',
+                hint: 'Notice given before changes'),
+        Field('breakingChangePolicy', String, 'Breaking Change Policy',
+                hint: 'How breaking changes are handled'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Testing specification.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+  ],
+  'Specifies how the interface is tested, including sandbox availability, test credentials, and mocking.',
+)
 @SectionId('INTE')
 class InterfaceTesting {
   @Form([
-    Field('sandboxAvailable', bool, 'Sandbox Environment Available'),
-    Field('sandboxUrl', String, 'Sandbox URL'),
-    Field('testCredentials', String, 'Test Credentials Approach'),
-    Field('mockAvailable', bool, 'Mock/Stub Available'),
+    Field('sandboxAvailable', bool, 'Sandbox Environment Available',
+        hint: 'Whether a sandbox environment exists'),
+    Field('sandboxUrl', String, 'Sandbox URL',
+        hint: 'Base URL of the sandbox environment'),
+    Field('testCredentials', String, 'Test Credentials Approach',
+        hint: 'How test credentials are obtained'),
+    Field('mockAvailable', bool, 'Mock/Stub Available',
+        hint: 'Whether a mock or stub is available'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -10215,49 +11455,90 @@ class InterfaceTesting {
     InterfaceTestingStrategy strategy = InterfaceTestingStrategy();
 
   /// Test scenarios.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29119 — software testing',
+    ],
+    'Lists the concrete test scenarios that validate the interface across happy-path, error, and edge cases.',
+  )
   @SectionId('ITSE1-TEST-LST')
   @SectionIdPattern('ITSE1-TEST-xxx')
+  @ContentHelp('List test scenarios for the interface, each with type, '
+      'preconditions, steps, and expected result.')
   @SerializationOrder(3)
   List<InterfaceTestScenarioEntry> testScenarios = [];
 }
 
 /// Test data strategy.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+  ],
+  'Defines the test-data strategy for the interface, covering synthetic data and production mirroring.',
+)
 @SectionId('INTEDA')
 class InterfaceTestingData {
     @Form([
-        Field('testDataApproach', String, 'Test Data Approach'),
-        Field('syntheticDataSupport', bool, 'Synthetic Data Supported'),
-        Field('productionMirror', bool, 'Production Data Mirroring'),
+        Field('testDataApproach', String, 'Test Data Approach',
+                hint: 'How test data is sourced or generated'),
+        Field('syntheticDataSupport', bool, 'Synthetic Data Supported',
+                hint: 'Whether synthetic test data is supported'),
+        Field('productionMirror', bool, 'Production Data Mirroring',
+                hint: 'Whether production data is mirrored for tests'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Validation approach across test layers.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+  ],
+  'Describes the validation approach across unit, integration, contract, E2E, and performance test layers for the interface.',
+)
 @SectionId('INTEST')
 class InterfaceTestingStrategy {
     @Form([
-        Field('unitTestApproach', String, 'Unit Test Approach'),
-        Field('integrationTestApproach', String, 'Integration Test Approach'),
-        Field('contractTestApproach', String, 'Contract Test Approach'),
-        Field('e2eTestApproach', String, 'E2E Test Approach'),
-        Field('performanceTestApproach', String, 'Performance Test Approach'),
+        Field('unitTestApproach', String, 'Unit Test Approach',
+                hint: 'Approach to unit testing the interface'),
+        Field('integrationTestApproach', String, 'Integration Test Approach',
+                hint: 'Approach to integration testing'),
+        Field('contractTestApproach', String, 'Contract Test Approach',
+                hint: 'Approach to contract testing'),
+        Field('e2eTestApproach', String, 'E2E Test Approach',
+                hint: 'Approach to end-to-end testing'),
+        Field('performanceTestApproach', String, 'Performance Test Approach',
+                hint: 'Approach to performance testing'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Test scenario entry.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29119 — software testing',
+  ],
+  'Documents a single interface test scenario with its preconditions, steps, and expected result.',
+)
 @SectionId('INTESCEN')
 class InterfaceTestScenarioEntry {
   @Form([
-    Field('scenarioId', String, 'Scenario ID', required: true),
-    Field('scenarioName', String, 'Scenario Name', required: true),
-    Field('scenarioType', String, 'Type (Happy Path, Error, Edge Case)'),
-    Field('preconditions', String, 'Preconditions'),
-    Field('testSteps', String, 'Test Steps'),
-    Field('expectedResult', String, 'Expected Result'),
-    Field('automated', bool, 'Automated'),
+    Field('scenarioId', String, 'Scenario ID',
+        required: true, hint: 'Unique identifier for the scenario'),
+    Field('scenarioName', String, 'Scenario Name',
+        required: true, hint: 'Human-readable scenario name'),
+    Field('scenarioType', String, 'Type (Happy Path, Error, Edge Case)',
+        hint: 'Category of the test scenario'),
+    Field('preconditions', String, 'Preconditions',
+        hint: 'State required before running the scenario'),
+    Field('testSteps', String, 'Test Steps',
+        hint: 'Steps to execute the scenario'),
+    Field('expectedResult', String, 'Expected Result',
+        hint: 'Result expected on success'),
+    Field('automated', bool, 'Automated',
+        hint: 'Whether the scenario is automated'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -10272,6 +11553,14 @@ class InterfaceTestScenarioEntry {
 /// Explicit documentation of functionality, systems, and integrations that
 /// are excluded from the project scope. Provides clear boundaries and
 /// rationale to prevent scope creep and manage stakeholder expectations.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies',
+    'PMBOK — scope management & assumption log',
+    'BABOK v3 — requirements scope & constraints',
+  ],
+  'Captures what the project explicitly excludes so boundaries are unambiguous and scope creep is prevented.',
+)
 @SectionId('OUOFSC')
 @DetailedIn(D07IntegrationInterfaceSpecification)
 @SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-OUT')
@@ -10283,21 +11572,40 @@ class OutOfScope {
   TextSection scopePhilosophy = TextSection();
 
   /// Contains 0+× OutOfScopeEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies',
+      'PMBOK — scope management & assumption log',
+    ],
+    'Lists each individually excluded item so every out-of-scope decision is recorded and traceable.',
+  )
   @SectionId('OOSE-ITEM-LST')
   @SectionIdPattern('OOSE-ITEM-xxx')
+  @ContentHelp('Each entry records one excluded feature, system, or '
+      'integration along with its exclusion rationale.')
   @SerializationOrder(1)
   List<OutOfScopeEntry> items = [];
 }
 
 /// An out-of-scope entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies',
+    'PMBOK — scope management & assumption log',
+  ],
+  'Captures a single excluded item with its type and rationale to keep scope boundaries explicit.',
+)
 @SectionId('OUOFSCEN')
 class OutOfScopeEntry {
   @Form([
-    Field('itemId', String, 'Item ID'),
-    Field('item', String, 'Out of Scope Item', required: true),
+    Field('itemId', String, 'Item ID', hint: 'Unique identifier for this exclusion'),
+    Field('item', String, 'Out of Scope Item', required: true,
+        hint: 'Name of the feature, system, or integration being excluded'),
     Field('itemType', String,
-        'Type (Feature, Integration, System, Process, Data)'),
-    Field('rationale', String, 'Exclusion Rationale'),
+        'Type (Feature, Integration, System, Process, Data)',
+        hint: 'Category of the excluded item'),
+    Field('rationale', String, 'Exclusion Rationale',
+        hint: 'Why this item is excluded from scope'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -10312,26 +11620,47 @@ class OutOfScopeEntry {
 }
 
 /// Decision history and future reconsideration.
+@StandardReferences(
+  [
+    'PMBOK — scope management & assumption log',
+    'BABOK v3 — requirements scope & constraints',
+  ],
+  'Records who decided to exclude the item and whether it may be reconsidered in a future phase.',
+)
 @SectionId('OOSED')
 class OutOfScopeEntryDecision {
     @Form([
-        Field('requestedBy', String, 'Originally Requested By'),
-        Field('decisionMaker', String, 'Decision Maker'),
-        Field('decisionDate', String, 'Decision Date'),
+        Field('requestedBy', String, 'Originally Requested By',
+                hint: 'Stakeholder who originally requested this item'),
+        Field('decisionMaker', String, 'Decision Maker',
+                hint: 'Person who decided to exclude the item'),
+        Field('decisionDate', String, 'Decision Date',
+                hint: 'When the exclusion decision was made'),
         Field('futureConsideration', String,
-                'Future Consideration (Yes, No, Maybe)'),
-        Field('targetPhase', String, 'Target Phase (if future)'),
+                'Future Consideration (Yes, No, Maybe)',
+                hint: 'Whether the item may be revisited later'),
+        Field('targetPhase', String, 'Target Phase (if future)',
+                hint: 'Project phase when the item might be reconsidered'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Alternatives and inclusion risk.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (assumption risk)',
+    'PMBOK — scope management & assumption log',
+  ],
+  'Captures workarounds for the excluded item and the risk that would arise if it were brought back into scope.',
+)
 @SectionId('OOSEM')
 class OutOfScopeEntryMitigation {
     @Form([
-        Field('alternativeSolution', String, 'Alternative/Workaround'),
-        Field('riskIfIncluded', String, 'Risk if Included'),
+        Field('alternativeSolution', String, 'Alternative/Workaround',
+                hint: 'Substitute approach for the excluded capability'),
+        Field('riskIfIncluded', String, 'Risk if Included',
+                hint: 'Risk that would arise if the item were added to scope'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -10347,6 +11676,14 @@ class OutOfScopeEntryMitigation {
 /// organizational readiness, and third-party services that must hold true
 /// for the project to succeed. Each assumption should be validated and
 /// tracked as a potential risk if proven incorrect.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies',
+    'ISO 31000 — risk management (assumption risk)',
+    'PMBOK — scope management & assumption log',
+  ],
+  'Captures the assumptions the project depends on so each can be validated and tracked as a risk if it fails.',
+)
 @SectionId('BOAS')
 @DetailedIn(D07IntegrationInterfaceSpecification)
 @SecondLevelSectionId(D07IntegrationInterfaceSpecification, 'IIS-ASS')
@@ -10358,20 +11695,39 @@ class BoundaryAssumptions {
   TextSection assumptionApproach = TextSection();
 
   /// Contains 0+× BoundaryAssumptionEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies',
+      'ISO 31000 — risk management (assumption risk)',
+    ],
+    'Lists each individual assumption so it can be owned, validated, and risk-assessed.',
+  )
   @SectionId('BOASEN-ITEM-LST')
   @SectionIdPattern('BOASEN-ITEM-xxx')
+  @ContentHelp('Each entry records one assumption with its category, '
+      'validation status, and risk if proven incorrect.')
   @SerializationOrder(1)
   List<BoundaryAssumptionEntry> items = [];
 }
 
 /// A boundary assumption entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies',
+    'ISO 31000 — risk management (assumption risk)',
+  ],
+  'Captures a single assumption with its category so it can be tracked and validated independently.',
+)
 @SectionId('BAE')
 class BoundaryAssumptionEntry {
   @Form([
-    Field('assumptionId', String, 'Assumption ID'),
-    Field('assumption', String, 'Assumption Statement', required: true),
+    Field('assumptionId', String, 'Assumption ID',
+        hint: 'Unique identifier for this assumption'),
+    Field('assumption', String, 'Assumption Statement', required: true,
+        hint: 'The condition assumed to hold true for the project'),
     Field('category', String,
-        'Category (Technical, Organizational, External, Data, Resource)'),
+        'Category (Technical, Organizational, External, Data, Resource)',
+        hint: 'Classification of the assumption'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -10387,29 +11743,53 @@ class BoundaryAssumptionEntry {
 }
 
 /// Validation ownership and confidence for a boundary assumption.
+@StandardReferences(
+  [
+    'PMBOK — scope management & assumption log',
+    'BABOK v3 — requirements scope & constraints',
+  ],
+  'Records who owns an assumption and how and when it will be validated to confirm it holds.',
+)
 @SectionId('BAEV')
 class BoundaryAssumptionEntryValidation {
     @Form([
-        Field('rationale', String, 'Basis for Assumption'),
-        Field('owner', String, 'Assumption Owner'),
-        Field('validationMethod', String, 'Validation Method'),
-        Field('validationDate', String, 'Target Validation Date'),
+        Field('rationale', String, 'Basis for Assumption',
+                hint: 'Reasoning or evidence supporting the assumption'),
+        Field('owner', String, 'Assumption Owner',
+                hint: 'Person responsible for validating the assumption'),
+        Field('validationMethod', String, 'Validation Method',
+                hint: 'How the assumption will be checked'),
+        Field('validationDate', String, 'Target Validation Date',
+                hint: 'When validation is expected to be completed'),
         Field('validationStatus', String,
-                'Status (Not Validated, Validated, Invalidated)'),
-        Field('confidence', String, 'Confidence Level (High, Medium, Low)'),
+                'Status (Not Validated, Validated, Invalidated)',
+                hint: 'Current validation state of the assumption'),
+        Field('confidence', String, 'Confidence Level (High, Medium, Low)',
+                hint: 'How confident the team is the assumption holds'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Risk framing and contingency planning for a boundary assumption.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management (assumption risk)',
+    'PMBOK — scope management & assumption log',
+  ],
+  'Captures the consequences if an assumption proves false and the contingency plan to address it.',
+)
 @SectionId('BAER')
 class BoundaryAssumptionEntryRisk {
     @Form([
-        Field('riskIfWrong', String, 'Risk if Wrong'),
-        Field('riskImpact', String, 'Impact Level (High, Medium, Low)'),
-        Field('contingencyPlan', String, 'Contingency Plan'),
-        Field('relatedRiskId', String, 'Related Risk ID'),
+        Field('riskIfWrong', String, 'Risk if Wrong',
+                hint: 'What happens if the assumption proves false'),
+        Field('riskImpact', String, 'Impact Level (High, Medium, Low)',
+                hint: 'Severity of the impact if the assumption fails'),
+        Field('contingencyPlan', String, 'Contingency Plan',
+                hint: 'Planned response if the assumption is invalidated'),
+        Field('relatedRiskId', String, 'Related Risk ID',
+                hint: 'Identifier of the linked risk register entry'),
     ])
     @SerializationOrder(0)
     String? content;

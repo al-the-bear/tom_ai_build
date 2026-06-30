@@ -13,7 +13,7 @@ section-types:
     pattern-check-id:
       pattern: ^repsdep_depe_lst-\d+$
       error-message: ID must match repsdep_depe_lst-NNN
-    description: Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
+    description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
   RESKREF-RESO-LST:
     prefix: reskref_reso_lst
     pattern-check-id:
@@ -91,7 +91,7 @@ section-types:
     pattern-check-id:
       pattern: ^boasen_item_lst-\d+$
       error-message: ID must match boasen_item_lst-NNN
-    description: Contains 0+× BoundaryAssumptionEntry.
+    description: "Each entry records one assumption with its category, validation status, and risk if proven incorrect."
   BOCOEN-BOUN-LST:
     prefix: bocoen_boun_lst
     pattern-check-id:
@@ -103,7 +103,7 @@ section-types:
     pattern-check-id:
       pattern: ^boinpa_boun_lst-\d+$
       error-message: ID must match boinpa_boun_lst-NNN
-    description: 4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.
+    description: "List the boundary interaction patterns used across integrations: request-reply, pub-sub, event-driven, batch, etc."
   BRCOEN-BROW-LST:
     prefix: brcoen_brow_lst
     pattern-check-id:
@@ -323,7 +323,7 @@ section-types:
     pattern-check-id:
       pattern: ^exinen_inte_lst-\d+$
       error-message: ID must match exinen_inte_lst-NNN
-    description: Contains 0+× ExternalInterfaceEntry.
+    description: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details."
   EXPAOP-OPER-LST:
     prefix: expaop_oper_lst
     pattern-check-id:
@@ -426,7 +426,7 @@ section-types:
     pattern-check-id:
       pattern: ^inopen_oper_lst-\d+$
       error-message: ID must match inopen_oper_lst-NNN
-    description: API operations/methods exposed or consumed.
+    description: "List the API operations or methods used: each with method, path, purpose, and request/response formats."
   INSPEN-INTE-LST:
     prefix: inspen_inte_lst
     pattern-check-id:
@@ -480,7 +480,7 @@ section-types:
     pattern-check-id:
       pattern: ^miriin_indi_lst-\d+$
       error-message: ID must match miriin_indi_lst-NNN
-    description: Risk indicators and monitoring.
+    description: "Add one entry per indicator set, describing the metrics, thresholds, and monitoring frequency that signal the risk."
   MOCOEN-MOBI-LST:
     prefix: mocoen_mobi_lst
     pattern-check-id:
@@ -678,7 +678,7 @@ section-types:
     pattern-check-id:
       pattern: ^repphs_phas_lst-\d+$
       error-message: ID must match repphs_phas_lst-NNN
-    description: Replacement phases if phased approach.
+    description: "Add one entry per replacement phase; capture scope, dates, and exit criteria for each."
   REREEN-RECI-LST:
     prefix: rereen_reci_lst
     pattern-check-id:
@@ -872,7 +872,7 @@ section-types:
     pattern-check-id:
       pattern: ^sytore_syst_lst-\d+$
       error-message: ID must match sytore_syst_lst-NNN
-    description: Contains 0+× SystemToReplaceEntry.
+    description: "Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment."
   TAITEN-TABS-LST:
     prefix: taiten_tabs_lst
     min-count-in-document: 1
@@ -1133,7 +1133,7 @@ section-types:
     pattern-check-id:
       pattern: ^criti_crit_lst-\d+$
       error-message: ID must match criti_crit_lst-NNN
-    description: Critical knowledge areas to preserve.
+    description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
   CULTU-CULT-LST:
     prefix: cultu_cult_lst
     pattern-check-id:
@@ -1193,7 +1193,7 @@ section-types:
     pattern-check-id:
       pattern: ^depen_depe_lst-\d+$
       error-message: ID must match depen_depe_lst-NNN
-    description: Operational dependencies.
+    description: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure."
   DESIG-DESI-LST:
     prefix: desig_desi_lst
     pattern-check-id:
@@ -1269,13 +1269,13 @@ section-types:
     pattern-check-id:
       pattern: ^error_erro_lst-\d+$
       error-message: ID must match error_erro_lst-NNN
-    description: Error handling procedures.
+    description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
   ESCAL-ESCA-LST:
     prefix: escal_esca_lst
     pattern-check-id:
       pattern: ^escal_esca_lst-\d+$
       error-message: ID must match escal_esca_lst-NNN
-    description: Escalation procedures during migration.
+    description: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority."
   ESENT-SYST-LST:
     prefix: esent_syst_lst
     min-count-in-document: 1
@@ -1468,7 +1468,7 @@ section-types:
     pattern-check-id:
       pattern: ^itse1_test_lst-\d+$
       error-message: ID must match itse1_test_lst-NNN
-    description: Test scenarios.
+    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
   JRNST-STAG-LST:
     prefix: jrnst_stag_lst
     pattern-check-id:
@@ -1505,7 +1505,7 @@ section-types:
     pattern-check-id:
       pattern: ^known_know_lst-\d+$
       error-message: ID must match known_know_lst-NNN
-    description: Data quality issues to address.
+    description: Add one entry per data-quality issue to address; note severity and remediation approach.
   KPIEN-KPIS-LST:
     prefix: kpien_kpis_lst
     pattern-check-id:
@@ -1541,7 +1541,7 @@ section-types:
     pattern-check-id:
       pattern: ^mappi_mapp_lst-\d+$
       error-message: ID must match mappi_mapp_lst-NNN
-    description: Data mapping and transformation rules.
+    description: List data mapping and transformation rules between external and internal representations.
   MFADE-MFAD-LST:
     prefix: mfade_mfad_lst
     pattern-check-id:
@@ -1553,7 +1553,7 @@ section-types:
     pattern-check-id:
       pattern: ^mgmls_mile_lst-\d+$
       error-message: ID must match mgmls_mile_lst-NNN
-    description: Migration milestones.
+    description: "Add one entry per program milestone, with its target date, systems included, and the success/gate criteria that must be met."
   MGPHS-ITEM-LST:
     prefix: mgphs_item_lst
     min-count-in-document: 1
@@ -1566,7 +1566,7 @@ section-types:
     pattern-check-id:
       pattern: ^mgrsk_item_lst-\d+$
       error-message: ID must match mgrsk_item_lst-NNN
-    description: Contains 0+× MigrationRiskEntry.
+    description: "Add one entry per identified migration risk, each capturing its full lifecycle from identification through resolution."
   MIGME-MIGR-LST:
     prefix: migme_migr_lst
     pattern-check-id:
@@ -1603,7 +1603,7 @@ section-types:
     pattern-check-id:
       pattern: ^monit_moni_lst-\d+$
       error-message: ID must match monit_moni_lst-NNN
-    description: Risk monitoring and control procedures.
+    description: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken."
   MSDDO-MAST-LST:
     prefix: msddo_mast_lst
     min-count-in-document: 1
@@ -1616,7 +1616,7 @@ section-types:
     pattern-check-id:
       pattern: ^nonfi_nonf_lst-\d+$
       error-message: ID must match nonfi_nonf_lst-NNN
-    description: Non-financial benefits to include in ROI.
+    description: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case."
   NTFCH-CHAN-LST:
     prefix: ntfch_chan_lst
     min-count-in-document: 1
@@ -1804,7 +1804,7 @@ section-types:
     pattern-check-id:
       pattern: ^prede_pred_lst-\d+$
       error-message: ID must match prede_pred_lst-NNN
-    description: Predecessor systems that must be addressed first.
+    description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
   PRMTX-PERM-LST:
     prefix: prmtx_perm_lst
     pattern-check-id:
@@ -1918,7 +1918,7 @@ section-types:
     pattern-check-id:
       pattern: ^respo_resp_lst-\d+$
       error-message: ID must match respo_resp_lst-NNN
-    description: Risk response strategies by category.
+    description: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale."
   RFDOC-DOCU-LST:
     prefix: rfdoc_docu_lst
     pattern-check-id:
@@ -1936,13 +1936,13 @@ section-types:
     pattern-check-id:
       pattern: ^riskb_risk_lst-\d+$
       error-message: ID must match riskb_risk_lst-NNN
-    description: Risk-based decision making criteria.
+    description: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers."
   RISKC-RISK-LST:
     prefix: riskc_risk_lst
     pattern-check-id:
       pattern: ^riskc_risk_lst-\d+$
       error-message: ID must match riskc_risk_lst-NNN
-    description: Risk categories and taxonomy.
+    description: "Add one entry per risk category, naming the category and the kinds of migration risks it groups."
   RLAJE-ITEM-LST:
     prefix: rlaje_item_lst
     pattern-check-id:
@@ -2144,7 +2144,7 @@ section-types:
     pattern-check-id:
       pattern: ^secur_secu_lst-\d+$
       error-message: ID must match secur_secu_lst-NNN
-    description: Security vulnerabilities and compliance gaps.
+    description: Add one entry per security vulnerability or compliance gap; note severity and remediation status.
   SHARE-SHAR-LST:
     prefix: share_shar_lst
     pattern-check-id:
@@ -2344,7 +2344,7 @@ section-types:
     pattern-check-id:
       pattern: ^valid_vali_lst-\d+$
       error-message: ID must match valid_vali_lst-NNN
-    description: Data validation rules.
+    description: List data validation rules applied to inbound and outbound payloads at the interface boundary.
   VARIA-VARI-LST:
     prefix: varia_vari_lst
     pattern-check-id:
@@ -2503,7 +2503,7 @@ section-types:
     pattern-check-id:
       pattern: ^cboc_oper_lst-\d+$
       error-message: ID must match cboc_oper_lst-NNN
-    description: 4.5.9. Cross-Boundary Operational Considerations.
+    description: "List cross-boundary operational concerns: end-to-end monitoring, capacity planning, joint support, and run-book ownership."
   CCME-MEMB-LST:
     prefix: ccme_memb_lst
     min-count-in-document: 1
@@ -2681,7 +2681,7 @@ section-types:
     pattern-check-id:
       pattern: ^deme_enti_lst-\d+$
       error-message: ID must match deme_enti_lst-NNN
-    description: Data entities to migrate.
+    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
   DGPE-GOVE-LST:
     prefix: dgpe_gove_lst
     min-count-in-document: 1
@@ -2791,13 +2791,13 @@ section-types:
     pattern-check-id:
       pattern: ^ibpe_depe_lst-\d+$
       error-message: ID must match ibpe_depe_lst-NNN
-    description: Business processes that depend on this interface.
+    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
   IDEE-DATA-LST:
     prefix: idee_data_lst
     pattern-check-id:
       pattern: ^idee_data_lst-\d+$
       error-message: ID must match idee_data_lst-NNN
-    description: Data entities exchanged.
+    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
   INEN-INTE-LST:
     prefix: inen_inte_lst
     min-count-in-document: 1
@@ -2840,7 +2840,7 @@ section-types:
     pattern-check-id:
       pattern: ^miin_migr_lst-\d+$
       error-message: ID must match miin_migr_lst-NNN
-    description: 4.5.8. Migration Interactions. Covers IIS-MIG.
+    description: "List interactions specific to the migration period, including data backfills, dual-run sync, and cutover handoffs."
   MIST-STAK-LST:
     prefix: mist_stak_lst
     pattern-check-id:
@@ -2882,7 +2882,7 @@ section-types:
     pattern-check-id:
       pattern: ^oose_item_lst-\d+$
       error-message: ID must match oose_item_lst-NNN
-    description: Contains 0+× OutOfScopeEntry.
+    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
   ORRQ-REQU-LST:
     prefix: orrq_requ_lst
     pattern-check-id:
@@ -2954,13 +2954,13 @@ section-types:
     pattern-check-id:
       pattern: ^sbpe_supp_lst-\d+$
       error-message: ID must match sbpe_supp_lst-NNN
-    description: Business processes supported by this system.
+    description: Add one entry per business process the system supports; note its role and execution frequency.
   SBUE-BUSI-LST:
     prefix: sbue_busi_lst
     pattern-check-id:
       pattern: ^sbue_busi_lst-\d+$
       error-message: ID must match sbue_busi_lst-NNN
-    description: Business units and departments using this system.
+    description: Add one entry per business unit using the system; note user count and dependency level.
   SECE-ERRO-LST:
     prefix: sece_erro_lst
     pattern-check-id:
@@ -2990,7 +2990,7 @@ section-types:
     pattern-check-id:
       pattern: ^smre_risk_lst-\d+$
       error-message: ID must match smre_risk_lst-NNN
-    description: Contains 0+× MigrationRiskEntry — per-system migration risks.
+    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
   SPEQ-SPEC-LST:
     prefix: speq_spec_lst
     pattern-check-id:
@@ -3147,7 +3147,7 @@ section-types:
     pattern-check-id:
       pattern: ^ugie_user_lst-\d+$
       error-message: ID must match ugie_user_lst-NNN
-    description: User groups requiring specific handling.
+    description: Add one entry per user group needing special handling; note impact level and special considerations.
   UMIE-MENU-LST:
     prefix: umie_menu_lst
     pattern-check-id:
@@ -3277,7 +3277,7 @@ section-types:
     pattern-check-id:
       pattern: ^kie_know_lst-\d+$
       error-message: ID must match kie_know_lst-NNN
-    description: Known technical issues and deficiencies.
+    description: "Add one entry per significant known technical issue, defect, or deficiency affecting the system."
   KRE-ITEM-LST:
     prefix: kre_item_lst
     pattern-check-id:

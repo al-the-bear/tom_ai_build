@@ -7,7 +7,7 @@ section-types:
     pattern-check-id:
       pattern: ^boasen_item_lst-\d+$
       error-message: ID must match boasen_item_lst-NNN
-    description: Contains 0+× BoundaryAssumptionEntry.
+    description: "Each entry records one assumption with its category, validation status, and risk if proven incorrect."
   BOINPA-INTE-LST:
     prefix: boinpa_inte_lst
     pattern-check-id:
@@ -19,43 +19,43 @@ section-types:
     pattern-check-id:
       pattern: ^exinen_inte_lst-\d+$
       error-message: ID must match exinen_inte_lst-NNN
-    description: Contains 0+× ExternalInterfaceEntry.
+    description: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details."
   INOPEN-OPER-LST:
     prefix: inopen_oper_lst
     pattern-check-id:
       pattern: ^inopen_oper_lst-\d+$
       error-message: ID must match inopen_oper_lst-NNN
-    description: API operations/methods exposed or consumed.
+    description: "List the API operations or methods used: each with method, path, purpose, and request/response formats."
   DEPEN-DEPE-LST:
     prefix: depen_depe_lst
     pattern-check-id:
       pattern: ^depen_depe_lst-\d+$
       error-message: ID must match depen_depe_lst-NNN
-    description: Operational dependencies.
+    description: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure."
   ERROR-ERRO-LST:
     prefix: error_erro_lst
     pattern-check-id:
       pattern: ^error_erro_lst-\d+$
       error-message: ID must match error_erro_lst-NNN
-    description: Error handling procedures.
+    description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
   ITSE1-TEST-LST:
     prefix: itse1_test_lst
     pattern-check-id:
       pattern: ^itse1_test_lst-\d+$
       error-message: ID must match itse1_test_lst-NNN
-    description: Test scenarios.
+    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
   MAPPI-MAPP-LST:
     prefix: mappi_mapp_lst
     pattern-check-id:
       pattern: ^mappi_mapp_lst-\d+$
       error-message: ID must match mappi_mapp_lst-NNN
-    description: Data mapping and transformation rules.
+    description: List data mapping and transformation rules between external and internal representations.
   VALID-VALI-LST:
     prefix: valid_vali_lst
     pattern-check-id:
       pattern: ^valid_vali_lst-\d+$
       error-message: ID must match valid_vali_lst-NNN
-    description: Data validation rules.
+    description: List data validation rules applied to inbound and outbound payloads at the interface boundary.
   CBOC-OPER-LST:
     prefix: cboc_oper_lst
     pattern-check-id:
@@ -67,13 +67,13 @@ section-types:
     pattern-check-id:
       pattern: ^ibpe_depe_lst-\d+$
       error-message: ID must match ibpe_depe_lst-NNN
-    description: Business processes that depend on this interface.
+    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
   IDEE-DATA-LST:
     prefix: idee_data_lst
     pattern-check-id:
       pattern: ^idee_data_lst-\d+$
       error-message: ID must match idee_data_lst-NNN
-    description: Data entities exchanged.
+    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
   MIIN-MIGR-LST:
     prefix: miin_migr_lst
     pattern-check-id:
@@ -85,7 +85,7 @@ section-types:
     pattern-check-id:
       pattern: ^oose_item_lst-\d+$
       error-message: ID must match oose_item_lst-NNN
-    description: Contains 0+× OutOfScopeEntry.
+    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
   INBUPREN:
     prefix: inbupren
     description: Business process dependency entry.
