@@ -13,8 +13,14 @@ import 'system_rollout.dart';
 import 'system_stage_plan.dart';
 
 /// SBP.15 Delivery, Transition & Rollout.
-///
-/// Public anchor: PMBOK phasing + ISO 29148 transition requirements.
+@StandardReferences(
+  [
+    'PMBOK — phased delivery',
+    'ISO/IEC/IEEE 29148:2018 — transition requirements',
+  ],
+  'How the solution is delivered, transitioned into operation, and rolled out '
+  'in stages.',
+)
 @SectionId('DTRO')
 class DeliveryTransitionAndRollout {
   @Unused()
@@ -44,10 +50,14 @@ class DeliveryTransitionAndRollout {
 
 /// Localization & Translation execution processes.
 ///
-/// Public anchor: ISO 29148 transition requirements. Bundles the localization
-/// and translation *workflow* concerns re-homed from the former
-/// `MultiLanguageSupport` cluster (their requirement counterparts live in
-/// SBP.9 [LocalizationTranslationRequirements]).
+/// Bundles the localization and translation *workflow* concerns re-homed from
+/// the former `MultiLanguageSupport` cluster (their requirement counterparts
+/// live in SBP.9 [LocalizationTranslationRequirements]).
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 — transition requirements'],
+  'The execution-side localization and translation workflows that put the '
+  'internationalization requirements into practice.',
+)
 @SectionId('LCTP')
 class LocalizationTranslationProcess {
   @Unused()

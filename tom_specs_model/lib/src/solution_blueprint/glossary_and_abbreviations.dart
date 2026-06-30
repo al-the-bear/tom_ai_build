@@ -3,13 +3,16 @@
 /// Defines the terms, acronyms, and abbreviations used throughout the
 /// Solution Blueprint. Closes the prior-review completeness gap (§5:
 /// "Glossary / acronyms").
-///
-/// Public anchor: ISO/IEC/IEEE 29148 §6 definitions/abbreviations.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 /// SBP.3 Glossary & Abbreviations.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations'],
+  'The controlled vocabulary — terms, acronyms, and abbreviations — used '
+  'consistently throughout the specification.',
+)
 @SectionId('GLAB')
 class GlossaryAndAbbreviations {
   @ContentType('description', 'Introduce the glossary: scope, conventions, '

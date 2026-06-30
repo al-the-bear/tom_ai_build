@@ -11,9 +11,6 @@
 ///
 /// The execution-side concerns (localization/translation *processes*, rollout
 /// sequencing) re-home to SBP.15 (Delivery, Transition & Rollout) instead.
-///
-/// Public anchors: ISO/IEC/IEEE 29148 (SRS/SyRS); ISO/IEC 25010 portability;
-/// ISO/IEC/IEEE 26511/26514/26515 (information for use).
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -30,6 +27,16 @@ import 'experience_and_interface_design.dart'
 /// Functional requirements seed the Requirements Specification (RSP); this
 /// section currently carries the framework-uncovered NFR sub-areas re-homed in
 /// IP-6. Functional-requirement modelling is expanded in a later IP step.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148:2018 — SRS / SyRS',
+    'ISO/IEC 25010:2023 — portability',
+    'ISO/IEC/IEEE 26511/26514/26515 — information for use',
+  ],
+  'The system\'s functional and non-functional requirements; currently homes '
+  'the framework-uncovered NFR sub-areas (localization, information-for-use, '
+  'training).',
+)
 @SectionId('REQS')
 class Requirements {
   @ContentType('description', 'Summarize the functional and non-functional '
@@ -55,8 +62,15 @@ class Requirements {
 
 /// Localization & Translation requirements (the requirement side of i18n).
 ///
-/// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
-/// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+/// Cross-mapped from SBP.14 via [Iso25010Coverage].
+@StandardReferences(
+  [
+    'ISO/IEC 25010:2023 — portability / adaptability',
+    'ISO/IEC/IEEE 29148:2018 — internationalization constraints',
+  ],
+  'The requirement side of internationalization: supported locales, '
+  'formatting, RTL, pluralization, and translation needs.',
+)
 @SectionId('LCTR')
 class LocalizationTranslationRequirements {
   @ContentType('description', 'Localization and translation requirements: '
@@ -76,13 +90,21 @@ class LocalizationTranslationRequirements {
 
 /// Information-for-Use (user documentation) requirements.
 ///
-/// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
-/// *quality criteria* cross-map lives in SBP.14
+/// The documentation *quality criteria* cross-map lives in SBP.14
 /// (`DocumentationQualityCriteria`).
 ///
 /// Holds the documentation half of the former `DocumentationAndTraining`,
 /// split out in L34C-7 ([UserDocumentationRequirements]). The training half
 /// re-homed to [TrainingEnablementRequirements].
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26511 — managing information for users',
+    'ISO/IEC/IEEE 26514 — designing and developing user documentation',
+    'ISO/IEC/IEEE 26515 — developing user documentation in an agile environment',
+  ],
+  'The requirements for user-facing documentation: deliverables, formats, '
+  'platforms, versioning, and documentation localization.',
+)
 @SectionId('IFUR')
 class InformationForUseRequirements {
   @ContentType('description', 'User documentation requirements: deliverables, '
@@ -98,11 +120,17 @@ class InformationForUseRequirements {
 
 /// Training & Enablement requirements.
 ///
-/// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-/// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+/// The training-materials *delivery* and rollout sequencing re-home to SBP.15.
 /// The detailed training-material content and module catalogue is the training
 /// half of the former `DocumentationAndTraining`, split out in L34C-7 and
 /// re-homed here as [TrainingDeliverableRequirements].
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148:2018 — transition requirements',
+    'PMBOK — transition / enablement',
+  ],
+  'The requirements for training and enabling users to adopt the solution.',
+)
 @SectionId('TREQ')
 class TrainingEnablementRequirements {
   /// Training & enablement requirement form.

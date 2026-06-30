@@ -10525,7 +10525,22 @@
       "name": "ApprovalRecord",
       "sectionId": "APREC",
       "doc": "A formal approval / sign-off record (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (approvals)"
+        ],
+        "connotation": "A single formal sign-off gating the document's release: who approved, in what role, when, and with what status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (approvals)"
+            ],
+            "connotation": "A single formal sign-off gating the document's release: who approved, in what role, when, and with what status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -10556,24 +10571,28 @@
             {
               "name": "role",
               "label": "Approver Role",
+              "hint": "Governance role accountable for the sign-off, e.g. \"Sponsor\".",
               "type": "String",
               "required": true
             },
             {
               "name": "name",
               "label": "Approver Name",
+              "hint": "Name of the individual giving the approval.",
               "type": "String",
               "required": true
             },
             {
               "name": "date",
               "label": "Approval Date",
+              "hint": "Date the approval was granted (ISO 8601).",
               "type": "String",
               "required": false
             },
             {
               "name": "status",
               "label": "Status (Pending, Approved, Rejected)",
+              "hint": "Current sign-off state: Pending, Approved, or Rejected.",
               "type": "String",
               "required": false
             }
@@ -12396,7 +12415,22 @@
       "name": "AssumptionsConstraintsDependencies",
       "sectionId": "ACDP",
       "doc": "SBP.6 Assumptions, Constraints & Dependencies.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — assumptions and constraints"
+        ],
+        "connotation": "The single register of assumptions the solution relies on, constraints it must operate within, and external dependencies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — assumptions and constraints"
+            ],
+            "connotation": "The single register of assumptions the solution relies on, constraints it must operate within, and external dependencies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -66906,8 +66940,25 @@
     "DeliveryTransitionAndRollout": {
       "name": "DeliveryTransitionAndRollout",
       "sectionId": "DTRO",
-      "doc": "SBP.15 Delivery, Transition & Rollout.\n\nPublic anchor: PMBOK phasing + ISO 29148 transition requirements.",
+      "doc": "SBP.15 Delivery, Transition & Rollout.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — phased delivery",
+          "ISO/IEC/IEEE 29148:2018 — transition requirements"
+        ],
+        "connotation": "How the solution is delivered, transitioned into operation, and rolled out in stages."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — phased delivery",
+              "ISO/IEC/IEEE 29148:2018 — transition requirements"
+            ],
+            "connotation": "How the solution is delivered, transitioned into operation, and rolled out in stages."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77133,7 +77184,29 @@
       "name": "DocumentControl",
       "sectionId": "DOCTL",
       "doc": "SBP.1 Document Control.\n\nHolds the [DocumentHeader] (id, project, version, date, author, status)\ntogether with the document's [RevisionHistory] and the [ApprovalRecord]s\nthat gate its release.",
+      "help": "Fill in the document header, then maintain the revision history, approvals, and reference-document catalogue as the specification evolves. This section governs the document — not the system it describes.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (document control)"
+        ],
+        "connotation": "Front-matter governance of the document itself: its header identity, revision history, formal approvals, and the catalogue of documents it references."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (document control)"
+            ],
+            "connotation": "Front-matter governance of the document itself: its header identity, revision history, formal approvals, and the catalogue of documents it references."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Fill in the document header, then maintain the revision history, approvals, and reference-document catalogue as the specification evolves. This section governs the document — not the system it describes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77193,11 +77266,26 @@
           "name": "approvals",
           "kind": "list",
           "doc": "Formal approvals (sign-offs) recorded for this document.",
-          "help": "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board).",
+          "help": "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board). The document is not released until every listed approval is recorded.",
           "sectionId": "DOCTL-APRV-LST",
           "sectionIdPattern": "DOCTL-APRV-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (approvals)"
+            ],
+            "connotation": "The set of formal sign-offs required before this document is released."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (approvals)"
+                ],
+                "connotation": "The set of formal sign-offs required before this document is released."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -77213,7 +77301,7 @@
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board)."
+                "guidance": "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board). The document is not released until every listed approval is recorded."
               }
             },
             {
@@ -77319,7 +77407,29 @@
       "name": "DocumentRelationships",
       "sectionId": "DORE",
       "doc": "Relationships between reference documents.",
+      "help": "Record how this document relates to others in the catalogue (depends on, supersedes, complements, conflicts with) so readers can follow the dependency web between references.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+        ],
+        "connotation": "How this referenced document relates to other documents in the catalogue."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "How this referenced document relates to other documents in the catalogue."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Record how this document relates to others in the catalogue (depends on, supersedes, complements, conflicts with) so readers can follow the dependency web between references."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77353,10 +77463,26 @@
           "name": "relatedDocuments",
           "kind": "list",
           "doc": "Related document entries.",
+          "help": "Add one entry per relationship to another referenced document, naming the related document and the kind of link.",
           "sectionId": "REDOEN-RELA-LST",
           "sectionIdPattern": "REDOEN-RELA-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "The set of relationships from this document to other referenced documents."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+                ],
+                "connotation": "The set of relationships from this document to other referenced documents."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -77367,6 +77493,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "REDOEN-RELA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per relationship to another referenced document, naming the related document and the kind of link."
               }
             },
             {
@@ -77385,7 +77517,22 @@
       "name": "DocumentRelevantSections",
       "sectionId": "DORESE",
       "doc": "Key sections within a reference document relevant to the project.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+        ],
+        "connotation": "The chapters or sections within a referenced document that are relevant to this project."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "The chapters or sections within a referenced document that are relevant to this project."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -77416,24 +77563,28 @@
             {
               "name": "sectionReference",
               "label": "Section Reference (chapter, section, or page number)",
+              "hint": "Locate the section: chapter, clause, or page number.",
               "type": "String",
               "required": true
             },
             {
               "name": "sectionTitle",
               "label": "Section Title or Description",
+              "hint": "Title or short description of the section.",
               "type": "String",
               "required": true
             },
             {
               "name": "relevance",
               "label": "Relevance to Project",
+              "hint": "How this section applies to the project.",
               "type": "String",
               "required": false
             },
             {
               "name": "extractSummary",
               "label": "Summary / Key Extract (brief summary of applicable content)",
+              "hint": "Brief summary or key extract of the applicable content.",
               "type": "String",
               "required": false
             }
@@ -77443,10 +77594,26 @@
           "name": "sections",
           "kind": "list",
           "doc": "Individual relevant section entries.",
+          "help": "Add one entry per chapter or section of the referenced document that the project depends on or must comply with.",
           "sectionId": "RESEEN-SECT-LST",
           "sectionIdPattern": "RESEEN-SECT-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "The set of relevant section entries within a referenced document."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+                ],
+                "connotation": "The set of relevant section entries within a referenced document."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -77457,6 +77624,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RESEEN-SECT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per chapter or section of the referenced document that the project depends on or must comply with."
               }
             },
             {
@@ -99752,7 +99925,22 @@
       "name": "GlossaryAndAbbreviations",
       "sectionId": "GLAB",
       "doc": "SBP.3 Glossary & Abbreviations.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
+        ],
+        "connotation": "The controlled vocabulary — terms, acronyms, and abbreviations — used consistently throughout the specification."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"
+            ],
+            "connotation": "The controlled vocabulary — terms, acronyms, and abbreviations — used consistently throughout the specification."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -105948,8 +106136,27 @@
     "InformationForUseRequirements": {
       "name": "InformationForUseRequirements",
       "sectionId": "IFUR",
-      "doc": "Information-for-Use (user documentation) requirements.\n\nPublic anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation\n*quality criteria* cross-map lives in SBP.14\n(`DocumentationQualityCriteria`).\n\nHolds the documentation half of the former `DocumentationAndTraining`,\nsplit out in L34C-7 ([UserDocumentationRequirements]). The training half\nre-homed to [TrainingEnablementRequirements].",
+      "doc": "Information-for-Use (user documentation) requirements.\n\nThe documentation *quality criteria* cross-map lives in SBP.14\n(`DocumentationQualityCriteria`).\n\nHolds the documentation half of the former `DocumentationAndTraining`,\nsplit out in L34C-7 ([UserDocumentationRequirements]). The training half\nre-homed to [TrainingEnablementRequirements].",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26511 — managing information for users",
+          "ISO/IEC/IEEE 26514 — designing and developing user documentation",
+          "ISO/IEC/IEEE 26515 — developing user documentation in an agile environment"
+        ],
+        "connotation": "The requirements for user-facing documentation: deliverables, formats, platforms, versioning, and documentation localization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26511 — managing information for users",
+              "ISO/IEC/IEEE 26514 — designing and developing user documentation",
+              "ISO/IEC/IEEE 26515 — developing user documentation in an agile environment"
+            ],
+            "connotation": "The requirements for user-facing documentation: deliverables, formats, platforms, versioning, and documentation localization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121330,8 +121537,23 @@
     "LocalizationTranslationProcess": {
       "name": "LocalizationTranslationProcess",
       "sectionId": "LCTP",
-      "doc": "Localization & Translation execution processes.\n\nPublic anchor: ISO 29148 transition requirements. Bundles the localization\nand translation *workflow* concerns re-homed from the former\n`MultiLanguageSupport` cluster (their requirement counterparts live in\nSBP.9 [LocalizationTranslationRequirements]).",
+      "doc": "Localization & Translation execution processes.\n\nBundles the localization and translation *workflow* concerns re-homed from\nthe former `MultiLanguageSupport` cluster (their requirement counterparts\nlive in SBP.9 [LocalizationTranslationRequirements]).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — transition requirements"
+        ],
+        "connotation": "The execution-side localization and translation workflows that put the internationalization requirements into practice."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — transition requirements"
+            ],
+            "connotation": "The execution-side localization and translation workflows that put the internationalization requirements into practice."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -121392,8 +121614,25 @@
     "LocalizationTranslationRequirements": {
       "name": "LocalizationTranslationRequirements",
       "sectionId": "LCTR",
-      "doc": "Localization & Translation requirements (the requirement side of i18n).\n\nPublic anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n\nconstraints. Cross-mapped from SBP.14 via [Iso25010Coverage].",
+      "doc": "Localization & Translation requirements (the requirement side of i18n).\n\nCross-mapped from SBP.14 via [Iso25010Coverage].",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — portability / adaptability",
+          "ISO/IEC/IEEE 29148:2018 — internationalization constraints"
+        ],
+        "connotation": "The requirement side of internationalization: supported locales, formatting, RTL, pluralization, and translation needs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — portability / adaptability",
+              "ISO/IEC/IEEE 29148:2018 — internationalization constraints"
+            ],
+            "connotation": "The requirement side of internationalization: supported locales, formatting, RTL, pluralization, and translation needs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -164478,8 +164717,23 @@
     "QualityAndAcceptanceModel": {
       "name": "QualityAndAcceptanceModel",
       "sectionId": "QACM",
-      "doc": "SBP.14 Quality & Acceptance Model.\n\nPublic anchor: ISO/IEC 25010:2023 product quality.",
+      "doc": "SBP.14 Quality & Acceptance Model.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — product quality model"
+        ],
+        "connotation": "The product-quality goals the solution is measured against, together with the scope and criteria for accepting delivery."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — product quality model"
+            ],
+            "connotation": "The product-quality goals the solution is measured against, together with the scope and criteria for accepting delivery."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168908,7 +169162,22 @@
       "name": "ReferenceDocumentEntry",
       "sectionId": "RFDOC",
       "doc": "A reference document entry (form).\n\nDetailed metadata for a single referenced document including\nidentification, classification, status, and applicability.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+        ],
+        "connotation": "A single referenced document with its identification, classification, lifecycle, relevant sections, and relationships."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "A single referenced document with its identification, classification, lifecycle, relevant sections, and relationships."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -168939,18 +169208,21 @@
             {
               "name": "documentTitle",
               "label": "Document Title",
+              "hint": "Full official title of the referenced document.",
               "type": "String",
               "required": true
             },
             {
               "name": "documentId",
               "label": "Document ID (internal reference number)",
+              "hint": "Catalogue or internal reference number, if any.",
               "type": "String",
               "required": false
             },
             {
               "name": "version",
               "label": "Version",
+              "hint": "Version or edition of the referenced document.",
               "type": "String",
               "required": false
             }
@@ -169037,7 +169309,22 @@
       "name": "ReferenceDocumentEntryGovernance",
       "sectionId": "RDEG",
       "doc": "Governance and applicability information.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+        ],
+        "connotation": "Governance facts for a referenced document: classification, status, applicability, validity, and access restrictions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "Governance facts for a referenced document: classification, status, applicability, validity, and access restrictions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -169068,36 +169355,42 @@
             {
               "name": "classification",
               "label": "Classification (Public, Internal, Confidential, Restricted)",
+              "hint": "Sensitivity level governing how the document may be shared.",
               "type": "String",
               "required": false
             },
             {
               "name": "status",
               "label": "Status (Current, Draft, Under Review, Superseded, Archived)",
+              "hint": "Lifecycle status of the referenced document.",
               "type": "String",
               "required": false
             },
             {
               "name": "applicability",
               "label": "Applicability (which project phases or components this applies to)",
+              "hint": "Which phases, components, or scope the document applies to.",
               "type": "String",
               "required": false
             },
             {
               "name": "validUntil",
               "label": "Valid Until (expiration or review date)",
+              "hint": "Expiry or next-review date, if the document has one.",
               "type": "String",
               "required": false
             },
             {
               "name": "lastReviewedDate",
               "label": "Last Reviewed Date",
+              "hint": "Date the document was last reviewed for relevance.",
               "type": "String",
               "required": false
             },
             {
               "name": "accessRestrictions",
               "label": "Access Restrictions (who can access, special permissions required)",
+              "hint": "Who may access the document and any permissions required.",
               "type": "String",
               "required": false
             }
@@ -169109,7 +169402,22 @@
       "name": "ReferenceDocumentEntryLifecycle",
       "sectionId": "RDEL",
       "doc": "Lifecycle and usage details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+        ],
+        "connotation": "Lifecycle facts for a referenced document: supersession chain, language, format, and notes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "Lifecycle facts for a referenced document: supersession chain, language, format, and notes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -169140,30 +169448,35 @@
             {
               "name": "supersedes",
               "label": "Supersedes Document (if replacing older doc)",
+              "hint": "Older document this one replaces, if any.",
               "type": "String",
               "required": false
             },
             {
               "name": "supersededBy",
               "label": "Superseded By (if this doc is deprecated)",
+              "hint": "Newer document that replaces this one, if deprecated.",
               "type": "String",
               "required": false
             },
             {
               "name": "language",
               "label": "Language",
+              "hint": "Primary language of the document (ISO 639 code or name).",
               "type": "String",
               "required": false
             },
             {
               "name": "format",
               "label": "Format (PDF, Word, HTML, Confluence, etc.)",
+              "hint": "File or publication format of the document.",
               "type": "String",
               "required": false
             },
             {
               "name": "notes",
               "label": "Additional Notes",
+              "hint": "Any further notes about the document's lifecycle or usage.",
               "type": "String",
               "required": false
             }
@@ -169175,7 +169488,22 @@
       "name": "ReferenceDocumentEntryMetadata",
       "sectionId": "RDEM",
       "doc": "Document metadata and relevance.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+        ],
+        "connotation": "Identifying metadata for a referenced document: author/issuer, date, purpose, location, and type."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "Identifying metadata for a referenced document: author/issuer, date, purpose, location, and type."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -169206,30 +169534,35 @@
             {
               "name": "author",
               "label": "Author / Issuing Organization",
+              "hint": "Who authored or issued the document, e.g. ISO, a vendor, a team.",
               "type": "String",
               "required": false
             },
             {
               "name": "date",
               "label": "Publication / Effective Date",
+              "hint": "Publication or effective date (ISO 8601).",
               "type": "String",
               "required": false
             },
             {
               "name": "purpose",
               "label": "Purpose / Relevance to Project",
+              "hint": "Why this document matters to the project.",
               "type": "String",
               "required": false
             },
             {
               "name": "location",
               "label": "Location (URL, repository, or physical)",
+              "hint": "Where the document can be found — URL, repo path, or location.",
               "type": "String",
               "required": false
             },
             {
               "name": "documentType",
               "label": "Document Type (Standard, Policy, Regulation, Specification, etc.)",
+              "hint": "Classify the document: Standard, Policy, Regulation, etc.",
               "type": "String",
               "required": false
             }
@@ -169242,7 +169575,22 @@
       "sectionId": "RD",
       "doc": "Reference Documents.\n\nCatalog of all documents referenced by this project specification,\nincluding enterprise standards, technical guidelines, regulatory\nrequirements, and related project documentation.",
       "help": "List all documents that provide context, requirements, constraints, or guidance for this project. Include enterprise architecture documents, standards, policies, regulations, and related project specifications.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+        ],
+        "connotation": "The catalogue of external documents this specification draws on — standards, policies, regulations, and related specs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "The catalogue of external documents this specification draws on — standards, policies, regulations, and related specs."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -169282,10 +169630,26 @@
           "name": "documents",
           "kind": "list",
           "doc": "Reference document entries — contains 0+× Reference Document.",
+          "help": "Add one entry per referenced document. Capture enough metadata (id, version, location, status) that a reader can locate and assess the referenced material.",
           "sectionId": "RFDOC-DOCU-LST",
           "sectionIdPattern": "RFDOC-DOCU-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "The set of documents catalogued as references for this specification."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+                ],
+                "connotation": "The set of documents catalogued as references for this specification."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -169296,6 +169660,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RFDOC-DOCU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per referenced document. Capture enough metadata (id, version, location, status) that a reader can locate and assess the referenced material."
               }
             },
             {
@@ -170034,7 +170404,22 @@
       "name": "RelatedDocumentEntry",
       "sectionId": "REDOEN",
       "doc": "A relationship to another reference document.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+        ],
+        "connotation": "A single relationship to another referenced document: the related document and the nature of the link."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "A single relationship to another referenced document: the related document and the nature of the link."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -170065,24 +170450,28 @@
             {
               "name": "relatedDocumentId",
               "label": "Related Document ID",
+              "hint": "ID of the related referenced document.",
               "type": "String",
               "required": true
             },
             {
               "name": "relatedDocumentTitle",
               "label": "Related Document Title",
+              "hint": "Title of the related referenced document.",
               "type": "String",
               "required": false
             },
             {
               "name": "relationshipType",
               "label": "Relationship Type (Depends On, Referenced By, Supersedes, Complements, Conflicts With, Parent Of, Child Of)",
+              "hint": "Nature of the link, e.g. Depends On, Supersedes, Complements.",
               "type": "String",
               "required": false
             },
             {
               "name": "relationshipDescription",
               "label": "Relationship Description (explain the connection)",
+              "hint": "Explain the connection between the two documents.",
               "type": "String",
               "required": false
             }
@@ -170574,7 +170963,22 @@
       "name": "RelevantSectionEntry",
       "sectionId": "RESEEN",
       "doc": "A single relevant section entry within a reference document.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+        ],
+        "connotation": "A single relevant section within a referenced document, with its reference, relevance, extract, and compliance flag."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (referenced documents)"
+            ],
+            "connotation": "A single relevant section within a referenced document, with its reference, relevance, extract, and compliance flag."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -170605,30 +171009,35 @@
             {
               "name": "sectionReference",
               "label": "Section Reference (chapter, section, or page number)",
+              "hint": "Locate the section: chapter, clause, or page number.",
               "type": "String",
               "required": true
             },
             {
               "name": "sectionTitle",
               "label": "Section Title or Description",
+              "hint": "Title or short description of the section.",
               "type": "String",
               "required": true
             },
             {
               "name": "relevance",
               "label": "Relevance (how this section applies to the project)",
+              "hint": "Explain how this section applies to the project.",
               "type": "String",
               "required": false
             },
             {
               "name": "extractSummary",
               "label": "Summary / Key Extract (brief summary of applicable content)",
+              "hint": "Brief summary or key extract of the applicable content.",
               "type": "String",
               "required": false
             },
             {
               "name": "complianceRequired",
               "label": "Compliance Required (must project comply with this section?)",
+              "hint": "True if the project must comply with this section.",
               "type": "bool",
               "required": false
             }
@@ -177420,7 +177829,26 @@
       "name": "Requirements",
       "sectionId": "REQS",
       "doc": "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection currently carries the framework-uncovered NFR sub-areas re-homed in\nIP-6. Functional-requirement modelling is expanded in a later IP step.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — SRS / SyRS",
+          "ISO/IEC 25010:2023 — portability",
+          "ISO/IEC/IEEE 26511/26514/26515 — information for use"
+        ],
+        "connotation": "The system's functional and non-functional requirements; currently homes the framework-uncovered NFR sub-areas (localization, information-for-use, training)."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — SRS / SyRS",
+              "ISO/IEC 25010:2023 — portability",
+              "ISO/IEC/IEEE 26511/26514/26515 — information for use"
+            ],
+            "connotation": "The system's functional and non-functional requirements; currently homes the framework-uncovered NFR sub-areas (localization, information-for-use, training)."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182178,7 +182606,22 @@
       "name": "RevisionEntry",
       "sectionId": "RVENT",
       "doc": "A single document revision entry (form).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+        ],
+        "connotation": "A single published revision: its version, date, author, and a summary of what changed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "A single published revision: its version, date, author, and a summary of what changed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182209,24 +182652,28 @@
             {
               "name": "version",
               "label": "Version",
+              "hint": "Semantic version of this revision, e.g. \"1.2.0\".",
               "type": "String",
               "required": true
             },
             {
               "name": "date",
               "label": "Date",
+              "hint": "Date the revision was published (ISO 8601).",
               "type": "String",
               "required": true
             },
             {
               "name": "author",
               "label": "Author",
+              "hint": "Person or role who produced the revision.",
               "type": "String",
               "required": true
             },
             {
               "name": "summary",
               "label": "Summary of changes",
+              "hint": "One or two sentences on what changed and why.",
               "type": "String",
               "required": false
             }
@@ -182238,7 +182685,29 @@
       "name": "RevisionHistory",
       "sectionId": "RVHST",
       "doc": "Chronological revision history.",
+      "help": "Record one entry per published revision so readers can trace how the document evolved. Keep entries in chronological order, newest last.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+        ],
+        "connotation": "The chronological record of how this document has changed across its published revisions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The chronological record of how this document has changed across its published revisions."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Record one entry per published revision so readers can trace how the document evolved. Keep entries in chronological order, newest last."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182268,11 +182737,26 @@
           "name": "revisions",
           "kind": "list",
           "doc": "One entry per published revision of the document.",
-          "help": "Add one entry per revision, newest last.",
+          "help": "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.",
           "sectionId": "RVHST-REVS-LST",
           "sectionIdPattern": "RVHST-REVS-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+            ],
+            "connotation": "The ordered set of published revisions of this document."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"
+                ],
+                "connotation": "The ordered set of published revisions of this document."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -182288,7 +182772,7 @@
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Add one entry per revision, newest last."
+                "guidance": "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed."
               }
             },
             {
@@ -205384,8 +205868,23 @@
     "SolutionArchitectureAndTechnology": {
       "name": "SolutionArchitectureAndTechnology",
       "sectionId": "SOAT",
-      "doc": "SBP.11 Solution Architecture & Technology.\n\nPublic anchor: ISO/IEC/IEEE 42010 architecture description.",
+      "doc": "SBP.11 Solution Architecture & Technology.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010:2011 — architecture description"
+        ],
+        "connotation": "The technical solution framing: the architecture description plus the technology and components the solution is built from."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010:2011 — architecture description"
+            ],
+            "connotation": "The technical solution framing: the architecture description plus the technology and components the solution is built from."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -212970,8 +213469,23 @@
     "StakeholderRegister": {
       "name": "StakeholderRegister",
       "sectionId": "STKRG",
-      "doc": "The canonical register of the project's stakeholders (L34C-6 / SR-15).\n\nThis is the single source of truth for stakeholder role, interest,\ninfluence, concerns and engagement strategy. SBP.2\n`StakeholdersAndBeneficiaries` is a scope-framing benefits lens that\nreferences this register rather than restating its attributes.\n\nPublic anchor: BABOK stakeholder analysis (RACI / influence-interest grid).",
+      "doc": "The canonical register of the project's stakeholders (L34C-6 / SR-15).\n\nThis is the single source of truth for stakeholder role, interest,\ninfluence, concerns and engagement strategy. SBP.2\n`StakeholdersAndBeneficiaries` is a scope-framing benefits lens that\nreferences this register rather than restating its attributes.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"
+        ],
+        "connotation": "The canonical source of truth for each stakeholder's role, interest, influence, concerns, and engagement strategy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"
+            ],
+            "connotation": "The canonical source of truth for each stakeholder's role, interest, influence, concerns, and engagement strategy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -213241,8 +213755,25 @@
     "StakeholdersAndGovernance": {
       "name": "StakeholdersAndGovernance",
       "sectionId": "STKG",
-      "doc": "SBP.4 Stakeholders & Governance.\n\nPublic anchor: BABOK stakeholder analysis + PMBOK governance.",
+      "doc": "SBP.4 Stakeholders & Governance.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — stakeholder analysis",
+          "PMBOK — project governance"
+        ],
+        "connotation": "Who has a stake in the project and how it is governed: steering, RACI, communication, change control, and legal/contractual framing."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — stakeholder analysis",
+              "PMBOK — project governance"
+            ],
+            "connotation": "Who has a stake in the project and how it is governed: steering, RACI, communication, change control, and legal/contractual framing."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -224995,8 +225526,23 @@
     "TargetOperatingModel": {
       "name": "TargetOperatingModel",
       "sectionId": "TOMC",
-      "doc": "SBP.7 Target Operating Model concept.\n\nPublic anchor: BABOK future-state analysis.",
+      "doc": "SBP.7 Target Operating Model concept.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 — future-state analysis"
+        ],
+        "connotation": "The future-state operating concept: how the organization and its business processes will work once the solution is in place."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 — future-state analysis"
+            ],
+            "connotation": "The future-state operating concept: how the organization and its business processes will work once the solution is in place."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -236151,8 +236697,25 @@
     "TrainingEnablementRequirements": {
       "name": "TrainingEnablementRequirements",
       "sectionId": "TREQ",
-      "doc": "Training & Enablement requirements.\n\nPublic anchor: ISO 29148 transition requirements; PMBOK transition. The\ntraining-materials *delivery* and rollout sequencing re-home to SBP.15.\nThe detailed training-material content and module catalogue is the training\nhalf of the former `DocumentationAndTraining`, split out in L34C-7 and\nre-homed here as [TrainingDeliverableRequirements].",
+      "doc": "Training & Enablement requirements.\n\nThe training-materials *delivery* and rollout sequencing re-home to SBP.15.\nThe detailed training-material content and module catalogue is the training\nhalf of the former `DocumentationAndTraining`, split out in L34C-7 and\nre-homed here as [TrainingDeliverableRequirements].",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148:2018 — transition requirements",
+          "PMBOK — transition / enablement"
+        ],
+        "connotation": "The requirements for training and enabling users to adopt the solution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — transition requirements",
+              "PMBOK — transition / enablement"
+            ],
+            "connotation": "The requirements for training and enabling users to adopt the solution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

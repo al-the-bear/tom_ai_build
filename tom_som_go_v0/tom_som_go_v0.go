@@ -17889,8 +17889,6 @@ func (x *DeliveryScopeAndAcceptance) AcceptancePlan() *AcceptancePlan {
 }
 
 // SBP.15 Delivery, Transition & Rollout.
-//
-// Public anchor: PMBOK phasing + ISO 29148 transition requirements.
 type DeliveryTransitionAndRollout struct {
 	som.SomNode
 }
@@ -27963,8 +27961,7 @@ func (x *InformationArchitecture) GlobalEntryPoints() *som.SomList[*GlobalEntryP
 
 // Information-for-Use (user documentation) requirements.
 //
-// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
-// *quality criteria* cross-map lives in SBP.14
+// The documentation *quality criteria* cross-map lives in SBP.14
 // (`DocumentationQualityCriteria`).
 //
 // Holds the documentation half of the former `DocumentationAndTraining`,
@@ -31966,10 +31963,9 @@ func (x *LocalizationReview) Content() *LocalizationReviewContentForm {
 
 // Localization & Translation execution processes.
 //
-// Public anchor: ISO 29148 transition requirements. Bundles the localization
-// and translation *workflow* concerns re-homed from the former
-// `MultiLanguageSupport` cluster (their requirement counterparts live in
-// SBP.9 [LocalizationTranslationRequirements]).
+// Bundles the localization and translation *workflow* concerns re-homed from
+// the former `MultiLanguageSupport` cluster (their requirement counterparts
+// live in SBP.9 [LocalizationTranslationRequirements]).
 type LocalizationTranslationProcess struct {
 	som.SomNode
 }
@@ -31999,8 +31995,7 @@ func (x *LocalizationTranslationProcess) TranslationProcess() *TranslationProces
 
 // Localization & Translation requirements (the requirement side of i18n).
 //
-// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
-// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+// Cross-mapped from SBP.14 via [Iso25010Coverage].
 type LocalizationTranslationRequirements struct {
 	som.SomNode
 }
@@ -42706,8 +42701,6 @@ func (x *PwaRequirementsUpdates) Content() *PwaRequirementsUpdatesContentForm {
 }
 
 // SBP.14 Quality & Acceptance Model.
-//
-// Public anchor: ISO/IEC 25010:2023 product quality.
 type QualityAndAcceptanceModel struct {
 	som.SomNode
 }
@@ -53218,8 +53211,6 @@ func (x *SoftwareLayerEntryTechnology) Content() *SoftwareLayerEntryTechnologyCo
 }
 
 // SBP.11 Solution Architecture & Technology.
-//
-// Public anchor: ISO/IEC/IEEE 42010 architecture description.
 type SolutionArchitectureAndTechnology struct {
 	som.SomNode
 }
@@ -54992,8 +54983,6 @@ func (x *StakeholderEntry) Content() *StakeholderEntryContentForm {
 // influence, concerns and engagement strategy. SBP.2
 // `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
 // references this register rather than restating its attributes.
-//
-// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 type StakeholderRegister struct {
 	som.SomNode
 }
@@ -55074,8 +55063,6 @@ func (x *StakeholdersAndBeneficiaries) SecondaryStakeholders() *som.SomList[*Sta
 }
 
 // SBP.4 Stakeholders & Governance.
-//
-// Public anchor: BABOK stakeholder analysis + PMBOK governance.
 type StakeholdersAndGovernance struct {
 	som.SomNode
 }
@@ -58326,8 +58313,6 @@ func (x *TargetBusinessProcessModel) ProcessStepsAndActorInteractions() *Process
 }
 
 // SBP.7 Target Operating Model concept.
-//
-// Public anchor: BABOK future-state analysis.
 type TargetOperatingModel struct {
 	som.SomNode
 }
@@ -61128,8 +61113,7 @@ func (x *TrainingDeliverables) Items() *som.SomList[*DeliverableEntry] {
 
 // Training & Enablement requirements.
 //
-// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+// The training-materials *delivery* and rollout sequencing re-home to SBP.15.
 // The detailed training-material content and module catalogue is the training
 // half of the former `DocumentationAndTraining`, split out in L34C-7 and
 // re-homed here as [TrainingDeliverableRequirements].

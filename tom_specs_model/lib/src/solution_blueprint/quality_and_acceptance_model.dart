@@ -13,8 +13,11 @@ import 'delivery_acceptance.dart';
 import 'system_quality_goals.dart';
 
 /// SBP.14 Quality & Acceptance Model.
-///
-/// Public anchor: ISO/IEC 25010:2023 product quality.
+@StandardReferences(
+  ['ISO/IEC 25010:2023 — product quality model'],
+  'The product-quality goals the solution is measured against, together with '
+  'the scope and criteria for accepting delivery.',
+)
 @SectionId('QACM')
 class QualityAndAcceptanceModel {
   @Unused()

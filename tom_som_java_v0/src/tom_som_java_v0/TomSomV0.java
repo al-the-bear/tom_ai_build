@@ -15352,8 +15352,6 @@ public final class TomSomV0 {
   }
 
   // SBP.15 Delivery, Transition & Rollout.
-  //
-  // Public anchor: PMBOK phasing + ISO 29148 transition requirements.
   public static final class DeliveryTransitionAndRollout extends SomNode {
     public DeliveryTransitionAndRollout(SpecDocument doc, String path) {
       super(doc, path);
@@ -23917,8 +23915,7 @@ public final class TomSomV0 {
 
   // Information-for-Use (user documentation) requirements.
   //
-  // Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
-  // *quality criteria* cross-map lives in SBP.14
+  // The documentation *quality criteria* cross-map lives in SBP.14
   // (`DocumentationQualityCriteria`).
   //
   // Holds the documentation half of the former `DocumentationAndTraining`,
@@ -27298,10 +27295,9 @@ public final class TomSomV0 {
 
   // Localization & Translation execution processes.
   //
-  // Public anchor: ISO 29148 transition requirements. Bundles the localization
-  // and translation *workflow* concerns re-homed from the former
-  // `MultiLanguageSupport` cluster (their requirement counterparts live in
-  // SBP.9 [LocalizationTranslationRequirements]).
+  // Bundles the localization and translation *workflow* concerns re-homed from
+  // the former `MultiLanguageSupport` cluster (their requirement counterparts
+  // live in SBP.9 [LocalizationTranslationRequirements]).
   public static final class LocalizationTranslationProcess extends SomNode {
     public LocalizationTranslationProcess(SpecDocument doc, String path) {
       super(doc, path);
@@ -27329,8 +27325,7 @@ public final class TomSomV0 {
 
   // Localization & Translation requirements (the requirement side of i18n).
   //
-  // Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
-  // constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+  // Cross-mapped from SBP.14 via [Iso25010Coverage].
   public static final class LocalizationTranslationRequirements extends SomNode {
     public LocalizationTranslationRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -36359,8 +36354,6 @@ public final class TomSomV0 {
   }
 
   // SBP.14 Quality & Acceptance Model.
-  //
-  // Public anchor: ISO/IEC 25010:2023 product quality.
   public static final class QualityAndAcceptanceModel extends SomNode {
     public QualityAndAcceptanceModel(SpecDocument doc, String path) {
       super(doc, path);
@@ -45249,8 +45242,6 @@ public final class TomSomV0 {
   }
 
   // SBP.11 Solution Architecture & Technology.
-  //
-  // Public anchor: ISO/IEC/IEEE 42010 architecture description.
   public static final class SolutionArchitectureAndTechnology extends SomNode {
     public SolutionArchitectureAndTechnology(SpecDocument doc, String path) {
       super(doc, path);
@@ -46734,8 +46725,6 @@ public final class TomSomV0 {
   // influence, concerns and engagement strategy. SBP.2
   // `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
   // references this register rather than restating its attributes.
-  //
-  // Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
   public static final class StakeholderRegister extends SomNode {
     public StakeholderRegister(SpecDocument doc, String path) {
       super(doc, path);
@@ -46803,8 +46792,6 @@ public final class TomSomV0 {
   }
 
   // SBP.4 Stakeholders & Governance.
-  //
-  // Public anchor: BABOK stakeholder analysis + PMBOK governance.
   public static final class StakeholdersAndGovernance extends SomNode {
     public StakeholdersAndGovernance(SpecDocument doc, String path) {
       super(doc, path);
@@ -49625,8 +49612,6 @@ public final class TomSomV0 {
   }
 
   // SBP.7 Target Operating Model concept.
-  //
-  // Public anchor: BABOK future-state analysis.
   public static final class TargetOperatingModel extends SomNode {
     public TargetOperatingModel(SpecDocument doc, String path) {
       super(doc, path);
@@ -52008,8 +51993,7 @@ public final class TomSomV0 {
 
   // Training & Enablement requirements.
   //
-  // Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-  // training-materials *delivery* and rollout sequencing re-home to SBP.15.
+  // The training-materials *delivery* and rollout sequencing re-home to SBP.15.
   // The detailed training-material content and module catalogue is the training
   // half of the former `DocumentationAndTraining`, split out in L34C-7 and
   // re-homed here as [TrainingDeliverableRequirements].

@@ -654,7 +654,7 @@ section-types:
     pattern-check-id:
       pattern: ^redoen_rela_lst-\d+$
       error-message: ID must match redoen_rela_lst-NNN
-    description: Related document entries.
+    description: "Add one entry per relationship to another referenced document, naming the related document and the kind of link."
   REFIEN-FILT-LST:
     prefix: refien_filt_lst
     pattern-check-id:
@@ -702,7 +702,7 @@ section-types:
     pattern-check-id:
       pattern: ^reseen_sect_lst-\d+$
       error-message: ID must match reseen_sect_lst-NNN
-    description: Individual relevant section entries.
+    description: Add one entry per chapter or section of the referenced document that the project depends on or must comply with.
   RESKEY-RESO-LST:
     prefix: reskey_reso_lst
     pattern-check-id:
@@ -1233,7 +1233,7 @@ section-types:
     pattern-check-id:
       pattern: ^doctl_aprv_lst-\d+$
       error-message: ID must match doctl_aprv_lst-NNN
-    description: "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board)."
+    description: "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board). The document is not released until every listed approval is recorded."
   DORE1-DESK-LST:
     prefix: dore1_desk_lst
     pattern-check-id:
@@ -1924,7 +1924,7 @@ section-types:
     pattern-check-id:
       pattern: ^rfdoc_docu_lst-\d+$
       error-message: ID must match rfdoc_docu_lst-NNN
-    description: Reference document entries — contains 0+× Reference Document.
+    description: "Add one entry per referenced document. Capture enough metadata (id, version, location, status) that a reader can locate and assess the referenced material."
   RGUSE-REUS-LST:
     prefix: rguse_reus_lst
     pattern-check-id:
@@ -2044,7 +2044,7 @@ section-types:
     pattern-check-id:
       pattern: ^rvhst_revs_lst-\d+$
       error-message: ID must match rvhst_revs_lst-NNN
-    description: "Add one entry per revision, newest last."
+    description: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed."
   SACLC-SERV-LST:
     prefix: saclc_serv_lst
     pattern-check-id:
@@ -6862,7 +6862,7 @@ section-types:
     description: Standard document header present at the top of every TomSpecs document.
   DOCTL:
     prefix: doctl
-    description: SBP.1 Document Control.
+    description: "Fill in the document header, then maintain the revision history, approvals, and reference-document catalogue as the specification evolves. This section governs the document — not the system it describes."
   DOETO:
     prefix: doeto
     description: Trade-offs and reversibility.
@@ -7978,7 +7978,7 @@ section-types:
     description: A single document revision entry (form).
   RVHST:
     prefix: rvhst
-    description: Chronological revision history.
+    description: "Record one entry per published revision so readers can trace how the document evolved. Keep entries in chronological order, newest last."
   SACLC:
     prefix: saclc
     description: 9.1.2.9. Service Account Lifecycle (form).
@@ -9746,7 +9746,7 @@ section-types:
     description: Early task expectations.
   DORE:
     prefix: dore
-    description: Relationships between reference documents.
+    description: "Record how this document relates to others in the catalogue (depends on, supersedes, complements, conflicts with) so readers can follow the dependency web between references."
   DOST:
     prefix: dost
     description: Documentation standards and requirements.

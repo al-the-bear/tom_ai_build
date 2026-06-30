@@ -15,8 +15,14 @@ import 'administrative.dart';
 import 'project_organization_process.dart';
 
 /// SBP.4 Stakeholders & Governance.
-///
-/// Public anchor: BABOK stakeholder analysis + PMBOK governance.
+@StandardReferences(
+  [
+    'BABOK v3 — stakeholder analysis',
+    'PMBOK — project governance',
+  ],
+  'Who has a stake in the project and how it is governed: steering, RACI, '
+  'communication, change control, and legal/contractual framing.',
+)
 @SectionId('STKG')
 class StakeholdersAndGovernance {
   @ContentHelp('''
@@ -71,8 +77,11 @@ from standard organizational project governance procedures.
 /// influence, concerns and engagement strategy. SBP.2
 /// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
 /// references this register rather than restating its attributes.
-///
-/// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
+@StandardReferences(
+  ['BABOK v3 — stakeholder analysis (RACI / influence-interest grid)'],
+  'The canonical source of truth for each stakeholder\'s role, interest, '
+  'influence, concerns, and engagement strategy.',
+)
 @SectionId('STKRG')
 class StakeholderRegister {
   @Unused()

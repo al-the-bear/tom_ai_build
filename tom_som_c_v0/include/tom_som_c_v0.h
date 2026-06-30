@@ -13558,8 +13558,6 @@ DeliveryScope delivery_scope_and_acceptance_delivery_scope(const DeliveryScopeAn
 AcceptancePlan delivery_scope_and_acceptance_acceptance_plan(const DeliveryScopeAndAcceptance *self);
 
 // SBP.15 Delivery, Transition & Rollout.
-//
-// Public anchor: PMBOK phasing + ISO 29148 transition requirements.
 // Binds a DeliveryTransitionAndRollout facade to a document and a path (path copied).
 void delivery_transition_and_rollout_init(DeliveryTransitionAndRollout *self, SpecDocument *doc, const char *path);
 void delivery_transition_and_rollout_free(DeliveryTransitionAndRollout *self);
@@ -17968,8 +17966,7 @@ SomList information_architecture_global_entry_points(const InformationArchitectu
 
 // Information-for-Use (user documentation) requirements.
 //
-// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
-// *quality criteria* cross-map lives in SBP.14
+// The documentation *quality criteria* cross-map lives in SBP.14
 // (`DocumentationQualityCriteria`).
 //
 // Holds the documentation half of the former `DocumentationAndTraining`,
@@ -19724,10 +19721,9 @@ LocalizationReviewContentForm localization_review_content(const LocalizationRevi
 
 // Localization & Translation execution processes.
 //
-// Public anchor: ISO 29148 transition requirements. Bundles the localization
-// and translation *workflow* concerns re-homed from the former
-// `MultiLanguageSupport` cluster (their requirement counterparts live in
-// SBP.9 [LocalizationTranslationRequirements]).
+// Bundles the localization and translation *workflow* concerns re-homed from
+// the former `MultiLanguageSupport` cluster (their requirement counterparts
+// live in SBP.9 [LocalizationTranslationRequirements]).
 // Binds a LocalizationTranslationProcess facade to a document and a path (path copied).
 void localization_translation_process_init(LocalizationTranslationProcess *self, SpecDocument *doc, const char *path);
 void localization_translation_process_free(LocalizationTranslationProcess *self);
@@ -19740,8 +19736,7 @@ TranslationProcess localization_translation_process_translation_process(const Lo
 
 // Localization & Translation requirements (the requirement side of i18n).
 //
-// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
-// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+// Cross-mapped from SBP.14 via [Iso25010Coverage].
 // Binds a LocalizationTranslationRequirements facade to a document and a path (path copied).
 void localization_translation_requirements_init(LocalizationTranslationRequirements *self, SpecDocument *doc, const char *path);
 void localization_translation_requirements_free(LocalizationTranslationRequirements *self);
@@ -24457,8 +24452,6 @@ void pwa_requirements_updates_free(PwaRequirementsUpdates *self);
 PwaRequirementsUpdatesContentForm pwa_requirements_updates_content(const PwaRequirementsUpdates *self);
 
 // SBP.14 Quality & Acceptance Model.
-//
-// Public anchor: ISO/IEC 25010:2023 product quality.
 // Binds a QualityAndAcceptanceModel facade to a document and a path (path copied).
 void quality_and_acceptance_model_init(QualityAndAcceptanceModel *self, SpecDocument *doc, const char *path);
 void quality_and_acceptance_model_free(QualityAndAcceptanceModel *self);
@@ -29068,8 +29061,6 @@ void software_layer_entry_technology_free(SoftwareLayerEntryTechnology *self);
 SoftwareLayerEntryTechnologyContentForm software_layer_entry_technology_content(const SoftwareLayerEntryTechnology *self);
 
 // SBP.11 Solution Architecture & Technology.
-//
-// Public anchor: ISO/IEC/IEEE 42010 architecture description.
 // Binds a SolutionArchitectureAndTechnology facade to a document and a path (path copied).
 void solution_architecture_and_technology_init(SolutionArchitectureAndTechnology *self, SpecDocument *doc, const char *path);
 void solution_architecture_and_technology_free(SolutionArchitectureAndTechnology *self);
@@ -29865,8 +29856,6 @@ StakeholderEntryContentForm stakeholder_entry_content(const StakeholderEntry *se
 // influence, concerns and engagement strategy. SBP.2
 // `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
 // references this register rather than restating its attributes.
-//
-// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 // Binds a StakeholderRegister facade to a document and a path (path copied).
 void stakeholder_register_init(StakeholderRegister *self, SpecDocument *doc, const char *path);
 void stakeholder_register_free(StakeholderRegister *self);
@@ -29905,8 +29894,6 @@ SomList stakeholders_and_beneficiaries_primary_stakeholders(const StakeholdersAn
 SomList stakeholders_and_beneficiaries_secondary_stakeholders(const StakeholdersAndBeneficiaries *self);
 
 // SBP.4 Stakeholders & Governance.
-//
-// Public anchor: BABOK stakeholder analysis + PMBOK governance.
 // Binds a StakeholdersAndGovernance facade to a document and a path (path copied).
 void stakeholders_and_governance_init(StakeholdersAndGovernance *self, SpecDocument *doc, const char *path);
 void stakeholders_and_governance_free(StakeholdersAndGovernance *self);
@@ -31330,8 +31317,6 @@ BusinessProcessDescriptions target_business_process_model_business_process_descr
 ProcessStepsAndActorInteractions target_business_process_model_process_steps_and_actor_interactions(const TargetBusinessProcessModel *self);
 
 // SBP.7 Target Operating Model concept.
-//
-// Public anchor: BABOK future-state analysis.
 // Binds a TargetOperatingModel facade to a document and a path (path copied).
 void target_operating_model_init(TargetOperatingModel *self, SpecDocument *doc, const char *path);
 void target_operating_model_free(TargetOperatingModel *self);
@@ -32577,8 +32562,7 @@ SomList training_deliverables_items(const TrainingDeliverables *self);
 
 // Training & Enablement requirements.
 //
-// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+// The training-materials *delivery* and rollout sequencing re-home to SBP.15.
 // The detailed training-material content and module catalogue is the training
 // half of the former `DocumentationAndTraining`, split out in L34C-7 and
 // re-homed here as [TrainingDeliverableRequirements].

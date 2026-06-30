@@ -9596,8 +9596,6 @@ class DeliveryScopeAndAcceptance extends SomNode {
 }
 
 /// SBP.15 Delivery, Transition & Rollout.
-/// 
-/// Public anchor: PMBOK phasing + ISO 29148 transition requirements.
 class DeliveryTransitionAndRollout extends SomNode {
   DeliveryTransitionAndRollout(super.doc, super.path);
 
@@ -14957,8 +14955,7 @@ class InformationArchitecture extends SomNode {
 
 /// Information-for-Use (user documentation) requirements.
 /// 
-/// Public anchor: ISO/IEC/IEEE 26511 / 26514 / 26515. The documentation
-/// *quality criteria* cross-map lives in SBP.14
+/// The documentation *quality criteria* cross-map lives in SBP.14
 /// (`DocumentationQualityCriteria`).
 /// 
 /// Holds the documentation half of the former `DocumentationAndTraining`,
@@ -17074,10 +17071,9 @@ class LocalizationReview extends SomNode {
 
 /// Localization & Translation execution processes.
 /// 
-/// Public anchor: ISO 29148 transition requirements. Bundles the localization
-/// and translation *workflow* concerns re-homed from the former
-/// `MultiLanguageSupport` cluster (their requirement counterparts live in
-/// SBP.9 [LocalizationTranslationRequirements]).
+/// Bundles the localization and translation *workflow* concerns re-homed from
+/// the former `MultiLanguageSupport` cluster (their requirement counterparts
+/// live in SBP.9 [LocalizationTranslationRequirements]).
 class LocalizationTranslationProcess extends SomNode {
   LocalizationTranslationProcess(super.doc, super.path);
 
@@ -17093,8 +17089,7 @@ class LocalizationTranslationProcess extends SomNode {
 
 /// Localization & Translation requirements (the requirement side of i18n).
 /// 
-/// Public anchor: ISO/IEC 25010 *portability/adaptability* + ISO 29148 i18n
-/// constraints. Cross-mapped from SBP.14 via [Iso25010Coverage].
+/// Cross-mapped from SBP.14 via [Iso25010Coverage].
 class LocalizationTranslationRequirements extends SomNode {
   LocalizationTranslationRequirements(super.doc, super.path);
 
@@ -22795,8 +22790,6 @@ class PwaRequirementsUpdates extends SomNode {
 }
 
 /// SBP.14 Quality & Acceptance Model.
-/// 
-/// Public anchor: ISO/IEC 25010:2023 product quality.
 class QualityAndAcceptanceModel extends SomNode {
   QualityAndAcceptanceModel(super.doc, super.path);
 
@@ -28369,8 +28362,6 @@ class SoftwareLayerEntryTechnology extends SomNode {
 }
 
 /// SBP.11 Solution Architecture & Technology.
-/// 
-/// Public anchor: ISO/IEC/IEEE 42010 architecture description.
 class SolutionArchitectureAndTechnology extends SomNode {
   SolutionArchitectureAndTechnology(super.doc, super.path);
 
@@ -29332,8 +29323,6 @@ class StakeholderEntry extends SomNode {
 /// influence, concerns and engagement strategy. SBP.2
 /// `StakeholdersAndBeneficiaries` is a scope-framing benefits lens that
 /// references this register rather than restating its attributes.
-/// 
-/// Public anchor: BABOK stakeholder analysis (RACI / influence-interest grid).
 class StakeholderRegister extends SomNode {
   StakeholderRegister(super.doc, super.path);
 
@@ -29375,8 +29364,6 @@ class StakeholdersAndBeneficiaries extends SomNode {
 }
 
 /// SBP.4 Stakeholders & Governance.
-/// 
-/// Public anchor: BABOK stakeholder analysis + PMBOK governance.
 class StakeholdersAndGovernance extends SomNode {
   StakeholdersAndGovernance(super.doc, super.path);
 
@@ -31121,8 +31108,6 @@ class TargetBusinessProcessModel extends SomNode {
 }
 
 /// SBP.7 Target Operating Model concept.
-/// 
-/// Public anchor: BABOK future-state analysis.
 class TargetOperatingModel extends SomNode {
   TargetOperatingModel(super.doc, super.path);
 
@@ -32632,8 +32617,7 @@ class TrainingDeliverables extends SomNode {
 
 /// Training & Enablement requirements.
 /// 
-/// Public anchor: ISO 29148 transition requirements; PMBOK transition. The
-/// training-materials *delivery* and rollout sequencing re-home to SBP.15.
+/// The training-materials *delivery* and rollout sequencing re-home to SBP.15.
 /// The detailed training-material content and module catalogue is the training
 /// half of the former `DocumentationAndTraining`, split out in L34C-7 and
 /// re-homed here as [TrainingDeliverableRequirements].

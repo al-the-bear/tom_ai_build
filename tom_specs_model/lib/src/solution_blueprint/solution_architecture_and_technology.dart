@@ -12,8 +12,11 @@ import 'components.dart';
 import 'technical_framework.dart';
 
 /// SBP.11 Solution Architecture & Technology.
-///
-/// Public anchor: ISO/IEC/IEEE 42010 architecture description.
+@StandardReferences(
+  ['ISO/IEC/IEEE 42010:2011 — architecture description'],
+  'The technical solution framing: the architecture description plus the '
+  'technology and components the solution is built from.',
+)
 @SectionId('SOAT')
 class SolutionArchitectureAndTechnology {
   @Unused()

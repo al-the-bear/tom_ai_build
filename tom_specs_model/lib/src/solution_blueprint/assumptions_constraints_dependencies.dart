@@ -4,13 +4,16 @@
 /// introduction (risks/assumptions), interface boundary assumptions, and
 /// framework conditions. Closes the prior-review completeness gap (§5:
 /// "Assumptions/constraints register").
-///
-/// Public anchor: ISO/IEC/IEEE 29148 assumptions & constraints.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 /// SBP.6 Assumptions, Constraints & Dependencies.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148:2018 — assumptions and constraints'],
+  'The single register of assumptions the solution relies on, constraints it '
+  'must operate within, and external dependencies.',
+)
 @SectionId('ACDP')
 class AssumptionsConstraintsDependencies {
   @ContentType('description', 'Summarize the key assumptions the solution '

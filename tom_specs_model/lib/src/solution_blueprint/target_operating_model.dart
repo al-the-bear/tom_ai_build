@@ -12,8 +12,11 @@ import 'organizational_framework.dart';
 import 'target_business_process.dart';
 
 /// SBP.7 Target Operating Model concept.
-///
-/// Public anchor: BABOK future-state analysis.
+@StandardReferences(
+  ['BABOK v3 — future-state analysis'],
+  'The future-state operating concept: how the organization and its business '
+  'processes will work once the solution is in place.',
+)
 @SectionId('TOMC')
 class TargetOperatingModel {
   @Unused()
