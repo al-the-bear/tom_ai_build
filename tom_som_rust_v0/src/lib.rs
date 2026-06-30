@@ -1558,67 +1558,6 @@ impl AdministrationRequirementsSection {
     }
 }
 
-/// 3. Administrative.
-///
-/// Project-specific administrative information including team composition,
-/// distribution channels, procedural agreements, and reference documentation.
-/// This section defines WHO is involved, HOW they communicate, and WHAT
-/// procedures govern changes to project documentation.
-pub struct Administrative {
-    pub node: som::SomNode,
-}
-
-impl Administrative {
-    /// Binds a Administrative facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> Administrative {
-        Administrative { node: som::SomNode::new(doc, path) }
-    }
-
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    /// Administrative overview summary.
-    pub fn summary(&self) -> AdministrativeSummary {
-        AdministrativeSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "summary"))
-    }
-
-    /// 3.1. Project Organization.
-    pub fn project_organization(&self) -> ProjectOrganization {
-        ProjectOrganization::new(self.node.doc(), format!("{}/{}", self.node.path(), "projectOrganization"))
-    }
-
-    /// 3.2. Project Team Staffing — contains 1+× Team Member.
-    pub fn project_team_staffing(&self) -> ProjectTeamStaffing {
-        ProjectTeamStaffing::new(self.node.doc(), format!("{}/{}", self.node.path(), "projectTeamStaffing"))
-    }
-
-    /// 3.3. Distribution List.
-    pub fn distribution_list(&self) -> DistributionList {
-        DistributionList::new(self.node.doc(), format!("{}/{}", self.node.path(), "distributionList"))
-    }
-
-    /// 3.4. Change Procedure.
-    pub fn change_procedure(&self) -> ChangeProcedure {
-        ChangeProcedure::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeProcedure"))
-    }
-
-    /// 3.5. Reference Documents — contains 0+× Reference Document.
-    pub fn reference_documents(&self) -> ReferenceDocuments {
-        ReferenceDocuments::new(self.node.doc(), format!("{}/{}", self.node.path(), "referenceDocuments"))
-    }
-
-    /// 3.6. Other Administrative Requirements.
-    pub fn other_administrative(&self) -> OtherAdministrativeRequirements {
-        OtherAdministrativeRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "otherAdministrative"))
-    }
-}
-
 /// Administrative event policy (form).
 ///
 /// Defines which administrative events are logged.
@@ -22748,6 +22687,14 @@ impl DocumentControl {
             format!("{}/{}", self.node.path(), "DOCTL-APRV-LST"),
             Box::new(|d, p| ApprovalRecord::new(d, p)),
         )
+    }
+
+    /// Reference documents — the catalogue of documents this specification draws
+    /// on (standards, policies, regulations, related specs). Re-homed here from
+    /// the former §3 `Administrative` wrapper in L34C-5: referenced documents are
+    /// ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+    pub fn reference_documents(&self) -> ReferenceDocuments {
+        ReferenceDocuments::new(self.node.doc(), format!("{}/{}", self.node.path(), "referenceDocuments"))
     }
 }
 
@@ -48753,7 +48700,7 @@ impl ReferenceDocumentEntryMetadata {
     }
 }
 
-/// 3.5. Reference Documents.
+/// Reference Documents.
 ///
 /// Catalog of all documents referenced by this project specification,
 /// including enterprise standards, technical guidelines, regulatory
@@ -61192,14 +61139,41 @@ impl StakeholdersAndGovernance {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
+    /// Governance overview summary statistics (folded in from the former
+    /// `AdministrativeSummary` when the `Administrative` wrapper was dissolved).
+    pub fn summary(&self) -> AdministrativeSummary {
+        AdministrativeSummary::new(self.node.doc(), format!("{}/{}", self.node.path(), "summary"))
+    }
+
     /// Governance, steering committee, RACI, process deviations.
     pub fn project_organization_process(&self) -> ProjectOrganizationAndProcess {
         ProjectOrganizationAndProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "projectOrganizationProcess"))
     }
 
-    /// Team, distribution, reference documents, communication.
-    pub fn administrative(&self) -> Administrative {
-        Administrative::new(self.node.doc(), format!("{}/{}", self.node.path(), "administrative"))
+    /// Project organization (org structure, steering committee).
+    pub fn project_organization(&self) -> ProjectOrganization {
+        ProjectOrganization::new(self.node.doc(), format!("{}/{}", self.node.path(), "projectOrganization"))
+    }
+
+    /// Project team staffing — contains 1+× Team Member.
+    pub fn project_team_staffing(&self) -> ProjectTeamStaffing {
+        ProjectTeamStaffing::new(self.node.doc(), format!("{}/{}", self.node.path(), "projectTeamStaffing"))
+    }
+
+    /// Distribution list and communication matrix.
+    pub fn distribution_list(&self) -> DistributionList {
+        DistributionList::new(self.node.doc(), format!("{}/{}", self.node.path(), "distributionList"))
+    }
+
+    /// Change procedure.
+    pub fn change_procedure(&self) -> ChangeProcedure {
+        ChangeProcedure::new(self.node.doc(), format!("{}/{}", self.node.path(), "changeProcedure"))
+    }
+
+    /// Legal and contractual requirements (IP, NDAs, compliance, audit).
+    /// Renamed to `LegalAndContractualRequirements` in L34C-9.
+    pub fn legal_and_contractual(&self) -> OtherAdministrativeRequirements {
+        OtherAdministrativeRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "legalAndContractual"))
     }
 
     /// Stakeholder register (§5 completeness addition).

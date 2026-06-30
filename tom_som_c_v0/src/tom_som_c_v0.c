@@ -1400,74 +1400,6 @@ SystemDiagnosticTools administration_requirements_section_diagnostic_tools(const
   return out;
 }
 
-void administrative_init(Administrative *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void administrative_free(Administrative *self) {
-  som_node_free(&self->node);
-}
-char *administrative_content(const Administrative *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
-  free(path);
-  return out;
-}
-void administrative_set_content(Administrative *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "content");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-AdministrativeSummary administrative_summary(const Administrative *self) {
-  char *path = spec_path_join(self->node.path, "summary");
-  AdministrativeSummary out;
-  administrative_summary_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ProjectOrganization administrative_project_organization(const Administrative *self) {
-  char *path = spec_path_join(self->node.path, "projectOrganization");
-  ProjectOrganization out;
-  project_organization_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ProjectTeamStaffing administrative_project_team_staffing(const Administrative *self) {
-  char *path = spec_path_join(self->node.path, "projectTeamStaffing");
-  ProjectTeamStaffing out;
-  project_team_staffing_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DistributionList administrative_distribution_list(const Administrative *self) {
-  char *path = spec_path_join(self->node.path, "distributionList");
-  DistributionList out;
-  distribution_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ChangeProcedure administrative_change_procedure(const Administrative *self) {
-  char *path = spec_path_join(self->node.path, "changeProcedure");
-  ChangeProcedure out;
-  change_procedure_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ReferenceDocuments administrative_reference_documents(const Administrative *self) {
-  char *path = spec_path_join(self->node.path, "referenceDocuments");
-  ReferenceDocuments out;
-  reference_documents_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-OtherAdministrativeRequirements administrative_other_administrative(const Administrative *self) {
-  char *path = spec_path_join(self->node.path, "otherAdministrative");
-  OtherAdministrativeRequirements out;
-  other_administrative_requirements_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void administrative_event_policy_init(AdministrativeEventPolicy *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -21548,6 +21480,13 @@ SomList document_control_approvals(const DocumentControl *self) {
   char *path = spec_path_join(self->node.path, "DOCTL-APRV-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReferenceDocuments document_control_reference_documents(const DocumentControl *self) {
+  char *path = spec_path_join(self->node.path, "referenceDocuments");
+  ReferenceDocuments out;
+  reference_documents_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -57164,6 +57103,13 @@ void stakeholders_and_governance_set_content(StakeholdersAndGovernance *self, co
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
+AdministrativeSummary stakeholders_and_governance_summary(const StakeholdersAndGovernance *self) {
+  char *path = spec_path_join(self->node.path, "summary");
+  AdministrativeSummary out;
+  administrative_summary_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 ProjectOrganizationAndProcess stakeholders_and_governance_project_organization_process(const StakeholdersAndGovernance *self) {
   char *path = spec_path_join(self->node.path, "projectOrganizationProcess");
   ProjectOrganizationAndProcess out;
@@ -57171,10 +57117,38 @@ ProjectOrganizationAndProcess stakeholders_and_governance_project_organization_p
   free(path);
   return out;
 }
-Administrative stakeholders_and_governance_administrative(const StakeholdersAndGovernance *self) {
-  char *path = spec_path_join(self->node.path, "administrative");
-  Administrative out;
-  administrative_init(&out, self->node.doc, path);
+ProjectOrganization stakeholders_and_governance_project_organization(const StakeholdersAndGovernance *self) {
+  char *path = spec_path_join(self->node.path, "projectOrganization");
+  ProjectOrganization out;
+  project_organization_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ProjectTeamStaffing stakeholders_and_governance_project_team_staffing(const StakeholdersAndGovernance *self) {
+  char *path = spec_path_join(self->node.path, "projectTeamStaffing");
+  ProjectTeamStaffing out;
+  project_team_staffing_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DistributionList stakeholders_and_governance_distribution_list(const StakeholdersAndGovernance *self) {
+  char *path = spec_path_join(self->node.path, "distributionList");
+  DistributionList out;
+  distribution_list_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ChangeProcedure stakeholders_and_governance_change_procedure(const StakeholdersAndGovernance *self) {
+  char *path = spec_path_join(self->node.path, "changeProcedure");
+  ChangeProcedure out;
+  change_procedure_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+OtherAdministrativeRequirements stakeholders_and_governance_legal_and_contractual(const StakeholdersAndGovernance *self) {
+  char *path = spec_path_join(self->node.path, "legalAndContractual");
+  OtherAdministrativeRequirements out;
+  other_administrative_requirements_init(&out, self->node.doc, path);
   free(path);
   return out;
 }

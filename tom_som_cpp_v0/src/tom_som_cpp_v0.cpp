@@ -619,36 +619,6 @@ SystemDiagnosticTools AdministrationRequirementsSection::diagnosticTools() const
   return SystemDiagnosticTools(doc(), som::joinPath(path(), "diagnosticTools"));
 }
 
-Administrative::Administrative(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string Administrative::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void Administrative::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
-}
-AdministrativeSummary Administrative::summary() const {
-  return AdministrativeSummary(doc(), som::joinPath(path(), "summary"));
-}
-ProjectOrganization Administrative::projectOrganization() const {
-  return ProjectOrganization(doc(), som::joinPath(path(), "projectOrganization"));
-}
-ProjectTeamStaffing Administrative::projectTeamStaffing() const {
-  return ProjectTeamStaffing(doc(), som::joinPath(path(), "projectTeamStaffing"));
-}
-DistributionList Administrative::distributionList() const {
-  return DistributionList(doc(), som::joinPath(path(), "distributionList"));
-}
-ChangeProcedure Administrative::changeProcedure() const {
-  return ChangeProcedure(doc(), som::joinPath(path(), "changeProcedure"));
-}
-ReferenceDocuments Administrative::referenceDocuments() const {
-  return ReferenceDocuments(doc(), som::joinPath(path(), "referenceDocuments"));
-}
-OtherAdministrativeRequirements Administrative::otherAdministrative() const {
-  return OtherAdministrativeRequirements(doc(), som::joinPath(path(), "otherAdministrative"));
-}
-
 AdministrativeEventPolicy::AdministrativeEventPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 AdministrativeEventPolicyContentForm AdministrativeEventPolicy::content() const {
@@ -9394,6 +9364,9 @@ RevisionHistory DocumentControl::revisionHistory() const {
 }
 som::SomList DocumentControl::approvals() const {
   return som::SomList(doc(), som::joinPath(path(), "DOCTL-APRV-LST"));
+}
+ReferenceDocuments DocumentControl::referenceDocuments() const {
+  return ReferenceDocuments(doc(), som::joinPath(path(), "referenceDocuments"));
 }
 
 DocumentHeader::DocumentHeader(som::SpecDocument& doc, std::string path)
@@ -24860,11 +24833,26 @@ std::string StakeholdersAndGovernance::content() const {
 void StakeholdersAndGovernance::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
+AdministrativeSummary StakeholdersAndGovernance::summary() const {
+  return AdministrativeSummary(doc(), som::joinPath(path(), "summary"));
+}
 ProjectOrganizationAndProcess StakeholdersAndGovernance::projectOrganizationProcess() const {
   return ProjectOrganizationAndProcess(doc(), som::joinPath(path(), "projectOrganizationProcess"));
 }
-Administrative StakeholdersAndGovernance::administrative() const {
-  return Administrative(doc(), som::joinPath(path(), "administrative"));
+ProjectOrganization StakeholdersAndGovernance::projectOrganization() const {
+  return ProjectOrganization(doc(), som::joinPath(path(), "projectOrganization"));
+}
+ProjectTeamStaffing StakeholdersAndGovernance::projectTeamStaffing() const {
+  return ProjectTeamStaffing(doc(), som::joinPath(path(), "projectTeamStaffing"));
+}
+DistributionList StakeholdersAndGovernance::distributionList() const {
+  return DistributionList(doc(), som::joinPath(path(), "distributionList"));
+}
+ChangeProcedure StakeholdersAndGovernance::changeProcedure() const {
+  return ChangeProcedure(doc(), som::joinPath(path(), "changeProcedure"));
+}
+OtherAdministrativeRequirements StakeholdersAndGovernance::legalAndContractual() const {
+  return OtherAdministrativeRequirements(doc(), som::joinPath(path(), "legalAndContractual"));
 }
 StakeholderRegister StakeholdersAndGovernance::stakeholderRegister() const {
   return StakeholderRegister(doc(), som::joinPath(path(), "stakeholderRegister"));

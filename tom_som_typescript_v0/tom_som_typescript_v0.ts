@@ -1189,61 +1189,6 @@ export class AdministrationRequirementsSection extends SomNode {
   }
 }
 
-// 3. Administrative.
-//
-// Project-specific administrative information including team composition,
-// distribution channels, procedural agreements, and reference documentation.
-// This section defines WHO is involved, HOW they communicate, and WHAT
-// procedures govern changes to project documentation.
-export class Administrative extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
-  }
-
-  // Administrative overview summary.
-  get summary(): AdministrativeSummary {
-    return new AdministrativeSummary(this.doc, this.path + "/summary");
-  }
-
-  // 3.1. Project Organization.
-  get projectOrganization(): ProjectOrganization {
-    return new ProjectOrganization(this.doc, this.path + "/projectOrganization");
-  }
-
-  // 3.2. Project Team Staffing — contains 1+× Team Member.
-  get projectTeamStaffing(): ProjectTeamStaffing {
-    return new ProjectTeamStaffing(this.doc, this.path + "/projectTeamStaffing");
-  }
-
-  // 3.3. Distribution List.
-  get distributionList(): DistributionList {
-    return new DistributionList(this.doc, this.path + "/distributionList");
-  }
-
-  // 3.4. Change Procedure.
-  get changeProcedure(): ChangeProcedure {
-    return new ChangeProcedure(this.doc, this.path + "/changeProcedure");
-  }
-
-  // 3.5. Reference Documents — contains 0+× Reference Document.
-  get referenceDocuments(): ReferenceDocuments {
-    return new ReferenceDocuments(this.doc, this.path + "/referenceDocuments");
-  }
-
-  // 3.6. Other Administrative Requirements.
-  get otherAdministrative(): OtherAdministrativeRequirements {
-    return new OtherAdministrativeRequirements(this.doc, this.path + "/otherAdministrative");
-  }
-}
-
 // Administrative event policy (form).
 //
 // Defines which administrative events are logged.
@@ -17310,6 +17255,14 @@ export class DocumentControl extends SomNode {
   // Formal approvals (sign-offs) recorded for this document.
   get approvals(): SomList<ApprovalRecord> {
     return new SomList(this.doc, this.path + "/DOCTL-APRV-LST", (d: SpecDocument, p: string) => new ApprovalRecord(d, p));
+  }
+
+  // Reference documents — the catalogue of documents this specification draws
+  // on (standards, policies, regulations, related specs). Re-homed here from
+  // the former §3 `Administrative` wrapper in L34C-5: referenced documents are
+  // ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+  get referenceDocuments(): ReferenceDocuments {
+    return new ReferenceDocuments(this.doc, this.path + "/referenceDocuments");
   }
 }
 
@@ -36771,7 +36724,7 @@ export class ReferenceDocumentEntryMetadata extends SomNode {
   }
 }
 
-// 3.5. Reference Documents.
+// Reference Documents.
 //
 // Catalog of all documents referenced by this project specification,
 // including enterprise standards, technical guidelines, regulatory
@@ -46074,14 +46027,41 @@ export class StakeholdersAndGovernance extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
+  // Governance overview summary statistics (folded in from the former
+  // `AdministrativeSummary` when the `Administrative` wrapper was dissolved).
+  get summary(): AdministrativeSummary {
+    return new AdministrativeSummary(this.doc, this.path + "/summary");
+  }
+
   // Governance, steering committee, RACI, process deviations.
   get projectOrganizationProcess(): ProjectOrganizationAndProcess {
     return new ProjectOrganizationAndProcess(this.doc, this.path + "/projectOrganizationProcess");
   }
 
-  // Team, distribution, reference documents, communication.
-  get administrative(): Administrative {
-    return new Administrative(this.doc, this.path + "/administrative");
+  // Project organization (org structure, steering committee).
+  get projectOrganization(): ProjectOrganization {
+    return new ProjectOrganization(this.doc, this.path + "/projectOrganization");
+  }
+
+  // Project team staffing — contains 1+× Team Member.
+  get projectTeamStaffing(): ProjectTeamStaffing {
+    return new ProjectTeamStaffing(this.doc, this.path + "/projectTeamStaffing");
+  }
+
+  // Distribution list and communication matrix.
+  get distributionList(): DistributionList {
+    return new DistributionList(this.doc, this.path + "/distributionList");
+  }
+
+  // Change procedure.
+  get changeProcedure(): ChangeProcedure {
+    return new ChangeProcedure(this.doc, this.path + "/changeProcedure");
+  }
+
+  // Legal and contractual requirements (IP, NDAs, compliance, audit).
+  // Renamed to `LegalAndContractualRequirements` in L34C-9.
+  get legalAndContractual(): OtherAdministrativeRequirements {
+    return new OtherAdministrativeRequirements(this.doc, this.path + "/legalAndContractual");
   }
 
   // Stakeholder register (§5 completeness addition).

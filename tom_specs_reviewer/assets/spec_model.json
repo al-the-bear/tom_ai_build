@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-30T14:26:05.945691Z",
+  "generatedAt": "2026-06-30T14:37:07.564312Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
-  "classCount": 3077,
+  "classCount": 3076,
   "rootCount": 13,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -4277,77 +4277,6 @@
           "kind": "complex",
           "doc": "System diagnostic tools.",
           "type": "SystemDiagnosticTools"
-        }
-      ]
-    },
-    "Administrative": {
-      "name": "Administrative",
-      "sectionId": "ADMN",
-      "doc": "3. Administrative.\n\nProject-specific administrative information including team composition,\ndistribution channels, procedural agreements, and reference documentation.\nThis section defines WHO is involved, HOW they communicate, and WHAT\nprocedures govern changes to project documentation.",
-      "annotations": [
-        {
-          "name": "SectionId",
-          "arguments": {
-            "id": "ADMN"
-          }
-        }
-      ],
-      "fields": [
-        {
-          "name": "content",
-          "kind": "content",
-          "help": "Executive summary of project administrative arrangements.\nDescribe the overall governance model, communication approach, and key\nadministrative agreements that govern this project. Highlight any deviations\nfrom standard organizational project governance procedures.\n",
-          "annotations": [
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Executive summary of project administrative arrangements.\nDescribe the overall governance model, communication approach, and key\nadministrative agreements that govern this project. Highlight any deviations\nfrom standard organizational project governance procedures.\n"
-              }
-            }
-          ],
-          "contentType": "text"
-        },
-        {
-          "name": "summary",
-          "kind": "complex",
-          "doc": "Administrative overview summary.",
-          "type": "AdministrativeSummary"
-        },
-        {
-          "name": "projectOrganization",
-          "kind": "complex",
-          "doc": "3.1. Project Organization.",
-          "type": "ProjectOrganization"
-        },
-        {
-          "name": "projectTeamStaffing",
-          "kind": "complex",
-          "doc": "3.2. Project Team Staffing — contains 1+× Team Member.",
-          "type": "ProjectTeamStaffing"
-        },
-        {
-          "name": "distributionList",
-          "kind": "complex",
-          "doc": "3.3. Distribution List.",
-          "type": "DistributionList"
-        },
-        {
-          "name": "changeProcedure",
-          "kind": "complex",
-          "doc": "3.4. Change Procedure.",
-          "type": "ChangeProcedure"
-        },
-        {
-          "name": "referenceDocuments",
-          "kind": "complex",
-          "doc": "3.5. Reference Documents — contains 0+× Reference Document.",
-          "type": "ReferenceDocuments"
-        },
-        {
-          "name": "otherAdministrative",
-          "kind": "complex",
-          "doc": "3.6. Other Administrative Requirements.",
-          "type": "OtherAdministrativeRequirements"
         }
       ]
     },
@@ -59847,6 +59776,12 @@
           ],
           "elementType": "ApprovalRecord",
           "elementIsComplex": true
+        },
+        {
+          "name": "referenceDocuments",
+          "kind": "complex",
+          "doc": "Reference documents — the catalogue of documents this specification draws\non (standards, policies, regulations, related specs). Re-homed here from\nthe former §3 `Administrative` wrapper in L34C-5: referenced documents are\nISO/IEC/IEEE 29148 §6 front matter and belong with document control.",
+          "type": "ReferenceDocuments"
         }
       ]
     },
@@ -133332,7 +133267,7 @@
     "ReferenceDocuments": {
       "name": "ReferenceDocuments",
       "sectionId": "RD",
-      "doc": "3.5. Reference Documents.\n\nCatalog of all documents referenced by this project specification,\nincluding enterprise standards, technical guidelines, regulatory\nrequirements, and related project documentation.",
+      "doc": "Reference Documents.\n\nCatalog of all documents referenced by this project specification,\nincluding enterprise standards, technical guidelines, regulatory\nrequirements, and related project documentation.",
       "help": "List all documents that provide context, requirements, constraints, or guidance for this project. Include enterprise architecture documents, standards, policies, regulations, and related project specifications.",
       "annotations": [
         {
@@ -168320,12 +168255,22 @@
         {
           "name": "content",
           "kind": "content",
+          "help": "Executive summary of the project's stakeholder and governance arrangements.\nDescribe the overall governance model, communication approach, and key\nadministrative agreements that govern this project. Highlight any deviations\nfrom standard organizational project governance procedures.\n",
           "annotations": [
             {
-              "name": "Unused"
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Executive summary of the project's stakeholder and governance arrangements.\nDescribe the overall governance model, communication approach, and key\nadministrative agreements that govern this project. Highlight any deviations\nfrom standard organizational project governance procedures.\n"
+              }
             }
           ],
           "contentType": "text"
+        },
+        {
+          "name": "summary",
+          "kind": "complex",
+          "doc": "Governance overview summary statistics (folded in from the former\n`AdministrativeSummary` when the `Administrative` wrapper was dissolved).",
+          "type": "AdministrativeSummary"
         },
         {
           "name": "projectOrganizationProcess",
@@ -168334,10 +168279,34 @@
           "type": "ProjectOrganizationAndProcess"
         },
         {
-          "name": "administrative",
+          "name": "projectOrganization",
           "kind": "complex",
-          "doc": "Team, distribution, reference documents, communication.",
-          "type": "Administrative"
+          "doc": "Project organization (org structure, steering committee).",
+          "type": "ProjectOrganization"
+        },
+        {
+          "name": "projectTeamStaffing",
+          "kind": "complex",
+          "doc": "Project team staffing — contains 1+× Team Member.",
+          "type": "ProjectTeamStaffing"
+        },
+        {
+          "name": "distributionList",
+          "kind": "complex",
+          "doc": "Distribution list and communication matrix.",
+          "type": "DistributionList"
+        },
+        {
+          "name": "changeProcedure",
+          "kind": "complex",
+          "doc": "Change procedure.",
+          "type": "ChangeProcedure"
+        },
+        {
+          "name": "legalAndContractual",
+          "kind": "complex",
+          "doc": "Legal and contractual requirements (IP, NDAs, compliance, audit).\nRenamed to `LegalAndContractualRequirements` in L34C-9.",
+          "type": "OtherAdministrativeRequirements"
         },
         {
           "name": "stakeholderRegister",

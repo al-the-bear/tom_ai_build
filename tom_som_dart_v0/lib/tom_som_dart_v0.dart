@@ -754,40 +754,6 @@ class AdministrationRequirementsSection extends SomNode {
   SystemDiagnosticTools get diagnosticTools => SystemDiagnosticTools(doc, '$path/diagnosticTools');
 }
 
-/// 3. Administrative.
-/// 
-/// Project-specific administrative information including team composition,
-/// distribution channels, procedural agreements, and reference documentation.
-/// This section defines WHO is involved, HOW they communicate, and WHAT
-/// procedures govern changes to project documentation.
-class Administrative extends SomNode {
-  Administrative(super.doc, super.path);
-
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
-
-  /// Administrative overview summary.
-  AdministrativeSummary get summary => AdministrativeSummary(doc, '$path/summary');
-
-  /// 3.1. Project Organization.
-  ProjectOrganization get projectOrganization => ProjectOrganization(doc, '$path/projectOrganization');
-
-  /// 3.2. Project Team Staffing — contains 1+× Team Member.
-  ProjectTeamStaffing get projectTeamStaffing => ProjectTeamStaffing(doc, '$path/projectTeamStaffing');
-
-  /// 3.3. Distribution List.
-  DistributionList get distributionList => DistributionList(doc, '$path/distributionList');
-
-  /// 3.4. Change Procedure.
-  ChangeProcedure get changeProcedure => ChangeProcedure(doc, '$path/changeProcedure');
-
-  /// 3.5. Reference Documents — contains 0+× Reference Document.
-  ReferenceDocuments get referenceDocuments => ReferenceDocuments(doc, '$path/referenceDocuments');
-
-  /// 3.6. Other Administrative Requirements.
-  OtherAdministrativeRequirements get otherAdministrative => OtherAdministrativeRequirements(doc, '$path/otherAdministrative');
-}
-
 /// Administrative event policy (form).
 /// 
 /// Defines which administrative events are logged.
@@ -10928,6 +10894,12 @@ class DocumentControl extends SomNode {
 
   /// Formal approvals (sign-offs) recorded for this document.
   SomList<ApprovalRecord> get approvals => SomList<ApprovalRecord>(doc, '$path/DOCTL-APRV-LST', (d, p) => ApprovalRecord(d, p));
+
+  /// Reference documents — the catalogue of documents this specification draws
+  /// on (standards, policies, regulations, related specs). Re-homed here from
+  /// the former §3 `Administrative` wrapper in L34C-5: referenced documents are
+  /// ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+  ReferenceDocuments get referenceDocuments => ReferenceDocuments(doc, '$path/referenceDocuments');
 }
 
 /// Standard document header present at the top of every TomSpecs document.
@@ -23255,7 +23227,7 @@ class ReferenceDocumentEntryMetadata extends SomNode {
   ReferenceDocumentEntryMetadataContentForm get content => ReferenceDocumentEntryMetadataContentForm(doc, '$path/content');
 }
 
-/// 3.5. Reference Documents.
+/// Reference Documents.
 /// 
 /// Catalog of all documents referenced by this project specification,
 /// including enterprise standards, technical guidelines, regulatory
@@ -29145,11 +29117,28 @@ class StakeholdersAndGovernance extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
+  /// Governance overview summary statistics (folded in from the former
+  /// `AdministrativeSummary` when the `Administrative` wrapper was dissolved).
+  AdministrativeSummary get summary => AdministrativeSummary(doc, '$path/summary');
+
   /// Governance, steering committee, RACI, process deviations.
   ProjectOrganizationAndProcess get projectOrganizationProcess => ProjectOrganizationAndProcess(doc, '$path/projectOrganizationProcess');
 
-  /// Team, distribution, reference documents, communication.
-  Administrative get administrative => Administrative(doc, '$path/administrative');
+  /// Project organization (org structure, steering committee).
+  ProjectOrganization get projectOrganization => ProjectOrganization(doc, '$path/projectOrganization');
+
+  /// Project team staffing — contains 1+× Team Member.
+  ProjectTeamStaffing get projectTeamStaffing => ProjectTeamStaffing(doc, '$path/projectTeamStaffing');
+
+  /// Distribution list and communication matrix.
+  DistributionList get distributionList => DistributionList(doc, '$path/distributionList');
+
+  /// Change procedure.
+  ChangeProcedure get changeProcedure => ChangeProcedure(doc, '$path/changeProcedure');
+
+  /// Legal and contractual requirements (IP, NDAs, compliance, audit).
+  /// Renamed to `LegalAndContractualRequirements` in L34C-9.
+  OtherAdministrativeRequirements get legalAndContractual => OtherAdministrativeRequirements(doc, '$path/legalAndContractual');
 
   /// Stakeholder register (§5 completeness addition).
   StakeholderRegister get stakeholderRegister => StakeholderRegister(doc, '$path/stakeholderRegister');

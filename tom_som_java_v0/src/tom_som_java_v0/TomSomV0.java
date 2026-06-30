@@ -1204,62 +1204,6 @@ public final class TomSomV0 {
     }
   }
 
-  // 3. Administrative.
-  //
-  // Project-specific administrative information including team composition,
-  // distribution channels, procedural agreements, and reference documentation.
-  // This section defines WHO is involved, HOW they communicate, and WHAT
-  // procedures govern changes to project documentation.
-  public static final class Administrative extends SomNode {
-    public Administrative(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
-    }
-
-    // Administrative overview summary.
-    public AdministrativeSummary summary() {
-      return new AdministrativeSummary(doc, path + "/summary");
-    }
-
-    // 3.1. Project Organization.
-    public ProjectOrganization projectOrganization() {
-      return new ProjectOrganization(doc, path + "/projectOrganization");
-    }
-
-    // 3.2. Project Team Staffing — contains 1+× Team Member.
-    public ProjectTeamStaffing projectTeamStaffing() {
-      return new ProjectTeamStaffing(doc, path + "/projectTeamStaffing");
-    }
-
-    // 3.3. Distribution List.
-    public DistributionList distributionList() {
-      return new DistributionList(doc, path + "/distributionList");
-    }
-
-    // 3.4. Change Procedure.
-    public ChangeProcedure changeProcedure() {
-      return new ChangeProcedure(doc, path + "/changeProcedure");
-    }
-
-    // 3.5. Reference Documents — contains 0+× Reference Document.
-    public ReferenceDocuments referenceDocuments() {
-      return new ReferenceDocuments(doc, path + "/referenceDocuments");
-    }
-
-    // 3.6. Other Administrative Requirements.
-    public OtherAdministrativeRequirements otherAdministrative() {
-      return new OtherAdministrativeRequirements(doc, path + "/otherAdministrative");
-    }
-  }
-
   // Administrative event policy (form).
   //
   // Defines which administrative events are logged.
@@ -17517,6 +17461,14 @@ public final class TomSomV0 {
     // Formal approvals (sign-offs) recorded for this document.
     public SomList<ApprovalRecord> approvals() {
       return new SomList<>(doc, path + "/DOCTL-APRV-LST", (d, p) -> new ApprovalRecord(d, p));
+    }
+
+    // Reference documents — the catalogue of documents this specification draws
+    // on (standards, policies, regulations, related specs). Re-homed here from
+    // the former §3 `Administrative` wrapper in L34C-5: referenced documents are
+    // ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+    public ReferenceDocuments referenceDocuments() {
+      return new ReferenceDocuments(doc, path + "/referenceDocuments");
     }
   }
 
@@ -37139,7 +37091,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 3.5. Reference Documents.
+  // Reference Documents.
   //
   // Catalog of all documents referenced by this project specification,
   // including enterprise standards, technical guidelines, regulatory
@@ -46517,14 +46469,41 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
+    // Governance overview summary statistics (folded in from the former
+    // `AdministrativeSummary` when the `Administrative` wrapper was dissolved).
+    public AdministrativeSummary summary() {
+      return new AdministrativeSummary(doc, path + "/summary");
+    }
+
     // Governance, steering committee, RACI, process deviations.
     public ProjectOrganizationAndProcess projectOrganizationProcess() {
       return new ProjectOrganizationAndProcess(doc, path + "/projectOrganizationProcess");
     }
 
-    // Team, distribution, reference documents, communication.
-    public Administrative administrative() {
-      return new Administrative(doc, path + "/administrative");
+    // Project organization (org structure, steering committee).
+    public ProjectOrganization projectOrganization() {
+      return new ProjectOrganization(doc, path + "/projectOrganization");
+    }
+
+    // Project team staffing — contains 1+× Team Member.
+    public ProjectTeamStaffing projectTeamStaffing() {
+      return new ProjectTeamStaffing(doc, path + "/projectTeamStaffing");
+    }
+
+    // Distribution list and communication matrix.
+    public DistributionList distributionList() {
+      return new DistributionList(doc, path + "/distributionList");
+    }
+
+    // Change procedure.
+    public ChangeProcedure changeProcedure() {
+      return new ChangeProcedure(doc, path + "/changeProcedure");
+    }
+
+    // Legal and contractual requirements (IP, NDAs, compliance, audit).
+    // Renamed to `LegalAndContractualRequirements` in L34C-9.
+    public OtherAdministrativeRequirements legalAndContractual() {
+      return new OtherAdministrativeRequirements(doc, path + "/legalAndContractual");
     }
 
     // Stakeholder register (§5 completeness addition).

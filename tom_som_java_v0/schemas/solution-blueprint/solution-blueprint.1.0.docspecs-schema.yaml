@@ -8638,9 +8638,6 @@ section-types:
   ADFS:
     prefix: adfs
     description: Feature and resilience status indicators.
-  ADMN:
-    prefix: admn
-    description: 3. Administrative.
   ADRC:
     prefix: adrc
     description: Decision context and constraints.

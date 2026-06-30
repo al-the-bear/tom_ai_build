@@ -901,33 +901,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as AdministrationRequirementsSection).content,
   ));
-  SpecRegistry.register(Administrative, SpecClassOps(
-    slots: (o) {
-      final n = o as Administrative;
-      return [
-        SpecSlot.node(() => n.summary, (v) => n.summary = v as AdministrativeSummary, label: 'summary'),
-        SpecSlot.node(() => n.projectOrganization, (v) => n.projectOrganization = v as ProjectOrganization, label: 'projectOrganization'),
-        SpecSlot.node(() => n.projectTeamStaffing, (v) => n.projectTeamStaffing = v as ProjectTeamStaffing, label: 'projectTeamStaffing'),
-        SpecSlot.node(() => n.distributionList, (v) => n.distributionList = v as DistributionList, label: 'distributionList'),
-        SpecSlot.node(() => n.changeProcedure, (v) => n.changeProcedure = v as ChangeProcedure, label: 'changeProcedure'),
-        SpecSlot.node(() => n.referenceDocuments, (v) => n.referenceDocuments = v as ReferenceDocuments, label: 'referenceDocuments'),
-        SpecSlot.node(() => n.otherAdministrative, (v) => n.otherAdministrative = v as OtherAdministrativeRequirements, label: 'otherAdministrative'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as Administrative;
-      return Administrative()
-        ..content = n.content
-        ..summary = n.summary
-        ..projectOrganization = n.projectOrganization
-        ..projectTeamStaffing = n.projectTeamStaffing
-        ..distributionList = n.distributionList
-        ..changeProcedure = n.changeProcedure
-        ..referenceDocuments = n.referenceDocuments
-        ..otherAdministrative = n.otherAdministrative;
-    },
-    yamlScalar: (o) => (o as Administrative).content,
-  ));
   SpecRegistry.register(AdministrativeEventPolicy, SpecClassOps(
     slots: (o) {
       final n = o as AdministrativeEventPolicy;
@@ -11869,6 +11842,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.header, (v) => n.header = v as DocumentHeader, label: 'header'),
         SpecSlot.node(() => n.revisionHistory, (v) => n.revisionHistory = v as RevisionHistory, label: 'revisionHistory'),
         SpecSlot.list(() => n.approvals, (v) => n.approvals = v.cast<ApprovalRecord>(), label: 'approvals'),
+        SpecSlot.node(() => n.referenceDocuments, (v) => n.referenceDocuments = v as ReferenceDocuments, label: 'referenceDocuments'),
       ];
     },
     cloneShallow: (o) {
@@ -11877,7 +11851,8 @@ void registerSpecOps() {
         ..content = n.content
         ..header = n.header
         ..revisionHistory = n.revisionHistory
-        ..approvals = n.approvals;
+        ..approvals = n.approvals
+        ..referenceDocuments = n.referenceDocuments;
     },
     yamlScalar: (o) => (o as DocumentControl).content,
   ));
@@ -32319,8 +32294,13 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as StakeholdersAndGovernance;
       return [
+        SpecSlot.node(() => n.summary, (v) => n.summary = v as AdministrativeSummary, label: 'summary'),
         SpecSlot.node(() => n.projectOrganizationProcess, (v) => n.projectOrganizationProcess = v as ProjectOrganizationAndProcess, label: 'projectOrganizationProcess'),
-        SpecSlot.node(() => n.administrative, (v) => n.administrative = v as Administrative, label: 'administrative'),
+        SpecSlot.node(() => n.projectOrganization, (v) => n.projectOrganization = v as ProjectOrganization, label: 'projectOrganization'),
+        SpecSlot.node(() => n.projectTeamStaffing, (v) => n.projectTeamStaffing = v as ProjectTeamStaffing, label: 'projectTeamStaffing'),
+        SpecSlot.node(() => n.distributionList, (v) => n.distributionList = v as DistributionList, label: 'distributionList'),
+        SpecSlot.node(() => n.changeProcedure, (v) => n.changeProcedure = v as ChangeProcedure, label: 'changeProcedure'),
+        SpecSlot.node(() => n.legalAndContractual, (v) => n.legalAndContractual = v as OtherAdministrativeRequirements, label: 'legalAndContractual'),
         SpecSlot.node(() => n.stakeholderRegister, (v) => n.stakeholderRegister = v as StakeholderRegister, label: 'stakeholderRegister'),
       ];
     },
@@ -32328,8 +32308,13 @@ void registerSpecOps() {
       final n = o as StakeholdersAndGovernance;
       return StakeholdersAndGovernance()
         ..content = n.content
+        ..summary = n.summary
         ..projectOrganizationProcess = n.projectOrganizationProcess
-        ..administrative = n.administrative
+        ..projectOrganization = n.projectOrganization
+        ..projectTeamStaffing = n.projectTeamStaffing
+        ..distributionList = n.distributionList
+        ..changeProcedure = n.changeProcedure
+        ..legalAndContractual = n.legalAndContractual
         ..stakeholderRegister = n.stakeholderRegister;
     },
     yamlScalar: (o) => (o as StakeholdersAndGovernance).content,

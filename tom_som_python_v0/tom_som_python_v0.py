@@ -1113,60 +1113,6 @@ class AdministrationRequirementsSection(SomNode):
     def diagnosticTools(self):
         return SystemDiagnosticTools(self.doc, f"{self.path}/diagnosticTools")
 
-class Administrative(SomNode):
-    """3. Administrative.
-    
-    Project-specific administrative information including team composition,
-    distribution channels, procedural agreements, and reference documentation.
-    This section defines WHO is involved, HOW they communicate, and WHAT
-    procedures govern changes to project documentation.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
-
-    # Administrative overview summary.
-    @property
-    def summary(self):
-        return AdministrativeSummary(self.doc, f"{self.path}/summary")
-
-    # 3.1. Project Organization.
-    @property
-    def projectOrganization(self):
-        return ProjectOrganization(self.doc, f"{self.path}/projectOrganization")
-
-    # 3.2. Project Team Staffing — contains 1+× Team Member.
-    @property
-    def projectTeamStaffing(self):
-        return ProjectTeamStaffing(self.doc, f"{self.path}/projectTeamStaffing")
-
-    # 3.3. Distribution List.
-    @property
-    def distributionList(self):
-        return DistributionList(self.doc, f"{self.path}/distributionList")
-
-    # 3.4. Change Procedure.
-    @property
-    def changeProcedure(self):
-        return ChangeProcedure(self.doc, f"{self.path}/changeProcedure")
-
-    # 3.5. Reference Documents — contains 0+× Reference Document.
-    @property
-    def referenceDocuments(self):
-        return ReferenceDocuments(self.doc, f"{self.path}/referenceDocuments")
-
-    # 3.6. Other Administrative Requirements.
-    @property
-    def otherAdministrative(self):
-        return OtherAdministrativeRequirements(self.doc, f"{self.path}/otherAdministrative")
-
 class AdministrativeEventPolicy(SomNode):
     """Administrative event policy (form).
     
@@ -15814,6 +15760,14 @@ class DocumentControl(SomNode):
     @property
     def approvals(self):
         return SomList(self.doc, f"{self.path}/DOCTL-APRV-LST", lambda d, p: ApprovalRecord(d, p))
+
+    # Reference documents — the catalogue of documents this specification draws
+    # on (standards, policies, regulations, related specs). Re-homed here from
+    # the former §3 `Administrative` wrapper in L34C-5: referenced documents are
+    # ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+    @property
+    def referenceDocuments(self):
+        return ReferenceDocuments(self.doc, f"{self.path}/referenceDocuments")
 
 class DocumentHeader(SomNode):
     """Standard document header present at the top of every TomSpecs document.
@@ -33522,7 +33476,7 @@ class ReferenceDocumentEntryMetadata(SomNode):
         return ReferenceDocumentEntryMetadataContentForm(self.doc, f"{self.path}/content")
 
 class ReferenceDocuments(SomNode):
-    """3.5. Reference Documents.
+    """Reference Documents.
     
     Catalog of all documents referenced by this project specification,
     including enterprise standards, technical guidelines, regulatory
@@ -41938,15 +41892,42 @@ class StakeholdersAndGovernance(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Governance overview summary statistics (folded in from the former
+    # `AdministrativeSummary` when the `Administrative` wrapper was dissolved).
+    @property
+    def summary(self):
+        return AdministrativeSummary(self.doc, f"{self.path}/summary")
+
     # Governance, steering committee, RACI, process deviations.
     @property
     def projectOrganizationProcess(self):
         return ProjectOrganizationAndProcess(self.doc, f"{self.path}/projectOrganizationProcess")
 
-    # Team, distribution, reference documents, communication.
+    # Project organization (org structure, steering committee).
     @property
-    def administrative(self):
-        return Administrative(self.doc, f"{self.path}/administrative")
+    def projectOrganization(self):
+        return ProjectOrganization(self.doc, f"{self.path}/projectOrganization")
+
+    # Project team staffing — contains 1+× Team Member.
+    @property
+    def projectTeamStaffing(self):
+        return ProjectTeamStaffing(self.doc, f"{self.path}/projectTeamStaffing")
+
+    # Distribution list and communication matrix.
+    @property
+    def distributionList(self):
+        return DistributionList(self.doc, f"{self.path}/distributionList")
+
+    # Change procedure.
+    @property
+    def changeProcedure(self):
+        return ChangeProcedure(self.doc, f"{self.path}/changeProcedure")
+
+    # Legal and contractual requirements (IP, NDAs, compliance, audit).
+    # Renamed to `LegalAndContractualRequirements` in L34C-9.
+    @property
+    def legalAndContractual(self):
+        return OtherAdministrativeRequirements(self.doc, f"{self.path}/legalAndContractual")
 
     # Stakeholder register (§5 completeness addition).
     @property

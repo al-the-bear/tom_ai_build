@@ -76,7 +76,6 @@ class AdminInterfaceRequirementsDashboard;
 class AdminInterfaceRequirementsData;
 class AdminInterfaceRequirementsOperations;
 class AdministrationRequirementsSection;
-class Administrative;
 class AdministrativeEventPolicy;
 class AdministrativeSummary;
 class AffectedDepartmentEntry;
@@ -6414,33 +6413,6 @@ class AdministrationRequirementsSection : public som::SomNode {
   AdminEnvironmentManagement environmentManagement() const;
   // System diagnostic tools.
   SystemDiagnosticTools diagnosticTools() const;
-};
-
-// 3. Administrative.
-//
-// Project-specific administrative information including team composition,
-// distribution channels, procedural agreements, and reference documentation.
-// This section defines WHO is involved, HOW they communicate, and WHAT
-// procedures govern changes to project documentation.
-class Administrative : public som::SomNode {
- public:
-  Administrative(som::SpecDocument& doc, std::string path);
-  std::string content() const;
-  void setContent(const std::string& value);
-  // Administrative overview summary.
-  AdministrativeSummary summary() const;
-  // 3.1. Project Organization.
-  ProjectOrganization projectOrganization() const;
-  // 3.2. Project Team Staffing — contains 1+× Team Member.
-  ProjectTeamStaffing projectTeamStaffing() const;
-  // 3.3. Distribution List.
-  DistributionList distributionList() const;
-  // 3.4. Change Procedure.
-  ChangeProcedure changeProcedure() const;
-  // 3.5. Reference Documents — contains 0+× Reference Document.
-  ReferenceDocuments referenceDocuments() const;
-  // 3.6. Other Administrative Requirements.
-  OtherAdministrativeRequirements otherAdministrative() const;
 };
 
 // Administrative event policy (form).
@@ -15570,6 +15542,11 @@ class DocumentControl : public som::SomNode {
   // Formal approvals (sign-offs) recorded for this document.
   // Returns the list view; element type: ApprovalRecord (construct from item paths).
   som::SomList approvals() const;
+  // Reference documents — the catalogue of documents this specification draws
+  // on (standards, policies, regulations, related specs). Re-homed here from
+  // the former §3 `Administrative` wrapper in L34C-5: referenced documents are
+  // ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+  ReferenceDocuments referenceDocuments() const;
 };
 
 // Standard document header present at the top of every TomSpecs document.
@@ -26870,7 +26847,7 @@ class ReferenceDocumentEntryMetadata : public som::SomNode {
   ReferenceDocumentEntryMetadataContentForm content() const;
 };
 
-// 3.5. Reference Documents.
+// Reference Documents.
 //
 // Catalog of all documents referenced by this project specification,
 // including enterprise standards, technical guidelines, regulatory
@@ -32291,10 +32268,22 @@ class StakeholdersAndGovernance : public som::SomNode {
   StakeholdersAndGovernance(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
+  // Governance overview summary statistics (folded in from the former
+  // `AdministrativeSummary` when the `Administrative` wrapper was dissolved).
+  AdministrativeSummary summary() const;
   // Governance, steering committee, RACI, process deviations.
   ProjectOrganizationAndProcess projectOrganizationProcess() const;
-  // Team, distribution, reference documents, communication.
-  Administrative administrative() const;
+  // Project organization (org structure, steering committee).
+  ProjectOrganization projectOrganization() const;
+  // Project team staffing — contains 1+× Team Member.
+  ProjectTeamStaffing projectTeamStaffing() const;
+  // Distribution list and communication matrix.
+  DistributionList distributionList() const;
+  // Change procedure.
+  ChangeProcedure changeProcedure() const;
+  // Legal and contractual requirements (IP, NDAs, compliance, audit).
+  // Renamed to `LegalAndContractualRequirements` in L34C-9.
+  OtherAdministrativeRequirements legalAndContractual() const;
   // Stakeholder register (§5 completeness addition).
   StakeholderRegister stakeholderRegister() const;
 };

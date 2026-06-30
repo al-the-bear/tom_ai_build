@@ -98,7 +98,6 @@ typedef struct { SomNode node; } AdminInterfaceRequirementsDashboard;
 typedef struct { SomNode node; } AdminInterfaceRequirementsData;
 typedef struct { SomNode node; } AdminInterfaceRequirementsOperations;
 typedef struct { SomNode node; } AdministrationRequirementsSection;
-typedef struct { SomNode node; } Administrative;
 typedef struct { SomNode node; } AdministrativeEventPolicy;
 typedef struct { SomNode node; } AdministrativeSummary;
 typedef struct { SomNode node; } AffectedDepartmentEntry;
@@ -6373,32 +6372,6 @@ BatchJobManagement administration_requirements_section_batch_jobs(const Administ
 AdminEnvironmentManagement administration_requirements_section_environment_management(const AdministrationRequirementsSection *self);
 // System diagnostic tools.
 SystemDiagnosticTools administration_requirements_section_diagnostic_tools(const AdministrationRequirementsSection *self);
-
-// 3. Administrative.
-//
-// Project-specific administrative information including team composition,
-// distribution channels, procedural agreements, and reference documentation.
-// This section defines WHO is involved, HOW they communicate, and WHAT
-// procedures govern changes to project documentation.
-// Binds a Administrative facade to a document and a path (path copied).
-void administrative_init(Administrative *self, SpecDocument *doc, const char *path);
-void administrative_free(Administrative *self);
-char *administrative_content(const Administrative *self);
-void administrative_set_content(Administrative *self, const char *value);
-// Administrative overview summary.
-AdministrativeSummary administrative_summary(const Administrative *self);
-// 3.1. Project Organization.
-ProjectOrganization administrative_project_organization(const Administrative *self);
-// 3.2. Project Team Staffing — contains 1+× Team Member.
-ProjectTeamStaffing administrative_project_team_staffing(const Administrative *self);
-// 3.3. Distribution List.
-DistributionList administrative_distribution_list(const Administrative *self);
-// 3.4. Change Procedure.
-ChangeProcedure administrative_change_procedure(const Administrative *self);
-// 3.5. Reference Documents — contains 0+× Reference Document.
-ReferenceDocuments administrative_reference_documents(const Administrative *self);
-// 3.6. Other Administrative Requirements.
-OtherAdministrativeRequirements administrative_other_administrative(const Administrative *self);
 
 // Administrative event policy (form).
 //
@@ -14637,6 +14610,11 @@ RevisionHistory document_control_revision_history(const DocumentControl *self);
 // Formal approvals (sign-offs) recorded for this document.
 // Returns the list view; element type: ApprovalRecord (construct from item paths).
 SomList document_control_approvals(const DocumentControl *self);
+// Reference documents — the catalogue of documents this specification draws
+// on (standards, policies, regulations, related specs). Re-homed here from
+// the former §3 `Administrative` wrapper in L34C-5: referenced documents are
+// ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+ReferenceDocuments document_control_reference_documents(const DocumentControl *self);
 
 // Standard document header present at the top of every TomSpecs document.
 //
@@ -24825,7 +24803,7 @@ void reference_document_entry_metadata_init(ReferenceDocumentEntryMetadata *self
 void reference_document_entry_metadata_free(ReferenceDocumentEntryMetadata *self);
 ReferenceDocumentEntryMetadataContentForm reference_document_entry_metadata_content(const ReferenceDocumentEntryMetadata *self);
 
-// 3.5. Reference Documents.
+// Reference Documents.
 //
 // Catalog of all documents referenced by this project specification,
 // including enterprise standards, technical guidelines, regulatory
@@ -29702,10 +29680,22 @@ void stakeholders_and_governance_init(StakeholdersAndGovernance *self, SpecDocum
 void stakeholders_and_governance_free(StakeholdersAndGovernance *self);
 char *stakeholders_and_governance_content(const StakeholdersAndGovernance *self);
 void stakeholders_and_governance_set_content(StakeholdersAndGovernance *self, const char *value);
+// Governance overview summary statistics (folded in from the former
+// `AdministrativeSummary` when the `Administrative` wrapper was dissolved).
+AdministrativeSummary stakeholders_and_governance_summary(const StakeholdersAndGovernance *self);
 // Governance, steering committee, RACI, process deviations.
 ProjectOrganizationAndProcess stakeholders_and_governance_project_organization_process(const StakeholdersAndGovernance *self);
-// Team, distribution, reference documents, communication.
-Administrative stakeholders_and_governance_administrative(const StakeholdersAndGovernance *self);
+// Project organization (org structure, steering committee).
+ProjectOrganization stakeholders_and_governance_project_organization(const StakeholdersAndGovernance *self);
+// Project team staffing — contains 1+× Team Member.
+ProjectTeamStaffing stakeholders_and_governance_project_team_staffing(const StakeholdersAndGovernance *self);
+// Distribution list and communication matrix.
+DistributionList stakeholders_and_governance_distribution_list(const StakeholdersAndGovernance *self);
+// Change procedure.
+ChangeProcedure stakeholders_and_governance_change_procedure(const StakeholdersAndGovernance *self);
+// Legal and contractual requirements (IP, NDAs, compliance, audit).
+// Renamed to `LegalAndContractualRequirements` in L34C-9.
+OtherAdministrativeRequirements stakeholders_and_governance_legal_and_contractual(const StakeholdersAndGovernance *self);
 // Stakeholder register (§5 completeness addition).
 StakeholderRegister stakeholders_and_governance_stakeholder_register(const StakeholdersAndGovernance *self);
 

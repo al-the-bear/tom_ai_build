@@ -1,50 +1,24 @@
-/// Section 3: Administrative.
+/// Administrative governance classes (SBP.4 children).
 ///
-/// Project administration: team, distribution, change procedure, references.
-/// Covers organizational aspects of the project including governance structure,
-/// staffing, communication channels, change management, and reference materials.
+/// Project administration: team, distribution, change procedure, and
+/// legal/contractual requirements. Covers organizational aspects of the
+/// project including governance structure, staffing, communication channels,
+/// and change management.
+///
+/// The former `Administrative` (`ADMN`) wrapper was dissolved in L34C-5; these
+/// classes now hang directly off SBP.4 `StakeholdersAndGovernance`.
+/// `ReferenceDocuments` was re-homed to SBP.1 `DocumentControl`.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-/// 3. Administrative.
-///
-/// Project-specific administrative information including team composition,
-/// distribution channels, procedural agreements, and reference documentation.
-/// This section defines WHO is involved, HOW they communicate, and WHAT
-/// procedures govern changes to project documentation.
-@SectionId('ADMN')
-class Administrative {
-  @ContentHelp('''
-Executive summary of project administrative arrangements.
-Describe the overall governance model, communication approach, and key
-administrative agreements that govern this project. Highlight any deviations
-from standard organizational project governance procedures.
-''')
-  String? content;
-
-  /// Administrative overview summary.
-  AdministrativeSummary summary = AdministrativeSummary();
-
-  /// 3.1. Project Organization.
-  ProjectOrganization projectOrganization = ProjectOrganization();
-
-  /// 3.2. Project Team Staffing — contains 1+× Team Member.
-  ProjectTeamStaffing projectTeamStaffing = ProjectTeamStaffing();
-
-  /// 3.3. Distribution List.
-  DistributionList distributionList = DistributionList();
-
-  /// 3.4. Change Procedure.
-  ChangeProcedure changeProcedure = ChangeProcedure();
-
-  /// 3.5. Reference Documents — contains 0+× Reference Document.
-  ReferenceDocuments referenceDocuments = ReferenceDocuments();
-
-  /// 3.6. Other Administrative Requirements.
-  OtherAdministrativeRequirements otherAdministrative =
-      OtherAdministrativeRequirements();
-}
+// The former `Administrative` (`ADMN`) wrapper was dissolved in L34C-5: its
+// children now hang directly off SBP.4 `StakeholdersAndGovernance`
+// (`ProjectOrganization`, `ProjectTeamStaffing`, `DistributionList`,
+// `ChangeProcedure`, `OtherAdministrativeRequirements`, and the
+// `AdministrativeSummary` governance overview), and `ReferenceDocuments` was
+// re-homed to SBP.1 `DocumentControl` (ISO/IEC/IEEE 29148 §6 front matter).
+// The classes below remain here; only the wrapper class was removed.
 
 // ---------------------------------------------------------------------------
 // 3.1 Project Organization
@@ -1280,168 +1254,9 @@ class ChangeCategoryEntryGovernance {
 // 3.5 Reference Documents
 // ---------------------------------------------------------------------------
 
-/// 3.5. Reference Documents.
-///
-/// Catalog of all documents referenced by this project specification,
-/// including enterprise standards, technical guidelines, regulatory
-/// requirements, and related project documentation.
-@ContentHelp('List all documents that provide context, requirements, '
-    'constraints, or guidance for this project. Include enterprise '
-    'architecture documents, standards, policies, regulations, '
-    'and related project specifications.')
-@SectionId('RD')
-class ReferenceDocuments {
-  @ContentType('description', 'Overview of reference document categories and '
-      'their relevance to the project.')
-  String? content;
-
-  /// Reference document entries — contains 0+× Reference Document.
-  @SectionId('RFDOC-DOCU-LST')
-  @SectionIdPattern('RFDOC-DOCU-xxx')
-  List<ReferenceDocumentEntry> documents = [];
-}
-
-/// A reference document entry (form).
-///
-/// Detailed metadata for a single referenced document including
-/// identification, classification, status, and applicability.
-@SectionId('RFDOC')
-class ReferenceDocumentEntry {
-  @Form([
-    Field('documentTitle', String, 'Document Title', required: true),
-    Field('documentId', String, 'Document ID (internal reference number)'),
-    Field('version', String, 'Version'),
-  ])
-  String? content;
-
-  /// Document metadata and relevance.
-  ReferenceDocumentEntryMetadata metadata = ReferenceDocumentEntryMetadata();
-
-  /// Governance and applicability information.
-  ReferenceDocumentEntryGovernance governance =
-    ReferenceDocumentEntryGovernance();
-
-  /// Lifecycle and usage details.
-  ReferenceDocumentEntryLifecycle lifecycle =
-    ReferenceDocumentEntryLifecycle();
-
-  /// Key sections or chapters within the document relevant to this project.
-  DocumentRelevantSections relevantSections = DocumentRelevantSections();
-
-  /// Relationship to other reference documents.
-  DocumentRelationships relationships = DocumentRelationships();
-}
-
-/// Document metadata and relevance.
-@SectionId('RDEM')
-class ReferenceDocumentEntryMetadata {
-  @Form([
-    Field('author', String, 'Author / Issuing Organization'),
-    Field('date', String, 'Publication / Effective Date'),
-    Field('purpose', String, 'Purpose / Relevance to Project'),
-    Field('location', String, 'Location (URL, repository, or physical)'),
-    Field('documentType', String,
-        'Document Type (Standard, Policy, Regulation, Specification, etc.)'),
-  ])
-  String? content;
-}
-
-/// Governance and applicability information.
-@SectionId('RDEG')
-class ReferenceDocumentEntryGovernance {
-  @Form([
-    Field('classification', String,
-        'Classification (Public, Internal, Confidential, Restricted)'),
-    Field('status', String,
-        'Status (Current, Draft, Under Review, Superseded, Archived)'),
-    Field('applicability', String,
-        'Applicability (which project phases or components this applies to)'),
-    Field('validUntil', String, 'Valid Until (expiration or review date)'),
-    Field('lastReviewedDate', String, 'Last Reviewed Date'),
-    Field('accessRestrictions', String,
-        'Access Restrictions (who can access, special permissions required)'),
-  ])
-  String? content;
-}
-
-/// Lifecycle and usage details.
-@SectionId('RDEL')
-class ReferenceDocumentEntryLifecycle {
-  @Form([
-    Field('supersedes', String, 'Supersedes Document (if replacing older doc)'),
-    Field('supersededBy', String, 'Superseded By (if this doc is deprecated)'),
-    Field('language', String, 'Language'),
-    Field('format', String, 'Format (PDF, Word, HTML, Confluence, etc.)'),
-    Field('notes', String, 'Additional Notes'),
-  ])
-  String? content;
-}
-
-/// Key sections within a reference document relevant to the project.
-@SectionId('DORESE')
-class DocumentRelevantSections {
-  @Form([
-    Field('sectionReference', String,
-        'Section Reference (chapter, section, or page number)', required: true),
-    Field(
-        'sectionTitle', String, 'Section Title or Description', required: true),
-    Field('relevance', String, 'Relevance to Project'),
-    Field('extractSummary', String,
-        'Summary / Key Extract (brief summary of applicable content)'),
-  ])
-  String? content;
-
-  /// Individual relevant section entries.
-  @SectionId('RESEEN-SECT-LST')
-  @SectionIdPattern('RESEEN-SECT-xxx')
-  List<RelevantSectionEntry> sections = [];
-}
-
-/// A single relevant section entry within a reference document.
-@SectionId('RESEEN')
-class RelevantSectionEntry {
-  @Form([
-    Field('sectionReference', String,
-        'Section Reference (chapter, section, or page number)', required: true),
-    Field(
-        'sectionTitle', String, 'Section Title or Description', required: true),
-    Field('relevance', String,
-        'Relevance (how this section applies to the project)'),
-    Field('extractSummary', String,
-        'Summary / Key Extract (brief summary of applicable content)'),
-    Field('complianceRequired', bool,
-        'Compliance Required (must project comply with this section?)'),
-  ])
-  String? content;
-}
-
-/// Relationships between reference documents.
-@SectionId('DORE')
-class DocumentRelationships {
-  @ContentType('description', 'Describe how this document relates to '
-      'other reference documents in the catalog.')
-  String? content;
-
-  /// Related document entries.
-  @SectionId('REDOEN-RELA-LST')
-  @SectionIdPattern('REDOEN-RELA-xxx')
-  List<RelatedDocumentEntry> relatedDocuments = [];
-}
-
-/// A relationship to another reference document.
-@SectionId('REDOEN')
-class RelatedDocumentEntry {
-  @Form([
-    Field('relatedDocumentId', String, 'Related Document ID', required: true),
-    Field('relatedDocumentTitle', String, 'Related Document Title'),
-    Field('relationshipType', String,
-        'Relationship Type (Depends On, Referenced By, Supersedes, '
-            'Complements, Conflicts With, Parent Of, Child Of)'),
-    Field('relationshipDescription', String,
-        'Relationship Description (explain the connection)'),
-  ])
-  String? content;
-}
+// `ReferenceDocuments` (`RD`) and its subtree (`RFDOC`, `RDEM`, `RDEG`, `RDEL`,
+// `DORESE`, `RESEEN`, `DORE`, `REDOEN`) were re-homed to SBP.1
+// `DocumentControl` in L34C-5 (referenced documents are 29148 §6 front matter).
 
 // ---------------------------------------------------------------------------
 // 3.6 Other Administrative Requirements

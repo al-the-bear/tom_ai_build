@@ -1395,64 +1395,6 @@ func (x *AdministrationRequirementsSection) DiagnosticTools() *SystemDiagnosticT
 	return NewSystemDiagnosticTools(x.Doc(), x.Path() + "/diagnosticTools")
 }
 
-// 3. Administrative.
-//
-// Project-specific administrative information including team composition,
-// distribution channels, procedural agreements, and reference documentation.
-// This section defines WHO is involved, HOW they communicate, and WHAT
-// procedures govern changes to project documentation.
-type Administrative struct {
-	som.SomNode
-}
-
-// NewAdministrative binds a Administrative facade to a document and a path.
-func NewAdministrative(doc *som.SpecDocument, path string) *Administrative {
-	return &Administrative{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *Administrative) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *Administrative) SetContent(value string) {
-	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// Administrative overview summary.
-func (x *Administrative) Summary() *AdministrativeSummary {
-	return NewAdministrativeSummary(x.Doc(), x.Path() + "/summary")
-}
-
-// 3.1. Project Organization.
-func (x *Administrative) ProjectOrganization() *ProjectOrganization {
-	return NewProjectOrganization(x.Doc(), x.Path() + "/projectOrganization")
-}
-
-// 3.2. Project Team Staffing — contains 1+× Team Member.
-func (x *Administrative) ProjectTeamStaffing() *ProjectTeamStaffing {
-	return NewProjectTeamStaffing(x.Doc(), x.Path() + "/projectTeamStaffing")
-}
-
-// 3.3. Distribution List.
-func (x *Administrative) DistributionList() *DistributionList {
-	return NewDistributionList(x.Doc(), x.Path() + "/distributionList")
-}
-
-// 3.4. Change Procedure.
-func (x *Administrative) ChangeProcedure() *ChangeProcedure {
-	return NewChangeProcedure(x.Doc(), x.Path() + "/changeProcedure")
-}
-
-// 3.5. Reference Documents — contains 0+× Reference Document.
-func (x *Administrative) ReferenceDocuments() *ReferenceDocuments {
-	return NewReferenceDocuments(x.Doc(), x.Path() + "/referenceDocuments")
-}
-
-// 3.6. Other Administrative Requirements.
-func (x *Administrative) OtherAdministrative() *OtherAdministrativeRequirements {
-	return NewOtherAdministrativeRequirements(x.Doc(), x.Path() + "/otherAdministrative")
-}
-
 // Administrative event policy (form).
 //
 // Defines which administrative events are logged.
@@ -20460,6 +20402,14 @@ func (x *DocumentControl) Approvals() *som.SomList[*ApprovalRecord] {
 	return som.NewSomList(x.Doc(), x.Path() + "/DOCTL-APRV-LST", func(d *som.SpecDocument, p string) *ApprovalRecord {
 		return NewApprovalRecord(d, p)
 	})
+}
+
+// Reference documents — the catalogue of documents this specification draws
+// on (standards, policies, regulations, related specs). Re-homed here from
+// the former §3 `Administrative` wrapper in L34C-5: referenced documents are
+// ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+func (x *DocumentControl) ReferenceDocuments() *ReferenceDocuments {
+	return NewReferenceDocuments(x.Doc(), x.Path() + "/referenceDocuments")
 }
 
 // Standard document header present at the top of every TomSpecs document.
@@ -43667,7 +43617,7 @@ func (x *ReferenceDocumentEntryMetadata) Content() *ReferenceDocumentEntryMetada
 	return NewReferenceDocumentEntryMetadataContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 3.5. Reference Documents.
+// Reference Documents.
 //
 // Catalog of all documents referenced by this project specification,
 // including enterprise standards, technical guidelines, regulatory
@@ -54774,14 +54724,41 @@ func (x *StakeholdersAndGovernance) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
+// Governance overview summary statistics (folded in from the former
+// `AdministrativeSummary` when the `Administrative` wrapper was dissolved).
+func (x *StakeholdersAndGovernance) Summary() *AdministrativeSummary {
+	return NewAdministrativeSummary(x.Doc(), x.Path() + "/summary")
+}
+
 // Governance, steering committee, RACI, process deviations.
 func (x *StakeholdersAndGovernance) ProjectOrganizationProcess() *ProjectOrganizationAndProcess {
 	return NewProjectOrganizationAndProcess(x.Doc(), x.Path() + "/projectOrganizationProcess")
 }
 
-// Team, distribution, reference documents, communication.
-func (x *StakeholdersAndGovernance) Administrative() *Administrative {
-	return NewAdministrative(x.Doc(), x.Path() + "/administrative")
+// Project organization (org structure, steering committee).
+func (x *StakeholdersAndGovernance) ProjectOrganization() *ProjectOrganization {
+	return NewProjectOrganization(x.Doc(), x.Path() + "/projectOrganization")
+}
+
+// Project team staffing — contains 1+× Team Member.
+func (x *StakeholdersAndGovernance) ProjectTeamStaffing() *ProjectTeamStaffing {
+	return NewProjectTeamStaffing(x.Doc(), x.Path() + "/projectTeamStaffing")
+}
+
+// Distribution list and communication matrix.
+func (x *StakeholdersAndGovernance) DistributionList() *DistributionList {
+	return NewDistributionList(x.Doc(), x.Path() + "/distributionList")
+}
+
+// Change procedure.
+func (x *StakeholdersAndGovernance) ChangeProcedure() *ChangeProcedure {
+	return NewChangeProcedure(x.Doc(), x.Path() + "/changeProcedure")
+}
+
+// Legal and contractual requirements (IP, NDAs, compliance, audit).
+// Renamed to `LegalAndContractualRequirements` in L34C-9.
+func (x *StakeholdersAndGovernance) LegalAndContractual() *OtherAdministrativeRequirements {
+	return NewOtherAdministrativeRequirements(x.Doc(), x.Path() + "/legalAndContractual")
 }
 
 // Stakeholder register (§5 completeness addition).
