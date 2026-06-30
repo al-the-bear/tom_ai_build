@@ -11256,10 +11256,17 @@ user experience, and team efficiency.
   recovery, backup verification
 - **Deployment Strategy**: Deployment model, CI/CD pipeline, release
   strategy, rollback, configuration management
-- **Monitoring and Alerting**: Metrics, APM, logging, alerts, dashboards,
-  on-call, incident management
+- **Monitoring and Alerting**: Release/DevOps deployment-pipeline
+  observability — build/deploy health, pipeline alerts, release gates,
+  rollback triggers
 - **Maintenance Windows**: Scheduled maintenance, emergency procedures,
   change management, user communication
+
+**Ownership boundary**: This section owns *release/DevOps* concerns. The
+*runtime* operational monitoring (health checks, runtime metrics, SLA/SLO
+tracking, dashboards, on-call, incident management) is owned by SBP.8.7
+`SystemOperationAndMonitoring` (runtime SRE) — reference it, do not
+restate it here.
 
 **DevOps/SRE Principles**:
 - Automation over manual processes
@@ -15703,10 +15710,14 @@ Day-to-day operations ensure the system runs reliably and efficiently.
 **Subsections**:
 - **System Operation**: Administration, maintenance procedures, user
   provisioning, configuration management
-- **Monitoring**: Health checks, alerting, metrics, dashboards, SLA/SLO
-  tracking, incident management
+- **Monitoring**: Health checks, runtime alerting, metrics, dashboards,
+  SLA/SLO tracking, on-call, incident management
 - **Capacity Planning**: Growth projections, scaling triggers, resource
   baselines, capacity reviews
+
+**Ownership boundary**: This section is the single owner of *runtime*
+operational monitoring (runtime SRE). Release/DevOps deployment-pipeline
+observability is owned by SBP.8.5 `OperationsRequirements`.
 
 **Operational Excellence**:
 - Runbook-driven operations
@@ -18480,12 +18491,16 @@ and must be considered throughout the system lifecycle.
 - Secure by default
 - Fail securely
 
-**Security Domains**:
+**Security Domains** (technical requirements and standards only):
 - Application security (OWASP Top 10, secure coding)
 - Infrastructure security (network, cloud, endpoints)
-- Data security (encryption, access control, DLP)
-- Identity and access management (AuthN, AuthZ)
+- Data security (encryption, DLP)
 - Incident response (detection, response, recovery)
+
+**Ownership boundary**: This section owns *technical security
+requirements and standards*. The identity and access-control **model**
+(authentication, authorization, roles, permissions) is owned by SBP.12
+`SecurityAndAccessModel` — reference it here, do not restate it.
 
 **Reference Frameworks**: NIST Cybersecurity Framework, ISO 27001,
 CIS Controls, OWASP ASVS, SOC 2 Trust Criteria.
