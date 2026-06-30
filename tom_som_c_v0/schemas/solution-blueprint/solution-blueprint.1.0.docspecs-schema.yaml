@@ -43,7 +43,7 @@ section-types:
     pattern-check-id:
       pattern: ^afdeen_affe_lst-\d+$
       error-message: ID must match afdeen_affe_lst-NNN
-    description: Departments and business units affected.
+    description: "List each affected department with its role, impact level, and key contacts so organizational reach is fully documented."
   ALDEEN-ALER-LST:
     prefix: aldeen_aler_lst
     pattern-check-id:
@@ -263,7 +263,7 @@ section-types:
     pattern-check-id:
       pattern: ^demaen_deci_lst-\d+$
       error-message: ID must match demaen_deci_lst-NNN
-    description: Key decision makers and their roles.
+    description: "List each decision maker with their decision authority, domains, and influence level to map governance and approval paths."
   DEOPEN-OPTI-LST:
     prefix: deopen_opti_lst
     pattern-check-id:
@@ -414,7 +414,7 @@ section-types:
     pattern-check-id:
       pattern: ^incoe1_inte_lst-\d+$
       error-message: ID must match incoe1_inte_lst-NNN
-    description: Integration constraints — contains 0+× IntegrationConstraint.
+    description: "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect."
   INCOEN-INFR-LST:
     prefix: incoen_infr_lst
     pattern-check-id:
@@ -666,7 +666,7 @@ section-types:
     pattern-check-id:
       pattern: ^refude_func_lst-\d+$
       error-message: ID must match refude_func_lst-NNN
-    description: Function details and scope.
+    description: "Describe the function's scope, boundaries, and business criticality to frame its responsibility assignment."
   REMROL-REMO-LST:
     prefix: remrol_remo_lst
     pattern-check-id:
@@ -909,7 +909,7 @@ section-types:
     pattern-check-id:
       pattern: ^testen_tech_lst-\d+$
       error-message: ID must match testen_tech_lst-NNN
-    description: Technology standards — contains 0+× TechnologyStandard.
+    description: "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations."
   THPALI-THIR-LST:
     prefix: thpali_thir_lst
     pattern-check-id:
@@ -1078,7 +1078,7 @@ section-types:
     pattern-check-id:
       pattern: ^chang_chan_lst-\d+$
       error-message: ID must match chang_chan_lst-NNN
-    description: Change champions and sponsors.
+    description: "List change champions and sponsors, noting their influence and role in driving adoption across the organization."
   CMPNT-COMP-LST:
     prefix: cmpnt_comp_lst
     pattern-check-id:
@@ -1097,7 +1097,7 @@ section-types:
     pattern-check-id:
       pattern: ^commu_comm_lst-\d+$
       error-message: ID must match commu_comm_lst-NNN
-    description: Stakeholder communication preferences.
+    description: "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style."
   COMPE-CORE-LST:
     prefix: compe_core_lst
     pattern-check-id:
@@ -1139,7 +1139,7 @@ section-types:
     pattern-check-id:
       pattern: ^cultu_cult_lst-\d+$
       error-message: ID must match cultu_cult_lst-NNN
-    description: Cultural considerations and organizational dynamics.
+    description: "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness."
   DAATT-ATTR-LST:
     prefix: daatt_attr_lst
     pattern-check-id:
@@ -1169,7 +1169,7 @@ section-types:
     pattern-check-id:
       pattern: ^datac_data_lst-\d+$
       error-message: ID must match datac_data_lst-NNN
-    description: Data center and hosting environment details.
+    description: "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints."
   DCAUT-DECI-LST:
     prefix: dcaut_deci_lst
     pattern-check-id:
@@ -1204,7 +1204,7 @@ section-types:
     pattern-check-id:
       pattern: ^devop_devo_lst-\d+$
       error-message: ID must match devop_devo_lst-NNN
-    description: DevOps and deployment standards.
+    description: "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules."
   DFSCP-DEFE-LST:
     prefix: dfscp_defe_lst
     pattern-check-id:
@@ -1647,7 +1647,7 @@ section-types:
     pattern-check-id:
       pattern: ^obser_obse_lst-\d+$
       error-message: ID must match obser_obse_lst-NNN
-    description: Monitoring and observability requirements.
+    description: "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms."
   OCRSK-RISK-LST:
     prefix: ocrsk_risk_lst
     pattern-check-id:
@@ -1888,7 +1888,7 @@ section-types:
     pattern-check-id:
       pattern: ^reen1_item_lst-\d+$
       error-message: ID must match reen1_item_lst-NNN
-    description: Contains 0+× Responsibility.
+    description: "Add one entry per functional area, capturing its RACI assignment, contacts, and related systems."
   REGRQ-REQU-LST:
     prefix: regrq_requ_lst
     pattern-check-id:
@@ -2918,7 +2918,7 @@ section-types:
     pattern-check-id:
       pattern: ^reco_cont_lst-\d+$
       error-message: ID must match reco_cont_lst-NNN
-    description: Key contacts.
+    description: "Identify the domain owner, data steward, and operational, technical, and escalation contacts for this function."
   REEN-REPO-LST:
     prefix: reen_repo_lst
     pattern-check-id:
@@ -2936,13 +2936,13 @@ section-types:
     pattern-check-id:
       pattern: ^resy_syst_lst-\d+$
       error-message: ID must match resy_syst_lst-NNN
-    description: Related systems and data.
+    description: "List the primary systems, data, and process ownership associated with this functional responsibility."
   RIEN-KEYR-LST:
     prefix: rien_keyr_lst
     pattern-check-id:
       pattern: ^rien_keyr_lst-\d+$
       error-message: ID must match rien_keyr_lst-NNN
-    description: 4.7.1. Key Risks — contains 0+× Risk.
+    description: "List of identified project risks, each capturing analysis, response, ownership, and monitoring detail."
   RPPE-RELA-LST:
     prefix: rppe_rela_lst
     pattern-check-id:
@@ -3351,7 +3351,7 @@ section-types:
     pattern-check-id:
       pattern: ^rr_rela_lst-\d+$
       error-message: ID must match rr_rela_lst-NNN
-    description: "Relationships to other risks, assumptions, and project elements."
+    description: "Relationships connecting this risk to other risks, assumptions, requirements, and affected project elements."
   DASURIMAAU:
     prefix: dasurimaau
     description: Automated decision safeguards.

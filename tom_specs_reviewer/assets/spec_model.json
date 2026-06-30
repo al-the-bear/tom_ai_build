@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T23:00:13.496027Z",
+  "generatedAt": "2026-06-30T23:21:03.782236Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -5846,7 +5846,24 @@
       "name": "AffectedDepartmentEntry",
       "sectionId": "ADE",
       "doc": "An affected department entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21500 — organizational roles & responsibilities",
+          "TOGAF — enterprise context & environment"
+        ],
+        "connotation": "Documents a single affected department, its role in the project, and its readiness to absorb change."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21500 — organizational roles & responsibilities",
+              "TOGAF — enterprise context & environment"
+            ],
+            "connotation": "Documents a single affected department, its role in the project, and its readiness to absorb change."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -5877,54 +5894,63 @@
             {
               "name": "departmentName",
               "label": "Department Name",
+              "hint": "Name of the affected department or business unit",
               "type": "String",
               "required": true
             },
             {
               "name": "departmentHead",
               "label": "Department Head",
+              "hint": "Person leading the department",
               "type": "String",
               "required": false
             },
             {
               "name": "employeeCount",
               "label": "Employee Count",
+              "hint": "Number of employees in the department",
               "type": "int",
               "required": false
             },
             {
               "name": "impactLevel",
               "label": "Impact Level (High, Medium, Low)",
+              "hint": "Degree to which the project affects this department",
               "type": "String",
               "required": false
             },
             {
               "name": "roleInProject",
               "label": "Role (Sponsor, User, Data Owner, Operations, Support)",
+              "hint": "How this department participates in the project",
               "type": "String",
               "required": false
             },
             {
               "name": "currentSystems",
               "label": "Current Systems Used",
+              "hint": "Existing systems the department relies on",
               "type": "String",
               "required": false
             },
             {
               "name": "changeReadiness",
               "label": "Change Readiness (High, Medium, Low)",
+              "hint": "Department capacity and appetite for change",
               "type": "String",
               "required": false
             },
             {
               "name": "keyContacts",
               "label": "Key Contacts",
+              "hint": "Primary contacts within the department",
               "type": "String",
               "required": false
             },
             {
               "name": "specialConsiderations",
               "label": "Special Considerations",
+              "hint": "Any constraints or special factors to note",
               "type": "String",
               "required": false
             }
@@ -46949,7 +46975,24 @@
       "name": "ConstraintsAndDependencies",
       "sectionId": "COANDE",
       "doc": "4.6.4. Constraints and Dependencies.\n\nOperating-environment view of the constraints and dependencies that shape\nproject execution. The canonical register of constraints and dependencies\nlives in SBP.6 (Assumptions, Constraints & Dependencies). This node does\n**not** restate that register (L34C-4 consolidation, SR-10): it frames how\nthe framework conditions documented in SBP.2 §4.6 give rise to the entries\nrecorded in SBP.6, and points the reader there.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 §6 — operating environment & constraints",
+          "PMBOK — constraints, assumptions & dependency management"
+        ],
+        "connotation": "Frames how the operating-environment conditions in §4.6 give rise to constraints and dependencies, pointing to the canonical SBP.6 register."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints",
+              "PMBOK — constraints, assumptions & dependency management"
+            ],
+            "connotation": "Frames how the operating-environment conditions in §4.6 give rise to constraints and dependencies, pointing to the canonical SBP.6 register."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -67164,7 +67207,24 @@
       "name": "DecisionMakerEntry",
       "sectionId": "DME",
       "doc": "A decision maker entry.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21500 — organizational roles & responsibilities",
+          "PMBOK — enterprise environmental factors (EEF)"
+        ],
+        "connotation": "Documents a single decision maker, their authority and domains, so approval and governance paths are explicit."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21500 — organizational roles & responsibilities",
+              "PMBOK — enterprise environmental factors (EEF)"
+            ],
+            "connotation": "Documents a single decision maker, their authority and domains, so approval and governance paths are explicit."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -67195,60 +67255,70 @@
             {
               "name": "name",
               "label": "Name",
+              "hint": "Full name of the decision maker",
               "type": "String",
               "required": true
             },
             {
               "name": "title",
               "label": "Title/Role",
+              "hint": "Formal title or organizational role",
               "type": "String",
               "required": false
             },
             {
               "name": "department",
               "label": "Department",
+              "hint": "Department the decision maker belongs to",
               "type": "String",
               "required": false
             },
             {
               "name": "decisionAuthority",
               "label": "Authority (Executive Sponsor, Steering Committee, Budget Owner, etc.)",
+              "hint": "Type of authority this person holds",
               "type": "String",
               "required": false
             },
             {
               "name": "decisionDomains",
               "label": "Decision Domains (Scope, Budget, Timeline, Technology, Resources)",
+              "hint": "Areas where this person makes decisions",
               "type": "String",
               "required": false
             },
             {
               "name": "influenceLevel",
               "label": "Influence Level (High, Medium, Low)",
+              "hint": "Degree of influence over project outcomes",
               "type": "String",
               "required": false
             },
             {
               "name": "approvalRequired",
               "label": "Approval Required For",
+              "hint": "What requires this person to sign off",
               "type": "String",
               "required": false
             },
             {
               "name": "availabilityConstraints",
               "label": "Availability/Constraints",
+              "hint": "Limits on availability or engagement",
               "type": "String",
               "required": false
             },
             {
               "name": "stakeholderAlignment",
               "label": "Stakeholder Alignment (Supportive, Neutral, Skeptical)",
+              "hint": "Current stance toward the project",
               "type": "String",
               "required": false
             },
             {
               "name": "communicationPreference",
               "label": "Communication Preference",
+              "hint": "Preferred channel and cadence for updates",
               "type": "String",
               "required": false
             }
@@ -103654,7 +103724,26 @@
       "name": "FunctionalResponsibilities",
       "sectionId": "FURE",
       "doc": "4.6.2. Functional Responsibilities.\n\nMaps system functions to organizational units responsible for them.\nIdentifies domain owners, data stewards, and operational contacts for\neach function area. Follows RACI matrix patterns and enterprise\naccountability frameworks.",
+      "standardReferences": {
+        "standards": [
+          "RACI / responsibility assignment — functional responsibilities",
+          "ISO 21500 — organizational roles & responsibilities",
+          "TOGAF — enterprise context & environment"
+        ],
+        "connotation": "Maps system functions to the organizational units accountable for them so ownership and accountability are unambiguous."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities",
+              "ISO 21500 — organizational roles & responsibilities",
+              "TOGAF — enterprise context & environment"
+            ],
+            "connotation": "Maps system functions to the organizational units accountable for them so ownership and accountability are unambiguous."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -103753,10 +103842,28 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Responsibility.",
+          "help": "Add one entry per functional area, capturing its RACI assignment, contacts, and related systems.",
           "sectionId": "REEN1-ITEM-LST",
           "sectionIdPattern": "REEN1-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities",
+              "ISO 21500 — organizational roles & responsibilities"
+            ],
+            "connotation": "Holds the per-function responsibility entries that make up the overall responsibility matrix."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "RACI / responsibility assignment — functional responsibilities",
+                  "ISO 21500 — organizational roles & responsibilities"
+                ],
+                "connotation": "Holds the per-function responsibility entries that make up the overall responsibility matrix."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -103767,6 +103874,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "REEN1-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per functional area, capturing its RACI assignment, contacts, and related systems."
               }
             },
             {
@@ -114336,7 +114449,24 @@
       "name": "IntegrationConstraintEntry",
       "sectionId": "INTCONENT",
       "doc": "An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.",
+      "standardReferences": {
+        "standards": [
+          "TOGAF — technology architecture & environment",
+          "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+        ],
+        "connotation": "Documents a single technical constraint on system integration that the solution must respect."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+            ],
+            "connotation": "Documents a single technical constraint on system integration that the solution must respect."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114453,7 +114583,24 @@
       "name": "IntegrationConstraintEntryCompliance",
       "sectionId": "INCOENCO",
       "doc": "Compliance rules.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 §6 — operating environment & constraints",
+          "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+        ],
+        "connotation": "Captures whether compliance with an integration constraint is mandatory and how it is validated."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints",
+              "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+            ],
+            "connotation": "Captures whether compliance with an integration constraint is mandatory and how it is validated."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114503,7 +114650,24 @@
       "name": "IntegrationConstraintEntryDetails",
       "sectionId": "INCOENDE",
       "doc": "Constraint details.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 §6 — operating environment & constraints",
+          "TOGAF — technology architecture & environment"
+        ],
+        "connotation": "Captures the type, value, and source of an integration constraint."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints",
+              "TOGAF — technology architecture & environment"
+            ],
+            "connotation": "Captures the type, value, and source of an integration constraint."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114560,7 +114724,24 @@
       "name": "IntegrationConstraintEntryMitigation",
       "sectionId": "ICEM",
       "doc": "Impact and mitigation.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — constraints, assumptions & dependency management",
+          "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+        ],
+        "connotation": "Captures the severity of an integration constraint and the design implications and mitigations for it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — constraints, assumptions & dependency management",
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+            ],
+            "connotation": "Captures the severity of an integration constraint and the design implications and mitigations for it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114624,7 +114805,24 @@
       "name": "IntegrationConstraintEntryScope",
       "sectionId": "ICES",
       "doc": "Scope of impact.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29148 §6 — operating environment & constraints",
+          "PMBOK — constraints, assumptions & dependency management"
+        ],
+        "connotation": "Identifies the systems, interfaces, and integration patterns affected by a constraint."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints",
+              "PMBOK — constraints, assumptions & dependency management"
+            ],
+            "connotation": "Identifies the systems, interfaces, and integration patterns affected by a constraint."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -151052,7 +151250,26 @@
       "name": "OperatingEnvironment",
       "sectionId": "FRCO",
       "doc": "4.6. Operating Environment.\n\nDocuments the organizational and technical environment in which the system\nwill operate. Covers organizational structure, functional responsibilities,\ntechnical constraints, and external dependencies. Follows TOGAF enterprise\ncontext patterns and PMBOK environmental factors analysis.",
+      "standardReferences": {
+        "standards": [
+          "TOGAF — enterprise context & environment",
+          "PMBOK — enterprise environmental factors (EEF)",
+          "ISO/IEC/IEEE 29148 §6 — operating environment"
+        ],
+        "connotation": "Captures the organizational and technical environment in which the system operates so that environmental factors and constraints inform the solution design."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "TOGAF — enterprise context & environment",
+              "PMBOK — enterprise environmental factors (EEF)",
+              "ISO/IEC/IEEE 29148 §6 — operating environment"
+            ],
+            "connotation": "Captures the organizational and technical environment in which the system operates so that environmental factors and constraints inform the solution design."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -152948,7 +153165,26 @@
       "name": "OrganizationalEnvironment",
       "sectionId": "OREN",
       "doc": "4.6.1. Organizational Environment.\n\nDescribes the organizational context in which the system will operate,\nincluding departments, reporting structures, decision authority, and\norganizational constraints. Follows organizational design principles\nand enterprise architecture governance patterns.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21500 — organizational roles & responsibilities",
+          "TOGAF — enterprise context & environment",
+          "PMBOK — enterprise environmental factors (EEF)"
+        ],
+        "connotation": "Describes the organizational context, structures, and decision authority that shape how the project intersects with the existing organization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21500 — organizational roles & responsibilities",
+              "TOGAF — enterprise context & environment",
+              "PMBOK — enterprise environmental factors (EEF)"
+            ],
+            "connotation": "Describes the organizational context, structures, and decision authority that shape how the project intersects with the existing organization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -152979,36 +153215,42 @@
             {
               "name": "organizationName",
               "label": "Organization Name",
+              "hint": "Legal or common name of the organization",
               "type": "String",
               "required": false
             },
             {
               "name": "organizationType",
               "label": "Organization Type (Enterprise, SMB, Startup, Government, Non-profit)",
+              "hint": "Category that best describes the organization",
               "type": "String",
               "required": false
             },
             {
               "name": "industryVertical",
               "label": "Industry Vertical (Finance, Healthcare, Retail, Tech, etc.)",
+              "hint": "Primary industry the organization operates in",
               "type": "String",
               "required": false
             },
             {
               "name": "geographicFootprint",
               "label": "Geographic Footprint (Local, National, Regional, Global)",
+              "hint": "Geographic reach of the organization",
               "type": "String",
               "required": false
             },
             {
               "name": "employeeCount",
               "label": "Employee Count",
+              "hint": "Approximate number of employees",
               "type": "String",
               "required": false
             },
             {
               "name": "revenueRange",
               "label": "Revenue Range",
+              "hint": "Approximate annual revenue band",
               "type": "String",
               "required": false
             }
@@ -153071,10 +153313,28 @@
           "name": "affectedDepartments",
           "kind": "list",
           "doc": "Departments and business units affected.",
+          "help": "List each affected department with its role, impact level, and key contacts so organizational reach is fully documented.",
           "sectionId": "AFDEEN-AFFE-LST",
           "sectionIdPattern": "AFDEEN-AFFE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 21500 — organizational roles & responsibilities",
+              "TOGAF — enterprise context & environment"
+            ],
+            "connotation": "Lists the departments and business units affected by the project so their roles and impact levels are captured."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 21500 — organizational roles & responsibilities",
+                  "TOGAF — enterprise context & environment"
+                ],
+                "connotation": "Lists the departments and business units affected by the project so their roles and impact levels are captured."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -153085,6 +153345,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "AFDEEN-AFFE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List each affected department with its role, impact level, and key contacts so organizational reach is fully documented."
               }
             },
             {
@@ -153124,10 +153390,28 @@
           "name": "decisionMakers",
           "kind": "list",
           "doc": "Key decision makers and their roles.",
+          "help": "List each decision maker with their decision authority, domains, and influence level to map governance and approval paths.",
           "sectionId": "DEMAEN-DECI-LST",
           "sectionIdPattern": "DEMAEN-DECI-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 21500 — organizational roles & responsibilities",
+              "PMBOK — enterprise environmental factors (EEF)"
+            ],
+            "connotation": "Identifies the key decision makers and their authority so governance and approval paths are clear."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 21500 — organizational roles & responsibilities",
+                  "PMBOK — enterprise environmental factors (EEF)"
+                ],
+                "connotation": "Identifies the key decision makers and their authority so governance and approval paths are clear."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -153138,6 +153422,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DEMAEN-DECI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List each decision maker with their decision authority, domains, and influence level to map governance and approval paths."
               }
             },
             {
@@ -153154,10 +153444,28 @@
           "name": "culturalConsiderations",
           "kind": "list",
           "doc": "Cultural considerations and organizational dynamics.",
+          "help": "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.",
           "sectionId": "CULTU-CULT-LST",
           "sectionIdPattern": "CULTU-CULT-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — enterprise environmental factors (EEF)",
+              "TOGAF — enterprise context & environment"
+            ],
+            "connotation": "Captures cultural considerations and organizational dynamics that may influence adoption and change."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — enterprise environmental factors (EEF)",
+                  "TOGAF — enterprise context & environment"
+                ],
+                "connotation": "Captures cultural considerations and organizational dynamics that may influence adoption and change."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -153168,6 +153476,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CULTU-CULT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness."
               }
             },
             {
@@ -153184,10 +153498,28 @@
           "name": "communicationPreferences",
           "kind": "list",
           "doc": "Stakeholder communication preferences.",
+          "help": "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.",
           "sectionId": "COMMU-COMM-LST",
           "sectionIdPattern": "COMMU-COMM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture environment & stakeholders",
+              "PMBOK — enterprise environmental factors (EEF)"
+            ],
+            "connotation": "Records stakeholder communication preferences so engagement and reporting fit the organizational context."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 42010 — architecture environment & stakeholders",
+                  "PMBOK — enterprise environmental factors (EEF)"
+                ],
+                "connotation": "Records stakeholder communication preferences so engagement and reporting fit the organizational context."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -153198,6 +153530,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "COMMU-COMM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style."
               }
             },
             {
@@ -153237,10 +153575,28 @@
           "name": "changeAdvocates",
           "kind": "list",
           "doc": "Change champions and sponsors.",
+          "help": "List change champions and sponsors, noting their influence and role in driving adoption across the organization.",
           "sectionId": "CHANG-CHAN-LST",
           "sectionIdPattern": "CHANG-CHAN-xxx",
+          "standardReferences": {
+            "standards": [
+              "PMBOK — enterprise environmental factors (EEF)",
+              "ISO 21500 — organizational roles & responsibilities"
+            ],
+            "connotation": "Identifies change champions and sponsors who can drive adoption and overcome organizational resistance."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "PMBOK — enterprise environmental factors (EEF)",
+                  "ISO 21500 — organizational roles & responsibilities"
+                ],
+                "connotation": "Identifies change champions and sponsors who can drive adoption and overcome organizational resistance."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -153251,6 +153607,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CHANG-CHAN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List change champions and sponsors, noting their influence and role in driving adoption across the organization."
               }
             },
             {
@@ -153269,7 +153631,24 @@
       "name": "OrganizationalEnvironmentDecisionMaking",
       "sectionId": "OEDM",
       "doc": "Decision-making context.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21500 — organizational roles & responsibilities",
+          "PMBOK — enterprise environmental factors (EEF)"
+        ],
+        "connotation": "Captures the decision-making context including style, approval hierarchy, and budget authority that govern project decisions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21500 — organizational roles & responsibilities",
+              "PMBOK — enterprise environmental factors (EEF)"
+            ],
+            "connotation": "Captures the decision-making context including style, approval hierarchy, and budget authority that govern project decisions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -153300,30 +153679,35 @@
             {
               "name": "decisionMakingStyle",
               "label": "Decision Style (Centralized, Federated, Consensus, Delegated)",
+              "hint": "How decisions are typically made in the organization",
               "type": "String",
               "required": false
             },
             {
               "name": "approvalLevels",
               "label": "Approval Levels/Hierarchy",
+              "hint": "Layers of approval required for decisions",
               "type": "String",
               "required": false
             },
             {
               "name": "escalationPath",
               "label": "Escalation Path",
+              "hint": "Route for escalating unresolved decisions",
               "type": "String",
               "required": false
             },
             {
               "name": "budgetAuthority",
               "label": "Budget Authority Structure",
+              "hint": "Who holds spending authority and at what thresholds",
               "type": "String",
               "required": false
             },
             {
               "name": "procurementProcess",
               "label": "Procurement Process Type",
+              "hint": "Nature of the procurement and purchasing process",
               "type": "String",
               "required": false
             }
@@ -153335,7 +153719,24 @@
       "name": "OrganizationalEnvironmentMaturity",
       "sectionId": "ORENMA",
       "doc": "Organizational maturity indicators.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — enterprise environmental factors (EEF)",
+          "TOGAF — enterprise context & environment"
+        ],
+        "connotation": "Captures organizational maturity indicators that signal readiness for change and the rigor of existing governance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — enterprise environmental factors (EEF)",
+              "TOGAF — enterprise context & environment"
+            ],
+            "connotation": "Captures organizational maturity indicators that signal readiness for change and the rigor of existing governance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -153366,24 +153767,28 @@
             {
               "name": "digitalMaturityLevel",
               "label": "Digital Maturity (Nascent, Developing, Defined, Optimizing, Leading)",
+              "hint": "Overall digital capability stage of the organization",
               "type": "String",
               "required": false
             },
             {
               "name": "changeReadiness",
               "label": "Change Readiness (Low, Medium, High)",
+              "hint": "Organizational appetite and capacity for change",
               "type": "String",
               "required": false
             },
             {
               "name": "projectManagementMaturity",
               "label": "PM Maturity (Ad-hoc, Repeatable, Defined, Managed, Optimizing)",
+              "hint": "Maturity of project management practices",
               "type": "String",
               "required": false
             },
             {
               "name": "itGovernanceMaturity",
               "label": "IT Governance Maturity (Initial, Repeatable, Defined, Managed)",
+              "hint": "Maturity of IT governance and oversight",
               "type": "String",
               "required": false
             }
@@ -189508,7 +189913,24 @@
       "name": "ResponsibilityContacts",
       "sectionId": "RECO",
       "doc": "Key contacts.",
+      "standardReferences": {
+        "standards": [
+          "RACI / responsibility assignment — functional responsibilities",
+          "ISO 21500 — organizational roles & responsibilities"
+        ],
+        "connotation": "Identifies the named contacts accountable for a function across business, data, operational, and technical roles."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities",
+              "ISO 21500 — organizational roles & responsibilities"
+            ],
+            "connotation": "Identifies the named contacts accountable for a function across business, data, operational, and technical roles."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -189669,7 +190091,24 @@
       "name": "ResponsibilityEntry",
       "sectionId": "RE",
       "doc": "A responsibility entry (form).\n\nDocuments responsibility assignment for a specific functional area,\nfollowing RACI principles (Responsible, Accountable, Consulted, Informed)\nwith additional operational details for clear accountability.",
+      "standardReferences": {
+        "standards": [
+          "RACI / responsibility assignment — functional responsibilities",
+          "ISO 21500 — organizational roles & responsibilities"
+        ],
+        "connotation": "Documents the responsibility assignment for a single functional area following RACI principles for clear accountability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities",
+              "ISO 21500 — organizational roles & responsibilities"
+            ],
+            "connotation": "Documents the responsibility assignment for a single functional area following RACI principles for clear accountability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -189724,10 +190163,26 @@
           "name": "functionDetails",
           "kind": "list",
           "doc": "Function details and scope.",
+          "help": "Describe the function's scope, boundaries, and business criticality to frame its responsibility assignment.",
           "sectionId": "REFUDE-FUNC-LST",
           "sectionIdPattern": "REFUDE-FUNC-xxx",
+          "standardReferences": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities"
+            ],
+            "connotation": "Captures the detailed description and scope of the function being assigned responsibility."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "RACI / responsibility assignment — functional responsibilities"
+                ],
+                "connotation": "Captures the detailed description and scope of the function being assigned responsibility."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -189738,6 +190193,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "REFUDE-FUNC-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Describe the function's scope, boundaries, and business criticality to frame its responsibility assignment."
               }
             },
             {
@@ -189769,10 +190230,28 @@
           "name": "contacts",
           "kind": "list",
           "doc": "Key contacts.",
+          "help": "Identify the domain owner, data steward, and operational, technical, and escalation contacts for this function.",
           "sectionId": "RECO-CONT-LST",
           "sectionIdPattern": "RECO-CONT-xxx",
+          "standardReferences": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities",
+              "ISO 21500 — organizational roles & responsibilities"
+            ],
+            "connotation": "Lists the key contacts (domain owner, data steward, operational and technical contacts) for the function."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "RACI / responsibility assignment — functional responsibilities",
+                  "ISO 21500 — organizational roles & responsibilities"
+                ],
+                "connotation": "Lists the key contacts (domain owner, data steward, operational and technical contacts) for the function."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -189783,6 +190262,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RECO-CONT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Identify the domain owner, data steward, and operational, technical, and escalation contacts for this function."
               }
             },
             {
@@ -189799,10 +190284,28 @@
           "name": "systems",
           "kind": "list",
           "doc": "Related systems and data.",
+          "help": "List the primary systems, data, and process ownership associated with this functional responsibility.",
           "sectionId": "RESY-SYST-LST",
           "sectionIdPattern": "RESY-SYST-xxx",
+          "standardReferences": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities",
+              "TOGAF — enterprise context & environment"
+            ],
+            "connotation": "Records the systems and data owned or used by the function so technical accountability is mapped."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "RACI / responsibility assignment — functional responsibilities",
+                  "TOGAF — enterprise context & environment"
+                ],
+                "connotation": "Records the systems and data owned or used by the function so technical accountability is mapped."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -189813,6 +190316,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RESY-SYST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List the primary systems, data, and process ownership associated with this functional responsibility."
               }
             },
             {
@@ -189846,7 +190355,22 @@
       "name": "ResponsibilityFunctionDetails",
       "sectionId": "REFUDE",
       "doc": "Function details and scope.",
+      "standardReferences": {
+        "standards": [
+          "RACI / responsibility assignment — functional responsibilities"
+        ],
+        "connotation": "Captures the description, scope, and business criticality of a function under responsibility assignment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities"
+            ],
+            "connotation": "Captures the description, scope, and business criticality of a function under responsibility assignment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -189903,7 +190427,26 @@
       "name": "ResponsibilityGovernance",
       "sectionId": "REGO",
       "doc": "Governance and transition.",
+      "standardReferences": {
+        "standards": [
+          "RACI / responsibility assignment — functional responsibilities",
+          "ISO 21500 — organizational roles & responsibilities",
+          "TOGAF — enterprise context & environment"
+        ],
+        "connotation": "Captures the governance level, decision authority, and transition plan for how a function's responsibility evolves through implementation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities",
+              "ISO 21500 — organizational roles & responsibilities",
+              "TOGAF — enterprise context & environment"
+            ],
+            "connotation": "Captures the governance level, decision authority, and transition plan for how a function's responsibility evolves through implementation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -190067,7 +190610,24 @@
       "name": "ResponsibilityRaci",
       "sectionId": "RERA",
       "doc": "RACI assignment.",
+      "standardReferences": {
+        "standards": [
+          "RACI / responsibility assignment — functional responsibilities",
+          "ISO 21500 — organizational roles & responsibilities"
+        ],
+        "connotation": "Records the Responsible, Accountable, Consulted, and Informed roles for a function per the RACI model."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities",
+              "ISO 21500 — organizational roles & responsibilities"
+            ],
+            "connotation": "Records the Responsible, Accountable, Consulted, and Informed roles for a function per the RACI model."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -190193,7 +190753,24 @@
       "name": "ResponsibilitySystems",
       "sectionId": "RESY",
       "doc": "Related systems and data.",
+      "standardReferences": {
+        "standards": [
+          "RACI / responsibility assignment — functional responsibilities",
+          "TOGAF — enterprise context & environment"
+        ],
+        "connotation": "Records the systems, data, and processes owned or used by a function to map technical accountability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RACI / responsibility assignment — functional responsibilities",
+              "TOGAF — enterprise context & environment"
+            ],
+            "connotation": "Records the systems, data, and processes owned or used by a function to map technical accountability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193453,7 +194030,26 @@
       "name": "RiskAnalysis",
       "sectionId": "RIAN",
       "doc": "Risk analysis — probability, impact, and risk scoring.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 31010 — risk assessment techniques",
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management"
+        ],
+        "connotation": "This section captures the probability, impact, and resulting score that quantify a risk and drive its prioritization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 31010 — risk assessment techniques",
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management"
+            ],
+            "connotation": "This section captures the probability, impact, and resulting score that quantify a risk and drive its prioritization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193484,60 +194080,70 @@
             {
               "name": "probability",
               "label": "Probability — Very Low, Low, Medium, High, Very High",
+              "hint": "Qualitative likelihood rating",
               "type": "String",
               "required": false
             },
             {
               "name": "probabilityValue",
               "label": "Probability Value — numeric (0.0-1.0) for quantitative analysis",
+              "hint": "Numeric likelihood between 0.0 and 1.0",
               "type": "double",
               "required": false
             },
             {
               "name": "impact",
               "label": "Impact — Negligible, Minor, Moderate, Major, Catastrophic",
+              "hint": "Qualitative severity rating",
               "type": "String",
               "required": false
             },
             {
               "name": "impactValue",
               "label": "Impact Value — numeric score (1-5 or monetary value)",
+              "hint": "Numeric severity score or monetary value",
               "type": "double",
               "required": false
             },
             {
               "name": "riskScore",
               "label": "Risk Score — calculated (probability × impact)",
+              "hint": "Computed score from probability times impact",
               "type": "double",
               "required": false
             },
             {
               "name": "riskLevel",
               "label": "Risk Level — Low, Medium, High, Critical",
+              "hint": "Overall risk level classification",
               "type": "String",
               "required": false
             },
             {
               "name": "riskRanking",
               "label": "Risk Ranking — priority relative to other risks",
+              "hint": "Priority rank relative to other risks",
               "type": "int",
               "required": false
             },
             {
               "name": "analysisMethod",
               "label": "Analysis Method — Qualitative, Semi-quantitative, Quantitative",
+              "hint": "Method used to assess the risk",
               "type": "String",
               "required": false
             },
             {
               "name": "confidenceLevel",
               "label": "Confidence Level — in probability/impact estimates",
+              "hint": "Confidence in the probability and impact estimates",
               "type": "String",
               "required": false
             },
             {
               "name": "analysisNotes",
               "label": "Analysis Notes — methodology and findings",
+              "hint": "Notes on methodology and findings",
               "type": "String",
               "required": false
             }
@@ -193585,7 +194191,26 @@
       "name": "RiskBusinessImpact",
       "sectionId": "RIBUIM",
       "doc": "Business impact assessment for the risk.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management",
+          "ISO/IEC 31010 — risk assessment techniques"
+        ],
+        "connotation": "This section captures the cost, schedule, scope, and quality consequences of the risk to inform business prioritization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management",
+              "ISO/IEC 31010 — risk assessment techniques"
+            ],
+            "connotation": "This section captures the cost, schedule, scope, and quality consequences of the risk to inform business prioritization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193616,24 +194241,28 @@
             {
               "name": "costImpact",
               "label": "Cost Impact — potential cost if risk materializes",
+              "hint": "Potential cost if the risk materializes",
               "type": "String",
               "required": false
             },
             {
               "name": "scheduleImpact",
               "label": "Schedule Impact — potential delay (days, weeks, phases)",
+              "hint": "Potential schedule delay if the risk occurs",
               "type": "String",
               "required": false
             },
             {
               "name": "scopeImpact",
               "label": "Scope Impact — impact on deliverables",
+              "hint": "Impact on project scope and deliverables",
               "type": "String",
               "required": false
             },
             {
               "name": "qualityImpact",
               "label": "Quality Impact",
+              "hint": "Impact on product or deliverable quality",
               "type": "String",
               "required": false
             }
@@ -193675,7 +194304,24 @@
       "name": "RiskBusinessImpactDelivery",
       "sectionId": "RBID",
       "doc": "Operational and delivery consequences.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management"
+        ],
+        "connotation": "This section captures the operational, strategic, and delivery consequences of the risk on milestones and deliverables."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management"
+            ],
+            "connotation": "This section captures the operational, strategic, and delivery consequences of the risk on milestones and deliverables."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193706,24 +194352,28 @@
             {
               "name": "operationalImpact",
               "label": "Operational Impact — impact on ongoing operations",
+              "hint": "Impact on ongoing operations",
               "type": "String",
               "required": false
             },
             {
               "name": "strategicImpact",
               "label": "Strategic Impact — impact on strategic objectives",
+              "hint": "Impact on strategic objectives",
               "type": "String",
               "required": false
             },
             {
               "name": "affectedMilestones",
               "label": "Affected Milestones — project milestones at risk",
+              "hint": "Project milestones placed at risk",
               "type": "String",
               "required": false
             },
             {
               "name": "affectedDeliverables",
               "label": "Affected Deliverables — specific deliverables at risk",
+              "hint": "Specific deliverables placed at risk",
               "type": "String",
               "required": false
             }
@@ -193735,7 +194385,24 @@
       "name": "RiskBusinessImpactStakeholders",
       "sectionId": "RBIS",
       "doc": "Broader stakeholder and compliance impact.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "ISO/IEC 27005 — information security risk management (for security-flavored risks)"
+        ],
+        "connotation": "This section captures the resource, reputation, customer, and regulatory consequences of the risk on stakeholders and compliance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "ISO/IEC 27005 — information security risk management (for security-flavored risks)"
+            ],
+            "connotation": "This section captures the resource, reputation, customer, and regulatory consequences of the risk on stakeholders and compliance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193766,24 +194433,28 @@
             {
               "name": "resourceImpact",
               "label": "Resource Impact — impact on team resources",
+              "hint": "Impact on team and resource availability",
               "type": "String",
               "required": false
             },
             {
               "name": "reputationImpact",
               "label": "Reputation Impact — organizational or project",
+              "hint": "Impact on organizational or project reputation",
               "type": "String",
               "required": false
             },
             {
               "name": "customerImpact",
               "label": "Customer Impact — impact on customers or end users",
+              "hint": "Impact on customers or end users",
               "type": "String",
               "required": false
             },
             {
               "name": "regulatoryImpact",
               "label": "Regulatory Impact — compliance implications",
+              "hint": "Compliance and regulatory implications",
               "type": "String",
               "required": false
             }
@@ -193831,7 +194502,26 @@
       "name": "RiskEntry",
       "sectionId": "RISENT",
       "doc": "A risk entry (form).\n\nComprehensive risk documentation following ISO 31000 and PMBOK guidelines.\nCaptures risk identification, analysis, response planning, ownership,\nand monitoring information for systematic risk management.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management",
+          "ISO/IEC 31010 — risk assessment techniques"
+        ],
+        "connotation": "This section captures a single risk in full — its identification, analysis, response, ownership, and monitoring — so it can be managed end to end."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management",
+              "ISO/IEC 31010 — risk assessment techniques"
+            ],
+            "connotation": "This section captures a single risk in full — its identification, analysis, response, ownership, and monitoring — so it can be managed end to end."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193934,10 +194624,28 @@
           "name": "relationships",
           "kind": "list",
           "doc": "Relationships to other risks, assumptions, and project elements.",
+          "help": "Relationships connecting this risk to other risks, assumptions, requirements, and affected project elements.",
           "sectionId": "RR-RELA-LST",
           "sectionIdPattern": "RR-RELA-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management"
+            ],
+            "connotation": "This list links the risk to related risks, assumptions, requirements, and components so dependencies and ripple effects are visible."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 31000:2018 — risk management",
+                  "PMBOK — project risk management"
+                ],
+                "connotation": "This list links the risk to related risks, assumptions, requirements, and components so dependencies and ripple effects are visible."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -193948,6 +194656,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RR-RELA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Relationships connecting this risk to other risks, assumptions, requirements, and affected project elements."
               }
             },
             {
@@ -193966,7 +194680,26 @@
       "name": "RiskIdentification",
       "sectionId": "RIID",
       "doc": "Risk identification details.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management",
+          "ISO/IEC 31010 — risk assessment techniques"
+        ],
+        "connotation": "This section captures the unique identifier, name, and categorization that uniquely distinguish a risk in the register."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management",
+              "ISO/IEC 31010 — risk assessment techniques"
+            ],
+            "connotation": "This section captures the unique identifier, name, and categorization that uniquely distinguish a risk in the register."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -193997,30 +194730,35 @@
             {
               "name": "riskId",
               "label": "Risk ID (e.g., RISK-001, TR-001)",
+              "hint": "Unique identifier for this risk",
               "type": "String",
               "required": true
             },
             {
               "name": "riskName",
               "label": "Risk Name — short descriptive name",
+              "hint": "Short descriptive name for the risk",
               "type": "String",
               "required": true
             },
             {
               "name": "description",
               "label": "Description — detailed risk event and potential causes",
+              "hint": "Detailed description of the risk event and its causes",
               "type": "String",
               "required": false
             },
             {
               "name": "category",
               "label": "Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational",
+              "hint": "Top-level risk category",
               "type": "String",
               "required": false
             },
             {
               "name": "subcategory",
               "label": "Subcategory — more specific categorization",
+              "hint": "More specific categorization within the category",
               "type": "String",
               "required": false
             }
@@ -194062,7 +194800,24 @@
       "name": "RiskIdentificationCause",
       "sectionId": "RIIDCA",
       "doc": "Trigger and root-cause details.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "ISO/IEC 31010 — risk assessment techniques"
+        ],
+        "connotation": "This section captures the triggering events and underlying root causes of the risk to support early detection and prevention."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "ISO/IEC 31010 — risk assessment techniques"
+            ],
+            "connotation": "This section captures the triggering events and underlying root causes of the risk to support early detection and prevention."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194093,12 +194848,14 @@
             {
               "name": "trigger",
               "label": "Risk Trigger — events indicating risk is about to occur",
+              "hint": "Events signaling the risk is about to occur",
               "type": "String",
               "required": false
             },
             {
               "name": "rootCause",
               "label": "Root Cause — underlying causes that could lead to this risk",
+              "hint": "Underlying causes that could lead to the risk",
               "type": "String",
               "required": false
             }
@@ -194110,7 +194867,24 @@
       "name": "RiskIdentificationSource",
       "sectionId": "RIIDSO",
       "doc": "Identification source and ownership metadata.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management"
+        ],
+        "connotation": "This section records how and when the risk was identified and who raised it, supporting traceability of the risk register."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management"
+            ],
+            "connotation": "This section records how and when the risk was identified and who raised it, supporting traceability of the risk register."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194141,24 +194915,28 @@
             {
               "name": "source",
               "label": "Risk Source — brainstorming, review, lessons learned",
+              "hint": "How the risk was identified",
               "type": "String",
               "required": false
             },
             {
               "name": "dateIdentified",
               "label": "Date Identified",
+              "hint": "When the risk was first identified",
               "type": "String",
               "required": false
             },
             {
               "name": "identifiedBy",
               "label": "Identified By — person or team",
+              "hint": "Person or team who identified the risk",
               "type": "String",
               "required": false
             },
             {
               "name": "riskType",
               "label": "Risk Type — Threat (negative) or Opportunity (positive)",
+              "hint": "Whether this is a threat or an opportunity",
               "type": "String",
               "required": false
             }
@@ -194170,7 +194948,24 @@
       "name": "RiskMonitoring",
       "sectionId": "RIMO",
       "doc": "Risk monitoring and tracking.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management"
+        ],
+        "connotation": "This section captures the cadence and current status of ongoing risk monitoring so the risk stays under active review."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management"
+            ],
+            "connotation": "This section captures the cadence and current status of ongoing risk monitoring so the risk stays under active review."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194201,24 +194996,28 @@
             {
               "name": "reviewFrequency",
               "label": "Review Frequency — Daily, Weekly, Bi-weekly, Monthly",
+              "hint": "How often the risk is reviewed",
               "type": "String",
               "required": false
             },
             {
               "name": "lastReviewDate",
               "label": "Last Review Date",
+              "hint": "Date of the most recent review",
               "type": "String",
               "required": false
             },
             {
               "name": "nextReviewDate",
               "label": "Next Review Date",
+              "hint": "Date of the next scheduled review",
               "type": "String",
               "required": false
             },
             {
               "name": "riskStatus",
               "label": "Risk Status — Identified, Analyzing, Responding, Monitoring, Closed, Realized",
+              "hint": "Current lifecycle status of the risk",
               "type": "String",
               "required": false
             }
@@ -194260,7 +195059,24 @@
       "name": "RiskMonitoringClosure",
       "sectionId": "RIMOCL",
       "doc": "Closure tracking and lessons learned.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management"
+        ],
+        "connotation": "This section records when and why the risk was closed and the lessons learned to inform future risk management."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management"
+            ],
+            "connotation": "This section records when and why the risk was closed and the lessons learned to inform future risk management."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194291,18 +195107,21 @@
             {
               "name": "closureDate",
               "label": "Closure Date",
+              "hint": "Date the risk was closed",
               "type": "String",
               "required": false
             },
             {
               "name": "closureReason",
               "label": "Closure Reason — Mitigated, Avoided, Accepted, Realized, No longer relevant",
+              "hint": "Why the risk was closed",
               "type": "String",
               "required": false
             },
             {
               "name": "lessonsLearned",
               "label": "Lessons Learned — key insights from managing this risk",
+              "hint": "Key insights gained from managing the risk",
               "type": "String",
               "required": false
             }
@@ -194314,7 +195133,24 @@
       "name": "RiskMonitoringTrend",
       "sectionId": "RIMOTR",
       "doc": "Trend and monitoring indicators.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "ISO/IEC 31010 — risk assessment techniques"
+        ],
+        "connotation": "This section captures the risk trend and early-warning indicators that signal whether the risk is growing or receding."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "ISO/IEC 31010 — risk assessment techniques"
+            ],
+            "connotation": "This section captures the risk trend and early-warning indicators that signal whether the risk is growing or receding."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194345,24 +195181,28 @@
             {
               "name": "trend",
               "label": "Trend — Increasing, Stable, Decreasing",
+              "hint": "Direction in which the risk is trending",
               "type": "String",
               "required": false
             },
             {
               "name": "trendJustification",
               "label": "Trend Justification — explanation for trend assessment",
+              "hint": "Rationale for the trend assessment",
               "type": "String",
               "required": false
             },
             {
               "name": "earlyWarningIndicators",
               "label": "Early Warning Indicators — metrics signaling risk may materialize",
+              "hint": "Metrics that signal the risk may materialize",
               "type": "String",
               "required": false
             },
             {
               "name": "monitoringMechanism",
               "label": "Monitoring Mechanism — automated alerts, manual review, etc.",
+              "hint": "Mechanism used to monitor the risk",
               "type": "String",
               "required": false
             }
@@ -194374,7 +195214,24 @@
       "name": "RiskOwnership",
       "sectionId": "RIOW",
       "doc": "Risk ownership and governance.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management"
+        ],
+        "connotation": "This section assigns accountability and approval authority for the risk so governance and escalation lines are unambiguous."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management"
+            ],
+            "connotation": "This section assigns accountability and approval authority for the risk so governance and escalation lines are unambiguous."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194405,48 +195262,56 @@
             {
               "name": "riskOwner",
               "label": "Risk Owner — person accountable for monitoring",
+              "hint": "Person accountable for monitoring the risk",
               "type": "String",
               "required": false
             },
             {
               "name": "riskOwnerRole",
               "label": "Owner Role — role/title",
+              "hint": "Role or title of the risk owner",
               "type": "String",
               "required": false
             },
             {
               "name": "actionOwners",
               "label": "Action Owners — people responsible for mitigation actions",
+              "hint": "People responsible for mitigation actions",
               "type": "String",
               "required": false
             },
             {
               "name": "escalationContact",
               "label": "Escalation Contact — who to escalate to if risk worsens",
+              "hint": "Who to escalate to if the risk worsens",
               "type": "String",
               "required": false
             },
             {
               "name": "stakeholdersInformed",
               "label": "Stakeholders Informed — who needs to be kept informed",
+              "hint": "Stakeholders to keep informed",
               "type": "String",
               "required": false
             },
             {
               "name": "approvalRequired",
               "label": "Approval Required — whether response actions need approval",
+              "hint": "Whether response actions require approval",
               "type": "bool",
               "required": false
             },
             {
               "name": "approver",
               "label": "Approver — person who must approve response actions",
+              "hint": "Person who must approve response actions",
               "type": "String",
               "required": false
             },
             {
               "name": "decisionAuthority",
               "label": "Decision Authority — authority level for decisions",
+              "hint": "Authority level for risk decisions",
               "type": "String",
               "required": false
             }
@@ -194458,7 +195323,24 @@
       "name": "RiskRelationships",
       "sectionId": "RR",
       "doc": "Relationships to other risks, assumptions, and project elements.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "ISO/IEC/IEEE 29148 §6 — assumptions, dependencies & constraints (risk context)"
+        ],
+        "connotation": "This section captures how the risk relates to other risks, assumptions, requirements, and components so interdependencies are tracked."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "ISO/IEC/IEEE 29148 §6 — assumptions, dependencies & constraints (risk context)"
+            ],
+            "connotation": "This section captures how the risk relates to other risks, assumptions, requirements, and components so interdependencies are tracked."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194489,48 +195371,56 @@
             {
               "name": "relatedRisks",
               "label": "Related Risks — other risks that are related or dependent",
+              "hint": "Other risks related to or dependent on this one",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedAssumptions",
               "label": "Related Assumptions — assumptions that could affect this risk",
+              "hint": "Assumptions that could affect this risk",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedIssues",
               "label": "Related Issues — issues arising from this risk",
+              "hint": "Issues arising from this risk",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedRequirements",
               "label": "Related Requirements — requirements affected",
+              "hint": "Requirements affected by this risk",
               "type": "String",
               "required": false
             },
             {
               "name": "affectedComponents",
               "label": "Affected Components — system components or modules",
+              "hint": "System components or modules affected",
               "type": "String",
               "required": false
             },
             {
               "name": "affectedStakeholders",
               "label": "Affected Stakeholders — groups impacted if risk occurs",
+              "hint": "Stakeholder groups impacted if the risk occurs",
               "type": "String",
               "required": false
             },
             {
               "name": "externalDependencies",
               "label": "External Dependencies — external factors related to risk",
+              "hint": "External factors related to the risk",
               "type": "String",
               "required": false
             },
             {
               "name": "documentReferences",
               "label": "Document References — related documentation",
+              "hint": "Related documentation references",
               "type": "String",
               "required": false
             }
@@ -194542,7 +195432,24 @@
       "name": "RiskResponse",
       "sectionId": "RIRE",
       "doc": "Risk response — strategy and planned actions.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management"
+        ],
+        "connotation": "This section captures the chosen response strategy and the mitigation and contingency actions planned to treat the risk."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management"
+            ],
+            "connotation": "This section captures the chosen response strategy and the mitigation and contingency actions planned to treat the risk."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194573,24 +195480,28 @@
             {
               "name": "responseStrategy",
               "label": "Response Strategy — Avoid, Transfer, Mitigate, Accept (or Exploit, Share, Enhance for opportunities)",
+              "hint": "Strategy chosen to treat the risk",
               "type": "String",
               "required": false
             },
             {
               "name": "responseDescription",
               "label": "Response Description — planned approach",
+              "hint": "Description of the planned response approach",
               "type": "String",
               "required": false
             },
             {
               "name": "mitigationActions",
               "label": "Mitigation Actions — actions to reduce probability or impact",
+              "hint": "Actions to reduce likelihood or impact",
               "type": "String",
               "required": false
             },
             {
               "name": "contingencyPlan",
               "label": "Contingency Plan — actions if risk materializes",
+              "hint": "Fallback actions if the risk materializes",
               "type": "String",
               "required": false
             }
@@ -194632,7 +195543,24 @@
       "name": "RiskResponseImplementation",
       "sectionId": "RIREIM",
       "doc": "Implementation effort and effectiveness.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management"
+        ],
+        "connotation": "This section captures the cost, timeline, and effectiveness of implementing the risk response so trade-offs can be weighed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management"
+            ],
+            "connotation": "This section captures the cost, timeline, and effectiveness of implementing the risk response so trade-offs can be weighed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194663,18 +195591,21 @@
             {
               "name": "responseEffectiveness",
               "label": "Response Effectiveness — Low, Medium, High",
+              "hint": "How effective the response is expected to be",
               "type": "String",
               "required": false
             },
             {
               "name": "implementationCost",
               "label": "Implementation Cost — cost to implement response",
+              "hint": "Cost to implement the response",
               "type": "String",
               "required": false
             },
             {
               "name": "implementationTimeline",
               "label": "Implementation Timeline — for response actions",
+              "hint": "Timeline for carrying out response actions",
               "type": "String",
               "required": false
             }
@@ -194686,7 +195617,24 @@
       "name": "RiskResponseResidual",
       "sectionId": "RIRERE",
       "doc": "Residual and secondary risk expectations.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "ISO/IEC 31010 — risk assessment techniques"
+        ],
+        "connotation": "This section captures the residual risk expected after treatment and any secondary risks introduced by the response."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "ISO/IEC 31010 — risk assessment techniques"
+            ],
+            "connotation": "This section captures the residual risk expected after treatment and any secondary risks introduced by the response."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194717,24 +195665,28 @@
             {
               "name": "residualRisk",
               "label": "Residual Risk — level remaining after mitigation",
+              "hint": "Risk level remaining after mitigation",
               "type": "String",
               "required": false
             },
             {
               "name": "residualProbability",
               "label": "Residual Probability — expected after mitigation",
+              "hint": "Expected likelihood after mitigation",
               "type": "String",
               "required": false
             },
             {
               "name": "residualImpact",
               "label": "Residual Impact — expected after mitigation",
+              "hint": "Expected impact after mitigation",
               "type": "String",
               "required": false
             },
             {
               "name": "secondaryRisks",
               "label": "Secondary Risks — new risks from implementing response",
+              "hint": "New risks arising from the response",
               "type": "String",
               "required": false
             }
@@ -194746,7 +195698,26 @@
       "name": "RisksAndAssumptions",
       "sectionId": "RIANAS",
       "doc": "4.7. Risks.\n\nDocuments identified project risks following ISO 31000 Risk Management and\nPMBOK risk management best practices. Provides a structured framework for\nrisk identification, analysis, response planning, and ongoing monitoring\nthroughout the project lifecycle.\n\nAssumptions are **not** held here (L34C-4 consolidation, SR-11): the\ncanonical assumptions register lives in SBP.6 (Assumptions, Constraints &\nDependencies). Only the risks half — unique to §4.7 — remains in this node.\n(The class name remains `RisksAndAssumptions` pending the L34C-9 rename\nsweep, which will rename it to `Risks`.)",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management",
+          "ISO/IEC 31010 — risk assessment techniques"
+        ],
+        "connotation": "This section captures the project risk register and management approach so threats and opportunities are systematically identified, analyzed, and controlled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management",
+              "ISO/IEC 31010 — risk assessment techniques"
+            ],
+            "connotation": "This section captures the project risk register and management approach so threats and opportunities are systematically identified, analyzed, and controlled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194774,10 +195745,28 @@
           "name": "keyRisks",
           "kind": "list",
           "doc": "4.7.1. Key Risks — contains 0+× Risk.",
+          "help": "List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.",
           "sectionId": "RIEN-KEYR-LST",
           "sectionIdPattern": "RIEN-KEYR-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management"
+            ],
+            "connotation": "This list holds the individual risk entries that make up the project risk register and drive prioritization and response planning."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 31000:2018 — risk management",
+                  "PMBOK — project risk management"
+                ],
+                "connotation": "This list holds the individual risk entries that make up the project risk register and drive prioritization and response planning."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -194788,6 +195777,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "RIEN-KEYR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List of identified project risks, each capturing analysis, response, ownership, and monitoring detail."
               }
             },
             {
@@ -194806,7 +195801,26 @@
       "name": "RisksOverview",
       "sectionId": "RIOV",
       "doc": "Overview of the risk management approach.",
+      "standardReferences": {
+        "standards": [
+          "ISO 31000:2018 — risk management",
+          "PMBOK — project risk management",
+          "ISO/IEC 31010 — risk assessment techniques"
+        ],
+        "connotation": "This section captures the overarching risk management methodology, appetite, and scales that frame how every individual risk is assessed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 31000:2018 — risk management",
+              "PMBOK — project risk management",
+              "ISO/IEC 31010 — risk assessment techniques"
+            ],
+            "connotation": "This section captures the overarching risk management methodology, appetite, and scales that frame how every individual risk is assessed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -194837,54 +195851,63 @@
             {
               "name": "riskManagementApproach",
               "label": "Risk Management Approach — overall methodology and framework",
+              "hint": "Describe the methodology and framework used to manage risk",
               "type": "String",
               "required": false
             },
             {
               "name": "riskAppetite",
               "label": "Risk Appetite — organization tolerance (risk-averse, risk-neutral, risk-seeking)",
+              "hint": "State the organization tolerance level for risk",
               "type": "String",
               "required": false
             },
             {
               "name": "riskThresholds",
               "label": "Risk Thresholds — quantitative escalation levels (e.g., cost > $50K)",
+              "hint": "Define quantitative thresholds that trigger escalation",
               "type": "String",
               "required": false
             },
             {
               "name": "riskReviewCadence",
               "label": "Risk Review Cadence — frequency of review meetings",
+              "hint": "How often risks are reviewed",
               "type": "String",
               "required": false
             },
             {
               "name": "escalationPath",
               "label": "Escalation Path — hierarchy for escalating high-severity risks",
+              "hint": "Chain of escalation for high-severity risks",
               "type": "String",
               "required": false
             },
             {
               "name": "riskTooling",
               "label": "Risk Management Tooling — tools used to track risks",
+              "hint": "Tools or systems used to track and report risks",
               "type": "String",
               "required": false
             },
             {
               "name": "riskCategories",
               "label": "Risk Categories — Technical, Schedule, Cost, Resource, External, etc.",
+              "hint": "Categories used to classify risks",
               "type": "String",
               "required": false
             },
             {
               "name": "probabilityScale",
               "label": "Probability Scale — Very Low (<10%), Low (10-30%), Medium (30-50%), High (50-70%), Very High (>70%)",
+              "hint": "Scale used to rate likelihood of occurrence",
               "type": "String",
               "required": false
             },
             {
               "name": "impactScale",
               "label": "Impact Scale — Negligible, Minor, Moderate, Major, Catastrophic with criteria",
+              "hint": "Scale used to rate severity of impact",
               "type": "String",
               "required": false
             }
@@ -240470,7 +241493,26 @@
       "doc": "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.",
       "mapsTo": "D06ArchitectureTechnologySpecification",
       "detailedIn": "D06ArchitectureTechnologySpecification",
+      "standardReferences": {
+        "standards": [
+          "TOGAF — technology architecture & environment",
+          "ISO/IEC/IEEE 42010 — architecture description (environment)",
+          "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+        ],
+        "connotation": "Captures the pre-existing technical landscape — mandated platforms, infrastructure, and standards — in which the solution must operate, seeding the ATS."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC/IEEE 42010 — architecture description (environment)",
+              "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+            ],
+            "connotation": "Captures the pre-existing technical landscape — mandated platforms, infrastructure, and standards — in which the solution must operate, seeding the ATS."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -240633,10 +241675,28 @@
           "name": "datacenters",
           "kind": "list",
           "doc": "Data center and hosting environment details.",
+          "help": "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.",
           "sectionId": "DATAC-DATA-LST",
           "sectionIdPattern": "DATAC-DATA-xxx",
+          "standardReferences": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"
+            ],
+            "connotation": "Enumerates data center and hosting environments the solution must run on or integrate with."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "TOGAF — technology architecture & environment",
+                  "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"
+                ],
+                "connotation": "Enumerates data center and hosting environments the solution must run on or integrate with."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -240647,6 +241707,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DATAC-DATA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints."
               }
             },
             {
@@ -240709,10 +241775,28 @@
           "name": "technologyStandards",
           "kind": "list",
           "doc": "Technology standards — contains 0+× TechnologyStandard.",
+          "help": "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations.",
           "sectionId": "TESTEN-TECH-LST",
           "sectionIdPattern": "TESTEN-TECH-xxx",
+          "standardReferences": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+            ],
+            "connotation": "Lists mandated or preferred technology standards the solution must adhere to."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "TOGAF — technology architecture & environment",
+                  "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+                ],
+                "connotation": "Lists mandated or preferred technology standards the solution must adhere to."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -240723,6 +241807,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TESTEN-TECH-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations."
               }
             },
             {
@@ -240762,10 +241852,28 @@
           "name": "integrationConstraints",
           "kind": "list",
           "doc": "Integration constraints — contains 0+× IntegrationConstraint.",
+          "help": "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect.",
           "sectionId": "INCOE1-INTE-LST",
           "sectionIdPattern": "INCOE1-INTE-xxx",
+          "standardReferences": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+            ],
+            "connotation": "Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect."
+          },
           "serializationOrder": 11,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "TOGAF — technology architecture & environment",
+                  "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+                ],
+                "connotation": "Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -240776,6 +241884,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "INCOE1-INTE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect."
               }
             },
             {
@@ -240794,7 +241908,24 @@
       "name": "TechnicalEnvironmentGovernance",
       "sectionId": "TFCG",
       "doc": "Architecture governance context.",
+      "standardReferences": {
+        "standards": [
+          "TOGAF — technology architecture & environment",
+          "ISO/IEC/IEEE 42010 — architecture description (environment)"
+        ],
+        "connotation": "Captures the governance context that shapes technology decisions, including cloud strategy and decision authority."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC/IEEE 42010 — architecture description (environment)"
+            ],
+            "connotation": "Captures the governance context that shapes technology decisions, including cloud strategy and decision authority."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -240825,6 +241956,7 @@
             {
               "name": "secondaryCloudProviders",
               "label": "Secondary Cloud Providers",
+              "hint": "Additional or fallback cloud providers in use",
               "type": "String",
               "required": false
             },
@@ -240843,7 +241975,24 @@
       "name": "TechnicalEnvironmentNetwork",
       "sectionId": "TFCN",
       "doc": "Network and infrastructure standards.",
+      "standardReferences": {
+        "standards": [
+          "TOGAF — technology architecture & environment",
+          "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+        ],
+        "connotation": "Captures network and infrastructure standards — topology, firewall and VPN policies, and load-balancing/CDN strategy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+            ],
+            "connotation": "Captures network and infrastructure standards — topology, firewall and VPN policies, and load-balancing/CDN strategy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -240895,12 +242044,14 @@
             {
               "name": "loadBalancingStandards",
               "label": "Load Balancing Standards",
+              "hint": "Standard load-balancing approach and products",
               "type": "String",
               "required": false
             },
             {
               "name": "cdnStrategy",
               "label": "CDN Strategy",
+              "hint": "Content delivery network strategy and providers",
               "type": "String",
               "required": false
             }
@@ -240910,10 +242061,28 @@
           "name": "devopsStandards",
           "kind": "list",
           "doc": "DevOps and deployment standards.",
+          "help": "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules.",
           "sectionId": "DEVOP-DEVO-LST",
           "sectionIdPattern": "DEVOP-DEVO-xxx",
+          "standardReferences": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"
+            ],
+            "connotation": "Lists mandated DevOps and deployment standards the delivery pipeline must follow."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "TOGAF — technology architecture & environment",
+                  "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"
+                ],
+                "connotation": "Lists mandated DevOps and deployment standards the delivery pipeline must follow."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -240924,6 +242093,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DEVOP-DEVO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules."
               }
             },
             {
@@ -240940,10 +242115,28 @@
           "name": "observabilityRequirements",
           "kind": "list",
           "doc": "Monitoring and observability requirements.",
+          "help": "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms.",
           "sectionId": "OBSER-OBSE-LST",
           "sectionIdPattern": "OBSER-OBSE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 25010 — product quality (infrastructure/platform quality)",
+              "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"
+            ],
+            "connotation": "Lists monitoring and observability requirements the solution must meet for operational visibility."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 25010 — product quality (infrastructure/platform quality)",
+                  "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"
+                ],
+                "connotation": "Lists monitoring and observability requirements the solution must meet for operational visibility."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -240954,6 +242147,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "OBSER-OBSE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms."
               }
             },
             {
@@ -240995,7 +242194,24 @@
       "name": "TechnicalEnvironmentSecurity",
       "sectionId": "TES",
       "doc": "Security and compliance requirements.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — product quality (infrastructure/platform quality)",
+          "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+        ],
+        "connotation": "Captures the security frameworks, compliance regimes, and encryption/identity standards the solution must satisfy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — product quality (infrastructure/platform quality)",
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+            ],
+            "connotation": "Captures the security frameworks, compliance regimes, and encryption/identity standards the solution must satisfy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -241066,7 +242282,24 @@
       "name": "TechnicalEnvironmentStandards",
       "sectionId": "TFCS",
       "doc": "Platform standards and preferred technologies.",
+      "standardReferences": {
+        "standards": [
+          "TOGAF — technology architecture & environment",
+          "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+        ],
+        "connotation": "Captures mandated or preferred platform technologies — languages, frameworks, databases, and integration platforms."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+            ],
+            "connotation": "Captures mandated or preferred platform technologies — languages, frameworks, databases, and integration platforms."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -243599,7 +244832,24 @@
       "name": "TechnologyStandardEntry",
       "sectionId": "TSE",
       "doc": "A technology standard entry (form).\n\nDocuments a mandated or preferred technology standard that the solution\nmust adhere to. Includes scope, compliance requirements, and exceptions.",
+      "standardReferences": {
+        "standards": [
+          "TOGAF — technology architecture & environment",
+          "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+        ],
+        "connotation": "Documents a single mandated or preferred technology standard the solution must comply with."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC 25010 — product quality (infrastructure/platform quality)"
+            ],
+            "connotation": "Documents a single mandated or preferred technology standard the solution must comply with."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -243716,7 +244966,24 @@
       "name": "TechnologyStandardEntryCompliance",
       "sectionId": "TSEC",
       "doc": "Compliance settings.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010 — product quality (infrastructure/platform quality)",
+          "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+        ],
+        "connotation": "Captures how compliance with a technology standard is verified, owned, and enforced."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010 — product quality (infrastructure/platform quality)",
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+            ],
+            "connotation": "Captures how compliance with a technology standard is verified, owned, and enforced."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -243773,7 +245040,24 @@
       "name": "TechnologyStandardEntryDetails",
       "sectionId": "TSED",
       "doc": "Standard details and sources.",
+      "standardReferences": {
+        "standards": [
+          "TOGAF — technology architecture & environment",
+          "ISO/IEC/IEEE 42010 — architecture description (environment)"
+        ],
+        "connotation": "Captures the descriptive details and authoritative source of a technology standard."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC/IEEE 42010 — architecture description (environment)"
+            ],
+            "connotation": "Captures the descriptive details and authoritative source of a technology standard."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -243851,7 +245135,24 @@
       "name": "TechnologyStandardEntryImpact",
       "sectionId": "TSEI",
       "doc": "Project impact notes.",
+      "standardReferences": {
+        "standards": [
+          "PMBOK — constraints, assumptions & dependency management",
+          "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+        ],
+        "connotation": "Records how a technology standard impacts this project and notes for implementing it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "PMBOK — constraints, assumptions & dependency management",
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+            ],
+            "connotation": "Records how a technology standard impacts this project and notes for implementing it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -243901,7 +245202,24 @@
       "name": "TechnologyStandardEntryScope",
       "sectionId": "TSES",
       "doc": "Scope and applicability.",
+      "standardReferences": {
+        "standards": [
+          "TOGAF — technology architecture & environment",
+          "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+        ],
+        "connotation": "Defines where a technology standard applies and the process for granting exceptions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "TOGAF — technology architecture & environment",
+              "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"
+            ],
+            "connotation": "Defines where a technology standard applies and the process for granting exceptions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

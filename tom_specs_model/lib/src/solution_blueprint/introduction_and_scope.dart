@@ -11805,6 +11805,14 @@ class BoundaryAssumptionEntryRisk {
 /// will operate. Covers organizational structure, functional responsibilities,
 /// technical constraints, and external dependencies. Follows TOGAF enterprise
 /// context patterns and PMBOK environmental factors analysis.
+@StandardReferences(
+  [
+    'TOGAF — enterprise context & environment',
+    'PMBOK — enterprise environmental factors (EEF)',
+    'ISO/IEC/IEEE 29148 §6 — operating environment',
+  ],
+  'Captures the organizational and technical environment in which the system operates so that environmental factors and constraints inform the solution design.',
+)
 @SectionId('FRCO')
 class OperatingEnvironment {
   /// Framework conditions overview.
@@ -11842,21 +11850,35 @@ class OperatingEnvironment {
 /// including departments, reporting structures, decision authority, and
 /// organizational constraints. Follows organizational design principles
 /// and enterprise architecture governance patterns.
+@StandardReferences(
+  [
+    'ISO 21500 — organizational roles & responsibilities',
+    'TOGAF — enterprise context & environment',
+    'PMBOK — enterprise environmental factors (EEF)',
+  ],
+  'Describes the organizational context, structures, and decision authority that shape how the project intersects with the existing organization.',
+)
 @SectionId('OREN')
 class OrganizationalEnvironment {
   // -------------------------------------------------------------------------
   // Organizational Overview
   // -------------------------------------------------------------------------
   @Form([
-    Field('organizationName', String, 'Organization Name'),
+    Field('organizationName', String, 'Organization Name',
+        hint: 'Legal or common name of the organization'),
     Field('organizationType', String,
-        'Organization Type (Enterprise, SMB, Startup, Government, Non-profit)'),
+        'Organization Type (Enterprise, SMB, Startup, Government, Non-profit)',
+        hint: 'Category that best describes the organization'),
     Field('industryVertical', String,
-        'Industry Vertical (Finance, Healthcare, Retail, Tech, etc.)'),
+        'Industry Vertical (Finance, Healthcare, Retail, Tech, etc.)',
+        hint: 'Primary industry the organization operates in'),
     Field('geographicFootprint', String,
-        'Geographic Footprint (Local, National, Regional, Global)'),
-    Field('employeeCount', String, 'Employee Count'),
-    Field('revenueRange', String, 'Revenue Range'),
+        'Geographic Footprint (Local, National, Regional, Global)',
+        hint: 'Geographic reach of the organization'),
+    Field('employeeCount', String, 'Employee Count',
+        hint: 'Approximate number of employees'),
+    Field('revenueRange', String, 'Revenue Range',
+        hint: 'Approximate annual revenue band'),
   ])
   @SerializationOrder(0)
   String? organizationContent;
@@ -11883,8 +11905,17 @@ class OrganizationalEnvironment {
   TextSection structure = TextSection();
 
   /// Departments and business units affected.
+  @StandardReferences(
+    [
+      'ISO 21500 — organizational roles & responsibilities',
+      'TOGAF — enterprise context & environment',
+    ],
+    'Lists the departments and business units affected by the project so their roles and impact levels are captured.',
+  )
   @SectionId('AFDEEN-AFFE-LST')
   @SectionIdPattern('AFDEEN-AFFE-xxx')
+  @ContentHelp('List each affected department with its role, impact level, '
+      'and key contacts so organizational reach is fully documented.')
   @SerializationOrder(4)
   List<AffectedDepartmentEntry> affectedDepartments = [];
 
@@ -11900,8 +11931,17 @@ class OrganizationalEnvironment {
   TextSection decisionMaking = TextSection();
 
   /// Key decision makers and their roles.
+  @StandardReferences(
+    [
+      'ISO 21500 — organizational roles & responsibilities',
+      'PMBOK — enterprise environmental factors (EEF)',
+    ],
+    'Identifies the key decision makers and their authority so governance and approval paths are clear.',
+  )
   @SectionId('DEMAEN-DECI-LST')
   @SectionIdPattern('DEMAEN-DECI-xxx')
+  @ContentHelp('List each decision maker with their decision authority, '
+      'domains, and influence level to map governance and approval paths.')
   @SerializationOrder(6)
   List<DecisionMakerEntry> decisionMakers = [];
 
@@ -11910,14 +11950,32 @@ class OrganizationalEnvironment {
   // -------------------------------------------------------------------------
 
   /// Cultural considerations and organizational dynamics.
+  @StandardReferences(
+    [
+      'PMBOK — enterprise environmental factors (EEF)',
+      'TOGAF — enterprise context & environment',
+    ],
+    'Captures cultural considerations and organizational dynamics that may influence adoption and change.',
+  )
   @SectionId('CULTU-CULT-LST')
   @SectionIdPattern('CULTU-CULT-xxx')
+  @ContentHelp('List cultural factors and organizational dynamics that could '
+      'affect project adoption, collaboration, or change readiness.')
   @SerializationOrder(7)
   List<CulturalConsiderationEntry> culturalConsiderations = [];
 
   /// Stakeholder communication preferences.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 42010 — architecture environment & stakeholders',
+      'PMBOK — enterprise environmental factors (EEF)',
+    ],
+    'Records stakeholder communication preferences so engagement and reporting fit the organizational context.',
+  )
   @SectionId('COMMU-COMM-LST')
   @SectionIdPattern('COMMU-COMM-xxx')
+  @ContentHelp('List communication preferences per stakeholder group to guide '
+      'engagement channels, frequency, and reporting style.')
   @SerializationOrder(8)
   List<CommunicationPreferenceEntry> communicationPreferences = [];
 
@@ -11932,80 +11990,145 @@ class OrganizationalEnvironment {
   TextSection politicalLandscape = TextSection();
 
   /// Change champions and sponsors.
+  @StandardReferences(
+    [
+      'PMBOK — enterprise environmental factors (EEF)',
+      'ISO 21500 — organizational roles & responsibilities',
+    ],
+    'Identifies change champions and sponsors who can drive adoption and overcome organizational resistance.',
+  )
   @SectionId('CHANG-CHAN-LST')
   @SectionIdPattern('CHANG-CHAN-xxx')
+  @ContentHelp('List change champions and sponsors, noting their influence and '
+      'role in driving adoption across the organization.')
   @SerializationOrder(10)
   List<ChangeAdvocateEntry> changeAdvocates = [];
 }
 
 /// Organizational maturity indicators.
+@StandardReferences(
+  [
+    'PMBOK — enterprise environmental factors (EEF)',
+    'TOGAF — enterprise context & environment',
+  ],
+  'Captures organizational maturity indicators that signal readiness for change and the rigor of existing governance.',
+)
 @SectionId('ORENMA')
 class OrganizationalEnvironmentMaturity {
     @Form([
         Field('digitalMaturityLevel', String,
-                'Digital Maturity (Nascent, Developing, Defined, Optimizing, Leading)'),
+                'Digital Maturity (Nascent, Developing, Defined, Optimizing, Leading)',
+                hint: 'Overall digital capability stage of the organization'),
         Field('changeReadiness', String,
-                'Change Readiness (Low, Medium, High)'),
+                'Change Readiness (Low, Medium, High)',
+                hint: 'Organizational appetite and capacity for change'),
         Field('projectManagementMaturity', String,
-                'PM Maturity (Ad-hoc, Repeatable, Defined, Managed, Optimizing)'),
+                'PM Maturity (Ad-hoc, Repeatable, Defined, Managed, Optimizing)',
+                hint: 'Maturity of project management practices'),
         Field('itGovernanceMaturity', String,
-                'IT Governance Maturity (Initial, Repeatable, Defined, Managed)'),
+                'IT Governance Maturity (Initial, Repeatable, Defined, Managed)',
+                hint: 'Maturity of IT governance and oversight'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Decision-making context.
+@StandardReferences(
+  [
+    'ISO 21500 — organizational roles & responsibilities',
+    'PMBOK — enterprise environmental factors (EEF)',
+  ],
+  'Captures the decision-making context including style, approval hierarchy, and budget authority that govern project decisions.',
+)
 @SectionId('OEDM')
 class OrganizationalEnvironmentDecisionMaking {
     @Form([
         Field('decisionMakingStyle', String,
-                'Decision Style (Centralized, Federated, Consensus, Delegated)'),
-        Field('approvalLevels', String, 'Approval Levels/Hierarchy'),
-        Field('escalationPath', String, 'Escalation Path'),
-        Field('budgetAuthority', String, 'Budget Authority Structure'),
-        Field('procurementProcess', String, 'Procurement Process Type'),
+                'Decision Style (Centralized, Federated, Consensus, Delegated)',
+                hint: 'How decisions are typically made in the organization'),
+        Field('approvalLevels', String, 'Approval Levels/Hierarchy',
+                hint: 'Layers of approval required for decisions'),
+        Field('escalationPath', String, 'Escalation Path',
+                hint: 'Route for escalating unresolved decisions'),
+        Field('budgetAuthority', String, 'Budget Authority Structure',
+                hint: 'Who holds spending authority and at what thresholds'),
+        Field('procurementProcess', String, 'Procurement Process Type',
+                hint: 'Nature of the procurement and purchasing process'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// An affected department entry.
+@StandardReferences(
+  [
+    'ISO 21500 — organizational roles & responsibilities',
+    'TOGAF — enterprise context & environment',
+  ],
+  'Documents a single affected department, its role in the project, and its readiness to absorb change.',
+)
 @SectionId('ADE')
 class AffectedDepartmentEntry {
   @Form([
-    Field('departmentName', String, 'Department Name', required: true),
-    Field('departmentHead', String, 'Department Head'),
-    Field('employeeCount', int, 'Employee Count'),
-    Field('impactLevel', String, 'Impact Level (High, Medium, Low)'),
+    Field('departmentName', String, 'Department Name', required: true,
+        hint: 'Name of the affected department or business unit'),
+    Field('departmentHead', String, 'Department Head',
+        hint: 'Person leading the department'),
+    Field('employeeCount', int, 'Employee Count',
+        hint: 'Number of employees in the department'),
+    Field('impactLevel', String, 'Impact Level (High, Medium, Low)',
+        hint: 'Degree to which the project affects this department'),
     Field('roleInProject', String,
-        'Role (Sponsor, User, Data Owner, Operations, Support)'),
-    Field('currentSystems', String, 'Current Systems Used'),
-    Field('changeReadiness', String, 'Change Readiness (High, Medium, Low)'),
-    Field('keyContacts', String, 'Key Contacts'),
-    Field('specialConsiderations', String, 'Special Considerations'),
+        'Role (Sponsor, User, Data Owner, Operations, Support)',
+        hint: 'How this department participates in the project'),
+    Field('currentSystems', String, 'Current Systems Used',
+        hint: 'Existing systems the department relies on'),
+    Field('changeReadiness', String, 'Change Readiness (High, Medium, Low)',
+        hint: 'Department capacity and appetite for change'),
+    Field('keyContacts', String, 'Key Contacts',
+        hint: 'Primary contacts within the department'),
+    Field('specialConsiderations', String, 'Special Considerations',
+        hint: 'Any constraints or special factors to note'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A decision maker entry.
+@StandardReferences(
+  [
+    'ISO 21500 — organizational roles & responsibilities',
+    'PMBOK — enterprise environmental factors (EEF)',
+  ],
+  'Documents a single decision maker, their authority and domains, so approval and governance paths are explicit.',
+)
 @SectionId('DME')
 class DecisionMakerEntry {
   @Form([
-    Field('name', String, 'Name', required: true),
-    Field('title', String, 'Title/Role'),
-    Field('department', String, 'Department'),
+    Field('name', String, 'Name', required: true,
+        hint: 'Full name of the decision maker'),
+    Field('title', String, 'Title/Role',
+        hint: 'Formal title or organizational role'),
+    Field('department', String, 'Department',
+        hint: 'Department the decision maker belongs to'),
     Field('decisionAuthority', String,
-        'Authority (Executive Sponsor, Steering Committee, Budget Owner, etc.)'),
+        'Authority (Executive Sponsor, Steering Committee, Budget Owner, etc.)',
+        hint: 'Type of authority this person holds'),
     Field('decisionDomains', String,
-        'Decision Domains (Scope, Budget, Timeline, Technology, Resources)'),
-    Field('influenceLevel', String, 'Influence Level (High, Medium, Low)'),
-    Field('approvalRequired', String, 'Approval Required For'),
-    Field('availabilityConstraints', String, 'Availability/Constraints'),
+        'Decision Domains (Scope, Budget, Timeline, Technology, Resources)',
+        hint: 'Areas where this person makes decisions'),
+    Field('influenceLevel', String, 'Influence Level (High, Medium, Low)',
+        hint: 'Degree of influence over project outcomes'),
+    Field('approvalRequired', String, 'Approval Required For',
+        hint: 'What requires this person to sign off'),
+    Field('availabilityConstraints', String, 'Availability/Constraints',
+        hint: 'Limits on availability or engagement'),
     Field('stakeholderAlignment', String,
-        'Stakeholder Alignment (Supportive, Neutral, Skeptical)'),
-    Field('communicationPreference', String, 'Communication Preference'),
+        'Stakeholder Alignment (Supportive, Neutral, Skeptical)',
+        hint: 'Current stance toward the project'),
+    Field('communicationPreference', String, 'Communication Preference',
+        hint: 'Preferred channel and cadence for updates'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -12017,6 +12140,14 @@ class DecisionMakerEntry {
 /// Identifies domain owners, data stewards, and operational contacts for
 /// each function area. Follows RACI matrix patterns and enterprise
 /// accountability frameworks.
+@StandardReferences(
+  [
+    'RACI / responsibility assignment — functional responsibilities',
+    'ISO 21500 — organizational roles & responsibilities',
+    'TOGAF — enterprise context & environment',
+  ],
+  'Maps system functions to the organizational units accountable for them so ownership and accountability are unambiguous.',
+)
 @SectionId('FURE')
 class FunctionalResponsibilities {
   @Form([
@@ -12046,8 +12177,17 @@ class FunctionalResponsibilities {
   TextSection matrixOverview = TextSection();
 
   /// Contains 0+× Responsibility.
+  @StandardReferences(
+    [
+      'RACI / responsibility assignment — functional responsibilities',
+      'ISO 21500 — organizational roles & responsibilities',
+    ],
+    'Holds the per-function responsibility entries that make up the overall responsibility matrix.',
+  )
   @SectionId('REEN1-ITEM-LST')
   @SectionIdPattern('REEN1-ITEM-xxx')
+  @ContentHelp('Add one entry per functional area, capturing its RACI '
+      'assignment, contacts, and related systems.')
   @SerializationOrder(2)
   List<ResponsibilityEntry> items = [];
 }
@@ -12057,6 +12197,13 @@ class FunctionalResponsibilities {
 /// Documents responsibility assignment for a specific functional area,
 /// following RACI principles (Responsible, Accountable, Consulted, Informed)
 /// with additional operational details for clear accountability.
+@StandardReferences(
+  [
+    'RACI / responsibility assignment — functional responsibilities',
+    'ISO 21500 — organizational roles & responsibilities',
+  ],
+  'Documents the responsibility assignment for a single functional area following RACI principles for clear accountability.',
+)
 @SectionId('RE')
 class ResponsibilityEntry {
   @Form([
@@ -12071,8 +12218,16 @@ class ResponsibilityEntry {
   String? content;
 
   /// Function details and scope.
+  @StandardReferences(
+    [
+      'RACI / responsibility assignment — functional responsibilities',
+    ],
+    'Captures the detailed description and scope of the function being assigned responsibility.',
+  )
   @SectionId('REFUDE-FUNC-LST')
   @SectionIdPattern('REFUDE-FUNC-xxx')
+  @ContentHelp('Describe the function\'s scope, boundaries, and business '
+      'criticality to frame its responsibility assignment.')
   @SerializationOrder(1)
   List<ResponsibilityFunctionDetails> functionDetails = [];
 
@@ -12081,14 +12236,32 @@ class ResponsibilityEntry {
   ResponsibilityRaci raci = ResponsibilityRaci();
 
   /// Key contacts.
+  @StandardReferences(
+    [
+      'RACI / responsibility assignment — functional responsibilities',
+      'ISO 21500 — organizational roles & responsibilities',
+    ],
+    'Lists the key contacts (domain owner, data steward, operational and technical contacts) for the function.',
+  )
   @SectionId('RECO-CONT-LST')
   @SectionIdPattern('RECO-CONT-xxx')
+  @ContentHelp('Identify the domain owner, data steward, and operational, '
+      'technical, and escalation contacts for this function.')
   @SerializationOrder(3)
   List<ResponsibilityContacts> contacts = [];
 
   /// Related systems and data.
+  @StandardReferences(
+    [
+      'RACI / responsibility assignment — functional responsibilities',
+      'TOGAF — enterprise context & environment',
+    ],
+    'Records the systems and data owned or used by the function so technical accountability is mapped.',
+  )
   @SectionId('RESY-SYST-LST')
   @SectionIdPattern('RESY-SYST-xxx')
+  @ContentHelp('List the primary systems, data, and process ownership '
+      'associated with this functional responsibility.')
   @SerializationOrder(4)
   List<ResponsibilitySystems> systems = [];
 
@@ -12098,6 +12271,12 @@ class ResponsibilityEntry {
 }
 
 /// Function details and scope.
+@StandardReferences(
+  [
+    'RACI / responsibility assignment — functional responsibilities',
+  ],
+  'Captures the description, scope, and business criticality of a function under responsibility assignment.',
+)
 @SectionId('REFUDE')
 class ResponsibilityFunctionDetails {
   @Form([
@@ -12113,6 +12292,13 @@ class ResponsibilityFunctionDetails {
 }
 
 /// RACI assignment.
+@StandardReferences(
+  [
+    'RACI / responsibility assignment — functional responsibilities',
+    'ISO 21500 — organizational roles & responsibilities',
+  ],
+  'Records the Responsible, Accountable, Consulted, and Informed roles for a function per the RACI model.',
+)
 @SectionId('RERA')
 class ResponsibilityRaci {
   @Form([
@@ -12130,6 +12316,13 @@ class ResponsibilityRaci {
 }
 
 /// Key contacts.
+@StandardReferences(
+  [
+    'RACI / responsibility assignment — functional responsibilities',
+    'ISO 21500 — organizational roles & responsibilities',
+  ],
+  'Identifies the named contacts accountable for a function across business, data, operational, and technical roles.',
+)
 @SectionId('RECO')
 class ResponsibilityContacts {
   @Form([
@@ -12149,6 +12342,13 @@ class ResponsibilityContacts {
 }
 
 /// Related systems and data.
+@StandardReferences(
+  [
+    'RACI / responsibility assignment — functional responsibilities',
+    'TOGAF — enterprise context & environment',
+  ],
+  'Records the systems, data, and processes owned or used by a function to map technical accountability.',
+)
 @SectionId('RESY')
 class ResponsibilitySystems {
   @Form([
@@ -12164,6 +12364,14 @@ class ResponsibilitySystems {
 }
 
 /// Governance and transition.
+@StandardReferences(
+  [
+    'RACI / responsibility assignment — functional responsibilities',
+    'ISO 21500 — organizational roles & responsibilities',
+    'TOGAF — enterprise context & environment',
+  ],
+  'Captures the governance level, decision authority, and transition plan for how a function\'s responsibility evolves through implementation.',
+)
 @SectionId('REGO')
 class ResponsibilityGovernance {
   @Form([
@@ -12195,6 +12403,14 @@ class ResponsibilityGovernance {
 /// that must be reused, and technology standards to follow. Provides the
 /// technical landscape in which the solution must operate. Seeds the detailed
 /// Architecture & Technology Specification (ATS) document.
+@StandardReferences(
+  [
+    'TOGAF — technology architecture & environment',
+    'ISO/IEC/IEEE 42010 — architecture description (environment)',
+    'ISO/IEC 25010 — product quality (infrastructure/platform quality)',
+  ],
+  'Captures the pre-existing technical landscape — mandated platforms, infrastructure, and standards — in which the solution must operate, seeding the ATS.',
+)
 @SectionId('TEFRCO')
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
@@ -12247,8 +12463,17 @@ class TechnicalEnvironment {
   TextSection existingInfrastructure = TextSection();
 
   /// Data center and hosting environment details.
+  @StandardReferences(
+    [
+      'TOGAF — technology architecture & environment',
+      'ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)',
+    ],
+    'Enumerates data center and hosting environments the solution must run on or integrate with.',
+  )
   @SectionId('DATAC-DATA-LST')
   @SectionIdPattern('DATAC-DATA-xxx')
+  @ContentHelp('List data centers and hosting environments: location, '
+      'ownership, capacity, and any reuse or integration constraints.')
   @SerializationOrder(6)
   List<DatacenterEntry> datacenters = [];
 
@@ -12269,8 +12494,17 @@ class TechnicalEnvironment {
   TextSection standardsOverview = TextSection();
 
   /// Technology standards — contains 0+× TechnologyStandard.
+  @StandardReferences(
+    [
+      'TOGAF — technology architecture & environment',
+      'ISO/IEC 25010 — product quality (infrastructure/platform quality)',
+    ],
+    'Lists mandated or preferred technology standards the solution must adhere to.',
+  )
   @SectionId('TESTEN-TECH-LST')
   @SectionIdPattern('TESTEN-TECH-xxx')
+  @ContentHelp('List technology standards the solution must follow, with '
+      'their scope, mandate level, and compliance expectations.')
   @SerializationOrder(9)
   List<TechnologyStandardEntry> technologyStandards = [];
 
@@ -12286,8 +12520,17 @@ class TechnicalEnvironment {
   TextSection integrationOverview = TextSection();
 
   /// Integration constraints — contains 0+× IntegrationConstraint.
+  @StandardReferences(
+    [
+      'TOGAF — technology architecture & environment',
+      'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+    ],
+    'Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect.',
+  )
   @SectionId('INCOE1-INTE-LST')
   @SectionIdPattern('INCOE1-INTE-xxx')
+  @ContentHelp('List integration constraints: protocol and format '
+      'requirements, platform mandates, and the interfaces they affect.')
   @SerializationOrder(11)
   List<IntegrationConstraintEntry> integrationConstraints = [];
 
@@ -12298,10 +12541,18 @@ class TechnicalEnvironment {
 }
 
 /// Architecture governance context.
+@StandardReferences(
+  [
+    'TOGAF — technology architecture & environment',
+    'ISO/IEC/IEEE 42010 — architecture description (environment)',
+  ],
+  'Captures the governance context that shapes technology decisions, including cloud strategy and decision authority.',
+)
 @SectionId('TFCG')
 class TechnicalEnvironmentGovernance {
     @Form([
-        Field('secondaryCloudProviders', String, 'Secondary Cloud Providers'),
+        Field('secondaryCloudProviders', String, 'Secondary Cloud Providers',
+                hint: 'Additional or fallback cloud providers in use'),
         Field('technologyGovernance', String, 'Technology Governance',
                 hint: 'How technology decisions are governed'),
     ])
@@ -12310,6 +12561,13 @@ class TechnicalEnvironmentGovernance {
 }
 
 /// Platform standards and preferred technologies.
+@StandardReferences(
+  [
+    'TOGAF — technology architecture & environment',
+    'ISO/IEC 25010 — product quality (infrastructure/platform quality)',
+  ],
+  'Captures mandated or preferred platform technologies — languages, frameworks, databases, and integration platforms.',
+)
 @SectionId('TFCS')
 class TechnicalEnvironmentStandards {
     @Form([
@@ -12329,6 +12587,13 @@ class TechnicalEnvironmentStandards {
 }
 
 /// Security and compliance requirements.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (infrastructure/platform quality)',
+    'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+  ],
+  'Captures the security frameworks, compliance regimes, and encryption/identity standards the solution must satisfy.',
+)
 @SectionId('TES')
 class TechnicalEnvironmentSecurity {
     @Form([
@@ -12348,6 +12613,13 @@ class TechnicalEnvironmentSecurity {
 }
 
 /// Network and infrastructure standards.
+@StandardReferences(
+  [
+    'TOGAF — technology architecture & environment',
+    'ISO/IEC 25010 — product quality (infrastructure/platform quality)',
+  ],
+  'Captures network and infrastructure standards — topology, firewall and VPN policies, and load-balancing/CDN strategy.',
+)
 @SectionId('TFCN')
 class TechnicalEnvironmentNetwork {
     @Form([
@@ -12357,21 +12629,41 @@ class TechnicalEnvironmentNetwork {
                 hint: 'Standard firewall rules and policies'),
         Field('vpnRequirements', String, 'VPN Requirements',
                 hint: 'VPN requirements for remote access'),
-        Field('loadBalancingStandards', String, 'Load Balancing Standards'),
-        Field('cdnStrategy', String, 'CDN Strategy'),
+        Field('loadBalancingStandards', String, 'Load Balancing Standards',
+                hint: 'Standard load-balancing approach and products'),
+        Field('cdnStrategy', String, 'CDN Strategy',
+                hint: 'Content delivery network strategy and providers'),
     ])
     @SerializationOrder(0)
     String? content;
 
   /// DevOps and deployment standards.
+  @StandardReferences(
+    [
+      'TOGAF — technology architecture & environment',
+      'ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)',
+    ],
+    'Lists mandated DevOps and deployment standards the delivery pipeline must follow.',
+  )
   @SectionId('DEVOP-DEVO-LST')
   @SectionIdPattern('DEVOP-DEVO-xxx')
+  @ContentHelp('List DevOps and deployment standards: CI/CD tooling, '
+      'release process, and environment promotion rules.')
   @SerializationOrder(1)
   List<DevopsStandardEntry> devopsStandards = [];
 
   /// Monitoring and observability requirements.
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — product quality (infrastructure/platform quality)',
+      'ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)',
+    ],
+    'Lists monitoring and observability requirements the solution must meet for operational visibility.',
+  )
   @SectionId('OBSER-OBSE-LST')
   @SectionIdPattern('OBSER-OBSE-xxx')
+  @ContentHelp('List observability requirements: metrics, logging, tracing, '
+      'alerting standards, and required monitoring platforms.')
   @SerializationOrder(2)
   List<ObservabilityRequirementEntry> observabilityRequirements = [];
 
@@ -12386,6 +12678,13 @@ class TechnicalEnvironmentNetwork {
 ///
 /// Documents a mandated or preferred technology standard that the solution
 /// must adhere to. Includes scope, compliance requirements, and exceptions.
+@StandardReferences(
+  [
+    'TOGAF — technology architecture & environment',
+    'ISO/IEC 25010 — product quality (infrastructure/platform quality)',
+  ],
+  'Documents a single mandated or preferred technology standard the solution must comply with.',
+)
 @SectionId('TSE')
 class TechnologyStandardEntry {
   @Form([
@@ -12418,6 +12717,13 @@ class TechnologyStandardEntry {
 }
 
 /// Standard details and sources.
+@StandardReferences(
+  [
+    'TOGAF — technology architecture & environment',
+    'ISO/IEC/IEEE 42010 — architecture description (environment)',
+  ],
+  'Captures the descriptive details and authoritative source of a technology standard.',
+)
 @SectionId('TSED')
 class TechnologyStandardEntryDetails {
   @Form([
@@ -12439,6 +12745,13 @@ class TechnologyStandardEntryDetails {
 }
 
 /// Scope and applicability.
+@StandardReferences(
+  [
+    'TOGAF — technology architecture & environment',
+    'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+  ],
+  'Defines where a technology standard applies and the process for granting exceptions.',
+)
 @SectionId('TSES')
 class TechnologyStandardEntryScope {
   @Form([
@@ -12456,6 +12769,13 @@ class TechnologyStandardEntryScope {
 }
 
 /// Compliance settings.
+@StandardReferences(
+  [
+    'ISO/IEC 25010 — product quality (infrastructure/platform quality)',
+    'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+  ],
+  'Captures how compliance with a technology standard is verified, owned, and enforced.',
+)
 @SectionId('TSEC')
 class TechnologyStandardEntryCompliance {
   @Form([
@@ -12471,6 +12791,13 @@ class TechnologyStandardEntryCompliance {
 }
 
 /// Project impact notes.
+@StandardReferences(
+  [
+    'PMBOK — constraints, assumptions & dependency management',
+    'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+  ],
+  'Records how a technology standard impacts this project and notes for implementing it.',
+)
 @SectionId('TSEI')
 class TechnologyStandardEntryImpact {
   @Form([
@@ -12487,6 +12814,13 @@ class TechnologyStandardEntryImpact {
 ///
 /// Documents a technical constraint on system integration, including
 /// protocol requirements, format restrictions, and platform mandates.
+@StandardReferences(
+  [
+    'TOGAF — technology architecture & environment',
+    'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+  ],
+  'Documents a single technical constraint on system integration that the solution must respect.',
+)
 @SectionId('INTCONENT')
 class IntegrationConstraintEntry {
   @Form([
@@ -12521,6 +12855,13 @@ class IntegrationConstraintEntry {
 }
 
 /// Constraint details.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+    'TOGAF — technology architecture & environment',
+  ],
+  'Captures the type, value, and source of an integration constraint.',
+)
 @SectionId('INCOENDE')
 class IntegrationConstraintEntryDetails {
   @Form([
@@ -12536,6 +12877,13 @@ class IntegrationConstraintEntryDetails {
 }
 
 /// Scope of impact.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+    'PMBOK — constraints, assumptions & dependency management',
+  ],
+  'Identifies the systems, interfaces, and integration patterns affected by a constraint.',
+)
 @SectionId('ICES')
 class IntegrationConstraintEntryScope {
   @Form([
@@ -12551,6 +12899,13 @@ class IntegrationConstraintEntryScope {
 }
 
 /// Impact and mitigation.
+@StandardReferences(
+  [
+    'PMBOK — constraints, assumptions & dependency management',
+    'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+  ],
+  'Captures the severity of an integration constraint and the design implications and mitigations for it.',
+)
 @SectionId('ICEM')
 class IntegrationConstraintEntryMitigation {
   @Form([
@@ -12568,6 +12923,13 @@ class IntegrationConstraintEntryMitigation {
 }
 
 /// Compliance rules.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+    'ISO/IEC 25010 — product quality (infrastructure/platform quality)',
+  ],
+  'Captures whether compliance with an integration constraint is mandatory and how it is validated.',
+)
 @SectionId('INCOENCO')
 class IntegrationConstraintEntryCompliance {
   @Form([
@@ -12588,6 +12950,13 @@ class IntegrationConstraintEntryCompliance {
 /// **not** restate that register (L34C-4 consolidation, SR-10): it frames how
 /// the framework conditions documented in SBP.2 §4.6 give rise to the entries
 /// recorded in SBP.6, and points the reader there.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — operating environment & constraints',
+    'PMBOK — constraints, assumptions & dependency management',
+  ],
+  'Frames how the operating-environment conditions in §4.6 give rise to constraints and dependencies, pointing to the canonical SBP.6 register.',
+)
 @SectionId('COANDE')
 class ConstraintsAndDependencies {
   @ContentType('description', 'Summarize how the operating environment '
@@ -12615,6 +12984,14 @@ class ConstraintsAndDependencies {
 /// Dependencies). Only the risks half — unique to §4.7 — remains in this node.
 /// (The class name remains `RisksAndAssumptions` pending the L34C-9 rename
 /// sweep, which will rename it to `Risks`.)
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+    'ISO/IEC 31010 — risk assessment techniques',
+  ],
+  'This section captures the project risk register and management approach so threats and opportunities are systematically identified, analyzed, and controlled.',
+)
 @SectionId('RIANAS')
 class RisksAndAssumptions {
   /// Overview of the risk management approach for this project.
@@ -12622,34 +12999,59 @@ class RisksAndAssumptions {
   RisksOverview overview = RisksOverview();
 
   /// 4.7.1. Key Risks — contains 0+× Risk.
+  @StandardReferences(
+    [
+      'ISO 31000:2018 — risk management',
+      'PMBOK — project risk management',
+    ],
+    'This list holds the individual risk entries that make up the project risk register and drive prioritization and response planning.',
+  )
   @SectionId('RIEN-KEYR-LST')
   @SectionIdPattern('RIEN-KEYR-xxx')
+  @ContentHelp('List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.')
   @SerializationOrder(1)
   List<RiskEntry> keyRisks = [];
 }
 
 /// Overview of the risk management approach.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+    'ISO/IEC 31010 — risk assessment techniques',
+  ],
+  'This section captures the overarching risk management methodology, appetite, and scales that frame how every individual risk is assessed.',
+)
 @SectionId('RIOV')
 class RisksOverview {
   @Form([
     Field('riskManagementApproach', String,
-        'Risk Management Approach — overall methodology and framework'),
+        'Risk Management Approach — overall methodology and framework',
+        hint: 'Describe the methodology and framework used to manage risk'),
     Field('riskAppetite', String,
-        'Risk Appetite — organization tolerance (risk-averse, risk-neutral, risk-seeking)'),
+        'Risk Appetite — organization tolerance (risk-averse, risk-neutral, risk-seeking)',
+        hint: 'State the organization tolerance level for risk'),
     Field('riskThresholds', String,
-        'Risk Thresholds — quantitative escalation levels (e.g., cost > \$50K)'),
+        'Risk Thresholds — quantitative escalation levels (e.g., cost > \$50K)',
+        hint: 'Define quantitative thresholds that trigger escalation'),
     Field('riskReviewCadence', String,
-        'Risk Review Cadence — frequency of review meetings'),
+        'Risk Review Cadence — frequency of review meetings',
+        hint: 'How often risks are reviewed'),
     Field('escalationPath', String,
-        'Escalation Path — hierarchy for escalating high-severity risks'),
+        'Escalation Path — hierarchy for escalating high-severity risks',
+        hint: 'Chain of escalation for high-severity risks'),
     Field('riskTooling', String,
-        'Risk Management Tooling — tools used to track risks'),
+        'Risk Management Tooling — tools used to track risks',
+        hint: 'Tools or systems used to track and report risks'),
     Field('riskCategories', String,
-        'Risk Categories — Technical, Schedule, Cost, Resource, External, etc.'),
+        'Risk Categories — Technical, Schedule, Cost, Resource, External, etc.',
+        hint: 'Categories used to classify risks'),
     Field('probabilityScale', String,
-        'Probability Scale — Very Low (<10%), Low (10-30%), Medium (30-50%), High (50-70%), Very High (>70%)'),
+        'Probability Scale — Very Low (<10%), Low (10-30%), Medium (30-50%), High (50-70%), Very High (>70%)',
+        hint: 'Scale used to rate likelihood of occurrence'),
     Field('impactScale', String,
-        'Impact Scale — Negligible, Minor, Moderate, Major, Catastrophic with criteria'),
+        'Impact Scale — Negligible, Minor, Moderate, Major, Catastrophic with criteria',
+        hint: 'Scale used to rate severity of impact'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -12660,6 +13062,14 @@ class RisksOverview {
 /// Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
 /// Captures risk identification, analysis, response planning, ownership,
 /// and monitoring information for systematic risk management.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+    'ISO/IEC 31010 — risk assessment techniques',
+  ],
+  'This section captures a single risk in full — its identification, analysis, response, ownership, and monitoring — so it can be managed end to end.',
+)
 @SectionId('RISENT')
 class RiskEntry {
   /// Risk identification — unique identifier and basic description.
@@ -12687,24 +13097,45 @@ class RiskEntry {
   RiskBusinessImpact businessImpact = RiskBusinessImpact();
 
   /// Relationships to other risks, assumptions, and project elements.
+  @StandardReferences(
+    [
+      'ISO 31000:2018 — risk management',
+      'PMBOK — project risk management',
+    ],
+    'This list links the risk to related risks, assumptions, requirements, and components so dependencies and ripple effects are visible.',
+  )
   @SectionId('RR-RELA-LST')
   @SectionIdPattern('RR-RELA-xxx')
+  @ContentHelp('Relationships connecting this risk to other risks, assumptions, requirements, and affected project elements.')
   @SerializationOrder(6)
   List<RiskRelationships> relationships = [];
 }
 
 /// Risk identification details.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+    'ISO/IEC 31010 — risk assessment techniques',
+  ],
+  'This section captures the unique identifier, name, and categorization that uniquely distinguish a risk in the register.',
+)
 @SectionId('RIID')
 class RiskIdentification {
   @Form([
-    Field('riskId', String, 'Risk ID (e.g., RISK-001, TR-001)', required: true),
-    Field('riskName', String, 'Risk Name — short descriptive name', required: true),
+    Field('riskId', String, 'Risk ID (e.g., RISK-001, TR-001)',
+        required: true, hint: 'Unique identifier for this risk'),
+    Field('riskName', String, 'Risk Name — short descriptive name',
+        required: true, hint: 'Short descriptive name for the risk'),
     Field('description', String,
-        'Description — detailed risk event and potential causes'),
+        'Description — detailed risk event and potential causes',
+        hint: 'Detailed description of the risk event and its causes'),
     Field('category', String,
-        'Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational'),
+        'Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational',
+        hint: 'Top-level risk category'),
     Field('subcategory', String,
-        'Subcategory — more specific categorization'),
+        'Subcategory — more specific categorization',
+        hint: 'More specific categorization within the category'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -12719,71 +13150,120 @@ class RiskIdentification {
 }
 
 /// Identification source and ownership metadata.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+  ],
+  'This section records how and when the risk was identified and who raised it, supporting traceability of the risk register.',
+)
 @SectionId('RIIDSO')
 class RiskIdentificationSource {
     @Form([
         Field('source', String,
-                'Risk Source — brainstorming, review, lessons learned'),
-        Field('dateIdentified', String, 'Date Identified'),
-        Field('identifiedBy', String, 'Identified By — person or team'),
+                'Risk Source — brainstorming, review, lessons learned',
+                hint: 'How the risk was identified'),
+        Field('dateIdentified', String, 'Date Identified',
+                hint: 'When the risk was first identified'),
+        Field('identifiedBy', String, 'Identified By — person or team',
+                hint: 'Person or team who identified the risk'),
         Field('riskType', String,
-                'Risk Type — Threat (negative) or Opportunity (positive)'),
+                'Risk Type — Threat (negative) or Opportunity (positive)',
+                hint: 'Whether this is a threat or an opportunity'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Trigger and root-cause details.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'ISO/IEC 31010 — risk assessment techniques',
+  ],
+  'This section captures the triggering events and underlying root causes of the risk to support early detection and prevention.',
+)
 @SectionId('RIIDCA')
 class RiskIdentificationCause {
     @Form([
         Field('trigger', String,
-                'Risk Trigger — events indicating risk is about to occur'),
+                'Risk Trigger — events indicating risk is about to occur',
+                hint: 'Events signaling the risk is about to occur'),
         Field('rootCause', String,
-                'Root Cause — underlying causes that could lead to this risk'),
+                'Root Cause — underlying causes that could lead to this risk',
+                hint: 'Underlying causes that could lead to the risk'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Risk analysis — probability, impact, and risk scoring.
+@StandardReferences(
+  [
+    'ISO/IEC 31010 — risk assessment techniques',
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+  ],
+  'This section captures the probability, impact, and resulting score that quantify a risk and drive its prioritization.',
+)
 @SectionId('RIAN')
 class RiskAnalysis {
   @Form([
     Field('probability', String,
-        'Probability — Very Low, Low, Medium, High, Very High'),
+        'Probability — Very Low, Low, Medium, High, Very High',
+        hint: 'Qualitative likelihood rating'),
     Field('probabilityValue', double,
-        'Probability Value — numeric (0.0-1.0) for quantitative analysis'),
+        'Probability Value — numeric (0.0-1.0) for quantitative analysis',
+        hint: 'Numeric likelihood between 0.0 and 1.0'),
     Field('impact', String,
-        'Impact — Negligible, Minor, Moderate, Major, Catastrophic'),
+        'Impact — Negligible, Minor, Moderate, Major, Catastrophic',
+        hint: 'Qualitative severity rating'),
     Field('impactValue', double,
-        'Impact Value — numeric score (1-5 or monetary value)'),
+        'Impact Value — numeric score (1-5 or monetary value)',
+        hint: 'Numeric severity score or monetary value'),
     Field('riskScore', double,
-        'Risk Score — calculated (probability × impact)'),
-    Field('riskLevel', String, 'Risk Level — Low, Medium, High, Critical'),
-    Field('riskRanking', int, 'Risk Ranking — priority relative to other risks'),
+        'Risk Score — calculated (probability × impact)',
+        hint: 'Computed score from probability times impact'),
+    Field('riskLevel', String, 'Risk Level — Low, Medium, High, Critical',
+        hint: 'Overall risk level classification'),
+    Field('riskRanking', int, 'Risk Ranking — priority relative to other risks',
+        hint: 'Priority rank relative to other risks'),
     Field('analysisMethod', String,
-        'Analysis Method — Qualitative, Semi-quantitative, Quantitative'),
+        'Analysis Method — Qualitative, Semi-quantitative, Quantitative',
+        hint: 'Method used to assess the risk'),
     Field('confidenceLevel', String,
-        'Confidence Level — in probability/impact estimates'),
-    Field('analysisNotes', String, 'Analysis Notes — methodology and findings'),
+        'Confidence Level — in probability/impact estimates',
+        hint: 'Confidence in the probability and impact estimates'),
+    Field('analysisNotes', String, 'Analysis Notes — methodology and findings',
+        hint: 'Notes on methodology and findings'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Risk response — strategy and planned actions.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+  ],
+  'This section captures the chosen response strategy and the mitigation and contingency actions planned to treat the risk.',
+)
 @SectionId('RIRE')
 class RiskResponse {
   @Form([
     Field('responseStrategy', String,
-        'Response Strategy — Avoid, Transfer, Mitigate, Accept (or Exploit, Share, Enhance for opportunities)'),
+        'Response Strategy — Avoid, Transfer, Mitigate, Accept (or Exploit, Share, Enhance for opportunities)',
+        hint: 'Strategy chosen to treat the risk'),
     Field('responseDescription', String,
-        'Response Description — planned approach'),
+        'Response Description — planned approach',
+        hint: 'Description of the planned response approach'),
     Field('mitigationActions', String,
-        'Mitigation Actions — actions to reduce probability or impact'),
+        'Mitigation Actions — actions to reduce probability or impact',
+        hint: 'Actions to reduce likelihood or impact'),
     Field('contingencyPlan', String,
-        'Contingency Plan — actions if risk materializes'),
+        'Contingency Plan — actions if risk materializes',
+        hint: 'Fallback actions if the risk materializes'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -12799,71 +13279,118 @@ class RiskResponse {
 }
 
 /// Residual and secondary risk expectations.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'ISO/IEC 31010 — risk assessment techniques',
+  ],
+  'This section captures the residual risk expected after treatment and any secondary risks introduced by the response.',
+)
 @SectionId('RIRERE')
 class RiskResponseResidual {
   @Form([
     Field('residualRisk', String,
-        'Residual Risk — level remaining after mitigation'),
+        'Residual Risk — level remaining after mitigation',
+        hint: 'Risk level remaining after mitigation'),
     Field('residualProbability', String,
-        'Residual Probability — expected after mitigation'),
+        'Residual Probability — expected after mitigation',
+        hint: 'Expected likelihood after mitigation'),
     Field('residualImpact', String,
-        'Residual Impact — expected after mitigation'),
+        'Residual Impact — expected after mitigation',
+        hint: 'Expected impact after mitigation'),
     Field('secondaryRisks', String,
-        'Secondary Risks — new risks from implementing response'),
+        'Secondary Risks — new risks from implementing response',
+        hint: 'New risks arising from the response'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Implementation effort and effectiveness.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+  ],
+  'This section captures the cost, timeline, and effectiveness of implementing the risk response so trade-offs can be weighed.',
+)
 @SectionId('RIREIM')
 class RiskResponseImplementation {
   @Form([
     Field('responseEffectiveness', String,
-        'Response Effectiveness — Low, Medium, High'),
+        'Response Effectiveness — Low, Medium, High',
+        hint: 'How effective the response is expected to be'),
     Field('implementationCost', String,
-        'Implementation Cost — cost to implement response'),
+        'Implementation Cost — cost to implement response',
+        hint: 'Cost to implement the response'),
     Field('implementationTimeline', String,
-        'Implementation Timeline — for response actions'),
+        'Implementation Timeline — for response actions',
+        hint: 'Timeline for carrying out response actions'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Risk ownership and governance.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+  ],
+  'This section assigns accountability and approval authority for the risk so governance and escalation lines are unambiguous.',
+)
 @SectionId('RIOW')
 class RiskOwnership {
   @Form([
     Field('riskOwner', String,
-        'Risk Owner — person accountable for monitoring'),
-    Field('riskOwnerRole', String, 'Owner Role — role/title'),
+        'Risk Owner — person accountable for monitoring',
+        hint: 'Person accountable for monitoring the risk'),
+    Field('riskOwnerRole', String, 'Owner Role — role/title',
+        hint: 'Role or title of the risk owner'),
     Field('actionOwners', String,
-        'Action Owners — people responsible for mitigation actions'),
+        'Action Owners — people responsible for mitigation actions',
+        hint: 'People responsible for mitigation actions'),
     Field('escalationContact', String,
-        'Escalation Contact — who to escalate to if risk worsens'),
+        'Escalation Contact — who to escalate to if risk worsens',
+        hint: 'Who to escalate to if the risk worsens'),
     Field('stakeholdersInformed', String,
-        'Stakeholders Informed — who needs to be kept informed'),
+        'Stakeholders Informed — who needs to be kept informed',
+        hint: 'Stakeholders to keep informed'),
     Field('approvalRequired', bool,
-        'Approval Required — whether response actions need approval'),
+        'Approval Required — whether response actions need approval',
+        hint: 'Whether response actions require approval'),
     Field('approver', String,
-        'Approver — person who must approve response actions'),
+        'Approver — person who must approve response actions',
+        hint: 'Person who must approve response actions'),
     Field('decisionAuthority', String,
-        'Decision Authority — authority level for decisions'),
+        'Decision Authority — authority level for decisions',
+        hint: 'Authority level for risk decisions'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Risk monitoring and tracking.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+  ],
+  'This section captures the cadence and current status of ongoing risk monitoring so the risk stays under active review.',
+)
 @SectionId('RIMO')
 class RiskMonitoring {
   @Form([
     Field('reviewFrequency', String,
-        'Review Frequency — Daily, Weekly, Bi-weekly, Monthly'),
-    Field('lastReviewDate', String, 'Last Review Date'),
-    Field('nextReviewDate', String, 'Next Review Date'),
+        'Review Frequency — Daily, Weekly, Bi-weekly, Monthly',
+        hint: 'How often the risk is reviewed'),
+    Field('lastReviewDate', String, 'Last Review Date',
+        hint: 'Date of the most recent review'),
+    Field('nextReviewDate', String, 'Next Review Date',
+        hint: 'Date of the next scheduled review'),
     Field('riskStatus', String,
-        'Risk Status — Identified, Analyzing, Responding, Monitoring, Closed, Realized'),
+        'Risk Status — Identified, Analyzing, Responding, Monitoring, Closed, Realized',
+        hint: 'Current lifecycle status of the risk'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -12878,45 +13405,78 @@ class RiskMonitoring {
 }
 
 /// Trend and monitoring indicators.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'ISO/IEC 31010 — risk assessment techniques',
+  ],
+  'This section captures the risk trend and early-warning indicators that signal whether the risk is growing or receding.',
+)
 @SectionId('RIMOTR')
 class RiskMonitoringTrend {
     @Form([
-        Field('trend', String, 'Trend — Increasing, Stable, Decreasing'),
+        Field('trend', String, 'Trend — Increasing, Stable, Decreasing',
+                hint: 'Direction in which the risk is trending'),
         Field('trendJustification', String,
-                'Trend Justification — explanation for trend assessment'),
+                'Trend Justification — explanation for trend assessment',
+                hint: 'Rationale for the trend assessment'),
         Field('earlyWarningIndicators', String,
-                'Early Warning Indicators — metrics signaling risk may materialize'),
+                'Early Warning Indicators — metrics signaling risk may materialize',
+                hint: 'Metrics that signal the risk may materialize'),
         Field('monitoringMechanism', String,
-                'Monitoring Mechanism — automated alerts, manual review, etc.'),
+                'Monitoring Mechanism — automated alerts, manual review, etc.',
+                hint: 'Mechanism used to monitor the risk'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Closure tracking and lessons learned.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+  ],
+  'This section records when and why the risk was closed and the lessons learned to inform future risk management.',
+)
 @SectionId('RIMOCL')
 class RiskMonitoringClosure {
     @Form([
-        Field('closureDate', String, 'Closure Date'),
+        Field('closureDate', String, 'Closure Date',
+                hint: 'Date the risk was closed'),
         Field('closureReason', String,
-                'Closure Reason — Mitigated, Avoided, Accepted, Realized, No longer relevant'),
+                'Closure Reason — Mitigated, Avoided, Accepted, Realized, No longer relevant',
+                hint: 'Why the risk was closed'),
         Field('lessonsLearned', String,
-                'Lessons Learned — key insights from managing this risk'),
+                'Lessons Learned — key insights from managing this risk',
+                hint: 'Key insights gained from managing the risk'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Business impact assessment for the risk.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+    'ISO/IEC 31010 — risk assessment techniques',
+  ],
+  'This section captures the cost, schedule, scope, and quality consequences of the risk to inform business prioritization.',
+)
 @SectionId('RIBUIM')
 class RiskBusinessImpact {
   @Form([
     Field('costImpact', String,
-        'Cost Impact — potential cost if risk materializes'),
+        'Cost Impact — potential cost if risk materializes',
+        hint: 'Potential cost if the risk materializes'),
     Field('scheduleImpact', String,
-        'Schedule Impact — potential delay (days, weeks, phases)'),
-    Field('scopeImpact', String, 'Scope Impact — impact on deliverables'),
-    Field('qualityImpact', String, 'Quality Impact'),
+        'Schedule Impact — potential delay (days, weeks, phases)',
+        hint: 'Potential schedule delay if the risk occurs'),
+    Field('scopeImpact', String, 'Scope Impact — impact on deliverables',
+        hint: 'Impact on project scope and deliverables'),
+    Field('qualityImpact', String, 'Quality Impact',
+        hint: 'Impact on product or deliverable quality'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -12932,59 +13492,96 @@ class RiskBusinessImpact {
 }
 
 /// Broader stakeholder and compliance impact.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'ISO/IEC 27005 — information security risk management (for security-flavored risks)',
+  ],
+  'This section captures the resource, reputation, customer, and regulatory consequences of the risk on stakeholders and compliance.',
+)
 @SectionId('RBIS')
 class RiskBusinessImpactStakeholders {
   @Form([
     Field('resourceImpact', String,
-        'Resource Impact — impact on team resources'),
+        'Resource Impact — impact on team resources',
+        hint: 'Impact on team and resource availability'),
     Field('reputationImpact', String,
-        'Reputation Impact — organizational or project'),
+        'Reputation Impact — organizational or project',
+        hint: 'Impact on organizational or project reputation'),
     Field('customerImpact', String,
-        'Customer Impact — impact on customers or end users'),
+        'Customer Impact — impact on customers or end users',
+        hint: 'Impact on customers or end users'),
     Field('regulatoryImpact', String,
-        'Regulatory Impact — compliance implications'),
+        'Regulatory Impact — compliance implications',
+        hint: 'Compliance and regulatory implications'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Operational and delivery consequences.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'PMBOK — project risk management',
+  ],
+  'This section captures the operational, strategic, and delivery consequences of the risk on milestones and deliverables.',
+)
 @SectionId('RBID')
 class RiskBusinessImpactDelivery {
   @Form([
     Field('operationalImpact', String,
-        'Operational Impact — impact on ongoing operations'),
+        'Operational Impact — impact on ongoing operations',
+        hint: 'Impact on ongoing operations'),
     Field('strategicImpact', String,
-        'Strategic Impact — impact on strategic objectives'),
+        'Strategic Impact — impact on strategic objectives',
+        hint: 'Impact on strategic objectives'),
     Field('affectedMilestones', String,
-        'Affected Milestones — project milestones at risk'),
+        'Affected Milestones — project milestones at risk',
+        hint: 'Project milestones placed at risk'),
     Field('affectedDeliverables', String,
-        'Affected Deliverables — specific deliverables at risk'),
+        'Affected Deliverables — specific deliverables at risk',
+        hint: 'Specific deliverables placed at risk'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Relationships to other risks, assumptions, and project elements.
+@StandardReferences(
+  [
+    'ISO 31000:2018 — risk management',
+    'ISO/IEC/IEEE 29148 §6 — assumptions, dependencies & constraints (risk context)',
+  ],
+  'This section captures how the risk relates to other risks, assumptions, requirements, and components so interdependencies are tracked.',
+)
 @SectionId('RR')
 class RiskRelationships {
   @Form([
     Field('relatedRisks', String,
-        'Related Risks — other risks that are related or dependent'),
+        'Related Risks — other risks that are related or dependent',
+        hint: 'Other risks related to or dependent on this one'),
     Field('relatedAssumptions', String,
-        'Related Assumptions — assumptions that could affect this risk'),
+        'Related Assumptions — assumptions that could affect this risk',
+        hint: 'Assumptions that could affect this risk'),
     Field('relatedIssues', String,
-        'Related Issues — issues arising from this risk'),
+        'Related Issues — issues arising from this risk',
+        hint: 'Issues arising from this risk'),
     Field('relatedRequirements', String,
-        'Related Requirements — requirements affected'),
+        'Related Requirements — requirements affected',
+        hint: 'Requirements affected by this risk'),
     Field('affectedComponents', String,
-        'Affected Components — system components or modules'),
+        'Affected Components — system components or modules',
+        hint: 'System components or modules affected'),
     Field('affectedStakeholders', String,
-        'Affected Stakeholders — groups impacted if risk occurs'),
+        'Affected Stakeholders — groups impacted if risk occurs',
+        hint: 'Stakeholder groups impacted if the risk occurs'),
     Field('externalDependencies', String,
-        'External Dependencies — external factors related to risk'),
+        'External Dependencies — external factors related to risk',
+        hint: 'External factors related to the risk'),
     Field('documentReferences', String,
-        'Document References — related documentation'),
+        'Document References — related documentation',
+        hint: 'Related documentation references'),
   ])
   @SerializationOrder(0)
   String? content;

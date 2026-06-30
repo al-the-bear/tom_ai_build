@@ -121,7 +121,7 @@ section-types:
     pattern-check-id:
       pattern: ^incoe1_inte_lst-\d+$
       error-message: ID must match incoe1_inte_lst-NNN
-    description: Integration constraints — contains 0+× IntegrationConstraint.
+    description: "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect."
   INCOEN-INFR-LST:
     prefix: incoen_infr_lst
     pattern-check-id:
@@ -223,7 +223,7 @@ section-types:
     pattern-check-id:
       pattern: ^testen_tech_lst-\d+$
       error-message: ID must match testen_tech_lst-NNN
-    description: Technology standards — contains 0+× TechnologyStandard.
+    description: "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations."
   THPALI-THIR-LST:
     prefix: thpali_thir_lst
     pattern-check-id:
@@ -253,13 +253,13 @@ section-types:
     pattern-check-id:
       pattern: ^datac_data_lst-\d+$
       error-message: ID must match datac_data_lst-NNN
-    description: Data center and hosting environment details.
+    description: "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints."
   DEVOP-DEVO-LST:
     prefix: devop_devo_lst
     pattern-check-id:
       pattern: ^devop_devo_lst-\d+$
       error-message: ID must match devop_devo_lst-NNN
-    description: DevOps and deployment standards.
+    description: "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules."
   DORE1-DESK-LST:
     prefix: dore1_desk_lst
     pattern-check-id:
@@ -301,7 +301,7 @@ section-types:
     pattern-check-id:
       pattern: ^obser_obse_lst-\d+$
       error-message: ID must match obser_obse_lst-NNN
-    description: Monitoring and observability requirements.
+    description: "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms."
   PLGEN-PROG-LST:
     prefix: plgen_prog_lst
     pattern-check-id:
