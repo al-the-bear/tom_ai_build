@@ -4000,6 +4000,12 @@ class ErrorHandlingClassification {
 }
 
 /// Accessibility and inclusive error cues.
+///
+/// The authoritative WCAG conformance targets (AA/AAA levels, success
+/// criteria) are defined in §10.9 `Accessibility`. This section *applies*
+/// those targets to error states (screen-reader announcements, contrast,
+/// non-color indicators) — reference §10.9, do not restate the conformance
+/// levels here.
 @SectionId('EHCA')
 class ErrorHandlingAccessibility {
     @Form([

@@ -99,6 +99,11 @@ pre-go-live to production.
 /// End-to-end system migration plan covering migration-plan content:
 /// data, configuration, integration, and user migration from the current
 /// landscape to the target.
+///
+/// This is the rollout/cutover *runbook* (execution). The staged-migration
+/// *strategy* (phasing, sequencing, data-migration approach) is owned by
+/// `DataMigrationStrategy` (`DRM`); reference it rather than restating the
+/// strategy here.
 @SectionId('MIGPLN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-MIG')
@@ -126,6 +131,12 @@ mapping. Focuses on the execution plan.
 /// 15.3. User Manuals.
 ///
 /// End-user documentation deliverables covering user-manual content.
+///
+/// This is the *execution* side of user documentation. The documentation
+/// *requirements* (deliverables, formats, platforms, versioning,
+/// localization) are owned by SBP.9 `InformationForUseRequirements`
+/// (`IFUR`); reference them via the shared `TRP-DOC` detail link rather
+/// than restating the requirements here.
 @SectionId('USRMAN')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-DOC')
@@ -154,6 +165,12 @@ the help-concept section).
 /// 15.4. Training Materials.
 ///
 /// Training deliverables covering training-material content.
+///
+/// This is the *execution* side of training. The training *requirements*
+/// (audiences, competency outcomes, certification, ongoing enablement) are
+/// owned by SBP.9 `TrainingEnablementRequirements` (`TREQ`); reference them
+/// via the shared `TRP-TRN` detail link rather than restating the
+/// requirements here.
 @SectionId('RLTTM')
 @DetailedIn(D12TransitionRolloutPlan)
 @SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-TRN')
