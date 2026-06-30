@@ -165,14 +165,8 @@ class ArchitecturePrincipleEntryGovernance;
 class ArchitecturePrincipleEntryGuidance;
 class ArchitectureStyle;
 class AssumptionConstraintRegister;
-class AssumptionEntry;
-class AssumptionIdentification;
-class AssumptionImpact;
 class AssumptionRegisterEntry;
-class AssumptionRelationships;
-class AssumptionValidation;
 class AssumptionsConstraintsDependencies;
-class AssumptionsOverview;
 class AttributeInterdependencyEntry;
 class AuditAndLogging;
 class AuditEntry;
@@ -576,15 +570,7 @@ class ConsentManagementRequirementsCompliance;
 class ConsentManagementRequirementsManagement;
 class ConsentManagementRequirementsStorage;
 class ConsentManagementRequirementsTracking;
-class ConstraintClassification;
-class ConstraintDetails;
-class ConstraintEntry;
-class ConstraintImpact;
-class ConstraintLinkages;
-class ConstraintMitigation;
 class ConstraintRegisterEntry;
-class ConstraintTracking;
-class Constraints;
 class ConstraintsAndDependencies;
 class ContentScanningPolicy;
 class ContextDiagram;
@@ -813,37 +799,28 @@ class DeliveryScope;
 class DeliveryScopeAndAcceptance;
 class DeliveryTransitionAndRollout;
 class DependenciesAndIntegrations;
-class DependencyClassification;
-class DependencyDeliverable;
 class DependencyEntry;
-class DependencyExternalParty;
 class DependencyHealthMonitoring;
 class DependencyHealthMonitoringCache;
 class DependencyHealthMonitoringExternal;
 class DependencyHealthMonitoringQueue;
 class DependencyHealthMonitoringThresholds;
-class DependencyIdentity;
 class DependencyInjectionStructure;
 class DependencyInjectionStructureBinding;
 class DependencyInjectionStructureConfiguration;
 class DependencyInjectionStructureRegistration;
 class DependencyInjectionStructureTroubleshooting;
-class DependencyLinkages;
 class DependencyManagement;
 class DependencyManagementInternal;
 class DependencyManagementOperations;
 class DependencyManagementSecurity;
 class DependencyManagementVersioning;
-class DependencyMitigation;
 class DependencyRegisterEntry;
-class DependencyRisk;
 class DependencyScanningRequirements;
 class DependencyScanningRequirementsLicensing;
 class DependencyScanningRequirementsSbom;
 class DependencyScanningRequirementsSupplyChain;
 class DependencyScanningRequirementsVulnerabilities;
-class DependencyTimeline;
-class DependencyTracking;
 class DeploymentContext;
 class DeploymentEnvironmentEntry;
 class DeploymentEnvironmentEntryConfiguration;
@@ -1183,10 +1160,6 @@ class FlexibilityQualityModularity;
 class FragilePointEntry;
 class FrameworkCompatibility;
 class FrameworkConditions;
-class FrameworkDependencies;
-class FrameworkDependenciesCategories;
-class FrameworkDependenciesManagement;
-class FrameworkDependencyEntry;
 class FrameworkIdentity;
 class FrameworkJustification;
 class FrameworkRequirementEntry;
@@ -1441,7 +1414,6 @@ class JobDescriptionsAndStaffing;
 class JobDescriptionsOverview;
 class JourneyStageEntry;
 class KeyAssumptionEntry;
-class KeyAssumptions;
 class KeyAttributeEntry;
 class KeyAttributeEntryGeneration;
 class KeyAttributeEntryGovernance;
@@ -3232,12 +3204,7 @@ class ArchitectureOverviewTradeOffsContentForm;
 class ArchitecturePrincipleEntryContentForm;
 class ArchitecturePrincipleEntryGovernanceContentForm;
 class ArchitecturePrincipleEntryGuidanceContentForm;
-class AssumptionIdentificationContentForm;
-class AssumptionImpactContentForm;
 class AssumptionRegisterEntryContentForm;
-class AssumptionRelationshipsContentForm;
-class AssumptionValidationContentForm;
-class AssumptionsOverviewContentForm;
 class AuditEntryContentForm;
 class AuditEvidenceRequirementsContentForm;
 class AuditEvidenceTypeEntryContentForm;
@@ -3603,16 +3570,7 @@ class ConsentManagementRequirementsContentForm;
 class ConsentManagementRequirementsManagementContentForm;
 class ConsentManagementRequirementsStorageContentForm;
 class ConsentManagementRequirementsTrackingContentForm;
-class ConstraintClassificationContentForm;
-class ConstraintDetailsContentForm;
-class ConstraintEntryContentForm;
-class ConstraintImpactContentForm;
-class ConstraintLinkagesContentForm;
-class ConstraintMitigationContentForm;
 class ConstraintRegisterEntryContentForm;
-class ConstraintTrackingContentForm;
-class ConstraintsAndDependenciesContentForm;
-class ConstraintsContentForm;
 class ContextualHelpContextualHelpContentForm;
 class ContextualHelpInlineContentForm;
 class ContextualHelpPanelsContentForm;
@@ -3796,36 +3754,27 @@ class DeliveryAcceptanceCriterionEntryOwnershipContentForm;
 class DeliveryAcceptanceCriterionEntryStatusContentForm;
 class DeliveryAcceptanceCriterionEntryTraceabilityContentForm;
 class DeliveryAcceptanceCriterionEntryVerificationContentForm;
-class DependencyClassificationContentForm;
-class DependencyDeliverableContentForm;
-class DependencyExternalPartyContentForm;
 class DependencyHealthMonitoringCacheContentForm;
 class DependencyHealthMonitoringContentForm;
 class DependencyHealthMonitoringExternalContentForm;
 class DependencyHealthMonitoringQueueContentForm;
 class DependencyHealthMonitoringThresholdsContentForm;
-class DependencyIdentityContentForm;
 class DependencyInjectionStructureBindingContentForm;
 class DependencyInjectionStructureConfigurationContentForm;
 class DependencyInjectionStructureContentForm;
 class DependencyInjectionStructureRegistrationContentForm;
 class DependencyInjectionStructureTroubleshootingContentForm;
-class DependencyLinkagesContentForm;
 class DependencyManagementContentForm;
 class DependencyManagementInternalContentForm;
 class DependencyManagementOperationsContentForm;
 class DependencyManagementSecurityContentForm;
 class DependencyManagementVersioningContentForm;
-class DependencyMitigationContentForm;
 class DependencyRegisterEntryContentForm;
-class DependencyRiskContentForm;
 class DependencyScanningRequirementsContentForm;
 class DependencyScanningRequirementsLicensingContentForm;
 class DependencyScanningRequirementsSbomContentForm;
 class DependencyScanningRequirementsSupplyChainContentForm;
 class DependencyScanningRequirementsVulnerabilitiesContentForm;
-class DependencyTimelineContentForm;
-class DependencyTrackingContentForm;
 class DeploymentContextDeploymentDetailsForm;
 class DeploymentEnvironmentEntryConfigurationContentForm;
 class DeploymentEnvironmentEntryContentForm;
@@ -4126,10 +4075,6 @@ class FlexibilityQualityDeploymentContentForm;
 class FlexibilityQualityExtensibilityContentForm;
 class FlexibilityQualityModularityContentForm;
 class FrameworkCompatibilityContentForm;
-class FrameworkDependenciesCategoriesContentForm;
-class FrameworkDependenciesContentForm;
-class FrameworkDependenciesManagementContentForm;
-class FrameworkDependencyEntryContentForm;
 class FrameworkIdentityContentForm;
 class FrameworkJustificationContentForm;
 class FrameworkRequirementEntryContentForm;
@@ -7366,38 +7311,6 @@ class AssumptionConstraintRegister : public som::SomNode {
   som::SomList dependencies() const;
 };
 
-// An assumption entry (form).
-//
-// Documents a project assumption including its basis, validation approach,
-// and contingency plans if the assumption proves false.
-class AssumptionEntry : public som::SomNode {
- public:
-  AssumptionEntry(som::SpecDocument& doc, std::string path);
-  // Assumption identification and description.
-  AssumptionIdentification identification() const;
-  // Assumption validation details.
-  AssumptionValidation validation() const;
-  // Impact and contingency if assumption is false.
-  AssumptionImpact impact() const;
-  // Relationships to other project elements.
-  // Returns the list view; element type: AssumptionRelationships (construct from item paths).
-  som::SomList relationships() const;
-};
-
-// Assumption identification details.
-class AssumptionIdentification : public som::SomNode {
- public:
-  AssumptionIdentification(som::SpecDocument& doc, std::string path);
-  AssumptionIdentificationContentForm content() const;
-};
-
-// Impact assessment if assumption proves false.
-class AssumptionImpact : public som::SomNode {
- public:
-  AssumptionImpact(som::SpecDocument& doc, std::string path);
-  AssumptionImpactContentForm content() const;
-};
-
 // A single assumption register entry (form).
 //
 // Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
@@ -7408,20 +7321,6 @@ class AssumptionRegisterEntry : public som::SomNode {
   AssumptionRegisterEntryContentForm content() const;
 };
 
-// Relationships to other project elements.
-class AssumptionRelationships : public som::SomNode {
- public:
-  AssumptionRelationships(som::SpecDocument& doc, std::string path);
-  AssumptionRelationshipsContentForm content() const;
-};
-
-// Assumption validation details.
-class AssumptionValidation : public som::SomNode {
- public:
-  AssumptionValidation(som::SpecDocument& doc, std::string path);
-  AssumptionValidationContentForm content() const;
-};
-
 // SBP.6 Assumptions, Constraints & Dependencies.
 class AssumptionsConstraintsDependencies : public som::SomNode {
  public:
@@ -7430,13 +7329,6 @@ class AssumptionsConstraintsDependencies : public som::SomNode {
   void setContent(const std::string& value);
   // The consolidated assumption / constraint register.
   AssumptionConstraintRegister register_() const;
-};
-
-// Overview of assumptions management.
-class AssumptionsOverview : public som::SomNode {
- public:
-  AssumptionsOverview(som::SpecDocument& doc, std::string path);
-  AssumptionsOverviewContentForm content() const;
 };
 
 // A single attribute interdependency entry.
@@ -11496,68 +11388,6 @@ class ConsentManagementRequirementsTracking : public som::SomNode {
   ConsentManagementRequirementsTrackingContentForm content() const;
 };
 
-// Classification for constraint.
-class ConstraintClassification : public som::SomNode {
- public:
-  ConstraintClassification(som::SpecDocument& doc, std::string path);
-  ConstraintClassificationContentForm content() const;
-};
-
-// Details for constraint.
-class ConstraintDetails : public som::SomNode {
- public:
-  ConstraintDetails(som::SpecDocument& doc, std::string path);
-  ConstraintDetailsContentForm content() const;
-};
-
-// A constraint entry (form).
-//
-// Represents a single external constraint limiting project degrees of
-// freedom. Common constraint types include regulatory requirements,
-// contractual obligations, budget limits, timeline deadlines, resource
-// caps, and technology mandates. Each constraint should be tracked,
-// monitored, and have mitigation strategies where possible.
-class ConstraintEntry : public som::SomNode {
- public:
-  ConstraintEntry(som::SpecDocument& doc, std::string path);
-  ConstraintEntryContentForm content() const;
-  // Classification.
-  ConstraintClassification classification() const;
-  // Details.
-  // Returns the list view; element type: ConstraintDetails (construct from item paths).
-  som::SomList details() const;
-  // Impact assessment.
-  ConstraintImpact impact() const;
-  // Mitigation and response.
-  ConstraintMitigation mitigation() const;
-  // Tracking and monitoring.
-  ConstraintTracking tracking() const;
-  // Linkages.
-  // Returns the list view; element type: ConstraintLinkages (construct from item paths).
-  som::SomList linkages() const;
-};
-
-// Impact assessment for constraint.
-class ConstraintImpact : public som::SomNode {
- public:
-  ConstraintImpact(som::SpecDocument& doc, std::string path);
-  ConstraintImpactContentForm content() const;
-};
-
-// Linkages for constraint.
-class ConstraintLinkages : public som::SomNode {
- public:
-  ConstraintLinkages(som::SpecDocument& doc, std::string path);
-  ConstraintLinkagesContentForm content() const;
-};
-
-// Mitigation for constraint.
-class ConstraintMitigation : public som::SomNode {
- public:
-  ConstraintMitigation(som::SpecDocument& doc, std::string path);
-  ConstraintMitigationContentForm content() const;
-};
-
 // A single constraint register entry (form).
 //
 // Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
@@ -11568,44 +11398,19 @@ class ConstraintRegisterEntry : public som::SomNode {
   ConstraintRegisterEntryContentForm content() const;
 };
 
-// Tracking for constraint.
-class ConstraintTracking : public som::SomNode {
- public:
-  ConstraintTracking(som::SpecDocument& doc, std::string path);
-  ConstraintTrackingContentForm content() const;
-};
-
-// 4.6.4.1. Constraints.
-//
-// External constraints limiting project scope, schedule, budget, or
-// approach. Includes regulatory, contractual, organizational, technical,
-// and resource constraints. Each constraint must be analysed for impact
-// and monitored throughout the project lifecycle.
-class Constraints : public som::SomNode {
- public:
-  Constraints(som::SpecDocument& doc, std::string path);
-  ConstraintsContentForm content() const;
-  // Contains 0+× Constraint.
-  // Returns the list view; element type: ConstraintEntry (construct from item paths).
-  som::SomList items() const;
-  // Constraint Summary narrative.
-  // (skipped: constraintNarrative has no target type)
-};
-
 // 4.6.4. Constraints and Dependencies.
 //
-// Documents external constraints (regulatory, contractual, budgetary,
-// timeline) and dependencies on other projects, teams, or organizational
-// initiatives. Follows PMBOK constraint management and dependency
-// analysis best practices for comprehensive project planning.
+// Operating-environment view of the constraints and dependencies that shape
+// project execution. The canonical register of constraints and dependencies
+// lives in SBP.6 (Assumptions, Constraints & Dependencies). This node does
+// **not** restate that register (L34C-4 consolidation, SR-10): it frames how
+// the framework conditions documented in SBP.2 §4.6 give rise to the entries
+// recorded in SBP.6, and points the reader there.
 class ConstraintsAndDependencies : public som::SomNode {
  public:
   ConstraintsAndDependencies(som::SpecDocument& doc, std::string path);
-  ConstraintsAndDependenciesContentForm content() const;
-  // 4.6.4.1. Constraints.
-  Constraints constraints() const;
-  // 4.6.4.2. Dependencies.
-  FrameworkDependencies frameworkDependencies() const;
+  std::string content() const;
+  void setContent(const std::string& value);
 };
 
 // Content scanning policy — how uploaded and stored files are scanned for
@@ -14520,33 +14325,12 @@ class DependenciesAndIntegrations : public som::SomNode {
   IntegrationHealthSummary healthSummary() const;
 };
 
-// Dependency classification.
-class DependencyClassification : public som::SomNode {
- public:
-  DependencyClassification(som::SpecDocument& doc, std::string path);
-  DependencyClassificationContentForm content() const;
-};
-
-// Deliverable details.
-class DependencyDeliverable : public som::SomNode {
- public:
-  DependencyDeliverable(som::SpecDocument& doc, std::string path);
-  DependencyDeliverableContentForm content() const;
-};
-
 // A single dependency entry.
 class DependencyEntry : public som::SomNode {
  public:
   DependencyEntry(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-};
-
-// External party details.
-class DependencyExternalParty : public som::SomNode {
- public:
-  DependencyExternalParty(som::SpecDocument& doc, std::string path);
-  DependencyExternalPartyContentForm content() const;
 };
 
 // Dependency health monitoring.
@@ -14592,13 +14376,6 @@ class DependencyHealthMonitoringThresholds : public som::SomNode {
   DependencyHealthMonitoringThresholdsContentForm content() const;
 };
 
-// Dependency identity details.
-class DependencyIdentity : public som::SomNode {
- public:
-  DependencyIdentity(som::SpecDocument& doc, std::string path);
-  DependencyIdentityContentForm content() const;
-};
-
 // Dependency injection structure and configuration.
 class DependencyInjectionStructure : public som::SomNode {
  public:
@@ -14640,13 +14417,6 @@ class DependencyInjectionStructureTroubleshooting : public som::SomNode {
  public:
   DependencyInjectionStructureTroubleshooting(som::SpecDocument& doc, std::string path);
   DependencyInjectionStructureTroubleshootingContentForm content() const;
-};
-
-// Dependency linkages.
-class DependencyLinkages : public som::SomNode {
- public:
-  DependencyLinkages(som::SpecDocument& doc, std::string path);
-  DependencyLinkagesContentForm content() const;
 };
 
 // Dependency management configuration.
@@ -14692,13 +14462,6 @@ class DependencyManagementVersioning : public som::SomNode {
   DependencyManagementVersioningContentForm content() const;
 };
 
-// Dependency mitigation and contingency.
-class DependencyMitigation : public som::SomNode {
- public:
-  DependencyMitigation(som::SpecDocument& doc, std::string path);
-  DependencyMitigationContentForm content() const;
-};
-
 // A single dependency register entry (form).
 //
 // Captures an external dependency the solution relies on — another system, a
@@ -14710,13 +14473,6 @@ class DependencyRegisterEntry : public som::SomNode {
  public:
   DependencyRegisterEntry(som::SpecDocument& doc, std::string path);
   DependencyRegisterEntryContentForm content() const;
-};
-
-// Dependency risk assessment.
-class DependencyRisk : public som::SomNode {
- public:
-  DependencyRisk(som::SpecDocument& doc, std::string path);
-  DependencyRiskContentForm content() const;
 };
 
 // Dependency and supply-chain scanning requirements.
@@ -14760,20 +14516,6 @@ class DependencyScanningRequirementsVulnerabilities : public som::SomNode {
  public:
   DependencyScanningRequirementsVulnerabilities(som::SpecDocument& doc, std::string path);
   DependencyScanningRequirementsVulnerabilitiesContentForm content() const;
-};
-
-// Dependency timeline.
-class DependencyTimeline : public som::SomNode {
- public:
-  DependencyTimeline(som::SpecDocument& doc, std::string path);
-  DependencyTimelineContentForm content() const;
-};
-
-// Dependency coordination and tracking.
-class DependencyTracking : public som::SomNode {
- public:
-  DependencyTracking(som::SpecDocument& doc, std::string path);
-  DependencyTrackingContentForm content() const;
 };
 
 // 4.1.2.7. Deployment Context.
@@ -18236,72 +17978,6 @@ class FrameworkConditions : public som::SomNode {
   ConstraintsAndDependencies constraintsAndDependencies() const;
 };
 
-// 4.6.4.2. Dependencies.
-//
-// External dependencies on other projects, teams, vendors, systems, or
-// organizational initiatives. Each dependency represents a point where
-// this project relies on external parties to deliver. Dependencies
-// should be tracked, risks assessed, and contingencies planned.
-class FrameworkDependencies : public som::SomNode {
- public:
-  FrameworkDependencies(som::SpecDocument& doc, std::string path);
-  FrameworkDependenciesContentForm content() const;
-  // Dependency counts by category.
-  FrameworkDependenciesCategories categories() const;
-  // Coordination and early warning mechanisms.
-  FrameworkDependenciesManagement management() const;
-  // Contains 0+× FrameworkDependency.
-  // Returns the list view; element type: FrameworkDependencyEntry (construct from item paths).
-  som::SomList items() const;
-  // Dependency Summary narrative.
-  // (skipped: dependencyNarrative has no target type)
-};
-
-// Dependency counts by category.
-class FrameworkDependenciesCategories : public som::SomNode {
- public:
-  FrameworkDependenciesCategories(som::SpecDocument& doc, std::string path);
-  FrameworkDependenciesCategoriesContentForm content() const;
-};
-
-// Coordination and early warning mechanisms.
-class FrameworkDependenciesManagement : public som::SomNode {
- public:
-  FrameworkDependenciesManagement(som::SpecDocument& doc, std::string path);
-  FrameworkDependenciesManagementContentForm content() const;
-};
-
-// A framework dependency entry (form).
-//
-// Represents a single external dependency where this project relies on
-// another party (project, team, vendor, system) to deliver something.
-// Dependencies should be actively managed with clear expectations,
-// tracking, and contingency plans for delays or failures.
-class FrameworkDependencyEntry : public som::SomNode {
- public:
-  FrameworkDependencyEntry(som::SpecDocument& doc, std::string path);
-  FrameworkDependencyEntryContentForm content() const;
-  // Dependency identity details.
-  DependencyIdentity identity() const;
-  // Dependency classification.
-  DependencyClassification classification() const;
-  // External party details.
-  DependencyExternalParty externalParty() const;
-  // Deliverable details.
-  DependencyDeliverable deliverable() const;
-  // Timeline.
-  DependencyTimeline timeline() const;
-  // Risk assessment.
-  DependencyRisk risk() const;
-  // Mitigation and contingency.
-  DependencyMitigation mitigation() const;
-  // Coordination and tracking.
-  DependencyTracking tracking() const;
-  // Linkages.
-  // Returns the list view; element type: DependencyLinkages (construct from item paths).
-  som::SomList linkages() const;
-};
-
 // Identity details.
 class FrameworkIdentity : public som::SomNode {
  public:
@@ -20836,20 +20512,6 @@ class KeyAssumptionEntry : public som::SomNode {
   KeyAssumptionEntry(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-};
-
-// 4.7.2. Key Assumptions.
-//
-// Documents project assumptions that must hold true for success.
-// Tracks validation status and contingency plans if assumptions prove false.
-class KeyAssumptions : public som::SomNode {
- public:
-  KeyAssumptions(som::SpecDocument& doc, std::string path);
-  // Overview of assumptions management approach.
-  AssumptionsOverview overview() const;
-  // Contains 0+× Assumption.
-  // Returns the list view; element type: AssumptionEntry (construct from item paths).
-  som::SomList items() const;
 };
 
 // A key attribute entry (form).
@@ -28907,12 +28569,18 @@ class RiskResponseResidual : public som::SomNode {
   RiskResponseResidualContentForm content() const;
 };
 
-// 4.7. Risks and Assumptions.
+// 4.7. Risks.
 //
-// Documents identified project risks and underlying assumptions following
-// ISO 31000 Risk Management and PMBOK risk management best practices.
-// Provides structured framework for risk identification, analysis, response
-// planning, and ongoing monitoring throughout the project lifecycle.
+// Documents identified project risks following ISO 31000 Risk Management and
+// PMBOK risk management best practices. Provides a structured framework for
+// risk identification, analysis, response planning, and ongoing monitoring
+// throughout the project lifecycle.
+//
+// Assumptions are **not** held here (L34C-4 consolidation, SR-11): the
+// canonical assumptions register lives in SBP.6 (Assumptions, Constraints &
+// Dependencies). Only the risks half — unique to §4.7 — remains in this node.
+// (The class name remains `RisksAndAssumptions` pending the L34C-9 rename
+// sweep, which will rename it to `Risks`.)
 class RisksAndAssumptions : public som::SomNode {
  public:
   RisksAndAssumptions(som::SpecDocument& doc, std::string path);
@@ -28921,8 +28589,6 @@ class RisksAndAssumptions : public som::SomNode {
   // 4.7.1. Key Risks — contains 0+× Risk.
   // Returns the list view; element type: RiskEntry (construct from item paths).
   som::SomList keyRisks() const;
-  // 4.7.2. Key Assumptions — contains 0+×.
-  KeyAssumptions keyAssumptions() const;
 };
 
 // Overview of the risk management approach.
@@ -39738,52 +39404,6 @@ class ArchitecturePrincipleEntryGuidanceContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class AssumptionIdentificationContentForm : public som::SomNode {
- public:
-  AssumptionIdentificationContentForm(som::SpecDocument& doc, std::string path);
-  std::string assumptionId() const;
-  void setAssumptionId(const std::string& value);
-  std::string assumptionName() const;
-  void setAssumptionName(const std::string& value);
-  std::string description() const;
-  void setDescription(const std::string& value);
-  std::string category() const;
-  void setCategory(const std::string& value);
-  std::string basis() const;
-  void setBasis(const std::string& value);
-  std::string dateIdentified() const;
-  void setDateIdentified(const std::string& value);
-  std::string identifiedBy() const;
-  void setIdentifiedBy(const std::string& value);
-  std::string criticality() const;
-  void setCriticality(const std::string& value);
-  std::string confidence() const;
-  void setConfidence(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class AssumptionImpactContentForm : public som::SomNode {
- public:
-  AssumptionImpactContentForm(som::SpecDocument& doc, std::string path);
-  std::string impactIfFalse() const;
-  void setImpactIfFalse(const std::string& value);
-  std::string impactSeverity() const;
-  void setImpactSeverity(const std::string& value);
-  std::string affectedAreas() const;
-  void setAffectedAreas(const std::string& value);
-  std::string contingencyPlan() const;
-  void setContingencyPlan(const std::string& value);
-  std::string contingencyOwner() const;
-  void setContingencyOwner(const std::string& value);
-  std::string contingencyCost() const;
-  void setContingencyCost(const std::string& value);
-  std::string contingencyTimeline() const;
-  void setContingencyTimeline(const std::string& value);
-  std::string relatedRisks() const;
-  void setRelatedRisks(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
 class AssumptionRegisterEntryContentForm : public som::SomNode {
  public:
   AssumptionRegisterEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -39797,62 +39417,6 @@ class AssumptionRegisterEntryContentForm : public som::SomNode {
   void setValidation(const std::string& value);
   std::string status() const;
   void setStatus(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class AssumptionRelationshipsContentForm : public som::SomNode {
- public:
-  AssumptionRelationshipsContentForm(som::SpecDocument& doc, std::string path);
-  std::string relatedAssumptions() const;
-  void setRelatedAssumptions(const std::string& value);
-  std::string relatedRisks() const;
-  void setRelatedRisks(const std::string& value);
-  std::string relatedRequirements() const;
-  void setRelatedRequirements(const std::string& value);
-  std::string affectedDecisions() const;
-  void setAffectedDecisions(const std::string& value);
-  std::string documentReferences() const;
-  void setDocumentReferences(const std::string& value);
-  std::string stakeholderOwner() const;
-  void setStakeholderOwner(const std::string& value);
-  std::string reviewFrequency() const;
-  void setReviewFrequency(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class AssumptionValidationContentForm : public som::SomNode {
- public:
-  AssumptionValidationContentForm(som::SpecDocument& doc, std::string path);
-  std::string validationMethod() const;
-  void setValidationMethod(const std::string& value);
-  std::string validationCriteria() const;
-  void setValidationCriteria(const std::string& value);
-  std::string validationDate() const;
-  void setValidationDate(const std::string& value);
-  std::string validationStatus() const;
-  void setValidationStatus(const std::string& value);
-  std::string lastValidationDate() const;
-  void setLastValidationDate(const std::string& value);
-  std::string validatedBy() const;
-  void setValidatedBy(const std::string& value);
-  std::string validationNotes() const;
-  void setValidationNotes(const std::string& value);
-  std::string validationOwner() const;
-  void setValidationOwner(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class AssumptionsOverviewContentForm : public som::SomNode {
- public:
-  AssumptionsOverviewContentForm(som::SpecDocument& doc, std::string path);
-  std::string assumptionsApproach() const;
-  void setAssumptionsApproach(const std::string& value);
-  std::string validationCadence() const;
-  void setValidationCadence(const std::string& value);
-  std::string assumptionCategories() const;
-  void setAssumptionCategories(const std::string& value);
-  std::string escalationProcess() const;
-  void setEscalationProcess(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -44836,96 +44400,6 @@ class ConsentManagementRequirementsTrackingContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class ConstraintClassificationContentForm : public som::SomNode {
- public:
-  ConstraintClassificationContentForm(som::SpecDocument& doc, std::string path);
-  std::string constraintDescription() const;
-  void setConstraintDescription(const std::string& value);
-  std::string constraintCategory() const;
-  void setConstraintCategory(const std::string& value);
-  std::string constraintType() const;
-  void setConstraintType(const std::string& value);
-  std::string constraintSource() const;
-  void setConstraintSource(const std::string& value);
-  std::string sourceReference() const;
-  void setSourceReference(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class ConstraintDetailsContentForm : public som::SomNode {
- public:
-  ConstraintDetailsContentForm(som::SpecDocument& doc, std::string path);
-  std::string constraintValue() const;
-  void setConstraintValue(const std::string& value);
-  std::string constraintEffectiveDate() const;
-  void setConstraintEffectiveDate(const std::string& value);
-  std::string constraintExpiryDate() const;
-  void setConstraintExpiryDate(const std::string& value);
-  std::string geographicScope() const;
-  void setGeographicScope(const std::string& value);
-  std::string affectedDomains() const;
-  void setAffectedDomains(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class ConstraintEntryContentForm : public som::SomNode {
- public:
-  ConstraintEntryContentForm(som::SpecDocument& doc, std::string path);
-  std::string constraintId() const;
-  void setConstraintId(const std::string& value);
-  std::string constraintName() const;
-  void setConstraintName(const std::string& value);
-  std::string impactLevel() const;
-  void setImpactLevel(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class ConstraintImpactContentForm : public som::SomNode {
- public:
-  ConstraintImpactContentForm(som::SpecDocument& doc, std::string path);
-  std::string impactDescription() const;
-  void setImpactDescription(const std::string& value);
-  std::string affectedWorkPackages() const;
-  void setAffectedWorkPackages(const std::string& value);
-  std::string affectedMilestones() const;
-  void setAffectedMilestones(const std::string& value);
-  std::string scheduleImpact() const;
-  void setScheduleImpact(const std::string& value);
-  std::string budgetImpact() const;
-  void setBudgetImpact(const std::string& value);
-  std::string scopeImpact() const;
-  void setScopeImpact(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class ConstraintLinkagesContentForm : public som::SomNode {
- public:
-  ConstraintLinkagesContentForm(som::SpecDocument& doc, std::string path);
-  std::string relatedConstraints() const;
-  void setRelatedConstraints(const std::string& value);
-  std::string relatedRisks() const;
-  void setRelatedRisks(const std::string& value);
-  std::string relatedDependencies() const;
-  void setRelatedDependencies(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class ConstraintMitigationContentForm : public som::SomNode {
- public:
-  ConstraintMitigationContentForm(som::SpecDocument& doc, std::string path);
-  std::string mitigationStrategy() const;
-  void setMitigationStrategy(const std::string& value);
-  std::string negotiationPossibility() const;
-  void setNegotiationPossibility(const std::string& value);
-  std::string negotiationApproach() const;
-  void setNegotiationApproach(const std::string& value);
-  std::string fallbackPlan() const;
-  void setFallbackPlan(const std::string& value);
-  std::string violationConsequences() const;
-  void setViolationConsequences(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
 class ConstraintRegisterEntryContentForm : public som::SomNode {
  public:
   ConstraintRegisterEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -44939,72 +44413,6 @@ class ConstraintRegisterEntryContentForm : public som::SomNode {
   void setSource(const std::string& value);
   std::string impact() const;
   void setImpact(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class ConstraintTrackingContentForm : public som::SomNode {
- public:
-  ConstraintTrackingContentForm(som::SpecDocument& doc, std::string path);
-  std::string trackingMethod() const;
-  void setTrackingMethod(const std::string& value);
-  std::string reviewFrequency() const;
-  void setReviewFrequency(const std::string& value);
-  std::string constraintOwner() const;
-  void setConstraintOwner(const std::string& value);
-  std::string currentStatus() const;
-  void setCurrentStatus(const std::string& value);
-  std::string statusNotes() const;
-  void setStatusNotes(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class ConstraintsAndDependenciesContentForm : public som::SomNode {
- public:
-  ConstraintsAndDependenciesContentForm(som::SpecDocument& doc, std::string path);
-  std::string constraintDependencyOverview() const;
-  void setConstraintDependencyOverview(const std::string& value);
-  std::string totalConstraintCount() const;
-  void setTotalConstraintCount(const std::string& value);
-  std::string totalDependencyCount() const;
-  void setTotalDependencyCount(const std::string& value);
-  std::string criticalConstraintCount() const;
-  void setCriticalConstraintCount(const std::string& value);
-  std::string criticalDependencyCount() const;
-  void setCriticalDependencyCount(const std::string& value);
-  std::string constraintManagementApproach() const;
-  void setConstraintManagementApproach(const std::string& value);
-  std::string dependencyManagementApproach() const;
-  void setDependencyManagementApproach(const std::string& value);
-  std::string monitoringFrequency() const;
-  void setMonitoringFrequency(const std::string& value);
-  std::string escalationPath() const;
-  void setEscalationPath(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class ConstraintsContentForm : public som::SomNode {
- public:
-  ConstraintsContentForm(som::SpecDocument& doc, std::string path);
-  std::string constraintSummary() const;
-  void setConstraintSummary(const std::string& value);
-  std::string primaryConstraintCategory() const;
-  void setPrimaryConstraintCategory(const std::string& value);
-  std::string constraintImpactLevel() const;
-  void setConstraintImpactLevel(const std::string& value);
-  std::string flexibilityAssessment() const;
-  void setFlexibilityAssessment(const std::string& value);
-  std::string regulatoryConstraintCount() const;
-  void setRegulatoryConstraintCount(const std::string& value);
-  std::string contractualConstraintCount() const;
-  void setContractualConstraintCount(const std::string& value);
-  std::string budgetaryConstraintCount() const;
-  void setBudgetaryConstraintCount(const std::string& value);
-  std::string timelineConstraintCount() const;
-  void setTimelineConstraintCount(const std::string& value);
-  std::string resourceConstraintCount() const;
-  void setResourceConstraintCount(const std::string& value);
-  std::string technicalConstraintCount() const;
-  void setTechnicalConstraintCount(const std::string& value);
 };
 
 // Generated form facade for the `contextualHelpContent` @Form section.
@@ -47634,48 +47042,6 @@ class DeliveryAcceptanceCriterionEntryVerificationContentForm : public som::SomN
 };
 
 // Generated form facade for the `content` @Form section.
-class DependencyClassificationContentForm : public som::SomNode {
- public:
-  DependencyClassificationContentForm(som::SpecDocument& doc, std::string path);
-  std::string dependencyCategory() const;
-  void setDependencyCategory(const std::string& value);
-  std::string dependencyType() const;
-  void setDependencyType(const std::string& value);
-  std::string onCriticalPath() const;
-  void setOnCriticalPath(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class DependencyDeliverableContentForm : public som::SomNode {
- public:
-  DependencyDeliverableContentForm(som::SpecDocument& doc, std::string path);
-  std::string deliverableDescription() const;
-  void setDeliverableDescription(const std::string& value);
-  std::string deliverableSpecification() const;
-  void setDeliverableSpecification(const std::string& value);
-  std::string qualityCriteria() const;
-  void setQualityCriteria(const std::string& value);
-  std::string deliveryFormat() const;
-  void setDeliveryFormat(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class DependencyExternalPartyContentForm : public som::SomNode {
- public:
-  DependencyExternalPartyContentForm(som::SpecDocument& doc, std::string path);
-  std::string externalPartyName() const;
-  void setExternalPartyName(const std::string& value);
-  std::string externalPartyType() const;
-  void setExternalPartyType(const std::string& value);
-  std::string contactPerson() const;
-  void setContactPerson(const std::string& value);
-  std::string contactEmail() const;
-  void setContactEmail(const std::string& value);
-  std::string escalationContact() const;
-  void setEscalationContact(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
 class DependencyHealthMonitoringCacheContentForm : public som::SomNode {
  public:
   DependencyHealthMonitoringCacheContentForm(som::SpecDocument& doc, std::string path);
@@ -47731,14 +47097,6 @@ class DependencyHealthMonitoringThresholdsContentForm : public som::SomNode {
   void setCascadeProtection(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class DependencyIdentityContentForm : public som::SomNode {
- public:
-  DependencyIdentityContentForm(som::SpecDocument& doc, std::string path);
-  std::string dependencyDescription() const;
-  void setDependencyDescription(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -47802,20 +47160,6 @@ class DependencyInjectionStructureTroubleshootingContentForm : public som::SomNo
 };
 
 // Generated form facade for the `content` @Form section.
-class DependencyLinkagesContentForm : public som::SomNode {
- public:
-  DependencyLinkagesContentForm(som::SpecDocument& doc, std::string path);
-  std::string relatedConstraints() const;
-  void setRelatedConstraints(const std::string& value);
-  std::string relatedRisks() const;
-  void setRelatedRisks(const std::string& value);
-  std::string relatedDependencies() const;
-  void setRelatedDependencies(const std::string& value);
-  std::string affectedWorkPackages() const;
-  void setAffectedWorkPackages(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
 class DependencyManagementContentForm : public som::SomNode {
  public:
   DependencyManagementContentForm(som::SpecDocument& doc, std::string path);
@@ -47874,22 +47218,6 @@ class DependencyManagementVersioningContentForm : public som::SomNode {
 };
 
 // Generated form facade for the `content` @Form section.
-class DependencyMitigationContentForm : public som::SomNode {
- public:
-  DependencyMitigationContentForm(som::SpecDocument& doc, std::string path);
-  std::string mitigationStrategy() const;
-  void setMitigationStrategy(const std::string& value);
-  std::string contingencyPlan() const;
-  void setContingencyPlan(const std::string& value);
-  std::string contingencyTimeline() const;
-  void setContingencyTimeline(const std::string& value);
-  std::string contractualProtection() const;
-  void setContractualProtection(const std::string& value);
-  std::string alternativeOptions() const;
-  void setAlternativeOptions(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
 class DependencyRegisterEntryContentForm : public som::SomNode {
  public:
   DependencyRegisterEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -47905,22 +47233,6 @@ class DependencyRegisterEntryContentForm : public som::SomNode {
   void setCriticality(const std::string& value);
   std::string status() const;
   void setStatus(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class DependencyRiskContentForm : public som::SomNode {
- public:
-  DependencyRiskContentForm(som::SpecDocument& doc, std::string path);
-  std::string deliveryRiskLevel() const;
-  void setDeliveryRiskLevel(const std::string& value);
-  std::string primaryRiskFactors() const;
-  void setPrimaryRiskFactors(const std::string& value);
-  std::string riskIndicators() const;
-  void setRiskIndicators(const std::string& value);
-  std::string impactOfDelay() const;
-  void setImpactOfDelay(const std::string& value);
-  std::string impactOfFailure() const;
-  void setImpactOfFailure(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.
@@ -47983,42 +47295,6 @@ class DependencyScanningRequirementsVulnerabilitiesContentForm : public som::Som
   void setRemediationSla(const std::string& value);
   std::string exceptionProcess() const;
   void setExceptionProcess(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class DependencyTimelineContentForm : public som::SomNode {
- public:
-  DependencyTimelineContentForm(som::SpecDocument& doc, std::string path);
-  std::string expectedDeliveryDate() const;
-  void setExpectedDeliveryDate(const std::string& value);
-  std::string latestAcceptableDate() const;
-  void setLatestAcceptableDate(const std::string& value);
-  std::string leadTimeRequired() const;
-  void setLeadTimeRequired(const std::string& value);
-  std::string bufferDays() const;
-  void setBufferDays(const std::string& value);
-  std::string dependentMilestones() const;
-  void setDependentMilestones(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class DependencyTrackingContentForm : public som::SomNode {
- public:
-  DependencyTrackingContentForm(som::SpecDocument& doc, std::string path);
-  std::string coordinationMechanism() const;
-  void setCoordinationMechanism(const std::string& value);
-  std::string communicationFrequency() const;
-  void setCommunicationFrequency(const std::string& value);
-  std::string trackingMethod() const;
-  void setTrackingMethod(const std::string& value);
-  std::string dependencyOwner() const;
-  void setDependencyOwner(const std::string& value);
-  std::string currentStatus() const;
-  void setCurrentStatus(const std::string& value);
-  std::string statusLastUpdated() const;
-  void setStatusLastUpdated(const std::string& value);
-  std::string statusNotes() const;
-  void setStatusNotes(const std::string& value);
 };
 
 // Generated form facade for the `deploymentDetails` @Form section.
@@ -52287,60 +51563,6 @@ class FrameworkCompatibilityContentForm : public som::SomNode {
   void setConflictsWith(const std::string& value);
   std::string deprecationWarnings() const;
   void setDeprecationWarnings(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class FrameworkDependenciesCategoriesContentForm : public som::SomNode {
- public:
-  FrameworkDependenciesCategoriesContentForm(som::SpecDocument& doc, std::string path);
-  std::string projectDependencyCount() const;
-  void setProjectDependencyCount(const std::string& value);
-  std::string teamDependencyCount() const;
-  void setTeamDependencyCount(const std::string& value);
-  std::string vendorDependencyCount() const;
-  void setVendorDependencyCount(const std::string& value);
-  std::string systemDependencyCount() const;
-  void setSystemDependencyCount(const std::string& value);
-  std::string regulatoryDependencyCount() const;
-  void setRegulatoryDependencyCount(const std::string& value);
-  std::string infrastructureDependencyCount() const;
-  void setInfrastructureDependencyCount(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class FrameworkDependenciesContentForm : public som::SomNode {
- public:
-  FrameworkDependenciesContentForm(som::SpecDocument& doc, std::string path);
-  std::string dependencySummary() const;
-  void setDependencySummary(const std::string& value);
-  std::string primaryDependencyCategory() const;
-  void setPrimaryDependencyCategory(const std::string& value);
-  std::string dependencyRiskLevel() const;
-  void setDependencyRiskLevel(const std::string& value);
-  std::string criticalPathDependencyCount() const;
-  void setCriticalPathDependencyCount(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class FrameworkDependenciesManagementContentForm : public som::SomNode {
- public:
-  FrameworkDependenciesManagementContentForm(som::SpecDocument& doc, std::string path);
-  std::string dependencyCoordinationApproach() const;
-  void setDependencyCoordinationApproach(const std::string& value);
-  std::string earlyWarningMechanism() const;
-  void setEarlyWarningMechanism(const std::string& value);
-};
-
-// Generated form facade for the `content` @Form section.
-class FrameworkDependencyEntryContentForm : public som::SomNode {
- public:
-  FrameworkDependencyEntryContentForm(som::SpecDocument& doc, std::string path);
-  std::string dependencyId() const;
-  void setDependencyId(const std::string& value);
-  std::string dependencyName() const;
-  void setDependencyName(const std::string& value);
-  std::string criticalityLevel() const;
-  void setCriticalityLevel(const std::string& value);
 };
 
 // Generated form facade for the `content` @Form section.

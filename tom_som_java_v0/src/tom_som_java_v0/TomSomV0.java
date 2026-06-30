@@ -2766,58 +2766,6 @@ public final class TomSomV0 {
     }
   }
 
-  // An assumption entry (form).
-  //
-  // Documents a project assumption including its basis, validation approach,
-  // and contingency plans if the assumption proves false.
-  public static final class AssumptionEntry extends SomNode {
-    public AssumptionEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    // Assumption identification and description.
-    public AssumptionIdentification identification() {
-      return new AssumptionIdentification(doc, path + "/identification");
-    }
-
-    // Assumption validation details.
-    public AssumptionValidation validation() {
-      return new AssumptionValidation(doc, path + "/validation");
-    }
-
-    // Impact and contingency if assumption is false.
-    public AssumptionImpact impact() {
-      return new AssumptionImpact(doc, path + "/impact");
-    }
-
-    // Relationships to other project elements.
-    public SomList<AssumptionRelationships> relationships() {
-      return new SomList<>(doc, path + "/ASRE-RELA-LST", (d, p) -> new AssumptionRelationships(d, p));
-    }
-  }
-
-  // Assumption identification details.
-  public static final class AssumptionIdentification extends SomNode {
-    public AssumptionIdentification(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public AssumptionIdentificationContentForm content() {
-      return new AssumptionIdentificationContentForm(doc, path + "/content");
-    }
-  }
-
-  // Impact assessment if assumption proves false.
-  public static final class AssumptionImpact extends SomNode {
-    public AssumptionImpact(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public AssumptionImpactContentForm content() {
-      return new AssumptionImpactContentForm(doc, path + "/content");
-    }
-  }
-
   // A single assumption register entry (form).
   //
   // Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
@@ -2829,28 +2777,6 @@ public final class TomSomV0 {
 
     public AssumptionRegisterEntryContentForm content() {
       return new AssumptionRegisterEntryContentForm(doc, path + "/content");
-    }
-  }
-
-  // Relationships to other project elements.
-  public static final class AssumptionRelationships extends SomNode {
-    public AssumptionRelationships(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public AssumptionRelationshipsContentForm content() {
-      return new AssumptionRelationshipsContentForm(doc, path + "/content");
-    }
-  }
-
-  // Assumption validation details.
-  public static final class AssumptionValidation extends SomNode {
-    public AssumptionValidation(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public AssumptionValidationContentForm content() {
-      return new AssumptionValidationContentForm(doc, path + "/content");
     }
   }
 
@@ -2872,17 +2798,6 @@ public final class TomSomV0 {
     // The consolidated assumption / constraint register.
     public AssumptionConstraintRegister register() {
       return new AssumptionConstraintRegister(doc, path + "/register");
-    }
-  }
-
-  // Overview of assumptions management.
-  public static final class AssumptionsOverview extends SomNode {
-    public AssumptionsOverview(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public AssumptionsOverviewContentForm content() {
-      return new AssumptionsOverviewContentForm(doc, path + "/content");
     }
   }
 
@@ -9970,108 +9885,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Classification for constraint.
-  public static final class ConstraintClassification extends SomNode {
-    public ConstraintClassification(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ConstraintClassificationContentForm content() {
-      return new ConstraintClassificationContentForm(doc, path + "/content");
-    }
-  }
-
-  // Details for constraint.
-  public static final class ConstraintDetails extends SomNode {
-    public ConstraintDetails(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ConstraintDetailsContentForm content() {
-      return new ConstraintDetailsContentForm(doc, path + "/content");
-    }
-  }
-
-  // A constraint entry (form).
-  //
-  // Represents a single external constraint limiting project degrees of
-  // freedom. Common constraint types include regulatory requirements,
-  // contractual obligations, budget limits, timeline deadlines, resource
-  // caps, and technology mandates. Each constraint should be tracked,
-  // monitored, and have mitigation strategies where possible.
-  public static final class ConstraintEntry extends SomNode {
-    public ConstraintEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ConstraintEntryContentForm content() {
-      return new ConstraintEntryContentForm(doc, path + "/content");
-    }
-
-    // Classification.
-    public ConstraintClassification classification() {
-      return new ConstraintClassification(doc, path + "/classification");
-    }
-
-    // Details.
-    public SomList<ConstraintDetails> details() {
-      return new SomList<>(doc, path + "/CODE-DETA-LST", (d, p) -> new ConstraintDetails(d, p));
-    }
-
-    // Impact assessment.
-    public ConstraintImpact impact() {
-      return new ConstraintImpact(doc, path + "/impact");
-    }
-
-    // Mitigation and response.
-    public ConstraintMitigation mitigation() {
-      return new ConstraintMitigation(doc, path + "/mitigation");
-    }
-
-    // Tracking and monitoring.
-    public ConstraintTracking tracking() {
-      return new ConstraintTracking(doc, path + "/tracking");
-    }
-
-    // Linkages.
-    public SomList<ConstraintLinkages> linkages() {
-      return new SomList<>(doc, path + "/COLI1-LINK-LST", (d, p) -> new ConstraintLinkages(d, p));
-    }
-  }
-
-  // Impact assessment for constraint.
-  public static final class ConstraintImpact extends SomNode {
-    public ConstraintImpact(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ConstraintImpactContentForm content() {
-      return new ConstraintImpactContentForm(doc, path + "/content");
-    }
-  }
-
-  // Linkages for constraint.
-  public static final class ConstraintLinkages extends SomNode {
-    public ConstraintLinkages(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ConstraintLinkagesContentForm content() {
-      return new ConstraintLinkagesContentForm(doc, path + "/content");
-    }
-  }
-
-  // Mitigation for constraint.
-  public static final class ConstraintMitigation extends SomNode {
-    public ConstraintMitigation(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ConstraintMitigationContentForm content() {
-      return new ConstraintMitigationContentForm(doc, path + "/content");
-    }
-  }
-
   // A single constraint register entry (form).
   //
   // Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
@@ -10086,64 +9899,26 @@ public final class TomSomV0 {
     }
   }
 
-  // Tracking for constraint.
-  public static final class ConstraintTracking extends SomNode {
-    public ConstraintTracking(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ConstraintTrackingContentForm content() {
-      return new ConstraintTrackingContentForm(doc, path + "/content");
-    }
-  }
-
-  // 4.6.4.1. Constraints.
-  //
-  // External constraints limiting project scope, schedule, budget, or
-  // approach. Includes regulatory, contractual, organizational, technical,
-  // and resource constraints. Each constraint must be analysed for impact
-  // and monitored throughout the project lifecycle.
-  public static final class Constraints extends SomNode {
-    public Constraints(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public ConstraintsContentForm content() {
-      return new ConstraintsContentForm(doc, path + "/content");
-    }
-
-    // Contains 0+× Constraint.
-    public SomList<ConstraintEntry> items() {
-      return new SomList<>(doc, path + "/COEN-ITEM-LST", (d, p) -> new ConstraintEntry(d, p));
-    }
-
-    // Constraint Summary narrative.
-    // (skipped: constraintNarrative has no target type)
-  }
-
   // 4.6.4. Constraints and Dependencies.
   //
-  // Documents external constraints (regulatory, contractual, budgetary,
-  // timeline) and dependencies on other projects, teams, or organizational
-  // initiatives. Follows PMBOK constraint management and dependency
-  // analysis best practices for comprehensive project planning.
+  // Operating-environment view of the constraints and dependencies that shape
+  // project execution. The canonical register of constraints and dependencies
+  // lives in SBP.6 (Assumptions, Constraints & Dependencies). This node does
+  // **not** restate that register (L34C-4 consolidation, SR-10): it frames how
+  // the framework conditions documented in SBP.2 §4.6 give rise to the entries
+  // recorded in SBP.6, and points the reader there.
   public static final class ConstraintsAndDependencies extends SomNode {
     public ConstraintsAndDependencies(SpecDocument doc, String path) {
       super(doc, path);
     }
 
-    public ConstraintsAndDependenciesContentForm content() {
-      return new ConstraintsAndDependenciesContentForm(doc, path + "/content");
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
     }
 
-    // 4.6.4.1. Constraints.
-    public Constraints constraints() {
-      return new Constraints(doc, path + "/constraints");
-    }
-
-    // 4.6.4.2. Dependencies.
-    public FrameworkDependencies frameworkDependencies() {
-      return new FrameworkDependencies(doc, path + "/frameworkDependencies");
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
   }
 
@@ -15548,28 +15323,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Dependency classification.
-  public static final class DependencyClassification extends SomNode {
-    public DependencyClassification(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public DependencyClassificationContentForm content() {
-      return new DependencyClassificationContentForm(doc, path + "/content");
-    }
-  }
-
-  // Deliverable details.
-  public static final class DependencyDeliverable extends SomNode {
-    public DependencyDeliverable(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public DependencyDeliverableContentForm content() {
-      return new DependencyDeliverableContentForm(doc, path + "/content");
-    }
-  }
-
   // A single dependency entry.
   public static final class DependencyEntry extends SomNode {
     public DependencyEntry(SpecDocument doc, String path) {
@@ -15583,17 +15336,6 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path + "/content", value);
-    }
-  }
-
-  // External party details.
-  public static final class DependencyExternalParty extends SomNode {
-    public DependencyExternalParty(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public DependencyExternalPartyContentForm content() {
-      return new DependencyExternalPartyContentForm(doc, path + "/content");
     }
   }
 
@@ -15672,17 +15414,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Dependency identity details.
-  public static final class DependencyIdentity extends SomNode {
-    public DependencyIdentity(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public DependencyIdentityContentForm content() {
-      return new DependencyIdentityContentForm(doc, path + "/content");
-    }
-  }
-
   // Dependency injection structure and configuration.
   public static final class DependencyInjectionStructure extends SomNode {
     public DependencyInjectionStructure(SpecDocument doc, String path) {
@@ -15755,17 +15486,6 @@ public final class TomSomV0 {
 
     public DependencyInjectionStructureTroubleshootingContentForm content() {
       return new DependencyInjectionStructureTroubleshootingContentForm(doc, path + "/content");
-    }
-  }
-
-  // Dependency linkages.
-  public static final class DependencyLinkages extends SomNode {
-    public DependencyLinkages(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public DependencyLinkagesContentForm content() {
-      return new DependencyLinkagesContentForm(doc, path + "/content");
     }
   }
 
@@ -15844,17 +15564,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Dependency mitigation and contingency.
-  public static final class DependencyMitigation extends SomNode {
-    public DependencyMitigation(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public DependencyMitigationContentForm content() {
-      return new DependencyMitigationContentForm(doc, path + "/content");
-    }
-  }
-
   // A single dependency register entry (form).
   //
   // Captures an external dependency the solution relies on — another system, a
@@ -15869,17 +15578,6 @@ public final class TomSomV0 {
 
     public DependencyRegisterEntryContentForm content() {
       return new DependencyRegisterEntryContentForm(doc, path + "/content");
-    }
-  }
-
-  // Dependency risk assessment.
-  public static final class DependencyRisk extends SomNode {
-    public DependencyRisk(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public DependencyRiskContentForm content() {
-      return new DependencyRiskContentForm(doc, path + "/content");
     }
   }
 
@@ -15955,28 +15653,6 @@ public final class TomSomV0 {
 
     public DependencyScanningRequirementsVulnerabilitiesContentForm content() {
       return new DependencyScanningRequirementsVulnerabilitiesContentForm(doc, path + "/content");
-    }
-  }
-
-  // Dependency timeline.
-  public static final class DependencyTimeline extends SomNode {
-    public DependencyTimeline(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public DependencyTimelineContentForm content() {
-      return new DependencyTimelineContentForm(doc, path + "/content");
-    }
-  }
-
-  // Dependency coordination and tracking.
-  public static final class DependencyTracking extends SomNode {
-    public DependencyTracking(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public DependencyTrackingContentForm content() {
-      return new DependencyTrackingContentForm(doc, path + "/content");
     }
   }
 
@@ -22043,123 +21719,6 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.6.4.2. Dependencies.
-  //
-  // External dependencies on other projects, teams, vendors, systems, or
-  // organizational initiatives. Each dependency represents a point where
-  // this project relies on external parties to deliver. Dependencies
-  // should be tracked, risks assessed, and contingencies planned.
-  public static final class FrameworkDependencies extends SomNode {
-    public FrameworkDependencies(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public FrameworkDependenciesContentForm content() {
-      return new FrameworkDependenciesContentForm(doc, path + "/content");
-    }
-
-    // Dependency counts by category.
-    public FrameworkDependenciesCategories categories() {
-      return new FrameworkDependenciesCategories(doc, path + "/categories");
-    }
-
-    // Coordination and early warning mechanisms.
-    public FrameworkDependenciesManagement management() {
-      return new FrameworkDependenciesManagement(doc, path + "/management");
-    }
-
-    // Contains 0+× FrameworkDependency.
-    public SomList<FrameworkDependencyEntry> items() {
-      return new SomList<>(doc, path + "/FWRDP-ITEM-LST", (d, p) -> new FrameworkDependencyEntry(d, p));
-    }
-
-    // Dependency Summary narrative.
-    // (skipped: dependencyNarrative has no target type)
-  }
-
-  // Dependency counts by category.
-  public static final class FrameworkDependenciesCategories extends SomNode {
-    public FrameworkDependenciesCategories(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public FrameworkDependenciesCategoriesContentForm content() {
-      return new FrameworkDependenciesCategoriesContentForm(doc, path + "/content");
-    }
-  }
-
-  // Coordination and early warning mechanisms.
-  public static final class FrameworkDependenciesManagement extends SomNode {
-    public FrameworkDependenciesManagement(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public FrameworkDependenciesManagementContentForm content() {
-      return new FrameworkDependenciesManagementContentForm(doc, path + "/content");
-    }
-  }
-
-  // A framework dependency entry (form).
-  //
-  // Represents a single external dependency where this project relies on
-  // another party (project, team, vendor, system) to deliver something.
-  // Dependencies should be actively managed with clear expectations,
-  // tracking, and contingency plans for delays or failures.
-  public static final class FrameworkDependencyEntry extends SomNode {
-    public FrameworkDependencyEntry(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public FrameworkDependencyEntryContentForm content() {
-      return new FrameworkDependencyEntryContentForm(doc, path + "/content");
-    }
-
-    // Dependency identity details.
-    public DependencyIdentity identity() {
-      return new DependencyIdentity(doc, path + "/identity");
-    }
-
-    // Dependency classification.
-    public DependencyClassification classification() {
-      return new DependencyClassification(doc, path + "/classification");
-    }
-
-    // External party details.
-    public DependencyExternalParty externalParty() {
-      return new DependencyExternalParty(doc, path + "/externalParty");
-    }
-
-    // Deliverable details.
-    public DependencyDeliverable deliverable() {
-      return new DependencyDeliverable(doc, path + "/deliverable");
-    }
-
-    // Timeline.
-    public DependencyTimeline timeline() {
-      return new DependencyTimeline(doc, path + "/timeline");
-    }
-
-    // Risk assessment.
-    public DependencyRisk risk() {
-      return new DependencyRisk(doc, path + "/risk");
-    }
-
-    // Mitigation and contingency.
-    public DependencyMitigation mitigation() {
-      return new DependencyMitigation(doc, path + "/mitigation");
-    }
-
-    // Coordination and tracking.
-    public DependencyTracking tracking() {
-      return new DependencyTracking(doc, path + "/tracking");
-    }
-
-    // Linkages.
-    public SomList<DependencyLinkages> linkages() {
-      return new SomList<>(doc, path + "/DELI1-LINK-LST", (d, p) -> new DependencyLinkages(d, p));
-    }
-  }
-
   // Identity details.
   public static final class FrameworkIdentity extends SomNode {
     public FrameworkIdentity(SpecDocument doc, String path) {
@@ -26585,26 +26144,6 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path + "/content", value);
-    }
-  }
-
-  // 4.7.2. Key Assumptions.
-  //
-  // Documents project assumptions that must hold true for success.
-  // Tracks validation status and contingency plans if assumptions prove false.
-  public static final class KeyAssumptions extends SomNode {
-    public KeyAssumptions(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    // Overview of assumptions management approach.
-    public AssumptionsOverview overview() {
-      return new AssumptionsOverview(doc, path + "/overview");
-    }
-
-    // Contains 0+× Assumption.
-    public SomList<AssumptionEntry> items() {
-      return new SomList<>(doc, path + "/ASEN-ITEM-LST", (d, p) -> new AssumptionEntry(d, p));
     }
   }
 
@@ -40554,12 +40093,18 @@ public final class TomSomV0 {
     }
   }
 
-  // 4.7. Risks and Assumptions.
+  // 4.7. Risks.
   //
-  // Documents identified project risks and underlying assumptions following
-  // ISO 31000 Risk Management and PMBOK risk management best practices.
-  // Provides structured framework for risk identification, analysis, response
-  // planning, and ongoing monitoring throughout the project lifecycle.
+  // Documents identified project risks following ISO 31000 Risk Management and
+  // PMBOK risk management best practices. Provides a structured framework for
+  // risk identification, analysis, response planning, and ongoing monitoring
+  // throughout the project lifecycle.
+  //
+  // Assumptions are **not** held here (L34C-4 consolidation, SR-11): the
+  // canonical assumptions register lives in SBP.6 (Assumptions, Constraints &
+  // Dependencies). Only the risks half — unique to §4.7 — remains in this node.
+  // (The class name remains `RisksAndAssumptions` pending the L34C-9 rename
+  // sweep, which will rename it to `Risks`.)
   public static final class RisksAndAssumptions extends SomNode {
     public RisksAndAssumptions(SpecDocument doc, String path) {
       super(doc, path);
@@ -40573,11 +40118,6 @@ public final class TomSomV0 {
     // 4.7.1. Key Risks — contains 0+× Risk.
     public SomList<RiskEntry> keyRisks() {
       return new SomList<>(doc, path + "/RIEN-KEYR-LST", (d, p) -> new RiskEntry(d, p));
-    }
-
-    // 4.7.2. Key Assumptions — contains 0+×.
-    public KeyAssumptions keyAssumptions() {
-      return new KeyAssumptions(doc, path + "/keyAssumptions");
     }
   }
 
@@ -62007,173 +61547,6 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class AssumptionIdentificationContentForm extends SomNode {
-    public AssumptionIdentificationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String assumptionId() {
-      String v = doc.formField(path, "assumptionId");
-      return v == null ? "" : v;
-    }
-
-    public void assumptionId(String value) {
-      doc.setFormField(path, "assumptionId", value);
-    }
-
-    public String assumptionName() {
-      String v = doc.formField(path, "assumptionName");
-      return v == null ? "" : v;
-    }
-
-    public void assumptionName(String value) {
-      doc.setFormField(path, "assumptionName", value);
-    }
-
-    public String description() {
-      String v = doc.formField(path, "description");
-      return v == null ? "" : v;
-    }
-
-    public void description(String value) {
-      doc.setFormField(path, "description", value);
-    }
-
-    public String category() {
-      String v = doc.formField(path, "category");
-      return v == null ? "" : v;
-    }
-
-    public void category(String value) {
-      doc.setFormField(path, "category", value);
-    }
-
-    public String basis() {
-      String v = doc.formField(path, "basis");
-      return v == null ? "" : v;
-    }
-
-    public void basis(String value) {
-      doc.setFormField(path, "basis", value);
-    }
-
-    public String dateIdentified() {
-      String v = doc.formField(path, "dateIdentified");
-      return v == null ? "" : v;
-    }
-
-    public void dateIdentified(String value) {
-      doc.setFormField(path, "dateIdentified", value);
-    }
-
-    public String identifiedBy() {
-      String v = doc.formField(path, "identifiedBy");
-      return v == null ? "" : v;
-    }
-
-    public void identifiedBy(String value) {
-      doc.setFormField(path, "identifiedBy", value);
-    }
-
-    public String criticality() {
-      String v = doc.formField(path, "criticality");
-      return v == null ? "" : v;
-    }
-
-    public void criticality(String value) {
-      doc.setFormField(path, "criticality", value);
-    }
-
-    public String confidence() {
-      String v = doc.formField(path, "confidence");
-      return v == null ? "" : v;
-    }
-
-    public void confidence(String value) {
-      doc.setFormField(path, "confidence", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class AssumptionImpactContentForm extends SomNode {
-    public AssumptionImpactContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String impactIfFalse() {
-      String v = doc.formField(path, "impactIfFalse");
-      return v == null ? "" : v;
-    }
-
-    public void impactIfFalse(String value) {
-      doc.setFormField(path, "impactIfFalse", value);
-    }
-
-    public String impactSeverity() {
-      String v = doc.formField(path, "impactSeverity");
-      return v == null ? "" : v;
-    }
-
-    public void impactSeverity(String value) {
-      doc.setFormField(path, "impactSeverity", value);
-    }
-
-    public String affectedAreas() {
-      String v = doc.formField(path, "affectedAreas");
-      return v == null ? "" : v;
-    }
-
-    public void affectedAreas(String value) {
-      doc.setFormField(path, "affectedAreas", value);
-    }
-
-    public String contingencyPlan() {
-      String v = doc.formField(path, "contingencyPlan");
-      return v == null ? "" : v;
-    }
-
-    public void contingencyPlan(String value) {
-      doc.setFormField(path, "contingencyPlan", value);
-    }
-
-    public String contingencyOwner() {
-      String v = doc.formField(path, "contingencyOwner");
-      return v == null ? "" : v;
-    }
-
-    public void contingencyOwner(String value) {
-      doc.setFormField(path, "contingencyOwner", value);
-    }
-
-    public String contingencyCost() {
-      String v = doc.formField(path, "contingencyCost");
-      return v == null ? "" : v;
-    }
-
-    public void contingencyCost(String value) {
-      doc.setFormField(path, "contingencyCost", value);
-    }
-
-    public String contingencyTimeline() {
-      String v = doc.formField(path, "contingencyTimeline");
-      return v == null ? "" : v;
-    }
-
-    public void contingencyTimeline(String value) {
-      doc.setFormField(path, "contingencyTimeline", value);
-    }
-
-    public String relatedRisks() {
-      String v = doc.formField(path, "relatedRisks");
-      return v == null ? "" : v;
-    }
-
-    public void relatedRisks(String value) {
-      doc.setFormField(path, "relatedRisks", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
   public static final class AssumptionRegisterEntryContentForm extends SomNode {
     public AssumptionRegisterEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -62222,198 +61595,6 @@ public final class TomSomV0 {
 
     public void status(String value) {
       doc.setFormField(path, "status", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class AssumptionRelationshipsContentForm extends SomNode {
-    public AssumptionRelationshipsContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String relatedAssumptions() {
-      String v = doc.formField(path, "relatedAssumptions");
-      return v == null ? "" : v;
-    }
-
-    public void relatedAssumptions(String value) {
-      doc.setFormField(path, "relatedAssumptions", value);
-    }
-
-    public String relatedRisks() {
-      String v = doc.formField(path, "relatedRisks");
-      return v == null ? "" : v;
-    }
-
-    public void relatedRisks(String value) {
-      doc.setFormField(path, "relatedRisks", value);
-    }
-
-    public String relatedRequirements() {
-      String v = doc.formField(path, "relatedRequirements");
-      return v == null ? "" : v;
-    }
-
-    public void relatedRequirements(String value) {
-      doc.setFormField(path, "relatedRequirements", value);
-    }
-
-    public String affectedDecisions() {
-      String v = doc.formField(path, "affectedDecisions");
-      return v == null ? "" : v;
-    }
-
-    public void affectedDecisions(String value) {
-      doc.setFormField(path, "affectedDecisions", value);
-    }
-
-    public String documentReferences() {
-      String v = doc.formField(path, "documentReferences");
-      return v == null ? "" : v;
-    }
-
-    public void documentReferences(String value) {
-      doc.setFormField(path, "documentReferences", value);
-    }
-
-    public String stakeholderOwner() {
-      String v = doc.formField(path, "stakeholderOwner");
-      return v == null ? "" : v;
-    }
-
-    public void stakeholderOwner(String value) {
-      doc.setFormField(path, "stakeholderOwner", value);
-    }
-
-    public String reviewFrequency() {
-      String v = doc.formField(path, "reviewFrequency");
-      return v == null ? "" : v;
-    }
-
-    public void reviewFrequency(String value) {
-      doc.setFormField(path, "reviewFrequency", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class AssumptionValidationContentForm extends SomNode {
-    public AssumptionValidationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String validationMethod() {
-      String v = doc.formField(path, "validationMethod");
-      return v == null ? "" : v;
-    }
-
-    public void validationMethod(String value) {
-      doc.setFormField(path, "validationMethod", value);
-    }
-
-    public String validationCriteria() {
-      String v = doc.formField(path, "validationCriteria");
-      return v == null ? "" : v;
-    }
-
-    public void validationCriteria(String value) {
-      doc.setFormField(path, "validationCriteria", value);
-    }
-
-    public String validationDate() {
-      String v = doc.formField(path, "validationDate");
-      return v == null ? "" : v;
-    }
-
-    public void validationDate(String value) {
-      doc.setFormField(path, "validationDate", value);
-    }
-
-    public String validationStatus() {
-      String v = doc.formField(path, "validationStatus");
-      return v == null ? "" : v;
-    }
-
-    public void validationStatus(String value) {
-      doc.setFormField(path, "validationStatus", value);
-    }
-
-    public String lastValidationDate() {
-      String v = doc.formField(path, "lastValidationDate");
-      return v == null ? "" : v;
-    }
-
-    public void lastValidationDate(String value) {
-      doc.setFormField(path, "lastValidationDate", value);
-    }
-
-    public String validatedBy() {
-      String v = doc.formField(path, "validatedBy");
-      return v == null ? "" : v;
-    }
-
-    public void validatedBy(String value) {
-      doc.setFormField(path, "validatedBy", value);
-    }
-
-    public String validationNotes() {
-      String v = doc.formField(path, "validationNotes");
-      return v == null ? "" : v;
-    }
-
-    public void validationNotes(String value) {
-      doc.setFormField(path, "validationNotes", value);
-    }
-
-    public String validationOwner() {
-      String v = doc.formField(path, "validationOwner");
-      return v == null ? "" : v;
-    }
-
-    public void validationOwner(String value) {
-      doc.setFormField(path, "validationOwner", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class AssumptionsOverviewContentForm extends SomNode {
-    public AssumptionsOverviewContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String assumptionsApproach() {
-      String v = doc.formField(path, "assumptionsApproach");
-      return v == null ? "" : v;
-    }
-
-    public void assumptionsApproach(String value) {
-      doc.setFormField(path, "assumptionsApproach", value);
-    }
-
-    public String validationCadence() {
-      String v = doc.formField(path, "validationCadence");
-      return v == null ? "" : v;
-    }
-
-    public void validationCadence(String value) {
-      doc.setFormField(path, "validationCadence", value);
-    }
-
-    public String assumptionCategories() {
-      String v = doc.formField(path, "assumptionCategories");
-      return v == null ? "" : v;
-    }
-
-    public void assumptionCategories(String value) {
-      doc.setFormField(path, "assumptionCategories", value);
-    }
-
-    public String escalationProcess() {
-      String v = doc.formField(path, "escalationProcess");
-      return v == null ? "" : v;
-    }
-
-    public void escalationProcess(String value) {
-      doc.setFormField(path, "escalationProcess", value);
     }
   }
 
@@ -77528,291 +76709,6 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class ConstraintClassificationContentForm extends SomNode {
-    public ConstraintClassificationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String constraintDescription() {
-      String v = doc.formField(path, "constraintDescription");
-      return v == null ? "" : v;
-    }
-
-    public void constraintDescription(String value) {
-      doc.setFormField(path, "constraintDescription", value);
-    }
-
-    public String constraintCategory() {
-      String v = doc.formField(path, "constraintCategory");
-      return v == null ? "" : v;
-    }
-
-    public void constraintCategory(String value) {
-      doc.setFormField(path, "constraintCategory", value);
-    }
-
-    public String constraintType() {
-      String v = doc.formField(path, "constraintType");
-      return v == null ? "" : v;
-    }
-
-    public void constraintType(String value) {
-      doc.setFormField(path, "constraintType", value);
-    }
-
-    public String constraintSource() {
-      String v = doc.formField(path, "constraintSource");
-      return v == null ? "" : v;
-    }
-
-    public void constraintSource(String value) {
-      doc.setFormField(path, "constraintSource", value);
-    }
-
-    public String sourceReference() {
-      String v = doc.formField(path, "sourceReference");
-      return v == null ? "" : v;
-    }
-
-    public void sourceReference(String value) {
-      doc.setFormField(path, "sourceReference", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class ConstraintDetailsContentForm extends SomNode {
-    public ConstraintDetailsContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String constraintValue() {
-      String v = doc.formField(path, "constraintValue");
-      return v == null ? "" : v;
-    }
-
-    public void constraintValue(String value) {
-      doc.setFormField(path, "constraintValue", value);
-    }
-
-    public String constraintEffectiveDate() {
-      String v = doc.formField(path, "constraintEffectiveDate");
-      return v == null ? "" : v;
-    }
-
-    public void constraintEffectiveDate(String value) {
-      doc.setFormField(path, "constraintEffectiveDate", value);
-    }
-
-    public String constraintExpiryDate() {
-      String v = doc.formField(path, "constraintExpiryDate");
-      return v == null ? "" : v;
-    }
-
-    public void constraintExpiryDate(String value) {
-      doc.setFormField(path, "constraintExpiryDate", value);
-    }
-
-    public String geographicScope() {
-      String v = doc.formField(path, "geographicScope");
-      return v == null ? "" : v;
-    }
-
-    public void geographicScope(String value) {
-      doc.setFormField(path, "geographicScope", value);
-    }
-
-    public String affectedDomains() {
-      String v = doc.formField(path, "affectedDomains");
-      return v == null ? "" : v;
-    }
-
-    public void affectedDomains(String value) {
-      doc.setFormField(path, "affectedDomains", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class ConstraintEntryContentForm extends SomNode {
-    public ConstraintEntryContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String constraintId() {
-      String v = doc.formField(path, "constraintId");
-      return v == null ? "" : v;
-    }
-
-    public void constraintId(String value) {
-      doc.setFormField(path, "constraintId", value);
-    }
-
-    public String constraintName() {
-      String v = doc.formField(path, "constraintName");
-      return v == null ? "" : v;
-    }
-
-    public void constraintName(String value) {
-      doc.setFormField(path, "constraintName", value);
-    }
-
-    public String impactLevel() {
-      String v = doc.formField(path, "impactLevel");
-      return v == null ? "" : v;
-    }
-
-    public void impactLevel(String value) {
-      doc.setFormField(path, "impactLevel", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class ConstraintImpactContentForm extends SomNode {
-    public ConstraintImpactContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String impactDescription() {
-      String v = doc.formField(path, "impactDescription");
-      return v == null ? "" : v;
-    }
-
-    public void impactDescription(String value) {
-      doc.setFormField(path, "impactDescription", value);
-    }
-
-    public String affectedWorkPackages() {
-      String v = doc.formField(path, "affectedWorkPackages");
-      return v == null ? "" : v;
-    }
-
-    public void affectedWorkPackages(String value) {
-      doc.setFormField(path, "affectedWorkPackages", value);
-    }
-
-    public String affectedMilestones() {
-      String v = doc.formField(path, "affectedMilestones");
-      return v == null ? "" : v;
-    }
-
-    public void affectedMilestones(String value) {
-      doc.setFormField(path, "affectedMilestones", value);
-    }
-
-    public String scheduleImpact() {
-      String v = doc.formField(path, "scheduleImpact");
-      return v == null ? "" : v;
-    }
-
-    public void scheduleImpact(String value) {
-      doc.setFormField(path, "scheduleImpact", value);
-    }
-
-    public String budgetImpact() {
-      String v = doc.formField(path, "budgetImpact");
-      return v == null ? "" : v;
-    }
-
-    public void budgetImpact(String value) {
-      doc.setFormField(path, "budgetImpact", value);
-    }
-
-    public String scopeImpact() {
-      String v = doc.formField(path, "scopeImpact");
-      return v == null ? "" : v;
-    }
-
-    public void scopeImpact(String value) {
-      doc.setFormField(path, "scopeImpact", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class ConstraintLinkagesContentForm extends SomNode {
-    public ConstraintLinkagesContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String relatedConstraints() {
-      String v = doc.formField(path, "relatedConstraints");
-      return v == null ? "" : v;
-    }
-
-    public void relatedConstraints(String value) {
-      doc.setFormField(path, "relatedConstraints", value);
-    }
-
-    public String relatedRisks() {
-      String v = doc.formField(path, "relatedRisks");
-      return v == null ? "" : v;
-    }
-
-    public void relatedRisks(String value) {
-      doc.setFormField(path, "relatedRisks", value);
-    }
-
-    public String relatedDependencies() {
-      String v = doc.formField(path, "relatedDependencies");
-      return v == null ? "" : v;
-    }
-
-    public void relatedDependencies(String value) {
-      doc.setFormField(path, "relatedDependencies", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class ConstraintMitigationContentForm extends SomNode {
-    public ConstraintMitigationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String mitigationStrategy() {
-      String v = doc.formField(path, "mitigationStrategy");
-      return v == null ? "" : v;
-    }
-
-    public void mitigationStrategy(String value) {
-      doc.setFormField(path, "mitigationStrategy", value);
-    }
-
-    public String negotiationPossibility() {
-      String v = doc.formField(path, "negotiationPossibility");
-      return v == null ? "" : v;
-    }
-
-    public void negotiationPossibility(String value) {
-      doc.setFormField(path, "negotiationPossibility", value);
-    }
-
-    public String negotiationApproach() {
-      String v = doc.formField(path, "negotiationApproach");
-      return v == null ? "" : v;
-    }
-
-    public void negotiationApproach(String value) {
-      doc.setFormField(path, "negotiationApproach", value);
-    }
-
-    public String fallbackPlan() {
-      String v = doc.formField(path, "fallbackPlan");
-      return v == null ? "" : v;
-    }
-
-    public void fallbackPlan(String value) {
-      doc.setFormField(path, "fallbackPlan", value);
-    }
-
-    public String violationConsequences() {
-      String v = doc.formField(path, "violationConsequences");
-      return v == null ? "" : v;
-    }
-
-    public void violationConsequences(String value) {
-      doc.setFormField(path, "violationConsequences", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
   public static final class ConstraintRegisterEntryContentForm extends SomNode {
     public ConstraintRegisterEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -77861,243 +76757,6 @@ public final class TomSomV0 {
 
     public void impact(String value) {
       doc.setFormField(path, "impact", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class ConstraintTrackingContentForm extends SomNode {
-    public ConstraintTrackingContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String trackingMethod() {
-      String v = doc.formField(path, "trackingMethod");
-      return v == null ? "" : v;
-    }
-
-    public void trackingMethod(String value) {
-      doc.setFormField(path, "trackingMethod", value);
-    }
-
-    public String reviewFrequency() {
-      String v = doc.formField(path, "reviewFrequency");
-      return v == null ? "" : v;
-    }
-
-    public void reviewFrequency(String value) {
-      doc.setFormField(path, "reviewFrequency", value);
-    }
-
-    public String constraintOwner() {
-      String v = doc.formField(path, "constraintOwner");
-      return v == null ? "" : v;
-    }
-
-    public void constraintOwner(String value) {
-      doc.setFormField(path, "constraintOwner", value);
-    }
-
-    public String currentStatus() {
-      String v = doc.formField(path, "currentStatus");
-      return v == null ? "" : v;
-    }
-
-    public void currentStatus(String value) {
-      doc.setFormField(path, "currentStatus", value);
-    }
-
-    public String statusNotes() {
-      String v = doc.formField(path, "statusNotes");
-      return v == null ? "" : v;
-    }
-
-    public void statusNotes(String value) {
-      doc.setFormField(path, "statusNotes", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class ConstraintsAndDependenciesContentForm extends SomNode {
-    public ConstraintsAndDependenciesContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String constraintDependencyOverview() {
-      String v = doc.formField(path, "constraintDependencyOverview");
-      return v == null ? "" : v;
-    }
-
-    public void constraintDependencyOverview(String value) {
-      doc.setFormField(path, "constraintDependencyOverview", value);
-    }
-
-    public String totalConstraintCount() {
-      String v = doc.formField(path, "totalConstraintCount");
-      return v == null ? "" : v;
-    }
-
-    public void totalConstraintCount(String value) {
-      doc.setFormField(path, "totalConstraintCount", value);
-    }
-
-    public String totalDependencyCount() {
-      String v = doc.formField(path, "totalDependencyCount");
-      return v == null ? "" : v;
-    }
-
-    public void totalDependencyCount(String value) {
-      doc.setFormField(path, "totalDependencyCount", value);
-    }
-
-    public String criticalConstraintCount() {
-      String v = doc.formField(path, "criticalConstraintCount");
-      return v == null ? "" : v;
-    }
-
-    public void criticalConstraintCount(String value) {
-      doc.setFormField(path, "criticalConstraintCount", value);
-    }
-
-    public String criticalDependencyCount() {
-      String v = doc.formField(path, "criticalDependencyCount");
-      return v == null ? "" : v;
-    }
-
-    public void criticalDependencyCount(String value) {
-      doc.setFormField(path, "criticalDependencyCount", value);
-    }
-
-    public String constraintManagementApproach() {
-      String v = doc.formField(path, "constraintManagementApproach");
-      return v == null ? "" : v;
-    }
-
-    public void constraintManagementApproach(String value) {
-      doc.setFormField(path, "constraintManagementApproach", value);
-    }
-
-    public String dependencyManagementApproach() {
-      String v = doc.formField(path, "dependencyManagementApproach");
-      return v == null ? "" : v;
-    }
-
-    public void dependencyManagementApproach(String value) {
-      doc.setFormField(path, "dependencyManagementApproach", value);
-    }
-
-    public String monitoringFrequency() {
-      String v = doc.formField(path, "monitoringFrequency");
-      return v == null ? "" : v;
-    }
-
-    public void monitoringFrequency(String value) {
-      doc.setFormField(path, "monitoringFrequency", value);
-    }
-
-    public String escalationPath() {
-      String v = doc.formField(path, "escalationPath");
-      return v == null ? "" : v;
-    }
-
-    public void escalationPath(String value) {
-      doc.setFormField(path, "escalationPath", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class ConstraintsContentForm extends SomNode {
-    public ConstraintsContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String constraintSummary() {
-      String v = doc.formField(path, "constraintSummary");
-      return v == null ? "" : v;
-    }
-
-    public void constraintSummary(String value) {
-      doc.setFormField(path, "constraintSummary", value);
-    }
-
-    public String primaryConstraintCategory() {
-      String v = doc.formField(path, "primaryConstraintCategory");
-      return v == null ? "" : v;
-    }
-
-    public void primaryConstraintCategory(String value) {
-      doc.setFormField(path, "primaryConstraintCategory", value);
-    }
-
-    public String constraintImpactLevel() {
-      String v = doc.formField(path, "constraintImpactLevel");
-      return v == null ? "" : v;
-    }
-
-    public void constraintImpactLevel(String value) {
-      doc.setFormField(path, "constraintImpactLevel", value);
-    }
-
-    public String flexibilityAssessment() {
-      String v = doc.formField(path, "flexibilityAssessment");
-      return v == null ? "" : v;
-    }
-
-    public void flexibilityAssessment(String value) {
-      doc.setFormField(path, "flexibilityAssessment", value);
-    }
-
-    public String regulatoryConstraintCount() {
-      String v = doc.formField(path, "regulatoryConstraintCount");
-      return v == null ? "" : v;
-    }
-
-    public void regulatoryConstraintCount(String value) {
-      doc.setFormField(path, "regulatoryConstraintCount", value);
-    }
-
-    public String contractualConstraintCount() {
-      String v = doc.formField(path, "contractualConstraintCount");
-      return v == null ? "" : v;
-    }
-
-    public void contractualConstraintCount(String value) {
-      doc.setFormField(path, "contractualConstraintCount", value);
-    }
-
-    public String budgetaryConstraintCount() {
-      String v = doc.formField(path, "budgetaryConstraintCount");
-      return v == null ? "" : v;
-    }
-
-    public void budgetaryConstraintCount(String value) {
-      doc.setFormField(path, "budgetaryConstraintCount", value);
-    }
-
-    public String timelineConstraintCount() {
-      String v = doc.formField(path, "timelineConstraintCount");
-      return v == null ? "" : v;
-    }
-
-    public void timelineConstraintCount(String value) {
-      doc.setFormField(path, "timelineConstraintCount", value);
-    }
-
-    public String resourceConstraintCount() {
-      String v = doc.formField(path, "resourceConstraintCount");
-      return v == null ? "" : v;
-    }
-
-    public void resourceConstraintCount(String value) {
-      doc.setFormField(path, "resourceConstraintCount", value);
-    }
-
-    public String technicalConstraintCount() {
-      String v = doc.formField(path, "technicalConstraintCount");
-      return v == null ? "" : v;
-    }
-
-    public void technicalConstraintCount(String value) {
-      doc.setFormField(path, "technicalConstraintCount", value);
     }
   }
 
@@ -86259,135 +84918,6 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DependencyClassificationContentForm extends SomNode {
-    public DependencyClassificationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String dependencyCategory() {
-      String v = doc.formField(path, "dependencyCategory");
-      return v == null ? "" : v;
-    }
-
-    public void dependencyCategory(String value) {
-      doc.setFormField(path, "dependencyCategory", value);
-    }
-
-    public String dependencyType() {
-      String v = doc.formField(path, "dependencyType");
-      return v == null ? "" : v;
-    }
-
-    public void dependencyType(String value) {
-      doc.setFormField(path, "dependencyType", value);
-    }
-
-    public String onCriticalPath() {
-      String v = doc.formField(path, "onCriticalPath");
-      return v == null ? "" : v;
-    }
-
-    public void onCriticalPath(String value) {
-      doc.setFormField(path, "onCriticalPath", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class DependencyDeliverableContentForm extends SomNode {
-    public DependencyDeliverableContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String deliverableDescription() {
-      String v = doc.formField(path, "deliverableDescription");
-      return v == null ? "" : v;
-    }
-
-    public void deliverableDescription(String value) {
-      doc.setFormField(path, "deliverableDescription", value);
-    }
-
-    public String deliverableSpecification() {
-      String v = doc.formField(path, "deliverableSpecification");
-      return v == null ? "" : v;
-    }
-
-    public void deliverableSpecification(String value) {
-      doc.setFormField(path, "deliverableSpecification", value);
-    }
-
-    public String qualityCriteria() {
-      String v = doc.formField(path, "qualityCriteria");
-      return v == null ? "" : v;
-    }
-
-    public void qualityCriteria(String value) {
-      doc.setFormField(path, "qualityCriteria", value);
-    }
-
-    public String deliveryFormat() {
-      String v = doc.formField(path, "deliveryFormat");
-      return v == null ? "" : v;
-    }
-
-    public void deliveryFormat(String value) {
-      doc.setFormField(path, "deliveryFormat", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class DependencyExternalPartyContentForm extends SomNode {
-    public DependencyExternalPartyContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String externalPartyName() {
-      String v = doc.formField(path, "externalPartyName");
-      return v == null ? "" : v;
-    }
-
-    public void externalPartyName(String value) {
-      doc.setFormField(path, "externalPartyName", value);
-    }
-
-    public String externalPartyType() {
-      String v = doc.formField(path, "externalPartyType");
-      return v == null ? "" : v;
-    }
-
-    public void externalPartyType(String value) {
-      doc.setFormField(path, "externalPartyType", value);
-    }
-
-    public String contactPerson() {
-      String v = doc.formField(path, "contactPerson");
-      return v == null ? "" : v;
-    }
-
-    public void contactPerson(String value) {
-      doc.setFormField(path, "contactPerson", value);
-    }
-
-    public String contactEmail() {
-      String v = doc.formField(path, "contactEmail");
-      return v == null ? "" : v;
-    }
-
-    public void contactEmail(String value) {
-      doc.setFormField(path, "contactEmail", value);
-    }
-
-    public String escalationContact() {
-      String v = doc.formField(path, "escalationContact");
-      return v == null ? "" : v;
-    }
-
-    public void escalationContact(String value) {
-      doc.setFormField(path, "escalationContact", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
   public static final class DependencyHealthMonitoringCacheContentForm extends SomNode {
     public DependencyHealthMonitoringCacheContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -86545,22 +85075,6 @@ public final class TomSomV0 {
 
     public void notes(String value) {
       doc.setFormField(path, "notes", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class DependencyIdentityContentForm extends SomNode {
-    public DependencyIdentityContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String dependencyDescription() {
-      String v = doc.formField(path, "dependencyDescription");
-      return v == null ? "" : v;
-    }
-
-    public void dependencyDescription(String value) {
-      doc.setFormField(path, "dependencyDescription", value);
     }
   }
 
@@ -86735,49 +85249,6 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DependencyLinkagesContentForm extends SomNode {
-    public DependencyLinkagesContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String relatedConstraints() {
-      String v = doc.formField(path, "relatedConstraints");
-      return v == null ? "" : v;
-    }
-
-    public void relatedConstraints(String value) {
-      doc.setFormField(path, "relatedConstraints", value);
-    }
-
-    public String relatedRisks() {
-      String v = doc.formField(path, "relatedRisks");
-      return v == null ? "" : v;
-    }
-
-    public void relatedRisks(String value) {
-      doc.setFormField(path, "relatedRisks", value);
-    }
-
-    public String relatedDependencies() {
-      String v = doc.formField(path, "relatedDependencies");
-      return v == null ? "" : v;
-    }
-
-    public void relatedDependencies(String value) {
-      doc.setFormField(path, "relatedDependencies", value);
-    }
-
-    public String affectedWorkPackages() {
-      String v = doc.formField(path, "affectedWorkPackages");
-      return v == null ? "" : v;
-    }
-
-    public void affectedWorkPackages(String value) {
-      doc.setFormField(path, "affectedWorkPackages", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
   public static final class DependencyManagementContentForm extends SomNode {
     public DependencyManagementContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -86939,58 +85410,6 @@ public final class TomSomV0 {
   }
 
   // Generated form facade for the `content` @Form section.
-  public static final class DependencyMitigationContentForm extends SomNode {
-    public DependencyMitigationContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String mitigationStrategy() {
-      String v = doc.formField(path, "mitigationStrategy");
-      return v == null ? "" : v;
-    }
-
-    public void mitigationStrategy(String value) {
-      doc.setFormField(path, "mitigationStrategy", value);
-    }
-
-    public String contingencyPlan() {
-      String v = doc.formField(path, "contingencyPlan");
-      return v == null ? "" : v;
-    }
-
-    public void contingencyPlan(String value) {
-      doc.setFormField(path, "contingencyPlan", value);
-    }
-
-    public String contingencyTimeline() {
-      String v = doc.formField(path, "contingencyTimeline");
-      return v == null ? "" : v;
-    }
-
-    public void contingencyTimeline(String value) {
-      doc.setFormField(path, "contingencyTimeline", value);
-    }
-
-    public String contractualProtection() {
-      String v = doc.formField(path, "contractualProtection");
-      return v == null ? "" : v;
-    }
-
-    public void contractualProtection(String value) {
-      doc.setFormField(path, "contractualProtection", value);
-    }
-
-    public String alternativeOptions() {
-      String v = doc.formField(path, "alternativeOptions");
-      return v == null ? "" : v;
-    }
-
-    public void alternativeOptions(String value) {
-      doc.setFormField(path, "alternativeOptions", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
   public static final class DependencyRegisterEntryContentForm extends SomNode {
     public DependencyRegisterEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -87048,58 +85467,6 @@ public final class TomSomV0 {
 
     public void status(String value) {
       doc.setFormField(path, "status", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class DependencyRiskContentForm extends SomNode {
-    public DependencyRiskContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String deliveryRiskLevel() {
-      String v = doc.formField(path, "deliveryRiskLevel");
-      return v == null ? "" : v;
-    }
-
-    public void deliveryRiskLevel(String value) {
-      doc.setFormField(path, "deliveryRiskLevel", value);
-    }
-
-    public String primaryRiskFactors() {
-      String v = doc.formField(path, "primaryRiskFactors");
-      return v == null ? "" : v;
-    }
-
-    public void primaryRiskFactors(String value) {
-      doc.setFormField(path, "primaryRiskFactors", value);
-    }
-
-    public String riskIndicators() {
-      String v = doc.formField(path, "riskIndicators");
-      return v == null ? "" : v;
-    }
-
-    public void riskIndicators(String value) {
-      doc.setFormField(path, "riskIndicators", value);
-    }
-
-    public String impactOfDelay() {
-      String v = doc.formField(path, "impactOfDelay");
-      return v == null ? "" : v;
-    }
-
-    public void impactOfDelay(String value) {
-      doc.setFormField(path, "impactOfDelay", value);
-    }
-
-    public String impactOfFailure() {
-      String v = doc.formField(path, "impactOfFailure");
-      return v == null ? "" : v;
-    }
-
-    public void impactOfFailure(String value) {
-      doc.setFormField(path, "impactOfFailure", value);
     }
   }
 
@@ -87279,128 +85646,6 @@ public final class TomSomV0 {
 
     public void exceptionProcess(String value) {
       doc.setFormField(path, "exceptionProcess", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class DependencyTimelineContentForm extends SomNode {
-    public DependencyTimelineContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String expectedDeliveryDate() {
-      String v = doc.formField(path, "expectedDeliveryDate");
-      return v == null ? "" : v;
-    }
-
-    public void expectedDeliveryDate(String value) {
-      doc.setFormField(path, "expectedDeliveryDate", value);
-    }
-
-    public String latestAcceptableDate() {
-      String v = doc.formField(path, "latestAcceptableDate");
-      return v == null ? "" : v;
-    }
-
-    public void latestAcceptableDate(String value) {
-      doc.setFormField(path, "latestAcceptableDate", value);
-    }
-
-    public String leadTimeRequired() {
-      String v = doc.formField(path, "leadTimeRequired");
-      return v == null ? "" : v;
-    }
-
-    public void leadTimeRequired(String value) {
-      doc.setFormField(path, "leadTimeRequired", value);
-    }
-
-    public String bufferDays() {
-      String v = doc.formField(path, "bufferDays");
-      return v == null ? "" : v;
-    }
-
-    public void bufferDays(String value) {
-      doc.setFormField(path, "bufferDays", value);
-    }
-
-    public String dependentMilestones() {
-      String v = doc.formField(path, "dependentMilestones");
-      return v == null ? "" : v;
-    }
-
-    public void dependentMilestones(String value) {
-      doc.setFormField(path, "dependentMilestones", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class DependencyTrackingContentForm extends SomNode {
-    public DependencyTrackingContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String coordinationMechanism() {
-      String v = doc.formField(path, "coordinationMechanism");
-      return v == null ? "" : v;
-    }
-
-    public void coordinationMechanism(String value) {
-      doc.setFormField(path, "coordinationMechanism", value);
-    }
-
-    public String communicationFrequency() {
-      String v = doc.formField(path, "communicationFrequency");
-      return v == null ? "" : v;
-    }
-
-    public void communicationFrequency(String value) {
-      doc.setFormField(path, "communicationFrequency", value);
-    }
-
-    public String trackingMethod() {
-      String v = doc.formField(path, "trackingMethod");
-      return v == null ? "" : v;
-    }
-
-    public void trackingMethod(String value) {
-      doc.setFormField(path, "trackingMethod", value);
-    }
-
-    public String dependencyOwner() {
-      String v = doc.formField(path, "dependencyOwner");
-      return v == null ? "" : v;
-    }
-
-    public void dependencyOwner(String value) {
-      doc.setFormField(path, "dependencyOwner", value);
-    }
-
-    public String currentStatus() {
-      String v = doc.formField(path, "currentStatus");
-      return v == null ? "" : v;
-    }
-
-    public void currentStatus(String value) {
-      doc.setFormField(path, "currentStatus", value);
-    }
-
-    public String statusLastUpdated() {
-      String v = doc.formField(path, "statusLastUpdated");
-      return v == null ? "" : v;
-    }
-
-    public void statusLastUpdated(String value) {
-      doc.setFormField(path, "statusLastUpdated", value);
-    }
-
-    public String statusNotes() {
-      String v = doc.formField(path, "statusNotes");
-      return v == null ? "" : v;
-    }
-
-    public void statusNotes(String value) {
-      doc.setFormField(path, "statusNotes", value);
     }
   }
 
@@ -100607,169 +98852,6 @@ public final class TomSomV0 {
 
     public void deprecationWarnings(String value) {
       doc.setFormField(path, "deprecationWarnings", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class FrameworkDependenciesCategoriesContentForm extends SomNode {
-    public FrameworkDependenciesCategoriesContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String projectDependencyCount() {
-      String v = doc.formField(path, "projectDependencyCount");
-      return v == null ? "" : v;
-    }
-
-    public void projectDependencyCount(String value) {
-      doc.setFormField(path, "projectDependencyCount", value);
-    }
-
-    public String teamDependencyCount() {
-      String v = doc.formField(path, "teamDependencyCount");
-      return v == null ? "" : v;
-    }
-
-    public void teamDependencyCount(String value) {
-      doc.setFormField(path, "teamDependencyCount", value);
-    }
-
-    public String vendorDependencyCount() {
-      String v = doc.formField(path, "vendorDependencyCount");
-      return v == null ? "" : v;
-    }
-
-    public void vendorDependencyCount(String value) {
-      doc.setFormField(path, "vendorDependencyCount", value);
-    }
-
-    public String systemDependencyCount() {
-      String v = doc.formField(path, "systemDependencyCount");
-      return v == null ? "" : v;
-    }
-
-    public void systemDependencyCount(String value) {
-      doc.setFormField(path, "systemDependencyCount", value);
-    }
-
-    public String regulatoryDependencyCount() {
-      String v = doc.formField(path, "regulatoryDependencyCount");
-      return v == null ? "" : v;
-    }
-
-    public void regulatoryDependencyCount(String value) {
-      doc.setFormField(path, "regulatoryDependencyCount", value);
-    }
-
-    public String infrastructureDependencyCount() {
-      String v = doc.formField(path, "infrastructureDependencyCount");
-      return v == null ? "" : v;
-    }
-
-    public void infrastructureDependencyCount(String value) {
-      doc.setFormField(path, "infrastructureDependencyCount", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class FrameworkDependenciesContentForm extends SomNode {
-    public FrameworkDependenciesContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String dependencySummary() {
-      String v = doc.formField(path, "dependencySummary");
-      return v == null ? "" : v;
-    }
-
-    public void dependencySummary(String value) {
-      doc.setFormField(path, "dependencySummary", value);
-    }
-
-    public String primaryDependencyCategory() {
-      String v = doc.formField(path, "primaryDependencyCategory");
-      return v == null ? "" : v;
-    }
-
-    public void primaryDependencyCategory(String value) {
-      doc.setFormField(path, "primaryDependencyCategory", value);
-    }
-
-    public String dependencyRiskLevel() {
-      String v = doc.formField(path, "dependencyRiskLevel");
-      return v == null ? "" : v;
-    }
-
-    public void dependencyRiskLevel(String value) {
-      doc.setFormField(path, "dependencyRiskLevel", value);
-    }
-
-    public String criticalPathDependencyCount() {
-      String v = doc.formField(path, "criticalPathDependencyCount");
-      return v == null ? "" : v;
-    }
-
-    public void criticalPathDependencyCount(String value) {
-      doc.setFormField(path, "criticalPathDependencyCount", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class FrameworkDependenciesManagementContentForm extends SomNode {
-    public FrameworkDependenciesManagementContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String dependencyCoordinationApproach() {
-      String v = doc.formField(path, "dependencyCoordinationApproach");
-      return v == null ? "" : v;
-    }
-
-    public void dependencyCoordinationApproach(String value) {
-      doc.setFormField(path, "dependencyCoordinationApproach", value);
-    }
-
-    public String earlyWarningMechanism() {
-      String v = doc.formField(path, "earlyWarningMechanism");
-      return v == null ? "" : v;
-    }
-
-    public void earlyWarningMechanism(String value) {
-      doc.setFormField(path, "earlyWarningMechanism", value);
-    }
-  }
-
-  // Generated form facade for the `content` @Form section.
-  public static final class FrameworkDependencyEntryContentForm extends SomNode {
-    public FrameworkDependencyEntryContentForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    public String dependencyId() {
-      String v = doc.formField(path, "dependencyId");
-      return v == null ? "" : v;
-    }
-
-    public void dependencyId(String value) {
-      doc.setFormField(path, "dependencyId", value);
-    }
-
-    public String dependencyName() {
-      String v = doc.formField(path, "dependencyName");
-      return v == null ? "" : v;
-    }
-
-    public void dependencyName(String value) {
-      doc.setFormField(path, "dependencyName", value);
-    }
-
-    public String criticalityLevel() {
-      String v = doc.formField(path, "criticalityLevel");
-      return v == null ? "" : v;
-    }
-
-    public void criticalityLevel(String value) {
-      doc.setFormField(path, "criticalityLevel", value);
     }
   }
 

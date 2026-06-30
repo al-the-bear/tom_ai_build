@@ -2005,6 +2005,7 @@ void registerSpecOps() {
       return [
         SpecSlot.list(() => n.assumptions, (v) => n.assumptions = v.cast<AssumptionRegisterEntry>(), label: 'assumptions'),
         SpecSlot.list(() => n.constraints, (v) => n.constraints = v.cast<ConstraintRegisterEntry>(), label: 'constraints'),
+        SpecSlot.list(() => n.dependencies, (v) => n.dependencies = v.cast<DependencyRegisterEntry>(), label: 'dependencies'),
       ];
     },
     cloneShallow: (o) {
@@ -2012,46 +2013,10 @@ void registerSpecOps() {
       return AssumptionConstraintRegister()
         ..content = n.content
         ..assumptions = n.assumptions
-        ..constraints = n.constraints;
+        ..constraints = n.constraints
+        ..dependencies = n.dependencies;
     },
     yamlScalar: (o) => (o as AssumptionConstraintRegister).content,
-  ));
-  SpecRegistry.register(AssumptionEntry, SpecClassOps(
-    slots: (o) {
-      final n = o as AssumptionEntry;
-      return [
-        SpecSlot.node(() => n.identification, (v) => n.identification = v as AssumptionIdentification, label: 'identification'),
-        SpecSlot.node(() => n.validation, (v) => n.validation = v as AssumptionValidation, label: 'validation'),
-        SpecSlot.node(() => n.impact, (v) => n.impact = v as AssumptionImpact, label: 'impact'),
-        SpecSlot.list(() => n.relationships, (v) => n.relationships = v.cast<AssumptionRelationships>(), label: 'relationships'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as AssumptionEntry;
-      return AssumptionEntry()
-        ..identification = n.identification
-        ..validation = n.validation
-        ..impact = n.impact
-        ..relationships = n.relationships;
-    },
-  ));
-  SpecRegistry.register(AssumptionIdentification, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as AssumptionIdentification;
-      return AssumptionIdentification()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as AssumptionIdentification).content,
-  ));
-  SpecRegistry.register(AssumptionImpact, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as AssumptionImpact;
-      return AssumptionImpact()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as AssumptionImpact).content,
   ));
   SpecRegistry.register(AssumptionRegisterEntry, SpecClassOps(
     slots: (o) => const [],
@@ -2061,24 +2026,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as AssumptionRegisterEntry).content,
-  ));
-  SpecRegistry.register(AssumptionRelationships, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as AssumptionRelationships;
-      return AssumptionRelationships()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as AssumptionRelationships).content,
-  ));
-  SpecRegistry.register(AssumptionValidation, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as AssumptionValidation;
-      return AssumptionValidation()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as AssumptionValidation).content,
   ));
   SpecRegistry.register(AssumptionsConstraintsDependencies, SpecClassOps(
     slots: (o) {
@@ -2094,15 +2041,6 @@ void registerSpecOps() {
         ..register = n.register;
     },
     yamlScalar: (o) => (o as AssumptionsConstraintsDependencies).content,
-  ));
-  SpecRegistry.register(AssumptionsOverview, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as AssumptionsOverview;
-      return AssumptionsOverview()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as AssumptionsOverview).content,
   ));
   SpecRegistry.register(AttributeInterdependencyEntry, SpecClassOps(
     slots: (o) => const [],
@@ -7111,76 +7049,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ConsentManagementRequirementsTracking).content,
   ));
-  SpecRegistry.register(ConstraintClassification, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ConstraintClassification;
-      return ConstraintClassification()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ConstraintClassification).content,
-  ));
-  SpecRegistry.register(ConstraintDetails, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ConstraintDetails;
-      return ConstraintDetails()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ConstraintDetails).content,
-  ));
-  SpecRegistry.register(ConstraintEntry, SpecClassOps(
-    slots: (o) {
-      final n = o as ConstraintEntry;
-      return [
-        SpecSlot.node(() => n.classification, (v) => n.classification = v as ConstraintClassification, label: 'classification'),
-        SpecSlot.list(() => n.details, (v) => n.details = v.cast<ConstraintDetails>(), label: 'details'),
-        SpecSlot.node(() => n.impact, (v) => n.impact = v as ConstraintImpact, label: 'impact'),
-        SpecSlot.node(() => n.mitigation, (v) => n.mitigation = v as ConstraintMitigation, label: 'mitigation'),
-        SpecSlot.node(() => n.tracking, (v) => n.tracking = v as ConstraintTracking, label: 'tracking'),
-        SpecSlot.list(() => n.linkages, (v) => n.linkages = v.cast<ConstraintLinkages>(), label: 'linkages'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as ConstraintEntry;
-      return ConstraintEntry()
-        ..content = n.content
-        ..classification = n.classification
-        ..details = n.details
-        ..impact = n.impact
-        ..mitigation = n.mitigation
-        ..tracking = n.tracking
-        ..linkages = n.linkages;
-    },
-    yamlScalar: (o) => (o as ConstraintEntry).content,
-  ));
-  SpecRegistry.register(ConstraintImpact, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ConstraintImpact;
-      return ConstraintImpact()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ConstraintImpact).content,
-  ));
-  SpecRegistry.register(ConstraintLinkages, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ConstraintLinkages;
-      return ConstraintLinkages()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ConstraintLinkages).content,
-  ));
-  SpecRegistry.register(ConstraintMitigation, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ConstraintMitigation;
-      return ConstraintMitigation()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ConstraintMitigation).content,
-  ));
   SpecRegistry.register(ConstraintRegisterEntry, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -7190,46 +7058,12 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ConstraintRegisterEntry).content,
   ));
-  SpecRegistry.register(ConstraintTracking, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ConstraintTracking;
-      return ConstraintTracking()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ConstraintTracking).content,
-  ));
-  SpecRegistry.register(Constraints, SpecClassOps(
-    slots: (o) {
-      final n = o as Constraints;
-      return [
-        SpecSlot.list(() => n.items, (v) => n.items = v.cast<ConstraintEntry>(), label: 'items'),
-        SpecSlot.node(() => n.constraintNarrative, (v) => n.constraintNarrative = v as TextSection, label: 'constraintNarrative'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as Constraints;
-      return Constraints()
-        ..content = n.content
-        ..items = n.items
-        ..constraintNarrative = n.constraintNarrative;
-    },
-    yamlScalar: (o) => (o as Constraints).content,
-  ));
   SpecRegistry.register(ConstraintsAndDependencies, SpecClassOps(
-    slots: (o) {
-      final n = o as ConstraintsAndDependencies;
-      return [
-        SpecSlot.node(() => n.constraints, (v) => n.constraints = v as Constraints, label: 'constraints'),
-        SpecSlot.node(() => n.frameworkDependencies, (v) => n.frameworkDependencies = v as FrameworkDependencies, label: 'frameworkDependencies'),
-      ];
-    },
+    slots: (o) => const [],
     cloneShallow: (o) {
       final n = o as ConstraintsAndDependencies;
       return ConstraintsAndDependencies()
-        ..content = n.content
-        ..constraints = n.constraints
-        ..frameworkDependencies = n.frameworkDependencies;
+        ..content = n.content;
     },
     yamlScalar: (o) => (o as ConstraintsAndDependencies).content,
   ));
@@ -10440,24 +10274,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as DependenciesAndIntegrations).content,
   ));
-  SpecRegistry.register(DependencyClassification, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as DependencyClassification;
-      return DependencyClassification()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as DependencyClassification).content,
-  ));
-  SpecRegistry.register(DependencyDeliverable, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as DependencyDeliverable;
-      return DependencyDeliverable()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as DependencyDeliverable).content,
-  ));
   SpecRegistry.register(DependencyEntry, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -10466,15 +10282,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as DependencyEntry).content,
-  ));
-  SpecRegistry.register(DependencyExternalParty, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as DependencyExternalParty;
-      return DependencyExternalParty()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as DependencyExternalParty).content,
   ));
   SpecRegistry.register(DependencyHealthMonitoring, SpecClassOps(
     slots: (o) {
@@ -10533,15 +10340,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as DependencyHealthMonitoringThresholds).content,
   ));
-  SpecRegistry.register(DependencyIdentity, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as DependencyIdentity;
-      return DependencyIdentity()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as DependencyIdentity).content,
-  ));
   SpecRegistry.register(DependencyInjectionStructure, SpecClassOps(
     slots: (o) {
       final n = o as DependencyInjectionStructure;
@@ -10598,15 +10396,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as DependencyInjectionStructureTroubleshooting).content,
-  ));
-  SpecRegistry.register(DependencyLinkages, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as DependencyLinkages;
-      return DependencyLinkages()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as DependencyLinkages).content,
   ));
   SpecRegistry.register(DependencyManagement, SpecClassOps(
     slots: (o) {
@@ -10665,23 +10454,14 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as DependencyManagementVersioning).content,
   ));
-  SpecRegistry.register(DependencyMitigation, SpecClassOps(
+  SpecRegistry.register(DependencyRegisterEntry, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
-      final n = o as DependencyMitigation;
-      return DependencyMitigation()
+      final n = o as DependencyRegisterEntry;
+      return DependencyRegisterEntry()
         ..content = n.content;
     },
-    yamlScalar: (o) => (o as DependencyMitigation).content,
-  ));
-  SpecRegistry.register(DependencyRisk, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as DependencyRisk;
-      return DependencyRisk()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as DependencyRisk).content,
+    yamlScalar: (o) => (o as DependencyRegisterEntry).content,
   ));
   SpecRegistry.register(DependencyScanningRequirements, SpecClassOps(
     slots: (o) {
@@ -10739,24 +10519,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as DependencyScanningRequirementsVulnerabilities).content,
-  ));
-  SpecRegistry.register(DependencyTimeline, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as DependencyTimeline;
-      return DependencyTimeline()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as DependencyTimeline).content,
-  ));
-  SpecRegistry.register(DependencyTracking, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as DependencyTracking;
-      return DependencyTracking()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as DependencyTracking).content,
   ));
   SpecRegistry.register(DeploymentContext, SpecClassOps(
     slots: (o) {
@@ -15004,76 +14766,6 @@ void registerSpecOps() {
         ..constraintsAndDependencies = n.constraintsAndDependencies;
     },
   ));
-  SpecRegistry.register(FrameworkDependencies, SpecClassOps(
-    slots: (o) {
-      final n = o as FrameworkDependencies;
-      return [
-        SpecSlot.node(() => n.categories, (v) => n.categories = v as FrameworkDependenciesCategories, label: 'categories'),
-        SpecSlot.node(() => n.management, (v) => n.management = v as FrameworkDependenciesManagement, label: 'management'),
-        SpecSlot.list(() => n.items, (v) => n.items = v.cast<FrameworkDependencyEntry>(), label: 'items'),
-        SpecSlot.node(() => n.dependencyNarrative, (v) => n.dependencyNarrative = v as TextSection, label: 'dependencyNarrative'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as FrameworkDependencies;
-      return FrameworkDependencies()
-        ..content = n.content
-        ..categories = n.categories
-        ..management = n.management
-        ..items = n.items
-        ..dependencyNarrative = n.dependencyNarrative;
-    },
-    yamlScalar: (o) => (o as FrameworkDependencies).content,
-  ));
-  SpecRegistry.register(FrameworkDependenciesCategories, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as FrameworkDependenciesCategories;
-      return FrameworkDependenciesCategories()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as FrameworkDependenciesCategories).content,
-  ));
-  SpecRegistry.register(FrameworkDependenciesManagement, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as FrameworkDependenciesManagement;
-      return FrameworkDependenciesManagement()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as FrameworkDependenciesManagement).content,
-  ));
-  SpecRegistry.register(FrameworkDependencyEntry, SpecClassOps(
-    slots: (o) {
-      final n = o as FrameworkDependencyEntry;
-      return [
-        SpecSlot.node(() => n.identity, (v) => n.identity = v as DependencyIdentity, label: 'identity'),
-        SpecSlot.node(() => n.classification, (v) => n.classification = v as DependencyClassification, label: 'classification'),
-        SpecSlot.node(() => n.externalParty, (v) => n.externalParty = v as DependencyExternalParty, label: 'externalParty'),
-        SpecSlot.node(() => n.deliverable, (v) => n.deliverable = v as DependencyDeliverable, label: 'deliverable'),
-        SpecSlot.node(() => n.timeline, (v) => n.timeline = v as DependencyTimeline, label: 'timeline'),
-        SpecSlot.node(() => n.risk, (v) => n.risk = v as DependencyRisk, label: 'risk'),
-        SpecSlot.node(() => n.mitigation, (v) => n.mitigation = v as DependencyMitigation, label: 'mitigation'),
-        SpecSlot.node(() => n.tracking, (v) => n.tracking = v as DependencyTracking, label: 'tracking'),
-        SpecSlot.list(() => n.linkages, (v) => n.linkages = v.cast<DependencyLinkages>(), label: 'linkages'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as FrameworkDependencyEntry;
-      return FrameworkDependencyEntry()
-        ..content = n.content
-        ..identity = n.identity
-        ..classification = n.classification
-        ..externalParty = n.externalParty
-        ..deliverable = n.deliverable
-        ..timeline = n.timeline
-        ..risk = n.risk
-        ..mitigation = n.mitigation
-        ..tracking = n.tracking
-        ..linkages = n.linkages;
-    },
-    yamlScalar: (o) => (o as FrameworkDependencyEntry).content,
-  ));
   SpecRegistry.register(FrameworkIdentity, SpecClassOps(
     slots: (o) => const [],
     cloneShallow: (o) {
@@ -18188,21 +17880,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as KeyAssumptionEntry).content,
-  ));
-  SpecRegistry.register(KeyAssumptions, SpecClassOps(
-    slots: (o) {
-      final n = o as KeyAssumptions;
-      return [
-        SpecSlot.node(() => n.overview, (v) => n.overview = v as AssumptionsOverview, label: 'overview'),
-        SpecSlot.list(() => n.items, (v) => n.items = v.cast<AssumptionEntry>(), label: 'items'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as KeyAssumptions;
-      return KeyAssumptions()
-        ..overview = n.overview
-        ..items = n.items;
-    },
   ));
   SpecRegistry.register(KeyAttributeEntry, SpecClassOps(
     slots: (o) {
@@ -28138,15 +27815,13 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.overview, (v) => n.overview = v as RisksOverview, label: 'overview'),
         SpecSlot.list(() => n.keyRisks, (v) => n.keyRisks = v.cast<RiskEntry>(), label: 'keyRisks'),
-        SpecSlot.node(() => n.keyAssumptions, (v) => n.keyAssumptions = v as KeyAssumptions, label: 'keyAssumptions'),
       ];
     },
     cloneShallow: (o) {
       final n = o as RisksAndAssumptions;
       return RisksAndAssumptions()
         ..overview = n.overview
-        ..keyRisks = n.keyRisks
-        ..keyAssumptions = n.keyAssumptions;
+        ..keyRisks = n.keyRisks;
     },
   ));
   SpecRegistry.register(RisksOverview, SpecClassOps(

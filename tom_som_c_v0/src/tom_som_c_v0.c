@@ -3313,69 +3313,6 @@ SomList assumption_constraint_register_dependencies(const AssumptionConstraintRe
   return out;
 }
 
-void assumption_entry_init(AssumptionEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumption_entry_free(AssumptionEntry *self) {
-  som_node_free(&self->node);
-}
-AssumptionIdentification assumption_entry_identification(const AssumptionEntry *self) {
-  char *path = spec_path_join(self->node.path, "identification");
-  AssumptionIdentification out;
-  assumption_identification_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-AssumptionValidation assumption_entry_validation(const AssumptionEntry *self) {
-  char *path = spec_path_join(self->node.path, "validation");
-  AssumptionValidation out;
-  assumption_validation_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-AssumptionImpact assumption_entry_impact(const AssumptionEntry *self) {
-  char *path = spec_path_join(self->node.path, "impact");
-  AssumptionImpact out;
-  assumption_impact_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList assumption_entry_relationships(const AssumptionEntry *self) {
-  char *path = spec_path_join(self->node.path, "ASRE-RELA-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void assumption_identification_init(AssumptionIdentification *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumption_identification_free(AssumptionIdentification *self) {
-  som_node_free(&self->node);
-}
-AssumptionIdentificationContentForm assumption_identification_content(const AssumptionIdentification *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  AssumptionIdentificationContentForm out;
-  assumption_identification_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void assumption_impact_init(AssumptionImpact *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumption_impact_free(AssumptionImpact *self) {
-  som_node_free(&self->node);
-}
-AssumptionImpactContentForm assumption_impact_content(const AssumptionImpact *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  AssumptionImpactContentForm out;
-  assumption_impact_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void assumption_register_entry_init(AssumptionRegisterEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -3386,34 +3323,6 @@ AssumptionRegisterEntryContentForm assumption_register_entry_content(const Assum
   char *path = spec_path_join(self->node.path, "content");
   AssumptionRegisterEntryContentForm out;
   assumption_register_entry_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void assumption_relationships_init(AssumptionRelationships *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumption_relationships_free(AssumptionRelationships *self) {
-  som_node_free(&self->node);
-}
-AssumptionRelationshipsContentForm assumption_relationships_content(const AssumptionRelationships *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  AssumptionRelationshipsContentForm out;
-  assumption_relationships_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void assumption_validation_init(AssumptionValidation *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumption_validation_free(AssumptionValidation *self) {
-  som_node_free(&self->node);
-}
-AssumptionValidationContentForm assumption_validation_content(const AssumptionValidation *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  AssumptionValidationContentForm out;
-  assumption_validation_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -3440,20 +3349,6 @@ AssumptionConstraintRegister assumptions_constraints_dependencies_register_(cons
   char *path = spec_path_join(self->node.path, "register");
   AssumptionConstraintRegister out;
   assumption_constraint_register_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void assumptions_overview_init(AssumptionsOverview *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumptions_overview_free(AssumptionsOverview *self) {
-  som_node_free(&self->node);
-}
-AssumptionsOverviewContentForm assumptions_overview_content(const AssumptionsOverview *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  AssumptionsOverviewContentForm out;
-  assumptions_overview_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -12324,132 +12219,6 @@ ConsentManagementRequirementsTrackingContentForm consent_management_requirements
   return out;
 }
 
-void constraint_classification_init(ConstraintClassification *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_classification_free(ConstraintClassification *self) {
-  som_node_free(&self->node);
-}
-ConstraintClassificationContentForm constraint_classification_content(const ConstraintClassification *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ConstraintClassificationContentForm out;
-  constraint_classification_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void constraint_details_init(ConstraintDetails *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_details_free(ConstraintDetails *self) {
-  som_node_free(&self->node);
-}
-ConstraintDetailsContentForm constraint_details_content(const ConstraintDetails *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ConstraintDetailsContentForm out;
-  constraint_details_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void constraint_entry_init(ConstraintEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_entry_free(ConstraintEntry *self) {
-  som_node_free(&self->node);
-}
-ConstraintEntryContentForm constraint_entry_content(const ConstraintEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ConstraintEntryContentForm out;
-  constraint_entry_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ConstraintClassification constraint_entry_classification(const ConstraintEntry *self) {
-  char *path = spec_path_join(self->node.path, "classification");
-  ConstraintClassification out;
-  constraint_classification_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList constraint_entry_details(const ConstraintEntry *self) {
-  char *path = spec_path_join(self->node.path, "CODE-DETA-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ConstraintImpact constraint_entry_impact(const ConstraintEntry *self) {
-  char *path = spec_path_join(self->node.path, "impact");
-  ConstraintImpact out;
-  constraint_impact_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ConstraintMitigation constraint_entry_mitigation(const ConstraintEntry *self) {
-  char *path = spec_path_join(self->node.path, "mitigation");
-  ConstraintMitigation out;
-  constraint_mitigation_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-ConstraintTracking constraint_entry_tracking(const ConstraintEntry *self) {
-  char *path = spec_path_join(self->node.path, "tracking");
-  ConstraintTracking out;
-  constraint_tracking_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList constraint_entry_linkages(const ConstraintEntry *self) {
-  char *path = spec_path_join(self->node.path, "COLI1-LINK-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void constraint_impact_init(ConstraintImpact *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_impact_free(ConstraintImpact *self) {
-  som_node_free(&self->node);
-}
-ConstraintImpactContentForm constraint_impact_content(const ConstraintImpact *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ConstraintImpactContentForm out;
-  constraint_impact_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void constraint_linkages_init(ConstraintLinkages *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_linkages_free(ConstraintLinkages *self) {
-  som_node_free(&self->node);
-}
-ConstraintLinkagesContentForm constraint_linkages_content(const ConstraintLinkages *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ConstraintLinkagesContentForm out;
-  constraint_linkages_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void constraint_mitigation_init(ConstraintMitigation *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_mitigation_free(ConstraintMitigation *self) {
-  som_node_free(&self->node);
-}
-ConstraintMitigationContentForm constraint_mitigation_content(const ConstraintMitigation *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ConstraintMitigationContentForm out;
-  constraint_mitigation_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void constraint_register_entry_init(ConstraintRegisterEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -12464,67 +12233,23 @@ ConstraintRegisterEntryContentForm constraint_register_entry_content(const Const
   return out;
 }
 
-void constraint_tracking_init(ConstraintTracking *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_tracking_free(ConstraintTracking *self) {
-  som_node_free(&self->node);
-}
-ConstraintTrackingContentForm constraint_tracking_content(const ConstraintTracking *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ConstraintTrackingContentForm out;
-  constraint_tracking_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void constraints_init(Constraints *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraints_free(Constraints *self) {
-  som_node_free(&self->node);
-}
-ConstraintsContentForm constraints_content(const Constraints *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  ConstraintsContentForm out;
-  constraints_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList constraints_items(const Constraints *self) {
-  char *path = spec_path_join(self->node.path, "COEN-ITEM-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void constraints_and_dependencies_init(ConstraintsAndDependencies *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
 void constraints_and_dependencies_free(ConstraintsAndDependencies *self) {
   som_node_free(&self->node);
 }
-ConstraintsAndDependenciesContentForm constraints_and_dependencies_content(const ConstraintsAndDependencies *self) {
+char *constraints_and_dependencies_content(const ConstraintsAndDependencies *self) {
   char *path = spec_path_join(self->node.path, "content");
-  ConstraintsAndDependenciesContentForm out;
-  constraints_and_dependencies_content_form_init(&out, self->node.doc, path);
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
-Constraints constraints_and_dependencies_constraints(const ConstraintsAndDependencies *self) {
-  char *path = spec_path_join(self->node.path, "constraints");
-  Constraints out;
-  constraints_init(&out, self->node.doc, path);
+void constraints_and_dependencies_set_content(ConstraintsAndDependencies *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
   free(path);
-  return out;
-}
-FrameworkDependencies constraints_and_dependencies_framework_dependencies(const ConstraintsAndDependencies *self) {
-  char *path = spec_path_join(self->node.path, "frameworkDependencies");
-  FrameworkDependencies out;
-  framework_dependencies_init(&out, self->node.doc, path);
-  free(path);
-  return out;
 }
 
 void content_scanning_policy_init(ContentScanningPolicy *self, SpecDocument *doc, const char *path) {
@@ -19051,34 +18776,6 @@ IntegrationHealthSummary dependencies_and_integrations_health_summary(const Depe
   return out;
 }
 
-void dependency_classification_init(DependencyClassification *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_classification_free(DependencyClassification *self) {
-  som_node_free(&self->node);
-}
-DependencyClassificationContentForm dependency_classification_content(const DependencyClassification *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  DependencyClassificationContentForm out;
-  dependency_classification_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void dependency_deliverable_init(DependencyDeliverable *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_deliverable_free(DependencyDeliverable *self) {
-  som_node_free(&self->node);
-}
-DependencyDeliverableContentForm dependency_deliverable_content(const DependencyDeliverable *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  DependencyDeliverableContentForm out;
-  dependency_deliverable_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void dependency_entry_init(DependencyEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -19096,20 +18793,6 @@ void dependency_entry_set_content(DependencyEntry *self, const char *value) {
   char *path = spec_path_join(self->node.path, "content");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
-}
-
-void dependency_external_party_init(DependencyExternalParty *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_external_party_free(DependencyExternalParty *self) {
-  som_node_free(&self->node);
-}
-DependencyExternalPartyContentForm dependency_external_party_content(const DependencyExternalParty *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  DependencyExternalPartyContentForm out;
-  dependency_external_party_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
 }
 
 void dependency_health_monitoring_init(DependencyHealthMonitoring *self, SpecDocument *doc, const char *path) {
@@ -19206,20 +18889,6 @@ DependencyHealthMonitoringThresholdsContentForm dependency_health_monitoring_thr
   char *path = spec_path_join(self->node.path, "content");
   DependencyHealthMonitoringThresholdsContentForm out;
   dependency_health_monitoring_thresholds_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void dependency_identity_init(DependencyIdentity *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_identity_free(DependencyIdentity *self) {
-  som_node_free(&self->node);
-}
-DependencyIdentityContentForm dependency_identity_content(const DependencyIdentity *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  DependencyIdentityContentForm out;
-  dependency_identity_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -19322,20 +18991,6 @@ DependencyInjectionStructureTroubleshootingContentForm dependency_injection_stru
   return out;
 }
 
-void dependency_linkages_init(DependencyLinkages *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_linkages_free(DependencyLinkages *self) {
-  som_node_free(&self->node);
-}
-DependencyLinkagesContentForm dependency_linkages_content(const DependencyLinkages *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  DependencyLinkagesContentForm out;
-  dependency_linkages_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void dependency_management_init(DependencyManagement *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -19434,20 +19089,6 @@ DependencyManagementVersioningContentForm dependency_management_versioning_conte
   return out;
 }
 
-void dependency_mitigation_init(DependencyMitigation *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_mitigation_free(DependencyMitigation *self) {
-  som_node_free(&self->node);
-}
-DependencyMitigationContentForm dependency_mitigation_content(const DependencyMitigation *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  DependencyMitigationContentForm out;
-  dependency_mitigation_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void dependency_register_entry_init(DependencyRegisterEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -19458,20 +19099,6 @@ DependencyRegisterEntryContentForm dependency_register_entry_content(const Depen
   char *path = spec_path_join(self->node.path, "content");
   DependencyRegisterEntryContentForm out;
   dependency_register_entry_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void dependency_risk_init(DependencyRisk *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_risk_free(DependencyRisk *self) {
-  som_node_free(&self->node);
-}
-DependencyRiskContentForm dependency_risk_content(const DependencyRisk *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  DependencyRiskContentForm out;
-  dependency_risk_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -19570,34 +19197,6 @@ DependencyScanningRequirementsVulnerabilitiesContentForm dependency_scanning_req
   char *path = spec_path_join(self->node.path, "content");
   DependencyScanningRequirementsVulnerabilitiesContentForm out;
   dependency_scanning_requirements_vulnerabilities_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void dependency_timeline_init(DependencyTimeline *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_timeline_free(DependencyTimeline *self) {
-  som_node_free(&self->node);
-}
-DependencyTimelineContentForm dependency_timeline_content(const DependencyTimeline *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  DependencyTimelineContentForm out;
-  dependency_timeline_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void dependency_tracking_init(DependencyTracking *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_tracking_free(DependencyTracking *self) {
-  som_node_free(&self->node);
-}
-DependencyTrackingContentForm dependency_tracking_content(const DependencyTracking *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  DependencyTrackingContentForm out;
-  dependency_tracking_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -27085,146 +26684,6 @@ ConstraintsAndDependencies framework_conditions_constraints_and_dependencies(con
   return out;
 }
 
-void framework_dependencies_init(FrameworkDependencies *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void framework_dependencies_free(FrameworkDependencies *self) {
-  som_node_free(&self->node);
-}
-FrameworkDependenciesContentForm framework_dependencies_content(const FrameworkDependencies *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  FrameworkDependenciesContentForm out;
-  framework_dependencies_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-FrameworkDependenciesCategories framework_dependencies_categories(const FrameworkDependencies *self) {
-  char *path = spec_path_join(self->node.path, "categories");
-  FrameworkDependenciesCategories out;
-  framework_dependencies_categories_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-FrameworkDependenciesManagement framework_dependencies_management(const FrameworkDependencies *self) {
-  char *path = spec_path_join(self->node.path, "management");
-  FrameworkDependenciesManagement out;
-  framework_dependencies_management_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList framework_dependencies_items(const FrameworkDependencies *self) {
-  char *path = spec_path_join(self->node.path, "FWRDP-ITEM-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void framework_dependencies_categories_init(FrameworkDependenciesCategories *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void framework_dependencies_categories_free(FrameworkDependenciesCategories *self) {
-  som_node_free(&self->node);
-}
-FrameworkDependenciesCategoriesContentForm framework_dependencies_categories_content(const FrameworkDependenciesCategories *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  FrameworkDependenciesCategoriesContentForm out;
-  framework_dependencies_categories_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void framework_dependencies_management_init(FrameworkDependenciesManagement *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void framework_dependencies_management_free(FrameworkDependenciesManagement *self) {
-  som_node_free(&self->node);
-}
-FrameworkDependenciesManagementContentForm framework_dependencies_management_content(const FrameworkDependenciesManagement *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  FrameworkDependenciesManagementContentForm out;
-  framework_dependencies_management_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
-void framework_dependency_entry_init(FrameworkDependencyEntry *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void framework_dependency_entry_free(FrameworkDependencyEntry *self) {
-  som_node_free(&self->node);
-}
-FrameworkDependencyEntryContentForm framework_dependency_entry_content(const FrameworkDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "content");
-  FrameworkDependencyEntryContentForm out;
-  framework_dependency_entry_content_form_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DependencyIdentity framework_dependency_entry_identity(const FrameworkDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "identity");
-  DependencyIdentity out;
-  dependency_identity_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DependencyClassification framework_dependency_entry_classification(const FrameworkDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "classification");
-  DependencyClassification out;
-  dependency_classification_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DependencyExternalParty framework_dependency_entry_external_party(const FrameworkDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "externalParty");
-  DependencyExternalParty out;
-  dependency_external_party_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DependencyDeliverable framework_dependency_entry_deliverable(const FrameworkDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "deliverable");
-  DependencyDeliverable out;
-  dependency_deliverable_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DependencyTimeline framework_dependency_entry_timeline(const FrameworkDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "timeline");
-  DependencyTimeline out;
-  dependency_timeline_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DependencyRisk framework_dependency_entry_risk(const FrameworkDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "risk");
-  DependencyRisk out;
-  dependency_risk_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DependencyMitigation framework_dependency_entry_mitigation(const FrameworkDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "mitigation");
-  DependencyMitigation out;
-  dependency_mitigation_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-DependencyTracking framework_dependency_entry_tracking(const FrameworkDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "tracking");
-  DependencyTracking out;
-  dependency_tracking_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList framework_dependency_entry_linkages(const FrameworkDependencyEntry *self) {
-  char *path = spec_path_join(self->node.path, "DELI1-LINK-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-
 void framework_identity_init(FrameworkIdentity *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -32742,27 +32201,6 @@ void key_assumption_entry_set_content(KeyAssumptionEntry *self, const char *valu
   char *path = spec_path_join(self->node.path, "content");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
-}
-
-void key_assumptions_init(KeyAssumptions *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void key_assumptions_free(KeyAssumptions *self) {
-  som_node_free(&self->node);
-}
-AssumptionsOverview key_assumptions_overview(const KeyAssumptions *self) {
-  char *path = spec_path_join(self->node.path, "overview");
-  AssumptionsOverview out;
-  assumptions_overview_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-SomList key_assumptions_items(const KeyAssumptions *self) {
-  char *path = spec_path_join(self->node.path, "ASEN-ITEM-LST");
-  SomList out;
-  som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
 }
 
 void key_attribute_entry_init(KeyAttributeEntry *self, SpecDocument *doc, const char *path) {
@@ -49893,13 +49331,6 @@ SomList risks_and_assumptions_key_risks(const RisksAndAssumptions *self) {
   char *path = spec_path_join(self->node.path, "RIEN-KEYR-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-KeyAssumptions risks_and_assumptions_key_assumptions(const RisksAndAssumptions *self) {
-  char *path = spec_path_join(self->node.path, "keyAssumptions");
-  KeyAssumptions out;
-  key_assumptions_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -73775,139 +73206,6 @@ void architecture_principle_entry_guidance_content_form_set_violations(Architect
   spec_document_set_form_field(self->node.doc, self->node.path, "violations", value);
 }
 
-void assumption_identification_content_form_init(AssumptionIdentificationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumption_identification_content_form_free(AssumptionIdentificationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *assumption_identification_content_form_assumption_id(const AssumptionIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "assumptionId");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_identification_content_form_set_assumption_id(AssumptionIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "assumptionId", value);
-}
-char *assumption_identification_content_form_assumption_name(const AssumptionIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "assumptionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_identification_content_form_set_assumption_name(AssumptionIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "assumptionName", value);
-}
-char *assumption_identification_content_form_description(const AssumptionIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_identification_content_form_set_description(AssumptionIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "description", value);
-}
-char *assumption_identification_content_form_category(const AssumptionIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_identification_content_form_set_category(AssumptionIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "category", value);
-}
-char *assumption_identification_content_form_basis(const AssumptionIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "basis");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_identification_content_form_set_basis(AssumptionIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "basis", value);
-}
-char *assumption_identification_content_form_date_identified(const AssumptionIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dateIdentified");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_identification_content_form_set_date_identified(AssumptionIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dateIdentified", value);
-}
-char *assumption_identification_content_form_identified_by(const AssumptionIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "identifiedBy");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_identification_content_form_set_identified_by(AssumptionIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "identifiedBy", value);
-}
-char *assumption_identification_content_form_criticality(const AssumptionIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criticality");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_identification_content_form_set_criticality(AssumptionIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "criticality", value);
-}
-char *assumption_identification_content_form_confidence(const AssumptionIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "confidence");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_identification_content_form_set_confidence(AssumptionIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "confidence", value);
-}
-
-void assumption_impact_content_form_init(AssumptionImpactContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumption_impact_content_form_free(AssumptionImpactContentForm *self) {
-  som_node_free(&self->node);
-}
-char *assumption_impact_content_form_impact_if_false(const AssumptionImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "impactIfFalse");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_impact_content_form_set_impact_if_false(AssumptionImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "impactIfFalse", value);
-}
-char *assumption_impact_content_form_impact_severity(const AssumptionImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "impactSeverity");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_impact_content_form_set_impact_severity(AssumptionImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "impactSeverity", value);
-}
-char *assumption_impact_content_form_affected_areas(const AssumptionImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "affectedAreas");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_impact_content_form_set_affected_areas(AssumptionImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "affectedAreas", value);
-}
-char *assumption_impact_content_form_contingency_plan(const AssumptionImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contingencyPlan");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_impact_content_form_set_contingency_plan(AssumptionImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contingencyPlan", value);
-}
-char *assumption_impact_content_form_contingency_owner(const AssumptionImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contingencyOwner");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_impact_content_form_set_contingency_owner(AssumptionImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contingencyOwner", value);
-}
-char *assumption_impact_content_form_contingency_cost(const AssumptionImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contingencyCost");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_impact_content_form_set_contingency_cost(AssumptionImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contingencyCost", value);
-}
-char *assumption_impact_content_form_contingency_timeline(const AssumptionImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contingencyTimeline");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_impact_content_form_set_contingency_timeline(AssumptionImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contingencyTimeline", value);
-}
-char *assumption_impact_content_form_related_risks(const AssumptionImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedRisks");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_impact_content_form_set_related_risks(AssumptionImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedRisks", value);
-}
-
 void assumption_register_entry_content_form_init(AssumptionRegisterEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -73948,160 +73246,6 @@ char *assumption_register_entry_content_form_status(const AssumptionRegisterEntr
 }
 void assumption_register_entry_content_form_set_status(AssumptionRegisterEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "status", value);
-}
-
-void assumption_relationships_content_form_init(AssumptionRelationshipsContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumption_relationships_content_form_free(AssumptionRelationshipsContentForm *self) {
-  som_node_free(&self->node);
-}
-char *assumption_relationships_content_form_related_assumptions(const AssumptionRelationshipsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedAssumptions");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_relationships_content_form_set_related_assumptions(AssumptionRelationshipsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedAssumptions", value);
-}
-char *assumption_relationships_content_form_related_risks(const AssumptionRelationshipsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedRisks");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_relationships_content_form_set_related_risks(AssumptionRelationshipsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedRisks", value);
-}
-char *assumption_relationships_content_form_related_requirements(const AssumptionRelationshipsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedRequirements");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_relationships_content_form_set_related_requirements(AssumptionRelationshipsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedRequirements", value);
-}
-char *assumption_relationships_content_form_affected_decisions(const AssumptionRelationshipsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "affectedDecisions");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_relationships_content_form_set_affected_decisions(AssumptionRelationshipsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "affectedDecisions", value);
-}
-char *assumption_relationships_content_form_document_references(const AssumptionRelationshipsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentReferences");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_relationships_content_form_set_document_references(AssumptionRelationshipsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "documentReferences", value);
-}
-char *assumption_relationships_content_form_stakeholder_owner(const AssumptionRelationshipsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stakeholderOwner");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_relationships_content_form_set_stakeholder_owner(AssumptionRelationshipsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stakeholderOwner", value);
-}
-char *assumption_relationships_content_form_review_frequency(const AssumptionRelationshipsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "reviewFrequency");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_relationships_content_form_set_review_frequency(AssumptionRelationshipsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "reviewFrequency", value);
-}
-
-void assumption_validation_content_form_init(AssumptionValidationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumption_validation_content_form_free(AssumptionValidationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *assumption_validation_content_form_validation_method(const AssumptionValidationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "validationMethod");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_validation_content_form_set_validation_method(AssumptionValidationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "validationMethod", value);
-}
-char *assumption_validation_content_form_validation_criteria(const AssumptionValidationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "validationCriteria");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_validation_content_form_set_validation_criteria(AssumptionValidationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "validationCriteria", value);
-}
-char *assumption_validation_content_form_validation_date(const AssumptionValidationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "validationDate");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_validation_content_form_set_validation_date(AssumptionValidationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "validationDate", value);
-}
-char *assumption_validation_content_form_validation_status(const AssumptionValidationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "validationStatus");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_validation_content_form_set_validation_status(AssumptionValidationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "validationStatus", value);
-}
-char *assumption_validation_content_form_last_validation_date(const AssumptionValidationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "lastValidationDate");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_validation_content_form_set_last_validation_date(AssumptionValidationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "lastValidationDate", value);
-}
-char *assumption_validation_content_form_validated_by(const AssumptionValidationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "validatedBy");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_validation_content_form_set_validated_by(AssumptionValidationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "validatedBy", value);
-}
-char *assumption_validation_content_form_validation_notes(const AssumptionValidationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "validationNotes");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_validation_content_form_set_validation_notes(AssumptionValidationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "validationNotes", value);
-}
-char *assumption_validation_content_form_validation_owner(const AssumptionValidationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "validationOwner");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumption_validation_content_form_set_validation_owner(AssumptionValidationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "validationOwner", value);
-}
-
-void assumptions_overview_content_form_init(AssumptionsOverviewContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void assumptions_overview_content_form_free(AssumptionsOverviewContentForm *self) {
-  som_node_free(&self->node);
-}
-char *assumptions_overview_content_form_assumptions_approach(const AssumptionsOverviewContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "assumptionsApproach");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumptions_overview_content_form_set_assumptions_approach(AssumptionsOverviewContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "assumptionsApproach", value);
-}
-char *assumptions_overview_content_form_validation_cadence(const AssumptionsOverviewContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "validationCadence");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumptions_overview_content_form_set_validation_cadence(AssumptionsOverviewContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "validationCadence", value);
-}
-char *assumptions_overview_content_form_assumption_categories(const AssumptionsOverviewContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "assumptionCategories");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumptions_overview_content_form_set_assumption_categories(AssumptionsOverviewContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "assumptionCategories", value);
-}
-char *assumptions_overview_content_form_escalation_process(const AssumptionsOverviewContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "escalationProcess");
-  return som_strdup(v != NULL ? v : "");
-}
-void assumptions_overview_content_form_set_escalation_process(AssumptionsOverviewContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "escalationProcess", value);
 }
 
 void audit_entry_content_form_init(AuditEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -86424,237 +85568,6 @@ void consent_management_requirements_tracking_content_form_set_third_party_conse
   spec_document_set_form_field(self->node.doc, self->node.path, "thirdPartyConsentSharing", value);
 }
 
-void constraint_classification_content_form_init(ConstraintClassificationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_classification_content_form_free(ConstraintClassificationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *constraint_classification_content_form_constraint_description(const ConstraintClassificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintDescription");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_classification_content_form_set_constraint_description(ConstraintClassificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintDescription", value);
-}
-char *constraint_classification_content_form_constraint_category(const ConstraintClassificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintCategory");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_classification_content_form_set_constraint_category(ConstraintClassificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintCategory", value);
-}
-char *constraint_classification_content_form_constraint_type(const ConstraintClassificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintType");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_classification_content_form_set_constraint_type(ConstraintClassificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintType", value);
-}
-char *constraint_classification_content_form_constraint_source(const ConstraintClassificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintSource");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_classification_content_form_set_constraint_source(ConstraintClassificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintSource", value);
-}
-char *constraint_classification_content_form_source_reference(const ConstraintClassificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "sourceReference");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_classification_content_form_set_source_reference(ConstraintClassificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "sourceReference", value);
-}
-
-void constraint_details_content_form_init(ConstraintDetailsContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_details_content_form_free(ConstraintDetailsContentForm *self) {
-  som_node_free(&self->node);
-}
-char *constraint_details_content_form_constraint_value(const ConstraintDetailsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintValue");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_details_content_form_set_constraint_value(ConstraintDetailsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintValue", value);
-}
-char *constraint_details_content_form_constraint_effective_date(const ConstraintDetailsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintEffectiveDate");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_details_content_form_set_constraint_effective_date(ConstraintDetailsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintEffectiveDate", value);
-}
-char *constraint_details_content_form_constraint_expiry_date(const ConstraintDetailsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintExpiryDate");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_details_content_form_set_constraint_expiry_date(ConstraintDetailsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintExpiryDate", value);
-}
-char *constraint_details_content_form_geographic_scope(const ConstraintDetailsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "geographicScope");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_details_content_form_set_geographic_scope(ConstraintDetailsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "geographicScope", value);
-}
-char *constraint_details_content_form_affected_domains(const ConstraintDetailsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "affectedDomains");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_details_content_form_set_affected_domains(ConstraintDetailsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "affectedDomains", value);
-}
-
-void constraint_entry_content_form_init(ConstraintEntryContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_entry_content_form_free(ConstraintEntryContentForm *self) {
-  som_node_free(&self->node);
-}
-char *constraint_entry_content_form_constraint_id(const ConstraintEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintId");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_entry_content_form_set_constraint_id(ConstraintEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintId", value);
-}
-char *constraint_entry_content_form_constraint_name(const ConstraintEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintName");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_entry_content_form_set_constraint_name(ConstraintEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintName", value);
-}
-char *constraint_entry_content_form_impact_level(const ConstraintEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "impactLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_entry_content_form_set_impact_level(ConstraintEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "impactLevel", value);
-}
-
-void constraint_impact_content_form_init(ConstraintImpactContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_impact_content_form_free(ConstraintImpactContentForm *self) {
-  som_node_free(&self->node);
-}
-char *constraint_impact_content_form_impact_description(const ConstraintImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "impactDescription");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_impact_content_form_set_impact_description(ConstraintImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "impactDescription", value);
-}
-char *constraint_impact_content_form_affected_work_packages(const ConstraintImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "affectedWorkPackages");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_impact_content_form_set_affected_work_packages(ConstraintImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "affectedWorkPackages", value);
-}
-char *constraint_impact_content_form_affected_milestones(const ConstraintImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "affectedMilestones");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_impact_content_form_set_affected_milestones(ConstraintImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "affectedMilestones", value);
-}
-char *constraint_impact_content_form_schedule_impact(const ConstraintImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scheduleImpact");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_impact_content_form_set_schedule_impact(ConstraintImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scheduleImpact", value);
-}
-char *constraint_impact_content_form_budget_impact(const ConstraintImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "budgetImpact");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_impact_content_form_set_budget_impact(ConstraintImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "budgetImpact", value);
-}
-char *constraint_impact_content_form_scope_impact(const ConstraintImpactContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scopeImpact");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_impact_content_form_set_scope_impact(ConstraintImpactContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scopeImpact", value);
-}
-
-void constraint_linkages_content_form_init(ConstraintLinkagesContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_linkages_content_form_free(ConstraintLinkagesContentForm *self) {
-  som_node_free(&self->node);
-}
-char *constraint_linkages_content_form_related_constraints(const ConstraintLinkagesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedConstraints");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_linkages_content_form_set_related_constraints(ConstraintLinkagesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedConstraints", value);
-}
-char *constraint_linkages_content_form_related_risks(const ConstraintLinkagesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedRisks");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_linkages_content_form_set_related_risks(ConstraintLinkagesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedRisks", value);
-}
-char *constraint_linkages_content_form_related_dependencies(const ConstraintLinkagesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedDependencies");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_linkages_content_form_set_related_dependencies(ConstraintLinkagesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedDependencies", value);
-}
-
-void constraint_mitigation_content_form_init(ConstraintMitigationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_mitigation_content_form_free(ConstraintMitigationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *constraint_mitigation_content_form_mitigation_strategy(const ConstraintMitigationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "mitigationStrategy");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_mitigation_content_form_set_mitigation_strategy(ConstraintMitigationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "mitigationStrategy", value);
-}
-char *constraint_mitigation_content_form_negotiation_possibility(const ConstraintMitigationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "negotiationPossibility");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_mitigation_content_form_set_negotiation_possibility(ConstraintMitigationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "negotiationPossibility", value);
-}
-char *constraint_mitigation_content_form_negotiation_approach(const ConstraintMitigationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "negotiationApproach");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_mitigation_content_form_set_negotiation_approach(ConstraintMitigationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "negotiationApproach", value);
-}
-char *constraint_mitigation_content_form_fallback_plan(const ConstraintMitigationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "fallbackPlan");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_mitigation_content_form_set_fallback_plan(ConstraintMitigationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "fallbackPlan", value);
-}
-char *constraint_mitigation_content_form_violation_consequences(const ConstraintMitigationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "violationConsequences");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_mitigation_content_form_set_violation_consequences(ConstraintMitigationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "violationConsequences", value);
-}
-
 void constraint_register_entry_content_form_init(ConstraintRegisterEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -86695,195 +85608,6 @@ char *constraint_register_entry_content_form_impact(const ConstraintRegisterEntr
 }
 void constraint_register_entry_content_form_set_impact(ConstraintRegisterEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "impact", value);
-}
-
-void constraint_tracking_content_form_init(ConstraintTrackingContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraint_tracking_content_form_free(ConstraintTrackingContentForm *self) {
-  som_node_free(&self->node);
-}
-char *constraint_tracking_content_form_tracking_method(const ConstraintTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trackingMethod");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_tracking_content_form_set_tracking_method(ConstraintTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "trackingMethod", value);
-}
-char *constraint_tracking_content_form_review_frequency(const ConstraintTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "reviewFrequency");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_tracking_content_form_set_review_frequency(ConstraintTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "reviewFrequency", value);
-}
-char *constraint_tracking_content_form_constraint_owner(const ConstraintTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintOwner");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_tracking_content_form_set_constraint_owner(ConstraintTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintOwner", value);
-}
-char *constraint_tracking_content_form_current_status(const ConstraintTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "currentStatus");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_tracking_content_form_set_current_status(ConstraintTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "currentStatus", value);
-}
-char *constraint_tracking_content_form_status_notes(const ConstraintTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "statusNotes");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraint_tracking_content_form_set_status_notes(ConstraintTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "statusNotes", value);
-}
-
-void constraints_and_dependencies_content_form_init(ConstraintsAndDependenciesContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraints_and_dependencies_content_form_free(ConstraintsAndDependenciesContentForm *self) {
-  som_node_free(&self->node);
-}
-char *constraints_and_dependencies_content_form_constraint_dependency_overview(const ConstraintsAndDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintDependencyOverview");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_and_dependencies_content_form_set_constraint_dependency_overview(ConstraintsAndDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintDependencyOverview", value);
-}
-char *constraints_and_dependencies_content_form_total_constraint_count(const ConstraintsAndDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "totalConstraintCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_and_dependencies_content_form_set_total_constraint_count(ConstraintsAndDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "totalConstraintCount", value);
-}
-char *constraints_and_dependencies_content_form_total_dependency_count(const ConstraintsAndDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "totalDependencyCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_and_dependencies_content_form_set_total_dependency_count(ConstraintsAndDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "totalDependencyCount", value);
-}
-char *constraints_and_dependencies_content_form_critical_constraint_count(const ConstraintsAndDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criticalConstraintCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_and_dependencies_content_form_set_critical_constraint_count(ConstraintsAndDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "criticalConstraintCount", value);
-}
-char *constraints_and_dependencies_content_form_critical_dependency_count(const ConstraintsAndDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criticalDependencyCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_and_dependencies_content_form_set_critical_dependency_count(ConstraintsAndDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "criticalDependencyCount", value);
-}
-char *constraints_and_dependencies_content_form_constraint_management_approach(const ConstraintsAndDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintManagementApproach");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_and_dependencies_content_form_set_constraint_management_approach(ConstraintsAndDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintManagementApproach", value);
-}
-char *constraints_and_dependencies_content_form_dependency_management_approach(const ConstraintsAndDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyManagementApproach");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_and_dependencies_content_form_set_dependency_management_approach(ConstraintsAndDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyManagementApproach", value);
-}
-char *constraints_and_dependencies_content_form_monitoring_frequency(const ConstraintsAndDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "monitoringFrequency");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_and_dependencies_content_form_set_monitoring_frequency(ConstraintsAndDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "monitoringFrequency", value);
-}
-char *constraints_and_dependencies_content_form_escalation_path(const ConstraintsAndDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "escalationPath");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_and_dependencies_content_form_set_escalation_path(ConstraintsAndDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "escalationPath", value);
-}
-
-void constraints_content_form_init(ConstraintsContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void constraints_content_form_free(ConstraintsContentForm *self) {
-  som_node_free(&self->node);
-}
-char *constraints_content_form_constraint_summary(const ConstraintsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintSummary");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_content_form_set_constraint_summary(ConstraintsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintSummary", value);
-}
-char *constraints_content_form_primary_constraint_category(const ConstraintsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "primaryConstraintCategory");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_content_form_set_primary_constraint_category(ConstraintsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "primaryConstraintCategory", value);
-}
-char *constraints_content_form_constraint_impact_level(const ConstraintsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintImpactLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_content_form_set_constraint_impact_level(ConstraintsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintImpactLevel", value);
-}
-char *constraints_content_form_flexibility_assessment(const ConstraintsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "flexibilityAssessment");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_content_form_set_flexibility_assessment(ConstraintsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "flexibilityAssessment", value);
-}
-char *constraints_content_form_regulatory_constraint_count(const ConstraintsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "regulatoryConstraintCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_content_form_set_regulatory_constraint_count(ConstraintsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "regulatoryConstraintCount", value);
-}
-char *constraints_content_form_contractual_constraint_count(const ConstraintsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contractualConstraintCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_content_form_set_contractual_constraint_count(ConstraintsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contractualConstraintCount", value);
-}
-char *constraints_content_form_budgetary_constraint_count(const ConstraintsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "budgetaryConstraintCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_content_form_set_budgetary_constraint_count(ConstraintsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "budgetaryConstraintCount", value);
-}
-char *constraints_content_form_timeline_constraint_count(const ConstraintsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "timelineConstraintCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_content_form_set_timeline_constraint_count(ConstraintsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "timelineConstraintCount", value);
-}
-char *constraints_content_form_resource_constraint_count(const ConstraintsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "resourceConstraintCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_content_form_set_resource_constraint_count(ConstraintsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "resourceConstraintCount", value);
-}
-char *constraints_content_form_technical_constraint_count(const ConstraintsContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "technicalConstraintCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void constraints_content_form_set_technical_constraint_count(ConstraintsContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "technicalConstraintCount", value);
 }
 
 void contextual_help_contextual_help_content_form_init(ContextualHelpContextualHelpContentForm *self, SpecDocument *doc, const char *path) {
@@ -93515,111 +92239,6 @@ void delivery_acceptance_criterion_entry_verification_content_form_set_evidence_
   spec_document_set_form_field(self->node.doc, self->node.path, "evidenceRequired", value);
 }
 
-void dependency_classification_content_form_init(DependencyClassificationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_classification_content_form_free(DependencyClassificationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *dependency_classification_content_form_dependency_category(const DependencyClassificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyCategory");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_classification_content_form_set_dependency_category(DependencyClassificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyCategory", value);
-}
-char *dependency_classification_content_form_dependency_type(const DependencyClassificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyType");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_classification_content_form_set_dependency_type(DependencyClassificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyType", value);
-}
-char *dependency_classification_content_form_on_critical_path(const DependencyClassificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "onCriticalPath");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_classification_content_form_set_on_critical_path(DependencyClassificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "onCriticalPath", value);
-}
-
-void dependency_deliverable_content_form_init(DependencyDeliverableContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_deliverable_content_form_free(DependencyDeliverableContentForm *self) {
-  som_node_free(&self->node);
-}
-char *dependency_deliverable_content_form_deliverable_description(const DependencyDeliverableContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "deliverableDescription");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_deliverable_content_form_set_deliverable_description(DependencyDeliverableContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "deliverableDescription", value);
-}
-char *dependency_deliverable_content_form_deliverable_specification(const DependencyDeliverableContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "deliverableSpecification");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_deliverable_content_form_set_deliverable_specification(DependencyDeliverableContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "deliverableSpecification", value);
-}
-char *dependency_deliverable_content_form_quality_criteria(const DependencyDeliverableContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "qualityCriteria");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_deliverable_content_form_set_quality_criteria(DependencyDeliverableContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "qualityCriteria", value);
-}
-char *dependency_deliverable_content_form_delivery_format(const DependencyDeliverableContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "deliveryFormat");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_deliverable_content_form_set_delivery_format(DependencyDeliverableContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "deliveryFormat", value);
-}
-
-void dependency_external_party_content_form_init(DependencyExternalPartyContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_external_party_content_form_free(DependencyExternalPartyContentForm *self) {
-  som_node_free(&self->node);
-}
-char *dependency_external_party_content_form_external_party_name(const DependencyExternalPartyContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "externalPartyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_external_party_content_form_set_external_party_name(DependencyExternalPartyContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "externalPartyName", value);
-}
-char *dependency_external_party_content_form_external_party_type(const DependencyExternalPartyContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "externalPartyType");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_external_party_content_form_set_external_party_type(DependencyExternalPartyContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "externalPartyType", value);
-}
-char *dependency_external_party_content_form_contact_person(const DependencyExternalPartyContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contactPerson");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_external_party_content_form_set_contact_person(DependencyExternalPartyContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contactPerson", value);
-}
-char *dependency_external_party_content_form_contact_email(const DependencyExternalPartyContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contactEmail");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_external_party_content_form_set_contact_email(DependencyExternalPartyContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contactEmail", value);
-}
-char *dependency_external_party_content_form_escalation_contact(const DependencyExternalPartyContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "escalationContact");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_external_party_content_form_set_escalation_contact(DependencyExternalPartyContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "escalationContact", value);
-}
-
 void dependency_health_monitoring_cache_content_form_init(DependencyHealthMonitoringCacheContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -93751,20 +92370,6 @@ char *dependency_health_monitoring_thresholds_content_form_notes(const Dependenc
 }
 void dependency_health_monitoring_thresholds_content_form_set_notes(DependencyHealthMonitoringThresholdsContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
-}
-
-void dependency_identity_content_form_init(DependencyIdentityContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_identity_content_form_free(DependencyIdentityContentForm *self) {
-  som_node_free(&self->node);
-}
-char *dependency_identity_content_form_dependency_description(const DependencyIdentityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyDescription");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_identity_content_form_set_dependency_description(DependencyIdentityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyDescription", value);
 }
 
 void dependency_injection_structure_binding_content_form_init(DependencyInjectionStructureBindingContentForm *self, SpecDocument *doc, const char *path) {
@@ -93907,41 +92512,6 @@ void dependency_injection_structure_troubleshooting_content_form_set_notes(Depen
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
 }
 
-void dependency_linkages_content_form_init(DependencyLinkagesContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_linkages_content_form_free(DependencyLinkagesContentForm *self) {
-  som_node_free(&self->node);
-}
-char *dependency_linkages_content_form_related_constraints(const DependencyLinkagesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedConstraints");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_linkages_content_form_set_related_constraints(DependencyLinkagesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedConstraints", value);
-}
-char *dependency_linkages_content_form_related_risks(const DependencyLinkagesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedRisks");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_linkages_content_form_set_related_risks(DependencyLinkagesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedRisks", value);
-}
-char *dependency_linkages_content_form_related_dependencies(const DependencyLinkagesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedDependencies");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_linkages_content_form_set_related_dependencies(DependencyLinkagesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedDependencies", value);
-}
-char *dependency_linkages_content_form_affected_work_packages(const DependencyLinkagesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "affectedWorkPackages");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_linkages_content_form_set_affected_work_packages(DependencyLinkagesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "affectedWorkPackages", value);
-}
-
 void dependency_management_content_form_init(DependencyManagementContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -94075,48 +92645,6 @@ void dependency_management_versioning_content_form_set_lockfile_policy(Dependenc
   spec_document_set_form_field(self->node.doc, self->node.path, "lockfilePolicy", value);
 }
 
-void dependency_mitigation_content_form_init(DependencyMitigationContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_mitigation_content_form_free(DependencyMitigationContentForm *self) {
-  som_node_free(&self->node);
-}
-char *dependency_mitigation_content_form_mitigation_strategy(const DependencyMitigationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "mitigationStrategy");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_mitigation_content_form_set_mitigation_strategy(DependencyMitigationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "mitigationStrategy", value);
-}
-char *dependency_mitigation_content_form_contingency_plan(const DependencyMitigationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contingencyPlan");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_mitigation_content_form_set_contingency_plan(DependencyMitigationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contingencyPlan", value);
-}
-char *dependency_mitigation_content_form_contingency_timeline(const DependencyMitigationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contingencyTimeline");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_mitigation_content_form_set_contingency_timeline(DependencyMitigationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contingencyTimeline", value);
-}
-char *dependency_mitigation_content_form_contractual_protection(const DependencyMitigationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contractualProtection");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_mitigation_content_form_set_contractual_protection(DependencyMitigationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contractualProtection", value);
-}
-char *dependency_mitigation_content_form_alternative_options(const DependencyMitigationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alternativeOptions");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_mitigation_content_form_set_alternative_options(DependencyMitigationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "alternativeOptions", value);
-}
-
 void dependency_register_entry_content_form_init(DependencyRegisterEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -94164,48 +92692,6 @@ char *dependency_register_entry_content_form_status(const DependencyRegisterEntr
 }
 void dependency_register_entry_content_form_set_status(DependencyRegisterEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "status", value);
-}
-
-void dependency_risk_content_form_init(DependencyRiskContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_risk_content_form_free(DependencyRiskContentForm *self) {
-  som_node_free(&self->node);
-}
-char *dependency_risk_content_form_delivery_risk_level(const DependencyRiskContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "deliveryRiskLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_risk_content_form_set_delivery_risk_level(DependencyRiskContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "deliveryRiskLevel", value);
-}
-char *dependency_risk_content_form_primary_risk_factors(const DependencyRiskContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "primaryRiskFactors");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_risk_content_form_set_primary_risk_factors(DependencyRiskContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "primaryRiskFactors", value);
-}
-char *dependency_risk_content_form_risk_indicators(const DependencyRiskContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskIndicators");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_risk_content_form_set_risk_indicators(DependencyRiskContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "riskIndicators", value);
-}
-char *dependency_risk_content_form_impact_of_delay(const DependencyRiskContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "impactOfDelay");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_risk_content_form_set_impact_of_delay(DependencyRiskContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "impactOfDelay", value);
-}
-char *dependency_risk_content_form_impact_of_failure(const DependencyRiskContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "impactOfFailure");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_risk_content_form_set_impact_of_failure(DependencyRiskContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "impactOfFailure", value);
 }
 
 void dependency_scanning_requirements_content_form_init(DependencyScanningRequirementsContentForm *self, SpecDocument *doc, const char *path) {
@@ -94353,104 +92839,6 @@ char *dependency_scanning_requirements_vulnerabilities_content_form_exception_pr
 }
 void dependency_scanning_requirements_vulnerabilities_content_form_set_exception_process(DependencyScanningRequirementsVulnerabilitiesContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "exceptionProcess", value);
-}
-
-void dependency_timeline_content_form_init(DependencyTimelineContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_timeline_content_form_free(DependencyTimelineContentForm *self) {
-  som_node_free(&self->node);
-}
-char *dependency_timeline_content_form_expected_delivery_date(const DependencyTimelineContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "expectedDeliveryDate");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_timeline_content_form_set_expected_delivery_date(DependencyTimelineContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "expectedDeliveryDate", value);
-}
-char *dependency_timeline_content_form_latest_acceptable_date(const DependencyTimelineContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "latestAcceptableDate");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_timeline_content_form_set_latest_acceptable_date(DependencyTimelineContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "latestAcceptableDate", value);
-}
-char *dependency_timeline_content_form_lead_time_required(const DependencyTimelineContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "leadTimeRequired");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_timeline_content_form_set_lead_time_required(DependencyTimelineContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "leadTimeRequired", value);
-}
-char *dependency_timeline_content_form_buffer_days(const DependencyTimelineContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "bufferDays");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_timeline_content_form_set_buffer_days(DependencyTimelineContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "bufferDays", value);
-}
-char *dependency_timeline_content_form_dependent_milestones(const DependencyTimelineContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependentMilestones");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_timeline_content_form_set_dependent_milestones(DependencyTimelineContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependentMilestones", value);
-}
-
-void dependency_tracking_content_form_init(DependencyTrackingContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void dependency_tracking_content_form_free(DependencyTrackingContentForm *self) {
-  som_node_free(&self->node);
-}
-char *dependency_tracking_content_form_coordination_mechanism(const DependencyTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "coordinationMechanism");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_tracking_content_form_set_coordination_mechanism(DependencyTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "coordinationMechanism", value);
-}
-char *dependency_tracking_content_form_communication_frequency(const DependencyTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "communicationFrequency");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_tracking_content_form_set_communication_frequency(DependencyTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "communicationFrequency", value);
-}
-char *dependency_tracking_content_form_tracking_method(const DependencyTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trackingMethod");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_tracking_content_form_set_tracking_method(DependencyTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "trackingMethod", value);
-}
-char *dependency_tracking_content_form_dependency_owner(const DependencyTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyOwner");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_tracking_content_form_set_dependency_owner(DependencyTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyOwner", value);
-}
-char *dependency_tracking_content_form_current_status(const DependencyTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "currentStatus");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_tracking_content_form_set_current_status(DependencyTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "currentStatus", value);
-}
-char *dependency_tracking_content_form_status_last_updated(const DependencyTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "statusLastUpdated");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_tracking_content_form_set_status_last_updated(DependencyTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "statusLastUpdated", value);
-}
-char *dependency_tracking_content_form_status_notes(const DependencyTrackingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "statusNotes");
-  return som_strdup(v != NULL ? v : "");
-}
-void dependency_tracking_content_form_set_status_notes(DependencyTrackingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "statusNotes", value);
 }
 
 void deployment_context_deployment_details_form_init(DeploymentContextDeploymentDetailsForm *self, SpecDocument *doc, const char *path) {
@@ -105189,139 +103577,6 @@ char *framework_compatibility_content_form_deprecation_warnings(const FrameworkC
 }
 void framework_compatibility_content_form_set_deprecation_warnings(FrameworkCompatibilityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "deprecationWarnings", value);
-}
-
-void framework_dependencies_categories_content_form_init(FrameworkDependenciesCategoriesContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void framework_dependencies_categories_content_form_free(FrameworkDependenciesCategoriesContentForm *self) {
-  som_node_free(&self->node);
-}
-char *framework_dependencies_categories_content_form_project_dependency_count(const FrameworkDependenciesCategoriesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "projectDependencyCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_categories_content_form_set_project_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "projectDependencyCount", value);
-}
-char *framework_dependencies_categories_content_form_team_dependency_count(const FrameworkDependenciesCategoriesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "teamDependencyCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_categories_content_form_set_team_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "teamDependencyCount", value);
-}
-char *framework_dependencies_categories_content_form_vendor_dependency_count(const FrameworkDependenciesCategoriesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "vendorDependencyCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_categories_content_form_set_vendor_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "vendorDependencyCount", value);
-}
-char *framework_dependencies_categories_content_form_system_dependency_count(const FrameworkDependenciesCategoriesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemDependencyCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_categories_content_form_set_system_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "systemDependencyCount", value);
-}
-char *framework_dependencies_categories_content_form_regulatory_dependency_count(const FrameworkDependenciesCategoriesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "regulatoryDependencyCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_categories_content_form_set_regulatory_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "regulatoryDependencyCount", value);
-}
-char *framework_dependencies_categories_content_form_infrastructure_dependency_count(const FrameworkDependenciesCategoriesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "infrastructureDependencyCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_categories_content_form_set_infrastructure_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "infrastructureDependencyCount", value);
-}
-
-void framework_dependencies_content_form_init(FrameworkDependenciesContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void framework_dependencies_content_form_free(FrameworkDependenciesContentForm *self) {
-  som_node_free(&self->node);
-}
-char *framework_dependencies_content_form_dependency_summary(const FrameworkDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencySummary");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_content_form_set_dependency_summary(FrameworkDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencySummary", value);
-}
-char *framework_dependencies_content_form_primary_dependency_category(const FrameworkDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "primaryDependencyCategory");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_content_form_set_primary_dependency_category(FrameworkDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "primaryDependencyCategory", value);
-}
-char *framework_dependencies_content_form_dependency_risk_level(const FrameworkDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyRiskLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_content_form_set_dependency_risk_level(FrameworkDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyRiskLevel", value);
-}
-char *framework_dependencies_content_form_critical_path_dependency_count(const FrameworkDependenciesContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criticalPathDependencyCount");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_content_form_set_critical_path_dependency_count(FrameworkDependenciesContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "criticalPathDependencyCount", value);
-}
-
-void framework_dependencies_management_content_form_init(FrameworkDependenciesManagementContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void framework_dependencies_management_content_form_free(FrameworkDependenciesManagementContentForm *self) {
-  som_node_free(&self->node);
-}
-char *framework_dependencies_management_content_form_dependency_coordination_approach(const FrameworkDependenciesManagementContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyCoordinationApproach");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_management_content_form_set_dependency_coordination_approach(FrameworkDependenciesManagementContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyCoordinationApproach", value);
-}
-char *framework_dependencies_management_content_form_early_warning_mechanism(const FrameworkDependenciesManagementContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "earlyWarningMechanism");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependencies_management_content_form_set_early_warning_mechanism(FrameworkDependenciesManagementContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "earlyWarningMechanism", value);
-}
-
-void framework_dependency_entry_content_form_init(FrameworkDependencyEntryContentForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void framework_dependency_entry_content_form_free(FrameworkDependencyEntryContentForm *self) {
-  som_node_free(&self->node);
-}
-char *framework_dependency_entry_content_form_dependency_id(const FrameworkDependencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyId");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependency_entry_content_form_set_dependency_id(FrameworkDependencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyId", value);
-}
-char *framework_dependency_entry_content_form_dependency_name(const FrameworkDependencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependency_entry_content_form_set_dependency_name(FrameworkDependencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyName", value);
-}
-char *framework_dependency_entry_content_form_criticality_level(const FrameworkDependencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criticalityLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_dependency_entry_content_form_set_criticality_level(FrameworkDependencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "criticalityLevel", value);
 }
 
 void framework_identity_content_form_init(FrameworkIdentityContentForm *self, SpecDocument *doc, const char *path) {

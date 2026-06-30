@@ -187,14 +187,8 @@ typedef struct { SomNode node; } ArchitecturePrincipleEntryGovernance;
 typedef struct { SomNode node; } ArchitecturePrincipleEntryGuidance;
 typedef struct { SomNode node; } ArchitectureStyle;
 typedef struct { SomNode node; } AssumptionConstraintRegister;
-typedef struct { SomNode node; } AssumptionEntry;
-typedef struct { SomNode node; } AssumptionIdentification;
-typedef struct { SomNode node; } AssumptionImpact;
 typedef struct { SomNode node; } AssumptionRegisterEntry;
-typedef struct { SomNode node; } AssumptionRelationships;
-typedef struct { SomNode node; } AssumptionValidation;
 typedef struct { SomNode node; } AssumptionsConstraintsDependencies;
-typedef struct { SomNode node; } AssumptionsOverview;
 typedef struct { SomNode node; } AttributeInterdependencyEntry;
 typedef struct { SomNode node; } AuditAndLogging;
 typedef struct { SomNode node; } AuditEntry;
@@ -598,15 +592,7 @@ typedef struct { SomNode node; } ConsentManagementRequirementsCompliance;
 typedef struct { SomNode node; } ConsentManagementRequirementsManagement;
 typedef struct { SomNode node; } ConsentManagementRequirementsStorage;
 typedef struct { SomNode node; } ConsentManagementRequirementsTracking;
-typedef struct { SomNode node; } ConstraintClassification;
-typedef struct { SomNode node; } ConstraintDetails;
-typedef struct { SomNode node; } ConstraintEntry;
-typedef struct { SomNode node; } ConstraintImpact;
-typedef struct { SomNode node; } ConstraintLinkages;
-typedef struct { SomNode node; } ConstraintMitigation;
 typedef struct { SomNode node; } ConstraintRegisterEntry;
-typedef struct { SomNode node; } ConstraintTracking;
-typedef struct { SomNode node; } Constraints;
 typedef struct { SomNode node; } ConstraintsAndDependencies;
 typedef struct { SomNode node; } ContentScanningPolicy;
 typedef struct { SomNode node; } ContextDiagram;
@@ -835,37 +821,28 @@ typedef struct { SomNode node; } DeliveryScope;
 typedef struct { SomNode node; } DeliveryScopeAndAcceptance;
 typedef struct { SomNode node; } DeliveryTransitionAndRollout;
 typedef struct { SomNode node; } DependenciesAndIntegrations;
-typedef struct { SomNode node; } DependencyClassification;
-typedef struct { SomNode node; } DependencyDeliverable;
 typedef struct { SomNode node; } DependencyEntry;
-typedef struct { SomNode node; } DependencyExternalParty;
 typedef struct { SomNode node; } DependencyHealthMonitoring;
 typedef struct { SomNode node; } DependencyHealthMonitoringCache;
 typedef struct { SomNode node; } DependencyHealthMonitoringExternal;
 typedef struct { SomNode node; } DependencyHealthMonitoringQueue;
 typedef struct { SomNode node; } DependencyHealthMonitoringThresholds;
-typedef struct { SomNode node; } DependencyIdentity;
 typedef struct { SomNode node; } DependencyInjectionStructure;
 typedef struct { SomNode node; } DependencyInjectionStructureBinding;
 typedef struct { SomNode node; } DependencyInjectionStructureConfiguration;
 typedef struct { SomNode node; } DependencyInjectionStructureRegistration;
 typedef struct { SomNode node; } DependencyInjectionStructureTroubleshooting;
-typedef struct { SomNode node; } DependencyLinkages;
 typedef struct { SomNode node; } DependencyManagement;
 typedef struct { SomNode node; } DependencyManagementInternal;
 typedef struct { SomNode node; } DependencyManagementOperations;
 typedef struct { SomNode node; } DependencyManagementSecurity;
 typedef struct { SomNode node; } DependencyManagementVersioning;
-typedef struct { SomNode node; } DependencyMitigation;
 typedef struct { SomNode node; } DependencyRegisterEntry;
-typedef struct { SomNode node; } DependencyRisk;
 typedef struct { SomNode node; } DependencyScanningRequirements;
 typedef struct { SomNode node; } DependencyScanningRequirementsLicensing;
 typedef struct { SomNode node; } DependencyScanningRequirementsSbom;
 typedef struct { SomNode node; } DependencyScanningRequirementsSupplyChain;
 typedef struct { SomNode node; } DependencyScanningRequirementsVulnerabilities;
-typedef struct { SomNode node; } DependencyTimeline;
-typedef struct { SomNode node; } DependencyTracking;
 typedef struct { SomNode node; } DeploymentContext;
 typedef struct { SomNode node; } DeploymentEnvironmentEntry;
 typedef struct { SomNode node; } DeploymentEnvironmentEntryConfiguration;
@@ -1205,10 +1182,6 @@ typedef struct { SomNode node; } FlexibilityQualityModularity;
 typedef struct { SomNode node; } FragilePointEntry;
 typedef struct { SomNode node; } FrameworkCompatibility;
 typedef struct { SomNode node; } FrameworkConditions;
-typedef struct { SomNode node; } FrameworkDependencies;
-typedef struct { SomNode node; } FrameworkDependenciesCategories;
-typedef struct { SomNode node; } FrameworkDependenciesManagement;
-typedef struct { SomNode node; } FrameworkDependencyEntry;
 typedef struct { SomNode node; } FrameworkIdentity;
 typedef struct { SomNode node; } FrameworkJustification;
 typedef struct { SomNode node; } FrameworkRequirementEntry;
@@ -1463,7 +1436,6 @@ typedef struct { SomNode node; } JobDescriptionsAndStaffing;
 typedef struct { SomNode node; } JobDescriptionsOverview;
 typedef struct { SomNode node; } JourneyStageEntry;
 typedef struct { SomNode node; } KeyAssumptionEntry;
-typedef struct { SomNode node; } KeyAssumptions;
 typedef struct { SomNode node; } KeyAttributeEntry;
 typedef struct { SomNode node; } KeyAttributeEntryGeneration;
 typedef struct { SomNode node; } KeyAttributeEntryGovernance;
@@ -3254,12 +3226,7 @@ typedef struct { SomNode node; } ArchitectureOverviewTradeOffsContentForm;
 typedef struct { SomNode node; } ArchitecturePrincipleEntryContentForm;
 typedef struct { SomNode node; } ArchitecturePrincipleEntryGovernanceContentForm;
 typedef struct { SomNode node; } ArchitecturePrincipleEntryGuidanceContentForm;
-typedef struct { SomNode node; } AssumptionIdentificationContentForm;
-typedef struct { SomNode node; } AssumptionImpactContentForm;
 typedef struct { SomNode node; } AssumptionRegisterEntryContentForm;
-typedef struct { SomNode node; } AssumptionRelationshipsContentForm;
-typedef struct { SomNode node; } AssumptionValidationContentForm;
-typedef struct { SomNode node; } AssumptionsOverviewContentForm;
 typedef struct { SomNode node; } AuditEntryContentForm;
 typedef struct { SomNode node; } AuditEvidenceRequirementsContentForm;
 typedef struct { SomNode node; } AuditEvidenceTypeEntryContentForm;
@@ -3625,16 +3592,7 @@ typedef struct { SomNode node; } ConsentManagementRequirementsContentForm;
 typedef struct { SomNode node; } ConsentManagementRequirementsManagementContentForm;
 typedef struct { SomNode node; } ConsentManagementRequirementsStorageContentForm;
 typedef struct { SomNode node; } ConsentManagementRequirementsTrackingContentForm;
-typedef struct { SomNode node; } ConstraintClassificationContentForm;
-typedef struct { SomNode node; } ConstraintDetailsContentForm;
-typedef struct { SomNode node; } ConstraintEntryContentForm;
-typedef struct { SomNode node; } ConstraintImpactContentForm;
-typedef struct { SomNode node; } ConstraintLinkagesContentForm;
-typedef struct { SomNode node; } ConstraintMitigationContentForm;
 typedef struct { SomNode node; } ConstraintRegisterEntryContentForm;
-typedef struct { SomNode node; } ConstraintTrackingContentForm;
-typedef struct { SomNode node; } ConstraintsAndDependenciesContentForm;
-typedef struct { SomNode node; } ConstraintsContentForm;
 typedef struct { SomNode node; } ContextualHelpContextualHelpContentForm;
 typedef struct { SomNode node; } ContextualHelpInlineContentForm;
 typedef struct { SomNode node; } ContextualHelpPanelsContentForm;
@@ -3818,36 +3776,27 @@ typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryOwnershipConten
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryStatusContentForm;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryTraceabilityContentForm;
 typedef struct { SomNode node; } DeliveryAcceptanceCriterionEntryVerificationContentForm;
-typedef struct { SomNode node; } DependencyClassificationContentForm;
-typedef struct { SomNode node; } DependencyDeliverableContentForm;
-typedef struct { SomNode node; } DependencyExternalPartyContentForm;
 typedef struct { SomNode node; } DependencyHealthMonitoringCacheContentForm;
 typedef struct { SomNode node; } DependencyHealthMonitoringContentForm;
 typedef struct { SomNode node; } DependencyHealthMonitoringExternalContentForm;
 typedef struct { SomNode node; } DependencyHealthMonitoringQueueContentForm;
 typedef struct { SomNode node; } DependencyHealthMonitoringThresholdsContentForm;
-typedef struct { SomNode node; } DependencyIdentityContentForm;
 typedef struct { SomNode node; } DependencyInjectionStructureBindingContentForm;
 typedef struct { SomNode node; } DependencyInjectionStructureConfigurationContentForm;
 typedef struct { SomNode node; } DependencyInjectionStructureContentForm;
 typedef struct { SomNode node; } DependencyInjectionStructureRegistrationContentForm;
 typedef struct { SomNode node; } DependencyInjectionStructureTroubleshootingContentForm;
-typedef struct { SomNode node; } DependencyLinkagesContentForm;
 typedef struct { SomNode node; } DependencyManagementContentForm;
 typedef struct { SomNode node; } DependencyManagementInternalContentForm;
 typedef struct { SomNode node; } DependencyManagementOperationsContentForm;
 typedef struct { SomNode node; } DependencyManagementSecurityContentForm;
 typedef struct { SomNode node; } DependencyManagementVersioningContentForm;
-typedef struct { SomNode node; } DependencyMitigationContentForm;
 typedef struct { SomNode node; } DependencyRegisterEntryContentForm;
-typedef struct { SomNode node; } DependencyRiskContentForm;
 typedef struct { SomNode node; } DependencyScanningRequirementsContentForm;
 typedef struct { SomNode node; } DependencyScanningRequirementsLicensingContentForm;
 typedef struct { SomNode node; } DependencyScanningRequirementsSbomContentForm;
 typedef struct { SomNode node; } DependencyScanningRequirementsSupplyChainContentForm;
 typedef struct { SomNode node; } DependencyScanningRequirementsVulnerabilitiesContentForm;
-typedef struct { SomNode node; } DependencyTimelineContentForm;
-typedef struct { SomNode node; } DependencyTrackingContentForm;
 typedef struct { SomNode node; } DeploymentContextDeploymentDetailsForm;
 typedef struct { SomNode node; } DeploymentEnvironmentEntryConfigurationContentForm;
 typedef struct { SomNode node; } DeploymentEnvironmentEntryContentForm;
@@ -4148,10 +4097,6 @@ typedef struct { SomNode node; } FlexibilityQualityDeploymentContentForm;
 typedef struct { SomNode node; } FlexibilityQualityExtensibilityContentForm;
 typedef struct { SomNode node; } FlexibilityQualityModularityContentForm;
 typedef struct { SomNode node; } FrameworkCompatibilityContentForm;
-typedef struct { SomNode node; } FrameworkDependenciesCategoriesContentForm;
-typedef struct { SomNode node; } FrameworkDependenciesContentForm;
-typedef struct { SomNode node; } FrameworkDependenciesManagementContentForm;
-typedef struct { SomNode node; } FrameworkDependencyEntryContentForm;
 typedef struct { SomNode node; } FrameworkIdentityContentForm;
 typedef struct { SomNode node; } FrameworkJustificationContentForm;
 typedef struct { SomNode node; } FrameworkRequirementEntryContentForm;
@@ -7235,35 +7180,6 @@ SomList assumption_constraint_register_constraints(const AssumptionConstraintReg
 // Returns the list view; element type: DependencyRegisterEntry (construct from item paths).
 SomList assumption_constraint_register_dependencies(const AssumptionConstraintRegister *self);
 
-// An assumption entry (form).
-//
-// Documents a project assumption including its basis, validation approach,
-// and contingency plans if the assumption proves false.
-// Binds a AssumptionEntry facade to a document and a path (path copied).
-void assumption_entry_init(AssumptionEntry *self, SpecDocument *doc, const char *path);
-void assumption_entry_free(AssumptionEntry *self);
-// Assumption identification and description.
-AssumptionIdentification assumption_entry_identification(const AssumptionEntry *self);
-// Assumption validation details.
-AssumptionValidation assumption_entry_validation(const AssumptionEntry *self);
-// Impact and contingency if assumption is false.
-AssumptionImpact assumption_entry_impact(const AssumptionEntry *self);
-// Relationships to other project elements.
-// Returns the list view; element type: AssumptionRelationships (construct from item paths).
-SomList assumption_entry_relationships(const AssumptionEntry *self);
-
-// Assumption identification details.
-// Binds a AssumptionIdentification facade to a document and a path (path copied).
-void assumption_identification_init(AssumptionIdentification *self, SpecDocument *doc, const char *path);
-void assumption_identification_free(AssumptionIdentification *self);
-AssumptionIdentificationContentForm assumption_identification_content(const AssumptionIdentification *self);
-
-// Impact assessment if assumption proves false.
-// Binds a AssumptionImpact facade to a document and a path (path copied).
-void assumption_impact_init(AssumptionImpact *self, SpecDocument *doc, const char *path);
-void assumption_impact_free(AssumptionImpact *self);
-AssumptionImpactContentForm assumption_impact_content(const AssumptionImpact *self);
-
 // A single assumption register entry (form).
 //
 // Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
@@ -7273,18 +7189,6 @@ void assumption_register_entry_init(AssumptionRegisterEntry *self, SpecDocument 
 void assumption_register_entry_free(AssumptionRegisterEntry *self);
 AssumptionRegisterEntryContentForm assumption_register_entry_content(const AssumptionRegisterEntry *self);
 
-// Relationships to other project elements.
-// Binds a AssumptionRelationships facade to a document and a path (path copied).
-void assumption_relationships_init(AssumptionRelationships *self, SpecDocument *doc, const char *path);
-void assumption_relationships_free(AssumptionRelationships *self);
-AssumptionRelationshipsContentForm assumption_relationships_content(const AssumptionRelationships *self);
-
-// Assumption validation details.
-// Binds a AssumptionValidation facade to a document and a path (path copied).
-void assumption_validation_init(AssumptionValidation *self, SpecDocument *doc, const char *path);
-void assumption_validation_free(AssumptionValidation *self);
-AssumptionValidationContentForm assumption_validation_content(const AssumptionValidation *self);
-
 // SBP.6 Assumptions, Constraints & Dependencies.
 // Binds a AssumptionsConstraintsDependencies facade to a document and a path (path copied).
 void assumptions_constraints_dependencies_init(AssumptionsConstraintsDependencies *self, SpecDocument *doc, const char *path);
@@ -7293,12 +7197,6 @@ char *assumptions_constraints_dependencies_content(const AssumptionsConstraintsD
 void assumptions_constraints_dependencies_set_content(AssumptionsConstraintsDependencies *self, const char *value);
 // The consolidated assumption / constraint register.
 AssumptionConstraintRegister assumptions_constraints_dependencies_register_(const AssumptionsConstraintsDependencies *self);
-
-// Overview of assumptions management.
-// Binds a AssumptionsOverview facade to a document and a path (path copied).
-void assumptions_overview_init(AssumptionsOverview *self, SpecDocument *doc, const char *path);
-void assumptions_overview_free(AssumptionsOverview *self);
-AssumptionsOverviewContentForm assumptions_overview_content(const AssumptionsOverview *self);
 
 // A single attribute interdependency entry.
 // Binds a AttributeInterdependencyEntry facade to a document and a path (path copied).
@@ -10954,62 +10852,6 @@ void consent_management_requirements_tracking_init(ConsentManagementRequirements
 void consent_management_requirements_tracking_free(ConsentManagementRequirementsTracking *self);
 ConsentManagementRequirementsTrackingContentForm consent_management_requirements_tracking_content(const ConsentManagementRequirementsTracking *self);
 
-// Classification for constraint.
-// Binds a ConstraintClassification facade to a document and a path (path copied).
-void constraint_classification_init(ConstraintClassification *self, SpecDocument *doc, const char *path);
-void constraint_classification_free(ConstraintClassification *self);
-ConstraintClassificationContentForm constraint_classification_content(const ConstraintClassification *self);
-
-// Details for constraint.
-// Binds a ConstraintDetails facade to a document and a path (path copied).
-void constraint_details_init(ConstraintDetails *self, SpecDocument *doc, const char *path);
-void constraint_details_free(ConstraintDetails *self);
-ConstraintDetailsContentForm constraint_details_content(const ConstraintDetails *self);
-
-// A constraint entry (form).
-//
-// Represents a single external constraint limiting project degrees of
-// freedom. Common constraint types include regulatory requirements,
-// contractual obligations, budget limits, timeline deadlines, resource
-// caps, and technology mandates. Each constraint should be tracked,
-// monitored, and have mitigation strategies where possible.
-// Binds a ConstraintEntry facade to a document and a path (path copied).
-void constraint_entry_init(ConstraintEntry *self, SpecDocument *doc, const char *path);
-void constraint_entry_free(ConstraintEntry *self);
-ConstraintEntryContentForm constraint_entry_content(const ConstraintEntry *self);
-// Classification.
-ConstraintClassification constraint_entry_classification(const ConstraintEntry *self);
-// Details.
-// Returns the list view; element type: ConstraintDetails (construct from item paths).
-SomList constraint_entry_details(const ConstraintEntry *self);
-// Impact assessment.
-ConstraintImpact constraint_entry_impact(const ConstraintEntry *self);
-// Mitigation and response.
-ConstraintMitigation constraint_entry_mitigation(const ConstraintEntry *self);
-// Tracking and monitoring.
-ConstraintTracking constraint_entry_tracking(const ConstraintEntry *self);
-// Linkages.
-// Returns the list view; element type: ConstraintLinkages (construct from item paths).
-SomList constraint_entry_linkages(const ConstraintEntry *self);
-
-// Impact assessment for constraint.
-// Binds a ConstraintImpact facade to a document and a path (path copied).
-void constraint_impact_init(ConstraintImpact *self, SpecDocument *doc, const char *path);
-void constraint_impact_free(ConstraintImpact *self);
-ConstraintImpactContentForm constraint_impact_content(const ConstraintImpact *self);
-
-// Linkages for constraint.
-// Binds a ConstraintLinkages facade to a document and a path (path copied).
-void constraint_linkages_init(ConstraintLinkages *self, SpecDocument *doc, const char *path);
-void constraint_linkages_free(ConstraintLinkages *self);
-ConstraintLinkagesContentForm constraint_linkages_content(const ConstraintLinkages *self);
-
-// Mitigation for constraint.
-// Binds a ConstraintMitigation facade to a document and a path (path copied).
-void constraint_mitigation_init(ConstraintMitigation *self, SpecDocument *doc, const char *path);
-void constraint_mitigation_free(ConstraintMitigation *self);
-ConstraintMitigationContentForm constraint_mitigation_content(const ConstraintMitigation *self);
-
 // A single constraint register entry (form).
 //
 // Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
@@ -11019,42 +10861,19 @@ void constraint_register_entry_init(ConstraintRegisterEntry *self, SpecDocument 
 void constraint_register_entry_free(ConstraintRegisterEntry *self);
 ConstraintRegisterEntryContentForm constraint_register_entry_content(const ConstraintRegisterEntry *self);
 
-// Tracking for constraint.
-// Binds a ConstraintTracking facade to a document and a path (path copied).
-void constraint_tracking_init(ConstraintTracking *self, SpecDocument *doc, const char *path);
-void constraint_tracking_free(ConstraintTracking *self);
-ConstraintTrackingContentForm constraint_tracking_content(const ConstraintTracking *self);
-
-// 4.6.4.1. Constraints.
-//
-// External constraints limiting project scope, schedule, budget, or
-// approach. Includes regulatory, contractual, organizational, technical,
-// and resource constraints. Each constraint must be analysed for impact
-// and monitored throughout the project lifecycle.
-// Binds a Constraints facade to a document and a path (path copied).
-void constraints_init(Constraints *self, SpecDocument *doc, const char *path);
-void constraints_free(Constraints *self);
-ConstraintsContentForm constraints_content(const Constraints *self);
-// Contains 0+× Constraint.
-// Returns the list view; element type: ConstraintEntry (construct from item paths).
-SomList constraints_items(const Constraints *self);
-// Constraint Summary narrative.
-// (skipped: constraintNarrative has no target type)
-
 // 4.6.4. Constraints and Dependencies.
 //
-// Documents external constraints (regulatory, contractual, budgetary,
-// timeline) and dependencies on other projects, teams, or organizational
-// initiatives. Follows PMBOK constraint management and dependency
-// analysis best practices for comprehensive project planning.
+// Operating-environment view of the constraints and dependencies that shape
+// project execution. The canonical register of constraints and dependencies
+// lives in SBP.6 (Assumptions, Constraints & Dependencies). This node does
+// **not** restate that register (L34C-4 consolidation, SR-10): it frames how
+// the framework conditions documented in SBP.2 §4.6 give rise to the entries
+// recorded in SBP.6, and points the reader there.
 // Binds a ConstraintsAndDependencies facade to a document and a path (path copied).
 void constraints_and_dependencies_init(ConstraintsAndDependencies *self, SpecDocument *doc, const char *path);
 void constraints_and_dependencies_free(ConstraintsAndDependencies *self);
-ConstraintsAndDependenciesContentForm constraints_and_dependencies_content(const ConstraintsAndDependencies *self);
-// 4.6.4.1. Constraints.
-Constraints constraints_and_dependencies_constraints(const ConstraintsAndDependencies *self);
-// 4.6.4.2. Dependencies.
-FrameworkDependencies constraints_and_dependencies_framework_dependencies(const ConstraintsAndDependencies *self);
+char *constraints_and_dependencies_content(const ConstraintsAndDependencies *self);
+void constraints_and_dependencies_set_content(ConstraintsAndDependencies *self, const char *value);
 
 // Content scanning policy — how uploaded and stored files are scanned for
 // malicious content, policy violations, and compliance risks.
@@ -13702,30 +13521,12 @@ Integrations dependencies_and_integrations_integrations(const DependenciesAndInt
 // 1.1.3.5. Integration Health Summary.
 IntegrationHealthSummary dependencies_and_integrations_health_summary(const DependenciesAndIntegrations *self);
 
-// Dependency classification.
-// Binds a DependencyClassification facade to a document and a path (path copied).
-void dependency_classification_init(DependencyClassification *self, SpecDocument *doc, const char *path);
-void dependency_classification_free(DependencyClassification *self);
-DependencyClassificationContentForm dependency_classification_content(const DependencyClassification *self);
-
-// Deliverable details.
-// Binds a DependencyDeliverable facade to a document and a path (path copied).
-void dependency_deliverable_init(DependencyDeliverable *self, SpecDocument *doc, const char *path);
-void dependency_deliverable_free(DependencyDeliverable *self);
-DependencyDeliverableContentForm dependency_deliverable_content(const DependencyDeliverable *self);
-
 // A single dependency entry.
 // Binds a DependencyEntry facade to a document and a path (path copied).
 void dependency_entry_init(DependencyEntry *self, SpecDocument *doc, const char *path);
 void dependency_entry_free(DependencyEntry *self);
 char *dependency_entry_content(const DependencyEntry *self);
 void dependency_entry_set_content(DependencyEntry *self, const char *value);
-
-// External party details.
-// Binds a DependencyExternalParty facade to a document and a path (path copied).
-void dependency_external_party_init(DependencyExternalParty *self, SpecDocument *doc, const char *path);
-void dependency_external_party_free(DependencyExternalParty *self);
-DependencyExternalPartyContentForm dependency_external_party_content(const DependencyExternalParty *self);
 
 // Dependency health monitoring.
 // Binds a DependencyHealthMonitoring facade to a document and a path (path copied).
@@ -13765,12 +13566,6 @@ void dependency_health_monitoring_thresholds_init(DependencyHealthMonitoringThre
 void dependency_health_monitoring_thresholds_free(DependencyHealthMonitoringThresholds *self);
 DependencyHealthMonitoringThresholdsContentForm dependency_health_monitoring_thresholds_content(const DependencyHealthMonitoringThresholds *self);
 
-// Dependency identity details.
-// Binds a DependencyIdentity facade to a document and a path (path copied).
-void dependency_identity_init(DependencyIdentity *self, SpecDocument *doc, const char *path);
-void dependency_identity_free(DependencyIdentity *self);
-DependencyIdentityContentForm dependency_identity_content(const DependencyIdentity *self);
-
 // Dependency injection structure and configuration.
 // Binds a DependencyInjectionStructure facade to a document and a path (path copied).
 void dependency_injection_structure_init(DependencyInjectionStructure *self, SpecDocument *doc, const char *path);
@@ -13808,12 +13603,6 @@ DependencyInjectionStructureRegistrationContentForm dependency_injection_structu
 void dependency_injection_structure_troubleshooting_init(DependencyInjectionStructureTroubleshooting *self, SpecDocument *doc, const char *path);
 void dependency_injection_structure_troubleshooting_free(DependencyInjectionStructureTroubleshooting *self);
 DependencyInjectionStructureTroubleshootingContentForm dependency_injection_structure_troubleshooting_content(const DependencyInjectionStructureTroubleshooting *self);
-
-// Dependency linkages.
-// Binds a DependencyLinkages facade to a document and a path (path copied).
-void dependency_linkages_init(DependencyLinkages *self, SpecDocument *doc, const char *path);
-void dependency_linkages_free(DependencyLinkages *self);
-DependencyLinkagesContentForm dependency_linkages_content(const DependencyLinkages *self);
 
 // Dependency management configuration.
 // Binds a DependencyManagement facade to a document and a path (path copied).
@@ -13853,12 +13642,6 @@ void dependency_management_versioning_init(DependencyManagementVersioning *self,
 void dependency_management_versioning_free(DependencyManagementVersioning *self);
 DependencyManagementVersioningContentForm dependency_management_versioning_content(const DependencyManagementVersioning *self);
 
-// Dependency mitigation and contingency.
-// Binds a DependencyMitigation facade to a document and a path (path copied).
-void dependency_mitigation_init(DependencyMitigation *self, SpecDocument *doc, const char *path);
-void dependency_mitigation_free(DependencyMitigation *self);
-DependencyMitigationContentForm dependency_mitigation_content(const DependencyMitigation *self);
-
 // A single dependency register entry (form).
 //
 // Captures an external dependency the solution relies on — another system, a
@@ -13870,12 +13653,6 @@ DependencyMitigationContentForm dependency_mitigation_content(const DependencyMi
 void dependency_register_entry_init(DependencyRegisterEntry *self, SpecDocument *doc, const char *path);
 void dependency_register_entry_free(DependencyRegisterEntry *self);
 DependencyRegisterEntryContentForm dependency_register_entry_content(const DependencyRegisterEntry *self);
-
-// Dependency risk assessment.
-// Binds a DependencyRisk facade to a document and a path (path copied).
-void dependency_risk_init(DependencyRisk *self, SpecDocument *doc, const char *path);
-void dependency_risk_free(DependencyRisk *self);
-DependencyRiskContentForm dependency_risk_content(const DependencyRisk *self);
 
 // Dependency and supply-chain scanning requirements.
 // Binds a DependencyScanningRequirements facade to a document and a path (path copied).
@@ -13914,18 +13691,6 @@ DependencyScanningRequirementsSupplyChainContentForm dependency_scanning_require
 void dependency_scanning_requirements_vulnerabilities_init(DependencyScanningRequirementsVulnerabilities *self, SpecDocument *doc, const char *path);
 void dependency_scanning_requirements_vulnerabilities_free(DependencyScanningRequirementsVulnerabilities *self);
 DependencyScanningRequirementsVulnerabilitiesContentForm dependency_scanning_requirements_vulnerabilities_content(const DependencyScanningRequirementsVulnerabilities *self);
-
-// Dependency timeline.
-// Binds a DependencyTimeline facade to a document and a path (path copied).
-void dependency_timeline_init(DependencyTimeline *self, SpecDocument *doc, const char *path);
-void dependency_timeline_free(DependencyTimeline *self);
-DependencyTimelineContentForm dependency_timeline_content(const DependencyTimeline *self);
-
-// Dependency coordination and tracking.
-// Binds a DependencyTracking facade to a document and a path (path copied).
-void dependency_tracking_init(DependencyTracking *self, SpecDocument *doc, const char *path);
-void dependency_tracking_free(DependencyTracking *self);
-DependencyTrackingContentForm dependency_tracking_content(const DependencyTracking *self);
 
 // 4.1.2.7. Deployment Context.
 //
@@ -17048,68 +16813,6 @@ TechnicalFrameworkConditions framework_conditions_technical_framework_conditions
 // 4.6.4. Constraints and Dependencies — contains 0+×.
 ConstraintsAndDependencies framework_conditions_constraints_and_dependencies(const FrameworkConditions *self);
 
-// 4.6.4.2. Dependencies.
-//
-// External dependencies on other projects, teams, vendors, systems, or
-// organizational initiatives. Each dependency represents a point where
-// this project relies on external parties to deliver. Dependencies
-// should be tracked, risks assessed, and contingencies planned.
-// Binds a FrameworkDependencies facade to a document and a path (path copied).
-void framework_dependencies_init(FrameworkDependencies *self, SpecDocument *doc, const char *path);
-void framework_dependencies_free(FrameworkDependencies *self);
-FrameworkDependenciesContentForm framework_dependencies_content(const FrameworkDependencies *self);
-// Dependency counts by category.
-FrameworkDependenciesCategories framework_dependencies_categories(const FrameworkDependencies *self);
-// Coordination and early warning mechanisms.
-FrameworkDependenciesManagement framework_dependencies_management(const FrameworkDependencies *self);
-// Contains 0+× FrameworkDependency.
-// Returns the list view; element type: FrameworkDependencyEntry (construct from item paths).
-SomList framework_dependencies_items(const FrameworkDependencies *self);
-// Dependency Summary narrative.
-// (skipped: dependencyNarrative has no target type)
-
-// Dependency counts by category.
-// Binds a FrameworkDependenciesCategories facade to a document and a path (path copied).
-void framework_dependencies_categories_init(FrameworkDependenciesCategories *self, SpecDocument *doc, const char *path);
-void framework_dependencies_categories_free(FrameworkDependenciesCategories *self);
-FrameworkDependenciesCategoriesContentForm framework_dependencies_categories_content(const FrameworkDependenciesCategories *self);
-
-// Coordination and early warning mechanisms.
-// Binds a FrameworkDependenciesManagement facade to a document and a path (path copied).
-void framework_dependencies_management_init(FrameworkDependenciesManagement *self, SpecDocument *doc, const char *path);
-void framework_dependencies_management_free(FrameworkDependenciesManagement *self);
-FrameworkDependenciesManagementContentForm framework_dependencies_management_content(const FrameworkDependenciesManagement *self);
-
-// A framework dependency entry (form).
-//
-// Represents a single external dependency where this project relies on
-// another party (project, team, vendor, system) to deliver something.
-// Dependencies should be actively managed with clear expectations,
-// tracking, and contingency plans for delays or failures.
-// Binds a FrameworkDependencyEntry facade to a document and a path (path copied).
-void framework_dependency_entry_init(FrameworkDependencyEntry *self, SpecDocument *doc, const char *path);
-void framework_dependency_entry_free(FrameworkDependencyEntry *self);
-FrameworkDependencyEntryContentForm framework_dependency_entry_content(const FrameworkDependencyEntry *self);
-// Dependency identity details.
-DependencyIdentity framework_dependency_entry_identity(const FrameworkDependencyEntry *self);
-// Dependency classification.
-DependencyClassification framework_dependency_entry_classification(const FrameworkDependencyEntry *self);
-// External party details.
-DependencyExternalParty framework_dependency_entry_external_party(const FrameworkDependencyEntry *self);
-// Deliverable details.
-DependencyDeliverable framework_dependency_entry_deliverable(const FrameworkDependencyEntry *self);
-// Timeline.
-DependencyTimeline framework_dependency_entry_timeline(const FrameworkDependencyEntry *self);
-// Risk assessment.
-DependencyRisk framework_dependency_entry_risk(const FrameworkDependencyEntry *self);
-// Mitigation and contingency.
-DependencyMitigation framework_dependency_entry_mitigation(const FrameworkDependencyEntry *self);
-// Coordination and tracking.
-DependencyTracking framework_dependency_entry_tracking(const FrameworkDependencyEntry *self);
-// Linkages.
-// Returns the list view; element type: DependencyLinkages (construct from item paths).
-SomList framework_dependency_entry_linkages(const FrameworkDependencyEntry *self);
-
 // Identity details.
 // Binds a FrameworkIdentity facade to a document and a path (path copied).
 void framework_identity_init(FrameworkIdentity *self, SpecDocument *doc, const char *path);
@@ -19391,19 +19094,6 @@ void key_assumption_entry_init(KeyAssumptionEntry *self, SpecDocument *doc, cons
 void key_assumption_entry_free(KeyAssumptionEntry *self);
 char *key_assumption_entry_content(const KeyAssumptionEntry *self);
 void key_assumption_entry_set_content(KeyAssumptionEntry *self, const char *value);
-
-// 4.7.2. Key Assumptions.
-//
-// Documents project assumptions that must hold true for success.
-// Tracks validation status and contingency plans if assumptions prove false.
-// Binds a KeyAssumptions facade to a document and a path (path copied).
-void key_assumptions_init(KeyAssumptions *self, SpecDocument *doc, const char *path);
-void key_assumptions_free(KeyAssumptions *self);
-// Overview of assumptions management approach.
-AssumptionsOverview key_assumptions_overview(const KeyAssumptions *self);
-// Contains 0+× Assumption.
-// Returns the list view; element type: AssumptionEntry (construct from item paths).
-SomList key_assumptions_items(const KeyAssumptions *self);
 
 // A key attribute entry (form).
 //
@@ -26659,12 +26349,18 @@ void risk_response_residual_init(RiskResponseResidual *self, SpecDocument *doc, 
 void risk_response_residual_free(RiskResponseResidual *self);
 RiskResponseResidualContentForm risk_response_residual_content(const RiskResponseResidual *self);
 
-// 4.7. Risks and Assumptions.
+// 4.7. Risks.
 //
-// Documents identified project risks and underlying assumptions following
-// ISO 31000 Risk Management and PMBOK risk management best practices.
-// Provides structured framework for risk identification, analysis, response
-// planning, and ongoing monitoring throughout the project lifecycle.
+// Documents identified project risks following ISO 31000 Risk Management and
+// PMBOK risk management best practices. Provides a structured framework for
+// risk identification, analysis, response planning, and ongoing monitoring
+// throughout the project lifecycle.
+//
+// Assumptions are **not** held here (L34C-4 consolidation, SR-11): the
+// canonical assumptions register lives in SBP.6 (Assumptions, Constraints &
+// Dependencies). Only the risks half — unique to §4.7 — remains in this node.
+// (The class name remains `RisksAndAssumptions` pending the L34C-9 rename
+// sweep, which will rename it to `Risks`.)
 // Binds a RisksAndAssumptions facade to a document and a path (path copied).
 void risks_and_assumptions_init(RisksAndAssumptions *self, SpecDocument *doc, const char *path);
 void risks_and_assumptions_free(RisksAndAssumptions *self);
@@ -26673,8 +26369,6 @@ RisksOverview risks_and_assumptions_overview(const RisksAndAssumptions *self);
 // 4.7.1. Key Risks — contains 0+× Risk.
 // Returns the list view; element type: RiskEntry (construct from item paths).
 SomList risks_and_assumptions_key_risks(const RisksAndAssumptions *self);
-// 4.7.2. Key Assumptions — contains 0+×.
-KeyAssumptions risks_and_assumptions_key_assumptions(const RisksAndAssumptions *self);
 
 // Overview of the risk management approach.
 // Binds a RisksOverview facade to a document and a path (path copied).
@@ -36374,48 +36068,6 @@ void architecture_principle_entry_guidance_content_form_set_implications(Archite
 char *architecture_principle_entry_guidance_content_form_violations(const ArchitecturePrincipleEntryGuidanceContentForm *self);
 void architecture_principle_entry_guidance_content_form_set_violations(ArchitecturePrincipleEntryGuidanceContentForm *self, const char *value);
 
-// AssumptionIdentificationContentForm is the generated form facade for the `content` @Form section.
-void assumption_identification_content_form_init(AssumptionIdentificationContentForm *self, SpecDocument *doc, const char *path);
-void assumption_identification_content_form_free(AssumptionIdentificationContentForm *self);
-char *assumption_identification_content_form_assumption_id(const AssumptionIdentificationContentForm *self);
-void assumption_identification_content_form_set_assumption_id(AssumptionIdentificationContentForm *self, const char *value);
-char *assumption_identification_content_form_assumption_name(const AssumptionIdentificationContentForm *self);
-void assumption_identification_content_form_set_assumption_name(AssumptionIdentificationContentForm *self, const char *value);
-char *assumption_identification_content_form_description(const AssumptionIdentificationContentForm *self);
-void assumption_identification_content_form_set_description(AssumptionIdentificationContentForm *self, const char *value);
-char *assumption_identification_content_form_category(const AssumptionIdentificationContentForm *self);
-void assumption_identification_content_form_set_category(AssumptionIdentificationContentForm *self, const char *value);
-char *assumption_identification_content_form_basis(const AssumptionIdentificationContentForm *self);
-void assumption_identification_content_form_set_basis(AssumptionIdentificationContentForm *self, const char *value);
-char *assumption_identification_content_form_date_identified(const AssumptionIdentificationContentForm *self);
-void assumption_identification_content_form_set_date_identified(AssumptionIdentificationContentForm *self, const char *value);
-char *assumption_identification_content_form_identified_by(const AssumptionIdentificationContentForm *self);
-void assumption_identification_content_form_set_identified_by(AssumptionIdentificationContentForm *self, const char *value);
-char *assumption_identification_content_form_criticality(const AssumptionIdentificationContentForm *self);
-void assumption_identification_content_form_set_criticality(AssumptionIdentificationContentForm *self, const char *value);
-char *assumption_identification_content_form_confidence(const AssumptionIdentificationContentForm *self);
-void assumption_identification_content_form_set_confidence(AssumptionIdentificationContentForm *self, const char *value);
-
-// AssumptionImpactContentForm is the generated form facade for the `content` @Form section.
-void assumption_impact_content_form_init(AssumptionImpactContentForm *self, SpecDocument *doc, const char *path);
-void assumption_impact_content_form_free(AssumptionImpactContentForm *self);
-char *assumption_impact_content_form_impact_if_false(const AssumptionImpactContentForm *self);
-void assumption_impact_content_form_set_impact_if_false(AssumptionImpactContentForm *self, const char *value);
-char *assumption_impact_content_form_impact_severity(const AssumptionImpactContentForm *self);
-void assumption_impact_content_form_set_impact_severity(AssumptionImpactContentForm *self, const char *value);
-char *assumption_impact_content_form_affected_areas(const AssumptionImpactContentForm *self);
-void assumption_impact_content_form_set_affected_areas(AssumptionImpactContentForm *self, const char *value);
-char *assumption_impact_content_form_contingency_plan(const AssumptionImpactContentForm *self);
-void assumption_impact_content_form_set_contingency_plan(AssumptionImpactContentForm *self, const char *value);
-char *assumption_impact_content_form_contingency_owner(const AssumptionImpactContentForm *self);
-void assumption_impact_content_form_set_contingency_owner(AssumptionImpactContentForm *self, const char *value);
-char *assumption_impact_content_form_contingency_cost(const AssumptionImpactContentForm *self);
-void assumption_impact_content_form_set_contingency_cost(AssumptionImpactContentForm *self, const char *value);
-char *assumption_impact_content_form_contingency_timeline(const AssumptionImpactContentForm *self);
-void assumption_impact_content_form_set_contingency_timeline(AssumptionImpactContentForm *self, const char *value);
-char *assumption_impact_content_form_related_risks(const AssumptionImpactContentForm *self);
-void assumption_impact_content_form_set_related_risks(AssumptionImpactContentForm *self, const char *value);
-
 // AssumptionRegisterEntryContentForm is the generated form facade for the `content` @Form section.
 void assumption_register_entry_content_form_init(AssumptionRegisterEntryContentForm *self, SpecDocument *doc, const char *path);
 void assumption_register_entry_content_form_free(AssumptionRegisterEntryContentForm *self);
@@ -36429,56 +36081,6 @@ char *assumption_register_entry_content_form_validation(const AssumptionRegister
 void assumption_register_entry_content_form_set_validation(AssumptionRegisterEntryContentForm *self, const char *value);
 char *assumption_register_entry_content_form_status(const AssumptionRegisterEntryContentForm *self);
 void assumption_register_entry_content_form_set_status(AssumptionRegisterEntryContentForm *self, const char *value);
-
-// AssumptionRelationshipsContentForm is the generated form facade for the `content` @Form section.
-void assumption_relationships_content_form_init(AssumptionRelationshipsContentForm *self, SpecDocument *doc, const char *path);
-void assumption_relationships_content_form_free(AssumptionRelationshipsContentForm *self);
-char *assumption_relationships_content_form_related_assumptions(const AssumptionRelationshipsContentForm *self);
-void assumption_relationships_content_form_set_related_assumptions(AssumptionRelationshipsContentForm *self, const char *value);
-char *assumption_relationships_content_form_related_risks(const AssumptionRelationshipsContentForm *self);
-void assumption_relationships_content_form_set_related_risks(AssumptionRelationshipsContentForm *self, const char *value);
-char *assumption_relationships_content_form_related_requirements(const AssumptionRelationshipsContentForm *self);
-void assumption_relationships_content_form_set_related_requirements(AssumptionRelationshipsContentForm *self, const char *value);
-char *assumption_relationships_content_form_affected_decisions(const AssumptionRelationshipsContentForm *self);
-void assumption_relationships_content_form_set_affected_decisions(AssumptionRelationshipsContentForm *self, const char *value);
-char *assumption_relationships_content_form_document_references(const AssumptionRelationshipsContentForm *self);
-void assumption_relationships_content_form_set_document_references(AssumptionRelationshipsContentForm *self, const char *value);
-char *assumption_relationships_content_form_stakeholder_owner(const AssumptionRelationshipsContentForm *self);
-void assumption_relationships_content_form_set_stakeholder_owner(AssumptionRelationshipsContentForm *self, const char *value);
-char *assumption_relationships_content_form_review_frequency(const AssumptionRelationshipsContentForm *self);
-void assumption_relationships_content_form_set_review_frequency(AssumptionRelationshipsContentForm *self, const char *value);
-
-// AssumptionValidationContentForm is the generated form facade for the `content` @Form section.
-void assumption_validation_content_form_init(AssumptionValidationContentForm *self, SpecDocument *doc, const char *path);
-void assumption_validation_content_form_free(AssumptionValidationContentForm *self);
-char *assumption_validation_content_form_validation_method(const AssumptionValidationContentForm *self);
-void assumption_validation_content_form_set_validation_method(AssumptionValidationContentForm *self, const char *value);
-char *assumption_validation_content_form_validation_criteria(const AssumptionValidationContentForm *self);
-void assumption_validation_content_form_set_validation_criteria(AssumptionValidationContentForm *self, const char *value);
-char *assumption_validation_content_form_validation_date(const AssumptionValidationContentForm *self);
-void assumption_validation_content_form_set_validation_date(AssumptionValidationContentForm *self, const char *value);
-char *assumption_validation_content_form_validation_status(const AssumptionValidationContentForm *self);
-void assumption_validation_content_form_set_validation_status(AssumptionValidationContentForm *self, const char *value);
-char *assumption_validation_content_form_last_validation_date(const AssumptionValidationContentForm *self);
-void assumption_validation_content_form_set_last_validation_date(AssumptionValidationContentForm *self, const char *value);
-char *assumption_validation_content_form_validated_by(const AssumptionValidationContentForm *self);
-void assumption_validation_content_form_set_validated_by(AssumptionValidationContentForm *self, const char *value);
-char *assumption_validation_content_form_validation_notes(const AssumptionValidationContentForm *self);
-void assumption_validation_content_form_set_validation_notes(AssumptionValidationContentForm *self, const char *value);
-char *assumption_validation_content_form_validation_owner(const AssumptionValidationContentForm *self);
-void assumption_validation_content_form_set_validation_owner(AssumptionValidationContentForm *self, const char *value);
-
-// AssumptionsOverviewContentForm is the generated form facade for the `content` @Form section.
-void assumptions_overview_content_form_init(AssumptionsOverviewContentForm *self, SpecDocument *doc, const char *path);
-void assumptions_overview_content_form_free(AssumptionsOverviewContentForm *self);
-char *assumptions_overview_content_form_assumptions_approach(const AssumptionsOverviewContentForm *self);
-void assumptions_overview_content_form_set_assumptions_approach(AssumptionsOverviewContentForm *self, const char *value);
-char *assumptions_overview_content_form_validation_cadence(const AssumptionsOverviewContentForm *self);
-void assumptions_overview_content_form_set_validation_cadence(AssumptionsOverviewContentForm *self, const char *value);
-char *assumptions_overview_content_form_assumption_categories(const AssumptionsOverviewContentForm *self);
-void assumptions_overview_content_form_set_assumption_categories(AssumptionsOverviewContentForm *self, const char *value);
-char *assumptions_overview_content_form_escalation_process(const AssumptionsOverviewContentForm *self);
-void assumptions_overview_content_form_set_escalation_process(AssumptionsOverviewContentForm *self, const char *value);
 
 // AuditEntryContentForm is the generated form facade for the `content` @Form section.
 void audit_entry_content_form_init(AuditEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -40730,84 +40332,6 @@ void consent_management_requirements_tracking_content_form_set_tracking_consent_
 char *consent_management_requirements_tracking_content_form_third_party_consent_sharing(const ConsentManagementRequirementsTrackingContentForm *self);
 void consent_management_requirements_tracking_content_form_set_third_party_consent_sharing(ConsentManagementRequirementsTrackingContentForm *self, const char *value);
 
-// ConstraintClassificationContentForm is the generated form facade for the `content` @Form section.
-void constraint_classification_content_form_init(ConstraintClassificationContentForm *self, SpecDocument *doc, const char *path);
-void constraint_classification_content_form_free(ConstraintClassificationContentForm *self);
-char *constraint_classification_content_form_constraint_description(const ConstraintClassificationContentForm *self);
-void constraint_classification_content_form_set_constraint_description(ConstraintClassificationContentForm *self, const char *value);
-char *constraint_classification_content_form_constraint_category(const ConstraintClassificationContentForm *self);
-void constraint_classification_content_form_set_constraint_category(ConstraintClassificationContentForm *self, const char *value);
-char *constraint_classification_content_form_constraint_type(const ConstraintClassificationContentForm *self);
-void constraint_classification_content_form_set_constraint_type(ConstraintClassificationContentForm *self, const char *value);
-char *constraint_classification_content_form_constraint_source(const ConstraintClassificationContentForm *self);
-void constraint_classification_content_form_set_constraint_source(ConstraintClassificationContentForm *self, const char *value);
-char *constraint_classification_content_form_source_reference(const ConstraintClassificationContentForm *self);
-void constraint_classification_content_form_set_source_reference(ConstraintClassificationContentForm *self, const char *value);
-
-// ConstraintDetailsContentForm is the generated form facade for the `content` @Form section.
-void constraint_details_content_form_init(ConstraintDetailsContentForm *self, SpecDocument *doc, const char *path);
-void constraint_details_content_form_free(ConstraintDetailsContentForm *self);
-char *constraint_details_content_form_constraint_value(const ConstraintDetailsContentForm *self);
-void constraint_details_content_form_set_constraint_value(ConstraintDetailsContentForm *self, const char *value);
-char *constraint_details_content_form_constraint_effective_date(const ConstraintDetailsContentForm *self);
-void constraint_details_content_form_set_constraint_effective_date(ConstraintDetailsContentForm *self, const char *value);
-char *constraint_details_content_form_constraint_expiry_date(const ConstraintDetailsContentForm *self);
-void constraint_details_content_form_set_constraint_expiry_date(ConstraintDetailsContentForm *self, const char *value);
-char *constraint_details_content_form_geographic_scope(const ConstraintDetailsContentForm *self);
-void constraint_details_content_form_set_geographic_scope(ConstraintDetailsContentForm *self, const char *value);
-char *constraint_details_content_form_affected_domains(const ConstraintDetailsContentForm *self);
-void constraint_details_content_form_set_affected_domains(ConstraintDetailsContentForm *self, const char *value);
-
-// ConstraintEntryContentForm is the generated form facade for the `content` @Form section.
-void constraint_entry_content_form_init(ConstraintEntryContentForm *self, SpecDocument *doc, const char *path);
-void constraint_entry_content_form_free(ConstraintEntryContentForm *self);
-char *constraint_entry_content_form_constraint_id(const ConstraintEntryContentForm *self);
-void constraint_entry_content_form_set_constraint_id(ConstraintEntryContentForm *self, const char *value);
-char *constraint_entry_content_form_constraint_name(const ConstraintEntryContentForm *self);
-void constraint_entry_content_form_set_constraint_name(ConstraintEntryContentForm *self, const char *value);
-char *constraint_entry_content_form_impact_level(const ConstraintEntryContentForm *self);
-void constraint_entry_content_form_set_impact_level(ConstraintEntryContentForm *self, const char *value);
-
-// ConstraintImpactContentForm is the generated form facade for the `content` @Form section.
-void constraint_impact_content_form_init(ConstraintImpactContentForm *self, SpecDocument *doc, const char *path);
-void constraint_impact_content_form_free(ConstraintImpactContentForm *self);
-char *constraint_impact_content_form_impact_description(const ConstraintImpactContentForm *self);
-void constraint_impact_content_form_set_impact_description(ConstraintImpactContentForm *self, const char *value);
-char *constraint_impact_content_form_affected_work_packages(const ConstraintImpactContentForm *self);
-void constraint_impact_content_form_set_affected_work_packages(ConstraintImpactContentForm *self, const char *value);
-char *constraint_impact_content_form_affected_milestones(const ConstraintImpactContentForm *self);
-void constraint_impact_content_form_set_affected_milestones(ConstraintImpactContentForm *self, const char *value);
-char *constraint_impact_content_form_schedule_impact(const ConstraintImpactContentForm *self);
-void constraint_impact_content_form_set_schedule_impact(ConstraintImpactContentForm *self, const char *value);
-char *constraint_impact_content_form_budget_impact(const ConstraintImpactContentForm *self);
-void constraint_impact_content_form_set_budget_impact(ConstraintImpactContentForm *self, const char *value);
-char *constraint_impact_content_form_scope_impact(const ConstraintImpactContentForm *self);
-void constraint_impact_content_form_set_scope_impact(ConstraintImpactContentForm *self, const char *value);
-
-// ConstraintLinkagesContentForm is the generated form facade for the `content` @Form section.
-void constraint_linkages_content_form_init(ConstraintLinkagesContentForm *self, SpecDocument *doc, const char *path);
-void constraint_linkages_content_form_free(ConstraintLinkagesContentForm *self);
-char *constraint_linkages_content_form_related_constraints(const ConstraintLinkagesContentForm *self);
-void constraint_linkages_content_form_set_related_constraints(ConstraintLinkagesContentForm *self, const char *value);
-char *constraint_linkages_content_form_related_risks(const ConstraintLinkagesContentForm *self);
-void constraint_linkages_content_form_set_related_risks(ConstraintLinkagesContentForm *self, const char *value);
-char *constraint_linkages_content_form_related_dependencies(const ConstraintLinkagesContentForm *self);
-void constraint_linkages_content_form_set_related_dependencies(ConstraintLinkagesContentForm *self, const char *value);
-
-// ConstraintMitigationContentForm is the generated form facade for the `content` @Form section.
-void constraint_mitigation_content_form_init(ConstraintMitigationContentForm *self, SpecDocument *doc, const char *path);
-void constraint_mitigation_content_form_free(ConstraintMitigationContentForm *self);
-char *constraint_mitigation_content_form_mitigation_strategy(const ConstraintMitigationContentForm *self);
-void constraint_mitigation_content_form_set_mitigation_strategy(ConstraintMitigationContentForm *self, const char *value);
-char *constraint_mitigation_content_form_negotiation_possibility(const ConstraintMitigationContentForm *self);
-void constraint_mitigation_content_form_set_negotiation_possibility(ConstraintMitigationContentForm *self, const char *value);
-char *constraint_mitigation_content_form_negotiation_approach(const ConstraintMitigationContentForm *self);
-void constraint_mitigation_content_form_set_negotiation_approach(ConstraintMitigationContentForm *self, const char *value);
-char *constraint_mitigation_content_form_fallback_plan(const ConstraintMitigationContentForm *self);
-void constraint_mitigation_content_form_set_fallback_plan(ConstraintMitigationContentForm *self, const char *value);
-char *constraint_mitigation_content_form_violation_consequences(const ConstraintMitigationContentForm *self);
-void constraint_mitigation_content_form_set_violation_consequences(ConstraintMitigationContentForm *self, const char *value);
-
 // ConstraintRegisterEntryContentForm is the generated form facade for the `content` @Form section.
 void constraint_register_entry_content_form_init(ConstraintRegisterEntryContentForm *self, SpecDocument *doc, const char *path);
 void constraint_register_entry_content_form_free(ConstraintRegisterEntryContentForm *self);
@@ -40821,66 +40345,6 @@ char *constraint_register_entry_content_form_source(const ConstraintRegisterEntr
 void constraint_register_entry_content_form_set_source(ConstraintRegisterEntryContentForm *self, const char *value);
 char *constraint_register_entry_content_form_impact(const ConstraintRegisterEntryContentForm *self);
 void constraint_register_entry_content_form_set_impact(ConstraintRegisterEntryContentForm *self, const char *value);
-
-// ConstraintTrackingContentForm is the generated form facade for the `content` @Form section.
-void constraint_tracking_content_form_init(ConstraintTrackingContentForm *self, SpecDocument *doc, const char *path);
-void constraint_tracking_content_form_free(ConstraintTrackingContentForm *self);
-char *constraint_tracking_content_form_tracking_method(const ConstraintTrackingContentForm *self);
-void constraint_tracking_content_form_set_tracking_method(ConstraintTrackingContentForm *self, const char *value);
-char *constraint_tracking_content_form_review_frequency(const ConstraintTrackingContentForm *self);
-void constraint_tracking_content_form_set_review_frequency(ConstraintTrackingContentForm *self, const char *value);
-char *constraint_tracking_content_form_constraint_owner(const ConstraintTrackingContentForm *self);
-void constraint_tracking_content_form_set_constraint_owner(ConstraintTrackingContentForm *self, const char *value);
-char *constraint_tracking_content_form_current_status(const ConstraintTrackingContentForm *self);
-void constraint_tracking_content_form_set_current_status(ConstraintTrackingContentForm *self, const char *value);
-char *constraint_tracking_content_form_status_notes(const ConstraintTrackingContentForm *self);
-void constraint_tracking_content_form_set_status_notes(ConstraintTrackingContentForm *self, const char *value);
-
-// ConstraintsAndDependenciesContentForm is the generated form facade for the `content` @Form section.
-void constraints_and_dependencies_content_form_init(ConstraintsAndDependenciesContentForm *self, SpecDocument *doc, const char *path);
-void constraints_and_dependencies_content_form_free(ConstraintsAndDependenciesContentForm *self);
-char *constraints_and_dependencies_content_form_constraint_dependency_overview(const ConstraintsAndDependenciesContentForm *self);
-void constraints_and_dependencies_content_form_set_constraint_dependency_overview(ConstraintsAndDependenciesContentForm *self, const char *value);
-char *constraints_and_dependencies_content_form_total_constraint_count(const ConstraintsAndDependenciesContentForm *self);
-void constraints_and_dependencies_content_form_set_total_constraint_count(ConstraintsAndDependenciesContentForm *self, const char *value);
-char *constraints_and_dependencies_content_form_total_dependency_count(const ConstraintsAndDependenciesContentForm *self);
-void constraints_and_dependencies_content_form_set_total_dependency_count(ConstraintsAndDependenciesContentForm *self, const char *value);
-char *constraints_and_dependencies_content_form_critical_constraint_count(const ConstraintsAndDependenciesContentForm *self);
-void constraints_and_dependencies_content_form_set_critical_constraint_count(ConstraintsAndDependenciesContentForm *self, const char *value);
-char *constraints_and_dependencies_content_form_critical_dependency_count(const ConstraintsAndDependenciesContentForm *self);
-void constraints_and_dependencies_content_form_set_critical_dependency_count(ConstraintsAndDependenciesContentForm *self, const char *value);
-char *constraints_and_dependencies_content_form_constraint_management_approach(const ConstraintsAndDependenciesContentForm *self);
-void constraints_and_dependencies_content_form_set_constraint_management_approach(ConstraintsAndDependenciesContentForm *self, const char *value);
-char *constraints_and_dependencies_content_form_dependency_management_approach(const ConstraintsAndDependenciesContentForm *self);
-void constraints_and_dependencies_content_form_set_dependency_management_approach(ConstraintsAndDependenciesContentForm *self, const char *value);
-char *constraints_and_dependencies_content_form_monitoring_frequency(const ConstraintsAndDependenciesContentForm *self);
-void constraints_and_dependencies_content_form_set_monitoring_frequency(ConstraintsAndDependenciesContentForm *self, const char *value);
-char *constraints_and_dependencies_content_form_escalation_path(const ConstraintsAndDependenciesContentForm *self);
-void constraints_and_dependencies_content_form_set_escalation_path(ConstraintsAndDependenciesContentForm *self, const char *value);
-
-// ConstraintsContentForm is the generated form facade for the `content` @Form section.
-void constraints_content_form_init(ConstraintsContentForm *self, SpecDocument *doc, const char *path);
-void constraints_content_form_free(ConstraintsContentForm *self);
-char *constraints_content_form_constraint_summary(const ConstraintsContentForm *self);
-void constraints_content_form_set_constraint_summary(ConstraintsContentForm *self, const char *value);
-char *constraints_content_form_primary_constraint_category(const ConstraintsContentForm *self);
-void constraints_content_form_set_primary_constraint_category(ConstraintsContentForm *self, const char *value);
-char *constraints_content_form_constraint_impact_level(const ConstraintsContentForm *self);
-void constraints_content_form_set_constraint_impact_level(ConstraintsContentForm *self, const char *value);
-char *constraints_content_form_flexibility_assessment(const ConstraintsContentForm *self);
-void constraints_content_form_set_flexibility_assessment(ConstraintsContentForm *self, const char *value);
-char *constraints_content_form_regulatory_constraint_count(const ConstraintsContentForm *self);
-void constraints_content_form_set_regulatory_constraint_count(ConstraintsContentForm *self, const char *value);
-char *constraints_content_form_contractual_constraint_count(const ConstraintsContentForm *self);
-void constraints_content_form_set_contractual_constraint_count(ConstraintsContentForm *self, const char *value);
-char *constraints_content_form_budgetary_constraint_count(const ConstraintsContentForm *self);
-void constraints_content_form_set_budgetary_constraint_count(ConstraintsContentForm *self, const char *value);
-char *constraints_content_form_timeline_constraint_count(const ConstraintsContentForm *self);
-void constraints_content_form_set_timeline_constraint_count(ConstraintsContentForm *self, const char *value);
-char *constraints_content_form_resource_constraint_count(const ConstraintsContentForm *self);
-void constraints_content_form_set_resource_constraint_count(ConstraintsContentForm *self, const char *value);
-char *constraints_content_form_technical_constraint_count(const ConstraintsContentForm *self);
-void constraints_content_form_set_technical_constraint_count(ConstraintsContentForm *self, const char *value);
 
 // ContextualHelpContextualHelpContentForm is the generated form facade for the `contextualHelpContent` @Form section.
 void contextual_help_contextual_help_content_form_init(ContextualHelpContextualHelpContentForm *self, SpecDocument *doc, const char *path);
@@ -43142,42 +42606,6 @@ void delivery_acceptance_criterion_entry_verification_content_form_set_measureme
 char *delivery_acceptance_criterion_entry_verification_content_form_evidence_required(const DeliveryAcceptanceCriterionEntryVerificationContentForm *self);
 void delivery_acceptance_criterion_entry_verification_content_form_set_evidence_required(DeliveryAcceptanceCriterionEntryVerificationContentForm *self, const char *value);
 
-// DependencyClassificationContentForm is the generated form facade for the `content` @Form section.
-void dependency_classification_content_form_init(DependencyClassificationContentForm *self, SpecDocument *doc, const char *path);
-void dependency_classification_content_form_free(DependencyClassificationContentForm *self);
-char *dependency_classification_content_form_dependency_category(const DependencyClassificationContentForm *self);
-void dependency_classification_content_form_set_dependency_category(DependencyClassificationContentForm *self, const char *value);
-char *dependency_classification_content_form_dependency_type(const DependencyClassificationContentForm *self);
-void dependency_classification_content_form_set_dependency_type(DependencyClassificationContentForm *self, const char *value);
-char *dependency_classification_content_form_on_critical_path(const DependencyClassificationContentForm *self);
-void dependency_classification_content_form_set_on_critical_path(DependencyClassificationContentForm *self, const char *value);
-
-// DependencyDeliverableContentForm is the generated form facade for the `content` @Form section.
-void dependency_deliverable_content_form_init(DependencyDeliverableContentForm *self, SpecDocument *doc, const char *path);
-void dependency_deliverable_content_form_free(DependencyDeliverableContentForm *self);
-char *dependency_deliverable_content_form_deliverable_description(const DependencyDeliverableContentForm *self);
-void dependency_deliverable_content_form_set_deliverable_description(DependencyDeliverableContentForm *self, const char *value);
-char *dependency_deliverable_content_form_deliverable_specification(const DependencyDeliverableContentForm *self);
-void dependency_deliverable_content_form_set_deliverable_specification(DependencyDeliverableContentForm *self, const char *value);
-char *dependency_deliverable_content_form_quality_criteria(const DependencyDeliverableContentForm *self);
-void dependency_deliverable_content_form_set_quality_criteria(DependencyDeliverableContentForm *self, const char *value);
-char *dependency_deliverable_content_form_delivery_format(const DependencyDeliverableContentForm *self);
-void dependency_deliverable_content_form_set_delivery_format(DependencyDeliverableContentForm *self, const char *value);
-
-// DependencyExternalPartyContentForm is the generated form facade for the `content` @Form section.
-void dependency_external_party_content_form_init(DependencyExternalPartyContentForm *self, SpecDocument *doc, const char *path);
-void dependency_external_party_content_form_free(DependencyExternalPartyContentForm *self);
-char *dependency_external_party_content_form_external_party_name(const DependencyExternalPartyContentForm *self);
-void dependency_external_party_content_form_set_external_party_name(DependencyExternalPartyContentForm *self, const char *value);
-char *dependency_external_party_content_form_external_party_type(const DependencyExternalPartyContentForm *self);
-void dependency_external_party_content_form_set_external_party_type(DependencyExternalPartyContentForm *self, const char *value);
-char *dependency_external_party_content_form_contact_person(const DependencyExternalPartyContentForm *self);
-void dependency_external_party_content_form_set_contact_person(DependencyExternalPartyContentForm *self, const char *value);
-char *dependency_external_party_content_form_contact_email(const DependencyExternalPartyContentForm *self);
-void dependency_external_party_content_form_set_contact_email(DependencyExternalPartyContentForm *self, const char *value);
-char *dependency_external_party_content_form_escalation_contact(const DependencyExternalPartyContentForm *self);
-void dependency_external_party_content_form_set_escalation_contact(DependencyExternalPartyContentForm *self, const char *value);
-
 // DependencyHealthMonitoringCacheContentForm is the generated form facade for the `content` @Form section.
 void dependency_health_monitoring_cache_content_form_init(DependencyHealthMonitoringCacheContentForm *self, SpecDocument *doc, const char *path);
 void dependency_health_monitoring_cache_content_form_free(DependencyHealthMonitoringCacheContentForm *self);
@@ -43225,12 +42653,6 @@ char *dependency_health_monitoring_thresholds_content_form_cascade_protection(co
 void dependency_health_monitoring_thresholds_content_form_set_cascade_protection(DependencyHealthMonitoringThresholdsContentForm *self, const char *value);
 char *dependency_health_monitoring_thresholds_content_form_notes(const DependencyHealthMonitoringThresholdsContentForm *self);
 void dependency_health_monitoring_thresholds_content_form_set_notes(DependencyHealthMonitoringThresholdsContentForm *self, const char *value);
-
-// DependencyIdentityContentForm is the generated form facade for the `content` @Form section.
-void dependency_identity_content_form_init(DependencyIdentityContentForm *self, SpecDocument *doc, const char *path);
-void dependency_identity_content_form_free(DependencyIdentityContentForm *self);
-char *dependency_identity_content_form_dependency_description(const DependencyIdentityContentForm *self);
-void dependency_identity_content_form_set_dependency_description(DependencyIdentityContentForm *self, const char *value);
 
 // DependencyInjectionStructureBindingContentForm is the generated form facade for the `content` @Form section.
 void dependency_injection_structure_binding_content_form_init(DependencyInjectionStructureBindingContentForm *self, SpecDocument *doc, const char *path);
@@ -43282,18 +42704,6 @@ void dependency_injection_structure_troubleshooting_content_form_set_circular_de
 char *dependency_injection_structure_troubleshooting_content_form_notes(const DependencyInjectionStructureTroubleshootingContentForm *self);
 void dependency_injection_structure_troubleshooting_content_form_set_notes(DependencyInjectionStructureTroubleshootingContentForm *self, const char *value);
 
-// DependencyLinkagesContentForm is the generated form facade for the `content` @Form section.
-void dependency_linkages_content_form_init(DependencyLinkagesContentForm *self, SpecDocument *doc, const char *path);
-void dependency_linkages_content_form_free(DependencyLinkagesContentForm *self);
-char *dependency_linkages_content_form_related_constraints(const DependencyLinkagesContentForm *self);
-void dependency_linkages_content_form_set_related_constraints(DependencyLinkagesContentForm *self, const char *value);
-char *dependency_linkages_content_form_related_risks(const DependencyLinkagesContentForm *self);
-void dependency_linkages_content_form_set_related_risks(DependencyLinkagesContentForm *self, const char *value);
-char *dependency_linkages_content_form_related_dependencies(const DependencyLinkagesContentForm *self);
-void dependency_linkages_content_form_set_related_dependencies(DependencyLinkagesContentForm *self, const char *value);
-char *dependency_linkages_content_form_affected_work_packages(const DependencyLinkagesContentForm *self);
-void dependency_linkages_content_form_set_affected_work_packages(DependencyLinkagesContentForm *self, const char *value);
-
 // DependencyManagementContentForm is the generated form facade for the `content` @Form section.
 void dependency_management_content_form_init(DependencyManagementContentForm *self, SpecDocument *doc, const char *path);
 void dependency_management_content_form_free(DependencyManagementContentForm *self);
@@ -43342,20 +42752,6 @@ void dependency_management_versioning_content_form_set_dependency_update_policy(
 char *dependency_management_versioning_content_form_lockfile_policy(const DependencyManagementVersioningContentForm *self);
 void dependency_management_versioning_content_form_set_lockfile_policy(DependencyManagementVersioningContentForm *self, const char *value);
 
-// DependencyMitigationContentForm is the generated form facade for the `content` @Form section.
-void dependency_mitigation_content_form_init(DependencyMitigationContentForm *self, SpecDocument *doc, const char *path);
-void dependency_mitigation_content_form_free(DependencyMitigationContentForm *self);
-char *dependency_mitigation_content_form_mitigation_strategy(const DependencyMitigationContentForm *self);
-void dependency_mitigation_content_form_set_mitigation_strategy(DependencyMitigationContentForm *self, const char *value);
-char *dependency_mitigation_content_form_contingency_plan(const DependencyMitigationContentForm *self);
-void dependency_mitigation_content_form_set_contingency_plan(DependencyMitigationContentForm *self, const char *value);
-char *dependency_mitigation_content_form_contingency_timeline(const DependencyMitigationContentForm *self);
-void dependency_mitigation_content_form_set_contingency_timeline(DependencyMitigationContentForm *self, const char *value);
-char *dependency_mitigation_content_form_contractual_protection(const DependencyMitigationContentForm *self);
-void dependency_mitigation_content_form_set_contractual_protection(DependencyMitigationContentForm *self, const char *value);
-char *dependency_mitigation_content_form_alternative_options(const DependencyMitigationContentForm *self);
-void dependency_mitigation_content_form_set_alternative_options(DependencyMitigationContentForm *self, const char *value);
-
 // DependencyRegisterEntryContentForm is the generated form facade for the `content` @Form section.
 void dependency_register_entry_content_form_init(DependencyRegisterEntryContentForm *self, SpecDocument *doc, const char *path);
 void dependency_register_entry_content_form_free(DependencyRegisterEntryContentForm *self);
@@ -43371,20 +42767,6 @@ char *dependency_register_entry_content_form_criticality(const DependencyRegiste
 void dependency_register_entry_content_form_set_criticality(DependencyRegisterEntryContentForm *self, const char *value);
 char *dependency_register_entry_content_form_status(const DependencyRegisterEntryContentForm *self);
 void dependency_register_entry_content_form_set_status(DependencyRegisterEntryContentForm *self, const char *value);
-
-// DependencyRiskContentForm is the generated form facade for the `content` @Form section.
-void dependency_risk_content_form_init(DependencyRiskContentForm *self, SpecDocument *doc, const char *path);
-void dependency_risk_content_form_free(DependencyRiskContentForm *self);
-char *dependency_risk_content_form_delivery_risk_level(const DependencyRiskContentForm *self);
-void dependency_risk_content_form_set_delivery_risk_level(DependencyRiskContentForm *self, const char *value);
-char *dependency_risk_content_form_primary_risk_factors(const DependencyRiskContentForm *self);
-void dependency_risk_content_form_set_primary_risk_factors(DependencyRiskContentForm *self, const char *value);
-char *dependency_risk_content_form_risk_indicators(const DependencyRiskContentForm *self);
-void dependency_risk_content_form_set_risk_indicators(DependencyRiskContentForm *self, const char *value);
-char *dependency_risk_content_form_impact_of_delay(const DependencyRiskContentForm *self);
-void dependency_risk_content_form_set_impact_of_delay(DependencyRiskContentForm *self, const char *value);
-char *dependency_risk_content_form_impact_of_failure(const DependencyRiskContentForm *self);
-void dependency_risk_content_form_set_impact_of_failure(DependencyRiskContentForm *self, const char *value);
 
 // DependencyScanningRequirementsContentForm is the generated form facade for the `content` @Form section.
 void dependency_scanning_requirements_content_form_init(DependencyScanningRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -43437,38 +42819,6 @@ char *dependency_scanning_requirements_vulnerabilities_content_form_remediation_
 void dependency_scanning_requirements_vulnerabilities_content_form_set_remediation_sla(DependencyScanningRequirementsVulnerabilitiesContentForm *self, const char *value);
 char *dependency_scanning_requirements_vulnerabilities_content_form_exception_process(const DependencyScanningRequirementsVulnerabilitiesContentForm *self);
 void dependency_scanning_requirements_vulnerabilities_content_form_set_exception_process(DependencyScanningRequirementsVulnerabilitiesContentForm *self, const char *value);
-
-// DependencyTimelineContentForm is the generated form facade for the `content` @Form section.
-void dependency_timeline_content_form_init(DependencyTimelineContentForm *self, SpecDocument *doc, const char *path);
-void dependency_timeline_content_form_free(DependencyTimelineContentForm *self);
-char *dependency_timeline_content_form_expected_delivery_date(const DependencyTimelineContentForm *self);
-void dependency_timeline_content_form_set_expected_delivery_date(DependencyTimelineContentForm *self, const char *value);
-char *dependency_timeline_content_form_latest_acceptable_date(const DependencyTimelineContentForm *self);
-void dependency_timeline_content_form_set_latest_acceptable_date(DependencyTimelineContentForm *self, const char *value);
-char *dependency_timeline_content_form_lead_time_required(const DependencyTimelineContentForm *self);
-void dependency_timeline_content_form_set_lead_time_required(DependencyTimelineContentForm *self, const char *value);
-char *dependency_timeline_content_form_buffer_days(const DependencyTimelineContentForm *self);
-void dependency_timeline_content_form_set_buffer_days(DependencyTimelineContentForm *self, const char *value);
-char *dependency_timeline_content_form_dependent_milestones(const DependencyTimelineContentForm *self);
-void dependency_timeline_content_form_set_dependent_milestones(DependencyTimelineContentForm *self, const char *value);
-
-// DependencyTrackingContentForm is the generated form facade for the `content` @Form section.
-void dependency_tracking_content_form_init(DependencyTrackingContentForm *self, SpecDocument *doc, const char *path);
-void dependency_tracking_content_form_free(DependencyTrackingContentForm *self);
-char *dependency_tracking_content_form_coordination_mechanism(const DependencyTrackingContentForm *self);
-void dependency_tracking_content_form_set_coordination_mechanism(DependencyTrackingContentForm *self, const char *value);
-char *dependency_tracking_content_form_communication_frequency(const DependencyTrackingContentForm *self);
-void dependency_tracking_content_form_set_communication_frequency(DependencyTrackingContentForm *self, const char *value);
-char *dependency_tracking_content_form_tracking_method(const DependencyTrackingContentForm *self);
-void dependency_tracking_content_form_set_tracking_method(DependencyTrackingContentForm *self, const char *value);
-char *dependency_tracking_content_form_dependency_owner(const DependencyTrackingContentForm *self);
-void dependency_tracking_content_form_set_dependency_owner(DependencyTrackingContentForm *self, const char *value);
-char *dependency_tracking_content_form_current_status(const DependencyTrackingContentForm *self);
-void dependency_tracking_content_form_set_current_status(DependencyTrackingContentForm *self, const char *value);
-char *dependency_tracking_content_form_status_last_updated(const DependencyTrackingContentForm *self);
-void dependency_tracking_content_form_set_status_last_updated(DependencyTrackingContentForm *self, const char *value);
-char *dependency_tracking_content_form_status_notes(const DependencyTrackingContentForm *self);
-void dependency_tracking_content_form_set_status_notes(DependencyTrackingContentForm *self, const char *value);
 
 // DeploymentContextDeploymentDetailsForm is the generated form facade for the `deploymentDetails` @Form section.
 void deployment_context_deployment_details_form_init(DeploymentContextDeploymentDetailsForm *self, SpecDocument *doc, const char *path);
@@ -47137,52 +46487,6 @@ char *framework_compatibility_content_form_conflicts_with(const FrameworkCompati
 void framework_compatibility_content_form_set_conflicts_with(FrameworkCompatibilityContentForm *self, const char *value);
 char *framework_compatibility_content_form_deprecation_warnings(const FrameworkCompatibilityContentForm *self);
 void framework_compatibility_content_form_set_deprecation_warnings(FrameworkCompatibilityContentForm *self, const char *value);
-
-// FrameworkDependenciesCategoriesContentForm is the generated form facade for the `content` @Form section.
-void framework_dependencies_categories_content_form_init(FrameworkDependenciesCategoriesContentForm *self, SpecDocument *doc, const char *path);
-void framework_dependencies_categories_content_form_free(FrameworkDependenciesCategoriesContentForm *self);
-char *framework_dependencies_categories_content_form_project_dependency_count(const FrameworkDependenciesCategoriesContentForm *self);
-void framework_dependencies_categories_content_form_set_project_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value);
-char *framework_dependencies_categories_content_form_team_dependency_count(const FrameworkDependenciesCategoriesContentForm *self);
-void framework_dependencies_categories_content_form_set_team_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value);
-char *framework_dependencies_categories_content_form_vendor_dependency_count(const FrameworkDependenciesCategoriesContentForm *self);
-void framework_dependencies_categories_content_form_set_vendor_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value);
-char *framework_dependencies_categories_content_form_system_dependency_count(const FrameworkDependenciesCategoriesContentForm *self);
-void framework_dependencies_categories_content_form_set_system_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value);
-char *framework_dependencies_categories_content_form_regulatory_dependency_count(const FrameworkDependenciesCategoriesContentForm *self);
-void framework_dependencies_categories_content_form_set_regulatory_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value);
-char *framework_dependencies_categories_content_form_infrastructure_dependency_count(const FrameworkDependenciesCategoriesContentForm *self);
-void framework_dependencies_categories_content_form_set_infrastructure_dependency_count(FrameworkDependenciesCategoriesContentForm *self, const char *value);
-
-// FrameworkDependenciesContentForm is the generated form facade for the `content` @Form section.
-void framework_dependencies_content_form_init(FrameworkDependenciesContentForm *self, SpecDocument *doc, const char *path);
-void framework_dependencies_content_form_free(FrameworkDependenciesContentForm *self);
-char *framework_dependencies_content_form_dependency_summary(const FrameworkDependenciesContentForm *self);
-void framework_dependencies_content_form_set_dependency_summary(FrameworkDependenciesContentForm *self, const char *value);
-char *framework_dependencies_content_form_primary_dependency_category(const FrameworkDependenciesContentForm *self);
-void framework_dependencies_content_form_set_primary_dependency_category(FrameworkDependenciesContentForm *self, const char *value);
-char *framework_dependencies_content_form_dependency_risk_level(const FrameworkDependenciesContentForm *self);
-void framework_dependencies_content_form_set_dependency_risk_level(FrameworkDependenciesContentForm *self, const char *value);
-char *framework_dependencies_content_form_critical_path_dependency_count(const FrameworkDependenciesContentForm *self);
-void framework_dependencies_content_form_set_critical_path_dependency_count(FrameworkDependenciesContentForm *self, const char *value);
-
-// FrameworkDependenciesManagementContentForm is the generated form facade for the `content` @Form section.
-void framework_dependencies_management_content_form_init(FrameworkDependenciesManagementContentForm *self, SpecDocument *doc, const char *path);
-void framework_dependencies_management_content_form_free(FrameworkDependenciesManagementContentForm *self);
-char *framework_dependencies_management_content_form_dependency_coordination_approach(const FrameworkDependenciesManagementContentForm *self);
-void framework_dependencies_management_content_form_set_dependency_coordination_approach(FrameworkDependenciesManagementContentForm *self, const char *value);
-char *framework_dependencies_management_content_form_early_warning_mechanism(const FrameworkDependenciesManagementContentForm *self);
-void framework_dependencies_management_content_form_set_early_warning_mechanism(FrameworkDependenciesManagementContentForm *self, const char *value);
-
-// FrameworkDependencyEntryContentForm is the generated form facade for the `content` @Form section.
-void framework_dependency_entry_content_form_init(FrameworkDependencyEntryContentForm *self, SpecDocument *doc, const char *path);
-void framework_dependency_entry_content_form_free(FrameworkDependencyEntryContentForm *self);
-char *framework_dependency_entry_content_form_dependency_id(const FrameworkDependencyEntryContentForm *self);
-void framework_dependency_entry_content_form_set_dependency_id(FrameworkDependencyEntryContentForm *self, const char *value);
-char *framework_dependency_entry_content_form_dependency_name(const FrameworkDependencyEntryContentForm *self);
-void framework_dependency_entry_content_form_set_dependency_name(FrameworkDependencyEntryContentForm *self, const char *value);
-char *framework_dependency_entry_content_form_criticality_level(const FrameworkDependencyEntryContentForm *self);
-void framework_dependency_entry_content_form_set_criticality_level(FrameworkDependencyEntryContentForm *self, const char *value);
 
 // FrameworkIdentityContentForm is the generated form facade for the `content` @Form section.
 void framework_identity_content_form_init(FrameworkIdentityContentForm *self, SpecDocument *doc, const char *path);

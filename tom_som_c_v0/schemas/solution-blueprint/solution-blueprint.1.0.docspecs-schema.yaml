@@ -1126,12 +1126,6 @@ section-types:
       pattern: ^cmpnt_comp_lst-\d+$
       error-message: ID must match cmpnt_comp_lst-NNN
     description: 12.2. Component Catalog — contains 0+× Component.
-  COLI1-LINK-LST:
-    prefix: coli1_link_lst
-    pattern-check-id:
-      pattern: ^coli1_link_lst-\d+$
-      error-message: ID must match coli1_link_lst-NNN
-    description: Linkages.
   COMMB-MEMB-LST:
     prefix: commb_memb_lst
     min-count-in-document: 1
@@ -1235,12 +1229,6 @@ section-types:
       pattern: ^dclse_item_lst-\d+$
       error-message: ID must match dclse_item_lst-NNN
     description: Contains 0+× DataClassificationEntry.
-  DELI1-LINK-LST:
-    prefix: deli1_link_lst
-    pattern-check-id:
-      pattern: ^deli1_link_lst-\d+$
-      error-message: ID must match deli1_link_lst-NNN
-    description: Linkages.
   DEPEN-DEPE-LST:
     prefix: depen_depe_lst
     pattern-check-id:
@@ -1414,12 +1402,6 @@ section-types:
       pattern: ^funct_func_lst-\d+$
       error-message: ID must match funct_func_lst-NNN
     description: 7.3.1. Function Decomposition — contains 0+× Function.
-  FWRDP-ITEM-LST:
-    prefix: fwrdp_item_lst
-    pattern-check-id:
-      pattern: ^fwrdp_item_lst-\d+$
-      error-message: ID must match fwrdp_item_lst-NNN
-    description: Contains 0+× FrameworkDependency.
   FWREN-FRAM-LST:
     prefix: fwren_fram_lst
     pattern-check-id:
@@ -2549,18 +2531,6 @@ section-types:
       pattern: ^arpr_prin_lst-\d+$
       error-message: ID must match arpr_prin_lst-NNN
     description: Architecture principles guiding design decisions.
-  ASEN-ITEM-LST:
-    prefix: asen_item_lst
-    pattern-check-id:
-      pattern: ^asen_item_lst-\d+$
-      error-message: ID must match asen_item_lst-NNN
-    description: Contains 0+× Assumption.
-  ASRE-RELA-LST:
-    prefix: asre_rela_lst
-    pattern-check-id:
-      pattern: ^asre_rela_lst-\d+$
-      error-message: ID must match asre_rela_lst-NNN
-    description: Relationships to other project elements.
   ATME-ITEM-LST:
     prefix: atme_item_lst
     pattern-check-id:
@@ -2666,24 +2636,12 @@ section-types:
       pattern: ^cmvn_vari_lst-\d+$
       error-message: ID must match cmvn_vari_lst-NNN
     description: Contains 0+× ComponentVariant.
-  CODE-DETA-LST:
-    prefix: code_deta_lst
-    pattern-check-id:
-      pattern: ^code_deta_lst-\d+$
-      error-message: ID must match code_deta_lst-NNN
-    description: Details.
   CODO-DOCS-LST:
     prefix: codo_docs_lst
     pattern-check-id:
       pattern: ^codo_docs_lst-\d+$
       error-message: ID must match codo_docs_lst-NNN
     description: Documentation.
-  COEN-ITEM-LST:
-    prefix: coen_item_lst
-    pattern-check-id:
-      pattern: ^coen_item_lst-\d+$
-      error-message: ID must match coen_item_lst-NNN
-    description: Contains 0+× Constraint.
   COEQ-PRIM-LST:
     prefix: coeq_prim_lst
     pattern-check-id:
@@ -3850,9 +3808,6 @@ section-types:
   COMPL1:
     prefix: compl1
     description: A single compliance requirement entry.
-  CONSTR:
-    prefix: constr
-    description: 4.6.4.1. Constraints.
   COORCO:
     prefix: coorco
     description: Coupling guidance.
@@ -4105,9 +4060,6 @@ section-types:
   DECOLO:
     prefix: decolo
     description: Logging setup for debugging.
-  DEEXPA:
-    prefix: deexpa
-    description: External party details.
   DEHEMO:
     prefix: dehemo
     description: Dependency health monitoring.
@@ -4426,12 +4378,6 @@ section-types:
   FLQUMO:
     prefix: flqumo
     description: Modularity and reuse goals.
-  FRDECA:
-    prefix: frdeca
-    description: Dependency counts by category.
-  FRDEMA:
-    prefix: frdema
-    description: Coordination and early warning mechanisms.
   FTRMOD:
     prefix: ftrmod
     description: Feature module entry — a vertical slice feature.
@@ -5310,7 +5256,7 @@ section-types:
     description: Implementation and deployment tracking.
   RIANAS:
     prefix: rianas
-    description: 4.7. Risks and Assumptions.
+    description: 4.7. Risks.
   RIBUIM:
     prefix: ribuim
     description: Business impact assessment for the risk.
@@ -6319,9 +6265,6 @@ section-types:
   COFR1:
     prefix: cofr1
     description: 9.8. Compliance Framework.
-  COLI1:
-    prefix: coli1
-    description: Linkages for constraint.
   COMA1:
     prefix: coma1
     description: Configuration management.
@@ -6469,9 +6412,6 @@ section-types:
   DEGOL:
     prefix: degol
     description: 10.1.1. Design Goals.
-  DELI1:
-    prefix: deli1
-    description: Dependency linkages.
   DEME1:
     prefix: deme1
     description: A data entity migration entry.
@@ -6894,9 +6834,6 @@ section-types:
   FWRCP:
     prefix: fwrcp
     description: Compatibility.
-  FWRDP:
-    prefix: fwrdp
-    description: A framework dependency entry (form).
   FWRID:
     prefix: fwrid
     description: Identity details.
@@ -8872,30 +8809,15 @@ section-types:
   ASET:
     prefix: aset
     description: Testing approach.
-  ASID:
-    prefix: asid
-    description: Assumption identification details.
-  ASIM:
-    prefix: asim
-    description: Impact assessment if assumption proves false.
-  ASOV:
-    prefix: asov
-    description: Overview of assumptions management.
   ASRA:
     prefix: asra
     description: API and browser-facing protections.
   ASRC:
     prefix: asrc
     description: Core protection controls.
-  ASRE:
-    prefix: asre
-    description: Relationships to other project elements.
   ASRV:
     prefix: asrv
     description: Input and output validation.
-  ASVA:
-    prefix: asva
-    description: Assumption validation details.
   ATME:
     prefix: atme
     description: An authentication method entry (form).
@@ -9283,15 +9205,9 @@ section-types:
   CNRP:
     prefix: cnrp
     description: Protocol requirements.
-  COCL:
-    prefix: cocl
-    description: Classification for constraint.
   COCO:
     prefix: coco
     description: Cost for component.
-  CODE:
-    prefix: code
-    description: Details for constraint.
   CODO:
     prefix: codo
     description: Docs for component.
@@ -9310,18 +9226,12 @@ section-types:
   COHE:
     prefix: cohe
     description: 10.8.1. Contextual Help.
-  COIM:
-    prefix: coim
-    description: Impact assessment for constraint.
   COLI:
     prefix: coli
     description: 10.11.1. Component Library.
   COMA:
     prefix: coma
     description: Communication matrix defining stakeholder communication patterns.
-  COMI:
-    prefix: comi
-    description: Mitigation for constraint.
   COMP:
     prefix: comp
     description: 12. Components to Use. Seeds → ATS.
@@ -9346,9 +9256,6 @@ section-types:
   CORI:
     prefix: cori
     description: Risk for component.
-  COTR:
-    prefix: cotr
-    description: Tracking for constraint.
   COTY:
     prefix: coty
     description: A communication type with distribution rules.
@@ -9689,15 +9596,9 @@ section-types:
   DDES:
     prefix: ddes
     description: Sources and duplication shape.
-  DECL:
-    prefix: decl
-    description: Dependency classification.
   DECO:
     prefix: deco
     description: Debugging configuration.
-  DEDE:
-    prefix: dede
-    description: Deliverable details.
   DEEC:
     prefix: deec
     description: Configuration and secrets sourcing.
@@ -9716,18 +9617,12 @@ section-types:
   DEEV:
     prefix: deev
     description: Display quality and connection properties.
-  DEID:
-    prefix: deid
-    description: Dependency identity details.
   DELI:
     prefix: deli
     description: 10.3.1.7. Deep Linking.
   DEMA:
     prefix: dema
     description: Dependency management configuration.
-  DEMI:
-    prefix: demi
-    description: Dependency mitigation and contingency.
   DEON:
     prefix: deon
     description: Developer onboarding requirements.
@@ -9737,21 +9632,12 @@ section-types:
   DERE:
     prefix: dere
     description: 14.2.4. Defect Resolution.
-  DERI:
-    prefix: deri
-    description: Dependency risk assessment.
   DESE:
     prefix: dese
     description: Deployment security requirements.
-  DETI:
-    prefix: deti
-    description: Dependency timeline.
   DETO:
     prefix: deto
     description: Deployment topology and infrastructure.
-  DETR:
-    prefix: detr
-    description: Dependency coordination and tracking.
   DFCF:
     prefix: dfcf
     description: Data format compatibility.
@@ -10206,9 +10092,6 @@ section-types:
   FRCO:
     prefix: frco
     description: 4.6. Framework Conditions.
-  FRDE:
-    prefix: frde
-    description: 4.6.4.2. Dependencies.
   FRE1:
     prefix: fre1
     description: Framework or library requirement entry.
@@ -10566,9 +10449,6 @@ section-types:
   KCRP:
     prefix: kcrp
     description: Key compromise and recovery policy (form).
-  KEAS:
-    prefix: keas
-    description: 4.7.2. Key Assumptions.
   KEMA:
     prefix: kema
     description: 9.5.3. Key Management.
@@ -13330,9 +13210,6 @@ section-types:
   WSE:
     prefix: wse
     description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
-  AE:
-    prefix: ae
-    description: An assumption entry (form).
   AL:
     prefix: al
     description: "Define access levels and how they relate to user categories, features, and data. This establishes the authorization framework."
@@ -13373,9 +13250,6 @@ section-types:
   CD:
     prefix: cd
     description: "Provide a context diagram showing the system as a black box with all external entities (users, systems, organizations) and the data/control flows between them."
-  CE:
-    prefix: ce
-    description: A constraint entry (form).
   CI:
     prefix: ci
     description: Channel-specific integration requirements.

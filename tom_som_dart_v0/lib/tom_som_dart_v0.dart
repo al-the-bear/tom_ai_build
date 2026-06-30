@@ -1736,40 +1736,6 @@ class AssumptionConstraintRegister extends SomNode {
   SomList<DependencyRegisterEntry> get dependencies => SomList<DependencyRegisterEntry>(doc, '$path/ACRG-DEPS-LST', (d, p) => DependencyRegisterEntry(d, p));
 }
 
-/// An assumption entry (form).
-/// 
-/// Documents a project assumption including its basis, validation approach,
-/// and contingency plans if the assumption proves false.
-class AssumptionEntry extends SomNode {
-  AssumptionEntry(super.doc, super.path);
-
-  /// Assumption identification and description.
-  AssumptionIdentification get identification => AssumptionIdentification(doc, '$path/identification');
-
-  /// Assumption validation details.
-  AssumptionValidation get validation => AssumptionValidation(doc, '$path/validation');
-
-  /// Impact and contingency if assumption is false.
-  AssumptionImpact get impact => AssumptionImpact(doc, '$path/impact');
-
-  /// Relationships to other project elements.
-  SomList<AssumptionRelationships> get relationships => SomList<AssumptionRelationships>(doc, '$path/ASRE-RELA-LST', (d, p) => AssumptionRelationships(d, p));
-}
-
-/// Assumption identification details.
-class AssumptionIdentification extends SomNode {
-  AssumptionIdentification(super.doc, super.path);
-
-  AssumptionIdentificationContentForm get content => AssumptionIdentificationContentForm(doc, '$path/content');
-}
-
-/// Impact assessment if assumption proves false.
-class AssumptionImpact extends SomNode {
-  AssumptionImpact(super.doc, super.path);
-
-  AssumptionImpactContentForm get content => AssumptionImpactContentForm(doc, '$path/content');
-}
-
 /// A single assumption register entry (form).
 /// 
 /// Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
@@ -1778,20 +1744,6 @@ class AssumptionRegisterEntry extends SomNode {
   AssumptionRegisterEntry(super.doc, super.path);
 
   AssumptionRegisterEntryContentForm get content => AssumptionRegisterEntryContentForm(doc, '$path/content');
-}
-
-/// Relationships to other project elements.
-class AssumptionRelationships extends SomNode {
-  AssumptionRelationships(super.doc, super.path);
-
-  AssumptionRelationshipsContentForm get content => AssumptionRelationshipsContentForm(doc, '$path/content');
-}
-
-/// Assumption validation details.
-class AssumptionValidation extends SomNode {
-  AssumptionValidation(super.doc, super.path);
-
-  AssumptionValidationContentForm get content => AssumptionValidationContentForm(doc, '$path/content');
 }
 
 /// SBP.6 Assumptions, Constraints & Dependencies.
@@ -1803,13 +1755,6 @@ class AssumptionsConstraintsDependencies extends SomNode {
 
   /// The consolidated assumption / constraint register.
   AssumptionConstraintRegister get register => AssumptionConstraintRegister(doc, '$path/register');
-}
-
-/// Overview of assumptions management.
-class AssumptionsOverview extends SomNode {
-  AssumptionsOverview(super.doc, super.path);
-
-  AssumptionsOverviewContentForm get content => AssumptionsOverviewContentForm(doc, '$path/content');
 }
 
 /// A single attribute interdependency entry.
@@ -6260,72 +6205,6 @@ class ConsentManagementRequirementsTracking extends SomNode {
   ConsentManagementRequirementsTrackingContentForm get content => ConsentManagementRequirementsTrackingContentForm(doc, '$path/content');
 }
 
-/// Classification for constraint.
-class ConstraintClassification extends SomNode {
-  ConstraintClassification(super.doc, super.path);
-
-  ConstraintClassificationContentForm get content => ConstraintClassificationContentForm(doc, '$path/content');
-}
-
-/// Details for constraint.
-class ConstraintDetails extends SomNode {
-  ConstraintDetails(super.doc, super.path);
-
-  ConstraintDetailsContentForm get content => ConstraintDetailsContentForm(doc, '$path/content');
-}
-
-/// A constraint entry (form).
-/// 
-/// Represents a single external constraint limiting project degrees of
-/// freedom. Common constraint types include regulatory requirements,
-/// contractual obligations, budget limits, timeline deadlines, resource
-/// caps, and technology mandates. Each constraint should be tracked,
-/// monitored, and have mitigation strategies where possible.
-class ConstraintEntry extends SomNode {
-  ConstraintEntry(super.doc, super.path);
-
-  ConstraintEntryContentForm get content => ConstraintEntryContentForm(doc, '$path/content');
-
-  /// Classification.
-  ConstraintClassification get classification => ConstraintClassification(doc, '$path/classification');
-
-  /// Details.
-  SomList<ConstraintDetails> get details => SomList<ConstraintDetails>(doc, '$path/CODE-DETA-LST', (d, p) => ConstraintDetails(d, p));
-
-  /// Impact assessment.
-  ConstraintImpact get impact => ConstraintImpact(doc, '$path/impact');
-
-  /// Mitigation and response.
-  ConstraintMitigation get mitigation => ConstraintMitigation(doc, '$path/mitigation');
-
-  /// Tracking and monitoring.
-  ConstraintTracking get tracking => ConstraintTracking(doc, '$path/tracking');
-
-  /// Linkages.
-  SomList<ConstraintLinkages> get linkages => SomList<ConstraintLinkages>(doc, '$path/COLI1-LINK-LST', (d, p) => ConstraintLinkages(d, p));
-}
-
-/// Impact assessment for constraint.
-class ConstraintImpact extends SomNode {
-  ConstraintImpact(super.doc, super.path);
-
-  ConstraintImpactContentForm get content => ConstraintImpactContentForm(doc, '$path/content');
-}
-
-/// Linkages for constraint.
-class ConstraintLinkages extends SomNode {
-  ConstraintLinkages(super.doc, super.path);
-
-  ConstraintLinkagesContentForm get content => ConstraintLinkagesContentForm(doc, '$path/content');
-}
-
-/// Mitigation for constraint.
-class ConstraintMitigation extends SomNode {
-  ConstraintMitigation(super.doc, super.path);
-
-  ConstraintMitigationContentForm get content => ConstraintMitigationContentForm(doc, '$path/content');
-}
-
 /// A single constraint register entry (form).
 /// 
 /// Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
@@ -6336,47 +6215,19 @@ class ConstraintRegisterEntry extends SomNode {
   ConstraintRegisterEntryContentForm get content => ConstraintRegisterEntryContentForm(doc, '$path/content');
 }
 
-/// Tracking for constraint.
-class ConstraintTracking extends SomNode {
-  ConstraintTracking(super.doc, super.path);
-
-  ConstraintTrackingContentForm get content => ConstraintTrackingContentForm(doc, '$path/content');
-}
-
-/// 4.6.4.1. Constraints.
-/// 
-/// External constraints limiting project scope, schedule, budget, or
-/// approach. Includes regulatory, contractual, organizational, technical,
-/// and resource constraints. Each constraint must be analysed for impact
-/// and monitored throughout the project lifecycle.
-class Constraints extends SomNode {
-  Constraints(super.doc, super.path);
-
-  ConstraintsContentForm get content => ConstraintsContentForm(doc, '$path/content');
-
-  /// Contains 0+× Constraint.
-  SomList<ConstraintEntry> get items => SomList<ConstraintEntry>(doc, '$path/COEN-ITEM-LST', (d, p) => ConstraintEntry(d, p));
-
-  /// Constraint Summary narrative.
-  // (skipped: constraintNarrative has no target type)
-}
-
 /// 4.6.4. Constraints and Dependencies.
 /// 
-/// Documents external constraints (regulatory, contractual, budgetary,
-/// timeline) and dependencies on other projects, teams, or organizational
-/// initiatives. Follows PMBOK constraint management and dependency
-/// analysis best practices for comprehensive project planning.
+/// Operating-environment view of the constraints and dependencies that shape
+/// project execution. The canonical register of constraints and dependencies
+/// lives in SBP.6 (Assumptions, Constraints & Dependencies). This node does
+/// **not** restate that register (L34C-4 consolidation, SR-10): it frames how
+/// the framework conditions documented in SBP.2 §4.6 give rise to the entries
+/// recorded in SBP.6, and points the reader there.
 class ConstraintsAndDependencies extends SomNode {
   ConstraintsAndDependencies(super.doc, super.path);
 
-  ConstraintsAndDependenciesContentForm get content => ConstraintsAndDependenciesContentForm(doc, '$path/content');
-
-  /// 4.6.4.1. Constraints.
-  Constraints get constraints => Constraints(doc, '$path/constraints');
-
-  /// 4.6.4.2. Dependencies.
-  FrameworkDependencies get frameworkDependencies => FrameworkDependencies(doc, '$path/frameworkDependencies');
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 }
 
 /// Content scanning policy — how uploaded and stored files are scanned for
@@ -9706,33 +9557,12 @@ class DependenciesAndIntegrations extends SomNode {
   IntegrationHealthSummary get healthSummary => IntegrationHealthSummary(doc, '$path/healthSummary');
 }
 
-/// Dependency classification.
-class DependencyClassification extends SomNode {
-  DependencyClassification(super.doc, super.path);
-
-  DependencyClassificationContentForm get content => DependencyClassificationContentForm(doc, '$path/content');
-}
-
-/// Deliverable details.
-class DependencyDeliverable extends SomNode {
-  DependencyDeliverable(super.doc, super.path);
-
-  DependencyDeliverableContentForm get content => DependencyDeliverableContentForm(doc, '$path/content');
-}
-
 /// A single dependency entry.
 class DependencyEntry extends SomNode {
   DependencyEntry(super.doc, super.path);
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
-}
-
-/// External party details.
-class DependencyExternalParty extends SomNode {
-  DependencyExternalParty(super.doc, super.path);
-
-  DependencyExternalPartyContentForm get content => DependencyExternalPartyContentForm(doc, '$path/content');
 }
 
 /// Dependency health monitoring.
@@ -9782,13 +9612,6 @@ class DependencyHealthMonitoringThresholds extends SomNode {
   DependencyHealthMonitoringThresholdsContentForm get content => DependencyHealthMonitoringThresholdsContentForm(doc, '$path/content');
 }
 
-/// Dependency identity details.
-class DependencyIdentity extends SomNode {
-  DependencyIdentity(super.doc, super.path);
-
-  DependencyIdentityContentForm get content => DependencyIdentityContentForm(doc, '$path/content');
-}
-
 /// Dependency injection structure and configuration.
 class DependencyInjectionStructure extends SomNode {
   DependencyInjectionStructure(super.doc, super.path);
@@ -9834,13 +9657,6 @@ class DependencyInjectionStructureTroubleshooting extends SomNode {
   DependencyInjectionStructureTroubleshooting(super.doc, super.path);
 
   DependencyInjectionStructureTroubleshootingContentForm get content => DependencyInjectionStructureTroubleshootingContentForm(doc, '$path/content');
-}
-
-/// Dependency linkages.
-class DependencyLinkages extends SomNode {
-  DependencyLinkages(super.doc, super.path);
-
-  DependencyLinkagesContentForm get content => DependencyLinkagesContentForm(doc, '$path/content');
 }
 
 /// Dependency management configuration.
@@ -9890,13 +9706,6 @@ class DependencyManagementVersioning extends SomNode {
   DependencyManagementVersioningContentForm get content => DependencyManagementVersioningContentForm(doc, '$path/content');
 }
 
-/// Dependency mitigation and contingency.
-class DependencyMitigation extends SomNode {
-  DependencyMitigation(super.doc, super.path);
-
-  DependencyMitigationContentForm get content => DependencyMitigationContentForm(doc, '$path/content');
-}
-
 /// A single dependency register entry (form).
 /// 
 /// Captures an external dependency the solution relies on — another system, a
@@ -9908,13 +9717,6 @@ class DependencyRegisterEntry extends SomNode {
   DependencyRegisterEntry(super.doc, super.path);
 
   DependencyRegisterEntryContentForm get content => DependencyRegisterEntryContentForm(doc, '$path/content');
-}
-
-/// Dependency risk assessment.
-class DependencyRisk extends SomNode {
-  DependencyRisk(super.doc, super.path);
-
-  DependencyRiskContentForm get content => DependencyRiskContentForm(doc, '$path/content');
 }
 
 /// Dependency and supply-chain scanning requirements.
@@ -9962,20 +9764,6 @@ class DependencyScanningRequirementsVulnerabilities extends SomNode {
   DependencyScanningRequirementsVulnerabilities(super.doc, super.path);
 
   DependencyScanningRequirementsVulnerabilitiesContentForm get content => DependencyScanningRequirementsVulnerabilitiesContentForm(doc, '$path/content');
-}
-
-/// Dependency timeline.
-class DependencyTimeline extends SomNode {
-  DependencyTimeline(super.doc, super.path);
-
-  DependencyTimelineContentForm get content => DependencyTimelineContentForm(doc, '$path/content');
-}
-
-/// Dependency coordination and tracking.
-class DependencyTracking extends SomNode {
-  DependencyTracking(super.doc, super.path);
-
-  DependencyTrackingContentForm get content => DependencyTrackingContentForm(doc, '$path/content');
 }
 
 /// 4.1.2.7. Deployment Context.
@@ -13777,83 +13565,6 @@ class FrameworkConditions extends SomNode {
   ConstraintsAndDependencies get constraintsAndDependencies => ConstraintsAndDependencies(doc, '$path/constraintsAndDependencies');
 }
 
-/// 4.6.4.2. Dependencies.
-/// 
-/// External dependencies on other projects, teams, vendors, systems, or
-/// organizational initiatives. Each dependency represents a point where
-/// this project relies on external parties to deliver. Dependencies
-/// should be tracked, risks assessed, and contingencies planned.
-class FrameworkDependencies extends SomNode {
-  FrameworkDependencies(super.doc, super.path);
-
-  FrameworkDependenciesContentForm get content => FrameworkDependenciesContentForm(doc, '$path/content');
-
-  /// Dependency counts by category.
-  FrameworkDependenciesCategories get categories => FrameworkDependenciesCategories(doc, '$path/categories');
-
-  /// Coordination and early warning mechanisms.
-  FrameworkDependenciesManagement get management => FrameworkDependenciesManagement(doc, '$path/management');
-
-  /// Contains 0+× FrameworkDependency.
-  SomList<FrameworkDependencyEntry> get items => SomList<FrameworkDependencyEntry>(doc, '$path/FWRDP-ITEM-LST', (d, p) => FrameworkDependencyEntry(d, p));
-
-  /// Dependency Summary narrative.
-  // (skipped: dependencyNarrative has no target type)
-}
-
-/// Dependency counts by category.
-class FrameworkDependenciesCategories extends SomNode {
-  FrameworkDependenciesCategories(super.doc, super.path);
-
-  FrameworkDependenciesCategoriesContentForm get content => FrameworkDependenciesCategoriesContentForm(doc, '$path/content');
-}
-
-/// Coordination and early warning mechanisms.
-class FrameworkDependenciesManagement extends SomNode {
-  FrameworkDependenciesManagement(super.doc, super.path);
-
-  FrameworkDependenciesManagementContentForm get content => FrameworkDependenciesManagementContentForm(doc, '$path/content');
-}
-
-/// A framework dependency entry (form).
-/// 
-/// Represents a single external dependency where this project relies on
-/// another party (project, team, vendor, system) to deliver something.
-/// Dependencies should be actively managed with clear expectations,
-/// tracking, and contingency plans for delays or failures.
-class FrameworkDependencyEntry extends SomNode {
-  FrameworkDependencyEntry(super.doc, super.path);
-
-  FrameworkDependencyEntryContentForm get content => FrameworkDependencyEntryContentForm(doc, '$path/content');
-
-  /// Dependency identity details.
-  DependencyIdentity get identity => DependencyIdentity(doc, '$path/identity');
-
-  /// Dependency classification.
-  DependencyClassification get classification => DependencyClassification(doc, '$path/classification');
-
-  /// External party details.
-  DependencyExternalParty get externalParty => DependencyExternalParty(doc, '$path/externalParty');
-
-  /// Deliverable details.
-  DependencyDeliverable get deliverable => DependencyDeliverable(doc, '$path/deliverable');
-
-  /// Timeline.
-  DependencyTimeline get timeline => DependencyTimeline(doc, '$path/timeline');
-
-  /// Risk assessment.
-  DependencyRisk get risk => DependencyRisk(doc, '$path/risk');
-
-  /// Mitigation and contingency.
-  DependencyMitigation get mitigation => DependencyMitigation(doc, '$path/mitigation');
-
-  /// Coordination and tracking.
-  DependencyTracking get tracking => DependencyTracking(doc, '$path/tracking');
-
-  /// Linkages.
-  SomList<DependencyLinkages> get linkages => SomList<DependencyLinkages>(doc, '$path/DELI1-LINK-LST', (d, p) => DependencyLinkages(d, p));
-}
-
 /// Identity details.
 class FrameworkIdentity extends SomNode {
   FrameworkIdentity(super.doc, super.path);
@@ -16608,20 +16319,6 @@ class KeyAssumptionEntry extends SomNode {
 
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
-}
-
-/// 4.7.2. Key Assumptions.
-/// 
-/// Documents project assumptions that must hold true for success.
-/// Tracks validation status and contingency plans if assumptions prove false.
-class KeyAssumptions extends SomNode {
-  KeyAssumptions(super.doc, super.path);
-
-  /// Overview of assumptions management approach.
-  AssumptionsOverview get overview => AssumptionsOverview(doc, '$path/overview');
-
-  /// Contains 0+× Assumption.
-  SomList<AssumptionEntry> get items => SomList<AssumptionEntry>(doc, '$path/ASEN-ITEM-LST', (d, p) => AssumptionEntry(d, p));
 }
 
 /// A key attribute entry (form).
@@ -25388,12 +25085,18 @@ class RiskResponseResidual extends SomNode {
   RiskResponseResidualContentForm get content => RiskResponseResidualContentForm(doc, '$path/content');
 }
 
-/// 4.7. Risks and Assumptions.
+/// 4.7. Risks.
 /// 
-/// Documents identified project risks and underlying assumptions following
-/// ISO 31000 Risk Management and PMBOK risk management best practices.
-/// Provides structured framework for risk identification, analysis, response
-/// planning, and ongoing monitoring throughout the project lifecycle.
+/// Documents identified project risks following ISO 31000 Risk Management and
+/// PMBOK risk management best practices. Provides a structured framework for
+/// risk identification, analysis, response planning, and ongoing monitoring
+/// throughout the project lifecycle.
+/// 
+/// Assumptions are **not** held here (L34C-4 consolidation, SR-11): the
+/// canonical assumptions register lives in SBP.6 (Assumptions, Constraints &
+/// Dependencies). Only the risks half — unique to §4.7 — remains in this node.
+/// (The class name remains `RisksAndAssumptions` pending the L34C-9 rename
+/// sweep, which will rename it to `Risks`.)
 class RisksAndAssumptions extends SomNode {
   RisksAndAssumptions(super.doc, super.path);
 
@@ -25402,9 +25105,6 @@ class RisksAndAssumptions extends SomNode {
 
   /// 4.7.1. Key Risks — contains 0+× Risk.
   SomList<RiskEntry> get keyRisks => SomList<RiskEntry>(doc, '$path/RIEN-KEYR-LST', (d, p) => RiskEntry(d, p));
-
-  /// 4.7.2. Key Assumptions — contains 0+×.
-  KeyAssumptions get keyAssumptions => KeyAssumptions(doc, '$path/keyAssumptions');
 }
 
 /// Overview of the risk management approach.
@@ -37487,67 +37187,6 @@ class ArchitecturePrincipleEntryGuidanceContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class AssumptionIdentificationContentForm extends SomNode {
-  AssumptionIdentificationContentForm(super.doc, super.path);
-
-  String get assumptionId => doc.formField(path, 'assumptionId') ?? '';
-  set assumptionId(String value) => doc.setFormField(path, 'assumptionId', value);
-
-  String get assumptionName => doc.formField(path, 'assumptionName') ?? '';
-  set assumptionName(String value) => doc.setFormField(path, 'assumptionName', value);
-
-  String get description => doc.formField(path, 'description') ?? '';
-  set description(String value) => doc.setFormField(path, 'description', value);
-
-  String get category => doc.formField(path, 'category') ?? '';
-  set category(String value) => doc.setFormField(path, 'category', value);
-
-  String get basis => doc.formField(path, 'basis') ?? '';
-  set basis(String value) => doc.setFormField(path, 'basis', value);
-
-  String get dateIdentified => doc.formField(path, 'dateIdentified') ?? '';
-  set dateIdentified(String value) => doc.setFormField(path, 'dateIdentified', value);
-
-  String get identifiedBy => doc.formField(path, 'identifiedBy') ?? '';
-  set identifiedBy(String value) => doc.setFormField(path, 'identifiedBy', value);
-
-  String get criticality => doc.formField(path, 'criticality') ?? '';
-  set criticality(String value) => doc.setFormField(path, 'criticality', value);
-
-  String get confidence => doc.formField(path, 'confidence') ?? '';
-  set confidence(String value) => doc.setFormField(path, 'confidence', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class AssumptionImpactContentForm extends SomNode {
-  AssumptionImpactContentForm(super.doc, super.path);
-
-  String get impactIfFalse => doc.formField(path, 'impactIfFalse') ?? '';
-  set impactIfFalse(String value) => doc.setFormField(path, 'impactIfFalse', value);
-
-  String get impactSeverity => doc.formField(path, 'impactSeverity') ?? '';
-  set impactSeverity(String value) => doc.setFormField(path, 'impactSeverity', value);
-
-  String get affectedAreas => doc.formField(path, 'affectedAreas') ?? '';
-  set affectedAreas(String value) => doc.setFormField(path, 'affectedAreas', value);
-
-  String get contingencyPlan => doc.formField(path, 'contingencyPlan') ?? '';
-  set contingencyPlan(String value) => doc.setFormField(path, 'contingencyPlan', value);
-
-  String get contingencyOwner => doc.formField(path, 'contingencyOwner') ?? '';
-  set contingencyOwner(String value) => doc.setFormField(path, 'contingencyOwner', value);
-
-  String get contingencyCost => doc.formField(path, 'contingencyCost') ?? '';
-  set contingencyCost(String value) => doc.setFormField(path, 'contingencyCost', value);
-
-  String get contingencyTimeline => doc.formField(path, 'contingencyTimeline') ?? '';
-  set contingencyTimeline(String value) => doc.setFormField(path, 'contingencyTimeline', value);
-
-  String get relatedRisks => doc.formField(path, 'relatedRisks') ?? '';
-  set relatedRisks(String value) => doc.setFormField(path, 'relatedRisks', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
 class AssumptionRegisterEntryContentForm extends SomNode {
   AssumptionRegisterEntryContentForm(super.doc, super.path);
 
@@ -37565,78 +37204,6 @@ class AssumptionRegisterEntryContentForm extends SomNode {
 
   String get status => doc.formField(path, 'status') ?? '';
   set status(String value) => doc.setFormField(path, 'status', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class AssumptionRelationshipsContentForm extends SomNode {
-  AssumptionRelationshipsContentForm(super.doc, super.path);
-
-  String get relatedAssumptions => doc.formField(path, 'relatedAssumptions') ?? '';
-  set relatedAssumptions(String value) => doc.setFormField(path, 'relatedAssumptions', value);
-
-  String get relatedRisks => doc.formField(path, 'relatedRisks') ?? '';
-  set relatedRisks(String value) => doc.setFormField(path, 'relatedRisks', value);
-
-  String get relatedRequirements => doc.formField(path, 'relatedRequirements') ?? '';
-  set relatedRequirements(String value) => doc.setFormField(path, 'relatedRequirements', value);
-
-  String get affectedDecisions => doc.formField(path, 'affectedDecisions') ?? '';
-  set affectedDecisions(String value) => doc.setFormField(path, 'affectedDecisions', value);
-
-  String get documentReferences => doc.formField(path, 'documentReferences') ?? '';
-  set documentReferences(String value) => doc.setFormField(path, 'documentReferences', value);
-
-  String get stakeholderOwner => doc.formField(path, 'stakeholderOwner') ?? '';
-  set stakeholderOwner(String value) => doc.setFormField(path, 'stakeholderOwner', value);
-
-  String get reviewFrequency => doc.formField(path, 'reviewFrequency') ?? '';
-  set reviewFrequency(String value) => doc.setFormField(path, 'reviewFrequency', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class AssumptionValidationContentForm extends SomNode {
-  AssumptionValidationContentForm(super.doc, super.path);
-
-  String get validationMethod => doc.formField(path, 'validationMethod') ?? '';
-  set validationMethod(String value) => doc.setFormField(path, 'validationMethod', value);
-
-  String get validationCriteria => doc.formField(path, 'validationCriteria') ?? '';
-  set validationCriteria(String value) => doc.setFormField(path, 'validationCriteria', value);
-
-  String get validationDate => doc.formField(path, 'validationDate') ?? '';
-  set validationDate(String value) => doc.setFormField(path, 'validationDate', value);
-
-  String get validationStatus => doc.formField(path, 'validationStatus') ?? '';
-  set validationStatus(String value) => doc.setFormField(path, 'validationStatus', value);
-
-  String get lastValidationDate => doc.formField(path, 'lastValidationDate') ?? '';
-  set lastValidationDate(String value) => doc.setFormField(path, 'lastValidationDate', value);
-
-  String get validatedBy => doc.formField(path, 'validatedBy') ?? '';
-  set validatedBy(String value) => doc.setFormField(path, 'validatedBy', value);
-
-  String get validationNotes => doc.formField(path, 'validationNotes') ?? '';
-  set validationNotes(String value) => doc.setFormField(path, 'validationNotes', value);
-
-  String get validationOwner => doc.formField(path, 'validationOwner') ?? '';
-  set validationOwner(String value) => doc.setFormField(path, 'validationOwner', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class AssumptionsOverviewContentForm extends SomNode {
-  AssumptionsOverviewContentForm(super.doc, super.path);
-
-  String get assumptionsApproach => doc.formField(path, 'assumptionsApproach') ?? '';
-  set assumptionsApproach(String value) => doc.setFormField(path, 'assumptionsApproach', value);
-
-  String get validationCadence => doc.formField(path, 'validationCadence') ?? '';
-  set validationCadence(String value) => doc.setFormField(path, 'validationCadence', value);
-
-  String get assumptionCategories => doc.formField(path, 'assumptionCategories') ?? '';
-  set assumptionCategories(String value) => doc.setFormField(path, 'assumptionCategories', value);
-
-  String get escalationProcess => doc.formField(path, 'escalationProcess') ?? '';
-  set escalationProcess(String value) => doc.setFormField(path, 'escalationProcess', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -43650,117 +43217,6 @@ class ConsentManagementRequirementsTrackingContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class ConstraintClassificationContentForm extends SomNode {
-  ConstraintClassificationContentForm(super.doc, super.path);
-
-  String get constraintDescription => doc.formField(path, 'constraintDescription') ?? '';
-  set constraintDescription(String value) => doc.setFormField(path, 'constraintDescription', value);
-
-  String get constraintCategory => doc.formField(path, 'constraintCategory') ?? '';
-  set constraintCategory(String value) => doc.setFormField(path, 'constraintCategory', value);
-
-  String get constraintType => doc.formField(path, 'constraintType') ?? '';
-  set constraintType(String value) => doc.setFormField(path, 'constraintType', value);
-
-  String get constraintSource => doc.formField(path, 'constraintSource') ?? '';
-  set constraintSource(String value) => doc.setFormField(path, 'constraintSource', value);
-
-  String get sourceReference => doc.formField(path, 'sourceReference') ?? '';
-  set sourceReference(String value) => doc.setFormField(path, 'sourceReference', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class ConstraintDetailsContentForm extends SomNode {
-  ConstraintDetailsContentForm(super.doc, super.path);
-
-  String get constraintValue => doc.formField(path, 'constraintValue') ?? '';
-  set constraintValue(String value) => doc.setFormField(path, 'constraintValue', value);
-
-  String get constraintEffectiveDate => doc.formField(path, 'constraintEffectiveDate') ?? '';
-  set constraintEffectiveDate(String value) => doc.setFormField(path, 'constraintEffectiveDate', value);
-
-  String get constraintExpiryDate => doc.formField(path, 'constraintExpiryDate') ?? '';
-  set constraintExpiryDate(String value) => doc.setFormField(path, 'constraintExpiryDate', value);
-
-  String get geographicScope => doc.formField(path, 'geographicScope') ?? '';
-  set geographicScope(String value) => doc.setFormField(path, 'geographicScope', value);
-
-  String get affectedDomains => doc.formField(path, 'affectedDomains') ?? '';
-  set affectedDomains(String value) => doc.setFormField(path, 'affectedDomains', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class ConstraintEntryContentForm extends SomNode {
-  ConstraintEntryContentForm(super.doc, super.path);
-
-  String get constraintId => doc.formField(path, 'constraintId') ?? '';
-  set constraintId(String value) => doc.setFormField(path, 'constraintId', value);
-
-  String get constraintName => doc.formField(path, 'constraintName') ?? '';
-  set constraintName(String value) => doc.setFormField(path, 'constraintName', value);
-
-  String get impactLevel => doc.formField(path, 'impactLevel') ?? '';
-  set impactLevel(String value) => doc.setFormField(path, 'impactLevel', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class ConstraintImpactContentForm extends SomNode {
-  ConstraintImpactContentForm(super.doc, super.path);
-
-  String get impactDescription => doc.formField(path, 'impactDescription') ?? '';
-  set impactDescription(String value) => doc.setFormField(path, 'impactDescription', value);
-
-  String get affectedWorkPackages => doc.formField(path, 'affectedWorkPackages') ?? '';
-  set affectedWorkPackages(String value) => doc.setFormField(path, 'affectedWorkPackages', value);
-
-  String get affectedMilestones => doc.formField(path, 'affectedMilestones') ?? '';
-  set affectedMilestones(String value) => doc.setFormField(path, 'affectedMilestones', value);
-
-  String get scheduleImpact => doc.formField(path, 'scheduleImpact') ?? '';
-  set scheduleImpact(String value) => doc.setFormField(path, 'scheduleImpact', value);
-
-  String get budgetImpact => doc.formField(path, 'budgetImpact') ?? '';
-  set budgetImpact(String value) => doc.setFormField(path, 'budgetImpact', value);
-
-  String get scopeImpact => doc.formField(path, 'scopeImpact') ?? '';
-  set scopeImpact(String value) => doc.setFormField(path, 'scopeImpact', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class ConstraintLinkagesContentForm extends SomNode {
-  ConstraintLinkagesContentForm(super.doc, super.path);
-
-  String get relatedConstraints => doc.formField(path, 'relatedConstraints') ?? '';
-  set relatedConstraints(String value) => doc.setFormField(path, 'relatedConstraints', value);
-
-  String get relatedRisks => doc.formField(path, 'relatedRisks') ?? '';
-  set relatedRisks(String value) => doc.setFormField(path, 'relatedRisks', value);
-
-  String get relatedDependencies => doc.formField(path, 'relatedDependencies') ?? '';
-  set relatedDependencies(String value) => doc.setFormField(path, 'relatedDependencies', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class ConstraintMitigationContentForm extends SomNode {
-  ConstraintMitigationContentForm(super.doc, super.path);
-
-  String get mitigationStrategy => doc.formField(path, 'mitigationStrategy') ?? '';
-  set mitigationStrategy(String value) => doc.setFormField(path, 'mitigationStrategy', value);
-
-  String get negotiationPossibility => doc.formField(path, 'negotiationPossibility') ?? '';
-  set negotiationPossibility(String value) => doc.setFormField(path, 'negotiationPossibility', value);
-
-  String get negotiationApproach => doc.formField(path, 'negotiationApproach') ?? '';
-  set negotiationApproach(String value) => doc.setFormField(path, 'negotiationApproach', value);
-
-  String get fallbackPlan => doc.formField(path, 'fallbackPlan') ?? '';
-  set fallbackPlan(String value) => doc.setFormField(path, 'fallbackPlan', value);
-
-  String get violationConsequences => doc.formField(path, 'violationConsequences') ?? '';
-  set violationConsequences(String value) => doc.setFormField(path, 'violationConsequences', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
 class ConstraintRegisterEntryContentForm extends SomNode {
   ConstraintRegisterEntryContentForm(super.doc, super.path);
 
@@ -43778,93 +43234,6 @@ class ConstraintRegisterEntryContentForm extends SomNode {
 
   String get impact => doc.formField(path, 'impact') ?? '';
   set impact(String value) => doc.setFormField(path, 'impact', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class ConstraintTrackingContentForm extends SomNode {
-  ConstraintTrackingContentForm(super.doc, super.path);
-
-  String get trackingMethod => doc.formField(path, 'trackingMethod') ?? '';
-  set trackingMethod(String value) => doc.setFormField(path, 'trackingMethod', value);
-
-  String get reviewFrequency => doc.formField(path, 'reviewFrequency') ?? '';
-  set reviewFrequency(String value) => doc.setFormField(path, 'reviewFrequency', value);
-
-  String get constraintOwner => doc.formField(path, 'constraintOwner') ?? '';
-  set constraintOwner(String value) => doc.setFormField(path, 'constraintOwner', value);
-
-  String get currentStatus => doc.formField(path, 'currentStatus') ?? '';
-  set currentStatus(String value) => doc.setFormField(path, 'currentStatus', value);
-
-  String get statusNotes => doc.formField(path, 'statusNotes') ?? '';
-  set statusNotes(String value) => doc.setFormField(path, 'statusNotes', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class ConstraintsAndDependenciesContentForm extends SomNode {
-  ConstraintsAndDependenciesContentForm(super.doc, super.path);
-
-  String get constraintDependencyOverview => doc.formField(path, 'constraintDependencyOverview') ?? '';
-  set constraintDependencyOverview(String value) => doc.setFormField(path, 'constraintDependencyOverview', value);
-
-  String get totalConstraintCount => doc.formField(path, 'totalConstraintCount') ?? '';
-  set totalConstraintCount(String value) => doc.setFormField(path, 'totalConstraintCount', value);
-
-  String get totalDependencyCount => doc.formField(path, 'totalDependencyCount') ?? '';
-  set totalDependencyCount(String value) => doc.setFormField(path, 'totalDependencyCount', value);
-
-  String get criticalConstraintCount => doc.formField(path, 'criticalConstraintCount') ?? '';
-  set criticalConstraintCount(String value) => doc.setFormField(path, 'criticalConstraintCount', value);
-
-  String get criticalDependencyCount => doc.formField(path, 'criticalDependencyCount') ?? '';
-  set criticalDependencyCount(String value) => doc.setFormField(path, 'criticalDependencyCount', value);
-
-  String get constraintManagementApproach => doc.formField(path, 'constraintManagementApproach') ?? '';
-  set constraintManagementApproach(String value) => doc.setFormField(path, 'constraintManagementApproach', value);
-
-  String get dependencyManagementApproach => doc.formField(path, 'dependencyManagementApproach') ?? '';
-  set dependencyManagementApproach(String value) => doc.setFormField(path, 'dependencyManagementApproach', value);
-
-  String get monitoringFrequency => doc.formField(path, 'monitoringFrequency') ?? '';
-  set monitoringFrequency(String value) => doc.setFormField(path, 'monitoringFrequency', value);
-
-  String get escalationPath => doc.formField(path, 'escalationPath') ?? '';
-  set escalationPath(String value) => doc.setFormField(path, 'escalationPath', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class ConstraintsContentForm extends SomNode {
-  ConstraintsContentForm(super.doc, super.path);
-
-  String get constraintSummary => doc.formField(path, 'constraintSummary') ?? '';
-  set constraintSummary(String value) => doc.setFormField(path, 'constraintSummary', value);
-
-  String get primaryConstraintCategory => doc.formField(path, 'primaryConstraintCategory') ?? '';
-  set primaryConstraintCategory(String value) => doc.setFormField(path, 'primaryConstraintCategory', value);
-
-  String get constraintImpactLevel => doc.formField(path, 'constraintImpactLevel') ?? '';
-  set constraintImpactLevel(String value) => doc.setFormField(path, 'constraintImpactLevel', value);
-
-  String get flexibilityAssessment => doc.formField(path, 'flexibilityAssessment') ?? '';
-  set flexibilityAssessment(String value) => doc.setFormField(path, 'flexibilityAssessment', value);
-
-  String get regulatoryConstraintCount => doc.formField(path, 'regulatoryConstraintCount') ?? '';
-  set regulatoryConstraintCount(String value) => doc.setFormField(path, 'regulatoryConstraintCount', value);
-
-  String get contractualConstraintCount => doc.formField(path, 'contractualConstraintCount') ?? '';
-  set contractualConstraintCount(String value) => doc.setFormField(path, 'contractualConstraintCount', value);
-
-  String get budgetaryConstraintCount => doc.formField(path, 'budgetaryConstraintCount') ?? '';
-  set budgetaryConstraintCount(String value) => doc.setFormField(path, 'budgetaryConstraintCount', value);
-
-  String get timelineConstraintCount => doc.formField(path, 'timelineConstraintCount') ?? '';
-  set timelineConstraintCount(String value) => doc.setFormField(path, 'timelineConstraintCount', value);
-
-  String get resourceConstraintCount => doc.formField(path, 'resourceConstraintCount') ?? '';
-  set resourceConstraintCount(String value) => doc.setFormField(path, 'resourceConstraintCount', value);
-
-  String get technicalConstraintCount => doc.formField(path, 'technicalConstraintCount') ?? '';
-  set technicalConstraintCount(String value) => doc.setFormField(path, 'technicalConstraintCount', value);
 }
 
 /// Generated form facade for the `contextualHelpContent` `@Form` section.
@@ -47075,57 +46444,6 @@ class DeliveryAcceptanceCriterionEntryVerificationContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DependencyClassificationContentForm extends SomNode {
-  DependencyClassificationContentForm(super.doc, super.path);
-
-  String get dependencyCategory => doc.formField(path, 'dependencyCategory') ?? '';
-  set dependencyCategory(String value) => doc.setFormField(path, 'dependencyCategory', value);
-
-  String get dependencyType => doc.formField(path, 'dependencyType') ?? '';
-  set dependencyType(String value) => doc.setFormField(path, 'dependencyType', value);
-
-  String get onCriticalPath => doc.formField(path, 'onCriticalPath') ?? '';
-  set onCriticalPath(String value) => doc.setFormField(path, 'onCriticalPath', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class DependencyDeliverableContentForm extends SomNode {
-  DependencyDeliverableContentForm(super.doc, super.path);
-
-  String get deliverableDescription => doc.formField(path, 'deliverableDescription') ?? '';
-  set deliverableDescription(String value) => doc.setFormField(path, 'deliverableDescription', value);
-
-  String get deliverableSpecification => doc.formField(path, 'deliverableSpecification') ?? '';
-  set deliverableSpecification(String value) => doc.setFormField(path, 'deliverableSpecification', value);
-
-  String get qualityCriteria => doc.formField(path, 'qualityCriteria') ?? '';
-  set qualityCriteria(String value) => doc.setFormField(path, 'qualityCriteria', value);
-
-  String get deliveryFormat => doc.formField(path, 'deliveryFormat') ?? '';
-  set deliveryFormat(String value) => doc.setFormField(path, 'deliveryFormat', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class DependencyExternalPartyContentForm extends SomNode {
-  DependencyExternalPartyContentForm(super.doc, super.path);
-
-  String get externalPartyName => doc.formField(path, 'externalPartyName') ?? '';
-  set externalPartyName(String value) => doc.setFormField(path, 'externalPartyName', value);
-
-  String get externalPartyType => doc.formField(path, 'externalPartyType') ?? '';
-  set externalPartyType(String value) => doc.setFormField(path, 'externalPartyType', value);
-
-  String get contactPerson => doc.formField(path, 'contactPerson') ?? '';
-  set contactPerson(String value) => doc.setFormField(path, 'contactPerson', value);
-
-  String get contactEmail => doc.formField(path, 'contactEmail') ?? '';
-  set contactEmail(String value) => doc.setFormField(path, 'contactEmail', value);
-
-  String get escalationContact => doc.formField(path, 'escalationContact') ?? '';
-  set escalationContact(String value) => doc.setFormField(path, 'escalationContact', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
 class DependencyHealthMonitoringCacheContentForm extends SomNode {
   DependencyHealthMonitoringCacheContentForm(super.doc, super.path);
 
@@ -47190,14 +46508,6 @@ class DependencyHealthMonitoringThresholdsContentForm extends SomNode {
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class DependencyIdentityContentForm extends SomNode {
-  DependencyIdentityContentForm(super.doc, super.path);
-
-  String get dependencyDescription => doc.formField(path, 'dependencyDescription') ?? '';
-  set dependencyDescription(String value) => doc.setFormField(path, 'dependencyDescription', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -47271,23 +46581,6 @@ class DependencyInjectionStructureTroubleshootingContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DependencyLinkagesContentForm extends SomNode {
-  DependencyLinkagesContentForm(super.doc, super.path);
-
-  String get relatedConstraints => doc.formField(path, 'relatedConstraints') ?? '';
-  set relatedConstraints(String value) => doc.setFormField(path, 'relatedConstraints', value);
-
-  String get relatedRisks => doc.formField(path, 'relatedRisks') ?? '';
-  set relatedRisks(String value) => doc.setFormField(path, 'relatedRisks', value);
-
-  String get relatedDependencies => doc.formField(path, 'relatedDependencies') ?? '';
-  set relatedDependencies(String value) => doc.setFormField(path, 'relatedDependencies', value);
-
-  String get affectedWorkPackages => doc.formField(path, 'affectedWorkPackages') ?? '';
-  set affectedWorkPackages(String value) => doc.setFormField(path, 'affectedWorkPackages', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
 class DependencyManagementContentForm extends SomNode {
   DependencyManagementContentForm(super.doc, super.path);
 
@@ -47355,26 +46648,6 @@ class DependencyManagementVersioningContentForm extends SomNode {
 }
 
 /// Generated form facade for the `content` `@Form` section.
-class DependencyMitigationContentForm extends SomNode {
-  DependencyMitigationContentForm(super.doc, super.path);
-
-  String get mitigationStrategy => doc.formField(path, 'mitigationStrategy') ?? '';
-  set mitigationStrategy(String value) => doc.setFormField(path, 'mitigationStrategy', value);
-
-  String get contingencyPlan => doc.formField(path, 'contingencyPlan') ?? '';
-  set contingencyPlan(String value) => doc.setFormField(path, 'contingencyPlan', value);
-
-  String get contingencyTimeline => doc.formField(path, 'contingencyTimeline') ?? '';
-  set contingencyTimeline(String value) => doc.setFormField(path, 'contingencyTimeline', value);
-
-  String get contractualProtection => doc.formField(path, 'contractualProtection') ?? '';
-  set contractualProtection(String value) => doc.setFormField(path, 'contractualProtection', value);
-
-  String get alternativeOptions => doc.formField(path, 'alternativeOptions') ?? '';
-  set alternativeOptions(String value) => doc.setFormField(path, 'alternativeOptions', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
 class DependencyRegisterEntryContentForm extends SomNode {
   DependencyRegisterEntryContentForm(super.doc, super.path);
 
@@ -47395,26 +46668,6 @@ class DependencyRegisterEntryContentForm extends SomNode {
 
   String get status => doc.formField(path, 'status') ?? '';
   set status(String value) => doc.setFormField(path, 'status', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class DependencyRiskContentForm extends SomNode {
-  DependencyRiskContentForm(super.doc, super.path);
-
-  String get deliveryRiskLevel => doc.formField(path, 'deliveryRiskLevel') ?? '';
-  set deliveryRiskLevel(String value) => doc.setFormField(path, 'deliveryRiskLevel', value);
-
-  String get primaryRiskFactors => doc.formField(path, 'primaryRiskFactors') ?? '';
-  set primaryRiskFactors(String value) => doc.setFormField(path, 'primaryRiskFactors', value);
-
-  String get riskIndicators => doc.formField(path, 'riskIndicators') ?? '';
-  set riskIndicators(String value) => doc.setFormField(path, 'riskIndicators', value);
-
-  String get impactOfDelay => doc.formField(path, 'impactOfDelay') ?? '';
-  set impactOfDelay(String value) => doc.setFormField(path, 'impactOfDelay', value);
-
-  String get impactOfFailure => doc.formField(path, 'impactOfFailure') ?? '';
-  set impactOfFailure(String value) => doc.setFormField(path, 'impactOfFailure', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.
@@ -47488,52 +46741,6 @@ class DependencyScanningRequirementsVulnerabilitiesContentForm extends SomNode {
 
   String get exceptionProcess => doc.formField(path, 'exceptionProcess') ?? '';
   set exceptionProcess(String value) => doc.setFormField(path, 'exceptionProcess', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class DependencyTimelineContentForm extends SomNode {
-  DependencyTimelineContentForm(super.doc, super.path);
-
-  String get expectedDeliveryDate => doc.formField(path, 'expectedDeliveryDate') ?? '';
-  set expectedDeliveryDate(String value) => doc.setFormField(path, 'expectedDeliveryDate', value);
-
-  String get latestAcceptableDate => doc.formField(path, 'latestAcceptableDate') ?? '';
-  set latestAcceptableDate(String value) => doc.setFormField(path, 'latestAcceptableDate', value);
-
-  String get leadTimeRequired => doc.formField(path, 'leadTimeRequired') ?? '';
-  set leadTimeRequired(String value) => doc.setFormField(path, 'leadTimeRequired', value);
-
-  String get bufferDays => doc.formField(path, 'bufferDays') ?? '';
-  set bufferDays(String value) => doc.setFormField(path, 'bufferDays', value);
-
-  String get dependentMilestones => doc.formField(path, 'dependentMilestones') ?? '';
-  set dependentMilestones(String value) => doc.setFormField(path, 'dependentMilestones', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class DependencyTrackingContentForm extends SomNode {
-  DependencyTrackingContentForm(super.doc, super.path);
-
-  String get coordinationMechanism => doc.formField(path, 'coordinationMechanism') ?? '';
-  set coordinationMechanism(String value) => doc.setFormField(path, 'coordinationMechanism', value);
-
-  String get communicationFrequency => doc.formField(path, 'communicationFrequency') ?? '';
-  set communicationFrequency(String value) => doc.setFormField(path, 'communicationFrequency', value);
-
-  String get trackingMethod => doc.formField(path, 'trackingMethod') ?? '';
-  set trackingMethod(String value) => doc.setFormField(path, 'trackingMethod', value);
-
-  String get dependencyOwner => doc.formField(path, 'dependencyOwner') ?? '';
-  set dependencyOwner(String value) => doc.setFormField(path, 'dependencyOwner', value);
-
-  String get currentStatus => doc.formField(path, 'currentStatus') ?? '';
-  set currentStatus(String value) => doc.setFormField(path, 'currentStatus', value);
-
-  String get statusLastUpdated => doc.formField(path, 'statusLastUpdated') ?? '';
-  set statusLastUpdated(String value) => doc.setFormField(path, 'statusLastUpdated', value);
-
-  String get statusNotes => doc.formField(path, 'statusNotes') ?? '';
-  set statusNotes(String value) => doc.setFormField(path, 'statusNotes', value);
 }
 
 /// Generated form facade for the `deploymentDetails` `@Form` section.
@@ -52736,71 +51943,6 @@ class FrameworkCompatibilityContentForm extends SomNode {
 
   String get deprecationWarnings => doc.formField(path, 'deprecationWarnings') ?? '';
   set deprecationWarnings(String value) => doc.setFormField(path, 'deprecationWarnings', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class FrameworkDependenciesCategoriesContentForm extends SomNode {
-  FrameworkDependenciesCategoriesContentForm(super.doc, super.path);
-
-  String get projectDependencyCount => doc.formField(path, 'projectDependencyCount') ?? '';
-  set projectDependencyCount(String value) => doc.setFormField(path, 'projectDependencyCount', value);
-
-  String get teamDependencyCount => doc.formField(path, 'teamDependencyCount') ?? '';
-  set teamDependencyCount(String value) => doc.setFormField(path, 'teamDependencyCount', value);
-
-  String get vendorDependencyCount => doc.formField(path, 'vendorDependencyCount') ?? '';
-  set vendorDependencyCount(String value) => doc.setFormField(path, 'vendorDependencyCount', value);
-
-  String get systemDependencyCount => doc.formField(path, 'systemDependencyCount') ?? '';
-  set systemDependencyCount(String value) => doc.setFormField(path, 'systemDependencyCount', value);
-
-  String get regulatoryDependencyCount => doc.formField(path, 'regulatoryDependencyCount') ?? '';
-  set regulatoryDependencyCount(String value) => doc.setFormField(path, 'regulatoryDependencyCount', value);
-
-  String get infrastructureDependencyCount => doc.formField(path, 'infrastructureDependencyCount') ?? '';
-  set infrastructureDependencyCount(String value) => doc.setFormField(path, 'infrastructureDependencyCount', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class FrameworkDependenciesContentForm extends SomNode {
-  FrameworkDependenciesContentForm(super.doc, super.path);
-
-  String get dependencySummary => doc.formField(path, 'dependencySummary') ?? '';
-  set dependencySummary(String value) => doc.setFormField(path, 'dependencySummary', value);
-
-  String get primaryDependencyCategory => doc.formField(path, 'primaryDependencyCategory') ?? '';
-  set primaryDependencyCategory(String value) => doc.setFormField(path, 'primaryDependencyCategory', value);
-
-  String get dependencyRiskLevel => doc.formField(path, 'dependencyRiskLevel') ?? '';
-  set dependencyRiskLevel(String value) => doc.setFormField(path, 'dependencyRiskLevel', value);
-
-  String get criticalPathDependencyCount => doc.formField(path, 'criticalPathDependencyCount') ?? '';
-  set criticalPathDependencyCount(String value) => doc.setFormField(path, 'criticalPathDependencyCount', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class FrameworkDependenciesManagementContentForm extends SomNode {
-  FrameworkDependenciesManagementContentForm(super.doc, super.path);
-
-  String get dependencyCoordinationApproach => doc.formField(path, 'dependencyCoordinationApproach') ?? '';
-  set dependencyCoordinationApproach(String value) => doc.setFormField(path, 'dependencyCoordinationApproach', value);
-
-  String get earlyWarningMechanism => doc.formField(path, 'earlyWarningMechanism') ?? '';
-  set earlyWarningMechanism(String value) => doc.setFormField(path, 'earlyWarningMechanism', value);
-}
-
-/// Generated form facade for the `content` `@Form` section.
-class FrameworkDependencyEntryContentForm extends SomNode {
-  FrameworkDependencyEntryContentForm(super.doc, super.path);
-
-  String get dependencyId => doc.formField(path, 'dependencyId') ?? '';
-  set dependencyId(String value) => doc.setFormField(path, 'dependencyId', value);
-
-  String get dependencyName => doc.formField(path, 'dependencyName') ?? '';
-  set dependencyName(String value) => doc.setFormField(path, 'dependencyName', value);
-
-  String get criticalityLevel => doc.formField(path, 'criticalityLevel') ?? '';
-  set criticalityLevel(String value) => doc.setFormField(path, 'criticalityLevel', value);
 }
 
 /// Generated form facade for the `content` `@Form` section.

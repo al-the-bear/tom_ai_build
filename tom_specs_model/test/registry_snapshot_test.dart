@@ -13,10 +13,12 @@ void main() {
     test('registerSpecOps registers ops for the whole model + section leaves',
         () {
       DocSpecsProject(); // idempotent registration
-      // 3079 reflected model classes, minus the two hand-written `SpecNode`
-      // leaves (DocumentHeader, SectionMeta) that adopt the contract via the
-      // mixin fast-path, plus the 10 tom_specs_core section content leaves.
-      expect(SpecRegistry.length, greaterThanOrEqualTo(3079 - 2 + 10));
+      // 3077 reflected model classes (after the L34C-4 SBP.6 register
+      // consolidation removed the duplicated SBP.2 constraint / dependency /
+      // assumption subtrees), minus the two hand-written `SpecNode` leaves
+      // (DocumentHeader, SectionMeta) that adopt the contract via the mixin
+      // fast-path, plus the 10 tom_specs_core section content leaves.
+      expect(SpecRegistry.length, greaterThanOrEqualTo(3077 - 2 + 10));
       // A representative deep model class resolves to real ops.
       expect(SpecRegistry.opsFor(CurrentLandscape), isNotNull);
     });

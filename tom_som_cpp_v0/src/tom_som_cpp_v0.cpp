@@ -1450,49 +1450,10 @@ som::SomList AssumptionConstraintRegister::dependencies() const {
   return som::SomList(doc(), som::joinPath(path(), "ACRG-DEPS-LST"));
 }
 
-AssumptionEntry::AssumptionEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-AssumptionIdentification AssumptionEntry::identification() const {
-  return AssumptionIdentification(doc(), som::joinPath(path(), "identification"));
-}
-AssumptionValidation AssumptionEntry::validation() const {
-  return AssumptionValidation(doc(), som::joinPath(path(), "validation"));
-}
-AssumptionImpact AssumptionEntry::impact() const {
-  return AssumptionImpact(doc(), som::joinPath(path(), "impact"));
-}
-som::SomList AssumptionEntry::relationships() const {
-  return som::SomList(doc(), som::joinPath(path(), "ASRE-RELA-LST"));
-}
-
-AssumptionIdentification::AssumptionIdentification(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-AssumptionIdentificationContentForm AssumptionIdentification::content() const {
-  return AssumptionIdentificationContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-AssumptionImpact::AssumptionImpact(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-AssumptionImpactContentForm AssumptionImpact::content() const {
-  return AssumptionImpactContentForm(doc(), som::joinPath(path(), "content"));
-}
-
 AssumptionRegisterEntry::AssumptionRegisterEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 AssumptionRegisterEntryContentForm AssumptionRegisterEntry::content() const {
   return AssumptionRegisterEntryContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-AssumptionRelationships::AssumptionRelationships(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-AssumptionRelationshipsContentForm AssumptionRelationships::content() const {
-  return AssumptionRelationshipsContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-AssumptionValidation::AssumptionValidation(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-AssumptionValidationContentForm AssumptionValidation::content() const {
-  return AssumptionValidationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 AssumptionsConstraintsDependencies::AssumptionsConstraintsDependencies(som::SpecDocument& doc, std::string path)
@@ -1505,12 +1466,6 @@ void AssumptionsConstraintsDependencies::setContent(const std::string& value) {
 }
 AssumptionConstraintRegister AssumptionsConstraintsDependencies::register_() const {
   return AssumptionConstraintRegister(doc(), som::joinPath(path(), "register"));
-}
-
-AssumptionsOverview::AssumptionsOverview(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-AssumptionsOverviewContentForm AssumptionsOverview::content() const {
-  return AssumptionsOverviewContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 AttributeInterdependencyEntry::AttributeInterdependencyEntry(som::SpecDocument& doc, std::string path)
@@ -5347,91 +5302,19 @@ ConsentManagementRequirementsTrackingContentForm ConsentManagementRequirementsTr
   return ConsentManagementRequirementsTrackingContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ConstraintClassification::ConstraintClassification(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ConstraintClassificationContentForm ConstraintClassification::content() const {
-  return ConstraintClassificationContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-ConstraintDetails::ConstraintDetails(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ConstraintDetailsContentForm ConstraintDetails::content() const {
-  return ConstraintDetailsContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-ConstraintEntry::ConstraintEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ConstraintEntryContentForm ConstraintEntry::content() const {
-  return ConstraintEntryContentForm(doc(), som::joinPath(path(), "content"));
-}
-ConstraintClassification ConstraintEntry::classification() const {
-  return ConstraintClassification(doc(), som::joinPath(path(), "classification"));
-}
-som::SomList ConstraintEntry::details() const {
-  return som::SomList(doc(), som::joinPath(path(), "CODE-DETA-LST"));
-}
-ConstraintImpact ConstraintEntry::impact() const {
-  return ConstraintImpact(doc(), som::joinPath(path(), "impact"));
-}
-ConstraintMitigation ConstraintEntry::mitigation() const {
-  return ConstraintMitigation(doc(), som::joinPath(path(), "mitigation"));
-}
-ConstraintTracking ConstraintEntry::tracking() const {
-  return ConstraintTracking(doc(), som::joinPath(path(), "tracking"));
-}
-som::SomList ConstraintEntry::linkages() const {
-  return som::SomList(doc(), som::joinPath(path(), "COLI1-LINK-LST"));
-}
-
-ConstraintImpact::ConstraintImpact(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ConstraintImpactContentForm ConstraintImpact::content() const {
-  return ConstraintImpactContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-ConstraintLinkages::ConstraintLinkages(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ConstraintLinkagesContentForm ConstraintLinkages::content() const {
-  return ConstraintLinkagesContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-ConstraintMitigation::ConstraintMitigation(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ConstraintMitigationContentForm ConstraintMitigation::content() const {
-  return ConstraintMitigationContentForm(doc(), som::joinPath(path(), "content"));
-}
-
 ConstraintRegisterEntry::ConstraintRegisterEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ConstraintRegisterEntryContentForm ConstraintRegisterEntry::content() const {
   return ConstraintRegisterEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-ConstraintTracking::ConstraintTracking(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ConstraintTrackingContentForm ConstraintTracking::content() const {
-  return ConstraintTrackingContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-Constraints::Constraints(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-ConstraintsContentForm Constraints::content() const {
-  return ConstraintsContentForm(doc(), som::joinPath(path(), "content"));
-}
-som::SomList Constraints::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "COEN-ITEM-LST"));
-}
-
 ConstraintsAndDependencies::ConstraintsAndDependencies(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-ConstraintsAndDependenciesContentForm ConstraintsAndDependencies::content() const {
-  return ConstraintsAndDependenciesContentForm(doc(), som::joinPath(path(), "content"));
+std::string ConstraintsAndDependencies::content() const {
+  return doc().content(som::joinPath(path(), "content"));
 }
-Constraints ConstraintsAndDependencies::constraints() const {
-  return Constraints(doc(), som::joinPath(path(), "constraints"));
-}
-FrameworkDependencies ConstraintsAndDependencies::frameworkDependencies() const {
-  return FrameworkDependencies(doc(), som::joinPath(path(), "frameworkDependencies"));
+void ConstraintsAndDependencies::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
 }
 
 ContentScanningPolicy::ContentScanningPolicy(som::SpecDocument& doc, std::string path)
@@ -8313,18 +8196,6 @@ IntegrationHealthSummary DependenciesAndIntegrations::healthSummary() const {
   return IntegrationHealthSummary(doc(), som::joinPath(path(), "healthSummary"));
 }
 
-DependencyClassification::DependencyClassification(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-DependencyClassificationContentForm DependencyClassification::content() const {
-  return DependencyClassificationContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-DependencyDeliverable::DependencyDeliverable(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-DependencyDeliverableContentForm DependencyDeliverable::content() const {
-  return DependencyDeliverableContentForm(doc(), som::joinPath(path(), "content"));
-}
-
 DependencyEntry::DependencyEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DependencyEntry::content() const {
@@ -8332,12 +8203,6 @@ std::string DependencyEntry::content() const {
 }
 void DependencyEntry::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-DependencyExternalParty::DependencyExternalParty(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-DependencyExternalPartyContentForm DependencyExternalParty::content() const {
-  return DependencyExternalPartyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 DependencyHealthMonitoring::DependencyHealthMonitoring(som::SpecDocument& doc, std::string path)
@@ -8382,12 +8247,6 @@ DependencyHealthMonitoringThresholdsContentForm DependencyHealthMonitoringThresh
   return DependencyHealthMonitoringThresholdsContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-DependencyIdentity::DependencyIdentity(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-DependencyIdentityContentForm DependencyIdentity::content() const {
-  return DependencyIdentityContentForm(doc(), som::joinPath(path(), "content"));
-}
-
 DependencyInjectionStructure::DependencyInjectionStructure(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 DependencyInjectionStructureContentForm DependencyInjectionStructure::content() const {
@@ -8428,12 +8287,6 @@ DependencyInjectionStructureTroubleshooting::DependencyInjectionStructureTrouble
     : som::SomNode(doc, std::move(path)) {}
 DependencyInjectionStructureTroubleshootingContentForm DependencyInjectionStructureTroubleshooting::content() const {
   return DependencyInjectionStructureTroubleshootingContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-DependencyLinkages::DependencyLinkages(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-DependencyLinkagesContentForm DependencyLinkages::content() const {
-  return DependencyLinkagesContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 DependencyManagement::DependencyManagement(som::SpecDocument& doc, std::string path)
@@ -8478,22 +8331,10 @@ DependencyManagementVersioningContentForm DependencyManagementVersioning::conten
   return DependencyManagementVersioningContentForm(doc(), som::joinPath(path(), "content"));
 }
 
-DependencyMitigation::DependencyMitigation(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-DependencyMitigationContentForm DependencyMitigation::content() const {
-  return DependencyMitigationContentForm(doc(), som::joinPath(path(), "content"));
-}
-
 DependencyRegisterEntry::DependencyRegisterEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 DependencyRegisterEntryContentForm DependencyRegisterEntry::content() const {
   return DependencyRegisterEntryContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-DependencyRisk::DependencyRisk(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-DependencyRiskContentForm DependencyRisk::content() const {
-  return DependencyRiskContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 DependencyScanningRequirements::DependencyScanningRequirements(som::SpecDocument& doc, std::string path)
@@ -8536,18 +8377,6 @@ DependencyScanningRequirementsVulnerabilities::DependencyScanningRequirementsVul
     : som::SomNode(doc, std::move(path)) {}
 DependencyScanningRequirementsVulnerabilitiesContentForm DependencyScanningRequirementsVulnerabilities::content() const {
   return DependencyScanningRequirementsVulnerabilitiesContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-DependencyTimeline::DependencyTimeline(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-DependencyTimelineContentForm DependencyTimeline::content() const {
-  return DependencyTimelineContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-DependencyTracking::DependencyTracking(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-DependencyTrackingContentForm DependencyTracking::content() const {
-  return DependencyTrackingContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 DeploymentContext::DeploymentContext(som::SpecDocument& doc, std::string path)
@@ -11799,66 +11628,6 @@ ConstraintsAndDependencies FrameworkConditions::constraintsAndDependencies() con
   return ConstraintsAndDependencies(doc(), som::joinPath(path(), "constraintsAndDependencies"));
 }
 
-FrameworkDependencies::FrameworkDependencies(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-FrameworkDependenciesContentForm FrameworkDependencies::content() const {
-  return FrameworkDependenciesContentForm(doc(), som::joinPath(path(), "content"));
-}
-FrameworkDependenciesCategories FrameworkDependencies::categories() const {
-  return FrameworkDependenciesCategories(doc(), som::joinPath(path(), "categories"));
-}
-FrameworkDependenciesManagement FrameworkDependencies::management() const {
-  return FrameworkDependenciesManagement(doc(), som::joinPath(path(), "management"));
-}
-som::SomList FrameworkDependencies::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "FWRDP-ITEM-LST"));
-}
-
-FrameworkDependenciesCategories::FrameworkDependenciesCategories(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-FrameworkDependenciesCategoriesContentForm FrameworkDependenciesCategories::content() const {
-  return FrameworkDependenciesCategoriesContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-FrameworkDependenciesManagement::FrameworkDependenciesManagement(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-FrameworkDependenciesManagementContentForm FrameworkDependenciesManagement::content() const {
-  return FrameworkDependenciesManagementContentForm(doc(), som::joinPath(path(), "content"));
-}
-
-FrameworkDependencyEntry::FrameworkDependencyEntry(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-FrameworkDependencyEntryContentForm FrameworkDependencyEntry::content() const {
-  return FrameworkDependencyEntryContentForm(doc(), som::joinPath(path(), "content"));
-}
-DependencyIdentity FrameworkDependencyEntry::identity() const {
-  return DependencyIdentity(doc(), som::joinPath(path(), "identity"));
-}
-DependencyClassification FrameworkDependencyEntry::classification() const {
-  return DependencyClassification(doc(), som::joinPath(path(), "classification"));
-}
-DependencyExternalParty FrameworkDependencyEntry::externalParty() const {
-  return DependencyExternalParty(doc(), som::joinPath(path(), "externalParty"));
-}
-DependencyDeliverable FrameworkDependencyEntry::deliverable() const {
-  return DependencyDeliverable(doc(), som::joinPath(path(), "deliverable"));
-}
-DependencyTimeline FrameworkDependencyEntry::timeline() const {
-  return DependencyTimeline(doc(), som::joinPath(path(), "timeline"));
-}
-DependencyRisk FrameworkDependencyEntry::risk() const {
-  return DependencyRisk(doc(), som::joinPath(path(), "risk"));
-}
-DependencyMitigation FrameworkDependencyEntry::mitigation() const {
-  return DependencyMitigation(doc(), som::joinPath(path(), "mitigation"));
-}
-DependencyTracking FrameworkDependencyEntry::tracking() const {
-  return DependencyTracking(doc(), som::joinPath(path(), "tracking"));
-}
-som::SomList FrameworkDependencyEntry::linkages() const {
-  return som::SomList(doc(), som::joinPath(path(), "DELI1-LINK-LST"));
-}
-
 FrameworkIdentity::FrameworkIdentity(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 FrameworkIdentityContentForm FrameworkIdentity::content() const {
@@ -14254,15 +14023,6 @@ std::string KeyAssumptionEntry::content() const {
 }
 void KeyAssumptionEntry::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
-}
-
-KeyAssumptions::KeyAssumptions(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-AssumptionsOverview KeyAssumptions::overview() const {
-  return AssumptionsOverview(doc(), som::joinPath(path(), "overview"));
-}
-som::SomList KeyAssumptions::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "ASEN-ITEM-LST"));
 }
 
 KeyAttributeEntry::KeyAttributeEntry(som::SpecDocument& doc, std::string path)
@@ -21703,9 +21463,6 @@ RisksOverview RisksAndAssumptions::overview() const {
 }
 som::SomList RisksAndAssumptions::keyRisks() const {
   return som::SomList(doc(), som::joinPath(path(), "RIEN-KEYR-LST"));
-}
-KeyAssumptions RisksAndAssumptions::keyAssumptions() const {
-  return KeyAssumptions(doc(), som::joinPath(path(), "keyAssumptions"));
 }
 
 RisksOverview::RisksOverview(som::SpecDocument& doc, std::string path)
@@ -33687,114 +33444,6 @@ void ArchitecturePrincipleEntryGuidanceContentForm::setViolations(const std::str
   doc().setFormField(path(), "violations", value);
 }
 
-AssumptionIdentificationContentForm::AssumptionIdentificationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string AssumptionIdentificationContentForm::assumptionId() const {
-  return doc().formField(path(), "assumptionId");
-}
-void AssumptionIdentificationContentForm::setAssumptionId(const std::string& value) {
-  doc().setFormField(path(), "assumptionId", value);
-}
-std::string AssumptionIdentificationContentForm::assumptionName() const {
-  return doc().formField(path(), "assumptionName");
-}
-void AssumptionIdentificationContentForm::setAssumptionName(const std::string& value) {
-  doc().setFormField(path(), "assumptionName", value);
-}
-std::string AssumptionIdentificationContentForm::description() const {
-  return doc().formField(path(), "description");
-}
-void AssumptionIdentificationContentForm::setDescription(const std::string& value) {
-  doc().setFormField(path(), "description", value);
-}
-std::string AssumptionIdentificationContentForm::category() const {
-  return doc().formField(path(), "category");
-}
-void AssumptionIdentificationContentForm::setCategory(const std::string& value) {
-  doc().setFormField(path(), "category", value);
-}
-std::string AssumptionIdentificationContentForm::basis() const {
-  return doc().formField(path(), "basis");
-}
-void AssumptionIdentificationContentForm::setBasis(const std::string& value) {
-  doc().setFormField(path(), "basis", value);
-}
-std::string AssumptionIdentificationContentForm::dateIdentified() const {
-  return doc().formField(path(), "dateIdentified");
-}
-void AssumptionIdentificationContentForm::setDateIdentified(const std::string& value) {
-  doc().setFormField(path(), "dateIdentified", value);
-}
-std::string AssumptionIdentificationContentForm::identifiedBy() const {
-  return doc().formField(path(), "identifiedBy");
-}
-void AssumptionIdentificationContentForm::setIdentifiedBy(const std::string& value) {
-  doc().setFormField(path(), "identifiedBy", value);
-}
-std::string AssumptionIdentificationContentForm::criticality() const {
-  return doc().formField(path(), "criticality");
-}
-void AssumptionIdentificationContentForm::setCriticality(const std::string& value) {
-  doc().setFormField(path(), "criticality", value);
-}
-std::string AssumptionIdentificationContentForm::confidence() const {
-  return doc().formField(path(), "confidence");
-}
-void AssumptionIdentificationContentForm::setConfidence(const std::string& value) {
-  doc().setFormField(path(), "confidence", value);
-}
-
-AssumptionImpactContentForm::AssumptionImpactContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string AssumptionImpactContentForm::impactIfFalse() const {
-  return doc().formField(path(), "impactIfFalse");
-}
-void AssumptionImpactContentForm::setImpactIfFalse(const std::string& value) {
-  doc().setFormField(path(), "impactIfFalse", value);
-}
-std::string AssumptionImpactContentForm::impactSeverity() const {
-  return doc().formField(path(), "impactSeverity");
-}
-void AssumptionImpactContentForm::setImpactSeverity(const std::string& value) {
-  doc().setFormField(path(), "impactSeverity", value);
-}
-std::string AssumptionImpactContentForm::affectedAreas() const {
-  return doc().formField(path(), "affectedAreas");
-}
-void AssumptionImpactContentForm::setAffectedAreas(const std::string& value) {
-  doc().setFormField(path(), "affectedAreas", value);
-}
-std::string AssumptionImpactContentForm::contingencyPlan() const {
-  return doc().formField(path(), "contingencyPlan");
-}
-void AssumptionImpactContentForm::setContingencyPlan(const std::string& value) {
-  doc().setFormField(path(), "contingencyPlan", value);
-}
-std::string AssumptionImpactContentForm::contingencyOwner() const {
-  return doc().formField(path(), "contingencyOwner");
-}
-void AssumptionImpactContentForm::setContingencyOwner(const std::string& value) {
-  doc().setFormField(path(), "contingencyOwner", value);
-}
-std::string AssumptionImpactContentForm::contingencyCost() const {
-  return doc().formField(path(), "contingencyCost");
-}
-void AssumptionImpactContentForm::setContingencyCost(const std::string& value) {
-  doc().setFormField(path(), "contingencyCost", value);
-}
-std::string AssumptionImpactContentForm::contingencyTimeline() const {
-  return doc().formField(path(), "contingencyTimeline");
-}
-void AssumptionImpactContentForm::setContingencyTimeline(const std::string& value) {
-  doc().setFormField(path(), "contingencyTimeline", value);
-}
-std::string AssumptionImpactContentForm::relatedRisks() const {
-  return doc().formField(path(), "relatedRisks");
-}
-void AssumptionImpactContentForm::setRelatedRisks(const std::string& value) {
-  doc().setFormField(path(), "relatedRisks", value);
-}
-
 AssumptionRegisterEntryContentForm::AssumptionRegisterEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string AssumptionRegisterEntryContentForm::assumptionId() const {
@@ -33826,129 +33475,6 @@ std::string AssumptionRegisterEntryContentForm::status() const {
 }
 void AssumptionRegisterEntryContentForm::setStatus(const std::string& value) {
   doc().setFormField(path(), "status", value);
-}
-
-AssumptionRelationshipsContentForm::AssumptionRelationshipsContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string AssumptionRelationshipsContentForm::relatedAssumptions() const {
-  return doc().formField(path(), "relatedAssumptions");
-}
-void AssumptionRelationshipsContentForm::setRelatedAssumptions(const std::string& value) {
-  doc().setFormField(path(), "relatedAssumptions", value);
-}
-std::string AssumptionRelationshipsContentForm::relatedRisks() const {
-  return doc().formField(path(), "relatedRisks");
-}
-void AssumptionRelationshipsContentForm::setRelatedRisks(const std::string& value) {
-  doc().setFormField(path(), "relatedRisks", value);
-}
-std::string AssumptionRelationshipsContentForm::relatedRequirements() const {
-  return doc().formField(path(), "relatedRequirements");
-}
-void AssumptionRelationshipsContentForm::setRelatedRequirements(const std::string& value) {
-  doc().setFormField(path(), "relatedRequirements", value);
-}
-std::string AssumptionRelationshipsContentForm::affectedDecisions() const {
-  return doc().formField(path(), "affectedDecisions");
-}
-void AssumptionRelationshipsContentForm::setAffectedDecisions(const std::string& value) {
-  doc().setFormField(path(), "affectedDecisions", value);
-}
-std::string AssumptionRelationshipsContentForm::documentReferences() const {
-  return doc().formField(path(), "documentReferences");
-}
-void AssumptionRelationshipsContentForm::setDocumentReferences(const std::string& value) {
-  doc().setFormField(path(), "documentReferences", value);
-}
-std::string AssumptionRelationshipsContentForm::stakeholderOwner() const {
-  return doc().formField(path(), "stakeholderOwner");
-}
-void AssumptionRelationshipsContentForm::setStakeholderOwner(const std::string& value) {
-  doc().setFormField(path(), "stakeholderOwner", value);
-}
-std::string AssumptionRelationshipsContentForm::reviewFrequency() const {
-  return doc().formField(path(), "reviewFrequency");
-}
-void AssumptionRelationshipsContentForm::setReviewFrequency(const std::string& value) {
-  doc().setFormField(path(), "reviewFrequency", value);
-}
-
-AssumptionValidationContentForm::AssumptionValidationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string AssumptionValidationContentForm::validationMethod() const {
-  return doc().formField(path(), "validationMethod");
-}
-void AssumptionValidationContentForm::setValidationMethod(const std::string& value) {
-  doc().setFormField(path(), "validationMethod", value);
-}
-std::string AssumptionValidationContentForm::validationCriteria() const {
-  return doc().formField(path(), "validationCriteria");
-}
-void AssumptionValidationContentForm::setValidationCriteria(const std::string& value) {
-  doc().setFormField(path(), "validationCriteria", value);
-}
-std::string AssumptionValidationContentForm::validationDate() const {
-  return doc().formField(path(), "validationDate");
-}
-void AssumptionValidationContentForm::setValidationDate(const std::string& value) {
-  doc().setFormField(path(), "validationDate", value);
-}
-std::string AssumptionValidationContentForm::validationStatus() const {
-  return doc().formField(path(), "validationStatus");
-}
-void AssumptionValidationContentForm::setValidationStatus(const std::string& value) {
-  doc().setFormField(path(), "validationStatus", value);
-}
-std::string AssumptionValidationContentForm::lastValidationDate() const {
-  return doc().formField(path(), "lastValidationDate");
-}
-void AssumptionValidationContentForm::setLastValidationDate(const std::string& value) {
-  doc().setFormField(path(), "lastValidationDate", value);
-}
-std::string AssumptionValidationContentForm::validatedBy() const {
-  return doc().formField(path(), "validatedBy");
-}
-void AssumptionValidationContentForm::setValidatedBy(const std::string& value) {
-  doc().setFormField(path(), "validatedBy", value);
-}
-std::string AssumptionValidationContentForm::validationNotes() const {
-  return doc().formField(path(), "validationNotes");
-}
-void AssumptionValidationContentForm::setValidationNotes(const std::string& value) {
-  doc().setFormField(path(), "validationNotes", value);
-}
-std::string AssumptionValidationContentForm::validationOwner() const {
-  return doc().formField(path(), "validationOwner");
-}
-void AssumptionValidationContentForm::setValidationOwner(const std::string& value) {
-  doc().setFormField(path(), "validationOwner", value);
-}
-
-AssumptionsOverviewContentForm::AssumptionsOverviewContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string AssumptionsOverviewContentForm::assumptionsApproach() const {
-  return doc().formField(path(), "assumptionsApproach");
-}
-void AssumptionsOverviewContentForm::setAssumptionsApproach(const std::string& value) {
-  doc().setFormField(path(), "assumptionsApproach", value);
-}
-std::string AssumptionsOverviewContentForm::validationCadence() const {
-  return doc().formField(path(), "validationCadence");
-}
-void AssumptionsOverviewContentForm::setValidationCadence(const std::string& value) {
-  doc().setFormField(path(), "validationCadence", value);
-}
-std::string AssumptionsOverviewContentForm::assumptionCategories() const {
-  return doc().formField(path(), "assumptionCategories");
-}
-void AssumptionsOverviewContentForm::setAssumptionCategories(const std::string& value) {
-  doc().setFormField(path(), "assumptionCategories", value);
-}
-std::string AssumptionsOverviewContentForm::escalationProcess() const {
-  return doc().formField(path(), "escalationProcess");
-}
-void AssumptionsOverviewContentForm::setEscalationProcess(const std::string& value) {
-  doc().setFormField(path(), "escalationProcess", value);
 }
 
 AuditEntryContentForm::AuditEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -43416,186 +42942,6 @@ void ConsentManagementRequirementsTrackingContentForm::setThirdPartyConsentShari
   doc().setFormField(path(), "thirdPartyConsentSharing", value);
 }
 
-ConstraintClassificationContentForm::ConstraintClassificationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ConstraintClassificationContentForm::constraintDescription() const {
-  return doc().formField(path(), "constraintDescription");
-}
-void ConstraintClassificationContentForm::setConstraintDescription(const std::string& value) {
-  doc().setFormField(path(), "constraintDescription", value);
-}
-std::string ConstraintClassificationContentForm::constraintCategory() const {
-  return doc().formField(path(), "constraintCategory");
-}
-void ConstraintClassificationContentForm::setConstraintCategory(const std::string& value) {
-  doc().setFormField(path(), "constraintCategory", value);
-}
-std::string ConstraintClassificationContentForm::constraintType() const {
-  return doc().formField(path(), "constraintType");
-}
-void ConstraintClassificationContentForm::setConstraintType(const std::string& value) {
-  doc().setFormField(path(), "constraintType", value);
-}
-std::string ConstraintClassificationContentForm::constraintSource() const {
-  return doc().formField(path(), "constraintSource");
-}
-void ConstraintClassificationContentForm::setConstraintSource(const std::string& value) {
-  doc().setFormField(path(), "constraintSource", value);
-}
-std::string ConstraintClassificationContentForm::sourceReference() const {
-  return doc().formField(path(), "sourceReference");
-}
-void ConstraintClassificationContentForm::setSourceReference(const std::string& value) {
-  doc().setFormField(path(), "sourceReference", value);
-}
-
-ConstraintDetailsContentForm::ConstraintDetailsContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ConstraintDetailsContentForm::constraintValue() const {
-  return doc().formField(path(), "constraintValue");
-}
-void ConstraintDetailsContentForm::setConstraintValue(const std::string& value) {
-  doc().setFormField(path(), "constraintValue", value);
-}
-std::string ConstraintDetailsContentForm::constraintEffectiveDate() const {
-  return doc().formField(path(), "constraintEffectiveDate");
-}
-void ConstraintDetailsContentForm::setConstraintEffectiveDate(const std::string& value) {
-  doc().setFormField(path(), "constraintEffectiveDate", value);
-}
-std::string ConstraintDetailsContentForm::constraintExpiryDate() const {
-  return doc().formField(path(), "constraintExpiryDate");
-}
-void ConstraintDetailsContentForm::setConstraintExpiryDate(const std::string& value) {
-  doc().setFormField(path(), "constraintExpiryDate", value);
-}
-std::string ConstraintDetailsContentForm::geographicScope() const {
-  return doc().formField(path(), "geographicScope");
-}
-void ConstraintDetailsContentForm::setGeographicScope(const std::string& value) {
-  doc().setFormField(path(), "geographicScope", value);
-}
-std::string ConstraintDetailsContentForm::affectedDomains() const {
-  return doc().formField(path(), "affectedDomains");
-}
-void ConstraintDetailsContentForm::setAffectedDomains(const std::string& value) {
-  doc().setFormField(path(), "affectedDomains", value);
-}
-
-ConstraintEntryContentForm::ConstraintEntryContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ConstraintEntryContentForm::constraintId() const {
-  return doc().formField(path(), "constraintId");
-}
-void ConstraintEntryContentForm::setConstraintId(const std::string& value) {
-  doc().setFormField(path(), "constraintId", value);
-}
-std::string ConstraintEntryContentForm::constraintName() const {
-  return doc().formField(path(), "constraintName");
-}
-void ConstraintEntryContentForm::setConstraintName(const std::string& value) {
-  doc().setFormField(path(), "constraintName", value);
-}
-std::string ConstraintEntryContentForm::impactLevel() const {
-  return doc().formField(path(), "impactLevel");
-}
-void ConstraintEntryContentForm::setImpactLevel(const std::string& value) {
-  doc().setFormField(path(), "impactLevel", value);
-}
-
-ConstraintImpactContentForm::ConstraintImpactContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ConstraintImpactContentForm::impactDescription() const {
-  return doc().formField(path(), "impactDescription");
-}
-void ConstraintImpactContentForm::setImpactDescription(const std::string& value) {
-  doc().setFormField(path(), "impactDescription", value);
-}
-std::string ConstraintImpactContentForm::affectedWorkPackages() const {
-  return doc().formField(path(), "affectedWorkPackages");
-}
-void ConstraintImpactContentForm::setAffectedWorkPackages(const std::string& value) {
-  doc().setFormField(path(), "affectedWorkPackages", value);
-}
-std::string ConstraintImpactContentForm::affectedMilestones() const {
-  return doc().formField(path(), "affectedMilestones");
-}
-void ConstraintImpactContentForm::setAffectedMilestones(const std::string& value) {
-  doc().setFormField(path(), "affectedMilestones", value);
-}
-std::string ConstraintImpactContentForm::scheduleImpact() const {
-  return doc().formField(path(), "scheduleImpact");
-}
-void ConstraintImpactContentForm::setScheduleImpact(const std::string& value) {
-  doc().setFormField(path(), "scheduleImpact", value);
-}
-std::string ConstraintImpactContentForm::budgetImpact() const {
-  return doc().formField(path(), "budgetImpact");
-}
-void ConstraintImpactContentForm::setBudgetImpact(const std::string& value) {
-  doc().setFormField(path(), "budgetImpact", value);
-}
-std::string ConstraintImpactContentForm::scopeImpact() const {
-  return doc().formField(path(), "scopeImpact");
-}
-void ConstraintImpactContentForm::setScopeImpact(const std::string& value) {
-  doc().setFormField(path(), "scopeImpact", value);
-}
-
-ConstraintLinkagesContentForm::ConstraintLinkagesContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ConstraintLinkagesContentForm::relatedConstraints() const {
-  return doc().formField(path(), "relatedConstraints");
-}
-void ConstraintLinkagesContentForm::setRelatedConstraints(const std::string& value) {
-  doc().setFormField(path(), "relatedConstraints", value);
-}
-std::string ConstraintLinkagesContentForm::relatedRisks() const {
-  return doc().formField(path(), "relatedRisks");
-}
-void ConstraintLinkagesContentForm::setRelatedRisks(const std::string& value) {
-  doc().setFormField(path(), "relatedRisks", value);
-}
-std::string ConstraintLinkagesContentForm::relatedDependencies() const {
-  return doc().formField(path(), "relatedDependencies");
-}
-void ConstraintLinkagesContentForm::setRelatedDependencies(const std::string& value) {
-  doc().setFormField(path(), "relatedDependencies", value);
-}
-
-ConstraintMitigationContentForm::ConstraintMitigationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ConstraintMitigationContentForm::mitigationStrategy() const {
-  return doc().formField(path(), "mitigationStrategy");
-}
-void ConstraintMitigationContentForm::setMitigationStrategy(const std::string& value) {
-  doc().setFormField(path(), "mitigationStrategy", value);
-}
-std::string ConstraintMitigationContentForm::negotiationPossibility() const {
-  return doc().formField(path(), "negotiationPossibility");
-}
-void ConstraintMitigationContentForm::setNegotiationPossibility(const std::string& value) {
-  doc().setFormField(path(), "negotiationPossibility", value);
-}
-std::string ConstraintMitigationContentForm::negotiationApproach() const {
-  return doc().formField(path(), "negotiationApproach");
-}
-void ConstraintMitigationContentForm::setNegotiationApproach(const std::string& value) {
-  doc().setFormField(path(), "negotiationApproach", value);
-}
-std::string ConstraintMitigationContentForm::fallbackPlan() const {
-  return doc().formField(path(), "fallbackPlan");
-}
-void ConstraintMitigationContentForm::setFallbackPlan(const std::string& value) {
-  doc().setFormField(path(), "fallbackPlan", value);
-}
-std::string ConstraintMitigationContentForm::violationConsequences() const {
-  return doc().formField(path(), "violationConsequences");
-}
-void ConstraintMitigationContentForm::setViolationConsequences(const std::string& value) {
-  doc().setFormField(path(), "violationConsequences", value);
-}
-
 ConstraintRegisterEntryContentForm::ConstraintRegisterEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ConstraintRegisterEntryContentForm::constraintId() const {
@@ -43627,159 +42973,6 @@ std::string ConstraintRegisterEntryContentForm::impact() const {
 }
 void ConstraintRegisterEntryContentForm::setImpact(const std::string& value) {
   doc().setFormField(path(), "impact", value);
-}
-
-ConstraintTrackingContentForm::ConstraintTrackingContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ConstraintTrackingContentForm::trackingMethod() const {
-  return doc().formField(path(), "trackingMethod");
-}
-void ConstraintTrackingContentForm::setTrackingMethod(const std::string& value) {
-  doc().setFormField(path(), "trackingMethod", value);
-}
-std::string ConstraintTrackingContentForm::reviewFrequency() const {
-  return doc().formField(path(), "reviewFrequency");
-}
-void ConstraintTrackingContentForm::setReviewFrequency(const std::string& value) {
-  doc().setFormField(path(), "reviewFrequency", value);
-}
-std::string ConstraintTrackingContentForm::constraintOwner() const {
-  return doc().formField(path(), "constraintOwner");
-}
-void ConstraintTrackingContentForm::setConstraintOwner(const std::string& value) {
-  doc().setFormField(path(), "constraintOwner", value);
-}
-std::string ConstraintTrackingContentForm::currentStatus() const {
-  return doc().formField(path(), "currentStatus");
-}
-void ConstraintTrackingContentForm::setCurrentStatus(const std::string& value) {
-  doc().setFormField(path(), "currentStatus", value);
-}
-std::string ConstraintTrackingContentForm::statusNotes() const {
-  return doc().formField(path(), "statusNotes");
-}
-void ConstraintTrackingContentForm::setStatusNotes(const std::string& value) {
-  doc().setFormField(path(), "statusNotes", value);
-}
-
-ConstraintsAndDependenciesContentForm::ConstraintsAndDependenciesContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ConstraintsAndDependenciesContentForm::constraintDependencyOverview() const {
-  return doc().formField(path(), "constraintDependencyOverview");
-}
-void ConstraintsAndDependenciesContentForm::setConstraintDependencyOverview(const std::string& value) {
-  doc().setFormField(path(), "constraintDependencyOverview", value);
-}
-std::string ConstraintsAndDependenciesContentForm::totalConstraintCount() const {
-  return doc().formField(path(), "totalConstraintCount");
-}
-void ConstraintsAndDependenciesContentForm::setTotalConstraintCount(const std::string& value) {
-  doc().setFormField(path(), "totalConstraintCount", value);
-}
-std::string ConstraintsAndDependenciesContentForm::totalDependencyCount() const {
-  return doc().formField(path(), "totalDependencyCount");
-}
-void ConstraintsAndDependenciesContentForm::setTotalDependencyCount(const std::string& value) {
-  doc().setFormField(path(), "totalDependencyCount", value);
-}
-std::string ConstraintsAndDependenciesContentForm::criticalConstraintCount() const {
-  return doc().formField(path(), "criticalConstraintCount");
-}
-void ConstraintsAndDependenciesContentForm::setCriticalConstraintCount(const std::string& value) {
-  doc().setFormField(path(), "criticalConstraintCount", value);
-}
-std::string ConstraintsAndDependenciesContentForm::criticalDependencyCount() const {
-  return doc().formField(path(), "criticalDependencyCount");
-}
-void ConstraintsAndDependenciesContentForm::setCriticalDependencyCount(const std::string& value) {
-  doc().setFormField(path(), "criticalDependencyCount", value);
-}
-std::string ConstraintsAndDependenciesContentForm::constraintManagementApproach() const {
-  return doc().formField(path(), "constraintManagementApproach");
-}
-void ConstraintsAndDependenciesContentForm::setConstraintManagementApproach(const std::string& value) {
-  doc().setFormField(path(), "constraintManagementApproach", value);
-}
-std::string ConstraintsAndDependenciesContentForm::dependencyManagementApproach() const {
-  return doc().formField(path(), "dependencyManagementApproach");
-}
-void ConstraintsAndDependenciesContentForm::setDependencyManagementApproach(const std::string& value) {
-  doc().setFormField(path(), "dependencyManagementApproach", value);
-}
-std::string ConstraintsAndDependenciesContentForm::monitoringFrequency() const {
-  return doc().formField(path(), "monitoringFrequency");
-}
-void ConstraintsAndDependenciesContentForm::setMonitoringFrequency(const std::string& value) {
-  doc().setFormField(path(), "monitoringFrequency", value);
-}
-std::string ConstraintsAndDependenciesContentForm::escalationPath() const {
-  return doc().formField(path(), "escalationPath");
-}
-void ConstraintsAndDependenciesContentForm::setEscalationPath(const std::string& value) {
-  doc().setFormField(path(), "escalationPath", value);
-}
-
-ConstraintsContentForm::ConstraintsContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ConstraintsContentForm::constraintSummary() const {
-  return doc().formField(path(), "constraintSummary");
-}
-void ConstraintsContentForm::setConstraintSummary(const std::string& value) {
-  doc().setFormField(path(), "constraintSummary", value);
-}
-std::string ConstraintsContentForm::primaryConstraintCategory() const {
-  return doc().formField(path(), "primaryConstraintCategory");
-}
-void ConstraintsContentForm::setPrimaryConstraintCategory(const std::string& value) {
-  doc().setFormField(path(), "primaryConstraintCategory", value);
-}
-std::string ConstraintsContentForm::constraintImpactLevel() const {
-  return doc().formField(path(), "constraintImpactLevel");
-}
-void ConstraintsContentForm::setConstraintImpactLevel(const std::string& value) {
-  doc().setFormField(path(), "constraintImpactLevel", value);
-}
-std::string ConstraintsContentForm::flexibilityAssessment() const {
-  return doc().formField(path(), "flexibilityAssessment");
-}
-void ConstraintsContentForm::setFlexibilityAssessment(const std::string& value) {
-  doc().setFormField(path(), "flexibilityAssessment", value);
-}
-std::string ConstraintsContentForm::regulatoryConstraintCount() const {
-  return doc().formField(path(), "regulatoryConstraintCount");
-}
-void ConstraintsContentForm::setRegulatoryConstraintCount(const std::string& value) {
-  doc().setFormField(path(), "regulatoryConstraintCount", value);
-}
-std::string ConstraintsContentForm::contractualConstraintCount() const {
-  return doc().formField(path(), "contractualConstraintCount");
-}
-void ConstraintsContentForm::setContractualConstraintCount(const std::string& value) {
-  doc().setFormField(path(), "contractualConstraintCount", value);
-}
-std::string ConstraintsContentForm::budgetaryConstraintCount() const {
-  return doc().formField(path(), "budgetaryConstraintCount");
-}
-void ConstraintsContentForm::setBudgetaryConstraintCount(const std::string& value) {
-  doc().setFormField(path(), "budgetaryConstraintCount", value);
-}
-std::string ConstraintsContentForm::timelineConstraintCount() const {
-  return doc().formField(path(), "timelineConstraintCount");
-}
-void ConstraintsContentForm::setTimelineConstraintCount(const std::string& value) {
-  doc().setFormField(path(), "timelineConstraintCount", value);
-}
-std::string ConstraintsContentForm::resourceConstraintCount() const {
-  return doc().formField(path(), "resourceConstraintCount");
-}
-void ConstraintsContentForm::setResourceConstraintCount(const std::string& value) {
-  doc().setFormField(path(), "resourceConstraintCount", value);
-}
-std::string ConstraintsContentForm::technicalConstraintCount() const {
-  return doc().formField(path(), "technicalConstraintCount");
-}
-void ConstraintsContentForm::setTechnicalConstraintCount(const std::string& value) {
-  doc().setFormField(path(), "technicalConstraintCount", value);
 }
 
 ContextualHelpContextualHelpContentForm::ContextualHelpContextualHelpContentForm(som::SpecDocument& doc, std::string path)
@@ -48915,87 +48108,6 @@ void DeliveryAcceptanceCriterionEntryVerificationContentForm::setEvidenceRequire
   doc().setFormField(path(), "evidenceRequired", value);
 }
 
-DependencyClassificationContentForm::DependencyClassificationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DependencyClassificationContentForm::dependencyCategory() const {
-  return doc().formField(path(), "dependencyCategory");
-}
-void DependencyClassificationContentForm::setDependencyCategory(const std::string& value) {
-  doc().setFormField(path(), "dependencyCategory", value);
-}
-std::string DependencyClassificationContentForm::dependencyType() const {
-  return doc().formField(path(), "dependencyType");
-}
-void DependencyClassificationContentForm::setDependencyType(const std::string& value) {
-  doc().setFormField(path(), "dependencyType", value);
-}
-std::string DependencyClassificationContentForm::onCriticalPath() const {
-  return doc().formField(path(), "onCriticalPath");
-}
-void DependencyClassificationContentForm::setOnCriticalPath(const std::string& value) {
-  doc().setFormField(path(), "onCriticalPath", value);
-}
-
-DependencyDeliverableContentForm::DependencyDeliverableContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DependencyDeliverableContentForm::deliverableDescription() const {
-  return doc().formField(path(), "deliverableDescription");
-}
-void DependencyDeliverableContentForm::setDeliverableDescription(const std::string& value) {
-  doc().setFormField(path(), "deliverableDescription", value);
-}
-std::string DependencyDeliverableContentForm::deliverableSpecification() const {
-  return doc().formField(path(), "deliverableSpecification");
-}
-void DependencyDeliverableContentForm::setDeliverableSpecification(const std::string& value) {
-  doc().setFormField(path(), "deliverableSpecification", value);
-}
-std::string DependencyDeliverableContentForm::qualityCriteria() const {
-  return doc().formField(path(), "qualityCriteria");
-}
-void DependencyDeliverableContentForm::setQualityCriteria(const std::string& value) {
-  doc().setFormField(path(), "qualityCriteria", value);
-}
-std::string DependencyDeliverableContentForm::deliveryFormat() const {
-  return doc().formField(path(), "deliveryFormat");
-}
-void DependencyDeliverableContentForm::setDeliveryFormat(const std::string& value) {
-  doc().setFormField(path(), "deliveryFormat", value);
-}
-
-DependencyExternalPartyContentForm::DependencyExternalPartyContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DependencyExternalPartyContentForm::externalPartyName() const {
-  return doc().formField(path(), "externalPartyName");
-}
-void DependencyExternalPartyContentForm::setExternalPartyName(const std::string& value) {
-  doc().setFormField(path(), "externalPartyName", value);
-}
-std::string DependencyExternalPartyContentForm::externalPartyType() const {
-  return doc().formField(path(), "externalPartyType");
-}
-void DependencyExternalPartyContentForm::setExternalPartyType(const std::string& value) {
-  doc().setFormField(path(), "externalPartyType", value);
-}
-std::string DependencyExternalPartyContentForm::contactPerson() const {
-  return doc().formField(path(), "contactPerson");
-}
-void DependencyExternalPartyContentForm::setContactPerson(const std::string& value) {
-  doc().setFormField(path(), "contactPerson", value);
-}
-std::string DependencyExternalPartyContentForm::contactEmail() const {
-  return doc().formField(path(), "contactEmail");
-}
-void DependencyExternalPartyContentForm::setContactEmail(const std::string& value) {
-  doc().setFormField(path(), "contactEmail", value);
-}
-std::string DependencyExternalPartyContentForm::escalationContact() const {
-  return doc().formField(path(), "escalationContact");
-}
-void DependencyExternalPartyContentForm::setEscalationContact(const std::string& value) {
-  doc().setFormField(path(), "escalationContact", value);
-}
-
 DependencyHealthMonitoringCacheContentForm::DependencyHealthMonitoringCacheContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DependencyHealthMonitoringCacheContentForm::cacheHealthCheck() const {
@@ -49093,15 +48205,6 @@ std::string DependencyHealthMonitoringThresholdsContentForm::notes() const {
 }
 void DependencyHealthMonitoringThresholdsContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
-}
-
-DependencyIdentityContentForm::DependencyIdentityContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DependencyIdentityContentForm::dependencyDescription() const {
-  return doc().formField(path(), "dependencyDescription");
-}
-void DependencyIdentityContentForm::setDependencyDescription(const std::string& value) {
-  doc().setFormField(path(), "dependencyDescription", value);
 }
 
 DependencyInjectionStructureBindingContentForm::DependencyInjectionStructureBindingContentForm(som::SpecDocument& doc, std::string path)
@@ -49209,33 +48312,6 @@ void DependencyInjectionStructureTroubleshootingContentForm::setNotes(const std:
   doc().setFormField(path(), "notes", value);
 }
 
-DependencyLinkagesContentForm::DependencyLinkagesContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DependencyLinkagesContentForm::relatedConstraints() const {
-  return doc().formField(path(), "relatedConstraints");
-}
-void DependencyLinkagesContentForm::setRelatedConstraints(const std::string& value) {
-  doc().setFormField(path(), "relatedConstraints", value);
-}
-std::string DependencyLinkagesContentForm::relatedRisks() const {
-  return doc().formField(path(), "relatedRisks");
-}
-void DependencyLinkagesContentForm::setRelatedRisks(const std::string& value) {
-  doc().setFormField(path(), "relatedRisks", value);
-}
-std::string DependencyLinkagesContentForm::relatedDependencies() const {
-  return doc().formField(path(), "relatedDependencies");
-}
-void DependencyLinkagesContentForm::setRelatedDependencies(const std::string& value) {
-  doc().setFormField(path(), "relatedDependencies", value);
-}
-std::string DependencyLinkagesContentForm::affectedWorkPackages() const {
-  return doc().formField(path(), "affectedWorkPackages");
-}
-void DependencyLinkagesContentForm::setAffectedWorkPackages(const std::string& value) {
-  doc().setFormField(path(), "affectedWorkPackages", value);
-}
-
 DependencyManagementContentForm::DependencyManagementContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DependencyManagementContentForm::primaryPackageManager() const {
@@ -49335,39 +48411,6 @@ void DependencyManagementVersioningContentForm::setLockfilePolicy(const std::str
   doc().setFormField(path(), "lockfilePolicy", value);
 }
 
-DependencyMitigationContentForm::DependencyMitigationContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DependencyMitigationContentForm::mitigationStrategy() const {
-  return doc().formField(path(), "mitigationStrategy");
-}
-void DependencyMitigationContentForm::setMitigationStrategy(const std::string& value) {
-  doc().setFormField(path(), "mitigationStrategy", value);
-}
-std::string DependencyMitigationContentForm::contingencyPlan() const {
-  return doc().formField(path(), "contingencyPlan");
-}
-void DependencyMitigationContentForm::setContingencyPlan(const std::string& value) {
-  doc().setFormField(path(), "contingencyPlan", value);
-}
-std::string DependencyMitigationContentForm::contingencyTimeline() const {
-  return doc().formField(path(), "contingencyTimeline");
-}
-void DependencyMitigationContentForm::setContingencyTimeline(const std::string& value) {
-  doc().setFormField(path(), "contingencyTimeline", value);
-}
-std::string DependencyMitigationContentForm::contractualProtection() const {
-  return doc().formField(path(), "contractualProtection");
-}
-void DependencyMitigationContentForm::setContractualProtection(const std::string& value) {
-  doc().setFormField(path(), "contractualProtection", value);
-}
-std::string DependencyMitigationContentForm::alternativeOptions() const {
-  return doc().formField(path(), "alternativeOptions");
-}
-void DependencyMitigationContentForm::setAlternativeOptions(const std::string& value) {
-  doc().setFormField(path(), "alternativeOptions", value);
-}
-
 DependencyRegisterEntryContentForm::DependencyRegisterEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DependencyRegisterEntryContentForm::dependencyId() const {
@@ -49405,39 +48448,6 @@ std::string DependencyRegisterEntryContentForm::status() const {
 }
 void DependencyRegisterEntryContentForm::setStatus(const std::string& value) {
   doc().setFormField(path(), "status", value);
-}
-
-DependencyRiskContentForm::DependencyRiskContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DependencyRiskContentForm::deliveryRiskLevel() const {
-  return doc().formField(path(), "deliveryRiskLevel");
-}
-void DependencyRiskContentForm::setDeliveryRiskLevel(const std::string& value) {
-  doc().setFormField(path(), "deliveryRiskLevel", value);
-}
-std::string DependencyRiskContentForm::primaryRiskFactors() const {
-  return doc().formField(path(), "primaryRiskFactors");
-}
-void DependencyRiskContentForm::setPrimaryRiskFactors(const std::string& value) {
-  doc().setFormField(path(), "primaryRiskFactors", value);
-}
-std::string DependencyRiskContentForm::riskIndicators() const {
-  return doc().formField(path(), "riskIndicators");
-}
-void DependencyRiskContentForm::setRiskIndicators(const std::string& value) {
-  doc().setFormField(path(), "riskIndicators", value);
-}
-std::string DependencyRiskContentForm::impactOfDelay() const {
-  return doc().formField(path(), "impactOfDelay");
-}
-void DependencyRiskContentForm::setImpactOfDelay(const std::string& value) {
-  doc().setFormField(path(), "impactOfDelay", value);
-}
-std::string DependencyRiskContentForm::impactOfFailure() const {
-  return doc().formField(path(), "impactOfFailure");
-}
-void DependencyRiskContentForm::setImpactOfFailure(const std::string& value) {
-  doc().setFormField(path(), "impactOfFailure", value);
 }
 
 DependencyScanningRequirementsContentForm::DependencyScanningRequirementsContentForm(som::SpecDocument& doc, std::string path)
@@ -49549,84 +48559,6 @@ std::string DependencyScanningRequirementsVulnerabilitiesContentForm::exceptionP
 }
 void DependencyScanningRequirementsVulnerabilitiesContentForm::setExceptionProcess(const std::string& value) {
   doc().setFormField(path(), "exceptionProcess", value);
-}
-
-DependencyTimelineContentForm::DependencyTimelineContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DependencyTimelineContentForm::expectedDeliveryDate() const {
-  return doc().formField(path(), "expectedDeliveryDate");
-}
-void DependencyTimelineContentForm::setExpectedDeliveryDate(const std::string& value) {
-  doc().setFormField(path(), "expectedDeliveryDate", value);
-}
-std::string DependencyTimelineContentForm::latestAcceptableDate() const {
-  return doc().formField(path(), "latestAcceptableDate");
-}
-void DependencyTimelineContentForm::setLatestAcceptableDate(const std::string& value) {
-  doc().setFormField(path(), "latestAcceptableDate", value);
-}
-std::string DependencyTimelineContentForm::leadTimeRequired() const {
-  return doc().formField(path(), "leadTimeRequired");
-}
-void DependencyTimelineContentForm::setLeadTimeRequired(const std::string& value) {
-  doc().setFormField(path(), "leadTimeRequired", value);
-}
-std::string DependencyTimelineContentForm::bufferDays() const {
-  return doc().formField(path(), "bufferDays");
-}
-void DependencyTimelineContentForm::setBufferDays(const std::string& value) {
-  doc().setFormField(path(), "bufferDays", value);
-}
-std::string DependencyTimelineContentForm::dependentMilestones() const {
-  return doc().formField(path(), "dependentMilestones");
-}
-void DependencyTimelineContentForm::setDependentMilestones(const std::string& value) {
-  doc().setFormField(path(), "dependentMilestones", value);
-}
-
-DependencyTrackingContentForm::DependencyTrackingContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string DependencyTrackingContentForm::coordinationMechanism() const {
-  return doc().formField(path(), "coordinationMechanism");
-}
-void DependencyTrackingContentForm::setCoordinationMechanism(const std::string& value) {
-  doc().setFormField(path(), "coordinationMechanism", value);
-}
-std::string DependencyTrackingContentForm::communicationFrequency() const {
-  return doc().formField(path(), "communicationFrequency");
-}
-void DependencyTrackingContentForm::setCommunicationFrequency(const std::string& value) {
-  doc().setFormField(path(), "communicationFrequency", value);
-}
-std::string DependencyTrackingContentForm::trackingMethod() const {
-  return doc().formField(path(), "trackingMethod");
-}
-void DependencyTrackingContentForm::setTrackingMethod(const std::string& value) {
-  doc().setFormField(path(), "trackingMethod", value);
-}
-std::string DependencyTrackingContentForm::dependencyOwner() const {
-  return doc().formField(path(), "dependencyOwner");
-}
-void DependencyTrackingContentForm::setDependencyOwner(const std::string& value) {
-  doc().setFormField(path(), "dependencyOwner", value);
-}
-std::string DependencyTrackingContentForm::currentStatus() const {
-  return doc().formField(path(), "currentStatus");
-}
-void DependencyTrackingContentForm::setCurrentStatus(const std::string& value) {
-  doc().setFormField(path(), "currentStatus", value);
-}
-std::string DependencyTrackingContentForm::statusLastUpdated() const {
-  return doc().formField(path(), "statusLastUpdated");
-}
-void DependencyTrackingContentForm::setStatusLastUpdated(const std::string& value) {
-  doc().setFormField(path(), "statusLastUpdated", value);
-}
-std::string DependencyTrackingContentForm::statusNotes() const {
-  return doc().formField(path(), "statusNotes");
-}
-void DependencyTrackingContentForm::setStatusNotes(const std::string& value) {
-  doc().setFormField(path(), "statusNotes", value);
 }
 
 DeploymentContextDeploymentDetailsForm::DeploymentContextDeploymentDetailsForm(som::SpecDocument& doc, std::string path)
@@ -57931,108 +56863,6 @@ std::string FrameworkCompatibilityContentForm::deprecationWarnings() const {
 }
 void FrameworkCompatibilityContentForm::setDeprecationWarnings(const std::string& value) {
   doc().setFormField(path(), "deprecationWarnings", value);
-}
-
-FrameworkDependenciesCategoriesContentForm::FrameworkDependenciesCategoriesContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string FrameworkDependenciesCategoriesContentForm::projectDependencyCount() const {
-  return doc().formField(path(), "projectDependencyCount");
-}
-void FrameworkDependenciesCategoriesContentForm::setProjectDependencyCount(const std::string& value) {
-  doc().setFormField(path(), "projectDependencyCount", value);
-}
-std::string FrameworkDependenciesCategoriesContentForm::teamDependencyCount() const {
-  return doc().formField(path(), "teamDependencyCount");
-}
-void FrameworkDependenciesCategoriesContentForm::setTeamDependencyCount(const std::string& value) {
-  doc().setFormField(path(), "teamDependencyCount", value);
-}
-std::string FrameworkDependenciesCategoriesContentForm::vendorDependencyCount() const {
-  return doc().formField(path(), "vendorDependencyCount");
-}
-void FrameworkDependenciesCategoriesContentForm::setVendorDependencyCount(const std::string& value) {
-  doc().setFormField(path(), "vendorDependencyCount", value);
-}
-std::string FrameworkDependenciesCategoriesContentForm::systemDependencyCount() const {
-  return doc().formField(path(), "systemDependencyCount");
-}
-void FrameworkDependenciesCategoriesContentForm::setSystemDependencyCount(const std::string& value) {
-  doc().setFormField(path(), "systemDependencyCount", value);
-}
-std::string FrameworkDependenciesCategoriesContentForm::regulatoryDependencyCount() const {
-  return doc().formField(path(), "regulatoryDependencyCount");
-}
-void FrameworkDependenciesCategoriesContentForm::setRegulatoryDependencyCount(const std::string& value) {
-  doc().setFormField(path(), "regulatoryDependencyCount", value);
-}
-std::string FrameworkDependenciesCategoriesContentForm::infrastructureDependencyCount() const {
-  return doc().formField(path(), "infrastructureDependencyCount");
-}
-void FrameworkDependenciesCategoriesContentForm::setInfrastructureDependencyCount(const std::string& value) {
-  doc().setFormField(path(), "infrastructureDependencyCount", value);
-}
-
-FrameworkDependenciesContentForm::FrameworkDependenciesContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string FrameworkDependenciesContentForm::dependencySummary() const {
-  return doc().formField(path(), "dependencySummary");
-}
-void FrameworkDependenciesContentForm::setDependencySummary(const std::string& value) {
-  doc().setFormField(path(), "dependencySummary", value);
-}
-std::string FrameworkDependenciesContentForm::primaryDependencyCategory() const {
-  return doc().formField(path(), "primaryDependencyCategory");
-}
-void FrameworkDependenciesContentForm::setPrimaryDependencyCategory(const std::string& value) {
-  doc().setFormField(path(), "primaryDependencyCategory", value);
-}
-std::string FrameworkDependenciesContentForm::dependencyRiskLevel() const {
-  return doc().formField(path(), "dependencyRiskLevel");
-}
-void FrameworkDependenciesContentForm::setDependencyRiskLevel(const std::string& value) {
-  doc().setFormField(path(), "dependencyRiskLevel", value);
-}
-std::string FrameworkDependenciesContentForm::criticalPathDependencyCount() const {
-  return doc().formField(path(), "criticalPathDependencyCount");
-}
-void FrameworkDependenciesContentForm::setCriticalPathDependencyCount(const std::string& value) {
-  doc().setFormField(path(), "criticalPathDependencyCount", value);
-}
-
-FrameworkDependenciesManagementContentForm::FrameworkDependenciesManagementContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string FrameworkDependenciesManagementContentForm::dependencyCoordinationApproach() const {
-  return doc().formField(path(), "dependencyCoordinationApproach");
-}
-void FrameworkDependenciesManagementContentForm::setDependencyCoordinationApproach(const std::string& value) {
-  doc().setFormField(path(), "dependencyCoordinationApproach", value);
-}
-std::string FrameworkDependenciesManagementContentForm::earlyWarningMechanism() const {
-  return doc().formField(path(), "earlyWarningMechanism");
-}
-void FrameworkDependenciesManagementContentForm::setEarlyWarningMechanism(const std::string& value) {
-  doc().setFormField(path(), "earlyWarningMechanism", value);
-}
-
-FrameworkDependencyEntryContentForm::FrameworkDependencyEntryContentForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string FrameworkDependencyEntryContentForm::dependencyId() const {
-  return doc().formField(path(), "dependencyId");
-}
-void FrameworkDependencyEntryContentForm::setDependencyId(const std::string& value) {
-  doc().setFormField(path(), "dependencyId", value);
-}
-std::string FrameworkDependencyEntryContentForm::dependencyName() const {
-  return doc().formField(path(), "dependencyName");
-}
-void FrameworkDependencyEntryContentForm::setDependencyName(const std::string& value) {
-  doc().setFormField(path(), "dependencyName", value);
-}
-std::string FrameworkDependencyEntryContentForm::criticalityLevel() const {
-  return doc().formField(path(), "criticalityLevel");
-}
-void FrameworkDependencyEntryContentForm::setCriticalityLevel(const std::string& value) {
-  doc().setFormField(path(), "criticalityLevel", value);
 }
 
 FrameworkIdentityContentForm::FrameworkIdentityContentForm(som::SpecDocument& doc, std::string path)

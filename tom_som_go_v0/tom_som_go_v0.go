@@ -3231,69 +3231,6 @@ func (x *AssumptionConstraintRegister) Dependencies() *som.SomList[*DependencyRe
 	})
 }
 
-// An assumption entry (form).
-//
-// Documents a project assumption including its basis, validation approach,
-// and contingency plans if the assumption proves false.
-type AssumptionEntry struct {
-	som.SomNode
-}
-
-// NewAssumptionEntry binds a AssumptionEntry facade to a document and a path.
-func NewAssumptionEntry(doc *som.SpecDocument, path string) *AssumptionEntry {
-	return &AssumptionEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-// Assumption identification and description.
-func (x *AssumptionEntry) Identification() *AssumptionIdentification {
-	return NewAssumptionIdentification(x.Doc(), x.Path() + "/identification")
-}
-
-// Assumption validation details.
-func (x *AssumptionEntry) Validation() *AssumptionValidation {
-	return NewAssumptionValidation(x.Doc(), x.Path() + "/validation")
-}
-
-// Impact and contingency if assumption is false.
-func (x *AssumptionEntry) Impact() *AssumptionImpact {
-	return NewAssumptionImpact(x.Doc(), x.Path() + "/impact")
-}
-
-// Relationships to other project elements.
-func (x *AssumptionEntry) Relationships() *som.SomList[*AssumptionRelationships] {
-	return som.NewSomList(x.Doc(), x.Path() + "/ASRE-RELA-LST", func(d *som.SpecDocument, p string) *AssumptionRelationships {
-		return NewAssumptionRelationships(d, p)
-	})
-}
-
-// Assumption identification details.
-type AssumptionIdentification struct {
-	som.SomNode
-}
-
-// NewAssumptionIdentification binds a AssumptionIdentification facade to a document and a path.
-func NewAssumptionIdentification(doc *som.SpecDocument, path string) *AssumptionIdentification {
-	return &AssumptionIdentification{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AssumptionIdentification) Content() *AssumptionIdentificationContentForm {
-	return NewAssumptionIdentificationContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Impact assessment if assumption proves false.
-type AssumptionImpact struct {
-	som.SomNode
-}
-
-// NewAssumptionImpact binds a AssumptionImpact facade to a document and a path.
-func NewAssumptionImpact(doc *som.SpecDocument, path string) *AssumptionImpact {
-	return &AssumptionImpact{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AssumptionImpact) Content() *AssumptionImpactContentForm {
-	return NewAssumptionImpactContentForm(x.Doc(), x.Path() + "/content")
-}
-
 // A single assumption register entry (form).
 //
 // Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
@@ -3309,34 +3246,6 @@ func NewAssumptionRegisterEntry(doc *som.SpecDocument, path string) *AssumptionR
 
 func (x *AssumptionRegisterEntry) Content() *AssumptionRegisterEntryContentForm {
 	return NewAssumptionRegisterEntryContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Relationships to other project elements.
-type AssumptionRelationships struct {
-	som.SomNode
-}
-
-// NewAssumptionRelationships binds a AssumptionRelationships facade to a document and a path.
-func NewAssumptionRelationships(doc *som.SpecDocument, path string) *AssumptionRelationships {
-	return &AssumptionRelationships{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AssumptionRelationships) Content() *AssumptionRelationshipsContentForm {
-	return NewAssumptionRelationshipsContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Assumption validation details.
-type AssumptionValidation struct {
-	som.SomNode
-}
-
-// NewAssumptionValidation binds a AssumptionValidation facade to a document and a path.
-func NewAssumptionValidation(doc *som.SpecDocument, path string) *AssumptionValidation {
-	return &AssumptionValidation{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AssumptionValidation) Content() *AssumptionValidationContentForm {
-	return NewAssumptionValidationContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // SBP.6 Assumptions, Constraints & Dependencies.
@@ -3360,20 +3269,6 @@ func (x *AssumptionsConstraintsDependencies) SetContent(value string) {
 // The consolidated assumption / constraint register.
 func (x *AssumptionsConstraintsDependencies) Register() *AssumptionConstraintRegister {
 	return NewAssumptionConstraintRegister(x.Doc(), x.Path() + "/register")
-}
-
-// Overview of assumptions management.
-type AssumptionsOverview struct {
-	som.SomNode
-}
-
-// NewAssumptionsOverview binds a AssumptionsOverview facade to a document and a path.
-func NewAssumptionsOverview(doc *som.SpecDocument, path string) *AssumptionsOverview {
-	return &AssumptionsOverview{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AssumptionsOverview) Content() *AssumptionsOverviewContentForm {
-	return NewAssumptionsOverviewContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // A single attribute interdependency entry.
@@ -11779,130 +11674,6 @@ func (x *ConsentManagementRequirementsTracking) Content() *ConsentManagementRequ
 	return NewConsentManagementRequirementsTrackingContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Classification for constraint.
-type ConstraintClassification struct {
-	som.SomNode
-}
-
-// NewConstraintClassification binds a ConstraintClassification facade to a document and a path.
-func NewConstraintClassification(doc *som.SpecDocument, path string) *ConstraintClassification {
-	return &ConstraintClassification{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintClassification) Content() *ConstraintClassificationContentForm {
-	return NewConstraintClassificationContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Details for constraint.
-type ConstraintDetails struct {
-	som.SomNode
-}
-
-// NewConstraintDetails binds a ConstraintDetails facade to a document and a path.
-func NewConstraintDetails(doc *som.SpecDocument, path string) *ConstraintDetails {
-	return &ConstraintDetails{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintDetails) Content() *ConstraintDetailsContentForm {
-	return NewConstraintDetailsContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// A constraint entry (form).
-//
-// Represents a single external constraint limiting project degrees of
-// freedom. Common constraint types include regulatory requirements,
-// contractual obligations, budget limits, timeline deadlines, resource
-// caps, and technology mandates. Each constraint should be tracked,
-// monitored, and have mitigation strategies where possible.
-type ConstraintEntry struct {
-	som.SomNode
-}
-
-// NewConstraintEntry binds a ConstraintEntry facade to a document and a path.
-func NewConstraintEntry(doc *som.SpecDocument, path string) *ConstraintEntry {
-	return &ConstraintEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintEntry) Content() *ConstraintEntryContentForm {
-	return NewConstraintEntryContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Classification.
-func (x *ConstraintEntry) Classification() *ConstraintClassification {
-	return NewConstraintClassification(x.Doc(), x.Path() + "/classification")
-}
-
-// Details.
-func (x *ConstraintEntry) Details() *som.SomList[*ConstraintDetails] {
-	return som.NewSomList(x.Doc(), x.Path() + "/CODE-DETA-LST", func(d *som.SpecDocument, p string) *ConstraintDetails {
-		return NewConstraintDetails(d, p)
-	})
-}
-
-// Impact assessment.
-func (x *ConstraintEntry) Impact() *ConstraintImpact {
-	return NewConstraintImpact(x.Doc(), x.Path() + "/impact")
-}
-
-// Mitigation and response.
-func (x *ConstraintEntry) Mitigation() *ConstraintMitigation {
-	return NewConstraintMitigation(x.Doc(), x.Path() + "/mitigation")
-}
-
-// Tracking and monitoring.
-func (x *ConstraintEntry) Tracking() *ConstraintTracking {
-	return NewConstraintTracking(x.Doc(), x.Path() + "/tracking")
-}
-
-// Linkages.
-func (x *ConstraintEntry) Linkages() *som.SomList[*ConstraintLinkages] {
-	return som.NewSomList(x.Doc(), x.Path() + "/COLI1-LINK-LST", func(d *som.SpecDocument, p string) *ConstraintLinkages {
-		return NewConstraintLinkages(d, p)
-	})
-}
-
-// Impact assessment for constraint.
-type ConstraintImpact struct {
-	som.SomNode
-}
-
-// NewConstraintImpact binds a ConstraintImpact facade to a document and a path.
-func NewConstraintImpact(doc *som.SpecDocument, path string) *ConstraintImpact {
-	return &ConstraintImpact{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintImpact) Content() *ConstraintImpactContentForm {
-	return NewConstraintImpactContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Linkages for constraint.
-type ConstraintLinkages struct {
-	som.SomNode
-}
-
-// NewConstraintLinkages binds a ConstraintLinkages facade to a document and a path.
-func NewConstraintLinkages(doc *som.SpecDocument, path string) *ConstraintLinkages {
-	return &ConstraintLinkages{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintLinkages) Content() *ConstraintLinkagesContentForm {
-	return NewConstraintLinkagesContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Mitigation for constraint.
-type ConstraintMitigation struct {
-	som.SomNode
-}
-
-// NewConstraintMitigation binds a ConstraintMitigation facade to a document and a path.
-func NewConstraintMitigation(doc *som.SpecDocument, path string) *ConstraintMitigation {
-	return &ConstraintMitigation{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintMitigation) Content() *ConstraintMitigationContentForm {
-	return NewConstraintMitigationContentForm(x.Doc(), x.Path() + "/content")
-}
-
 // A single constraint register entry (form).
 //
 // Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
@@ -11920,55 +11691,14 @@ func (x *ConstraintRegisterEntry) Content() *ConstraintRegisterEntryContentForm 
 	return NewConstraintRegisterEntryContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Tracking for constraint.
-type ConstraintTracking struct {
-	som.SomNode
-}
-
-// NewConstraintTracking binds a ConstraintTracking facade to a document and a path.
-func NewConstraintTracking(doc *som.SpecDocument, path string) *ConstraintTracking {
-	return &ConstraintTracking{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintTracking) Content() *ConstraintTrackingContentForm {
-	return NewConstraintTrackingContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// 4.6.4.1. Constraints.
-//
-// External constraints limiting project scope, schedule, budget, or
-// approach. Includes regulatory, contractual, organizational, technical,
-// and resource constraints. Each constraint must be analysed for impact
-// and monitored throughout the project lifecycle.
-type Constraints struct {
-	som.SomNode
-}
-
-// NewConstraints binds a Constraints facade to a document and a path.
-func NewConstraints(doc *som.SpecDocument, path string) *Constraints {
-	return &Constraints{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *Constraints) Content() *ConstraintsContentForm {
-	return NewConstraintsContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Contains 0+× Constraint.
-func (x *Constraints) Items() *som.SomList[*ConstraintEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/COEN-ITEM-LST", func(d *som.SpecDocument, p string) *ConstraintEntry {
-		return NewConstraintEntry(d, p)
-	})
-}
-
-// Constraint Summary narrative.
-// (skipped: constraintNarrative has no target type)
-
 // 4.6.4. Constraints and Dependencies.
 //
-// Documents external constraints (regulatory, contractual, budgetary,
-// timeline) and dependencies on other projects, teams, or organizational
-// initiatives. Follows PMBOK constraint management and dependency
-// analysis best practices for comprehensive project planning.
+// Operating-environment view of the constraints and dependencies that shape
+// project execution. The canonical register of constraints and dependencies
+// lives in SBP.6 (Assumptions, Constraints & Dependencies). This node does
+// **not** restate that register (L34C-4 consolidation, SR-10): it frames how
+// the framework conditions documented in SBP.2 §4.6 give rise to the entries
+// recorded in SBP.6, and points the reader there.
 type ConstraintsAndDependencies struct {
 	som.SomNode
 }
@@ -11978,18 +11708,12 @@ func NewConstraintsAndDependencies(doc *som.SpecDocument, path string) *Constrai
 	return &ConstraintsAndDependencies{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ConstraintsAndDependencies) Content() *ConstraintsAndDependenciesContentForm {
-	return NewConstraintsAndDependenciesContentForm(x.Doc(), x.Path() + "/content")
+func (x *ConstraintsAndDependencies) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
 }
 
-// 4.6.4.1. Constraints.
-func (x *ConstraintsAndDependencies) Constraints() *Constraints {
-	return NewConstraints(x.Doc(), x.Path() + "/constraints")
-}
-
-// 4.6.4.2. Dependencies.
-func (x *ConstraintsAndDependencies) FrameworkDependencies() *FrameworkDependencies {
-	return NewFrameworkDependencies(x.Doc(), x.Path() + "/frameworkDependencies")
+func (x *ConstraintsAndDependencies) SetContent(value string) {
+	x.Doc().SetContent(x.Path() + "/content", value)
 }
 
 // Content scanning policy — how uploaded and stored files are scanned for
@@ -18143,34 +17867,6 @@ func (x *DependenciesAndIntegrations) HealthSummary() *IntegrationHealthSummary 
 	return NewIntegrationHealthSummary(x.Doc(), x.Path() + "/healthSummary")
 }
 
-// Dependency classification.
-type DependencyClassification struct {
-	som.SomNode
-}
-
-// NewDependencyClassification binds a DependencyClassification facade to a document and a path.
-func NewDependencyClassification(doc *som.SpecDocument, path string) *DependencyClassification {
-	return &DependencyClassification{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyClassification) Content() *DependencyClassificationContentForm {
-	return NewDependencyClassificationContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Deliverable details.
-type DependencyDeliverable struct {
-	som.SomNode
-}
-
-// NewDependencyDeliverable binds a DependencyDeliverable facade to a document and a path.
-func NewDependencyDeliverable(doc *som.SpecDocument, path string) *DependencyDeliverable {
-	return &DependencyDeliverable{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyDeliverable) Content() *DependencyDeliverableContentForm {
-	return NewDependencyDeliverableContentForm(x.Doc(), x.Path() + "/content")
-}
-
 // A single dependency entry.
 type DependencyEntry struct {
 	som.SomNode
@@ -18187,20 +17883,6 @@ func (x *DependencyEntry) Content() string {
 
 func (x *DependencyEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// External party details.
-type DependencyExternalParty struct {
-	som.SomNode
-}
-
-// NewDependencyExternalParty binds a DependencyExternalParty facade to a document and a path.
-func NewDependencyExternalParty(doc *som.SpecDocument, path string) *DependencyExternalParty {
-	return &DependencyExternalParty{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyExternalParty) Content() *DependencyExternalPartyContentForm {
-	return NewDependencyExternalPartyContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Dependency health monitoring.
@@ -18293,20 +17975,6 @@ func (x *DependencyHealthMonitoringThresholds) Content() *DependencyHealthMonito
 	return NewDependencyHealthMonitoringThresholdsContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Dependency identity details.
-type DependencyIdentity struct {
-	som.SomNode
-}
-
-// NewDependencyIdentity binds a DependencyIdentity facade to a document and a path.
-func NewDependencyIdentity(doc *som.SpecDocument, path string) *DependencyIdentity {
-	return &DependencyIdentity{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyIdentity) Content() *DependencyIdentityContentForm {
-	return NewDependencyIdentityContentForm(x.Doc(), x.Path() + "/content")
-}
-
 // Dependency injection structure and configuration.
 type DependencyInjectionStructure struct {
 	som.SomNode
@@ -18395,20 +18063,6 @@ func NewDependencyInjectionStructureTroubleshooting(doc *som.SpecDocument, path 
 
 func (x *DependencyInjectionStructureTroubleshooting) Content() *DependencyInjectionStructureTroubleshootingContentForm {
 	return NewDependencyInjectionStructureTroubleshootingContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Dependency linkages.
-type DependencyLinkages struct {
-	som.SomNode
-}
-
-// NewDependencyLinkages binds a DependencyLinkages facade to a document and a path.
-func NewDependencyLinkages(doc *som.SpecDocument, path string) *DependencyLinkages {
-	return &DependencyLinkages{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyLinkages) Content() *DependencyLinkagesContentForm {
-	return NewDependencyLinkagesContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Dependency management configuration.
@@ -18501,20 +18155,6 @@ func (x *DependencyManagementVersioning) Content() *DependencyManagementVersioni
 	return NewDependencyManagementVersioningContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// Dependency mitigation and contingency.
-type DependencyMitigation struct {
-	som.SomNode
-}
-
-// NewDependencyMitigation binds a DependencyMitigation facade to a document and a path.
-func NewDependencyMitigation(doc *som.SpecDocument, path string) *DependencyMitigation {
-	return &DependencyMitigation{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyMitigation) Content() *DependencyMitigationContentForm {
-	return NewDependencyMitigationContentForm(x.Doc(), x.Path() + "/content")
-}
-
 // A single dependency register entry (form).
 //
 // Captures an external dependency the solution relies on — another system, a
@@ -18533,20 +18173,6 @@ func NewDependencyRegisterEntry(doc *som.SpecDocument, path string) *DependencyR
 
 func (x *DependencyRegisterEntry) Content() *DependencyRegisterEntryContentForm {
 	return NewDependencyRegisterEntryContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Dependency risk assessment.
-type DependencyRisk struct {
-	som.SomNode
-}
-
-// NewDependencyRisk binds a DependencyRisk facade to a document and a path.
-func NewDependencyRisk(doc *som.SpecDocument, path string) *DependencyRisk {
-	return &DependencyRisk{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyRisk) Content() *DependencyRiskContentForm {
-	return NewDependencyRiskContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // Dependency and supply-chain scanning requirements.
@@ -18637,34 +18263,6 @@ func NewDependencyScanningRequirementsVulnerabilities(doc *som.SpecDocument, pat
 
 func (x *DependencyScanningRequirementsVulnerabilities) Content() *DependencyScanningRequirementsVulnerabilitiesContentForm {
 	return NewDependencyScanningRequirementsVulnerabilitiesContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Dependency timeline.
-type DependencyTimeline struct {
-	som.SomNode
-}
-
-// NewDependencyTimeline binds a DependencyTimeline facade to a document and a path.
-func NewDependencyTimeline(doc *som.SpecDocument, path string) *DependencyTimeline {
-	return &DependencyTimeline{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyTimeline) Content() *DependencyTimelineContentForm {
-	return NewDependencyTimelineContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Dependency coordination and tracking.
-type DependencyTracking struct {
-	som.SomNode
-}
-
-// NewDependencyTracking binds a DependencyTracking facade to a document and a path.
-func NewDependencyTracking(doc *som.SpecDocument, path string) *DependencyTracking {
-	return &DependencyTracking{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyTracking) Content() *DependencyTrackingContentForm {
-	return NewDependencyTrackingContentForm(x.Doc(), x.Path() + "/content")
 }
 
 // 4.1.2.7. Deployment Context.
@@ -25804,139 +25402,6 @@ func (x *FrameworkConditions) ConstraintsAndDependencies() *ConstraintsAndDepend
 	return NewConstraintsAndDependencies(x.Doc(), x.Path() + "/constraintsAndDependencies")
 }
 
-// 4.6.4.2. Dependencies.
-//
-// External dependencies on other projects, teams, vendors, systems, or
-// organizational initiatives. Each dependency represents a point where
-// this project relies on external parties to deliver. Dependencies
-// should be tracked, risks assessed, and contingencies planned.
-type FrameworkDependencies struct {
-	som.SomNode
-}
-
-// NewFrameworkDependencies binds a FrameworkDependencies facade to a document and a path.
-func NewFrameworkDependencies(doc *som.SpecDocument, path string) *FrameworkDependencies {
-	return &FrameworkDependencies{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *FrameworkDependencies) Content() *FrameworkDependenciesContentForm {
-	return NewFrameworkDependenciesContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Dependency counts by category.
-func (x *FrameworkDependencies) Categories() *FrameworkDependenciesCategories {
-	return NewFrameworkDependenciesCategories(x.Doc(), x.Path() + "/categories")
-}
-
-// Coordination and early warning mechanisms.
-func (x *FrameworkDependencies) Management() *FrameworkDependenciesManagement {
-	return NewFrameworkDependenciesManagement(x.Doc(), x.Path() + "/management")
-}
-
-// Contains 0+× FrameworkDependency.
-func (x *FrameworkDependencies) Items() *som.SomList[*FrameworkDependencyEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/FWRDP-ITEM-LST", func(d *som.SpecDocument, p string) *FrameworkDependencyEntry {
-		return NewFrameworkDependencyEntry(d, p)
-	})
-}
-
-// Dependency Summary narrative.
-// (skipped: dependencyNarrative has no target type)
-
-// Dependency counts by category.
-type FrameworkDependenciesCategories struct {
-	som.SomNode
-}
-
-// NewFrameworkDependenciesCategories binds a FrameworkDependenciesCategories facade to a document and a path.
-func NewFrameworkDependenciesCategories(doc *som.SpecDocument, path string) *FrameworkDependenciesCategories {
-	return &FrameworkDependenciesCategories{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *FrameworkDependenciesCategories) Content() *FrameworkDependenciesCategoriesContentForm {
-	return NewFrameworkDependenciesCategoriesContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Coordination and early warning mechanisms.
-type FrameworkDependenciesManagement struct {
-	som.SomNode
-}
-
-// NewFrameworkDependenciesManagement binds a FrameworkDependenciesManagement facade to a document and a path.
-func NewFrameworkDependenciesManagement(doc *som.SpecDocument, path string) *FrameworkDependenciesManagement {
-	return &FrameworkDependenciesManagement{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *FrameworkDependenciesManagement) Content() *FrameworkDependenciesManagementContentForm {
-	return NewFrameworkDependenciesManagementContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// A framework dependency entry (form).
-//
-// Represents a single external dependency where this project relies on
-// another party (project, team, vendor, system) to deliver something.
-// Dependencies should be actively managed with clear expectations,
-// tracking, and contingency plans for delays or failures.
-type FrameworkDependencyEntry struct {
-	som.SomNode
-}
-
-// NewFrameworkDependencyEntry binds a FrameworkDependencyEntry facade to a document and a path.
-func NewFrameworkDependencyEntry(doc *som.SpecDocument, path string) *FrameworkDependencyEntry {
-	return &FrameworkDependencyEntry{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *FrameworkDependencyEntry) Content() *FrameworkDependencyEntryContentForm {
-	return NewFrameworkDependencyEntryContentForm(x.Doc(), x.Path() + "/content")
-}
-
-// Dependency identity details.
-func (x *FrameworkDependencyEntry) Identity() *DependencyIdentity {
-	return NewDependencyIdentity(x.Doc(), x.Path() + "/identity")
-}
-
-// Dependency classification.
-func (x *FrameworkDependencyEntry) Classification() *DependencyClassification {
-	return NewDependencyClassification(x.Doc(), x.Path() + "/classification")
-}
-
-// External party details.
-func (x *FrameworkDependencyEntry) ExternalParty() *DependencyExternalParty {
-	return NewDependencyExternalParty(x.Doc(), x.Path() + "/externalParty")
-}
-
-// Deliverable details.
-func (x *FrameworkDependencyEntry) Deliverable() *DependencyDeliverable {
-	return NewDependencyDeliverable(x.Doc(), x.Path() + "/deliverable")
-}
-
-// Timeline.
-func (x *FrameworkDependencyEntry) Timeline() *DependencyTimeline {
-	return NewDependencyTimeline(x.Doc(), x.Path() + "/timeline")
-}
-
-// Risk assessment.
-func (x *FrameworkDependencyEntry) Risk() *DependencyRisk {
-	return NewDependencyRisk(x.Doc(), x.Path() + "/risk")
-}
-
-// Mitigation and contingency.
-func (x *FrameworkDependencyEntry) Mitigation() *DependencyMitigation {
-	return NewDependencyMitigation(x.Doc(), x.Path() + "/mitigation")
-}
-
-// Coordination and tracking.
-func (x *FrameworkDependencyEntry) Tracking() *DependencyTracking {
-	return NewDependencyTracking(x.Doc(), x.Path() + "/tracking")
-}
-
-// Linkages.
-func (x *FrameworkDependencyEntry) Linkages() *som.SomList[*DependencyLinkages] {
-	return som.NewSomList(x.Doc(), x.Path() + "/DELI1-LINK-LST", func(d *som.SpecDocument, p string) *DependencyLinkages {
-		return NewDependencyLinkages(d, p)
-	})
-}
-
 // Identity details.
 type FrameworkIdentity struct {
 	som.SomNode
@@ -31184,31 +30649,6 @@ func (x *KeyAssumptionEntry) Content() string {
 
 func (x *KeyAssumptionEntry) SetContent(value string) {
 	x.Doc().SetContent(x.Path() + "/content", value)
-}
-
-// 4.7.2. Key Assumptions.
-//
-// Documents project assumptions that must hold true for success.
-// Tracks validation status and contingency plans if assumptions prove false.
-type KeyAssumptions struct {
-	som.SomNode
-}
-
-// NewKeyAssumptions binds a KeyAssumptions facade to a document and a path.
-func NewKeyAssumptions(doc *som.SpecDocument, path string) *KeyAssumptions {
-	return &KeyAssumptions{SomNode: som.NewSomNode(doc, path)}
-}
-
-// Overview of assumptions management approach.
-func (x *KeyAssumptions) Overview() *AssumptionsOverview {
-	return NewAssumptionsOverview(x.Doc(), x.Path() + "/overview")
-}
-
-// Contains 0+× Assumption.
-func (x *KeyAssumptions) Items() *som.SomList[*AssumptionEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/ASEN-ITEM-LST", func(d *som.SpecDocument, p string) *AssumptionEntry {
-		return NewAssumptionEntry(d, p)
-	})
 }
 
 // A key attribute entry (form).
@@ -47746,12 +47186,18 @@ func (x *RiskResponseResidual) Content() *RiskResponseResidualContentForm {
 	return NewRiskResponseResidualContentForm(x.Doc(), x.Path() + "/content")
 }
 
-// 4.7. Risks and Assumptions.
+// 4.7. Risks.
 //
-// Documents identified project risks and underlying assumptions following
-// ISO 31000 Risk Management and PMBOK risk management best practices.
-// Provides structured framework for risk identification, analysis, response
-// planning, and ongoing monitoring throughout the project lifecycle.
+// Documents identified project risks following ISO 31000 Risk Management and
+// PMBOK risk management best practices. Provides a structured framework for
+// risk identification, analysis, response planning, and ongoing monitoring
+// throughout the project lifecycle.
+//
+// Assumptions are **not** held here (L34C-4 consolidation, SR-11): the
+// canonical assumptions register lives in SBP.6 (Assumptions, Constraints &
+// Dependencies). Only the risks half — unique to §4.7 — remains in this node.
+// (The class name remains `RisksAndAssumptions` pending the L34C-9 rename
+// sweep, which will rename it to `Risks`.)
 type RisksAndAssumptions struct {
 	som.SomNode
 }
@@ -47771,11 +47217,6 @@ func (x *RisksAndAssumptions) KeyRisks() *som.SomList[*RiskEntry] {
 	return som.NewSomList(x.Doc(), x.Path() + "/RIEN-KEYR-LST", func(d *som.SpecDocument, p string) *RiskEntry {
 		return NewRiskEntry(d, p)
 	})
-}
-
-// 4.7.2. Key Assumptions — contains 0+×.
-func (x *RisksAndAssumptions) KeyAssumptions() *KeyAssumptions {
-	return NewKeyAssumptions(x.Doc(), x.Path() + "/keyAssumptions")
 }
 
 // Overview of the risk management approach.
@@ -71819,162 +71260,6 @@ func (x *ArchitecturePrincipleEntryGuidanceContentForm) SetViolations(value stri
 	x.Doc().SetFormField(x.Path(), "violations", value)
 }
 
-// AssumptionIdentificationContentForm is the generated form facade for the `content` @Form section.
-type AssumptionIdentificationContentForm struct {
-	som.SomNode
-}
-
-// NewAssumptionIdentificationContentForm binds a AssumptionIdentificationContentForm facade to a document and a path.
-func NewAssumptionIdentificationContentForm(doc *som.SpecDocument, path string) *AssumptionIdentificationContentForm {
-	return &AssumptionIdentificationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AssumptionIdentificationContentForm) AssumptionId() string {
-	return x.Doc().FormFieldOr(x.Path(), "assumptionId")
-}
-
-func (x *AssumptionIdentificationContentForm) SetAssumptionId(value string) {
-	x.Doc().SetFormField(x.Path(), "assumptionId", value)
-}
-
-func (x *AssumptionIdentificationContentForm) AssumptionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "assumptionName")
-}
-
-func (x *AssumptionIdentificationContentForm) SetAssumptionName(value string) {
-	x.Doc().SetFormField(x.Path(), "assumptionName", value)
-}
-
-func (x *AssumptionIdentificationContentForm) Description() string {
-	return x.Doc().FormFieldOr(x.Path(), "description")
-}
-
-func (x *AssumptionIdentificationContentForm) SetDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "description", value)
-}
-
-func (x *AssumptionIdentificationContentForm) Category() string {
-	return x.Doc().FormFieldOr(x.Path(), "category")
-}
-
-func (x *AssumptionIdentificationContentForm) SetCategory(value string) {
-	x.Doc().SetFormField(x.Path(), "category", value)
-}
-
-func (x *AssumptionIdentificationContentForm) Basis() string {
-	return x.Doc().FormFieldOr(x.Path(), "basis")
-}
-
-func (x *AssumptionIdentificationContentForm) SetBasis(value string) {
-	x.Doc().SetFormField(x.Path(), "basis", value)
-}
-
-func (x *AssumptionIdentificationContentForm) DateIdentified() string {
-	return x.Doc().FormFieldOr(x.Path(), "dateIdentified")
-}
-
-func (x *AssumptionIdentificationContentForm) SetDateIdentified(value string) {
-	x.Doc().SetFormField(x.Path(), "dateIdentified", value)
-}
-
-func (x *AssumptionIdentificationContentForm) IdentifiedBy() string {
-	return x.Doc().FormFieldOr(x.Path(), "identifiedBy")
-}
-
-func (x *AssumptionIdentificationContentForm) SetIdentifiedBy(value string) {
-	x.Doc().SetFormField(x.Path(), "identifiedBy", value)
-}
-
-func (x *AssumptionIdentificationContentForm) Criticality() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticality")
-}
-
-func (x *AssumptionIdentificationContentForm) SetCriticality(value string) {
-	x.Doc().SetFormField(x.Path(), "criticality", value)
-}
-
-func (x *AssumptionIdentificationContentForm) Confidence() string {
-	return x.Doc().FormFieldOr(x.Path(), "confidence")
-}
-
-func (x *AssumptionIdentificationContentForm) SetConfidence(value string) {
-	x.Doc().SetFormField(x.Path(), "confidence", value)
-}
-
-// AssumptionImpactContentForm is the generated form facade for the `content` @Form section.
-type AssumptionImpactContentForm struct {
-	som.SomNode
-}
-
-// NewAssumptionImpactContentForm binds a AssumptionImpactContentForm facade to a document and a path.
-func NewAssumptionImpactContentForm(doc *som.SpecDocument, path string) *AssumptionImpactContentForm {
-	return &AssumptionImpactContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AssumptionImpactContentForm) ImpactIfFalse() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactIfFalse")
-}
-
-func (x *AssumptionImpactContentForm) SetImpactIfFalse(value string) {
-	x.Doc().SetFormField(x.Path(), "impactIfFalse", value)
-}
-
-func (x *AssumptionImpactContentForm) ImpactSeverity() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactSeverity")
-}
-
-func (x *AssumptionImpactContentForm) SetImpactSeverity(value string) {
-	x.Doc().SetFormField(x.Path(), "impactSeverity", value)
-}
-
-func (x *AssumptionImpactContentForm) AffectedAreas() string {
-	return x.Doc().FormFieldOr(x.Path(), "affectedAreas")
-}
-
-func (x *AssumptionImpactContentForm) SetAffectedAreas(value string) {
-	x.Doc().SetFormField(x.Path(), "affectedAreas", value)
-}
-
-func (x *AssumptionImpactContentForm) ContingencyPlan() string {
-	return x.Doc().FormFieldOr(x.Path(), "contingencyPlan")
-}
-
-func (x *AssumptionImpactContentForm) SetContingencyPlan(value string) {
-	x.Doc().SetFormField(x.Path(), "contingencyPlan", value)
-}
-
-func (x *AssumptionImpactContentForm) ContingencyOwner() string {
-	return x.Doc().FormFieldOr(x.Path(), "contingencyOwner")
-}
-
-func (x *AssumptionImpactContentForm) SetContingencyOwner(value string) {
-	x.Doc().SetFormField(x.Path(), "contingencyOwner", value)
-}
-
-func (x *AssumptionImpactContentForm) ContingencyCost() string {
-	return x.Doc().FormFieldOr(x.Path(), "contingencyCost")
-}
-
-func (x *AssumptionImpactContentForm) SetContingencyCost(value string) {
-	x.Doc().SetFormField(x.Path(), "contingencyCost", value)
-}
-
-func (x *AssumptionImpactContentForm) ContingencyTimeline() string {
-	return x.Doc().FormFieldOr(x.Path(), "contingencyTimeline")
-}
-
-func (x *AssumptionImpactContentForm) SetContingencyTimeline(value string) {
-	x.Doc().SetFormField(x.Path(), "contingencyTimeline", value)
-}
-
-func (x *AssumptionImpactContentForm) RelatedRisks() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedRisks")
-}
-
-func (x *AssumptionImpactContentForm) SetRelatedRisks(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedRisks", value)
-}
-
 // AssumptionRegisterEntryContentForm is the generated form facade for the `content` @Form section.
 type AssumptionRegisterEntryContentForm struct {
 	som.SomNode
@@ -72023,188 +71308,6 @@ func (x *AssumptionRegisterEntryContentForm) Status() string {
 
 func (x *AssumptionRegisterEntryContentForm) SetStatus(value string) {
 	x.Doc().SetFormField(x.Path(), "status", value)
-}
-
-// AssumptionRelationshipsContentForm is the generated form facade for the `content` @Form section.
-type AssumptionRelationshipsContentForm struct {
-	som.SomNode
-}
-
-// NewAssumptionRelationshipsContentForm binds a AssumptionRelationshipsContentForm facade to a document and a path.
-func NewAssumptionRelationshipsContentForm(doc *som.SpecDocument, path string) *AssumptionRelationshipsContentForm {
-	return &AssumptionRelationshipsContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AssumptionRelationshipsContentForm) RelatedAssumptions() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedAssumptions")
-}
-
-func (x *AssumptionRelationshipsContentForm) SetRelatedAssumptions(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedAssumptions", value)
-}
-
-func (x *AssumptionRelationshipsContentForm) RelatedRisks() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedRisks")
-}
-
-func (x *AssumptionRelationshipsContentForm) SetRelatedRisks(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedRisks", value)
-}
-
-func (x *AssumptionRelationshipsContentForm) RelatedRequirements() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedRequirements")
-}
-
-func (x *AssumptionRelationshipsContentForm) SetRelatedRequirements(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedRequirements", value)
-}
-
-func (x *AssumptionRelationshipsContentForm) AffectedDecisions() string {
-	return x.Doc().FormFieldOr(x.Path(), "affectedDecisions")
-}
-
-func (x *AssumptionRelationshipsContentForm) SetAffectedDecisions(value string) {
-	x.Doc().SetFormField(x.Path(), "affectedDecisions", value)
-}
-
-func (x *AssumptionRelationshipsContentForm) DocumentReferences() string {
-	return x.Doc().FormFieldOr(x.Path(), "documentReferences")
-}
-
-func (x *AssumptionRelationshipsContentForm) SetDocumentReferences(value string) {
-	x.Doc().SetFormField(x.Path(), "documentReferences", value)
-}
-
-func (x *AssumptionRelationshipsContentForm) StakeholderOwner() string {
-	return x.Doc().FormFieldOr(x.Path(), "stakeholderOwner")
-}
-
-func (x *AssumptionRelationshipsContentForm) SetStakeholderOwner(value string) {
-	x.Doc().SetFormField(x.Path(), "stakeholderOwner", value)
-}
-
-func (x *AssumptionRelationshipsContentForm) ReviewFrequency() string {
-	return x.Doc().FormFieldOr(x.Path(), "reviewFrequency")
-}
-
-func (x *AssumptionRelationshipsContentForm) SetReviewFrequency(value string) {
-	x.Doc().SetFormField(x.Path(), "reviewFrequency", value)
-}
-
-// AssumptionValidationContentForm is the generated form facade for the `content` @Form section.
-type AssumptionValidationContentForm struct {
-	som.SomNode
-}
-
-// NewAssumptionValidationContentForm binds a AssumptionValidationContentForm facade to a document and a path.
-func NewAssumptionValidationContentForm(doc *som.SpecDocument, path string) *AssumptionValidationContentForm {
-	return &AssumptionValidationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AssumptionValidationContentForm) ValidationMethod() string {
-	return x.Doc().FormFieldOr(x.Path(), "validationMethod")
-}
-
-func (x *AssumptionValidationContentForm) SetValidationMethod(value string) {
-	x.Doc().SetFormField(x.Path(), "validationMethod", value)
-}
-
-func (x *AssumptionValidationContentForm) ValidationCriteria() string {
-	return x.Doc().FormFieldOr(x.Path(), "validationCriteria")
-}
-
-func (x *AssumptionValidationContentForm) SetValidationCriteria(value string) {
-	x.Doc().SetFormField(x.Path(), "validationCriteria", value)
-}
-
-func (x *AssumptionValidationContentForm) ValidationDate() string {
-	return x.Doc().FormFieldOr(x.Path(), "validationDate")
-}
-
-func (x *AssumptionValidationContentForm) SetValidationDate(value string) {
-	x.Doc().SetFormField(x.Path(), "validationDate", value)
-}
-
-func (x *AssumptionValidationContentForm) ValidationStatus() string {
-	return x.Doc().FormFieldOr(x.Path(), "validationStatus")
-}
-
-func (x *AssumptionValidationContentForm) SetValidationStatus(value string) {
-	x.Doc().SetFormField(x.Path(), "validationStatus", value)
-}
-
-func (x *AssumptionValidationContentForm) LastValidationDate() string {
-	return x.Doc().FormFieldOr(x.Path(), "lastValidationDate")
-}
-
-func (x *AssumptionValidationContentForm) SetLastValidationDate(value string) {
-	x.Doc().SetFormField(x.Path(), "lastValidationDate", value)
-}
-
-func (x *AssumptionValidationContentForm) ValidatedBy() string {
-	return x.Doc().FormFieldOr(x.Path(), "validatedBy")
-}
-
-func (x *AssumptionValidationContentForm) SetValidatedBy(value string) {
-	x.Doc().SetFormField(x.Path(), "validatedBy", value)
-}
-
-func (x *AssumptionValidationContentForm) ValidationNotes() string {
-	return x.Doc().FormFieldOr(x.Path(), "validationNotes")
-}
-
-func (x *AssumptionValidationContentForm) SetValidationNotes(value string) {
-	x.Doc().SetFormField(x.Path(), "validationNotes", value)
-}
-
-func (x *AssumptionValidationContentForm) ValidationOwner() string {
-	return x.Doc().FormFieldOr(x.Path(), "validationOwner")
-}
-
-func (x *AssumptionValidationContentForm) SetValidationOwner(value string) {
-	x.Doc().SetFormField(x.Path(), "validationOwner", value)
-}
-
-// AssumptionsOverviewContentForm is the generated form facade for the `content` @Form section.
-type AssumptionsOverviewContentForm struct {
-	som.SomNode
-}
-
-// NewAssumptionsOverviewContentForm binds a AssumptionsOverviewContentForm facade to a document and a path.
-func NewAssumptionsOverviewContentForm(doc *som.SpecDocument, path string) *AssumptionsOverviewContentForm {
-	return &AssumptionsOverviewContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *AssumptionsOverviewContentForm) AssumptionsApproach() string {
-	return x.Doc().FormFieldOr(x.Path(), "assumptionsApproach")
-}
-
-func (x *AssumptionsOverviewContentForm) SetAssumptionsApproach(value string) {
-	x.Doc().SetFormField(x.Path(), "assumptionsApproach", value)
-}
-
-func (x *AssumptionsOverviewContentForm) ValidationCadence() string {
-	return x.Doc().FormFieldOr(x.Path(), "validationCadence")
-}
-
-func (x *AssumptionsOverviewContentForm) SetValidationCadence(value string) {
-	x.Doc().SetFormField(x.Path(), "validationCadence", value)
-}
-
-func (x *AssumptionsOverviewContentForm) AssumptionCategories() string {
-	return x.Doc().FormFieldOr(x.Path(), "assumptionCategories")
-}
-
-func (x *AssumptionsOverviewContentForm) SetAssumptionCategories(value string) {
-	x.Doc().SetFormField(x.Path(), "assumptionCategories", value)
-}
-
-func (x *AssumptionsOverviewContentForm) EscalationProcess() string {
-	return x.Doc().FormFieldOr(x.Path(), "escalationProcess")
-}
-
-func (x *AssumptionsOverviewContentForm) SetEscalationProcess(value string) {
-	x.Doc().SetFormField(x.Path(), "escalationProcess", value)
 }
 
 // AuditEntryContentForm is the generated form facade for the `content` @Form section.
@@ -87017,282 +86120,6 @@ func (x *ConsentManagementRequirementsTrackingContentForm) SetThirdPartyConsentS
 	x.Doc().SetFormField(x.Path(), "thirdPartyConsentSharing", value)
 }
 
-// ConstraintClassificationContentForm is the generated form facade for the `content` @Form section.
-type ConstraintClassificationContentForm struct {
-	som.SomNode
-}
-
-// NewConstraintClassificationContentForm binds a ConstraintClassificationContentForm facade to a document and a path.
-func NewConstraintClassificationContentForm(doc *som.SpecDocument, path string) *ConstraintClassificationContentForm {
-	return &ConstraintClassificationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintClassificationContentForm) ConstraintDescription() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintDescription")
-}
-
-func (x *ConstraintClassificationContentForm) SetConstraintDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintDescription", value)
-}
-
-func (x *ConstraintClassificationContentForm) ConstraintCategory() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintCategory")
-}
-
-func (x *ConstraintClassificationContentForm) SetConstraintCategory(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintCategory", value)
-}
-
-func (x *ConstraintClassificationContentForm) ConstraintType() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintType")
-}
-
-func (x *ConstraintClassificationContentForm) SetConstraintType(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintType", value)
-}
-
-func (x *ConstraintClassificationContentForm) ConstraintSource() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintSource")
-}
-
-func (x *ConstraintClassificationContentForm) SetConstraintSource(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintSource", value)
-}
-
-func (x *ConstraintClassificationContentForm) SourceReference() string {
-	return x.Doc().FormFieldOr(x.Path(), "sourceReference")
-}
-
-func (x *ConstraintClassificationContentForm) SetSourceReference(value string) {
-	x.Doc().SetFormField(x.Path(), "sourceReference", value)
-}
-
-// ConstraintDetailsContentForm is the generated form facade for the `content` @Form section.
-type ConstraintDetailsContentForm struct {
-	som.SomNode
-}
-
-// NewConstraintDetailsContentForm binds a ConstraintDetailsContentForm facade to a document and a path.
-func NewConstraintDetailsContentForm(doc *som.SpecDocument, path string) *ConstraintDetailsContentForm {
-	return &ConstraintDetailsContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintDetailsContentForm) ConstraintValue() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintValue")
-}
-
-func (x *ConstraintDetailsContentForm) SetConstraintValue(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintValue", value)
-}
-
-func (x *ConstraintDetailsContentForm) ConstraintEffectiveDate() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintEffectiveDate")
-}
-
-func (x *ConstraintDetailsContentForm) SetConstraintEffectiveDate(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintEffectiveDate", value)
-}
-
-func (x *ConstraintDetailsContentForm) ConstraintExpiryDate() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintExpiryDate")
-}
-
-func (x *ConstraintDetailsContentForm) SetConstraintExpiryDate(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintExpiryDate", value)
-}
-
-func (x *ConstraintDetailsContentForm) GeographicScope() string {
-	return x.Doc().FormFieldOr(x.Path(), "geographicScope")
-}
-
-func (x *ConstraintDetailsContentForm) SetGeographicScope(value string) {
-	x.Doc().SetFormField(x.Path(), "geographicScope", value)
-}
-
-func (x *ConstraintDetailsContentForm) AffectedDomains() string {
-	return x.Doc().FormFieldOr(x.Path(), "affectedDomains")
-}
-
-func (x *ConstraintDetailsContentForm) SetAffectedDomains(value string) {
-	x.Doc().SetFormField(x.Path(), "affectedDomains", value)
-}
-
-// ConstraintEntryContentForm is the generated form facade for the `content` @Form section.
-type ConstraintEntryContentForm struct {
-	som.SomNode
-}
-
-// NewConstraintEntryContentForm binds a ConstraintEntryContentForm facade to a document and a path.
-func NewConstraintEntryContentForm(doc *som.SpecDocument, path string) *ConstraintEntryContentForm {
-	return &ConstraintEntryContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintEntryContentForm) ConstraintId() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintId")
-}
-
-func (x *ConstraintEntryContentForm) SetConstraintId(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintId", value)
-}
-
-func (x *ConstraintEntryContentForm) ConstraintName() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintName")
-}
-
-func (x *ConstraintEntryContentForm) SetConstraintName(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintName", value)
-}
-
-func (x *ConstraintEntryContentForm) ImpactLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactLevel")
-}
-
-func (x *ConstraintEntryContentForm) SetImpactLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "impactLevel", value)
-}
-
-// ConstraintImpactContentForm is the generated form facade for the `content` @Form section.
-type ConstraintImpactContentForm struct {
-	som.SomNode
-}
-
-// NewConstraintImpactContentForm binds a ConstraintImpactContentForm facade to a document and a path.
-func NewConstraintImpactContentForm(doc *som.SpecDocument, path string) *ConstraintImpactContentForm {
-	return &ConstraintImpactContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintImpactContentForm) ImpactDescription() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactDescription")
-}
-
-func (x *ConstraintImpactContentForm) SetImpactDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "impactDescription", value)
-}
-
-func (x *ConstraintImpactContentForm) AffectedWorkPackages() string {
-	return x.Doc().FormFieldOr(x.Path(), "affectedWorkPackages")
-}
-
-func (x *ConstraintImpactContentForm) SetAffectedWorkPackages(value string) {
-	x.Doc().SetFormField(x.Path(), "affectedWorkPackages", value)
-}
-
-func (x *ConstraintImpactContentForm) AffectedMilestones() string {
-	return x.Doc().FormFieldOr(x.Path(), "affectedMilestones")
-}
-
-func (x *ConstraintImpactContentForm) SetAffectedMilestones(value string) {
-	x.Doc().SetFormField(x.Path(), "affectedMilestones", value)
-}
-
-func (x *ConstraintImpactContentForm) ScheduleImpact() string {
-	return x.Doc().FormFieldOr(x.Path(), "scheduleImpact")
-}
-
-func (x *ConstraintImpactContentForm) SetScheduleImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "scheduleImpact", value)
-}
-
-func (x *ConstraintImpactContentForm) BudgetImpact() string {
-	return x.Doc().FormFieldOr(x.Path(), "budgetImpact")
-}
-
-func (x *ConstraintImpactContentForm) SetBudgetImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "budgetImpact", value)
-}
-
-func (x *ConstraintImpactContentForm) ScopeImpact() string {
-	return x.Doc().FormFieldOr(x.Path(), "scopeImpact")
-}
-
-func (x *ConstraintImpactContentForm) SetScopeImpact(value string) {
-	x.Doc().SetFormField(x.Path(), "scopeImpact", value)
-}
-
-// ConstraintLinkagesContentForm is the generated form facade for the `content` @Form section.
-type ConstraintLinkagesContentForm struct {
-	som.SomNode
-}
-
-// NewConstraintLinkagesContentForm binds a ConstraintLinkagesContentForm facade to a document and a path.
-func NewConstraintLinkagesContentForm(doc *som.SpecDocument, path string) *ConstraintLinkagesContentForm {
-	return &ConstraintLinkagesContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintLinkagesContentForm) RelatedConstraints() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedConstraints")
-}
-
-func (x *ConstraintLinkagesContentForm) SetRelatedConstraints(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedConstraints", value)
-}
-
-func (x *ConstraintLinkagesContentForm) RelatedRisks() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedRisks")
-}
-
-func (x *ConstraintLinkagesContentForm) SetRelatedRisks(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedRisks", value)
-}
-
-func (x *ConstraintLinkagesContentForm) RelatedDependencies() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedDependencies")
-}
-
-func (x *ConstraintLinkagesContentForm) SetRelatedDependencies(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedDependencies", value)
-}
-
-// ConstraintMitigationContentForm is the generated form facade for the `content` @Form section.
-type ConstraintMitigationContentForm struct {
-	som.SomNode
-}
-
-// NewConstraintMitigationContentForm binds a ConstraintMitigationContentForm facade to a document and a path.
-func NewConstraintMitigationContentForm(doc *som.SpecDocument, path string) *ConstraintMitigationContentForm {
-	return &ConstraintMitigationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintMitigationContentForm) MitigationStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "mitigationStrategy")
-}
-
-func (x *ConstraintMitigationContentForm) SetMitigationStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "mitigationStrategy", value)
-}
-
-func (x *ConstraintMitigationContentForm) NegotiationPossibility() string {
-	return x.Doc().FormFieldOr(x.Path(), "negotiationPossibility")
-}
-
-func (x *ConstraintMitigationContentForm) SetNegotiationPossibility(value string) {
-	x.Doc().SetFormField(x.Path(), "negotiationPossibility", value)
-}
-
-func (x *ConstraintMitigationContentForm) NegotiationApproach() string {
-	return x.Doc().FormFieldOr(x.Path(), "negotiationApproach")
-}
-
-func (x *ConstraintMitigationContentForm) SetNegotiationApproach(value string) {
-	x.Doc().SetFormField(x.Path(), "negotiationApproach", value)
-}
-
-func (x *ConstraintMitigationContentForm) FallbackPlan() string {
-	return x.Doc().FormFieldOr(x.Path(), "fallbackPlan")
-}
-
-func (x *ConstraintMitigationContentForm) SetFallbackPlan(value string) {
-	x.Doc().SetFormField(x.Path(), "fallbackPlan", value)
-}
-
-func (x *ConstraintMitigationContentForm) ViolationConsequences() string {
-	return x.Doc().FormFieldOr(x.Path(), "violationConsequences")
-}
-
-func (x *ConstraintMitigationContentForm) SetViolationConsequences(value string) {
-	x.Doc().SetFormField(x.Path(), "violationConsequences", value)
-}
-
 // ConstraintRegisterEntryContentForm is the generated form facade for the `content` @Form section.
 type ConstraintRegisterEntryContentForm struct {
 	som.SomNode
@@ -87341,228 +86168,6 @@ func (x *ConstraintRegisterEntryContentForm) Impact() string {
 
 func (x *ConstraintRegisterEntryContentForm) SetImpact(value string) {
 	x.Doc().SetFormField(x.Path(), "impact", value)
-}
-
-// ConstraintTrackingContentForm is the generated form facade for the `content` @Form section.
-type ConstraintTrackingContentForm struct {
-	som.SomNode
-}
-
-// NewConstraintTrackingContentForm binds a ConstraintTrackingContentForm facade to a document and a path.
-func NewConstraintTrackingContentForm(doc *som.SpecDocument, path string) *ConstraintTrackingContentForm {
-	return &ConstraintTrackingContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintTrackingContentForm) TrackingMethod() string {
-	return x.Doc().FormFieldOr(x.Path(), "trackingMethod")
-}
-
-func (x *ConstraintTrackingContentForm) SetTrackingMethod(value string) {
-	x.Doc().SetFormField(x.Path(), "trackingMethod", value)
-}
-
-func (x *ConstraintTrackingContentForm) ReviewFrequency() string {
-	return x.Doc().FormFieldOr(x.Path(), "reviewFrequency")
-}
-
-func (x *ConstraintTrackingContentForm) SetReviewFrequency(value string) {
-	x.Doc().SetFormField(x.Path(), "reviewFrequency", value)
-}
-
-func (x *ConstraintTrackingContentForm) ConstraintOwner() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintOwner")
-}
-
-func (x *ConstraintTrackingContentForm) SetConstraintOwner(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintOwner", value)
-}
-
-func (x *ConstraintTrackingContentForm) CurrentStatus() string {
-	return x.Doc().FormFieldOr(x.Path(), "currentStatus")
-}
-
-func (x *ConstraintTrackingContentForm) SetCurrentStatus(value string) {
-	x.Doc().SetFormField(x.Path(), "currentStatus", value)
-}
-
-func (x *ConstraintTrackingContentForm) StatusNotes() string {
-	return x.Doc().FormFieldOr(x.Path(), "statusNotes")
-}
-
-func (x *ConstraintTrackingContentForm) SetStatusNotes(value string) {
-	x.Doc().SetFormField(x.Path(), "statusNotes", value)
-}
-
-// ConstraintsAndDependenciesContentForm is the generated form facade for the `content` @Form section.
-type ConstraintsAndDependenciesContentForm struct {
-	som.SomNode
-}
-
-// NewConstraintsAndDependenciesContentForm binds a ConstraintsAndDependenciesContentForm facade to a document and a path.
-func NewConstraintsAndDependenciesContentForm(doc *som.SpecDocument, path string) *ConstraintsAndDependenciesContentForm {
-	return &ConstraintsAndDependenciesContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintsAndDependenciesContentForm) ConstraintDependencyOverview() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintDependencyOverview")
-}
-
-func (x *ConstraintsAndDependenciesContentForm) SetConstraintDependencyOverview(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintDependencyOverview", value)
-}
-
-func (x *ConstraintsAndDependenciesContentForm) TotalConstraintCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "totalConstraintCount")
-}
-
-func (x *ConstraintsAndDependenciesContentForm) SetTotalConstraintCount(value string) {
-	x.Doc().SetFormField(x.Path(), "totalConstraintCount", value)
-}
-
-func (x *ConstraintsAndDependenciesContentForm) TotalDependencyCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "totalDependencyCount")
-}
-
-func (x *ConstraintsAndDependenciesContentForm) SetTotalDependencyCount(value string) {
-	x.Doc().SetFormField(x.Path(), "totalDependencyCount", value)
-}
-
-func (x *ConstraintsAndDependenciesContentForm) CriticalConstraintCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticalConstraintCount")
-}
-
-func (x *ConstraintsAndDependenciesContentForm) SetCriticalConstraintCount(value string) {
-	x.Doc().SetFormField(x.Path(), "criticalConstraintCount", value)
-}
-
-func (x *ConstraintsAndDependenciesContentForm) CriticalDependencyCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticalDependencyCount")
-}
-
-func (x *ConstraintsAndDependenciesContentForm) SetCriticalDependencyCount(value string) {
-	x.Doc().SetFormField(x.Path(), "criticalDependencyCount", value)
-}
-
-func (x *ConstraintsAndDependenciesContentForm) ConstraintManagementApproach() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintManagementApproach")
-}
-
-func (x *ConstraintsAndDependenciesContentForm) SetConstraintManagementApproach(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintManagementApproach", value)
-}
-
-func (x *ConstraintsAndDependenciesContentForm) DependencyManagementApproach() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyManagementApproach")
-}
-
-func (x *ConstraintsAndDependenciesContentForm) SetDependencyManagementApproach(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyManagementApproach", value)
-}
-
-func (x *ConstraintsAndDependenciesContentForm) MonitoringFrequency() string {
-	return x.Doc().FormFieldOr(x.Path(), "monitoringFrequency")
-}
-
-func (x *ConstraintsAndDependenciesContentForm) SetMonitoringFrequency(value string) {
-	x.Doc().SetFormField(x.Path(), "monitoringFrequency", value)
-}
-
-func (x *ConstraintsAndDependenciesContentForm) EscalationPath() string {
-	return x.Doc().FormFieldOr(x.Path(), "escalationPath")
-}
-
-func (x *ConstraintsAndDependenciesContentForm) SetEscalationPath(value string) {
-	x.Doc().SetFormField(x.Path(), "escalationPath", value)
-}
-
-// ConstraintsContentForm is the generated form facade for the `content` @Form section.
-type ConstraintsContentForm struct {
-	som.SomNode
-}
-
-// NewConstraintsContentForm binds a ConstraintsContentForm facade to a document and a path.
-func NewConstraintsContentForm(doc *som.SpecDocument, path string) *ConstraintsContentForm {
-	return &ConstraintsContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *ConstraintsContentForm) ConstraintSummary() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintSummary")
-}
-
-func (x *ConstraintsContentForm) SetConstraintSummary(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintSummary", value)
-}
-
-func (x *ConstraintsContentForm) PrimaryConstraintCategory() string {
-	return x.Doc().FormFieldOr(x.Path(), "primaryConstraintCategory")
-}
-
-func (x *ConstraintsContentForm) SetPrimaryConstraintCategory(value string) {
-	x.Doc().SetFormField(x.Path(), "primaryConstraintCategory", value)
-}
-
-func (x *ConstraintsContentForm) ConstraintImpactLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintImpactLevel")
-}
-
-func (x *ConstraintsContentForm) SetConstraintImpactLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintImpactLevel", value)
-}
-
-func (x *ConstraintsContentForm) FlexibilityAssessment() string {
-	return x.Doc().FormFieldOr(x.Path(), "flexibilityAssessment")
-}
-
-func (x *ConstraintsContentForm) SetFlexibilityAssessment(value string) {
-	x.Doc().SetFormField(x.Path(), "flexibilityAssessment", value)
-}
-
-func (x *ConstraintsContentForm) RegulatoryConstraintCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "regulatoryConstraintCount")
-}
-
-func (x *ConstraintsContentForm) SetRegulatoryConstraintCount(value string) {
-	x.Doc().SetFormField(x.Path(), "regulatoryConstraintCount", value)
-}
-
-func (x *ConstraintsContentForm) ContractualConstraintCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "contractualConstraintCount")
-}
-
-func (x *ConstraintsContentForm) SetContractualConstraintCount(value string) {
-	x.Doc().SetFormField(x.Path(), "contractualConstraintCount", value)
-}
-
-func (x *ConstraintsContentForm) BudgetaryConstraintCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "budgetaryConstraintCount")
-}
-
-func (x *ConstraintsContentForm) SetBudgetaryConstraintCount(value string) {
-	x.Doc().SetFormField(x.Path(), "budgetaryConstraintCount", value)
-}
-
-func (x *ConstraintsContentForm) TimelineConstraintCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "timelineConstraintCount")
-}
-
-func (x *ConstraintsContentForm) SetTimelineConstraintCount(value string) {
-	x.Doc().SetFormField(x.Path(), "timelineConstraintCount", value)
-}
-
-func (x *ConstraintsContentForm) ResourceConstraintCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "resourceConstraintCount")
-}
-
-func (x *ConstraintsContentForm) SetResourceConstraintCount(value string) {
-	x.Doc().SetFormField(x.Path(), "resourceConstraintCount", value)
-}
-
-func (x *ConstraintsContentForm) TechnicalConstraintCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "technicalConstraintCount")
-}
-
-func (x *ConstraintsContentForm) SetTechnicalConstraintCount(value string) {
-	x.Doc().SetFormField(x.Path(), "technicalConstraintCount", value)
 }
 
 // ContextualHelpContextualHelpContentForm is the generated form facade for the `contextualHelpContent` @Form section.
@@ -95507,132 +94112,6 @@ func (x *DeliveryAcceptanceCriterionEntryVerificationContentForm) SetEvidenceReq
 	x.Doc().SetFormField(x.Path(), "evidenceRequired", value)
 }
 
-// DependencyClassificationContentForm is the generated form facade for the `content` @Form section.
-type DependencyClassificationContentForm struct {
-	som.SomNode
-}
-
-// NewDependencyClassificationContentForm binds a DependencyClassificationContentForm facade to a document and a path.
-func NewDependencyClassificationContentForm(doc *som.SpecDocument, path string) *DependencyClassificationContentForm {
-	return &DependencyClassificationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyClassificationContentForm) DependencyCategory() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyCategory")
-}
-
-func (x *DependencyClassificationContentForm) SetDependencyCategory(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyCategory", value)
-}
-
-func (x *DependencyClassificationContentForm) DependencyType() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyType")
-}
-
-func (x *DependencyClassificationContentForm) SetDependencyType(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyType", value)
-}
-
-func (x *DependencyClassificationContentForm) OnCriticalPath() string {
-	return x.Doc().FormFieldOr(x.Path(), "onCriticalPath")
-}
-
-func (x *DependencyClassificationContentForm) SetOnCriticalPath(value string) {
-	x.Doc().SetFormField(x.Path(), "onCriticalPath", value)
-}
-
-// DependencyDeliverableContentForm is the generated form facade for the `content` @Form section.
-type DependencyDeliverableContentForm struct {
-	som.SomNode
-}
-
-// NewDependencyDeliverableContentForm binds a DependencyDeliverableContentForm facade to a document and a path.
-func NewDependencyDeliverableContentForm(doc *som.SpecDocument, path string) *DependencyDeliverableContentForm {
-	return &DependencyDeliverableContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyDeliverableContentForm) DeliverableDescription() string {
-	return x.Doc().FormFieldOr(x.Path(), "deliverableDescription")
-}
-
-func (x *DependencyDeliverableContentForm) SetDeliverableDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "deliverableDescription", value)
-}
-
-func (x *DependencyDeliverableContentForm) DeliverableSpecification() string {
-	return x.Doc().FormFieldOr(x.Path(), "deliverableSpecification")
-}
-
-func (x *DependencyDeliverableContentForm) SetDeliverableSpecification(value string) {
-	x.Doc().SetFormField(x.Path(), "deliverableSpecification", value)
-}
-
-func (x *DependencyDeliverableContentForm) QualityCriteria() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityCriteria")
-}
-
-func (x *DependencyDeliverableContentForm) SetQualityCriteria(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityCriteria", value)
-}
-
-func (x *DependencyDeliverableContentForm) DeliveryFormat() string {
-	return x.Doc().FormFieldOr(x.Path(), "deliveryFormat")
-}
-
-func (x *DependencyDeliverableContentForm) SetDeliveryFormat(value string) {
-	x.Doc().SetFormField(x.Path(), "deliveryFormat", value)
-}
-
-// DependencyExternalPartyContentForm is the generated form facade for the `content` @Form section.
-type DependencyExternalPartyContentForm struct {
-	som.SomNode
-}
-
-// NewDependencyExternalPartyContentForm binds a DependencyExternalPartyContentForm facade to a document and a path.
-func NewDependencyExternalPartyContentForm(doc *som.SpecDocument, path string) *DependencyExternalPartyContentForm {
-	return &DependencyExternalPartyContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyExternalPartyContentForm) ExternalPartyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "externalPartyName")
-}
-
-func (x *DependencyExternalPartyContentForm) SetExternalPartyName(value string) {
-	x.Doc().SetFormField(x.Path(), "externalPartyName", value)
-}
-
-func (x *DependencyExternalPartyContentForm) ExternalPartyType() string {
-	return x.Doc().FormFieldOr(x.Path(), "externalPartyType")
-}
-
-func (x *DependencyExternalPartyContentForm) SetExternalPartyType(value string) {
-	x.Doc().SetFormField(x.Path(), "externalPartyType", value)
-}
-
-func (x *DependencyExternalPartyContentForm) ContactPerson() string {
-	return x.Doc().FormFieldOr(x.Path(), "contactPerson")
-}
-
-func (x *DependencyExternalPartyContentForm) SetContactPerson(value string) {
-	x.Doc().SetFormField(x.Path(), "contactPerson", value)
-}
-
-func (x *DependencyExternalPartyContentForm) ContactEmail() string {
-	return x.Doc().FormFieldOr(x.Path(), "contactEmail")
-}
-
-func (x *DependencyExternalPartyContentForm) SetContactEmail(value string) {
-	x.Doc().SetFormField(x.Path(), "contactEmail", value)
-}
-
-func (x *DependencyExternalPartyContentForm) EscalationContact() string {
-	return x.Doc().FormFieldOr(x.Path(), "escalationContact")
-}
-
-func (x *DependencyExternalPartyContentForm) SetEscalationContact(value string) {
-	x.Doc().SetFormField(x.Path(), "escalationContact", value)
-}
-
 // DependencyHealthMonitoringCacheContentForm is the generated form facade for the `content` @Form section.
 type DependencyHealthMonitoringCacheContentForm struct {
 	som.SomNode
@@ -95793,24 +94272,6 @@ func (x *DependencyHealthMonitoringThresholdsContentForm) Notes() string {
 
 func (x *DependencyHealthMonitoringThresholdsContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
-}
-
-// DependencyIdentityContentForm is the generated form facade for the `content` @Form section.
-type DependencyIdentityContentForm struct {
-	som.SomNode
-}
-
-// NewDependencyIdentityContentForm binds a DependencyIdentityContentForm facade to a document and a path.
-func NewDependencyIdentityContentForm(doc *som.SpecDocument, path string) *DependencyIdentityContentForm {
-	return &DependencyIdentityContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyIdentityContentForm) DependencyDescription() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyDescription")
-}
-
-func (x *DependencyIdentityContentForm) SetDependencyDescription(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyDescription", value)
 }
 
 // DependencyInjectionStructureBindingContentForm is the generated form facade for the `content` @Form section.
@@ -95983,48 +94444,6 @@ func (x *DependencyInjectionStructureTroubleshootingContentForm) SetNotes(value 
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
-// DependencyLinkagesContentForm is the generated form facade for the `content` @Form section.
-type DependencyLinkagesContentForm struct {
-	som.SomNode
-}
-
-// NewDependencyLinkagesContentForm binds a DependencyLinkagesContentForm facade to a document and a path.
-func NewDependencyLinkagesContentForm(doc *som.SpecDocument, path string) *DependencyLinkagesContentForm {
-	return &DependencyLinkagesContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyLinkagesContentForm) RelatedConstraints() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedConstraints")
-}
-
-func (x *DependencyLinkagesContentForm) SetRelatedConstraints(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedConstraints", value)
-}
-
-func (x *DependencyLinkagesContentForm) RelatedRisks() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedRisks")
-}
-
-func (x *DependencyLinkagesContentForm) SetRelatedRisks(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedRisks", value)
-}
-
-func (x *DependencyLinkagesContentForm) RelatedDependencies() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedDependencies")
-}
-
-func (x *DependencyLinkagesContentForm) SetRelatedDependencies(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedDependencies", value)
-}
-
-func (x *DependencyLinkagesContentForm) AffectedWorkPackages() string {
-	return x.Doc().FormFieldOr(x.Path(), "affectedWorkPackages")
-}
-
-func (x *DependencyLinkagesContentForm) SetAffectedWorkPackages(value string) {
-	x.Doc().SetFormField(x.Path(), "affectedWorkPackages", value)
-}
-
 // DependencyManagementContentForm is the generated form facade for the `content` @Form section.
 type DependencyManagementContentForm struct {
 	som.SomNode
@@ -96187,56 +94606,6 @@ func (x *DependencyManagementVersioningContentForm) SetLockfilePolicy(value stri
 	x.Doc().SetFormField(x.Path(), "lockfilePolicy", value)
 }
 
-// DependencyMitigationContentForm is the generated form facade for the `content` @Form section.
-type DependencyMitigationContentForm struct {
-	som.SomNode
-}
-
-// NewDependencyMitigationContentForm binds a DependencyMitigationContentForm facade to a document and a path.
-func NewDependencyMitigationContentForm(doc *som.SpecDocument, path string) *DependencyMitigationContentForm {
-	return &DependencyMitigationContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyMitigationContentForm) MitigationStrategy() string {
-	return x.Doc().FormFieldOr(x.Path(), "mitigationStrategy")
-}
-
-func (x *DependencyMitigationContentForm) SetMitigationStrategy(value string) {
-	x.Doc().SetFormField(x.Path(), "mitigationStrategy", value)
-}
-
-func (x *DependencyMitigationContentForm) ContingencyPlan() string {
-	return x.Doc().FormFieldOr(x.Path(), "contingencyPlan")
-}
-
-func (x *DependencyMitigationContentForm) SetContingencyPlan(value string) {
-	x.Doc().SetFormField(x.Path(), "contingencyPlan", value)
-}
-
-func (x *DependencyMitigationContentForm) ContingencyTimeline() string {
-	return x.Doc().FormFieldOr(x.Path(), "contingencyTimeline")
-}
-
-func (x *DependencyMitigationContentForm) SetContingencyTimeline(value string) {
-	x.Doc().SetFormField(x.Path(), "contingencyTimeline", value)
-}
-
-func (x *DependencyMitigationContentForm) ContractualProtection() string {
-	return x.Doc().FormFieldOr(x.Path(), "contractualProtection")
-}
-
-func (x *DependencyMitigationContentForm) SetContractualProtection(value string) {
-	x.Doc().SetFormField(x.Path(), "contractualProtection", value)
-}
-
-func (x *DependencyMitigationContentForm) AlternativeOptions() string {
-	return x.Doc().FormFieldOr(x.Path(), "alternativeOptions")
-}
-
-func (x *DependencyMitigationContentForm) SetAlternativeOptions(value string) {
-	x.Doc().SetFormField(x.Path(), "alternativeOptions", value)
-}
-
 // DependencyRegisterEntryContentForm is the generated form facade for the `content` @Form section.
 type DependencyRegisterEntryContentForm struct {
 	som.SomNode
@@ -96293,56 +94662,6 @@ func (x *DependencyRegisterEntryContentForm) Status() string {
 
 func (x *DependencyRegisterEntryContentForm) SetStatus(value string) {
 	x.Doc().SetFormField(x.Path(), "status", value)
-}
-
-// DependencyRiskContentForm is the generated form facade for the `content` @Form section.
-type DependencyRiskContentForm struct {
-	som.SomNode
-}
-
-// NewDependencyRiskContentForm binds a DependencyRiskContentForm facade to a document and a path.
-func NewDependencyRiskContentForm(doc *som.SpecDocument, path string) *DependencyRiskContentForm {
-	return &DependencyRiskContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyRiskContentForm) DeliveryRiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "deliveryRiskLevel")
-}
-
-func (x *DependencyRiskContentForm) SetDeliveryRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "deliveryRiskLevel", value)
-}
-
-func (x *DependencyRiskContentForm) PrimaryRiskFactors() string {
-	return x.Doc().FormFieldOr(x.Path(), "primaryRiskFactors")
-}
-
-func (x *DependencyRiskContentForm) SetPrimaryRiskFactors(value string) {
-	x.Doc().SetFormField(x.Path(), "primaryRiskFactors", value)
-}
-
-func (x *DependencyRiskContentForm) RiskIndicators() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskIndicators")
-}
-
-func (x *DependencyRiskContentForm) SetRiskIndicators(value string) {
-	x.Doc().SetFormField(x.Path(), "riskIndicators", value)
-}
-
-func (x *DependencyRiskContentForm) ImpactOfDelay() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactOfDelay")
-}
-
-func (x *DependencyRiskContentForm) SetImpactOfDelay(value string) {
-	x.Doc().SetFormField(x.Path(), "impactOfDelay", value)
-}
-
-func (x *DependencyRiskContentForm) ImpactOfFailure() string {
-	return x.Doc().FormFieldOr(x.Path(), "impactOfFailure")
-}
-
-func (x *DependencyRiskContentForm) SetImpactOfFailure(value string) {
-	x.Doc().SetFormField(x.Path(), "impactOfFailure", value)
 }
 
 // DependencyScanningRequirementsContentForm is the generated form facade for the `content` @Form section.
@@ -96521,122 +94840,6 @@ func (x *DependencyScanningRequirementsVulnerabilitiesContentForm) ExceptionProc
 
 func (x *DependencyScanningRequirementsVulnerabilitiesContentForm) SetExceptionProcess(value string) {
 	x.Doc().SetFormField(x.Path(), "exceptionProcess", value)
-}
-
-// DependencyTimelineContentForm is the generated form facade for the `content` @Form section.
-type DependencyTimelineContentForm struct {
-	som.SomNode
-}
-
-// NewDependencyTimelineContentForm binds a DependencyTimelineContentForm facade to a document and a path.
-func NewDependencyTimelineContentForm(doc *som.SpecDocument, path string) *DependencyTimelineContentForm {
-	return &DependencyTimelineContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyTimelineContentForm) ExpectedDeliveryDate() string {
-	return x.Doc().FormFieldOr(x.Path(), "expectedDeliveryDate")
-}
-
-func (x *DependencyTimelineContentForm) SetExpectedDeliveryDate(value string) {
-	x.Doc().SetFormField(x.Path(), "expectedDeliveryDate", value)
-}
-
-func (x *DependencyTimelineContentForm) LatestAcceptableDate() string {
-	return x.Doc().FormFieldOr(x.Path(), "latestAcceptableDate")
-}
-
-func (x *DependencyTimelineContentForm) SetLatestAcceptableDate(value string) {
-	x.Doc().SetFormField(x.Path(), "latestAcceptableDate", value)
-}
-
-func (x *DependencyTimelineContentForm) LeadTimeRequired() string {
-	return x.Doc().FormFieldOr(x.Path(), "leadTimeRequired")
-}
-
-func (x *DependencyTimelineContentForm) SetLeadTimeRequired(value string) {
-	x.Doc().SetFormField(x.Path(), "leadTimeRequired", value)
-}
-
-func (x *DependencyTimelineContentForm) BufferDays() string {
-	return x.Doc().FormFieldOr(x.Path(), "bufferDays")
-}
-
-func (x *DependencyTimelineContentForm) SetBufferDays(value string) {
-	x.Doc().SetFormField(x.Path(), "bufferDays", value)
-}
-
-func (x *DependencyTimelineContentForm) DependentMilestones() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependentMilestones")
-}
-
-func (x *DependencyTimelineContentForm) SetDependentMilestones(value string) {
-	x.Doc().SetFormField(x.Path(), "dependentMilestones", value)
-}
-
-// DependencyTrackingContentForm is the generated form facade for the `content` @Form section.
-type DependencyTrackingContentForm struct {
-	som.SomNode
-}
-
-// NewDependencyTrackingContentForm binds a DependencyTrackingContentForm facade to a document and a path.
-func NewDependencyTrackingContentForm(doc *som.SpecDocument, path string) *DependencyTrackingContentForm {
-	return &DependencyTrackingContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *DependencyTrackingContentForm) CoordinationMechanism() string {
-	return x.Doc().FormFieldOr(x.Path(), "coordinationMechanism")
-}
-
-func (x *DependencyTrackingContentForm) SetCoordinationMechanism(value string) {
-	x.Doc().SetFormField(x.Path(), "coordinationMechanism", value)
-}
-
-func (x *DependencyTrackingContentForm) CommunicationFrequency() string {
-	return x.Doc().FormFieldOr(x.Path(), "communicationFrequency")
-}
-
-func (x *DependencyTrackingContentForm) SetCommunicationFrequency(value string) {
-	x.Doc().SetFormField(x.Path(), "communicationFrequency", value)
-}
-
-func (x *DependencyTrackingContentForm) TrackingMethod() string {
-	return x.Doc().FormFieldOr(x.Path(), "trackingMethod")
-}
-
-func (x *DependencyTrackingContentForm) SetTrackingMethod(value string) {
-	x.Doc().SetFormField(x.Path(), "trackingMethod", value)
-}
-
-func (x *DependencyTrackingContentForm) DependencyOwner() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyOwner")
-}
-
-func (x *DependencyTrackingContentForm) SetDependencyOwner(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyOwner", value)
-}
-
-func (x *DependencyTrackingContentForm) CurrentStatus() string {
-	return x.Doc().FormFieldOr(x.Path(), "currentStatus")
-}
-
-func (x *DependencyTrackingContentForm) SetCurrentStatus(value string) {
-	x.Doc().SetFormField(x.Path(), "currentStatus", value)
-}
-
-func (x *DependencyTrackingContentForm) StatusLastUpdated() string {
-	return x.Doc().FormFieldOr(x.Path(), "statusLastUpdated")
-}
-
-func (x *DependencyTrackingContentForm) SetStatusLastUpdated(value string) {
-	x.Doc().SetFormField(x.Path(), "statusLastUpdated", value)
-}
-
-func (x *DependencyTrackingContentForm) StatusNotes() string {
-	return x.Doc().FormFieldOr(x.Path(), "statusNotes")
-}
-
-func (x *DependencyTrackingContentForm) SetStatusNotes(value string) {
-	x.Doc().SetFormField(x.Path(), "statusNotes", value)
 }
 
 // DeploymentContextDeploymentDetailsForm is the generated form facade for the `deploymentDetails` @Form section.
@@ -109509,166 +107712,6 @@ func (x *FrameworkCompatibilityContentForm) DeprecationWarnings() string {
 
 func (x *FrameworkCompatibilityContentForm) SetDeprecationWarnings(value string) {
 	x.Doc().SetFormField(x.Path(), "deprecationWarnings", value)
-}
-
-// FrameworkDependenciesCategoriesContentForm is the generated form facade for the `content` @Form section.
-type FrameworkDependenciesCategoriesContentForm struct {
-	som.SomNode
-}
-
-// NewFrameworkDependenciesCategoriesContentForm binds a FrameworkDependenciesCategoriesContentForm facade to a document and a path.
-func NewFrameworkDependenciesCategoriesContentForm(doc *som.SpecDocument, path string) *FrameworkDependenciesCategoriesContentForm {
-	return &FrameworkDependenciesCategoriesContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) ProjectDependencyCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "projectDependencyCount")
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) SetProjectDependencyCount(value string) {
-	x.Doc().SetFormField(x.Path(), "projectDependencyCount", value)
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) TeamDependencyCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "teamDependencyCount")
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) SetTeamDependencyCount(value string) {
-	x.Doc().SetFormField(x.Path(), "teamDependencyCount", value)
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) VendorDependencyCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "vendorDependencyCount")
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) SetVendorDependencyCount(value string) {
-	x.Doc().SetFormField(x.Path(), "vendorDependencyCount", value)
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) SystemDependencyCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "systemDependencyCount")
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) SetSystemDependencyCount(value string) {
-	x.Doc().SetFormField(x.Path(), "systemDependencyCount", value)
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) RegulatoryDependencyCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "regulatoryDependencyCount")
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) SetRegulatoryDependencyCount(value string) {
-	x.Doc().SetFormField(x.Path(), "regulatoryDependencyCount", value)
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) InfrastructureDependencyCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "infrastructureDependencyCount")
-}
-
-func (x *FrameworkDependenciesCategoriesContentForm) SetInfrastructureDependencyCount(value string) {
-	x.Doc().SetFormField(x.Path(), "infrastructureDependencyCount", value)
-}
-
-// FrameworkDependenciesContentForm is the generated form facade for the `content` @Form section.
-type FrameworkDependenciesContentForm struct {
-	som.SomNode
-}
-
-// NewFrameworkDependenciesContentForm binds a FrameworkDependenciesContentForm facade to a document and a path.
-func NewFrameworkDependenciesContentForm(doc *som.SpecDocument, path string) *FrameworkDependenciesContentForm {
-	return &FrameworkDependenciesContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *FrameworkDependenciesContentForm) DependencySummary() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencySummary")
-}
-
-func (x *FrameworkDependenciesContentForm) SetDependencySummary(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencySummary", value)
-}
-
-func (x *FrameworkDependenciesContentForm) PrimaryDependencyCategory() string {
-	return x.Doc().FormFieldOr(x.Path(), "primaryDependencyCategory")
-}
-
-func (x *FrameworkDependenciesContentForm) SetPrimaryDependencyCategory(value string) {
-	x.Doc().SetFormField(x.Path(), "primaryDependencyCategory", value)
-}
-
-func (x *FrameworkDependenciesContentForm) DependencyRiskLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyRiskLevel")
-}
-
-func (x *FrameworkDependenciesContentForm) SetDependencyRiskLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyRiskLevel", value)
-}
-
-func (x *FrameworkDependenciesContentForm) CriticalPathDependencyCount() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticalPathDependencyCount")
-}
-
-func (x *FrameworkDependenciesContentForm) SetCriticalPathDependencyCount(value string) {
-	x.Doc().SetFormField(x.Path(), "criticalPathDependencyCount", value)
-}
-
-// FrameworkDependenciesManagementContentForm is the generated form facade for the `content` @Form section.
-type FrameworkDependenciesManagementContentForm struct {
-	som.SomNode
-}
-
-// NewFrameworkDependenciesManagementContentForm binds a FrameworkDependenciesManagementContentForm facade to a document and a path.
-func NewFrameworkDependenciesManagementContentForm(doc *som.SpecDocument, path string) *FrameworkDependenciesManagementContentForm {
-	return &FrameworkDependenciesManagementContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *FrameworkDependenciesManagementContentForm) DependencyCoordinationApproach() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyCoordinationApproach")
-}
-
-func (x *FrameworkDependenciesManagementContentForm) SetDependencyCoordinationApproach(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyCoordinationApproach", value)
-}
-
-func (x *FrameworkDependenciesManagementContentForm) EarlyWarningMechanism() string {
-	return x.Doc().FormFieldOr(x.Path(), "earlyWarningMechanism")
-}
-
-func (x *FrameworkDependenciesManagementContentForm) SetEarlyWarningMechanism(value string) {
-	x.Doc().SetFormField(x.Path(), "earlyWarningMechanism", value)
-}
-
-// FrameworkDependencyEntryContentForm is the generated form facade for the `content` @Form section.
-type FrameworkDependencyEntryContentForm struct {
-	som.SomNode
-}
-
-// NewFrameworkDependencyEntryContentForm binds a FrameworkDependencyEntryContentForm facade to a document and a path.
-func NewFrameworkDependencyEntryContentForm(doc *som.SpecDocument, path string) *FrameworkDependencyEntryContentForm {
-	return &FrameworkDependencyEntryContentForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-func (x *FrameworkDependencyEntryContentForm) DependencyId() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyId")
-}
-
-func (x *FrameworkDependencyEntryContentForm) SetDependencyId(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyId", value)
-}
-
-func (x *FrameworkDependencyEntryContentForm) DependencyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyName")
-}
-
-func (x *FrameworkDependencyEntryContentForm) SetDependencyName(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyName", value)
-}
-
-func (x *FrameworkDependencyEntryContentForm) CriticalityLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "criticalityLevel")
-}
-
-func (x *FrameworkDependencyEntryContentForm) SetCriticalityLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "criticalityLevel", value)
 }
 
 // FrameworkIdentityContentForm is the generated form facade for the `content` @Form section.

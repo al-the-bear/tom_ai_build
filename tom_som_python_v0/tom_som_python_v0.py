@@ -2521,53 +2521,6 @@ class AssumptionConstraintRegister(SomNode):
     def dependencies(self):
         return SomList(self.doc, f"{self.path}/ACRG-DEPS-LST", lambda d, p: DependencyRegisterEntry(d, p))
 
-class AssumptionEntry(SomNode):
-    """An assumption entry (form).
-    
-    Documents a project assumption including its basis, validation approach,
-    and contingency plans if the assumption proves false.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    # Assumption identification and description.
-    @property
-    def identification(self):
-        return AssumptionIdentification(self.doc, f"{self.path}/identification")
-
-    # Assumption validation details.
-    @property
-    def validation(self):
-        return AssumptionValidation(self.doc, f"{self.path}/validation")
-
-    # Impact and contingency if assumption is false.
-    @property
-    def impact(self):
-        return AssumptionImpact(self.doc, f"{self.path}/impact")
-
-    # Relationships to other project elements.
-    @property
-    def relationships(self):
-        return SomList(self.doc, f"{self.path}/ASRE-RELA-LST", lambda d, p: AssumptionRelationships(d, p))
-
-class AssumptionIdentification(SomNode):
-    """Assumption identification details."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return AssumptionIdentificationContentForm(self.doc, f"{self.path}/content")
-
-class AssumptionImpact(SomNode):
-    """Impact assessment if assumption proves false."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return AssumptionImpactContentForm(self.doc, f"{self.path}/content")
-
 class AssumptionRegisterEntry(SomNode):
     """A single assumption register entry (form).
     
@@ -2580,24 +2533,6 @@ class AssumptionRegisterEntry(SomNode):
     @property
     def content(self):
         return AssumptionRegisterEntryContentForm(self.doc, f"{self.path}/content")
-
-class AssumptionRelationships(SomNode):
-    """Relationships to other project elements."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return AssumptionRelationshipsContentForm(self.doc, f"{self.path}/content")
-
-class AssumptionValidation(SomNode):
-    """Assumption validation details."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return AssumptionValidationContentForm(self.doc, f"{self.path}/content")
 
 class AssumptionsConstraintsDependencies(SomNode):
     """SBP.6 Assumptions, Constraints & Dependencies."""
@@ -2616,15 +2551,6 @@ class AssumptionsConstraintsDependencies(SomNode):
     @property
     def register(self):
         return AssumptionConstraintRegister(self.doc, f"{self.path}/register")
-
-class AssumptionsOverview(SomNode):
-    """Overview of assumptions management."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return AssumptionsOverviewContentForm(self.doc, f"{self.path}/content")
 
 class AttributeInterdependencyEntry(SomNode):
     """A single attribute interdependency entry."""
@@ -8993,97 +8919,6 @@ class ConsentManagementRequirementsTracking(SomNode):
     def content(self):
         return ConsentManagementRequirementsTrackingContentForm(self.doc, f"{self.path}/content")
 
-class ConstraintClassification(SomNode):
-    """Classification for constraint."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return ConstraintClassificationContentForm(self.doc, f"{self.path}/content")
-
-class ConstraintDetails(SomNode):
-    """Details for constraint."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return ConstraintDetailsContentForm(self.doc, f"{self.path}/content")
-
-class ConstraintEntry(SomNode):
-    """A constraint entry (form).
-    
-    Represents a single external constraint limiting project degrees of
-    freedom. Common constraint types include regulatory requirements,
-    contractual obligations, budget limits, timeline deadlines, resource
-    caps, and technology mandates. Each constraint should be tracked,
-    monitored, and have mitigation strategies where possible.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return ConstraintEntryContentForm(self.doc, f"{self.path}/content")
-
-    # Classification.
-    @property
-    def classification(self):
-        return ConstraintClassification(self.doc, f"{self.path}/classification")
-
-    # Details.
-    @property
-    def details(self):
-        return SomList(self.doc, f"{self.path}/CODE-DETA-LST", lambda d, p: ConstraintDetails(d, p))
-
-    # Impact assessment.
-    @property
-    def impact(self):
-        return ConstraintImpact(self.doc, f"{self.path}/impact")
-
-    # Mitigation and response.
-    @property
-    def mitigation(self):
-        return ConstraintMitigation(self.doc, f"{self.path}/mitigation")
-
-    # Tracking and monitoring.
-    @property
-    def tracking(self):
-        return ConstraintTracking(self.doc, f"{self.path}/tracking")
-
-    # Linkages.
-    @property
-    def linkages(self):
-        return SomList(self.doc, f"{self.path}/COLI1-LINK-LST", lambda d, p: ConstraintLinkages(d, p))
-
-class ConstraintImpact(SomNode):
-    """Impact assessment for constraint."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return ConstraintImpactContentForm(self.doc, f"{self.path}/content")
-
-class ConstraintLinkages(SomNode):
-    """Linkages for constraint."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return ConstraintLinkagesContentForm(self.doc, f"{self.path}/content")
-
-class ConstraintMitigation(SomNode):
-    """Mitigation for constraint."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return ConstraintMitigationContentForm(self.doc, f"{self.path}/content")
-
 class ConstraintRegisterEntry(SomNode):
     """A single constraint register entry (form).
     
@@ -9097,64 +8932,26 @@ class ConstraintRegisterEntry(SomNode):
     def content(self):
         return ConstraintRegisterEntryContentForm(self.doc, f"{self.path}/content")
 
-class ConstraintTracking(SomNode):
-    """Tracking for constraint."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return ConstraintTrackingContentForm(self.doc, f"{self.path}/content")
-
-class Constraints(SomNode):
-    """4.6.4.1. Constraints.
-    
-    External constraints limiting project scope, schedule, budget, or
-    approach. Includes regulatory, contractual, organizational, technical,
-    and resource constraints. Each constraint must be analysed for impact
-    and monitored throughout the project lifecycle.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return ConstraintsContentForm(self.doc, f"{self.path}/content")
-
-    # Contains 0+× Constraint.
-    @property
-    def items(self):
-        return SomList(self.doc, f"{self.path}/COEN-ITEM-LST", lambda d, p: ConstraintEntry(d, p))
-
-    # Constraint Summary narrative.
-    @property
-    def constraintNarrative(self):
-        return None  # (skipped: no target type)
-
 class ConstraintsAndDependencies(SomNode):
     """4.6.4. Constraints and Dependencies.
     
-    Documents external constraints (regulatory, contractual, budgetary,
-    timeline) and dependencies on other projects, teams, or organizational
-    initiatives. Follows PMBOK constraint management and dependency
-    analysis best practices for comprehensive project planning.
+    Operating-environment view of the constraints and dependencies that shape
+    project execution. The canonical register of constraints and dependencies
+    lives in SBP.6 (Assumptions, Constraints & Dependencies). This node does
+    **not** restate that register (L34C-4 consolidation, SR-10): it frames how
+    the framework conditions documented in SBP.2 §4.6 give rise to the entries
+    recorded in SBP.6, and points the reader there.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
     @property
     def content(self):
-        return ConstraintsAndDependenciesContentForm(self.doc, f"{self.path}/content")
+        return self.doc.content(f"{self.path}/content") or ""
 
-    # 4.6.4.1. Constraints.
-    @property
-    def constraints(self):
-        return Constraints(self.doc, f"{self.path}/constraints")
-
-    # 4.6.4.2. Dependencies.
-    @property
-    def frameworkDependencies(self):
-        return FrameworkDependencies(self.doc, f"{self.path}/frameworkDependencies")
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
 
 class ContentScanningPolicy(SomNode):
     """Content scanning policy — how uploaded and stored files are scanned for
@@ -14064,24 +13861,6 @@ class DependenciesAndIntegrations(SomNode):
     def healthSummary(self):
         return IntegrationHealthSummary(self.doc, f"{self.path}/healthSummary")
 
-class DependencyClassification(SomNode):
-    """Dependency classification."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return DependencyClassificationContentForm(self.doc, f"{self.path}/content")
-
-class DependencyDeliverable(SomNode):
-    """Deliverable details."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return DependencyDeliverableContentForm(self.doc, f"{self.path}/content")
-
 class DependencyEntry(SomNode):
     """A single dependency entry."""
     def __init__(self, doc, path):
@@ -14094,15 +13873,6 @@ class DependencyEntry(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
-
-class DependencyExternalParty(SomNode):
-    """External party details."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return DependencyExternalPartyContentForm(self.doc, f"{self.path}/content")
 
 class DependencyHealthMonitoring(SomNode):
     """Dependency health monitoring."""
@@ -14169,15 +13939,6 @@ class DependencyHealthMonitoringThresholds(SomNode):
     def content(self):
         return DependencyHealthMonitoringThresholdsContentForm(self.doc, f"{self.path}/content")
 
-class DependencyIdentity(SomNode):
-    """Dependency identity details."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return DependencyIdentityContentForm(self.doc, f"{self.path}/content")
-
 class DependencyInjectionStructure(SomNode):
     """Dependency injection structure and configuration."""
     def __init__(self, doc, path):
@@ -14242,15 +14003,6 @@ class DependencyInjectionStructureTroubleshooting(SomNode):
     @property
     def content(self):
         return DependencyInjectionStructureTroubleshootingContentForm(self.doc, f"{self.path}/content")
-
-class DependencyLinkages(SomNode):
-    """Dependency linkages."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return DependencyLinkagesContentForm(self.doc, f"{self.path}/content")
 
 class DependencyManagement(SomNode):
     """Dependency management configuration."""
@@ -14317,15 +14069,6 @@ class DependencyManagementVersioning(SomNode):
     def content(self):
         return DependencyManagementVersioningContentForm(self.doc, f"{self.path}/content")
 
-class DependencyMitigation(SomNode):
-    """Dependency mitigation and contingency."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return DependencyMitigationContentForm(self.doc, f"{self.path}/content")
-
 class DependencyRegisterEntry(SomNode):
     """A single dependency register entry (form).
     
@@ -14341,15 +14084,6 @@ class DependencyRegisterEntry(SomNode):
     @property
     def content(self):
         return DependencyRegisterEntryContentForm(self.doc, f"{self.path}/content")
-
-class DependencyRisk(SomNode):
-    """Dependency risk assessment."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return DependencyRiskContentForm(self.doc, f"{self.path}/content")
 
 class DependencyScanningRequirements(SomNode):
     """Dependency and supply-chain scanning requirements."""
@@ -14415,24 +14149,6 @@ class DependencyScanningRequirementsVulnerabilities(SomNode):
     @property
     def content(self):
         return DependencyScanningRequirementsVulnerabilitiesContentForm(self.doc, f"{self.path}/content")
-
-class DependencyTimeline(SomNode):
-    """Dependency timeline."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return DependencyTimelineContentForm(self.doc, f"{self.path}/content")
-
-class DependencyTracking(SomNode):
-    """Dependency coordination and tracking."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return DependencyTrackingContentForm(self.doc, f"{self.path}/content")
 
 class DeploymentContext(SomNode):
     """4.1.2.7. Deployment Context.
@@ -19901,119 +19617,6 @@ class FrameworkConditions(SomNode):
     def constraintsAndDependencies(self):
         return ConstraintsAndDependencies(self.doc, f"{self.path}/constraintsAndDependencies")
 
-class FrameworkDependencies(SomNode):
-    """4.6.4.2. Dependencies.
-    
-    External dependencies on other projects, teams, vendors, systems, or
-    organizational initiatives. Each dependency represents a point where
-    this project relies on external parties to deliver. Dependencies
-    should be tracked, risks assessed, and contingencies planned.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return FrameworkDependenciesContentForm(self.doc, f"{self.path}/content")
-
-    # Dependency counts by category.
-    @property
-    def categories(self):
-        return FrameworkDependenciesCategories(self.doc, f"{self.path}/categories")
-
-    # Coordination and early warning mechanisms.
-    @property
-    def management(self):
-        return FrameworkDependenciesManagement(self.doc, f"{self.path}/management")
-
-    # Contains 0+× FrameworkDependency.
-    @property
-    def items(self):
-        return SomList(self.doc, f"{self.path}/FWRDP-ITEM-LST", lambda d, p: FrameworkDependencyEntry(d, p))
-
-    # Dependency Summary narrative.
-    @property
-    def dependencyNarrative(self):
-        return None  # (skipped: no target type)
-
-class FrameworkDependenciesCategories(SomNode):
-    """Dependency counts by category."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return FrameworkDependenciesCategoriesContentForm(self.doc, f"{self.path}/content")
-
-class FrameworkDependenciesManagement(SomNode):
-    """Coordination and early warning mechanisms."""
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return FrameworkDependenciesManagementContentForm(self.doc, f"{self.path}/content")
-
-class FrameworkDependencyEntry(SomNode):
-    """A framework dependency entry (form).
-    
-    Represents a single external dependency where this project relies on
-    another party (project, team, vendor, system) to deliver something.
-    Dependencies should be actively managed with clear expectations,
-    tracking, and contingency plans for delays or failures.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def content(self):
-        return FrameworkDependencyEntryContentForm(self.doc, f"{self.path}/content")
-
-    # Dependency identity details.
-    @property
-    def identity(self):
-        return DependencyIdentity(self.doc, f"{self.path}/identity")
-
-    # Dependency classification.
-    @property
-    def classification(self):
-        return DependencyClassification(self.doc, f"{self.path}/classification")
-
-    # External party details.
-    @property
-    def externalParty(self):
-        return DependencyExternalParty(self.doc, f"{self.path}/externalParty")
-
-    # Deliverable details.
-    @property
-    def deliverable(self):
-        return DependencyDeliverable(self.doc, f"{self.path}/deliverable")
-
-    # Timeline.
-    @property
-    def timeline(self):
-        return DependencyTimeline(self.doc, f"{self.path}/timeline")
-
-    # Risk assessment.
-    @property
-    def risk(self):
-        return DependencyRisk(self.doc, f"{self.path}/risk")
-
-    # Mitigation and contingency.
-    @property
-    def mitigation(self):
-        return DependencyMitigation(self.doc, f"{self.path}/mitigation")
-
-    # Coordination and tracking.
-    @property
-    def tracking(self):
-        return DependencyTracking(self.doc, f"{self.path}/tracking")
-
-    # Linkages.
-    @property
-    def linkages(self):
-        return SomList(self.doc, f"{self.path}/DELI1-LINK-LST", lambda d, p: DependencyLinkages(d, p))
-
 class FrameworkIdentity(SomNode):
     """Identity details."""
     def __init__(self, doc, path):
@@ -23967,25 +23570,6 @@ class KeyAssumptionEntry(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
-
-class KeyAssumptions(SomNode):
-    """4.7.2. Key Assumptions.
-    
-    Documents project assumptions that must hold true for success.
-    Tracks validation status and contingency plans if assumptions prove false.
-    """
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    # Overview of assumptions management approach.
-    @property
-    def overview(self):
-        return AssumptionsOverview(self.doc, f"{self.path}/overview")
-
-    # Contains 0+× Assumption.
-    @property
-    def items(self):
-        return SomList(self.doc, f"{self.path}/ASEN-ITEM-LST", lambda d, p: AssumptionEntry(d, p))
 
 class KeyAttributeEntry(SomNode):
     """A key attribute entry (form).
@@ -36563,12 +36147,18 @@ class RiskResponseResidual(SomNode):
         return RiskResponseResidualContentForm(self.doc, f"{self.path}/content")
 
 class RisksAndAssumptions(SomNode):
-    """4.7. Risks and Assumptions.
+    """4.7. Risks.
     
-    Documents identified project risks and underlying assumptions following
-    ISO 31000 Risk Management and PMBOK risk management best practices.
-    Provides structured framework for risk identification, analysis, response
-    planning, and ongoing monitoring throughout the project lifecycle.
+    Documents identified project risks following ISO 31000 Risk Management and
+    PMBOK risk management best practices. Provides a structured framework for
+    risk identification, analysis, response planning, and ongoing monitoring
+    throughout the project lifecycle.
+    
+    Assumptions are **not** held here (L34C-4 consolidation, SR-11): the
+    canonical assumptions register lives in SBP.6 (Assumptions, Constraints &
+    Dependencies). Only the risks half — unique to §4.7 — remains in this node.
+    (The class name remains `RisksAndAssumptions` pending the L34C-9 rename
+    sweep, which will rename it to `Risks`.)
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -36582,11 +36172,6 @@ class RisksAndAssumptions(SomNode):
     @property
     def keyRisks(self):
         return SomList(self.doc, f"{self.path}/RIEN-KEYR-LST", lambda d, p: RiskEntry(d, p))
-
-    # 4.7.2. Key Assumptions — contains 0+×.
-    @property
-    def keyAssumptions(self):
-        return KeyAssumptions(self.doc, f"{self.path}/keyAssumptions")
 
 class RisksOverview(SomNode):
     """Overview of the risk management approach."""
@@ -55851,154 +55436,6 @@ class ArchitecturePrincipleEntryGuidanceContentForm(SomNode):
     def violations(self, value):
         self.doc.set_form_field(self.path, "violations", value)
 
-class AssumptionIdentificationContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def assumptionId(self):
-        return self.doc.form_field(self.path, "assumptionId") or ""
-
-    @assumptionId.setter
-    def assumptionId(self, value):
-        self.doc.set_form_field(self.path, "assumptionId", value)
-
-    @property
-    def assumptionName(self):
-        return self.doc.form_field(self.path, "assumptionName") or ""
-
-    @assumptionName.setter
-    def assumptionName(self, value):
-        self.doc.set_form_field(self.path, "assumptionName", value)
-
-    @property
-    def description(self):
-        return self.doc.form_field(self.path, "description") or ""
-
-    @description.setter
-    def description(self, value):
-        self.doc.set_form_field(self.path, "description", value)
-
-    @property
-    def category(self):
-        return self.doc.form_field(self.path, "category") or ""
-
-    @category.setter
-    def category(self, value):
-        self.doc.set_form_field(self.path, "category", value)
-
-    @property
-    def basis(self):
-        return self.doc.form_field(self.path, "basis") or ""
-
-    @basis.setter
-    def basis(self, value):
-        self.doc.set_form_field(self.path, "basis", value)
-
-    @property
-    def dateIdentified(self):
-        return self.doc.form_field(self.path, "dateIdentified") or ""
-
-    @dateIdentified.setter
-    def dateIdentified(self, value):
-        self.doc.set_form_field(self.path, "dateIdentified", value)
-
-    @property
-    def identifiedBy(self):
-        return self.doc.form_field(self.path, "identifiedBy") or ""
-
-    @identifiedBy.setter
-    def identifiedBy(self, value):
-        self.doc.set_form_field(self.path, "identifiedBy", value)
-
-    @property
-    def criticality(self):
-        return self.doc.form_field(self.path, "criticality") or ""
-
-    @criticality.setter
-    def criticality(self, value):
-        self.doc.set_form_field(self.path, "criticality", value)
-
-    @property
-    def confidence(self):
-        return self.doc.form_field(self.path, "confidence") or ""
-
-    @confidence.setter
-    def confidence(self, value):
-        self.doc.set_form_field(self.path, "confidence", value)
-
-class AssumptionImpactContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def impactIfFalse(self):
-        return self.doc.form_field(self.path, "impactIfFalse") or ""
-
-    @impactIfFalse.setter
-    def impactIfFalse(self, value):
-        self.doc.set_form_field(self.path, "impactIfFalse", value)
-
-    @property
-    def impactSeverity(self):
-        return self.doc.form_field(self.path, "impactSeverity") or ""
-
-    @impactSeverity.setter
-    def impactSeverity(self, value):
-        self.doc.set_form_field(self.path, "impactSeverity", value)
-
-    @property
-    def affectedAreas(self):
-        return self.doc.form_field(self.path, "affectedAreas") or ""
-
-    @affectedAreas.setter
-    def affectedAreas(self, value):
-        self.doc.set_form_field(self.path, "affectedAreas", value)
-
-    @property
-    def contingencyPlan(self):
-        return self.doc.form_field(self.path, "contingencyPlan") or ""
-
-    @contingencyPlan.setter
-    def contingencyPlan(self, value):
-        self.doc.set_form_field(self.path, "contingencyPlan", value)
-
-    @property
-    def contingencyOwner(self):
-        return self.doc.form_field(self.path, "contingencyOwner") or ""
-
-    @contingencyOwner.setter
-    def contingencyOwner(self, value):
-        self.doc.set_form_field(self.path, "contingencyOwner", value)
-
-    @property
-    def contingencyCost(self):
-        return self.doc.form_field(self.path, "contingencyCost") or ""
-
-    @contingencyCost.setter
-    def contingencyCost(self, value):
-        self.doc.set_form_field(self.path, "contingencyCost", value)
-
-    @property
-    def contingencyTimeline(self):
-        return self.doc.form_field(self.path, "contingencyTimeline") or ""
-
-    @contingencyTimeline.setter
-    def contingencyTimeline(self, value):
-        self.doc.set_form_field(self.path, "contingencyTimeline", value)
-
-    @property
-    def relatedRisks(self):
-        return self.doc.form_field(self.path, "relatedRisks") or ""
-
-    @relatedRisks.setter
-    def relatedRisks(self, value):
-        self.doc.set_form_field(self.path, "relatedRisks", value)
-
 class AssumptionRegisterEntryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -56044,176 +55481,6 @@ class AssumptionRegisterEntryContentForm(SomNode):
     @status.setter
     def status(self, value):
         self.doc.set_form_field(self.path, "status", value)
-
-class AssumptionRelationshipsContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def relatedAssumptions(self):
-        return self.doc.form_field(self.path, "relatedAssumptions") or ""
-
-    @relatedAssumptions.setter
-    def relatedAssumptions(self, value):
-        self.doc.set_form_field(self.path, "relatedAssumptions", value)
-
-    @property
-    def relatedRisks(self):
-        return self.doc.form_field(self.path, "relatedRisks") or ""
-
-    @relatedRisks.setter
-    def relatedRisks(self, value):
-        self.doc.set_form_field(self.path, "relatedRisks", value)
-
-    @property
-    def relatedRequirements(self):
-        return self.doc.form_field(self.path, "relatedRequirements") or ""
-
-    @relatedRequirements.setter
-    def relatedRequirements(self, value):
-        self.doc.set_form_field(self.path, "relatedRequirements", value)
-
-    @property
-    def affectedDecisions(self):
-        return self.doc.form_field(self.path, "affectedDecisions") or ""
-
-    @affectedDecisions.setter
-    def affectedDecisions(self, value):
-        self.doc.set_form_field(self.path, "affectedDecisions", value)
-
-    @property
-    def documentReferences(self):
-        return self.doc.form_field(self.path, "documentReferences") or ""
-
-    @documentReferences.setter
-    def documentReferences(self, value):
-        self.doc.set_form_field(self.path, "documentReferences", value)
-
-    @property
-    def stakeholderOwner(self):
-        return self.doc.form_field(self.path, "stakeholderOwner") or ""
-
-    @stakeholderOwner.setter
-    def stakeholderOwner(self, value):
-        self.doc.set_form_field(self.path, "stakeholderOwner", value)
-
-    @property
-    def reviewFrequency(self):
-        return self.doc.form_field(self.path, "reviewFrequency") or ""
-
-    @reviewFrequency.setter
-    def reviewFrequency(self, value):
-        self.doc.set_form_field(self.path, "reviewFrequency", value)
-
-class AssumptionValidationContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def validationMethod(self):
-        return self.doc.form_field(self.path, "validationMethod") or ""
-
-    @validationMethod.setter
-    def validationMethod(self, value):
-        self.doc.set_form_field(self.path, "validationMethod", value)
-
-    @property
-    def validationCriteria(self):
-        return self.doc.form_field(self.path, "validationCriteria") or ""
-
-    @validationCriteria.setter
-    def validationCriteria(self, value):
-        self.doc.set_form_field(self.path, "validationCriteria", value)
-
-    @property
-    def validationDate(self):
-        return self.doc.form_field(self.path, "validationDate") or ""
-
-    @validationDate.setter
-    def validationDate(self, value):
-        self.doc.set_form_field(self.path, "validationDate", value)
-
-    @property
-    def validationStatus(self):
-        return self.doc.form_field(self.path, "validationStatus") or ""
-
-    @validationStatus.setter
-    def validationStatus(self, value):
-        self.doc.set_form_field(self.path, "validationStatus", value)
-
-    @property
-    def lastValidationDate(self):
-        return self.doc.form_field(self.path, "lastValidationDate") or ""
-
-    @lastValidationDate.setter
-    def lastValidationDate(self, value):
-        self.doc.set_form_field(self.path, "lastValidationDate", value)
-
-    @property
-    def validatedBy(self):
-        return self.doc.form_field(self.path, "validatedBy") or ""
-
-    @validatedBy.setter
-    def validatedBy(self, value):
-        self.doc.set_form_field(self.path, "validatedBy", value)
-
-    @property
-    def validationNotes(self):
-        return self.doc.form_field(self.path, "validationNotes") or ""
-
-    @validationNotes.setter
-    def validationNotes(self, value):
-        self.doc.set_form_field(self.path, "validationNotes", value)
-
-    @property
-    def validationOwner(self):
-        return self.doc.form_field(self.path, "validationOwner") or ""
-
-    @validationOwner.setter
-    def validationOwner(self, value):
-        self.doc.set_form_field(self.path, "validationOwner", value)
-
-class AssumptionsOverviewContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def assumptionsApproach(self):
-        return self.doc.form_field(self.path, "assumptionsApproach") or ""
-
-    @assumptionsApproach.setter
-    def assumptionsApproach(self, value):
-        self.doc.set_form_field(self.path, "assumptionsApproach", value)
-
-    @property
-    def validationCadence(self):
-        return self.doc.form_field(self.path, "validationCadence") or ""
-
-    @validationCadence.setter
-    def validationCadence(self, value):
-        self.doc.set_form_field(self.path, "validationCadence", value)
-
-    @property
-    def assumptionCategories(self):
-        return self.doc.form_field(self.path, "assumptionCategories") or ""
-
-    @assumptionCategories.setter
-    def assumptionCategories(self, value):
-        self.doc.set_form_field(self.path, "assumptionCategories", value)
-
-    @property
-    def escalationProcess(self):
-        return self.doc.form_field(self.path, "escalationProcess") or ""
-
-    @escalationProcess.setter
-    def escalationProcess(self, value):
-        self.doc.set_form_field(self.path, "escalationProcess", value)
 
 class AuditEntryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -69565,258 +68832,6 @@ class ConsentManagementRequirementsTrackingContentForm(SomNode):
     def thirdPartyConsentSharing(self, value):
         self.doc.set_form_field(self.path, "thirdPartyConsentSharing", value)
 
-class ConstraintClassificationContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def constraintDescription(self):
-        return self.doc.form_field(self.path, "constraintDescription") or ""
-
-    @constraintDescription.setter
-    def constraintDescription(self, value):
-        self.doc.set_form_field(self.path, "constraintDescription", value)
-
-    @property
-    def constraintCategory(self):
-        return self.doc.form_field(self.path, "constraintCategory") or ""
-
-    @constraintCategory.setter
-    def constraintCategory(self, value):
-        self.doc.set_form_field(self.path, "constraintCategory", value)
-
-    @property
-    def constraintType(self):
-        return self.doc.form_field(self.path, "constraintType") or ""
-
-    @constraintType.setter
-    def constraintType(self, value):
-        self.doc.set_form_field(self.path, "constraintType", value)
-
-    @property
-    def constraintSource(self):
-        return self.doc.form_field(self.path, "constraintSource") or ""
-
-    @constraintSource.setter
-    def constraintSource(self, value):
-        self.doc.set_form_field(self.path, "constraintSource", value)
-
-    @property
-    def sourceReference(self):
-        return self.doc.form_field(self.path, "sourceReference") or ""
-
-    @sourceReference.setter
-    def sourceReference(self, value):
-        self.doc.set_form_field(self.path, "sourceReference", value)
-
-class ConstraintDetailsContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def constraintValue(self):
-        return self.doc.form_field(self.path, "constraintValue") or ""
-
-    @constraintValue.setter
-    def constraintValue(self, value):
-        self.doc.set_form_field(self.path, "constraintValue", value)
-
-    @property
-    def constraintEffectiveDate(self):
-        return self.doc.form_field(self.path, "constraintEffectiveDate") or ""
-
-    @constraintEffectiveDate.setter
-    def constraintEffectiveDate(self, value):
-        self.doc.set_form_field(self.path, "constraintEffectiveDate", value)
-
-    @property
-    def constraintExpiryDate(self):
-        return self.doc.form_field(self.path, "constraintExpiryDate") or ""
-
-    @constraintExpiryDate.setter
-    def constraintExpiryDate(self, value):
-        self.doc.set_form_field(self.path, "constraintExpiryDate", value)
-
-    @property
-    def geographicScope(self):
-        return self.doc.form_field(self.path, "geographicScope") or ""
-
-    @geographicScope.setter
-    def geographicScope(self, value):
-        self.doc.set_form_field(self.path, "geographicScope", value)
-
-    @property
-    def affectedDomains(self):
-        return self.doc.form_field(self.path, "affectedDomains") or ""
-
-    @affectedDomains.setter
-    def affectedDomains(self, value):
-        self.doc.set_form_field(self.path, "affectedDomains", value)
-
-class ConstraintEntryContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def constraintId(self):
-        return self.doc.form_field(self.path, "constraintId") or ""
-
-    @constraintId.setter
-    def constraintId(self, value):
-        self.doc.set_form_field(self.path, "constraintId", value)
-
-    @property
-    def constraintName(self):
-        return self.doc.form_field(self.path, "constraintName") or ""
-
-    @constraintName.setter
-    def constraintName(self, value):
-        self.doc.set_form_field(self.path, "constraintName", value)
-
-    @property
-    def impactLevel(self):
-        return self.doc.form_field(self.path, "impactLevel") or ""
-
-    @impactLevel.setter
-    def impactLevel(self, value):
-        self.doc.set_form_field(self.path, "impactLevel", value)
-
-class ConstraintImpactContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def impactDescription(self):
-        return self.doc.form_field(self.path, "impactDescription") or ""
-
-    @impactDescription.setter
-    def impactDescription(self, value):
-        self.doc.set_form_field(self.path, "impactDescription", value)
-
-    @property
-    def affectedWorkPackages(self):
-        return self.doc.form_field(self.path, "affectedWorkPackages") or ""
-
-    @affectedWorkPackages.setter
-    def affectedWorkPackages(self, value):
-        self.doc.set_form_field(self.path, "affectedWorkPackages", value)
-
-    @property
-    def affectedMilestones(self):
-        return self.doc.form_field(self.path, "affectedMilestones") or ""
-
-    @affectedMilestones.setter
-    def affectedMilestones(self, value):
-        self.doc.set_form_field(self.path, "affectedMilestones", value)
-
-    @property
-    def scheduleImpact(self):
-        return self.doc.form_field(self.path, "scheduleImpact") or ""
-
-    @scheduleImpact.setter
-    def scheduleImpact(self, value):
-        self.doc.set_form_field(self.path, "scheduleImpact", value)
-
-    @property
-    def budgetImpact(self):
-        return self.doc.form_field(self.path, "budgetImpact") or ""
-
-    @budgetImpact.setter
-    def budgetImpact(self, value):
-        self.doc.set_form_field(self.path, "budgetImpact", value)
-
-    @property
-    def scopeImpact(self):
-        return self.doc.form_field(self.path, "scopeImpact") or ""
-
-    @scopeImpact.setter
-    def scopeImpact(self, value):
-        self.doc.set_form_field(self.path, "scopeImpact", value)
-
-class ConstraintLinkagesContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def relatedConstraints(self):
-        return self.doc.form_field(self.path, "relatedConstraints") or ""
-
-    @relatedConstraints.setter
-    def relatedConstraints(self, value):
-        self.doc.set_form_field(self.path, "relatedConstraints", value)
-
-    @property
-    def relatedRisks(self):
-        return self.doc.form_field(self.path, "relatedRisks") or ""
-
-    @relatedRisks.setter
-    def relatedRisks(self, value):
-        self.doc.set_form_field(self.path, "relatedRisks", value)
-
-    @property
-    def relatedDependencies(self):
-        return self.doc.form_field(self.path, "relatedDependencies") or ""
-
-    @relatedDependencies.setter
-    def relatedDependencies(self, value):
-        self.doc.set_form_field(self.path, "relatedDependencies", value)
-
-class ConstraintMitigationContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def mitigationStrategy(self):
-        return self.doc.form_field(self.path, "mitigationStrategy") or ""
-
-    @mitigationStrategy.setter
-    def mitigationStrategy(self, value):
-        self.doc.set_form_field(self.path, "mitigationStrategy", value)
-
-    @property
-    def negotiationPossibility(self):
-        return self.doc.form_field(self.path, "negotiationPossibility") or ""
-
-    @negotiationPossibility.setter
-    def negotiationPossibility(self, value):
-        self.doc.set_form_field(self.path, "negotiationPossibility", value)
-
-    @property
-    def negotiationApproach(self):
-        return self.doc.form_field(self.path, "negotiationApproach") or ""
-
-    @negotiationApproach.setter
-    def negotiationApproach(self, value):
-        self.doc.set_form_field(self.path, "negotiationApproach", value)
-
-    @property
-    def fallbackPlan(self):
-        return self.doc.form_field(self.path, "fallbackPlan") or ""
-
-    @fallbackPlan.setter
-    def fallbackPlan(self, value):
-        self.doc.set_form_field(self.path, "fallbackPlan", value)
-
-    @property
-    def violationConsequences(self):
-        return self.doc.form_field(self.path, "violationConsequences") or ""
-
-    @violationConsequences.setter
-    def violationConsequences(self, value):
-        self.doc.set_form_field(self.path, "violationConsequences", value)
-
 class ConstraintRegisterEntryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -69862,216 +68877,6 @@ class ConstraintRegisterEntryContentForm(SomNode):
     @impact.setter
     def impact(self, value):
         self.doc.set_form_field(self.path, "impact", value)
-
-class ConstraintTrackingContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def trackingMethod(self):
-        return self.doc.form_field(self.path, "trackingMethod") or ""
-
-    @trackingMethod.setter
-    def trackingMethod(self, value):
-        self.doc.set_form_field(self.path, "trackingMethod", value)
-
-    @property
-    def reviewFrequency(self):
-        return self.doc.form_field(self.path, "reviewFrequency") or ""
-
-    @reviewFrequency.setter
-    def reviewFrequency(self, value):
-        self.doc.set_form_field(self.path, "reviewFrequency", value)
-
-    @property
-    def constraintOwner(self):
-        return self.doc.form_field(self.path, "constraintOwner") or ""
-
-    @constraintOwner.setter
-    def constraintOwner(self, value):
-        self.doc.set_form_field(self.path, "constraintOwner", value)
-
-    @property
-    def currentStatus(self):
-        return self.doc.form_field(self.path, "currentStatus") or ""
-
-    @currentStatus.setter
-    def currentStatus(self, value):
-        self.doc.set_form_field(self.path, "currentStatus", value)
-
-    @property
-    def statusNotes(self):
-        return self.doc.form_field(self.path, "statusNotes") or ""
-
-    @statusNotes.setter
-    def statusNotes(self, value):
-        self.doc.set_form_field(self.path, "statusNotes", value)
-
-class ConstraintsAndDependenciesContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def constraintDependencyOverview(self):
-        return self.doc.form_field(self.path, "constraintDependencyOverview") or ""
-
-    @constraintDependencyOverview.setter
-    def constraintDependencyOverview(self, value):
-        self.doc.set_form_field(self.path, "constraintDependencyOverview", value)
-
-    @property
-    def totalConstraintCount(self):
-        return self.doc.form_field(self.path, "totalConstraintCount") or ""
-
-    @totalConstraintCount.setter
-    def totalConstraintCount(self, value):
-        self.doc.set_form_field(self.path, "totalConstraintCount", value)
-
-    @property
-    def totalDependencyCount(self):
-        return self.doc.form_field(self.path, "totalDependencyCount") or ""
-
-    @totalDependencyCount.setter
-    def totalDependencyCount(self, value):
-        self.doc.set_form_field(self.path, "totalDependencyCount", value)
-
-    @property
-    def criticalConstraintCount(self):
-        return self.doc.form_field(self.path, "criticalConstraintCount") or ""
-
-    @criticalConstraintCount.setter
-    def criticalConstraintCount(self, value):
-        self.doc.set_form_field(self.path, "criticalConstraintCount", value)
-
-    @property
-    def criticalDependencyCount(self):
-        return self.doc.form_field(self.path, "criticalDependencyCount") or ""
-
-    @criticalDependencyCount.setter
-    def criticalDependencyCount(self, value):
-        self.doc.set_form_field(self.path, "criticalDependencyCount", value)
-
-    @property
-    def constraintManagementApproach(self):
-        return self.doc.form_field(self.path, "constraintManagementApproach") or ""
-
-    @constraintManagementApproach.setter
-    def constraintManagementApproach(self, value):
-        self.doc.set_form_field(self.path, "constraintManagementApproach", value)
-
-    @property
-    def dependencyManagementApproach(self):
-        return self.doc.form_field(self.path, "dependencyManagementApproach") or ""
-
-    @dependencyManagementApproach.setter
-    def dependencyManagementApproach(self, value):
-        self.doc.set_form_field(self.path, "dependencyManagementApproach", value)
-
-    @property
-    def monitoringFrequency(self):
-        return self.doc.form_field(self.path, "monitoringFrequency") or ""
-
-    @monitoringFrequency.setter
-    def monitoringFrequency(self, value):
-        self.doc.set_form_field(self.path, "monitoringFrequency", value)
-
-    @property
-    def escalationPath(self):
-        return self.doc.form_field(self.path, "escalationPath") or ""
-
-    @escalationPath.setter
-    def escalationPath(self, value):
-        self.doc.set_form_field(self.path, "escalationPath", value)
-
-class ConstraintsContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def constraintSummary(self):
-        return self.doc.form_field(self.path, "constraintSummary") or ""
-
-    @constraintSummary.setter
-    def constraintSummary(self, value):
-        self.doc.set_form_field(self.path, "constraintSummary", value)
-
-    @property
-    def primaryConstraintCategory(self):
-        return self.doc.form_field(self.path, "primaryConstraintCategory") or ""
-
-    @primaryConstraintCategory.setter
-    def primaryConstraintCategory(self, value):
-        self.doc.set_form_field(self.path, "primaryConstraintCategory", value)
-
-    @property
-    def constraintImpactLevel(self):
-        return self.doc.form_field(self.path, "constraintImpactLevel") or ""
-
-    @constraintImpactLevel.setter
-    def constraintImpactLevel(self, value):
-        self.doc.set_form_field(self.path, "constraintImpactLevel", value)
-
-    @property
-    def flexibilityAssessment(self):
-        return self.doc.form_field(self.path, "flexibilityAssessment") or ""
-
-    @flexibilityAssessment.setter
-    def flexibilityAssessment(self, value):
-        self.doc.set_form_field(self.path, "flexibilityAssessment", value)
-
-    @property
-    def regulatoryConstraintCount(self):
-        return self.doc.form_field(self.path, "regulatoryConstraintCount") or ""
-
-    @regulatoryConstraintCount.setter
-    def regulatoryConstraintCount(self, value):
-        self.doc.set_form_field(self.path, "regulatoryConstraintCount", value)
-
-    @property
-    def contractualConstraintCount(self):
-        return self.doc.form_field(self.path, "contractualConstraintCount") or ""
-
-    @contractualConstraintCount.setter
-    def contractualConstraintCount(self, value):
-        self.doc.set_form_field(self.path, "contractualConstraintCount", value)
-
-    @property
-    def budgetaryConstraintCount(self):
-        return self.doc.form_field(self.path, "budgetaryConstraintCount") or ""
-
-    @budgetaryConstraintCount.setter
-    def budgetaryConstraintCount(self, value):
-        self.doc.set_form_field(self.path, "budgetaryConstraintCount", value)
-
-    @property
-    def timelineConstraintCount(self):
-        return self.doc.form_field(self.path, "timelineConstraintCount") or ""
-
-    @timelineConstraintCount.setter
-    def timelineConstraintCount(self, value):
-        self.doc.set_form_field(self.path, "timelineConstraintCount", value)
-
-    @property
-    def resourceConstraintCount(self):
-        return self.doc.form_field(self.path, "resourceConstraintCount") or ""
-
-    @resourceConstraintCount.setter
-    def resourceConstraintCount(self, value):
-        self.doc.set_form_field(self.path, "resourceConstraintCount", value)
-
-    @property
-    def technicalConstraintCount(self):
-        return self.doc.form_field(self.path, "technicalConstraintCount") or ""
-
-    @technicalConstraintCount.setter
-    def technicalConstraintCount(self, value):
-        self.doc.set_form_field(self.path, "technicalConstraintCount", value)
 
 class ContextualHelpContextualHelpContentForm(SomNode):
     """Generated form facade for the `contextualHelpContent` @Form section."""
@@ -77283,120 +76088,6 @@ class DeliveryAcceptanceCriterionEntryVerificationContentForm(SomNode):
     def evidenceRequired(self, value):
         self.doc.set_form_field(self.path, "evidenceRequired", value)
 
-class DependencyClassificationContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def dependencyCategory(self):
-        return self.doc.form_field(self.path, "dependencyCategory") or ""
-
-    @dependencyCategory.setter
-    def dependencyCategory(self, value):
-        self.doc.set_form_field(self.path, "dependencyCategory", value)
-
-    @property
-    def dependencyType(self):
-        return self.doc.form_field(self.path, "dependencyType") or ""
-
-    @dependencyType.setter
-    def dependencyType(self, value):
-        self.doc.set_form_field(self.path, "dependencyType", value)
-
-    @property
-    def onCriticalPath(self):
-        return self.doc.form_field(self.path, "onCriticalPath") or ""
-
-    @onCriticalPath.setter
-    def onCriticalPath(self, value):
-        self.doc.set_form_field(self.path, "onCriticalPath", value)
-
-class DependencyDeliverableContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def deliverableDescription(self):
-        return self.doc.form_field(self.path, "deliverableDescription") or ""
-
-    @deliverableDescription.setter
-    def deliverableDescription(self, value):
-        self.doc.set_form_field(self.path, "deliverableDescription", value)
-
-    @property
-    def deliverableSpecification(self):
-        return self.doc.form_field(self.path, "deliverableSpecification") or ""
-
-    @deliverableSpecification.setter
-    def deliverableSpecification(self, value):
-        self.doc.set_form_field(self.path, "deliverableSpecification", value)
-
-    @property
-    def qualityCriteria(self):
-        return self.doc.form_field(self.path, "qualityCriteria") or ""
-
-    @qualityCriteria.setter
-    def qualityCriteria(self, value):
-        self.doc.set_form_field(self.path, "qualityCriteria", value)
-
-    @property
-    def deliveryFormat(self):
-        return self.doc.form_field(self.path, "deliveryFormat") or ""
-
-    @deliveryFormat.setter
-    def deliveryFormat(self, value):
-        self.doc.set_form_field(self.path, "deliveryFormat", value)
-
-class DependencyExternalPartyContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def externalPartyName(self):
-        return self.doc.form_field(self.path, "externalPartyName") or ""
-
-    @externalPartyName.setter
-    def externalPartyName(self, value):
-        self.doc.set_form_field(self.path, "externalPartyName", value)
-
-    @property
-    def externalPartyType(self):
-        return self.doc.form_field(self.path, "externalPartyType") or ""
-
-    @externalPartyType.setter
-    def externalPartyType(self, value):
-        self.doc.set_form_field(self.path, "externalPartyType", value)
-
-    @property
-    def contactPerson(self):
-        return self.doc.form_field(self.path, "contactPerson") or ""
-
-    @contactPerson.setter
-    def contactPerson(self, value):
-        self.doc.set_form_field(self.path, "contactPerson", value)
-
-    @property
-    def contactEmail(self):
-        return self.doc.form_field(self.path, "contactEmail") or ""
-
-    @contactEmail.setter
-    def contactEmail(self, value):
-        self.doc.set_form_field(self.path, "contactEmail", value)
-
-    @property
-    def escalationContact(self):
-        return self.doc.form_field(self.path, "escalationContact") or ""
-
-    @escalationContact.setter
-    def escalationContact(self, value):
-        self.doc.set_form_field(self.path, "escalationContact", value)
-
 class DependencyHealthMonitoringCacheContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -77538,20 +76229,6 @@ class DependencyHealthMonitoringThresholdsContentForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
-
-class DependencyIdentityContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def dependencyDescription(self):
-        return self.doc.form_field(self.path, "dependencyDescription") or ""
-
-    @dependencyDescription.setter
-    def dependencyDescription(self, value):
-        self.doc.set_form_field(self.path, "dependencyDescription", value)
 
 class DependencyInjectionStructureBindingContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -77703,44 +76380,6 @@ class DependencyInjectionStructureTroubleshootingContentForm(SomNode):
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
 
-class DependencyLinkagesContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def relatedConstraints(self):
-        return self.doc.form_field(self.path, "relatedConstraints") or ""
-
-    @relatedConstraints.setter
-    def relatedConstraints(self, value):
-        self.doc.set_form_field(self.path, "relatedConstraints", value)
-
-    @property
-    def relatedRisks(self):
-        return self.doc.form_field(self.path, "relatedRisks") or ""
-
-    @relatedRisks.setter
-    def relatedRisks(self, value):
-        self.doc.set_form_field(self.path, "relatedRisks", value)
-
-    @property
-    def relatedDependencies(self):
-        return self.doc.form_field(self.path, "relatedDependencies") or ""
-
-    @relatedDependencies.setter
-    def relatedDependencies(self, value):
-        self.doc.set_form_field(self.path, "relatedDependencies", value)
-
-    @property
-    def affectedWorkPackages(self):
-        return self.doc.form_field(self.path, "affectedWorkPackages") or ""
-
-    @affectedWorkPackages.setter
-    def affectedWorkPackages(self, value):
-        self.doc.set_form_field(self.path, "affectedWorkPackages", value)
-
 class DependencyManagementContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -77883,52 +76522,6 @@ class DependencyManagementVersioningContentForm(SomNode):
     def lockfilePolicy(self, value):
         self.doc.set_form_field(self.path, "lockfilePolicy", value)
 
-class DependencyMitigationContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def mitigationStrategy(self):
-        return self.doc.form_field(self.path, "mitigationStrategy") or ""
-
-    @mitigationStrategy.setter
-    def mitigationStrategy(self, value):
-        self.doc.set_form_field(self.path, "mitigationStrategy", value)
-
-    @property
-    def contingencyPlan(self):
-        return self.doc.form_field(self.path, "contingencyPlan") or ""
-
-    @contingencyPlan.setter
-    def contingencyPlan(self, value):
-        self.doc.set_form_field(self.path, "contingencyPlan", value)
-
-    @property
-    def contingencyTimeline(self):
-        return self.doc.form_field(self.path, "contingencyTimeline") or ""
-
-    @contingencyTimeline.setter
-    def contingencyTimeline(self, value):
-        self.doc.set_form_field(self.path, "contingencyTimeline", value)
-
-    @property
-    def contractualProtection(self):
-        return self.doc.form_field(self.path, "contractualProtection") or ""
-
-    @contractualProtection.setter
-    def contractualProtection(self, value):
-        self.doc.set_form_field(self.path, "contractualProtection", value)
-
-    @property
-    def alternativeOptions(self):
-        return self.doc.form_field(self.path, "alternativeOptions") or ""
-
-    @alternativeOptions.setter
-    def alternativeOptions(self, value):
-        self.doc.set_form_field(self.path, "alternativeOptions", value)
-
 class DependencyRegisterEntryContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
 
@@ -77982,52 +76575,6 @@ class DependencyRegisterEntryContentForm(SomNode):
     @status.setter
     def status(self, value):
         self.doc.set_form_field(self.path, "status", value)
-
-class DependencyRiskContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def deliveryRiskLevel(self):
-        return self.doc.form_field(self.path, "deliveryRiskLevel") or ""
-
-    @deliveryRiskLevel.setter
-    def deliveryRiskLevel(self, value):
-        self.doc.set_form_field(self.path, "deliveryRiskLevel", value)
-
-    @property
-    def primaryRiskFactors(self):
-        return self.doc.form_field(self.path, "primaryRiskFactors") or ""
-
-    @primaryRiskFactors.setter
-    def primaryRiskFactors(self, value):
-        self.doc.set_form_field(self.path, "primaryRiskFactors", value)
-
-    @property
-    def riskIndicators(self):
-        return self.doc.form_field(self.path, "riskIndicators") or ""
-
-    @riskIndicators.setter
-    def riskIndicators(self, value):
-        self.doc.set_form_field(self.path, "riskIndicators", value)
-
-    @property
-    def impactOfDelay(self):
-        return self.doc.form_field(self.path, "impactOfDelay") or ""
-
-    @impactOfDelay.setter
-    def impactOfDelay(self, value):
-        self.doc.set_form_field(self.path, "impactOfDelay", value)
-
-    @property
-    def impactOfFailure(self):
-        return self.doc.form_field(self.path, "impactOfFailure") or ""
-
-    @impactOfFailure.setter
-    def impactOfFailure(self, value):
-        self.doc.set_form_field(self.path, "impactOfFailure", value)
 
 class DependencyScanningRequirementsContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""
@@ -78186,114 +76733,6 @@ class DependencyScanningRequirementsVulnerabilitiesContentForm(SomNode):
     @exceptionProcess.setter
     def exceptionProcess(self, value):
         self.doc.set_form_field(self.path, "exceptionProcess", value)
-
-class DependencyTimelineContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def expectedDeliveryDate(self):
-        return self.doc.form_field(self.path, "expectedDeliveryDate") or ""
-
-    @expectedDeliveryDate.setter
-    def expectedDeliveryDate(self, value):
-        self.doc.set_form_field(self.path, "expectedDeliveryDate", value)
-
-    @property
-    def latestAcceptableDate(self):
-        return self.doc.form_field(self.path, "latestAcceptableDate") or ""
-
-    @latestAcceptableDate.setter
-    def latestAcceptableDate(self, value):
-        self.doc.set_form_field(self.path, "latestAcceptableDate", value)
-
-    @property
-    def leadTimeRequired(self):
-        return self.doc.form_field(self.path, "leadTimeRequired") or ""
-
-    @leadTimeRequired.setter
-    def leadTimeRequired(self, value):
-        self.doc.set_form_field(self.path, "leadTimeRequired", value)
-
-    @property
-    def bufferDays(self):
-        return self.doc.form_field(self.path, "bufferDays") or ""
-
-    @bufferDays.setter
-    def bufferDays(self, value):
-        self.doc.set_form_field(self.path, "bufferDays", value)
-
-    @property
-    def dependentMilestones(self):
-        return self.doc.form_field(self.path, "dependentMilestones") or ""
-
-    @dependentMilestones.setter
-    def dependentMilestones(self, value):
-        self.doc.set_form_field(self.path, "dependentMilestones", value)
-
-class DependencyTrackingContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def coordinationMechanism(self):
-        return self.doc.form_field(self.path, "coordinationMechanism") or ""
-
-    @coordinationMechanism.setter
-    def coordinationMechanism(self, value):
-        self.doc.set_form_field(self.path, "coordinationMechanism", value)
-
-    @property
-    def communicationFrequency(self):
-        return self.doc.form_field(self.path, "communicationFrequency") or ""
-
-    @communicationFrequency.setter
-    def communicationFrequency(self, value):
-        self.doc.set_form_field(self.path, "communicationFrequency", value)
-
-    @property
-    def trackingMethod(self):
-        return self.doc.form_field(self.path, "trackingMethod") or ""
-
-    @trackingMethod.setter
-    def trackingMethod(self, value):
-        self.doc.set_form_field(self.path, "trackingMethod", value)
-
-    @property
-    def dependencyOwner(self):
-        return self.doc.form_field(self.path, "dependencyOwner") or ""
-
-    @dependencyOwner.setter
-    def dependencyOwner(self, value):
-        self.doc.set_form_field(self.path, "dependencyOwner", value)
-
-    @property
-    def currentStatus(self):
-        return self.doc.form_field(self.path, "currentStatus") or ""
-
-    @currentStatus.setter
-    def currentStatus(self, value):
-        self.doc.set_form_field(self.path, "currentStatus", value)
-
-    @property
-    def statusLastUpdated(self):
-        return self.doc.form_field(self.path, "statusLastUpdated") or ""
-
-    @statusLastUpdated.setter
-    def statusLastUpdated(self, value):
-        self.doc.set_form_field(self.path, "statusLastUpdated", value)
-
-    @property
-    def statusNotes(self):
-        return self.doc.form_field(self.path, "statusNotes") or ""
-
-    @statusNotes.setter
-    def statusNotes(self, value):
-        self.doc.set_form_field(self.path, "statusNotes", value)
 
 class DeploymentContextDeploymentDetailsForm(SomNode):
     """Generated form facade for the `deploymentDetails` @Form section."""
@@ -89966,150 +88405,6 @@ class FrameworkCompatibilityContentForm(SomNode):
     @deprecationWarnings.setter
     def deprecationWarnings(self, value):
         self.doc.set_form_field(self.path, "deprecationWarnings", value)
-
-class FrameworkDependenciesCategoriesContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def projectDependencyCount(self):
-        return self.doc.form_field(self.path, "projectDependencyCount") or ""
-
-    @projectDependencyCount.setter
-    def projectDependencyCount(self, value):
-        self.doc.set_form_field(self.path, "projectDependencyCount", value)
-
-    @property
-    def teamDependencyCount(self):
-        return self.doc.form_field(self.path, "teamDependencyCount") or ""
-
-    @teamDependencyCount.setter
-    def teamDependencyCount(self, value):
-        self.doc.set_form_field(self.path, "teamDependencyCount", value)
-
-    @property
-    def vendorDependencyCount(self):
-        return self.doc.form_field(self.path, "vendorDependencyCount") or ""
-
-    @vendorDependencyCount.setter
-    def vendorDependencyCount(self, value):
-        self.doc.set_form_field(self.path, "vendorDependencyCount", value)
-
-    @property
-    def systemDependencyCount(self):
-        return self.doc.form_field(self.path, "systemDependencyCount") or ""
-
-    @systemDependencyCount.setter
-    def systemDependencyCount(self, value):
-        self.doc.set_form_field(self.path, "systemDependencyCount", value)
-
-    @property
-    def regulatoryDependencyCount(self):
-        return self.doc.form_field(self.path, "regulatoryDependencyCount") or ""
-
-    @regulatoryDependencyCount.setter
-    def regulatoryDependencyCount(self, value):
-        self.doc.set_form_field(self.path, "regulatoryDependencyCount", value)
-
-    @property
-    def infrastructureDependencyCount(self):
-        return self.doc.form_field(self.path, "infrastructureDependencyCount") or ""
-
-    @infrastructureDependencyCount.setter
-    def infrastructureDependencyCount(self, value):
-        self.doc.set_form_field(self.path, "infrastructureDependencyCount", value)
-
-class FrameworkDependenciesContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def dependencySummary(self):
-        return self.doc.form_field(self.path, "dependencySummary") or ""
-
-    @dependencySummary.setter
-    def dependencySummary(self, value):
-        self.doc.set_form_field(self.path, "dependencySummary", value)
-
-    @property
-    def primaryDependencyCategory(self):
-        return self.doc.form_field(self.path, "primaryDependencyCategory") or ""
-
-    @primaryDependencyCategory.setter
-    def primaryDependencyCategory(self, value):
-        self.doc.set_form_field(self.path, "primaryDependencyCategory", value)
-
-    @property
-    def dependencyRiskLevel(self):
-        return self.doc.form_field(self.path, "dependencyRiskLevel") or ""
-
-    @dependencyRiskLevel.setter
-    def dependencyRiskLevel(self, value):
-        self.doc.set_form_field(self.path, "dependencyRiskLevel", value)
-
-    @property
-    def criticalPathDependencyCount(self):
-        return self.doc.form_field(self.path, "criticalPathDependencyCount") or ""
-
-    @criticalPathDependencyCount.setter
-    def criticalPathDependencyCount(self, value):
-        self.doc.set_form_field(self.path, "criticalPathDependencyCount", value)
-
-class FrameworkDependenciesManagementContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def dependencyCoordinationApproach(self):
-        return self.doc.form_field(self.path, "dependencyCoordinationApproach") or ""
-
-    @dependencyCoordinationApproach.setter
-    def dependencyCoordinationApproach(self, value):
-        self.doc.set_form_field(self.path, "dependencyCoordinationApproach", value)
-
-    @property
-    def earlyWarningMechanism(self):
-        return self.doc.form_field(self.path, "earlyWarningMechanism") or ""
-
-    @earlyWarningMechanism.setter
-    def earlyWarningMechanism(self, value):
-        self.doc.set_form_field(self.path, "earlyWarningMechanism", value)
-
-class FrameworkDependencyEntryContentForm(SomNode):
-    """Generated form facade for the `content` @Form section."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    @property
-    def dependencyId(self):
-        return self.doc.form_field(self.path, "dependencyId") or ""
-
-    @dependencyId.setter
-    def dependencyId(self, value):
-        self.doc.set_form_field(self.path, "dependencyId", value)
-
-    @property
-    def dependencyName(self):
-        return self.doc.form_field(self.path, "dependencyName") or ""
-
-    @dependencyName.setter
-    def dependencyName(self, value):
-        self.doc.set_form_field(self.path, "dependencyName", value)
-
-    @property
-    def criticalityLevel(self):
-        return self.doc.form_field(self.path, "criticalityLevel") or ""
-
-    @criticalityLevel.setter
-    def criticalityLevel(self, value):
-        self.doc.set_form_field(self.path, "criticalityLevel", value)
 
 class FrameworkIdentityContentForm(SomNode):
     """Generated form facade for the `content` @Form section."""

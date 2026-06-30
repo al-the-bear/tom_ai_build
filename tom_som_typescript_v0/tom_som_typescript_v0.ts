@@ -2738,58 +2738,6 @@ export class AssumptionConstraintRegister extends SomNode {
   }
 }
 
-// An assumption entry (form).
-//
-// Documents a project assumption including its basis, validation approach,
-// and contingency plans if the assumption proves false.
-export class AssumptionEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  // Assumption identification and description.
-  get identification(): AssumptionIdentification {
-    return new AssumptionIdentification(this.doc, this.path + "/identification");
-  }
-
-  // Assumption validation details.
-  get validation(): AssumptionValidation {
-    return new AssumptionValidation(this.doc, this.path + "/validation");
-  }
-
-  // Impact and contingency if assumption is false.
-  get impact(): AssumptionImpact {
-    return new AssumptionImpact(this.doc, this.path + "/impact");
-  }
-
-  // Relationships to other project elements.
-  get relationships(): SomList<AssumptionRelationships> {
-    return new SomList(this.doc, this.path + "/ASRE-RELA-LST", (d: SpecDocument, p: string) => new AssumptionRelationships(d, p));
-  }
-}
-
-// Assumption identification details.
-export class AssumptionIdentification extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): AssumptionIdentificationContentForm {
-    return new AssumptionIdentificationContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Impact assessment if assumption proves false.
-export class AssumptionImpact extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): AssumptionImpactContentForm {
-    return new AssumptionImpactContentForm(this.doc, this.path + "/content");
-  }
-}
-
 // A single assumption register entry (form).
 //
 // Named `AssumptionRegisterEntry` to avoid collision with the pre-existing
@@ -2801,28 +2749,6 @@ export class AssumptionRegisterEntry extends SomNode {
 
   get content(): AssumptionRegisterEntryContentForm {
     return new AssumptionRegisterEntryContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Relationships to other project elements.
-export class AssumptionRelationships extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): AssumptionRelationshipsContentForm {
-    return new AssumptionRelationshipsContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Assumption validation details.
-export class AssumptionValidation extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): AssumptionValidationContentForm {
-    return new AssumptionValidationContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -2843,17 +2769,6 @@ export class AssumptionsConstraintsDependencies extends SomNode {
   // The consolidated assumption / constraint register.
   get register(): AssumptionConstraintRegister {
     return new AssumptionConstraintRegister(this.doc, this.path + "/register");
-  }
-}
-
-// Overview of assumptions management.
-export class AssumptionsOverview extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): AssumptionsOverviewContentForm {
-    return new AssumptionsOverviewContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -9901,108 +9816,6 @@ export class ConsentManagementRequirementsTracking extends SomNode {
   }
 }
 
-// Classification for constraint.
-export class ConstraintClassification extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): ConstraintClassificationContentForm {
-    return new ConstraintClassificationContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Details for constraint.
-export class ConstraintDetails extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): ConstraintDetailsContentForm {
-    return new ConstraintDetailsContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A constraint entry (form).
-//
-// Represents a single external constraint limiting project degrees of
-// freedom. Common constraint types include regulatory requirements,
-// contractual obligations, budget limits, timeline deadlines, resource
-// caps, and technology mandates. Each constraint should be tracked,
-// monitored, and have mitigation strategies where possible.
-export class ConstraintEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): ConstraintEntryContentForm {
-    return new ConstraintEntryContentForm(this.doc, this.path + "/content");
-  }
-
-  // Classification.
-  get classification(): ConstraintClassification {
-    return new ConstraintClassification(this.doc, this.path + "/classification");
-  }
-
-  // Details.
-  get details(): SomList<ConstraintDetails> {
-    return new SomList(this.doc, this.path + "/CODE-DETA-LST", (d: SpecDocument, p: string) => new ConstraintDetails(d, p));
-  }
-
-  // Impact assessment.
-  get impact(): ConstraintImpact {
-    return new ConstraintImpact(this.doc, this.path + "/impact");
-  }
-
-  // Mitigation and response.
-  get mitigation(): ConstraintMitigation {
-    return new ConstraintMitigation(this.doc, this.path + "/mitigation");
-  }
-
-  // Tracking and monitoring.
-  get tracking(): ConstraintTracking {
-    return new ConstraintTracking(this.doc, this.path + "/tracking");
-  }
-
-  // Linkages.
-  get linkages(): SomList<ConstraintLinkages> {
-    return new SomList(this.doc, this.path + "/COLI1-LINK-LST", (d: SpecDocument, p: string) => new ConstraintLinkages(d, p));
-  }
-}
-
-// Impact assessment for constraint.
-export class ConstraintImpact extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): ConstraintImpactContentForm {
-    return new ConstraintImpactContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Linkages for constraint.
-export class ConstraintLinkages extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): ConstraintLinkagesContentForm {
-    return new ConstraintLinkagesContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Mitigation for constraint.
-export class ConstraintMitigation extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): ConstraintMitigationContentForm {
-    return new ConstraintMitigationContentForm(this.doc, this.path + "/content");
-  }
-}
-
 // A single constraint register entry (form).
 //
 // Named `ConstraintRegisterEntry` to avoid collision with the pre-existing
@@ -10017,64 +9830,25 @@ export class ConstraintRegisterEntry extends SomNode {
   }
 }
 
-// Tracking for constraint.
-export class ConstraintTracking extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): ConstraintTrackingContentForm {
-    return new ConstraintTrackingContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// 4.6.4.1. Constraints.
-//
-// External constraints limiting project scope, schedule, budget, or
-// approach. Includes regulatory, contractual, organizational, technical,
-// and resource constraints. Each constraint must be analysed for impact
-// and monitored throughout the project lifecycle.
-export class Constraints extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): ConstraintsContentForm {
-    return new ConstraintsContentForm(this.doc, this.path + "/content");
-  }
-
-  // Contains 0+× Constraint.
-  get items(): SomList<ConstraintEntry> {
-    return new SomList(this.doc, this.path + "/COEN-ITEM-LST", (d: SpecDocument, p: string) => new ConstraintEntry(d, p));
-  }
-
-  // Constraint Summary narrative.
-  // (skipped: constraintNarrative has no target type)
-}
-
 // 4.6.4. Constraints and Dependencies.
 //
-// Documents external constraints (regulatory, contractual, budgetary,
-// timeline) and dependencies on other projects, teams, or organizational
-// initiatives. Follows PMBOK constraint management and dependency
-// analysis best practices for comprehensive project planning.
+// Operating-environment view of the constraints and dependencies that shape
+// project execution. The canonical register of constraints and dependencies
+// lives in SBP.6 (Assumptions, Constraints & Dependencies). This node does
+// **not** restate that register (L34C-4 consolidation, SR-10): it frames how
+// the framework conditions documented in SBP.2 §4.6 give rise to the entries
+// recorded in SBP.6, and points the reader there.
 export class ConstraintsAndDependencies extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
   }
 
-  get content(): ConstraintsAndDependenciesContentForm {
-    return new ConstraintsAndDependenciesContentForm(this.doc, this.path + "/content");
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
   }
 
-  // 4.6.4.1. Constraints.
-  get constraints(): Constraints {
-    return new Constraints(this.doc, this.path + "/constraints");
-  }
-
-  // 4.6.4.2. Dependencies.
-  get frameworkDependencies(): FrameworkDependencies {
-    return new FrameworkDependencies(this.doc, this.path + "/frameworkDependencies");
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 }
 
@@ -15354,28 +15128,6 @@ export class DependenciesAndIntegrations extends SomNode {
   }
 }
 
-// Dependency classification.
-export class DependencyClassification extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): DependencyClassificationContentForm {
-    return new DependencyClassificationContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Deliverable details.
-export class DependencyDeliverable extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): DependencyDeliverableContentForm {
-    return new DependencyDeliverableContentForm(this.doc, this.path + "/content");
-  }
-}
-
 // A single dependency entry.
 export class DependencyEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -15388,17 +15140,6 @@ export class DependencyEntry extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// External party details.
-export class DependencyExternalParty extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): DependencyExternalPartyContentForm {
-    return new DependencyExternalPartyContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -15477,17 +15218,6 @@ export class DependencyHealthMonitoringThresholds extends SomNode {
   }
 }
 
-// Dependency identity details.
-export class DependencyIdentity extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): DependencyIdentityContentForm {
-    return new DependencyIdentityContentForm(this.doc, this.path + "/content");
-  }
-}
-
 // Dependency injection structure and configuration.
 export class DependencyInjectionStructure extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -15560,17 +15290,6 @@ export class DependencyInjectionStructureTroubleshooting extends SomNode {
 
   get content(): DependencyInjectionStructureTroubleshootingContentForm {
     return new DependencyInjectionStructureTroubleshootingContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Dependency linkages.
-export class DependencyLinkages extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): DependencyLinkagesContentForm {
-    return new DependencyLinkagesContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -15649,17 +15368,6 @@ export class DependencyManagementVersioning extends SomNode {
   }
 }
 
-// Dependency mitigation and contingency.
-export class DependencyMitigation extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): DependencyMitigationContentForm {
-    return new DependencyMitigationContentForm(this.doc, this.path + "/content");
-  }
-}
-
 // A single dependency register entry (form).
 //
 // Captures an external dependency the solution relies on — another system, a
@@ -15674,17 +15382,6 @@ export class DependencyRegisterEntry extends SomNode {
 
   get content(): DependencyRegisterEntryContentForm {
     return new DependencyRegisterEntryContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Dependency risk assessment.
-export class DependencyRisk extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): DependencyRiskContentForm {
-    return new DependencyRiskContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -15760,28 +15457,6 @@ export class DependencyScanningRequirementsVulnerabilities extends SomNode {
 
   get content(): DependencyScanningRequirementsVulnerabilitiesContentForm {
     return new DependencyScanningRequirementsVulnerabilitiesContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Dependency timeline.
-export class DependencyTimeline extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): DependencyTimelineContentForm {
-    return new DependencyTimelineContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Dependency coordination and tracking.
-export class DependencyTracking extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): DependencyTrackingContentForm {
-    return new DependencyTrackingContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -21799,123 +21474,6 @@ export class FrameworkConditions extends SomNode {
   }
 }
 
-// 4.6.4.2. Dependencies.
-//
-// External dependencies on other projects, teams, vendors, systems, or
-// organizational initiatives. Each dependency represents a point where
-// this project relies on external parties to deliver. Dependencies
-// should be tracked, risks assessed, and contingencies planned.
-export class FrameworkDependencies extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): FrameworkDependenciesContentForm {
-    return new FrameworkDependenciesContentForm(this.doc, this.path + "/content");
-  }
-
-  // Dependency counts by category.
-  get categories(): FrameworkDependenciesCategories {
-    return new FrameworkDependenciesCategories(this.doc, this.path + "/categories");
-  }
-
-  // Coordination and early warning mechanisms.
-  get management(): FrameworkDependenciesManagement {
-    return new FrameworkDependenciesManagement(this.doc, this.path + "/management");
-  }
-
-  // Contains 0+× FrameworkDependency.
-  get items(): SomList<FrameworkDependencyEntry> {
-    return new SomList(this.doc, this.path + "/FWRDP-ITEM-LST", (d: SpecDocument, p: string) => new FrameworkDependencyEntry(d, p));
-  }
-
-  // Dependency Summary narrative.
-  // (skipped: dependencyNarrative has no target type)
-}
-
-// Dependency counts by category.
-export class FrameworkDependenciesCategories extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): FrameworkDependenciesCategoriesContentForm {
-    return new FrameworkDependenciesCategoriesContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// Coordination and early warning mechanisms.
-export class FrameworkDependenciesManagement extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): FrameworkDependenciesManagementContentForm {
-    return new FrameworkDependenciesManagementContentForm(this.doc, this.path + "/content");
-  }
-}
-
-// A framework dependency entry (form).
-//
-// Represents a single external dependency where this project relies on
-// another party (project, team, vendor, system) to deliver something.
-// Dependencies should be actively managed with clear expectations,
-// tracking, and contingency plans for delays or failures.
-export class FrameworkDependencyEntry extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get content(): FrameworkDependencyEntryContentForm {
-    return new FrameworkDependencyEntryContentForm(this.doc, this.path + "/content");
-  }
-
-  // Dependency identity details.
-  get identity(): DependencyIdentity {
-    return new DependencyIdentity(this.doc, this.path + "/identity");
-  }
-
-  // Dependency classification.
-  get classification(): DependencyClassification {
-    return new DependencyClassification(this.doc, this.path + "/classification");
-  }
-
-  // External party details.
-  get externalParty(): DependencyExternalParty {
-    return new DependencyExternalParty(this.doc, this.path + "/externalParty");
-  }
-
-  // Deliverable details.
-  get deliverable(): DependencyDeliverable {
-    return new DependencyDeliverable(this.doc, this.path + "/deliverable");
-  }
-
-  // Timeline.
-  get timeline(): DependencyTimeline {
-    return new DependencyTimeline(this.doc, this.path + "/timeline");
-  }
-
-  // Risk assessment.
-  get risk(): DependencyRisk {
-    return new DependencyRisk(this.doc, this.path + "/risk");
-  }
-
-  // Mitigation and contingency.
-  get mitigation(): DependencyMitigation {
-    return new DependencyMitigation(this.doc, this.path + "/mitigation");
-  }
-
-  // Coordination and tracking.
-  get tracking(): DependencyTracking {
-    return new DependencyTracking(this.doc, this.path + "/tracking");
-  }
-
-  // Linkages.
-  get linkages(): SomList<DependencyLinkages> {
-    return new SomList(this.doc, this.path + "/DELI1-LINK-LST", (d: SpecDocument, p: string) => new DependencyLinkages(d, p));
-  }
-}
-
 // Identity details.
 export class FrameworkIdentity extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -26304,26 +25862,6 @@ export class KeyAssumptionEntry extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path + "/content", value);
-  }
-}
-
-// 4.7.2. Key Assumptions.
-//
-// Documents project assumptions that must hold true for success.
-// Tracks validation status and contingency plans if assumptions prove false.
-export class KeyAssumptions extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  // Overview of assumptions management approach.
-  get overview(): AssumptionsOverview {
-    return new AssumptionsOverview(this.doc, this.path + "/overview");
-  }
-
-  // Contains 0+× Assumption.
-  get items(): SomList<AssumptionEntry> {
-    return new SomList(this.doc, this.path + "/ASEN-ITEM-LST", (d: SpecDocument, p: string) => new AssumptionEntry(d, p));
   }
 }
 
@@ -40159,12 +39697,18 @@ export class RiskResponseResidual extends SomNode {
   }
 }
 
-// 4.7. Risks and Assumptions.
+// 4.7. Risks.
 //
-// Documents identified project risks and underlying assumptions following
-// ISO 31000 Risk Management and PMBOK risk management best practices.
-// Provides structured framework for risk identification, analysis, response
-// planning, and ongoing monitoring throughout the project lifecycle.
+// Documents identified project risks following ISO 31000 Risk Management and
+// PMBOK risk management best practices. Provides a structured framework for
+// risk identification, analysis, response planning, and ongoing monitoring
+// throughout the project lifecycle.
+//
+// Assumptions are **not** held here (L34C-4 consolidation, SR-11): the
+// canonical assumptions register lives in SBP.6 (Assumptions, Constraints &
+// Dependencies). Only the risks half — unique to §4.7 — remains in this node.
+// (The class name remains `RisksAndAssumptions` pending the L34C-9 rename
+// sweep, which will rename it to `Risks`.)
 export class RisksAndAssumptions extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -40178,11 +39722,6 @@ export class RisksAndAssumptions extends SomNode {
   // 4.7.1. Key Risks — contains 0+× Risk.
   get keyRisks(): SomList<RiskEntry> {
     return new SomList(this.doc, this.path + "/RIEN-KEYR-LST", (d: SpecDocument, p: string) => new RiskEntry(d, p));
-  }
-
-  // 4.7.2. Key Assumptions — contains 0+×.
-  get keyAssumptions(): KeyAssumptions {
-    return new KeyAssumptions(this.doc, this.path + "/keyAssumptions");
   }
 }
 
@@ -60932,156 +60471,6 @@ export class ArchitecturePrincipleEntryGuidanceContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-export class AssumptionIdentificationContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get assumptionId(): string {
-    return this.doc.formField(this.path, "assumptionId") || '';
-  }
-
-  set assumptionId(value: string) {
-    this.doc.setFormField(this.path, "assumptionId", value);
-  }
-
-  get assumptionName(): string {
-    return this.doc.formField(this.path, "assumptionName") || '';
-  }
-
-  set assumptionName(value: string) {
-    this.doc.setFormField(this.path, "assumptionName", value);
-  }
-
-  get description(): string {
-    return this.doc.formField(this.path, "description") || '';
-  }
-
-  set description(value: string) {
-    this.doc.setFormField(this.path, "description", value);
-  }
-
-  get category(): string {
-    return this.doc.formField(this.path, "category") || '';
-  }
-
-  set category(value: string) {
-    this.doc.setFormField(this.path, "category", value);
-  }
-
-  get basis(): string {
-    return this.doc.formField(this.path, "basis") || '';
-  }
-
-  set basis(value: string) {
-    this.doc.setFormField(this.path, "basis", value);
-  }
-
-  get dateIdentified(): string {
-    return this.doc.formField(this.path, "dateIdentified") || '';
-  }
-
-  set dateIdentified(value: string) {
-    this.doc.setFormField(this.path, "dateIdentified", value);
-  }
-
-  get identifiedBy(): string {
-    return this.doc.formField(this.path, "identifiedBy") || '';
-  }
-
-  set identifiedBy(value: string) {
-    this.doc.setFormField(this.path, "identifiedBy", value);
-  }
-
-  get criticality(): string {
-    return this.doc.formField(this.path, "criticality") || '';
-  }
-
-  set criticality(value: string) {
-    this.doc.setFormField(this.path, "criticality", value);
-  }
-
-  get confidence(): string {
-    return this.doc.formField(this.path, "confidence") || '';
-  }
-
-  set confidence(value: string) {
-    this.doc.setFormField(this.path, "confidence", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class AssumptionImpactContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get impactIfFalse(): string {
-    return this.doc.formField(this.path, "impactIfFalse") || '';
-  }
-
-  set impactIfFalse(value: string) {
-    this.doc.setFormField(this.path, "impactIfFalse", value);
-  }
-
-  get impactSeverity(): string {
-    return this.doc.formField(this.path, "impactSeverity") || '';
-  }
-
-  set impactSeverity(value: string) {
-    this.doc.setFormField(this.path, "impactSeverity", value);
-  }
-
-  get affectedAreas(): string {
-    return this.doc.formField(this.path, "affectedAreas") || '';
-  }
-
-  set affectedAreas(value: string) {
-    this.doc.setFormField(this.path, "affectedAreas", value);
-  }
-
-  get contingencyPlan(): string {
-    return this.doc.formField(this.path, "contingencyPlan") || '';
-  }
-
-  set contingencyPlan(value: string) {
-    this.doc.setFormField(this.path, "contingencyPlan", value);
-  }
-
-  get contingencyOwner(): string {
-    return this.doc.formField(this.path, "contingencyOwner") || '';
-  }
-
-  set contingencyOwner(value: string) {
-    this.doc.setFormField(this.path, "contingencyOwner", value);
-  }
-
-  get contingencyCost(): string {
-    return this.doc.formField(this.path, "contingencyCost") || '';
-  }
-
-  set contingencyCost(value: string) {
-    this.doc.setFormField(this.path, "contingencyCost", value);
-  }
-
-  get contingencyTimeline(): string {
-    return this.doc.formField(this.path, "contingencyTimeline") || '';
-  }
-
-  set contingencyTimeline(value: string) {
-    this.doc.setFormField(this.path, "contingencyTimeline", value);
-  }
-
-  get relatedRisks(): string {
-    return this.doc.formField(this.path, "relatedRisks") || '';
-  }
-
-  set relatedRisks(value: string) {
-    this.doc.setFormField(this.path, "relatedRisks", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
 export class AssumptionRegisterEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -61125,179 +60514,6 @@ export class AssumptionRegisterEntryContentForm extends SomNode {
 
   set status(value: string) {
     this.doc.setFormField(this.path, "status", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class AssumptionRelationshipsContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get relatedAssumptions(): string {
-    return this.doc.formField(this.path, "relatedAssumptions") || '';
-  }
-
-  set relatedAssumptions(value: string) {
-    this.doc.setFormField(this.path, "relatedAssumptions", value);
-  }
-
-  get relatedRisks(): string {
-    return this.doc.formField(this.path, "relatedRisks") || '';
-  }
-
-  set relatedRisks(value: string) {
-    this.doc.setFormField(this.path, "relatedRisks", value);
-  }
-
-  get relatedRequirements(): string {
-    return this.doc.formField(this.path, "relatedRequirements") || '';
-  }
-
-  set relatedRequirements(value: string) {
-    this.doc.setFormField(this.path, "relatedRequirements", value);
-  }
-
-  get affectedDecisions(): string {
-    return this.doc.formField(this.path, "affectedDecisions") || '';
-  }
-
-  set affectedDecisions(value: string) {
-    this.doc.setFormField(this.path, "affectedDecisions", value);
-  }
-
-  get documentReferences(): string {
-    return this.doc.formField(this.path, "documentReferences") || '';
-  }
-
-  set documentReferences(value: string) {
-    this.doc.setFormField(this.path, "documentReferences", value);
-  }
-
-  get stakeholderOwner(): string {
-    return this.doc.formField(this.path, "stakeholderOwner") || '';
-  }
-
-  set stakeholderOwner(value: string) {
-    this.doc.setFormField(this.path, "stakeholderOwner", value);
-  }
-
-  get reviewFrequency(): string {
-    return this.doc.formField(this.path, "reviewFrequency") || '';
-  }
-
-  set reviewFrequency(value: string) {
-    this.doc.setFormField(this.path, "reviewFrequency", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class AssumptionValidationContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get validationMethod(): string {
-    return this.doc.formField(this.path, "validationMethod") || '';
-  }
-
-  set validationMethod(value: string) {
-    this.doc.setFormField(this.path, "validationMethod", value);
-  }
-
-  get validationCriteria(): string {
-    return this.doc.formField(this.path, "validationCriteria") || '';
-  }
-
-  set validationCriteria(value: string) {
-    this.doc.setFormField(this.path, "validationCriteria", value);
-  }
-
-  get validationDate(): string {
-    return this.doc.formField(this.path, "validationDate") || '';
-  }
-
-  set validationDate(value: string) {
-    this.doc.setFormField(this.path, "validationDate", value);
-  }
-
-  get validationStatus(): string {
-    return this.doc.formField(this.path, "validationStatus") || '';
-  }
-
-  set validationStatus(value: string) {
-    this.doc.setFormField(this.path, "validationStatus", value);
-  }
-
-  get lastValidationDate(): string {
-    return this.doc.formField(this.path, "lastValidationDate") || '';
-  }
-
-  set lastValidationDate(value: string) {
-    this.doc.setFormField(this.path, "lastValidationDate", value);
-  }
-
-  get validatedBy(): string {
-    return this.doc.formField(this.path, "validatedBy") || '';
-  }
-
-  set validatedBy(value: string) {
-    this.doc.setFormField(this.path, "validatedBy", value);
-  }
-
-  get validationNotes(): string {
-    return this.doc.formField(this.path, "validationNotes") || '';
-  }
-
-  set validationNotes(value: string) {
-    this.doc.setFormField(this.path, "validationNotes", value);
-  }
-
-  get validationOwner(): string {
-    return this.doc.formField(this.path, "validationOwner") || '';
-  }
-
-  set validationOwner(value: string) {
-    this.doc.setFormField(this.path, "validationOwner", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class AssumptionsOverviewContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get assumptionsApproach(): string {
-    return this.doc.formField(this.path, "assumptionsApproach") || '';
-  }
-
-  set assumptionsApproach(value: string) {
-    this.doc.setFormField(this.path, "assumptionsApproach", value);
-  }
-
-  get validationCadence(): string {
-    return this.doc.formField(this.path, "validationCadence") || '';
-  }
-
-  set validationCadence(value: string) {
-    this.doc.setFormField(this.path, "validationCadence", value);
-  }
-
-  get assumptionCategories(): string {
-    return this.doc.formField(this.path, "assumptionCategories") || '';
-  }
-
-  set assumptionCategories(value: string) {
-    this.doc.setFormField(this.path, "assumptionCategories", value);
-  }
-
-  get escalationProcess(): string {
-    return this.doc.formField(this.path, "escalationProcess") || '';
-  }
-
-  set escalationProcess(value: string) {
-    this.doc.setFormField(this.path, "escalationProcess", value);
   }
 }
 
@@ -75017,264 +74233,6 @@ export class ConsentManagementRequirementsTrackingContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-export class ConstraintClassificationContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get constraintDescription(): string {
-    return this.doc.formField(this.path, "constraintDescription") || '';
-  }
-
-  set constraintDescription(value: string) {
-    this.doc.setFormField(this.path, "constraintDescription", value);
-  }
-
-  get constraintCategory(): string {
-    return this.doc.formField(this.path, "constraintCategory") || '';
-  }
-
-  set constraintCategory(value: string) {
-    this.doc.setFormField(this.path, "constraintCategory", value);
-  }
-
-  get constraintType(): string {
-    return this.doc.formField(this.path, "constraintType") || '';
-  }
-
-  set constraintType(value: string) {
-    this.doc.setFormField(this.path, "constraintType", value);
-  }
-
-  get constraintSource(): string {
-    return this.doc.formField(this.path, "constraintSource") || '';
-  }
-
-  set constraintSource(value: string) {
-    this.doc.setFormField(this.path, "constraintSource", value);
-  }
-
-  get sourceReference(): string {
-    return this.doc.formField(this.path, "sourceReference") || '';
-  }
-
-  set sourceReference(value: string) {
-    this.doc.setFormField(this.path, "sourceReference", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class ConstraintDetailsContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get constraintValue(): string {
-    return this.doc.formField(this.path, "constraintValue") || '';
-  }
-
-  set constraintValue(value: string) {
-    this.doc.setFormField(this.path, "constraintValue", value);
-  }
-
-  get constraintEffectiveDate(): string {
-    return this.doc.formField(this.path, "constraintEffectiveDate") || '';
-  }
-
-  set constraintEffectiveDate(value: string) {
-    this.doc.setFormField(this.path, "constraintEffectiveDate", value);
-  }
-
-  get constraintExpiryDate(): string {
-    return this.doc.formField(this.path, "constraintExpiryDate") || '';
-  }
-
-  set constraintExpiryDate(value: string) {
-    this.doc.setFormField(this.path, "constraintExpiryDate", value);
-  }
-
-  get geographicScope(): string {
-    return this.doc.formField(this.path, "geographicScope") || '';
-  }
-
-  set geographicScope(value: string) {
-    this.doc.setFormField(this.path, "geographicScope", value);
-  }
-
-  get affectedDomains(): string {
-    return this.doc.formField(this.path, "affectedDomains") || '';
-  }
-
-  set affectedDomains(value: string) {
-    this.doc.setFormField(this.path, "affectedDomains", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class ConstraintEntryContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get constraintId(): string {
-    return this.doc.formField(this.path, "constraintId") || '';
-  }
-
-  set constraintId(value: string) {
-    this.doc.setFormField(this.path, "constraintId", value);
-  }
-
-  get constraintName(): string {
-    return this.doc.formField(this.path, "constraintName") || '';
-  }
-
-  set constraintName(value: string) {
-    this.doc.setFormField(this.path, "constraintName", value);
-  }
-
-  get impactLevel(): string {
-    return this.doc.formField(this.path, "impactLevel") || '';
-  }
-
-  set impactLevel(value: string) {
-    this.doc.setFormField(this.path, "impactLevel", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class ConstraintImpactContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get impactDescription(): string {
-    return this.doc.formField(this.path, "impactDescription") || '';
-  }
-
-  set impactDescription(value: string) {
-    this.doc.setFormField(this.path, "impactDescription", value);
-  }
-
-  get affectedWorkPackages(): string {
-    return this.doc.formField(this.path, "affectedWorkPackages") || '';
-  }
-
-  set affectedWorkPackages(value: string) {
-    this.doc.setFormField(this.path, "affectedWorkPackages", value);
-  }
-
-  get affectedMilestones(): string {
-    return this.doc.formField(this.path, "affectedMilestones") || '';
-  }
-
-  set affectedMilestones(value: string) {
-    this.doc.setFormField(this.path, "affectedMilestones", value);
-  }
-
-  get scheduleImpact(): string {
-    return this.doc.formField(this.path, "scheduleImpact") || '';
-  }
-
-  set scheduleImpact(value: string) {
-    this.doc.setFormField(this.path, "scheduleImpact", value);
-  }
-
-  get budgetImpact(): string {
-    return this.doc.formField(this.path, "budgetImpact") || '';
-  }
-
-  set budgetImpact(value: string) {
-    this.doc.setFormField(this.path, "budgetImpact", value);
-  }
-
-  get scopeImpact(): string {
-    return this.doc.formField(this.path, "scopeImpact") || '';
-  }
-
-  set scopeImpact(value: string) {
-    this.doc.setFormField(this.path, "scopeImpact", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class ConstraintLinkagesContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get relatedConstraints(): string {
-    return this.doc.formField(this.path, "relatedConstraints") || '';
-  }
-
-  set relatedConstraints(value: string) {
-    this.doc.setFormField(this.path, "relatedConstraints", value);
-  }
-
-  get relatedRisks(): string {
-    return this.doc.formField(this.path, "relatedRisks") || '';
-  }
-
-  set relatedRisks(value: string) {
-    this.doc.setFormField(this.path, "relatedRisks", value);
-  }
-
-  get relatedDependencies(): string {
-    return this.doc.formField(this.path, "relatedDependencies") || '';
-  }
-
-  set relatedDependencies(value: string) {
-    this.doc.setFormField(this.path, "relatedDependencies", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class ConstraintMitigationContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get mitigationStrategy(): string {
-    return this.doc.formField(this.path, "mitigationStrategy") || '';
-  }
-
-  set mitigationStrategy(value: string) {
-    this.doc.setFormField(this.path, "mitigationStrategy", value);
-  }
-
-  get negotiationPossibility(): string {
-    return this.doc.formField(this.path, "negotiationPossibility") || '';
-  }
-
-  set negotiationPossibility(value: string) {
-    this.doc.setFormField(this.path, "negotiationPossibility", value);
-  }
-
-  get negotiationApproach(): string {
-    return this.doc.formField(this.path, "negotiationApproach") || '';
-  }
-
-  set negotiationApproach(value: string) {
-    this.doc.setFormField(this.path, "negotiationApproach", value);
-  }
-
-  get fallbackPlan(): string {
-    return this.doc.formField(this.path, "fallbackPlan") || '';
-  }
-
-  set fallbackPlan(value: string) {
-    this.doc.setFormField(this.path, "fallbackPlan", value);
-  }
-
-  get violationConsequences(): string {
-    return this.doc.formField(this.path, "violationConsequences") || '';
-  }
-
-  set violationConsequences(value: string) {
-    this.doc.setFormField(this.path, "violationConsequences", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
 export class ConstraintRegisterEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -75318,219 +74276,6 @@ export class ConstraintRegisterEntryContentForm extends SomNode {
 
   set impact(value: string) {
     this.doc.setFormField(this.path, "impact", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class ConstraintTrackingContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get trackingMethod(): string {
-    return this.doc.formField(this.path, "trackingMethod") || '';
-  }
-
-  set trackingMethod(value: string) {
-    this.doc.setFormField(this.path, "trackingMethod", value);
-  }
-
-  get reviewFrequency(): string {
-    return this.doc.formField(this.path, "reviewFrequency") || '';
-  }
-
-  set reviewFrequency(value: string) {
-    this.doc.setFormField(this.path, "reviewFrequency", value);
-  }
-
-  get constraintOwner(): string {
-    return this.doc.formField(this.path, "constraintOwner") || '';
-  }
-
-  set constraintOwner(value: string) {
-    this.doc.setFormField(this.path, "constraintOwner", value);
-  }
-
-  get currentStatus(): string {
-    return this.doc.formField(this.path, "currentStatus") || '';
-  }
-
-  set currentStatus(value: string) {
-    this.doc.setFormField(this.path, "currentStatus", value);
-  }
-
-  get statusNotes(): string {
-    return this.doc.formField(this.path, "statusNotes") || '';
-  }
-
-  set statusNotes(value: string) {
-    this.doc.setFormField(this.path, "statusNotes", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class ConstraintsAndDependenciesContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get constraintDependencyOverview(): string {
-    return this.doc.formField(this.path, "constraintDependencyOverview") || '';
-  }
-
-  set constraintDependencyOverview(value: string) {
-    this.doc.setFormField(this.path, "constraintDependencyOverview", value);
-  }
-
-  get totalConstraintCount(): string {
-    return this.doc.formField(this.path, "totalConstraintCount") || '';
-  }
-
-  set totalConstraintCount(value: string) {
-    this.doc.setFormField(this.path, "totalConstraintCount", value);
-  }
-
-  get totalDependencyCount(): string {
-    return this.doc.formField(this.path, "totalDependencyCount") || '';
-  }
-
-  set totalDependencyCount(value: string) {
-    this.doc.setFormField(this.path, "totalDependencyCount", value);
-  }
-
-  get criticalConstraintCount(): string {
-    return this.doc.formField(this.path, "criticalConstraintCount") || '';
-  }
-
-  set criticalConstraintCount(value: string) {
-    this.doc.setFormField(this.path, "criticalConstraintCount", value);
-  }
-
-  get criticalDependencyCount(): string {
-    return this.doc.formField(this.path, "criticalDependencyCount") || '';
-  }
-
-  set criticalDependencyCount(value: string) {
-    this.doc.setFormField(this.path, "criticalDependencyCount", value);
-  }
-
-  get constraintManagementApproach(): string {
-    return this.doc.formField(this.path, "constraintManagementApproach") || '';
-  }
-
-  set constraintManagementApproach(value: string) {
-    this.doc.setFormField(this.path, "constraintManagementApproach", value);
-  }
-
-  get dependencyManagementApproach(): string {
-    return this.doc.formField(this.path, "dependencyManagementApproach") || '';
-  }
-
-  set dependencyManagementApproach(value: string) {
-    this.doc.setFormField(this.path, "dependencyManagementApproach", value);
-  }
-
-  get monitoringFrequency(): string {
-    return this.doc.formField(this.path, "monitoringFrequency") || '';
-  }
-
-  set monitoringFrequency(value: string) {
-    this.doc.setFormField(this.path, "monitoringFrequency", value);
-  }
-
-  get escalationPath(): string {
-    return this.doc.formField(this.path, "escalationPath") || '';
-  }
-
-  set escalationPath(value: string) {
-    this.doc.setFormField(this.path, "escalationPath", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class ConstraintsContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get constraintSummary(): string {
-    return this.doc.formField(this.path, "constraintSummary") || '';
-  }
-
-  set constraintSummary(value: string) {
-    this.doc.setFormField(this.path, "constraintSummary", value);
-  }
-
-  get primaryConstraintCategory(): string {
-    return this.doc.formField(this.path, "primaryConstraintCategory") || '';
-  }
-
-  set primaryConstraintCategory(value: string) {
-    this.doc.setFormField(this.path, "primaryConstraintCategory", value);
-  }
-
-  get constraintImpactLevel(): string {
-    return this.doc.formField(this.path, "constraintImpactLevel") || '';
-  }
-
-  set constraintImpactLevel(value: string) {
-    this.doc.setFormField(this.path, "constraintImpactLevel", value);
-  }
-
-  get flexibilityAssessment(): string {
-    return this.doc.formField(this.path, "flexibilityAssessment") || '';
-  }
-
-  set flexibilityAssessment(value: string) {
-    this.doc.setFormField(this.path, "flexibilityAssessment", value);
-  }
-
-  get regulatoryConstraintCount(): string {
-    return this.doc.formField(this.path, "regulatoryConstraintCount") || '';
-  }
-
-  set regulatoryConstraintCount(value: string) {
-    this.doc.setFormField(this.path, "regulatoryConstraintCount", value);
-  }
-
-  get contractualConstraintCount(): string {
-    return this.doc.formField(this.path, "contractualConstraintCount") || '';
-  }
-
-  set contractualConstraintCount(value: string) {
-    this.doc.setFormField(this.path, "contractualConstraintCount", value);
-  }
-
-  get budgetaryConstraintCount(): string {
-    return this.doc.formField(this.path, "budgetaryConstraintCount") || '';
-  }
-
-  set budgetaryConstraintCount(value: string) {
-    this.doc.setFormField(this.path, "budgetaryConstraintCount", value);
-  }
-
-  get timelineConstraintCount(): string {
-    return this.doc.formField(this.path, "timelineConstraintCount") || '';
-  }
-
-  set timelineConstraintCount(value: string) {
-    this.doc.setFormField(this.path, "timelineConstraintCount", value);
-  }
-
-  get resourceConstraintCount(): string {
-    return this.doc.formField(this.path, "resourceConstraintCount") || '';
-  }
-
-  set resourceConstraintCount(value: string) {
-    this.doc.setFormField(this.path, "resourceConstraintCount", value);
-  }
-
-  get technicalConstraintCount(): string {
-    return this.doc.formField(this.path, "technicalConstraintCount") || '';
-  }
-
-  set technicalConstraintCount(value: string) {
-    this.doc.setFormField(this.path, "technicalConstraintCount", value);
   }
 }
 
@@ -82928,123 +81673,6 @@ export class DeliveryAcceptanceCriterionEntryVerificationContentForm extends Som
 }
 
 // Generated form facade for the `content` @Form section.
-export class DependencyClassificationContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get dependencyCategory(): string {
-    return this.doc.formField(this.path, "dependencyCategory") || '';
-  }
-
-  set dependencyCategory(value: string) {
-    this.doc.setFormField(this.path, "dependencyCategory", value);
-  }
-
-  get dependencyType(): string {
-    return this.doc.formField(this.path, "dependencyType") || '';
-  }
-
-  set dependencyType(value: string) {
-    this.doc.setFormField(this.path, "dependencyType", value);
-  }
-
-  get onCriticalPath(): string {
-    return this.doc.formField(this.path, "onCriticalPath") || '';
-  }
-
-  set onCriticalPath(value: string) {
-    this.doc.setFormField(this.path, "onCriticalPath", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class DependencyDeliverableContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get deliverableDescription(): string {
-    return this.doc.formField(this.path, "deliverableDescription") || '';
-  }
-
-  set deliverableDescription(value: string) {
-    this.doc.setFormField(this.path, "deliverableDescription", value);
-  }
-
-  get deliverableSpecification(): string {
-    return this.doc.formField(this.path, "deliverableSpecification") || '';
-  }
-
-  set deliverableSpecification(value: string) {
-    this.doc.setFormField(this.path, "deliverableSpecification", value);
-  }
-
-  get qualityCriteria(): string {
-    return this.doc.formField(this.path, "qualityCriteria") || '';
-  }
-
-  set qualityCriteria(value: string) {
-    this.doc.setFormField(this.path, "qualityCriteria", value);
-  }
-
-  get deliveryFormat(): string {
-    return this.doc.formField(this.path, "deliveryFormat") || '';
-  }
-
-  set deliveryFormat(value: string) {
-    this.doc.setFormField(this.path, "deliveryFormat", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class DependencyExternalPartyContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get externalPartyName(): string {
-    return this.doc.formField(this.path, "externalPartyName") || '';
-  }
-
-  set externalPartyName(value: string) {
-    this.doc.setFormField(this.path, "externalPartyName", value);
-  }
-
-  get externalPartyType(): string {
-    return this.doc.formField(this.path, "externalPartyType") || '';
-  }
-
-  set externalPartyType(value: string) {
-    this.doc.setFormField(this.path, "externalPartyType", value);
-  }
-
-  get contactPerson(): string {
-    return this.doc.formField(this.path, "contactPerson") || '';
-  }
-
-  set contactPerson(value: string) {
-    this.doc.setFormField(this.path, "contactPerson", value);
-  }
-
-  get contactEmail(): string {
-    return this.doc.formField(this.path, "contactEmail") || '';
-  }
-
-  set contactEmail(value: string) {
-    this.doc.setFormField(this.path, "contactEmail", value);
-  }
-
-  get escalationContact(): string {
-    return this.doc.formField(this.path, "escalationContact") || '';
-  }
-
-  set escalationContact(value: string) {
-    this.doc.setFormField(this.path, "escalationContact", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
 export class DependencyHealthMonitoringCacheContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -83188,21 +81816,6 @@ export class DependencyHealthMonitoringThresholdsContentForm extends SomNode {
 
   set notes(value: string) {
     this.doc.setFormField(this.path, "notes", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class DependencyIdentityContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get dependencyDescription(): string {
-    return this.doc.formField(this.path, "dependencyDescription") || '';
-  }
-
-  set dependencyDescription(value: string) {
-    this.doc.setFormField(this.path, "dependencyDescription", value);
   }
 }
 
@@ -83362,45 +81975,6 @@ export class DependencyInjectionStructureTroubleshootingContentForm extends SomN
 }
 
 // Generated form facade for the `content` @Form section.
-export class DependencyLinkagesContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get relatedConstraints(): string {
-    return this.doc.formField(this.path, "relatedConstraints") || '';
-  }
-
-  set relatedConstraints(value: string) {
-    this.doc.setFormField(this.path, "relatedConstraints", value);
-  }
-
-  get relatedRisks(): string {
-    return this.doc.formField(this.path, "relatedRisks") || '';
-  }
-
-  set relatedRisks(value: string) {
-    this.doc.setFormField(this.path, "relatedRisks", value);
-  }
-
-  get relatedDependencies(): string {
-    return this.doc.formField(this.path, "relatedDependencies") || '';
-  }
-
-  set relatedDependencies(value: string) {
-    this.doc.setFormField(this.path, "relatedDependencies", value);
-  }
-
-  get affectedWorkPackages(): string {
-    return this.doc.formField(this.path, "affectedWorkPackages") || '';
-  }
-
-  set affectedWorkPackages(value: string) {
-    this.doc.setFormField(this.path, "affectedWorkPackages", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
 export class DependencyManagementContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -83548,53 +82122,6 @@ export class DependencyManagementVersioningContentForm extends SomNode {
 }
 
 // Generated form facade for the `content` @Form section.
-export class DependencyMitigationContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get mitigationStrategy(): string {
-    return this.doc.formField(this.path, "mitigationStrategy") || '';
-  }
-
-  set mitigationStrategy(value: string) {
-    this.doc.setFormField(this.path, "mitigationStrategy", value);
-  }
-
-  get contingencyPlan(): string {
-    return this.doc.formField(this.path, "contingencyPlan") || '';
-  }
-
-  set contingencyPlan(value: string) {
-    this.doc.setFormField(this.path, "contingencyPlan", value);
-  }
-
-  get contingencyTimeline(): string {
-    return this.doc.formField(this.path, "contingencyTimeline") || '';
-  }
-
-  set contingencyTimeline(value: string) {
-    this.doc.setFormField(this.path, "contingencyTimeline", value);
-  }
-
-  get contractualProtection(): string {
-    return this.doc.formField(this.path, "contractualProtection") || '';
-  }
-
-  set contractualProtection(value: string) {
-    this.doc.setFormField(this.path, "contractualProtection", value);
-  }
-
-  get alternativeOptions(): string {
-    return this.doc.formField(this.path, "alternativeOptions") || '';
-  }
-
-  set alternativeOptions(value: string) {
-    this.doc.setFormField(this.path, "alternativeOptions", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
 export class DependencyRegisterEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -83646,53 +82173,6 @@ export class DependencyRegisterEntryContentForm extends SomNode {
 
   set status(value: string) {
     this.doc.setFormField(this.path, "status", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class DependencyRiskContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get deliveryRiskLevel(): string {
-    return this.doc.formField(this.path, "deliveryRiskLevel") || '';
-  }
-
-  set deliveryRiskLevel(value: string) {
-    this.doc.setFormField(this.path, "deliveryRiskLevel", value);
-  }
-
-  get primaryRiskFactors(): string {
-    return this.doc.formField(this.path, "primaryRiskFactors") || '';
-  }
-
-  set primaryRiskFactors(value: string) {
-    this.doc.setFormField(this.path, "primaryRiskFactors", value);
-  }
-
-  get riskIndicators(): string {
-    return this.doc.formField(this.path, "riskIndicators") || '';
-  }
-
-  set riskIndicators(value: string) {
-    this.doc.setFormField(this.path, "riskIndicators", value);
-  }
-
-  get impactOfDelay(): string {
-    return this.doc.formField(this.path, "impactOfDelay") || '';
-  }
-
-  set impactOfDelay(value: string) {
-    this.doc.setFormField(this.path, "impactOfDelay", value);
-  }
-
-  get impactOfFailure(): string {
-    return this.doc.formField(this.path, "impactOfFailure") || '';
-  }
-
-  set impactOfFailure(value: string) {
-    this.doc.setFormField(this.path, "impactOfFailure", value);
   }
 }
 
@@ -83856,116 +82336,6 @@ export class DependencyScanningRequirementsVulnerabilitiesContentForm extends So
 
   set exceptionProcess(value: string) {
     this.doc.setFormField(this.path, "exceptionProcess", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class DependencyTimelineContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get expectedDeliveryDate(): string {
-    return this.doc.formField(this.path, "expectedDeliveryDate") || '';
-  }
-
-  set expectedDeliveryDate(value: string) {
-    this.doc.setFormField(this.path, "expectedDeliveryDate", value);
-  }
-
-  get latestAcceptableDate(): string {
-    return this.doc.formField(this.path, "latestAcceptableDate") || '';
-  }
-
-  set latestAcceptableDate(value: string) {
-    this.doc.setFormField(this.path, "latestAcceptableDate", value);
-  }
-
-  get leadTimeRequired(): string {
-    return this.doc.formField(this.path, "leadTimeRequired") || '';
-  }
-
-  set leadTimeRequired(value: string) {
-    this.doc.setFormField(this.path, "leadTimeRequired", value);
-  }
-
-  get bufferDays(): string {
-    return this.doc.formField(this.path, "bufferDays") || '';
-  }
-
-  set bufferDays(value: string) {
-    this.doc.setFormField(this.path, "bufferDays", value);
-  }
-
-  get dependentMilestones(): string {
-    return this.doc.formField(this.path, "dependentMilestones") || '';
-  }
-
-  set dependentMilestones(value: string) {
-    this.doc.setFormField(this.path, "dependentMilestones", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class DependencyTrackingContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get coordinationMechanism(): string {
-    return this.doc.formField(this.path, "coordinationMechanism") || '';
-  }
-
-  set coordinationMechanism(value: string) {
-    this.doc.setFormField(this.path, "coordinationMechanism", value);
-  }
-
-  get communicationFrequency(): string {
-    return this.doc.formField(this.path, "communicationFrequency") || '';
-  }
-
-  set communicationFrequency(value: string) {
-    this.doc.setFormField(this.path, "communicationFrequency", value);
-  }
-
-  get trackingMethod(): string {
-    return this.doc.formField(this.path, "trackingMethod") || '';
-  }
-
-  set trackingMethod(value: string) {
-    this.doc.setFormField(this.path, "trackingMethod", value);
-  }
-
-  get dependencyOwner(): string {
-    return this.doc.formField(this.path, "dependencyOwner") || '';
-  }
-
-  set dependencyOwner(value: string) {
-    this.doc.setFormField(this.path, "dependencyOwner", value);
-  }
-
-  get currentStatus(): string {
-    return this.doc.formField(this.path, "currentStatus") || '';
-  }
-
-  set currentStatus(value: string) {
-    this.doc.setFormField(this.path, "currentStatus", value);
-  }
-
-  get statusLastUpdated(): string {
-    return this.doc.formField(this.path, "statusLastUpdated") || '';
-  }
-
-  set statusLastUpdated(value: string) {
-    this.doc.setFormField(this.path, "statusLastUpdated", value);
-  }
-
-  get statusNotes(): string {
-    return this.doc.formField(this.path, "statusNotes") || '';
-  }
-
-  set statusNotes(value: string) {
-    this.doc.setFormField(this.path, "statusNotes", value);
   }
 }
 
@@ -95938,154 +94308,6 @@ export class FrameworkCompatibilityContentForm extends SomNode {
 
   set deprecationWarnings(value: string) {
     this.doc.setFormField(this.path, "deprecationWarnings", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class FrameworkDependenciesCategoriesContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get projectDependencyCount(): string {
-    return this.doc.formField(this.path, "projectDependencyCount") || '';
-  }
-
-  set projectDependencyCount(value: string) {
-    this.doc.setFormField(this.path, "projectDependencyCount", value);
-  }
-
-  get teamDependencyCount(): string {
-    return this.doc.formField(this.path, "teamDependencyCount") || '';
-  }
-
-  set teamDependencyCount(value: string) {
-    this.doc.setFormField(this.path, "teamDependencyCount", value);
-  }
-
-  get vendorDependencyCount(): string {
-    return this.doc.formField(this.path, "vendorDependencyCount") || '';
-  }
-
-  set vendorDependencyCount(value: string) {
-    this.doc.setFormField(this.path, "vendorDependencyCount", value);
-  }
-
-  get systemDependencyCount(): string {
-    return this.doc.formField(this.path, "systemDependencyCount") || '';
-  }
-
-  set systemDependencyCount(value: string) {
-    this.doc.setFormField(this.path, "systemDependencyCount", value);
-  }
-
-  get regulatoryDependencyCount(): string {
-    return this.doc.formField(this.path, "regulatoryDependencyCount") || '';
-  }
-
-  set regulatoryDependencyCount(value: string) {
-    this.doc.setFormField(this.path, "regulatoryDependencyCount", value);
-  }
-
-  get infrastructureDependencyCount(): string {
-    return this.doc.formField(this.path, "infrastructureDependencyCount") || '';
-  }
-
-  set infrastructureDependencyCount(value: string) {
-    this.doc.setFormField(this.path, "infrastructureDependencyCount", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class FrameworkDependenciesContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get dependencySummary(): string {
-    return this.doc.formField(this.path, "dependencySummary") || '';
-  }
-
-  set dependencySummary(value: string) {
-    this.doc.setFormField(this.path, "dependencySummary", value);
-  }
-
-  get primaryDependencyCategory(): string {
-    return this.doc.formField(this.path, "primaryDependencyCategory") || '';
-  }
-
-  set primaryDependencyCategory(value: string) {
-    this.doc.setFormField(this.path, "primaryDependencyCategory", value);
-  }
-
-  get dependencyRiskLevel(): string {
-    return this.doc.formField(this.path, "dependencyRiskLevel") || '';
-  }
-
-  set dependencyRiskLevel(value: string) {
-    this.doc.setFormField(this.path, "dependencyRiskLevel", value);
-  }
-
-  get criticalPathDependencyCount(): string {
-    return this.doc.formField(this.path, "criticalPathDependencyCount") || '';
-  }
-
-  set criticalPathDependencyCount(value: string) {
-    this.doc.setFormField(this.path, "criticalPathDependencyCount", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class FrameworkDependenciesManagementContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get dependencyCoordinationApproach(): string {
-    return this.doc.formField(this.path, "dependencyCoordinationApproach") || '';
-  }
-
-  set dependencyCoordinationApproach(value: string) {
-    this.doc.setFormField(this.path, "dependencyCoordinationApproach", value);
-  }
-
-  get earlyWarningMechanism(): string {
-    return this.doc.formField(this.path, "earlyWarningMechanism") || '';
-  }
-
-  set earlyWarningMechanism(value: string) {
-    this.doc.setFormField(this.path, "earlyWarningMechanism", value);
-  }
-}
-
-// Generated form facade for the `content` @Form section.
-export class FrameworkDependencyEntryContentForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get dependencyId(): string {
-    return this.doc.formField(this.path, "dependencyId") || '';
-  }
-
-  set dependencyId(value: string) {
-    this.doc.setFormField(this.path, "dependencyId", value);
-  }
-
-  get dependencyName(): string {
-    return this.doc.formField(this.path, "dependencyName") || '';
-  }
-
-  set dependencyName(value: string) {
-    this.doc.setFormField(this.path, "dependencyName", value);
-  }
-
-  get criticalityLevel(): string {
-    return this.doc.formField(this.path, "criticalityLevel") || '';
-  }
-
-  set criticalityLevel(value: string) {
-    this.doc.setFormField(this.path, "criticalityLevel", value);
   }
 }
 
