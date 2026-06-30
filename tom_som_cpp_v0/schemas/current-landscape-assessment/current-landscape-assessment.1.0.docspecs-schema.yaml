@@ -33,21 +33,21 @@ section-types:
     pattern-check-id:
       pattern: ^daowen_owne_lst-\d+$
       error-message: ID must match daowen_owne_lst-NNN
-    description: Data ownership assignments by domain.
+    description: "Add one entry per data domain or asset. Capture its business owner, data steward and technical custodian, who approves access, and the current ownership coverage status."
   DAQLIS-QUAL-LST:
     prefix: daqlis_qual_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^daqlis_qual_lst-\d+$
       error-message: ID must match daqlis_qual_lst-NNN
-    description: Data quality issues inventory.
+    description: "Add one entry per known data quality issue. Capture its severity, affected sources/entities, business impact, root cause, and proposed resolution."
   DAVOEN-VOLU-LST:
     prefix: davoen_volu_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^davoen_volu_lst-\d+$
       error-message: ID must match davoen_volu_lst-NNN
-    description: Volume details by data source.
+    description: "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates."
   MEBAEN-ENTR-LST:
     prefix: mebaen_entr_lst
     pattern-check-id:
@@ -259,7 +259,7 @@ section-types:
     pattern-check-id:
       pattern: ^msddo_mast_lst-\d+$
       error-message: ID must match msddo_mast_lst-NNN
-    description: Master data domains.
+    description: "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
   NONFI-NONF-LST:
     prefix: nonfi_nonf_lst
     pattern-check-id:
@@ -285,7 +285,7 @@ section-types:
     pattern-check-id:
       pattern: ^repol_rete_lst-\d+$
       error-message: ID must match repol_rete_lst-NNN
-    description: Retention policies by data category.
+    description: "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status."
   RESPO-RESP-LST:
     prefix: respo_resp_lst
     pattern-check-id:
@@ -340,33 +340,33 @@ section-types:
     pattern-check-id:
       pattern: ^dadu_dupl_lst-\d+$
       error-message: ID must match dadu_dupl_lst-NNN
-    description: Individual duplication instances.
+    description: "Add one entry per documented duplication case. Capture the data element, its primary and duplicate sources, how copies are synchronized, the business reason, and the recommended action."
   DAIN-INTE-LST:
     prefix: dain_inte_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^dain_inte_lst-\d+$
       error-message: ID must match dain_inte_lst-NNN
-    description: Data integration points inventory.
+    description: "Add one entry per data integration point. Capture its source and target systems, integration type, volume and transport, reliability and monitoring, and its owners."
   DASR-DATA-LST:
     prefix: dasr_data_lst
     pattern-check-id:
       pattern: ^dasr_data_lst-\d+$
       error-message: ID must match dasr_data_lst-NNN
-    description: Contains 0+× DataSource.
+    description: "Add one entry per data source/store in the environment (databases, warehouses, lakes, file systems, SaaS, APIs). Capture each source's technology, volume, quality, ownership, and key entities."
   DCLE-CLAS-LST:
     prefix: dcle_clas_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^dcle_clas_lst-\d+$
       error-message: ID must match dcle_clas_lst-NNN
-    description: Classification levels defined.
+    description: "Add one entry per classification level (e.g. Public, Internal, Confidential, Restricted). Capture its order, meaning, examples, and the handling, access, storage, transmission, and disposal requirements."
   DCSE-CLAS-LST:
     prefix: dcse_clas_lst
     pattern-check-id:
       pattern: ^dcse_clas_lst-\d+$
       error-message: ID must match dcse_clas_lst-NNN
-    description: Classification status by data domain.
+    description: "Add one entry per data domain. Capture its classification status, percentage classified, highest sensitivity level present, the classification owner, and when it was last reviewed."
   DEME-ENTI-LST:
     prefix: deme_enti_lst
     pattern-check-id:
@@ -379,20 +379,20 @@ section-types:
     pattern-check-id:
       pattern: ^dgpe_gove_lst-\d+$
       error-message: ID must match dgpe_gove_lst-NNN
-    description: Data governance policies.
+    description: "Add one entry per data governance policy (quality, security, privacy, access, MDM). Capture its area, scope, status, owner, enforcement mechanism, and current compliance level."
   DQIE-IMPR-LST:
     prefix: dqie_impr_lst
     pattern-check-id:
       pattern: ^dqie_impr_lst-\d+$
       error-message: ID must match dqie_impr_lst-NNN
-    description: Quality improvement initiatives in progress.
+    description: "Add one entry per active or planned data-quality improvement initiative. Capture the issues it targets, its status, expected completion, and the improvement it should deliver."
   DSEE-KEYE-LST:
     prefix: dsee_keye_lst
     min-count-in-document: 1
     pattern-check-id:
       pattern: ^dsee_keye_lst-\d+$
       error-message: ID must match dsee_keye_lst-NNN
-    description: Key data entities in this source.
+    description: "Add one entry per key entity in this source. Capture its name, what it represents, record count, primary key, relationships, and any sensitive fields."
   GAPE-ITEM-LST:
     prefix: gape_item_lst
     pattern-check-id:

@@ -48280,7 +48280,24 @@
       "name": "CurrentDataClassification",
       "sectionId": "CUDACL",
       "doc": "1.4.8. Data Classification.\n\nData classification framework, sensitivity levels, and current\nclassification status of data assets.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data classification)",
+          "ISO/IEC 27001 — information classification"
+        ],
+        "connotation": "The AS-IS data classification regime — the framework and sensitivity levels defined, and how far data assets have actually been classified."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data classification)",
+              "ISO/IEC 27001 — information classification"
+            ],
+            "connotation": "The AS-IS data classification regime — the framework and sensitivity levels defined, and how far data assets have actually been classified."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48329,10 +48346,28 @@
           "name": "classificationLevels",
           "kind": "list",
           "doc": "Classification levels defined.",
+          "help": "Add one entry per classification level (e.g. Public, Internal, Confidential, Restricted). Capture its order, meaning, examples, and the handling, access, storage, transmission, and disposal requirements.",
           "sectionId": "DCLE-CLAS-LST",
           "sectionIdPattern": "DCLE-CLAS-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data classification)",
+              "ISO/IEC 27001 — information classification"
+            ],
+            "connotation": "The sensitivity levels defined by the framework, one entry per level."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data classification)",
+                  "ISO/IEC 27001 — information classification"
+                ],
+                "connotation": "The sensitivity levels defined by the framework, one entry per level."
+              }
+            },
             {
               "name": "Min",
               "arguments": {
@@ -48352,6 +48387,12 @@
               }
             },
             {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per classification level (e.g. Public, Internal, Confidential, Restricted). Capture its order, meaning, examples, and the handling, access, storage, transmission, and disposal requirements."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 2
@@ -48366,10 +48407,26 @@
           "name": "classificationStatus",
           "kind": "list",
           "doc": "Classification status by data domain.",
+          "help": "Add one entry per data domain. Capture its classification status, percentage classified, highest sensitivity level present, the classification owner, and when it was last reviewed.",
           "sectionId": "DCSE-CLAS-LST",
           "sectionIdPattern": "DCSE-CLAS-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data classification coverage)"
+            ],
+            "connotation": "How far classification has been applied, one entry per data domain."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data classification coverage)"
+                ],
+                "connotation": "How far classification has been applied, one entry per data domain."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -48380,6 +48437,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DCSE-CLAS-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data domain. Capture its classification status, percentage classified, highest sensitivity level present, the classification owner, and when it was last reviewed."
               }
             },
             {
@@ -48399,7 +48462,24 @@
       "sectionId": "CUDALA",
       "doc": "1.4. Current Data Landscape.\n\nComprehensive documentation of the current data situation including where\ndata lives, data quality issues, duplication, ownership, volumes, growth\ntrends, retention policies, and governance structures.",
       "detailedIn": "D01CurrentLandscapeAssessment",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data architecture)",
+          "DAMA-DMBOK2 — data management body of knowledge"
+        ],
+        "connotation": "The AS-IS picture of the organization's data — where it lives, its quality and duplication, ownership, volumes and growth, retention, governance, classification, integration, and master data."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data architecture)",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "The AS-IS picture of the organization's data — where it lives, its quality and duplication, ownership, volumes and growth, retention, governance, classification, integration, and master data."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48773,10 +48853,26 @@
           "name": "operationalMetrics",
           "kind": "list",
           "doc": "1.5. Operational Metrics.",
+          "help": "Add one entry per operational metric of the current landscape: transaction volumes, user counts, response-time baselines, uptime, error rates, and storage growth. These figures drive target sizing and non-functional requirements.",
           "sectionId": "CUOPME-OPER-LST",
           "sectionIdPattern": "CUOPME-OPER-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (operational baseline metrics)"
+            ],
+            "connotation": "The collection of current operational baseline metrics — one entry per measured characteristic — that sizes the target system and seeds its non-functional requirements."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (operational baseline metrics)"
+                ],
+                "connotation": "The collection of current operational baseline metrics — one entry per measured characteristic — that sizes the target system and seeds its non-functional requirements."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -48787,6 +48883,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CUOPME-OPER-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per operational metric of the current landscape: transaction volumes, user counts, response-time baselines, uptime, error rates, and storage growth. These figures drive target sizing and non-functional requirements."
               }
             },
             {
@@ -48821,7 +48923,22 @@
       "sectionId": "CUOPME",
       "doc": "1.5. Operational Metrics.\n\nBaseline metrics of the current systems: throughput, volume, uptime,\nresponse times, user counts. Used to size the target system and to\nderive non-functional requirements.",
       "detailedIn": "D01CurrentLandscapeAssessment",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (operational baseline metric)"
+        ],
+        "connotation": "One measurable operational characteristic of the current systems — a baseline figure used to size the target system and derive its non-functional requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (operational baseline metric)"
+            ],
+            "connotation": "One measurable operational characteristic of the current systems — a baseline figure used to size the target system and derive its non-functional requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48958,7 +49075,24 @@
       "sectionId": "CUSTRIAS",
       "doc": "1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.",
       "detailedIn": "D01CurrentLandscapeAssessment",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (current-state risks)",
+          "ISO 31000:2018 — risk management (risk identification & assessment)"
+        ],
+        "connotation": "The assessment of risks arising from the current systems landscape and from the act of replacing it — distinct from the target-state replacement risks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (current-state risks)",
+              "ISO 31000:2018 — risk management (risk identification & assessment)"
+            ],
+            "connotation": "The assessment of risks arising from the current systems landscape and from the act of replacing it — distinct from the target-state replacement risks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55105,7 +55239,24 @@
       "name": "DataClassificationLevelEntry",
       "sectionId": "DCLE",
       "doc": "A data classification level definition.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data classification)",
+          "ISO/IEC 27001 — information classification"
+        ],
+        "connotation": "One sensitivity level: its name and order, meaning and examples, and the handling, access, storage, transmission, disposal, and incident rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data classification)",
+              "ISO/IEC 27001 — information classification"
+            ],
+            "connotation": "One sensitivity level: its name and order, meaning and examples, and the handling, access, storage, transmission, disposal, and incident rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55211,7 +55362,22 @@
       "name": "DataClassificationStatusEntry",
       "sectionId": "DCSE",
       "doc": "Classification status for a data domain.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data classification coverage)"
+        ],
+        "connotation": "How far one data domain has been classified: its status, percentage done, highest sensitivity present, owner, and last review."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data classification coverage)"
+            ],
+            "connotation": "How far one data domain has been classified: its status, percentage done, highest sensitivity present, owner, and last review."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55289,7 +55455,24 @@
       "name": "DataClassificationSummary",
       "sectionId": "DACLSU",
       "doc": "Summary of data classification framework.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data classification)",
+          "ISO/IEC 27001 — information classification"
+        ],
+        "connotation": "The aggregate classification posture: whether a framework exists, its name and number of levels, coverage, auto-classification, labeling, and training."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data classification)",
+              "ISO/IEC 27001 — information classification"
+            ],
+            "connotation": "The aggregate classification posture: whether a framework exists, its name and number of levels, coverage, auto-classification, labeling, and training."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55438,7 +55621,24 @@
       "name": "DataDuplicationAnalysis",
       "sectionId": "DADUAN",
       "doc": "1.4.3. Data Duplication Analysis.\n\nAnalysis of data duplication across systems, including redundant data\nstores, duplicated records, and synchronization challenges.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data redundancy)",
+          "DAMA-DMBOK2 — data management body of knowledge"
+        ],
+        "connotation": "The analysis of redundant data across systems — the overall duplication picture and each individual duplication instance with its sync challenges."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data redundancy)",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "The analysis of redundant data across systems — the overall duplication picture and each individual duplication instance with its sync challenges."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55509,10 +55709,26 @@
           "name": "duplicationInstances",
           "kind": "list",
           "doc": "Individual duplication instances.",
+          "help": "Add one entry per documented duplication case. Capture the data element, its primary and duplicate sources, how copies are synchronized, the business reason, and the recommended action.",
           "sectionId": "DADU-DUPL-LST",
           "sectionIdPattern": "DADU-DUPL-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data redundancy)"
+            ],
+            "connotation": "The list of documented duplication cases, one entry per instance."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data redundancy)"
+                ],
+                "connotation": "The list of documented duplication cases, one entry per instance."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -55523,6 +55739,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DADU-DUPL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per documented duplication case. Capture the data element, its primary and duplicate sources, how copies are synchronized, the business reason, and the recommended action."
               }
             },
             {
@@ -55541,7 +55763,22 @@
       "name": "DataDuplicationEntry",
       "sectionId": "DADU",
       "doc": "A data duplication instance entry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data redundancy)"
+        ],
+        "connotation": "A single duplication case: the data element duplicated, its sources, the synchronization arrangement, and its business impact and resolution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data redundancy)"
+            ],
+            "connotation": "A single duplication case: the data element duplicated, its sources, the synchronization arrangement, and its business impact and resolution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55643,7 +55880,22 @@
       "name": "DataDuplicationEntryGovernance",
       "sectionId": "DDEG",
       "doc": "Business impact and resolution guidance.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data redundancy)"
+        ],
+        "connotation": "Why this duplication exists and what to do about it: business reason, consolidation feasibility, impact, and recommended action."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data redundancy)"
+            ],
+            "connotation": "Why this duplication exists and what to do about it: business reason, consolidation feasibility, impact, and recommended action."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55707,7 +55959,22 @@
       "name": "DataDuplicationEntrySources",
       "sectionId": "DDES",
       "doc": "Sources and duplication shape.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data redundancy)"
+        ],
+        "connotation": "Where this duplicated data lives: its authoritative primary source, the duplicate locations, and the kind of duplication."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data redundancy)"
+            ],
+            "connotation": "Where this duplicated data lives: its authoritative primary source, the duplicate locations, and the kind of duplication."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55764,7 +56031,22 @@
       "name": "DataDuplicationEntrySynchronization",
       "sectionId": "DADUENSY",
       "doc": "Synchronization and consistency details.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data consistency)"
+        ],
+        "connotation": "How the duplicate copies are kept aligned: synchronization method and frequency, and any known inconsistencies between copies."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data consistency)"
+            ],
+            "connotation": "How the duplicate copies are kept aligned: synchronization method and frequency, and any known inconsistencies between copies."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -55821,7 +56103,22 @@
       "name": "DataDuplicationSummary",
       "sectionId": "DADUSU",
       "doc": "Summary of data duplication findings.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data redundancy)"
+        ],
+        "connotation": "The aggregate duplication picture: overall rate, duplicate volume, instance count, storage waste, sync challenges, and consolidation opportunities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data redundancy)"
+            ],
+            "connotation": "The aggregate duplication picture: overall rate, duplicate volume, instance count, storage waste, sync challenges, and consolidation opportunities."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -56926,7 +57223,24 @@
       "name": "DataGovernance",
       "sectionId": "DAGO",
       "doc": "1.4.7. Data Governance.\n\nCurrent data governance structure, policies, processes, and maturity level.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data governance)",
+          "DAMA-DMBOK2 — data governance"
+        ],
+        "connotation": "The AS-IS data governance regime — its maturity, organizational structure, and the catalogue of governance policies in force."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data governance)",
+              "DAMA-DMBOK2 — data governance"
+            ],
+            "connotation": "The AS-IS data governance regime — its maturity, organizational structure, and the catalogue of governance policies in force."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -56997,10 +57311,28 @@
           "name": "governancePolicies",
           "kind": "list",
           "doc": "Data governance policies.",
+          "help": "Add one entry per data governance policy (quality, security, privacy, access, MDM). Capture its area, scope, status, owner, enforcement mechanism, and current compliance level.",
           "sectionId": "DGPE-GOVE-LST",
           "sectionIdPattern": "DGPE-GOVE-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data governance)",
+              "DAMA-DMBOK2 — data governance"
+            ],
+            "connotation": "The governance policies in force, one entry per policy."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data governance)",
+                  "DAMA-DMBOK2 — data governance"
+                ],
+                "connotation": "The governance policies in force, one entry per policy."
+              }
+            },
             {
               "name": "Min",
               "arguments": {
@@ -57020,6 +57352,12 @@
               }
             },
             {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data governance policy (quality, security, privacy, access, MDM). Capture its area, scope, status, owner, enforcement mechanism, and current compliance level."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 3
@@ -57036,7 +57374,24 @@
       "name": "DataGovernanceMaturity",
       "sectionId": "DAGOMA",
       "doc": "Data governance maturity assessment.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data governance maturity)",
+          "DAMA-DMBOK2 — data governance"
+        ],
+        "connotation": "The maturity scorecard for data governance across strategy, organization, policy, process, technology, and culture, with target level and key gaps."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data governance maturity)",
+              "DAMA-DMBOK2 — data governance"
+            ],
+            "connotation": "The maturity scorecard for data governance across strategy, organization, policy, process, technology, and culture, with target level and key gaps."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57142,7 +57497,24 @@
       "name": "DataGovernancePolicyEntry",
       "sectionId": "DGPE",
       "doc": "Data governance policy entry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data governance)",
+          "DAMA-DMBOK2 — data governance"
+        ],
+        "connotation": "A single data governance policy: its identity and area, its lifecycle and applicability, and its ownership, enforcement, and compliance status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data governance)",
+              "DAMA-DMBOK2 — data governance"
+            ],
+            "connotation": "A single data governance policy: its identity and area, its lifecycle and applicability, and its ownership, enforcement, and compliance status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57236,7 +57608,24 @@
       "name": "DataGovernancePolicyEntryGovernance",
       "sectionId": "DGPEG",
       "doc": "Ownership, enforcement, and compliance status.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data governance)",
+          "DAMA-DMBOK2 — data governance"
+        ],
+        "connotation": "Who owns and enforces this policy and how well it is followed: policy owner, enforcement mechanism, and compliance level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data governance)",
+              "DAMA-DMBOK2 — data governance"
+            ],
+            "connotation": "Who owns and enforces this policy and how well it is followed: policy owner, enforcement mechanism, and compliance level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57293,7 +57682,22 @@
       "name": "DataGovernancePolicyEntryLifecycle",
       "sectionId": "DGPEL",
       "doc": "Policy lifecycle and applicability.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data governance)"
+        ],
+        "connotation": "The lifecycle and reach of this policy: its scope, status, effective date, and review frequency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data governance)"
+            ],
+            "connotation": "The lifecycle and reach of this policy: its scope, status, effective date, and review frequency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57769,7 +58173,22 @@
       "name": "DataIntegrationEntry",
       "sectionId": "DAIN",
       "doc": "A data integration point entry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data flows & integration)"
+        ],
+        "connotation": "A single integration point: what it exchanges, its endpoints and type, volume and transport, reliability and monitoring, and ownership."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data flows & integration)"
+            ],
+            "connotation": "A single integration point: what it exchanges, its endpoints and type, volume and transport, reliability and monitoring, and ownership."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57886,7 +58305,22 @@
       "name": "DataIntegrationEntryEndpoints",
       "sectionId": "DIEE",
       "doc": "Endpoints and type for data integration.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data flows & integration)"
+        ],
+        "connotation": "The endpoints of this integration: the source and target systems and the kind of integration between them."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data flows & integration)"
+            ],
+            "connotation": "The endpoints of this integration: the source and target systems and the kind of integration between them."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -57943,7 +58377,22 @@
       "name": "DataIntegrationEntryOwnership",
       "sectionId": "DIEO",
       "doc": "Ownership and issues for data integration.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data flows & integration)"
+        ],
+        "connotation": "Who owns this integration and how critical it is: business and technical owners, criticality, and known issues."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data flows & integration)"
+            ],
+            "connotation": "Who owns this integration and how critical it is: business and technical owners, criticality, and known issues."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -58007,7 +58456,22 @@
       "name": "DataIntegrationEntryReliability",
       "sectionId": "DIER",
       "doc": "Reliability and monitoring for data integration.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration reliability)"
+        ],
+        "connotation": "How dependable this integration is: error handling, monitoring, reliability, latency, and any SLA."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration reliability)"
+            ],
+            "connotation": "How dependable this integration is: error handling, monitoring, reliability, latency, and any SLA."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -58078,7 +58542,22 @@
       "name": "DataIntegrationEntryTransport",
       "sectionId": "DIET",
       "doc": "Volume and transport for data integration.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data flows & integration)"
+        ],
+        "connotation": "How data moves across this integration: volume, frequency, technology, protocol, and transformation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data flows & integration)"
+            ],
+            "connotation": "How data moves across this integration: volume, frequency, technology, protocol, and transformation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -58149,7 +58628,24 @@
       "name": "DataIntegrationPoints",
       "sectionId": "DAINPO",
       "doc": "1.4.9. Data Integration Points.\n\nDocumentation of data integration points, ETL processes, APIs,\nand data exchange mechanisms.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data flows & integration)",
+          "DAMA-DMBOK2 — data integration and interoperability"
+        ],
+        "connotation": "The AS-IS data integration landscape — the integration architecture, major data flows, and the inventory of integration points between systems."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data flows & integration)",
+              "DAMA-DMBOK2 — data integration and interoperability"
+            ],
+            "connotation": "The AS-IS data integration landscape — the integration architecture, major data flows, and the inventory of integration points between systems."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -58220,10 +58716,26 @@
           "name": "integrationPoints",
           "kind": "list",
           "doc": "Data integration points inventory.",
+          "help": "Add one entry per data integration point. Capture its source and target systems, integration type, volume and transport, reliability and monitoring, and its owners.",
           "sectionId": "DAIN-INTE-LST",
           "sectionIdPattern": "DAIN-INTE-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data flows & integration)"
+            ],
+            "connotation": "The catalogued integration points, one entry per data exchange."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data flows & integration)"
+                ],
+                "connotation": "The catalogued integration points, one entry per data exchange."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -58234,6 +58746,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DAIN-INTE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data integration point. Capture its source and target systems, integration type, volume and transport, reliability and monitoring, and its owners."
               }
             },
             {
@@ -58259,7 +58777,22 @@
       "name": "DataIntegrationSummary",
       "sectionId": "DAINSU",
       "doc": "Summary of data integration landscape.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data flows & integration)"
+        ],
+        "connotation": "The aggregate integration picture: total points, architecture style, primary tool, real-time/batch/API split, reliability, latency, and known bottlenecks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data flows & integration)"
+            ],
+            "connotation": "The aggregate integration picture: total points, architecture style, primary tool, real-time/batch/API split, reliability, latency, and known bottlenecks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -58365,7 +58898,22 @@
       "name": "DataLandscapeSummary",
       "sectionId": "DALASU",
       "doc": "Summary statistics and health indicators for data landscape.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data landscape baseline)"
+        ],
+        "connotation": "Top-level baseline indicators of the data landscape: source counts, volume, quality, governance maturity, duplication, compliance, and security risk."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data landscape baseline)"
+            ],
+            "connotation": "Top-level baseline indicators of the data landscape: source counts, volume, quality, governance maturity, duplication, compliance, and security risk."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -59214,7 +59762,24 @@
       "name": "DataOwnership",
       "sectionId": "DAOW",
       "doc": "1.4.4. Data Ownership and Stewardship.\n\nDocumentation of data ownership structures, stewardship roles,\nand accountability for data assets.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data ownership & stewardship)",
+          "DAMA-DMBOK2 — data governance"
+        ],
+        "connotation": "The AS-IS ownership and stewardship model for data assets — the ownership approach, accountable roles per domain, and gaps in accountability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data ownership & stewardship)",
+              "DAMA-DMBOK2 — data governance"
+            ],
+            "connotation": "The AS-IS ownership and stewardship model for data assets — the ownership approach, accountable roles per domain, and gaps in accountability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -59285,10 +59850,26 @@
           "name": "ownershipAssignments",
           "kind": "list",
           "doc": "Data ownership assignments by domain.",
+          "help": "Add one entry per data domain or asset. Capture its business owner, data steward and technical custodian, who approves access, and the current ownership coverage status.",
           "sectionId": "DAOWEN-OWNE-LST",
           "sectionIdPattern": "DAOWEN-OWNE-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data ownership & stewardship)"
+            ],
+            "connotation": "The ownership assignments, one entry per data domain or asset."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data ownership & stewardship)"
+                ],
+                "connotation": "The ownership assignments, one entry per data domain or asset."
+              }
+            },
             {
               "name": "Min",
               "arguments": {
@@ -59308,6 +59889,12 @@
               }
             },
             {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data domain or asset. Capture its business owner, data steward and technical custodian, who approves access, and the current ownership coverage status."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 3
@@ -59324,7 +59911,22 @@
       "name": "DataOwnershipEntry",
       "sectionId": "DAOWEN",
       "doc": "Data ownership assignment for a domain or asset.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data ownership & stewardship)"
+        ],
+        "connotation": "A single ownership assignment: the data domain and its assets, the business owner, and the stewardship and access-governance arrangements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data ownership & stewardship)"
+            ],
+            "connotation": "A single ownership assignment: the data domain and its assets, the business owner, and the stewardship and access-governance arrangements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -59418,7 +60020,24 @@
       "name": "DataOwnershipEntryGovernance",
       "sectionId": "DOEG",
       "doc": "Access and coverage governance.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data access governance)",
+          "DAMA-DMBOK2 — data governance"
+        ],
+        "connotation": "Governance of access to this domain: who approves access, the ownership coverage status, and when ownership was last reviewed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data access governance)",
+              "DAMA-DMBOK2 — data governance"
+            ],
+            "connotation": "Governance of access to this domain: who approves access, the ownership coverage status, and when ownership was last reviewed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -59475,7 +60094,24 @@
       "name": "DataOwnershipEntryStewardship",
       "sectionId": "DAOWENST",
       "doc": "Stewardship and custodianship assignments.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data stewardship)",
+          "DAMA-DMBOK2 — data governance"
+        ],
+        "connotation": "Day-to-day responsibility for this data: the data steward, technical custodian, and who is accountable for quality."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data stewardship)",
+              "DAMA-DMBOK2 — data governance"
+            ],
+            "connotation": "Day-to-day responsibility for this data: the data steward, technical custodian, and who is accountable for quality."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -59539,7 +60175,24 @@
       "name": "DataOwnershipSummary",
       "sectionId": "DAOWSU",
       "doc": "Summary of data ownership model.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data ownership & stewardship)",
+          "DAMA-DMBOK2 — data governance"
+        ],
+        "connotation": "The aggregate ownership posture: ownership model, domain count, assigned ownership rate, active stewards, gaps, and stewardship maturity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data ownership & stewardship)",
+              "DAMA-DMBOK2 — data governance"
+            ],
+            "connotation": "The aggregate ownership posture: ownership model, domain count, assigned ownership rate, active stewards, gaps, and stewardship maturity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -60506,7 +61159,24 @@
       "name": "DataQualityAssessment",
       "sectionId": "DAQUAS",
       "doc": "1.4.2. Data Quality Assessment.\n\nComprehensive assessment of data quality across the organization,\ncovering accuracy, completeness, consistency, timeliness, and validity.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data quality assessment)",
+          "ISO/IEC 25012 — data quality model"
+        ],
+        "connotation": "The organization-wide assessment of data quality across standard dimensions, the inventory of quality issues, and improvement initiatives under way."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data quality assessment)",
+              "ISO/IEC 25012 — data quality model"
+            ],
+            "connotation": "The organization-wide assessment of data quality across standard dimensions, the inventory of quality issues, and improvement initiatives under way."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -60577,10 +61247,28 @@
           "name": "qualityIssues",
           "kind": "list",
           "doc": "Data quality issues inventory.",
+          "help": "Add one entry per known data quality issue. Capture its severity, affected sources/entities, business impact, root cause, and proposed resolution.",
           "sectionId": "DAQLIS-QUAL-LST",
           "sectionIdPattern": "DAQLIS-QUAL-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data quality assessment)",
+              "ISO/IEC 25012 — data quality model"
+            ],
+            "connotation": "The inventory of identified data quality issues, one entry per issue."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data quality assessment)",
+                  "ISO/IEC 25012 — data quality model"
+                ],
+                "connotation": "The inventory of identified data quality issues, one entry per issue."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -60591,6 +61279,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DAQLIS-QUAL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per known data quality issue. Capture its severity, affected sources/entities, business impact, root cause, and proposed resolution."
               }
             },
             {
@@ -60614,10 +61308,28 @@
           "name": "improvementInitiatives",
           "kind": "list",
           "doc": "Quality improvement initiatives in progress.",
+          "help": "Add one entry per active or planned data-quality improvement initiative. Capture the issues it targets, its status, expected completion, and the improvement it should deliver.",
           "sectionId": "DQIE-IMPR-LST",
           "sectionIdPattern": "DQIE-IMPR-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data quality improvement)",
+              "DAMA-DMBOK2 — data quality management"
+            ],
+            "connotation": "The set of in-progress initiatives aimed at improving data quality."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data quality improvement)",
+                  "DAMA-DMBOK2 — data quality management"
+                ],
+                "connotation": "The set of in-progress initiatives aimed at improving data quality."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -60628,6 +61340,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DQIE-IMPR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per active or planned data-quality improvement initiative. Capture the issues it targets, its status, expected completion, and the improvement it should deliver."
               }
             },
             {
@@ -60646,7 +61364,24 @@
       "name": "DataQualityDimensionsSummary",
       "sectionId": "DQDS",
       "doc": "Summary of data quality across standard dimensions.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data quality assessment)",
+          "ISO/IEC 25012 — data quality model"
+        ],
+        "connotation": "The quality scorecard across standard dimensions — accuracy, completeness, consistency, timeliness, validity, uniqueness, and integrity — with the assessment's date, scope, and methodology."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data quality assessment)",
+              "ISO/IEC 25012 — data quality model"
+            ],
+            "connotation": "The quality scorecard across standard dimensions — accuracy, completeness, consistency, timeliness, validity, uniqueness, and integrity — with the assessment's date, scope, and methodology."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -60752,7 +61487,24 @@
       "name": "DataQualityInitiativeEntry",
       "sectionId": "DQIE",
       "doc": "Data quality improvement initiative entry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data quality improvement)",
+          "DAMA-DMBOK2 — data quality management"
+        ],
+        "connotation": "A single initiative to improve data quality: what it targets, its status, expected completion, and the improvement it aims to deliver."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data quality improvement)",
+              "DAMA-DMBOK2 — data quality management"
+            ],
+            "connotation": "A single initiative to improve data quality: what it targets, its status, expected completion, and the improvement it aims to deliver."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -60837,7 +61589,24 @@
       "name": "DataQualityIssueEntry",
       "sectionId": "DAQLIS",
       "doc": "A data quality issue entry (form).",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data quality assessment)",
+          "ISO/IEC 25012 — data quality model"
+        ],
+        "connotation": "A single identified data quality issue: its identity, affected source, classification and severity, business impact, and resolution plan."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data quality assessment)",
+              "ISO/IEC 25012 — data quality model"
+            ],
+            "connotation": "A single identified data quality issue: its identity, affected source, classification and severity, business impact, and resolution plan."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -60946,7 +61715,24 @@
       "name": "DataQualityIssueEntryClassification",
       "sectionId": "DQIEC",
       "doc": "Classification and severity.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data quality assessment)",
+          "ISO/IEC 25012 — data quality model"
+        ],
+        "connotation": "How this quality issue is categorized: affected entities, the quality dimension it violates, and its severity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data quality assessment)",
+              "ISO/IEC 25012 — data quality model"
+            ],
+            "connotation": "How this quality issue is categorized: affected entities, the quality dimension it violates, and its severity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -61003,7 +61789,22 @@
       "name": "DataQualityIssueEntryImpact",
       "sectionId": "DQIEI",
       "doc": "Business impact and diagnostics.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data quality impact)"
+        ],
+        "connotation": "The business consequence and diagnostics of this quality issue: its impact, quantified cost, root cause, affected record count, and discovery date."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data quality impact)"
+            ],
+            "connotation": "The business consequence and diagnostics of this quality issue: its impact, quantified cost, root cause, affected record count, and discovery date."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -61074,7 +61875,22 @@
       "name": "DataQualityIssueEntryResolution",
       "sectionId": "DQIER",
       "doc": "Resolution planning.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data quality remediation)"
+        ],
+        "connotation": "How this quality issue is being handled: the current workaround, the proposed resolution, and its priority."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data quality remediation)"
+            ],
+            "connotation": "How this quality issue is being handled: the current workaround, the proposed resolution, and its priority."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -61418,7 +62234,24 @@
       "name": "DataRetentionPolicies",
       "sectionId": "DAREPO",
       "doc": "1.4.6. Retention Policies.\n\nDocumentation of data retention policies, legal requirements,\narchival strategies, and data lifecycle management.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data retention & lifecycle)",
+          "DAMA-DMBOK2 — data management body of knowledge"
+        ],
+        "connotation": "The AS-IS retention and lifecycle regime — the policy framework, regulatory drivers, archival and deletion practices, and per-category retention rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data retention & lifecycle)",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "The AS-IS retention and lifecycle regime — the policy framework, regulatory drivers, archival and deletion practices, and per-category retention rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -61467,10 +62300,26 @@
           "name": "retentionPolicies",
           "kind": "list",
           "doc": "Retention policies by data category.",
+          "help": "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status.",
           "sectionId": "REPOL-RETE-LST",
           "sectionIdPattern": "REPOL-RETE-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data retention & lifecycle)"
+            ],
+            "connotation": "The retention policies, one entry per data category."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data retention & lifecycle)"
+                ],
+                "connotation": "The retention policies, one entry per data category."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -61481,6 +62330,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "REPOL-RETE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status."
               }
             },
             {
@@ -61506,7 +62361,22 @@
       "name": "DataSourceClassification",
       "sectionId": "DASOCL",
       "doc": "Classification for data source.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data source classification)"
+        ],
+        "connotation": "How this source is categorized: what it contains, its source category, and the business domain it serves."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data source classification)"
+            ],
+            "connotation": "How this source is categorized: what it contains, its source category, and the business domain it serves."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -61563,7 +62433,22 @@
       "name": "DataSourceEntityEntry",
       "sectionId": "DSEE",
       "doc": "Key data entity within a data source.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data entity inventory)"
+        ],
+        "connotation": "A single key entity in a source: its name, meaning, record count, primary key, relationships, and sensitive fields."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data entity inventory)"
+            ],
+            "connotation": "A single key entity in a source: its name, meaning, record count, primary key, relationships, and sensitive fields."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -61641,7 +62526,22 @@
       "name": "DataSourceEntry",
       "sectionId": "DASR",
       "doc": "A data source entry (form).\n\nDocuments a specific data source/store with comprehensive details about\ntechnology, format, volume, quality, ownership, and access patterns.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data source inventory)"
+        ],
+        "connotation": "A single catalogued data source: its identity, classification, technology, volume, quality, ownership, integration, lifecycle, and key entities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data source inventory)"
+            ],
+            "connotation": "A single catalogued data source: its identity, classification, technology, volume, quality, ownership, integration, lifecycle, and key entities."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -61816,10 +62716,26 @@
           "name": "keyEntities",
           "kind": "list",
           "doc": "Key data entities in this source.",
+          "help": "Add one entry per key entity in this source. Capture its name, what it represents, record count, primary key, relationships, and any sensitive fields.",
           "sectionId": "DSEE-KEYE-LST",
           "sectionIdPattern": "DSEE-KEYE-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data entity inventory)"
+            ],
+            "connotation": "The principal data entities (tables/collections) held in this source."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data entity inventory)"
+                ],
+                "connotation": "The principal data entities (tables/collections) held in this source."
+              }
+            },
             {
               "name": "Min",
               "arguments": {
@@ -61839,6 +62755,12 @@
               }
             },
             {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per key entity in this source. Capture its name, what it represents, record count, primary key, relationships, and any sensitive fields."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 9
@@ -61855,7 +62777,22 @@
       "name": "DataSourceIntegration",
       "sectionId": "DASOI1",
       "doc": "Integration for data source.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data flows & integration)"
+        ],
+        "connotation": "How this source connects to the rest of the landscape: integrated systems, upstream feeds, and downstream consumers."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data flows & integration)"
+            ],
+            "connotation": "How this source connects to the rest of the landscape: integrated systems, upstream feeds, and downstream consumers."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -61912,7 +62849,24 @@
       "name": "DataSourceInventory",
       "sectionId": "DASOIN",
       "doc": "1.4.1. Data Source Inventory.\n\nComprehensive inventory of all data sources, stores, and repositories\nin the current environment.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data source inventory)",
+          "DAMA-DMBOK2 — data storage and operations"
+        ],
+        "connotation": "The catalogue of every data source, store, and repository in the current environment, with its technology, volume, quality, ownership, and access."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data source inventory)",
+              "DAMA-DMBOK2 — data storage and operations"
+            ],
+            "connotation": "The catalogue of every data source, store, and repository in the current environment, with its technology, volume, quality, ownership, and access."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -61968,10 +62922,26 @@
           "name": "dataSources",
           "kind": "list",
           "doc": "Contains 0+× DataSource.",
+          "help": "Add one entry per data source/store in the environment (databases, warehouses, lakes, file systems, SaaS, APIs). Capture each source's technology, volume, quality, ownership, and key entities.",
           "sectionId": "DASR-DATA-LST",
           "sectionIdPattern": "DASR-DATA-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data source inventory)"
+            ],
+            "connotation": "The list of catalogued data sources, one entry per store or repository."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data source inventory)"
+                ],
+                "connotation": "The list of catalogued data sources, one entry per store or repository."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -61982,6 +62952,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DASR-DATA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data source/store in the environment (databases, warehouses, lakes, file systems, SaaS, APIs). Capture each source's technology, volume, quality, ownership, and key entities."
               }
             },
             {
@@ -62000,7 +62976,22 @@
       "name": "DataSourceLifecycle",
       "sectionId": "DASOLI",
       "doc": "Lifecycle for data source.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data lifecycle)"
+        ],
+        "connotation": "The lifecycle state of this source: creation, last major update, planned decommission, and documentation status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data lifecycle)"
+            ],
+            "connotation": "The lifecycle state of this source: creation, last major update, planned decommission, and documentation status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -62071,7 +63062,24 @@
       "name": "DataSourceOwnership",
       "sectionId": "DASOOW",
       "doc": "Ownership and governance for data source.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data ownership & governance)",
+          "DAMA-DMBOK2 — data governance"
+        ],
+        "connotation": "Who owns and governs this source: business and technical owners, steward, access-control model, and sensitivity level."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data ownership & governance)",
+              "DAMA-DMBOK2 — data governance"
+            ],
+            "connotation": "Who owns and governs this source: business and technical owners, steward, access-control model, and sensitivity level."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -62142,7 +63150,24 @@
       "name": "DataSourceQuality",
       "sectionId": "DASOQU",
       "doc": "Quality and reliability for data source.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data quality assessment)",
+          "ISO/IEC 25012 — data quality model"
+        ],
+        "connotation": "The quality and reliability profile of this source: its quality score, known issues, freshness, and reliability."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data quality assessment)",
+              "ISO/IEC 25012 — data quality model"
+            ],
+            "connotation": "The quality and reliability profile of this source: its quality score, known issues, freshness, and reliability."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -62206,7 +63231,24 @@
       "name": "DataSourceRetentionPolicy",
       "sectionId": "DSRP",
       "doc": "Retention policy specific to a data source.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data retention & lifecycle)",
+          "DAMA-DMBOK2 — data management body of knowledge"
+        ],
+        "connotation": "The retention rules governing this source: retention period, archival and deletion policy, legal basis, and compliance notes."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data retention & lifecycle)",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "The retention rules governing this source: retention period, archival and deletion policy, legal basis, and compliance notes."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -62277,7 +63319,22 @@
       "name": "DataSourceTechnical",
       "sectionId": "DASOTE",
       "doc": "Technical details for data source.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data architecture)"
+        ],
+        "connotation": "The technical realization of this source: store type, technology, version, hosting location, and data format."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data architecture)"
+            ],
+            "connotation": "The technical realization of this source: store type, technology, version, hosting location, and data format."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -62348,7 +63405,22 @@
       "name": "DataSourceVolume",
       "sectionId": "DASOVO",
       "doc": "Volume and performance for data source.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data volume baseline)"
+        ],
+        "connotation": "The size and access profile of this source: estimated volume, record count, growth rate, access frequency, and peak load periods."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data volume baseline)"
+            ],
+            "connotation": "The size and access profile of this source: estimated volume, record count, growth rate, access frequency, and peak load periods."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -62901,7 +63973,22 @@
       "name": "DataVolumeEntry",
       "sectionId": "DAVOEN",
       "doc": "Volume details for a specific data source.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data volume baseline)"
+        ],
+        "connotation": "The volume and growth profile of one source: current volume, record count, average size, historical and projected growth, drivers, and archival/purge."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data volume baseline)"
+            ],
+            "connotation": "The volume and growth profile of one source: current volume, record count, average size, historical and projected growth, drivers, and archival/purge."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -63000,7 +64087,22 @@
       "name": "DataVolumeSummary",
       "sectionId": "DAVOSU",
       "doc": "Summary of data volumes and growth trends.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data volume baseline)"
+        ],
+        "connotation": "The aggregate volume picture: total, structured and unstructured volumes, with growth, projection, and capacity sub-sections."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data volume baseline)"
+            ],
+            "connotation": "The aggregate volume picture: total, structured and unstructured volumes, with growth, projection, and capacity sub-sections."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -63102,7 +64204,22 @@
       "name": "DataVolumeSummaryCapacity",
       "sectionId": "DVSC",
       "doc": "Capacity pressure and cost impact.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (capacity & cost baseline)"
+        ],
+        "connotation": "Storage capacity pressure and its cost: current constraints, total storage cost, and projected cost growth."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (capacity & cost baseline)"
+            ],
+            "connotation": "Storage capacity pressure and its cost: current constraints, total storage cost, and projected cost growth."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -63159,7 +64276,22 @@
       "name": "DataVolumeSummaryGrowth",
       "sectionId": "DVSG",
       "doc": "Historical growth behavior.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data growth baseline)"
+        ],
+        "connotation": "How data has grown historically: annual and monthly growth rates and the periods of peak growth."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data growth baseline)"
+            ],
+            "connotation": "How data has grown historically: annual and monthly growth rates and the periods of peak growth."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -63216,7 +64348,22 @@
       "name": "DataVolumeSummaryProjection",
       "sectionId": "DVSP",
       "doc": "Forward-looking forecasts and utilization.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (capacity projection)"
+        ],
+        "connotation": "Forward-looking volume forecasts and current capacity utilization that inform future capacity needs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (capacity projection)"
+            ],
+            "connotation": "Forward-looking volume forecasts and current capacity utilization that inform future capacity needs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -63273,7 +64420,22 @@
       "name": "DataVolumesAndGrowth",
       "sectionId": "DVAG",
       "doc": "1.4.5. Data Volumes and Growth.\n\nAnalysis of current data volumes, historical growth trends,\nand projections for future capacity needs.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data volume & growth baseline)"
+        ],
+        "connotation": "The AS-IS sizing of data — current volumes, historical growth trends, and forward projections that drive future capacity planning."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data volume & growth baseline)"
+            ],
+            "connotation": "The AS-IS sizing of data — current volumes, historical growth trends, and forward projections that drive future capacity planning."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -63344,10 +64506,26 @@
           "name": "volumeBySource",
           "kind": "list",
           "doc": "Volume details by data source.",
+          "help": "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates.",
           "sectionId": "DAVOEN-VOLU-LST",
           "sectionIdPattern": "DAVOEN-VOLU-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data volume baseline)"
+            ],
+            "connotation": "Per-source volume figures, one entry per data source."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (data volume baseline)"
+                ],
+                "connotation": "Per-source volume figures, one entry per data source."
+              }
+            },
             {
               "name": "Min",
               "arguments": {
@@ -63364,6 +64542,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "DAVOEN-VOLU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates."
               }
             },
             {
@@ -126220,7 +127404,24 @@
       "name": "MasterDataDomainEntry",
       "sectionId": "MSDDO",
       "doc": "Master data domain entry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (master data management)",
+          "DAMA-DMBOK2 — master and reference data management"
+        ],
+        "connotation": "A single master data domain: its golden-record source, quality and volume, downstream usage and cadence, and ownership and improvement planning."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (master data management)",
+              "DAMA-DMBOK2 — master and reference data management"
+            ],
+            "connotation": "A single master data domain: its golden-record source, quality and volume, downstream usage and cadence, and ownership and improvement planning."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126322,7 +127523,24 @@
       "name": "MasterDataDomainEntryGovernance",
       "sectionId": "MDDEG",
       "doc": "Ownership and improvement planning for a master data domain.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (master data governance)",
+          "DAMA-DMBOK2 — master and reference data management"
+        ],
+        "connotation": "Who owns this master data domain and how it will improve: domain owner, data steward, known issues, and improvement plan."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (master data governance)",
+              "DAMA-DMBOK2 — master and reference data management"
+            ],
+            "connotation": "Who owns this master data domain and how it will improve: domain owner, data steward, known issues, and improvement plan."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126386,7 +127604,24 @@
       "name": "MasterDataDomainEntryQuality",
       "sectionId": "MDDEQ",
       "doc": "Volume and quality indicators for a master data domain.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (master data quality)",
+          "ISO/IEC 25012 — data quality model"
+        ],
+        "connotation": "The size and quality of this master data domain: record count, quality score, and duplicate rate."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (master data quality)",
+              "ISO/IEC 25012 — data quality model"
+            ],
+            "connotation": "The size and quality of this master data domain: record count, quality score, and duplicate rate."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126443,7 +127678,22 @@
       "name": "MasterDataDomainEntryUsage",
       "sectionId": "MDDEU",
       "doc": "Downstream usage and cadence for a master data domain.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (master data management)"
+        ],
+        "connotation": "How this master data domain is consumed: the systems that use it, its update frequency, and its level of governance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (master data management)"
+            ],
+            "connotation": "How this master data domain is consumed: the systems that use it, its update frequency, and its level of governance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126500,7 +127750,24 @@
       "name": "MasterDataManagement",
       "sectionId": "MADAMA",
       "doc": "1.4.10. Master Data Management.\n\nMaster data management practices, golden records, and data\nsynchronization across systems.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (master data management)",
+          "DAMA-DMBOK2 — master and reference data management"
+        ],
+        "connotation": "The AS-IS master data management regime — MDM strategy and maturity, the master data domains, their golden-record sources, and synchronization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (master data management)",
+              "DAMA-DMBOK2 — master and reference data management"
+            ],
+            "connotation": "The AS-IS master data management regime — MDM strategy and maturity, the master data domains, their golden-record sources, and synchronization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126549,10 +127816,28 @@
           "name": "masterDataDomains",
           "kind": "list",
           "doc": "Master data domains.",
+          "help": "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans.",
           "sectionId": "MSDDO-MAST-LST",
           "sectionIdPattern": "MSDDO-MAST-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (master data management)",
+              "DAMA-DMBOK2 — master and reference data management"
+            ],
+            "connotation": "The master data domains, one entry per domain."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (master data management)",
+                  "DAMA-DMBOK2 — master and reference data management"
+                ],
+                "connotation": "The master data domains, one entry per domain."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -126563,6 +127848,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MSDDO-MAST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
               }
             },
             {
@@ -126588,7 +127879,24 @@
       "name": "MdmSummary",
       "sectionId": "MDSU",
       "doc": "Summary of MDM status and maturity.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (master data management)",
+          "DAMA-DMBOK2 — master and reference data management"
+        ],
+        "connotation": "The aggregate MDM posture: maturity, strategy and platform, domain count, golden-record coverage, matching capability, and key gaps."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (master data management)",
+              "DAMA-DMBOK2 — master and reference data management"
+            ],
+            "connotation": "The aggregate MDM posture: maturity, strategy and platform, domain count, golden-record coverage, matching capability, and key gaps."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182227,7 +183535,22 @@
       "name": "RetentionPolicyEntry",
       "sectionId": "REPOL",
       "doc": "Retention policy for a specific data category.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data retention & lifecycle)"
+        ],
+        "connotation": "A single retention policy: the data category it covers, its timing and legal basis, archival and deletion lifecycle, and compliance status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data retention & lifecycle)"
+            ],
+            "connotation": "A single retention policy: the data category it covers, its timing and legal basis, archival and deletion lifecycle, and compliance status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182329,7 +183652,22 @@
       "name": "RetentionPolicyEntryGovernance",
       "sectionId": "RPEG",
       "doc": "Compliance and accountability status.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data retention compliance)"
+        ],
+        "connotation": "The compliance and accountability state of this policy: its compliance and implementation status, and who is responsible for enforcing it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data retention compliance)"
+            ],
+            "connotation": "The compliance and accountability state of this policy: its compliance and implementation status, and who is responsible for enforcing it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182386,7 +183724,22 @@
       "name": "RetentionPolicyEntryLifecycle",
       "sectionId": "RPEL",
       "doc": "Archival and deletion lifecycle handling.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data lifecycle handling)"
+        ],
+        "connotation": "How data under this policy is archived and deleted, and how exceptions to the policy are handled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data lifecycle handling)"
+            ],
+            "connotation": "How data under this policy is archived and deleted, and how exceptions to the policy are handled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182443,7 +183796,22 @@
       "name": "RetentionPolicyEntryRequirements",
       "sectionId": "RPER",
       "doc": "Retention timing and legal basis.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data retention requirements)"
+        ],
+        "connotation": "The timing rules of this policy: how long data is retained, what starts the retention clock, and the legal basis requiring it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data retention requirements)"
+            ],
+            "connotation": "The timing rules of this policy: how long data is retained, what starts the retention clock, and the legal basis requiring it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -182500,7 +183868,22 @@
       "name": "RetentionPolicySummary",
       "sectionId": "REPOSU",
       "doc": "Summary of retention policy framework.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (data retention & lifecycle)"
+        ],
+        "connotation": "The aggregate retention posture: whether a framework exists, primary regulations, default period, compliance rate, archival/purging automation, and known gaps."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (data retention & lifecycle)"
+            ],
+            "connotation": "The aggregate retention posture: whether a framework exists, primary regulations, default period, compliance rate, archival/purging automation, and known gaps."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {

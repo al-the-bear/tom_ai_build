@@ -47,8 +47,18 @@ document alongside the systems-to-replace inventory.
   CurrentDataLandscape currentDataLandscape = CurrentDataLandscape();
 
   /// 1.5. Operational Metrics.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (operational baseline metrics)'],
+    'The collection of current operational baseline metrics — one entry per '
+    'measured characteristic — that sizes the target system and seeds its '
+    'non-functional requirements.',
+  )
   @SectionId('CUOPME-OPER-LST')
   @SectionIdPattern('CUOPME-OPER-xxx')
+  @ContentHelp('Add one entry per operational metric of the current landscape: '
+      'transaction volumes, user counts, response-time baselines, uptime, '
+      'error rates, and storage growth. These figures drive target sizing and '
+      'non-functional requirements.')
   @SerializationOrder(5)
   List<CurrentOperationalMetric> operationalMetrics = [];
 
@@ -3301,6 +3311,13 @@ class GapEntryResolution {
 /// Comprehensive documentation of the current data situation including where
 /// data lives, data quality issues, duplication, ownership, volumes, growth
 /// trends, retention policies, and governance structures.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data architecture)',
+   'DAMA-DMBOK2 — data management body of knowledge'],
+  'The AS-IS picture of the organization\'s data — where it lives, its quality '
+  'and duplication, ownership, volumes and growth, retention, governance, '
+  'classification, integration, and master data.',
+)
 @SectionId('CUDALA')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-DAT')
@@ -3371,6 +3388,11 @@ to the organization. Highlight critical data dependencies and risks.
 }
 
 /// Summary statistics and health indicators for data landscape.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data landscape baseline)'],
+  'Top-level baseline indicators of the data landscape: source counts, volume, '
+  'quality, governance maturity, duplication, compliance, and security risk.',
+)
 @SectionId('DALASU')
 class DataLandscapeSummary {
   @Form([
@@ -3403,6 +3425,12 @@ class DataLandscapeSummary {
 ///
 /// Comprehensive inventory of all data sources, stores, and repositories
 /// in the current environment.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data source inventory)',
+   'DAMA-DMBOK2 — data storage and operations'],
+  'The catalogue of every data source, store, and repository in the current '
+  'environment, with its technology, volume, quality, ownership, and access.',
+)
 @SectionId('DASOIN')
 class DataSourceInventory {
   @ContentHelp('''
@@ -3419,8 +3447,15 @@ catalog data sources, coverage of the inventory, and any known gaps.
   String? dataSourceMapDiagram;
 
   /// Contains 0+× DataSource.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data source inventory)'],
+    'The list of catalogued data sources, one entry per store or repository.',
+  )
   @SectionId('DASR-DATA-LST')
   @SectionIdPattern('DASR-DATA-xxx')
+  @ContentHelp('Add one entry per data source/store in the environment '
+      '(databases, warehouses, lakes, file systems, SaaS, APIs). Capture each '
+      'source\'s technology, volume, quality, ownership, and key entities.')
   @SerializationOrder(2)
   List<DataSourceEntry> dataSources = [];
 }
@@ -3429,6 +3464,11 @@ catalog data sources, coverage of the inventory, and any known gaps.
 ///
 /// Documents a specific data source/store with comprehensive details about
 /// technology, format, volume, quality, ownership, and access patterns.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data source inventory)'],
+  'A single catalogued data source: its identity, classification, technology, '
+  'volume, quality, ownership, integration, lifecycle, and key entities.',
+)
 @SectionId('DASR')
 class DataSourceEntry {
   @Form([
@@ -3475,14 +3515,26 @@ class DataSourceEntry {
   DataSourceRetentionPolicy retentionPolicy = DataSourceRetentionPolicy();
 
   /// Key data entities in this source.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data entity inventory)'],
+    'The principal data entities (tables/collections) held in this source.',
+  )
   @Min(1)
   @SectionId('DSEE-KEYE-LST')
   @SectionIdPattern('DSEE-KEYE-xxx')
+  @ContentHelp('Add one entry per key entity in this source. Capture its name, '
+      'what it represents, record count, primary key, relationships, and any '
+      'sensitive fields.')
     @SerializationOrder(9)
     List<DataSourceEntityEntry> keyEntities = [];
 }
 
 /// Classification for data source.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data source classification)'],
+  'How this source is categorized: what it contains, its source category, and '
+  'the business domain it serves.',
+)
 @SectionId('DASOCL')
 class DataSourceClassification {
   @Form([
@@ -3498,6 +3550,11 @@ class DataSourceClassification {
 }
 
 /// Technical details for data source.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data architecture)'],
+  'The technical realization of this source: store type, technology, version, '
+  'hosting location, and data format.',
+)
 @SectionId('DASOTE')
 class DataSourceTechnical {
   @Form([
@@ -3517,6 +3574,11 @@ class DataSourceTechnical {
 }
 
 /// Volume and performance for data source.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data volume baseline)'],
+  'The size and access profile of this source: estimated volume, record count, '
+  'growth rate, access frequency, and peak load periods.',
+)
 @SectionId('DASOVO')
 class DataSourceVolume {
   @Form([
@@ -3536,6 +3598,12 @@ class DataSourceVolume {
 }
 
 /// Quality and reliability for data source.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data quality assessment)',
+   'ISO/IEC 25012 — data quality model'],
+  'The quality and reliability profile of this source: its quality score, '
+  'known issues, freshness, and reliability.',
+)
 @SectionId('DASOQU')
 class DataSourceQuality {
   @Form([
@@ -3553,6 +3621,12 @@ class DataSourceQuality {
 }
 
 /// Ownership and governance for data source.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data ownership & governance)',
+   'DAMA-DMBOK2 — data governance'],
+  'Who owns and governs this source: business and technical owners, steward, '
+  'access-control model, and sensitivity level.',
+)
 @SectionId('DASOOW')
 class DataSourceOwnership {
   @Form([
@@ -3572,6 +3646,11 @@ class DataSourceOwnership {
 }
 
 /// Integration for data source.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data flows & integration)'],
+  'How this source connects to the rest of the landscape: integrated systems, '
+  'upstream feeds, and downstream consumers.',
+)
 @SectionId('DASOI1')
 class DataSourceIntegration {
   @Form([
@@ -3587,6 +3666,11 @@ class DataSourceIntegration {
 }
 
 /// Lifecycle for data source.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data lifecycle)'],
+  'The lifecycle state of this source: creation, last major update, planned '
+  'decommission, and documentation status.',
+)
 @SectionId('DASOLI')
 class DataSourceLifecycle {
   @Form([
@@ -3606,6 +3690,12 @@ class DataSourceLifecycle {
 }
 
 /// Retention policy specific to a data source.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data retention & lifecycle)',
+   'DAMA-DMBOK2 — data management body of knowledge'],
+  'The retention rules governing this source: retention period, archival and '
+  'deletion policy, legal basis, and compliance notes.',
+)
 @SectionId('DSRP')
 class DataSourceRetentionPolicy {
   @Form([
@@ -3625,6 +3715,11 @@ class DataSourceRetentionPolicy {
 }
 
 /// Key data entity within a data source.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data entity inventory)'],
+  'A single key entity in a source: its name, meaning, record count, primary '
+  'key, relationships, and sensitive fields.',
+)
 @SectionId('DSEE')
 class DataSourceEntityEntry {
   @Form([
@@ -3649,6 +3744,12 @@ class DataSourceEntityEntry {
 ///
 /// Comprehensive assessment of data quality across the organization,
 /// covering accuracy, completeness, consistency, timeliness, and validity.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data quality assessment)',
+   'ISO/IEC 25012 — data quality model'],
+  'The organization-wide assessment of data quality across standard dimensions, '
+  'the inventory of quality issues, and improvement initiatives under way.',
+)
 @SectionId('DAQUAS')
 class DataQualityAssessment {
   @ContentHelp('''
@@ -3670,20 +3771,43 @@ methodology, scope, key findings, and overall data quality posture.
   String? qualityIssuesSeverityChart;
 
   /// Data quality issues inventory.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data quality assessment)',
+     'ISO/IEC 25012 — data quality model'],
+    'The inventory of identified data quality issues, one entry per issue.',
+  )
   @SectionId('DAQLIS-QUAL-LST')
   @SectionIdPattern('DAQLIS-QUAL-xxx')
+  @ContentHelp('Add one entry per known data quality issue. Capture its '
+      'severity, affected sources/entities, business impact, root cause, and '
+      'proposed resolution.')
   @Min(1)
   @SerializationOrder(3)
   List<DataQualityIssueEntry> qualityIssues = [];
 
   /// Quality improvement initiatives in progress.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data quality improvement)',
+     'DAMA-DMBOK2 — data quality management'],
+    'The set of in-progress initiatives aimed at improving data quality.',
+  )
   @SectionId('DQIE-IMPR-LST')
   @SectionIdPattern('DQIE-IMPR-xxx')
+  @ContentHelp('Add one entry per active or planned data-quality improvement '
+      'initiative. Capture the issues it targets, its status, expected '
+      'completion, and the improvement it should deliver.')
   @SerializationOrder(4)
   List<DataQualityInitiativeEntry> improvementInitiatives = [];
 }
 
 /// Summary of data quality across standard dimensions.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data quality assessment)',
+   'ISO/IEC 25012 — data quality model'],
+  'The quality scorecard across standard dimensions — accuracy, completeness, '
+  'consistency, timeliness, validity, uniqueness, and integrity — with the '
+  'assessment\'s date, scope, and methodology.',
+)
 @SectionId('DQDS')
 class DataQualityDimensionsSummary {
   @Form([
@@ -3713,6 +3837,12 @@ class DataQualityDimensionsSummary {
 }
 
 /// A data quality issue entry (form).
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data quality assessment)',
+   'ISO/IEC 25012 — data quality model'],
+  'A single identified data quality issue: its identity, affected source, '
+  'classification and severity, business impact, and resolution plan.',
+)
 @SectionId('DAQLIS')
 class DataQualityIssueEntry {
   @Form([
@@ -3744,6 +3874,12 @@ class DataQualityIssueEntry {
 }
 
 /// Classification and severity.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data quality assessment)',
+   'ISO/IEC 25012 — data quality model'],
+  'How this quality issue is categorized: affected entities, the quality '
+  'dimension it violates, and its severity.',
+)
 @SectionId('DQIEC')
 class DataQualityIssueEntryClassification {
   @Form([
@@ -3759,6 +3895,11 @@ class DataQualityIssueEntryClassification {
 }
 
 /// Business impact and diagnostics.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data quality impact)'],
+  'The business consequence and diagnostics of this quality issue: its impact, '
+  'quantified cost, root cause, affected record count, and discovery date.',
+)
 @SectionId('DQIEI')
 class DataQualityIssueEntryImpact {
   @Form([
@@ -3778,6 +3919,11 @@ class DataQualityIssueEntryImpact {
 }
 
 /// Resolution planning.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data quality remediation)'],
+  'How this quality issue is being handled: the current workaround, the '
+  'proposed resolution, and its priority.',
+)
 @SectionId('DQIER')
 class DataQualityIssueEntryResolution {
   @Form([
@@ -3793,6 +3939,12 @@ class DataQualityIssueEntryResolution {
 }
 
 /// Data quality improvement initiative entry.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data quality improvement)',
+   'DAMA-DMBOK2 — data quality management'],
+  'A single initiative to improve data quality: what it targets, its status, '
+  'expected completion, and the improvement it aims to deliver.',
+)
 @SectionId('DQIE')
 class DataQualityInitiativeEntry {
   @Form([
@@ -3819,6 +3971,12 @@ class DataQualityInitiativeEntry {
 ///
 /// Analysis of data duplication across systems, including redundant data
 /// stores, duplicated records, and synchronization challenges.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data redundancy)',
+   'DAMA-DMBOK2 — data management body of knowledge'],
+  'The analysis of redundant data across systems — the overall duplication '
+  'picture and each individual duplication instance with its sync challenges.',
+)
 @SectionId('DADUAN')
 class DataDuplicationAnalysis {
   @ContentHelp('''
@@ -3839,13 +3997,25 @@ of duplication, its causes, impacts, and any ongoing deduplication efforts.
   String? duplicationDiagram;
 
   /// Individual duplication instances.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data redundancy)'],
+    'The list of documented duplication cases, one entry per instance.',
+  )
   @SectionId('DADU-DUPL-LST')
   @SectionIdPattern('DADU-DUPL-xxx')
+  @ContentHelp('Add one entry per documented duplication case. Capture the data '
+      'element, its primary and duplicate sources, how copies are synchronized, '
+      'the business reason, and the recommended action.')
   @SerializationOrder(3)
   List<DataDuplicationEntry> duplicationInstances = [];
 }
 
 /// Summary of data duplication findings.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data redundancy)'],
+  'The aggregate duplication picture: overall rate, duplicate volume, instance '
+  'count, storage waste, sync challenges, and consolidation opportunities.',
+)
 @SectionId('DADUSU')
 class DataDuplicationSummary {
   @Form([
@@ -3871,6 +4041,11 @@ class DataDuplicationSummary {
 }
 
 /// A data duplication instance entry.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data redundancy)'],
+  'A single duplication case: the data element duplicated, its sources, the '
+  'synchronization arrangement, and its business impact and resolution.',
+)
 @SectionId('DADU')
 class DataDuplicationEntry {
   @Form([
@@ -3900,6 +4075,11 @@ class DataDuplicationEntry {
 }
 
 /// Sources and duplication shape.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data redundancy)'],
+  'Where this duplicated data lives: its authoritative primary source, the '
+  'duplicate locations, and the kind of duplication.',
+)
 @SectionId('DDES')
 class DataDuplicationEntrySources {
   @Form([
@@ -3915,6 +4095,11 @@ class DataDuplicationEntrySources {
 }
 
 /// Synchronization and consistency details.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data consistency)'],
+  'How the duplicate copies are kept aligned: synchronization method and '
+  'frequency, and any known inconsistencies between copies.',
+)
 @SectionId('DADUENSY')
 class DataDuplicationEntrySynchronization {
   @Form([
@@ -3930,6 +4115,11 @@ class DataDuplicationEntrySynchronization {
 }
 
 /// Business impact and resolution guidance.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data redundancy)'],
+  'Why this duplication exists and what to do about it: business reason, '
+  'consolidation feasibility, impact, and recommended action.',
+)
 @SectionId('DDEG')
 class DataDuplicationEntryGovernance {
   @Form([
@@ -3950,6 +4140,12 @@ class DataDuplicationEntryGovernance {
 ///
 /// Documentation of data ownership structures, stewardship roles,
 /// and accountability for data assets.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data ownership & stewardship)',
+   'DAMA-DMBOK2 — data governance'],
+  'The AS-IS ownership and stewardship model for data assets — the ownership '
+  'approach, accountable roles per domain, and gaps in accountability.',
+)
 @SectionId('DAOW')
 class DataOwnership {
   @ContentHelp('''
@@ -3970,14 +4166,27 @@ the ownership model, roles and responsibilities, and any gaps in accountability.
   String? ownershipMatrixDiagram;
 
   /// Data ownership assignments by domain.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data ownership & stewardship)'],
+    'The ownership assignments, one entry per data domain or asset.',
+  )
   @Min(1)
   @SectionId('DAOWEN-OWNE-LST')
   @SectionIdPattern('DAOWEN-OWNE-xxx')
+  @ContentHelp('Add one entry per data domain or asset. Capture its business '
+      'owner, data steward and technical custodian, who approves access, and '
+      'the current ownership coverage status.')
   @SerializationOrder(3)
   List<DataOwnershipEntry> ownershipAssignments = [];
 }
 
 /// Summary of data ownership model.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data ownership & stewardship)',
+   'DAMA-DMBOK2 — data governance'],
+  'The aggregate ownership posture: ownership model, domain count, assigned '
+  'ownership rate, active stewards, gaps, and stewardship maturity.',
+)
 @SectionId('DAOWSU')
 class DataOwnershipSummary {
   @Form([
@@ -4003,6 +4212,11 @@ class DataOwnershipSummary {
 }
 
 /// Data ownership assignment for a domain or asset.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data ownership & stewardship)'],
+  'A single ownership assignment: the data domain and its assets, the business '
+  'owner, and the stewardship and access-governance arrangements.',
+)
 @SectionId('DAOWEN')
 class DataOwnershipEntry {
   @Form([
@@ -4028,6 +4242,12 @@ class DataOwnershipEntry {
 }
 
 /// Stewardship and custodianship assignments.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data stewardship)',
+   'DAMA-DMBOK2 — data governance'],
+  'Day-to-day responsibility for this data: the data steward, technical '
+  'custodian, and who is accountable for quality.',
+)
 @SectionId('DAOWENST')
 class DataOwnershipEntryStewardship {
   @Form([
@@ -4045,6 +4265,12 @@ class DataOwnershipEntryStewardship {
 }
 
 /// Access and coverage governance.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data access governance)',
+   'DAMA-DMBOK2 — data governance'],
+  'Governance of access to this domain: who approves access, the ownership '
+  'coverage status, and when ownership was last reviewed.',
+)
 @SectionId('DOEG')
 class DataOwnershipEntryGovernance {
   @Form([
@@ -4063,6 +4289,11 @@ class DataOwnershipEntryGovernance {
 ///
 /// Analysis of current data volumes, historical growth trends,
 /// and projections for future capacity needs.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data volume & growth baseline)'],
+  'The AS-IS sizing of data — current volumes, historical growth trends, and '
+  'forward projections that drive future capacity planning.',
+)
 @SectionId('DVAG')
 class DataVolumesAndGrowth {
   @ContentHelp('''
@@ -4084,14 +4315,26 @@ and forecasting methodology.
   String? growthTrendChart;
 
   /// Volume details by data source.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data volume baseline)'],
+    'Per-source volume figures, one entry per data source.',
+  )
   @Min(1)
   @SectionId('DAVOEN-VOLU-LST')
   @SectionIdPattern('DAVOEN-VOLU-xxx')
+  @ContentHelp('Add one entry per data source. Capture its current volume, '
+      'record count, average record size, historical and projected growth, '
+      'growth drivers, and archival/purge rates.')
   @SerializationOrder(3)
   List<DataVolumeEntry> volumeBySource = [];
 }
 
 /// Summary of data volumes and growth trends.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data volume baseline)'],
+  'The aggregate volume picture: total, structured and unstructured volumes, '
+  'with growth, projection, and capacity sub-sections.',
+)
 @SectionId('DAVOSU')
 class DataVolumeSummary {
   @Form([
@@ -4119,6 +4362,11 @@ class DataVolumeSummary {
 }
 
 /// Historical growth behavior.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data growth baseline)'],
+  'How data has grown historically: annual and monthly growth rates and the '
+  'periods of peak growth.',
+)
 @SectionId('DVSG')
 class DataVolumeSummaryGrowth {
   @Form([
@@ -4134,6 +4382,11 @@ class DataVolumeSummaryGrowth {
 }
 
 /// Forward-looking forecasts and utilization.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (capacity projection)'],
+  'Forward-looking volume forecasts and current capacity utilization that '
+  'inform future capacity needs.',
+)
 @SectionId('DVSP')
 class DataVolumeSummaryProjection {
   @Form([
@@ -4149,6 +4402,11 @@ class DataVolumeSummaryProjection {
 }
 
 /// Capacity pressure and cost impact.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (capacity & cost baseline)'],
+  'Storage capacity pressure and its cost: current constraints, total storage '
+  'cost, and projected cost growth.',
+)
 @SectionId('DVSC')
 class DataVolumeSummaryCapacity {
   @Form([
@@ -4164,6 +4422,11 @@ class DataVolumeSummaryCapacity {
 }
 
 /// Volume details for a specific data source.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data volume baseline)'],
+  'The volume and growth profile of one source: current volume, record count, '
+  'average size, historical and projected growth, drivers, and archival/purge.',
+)
 @SectionId('DAVOEN')
 class DataVolumeEntry {
   @Form([
@@ -4194,6 +4457,12 @@ class DataVolumeEntry {
 ///
 /// Documentation of data retention policies, legal requirements,
 /// archival strategies, and data lifecycle management.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data retention & lifecycle)',
+   'DAMA-DMBOK2 — data management body of knowledge'],
+  'The AS-IS retention and lifecycle regime — the policy framework, regulatory '
+  'drivers, archival and deletion practices, and per-category retention rules.',
+)
 @SectionId('DAREPO')
 class DataRetentionPolicies {
   @ContentHelp('''
@@ -4208,14 +4477,27 @@ policy framework, regulatory drivers, implementation status, and any gaps.
   RetentionPolicySummary policySummary = RetentionPolicySummary();
 
   /// Retention policies by data category.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data retention & lifecycle)'],
+    'The retention policies, one entry per data category.',
+  )
   @SectionId('REPOL-RETE-LST')
   @SectionIdPattern('REPOL-RETE-xxx')
+  @ContentHelp('Add one entry per data category with a retention policy. '
+      'Capture its retention period and trigger, legal basis, archival and '
+      'deletion methods, and compliance/implementation status.')
   @Min(1)
   @SerializationOrder(2)
   List<RetentionPolicyEntry> retentionPolicies = [];
 }
 
 /// Summary of retention policy framework.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data retention & lifecycle)'],
+  'The aggregate retention posture: whether a framework exists, primary '
+  'regulations, default period, compliance rate, archival/purging automation, '
+  'and known gaps.',
+)
 @SectionId('REPOSU')
 class RetentionPolicySummary {
   @Form([
@@ -4243,6 +4525,11 @@ class RetentionPolicySummary {
 }
 
 /// Retention policy for a specific data category.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data retention & lifecycle)'],
+  'A single retention policy: the data category it covers, its timing and legal '
+  'basis, archival and deletion lifecycle, and compliance status.',
+)
 @SectionId('REPOL')
 class RetentionPolicyEntry {
   @Form([
@@ -4271,6 +4558,11 @@ class RetentionPolicyEntry {
 }
 
 /// Retention timing and legal basis.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data retention requirements)'],
+  'The timing rules of this policy: how long data is retained, what starts the '
+  'retention clock, and the legal basis requiring it.',
+)
 @SectionId('RPER')
 class RetentionPolicyEntryRequirements {
   @Form([
@@ -4286,6 +4578,11 @@ class RetentionPolicyEntryRequirements {
 }
 
 /// Archival and deletion lifecycle handling.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data lifecycle handling)'],
+  'How data under this policy is archived and deleted, and how exceptions to '
+  'the policy are handled.',
+)
 @SectionId('RPEL')
 class RetentionPolicyEntryLifecycle {
   @Form([
@@ -4301,6 +4598,11 @@ class RetentionPolicyEntryLifecycle {
 }
 
 /// Compliance and accountability status.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data retention compliance)'],
+  'The compliance and accountability state of this policy: its compliance and '
+  'implementation status, and who is responsible for enforcing it.',
+)
 @SectionId('RPEG')
 class RetentionPolicyEntryGovernance {
   @Form([
@@ -4318,6 +4620,12 @@ class RetentionPolicyEntryGovernance {
 /// 1.4.7. Data Governance.
 ///
 /// Current data governance structure, policies, processes, and maturity level.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data governance)',
+   'DAMA-DMBOK2 — data governance'],
+  'The AS-IS data governance regime — its maturity, organizational structure, '
+  'and the catalogue of governance policies in force.',
+)
 @SectionId('DAGO')
 class DataGovernance {
   @ContentHelp('''
@@ -4338,14 +4646,28 @@ framework, organizational structure, policies, and current maturity level.
   String? governanceOrgChart;
 
   /// Data governance policies.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data governance)',
+     'DAMA-DMBOK2 — data governance'],
+    'The governance policies in force, one entry per policy.',
+  )
   @Min(1)
   @SectionId('DGPE-GOVE-LST')
   @SectionIdPattern('DGPE-GOVE-xxx')
+  @ContentHelp('Add one entry per data governance policy (quality, security, '
+      'privacy, access, MDM). Capture its area, scope, status, owner, '
+      'enforcement mechanism, and current compliance level.')
   @SerializationOrder(3)
   List<DataGovernancePolicyEntry> governancePolicies = [];
 }
 
 /// Data governance maturity assessment.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data governance maturity)',
+   'DAMA-DMBOK2 — data governance'],
+  'The maturity scorecard for data governance across strategy, organization, '
+  'policy, process, technology, and culture, with target level and key gaps.',
+)
 @SectionId('DAGOMA')
 class DataGovernanceMaturity {
   @Form([
@@ -4375,6 +4697,12 @@ class DataGovernanceMaturity {
 }
 
 /// Data governance policy entry.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data governance)',
+   'DAMA-DMBOK2 — data governance'],
+  'A single data governance policy: its identity and area, its lifecycle and '
+  'applicability, and its ownership, enforcement, and compliance status.',
+)
 @SectionId('DGPE')
 class DataGovernancePolicyEntry {
   @Form([
@@ -4402,6 +4730,11 @@ class DataGovernancePolicyEntry {
 }
 
 /// Policy lifecycle and applicability.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data governance)'],
+  'The lifecycle and reach of this policy: its scope, status, effective date, '
+  'and review frequency.',
+)
 @SectionId('DGPEL')
 class DataGovernancePolicyEntryLifecycle {
   @Form([
@@ -4419,6 +4752,12 @@ class DataGovernancePolicyEntryLifecycle {
 }
 
 /// Ownership, enforcement, and compliance status.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data governance)',
+   'DAMA-DMBOK2 — data governance'],
+  'Who owns and enforces this policy and how well it is followed: policy owner, '
+  'enforcement mechanism, and compliance level.',
+)
 @SectionId('DGPEG')
 class DataGovernancePolicyEntryGovernance {
   @Form([
@@ -4437,6 +4776,12 @@ class DataGovernancePolicyEntryGovernance {
 ///
 /// Data classification framework, sensitivity levels, and current
 /// classification status of data assets.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data classification)',
+   'ISO/IEC 27001 — information classification'],
+  'The AS-IS data classification regime — the framework and sensitivity levels '
+  'defined, and how far data assets have actually been classified.',
+)
 @SectionId('CUDACL')
 class CurrentDataClassification {
   @ContentHelp('''
@@ -4453,20 +4798,41 @@ coverage.
       DataClassificationSummary();
 
   /// Classification levels defined.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data classification)',
+     'ISO/IEC 27001 — information classification'],
+    'The sensitivity levels defined by the framework, one entry per level.',
+  )
   @Min(1)
   @SectionId('DCLE-CLAS-LST')
   @SectionIdPattern('DCLE-CLAS-xxx')
+  @ContentHelp('Add one entry per classification level (e.g. Public, Internal, '
+      'Confidential, Restricted). Capture its order, meaning, examples, and the '
+      'handling, access, storage, transmission, and disposal requirements.')
   @SerializationOrder(2)
   List<DataClassificationLevelEntry> classificationLevels = [];
 
   /// Classification status by data domain.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data classification coverage)'],
+    'How far classification has been applied, one entry per data domain.',
+  )
   @SectionId('DCSE-CLAS-LST')
   @SectionIdPattern('DCSE-CLAS-xxx')
+  @ContentHelp('Add one entry per data domain. Capture its classification '
+      'status, percentage classified, highest sensitivity level present, the '
+      'classification owner, and when it was last reviewed.')
   @SerializationOrder(3)
   List<DataClassificationStatusEntry> classificationStatus = [];
 }
 
 /// Summary of data classification framework.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data classification)',
+   'ISO/IEC 27001 — information classification'],
+  'The aggregate classification posture: whether a framework exists, its name '
+  'and number of levels, coverage, auto-classification, labeling, and training.',
+)
 @SectionId('DACLSU')
 class DataClassificationSummary {
   @Form([
@@ -4494,6 +4860,12 @@ class DataClassificationSummary {
 }
 
 /// A data classification level definition.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data classification)',
+   'ISO/IEC 27001 — information classification'],
+  'One sensitivity level: its name and order, meaning and examples, and the '
+  'handling, access, storage, transmission, disposal, and incident rules.',
+)
 @SectionId('DCLE')
 class DataClassificationLevelEntry {
   @Form([
@@ -4523,6 +4895,11 @@ class DataClassificationLevelEntry {
 }
 
 /// Classification status for a data domain.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data classification coverage)'],
+  'How far one data domain has been classified: its status, percentage done, '
+  'highest sensitivity present, owner, and last review.',
+)
 @SectionId('DCSE')
 class DataClassificationStatusEntry {
   @Form([
@@ -4547,6 +4924,12 @@ class DataClassificationStatusEntry {
 ///
 /// Documentation of data integration points, ETL processes, APIs,
 /// and data exchange mechanisms.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data flows & integration)',
+   'DAMA-DMBOK2 — data integration and interoperability'],
+  'The AS-IS data integration landscape — the integration architecture, major '
+  'data flows, and the inventory of integration points between systems.',
+)
 @SectionId('DAINPO')
 class DataIntegrationPoints {
   @ContentHelp('''
@@ -4567,14 +4950,26 @@ architecture, major data flows, technologies used, and integration challenges.
   String? dataFlowDiagram;
 
   /// Data integration points inventory.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (data flows & integration)'],
+    'The catalogued integration points, one entry per data exchange.',
+  )
   @SectionId('DAIN-INTE-LST')
   @SectionIdPattern('DAIN-INTE-xxx')
+  @ContentHelp('Add one entry per data integration point. Capture its source '
+      'and target systems, integration type, volume and transport, reliability '
+      'and monitoring, and its owners.')
   @Min(1)
   @SerializationOrder(3)
   List<DataIntegrationEntry> integrationPoints = [];
 }
 
 /// Summary of data integration landscape.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data flows & integration)'],
+  'The aggregate integration picture: total points, architecture style, primary '
+  'tool, real-time/batch/API split, reliability, latency, and known bottlenecks.',
+)
 @SectionId('DAINSU')
 class DataIntegrationSummary {
   @Form([
@@ -4604,6 +4999,11 @@ class DataIntegrationSummary {
 }
 
 /// A data integration point entry.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data flows & integration)'],
+  'A single integration point: what it exchanges, its endpoints and type, '
+  'volume and transport, reliability and monitoring, and ownership.',
+)
 @SectionId('DAIN')
 class DataIntegrationEntry {
   @Form([
@@ -4636,6 +5036,11 @@ class DataIntegrationEntry {
 }
 
 /// Endpoints and type for data integration.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data flows & integration)'],
+  'The endpoints of this integration: the source and target systems and the '
+  'kind of integration between them.',
+)
 @SectionId('DIEE')
 class DataIntegrationEntryEndpoints {
   @Form([
@@ -4651,6 +5056,11 @@ class DataIntegrationEntryEndpoints {
 }
 
 /// Volume and transport for data integration.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data flows & integration)'],
+  'How data moves across this integration: volume, frequency, technology, '
+  'protocol, and transformation.',
+)
 @SectionId('DIET')
 class DataIntegrationEntryTransport {
   @Form([
@@ -4670,6 +5080,11 @@ class DataIntegrationEntryTransport {
 }
 
 /// Reliability and monitoring for data integration.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration reliability)'],
+  'How dependable this integration is: error handling, monitoring, reliability, '
+  'latency, and any SLA.',
+)
 @SectionId('DIER')
 class DataIntegrationEntryReliability {
   @Form([
@@ -4689,6 +5104,11 @@ class DataIntegrationEntryReliability {
 }
 
 /// Ownership and issues for data integration.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (data flows & integration)'],
+  'Who owns this integration and how critical it is: business and technical '
+  'owners, criticality, and known issues.',
+)
 @SectionId('DIEO')
 class DataIntegrationEntryOwnership {
   @Form([
@@ -4709,6 +5129,12 @@ class DataIntegrationEntryOwnership {
 ///
 /// Master data management practices, golden records, and data
 /// synchronization across systems.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (master data management)',
+   'DAMA-DMBOK2 — master and reference data management'],
+  'The AS-IS master data management regime — MDM strategy and maturity, the '
+  'master data domains, their golden-record sources, and synchronization.',
+)
 @SectionId('MADAMA')
 class MasterDataManagement {
   @ContentHelp('''
@@ -4724,14 +5150,28 @@ approach.
   MdmSummary mdmSummary = MdmSummary();
 
   /// Master data domains.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (master data management)',
+     'DAMA-DMBOK2 — master and reference data management'],
+    'The master data domains, one entry per domain.',
+  )
   @SectionId('MSDDO-MAST-LST')
   @SectionIdPattern('MSDDO-MAST-xxx')
+  @ContentHelp('Add one entry per master data domain (e.g. Customer, Product, '
+      'Vendor). Capture its golden-record source, quality and volume, consuming '
+      'systems and cadence, and ownership and improvement plans.')
   @Min(1)
   @SerializationOrder(2)
   List<MasterDataDomainEntry> masterDataDomains = [];
 }
 
 /// Summary of MDM status and maturity.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (master data management)',
+   'DAMA-DMBOK2 — master and reference data management'],
+  'The aggregate MDM posture: maturity, strategy and platform, domain count, '
+  'golden-record coverage, matching capability, and key gaps.',
+)
 @SectionId('MDSU')
 class MdmSummary {
   @Form([
@@ -4761,6 +5201,12 @@ class MdmSummary {
 }
 
 /// Master data domain entry.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (master data management)',
+   'DAMA-DMBOK2 — master and reference data management'],
+  'A single master data domain: its golden-record source, quality and volume, '
+  'downstream usage and cadence, and ownership and improvement planning.',
+)
 @SectionId('MSDDO')
 class MasterDataDomainEntry {
   @Form([
@@ -4789,6 +5235,12 @@ class MasterDataDomainEntry {
 }
 
 /// Volume and quality indicators for a master data domain.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (master data quality)',
+   'ISO/IEC 25012 — data quality model'],
+  'The size and quality of this master data domain: record count, quality '
+  'score, and duplicate rate.',
+)
 @SectionId('MDDEQ')
 class MasterDataDomainEntryQuality {
   @Form([
@@ -4804,6 +5256,11 @@ class MasterDataDomainEntryQuality {
 }
 
 /// Downstream usage and cadence for a master data domain.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (master data management)'],
+  'How this master data domain is consumed: the systems that use it, its update '
+  'frequency, and its level of governance.',
+)
 @SectionId('MDDEU')
 class MasterDataDomainEntryUsage {
   @Form([
@@ -4819,6 +5276,12 @@ class MasterDataDomainEntryUsage {
 }
 
 /// Ownership and improvement planning for a master data domain.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (master data governance)',
+   'DAMA-DMBOK2 — master and reference data management'],
+  'Who owns this master data domain and how it will improve: domain owner, '
+  'data steward, known issues, and improvement plan.',
+)
 @SectionId('MDDEG')
 class MasterDataDomainEntryGovernance {
   @Form([
@@ -4844,6 +5307,12 @@ class MasterDataDomainEntryGovernance {
 /// Baseline metrics of the current systems: throughput, volume, uptime,
 /// response times, user counts. Used to size the target system and to
 /// derive non-functional requirements.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (operational baseline metric)'],
+  'One measurable operational characteristic of the current systems — a '
+  'baseline figure used to size the target system and derive its '
+  'non-functional requirements.',
+)
 @SectionId('CUOPME')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-MET')
@@ -4875,6 +5344,14 @@ replacement underperforms the baseline).
 ///
 /// Risks tied to the current state and to its replacement. Distinct from
 /// the target-side risks section which covers replacement risks.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — current-state analysis (current-state risks)',
+    'ISO 31000:2018 — risk management (risk identification & assessment)',
+  ],
+  'The assessment of risks arising from the current systems landscape and from '
+  'the act of replacing it — distinct from the target-state replacement risks.',
+)
 @SectionId('CUSTRIAS')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-RIS')
