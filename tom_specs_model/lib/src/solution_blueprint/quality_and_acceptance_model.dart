@@ -9,8 +9,8 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../common/enums.dart';
-import 'delivery_acceptance.dart';
-import 'system_quality_goals.dart';
+import 'delivery_scope_and_acceptance.dart';
+import 'quality_model.dart';
 
 /// SBP.14 Quality & Acceptance Model.
 @StandardReferences(

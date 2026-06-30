@@ -9,7 +9,7 @@ library;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
-import 'delivery_acceptance.dart';
+import 'delivery_scope_and_acceptance.dart';
 
 /// 11. System Quality Goals. Seeds → QAP.
 ///
