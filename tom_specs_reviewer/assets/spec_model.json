@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T16:09:32.208692Z",
+  "generatedAt": "2026-06-30T16:24:53.990809Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -2952,13 +2952,13 @@
     },
     "ActorCharacteristics": {
       "name": "ActorCharacteristics",
-      "sectionId": "ACCH1",
+      "sectionId": "ACTCHA",
       "doc": "Actor characteristics.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ACCH1"
+            "id": "ACTCHA"
           }
         }
       ],
@@ -4095,13 +4095,13 @@
     },
     "AdminInterfaceRequirementsData": {
       "name": "AdminInterfaceRequirementsData",
-      "sectionId": "AIRD1",
+      "sectionId": "ADINREDA",
       "doc": "Data management tooling.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "AIRD1"
+            "id": "ADINREDA"
           }
         }
       ],
@@ -4695,13 +4695,13 @@
     },
     "AlertDefinitionEntry": {
       "name": "AlertDefinitionEntry",
-      "sectionId": "ADE1",
+      "sectionId": "ALEDEFENT",
       "doc": "Alert definition entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ADE1"
+            "id": "ALEDEFENT"
           }
         }
       ],
@@ -5403,13 +5403,13 @@
     },
     "AlertRuleEntry": {
       "name": "AlertRuleEntry",
-      "sectionId": "ARE1",
+      "sectionId": "ALERULENT",
       "doc": "An alert rule entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ARE1"
+            "id": "ALERULENT"
           }
         }
       ],
@@ -6501,7 +6501,7 @@
     },
     "ApiAuthorizationPolicy": {
       "name": "ApiAuthorizationPolicy",
-      "sectionId": "AAP1",
+      "sectionId": "APAUPO",
       "doc": "API authorization policy — how API access decisions are made.\n\nCovers object-level, function-level, and property-level authorization,\nscope definitions, delegation controls, and protection against privilege\nescalation. Aligned with OWASP API1/API3/API5 (Broken Authorization).",
       "annotations": [
         {
@@ -6513,7 +6513,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "AAP1"
+            "id": "APAUPO"
           }
         }
       ],
@@ -6658,13 +6658,13 @@
     },
     "ApiCompatibilityEntryPolicy": {
       "name": "ApiCompatibilityEntryPolicy",
-      "sectionId": "ACEP1",
+      "sectionId": "APCOENPO",
       "doc": "Compatibility policy.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ACEP1"
+            "id": "APCOENPO"
           }
         }
       ],
@@ -6765,13 +6765,13 @@
     },
     "ApiCompatibilityEntryTransport": {
       "name": "ApiCompatibilityEntryTransport",
-      "sectionId": "ACET1",
+      "sectionId": "APCOENTR",
       "doc": "Transport requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ACET1"
+            "id": "APCOENTR"
           }
         }
       ],
@@ -8831,13 +8831,13 @@
     },
     "ArchitectureDecisionRecordConsequences": {
       "name": "ArchitectureDecisionRecordConsequences",
-      "sectionId": "ADRC1",
+      "sectionId": "ARDERECO",
       "doc": "Consequences and review.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ADRC1"
+            "id": "ARDERECO"
           }
         }
       ],
@@ -9395,13 +9395,13 @@
     },
     "ArchitecturePrincipleEntryGovernance": {
       "name": "ArchitecturePrincipleEntryGovernance",
-      "sectionId": "APEG1",
+      "sectionId": "ARPRENGO",
       "doc": "Enforcement and applicability context.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "APEG1"
+            "id": "ARPRENGO"
           }
         }
       ],
@@ -11489,13 +11489,13 @@
     },
     "AuthorizationRoleEntryStatus": {
       "name": "AuthorizationRoleEntryStatus",
-      "sectionId": "ARES1",
+      "sectionId": "AUROENST",
       "doc": "Data access and role status flags.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ARES1"
+            "id": "AUROENST"
           }
         }
       ],
@@ -12944,13 +12944,13 @@
     },
     "BackupPolicyEntryStorage": {
       "name": "BackupPolicyEntryStorage",
-      "sectionId": "BPES1",
+      "sectionId": "BAPOENST",
       "doc": "Storage configuration for backup policy.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BPES1"
+            "id": "BAPOENST"
           }
         }
       ],
@@ -13542,13 +13542,13 @@
     },
     "BackwardsCompatibilityRequirementsDatabase": {
       "name": "BackwardsCompatibilityRequirementsDatabase",
-      "sectionId": "BCRD1",
+      "sectionId": "BACOREDA",
       "doc": "Database compatibility requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BCRD1"
+            "id": "BACOREDA"
           }
         }
       ],
@@ -14781,13 +14781,13 @@
     },
     "BoundedContextEntryIntegration": {
       "name": "BoundedContextEntryIntegration",
-      "sectionId": "BCEI1",
+      "sectionId": "BOCOENIN",
       "doc": "Integration and notes.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BCEI1"
+            "id": "BOCOENIN"
           }
         }
       ],
@@ -14987,13 +14987,13 @@
     },
     "BreakpointConfiguration": {
       "name": "BreakpointConfiguration",
-      "sectionId": "BRCO1",
+      "sectionId": "BC",
       "doc": "10.10.1. Breakpoints.\n\nBreakpoint definitions for responsive layouts.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BRCO1"
+            "id": "BC"
           }
         }
       ],
@@ -15292,13 +15292,13 @@
     },
     "BrowserCompatibilityEntry": {
       "name": "BrowserCompatibilityEntry",
-      "sectionId": "BCE2",
+      "sectionId": "BROCOMENT",
       "doc": "Browser compatibility entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BCE2"
+            "id": "BROCOMENT"
           }
         }
       ],
@@ -15473,13 +15473,13 @@
     },
     "BrowserCompatibilityEntrySupport": {
       "name": "BrowserCompatibilityEntrySupport",
-      "sectionId": "BCES1",
+      "sectionId": "BRCOENSU",
       "doc": "Support level and priority.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BCES1"
+            "id": "BRCOENSU"
           }
         }
       ],
@@ -15523,13 +15523,13 @@
     },
     "BrowserCompatibilityEntryTesting": {
       "name": "BrowserCompatibilityEntryTesting",
-      "sectionId": "BCET1",
+      "sectionId": "BRCOENTE",
       "doc": "Testing notes.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BCET1"
+            "id": "BRCOENTE"
           }
         }
       ],
@@ -15580,13 +15580,13 @@
     },
     "BrowserRequirementEntry": {
       "name": "BrowserRequirementEntry",
-      "sectionId": "BRE1",
+      "sectionId": "BROREQENT",
       "doc": "Browser requirement entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BRE1"
+            "id": "BROREQENT"
           }
         }
       ],
@@ -16047,13 +16047,13 @@
     },
     "BuildToolchainEntryOperations": {
       "name": "BuildToolchainEntryOperations",
-      "sectionId": "BTEO1",
+      "sectionId": "BUTOENOP",
       "doc": "Performance and rationale.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BTEO1"
+            "id": "BUTOENOP"
           }
         }
       ],
@@ -16514,13 +16514,13 @@
     },
     "BusinessComponentEntry": {
       "name": "BusinessComponentEntry",
-      "sectionId": "BCE1",
+      "sectionId": "BUSCOMENT",
       "doc": "Business logic component entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BCE1"
+            "id": "BUSCOMENT"
           }
         }
       ],
@@ -16594,13 +16594,13 @@
     },
     "BusinessComponentEntryDependencies": {
       "name": "BusinessComponentEntryDependencies",
-      "sectionId": "BCED1",
+      "sectionId": "BUCOENDE",
       "doc": "Dependency mapping.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BCED1"
+            "id": "BUCOENDE"
           }
         }
       ],
@@ -16694,13 +16694,13 @@
     },
     "BusinessComponentEntryInterface": {
       "name": "BusinessComponentEntryInterface",
-      "sectionId": "BCEI2",
+      "sectionId": "BUCOENIN",
       "doc": "Public interface details.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BCEI2"
+            "id": "BUCOENIN"
           }
         }
       ],
@@ -19276,13 +19276,13 @@
     },
     "CapacityReviewProcessMonitoring": {
       "name": "CapacityReviewProcessMonitoring",
-      "sectionId": "CRPM1",
+      "sectionId": "CAREPRMO",
       "doc": "Monitoring and forecasting inputs for capacity review.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CRPM1"
+            "id": "CAREPRMO"
           }
         }
       ],
@@ -21598,13 +21598,13 @@
     },
     "ChangeProcess": {
       "name": "ChangeProcess",
-      "sectionId": "CHPR1",
+      "sectionId": "CP",
       "doc": "3.4.1. Change Process.\n\nDetailed workflow for change request processing from submission\nthrough evaluation, approval, implementation, and closure.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CHPR1"
+            "id": "CP"
           }
         }
       ],
@@ -24434,13 +24434,13 @@
     },
     "ClientNetworkRequirementsProxy": {
       "name": "ClientNetworkRequirementsProxy",
-      "sectionId": "CNRP1",
+      "sectionId": "CLNEREPR",
       "doc": "Proxy and firewall requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CNRP1"
+            "id": "CLNEREPR"
           }
         }
       ],
@@ -24484,7 +24484,7 @@
     },
     "ClientRequirementsSection": {
       "name": "ClientRequirementsSection",
-      "sectionId": "CRS1",
+      "sectionId": "CLRESE",
       "doc": "8.4.2. Client Requirements.\n\nMinimum client requirements: browser versions, operating systems, screen\nresolution, network bandwidth, and device capabilities.",
       "help": "Specify client device requirements including browsers, operating systems,\ndisplay specifications, and accessibility needs. Client requirements\ndefine the user experience boundary conditions.\n\n**Browser Requirements**:\n- Supported browsers with minimum versions\n- Browser feature requirements (WebGL, WebRTC, Service Workers)\n- Mobile browser considerations (Safari iOS, Chrome Android)\n- Progressive Web App (PWA) requirements\n\n**Desktop Requirements**:\n- Operating systems: Windows 10/11, macOS 12+, Linux distributions\n- Hardware minimums: CPU, RAM, disk space\n- Required software: .NET runtime, Java, etc.\n- Installation and update mechanisms\n\n**Mobile Requirements**:\n- iOS minimum version and device support\n- Android API level and device compatibility\n- Form factors: phone, tablet, foldable\n- App store requirements and restrictions\n\n**Display Requirements**:\n- Minimum screen resolution\n- Responsive design breakpoints\n- Touch vs. mouse/keyboard interactions\n- HiDPI and retina display support\n\n**Accessibility Requirements**:\n- WCAG 2.1 compliance level (A, AA, AAA)\n- Screen reader compatibility\n- Keyboard navigation\n- Color contrast and visual accommodations\n",
       "annotations": [
@@ -24497,7 +24497,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CRS1"
+            "id": "CLRESE"
           }
         }
       ],
@@ -25583,13 +25583,13 @@
     },
     "CodeQualityMetricsCoupling": {
       "name": "CodeQualityMetricsCoupling",
-      "sectionId": "CQMC1",
+      "sectionId": "COQUMECO",
       "doc": "Coupling metrics.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CQMC1"
+            "id": "COQUMECO"
           }
         }
       ],
@@ -27423,13 +27423,13 @@
     },
     "CommunicationPatterns": {
       "name": "CommunicationPatterns",
-      "sectionId": "COPA1",
+      "sectionId": "COMPAT",
       "doc": "Communication patterns between components.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "COPA1"
+            "id": "COMPAT"
           }
         }
       ],
@@ -27789,7 +27789,7 @@
     },
     "CommunicationRequirements": {
       "name": "CommunicationRequirements",
-      "sectionId": "CR1",
+      "sectionId": "COMREQ",
       "doc": "8.6. Communication Requirements.",
       "help": "Define network communication requirements including protocols, security,\nand external connectivity. Communication architecture affects performance,\nsecurity, and integration capabilities.\n\n**Subsections**:\n- **Protocols and Standards**: Communication protocols, TLS/SSL, API\n  versioning, certificate management, data formats\n- **External Connectivity**: Partner integrations, cloud services, third-\n  party APIs, service mesh, API gateway\n\n**Communication Patterns**:\n- **Synchronous**: HTTP/REST, gRPC, GraphQL (request-response)\n- **Asynchronous**: Message queues, event streaming (fire-and-forget)\n- **Real-time**: WebSocket, Server-Sent Events, WebRTC\n- **Batch**: File transfer, scheduled data exchange\n\n**Security Considerations**:\n- Transport security (TLS 1.2/1.3, certificate pinning)\n- API authentication (API keys, OAuth, mTLS)\n- Data encryption in transit and at rest\n- Rate limiting and throttling\n\n**Integration Standards**:\n- API design guidelines (REST, OpenAPI, AsyncAPI)\n- Data format standards (JSON, Protocol Buffers, Avro)\n- Error handling and response formats\n- Idempotency and retry handling\n",
       "detailedIn": "D06ArchitectureTechnologySpecification",
@@ -27816,7 +27816,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CR1"
+            "id": "COMREQ"
           }
         }
       ],
@@ -28944,14 +28944,14 @@
     },
     "ComplianceFramework": {
       "name": "ComplianceFramework",
-      "sectionId": "COFR1",
+      "sectionId": "CF",
       "doc": "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.",
       "detailedIn": "D08SecurityAccessSpecification",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "COFR1"
+            "id": "CF"
           }
         },
         {
@@ -29081,13 +29081,13 @@
     },
     "ComplianceReporting": {
       "name": "ComplianceReporting",
-      "sectionId": "CORE2",
+      "sectionId": "COMREP",
       "doc": "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CORE2"
+            "id": "COMREP"
           }
         }
       ],
@@ -29141,13 +29141,13 @@
     },
     "ComplianceRequirementEntry": {
       "name": "ComplianceRequirementEntry",
-      "sectionId": "COMPL1",
+      "sectionId": "CRE",
       "doc": "A single compliance requirement entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "COMPL1"
+            "id": "CRE"
           }
         }
       ],
@@ -29399,13 +29399,13 @@
     },
     "ComplianceVerificationSectionReporting": {
       "name": "ComplianceVerificationSectionReporting",
-      "sectionId": "CVSR1",
+      "sectionId": "COVESERE",
       "doc": "Reporting requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CVSR1"
+            "id": "COVESERE"
           }
         }
       ],
@@ -29763,13 +29763,13 @@
     },
     "ComponentCompliance": {
       "name": "ComponentCompliance",
-      "sectionId": "COCO1",
+      "sectionId": "CC",
       "doc": "Compliance for component.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "COCO1"
+            "id": "CC"
           }
         }
       ],
@@ -30853,13 +30853,13 @@
     },
     "ComponentInterfaceEntrySla": {
       "name": "ComponentInterfaceEntrySla",
-      "sectionId": "CIES1",
+      "sectionId": "COINENSL",
       "doc": "SLA and monitoring for component interface.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CIES1"
+            "id": "COINENSL"
           }
         }
       ],
@@ -31418,13 +31418,13 @@
     },
     "ComponentLicensingEntryCapacity": {
       "name": "ComponentLicensingEntryCapacity",
-      "sectionId": "CLEC2",
+      "sectionId": "COLIENCA",
       "doc": "Metering and capacity rules.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CLEC2"
+            "id": "COLIENCA"
           }
         }
       ],
@@ -31468,13 +31468,13 @@
     },
     "ComponentLicensingEntryCompliance": {
       "name": "ComponentLicensingEntryCompliance",
-      "sectionId": "CLEC1",
+      "sectionId": "COLIENCO",
       "doc": "Compliance restrictions.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CLEC1"
+            "id": "COLIENCO"
           }
         }
       ],
@@ -31518,13 +31518,13 @@
     },
     "ComponentLicensingEntryContract": {
       "name": "ComponentLicensingEntryContract",
-      "sectionId": "CLEC3",
+      "sectionId": "COMLICENTCON",
       "doc": "Contract termination terms.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CLEC3"
+            "id": "COMLICENTCON"
           }
         }
       ],
@@ -32612,13 +32612,13 @@
     },
     "ComponentResponsibilitiesEntrySla": {
       "name": "ComponentResponsibilitiesEntrySla",
-      "sectionId": "CRES1",
+      "sectionId": "COREENSL",
       "doc": "SLA commitments.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CRES1"
+            "id": "COREENSL"
           }
         }
       ],
@@ -32993,13 +32993,13 @@
     },
     "ComponentRiskEntryDetection": {
       "name": "ComponentRiskEntryDetection",
-      "sectionId": "CRED1",
+      "sectionId": "CORIENDE",
       "doc": "Detection and monitoring for component risk.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CRED1"
+            "id": "CORIENDE"
           }
         }
       ],
@@ -33043,13 +33043,13 @@
     },
     "ComponentRiskEntryGovernance": {
       "name": "ComponentRiskEntryGovernance",
-      "sectionId": "CREG1",
+      "sectionId": "CORIENGO",
       "doc": "Governance and ownership for component risk.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CREG1"
+            "id": "CORIENGO"
           }
         }
       ],
@@ -33246,13 +33246,13 @@
     },
     "ComponentStateEntry": {
       "name": "ComponentStateEntry",
-      "sectionId": "CSE1",
+      "sectionId": "COMSTAENT",
       "doc": "A component state entry.\n\nDefines a visual/functional state of the component.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CSE1"
+            "id": "COMSTAENT"
           }
         }
       ],
@@ -34659,13 +34659,13 @@
     },
     "ComputingEquipmentEntryPlanning": {
       "name": "ComputingEquipmentEntryPlanning",
-      "sectionId": "CEEP1",
+      "sectionId": "COEQENPL",
       "doc": "Deployment and justification.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CEEP1"
+            "id": "COEQENPL"
           }
         }
       ],
@@ -34940,13 +34940,13 @@
     },
     "ConfigurationManagement": {
       "name": "ConfigurationManagement",
-      "sectionId": "COMA1",
+      "sectionId": "CM",
       "doc": "Configuration management.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "COMA1"
+            "id": "CM"
           }
         }
       ],
@@ -35221,13 +35221,13 @@
     },
     "ConnectivityResilience": {
       "name": "ConnectivityResilience",
-      "sectionId": "CORE1",
+      "sectionId": "CONRES",
       "doc": "Connectivity resilience requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CORE1"
+            "id": "CONRES"
           }
         }
       ],
@@ -35576,13 +35576,13 @@
     },
     "ConsentManagementRequirementsCompliance": {
       "name": "ConsentManagementRequirementsCompliance",
-      "sectionId": "CMRC1",
+      "sectionId": "COMARECO",
       "doc": "Compliance evidence and reporting.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CMRC1"
+            "id": "COMARECO"
           }
         }
       ],
@@ -35676,13 +35676,13 @@
     },
     "ConsentManagementRequirementsStorage": {
       "name": "ConsentManagementRequirementsStorage",
-      "sectionId": "CMRS1",
+      "sectionId": "COMAREST",
       "doc": "Consent record storage rules.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CMRS1"
+            "id": "COMAREST"
           }
         }
       ],
@@ -36530,13 +36530,13 @@
     },
     "ContingencyPlanEntryResponsibility": {
       "name": "ContingencyPlanEntryResponsibility",
-      "sectionId": "CPER1",
+      "sectionId": "COPLENRE",
       "doc": "Responsibility and recovery targets for contingency plan.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CPER1"
+            "id": "COPLENRE"
           }
         }
       ],
@@ -36672,13 +36672,13 @@
     },
     "ContingencyPlans": {
       "name": "ContingencyPlans",
-      "sectionId": "COPL1",
+      "sectionId": "CONPLA",
       "doc": "12.6.2. Contingency Plans.\n\nContainer for contingency plans addressing critical component risks.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "COPL1"
+            "id": "CONPLA"
           }
         }
       ],
@@ -37410,13 +37410,13 @@
     },
     "CrossCuttingConcernsShared": {
       "name": "CrossCuttingConcernsShared",
-      "sectionId": "CCCS1",
+      "sectionId": "CRCUCOSH",
       "doc": "Other shared capabilities.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CCCS1"
+            "id": "CRCUCOSH"
           }
         }
       ],
@@ -37622,19 +37622,19 @@
           "name": "integrationPatterns",
           "kind": "list",
           "doc": "Integration patterns used.",
-          "sectionId": "INTEG1-INTE-LST",
-          "sectionIdPattern": "INTEG1-INTE-xxx",
+          "sectionId": "IPE-INTE-LST",
+          "sectionIdPattern": "IPE-INTE-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "INTEG1-INTE-LST"
+                "id": "IPE-INTE-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "INTEG1-INTE-xxx"
+                "pattern": "IPE-INTE-xxx"
               }
             }
           ],
@@ -38310,14 +38310,14 @@
     },
     "CurrentStateRiskAssessment": {
       "name": "CurrentStateRiskAssessment",
-      "sectionId": "CSRA1",
+      "sectionId": "CUSTRIAS",
       "doc": "1.6. Current State Risks.\n\nRisks tied to the current state and to its replacement. Distinct from\nthe target-side risks section which covers replacement risks.",
       "detailedIn": "D01CurrentLandscapeAssessment",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CSRA1"
+            "id": "CUSTRIAS"
           }
         },
         {
@@ -38750,13 +38750,13 @@
     },
     "CustomMetricEntry": {
       "name": "CustomMetricEntry",
-      "sectionId": "CME1",
+      "sectionId": "CUSMETENT",
       "doc": "A custom metric entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "CME1"
+            "id": "CUSMETENT"
           }
         }
       ],
@@ -40674,13 +40674,13 @@
     },
     "DashboardEntry": {
       "name": "DashboardEntry",
-      "sectionId": "DE2",
+      "sectionId": "DASENT",
       "doc": "A dashboard entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DE2"
+            "id": "DASENT"
           }
         }
       ],
@@ -43014,13 +43014,13 @@
     },
     "DataDuplicationEntrySynchronization": {
       "name": "DataDuplicationEntrySynchronization",
-      "sectionId": "DDES1",
+      "sectionId": "DADUENSY",
       "doc": "Synchronization and consistency details.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DDES1"
+            "id": "DADUENSY"
           }
         }
       ],
@@ -43360,19 +43360,19 @@
         {
           "name": "complianceRequirements",
           "kind": "list",
-          "sectionId": "COMPL1-COMP-LST",
-          "sectionIdPattern": "COMPL1-COMP-xxx",
+          "sectionId": "CRE-COMP-LST",
+          "sectionIdPattern": "CRE-COMP-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "COMPL1-COMP-LST"
+                "id": "CRE-COMP-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "COMPL1-COMP-xxx"
+                "pattern": "CRE-COMP-xxx"
               }
             }
           ],
@@ -43562,13 +43562,13 @@
     },
     "DataEntityMigrationEntry": {
       "name": "DataEntityMigrationEntry",
-      "sectionId": "DEME1",
+      "sectionId": "DAENMIEN",
       "doc": "A data entity migration entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DEME1"
+            "id": "DAENMIEN"
           }
         }
       ],
@@ -45941,13 +45941,13 @@
     },
     "DataOwnershipEntryStewardship": {
       "name": "DataOwnershipEntryStewardship",
-      "sectionId": "DOES1",
+      "sectionId": "DAOWENST",
       "doc": "Stewardship and custodianship assignments.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DOES1"
+            "id": "DAOWENST"
           }
         }
       ],
@@ -47324,13 +47324,13 @@
     },
     "DataResidencyRequirementsReplication": {
       "name": "DataResidencyRequirementsReplication",
-      "sectionId": "DRRR1",
+      "sectionId": "DARERERE",
       "doc": "Backup, replication, and CDN placement rules.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DRRR1"
+            "id": "DARERERE"
           }
         }
       ],
@@ -48432,13 +48432,13 @@
     },
     "DataSubjectRightsManagementAutomation": {
       "name": "DataSubjectRightsManagementAutomation",
-      "sectionId": "DSRMA1",
+      "sectionId": "DASURIMAAU",
       "doc": "Automated decision safeguards.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DSRMA1"
+            "id": "DASURIMAAU"
           }
         }
       ],
@@ -49098,13 +49098,13 @@
     },
     "DatabaseCompatibilityEntry": {
       "name": "DatabaseCompatibilityEntry",
-      "sectionId": "DCE1",
+      "sectionId": "DATCOMENT",
       "doc": "Database compatibility entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DCE1"
+            "id": "DATCOMENT"
           }
         }
       ],
@@ -50359,13 +50359,13 @@
     },
     "DecisionPointEntryCriteria": {
       "name": "DecisionPointEntryCriteria",
-      "sectionId": "DPEC1",
+      "sectionId": "DEPOENCR",
       "doc": "Criteria and inputs for decision point.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DPEC1"
+            "id": "DEPOENCR"
           }
         }
       ],
@@ -54553,13 +54553,13 @@
     },
     "DeploymentTargetEntry": {
       "name": "DeploymentTargetEntry",
-      "sectionId": "DTE1",
+      "sectionId": "DEPTARENT",
       "doc": "Deployment target specification entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DTE1"
+            "id": "DEPTARENT"
           }
         }
       ],
@@ -54804,13 +54804,13 @@
     },
     "DeploymentTargetEntryProcess": {
       "name": "DeploymentTargetEntryProcess",
-      "sectionId": "DTEP1",
+      "sectionId": "DETAENPR",
       "doc": "Deployment process configuration.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DTEP1"
+            "id": "DETAENPR"
           }
         }
       ],
@@ -55563,13 +55563,13 @@
     },
     "DesignPatternEntryContext": {
       "name": "DesignPatternEntryContext",
-      "sectionId": "DPEC2",
+      "sectionId": "DEPAENCO",
       "doc": "Architectural context.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DPEC2"
+            "id": "DEPAENCO"
           }
         }
       ],
@@ -55706,13 +55706,13 @@
     },
     "DesignPatternEntryStructure": {
       "name": "DesignPatternEntryStructure",
-      "sectionId": "DPES1",
+      "sectionId": "DEPAENST",
       "doc": "Structural composition.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DPES1"
+            "id": "DEPAENST"
           }
         }
       ],
@@ -56179,13 +56179,13 @@
     },
     "DesktopOsRequirementEntry": {
       "name": "DesktopOsRequirementEntry",
-      "sectionId": "DORE2",
+      "sectionId": "DEOSREEN",
       "doc": "Desktop operating system requirement entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DORE2"
+            "id": "DEOSREEN"
           }
         }
       ],
@@ -56317,13 +56317,13 @@
     },
     "DesktopOsRequirementEntrySoftware": {
       "name": "DesktopOsRequirementEntrySoftware",
-      "sectionId": "DORES1",
+      "sectionId": "DEOSREENSO",
       "doc": "Software prerequisites.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DORES1"
+            "id": "DEOSREENSO"
           }
         }
       ],
@@ -57163,7 +57163,7 @@
     },
     "DevelopmentEnvironment": {
       "name": "DevelopmentEnvironment",
-      "sectionId": "DE1",
+      "sectionId": "DEEN",
       "doc": "8.2.2. Development Environment.\n\nRequired IDEs, build tools, version control, CI/CD pipeline, code review\nprocess, and development workflow.",
       "help": "Specify development tools, workflows, and environment requirements.\nA well-defined development environment accelerates onboarding and\nensures consistent quality across the team.\n\n**IDE and Editor Requirements**:\n- Recommended/required IDEs (VS Code, IntelliJ, Android Studio)\n- Required extensions and plugins\n- Code formatting and linting configuration\n- Shared editor settings and configuration files\n\n**Build Tools and Automation**:\n- Build systems (Gradle, Maven, Make, Bazel, Melos)\n- Code generation and preprocessing\n- Dependency management and lockfiles\n- Build profiles (debug, release, profile)\n\n**Version Control**:\n- Git workflow (trunk-based, Gitflow, GitHub Flow)\n- Branch naming and commit message conventions\n- Pull request / merge request requirements\n- Code ownership and CODEOWNERS\n\n**CI/CD Pipeline**:\n- Pipeline stages and gates\n- Automated testing requirements\n- Quality gates and metrics thresholds\n- Deployment automation and approvals\n\n**Local Development**:\n- Docker Compose / local Kubernetes setup\n- Database seeding and test data\n- Service stubbing and mocking\n- Hot reload and fast feedback loops\n",
       "annotations": [
@@ -57176,7 +57176,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DE1"
+            "id": "DEEN"
           }
         }
       ],
@@ -57363,13 +57363,13 @@
     },
     "DevelopmentQualityGatesComplexity": {
       "name": "DevelopmentQualityGatesComplexity",
-      "sectionId": "DQGC1",
+      "sectionId": "DEQUGACO",
       "doc": "Complexity thresholds.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DQGC1"
+            "id": "DEQUGACO"
           }
         }
       ],
@@ -57787,13 +57787,13 @@
     },
     "DisasterRecoveryRequirementsFailback": {
       "name": "DisasterRecoveryRequirementsFailback",
-      "sectionId": "DRRF1",
+      "sectionId": "DIREREFA",
       "doc": "Failback procedure.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DRRF1"
+            "id": "DIREREFA"
           }
         }
       ],
@@ -58055,13 +58055,13 @@
     },
     "DisplayEquipmentEntryPlanning": {
       "name": "DisplayEquipmentEntryPlanning",
-      "sectionId": "DEEP1",
+      "sectionId": "DIEQENPL",
       "doc": "Quantity planning and justification for display equipment.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DEEP1"
+            "id": "DIEQENPL"
           }
         }
       ],
@@ -58682,13 +58682,13 @@
     },
     "DistributedTracingSpecSpans": {
       "name": "DistributedTracingSpecSpans",
-      "sectionId": "DTSS1",
+      "sectionId": "DITRSPSP",
       "doc": "Span metadata.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DTSS1"
+            "id": "DITRSPSP"
           }
         }
       ],
@@ -61991,13 +61991,13 @@
     },
     "DomainProcessEntry": {
       "name": "DomainProcessEntry",
-      "sectionId": "DPE1",
+      "sectionId": "DOPREN",
       "doc": "A domain process entry (form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DPE1"
+            "id": "DOPREN"
           }
         }
       ],
@@ -62643,13 +62643,13 @@
     },
     "ElementValidationRuleEntry": {
       "name": "ElementValidationRuleEntry",
-      "sectionId": "EVRE1",
+      "sectionId": "ELVARUEN",
       "doc": "A validation rule entry (form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "EVRE1"
+            "id": "ELVARUEN"
           }
         }
       ],
@@ -63259,13 +63259,13 @@
     },
     "EnterpriseSystemCompatibilityEntry": {
       "name": "EnterpriseSystemCompatibilityEntry",
-      "sectionId": "ESCE2",
+      "sectionId": "ENSYCOEN",
       "doc": "Enterprise system compatibility entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ESCE2"
+            "id": "ENSYCOEN"
           }
         }
       ],
@@ -66808,13 +66808,13 @@
     },
     "ErrorHandlingStandardsRecovery": {
       "name": "ErrorHandlingStandardsRecovery",
-      "sectionId": "EHSR1",
+      "sectionId": "ERHASTRE",
       "doc": "Recovery guidance.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "EHSR1"
+            "id": "ERHASTRE"
           }
         }
       ],
@@ -66958,13 +66958,13 @@
     },
     "ErrorPageDesignEntry": {
       "name": "ErrorPageDesignEntry",
-      "sectionId": "ERROR1",
+      "sectionId": "EPDE",
       "doc": "A single error page design entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ERROR1"
+            "id": "EPDE"
           }
         }
       ],
@@ -68752,13 +68752,13 @@
     },
     "ExperienceAndInterfaceDesign": {
       "name": "ExperienceAndInterfaceDesign",
-      "sectionId": "UIDI",
+      "sectionId": "XID",
       "doc": "10. Experience & Interface Design. Seeds → XDS.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "UIDI"
+            "id": "XID"
           }
         },
         {
@@ -69089,13 +69089,13 @@
     },
     "ExportFieldMappingEntry": {
       "name": "ExportFieldMappingEntry",
-      "sectionId": "EFME1",
+      "sectionId": "EXFIMAEN",
       "doc": "A field mapping within an export (form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "EFME1"
+            "id": "EXFIMAEN"
           }
         }
       ],
@@ -69924,13 +69924,13 @@
     },
     "ExportTemplateEntryFields": {
       "name": "ExportTemplateEntryFields",
-      "sectionId": "ETEF1",
+      "sectionId": "EXTEENFI",
       "doc": "Field and filter settings for export template.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ETEF1"
+            "id": "EXTEENFI"
           }
         }
       ],
@@ -70968,13 +70968,13 @@
     },
     "ExternalNetworkRequirementsPartners": {
       "name": "ExternalNetworkRequirementsPartners",
-      "sectionId": "ENRP1",
+      "sectionId": "EXNEREPA",
       "doc": "Third-party connectivity.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ENRP1"
+            "id": "EXNEREPA"
           }
         }
       ],
@@ -71175,13 +71175,13 @@
     },
     "ExternalPartnerConnectionEntry": {
       "name": "ExternalPartnerConnectionEntry",
-      "sectionId": "EPCE1",
+      "sectionId": "EXPACOEN",
       "doc": "An external partner connection entry (form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "EPCE1"
+            "id": "EXPACOEN"
           }
         }
       ],
@@ -71899,13 +71899,13 @@
     },
     "ExternalSystemContextEntry": {
       "name": "ExternalSystemContextEntry",
-      "sectionId": "ESCE1",
+      "sectionId": "EXSYCOEN",
       "doc": "An external system context entry (form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ESCE1"
+            "id": "EXSYCOEN"
           }
         }
       ],
@@ -72020,13 +72020,13 @@
     },
     "ExternalSystemContextEntryIntegration": {
       "name": "ExternalSystemContextEntryIntegration",
-      "sectionId": "ESCEI1",
+      "sectionId": "EXSYCOENIN",
       "doc": "Integration intent and exchanged information.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ESCEI1"
+            "id": "EXSYCOENIN"
           }
         }
       ],
@@ -72163,19 +72163,19 @@
           "kind": "list",
           "doc": "External system entries — contains 0+× ExternalSystemContextEntry.",
           "help": "Add one entry per external system that this system integrates with.",
-          "sectionId": "ESCE1-SYST-LST",
-          "sectionIdPattern": "ESCE1-SYST-xxx",
+          "sectionId": "EXSYCOEN-SYST-LST",
+          "sectionIdPattern": "EXSYCOEN-SYST-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "ESCE1-SYST-LST"
+                "id": "EXSYCOEN-SYST-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "ESCE1-SYST-xxx"
+                "pattern": "EXSYCOEN-SYST-xxx"
               }
             },
             {
@@ -72905,13 +72905,13 @@
     },
     "FeatureModuleEntryDependencies": {
       "name": "FeatureModuleEntryDependencies",
-      "sectionId": "FMED1",
+      "sectionId": "FEMOENDE",
       "doc": "Dependencies.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "FMED1"
+            "id": "FEMOENDE"
           }
         }
       ],
@@ -73969,13 +73969,13 @@
     },
     "FeatureStageMappingAcceptance": {
       "name": "FeatureStageMappingAcceptance",
-      "sectionId": "FSMA1",
+      "sectionId": "FESTMAAC",
       "doc": "Acceptance and notes.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "FSMA1"
+            "id": "FESTMAAC"
           }
         }
       ],
@@ -74357,13 +74357,13 @@
     },
     "FeatureStatus": {
       "name": "FeatureStatus",
-      "sectionId": "FEST1",
+      "sectionId": "FS",
       "doc": "Status for a feature priority entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "FEST1"
+            "id": "FS"
           }
         }
       ],
@@ -75746,13 +75746,13 @@
     },
     "FrameworkRequirementEntry": {
       "name": "FrameworkRequirementEntry",
-      "sectionId": "FRE1",
+      "sectionId": "FRREEN",
       "doc": "Framework or library requirement entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "FRE1"
+            "id": "FRREEN"
           }
         }
       ],
@@ -79401,13 +79401,13 @@
     },
     "HealthCheckEndpointsContent": {
       "name": "HealthCheckEndpointsContent",
-      "sectionId": "HCEC1",
+      "sectionId": "HECHENCO",
       "doc": "Response content settings.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "HCEC1"
+            "id": "HECHENCO"
           }
         }
       ],
@@ -81061,13 +81061,13 @@
     },
     "IdentitySourceEntryConnection": {
       "name": "IdentitySourceEntryConnection",
-      "sectionId": "ISEC3",
+      "sectionId": "IDSOENCO",
       "doc": "Connectivity and trust details.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ISEC3"
+            "id": "IDSOENCO"
           }
         }
       ],
@@ -82354,13 +82354,13 @@
     },
     "IndustryProtocolComplianceEntry": {
       "name": "IndustryProtocolComplianceEntry",
-      "sectionId": "IPCE1",
+      "sectionId": "INPRCOEN",
       "doc": "Industry protocol compliance entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "IPCE1"
+            "id": "INPRCOEN"
           }
         }
       ],
@@ -82485,13 +82485,13 @@
     },
     "IndustryProtocolComplianceEntryInteroperability": {
       "name": "IndustryProtocolComplianceEntryInteroperability",
-      "sectionId": "IPCEI1",
+      "sectionId": "INPRCOENIN",
       "doc": "Interoperability notes.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "IPCEI1"
+            "id": "INPRCOENIN"
           }
         }
       ],
@@ -82743,13 +82743,13 @@
     },
     "IndustryStandardEntryCertification": {
       "name": "IndustryStandardEntryCertification",
-      "sectionId": "ISEC1",
+      "sectionId": "INSTENCE",
       "doc": "Certification details.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ISEC1"
+            "id": "INSTENCE"
           }
         }
       ],
@@ -82972,14 +82972,14 @@
     },
     "InformationAndDataModel": {
       "name": "InformationAndDataModel",
-      "sectionId": "BODM",
+      "sectionId": "INDM",
       "doc": "7. Business Object and Data Model. Seeds → IFM.",
       "mapsTo": "D03InformationModel",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "BODM"
+            "id": "INDM"
           }
         },
         {
@@ -83032,13 +83032,13 @@
     },
     "InformationArchitecture": {
       "name": "InformationArchitecture",
-      "sectionId": "INAR1",
+      "sectionId": "IA",
       "doc": "10.2.2. Information Architecture.\n\nOverall information architecture: site map, content hierarchy, navigation\nstructure, and entry points. Describes how screens relate to each other\nand how content is organized across the application.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "INAR1"
+            "id": "IA"
           }
         }
       ],
@@ -83328,13 +83328,13 @@
     },
     "InfrastructureAsCodeSecurity": {
       "name": "InfrastructureAsCodeSecurity",
-      "sectionId": "IACS1",
+      "sectionId": "INASCOSE",
       "doc": "Security and policy controls.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "IACS1"
+            "id": "INASCOSE"
           }
         }
       ],
@@ -83435,13 +83435,13 @@
     },
     "InfrastructureComponentEntry": {
       "name": "InfrastructureComponentEntry",
-      "sectionId": "ICE2",
+      "sectionId": "INFCOMENT",
       "doc": "Infrastructure component entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ICE2"
+            "id": "INFCOMENT"
           }
         }
       ],
@@ -83904,13 +83904,13 @@
     },
     "InfrastructureMetricsSpecCost": {
       "name": "InfrastructureMetricsSpecCost",
-      "sectionId": "IMSC1",
+      "sectionId": "INMESPCO",
       "doc": "Cost attribution and notes.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "IMSC1"
+            "id": "INMESPCO"
           }
         }
       ],
@@ -85234,13 +85234,13 @@
     },
     "IntegrationConstraintEntry": {
       "name": "IntegrationConstraintEntry",
-      "sectionId": "ICE1",
+      "sectionId": "INTCONENT",
       "doc": "An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ICE1"
+            "id": "INTCONENT"
           }
         }
       ],
@@ -85308,13 +85308,13 @@
     },
     "IntegrationConstraintEntryCompliance": {
       "name": "IntegrationConstraintEntryCompliance",
-      "sectionId": "ICEC2",
+      "sectionId": "INCOENCO",
       "doc": "Compliance rules.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ICEC2"
+            "id": "INCOENCO"
           }
         }
       ],
@@ -85351,13 +85351,13 @@
     },
     "IntegrationConstraintEntryDetails": {
       "name": "IntegrationConstraintEntryDetails",
-      "sectionId": "ICED1",
+      "sectionId": "INCOENDE",
       "doc": "Constraint details.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ICED1"
+            "id": "INCOENDE"
           }
         }
       ],
@@ -85618,13 +85618,13 @@
     },
     "IntegrationPatternEntry": {
       "name": "IntegrationPatternEntry",
-      "sectionId": "INTEG1",
+      "sectionId": "IPE",
       "doc": "A single integration pattern entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "INTEG1"
+            "id": "IPE"
           }
         }
       ],
@@ -86390,13 +86390,13 @@
     },
     "InteractionChannelEntryCompliance": {
       "name": "InteractionChannelEntryCompliance",
-      "sectionId": "ICEC1",
+      "sectionId": "INCHENCO",
       "doc": "Compliance and requirements for interaction channel.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ICEC1"
+            "id": "INCHENCO"
           }
         }
       ],
@@ -87668,13 +87668,13 @@
     },
     "InterfaceBusinessProcessEntry": {
       "name": "InterfaceBusinessProcessEntry",
-      "sectionId": "IBPE1",
+      "sectionId": "INBUPREN",
       "doc": "Business process dependency entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "IBPE1"
+            "id": "INBUPREN"
           }
         }
       ],
@@ -87721,13 +87721,13 @@
     },
     "InterfaceDataEntityEntry": {
       "name": "InterfaceDataEntityEntry",
-      "sectionId": "IDEE1",
+      "sectionId": "INDAENEN",
       "doc": "Data entity exchanged.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "IDEE1"
+            "id": "INDAENEN"
           }
         }
       ],
@@ -88711,13 +88711,13 @@
     },
     "InterfaceSecurity": {
       "name": "InterfaceSecurity",
-      "sectionId": "INSE1",
+      "sectionId": "IS",
       "doc": "Security specification for an interface.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "INSE1"
+            "id": "IS"
           }
         }
       ],
@@ -88930,13 +88930,13 @@
     },
     "InterfaceSpecificationEntry": {
       "name": "InterfaceSpecificationEntry",
-      "sectionId": "ISE1",
+      "sectionId": "INTSPEENT",
       "doc": "Interface specification entry (REST, GraphQL, gRPC, SOAP).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ISE1"
+            "id": "INTSPEENT"
           }
         }
       ],
@@ -89004,13 +89004,13 @@
     },
     "InterfaceSpecificationEntryConventions": {
       "name": "InterfaceSpecificationEntryConventions",
-      "sectionId": "ISEC2",
+      "sectionId": "INSPENCO",
       "doc": "Interface conventions.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ISEC2"
+            "id": "INSPENCO"
           }
         }
       ],
@@ -89111,13 +89111,13 @@
     },
     "InterfaceSpecificationEntryDocumentation": {
       "name": "InterfaceSpecificationEntryDocumentation",
-      "sectionId": "ISED1",
+      "sectionId": "INSPENDO",
       "doc": "Documentation expectations.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ISED1"
+            "id": "INSPENDO"
           }
         }
       ],
@@ -89418,13 +89418,13 @@
     },
     "InterfaceTestScenarioEntry": {
       "name": "InterfaceTestScenarioEntry",
-      "sectionId": "ITSE2",
+      "sectionId": "INTESCEN",
       "doc": "Test scenario entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ITSE2"
+            "id": "INTESCEN"
           }
         }
       ],
@@ -91142,13 +91142,13 @@
     },
     "ItStandardComplianceEntry": {
       "name": "ItStandardComplianceEntry",
-      "sectionId": "ISCE1",
+      "sectionId": "ITSTCOEN",
       "doc": "IT standard compliance entry (ISO, IEEE, NIST, OASIS).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ISCE1"
+            "id": "ITSTCOEN"
           }
         }
       ],
@@ -92906,13 +92906,13 @@
     },
     "KnownIssueEntry": {
       "name": "KnownIssueEntry",
-      "sectionId": "KNOWN1",
+      "sectionId": "KIE",
       "doc": "A single known issue entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "KNOWN1"
+            "id": "KIE"
           }
         }
       ],
@@ -94887,13 +94887,13 @@
     },
     "LocalDevelopmentSetupTroubleshooting": {
       "name": "LocalDevelopmentSetupTroubleshooting",
-      "sectionId": "LDST1",
+      "sectionId": "LODESETR",
       "doc": "Troubleshooting details.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "LDST1"
+            "id": "LODESETR"
           }
         }
       ],
@@ -95051,13 +95051,13 @@
     },
     "LocaleRolloutPlan": {
       "name": "LocaleRolloutPlan",
-      "sectionId": "MLARP",
+      "sectionId": "LOCRP",
       "doc": "Rollout sequencing by region and time.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "MLARP"
+            "id": "LOCRP"
           }
         }
       ],
@@ -95894,13 +95894,13 @@
     },
     "LogManagementRequirementsCompliance": {
       "name": "LogManagementRequirementsCompliance",
-      "sectionId": "LMRC1",
+      "sectionId": "LOMARECO",
       "doc": "Compliance settings.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "LMRC1"
+            "id": "LOMARECO"
           }
         }
       ],
@@ -98099,13 +98099,13 @@
     },
     "MaintenanceWindowEntryScope": {
       "name": "MaintenanceWindowEntryScope",
-      "sectionId": "MWES1",
+      "sectionId": "MAWIENSC",
       "doc": "Scope details.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "MWES1"
+            "id": "MAWIENSC"
           }
         }
       ],
@@ -99570,13 +99570,13 @@
     },
     "MetricsCollectionRequirementsCustom": {
       "name": "MetricsCollectionRequirementsCustom",
-      "sectionId": "MCRC1",
+      "sectionId": "MECORECU",
       "doc": "Custom metrics settings.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "MCRC1"
+            "id": "MECORECU"
           }
         }
       ],
@@ -100136,14 +100136,14 @@
     },
     "MigrationConsiderations": {
       "name": "MigrationConsiderations",
-      "sectionId": "MICO1",
+      "sectionId": "MIGCON",
       "doc": "4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.",
       "detailedIn": "D01CurrentLandscapeAssessment",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "MICO1"
+            "id": "MIGCON"
           }
         },
         {
@@ -103422,13 +103422,13 @@
     },
     "MigrationSchedule": {
       "name": "MigrationSchedule",
-      "sectionId": "MISC1",
+      "sectionId": "MS",
       "doc": "Schedule overview for migration.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "MISC1"
+            "id": "MS"
           }
         }
       ],
@@ -103742,13 +103742,13 @@
     },
     "MobileCompatibilityEntry": {
       "name": "MobileCompatibilityEntry",
-      "sectionId": "MCE1",
+      "sectionId": "MOBCOMENT",
       "doc": "Mobile device compatibility entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "MCE1"
+            "id": "MOBCOMENT"
           }
         }
       ],
@@ -103923,13 +103923,13 @@
     },
     "MobileCompatibilityEntryDistribution": {
       "name": "MobileCompatibilityEntryDistribution",
-      "sectionId": "MCED1",
+      "sectionId": "MOCOENDI",
       "doc": "Distribution details.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "MCED1"
+            "id": "MOCOENDI"
           }
         }
       ],
@@ -104088,13 +104088,13 @@
     },
     "MobileDeviceEntryCapabilities": {
       "name": "MobileDeviceEntryCapabilities",
-      "sectionId": "MDEC1",
+      "sectionId": "MODEENCA",
       "doc": "Technical and management requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "MDEC1"
+            "id": "MODEENCA"
           }
         }
       ],
@@ -104194,13 +104194,13 @@
     },
     "MobileDeviceRequirementEntry": {
       "name": "MobileDeviceRequirementEntry",
-      "sectionId": "MDRE1",
+      "sectionId": "MODEREEN",
       "doc": "Mobile device requirement entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "MDRE1"
+            "id": "MODEREEN"
           }
         }
       ],
@@ -104482,13 +104482,13 @@
     },
     "ModuleEntry": {
       "name": "ModuleEntry",
-      "sectionId": "ME1",
+      "sectionId": "MODENT",
       "doc": "Module entry — a discrete module or component.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "ME1"
+            "id": "MODENT"
           }
         }
       ],
@@ -104957,13 +104957,13 @@
     },
     "ModuleVersioningStrategyCoordination": {
       "name": "ModuleVersioningStrategyCoordination",
-      "sectionId": "MVSC1",
+      "sectionId": "MOVESTCO",
       "doc": "Cross-module coordination.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "MVSC1"
+            "id": "MOVESTCO"
           }
         }
       ],
@@ -107708,13 +107708,13 @@
     },
     "NavigationGuardEntryDialog": {
       "name": "NavigationGuardEntryDialog",
-      "sectionId": "NGED1",
+      "sectionId": "NAGUENDI",
       "doc": "Covered routes and dialog resources.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "NGED1"
+            "id": "NAGUENDI"
           }
         }
       ],
@@ -108591,13 +108591,13 @@
     },
     "NetworkAvailabilityRequirementsRecovery": {
       "name": "NetworkAvailabilityRequirementsRecovery",
-      "sectionId": "NARR1",
+      "sectionId": "NEAVRERE",
       "doc": "Recovery objectives.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "NARR1"
+            "id": "NEAVRERE"
           }
         }
       ],
@@ -109061,13 +109061,13 @@
     },
     "NetworkLatencyRequirementsStability": {
       "name": "NetworkLatencyRequirementsStability",
-      "sectionId": "NLRS1",
+      "sectionId": "NELAREST",
       "doc": "Stability tolerances.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "NLRS1"
+            "id": "NELAREST"
           }
         }
       ],
@@ -109648,13 +109648,13 @@
     },
     "NetworkSecurityPolicyDns": {
       "name": "NetworkSecurityPolicyDns",
-      "sectionId": "NSPD1",
+      "sectionId": "NESEPODN",
       "doc": "DNS controls and notes.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "NSPD1"
+            "id": "NESEPODN"
           }
         }
       ],
@@ -112590,13 +112590,13 @@
     },
     "OngoingTrainingEntryCompliance": {
       "name": "OngoingTrainingEntryCompliance",
-      "sectionId": "OTEC1",
+      "sectionId": "ONTRENCO",
       "doc": "Tracking and compliance.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "OTEC1"
+            "id": "ONTRENCO"
           }
         }
       ],
@@ -113015,7 +113015,7 @@
     },
     "OperationsRequirements": {
       "name": "OperationsRequirements",
-      "sectionId": "OR1",
+      "sectionId": "OPRE",
       "doc": "8.5. Operations Requirements.",
       "help": "Define operational requirements for running and maintaining the system\nin production. Operations excellence directly impacts system availability,\nuser experience, and team efficiency.\n\n**Subsections**:\n- **Backup and Recovery**: Backup frequency, retention, RPO/RTO, disaster\n  recovery, backup verification\n- **Deployment Strategy**: Deployment model, CI/CD pipeline, release\n  strategy, rollback, configuration management\n- **Monitoring and Alerting**: Metrics, APM, logging, alerts, dashboards,\n  on-call, incident management\n- **Maintenance Windows**: Scheduled maintenance, emergency procedures,\n  change management, user communication\n\n**DevOps/SRE Principles**:\n- Automation over manual processes\n- Immutable infrastructure\n- Everything as code (IaC, GitOps)\n- Blameless postmortems\n- Continuous improvement\n\n**Operational Metrics**:\n- MTTR (Mean Time To Recovery)\n- MTBF (Mean Time Between Failures)\n- Change failure rate\n- Deployment frequency\n- Lead time for changes\n\n**Reference**: Google SRE book, DORA metrics, ITIL practices.\n",
       "detailedIn": "D06ArchitectureTechnologySpecification",
@@ -113042,7 +113042,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "OR1"
+            "id": "OPRE"
           }
         }
       ],
@@ -115523,13 +115523,13 @@
     },
     "OutOfScopeEntry": {
       "name": "OutOfScopeEntry",
-      "sectionId": "OOSE1",
+      "sectionId": "OUOFSCEN",
       "doc": "An out-of-scope entry (form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "OOSE1"
+            "id": "OUOFSCEN"
           }
         }
       ],
@@ -118919,13 +118919,13 @@
     },
     "PhaseGateReviewEntry": {
       "name": "PhaseGateReviewEntry",
-      "sectionId": "PGRE1",
+      "sectionId": "PHGAREEN",
       "doc": "A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "PGRE1"
+            "id": "PHGAREEN"
           }
         }
       ],
@@ -119395,13 +119395,13 @@
     },
     "PhysicalWorkplaceRequirementsEnvironment": {
       "name": "PhysicalWorkplaceRequirementsEnvironment",
-      "sectionId": "PWRE1",
+      "sectionId": "PHWOREEN",
       "doc": "Environmental conditions and controls.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "PWRE1"
+            "id": "PHWOREEN"
           }
         }
       ],
@@ -122208,19 +122208,19 @@
           "name": "relatedPainPoints",
           "kind": "list",
           "doc": "Related pain points from Current State Analysis.",
-          "sectionId": "RELAT1-RELA-LST",
-          "sectionIdPattern": "RELAT1-RELA-xxx",
+          "sectionId": "RPPE-RELA-LST",
+          "sectionIdPattern": "RPPE-RELA-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "RELAT1-RELA-LST"
+                "id": "RPPE-RELA-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "RELAT1-RELA-xxx"
+                "pattern": "RPPE-RELA-xxx"
               }
             }
           ],
@@ -125877,13 +125877,13 @@
     },
     "ProcessPerformance": {
       "name": "ProcessPerformance",
-      "sectionId": "PRPE1",
+      "sectionId": "PP",
       "doc": "Process performance metrics.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "PRPE1"
+            "id": "PP"
           }
         }
       ],
@@ -126202,14 +126202,14 @@
     },
     "ProcessRelationships": {
       "name": "ProcessRelationships",
-      "sectionId": "PRRE1",
+      "sectionId": "PR",
       "doc": "Process relationships and dependencies (supplementary section).",
       "detailedIn": "D02TargetOperatingModel",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "PRRE1"
+            "id": "PR"
           }
         },
         {
@@ -129233,13 +129233,13 @@
     },
     "PrototypeGoals": {
       "name": "PrototypeGoals",
-      "sectionId": "PRGO1",
+      "sectionId": "PG",
       "doc": "10.13.1. Prototype Goals.\n\nWhat the prototype should validate.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "PRGO1"
+            "id": "PG"
           }
         }
       ],
@@ -129482,13 +129482,13 @@
     },
     "PrototypeResources": {
       "name": "PrototypeResources",
-      "sectionId": "PRRE2",
+      "sectionId": "PRORES",
       "doc": "Prototype staffing and environment.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "PRRE2"
+            "id": "PRORES"
           }
         }
       ],
@@ -133055,13 +133055,13 @@
     },
     "RecoveryProcedures": {
       "name": "RecoveryProcedures",
-      "sectionId": "REPR1",
+      "sectionId": "RP",
       "doc": "Recovery procedures.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "REPR1"
+            "id": "RP"
           }
         }
       ],
@@ -134039,13 +134039,13 @@
     },
     "RegulatoryComplianceEntryApplicability": {
       "name": "RegulatoryComplianceEntryApplicability",
-      "sectionId": "RCEA1",
+      "sectionId": "RECOENAP",
       "doc": "Applicability analysis.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RCEA1"
+            "id": "RECOENAP"
           }
         }
       ],
@@ -134189,13 +134189,13 @@
     },
     "RegulatoryComplianceEntryRequirements": {
       "name": "RegulatoryComplianceEntryRequirements",
-      "sectionId": "RCER1",
+      "sectionId": "RECOENRE",
       "doc": "Compliance requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RCER1"
+            "id": "RECOENRE"
           }
         }
       ],
@@ -134524,13 +134524,13 @@
     },
     "RelatedPainPointEntry": {
       "name": "RelatedPainPointEntry",
-      "sectionId": "RELAT1",
+      "sectionId": "RPPE",
       "doc": "A single related pain point entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RELAT1"
+            "id": "RPPE"
           }
         }
       ],
@@ -135731,14 +135731,14 @@
     },
     "ReplacementInventory": {
       "name": "ReplacementInventory",
-      "sectionId": "REIN1",
+      "sectionId": "RI",
       "doc": "Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.",
       "detailedIn": "D01CurrentLandscapeAssessment",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "REIN1"
+            "id": "RI"
           }
         },
         {
@@ -136170,13 +136170,13 @@
     },
     "ReportChartEntry": {
       "name": "ReportChartEntry",
-      "sectionId": "RCE2",
+      "sectionId": "REPCHAENT",
       "doc": "A chart/visualization in a report\n(form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RCE2"
+            "id": "REPCHAENT"
           }
         }
       ],
@@ -136517,13 +136517,13 @@
     },
     "ReportColumnEntry": {
       "name": "ReportColumnEntry",
-      "sectionId": "RCE1",
+      "sectionId": "REPCOLENT",
       "doc": "A column in a tabular report section\n(form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RCE1"
+            "id": "REPCOLENT"
           }
         }
       ],
@@ -136921,13 +136921,13 @@
     },
     "ReportDistributionEntryContent": {
       "name": "ReportDistributionEntryContent",
-      "sectionId": "RDEC1",
+      "sectionId": "REDIENCO",
       "doc": "Message and attachment content for report distribution.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RDEC1"
+            "id": "REDIENCO"
           }
         }
       ],
@@ -137070,13 +137070,13 @@
     },
     "ReportDistributionEntryRecipients": {
       "name": "ReportDistributionEntryRecipients",
-      "sectionId": "RDER2",
+      "sectionId": "REDIENRE",
       "doc": "Recipient and format settings for report distribution.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RDER2"
+            "id": "REDIENRE"
           }
         }
       ],
@@ -137127,13 +137127,13 @@
     },
     "ReportEntry": {
       "name": "ReportEntry",
-      "sectionId": "RE2",
+      "sectionId": "REPENT",
       "doc": "A report entry (form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RE2"
+            "id": "REPENT"
           }
         }
       ],
@@ -137689,13 +137689,13 @@
     },
     "ReportFormatting": {
       "name": "ReportFormatting",
-      "sectionId": "REFO1",
+      "sectionId": "RF",
       "doc": "Report conditional formatting.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "REFO1"
+            "id": "RF"
           }
         }
       ],
@@ -138220,13 +138220,13 @@
     },
     "ReportRecipientEntryContext": {
       "name": "ReportRecipientEntryContext",
-      "sectionId": "RREC1",
+      "sectionId": "REREENCO",
       "doc": "Recipient business context.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RREC1"
+            "id": "REREENCO"
           }
         }
       ],
@@ -138384,13 +138384,13 @@
     },
     "ReportScheduleEntry": {
       "name": "ReportScheduleEntry",
-      "sectionId": "RSE1",
+      "sectionId": "REPSCHENT",
       "doc": "Scheduling rules for report generation\n(form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RSE1"
+            "id": "REPSCHENT"
           }
         }
       ],
@@ -139474,14 +139474,14 @@
     },
     "RequirementCoverage": {
       "name": "RequirementCoverage",
-      "sectionId": "RECO1",
+      "sectionId": "REQCOV",
       "doc": "4.3.6. Requirement Coverage.\n\nCoverage of requirements against goals, use cases, and tests.",
       "detailedIn": "D04RequirementsSpecification",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RECO1"
+            "id": "REQCOV"
           }
         },
         {
@@ -139576,7 +139576,7 @@
     },
     "RequirementDependencies": {
       "name": "RequirementDependencies",
-      "sectionId": "RD1",
+      "sectionId": "REQDEP",
       "doc": "4.3.1.n.5. Dependencies.\n\nDependencies this requirement has on other requirements.",
       "help": "Identify requirements that must be implemented before or alongside this requirement.",
       "annotations": [
@@ -139589,7 +139589,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RD1"
+            "id": "REQDEP"
           }
         }
       ],
@@ -141181,14 +141181,14 @@
     },
     "ResourceProtection": {
       "name": "ResourceProtection",
-      "sectionId": "REPR2",
+      "sectionId": "RESPRO",
       "doc": "9.3. Resource Protection.",
       "detailedIn": "D08SecurityAccessSpecification",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "REPR2"
+            "id": "RESPRO"
           }
         },
         {
@@ -143342,13 +143342,13 @@
     },
     "ReusablePrototype": {
       "name": "ReusablePrototype",
-      "sectionId": "REPR3",
+      "sectionId": "REUPRO",
       "doc": "10.13.3.1. Reusable Prototype.\n\nPrototype that becomes part of the final product.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "REPR3"
+            "id": "REUPRO"
           }
         }
       ],
@@ -143758,13 +143758,13 @@
     },
     "ReusableUiComponentEntryDesign": {
       "name": "ReusableUiComponentEntryDesign",
-      "sectionId": "RUCED1",
+      "sectionId": "REUICOENDE",
       "doc": "Design specifications for UI component.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RUCED1"
+            "id": "REUICOENDE"
           }
         }
       ],
@@ -143815,13 +143815,13 @@
     },
     "ReusableUiComponentEntryImplementation": {
       "name": "ReusableUiComponentEntryImplementation",
-      "sectionId": "RUCEI1",
+      "sectionId": "REUICOENIM",
       "doc": "Implementation details for UI component.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RUCEI1"
+            "id": "REUICOENIM"
           }
         }
       ],
@@ -144847,13 +144847,13 @@
     },
     "RiskEntry": {
       "name": "RiskEntry",
-      "sectionId": "RE1",
+      "sectionId": "RISENT",
       "doc": "A risk entry (form).\n\nComprehensive risk documentation following ISO 31000 and PMBOK guidelines.\nCaptures risk identification, analysis, response planning, ownership,\nand monitoring information for systematic risk management.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RE1"
+            "id": "RISENT"
           }
         }
       ],
@@ -144898,19 +144898,19 @@
           "name": "relationships",
           "kind": "list",
           "doc": "Relationships to other risks, assumptions, and project elements.",
-          "sectionId": "RIRE1-RELA-LST",
-          "sectionIdPattern": "RIRE1-RELA-xxx",
+          "sectionId": "RR-RELA-LST",
+          "sectionIdPattern": "RR-RELA-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "RIRE1-RELA-LST"
+                "id": "RR-RELA-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "RIRE1-RELA-xxx"
+                "pattern": "RR-RELA-xxx"
               }
             }
           ],
@@ -145328,13 +145328,13 @@
     },
     "RiskRelationships": {
       "name": "RiskRelationships",
-      "sectionId": "RIRE1",
+      "sectionId": "RR",
       "doc": "Relationships to other risks, assumptions, and project elements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RIRE1"
+            "id": "RR"
           }
         }
       ],
@@ -148093,13 +148093,13 @@
     },
     "RuntimeDependencyEntryRisk": {
       "name": "RuntimeDependencyEntryRisk",
-      "sectionId": "RDER1",
+      "sectionId": "RUDEENRI",
       "doc": "Compatibility and transitive risk notes.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "RDER1"
+            "id": "RUDEENRI"
           }
         }
       ],
@@ -150042,13 +150042,13 @@
     },
     "ScenarioStepEntryExecution": {
       "name": "ScenarioStepEntryExecution",
-      "sectionId": "SSEE1",
+      "sectionId": "SCSTENEX",
       "doc": "Branching, timing, and notes.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SSEE1"
+            "id": "SCSTENEX"
           }
         }
       ],
@@ -151730,13 +151730,13 @@
     },
     "ScreenElementEntryLayout": {
       "name": "ScreenElementEntryLayout",
-      "sectionId": "SEEL2",
+      "sectionId": "SCELENLA",
       "doc": "Placement and layout settings for screen element.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SEEL2"
+            "id": "SCELENLA"
           }
         }
       ],
@@ -151780,13 +151780,13 @@
     },
     "ScreenElementEntryPresentation": {
       "name": "ScreenElementEntryPresentation",
-      "sectionId": "SEEP1",
+      "sectionId": "SCELENPR",
       "doc": "Styling and data binding for screen element.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SEEP1"
+            "id": "SCELENPR"
           }
         }
       ],
@@ -153092,13 +153092,13 @@
     },
     "ScreenResponsiveRuleEntry": {
       "name": "ScreenResponsiveRuleEntry",
-      "sectionId": "SRRE1",
+      "sectionId": "SCRERUEN",
       "doc": "A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SRRE1"
+            "id": "SCRERUEN"
           }
         }
       ],
@@ -154385,13 +154385,13 @@
     },
     "SecurityCertificationRequirementsIndustry": {
       "name": "SecurityCertificationRequirementsIndustry",
-      "sectionId": "SCRI1",
+      "sectionId": "SECEREIN",
       "doc": "Industry-specific requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SCRI1"
+            "id": "SECEREIN"
           }
         }
       ],
@@ -154988,13 +154988,13 @@
     },
     "SecurityControlEntry": {
       "name": "SecurityControlEntry",
-      "sectionId": "SCE1",
+      "sectionId": "SECOEN",
       "doc": "A security control entry (form).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SCE1"
+            "id": "SECOEN"
           }
         }
       ],
@@ -155791,13 +155791,13 @@
     },
     "SecurityRequirementEntryClassification": {
       "name": "SecurityRequirementEntryClassification",
-      "sectionId": "SREC1",
+      "sectionId": "SEREENCL",
       "doc": "Category and classification for security requirement.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SREC1"
+            "id": "SEREENCL"
           }
         }
       ],
@@ -155862,13 +155862,13 @@
     },
     "SecurityRequirementEntryCompliance": {
       "name": "SecurityRequirementEntryCompliance",
-      "sectionId": "SREC2",
+      "sectionId": "SEREENCO",
       "doc": "Compliance framework mapping for security requirement.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SREC2"
+            "id": "SEREENCO"
           }
         }
       ],
@@ -155921,13 +155921,13 @@
     },
     "SecurityRequirementEntryStatus": {
       "name": "SecurityRequirementEntryStatus",
-      "sectionId": "SRES2",
+      "sectionId": "SEREENST",
       "doc": "Status and ownership for security requirement.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SRES2"
+            "id": "SEREENST"
           }
         }
       ],
@@ -156143,13 +156143,13 @@
     },
     "SecurityStandardComplianceEntry": {
       "name": "SecurityStandardComplianceEntry",
-      "sectionId": "SSCE1",
+      "sectionId": "SESTCOEN",
       "doc": "Security standard compliance entry (SOC2, ISO 27001, CIS).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SSCE1"
+            "id": "SESTCOEN"
           }
         }
       ],
@@ -156338,13 +156338,13 @@
     },
     "SecurityStandardComplianceEntryScope": {
       "name": "SecurityStandardComplianceEntryScope",
-      "sectionId": "SSCES1",
+      "sectionId": "SESTCOENSC",
       "doc": "Scope details.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SSCES1"
+            "id": "SESTCOENSC"
           }
         }
       ],
@@ -156388,13 +156388,13 @@
     },
     "SecurityStandardComplianceEntryStatus": {
       "name": "SecurityStandardComplianceEntryStatus",
-      "sectionId": "SSCES2",
+      "sectionId": "SESTCOENST",
       "doc": "Overall status.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SSCES2"
+            "id": "SESTCOENST"
           }
         }
       ],
@@ -156563,13 +156563,13 @@
     },
     "SecurityStandardEntryScope": {
       "name": "SecurityStandardEntryScope",
-      "sectionId": "SSES2",
+      "sectionId": "SESTENSC",
       "doc": "Applicability and regulatory scope.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SSES2"
+            "id": "SESTENSC"
           }
         }
       ],
@@ -157633,13 +157633,13 @@
     },
     "ServerEnvironmentEntryLifecycle": {
       "name": "ServerEnvironmentEntryLifecycle",
-      "sectionId": "SEEL1",
+      "sectionId": "SEENENLI",
       "doc": "Lifecycle rules.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SEEL1"
+            "id": "SEENENLI"
           }
         }
       ],
@@ -158439,13 +158439,13 @@
     },
     "ServerRoleEntryStorage": {
       "name": "ServerRoleEntryStorage",
-      "sectionId": "SRES1",
+      "sectionId": "SEROENST",
       "doc": "Storage requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SRES1"
+            "id": "SEROENST"
           }
         }
       ],
@@ -160719,13 +160719,13 @@
     },
     "SharedLibraryEntry": {
       "name": "SharedLibraryEntry",
-      "sectionId": "SLE1",
+      "sectionId": "SHLIEN",
       "doc": "Shared library entry — a reusable library or utility.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SLE1"
+            "id": "SHLIEN"
           }
         }
       ],
@@ -160837,13 +160837,13 @@
     },
     "SharedLibraryEntryDescription": {
       "name": "SharedLibraryEntryDescription",
-      "sectionId": "SLED1",
+      "sectionId": "SHLIENDE",
       "doc": "Description and usage.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SLED1"
+            "id": "SHLIENDE"
           }
         }
       ],
@@ -161905,13 +161905,13 @@
     },
     "SlaMonitoringRequirementsCustomer": {
       "name": "SlaMonitoringRequirementsCustomer",
-      "sectionId": "SMRC1",
+      "sectionId": "SLMORECU",
       "doc": "Customer-specific SLA rules.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SMRC1"
+            "id": "SLMORECU"
           }
         }
       ],
@@ -162005,13 +162005,13 @@
     },
     "SlaMonitoringRequirementsMonitoring": {
       "name": "SlaMonitoringRequirementsMonitoring",
-      "sectionId": "SMRM2",
+      "sectionId": "SLMOREMO",
       "doc": "Monitoring mechanics.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SMRM2"
+            "id": "SLMOREMO"
           }
         }
       ],
@@ -162062,13 +162062,13 @@
     },
     "SlaMonitoringRequirementsReporting": {
       "name": "SlaMonitoringRequirementsReporting",
-      "sectionId": "SMRR1",
+      "sectionId": "SLMORERE",
       "doc": "Reporting and review.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SMRR1"
+            "id": "SLMORERE"
           }
         }
       ],
@@ -163672,13 +163672,13 @@
     },
     "StageDeployment": {
       "name": "StageDeployment",
-      "sectionId": "STDE1",
+      "sectionId": "SD",
       "doc": "Deployment and rollout for a stage entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "STDE1"
+            "id": "SD"
           }
         }
       ],
@@ -164922,13 +164922,13 @@
     },
     "StageMigrationRiskMonitoring": {
       "name": "StageMigrationRiskMonitoring",
-      "sectionId": "SMRM1",
+      "sectionId": "STMIRIMO",
       "doc": "Monitoring and detection.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SMRM1"
+            "id": "STMIRIMO"
           }
         }
       ],
@@ -169313,7 +169313,7 @@
     },
     "StandardsComplianceSection": {
       "name": "StandardsComplianceSection",
-      "sectionId": "SCS1",
+      "sectionId": "STCOSE",
       "doc": "8.3.2. Standards Compliance.\n\nRequired compliance with IT standards, industry protocols, and interface\nspecifications.",
       "help": "Specify compliance requirements with IT standards, industry protocols,\nregulatory frameworks, and certification requirements. Standards compliance\nis often mandatory for enterprise and regulated industries.\n\n**IT Standards**:\n- **ISO/IEC**: 27001 (InfoSec), 9001 (Quality), 22301 (Business Continuity),\n  25010 (Software Quality), 12207 (Lifecycle)\n- **IEEE**: 830 (Requirements), 1471 (Architecture), 29148 (Requirements)\n- **NIST**: Cybersecurity Framework, SP 800-53 controls\n\n**Industry Protocols**:\n- **API**: REST, GraphQL, gRPC, OpenAPI/Swagger specifications\n- **Data**: JSON, XML, Protocol Buffers, Avro schemas\n- **Security**: OAuth 2.0, OIDC, SAML, JWT, mTLS\n- **Messaging**: AMQP, MQTT, WebSocket, Server-Sent Events\n\n**Regulatory Compliance**:\n- **Privacy**: GDPR, CCPA, PIPEDA, LGPD, HIPAA\n- **Financial**: PCI-DSS, SOX, Basel III\n- **Industry**: FedRAMP, HITRUST, PSD2, MiFID II\n\n**Certification Requirements**:\n- SOC 2 Type I/II\n- ISO 27001 certification\n- Industry-specific certifications\n- Third-party security assessments\n",
       "annotations": [
@@ -169326,7 +169326,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SCS1"
+            "id": "STCOSE"
           }
         }
       ],
@@ -170140,13 +170140,13 @@
     },
     "SubStageEntryStatus": {
       "name": "SubStageEntryStatus",
-      "sectionId": "SSES1",
+      "sectionId": "SUSTENST",
       "doc": "Current status.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SSES1"
+            "id": "SUSTENST"
           }
         }
       ],
@@ -171429,13 +171429,13 @@
     },
     "SupportedLocaleEntry": {
       "name": "SupportedLocaleEntry",
-      "sectionId": "SLE2",
+      "sectionId": "SUPLOCENT",
       "doc": "A supported locale entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SLE2"
+            "id": "SUPLOCENT"
           }
         }
       ],
@@ -171555,13 +171555,13 @@
     },
     "SupportedLocaleEntryRollout": {
       "name": "SupportedLocaleEntryRollout",
-      "sectionId": "SLER1",
+      "sectionId": "SULOENRO",
       "doc": "Launch readiness and locale ownership.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SLER1"
+            "id": "SULOENRO"
           }
         }
       ],
@@ -172014,13 +172014,13 @@
     },
     "SystemBusinessProcessEntry": {
       "name": "SystemBusinessProcessEntry",
-      "sectionId": "SBPE1",
+      "sectionId": "SYBUPREN",
       "doc": "Business process supported.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SBPE1"
+            "id": "SYBUPREN"
           }
         }
       ],
@@ -172073,13 +172073,13 @@
     },
     "SystemBusinessUnitEntry": {
       "name": "SystemBusinessUnitEntry",
-      "sectionId": "SBUE1",
+      "sectionId": "SYBUUNEN",
       "doc": "Business unit using the system.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SBUE1"
+            "id": "SYBUUNEN"
           }
         }
       ],
@@ -172960,13 +172960,13 @@
     },
     "SystemDataScopeMigration": {
       "name": "SystemDataScopeMigration",
-      "sectionId": "SDSM1",
+      "sectionId": "SYDASCMI",
       "doc": "Migration preparation and archive handling.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SDSM1"
+            "id": "SYDASCMI"
           }
         }
       ],
@@ -173705,13 +173705,13 @@
     },
     "SystemErrorCodeEntry": {
       "name": "SystemErrorCodeEntry",
-      "sectionId": "SECE1",
+      "sectionId": "SYERCOEN",
       "doc": "A system error code entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SECE1"
+            "id": "SYERCOEN"
           }
         }
       ],
@@ -173971,19 +173971,19 @@
           "name": "errorPageDesigns",
           "kind": "list",
           "doc": "Error page designs.",
-          "sectionId": "ERROR1-ERRO-LST",
-          "sectionIdPattern": "ERROR1-ERRO-xxx",
+          "sectionId": "EPDE-ERRO-LST",
+          "sectionIdPattern": "EPDE-ERRO-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "ERROR1-ERRO-LST"
+                "id": "EPDE-ERRO-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "ERROR1-ERRO-xxx"
+                "pattern": "EPDE-ERRO-xxx"
               }
             }
           ],
@@ -175138,13 +175138,13 @@
     },
     "SystemMigrationRiskEntry": {
       "name": "SystemMigrationRiskEntry",
-      "sectionId": "SMRE1",
+      "sectionId": "SYMIRIEN",
       "doc": "A system migration risk entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "SMRE1"
+            "id": "SYMIRIEN"
           }
         }
       ],
@@ -176713,19 +176713,19 @@
           "name": "knownIssues",
           "kind": "list",
           "doc": "Known technical issues and deficiencies.",
-          "sectionId": "KNOWN1-KNOW-LST",
-          "sectionIdPattern": "KNOWN1-KNOW-xxx",
+          "sectionId": "KIE-KNOW-LST",
+          "sectionIdPattern": "KIE-KNOW-xxx",
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "KNOWN1-KNOW-LST"
+                "id": "KIE-KNOW-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "KNOWN1-KNOW-xxx"
+                "pattern": "KIE-KNOW-xxx"
               }
             }
           ],
@@ -177675,13 +177675,13 @@
     },
     "TabBarDefinitionEntry": {
       "name": "TabBarDefinitionEntry",
-      "sectionId": "TBDE1",
+      "sectionId": "TABADEEN",
       "doc": "A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TBDE1"
+            "id": "TABADEEN"
           }
         }
       ],
@@ -179565,13 +179565,13 @@
     },
     "TechnicalEnvironmentSecurity": {
       "name": "TechnicalEnvironmentSecurity",
-      "sectionId": "TFCS1",
+      "sectionId": "TES",
       "doc": "Security and compliance requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TFCS1"
+            "id": "TES"
           }
         }
       ],
@@ -182359,13 +182359,13 @@
     },
     "TestingStandards": {
       "name": "TestingStandards",
-      "sectionId": "TEST1",
+      "sectionId": "TS",
       "doc": "Testing standards and requirements.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TEST1"
+            "id": "TS"
           }
         }
       ],
@@ -182754,13 +182754,13 @@
     },
     "ThirdPartyApiIntegrationsAi": {
       "name": "ThirdPartyApiIntegrationsAi",
-      "sectionId": "TPAIA1",
+      "sectionId": "THPAAPINAI",
       "doc": "AI and translation providers.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TPAIA1"
+            "id": "THPAAPINAI"
           }
         }
       ],
@@ -183040,13 +183040,13 @@
     },
     "ThirdPartyCompatibilityEntry": {
       "name": "ThirdPartyCompatibilityEntry",
-      "sectionId": "TPCE1",
+      "sectionId": "THPACOEN",
       "doc": "Third-party software compatibility entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TPCE1"
+            "id": "THPACOEN"
           }
         }
       ],
@@ -187397,13 +187397,13 @@
     },
     "TrainingPrototype": {
       "name": "TrainingPrototype",
-      "sectionId": "TRPR1",
+      "sectionId": "TP",
       "doc": "10.13.3.2. Training Prototype.\n\nPrototype where concepts are reused but not code.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TRPR1"
+            "id": "TP"
           }
         }
       ],
@@ -189793,7 +189793,7 @@
     },
     "TranslationRequirements": {
       "name": "TranslationRequirements",
-      "sectionId": "TRRE1",
+      "sectionId": "TRAREQ",
       "doc": "10.12.5. Translation Handling Requirements.\n\nTechnical requirements for internationalization framework.",
       "mapsTo": "D06ArchitectureTechnologySpecification",
       "detailedIn": "D06ArchitectureTechnologySpecification",
@@ -189801,7 +189801,7 @@
         {
           "name": "SectionId",
           "arguments": {
-            "id": "TRRE1"
+            "id": "TRAREQ"
           }
         },
         {
@@ -191812,13 +191812,13 @@
     },
     "UiComponentEntry": {
       "name": "UiComponentEntry",
-      "sectionId": "UCE1",
+      "sectionId": "UICOMENT",
       "doc": "A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "UCE1"
+            "id": "UICOMENT"
           }
         }
       ],
@@ -192754,13 +192754,13 @@
     },
     "UiComponentEntryScroll": {
       "name": "UiComponentEntryScroll",
-      "sectionId": "UCES2",
+      "sectionId": "UICOENSC",
       "doc": "Scrolling behavior.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "UCES2"
+            "id": "UICOENSC"
           }
         }
       ],
@@ -192845,13 +192845,13 @@
     },
     "UiComponentEntrySurface": {
       "name": "UiComponentEntrySurface",
-      "sectionId": "UCES1",
+      "sectionId": "UICOENSU",
       "doc": "Surface treatment.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "UCES1"
+            "id": "UICOENSU"
           }
         }
       ],
@@ -195209,13 +195209,13 @@
     },
     "UserGroupImpactEntry": {
       "name": "UserGroupImpactEntry",
-      "sectionId": "UGIE1",
+      "sectionId": "USGRIMEN",
       "doc": "User group impact entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "UGIE1"
+            "id": "USGRIMEN"
           }
         }
       ],
@@ -197078,13 +197078,13 @@
     },
     "UtilityMenuItemEntry": {
       "name": "UtilityMenuItemEntry",
-      "sectionId": "UMIE1",
+      "sectionId": "UTMEITEN",
       "doc": "A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "UMIE1"
+            "id": "UTMEITEN"
           }
         }
       ],
@@ -197305,13 +197305,13 @@
     },
     "UtilityNavigationItemEntry": {
       "name": "UtilityNavigationItemEntry",
-      "sectionId": "UNIE1",
+      "sectionId": "UTNAITEN",
       "doc": "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "UNIE1"
+            "id": "UTNAITEN"
           }
         }
       ],
@@ -199111,13 +199111,13 @@
     },
     "VpnRequirementEntryPerformance": {
       "name": "VpnRequirementEntryPerformance",
-      "sectionId": "VREP1",
+      "sectionId": "VPREENPE",
       "doc": "Performance expectations.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "VREP1"
+            "id": "VPREENPE"
           }
         }
       ],
@@ -200209,13 +200209,13 @@
     },
     "WcagSuccessCriterionEntry": {
       "name": "WcagSuccessCriterionEntry",
-      "sectionId": "WSCE1",
+      "sectionId": "WCSUCREN",
       "doc": "A WCAG success criterion entry.",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
-            "id": "WSCE1"
+            "id": "WCSUCREN"
           }
         }
       ],

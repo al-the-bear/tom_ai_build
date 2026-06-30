@@ -14004,7 +14004,7 @@ impl CurrentArchitecture {
     pub fn integration_patterns(&self) -> som::SomList<IntegrationPatternEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "INTEG1-INTE-LST"),
+            format!("{}/{}", self.node.path(), "IPE-INTE-LST"),
             Box::new(|d, p| IntegrationPatternEntry::new(d, p)),
         )
     }
@@ -16625,7 +16625,7 @@ impl DataEntityEntry {
     pub fn compliance_requirements(&self) -> som::SomList<ComplianceRequirementEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "COMPL1-COMP-LST"),
+            format!("{}/{}", self.node.path(), "CRE-COMP-LST"),
             Box::new(|d, p| ComplianceRequirementEntry::new(d, p)),
         )
     }
@@ -27133,7 +27133,7 @@ impl ExternalSystemsContext {
     pub fn systems(&self) -> som::SomList<ExternalSystemContextEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "ESCE1-SYST-LST"),
+            format!("{}/{}", self.node.path(), "EXSYCOEN-SYST-LST"),
             Box::new(|d, p| ExternalSystemContextEntry::new(d, p)),
         )
     }
@@ -44999,7 +44999,7 @@ impl ProblemStatement {
     pub fn related_pain_points(&self) -> som::SomList<RelatedPainPointEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "RELAT1-RELA-LST"),
+            format!("{}/{}", self.node.path(), "RPPE-RELA-LST"),
             Box::new(|d, p| RelatedPainPointEntry::new(d, p)),
         )
     }
@@ -52753,7 +52753,7 @@ impl RiskEntry {
     pub fn relationships(&self) -> som::SomList<RiskRelationships> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "RIRE1-RELA-LST"),
+            format!("{}/{}", self.node.path(), "RR-RELA-LST"),
             Box::new(|d, p| RiskRelationships::new(d, p)),
         )
     }
@@ -63495,7 +63495,7 @@ impl SystemErrorDisplay {
     pub fn error_page_designs(&self) -> som::SomList<ErrorPageDesignEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "ERROR1-ERRO-LST"),
+            format!("{}/{}", self.node.path(), "EPDE-ERRO-LST"),
             Box::new(|d, p| ErrorPageDesignEntry::new(d, p)),
         )
     }
@@ -64617,7 +64617,7 @@ impl SystemTechnicalAssessment {
     pub fn known_issues(&self) -> som::SomList<KnownIssueEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "KNOWN1-KNOW-LST"),
+            format!("{}/{}", self.node.path(), "KIE-KNOW-LST"),
             Box::new(|d, p| KnownIssueEntry::new(d, p)),
         )
     }

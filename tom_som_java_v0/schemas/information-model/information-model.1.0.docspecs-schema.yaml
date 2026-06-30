@@ -14,11 +14,6 @@ section-types:
       pattern: ^birure_keyb_lst-\d+$
       error-message: ID must match birure_keyb_lst-NNN
     description: Contains 0+× BusinessRuleReference.
-  COMPL1-COMP-LST:
-    prefix: compl1_comp_lst
-    pattern-check-id:
-      pattern: ^compl1_comp_lst-\d+$
-      error-message: ID must match compl1_comp_lst-NNN
   RULEXM-EXAM-LST:
     prefix: rulexm_exam_lst
     pattern-check-id:
@@ -206,15 +201,17 @@ section-types:
       pattern: ^vaco_vali_lst-\d+$
       error-message: ID must match vaco_vali_lst-NNN
     description: Validation constraints.
+  CRE-COMP-LST:
+    prefix: cre_comp_lst
+    pattern-check-id:
+      pattern: ^cre_comp_lst-\d+$
+      error-message: ID must match cre_comp_lst-NNN
   BIOBAT:
     prefix: biobat
     description: A business object attribute entry (form).
   BIRURE:
     prefix: birure
     description: A business rule reference entry (form).
-  COMPL1:
-    prefix: compl1
-    description: A single compliance requirement entry.
   FUENCL:
     prefix: fuencl
     description: Decomposition position and classification.
@@ -368,6 +365,9 @@ section-types:
   VACO:
     prefix: vaco
     description: 7.1.6. Validation Constraints.
+  CRE:
+    prefix: cre
+    description: A single compliance requirement entry.
 document:
   sections:
     header:

@@ -10630,7 +10630,7 @@ public final class TomSomV0 {
 
     // Integration patterns used.
     public SomList<IntegrationPatternEntry> integrationPatterns() {
-      return new SomList<>(doc, path + "/INTEG1-INTE-LST", (d, p) -> new IntegrationPatternEntry(d, p));
+      return new SomList<>(doc, path + "/IPE-INTE-LST", (d, p) -> new IntegrationPatternEntry(d, p));
     }
 
     // Shared services inventory.
@@ -12850,7 +12850,7 @@ public final class TomSomV0 {
     }
 
     public SomList<ComplianceRequirementEntry> complianceRequirements() {
-      return new SomList<>(doc, path + "/COMPL1-COMP-LST", (d, p) -> new ComplianceRequirementEntry(d, p));
+      return new SomList<>(doc, path + "/CRE-COMP-LST", (d, p) -> new ComplianceRequirementEntry(d, p));
     }
 
     public DataEntityEntryRelationshipSummaryForm relationshipSummary() {
@@ -20851,7 +20851,7 @@ public final class TomSomV0 {
 
     // External system entries — contains 0+× ExternalSystemContextEntry.
     public SomList<ExternalSystemContextEntry> systems() {
-      return new SomList<>(doc, path + "/ESCE1-SYST-LST", (d, p) -> new ExternalSystemContextEntry(d, p));
+      return new SomList<>(doc, path + "/EXSYCOEN-SYST-LST", (d, p) -> new ExternalSystemContextEntry(d, p));
     }
   }
 
@@ -34361,7 +34361,7 @@ public final class TomSomV0 {
 
     // Related pain points from Current State Analysis.
     public SomList<RelatedPainPointEntry> relatedPainPoints() {
-      return new SomList<>(doc, path + "/RELAT1-RELA-LST", (d, p) -> new RelatedPainPointEntry(d, p));
+      return new SomList<>(doc, path + "/RPPE-RELA-LST", (d, p) -> new RelatedPainPointEntry(d, p));
     }
   }
 
@@ -40139,7 +40139,7 @@ public final class TomSomV0 {
 
     // Relationships to other risks, assumptions, and project elements.
     public SomList<RiskRelationships> relationships() {
-      return new SomList<>(doc, path + "/RIRE1-RELA-LST", (d, p) -> new RiskRelationships(d, p));
+      return new SomList<>(doc, path + "/RR-RELA-LST", (d, p) -> new RiskRelationships(d, p));
     }
   }
 
@@ -48308,7 +48308,7 @@ public final class TomSomV0 {
 
     // Error page designs.
     public SomList<ErrorPageDesignEntry> errorPageDesigns() {
-      return new SomList<>(doc, path + "/ERROR1-ERRO-LST", (d, p) -> new ErrorPageDesignEntry(d, p));
+      return new SomList<>(doc, path + "/EPDE-ERRO-LST", (d, p) -> new ErrorPageDesignEntry(d, p));
     }
 
     // Error codes catalog.
@@ -49195,7 +49195,7 @@ public final class TomSomV0 {
 
     // Known technical issues and deficiencies.
     public SomList<KnownIssueEntry> knownIssues() {
-      return new SomList<>(doc, path + "/KNOWN1-KNOW-LST", (d, p) -> new KnownIssueEntry(d, p));
+      return new SomList<>(doc, path + "/KIE-KNOW-LST", (d, p) -> new KnownIssueEntry(d, p));
     }
 
     // Security vulnerabilities and compliance gaps.

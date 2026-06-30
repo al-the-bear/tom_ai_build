@@ -2,6 +2,12 @@
 # Schema: solution-blueprint/1.0
 
 section-types:
+  EXSYCOEN-SYST-LST:
+    prefix: exsycoen_syst_lst
+    pattern-check-id:
+      pattern: ^exsycoen_syst_lst-\d+$
+      error-message: ID must match exsycoen_syst_lst-NNN
+    description: Add one entry per external system that this system integrates with.
   REPSDEP-DEPE-LST:
     prefix: repsdep_depe_lst
     pattern-check-id:
@@ -158,11 +164,6 @@ section-types:
       pattern: ^colvch_chan_lst-\d+$
       error-message: ID must match colvch_chan_lst-NNN
     description: Competencies with changed proficiency levels.
-  COMPL1-COMP-LST:
-    prefix: compl1_comp_lst
-    pattern-check-id:
-      pattern: ^compl1_comp_lst-\d+$
-      error-message: ID must match compl1_comp_lst-NNN
   COREEN-RESP-LST:
     prefix: coreen_resp_lst
     pattern-check-id:
@@ -317,12 +318,6 @@ section-types:
       pattern: ^enrefe_enti_lst-\d+$
       error-message: ID must match enrefe_enti_lst-NNN
     description: Contains 0+× EntitlementReference.
-  ERROR1-ERRO-LST:
-    prefix: error1_erro_lst
-    pattern-check-id:
-      pattern: ^error1_erro_lst-\d+$
-      error-message: ID must match error1_erro_lst-NNN
-    description: Error page designs.
   EXFOEN-EXPO-LST:
     prefix: exfoen_expo_lst
     pattern-check-id:
@@ -456,18 +451,6 @@ section-types:
       pattern: ^insure_insu_lst-\d+$
       error-message: ID must match insure_insu_lst-NNN
     description: Insurance requirements — contains 0+× Insurance Entry.
-  INTEG1-INTE-LST:
-    prefix: integ1_inte_lst
-    pattern-check-id:
-      pattern: ^integ1_inte_lst-\d+$
-      error-message: ID must match integ1_inte_lst-NNN
-    description: Integration patterns used.
-  KNOWN1-KNOW-LST:
-    prefix: known1_know_lst
-    pattern-check-id:
-      pattern: ^known1_know_lst-\d+$
-      error-message: ID must match known1_know_lst-NNN
-    description: Known technical issues and deficiencies.
   LECOEN-LEGA-LST:
     prefix: lecoen_lega_lst
     pattern-check-id:
@@ -690,12 +673,6 @@ section-types:
       pattern: ^refude_func_lst-\d+$
       error-message: ID must match refude_func_lst-NNN
     description: Function details and scope.
-  RELAT1-RELA-LST:
-    prefix: relat1_rela_lst
-    pattern-check-id:
-      pattern: ^relat1_rela_lst-\d+$
-      error-message: ID must match relat1_rela_lst-NNN
-    description: Related pain points from Current State Analysis.
   REMROL-REMO-LST:
     prefix: remrol_remo_lst
     pattern-check-id:
@@ -1317,12 +1294,6 @@ section-types:
       pattern: ^escal_esca_lst-\d+$
       error-message: ID must match escal_esca_lst-NNN
     description: Escalation procedures during migration.
-  ESCE1-SYST-LST:
-    prefix: esce1_syst_lst
-    pattern-check-id:
-      pattern: ^esce1_syst_lst-\d+$
-      error-message: ID must match esce1_syst_lst-NNN
-    description: Add one entry per external system that this system integrates with.
   ESENT-SYST-LST:
     prefix: esent_syst_lst
     min-count-in-document: 1
@@ -1978,12 +1949,6 @@ section-types:
       pattern: ^rguse_reus_lst-\d+$
       error-message: ID must match rguse_reus_lst-NNN
     description: 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
-  RIRE1-RELA-LST:
-    prefix: rire1_rela_lst
-    pattern-check-id:
-      pattern: ^rire1_rela_lst-\d+$
-      error-message: ID must match rire1_rela_lst-NNN
-    description: "Relationships to other risks, assumptions, and project elements."
   RISKB-RISK-LST:
     prefix: riskb_risk_lst
     pattern-check-id:
@@ -2809,6 +2774,12 @@ section-types:
       pattern: ^epce_part_lst-\d+$
       error-message: ID must match epce_part_lst-NNN
     description: External partner connections — contains 0+× ExternalPartnerConnection.
+  EPDE-ERRO-LST:
+    prefix: epde_erro_lst
+    pattern-check-id:
+      pattern: ^epde_erro_lst-\d+$
+      error-message: ID must match epde_erro_lst-NNN
+    description: Error page designs.
   EPNT-ENTR-LST:
     prefix: epnt_entr_lst
     pattern-check-id:
@@ -3008,6 +2979,12 @@ section-types:
       pattern: ^rien_keyr_lst-\d+$
       error-message: ID must match rien_keyr_lst-NNN
     description: 4.7.1. Key Risks — contains 0+× Risk.
+  RPPE-RELA-LST:
+    prefix: rppe_rela_lst
+    pattern-check-id:
+      pattern: ^rppe_rela_lst-\d+$
+      error-message: ID must match rppe_rela_lst-NNN
+    description: Related pain points from Current State Analysis.
   SBPE-SUPP-LST:
     prefix: sbpe_supp_lst
     pattern-check-id:
@@ -3276,6 +3253,14 @@ section-types:
       pattern: ^bre_brea_lst-\d+$
       error-message: ID must match bre_brea_lst-NNN
     description: Breakpoint entries.
+  COMLICENTCON:
+    prefix: comlicentcon
+    description: Contract termination terms.
+  CRE-COMP-LST:
+    prefix: cre_comp_lst
+    pattern-check-id:
+      pattern: ^cre_comp_lst-\d+$
+      error-message: ID must match cre_comp_lst-NNN
   CRT-CERT-LST:
     prefix: crt_cert_lst
     pattern-check-id:
@@ -3323,6 +3308,18 @@ section-types:
       pattern: ^ice_chan_lst-\d+$
       error-message: ID must match ice_chan_lst-NNN
     description: Add one entry per access channel. Include both primary and secondary channels.
+  IPE-INTE-LST:
+    prefix: ipe_inte_lst
+    pattern-check-id:
+      pattern: ^ipe_inte_lst-\d+$
+      error-message: ID must match ipe_inte_lst-NNN
+    description: Integration patterns used.
+  KIE-KNOW-LST:
+    prefix: kie_know_lst
+    pattern-check-id:
+      pattern: ^kie_know_lst-\d+$
+      error-message: ID must match kie_know_lst-NNN
+    description: Known technical issues and deficiencies.
   KRE-ITEM-LST:
     prefix: kre_item_lst
     pattern-check-id:
@@ -3391,6 +3388,462 @@ section-types:
       pattern: ^ci_inte_lst-\d+$
       error-message: ID must match ci_inte_lst-NNN
     description: Channel-specific integration requirements.
+  RR-RELA-LST:
+    prefix: rr_rela_lst
+    pattern-check-id:
+      pattern: ^rr_rela_lst-\d+$
+      error-message: ID must match rr_rela_lst-NNN
+    description: "Relationships to other risks, assumptions, and project elements."
+  DASURIMAAU:
+    prefix: dasurimaau
+    description: Automated decision safeguards.
+  DEOSREENSO:
+    prefix: deosreenso
+    description: Software prerequisites.
+  EXSYCOENIN:
+    prefix: exsycoenin
+    description: Integration intent and exchanged information.
+  INPRCOENIN:
+    prefix: inprcoenin
+    description: Interoperability notes.
+  REUICOENDE:
+    prefix: reuicoende
+    description: Design specifications for UI component.
+  REUICOENIM:
+    prefix: reuicoenim
+    description: Implementation details for UI component.
+  SESTCOENSC:
+    prefix: sestcoensc
+    description: Scope details.
+  SESTCOENST:
+    prefix: sestcoenst
+    description: Overall status.
+  THPAAPINAI:
+    prefix: thpaapinai
+    description: AI and translation providers.
+  ALEDEFENT:
+    prefix: aledefent
+    description: Alert definition entry.
+  ALERULENT:
+    prefix: alerulent
+    description: An alert rule entry.
+  BROCOMENT:
+    prefix: brocoment
+    description: Browser compatibility entry.
+  BROREQENT:
+    prefix: broreqent
+    description: Browser requirement entry.
+  BUSCOMENT:
+    prefix: buscoment
+    description: Business logic component entry.
+  COMSTAENT:
+    prefix: comstaent
+    description: A component state entry.
+  CUSMETENT:
+    prefix: cusmetent
+    description: A custom metric entry.
+  DATCOMENT:
+    prefix: datcoment
+    description: Database compatibility entry.
+  DEPTARENT:
+    prefix: deptarent
+    description: Deployment target specification entry.
+  INFCOMENT:
+    prefix: infcoment
+    description: Infrastructure component entry.
+  INTCONENT:
+    prefix: intconent
+    description: An integration constraint entry (form).
+  INTSPEENT:
+    prefix: intspeent
+    description: "Interface specification entry (REST, GraphQL, gRPC, SOAP)."
+  MOBCOMENT:
+    prefix: mobcoment
+    description: Mobile device compatibility entry.
+  REPCHAENT:
+    prefix: repchaent
+    description: A chart/visualization in a report
+  REPCOLENT:
+    prefix: repcolent
+    description: A column in a tabular report section
+  REPSCHENT:
+    prefix: repschent
+    description: Scheduling rules for report generation
+  SUPLOCENT:
+    prefix: suplocent
+    description: A supported locale entry.
+  ADINREDA:
+    prefix: adinreda
+    description: Data management tooling.
+  APCOENPO:
+    prefix: apcoenpo
+    description: Compatibility policy.
+  APCOENTR:
+    prefix: apcoentr
+    description: Transport requirements.
+  ARDERECO:
+    prefix: ardereco
+    description: Consequences and review.
+  ARPRENGO:
+    prefix: arprengo
+    description: Enforcement and applicability context.
+  AUROENST:
+    prefix: auroenst
+    description: Data access and role status flags.
+  BACOREDA:
+    prefix: bacoreda
+    description: Database compatibility requirements.
+  BAPOENST:
+    prefix: bapoenst
+    description: Storage configuration for backup policy.
+  BOCOENIN:
+    prefix: bocoenin
+    description: Integration and notes.
+  BRCOENSU:
+    prefix: brcoensu
+    description: Support level and priority.
+  BRCOENTE:
+    prefix: brcoente
+    description: Testing notes.
+  BUCOENDE:
+    prefix: bucoende
+    description: Dependency mapping.
+  BUCOENIN:
+    prefix: bucoenin
+    description: Public interface details.
+  BUTOENOP:
+    prefix: butoenop
+    description: Performance and rationale.
+  CAREPRMO:
+    prefix: careprmo
+    description: Monitoring and forecasting inputs for capacity review.
+  CLNEREPR:
+    prefix: clnerepr
+    description: Proxy and firewall requirements.
+  COEQENPL:
+    prefix: coeqenpl
+    description: Deployment and justification.
+  COINENSL:
+    prefix: coinensl
+    description: SLA and monitoring for component interface.
+  COLIENCA:
+    prefix: colienca
+    description: Metering and capacity rules.
+  COLIENCO:
+    prefix: colienco
+    description: Compliance restrictions.
+  COMARECO:
+    prefix: comareco
+    description: Compliance evidence and reporting.
+  COMAREST:
+    prefix: comarest
+    description: Consent record storage rules.
+  COPLENRE:
+    prefix: coplenre
+    description: Responsibility and recovery targets for contingency plan.
+  COQUMECO:
+    prefix: coqumeco
+    description: Coupling metrics.
+  COREENSL:
+    prefix: coreensl
+    description: SLA commitments.
+  CORIENDE:
+    prefix: coriende
+    description: Detection and monitoring for component risk.
+  CORIENGO:
+    prefix: coriengo
+    description: Governance and ownership for component risk.
+  COVESERE:
+    prefix: covesere
+    description: Reporting requirements.
+  CRCUCOSH:
+    prefix: crcucosh
+    description: Other shared capabilities.
+  CUSTRIAS:
+    prefix: custrias
+    description: 1.6. Current State Risks.
+  DADUENSY:
+    prefix: daduensy
+    description: Synchronization and consistency details.
+  DAENMIEN:
+    prefix: daenmien
+    description: A data entity migration entry.
+  DAOWENST:
+    prefix: daowenst
+    description: Stewardship and custodianship assignments.
+  DARERERE:
+    prefix: darerere
+    description: "Backup, replication, and CDN placement rules."
+  DEOSREEN:
+    prefix: deosreen
+    description: Desktop operating system requirement entry.
+  DEPAENCO:
+    prefix: depaenco
+    description: Architectural context.
+  DEPAENST:
+    prefix: depaenst
+    description: Structural composition.
+  DEPOENCR:
+    prefix: depoencr
+    description: Criteria and inputs for decision point.
+  DEQUGACO:
+    prefix: dequgaco
+    description: Complexity thresholds.
+  DETAENPR:
+    prefix: detaenpr
+    description: Deployment process configuration.
+  DIEQENPL:
+    prefix: dieqenpl
+    description: Quantity planning and justification for display equipment.
+  DIREREFA:
+    prefix: direrefa
+    description: Failback procedure.
+  DITRSPSP:
+    prefix: ditrspsp
+    description: Span metadata.
+  ELVARUEN:
+    prefix: elvaruen
+    description: A validation rule entry (form).
+  ENSYCOEN:
+    prefix: ensycoen
+    description: Enterprise system compatibility entry.
+  ERHASTRE:
+    prefix: erhastre
+    description: Recovery guidance.
+  EXFIMAEN:
+    prefix: exfimaen
+    description: A field mapping within an export (form).
+  EXNEREPA:
+    prefix: exnerepa
+    description: Third-party connectivity.
+  EXPACOEN:
+    prefix: expacoen
+    description: An external partner connection entry (form).
+  EXSYCOEN:
+    prefix: exsycoen
+    description: An external system context entry (form).
+  EXTEENFI:
+    prefix: exteenfi
+    description: Field and filter settings for export template.
+  FEMOENDE:
+    prefix: femoende
+    description: Dependencies.
+  FESTMAAC:
+    prefix: festmaac
+    description: Acceptance and notes.
+  HECHENCO:
+    prefix: hechenco
+    description: Response content settings.
+  IDSOENCO:
+    prefix: idsoenco
+    description: Connectivity and trust details.
+  INASCOSE:
+    prefix: inascose
+    description: Security and policy controls.
+  INBUPREN:
+    prefix: inbupren
+    description: Business process dependency entry.
+  INCHENCO:
+    prefix: inchenco
+    description: Compliance and requirements for interaction channel.
+  INCOENCO:
+    prefix: incoenco
+    description: Compliance rules.
+  INCOENDE:
+    prefix: incoende
+    description: Constraint details.
+  INDAENEN:
+    prefix: indaenen
+    description: Data entity exchanged.
+  INMESPCO:
+    prefix: inmespco
+    description: Cost attribution and notes.
+  INPRCOEN:
+    prefix: inprcoen
+    description: Industry protocol compliance entry.
+  INSPENCO:
+    prefix: inspenco
+    description: Interface conventions.
+  INSPENDO:
+    prefix: inspendo
+    description: Documentation expectations.
+  INSTENCE:
+    prefix: instence
+    description: Certification details.
+  INTESCEN:
+    prefix: intescen
+    description: Test scenario entry.
+  ITSTCOEN:
+    prefix: itstcoen
+    description: "IT standard compliance entry (ISO, IEEE, NIST, OASIS)."
+  LODESETR:
+    prefix: lodesetr
+    description: Troubleshooting details.
+  LOMARECO:
+    prefix: lomareco
+    description: Compliance settings.
+  MAWIENSC:
+    prefix: mawiensc
+    description: Scope details.
+  MECORECU:
+    prefix: mecorecu
+    description: Custom metrics settings.
+  MOCOENDI:
+    prefix: mocoendi
+    description: Distribution details.
+  MODEENCA:
+    prefix: modeenca
+    description: Technical and management requirements.
+  MODEREEN:
+    prefix: modereen
+    description: Mobile device requirement entry.
+  MOVESTCO:
+    prefix: movestco
+    description: Cross-module coordination.
+  NAGUENDI:
+    prefix: naguendi
+    description: Covered routes and dialog resources.
+  NEAVRERE:
+    prefix: neavrere
+    description: Recovery objectives.
+  NELAREST:
+    prefix: nelarest
+    description: Stability tolerances.
+  NESEPODN:
+    prefix: nesepodn
+    description: DNS controls and notes.
+  ONTRENCO:
+    prefix: ontrenco
+    description: Tracking and compliance.
+  OUOFSCEN:
+    prefix: ouofscen
+    description: An out-of-scope entry (form).
+  PHGAREEN:
+    prefix: phgareen
+    description: A phase gate review entry (form).
+  PHWOREEN:
+    prefix: phworeen
+    description: Environmental conditions and controls.
+  RECOENAP:
+    prefix: recoenap
+    description: Applicability analysis.
+  RECOENRE:
+    prefix: recoenre
+    description: Compliance requirements.
+  REDIENCO:
+    prefix: redienco
+    description: Message and attachment content for report distribution.
+  REDIENRE:
+    prefix: redienre
+    description: Recipient and format settings for report distribution.
+  REREENCO:
+    prefix: rereenco
+    description: Recipient business context.
+  RUDEENRI:
+    prefix: rudeenri
+    description: Compatibility and transitive risk notes.
+  SCELENLA:
+    prefix: scelenla
+    description: Placement and layout settings for screen element.
+  SCELENPR:
+    prefix: scelenpr
+    description: Styling and data binding for screen element.
+  SCRERUEN:
+    prefix: screruen
+    description: A responsive rule entry (form).
+  SCSTENEX:
+    prefix: scstenex
+    description: "Branching, timing, and notes."
+  SECEREIN:
+    prefix: secerein
+    description: Industry-specific requirements.
+  SEENENLI:
+    prefix: seenenli
+    description: Lifecycle rules.
+  SEREENCL:
+    prefix: sereencl
+    description: Category and classification for security requirement.
+  SEREENCO:
+    prefix: sereenco
+    description: Compliance framework mapping for security requirement.
+  SEREENST:
+    prefix: sereenst
+    description: Status and ownership for security requirement.
+  SEROENST:
+    prefix: seroenst
+    description: Storage requirements.
+  SESTCOEN:
+    prefix: sestcoen
+    description: "Security standard compliance entry (SOC2, ISO 27001, CIS)."
+  SESTENSC:
+    prefix: sestensc
+    description: Applicability and regulatory scope.
+  SHLIENDE:
+    prefix: shliende
+    description: Description and usage.
+  SLMORECU:
+    prefix: slmorecu
+    description: Customer-specific SLA rules.
+  SLMOREMO:
+    prefix: slmoremo
+    description: Monitoring mechanics.
+  SLMORERE:
+    prefix: slmorere
+    description: Reporting and review.
+  STMIRIMO:
+    prefix: stmirimo
+    description: Monitoring and detection.
+  SULOENRO:
+    prefix: suloenro
+    description: Launch readiness and locale ownership.
+  SUSTENST:
+    prefix: sustenst
+    description: Current status.
+  SYBUPREN:
+    prefix: sybupren
+    description: Business process supported.
+  SYBUUNEN:
+    prefix: sybuunen
+    description: Business unit using the system.
+  SYDASCMI:
+    prefix: sydascmi
+    description: Migration preparation and archive handling.
+  SYERCOEN:
+    prefix: syercoen
+    description: A system error code entry.
+  SYMIRIEN:
+    prefix: symirien
+    description: A system migration risk entry.
+  TABADEEN:
+    prefix: tabadeen
+    description: A tab bar definition entry (form).
+  THPACOEN:
+    prefix: thpacoen
+    description: Third-party software compatibility entry.
+  UICOENSC:
+    prefix: uicoensc
+    description: Scrolling behavior.
+  UICOENSU:
+    prefix: uicoensu
+    description: Surface treatment.
+  UICOMENT:
+    prefix: uicoment
+    description: A UI component entry.
+  USGRIMEN:
+    prefix: usgrimen
+    description: User group impact entry.
+  UTMEITEN:
+    prefix: utmeiten
+    description: A utility menu item entry (form).
+  UTNAITEN:
+    prefix: utnaiten
+    description: A utility navigation item entry (form).
+  VPREENPE:
+    prefix: vpreenpe
+    description: Performance expectations.
+  WCSUCREN:
+    prefix: wcsucren
+    description: A WCAG success criterion entry.
   REPSDEP:
     prefix: repsdep
     description: A system dependency entry.
@@ -3463,6 +3916,9 @@ section-types:
   ACSTGY:
     prefix: acstgy
     description: Ownership and inclusive design philosophy.
+  ACTCHA:
+    prefix: actcha
+    description: Actor characteristics.
   ACTEPR:
     prefix: actepr
     description: Actor technology profile.
@@ -3502,6 +3958,9 @@ section-types:
   APABPR:
     prefix: apabpr
     description: "API abuse protection — rate limiting, bot detection, brute force"
+  APAUPO:
+    prefix: apaupo
+    description: API authorization policy — how API access decisions are made.
   APCOSE:
     prefix: apcose
     description: API CORS security — Cross-Origin Resource Sharing policy from a security
@@ -3724,6 +4183,37 @@ section-types:
   CLPRRE:
     prefix: clprre
     description: Cloud provider requirements.
+  CLRESE:
+    prefix: clrese
+    description: |
+      Specify client device requirements including browsers, operating systems,
+      display specifications, and accessibility needs. Client requirements
+      define the user experience boundary conditions.
+      **Browser Requirements**:
+      - Supported browsers with minimum versions
+      - Browser feature requirements (WebGL, WebRTC, Service Workers)
+      - Mobile browser considerations (Safari iOS, Chrome Android)
+      - Progressive Web App (PWA) requirements
+      **Desktop Requirements**:
+      - Operating systems: Windows 10/11, macOS 12+, Linux distributions
+      - Hardware minimums: CPU, RAM, disk space
+      - Required software: .NET runtime, Java, etc.
+      - Installation and update mechanisms
+      **Mobile Requirements**:
+      - iOS minimum version and device support
+      - Android API level and device compatibility
+      - Form factors: phone, tablet, foldable
+      - App store requirements and restrictions
+      **Display Requirements**:
+      - Minimum screen resolution
+      - Responsive design breakpoints
+      - Touch vs. mouse/keyboard interactions
+      - HiDPI and retina display support
+      **Accessibility Requirements**:
+      - WCAG 2.1 compliance level (A, AA, AAA)
+      - Screen reader compatibility
+      - Keyboard navigation
+      - Color contrast and visual accommodations
   CLSEIN:
     prefix: clsein
     description: Cloud service integrations.
@@ -3805,9 +4295,44 @@ section-types:
   COMASE:
     prefix: comase
     description: Security controls.
-  COMPL1:
-    prefix: compl1
-    description: A single compliance requirement entry.
+  COMPAT:
+    prefix: compat
+    description: Communication patterns between components.
+  COMREP:
+    prefix: comrep
+    description: 9.6.3. Compliance Reporting.
+  COMREQ:
+    prefix: comreq
+    description: |
+      Define network communication requirements including protocols, security,
+      and external connectivity. Communication architecture affects performance,
+      security, and integration capabilities.
+      **Subsections**:
+      - **Protocols and Standards**: Communication protocols, TLS/SSL, API
+        versioning, certificate management, data formats
+      - **External Connectivity**: Partner integrations, cloud services, third-
+        party APIs, service mesh, API gateway
+      **Communication Patterns**:
+      - **Synchronous**: HTTP/REST, gRPC, GraphQL (request-response)
+      - **Asynchronous**: Message queues, event streaming (fire-and-forget)
+      - **Real-time**: WebSocket, Server-Sent Events, WebRTC
+      - **Batch**: File transfer, scheduled data exchange
+      **Security Considerations**:
+      - Transport security (TLS 1.2/1.3, certificate pinning)
+      - API authentication (API keys, OAuth, mTLS)
+      - Data encryption in transit and at rest
+      - Rate limiting and throttling
+      **Integration Standards**:
+      - API design guidelines (REST, OpenAPI, AsyncAPI)
+      - Data format standards (JSON, Protocol Buffers, Avro)
+      - Error handling and response formats
+      - Idempotency and retry handling
+  CONPLA:
+    prefix: conpla
+    description: 12.6.2. Contingency Plans.
+  CONRES:
+    prefix: conres
+    description: Connectivity resilience requirements.
   COORCO:
     prefix: coorco
     description: Coupling guidance.
@@ -4015,6 +4540,9 @@ section-types:
   DAREST:
     prefix: darest
     description: Standard dashboards.
+  DASENT:
+    prefix: dasent
+    description: A dashboard entry.
   DASOCL:
     prefix: dasocl
     description: Classification for data source.
@@ -4192,12 +4720,12 @@ section-types:
   DOCOQU:
     prefix: docoqu
     description: 11.5.2. Documentation completeness quality.
+  DOPREN:
+    prefix: dopren
+    description: A domain process entry (form).
   DOQUCR:
     prefix: doqucr
     description: 11.10. Documentation Quality (ISO/IEC 26514 annex).
-  DORES1:
-    prefix: dores1
-    description: Software prerequisites.
   DORESE:
     prefix: dorese
     description: Key sections within a reference document relevant to the project.
@@ -4216,9 +4744,6 @@ section-types:
   DOSTVE:
     prefix: dostve
     description: Changelog and versioning requirements.
-  DSRMA1:
-    prefix: dsrma1
-    description: Automated decision safeguards.
   EFQURE:
     prefix: efqure
     description: Resource utilization constraints.
@@ -4279,12 +4804,6 @@ section-types:
   ERHAST:
     prefix: erhast
     description: Error handling and exception patterns.
-  ERROR1:
-    prefix: error1
-    description: A single error page design entry.
-  ESCEI1:
-    prefix: escei1
-    description: Integration intent and exchanged information.
   EVATPO:
     prefix: evatpo
     description: Event attribute policy (form).
@@ -4378,6 +4897,9 @@ section-types:
   FLQUMO:
     prefix: flqumo
     description: Modularity and reuse goals.
+  FRREEN:
+    prefix: frreen
+    description: Framework or library requirement entry.
   FTRMOD:
     prefix: ftrmod
     description: Feature module entry — a vertical slice feature.
@@ -4540,9 +5062,6 @@ section-types:
   INTEDA:
     prefix: inteda
     description: Test data strategy.
-  INTEG1:
-    prefix: integ1
-    description: A single integration pattern entry.
   INTEGR:
     prefix: integr
     description: 1.1.3.4. System Integrations.
@@ -4573,9 +5092,6 @@ section-types:
   INWESP:
     prefix: inwesp
     description: Webhook specification.
-  IPCEI1:
-    prefix: ipcei1
-    description: Interoperability notes.
   JODEOV:
     prefix: jodeov
     description: Overview of job descriptions and staffing approach.
@@ -4588,9 +5104,6 @@ section-types:
   KESTPO:
     prefix: kestpo
     description: Key storage policy (form).
-  KNOWN1:
-    prefix: known1
-    description: A single known issue entry.
   LACORU:
     prefix: lacoru
     description: Layer communication rules and constraints.
@@ -4675,6 +5188,9 @@ section-types:
   MIDAQU:
     prefix: midaqu
     description: Data quality strategy for migration.
+  MIGCON:
+    prefix: migcon
+    description: 4.4.2. Migration Considerations (global).
   MIGPLN:
     prefix: migpln
     description: 15.2. Migration Plan.
@@ -4750,6 +5266,9 @@ section-types:
   MLARLH:
     prefix: mlarlh
     description: Locale modeling and fallback behavior.
+  MODENT:
+    prefix: modent
+    description: Module entry — a discrete module or component.
   MOENCL:
     prefix: moencl
     description: MoSCoW classification details.
@@ -5020,6 +5539,9 @@ section-types:
   PRNASI:
     prefix: prnasi
     description: Sidebar sizing and selection behavior.
+  PRORES:
+    prefix: prores
+    description: Prototype staffing and environment.
   PROTOT:
     prefix: protot
     description: 10.13. Prototype.
@@ -5146,12 +5668,12 @@ section-types:
   REIMSU:
     prefix: reimsu
     description: Summary of responsibility impact.
-  RELAT1:
-    prefix: relat1
-    description: A single related pain point entry.
   REMROL:
     prefix: remrol
     description: A removed role entry (form).
+  REPENT:
+    prefix: repent
+    description: A report entry (form).
   REPOSU:
     prefix: reposu
     description: Summary of retention policy framework.
@@ -5191,6 +5713,12 @@ section-types:
   REPRVE:
     prefix: reprve
     description: Versioning policy.
+  REQCOV:
+    prefix: reqcov
+    description: 4.3.6. Requirement Coverage.
+  REQDEP:
+    prefix: reqdep
+    description: Identify requirements that must be implemented before or alongside this requirement.
   REQUCO:
     prefix: requco
     description: Comprehensibility requirements.
@@ -5233,6 +5761,9 @@ section-types:
   RESKEY:
     prefix: reskey
     description: A resource key entry (form).
+  RESPRO:
+    prefix: respro
+    description: 9.3. Resource Protection.
   RESPSR:
     prefix: respsr
     description: A screen-specific responsive rule entry.
@@ -5251,6 +5782,9 @@ section-types:
   RETRIM:
     prefix: retrim
     description: Implementation and deployment tracking.
+  REUPRO:
+    prefix: reupro
+    description: 10.13.3.1. Reusable Prototype.
   RIANAS:
     prefix: rianas
     description: 4.7. Risks.
@@ -5275,6 +5809,9 @@ section-types:
   RIRERE:
     prefix: rirere
     description: Residual and secondary risk expectations.
+  RISENT:
+    prefix: risent
+    description: A risk entry (form).
   RLTPLN:
     prefix: rltpln
     description: 15.1. Rollout Plan.
@@ -5323,12 +5860,6 @@ section-types:
   RSPREF:
     prefix: rspref
     description: A responsibility reference entry (form).
-  RUCED1:
-    prefix: ruced1
-    description: Design specifications for UI component.
-  RUCEI1:
-    prefix: rucei1
-    description: Implementation details for UI component.
   RUENCP:
     prefix: ruencp
     description: CPU and graphics requirements.
@@ -5407,6 +5938,9 @@ section-types:
   SECERE:
     prefix: secere
     description: Security certification and compliance requirements.
+  SECOEN:
+    prefix: secoen
+    description: A security control entry (form).
   SEDAEN:
     prefix: sedaen
     description: 9.5. Sensitive Data Encryption.
@@ -5467,6 +6001,9 @@ section-types:
   SGOVSC:
     prefix: sgovsc
     description: Schedule analytics for stage overview.
+  SHLIEN:
+    prefix: shlien
+    description: Shared library entry — a reusable library or utility.
   SIOFPR:
     prefix: siofpr
     description: 14.2.5. Sign-off Process.
@@ -5482,12 +6019,6 @@ section-types:
   SMAGLB:
     prefix: smaglb
     description: Load balancing and termination rules.
-  SSCES1:
-    prefix: ssces1
-    description: Scope details.
-  SSCES2:
-    prefix: ssces2
-    description: Overall status.
   STAGAS:
     prefix: stagas
     description: Approach selection for staging strategy.
@@ -5542,6 +6073,31 @@ section-types:
   STBUGO:
     prefix: stbugo
     description: Budget ownership and approval controls.
+  STCOSE:
+    prefix: stcose
+    description: |
+      Specify compliance requirements with IT standards, industry protocols,
+      regulatory frameworks, and certification requirements. Standards compliance
+      is often mandatory for enterprise and regulated industries.
+      **IT Standards**:
+      - **ISO/IEC**: 27001 (InfoSec), 9001 (Quality), 22301 (Business Continuity),
+        25010 (Software Quality), 12207 (Lifecycle)
+      - **IEEE**: 830 (Requirements), 1471 (Architecture), 29148 (Requirements)
+      - **NIST**: Cybersecurity Framework, SP 800-53 controls
+      **Industry Protocols**:
+      - **API**: REST, GraphQL, gRPC, OpenAPI/Swagger specifications
+      - **Data**: JSON, XML, Protocol Buffers, Avro schemas
+      - **Security**: OAuth 2.0, OIDC, SAML, JWT, mTLS
+      - **Messaging**: AMQP, MQTT, WebSocket, Server-Sent Events
+      **Regulatory Compliance**:
+      - **Privacy**: GDPR, CCPA, PIPEDA, LGPD, HIPAA
+      - **Financial**: PCI-DSS, SOX, Basel III
+      - **Industry**: FedRAMP, HITRUST, PSD2, MiFID II
+      **Certification Requirements**:
+      - SOC 2 Type I/II
+      - ISO 27001 certification
+      - Industry-specific certifications
+      - Third-party security assessments
   STENCA:
     prefix: stenca
     description: Capacity and competency requirements.
@@ -5797,9 +6353,9 @@ section-types:
   TOLLYC:
     prefix: tollyc
     description: Lifecycle management for a tool.
-  TPAIA1:
-    prefix: tpaia1
-    description: AI and translation providers.
+  TRAREQ:
+    prefix: trareq
+    description: 10.12.5. Translation Handling Requirements.
   TRASEF:
     prefix: trasef
     description: Retention and effectiveness evaluation.
@@ -6022,21 +6578,12 @@ section-types:
   ACACT:
     prefix: acact
     description: 9.1.2.3. Account Activation (form).
-  ACCH1:
-    prefix: acch1
-    description: Actor characteristics.
   ACDEA:
     prefix: acdea
     description: 9.1.2.5. Account Deactivation (form).
   ACDEL:
     prefix: acdel
     description: 9.1.2.6. Account Deletion and Data Retention (form).
-  ACEP1:
-    prefix: acep1
-    description: Compatibility policy.
-  ACET1:
-    prefix: acet1
-    description: Transport requirements.
   ACMOD:
     prefix: acmod
     description: 9.1.2.4. Account Modification (form).
@@ -6052,24 +6599,12 @@ section-types:
   ADMSM:
     prefix: admsm
     description: Administrative overview summary statistics.
-  ADRC1:
-    prefix: adrc1
-    description: Consequences and review.
-  AIRD1:
-    prefix: aird1
-    description: Data management tooling.
-  APEG1:
-    prefix: apeg1
-    description: Enforcement and applicability context.
   APMUS:
     prefix: apmus
     description: User and synthetic monitoring settings.
   APREC:
     prefix: aprec
     description: A formal approval / sign-off record (form).
-  ARES1:
-    prefix: ares1
-    description: Data access and role status flags.
   ASMRE:
     prefix: asmre
     description: A single assumption register entry (form).
@@ -6079,24 +6614,6 @@ section-types:
   AUSCT:
     prefix: ausct
     description: 9.1.1. User Categories.
-  BCED1:
-    prefix: bced1
-    description: Dependency mapping.
-  BCEI1:
-    prefix: bcei1
-    description: Integration and notes.
-  BCEI2:
-    prefix: bcei2
-    description: Public interface details.
-  BCES1:
-    prefix: bces1
-    description: Support level and priority.
-  BCET1:
-    prefix: bcet1
-    description: Testing notes.
-  BCRD1:
-    prefix: bcrd1
-    description: Database compatibility requirements.
   BEHAV:
     prefix: behav
     description: A single behavior rule entry.
@@ -6124,15 +6641,9 @@ section-types:
   BPDSC:
     prefix: bpdsc
     description: 6.1. Business Process Descriptions.
-  BPES1:
-    prefix: bpes1
-    description: Storage configuration for backup policy.
   BPREN:
     prefix: bpren
     description: A business process entry.
-  BRCO1:
-    prefix: brco1
-    description: 10.10.1. Breakpoints.
   BTCBS:
     prefix: btcbs
     description: Build system settings.
@@ -6145,9 +6656,6 @@ section-types:
   BTCVR:
     prefix: btcvr
     description: Version requirements.
-  BTEO1:
-    prefix: bteo1
-    description: Performance and rationale.
   BTREQ:
     prefix: btreq
     description: |
@@ -6175,9 +6683,6 @@ section-types:
   CATEG:
     prefix: categ
     description: A single category dependency entry.
-  CCCS1:
-    prefix: cccs1
-    description: Other shared capabilities.
   CCPRB:
     prefix: ccprb
     description: Build stage settings.
@@ -6190,15 +6695,9 @@ section-types:
   CCPRQ:
     prefix: ccprq
     description: Quality gate settings.
-  CEEP1:
-    prefix: ceep1
-    description: Deployment and justification.
   CHANG:
     prefix: chang
     description: A single change advocate entry.
-  CHPR1:
-    prefix: chpr1
-    description: 3.4.1. Change Process.
   CICEA:
     prefix: cicea
     description: Approval path rules for change impact.
@@ -6211,18 +6710,6 @@ section-types:
   CICET:
     prefix: cicet
     description: Threshold levels for change impact.
-  CIES1:
-    prefix: cies1
-    description: SLA and monitoring for component interface.
-  CLEC1:
-    prefix: clec1
-    description: Compliance restrictions.
-  CLEC2:
-    prefix: clec2
-    description: Metering and capacity rules.
-  CLEC3:
-    prefix: clec3
-    description: Contract termination terms.
   CMPDP:
     prefix: cmpdp
     description: Deployment for component.
@@ -6241,27 +6728,9 @@ section-types:
   CMPVD:
     prefix: cmpvd
     description: Vendor for component.
-  CMRC1:
-    prefix: cmrc1
-    description: Compliance evidence and reporting.
-  CMRS1:
-    prefix: cmrs1
-    description: Consent record storage rules.
   CMSTR:
     prefix: cmstr
     description: 12.1. Component Strategy.
-  CNRP1:
-    prefix: cnrp1
-    description: Proxy and firewall requirements.
-  COCO1:
-    prefix: coco1
-    description: Compliance for component.
-  COFR1:
-    prefix: cofr1
-    description: 9.8. Compliance Framework.
-  COMA1:
-    prefix: coma1
-    description: Configuration management.
   COMCH:
     prefix: comch
     description: Committee charter defining rules and procedures.
@@ -6280,42 +6749,12 @@ section-types:
   CONRE:
     prefix: conre
     description: A single constraint register entry (form).
-  COPA1:
-    prefix: copa1
-    description: Communication patterns between components.
-  COPL1:
-    prefix: copl1
-    description: 12.6.2. Contingency Plans.
-  CORE1:
-    prefix: core1
-    description: Connectivity resilience requirements.
-  CORE2:
-    prefix: core2
-    description: 9.6.3. Compliance Reporting.
-  CPER1:
-    prefix: cper1
-    description: Responsibility and recovery targets for contingency plan.
-  CQMC1:
-    prefix: cqmc1
-    description: Coupling metrics.
   CQMSA:
     prefix: cqmsa
     description: Static analysis thresholds.
-  CRED1:
-    prefix: cred1
-    description: Detection and monitoring for component risk.
-  CREG1:
-    prefix: creg1
-    description: Governance and ownership for component risk.
-  CRES1:
-    prefix: cres1
-    description: SLA commitments.
   CRITI:
     prefix: criti
     description: A single critical knowledge area entry.
-  CRPM1:
-    prefix: crpm1
-    description: Monitoring and forecasting inputs for capacity review.
   CSERD:
     prefix: cserd
     description: Rule description.
@@ -6331,9 +6770,6 @@ section-types:
   CSPRT:
     prefix: csprt
     description: Portfolio management settings.
-  CSRA1:
-    prefix: csra1
-    description: 1.6. Current State Risks.
   CSRCP:
     prefix: csrcp
     description: Code protection controls.
@@ -6343,9 +6779,6 @@ section-types:
   CULTU:
     prefix: cultu
     description: A single cultural consideration entry.
-  CVSR1:
-    prefix: cvsr1
-    description: Reporting requirements.
   DAATT:
     prefix: daatt
     description: A data attribute entry (form).
@@ -6397,18 +6830,9 @@ section-types:
   DCLSE:
     prefix: dclse
     description: A data classification entry (form).
-  DDES1:
-    prefix: ddes1
-    description: Synchronization and consistency details.
-  DEEP1:
-    prefix: deep1
-    description: Quantity planning and justification for display equipment.
   DEGOL:
     prefix: degol
     description: 10.1.1. Design Goals.
-  DEME1:
-    prefix: deme1
-    description: A data entity migration entry.
   DEPEN:
     prefix: depen
     description: A single dependency entry.
@@ -6481,15 +6905,9 @@ section-types:
   DOCTL:
     prefix: doctl
     description: SBP.1 Document Control.
-  DOES1:
-    prefix: does1
-    description: Stewardship and custodianship assignments.
   DOETO:
     prefix: doeto
     description: Trade-offs and reversibility.
-  DORE2:
-    prefix: dore2
-    description: Desktop operating system requirement entry.
   DORER:
     prefix: dorer
     description: Hardware and display requirements.
@@ -6546,21 +6964,9 @@ section-types:
   DPART:
     prefix: dpart
     description: International-transfer details.
-  DPEC1:
-    prefix: dpec1
-    description: Criteria and inputs for decision point.
-  DPEC2:
-    prefix: dpec2
-    description: Architectural context.
-  DPES1:
-    prefix: dpes1
-    description: Structural composition.
   DPOVW:
     prefix: dpovw
     description: Design principles overview.
-  DQGC1:
-    prefix: dqgc1
-    description: Complexity thresholds.
   DQIEC:
     prefix: dqiec
     description: Classification and severity.
@@ -6570,12 +6976,6 @@ section-types:
   DQIER:
     prefix: dqier
     description: Resolution planning.
-  DRRF1:
-    prefix: drrf1
-    description: Failback procedure.
-  DRRR1:
-    prefix: drrr1
-    description: "Backup, replication, and CDN placement rules."
   DSRMA:
     prefix: dsrma
     description: Access and rectification handling.
@@ -6600,18 +7000,9 @@ section-types:
   DTEBO:
     prefix: dtebo
     description: Build output configuration for deployment target.
-  DTEP1:
-    prefix: dtep1
-    description: Deployment process configuration.
   DTIAC:
     prefix: dtiac
     description: Infrastructure-as-code strategy.
-  DTSS1:
-    prefix: dtss1
-    description: Span metadata.
-  EFME1:
-    prefix: efme1
-    description: A field mapping within an export (form).
   EFMEF:
     prefix: efmef
     description: Ordering and formatting settings.
@@ -6624,9 +7015,6 @@ section-types:
   EFMET:
     prefix: efmet
     description: Transformation rules.
-  EHSR1:
-    prefix: ehsr1
-    description: Recovery guidance.
   EHSUC:
     prefix: ehsuc
     description: User-facing communication rules.
@@ -6642,9 +7030,6 @@ section-types:
   ENRLE:
     prefix: enrle
     description: An entity relationship entry (form).
-  ENRP1:
-    prefix: enrp1
-    description: Third-party connectivity.
   ENVAV:
     prefix: envav
     description: Availability and SLA for environment entry.
@@ -6687,9 +7072,6 @@ section-types:
   ENVSC:
     prefix: envsc
     description: Access and security for environment entry.
-  EPCE1:
-    prefix: epce1
-    description: An external partner connection entry (form).
   ERROR:
     prefix: error
     description: A single error procedure entry.
@@ -6699,12 +7081,6 @@ section-types:
   ESCAL:
     prefix: escal
     description: A single escalation procedure entry.
-  ESCE1:
-    prefix: esce1
-    description: An external system context entry (form).
-  ESCE2:
-    prefix: esce2
-    description: Enterprise system compatibility entry.
   ESCEG:
     prefix: esceg
     description: Security and support contacts for an external system context.
@@ -6747,9 +7123,6 @@ section-types:
   ESUSG:
     prefix: esusg
     description: Usage metrics for an existing system.
-  ETEF1:
-    prefix: etef1
-    description: Field and filter settings for export template.
   ETETS:
     prefix: etets
     description: 6.2.4. End-to-End Test Scenarios.
@@ -6768,9 +7141,6 @@ section-types:
   EVCRI:
     prefix: evcri
     description: 12.1.2. Evaluation Criteria.
-  EVRE1:
-    prefix: evre1
-    description: A validation rule entry (form).
   EXIPR:
     prefix: exipr
     description: Expected improvements from process transformation.
@@ -6795,9 +7165,6 @@ section-types:
   EXTST:
     prefix: extst
     description: An extension step entry.
-  FEST1:
-    prefix: fest1
-    description: Status for a feature priority entry.
   FIELD:
     prefix: field
     description: A single field validation rule entry.
@@ -6807,9 +7174,6 @@ section-types:
   FLDVL:
     prefix: fldvl
     description: A field validation rule (form).
-  FMED1:
-    prefix: fmed1
-    description: Dependencies.
   FNCOQ:
     prefix: fncoq
     description: 11.2.2. Functional completeness quality.
@@ -6819,9 +7183,6 @@ section-types:
   FRAGI:
     prefix: fragi
     description: A single fragile point entry.
-  FSMA1:
-    prefix: fsma1
-    description: Acceptance and notes.
   FUNCT:
     prefix: funct
     description: A function entry (form).
@@ -6909,9 +7270,6 @@ section-types:
       - Traffic rerouting
       - Resource scaling
       - Alerting and escalation
-  HCEC1:
-    prefix: hcec1
-    description: Response content settings.
   HNDRE:
     prefix: hndre
     description: A data handling requirement entry (form).
@@ -6921,9 +7279,6 @@ section-types:
   I25CV:
     prefix: i25cv
     description: ISO/IEC 25010:2023 product-quality cross-map (derived).
-  IACS1:
-    prefix: iacs1
-    description: Security and policy controls.
   IAMEG:
     prefix: iameg
     description: "Validation, classification, and purpose."
@@ -6933,24 +7288,9 @@ section-types:
   IAMET:
     prefix: iamet
     description: Transformation and defaulting behavior.
-  IBPE1:
-    prefix: ibpe1
-    description: Business process dependency entry.
-  ICEC1:
-    prefix: icec1
-    description: Compliance and requirements for interaction channel.
-  ICEC2:
-    prefix: icec2
-    description: Compliance rules.
-  ICED1:
-    prefix: iced1
-    description: Constraint details.
   IDAUT:
     prefix: idaut
     description: 9.2. Identification and Authentication.
-  IDEE1:
-    prefix: idee1
-    description: Data entity exchanged.
   IDENT:
     prefix: ident
     description: 9.2.1. Identification.
@@ -6969,21 +7309,12 @@ section-types:
   IMRWR:
     prefix: imrwr
     description: War room setup.
-  IMSC1:
-    prefix: imsc1
-    description: Cost attribution and notes.
-  INAR1:
-    prefix: inar1
-    description: 10.2.2. Information Architecture.
   INPTN:
     prefix: inptn
     description: An interaction pattern entry (form).
   INRIS:
     prefix: inris
     description: Inter-service communication controls.
-  INSE1:
-    prefix: inse1
-    description: Security specification for an interface.
   INTDP:
     prefix: intdp
     description: 1.1.3.1. Internal Dependencies.
@@ -6993,9 +7324,6 @@ section-types:
   INTER:
     prefix: inter
     description: A single interaction scenario entry.
-  IPCE1:
-    prefix: ipce1
-    description: Industry protocol compliance entry.
   IPCEI:
     prefix: ipcei
     description: Implementation details.
@@ -7011,9 +7339,6 @@ section-types:
   IRPPI:
     prefix: irppi
     description: Post-incident activities.
-  ISCE1:
-    prefix: isce1
-    description: "IT standard compliance entry (ISO, IEEE, NIST, OASIS)."
   ISCEE:
     prefix: iscee
     description: Evidence and notes.
@@ -7029,18 +7354,6 @@ section-types:
   ISCET:
     prefix: iscet
     description: Compliance timeline.
-  ISEC1:
-    prefix: isec1
-    description: Certification details.
-  ISEC2:
-    prefix: isec2
-    description: Interface conventions.
-  ISEC3:
-    prefix: isec3
-    description: Connectivity and trust details.
-  ISED1:
-    prefix: ised1
-    description: Documentation expectations.
   ISOQA:
     prefix: isoqa
     description: Access protection controls.
@@ -7053,9 +7366,6 @@ section-types:
   ISOQT:
     prefix: isoqt
     description: Penetration testing and remediation.
-  ITSE2:
-    prefix: itse2
-    description: Test scenario entry.
   JRNST:
     prefix: jrnst
     description: A journey stage entry (form).
@@ -7092,9 +7402,6 @@ section-types:
   KPIEN:
     prefix: kpien
     description: A single kpi entry.
-  LDST1:
-    prefix: ldst1
-    description: Troubleshooting details.
   LFSEB:
     prefix: lfseb
     description: Outcomes and optional execution rules.
@@ -7113,9 +7420,9 @@ section-types:
   LIMET:
     prefix: limet
     description: A known limitation of an existing system (form).
-  LMRC1:
-    prefix: lmrc1
-    description: Compliance settings.
+  LOCRP:
+    prefix: locrp
+    description: Rollout sequencing by region and time.
   LPRPT:
     prefix: lprpt
     description: Performance target metrics.
@@ -7128,12 +7435,6 @@ section-types:
   MAPPI:
     prefix: mappi
     description: A single mapping rule entry.
-  MCED1:
-    prefix: mced1
-    description: Distribution details.
-  MCRC1:
-    prefix: mcrc1
-    description: Custom metrics settings.
   MCREA:
     prefix: mcrea
     description: Allowed authenticators and phishing-resistance rules.
@@ -7152,12 +7453,6 @@ section-types:
   MDDEU:
     prefix: mddeu
     description: Downstream usage and cadence for a master data domain.
-  MDEC1:
-    prefix: mdec1
-    description: Technical and management requirements.
-  MDRE1:
-    prefix: mdre1
-    description: Mobile device requirement entry.
   MDREC:
     prefix: mdrec
     description: Capability requirements.
@@ -7185,18 +7480,9 @@ section-types:
   MGRSK:
     prefix: mgrsk
     description: A migration risk entry (form).
-  MICO1:
-    prefix: mico1
-    description: 4.4.2. Migration Considerations (global).
   MIGME:
     prefix: migme
     description: A migration mapping entry (form).
-  MISC1:
-    prefix: misc1
-    description: Schedule overview for migration.
-  MLARP:
-    prefix: mlarp
-    description: Rollout sequencing by region and time.
   MNDEP:
     prefix: mndep
     description: A maintenance dependency entry (form).
@@ -7227,21 +7513,9 @@ section-types:
   MUIGD:
     prefix: muigd
     description: Graceful-degradation strategy.
-  MVSC1:
-    prefix: mvsc1
-    description: Cross-module coordination.
   MVSRM:
     prefix: mvsrm
     description: Release management process.
-  MWES1:
-    prefix: mwes1
-    description: Scope details.
-  NARR1:
-    prefix: narr1
-    description: Recovery objectives.
-  NGED1:
-    prefix: nged1
-    description: Covered routes and dialog resources.
   NLBRA:
     prefix: nlbra
     description: Availability settings.
@@ -7251,18 +7525,12 @@ section-types:
   NLBRT:
     prefix: nlbrt
     description: TLS settings.
-  NLRS1:
-    prefix: nlrs1
-    description: Stability tolerances.
   NONFI:
     prefix: nonfi
     description: A single non financial benefit entry.
   NORGS:
     prefix: norgs
     description: 5.1. New Organization Structure.
-  NSPD1:
-    prefix: nspd1
-    description: DNS controls and notes.
   NSPIM:
     prefix: nspim
     description: IP management controls.
@@ -7311,9 +7579,6 @@ section-types:
   ONGTR:
     prefix: ongtr
     description: Ongoing training entry (form).
-  OOSE1:
-    prefix: oose1
-    description: An out-of-scope entry (form).
   OOSED:
     prefix: oosed
     description: Decision history and future reconsideration.
@@ -7335,9 +7600,6 @@ section-types:
   OTAGR:
     prefix: otagr
     description: An other agreement entry.
-  OTEC1:
-    prefix: otec1
-    description: Tracking and compliance.
   OTTML:
     prefix: ottml
     description: 5.1.2. Organizational Transition Timeline.
@@ -7443,9 +7705,6 @@ section-types:
   PGOEN:
     prefix: pgoen
     description: A persona goal entry (form).
-  PGRE1:
-    prefix: pgre1
-    description: A phase gate review entry (form).
   PIAPA:
     prefix: piapa
     description: Assessment process inputs.
@@ -7525,9 +7784,6 @@ section-types:
   PREDE:
     prefix: prede
     description: A single predecessor dependency entry.
-  PRGO1:
-    prefix: prgo1
-    description: 10.13.1. Prototype Goals.
   PRIDN:
     prefix: pridn
     description: Process identification.
@@ -7540,15 +7796,6 @@ section-types:
   PRMTX:
     prefix: prmtx
     description: A permission matrix entry (form).
-  PRPE1:
-    prefix: prpe1
-    description: Process performance metrics.
-  PRRE1:
-    prefix: prre1
-    description: Process relationships and dependencies (supplementary section).
-  PRRE2:
-    prefix: prre2
-    description: Prototype staffing and environment.
   PRSUC:
     prefix: prsuc
     description: Success criteria for process transformation.
@@ -7570,9 +7817,6 @@ section-types:
   PVOVW:
     prefix: pvovw
     description: Process vision overview.
-  PWRE1:
-    prefix: pwre1
-    description: Environmental conditions and controls.
   QCADF:
     prefix: qcadf
     description: Description and priority context.
@@ -7648,57 +7892,24 @@ section-types:
   QLWGT:
     prefix: qlwgt
     description: A quality weight entry.
-  RCEA1:
-    prefix: rcea1
-    description: Applicability analysis.
-  RCER1:
-    prefix: rcer1
-    description: Compliance requirements.
-  RDEC1:
-    prefix: rdec1
-    description: Message and attachment content for report distribution.
-  RDER1:
-    prefix: rder1
-    description: Compatibility and transitive risk notes.
-  RDER2:
-    prefix: rder2
-    description: Recipient and format settings for report distribution.
   RDRCE:
     prefix: rdrce
     description: Readiness criteria entry (form).
   REARS:
     prefix: rears
     description: A resource allocation entry (form).
-  RECO1:
-    prefix: reco1
-    description: 4.3.6. Requirement Coverage.
   RECOV:
     prefix: recov
     description: A single recovery flow entry.
-  REFO1:
-    prefix: refo1
-    description: Report conditional formatting.
   REGRQ:
     prefix: regrq
     description: A regulatory requirement entry.
-  REIN1:
-    prefix: rein1
-    description: Container for systems to replace.
   RELAT:
     prefix: relat
     description: A single relationship attribute entry.
   REPOL:
     prefix: repol
     description: Retention policy for a specific data category.
-  REPR1:
-    prefix: repr1
-    description: Recovery procedures.
-  REPR2:
-    prefix: repr2
-    description: 9.3. Resource Protection.
-  REPR3:
-    prefix: repr3
-    description: 10.13.3.1. Reusable Prototype.
   REPRE:
     prefix: repre
     description: A single representative quote entry.
@@ -7723,9 +7934,6 @@ section-types:
   RGUSE:
     prefix: rguse
     description: A reuse goal entry (form).
-  RIRE1:
-    prefix: rire1
-    description: "Relationships to other risks, assumptions, and project elements."
   RISKB:
     prefix: riskb
     description: A single risk based decision entry.
@@ -7777,9 +7985,6 @@ section-types:
   RQTSC:
     prefix: rqtsc
     description: A test case entry for requirement verification (form).
-  RREC1:
-    prefix: rrec1
-    description: Recipient business context.
   RREQE:
     prefix: rreqe
     description: A resource requirement entry for unfilled positions.
@@ -7822,12 +8027,6 @@ section-types:
   SAEFU:
     prefix: saefu
     description: "Deliverables, ownership, and notes."
-  SBPE1:
-    prefix: sbpe1
-    description: Business process supported.
-  SBUE1:
-    prefix: sbue1
-    description: Business unit using the system.
   SCACC:
     prefix: scacc
     description: Current-state support and total annual cost.
@@ -7867,9 +8066,6 @@ section-types:
   SCREN:
     prefix: scren
     description: A screen entry (form).
-  SCRI1:
-    prefix: scri1
-    description: Industry-specific requirements.
   SCRPF:
     prefix: scrpf
     description: Finding management and residual risk handling.
@@ -7888,15 +8084,9 @@ section-types:
   SDEDE:
     prefix: sdede
     description: Data exchange characteristics for system dependency.
-  SDSM1:
-    prefix: sdsm1
-    description: Migration preparation and archive handling.
   SDTSS:
     prefix: sdtss
     description: Self-service diagnostic entry points.
-  SECE1:
-    prefix: sece1
-    description: A system error code entry.
   SECEH:
     prefix: seceh
     description: Recovery and display guidance.
@@ -7918,15 +8108,6 @@ section-types:
   SEDET:
     prefix: sedet
     description: Error type handling configuration.
-  SEEL1:
-    prefix: seel1
-    description: Lifecycle rules.
-  SEEL2:
-    prefix: seel2
-    description: Placement and layout settings for screen element.
-  SEEP1:
-    prefix: seep1
-    description: Styling and data binding for screen element.
   SEFSC:
     prefix: sefsc
     description: Length and value constraints for field spec.
@@ -7966,12 +8147,6 @@ section-types:
   SLCET:
     prefix: slcet
     description: Technical API details for shared library component.
-  SLED1:
-    prefix: sled1
-    description: Description and usage.
-  SLER1:
-    prefix: sler1
-    description: Launch readiness and locale ownership.
   SLQOC:
     prefix: slqoc
     description: On-call support expectations.
@@ -7984,27 +8159,12 @@ section-types:
   SMAGM:
     prefix: smagm
     description: Service mesh configuration.
-  SMRC1:
-    prefix: smrc1
-    description: Customer-specific SLA rules.
-  SMRE1:
-    prefix: smre1
-    description: A system migration risk entry.
   SMREB:
     prefix: smreb
     description: Error-budget policy.
-  SMRM1:
-    prefix: smrm1
-    description: Monitoring and detection.
-  SMRM2:
-    prefix: smrm2
-    description: Monitoring mechanics.
   SMRPI:
     prefix: smrpi
     description: Probability and impact assessment.
-  SMRR1:
-    prefix: smrr1
-    description: Reporting and review.
   SPDLV:
     prefix: spdlv
     description: 14.1.4. Support Deliverables.
@@ -8020,30 +8180,12 @@ section-types:
   SQGRS:
     prefix: sqgrs
     description: Quality resources and enablement.
-  SREC1:
-    prefix: srec1
-    description: Category and classification for security requirement.
-  SREC2:
-    prefix: srec2
-    description: Compliance framework mapping for security requirement.
-  SRES1:
-    prefix: sres1
-    description: Storage requirements.
-  SRES2:
-    prefix: sres2
-    description: Status and ownership for security requirement.
   SRPBP:
     prefix: srpbp
     description: Bot protection settings for self-registration.
-  SRRE1:
-    prefix: srre1
-    description: A responsive rule entry (form).
   SSACM:
     prefix: ssacm
     description: 9.1.2.8. Self-Service Account Management (form).
-  SSCE1:
-    prefix: ssce1
-    description: "Security standard compliance entry (SOC2, ISO 27001, CIS)."
   SSCEA:
     prefix: sscea
     description: Assessment schedule.
@@ -8059,15 +8201,6 @@ section-types:
   SSCEV:
     prefix: sscev
     description: Verification planning.
-  SSEE1:
-    prefix: ssee1
-    description: "Branching, timing, and notes."
-  SSES1:
-    prefix: sses1
-    description: Current status.
-  SSES2:
-    prefix: sses2
-    description: Applicability and regulatory scope.
   SSOPA:
     prefix: ssopa
     description: Access and consent behavior.
@@ -8113,9 +8246,6 @@ section-types:
   STCOM:
     prefix: stcom
     description: "List all steering committee members with their roles, responsibilities, and decision authorities."
-  STDE1:
-    prefix: stde1
-    description: Deployment and rollout for a stage entry.
   STEPU:
     prefix: stepu
     description: A single step up detail entry.
@@ -8176,9 +8306,6 @@ section-types:
   SYSUM:
     prefix: sysum
     description: System overview summary for quick reference.
-  TBDE1:
-    prefix: tbde1
-    description: A tab bar definition entry (form).
   TBDEB:
     prefix: tbdeb
     description: Position and selection behavior.
@@ -8188,12 +8315,6 @@ section-types:
   TECHN:
     prefix: techn
     description: A single technical characteristic entry.
-  TEST1:
-    prefix: test1
-    description: Testing standards and requirements.
-  TFCS1:
-    prefix: tfcs1
-    description: Security and compliance requirements.
   TGOVW:
     prefix: tgovw
     description: Trigger overview.
@@ -8305,9 +8426,6 @@ section-types:
   TPAIO:
     prefix: tpaio
     description: Compliance and fallback controls.
-  TPCE1:
-    prefix: tpce1
-    description: Third-party software compatibility entry.
   TPCEC:
     prefix: tpcec
     description: Compatibility characteristics.
@@ -8383,12 +8501,6 @@ section-types:
   TRPHE:
     prefix: trphe
     description: A transition phase entry (form).
-  TRPR1:
-    prefix: trpr1
-    description: 10.13.3.2. Training Prototype.
-  TRRE1:
-    prefix: trre1
-    description: 10.12.5. Translation Handling Requirements.
   TURST:
     prefix: turst
     description: A tour step entry.
@@ -8404,18 +8516,9 @@ section-types:
   UCEIB:
     prefix: uceib
     description: Focus and keyboard behavior.
-  UCES1:
-    prefix: uces1
-    description: Surface treatment.
-  UCES2:
-    prefix: uces2
-    description: Scrolling behavior.
   UDPEN:
     prefix: udpen
     description: A design principle entry (form).
-  UGIE1:
-    prefix: ugie1
-    description: User group impact entry.
   ULTAP:
     prefix: ultap
     description: Approval requirements.
@@ -8431,18 +8534,12 @@ section-types:
   ULTRS:
     prefix: ultrs
     description: 9.1.2.7. Lifecycle Transitions and Approvals (form).
-  UMIE1:
-    prefix: umie1
-    description: A utility menu item entry (form).
   UMIEA:
     prefix: umiea
     description: Routing and action references.
   UMIEB:
     prefix: umieb
     description: Visibility and confirmation behavior.
-  UNIE1:
-    prefix: unie1
-    description: A utility navigation item entry (form).
   UNIEB:
     prefix: unieb
     description: Badge and interaction behavior.
@@ -8521,21 +8618,12 @@ section-types:
   VOLUM:
     prefix: volum
     description: A single volume metric entry.
-  VREP1:
-    prefix: vrep1
-    description: Performance expectations.
   WRTSP:
     prefix: wrtsp
     description: 15.8. Warranty and Support.
-  WSCE1:
-    prefix: wsce1
-    description: A WCAG success criterion entry.
   WSRSS:
     prefix: wsrss
     description: Self-service and feedback.
-  AAP1:
-    prefix: aap1
-    description: API authorization policy — how API access decisions are made.
   ACAZ:
     prefix: acaz
     description: "9. Security & Access Model. Seeds → SAS."
@@ -8611,9 +8699,6 @@ section-types:
   ACTE:
     prefix: acte
     description: Accessibility testing approach.
-  ADE1:
-    prefix: ade1
-    description: Alert definition entry.
   ADEC:
     prefix: adec
     description: Trigger conditions.
@@ -8746,9 +8831,6 @@ section-types:
   ARDE:
     prefix: arde
     description: Architecture Decision Record (ADR) entry.
-  ARE1:
-    prefix: are1
-    description: An alert rule entry.
   AREG:
     prefix: areg
     description: Risk and activation controls.
@@ -8881,12 +8963,6 @@ section-types:
   BAVE:
     prefix: bave
     description: Backup verification and testing.
-  BCE1:
-    prefix: bce1
-    description: Business logic component entry.
-  BCE2:
-    prefix: bce2
-    description: Browser compatibility entry.
   BCEB:
     prefix: bceb
     description: Boundary relationships.
@@ -8962,9 +9038,6 @@ section-types:
   BOAS:
     prefix: boas
     description: 4.5.3. Assumptions.
-  BODM:
-    prefix: bodm
-    description: 7. Business Object and Data Model. Seeds → IFM.
   BPER:
     prefix: bper
     description: Retention policies for backup.
@@ -8980,9 +9053,6 @@ section-types:
   BRCO:
     prefix: brco
     description: 10.3.1.6.1. Breadcrumb Configuration.
-  BRE1:
-    prefix: bre1
-    description: Browser requirement entry.
   BREF:
     prefix: bref
     description: Required and optional features.
@@ -9154,9 +9224,6 @@ section-types:
   CMAC:
     prefix: cmac
     description: A component action entry.
-  CME1:
-    prefix: cme1
-    description: A custom metric entry.
   CMFA:
     prefix: cmfa
     description: A component family entry.
@@ -9343,37 +9410,6 @@ section-types:
   CRRS:
     prefix: crrs
     description: Special hardware requirements.
-  CRS1:
-    prefix: crs1
-    description: |
-      Specify client device requirements including browsers, operating systems,
-      display specifications, and accessibility needs. Client requirements
-      define the user experience boundary conditions.
-      **Browser Requirements**:
-      - Supported browsers with minimum versions
-      - Browser feature requirements (WebGL, WebRTC, Service Workers)
-      - Mobile browser considerations (Safari iOS, Chrome Android)
-      - Progressive Web App (PWA) requirements
-      **Desktop Requirements**:
-      - Operating systems: Windows 10/11, macOS 12+, Linux distributions
-      - Hardware minimums: CPU, RAM, disk space
-      - Required software: .NET runtime, Java, etc.
-      - Installation and update mechanisms
-      **Mobile Requirements**:
-      - iOS minimum version and device support
-      - Android API level and device compatibility
-      - Form factors: phone, tablet, foldable
-      - App store requirements and restrictions
-      **Display Requirements**:
-      - Minimum screen resolution
-      - Responsive design breakpoints
-      - Touch vs. mouse/keyboard interactions
-      - HiDPI and retina display support
-      **Accessibility Requirements**:
-      - WCAG 2.1 compliance level (A, AA, AAA)
-      - Screen reader compatibility
-      - Keyboard navigation
-      - Color contrast and visual accommodations
   CRSA:
     prefix: crsa
     description: Changed role system access.
@@ -9395,9 +9431,6 @@ section-types:
   CRTT:
     prefix: crtt
     description: Training preparation for the transition.
-  CSE1:
-    prefix: cse1
-    description: A component state entry.
   CSEA:
     prefix: csea
     description: Inputs and outputs for change step.
@@ -9530,9 +9563,6 @@ section-types:
   DBRE:
     prefix: dbre
     description: A domain business rule entry (form).
-  DCE1:
-    prefix: dce1
-    description: Database compatibility entry.
   DCEA:
     prefix: dcea
     description: Automation integration.
@@ -9599,6 +9629,37 @@ section-types:
   DEEM:
     prefix: deem
     description: Health verification and environment notes.
+  DEEN:
+    prefix: deen
+    description: |
+      Specify development tools, workflows, and environment requirements.
+      A well-defined development environment accelerates onboarding and
+      ensures consistent quality across the team.
+      **IDE and Editor Requirements**:
+      - Recommended/required IDEs (VS Code, IntelliJ, Android Studio)
+      - Required extensions and plugins
+      - Code formatting and linting configuration
+      - Shared editor settings and configuration files
+      **Build Tools and Automation**:
+      - Build systems (Gradle, Maven, Make, Bazel, Melos)
+      - Code generation and preprocessing
+      - Dependency management and lockfiles
+      - Build profiles (debug, release, profile)
+      **Version Control**:
+      - Git workflow (trunk-based, Gitflow, GitHub Flow)
+      - Branch naming and commit message conventions
+      - Pull request / merge request requirements
+      - Code ownership and CODEOWNERS
+      **CI/CD Pipeline**:
+      - Pipeline stages and gates
+      - Automated testing requirements
+      - Quality gates and metrics thresholds
+      - Deployment automation and approvals
+      **Local Development**:
+      - Docker Compose / local Kubernetes setup
+      - Database seeding and test data
+      - Service stubbing and mocking
+      - Hot reload and fast feedback loops
   DEEP:
     prefix: deep
     description: Approval and protection rules.
@@ -9771,9 +9832,6 @@ section-types:
   DPCR:
     prefix: dpcr
     description: Retention and disposal rules.
-  DPE1:
-    prefix: dpe1
-    description: A domain process entry (form).
   DPEA:
     prefix: dpea
     description: Applicability guidance.
@@ -9882,9 +9940,6 @@ section-types:
   DSSU:
     prefix: dssu
     description: User documentation standards.
-  DTE1:
-    prefix: dte1
-    description: Deployment target specification entry.
   DTEC:
     prefix: dtec
     description: Compliance and notes for deployment target.
@@ -9975,6 +10030,9 @@ section-types:
   ENST:
     prefix: enst
     description: Environment strategy.
+  EPDE:
+    prefix: epde
+    description: A single error page design entry.
   EPDH:
     prefix: epdh
     description: Data handling.
@@ -10086,9 +10144,6 @@ section-types:
   FRCO:
     prefix: frco
     description: 4.6. Operating Environment.
-  FRE1:
-    prefix: fre1
-    description: Framework or library requirement entry.
   FREC:
     prefix: frec
     description: Assumptions and constraints for requirement.
@@ -10194,12 +10249,6 @@ section-types:
   IACS:
     prefix: iacs
     description: State management.
-  ICE1:
-    prefix: ice1
-    description: An integration constraint entry (form).
-  ICE2:
-    prefix: ice2
-    description: Infrastructure component entry.
   ICEA:
     prefix: icea
     description: Access and sync for interaction channel.
@@ -10269,6 +10318,9 @@ section-types:
   INCP:
     prefix: incp
     description: 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+  INDM:
+    prefix: indm
+    description: 7. Business Object and Data Model. Seeds → IFM.
   INEN:
     prefix: inen
     description: An interaction entry.
@@ -10341,9 +10393,6 @@ section-types:
   IRPP:
     prefix: irpp
     description: Response process.
-  ISE1:
-    prefix: ise1
-    description: "Interface specification entry (REST, GraphQL, gRPC, SOAP)."
   ISEC:
     prefix: isec
     description: Requirement applicability.
@@ -10604,9 +10653,6 @@ section-types:
   MAQU:
     prefix: maqu
     description: 11.3.5. Maintainability quality.
-  MCE1:
-    prefix: mce1
-    description: Mobile device compatibility entry.
   MCEC:
     prefix: mcec
     description: Platform capabilities.
@@ -10913,6 +10959,34 @@ section-types:
   OPPS:
     prefix: opps
     description: Summary specific to operational pain points.
+  OPRE:
+    prefix: opre
+    description: |
+      Define operational requirements for running and maintaining the system
+      in production. Operations excellence directly impacts system availability,
+      user experience, and team efficiency.
+      **Subsections**:
+      - **Backup and Recovery**: Backup frequency, retention, RPO/RTO, disaster
+        recovery, backup verification
+      - **Deployment Strategy**: Deployment model, CI/CD pipeline, release
+        strategy, rollback, configuration management
+      - **Monitoring and Alerting**: Metrics, APM, logging, alerts, dashboards,
+        on-call, incident management
+      - **Maintenance Windows**: Scheduled maintenance, emergency procedures,
+        change management, user communication
+      **DevOps/SRE Principles**:
+      - Automation over manual processes
+      - Immutable infrastructure
+      - Everything as code (IaC, GitOps)
+      - Blameless postmortems
+      - Continuous improvement
+      **Operational Metrics**:
+      - MTTR (Mean Time To Recovery)
+      - MTBF (Mean Time Between Failures)
+      - Change failure rate
+      - Deployment frequency
+      - Lead time for changes
+      **Reference**: Google SRE book, DORA metrics, ITIL practices.
   OREC:
     prefix: orec
     description: Requirement classification and source.
@@ -11200,12 +11274,6 @@ section-types:
   RCDS:
     prefix: rcds
     description: Data source and type.
-  RCE1:
-    prefix: rce1
-    description: A column in a tabular report section
-  RCE2:
-    prefix: rce2
-    description: A chart/visualization in a report
   RCEA:
     prefix: rcea
     description: How this criterion is measured and weighted.
@@ -11365,6 +11433,9 @@ section-types:
   RPER:
     prefix: rper
     description: Retention timing and legal basis.
+  RPPE:
+    prefix: rppe
+    description: A single related pain point entry.
   RREC:
     prefix: rrec
     description: Work continuity.
@@ -11389,9 +11460,6 @@ section-types:
   RSBG:
     prefix: rsbg
     description: Blue-green deployment configuration.
-  RSE1:
-    prefix: rse1
-    description: Scheduling rules for report generation
   RSEN:
     prefix: rsen
     description: Notification settings for report schedule.
@@ -11516,9 +11584,6 @@ section-types:
   SCDA:
     prefix: scda
     description: Scenario data requirements.
-  SCE1:
-    prefix: sce1
-    description: A security control entry (form).
   SCEI:
     prefix: scei
     description: Control implementation details.
@@ -11555,31 +11620,6 @@ section-types:
   SCRS:
     prefix: scrs
     description: SOC 2 requirements.
-  SCS1:
-    prefix: scs1
-    description: |
-      Specify compliance requirements with IT standards, industry protocols,
-      regulatory frameworks, and certification requirements. Standards compliance
-      is often mandatory for enterprise and regulated industries.
-      **IT Standards**:
-      - **ISO/IEC**: 27001 (InfoSec), 9001 (Quality), 22301 (Business Continuity),
-        25010 (Software Quality), 12207 (Lifecycle)
-      - **IEEE**: 830 (Requirements), 1471 (Architecture), 29148 (Requirements)
-      - **NIST**: Cybersecurity Framework, SP 800-53 controls
-      **Industry Protocols**:
-      - **API**: REST, GraphQL, gRPC, OpenAPI/Swagger specifications
-      - **Data**: JSON, XML, Protocol Buffers, Avro schemas
-      - **Security**: OAuth 2.0, OIDC, SAML, JWT, mTLS
-      - **Messaging**: AMQP, MQTT, WebSocket, Server-Sent Events
-      **Regulatory Compliance**:
-      - **Privacy**: GDPR, CCPA, PIPEDA, LGPD, HIPAA
-      - **Financial**: PCI-DSS, SOX, Basel III
-      - **Industry**: FedRAMP, HITRUST, PSD2, MiFID II
-      **Certification Requirements**:
-      - SOC 2 Type I/II
-      - ISO 27001 certification
-      - Industry-specific certifications
-      - Third-party security assessments
   SCSE:
     prefix: scse
     description: 10.2.1.n.1. Screen Sections.
@@ -11706,12 +11746,6 @@ section-types:
   SLAE:
     prefix: slae
     description: A service level agreement entry.
-  SLE1:
-    prefix: sle1
-    description: Shared library entry — a reusable library or utility.
-  SLE2:
-    prefix: sle2
-    description: A supported locale entry.
   SLEA:
     prefix: slea
     description: API details.
@@ -12255,9 +12289,6 @@ section-types:
   UCCA:
     prefix: ucca
     description: Component naming and documentation approach.
-  UCE1:
-    prefix: uce1
-    description: A UI component entry.
   UCEA:
     prefix: ucea
     description: Animation behavior.
@@ -12300,9 +12331,6 @@ section-types:
   UICO:
     prefix: uico
     description: 10.11. UI Components.
-  UIDI:
-    prefix: uidi
-    description: "10. Experience & Interface Design. Seeds → XDS."
   UIMS:
     prefix: uims
     description: Summary statistics for user interaction model.
@@ -12530,32 +12558,9 @@ section-types:
       - Budget allocation process
       - Capacity planning tools
       - Stakeholder reporting
-  CR1:
-    prefix: cr1
-    description: |
-      Define network communication requirements including protocols, security,
-      and external connectivity. Communication architecture affects performance,
-      security, and integration capabilities.
-      **Subsections**:
-      - **Protocols and Standards**: Communication protocols, TLS/SSL, API
-        versioning, certificate management, data formats
-      - **External Connectivity**: Partner integrations, cloud services, third-
-        party APIs, service mesh, API gateway
-      **Communication Patterns**:
-      - **Synchronous**: HTTP/REST, gRPC, GraphQL (request-response)
-      - **Asynchronous**: Message queues, event streaming (fire-and-forget)
-      - **Real-time**: WebSocket, Server-Sent Events, WebRTC
-      - **Batch**: File transfer, scheduled data exchange
-      **Security Considerations**:
-      - Transport security (TLS 1.2/1.3, certificate pinning)
-      - API authentication (API keys, OAuth, mTLS)
-      - Data encryption in transit and at rest
-      - Rate limiting and throttling
-      **Integration Standards**:
-      - API design guidelines (REST, OpenAPI, AsyncAPI)
-      - Data format standards (JSON, Protocol Buffers, Avro)
-      - Error handling and response formats
-      - Idempotency and retry handling
+  CRE:
+    prefix: cre
+    description: A single compliance requirement entry.
   CRP:
     prefix: crp
     description: Credential recovery policy (form).
@@ -12609,40 +12614,6 @@ section-types:
   DCE:
     prefix: dce
     description: Development convention entry — a development practice or workflow convention.
-  DE1:
-    prefix: de1
-    description: |
-      Specify development tools, workflows, and environment requirements.
-      A well-defined development environment accelerates onboarding and
-      ensures consistent quality across the team.
-      **IDE and Editor Requirements**:
-      - Recommended/required IDEs (VS Code, IntelliJ, Android Studio)
-      - Required extensions and plugins
-      - Code formatting and linting configuration
-      - Shared editor settings and configuration files
-      **Build Tools and Automation**:
-      - Build systems (Gradle, Maven, Make, Bazel, Melos)
-      - Code generation and preprocessing
-      - Dependency management and lockfiles
-      - Build profiles (debug, release, profile)
-      **Version Control**:
-      - Git workflow (trunk-based, Gitflow, GitHub Flow)
-      - Branch naming and commit message conventions
-      - Pull request / merge request requirements
-      - Code ownership and CODEOWNERS
-      **CI/CD Pipeline**:
-      - Pipeline stages and gates
-      - Automated testing requirements
-      - Quality gates and metrics thresholds
-      - Deployment automation and approvals
-      **Local Development**:
-      - Docker Compose / local Kubernetes setup
-      - Database seeding and test data
-      - Service stubbing and mocking
-      - Hot reload and fast feedback loops
-  DE2:
-    prefix: de2
-    description: A dashboard entry.
   DEE:
     prefix: dee
     description: Deployment environment entry.
@@ -12776,6 +12747,9 @@ section-types:
   IOE:
     prefix: ioe
     description: API operation entry.
+  IPE:
+    prefix: ipe
+    description: A single integration pattern entry.
   IPR:
     prefix: ipr
     description: "Specify who owns intellectual property created during the project, licensing terms, and any pre-existing IP that will be incorporated."
@@ -12788,6 +12762,9 @@ section-types:
   ITE:
     prefix: ite
     description: Initial training entry (form).
+  KIE:
+    prefix: kie
+    description: A single known issue entry.
   KRE:
     prefix: kre
     description: A key result entry (form).
@@ -12800,9 +12777,6 @@ section-types:
   MCE:
     prefix: mce
     description: "Define multi-channel experience: context handoff between channels, data synchronization, and experience consistency."
-  ME1:
-    prefix: me1
-    description: Module entry — a discrete module or component.
   MWE:
     prefix: mwe
     description: Maintenance window entry.
@@ -12877,34 +12851,6 @@ section-types:
   OCE:
     prefix: oce
     description: Operating system compatibility entry.
-  OR1:
-    prefix: or1
-    description: |
-      Define operational requirements for running and maintaining the system
-      in production. Operations excellence directly impacts system availability,
-      user experience, and team efficiency.
-      **Subsections**:
-      - **Backup and Recovery**: Backup frequency, retention, RPO/RTO, disaster
-        recovery, backup verification
-      - **Deployment Strategy**: Deployment model, CI/CD pipeline, release
-        strategy, rollback, configuration management
-      - **Monitoring and Alerting**: Metrics, APM, logging, alerts, dashboards,
-        on-call, incident management
-      - **Maintenance Windows**: Scheduled maintenance, emergency procedures,
-        change management, user communication
-      **DevOps/SRE Principles**:
-      - Automation over manual processes
-      - Immutable infrastructure
-      - Everything as code (IaC, GitOps)
-      - Blameless postmortems
-      - Continuous improvement
-      **Operational Metrics**:
-      - MTTR (Mean Time To Recovery)
-      - MTBF (Mean Time Between Failures)
-      - Change failure rate
-      - Deployment frequency
-      - Lead time for changes
-      **Reference**: Google SRE book, DORA metrics, ITIL practices.
   PFE:
     prefix: pfe
     description: A prototype feature entry.
@@ -12976,21 +12922,12 @@ section-types:
       - Searchable API documentation
       - Usage examples and integration guides
       - Version compatibility matrix
-  RD1:
-    prefix: rd1
-    description: Identify requirements that must be implemented before or alongside this requirement.
   RDE:
     prefix: rde
     description: Distribution channel configuration (form).
   RDR:
     prefix: rdr
     description: "Define the data entities and attributes this requirement reads, creates, updates, or deletes."
-  RE1:
-    prefix: re1
-    description: A risk entry (form).
-  RE2:
-    prefix: re2
-    description: A report entry (form).
   RFE:
     prefix: rfe
     description: A filter parameter for a report (form).
@@ -13135,6 +13072,9 @@ section-types:
   STP:
     prefix: stp
     description: Session timeout policy (form).
+  TES:
+    prefix: tes
+    description: Security and compliance requirements.
   TGC:
     prefix: tgc
     description: "Document constraints: technology choices, standards, resource limits, compatibility requirements."
@@ -13219,6 +13159,9 @@ section-types:
   WSE:
     prefix: wse
     description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
+  XID:
+    prefix: xid
+    description: "10. Experience & Interface Design. Seeds → XDS."
   AL:
     prefix: al
     description: "Define access levels and how they relate to user categories, features, and data. This establishes the authorization framework."
@@ -13250,18 +13193,33 @@ section-types:
       - Architecture Decision Records (ADRs)
       - Quality attribute scenarios (performance, security, availability)
       **Reference**: ISO/IEC 42010, TOGAF ADM, arc42 template, C4 model.
+  BC:
+    prefix: bc
+    description: 10.10.1. Breakpoints.
   BE:
     prefix: be
     description: A breakpoint entry.
   BG:
     prefix: bg
     description: "Define business goals that are specific, measurable, achievable, relevant, and time-bound (SMART). Each goal should have clear ownership and success metrics."
+  CC:
+    prefix: cc
+    description: Compliance for component.
   CD:
     prefix: cd
     description: "Provide a context diagram showing the system as a black box with all external entities (users, systems, organizations) and the data/control flows between them."
+  CF:
+    prefix: cf
+    description: 9.8. Compliance Framework.
   CI:
     prefix: ci
     description: Channel-specific integration requirements.
+  CM:
+    prefix: cm
+    description: Configuration management.
+  CP:
+    prefix: cp
+    description: 3.4.1. Change Process.
   CR:
     prefix: cr
     description: "Document all NDA and confidentiality requirements, including what information is confidential, duration, and handling procedures."
@@ -13289,6 +13247,9 @@ section-types:
   FR:
     prefix: fr
     description: "Functional requirements describe system capabilities, behaviors, and features. Use clear, testable language. Each requirement should answer: What must the system do? For whom? Under what conditions?"
+  FS:
+    prefix: fs
+    description: Status for a feature priority entry.
   HR:
     prefix: hr
     description: |
@@ -13314,9 +13275,15 @@ section-types:
       - Peak vs. average utilization
       - Burst capacity requirements
       - Geographic distribution needs
+  IA:
+    prefix: ia
+    description: 10.2.2. Information Architecture.
   IP:
     prefix: ip
     description: "Define the interaction patterns used in the system: real-time interactions, batch processing, workflow-driven tasks, notification-driven actions, and scheduled operations."
+  IS:
+    prefix: is
+    description: Security specification for an interface.
   KC:
     prefix: kc
     description: "Describe the key concepts (entities, value objects, aggregates) in the domain. This is the conceptual domain model showing core business objects and their relationships."
@@ -13326,6 +13293,9 @@ section-types:
   ME:
     prefix: me
     description: A MoSCoW classification entry (form).
+  MS:
+    prefix: ms
+    description: Schedule overview for migration.
   NM:
     prefix: nm
     description: "Define notification strategy: channels, triggers, preferences, and delivery mechanisms."
@@ -13341,9 +13311,18 @@ section-types:
   PE:
     prefix: pe
     description: A protocol or standard entry (form).
+  PG:
+    prefix: pg
+    description: 10.13.1. Prototype Goals.
   PM:
     prefix: pm
     description: "Document current process performance including throughput, cycle times, error rates, and manual intervention frequency. These become the baseline against which improvements are measured."
+  PP:
+    prefix: pp
+    description: Process performance metrics.
+  PR:
+    prefix: pr
+    description: Process relationships and dependencies (supplementary section).
   PS:
     prefix: ps
     description: "Describe the problem in detail. What is the current state? What makes it a problem? Who is affected and how severely?"
@@ -13356,15 +13335,30 @@ section-types:
   RE:
     prefix: re
     description: A responsibility entry (form).
+  RF:
+    prefix: rf
+    description: Report conditional formatting.
+  RI:
+    prefix: ri
+    description: Container for systems to replace.
   RO:
     prefix: ro
     description: Define initial requirements at a level sufficient for project scoping and planning. Each requirement should be traceable to business goals and verifiable through acceptance criteria.
+  RP:
+    prefix: rp
+    description: Recovery procedures.
+  RR:
+    prefix: rr
+    description: "Relationships to other risks, assumptions, and project elements."
   RT:
     prefix: rt
     description: Document traceability links to maintain visibility of requirements throughout the project lifecycle.
   SC:
     prefix: sc
     description: "Define criteria that collectively determine project success. Each criterion should be objectively verifiable, measurable, and time-bound. Criteria should cover business, technical, user, and compliance dimensions."
+  SD:
+    prefix: sd
+    description: Deployment and rollout for a stage entry.
   SE:
     prefix: se
     description: An SLO entry.
@@ -13413,6 +13407,12 @@ section-types:
   TG:
     prefix: tg
     description: Define technical goals that establish the quality attributes and capabilities of the system. Each goal should have measurable criteria and clear verification methods.
+  TP:
+    prefix: tp
+    description: 10.13.3.2. Training Prototype.
+  TS:
+    prefix: ts
+    description: Testing standards and requirements.
   UJ:
     prefix: uj
     description: Document the user journey - key touchpoints and stages in this user category's interaction with the system.
@@ -13440,7 +13440,7 @@ document:
       section-type: TOMC
       optional: true
     informationanddatamodel:
-      section-type: BODM
+      section-type: INDM
       optional: true
     requirements:
       section-type: REQS
@@ -13452,7 +13452,7 @@ document:
       section-type: ACAZ
       optional: true
     experienceandinterfacedesign:
-      section-type: UIDI
+      section-type: XID
       optional: true
     qualityandacceptancemodel:
       section-type: QACM

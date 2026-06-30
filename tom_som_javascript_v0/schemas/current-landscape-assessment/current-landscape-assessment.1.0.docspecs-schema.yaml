@@ -48,18 +48,6 @@ section-types:
       pattern: ^davoen_volu_lst-\d+$
       error-message: ID must match davoen_volu_lst-NNN
     description: Volume details by data source.
-  INTEG1-INTE-LST:
-    prefix: integ1_inte_lst
-    pattern-check-id:
-      pattern: ^integ1_inte_lst-\d+$
-      error-message: ID must match integ1_inte_lst-NNN
-    description: Integration patterns used.
-  KNOWN1-KNOW-LST:
-    prefix: known1_know_lst
-    pattern-check-id:
-      pattern: ^known1_know_lst-\d+$
-      error-message: ID must match known1_know_lst-NNN
-    description: Known technical issues and deficiencies.
   MEBAEN-ENTR-LST:
     prefix: mebaen_entr_lst
     pattern-check-id:
@@ -453,6 +441,18 @@ section-types:
       pattern: ^wfac_acto_lst-\d+$
       error-message: ID must match wfac_acto_lst-NNN
     description: Workflow actors and responsibilities.
+  IPE-INTE-LST:
+    prefix: ipe_inte_lst
+    pattern-check-id:
+      pattern: ^ipe_inte_lst-\d+$
+      error-message: ID must match ipe_inte_lst-NNN
+    description: Integration patterns used.
+  KIE-KNOW-LST:
+    prefix: kie_know_lst
+    pattern-check-id:
+      pattern: ^kie_know_lst-\d+$
+      error-message: ID must match kie_know_lst-NNN
+    description: Known technical issues and deficiencies.
   PME-ITEM-LST:
     prefix: pme_item_lst
     pattern-check-id:
@@ -489,6 +489,33 @@ section-types:
       pattern: ^wse_step_lst-\d+$
       error-message: ID must match wse_step_lst-NNN
     description: Workflow steps in sequence.
+  CUSTRIAS:
+    prefix: custrias
+    description: 1.6. Current State Risks.
+  DADUENSY:
+    prefix: daduensy
+    description: Synchronization and consistency details.
+  DAENMIEN:
+    prefix: daenmien
+    description: A data entity migration entry.
+  DAOWENST:
+    prefix: daowenst
+    description: Stewardship and custodianship assignments.
+  SYBUPREN:
+    prefix: sybupren
+    description: Business process supported.
+  SYBUUNEN:
+    prefix: sybuunen
+    description: Business unit using the system.
+  SYDASCMI:
+    prefix: sydascmi
+    description: Migration preparation and archive handling.
+  SYMIRIEN:
+    prefix: symirien
+    description: A system migration risk entry.
+  USGRIMEN:
+    prefix: usgrimen
+    description: User group impact entry.
   REPSDEP:
     prefix: repsdep
     description: A system dependency entry.
@@ -591,15 +618,9 @@ section-types:
   INHESU:
     prefix: inhesu
     description: 1.1.3.5. Integration Health Summary.
-  INTEG1:
-    prefix: integ1
-    description: A single integration pattern entry.
   INTEGR:
     prefix: integr
     description: 1.1.3.4. System Integrations.
-  KNOWN1:
-    prefix: known1
-    description: A single known issue entry.
   MADAMA:
     prefix: madama
     description: 1.4.10. Master Data Management.
@@ -612,6 +633,9 @@ section-types:
   MEDASU:
     prefix: medasu
     description: Metrics dashboard summary for executive overview.
+  MIGCON:
+    prefix: migcon
+    description: 4.4.2. Migration Considerations (global).
   MIRIAS:
     prefix: mirias
     description: Assessment methodology settings.
@@ -783,15 +807,6 @@ section-types:
   CRITI:
     prefix: criti
     description: A single critical knowledge area entry.
-  CSRA1:
-    prefix: csra1
-    description: 1.6. Current State Risks.
-  DDES1:
-    prefix: ddes1
-    description: Synchronization and consistency details.
-  DEME1:
-    prefix: deme1
-    description: A data entity migration entry.
   DEPNT:
     prefix: depnt
     description: 1.1.3. Dependencies and Integrations.
@@ -804,9 +819,6 @@ section-types:
   DOCHD:
     prefix: dochd
     description: Standard document header present at the top of every TomSpecs document.
-  DOES1:
-    prefix: does1
-    description: Stewardship and custodianship assignments.
   DQIEC:
     prefix: dqiec
     description: Classification and severity.
@@ -888,9 +900,6 @@ section-types:
   MGRSK:
     prefix: mgrsk
     description: A migration risk entry (form).
-  MICO1:
-    prefix: mico1
-    description: 4.4.2. Migration Considerations (global).
   MONIT:
     prefix: monit
     description: A single monitoring procedure entry.
@@ -906,9 +915,6 @@ section-types:
   PREDE:
     prefix: prede
     description: A single predecessor dependency entry.
-  REIN1:
-    prefix: rein1
-    description: Container for systems to replace.
   REPOL:
     prefix: repol
     description: Retention policy for a specific data category.
@@ -921,21 +927,12 @@ section-types:
   RISKC:
     prefix: riskc
     description: A single risk category entry.
-  SBPE1:
-    prefix: sbpe1
-    description: Business process supported.
-  SBUE1:
-    prefix: sbue1
-    description: Business unit using the system.
   SCACC:
     prefix: scacc
     description: Current-state support and total annual cost.
   SDEDE:
     prefix: sdede
     description: Data exchange characteristics for system dependency.
-  SDSM1:
-    prefix: sdsm1
-    description: Migration preparation and archive handling.
   SECUR:
     prefix: secur
     description: A single security concern entry.
@@ -948,9 +945,6 @@ section-types:
   SHIEN:
     prefix: shien
     description: A shared infrastructure entry (form).
-  SMRE1:
-    prefix: smre1
-    description: A system migration risk entry.
   STREP:
     prefix: strep
     description: Classification and ownership details.
@@ -963,9 +957,6 @@ section-types:
   SYINV:
     prefix: syinv
     description: 1.1.1. System Inventory.
-  UGIE1:
-    prefix: ugie1
-    description: User group impact entry.
   BPPS:
     prefix: bpps
     description: Summary specific to business pain points.
@@ -1176,6 +1167,12 @@ section-types:
   WOTR:
     prefix: wotr
     description: Workflow triggers and initiation conditions.
+  IPE:
+    prefix: ipe
+    description: A single integration pattern entry.
+  KIE:
+    prefix: kie
+    description: A single known issue entry.
   PME:
     prefix: pme
     description: "Define each metric clearly with current baseline values, measurement methodology, and target values if known."
@@ -1191,6 +1188,9 @@ section-types:
   PM:
     prefix: pm
     description: "Document current process performance including throughput, cycle times, error rates, and manual intervention frequency. These become the baseline against which improvements are measured."
+  RI:
+    prefix: ri
+    description: Container for systems to replace.
 document:
   sections:
     header:
@@ -1212,11 +1212,11 @@ document:
       section-type: CUOPME-OPER-LST
       optional: true
     currentstaterisks:
-      section-type: CSRA1
+      section-type: CUSTRIAS
       optional: true
     replacementinventory:
-      section-type: REIN1
+      section-type: RI
       optional: true
     migrationconsiderations:
-      section-type: MICO1
+      section-type: MIGCON
       optional: true

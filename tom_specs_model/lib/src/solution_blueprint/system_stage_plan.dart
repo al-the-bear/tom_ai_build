@@ -1160,7 +1160,7 @@ class StageQuality {
 }
 
 /// Deployment and rollout for a stage entry.
-@SectionId('STDE1')
+@SectionId('SD')
 class StageDeployment {
   @Form([
     Field('deploymentApproach', String, 'Deployment Approach',
@@ -1346,7 +1346,7 @@ class SubStageEntryExecution {
 }
 
 /// Current status.
-@SectionId('SSES1')
+@SectionId('SUSTENST')
 class SubStageEntryStatus {
   @Form([
     Field('currentStatus', String, 'Current Status',
@@ -1888,7 +1888,7 @@ class FeatureStageMappingDependencies {
 }
 
 /// Acceptance and notes.
-@SectionId('FSMA1')
+@SectionId('FESTMAAC')
 class FeatureStageMappingAcceptance {
   @Form([
     Field('acceptanceCriteriaSummary', String,
@@ -2157,7 +2157,7 @@ class FeatureTraceability {
 }
 
 /// Status for a feature priority entry.
-@SectionId('FEST1')
+@SectionId('FS')
 class FeatureStatus {
   @Form([
     Field('prioritizationStatus', String, 'Prioritization Status',
@@ -2577,7 +2577,7 @@ class StageMigrationResources {
 }
 
 /// Schedule overview for migration.
-@SectionId('MISC1')
+@SectionId('MS')
 class MigrationSchedule {
   @Form([
     Field('overallMigrationStart', String, 'Overall Migration Start',
@@ -3122,7 +3122,7 @@ class StageMigrationRiskContingency {
 }
 
 /// Monitoring and detection.
-@SectionId('SMRM1')
+@SectionId('STMIRIMO')
 class StageMigrationRiskMonitoring {
   @Form([
     Field('triggerIndicators', String, 'Trigger Indicators',
@@ -3455,7 +3455,7 @@ class PhaseGateReviewsOutcomes {
 ///
 /// Defines a single phase gate with its criteria, participants,
 /// required evidence, entry/exit conditions, and review schedule.
-@SectionId('PGRE1')
+@SectionId('PHGAREEN')
 class PhaseGateReviewEntry {
   @Form([
     Field('gateName', String, 'Gate Name',
@@ -3804,7 +3804,7 @@ class DecisionPointEntryStakeholders {
 }
 
 /// Criteria and inputs for decision point.
-@SectionId('DPEC1')
+@SectionId('DEPOENCR')
 class DecisionPointEntryCriteria {
   @Form([
     Field('decisionCriteria', String, 'Decision Criteria',

@@ -10543,7 +10543,7 @@ export class CurrentArchitecture extends SomNode {
 
   // Integration patterns used.
   get integrationPatterns(): SomList<IntegrationPatternEntry> {
-    return new SomList(this.doc, this.path + "/INTEG1-INTE-LST", (d: SpecDocument, p: string) => new IntegrationPatternEntry(d, p));
+    return new SomList(this.doc, this.path + "/IPE-INTE-LST", (d: SpecDocument, p: string) => new IntegrationPatternEntry(d, p));
   }
 
   // Shared services inventory.
@@ -12682,7 +12682,7 @@ export class DataEntityEntry extends SomNode {
   }
 
   get complianceRequirements(): SomList<ComplianceRequirementEntry> {
-    return new SomList(this.doc, this.path + "/COMPL1-COMP-LST", (d: SpecDocument, p: string) => new ComplianceRequirementEntry(d, p));
+    return new SomList(this.doc, this.path + "/CRE-COMP-LST", (d: SpecDocument, p: string) => new ComplianceRequirementEntry(d, p));
   }
 
   get relationshipSummary(): DataEntityEntryRelationshipSummaryForm {
@@ -20613,7 +20613,7 @@ export class ExternalSystemsContext extends SomNode {
 
   // External system entries — contains 0+× ExternalSystemContextEntry.
   get systems(): SomList<ExternalSystemContextEntry> {
-    return new SomList(this.doc, this.path + "/ESCE1-SYST-LST", (d: SpecDocument, p: string) => new ExternalSystemContextEntry(d, p));
+    return new SomList(this.doc, this.path + "/EXSYCOEN-SYST-LST", (d: SpecDocument, p: string) => new ExternalSystemContextEntry(d, p));
   }
 }
 
@@ -34015,7 +34015,7 @@ export class ProblemStatement extends SomNode {
 
   // Related pain points from Current State Analysis.
   get relatedPainPoints(): SomList<RelatedPainPointEntry> {
-    return new SomList(this.doc, this.path + "/RELAT1-RELA-LST", (d: SpecDocument, p: string) => new RelatedPainPointEntry(d, p));
+    return new SomList(this.doc, this.path + "/RPPE-RELA-LST", (d: SpecDocument, p: string) => new RelatedPainPointEntry(d, p));
   }
 }
 
@@ -39743,7 +39743,7 @@ export class RiskEntry extends SomNode {
 
   // Relationships to other risks, assumptions, and project elements.
   get relationships(): SomList<RiskRelationships> {
-    return new SomList(this.doc, this.path + "/RIRE1-RELA-LST", (d: SpecDocument, p: string) => new RiskRelationships(d, p));
+    return new SomList(this.doc, this.path + "/RR-RELA-LST", (d: SpecDocument, p: string) => new RiskRelationships(d, p));
   }
 }
 
@@ -47843,7 +47843,7 @@ export class SystemErrorDisplay extends SomNode {
 
   // Error page designs.
   get errorPageDesigns(): SomList<ErrorPageDesignEntry> {
-    return new SomList(this.doc, this.path + "/ERROR1-ERRO-LST", (d: SpecDocument, p: string) => new ErrorPageDesignEntry(d, p));
+    return new SomList(this.doc, this.path + "/EPDE-ERRO-LST", (d: SpecDocument, p: string) => new ErrorPageDesignEntry(d, p));
   }
 
   // Error codes catalog.
@@ -48721,7 +48721,7 @@ export class SystemTechnicalAssessment extends SomNode {
 
   // Known technical issues and deficiencies.
   get knownIssues(): SomList<KnownIssueEntry> {
-    return new SomList(this.doc, this.path + "/KNOWN1-KNOW-LST", (d: SpecDocument, p: string) => new KnownIssueEntry(d, p));
+    return new SomList(this.doc, this.path + "/KIE-KNOW-LST", (d: SpecDocument, p: string) => new KnownIssueEntry(d, p));
   }
 
   // Security vulnerabilities and compliance gaps.

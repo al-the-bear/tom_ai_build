@@ -731,7 +731,7 @@ class ChangeProcedureSummary {
 ///
 /// Detailed workflow for change request processing from submission
 /// through evaluation, approval, implementation, and closure.
-@SectionId('CHPR1')
+@SectionId('CP')
 class ChangeProcess {
   @ContentHelp('''
 Detailed description of the change request workflow.

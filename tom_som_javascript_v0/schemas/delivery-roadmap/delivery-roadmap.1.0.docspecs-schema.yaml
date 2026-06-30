@@ -187,6 +187,21 @@ section-types:
       pattern: ^stst_stak_lst-\d+$
       error-message: ID must match stst_stak_lst-NNN
     description: Stakeholders and communication.
+  DEPOENCR:
+    prefix: depoencr
+    description: Criteria and inputs for decision point.
+  FESTMAAC:
+    prefix: festmaac
+    description: Acceptance and notes.
+  PHGAREEN:
+    prefix: phgareen
+    description: A phase gate review entry (form).
+  STMIRIMO:
+    prefix: stmirimo
+    description: Monitoring and detection.
+  SUSTENST:
+    prefix: sustenst
+    description: Current status.
   DAMIST:
     prefix: damist
     description: 13.5. Data Migration Strategy.
@@ -406,36 +421,18 @@ section-types:
   DOETO:
     prefix: doeto
     description: Trade-offs and reversibility.
-  DPEC1:
-    prefix: dpec1
-    description: Criteria and inputs for decision point.
-  FEST1:
-    prefix: fest1
-    description: Status for a feature priority entry.
-  FSMA1:
-    prefix: fsma1
-    description: Acceptance and notes.
   KEYAS:
     prefix: keyas
     description: A single key assumption entry.
   MGPHS:
     prefix: mgphs
     description: A migration phase entry (form).
-  MISC1:
-    prefix: misc1
-    description: Schedule overview for migration.
-  PGRE1:
-    prefix: pgre1
-    description: A phase gate review entry (form).
   RVCRI:
     prefix: rvcri
     description: A review criterion entry (form).
   SGOVM:
     prefix: sgovm
     description: Summary metrics for stage overview.
-  SMRM1:
-    prefix: smrm1
-    description: Monitoring and detection.
   SMRPI:
     prefix: smrpi
     description: Probability and impact assessment.
@@ -448,18 +445,12 @@ section-types:
   SSCEV:
     prefix: sscev
     description: Verification planning.
-  SSES1:
-    prefix: sses1
-    description: Current status.
   STAGE:
     prefix: stage
     description: A stage entry (form) with description subsections.
   STAGI:
     prefix: stagi
     description: A single constraint entry.
-  STDE1:
-    prefix: stde1
-    description: Deployment and rollout for a stage entry.
   SUSST:
     prefix: susst
     description: A sub-stage or milestone entry (form).
@@ -640,9 +631,18 @@ section-types:
   FSM:
     prefix: fsm
     description: A feature-to-stage mapping entry (form).
+  FS:
+    prefix: fs
+    description: Status for a feature priority entry.
   ME:
     prefix: me
     description: A MoSCoW classification entry (form).
+  MS:
+    prefix: ms
+    description: Schedule overview for migration.
+  SD:
+    prefix: sd
+    description: Deployment and rollout for a stage entry.
 document:
   sections:
     header:

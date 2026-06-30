@@ -86,6 +86,18 @@ section-types:
       pattern: ^oose_item_lst-\d+$
       error-message: ID must match oose_item_lst-NNN
     description: Contains 0+× OutOfScopeEntry.
+  INBUPREN:
+    prefix: inbupren
+    description: Business process dependency entry.
+  INDAENEN:
+    prefix: indaenen
+    description: Data entity exchanged.
+  INTESCEN:
+    prefix: intescen
+    description: Test scenario entry.
+  OUOFSCEN:
+    prefix: ouofscen
+    description: An out-of-scope entry (form).
   BOINPA:
     prefix: boinpa
     description: 4.5.5. Boundary Interaction Patterns.
@@ -152,24 +164,9 @@ section-types:
   ERROR:
     prefix: error
     description: A single error procedure entry.
-  IBPE1:
-    prefix: ibpe1
-    description: Business process dependency entry.
-  IDEE1:
-    prefix: idee1
-    description: Data entity exchanged.
-  INSE1:
-    prefix: inse1
-    description: Security specification for an interface.
-  ITSE2:
-    prefix: itse2
-    description: Test scenario entry.
   MAPPI:
     prefix: mappi
     description: A single mapping rule entry.
-  OOSE1:
-    prefix: oose1
-    description: An out-of-scope entry (form).
   OOSED:
     prefix: oosed
     description: Decision history and future reconsideration.
@@ -236,6 +233,9 @@ section-types:
   IOE:
     prefix: ioe
     description: API operation entry.
+  IS:
+    prefix: is
+    description: Security specification for an interface.
 document:
   sections:
     header:

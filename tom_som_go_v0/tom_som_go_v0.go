@@ -12526,7 +12526,7 @@ func (x *CurrentArchitecture) SetDeploymentTopology(value string) {
 
 // Integration patterns used.
 func (x *CurrentArchitecture) IntegrationPatterns() *som.SomList[*IntegrationPatternEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/INTEG1-INTE-LST", func(d *som.SpecDocument, p string) *IntegrationPatternEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/IPE-INTE-LST", func(d *som.SpecDocument, p string) *IntegrationPatternEntry {
 		return NewIntegrationPatternEntry(d, p)
 	})
 }
@@ -14972,7 +14972,7 @@ func (x *DataEntityEntry) LifecyclePolicy() *DataEntityEntryLifecyclePolicyForm 
 }
 
 func (x *DataEntityEntry) ComplianceRequirements() *som.SomList[*ComplianceRequirementEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/COMPL1-COMP-LST", func(d *som.SpecDocument, p string) *ComplianceRequirementEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/CRE-COMP-LST", func(d *som.SpecDocument, p string) *ComplianceRequirementEntry {
 		return NewComplianceRequirementEntry(d, p)
 	})
 }
@@ -24378,7 +24378,7 @@ func (x *ExternalSystemsContext) SetContent(value string) {
 
 // External system entries — contains 0+× ExternalSystemContextEntry.
 func (x *ExternalSystemsContext) Systems() *som.SomList[*ExternalSystemContextEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/ESCE1-SYST-LST", func(d *som.SpecDocument, p string) *ExternalSystemContextEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/EXSYCOEN-SYST-LST", func(d *som.SpecDocument, p string) *ExternalSystemContextEntry {
 		return NewExternalSystemContextEntry(d, p)
 	})
 }
@@ -40342,7 +40342,7 @@ func (x *ProblemStatement) ProblemDetails() *ProblemStatementProblemDetailsForm 
 
 // Related pain points from Current State Analysis.
 func (x *ProblemStatement) RelatedPainPoints() *som.SomList[*RelatedPainPointEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/RELAT1-RELA-LST", func(d *som.SpecDocument, p string) *RelatedPainPointEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/RPPE-RELA-LST", func(d *som.SpecDocument, p string) *RelatedPainPointEntry {
 		return NewRelatedPainPointEntry(d, p)
 	})
 }
@@ -47226,7 +47226,7 @@ func (x *RiskEntry) BusinessImpact() *RiskBusinessImpact {
 
 // Relationships to other risks, assumptions, and project elements.
 func (x *RiskEntry) Relationships() *som.SomList[*RiskRelationships] {
-	return som.NewSomList(x.Doc(), x.Path() + "/RIRE1-RELA-LST", func(d *som.SpecDocument, p string) *RiskRelationships {
+	return som.NewSomList(x.Doc(), x.Path() + "/RR-RELA-LST", func(d *som.SpecDocument, p string) *RiskRelationships {
 		return NewRiskRelationships(d, p)
 	})
 }
@@ -56841,7 +56841,7 @@ func (x *SystemErrorDisplay) Fallback() *SystemErrorDisplayFallback {
 
 // Error page designs.
 func (x *SystemErrorDisplay) ErrorPageDesigns() *som.SomList[*ErrorPageDesignEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/ERROR1-ERRO-LST", func(d *som.SpecDocument, p string) *ErrorPageDesignEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/EPDE-ERRO-LST", func(d *som.SpecDocument, p string) *ErrorPageDesignEntry {
 		return NewErrorPageDesignEntry(d, p)
 	})
 }
@@ -57854,7 +57854,7 @@ func (x *SystemTechnicalAssessment) Quality() *SystemTechnicalAssessmentQuality 
 
 // Known technical issues and deficiencies.
 func (x *SystemTechnicalAssessment) KnownIssues() *som.SomList[*KnownIssueEntry] {
-	return som.NewSomList(x.Doc(), x.Path() + "/KNOWN1-KNOW-LST", func(d *som.SpecDocument, p string) *KnownIssueEntry {
+	return som.NewSomList(x.Doc(), x.Path() + "/KIE-KNOW-LST", func(d *som.SpecDocument, p string) *KnownIssueEntry {
 		return NewKnownIssueEntry(d, p)
 	})
 }

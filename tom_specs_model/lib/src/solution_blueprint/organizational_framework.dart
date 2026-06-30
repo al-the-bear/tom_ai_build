@@ -2014,7 +2014,7 @@ class PhysicalWorkplaceRequirements {
 }
 
 /// Environmental conditions and controls.
-@SectionId('PWRE1')
+@SectionId('PHWOREEN')
 class PhysicalWorkplaceRequirementsEnvironment {
   @Form([
     Field('lightingRequirements', String,
@@ -2155,7 +2155,7 @@ class ComputingEquipmentEntryPlatform {
 }
 
 /// Deployment and justification.
-@SectionId('CEEP1')
+@SectionId('COEQENPL')
 class ComputingEquipmentEntryPlanning {
     @Form([
         Field('quantityNeeded', int, 'Quantity Needed'),
@@ -2217,7 +2217,7 @@ class DisplayEquipmentEntryErgonomics {
 }
 
 /// Quantity planning and justification for display equipment.
-@SectionId('DEEP1')
+@SectionId('DIEQENPL')
 class DisplayEquipmentEntryPlanning {
     @Form([
         Field('quantityPerUser', int, 'Quantity Per User — number of monitors'),
@@ -2287,7 +2287,7 @@ class MobileDeviceEntry {
 }
 
 /// Technical and management requirements.
-@SectionId('MDEC1')
+@SectionId('MODEENCA')
 class MobileDeviceEntryCapabilities {
     @Form([
         Field('storageCapacity', String, 'Storage Capacity'),
@@ -2729,7 +2729,7 @@ class OngoingTrainingEntryContent {
 }
 
 /// Tracking and compliance.
-@SectionId('OTEC1')
+@SectionId('ONTRENCO')
 class OngoingTrainingEntryCompliance {
   @Form([
     Field('mandatory', String, 'Mandatory'),

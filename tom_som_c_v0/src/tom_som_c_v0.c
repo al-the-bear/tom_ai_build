@@ -13044,7 +13044,7 @@ void current_architecture_set_deployment_topology(CurrentArchitecture *self, con
   free(path);
 }
 SomList current_architecture_integration_patterns(const CurrentArchitecture *self) {
-  char *path = spec_path_join(self->node.path, "INTEG1-INTE-LST");
+  char *path = spec_path_join(self->node.path, "IPE-INTE-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -15694,7 +15694,7 @@ DataEntityEntryLifecyclePolicyForm data_entity_entry_lifecycle_policy(const Data
   return out;
 }
 SomList data_entity_entry_compliance_requirements(const DataEntityEntry *self) {
-  char *path = spec_path_join(self->node.path, "COMPL1-COMP-LST");
+  char *path = spec_path_join(self->node.path, "CRE-COMP-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -25634,7 +25634,7 @@ void external_systems_context_set_content(ExternalSystemsContext *self, const ch
   free(path);
 }
 SomList external_systems_context_systems(const ExternalSystemsContext *self) {
-  char *path = spec_path_join(self->node.path, "ESCE1-SYST-LST");
+  char *path = spec_path_join(self->node.path, "EXSYCOEN-SYST-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -42134,7 +42134,7 @@ ProblemStatementProblemDetailsForm problem_statement_problem_details(const Probl
   return out;
 }
 SomList problem_statement_related_pain_points(const ProblemStatement *self) {
-  char *path = spec_path_join(self->node.path, "RELAT1-RELA-LST");
+  char *path = spec_path_join(self->node.path, "RPPE-RELA-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -49293,7 +49293,7 @@ RiskBusinessImpact risk_entry_business_impact(const RiskEntry *self) {
   return out;
 }
 SomList risk_entry_relationships(const RiskEntry *self) {
-  char *path = spec_path_join(self->node.path, "RIRE1-RELA-LST");
+  char *path = spec_path_join(self->node.path, "RR-RELA-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -59270,7 +59270,7 @@ SystemErrorDisplayFallback system_error_display_fallback(const SystemErrorDispla
   return out;
 }
 SomList system_error_display_error_page_designs(const SystemErrorDisplay *self) {
-  char *path = spec_path_join(self->node.path, "ERROR1-ERRO-LST");
+  char *path = spec_path_join(self->node.path, "EPDE-ERRO-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);
@@ -60372,7 +60372,7 @@ SystemTechnicalAssessmentQuality system_technical_assessment_quality(const Syste
   return out;
 }
 SomList system_technical_assessment_known_issues(const SystemTechnicalAssessment *self) {
-  char *path = spec_path_join(self->node.path, "KNOWN1-KNOW-LST");
+  char *path = spec_path_join(self->node.path, "KIE-KNOW-LST");
   SomList out;
   som_list_init(&out, self->node.doc, path);
   free(path);

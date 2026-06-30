@@ -682,7 +682,7 @@ class ProcessRoleEntryCoordination {
 }
 
 /// Process performance metrics.
-@SectionId('PRPE1')
+@SectionId('PP')
 class ProcessPerformance {
   /// Performance overview.
   ProcessPerformanceOverview overview = ProcessPerformanceOverview();
@@ -1125,7 +1125,7 @@ class ImprovementBusinessCase {
 }
 
 /// Process relationships and dependencies (supplementary section).
-@SectionId('PRRE1')
+@SectionId('PR')
 @DetailedIn(D02TargetOperatingModel)
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-REL')
 class ProcessRelationships {
@@ -1528,7 +1528,7 @@ class ActorIdentification {
 }
 
 /// Actor characteristics.
-@SectionId('ACCH1')
+@SectionId('ACTCHA')
 class ActorCharacteristics {
   @Form([
     Field('domainKnowledge', String,
@@ -2287,7 +2287,7 @@ class ScenarioStepEntryContext {
 }
 
 /// Branching, timing, and notes.
-@SectionId('SSEE1')
+@SectionId('SCSTENEX')
 class ScenarioStepEntryExecution {
   @Form([
     Field('decisionPoint', String,

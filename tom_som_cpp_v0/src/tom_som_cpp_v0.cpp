@@ -5671,7 +5671,7 @@ void CurrentArchitecture::setDeploymentTopology(const std::string& value) {
   doc().setContent(som::joinPath(path(), "deploymentTopology"), value);
 }
 som::SomList CurrentArchitecture::integrationPatterns() const {
-  return som::SomList(doc(), som::joinPath(path(), "INTEG1-INTE-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "IPE-INTE-LST"));
 }
 som::SomList CurrentArchitecture::sharedServices() const {
   return som::SomList(doc(), som::joinPath(path(), "SHARE-SHAR-LST"));
@@ -6852,7 +6852,7 @@ DataEntityEntryLifecyclePolicyForm DataEntityEntry::lifecyclePolicy() const {
   return DataEntityEntryLifecyclePolicyForm(doc(), som::joinPath(path(), "lifecyclePolicy"));
 }
 som::SomList DataEntityEntry::complianceRequirements() const {
-  return som::SomList(doc(), som::joinPath(path(), "COMPL1-COMP-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "CRE-COMP-LST"));
 }
 DataEntityEntryRelationshipSummaryForm DataEntityEntry::relationshipSummary() const {
   return DataEntityEntryRelationshipSummaryForm(doc(), som::joinPath(path(), "relationshipSummary"));
@@ -11172,7 +11172,7 @@ void ExternalSystemsContext::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList ExternalSystemsContext::systems() const {
-  return som::SomList(doc(), som::joinPath(path(), "ESCE1-SYST-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "EXSYCOEN-SYST-LST"));
 }
 
 FamilyComponentRef::FamilyComponentRef(som::SpecDocument& doc, std::string path)
@@ -18336,7 +18336,7 @@ ProblemStatementProblemDetailsForm ProblemStatement::problemDetails() const {
   return ProblemStatementProblemDetailsForm(doc(), som::joinPath(path(), "problemDetails"));
 }
 som::SomList ProblemStatement::relatedPainPoints() const {
-  return som::SomList(doc(), som::joinPath(path(), "RELAT1-RELA-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "RPPE-RELA-LST"));
 }
 
 ProcessAdjustmentDetails::ProcessAdjustmentDetails(som::SpecDocument& doc, std::string path)
@@ -21447,7 +21447,7 @@ RiskBusinessImpact RiskEntry::businessImpact() const {
   return RiskBusinessImpact(doc(), som::joinPath(path(), "businessImpact"));
 }
 som::SomList RiskEntry::relationships() const {
-  return som::SomList(doc(), som::joinPath(path(), "RIRE1-RELA-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "RR-RELA-LST"));
 }
 
 RiskIdentification::RiskIdentification(som::SpecDocument& doc, std::string path)
@@ -25782,7 +25782,7 @@ SystemErrorDisplayFallback SystemErrorDisplay::fallback() const {
   return SystemErrorDisplayFallback(doc(), som::joinPath(path(), "fallback"));
 }
 som::SomList SystemErrorDisplay::errorPageDesigns() const {
-  return som::SomList(doc(), som::joinPath(path(), "ERROR1-ERRO-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "EPDE-ERRO-LST"));
 }
 som::SomList SystemErrorDisplay::errorCodes() const {
   return som::SomList(doc(), som::joinPath(path(), "SECE-ERRO-LST"));
@@ -26262,7 +26262,7 @@ SystemTechnicalAssessmentQuality SystemTechnicalAssessment::quality() const {
   return SystemTechnicalAssessmentQuality(doc(), som::joinPath(path(), "quality"));
 }
 som::SomList SystemTechnicalAssessment::knownIssues() const {
-  return som::SomList(doc(), som::joinPath(path(), "KNOWN1-KNOW-LST"));
+  return som::SomList(doc(), som::joinPath(path(), "KIE-KNOW-LST"));
 }
 som::SomList SystemTechnicalAssessment::securityConcerns() const {
   return som::SomList(doc(), som::joinPath(path(), "SECUR-SECU-LST"));

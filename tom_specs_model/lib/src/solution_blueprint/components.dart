@@ -553,7 +553,7 @@ class ComponentCost {
 }
 
 /// Compliance for component.
-@SectionId('COCO1')
+@SectionId('CC')
 class ComponentCompliance {
   @Form([
     Field('complianceCertifications', String, 'Compliance Certifications',
@@ -674,7 +674,7 @@ class ComponentInterfaceEntryData {
 }
 
 /// SLA and monitoring for component interface.
-@SectionId('CIES1')
+@SectionId('COINENSL')
 class ComponentInterfaceEntrySla {
   @Form([
     Field('slaAvailability', String, 'Availability SLA',
@@ -774,7 +774,7 @@ class ComponentLicensingEntryRights {
 }
 
 /// Compliance restrictions.
-@SectionId('CLEC1')
+@SectionId('COLIENCO')
 class ComponentLicensingEntryCompliance {
   @Form([
     Field('auditRights', String, 'Vendor Audit Rights',
@@ -790,7 +790,7 @@ class ComponentLicensingEntryCompliance {
 }
 
 /// Metering and capacity rules.
-@SectionId('CLEC2')
+@SectionId('COLIENCA')
 class ComponentLicensingEntryCapacity {
   @Form([
     Field('usageMetricTracked', String, 'Usage Metric',
@@ -806,7 +806,7 @@ class ComponentLicensingEntryCapacity {
 }
 
 /// Contract termination terms.
-@SectionId('CLEC3')
+@SectionId('COMLICENTCON')
 class ComponentLicensingEntryContract {
   @Form([
     Field('terminationClause', String, 'Termination Terms',
@@ -862,7 +862,7 @@ class ComponentResponsibilitiesEntrySupport {
 }
 
 /// SLA commitments.
-@SectionId('CRES1')
+@SectionId('COREENSL')
 class ComponentResponsibilitiesEntrySla {
   @Form([
     Field('slaUptimeTarget', String, 'Uptime SLA Target',
@@ -1091,7 +1091,7 @@ class RuntimeDependencyEntryIntegration {
 }
 
 /// Compatibility and transitive risk notes.
-@SectionId('RDER1')
+@SectionId('RUDEENRI')
 class RuntimeDependencyEntryRisk {
   @Form([
     Field('transitiveRisk', String, 'Transitive Dependency Risk',
@@ -1234,7 +1234,7 @@ Each risk includes:
 /// 12.6.2. Contingency Plans.
 ///
 /// Container for contingency plans addressing critical component risks.
-@SectionId('COPL1')
+@SectionId('CONPLA')
 class ContingencyPlans {
   @ContentHelp('''
 ## Contingency Plans (12.6.2)
@@ -1325,7 +1325,7 @@ class ContingencyPlanEntryActions {
 }
 
 /// Responsibility and recovery targets for contingency plan.
-@SectionId('CPER1')
+@SectionId('COPLENRE')
 class ContingencyPlanEntryResponsibility {
   @Form([
     Field('responsibleParty', String, 'Responsible Party',
@@ -1437,7 +1437,7 @@ class ComponentRiskEntryAssessment {
 }
 
 /// Detection and monitoring for component risk.
-@SectionId('CRED1')
+@SectionId('CORIENDE')
 class ComponentRiskEntryDetection {
   @Form([
     Field('detectionMethod', String, 'Detection Method',
@@ -1469,7 +1469,7 @@ class ComponentRiskEntryMitigation {
 }
 
 /// Governance and ownership for component risk.
-@SectionId('CREG1')
+@SectionId('CORIENGO')
 class ComponentRiskEntryGovernance {
   @Form([
     Field('riskOwner', String, 'Risk Owner',

@@ -10,7 +10,7 @@ import '../document_stubs.dart';
 
 
 /// 10. Experience & Interface Design. Seeds → XDS.
-@SectionId('UIDI')
+@SectionId('XID')
 @Comment('Seeds → XDS')
 class ExperienceAndInterfaceDesign {
   @ContentHelp('''
@@ -948,7 +948,7 @@ class ScreenElementEntryResources {
 }
 
 /// Placement and layout settings for screen element.
-@SectionId('SEEL2')
+@SectionId('SCELENLA')
 class ScreenElementEntryLayout {
   @Form([
     Field('placementOrder', int, 'Placement Order',
@@ -980,7 +980,7 @@ class ScreenElementEntryBehavior {
 }
 
 /// Styling and data binding for screen element.
-@SectionId('SEEP1')
+@SectionId('SCELENPR')
 class ScreenElementEntryPresentation {
   @Form([
     Field('styleVariant', String, 'Style Variant',
@@ -1220,7 +1220,7 @@ class ScreenElementDataDisplayOptions {
 }
 
 /// A validation rule entry (form).
-@SectionId('EVRE1')
+@SectionId('ELVARUEN')
 class ElementValidationRuleEntry {
   @Form([
     Field('ruleType', String, 'Rule Type', required: true,
@@ -1448,7 +1448,7 @@ class EntryPointEntry {
 /// A responsive rule entry (form).
 ///
 /// How the screen adapts at different breakpoints.
-@SectionId('SRRE1')
+@SectionId('SCRERUEN')
 class ScreenResponsiveRuleEntry {
   @Form([
     Field('breakpoint', String, 'Breakpoint', required: true,
@@ -1474,7 +1474,7 @@ class ScreenResponsiveRuleEntry {
 /// Overall information architecture: site map, content hierarchy, navigation
 /// structure, and entry points. Describes how screens relate to each other
 /// and how content is organized across the application.
-@SectionId('INAR1')
+@SectionId('IA')
 class InformationArchitecture {
   @ContentHelp('''
 ## Information Architecture (10.2.2)
@@ -1995,7 +1995,7 @@ Tab bars map to `TomTabBar` with:
 /// A tab bar definition entry (form).
 ///
 /// Defines a tab bar or segmented control on a specific screen.
-@SectionId('TBDE1')
+@SectionId('TABADEEN')
 class TabBarDefinitionEntry {
   @Form([
     Field('tabBarId', String, 'Tab Bar ID', required: true,
@@ -2124,7 +2124,7 @@ Dropdown/popup menus have nested items with:
 ///
 /// A persistent utility element in the app bar: user avatar, notifications bell,
 /// help icon, settings.
-@SectionId('UNIE1')
+@SectionId('UTNAITEN')
 class UtilityNavigationItemEntry {
   @Form([
     Field('utilityId', String, 'Utility ID', required: true,
@@ -2188,7 +2188,7 @@ class UtilityNavigationItemEntryBehavior {
 /// A utility menu item entry (form).
 ///
 /// Entry in a utility popup/dropdown menu (e.g., user menu items).
-@SectionId('UMIE1')
+@SectionId('UTMEITEN')
 class UtilityMenuItemEntry {
   @Form([
     Field('menuItemId', String, 'Menu Item ID', required: true),
@@ -2437,7 +2437,7 @@ class NavigationGuardEntry {
 }
 
 /// Covered routes and dialog resources.
-@SectionId('NGED1')
+@SectionId('NAGUENDI')
 class NavigationGuardEntryDialog {
   @Form([
     Field('appliesTo', String, 'Applies To',
@@ -2613,7 +2613,7 @@ class PrintLayoutArchive {
 // ---------------------------------------------------------------------------
 
 /// A report entry (form).
-@SectionId('RE2')
+@SectionId('REPENT')
 class ReportEntry {
   @Form([
     Field('reportId', String, 'Report ID',
@@ -2783,7 +2783,7 @@ class ReportGrouping {
 }
 
 /// Report conditional formatting.
-@SectionId('REFO1')
+@SectionId('RF')
 class ReportFormatting {
   @Form([
     Field('conditionalFormatting', String, 'Conditional Formatting',
@@ -2969,7 +2969,7 @@ class ReportSectionAggregation {
 
 /// A column in a tabular report section
 /// (form).
-@SectionId('RCE1')
+@SectionId('REPCOLENT')
 class ReportColumnEntry {
   @Form([
     Field('columnId', String, 'Column ID',
@@ -3079,7 +3079,7 @@ class ReportColumnLayout {
 
 /// A chart/visualization in a report
 /// (form).
-@SectionId('RCE2')
+@SectionId('REPCHAENT')
 class ReportChartEntry {
   @Form([
     Field('chartId', String, 'Chart ID',
@@ -3291,7 +3291,7 @@ class ReportFilterEntryPresentation {
 
 /// Scheduling rules for report generation
 /// (form).
-@SectionId('RSE1')
+@SectionId('REPSCHENT')
 class ReportScheduleEntry {
   @Form([
     Field('scheduleId', String, 'Schedule ID',
@@ -3415,7 +3415,7 @@ class ReportDistributionEntry {
 }
 
 /// Recipient and format settings for report distribution.
-@SectionId('RDER2')
+@SectionId('REDIENRE')
 class ReportDistributionEntryRecipients {
   @Form([
     Field('formatPerChannel', String, 'Format Per Channel',
@@ -3432,7 +3432,7 @@ class ReportDistributionEntryRecipients {
 }
 
 /// Message and attachment content for report distribution.
-@SectionId('RDEC1')
+@SectionId('REDIENCO')
 class ReportDistributionEntryContent {
   @Form([
     Field('subjectTemplate', String, 'Subject Template',
@@ -3503,7 +3503,7 @@ class ReportRecipientEntry {
 }
 
 /// Recipient business context.
-@SectionId('RREC1')
+@SectionId('REREENCO')
 class ReportRecipientEntryContext {
   @Form([
     Field('role', String, 'Role',
@@ -3727,7 +3727,7 @@ class ExportAccess {
 }
 
 /// A field mapping within an export (form).
-@SectionId('EFME1')
+@SectionId('EXFIMAEN')
 class ExportFieldMappingEntry {
   @Form([
     Field('mappingId', String, 'Mapping ID',
@@ -3869,7 +3869,7 @@ class ExportTemplateEntryFormat {
 }
 
 /// Field and filter settings for export template.
-@SectionId('ETEF1')
+@SectionId('EXTEENFI')
 class ExportTemplateEntryFields {
   @Form([
     Field('fieldSet', String, 'Field Set',
@@ -4200,8 +4200,8 @@ class SystemErrorDisplay {
   TextSection systemErrorNarrative = TextSection();
 
   /// Error page designs.
-  @SectionId('ERROR1-ERRO-LST')
-  @SectionIdPattern('ERROR1-ERRO-xxx')
+  @SectionId('EPDE-ERRO-LST')
+  @SectionIdPattern('EPDE-ERRO-xxx')
   List<ErrorPageDesignEntry> errorPageDesigns = [];
 
   /// Error codes catalog.
@@ -4276,7 +4276,7 @@ class SystemErrorDisplayFallback {
 }
 
 /// A system error code entry.
-@SectionId('SECE1')
+@SectionId('SYERCOEN')
 class SystemErrorCodeEntry {
   @Form([
     Field('errorCode', String, 'Error Code', required: true,
@@ -5118,7 +5118,7 @@ class WcagComplianceRobust {
 }
 
 /// A WCAG success criterion entry.
-@SectionId('WSCE1')
+@SectionId('WCSUCREN')
 class WcagSuccessCriterionEntry {
   @Form([
     Field('criterionId', String, 'Criterion ID', required: true,
@@ -5297,7 +5297,7 @@ class ResponsiveDesign {
 /// 10.10.1. Breakpoints.
 ///
 /// Breakpoint definitions for responsive layouts.
-@SectionId('BRCO1')
+@SectionId('BC')
 class BreakpointConfiguration {
   @Form([
     // Standard breakpoints
@@ -5803,7 +5803,7 @@ class FamilyComponentRef {
 /// Comprehensive specification for a single UI component covering identity,
 /// visual design, behavior, states, responsiveness, accessibility,
 /// authorization, and data binding.
-@SectionId('UCE1')
+@SectionId('UICOMENT')
 class UiComponentEntry {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Identity
@@ -6073,7 +6073,7 @@ class UiComponentEntrySpacing {
 }
 
 /// Surface treatment.
-@SectionId('UCES1')
+@SectionId('UICOENSU')
 class UiComponentEntrySurface {
     @Form([
         Field('borderStyle', String, 'Border Style'),
@@ -6112,7 +6112,7 @@ class UiComponentEntryAnimation {
 }
 
 /// Scrolling behavior.
-@SectionId('UCES2')
+@SectionId('UICOENSC')
 class UiComponentEntryScroll {
     @Form([
         Field('scrollBehavior', String, 'Scroll Behavior',
@@ -6126,7 +6126,7 @@ class UiComponentEntryScroll {
 /// A component state entry.
 ///
 /// Defines a visual/functional state of the component.
-@SectionId('CSE1')
+@SectionId('COMSTAENT')
 class ComponentStateEntry {
   @Form([
     Field('stateId', String, 'State ID', required: true,
@@ -6404,7 +6404,7 @@ class LocaleHandlingRequirements {
 }
 
 /// Rollout sequencing by region and time.
-@SectionId('MLARP')
+@SectionId('LOCRP')
 class LocaleRolloutPlan {
     @Form([
         Field('rolloutStrategy', String, 'Rollout Strategy',
@@ -6846,7 +6846,7 @@ class LanguageCountrySelectionUx {
 /// 10.12.5. Translation Handling Requirements.
 ///
 /// Technical requirements for internationalization framework.
-@SectionId('TRRE1')
+@SectionId('TRAREQ')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 @SecondLevelSectionId(D06ArchitectureTechnologySpecification, 'ATS-REQ')
@@ -6941,7 +6941,7 @@ class TranslationRequirementsTechnical {
 }
 
 /// A supported locale entry.
-@SectionId('SLE2')
+@SectionId('SUPLOCENT')
 class SupportedLocaleEntry {
   @Form([
     Field('localeCode', String, 'Locale Code', required: true,
@@ -6979,7 +6979,7 @@ class SupportedLocaleEntryFormatting {
 }
 
 /// Launch readiness and locale ownership.
-@SectionId('SLER1')
+@SectionId('SULOENRO')
 class SupportedLocaleEntryRollout {
   @Form([
     Field('launchPhase', String, 'Launch Phase',
@@ -7063,7 +7063,7 @@ class PrototypeTimeline {
 }
 
 /// Prototype staffing and environment.
-@SectionId('PRRE2')
+@SectionId('PRORES')
 class PrototypeResources {
     @Form([
         Field('prototypeTeam', String, 'Prototype Team',
@@ -7091,7 +7091,7 @@ class PrototypeGovernance {
 /// 10.13.1. Prototype Goals.
 ///
 /// What the prototype should validate.
-@SectionId('PRGO1')
+@SectionId('PG')
 class PrototypeGoals {
   @Form([
     // Validation goals
@@ -7291,7 +7291,7 @@ class PrototypeType {
 /// 10.13.3.1. Reusable Prototype.
 ///
 /// Prototype that becomes part of the final product.
-@SectionId('REPR3')
+@SectionId('REUPRO')
 class ReusablePrototype {
   @Form([
     Field('codeQualityRequirements', String, 'Code Quality Requirements',
@@ -7360,7 +7360,7 @@ class ReusablePrototypeTransition {
 /// 10.13.3.2. Training Prototype.
 ///
 /// Prototype where concepts are reused but not code.
-@SectionId('TRPR1')
+@SectionId('TP')
 class TrainingPrototype {
   @Form([
     // Knowledge transfer
@@ -7541,7 +7541,7 @@ class GlobalEntryPointEntry {
 }
 
 /// A single error page design entry.
-@SectionId('ERROR1')
+@SectionId('EPDE')
 class ErrorPageDesignEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
   String? content;

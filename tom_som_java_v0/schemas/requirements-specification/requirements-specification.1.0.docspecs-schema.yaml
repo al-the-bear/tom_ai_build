@@ -105,9 +105,24 @@ section-types:
       pattern: ^fre_requ_lst-\d+$
       error-message: ID must match fre_requ_lst-NNN
     description: "Add one entry per functional requirement. Group related requirements together. Each requirement should be atomic, testable, and have clear acceptance criteria."
+  SEREENCL:
+    prefix: sereencl
+    description: Category and classification for security requirement.
+  SEREENCO:
+    prefix: sereenco
+    description: Compliance framework mapping for security requirement.
+  SEREENST:
+    prefix: sereenst
+    description: Status and ownership for security requirement.
   DAENRE:
     prefix: daenre
     description: A reference to a data entity (form).
+  REQCOV:
+    prefix: reqcov
+    description: 4.3.6. Requirement Coverage.
+  REQDEP:
+    prefix: reqdep
+    description: Identify requirements that must be implemented before or alongside this requirement.
   RETECA:
     prefix: reteca
     description: Define test cases that verify requirement implementation.
@@ -132,6 +147,9 @@ section-types:
   SCFIVA:
     prefix: scfiva
     description: Validation rules.
+  SECOEN:
+    prefix: secoen
+    description: A security control entry (form).
   DOCHD:
     prefix: dochd
     description: Standard document header present at the top of every TomSpecs document.
@@ -141,9 +159,6 @@ section-types:
   ORGIM:
     prefix: orgim
     description: An organizational implementation activity (form).
-  RECO1:
-    prefix: reco1
-    description: 4.3.6. Requirement Coverage.
   RQDEP:
     prefix: rqdep
     description: A requirement dependency entry (form).
@@ -162,15 +177,6 @@ section-types:
   SECRQ:
     prefix: secrq
     description: A security requirement entry.
-  SREC1:
-    prefix: srec1
-    description: Category and classification for security requirement.
-  SREC2:
-    prefix: srec2
-    description: Compliance framework mapping for security requirement.
-  SRES2:
-    prefix: sres2
-    description: Status and ownership for security requirement.
   ACPR:
     prefix: acpr
     description: An action parameter entry (form).
@@ -210,9 +216,6 @@ section-types:
   RERE:
     prefix: rere
     description: 4.3.5. Requirement Relationships.
-  SCE1:
-    prefix: sce1
-    description: A security control entry (form).
   SCEI:
     prefix: scei
     description: Control implementation details.
@@ -258,9 +261,6 @@ section-types:
   RBR:
     prefix: rbr
     description: "Define business rules that affect this requirement. Business rules are constraints, calculations, or policies from the business domain."
-  RD1:
-    prefix: rd1
-    description: Identify requirements that must be implemented before or alongside this requirement.
   RDR:
     prefix: rdr
     description: "Define the data entities and attributes this requirement reads, creates, updates, or deletes."
@@ -306,5 +306,5 @@ document:
       section-type: RERE-REQU-LST
       optional: true
     requirementcoverage:
-      section-type: RECO1
+      section-type: REQCOV
       optional: true

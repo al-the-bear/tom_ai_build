@@ -109,6 +109,9 @@ section-types:
       pattern: ^inen_inte_lst-\d+$
       error-message: ID must match inen_inte_lst-NNN
     description: Contains 1+× Interaction.
+  SCSTENEX:
+    prefix: scstenex
+    description: "Branching, timing, and notes."
   ACCASU:
     prefix: accasu
     description: Actor categorization summary.
@@ -130,6 +133,9 @@ section-types:
   ACREDI:
     prefix: acredi
     description: 6.2. Actor Relationship Diagram.
+  ACTCHA:
+    prefix: actcha
+    description: Actor characteristics.
   ACTEPR:
     prefix: actepr
     description: Actor technology profile.
@@ -163,9 +169,6 @@ section-types:
   USCATR:
     prefix: uscatr
     description: 6.2.5. Use Case Traceability.
-  ACCH1:
-    prefix: acch1
-    description: Actor characteristics.
   DOCHD:
     prefix: dochd
     description: Standard document header present at the top of every TomSpecs document.
@@ -187,9 +190,6 @@ section-types:
   SCNST:
     prefix: scnst
     description: A scenario step entry.
-  SSEE1:
-    prefix: ssee1
-    description: "Branching, timing, and notes."
   ACEN:
     prefix: acen
     description: An actor entry.

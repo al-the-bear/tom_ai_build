@@ -423,7 +423,7 @@ class ProgrammingLanguageEntryJustification {
 }
 
 /// Framework or library requirement entry.
-@SectionId('FRE1')
+@SectionId('FRREEN')
 class FrameworkRequirementEntry {
   @Form([
     Field('frameworkName', String, 'Framework/Library Name',
@@ -639,7 +639,7 @@ class BuildToolchainEntryOutputs {
 }
 
 /// Performance and rationale.
-@SectionId('BTEO1')
+@SectionId('BUTOENOP')
 class BuildToolchainEntryOperations {
   @Form([
     Field('cachingStrategy', String, 'Caching Strategy',
@@ -654,7 +654,7 @@ class BuildToolchainEntryOperations {
 }
 
 /// Deployment target specification entry.
-@SectionId('DTE1')
+@SectionId('DEPTARENT')
 class DeploymentTargetEntry {
   @Form([
     Field('targetName', String, 'Target Name',
@@ -732,7 +732,7 @@ class DeploymentTargetEntryRequirements {
 }
 
 /// Deployment process configuration.
-@SectionId('DTEP1')
+@SectionId('DETAENPR')
 class DeploymentTargetEntryProcess {
   @Form([
     Field('deploymentMethod', String, 'Deployment Method',
@@ -1198,7 +1198,7 @@ class ArchitecturePrincipleEntryGuidance {
 }
 
 /// Enforcement and applicability context.
-@SectionId('APEG1')
+@SectionId('ARPRENGO')
 class ArchitecturePrincipleEntryGovernance {
   @Form([
   Field('enforcementLevel', String, 'Enforcement Level',
@@ -1402,7 +1402,7 @@ class ArchitectureComponentEntryOwnership {
 }
 
 /// Communication patterns between components.
-@SectionId('COPA1')
+@SectionId('COMPAT')
 class CommunicationPatterns {
   @Form([
     Field('primaryPattern', String, 'Primary Communication Pattern',
@@ -1971,7 +1971,7 @@ class ArchitectureDecisionRecordOutcome {
 }
 
 /// Consequences and review.
-@SectionId('ADRC1')
+@SectionId('ARDERECO')
 class ArchitectureDecisionRecordConsequences {
   @Form([
     Field('consequences', String, 'Consequences',
@@ -2143,7 +2143,7 @@ class DesignPatternEntryApplicability {
 }
 
 /// Structural composition.
-@SectionId('DPES1')
+@SectionId('DEPAENST')
 class DesignPatternEntryStructure {
   @Form([
     Field('participants', String, 'Participants',
@@ -2171,7 +2171,7 @@ class DesignPatternEntryImplementation {
 }
 
 /// Architectural context.
-@SectionId('DPEC2')
+@SectionId('DEPAENCO')
 class DesignPatternEntryContext {
   @Form([
     Field('usageScope', String, 'Usage Scope',
@@ -2442,7 +2442,7 @@ class IndustryStandardEntryCompliance {
 }
 
 /// Certification details.
-@SectionId('ISEC1')
+@SectionId('INSTENCE')
 class IndustryStandardEntryCertification {
   @Form([
     Field('certificationRequired', bool, 'Certification Required',
@@ -2530,7 +2530,7 @@ class CodeQualityMetricsComplexity {
 }
 
 /// Coupling metrics.
-@SectionId('CQMC1')
+@SectionId('COQUMECO')
 class CodeQualityMetricsCoupling {
   @Form([
     Field('afferentCouplingMax', String, 'Afferent Coupling Max',
@@ -2779,7 +2779,7 @@ class ErrorHandlingStandardsUserCommunication {
 }
 
 /// Recovery guidance.
-@SectionId('EHSR1')
+@SectionId('ERHASTRE')
 class ErrorHandlingStandardsRecovery {
   @Form([
     Field('recoveryStrategies', String, 'Recovery Strategies',
@@ -2793,7 +2793,7 @@ class ErrorHandlingStandardsRecovery {
 }
 
 /// Testing standards and requirements.
-@SectionId('TEST1')
+@SectionId('TS')
 class TestingStandards {
   @Form([
     Field('unitTestRequired', bool, 'Unit Test Required',
@@ -3278,7 +3278,7 @@ class BoundedContextEntryImplementation {
 }
 
 /// Integration and notes.
-@SectionId('BCEI1')
+@SectionId('BOCOENIN')
 class BoundedContextEntryIntegration {
   @Form([
     Field('apiEndpoints', String, 'API Endpoints',
@@ -3378,7 +3378,7 @@ class PackageOrganizationDocumentation {
 }
 
 /// Module entry — a discrete module or component.
-@SectionId('ME1')
+@SectionId('MODENT')
 class ModuleEntry {
   @Form([
     Field('moduleName', String, 'Module Name',
@@ -3478,7 +3478,7 @@ class ModuleEntryTesting {
 }
 
 /// Shared library entry — a reusable library or utility.
-@SectionId('SLE1')
+@SectionId('SHLIEN')
 class SharedLibraryEntry {
   @Form([
     Field('libraryName', String, 'Library Name',
@@ -3500,7 +3500,7 @@ class SharedLibraryEntry {
 }
 
 /// Description and usage.
-@SectionId('SLED1')
+@SectionId('SHLIENDE')
 class SharedLibraryEntryDescription {
   @Form([
   Field('purpose', String, 'Purpose',
@@ -3716,7 +3716,7 @@ class CrossCuttingConcernsObservability {
 }
 
 /// Other shared capabilities.
-@SectionId('CCCS1')
+@SectionId('CRCUCOSH')
 class CrossCuttingConcernsShared {
   @Form([
     Field('localization', String, 'Localization',
@@ -3789,7 +3789,7 @@ class FeatureModuleEntryStructure {
 }
 
 /// Dependencies.
-@SectionId('FMED1')
+@SectionId('FEMOENDE')
 class FeatureModuleEntryDependencies {
   @Form([
     Field('sharedDependencies', String, 'Shared Dependencies',
@@ -3904,7 +3904,7 @@ class ModuleVersioningStrategyDependencies {
 }
 
 /// Cross-module coordination.
-@SectionId('MVSC1')
+@SectionId('MOVESTCO')
 class ModuleVersioningStrategyCoordination {
   @Form([
     Field('crossModuleCoordination', String, 'Cross-Module Coordination',
@@ -3959,7 +3959,7 @@ ensures consistent quality across the team.
 - Service stubbing and mocking
 - Hot reload and fast feedback loops
 ''')
-@SectionId('DE1')
+@SectionId('DEEN')
 class DevelopmentEnvironment {
   @ContentHelp('''
 Provide an overview of the development environment philosophy.
@@ -4705,7 +4705,7 @@ class LocalDevelopmentSetupTesting {
 }
 
 /// Troubleshooting details.
-@SectionId('LDST1')
+@SectionId('LODESETR')
 class LocalDevelopmentSetupTroubleshooting {
   @Form([
     Field('commonIssues', String, 'Common Issues',
@@ -5049,7 +5049,7 @@ class DevelopmentQualityGatesCoverage {
 }
 
 /// Complexity thresholds.
-@SectionId('DQGC1')
+@SectionId('DEQUGACO')
 class DevelopmentQualityGatesComplexity {
   @Form([
     Field('complexityThresholds', String, 'Complexity Thresholds',
@@ -5425,7 +5425,7 @@ class ReusableUiComponentEntryDescription {
 }
 
 /// Design specifications for UI component.
-@SectionId('RUCED1')
+@SectionId('REUICOENDE')
 class ReusableUiComponentEntryDesign {
   @Form([
     Field('designTokens', String, 'Design Tokens Used',
@@ -5471,7 +5471,7 @@ class ReusableUiComponentEntryApi {
 }
 
 /// Implementation details for UI component.
-@SectionId('RUCEI1')
+@SectionId('REUICOENIM')
 class ReusableUiComponentEntryImplementation {
   @Form([
     Field('flutterWidget', String, 'Flutter Widget Class',
@@ -5486,7 +5486,7 @@ class ReusableUiComponentEntryImplementation {
 }
 
 /// Business logic component entry.
-@SectionId('BCE1')
+@SectionId('BUSCOMENT')
 class BusinessComponentEntry {
   @Form([
     Field('componentName', String, 'Component Name',
@@ -5532,7 +5532,7 @@ class BusinessComponentEntryDescription {
 }
 
 /// Public interface details.
-@SectionId('BCEI2')
+@SectionId('BUCOENIN')
 class BusinessComponentEntryInterface {
   @Form([
     Field('publicInterface', String, 'Public Interface',
@@ -5546,7 +5546,7 @@ class BusinessComponentEntryInterface {
 }
 
 /// Dependency mapping.
-@SectionId('BCED1')
+@SectionId('BUCOENDE')
 class BusinessComponentEntryDependencies {
   @Form([
     Field('requiredServices', String, 'Required Services',
@@ -5588,7 +5588,7 @@ class BusinessComponentEntryReuse {
 }
 
 /// Infrastructure component entry.
-@SectionId('ICE2')
+@SectionId('INFCOMENT')
 class InfrastructureComponentEntry {
   @Form([
     Field('componentName', String, 'Component Name',
@@ -6219,7 +6219,7 @@ class OsCompatibilityEntryLifecycle {
 }
 
 /// Browser compatibility entry.
-@SectionId('BCE2')
+@SectionId('BROCOMENT')
 class BrowserCompatibilityEntry {
   @Form([
     Field('browserName', String, 'Browser',
@@ -6247,7 +6247,7 @@ class BrowserCompatibilityEntry {
 }
 
 /// Support level and priority.
-@SectionId('BCES1')
+@SectionId('BRCOENSU')
 class BrowserCompatibilityEntrySupport {
   @Form([
     Field('supportLevel', String, 'Support Level',
@@ -6289,7 +6289,7 @@ class BrowserCompatibilityEntryMobile {
 }
 
 /// Testing notes.
-@SectionId('BCET1')
+@SectionId('BRCOENTE')
 class BrowserCompatibilityEntryTesting {
   @Form([
     Field('testPlatforms', String, 'Test Platforms',
@@ -6305,7 +6305,7 @@ class BrowserCompatibilityEntryTesting {
 }
 
 /// Database compatibility entry.
-@SectionId('DCE1')
+@SectionId('DATCOMENT')
 class DatabaseCompatibilityEntry {
   @Form([
     Field('databaseName', String, 'Database',
@@ -6393,7 +6393,7 @@ class DatabaseCompatibilityEntryPerformance {
 }
 
 /// Enterprise system compatibility entry.
-@SectionId('ESCE2')
+@SectionId('ENSYCOEN')
 class EnterpriseSystemCompatibilityEntry {
   @Form([
     Field('systemName', String, 'System Name',
@@ -6509,7 +6509,7 @@ class ApiCompatibilityEntry {
 }
 
 /// Compatibility policy.
-@SectionId('ACEP1')
+@SectionId('APCOENPO')
 class ApiCompatibilityEntryPolicy {
   @Form([
     Field('versioningStrategy', String, 'Versioning Strategy',
@@ -6537,7 +6537,7 @@ class ApiCompatibilityEntryFormat {
 }
 
 /// Transport requirements.
-@SectionId('ACET1')
+@SectionId('APCOENTR')
 class ApiCompatibilityEntryTransport {
   @Form([
     Field('transport', String, 'Transport',
@@ -6651,7 +6651,7 @@ class LegacyCompatibilityEntryRisk {
 }
 
 /// Mobile device compatibility entry.
-@SectionId('MCE1')
+@SectionId('MOBCOMENT')
 class MobileCompatibilityEntry {
   @Form([
     Field('platform', String, 'Platform',
@@ -6723,7 +6723,7 @@ class MobileCompatibilityEntryCapabilities {
 }
 
 /// Distribution details.
-@SectionId('MCED1')
+@SectionId('MOCOENDI')
 class MobileCompatibilityEntryDistribution {
   @Form([
     Field('appStore', String, 'App Store', hint: 'Distribution channels'),
@@ -6736,7 +6736,7 @@ class MobileCompatibilityEntryDistribution {
 }
 
 /// Third-party software compatibility entry.
-@SectionId('TPCE1')
+@SectionId('THPACOEN')
 class ThirdPartyCompatibilityEntry {
   @Form([
     Field('softwareName', String, 'Software Name',
@@ -6964,7 +6964,7 @@ class BackwardsCompatibilityRequirementsApi {
 }
 
 /// Database compatibility requirements.
-@SectionId('BCRD1')
+@SectionId('BACOREDA')
 class BackwardsCompatibilityRequirementsDatabase {
   @Form([
     Field('schemaEvolution', String, 'Schema Evolution',
@@ -7117,7 +7117,7 @@ is often mandatory for enterprise and regulated industries.
 - Industry-specific certifications
 - Third-party security assessments
 ''')
-@SectionId('SCS1')
+@SectionId('STCOSE')
 class StandardsComplianceSection {
   @ContentHelp('''
 Provide an overview of standards compliance strategy and roadmap.
@@ -7193,7 +7193,7 @@ Provide an overview of standards compliance strategy and roadmap.
 }
 
 /// IT standard compliance entry (ISO, IEEE, NIST, OASIS).
-@SectionId('ISCE1')
+@SectionId('ITSTCOEN')
 class ItStandardComplianceEntry {
   @Form([
     Field('standardName', String, 'Standard Name',
@@ -7293,7 +7293,7 @@ class ItStandardComplianceEntryEvidence {
 }
 
 /// Industry protocol compliance entry.
-@SectionId('IPCE1')
+@SectionId('INPRCOEN')
 class IndustryProtocolComplianceEntry {
   @Form([
     Field('protocolName', String, 'Protocol Name',
@@ -7369,7 +7369,7 @@ class IndustryProtocolComplianceEntryTesting {
 }
 
 /// Interoperability notes.
-@SectionId('IPCEI1')
+@SectionId('INPRCOENIN')
 class IndustryProtocolComplianceEntryInteroperability {
   @Form([
     Field('interopPartners', String, 'Interop Partners',
@@ -7383,7 +7383,7 @@ class IndustryProtocolComplianceEntryInteroperability {
 }
 
 /// Interface specification entry (REST, GraphQL, gRPC, SOAP).
-@SectionId('ISE1')
+@SectionId('INTSPEENT')
 class InterfaceSpecificationEntry {
   @Form([
     Field('specificationName', String, 'Specification Name',
@@ -7427,7 +7427,7 @@ class InterfaceSpecificationEntryDefinition {
 }
 
 /// Interface conventions.
-@SectionId('ISEC2')
+@SectionId('INSPENCO')
 class InterfaceSpecificationEntryConventions {
   @Form([
     Field('namingConventions', String, 'Naming Conventions',
@@ -7443,7 +7443,7 @@ class InterfaceSpecificationEntryConventions {
 }
 
 /// Documentation expectations.
-@SectionId('ISED1')
+@SectionId('INSPENDO')
 class InterfaceSpecificationEntryDocumentation {
   @Form([
     Field('documentationFormat', String, 'Documentation Format',
@@ -7505,7 +7505,7 @@ class RegulatoryComplianceEntry {
 }
 
 /// Applicability analysis.
-@SectionId('RCEA1')
+@SectionId('RECOENAP')
 class RegulatoryComplianceEntryApplicability {
   @Form([
     Field('applicabilityReason', String, 'Why Applicable',
@@ -7521,7 +7521,7 @@ class RegulatoryComplianceEntryApplicability {
 }
 
 /// Compliance requirements.
-@SectionId('RCER1')
+@SectionId('RECOENRE')
 class RegulatoryComplianceEntryRequirements {
   @Form([
     Field('keyRequirements', String, 'Key Requirements',
@@ -7563,7 +7563,7 @@ class RegulatoryComplianceEntryOwnership {
 }
 
 /// Security standard compliance entry (SOC2, ISO 27001, CIS).
-@SectionId('SSCE1')
+@SectionId('SESTCOEN')
 class SecurityStandardComplianceEntry {
   @Form([
     Field('standardName', String, 'Standard Name',
@@ -7594,7 +7594,7 @@ class SecurityStandardComplianceEntry {
 }
 
 /// Scope details.
-@SectionId('SSCES1')
+@SectionId('SESTCOENSC')
 class SecurityStandardComplianceEntryScope {
   @Form([
     Field('systemsInScope', String, 'Systems in Scope',
@@ -7640,7 +7640,7 @@ class SecurityStandardComplianceEntryAssessment {
 }
 
 /// Overall status.
-@SectionId('SSCES2')
+@SectionId('SESTCOENST')
 class SecurityStandardComplianceEntryStatus {
   @Form([
     Field('complianceStatus', String, 'Compliance Status',
@@ -8179,7 +8179,7 @@ class ComplianceVerificationSectionAuditing {
 }
 
 /// Reporting requirements.
-@SectionId('CVSR1')
+@SectionId('COVESERE')
 class ComplianceVerificationSectionReporting {
   @Form([
     Field('complianceReporting', String, 'Compliance Reporting',
@@ -8440,7 +8440,7 @@ class ServerEnvironmentEntryAccess {
 }
 
 /// Lifecycle rules.
-@SectionId('SEEL1')
+@SectionId('SEENENLI')
 class ServerEnvironmentEntryLifecycle {
   @Form([
     Field('refreshSchedule', String, 'Refresh Schedule',
@@ -8508,7 +8508,7 @@ class ServerRoleEntryCapacity {
 }
 
 /// Storage requirements.
-@SectionId('SRES1')
+@SectionId('SEROENST')
 class ServerRoleEntryStorage {
   @Form([
     Field('storageType', String, 'Storage Type',
@@ -9248,7 +9248,7 @@ define the user experience boundary conditions.
 - Keyboard navigation
 - Color contrast and visual accommodations
 ''')
-@SectionId('CRS1')
+@SectionId('CLRESE')
 class ClientRequirementsSection {
   @ContentHelp('''
 Provide an overview of client requirements and support strategy.
@@ -9311,7 +9311,7 @@ Provide an overview of client requirements and support strategy.
 }
 
 /// Browser requirement entry.
-@SectionId('BRE1')
+@SectionId('BROREQENT')
 class BrowserRequirementEntry {
   @Form([
     Field('browserName', String, 'Browser Name',
@@ -9397,7 +9397,7 @@ class BrowserRequirementEntryIssues {
 }
 
 /// Desktop operating system requirement entry.
-@SectionId('DORE2')
+@SectionId('DEOSREEN')
 class DesktopOsRequirementEntry {
   @Form([
     Field('osName', String, 'Operating System',
@@ -9458,7 +9458,7 @@ class DesktopOsRequirementEntryRequirements {
 }
 
 /// Software prerequisites.
-@SectionId('DORES1')
+@SectionId('DEOSREENSO')
 class DesktopOsRequirementEntrySoftware {
   @Form([
     Field('runtimeDependencies', String, 'Runtime Dependencies',
@@ -9486,7 +9486,7 @@ class DesktopOsRequirementEntryTesting {
 }
 
 /// Mobile device requirement entry.
-@SectionId('MDRE1')
+@SectionId('MODEREEN')
 class MobileDeviceRequirementEntry {
   @Form([
     Field('platform', String, 'Platform',
@@ -9735,7 +9735,7 @@ class ClientNetworkRequirementsProtocols {
 }
 
 /// Proxy and firewall requirements.
-@SectionId('CNRP1')
+@SectionId('CLNEREPR')
 class ClientNetworkRequirementsProxy {
   @Form([
     Field('proxySupport', String, 'Proxy Support',
@@ -10425,7 +10425,7 @@ class ExternalNetworkRequirementsPublic {
 }
 
 /// Third-party connectivity.
-@SectionId('ENRP1')
+@SectionId('EXNEREPA')
 class ExternalNetworkRequirementsPartners {
   @Form([
     Field('partnerConnectivity', String, 'Partner Connectivity',
@@ -10611,7 +10611,7 @@ class NetworkLatencyRequirementsGeographic {
 }
 
 /// Stability tolerances.
-@SectionId('NLRS1')
+@SectionId('NELAREST')
 class NetworkLatencyRequirementsStability {
   @Form([
     Field('jitterTolerance', String, 'Jitter Tolerance',
@@ -10698,7 +10698,7 @@ class NetworkAvailabilityRequirementsFailover {
 }
 
 /// Recovery objectives.
-@SectionId('NARR1')
+@SectionId('NEAVRERE')
 class NetworkAvailabilityRequirementsRecovery {
   @Form([
     Field('rpo', String, 'Recovery Point Objective',
@@ -10783,7 +10783,7 @@ class VpnRequirementEntryProtocol {
 }
 
 /// Performance expectations.
-@SectionId('VREP1')
+@SectionId('VPREENPE')
 class VpnRequirementEntryPerformance {
   @Form([
     Field('bandwidth', String, 'Bandwidth',
@@ -11277,7 +11277,7 @@ user experience, and team efficiency.
 
 **Reference**: Google SRE book, DORA metrics, ITIL practices.
 ''')
-@SectionId('OR1')
+@SectionId('OPRE')
 class OperationsRequirements {
   @ContentHelp('''
 Provide an overview of operational philosophy and key requirements.
@@ -11538,7 +11538,7 @@ class BackupPolicyEntryRetention {
 }
 
 /// Storage configuration for backup policy.
-@SectionId('BPES1')
+@SectionId('BAPOENST')
 class BackupPolicyEntryStorage {
   @Form([
     Field('storageLocation', String, 'Storage Location',
@@ -11725,7 +11725,7 @@ class BackupInfrastructureSecurity {
 }
 
 /// Recovery procedures.
-@SectionId('REPR1')
+@SectionId('RP')
 class RecoveryProcedures {
   @Form([
     Field('granularRecovery', String, 'Granular Recovery',
@@ -11855,7 +11855,7 @@ class DisasterRecoveryRequirementsFailover {
 }
 
 /// Failback procedure.
-@SectionId('DRRF1')
+@SectionId('DIREREFA')
 class DisasterRecoveryRequirementsFailback {
   @Form([
     Field('failbackProcedure', String, 'Failback Procedure',
@@ -12608,7 +12608,7 @@ class RollbackStrategyOperations {
 }
 
 /// Configuration management.
-@SectionId('COMA1')
+@SectionId('CM')
 class ConfigurationManagement {
   @Form([
     Field('configStorage', String, 'Configuration Storage',
@@ -12766,7 +12766,7 @@ class InfrastructureAsCodeDrift {
 }
 
 /// Security and policy controls.
-@SectionId('IACS1')
+@SectionId('INASCOSE')
 class InfrastructureAsCodeSecurity {
   @Form([
     Field('sensitiveValueHandling', String, 'Sensitive Value Handling',
@@ -13110,7 +13110,7 @@ class MetricsCollectionRequirementsBusiness {
 }
 
 /// Custom metrics settings.
-@SectionId('MCRC1')
+@SectionId('MECORECU')
 class MetricsCollectionRequirementsCustom {
   @Form([
     Field('customMetricsRequired', bool, 'Custom Metrics Required',
@@ -13290,7 +13290,7 @@ class LogManagementRequirementsAnalysis {
 }
 
 /// Compliance settings.
-@SectionId('LMRC1')
+@SectionId('LOMARECO')
 class LogManagementRequirementsCompliance {
   @Form([
     Field('piiHandling', String, 'PII Handling',
@@ -13394,7 +13394,7 @@ class AlertingRequirementsResponse {
 }
 
 /// Alert definition entry.
-@SectionId('ADE1')
+@SectionId('ALEDEFENT')
 class AlertDefinitionEntry {
   @Form([
     Field('alertName', String, 'Alert Name',
@@ -13759,7 +13759,7 @@ class SlaMonitoringRequirements {
 }
 
 /// Monitoring mechanics.
-@SectionId('SMRM2')
+@SectionId('SLMOREMO')
 class SlaMonitoringRequirementsMonitoring {
   @Form([
     Field('slaTracking', String, 'SLA Tracking',
@@ -13789,7 +13789,7 @@ class SlaMonitoringRequirementsErrorBudget {
 }
 
 /// Customer-specific SLA rules.
-@SectionId('SMRC1')
+@SectionId('SLMORECU')
 class SlaMonitoringRequirementsCustomer {
   @Form([
     Field('customerSlaTiers', String, 'Customer SLA Tiers',
@@ -13803,7 +13803,7 @@ class SlaMonitoringRequirementsCustomer {
 }
 
 /// Reporting and review.
-@SectionId('SMRR1')
+@SectionId('SLMORERE')
 class SlaMonitoringRequirementsReporting {
   @Form([
     Field('slaReportRecipients', String, 'SLA Report Recipients',
@@ -14042,7 +14042,7 @@ class MaintenanceWindowEntrySchedule {
 }
 
 /// Scope details.
-@SectionId('MWES1')
+@SectionId('MAWIENSC')
 class MaintenanceWindowEntryScope {
   @Form([
     Field('affectedSystems', String, 'Affected Systems',
@@ -14401,7 +14401,7 @@ security, and integration capabilities.
 - Error handling and response formats
 - Idempotency and retry handling
 ''')
-@SectionId('CR1')
+@SectionId('COMREQ')
 class CommunicationRequirements {
   @ContentHelp('''
 Provide an overview of communication architecture and strategy.
@@ -15148,7 +15148,7 @@ Provide an overview of external connectivity landscape.
 }
 
 /// An external partner connection entry (form).
-@SectionId('EPCE1')
+@SectionId('EXPACOEN')
 class ExternalPartnerConnectionEntry {
   @Form([
     Field('partnerName', String, 'Partner Name',
@@ -15440,7 +15440,7 @@ class ThirdPartyApiIntegrationsMedia {
 }
 
 /// AI and translation providers.
-@SectionId('TPAIA1')
+@SectionId('THPAAPINAI')
 class ThirdPartyApiIntegrationsAi {
   @Form([
     Field('aiServices', String, 'AI/ML Services',
@@ -15554,7 +15554,7 @@ class NetworkSecurityPolicyDdos {
 }
 
 /// DNS controls and notes.
-@SectionId('NSPD1')
+@SectionId('NESEPODN')
 class NetworkSecurityPolicyDns {
   @Form([
     Field('dnsProvider', String, 'DNS Provider',
@@ -15627,7 +15627,7 @@ class ServiceMeshAndGatewayLoadBalancing {
 }
 
 /// Connectivity resilience requirements.
-@SectionId('CORE1')
+@SectionId('CONRES')
 class ConnectivityResilience {
   @Form([
     Field('failoverStrategy', String, 'Failover Strategy',
@@ -15952,7 +15952,7 @@ class AdminInterfaceRequirementsDashboard {
 }
 
 /// Data management tooling.
-@SectionId('AIRD1')
+@SectionId('ADINREDA')
 class AdminInterfaceRequirementsData {
   @Form([
     Field('dataExport', String, 'Data Export',
@@ -16503,7 +16503,7 @@ class AlertNotificationChannelsFormatting {
 }
 
 /// An alert rule entry.
-@SectionId('ARE1')
+@SectionId('ALERULENT')
 class AlertRuleEntry {
   @Form([
     Field('alertId', String, 'Alert ID', required: true),
@@ -16914,7 +16914,7 @@ class InfrastructureMetricsSpecCloud {
 }
 
 /// Cost attribution and notes.
-@SectionId('IMSC1')
+@SectionId('INMESPCO')
 class InfrastructureMetricsSpecCost {
   @Form([
   Field('costMetrics', bool, 'Cost Metrics',
@@ -17045,7 +17045,7 @@ class DistributedTracingSpecSampling {
 }
 
 /// Span metadata.
-@SectionId('DTSS1')
+@SectionId('DITRSPSP')
 class DistributedTracingSpecSpans {
   @Form([
   Field('defaultSpanAttributes', String, 'Default Span Attributes',
@@ -17076,7 +17076,7 @@ class DistributedTracingSpecOperations {
 }
 
 /// A custom metric entry.
-@SectionId('CME1')
+@SectionId('CUSMETENT')
 class CustomMetricEntry {
   @Form([
     Field('metricName', String, 'Metric Name', required: true,
@@ -17150,7 +17150,7 @@ class MonitoringDashboards {
 }
 
 /// A dashboard entry.
-@SectionId('DE2')
+@SectionId('DASENT')
 class DashboardEntry {
   @Form([
     Field('dashboardId', String, 'Dashboard ID', required: true),
@@ -17580,7 +17580,7 @@ class HealthCheckEndpointsTiming {
 }
 
 /// Response content settings.
-@SectionId('HCEC1')
+@SectionId('HECHENCO')
 class HealthCheckEndpointsContent {
   @Form([
     Field('includeComponentStatus', bool, 'Include Component Status',
@@ -18414,7 +18414,7 @@ class CapacityReviewProcess {
 }
 
 /// Monitoring and forecasting inputs for capacity review.
-@SectionId('CRPM1')
+@SectionId('CAREPRMO')
 class CapacityReviewProcessMonitoring {
   @Form([
   Field('capacityDashboard', bool, 'Capacity Dashboard',
@@ -18642,7 +18642,7 @@ class SecurityStandardEntry {
 }
 
 /// Applicability and regulatory scope.
-@SectionId('SSES2')
+@SectionId('SESTENSC')
 class SecurityStandardEntryScope {
   @Form([
     Field('applicabilityScope', String, 'Applicability Scope',
@@ -19302,7 +19302,7 @@ class DataResidencyRequirementsSovereignty {
 }
 
 /// Backup, replication, and CDN placement rules.
-@SectionId('DRRR1')
+@SectionId('DARERERE')
 class DataResidencyRequirementsReplication {
   @Form([
   Field('backupDataResidency', String, 'Backup Data Residency',
@@ -19390,7 +19390,7 @@ class ConsentManagementRequirementsCollection {
 }
 
 /// Consent record storage rules.
-@SectionId('CMRS1')
+@SectionId('COMAREST')
 class ConsentManagementRequirementsStorage {
   @Form([
     Field('consentVersioning', String, 'Consent Versioning',
@@ -19433,7 +19433,7 @@ class ConsentManagementRequirementsTracking {
 }
 
 /// Compliance evidence and reporting.
-@SectionId('CMRC1')
+@SectionId('COMARECO')
 class ConsentManagementRequirementsCompliance {
   @Form([
     Field('consentAuditTrail', String, 'Consent Audit Trail',
@@ -19553,7 +19553,7 @@ class DataSubjectRightsManagementRestriction {
 }
 
 /// Automated decision safeguards.
-@SectionId('DSRMA1')
+@SectionId('DASURIMAAU')
 class DataSubjectRightsManagementAutomation {
   @Form([
     Field('automatedDecisionMaking', String, 'Automated Decision-Making',
@@ -20290,7 +20290,7 @@ class SecurityCertificationRequirementsSoc2 {
 }
 
 /// Industry-specific requirements.
-@SectionId('SCRI1')
+@SectionId('SECEREIN')
 class SecurityCertificationRequirementsIndustry {
   @Form([
     Field('pciDssLevel', String, 'PCI DSS Level',

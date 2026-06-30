@@ -10,7 +10,7 @@ import '../document_stubs.dart';
 
 
 /// 7. Business Object and Data Model. Seeds → IFM.
-@SectionId('BODM')
+@SectionId('INDM')
 @Comment('Seeds → IFM')
 @MapsTo(D03InformationModel)
 class InformationAndDataModel {
@@ -179,8 +179,8 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   // Compliance and Security (6 fields)
   // ---------------------------------------------------------------------------
-  @SectionId('COMPL1-COMP-LST')
-  @SectionIdPattern('COMPL1-COMP-xxx')
+  @SectionId('CRE-COMP-LST')
+  @SectionIdPattern('CRE-COMP-xxx')
   List<ComplianceRequirementEntry> complianceRequirements = [];
 
   // ---------------------------------------------------------------------------
@@ -1778,7 +1778,7 @@ class VolumeMetricEntry {
 }
 
 /// A single compliance requirement entry.
-@SectionId('COMPL1')
+@SectionId('CRE')
 class ComplianceRequirementEntry {
   @Form([
     Field('sensitivityLevel', String, 'Sensitivity Level',

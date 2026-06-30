@@ -112,8 +112,8 @@ class CurrentArchitecture {
   String? deploymentTopology;
 
   /// Integration patterns used.
-  @SectionId('INTEG1-INTE-LST')
-  @SectionIdPattern('INTEG1-INTE-xxx')
+  @SectionId('IPE-INTE-LST')
+  @SectionIdPattern('IPE-INTE-xxx')
   List<IntegrationPatternEntry> integrationPatterns = [];
 
   /// Shared services inventory.
@@ -2708,7 +2708,7 @@ class DataDuplicationEntrySources {
 }
 
 /// Synchronization and consistency details.
-@SectionId('DDES1')
+@SectionId('DADUENSY')
 class DataDuplicationEntrySynchronization {
   @Form([
     Field('synchronizationMethod', String, 'Synchronization Method',
@@ -2811,7 +2811,7 @@ class DataOwnershipEntry {
 }
 
 /// Stewardship and custodianship assignments.
-@SectionId('DOES1')
+@SectionId('DAOWENST')
 class DataOwnershipEntryStewardship {
   @Form([
     Field('dataSteward', String, 'Data Steward',
@@ -3590,7 +3590,7 @@ replacement underperforms the baseline).
 ///
 /// Risks tied to the current state and to its replacement. Distinct from
 /// the target-side risks section which covers replacement risks.
-@SectionId('CSRA1')
+@SectionId('CUSTRIAS')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-RIS')
 class CurrentStateRiskAssessment {
@@ -3612,7 +3612,7 @@ replacing them. Not to be confused with target-state risks.
 
 
 /// A single integration pattern entry.
-@SectionId('INTEG1')
+@SectionId('IPE')
 class IntegrationPatternEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
   String? content;

@@ -328,8 +328,8 @@ class ProblemStatement {
   TextSection? problemDetails;
 
   /// Related pain points from Current State Analysis.
-  @SectionId('RELAT1-RELA-LST')
-  @SectionIdPattern('RELAT1-RELA-xxx')
+  @SectionId('RPPE-RELA-LST')
+  @SectionIdPattern('RPPE-RELA-xxx')
   List<RelatedPainPointEntry> relatedPainPoints = [];
 }
 
@@ -781,15 +781,15 @@ class ExternalSystemsContext {
   String? content;
 
   /// External system entries — contains 0+× ExternalSystemContextEntry.
-  @SectionId('ESCE1-SYST-LST')
-  @SectionIdPattern('ESCE1-SYST-xxx')
+  @SectionId('EXSYCOEN-SYST-LST')
+  @SectionIdPattern('EXSYCOEN-SYST-xxx')
   @ContentHelp('Add one entry per external system that this system '
       'integrates with.')
   List<ExternalSystemContextEntry> systems = [];
 }
 
 /// An external system context entry (form).
-@SectionId('ESCE1')
+@SectionId('EXSYCOEN')
 class ExternalSystemContextEntry {
   @Form([
     Field('systemName', String, 'System Name', required: true),
@@ -819,7 +819,7 @@ class ExternalSystemContextEntry {
 }
 
 /// Integration intent and exchanged information.
-@SectionId('ESCEI1')
+@SectionId('EXSYCOENIN')
 class ExternalSystemContextEntryIntegration {
   @Form([
     Field('integrationDirection', String,
@@ -1372,7 +1372,7 @@ class DomainProcesses {
 }
 
 /// A domain process entry (form).
-@SectionId('DPE1')
+@SectionId('DOPREN')
 class DomainProcessEntry {
   @Form([
     Field('processName', String, 'Process Name', required: true),
@@ -1654,7 +1654,7 @@ class InteractionChannelEntryAccess {
 }
 
 /// Compliance and requirements for interaction channel.
-@SectionId('ICEC1')
+@SectionId('INCHENCO')
 class InteractionChannelEntryCompliance {
   @Form([
     Field('deviceRequirements', String, 'Device Requirements',
@@ -4228,7 +4228,7 @@ class ScreenBehaviorEntry {
 /// Dependencies this requirement has on other requirements.
 @ContentHelp('Identify requirements that must be implemented before or '
     'alongside this requirement.')
-@SectionId('RD1')
+@SectionId('REQDEP')
 class RequirementDependencies {
   @ContentType('description', 'Overview of requirement dependencies '
       'and implementation order.')
@@ -4611,7 +4611,7 @@ class SecurityRequirementEntry {
 }
 
 /// Category and classification for security requirement.
-@SectionId('SREC1')
+@SectionId('SEREENCL')
 class SecurityRequirementEntryClassification {
   @Form([
     Field('category', String,
@@ -4635,7 +4635,7 @@ class SecurityRequirementEntryClassification {
 }
 
 /// Compliance framework mapping for security requirement.
-@SectionId('SREC2')
+@SectionId('SEREENCO')
 class SecurityRequirementEntryCompliance {
   @Form([
     Field('owaspCategory', String,
@@ -4663,7 +4663,7 @@ class SecurityRequirementEntryVerification {
 }
 
 /// Status and ownership for security requirement.
-@SectionId('SRES2')
+@SectionId('SEREENST')
 class SecurityRequirementEntryStatus {
   @Form([
     Field('residualRisk', String, 'Residual Risk (after mitigation)'),
@@ -4692,7 +4692,7 @@ class SecurityControls {
 }
 
 /// A security control entry (form).
-@SectionId('SCE1')
+@SectionId('SECOEN')
 class SecurityControlEntry {
   @Form([
     Field('controlId', String, 'Control ID', required: true),
@@ -4949,7 +4949,7 @@ class SystemsToReplace {
 ///
 /// Provides a structured inventory of all systems targeted for replacement,
 /// with portfolio-level metrics and prioritization guidance.
-@SectionId('REIN1')
+@SectionId('RI')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-INV')
 class ReplacementInventory {
@@ -5074,8 +5074,8 @@ class SystemTechnicalAssessment {
   SystemTechnicalAssessmentQuality quality = SystemTechnicalAssessmentQuality();
 
   /// Known technical issues and deficiencies.
-  @SectionId('KNOWN1-KNOW-LST')
-  @SectionIdPattern('KNOWN1-KNOW-xxx')
+  @SectionId('KIE-KNOW-LST')
+  @SectionIdPattern('KIE-KNOW-xxx')
   List<KnownIssueEntry> knownIssues = [];
 
   /// Security vulnerabilities and compliance gaps.
@@ -5183,7 +5183,7 @@ class SystemBusinessCriticalityGovernance {
 }
 
 /// Business unit using the system.
-@SectionId('SBUE1')
+@SectionId('SYBUUNEN')
 class SystemBusinessUnitEntry {
   @Form([
     Field('unitName', String, 'Business Unit', required: true),
@@ -5197,7 +5197,7 @@ class SystemBusinessUnitEntry {
 }
 
 /// Business process supported.
-@SectionId('SBPE1')
+@SectionId('SYBUPREN')
 class SystemBusinessProcessEntry {
   @Form([
     Field('processName', String, 'Process Name', required: true),
@@ -5325,7 +5325,7 @@ class SystemDataScopeGovernance {
 }
 
 /// Migration preparation and archive handling.
-@SectionId('SDSM1')
+@SectionId('SYDASCMI')
 class SystemDataScopeMigration {
     @Form([
         Field('deduplicationNeeded', bool, 'Deduplication Needed'),
@@ -5338,7 +5338,7 @@ class SystemDataScopeMigration {
 }
 
 /// A data entity migration entry.
-@SectionId('DEME1')
+@SectionId('DAENMIEN')
 class DataEntityMigrationEntry {
   @Form([
     Field('entityName', String, 'Entity Name', required: true),
@@ -5438,7 +5438,7 @@ class SystemUserImpactAdoption {
 }
 
 /// User group impact entry.
-@SectionId('UGIE1')
+@SectionId('USGRIMEN')
 class UserGroupImpactEntry {
   @Form([
     Field('groupName', String, 'User Group', required: true),
@@ -5568,7 +5568,7 @@ class SystemMigrationPlanCutover {
 }
 
 /// A system migration risk entry.
-@SectionId('SMRE1')
+@SectionId('SYMIRIEN')
 class SystemMigrationRiskEntry {
   @Form([
     Field('riskId', String, 'Risk ID'),
@@ -5620,7 +5620,7 @@ class SystemKnowledgeTransfer {
 /// Cross-system migration concerns covering portfolio-wide strategy,
 /// resource planning, and coordination. Complements per-system
 /// migration details with global governance.
-@SectionId('MICO1')
+@SectionId('MIGCON')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-MIG')
 class MigrationConsiderations {
@@ -6312,7 +6312,7 @@ class InterfaceBusinessContext {
 }
 
 /// Business process dependency entry.
-@SectionId('IBPE1')
+@SectionId('INBUPREN')
 class InterfaceBusinessProcessEntry {
   @Form([
     Field('processName', String, 'Process Name', required: true),
@@ -6450,7 +6450,7 @@ class InterfaceDataSpec {
 }
 
 /// Data entity exchanged.
-@SectionId('IDEE1')
+@SectionId('INDAENEN')
 class InterfaceDataEntityEntry {
   @Form([
     Field('entityName', String, 'Entity Name', required: true),
@@ -6465,7 +6465,7 @@ class InterfaceDataEntityEntry {
 }
 
 /// Security specification for an interface.
-@SectionId('INSE1')
+@SectionId('IS')
 class InterfaceSecurity {
   @Form([
     Field('authMethod', String,
@@ -6741,7 +6741,7 @@ class InterfaceTestingStrategy {
 }
 
 /// Test scenario entry.
-@SectionId('ITSE2')
+@SectionId('INTESCEN')
 class InterfaceTestScenarioEntry {
   @Form([
     Field('scenarioId', String, 'Scenario ID', required: true),
@@ -6780,7 +6780,7 @@ class OutOfScope {
 }
 
 /// An out-of-scope entry (form).
-@SectionId('OOSE1')
+@SectionId('OUOFSCEN')
 class OutOfScopeEntry {
   @Form([
     Field('itemId', String, 'Item ID'),
@@ -7379,7 +7379,7 @@ class TechnicalEnvironmentStandards {
 }
 
 /// Security and compliance requirements.
-@SectionId('TFCS1')
+@SectionId('TES')
 class TechnicalEnvironmentSecurity {
     @Form([
         Field('securityFramework', String, 'Security Framework',
@@ -7523,7 +7523,7 @@ class TechnologyStandardEntryImpact {
 ///
 /// Documents a technical constraint on system integration, including
 /// protocol requirements, format restrictions, and platform mandates.
-@SectionId('ICE1')
+@SectionId('INTCONENT')
 class IntegrationConstraintEntry {
   @Form([
     Field('constraintId', String, 'Constraint ID', required: true,
@@ -7552,7 +7552,7 @@ class IntegrationConstraintEntry {
 }
 
 /// Constraint details.
-@SectionId('ICED1')
+@SectionId('INCOENDE')
 class IntegrationConstraintEntryDetails {
   @Form([
     Field('constraintType', String, 'Constraint Type',
@@ -7596,7 +7596,7 @@ class IntegrationConstraintEntryMitigation {
 }
 
 /// Compliance rules.
-@SectionId('ICEC2')
+@SectionId('INCOENCO')
 class IntegrationConstraintEntryCompliance {
   @Form([
     Field('complianceRequired', bool, 'Compliance Required',
@@ -7683,7 +7683,7 @@ class RisksOverview {
 /// Comprehensive risk documentation following ISO 31000 and PMBOK guidelines.
 /// Captures risk identification, analysis, response planning, ownership,
 /// and monitoring information for systematic risk management.
-@SectionId('RE1')
+@SectionId('RISENT')
 class RiskEntry {
   /// Risk identification — unique identifier and basic description.
   RiskIdentification identification = RiskIdentification();
@@ -7704,8 +7704,8 @@ class RiskEntry {
   RiskBusinessImpact businessImpact = RiskBusinessImpact();
 
   /// Relationships to other risks, assumptions, and project elements.
-  @SectionId('RIRE1-RELA-LST')
-  @SectionIdPattern('RIRE1-RELA-xxx')
+  @SectionId('RR-RELA-LST')
+  @SectionIdPattern('RR-RELA-xxx')
   List<RiskRelationships> relationships = [];
 }
 
@@ -7960,7 +7960,7 @@ class RiskBusinessImpactDelivery {
 }
 
 /// Relationships to other risks, assumptions, and project elements.
-@SectionId('RIRE1')
+@SectionId('RR')
 class RiskRelationships {
   @Form([
     Field('relatedRisks', String,
@@ -8159,7 +8159,7 @@ FUN/TEC/SEC/ORG into a network.
 /// 4.3.6. Requirement Coverage.
 ///
 /// Coverage of requirements against goals, use cases, and tests.
-@SectionId('RECO1')
+@SectionId('REQCOV')
 @DetailedIn(D04RequirementsSpecification)
 @SecondLevelSectionId(D04RequirementsSpecification, 'RSP-COV')
 class RequirementCoverage {
@@ -8249,7 +8249,7 @@ class InteractionScenarioEntry {
 }
 
 /// A single related pain point entry.
-@SectionId('RELAT1')
+@SectionId('RPPE')
 class RelatedPainPointEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
   String? content;
@@ -8417,7 +8417,7 @@ class PredecessorDependencyEntry {
 }
 
 /// A single known issue entry.
-@SectionId('KNOWN1')
+@SectionId('KIE')
 class KnownIssueEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
   String? content;

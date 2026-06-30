@@ -6667,7 +6667,7 @@ class CurrentArchitecture extends SomNode {
   set deploymentTopology(String value) => doc.setContent('$path/deploymentTopology', value);
 
   /// Integration patterns used.
-  SomList<IntegrationPatternEntry> get integrationPatterns => SomList<IntegrationPatternEntry>(doc, '$path/INTEG1-INTE-LST', (d, p) => IntegrationPatternEntry(d, p));
+  SomList<IntegrationPatternEntry> get integrationPatterns => SomList<IntegrationPatternEntry>(doc, '$path/IPE-INTE-LST', (d, p) => IntegrationPatternEntry(d, p));
 
   /// Shared services inventory.
   SomList<SharedServiceEntry> get sharedServices => SomList<SharedServiceEntry>(doc, '$path/SHARE-SHAR-LST', (d, p) => SharedServiceEntry(d, p));
@@ -8033,7 +8033,7 @@ class DataEntityEntry extends SomNode {
 
   DataEntityEntryLifecyclePolicyForm get lifecyclePolicy => DataEntityEntryLifecyclePolicyForm(doc, '$path/lifecyclePolicy');
 
-  SomList<ComplianceRequirementEntry> get complianceRequirements => SomList<ComplianceRequirementEntry>(doc, '$path/COMPL1-COMP-LST', (d, p) => ComplianceRequirementEntry(d, p));
+  SomList<ComplianceRequirementEntry> get complianceRequirements => SomList<ComplianceRequirementEntry>(doc, '$path/CRE-COMP-LST', (d, p) => ComplianceRequirementEntry(d, p));
 
   DataEntityEntryRelationshipSummaryForm get relationshipSummary => DataEntityEntryRelationshipSummaryForm(doc, '$path/relationshipSummary');
 
@@ -13014,7 +13014,7 @@ class ExternalSystemsContext extends SomNode {
   set content(String value) => doc.setContent('$path/content', value);
 
   /// External system entries — contains 0+× ExternalSystemContextEntry.
-  SomList<ExternalSystemContextEntry> get systems => SomList<ExternalSystemContextEntry>(doc, '$path/ESCE1-SYST-LST', (d, p) => ExternalSystemContextEntry(d, p));
+  SomList<ExternalSystemContextEntry> get systems => SomList<ExternalSystemContextEntry>(doc, '$path/EXSYCOEN-SYST-LST', (d, p) => ExternalSystemContextEntry(d, p));
 }
 
 /// A component reference within a family.
@@ -21532,7 +21532,7 @@ class ProblemStatement extends SomNode {
   ProblemStatementProblemDetailsForm get problemDetails => ProblemStatementProblemDetailsForm(doc, '$path/problemDetails');
 
   /// Related pain points from Current State Analysis.
-  SomList<RelatedPainPointEntry> get relatedPainPoints => SomList<RelatedPainPointEntry>(doc, '$path/RELAT1-RELA-LST', (d, p) => RelatedPainPointEntry(d, p));
+  SomList<RelatedPainPointEntry> get relatedPainPoints => SomList<RelatedPainPointEntry>(doc, '$path/RPPE-RELA-LST', (d, p) => RelatedPainPointEntry(d, p));
 }
 
 /// Details for process adjustment.
@@ -25136,7 +25136,7 @@ class RiskEntry extends SomNode {
   RiskBusinessImpact get businessImpact => RiskBusinessImpact(doc, '$path/businessImpact');
 
   /// Relationships to other risks, assumptions, and project elements.
-  SomList<RiskRelationships> get relationships => SomList<RiskRelationships>(doc, '$path/RIRE1-RELA-LST', (d, p) => RiskRelationships(d, p));
+  SomList<RiskRelationships> get relationships => SomList<RiskRelationships>(doc, '$path/RR-RELA-LST', (d, p) => RiskRelationships(d, p));
 }
 
 /// Risk identification details.
@@ -30277,7 +30277,7 @@ class SystemErrorDisplay extends SomNode {
   // (skipped: systemErrorNarrative has no target type)
 
   /// Error page designs.
-  SomList<ErrorPageDesignEntry> get errorPageDesigns => SomList<ErrorPageDesignEntry>(doc, '$path/ERROR1-ERRO-LST', (d, p) => ErrorPageDesignEntry(d, p));
+  SomList<ErrorPageDesignEntry> get errorPageDesigns => SomList<ErrorPageDesignEntry>(doc, '$path/EPDE-ERRO-LST', (d, p) => ErrorPageDesignEntry(d, p));
 
   /// Error codes catalog.
   SomList<SystemErrorCodeEntry> get errorCodes => SomList<SystemErrorCodeEntry>(doc, '$path/SECE-ERRO-LST', (d, p) => SystemErrorCodeEntry(d, p));
@@ -30826,7 +30826,7 @@ class SystemTechnicalAssessment extends SomNode {
   SystemTechnicalAssessmentQuality get quality => SystemTechnicalAssessmentQuality(doc, '$path/quality');
 
   /// Known technical issues and deficiencies.
-  SomList<KnownIssueEntry> get knownIssues => SomList<KnownIssueEntry>(doc, '$path/KNOWN1-KNOW-LST', (d, p) => KnownIssueEntry(d, p));
+  SomList<KnownIssueEntry> get knownIssues => SomList<KnownIssueEntry>(doc, '$path/KIE-KNOW-LST', (d, p) => KnownIssueEntry(d, p));
 
   /// Security vulnerabilities and compliance gaps.
   SomList<SecurityConcernEntry> get securityConcerns => SomList<SecurityConcernEntry>(doc, '$path/SECUR-SECU-LST', (d, p) => SecurityConcernEntry(d, p));

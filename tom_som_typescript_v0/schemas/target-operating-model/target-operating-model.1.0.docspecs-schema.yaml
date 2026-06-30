@@ -222,12 +222,6 @@ section-types:
   PRIDN:
     prefix: pridn
     description: Process identification.
-  PRPE1:
-    prefix: prpe1
-    description: Process performance metrics.
-  PRRE1:
-    prefix: prre1
-    description: Process relationships and dependencies (supplementary section).
   PRSUC:
     prefix: prsuc
     description: Success criteria for process transformation.
@@ -294,6 +288,12 @@ section-types:
   PRTE:
     prefix: prte
     description: Process technology support.
+  PP:
+    prefix: pp
+    description: Process performance metrics.
+  PR:
+    prefix: pr
+    description: Process relationships and dependencies (supplementary section).
 document:
   sections:
     header:
@@ -315,7 +315,7 @@ document:
       section-type: PRIMSU
       optional: true
     processrelationships:
-      section-type: PRRE1
+      section-type: PR
       optional: true
     detailedworkflows:
       section-type: DEPRWO-DETA-LST

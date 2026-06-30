@@ -202,6 +202,12 @@ section-types:
       pattern: ^ent_enti_lst-\d+$
       error-message: ID must match ent_enti_lst-NNN
     description: 9.4.4. Entitlements — contains 1+× Entitlement.
+  AUROENST:
+    prefix: auroenst
+    description: Data access and role status flags.
+  IDSOENCO:
+    prefix: idsoenco
+    description: Connectivity and trust details.
   RESKREF:
     prefix: reskref
     description: A resource key reference entry (form).
@@ -223,6 +229,9 @@ section-types:
   APABPR:
     prefix: apabpr
     description: "API abuse protection — rate limiting, bot detection, brute force"
+  APAUPO:
+    prefix: apaupo
+    description: API authorization policy — how API access decisions are made.
   APCOSE:
     prefix: apcose
     description: API CORS security — Cross-Origin Resource Sharing policy from a security
@@ -253,6 +262,9 @@ section-types:
   COCHEN:
     prefix: cochen
     description: A communication channel encryption entry (form)
+  COMREP:
+    prefix: comrep
+    description: 9.6.3. Compliance Reporting.
   COSCPO:
     prefix: coscpo
     description: Content scanning policy — how uploaded and stored files are scanned for
@@ -340,6 +352,9 @@ section-types:
   RESKEY:
     prefix: reskey
     description: A resource key entry (form).
+  RESPRO:
+    prefix: respro
+    description: 9.3. Resource Protection.
   ROCEPO:
     prefix: rocepo
     description: Role Certification Policy (form).
@@ -397,18 +412,9 @@ section-types:
   ACMOD:
     prefix: acmod
     description: 9.1.2.4. Account Modification (form).
-  ARES1:
-    prefix: ares1
-    description: Data access and role status flags.
   AUSCT:
     prefix: ausct
     description: 9.1.1. User Categories.
-  COFR1:
-    prefix: cofr1
-    description: 9.8. Compliance Framework.
-  CORE2:
-    prefix: core2
-    description: 9.6.3. Compliance Reporting.
   DOCHD:
     prefix: dochd
     description: Standard document header present at the top of every TomSpecs document.
@@ -439,9 +445,6 @@ section-types:
   IDTSR:
     prefix: idtsr
     description: An identity source entry (form).
-  ISEC3:
-    prefix: isec3
-    description: Connectivity and trust details.
   KEABP:
     prefix: keabp
     description: Key escrow and backup policy (form).
@@ -469,9 +472,6 @@ section-types:
   MFADE:
     prefix: mfade
     description: A single mfa detail entry.
-  REPR2:
-    prefix: repr2
-    description: 9.3. Resource Protection.
   RLCMB:
     prefix: rlcmb
     description: A role combination constraint entry (form).
@@ -538,9 +538,6 @@ section-types:
   USMGT:
     prefix: usmgt
     description: 9.1. User Management.
-  AAP1:
-    prefix: aap1
-    description: API authorization policy — how API access decisions are made.
   ACMS:
     prefix: acms
     description: Access Control Model Selection (form).
@@ -778,6 +775,9 @@ section-types:
   TMP:
     prefix: tmp
     description: Token management policy (form).
+  CF:
+    prefix: cf
+    description: 9.8. Compliance Framework.
   MC:
     prefix: mc
     description: Multi-Factor Authentication (MFA) configuration (form).
@@ -796,7 +796,7 @@ document:
       section-type: IDAUT
       optional: true
     resourceprotection:
-      section-type: REPR2
+      section-type: RESPRO
       optional: true
     userauthorization:
       section-type: USAU
@@ -811,5 +811,5 @@ document:
       section-type: ROMA
       optional: true
     complianceframework:
-      section-type: COFR1
+      section-type: CF
       optional: true

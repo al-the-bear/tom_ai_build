@@ -8,12 +8,6 @@ section-types:
       pattern: ^delnpt_patt_lst-\d+$
       error-message: ID must match delnpt_patt_lst-NNN
     description: Contains 0+× DeepLinkPattern.
-  ERROR1-ERRO-LST:
-    prefix: error1_erro_lst
-    pattern-check-id:
-      pattern: ^error1_erro_lst-\d+$
-      error-message: ID must match error1_erro_lst-NNN
-    description: Error page designs.
   EXFOEN-EXPO-LST:
     prefix: exfoen_expo_lst
     pattern-check-id:
@@ -322,6 +316,12 @@ section-types:
       pattern: ^efme_fiel_lst-\d+$
       error-message: ID must match efme_fiel_lst-NNN
     description: Contains 0+× Export Field Mapping.
+  EPDE-ERRO-LST:
+    prefix: epde_erro_lst
+    pattern-check-id:
+      pattern: ^epde_erro_lst-\d+$
+      error-message: ID must match epde_erro_lst-NNN
+    description: Error page designs.
   EPNT-ENTR-LST:
     prefix: epnt_entr_lst
     pattern-check-id:
@@ -388,6 +388,72 @@ section-types:
       pattern: ^bre_brea_lst-\d+$
       error-message: ID must match bre_brea_lst-NNN
     description: Breakpoint entries.
+  COMSTAENT:
+    prefix: comstaent
+    description: A component state entry.
+  REPCHAENT:
+    prefix: repchaent
+    description: A chart/visualization in a report
+  REPCOLENT:
+    prefix: repcolent
+    description: A column in a tabular report section
+  REPSCHENT:
+    prefix: repschent
+    description: Scheduling rules for report generation
+  ELVARUEN:
+    prefix: elvaruen
+    description: A validation rule entry (form).
+  EXFIMAEN:
+    prefix: exfimaen
+    description: A field mapping within an export (form).
+  EXTEENFI:
+    prefix: exteenfi
+    description: Field and filter settings for export template.
+  NAGUENDI:
+    prefix: naguendi
+    description: Covered routes and dialog resources.
+  REDIENCO:
+    prefix: redienco
+    description: Message and attachment content for report distribution.
+  REDIENRE:
+    prefix: redienre
+    description: Recipient and format settings for report distribution.
+  REREENCO:
+    prefix: rereenco
+    description: Recipient business context.
+  SCELENLA:
+    prefix: scelenla
+    description: Placement and layout settings for screen element.
+  SCELENPR:
+    prefix: scelenpr
+    description: Styling and data binding for screen element.
+  SCRERUEN:
+    prefix: screruen
+    description: A responsive rule entry (form).
+  SYERCOEN:
+    prefix: syercoen
+    description: A system error code entry.
+  TABADEEN:
+    prefix: tabadeen
+    description: A tab bar definition entry (form).
+  UICOENSC:
+    prefix: uicoensc
+    description: Scrolling behavior.
+  UICOENSU:
+    prefix: uicoensu
+    description: Surface treatment.
+  UICOMENT:
+    prefix: uicoment
+    description: A UI component entry.
+  UTMEITEN:
+    prefix: utmeiten
+    description: A utility menu item entry (form).
+  UTNAITEN:
+    prefix: utnaiten
+    description: A utility navigation item entry (form).
+  WCSUCREN:
+    prefix: wcsucren
+    description: A WCAG success criterion entry.
   ACCESS:
     prefix: access
     description: 10.9. Accessibility.
@@ -433,9 +499,6 @@ section-types:
   ERHACO:
     prefix: erhaco
     description: 10.7. Error Handling.
-  ERROR1:
-    prefix: error1
-    description: A single error page design entry.
   EXDAFO:
     prefix: exdafo
     description: Export data formatting.
@@ -505,6 +568,9 @@ section-types:
   PRNASI:
     prefix: prnasi
     description: Sidebar sizing and selection behavior.
+  PRORES:
+    prefix: prores
+    description: Prototype staffing and environment.
   PROTOT:
     prefix: protot
     description: 10.13. Prototype.
@@ -559,6 +625,9 @@ section-types:
   REHEFO:
     prefix: rehefo
     description: Report header and footer templates.
+  REPENT:
+    prefix: repent
+    description: A report entry (form).
   REPRAR:
     prefix: reprar
     description: Architecture alignment and refactoring expectations.
@@ -583,6 +652,9 @@ section-types:
   RESPSR:
     prefix: respsr
     description: A screen-specific responsive rule entry.
+  REUPRO:
+    prefix: reupro
+    description: 10.13.3.1. Reusable Prototype.
   SCELAC:
     prefix: scelac
     description: Action specification for an action-type element (form).
@@ -643,9 +715,6 @@ section-types:
   WIANMO:
     prefix: wianmo
     description: 10.14. Wireframes and Mockups.
-  BRCO1:
-    prefix: brco1
-    description: 10.10.1. Breakpoints.
   DEGOL:
     prefix: degol
     description: 10.1.1. Design Goals.
@@ -664,9 +733,6 @@ section-types:
   DOCHD:
     prefix: dochd
     description: Standard document header present at the top of every TomSpecs document.
-  EFME1:
-    prefix: efme1
-    description: A field mapping within an export (form).
   EFMEF:
     prefix: efmef
     description: Ordering and formatting settings.
@@ -679,12 +745,6 @@ section-types:
   EFMET:
     prefix: efmet
     description: Transformation rules.
-  ETEF1:
-    prefix: etef1
-    description: Field and filter settings for export template.
-  EVRE1:
-    prefix: evre1
-    description: A validation rule entry (form).
   FIELD:
     prefix: field
     description: A single field validation rule entry.
@@ -694,12 +754,6 @@ section-types:
   GLOBA:
     prefix: globa
     description: A single global entry point entry.
-  INAR1:
-    prefix: inar1
-    description: 10.2.2. Information Architecture.
-  NGED1:
-    prefix: nged1
-    description: Covered routes and dialog resources.
   PECTX:
     prefix: pectx
     description: Usage environment and device context.
@@ -727,33 +781,12 @@ section-types:
   PPPEN:
     prefix: pppen
     description: A pain point entry (form).
-  PRGO1:
-    prefix: prgo1
-    description: 10.13.1. Prototype Goals.
-  PRRE2:
-    prefix: prre2
-    description: Prototype staffing and environment.
   PSCEN:
     prefix: pscen
     description: A persona scenario entry (form).
-  RDEC1:
-    prefix: rdec1
-    description: Message and attachment content for report distribution.
-  RDER2:
-    prefix: rder2
-    description: Recipient and format settings for report distribution.
   RECOV:
     prefix: recov
     description: A single recovery flow entry.
-  REFO1:
-    prefix: refo1
-    description: Report conditional formatting.
-  REPR3:
-    prefix: repr3
-    description: 10.13.3.1. Reusable Prototype.
-  RREC1:
-    prefix: rrec1
-    description: Recipient business context.
   SCEAC:
     prefix: sceac
     description: Access control settings.
@@ -781,9 +814,6 @@ section-types:
   SCRST:
     prefix: scrst
     description: A screen state entry (form).
-  SECE1:
-    prefix: sece1
-    description: A system error code entry.
   SECEH:
     prefix: seceh
     description: Recovery and display guidance.
@@ -799,12 +829,6 @@ section-types:
   SEDET:
     prefix: sedet
     description: Error type handling configuration.
-  SEEL2:
-    prefix: seel2
-    description: Placement and layout settings for screen element.
-  SEEP1:
-    prefix: seep1
-    description: Styling and data binding for screen element.
   SEFSC:
     prefix: sefsc
     description: Length and value constraints for field spec.
@@ -817,48 +841,27 @@ section-types:
   SEFSV:
     prefix: sefsv
     description: Validation behavior for field spec.
-  SRRE1:
-    prefix: srre1
-    description: A responsive rule entry (form).
-  TBDE1:
-    prefix: tbde1
-    description: A tab bar definition entry (form).
   TBDEB:
     prefix: tbdeb
     description: Position and selection behavior.
   TBDEL:
     prefix: tbdel
     description: Visibility and loading profile.
-  TRPR1:
-    prefix: trpr1
-    description: 10.13.3.2. Training Prototype.
   TURST:
     prefix: turst
     description: A tour step entry.
   UCEIB:
     prefix: uceib
     description: Focus and keyboard behavior.
-  UCES1:
-    prefix: uces1
-    description: Surface treatment.
-  UCES2:
-    prefix: uces2
-    description: Scrolling behavior.
   UDPEN:
     prefix: udpen
     description: A design principle entry (form).
-  UMIE1:
-    prefix: umie1
-    description: A utility menu item entry (form).
   UMIEA:
     prefix: umiea
     description: Routing and action references.
   UMIEB:
     prefix: umieb
     description: Visibility and confirmation behavior.
-  UNIE1:
-    prefix: unie1
-    description: A utility navigation item entry (form).
   UNIEB:
     prefix: unieb
     description: Badge and interaction behavior.
@@ -868,9 +871,6 @@ section-types:
   USPER:
     prefix: usper
     description: 10.1.3. User Personas.
-  WSCE1:
-    prefix: wsce1
-    description: A WCAG success criterion entry.
   ACCH:
     prefix: acch
     description: An accessibility check entry (form).
@@ -925,9 +925,6 @@ section-types:
   COPA:
     prefix: copa
     description: A color palette entry.
-  CSE1:
-    prefix: cse1
-    description: A component state entry.
   CSEB:
     prefix: cseb
     description: Behavior and accessibility changes in this state.
@@ -955,6 +952,9 @@ section-types:
   EHCO:
     prefix: ehco
     description: Localization and analytics behavior.
+  EPDE:
+    prefix: epde
+    description: A single error page design entry.
   EPNT:
     prefix: epnt
     description: An entry point entry (form).
@@ -1090,12 +1090,6 @@ section-types:
   RCDS:
     prefix: rcds
     description: Data source and type.
-  RCE1:
-    prefix: rce1
-    description: A column in a tabular report section
-  RCE2:
-    prefix: rce2
-    description: A chart/visualization in a report
   RDED:
     prefix: rded
     description: Delivery conditions and lifecycle settings for report distribution.
@@ -1144,9 +1138,6 @@ section-types:
   RREL:
     prefix: rrel
     description: Lifecycle settings.
-  RSE1:
-    prefix: rse1
-    description: Scheduling rules for report generation
   RSEN:
     prefix: rsen
     description: Notification settings for report schedule.
@@ -1240,9 +1231,6 @@ section-types:
   UCCA:
     prefix: ucca
     description: Component naming and documentation approach.
-  UCE1:
-    prefix: uce1
-    description: A UI component entry.
   UCEA:
     prefix: ucea
     description: Animation behavior.
@@ -1291,9 +1279,6 @@ section-types:
   RDE:
     prefix: rde
     description: Distribution channel configuration (form).
-  RE2:
-    prefix: re2
-    description: A report entry (form).
   RFE:
     prefix: rfe
     description: A filter parameter for a report (form).
@@ -1309,9 +1294,24 @@ section-types:
   VMT:
     prefix: vmt
     description: A validation message template.
+  BC:
+    prefix: bc
+    description: 10.10.1. Breakpoints.
   BE:
     prefix: be
     description: A breakpoint entry.
+  IA:
+    prefix: ia
+    description: 10.2.2. Information Architecture.
+  PG:
+    prefix: pg
+    description: 10.13.1. Prototype Goals.
+  RF:
+    prefix: rf
+    description: Report conditional formatting.
+  TP:
+    prefix: tp
+    description: 10.13.3.2. Training Prototype.
 document:
   sections:
     header:

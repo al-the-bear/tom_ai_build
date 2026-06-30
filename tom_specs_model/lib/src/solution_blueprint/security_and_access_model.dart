@@ -916,7 +916,7 @@ class IdentitySourceEntry {
 }
 
 /// Connectivity and trust details.
-@SectionId('ISEC3')
+@SectionId('IDSOENCO')
 class IdentitySourceEntryConnection {
   @Form([
     Field('sourceEndpoint', String, 'Source Endpoint',
@@ -3382,7 +3382,7 @@ class SessionLifecycleMonitoring {
 }
 
 /// 9.3. Resource Protection.
-@SectionId('REPR2')
+@SectionId('RESPRO')
 @DetailedIn(D08SecurityAccessSpecification)
 @SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-RES')
 class ResourceProtection {
@@ -4016,7 +4016,7 @@ class ApiAuthenticationPolicy {
   Field('notes', String, 'Notes',
       hint: 'Additional API authorization notes'),
 ])
-@SectionId('AAP1')
+@SectionId('APAUPO')
 class ApiAuthorizationPolicy {
   String? content;
 
@@ -5957,7 +5957,7 @@ class AuthorizationRoleEntryLifecycle {
 }
 
 /// Data access and role status flags.
-@SectionId('ARES1')
+@SectionId('AUROENST')
 class AuthorizationRoleEntryStatus {
     @Form([
         Field('dataAccessScope', String, 'Data Access Scope',
@@ -7582,7 +7582,7 @@ class LogRetentionPolicy {
 ///
 /// Describes compliance reporting requirements: periodic access reviews,
 /// privilege usage reports, anomaly detection, and regulatory audit support.
-@SectionId('CORE2')
+@SectionId('COMREP')
 class ComplianceReporting {
   @ContentHelp('''
 Define compliance reporting requirements to satisfy regulatory audits and
@@ -7787,7 +7787,7 @@ authorization model; this section captures the concrete assignment.
 /// NIST / SOC 2 / ISO 27001 / OWASP alignment for access and
 /// authorization. Pulls the compliance references currently scattered
 /// across @ContentHelp strings into an explicit section.
-@SectionId('COFR1')
+@SectionId('CF')
 @DetailedIn(D08SecurityAccessSpecification)
 @SecondLevelSectionId(D08SecurityAccessSpecification, 'SAS-CMP')
 class ComplianceFramework {

@@ -9601,7 +9601,7 @@ class CurrentArchitecture(SomNode):
     # Integration patterns used.
     @property
     def integrationPatterns(self):
-        return SomList(self.doc, f"{self.path}/INTEG1-INTE-LST", lambda d, p: IntegrationPatternEntry(d, p))
+        return SomList(self.doc, f"{self.path}/IPE-INTE-LST", lambda d, p: IntegrationPatternEntry(d, p))
 
     # Shared services inventory.
     @property
@@ -11637,7 +11637,7 @@ class DataEntityEntry(SomNode):
 
     @property
     def complianceRequirements(self):
-        return SomList(self.doc, f"{self.path}/COMPL1-COMP-LST", lambda d, p: ComplianceRequirementEntry(d, p))
+        return SomList(self.doc, f"{self.path}/CRE-COMP-LST", lambda d, p: ComplianceRequirementEntry(d, p))
 
     @property
     def relationshipSummary(self):
@@ -18826,7 +18826,7 @@ class ExternalSystemsContext(SomNode):
     # External system entries — contains 0+× ExternalSystemContextEntry.
     @property
     def systems(self):
-        return SomList(self.doc, f"{self.path}/ESCE1-SYST-LST", lambda d, p: ExternalSystemContextEntry(d, p))
+        return SomList(self.doc, f"{self.path}/EXSYCOEN-SYST-LST", lambda d, p: ExternalSystemContextEntry(d, p))
 
 class FamilyComponentRef(SomNode):
     """A component reference within a family."""
@@ -31037,7 +31037,7 @@ class ProblemStatement(SomNode):
     # Related pain points from Current State Analysis.
     @property
     def relatedPainPoints(self):
-        return SomList(self.doc, f"{self.path}/RELAT1-RELA-LST", lambda d, p: RelatedPainPointEntry(d, p))
+        return SomList(self.doc, f"{self.path}/RPPE-RELA-LST", lambda d, p: RelatedPainPointEntry(d, p))
 
 class ProcessAdjustmentDetails(SomNode):
     """Details for process adjustment."""
@@ -36207,7 +36207,7 @@ class RiskEntry(SomNode):
     # Relationships to other risks, assumptions, and project elements.
     @property
     def relationships(self):
-        return SomList(self.doc, f"{self.path}/RIRE1-RELA-LST", lambda d, p: RiskRelationships(d, p))
+        return SomList(self.doc, f"{self.path}/RR-RELA-LST", lambda d, p: RiskRelationships(d, p))
 
 class RiskIdentification(SomNode):
     """Risk identification details."""
@@ -43582,7 +43582,7 @@ class SystemErrorDisplay(SomNode):
     # Error page designs.
     @property
     def errorPageDesigns(self):
-        return SomList(self.doc, f"{self.path}/ERROR1-ERRO-LST", lambda d, p: ErrorPageDesignEntry(d, p))
+        return SomList(self.doc, f"{self.path}/EPDE-ERRO-LST", lambda d, p: ErrorPageDesignEntry(d, p))
 
     # Error codes catalog.
     @property
@@ -44413,7 +44413,7 @@ class SystemTechnicalAssessment(SomNode):
     # Known technical issues and deficiencies.
     @property
     def knownIssues(self):
-        return SomList(self.doc, f"{self.path}/KNOWN1-KNOW-LST", lambda d, p: KnownIssueEntry(d, p))
+        return SomList(self.doc, f"{self.path}/KIE-KNOW-LST", lambda d, p: KnownIssueEntry(d, p))
 
     # Security vulnerabilities and compliance gaps.
     @property
