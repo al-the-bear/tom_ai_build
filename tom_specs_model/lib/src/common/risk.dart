@@ -16,5 +16,6 @@ class Risk {
     Field('riskOwner', String, 'Risk Owner'),
     Field('reviewFrequency', String, 'Review Frequency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

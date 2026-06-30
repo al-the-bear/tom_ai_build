@@ -14,9 +14,11 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 class GlossaryAndAbbreviations {
   @ContentType('description', 'Introduce the glossary: scope, conventions, '
       'and how terms are maintained.')
+  @SerializationOrder(0)
   String? content;
 
   /// The set of defined terms and abbreviations.
+  @SerializationOrder(1)
   Glossary glossary = Glossary();
 }
 
@@ -24,12 +26,14 @@ class GlossaryAndAbbreviations {
 @SectionId('GLOSS')
 class Glossary {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// One entry per defined term or acronym.
   @SectionId('GLOSS-ENTR-LST')
   @SectionIdPattern('GLOSS-ENTR-xxx')
   @ContentHelp('Add one entry per term or acronym, alphabetically ordered.')
+  @SerializationOrder(1)
   List<GlossaryEntry> entries = [];
 }
 
@@ -42,5 +46,6 @@ class GlossaryEntry {
     Field('acronym', String, 'Acronym / Abbreviation'),
     Field('seeAlso', String, 'See Also (related terms)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

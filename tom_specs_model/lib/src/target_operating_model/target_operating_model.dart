@@ -24,42 +24,54 @@ import '../solution_blueprint/solution_blueprint.dart';
 @SectionId('TOM')
 class D02TargetOperatingModel {
   @ContentHelp('Executive overview of the target business process model.')
+  @SerializationOrder(0)
   String? content;
 
   /// Standard TomSpecs document header.
+  @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
   /// Process vision.
+  @SerializationOrder(2)
   ProcessVision processVision = ProcessVision();
 
   /// Design principles.
+  @SerializationOrder(3)
   ProcessDesignPrinciples designPrinciples = ProcessDesignPrinciples();
 
   /// Process catalog.
+  @SerializationOrder(4)
   ProcessCatalog processCatalog = ProcessCatalog();
 
   /// Process overview diagram.
+  @SerializationOrder(5)
   ProcessOverviewDiagram processOverviewDiagram = ProcessOverviewDiagram();
 
   /// Improvement summary.
+  @SerializationOrder(6)
   ProcessImprovementSummary improvementSummary = ProcessImprovementSummary();
 
   /// Process relationships.
+  @SerializationOrder(7)
   ProcessRelationships processRelationships = ProcessRelationships();
 
   /// Detailed process workflows.
   @SectionId('DEPRWO-DETA-LST')
   @SectionIdPattern('DEPRWO-DETA-xxx')
+  @SerializationOrder(8)
   List<DetailedProcessWorkflow> detailedWorkflows = [];
 
   /// Cross-process analysis.
+  @SerializationOrder(9)
   CrossProcessAnalysis crossProcessAnalysis = CrossProcessAnalysis();
 
   /// Process exception handling.
+  @SerializationOrder(10)
   ProcessExceptionHandling exceptionHandling = ProcessExceptionHandling();
 
   /// Process metrics and KPIs.
   @SectionId('PMAK-PROC-LST')
   @SectionIdPattern('PMAK-PROC-xxx')
+  @SerializationOrder(11)
   List<ProcessMetric> processMetricsAndKpis = [];
 }

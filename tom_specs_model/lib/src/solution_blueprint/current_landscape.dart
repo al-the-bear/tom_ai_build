@@ -21,26 +21,33 @@ processes today, known pain points, current data landscape, operational
 metrics, and risks tied to the current state or to replacement. Seeds the CS
 document alongside the systems-to-replace inventory.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 1.1. Existing Systems Landscape.
+  @SerializationOrder(1)
   ExistingSystemsLandscape existingSystemsLandscape = ExistingSystemsLandscape();
 
   /// 1.2. Current Business Processes.
+  @SerializationOrder(2)
   CurrentBusinessProcesses currentBusinessProcesses = CurrentBusinessProcesses();
 
   /// 1.3. Pain Points and Gaps.
+  @SerializationOrder(3)
   PainPointsAndGaps painPointsAndGaps = PainPointsAndGaps();
 
   /// 1.4. Current Data Landscape.
+  @SerializationOrder(4)
   CurrentDataLandscape currentDataLandscape = CurrentDataLandscape();
 
   /// 1.5. Operational Metrics.
   @SectionId('CUOPME-OPER-LST')
   @SectionIdPattern('CUOPME-OPER-xxx')
+  @SerializationOrder(5)
   List<CurrentOperationalMetric> operationalMetrics = [];
 
   /// 1.6. Current State Risks.
+  @SerializationOrder(6)
   CurrentStateRiskAssessment currentStateRisks = CurrentStateRiskAssessment();
 }
 
@@ -58,15 +65,19 @@ document alongside the systems-to-replace inventory.
 class ExistingSystemsLandscape {
   @ContentType('description', 'High-level overview of the existing systems '
       'landscape. Include a context diagram showing how systems interact.')
+  @SerializationOrder(0)
   String? content;
 
   /// 1.1.1. System Inventory.
+  @SerializationOrder(1)
   SystemInventory systemInventory = SystemInventory();
 
   /// 1.1.2. Current Architecture.
+  @SerializationOrder(2)
   CurrentArchitecture currentArchitecture = CurrentArchitecture();
 
   /// 1.1.3. Dependencies and Integrations.
+  @SerializationOrder(3)
   DependenciesAndIntegrations dependenciesAndIntegrations =
       DependenciesAndIntegrations();
 }
@@ -79,6 +90,7 @@ class ExistingSystemsLandscape {
 class SystemInventory {
   @ContentType('description', 'Introduction to the system inventory. '
       'Describe the criteria for including systems and the overall landscape.')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 1+× Existing System.
@@ -88,6 +100,7 @@ class SystemInventory {
   @ContentHelp('Add one entry per existing system that is relevant to the '
       'project scope. Include all systems that will be replaced, integrated '
       'with, or affected by the new system.')
+  @SerializationOrder(1)
   List<ExistingSystemEntry> systems = [];
 }
 
@@ -97,6 +110,7 @@ class SystemInventory {
 /// topology, integration patterns, shared services, and data stores.
 @SectionId('CARCH')
 class CurrentArchitecture {
+  @SerializationOrder(0)
   String? content;
 
   /// Architecture overview diagram.
@@ -104,21 +118,25 @@ class CurrentArchitecture {
       'systems, their connections, and data flows')
   @ContentHelp('Provide a Mermaid flowchart showing the current architecture. '
       'Include all major systems, their connections, and data flow directions.')
+  @SerializationOrder(1)
   String? architectureDiagram;
 
   /// Deployment topology description.
   @ContentType('description', 'Description of how systems are deployed '
       'across infrastructure')
+  @SerializationOrder(2)
   String? deploymentTopology;
 
   /// Integration patterns used.
   @SectionId('IPE-INTE-LST')
   @SectionIdPattern('IPE-INTE-xxx')
+  @SerializationOrder(3)
   List<IntegrationPatternEntry> integrationPatterns = [];
 
   /// Shared services inventory.
   @SectionId('SHARE-SHAR-LST')
   @SectionIdPattern('SHARE-SHAR-xxx')
+  @SerializationOrder(4)
   List<SharedServiceEntry> sharedServices = [];
 }
 
@@ -142,6 +160,7 @@ class ExistingSystemEntry {
     Field('licenseType', String, 'License Type '
         '(Enterprise, Per-User, Subscription, Open Source, etc.)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   // -------------------------------------------------------------------------
@@ -150,6 +169,7 @@ class ExistingSystemEntry {
 
   /// Technology stack details.
   @Comment('Technology stack')
+  @SerializationOrder(1)
   ExistingSystemTechnology? technology;
 
   // -------------------------------------------------------------------------
@@ -158,6 +178,7 @@ class ExistingSystemEntry {
 
   /// Business context.
   @Comment('Business context')
+  @SerializationOrder(2)
   ExistingSystemBusinessContext? businessContext;
 
   // -------------------------------------------------------------------------
@@ -166,6 +187,7 @@ class ExistingSystemEntry {
 
   /// Usage metrics.
   @Comment('Usage metrics')
+  @SerializationOrder(3)
   ExistingSystemUsage? usage;
 
   // -------------------------------------------------------------------------
@@ -174,6 +196,7 @@ class ExistingSystemEntry {
 
   /// Lifecycle information.
   @Comment('Lifecycle information')
+  @SerializationOrder(4)
   ExistingSystemLifecycle? lifecycle;
 
   // -------------------------------------------------------------------------
@@ -182,6 +205,7 @@ class ExistingSystemEntry {
 
   /// Integration profile.
   @Comment('Integration profile')
+  @SerializationOrder(5)
   ExistingSystemIntegration? integrationProfile;
 
   // -------------------------------------------------------------------------
@@ -190,6 +214,7 @@ class ExistingSystemEntry {
 
   /// Infrastructure details.
   @Comment('Infrastructure')
+  @SerializationOrder(6)
   ExistingSystemInfrastructure? infrastructure;
 
   // -------------------------------------------------------------------------
@@ -201,10 +226,12 @@ class ExistingSystemEntry {
   @SectionIdPattern('LIMET-KNOW-xxx')
   @ContentHelp('Document each known limitation with its impact on current '
       'operations and any workarounds in place.')
+  @SerializationOrder(7)
   List<LimitationEntry> knownLimitations = [];
 
   /// Quality and risk assessment.
   @Comment('Quality and risk')
+  @SerializationOrder(8)
   ExistingSystemQuality? quality;
 }
 
@@ -219,6 +246,7 @@ class ExistingSystemTechnology {
     Field('frameworksMiddleware', String, 'Frameworks/Middleware'),
     Field('frontendTechnology', String, 'Frontend Technology (if applicable)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -235,6 +263,7 @@ class ExistingSystemBusinessContext {
     Field('businessOwner', String, 'Business Owner (name/role)'),
     Field('technicalOwner', String, 'Technical Owner (name/role)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -251,6 +280,7 @@ class ExistingSystemUsage {
     Field('availabilityRequirement', String, 'Availability Requirement '
         '(e.g., 99.9%, 24x7, business hours)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -268,6 +298,7 @@ class ExistingSystemLifecycle {
     Field('migrationUrgency', String, 'Migration Urgency '
         '(Immediate, Within 1 year, Within 3 years, No deadline)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -285,6 +316,7 @@ class ExistingSystemIntegration {
     Field('externalInterfaceCount', int, 'Number of External Interfaces'),
     Field('internalInterfaceCount', int, 'Number of Internal Interfaces'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -303,6 +335,7 @@ class ExistingSystemInfrastructure {
         '(Hot standby, Warm standby, Cold backup, None)'),
     Field('backupFrequency', String, 'Backup Frequency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -323,6 +356,7 @@ class ExistingSystemQuality {
     Field('accessibilityCompliance', String, 'Accessibility Compliance '
         '(WCAG level, Section 508, etc.)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -333,6 +367,7 @@ class LimitationEntry {
     Field('limitation', String, 'Limitation', required: true),
     Field('impact', String, 'Impact assessment'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -343,6 +378,7 @@ class LimitationEntry {
 /// pose risk to operations or to the new system implementation.
 @SectionId('DEPNT')
 class DependenciesAndIntegrations {
+  @SerializationOrder(0)
   String? content;
 
   /// Dependency matrix diagram.
@@ -351,28 +387,34 @@ class DependenciesAndIntegrations {
   @ContentHelp('Create a Mermaid flowchart showing dependencies between '
       'systems. Use line styles to indicate coupling strength: solid for '
       'tight coupling, dashed for loose coupling. Add labels for data types.')
+  @SerializationOrder(1)
   String? dependencyDiagram;
 
   /// 1.1.3.1. Internal Dependencies.
   @Comment('Dependencies between internal systems')
+  @SerializationOrder(2)
   InternalDependencies internalDependencies = InternalDependencies();
 
   /// 1.1.3.2. External Service Dependencies.
   @Comment('Dependencies on external/third-party services')
+  @SerializationOrder(3)
   ExternalServiceDependencies externalServiceDependencies =
       ExternalServiceDependencies();
 
   /// 1.1.3.3. Shared Infrastructure Dependencies.
   @Comment('Dependencies on shared infrastructure components')
+  @SerializationOrder(4)
   SharedInfrastructureDependencies sharedInfrastructureDependencies =
       SharedInfrastructureDependencies();
 
   /// 1.1.3.4. System Integrations.
   @Comment('Active integrations between systems')
+  @SerializationOrder(5)
   Integrations integrations = Integrations();
 
   /// 1.1.3.5. Integration Health Summary.
   @Comment('Overall assessment of integration landscape health')
+  @SerializationOrder(6)
   IntegrationHealthSummary? healthSummary;
 }
 
@@ -385,11 +427,13 @@ class InternalDependencies {
   @ContentHelp('Describe the overall pattern of internal dependencies. '
       'Identify clusters of tightly coupled systems and potential cascading '
       'failure risks.')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Internal System Dependency.
   @SectionId('SYDE-ITEM-LST')
   @SectionIdPattern('SYDE-ITEM-xxx')
+  @SerializationOrder(1)
   List<SystemDependencyEntry> items = [];
 }
 
@@ -403,11 +447,13 @@ class ExternalServiceDependencies {
       'and vendor relationships.')
   @ContentHelp('Describe reliance on external services. Include vendor risk '
       'assessment, contract status, and contingency planning.')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× External Service Dependency.
   @SectionId('EXSDE-ITEM-LST')
   @SectionIdPattern('EXSDE-ITEM-xxx')
+  @SerializationOrder(1)
   List<ExternalServiceDependencyEntry> items = [];
 }
 
@@ -423,21 +469,26 @@ class ExternalServiceDependencyEntry {
     Field('serviceType', String, 'Service Type',
         hint: 'SaaS / PaaS / IaaS / API Service / Data Feed / Payment Gateway / etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Internal dependency and contract details.
+  @SerializationOrder(1)
   ExternalServiceDependencyEntryRelationship relationship =
       ExternalServiceDependencyEntryRelationship();
 
   /// Availability and data handling details.
+  @SerializationOrder(2)
   ExternalServiceDependencyEntryOperations operations =
       ExternalServiceDependencyEntryOperations();
 
   /// Risk and fallback considerations.
+  @SerializationOrder(3)
   ExternalServiceDependencyEntryRisk risk =
       ExternalServiceDependencyEntryRisk();
 
   @Reference('Primary Dependent System')
+  @SerializationOrder(4)
   ExistingSystemEntry? primaryDependentSystem;
 }
 
@@ -453,6 +504,7 @@ class ExternalServiceDependencyEntryRelationship {
         hint: 'Active / Renewal Due / Negotiating / Month-to-Month'),
     Field('contractExpiry', String, 'Contract Expiry Date'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -471,6 +523,7 @@ class ExternalServiceDependencyEntryOperations {
     Field('securityCertifications', String, 'Vendor Security Certifications',
         hint: 'SOC2, ISO 27001, HIPAA, etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -491,6 +544,7 @@ class ExternalServiceDependencyEntryRisk {
     Field('communicationChannel', String, 'Support Communication Channel',
         hint: 'How incidents are reported and tracked'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -504,11 +558,13 @@ class SharedInfrastructureDependencies {
   @ContentHelp('Describe shared infrastructure components (networks, '
       'databases, messaging systems, identity providers) that multiple '
       'systems depend on. Identify single points of failure.')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Shared Infrastructure Component.
   @SectionId('SHIEN-ITEM-LST')
   @SectionIdPattern('SHIEN-ITEM-xxx')
+  @SerializationOrder(1)
   List<SharedInfrastructureEntry> items = [];
 }
 
@@ -526,17 +582,21 @@ class SharedInfrastructureEntry {
     Field('dependentSystemCount', int, 'Number of Dependent Systems'),
     Field('dependentSystemList', String, 'List of Dependent Systems'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Criticality and resilience.
+  @SerializationOrder(1)
   SharedInfrastructureEntryResilience resilience =
       SharedInfrastructureEntryResilience();
 
   /// Capacity constraints.
+  @SerializationOrder(2)
   SharedInfrastructureEntryCapacity capacity =
       SharedInfrastructureEntryCapacity();
 
   /// Ownership and maintenance.
+  @SerializationOrder(3)
   SharedInfrastructureEntryOperations operations =
       SharedInfrastructureEntryOperations();
 }
@@ -555,6 +615,7 @@ class SharedInfrastructureEntryResilience {
     Field('lastFailure', String, 'Last Failure Incident',
         hint: 'Date and summary of last significant failure'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -567,6 +628,7 @@ class SharedInfrastructureEntryCapacity {
     Field('scalingLimitations', String, 'Scaling Limitations',
         hint: 'Constraints on horizontal or vertical scaling'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -581,6 +643,7 @@ class SharedInfrastructureEntryOperations {
     Field('documentationStatus', String, 'Documentation Status',
         hint: 'Current / Outdated / Minimal / None'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -604,11 +667,13 @@ class IntegrationHealthSummary {
     Field('impactOnProject', String, 'Impact on This Project',
         hint: 'How current integration state affects project planning'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Fragile integration points requiring attention.
   @SectionId('FRAGI-FRAG-LST')
   @SectionIdPattern('FRAGI-FRAG-xxx')
+  @SerializationOrder(1)
   List<FragilePointEntry> fragilePoints = [];
 }
 
@@ -622,11 +687,13 @@ class Integrations {
       'data exchange patterns.')
   @ContentHelp('Describe the integration patterns in use. Identify '
       'standards vs custom integrations, and areas of complexity.')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× SystemIntegration.
   @SectionId('SYIN-ITEM-LST')
   @SectionIdPattern('SYIN-ITEM-xxx')
+  @SerializationOrder(1)
   List<SystemIntegrationEntry> items = [];
 }
 
@@ -646,27 +713,34 @@ class SystemDependencyEntry {
     Field('direction', String, 'Direction',
         hint: 'Upstream / Downstream / Bidirectional'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Mechanism and coupling.
+  @SerializationOrder(1)
   SystemDependencyEntryMechanism mechanism = SystemDependencyEntryMechanism();
 
   /// Data exchange characteristics.
+  @SerializationOrder(2)
   SystemDependencyEntryDataExchange dataExchange =
       SystemDependencyEntryDataExchange();
 
   /// Reliability and SLA.
+  @SerializationOrder(3)
   SystemDependencyEntryReliability reliability =
       SystemDependencyEntryReliability();
 
   /// Operations and documentation.
+  @SerializationOrder(4)
   SystemDependencyEntryOperations operations =
       SystemDependencyEntryOperations();
 
   @Reference('Source System')
+  @SerializationOrder(5)
   ExistingSystemEntry? sourceSystem;
 
   @Reference('Target System')
+  @SerializationOrder(6)
   ExistingSystemEntry? targetSystem;
 }
 
@@ -681,6 +755,7 @@ class SystemDependencyEntryMechanism {
     Field('criticality', String, 'Criticality',
         hint: 'Critical / High / Medium / Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -695,6 +770,7 @@ class SystemDependencyEntryDataExchange {
     Field('dataFreshness', String, 'Data Freshness Requirements',
         hint: 'RealTime / NearRealTime / Hourly / Daily / OnDemand'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -715,6 +791,7 @@ class SystemDependencyEntryReliability {
     Field('fallbackProcedure', String, 'Fallback Procedure',
         hint: 'Manual or automated fallback when this dependency is unavailable'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -735,6 +812,7 @@ class SystemDependencyEntryOperations {
     Field('plannedChanges', String, 'Planned Changes',
         hint: 'Any known upcoming changes to this dependency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -754,33 +832,42 @@ class SystemIntegrationEntry {
     Field('integrationPattern', String, 'Integration Pattern',
         hint: 'PointToPoint / HubSpoke / PubSub / ESB / ApiGateway'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Protocol and transport details.
+  @SerializationOrder(1)
   SystemIntegrationProtocol protocol = SystemIntegrationProtocol();
 
   /// Data exchange configuration.
+  @SerializationOrder(2)
   SystemIntegrationDataExchange dataExchange =
       SystemIntegrationDataExchange();
 
   /// Error handling and retry.
+  @SerializationOrder(3)
   SystemIntegrationErrorHandling errorHandling =
       SystemIntegrationErrorHandling();
 
   /// Throughput and capacity.
+  @SerializationOrder(4)
   SystemIntegrationThroughput throughput = SystemIntegrationThroughput();
 
   /// Monitoring and failover.
+  @SerializationOrder(5)
   SystemIntegrationMonitoring monitoring =
       SystemIntegrationMonitoring();
 
   /// Ownership and documentation.
+  @SerializationOrder(6)
   SystemIntegrationOwnership ownership = SystemIntegrationOwnership();
 
   @Reference('Source System')
+  @SerializationOrder(7)
   ExistingSystemEntry? sourceSystem;
 
   @Reference('Target System')
+  @SerializationOrder(8)
   ExistingSystemEntry? targetSystem;
 }
 
@@ -799,6 +886,7 @@ class SystemIntegrationProtocol {
     Field('authenticationMethod', String, 'Authentication Method',
         hint: 'OAuth2 / APIKey / mTLS / BasicAuth / SAML / None'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -817,6 +905,7 @@ class SystemIntegrationDataExchange {
     Field('dataMappingComplexity', String, 'Data Mapping Complexity',
         hint: 'Simple / Moderate / Complex'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -829,6 +918,7 @@ class SystemIntegrationErrorHandling {
     Field('retryPolicy', String, 'Retry Policy',
         hint: '3 retries with exponential backoff'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -843,6 +933,7 @@ class SystemIntegrationThroughput {
     Field('peakLoadHandling', String, 'Peak Load Handling',
         hint: 'Scales / Queues / Throttles / Degrades'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -855,6 +946,7 @@ class SystemIntegrationMonitoring {
     Field('failoverBehavior', String, 'Failover Behavior',
         hint: 'AutomaticFailover / ManualFailover / NoFailover'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -875,6 +967,7 @@ class SystemIntegrationOwnership {
     Field('technicalDebt', String, 'Technical Debt',
         hint: 'None / Low / Moderate / High'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -892,6 +985,7 @@ class SystemIntegrationOwnership {
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-PRO')
 class CurrentBusinessProcesses {
+  @SerializationOrder(0)
   String? content;
 
   /// Process landscape diagram.
@@ -900,24 +994,29 @@ class CurrentBusinessProcesses {
   @ContentHelp('Create a Mermaid flowchart showing the process landscape. '
       'Group processes by category (Core, Support, Management). '
       'Show handoffs and data flows between processes.')
+  @SerializationOrder(1)
   String? processLandscapeDiagram;
 
   /// Process scope summary.
   @Comment('Defines which processes are in/out of scope')
+  @SerializationOrder(2)
   ProcessScopeSummary? scopeSummary;
 
   /// Process interdependency matrix.
   @Comment('How processes depend on and interact with each other')
+  @SerializationOrder(3)
   ProcessInterdependencyMatrix? interdependencyMatrix;
 
   /// Process performance summary.
   @Comment('High-level summary of process performance')
+  @SerializationOrder(4)
   ProcessPerformanceSummary? performanceSummary;
 
   /// 1.2.nn. Business Processes — contains 1+× Business Process.
   @SectionId('CUBIPR-PROC-LST')
   @SectionIdPattern('CUBIPR-PROC-xxx')
   @Min(1)
+  @SerializationOrder(5)
   List<CurrentBusinessProcess> processes = [];
 }
 
@@ -933,16 +1032,19 @@ class ProcessScopeSummary {
     Field('deferredProcesses', String, 'Deferred Processes',
         hint: 'Processes to be addressed in future phases'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Processes in scope.
   @SectionId('PRSCEN-INSC-LST')
   @SectionIdPattern('PRSCEN-INSC-xxx')
+  @SerializationOrder(1)
   List<ProcessScopeEntry> inScopeProcesses = [];
 
   /// Processes explicitly out of scope.
   @SectionId('PRSCEN-OUTO-LST')
   @SectionIdPattern('PRSCEN-OUTO-xxx')
+  @SerializationOrder(2)
   List<ProcessScopeEntry> outOfScopeProcesses = [];
 }
 
@@ -957,23 +1059,27 @@ class ProcessScopeEntry {
     Field('impactIfExcluded', String, 'Impact If Excluded'),
     Field('phase', String, 'Target Phase if deferred'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
 /// Process interdependency matrix showing how processes interact.
 @SectionId('PRINMA')
 class ProcessInterdependencyMatrix {
+  @SerializationOrder(0)
   String? content;
 
   /// Interdependency diagram.
   @ContentType('mermaid-flowchart', 'Visual matrix of process dependencies')
   @ContentHelp('Create a Mermaid flowchart showing process dependencies. '
       'Use edge labels to describe the data/artifact exchanged.')
+  @SerializationOrder(1)
   String? dependencyDiagram;
 
   /// Individual process dependencies.
   @SectionId('PRDEEN-DEPE-LST')
   @SectionIdPattern('PRDEEN-DEPE-xxx')
+  @SerializationOrder(2)
   List<ProcessDependencyEntry> dependencies = [];
 }
 
@@ -995,6 +1101,7 @@ class ProcessDependencyEntry {
         hint: 'Synchronous / Asynchronous / Batch'),
     Field('failureImpact', String, 'Impact if Dependency Fails'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1015,11 +1122,13 @@ class ProcessPerformanceSummary {
     Field('estimatedAnnualWaste', String, 'Estimated Annual Waste',
         hint: 'Cost of inefficiencies in time or money'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Key metrics summary.
   @SectionId('PME-KEYM-LST')
   @SectionIdPattern('PME-KEYM-xxx')
+  @SerializationOrder(1)
   List<ProcessMetricEntry> keyMetrics = [];
 }
 
@@ -1039,18 +1148,23 @@ class CurrentBusinessProcess {
     Field('processScope', String, 'Scope - organizational units involved'),
     Field('processMaturity', String, 'Maturity Level (e.g., Ad-hoc, Defined, Managed, Optimized)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Process context and purpose.
+  @SerializationOrder(1)
   ProcessContext processContext = ProcessContext();
 
   /// 1.2.nn.1. Workflow Descriptions — contains 1+× Workflow.
+  @SerializationOrder(2)
   WorkflowDescriptions workflowDescriptions = WorkflowDescriptions();
 
   /// 1.2.nn.2. Process Metrics.
+  @SerializationOrder(3)
   ProcessMetrics processMetrics = ProcessMetrics();
 
   /// Process pain points and improvement opportunities.
+  @SerializationOrder(4)
   ProcessPainPoints processPainPoints = ProcessPainPoints();
 }
 
@@ -1067,6 +1181,7 @@ class ProcessContext {
     Field('upstreamDependencies', String, 'Upstream Dependencies (processes that feed into this one)'),
     Field('downstreamConsumers', String, 'Downstream Consumers (processes that depend on this output)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1075,11 +1190,13 @@ class ProcessContext {
 class ProcessPainPoints {
   @ContentType('description', 'Known issues, inefficiencies, and improvement '
       'opportunities specific to this process.')
+  @SerializationOrder(0)
   String? content;
 
   /// Process improvement opportunities.
   @SectionId('CPIE-IMPR-LST')
   @SectionIdPattern('CPIE-IMPR-xxx')
+    @SerializationOrder(1)
     List<CurrentProcessImprovementEntry> improvements = [];
 }
 
@@ -1094,6 +1211,7 @@ class CurrentProcessImprovementEntry {
     Field('implementationEffort', String, 'Implementation Effort (Low/Medium/High)'),
     Field('priority', String, 'Priority (Must-have/Should-have/Nice-to-have)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1106,6 +1224,7 @@ class CurrentProcessImprovementEntry {
 /// subsection per current workflow relevant to the project.
 @SectionId('WODE')
 class WorkflowDescriptions {
+  @SerializationOrder(0)
   String? content;
 
   /// Workflow overview diagram.
@@ -1114,16 +1233,19 @@ class WorkflowDescriptions {
   @ContentHelp('Create a Mermaid flowchart showing how workflows within this '
       'process interact. Show the primary happy-path and exception branches. '
       'Include decision points and actor swim-lanes if helpful.')
+  @SerializationOrder(1)
   String? workflowOverviewDiagram;
 
   /// Workflow summary table.
   @Comment('Quick reference summary of all workflows')
+  @SerializationOrder(2)
   WorkflowSummaryTable? summaryTable;
 
   /// Individual workflow entries.
   @SectionId('CUWF-WORK-LST')
   @SectionIdPattern('CUWF-WORK-xxx')
   @Min(1)
+  @SerializationOrder(3)
   List<CurrentWorkflowEntry> workflows = [];
 }
 
@@ -1138,11 +1260,13 @@ class WorkflowSummaryTable {
     Field('automationPotential', String, 'Overall Automation Potential',
         hint: 'Low / Medium / High / Full'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Summary entries per workflow.
   @SectionId('WOSUEN-ENTR-LST')
   @SectionIdPattern('WOSUEN-ENTR-xxx')
+  @SerializationOrder(1)
   List<WorkflowSummaryEntry> entries = [];
 }
 
@@ -1160,6 +1284,7 @@ class WorkflowSummaryEntry {
     Field('primaryActors', String, 'Primary Actors'),
     Field('automationPotential', String, 'Automation Potential'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1180,6 +1305,7 @@ class CurrentWorkflowEntry {
     Field('averageVolume', String, 'Average Volume per period'),
     Field('criticality', String, 'Business Criticality'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Workflow diagram.
@@ -1188,57 +1314,69 @@ class CurrentWorkflowEntry {
   @ContentHelp('Create a Mermaid flowchart or sequence diagram showing the '
       'workflow steps in order. Include decision points with branch conditions. '
       'For multi-actor workflows, use swim-lanes (subgraphs) per actor.')
+  @SerializationOrder(1)
   String? workflowDiagram;
 
   /// Workflow triggers and initiation.
+  @SerializationOrder(2)
   WorkflowTriggers triggers = WorkflowTriggers();
 
   /// Workflow steps in sequence.
   @SectionId('WSE-STEP-LST')
   @SectionIdPattern('WSE-STEP-xxx')
+  @SerializationOrder(3)
   List<WorkflowStepEntry> steps = [];
 
   /// Workflow actors and responsibilities.
   @SectionId('WFAC-ACTO-LST')
   @SectionIdPattern('WFAC-ACTO-xxx')
+  @SerializationOrder(4)
   List<WorkflowActorEntry> actors = [];
 
   /// Workflow inputs.
   @SectionId('WOINEN-INPU-LST')
   @SectionIdPattern('WOINEN-INPU-xxx')
+  @SerializationOrder(5)
   List<WorkflowInputEntry> inputs = [];
 
   /// Workflow outputs.
   @SectionId('WOOUEN-OUTP-LST')
   @SectionIdPattern('WOOUEN-OUTP-xxx')
+  @SerializationOrder(6)
   List<WorkflowOutputEntry> outputs = [];
 
   /// Decision points within the workflow.
   @SectionId('WODEPO-DECI-LST')
   @SectionIdPattern('WODEPO-DECI-xxx')
+  @SerializationOrder(7)
   List<WorkflowDecisionPoint> decisionPoints = [];
 
   /// Business rules governing the workflow.
   @SectionId('WOBURU-BUSI-LST')
   @SectionIdPattern('WOBURU-BUSI-xxx')
+  @SerializationOrder(8)
   List<WorkflowBusinessRule> businessRules = [];
 
   /// Manual steps requiring human intervention.
   @SectionId('WSE-MANU-LST')
   @SectionIdPattern('WSE-MANU-xxx')
   @ContentHelp('Identify steps that cannot be automated or require human judgment.')
+  @SerializationOrder(9)
   List<WorkflowStepEntry> manualSteps = [];
 
   /// Error-prone steps with high failure rates.
   @SectionId('WSE-ERRO-LST')
   @SectionIdPattern('WSE-ERRO-xxx')
   @ContentHelp('Identify steps with known issues, high error rates, or workarounds.')
+  @SerializationOrder(10)
   List<WorkflowStepEntry> errorProneSteps = [];
 
   /// Workflow timing and performance.
+  @SerializationOrder(11)
   WorkflowTiming timing = WorkflowTiming();
 
   /// Workflow exceptions and error handling.
+  @SerializationOrder(12)
   WorkflowExceptions exceptions = WorkflowExceptions();
 }
 
@@ -1246,11 +1384,13 @@ class CurrentWorkflowEntry {
 @SectionId('WOTR')
 class WorkflowTriggers {
   @ContentType('description', 'Conditions that initiate this workflow.')
+  @SerializationOrder(0)
   String? content;
 
   /// Trigger entries.
   @SectionId('WOTREN-TRIG-LST')
   @SectionIdPattern('WOTREN-TRIG-xxx')
+  @SerializationOrder(1)
   List<WorkflowTriggerEntry> triggers = [];
 }
 
@@ -1264,6 +1404,7 @@ class WorkflowTriggerEntry {
     Field('triggerCondition', String, 'Condition - conditions that must be met'),
     Field('frequency', String, 'Frequency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1271,6 +1412,7 @@ class WorkflowTriggerEntry {
 @SectionId('WOSTSY')
 class WorkflowStepSystem {
   @ContentHelp('Name of the system used in this workflow step.')
+  @SerializationOrder(0)
   String? name;
 }
 
@@ -1291,31 +1433,37 @@ class WorkflowStepEntry {
     Field('isAutomatable', bool, 'Is Automatable'),
     Field('averageDuration', String, 'Average Duration'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Systems used in this step.
   @SectionId('WOSTSY-SYST-LST')
   @SectionIdPattern('WOSTSY-SYST-xxx')
+  @SerializationOrder(1)
   List<WorkflowStepSystem> systemsUsed = [];
 
   /// Step inputs.
   @SectionId('WOINEN-INPU-LST')
   @SectionIdPattern('WOINEN-INPU-xxx')
+  @SerializationOrder(2)
   List<WorkflowInputEntry> inputs = [];
 
   /// Step outputs.
   @SectionId('WOOUEN-OUTP-LST')
   @SectionIdPattern('WOOUEN-OUTP-xxx')
+  @SerializationOrder(3)
   List<WorkflowOutputEntry> outputs = [];
 
   /// Step-specific business rules.
   @SectionId('WOBURU-BUSI-LST')
   @SectionIdPattern('WOBURU-BUSI-xxx')
+  @SerializationOrder(4)
   List<WorkflowBusinessRule> businessRules = [];
 
   /// Known issues with this step.
   @SectionId('WOSTIS-KNOW-LST')
   @SectionIdPattern('WOSTIS-KNOW-xxx')
+  @SerializationOrder(5)
   List<WorkflowStepIssue> knownIssues = [];
 }
 
@@ -1329,6 +1477,7 @@ class WorkflowStepIssue {
     Field('impact', String, 'Business Impact'),
     Field('currentWorkaround', String, 'Current Workaround'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1349,10 +1498,12 @@ class WorkflowActorEntry {
     Field('skillRequirements', String, 'Skill Requirements'),
     Field('headcount', int, 'Headcount (number of people in this role)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Steps this actor participates in.
   @Reference('Participating Steps')
+  @SerializationOrder(1)
   List<WorkflowStepEntry> participatingSteps = [];
 }
 
@@ -1367,6 +1518,7 @@ class WorkflowInputEntry {
     Field('isRequired', bool, 'Is Required'),
     Field('validationRules', String, 'Validation Rules'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1380,6 +1532,7 @@ class WorkflowOutputEntry {
     Field('format', String, 'Format'),
     Field('retentionRequirements', String, 'Retention Requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1394,6 +1547,7 @@ class WorkflowDecisionPoint {
     Field('escalationPath', String, 'Escalation Path'),
     Field('slaForDecision', String, 'SLA for Decision'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1407,6 +1561,7 @@ class WorkflowBusinessRule {
     Field('ruleSource', String, 'Source (e.g., Policy, Regulation, SOP)'),
     Field('exceptions', String, 'Exceptions - when this rule does not apply'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1422,6 +1577,7 @@ class WorkflowTiming {
     Field('peakPeriods', String, 'Peak Periods (times of highest volume)'),
     Field('bottlenecks', String, 'Bottlenecks (steps causing delays)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1429,11 +1585,13 @@ class WorkflowTiming {
 @SectionId('WOEX')
 class WorkflowExceptions {
   @ContentType('description', 'How exceptions are handled in this workflow.')
+  @SerializationOrder(0)
   String? content;
 
   /// Exception entries.
   @SectionId('WOEXEN-EXCE-LST')
   @SectionIdPattern('WOEXEN-EXCE-xxx')
+  @SerializationOrder(1)
   List<WorkflowExceptionEntry> exceptions = [];
 }
 
@@ -1448,6 +1606,7 @@ class WorkflowExceptionEntry {
     Field('escalationPath', String, 'Escalation Path'),
     Field('recoveryTime', String, 'Recovery Time'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1463,49 +1622,58 @@ class ProcessMetrics {
   @ContentType('description', 'Overview of process metrics and measurement approach.')
   @ContentHelp('Describe the overall approach to measuring process performance. '
       'Include data collection methods, measurement periods, and data quality notes.')
+  @SerializationOrder(0)
   String? content;
 
   /// Metrics dashboard summary.
   @Comment('Executive summary of key metrics')
+  @SerializationOrder(1)
   MetricsDashboardSummary? dashboardSummary;
 
   /// Efficiency metrics.
   @SectionId('PRMECA-EFFI-LST')
   @SectionIdPattern('PRMECA-EFFI-xxx')
   @Comment('Throughput, cycle times, utilization')
+  @SerializationOrder(2)
   List<ProcessMetricCategory> efficiencyMetrics = [];
 
   /// Quality metrics.
   @SectionId('PRMECA-QUAL-LST')
   @SectionIdPattern('PRMECA-QUAL-xxx')
   @Comment('Error rates, defect rates, rework rates')
+  @SerializationOrder(3)
   List<ProcessMetricCategory> qualityMetrics = [];
 
   /// Volume metrics.
   @SectionId('PRMECA-VOLU-LST')
   @SectionIdPattern('PRMECA-VOLU-xxx')
   @Comment('Transaction counts, throughput volumes')
+  @SerializationOrder(4)
   List<ProcessMetricCategory> volumeMetrics = [];
 
   /// Cost metrics.
   @SectionId('PRMECA-COST-LST')
   @SectionIdPattern('PRMECA-COST-xxx')
   @Comment('Cost per transaction, resource costs')
+  @SerializationOrder(5)
   List<ProcessMetricCategory> costMetrics = [];
 
   /// Manual intervention metrics.
   @SectionId('PRMECA-MANU-LST')
   @SectionIdPattern('PRMECA-MANU-xxx')
   @Comment('Manual steps, human intervention frequency')
+  @SerializationOrder(6)
   List<ProcessMetricCategory> manualInterventionMetrics = [];
 
   /// Individual metric entries.
   @SectionId('PME-ITEM-LST')
   @SectionIdPattern('PME-ITEM-xxx')
+  @SerializationOrder(7)
   List<ProcessMetricEntry> items = [];
 
   /// Baseline comparison table.
   @Comment('Summary table for baseline tracking')
+  @SerializationOrder(8)
   MetricsBaselineTable? baselineTable;
 }
 
@@ -1534,6 +1702,7 @@ class MetricsDashboardSummary {
     Field('trendSummary', String, 'Overall Trend',
         hint: 'Improving / Stable / Declining'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1543,11 +1712,13 @@ class MetricsBaselineTable {
   @ContentType('description', 'Baseline tracking approach and comparison periods.')
   @ContentHelp('Document how baseline metrics will be used to measure improvement. '
       'Include comparison periods and target improvement percentages.')
+  @SerializationOrder(0)
   String? content;
 
   /// Baseline entries.
   @SectionId('MEBAEN-ENTR-LST')
   @SectionIdPattern('MEBAEN-ENTR-xxx')
+  @SerializationOrder(1)
   List<MetricsBaselineEntry> entries = [];
 }
 
@@ -1565,6 +1736,7 @@ class MetricsBaselineEntry {
     Field('trackingFrequency', String, 'Tracking Frequency',
         hint: 'How often this metric will be re-measured'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1572,11 +1744,13 @@ class MetricsBaselineEntry {
 @SectionId('PRMECA')
 class ProcessMetricCategory {
   @ContentType('description', 'Category-level summary of metrics.')
+  @SerializationOrder(0)
   String? content;
 
   /// Metrics in this category.
   @SectionId('PME-METR-LST')
   @SectionIdPattern('PME-METR-xxx')
+  @SerializationOrder(1)
   List<ProcessMetricEntry> metrics = [];
 }
 
@@ -1594,15 +1768,19 @@ class ProcessMetricEntry {
     Field('currentValue', String, 'Current Value'),
     Field('unit', String, 'Unit'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Measurement collection details.
+    @SerializationOrder(1)
     ProcessMetricEntryMeasurement measurement = ProcessMetricEntryMeasurement();
 
     /// Target setting and benchmarking context.
+    @SerializationOrder(2)
     ProcessMetricEntryTargets targets = ProcessMetricEntryTargets();
 
   @Reference('Process Reference')
+  @SerializationOrder(3)
   CurrentBusinessProcess? processReference;
 }
 
@@ -1614,6 +1792,7 @@ class ProcessMetricEntryMeasurement {
         Field('dataSource', String, 'Data Source'),
         Field('frequency', String, 'Measurement Frequency'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1625,6 +1804,7 @@ class ProcessMetricEntryTargets {
         Field('trend', String, 'Trend (Improving, Stable, Declining)'),
         Field('benchmark', String, 'Industry Benchmark'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1646,35 +1826,44 @@ Executive overview of pain points and gaps in the current state.
 Summarize the most critical issues affecting operations, business outcomes,
 and technical capabilities. Highlight interdependencies between pain points.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Visual mapping of pain points and their relationships.
   @ContentType('mermaid-flowchart', 'Diagram showing pain point categories, '
       'relationships, and impact flow between operational, business, '
       'and technical pain points')
+  @SerializationOrder(1)
   String? painPointsOverviewDiagram;
 
   /// Pain points priority matrix (urgency vs impact).
   @ContentType('mermaid', 'Quadrant chart mapping pain points by urgency and '
       'impact dimensions to guide prioritization decisions')
+  @SerializationOrder(2)
   String? painPointsPriorityMatrix;
 
   /// Summary statistics for all pain points.
+  @SerializationOrder(3)
   PainPointsSummary painPointsSummary = PainPointsSummary();
 
   /// 1.3.1. Operational Pain Points.
+  @SerializationOrder(4)
   OperationalPainPoints operationalPainPoints = OperationalPainPoints();
 
   /// 1.3.2. Business Pain Points.
+  @SerializationOrder(5)
   BusinessPainPoints businessPainPoints = BusinessPainPoints();
 
   /// 1.3.3. Technical Pain Points.
+  @SerializationOrder(6)
   TechnicalPainPoints technicalPainPoints = TechnicalPainPoints();
 
   /// 1.3.4. Gaps.
+  @SerializationOrder(7)
   Gaps gaps = Gaps();
 
   /// Cross-reference between pain points and gaps.
+  @SerializationOrder(8)
   PainPointGapCorrelation painPointGapCorrelation = PainPointGapCorrelation();
 }
 
@@ -1703,6 +1892,7 @@ class PainPointsSummary {
     Field('averageResolutionComplexity', String, 'Average Resolution Complexity',
         hint: 'Low / Medium / High / Very High'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1717,14 +1907,17 @@ Overview of operational pain points affecting day-to-day activities.
 Include patterns of recurring issues, seasonal variations, and dependencies
 on specific systems or personnel.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Category-level summary for operational pain points.
+  @SerializationOrder(1)
   OperationalPainPointsSummary categorySummary = OperationalPainPointsSummary();
 
   /// Contains 0+× PainPoint.
   @SectionId('OPPAPO-ITEM-LST')
   @SectionIdPattern('OPPAPO-ITEM-xxx')
+  @SerializationOrder(2)
   List<PainPointEntry> items = [];
 }
 
@@ -1743,6 +1936,7 @@ class OperationalPainPointsSummary {
     Field('staffOverhead', String, 'Staff Overhead for Workarounds',
         hint: 'FTE hours spent on operational workarounds, e.g. 40 hours/week'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1757,14 +1951,17 @@ Overview of business pain points affecting strategic outcomes and growth.
 Include revenue impact, compliance exposure, customer retention effects,
 and competitive positioning concerns.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Category-level summary for business pain points.
+  @SerializationOrder(1)
   BusinessPainPointsSummary categorySummary = BusinessPainPointsSummary();
 
   /// Contains 0+× PainPoint.
   @SectionId('BUPAPO-ITEM-LST')
   @SectionIdPattern('BUPAPO-ITEM-xxx')
+  @SerializationOrder(2)
   List<PainPointEntry> items = [];
 }
 
@@ -1785,6 +1982,7 @@ class BusinessPainPointsSummary {
     Field('scalabilityConstraints', String, 'Scalability Constraints',
         hint: 'Growth limitations, e.g. Cannot support >10k concurrent users'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1800,14 +1998,17 @@ Overview of technical pain points affecting system development, maintenance,
 and evolution. Include technology obsolescence risks, security posture,
 integration complexity, and team capability constraints.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Category-level summary for technical pain points.
+  @SerializationOrder(1)
   TechnicalPainPointsSummary categorySummary = TechnicalPainPointsSummary();
 
   /// Contains 0+× PainPoint.
   @SectionId('TEPAPO-ITEM-LST')
   @SectionIdPattern('TEPAPO-ITEM-xxx')
+  @SerializationOrder(2)
   List<PainPointEntry> items = [];
 }
 
@@ -1830,6 +2031,7 @@ class TechnicalPainPointsSummary {
     Field('integrationComplexityScore', String, 'Integration Complexity Score',
         hint: 'Overall integration complexity, e.g. High (47 point-to-point integrations)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1848,29 +2050,37 @@ class PainPointEntry {
     Field('severity', String, 'Severity',
         hint: 'Critical / High / Medium / Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Classification.
+  @SerializationOrder(1)
   PainPointClassification classification = PainPointClassification();
 
   /// Root cause analysis.
+  @SerializationOrder(2)
   PainPointRootCause rootCause = PainPointRootCause();
 
   /// Impact assessment.
+  @SerializationOrder(3)
   PainPointImpact impact = PainPointImpact();
 
   /// Evidence and validation.
+  @SerializationOrder(4)
   PainPointEvidence evidence = PainPointEvidence();
 
   /// Current state and workarounds.
+  @SerializationOrder(5)
   PainPointWorkaround workaround = PainPointWorkaround();
 
   /// Resolution planning.
+  @SerializationOrder(6)
   PainPointResolution resolution = PainPointResolution();
 
   /// Relationships.
   @SectionId('PAPOR1-RELA-LST')
   @SectionIdPattern('PAPOR1-RELA-xxx')
+  @SerializationOrder(7)
   List<PainPointRelationships> relationships = [];
 }
 
@@ -1889,6 +2099,7 @@ class PainPointClassification {
     Field('priority', String, 'Resolution Priority',
         hint: 'P1-Critical / P2-High / P3-Medium / P4-Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1903,6 +2114,7 @@ class PainPointRootCause {
     Field('contributingFactors', String, 'Contributing Factors',
         hint: 'Additional factors that exacerbate the problem'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1927,6 +2139,7 @@ class PainPointImpact {
     Field('productivityLoss', String, 'Productivity Loss',
         hint: 'Time lost per occurrence, e.g. 30 min/occurrence'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1945,6 +2158,7 @@ class PainPointEvidence {
     Field('incidentReferences', String, 'Related Incidents',
         hint: 'References to specific incidents'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1961,6 +2175,7 @@ class PainPointWorkaround {
     Field('riskIfNotAddressed', String, 'Risk if Not Addressed',
         hint: 'Consequences of leaving the pain point unresolved'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1979,6 +2194,7 @@ class PainPointResolution {
     Field('successCriteria', String, 'Success Criteria',
         hint: 'How to measure that the pain point is resolved'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1993,6 +2209,7 @@ class PainPointRelationships {
     Field('dependsOn', String, 'Depends On',
         hint: 'Other pain points that must be resolved first'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2004,17 +2221,20 @@ Analysis of relationships between documented pain points and capability gaps.
 Shows which gaps cause which pain points, and which pain points indicate
 underlying gaps that may not be explicitly documented.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Visual correlation between pain points and gaps.
   @ContentType('mermaid', 'Diagram showing cause-effect relationships '
       'between capability gaps and resulting pain points')
+  @SerializationOrder(1)
   String? correlationDiagram;
 
   /// Tabular correlation data.
   @Min(1)
   @SectionId('PPGCE-CORR-LST')
   @SectionIdPattern('PPGCE-CORR-xxx')
+  @SerializationOrder(2)
   List<PainPointGapCorrelationEntry> correlationEntries = [];
 }
 
@@ -2033,6 +2253,7 @@ class PainPointGapCorrelationEntry {
     Field('notes', String, 'Notes',
         hint: 'Additional context on the relationship'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2040,11 +2261,13 @@ class PainPointGapCorrelationEntry {
 @SectionId('GAPS')
 class Gaps {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Gap.
   @SectionId('GAPE-ITEM-LST')
   @SectionIdPattern('GAPE-ITEM-xxx')
+  @SerializationOrder(1)
   List<GapEntry> items = [];
 }
 
@@ -2063,18 +2286,23 @@ class GapEntry {
     Field('severity', String, 'Severity',
         hint: 'Critical / High / Medium / Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Gap description and business impact.
+  @SerializationOrder(1)
   GapEntryDescription description = GapEntryDescription();
 
   /// Discovery and validation.
+  @SerializationOrder(2)
   GapEntryDiscovery discovery = GapEntryDiscovery();
 
   /// Current workarounds.
+  @SerializationOrder(3)
   GapEntryWorkaround workaround = GapEntryWorkaround();
 
   /// Resolution planning.
+  @SerializationOrder(4)
   GapEntryResolution resolution = GapEntryResolution();
 }
 
@@ -2095,6 +2323,7 @@ class GapEntryDescription {
     Field('affectedStakeholders', String, 'Affected Stakeholders',
         hint: 'Roles, departments, or external parties impacted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2113,6 +2342,7 @@ class GapEntryDiscovery {
     Field('relatedPainPoints', String, 'Related Pain Points',
         hint: 'References to pain point entries that stem from this gap'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2127,6 +2357,7 @@ class GapEntryWorkaround {
     Field('riskIfNotAddressed', String, 'Risk if Not Addressed',
         hint: 'Consequences and risk level if gap remains unresolved'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2143,6 +2374,7 @@ class GapEntryResolution {
     Field('dependsOnGaps', String, 'Depends on Other Gaps',
         hint: 'Other gaps that must be resolved first, by name or ID'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2164,49 +2396,63 @@ Executive overview of the current data landscape. Summarize the overall data
 situation, key data assets, major challenges, and strategic importance of data
 to the organization. Highlight critical data dependencies and risks.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Visual representation of the data landscape.
   @ContentType('mermaid-flowchart', 'High-level diagram showing data domains, '
       'major data stores, data flows, and integration points')
+  @SerializationOrder(1)
   String? dataLandscapeOverviewDiagram;
 
   /// Data architecture summary diagram.
   @ContentType('mermaid', 'ER-style or architectural diagram showing '
       'relationships between major data entities and systems')
+  @SerializationOrder(2)
   String? dataArchitectureDiagram;
 
   /// Summary statistics and health indicators.
+  @SerializationOrder(3)
   DataLandscapeSummary dataLandscapeSummary = DataLandscapeSummary();
 
   /// 1.4.1. Data Source Inventory.
+  @SerializationOrder(4)
   DataSourceInventory dataSourceInventory = DataSourceInventory();
 
   /// 1.4.2. Data Quality Assessment.
+  @SerializationOrder(5)
   DataQualityAssessment dataQualityAssessment = DataQualityAssessment();
 
   /// 1.4.3. Data Duplication Analysis.
+  @SerializationOrder(6)
   DataDuplicationAnalysis dataDuplicationAnalysis = DataDuplicationAnalysis();
 
   /// 1.4.4. Data Ownership and Stewardship.
+  @SerializationOrder(7)
   DataOwnership dataOwnership = DataOwnership();
 
   /// 1.4.5. Data Volumes and Growth.
+  @SerializationOrder(8)
   DataVolumesAndGrowth dataVolumesAndGrowth = DataVolumesAndGrowth();
 
   /// 1.4.6. Retention Policies.
+  @SerializationOrder(9)
   DataRetentionPolicies retentionPolicies = DataRetentionPolicies();
 
   /// 1.4.7. Data Governance.
+  @SerializationOrder(10)
   DataGovernance dataGovernance = DataGovernance();
 
   /// 1.4.8. Data Classification.
+    @SerializationOrder(11)
     CurrentDataClassification dataClassification = CurrentDataClassification();
 
   /// 1.4.9. Data Integration Points.
+  @SerializationOrder(12)
   DataIntegrationPoints dataIntegrationPoints = DataIntegrationPoints();
 
   /// 1.4.10. Master Data Management.
+  @SerializationOrder(13)
   MasterDataManagement masterDataManagement = MasterDataManagement();
 }
 
@@ -2235,6 +2481,7 @@ class DataLandscapeSummary {
     Field('dataDocumentationCoverage', String, 'Documentation Coverage',
         hint: 'Percentage of data assets with adequate documentation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2248,16 +2495,19 @@ class DataSourceInventory {
 Overview of the data source inventory. Describe the methodology used to
 catalog data sources, coverage of the inventory, and any known gaps.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Visual map of data sources by domain/category.
   @ContentType('mermaid', 'Diagram showing data sources grouped by '
       'business domain or technical category')
+  @SerializationOrder(1)
   String? dataSourceMapDiagram;
 
   /// Contains 0+× DataSource.
   @SectionId('DASR-DATA-LST')
   @SectionIdPattern('DASR-DATA-xxx')
+  @SerializationOrder(2)
   List<DataSourceEntry> dataSources = [];
 }
 
@@ -2275,36 +2525,46 @@ class DataSourceEntry {
     Field('criticality', String, 'Business Criticality',
         hint: 'Critical / High / Medium / Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Classification.
+  @SerializationOrder(1)
   DataSourceClassification classification = DataSourceClassification();
 
   /// Technical details.
+  @SerializationOrder(2)
   DataSourceTechnical technical = DataSourceTechnical();
 
   /// Volume and performance.
+  @SerializationOrder(3)
   DataSourceVolume volume = DataSourceVolume();
 
   /// Quality and reliability.
+  @SerializationOrder(4)
   DataSourceQuality quality = DataSourceQuality();
 
   /// Ownership and governance.
+  @SerializationOrder(5)
   DataSourceOwnership ownership = DataSourceOwnership();
 
   /// Integration.
+  @SerializationOrder(6)
   DataSourceIntegration integration = DataSourceIntegration();
 
   /// Lifecycle.
+  @SerializationOrder(7)
   DataSourceLifecycle lifecycle = DataSourceLifecycle();
 
   /// Retention Policy for this data source.
+  @SerializationOrder(8)
   DataSourceRetentionPolicy retentionPolicy = DataSourceRetentionPolicy();
 
   /// Key data entities in this source.
   @Min(1)
   @SectionId('DSEE-KEYE-LST')
   @SectionIdPattern('DSEE-KEYE-xxx')
+    @SerializationOrder(9)
     List<DataSourceEntityEntry> keyEntities = [];
 }
 
@@ -2319,6 +2579,7 @@ class DataSourceClassification {
     Field('businessDomain', String, 'Business Domain',
         hint: 'E.g. Sales, Finance, HR, Operations, Customer'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2337,6 +2598,7 @@ class DataSourceTechnical {
     Field('dataFormat', String, 'Data Format',
         hint: 'Relational / Document / Key-Value / CSV / JSON / XML'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2355,6 +2617,7 @@ class DataSourceVolume {
     Field('peakLoadPeriods', String, 'Peak Load Periods',
         hint: 'When the source experiences highest load'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2371,6 +2634,7 @@ class DataSourceQuality {
     Field('reliabilityScore', String, 'Reliability Score',
         hint: 'Uptime/reliability, e.g. 99.5%'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2389,6 +2653,7 @@ class DataSourceOwnership {
     Field('sensitivityLevel', String, 'Data Sensitivity Level',
         hint: 'Public / Internal / Confidential / Restricted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2403,6 +2668,7 @@ class DataSourceIntegration {
     Field('downstreamConsumers', String, 'Downstream Consumers',
         hint: 'Systems that consume data from this source'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2421,6 +2687,7 @@ class DataSourceLifecycle {
     Field('schemaDocumentationLink', String, 'Schema Documentation Link',
         hint: 'Link to detailed schema documentation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2439,6 +2706,7 @@ class DataSourceRetentionPolicy {
     Field('complianceNotes', String, 'Compliance Notes',
         hint: 'Additional compliance considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2459,6 +2727,7 @@ class DataSourceEntityEntry {
     Field('sensitiveFields', String, 'Sensitive Fields',
         hint: 'Fields containing sensitive data'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2472,26 +2741,31 @@ class DataQualityAssessment {
 Overview of data quality across the organization. Describe the assessment
 methodology, scope, key findings, and overall data quality posture.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Data quality dimensions summary.
+  @SerializationOrder(1)
   DataQualityDimensionsSummary dimensionsSummary =
       DataQualityDimensionsSummary();
 
   /// Quality issues by severity.
   @ContentType('mermaid', 'Chart showing distribution of quality issues '
       'by severity level')
+  @SerializationOrder(2)
   String? qualityIssuesSeverityChart;
 
   /// Data quality issues inventory.
   @SectionId('DAQLIS-QUAL-LST')
   @SectionIdPattern('DAQLIS-QUAL-xxx')
   @Min(1)
+  @SerializationOrder(3)
   List<DataQualityIssueEntry> qualityIssues = [];
 
   /// Quality improvement initiatives in progress.
   @SectionId('DQIE-IMPR-LST')
   @SectionIdPattern('DQIE-IMPR-xxx')
+  @SerializationOrder(4)
   List<DataQualityInitiativeEntry> improvementInitiatives = [];
 }
 
@@ -2520,6 +2794,7 @@ class DataQualityDimensionsSummary {
     Field('assessmentMethodology', String, 'Assessment Methodology',
         hint: 'How the assessment was conducted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2536,16 +2811,20 @@ class DataQualityIssueEntry {
     Field('affectedDataSource', String, 'Affected Data Source',
         hint: 'Which data source(s) are impacted'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Classification and severity.
+  @SerializationOrder(1)
   DataQualityIssueEntryClassification classification =
       DataQualityIssueEntryClassification();
 
   /// Business impact and diagnostics.
+  @SerializationOrder(2)
   DataQualityIssueEntryImpact impact = DataQualityIssueEntryImpact();
 
   /// Resolution planning.
+  @SerializationOrder(3)
   DataQualityIssueEntryResolution resolution =
       DataQualityIssueEntryResolution();
 }
@@ -2561,6 +2840,7 @@ class DataQualityIssueEntryClassification {
     Field('severity', String, 'Severity',
         hint: 'Critical / High / Medium / Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2579,6 +2859,7 @@ class DataQualityIssueEntryImpact {
     Field('dateIdentified', String, 'Date Identified',
         hint: 'When the issue was discovered'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2593,6 +2874,7 @@ class DataQualityIssueEntryResolution {
     Field('resolutionPriority', String, 'Resolution Priority',
         hint: 'P1 / P2 / P3 / P4'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2615,6 +2897,7 @@ class DataQualityInitiativeEntry {
     Field('expectedImprovement', String, 'Expected Improvement',
         hint: 'Quantified improvement target'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2628,19 +2911,23 @@ class DataDuplicationAnalysis {
 Overview of data duplication across the organization. Describe the extent
 of duplication, its causes, impacts, and any ongoing deduplication efforts.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Duplication analysis summary.
+  @SerializationOrder(1)
   DataDuplicationSummary duplicationSummary = DataDuplicationSummary();
 
   /// Visual representation of data redundancy.
   @ContentType('mermaid', 'Diagram showing overlapping data stores and '
       'duplicate data flows')
+  @SerializationOrder(2)
   String? duplicationDiagram;
 
   /// Individual duplication instances.
   @SectionId('DADU-DUPL-LST')
   @SectionIdPattern('DADU-DUPL-xxx')
+  @SerializationOrder(3)
   List<DataDuplicationEntry> duplicationInstances = [];
 }
 
@@ -2665,6 +2952,7 @@ class DataDuplicationSummary {
     Field('deduplicationPriority', String, 'Deduplication Priority',
         hint: 'Organizational priority for deduplication efforts'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2679,16 +2967,20 @@ class DataDuplicationEntry {
     Field('dataElement', String, 'Data Element',
         hint: 'What data is duplicated'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Sources and duplication shape.
+  @SerializationOrder(1)
   DataDuplicationEntrySources sources = DataDuplicationEntrySources();
 
   /// Synchronization and consistency details.
+  @SerializationOrder(2)
   DataDuplicationEntrySynchronization synchronization =
       DataDuplicationEntrySynchronization();
 
   /// Business impact and resolution guidance.
+  @SerializationOrder(3)
   DataDuplicationEntryGovernance governance =
       DataDuplicationEntryGovernance();
 }
@@ -2704,6 +2996,7 @@ class DataDuplicationEntrySources {
     Field('duplicationType', String, 'Duplication Type',
         hint: 'FullCopy / PartialCopy / Denormalized / CachedCopy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2718,6 +3011,7 @@ class DataDuplicationEntrySynchronization {
     Field('knownInconsistencies', String, 'Known Inconsistencies',
         hint: 'Documented cases of data drift between copies'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2734,6 +3028,7 @@ class DataDuplicationEntryGovernance {
     Field('recommendedAction', String, 'Recommended Action',
         hint: 'Proposed resolution'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2747,20 +3042,24 @@ class DataOwnership {
 Overview of data ownership and stewardship across the organization. Describe
 the ownership model, roles and responsibilities, and any gaps in accountability.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Ownership model summary.
+  @SerializationOrder(1)
   DataOwnershipSummary ownershipSummary = DataOwnershipSummary();
 
   /// Data ownership matrix visualization.
   @ContentType('mermaid', 'Matrix or diagram showing data domains and '
       'their owners/stewards')
+  @SerializationOrder(2)
   String? ownershipMatrixDiagram;
 
   /// Data ownership assignments by domain.
   @Min(1)
   @SectionId('DAOWEN-OWNE-LST')
   @SectionIdPattern('DAOWEN-OWNE-xxx')
+  @SerializationOrder(3)
   List<DataOwnershipEntry> ownershipAssignments = [];
 }
 
@@ -2785,6 +3084,7 @@ class DataOwnershipSummary {
     Field('escalationProcess', String, 'Escalation Process',
         hint: 'Whether clear escalation paths exist'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2801,12 +3101,15 @@ class DataOwnershipEntry {
     Field('businessOwnerRole', String, 'Owner Role',
         hint: 'Job title/role of the business owner'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Stewardship and custodianship assignments.
+  @SerializationOrder(1)
   DataOwnershipEntryStewardship stewardship = DataOwnershipEntryStewardship();
 
   /// Access and coverage governance.
+  @SerializationOrder(2)
   DataOwnershipEntryGovernance governance = DataOwnershipEntryGovernance();
 }
 
@@ -2823,6 +3126,7 @@ class DataOwnershipEntryStewardship {
     Field('qualityAccountable', String, 'Quality Accountable',
         hint: 'Who is accountable for data quality'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2837,6 +3141,7 @@ class DataOwnershipEntryGovernance {
     Field('lastReviewDate', String, 'Last Review Date',
         hint: 'When ownership was last reviewed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2851,20 +3156,24 @@ Overview of data volumes and growth patterns across the organization.
 Describe current total volumes, growth trends, capacity constraints,
 and forecasting methodology.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Volume and growth summary.
+  @SerializationOrder(1)
   DataVolumeSummary volumeSummary = DataVolumeSummary();
 
   /// Growth trend visualization.
   @ContentType('mermaid', 'Chart showing historical data growth and '
       'projected future volumes')
+  @SerializationOrder(2)
   String? growthTrendChart;
 
   /// Volume details by data source.
   @Min(1)
   @SectionId('DAVOEN-VOLU-LST')
   @SectionIdPattern('DAVOEN-VOLU-xxx')
+  @SerializationOrder(3)
   List<DataVolumeEntry> volumeBySource = [];
 }
 
@@ -2879,15 +3188,19 @@ class DataVolumeSummary {
     Field('unstructuredDataVolume', String, 'Unstructured Data Volume',
         hint: 'Volume of unstructured data'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Historical growth behavior.
+  @SerializationOrder(1)
   DataVolumeSummaryGrowth growth = DataVolumeSummaryGrowth();
 
   /// Forward-looking forecasts and utilization.
+  @SerializationOrder(2)
   DataVolumeSummaryProjection projection = DataVolumeSummaryProjection();
 
   /// Capacity pressure and cost impact.
+  @SerializationOrder(3)
   DataVolumeSummaryCapacity capacity = DataVolumeSummaryCapacity();
 }
 
@@ -2902,6 +3215,7 @@ class DataVolumeSummaryGrowth {
     Field('peakGrowthPeriods', String, 'Peak Growth Periods',
         hint: 'When data grows fastest, e.g. Q4, month-end'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2916,6 +3230,7 @@ class DataVolumeSummaryProjection {
     Field('capacityUtilization', String, 'Current Capacity Utilization',
         hint: 'Percentage of storage capacity used, e.g. 72%'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2930,6 +3245,7 @@ class DataVolumeSummaryCapacity {
     Field('costGrowthProjection', String, 'Cost Growth Projection',
         hint: 'Expected storage cost growth'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2956,6 +3272,7 @@ class DataVolumeEntry {
     Field('purgeRate', String, 'Purge Rate',
         hint: 'How much data is deleted periodically'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2969,15 +3286,18 @@ class DataRetentionPolicies {
 Overview of data retention policies and lifecycle management. Describe the
 policy framework, regulatory drivers, implementation status, and any gaps.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Retention policy summary.
+  @SerializationOrder(1)
   RetentionPolicySummary policySummary = RetentionPolicySummary();
 
   /// Retention policies by data category.
   @SectionId('REPOL-RETE-LST')
   @SectionIdPattern('REPOL-RETE-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<RetentionPolicyEntry> retentionPolicies = [];
 }
 
@@ -3004,6 +3324,7 @@ class RetentionPolicySummary {
     Field('lastPolicyReview', String, 'Last Policy Review',
         hint: 'When retention policies were last reviewed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3018,16 +3339,20 @@ class RetentionPolicyEntry {
     Field('appliesTo', String, 'Applies To',
         hint: 'Specific data sources or entities'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Retention timing and legal basis.
+  @SerializationOrder(1)
   RetentionPolicyEntryRequirements requirements =
       RetentionPolicyEntryRequirements();
 
   /// Archival and deletion lifecycle handling.
+  @SerializationOrder(2)
   RetentionPolicyEntryLifecycle lifecycle = RetentionPolicyEntryLifecycle();
 
   /// Compliance and accountability status.
+  @SerializationOrder(3)
   RetentionPolicyEntryGovernance governance = RetentionPolicyEntryGovernance();
 }
 
@@ -3042,6 +3367,7 @@ class RetentionPolicyEntryRequirements {
     Field('legalBasis', String, 'Legal Basis',
         hint: 'Regulation or law requiring this retention'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3056,6 +3382,7 @@ class RetentionPolicyEntryLifecycle {
     Field('exceptionProcess', String, 'Exception Process',
         hint: 'How exceptions to the policy are handled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3070,6 +3397,7 @@ class RetentionPolicyEntryGovernance {
     Field('responsibleParty', String, 'Responsible Party',
         hint: 'Who is responsible for enforcing this policy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3082,20 +3410,24 @@ class DataGovernance {
 Overview of data governance in the organization. Describe the governance
 framework, organizational structure, policies, and current maturity level.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Governance maturity assessment.
+  @SerializationOrder(1)
   DataGovernanceMaturity governanceMaturity = DataGovernanceMaturity();
 
   /// Governance organization structure.
   @ContentType('mermaid', 'Organizational chart showing data governance '
       'roles and reporting structure')
+  @SerializationOrder(2)
   String? governanceOrgChart;
 
   /// Data governance policies.
   @Min(1)
   @SectionId('DGPE-GOVE-LST')
   @SectionIdPattern('DGPE-GOVE-xxx')
+  @SerializationOrder(3)
   List<DataGovernancePolicyEntry> governancePolicies = [];
 }
 
@@ -3124,6 +3456,7 @@ class DataGovernanceMaturity {
     Field('maturityGaps', String, 'Key Maturity Gaps',
         hint: 'Areas needing most improvement'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3140,13 +3473,16 @@ class DataGovernancePolicyEntry {
     Field('description', String, 'Description',
         hint: 'Brief description of the policy'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Policy lifecycle and applicability.
+  @SerializationOrder(1)
   DataGovernancePolicyEntryLifecycle lifecycle =
       DataGovernancePolicyEntryLifecycle();
 
   /// Ownership, enforcement, and compliance status.
+  @SerializationOrder(2)
   DataGovernancePolicyEntryGovernance governance =
       DataGovernancePolicyEntryGovernance();
 }
@@ -3164,6 +3500,7 @@ class DataGovernancePolicyEntryLifecycle {
     Field('reviewFrequency', String, 'Review Frequency',
         hint: 'How often the policy is reviewed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3178,6 +3515,7 @@ class DataGovernancePolicyEntryGovernance {
     Field('complianceLevel', String, 'Compliance Level',
         hint: 'Current compliance with this policy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3192,9 +3530,11 @@ Overview of data classification in the organization. Describe the classification
 framework, sensitivity levels, handling requirements, and current classification
 coverage.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Classification framework summary.
+  @SerializationOrder(1)
   DataClassificationSummary classificationSummary =
       DataClassificationSummary();
 
@@ -3202,11 +3542,13 @@ coverage.
   @Min(1)
   @SectionId('DCLE-CLAS-LST')
   @SectionIdPattern('DCLE-CLAS-xxx')
+  @SerializationOrder(2)
   List<DataClassificationLevelEntry> classificationLevels = [];
 
   /// Classification status by data domain.
   @SectionId('DCSE-CLAS-LST')
   @SectionIdPattern('DCSE-CLAS-xxx')
+  @SerializationOrder(3)
   List<DataClassificationStatusEntry> classificationStatus = [];
 }
 
@@ -3233,6 +3575,7 @@ class DataClassificationSummary {
     Field('lastFrameworkReview', String, 'Last Framework Review',
         hint: 'When the framework was last reviewed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3261,6 +3604,7 @@ class DataClassificationLevelEntry {
     Field('incidentResponseLevel', String, 'Incident Response',
         hint: 'Response level if breached'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3281,6 +3625,7 @@ class DataClassificationStatusEntry {
     Field('lastReview', String, 'Last Review',
         hint: 'When classification was last reviewed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3294,20 +3639,24 @@ class DataIntegrationPoints {
 Overview of data integration across the organization. Describe the integration
 architecture, major data flows, technologies used, and integration challenges.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Integration summary.
+  @SerializationOrder(1)
   DataIntegrationSummary integrationSummary = DataIntegrationSummary();
 
   /// Data flow diagram.
   @ContentType('mermaid-flowchart', 'Diagram showing major data flows '
       'and integration points between systems')
+  @SerializationOrder(2)
   String? dataFlowDiagram;
 
   /// Data integration points inventory.
   @SectionId('DAIN-INTE-LST')
   @SectionIdPattern('DAIN-INTE-xxx')
   @Min(1)
+  @SerializationOrder(3)
   List<DataIntegrationEntry> integrationPoints = [];
 }
 
@@ -3336,6 +3685,7 @@ class DataIntegrationSummary {
     Field('integrationDebt', String, 'Integration Debt',
         hint: 'Technical debt in integration layer'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3350,19 +3700,24 @@ class DataIntegrationEntry {
     Field('description', String, 'Description',
         hint: 'What data is exchanged and why'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Endpoints and type.
+  @SerializationOrder(1)
   DataIntegrationEntryEndpoints endpoints = DataIntegrationEntryEndpoints();
 
   /// Volume and transport.
+  @SerializationOrder(2)
   DataIntegrationEntryTransport transport = DataIntegrationEntryTransport();
 
   /// Reliability and monitoring.
+  @SerializationOrder(3)
   DataIntegrationEntryReliability reliabilityInfo =
       DataIntegrationEntryReliability();
 
   /// Ownership and issues.
+  @SerializationOrder(4)
   DataIntegrationEntryOwnership ownership = DataIntegrationEntryOwnership();
 }
 
@@ -3377,6 +3732,7 @@ class DataIntegrationEntryEndpoints {
     Field('integrationType', String, 'Integration Type',
         hint: 'ETL / ELT / API / FileTransfer / EventStream / CDC'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3395,6 +3751,7 @@ class DataIntegrationEntryTransport {
     Field('dataTransformation', String, 'Data Transformation',
         hint: 'Type/complexity of transformation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3413,6 +3770,7 @@ class DataIntegrationEntryReliability {
     Field('sla', String, 'SLA',
         hint: 'Service level agreement if defined'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3429,6 +3787,7 @@ class DataIntegrationEntryOwnership {
     Field('knownIssues', String, 'Known Issues',
         hint: 'Current problems with this integration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3443,15 +3802,18 @@ Overview of master data management in the organization. Describe the MDM
 strategy, master data domains, golden record sources, and synchronization
 approach.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// MDM maturity and status summary.
+  @SerializationOrder(1)
   MdmSummary mdmSummary = MdmSummary();
 
   /// Master data domains.
   @SectionId('MSDDO-MAST-LST')
   @SectionIdPattern('MSDDO-MAST-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<MasterDataDomainEntry> masterDataDomains = [];
 }
 
@@ -3480,6 +3842,7 @@ class MdmSummary {
     Field('mdmGaps', String, 'Key MDM Gaps',
         hint: 'Primary gaps in master data management'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3494,15 +3857,19 @@ class MasterDataDomainEntry {
     Field('goldenRecordSource', String, 'Golden Record Source',
         hint: 'Authoritative system for this master data'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Volume and quality indicators.
+  @SerializationOrder(1)
   MasterDataDomainEntryQuality quality = MasterDataDomainEntryQuality();
 
   /// Downstream usage and cadence.
+  @SerializationOrder(2)
   MasterDataDomainEntryUsage usage = MasterDataDomainEntryUsage();
 
   /// Ownership and improvement planning.
+  @SerializationOrder(3)
   MasterDataDomainEntryGovernance governance =
       MasterDataDomainEntryGovernance();
 }
@@ -3518,6 +3885,7 @@ class MasterDataDomainEntryQuality {
     Field('duplicateRate', String, 'Duplicate Rate',
         hint: 'Estimated duplication, e.g. 3%'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3532,6 +3900,7 @@ class MasterDataDomainEntryUsage {
     Field('governanceLevel', String, 'Governance Level',
         hint: 'Level of governance for this domain'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3548,6 +3917,7 @@ class MasterDataDomainEntryGovernance {
     Field('improvementPlan', String, 'Improvement Plan',
         hint: 'Plans to improve this domain'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3579,6 +3949,7 @@ replacement underperforms the baseline).
 - Storage growth rates and retention sizing
 - Integration volumes (messages, API calls per interval)
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3607,6 +3978,7 @@ replacing them. Not to be confused with target-state risks.
 - Compliance risks of keeping legacy systems in operation
 - Replacement-specific risks (scope creep, timeline, migration failures)
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3615,6 +3987,7 @@ replacing them. Not to be confused with target-state risks.
 @SectionId('IPE')
 class IntegrationPatternEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3622,6 +3995,7 @@ class IntegrationPatternEntry {
 @SectionId('SHARE')
 class SharedServiceEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3629,5 +4003,6 @@ class SharedServiceEntry {
 @SectionId('FRAGI')
 class FragilePointEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }

@@ -18,6 +18,7 @@ class DocumentHeader with SpecNode {
     Field('author', String, 'Author'),
     Field('status', String, 'Current status'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   @override

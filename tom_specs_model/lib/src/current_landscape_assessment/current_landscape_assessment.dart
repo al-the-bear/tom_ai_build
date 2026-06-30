@@ -26,40 +26,50 @@ import '../solution_blueprint/solution_blueprint.dart';
 class D01CurrentLandscapeAssessment {
   @ContentHelp('Executive overview of the current-state analysis that '
       'motivates the project.')
+  @SerializationOrder(0)
   String? content;
 
   /// Standard TomSpecs document header.
+  @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
   // ─── Current State Analysis ──────────────────────────────────────────────
 
   /// Existing systems landscape.
+  @SerializationOrder(2)
   ExistingSystemsLandscape existingSystemsLandscape =
       ExistingSystemsLandscape();
 
   /// Current business processes.
+  @SerializationOrder(3)
   CurrentBusinessProcesses currentBusinessProcesses =
       CurrentBusinessProcesses();
 
   /// Pain points and gaps.
+  @SerializationOrder(4)
   PainPointsAndGaps painPointsAndGaps = PainPointsAndGaps();
 
   /// Current data landscape.
+  @SerializationOrder(5)
   CurrentDataLandscape currentDataLandscape = CurrentDataLandscape();
 
   /// Current operational metrics.
   @SectionId('CUOPME-OPER-LST')
   @SectionIdPattern('CUOPME-OPER-xxx')
+  @SerializationOrder(6)
   List<CurrentOperationalMetric> operationalMetrics = [];
 
   /// Current-state risk assessment.
+  @SerializationOrder(7)
   CurrentStateRiskAssessment currentStateRisks = CurrentStateRiskAssessment();
 
   // ─── Systems to Replace ──────────────────────────────────────────────────
 
   /// Replacement inventory.
+  @SerializationOrder(8)
   ReplacementInventory replacementInventory = ReplacementInventory();
 
   /// Migration considerations.
+  @SerializationOrder(9)
   MigrationConsiderations migrationConsiderations = MigrationConsiderations();
 }

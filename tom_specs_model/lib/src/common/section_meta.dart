@@ -17,6 +17,7 @@ class SectionMeta with SpecNode {
     Field('type', SectionType, 'Type'),
     Field('seeds', String, 'Seeds'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   @override

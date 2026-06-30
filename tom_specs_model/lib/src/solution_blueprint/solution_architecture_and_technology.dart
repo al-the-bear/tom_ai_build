@@ -17,11 +17,14 @@ import 'technical_framework.dart';
 @SectionId('SOAT')
 class SolutionArchitectureAndTechnology {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// Technical framework and platform concept.
+  @SerializationOrder(1)
   TechnicalFrameworkConcept technicalFramework = TechnicalFrameworkConcept();
 
   /// Components, libraries, and services to reuse.
+  @SerializationOrder(2)
   ComponentsAndDependencies componentsToUse = ComponentsAndDependencies();
 }

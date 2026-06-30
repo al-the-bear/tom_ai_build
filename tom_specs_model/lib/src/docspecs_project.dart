@@ -14,6 +14,7 @@ import 'transition_rollout_plan/transition_rollout_plan.dart';
 import 'architecture_technology_specification/architecture_technology_specification.dart';
 import 'interaction_scenarios/interaction_scenarios.dart';
 import 'experience_design_specification/experience_design_specification.dart';
+import 'package:tom_specs_core/tom_specs_core.dart';
 
 /// Canonical container root for the whole TomSpecs object model (V2, N9).
 ///
@@ -52,47 +53,60 @@ class DocSpecsProject {
 
   /// D00 — the Solution Blueprint master and source of truth for all shared
   /// content. Listed first in the root navigator (§14).
+  @SerializationOrder(0)
   D00SolutionBlueprint solutionBlueprint = D00SolutionBlueprint();
 
   /// D08 — Security & Access Specification (Phase 3 projection).
+  @SerializationOrder(1)
   D08SecurityAccessSpecification securityAccessSpecification =
       D08SecurityAccessSpecification();
 
   /// D03 — Information Model (Phase 3 projection).
+  @SerializationOrder(2)
   D03InformationModel informationModel = D03InformationModel();
 
   /// D02 — Target Operating Model (Phase 3 projection).
+  @SerializationOrder(3)
   D02TargetOperatingModel targetOperatingModel = D02TargetOperatingModel();
 
   /// D10 — Quality & Acceptance Plan (Phase 3 projection).
+  @SerializationOrder(4)
   D10QualityAcceptancePlan qualityAcceptancePlan = D10QualityAcceptancePlan();
 
   /// D07 — Integration & Interface Specification (Phase 3 projection).
+  @SerializationOrder(5)
   D07IntegrationInterfaceSpecification integrationInterfaceSpecification =
       D07IntegrationInterfaceSpecification();
 
   /// D01 — Current Landscape Assessment (Phase 3 projection).
+  @SerializationOrder(6)
   D01CurrentLandscapeAssessment currentLandscapeAssessment =
       D01CurrentLandscapeAssessment();
 
   /// D11 — Delivery Roadmap (Phase 3 projection).
+  @SerializationOrder(7)
   D11DeliveryRoadmap deliveryRoadmap = D11DeliveryRoadmap();
 
   /// D04 — Requirements Specification (Phase 3 projection).
+  @SerializationOrder(8)
   D04RequirementsSpecification requirementsSpecification =
       D04RequirementsSpecification();
 
   /// D12 — Transition & Rollout Plan (Phase 3 projection).
+  @SerializationOrder(9)
   D12TransitionRolloutPlan transitionRolloutPlan = D12TransitionRolloutPlan();
 
   /// D06 — Architecture & Technology Specification (Phase 3 projection).
+  @SerializationOrder(10)
   D06ArchitectureTechnologySpecification architectureTechnologySpecification =
       D06ArchitectureTechnologySpecification();
 
   /// D05 — Interaction Scenarios (Phase 3 projection).
+  @SerializationOrder(11)
   D05InteractionScenarios interactionScenarios = D05InteractionScenarios();
 
   /// D09 — Experience Design Specification (Phase 3 projection).
+  @SerializationOrder(12)
   D09ExperienceDesignSpecification experienceDesignSpecification =
       D09ExperienceDesignSpecification();
 

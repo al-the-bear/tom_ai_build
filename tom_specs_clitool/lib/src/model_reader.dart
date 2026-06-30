@@ -103,6 +103,12 @@ class ModelField {
     return null;
   }
 
+  /// The member's serialization ordinal from `@SerializationOrder(n)`, or null
+  /// when the member is not stamped. The ordinal is the member's 0-based
+  /// position in source declaration order within its declaring class.
+  int? get serializationOrder =>
+      getAnnotation('SerializationOrder')?.arguments['order'] as int?;
+
   static bool _isComplexType(String name) {
     final base = name.endsWith('?') ? name.substring(0, name.length - 1) : name;
     return base != 'String' &&

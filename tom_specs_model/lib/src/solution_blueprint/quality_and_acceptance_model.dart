@@ -18,15 +18,19 @@ import 'system_quality_goals.dart';
 @SectionId('QACM')
 class QualityAndAcceptanceModel {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// Quality goals and attributes.
+  @SerializationOrder(1)
   SystemQualityGoals systemQualityGoals = SystemQualityGoals();
 
   /// Delivery scope and acceptance criteria.
+  @SerializationOrder(2)
   DeliveryScopeAndAcceptance deliveryAcceptance = DeliveryScopeAndAcceptance();
 
   /// ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
+  @SerializationOrder(3)
   Iso25010Coverage iso25010Coverage = Iso25010Coverage();
 }
 
@@ -45,6 +49,7 @@ class Iso25010Coverage {
       'eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned '
       'by the SystemQualityGoals characteristic spine; this is a derived '
       'coverage view, not a second copy of the taxonomy.')
+  @SerializationOrder(0)
   String? content;
 
   /// One entry per ISO/IEC 25010:2023 characteristic addressed.
@@ -54,6 +59,7 @@ class Iso25010Coverage {
       '(functional suitability, performance efficiency, compatibility, '
       'interaction capability, reliability, security, maintainability, '
       'flexibility).')
+  @SerializationOrder(1)
   List<Iso25010CoverageEntry> characteristics = [];
 }
 
@@ -67,5 +73,6 @@ class Iso25010CoverageEntry {
     Field('addressedBy', String, 'Addressed By (which quality goals / NFRs)'),
     Field('targetMetric', String, 'Target Metric'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

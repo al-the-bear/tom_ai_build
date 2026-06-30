@@ -25,12 +25,15 @@ rollout, migration, user enablement, cutover, knowledge transfer, and
 post-go-live support. Seeds the TRP document (Phase 3) together with the
 localization, translation, and documentation subtrees.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 15.1. Rollout Plan.
+  @SerializationOrder(1)
   RolloutPlan rolloutPlan = RolloutPlan();
 
   /// 15.2. Migration Plan.
+  @SerializationOrder(2)
   MigrationPlan migrationPlan = MigrationPlan();
 
   /// 15.3. User Manuals.
@@ -38,27 +41,33 @@ localization, translation, and documentation subtrees.
   /// One whole-catalog content section (mirrors the `rolloutPlan` /
   /// `migrationPlan` / `pilotPlan` siblings); collapsed from
   /// `List<UserManual>` (L34C-12 SR-57).
+  @SerializationOrder(3)
   UserManual userManuals = UserManual();
 
   /// 15.4. Training Materials.
   ///
   /// One whole-catalog content section; collapsed from
   /// `List<RolloutTrainingMaterial>` (L34C-12 SR-57).
+  @SerializationOrder(4)
   RolloutTrainingMaterial trainingMaterials = RolloutTrainingMaterial();
 
   /// 15.5. Pilot Plan.
+  @SerializationOrder(5)
   PilotPlan pilotPlan = PilotPlan();
 
   /// 15.6. Cutover Procedures.
   ///
   /// One whole-catalog content section; collapsed from
   /// `List<CutoverProcedure>` (L34C-12 SR-57).
+  @SerializationOrder(6)
   CutoverProcedure cutoverProcedures = CutoverProcedure();
 
   /// 15.7. Knowledge Transfer.
+  @SerializationOrder(7)
   KnowledgeTransfer knowledgeTransfer = KnowledgeTransfer();
 
   /// 15.8. Warranty and Support.
+  @SerializationOrder(8)
   WarrantyAndSupport warrantyAndSupport = WarrantyAndSupport();
 }
 
@@ -87,6 +96,7 @@ pre-go-live to production.
 - Communication plan per wave
 - Dependencies between waves (data migration, integration readiness)
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -121,6 +131,7 @@ mapping. Focuses on the execution plan.
 - Fallback / rollback procedure and triggers
 - Roles and responsibilities during migration
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -155,6 +166,7 @@ the help-concept section).
 - Distribution channels
 - Versioning and maintenance approach post-go-live
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -188,6 +200,7 @@ captures the catalog of training modules.
 - Certification / proficiency-check criteria
 - Post-go-live refresher / onboarding approach
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -215,6 +228,7 @@ success is measured, and the decision gate that authorizes rollout.
 - Exit decision rules (proceed / extend / abort)
 - Risk and rollback plan
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -244,6 +258,7 @@ waves — and than the Migration Plan — which covers data execution.
 - Command center / war-room setup
 - Post-cutover verification checks
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -270,6 +285,7 @@ Formal handover of system knowledge to operations and support teams.
 - Reference contacts for escalation post-handover
 - Artifact storage location and access model
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -298,5 +314,6 @@ covers acceptance-time warranty; this entry captures the execution plan).
 - Transition from warranty to BAU support
 - Exit criteria for warranty closure
 ''')
+  @SerializationOrder(0)
   String? content;
 }

@@ -33,15 +33,18 @@ interactions that seed use case development.
 - Define RACI for all process roles
 - Include performance KPIs and SLAs for each process
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 6.1. Business Process Descriptions. Seeds → TOM.
   @Comment('Seeds → TOM')
+  @SerializationOrder(1)
   BusinessProcessDescriptions businessProcessDescriptions =
       BusinessProcessDescriptions();
 
   /// 6.2. Process Steps and Actor Interactions. Seeds → ISC.
   @Comment('Seeds → ISC')
+  @SerializationOrder(2)
   ProcessStepsAndActorInteractions processStepsAndActorInteractions =
       ProcessStepsAndActorInteractions();
 }
@@ -73,40 +76,51 @@ TOM (Target Operating Model) document.
 
 **Seeds:** TOM (Target Operating Model) document
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 6.1.1. Process Vision.
+  @SerializationOrder(1)
   ProcessVision processVision = ProcessVision();
 
   /// 6.1.2. Design Principles.
+  @SerializationOrder(2)
   ProcessDesignPrinciples designPrinciples = ProcessDesignPrinciples();
 
   /// 6.1.3. Process Catalog — contains 1+× Business Process.
+  @SerializationOrder(3)
   ProcessCatalog processCatalog = ProcessCatalog();
 
   /// 6.1.4. Process Overview Diagram.
+  @SerializationOrder(4)
   ProcessOverviewDiagram processOverviewDiagram = ProcessOverviewDiagram();
 
   /// 6.1.5. Improvement Summary.
+  @SerializationOrder(5)
   ProcessImprovementSummary improvementSummary = ProcessImprovementSummary();
 
   /// 6.1.6. Process Relationships.
+  @SerializationOrder(6)
   ProcessRelationships processRelationships = ProcessRelationships();
 
   /// 6.1.7. Detailed Process Workflows.
   @SectionId('DEPRWO-DETA-LST')
   @SectionIdPattern('DEPRWO-DETA-xxx')
+  @SerializationOrder(7)
   List<DetailedProcessWorkflow> detailedWorkflows = [];
 
   /// 6.1.8. Cross-Process Analysis.
+  @SerializationOrder(8)
   CrossProcessAnalysis crossProcessAnalysis = CrossProcessAnalysis();
 
   /// 6.1.9. Process Exception Handling.
+  @SerializationOrder(9)
   ProcessExceptionHandling exceptionHandling = ProcessExceptionHandling();
 
   /// 6.1.10. Process Metrics and KPIs.
   @SectionId('PMAK-PROC-LST')
   @SectionIdPattern('PMAK-PROC-xxx')
+  @SerializationOrder(10)
   List<ProcessMetric> processMetricsAndKpis = [];
 }
 
@@ -118,17 +132,21 @@ TOM (Target Operating Model) document.
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-VIS')
 class ProcessVision {
   /// Process vision overview.
+  @SerializationOrder(0)
   ProcessVisionOverview overview = ProcessVisionOverview();
 
   /// Vision narrative describing the target state.
+  @SerializationOrder(1)
   TextSection visionNarrative = TextSection();
 
   /// Expected improvements over current state.
   @SectionId('EXIPR-EXPE-LST')
   @SectionIdPattern('EXIPR-EXPE-xxx')
+  @SerializationOrder(2)
   List<ExpectedImprovements> expectedImprovements = [];
 
   /// Success criteria for process transformation.
+  @SerializationOrder(3)
   ProcessSuccessCriteria successCriteria = ProcessSuccessCriteria();
 }
 
@@ -152,6 +170,7 @@ class ProcessVisionOverview {
     Field('stakeholderImpact', String,
         'Stakeholder Impact — who is affected and how'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -179,6 +198,7 @@ class ExpectedImprovements {
     Field('integrationBenefits', String,
         'Integration Benefits — data flow, system integration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -200,6 +220,7 @@ class ProcessSuccessCriteria {
     Field('measurementApproach', String,
         'Measurement Approach — how success is measured'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -211,11 +232,13 @@ class ProcessSuccessCriteria {
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-PRI')
 class ProcessDesignPrinciples {
   /// Design principles overview.
+  @SerializationOrder(0)
   DesignPrinciplesOverview overview = DesignPrinciplesOverview();
 
   /// Contains 0+× Design Principle.
   @SectionId('PDPEN-PRIN-LST')
   @SectionIdPattern('PDPEN-PRIN-xxx')
+  @SerializationOrder(1)
   List<ProcessDesignPrincipleEntry> principles = [];
 }
 
@@ -232,6 +255,7 @@ class DesignPrinciplesOverview {
     Field('continuousImprovement', String,
         'Continuous Improvement — how processes evolve'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -253,6 +277,7 @@ class ProcessDesignPrincipleEntry {
     Field('applicability', String,
         'Applicability — all processes or specific types'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -264,15 +289,18 @@ class ProcessDesignPrincipleEntry {
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-CAT')
 class ProcessCatalog {
   /// Process catalog overview.
+  @SerializationOrder(0)
   ProcessCatalogOverview overview = ProcessCatalogOverview();
 
   /// Process classification scheme.
+  @SerializationOrder(1)
   ProcessClassification classification = ProcessClassification();
 
   /// Contains 1+× Business Process.
   @SectionId('BPREN-PROC-LST')
   @SectionIdPattern('BPREN-PROC-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<BusinessProcessEntry> processes = [];
 }
 
@@ -295,6 +323,7 @@ class ProcessCatalogOverview {
     Field('versioningApproach', String,
         'Versioning Approach — how process versions are managed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -316,6 +345,7 @@ class ProcessClassification {
     Field('managementProcesses', String,
         'Management Processes — governance, strategy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -325,33 +355,43 @@ class ProcessClassification {
 @SectionId('BPREN')
 class BusinessProcessEntry {
   /// Process identification.
+  @SerializationOrder(0)
   ProcessIdentification identification = ProcessIdentification();
 
   /// Process characteristics.
+  @SerializationOrder(1)
   ProcessCharacteristics characteristics = ProcessCharacteristics();
 
   /// Process triggers and events.
+  @SerializationOrder(2)
   ProcessTriggers triggers = ProcessTriggers();
 
   /// Process inputs and outputs.
+  @SerializationOrder(3)
   ProcessInputsOutputs inputsOutputs = ProcessInputsOutputs();
 
   /// Roles and responsibilities.
+  @SerializationOrder(4)
   ProcessRoles roles = ProcessRoles();
 
   /// Process performance.
+  @SerializationOrder(5)
   ProcessPerformance performance = ProcessPerformance();
 
   /// Process controls and compliance.
+  @SerializationOrder(6)
   ProcessControls controls = ProcessControls();
 
   /// Technology support.
+  @SerializationOrder(7)
   ProcessTechnology technology = ProcessTechnology();
 
   /// Process exceptions.
+  @SerializationOrder(8)
   ProcessExceptions exceptions = ProcessExceptions();
 
   /// Process flow preview (high-level).
+  @SerializationOrder(9)
   FlowDiagramSection processFlowPreview = FlowDiagramSection();
 }
 
@@ -364,17 +404,21 @@ class ProcessIdentification {
     Field('processLevel', String,
         'Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Position in the process hierarchy and taxonomy.
+  @SerializationOrder(1)
   ProcessIdentificationClassification classification =
       ProcessIdentificationClassification();
 
   /// Narrative description, purpose, and scope.
+  @SerializationOrder(2)
   ProcessIdentificationDefinition definition =
       ProcessIdentificationDefinition();
 
   /// Ownership and lifecycle metadata.
+  @SerializationOrder(3)
   ProcessIdentificationGovernance governance =
       ProcessIdentificationGovernance();
 }
@@ -389,6 +433,7 @@ class ProcessIdentificationClassification {
         'Process Category — operating, management, support'),
     Field('processType', String, 'Process Type — core, enabling, strategic'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -400,6 +445,7 @@ class ProcessIdentificationDefinition {
     Field('purpose', String, 'Purpose — why the process exists'),
     Field('scope', String, 'Scope — boundaries of the process'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -414,6 +460,7 @@ class ProcessIdentificationGovernance {
     Field('version', String, 'Version — process version'),
     Field('status', String, 'Status — draft, approved, active, retired'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -428,13 +475,16 @@ class ProcessCharacteristics {
     Field('variability', String,
         'Variability — how much process varies by case'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Operational characteristics and automation level.
+  @SerializationOrder(1)
   ProcessCharacteristicsOperations operations =
       ProcessCharacteristicsOperations();
 
   /// Demand and business value profile.
+  @SerializationOrder(2)
   ProcessCharacteristicsBusiness business = ProcessCharacteristicsBusiness();
 }
 
@@ -450,6 +500,7 @@ class ProcessCharacteristicsOperations {
     Field('exceptionRate', String,
         'Exception Rate — percentage requiring manual handling'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -462,6 +513,7 @@ class ProcessCharacteristicsBusiness {
     Field('valueAdded', String, 'Value Added — value contributed'),
     Field('costDriver', String, 'Cost Driver — main cost factors'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -469,16 +521,19 @@ class ProcessCharacteristicsBusiness {
 @SectionId('PRTRG')
 class ProcessTriggers {
   /// Main trigger overview.
+  @SerializationOrder(0)
   TriggerOverview overview = TriggerOverview();
 
   /// Contains 0+× process trigger.
   @SectionId('PTREN-TRIG-LST')
   @SectionIdPattern('PTREN-TRIG-xxx')
+  @SerializationOrder(1)
   List<ProcessTriggerEntry> triggers = [];
 
   /// Process end events (outcomes).
   @SectionId('PEEVT-ENDE-LST')
   @SectionIdPattern('PEEVT-ENDE-xxx')
+  @SerializationOrder(2)
   List<ProcessEndEventEntry> endEvents = [];
 }
 
@@ -495,6 +550,7 @@ class TriggerOverview {
     Field('preTriggerState', String,
         'Pre-Trigger State — system state before trigger'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -514,6 +570,7 @@ class ProcessTriggerEntry {
         'Validation Rules — checks before process starts'),
     Field('frequency', String, 'Frequency — expected occurrence rate'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -533,6 +590,7 @@ class ProcessEndEventEntry {
         'Notification Action — who/what is notified'),
     Field('followOnAction', String, 'Follow-On Action — what happens next'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -540,16 +598,19 @@ class ProcessEndEventEntry {
 @SectionId('PRINOU')
 class ProcessInputsOutputs {
   /// Inputs overview.
+  @SerializationOrder(0)
   InputsOutputsOverview overview = InputsOutputsOverview();
 
   /// Contains 0+× process input.
   @SectionId('PCINP-INPU-LST')
   @SectionIdPattern('PCINP-INPU-xxx')
+  @SerializationOrder(1)
   List<ProcessInputEntry> inputs = [];
 
   /// Contains 0+× process output.
   @SectionId('PCOUT-OUTP-LST')
   @SectionIdPattern('PCOUT-OUTP-xxx')
+  @SerializationOrder(2)
   List<ProcessOutputEntry> outputs = [];
 }
 
@@ -563,6 +624,7 @@ class InputsOutputsOverview {
     Field('dataFlowSummary', String,
         'Data Flow Summary — how data moves through process'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -583,6 +645,7 @@ class ProcessInputEntry {
     Field('securityClassification', String,
         'Security Classification — sensitivity level'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -607,6 +670,7 @@ class ProcessOutputEntry {
     Field('dependentProcesses', String,
         'Dependent Processes — processes that need this output'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -614,11 +678,13 @@ class ProcessOutputEntry {
 @SectionId('PRRO')
 class ProcessRoles {
   /// Roles overview.
+  @SerializationOrder(0)
   ProcessRolesOverview overview = ProcessRolesOverview();
 
   /// Contains 0+× process role.
   @SectionId('PCROL-ROLE-LST')
   @SectionIdPattern('PCROL-ROLE-xxx')
+  @SerializationOrder(1)
   List<ProcessRoleEntry> roles = [];
 }
 
@@ -633,6 +699,7 @@ class ProcessRolesOverview {
     Field('raciSummary', String,
         'RACI Summary — responsibility assignment overview'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -646,12 +713,15 @@ class ProcessRoleEntry {
         'RACI Type — Responsible, Accountable, Consulted, Informed'),
     Field('responsibilities', String, 'Responsibilities — what this role does'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Process participation and authority.
+  @SerializationOrder(1)
   ProcessRoleEntryExecution execution = ProcessRoleEntryExecution();
 
   /// Access, coverage, and handoff expectations.
+  @SerializationOrder(2)
   ProcessRoleEntryCoordination coordination =
       ProcessRoleEntryCoordination();
 }
@@ -666,6 +736,7 @@ class ProcessRoleEntryExecution {
     Field('skillsRequired', String, 'Skills Required — competencies needed'),
     Field('systemAccess', String, 'System Access — required system permissions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -678,6 +749,7 @@ class ProcessRoleEntryCoordination {
     Field('handoffTo', String, 'Handoff To — roles this passes work to'),
     Field('handoffFrom', String, 'Handoff From — roles this receives work from'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -685,16 +757,19 @@ class ProcessRoleEntryCoordination {
 @SectionId('PP')
 class ProcessPerformance {
   /// Performance overview.
+  @SerializationOrder(0)
   ProcessPerformanceOverview overview = ProcessPerformanceOverview();
 
   /// Contains 0+× performance metric.
   @SectionId('PCKPI-KPIS-LST')
   @SectionIdPattern('PCKPI-KPIS-xxx')
+  @SerializationOrder(1)
   List<ProcessKpiEntry> kpis = [];
 
   /// Service Level Agreements.
   @SectionId('PCSLA-SLAS-LST')
   @SectionIdPattern('PCSLA-SLAS-xxx')
+  @SerializationOrder(2)
   List<ProcessSlaEntry> slas = [];
 }
 
@@ -717,6 +792,7 @@ class ProcessPerformanceOverview {
         'Dashboard Location — where metrics are visible'),
     Field('improvementGoals', String, 'Improvement Goals — targets for next period'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -730,12 +806,15 @@ class ProcessKpiEntry {
         'Category — time, quality, cost, volume, satisfaction'),
     Field('definition', String, 'Definition — how KPI is calculated'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Measurement targets and thresholds.
+  @SerializationOrder(1)
   ProcessKpiEntryMeasurement measurement = ProcessKpiEntryMeasurement();
 
   /// Reporting ownership and improvement use.
+  @SerializationOrder(2)
   ProcessKpiEntryOperations operations = ProcessKpiEntryOperations();
 }
 
@@ -748,6 +827,7 @@ class ProcessKpiEntryMeasurement {
     Field('thresholds', String, 'Thresholds — green/yellow/red boundaries'),
     Field('dataSource', String, 'Data Source — where data comes from'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -763,6 +843,7 @@ class ProcessKpiEntryOperations {
     Field('improvementLever', String,
         'Improvement Lever — how to improve this KPI'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -784,6 +865,7 @@ class ProcessSlaEntry {
     Field('exclusions', String, 'Exclusions — what is not covered'),
     Field('reviewFrequency', String, 'Review Frequency — when SLA is reviewed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -791,11 +873,13 @@ class ProcessSlaEntry {
 @SectionId('PRCO')
 class ProcessControls {
   /// Controls overview.
+  @SerializationOrder(0)
   ProcessControlsOverview overview = ProcessControlsOverview();
 
   /// Contains 0+× process control.
   @SectionId('PCCTL-CONT-LST')
   @SectionIdPattern('PCCTL-CONT-xxx')
+  @SerializationOrder(1)
   List<ProcessControlEntry> controls = [];
 }
 
@@ -817,6 +901,7 @@ class ProcessControlsOverview {
     Field('retentionRequirements', String,
         'Retention Requirements — how long to keep records'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -831,12 +916,15 @@ class ProcessControlEntry {
     Field('controlCategory', String,
         'Control Category — authorization, validation, reconciliation'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Control operation and ownership.
+  @SerializationOrder(1)
   ProcessControlEntryOperation operation = ProcessControlEntryOperation();
 
   /// Evidence, testing, and failure handling.
+  @SerializationOrder(2)
   ProcessControlEntryVerification verification =
       ProcessControlEntryVerification();
 }
@@ -853,6 +941,7 @@ class ProcessControlEntryOperation {
     Field('automation', String,
         'Automation — manual, semi-automated, fully automated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -866,6 +955,7 @@ class ProcessControlEntryVerification {
     Field('failureAction', String,
         'Failure Action — what happens if control fails'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -881,12 +971,15 @@ class ProcessTechnology {
     Field('automationTools', String,
         'Automation Tools — RPA, workflow, rules engines'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Data, reporting, and document tooling.
+  @SerializationOrder(1)
   ProcessTechnologyInformation information = ProcessTechnologyInformation();
 
   /// Access channel and analytics capabilities.
+  @SerializationOrder(2)
   ProcessTechnologyExperience experience = ProcessTechnologyExperience();
 }
 
@@ -902,6 +995,7 @@ class ProcessTechnologyInformation {
   Field('documentManagement', String,
     'Document Management — document storage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -915,6 +1009,7 @@ class ProcessTechnologyExperience {
   Field('analyticsCapability', String,
     'Analytics Capability — process mining, analytics'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -922,11 +1017,13 @@ class ProcessTechnologyExperience {
 @SectionId('PREX')
 class ProcessExceptions {
   /// Exceptions overview.
+  @SerializationOrder(0)
   ProcessExceptionsOverview overview = ProcessExceptionsOverview();
 
   /// Contains 0+× exception scenario.
   @SectionId('PCEXC-EXCE-LST')
   @SectionIdPattern('PCEXC-EXCE-xxx')
+  @SerializationOrder(1)
   List<ProcessExceptionEntry> exceptions = [];
 }
 
@@ -945,6 +1042,7 @@ class ProcessExceptionsOverview {
     Field('continuousImprovement', String,
         'Continuous Improvement — how exceptions drive change'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -959,13 +1057,16 @@ class ProcessExceptionEntry {
     Field('triggerCondition', String,
         'Trigger Condition — what causes this exception'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Likelihood, impact, and detection.
+  @SerializationOrder(1)
   ProcessExceptionEntryAssessment assessment =
       ProcessExceptionEntryAssessment();
 
   /// Resolution and prevention approach.
+  @SerializationOrder(2)
   ProcessExceptionEntryResponse response = ProcessExceptionEntryResponse();
 }
 
@@ -978,6 +1079,7 @@ class ProcessExceptionEntryAssessment {
     Field('detectionMethod', String,
         'Detection Method — how exception is detected'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -991,6 +1093,7 @@ class ProcessExceptionEntryResponse {
     Field('preventionStrategy', String, 'Prevention Strategy — how to prevent'),
     Field('workArounds', String, 'Workarounds — temporary solutions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1002,15 +1105,19 @@ class ProcessExceptionEntryResponse {
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-FLO')
 class ProcessOverviewDiagram {
   /// Diagram overview.
+  @SerializationOrder(0)
   ProcessDiagramOverview overview = ProcessDiagramOverview();
 
   /// Main process landscape diagram.
+  @SerializationOrder(1)
   FlowDiagramSection landscapeDiagram = FlowDiagramSection();
 
   /// Process hierarchy diagram.
+  @SerializationOrder(2)
   FlowDiagramSection hierarchyDiagram = FlowDiagramSection();
 
   /// Value chain diagram.
+  @SerializationOrder(3)
   FlowDiagramSection valueChainDiagram = FlowDiagramSection();
 }
 
@@ -1025,6 +1132,7 @@ class ProcessDiagramOverview {
         'Reading Guide — how to interpret the diagram'),
     Field('legend', String, 'Legend — symbol meanings'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1036,14 +1144,17 @@ class ProcessDiagramOverview {
 @SecondLevelSectionId(D02TargetOperatingModel, 'TOM-IMP')
 class ProcessImprovementSummary {
   /// Improvement overview.
+  @SerializationOrder(0)
   ImprovementOverview overview = ImprovementOverview();
 
   /// Contains 0+× improvement item.
   @SectionId('PCIMV-IMPR-LST')
   @SectionIdPattern('PCIMV-IMPR-xxx')
+  @SerializationOrder(1)
   List<ProcessImprovementEntry> improvements = [];
 
   /// Business case summary.
+  @SerializationOrder(2)
   ImprovementBusinessCase businessCase = ImprovementBusinessCase();
 }
 
@@ -1060,6 +1171,7 @@ class ImprovementOverview {
     Field('changeEnablers', String,
         'Change Enablers — what makes improvement possible'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1073,12 +1185,15 @@ class ProcessImprovementEntry {
         'Category — efficiency, quality, cost, experience'),
     Field('currentState', String, 'Current State — baseline measurement'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Target outcome and value case.
+  @SerializationOrder(1)
   ProcessImprovementEntryBenefits benefits = ProcessImprovementEntryBenefits();
 
   /// Enablers, dependencies, and verification.
+  @SerializationOrder(2)
   ProcessImprovementEntryDelivery delivery = ProcessImprovementEntryDelivery();
 }
 
@@ -1092,6 +1207,7 @@ class ProcessImprovementEntryBenefits {
     Field('monetaryBenefit', String, 'Monetary Benefit — financial value'),
     Field('beneficiaries', String, 'Beneficiaries — who benefits'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1105,6 +1221,7 @@ class ProcessImprovementEntryDelivery {
     Field('measurementMethod', String,
         'Measurement Method — how improvement is verified'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1121,6 +1238,7 @@ class ImprovementBusinessCase {
         'Intangible Benefits — non-financial value'),
     Field('riskAdjustment', String, 'Risk Adjustment — confidence factor'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1146,11 +1264,13 @@ design and identifying optimization opportunities.
 - Document API/integration points between processes
 - Highlight bottleneck relationships for optimization
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× process relationship.
   @SectionId('PCRLT-RELA-LST')
   @SectionIdPattern('PCRLT-RELA-xxx')
+  @SerializationOrder(1)
   List<ProcessRelationshipEntry> relationships = [];
 }
 
@@ -1171,6 +1291,7 @@ class ProcessRelationshipEntry {
         'Frequency of Interaction — how often they interact'),
     Field('criticality', String, 'Criticality — how critical is this relationship'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1205,30 +1326,38 @@ postconditions in the ISC (Interaction Scenarios) document.
 
 **Seeds:** ISC (Interaction Scenarios) document
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Section overview.
+  @SerializationOrder(1)
   ProcessStepsOverview overview = ProcessStepsOverview();
 
   /// 6.2.1. Actor Overview — contains 1+× Actor.
+  @SerializationOrder(2)
   ActorOverview actorOverview = ActorOverview();
 
   /// 6.2.2. Interaction Catalog — contains 1+× Interaction.
+  @SerializationOrder(3)
   InteractionCatalog interactionCatalog = InteractionCatalog();
 
   /// 6.2.3. Key Scenarios — contains 1+× Scenario.
+  @SerializationOrder(4)
   KeyScenarios keyScenarios = KeyScenarios();
 
   /// Actor relationship diagram.
+  @SerializationOrder(5)
   ActorRelationshipDiagram actorRelationshipDiagram =
       ActorRelationshipDiagram();
 
   /// 6.2.4. End-to-End Test Scenarios..
   @SectionId('ETETS-ENDT-LST')
   @SectionIdPattern('ETETS-ENDT-xxx')
+  @SerializationOrder(6)
   List<EndToEndTestScenario> endToEndTestScenarios = [];
 
   /// 6.2.5. Use Case Traceability.
+  @SerializationOrder(7)
   UseCaseTraceability useCaseTraceability = UseCaseTraceability();
 }
 
@@ -1255,6 +1384,7 @@ class ProcessStepsOverview {
     Field('notationStandard', String,
         'Notation Standard — Cockburn, Fowler, RUP'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1264,12 +1394,15 @@ class ProcessStepsOverview {
 @SecondLevelSectionId(D05InteractionScenarios, 'ISC-DIA')
 class ActorRelationshipDiagram {
   /// Diagram overview.
+  @SerializationOrder(0)
   ActorDiagramOverview overview = ActorDiagramOverview();
 
   /// Actor hierarchy diagram (generalization relationships).
+  @SerializationOrder(1)
   FlowDiagramSection actorHierarchy = FlowDiagramSection();
 
   /// Actor-system interaction overview diagram.
+  @SerializationOrder(2)
   FlowDiagramSection actorSystemDiagram = FlowDiagramSection();
 }
 
@@ -1298,6 +1431,7 @@ actor responsibility.
 - Error and exception branches
 - BPMN-style diagram per process
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1324,6 +1458,7 @@ exchanged, synchronization points, and conflicts.
 - Event flows between processes
 - Matrix view of processes x shared artifacts
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1352,6 +1487,7 @@ process recovery.
 - Manual-intervention procedures
 - Audit requirements for handled exceptions
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1379,6 +1515,7 @@ Feeds BQP test strategy and the Phase 5 test derivation step.
 - Exit criteria for each scenario
 - Cross-reference to use cases and requirements
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1393,6 +1530,7 @@ class ActorDiagramOverview {
     Field('systemBoundary', String, 'System Boundary — what is inside/outside'),
     Field('notation', String, 'Notation — UML use case, custom'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1426,18 +1564,22 @@ modeling conventions with Cockburn-style goal and scope annotations.
 - Permissions (security clearance, RBAC roles, approval limits)
 - Technology profile (channels, devices, authentication methods)
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Actor overview narrative.
+  @SerializationOrder(1)
   ActorOverviewNarrative overview = ActorOverviewNarrative();
 
   /// Contains 1+× Actor.
   @SectionId('ACEN-ACTO-LST')
   @SectionIdPattern('ACEN-ACTO-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<ActorEntry> actors = [];
 
   /// Actor categorization summary.
+  @SerializationOrder(3)
   ActorCategorizationSummary categorization = ActorCategorizationSummary();
 }
 
@@ -1456,6 +1598,7 @@ class ActorOverviewNarrative {
     Field('actorGoalAlignment', String,
         'Actor Goal Alignment — how actor goals align with business goals'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1473,6 +1616,7 @@ class ActorCategorizationSummary {
     Field('timerActors', String,
         'Timer/Scheduled Actors — time-triggered actions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1482,25 +1626,31 @@ class ActorCategorizationSummary {
 @SectionId('ACEN')
 class ActorEntry {
   /// Actor identification.
+  @SerializationOrder(0)
   ActorIdentification identification = ActorIdentification();
 
   /// Actor characteristics.
+  @SerializationOrder(1)
   ActorCharacteristics characteristics = ActorCharacteristics();
 
   /// Actor goals (Cockburn style).
   @SectionId('ACGO-GOAL-LST')
   @SectionIdPattern('ACGO-GOAL-xxx')
+  @SerializationOrder(2)
   List<ActorGoals> goals = [];
 
   /// Actor permissions and access.
   @SectionId('ACPE-PERM-LST')
   @SectionIdPattern('ACPE-PERM-xxx')
+  @SerializationOrder(3)
   List<ActorPermissions> permissions = [];
 
   /// Actor technology profile.
+  @SerializationOrder(4)
   ActorTechnologyProfile technology = ActorTechnologyProfile();
 
   /// Actor interactions summary.
+  @SerializationOrder(5)
   ActorInteractionsSummary interactions = ActorInteractionsSummary();
 }
 
@@ -1524,6 +1674,7 @@ class ActorIdentification {
     Field('geographicDistribution', String,
         'Geographic Distribution — where actors are located'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1538,12 +1689,15 @@ class ActorCharacteristics {
     Field('usageFrequency', String,
         'Usage Frequency — daily, weekly, monthly, occasional'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Usage patterns and decision scope.
+  @SerializationOrder(1)
   ActorCharacteristicsUsage usage = ActorCharacteristicsUsage();
 
   /// Communication and accessibility profile.
+  @SerializationOrder(2)
   ActorCharacteristicsSupport support = ActorCharacteristicsSupport();
 }
 
@@ -1559,6 +1713,7 @@ class ActorCharacteristicsUsage {
   Field('decisionAuthority', String,
     'Decision Authority — what decisions can be made'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1575,6 +1730,7 @@ class ActorCharacteristicsSupport {
   Field('accessibilityNeeds', String,
     'Accessibility Needs — special accommodations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1596,6 +1752,7 @@ class ActorGoals {
     Field('desiredImprovements', String,
         'Desired Improvements — what actor wants better'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1620,6 +1777,7 @@ class ActorPermissions {
     Field('auditRequirements', String,
         'Audit Requirements — what actions are logged'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1645,6 +1803,7 @@ class ActorTechnologyProfile {
     Field('authenticationMethod', String,
         'Authentication Method — password, SSO, MFA, biometric'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1667,6 +1826,7 @@ class ActorInteractionsSummary {
     Field('handoffPoints', String,
         'Handoff Points — where work passes to others'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1704,18 +1864,22 @@ following Cockburn's fully dressed use case template.
 - Could Have — nice to have
 - Won't Have — explicitly out of scope
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Interaction catalog overview.
+  @SerializationOrder(1)
   InteractionCatalogOverview overview = InteractionCatalogOverview();
 
   /// Contains 1+× Interaction.
   @SectionId('INEN-INTE-LST')
   @SectionIdPattern('INEN-INTE-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<InteractionEntry> interactions = [];
 
   /// Interaction prioritization matrix.
+  @SerializationOrder(3)
   InteractionPrioritization prioritization = InteractionPrioritization();
 }
 
@@ -1736,6 +1900,7 @@ class InteractionCatalogOverview {
     Field('traceabilityToProcesses', String,
         'Traceability to Processes — link to BP section'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1755,6 +1920,7 @@ class InteractionPrioritization {
     Field('phaseTwoInteractions', String, 'Phase Two Interactions'),
     Field('futureInteractions', String, 'Future Interactions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1765,52 +1931,65 @@ class InteractionPrioritization {
 @SectionId('INEN')
 class InteractionEntry {
   /// Interaction identification (use case header).
+  @SerializationOrder(0)
   InteractionIdentification identification = InteractionIdentification();
 
   /// Use case scope and context (Cockburn style).
+  @SerializationOrder(1)
   UseCaseScopeContext scopeContext = UseCaseScopeContext();
 
   /// Stakeholders and interests.
   @SectionId('STANIN-STAK-LST')
   @SectionIdPattern('STANIN-STAK-xxx')
+  @SerializationOrder(2)
   List<StakeholdersAndInterests> stakeholders = [];
 
   /// Preconditions and triggers.
   @SectionId('PRANTR-PREC-LST')
   @SectionIdPattern('PRANTR-PREC-xxx')
+  @SerializationOrder(3)
   List<PreconditionsAndTriggers> preconditions = [];
 
   /// Postconditions and guarantees.
   @SectionId('POANGU-POST-LST')
   @SectionIdPattern('POANGU-POST-xxx')
+  @SerializationOrder(4)
   List<PostconditionsAndGuarantees> postconditions = [];
 
   /// Main success scenario (basic flow).
+  @SerializationOrder(5)
   MainSuccessScenario mainScenario = MainSuccessScenario();
 
   /// Extensions (alternative and exception flows).
+  @SerializationOrder(6)
   UseCaseExtensions extensions = UseCaseExtensions();
 
   /// Technology and data variations.
   @SectionId('TEDAVA-VARI-LST')
   @SectionIdPattern('TEDAVA-VARI-xxx')
+  @SerializationOrder(7)
   List<TechnologyDataVariations> variations = [];
 
   /// UI requirements preview.
+  @SerializationOrder(8)
   UIRequirementsPreview uiPreview = UIRequirementsPreview();
 
   /// Performance and frequency.
+  @SerializationOrder(9)
   InteractionPerformance performance = InteractionPerformance();
 
   /// Security and authorization.
+  @SerializationOrder(10)
   InteractionSecurity security = InteractionSecurity();
 
   /// Business rules triggered.
   @SectionId('INBURU-BUSI-LST')
   @SectionIdPattern('INBURU-BUSI-xxx')
+  @SerializationOrder(11)
   List<InteractionBusinessRules> businessRules = [];
 
   /// Related elements and traceability.
+  @SerializationOrder(12)
   InteractionTraceability traceability = InteractionTraceability();
 }
 
@@ -1834,6 +2013,7 @@ class InteractionIdentification {
     Field('designScope', String,
         'Design Scope — organization, system, subsystem, component'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1852,6 +2032,7 @@ class UseCaseScopeContext {
     Field('constraint', String, 'Constraints — limitations'),
     Field('relatedUseCases', String, 'Related Use Cases — includes, extends'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1872,6 +2053,7 @@ class StakeholdersAndInterests {
     Field('otherStakeholders', String,
         'Other Stakeholders — additional interested parties'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1890,6 +2072,7 @@ class PreconditionsAndTriggers {
     Field('validationBeforeStart', String,
         'Validation Before Start — checks before proceeding'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1910,6 +2093,7 @@ class PostconditionsAndGuarantees {
         'Notifications Generated — who is notified'),
     Field('auditTrail', String, 'Audit Trail — what is logged'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1922,12 +2106,14 @@ class MainSuccessScenario {
         'Estimated Duration — typical completion time'),
     Field('stepCount', int, 'Step Count — number of steps'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Main scenario steps — contains 1+× Scenario Step.
   @SectionId('MNSST-STEP-LST')
   @SectionIdPattern('MNSST-STEP-xxx')
   @Min(1)
+  @SerializationOrder(1)
   List<MainScenarioStepEntry> steps = [];
 }
 
@@ -1947,6 +2133,7 @@ class MainScenarioStepEntry {
     Field('expectedDuration', String,
         'Expected Duration — time for this step'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1958,11 +2145,13 @@ class UseCaseExtensions {
         'Extension Summary — overview of variations'),
     Field('extensionCount', int, 'Extension Count — number of extensions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Extension entries — contains 0+× Extension.
   @SectionId('EXTEN-EXTE-LST')
   @SectionIdPattern('EXTEN-EXTE-xxx')
+  @SerializationOrder(1)
   List<ExtensionEntry> extensions = [];
 }
 
@@ -1983,11 +2172,13 @@ class ExtensionEntry {
     Field('severity', String,
         'Severity — impact level (for exceptions)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Extension steps — contains 0+× Scenario Step.
   @SectionId('EXTST-STEP-LST')
   @SectionIdPattern('EXTST-STEP-xxx')
+  @SerializationOrder(1)
   List<ExtensionStepEntry> steps = [];
 }
 
@@ -1999,6 +2190,7 @@ class ExtensionStepEntry {
     Field('action', String, 'Action'),
     Field('response', String, 'Response'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2019,6 +2211,7 @@ class TechnologyDataVariations {
     Field('offlineVariations', String,
         'Offline Variations — handling offline state'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2039,9 +2232,11 @@ class UIRequirementsPreview {
     Field('interactionPatterns', String,
         'Interaction Patterns — drag-drop, swipe'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// UI mockup/wireframe reference.
+  @SerializationOrder(1)
   FlowDiagramSection screenMockup = FlowDiagramSection();
 }
 
@@ -2063,6 +2258,7 @@ class InteractionPerformance {
     Field('dataVolumeHandled', String,
         'Data Volume Handled — typical data size'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2084,6 +2280,7 @@ class InteractionSecurity {
     Field('complianceRequirements', String,
         'Compliance Requirements — GDPR, HIPAA'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2103,6 +2300,7 @@ class InteractionBusinessRules {
     Field('integrationRules', String,
         'Integration Rules — BR-xxx for integrations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2120,6 +2318,7 @@ class InteractionTraceability {
     Field('relatedIntegrations', String, 'Related Integrations — INT-xxx'),
     Field('relatedTestCases', String, 'Related Test Cases — TC-xxx'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2158,15 +2357,18 @@ interactions and complete user journeys.
 "A new customer discovers the service, registers, completes verification,
 and places their first order."
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Scenario overview.
+  @SerializationOrder(1)
   ScenarioOverview overview = ScenarioOverview();
 
   /// Contains 1+× Scenario.
   @SectionId('SCNRY-SCEN-LST')
   @SectionIdPattern('SCNRY-SCEN-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<ScenarioEntry> scenarios = [];
 }
 
@@ -2184,6 +2386,7 @@ class ScenarioOverview {
     Field('scenarioToTestMapping', String,
         'Scenario to Test Mapping — how scenarios map to tests'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2193,29 +2396,36 @@ class ScenarioOverview {
 @SectionId('SCNRY')
 class ScenarioEntry {
   /// Scenario identification.
+  @SerializationOrder(0)
   ScenarioIdentification identification = ScenarioIdentification();
 
   /// Scenario context.
+  @SerializationOrder(1)
   ScenarioContext context = ScenarioContext();
 
   /// Contains 1+× Scenario Step.
   @SectionId('SCNST-STEP-LST')
   @SectionIdPattern('SCNST-STEP-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<ScenarioStepEntry> steps = [];
 
   /// Alternative flows — contains 0+× Alternative Flow.
   @SectionId('ALFL-ALTE-LST')
   @SectionIdPattern('ALFL-ALTE-xxx')
+  @SerializationOrder(3)
   List<AlternativeFlowEntry> alternativeFlows = [];
 
   /// Scenario data.
+  @SerializationOrder(4)
   ScenarioData scenarioData = ScenarioData();
 
   /// Scenario timing.
+  @SerializationOrder(5)
   ScenarioTiming timing = ScenarioTiming();
 
   /// Scenario validation.
+  @SerializationOrder(6)
   ScenarioValidation validation = ScenarioValidation();
 }
 
@@ -2234,6 +2444,7 @@ class ScenarioIdentification {
     Field('priority', String, 'Priority — critical, high, medium, low'),
     Field('complexity', String, 'Complexity — simple, moderate, complex'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2252,6 +2463,7 @@ class ScenarioContext {
     Field('relatedInteractions', String,
         'Related Interactions — INT-xxx references'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2264,12 +2476,15 @@ class ScenarioStepEntry {
     Field('action', String, 'Action — what actor does'),
     Field('systemResponse', String, 'System Response — what system does'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Expected outcome and referenced artifacts.
+  @SerializationOrder(1)
   ScenarioStepEntryContext context = ScenarioStepEntryContext();
 
   /// Branching, timing, and notes.
+  @SerializationOrder(2)
   ScenarioStepEntryExecution execution = ScenarioStepEntryExecution();
 }
 
@@ -2283,6 +2498,7 @@ class ScenarioStepEntryContext {
     Field('dataInvolved', String, 'Data Involved — input/output data'),
     Field('uiElement', String, 'UI Element — screen/component used'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2295,6 +2511,7 @@ class ScenarioStepEntryExecution {
     Field('timing', String, 'Timing — expected duration'),
     Field('notes', String, 'Notes — clarifications'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2313,11 +2530,13 @@ class AlternativeFlowEntry {
     Field('frequency', String, 'Frequency — how often this occurs'),
     Field('businessImpact', String, 'Business Impact — effect on business'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Scenario Step.
   @SectionId('ALST-STEP-LST')
   @SectionIdPattern('ALST-STEP-xxx')
+  @SerializationOrder(1)
   List<AlternativeStepEntry> steps = [];
 }
 
@@ -2330,6 +2549,7 @@ class AlternativeStepEntry {
     Field('response', String, 'Response'),
     Field('expectedResult', String, 'Expected Result'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2347,6 +2567,7 @@ class ScenarioData {
     Field('sampleDataValues', String,
         'Sample Data Values — example input/output'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2365,6 +2586,7 @@ class ScenarioTiming {
     Field('timeoutHandling', String,
         'Timeout Handling — what if too slow'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2381,6 +2603,7 @@ class ScenarioValidation {
     Field('expectedMetrics', String, 'Expected Metrics — performance targets'),
     Field('knownIssues', String, 'Known Issues — documented problems'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2406,6 +2629,7 @@ How each business process is measured for success once in production.
 - Thresholds for corrective action
 - Baseline values for comparison
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2431,5 +2655,6 @@ tests. Ensures every use case is justified and covered.
 - Orphan detection (UCs without requirements or tests)
 - Change-impact helper (navigate from a changed UC to affected artifacts)
 ''')
+  @SerializationOrder(0)
   String? content;
 }

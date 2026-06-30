@@ -27,55 +27,69 @@ import '../solution_blueprint/solution_blueprint.dart';
 @SectionId('ATS')
 class D06ArchitectureTechnologySpecification {
   @ContentHelp('Executive overview of the technical-requirements set.')
+  @SerializationOrder(0)
   String? content;
 
   /// Standard TomSpecs document header.
+  @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
   // ─── Technical Framework Concept (flattened) ─────────────────────────────
 
   /// Basic technical requirements.
+  @SerializationOrder(2)
   BasicTechnicalRequirements basicTechnicalRequirements =
       BasicTechnicalRequirements();
 
   /// Software design requirements.
+  @SerializationOrder(3)
   SoftwareDesignRequirements softwareDesignRequirements =
       SoftwareDesignRequirements();
 
   /// Standard application software requirements.
+  @SerializationOrder(4)
   StandardSoftwareRequirements standardSoftwareRequirements =
       StandardSoftwareRequirements();
 
   /// Hardware concept requirements.
+  @SerializationOrder(5)
   HardwareRequirements hardwareRequirements = HardwareRequirements();
 
   /// Operations requirements.
+  @SerializationOrder(6)
   OperationsRequirements operationsRequirements = OperationsRequirements();
 
   /// Communication requirements.
+  @SerializationOrder(7)
   CommunicationRequirements communicationRequirements =
       CommunicationRequirements();
 
   /// System operation and monitoring.
+  @SerializationOrder(8)
   SystemOperationAndMonitoring systemOperationAndMonitoring =
       SystemOperationAndMonitoring();
 
   /// Technical security requirements.
+  @SerializationOrder(9)
   TechnicalSecurityRequirements technicalSecurityRequirements =
       TechnicalSecurityRequirements();
 
   /// System architecture (new in Phase A).
+  @SerializationOrder(10)
   SystemArchitectureSpec systemArchitecture = SystemArchitectureSpec();
 
   // ─── Whole seeds from other SBP branches ────────────────────────────────
 
   /// Components to use (whole).
+  @SerializationOrder(11)
   ComponentsAndDependencies componentsToUse = ComponentsAndDependencies();
 
   /// Technical framework conditions (whole).
+  @SerializationOrder(12)
   TechnicalEnvironment technicalEnvironment =
       TechnicalEnvironment();
 
   /// Translation handling requirements (whole).
+  @SerializationOrder(13)
   TranslationRequirements translationRequirements = TranslationRequirements();
 }

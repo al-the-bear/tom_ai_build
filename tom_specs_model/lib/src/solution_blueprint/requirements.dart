@@ -34,17 +34,21 @@ import 'experience_and_interface_design.dart'
 class Requirements {
   @ContentType('description', 'Summarize the functional and non-functional '
       'requirement landscape; seeds the Requirements Specification (RSP).')
+  @SerializationOrder(0)
   String? content;
 
   /// Localization & Translation requirements (NFR-L10N-NNN).
+  @SerializationOrder(1)
   LocalizationTranslationRequirements localizationTranslation =
       LocalizationTranslationRequirements();
 
   /// Information-for-Use (user documentation) requirements (NFR-DOC-NNN).
+  @SerializationOrder(2)
   InformationForUseRequirements informationForUse =
       InformationForUseRequirements();
 
   /// Training & Enablement requirements (NFR-TRN-NNN).
+  @SerializationOrder(3)
   TrainingEnablementRequirements trainingEnablement =
       TrainingEnablementRequirements();
 }
@@ -57,12 +61,15 @@ class Requirements {
 class LocalizationTranslationRequirements {
   @ContentType('description', 'Localization and translation requirements: '
       'supported locales, i18n framework, formatting, RTL, pluralization.')
+  @SerializationOrder(0)
   String? content;
 
   /// Technical internationalization requirements (re-homed from MLAR).
+  @SerializationOrder(1)
   TranslationRequirements translationRequirements = TranslationRequirements();
 
   /// Locale modeling and fallback requirements (re-homed from MLAR).
+  @SerializationOrder(2)
   LocaleHandlingRequirements localeHandling =
       LocaleHandlingRequirements();
 }
@@ -80,9 +87,11 @@ class LocalizationTranslationRequirements {
 class InformationForUseRequirements {
   @ContentType('description', 'User documentation requirements: deliverables, '
       'formats, platforms, versioning, and documentation localization.')
+  @SerializationOrder(0)
   String? content;
 
   /// User documentation requirements (doc half of the former DOANTR).
+  @SerializationOrder(1)
   UserDocumentationRequirements userDocumentation =
       UserDocumentationRequirements();
 }
@@ -106,9 +115,11 @@ class TrainingEnablementRequirements {
     Field('ongoingEnablement', String, 'Ongoing Enablement',
         hint: 'Refresher and continuous-enablement expectations'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Training deliverable requirements (training half of the former DOANTR).
+  @SerializationOrder(1)
   TrainingDeliverableRequirements trainingDeliverables =
       TrainingDeliverableRequirements();
 }

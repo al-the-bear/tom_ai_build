@@ -24,13 +24,16 @@ Seeds the QAP (Quality & Acceptance Plan) document for full quality planning.
 All deliverable and acceptance definitions should be objectively verifiable
 and contractually precise.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 14.1. Delivery and Service Scope.
+  @SerializationOrder(1)
   DeliveryScope deliveryScope = DeliveryScope();
 
   /// 14.2. Acceptance Plan. Seeds → QAP.
   @Comment('Seeds → QAP')
+  @SerializationOrder(2)
   AcceptancePlan acceptancePlan = AcceptancePlan();
 }
 
@@ -48,18 +51,23 @@ Each deliverable entry specifies format, delivery mechanism, acceptance
 criteria, and responsible party. Deliverables are contractually binding
 commitments.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 14.1.1. Software Deliverables.
+  @SerializationOrder(1)
   SoftwareDeliverables softwareDeliverables = SoftwareDeliverables();
 
   /// 14.1.2. Documentation Deliverables.
+  @SerializationOrder(2)
   DocumentationDeliverables documentationDeliverables = DocumentationDeliverables();
 
   /// 14.1.3. Training Deliverables.
+  @SerializationOrder(3)
   TrainingDeliverables trainingDeliverables = TrainingDeliverables();
 
   /// 14.1.4. Support Deliverables.
+  @SerializationOrder(4)
   SupportDeliverables supportDeliverables = SupportDeliverables();
 }
 
@@ -75,11 +83,13 @@ configuration files, deployment artifacts. Define for each:
 - Licensing terms applicable to the deliverable
 - Environment-specific variants (production, staging, development)
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Deliverable.
   @SectionId('SWDLV-ITEM-LST')
   @SectionIdPattern('SWDLV-ITEM-xxx')
+  @SerializationOrder(1)
   List<DeliverableEntry> items = [];
 }
 
@@ -92,11 +102,13 @@ operations runbooks, API documentation, architecture decision records,
 release notes Template. Define format (PDF, HTML, Markdown, wiki),
 delivery channel, language(s), and maintenance responsibility post-delivery.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Deliverable.
   @SectionId('DCDLV-ITEM-LST')
   @SectionIdPattern('DCDLV-ITEM-xxx')
+  @SerializationOrder(1)
   List<DeliverableEntry> items = [];
 }
 
@@ -109,11 +121,13 @@ train-the-trainer programs, quick reference cards, video tutorials,
 sandbox environments. Define target audience, duration, prerequisites,
 assessment criteria, and ongoing refresh schedule.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Deliverable.
   @SectionId('TRDLV-ITEM-LST')
   @SectionIdPattern('TRDLV-ITEM-xxx')
+  @SerializationOrder(1)
   List<DeliverableEntry> items = [];
 }
 
@@ -126,11 +140,13 @@ post-acceptance, knowledge transfer sessions, escalation contacts,
 SLA definitions, support tooling and access. Define support hours,
 response times, coverage period, and handover criteria.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Deliverable.
   @SectionId('SPDLV-ITEM-LST')
   @SectionIdPattern('SPDLV-ITEM-xxx')
+  @SerializationOrder(1)
   List<DeliverableEntry> items = [];
 }
 
@@ -149,32 +165,41 @@ class DeliverableEntry {
     Field('priority', String, 'Priority',
         hint: 'Critical / High / Medium / Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identification details.
+  @SerializationOrder(1)
   DeliverableIdentity identity = DeliverableIdentity();
 
   /// Delivery logistics.
+  @SerializationOrder(2)
   DeliverableLogistics logistics = DeliverableLogistics();
 
   /// Version and compatibility.
+  @SerializationOrder(3)
   DeliverableVersion version = DeliverableVersion();
 
   /// Quality and acceptance.
+  @SerializationOrder(4)
   DeliverableQuality quality = DeliverableQuality();
 
   /// Ownership and responsibility.
+  @SerializationOrder(5)
   DeliverableOwnership ownership = DeliverableOwnership();
 
   /// Dependencies.
   @SectionId('DLVDP-DEPE-LST')
   @SectionIdPattern('DLVDP-DEPE-xxx')
+  @SerializationOrder(6)
   List<DeliverableDependencies> dependencies = [];
 
   /// Licensing and legal.
+  @SerializationOrder(7)
   DeliverableLegal legal = DeliverableLegal();
 
   /// Documentation.
+  @SerializationOrder(8)
   DeliverableDocumentation documentation = DeliverableDocumentation();
 }
 
@@ -187,6 +212,7 @@ class DeliverableIdentity {
     Field('category', String, 'Category',
         hint: 'Application / Library / Tool / Configuration / Document'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -207,6 +233,7 @@ class DeliverableLogistics {
     Field('deliveryFrequency', String, 'Delivery Frequency',
         hint: 'OneTime / PerRelease / Continuous / OnDemand'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -221,6 +248,7 @@ class DeliverableVersion {
     Field('backwardCompatibility', String, 'Backward Compatibility',
         hint: 'Yes / No / Partial'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -237,6 +265,7 @@ class DeliverableQuality {
     Field('testCoverage', String, 'Required Test Coverage',
         hint: 'Minimum test coverage — e.g. 80% unit'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -253,6 +282,7 @@ class DeliverableOwnership {
     Field('maintenanceOwner', String, 'Maintenance Owner',
         hint: 'Who maintains the deliverable post-delivery'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -265,6 +295,7 @@ class DeliverableDependencies {
     Field('prerequisiteForDelivery', String, 'Prerequisites',
         hint: 'Conditions that must be met before delivery'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -279,6 +310,7 @@ class DeliverableLegal {
     Field('thirdPartyComponents', String, 'Third-Party Components',
         hint: 'Third-party libraries included and their licenses'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -293,6 +325,7 @@ class DeliverableDocumentation {
     Field('notes', String, 'Notes',
         hint: 'Additional context or special instructions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -314,24 +347,31 @@ formally accepted by the client/business. Covers:
 Seeds the QAP (Quality & Acceptance Plan) for comprehensive quality planning.
 All criteria must be objectively measurable and verifiable.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 14.2.1. Acceptance Criteria.
+  @SerializationOrder(1)
   AcceptanceCriteriaList acceptanceCriteria = AcceptanceCriteriaList();
 
   /// 14.2.2. Acceptance Process.
+  @SerializationOrder(2)
   AcceptanceProcess acceptanceProcess = AcceptanceProcess();
 
   /// 14.2.3. User Acceptance Testing.
+  @SerializationOrder(3)
   UserAcceptanceTesting userAcceptanceTesting = UserAcceptanceTesting();
 
   /// 14.2.4. Defect Resolution.
+  @SerializationOrder(4)
   DefectResolution defectResolution = DefectResolution();
 
   /// 14.2.5. Sign-off Process.
+  @SerializationOrder(5)
   SignOffProcess signOffProcess = SignOffProcess();
 
   /// 14.2.6. Warranty.
+  @SerializationOrder(6)
   WarrantyTerms warranty = WarrantyTerms();
 }
 
@@ -349,11 +389,13 @@ Each criterion must be:
 - Assigned a verification method and responsible verifier
 - Categorized by type and priority
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× DeliveryAcceptanceCriterion.
   @SectionId('DACEN-ITEM-LST')
   @SectionIdPattern('DACEN-ITEM-xxx')
+  @SerializationOrder(1)
   List<DeliveryAcceptanceCriterionEntry> items = [];
 }
 
@@ -375,25 +417,31 @@ class DeliveryAcceptanceCriterionEntry {
             'Functional / Performance / Security / Usability / '
             'Documentation / Training / Operational / Compliance'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Priority and description.
+  @SerializationOrder(1)
   DeliveryAcceptanceCriterionEntryDefinition definition =
       DeliveryAcceptanceCriterionEntryDefinition();
 
   /// Verification method and evidence.
+  @SerializationOrder(2)
   DeliveryAcceptanceCriterionEntryVerification verification =
       DeliveryAcceptanceCriterionEntryVerification();
 
   /// Traceability links.
+  @SerializationOrder(3)
   DeliveryAcceptanceCriterionEntryTraceability traceability =
       DeliveryAcceptanceCriterionEntryTraceability();
 
   /// Responsibility assignments.
+  @SerializationOrder(4)
   DeliveryAcceptanceCriterionEntryOwnership ownership =
       DeliveryAcceptanceCriterionEntryOwnership();
 
   /// Current status and notes.
+  @SerializationOrder(5)
   DeliveryAcceptanceCriterionEntryStatus status =
       DeliveryAcceptanceCriterionEntryStatus();
 }
@@ -409,6 +457,7 @@ class DeliveryAcceptanceCriterionEntryDefinition {
         hint:
             'Extended explanation including context and boundaries'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -433,6 +482,7 @@ class DeliveryAcceptanceCriterionEntryVerification {
         hint:
             'Documentation of proof — test report, screenshot, certificate'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -447,6 +497,7 @@ class DeliveryAcceptanceCriterionEntryTraceability {
     Field('testScenarioRef', String, 'Test Scenario Reference',
         hint: 'UAT scenario ID that validates this criterion'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -459,6 +510,7 @@ class DeliveryAcceptanceCriterionEntryOwnership {
     Field('approver', String, 'Approver',
         hint: 'Role or person who confirms acceptance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -472,6 +524,7 @@ class DeliveryAcceptanceCriterionEntryStatus {
     Field('notes', String, 'Notes',
         hint: 'Clarifications, exceptions, or conditions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -492,26 +545,33 @@ class AcceptanceProcess {
     Field('acceptanceType', String, 'Acceptance Type',
         hint: 'Formal / Informal / Staged / Conditional'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Process overview.
+  @SerializationOrder(1)
   AcceptanceProcessOverview overview = AcceptanceProcessOverview();
 
   /// Participants and governance.
+  @SerializationOrder(2)
   AcceptanceProcessParticipants participants =
       AcceptanceProcessParticipants();
 
   /// Timeline and schedule.
+  @SerializationOrder(3)
   AcceptanceProcessTimeline timeline = AcceptanceProcessTimeline();
 
   /// Decision framework.
+  @SerializationOrder(4)
   AcceptanceProcessDecision decision = AcceptanceProcessDecision();
 
   /// Escalation.
+  @SerializationOrder(5)
   AcceptanceProcessEscalation escalation =
       AcceptanceProcessEscalation();
 
   /// Documentation.
+  @SerializationOrder(6)
   AcceptanceProcessDocumentation documentation =
       AcceptanceProcessDocumentation();
 
@@ -519,11 +579,13 @@ class AcceptanceProcess {
   @ContentHelp('Detailed walkthrough of the acceptance process: '
       'step-by-step flow, decision points, parallel tracks, '
       'timing dependencies, and integration with project closeout.')
+  @SerializationOrder(7)
   TextSection processNarrative = TextSection();
 
   /// Contains 0+× AcceptanceStep.
   @SectionId('ACST-STEP-LST')
   @SectionIdPattern('ACST-STEP-xxx')
+  @SerializationOrder(8)
   List<AcceptanceStepEntry> steps = [];
 }
 
@@ -534,6 +596,7 @@ class AcceptanceProcessOverview {
     Field('processDescription', String, 'Process Description',
         hint: 'High-level workflow: initiation → testing → review → sign-off'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -552,6 +615,7 @@ class AcceptanceProcessParticipants {
     Field('raciMatrix', String, 'RACI Matrix',
         hint: 'Responsible / Accountable / Consulted / Informed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -568,6 +632,7 @@ class AcceptanceProcessTimeline {
     Field('milestones', String, 'Key Milestones',
         hint: 'Entry gate, mid-point review, final review, sign-off'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -585,6 +650,7 @@ class AcceptanceProcessDecision {
     Field('rejectionCriteria', String, 'Rejection Criteria',
         hint: 'Conditions that automatically block acceptance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -599,6 +665,7 @@ class AcceptanceProcessEscalation {
     Field('disputeResolution', String, 'Dispute Resolution',
         hint: 'How disagreements about acceptance are resolved'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -613,6 +680,7 @@ class AcceptanceProcessDocumentation {
     Field('archivalRequirements', String, 'Archival Requirements',
         hint: 'How acceptance evidence is archived'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -633,12 +701,15 @@ class AcceptanceStepEntry {
     Field('responsibleRole', String, 'Responsible Role',
         hint: 'Who performs or leads this step'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Participants and execution flow.
+  @SerializationOrder(1)
   AcceptanceStepEntryFlow flow = AcceptanceStepEntryFlow();
 
   /// Exit outcomes and timing.
+  @SerializationOrder(2)
   AcceptanceStepEntryOutcome outcome = AcceptanceStepEntryOutcome();
 }
 
@@ -655,6 +726,7 @@ class AcceptanceStepEntryFlow {
     Field('exitCriteria', String, 'Exit Criteria',
         hint: 'What must be true for this step to be complete'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -671,6 +743,7 @@ class AcceptanceStepEntryOutcome {
             'Possible outcomes — e.g. Pass / Fail / Conditional / '
             'Escalate'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -692,54 +765,69 @@ class UserAcceptanceTesting {
     Field('uatLead', String, 'UAT Lead',
         hint: 'Name and role of the person coordinating UAT'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scope and objectives.
+  @SerializationOrder(1)
   UatScope scope = UatScope();
 
   /// Environment.
+  @SerializationOrder(2)
   UatEnvironment environment = UatEnvironment();
 
   /// Test data.
+  @SerializationOrder(3)
   UatTestData testData = UatTestData();
 
   /// Participants and governance.
+  @SerializationOrder(4)
   UatGovernance governance = UatGovernance();
 
   /// Schedule and cycles.
+  @SerializationOrder(5)
   UatSchedule schedule = UatSchedule();
 
   /// Entry, exit, and suspension criteria.
+  @SerializationOrder(6)
   UatCriteria criteria = UatCriteria();
 
   /// Defect management.
+  @SerializationOrder(7)
   UatDefectManagement defectManagement = UatDefectManagement();
 
   /// Reporting.
+  @SerializationOrder(8)
   UatReporting reporting = UatReporting();
 
   /// Non-functional acceptance.
+  @SerializationOrder(9)
   UatNonFunctional nonFunctional = UatNonFunctional();
 
   /// Sign-off.
+  @SerializationOrder(10)
   UatSignOff signOff = UatSignOff();
 
   /// Training and readiness.
+  @SerializationOrder(11)
   UatTraining training = UatTraining();
 
   /// Narrative overview of the UAT approach and philosophy.
   @ContentHelp('Describe the UAT philosophy, how it integrates with prior '
       'test levels, key risks, and lessons from previous projects.')
+  @SerializationOrder(12)
   TextSection uatOverview = TextSection();
 
   /// Contains 0+× UatTestCycle.
   @SectionId('UATCY-TEST-LST')
   @SectionIdPattern('UATCY-TEST-xxx')
+  @SerializationOrder(13)
   List<UatTestCycleEntry> testCycles = [];
 
   /// Contains 0+× TestScenario.
   @SectionId('TSSC-TEST-LST')
   @SectionIdPattern('TSSC-TEST-xxx')
+  @SerializationOrder(14)
   List<TestScenarioEntry> testScenarios = [];
 }
 
@@ -754,6 +842,7 @@ class UatScope {
     Field('testTypes', String, 'Test Types Included',
         hint: 'Functional / Regression / Usability / Accessibility / End-to-End'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -772,6 +861,7 @@ class UatEnvironment {
     Field('environmentAccessControl', String, 'Access Control',
         hint: 'Who has access, authentication method'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -788,6 +878,7 @@ class UatTestData {
     Field('testDataRefreshCadence', String, 'Test Data Refresh Cadence',
         hint: 'How often test data is refreshed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -808,6 +899,7 @@ class UatGovernance {
     Field('communicationPlan', String, 'Communication Plan',
         hint: 'Status update frequency, channels, and audience'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -826,6 +918,7 @@ class UatSchedule {
     Field('milestones', String, 'Key Milestones',
         hint: 'Entry gate, mid-cycle checkpoint, exit gate'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -842,6 +935,7 @@ class UatCriteria {
     Field('resumptionCriteria', String, 'Resumption Criteria',
         hint: 'Conditions to restart after suspension'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -862,6 +956,7 @@ class UatDefectManagement {
     Field('retestProcess', String, 'Retest Process',
         hint: 'How fixed defects are retested'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -878,6 +973,7 @@ class UatReporting {
     Field('finalReportContents', String, 'Final Report Contents',
         hint: 'Summary, results matrix, open defects'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -894,6 +990,7 @@ class UatNonFunctional {
     Field('regressionApproach', String, 'Regression Approach',
         hint: 'Scope and method for regression testing'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -908,6 +1005,7 @@ class UatSignOff {
     Field('conditionalAcceptancePolicy', String, 'Conditional Acceptance Policy',
         hint: 'Conditions under which UAT passes with known defects'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -920,6 +1018,7 @@ class UatTraining {
     Field('userDocumentation', String, 'User Documentation Availability',
         hint: 'Guides, FAQs, and quick-start docs available'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -943,12 +1042,15 @@ class UatTestCycleEntry {
     Field('plannedEndDate', String, 'Planned End Date',
         hint: 'End date for this cycle'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scope and pass criteria for this cycle.
+  @SerializationOrder(1)
   UatTestCycleEntryScope scope = UatTestCycleEntryScope();
 
   /// Staffing and risk context.
+  @SerializationOrder(2)
   UatTestCycleEntryExecution execution = UatTestCycleEntryExecution();
 }
 
@@ -968,6 +1070,7 @@ class UatTestCycleEntryScope {
     Field('passCriterion', String, 'Pass Criterion',
         hint: 'Required pass rate — e.g. >= 95% of scenarios'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -980,6 +1083,7 @@ class UatTestCycleEntryExecution {
     Field('riskNotes', String, 'Risk Notes',
         hint: 'Known risks or dependencies for this cycle'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -999,34 +1103,43 @@ class TestScenarioEntry {
     Field('priority', String, 'Priority',
         hint: 'Critical / High / Medium / Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identification.
+  @SerializationOrder(1)
   TestScenarioIdentification identification = TestScenarioIdentification();
 
   /// Business context.
+  @SerializationOrder(2)
   TestScenarioBusiness business = TestScenarioBusiness();
 
   /// Traceability.
+  @SerializationOrder(3)
   TestScenarioTraceability traceability = TestScenarioTraceability();
 
   /// Preconditions and setup.
+  @SerializationOrder(4)
   TestScenarioSetup setup = TestScenarioSetup();
 
   /// Execution.
+  @SerializationOrder(5)
   TestScenarioExecution execution = TestScenarioExecution();
 
   /// Post-execution.
+  @SerializationOrder(6)
   TestScenarioPostExecution postExecution = TestScenarioPostExecution();
 
   /// Notes.
   @SectionId('TESCNO-NOTE-LST')
   @SectionIdPattern('TESCNO-NOTE-xxx')
+  @SerializationOrder(7)
   List<TestScenarioNotes> notes = [];
 
   /// Contains 0+× UatTestStep for this scenario.
   @SectionId('UATSST-TEST-LST')
   @SectionIdPattern('UATSST-TEST-xxx')
+  @SerializationOrder(8)
   List<UatTestStepEntry> testSteps = [];
 }
 
@@ -1041,6 +1154,7 @@ class TestScenarioIdentification {
     Field('category', String, 'Category',
         hint: 'Functional / Regression / Integration / End-to-End'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1057,6 +1171,7 @@ class TestScenarioBusiness {
     Field('regulatoryRelevance', String, 'Regulatory Relevance',
         hint: 'Compliance requirements addressed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1073,6 +1188,7 @@ class TestScenarioTraceability {
     Field('designRef', String, 'Design / Screen Reference',
         hint: 'UI screens or mockup references'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1089,6 +1205,7 @@ class TestScenarioSetup {
     Field('dependsOnScenarios', String, 'Depends on Scenarios',
         hint: 'Scenario IDs that must pass before this one'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1107,6 +1224,7 @@ class TestScenarioExecution {
     Field('assignedTesterRole', String, 'Assigned Tester Role',
         hint: 'Role or name of the person assigned'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1121,6 +1239,7 @@ class TestScenarioPostExecution {
     Field('defectThreshold', String, 'Defect Threshold',
         hint: 'Max defects for pass'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1135,6 +1254,7 @@ class TestScenarioNotes {
     Field('notes', String, 'Notes',
         hint: 'Additional context or known issues'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1164,6 +1284,7 @@ class UatTestStepEntry {
     Field('notes', String, 'Notes',
         hint: 'Clarification, timing notes, or alternative paths'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1193,24 +1314,30 @@ class DefectResolution {
         hint:
             'Who decides severity/priority — UAT lead, business owner, or joint'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Classification refinement and SLA targets.
+  @SerializationOrder(1)
   DefectResolutionSla sla = DefectResolutionSla();
 
   /// Acceptance thresholds and deferral rules.
+  @SerializationOrder(2)
   DefectResolutionThresholds thresholds = DefectResolutionThresholds();
 
   /// Triage, retest, and escalation process.
+  @SerializationOrder(3)
   DefectResolutionProcess process = DefectResolutionProcess();
 
   /// Reporting and closure rules.
+  @SerializationOrder(4)
   DefectResolutionReporting reporting = DefectResolutionReporting();
 
   /// Defect management narrative.
   @ContentHelp('Detailed description of the defect lifecycle: '
       'from discovery through classification, assignment, fix, '
       'retest, and closure. Include workflow diagrams if applicable.')
+  @SerializationOrder(5)
   TextSection defectManagementNarrative = TextSection();
 }
 
@@ -1233,6 +1360,7 @@ class DefectResolutionSla {
     Field('slaExceptions', String, 'SLA Exceptions',
         hint: 'Conditions under which SLAs are suspended — holidays, force majeure'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1253,6 +1381,7 @@ class DefectResolutionThresholds {
             'When defects can be deferred to post-go-live — '
             'criteria and approval process'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1277,6 +1406,7 @@ class DefectResolutionProcess {
         hint:
             'Escalation for overdue defects — levels and timing'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1295,6 +1425,7 @@ class DefectResolutionReporting {
             'When a defect is considered closed — retest passed, '
             'evidence documented, reporter confirmed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1326,27 +1457,34 @@ class SignOffProcess {
             'Role for business acceptance — '
             'e.g. Business Owner, Product Owner'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Signatory and quorum governance.
+  @SerializationOrder(1)
   SignOffProcessGovernance governance = SignOffProcessGovernance();
 
   /// Evidence and checklist requirements.
+  @SerializationOrder(2)
   SignOffProcessEvidence evidence = SignOffProcessEvidence();
 
   /// Conditional or partial acceptance policies.
+  @SerializationOrder(3)
   SignOffProcessAcceptance acceptance = SignOffProcessAcceptance();
 
   /// Legal and contractual consequences.
+  @SerializationOrder(4)
   SignOffProcessContractual contractual = SignOffProcessContractual();
 
   /// Review timeline.
+  @SerializationOrder(5)
   SignOffProcessTimeline timeline = SignOffProcessTimeline();
 
   /// Sign-off process narrative.
   @ContentHelp('Detailed walkthrough of the sign-off ceremony: '
       'how the meeting is conducted, document review procedure, '
       'voting mechanism, dissent handling, and record keeping.')
+  @SerializationOrder(6)
   TextSection signOffNarrative = TextSection();
 }
 
@@ -1362,6 +1500,7 @@ class SignOffProcessGovernance {
                 hint:
                         'Minimum signatories — e.g. all 3 boards, or 2-of-3'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1384,6 +1523,7 @@ class SignOffProcessEvidence {
                 hint:
                         'Final verification checklist — all items must be confirmed'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1405,6 +1545,7 @@ class SignOffProcessAcceptance {
                         'What happens on rejection — rework, resubmission timeline, '
                         'impact on project'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1428,6 +1569,7 @@ class SignOffProcessContractual {
                         'When warranty period starts — from sign-off date, '
                         'from go-live date'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1446,6 +1588,7 @@ class SignOffProcessTimeline {
                         'Whether non-response constitutes acceptance — '
                         'Yes/No, after what period'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1471,26 +1614,33 @@ class WarrantyTerms {
         hint: 'What is covered: defect fixes, configuration issues',
         required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Duration and activation.
+  @SerializationOrder(1)
   WarrantyDuration duration = WarrantyDuration();
 
   /// Scope of coverage.
+  @SerializationOrder(2)
   WarrantyCoverage coverage = WarrantyCoverage();
 
   /// Service levels.
   @SectionId('WASELE-SERV-LST')
   @SectionIdPattern('WASELE-SERV-xxx')
+  @SerializationOrder(3)
   List<WarrantyServiceLevels> serviceLevels = [];
 
   /// Process for defect handling.
+  @SerializationOrder(4)
   WarrantyProcess process = WarrantyProcess();
 
   /// Transition to support.
+  @SerializationOrder(5)
   WarrantyTransition transition = WarrantyTransition();
 
   /// Financial terms.
+  @SerializationOrder(6)
   WarrantyFinancial financial = WarrantyFinancial();
 
   /// Warranty terms narrative.
@@ -1498,6 +1648,7 @@ class WarrantyTerms {
       'relationship to contract, scenarios and examples, '
       'common issues and their warranty status, '
       'handover checklist for transition to support.')
+  @SerializationOrder(7)
   TextSection warrantyNarrative = TextSection();
 }
 
@@ -1510,6 +1661,7 @@ class WarrantyDuration {
     Field('extensionPolicy', String, 'Extension Policy',
         hint: 'Conditions for warranty extension'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1524,6 +1676,7 @@ class WarrantyCoverage {
     Field('environmentsCovered', String, 'Environments Covered',
         hint: 'Production only, or also staging/UAT'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1544,6 +1697,7 @@ class WarrantyServiceLevels {
     Field('escalationContacts', String, 'Escalation Contacts',
         hint: 'Named contacts or roles for escalation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1560,6 +1714,7 @@ class WarrantyProcess {
     Field('communicationCadence', String, 'Communication Cadence',
         hint: 'Status reporting during warranty'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1574,6 +1729,7 @@ class WarrantyTransition {
     Field('knowledgeTransferPlan', String, 'Knowledge Transfer Plan',
         hint: 'Activities to ensure support team can maintain system'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1588,5 +1744,6 @@ class WarrantyFinancial {
     Field('additionalWorkCharging', String, 'Additional Work Charging',
         hint: 'How out-of-scope requests during warranty are charged'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

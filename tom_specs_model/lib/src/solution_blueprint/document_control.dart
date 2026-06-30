@@ -19,12 +19,15 @@ import '../common/document_header.dart';
 @SectionId('DOCTL')
 class DocumentControl {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// Document header form (id, project, version, date, author, status).
+  @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
   /// Chronological revision history of this document.
+  @SerializationOrder(2)
   RevisionHistory revisionHistory = RevisionHistory();
 
   /// Formal approvals (sign-offs) recorded for this document.
@@ -32,12 +35,14 @@ class DocumentControl {
   @SectionIdPattern('DOCTL-APRV-xxx')
   @ContentHelp('Add one entry per required sign-off (e.g. sponsor, product '
       'owner, architecture board).')
+  @SerializationOrder(3)
   List<ApprovalRecord> approvals = [];
 
   /// Reference documents — the catalogue of documents this specification draws
   /// on (standards, policies, regulations, related specs). Re-homed here from
   /// the former §3 `Administrative` wrapper in L34C-5: referenced documents are
   /// ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+  @SerializationOrder(4)
   ReferenceDocuments referenceDocuments = ReferenceDocuments();
 }
 
@@ -45,12 +50,14 @@ class DocumentControl {
 @SectionId('RVHST')
 class RevisionHistory {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// One entry per published revision of the document.
   @SectionId('RVHST-REVS-LST')
   @SectionIdPattern('RVHST-REVS-xxx')
   @ContentHelp('Add one entry per revision, newest last.')
+  @SerializationOrder(1)
   List<RevisionEntry> revisions = [];
 }
 
@@ -63,6 +70,7 @@ class RevisionEntry {
     Field('author', String, 'Author', required: true),
     Field('summary', String, 'Summary of changes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -75,6 +83,7 @@ class ApprovalRecord {
     Field('date', String, 'Approval Date'),
     Field('status', String, 'Status (Pending, Approved, Rejected)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -96,11 +105,13 @@ class ApprovalRecord {
 class ReferenceDocuments {
   @ContentType('description', 'Overview of reference document categories and '
       'their relevance to the project.')
+  @SerializationOrder(0)
   String? content;
 
   /// Reference document entries — contains 0+× Reference Document.
   @SectionId('RFDOC-DOCU-LST')
   @SectionIdPattern('RFDOC-DOCU-xxx')
+  @SerializationOrder(1)
   List<ReferenceDocumentEntry> documents = [];
 }
 
@@ -115,22 +126,28 @@ class ReferenceDocumentEntry {
     Field('documentId', String, 'Document ID (internal reference number)'),
     Field('version', String, 'Version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Document metadata and relevance.
+  @SerializationOrder(1)
   ReferenceDocumentEntryMetadata metadata = ReferenceDocumentEntryMetadata();
 
   /// Governance and applicability information.
+  @SerializationOrder(2)
   ReferenceDocumentEntryGovernance governance =
       ReferenceDocumentEntryGovernance();
 
   /// Lifecycle and usage details.
+  @SerializationOrder(3)
   ReferenceDocumentEntryLifecycle lifecycle = ReferenceDocumentEntryLifecycle();
 
   /// Key sections or chapters within the document relevant to this project.
+  @SerializationOrder(4)
   DocumentRelevantSections relevantSections = DocumentRelevantSections();
 
   /// Relationship to other reference documents.
+  @SerializationOrder(5)
   DocumentRelationships relationships = DocumentRelationships();
 }
 
@@ -145,6 +162,7 @@ class ReferenceDocumentEntryMetadata {
     Field('documentType', String,
         'Document Type (Standard, Policy, Regulation, Specification, etc.)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -163,6 +181,7 @@ class ReferenceDocumentEntryGovernance {
     Field('accessRestrictions', String,
         'Access Restrictions (who can access, special permissions required)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -176,6 +195,7 @@ class ReferenceDocumentEntryLifecycle {
     Field('format', String, 'Format (PDF, Word, HTML, Confluence, etc.)'),
     Field('notes', String, 'Additional Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -191,11 +211,13 @@ class DocumentRelevantSections {
     Field('extractSummary', String,
         'Summary / Key Extract (brief summary of applicable content)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Individual relevant section entries.
   @SectionId('RESEEN-SECT-LST')
   @SectionIdPattern('RESEEN-SECT-xxx')
+  @SerializationOrder(1)
   List<RelevantSectionEntry> sections = [];
 }
 
@@ -214,6 +236,7 @@ class RelevantSectionEntry {
     Field('complianceRequired', bool,
         'Compliance Required (must project comply with this section?)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -222,11 +245,13 @@ class RelevantSectionEntry {
 class DocumentRelationships {
   @ContentType('description', 'Describe how this document relates to '
       'other reference documents in the catalog.')
+  @SerializationOrder(0)
   String? content;
 
   /// Related document entries.
   @SectionId('REDOEN-RELA-LST')
   @SectionIdPattern('REDOEN-RELA-xxx')
+  @SerializationOrder(1)
   List<RelatedDocumentEntry> relatedDocuments = [];
 }
 
@@ -242,5 +267,6 @@ class RelatedDocumentEntry {
     Field('relationshipDescription', String,
         'Relationship Description (explain the connection)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

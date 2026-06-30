@@ -58,51 +58,66 @@ to pixel-perfect designs with exact typography and spacing.
 - Business Processes (section 6) → user task flows
 - Requirements (section 4) → functional requirements for each screen
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 10.1. Design Vision. Seeds → XDS.
+  @SerializationOrder(1)
   DesignVision designVision = DesignVision();
 
   /// 10.2. Screen Descriptions. Seeds → XDS.
+  @SerializationOrder(2)
   ScreenDescriptions screens = ScreenDescriptions();
 
   /// 10.3. Screen Flow Structure. Seeds → XDS.
+  @SerializationOrder(3)
   ScreenFlowStructure screenFlow = ScreenFlowStructure();
 
   /// 10.4. Print Layout. Seeds → XDS.
+  @SerializationOrder(4)
   PrintAndExportLayout printLayout = PrintAndExportLayout();
 
   /// Data Structure Alignment.
+  @SerializationOrder(5)
   TextSection dataStructureAlignment = TextSection();
 
   /// Authorization Compliance.
+  @SerializationOrder(6)
   TextSection authorizationCompliance = TextSection();
 
   /// 10.7. Error Handling. Seeds → XDS.
+  @SerializationOrder(7)
   ErrorHandling errorHandling = ErrorHandling();
 
   /// 10.8. User Assistance. Seeds → XDS.
+  @SerializationOrder(8)
   UserAssistance userAssistance = UserAssistance();
 
   /// 10.9. Accessibility. Seeds → XDS.
+  @SerializationOrder(9)
   Accessibility accessibility = Accessibility();
 
   /// 10.10. Responsive Design. Seeds → XDS.
+  @SerializationOrder(10)
   ResponsiveDesign responsiveDesign = ResponsiveDesign();
 
   /// 10.11. UI Components. Seeds → XDS.
+  @SerializationOrder(11)
   UiComponents uiComponents = UiComponents();
 
   /// 10.12. Multi-language Support.
+  @SerializationOrder(12)
   MultiLanguageSupport multiLanguageSupport = MultiLanguageSupport();
 
   /// 10.13. Prototype. Seeds → XDS.
+  @SerializationOrder(13)
   Prototype prototype = Prototype();
 
   /// 10.14. Wireframes and Mockups.
   ///
   /// One whole-catalog content section; collapsed from
   /// `List<WireframesAndMockups>` (L34C-12 SR-52).
+  @SerializationOrder(14)
   WireframesAndMockups wireframesAndMockups = WireframesAndMockups();
 }
 
@@ -140,15 +155,19 @@ Design vision informs:
 Document the visual language and interaction vocabulary — how the Tom UI component 
 library will be configured and extended to express this vision.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 10.1.1. Design Goals.
+  @SerializationOrder(1)
   DesignGoals designGoals = DesignGoals();
 
   /// 10.1.2. Design Principles.
+  @SerializationOrder(2)
   DesignPrinciples designPrinciples = DesignPrinciples();
 
   /// 10.1.3. User Personas.
+  @SerializationOrder(3)
   UserPersonas personas = UserPersonas();
 }
 
@@ -184,14 +203,17 @@ Prioritized UI objectives the system must achieve.
 Goals drive widget configuration — e.g., performance goals → lazy loading, 
 accessibility goals → semantic labels and focus management.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of the design goal framework and prioritization approach.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Contains 0+× DesignGoal.
   @SectionId('DGOEN-ITEM-LST')
   @SectionIdPattern('DGOEN-ITEM-xxx')
+  @SerializationOrder(2)
   List<DesignGoalEntry> items = [];
 }
 
@@ -215,6 +237,7 @@ class DesignGoalEntry {
     Field('relatedPrinciples', String, 'Related Principles',
         hint: 'Design principles that support this goal'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -253,14 +276,17 @@ Principles configure shared behaviors:
 - Spacing/rhythm via `TomSpacing`
 - Typography scale via `TomTypography`
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of the design principle framework.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Contains 0+× UiDesignPrinciple.
   @SectionId('UDPEN-ITEM-LST')
   @SectionIdPattern('UDPEN-ITEM-xxx')
+  @SerializationOrder(2)
   List<DesignPrincipleEntry> items = [];
 }
 
@@ -286,6 +312,7 @@ class DesignPrincipleEntry {
     Field('relatedGoals', String, 'Related Goals',
         hint: 'Design goals this principle supports'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -325,15 +352,18 @@ Personas inform:
 - Help topic prioritization
 - Responsive breakpoint priorities
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of persona research methodology and usage.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Contains 1+× Persona.
   @SectionId('PEREN-ITEM-LST')
   @SectionIdPattern('PEREN-ITEM-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<PersonaEntry> items = [];
 }
 
@@ -350,24 +380,31 @@ class PersonaEntry {
     Field('role', String, 'Role',
         hint: 'Job title and responsibilities'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Background and capability profile.
+  @SerializationOrder(1)
   PersonaEntryProfile profile = PersonaEntryProfile();
 
   /// Usage environment and device context.
+  @SerializationOrder(2)
   PersonaEntryContext context = PersonaEntryContext();
 
   /// Motivations, frustrations, and success markers.
+  @SerializationOrder(3)
   PersonaEntryNeeds needs = PersonaEntryNeeds();
 
   /// 10.1.3.n.1. Persona Goals.
+  @SerializationOrder(4)
   PersonaGoals goals = PersonaGoals();
 
   /// 10.1.3.n.2. Persona Pain Points.
+  @SerializationOrder(5)
   PersonaPainPoints painPoints = PersonaPainPoints();
 
   /// 10.1.3.n.3. Persona Scenarios.
+  @SerializationOrder(6)
   PersonaScenarios scenarios = PersonaScenarios();
 }
 
@@ -382,6 +419,7 @@ class PersonaEntryProfile {
         Field('accessibilityNeeds', String, 'Accessibility Needs',
                 hint: 'Visual/Motor/Cognitive/None'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -398,6 +436,7 @@ class PersonaEntryContext {
         Field('workEnvironment', String, 'Work Environment',
                 hint: 'Office/Remote/Field/Hybrid'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -414,6 +453,7 @@ class PersonaEntryNeeds {
         Field('quote', String, 'Representative Quote',
                 hint: 'A quote that captures their perspective'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -435,11 +475,13 @@ Specific goals for this persona that drive feature requirements.
 Goals link to screens via requiredScreens in PersonaScenarios.
 High-priority goals drive primary screen actions and dashboard widgets.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× PersonaGoal.
   @SectionId('PGOEN-ITEM-LST')
   @SectionIdPattern('PGOEN-ITEM-xxx')
+  @SerializationOrder(1)
   List<PersonaGoalEntry> items = [];
 }
 
@@ -457,6 +499,7 @@ class PersonaGoalEntry {
     Field('desiredOutcome', String, 'Desired Outcome',
         hint: 'What success looks like'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -482,11 +525,13 @@ High-severity pain points become design priorities:
 - Streamlined workflows
 - Contextual help placement
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× PersonaPainPoint.
   @SectionId('PPPEN-ITEM-LST')
   @SectionIdPattern('PPPEN-ITEM-xxx')
+  @SerializationOrder(1)
   List<PersonaPainPointEntry> items = [];
 }
 
@@ -506,6 +551,7 @@ class PersonaPainPointEntry {
     Field('desiredSolution', String, 'Desired Solution',
         hint: 'What would help'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -533,11 +579,13 @@ Scenarios link to:
 - Screen Flow (SCF) via navigation paths
 - Use Cases (ISC-xxx) via related requirements
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× PersonaScenario.
   @SectionId('PSCEN-ITEM-LST')
   @SectionIdPattern('PSCEN-ITEM-xxx')
+  @SerializationOrder(1)
   List<PersonaScenarioEntry> items = [];
 }
 
@@ -559,6 +607,7 @@ class PersonaScenarioEntry {
     Field('successMetric', String, 'Success Metric',
         hint: 'How we measure scenario success'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -596,12 +645,15 @@ Each screen should have enough detail to generate:
 - State holder classes
 - Authorization checks
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 10.2.1. Screen Inventory.
+  @SerializationOrder(1)
   ScreenInventory screenInventory = ScreenInventory();
 
   /// 10.2.2. Information Architecture.
+  @SerializationOrder(2)
   InformationArchitecture informationArchitecture = InformationArchitecture();
 }
 
@@ -646,15 +698,18 @@ Screens generate TomScaffold configurations with:
 - Body layout
 - FAB/action buttons
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of the screen inventory structure and conventions.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Contains 1+× Screen.
   @SectionId('SCREN-ITEM-LST')
   @SectionIdPattern('SCREN-ITEM-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<ScreenEntry> items = [];
 }
 
@@ -672,45 +727,57 @@ class ScreenEntry {
     Field('purpose', String, 'Purpose',
         hint: 'Business purpose — what the user accomplishes here'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Classification and routing metadata.
+  @SerializationOrder(1)
   ScreenEntryClassification classification = ScreenEntryClassification();
 
   /// Access control settings.
+  @SerializationOrder(2)
   ScreenEntryAccess access = ScreenEntryAccess();
 
   /// Traceability metadata.
+  @SerializationOrder(3)
   ScreenEntryTraceability traceability = ScreenEntryTraceability();
 
   /// Presentation metadata.
+  @SerializationOrder(4)
   ScreenEntryPresentation presentation = ScreenEntryPresentation();
 
   /// Screen design rationale and notes.
+  @SerializationOrder(5)
   TextSection designNotes = TextSection();
 
   /// 10.2.1.n.1. Screen Sections.
+  @SerializationOrder(6)
   ScreenSections sections = ScreenSections();
 
   /// 10.2.1.n.2. Screen Actions.
+  @SerializationOrder(7)
   ScreenActions actions = ScreenActions();
 
   /// 10.2.1.n.3. Screen States.
+  @SerializationOrder(8)
   ScreenStates states = ScreenStates();
 
   /// Contains 0+× ScreenUserCategory.
   @SectionId('SCRUSC-USER-LST')
   @SectionIdPattern('SCRUSC-USER-xxx')
+  @SerializationOrder(9)
   List<ScreenUserCategoryEntry> userCategories = [];
 
   /// Contains 0+× EntryPoint.
   @SectionId('EPNT-ENTR-LST')
   @SectionIdPattern('EPNT-ENTR-xxx')
+  @SerializationOrder(10)
   List<EntryPointEntry> entryPoints = [];
 
   /// Contains 0+× ScreenResponsiveRule.
   @SectionId('SRRE-RESP-LST')
   @SectionIdPattern('SRRE-RESP-xxx')
+  @SerializationOrder(11)
   List<ScreenResponsiveRuleEntry> responsiveRules = [];
 }
 
@@ -726,6 +793,7 @@ class ScreenEntryClassification {
     Field('routePattern', String, 'Route Pattern',
         hint: 'Navigation route path, e.g., /orders/:id/edit'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -742,6 +810,7 @@ class ScreenEntryAccess {
     Field('permissionEffect', String, 'Permission Effect',
         hint: 'Hide-Screen/Show-Readonly/Show-With-Restrictions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -760,6 +829,7 @@ class ScreenEntryTraceability {
     Field('primaryAction', String, 'Primary Action',
         hint: 'Main user action on this screen'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -777,6 +847,7 @@ class ScreenEntryPresentation {
         hint:
             'Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -815,11 +886,13 @@ Sections map to Flutter layout widgets:
 - GridView for structured grids
 - Visibility for collapsible sections
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× ScreenSection.
   @SectionId('SCRSC-ITEM-LST')
   @SectionIdPattern('SCRSC-ITEM-xxx')
+  @SerializationOrder(1)
   List<ScreenSectionEntry> items = [];
 }
 
@@ -839,17 +912,21 @@ class ScreenSectionEntry {
         hint:
             'Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Layout and ordering for the section.
+  @SerializationOrder(1)
   ScreenSectionEntryLayout layout = ScreenSectionEntryLayout();
 
   /// Visibility and collapse behavior.
+  @SerializationOrder(2)
   ScreenSectionEntryBehavior behavior = ScreenSectionEntryBehavior();
 
   /// Contains 0+× ScreenElement within this section.
   @SectionId('SCREL-ELEM-LST')
   @SectionIdPattern('SCREL-ELEM-xxx')
+  @SerializationOrder(3)
   List<ScreenElementEntry> elements = [];
 }
 
@@ -866,6 +943,7 @@ class ScreenSectionEntryLayout {
         Field('borderStyle', String, 'Border Style',
                 hint: 'Named style or resource key'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -880,6 +958,7 @@ class ScreenSectionEntryBehavior {
         Field('visibilityCondition', String, 'Visibility Condition',
                 hint: 'When this section is shown, e.g., role==Admin'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -900,33 +979,42 @@ class ScreenElementEntry {
             'Checkbox/Toggle/Data-Display/Data-Table/Card/Chart/Status-Indicator/'
             'Icon/Label/Link/Image/Divider/Spacer/Tab-Bar/Badge'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Labels and icon resources.
+  @SerializationOrder(1)
   ScreenElementEntryResources resources = ScreenElementEntryResources();
 
   /// Placement and layout settings.
+  @SerializationOrder(2)
   ScreenElementEntryLayout layout = ScreenElementEntryLayout();
 
   /// Visibility and permission rules.
+  @SerializationOrder(3)
   ScreenElementEntryBehavior behavior = ScreenElementEntryBehavior();
 
   /// Styling and data binding.
+  @SerializationOrder(4)
   ScreenElementEntryPresentation presentation =
       ScreenElementEntryPresentation();
 
   /// 10.2.1.n.m.k.1. Element Action.
+  @SerializationOrder(5)
   ScreenElementAction? elementAction;
 
   /// 10.2.1.n.m.k.2. Element Field Spec.
+  @SerializationOrder(6)
   ScreenElementFieldSpec? fieldSpec;
 
   /// 10.2.1.n.m.k.3. Element Data Display.
+  @SerializationOrder(7)
   ScreenElementDataDisplay? dataDisplay;
 
   /// Contains 0+× ElementValidationRule.
   @SectionId('EVRE-VALI-LST')
   @SectionIdPattern('EVRE-VALI-xxx')
+  @SerializationOrder(8)
   List<ElementValidationRuleEntry> validationRules = [];
 }
 
@@ -945,6 +1033,7 @@ class ScreenElementEntryResources {
     Field('iconPosition', String, 'Icon Position',
         hint: 'Leading/Trailing/Above/Below/Only'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -959,6 +1048,7 @@ class ScreenElementEntryLayout {
     Field('alignment', String, 'Alignment',
         hint: 'Start/Center/End/Stretch'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -977,6 +1067,7 @@ class ScreenElementEntryBehavior {
     Field('permissionEffect', String, 'Permission Effect',
         hint: 'Hide/Disable/Readonly'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -995,6 +1086,7 @@ class ScreenElementEntryPresentation {
     Field('notes', String, 'Design Notes',
         hint: 'Design rationale or open questions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1019,12 +1111,15 @@ class ScreenElementAction {
     Field('keyboardShortcut', String, 'Keyboard Shortcut',
         hint: 'Shortcut binding, e.g., Ctrl+S'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Confirmation and execution feedback behavior.
+  @SerializationOrder(1)
   ScreenElementActionExecution execution = ScreenElementActionExecution();
 
   /// Post-action navigation rules.
+  @SerializationOrder(2)
   ScreenElementActionNavigation navigation = ScreenElementActionNavigation();
 }
 
@@ -1044,6 +1139,7 @@ class ScreenElementActionExecution {
     Field('errorHandling', String, 'Error Handling',
         hint: 'Inline/Toast/Dialog/Banner'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1058,6 +1154,7 @@ class ScreenElementActionNavigation {
     Field('doubleClickPrevention', String, 'Double-Click Prevention',
         hint: 'Yes/No — disable during execution?'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1076,21 +1173,26 @@ class ScreenElementFieldSpec {
     Field('placeholderResource', String, 'Placeholder Resource',
         hint: 'Resource key for placeholder text'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Prefix, suffix, and formatting.
+  @SerializationOrder(1)
   ScreenElementFieldSpecFormatting formatting =
       ScreenElementFieldSpecFormatting();
 
   /// Length and value constraints.
+  @SerializationOrder(2)
   ScreenElementFieldSpecConstraints constraints =
       ScreenElementFieldSpecConstraints();
 
   /// Validation behavior.
+  @SerializationOrder(3)
   ScreenElementFieldSpecValidation validation =
       ScreenElementFieldSpecValidation();
 
   /// Selection and input assistance.
+  @SerializationOrder(4)
   ScreenElementFieldSpecSelection selection =
       ScreenElementFieldSpecSelection();
 }
@@ -1108,6 +1210,7 @@ class ScreenElementFieldSpecFormatting {
     Field('displayFormat', String, 'Display Format',
         hint: 'Format pattern, e.g., #,##0.00'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1126,6 +1229,7 @@ class ScreenElementFieldSpecConstraints {
     Field('decimalPlaces', int, 'Decimal Places',
         hint: 'Number of decimal places'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1144,6 +1248,7 @@ class ScreenElementFieldSpecValidation {
     Field('clearButton', String, 'Clear Button',
         hint: 'Yes/No — show clear/reset affordance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1162,6 +1267,7 @@ class ScreenElementFieldSpecSelection {
             'Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/'
             'Dialog-Picker'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1180,13 +1286,16 @@ class ScreenElementDataDisplay {
     Field('emptyStateIconResource', String, 'Empty State Icon',
         hint: 'Resource key for icon when no data'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Refresh and drill-down behavior.
+  @SerializationOrder(1)
   ScreenElementDataDisplayBehavior behavior =
       ScreenElementDataDisplayBehavior();
 
   /// Table/list interaction controls.
+  @SerializationOrder(2)
   ScreenElementDataDisplayOptions options = ScreenElementDataDisplayOptions();
 }
 
@@ -1199,6 +1308,7 @@ class ScreenElementDataDisplayBehavior {
     Field('drillDownTarget', String, 'Drill-Down Target',
         hint: 'Screen ID navigated to on click/tap'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1217,6 +1327,7 @@ class ScreenElementDataDisplayOptions {
     Field('selectable', String, 'Selectable',
         hint: 'None/Single/Multi — row selection mode'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1237,6 +1348,7 @@ class ElementValidationRuleEntry {
     Field('validateOn', String, 'Validate On',
         hint: 'On-Change/On-Blur/On-Submit'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1268,11 +1380,13 @@ Actions integrate with `TomAction` system:
 - Keyboard shortcuts via keyboardShortcut
 - Success/error feedback via message resources
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× ScreenAction.
   @SectionId('SCRAC-ITEM-LST')
   @SectionIdPattern('SCRAC-ITEM-xxx')
+  @SerializationOrder(1)
   List<ScreenActionEntry> items = [];
 }
 
@@ -1290,15 +1404,19 @@ class ScreenActionEntry {
         hint:
             'Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Visual presentation of the action.
+  @SerializationOrder(1)
   ScreenActionEntryVisual visual = ScreenActionEntryVisual();
 
   /// Visibility, enablement, and permission rules.
+  @SerializationOrder(2)
   ScreenActionEntryConditions conditions = ScreenActionEntryConditions();
 
   /// Confirmation, navigation, and feedback behavior.
+  @SerializationOrder(3)
   ScreenActionEntryBehavior behavior = ScreenActionEntryBehavior();
 }
 
@@ -1315,6 +1433,7 @@ class ScreenActionEntryVisual {
     Field('buttonStyle', String, 'Button Style',
         hint: 'Primary/Secondary/Tertiary/Danger/Icon-Only/Text-Only'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1329,6 +1448,7 @@ class ScreenActionEntryConditions {
     Field('requiredPermission', String, 'Required Permission',
         hint: 'Permission needed to use this action'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1347,6 +1467,7 @@ class ScreenActionEntryBehavior {
     Field('successMessageResource', String, 'Success Message',
         hint: 'Resource key for success notification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1384,11 +1505,13 @@ Each state specifies:
 States map to `TomStateWidget` with standardized skeletons,
 empty states, and error displays.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× ScreenState.
   @SectionId('SCRST-ITEM-LST')
   @SectionIdPattern('SCRST-ITEM-xxx')
+  @SerializationOrder(1)
   List<ScreenStateEntry> items = [];
 }
 
@@ -1416,6 +1539,7 @@ class ScreenStateEntry {
     Field('secondaryActionLabel', String, 'Secondary Action Label',
         hint: 'Resource key for alternative action'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1429,6 +1553,7 @@ class ScreenUserCategoryEntry {
     Field('contentVariations', String, 'Content Variations',
         hint: 'How screen content differs for this category'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1443,6 +1568,7 @@ class EntryPointEntry {
     Field('contextPassed', String, 'Context Passed',
         hint: 'Data or parameters passed from source'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1463,6 +1589,7 @@ class ScreenResponsiveRuleEntry {
     Field('navigationMode', String, 'Navigation Mode',
         hint: 'Sidebar/Bottom-Nav/Drawer/Hamburger'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1495,23 +1622,29 @@ Overall content organization and navigation structure.
 - Consistent mental model
 - Graceful degradation for authorization
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Site map overview.
+  @SerializationOrder(1)
   TextSection siteMap = TextSection();
 
   /// Content hierarchy description.
+  @SerializationOrder(2)
   TextSection contentHierarchy = TextSection();
 
   /// Navigation structure.
+  @SerializationOrder(3)
   TextSection navigationStructure = TextSection();
 
   /// Global entry points.
   @SectionId('GLOBA-GLOB-LST')
   @SectionIdPattern('GLOBA-GLOB-xxx')
+  @SerializationOrder(4)
   List<GlobalEntryPointEntry> globalEntryPoints = [];
 
   /// 10.2.2.5. Information Architecture Diagram.
+  @SerializationOrder(5)
   FlowDiagramSection architectureDiagram = FlowDiagramSection();
 }
 
@@ -1541,12 +1674,15 @@ Screen flow drives:
 - Navigation stack management
 - Deep link handling
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 10.3.1. Navigation Model.
+  @SerializationOrder(1)
   NavigationModel navigationModel = NavigationModel();
 
   /// 10.3.2. Screen Flow Diagram (mermaid-flow).
+  @SerializationOrder(2)
   FlowDiagramSection screenFlowDiagram = FlowDiagramSection();
 }
 
@@ -1581,30 +1717,39 @@ Navigation model generates:
 - `TomShell` scaffold setup
 - Route guards and redirects
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 10.3.1.1. Navigation Overview.
+  @SerializationOrder(1)
   NavigationOverview overview = NavigationOverview();
 
   /// 10.3.1.2. Navigation Hierarchy.
+  @SerializationOrder(2)
   NavigationHierarchy hierarchy = NavigationHierarchy();
 
   /// 10.3.1.3. Primary Navigation.
+  @SerializationOrder(3)
   PrimaryNavigation primaryNavigation = PrimaryNavigation();
 
   /// 10.3.1.4. Secondary Navigation.
+  @SerializationOrder(4)
   SecondaryNavigation secondaryNavigation = SecondaryNavigation();
 
   /// 10.3.1.5. Utility Navigation.
+  @SerializationOrder(5)
   UtilityNavigation utilityNavigation = UtilityNavigation();
 
   /// 10.3.1.6. Contextual Navigation.
+  @SerializationOrder(6)
   ContextualNavigation contextualNavigation = ContextualNavigation();
 
   /// 10.3.1.7. Deep Linking.
+  @SerializationOrder(7)
   DeepLinking deepLinking = DeepLinking();
 
   /// 10.3.1.8. Navigation Guards.
+  @SerializationOrder(8)
   NavigationGuards navigationGuards = NavigationGuards();
 }
 
@@ -1633,9 +1778,11 @@ class NavigationOverview {
     Field('backBehavior', String, 'Back Button Behavior',
         hint: 'System-back/In-app-back/Both'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Design rationale and open questions.
+  @SerializationOrder(1)
   TextSection designNotes = TextSection();
 }
 
@@ -1670,14 +1817,17 @@ Full navigation tree: groups and items.
 - Badges (count, dot, text)
 - Keyboard shortcuts
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of the navigation hierarchy structure.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Contains 0+× NavigationGroup.
   @SectionId('NAVGRP-GROU-LST')
   @SectionIdPattern('NAVGRP-GROU-xxx')
+  @SerializationOrder(2)
   List<NavigationGroupEntry> groups = [];
 }
 
@@ -1696,20 +1846,25 @@ class NavigationGroupEntry {
     Field('groupDescription', String, 'Description Resource',
         hint: 'Resource key for tooltip/subtitle'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Display and expansion behavior.
+  @SerializationOrder(1)
   NavigationGroupEntryDisplay display = NavigationGroupEntryDisplay();
 
   /// Access-control settings.
+  @SerializationOrder(2)
   NavigationGroupEntryAccess access = NavigationGroupEntryAccess();
 
   /// Badge and hierarchy settings.
+  @SerializationOrder(3)
   NavigationGroupEntryStructure structure = NavigationGroupEntryStructure();
 
   /// Contains 0+× NavigationItem.
   @SectionId('NAVIIT-ITEM-LST')
   @SectionIdPattern('NAVIIT-ITEM-xxx')
+  @SerializationOrder(4)
   List<NavigationItemEntry> items = [];
 }
 
@@ -1726,6 +1881,7 @@ class NavigationGroupEntryDisplay {
     Field('visibilityCondition', String, 'Visibility Condition',
         hint: 'Business rule for visibility'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1740,6 +1896,7 @@ class NavigationGroupEntryAccess {
     Field('permissionBehavior', String, 'Permission Behavior',
         hint: 'Hide/Disable/Collapse when unauthorized'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1758,6 +1915,7 @@ class NavigationGroupEntryStructure {
     Field('dividerBefore', String, 'Divider Before',
         hint: 'Yes/No — show divider above'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1774,21 +1932,27 @@ class NavigationItemEntry {
     Field('targetRoute', String, 'Target Route',
         hint: 'Route path, e.g., /customers'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Display properties: icons, labels, descriptions.
+  @SerializationOrder(1)
   NavigationItemEntryDisplay display = NavigationItemEntryDisplay();
 
   /// Routing configuration.
+  @SerializationOrder(2)
   NavigationItemEntryRouting routing = NavigationItemEntryRouting();
 
   /// Access control settings.
+  @SerializationOrder(3)
   NavigationItemEntryAccess access = NavigationItemEntryAccess();
 
   /// Badge configuration.
+  @SerializationOrder(4)
   NavigationItemEntryBadge badge = NavigationItemEntryBadge();
 
   /// Interaction settings.
+  @SerializationOrder(5)
   NavigationItemEntryInteraction interaction = NavigationItemEntryInteraction();
 }
 
@@ -1805,6 +1969,7 @@ class NavigationItemEntryDisplay {
     Field('description', String, 'Description Resource',
         hint: 'Tooltip or subtitle text'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1821,6 +1986,7 @@ class NavigationItemEntryRouting {
     Field('isDefault', String, 'Is Default',
         hint: 'Yes/No — default selected item in group'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1839,6 +2005,7 @@ class NavigationItemEntryAccess {
     Field('permissionBehavior', String, 'Permission Behavior',
         hint: 'Hide/Disable/Show-Locked-Icon'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1853,6 +2020,7 @@ class NavigationItemEntryBadge {
     Field('badgeColor', String, 'Badge Color',
         hint: 'Error/Warning/Info/Success/Neutral'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1869,6 +2037,7 @@ class NavigationItemEntryInteraction {
     Field('highlightRules', String, 'Highlight Rules',
         hint: 'Routes that keep this item highlighted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1889,18 +2058,23 @@ class PrimaryNavigation {
     Field('desktopPattern', String, 'Desktop Pattern',
         hint: 'Sidebar/Sidebar-Collapsible/Top-Nav+Sidebar'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Drawer and rail behavior.
+  @SerializationOrder(1)
   PrimaryNavigationDrawer drawer = PrimaryNavigationDrawer();
 
   /// Bottom navigation rules.
+  @SerializationOrder(2)
   PrimaryNavigationBottomNav bottomNav = PrimaryNavigationBottomNav();
 
   /// Sidebar sizing and selection behavior.
+  @SerializationOrder(3)
   PrimaryNavigationSidebar sidebar = PrimaryNavigationSidebar();
 
   /// Design notes and tradeoffs.
+  @SerializationOrder(4)
   TextSection designNotes = TextSection();
 }
 
@@ -1917,6 +2091,7 @@ class PrimaryNavigationDrawer {
     Field('drawerFooterContent', String, 'Drawer Footer',
         hint: 'Version-Info/Settings-Link/Logout/None'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1931,6 +2106,7 @@ class PrimaryNavigationBottomNav {
     Field('bottomNavShowLabels', String, 'Show Labels',
         hint: 'Always/Selected-Only/Never'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1947,6 +2123,7 @@ class PrimaryNavigationSidebar {
     Field('overflowBehavior', String, 'Overflow Behavior',
         hint: 'Scroll/More-Menu/Paginated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1982,14 +2159,17 @@ Tab bars map to `TomTabBar` with:
 - Lazy content loading
 - Permission-aware tab visibility
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of secondary navigation patterns.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Contains 0+× TabBarDefinition.
   @SectionId('TBDE-TABB-LST')
   @SectionIdPattern('TBDE-TABB-xxx')
+  @SerializationOrder(2)
   List<TabBarDefinitionEntry> tabBars = [];
 }
 
@@ -2008,18 +2188,22 @@ class TabBarDefinitionEntry {
     Field('tabBarStyle', String, 'Style',
         hint: 'Material-Tabs/Segmented-Control/Pill-Tabs/Scrollable-Tabs'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Position and selection behavior.
+  @SerializationOrder(1)
   TabBarDefinitionEntryBehavior behavior = TabBarDefinitionEntryBehavior();
 
   /// Visibility and loading profile.
+  @SerializationOrder(2)
   TabBarDefinitionEntryLoading loading = TabBarDefinitionEntryLoading();
 
   /// Contains 1+× TabItem.
   @SectionId('TAITEN-TABS-LST')
   @SectionIdPattern('TAITEN-TABS-xxx')
   @Min(1)
+  @SerializationOrder(3)
   List<TabItemEntry> tabs = [];
 }
 
@@ -2036,6 +2220,7 @@ class TabBarDefinitionEntryBehavior {
         Field('persistSelection', String, 'Persist Selection',
                 hint: 'Yes/No — remember last selected tab'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2050,6 +2235,7 @@ class TabBarDefinitionEntryLoading {
         Field('visibilityCondition', String, 'Visibility Condition',
                 hint: 'When entire tab bar is shown'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2078,6 +2264,7 @@ class TabItemEntry {
     Field('badgeSource', String, 'Badge Source',
         hint: 'Data source for badge'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2113,11 +2300,13 @@ Dropdown/popup menus have nested items with:
 - Action type (Navigate/Action/External)
 - Danger styling and confirmation
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× UtilityNavigationItem.
   @SectionId('UNIE-ITEM-LST')
   @SectionIdPattern('UNIE-ITEM-xxx')
+  @SerializationOrder(1)
   List<UtilityNavigationItemEntry> items = [];
 }
 
@@ -2137,19 +2326,23 @@ class UtilityNavigationItemEntry {
     Field('position', String, 'Position',
         hint: 'AppBar-Leading/AppBar-Trailing/Drawer-Footer'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Ordering, rendering, and access rules.
+  @SerializationOrder(1)
   UtilityNavigationItemEntryDisplay display =
       UtilityNavigationItemEntryDisplay();
 
   /// Badge and interaction behavior.
+  @SerializationOrder(2)
   UtilityNavigationItemEntryBehavior behavior =
       UtilityNavigationItemEntryBehavior();
 
     /// Contains 0+× UtilityMenuItem.
     @SectionId('UMIE-MENU-LST')
     @SectionIdPattern('UMIE-MENU-xxx')
+    @SerializationOrder(3)
     List<UtilityMenuItemEntry> menuItems = [];
 }
 
@@ -2167,6 +2360,7 @@ class UtilityNavigationItemEntryDisplay {
     Field('requiredRoles', String, 'Required Roles',
         hint: 'Access control'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2183,6 +2377,7 @@ class UtilityNavigationItemEntryBehavior {
     Field('targetScreenId', String, 'Target Screen ID',
         hint: 'Navigation target'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2200,12 +2395,15 @@ class UtilityMenuItemEntry {
     Field('displayOrder', int, 'Display Order',
         hint: 'Position in menu'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Routing and action references.
+  @SerializationOrder(1)
   UtilityMenuItemEntryAction action = UtilityMenuItemEntryAction();
 
   /// Visibility and confirmation behavior.
+  @SerializationOrder(2)
   UtilityMenuItemEntryBehavior behavior = UtilityMenuItemEntryBehavior();
 }
 
@@ -2220,6 +2418,7 @@ class UtilityMenuItemEntryAction {
     Field('actionId', String, 'Action ID',
         hint: 'Action system reference, e.g., logout'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2236,6 +2435,7 @@ class UtilityMenuItemEntryBehavior {
     Field('confirmationRequired', String, 'Confirmation Required',
         hint: 'Yes/No — show confirmation dialog'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2268,15 +2468,19 @@ Breadcrumbs, back navigation, related links.
 - "See also" navigation
 - Cross-entity links
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 10.3.1.6.1. Breadcrumb Configuration.
+  @SerializationOrder(1)
   BreadcrumbConfiguration breadcrumbs = BreadcrumbConfiguration();
 
   /// Back navigation behavior.
+  @SerializationOrder(2)
   TextSection backNavigation = TextSection();
 
   /// Related links behavior.
+  @SerializationOrder(3)
   TextSection relatedLinks = TextSection();
 }
 
@@ -2305,6 +2509,7 @@ class BreadcrumbConfiguration {
     Field('position', String, 'Position',
         hint: 'Below-AppBar/Inside-Content/Top-Of-Page'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2336,14 +2541,17 @@ External entry points and shareable URLs.
 - External system integrations
 - Bookmarkable pages
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Deep linking strategy overview.
+  @SerializationOrder(1)
   TextSection strategy = TextSection();
 
   /// Contains 0+× DeepLinkPattern.
   @SectionId('DELNPT-PATT-LST')
   @SectionIdPattern('DELNPT-PATT-xxx')
+  @SerializationOrder(2)
   List<DeepLinkPatternEntry> patterns = [];
 }
 
@@ -2367,6 +2575,7 @@ class DeepLinkPatternEntry {
     Field('shareEnabled', String, 'Share Enabled',
         hint: 'Yes/No — can users share this link'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2402,14 +2611,17 @@ Route protection for unsaved changes, auth, permissions.
 ### Tom UI Mapping
 Guards integrate with `TomRouter` middleware.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of navigation guard strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Contains 0+× NavigationGuard.
   @SectionId('NAVGRD-GUAR-LST')
   @SectionIdPattern('NAVGRD-GUAR-xxx')
+  @SerializationOrder(2)
   List<NavigationGuardEntry> guards = [];
 }
 
@@ -2428,12 +2640,15 @@ class NavigationGuardEntry {
     Field('triggerCondition', String, 'Trigger Condition',
         hint: 'When this guard activates, e.g., form.isDirty'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Covered routes and dialog resources.
+  @SerializationOrder(1)
   NavigationGuardEntryDialog dialog = NavigationGuardEntryDialog();
 
   /// Redirect routing and evaluation priority.
+  @SerializationOrder(2)
   NavigationGuardEntryRouting routing = NavigationGuardEntryRouting();
 }
 
@@ -2452,6 +2667,7 @@ class NavigationGuardEntryDialog {
     Field('cancelActionResource', String, 'Cancel Action Resource',
         hint: 'Resource key for cancel button, e.g., Stay'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2464,6 +2680,7 @@ class NavigationGuardEntryRouting {
     Field('priority', int, 'Priority',
         hint: 'Execution order when multiple guards apply'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2485,37 +2702,46 @@ class PrintAndExportLayout {
     Field('defaultOrientation', String, 'Default Orientation',
         hint: 'Portrait / Landscape'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Page margins and setup.
+  @SerializationOrder(1)
   PrintLayoutPageSetup pageSetup = PrintLayoutPageSetup();
 
   /// Branding configuration.
+  @SerializationOrder(2)
   PrintLayoutBranding branding = PrintLayoutBranding();
 
   /// Watermark and confidentiality.
+  @SerializationOrder(3)
   PrintLayoutWatermark watermark = PrintLayoutWatermark();
 
   /// Header and footer settings.
+  @SerializationOrder(4)
   PrintLayoutHeaderFooter headerFooter = PrintLayoutHeaderFooter();
 
   /// Archive and batch settings.
+  @SerializationOrder(5)
   PrintLayoutArchive archive = PrintLayoutArchive();
 
   /// 10.4.1. Reports — contains 0+× Report.
   @SectionId('REEN-REPO-LST')
   @SectionIdPattern('REEN-REPO-xxx')
+  @SerializationOrder(6)
   List<ReportEntry> reports = [];
 
   /// 10.4.2. Export Formats — contains 0+× Export Format.
   @SectionId('EXFOEN-EXPO-LST')
   @SectionIdPattern('EXFOEN-EXPO-xxx')
+  @SerializationOrder(7)
   List<ExportFormatEntry> exportFormats = [];
 
   /// 10.4.3. Export Templates — contains 0+× Export
   /// Template.
   @SectionId('EXTEEN-EXPO-LST')
   @SectionIdPattern('EXTEEN-EXPO-xxx')
+  @SerializationOrder(8)
   List<ExportTemplateEntry> exportTemplates = [];
 }
 
@@ -2532,6 +2758,7 @@ class PrintLayoutPageSetup {
     Field('defaultMarginRight', String, 'Default Margin Right',
         hint: 'Right margin, e.g. 15mm'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2550,6 +2777,7 @@ class PrintLayoutBranding {
     Field('brandingFontSizeBase', String, 'Branding Base Font Size',
         hint: 'Base font size, e.g. 10pt'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2568,6 +2796,7 @@ class PrintLayoutWatermark {
     Field('confidentialityPosition', String, 'Confidentiality Position',
         hint: 'Header / Footer / Both / Watermark'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2590,6 +2819,7 @@ class PrintLayoutHeaderFooter {
     Field('defaultLocale', String, 'Default Locale',
         hint: 'Locale, e.g. de-DE'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2606,6 +2836,7 @@ class PrintLayoutArchive {
     Field('maxConcurrentReports', int, 'Max Concurrent Reports',
         hint: 'Maximum concurrent reports'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2624,64 +2855,81 @@ class ReportEntry {
     Field('reportType', String, 'Report Type',
         hint: 'Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identity and context.
+  @SerializationOrder(1)
   ReportIdentity identity = ReportIdentity();
 
   /// Data source configuration.
+  @SerializationOrder(2)
   ReportDataSource dataSource = ReportDataSource();
 
   /// Output format options.
+  @SerializationOrder(3)
   ReportFormat format = ReportFormat();
 
   /// Page layout settings.
+  @SerializationOrder(4)
   ReportLayout layout = ReportLayout();
 
   /// Header and footer templates.
+  @SerializationOrder(5)
   ReportHeaderFooter headerFooter = ReportHeaderFooter();
 
   /// Sorting and grouping.
+  @SerializationOrder(6)
   ReportGrouping grouping = ReportGrouping();
 
   /// Conditional formatting.
+  @SerializationOrder(7)
   ReportFormatting formatting = ReportFormatting();
 
   /// Interactivity and parameters.
+  @SerializationOrder(8)
   ReportInteractivity interactivity = ReportInteractivity();
 
   /// Pagination settings.
+  @SerializationOrder(9)
   ReportPagination pagination = ReportPagination();
 
   /// Security and access.
+  @SerializationOrder(10)
   ReportSecurity security = ReportSecurity();
 
   /// Lifecycle and archiving.
+  @SerializationOrder(11)
   ReportLifecycle lifecycle = ReportLifecycle();
 
   /// Contains 0+× Report Section.
   @SectionId('RESEE1-SECT-LST')
   @SectionIdPattern('RESEE1-SECT-xxx')
+  @SerializationOrder(12)
   List<ReportSectionEntry> sections = [];
 
   /// Contains 0+× Report Filter.
   @SectionId('REFIEN-FILT-LST')
   @SectionIdPattern('REFIEN-FILT-xxx')
+  @SerializationOrder(13)
   List<ReportFilterEntry> filters = [];
 
   /// Contains 0+× Report Schedule.
   @SectionId('RESCEN-SCHE-LST')
   @SectionIdPattern('RESCEN-SCHE-xxx')
+  @SerializationOrder(14)
   List<ReportScheduleEntry> schedules = [];
 
   /// Contains 0+× Report Distribution.
   @SectionId('REDIEN-DIST-LST')
   @SectionIdPattern('REDIEN-DIST-xxx')
+  @SerializationOrder(15)
   List<ReportDistributionEntry> distributions = [];
 
   /// Contains 0+× Recipient.
   @SectionId('REREEN-RECI-LST')
   @SectionIdPattern('REREEN-RECI-xxx')
+  @SerializationOrder(16)
   List<ReportRecipientEntry> recipients = [];
 }
 
@@ -2700,6 +2948,7 @@ class ReportIdentity {
     Field('relatedDataEntities', String, 'Related Data Entities',
         hint: 'IFM entity references used as data sources'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2716,6 +2965,7 @@ class ReportDataSource {
     Field('generationTrigger', String, 'Generation Trigger',
         hint: 'On-demand / Scheduled / Event-triggered / Batch'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2732,6 +2982,7 @@ class ReportFormat {
     Field('orientation', String, 'Orientation',
         hint: 'Override: Portrait / Landscape / Auto'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2744,6 +2995,7 @@ class ReportLayout {
     Field('marginLeft', String, 'Margin Left', hint: 'Override left margin'),
     Field('marginRight', String, 'Margin Right', hint: 'Override right margin'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2762,6 +3014,7 @@ class ReportHeaderFooter {
     Field('tableOfContents', String, 'Table of Contents',
         hint: 'Yes / No — include TOC for multi-section reports'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2780,6 +3033,7 @@ class ReportGrouping {
     Field('grandTotal', String, 'Grand Total',
         hint: 'Yes / No — show grand total row'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2792,6 +3046,7 @@ class ReportFormatting {
     Field('highlightRules', String, 'Highlight Rules',
         hint: 'Row/cell highlight rules, e.g. overdue items in red'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2808,6 +3063,7 @@ class ReportInteractivity {
     Field('emptyDataMessage', String, 'Empty Data Message',
         hint: 'Message to display when report has no data'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2822,6 +3078,7 @@ class ReportPagination {
     Field('rowsPerPage', int, 'Rows Per Page',
         hint: 'For paginated tabular reports'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2840,6 +3097,7 @@ class ReportSecurity {
     Field('dataLevelSecurity', String, 'Data-Level Security',
         hint: 'Row/column level security rules'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2856,6 +3114,7 @@ class ReportLifecycle {
     Field('notes', String, 'Notes',
         hint: 'Additional design notes or open questions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2870,28 +3129,35 @@ class ReportSectionEntry {
     Field('sectionType', String, 'Section Type',
         hint: 'Table / Chart / Summary / Text / KPI-Card / Mixed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Data source configuration.
+  @SerializationOrder(1)
   ReportSectionData data = ReportSectionData();
 
   /// Layout and page settings.
+  @SerializationOrder(2)
   ReportSectionLayout layout = ReportSectionLayout();
 
   /// Sorting and grouping.
+  @SerializationOrder(3)
   ReportSectionSorting sorting = ReportSectionSorting();
 
   /// Aggregation and limits.
+  @SerializationOrder(4)
   ReportSectionAggregation aggregation = ReportSectionAggregation();
 
   /// Contains 0+× Report Column.
   @SectionId('RECOE1-COLU-LST')
   @SectionIdPattern('RECOE1-COLU-xxx')
+  @SerializationOrder(5)
   List<ReportColumnEntry> columns = [];
 
   /// Contains 0+× Report Chart.
   @SectionId('RECHEN-CHAR-LST')
   @SectionIdPattern('RECHEN-CHAR-xxx')
+  @SerializationOrder(6)
   List<ReportChartEntry> charts = [];
 }
 
@@ -2909,6 +3175,7 @@ class ReportSectionData {
         hint: 'Static text or template for text-type sections'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2933,6 +3200,7 @@ class ReportSectionLayout {
     Field('borderStyle', String, 'Border Style',
         hint: 'None / Thin / Medium / Thick / Custom'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2949,6 +3217,7 @@ class ReportSectionSorting {
     Field('showGroupSubtotals', String, 'Show Group Subtotals',
         hint: 'Yes / No'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2965,6 +3234,7 @@ class ReportSectionAggregation {
     Field('overflowBehavior', String, 'Overflow Behavior',
         hint: 'Truncate / Continue-next-page / Scroll'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2980,21 +3250,27 @@ class ReportColumnEntry {
     Field('displayLabel', String, 'Display Label',
         hint: 'Column header text shown in report', required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Data source and type.
+  @SerializationOrder(1)
   ReportColumnDataSource dataSource = ReportColumnDataSource();
 
   /// Display formatting.
+  @SerializationOrder(2)
   ReportColumnFormatting formatting = ReportColumnFormatting();
 
   /// Aggregation settings.
+  @SerializationOrder(3)
   ReportColumnAggregation aggregation = ReportColumnAggregation();
 
   /// Interaction options.
+  @SerializationOrder(4)
   ReportColumnInteraction interaction = ReportColumnInteraction();
 
   /// Visibility and layout.
+  @SerializationOrder(5)
   ReportColumnLayout layout = ReportColumnLayout();
 }
 
@@ -3007,6 +3283,7 @@ class ReportColumnDataSource {
     Field('dataType', String, 'Data Type',
         hint: 'String / Integer / Decimal / Currency / Date / Boolean'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3032,6 +3309,7 @@ class ReportColumnFormatting {
     Field('booleanFalseDisplay', String, 'Boolean False Display',
         hint: 'Display for false, e.g. No / —'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3048,6 +3326,7 @@ class ReportColumnAggregation {
     Field('hyperlinkTarget', String, 'Hyperlink Target',
         hint: 'Make column values clickable'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3060,6 +3339,7 @@ class ReportColumnInteraction {
     Field('filterable', String, 'Filterable',
         hint: 'Yes / No — can user filter by this column'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3075,6 +3355,7 @@ class ReportColumnLayout {
         hint: 'Character limit before truncation'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3090,23 +3371,29 @@ class ReportChartEntry {
     Field('chartType', String, 'Chart Type',
         hint: 'Bar / Line / Pie / Donut / Scatter / Gauge / Heatmap'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Axes configuration.
   @SectionId('RECHAX-AXES-LST')
   @SectionIdPattern('RECHAX-AXES-xxx')
+  @SerializationOrder(1)
   List<ReportChartAxes> axes = [];
 
   /// Series and colors.
+  @SerializationOrder(2)
   ReportChartSeries series = ReportChartSeries();
 
   /// Display options.
+  @SerializationOrder(3)
   ReportChartDisplay display = ReportChartDisplay();
 
   /// Interaction.
+  @SerializationOrder(4)
   ReportChartInteraction interaction = ReportChartInteraction();
 
   /// Layout.
+  @SerializationOrder(5)
   ReportChartLayout layout = ReportChartLayout();
 }
 
@@ -3135,6 +3422,7 @@ class ReportChartAxes {
     Field('secondaryYAxisLabel', String, 'Secondary Y-Axis Label',
         hint: 'Label for secondary axis'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3151,6 +3439,7 @@ class ReportChartSeries {
     Field('legendPosition', String, 'Legend Position',
         hint: 'Top / Bottom / Left / Right / None'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3171,6 +3460,7 @@ class ReportChartDisplay {
     Field('emptyDataMessage', String, 'Empty Data Message',
         hint: 'Message when chart has no data'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3184,6 +3474,7 @@ class ReportChartInteraction {
         hint: 'Report or screen navigated to on chart element click'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3196,6 +3487,7 @@ class ReportChartLayout {
     Field('height', String, 'Height',
         hint: 'Chart height, e.g. 300px / Auto'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3214,15 +3506,19 @@ class ReportFilterEntry {
     Field('displayLabel', String, 'Display Label',
         hint: 'Label shown in parameter form', required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Input and value configuration.
+  @SerializationOrder(1)
   ReportFilterEntryInput input = ReportFilterEntryInput();
 
   /// Scope and validation behavior.
+  @SerializationOrder(2)
   ReportFilterEntryBehavior behavior = ReportFilterEntryBehavior();
 
   /// Presentation options.
+  @SerializationOrder(3)
   ReportFilterEntryPresentation presentation =
       ReportFilterEntryPresentation();
 }
@@ -3250,6 +3546,7 @@ class ReportFilterEntryInput {
     Field('multiSelect', String, 'Multi-Select',
         hint: 'Yes / No — allow selecting multiple values'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3272,6 +3569,7 @@ class ReportFilterEntryBehavior {
     Field('dependsOn', String, 'Depends On',
         hint: 'Other filter IDs this filter depends on'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3287,6 +3585,7 @@ class ReportFilterEntryPresentation {
         hint: 'Yes / No — persist user last selection'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3303,19 +3602,24 @@ class ReportScheduleEntry {
     Field('frequency', String, 'Frequency',
         hint: 'Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Timing configuration.
+  @SerializationOrder(1)
   ReportScheduleEntryTiming timing = ReportScheduleEntryTiming();
 
   /// Retry configuration.
+  @SerializationOrder(2)
   ReportScheduleEntryRetry retry = ReportScheduleEntryRetry();
 
   /// Notification settings.
+  @SerializationOrder(3)
   ReportScheduleEntryNotifications notifications =
       ReportScheduleEntryNotifications();
 
   /// Output configuration.
+  @SerializationOrder(4)
   ReportScheduleEntryOutput output = ReportScheduleEntryOutput();
 }
 
@@ -3336,6 +3640,7 @@ class ReportScheduleEntryTiming {
     Field('generationTimeout', String, 'Generation Timeout',
         hint: 'Max duration before timeout, e.g. 30min'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3349,6 +3654,7 @@ class ReportScheduleEntryRetry {
     Field('retryDelay', String, 'Retry Delay',
         hint: 'Delay between retries, e.g. 5min / 15min / Exponential'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3365,6 +3671,7 @@ class ReportScheduleEntryNotifications {
     Field('failureRecipients', String, 'Failure Recipients',
         hint: 'Recipients for failure alerts'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3384,6 +3691,7 @@ class ReportScheduleEntryOutput {
         hint: 'Yes / No — is this schedule active'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3400,17 +3708,21 @@ class ReportDistributionEntry {
     Field('description', String, 'Description',
         hint: 'Purpose of this distribution channel'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Recipient and format settings.
+  @SerializationOrder(1)
   ReportDistributionEntryRecipients recipients =
       ReportDistributionEntryRecipients();
 
   /// Message and attachment content.
+  @SerializationOrder(2)
   ReportDistributionEntryContent contentSettings =
       ReportDistributionEntryContent();
 
   /// Delivery conditions and lifecycle settings.
+  @SerializationOrder(3)
   ReportDistributionEntryDelivery delivery =
       ReportDistributionEntryDelivery();
 }
@@ -3429,6 +3741,7 @@ class ReportDistributionEntryRecipients {
     Field('recipientRoles', String, 'Recipient Roles',
         hint: 'Roles whose members receive the report'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3447,6 +3760,7 @@ class ReportDistributionEntryContent {
         hint:
             'Pattern for attachment filename, e.g. {reportName}_{date}.pdf'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3474,6 +3788,7 @@ class ReportDistributionEntryDelivery {
         hint: 'Yes / No — is this channel active'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3491,15 +3806,19 @@ class ReportRecipientEntry {
     Field('recipientReference', String, 'Recipient Reference',
         hint: 'User ID, role name, group name, or email address'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Recipient business context.
+  @SerializationOrder(1)
   ReportRecipientEntryContext context = ReportRecipientEntryContext();
 
   /// Delivery preferences.
+  @SerializationOrder(2)
   ReportRecipientEntryDelivery delivery = ReportRecipientEntryDelivery();
 
   /// Lifecycle settings.
+  @SerializationOrder(3)
   ReportRecipientEntryLifecycle lifecycle = ReportRecipientEntryLifecycle();
 }
 
@@ -3513,6 +3832,7 @@ class ReportRecipientEntryContext {
     Field('dataScopeRestriction', String, 'Data Scope Restriction',
         hint: 'Data visibility restriction, e.g. own-department-only'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3533,6 +3853,7 @@ class ReportRecipientEntryDelivery {
     Field('notifyOnReady', String, 'Notify On Ready',
         hint: 'Yes / No — send notification when report is available'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3548,6 +3869,7 @@ class ReportRecipientEntryLifecycle {
         hint: 'Date this recipient is removed; empty = indefinite'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3566,37 +3888,47 @@ class ExportFormatEntry {
     Field('formatType', String, 'Format Type',
         hint: 'CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identity and data source.
+  @SerializationOrder(1)
   ExportIdentity identity = ExportIdentity();
 
   /// File format settings.
+  @SerializationOrder(2)
   ExportFileFormat fileFormat = ExportFileFormat();
 
   /// Delimiter and quoting.
+  @SerializationOrder(3)
   ExportDelimiter delimiter = ExportDelimiter();
 
   /// Data formatting.
+  @SerializationOrder(4)
   ExportDataFormat dataFormat = ExportDataFormat();
 
   /// Size and splitting.
   @SectionId('EXSISE-SIZE-LST')
   @SectionIdPattern('EXSISE-SIZE-xxx')
+  @SerializationOrder(5)
   List<ExportSizeSettings> sizeSettings = [];
 
   /// Security settings.
+  @SerializationOrder(6)
   ExportSecurity security = ExportSecurity();
 
   /// Output and scheduling.
+  @SerializationOrder(7)
   ExportOutput output = ExportOutput();
 
   /// Access and audit.
+  @SerializationOrder(8)
   ExportAccess access = ExportAccess();
 
   /// Contains 0+× Export Field Mapping.
   @SectionId('EFME-FIEL-LST')
   @SectionIdPattern('EFME-FIEL-xxx')
+  @SerializationOrder(9)
   List<ExportFieldMappingEntry> fieldMappings = [];
 }
 
@@ -3613,6 +3945,7 @@ class ExportIdentity {
     Field('dataScope', String, 'Data Scope',
         hint: 'Scope of exported data'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3626,6 +3959,7 @@ class ExportFileFormat {
         hint: 'UTF-8 / UTF-16 / ISO-8859-1 / ASCII'),
     Field('lineEnding', String, 'Line Ending', hint: 'CRLF / LF / CR'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3642,6 +3976,7 @@ class ExportDelimiter {
     Field('headerStyle', String, 'Header Style',
         hint: 'Display-Labels / Field-Names / Custom-Mapping'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3663,6 +3998,7 @@ class ExportDataFormat {
     Field('nullHandling', String, 'Null Handling',
         hint: 'Empty-string / Null-literal / Custom-value'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3677,6 +4013,7 @@ class ExportSizeSettings {
     Field('splitThreshold', String, 'Split Threshold',
         hint: 'Split point, e.g. 100000 rows or 50MB'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3691,6 +4028,7 @@ class ExportSecurity {
     Field('encryptionMethod', String, 'Encryption Method',
         hint: 'AES-256 / Password-Protected-ZIP / PGP / None'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3707,6 +4045,7 @@ class ExportOutput {
     Field('schedulingExpression', String, 'Scheduling Expression',
         hint: 'Cron-like expression for automated export'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3724,6 +4063,7 @@ class ExportAccess {
         hint: 'Yes / No — allow user to preview'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3739,21 +4079,26 @@ class ExportFieldMappingEntry {
     Field('targetFieldName', String, 'Target Field Name',
         hint: 'Column/field name in output file', required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Ordering and formatting settings.
+  @SerializationOrder(1)
   ExportFieldMappingEntryFormatting formatting =
       ExportFieldMappingEntryFormatting();
 
   /// Transformation rules.
+  @SerializationOrder(2)
   ExportFieldMappingEntryTransformation transformation =
       ExportFieldMappingEntryTransformation();
 
   /// Inclusion and defaults.
+  @SerializationOrder(3)
   ExportFieldMappingEntryInclusion inclusion =
       ExportFieldMappingEntryInclusion();
 
   /// Fixed-width and quoting rules.
+  @SerializationOrder(4)
   ExportFieldMappingEntryLayout layout = ExportFieldMappingEntryLayout();
 }
 
@@ -3770,6 +4115,7 @@ class ExportFieldMappingEntryFormatting {
         hint:
             'Output format, e.g. dd.MM.yyyy for dates, #,##0.00 for numbers'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3785,6 +4131,7 @@ class ExportFieldMappingEntryTransformation {
     Field('valueMapping', String, 'Value Mapping',
         hint: 'Value substitution map, e.g. ACTIVE→A, INACTIVE→I'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3801,6 +4148,7 @@ class ExportFieldMappingEntryInclusion {
     Field('maxLength', int, 'Max Length',
         hint: 'Truncate output to this character length'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3818,6 +4166,7 @@ class ExportFieldMappingEntryLayout {
         hint: 'Yes / No — always quote this field in CSV'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3837,18 +4186,23 @@ class ExportTemplateEntry {
     Field('baseFormatType', String, 'Base Format Type',
         hint: 'CSV / Excel / PDF / JSON / XML / HTML'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Format configuration.
+  @SerializationOrder(1)
   ExportTemplateEntryFormat format = ExportTemplateEntryFormat();
 
   /// Field and filter settings.
+  @SerializationOrder(2)
   ExportTemplateEntryFields fields = ExportTemplateEntryFields();
 
   /// Layout configuration.
+  @SerializationOrder(3)
   ExportTemplateEntryLayout layout = ExportTemplateEntryLayout();
 
   /// Access and metadata.
+  @SerializationOrder(4)
   ExportTemplateEntryAccess access = ExportTemplateEntryAccess();
 }
 
@@ -3866,6 +4220,7 @@ class ExportTemplateEntryFormat {
     Field('numberFormat', String, 'Number Format',
         hint: 'Default number format'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3882,6 +4237,7 @@ class ExportTemplateEntryFields {
     Field('defaultSortDirection', String, 'Default Sort Direction',
         hint: 'Ascending / Descending'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3898,6 +4254,7 @@ class ExportTemplateEntryLayout {
     Field('compressionFormat', String, 'Compression Format',
         hint: 'None / ZIP / GZIP'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3915,6 +4272,7 @@ class ExportTemplateEntryAccess {
         hint: 'Template version, e.g. 1.0'),
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3946,42 +4304,52 @@ class ErrorHandling {
     Field('blameAvoidance', String, 'Blame Avoidance Approach',
         hint: 'Never blame user, focus on solutions'),
   ])
+  @SerializationOrder(0)
   String? errorPhilosophyContent;
 
   /// Error categorization and display priority.
+  @SerializationOrder(1)
   ErrorHandlingClassification classification =
       ErrorHandlingClassification();
 
   /// Accessibility and inclusive error cues.
+  @SerializationOrder(2)
   ErrorHandlingAccessibility accessibility =
       ErrorHandlingAccessibility();
 
   /// Localization and analytics behavior.
+  @SerializationOrder(3)
   ErrorHandlingOperations operations =
       ErrorHandlingOperations();
 
   /// Error handling overview and strategy.
   @ContentHelp('Executive summary of error handling approach, '
       'key principles, and user experience goals.')
+  @SerializationOrder(4)
   TextSection errorHandlingOverview = TextSection();
 
   /// 10.7.1. Validation Feedback.
+  @SerializationOrder(5)
   ValidationFeedback validationFeedback = ValidationFeedback();
 
   /// 10.7.2. System Error Display.
+  @SerializationOrder(6)
   SystemErrorDisplay systemErrorDisplay = SystemErrorDisplay();
 
   /// 10.7.3. Error Recovery.
+  @SerializationOrder(7)
   ErrorRecovery errorRecovery = ErrorRecovery();
 
   /// Error message catalog.
   @ContentHelp('Centralized catalog of error message templates '
       'with consistent formatting and tone.')
+  @SerializationOrder(8)
   TextSection errorMessageCatalog = TextSection();
 
   /// Error state visual design.
   @ContentHelp('Visual design specifications for error states '
       'including colors, icons, animations.')
+  @SerializationOrder(9)
   TextSection errorVisualDesign = TextSection();
 }
 
@@ -3996,6 +4364,7 @@ class ErrorHandlingClassification {
         Field('errorPriorityDisplay', String, 'Priority Display Order',
                 hint: 'Most severe first, chronological, by field'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4016,6 +4385,7 @@ class ErrorHandlingAccessibility {
         Field('nonColorIndicators', String, 'Non-Color Indicators',
                 hint: 'Icons, text, patterns for colorblind users'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4032,6 +4402,7 @@ class ErrorHandlingOperations {
         Field('userFrustrationDetection', String, 'User Frustration Detection',
                 hint: 'Rage click detection, repeated errors'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4048,33 +4419,41 @@ class ValidationFeedback {
     Field('validationSequence', String, 'Validation Sequence',
         hint: 'Field-by-field, all-at-once, progressive'),
   ])
+  @SerializationOrder(0)
   String? validationDisplayContent;
 
   /// Display placement details.
+  @SerializationOrder(1)
   ValidationFeedbackPlacement placement = ValidationFeedbackPlacement();
 
   /// Message formatting details.
+  @SerializationOrder(2)
   ValidationFeedbackMessages messages = ValidationFeedbackMessages();
 
   /// Guidance settings.
+  @SerializationOrder(3)
   ValidationFeedbackGuidance guidance = ValidationFeedbackGuidance();
 
   /// Animation and focus behavior.
+  @SerializationOrder(4)
   ValidationFeedbackBehavior behavior = ValidationFeedbackBehavior();
 
   /// Validation feedback narrative.
   @ContentHelp('Detailed specification of validation feedback behavior '
       'and user experience considerations.')
+  @SerializationOrder(5)
   TextSection validationNarrative = TextSection();
 
   /// Validation message templates.
   @SectionId('VAMETE-MESS-LST')
   @SectionIdPattern('VAMETE-MESS-xxx')
+  @SerializationOrder(6)
   List<ValidationMessageTemplate> messageTemplates = [];
 
   /// Field validation rules by type.
   @SectionId('FIELD-FIEL-LST')
   @SectionIdPattern('FIELD-FIEL-xxx')
+  @SerializationOrder(7)
   List<FieldValidationRuleEntry> fieldValidationRules = [];
 }
 
@@ -4093,6 +4472,7 @@ class ValidationFeedbackPlacement {
         Field('fieldErrorIconPosition', String, 'Icon Position',
                 hint: 'Leading, trailing, inside field, outside'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4109,6 +4489,7 @@ class ValidationFeedbackMessages {
         Field('errorPersistence', String, 'Error Persistence',
                 hint: 'Until fixed, until field accessed, timed'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4123,6 +4504,7 @@ class ValidationFeedbackGuidance {
         Field('showExamples', bool, 'Show Examples',
                 hint: 'Show example valid input'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4139,6 +4521,7 @@ class ValidationFeedbackBehavior {
         Field('focusOnError', bool, 'Focus on Error',
                 hint: 'Move focus to first invalid field'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4167,6 +4550,7 @@ class ValidationMessageTemplate {
     Field('localizationKey', String, 'Localization Key',
         hint: 'i18n key for translation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4187,33 +4571,41 @@ class SystemErrorDisplay {
     Field('gracefulDegradation', String, 'Graceful Degradation',
         hint: 'How features degrade on partial failure'),
   ])
+  @SerializationOrder(0)
   String? systemErrorContent;
 
   /// Error type handling configuration.
+  @SerializationOrder(1)
   SystemErrorDisplayErrorTypes errorTypes = SystemErrorDisplayErrorTypes();
 
   /// Display method settings.
+  @SerializationOrder(2)
   SystemErrorDisplayMethods displayMethods = SystemErrorDisplayMethods();
 
   /// Content options.
+  @SerializationOrder(3)
   SystemErrorDisplayContent displayContent = SystemErrorDisplayContent();
 
   /// Fallback behavior.
+  @SerializationOrder(4)
   SystemErrorDisplayFallback fallback = SystemErrorDisplayFallback();
 
   /// System error display narrative.
   @ContentHelp('Detailed specification of system error presentation '
       'and user communication approach.')
+  @SerializationOrder(5)
   TextSection systemErrorNarrative = TextSection();
 
   /// Error page designs.
   @SectionId('EPDE-ERRO-LST')
   @SectionIdPattern('EPDE-ERRO-xxx')
+  @SerializationOrder(6)
   List<ErrorPageDesignEntry> errorPageDesigns = [];
 
   /// Error codes catalog.
   @SectionId('SECE-ERRO-LST')
   @SectionIdPattern('SECE-ERRO-xxx')
+  @SerializationOrder(7)
   List<SystemErrorCodeEntry> errorCodes = [];
 }
 
@@ -4232,6 +4624,7 @@ class SystemErrorDisplayErrorTypes {
     Field('maintenanceModeHandling', String, 'Maintenance Mode',
         hint: 'Scheduled downtime display'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4250,6 +4643,7 @@ class SystemErrorDisplayMethods {
     Field('fullPageErrorTemplate', String, 'Full Page Error Template',
         hint: 'Design for full-page errors (500, 503)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4265,6 +4659,7 @@ class SystemErrorDisplayContent {
     Field('offlineModeMessage', String, 'Offline Mode Message',
         hint: 'Message when app detects offline state'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4279,6 +4674,7 @@ class SystemErrorDisplayFallback {
     Field('maxRetryAttempts', int, 'Max Retry Attempts'),
     Field('retryDelaySeconds', int, 'Retry Delay (seconds)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4295,12 +4691,15 @@ class SystemErrorCodeEntry {
     Field('userMessage', String, 'User Message', required: true,
         hint: 'User-friendly error message'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Recovery and display guidance.
+  @SerializationOrder(1)
   SystemErrorCodeEntryHandling handling = SystemErrorCodeEntryHandling();
 
   /// Operational support and logging controls.
+  @SerializationOrder(2)
   SystemErrorCodeEntryOperations operations =
       SystemErrorCodeEntryOperations();
 }
@@ -4320,6 +4719,7 @@ class SystemErrorCodeEntryHandling {
     Field('displayMethod', String, 'Display Method',
         hint: 'How this error is displayed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4332,6 +4732,7 @@ class SystemErrorCodeEntryOperations {
     Field('logLevel', String, 'Log Level',
         hint: 'Error, warning, info'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4352,39 +4753,48 @@ class ErrorRecovery {
     Field('supportContactMethod', String, 'Support Contact Method',
         hint: 'Chat, email, phone, ticket'),
   ])
+  @SerializationOrder(0)
   String? recoveryMechanismsContent;
 
   /// Data preservation: draft auto-save settings.
+  @SerializationOrder(1)
   ErrorRecoveryDataPreservation dataPreservation =
       ErrorRecoveryDataPreservation();
 
   /// Retry mechanisms configuration.
+  @SerializationOrder(2)
   ErrorRecoveryRetryMechanisms retryMechanisms =
       ErrorRecoveryRetryMechanisms();
 
   /// Guided recovery options.
+  @SerializationOrder(3)
   ErrorRecoveryGuidedRecovery guidedRecovery = ErrorRecoveryGuidedRecovery();
 
   /// Support contact details.
+  @SerializationOrder(4)
   ErrorRecoverySupportContact supportContact = ErrorRecoverySupportContact();
 
   /// Session handling configuration.
+  @SerializationOrder(5)
   ErrorRecoverySessionHandling sessionHandling =
       ErrorRecoverySessionHandling();
 
   /// Error recovery narrative.
   @ContentHelp('Detailed specification of error recovery flows '
       'and user empowerment strategies.')
+  @SerializationOrder(6)
   TextSection recoveryNarrative = TextSection();
 
   /// Recovery flow diagrams.
   @SectionId('RECOV-RECO-LST')
   @SectionIdPattern('RECOV-RECO-xxx')
+  @SerializationOrder(7)
   List<RecoveryFlowEntry> recoveryFlows = [];
 
   /// Common recovery scenarios.
   @SectionId('RCVSCN-RECO-LST')
   @SectionIdPattern('RCVSCN-RECO-xxx')
+  @SerializationOrder(8)
   List<RecoveryScenarioEntry> recoveryScenarios = [];
 }
 
@@ -4403,6 +4813,7 @@ class ErrorRecoveryDataPreservation {
     Field('draftRecoveryPrompt', String, 'Draft Recovery Prompt',
         hint: 'How users are notified of recoverable drafts'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4420,6 +4831,7 @@ class ErrorRecoveryRetryMechanisms {
     Field('retryFeedback', String, 'Retry Feedback',
         hint: 'How retry attempts are indicated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4436,6 +4848,7 @@ class ErrorRecoveryGuidedRecovery {
     Field('cancelOption', bool, 'Cancel Option',
         hint: 'Allow canceling and returning'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4450,6 +4863,7 @@ class ErrorRecoverySupportContact {
     Field('includeDebugInfo', bool, 'Include Debug Info',
         hint: 'Include technical details in report'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4462,6 +4876,7 @@ class ErrorRecoverySessionHandling {
     Field('preserveContextOnReauth', bool, 'Preserve Context on Reauth',
         hint: 'Return to original location after reauth'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4487,10 +4902,12 @@ class RecoveryScenarioEntry {
     Field('supportEscalation', String, 'Support Escalation',
         hint: 'When to escalate to support'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Detailed recovery flow.
   @ContentHelp('Detailed recovery flow for this scenario.')
+  @SerializationOrder(1)
   TextSection detailedFlow = TextSection();
 }
 
@@ -4522,30 +4939,38 @@ class UserAssistance {
     Field('helpContentStrategy', String, 'Help Content Strategy',
         hint: 'Video, text, interactive, mixed'),
   ])
+  @SerializationOrder(0)
   String? helpOverviewContent;
 
   /// Content stewardship and help affordances.
+  @SerializationOrder(1)
   UserAssistanceDelivery delivery = UserAssistanceDelivery();
 
   /// Analytics and improvement feedback.
+  @SerializationOrder(2)
   UserAssistanceInsights insights = UserAssistanceInsights();
 
   /// Help system overview narrative.
   @ContentHelp('Executive summary of help system approach, '
       'content strategy, and user empowerment goals.')
+  @SerializationOrder(3)
   TextSection helpOverview = TextSection();
 
   /// 10.8.1. Contextual Help.
+  @SerializationOrder(4)
   ContextualHelp contextualHelp = ContextualHelp();
 
   /// 10.8.2. Onboarding.
+  @SerializationOrder(5)
   OnboardingHelp onboarding = OnboardingHelp();
 
   /// 10.8.3. Support Access.
+  @SerializationOrder(6)
   SupportAccess supportAccess = SupportAccess();
 
   /// Help content inventory.
   @ContentHelp('Inventory of all help content by feature area.')
+  @SerializationOrder(7)
   TextSection helpContentInventory = TextSection();
 }
 
@@ -4564,6 +4989,7 @@ class UserAssistanceDelivery {
         Field('helpTooltipStyle', String, 'Help Tooltip Style',
                 hint: 'Tooltip design and behavior'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4576,6 +5002,7 @@ class UserAssistanceInsights {
         Field('helpFeedback', String, 'Help Feedback',
                 hint: 'Rate help articles, suggest improvements'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4594,26 +5021,33 @@ class ContextualHelp {
     Field('tooltipPosition', String, 'Tooltip Position',
         hint: 'Above, below, auto-position'),
   ])
+  @SerializationOrder(0)
   String? contextualHelpContent;
 
   /// Inline help behavior.
+  @SerializationOrder(1)
   ContextualHelpInline inline = ContextualHelpInline();
 
   /// Help panel behavior.
+  @SerializationOrder(2)
   ContextualHelpPanels panels = ContextualHelpPanels();
 
   /// What's-this mode settings.
+  @SerializationOrder(3)
   ContextualHelpWhatsThis whatsThis = ContextualHelpWhatsThis();
 
   /// Rich help media settings.
+  @SerializationOrder(4)
   ContextualHelpRich rich = ContextualHelpRich();
 
   /// Contextual help narrative.
+  @SerializationOrder(5)
   TextSection contextualHelpNarrative = TextSection();
 
   /// Field help catalog.
   @SectionId('FLDHP-FIEL-LST')
   @SectionIdPattern('FLDHP-FIEL-xxx')
+  @SerializationOrder(6)
   List<FieldHelpEntry> fieldHelpCatalog = [];
 }
 
@@ -4628,6 +5062,7 @@ class ContextualHelpInline {
         Field('inlineHelpLength', String, 'Inline Help Length',
                 hint: 'Max characters for inline help'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4642,6 +5077,7 @@ class ContextualHelpPanels {
         Field('helpPanelContent', String, 'Help Panel Content',
                 hint: 'Field help, page help, related articles'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4654,6 +5090,7 @@ class ContextualHelpWhatsThis {
         Field('whatsThisActivation', String, 'What\'s This Activation',
                 hint: 'Keyboard shortcut, toolbar button'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4668,6 +5105,7 @@ class ContextualHelpRich {
         Field('helpAnimations', bool, 'Help Animations',
                 hint: 'Animated demonstrations'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4690,6 +5128,7 @@ class FieldHelpEntry {
     Field('commonMistakes', String, 'Common Mistakes',
         hint: 'Frequently made errors'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4704,29 +5143,37 @@ class OnboardingHelp {
     Field('welcomeFlowDuration', String, 'Welcome Flow Duration',
         hint: 'Expected completion time'),
   ])
+  @SerializationOrder(0)
   String? onboardingContent;
 
   /// Feature tour settings.
+  @SerializationOrder(1)
   OnboardingHelpTours tours = OnboardingHelpTours();
 
   /// Sample data settings.
+  @SerializationOrder(2)
   OnboardingHelpSampleData sampleData = OnboardingHelpSampleData();
 
   /// Getting started checklist configuration.
+  @SerializationOrder(3)
   OnboardingHelpChecklist checklist = OnboardingHelpChecklist();
 
   /// Progressive disclosure configuration.
+  @SerializationOrder(4)
   OnboardingHelpDisclosure disclosure = OnboardingHelpDisclosure();
 
   /// Returning user experience.
+  @SerializationOrder(5)
   OnboardingHelpReengagement reengagement = OnboardingHelpReengagement();
 
   /// Onboarding narrative.
+  @SerializationOrder(6)
   TextSection onboardingNarrative = TextSection();
 
   /// Feature tour definitions.
   @SectionId('FTRTUR-FEAT-LST')
   @SectionIdPattern('FTRTUR-FEAT-xxx')
+  @SerializationOrder(7)
   List<FeatureTourEntry> featureTours = [];
 }
 
@@ -4742,6 +5189,7 @@ class OnboardingHelpTours {
         Field('featureTourProgress', bool, 'Feature Tour Progress',
                 hint: 'Show progress indicator'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4755,6 +5203,7 @@ class OnboardingHelpSampleData {
         Field('sampleDataClear', String, 'Sample Data Clear',
                 hint: 'How users remove sample data'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4770,6 +5219,7 @@ class OnboardingHelpChecklist {
         Field('checklistRewards', String, 'Checklist Rewards',
                 hint: 'Gamification elements'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4782,6 +5232,7 @@ class OnboardingHelpDisclosure {
         Field('skillLevelAdaptation', String, 'Skill Level Adaptation',
                 hint: 'Adapt to user skill level'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4794,6 +5245,7 @@ class OnboardingHelpReengagement {
         Field('whatsNewFeature', bool, 'What\'s New Feature',
                 hint: 'Show new features to returning users'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4814,11 +5266,13 @@ class FeatureTourEntry {
     Field('repeatPolicy', String, 'Repeat Policy',
         hint: 'Once only, on request, periodic'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Tour steps.
   @SectionId('TURST-STEP-LST')
   @SectionIdPattern('TURST-STEP-xxx')
+  @SerializationOrder(1)
   List<TourStepEntry> steps = [];
 }
 
@@ -4838,6 +5292,7 @@ class TourStepEntry {
     Field('spotlightShape', String, 'Spotlight Shape',
         hint: 'Circle, rectangle, custom'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4849,24 +5304,31 @@ class SupportAccess {
     Field('liveChatAvailable', bool, 'Live Chat Available'),
     Field('ticketSubmission', bool, 'Ticket Submission'),
   ])
+  @SerializationOrder(0)
   String? supportAccessContent;
 
   /// Help center configuration.
+  @SerializationOrder(1)
   SupportAccessHelpCenter helpCenter = SupportAccessHelpCenter();
 
   /// Live support settings.
+  @SerializationOrder(2)
   SupportAccessLiveSupport liveSupport = SupportAccessLiveSupport();
 
   /// Ticket system configuration.
+  @SerializationOrder(3)
   SupportAccessTickets tickets = SupportAccessTickets();
 
   /// Contact methods.
+  @SerializationOrder(4)
   SupportAccessContactMethods contactMethods = SupportAccessContactMethods();
 
   /// Self-service and feedback options.
+  @SerializationOrder(5)
   SupportAccessSelfService selfService = SupportAccessSelfService();
 
   /// Support access narrative.
+  @SerializationOrder(6)
   TextSection supportAccessNarrative = TextSection();
 }
 
@@ -4881,6 +5343,7 @@ class SupportAccessHelpCenter {
     Field('helpArticleCategories', String, 'Article Categories',
         hint: 'How help is organized'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4895,6 +5358,7 @@ class SupportAccessLiveSupport {
     Field('chatbotCapabilities', String, 'Chatbot Capabilities',
         hint: 'What chatbot can handle'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4909,6 +5373,7 @@ class SupportAccessTickets {
     Field('ticketResponseSla', String, 'Ticket Response SLA',
         hint: 'Expected response time'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4921,6 +5386,7 @@ class SupportAccessContactMethods {
     Field('phoneNumber', String, 'Phone Number'),
     Field('communityForum', bool, 'Community Forum'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4939,6 +5405,7 @@ class SupportAccessSelfService {
     Field('bugReporting', bool, 'Bug Reporting',
         hint: 'Report bugs from app'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4968,41 +5435,51 @@ class Accessibility {
     Field('accessibilityStatement', bool, 'Accessibility Statement',
         hint: 'Publish accessibility statement'),
   ])
+  @SerializationOrder(0)
   String? accessibilityOverviewContent;
 
   /// Ownership and inclusive design philosophy.
+  @SerializationOrder(1)
   AccessibilityStrategy strategy = AccessibilityStrategy();
 
   /// Accessibility testing approach.
+  @SerializationOrder(2)
   AccessibilityTesting testing = AccessibilityTesting();
 
   /// Supported assistive technologies and platform features.
+  @SerializationOrder(3)
   AccessibilitySupport support = AccessibilitySupport();
 
   /// Accessibility overview narrative.
   @ContentHelp('Executive summary of accessibility approach, '
       'compliance targets, and inclusive design principles.')
+  @SerializationOrder(4)
   TextSection accessibilityOverview = TextSection();
 
   /// 10.9.1. WCAG Compliance Level.
+  @SerializationOrder(5)
   WcagCompliance wcagComplianceLevel = WcagCompliance();
 
   /// 10.9.2. Accessibility Checklist.
+  @SerializationOrder(6)
   AccessibilityChecklist accessibilityChecklist = AccessibilityChecklist();
 
   /// Keyboard navigation specification.
   @ContentHelp('Keyboard navigation patterns, focus management, '
       'and keyboard shortcuts.')
+  @SerializationOrder(7)
   TextSection keyboardNavigation = TextSection();
 
   /// Screen reader support specification.
   @ContentHelp('Screen reader support: ARIA labels, landmarks, '
       'live regions, and announcements.')
+  @SerializationOrder(8)
   TextSection screenReaderSupport = TextSection();
 
   /// Color and contrast specification.
   @ContentHelp('Color contrast requirements, color-blind-friendly '
       'design, and non-color indicators.')
+  @SerializationOrder(9)
   TextSection colorAndContrast = TextSection();
 }
 
@@ -5017,6 +5494,7 @@ class AccessibilityStrategy {
         Field('accessibilityTraining', String, 'Accessibility Training',
                 hint: 'Team training requirements'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5033,6 +5511,7 @@ class AccessibilityTesting {
         Field('userTestingWithDisabilities', bool, 'User Testing with Disabilities',
                 hint: 'Include users with disabilities'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5045,6 +5524,7 @@ class AccessibilitySupport {
         Field('targetBrowserAccessibility', String, 'Target Browser Accessibility',
                 hint: 'Browser accessibility features used'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5061,24 +5541,30 @@ class WcagCompliance {
     Field('distinguishableContent', String, 'Distinguishable (1.4)',
         hint: 'Color, contrast, resize, audio'),
   ])
+  @SerializationOrder(0)
   String? wcagComplianceContent;
 
   /// Operable principles.
+  @SerializationOrder(1)
   WcagComplianceOperable operable = WcagComplianceOperable();
 
   /// Understandable principles.
+  @SerializationOrder(2)
   WcagComplianceUnderstandable understandable =
       WcagComplianceUnderstandable();
 
   /// Robustness requirements.
+  @SerializationOrder(3)
   WcagComplianceRobust robust = WcagComplianceRobust();
 
   /// WCAG compliance narrative.
+  @SerializationOrder(4)
   TextSection wcagNarrative = TextSection();
 
   /// WCAG success criteria mapping.
   @SectionId('WSCE-SUCC-LST')
   @SectionIdPattern('WSCE-SUCC-xxx')
+  @SerializationOrder(5)
   List<WcagSuccessCriterionEntry> successCriteria = [];
 }
 
@@ -5097,6 +5583,7 @@ class WcagComplianceOperable {
         Field('inputModalities', String, 'Input Modalities (2.5)',
                 hint: 'Pointer, motion, touch'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5111,6 +5598,7 @@ class WcagComplianceUnderstandable {
         Field('inputAssistance', String, 'Input Assistance (3.3)',
                 hint: 'Error prevention, labels, suggestions'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5121,6 +5609,7 @@ class WcagComplianceRobust {
         Field('compatible', String, 'Compatible (4.1)',
                 hint: 'Parsing, name/role/value'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5144,6 +5633,7 @@ class WcagSuccessCriterionEntry {
     Field('exceptions', String, 'Exceptions',
         hint: 'Any documented exceptions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5170,14 +5660,17 @@ class AccessibilityChecklist {
     Field('remediationProcess', String, 'Remediation Process',
         hint: 'How issues are fixed'),
   ])
+  @SerializationOrder(0)
   String? checklistOverviewContent;
 
   /// Accessibility checklist overview.
+  @SerializationOrder(1)
   TextSection checklistOverview = TextSection();
 
   /// Contains 0+× AccessibilityCheck.
   @SectionId('ACCH-ITEM-LST')
   @SectionIdPattern('ACCH-ITEM-xxx')
+  @SerializationOrder(2)
   List<AccessibilityCheckEntry> items = [];
 }
 
@@ -5193,17 +5686,21 @@ class AccessibilityCheckEntry {
     Field('verificationMethod', String, 'Verification Method', required: true,
         hint: 'Automated, manual, user testing'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// WCAG mapping and compliance classification.
+  @SerializationOrder(1)
   AccessibilityCheckEntryCompliance compliance =
       AccessibilityCheckEntryCompliance();
 
   /// Testing execution ownership and status.
+  @SerializationOrder(2)
   AccessibilityCheckEntryExecution execution =
       AccessibilityCheckEntryExecution();
 
   /// Issue tracking and remediation details.
+  @SerializationOrder(3)
   AccessibilityCheckEntryRemediation remediation =
       AccessibilityCheckEntryRemediation();
 }
@@ -5219,6 +5716,7 @@ class AccessibilityCheckEntryCompliance {
     Field('checkCategory', String, 'Check Category',
         hint: 'Perceivable, operable, understandable, robust'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5235,6 +5733,7 @@ class AccessibilityCheckEntryExecution {
     Field('testDate', String, 'Test Date'),
     Field('testedBy', String, 'Tested By'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5247,6 +5746,7 @@ class AccessibilityCheckEntryRemediation {
     Field('remediationPlan', String, 'Remediation Plan',
         hint: 'How issues will be fixed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5287,17 +5787,21 @@ class ResponsiveDesign {
     Field('targetDeviceMatrix', String, 'Target Device Matrix',
         hint: 'List of target devices for testing'),
   ])
+  @SerializationOrder(0)
   String? responsiveOverview;
 
   /// Responsive design narrative.
   @ContentHelp('Overview of responsive design approach, '
       'key decisions, and implementation strategy.')
+  @SerializationOrder(1)
   TextSection responsiveNarrative = TextSection();
 
   /// 10.10.1. Breakpoints.
+  @SerializationOrder(2)
   BreakpointConfiguration breakpointConfig = BreakpointConfiguration();
 
   /// 10.10.2. Responsive Behavior.
+  @SerializationOrder(3)
   ResponsiveBehavior responsiveBehavior = ResponsiveBehavior();
 }
 
@@ -5331,11 +5835,13 @@ class BreakpointConfiguration {
     Field('densityHandling', String, 'Density Handling',
         hint: 'How pixel density is handled'),
   ])
+  @SerializationOrder(0)
   String? breakpointOverview;
 
   /// Breakpoint entries.
   @SectionId('BRE-BREA-LST')
   @SectionIdPattern('BRE-BREA-xxx')
+  @SerializationOrder(1)
   List<BreakpointEntry> breakpoints = [];
 }
 
@@ -5352,12 +5858,15 @@ class BreakpointEntry {
     Field('maxWidth', String, 'Max Width',
         hint: 'Maximum width in logical pixels'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Grid and layout rules for this breakpoint.
+  @SerializationOrder(1)
   BreakpointEntryLayout layout = BreakpointEntryLayout();
 
   /// Navigation and visual scaling rules.
+  @SerializationOrder(2)
   BreakpointEntryScaling scaling = BreakpointEntryScaling();
 }
 
@@ -5374,6 +5883,7 @@ class BreakpointEntryLayout {
     Field('layoutBehavior', String, 'Layout Behavior',
         hint: 'How layout changes at this breakpoint'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5390,6 +5900,7 @@ class BreakpointEntryScaling {
     Field('iconScale', String, 'Icon Scale',
         hint: 'Icon size scaling factor'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5409,28 +5920,35 @@ class ResponsiveBehavior {
     Field('desktopColumnLayout', String, 'Desktop Column Layout',
         hint: '3-column, sidebar + main'),
   ])
+  @SerializationOrder(0)
   String? layoutAdaptation;
 
   /// Navigation patterns per device class.
+  @SerializationOrder(1)
   ResponsiveBehaviorNavigation navigation = ResponsiveBehaviorNavigation();
 
   /// Visibility rules.
+  @SerializationOrder(2)
   ResponsiveBehaviorVisibility visibility = ResponsiveBehaviorVisibility();
 
   /// Touch and interaction optimizations.
+  @SerializationOrder(3)
   ResponsiveBehaviorTouch touch = ResponsiveBehaviorTouch();
 
   /// Content reflow rules.
+  @SerializationOrder(4)
   ResponsiveBehaviorContent content = ResponsiveBehaviorContent();
 
   /// Responsive behavior narrative.
   @ContentHelp('Detailed description of responsive behavior '
       'across all breakpoints and device types.')
+  @SerializationOrder(5)
   TextSection behaviorNarrative = TextSection();
 
   /// Screen-specific responsive rules.
   @SectionId('RESPSR-SCRE-LST')
   @SectionIdPattern('RESPSR-SCRE-xxx')
+  @SerializationOrder(6)
   List<ResponsiveScreenRuleEntry> screenRules = [];
 }
 
@@ -5445,6 +5963,7 @@ class ResponsiveBehaviorNavigation {
         Field('desktopNavigation', String, 'Desktop Navigation',
                 hint: 'Full sidebar, top navigation'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5457,6 +5976,7 @@ class ResponsiveBehaviorVisibility {
         Field('tabletHiddenElements', String, 'Tablet Hidden Elements'),
         Field('desktopOnlyElements', String, 'Desktop Only Elements'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5471,6 +5991,7 @@ class ResponsiveBehaviorTouch {
         Field('gesturePriority', String, 'Gesture Priority',
                 hint: 'Swipe, long-press on touch devices'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5487,6 +6008,7 @@ class ResponsiveBehaviorContent {
         Field('formLayout', String, 'Form Layout',
                 hint: 'How forms adapt: single column, multi-column'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5501,6 +6023,7 @@ class ResponsiveScreenRuleEntry {
     Field('desktopLayout', String, 'Desktop Layout'),
     Field('specialConsiderations', String, 'Special Considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5530,29 +6053,36 @@ class UiComponents {
     Field('tomFlutterUiIntegration', bool, 'Tom Flutter UI Integration',
         hint: 'Uses tom_flutter_ui component library'),
   ])
+  @SerializationOrder(0)
   String? componentLibraryOverview;
 
   /// Visual language and brand alignment.
+  @SerializationOrder(1)
   ComponentVisualLanguage visualLanguage = ComponentVisualLanguage();
 
   /// Component naming and documentation approach.
+  @SerializationOrder(2)
   ComponentApproach componentApproach =
       ComponentApproach();
 
   /// Extension and theming boundaries.
+  @SerializationOrder(3)
   ComponentCustomization customization = ComponentCustomization();
 
   /// 10.11.1. Component Library.
+  @SerializationOrder(4)
   ComponentLibrary componentLibrary = ComponentLibrary();
 
   /// 10.11.2. Component Specifications — contains 0+×.
   @SectionId('UICOEN-COMP-LST')
   @SectionIdPattern('UICOEN-COMP-xxx')
+  @SerializationOrder(5)
   List<UiComponentEntry> componentSpecs = [];
 
   /// 10.11.3. Component Families — contains 0+×.
   @SectionId('CMFA-COMP-LST')
   @SectionIdPattern('CMFA-COMP-xxx')
+  @SerializationOrder(6)
   List<ComponentFamilyEntry> componentFamilies = [];
 }
 
@@ -5567,6 +6097,7 @@ class ComponentVisualLanguage {
         Field('motionPrinciples', String, 'Motion Principles',
                 hint: 'Animation philosophy: subtle, expressive, functional'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5581,6 +6112,7 @@ class ComponentApproach {
         Field('componentDocumentation', String, 'Component Documentation',
                 hint: 'Storybook, living style guide, doc site'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5595,6 +6127,7 @@ class ComponentCustomization {
         Field('customizationBoundaries', String, 'Customization Boundaries',
                 hint: 'What can vs. cannot be customized'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5605,41 +6138,51 @@ class ComponentCustomization {
 class ComponentLibrary {
   @SectionId('DESIG-DESI-LST')
   @SectionIdPattern('DESIG-DESI-xxx')
+  @SerializationOrder(0)
   List<DesignFoundationEntry> designFoundations = [];
 
   /// Color system.
+  @SerializationOrder(1)
   ComponentLibraryColors colors = ComponentLibraryColors();
 
   /// Typography system.
+  @SerializationOrder(2)
   ComponentLibraryTypography typography = ComponentLibraryTypography();
 
   /// Spacing and elevation.
+  @SerializationOrder(3)
   ComponentLibrarySpacing spacing = ComponentLibrarySpacing();
 
   /// Borders and corners.
+  @SerializationOrder(4)
   ComponentLibraryBorders borders = ComponentLibraryBorders();
 
   /// Icons and animation.
+  @SerializationOrder(5)
   ComponentLibraryVisuals visuals = ComponentLibraryVisuals();
 
   /// Design system narrative.
   @ContentHelp('Comprehensive description of the design system foundations, '
       'visual language, and component philosophy.')
+  @SerializationOrder(6)
   TextSection designSystemNarrative = TextSection();
 
   /// Design token catalog.
   @ContentHelp('Catalog of all design tokens: colors, typography, spacing, '
       'elevation, borders, and animation values.')
+  @SerializationOrder(7)
   TextSection designTokenCatalog = TextSection();
 
   /// Color palette specification.
   @SectionId('COPA-COLO-LST')
   @SectionIdPattern('COPA-COLO-xxx')
+  @SerializationOrder(8)
   List<ColorPaletteEntry> colorPalettes = [];
 
   /// Typography styles.
   @SectionId('TYST-TYPO-LST')
   @SectionIdPattern('TYST-TYPO-xxx')
+  @SerializationOrder(9)
   List<TypographyStyleEntry> typographyStyles = [];
 }
 
@@ -5658,6 +6201,7 @@ class ComponentLibraryColors {
     Field('colorTokenFormat', String, 'Color Token Format',
         hint: 'CSS variables, Dart constants, theme data'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5672,6 +6216,7 @@ class ComponentLibraryTypography {
     Field('fontSizeUnit', String, 'Font Size Unit',
         hint: 'Logical pixels, rem, sp'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5686,6 +6231,7 @@ class ComponentLibrarySpacing {
     Field('elevationImplementation', String, 'Elevation Implementation',
         hint: 'Shadows, borders, color shifts'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5697,6 +6243,7 @@ class ComponentLibraryBorders {
         hint: 'Rounded levels: none, sm, md, lg, full'),
     Field('borderStyleDefaults', String, 'Border Style Defaults'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5713,6 +6260,7 @@ class ComponentLibraryVisuals {
     Field('animationCurves', String, 'Animation Curves',
         hint: 'Easing curves: ease, easeInOut, custom'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5738,6 +6286,7 @@ class ColorPaletteEntry {
         hint: 'Contrast compliance level'),
     Field('usageGuidelines', String, 'Usage Guidelines'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5760,6 +6309,7 @@ class TypographyStyleEntry {
     Field('useCase', String, 'Use Case',
         hint: 'Where this style is used'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5780,14 +6330,17 @@ class ComponentFamilyEntry {
     Field('consistencyRules', String, 'Consistency Rules',
         hint: 'Rules for family consistency'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Family narrative.
+  @SerializationOrder(1)
   TextSection familyNarrative = TextSection();
 
   /// Components in this family.
   @SectionId('FAMREF-COMP-LST')
   @SectionIdPattern('FAMREF-COMP-xxx')
+  @SerializationOrder(2)
   List<FamilyComponentRef> components = [];
 }
 
@@ -5802,6 +6355,7 @@ class FamilyComponentRef {
     Field('relationToOthers', String, 'Relation to Others',
         hint: 'How it relates to other family members'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5826,12 +6380,15 @@ class UiComponentEntry {
     Field('flutterWidgetBase', String, 'Flutter Widget Base',
         hint: 'Base Flutter widget (DataTable, TextField)'),
   ])
+  @SerializationOrder(0)
   String? identity;
 
   /// Wrapper mapping and business purpose.
+  @SerializationOrder(1)
   UiComponentEntryPurpose purposeProfile = UiComponentEntryPurpose();
 
   /// Classification details.
+  @SerializationOrder(2)
   UiComponentEntryClassification classification =
       UiComponentEntryClassification();
 
@@ -5848,19 +6405,24 @@ class UiComponentEntry {
     Field('iconography', String, 'Iconography',
         hint: 'Icons used and their placement'),
   ])
+  @SerializationOrder(3)
   String? visualDesign;
 
   /// Visual dimensions.
+  @SerializationOrder(4)
   UiComponentEntryDimensions dimensions = UiComponentEntryDimensions();
 
   /// Spacing rules.
+  @SerializationOrder(5)
   UiComponentEntrySpacing spacing = UiComponentEntrySpacing();
 
   /// Surface treatment.
+  @SerializationOrder(6)
   UiComponentEntrySurface surface = UiComponentEntrySurface();
 
   /// Visual design diagram.
   @ContentHelp('Visual diagram or mockup of the component.')
+  @SerializationOrder(7)
   DiagramSection visualDiagram = DiagramSection();
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -5875,15 +6437,19 @@ class UiComponentEntry {
     Field('dragBehavior', String, 'Drag Behavior'),
     Field('hoverBehavior', String, 'Hover Behavior'),
   ])
+  @SerializationOrder(8)
   String? interactiveBehavior;
 
   /// Focus and keyboard behavior.
+  @SerializationOrder(9)
   UiComponentEntryInputBehavior inputBehavior = UiComponentEntryInputBehavior();
 
   /// Animation behavior.
+  @SerializationOrder(10)
   UiComponentEntryAnimation animation = UiComponentEntryAnimation();
 
   /// Scrolling behavior.
+  @SerializationOrder(11)
   UiComponentEntryScroll scroll = UiComponentEntryScroll();
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -5905,6 +6471,7 @@ class UiComponentEntry {
     Field('orientationBehavior', String, 'Orientation Behavior',
         hint: 'Portrait vs. landscape'),
   ])
+  @SerializationOrder(12)
   String? responsiveness;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -5927,6 +6494,7 @@ class UiComponentEntry {
     Field('textScalingBehavior', String, 'Text Scaling Behavior',
         hint: 'How component responds to text scaling'),
   ])
+  @SerializationOrder(13)
   String? accessibility;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -5948,6 +6516,7 @@ class UiComponentEntry {
     Field('fourStateMapping', String, 'Four-State Mapping',
         hint: 'Mapping to TomAuthState four states'),
   ])
+  @SerializationOrder(14)
   String? authorization;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -5970,6 +6539,7 @@ class UiComponentEntry {
     Field('resourceFallbacks', String, 'Resource Fallbacks',
         hint: 'Fallback behavior when resource missing'),
   ])
+  @SerializationOrder(15)
   String? resourceIntegration;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -5990,36 +6560,43 @@ class UiComponentEntry {
         hint: 'How dirty state is tracked'),
     Field('undoRedoSupport', String, 'Undo/Redo Support'),
   ])
+  @SerializationOrder(16)
   String? dataBinding;
 
   /// Component behavior narrative.
   @ContentHelp('Detailed description of component behavior, '
       'user interactions, and edge cases.')
+  @SerializationOrder(17)
   TextSection behaviorNarrative = TextSection();
 
   /// Contains 0+× ComponentState.
   @SectionId('CMST-STAT-LST')
   @SectionIdPattern('CMST-STAT-xxx')
+  @SerializationOrder(18)
   List<ComponentStateEntry> states = [];
 
   /// Contains 0+× ComponentVariant.
   @SectionId('CMVN-VARI-LST')
   @SectionIdPattern('CMVN-VARI-xxx')
+  @SerializationOrder(19)
   List<ComponentVariantEntry> variants = [];
 
   /// Contains 0+× ComponentAction.
   @SectionId('CMAC-ACTI-LST')
   @SectionIdPattern('CMAC-ACTI-xxx')
+  @SerializationOrder(20)
   List<ComponentActionEntry> actions = [];
 
   /// Contains 0+× ComponentSlot.
   @SectionId('CMSL-SLOT-LST')
   @SectionIdPattern('CMSL-SLOT-xxx')
+  @SerializationOrder(21)
   List<ComponentSlotEntry> slots = [];
 
   /// Contains 0+× ComponentProperty.
   @SectionId('CMPR-PROP-LST')
   @SectionIdPattern('CMPR-PROP-xxx')
+  @SerializationOrder(22)
   List<ComponentPropertyEntry> properties = [];
 }
 
@@ -6036,6 +6613,7 @@ class UiComponentEntryPurpose {
         Field('userGoals', String, 'User Goals',
                 hint: 'What user accomplishes with this'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6050,6 +6628,7 @@ class UiComponentEntryClassification {
         Field('reusability', String, 'Reusability',
                 hint: 'Generic, semi-generic, specialized'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6064,6 +6643,7 @@ class UiComponentEntryDimensions {
         Field('minDimensions', String, 'Minimum Dimensions'),
         Field('maxDimensions', String, 'Maximum Dimensions'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6076,6 +6656,7 @@ class UiComponentEntrySpacing {
         Field('contentSpacing', String, 'Content Spacing',
                 hint: 'Spacing between internal elements'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6088,6 +6669,7 @@ class UiComponentEntrySurface {
         Field('elevation', String, 'Elevation'),
         Field('shadowStyle', String, 'Shadow Style'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6101,6 +6683,7 @@ class UiComponentEntryInputBehavior {
                 hint: 'Tab order, arrow key behavior'),
         Field('keyboardShortcuts', String, 'Keyboard Shortcuts'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6115,6 +6698,7 @@ class UiComponentEntryAnimation {
         Field('feedbackAnimations', String, 'Feedback Animations',
                 hint: 'Ripple, scale, color change'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6127,6 +6711,7 @@ class UiComponentEntryScroll {
         Field('stickyBehavior', String, 'Sticky Behavior',
                 hint: 'Headers, columns that stick'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6142,19 +6727,24 @@ class ComponentStateEntry {
         hint: 'Loading, Empty, Error, Disabled, etc.'),
     Field('stateDescription', String, 'State Description'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Visual appearance in this state.
+    @SerializationOrder(1)
     ComponentStateEntryVisual visual = ComponentStateEntryVisual();
 
     /// Behavior and accessibility changes in this state.
+    @SerializationOrder(2)
     ComponentStateEntryBehavior behavior = ComponentStateEntryBehavior();
 
     /// Entry and exit transition rules.
+    @SerializationOrder(3)
     ComponentStateEntryTransitions transitions =
             ComponentStateEntryTransitions();
 
   /// State visual mockup.
+  @SerializationOrder(4)
   DiagramSection stateMockup = DiagramSection();
 }
 
@@ -6169,6 +6759,7 @@ class ComponentStateEntryVisual {
         Field('iconChange', String, 'Icon Change'),
         Field('textChange', String, 'Text Change'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6181,6 +6772,7 @@ class ComponentStateEntryBehavior {
         Field('accessibilityState', String, 'Accessibility State',
                 hint: 'Screen reader announcements'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6194,6 +6786,7 @@ class ComponentStateEntryTransitions {
                 hint: 'What causes exit from this state'),
         Field('transitionAnimation', String, 'Transition Animation'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6211,15 +6804,19 @@ class ComponentVariantEntry {
     Field('visualDifferences', String, 'Visual Differences',
         hint: 'How variant looks different'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Visual styling details.
+  @SerializationOrder(1)
   ComponentVariantEntryVisual visual = ComponentVariantEntryVisual();
 
   /// Behavioral and implementation notes.
+  @SerializationOrder(2)
   ComponentVariantEntryBehavior behavior = ComponentVariantEntryBehavior();
 
   /// Variant visual mockup.
+  @SerializationOrder(3)
   DiagramSection variantMockup = DiagramSection();
 }
 
@@ -6231,6 +6828,7 @@ class ComponentVariantEntryVisual {
         Field('borderVariant', String, 'Border Variant'),
         Field('elevationVariant', String, 'Elevation Variant'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6246,6 +6844,7 @@ class ComponentVariantEntryBehavior {
         Field('flutterVariant', String, 'Flutter Variant',
                 hint: 'Corresponding Flutter variant'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6263,13 +6862,16 @@ class ComponentActionEntry {
     Field('actionPayload', String, 'Action Payload',
         hint: 'Data passed with action'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Authorization and confirmation behavior.
+    @SerializationOrder(1)
     ComponentActionEntryGovernance governance =
             ComponentActionEntryGovernance();
 
     /// Async execution and feedback behavior.
+    @SerializationOrder(2)
     ComponentActionEntryExecution execution =
             ComponentActionEntryExecution();
 }
@@ -6287,6 +6889,7 @@ class ComponentActionEntryGovernance {
         Field('confirmationRequired', bool, 'Confirmation Required'),
         Field('confirmationMessage', String, 'Confirmation Message'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6299,6 +6902,7 @@ class ComponentActionEntryExecution {
         Field('errorHandling', String, 'Error Handling'),
         Field('successFeedback', String, 'Success Feedback'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6322,6 +6926,7 @@ class ComponentSlotEntry {
     Field('resourceKey', String, 'Resource Key',
         hint: 'Resource for slot content'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6347,6 +6952,7 @@ class ComponentPropertyEntry {
     Field('authControlled', bool, 'Auth Controlled',
         hint: 'Controlled by authorization'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6378,19 +6984,23 @@ class MultiLanguageSupport {
         hint: 'Right-to-left languages supported'),
     // Locale handling
   ])
+  @SerializationOrder(0)
   String? multiLanguageOverview;
 
   /// Multi-language overview narrative.
   @ContentHelp('Executive summary of internationalization and '
       'localization approach for the system.')
+  @SerializationOrder(1)
   TextSection overviewNarrative = TextSection();
 
   /// 10.12.4. Language and Country Selection.
+  @SerializationOrder(2)
   LanguageCountrySelection languageCountrySelection = LanguageCountrySelection();
 
   /// Supported locale entries.
   @SectionId('SULOEN-SUPP-LST')
   @SectionIdPattern('SULOEN-SUPP-xxx')
+  @SerializationOrder(3)
   List<SupportedLocaleEntry> supportedLocales = [];
 }
 
@@ -6407,6 +7017,7 @@ class LocaleHandlingRequirements {
         Field('localeFallbackChain', String, 'Locale Fallback Chain',
                 hint: 'Fallback order when locale not available'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6424,6 +7035,7 @@ class LocaleRolloutPlan {
         Field('rolloutRegions', String, 'Rollout Regions',
                 hint: 'Geographic rollout order'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6445,21 +7057,27 @@ class LocalizationProcess {
     Field('localizationScope', String, 'Localization Scope',
         hint: 'UI text, images, audio, video, documents'),
   ])
+  @SerializationOrder(0)
   String? localizationProcessContent;
 
   /// Review process.
+  @SerializationOrder(1)
   LocalizationReview review = LocalizationReview();
 
   /// Formatting rules.
+  @SerializationOrder(2)
   LocalizationFormatting formatting = LocalizationFormatting();
 
   /// Deployment settings.
+  @SerializationOrder(3)
   LocalizationDeployment deployment = LocalizationDeployment();
 
   /// Localization process narrative.
+  @SerializationOrder(4)
   TextSection localizationNarrative = TextSection();
 
   /// Localization workflow diagram.
+  @SerializationOrder(5)
   FlowDiagramSection workflowDiagram = FlowDiagramSection();
 }
 
@@ -6474,6 +7092,7 @@ class LocalizationReview {
         Field('qualityAssurance', String, 'Quality Assurance',
                 hint: 'QA process for localized content'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6492,6 +7111,7 @@ class LocalizationFormatting {
         Field('phoneFormatRules', String, 'Phone Format Rules',
                 hint: 'Locale-specific phone number formatting'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6506,6 +7126,7 @@ class LocalizationDeployment {
         Field('perLocaleCustomization', String, 'Per-Locale Customization',
                 hint: 'Locale-specific features or content'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6527,27 +7148,34 @@ class TranslationProcess {
     Field('catTools', String, 'CAT Tools',
         hint: 'Computer-assisted translation tools'),
   ])
+  @SerializationOrder(0)
   String? translationProcessContent;
 
   /// Translation workflow.
+  @SerializationOrder(1)
   TranslationWorkflow workflow = TranslationWorkflow();
 
   /// Quality assurance.
+  @SerializationOrder(2)
   TranslationQuality quality = TranslationQuality();
 
   /// Terminology and voice management.
+  @SerializationOrder(3)
   TranslationTerminology terminology =
       TranslationTerminology();
 
   /// Ongoing localization operations.
+  @SerializationOrder(4)
   TranslationOngoing ongoing = TranslationOngoing();
 
   /// Translation process narrative.
+  @SerializationOrder(5)
   TextSection translationNarrative = TextSection();
 
   /// Translation vendor entries.
   @SectionId('TRVEEN-VEND-LST')
   @SectionIdPattern('TRVEEN-VEND-xxx')
+  @SerializationOrder(6)
   List<TranslationVendorEntry> vendors = [];
 }
 
@@ -6564,6 +7192,7 @@ class TranslationWorkflow {
         Field('contextualReview', String, 'Contextual Review',
                 hint: 'In-app review process'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6578,6 +7207,7 @@ class TranslationQuality {
         Field('functionalQA', String, 'Functional QA',
                 hint: 'Functional testing of translations'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6592,6 +7222,7 @@ class TranslationTerminology {
         Field('brandVoice', String, 'Brand Voice',
                 hint: 'How brand voice is maintained'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6604,6 +7235,7 @@ class TranslationOngoing {
         Field('translationMemoryMaintenance', String, 'TM Maintenance',
                 hint: 'How translation memory is maintained'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6622,6 +7254,7 @@ class TranslationVendorEntry {
     Field('qualityRating', String, 'Quality Rating'),
     Field('contactInfo', String, 'Contact Info'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6646,17 +7279,21 @@ class UserDocumentationRequirements {
     Field('documentationVersioning', String, 'Documentation Versioning',
         hint: 'How docs are versioned with releases'),
   ])
+  @SerializationOrder(0)
   String? documentationContent;
 
   /// Documentation deliverables provided to users.
+  @SerializationOrder(1)
   DocumentationAndTrainingDeliverables deliverables =
       DocumentationAndTrainingDeliverables();
 
   /// Documentation localization approach.
+  @SerializationOrder(2)
   DocumentationAndTrainingLocalization localization =
       DocumentationAndTrainingLocalization();
 
   /// Documentation narrative.
+  @SerializationOrder(3)
   TextSection documentationNarrative = TextSection();
 }
 
@@ -6697,14 +7334,17 @@ class TrainingDeliverableRequirements {
     Field('certificationProgram', String, 'Certification Program',
         hint: 'User certification if applicable'),
   ])
+  @SerializationOrder(0)
   String? trainingContent;
 
   /// Training narrative.
+  @SerializationOrder(1)
   TextSection trainingNarrative = TextSection();
 
   /// Training module entries.
   @SectionId('TRMOEN-TRAI-LST')
   @SectionIdPattern('TRMOEN-TRAI-xxx')
+  @SerializationOrder(2)
   List<TrainingModuleEntry> trainingModules = [];
 }
 
@@ -6720,6 +7360,7 @@ class DocumentationAndTrainingDeliverables {
         Field('faq', bool, 'FAQ'),
         Field('releaseNotes', bool, 'Release Notes'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6732,6 +7373,7 @@ class DocumentationAndTrainingLocalization {
         Field('documentationTranslation', String, 'Documentation Translation',
                 hint: 'Translation approach for docs'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6750,6 +7392,7 @@ class TrainingModuleEntry {
     Field('learningObjectives', String, 'Learning Objectives'),
     Field('assessmentMethod', String, 'Assessment Method'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6773,27 +7416,34 @@ class LanguageCountrySelection {
     Field('searchable', bool, 'Searchable',
         hint: 'Can user search languages/countries'),
   ])
+  @SerializationOrder(0)
   String? languageSelectionContent;
 
   /// Default locale behavior.
+  @SerializationOrder(1)
   LanguageCountrySelectionDefaults defaults =
       LanguageCountrySelectionDefaults();
 
   /// Persistence rules.
+  @SerializationOrder(2)
   LanguageCountrySelectionPersistence persistence =
       LanguageCountrySelectionPersistence();
 
   /// Fallback behavior.
+  @SerializationOrder(3)
   LanguageCountrySelectionFallback fallback =
       LanguageCountrySelectionFallback();
 
   /// Switching UX behavior.
+  @SerializationOrder(4)
   LanguageCountrySelectionUx ux = LanguageCountrySelectionUx();
 
   /// Language selection narrative.
+  @SerializationOrder(5)
   TextSection languageSelectionNarrative = TextSection();
 
   /// Language selection mockup.
+  @SerializationOrder(6)
   DiagramSection languagePickerMockup = DiagramSection();
 }
 
@@ -6808,6 +7458,7 @@ class LanguageCountrySelectionDefaults {
         Field('autoDetection', String, 'Auto-Detection',
                 hint: 'Browser, OS, geo-IP detection'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6822,6 +7473,7 @@ class LanguageCountrySelectionPersistence {
         Field('anonymousPersistence', String, 'Anonymous Persistence',
                 hint: 'How preference persists for guests'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6836,6 +7488,7 @@ class LanguageCountrySelectionFallback {
         Field('missingTranslationDisplay', String, 'Missing Translation Display',
                 hint: 'How missing translations are shown'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6850,6 +7503,7 @@ class LanguageCountrySelectionUx {
         Field('contentRetention', String, 'Content Retention',
                 hint: 'What happens to in-progress content'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -6869,23 +7523,29 @@ class TranslationRequirements {
     Field('localeHandling', String, 'Locale Handling',
         hint: 'How locales are loaded and switched'),
   ])
+  @SerializationOrder(0)
   String? translationRequirementsContent;
 
   /// RTL and bidirectional support.
+  @SerializationOrder(1)
   TranslationRequirementsRtl rtl = TranslationRequirementsRtl();
 
   /// Locale-specific formatting rules.
+  @SerializationOrder(2)
   TranslationRequirementsFormatting formatting =
       TranslationRequirementsFormatting();
 
   /// Pluralization and variants.
+  @SerializationOrder(3)
   TranslationRequirementsVariants variants = TranslationRequirementsVariants();
 
   /// Technical text and font support.
+  @SerializationOrder(4)
   TranslationRequirementsTechnical technical =
       TranslationRequirementsTechnical();
 
   /// Translation requirements narrative.
+  @SerializationOrder(5)
   TextSection requirementsNarrative = TextSection();
 }
 
@@ -6901,6 +7561,7 @@ class TranslationRequirementsRtl {
     Field('rtlMirroring', String, 'RTL Mirroring',
         hint: 'UI element mirroring rules'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6917,6 +7578,7 @@ class TranslationRequirementsFormatting {
     Field('measurementUnits', String, 'Measurement Units',
         hint: 'Metric, imperial, locale-based'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6931,6 +7593,7 @@ class TranslationRequirementsVariants {
     Field('contextualVariants', String, 'Contextual Variants',
         hint: 'Formal/informal, regional variants'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6947,6 +7610,7 @@ class TranslationRequirementsTechnical {
     Field('keyboardLayouts', String, 'Keyboard Layouts',
         hint: 'IME and keyboard support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6963,12 +7627,15 @@ class SupportedLocaleEntry {
     Field('countryRegion', String, 'Country/Region',
         hint: 'Country or region'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Formatting and direction rules for the locale.
+  @SerializationOrder(1)
   SupportedLocaleEntryFormatting formatting = SupportedLocaleEntryFormatting();
 
   /// Launch readiness and locale ownership.
+  @SerializationOrder(2)
   SupportedLocaleEntryRollout rollout = SupportedLocaleEntryRollout();
 }
 
@@ -6985,6 +7652,7 @@ class SupportedLocaleEntryFormatting {
     Field('currency', String, 'Currency',
         hint: 'Default currency for locale'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6999,6 +7667,7 @@ class SupportedLocaleEntryRollout {
     Field('localeOwner', String, 'Locale Owner',
         hint: 'Person responsible for locale'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7028,33 +7697,42 @@ class Prototype {
     Field('successCriteria', String, 'Success Criteria',
         hint: 'How success is measured'),
   ])
+  @SerializationOrder(0)
   String? prototypeOverview;
 
   /// Prototype timing commitments.
+  @SerializationOrder(1)
   PrototypeTimeline timeline = PrototypeTimeline();
 
   /// Prototype staffing and environment.
+  @SerializationOrder(2)
   PrototypeResources resources = PrototypeResources();
 
   /// Approval and progression criteria.
+  @SerializationOrder(3)
   PrototypeGovernance governance = PrototypeGovernance();
 
   /// Prototype overview narrative.
   @ContentHelp('Executive summary of prototype approach, '
       'objectives, and expected outcomes.')
+  @SerializationOrder(4)
   TextSection overviewNarrative = TextSection();
 
   /// 10.13.1. Prototype Goals.
+  @SerializationOrder(5)
   PrototypeGoals prototypeGoals = PrototypeGoals();
 
   /// 10.13.2. Selected Feature Subset.
+  @SerializationOrder(6)
   PrototypeFeatureSubset featureSubset = PrototypeFeatureSubset();
 
   /// 10.13.3. Prototype Type.
+  @SerializationOrder(7)
   PrototypeType prototypeType = PrototypeType();
 
   /// Prototype schedule.
   @ContentHelp('Detailed timeline for prototype development and evaluation.')
+  @SerializationOrder(8)
   TextSection prototypeSchedule = TextSection();
 }
 
@@ -7069,6 +7747,7 @@ class PrototypeTimeline {
         Field('evaluationPeriod', String, 'Evaluation Period',
                 hint: 'How long for evaluation'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7083,6 +7762,7 @@ class PrototypeResources {
         Field('prototypeEnvironment', String, 'Prototype Environment',
                 hint: 'Where prototype is deployed'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7095,6 +7775,7 @@ class PrototypeGovernance {
         Field('stakeholderSignoff', String, 'Stakeholder Signoff',
                 hint: 'Who must approve prototype'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7116,20 +7797,25 @@ class PrototypeGoals {
     Field('integrationValidation', bool, 'Integration Validation',
         hint: 'Validate third-party integrations'),
   ])
+  @SerializationOrder(0)
   String? goalsContent;
 
   /// Risk reduction and assumption testing.
+  @SerializationOrder(1)
   PrototypeGoalsRisk riskProfile = PrototypeGoalsRisk();
 
   /// User feedback objectives and intake.
+  @SerializationOrder(2)
   PrototypeGoalsFeedback feedbackProfile = PrototypeGoalsFeedback();
 
   /// Prototype goals narrative.
+  @SerializationOrder(3)
   TextSection goalsNarrative = TextSection();
 
   /// Individual goal entries.
   @SectionId('PRGOEN-GOAL-LST')
   @SectionIdPattern('PRGOEN-GOAL-xxx')
+  @SerializationOrder(4)
   List<PrototypeGoalEntry> goals = [];
 }
 
@@ -7144,6 +7830,7 @@ class PrototypeGoalsRisk {
         Field('assumptionsTesting', String, 'Assumptions Testing',
                 hint: 'Assumptions to be tested'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7158,6 +7845,7 @@ class PrototypeGoalsFeedback {
         Field('feedbackIntegration', String, 'Feedback Integration',
                 hint: 'How feedback flows back'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7180,6 +7868,7 @@ class PrototypeGoalEntry {
     Field('stakeholders', String, 'Stakeholders',
         hint: 'Stakeholders interested in this goal'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7199,21 +7888,26 @@ class PrototypeFeatureSubset {
     Field('uncertaintyBasedSelection', String, 'Uncertainty-Based Selection',
         hint: 'Most uncertain features included'),
   ])
+  @SerializationOrder(0)
   String? featureSubsetContent;
 
   /// Included and excluded feature scope.
+  @SerializationOrder(1)
   PrototypeFeatureSubsetScope scope = PrototypeFeatureSubsetScope();
 
   /// Fidelity expectations for the prototype.
+  @SerializationOrder(2)
   PrototypeFeatureSubsetFidelity fidelity =
       PrototypeFeatureSubsetFidelity();
 
   /// Feature subset narrative.
+  @SerializationOrder(3)
   TextSection featureNarrative = TextSection();
 
   /// Prototype feature entries.
   @SectionId('PRFEEN-FEAT-LST')
   @SectionIdPattern('PRFEEN-FEAT-xxx')
+  @SerializationOrder(4)
   List<PrototypeFeatureEntry> features = [];
 }
 
@@ -7228,6 +7922,7 @@ class PrototypeFeatureSubsetScope {
         Field('partialFeatures', String, 'Partial Features',
                 hint: 'Features partially implemented'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7244,6 +7939,7 @@ class PrototypeFeatureSubsetFidelity {
         Field('visualFidelity', String, 'Visual Fidelity',
                 hint: 'Production visuals vs. wireframes'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7264,6 +7960,7 @@ class PrototypeFeatureEntry {
     Field('implementationNotes', String, 'Implementation Notes'),
     Field('knownLimitations', String, 'Known Limitations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7286,15 +7983,19 @@ class PrototypeType {
     Field('transitionPlan', String, 'Transition Plan',
         hint: 'How prototype transitions'),
   ])
+  @SerializationOrder(0)
   String? prototypeTypeOverview;
 
   /// 10.13.3.1. Reusable Prototype.
+  @SerializationOrder(1)
   ReusablePrototype reusablePrototype = ReusablePrototype();
 
   /// 10.13.3.2. Training Prototype.
+  @SerializationOrder(2)
   TrainingPrototype trainingPrototype = TrainingPrototype();
 
   /// 10.13.3.3. Throwaway Prototype.
+  @SerializationOrder(3)
   ThrowawayPrototype throwawayPrototype = ThrowawayPrototype();
 }
 
@@ -7311,20 +8012,25 @@ class ReusablePrototype {
     Field('codeReviewRequired', bool, 'Code Review Required'),
     Field('documentationRequired', bool, 'Documentation Required'),
   ])
+  @SerializationOrder(0)
   String? reusableContent;
 
   /// Architecture alignment and refactoring expectations.
+  @SerializationOrder(1)
   ReusablePrototypeArchitecture architecture =
       ReusablePrototypeArchitecture();
 
   /// Integration and merge strategy.
+  @SerializationOrder(2)
   ReusablePrototypeIntegration integration =
       ReusablePrototypeIntegration();
 
   /// Transition and handoff planning.
+  @SerializationOrder(3)
   ReusablePrototypeTransition transition = ReusablePrototypeTransition();
 
   /// Reusable prototype narrative.
+  @SerializationOrder(4)
   TextSection reusableNarrative = TextSection();
 }
 
@@ -7339,6 +8045,7 @@ class ReusablePrototypeArchitecture {
         Field('technicalDebt', String, 'Technical Debt',
                 hint: 'Acceptable technical debt'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7353,6 +8060,7 @@ class ReusablePrototypeIntegration {
         Field('mergeCriteria', String, 'Merge Criteria',
                 hint: 'Criteria to merge prototype code'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7364,6 +8072,7 @@ class ReusablePrototypeTransition {
         Field('teamHandoff', String, 'Team Handoff',
                 hint: 'Handoff to development team'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7381,15 +8090,19 @@ class TrainingPrototype {
     Field('lessonsLearned', String, 'Lessons Learned',
         hint: 'What was learned'),
   ])
+  @SerializationOrder(0)
   String? trainingContent;
 
   /// Code disposition and reimplementation planning.
+  @SerializationOrder(1)
   TrainingPrototypeDisposition disposition = TrainingPrototypeDisposition();
 
   /// Documentation outputs and team learning.
+  @SerializationOrder(2)
   TrainingPrototypeOutputs outputs = TrainingPrototypeOutputs();
 
   /// Training prototype narrative.
+  @SerializationOrder(3)
   TextSection trainingNarrative = TextSection();
 }
 
@@ -7404,6 +8117,7 @@ class TrainingPrototypeDisposition {
         Field('reimplementationEstimate', String, 'Reimplementation Estimate',
                 hint: 'Effort to reimplement'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7422,6 +8136,7 @@ class TrainingPrototypeOutputs {
         Field('technologyInsights', String, 'Technology Insights',
                 hint: 'Technology insights gained'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7439,18 +8154,23 @@ class ThrowawayPrototype {
         hint: 'Who participates in evaluation'),
     Field('evaluationTimeline', String, 'Evaluation Timeline'),
   ])
+  @SerializationOrder(0)
   String? throwawayContent;
 
   /// Findings and decisions captured from evaluation.
+  @SerializationOrder(1)
   ThrowawayPrototypeFindings findings = ThrowawayPrototypeFindings();
 
   /// Disposal and follow-up handling.
+  @SerializationOrder(2)
   ThrowawayPrototypeDisposition disposition = ThrowawayPrototypeDisposition();
 
   /// Long-term value retained from the prototype.
+  @SerializationOrder(3)
   ThrowawayPrototypeValue value = ThrowawayPrototypeValue();
 
   /// Throwaway prototype narrative.
+  @SerializationOrder(4)
   TextSection throwawayNarrative = TextSection();
 }
 
@@ -7465,6 +8185,7 @@ class ThrowawayPrototypeFindings {
         Field('decisionsMade', String, 'Decisions Made',
                 hint: 'Decisions made based on prototype'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7479,6 +8200,7 @@ class ThrowawayPrototypeDisposition {
         Field('nextSteps', String, 'Next Steps',
                 hint: 'What happens after evaluation'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7491,6 +8213,7 @@ class ThrowawayPrototypeValue {
         Field('futureReference', String, 'Future Reference',
                 hint: 'What to preserve for future'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -7520,6 +8243,7 @@ comparison, and narrative-flow views.
 - Storyboard / user-journey visuals
 - Review and sign-off status per artifact
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7533,6 +8257,7 @@ class DesignFoundationEntry {
     Field('spacingScale', String, 'Spacing Scale',
         hint: '4px base, 8px base, custom scale'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7540,6 +8265,7 @@ class DesignFoundationEntry {
 @SectionId('RECOV')
 class RecoveryFlowEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7547,6 +8273,7 @@ class RecoveryFlowEntry {
 @SectionId('GLOBA')
 class GlobalEntryPointEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7554,6 +8281,7 @@ class GlobalEntryPointEntry {
 @SectionId('EPDE')
 class ErrorPageDesignEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7561,5 +8289,6 @@ class ErrorPageDesignEntry {
 @SectionId('FIELD')
 class FieldValidationRuleEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }

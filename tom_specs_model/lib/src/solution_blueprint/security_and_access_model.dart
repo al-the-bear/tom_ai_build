@@ -34,30 +34,39 @@ access and authorization concerns.
 - Encryption → protects sensitive data
 - Audit → logs security events for compliance
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 9.1. User Management.
+  @SerializationOrder(1)
   UserManagement userManagement = UserManagement();
 
   /// 9.2. Identification and Authentication.
+  @SerializationOrder(2)
   IdentificationAndAuthentication authentication = IdentificationAndAuthentication();
 
   /// 9.3. Resource Protection.
+  @SerializationOrder(3)
   ResourceProtection resourceProtection = ResourceProtection();
 
   /// 9.4. User Authorization.
+  @SerializationOrder(4)
   UserAuthorization authorization = UserAuthorization();
 
   /// 9.5. Sensitive Data Encryption.
+  @SerializationOrder(5)
   SensitiveDataEncryption encryption = SensitiveDataEncryption();
 
   /// 9.6. Audit and Logging.
+  @SerializationOrder(6)
   AuditAndLogging auditAndLogging = AuditAndLogging();
 
   /// 9.7. Role Matrix..
+  @SerializationOrder(7)
   RoleMatrix roleMatrix = RoleMatrix();
 
   /// 9.8. Compliance Framework.
+  @SerializationOrder(8)
   ComplianceFramework complianceFramework = ComplianceFramework();
 }
 
@@ -83,15 +92,19 @@ authentication and authorization by defining who the users are.
 - SCIM 2.0 (RFC 7643/7644) for cross-domain user management
 - SOC 2 CC6.1-CC6.3 for logical and physical access controls
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 9.1.1. User Categories.
+    @SerializationOrder(1)
     AccessUserCategories userCategories = AccessUserCategories();
 
   /// 9.1.2. User Lifecycle.
+  @SerializationOrder(2)
   UserLifecycle userLifecycle = UserLifecycle();
 
   /// 9.1.3. User Attributes.
+  @SerializationOrder(3)
   UserAttributes userAttributes = UserAttributes();
 }
 
@@ -119,11 +132,13 @@ relationships.
 - Onboarding and offboarding processes
 - Data sensitivity level accessible by this category
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× UserCategoryDefinition.
   @SectionId('USCDF-ITEM-LST')
   @SectionIdPattern('USCDF-ITEM-xxx')
+  @SerializationOrder(1)
   List<UserCategoryDefinition> items = [];
 }
 
@@ -136,6 +151,7 @@ class UserCategoryDefinition {
     Field('accessLevel', String, 'Access Level'),
     Field('estimatedCount', String, 'Estimated Count'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -168,38 +184,49 @@ and compliance with data retention requirements.
 - Compliance with GDPR right to erasure and data retention laws
 - Audit trail requirements for lifecycle events
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview (text).
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 9.1.2.1. Account States.
+  @SerializationOrder(2)
   UserAccountStatesDefinition accountStates = UserAccountStatesDefinition();
 
   /// 9.1.2.2. Registration Process.
+  @SerializationOrder(3)
   UserRegistrationProcess registration = UserRegistrationProcess();
 
   /// 9.1.2.3. Account Activation.
+  @SerializationOrder(4)
   AccountActivationPolicy activation = AccountActivationPolicy();
 
   /// 9.1.2.4. Account Modification.
+  @SerializationOrder(5)
   AccountModificationPolicy modification = AccountModificationPolicy();
 
   /// 9.1.2.5. Account Deactivation.
+  @SerializationOrder(6)
   AccountDeactivationPolicy deactivation = AccountDeactivationPolicy();
 
   /// 9.1.2.6. Account Deletion and Data Retention.
+  @SerializationOrder(7)
   AccountDeletionPolicy deletion = AccountDeletionPolicy();
 
   /// 9.1.2.7. Lifecycle Transitions and Approvals.
+  @SerializationOrder(8)
   UserLifecycleTransitions transitions = UserLifecycleTransitions();
 
   /// 9.1.2.8. Self-Service Account Management.
+  @SerializationOrder(9)
   SelfServiceAccountManagement selfService = SelfServiceAccountManagement();
 
   /// 9.1.2.9. Service Account Lifecycle.
   @SectionId('SACLC-SERV-LST')
   @SectionIdPattern('SACLC-SERV-xxx')
+  @SerializationOrder(10)
   List<ServiceAccountLifecycle> serviceAccounts = [];
 }
 
@@ -235,9 +262,11 @@ and compliance with data retention requirements.
 ])
 @SectionId('UACST')
 class UserAccountStatesDefinition {
+  @SerializationOrder(0)
   String? content;
 
   /// State Transition Diagram (mermaid).
+  @SerializationOrder(1)
   DiagramSection stateTransitionDiagram = DiagramSection();
 }
 
@@ -291,12 +320,15 @@ class UserAccountStatesDefinition {
 ])
 @SectionId('URREG')
 class UserRegistrationProcess {
+  @SerializationOrder(0)
   String? content;
 
   /// Registration Flow Description (text).
+  @SerializationOrder(1)
   TextSection registrationFlowDescription = TextSection();
 
   /// Registration Flow Diagram (mermaid-sequence).
+  @SerializationOrder(2)
   SequenceDiagramSection registrationFlowDiagram = SequenceDiagramSection();
 }
 
@@ -336,9 +368,11 @@ class UserRegistrationProcess {
 ])
 @SectionId('ACACT')
 class AccountActivationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Activation Flow Description (text).
+  @SerializationOrder(1)
   TextSection activationFlowDescription = TextSection();
 }
 
@@ -387,9 +421,11 @@ class AccountActivationPolicy {
 ])
 @SectionId('ACMOD')
 class AccountModificationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Modification Rules Description (text).
+  @SerializationOrder(1)
   TextSection modificationRulesDescription = TextSection();
 }
 
@@ -441,9 +477,11 @@ class AccountModificationPolicy {
 ])
 @SectionId('ACDEA')
 class AccountDeactivationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Deactivation Process Description (text).
+  @SerializationOrder(1)
   TextSection deactivationProcessDescription = TextSection();
 }
 
@@ -497,9 +535,11 @@ class AccountDeactivationPolicy {
 ])
 @SectionId('ACDEL')
 class AccountDeletionPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Deletion Process Description (text).
+  @SerializationOrder(1)
   TextSection deletionProcessDescription = TextSection();
 }
 
@@ -533,17 +573,21 @@ class AccountDeletionPolicy {
 ])
 @SectionId('ULTRS')
 class UserLifecycleTransitions {
+  @SerializationOrder(0)
   String? content;
 
   /// Transition Rules Description (text).
+  @SerializationOrder(1)
   TextSection transitionRulesDescription = TextSection();
 
   /// Lifecycle State Transition Diagram (mermaid).
+  @SerializationOrder(2)
   DiagramSection lifecycleStateDiagram = DiagramSection();
 
   /// Contains 0+× UserLifecycleTransitionEntry.
   @SectionId('ULTRE-ITEM-LST')
   @SectionIdPattern('ULTRE-ITEM-xxx')
+  @SerializationOrder(3)
   List<UserLifecycleTransitionEntry> items = [];
 }
 
@@ -567,17 +611,21 @@ class UserLifecycleTransitionEntry {
         hint:
             'Pre-conditions that must be met for this transition'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Approval requirements.
+  @SerializationOrder(1)
   UserLifecycleTransitionEntryApproval approval =
       UserLifecycleTransitionEntryApproval();
 
   /// Side effects and notifications.
+  @SerializationOrder(2)
   UserLifecycleTransitionEntryEffects effects =
       UserLifecycleTransitionEntryEffects();
 
   /// Reversal and automation.
+  @SerializationOrder(3)
   UserLifecycleTransitionEntryAutomation automation =
       UserLifecycleTransitionEntryAutomation();
 }
@@ -593,6 +641,7 @@ class UserLifecycleTransitionEntryApproval {
     Field('approvalSla', String, 'Approval SLA',
         hint: 'Maximum time allowed for approval decision'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -608,6 +657,7 @@ class UserLifecycleTransitionEntryEffects {
     Field('notificationChannels', String, 'Notification Channels',
         hint: 'Email | SMS | InApp | Webhook'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -622,6 +672,7 @@ class UserLifecycleTransitionEntryAutomation {
     Field('automationSupported', String, 'Automation Supported',
         hint: 'Yes | No — whether this transition can be automated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -667,9 +718,11 @@ class UserLifecycleTransitionEntryAutomation {
 ])
 @SectionId('SSACM')
 class SelfServiceAccountManagement {
+  @SerializationOrder(0)
   String? content;
 
   /// Self-Service Capabilities Description (text).
+  @SerializationOrder(1)
   TextSection selfServiceDescription = TextSection();
 }
 
@@ -718,9 +771,11 @@ class SelfServiceAccountManagement {
 ])
 @SectionId('SACLC')
 class ServiceAccountLifecycle {
+  @SerializationOrder(0)
   String? content;
 
   /// Service Account Management Description (text).
+  @SerializationOrder(1)
   TextSection serviceAccountDescription = TextSection();
 }
 
@@ -756,11 +811,13 @@ compliance requirements.
 - Attribute source (self-declared, HR system, IdP assertion)
 - Retention and deletion policies per attribute type
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× UserAttribute.
   @SectionId('USATE-ITEM-LST')
   @SectionIdPattern('USATE-ITEM-xxx')
+  @SerializationOrder(1)
   List<UserAttributeEntry> items = [];
 }
 
@@ -773,6 +830,7 @@ class UserAttributeEntry {
     Field('source', String, 'Source'),
     Field('required', String, 'Required'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -806,12 +864,15 @@ user identification.
 - Support for legacy systems and gradual migration
 - Regulatory requirements (PCI DSS, HIPAA, SOX)
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 9.2.1. Identification.
+  @SerializationOrder(1)
   Identification identification = Identification();
 
   /// 9.2.2. Authentication.
+  @SerializationOrder(2)
   Authentication authentication = Authentication();
 }
 
@@ -855,31 +916,38 @@ class Identification {
         hint:
             'Jurisdictional requirements for identity data storage, e.g. EU-only, in-country'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identity Sources — contains 0+× Identity Source.
   @SectionId('IDTSR-IDEN-LST')
   @SectionIdPattern('IDTSR-IDEN-xxx')
+  @SerializationOrder(1)
   List<IdentitySourceEntry> identitySources = [];
 
   /// Identity Verification.
+  @SerializationOrder(2)
   IdentityVerificationPolicy identityVerification =
       IdentityVerificationPolicy();
 
   /// Identity Providers — contains 0+× Identity Provider.
   @SectionId('IDTPV-IDEN-LST')
   @SectionIdPattern('IDTPV-IDEN-xxx')
+  @SerializationOrder(3)
   List<IdentityProviderEntry> identityProviders = [];
 
   /// Single Sign-On.
+  @SerializationOrder(4)
   SingleSignOnPolicy singleSignOn = SingleSignOnPolicy();
 
   /// Self-Registration.
+  @SerializationOrder(5)
   SelfRegistrationPolicy selfRegistration = SelfRegistrationPolicy();
 
   /// Attribute Mappings — contains 0+× Identity Attribute Mapping.
   @SectionId('IDTAM-ATTR-LST')
   @SectionIdPattern('IDTAM-ATTR-xxx')
+  @SerializationOrder(6)
   List<IdentityAttributeMappingEntry> attributeMappings = [];
 }
 
@@ -900,18 +968,23 @@ class IdentitySourceEntry {
         hint:
             'Specific product/service, e.g. Azure AD, Okta, Google Workspace'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Connectivity and trust details.
+  @SerializationOrder(1)
   IdentitySourceEntryConnection connection = IdentitySourceEntryConnection();
 
   /// Synchronization and provisioning details.
+  @SerializationOrder(2)
   IdentitySourceEntryLifecycle lifecycle = IdentitySourceEntryLifecycle();
 
   /// Attribute mapping details.
+  @SerializationOrder(3)
   IdentitySourceEntryMapping mapping = IdentitySourceEntryMapping();
 
   /// Operational behavior.
+  @SerializationOrder(4)
   IdentitySourceEntryOperations operations = IdentitySourceEntryOperations();
 }
 
@@ -934,6 +1007,7 @@ class IdentitySourceEntryConnection {
         hint:
             'Yes / No — whether this source is the golden record for identity attributes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -956,6 +1030,7 @@ class IdentitySourceEntryLifecycle {
         hint:
             'SourceWins / TargetWins / MostRecent / ManualReview / MergeAttributes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -970,6 +1045,7 @@ class IdentitySourceEntryMapping {
         hint:
             'Yes / No — whether groups/roles from this source are mapped to application roles'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -985,6 +1061,7 @@ class IdentitySourceEntryOperations {
     Field('description', String, 'Description',
         hint: 'Detailed description of this identity source and its role'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1005,29 +1082,36 @@ class IdentityVerificationPolicy {
         hint:
             'FullyAutomated / SemiAutomated / ManualReview / Hybrid'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Required proofing artifacts.
+  @SerializationOrder(1)
   IdentityVerificationPolicyDocuments documents =
       IdentityVerificationPolicyDocuments();
 
   /// Contact and provider verification.
+  @SerializationOrder(2)
   IdentityVerificationPolicyMethods methods =
       IdentityVerificationPolicyMethods();
 
   /// Workflow and approval settings.
+  @SerializationOrder(3)
   IdentityVerificationPolicyWorkflow workflow =
       IdentityVerificationPolicyWorkflow();
 
   /// Reverification and retention settings.
+  @SerializationOrder(4)
   IdentityVerificationPolicyLifecycle lifecycle =
       IdentityVerificationPolicyLifecycle();
 
   /// Failure handling rules.
+  @SerializationOrder(5)
   IdentityVerificationPolicyFailure failure =
       IdentityVerificationPolicyFailure();
 
   /// Additional verification details (text).
+  @SerializationOrder(6)
   TextSection verificationDetails = TextSection();
 }
 
@@ -1045,6 +1129,7 @@ class IdentityVerificationPolicyDocuments {
         hint:
             'None / FaceMatch / Fingerprint / LivenessDetection'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1060,6 +1145,7 @@ class IdentityVerificationPolicyMethods {
         hint:
             'Third-party provider, e.g. Jumio, Onfido, LexisNexis, Internal'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1076,6 +1162,7 @@ class IdentityVerificationPolicyWorkflow {
     Field('proofingChannels', String, 'Proofing Channels',
         hint: 'InPerson / Remote / Hybrid — where identity proofing occurs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1093,6 +1180,7 @@ class IdentityVerificationPolicyLifecycle {
         hint:
             'How long verification evidence is retained, e.g. 5y, 7y, permanent'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1106,6 +1194,7 @@ class IdentityVerificationPolicyFailure {
     Field('maxVerificationAttempts', int, 'Max Verification Attempts',
         hint: 'Maximum proofing attempts before lockout, e.g. 3, 5'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1124,25 +1213,31 @@ class IdentityProviderEntry {
     Field('enabled', String, 'Enabled',
         hint: 'Yes / No — whether this provider is currently active'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Provider details.
   @SectionId('IDPRDE-DETA-LST')
   @SectionIdPattern('IDPRDE-DETA-xxx')
+  @SerializationOrder(1)
   List<IdentityProviderDetails> details = [];
 
   /// Endpoint configuration.
   @SectionId('IDPREN-ENDP-LST')
   @SectionIdPattern('IDPREN-ENDP-xxx')
+  @SerializationOrder(2)
   List<IdentityProviderEndpoints> endpoints = [];
 
   /// Attribute mapping.
+  @SerializationOrder(3)
   IdentityProviderMapping mapping = IdentityProviderMapping();
 
   /// Trust and security.
+  @SerializationOrder(4)
   IdentityProviderTrust trust = IdentityProviderTrust();
 
   /// Certificates and encryption.
+  @SerializationOrder(5)
   IdentityProviderSecurity security = IdentityProviderSecurity();
 }
 
@@ -1157,6 +1252,7 @@ class IdentityProviderDetails {
     Field('description', String, 'Description',
         hint: 'Detailed description of this identity provider'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1175,6 +1271,7 @@ class IdentityProviderEndpoints {
     Field('scopes', String, 'Scopes',
         hint: 'OAuth2/OIDC scopes requested'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1193,6 +1290,7 @@ class IdentityProviderMapping {
     Field('accountLinkingStrategy', String, 'Account Linking Strategy',
         hint: 'EmailMatch / ExternalId / ManualLink / None'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1209,6 +1307,7 @@ class IdentityProviderTrust {
     Field('failoverIdp', String, 'Failover IdP',
         hint: 'Backup identity provider if unavailable'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1223,6 +1322,7 @@ class IdentityProviderSecurity {
     Field('encryptionRequired', String, 'Encryption Required',
         hint: 'Yes / No — whether assertions/tokens must be encrypted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1241,21 +1341,27 @@ class SingleSignOnPolicy {
     Field('ssoProtocol', String, 'SSO Protocol',
         hint: 'SAML2.0 / OIDC / OAuth2 / WS-Federation / Kerberos / CAS'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Gateway and federation setup.
+  @SerializationOrder(1)
   SingleSignOnPolicyFederation federation = SingleSignOnPolicyFederation();
 
   /// Session and logout behavior.
+  @SerializationOrder(2)
   SingleSignOnPolicySession session = SingleSignOnPolicySession();
 
   /// Access and consent behavior.
+  @SerializationOrder(3)
   SingleSignOnPolicyAccess access = SingleSignOnPolicyAccess();
 
   /// Platform integration and monitoring.
+  @SerializationOrder(4)
   SingleSignOnPolicyOperations operations = SingleSignOnPolicyOperations();
 
   /// Additional SSO details (text).
+  @SerializationOrder(5)
   TextSection ssoDetails = TextSection();
 }
 
@@ -1276,6 +1382,7 @@ class SingleSignOnPolicyFederation {
         hint:
             'Yes / No — whether identities federate across organizational boundaries'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1295,6 +1402,7 @@ class SingleSignOnPolicySession {
         hint:
             'Idle timeout before SSO session expires, e.g. 30min, 1h, 4h'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1314,6 +1422,7 @@ class SingleSignOnPolicyAccess {
         hint:
             'Scenarios where SSO is bypassed, e.g. ServiceAccounts, LocalAdminFallback, BreakGlass'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1331,6 +1440,7 @@ class SingleSignOnPolicyOperations {
         hint:
             'How SSO health and usage is monitored, e.g. IdPHealthCheck, LoginSuccessRate'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1348,26 +1458,33 @@ class SelfRegistrationPolicy {
     Field('requiredFields', String, 'Required Fields',
         hint: 'Fields required at registration, e.g. email, fullName, password, phone'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Field configuration.
+  @SerializationOrder(1)
   SelfRegistrationPolicyFields fields = SelfRegistrationPolicyFields();
 
   /// Bot protection settings.
+  @SerializationOrder(2)
   SelfRegistrationPolicyBotProtection botProtection =
       SelfRegistrationPolicyBotProtection();
 
   /// Verification requirements.
+  @SerializationOrder(3)
   SelfRegistrationPolicyVerification verification =
       SelfRegistrationPolicyVerification();
 
   /// Approval workflow.
+  @SerializationOrder(4)
   SelfRegistrationPolicyApproval approval = SelfRegistrationPolicyApproval();
 
   /// Security restrictions.
+  @SerializationOrder(5)
   SelfRegistrationPolicySecurity security = SelfRegistrationPolicySecurity();
 
   /// Additional registration details (text).
+  @SerializationOrder(6)
   TextSection registrationDetails = TextSection();
 }
 
@@ -1380,6 +1497,7 @@ class SelfRegistrationPolicyFields {
     Field('termsAcceptanceRequired', String, 'Terms Acceptance Required',
         hint: 'Yes / No — whether ToS/privacy policy acceptance is required'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1392,6 +1510,7 @@ class SelfRegistrationPolicyBotProtection {
     Field('captchaProvider', String, 'Captcha Provider',
         hint: 'reCAPTCHAv2 / reCAPTCHAv3 / hCaptcha / Turnstile / Custom'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1408,6 +1527,7 @@ class SelfRegistrationPolicyVerification {
     Field('phoneVerificationMethod', String, 'Phone Verification Method',
         hint: 'SMS / VoiceCall / WhatsApp'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1428,6 +1548,7 @@ class SelfRegistrationPolicyApproval {
     Field('welcomeNotification', String, 'Welcome Notification',
         hint: 'Yes / No — whether a welcome email/message is sent after registration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1444,6 +1565,7 @@ class SelfRegistrationPolicySecurity {
     Field('rateLimiting', String, 'Rate Limiting',
         hint: 'Registration rate limits, e.g. 5/hour per IP, 10/day per domain'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1469,17 +1591,21 @@ class IdentityAttributeMappingEntry {
         hint:
             'String / Integer / Boolean / DateTime / List / Email / Phone / URL'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Transformation and defaulting behavior.
+  @SerializationOrder(1)
   IdentityAttributeMappingEntryTransformation transformation =
       IdentityAttributeMappingEntryTransformation();
 
   /// Synchronization and conflict handling.
+  @SerializationOrder(2)
   IdentityAttributeMappingEntrySynchronization synchronization =
       IdentityAttributeMappingEntrySynchronization();
 
   /// Validation, classification, and purpose.
+  @SerializationOrder(3)
   IdentityAttributeMappingEntryGovernance governance =
       IdentityAttributeMappingEntryGovernance();
 }
@@ -1500,6 +1626,7 @@ class IdentityAttributeMappingEntryTransformation {
         hint:
             'FirstValue / AllValues / Concatenate / PrimaryOnly'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1517,6 +1644,7 @@ class IdentityAttributeMappingEntrySynchronization {
         hint:
             'SourceWins / TargetWins / MostRecent / ManualReview — when source and target values differ'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1530,6 +1658,7 @@ class IdentityAttributeMappingEntryGovernance {
     Field('description', String, 'Description',
         hint: 'Purpose and context for this attribute mapping'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1558,19 +1687,24 @@ policies, session management, and authentication flows.
 - Service-to-service authentication (workload identity)
 - Authentication event logging for security monitoring
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 9.2.2.1. Authentication Methods.
+  @SerializationOrder(1)
   AuthenticationMethods authenticationMethods = AuthenticationMethods();
 
   /// 9.2.2.2. Authentication Flow.
+  @SerializationOrder(2)
   AuthenticationFlow authenticationFlow = AuthenticationFlow();
 
   /// 9.2.3. Password and Credential Policy.
+  @SerializationOrder(3)
   PasswordAndCredentialPolicy passwordAndCredentialPolicy =
       PasswordAndCredentialPolicy();
 
   /// 9.2.4. Session Management.
+  @SerializationOrder(4)
   SessionManagement sessionManagement = SessionManagement();
 }
 
@@ -1606,31 +1740,39 @@ applicability to different user categories and use cases.
 - NIST SP 800-63B Section 5: Authenticator and Verifier Requirements
 - OWASP Authentication Cheat Sheet
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Authentication Methods Overview (text).
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Multi-Factor Authentication Configuration.
+  @SerializationOrder(2)
   MfaConfiguration mfaConfiguration = MfaConfiguration();
 
   /// Single Sign-On Policy.
+  @SerializationOrder(3)
   SsoPolicy ssoPolicy = SsoPolicy();
 
   /// Certificate-Based Authentication Policy.
+  @SerializationOrder(4)
   CertificateAuthenticationPolicy certificateAuthentication =
       CertificateAuthenticationPolicy();
 
   /// Biometric Authentication Policy.
+  @SerializationOrder(5)
   BiometricAuthenticationPolicy biometricAuthentication =
       BiometricAuthenticationPolicy();
 
   /// API Key Management Policy.
+  @SerializationOrder(6)
   ApiKeyManagementPolicy apiKeyManagement = ApiKeyManagementPolicy();
 
   /// Contains 0+× AuthenticationMethod.
   @SectionId('ATME-ITEM-LST')
   @SectionIdPattern('ATME-ITEM-xxx')
+  @SerializationOrder(7)
   List<AuthenticationMethodEntry> items = [];
 }
 
@@ -1675,11 +1817,13 @@ applicability to different user categories and use cases.
 ])
 @SectionId('MC')
 class MfaConfiguration {
+  @SerializationOrder(0)
   String? content;
 
   /// MFA Implementation Details (text).
   @SectionId('MFADE-MFAD-LST')
   @SectionIdPattern('MFADE-MFAD-xxx')
+  @SerializationOrder(1)
   List<MfaDetailEntry> mfaDetails = [];
 }
 
@@ -1725,9 +1869,11 @@ class MfaConfiguration {
 ])
 @SectionId('SP')
 class SsoPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// SSO Implementation Details (text).
+  @SerializationOrder(1)
   TextSection ssoDetails = TextSection();
 }
 
@@ -1767,9 +1913,11 @@ class SsoPolicy {
 ])
 @SectionId('CAP')
 class CertificateAuthenticationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Certificate Authentication Details (text).
+  @SerializationOrder(1)
   TextSection certificateDetails = TextSection();
 }
 
@@ -1818,9 +1966,11 @@ class CertificateAuthenticationPolicy {
 ])
 @SectionId('BAP')
 class BiometricAuthenticationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Biometric Implementation Details (text).
+  @SerializationOrder(1)
   TextSection biometricDetails = TextSection();
 }
 
@@ -1868,9 +2018,11 @@ class BiometricAuthenticationPolicy {
 ])
 @SectionId('AKMP')
 class ApiKeyManagementPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// API Key Management Details (text).
+  @SerializationOrder(1)
   TextSection apiKeyDetails = TextSection();
 }
 
@@ -1890,21 +2042,26 @@ class AuthenticationMethodEntry {
         hint:
             'Knowledge | Possession | Inherence — NIST factor category'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Security posture of the authentication method.
+  @SerializationOrder(1)
   AuthenticationMethodEntrySecurity security =
       AuthenticationMethodEntrySecurity();
 
   /// Usage scope of the authentication method.
+  @SerializationOrder(2)
   AuthenticationMethodEntryApplicability applicability =
       AuthenticationMethodEntryApplicability();
 
   /// Enrollment and activation workflow.
+  @SerializationOrder(3)
   AuthenticationMethodEntryEnrollment enrollment =
       AuthenticationMethodEntryEnrollment();
 
   /// Operational controls and lifecycle settings.
+  @SerializationOrder(4)
   AuthenticationMethodEntryOperations operations =
       AuthenticationMethodEntryOperations();
 }
@@ -1930,6 +2087,7 @@ class AuthenticationMethodEntrySecurity {
     Field('securityLevel', String, 'Security Level',
         hint: 'Low | Medium | High | Critical — overall security classification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1944,6 +2102,7 @@ class AuthenticationMethodEntryApplicability {
         hint:
             'Primary | Secondary | Either — role in authentication flow'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1964,6 +2123,7 @@ class AuthenticationMethodEntryEnrollment {
         hint:
             'Alternative method when this one is unavailable (recovery codes, admin reset)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1983,6 +2143,7 @@ class AuthenticationMethodEntryOperations {
     Field('description', String, 'Description',
         hint: 'Detailed description of this authentication method'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2019,38 +2180,48 @@ established session. Include sequence diagrams for clarity.
 - Secure cookie attributes (HttpOnly, Secure, SameSite)
 - OAuth 2.0 PKCE for public clients
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Authentication Flow Overview (text).
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Authentication Flow Diagram (mermaid-sequence).
+  @SerializationOrder(2)
   SequenceDiagramSection authenticationFlowDiagram =
       SequenceDiagramSection();
 
   /// Login Flow Configuration.
+  @SerializationOrder(3)
   LoginFlowConfiguration loginFlow = LoginFlowConfiguration();
 
   /// Token Management Policy.
+  @SerializationOrder(4)
   TokenManagementPolicy tokenManagement = TokenManagementPolicy();
 
   /// Session Creation Policy.
+  @SerializationOrder(5)
   SessionCreationPolicy sessionCreation = SessionCreationPolicy();
 
   /// Redirect and Callback Handling.
+  @SerializationOrder(6)
   RedirectHandlingPolicy redirectHandling = RedirectHandlingPolicy();
 
   /// Authentication Error Handling.
+  @SerializationOrder(7)
   AuthenticationErrorHandling errorHandling =
       AuthenticationErrorHandling();
 
   /// Step-Up and Adaptive Authentication.
+  @SerializationOrder(8)
   StepUpAuthenticationPolicy stepUpAuthentication =
       StepUpAuthenticationPolicy();
 
   /// Contains 0+× Login Flow Step.
   @SectionId('LGFLS-LOGI-LST')
   @SectionIdPattern('LGFLS-LOGI-xxx')
+  @SerializationOrder(9)
   List<LoginFlowStepEntry> loginFlowSteps = [];
 }
 
@@ -2106,9 +2277,11 @@ established session. Include sequence diagrams for clarity.
 ])
 @SectionId('LFC')
 class LoginFlowConfiguration {
+  @SerializationOrder(0)
   String? content;
 
   /// Login Flow Details (text).
+  @SerializationOrder(1)
   TextSection loginFlowDetails = TextSection();
 }
 
@@ -2163,9 +2336,11 @@ class LoginFlowConfiguration {
 ])
 @SectionId('TMP')
 class TokenManagementPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Token Management Details (text).
+  @SerializationOrder(1)
   TextSection tokenManagementDetails = TextSection();
 }
 
@@ -2213,9 +2388,11 @@ class TokenManagementPolicy {
 ])
 @SectionId('SCP')
 class SessionCreationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Session Creation Details (text).
+  @SerializationOrder(1)
   TextSection sessionCreationDetails = TextSection();
 }
 
@@ -2261,9 +2438,11 @@ class SessionCreationPolicy {
 ])
 @SectionId('RHP')
 class RedirectHandlingPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Redirect Handling Details (text).
+  @SerializationOrder(1)
   TextSection redirectDetails = TextSection();
 }
 
@@ -2312,9 +2491,11 @@ class RedirectHandlingPolicy {
 ])
 @SectionId('AEH')
 class AuthenticationErrorHandling {
+  @SerializationOrder(0)
   String? content;
 
   /// Error Handling Details (text).
+  @SerializationOrder(1)
   TextSection errorHandlingDetails = TextSection();
 }
 
@@ -2360,11 +2541,13 @@ class AuthenticationErrorHandling {
 ])
 @SectionId('SUAP')
 class StepUpAuthenticationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Step-Up Authentication Details (text).
   @SectionId('STEPU-STEP-LST')
   @SectionIdPattern('STEPU-STEP-xxx')
+  @SerializationOrder(1)
   List<StepUpDetailEntry> stepUpDetails = [];
 }
 
@@ -2387,15 +2570,19 @@ class LoginFlowStepEntry {
         hint:
             'User | Browser | AuthServer | IdP | MfaDevice | ResourceServer — who performs this step'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Inputs and validation behavior.
+  @SerializationOrder(1)
   LoginFlowStepEntryValidation validation = LoginFlowStepEntryValidation();
 
   /// Outcomes and optional execution rules.
+  @SerializationOrder(2)
   LoginFlowStepEntryBehavior behavior = LoginFlowStepEntryBehavior();
 
   /// Protocol-level and descriptive details.
+  @SerializationOrder(3)
   LoginFlowStepEntryProtocol protocol = LoginFlowStepEntryProtocol();
 }
 
@@ -2412,6 +2599,7 @@ class LoginFlowStepEntryValidation {
     Field('timeoutSeconds', String, 'Timeout Seconds',
         hint: 'Maximum time allowed for this step (e.g., 300, 600)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2431,6 +2619,7 @@ class LoginFlowStepEntryBehavior {
         hint:
             'Condition under which this step is activated (e.g., MFA required, new device)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2444,6 +2633,7 @@ class LoginFlowStepEntryProtocol {
     Field('description', String, 'Description',
         hint: 'Detailed description of what happens in this step'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2485,38 +2675,48 @@ revision) emphasizes length over complexity and discourages forced rotation.
 - Define which user categories require MFA
 - Specify acceptable second factors per AAL level
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Password and Credential Policy Overview (text).
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Password Requirements.
+  @SerializationOrder(2)
   PasswordRequirementsPolicy passwordRequirements =
       PasswordRequirementsPolicy();
 
   /// Password Storage and Verification.
+  @SerializationOrder(3)
   PasswordStoragePolicy passwordStorage = PasswordStoragePolicy();
 
   /// Password Lifecycle.
+  @SerializationOrder(4)
   PasswordLifecyclePolicy passwordLifecycle = PasswordLifecyclePolicy();
 
   /// Account Lockout and Throttling.
+  @SerializationOrder(5)
   AccountLockoutPolicy accountLockout = AccountLockoutPolicy();
 
   /// Credential Recovery.
+  @SerializationOrder(6)
   CredentialRecoveryPolicy credentialRecovery = CredentialRecoveryPolicy();
 
   /// Credential Compromise Detection.
+  @SerializationOrder(7)
   CredentialCompromiseDetectionPolicy compromiseDetection =
       CredentialCompromiseDetectionPolicy();
 
   /// Service Account and API Credential Policy.
+  @SerializationOrder(8)
   ServiceAccountCredentialPolicy serviceAccountCredentials =
       ServiceAccountCredentialPolicy();
 
   /// Contains 0+× MFA Enforcement per User Category.
   @SectionId('MFACRQ-MFAC-LST')
   @SectionIdPattern('MFACRQ-MFAC-xxx')
+  @SerializationOrder(9)
   List<MfaCategoryRequirementEntry> mfaCategoryRequirements = [];
 }
 
@@ -2579,9 +2779,11 @@ revision) emphasizes length over complexity and discourages forced rotation.
 ])
 @SectionId('PRP')
 class PasswordRequirementsPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Password Requirements Details (text).
+  @SerializationOrder(1)
   TextSection passwordRequirementsDetails = TextSection();
 }
 
@@ -2629,9 +2831,11 @@ class PasswordRequirementsPolicy {
 ])
 @SectionId('PSP')
 class PasswordStoragePolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Password Storage Details (text).
+  @SerializationOrder(1)
   TextSection passwordStorageDetails = TextSection();
 }
 
@@ -2683,9 +2887,11 @@ class PasswordStoragePolicy {
 ])
 @SectionId('PLP')
 class PasswordLifecyclePolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Password Lifecycle Details (text).
+  @SerializationOrder(1)
   TextSection passwordLifecycleDetails = TextSection();
 }
 
@@ -2740,9 +2946,11 @@ class PasswordLifecyclePolicy {
 ])
 @SectionId('ALP')
 class AccountLockoutPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Account Lockout Details (text).
+  @SerializationOrder(1)
   TextSection accountLockoutDetails = TextSection();
 }
 
@@ -2796,9 +3004,11 @@ class AccountLockoutPolicy {
 ])
 @SectionId('CRP')
 class CredentialRecoveryPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Credential Recovery Details (text).
+  @SerializationOrder(1)
   TextSection credentialRecoveryDetails = TextSection();
 }
 
@@ -2843,9 +3053,11 @@ class CredentialRecoveryPolicy {
 ])
 @SectionId('CCDP')
 class CredentialCompromiseDetectionPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Compromise Detection Details (text).
+  @SerializationOrder(1)
   TextSection compromiseDetectionDetails = TextSection();
 }
 
@@ -2893,9 +3105,11 @@ class CredentialCompromiseDetectionPolicy {
 ])
 @SectionId('SACP')
 class ServiceAccountCredentialPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Service Account Credential Details (text).
+  @SerializationOrder(1)
   TextSection serviceAccountDetails = TextSection();
 }
 
@@ -2915,17 +3129,21 @@ class MfaCategoryRequirementEntry {
         hint:
             'AAL1 | AAL2 | AAL3 — target Authentication Assurance Level'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Allowed authenticators and phishing-resistance rules.
+  @SerializationOrder(1)
   MfaCategoryRequirementEntryAuthenticators authenticators =
       MfaCategoryRequirementEntryAuthenticators();
 
   /// Enrollment and remembered-device timing.
+  @SerializationOrder(2)
   MfaCategoryRequirementEntryTiming timing =
       MfaCategoryRequirementEntryTiming();
 
   /// Fallback, timeouts, and rationale.
+  @SerializationOrder(3)
   MfaCategoryRequirementEntryOperations operations =
       MfaCategoryRequirementEntryOperations();
 }
@@ -2943,6 +3161,7 @@ class MfaCategoryRequirementEntryAuthenticators {
         hint:
             'Yes | No | Recommended — whether phishing-resistant authenticators are required'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2963,6 +3182,7 @@ class MfaCategoryRequirementEntryTiming {
         hint:
             'Duration the device is trusted (e.g., 7d, 30d, 90d)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2984,6 +3204,7 @@ class MfaCategoryRequirementEntryOperations {
         hint:
             'Description of MFA requirements and rationale for this user category'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3028,27 +3249,35 @@ Define session management policies that balance security with user experience.
 - OWASP Session Management Cheat Sheet
 - NIST SP 800-63B Section 7: Session Management
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Session Management Overview (text).
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Session Timeout Policy.
+  @SerializationOrder(2)
   SessionTimeoutPolicy sessionTimeoutPolicy = SessionTimeoutPolicy();
 
   /// Concurrent Session Policy.
+  @SerializationOrder(3)
   ConcurrentSessionPolicy concurrentSessionPolicy = ConcurrentSessionPolicy();
 
   /// Session Revocation Policy.
+  @SerializationOrder(4)
   SessionRevocationPolicy sessionRevocationPolicy = SessionRevocationPolicy();
 
   /// Remember-Me and Persistent Session Policy.
+  @SerializationOrder(5)
   RememberMePolicy rememberMePolicy = RememberMePolicy();
 
   /// Session Security Hardening Policy.
+  @SerializationOrder(6)
   SessionSecurityPolicy sessionSecurityPolicy = SessionSecurityPolicy();
 
   /// Session Lifecycle Monitoring.
+  @SerializationOrder(7)
   SessionLifecycleMonitoring sessionLifecycleMonitoring =
       SessionLifecycleMonitoring();
 }
@@ -3108,9 +3337,11 @@ Define session management policies that balance security with user experience.
 ])
 @SectionId('STP')
 class SessionTimeoutPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Session Timeout Details (text).
+  @SerializationOrder(1)
   TextSection sessionTimeoutDetails = TextSection();
 }
 
@@ -3157,9 +3388,11 @@ class SessionTimeoutPolicy {
 ])
 @SectionId('CSP')
 class ConcurrentSessionPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Concurrent Session Details (text).
+  @SerializationOrder(1)
   TextSection concurrentSessionDetails = TextSection();
 }
 
@@ -3215,9 +3448,11 @@ class ConcurrentSessionPolicy {
 ])
 @SectionId('SRP')
 class SessionRevocationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Session Revocation Details (text).
+  @SerializationOrder(1)
   TextSection sessionRevocationDetails = TextSection();
 }
 
@@ -3269,9 +3504,11 @@ class SessionRevocationPolicy {
 ])
 @SectionId('RMP')
 class RememberMePolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Remember-Me Policy Details (text).
+  @SerializationOrder(1)
   TextSection rememberMeDetails = TextSection();
 }
 
@@ -3322,9 +3559,11 @@ class RememberMePolicy {
 ])
 @SectionId('SSP')
 class SessionSecurityPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Session Security Details (text).
+  @SerializationOrder(1)
   TextSection sessionSecurityDetails = TextSection();
 }
 
@@ -3375,9 +3614,11 @@ class SessionSecurityPolicy {
 ])
 @SectionId('SLM')
 class SessionLifecycleMonitoring {
+  @SerializationOrder(0)
   String? content;
 
   /// Session Lifecycle Monitoring Details (text).
+  @SerializationOrder(1)
   TextSection sessionLifecycleDetails = TextSection();
 }
 
@@ -3413,15 +3654,19 @@ can only access the specific resources they are entitled to.
 - PCI DSS requirements for cardholder data
 - GDPR requirements for personal data protection
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 9.3.1. Data-Level Security.
+  @SerializationOrder(1)
   DataLevelSecurity dataLevelSecurity = DataLevelSecurity();
 
   /// 9.3.2. API Security.
+  @SerializationOrder(2)
   ApiSecurity apiSecurity = ApiSecurity();
 
   /// 9.3.3. File and Storage Security.
+  @SerializationOrder(3)
   FileAndStorageSecurity fileAndStorageSecurity = FileAndStorageSecurity();
 }
 
@@ -3466,29 +3711,37 @@ within databases and data stores.
 - Log all data access to sensitive tables
 - Capture user identity, timestamp, query, affected rows
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Data-Level Security Overview (text).
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Database Access Policy.
+  @SerializationOrder(2)
   DatabaseAccessPolicy databaseAccessPolicy = DatabaseAccessPolicy();
 
   /// Row-Level Security Policy.
+  @SerializationOrder(3)
   RowLevelSecurityPolicy rowLevelSecurityPolicy = RowLevelSecurityPolicy();
 
   /// Column-Level Security Policy.
+  @SerializationOrder(4)
   ColumnLevelSecurityPolicy columnLevelSecurityPolicy =
       ColumnLevelSecurityPolicy();
 
   /// Tenant Data Isolation Policy.
+  @SerializationOrder(5)
   TenantDataIsolationPolicy tenantDataIsolationPolicy =
       TenantDataIsolationPolicy();
 
   /// Data Masking Policy.
+  @SerializationOrder(6)
   DataMaskingPolicy dataMaskingPolicy = DataMaskingPolicy();
 
   /// Data Access Audit Policy.
+  @SerializationOrder(7)
   DataAccessAuditPolicy dataAccessAuditPolicy = DataAccessAuditPolicy();
 }
 
@@ -3543,9 +3796,11 @@ within databases and data stores.
 ])
 @SectionId('DAP')
 class DatabaseAccessPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Database Access Policy Details (text).
+  @SerializationOrder(1)
   TextSection databaseAccessDetails = TextSection();
 }
 
@@ -3591,9 +3846,11 @@ class DatabaseAccessPolicy {
 ])
 @SectionId('RLSP')
 class RowLevelSecurityPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Row-Level Security Details (text).
+  @SerializationOrder(1)
   TextSection rowLevelSecurityDetails = TextSection();
 }
 
@@ -3635,9 +3892,11 @@ class RowLevelSecurityPolicy {
 ])
 @SectionId('CLSP')
 class ColumnLevelSecurityPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Column-Level Security Details (text).
+  @SerializationOrder(1)
   TextSection columnLevelSecurityDetails = TextSection();
 }
 
@@ -3682,9 +3941,11 @@ class ColumnLevelSecurityPolicy {
 ])
 @SectionId('TDIP')
 class TenantDataIsolationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Tenant Data Isolation Details (text).
+  @SerializationOrder(1)
   TextSection tenantDataIsolationDetails = TextSection();
 }
 
@@ -3740,9 +4001,11 @@ class TenantDataIsolationPolicy {
 ])
 @SectionId('DMP')
 class DataMaskingPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Data Masking Details (text).
+  @SerializationOrder(1)
   TextSection dataMaskingDetails = TextSection();
 }
 
@@ -3790,9 +4053,11 @@ class DataMaskingPolicy {
 ])
 @SectionId('DAAP')
 class DataAccessAuditPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Data Access Audit Details (text).
+  @SerializationOrder(1)
   TextSection dataAccessAuditDetails = TextSection();
 }
 
@@ -3843,29 +4108,37 @@ public-facing APIs, internal microservices, and webhooks.
 - OWASP API Security Top 10 (2023)
 - OWASP REST Security Cheat Sheet
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// API Security Overview (text).
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// API Authentication Policy.
+  @SerializationOrder(2)
   ApiAuthenticationPolicy apiAuthenticationPolicy =
       ApiAuthenticationPolicy();
 
   /// API Authorization Policy.
+  @SerializationOrder(3)
   ApiAuthorizationPolicy apiAuthorizationPolicy = ApiAuthorizationPolicy();
 
   /// API Request Validation Policy.
+  @SerializationOrder(4)
   ApiRequestValidationPolicy apiRequestValidationPolicy =
       ApiRequestValidationPolicy();
 
   /// API CORS Security.
+  @SerializationOrder(5)
   ApiCorsSecurity apiCorsSecurity = ApiCorsSecurity();
 
   /// API Abuse Protection.
+  @SerializationOrder(6)
   ApiAbuseProtection apiAbuseProtection = ApiAbuseProtection();
 
   /// API Security Monitoring.
+  @SerializationOrder(7)
   ApiSecurityMonitoring apiSecurityMonitoring = ApiSecurityMonitoring();
 }
 
@@ -3944,9 +4217,11 @@ public-facing APIs, internal microservices, and webhooks.
 ])
 @SectionId('AAP')
 class ApiAuthenticationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// API Authentication Details (text).
+  @SerializationOrder(1)
   TextSection apiAuthenticationDetails = TextSection();
 }
 
@@ -4018,9 +4293,11 @@ class ApiAuthenticationPolicy {
 ])
 @SectionId('APAUPO')
 class ApiAuthorizationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// API Authorization Details (text).
+  @SerializationOrder(1)
   TextSection apiAuthorizationDetails = TextSection();
 }
 
@@ -4091,9 +4368,11 @@ class ApiAuthorizationPolicy {
 ])
 @SectionId('ARVP')
 class ApiRequestValidationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Request Validation Details (text).
+  @SerializationOrder(1)
   TextSection requestValidationDetails = TextSection();
 }
 
@@ -4149,9 +4428,11 @@ class ApiRequestValidationPolicy {
 ])
 @SectionId('APCOSE')
 class ApiCorsSecurity {
+  @SerializationOrder(0)
   String? content;
 
   /// CORS Security Details (text).
+  @SerializationOrder(1)
   TextSection corsSecurityDetails = TextSection();
 }
 
@@ -4216,9 +4497,11 @@ class ApiCorsSecurity {
 ])
 @SectionId('APABPR')
 class ApiAbuseProtection {
+  @SerializationOrder(0)
   String? content;
 
   /// Abuse Protection Details (text).
+  @SerializationOrder(1)
   TextSection abuseProtectionDetails = TextSection();
 }
 
@@ -4285,9 +4568,11 @@ class ApiAbuseProtection {
 ])
 @SectionId('APSEMO')
 class ApiSecurityMonitoring {
+  @SerializationOrder(0)
   String? content;
 
   /// API Security Monitoring Details (text).
+  @SerializationOrder(1)
   TextSection apiSecurityMonitoringDetails = TextSection();
 }
 
@@ -4342,31 +4627,39 @@ and all stored media.
 **Reference:**
 - OWASP File Upload Cheat Sheet
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// File and Storage Security Overview (text).
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// File Upload Validation Policy.
+  @SerializationOrder(2)
   FileUploadValidationPolicy fileUploadValidationPolicy =
       FileUploadValidationPolicy();
 
   /// Storage Encryption Policy.
+  @SerializationOrder(3)
   StorageEncryptionPolicy storageEncryptionPolicy =
       StorageEncryptionPolicy();
 
   /// File Access Control Policy.
+  @SerializationOrder(4)
   FileAccessControlPolicy fileAccessControlPolicy =
       FileAccessControlPolicy();
 
   /// Content Scanning Policy.
+  @SerializationOrder(5)
   ContentScanningPolicy contentScanningPolicy = ContentScanningPolicy();
 
   /// File Download Security Policy.
+  @SerializationOrder(6)
   FileDownloadSecurityPolicy fileDownloadSecurityPolicy =
       FileDownloadSecurityPolicy();
 
   /// Storage Lifecycle Policy.
+  @SerializationOrder(7)
   StorageLifecyclePolicy storageLifecyclePolicy = StorageLifecyclePolicy();
 }
 
@@ -4450,9 +4743,11 @@ and all stored media.
 ])
 @SectionId('FUVP')
 class FileUploadValidationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Upload Validation Details (text).
+  @SerializationOrder(1)
   TextSection uploadValidationDetails = TextSection();
 }
 
@@ -4511,9 +4806,11 @@ class FileUploadValidationPolicy {
 ])
 @SectionId('STENPO')
 class StorageEncryptionPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Storage Encryption Details (text).
+  @SerializationOrder(1)
   TextSection storageEncryptionDetails = TextSection();
 }
 
@@ -4586,9 +4883,11 @@ class StorageEncryptionPolicy {
 ])
 @SectionId('FACP')
 class FileAccessControlPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// File Access Control Details (text).
+  @SerializationOrder(1)
   TextSection fileAccessControlDetails = TextSection();
 }
 
@@ -4653,9 +4952,11 @@ class FileAccessControlPolicy {
 ])
 @SectionId('COSCPO')
 class ContentScanningPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Content Scanning Details (text).
+  @SerializationOrder(1)
   TextSection contentScanningDetails = TextSection();
 }
 
@@ -4710,9 +5011,11 @@ class ContentScanningPolicy {
 ])
 @SectionId('FDSP')
 class FileDownloadSecurityPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Download Security Details (text).
+  @SerializationOrder(1)
   TextSection downloadSecurityDetails = TextSection();
 }
 
@@ -4785,9 +5088,11 @@ class FileDownloadSecurityPolicy {
 ])
 @SectionId('STLIPO')
 class StorageLifecyclePolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Storage Lifecycle Details (text).
+  @SerializationOrder(1)
   TextSection storageLifecycleDetails = TextSection();
 }
 
@@ -4837,28 +5142,35 @@ Define the authorization model that governs who can do what in the system.
 - NIST RBAC Model (NIST SP 800-207)
 - NIST ABAC Guide (NIST SP 800-162)
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Access Control Model Selection.
+  @SerializationOrder(1)
   AccessControlModelSelection accessControlModelSelection =
       AccessControlModelSelection();
 
   /// Permission Granularity.
+  @SerializationOrder(2)
   PermissionGranularityPolicy permissionGranularity =
       PermissionGranularityPolicy();
 
   /// Permission Composition Strategy.
+  @SerializationOrder(3)
   PermissionCompositionStrategy permissionComposition =
       PermissionCompositionStrategy();
 
   /// Access Constraint Policies.
+  @SerializationOrder(4)
   AccessConstraintPolicies accessConstraints = AccessConstraintPolicies();
 
   /// Permission Evaluation Behavior.
+  @SerializationOrder(5)
   PermissionEvaluationBehavior permissionEvaluation =
       PermissionEvaluationBehavior();
 
   /// Authorization Model Notes (text).
+  @SerializationOrder(6)
   TextSection authorizationModelNotes = TextSection();
 }
 
@@ -4915,9 +5227,11 @@ Define the authorization model that governs who can do what in the system.
 ])
 @SectionId('ACMS')
 class AccessControlModelSelection {
+  @SerializationOrder(0)
   String? content;
 
   /// Access Control Model Details (text).
+  @SerializationOrder(1)
   TextSection accessControlModelDetails = TextSection();
 }
 
@@ -4967,9 +5281,11 @@ class AccessControlModelSelection {
 ])
 @SectionId('PEGRPO')
 class PermissionGranularityPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Permission Granularity Details (text).
+  @SerializationOrder(1)
   TextSection permissionGranularityDetails = TextSection();
 }
 
@@ -5021,9 +5337,11 @@ class PermissionGranularityPolicy {
 ])
 @SectionId('PECOST')
 class PermissionCompositionStrategy {
+  @SerializationOrder(0)
   String? content;
 
   /// Permission Composition Details (text).
+  @SerializationOrder(1)
   TextSection permissionCompositionDetails = TextSection();
 }
 
@@ -5079,9 +5397,11 @@ class PermissionCompositionStrategy {
 ])
 @SectionId('ACCOPO')
 class AccessConstraintPolicies {
+  @SerializationOrder(0)
   String? content;
 
   /// Access Constraint Details (text).
+  @SerializationOrder(1)
   TextSection accessConstraintDetails = TextSection();
 }
 
@@ -5134,9 +5454,11 @@ class AccessConstraintPolicies {
 ])
 @SectionId('PEEVBE')
 class PermissionEvaluationBehavior {
+  @SerializationOrder(0)
   String? content;
 
   /// Permission Evaluation Details (text).
+  @SerializationOrder(1)
   TextSection permissionEvaluationDetails = TextSection();
 }
 
@@ -5175,37 +5497,45 @@ Aligned with Tom Core authorization model.
 - PCI DSS: need-to-know for cardholder data
 - SOC 2: logical access controls (CC6.1-CC6.3)
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 9.4.1. Authorization Model.
+  @SerializationOrder(1)
   AuthorizationModel authorizationModel = AuthorizationModel();
 
   /// 9.4.2. Authorization Groups — contains 0+× Group.
   @SectionId('AZGR-GROU-LST')
   @SectionIdPattern('AZGR-GROU-xxx')
+  @SerializationOrder(2)
   List<AuthorizationGroupEntry> groups = [];
 
   /// 9.4.3. Role Definitions — contains 1+× Role.
   @SectionId('AZRO-ROLE-LST')
   @SectionIdPattern('AZRO-ROLE-xxx')
   @Min(1)
+  @SerializationOrder(3)
   List<AuthorizationRoleEntry> roleDefinitions = [];
 
   /// 9.4.4. Entitlements — contains 1+× Entitlement.
   @SectionId('ENT-ENTI-LST')
   @SectionIdPattern('ENT-ENTI-xxx')
   @Min(1)
+  @SerializationOrder(4)
   List<EntitlementEntry> entitlements = [];
 
   /// 9.4.5. Resource Keys — contains 0+× Resource Key.
   @SectionId('RESKEY-RESO-LST')
   @SectionIdPattern('RESKEY-RESO-xxx')
+  @SerializationOrder(5)
   List<ResourceKeyEntry> resourceKeys = [];
 
   /// 9.4.6. Role Hierarchy.
+  @SerializationOrder(6)
   RoleHierarchy roleHierarchy = RoleHierarchy();
 
   /// 9.4.7. Tenant Isolation.
+  @SerializationOrder(7)
   TenantIsolation tenantIsolation = TenantIsolation();
 }
 
@@ -5253,30 +5583,37 @@ simplifies administration and ensures consistent access control.
 **Reference:**
 - NIST RBAC Model — Hierarchical RBAC (RBAC₂)
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Role Hierarchy Policy.
+  @SerializationOrder(1)
   RoleHierarchyPolicy hierarchyPolicy = RoleHierarchyPolicy();
 
   /// Contains 0+× RoleInheritanceRule.
   @SectionId('RLINH-INHE-LST')
   @SectionIdPattern('RLINH-INHE-xxx')
+  @SerializationOrder(2)
   List<RoleInheritanceRuleEntry> inheritanceRules = [];
 
   /// Contains 0+× RoleCombinationConstraint.
   @SectionId('RLCMB-COMB-LST')
   @SectionIdPattern('RLCMB-COMB-xxx')
+  @SerializationOrder(3)
   List<RoleCombinationConstraintEntry> combinationConstraints = [];
 
   /// Contains 0+× GlobalRoleExclusion.
   @SectionId('GBRLX-GLOB-LST')
   @SectionIdPattern('GBRLX-GLOB-xxx')
+  @SerializationOrder(4)
   List<GlobalRoleExclusionEntry> globalExclusions = [];
 
   /// Role Certification and Review.
+  @SerializationOrder(5)
   RoleCertificationPolicy roleCertification = RoleCertificationPolicy();
 
   /// Role Hierarchy Notes (text).
+  @SerializationOrder(6)
   TextSection roleHierarchyNotes = TextSection();
 }
 
@@ -5330,9 +5667,11 @@ simplifies administration and ensures consistent access control.
 ])
 @SectionId('ROHIPO')
 class RoleHierarchyPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Role Hierarchy Policy Details (text).
+  @SerializationOrder(1)
   TextSection roleHierarchyPolicyDetails = TextSection();
 }
 
@@ -5366,6 +5705,7 @@ class RoleInheritanceRuleEntry {
             'Yes | No — whether the child role can override inherited '
             'permissions from this parent'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5402,6 +5742,7 @@ class RoleCombinationConstraintEntry {
             'None | ManagerApproval | SecurityOfficerApproval | '
             'CommitteeApproval — process for granting exemptions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5427,6 +5768,7 @@ class GlobalRoleExclusionEntry {
             'Regulatory or policy reference requiring this exclusion '
             '(e.g. SOX Section 404, ISO 27001 A.6.1.2)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5472,9 +5814,11 @@ class GlobalRoleExclusionEntry {
 ])
 @SectionId('ROCEPO')
 class RoleCertificationPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Role Certification Details (text).
+  @SerializationOrder(1)
   TextSection roleCertificationDetails = TextSection();
 }
 
@@ -5526,27 +5870,34 @@ Complements data-level tenant isolation.
 - Fail-closed if tenant context is missing or invalid
 - Logging of tenant context for all operations
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Tenant Context Policy.
+  @SerializationOrder(1)
   TenantContextPolicy tenantContextPolicy = TenantContextPolicy();
 
   /// Cross-Tenant Access Policy.
+  @SerializationOrder(2)
   CrossTenantAccessPolicy crossTenantAccessPolicy = CrossTenantAccessPolicy();
 
   /// Contains 0+× TenantCustomization.
   @SectionId('TNCS-TENA-LST')
   @SectionIdPattern('TNCS-TENA-xxx')
+  @SerializationOrder(3)
   List<TenantCustomizationEntry> tenantCustomizations = [];
 
   /// Tenant Onboarding Policy.
+  @SerializationOrder(4)
   TenantOnboardingPolicy tenantOnboardingPolicy = TenantOnboardingPolicy();
 
   /// Tenant Boundary Enforcement Policy.
+  @SerializationOrder(5)
   TenantBoundaryEnforcementPolicy boundaryEnforcement =
       TenantBoundaryEnforcementPolicy();
 
   /// Tenant Isolation Notes (text).
+  @SerializationOrder(6)
   TextSection tenantIsolationNotes = TextSection();
 }
 
@@ -5591,9 +5942,11 @@ Complements data-level tenant isolation.
 ])
 @SectionId('TECOPO')
 class TenantContextPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Tenant Context Policy Details (text).
+  @SerializationOrder(1)
   TextSection tenantContextPolicyDetails = TextSection();
 }
 
@@ -5640,9 +5993,11 @@ class TenantContextPolicy {
 ])
 @SectionId('CTAP')
 class CrossTenantAccessPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Cross-Tenant Access Policy Details (text).
+  @SerializationOrder(1)
   TextSection crossTenantAccessPolicyDetails = TextSection();
 }
 
@@ -5690,6 +6045,7 @@ class TenantCustomizationEntry {
     Field('notes', String, 'Notes',
         hint: 'Additional tenant customization notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5742,9 +6098,11 @@ class TenantCustomizationEntry {
 ])
 @SectionId('TEONPO')
 class TenantOnboardingPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Tenant Onboarding Policy Details (text).
+  @SerializationOrder(1)
   TextSection tenantOnboardingPolicyDetails = TextSection();
 }
 
@@ -5798,9 +6156,11 @@ class TenantOnboardingPolicy {
 ])
 @SectionId('TBEP')
 class TenantBoundaryEnforcementPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Tenant Boundary Enforcement Details (text).
+  @SerializationOrder(1)
   TextSection boundaryEnforcementDetails = TextSection();
 }
 
@@ -5812,11 +6172,13 @@ class AuthorizationGroupEntry {
     Field('description', String, 'Short description'),
     Field('membershipCriteria', String, 'Membership Criteria'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× RoleReference.
   @SectionId('ROLREF-CONT-LST')
   @SectionIdPattern('ROLREF-CONT-xxx')
+  @SerializationOrder(1)
   List<RoleReferenceEntry> containedRoles = [];
 }
 
@@ -5826,6 +6188,7 @@ class RoleReferenceEntry {
   @Form([
     Field('roleName', String, 'Role Name', required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5844,49 +6207,60 @@ class AuthorizationRoleEntry {
             'Business | Technical | Administrative | System | Compliance | '
             'Custom — classification of the role by function'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scope and inheritance metadata.
+  @SerializationOrder(1)
   AuthorizationRoleEntryStructure structure = AuthorizationRoleEntryStructure();
 
   /// Risk and activation controls.
+  @SerializationOrder(2)
   AuthorizationRoleEntryGovernance governance =
       AuthorizationRoleEntryGovernance();
 
   /// Provisioning and review settings.
+  @SerializationOrder(3)
   AuthorizationRoleEntryLifecycle lifecycle = AuthorizationRoleEntryLifecycle();
 
   /// Data access and role status flags.
+  @SerializationOrder(4)
   AuthorizationRoleEntryStatus status = AuthorizationRoleEntryStatus();
 
   /// Contains 0+× ResponsibilityReference.
   @SectionId('RSPREF-RESP-LST')
   @SectionIdPattern('RSPREF-RESP-xxx')
+  @SerializationOrder(5)
   List<ResponsibilityReferenceEntry> responsibilities = [];
 
   /// Contains 0+× EntitlementReference.
   @SectionId('ENREFE-ENTI-LST')
   @SectionIdPattern('ENREFE-ENTI-xxx')
+  @SerializationOrder(6)
   List<EntitlementReferenceEntry> entitlementReferences = [];
 
   /// Contains 0+× RolePermission.
   @SectionId('ROLPERM-DIRE-LST')
   @SectionIdPattern('ROLPERM-DIRE-xxx')
+  @SerializationOrder(7)
   List<RolePermissionEntry> directPermissions = [];
 
   /// Contains 0+× RoleDataScope.
   @SectionId('ROLDSCP-DATA-LST')
   @SectionIdPattern('ROLDSCP-DATA-xxx')
+  @SerializationOrder(8)
   List<RoleDataScopeEntry> dataScopes = [];
 
   /// Contains 0+× RoleExclusion.
   @SectionId('ROLEXC-MUTU-LST')
   @SectionIdPattern('ROLEXC-MUTU-xxx')
+  @SerializationOrder(9)
   List<RoleExclusionEntry> mutualExclusions = [];
 
   /// Contains 0+× RoleHolder.
   @SectionId('ROLHLD-TYPI-LST')
   @SectionIdPattern('ROLHLD-TYPI-xxx')
+  @SerializationOrder(10)
   List<RoleHolderEntry> typicalHolders = [];
 }
 
@@ -5907,6 +6281,7 @@ class AuthorizationRoleEntryStructure {
                         'Comma-separated permission keys summarizing the role\'s access '
                         '(e.g. user.manage, config.read, audit.read)'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5937,6 +6312,7 @@ class AuthorizationRoleEntryGovernance {
                         'Role or person responsible for approving role assignments '
                         '(e.g. Line Manager, Security Officer, System Owner)'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5953,6 +6329,7 @@ class AuthorizationRoleEntryLifecycle {
                         'Monthly | Quarterly | SemiAnnual | Annual | OnChange | Never — '
                         'how often role assignments are reviewed for appropriateness'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5972,6 +6349,7 @@ class AuthorizationRoleEntryStatus {
                         'deleted by administrators'),
         Field('notes', String, 'Notes', hint: 'Additional role definition notes'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -5990,6 +6368,7 @@ class ResponsibilityReferenceEntry {
             'Critical | High | Medium | Low — importance of this '
             'responsibility for business operations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6011,6 +6390,7 @@ class EntitlementReferenceEntry {
             'Specific scope within the entitlement (e.g. own-department, '
             'all-tenants, specific-project)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6040,6 +6420,7 @@ class RolePermissionEntry {
             'Runtime conditions for this permission (e.g. business-hours-only, '
             'requires-mfa, from-internal-network)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6068,6 +6449,7 @@ class RoleDataScopeEntry {
             'Fields masked or redacted for this role (e.g. SSN-last4, '
             'email-domain-only, salary-hidden)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6087,6 +6469,7 @@ class RoleExclusionEntry {
             'Hard | Soft — hard = system-enforced block, '
             'soft = warning with override option'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6105,6 +6488,7 @@ class RoleHolderEntry {
             'JobFunction | ProjectMembership | DepartmentMembership | '
             'ManualAssignment — reason for role assignment'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6117,11 +6501,13 @@ class EntitlementEntry {
     Field('accessType', String, 'Access Type'),
     Field('conditions', String, 'Conditions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× ResourceKeyReference.
   @SectionId('RESKREF-RESO-LST')
   @SectionIdPattern('RESKREF-RESO-xxx')
+  @SerializationOrder(1)
   List<ResourceKeyReferenceEntry> resourceKeyReferences = [];
 }
 
@@ -6131,6 +6517,7 @@ class ResourceKeyReferenceEntry {
   @Form([
     Field('resourceKey', String, 'Resource Key', required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6143,6 +6530,7 @@ class ResourceKeyEntry {
     Field('description', String, 'Short description'),
     Field('protectionLevel', String, 'Protection Level'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6185,15 +6573,19 @@ other controls fail.
 - OWASP Cryptographic Storage Cheat Sheet
 - NIST SP 800-175B: Cryptographic Standards and Guidelines
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 9.5.1. Encryption At Rest.
+  @SerializationOrder(1)
   EncryptionAtRest encryptionAtRest = EncryptionAtRest();
 
   /// 9.5.2. Encryption In Transit.
+  @SerializationOrder(2)
   EncryptionInTransit encryptionInTransit = EncryptionInTransit();
 
   /// 9.5.3. Key Management.
+  @SerializationOrder(3)
   KeyManagement keyManagement = KeyManagement();
 }
 
@@ -6246,27 +6638,34 @@ data breaches, and physical media theft.
 - OWASP Cryptographic Storage Cheat Sheet
 - NIST SP 800-111: Guide to Storage Encryption
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Encryption At Rest Policy.
+  @SerializationOrder(1)
   EncryptionAtRestPolicy encryptionPolicy = EncryptionAtRestPolicy();
 
   /// Contains 0+× EncryptedDataCategory.
   @SectionId('ENDACA-ENCR-LST')
   @SectionIdPattern('ENDACA-ENCR-xxx')
+  @SerializationOrder(2)
   List<EncryptedDataCategoryEntry> encryptedDataCategories = [];
 
   /// Database Encryption Policy.
+  @SerializationOrder(3)
   DatabaseEncryptionPolicy databaseEncryption = DatabaseEncryptionPolicy();
 
   /// File and Storage Encryption Policy.
+  @SerializationOrder(4)
   FileStorageEncryptionPolicy fileStorageEncryption =
       FileStorageEncryptionPolicy();
 
   /// Backup Encryption Policy.
+  @SerializationOrder(5)
   BackupEncryptionPolicy backupEncryption = BackupEncryptionPolicy();
 
   /// Encryption At Rest Notes (text).
+  @SerializationOrder(6)
   TextSection encryptionAtRestNotes = TextSection();
 }
 
@@ -6326,9 +6725,11 @@ data breaches, and physical media theft.
 ])
 @SectionId('EARP')
 class EncryptionAtRestPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Encryption At Rest Policy Details (text).
+  @SerializationOrder(1)
   TextSection encryptionAtRestPolicyDetails = TextSection();
 }
 
@@ -6378,6 +6779,7 @@ class EncryptedDataCategoryEntry {
     Field('notes', String, 'Notes',
         hint: 'Additional notes for this encrypted data category'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6421,9 +6823,11 @@ class EncryptedDataCategoryEntry {
 ])
 @SectionId('DAENPO')
 class DatabaseEncryptionPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Database Encryption Details (text).
+  @SerializationOrder(1)
   TextSection databaseEncryptionDetails = TextSection();
 }
 
@@ -6463,9 +6867,11 @@ class DatabaseEncryptionPolicy {
 ])
 @SectionId('FSEP')
 class FileStorageEncryptionPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// File Storage Encryption Details (text).
+  @SerializationOrder(1)
   TextSection fileStorageEncryptionDetails = TextSection();
 }
 
@@ -6508,9 +6914,11 @@ class FileStorageEncryptionPolicy {
 ])
 @SectionId('BAENPO')
 class BackupEncryptionPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Backup Encryption Details (text).
+  @SerializationOrder(1)
   TextSection backupEncryptionDetails = TextSection();
 }
 
@@ -6562,28 +6970,35 @@ Define how data is protected while moving over networks, both externally
 - OWASP Transport Layer Security Cheat Sheet
 - NIST SP 800-52: Guidelines for TLS Implementations
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// TLS Protocol Policy.
+  @SerializationOrder(1)
   TlsProtocolPolicy tlsProtocolPolicy = TlsProtocolPolicy();
 
   /// Certificate Management Policy.
+  @SerializationOrder(2)
   CertificateManagementPolicy certificateManagement =
       CertificateManagementPolicy();
 
   /// Contains 0+× CommunicationChannelEncryption.
   @SectionId('COCHEN-COMM-LST')
   @SectionIdPattern('COCHEN-COMM-xxx')
+  @SerializationOrder(3)
   List<CommunicationChannelEncryptionEntry> communicationChannels = [];
 
   /// Mutual TLS Policy.
+  @SerializationOrder(4)
   MutualTlsPolicy mutualTlsPolicy = MutualTlsPolicy();
 
   /// HSTS and Transport Security Policy.
+  @SerializationOrder(5)
   TransportSecurityPolicy transportSecurityPolicy =
       TransportSecurityPolicy();
 
   /// Encryption In Transit Notes (text).
+  @SerializationOrder(6)
   TextSection encryptionInTransitNotes = TextSection();
 }
 
@@ -6634,9 +7049,11 @@ Define how data is protected while moving over networks, both externally
 ])
 @SectionId('TLPRPO')
 class TlsProtocolPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// TLS Protocol Policy Details (text).
+  @SerializationOrder(1)
   TextSection tlsProtocolPolicyDetails = TextSection();
 }
 
@@ -6695,9 +7112,11 @@ class TlsProtocolPolicy {
 ])
 @SectionId('CEMAPO')
 class CertificateManagementPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Certificate Management Details (text).
+  @SerializationOrder(1)
   TextSection certificateManagementDetails = TextSection();
 }
 
@@ -6750,6 +7169,7 @@ class CommunicationChannelEncryptionEntry {
     Field('notes', String, 'Notes',
         hint: 'Additional notes for this communication channel'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6790,9 +7210,11 @@ class CommunicationChannelEncryptionEntry {
 ])
 @SectionId('MUTLPO')
 class MutualTlsPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Mutual TLS Policy Details (text).
+  @SerializationOrder(1)
   TextSection mutualTlsPolicyDetails = TextSection();
 }
 
@@ -6842,9 +7264,11 @@ class MutualTlsPolicy {
 ])
 @SectionId('TRSEPO')
 class TransportSecurityPolicy {
+  @SerializationOrder(0)
   String? content;
 
   /// Transport Security Policy Details (text).
+  @SerializationOrder(1)
   TextSection transportSecurityPolicyDetails = TextSection();
 }
 
@@ -6900,26 +7324,33 @@ key management is essential — poor key management can negate all encryption.
 - OWASP Key Management Cheat Sheet
 - NIST SP 800-57: Recommendation for Key Management
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Key Generation Policy.
+  @SerializationOrder(1)
   KeyGenerationPolicy keyGenerationPolicy = KeyGenerationPolicy();
 
   /// Key Storage Policy.
+  @SerializationOrder(2)
   KeyStoragePolicy keyStoragePolicy = KeyStoragePolicy();
 
   /// Key Rotation Policy.
+  @SerializationOrder(3)
   KeyRotationPolicy keyRotationPolicy = KeyRotationPolicy();
 
   /// Key Escrow and Backup Policy.
+  @SerializationOrder(4)
   KeyEscrowAndBackupPolicy keyEscrowAndBackupPolicy =
       KeyEscrowAndBackupPolicy();
 
   /// Key Compromise and Recovery Policy.
+  @SerializationOrder(5)
   KeyCompromiseRecoveryPolicy keyCompromiseRecoveryPolicy =
       KeyCompromiseRecoveryPolicy();
 
   /// Additional Notes (text).
+  @SerializationOrder(6)
   TextSection notes = TextSection();
 }
 
@@ -6953,9 +7384,11 @@ class KeyGenerationPolicy {
         hint: 'Post-quantum cryptography readiness '
             '(e.g., CNSA 2.0 timeline, hybrid algorithms)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -6990,9 +7423,11 @@ class KeyStoragePolicy {
         hint: 'Trust store security: injection prevention, '
             'integrity controls, export restrictions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7023,9 +7458,11 @@ class KeyRotationPolicy {
         hint: 'How rotated keys are distributed '
             '(e.g., KMS push, pull-based refresh, secure channel)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7055,9 +7492,11 @@ class KeyEscrowAndBackupPolicy {
         hint: 'How often key backups are performed '
             '(e.g., daily, on rotation, on creation)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7094,9 +7533,11 @@ class KeyCompromiseRecoveryPolicy {
     Field('compromiseRecoveryPlanReference', String, 'Recovery Plan Reference',
         hint: 'Reference to the documented compromise-recovery plan'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7148,15 +7589,19 @@ incident detection, forensic investigation, and compliance reporting.
 - OWASP Logging Cheat Sheet
 - NIST SP 800-92: Guide to Computer Security Log Management
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 9.6.1. Security Events.
+  @SerializationOrder(1)
   SecurityEventsDefinition securityEvents = SecurityEventsDefinition();
 
   /// 9.6.2. Audit Log Format.
+  @SerializationOrder(2)
   AuditLogFormat auditLogFormat = AuditLogFormat();
 
   /// 9.6.3. Compliance Reporting.
+  @SerializationOrder(3)
   ComplianceReporting complianceReporting = ComplianceReporting();
 }
 
@@ -7211,26 +7656,33 @@ Balance comprehensive coverage with log volume management.
 - OWASP ASVS V7: Error Handling and Logging
 - OWASP Logging Cheat Sheet
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Security Event Logging Policy.
+  @SerializationOrder(1)
   SecurityEventLoggingPolicy loggingPolicy = SecurityEventLoggingPolicy();
 
   /// Authentication Events.
+  @SerializationOrder(2)
   AuthenticationEventPolicy authenticationEvents = AuthenticationEventPolicy();
 
   /// Authorization Events.
+  @SerializationOrder(3)
   AuthorizationEventPolicy authorizationEvents = AuthorizationEventPolicy();
 
   /// Data Access Events.
+  @SerializationOrder(4)
   DataAccessEventPolicy dataAccessEvents = DataAccessEventPolicy();
 
   /// Administrative Events.
+  @SerializationOrder(5)
   AdministrativeEventPolicy administrativeEvents = AdministrativeEventPolicy();
 
   /// Custom Security Events — contains 0+× Security Event Entry.
   @SectionId('SEVT-CUST-LST')
   @SectionIdPattern('SEVT-CUST-xxx')
+  @SerializationOrder(6)
   List<SecurityEventEntry> customEvents = [];
 }
 
@@ -7260,9 +7712,11 @@ class SecurityEventLoggingPolicy {
         hint: 'Interaction/correlation ID strategy '
             '(e.g., request ID, trace ID, session ID)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7287,9 +7741,11 @@ class AuthenticationEventPolicy {
     Field('logTokenEvents', String, 'Log Token Events',
         hint: 'Yes / No — whether token issuance/revocation is logged'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7312,9 +7768,11 @@ class AuthorizationEventPolicy {
     Field('logResourceAccessPatterns', String, 'Log Resource Access Patterns',
         hint: 'Yes / No — whether resource access anomalies are logged'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7339,9 +7797,11 @@ class DataAccessEventPolicy {
     Field('logSensitiveDataAccess', String, 'Log Sensitive Data Access',
         hint: 'Yes / No — whether access to sensitive fields is logged'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7366,9 +7826,11 @@ class AdministrativeEventPolicy {
     Field('logBreakGlassUsage', String, 'Log Break-Glass Usage',
         hint: 'Yes / No — whether emergency/break-glass access is logged'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7394,6 +7856,7 @@ class SecurityEventEntry {
     Field('complianceMapping', String, 'Compliance Mapping',
         hint: 'Relevant compliance requirement (e.g., PCI-DSS 10.2.5)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7446,21 +7909,27 @@ parsability, and forensic utility.
 - Comply with regulatory requirements (PCI: 1y, HIPAA: 6y)
 - Secure deletion after retention period expires
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Event Attribute Policy.
+  @SerializationOrder(1)
   EventAttributePolicy eventAttributes = EventAttributePolicy();
 
   /// Log Storage Policy.
+  @SerializationOrder(2)
   LogStoragePolicy logStorage = LogStoragePolicy();
 
   /// Log Protection Policy.
+  @SerializationOrder(3)
   LogProtectionPolicy logProtection = LogProtectionPolicy();
 
   /// Log Retention Policy.
+  @SerializationOrder(4)
   LogRetentionPolicy logRetention = LogRetentionPolicy();
 
   /// Additional Notes (text).
+  @SerializationOrder(5)
   TextSection notes = TextSection();
 }
 
@@ -7490,9 +7959,11 @@ class EventAttributePolicy {
     Field('extendedDetails', String, 'Extended Details',
         hint: 'Additional context captured (e.g., stack trace, request body)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7515,9 +7986,11 @@ class LogStoragePolicy {
     Field('accessPermissions', String, 'Access Permissions',
         hint: 'Access controls on log storage (e.g., read-only roles)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7543,9 +8016,11 @@ class LogProtectionPolicy {
     Field('originVerification', String, 'Origin Verification',
         hint: 'How log source authenticity is verified'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7568,9 +8043,11 @@ class LogRetentionPolicy {
     Field('legalHold', String, 'Legal Hold',
         hint: 'Process for legal hold on log destruction'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7625,21 +8102,27 @@ internal governance.
 - HIPAA §164.312: Access controls and audit
 - ISO 27001: A.9 Access control, A.12 Logging
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Periodic Review Policy.
+  @SerializationOrder(1)
   PeriodicReviewPolicy periodicReviews = PeriodicReviewPolicy();
 
   /// Privilege Usage Reporting.
+  @SerializationOrder(2)
   PrivilegeUsageReporting privilegeUsageReports = PrivilegeUsageReporting();
 
   /// Anomaly Detection Policy.
+  @SerializationOrder(3)
   AnomalyDetectionPolicy anomalyDetection = AnomalyDetectionPolicy();
 
   /// Regulatory Audit Support.
+  @SerializationOrder(4)
   RegulatoryAuditSupport regulatoryAuditSupport = RegulatoryAuditSupport();
 
   /// Additional Notes (text).
+  @SerializationOrder(5)
   TextSection notes = TextSection();
 }
 
@@ -7664,9 +8147,11 @@ class PeriodicReviewPolicy {
     Field('reviewDocumentation', String, 'Review Documentation',
         hint: 'How review results are documented'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7690,9 +8175,11 @@ class PrivilegeUsageReporting {
     Field('reportFrequency', String, 'Report Frequency',
         hint: 'How often reports are generated'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7717,9 +8204,11 @@ class AnomalyDetectionPolicy {
     Field('responseActions', String, 'Response Actions',
         hint: 'Automated or manual response to anomalies'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7743,9 +8232,11 @@ class RegulatoryAuditSupport {
     Field('complianceCertifications', String, 'Compliance Certifications',
         hint: 'Target certifications (e.g., SOC 2, ISO 27001)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional Notes (text).
+  @SerializationOrder(1)
   TextSection notes = TextSection();
 }
 
@@ -7775,6 +8266,7 @@ authorization model; this section captures the concrete assignment.
 - Review and re-certification cadence
 - Exceptions register for elevated / time-limited access
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7803,6 +8295,7 @@ compliance frameworks the project must satisfy.
 - Gap analysis and remediation plan
 - Certification targets and timelines
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7810,6 +8303,7 @@ compliance frameworks the project must satisfy.
 @SectionId('MFADE')
 class MfaDetailEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7817,5 +8311,6 @@ class MfaDetailEntry {
 @SectionId('STEPU')
 class StepUpDetailEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }

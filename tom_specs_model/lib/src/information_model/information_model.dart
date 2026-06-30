@@ -27,9 +27,11 @@ import '../solution_blueprint/solution_blueprint.dart';
 @SectionId('IFM')
 class D03InformationModel {
   @ContentHelp('Executive overview of the business data model.')
+  @SerializationOrder(0)
   String? content;
 
   /// Standard TomSpecs document header.
+  @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
   // ─── Data Model ──────────────────────────────────────────────────────────
@@ -38,15 +40,19 @@ class D03InformationModel {
   @SectionId('DAENT-ENTI-LST')
   @SectionIdPattern('DAENT-ENTI-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<DataEntityEntry> entities = [];
 
   /// Entity relationships.
+  @SerializationOrder(3)
   EntityRelationships entityRelationships = EntityRelationships();
 
   /// Entity-relationship diagram.
+  @SerializationOrder(4)
   ErDiagramSection erDiagram = ErDiagramSection();
 
   /// Data classification.
+  @SerializationOrder(5)
   DataClassification dataClassification = DataClassification();
 
   // ─── Business Object Model ───────────────────────────────────────────────
@@ -55,9 +61,11 @@ class D03InformationModel {
   @SectionId('BJOEN-OBJE-LST')
   @SectionIdPattern('BJOEN-OBJE-xxx')
   @Min(1)
+  @SerializationOrder(6)
   List<BusinessObjectEntry> objectCatalog = [];
 
   /// Business object diagram.
+  @SerializationOrder(7)
   DiagramSection objectDiagram = DiagramSection();
 
   // ─── Function Model ──────────────────────────────────────────────────────
@@ -65,22 +73,26 @@ class D03InformationModel {
   /// Function decomposition (list).
   @SectionId('FUNCT-FUNC-LST')
   @SectionIdPattern('FUNCT-FUNC-xxx')
+  @SerializationOrder(8)
   List<FunctionEntry> functionDecomposition = [];
 
   /// Function-to-data matrix (list).
   @SectionId('FNDMX-FUNC-LST')
   @SectionIdPattern('FNDMX-FUNC-xxx')
+  @SerializationOrder(9)
   List<FunctionDataMatrixEntry> functionToDataMatrix = [];
 
   /// Business rules catalog (list).
   @SectionId('BIRU-BUSI-LST')
   @SectionIdPattern('BIRU-BUSI-xxx')
   @Min(1)
+  @SerializationOrder(10)
   List<BusinessRuleEntry> businessRules = [];
 
   // ─── Data dictionary and constraints ─────────────────────────────────────
 
   /// Data dictionary.
+  @SerializationOrder(11)
   DataDictionary dataDictionary = DataDictionary();
 
   /// Validation constraints.
@@ -88,11 +100,13 @@ class D03InformationModel {
   /// One whole-catalog content section (mirrors `dataDictionary` and the
   /// collapsed SBP source); collapsed from `List<ValidationConstraints>`
   /// (L34C-12 SR-25).
+  @SerializationOrder(12)
   ValidationConstraints validationConstraints = ValidationConstraints();
 
   /// Integrity constraints.
   ///
   /// One whole-catalog content section; collapsed from
   /// `List<IntegrityConstraints>` (L34C-12 SR-25).
+  @SerializationOrder(13)
   IntegrityConstraints integrityConstraints = IntegrityConstraints();
 }

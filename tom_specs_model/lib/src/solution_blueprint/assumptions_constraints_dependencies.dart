@@ -15,9 +15,11 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 class AssumptionsConstraintsDependencies {
   @ContentType('description', 'Summarize the key assumptions the solution '
       'relies on and the constraints it must operate within.')
+  @SerializationOrder(0)
   String? content;
 
   /// The consolidated assumption / constraint register.
+  @SerializationOrder(1)
   AssumptionConstraintDependencyRegister register = AssumptionConstraintDependencyRegister();
 }
 
@@ -25,18 +27,21 @@ class AssumptionsConstraintsDependencies {
 @SectionId('ACRG')
 class AssumptionConstraintDependencyRegister {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// Assumptions the solution depends on being true.
   @SectionId('ACRG-ASMP-LST')
   @SectionIdPattern('ACRG-ASMP-xxx')
   @ContentHelp('Add one entry per assumption (ASM-NNN).')
+  @SerializationOrder(1)
   List<AssumptionRegisterEntry> assumptions = [];
 
   /// Constraints the solution must operate within.
   @SectionId('ACRG-CONS-LST')
   @SectionIdPattern('ACRG-CONS-xxx')
   @ContentHelp('Add one entry per constraint (CON-NNN).')
+  @SerializationOrder(2)
   List<ConstraintRegisterEntry> constraints = [];
 
   /// Dependencies the solution relies on (external systems, teams, vendors,
@@ -44,6 +49,7 @@ class AssumptionConstraintDependencyRegister {
   @SectionId('ACRG-DEPS-LST')
   @SectionIdPattern('ACRG-DEPS-xxx')
   @ContentHelp('Add one entry per dependency (DEP-NNN).')
+  @SerializationOrder(3)
   List<DependencyRegisterEntry> dependencies = [];
 }
 
@@ -60,6 +66,7 @@ class AssumptionRegisterEntry {
     Field('validation', String, 'Validation approach'),
     Field('status', String, 'Status (Open, Confirmed, Invalidated)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -76,6 +83,7 @@ class ConstraintRegisterEntry {
     Field('source', String, 'Source'),
     Field('impact', String, 'Impact on the solution'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -96,5 +104,6 @@ class DependencyRegisterEntry {
     Field('criticality', String, 'Criticality (Low, Medium, High, Blocking)'),
     Field('status', String, 'Status (Open, Confirmed, Resolved, At risk)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

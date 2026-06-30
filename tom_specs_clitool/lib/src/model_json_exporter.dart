@@ -127,6 +127,10 @@ class ModelJsonExporter {
     final standardRefs = _standardRefs(f.getAnnotation('StandardReferences'));
     if (standardRefs != null) out['standardReferences'] = standardRefs;
 
+    if (f.serializationOrder != null) {
+      out['serializationOrder'] = f.serializationOrder;
+    }
+
     if (f.annotations.isNotEmpty) {
       out['annotations'] = _exportAnnotations(f.annotations);
     }

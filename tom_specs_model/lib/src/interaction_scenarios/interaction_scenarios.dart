@@ -24,32 +24,41 @@ import '../solution_blueprint/solution_blueprint.dart';
 @SectionId('ISC')
 class D05InteractionScenarios {
   @ContentHelp('Executive overview of the use-case model and its coverage.')
+  @SerializationOrder(0)
   String? content;
 
   /// Standard TomSpecs document header.
+  @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
   /// Process steps overview.
+  @SerializationOrder(2)
   ProcessStepsOverview processStepsOverview = ProcessStepsOverview();
 
   /// Actor overview.
+  @SerializationOrder(3)
   ActorOverview actorOverview = ActorOverview();
 
   /// Interaction catalog.
+  @SerializationOrder(4)
   InteractionCatalog interactionCatalog = InteractionCatalog();
 
   /// Key scenarios.
+  @SerializationOrder(5)
   KeyScenarios keyScenarios = KeyScenarios();
 
   /// Actor relationship diagram.
+  @SerializationOrder(6)
   ActorRelationshipDiagram actorRelationshipDiagram =
       ActorRelationshipDiagram();
 
   /// End-to-end test scenarios.
   @SectionId('ETETS-ENDT-LST')
   @SectionIdPattern('ETETS-ENDT-xxx')
+  @SerializationOrder(7)
   List<EndToEndTestScenario> endToEndTestScenarios = [];
 
   /// Use case traceability.
+  @SerializationOrder(8)
   UseCaseTraceability useCaseTraceability = UseCaseTraceability();
 }

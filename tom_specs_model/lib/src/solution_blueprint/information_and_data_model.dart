@@ -31,15 +31,19 @@ IFM (Information Model) document.
 - Document CRUD access patterns in function-to-data matrix
 - Include compliance frameworks (GDPR, HIPAA, SOX, PCI-DSS) for PII/PHI data
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 7.1. Data Model.
+  @SerializationOrder(1)
   DataModel dataModel = DataModel();
 
   /// 7.2. Business Object Model.
+  @SerializationOrder(2)
   BusinessObjectModel businessObjectModel = BusinessObjectModel();
 
   /// 7.3. Function Model.
+  @SerializationOrder(3)
   FunctionModel functionModel = FunctionModel();
 }
 
@@ -70,36 +74,44 @@ attributes, relationships, and constraints that represent core business data.
 - Relationships Summary (parent, child, referenced, cross-domain)
 - Technical Characteristics (indexing, caching, consistency, scaling)
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 7.1.1. Entity Overview — contains 1+× Data Entity.
   @SectionId('DAENT-ENTI-LST')
   @SectionIdPattern('DAENT-ENTI-xxx')
   @Min(1)
+  @SerializationOrder(1)
   List<DataEntityEntry> entities = [];
 
   /// 7.1.2. Entity Relationships.
+  @SerializationOrder(2)
   EntityRelationships entityRelationships = EntityRelationships();
 
   /// 7.1.3. Entity-Relationship Diagram (mermaid).
+  @SerializationOrder(3)
   ErDiagramSection erDiagram = ErDiagramSection();
 
   /// 7.1.4. Data Classification.
+  @SerializationOrder(4)
   DataClassification dataClassification = DataClassification();
 
   /// 7.1.5. Data Dictionary..
+  @SerializationOrder(5)
   DataDictionary dataDictionary = DataDictionary();
 
   /// 7.1.6. Validation Constraints.
   ///
   /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
   /// from `List<ValidationConstraints>` (L34C-12 SR-25).
+  @SerializationOrder(6)
   ValidationConstraints validationConstraints = ValidationConstraints();
 
   /// 7.1.7. Integrity Constraints.
   ///
   /// One whole-catalog content section (mirrors `dataDictionary`); collapsed
   /// from `List<IntegrityConstraints>` (L34C-12 SR-25).
+  @SerializationOrder(7)
   IntegrityConstraints integrityConstraints = IntegrityConstraints();
 }
 
@@ -126,6 +138,7 @@ class DataEntityEntry {
         hint:
             'Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge'),
   ])
+  @SerializationOrder(0)
   String? identity;
 
   // ---------------------------------------------------------------------------
@@ -146,6 +159,7 @@ class DataEntityEntry {
     Field('sourceSystem', String, 'Source System',
         hint: 'System of record or originating system for migration'),
   ])
+  @SerializationOrder(1)
   String? classification;
 
   // ---------------------------------------------------------------------------
@@ -153,6 +167,7 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   @SectionId('VOLUM-VOLU-LST')
   @SectionIdPattern('VOLUM-VOLU-xxx')
+  @SerializationOrder(2)
   List<VolumeMetricEntry> volumeMetrics = [];
 
   // ---------------------------------------------------------------------------
@@ -176,6 +191,7 @@ class DataEntityEntry {
     Field('auditRetention', String, 'Audit Retention',
         hint: 'How long audit records are kept'),
   ])
+  @SerializationOrder(3)
   String? lifecyclePolicy;
 
   // ---------------------------------------------------------------------------
@@ -183,6 +199,7 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   @SectionId('CRE-COMP-LST')
   @SectionIdPattern('CRE-COMP-xxx')
+  @SerializationOrder(4)
   List<ComplianceRequirementEntry> complianceRequirements = [];
 
   // ---------------------------------------------------------------------------
@@ -198,6 +215,7 @@ class DataEntityEntry {
     Field('crossDomainRelationships', String, 'Cross-Domain Relationships',
         hint: 'Relationships that cross bounded context boundaries'),
   ])
+  @SerializationOrder(5)
   String? relationshipSummary;
 
   // ---------------------------------------------------------------------------
@@ -205,31 +223,37 @@ class DataEntityEntry {
   // ---------------------------------------------------------------------------
   @SectionId('TECHN-TECH-LST')
   @SectionIdPattern('TECHN-TECH-xxx')
+  @SerializationOrder(6)
   List<TechnicalCharacteristicEntry> technicalCharacteristics = [];
 
   /// Contains 0+× DataAttribute.
   @SectionId('DAATT-ATTR-LST')
   @SectionIdPattern('DAATT-ATTR-xxx')
+  @SerializationOrder(7)
   List<DataAttributeEntry> attributes = [];
 
   /// Contains 0+× KeyAttribute.
   @SectionId('KEATT-KEYA-LST')
   @SectionIdPattern('KEATT-KEYA-xxx')
+  @SerializationOrder(8)
   List<KeyAttributeEntry> keyAttributes = [];
 
   /// Contains 0+× EntityIndex.
   @SectionId('ENIDX-INDE-LST')
   @SectionIdPattern('ENIDX-INDE-xxx')
+  @SerializationOrder(9)
   List<EntityIndexEntry> indexes = [];
 
   /// Contains 0+× EntityConstraint.
   @SectionId('ENCNS-CONS-LST')
   @SectionIdPattern('ENCNS-CONS-xxx')
+  @SerializationOrder(10)
   List<EntityConstraintEntry> constraints = [];
 
   /// Contains 0+× MigrationMapping for data migration planning.
   @SectionId('MIGME-MIGR-LST')
   @SectionIdPattern('MIGME-MIGR-xxx')
+  @SerializationOrder(11)
   List<MigrationMappingEntry> migrationMappings = [];
 }
 
@@ -253,6 +277,7 @@ class DataAttributeEntry {
     Field('exampleValues', String, 'Example Values',
         hint: 'Comma-separated examples (e.g., "Draft, Confirmed, Shipped")'),
   ])
+  @SerializationOrder(0)
   String? identity;
 
   // ---------------------------------------------------------------------------
@@ -276,6 +301,7 @@ class DataAttributeEntry {
     Field('format', String, 'Format',
         hint: 'Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)'),
   ])
+  @SerializationOrder(1)
   String? dataTypeSpec;
 
   // ---------------------------------------------------------------------------
@@ -283,6 +309,7 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   @SectionId('DATAA-CONS-LST')
   @SectionIdPattern('DATAA-CONS-xxx')
+  @SerializationOrder(2)
   List<DataAttributeConstraintEntry> constraints = [];
 
   // ---------------------------------------------------------------------------
@@ -298,6 +325,7 @@ class DataAttributeEntry {
     Field('derivationLogic', String, 'Derivation Logic',
         hint: 'How derived value is calculated'),
   ])
+  @SerializationOrder(3)
   String? derivation;
 
   // ---------------------------------------------------------------------------
@@ -315,6 +343,7 @@ class DataAttributeEntry {
     Field('auditLevel', String, 'Audit Level',
         hint: 'Change tracking: None | ValueChanges | FullHistory'),
   ])
+  @SerializationOrder(4)
   String? securityClassification;
 
   // ---------------------------------------------------------------------------
@@ -332,6 +361,7 @@ class DataAttributeEntry {
     Field('qualityRules', String, 'Quality Rules',
         hint: 'Data quality checks (e.g., completeness, accuracy)'),
   ])
+  @SerializationOrder(5)
   String? migrationLineage;
 
   // ---------------------------------------------------------------------------
@@ -339,6 +369,7 @@ class DataAttributeEntry {
   // ---------------------------------------------------------------------------
   @SectionId('DISPL-DISP-LST')
   @SectionIdPattern('DISPL-DISP-xxx')
+  @SerializationOrder(6)
   List<DisplayPropertyEntry> displayProperties = [];
 }
 
@@ -357,18 +388,23 @@ class KeyAttributeEntry {
     Field('description', String, 'Description',
         hint: 'Purpose and usage of this key'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Key generation settings.
+  @SerializationOrder(1)
   KeyAttributeEntryGeneration generation = KeyAttributeEntryGeneration();
 
   /// Foreign-key reference and cascade behavior.
+  @SerializationOrder(2)
   KeyAttributeEntryReference reference = KeyAttributeEntryReference();
 
   /// Constraint semantics and business meaning.
+  @SerializationOrder(3)
   KeyAttributeEntryGovernance governance = KeyAttributeEntryGovernance();
 
   @Reference('referencedEntity')
+  @SerializationOrder(4)
   String? referencedEntityRef;
 }
 
@@ -383,6 +419,7 @@ class KeyAttributeEntryGeneration {
     Field('isNaturalKey', String, 'Is Natural Key',
         hint: 'Whether key has business meaning: Yes | No'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -399,6 +436,7 @@ class KeyAttributeEntryReference {
     Field('onUpdateAction', String, 'On Update Action',
         hint: 'Cascade | SetNull | Restrict | NoAction | SetDefault'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -409,6 +447,7 @@ class KeyAttributeEntryGovernance {
     Field('deferrable', String, 'Deferrable',
         hint: 'Whether constraint check can be deferred: Yes | No'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -437,6 +476,7 @@ class EntityIndexEntry {
     Field('estimatedSize', String, 'Estimated Size',
         hint: 'Expected index size'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -461,6 +501,7 @@ class EntityConstraintEntry {
     Field('businessRule', String, 'Business Rule Reference',
         hint: 'Related business rule ID'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -491,6 +532,7 @@ class MigrationMappingEntry {
     Field('notes', String, 'Notes',
         hint: 'Additional migration considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -517,11 +559,13 @@ referential integrity rules, and navigation patterns.
 - Composition — "owns-a" with dependent lifecycle
 - Generalization — inheritance/specialization
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× EntityRelationship.
   @SectionId('ENRLE-ITEM-LST')
   @SectionIdPattern('ENRLE-ITEM-xxx')
+  @SerializationOrder(1)
   List<EntityRelationshipEntry> items = [];
 }
 
@@ -545,6 +589,7 @@ class EntityRelationshipEntry {
     Field('implementationType', String, 'Implementation Type',
         hint: 'ForeignKey | JunctionTable | Embedded | Reference'),
   ])
+  @SerializationOrder(0)
   String? identity;
 
   // ---------------------------------------------------------------------------
@@ -552,6 +597,7 @@ class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
   @SectionId('PARTI-PART-LST')
   @SectionIdPattern('PARTI-PART-xxx')
+  @SerializationOrder(1)
   List<ParticipantEntry> participants = [];
 
   // ---------------------------------------------------------------------------
@@ -571,6 +617,7 @@ class EntityRelationshipEntry {
     Field('maxTargetInstances', String, 'Max Target Instances',
         hint: 'Maximum number of related target instances'),
   ])
+  @SerializationOrder(2)
   String? cardinality;
 
   // ---------------------------------------------------------------------------
@@ -590,6 +637,7 @@ class EntityRelationshipEntry {
     Field('orphanHandling', String, 'Orphan Handling',
         hint: 'How orphaned records are handled: Prevent | Allow | AssignDefault'),
   ])
+  @SerializationOrder(3)
   String? referentialIntegrity;
 
   // ---------------------------------------------------------------------------
@@ -607,6 +655,7 @@ class EntityRelationshipEntry {
     Field('inverseRelationship', String, 'Inverse Relationship',
         hint: 'Name of the relationship from the other side'),
   ])
+  @SerializationOrder(4)
   String? navigation;
 
   // ---------------------------------------------------------------------------
@@ -614,12 +663,15 @@ class EntityRelationshipEntry {
   // ---------------------------------------------------------------------------
   @SectionId('RELAT-RELA-LST')
   @SectionIdPattern('RELAT-RELA-xxx')
+  @SerializationOrder(5)
   List<RelationshipAttributeEntry> relationshipAttributes = [];
 
   @Reference('sourceEntityName')
+  @SerializationOrder(6)
   String? sourceEntityRef;
 
   @Reference('targetEntityName')
+  @SerializationOrder(7)
   String? targetEntityRef;
 }
 
@@ -641,11 +693,13 @@ class DataClassification {
     Field('reviewFrequency', String, 'Review Frequency',
         hint: 'How often classifications are reviewed: Annually | Quarterly | OnChange'),
   ])
+  @SerializationOrder(0)
   String? overview;
 
   /// Contains 0+× DataClassificationEntry.
   @SectionId('DCLSE-ITEM-LST')
   @SectionIdPattern('DCLSE-ITEM-xxx')
+  @SerializationOrder(1)
   List<DataClassificationEntry> items = [];
 }
 
@@ -669,6 +723,7 @@ class DataClassificationEntry {
     Field('examples', String, 'Examples',
         hint: 'Examples of data at this classification'),
   ])
+  @SerializationOrder(0)
   String? identity;
 
   // ---------------------------------------------------------------------------
@@ -686,6 +741,7 @@ class DataClassificationEntry {
     Field('backupRequirements', String, 'Backup Requirements',
         hint: 'Special backup considerations'),
   ])
+  @SerializationOrder(1)
   String? storageTransmission;
 
   // ---------------------------------------------------------------------------
@@ -703,6 +759,7 @@ class DataClassificationEntry {
     Field('accessRequestProcess', String, 'Access Request Process',
         hint: 'How access is granted: SelfService | ManagerApproval | SecurityApproval'),
   ])
+  @SerializationOrder(2)
   String? accessControl;
 
   // ---------------------------------------------------------------------------
@@ -720,6 +777,7 @@ class DataClassificationEntry {
     Field('disposalApproval', String, 'Disposal Approval',
         hint: 'Who approves disposal: Automatic | DataOwner | Legal'),
   ])
+  @SerializationOrder(3)
   String? retentionDisposal;
 
   // ---------------------------------------------------------------------------
@@ -735,16 +793,19 @@ class DataClassificationEntry {
     Field('dataSubjectRights', String, 'Data Subject Rights',
         hint: 'Applicable rights: Access | Rectification | Erasure | Portability'),
   ])
+  @SerializationOrder(4)
   String? compliance;
 
   /// Contains 0+× HandlingRequirement.
   @SectionId('HNDRE-HAND-LST')
   @SectionIdPattern('HNDRE-HAND-xxx')
+  @SerializationOrder(5)
   List<HandlingRequirementEntry> handlingRequirements = [];
 
   /// Contains 0+× AccessRestriction.
   @SectionId('ACRSE-ACCE-LST')
   @SectionIdPattern('ACRSE-ACCE-xxx')
+  @SerializationOrder(6)
   List<AccessRestrictionEntry> accessRestrictions = [];
 }
 
@@ -769,6 +830,7 @@ class HandlingRequirementEntry {
     Field('exceptionProcess', String, 'Exception Process',
         hint: 'How exceptions are handled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -793,6 +855,7 @@ class AccessRestrictionEntry {
     Field('overridePolicy', String, 'Override Policy',
         hint: 'How overrides are handled: None | BreakGlass | ApprovalRequired'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -824,15 +887,18 @@ Domain-Driven Design patterns for rich domain modeling.
 - Operations — domain operations with pre/post conditions (13 fields each)
 - Invariants — conditions that must always hold (7 fields each)
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 7.2.1. Object Catalog — contains 1+× Business Object.
   @SectionId('BJOEN-OBJE-LST')
   @SectionIdPattern('BJOEN-OBJE-xxx')
   @Min(1)
+  @SerializationOrder(1)
   List<BusinessObjectEntry> objects = [];
 
   /// 7.2.2. Business Object Diagram (mermaid).
+  @SerializationOrder(2)
   DiagramSection objectDiagram = DiagramSection();
 }
 
@@ -860,6 +926,7 @@ class BusinessObjectEntry {
     Field('stereotypePattern', String, 'Stereotype/Pattern',
         hint: 'DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga'),
   ])
+  @SerializationOrder(0)
   String? identity;
 
   // ---------------------------------------------------------------------------
@@ -877,6 +944,7 @@ class BusinessObjectEntry {
     Field('relatedObjects', String, 'Related Objects',
         hint: 'Key related business objects'),
   ])
+  @SerializationOrder(1)
   String? domainContext;
 
   // ---------------------------------------------------------------------------
@@ -894,6 +962,7 @@ class BusinessObjectEntry {
     Field('lifecycleOwner', String, 'Lifecycle Owner',
         hint: 'System or process responsible for lifecycle management'),
   ])
+  @SerializationOrder(2)
   String? lifecycleSummary;
 
   // ---------------------------------------------------------------------------
@@ -901,6 +970,7 @@ class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
   @SectionId('BEHAV-BEHA-LST')
   @SectionIdPattern('BEHAV-BEHA-xxx')
+  @SerializationOrder(3)
   List<BehaviorRuleEntry> behaviorRules = [];
 
   // ---------------------------------------------------------------------------
@@ -918,6 +988,7 @@ class BusinessObjectEntry {
     Field('auditTrail', String, 'Audit Trail',
         hint: 'What changes are tracked: None | StateChanges | AllChanges | FullHistory'),
   ])
+  @SerializationOrder(4)
   String? ownership;
 
   // ---------------------------------------------------------------------------
@@ -925,36 +996,43 @@ class BusinessObjectEntry {
   // ---------------------------------------------------------------------------
   @SectionId('INTEG-INTE-LST')
   @SectionIdPattern('INTEG-INTE-xxx')
+  @SerializationOrder(5)
   List<IntegrationPointEntry> integrationPoints = [];
 
   /// Contains 0+× BusinessObjectAttribute.
   @SectionId('BIOBAT-ATTR-LST')
   @SectionIdPattern('BIOBAT-ATTR-xxx')
+  @SerializationOrder(6)
   List<BusinessObjectAttributeEntry> attributes = [];
 
   /// Contains 0+× ObjectState.
   @SectionId('OBST-KEYS-LST')
   @SectionIdPattern('OBST-KEYS-xxx')
+  @SerializationOrder(7)
   List<ObjectStateEntry> keyStates = [];
 
   /// Contains 0+× BusinessRuleReference.
   @SectionId('BIRURE-KEYB-LST')
   @SectionIdPattern('BIRURE-KEYB-xxx')
+  @SerializationOrder(8)
   List<BusinessRuleReferenceEntry> keyBusinessRules = [];
 
   /// Contains 0+× LifecycleTransition.
   @SectionId('LFTRS-LIFE-LST')
   @SectionIdPattern('LFTRS-LIFE-xxx')
+  @SerializationOrder(9)
   List<LifecycleTransitionEntry> lifecycleTransitions = [];
 
   /// Contains 0+× ObjectOperation.
   @SectionId('OBOP-OPER-LST')
   @SectionIdPattern('OBOP-OPER-xxx')
+  @SerializationOrder(10)
   List<ObjectOperationEntry> operations = [];
 
   /// Contains 0+× ObjectInvariant.
   @SectionId('OBINV-INVA-LST')
   @SectionIdPattern('OBINV-INVA-xxx')
+  @SerializationOrder(11)
   List<ObjectInvariantEntry> invariants = [];
 }
 
@@ -971,17 +1049,21 @@ class BusinessObjectAttributeEntry {
     Field('type', String, 'Type',
         hint: 'Business type: Text | Number | Money | Date | DateTime | Boolean | Enum | Reference'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Format and requirement details.
+  @SerializationOrder(1)
   BusinessObjectAttributeEntryDefinition definition =
       BusinessObjectAttributeEntryDefinition();
 
   /// Validation and derivation rules.
+  @SerializationOrder(2)
   BusinessObjectAttributeEntryValidation validation =
       BusinessObjectAttributeEntryValidation();
 
   /// Sensitivity and presentation guidance.
+  @SerializationOrder(3)
   BusinessObjectAttributeEntryGovernance governance =
       BusinessObjectAttributeEntryGovernance();
 }
@@ -997,6 +1079,7 @@ class BusinessObjectAttributeEntryDefinition {
     Field('defaultValue', String, 'Default Value',
         hint: 'Default value or derivation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1013,6 +1096,7 @@ class BusinessObjectAttributeEntryValidation {
     Field('derivation', String, 'Derivation',
         hint: 'How value is derived if calculated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1025,6 +1109,7 @@ class BusinessObjectAttributeEntryGovernance {
     Field('displayOrder', String, 'Display Order',
         hint: 'Order for UI presentation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1055,6 +1140,7 @@ class ObjectStateEntry {
     Field('notificationTriggers', String, 'Notification Triggers',
         hint: 'Events that trigger notifications in this state'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1081,9 +1167,11 @@ class BusinessRuleReferenceEntry {
     Field('consequenceOnViolation', String, 'Consequence On Violation',
         hint: 'What happens when rule is violated'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   @Reference('ruleId')
+  @SerializationOrder(1)
   String? ruleRef;
 }
 
@@ -1102,16 +1190,20 @@ class LifecycleTransitionEntry {
     Field('toState', String, 'To State',
         required: true, hint: 'Target state'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Triggering event details.
+  @SerializationOrder(1)
   LifecycleTransitionEntryTrigger trigger = LifecycleTransitionEntryTrigger();
 
   /// Transition conditions and guarantees.
+  @SerializationOrder(2)
   LifecycleTransitionEntryConditions conditions =
       LifecycleTransitionEntryConditions();
 
   /// Actions, actors, and rollback handling.
+  @SerializationOrder(3)
   LifecycleTransitionEntryExecution execution =
       LifecycleTransitionEntryExecution();
 }
@@ -1125,6 +1217,7 @@ class LifecycleTransitionEntryTrigger {
     Field('triggerType', String, 'Trigger Type',
         hint: 'UserAction | SystemEvent | Timer | ExternalEvent'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1139,6 +1232,7 @@ class LifecycleTransitionEntryConditions {
     Field('postConditions', String, 'Post-Conditions',
         hint: 'What is guaranteed after transition'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1155,6 +1249,7 @@ class LifecycleTransitionEntryExecution {
     Field('rollbackStrategy', String, 'Rollback Strategy',
         hint: 'How to handle transition failure'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1171,15 +1266,19 @@ class ObjectOperationEntry {
     Field('operationType', String, 'Operation Type',
         hint: 'Command | Query | Event'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Execution contract for this operation.
+  @SerializationOrder(1)
   ObjectOperationEntryExecution execution = ObjectOperationEntryExecution();
 
   /// State and event lifecycle details.
+  @SerializationOrder(2)
   ObjectOperationEntryLifecycle lifecycle = ObjectOperationEntryLifecycle();
 
   /// Authorization and usage boundaries.
+  @SerializationOrder(3)
   ObjectOperationEntryGovernance governance =
       ObjectOperationEntryGovernance();
 }
@@ -1197,6 +1296,7 @@ class ObjectOperationEntryExecution {
     Field('outputResult', String, 'Output Result',
         hint: 'What the operation returns'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1211,6 +1311,7 @@ class ObjectOperationEntryLifecycle {
     Field('eventsPublished', String, 'Events Published',
         hint: 'Domain events triggered'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1225,6 +1326,7 @@ class ObjectOperationEntryGovernance {
     Field('idempotent', String, 'Idempotent',
         hint: 'Whether operation is idempotent: Yes | No'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1249,6 +1351,7 @@ class ObjectInvariantEntry {
     Field('businessJustification', String, 'Business Justification',
         hint: 'Why this invariant exists'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1275,6 +1378,7 @@ class FunctionModel {
     Field('decompositionBasis', String, 'Decomposition Basis',
         hint: 'Criteria for breaking down: BusinessCapability | ProcessStep | OrganizationalUnit'),
   ])
+  @SerializationOrder(0)
   String? decompositionOverview;
 
   // ---------------------------------------------------------------------------
@@ -1290,22 +1394,26 @@ class FunctionModel {
     Field('dataOwnership', String, 'Data Ownership',
         hint: 'Which functions own which data'),
   ])
+  @SerializationOrder(1)
   String? matrixOverview;
 
   /// 7.3.1. Function Decomposition — contains 0+× Function.
   @SectionId('FUNCT-FUNC-LST')
   @SectionIdPattern('FUNCT-FUNC-xxx')
+  @SerializationOrder(2)
   List<FunctionEntry> functions = [];
 
   /// 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
   @SectionId('FNDMX-MATR-LST')
   @SectionIdPattern('FNDMX-MATR-xxx')
+  @SerializationOrder(3)
   List<FunctionDataMatrixEntry> matrixEntries = [];
 
   /// 7.3.3. Business Rules — contains 1+× Business Rule.
   @SectionId('BIRU-BUSI-LST')
   @SectionIdPattern('BIRU-BUSI-xxx')
   @Min(1)
+  @SerializationOrder(4)
   List<BusinessRuleEntry> businessRules = [];
 }
 
@@ -1324,20 +1432,25 @@ class FunctionEntry {
     Field('parentFunction', String, 'Parent Function',
         hint: 'Parent function in hierarchy'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Decomposition position and classification.
+  @SerializationOrder(1)
   FunctionEntryClassification classification = FunctionEntryClassification();
 
   /// Execution profile and criticality.
+  @SerializationOrder(2)
   FunctionEntryOperations operations = FunctionEntryOperations();
 
   /// Automation and data handling summary.
+  @SerializationOrder(3)
   FunctionEntryImplementation implementation = FunctionEntryImplementation();
 
   /// Sub-functions — contains 0+× SubFunction.
   @SectionId('SUFN-SUBF-LST')
   @SectionIdPattern('SUFN-SUBF-xxx')
+  @SerializationOrder(4)
   List<SubFunctionEntry> subFunctions = [];
 }
 
@@ -1352,6 +1465,7 @@ class FunctionEntryClassification {
     Field('owningProcess', String, 'Owning Process',
         hint: 'Business process this belongs to'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1366,6 +1480,7 @@ class FunctionEntryOperations {
     Field('criticalityLevel', String, 'Criticality Level',
         hint: 'Business criticality: Critical | High | Medium | Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1378,6 +1493,7 @@ class FunctionEntryImplementation {
     Field('dataAccess', String, 'Data Access',
         hint: 'Summary of data entities accessed with CRUD'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1396,6 +1512,7 @@ class SubFunctionEntry {
     Field('systemSupport', String, 'System Support',
         hint: 'Systems that support this function'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1418,6 +1535,7 @@ class FunctionDataMatrixEntry {
     Field('accessReason', String, 'Access Reason',
         hint: 'Why this function needs this access'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1441,6 +1559,7 @@ class BusinessRuleEntry {
     Field('businessStatement', String, 'Business Statement',
         hint: 'Natural language statement from business perspective'),
   ])
+  @SerializationOrder(0)
   String? identity;
 
   // ---------------------------------------------------------------------------
@@ -1458,6 +1577,7 @@ class BusinessRuleEntry {
     Field('source', String, 'Source',
         hint: 'Where rule originates: Regulation | Policy | Contract | BestPractice'),
   ])
+  @SerializationOrder(1)
   String? classification;
 
   // ---------------------------------------------------------------------------
@@ -1475,6 +1595,7 @@ class BusinessRuleEntry {
     Field('parameters', String, 'Parameters',
         hint: 'Configurable values in the rule'),
   ])
+  @SerializationOrder(2)
   String? ruleLogic;
 
   // ---------------------------------------------------------------------------
@@ -1492,6 +1613,7 @@ class BusinessRuleEntry {
     Field('testability', String, 'Testability',
         hint: 'How rule can be tested: UnitTestable | IntegrationRequired | ManualOnly'),
   ])
+  @SerializationOrder(3)
   String? implementation;
 
   // ---------------------------------------------------------------------------
@@ -1507,6 +1629,7 @@ class BusinessRuleEntry {
     Field('escalationPath', String, 'Escalation Path',
         hint: 'How exceptions are escalated'),
   ])
+  @SerializationOrder(4)
   String? exceptionHandling;
 
   // ---------------------------------------------------------------------------
@@ -1522,21 +1645,25 @@ class BusinessRuleEntry {
     Field('reviewFrequency', String, 'Review Frequency',
         hint: 'How often rule is reviewed: Annually | OnChange | Never'),
   ])
+  @SerializationOrder(5)
   String? governance;
 
   /// Contains 0+× AffectedObject.
   @SectionId('AFOB-AFFE-LST')
   @SectionIdPattern('AFOB-AFFE-xxx')
+  @SerializationOrder(6)
   List<AffectedObjectEntry> affectedObjects = [];
 
   /// Contains 0+× AffectedFunction.
   @SectionId('AFFN-AFFE-LST')
   @SectionIdPattern('AFFN-AFFE-xxx')
+  @SerializationOrder(7)
   List<AffectedFunctionEntry> affectedFunctions = [];
 
   /// Contains 0+× RuleExample.
   @SectionId('RULEXM-EXAM-LST')
   @SectionIdPattern('RULEXM-EXAM-xxx')
+  @SerializationOrder(8)
   List<RuleExampleEntry> examples = [];
 }
 
@@ -1555,9 +1682,11 @@ class AffectedObjectEntry {
     Field('accessType', String, 'Access Type',
         hint: 'Read | Write | Both'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   @Reference('objectName')
+  @SerializationOrder(1)
   String? objectRef;
 }
 
@@ -1576,9 +1705,11 @@ class AffectedFunctionEntry {
     Field('isMandatory', String, 'Is Mandatory',
         hint: 'Whether check is required in this function: Yes | No'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   @Reference('functionName')
+  @SerializationOrder(1)
   String? functionRef;
 }
 
@@ -1599,6 +1730,7 @@ class RuleExampleEntry {
     Field('exampleType', String, 'Example Type',
         hint: 'Positive | Negative | EdgeCase | BoundaryCondition'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1626,6 +1758,7 @@ Single authoritative registry for data attributes across the system.
 - Default value and required-ness
 - Cross-references to validation constraints
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1655,6 +1788,7 @@ constraints (which are database-level) and from per-field form hints
 - Validation trigger points (on entry, on save, on batch, on publish)
 - Error-message catalog for each rule
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1682,6 +1816,7 @@ integrity constraints must hold in every persistent state.
 - Temporal constraints (effective-from ≤ effective-to)
 - Conservation rules (sums / counts that must balance)
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1700,6 +1835,7 @@ class BehaviorRuleEntry {
     Field('calculatedProperties', String, 'Calculated Properties',
         hint: 'Derived/calculated attributes (e.g., orderTotal, age)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1716,6 +1852,7 @@ class IntegrationPointEntry {
     Field('externalSystemMapping', String, 'External System Mapping',
         hint: 'How this maps to external systems'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1740,6 +1877,7 @@ class DataAttributeConstraintEntry {
     Field('patternRegex', String, 'Pattern/Regex',
         hint: r'Regex for validation (e.g., ^[A-Z]{2}-\d{6}$ for order IDs)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1756,6 +1894,7 @@ class DisplayPropertyEntry {
     Field('helpText', String, 'Help Text',
         hint: 'User assistance text for forms'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1776,6 +1915,7 @@ class VolumeMetricEntry {
     Field('partitioningStrategy', String, 'Partitioning Strategy',
         hint: 'How data should be partitioned: ByDate | ByRange | ByHash | None'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1796,6 +1936,7 @@ class ComplianceRequirementEntry {
     Field('accessRestrictions', String, 'Access Restrictions',
         hint: 'Who can access: AllUsers | AuthenticatedUsers | RoleRestricted | SystemOnly'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1816,6 +1957,7 @@ class TechnicalCharacteristicEntry {
     Field('scalingApproach', String, 'Scaling Approach',
         hint: 'How entity scales: Vertical | Horizontal | Sharding'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1832,6 +1974,7 @@ class ParticipantEntry {
     Field('targetRole', String, 'Target Role',
         hint: 'Role name on the target end (e.g., "placed" in Customer places Order)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1846,5 +1989,6 @@ class RelationshipAttributeEntry {
     Field('temporalAspects', String, 'Temporal Aspects',
         hint: 'Effective dates, versioning: None | EffectiveDates | FullHistory'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

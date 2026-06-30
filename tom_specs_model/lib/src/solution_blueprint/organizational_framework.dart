@@ -20,9 +20,11 @@ class OrganizationalFramework {
   @ContentHelp('Provide executive summary of organizational impact: '
       'scope of restructuring, number of affected roles, key organizational '
       'design principles, change management approach, and timeline overview.')
+  @SerializationOrder(0)
   TextSection overview = TextSection();
 
   /// 5.1. New Organization Structure.
+  @SerializationOrder(1)
   NewOrganizationStructure organizationStructure = NewOrganizationStructure();
 
   /// 5.2. Job Descriptions and Staffing Plans.
@@ -30,6 +32,7 @@ class OrganizationalFramework {
   /// Single composite section: the role multiplicity is carried by the inner
   /// new/changed/removed-role lists, so this is one section, not a catalog of
   /// sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
+  @SerializationOrder(2)
   JobDescriptionsAndStaffing jobDescriptions = JobDescriptionsAndStaffing();
 
   /// 5.3. Workplace Descriptions — contains 1+× per user category.
@@ -37,6 +40,7 @@ class OrganizationalFramework {
   @SectionIdPattern('WPDE-WORK-xxx')
   @Min(1)
   @Comment('per user category')
+  @SerializationOrder(3)
   List<WorkplaceDescriptionEntry> workplaceDescriptions = [];
 }
 
@@ -56,13 +60,16 @@ class NewOrganizationStructure {
   @ContentHelp('Describe the vision for the new organization structure: '
       'design principles, key structural changes, governance model, '
       'decision-making framework, and expected benefits.')
+  @SerializationOrder(0)
   TextSection overview = TextSection();
 
   /// 5.1.1. Changes from Current Structure.
+  @SerializationOrder(1)
   ChangesFromCurrentStructure changesFromCurrentStructure =
       ChangesFromCurrentStructure();
 
   /// 5.1.2. Organizational Transition Timeline.
+  @SerializationOrder(2)
   OrganizationalTransitionTimeline transitionTimeline =
       OrganizationalTransitionTimeline();
 }
@@ -95,22 +102,26 @@ class ChangesFromCurrentStructure {
     Field('collaborationModelChanges', String, 'Collaboration Model Changes',
         hint: 'How teams will work together differently'),
   ])
+  @SerializationOrder(0)
   String? overviewContent;
 
   /// Detailed description of structural changes.
   @ContentHelp('Provide narrative description of the organizational '
       'transformation: what the current structure looks like, what the '
       'target structure will be, and how the transition will be managed.')
+  @SerializationOrder(1)
   TextSection changeNarrative = TextSection();
 
   /// Organization chart comparison (current vs future).
   @ContentHelp('Visual representation comparing current and target '
       'organization structures - attach or embed org chart diagrams.')
+  @SerializationOrder(2)
   DiagramSection orgChartComparison = DiagramSection();
 
   /// Contains 0+× OrganizationalChange.
   @SectionId('ORGCE-ITEM-LST')
   @SectionIdPattern('ORGCE-ITEM-xxx')
+  @SerializationOrder(3)
   List<OrganizationalChangeEntry> items = [];
 }
 
@@ -128,29 +139,37 @@ class OrganizationalChangeEntry {
     Field('changeType', String, 'Change Type',
         hint: 'Restructure, Merge, Split, Create, Eliminate, Relocate'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Change identification details.
+  @SerializationOrder(1)
   OrgChangeIdentification identification = OrgChangeIdentification();
 
   /// Scope of the change.
+  @SerializationOrder(2)
   OrgChangeScope scope = OrgChangeScope();
 
   /// Rationale for the change.
+  @SerializationOrder(3)
   OrgChangeRationale rationale = OrgChangeRationale();
 
   /// Impact assessment.
+  @SerializationOrder(4)
   OrgChangeImpact impact = OrgChangeImpact();
 
   /// Transition planning.
+  @SerializationOrder(5)
   OrgChangeTransition transition = OrgChangeTransition();
 
   /// Risks and mitigations.
   @SectionId('OCRSK-RISK-LST')
   @SectionIdPattern('OCRSK-RISK-xxx')
+  @SerializationOrder(6)
   List<OrgChangeRisks> risks = [];
 
   /// Status tracking.
+  @SerializationOrder(7)
   OrgChangeStatus status = OrgChangeStatus();
 }
 
@@ -163,6 +182,7 @@ class OrgChangeIdentification {
     Field('priority', String, 'Priority',
         hint: 'Critical, High, Medium, Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -183,6 +203,7 @@ class OrgChangeScope {
     Field('headcountDelta', int, 'Headcount Delta',
         hint: 'Net change in headcount'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -199,6 +220,7 @@ class OrgChangeRationale {
     Field('processAlignment', String, 'Process Alignment',
         hint: 'How this change supports new business processes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -221,6 +243,7 @@ class OrgChangeImpact {
     Field('collaborationImpact', String, 'Collaboration Impact',
         hint: 'Changes to how people work together'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -243,6 +266,7 @@ class OrgChangeTransition {
     Field('itActionsRequired', String, 'IT Actions Required',
         hint: 'System access, email groups, org hierarchy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -257,6 +281,7 @@ class OrgChangeRisks {
     Field('dependencies', String, 'Dependencies',
         hint: 'Other changes this depends on or enables'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -273,6 +298,7 @@ class OrgChangeStatus {
     Field('notes', String, 'Notes',
         hint: 'Additional context or considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -288,33 +314,41 @@ class OrgChangeStatus {
 @SectionId('OTTML')
 class OrganizationalTransitionTimeline {
   /// Overview of the transition approach and guiding principles.
+  @SerializationOrder(0)
   TransitionOverview overview = TransitionOverview();
 
   /// Transition phases with milestones and durations.
   @SectionId('TRPHE-PHAS-LST')
   @SectionIdPattern('TRPHE-PHAS-xxx')
+  @SerializationOrder(1)
   List<TransitionPhaseEntry> phases = [];
 
   /// Key transition milestones and decision gates.
   @SectionId('TRMIL-MILE-LST')
   @SectionIdPattern('TRMIL-MILE-xxx')
+  @SerializationOrder(2)
   List<TransitionMilestoneEntry> milestones = [];
 
   /// Change readiness assessment approach.
+  @SerializationOrder(3)
   ChangeReadinessAssessment changeReadiness = ChangeReadinessAssessment();
 
   /// Communication plan for the transition.
+  @SerializationOrder(4)
   TransitionCommunicationPlan communicationPlan = TransitionCommunicationPlan();
 
   /// Support structure during transition.
+  @SerializationOrder(5)
   TransitionSupportStructure supportStructure = TransitionSupportStructure();
 
   /// Success metrics and measurement approach.
+  @SerializationOrder(6)
   TransitionSuccessMetrics successMetrics = TransitionSuccessMetrics();
 
   /// Risks specific to the organizational transition.
   @SectionId('TRRS-TRAN-LST')
   @SectionIdPattern('TRRS-TRAN-xxx')
+  @SerializationOrder(7)
   List<TransitionRiskEntry> transitionRisks = [];
 }
 
@@ -329,12 +363,15 @@ class TransitionOverview {
     Field('transitionStartDate', String, 'Transition Start Date'),
     Field('targetCompletionDate', String, 'Target Completion Date'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Timeline and cutover planning.
+  @SerializationOrder(1)
   TransitionOverviewTimeline timeline = TransitionOverviewTimeline();
 
   /// Governance and change ownership.
+  @SerializationOrder(2)
   TransitionOverviewGovernance governance = TransitionOverviewGovernance();
 }
 
@@ -351,6 +388,7 @@ class TransitionOverviewTimeline {
     Field('rollbackPlan', String,
         'Rollback Plan — fallback if transition fails'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -365,6 +403,7 @@ class TransitionOverviewGovernance {
     Field('changeChampions', String,
         'Change Champions — advocates in each affected area'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -374,20 +413,24 @@ class TransitionOverviewGovernance {
 @SectionId('TRPHE')
 class TransitionPhaseEntry {
   /// Phase identification and timeline.
+  @SerializationOrder(0)
   TransitionPhaseIdentification identification =
       TransitionPhaseIdentification();
 
   /// Activities and deliverables for this phase.
   @SectionId('TPACT-ACTI-LST')
   @SectionIdPattern('TPACT-ACTI-xxx')
+  @SerializationOrder(1)
   List<TransitionPhaseActivities> activities = [];
 
   /// Stakeholder engagement for this phase.
   @SectionId('TPSTK-STAK-LST')
   @SectionIdPattern('TPSTK-STAK-xxx')
+  @SerializationOrder(2)
   List<TransitionPhaseStakeholders> stakeholders = [];
 
   /// Exit criteria and phase completion conditions.
+  @SerializationOrder(3)
   TransitionPhaseExitCriteria exitCriteria = TransitionPhaseExitCriteria();
 }
 
@@ -401,13 +444,16 @@ class TransitionPhaseIdentification {
         'Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure'),
     Field('phaseOwner', String, 'Phase Owner'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Timeline and sequencing details.
+    @SerializationOrder(1)
     TransitionPhaseIdentificationTimeline timeline =
             TransitionPhaseIdentificationTimeline();
 
     /// Scope of organizational impact.
+    @SerializationOrder(2)
     TransitionPhaseIdentificationScope scope =
             TransitionPhaseIdentificationScope();
 }
@@ -422,6 +468,7 @@ class TransitionPhaseIdentificationTimeline {
         Field('precedingPhase', String, 'Preceding Phase — phase ID'),
         Field('dependsOnMilestone', String, 'Depends on Milestone — milestone ID'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -435,6 +482,7 @@ class TransitionPhaseIdentificationScope {
                 'Affected Departments — organizational units'),
         Field('affectedUserCount', int, 'Affected User Count'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -458,6 +506,7 @@ class TransitionPhaseActivities {
     Field('externalSupport', String,
         'External Support — consultants, vendors needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -476,6 +525,7 @@ class TransitionPhaseStakeholders {
     Field('sponsorInvolvement', String,
         'Sponsor Involvement — executive actions needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -493,6 +543,7 @@ class TransitionPhaseExitCriteria {
     Field('knownIssuesResolution', String,
         'Known Issues Resolution — outstanding items allowed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -510,17 +561,21 @@ class TransitionMilestoneEntry {
         'Status — Planned, On Track, At Risk, Delayed, Achieved'),
     Field('description', String, 'Description'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Deliverables and decisioning.
+    @SerializationOrder(1)
     TransitionMilestoneEntryGovernance governance =
             TransitionMilestoneEntryGovernance();
 
     /// Dependencies and criticality.
+    @SerializationOrder(2)
     TransitionMilestoneEntryDependencies dependencies =
             TransitionMilestoneEntryDependencies();
 
     /// Recognition activities.
+    @SerializationOrder(3)
     TransitionMilestoneEntryRecognition recognition =
             TransitionMilestoneEntryRecognition();
 }
@@ -534,6 +589,7 @@ class TransitionMilestoneEntryGovernance {
                 'Decision Required — Go/No-Go decision at this point'),
         Field('decisionOwner', String, 'Decision Owner'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -547,6 +603,7 @@ class TransitionMilestoneEntryDependencies {
                 'Depends on Milestones — prior milestones required'),
         Field('criticality', String, 'Criticality — High, Medium, Low'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -557,6 +614,7 @@ class TransitionMilestoneEntryRecognition {
         Field('celebrationActivities', String,
                 'Celebration Activities — recognition for achieving milestone'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -564,11 +622,13 @@ class TransitionMilestoneEntryRecognition {
 @SectionId('CHREAS')
 class ChangeReadinessAssessment {
   /// Overview of readiness assessment approach.
+  @SerializationOrder(0)
   ChangeReadinessOverview overview = ChangeReadinessOverview();
 
   /// Readiness criteria per stakeholder group.
   @SectionId('RDRCE-READ-LST')
   @SectionIdPattern('RDRCE-READ-xxx')
+  @SerializationOrder(1)
   List<ReadinessCriteriaEntry> readinessCriteria = [];
 }
 
@@ -591,6 +651,7 @@ class ChangeReadinessOverview {
     Field('adkarFocus', String,
         'ADKAR Focus — Awareness, Desire, Knowledge, Ability, Reinforcement status'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -616,6 +677,7 @@ class ReadinessCriteriaEntry {
         'Readiness Status — Ready, Needs Work, At Risk, Not Ready'),
     Field('assessmentDate', String, 'Last Assessment Date'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -623,16 +685,19 @@ class ReadinessCriteriaEntry {
 @SectionId('TRCOPL')
 class TransitionCommunicationPlan {
   /// Communication strategy overview.
+  @SerializationOrder(0)
   TransitionCommunicationStrategy strategy = TransitionCommunicationStrategy();
 
   /// Specific communication events/activities.
   @SectionId('COEV-COMM-LST')
   @SectionIdPattern('COEV-COMM-xxx')
+  @SerializationOrder(1)
   List<CommunicationEventEntry> communicationEvents = [];
 
   /// Communication channels and their use.
   @SectionId('TRCOCH-CHAN-LST')
   @SectionIdPattern('TRCOCH-CHAN-xxx')
+  @SerializationOrder(2)
   List<TransitionCommunicationChannels> channels = [];
 }
 
@@ -657,6 +722,7 @@ class TransitionCommunicationStrategy {
     Field('accessibilityRequirements', String,
         'Accessibility Requirements — accessibility considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -673,12 +739,15 @@ class CommunicationEventEntry {
     Field('phase', String, 'Phase — which transition phase'),
     Field('keyMessages', String, 'Key Messages — specific to this event'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Delivery ownership.
+    @SerializationOrder(1)
     CommunicationEventEntryDelivery delivery = CommunicationEventEntryDelivery();
 
     /// Follow-up and measurement.
+    @SerializationOrder(2)
     CommunicationEventEntryOutcome outcome = CommunicationEventEntryOutcome();
 }
 
@@ -691,6 +760,7 @@ class CommunicationEventEntryDelivery {
         Field('approver', String, 'Approver — who approves content'),
         Field('materialsRequired', String, 'Materials Required — slides, scripts, etc.'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -702,6 +772,7 @@ class CommunicationEventEntryOutcome {
         Field('successMeasure', String, 'Success Measure — how effectiveness is measured'),
         Field('status', String, 'Status — Planned, In Preparation, Delivered, Cancelled'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -722,6 +793,7 @@ class TransitionCommunicationChannels {
     Field('channelAccessibility', String,
         'Channel Accessibility — who can access what'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -729,16 +801,19 @@ class TransitionCommunicationChannels {
 @SectionId('TRSUST')
 class TransitionSupportStructure {
   /// Support organization overview.
+  @SerializationOrder(0)
   TransitionSupportOverview overview = TransitionSupportOverview();
 
   /// Support resources available.
   @SectionId('TRSPRE-SUPP-LST')
   @SectionIdPattern('TRSPRE-SUPP-xxx')
+  @SerializationOrder(1)
   List<TransitionSupportResourceEntry> supportResources = [];
 
   /// Escalation paths for support.
   @SectionId('TRESPA-ESCA-LST')
   @SectionIdPattern('TRESPA-ESCA-xxx')
+  @SerializationOrder(2)
   List<TransitionEscalationPaths> escalationPaths = [];
 }
 
@@ -763,6 +838,7 @@ class TransitionSupportOverview {
     Field('superUserNetwork', String,
         'Super-User Network — local experts in each area'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -783,6 +859,7 @@ class TransitionSupportResourceEntry {
     Field('owner', String, 'Owner — who manages this resource'),
     Field('costCenter', String, 'Cost Center — budget allocation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -801,6 +878,7 @@ class TransitionEscalationPaths {
     Field('managementEscalation', String,
         'Management Escalation — for organizational issues'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -808,11 +886,13 @@ class TransitionEscalationPaths {
 @SectionId('TRSUME')
 class TransitionSuccessMetrics {
   /// Metrics overview.
+  @SerializationOrder(0)
   TransitionMetricsOverview overview = TransitionMetricsOverview();
 
   /// Specific success metrics.
   @SectionId('TRME-METR-LST')
   @SectionIdPattern('TRME-METR-xxx')
+  @SerializationOrder(1)
   List<TransitionMetricEntry> metrics = [];
 }
 
@@ -835,6 +915,7 @@ class TransitionMetricsOverview {
     Field('targetAchievementDate', String,
         'Target Achievement Date — when targets should be met'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -851,12 +932,15 @@ class TransitionMetricEntry {
     Field('baseline', String, 'Baseline Value'),
     Field('target', String, 'Target Value'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Measurement operations.
+    @SerializationOrder(1)
     TransitionMetricEntryOperations operations = TransitionMetricEntryOperations();
 
     /// Current status.
+    @SerializationOrder(2)
     TransitionMetricEntryStatus statusSection = TransitionMetricEntryStatus();
 }
 
@@ -870,6 +954,7 @@ class TransitionMetricEntryOperations {
         Field('dataSource', String, 'Data Source'),
         Field('owner', String, 'Owner'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -880,6 +965,7 @@ class TransitionMetricEntryStatus {
         Field('status', String, 'Status — On Track, At Risk, Below Target, Achieved'),
         Field('trend', String, 'Trend — Improving, Stable, Declining'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -893,12 +979,15 @@ class TransitionRiskEntry {
         'Risk Category — Resistance, Capacity, Timing, Resources, Dependencies'),
     Field('description', String, 'Description'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Risk assessment and exposure details.
+    @SerializationOrder(1)
     TransitionRiskEntryAssessment assessment = TransitionRiskEntryAssessment();
 
     /// Mitigation ownership and monitoring.
+    @SerializationOrder(2)
     TransitionRiskEntryResponse response = TransitionRiskEntryResponse();
 }
 
@@ -911,6 +1000,7 @@ class TransitionRiskEntryAssessment {
         Field('affectedPhases', String, 'Affected Phases'),
         Field('earlyWarningIndicator', String, 'Early Warning Indicator'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -923,6 +1013,7 @@ class TransitionRiskEntryResponse {
         Field('owner', String, 'Risk Owner'),
         Field('status', String, 'Status — Active, Mitigated, Realized, Closed'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -938,27 +1029,33 @@ class TransitionRiskEntryResponse {
 @SectionId('JDAS')
 class JobDescriptionsAndStaffing {
   /// Overview of the job architecture and role design approach.
+  @SerializationOrder(0)
   JobDescriptionsOverview overview = JobDescriptionsOverview();
 
   /// 5.2.1. New Roles — contains 0+× New Role.
   @SectionId('NWROL-NEWR-LST')
   @SectionIdPattern('NWROL-NEWR-xxx')
+  @SerializationOrder(1)
   List<NewRoleEntry> newRoles = [];
 
   /// 5.2.2. Changed Roles — contains 0+× Changed Role.
   @SectionId('CHAROL-CHAN-LST')
   @SectionIdPattern('CHAROL-CHAN-xxx')
+  @SerializationOrder(2)
   List<ChangedRoleEntry> changedRoles = [];
 
   /// 5.2.3. Removed Roles — contains 0+× role being eliminated.
   @SectionId('REMROL-REMO-LST')
   @SectionIdPattern('REMROL-REMO-xxx')
+  @SerializationOrder(3)
   List<RemovedRoleEntry> removedRoles = [];
 
   /// 5.2.4. Staffing Plan.
+  @SerializationOrder(4)
   StaffingPlan staffingPlan = StaffingPlan();
 
   /// 5.2.5. Competency Framework.
+  @SerializationOrder(5)
   CompetencyFramework competencyFramework = CompetencyFramework();
 }
 
@@ -984,6 +1081,7 @@ class JobDescriptionsOverview {
     Field('legalRequirements', String,
         'Legal Requirements — employment law considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -991,17 +1089,21 @@ class JobDescriptionsOverview {
 @SectionId('STPL')
 class StaffingPlan {
   /// Staffing plan overview.
+  @SerializationOrder(0)
   StaffingPlanOverview overview = StaffingPlanOverview();
 
   /// Budget details.
+  @SerializationOrder(1)
   StaffingBudget budget = StaffingBudget();
 
   /// Contains 0+× Staffing entry.
   @SectionId('STFE-ITEM-LST')
   @SectionIdPattern('STFE-ITEM-xxx')
+  @SerializationOrder(2)
   List<StaffingEntry> items = [];
 
   /// Recruitment timeline.
+  @SerializationOrder(3)
   RecruitmentTimeline recruitmentTimeline = RecruitmentTimeline();
 }
 
@@ -1044,6 +1146,7 @@ class StaffingPlanOverview {
         hint:
             'Labor law, visa/work-permit constraints, union agreements, works council obligations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1060,12 +1163,15 @@ class StaffingBudget {
     Field('benefitsBudget', String, 'Benefits Budget',
         hint: 'Insurance, retirement, perks'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Recruitment and enablement cost categories.
+  @SerializationOrder(1)
   StaffingBudgetAllocations allocations = StaffingBudgetAllocations();
 
   /// Budget ownership and approval controls.
+  @SerializationOrder(2)
   StaffingBudgetGovernance governance = StaffingBudgetGovernance();
 }
 
@@ -1082,6 +1188,7 @@ class StaffingBudgetAllocations {
     Field('contingencyBudget', String, 'Contingency Budget',
         hint: 'Buffer for unforeseen staffing needs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1096,6 +1203,7 @@ class StaffingBudgetGovernance {
     Field('budgetTimeline', String, 'Budget Timeline',
         hint: 'Fiscal year alignment and spending schedule'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1113,18 +1221,23 @@ class StaffingEntry {
     Field('jobLevel', String, 'Job Level',
         hint: 'Grade or level — e.g. Senior, L5, Manager'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Organization and employment placement.
+  @SerializationOrder(1)
   StaffingEntryOrganization organization = StaffingEntryOrganization();
 
   /// Capacity and competency requirements.
+  @SerializationOrder(2)
   StaffingEntryCapacity capacity = StaffingEntryCapacity();
 
   /// Recruitment workflow and urgency.
+  @SerializationOrder(3)
   StaffingEntryRecruitment recruitment = StaffingEntryRecruitment();
 
   /// Ownership and compensation details.
+  @SerializationOrder(4)
   StaffingEntryOwnership ownership = StaffingEntryOwnership();
 }
 
@@ -1139,6 +1252,7 @@ class StaffingEntryOrganization {
     Field('employmentType', String, 'Employment Type',
         hint: 'Permanent / Contract / PartTime / Temporary'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1157,6 +1271,7 @@ class StaffingEntryCapacity {
         hint:
             'Yes / No — whether this replaces an existing person (affects knowledge transfer)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1176,6 +1291,7 @@ class StaffingEntryRecruitment {
     Field('urgency', String, 'Urgency',
         hint: 'Critical / High / Medium / Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1192,6 +1308,7 @@ class StaffingEntryOwnership {
     Field('notes', String, 'Notes',
         hint: 'Additional context or special requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1215,6 +1332,7 @@ class RecruitmentTimeline {
         hint:
             'Notice periods, visa processing, security clearance lead times — blockers outside your control'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1222,21 +1340,25 @@ class RecruitmentTimeline {
 @SectionId('COFR')
 class CompetencyFramework {
   /// Framework overview.
+  @SerializationOrder(0)
   CompetencyFrameworkOverview overview = CompetencyFrameworkOverview();
 
   /// Core competencies required across all roles.
   @SectionId('COMPE-CORE-LST')
   @SectionIdPattern('COMPE-CORE-xxx')
+  @SerializationOrder(1)
   List<CompetencyEntry> coreCompetencies = [];
 
   /// Technical/functional competencies by role family.
   @SectionId('COMPE-TECH-LST')
   @SectionIdPattern('COMPE-TECH-xxx')
+  @SerializationOrder(2)
   List<CompetencyEntry> technicalCompetencies = [];
 
   /// Leadership competencies for management roles.
   @SectionId('COMPE-LEAD-LST')
   @SectionIdPattern('COMPE-LEAD-xxx')
+  @SerializationOrder(3)
   List<CompetencyEntry> leadershipCompetencies = [];
 }
 
@@ -1255,6 +1377,7 @@ class CompetencyFrameworkOverview {
     Field('developmentApproach', String,
         'Development Approach — how gaps are addressed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1280,6 +1403,7 @@ class CompetencyEntry {
     Field('assessmentTools', String,
         'Assessment Tools — tests, interviews, simulations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1290,24 +1414,31 @@ class CompetencyEntry {
 @SectionId('NRE')
 class NewRoleEntry {
   /// Role identification and overview.
+  @SerializationOrder(0)
   NewRoleIdentification identification = NewRoleIdentification();
 
   /// Role positioning in organization.
+  @SerializationOrder(1)
   NewRoleOrganization organization = NewRoleOrganization();
 
   /// Responsibilities breakdown.
+  @SerializationOrder(2)
   NewRoleResponsibilities responsibilities = NewRoleResponsibilities();
 
   /// Required competencies and qualifications.
+  @SerializationOrder(3)
   NewRoleQualifications qualifications = NewRoleQualifications();
 
   /// System access and tools.
+  @SerializationOrder(4)
   NewRoleSystemAccess systemAccess = NewRoleSystemAccess();
 
   /// Performance and success metrics.
+  @SerializationOrder(5)
   NewRolePerformance performance = NewRolePerformance();
 
   /// Onboarding and development.
+  @SerializationOrder(6)
   NewRoleOnboarding onboarding = NewRoleOnboarding();
 }
 
@@ -1326,6 +1457,7 @@ class NewRoleIdentification {
     Field('roleStatus', String,
         'Role Status — draft, approved, posted, filled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1348,6 +1480,7 @@ class NewRoleOrganization {
     Field('collaborationScope', String,
         'Collaboration Scope — teams/departments interacted with'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1357,14 +1490,17 @@ class NewRoleResponsibilities {
   /// Primary responsibilities (key accountabilities).
   @SectionId('RSPDT-PRIM-LST')
   @SectionIdPattern('RSPDT-PRIM-xxx')
+  @SerializationOrder(0)
   List<ResponsibilityDetailEntry> primaryResponsibilities = [];
 
   /// Secondary responsibilities (supporting duties).
   @SectionId('RSPDT-SECO-LST')
   @SectionIdPattern('RSPDT-SECO-xxx')
+  @SerializationOrder(1)
   List<ResponsibilityDetailEntry> secondaryResponsibilities = [];
 
   /// Decision-making authority.
+  @SerializationOrder(2)
   RoleDecisionAuthority decisionAuthority = RoleDecisionAuthority();
 }
 
@@ -1384,6 +1520,7 @@ class ResponsibilityDetailEntry {
         'Related Processes — business processes involved'),
     Field('toolsUsed', String, 'Tools Used — systems/applications'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1406,6 +1543,7 @@ class RoleDecisionAuthority {
     Field('escalationRequired', String,
         'Escalation Required — when must escalate'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1422,19 +1560,23 @@ class NewRoleQualifications {
     Field('preferredExperience', String,
         'Preferred Experience — ideal experience'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Credential and mobility requirements.
+  @SerializationOrder(1)
   NewRoleQualificationsCredentials credentials =
       NewRoleQualificationsCredentials();
 
   /// Screening and clearance requirements.
+  @SerializationOrder(2)
   NewRoleQualificationsScreening screening =
       NewRoleQualificationsScreening();
 
   /// Contains 0+× required competency.
   @SectionId('ROLCP-REQU-LST')
   @SectionIdPattern('ROLCP-REQU-xxx')
+  @SerializationOrder(3)
   List<RoleCompetencyEntry> requiredCompetencies = [];
 }
 
@@ -1451,6 +1593,7 @@ class NewRoleQualificationsCredentials {
     Field('travelRequirements', String,
         'Travel Requirements — percentage, destinations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1465,6 +1608,7 @@ class NewRoleQualificationsScreening {
     Field('securityClearance', String,
         'Security Clearance — if required'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1484,6 +1628,7 @@ class RoleCompetencyEntry {
     Field('developmentPriority', String,
         'Development Priority — if gap exists'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1512,6 +1657,7 @@ class NewRoleSystemAccess {
     Field('accessProvisioning', String,
         'Access Provisioning — how access is granted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1535,6 +1681,7 @@ class NewRolePerformance {
     Field('promotionCriteria', String,
         'Promotion Criteria — requirements for advancement'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1561,6 +1708,7 @@ class NewRoleOnboarding {
     Field('rampUpExpectations', String,
         'Ramp-Up Expectations — productivity expectations over time'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1571,21 +1719,27 @@ class NewRoleOnboarding {
 @SectionId('CHAROL')
 class ChangedRoleEntry {
   /// Changed role identification.
+  @SerializationOrder(0)
   ChangedRoleIdentification identification = ChangedRoleIdentification();
 
   /// Responsibility changes.
+  @SerializationOrder(1)
   ChangedRoleResponsibilities responsibilities = ChangedRoleResponsibilities();
 
   /// Competency changes.
+  @SerializationOrder(2)
   ChangedRoleCompetencies competencies = ChangedRoleCompetencies();
 
   /// System access changes.
+  @SerializationOrder(3)
   ChangedRoleSystemAccess systemAccess = ChangedRoleSystemAccess();
 
   /// Impact on incumbents.
+  @SerializationOrder(4)
   ChangedRoleIncumbentImpact incumbentImpact = ChangedRoleIncumbentImpact();
 
   /// Transition planning.
+  @SerializationOrder(5)
   ChangedRoleTransition transition = ChangedRoleTransition();
 }
 
@@ -1599,13 +1753,16 @@ class ChangedRoleIdentification {
     Field('changeRationale', String,
         'Change Rationale — why this role is changing'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Current and future organizational placement.
+    @SerializationOrder(1)
     ChangedRoleIdentificationStructure structure =
             ChangedRoleIdentificationStructure();
 
     /// Change implementation state and affected population.
+    @SerializationOrder(2)
     ChangedRoleIdentificationTransition transition =
             ChangedRoleIdentificationTransition();
 }
@@ -1619,6 +1776,7 @@ class ChangedRoleIdentificationStructure {
         Field('currentJobLevel', String, 'Current Job Level'),
         Field('newJobLevel', String, 'New Job Level — if changing'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1633,6 +1791,7 @@ class ChangedRoleIdentificationTransition {
                 'Change Status — proposed, approved, communicated, implemented'),
         Field('incumbentCount', int, 'Incumbent Count — people in this role'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1642,19 +1801,23 @@ class ChangedRoleResponsibilities {
   /// Responsibilities being added.
   @SectionId('RSPCH-ADDE-LST')
   @SectionIdPattern('RSPCH-ADDE-xxx')
+  @SerializationOrder(0)
   List<ResponsibilityChangeEntry> addedResponsibilities = [];
 
   /// Responsibilities being removed.
   @SectionId('RSPCH-REMO-LST')
   @SectionIdPattern('RSPCH-REMO-xxx')
+  @SerializationOrder(1)
   List<ResponsibilityChangeEntry> removedResponsibilities = [];
 
   /// Responsibilities being modified.
   @SectionId('RSPCH-MODI-LST')
   @SectionIdPattern('RSPCH-MODI-xxx')
+  @SerializationOrder(2)
   List<ResponsibilityChangeEntry> modifiedResponsibilities = [];
 
   /// Net impact summary.
+  @SerializationOrder(3)
   ResponsibilityImpactSummary impactSummary = ResponsibilityImpactSummary();
 }
 
@@ -1673,6 +1836,7 @@ class ResponsibilityChangeEntry {
     Field('transitionApproach', String,
         'Transition Approach — how responsibility is handed over'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1693,6 +1857,7 @@ class ResponsibilityImpactSummary {
     Field('compensationImpact', String,
         'Compensation Impact — salary implications'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1702,19 +1867,23 @@ class ChangedRoleCompetencies {
   /// New competencies required.
   @SectionId('ROLCP-NEWC-LST')
   @SectionIdPattern('ROLCP-NEWC-xxx')
+  @SerializationOrder(0)
   List<RoleCompetencyEntry> newCompetencies = [];
 
   /// Competencies no longer required.
   @SectionId('ROLCP-REMO-LST')
   @SectionIdPattern('ROLCP-REMO-xxx')
+  @SerializationOrder(1)
   List<RoleCompetencyEntry> removedCompetencies = [];
 
   /// Competencies with changed proficiency levels.
   @SectionId('COLVCH-CHAN-LST')
   @SectionIdPattern('COLVCH-CHAN-xxx')
+  @SerializationOrder(2)
   List<CompetencyLevelChangeEntry> changedLevels = [];
 
   /// Overall competency gap assessment.
+  @SerializationOrder(3)
   CompetencyGapAssessment gapAssessment = CompetencyGapAssessment();
 }
 
@@ -1730,6 +1899,7 @@ class CompetencyLevelChangeEntry {
         'Development Path — how to close gap'),
     Field('timeframe', String, 'Timeframe — when level needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1748,6 +1918,7 @@ class CompetencyGapAssessment {
     Field('interimMeasures', String,
         'Interim Measures — how to manage until gaps closed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1770,6 +1941,7 @@ class ChangedRoleSystemAccess {
     Field('accessTransitionDate', String,
         'Access Transition Date — when access changes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1797,6 +1969,7 @@ class ChangedRoleIncumbentImpact {
     Field('changeAcceptanceStatus', String,
         'Change Acceptance Status — incumbent reactions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1809,12 +1982,15 @@ class ChangedRoleTransition {
     Field('parallelPeriod', String,
         'Parallel Period — overlap of old/new ways'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Training preparation for the transition.
+  @SerializationOrder(1)
   ChangedRoleTransitionTraining training = ChangedRoleTransitionTraining();
 
   /// Support expectations and success checkpoints.
+  @SerializationOrder(2)
   ChangedRoleTransitionSupport support = ChangedRoleTransitionSupport();
 }
 
@@ -1831,6 +2007,7 @@ class ChangedRoleTransitionTraining {
     Field('practiceOpportunities', String,
         'Practice Opportunities — sandbox, pilot'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1847,6 +2024,7 @@ class ChangedRoleTransitionSupport {
     Field('successCriteria', String,
         'Success Criteria — how successful transition is measured'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1864,15 +2042,19 @@ class RemovedRoleEntry {
     Field('effectiveDate', String, 'Effective Date'),
     Field('incumbentCount', int, 'Incumbent Count — people affected'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Incumbent transition planning.
+  @SerializationOrder(1)
   RemovedRoleEntryTransition transition = RemovedRoleEntryTransition();
 
   /// Legal and communication considerations.
+  @SerializationOrder(2)
   RemovedRoleEntryGovernance governance = RemovedRoleEntryGovernance();
 
   /// Work continuity.
+  @SerializationOrder(3)
   RemovedRoleEntryContinuity continuity = RemovedRoleEntryContinuity();
 }
 
@@ -1889,6 +2071,7 @@ class RemovedRoleEntryTransition {
     Field('severanceConsiderations', String,
         'Severance Considerations — if applicable'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1901,6 +2084,7 @@ class RemovedRoleEntryGovernance {
     Field('communicationPlan', String,
         'Communication Plan — how removal is communicated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1913,6 +2097,7 @@ class RemovedRoleEntryContinuity {
     Field('workReassignment', String,
         'Work Reassignment — where responsibilities go'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1923,6 +2108,7 @@ class RoleResponsibilityEntry {
     Field('responsibility', String, 'Responsibility'),
     Field('description', String, 'Short description'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1933,6 +2119,7 @@ class SkillEntry {
     Field('skillName', String, 'Skill Name'),
     Field('proficiencyLevel', String, 'Proficiency Level'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1949,22 +2136,28 @@ class SkillEntry {
 @SectionId('WPDE')
 class WorkplaceDescriptionEntry {
   /// User category identification.
+  @SerializationOrder(0)
   WorkplaceUserCategory userCategory = WorkplaceUserCategory();
 
   /// Physical workplace layout and environment.
+  @SerializationOrder(1)
   PhysicalWorkplaceRequirements physicalRequirements =
       PhysicalWorkplaceRequirements();
 
   /// 5.3.1. Equipment Requirements.
+  @SerializationOrder(2)
   EquipmentRequirements equipmentRequirements = EquipmentRequirements();
 
   /// Technical infrastructure requirements.
+  @SerializationOrder(3)
   TechnicalInfrastructure technicalInfrastructure = TechnicalInfrastructure();
 
   /// 5.3.2. Training Requirements.
+  @SerializationOrder(4)
   TrainingRequirements trainingRequirements = TrainingRequirements();
 
   /// Support resources available to users.
+  @SerializationOrder(5)
   WorkplaceSupportResources supportResources = WorkplaceSupportResources();
 }
 
@@ -1988,6 +2181,7 @@ class WorkplaceUserCategory {
     Field('criticalityLevel', String,
         'Criticality Level — how critical is system access for this category'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2004,13 +2198,16 @@ class PhysicalWorkplaceRequirements {
     Field('ergonomicStandards', String,
         'Ergonomic Standards — chair, desk height, monitor position'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Environmental conditions and controls.
+  @SerializationOrder(1)
   PhysicalWorkplaceRequirementsEnvironment environment =
       PhysicalWorkplaceRequirementsEnvironment();
 
   /// Accessibility, privacy, and shared-space needs.
+  @SerializationOrder(2)
   PhysicalWorkplaceRequirementsUsage usage =
       PhysicalWorkplaceRequirementsUsage();
 }
@@ -2027,6 +2224,7 @@ class PhysicalWorkplaceRequirementsEnvironment {
         'Temperature Control — HVAC requirements'),
     Field('ventilation', String, 'Ventilation — air quality requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2043,6 +2241,7 @@ class PhysicalWorkplaceRequirementsUsage {
     Field('storageNeeds', String,
         'Storage Needs — physical document/material storage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2052,36 +2251,43 @@ class PhysicalWorkplaceRequirementsUsage {
 @SectionId('EQRE')
 class EquipmentRequirements {
   /// Equipment overview.
+  @SerializationOrder(0)
   EquipmentOverview overview = EquipmentOverview();
 
   /// Primary computing equipment.
   @SectionId('COEQ-PRIM-LST')
   @SectionIdPattern('COEQ-PRIM-xxx')
+  @SerializationOrder(1)
   List<ComputingEquipmentEntry> primaryComputing = [];
 
   /// Display and monitors.
   @SectionId('DSEQ-DISP-LST')
   @SectionIdPattern('DSEQ-DISP-xxx')
+  @SerializationOrder(2)
   List<DisplayEquipmentEntry> displays = [];
 
   /// Input devices.
   @SectionId('INPDE-INPU-LST')
   @SectionIdPattern('INPDE-INPU-xxx')
+  @SerializationOrder(3)
   List<InputDeviceEntry> inputDevices = [];
 
   /// Peripheral equipment.
   @SectionId('PEREQ-PERI-LST')
   @SectionIdPattern('PEREQ-PERI-xxx')
+  @SerializationOrder(4)
   List<PeripheralEquipmentEntry> peripherals = [];
 
   /// Mobile devices.
   @SectionId('MOBDE-MOBI-LST')
   @SectionIdPattern('MOBDE-MOBI-xxx')
+  @SerializationOrder(5)
   List<MobileDeviceEntry> mobileDevices = [];
 
   /// Specialized equipment.
   @SectionId('SPEQ-SPEC-LST')
   @SectionIdPattern('SPEQ-SPEC-xxx')
+  @SerializationOrder(6)
   List<SpecializedEquipmentEntry> specializedEquipment = [];
 }
 
@@ -2104,6 +2310,7 @@ class EquipmentOverview {
     Field('budgetAllocation', String,
         'Budget Allocation — equipment budget per user'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2117,15 +2324,19 @@ class ComputingEquipmentEntry {
     Field('brand', String, 'Brand — manufacturer preference'),
     Field('modelSpecification', String, 'Model/Specification — exact model'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Hardware specifications.
+    @SerializationOrder(1)
     ComputingEquipmentEntryHardware hardware = ComputingEquipmentEntryHardware();
 
     /// Platform and security requirements.
+    @SerializationOrder(2)
     ComputingEquipmentEntryPlatform platform = ComputingEquipmentEntryPlatform();
 
     /// Deployment and justification.
+    @SerializationOrder(3)
     ComputingEquipmentEntryPlanning planning = ComputingEquipmentEntryPlanning();
 }
 
@@ -2138,6 +2349,7 @@ class ComputingEquipmentEntryHardware {
         Field('storage', String, 'Storage — HDD/SSD requirements'),
         Field('graphicsCard', String, 'Graphics Card — if required'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2153,6 +2365,7 @@ class ComputingEquipmentEntryPlatform {
         Field('formFactor', String,
                 'Form Factor — tower, small form factor, all-in-one'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2165,6 +2378,7 @@ class ComputingEquipmentEntryPlanning {
                 'Priority Level — critical, standard, optional'),
         Field('justification', String, 'Justification — why this specification'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2178,16 +2392,20 @@ class DisplayEquipmentEntry {
     Field('screenSize', String, 'Screen Size — diagonal inches'),
     Field('resolution', String, 'Resolution — HD, FHD, QHD, 4K'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Display quality and connection properties.
+    @SerializationOrder(1)
     DisplayEquipmentEntryVisual visual = DisplayEquipmentEntryVisual();
 
     /// Ergonomic and placement considerations.
+    @SerializationOrder(2)
     DisplayEquipmentEntryErgonomics ergonomics =
             DisplayEquipmentEntryErgonomics();
 
     /// Quantity planning and justification.
+    @SerializationOrder(3)
     DisplayEquipmentEntryPlanning planning = DisplayEquipmentEntryPlanning();
 }
 
@@ -2202,6 +2420,7 @@ class DisplayEquipmentEntryVisual {
         Field('connectivity', String,
                 'Connectivity — HDMI, DisplayPort, USB-C'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2215,6 +2434,7 @@ class DisplayEquipmentEntryErgonomics {
                 'Ergonomic Features — blue light filter, flicker-free'),
         Field('mounting', String, 'Mounting — stand, arm, wall mount'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2225,6 +2445,7 @@ class DisplayEquipmentEntryPlanning {
         Field('quantityPerUser', int, 'Quantity Per User — number of monitors'),
         Field('justification', String, 'Justification'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2246,6 +2467,7 @@ class InputDeviceEntry {
     Field('quantityPerUser', int, 'Quantity Per User'),
     Field('justification', String, 'Justification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2266,6 +2488,7 @@ class PeripheralEquipmentEntry {
     Field('quantityNeeded', int, 'Quantity Needed'),
     Field('justification', String, 'Justification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2279,12 +2502,15 @@ class MobileDeviceEntry {
     Field('operatingSystem', String, 'Operating System — iOS, Android'),
     Field('screenSize', String, 'Screen Size'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Technical and management requirements.
+    @SerializationOrder(1)
     MobileDeviceEntryCapabilities capabilities = MobileDeviceEntryCapabilities();
 
     /// Deployment planning and supporting accessories.
+    @SerializationOrder(2)
     MobileDeviceEntryPlanning planning = MobileDeviceEntryPlanning();
 }
 
@@ -2300,6 +2526,7 @@ class MobileDeviceEntryCapabilities {
         Field('mdmEnrollment', String,
                 'MDM Enrollment — mobile device management requirements'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2314,6 +2541,7 @@ class MobileDeviceEntryPlanning {
         Field('quantityNeeded', int, 'Quantity Needed'),
         Field('justification', String, 'Justification'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2328,13 +2556,16 @@ class SpecializedEquipmentEntry {
     Field('model', String, 'Model'),
     Field('purpose', String, 'Purpose — business function supported'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Technical and compliance characteristics.
+    @SerializationOrder(1)
     SpecializedEquipmentEntryTechnical technical =
             SpecializedEquipmentEntryTechnical();
 
     /// Quantity and business justification.
+    @SerializationOrder(2)
     SpecializedEquipmentEntryPlanning planning =
             SpecializedEquipmentEntryPlanning();
 }
@@ -2350,6 +2581,7 @@ class SpecializedEquipmentEntryTechnical {
         Field('certifications', String,
                 'Certifications — PCI, EMV, etc.'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2360,6 +2592,7 @@ class SpecializedEquipmentEntryPlanning {
         Field('quantityNeeded', int, 'Quantity Needed'),
         Field('justification', String, 'Justification'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2367,18 +2600,22 @@ class SpecializedEquipmentEntryPlanning {
 @SectionId('TEIN')
 class TechnicalInfrastructure {
   /// Network connectivity requirements.
+  @SerializationOrder(0)
   NetworkConnectivity networkConnectivity = NetworkConnectivity();
 
   /// Software requirements.
+  @SerializationOrder(1)
   WorkplaceSoftwareRequirements softwareRequirements =
       WorkplaceSoftwareRequirements();
 
   /// Remote access requirements.
+  @SerializationOrder(2)
   RemoteAccessRequirements remoteAccess = RemoteAccessRequirements();
 
   /// Communication tools.
   @SectionId('COTORE-COMM-LST')
   @SectionIdPattern('COTORE-COMM-xxx')
+  @SerializationOrder(3)
   List<CommunicationToolsRequirements> communicationTools = [];
 }
 
@@ -2407,6 +2644,7 @@ class NetworkConnectivity {
     Field('guestNetworkAccess', String,
         'Guest Network Access — if needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2420,13 +2658,16 @@ class WorkplaceSoftwareRequirements {
     Field('browser', String, 'Browser — Chrome, Edge, Firefox'),
     Field('emailClient', String, 'Email Client — Outlook, web-based'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Security and collaboration software stack.
+  @SerializationOrder(1)
   WorkplaceSoftwareRequirementsPlatform platform =
       WorkplaceSoftwareRequirementsPlatform();
 
   /// Business application set and deployment model.
+  @SerializationOrder(2)
   WorkplaceSoftwareRequirementsDelivery delivery =
       WorkplaceSoftwareRequirementsDelivery();
 }
@@ -2444,6 +2685,7 @@ class WorkplaceSoftwareRequirementsPlatform {
     Field('documentManagement', String,
         'Document Management — SharePoint, OneDrive'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2460,6 +2702,7 @@ class WorkplaceSoftwareRequirementsDelivery {
     Field('installationMethod', String,
         'Installation Method — SCCM, Intune, manual'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2487,6 +2730,7 @@ class RemoteAccessRequirements {
     Field('remoteSupport', String,
         'Remote Support — how IT supports remote users'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2515,6 +2759,7 @@ class CommunicationToolsRequirements {
     Field('emergencyContact', String,
         'Emergency Contact — emergency calling, E911'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2525,32 +2770,39 @@ class CommunicationToolsRequirements {
 @SectionId('TRRE')
 class TrainingRequirements {
   /// Training overview and strategy.
+  @SerializationOrder(0)
   TrainingOverview overview = TrainingOverview();
 
   /// Initial/onboarding training.
   @SectionId('INITR-INIT-LST')
   @SectionIdPattern('INITR-INIT-xxx')
+  @SerializationOrder(1)
   List<InitialTrainingEntry> initialTraining = [];
 
   /// Ongoing/refresher training.
   @SectionId('ONGTR-ONGO-LST')
   @SectionIdPattern('ONGTR-ONGO-xxx')
+  @SerializationOrder(2)
   List<OngoingTrainingEntry> ongoingTraining = [];
 
   /// System-specific training.
   @SectionId('SYTR-SYST-LST')
   @SectionIdPattern('SYTR-SYST-xxx')
+  @SerializationOrder(3)
   List<SystemTrainingEntry> systemTraining = [];
 
   /// Certification requirements.
   @SectionId('CRT-CERT-LST')
   @SectionIdPattern('CRT-CERT-xxx')
+  @SerializationOrder(4)
   List<CertificationEntry> certifications = [];
 
   /// Training materials and resources.
+  @SerializationOrder(5)
   TrainingMaterials trainingMaterials = TrainingMaterials();
 
   /// Assessment and evaluation.
+  @SerializationOrder(6)
   TrainingAssessment assessment = TrainingAssessment();
 }
 
@@ -2579,6 +2831,7 @@ class TrainingOverview {
     Field('feedbackMechanism', String,
         'Feedback Mechanism — how feedback is collected'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2590,21 +2843,27 @@ class InitialTrainingEntry {
     Field('trainingName', String, 'Training Name', required: true),
     Field('description', String, 'Description'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Target and prerequisites.
+  @SerializationOrder(1)
   InitialTrainingAudience audience = InitialTrainingAudience();
 
   /// Learning content.
+  @SerializationOrder(2)
   InitialTrainingContent learningContent = InitialTrainingContent();
 
   /// Delivery details.
+  @SerializationOrder(3)
   InitialTrainingDelivery delivery = InitialTrainingDelivery();
 
   /// Schedule information.
+  @SerializationOrder(4)
   InitialTrainingSchedule schedule = InitialTrainingSchedule();
 
   /// Assessment and certification.
+  @SerializationOrder(5)
   InitialTrainingAssessment assessment = InitialTrainingAssessment();
 }
 
@@ -2618,6 +2877,7 @@ class InitialTrainingAudience {
     Field('prerequisiteKnowledge', String,
         'Prerequisite Knowledge — skills needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2631,6 +2891,7 @@ class InitialTrainingContent {
     Field('practiceEnvironment', String,
         'Practice Environment — sandbox, simulation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2648,6 +2909,7 @@ class InitialTrainingDelivery {
     Field('trainer', String, 'Trainer — who delivers'),
     Field('mandatory', String, 'Mandatory — required or optional'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2659,6 +2921,7 @@ class InitialTrainingSchedule {
         'Schedule — when offered relative to go-live'),
     Field('frequency', String, 'Frequency — one-time, recurring schedule'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2677,6 +2940,7 @@ class InitialTrainingAssessment {
     Field('costPerParticipant', String,
         'Cost Per Participant — training cost'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2689,16 +2953,20 @@ class OngoingTrainingEntry {
     Field('description', String, 'Description'),
     Field('targetAudience', String, 'Target Audience'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scheduling and delivery.
+  @SerializationOrder(1)
   OngoingTrainingEntrySchedule schedule = OngoingTrainingEntrySchedule();
 
   /// Content maintenance.
+  @SerializationOrder(2)
   OngoingTrainingEntryContent contentManagement =
       OngoingTrainingEntryContent();
 
   /// Tracking and compliance.
+  @SerializationOrder(3)
   OngoingTrainingEntryCompliance compliance =
       OngoingTrainingEntryCompliance();
 }
@@ -2716,6 +2984,7 @@ class OngoingTrainingEntrySchedule {
     Field('format', String, 'Format'),
     Field('duration', String, 'Duration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2727,6 +2996,7 @@ class OngoingTrainingEntryContent {
     Field('contentUpdates', String,
         'Content Updates — how content is kept current'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2744,6 +3014,7 @@ class OngoingTrainingEntryCompliance {
     Field('noncompliance', String,
         'Non-compliance — consequences of missing training'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2758,15 +3029,19 @@ class SystemTrainingEntry {
     Field('userRoleFocus', String,
         'User Role Focus — specific role training'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Functional training coverage.
+  @SerializationOrder(1)
   SystemTrainingEntryFunctional functional = SystemTrainingEntryFunctional();
 
   /// Practical exercises.
+  @SerializationOrder(2)
   SystemTrainingEntryPractice practice = SystemTrainingEntryPractice();
 
   /// Support and environment.
+  @SerializationOrder(3)
   SystemTrainingEntrySupport support = SystemTrainingEntrySupport();
 }
 
@@ -2785,6 +3060,7 @@ class SystemTrainingEntryFunctional {
     Field('workflowTraining', String,
         'Workflow Training — business workflows'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2799,6 +3075,7 @@ class SystemTrainingEntryPractice {
     Field('scenarioBased', String,
         'Scenario-Based — realistic scenarios practiced'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2813,6 +3090,7 @@ class SystemTrainingEntrySupport {
     Field('sandboxEnvironment', String,
         'Sandbox Environment — practice system'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2824,22 +3102,28 @@ class CertificationEntry {
     Field('certificationName', String, 'Certification Name', required: true),
     Field('issuingBody', String, 'Issuing Body — who certifies'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Description and audience.
+    @SerializationOrder(1)
     CertificationEntryOverview overview = CertificationEntryOverview();
 
     /// Preparation requirements.
+    @SerializationOrder(2)
     CertificationEntryPreparation preparation = CertificationEntryPreparation();
 
     /// Exam details.
+    @SerializationOrder(3)
     CertificationEntryExam exam = CertificationEntryExam();
 
     /// Validity and renewal details.
+    @SerializationOrder(4)
     CertificationEntryMaintenance maintenance =
             CertificationEntryMaintenance();
 
     /// Sponsorship and consequences.
+    @SerializationOrder(5)
     CertificationEntrySupport support = CertificationEntrySupport();
 }
 
@@ -2851,6 +3135,7 @@ class CertificationEntryOverview {
         Field('targetRoles', String, 'Target Roles — who needs this'),
         Field('mandatory', String, 'Mandatory — required or recommended'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2862,6 +3147,7 @@ class CertificationEntryPreparation {
         Field('preparationPath', String,
                 'Preparation Path — how to prepare'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2877,6 +3163,7 @@ class CertificationEntryExam {
         Field('examLocation', String,
                 'Exam Location — testing center, online'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2888,6 +3175,7 @@ class CertificationEntryMaintenance {
         Field('renewalRequirements', String,
                 'Renewal Requirements — CEUs, retake'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2902,6 +3190,7 @@ class CertificationEntrySupport {
         Field('failureConsequence', String,
                 'Failure Consequence — impact on role'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -2918,15 +3207,19 @@ class TrainingMaterials {
     Field('elearningModules', String,
         'E-Learning Modules — interactive online courses'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Practice and reference resources.
+  @SerializationOrder(1)
   TrainingMaterialsPractice practice = TrainingMaterialsPractice();
 
   /// Knowledge distribution.
+  @SerializationOrder(2)
   TrainingMaterialsKnowledge knowledge = TrainingMaterialsKnowledge();
 
   /// Publishing and accessibility.
+  @SerializationOrder(3)
   TrainingMaterialsOperations operations = TrainingMaterialsOperations();
 }
 
@@ -2945,6 +3238,7 @@ class TrainingMaterialsPractice {
     Field('screenRecordings', String,
         'Screen Recordings — step-by-step demos'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2958,6 +3252,7 @@ class TrainingMaterialsKnowledge {
     Field('accessMethod', String,
         'Access Method — LMS, intranet, SharePoint'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2972,6 +3267,7 @@ class TrainingMaterialsOperations {
     Field('accessibilityFormat', String,
         'Accessibility Format — screen reader, captions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2988,17 +3284,21 @@ class TrainingAssessment {
     Field('practicalEvaluation', String,
         'Practical Evaluation — hands-on demonstration'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Retention and effectiveness evaluation.
+  @SerializationOrder(1)
   TrainingAssessmentEffectiveness effectiveness =
       TrainingAssessmentEffectiveness();
 
   /// Competency and remediation management.
+  @SerializationOrder(2)
   TrainingAssessmentImprovement improvement =
       TrainingAssessmentImprovement();
 
   /// Progress reporting.
+  @SerializationOrder(3)
   TrainingAssessmentReporting reporting = TrainingAssessmentReporting();
 }
 
@@ -3017,6 +3317,7 @@ class TrainingAssessmentEffectiveness {
     Field('kirkpatrickLevel4', String,
         'Level 4 (Results) — business impact'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3031,6 +3332,7 @@ class TrainingAssessmentImprovement {
     Field('remediation', String,
         'Remediation — addressing failed assessments'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3045,6 +3347,7 @@ class TrainingAssessmentReporting {
     Field('managementVisibility', String,
         'Management Visibility — supervisor access to progress'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3061,17 +3364,21 @@ class WorkplaceSupportResources {
     Field('onSiteSupport', String,
         'On-Site Support — deskside support availability'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Extended support channels.
+  @SerializationOrder(1)
   WorkplaceSupportResourcesChannels channels =
       WorkplaceSupportResourcesChannels();
 
   /// Self-service and feedback.
+  @SerializationOrder(2)
   WorkplaceSupportResourcesSelfService selfService =
       WorkplaceSupportResourcesSelfService();
 
   /// Incident and emergency support.
+  @SerializationOrder(3)
   WorkplaceSupportResourcesIncidents incidents =
       WorkplaceSupportResourcesIncidents();
 }
@@ -3085,6 +3392,7 @@ class WorkplaceSupportResourcesChannels {
     Field('superUserNetwork', String,
         'Super User Network — power users for first-line help'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3100,6 +3408,7 @@ class WorkplaceSupportResourcesSelfService {
     Field('feedbackChannel', String,
         'Feedback Channel — how to submit suggestions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3116,5 +3425,6 @@ class WorkplaceSupportResourcesIncidents {
     Field('emergencyProcedures', String,
         'Emergency Procedures — for critical issues'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

@@ -25,34 +25,43 @@ Describe the overall governance model, communication approach, and key
 administrative agreements that govern this project. Highlight any deviations
 from standard organizational project governance procedures.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Governance overview summary statistics (folded in from the former
   /// `AdministrativeSummary` when the `Administrative` wrapper was dissolved).
+  @SerializationOrder(1)
   AdministrativeSummary summary = AdministrativeSummary();
 
   /// Governance, steering committee, RACI, process deviations.
+  @SerializationOrder(2)
   ProjectOrganizationAndProcess projectOrganizationProcess =
       ProjectOrganizationAndProcess();
 
   /// Project organization (org structure, steering committee).
+  @SerializationOrder(3)
   ProjectOrganization projectOrganization = ProjectOrganization();
 
   /// Project team staffing — contains 1+× Team Member.
+  @SerializationOrder(4)
   ProjectTeamStaffing projectTeamStaffing = ProjectTeamStaffing();
 
   /// Distribution list and communication matrix.
+  @SerializationOrder(5)
   DistributionList distributionList = DistributionList();
 
   /// Change procedure.
+  @SerializationOrder(6)
   ChangeProcedure changeProcedure = ChangeProcedure();
 
   /// Legal and contractual requirements (IP, NDAs, compliance, audit).
   /// Renamed to `LegalAndContractualRequirements` in L34C-9.
+  @SerializationOrder(7)
   LegalAndContractualRequirements legalAndContractual =
       LegalAndContractualRequirements();
 
   /// Stakeholder register (§5 completeness addition).
+  @SerializationOrder(8)
   StakeholderRegister stakeholderRegister = StakeholderRegister();
 }
 
@@ -67,12 +76,14 @@ from standard organizational project governance procedures.
 @SectionId('STKRG')
 class StakeholderRegister {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// One entry per stakeholder or stakeholder group.
   @SectionId('STKRG-STAK-LST')
   @SectionIdPattern('STKRG-STAK-xxx')
   @ContentHelp('Add one entry per stakeholder or group (STK-NNN).')
+  @SerializationOrder(1)
   List<StakeholderRegisterEntry> stakeholders = [];
 }
 
@@ -91,5 +102,6 @@ class StakeholderRegisterEntry {
     Field('concerns', String, 'Concerns'),
     Field('engagementStrategy', String, 'Engagement Strategy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

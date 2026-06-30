@@ -21,5 +21,6 @@ class Requirement {
     Field('acceptanceCriteria', String, 'Acceptance Criteria'),
     Field('status', Status, 'Current status'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

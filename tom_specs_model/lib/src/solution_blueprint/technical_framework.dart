@@ -53,33 +53,43 @@ Provide an executive summary of the technical framework approach.
 - Cross-reference with business drivers from project overview
 - Plan for technology obsolescence and migration paths
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 8.1. Basic Technical Requirements.
+  @SerializationOrder(1)
   BasicTechnicalRequirements basicRequirements = BasicTechnicalRequirements();
 
   /// 8.2. Software Design Requirements.
+  @SerializationOrder(2)
   SoftwareDesignRequirements softwareDesign = SoftwareDesignRequirements();
 
   /// 8.3. Standard Application Software Requirements.
+  @SerializationOrder(3)
   StandardSoftwareRequirements standardSoftware = StandardSoftwareRequirements();
 
   /// 8.4. Hardware Concept Requirements.
+  @SerializationOrder(4)
   HardwareRequirements hardware = HardwareRequirements();
 
   /// 8.5. Operations Requirements.
+  @SerializationOrder(5)
   OperationsRequirements operations = OperationsRequirements();
 
   /// 8.6. Communication Requirements.
+  @SerializationOrder(6)
   CommunicationRequirements communication = CommunicationRequirements();
 
   /// 8.7. System Operation and Monitoring.
+  @SerializationOrder(7)
   SystemOperationAndMonitoring systemOperation = SystemOperationAndMonitoring();
 
   /// 8.8. Security Requirements.
+  @SerializationOrder(8)
   TechnicalSecurityRequirements security = TechnicalSecurityRequirements();
 
   /// 8.9. System Architecture..
+  @SerializationOrder(9)
   SystemArchitectureSpec systemArchitecture = SystemArchitectureSpec();
 }
 
@@ -128,15 +138,19 @@ Provide an overview of basic technical requirements and key decisions.
 - Plan technical debt management strategy
 - Establish technology evaluation criteria
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 8.1.1. Platform and Language.
+  @SerializationOrder(1)
   PlatformAndLanguage platformAndLanguage = PlatformAndLanguage();
 
   /// 8.1.2. Architecture Style.
+  @SerializationOrder(2)
   ArchitectureStyle architectureStyle = ArchitectureStyle();
 
   /// 8.1.3. Design Patterns and Standards.
+  @SerializationOrder(3)
   DesignPatternsAndStandards designPatternsAndStandards =
       DesignPatternsAndStandards();
 }
@@ -194,40 +208,49 @@ Provide a strategic overview of platform and technology selections.
 - Consider developer experience and productivity
 - Evaluate total cost of ownership (licensing, training, tooling)
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// General platform and technology overview.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Target platforms (operating systems, runtimes, containers).
   @SectionId('TGPLT-TARG-LST')
   @SectionIdPattern('TGPLT-TARG-xxx')
+  @SerializationOrder(2)
   List<TargetPlatformEntry> targetPlatforms = [];
 
   /// Programming language requirements.
   @SectionId('PLGEN-PROG-LST')
   @SectionIdPattern('PLGEN-PROG-xxx')
+  @SerializationOrder(3)
   List<ProgrammingLanguageEntry> programmingLanguages = [];
 
   /// Framework and library requirements.
   @SectionId('FWREN-FRAM-LST')
   @SectionIdPattern('FWREN-FRAM-xxx')
+  @SerializationOrder(4)
   List<FrameworkRequirementEntry> frameworks = [];
 
   /// Build toolchain requirements.
   @SectionId('BTCEN-BUIL-LST')
   @SectionIdPattern('BTCEN-BUIL-xxx')
+  @SerializationOrder(5)
   List<BuildToolchainEntry> buildToolchain = [];
 
   /// Deployment target specifications.
   @SectionId('DETAEN-DEPL-LST')
   @SectionIdPattern('DETAEN-DEPL-xxx')
+  @SerializationOrder(6)
   List<DeploymentTargetEntry> deploymentTargets = [];
 
   /// Dependency management requirements.
+  @SerializationOrder(7)
   DependencyManagement dependencyManagement = DependencyManagement();
 
   /// Runtime environment constraints.
+  @SerializationOrder(8)
   RuntimeEnvironment runtimeEnvironment = RuntimeEnvironment();
 }
 
@@ -244,20 +267,25 @@ class TargetPlatformEntry {
     Field(
         'platformType', String, 'Type', hint: 'Server, Desktop, Mobile, IoT'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Version requirements.
+  @SerializationOrder(1)
   TargetPlatformEntryVersion version = TargetPlatformEntryVersion();
 
   /// Architecture details.
+  @SerializationOrder(2)
   TargetPlatformEntryArchitecture architecture =
     TargetPlatformEntryArchitecture();
 
   /// Requirements and constraints.
+  @SerializationOrder(3)
   TargetPlatformEntryRequirements requirements =
     TargetPlatformEntryRequirements();
 
   /// Lifecycle and compliance.
+  @SerializationOrder(4)
   TargetPlatformEntryLifecycle lifecycle = TargetPlatformEntryLifecycle();
 }
 
@@ -272,6 +300,7 @@ class TargetPlatformEntryVersion {
   Field('maximumVersion', String, 'Maximum Version',
     hint: 'Latest tested/supported version'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -283,6 +312,7 @@ class TargetPlatformEntryArchitecture {
     hint: 'E.g., x86_64, ARM64, WASM'),
   Field('bitness', String, 'Bitness', hint: '32-bit, 64-bit, Both'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -297,6 +327,7 @@ class TargetPlatformEntryRequirements {
   Field('requiredFeatures', String, 'Required Features',
     hint: 'Specific OS features or capabilities needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -315,6 +346,7 @@ class TargetPlatformEntryLifecycle {
   Field('notes', String, 'Notes',
     hint: 'Additional platform-specific notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -329,21 +361,27 @@ class ProgrammingLanguageEntry {
     Field('minimumVersion', String, 'Minimum Version',
         required: true, hint: 'Earliest supported language version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Version requirements.
+  @SerializationOrder(1)
   ProgrammingLanguageEntryVersion version = ProgrammingLanguageEntryVersion();
 
   /// SDK configuration.
+  @SerializationOrder(2)
   ProgrammingLanguageEntrySdk sdk = ProgrammingLanguageEntrySdk();
 
   /// Usage context.
+  @SerializationOrder(3)
   ProgrammingLanguageEntryUsage usage = ProgrammingLanguageEntryUsage();
 
   /// Quality settings.
+  @SerializationOrder(4)
   ProgrammingLanguageEntryQuality quality = ProgrammingLanguageEntryQuality();
 
   /// Justification and notes.
+  @SerializationOrder(5)
   ProgrammingLanguageEntryJustification justification =
       ProgrammingLanguageEntryJustification();
 }
@@ -357,6 +395,7 @@ class ProgrammingLanguageEntryVersion {
     Field('maximumVersion', String, 'Maximum Version',
         hint: 'Latest tested/supported version'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -370,6 +409,7 @@ class ProgrammingLanguageEntrySdk {
     Field('sdkRecommendedVersion', String, 'SDK Recommended Version',
         hint: 'Recommended SDK version'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -390,6 +430,7 @@ class ProgrammingLanguageEntryUsage {
     Field('disabledLanguageOptions', String, 'Disabled Options',
         hint: 'Compiler/interpreter options to disable'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -404,6 +445,7 @@ class ProgrammingLanguageEntryQuality {
     Field('codeStyle', String, 'Code Style',
         hint: 'Code style/formatting standard'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -419,6 +461,7 @@ class ProgrammingLanguageEntryJustification {
         hint: 'Upgrade/migration strategy'),
     Field('notes', String, 'Notes', hint: 'Additional language notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -433,24 +476,31 @@ class FrameworkRequirementEntry {
     Field('purpose', String, 'Purpose',
         required: true, hint: 'What problem this framework solves'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identity details.
+  @SerializationOrder(1)
   FrameworkIdentity identity = FrameworkIdentity();
 
   /// Version requirements.
+  @SerializationOrder(2)
   FrameworkVersion version = FrameworkVersion();
 
   /// Scope and plugins.
+  @SerializationOrder(3)
   FrameworkScope scope = FrameworkScope();
 
   /// Compatibility.
+  @SerializationOrder(4)
   FrameworkCompatibility compatibility = FrameworkCompatibility();
 
   /// Support status.
+  @SerializationOrder(5)
   FrameworkSupport support = FrameworkSupport();
 
   /// Justification.
+  @SerializationOrder(6)
   FrameworkJustification justification = FrameworkJustification();
 }
 
@@ -461,6 +511,7 @@ class FrameworkIdentity {
     Field('publisher', String, 'Publisher', hint: 'Framework publisher/owner'),
     Field('license', String, 'License', hint: 'License type (MIT, Apache, etc.)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -477,6 +528,7 @@ class FrameworkVersion {
     Field('versionConstraint', String, 'Version Constraint',
         hint: 'E.g., ^3.0.0, >=2.0.0 <4.0.0'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -495,6 +547,7 @@ class FrameworkScope {
     Field('excludedFeatures', String, 'Excluded Features',
         hint: 'Framework features that should not be used'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -509,6 +562,7 @@ class FrameworkCompatibility {
     Field('deprecationWarnings', String, 'Deprecation Warnings',
         hint: 'Known deprecations to address'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -523,6 +577,7 @@ class FrameworkSupport {
     Field('documentationQuality', String, 'Documentation Quality',
         hint: 'Excellent, Good, Fair, Poor'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -538,6 +593,7 @@ class FrameworkJustification {
         hint: 'Vendor lock-in, maintenance, complexity risks'),
     Field('notes', String, 'Notes', hint: 'Additional framework notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -553,26 +609,33 @@ class BuildToolchainEntry {
     Field('platform', String, 'Platform',
         hint: 'Which platform(s) this tool is used for'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Version requirements.
+  @SerializationOrder(1)
   BuildToolchainEntryVersions versions = BuildToolchainEntryVersions();
 
   /// Configuration and plugins.
+  @SerializationOrder(2)
   BuildToolchainEntryConfiguration configuration =
       BuildToolchainEntryConfiguration();
 
   /// Build profile settings.
+  @SerializationOrder(3)
   BuildToolchainEntryProfiles profiles = BuildToolchainEntryProfiles();
 
   /// Integration touchpoints.
+  @SerializationOrder(4)
   BuildToolchainEntryIntegration integration =
       BuildToolchainEntryIntegration();
 
   /// Output artifact settings.
+  @SerializationOrder(5)
   BuildToolchainEntryOutputs outputs = BuildToolchainEntryOutputs();
 
   /// Performance and rationale.
+  @SerializationOrder(6)
   BuildToolchainEntryOperations operations = BuildToolchainEntryOperations();
 }
 
@@ -585,6 +648,7 @@ class BuildToolchainEntryVersions {
     Field('recommendedVersion', String, 'Recommended Version',
         hint: 'Preferred target version'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -599,6 +663,7 @@ class BuildToolchainEntryConfiguration {
     Field('optionalPlugins', String, 'Optional Plugins',
         hint: 'Recommended optional plugins'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -611,6 +676,7 @@ class BuildToolchainEntryProfiles {
     Field('defaultProfile', String, 'Default Profile',
         hint: 'Default build profile'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -623,6 +689,7 @@ class BuildToolchainEntryIntegration {
     Field('ideIntegration', String, 'IDE Integration',
         hint: 'Integration with development IDEs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -635,6 +702,7 @@ class BuildToolchainEntryOutputs {
     Field('outputLocations', String, 'Output Locations',
         hint: 'Where build artifacts are stored'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -650,6 +718,7 @@ class BuildToolchainEntryOperations {
         hint: 'Reason for selecting this tool'),
     Field('notes', String, 'Notes', hint: 'Additional toolchain notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -664,23 +733,29 @@ class DeploymentTargetEntry {
     Field('targetEnvironment', String, 'Environment',
         hint: 'Development, Staging, Production'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Platform specifics.
+  @SerializationOrder(1)
   DeploymentTargetEntryPlatform platform = DeploymentTargetEntryPlatform();
 
   /// Build output configuration.
+  @SerializationOrder(2)
   DeploymentTargetEntryBuildOutput buildOutput =
       DeploymentTargetEntryBuildOutput();
 
   /// Platform requirements.
+  @SerializationOrder(3)
   DeploymentTargetEntryRequirements requirements =
       DeploymentTargetEntryRequirements();
 
   /// Deployment process configuration.
+  @SerializationOrder(4)
   DeploymentTargetEntryProcess process = DeploymentTargetEntryProcess();
 
   /// Compliance and notes.
+  @SerializationOrder(5)
   DeploymentTargetEntryCompliance compliance =
       DeploymentTargetEntryCompliance();
 }
@@ -694,6 +769,7 @@ class DeploymentTargetEntryPlatform {
     Field('distributionChannel', String, 'Distribution Channel',
         hint: 'App Store, Play Store, Web hosting, Container registry'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -712,6 +788,7 @@ class DeploymentTargetEntryBuildOutput {
     Field('performanceTargets', String, 'Performance Targets',
         hint: 'Startup time, memory footprint targets'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -728,6 +805,7 @@ class DeploymentTargetEntryRequirements {
     Field('requiredCapabilities', String, 'Required Capabilities',
         hint: 'Platform capabilities needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -742,6 +820,7 @@ class DeploymentTargetEntryProcess {
     Field('featureFlagsSupport', String, 'Feature Flags Support',
         hint: 'Feature flag implementation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -759,6 +838,7 @@ class DeploymentTargetEntryCompliance {
         hint: 'Target date for this deployment'),
     Field('notes', String, 'Notes', hint: 'Additional deployment notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -774,19 +854,24 @@ class DependencyManagement {
     Field('registryUrls', String, 'Registry URLs',
         hint: 'Package registry URLs (public and private)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Versioning and update policy.
+  @SerializationOrder(1)
   DependencyManagementVersioning versioning =
     DependencyManagementVersioning();
 
   /// Security and trust controls.
+  @SerializationOrder(2)
   DependencyManagementSecurity security = DependencyManagementSecurity();
 
   /// Internal package and workspace strategy.
+  @SerializationOrder(3)
   DependencyManagementInternal internal = DependencyManagementInternal();
 
   /// Caching and offline behavior.
+  @SerializationOrder(4)
   DependencyManagementOperations operations = DependencyManagementOperations();
 }
 
@@ -801,6 +886,7 @@ class DependencyManagementVersioning {
   Field('lockfilePolicy', String, 'Lockfile Policy',
     hint: 'Required, Recommended, Optional'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -815,6 +901,7 @@ class DependencyManagementSecurity {
   Field('sourceTrust', String, 'Source Trust',
     hint: 'Trusted sources and verification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -827,6 +914,7 @@ class DependencyManagementInternal {
   Field('monorepoStrategy', String, 'Monorepo Strategy',
     hint: 'Workspace/monorepo dependency management'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -841,6 +929,7 @@ class DependencyManagementOperations {
   Field('notes', String, 'Notes',
     hint: 'Additional dependency management notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -857,31 +946,40 @@ class RuntimeEnvironment {
     Field('minimumDiskSpace', String, 'Minimum Disk Space',
         hint: 'Minimum disk space for installation'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Memory limits.
+  @SerializationOrder(1)
   RuntimeEnvironmentMemory memory = RuntimeEnvironmentMemory();
 
   /// CPU and graphics requirements.
+  @SerializationOrder(2)
   RuntimeEnvironmentCpu cpu = RuntimeEnvironmentCpu();
 
   /// Storage requirements.
+  @SerializationOrder(3)
   RuntimeEnvironmentStorage storage = RuntimeEnvironmentStorage();
 
   /// Network requirements.
+  @SerializationOrder(4)
   RuntimeEnvironmentNetwork network = RuntimeEnvironmentNetwork();
 
   /// Environment variables.
+  @SerializationOrder(5)
   RuntimeEnvironmentVariables variables = RuntimeEnvironmentVariables();
 
   /// Runtime dependencies.
+  @SerializationOrder(6)
   RuntimeEnvironmentDependencies dependencies =
       RuntimeEnvironmentDependencies();
 
   /// Scaling characteristics.
+  @SerializationOrder(7)
   RuntimeEnvironmentScaling scaling = RuntimeEnvironmentScaling();
 
   /// Additional notes.
+  @SerializationOrder(8)
   RuntimeEnvironmentNotes runtimeNotes = RuntimeEnvironmentNotes();
 }
 
@@ -892,6 +990,7 @@ class RuntimeEnvironmentMemory {
     Field('memoryLimits', String, 'Memory Limits',
         hint: 'Hard memory limits or caps'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -904,6 +1003,7 @@ class RuntimeEnvironmentCpu {
     Field('gpuRequirements', String, 'GPU Requirements',
         hint: 'GPU/graphics requirements if any'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -916,6 +1016,7 @@ class RuntimeEnvironmentStorage {
     Field('storageType', String, 'Storage Type',
         hint: 'SSD required, HDD acceptable'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -930,6 +1031,7 @@ class RuntimeEnvironmentNetwork {
     Field('latencyRequirements', String, 'Latency Requirements',
         hint: 'Maximum acceptable latency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -942,6 +1044,7 @@ class RuntimeEnvironmentVariables {
     Field('optionalEnvVariables', String, 'Optional Environment Variables',
         hint: 'Optional configuration variables'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -954,6 +1057,7 @@ class RuntimeEnvironmentDependencies {
     Field('externalServices', String, 'External Services',
         hint: 'Required external services (DB, cache, etc.)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -968,6 +1072,7 @@ class RuntimeEnvironmentScaling {
     Field('autoScalingRules', String, 'Auto-Scaling Rules',
         hint: 'Auto-scaling triggers and limits'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -978,6 +1083,7 @@ class RuntimeEnvironmentNotes {
     Field('notes', String, 'Notes',
         hint: 'Additional runtime environment notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1036,42 +1142,53 @@ Provide the architectural vision and primary style selection rationale.
 - Plan for architectural fitness functions
 - Establish architectural governance process
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Architecture overview and primary style selection.
+  @SerializationOrder(1)
   ArchitectureOverview overview = ArchitectureOverview();
 
   /// Architecture principles guiding design decisions.
   @SectionId('ARPR-PRIN-LST')
   @SectionIdPattern('ARPR-PRIN-xxx')
+  @SerializationOrder(2)
   List<ArchitecturePrincipleEntry> principles = [];
 
   /// System component organization and boundaries.
+  @SerializationOrder(3)
   ComponentOrganization componentOrganization = ComponentOrganization();
 
   /// Component/service catalog.
   @SectionId('ARCM-COMP-LST')
   @SectionIdPattern('ARCM-COMP-xxx')
+  @SerializationOrder(4)
   List<ArchitectureComponentEntry> components = [];
 
   /// Communication patterns between components.
+  @SerializationOrder(5)
   CommunicationPatterns communicationPatterns = CommunicationPatterns();
 
   /// Data management architecture.
+  @SerializationOrder(6)
   DataArchitecture dataArchitecture = DataArchitecture();
 
   /// Scalability and performance architecture.
+  @SerializationOrder(7)
   ScalabilityArchitecture scalabilityArchitecture = ScalabilityArchitecture();
 
   /// Integration architecture with external systems.
+  @SerializationOrder(8)
   IntegrationArchitecture integrationArchitecture = IntegrationArchitecture();
 
   /// Deployment topology and infrastructure.
+  @SerializationOrder(9)
   DeploymentTopology deploymentTopology = DeploymentTopology();
 
   /// Architecture decision records.
   @SectionId('ARDE-DECI-LST')
   @SectionIdPattern('ARDE-DECI-xxx')
+  @SerializationOrder(10)
   List<ArchitectureDecisionRecord> decisionRecords = [];
 }
 
@@ -1088,18 +1205,23 @@ class ArchitectureOverview {
     Field('styleSummary', String, 'Style Summary',
         hint: 'Brief description of the chosen architecture'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Architecture drivers.
+  @SerializationOrder(1)
   ArchitectureOverviewDrivers drivers = ArchitectureOverviewDrivers();
 
   /// Trade-offs and alternatives.
+  @SerializationOrder(2)
   ArchitectureOverviewTradeOffs tradeOffs = ArchitectureOverviewTradeOffs();
 
   /// Evolution planning.
+  @SerializationOrder(3)
   ArchitectureOverviewEvolution evolution = ArchitectureOverviewEvolution();
 
   /// Compliance considerations.
+  @SerializationOrder(4)
   ArchitectureOverviewCompliance compliance = ArchitectureOverviewCompliance();
 }
 
@@ -1115,6 +1237,7 @@ class ArchitectureOverviewDrivers {
     Field('technicalDrivers', String, 'Technical Drivers',
         hint: 'Technical requirements driving the choice'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1133,6 +1256,7 @@ class ArchitectureOverviewTradeOffs {
     Field('rejectionReasons', String, 'Rejection Reasons',
         hint: 'Why alternatives were not chosen'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1145,6 +1269,7 @@ class ArchitectureOverviewEvolution {
     Field('migrationStrategy', String, 'Migration Strategy',
         hint: 'Strategy for migrating from current state'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1158,6 +1283,7 @@ class ArchitectureOverviewCompliance {
         hint: 'Reference to industry-standard architectures'),
     Field('notes', String, 'Notes', hint: 'Additional architecture notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1173,13 +1299,16 @@ class ArchitecturePrincipleEntry {
     Field('statement', String, 'Statement',
         required: true, hint: 'Clear statement of the principle'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Rationale and practical implications.
+  @SerializationOrder(1)
   ArchitecturePrincipleEntryGuidance guidance =
     ArchitecturePrincipleEntryGuidance();
 
   /// Enforcement and applicability context.
+  @SerializationOrder(2)
   ArchitecturePrincipleEntryGovernance governance =
     ArchitecturePrincipleEntryGovernance();
 }
@@ -1194,6 +1323,7 @@ class ArchitecturePrincipleEntryGuidance {
   Field('violations', String, 'Violation Examples',
     hint: 'Examples of what would violate this principle'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1213,6 +1343,7 @@ class ArchitecturePrincipleEntryGovernance {
     hint: 'Other principles that relate to this one'),
   Field('notes', String, 'Notes', hint: 'Additional principle notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1227,18 +1358,23 @@ class ComponentOrganization {
     Field('modularityApproach', String, 'Modularity Approach',
         hint: 'How modules/components are structured'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Layering rules.
+  @SerializationOrder(1)
   ComponentOrganizationLayering layering = ComponentOrganizationLayering();
 
   /// Domain boundaries.
+  @SerializationOrder(2)
   ComponentOrganizationDomain domain = ComponentOrganizationDomain();
 
   /// Coupling guidance.
+  @SerializationOrder(3)
   ComponentOrganizationCoupling coupling = ComponentOrganizationCoupling();
 
   /// Dependency management rules.
+  @SerializationOrder(4)
   ComponentOrganizationDependencies dependencies =
       ComponentOrganizationDependencies();
 }
@@ -1254,6 +1390,7 @@ class ComponentOrganizationLayering {
     Field('crossCuttingConcerns', String, 'Cross-Cutting Concerns',
         hint: 'How cross-cutting concerns are handled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1268,6 +1405,7 @@ class ComponentOrganizationDomain {
     Field('antiCorruptionLayers', String, 'Anti-Corruption Layers',
         hint: 'Isolation between different domains/systems'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1280,6 +1418,7 @@ class ComponentOrganizationCoupling {
     Field('cohesionGuidelines', String, 'Cohesion Guidelines',
         hint: 'How to maximize cohesion'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1295,6 +1434,7 @@ class ComponentOrganizationDependencies {
         hint: 'How component versions are managed'),
     Field('notes', String, 'Notes', hint: 'Additional organization notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1309,25 +1449,31 @@ class ArchitectureComponentEntry {
         hint: 'Service, Module, Library, Package, Microservice, Function'),
     Field('domain', String, 'Domain', hint: 'Business domain this belongs to'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Purpose and ownership boundaries.
+  @SerializationOrder(1)
   ArchitectureComponentEntryPurpose purpose =
       ArchitectureComponentEntryPurpose();
 
   /// Public and private boundaries.
+  @SerializationOrder(2)
   ArchitectureComponentEntryBoundaries boundaries =
       ArchitectureComponentEntryBoundaries();
 
   /// Dependency relationships.
+  @SerializationOrder(3)
   ArchitectureComponentEntryDependencies dependencies =
       ArchitectureComponentEntryDependencies();
 
   /// Technical delivery characteristics.
+  @SerializationOrder(4)
   ArchitectureComponentEntryTechnical technical =
       ArchitectureComponentEntryTechnical();
 
   /// Team ownership and service expectations.
+  @SerializationOrder(5)
   ArchitectureComponentEntryOwnership ownership =
       ArchitectureComponentEntryOwnership();
 }
@@ -1343,6 +1489,7 @@ class ArchitectureComponentEntryPurpose {
     Field('notResponsibleFor', String, 'Not Responsible For',
         hint: 'Explicitly out of scope'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1357,6 +1504,7 @@ class ArchitectureComponentEntryBoundaries {
     Field('dataOwnership', String, 'Data Ownership',
         hint: 'Data entities this component owns'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1371,6 +1519,7 @@ class ArchitectureComponentEntryDependencies {
     Field('externalDependencies', String, 'External Dependencies',
         hint: 'External systems this integrates with'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1385,6 +1534,7 @@ class ArchitectureComponentEntryTechnical {
     Field('scalingCharacteristics', String, 'Scaling Characteristics',
         hint: 'How this component scales'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1398,6 +1548,7 @@ class ArchitectureComponentEntryOwnership {
         hint: 'Expected availability and performance'),
     Field('notes', String, 'Notes', hint: 'Additional component notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1412,25 +1563,31 @@ class CommunicationPatterns {
     Field('syncProtocols', String, 'Synchronous Protocols',
         hint: 'REST, gRPC, GraphQL, SOAP'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Synchronous communication details.
+  @SerializationOrder(1)
   CommunicationPatternsSynchronous synchronous =
       CommunicationPatternsSynchronous();
 
   /// Asynchronous communication details.
+  @SerializationOrder(2)
   CommunicationPatternsAsynchronous asynchronous =
       CommunicationPatternsAsynchronous();
 
   /// Data exchange contracts.
+  @SerializationOrder(3)
   CommunicationPatternsDataExchange dataExchange =
       CommunicationPatternsDataExchange();
 
   /// Reliability controls.
+  @SerializationOrder(4)
   CommunicationPatternsReliability reliability =
       CommunicationPatternsReliability();
 
   /// Observability settings.
+  @SerializationOrder(5)
   CommunicationPatternsObservability observability =
       CommunicationPatternsObservability();
 }
@@ -1444,6 +1601,7 @@ class CommunicationPatternsSynchronous {
     Field('apiGateway', String, 'API Gateway',
         hint: 'Central gateway pattern details'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1458,6 +1616,7 @@ class CommunicationPatternsAsynchronous {
     Field('eventPatterns', String, 'Event Patterns',
         hint: 'Pub/Sub, Event sourcing, CQRS'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1472,6 +1631,7 @@ class CommunicationPatternsDataExchange {
     Field('serialization', String, 'Serialization',
         hint: 'Serialization approach'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1486,6 +1646,7 @@ class CommunicationPatternsReliability {
     Field('timeouts', String, 'Timeouts', hint: 'Timeout strategies'),
     Field('idempotency', String, 'Idempotency', hint: 'Idempotency guarantees'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1499,6 +1660,7 @@ class CommunicationPatternsObservability {
     Field('metrics', String, 'Metrics', hint: 'Metrics collection'),
     Field('notes', String, 'Notes', hint: 'Additional communication notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1513,21 +1675,27 @@ class DataArchitecture {
     Field('dataGovernance', String, 'Data Governance',
         hint: 'Governance policies'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Storage decisions.
+  @SerializationOrder(1)
   DataArchitectureStorage storage = DataArchitectureStorage();
 
   /// Data access patterns.
+  @SerializationOrder(2)
   DataArchitectureAccess access = DataArchitectureAccess();
 
   /// Consistency model and transactions.
+  @SerializationOrder(3)
   DataArchitectureConsistency consistency = DataArchitectureConsistency();
 
   /// Lifecycle controls.
+  @SerializationOrder(4)
   DataArchitectureLifecycle lifecycle = DataArchitectureLifecycle();
 
   /// Privacy and security controls.
+  @SerializationOrder(5)
   DataArchitectureSecurity security = DataArchitectureSecurity();
 }
 
@@ -1542,6 +1710,7 @@ class DataArchitectureStorage {
     Field('storageTopology', String, 'Storage Topology',
         hint: 'Single, Replicated, Sharded, Multi-region'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1555,6 +1724,7 @@ class DataArchitectureAccess {
         hint: 'How data is queried'),
     Field('caching', String, 'Caching Strategy', hint: 'Caching approach'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1569,6 +1739,7 @@ class DataArchitectureConsistency {
     Field('conflictResolution', String, 'Conflict Resolution',
         hint: 'How conflicts are resolved'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1583,6 +1754,7 @@ class DataArchitectureLifecycle {
     Field('dataRecovery', String, 'Data Recovery',
         hint: 'Recovery point and time objectives'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1598,6 +1770,7 @@ class DataArchitectureSecurity {
         hint: 'Data access control model'),
     Field('notes', String, 'Notes', hint: 'Additional data architecture notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1612,22 +1785,28 @@ class ScalabilityArchitecture {
     Field('scalingTriggers', String, 'Scaling Triggers',
         hint: 'What triggers scaling actions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Capacity planning assumptions.
+  @SerializationOrder(1)
   ScalabilityArchitectureCapacity capacity = ScalabilityArchitectureCapacity();
 
   /// Performance targets.
+  @SerializationOrder(2)
   ScalabilityArchitectureTargets targets = ScalabilityArchitectureTargets();
 
   /// Performance patterns.
+  @SerializationOrder(3)
   ScalabilityArchitecturePatterns patterns = ScalabilityArchitecturePatterns();
 
   /// Resource optimization controls.
+  @SerializationOrder(4)
   ScalabilityArchitectureOptimization optimization =
       ScalabilityArchitectureOptimization();
 
   /// Testing and benchmarks.
+  @SerializationOrder(5)
   ScalabilityArchitectureTesting testing = ScalabilityArchitectureTesting();
 }
 
@@ -1641,6 +1820,7 @@ class ScalabilityArchitectureCapacity {
     Field('growthProjection', String, 'Growth Projection',
         hint: 'Expected growth over time'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1655,6 +1835,7 @@ class ScalabilityArchitectureTargets {
     Field('availabilityTarget', String, 'Availability Target',
         hint: 'Target availability (e.g., 99.9%)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1669,6 +1850,7 @@ class ScalabilityArchitecturePatterns {
     Field('queueingStrategy', String, 'Queueing Strategy',
         hint: 'Request queueing and throttling'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1683,6 +1865,7 @@ class ScalabilityArchitectureOptimization {
     Field('gracefulDegradation', String, 'Graceful Degradation',
         hint: 'How system degrades under load'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1698,6 +1881,7 @@ class ScalabilityArchitectureTesting {
     Field('notes', String, 'Notes',
         hint: 'Additional scalability/performance notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1712,23 +1896,29 @@ class IntegrationArchitecture {
     Field('apiManagement', String, 'API Management',
         hint: 'How APIs are managed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// External system landscape.
+  @SerializationOrder(1)
   IntegrationArchitectureSystems systems = IntegrationArchitectureSystems();
 
   /// Data exchange approach.
+  @SerializationOrder(2)
   IntegrationArchitectureData data = IntegrationArchitectureData();
 
   /// Security model for integrations.
+  @SerializationOrder(3)
   IntegrationArchitectureSecurity security =
       IntegrationArchitectureSecurity();
 
   /// Reliability controls.
+  @SerializationOrder(4)
   IntegrationArchitectureReliability reliability =
       IntegrationArchitectureReliability();
 
   /// Monitoring and SLA management.
+  @SerializationOrder(5)
   IntegrationArchitectureOperations operations =
       IntegrationArchitectureOperations();
 }
@@ -1744,6 +1934,7 @@ class IntegrationArchitectureSystems {
     Field('realTimeIntegrations', String, 'Real-Time Integrations',
         hint: 'Integrations requiring real-time sync'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1758,6 +1949,7 @@ class IntegrationArchitectureData {
     Field('dataSynchronization', String, 'Data Synchronization',
         hint: 'Synchronization patterns and frequency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1772,6 +1964,7 @@ class IntegrationArchitectureSecurity {
     Field('secureTransport', String, 'Secure Transport',
         hint: 'Transport security (TLS, VPN)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1786,6 +1979,7 @@ class IntegrationArchitectureReliability {
     Field('compensatingActions', String, 'Compensating Actions',
         hint: 'Actions when integration fails'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1800,6 +1994,7 @@ class IntegrationArchitectureOperations {
     Field('notes', String, 'Notes',
         hint: 'Additional integration architecture notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1814,24 +2009,30 @@ class DeploymentTopology {
     Field('cloudProviders', String, 'Cloud Providers',
         hint: 'Cloud providers used'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Infrastructure layout.
+  @SerializationOrder(1)
   DeploymentTopologyInfrastructure infrastructure =
       DeploymentTopologyInfrastructure();
 
   /// Environment layout.
+  @SerializationOrder(2)
   DeploymentTopologyEnvironments environmentsConfig =
       DeploymentTopologyEnvironments();
 
   /// High-availability settings.
+  @SerializationOrder(3)
   DeploymentTopologyAvailability availability =
       DeploymentTopologyAvailability();
 
   /// Geographic distribution.
+  @SerializationOrder(4)
   DeploymentTopologyGeography geography = DeploymentTopologyGeography();
 
   /// Infrastructure-as-code strategy.
+  @SerializationOrder(5)
   DeploymentTopologyInfrastructureAsCode infrastructureAsCode =
       DeploymentTopologyInfrastructureAsCode();
 }
@@ -1847,6 +2048,7 @@ class DeploymentTopologyInfrastructure {
     Field('storageInfrastructure', String, 'Storage Infrastructure',
         hint: 'Storage systems used'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1861,6 +2063,7 @@ class DeploymentTopologyEnvironments {
     Field('configurationManagement', String, 'Configuration Management',
         hint: 'How configuration differs per environment'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1875,6 +2078,7 @@ class DeploymentTopologyAvailability {
     Field('disasterRecovery', String, 'Disaster Recovery',
         hint: 'DR strategy and targets'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1889,6 +2093,7 @@ class DeploymentTopologyGeography {
     Field('latencyConsiderations', String, 'Latency Considerations',
         hint: 'Geographic latency requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1904,6 +2109,7 @@ class DeploymentTopologyInfrastructureAsCode {
         hint: 'How infrastructure is versioned'),
     Field('notes', String, 'Notes', hint: 'Additional deployment topology notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1921,21 +2127,26 @@ class ArchitectureDecisionRecord {
         required: true,
         hint: 'Proposed, Accepted, Deprecated, Superseded'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Decision context and constraints.
+  @SerializationOrder(1)
   ArchitectureDecisionRecordContext contextDetails =
       ArchitectureDecisionRecordContext();
 
   /// Decision outcome and rationale.
+  @SerializationOrder(2)
   ArchitectureDecisionRecordOutcome outcome =
       ArchitectureDecisionRecordOutcome();
 
   /// Consequences and review.
+  @SerializationOrder(3)
   ArchitectureDecisionRecordConsequences consequences =
       ArchitectureDecisionRecordConsequences();
 
   /// Related decision links.
+  @SerializationOrder(4)
   ArchitectureDecisionRecordRelations relations =
       ArchitectureDecisionRecordRelations();
 }
@@ -1951,6 +2162,7 @@ class ArchitectureDecisionRecordContext {
     Field('constraints', String, 'Constraints',
         hint: 'Constraints that influenced the decision'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1967,6 +2179,7 @@ class ArchitectureDecisionRecordOutcome {
     Field('decisionMakers', String, 'Decision Makers',
         hint: 'Who made this decision'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1984,6 +2197,7 @@ class ArchitectureDecisionRecordConsequences {
         hint: 'When this decision should be reviewed'),
     Field('notes', String, 'Notes', hint: 'Additional decision notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1998,6 +2212,7 @@ class ArchitectureDecisionRecordRelations {
     Field('supersededBy', String, 'Superseded By',
         hint: 'Decision that supersedes this one'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2056,41 +2271,51 @@ Provide an overview of the design patterns and standards approach.
 - Plan regular pattern and standards reviews
 - Establish technical debt tracking for standards violations
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of design patterns and standards approach.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Required design patterns catalog.
   @SectionId('DSPT-DESI-LST')
   @SectionIdPattern('DSPT-DESI-xxx')
+  @SerializationOrder(2)
   List<DesignPatternEntry> designPatterns = [];
 
   /// Coding standards and style guidelines.
   @SectionId('COSTEN-CODI-LST')
   @SectionIdPattern('COSTEN-CODI-xxx')
+  @SerializationOrder(3)
   List<CodingStandardEntry> codingStandards = [];
 
   /// Development conventions and best practices.
   @SectionId('DECOEN-DEVE-LST')
   @SectionIdPattern('DECOEN-DEVE-xxx')
+  @SerializationOrder(4)
   List<DevelopmentConventionEntry> developmentConventions = [];
 
   /// Industry standards compliance requirements.
   @SectionId('INSTEN-INDU-LST')
   @SectionIdPattern('INSTEN-INDU-xxx')
+  @SerializationOrder(5)
   List<IndustryStandardEntry> industryStandards = [];
 
   /// Code quality metrics and thresholds.
+  @SerializationOrder(6)
   CodeQualityMetrics codeQualityMetrics = CodeQualityMetrics();
 
   /// Documentation standards.
+  @SerializationOrder(7)
   DocumentationStandards documentationStandards = DocumentationStandards();
 
   /// Error handling and exception patterns.
+  @SerializationOrder(8)
   ErrorHandlingStandards errorHandlingStandards = ErrorHandlingStandards();
 
   /// Testing standards and requirements.
+  @SerializationOrder(9)
   TestingStandards testingStandards = TestingStandards();
 }
 
@@ -2109,23 +2334,29 @@ class DesignPatternEntry {
     Field('purpose', String, 'Purpose',
         required: true, hint: 'What problem this pattern solves'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Applicability guidance.
+  @SerializationOrder(1)
   DesignPatternEntryApplicability applicability =
       DesignPatternEntryApplicability();
 
   /// Structural composition.
+  @SerializationOrder(2)
   DesignPatternEntryStructure structure = DesignPatternEntryStructure();
 
   /// Implementation guidance.
+  @SerializationOrder(3)
   DesignPatternEntryImplementation implementation =
       DesignPatternEntryImplementation();
 
   /// Architectural context.
+  @SerializationOrder(4)
   DesignPatternEntryContext context = DesignPatternEntryContext();
 
   /// Enforcement and notes.
+  @SerializationOrder(5)
   DesignPatternEntryEnforcement enforcement =
       DesignPatternEntryEnforcement();
 }
@@ -2139,6 +2370,7 @@ class DesignPatternEntryApplicability {
     Field('notApplicable', String, 'When NOT to Use',
         hint: 'Situations where this pattern should be avoided'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2153,6 +2385,7 @@ class DesignPatternEntryStructure {
     Field('variations', String, 'Variations',
         hint: 'Supported variations of this pattern'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2167,6 +2400,7 @@ class DesignPatternEntryImplementation {
     Field('frameworkSupport', String, 'Framework Support',
         hint: 'How the framework supports this pattern'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2179,6 +2413,7 @@ class DesignPatternEntryContext {
     Field('relatedPatterns', String, 'Related Patterns',
         hint: 'Other patterns commonly used with this one'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2192,6 +2427,7 @@ class DesignPatternEntryEnforcement {
         hint: 'How compliance is verified'),
     Field('notes', String, 'Notes', hint: 'Additional pattern notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2207,18 +2443,23 @@ class CodingStandardEntry {
     Field('applicableLanguage', String, 'Applicable Language',
         hint: 'Which programming language(s) this applies to'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Rule description.
+  @SerializationOrder(1)
   CodingStandardEntryRuleDetails ruleDetails = CodingStandardEntryRuleDetails();
 
   /// Naming requirements.
+  @SerializationOrder(2)
   CodingStandardEntryNaming naming = CodingStandardEntryNaming();
 
   /// Formatting requirements.
+  @SerializationOrder(3)
   CodingStandardEntryFormatting formatting = CodingStandardEntryFormatting();
 
   /// Enforcement details.
+  @SerializationOrder(4)
   CodingStandardEntryEnforcement enforcement =
       CodingStandardEntryEnforcement();
 }
@@ -2232,6 +2473,7 @@ class CodingStandardEntryRuleDetails {
     Field('rationale', String, 'Rationale', hint: 'Why this rule matters'),
     Field('examples', String, 'Examples', hint: 'Good and bad code examples'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2244,6 +2486,7 @@ class CodingStandardEntryNaming {
     Field('prefixSuffix', String, 'Prefix/Suffix Rules',
         hint: 'Required prefixes or suffixes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2257,6 +2500,7 @@ class CodingStandardEntryFormatting {
     Field('bracingStyle', String, 'Bracing Style',
         hint: 'Where braces should appear'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2274,6 +2518,7 @@ class CodingStandardEntryEnforcement {
         hint: 'Can be automatically fixed'),
     Field('notes', String, 'Notes', hint: 'Additional standard notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2290,25 +2535,31 @@ class DevelopmentConventionEntry {
     Field('description', String, 'Description',
         required: true, hint: 'What the convention requires'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Background and workflow.
+  @SerializationOrder(1)
   DevelopmentConventionEntryOverview overview =
       DevelopmentConventionEntryOverview();
 
   /// Version control requirements.
+  @SerializationOrder(2)
   DevelopmentConventionEntryVersionControl versionControl =
       DevelopmentConventionEntryVersionControl();
 
   /// Code review expectations.
+  @SerializationOrder(3)
   DevelopmentConventionEntryReview review =
       DevelopmentConventionEntryReview();
 
   /// Automation integration.
+  @SerializationOrder(4)
   DevelopmentConventionEntryAutomation automation =
       DevelopmentConventionEntryAutomation();
 
   /// Enforcement and exceptions.
+  @SerializationOrder(5)
   DevelopmentConventionEntryEnforcement enforcement =
       DevelopmentConventionEntryEnforcement();
 }
@@ -2322,6 +2573,7 @@ class DevelopmentConventionEntryOverview {
     Field('workflow', String, 'Workflow',
         hint: 'Step-by-step workflow if applicable'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2338,6 +2590,7 @@ class DevelopmentConventionEntryVersionControl {
     Field('prProcess', String, 'PR Process',
         hint: 'Pull request requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2350,6 +2603,7 @@ class DevelopmentConventionEntryReview {
     Field('reviewChecklist', String, 'Review Checklist',
         hint: 'Items to check during review'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2362,6 +2616,7 @@ class DevelopmentConventionEntryAutomation {
     Field('triggers', String, 'Triggers',
         hint: 'What triggers this convention'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2377,6 +2632,7 @@ class DevelopmentConventionEntryEnforcement {
         hint: 'Allowed exceptions to this convention'),
     Field('notes', String, 'Notes', hint: 'Additional convention notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2398,24 +2654,30 @@ class IndustryStandardEntry {
     Field('complianceLevel', String, 'Compliance Level',
         required: true, hint: 'Full, Partial, Certified, In Progress'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scope details.
+  @SerializationOrder(1)
   IndustryStandardEntryScope scope = IndustryStandardEntryScope();
 
   /// Requirement applicability.
+  @SerializationOrder(2)
   IndustryStandardEntryCompliance compliance =
       IndustryStandardEntryCompliance();
 
   /// Certification details.
+  @SerializationOrder(3)
   IndustryStandardEntryCertification certification =
       IndustryStandardEntryCertification();
 
   /// Verification settings.
+  @SerializationOrder(4)
   IndustryStandardEntryVerification verification =
       IndustryStandardEntryVerification();
 
   /// Reference metadata.
+  @SerializationOrder(5)
   IndustryStandardEntryReference reference = IndustryStandardEntryReference();
 }
 
@@ -2426,6 +2688,7 @@ class IndustryStandardEntryScope {
     Field('applicableAreas', String, 'Applicable Areas',
         hint: 'Which parts of the system this applies to'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2438,6 +2701,7 @@ class IndustryStandardEntryCompliance {
     Field('excludedRequirements', String, 'Excluded Requirements',
         hint: 'Requirements that do not apply'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2454,6 +2718,7 @@ class IndustryStandardEntryCertification {
     Field('certificationTarget', String, 'Certification Target Date',
         hint: 'Target date for certification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2468,6 +2733,7 @@ class IndustryStandardEntryVerification {
     Field('evidenceRequired', String, 'Evidence Required',
         hint: 'Documentation required for compliance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2479,6 +2745,7 @@ class IndustryStandardEntryReference {
         hint: 'Link to standard documentation'),
     Field('notes', String, 'Notes', hint: 'Additional compliance notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2493,23 +2760,29 @@ class CodeQualityMetrics {
     Field('mutationScoreMinimum', String, 'Mutation Score Minimum',
         hint: 'Minimum mutation testing score'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Complexity limits.
+  @SerializationOrder(1)
   CodeQualityMetricsComplexity complexity = CodeQualityMetricsComplexity();
 
   /// Coupling metrics.
+  @SerializationOrder(2)
   CodeQualityMetricsCoupling coupling = CodeQualityMetricsCoupling();
 
   /// Duplication thresholds.
+  @SerializationOrder(3)
   CodeQualityMetricsDuplication duplication =
       CodeQualityMetricsDuplication();
 
   /// Static analysis thresholds.
+  @SerializationOrder(4)
   CodeQualityMetricsStaticAnalysis staticAnalysis =
       CodeQualityMetricsStaticAnalysis();
 
   /// Tooling and reporting.
+  @SerializationOrder(5)
   CodeQualityMetricsTooling tooling = CodeQualityMetricsTooling();
 }
 
@@ -2526,6 +2799,7 @@ class CodeQualityMetricsComplexity {
     Field('classLengthMax', String, 'Class Length Max',
         hint: 'Maximum lines of code per class'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2540,6 +2814,7 @@ class CodeQualityMetricsCoupling {
     Field('instabilityRange', String, 'Instability Range',
         hint: 'Acceptable instability range'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2552,6 +2827,7 @@ class CodeQualityMetricsDuplication {
     Field('duplicationBlockSize', String, 'Duplication Block Size',
         hint: 'Minimum lines to consider duplication'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2566,6 +2842,7 @@ class CodeQualityMetricsStaticAnalysis {
     Field('technicalDebtTarget', String, 'Technical Debt Target',
         hint: 'Target technical debt ratio'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2581,6 +2858,7 @@ class CodeQualityMetricsTooling {
         hint: 'How quality trends are monitored'),
     Field('notes', String, 'Notes', hint: 'Additional quality metrics notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2595,24 +2873,30 @@ class DocumentationStandards {
     Field('parameterDocRequired', bool, 'Parameter Doc Required',
         hint: 'Parameters must be documented'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Code documentation requirements.
+  @SerializationOrder(1)
   DocumentationStandardsCodeDocs codeDocs = DocumentationStandardsCodeDocs();
 
   /// Content requirements.
+  @SerializationOrder(2)
   DocumentationStandardsContent contentRequirements =
       DocumentationStandardsContent();
 
   /// Architecture documentation requirements.
+  @SerializationOrder(3)
   DocumentationStandardsArchitecture architecture =
       DocumentationStandardsArchitecture();
 
   /// Changelog and versioning requirements.
+  @SerializationOrder(4)
   DocumentationStandardsVersioning versioning =
       DocumentationStandardsVersioning();
 
   /// Review and publication settings.
+  @SerializationOrder(5)
   DocumentationStandardsProcess process = DocumentationStandardsProcess();
 }
 
@@ -2625,6 +2909,7 @@ class DocumentationStandardsCodeDocs {
     Field('exampleRequired', bool, 'Example Required',
         hint: 'Examples required for complex APIs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2639,6 +2924,7 @@ class DocumentationStandardsContent {
     Field('deprecationNotice', String, 'Deprecation Notice',
         hint: 'How to document deprecations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2653,6 +2939,7 @@ class DocumentationStandardsArchitecture {
     Field('readmeRequired', bool, 'README Required',
         hint: 'README required for each package/module'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2667,6 +2954,7 @@ class DocumentationStandardsVersioning {
     Field('versioningScheme', String, 'Versioning Scheme',
         hint: 'Semantic versioning, CalVer'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2685,6 +2973,7 @@ class DocumentationStandardsProcess {
     Field('notes', String, 'Notes',
         hint: 'Additional documentation standards notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2699,25 +2988,31 @@ class ErrorHandlingStandards {
     Field('gracefulDegradation', String, 'Graceful Degradation',
         hint: 'How to degrade gracefully'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Exception type conventions.
+  @SerializationOrder(1)
   ErrorHandlingStandardsExceptions exceptions =
       ErrorHandlingStandardsExceptions();
 
   /// Handling pattern defaults.
+  @SerializationOrder(2)
   ErrorHandlingStandardsPatterns patterns =
       ErrorHandlingStandardsPatterns();
 
   /// Reporting standards.
+  @SerializationOrder(3)
   ErrorHandlingStandardsReporting reporting =
       ErrorHandlingStandardsReporting();
 
   /// User-facing communication rules.
+  @SerializationOrder(4)
   ErrorHandlingStandardsUserCommunication userCommunication =
       ErrorHandlingStandardsUserCommunication();
 
   /// Recovery guidance.
+  @SerializationOrder(5)
   ErrorHandlingStandardsRecovery recovery =
       ErrorHandlingStandardsRecovery();
 }
@@ -2733,6 +3028,7 @@ class ErrorHandlingStandardsExceptions {
     Field('exceptionNaming', String, 'Exception Naming',
         hint: 'Naming convention for exceptions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2747,6 +3043,7 @@ class ErrorHandlingStandardsPatterns {
     Field('circuitBreakerPolicy', String, 'Circuit Breaker Policy',
         hint: 'Circuit breaker implementation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2761,6 +3058,7 @@ class ErrorHandlingStandardsReporting {
     Field('sensitiveDataHandling', String, 'Sensitive Data Handling',
         hint: 'How to handle sensitive data in errors'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2775,6 +3073,7 @@ class ErrorHandlingStandardsUserCommunication {
     Field('localization', String, 'Localization',
         hint: 'Error message localization'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2789,6 +3088,7 @@ class ErrorHandlingStandardsRecovery {
     Field('notes', String, 'Notes',
         hint: 'Additional error handling notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2803,18 +3103,23 @@ class TestingStandards {
     Field('e2eTestRequired', bool, 'E2E Test Required',
         hint: 'End-to-end tests required'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Additional test types and organization.
+  @SerializationOrder(1)
   TestingStandardsOrganization organization = TestingStandardsOrganization();
 
   /// Preferred testing patterns.
+  @SerializationOrder(2)
   TestingStandardsPatterns patterns = TestingStandardsPatterns();
 
   /// Quality requirements for tests.
+  @SerializationOrder(3)
   TestingStandardsQuality quality = TestingStandardsQuality();
 
   /// Testing tools and CI integration.
+  @SerializationOrder(4)
   TestingStandardsTooling tooling = TestingStandardsTooling();
 }
 
@@ -2831,6 +3136,7 @@ class TestingStandardsOrganization {
     Field('testDataManagement', String, 'Test Data Management',
         hint: 'How test data is managed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2847,6 +3153,7 @@ class TestingStandardsPatterns {
     Field('stubStrategy', String, 'Stub Strategy',
         hint: 'When to use stubs vs mocks'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2861,6 +3168,7 @@ class TestingStandardsQuality {
     Field('flakyTestPolicy', String, 'Flaky Test Policy',
         hint: 'How to handle flaky tests'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2882,6 +3190,7 @@ class TestingStandardsTooling {
         hint: 'Test report format and location'),
     Field('notes', String, 'Notes', hint: 'Additional testing standards notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2930,16 +3239,20 @@ Provide an overview of software design approach and key decisions.
 - Plan for refactoring and architecture evolution
 - Create architecture fitness functions
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 8.2.1. Layering and Module Structure.
+  @SerializationOrder(1)
   LayeringAndModuleStructure layeringAndModuleStructure =
       LayeringAndModuleStructure();
 
   /// 8.2.2. Development Environment.
+  @SerializationOrder(2)
   DevelopmentEnvironment developmentEnvironment = DevelopmentEnvironment();
 
   /// 8.2.3. Reusable Components.
+  @SerializationOrder(3)
   ReusableComponentsSection reusableComponents = ReusableComponentsSection();
 }
 
@@ -2998,50 +3311,62 @@ Provide an overview of the layering and modularization strategy.
 - Document exception cases and technical debt
 - Plan for module extraction and scaling
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of the layering and modularization approach.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Software layer definitions.
   @SectionId('SOLAEN-SOFT-LST')
   @SectionIdPattern('SOLAEN-SOFT-xxx')
+  @SerializationOrder(2)
   List<SoftwareLayerEntry> softwareLayers = [];
 
   /// Layer communication rules and constraints.
+  @SerializationOrder(3)
   LayerCommunicationRules layerCommunicationRules = LayerCommunicationRules();
 
   /// Bounded contexts (DDD) definitions.
   @SectionId('BOCOEN-BOUN-LST')
   @SectionIdPattern('BOCOEN-BOUN-xxx')
+  @SerializationOrder(4)
   List<BoundedContextEntry> boundedContexts = [];
 
   /// Package organization and structure.
+  @SerializationOrder(5)
   PackageOrganization packageOrganization = PackageOrganization();
 
   /// Module catalog with dependency information.
   @SectionId('MOEN1-MODU-LST')
   @SectionIdPattern('MOEN1-MODU-xxx')
+  @SerializationOrder(6)
   List<ModuleEntry> modules = [];
 
   /// Shared libraries and common code.
   @SectionId('SHLIB-SHAR-LST')
   @SectionIdPattern('SHLIB-SHAR-xxx')
+  @SerializationOrder(7)
   List<SharedLibraryEntry> sharedLibraries = [];
 
   /// Dependency injection configuration.
+  @SerializationOrder(8)
   DependencyInjectionStructure dependencyInjection =
       DependencyInjectionStructure();
 
   /// Cross-cutting concerns organization.
+  @SerializationOrder(9)
   CrossCuttingConcerns crossCuttingConcerns = CrossCuttingConcerns();
 
   /// Feature module definitions (vertical slices).
   @SectionId('FTRMOD-FEAT-LST')
   @SectionIdPattern('FTRMOD-FEAT-xxx')
+  @SerializationOrder(10)
   List<FeatureModuleEntry> featureModules = [];
 
   /// Module versioning and compatibility strategy.
+  @SerializationOrder(11)
   ModuleVersioningStrategy moduleVersioningStrategy =
       ModuleVersioningStrategy();
 }
@@ -3059,20 +3384,25 @@ class SoftwareLayerEntry {
     Field('layerPattern', String, 'Pattern',
         hint: 'E.g., Clean Architecture, Onion, Hexagonal, N-Tier'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Responsibilities and constraints.
+  @SerializationOrder(1)
   SoftwareLayerEntryResponsibilities responsibilities =
       SoftwareLayerEntryResponsibilities();
 
   /// Typical components and organization.
+  @SerializationOrder(2)
   SoftwareLayerEntryComponents components = SoftwareLayerEntryComponents();
 
   /// Dependency rules.
+  @SerializationOrder(3)
   SoftwareLayerEntryDependencies dependencies =
       SoftwareLayerEntryDependencies();
 
   /// Technology and testing notes.
+  @SerializationOrder(4)
   SoftwareLayerEntryTechnology technology = SoftwareLayerEntryTechnology();
 }
 
@@ -3087,6 +3417,7 @@ class SoftwareLayerEntryResponsibilities {
     Field('prohibitions', String, 'Prohibitions',
         hint: 'What this layer must NOT do'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3101,6 +3432,7 @@ class SoftwareLayerEntryComponents {
     Field('folderStructure', String, 'Folder Structure',
         hint: 'Directory organization for this layer'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3115,6 +3447,7 @@ class SoftwareLayerEntryDependencies {
     Field('externalDependencies', String, 'External Dependencies',
         hint: 'External packages allowed in this layer'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3130,6 +3463,7 @@ class SoftwareLayerEntryTechnology {
         hint: 'How components in this layer are tested'),
     Field('notes', String, 'Notes', hint: 'Additional layer notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3144,16 +3478,20 @@ class LayerCommunicationRules {
     Field('abstractionPrinciple', String, 'Abstraction Principle',
         hint: 'Dependency inversion, interface segregation'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Interface requirements between layers.
+  @SerializationOrder(1)
   LayerCommunicationRulesInterfaces interfaces =
     LayerCommunicationRulesInterfaces();
 
   /// Cross-layer event and exception flow.
+  @SerializationOrder(2)
   LayerCommunicationRulesFlow flow = LayerCommunicationRulesFlow();
 
   /// Boundary enforcement and validation rules.
+  @SerializationOrder(3)
   LayerCommunicationRulesGovernance governance =
     LayerCommunicationRulesGovernance();
 }
@@ -3169,6 +3507,7 @@ class LayerCommunicationRulesInterfaces {
   Field('mappingStrategy', String, 'Mapping Strategy',
     hint: 'How data is mapped between layers'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3183,6 +3522,7 @@ class LayerCommunicationRulesFlow {
   Field('loggingPropagation', String, 'Logging Propagation',
     hint: 'How logging context flows'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3199,6 +3539,7 @@ class LayerCommunicationRulesGovernance {
   Field('notes', String, 'Notes',
     hint: 'Additional layer communication notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3213,19 +3554,24 @@ class BoundedContextEntry {
     Field('owningTeam', String, 'Owning Team',
         hint: 'Team responsible for this context'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scope and language definitions.
+  @SerializationOrder(1)
   BoundedContextEntryScope scope = BoundedContextEntryScope();
 
   /// Boundary relationships.
+  @SerializationOrder(2)
   BoundedContextEntryBoundaries boundaries = BoundedContextEntryBoundaries();
 
   /// Implementation footprint.
+  @SerializationOrder(3)
   BoundedContextEntryImplementation implementation =
       BoundedContextEntryImplementation();
 
   /// Integration and notes.
+  @SerializationOrder(4)
   BoundedContextEntryIntegration integration =
       BoundedContextEntryIntegration();
 }
@@ -3242,6 +3588,7 @@ class BoundedContextEntryScope {
     Field('ubiquitousLanguage', String, 'Ubiquitous Language',
         hint: 'Key terms and their definitions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3258,6 +3605,7 @@ class BoundedContextEntryBoundaries {
     Field('sharedKernel', String, 'Shared Kernel',
         hint: 'Shared code with other contexts'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3274,6 +3622,7 @@ class BoundedContextEntryImplementation {
     Field('consumedEvents', String, 'Consumed Events',
         hint: 'Domain events this context subscribes to'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3287,6 +3636,7 @@ class BoundedContextEntryIntegration {
         hint: 'How this context integrates with others'),
     Field('notes', String, 'Notes', hint: 'Additional context notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3301,19 +3651,24 @@ class PackageOrganization {
     Field('suffixConventions', String, 'Suffix Conventions',
         hint: 'Standard suffixes (_core, _ui, _api, etc.)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Repository and directory structure.
+  @SerializationOrder(1)
   PackageOrganizationStructure structure = PackageOrganizationStructure();
 
   /// Package categorization.
+  @SerializationOrder(2)
   PackageOrganizationTypes types = PackageOrganizationTypes();
 
   /// Dependency management rules.
+  @SerializationOrder(3)
   PackageOrganizationDependencies dependencies =
       PackageOrganizationDependencies();
 
   /// Documentation expectations.
+  @SerializationOrder(4)
   PackageOrganizationDocumentation documentation =
       PackageOrganizationDocumentation();
 }
@@ -3329,6 +3684,7 @@ class PackageOrganizationStructure {
     Field('featureGrouping', String, 'Feature Grouping',
         hint: 'How features are grouped in structure'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3345,6 +3701,7 @@ class PackageOrganizationTypes {
     Field('platformPackages', String, 'Platform Packages',
         hint: 'Platform-specific packages'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3361,6 +3718,7 @@ class PackageOrganizationDependencies {
     Field('versioningStrategy', String, 'Versioning Strategy',
         hint: 'Semantic versioning or other scheme'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3374,6 +3732,7 @@ class PackageOrganizationDocumentation {
         hint: 'Package dependency visualization'),
     Field('notes', String, 'Notes', hint: 'Additional organization notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3387,21 +3746,27 @@ class ModuleEntry {
         hint: 'Core, Feature, Shared, Platform, Plugin'),
     Field('version', String, 'Version', hint: 'Current module version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Purpose and API.
+  @SerializationOrder(1)
   ModuleEntryDescription description = ModuleEntryDescription();
 
   /// Dependency information.
+  @SerializationOrder(2)
   ModuleEntryDependencies dependencies = ModuleEntryDependencies();
 
   /// Ownership information.
+  @SerializationOrder(3)
   ModuleEntryOwnership ownership = ModuleEntryOwnership();
 
   /// Configuration settings.
+  @SerializationOrder(4)
   ModuleEntryConfiguration configuration = ModuleEntryConfiguration();
 
   /// Testing and notes.
+  @SerializationOrder(5)
   ModuleEntryTesting testing = ModuleEntryTesting();
 }
 
@@ -3418,6 +3783,7 @@ class ModuleEntryDescription {
     Field('entryPoints', String, 'Entry Points',
         hint: 'Main entry points to the module'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3434,6 +3800,7 @@ class ModuleEntryDependencies {
     Field('peerDependencies', String, 'Peer Dependencies',
         hint: 'Required peer modules'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3447,6 +3814,7 @@ class ModuleEntryOwnership {
         hint: 'Team responsible for this module'),
     Field('maintainer', String, 'Maintainer', hint: 'Primary maintainer'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3461,6 +3829,7 @@ class ModuleEntryConfiguration {
     Field('environmentVariables', String, 'Environment Variables',
         hint: 'Required environment variables'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3474,6 +3843,7 @@ class ModuleEntryTesting {
         hint: 'Integration test requirements'),
     Field('notes', String, 'Notes', hint: 'Additional module notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3487,15 +3857,19 @@ class SharedLibraryEntry {
         hint: 'Utility, Domain, Infrastructure, UI'),
     Field('version', String, 'Version', hint: 'Current version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Description and usage.
+  @SerializationOrder(1)
   SharedLibraryEntryDescription description = SharedLibraryEntryDescription();
 
   /// API details.
+  @SerializationOrder(2)
   SharedLibraryEntryApi api = SharedLibraryEntryApi();
 
   /// Constraints and lifecycle.
+  @SerializationOrder(3)
   SharedLibraryEntryLifecycle lifecycle = SharedLibraryEntryLifecycle();
 }
 
@@ -3510,6 +3884,7 @@ class SharedLibraryEntryDescription {
   Field('usageGuidelines', String, 'Usage Guidelines',
     hint: 'How to properly use this library'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3524,6 +3899,7 @@ class SharedLibraryEntryApi {
   Field('extensionPoints', String, 'Extension Points',
     hint: 'How consumers can extend'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3543,6 +3919,7 @@ class SharedLibraryEntryLifecycle {
     hint: 'Where changes are documented'),
   Field('notes', String, 'Notes', hint: 'Additional library notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3557,21 +3934,26 @@ class DependencyInjectionStructure {
     Field('scopeManagement', String, 'Scope Management',
         hint: 'Singleton, factory, scoped, lazy'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Registration organization.
+  @SerializationOrder(1)
   DependencyInjectionStructureRegistration registration =
       DependencyInjectionStructureRegistration();
 
   /// Interface binding rules.
+  @SerializationOrder(2)
   DependencyInjectionStructureBinding binding =
       DependencyInjectionStructureBinding();
 
   /// Environment-specific configuration.
+  @SerializationOrder(3)
   DependencyInjectionStructureConfiguration configuration =
       DependencyInjectionStructureConfiguration();
 
   /// Troubleshooting support.
+  @SerializationOrder(4)
   DependencyInjectionStructureTroubleshooting troubleshooting =
       DependencyInjectionStructureTroubleshooting();
 }
@@ -3587,6 +3969,7 @@ class DependencyInjectionStructureRegistration {
     Field('lazyInitialization', String, 'Lazy Initialization',
         hint: 'Which dependencies are lazy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3601,6 +3984,7 @@ class DependencyInjectionStructureBinding {
     Field('overrideCapability', String, 'Override Capability',
         hint: 'How to override registrations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3615,6 +3999,7 @@ class DependencyInjectionStructureConfiguration {
     Field('conditionalRegistration', String, 'Conditional Registration',
         hint: 'Platform/config conditional registration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3628,6 +4013,7 @@ class DependencyInjectionStructureTroubleshooting {
         hint: 'How circular deps are prevented/detected'),
     Field('notes', String, 'Notes', hint: 'Additional DI notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3641,22 +4027,28 @@ class CrossCuttingConcerns {
         hint: 'Available log levels and usage'),
     Field('logFormat', String, 'Log Format', hint: 'Log message format'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Error handling concerns.
+  @SerializationOrder(1)
   CrossCuttingConcernsErrors errors = CrossCuttingConcernsErrors();
 
   /// Security concerns.
+  @SerializationOrder(2)
   CrossCuttingConcernsSecurity security = CrossCuttingConcernsSecurity();
 
   /// Caching approach.
+  @SerializationOrder(3)
   CrossCuttingConcernsCaching caching = CrossCuttingConcernsCaching();
 
   /// Observability capabilities.
+  @SerializationOrder(4)
   CrossCuttingConcernsObservability observability =
       CrossCuttingConcernsObservability();
 
   /// Other shared capabilities.
+  @SerializationOrder(5)
   CrossCuttingConcernsShared shared = CrossCuttingConcernsShared();
 }
 
@@ -3671,6 +4063,7 @@ class CrossCuttingConcernsErrors {
     Field('userNotification', String, 'User Notification',
         hint: 'How users are notified of errors'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3685,6 +4078,7 @@ class CrossCuttingConcernsSecurity {
     Field('authorizationIntegration', String, 'Authorization Integration',
         hint: 'How authz is checked across layers'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3699,6 +4093,7 @@ class CrossCuttingConcernsCaching {
     Field('cacheLayers', String, 'Cache Layers',
         hint: 'Where caching is applied'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3712,6 +4107,7 @@ class CrossCuttingConcernsObservability {
     Field('healthChecks', String, 'Health Checks',
         hint: 'Health check implementation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3725,6 +4121,7 @@ class CrossCuttingConcernsShared {
         hint: 'Cross-cutting validation'),
     Field('notes', String, 'Notes', hint: 'Additional cross-cutting notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3739,23 +4136,29 @@ class FeatureModuleEntry {
     Field('boundedContext', String, 'Bounded Context',
         hint: 'Owning bounded context'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Purpose and value.
+  @SerializationOrder(1)
   FeatureModuleEntryDescription description = FeatureModuleEntryDescription();
 
   /// Structural scope.
+  @SerializationOrder(2)
   FeatureModuleEntryStructure structure = FeatureModuleEntryStructure();
 
   /// Dependencies.
+  @SerializationOrder(3)
   FeatureModuleEntryDependencies dependencies =
       FeatureModuleEntryDependencies();
 
   /// Feature configuration.
+  @SerializationOrder(4)
   FeatureModuleEntryConfiguration configuration =
       FeatureModuleEntryConfiguration();
 
   /// Navigation and notes.
+  @SerializationOrder(5)
   FeatureModuleEntryNavigation navigation = FeatureModuleEntryNavigation();
 }
 
@@ -3769,6 +4172,7 @@ class FeatureModuleEntryDescription {
     Field('businessValue', String, 'Business Value',
         hint: 'Business value delivered'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3785,6 +4189,7 @@ class FeatureModuleEntryStructure {
     Field('apiEndpoints', String, 'API Endpoints',
         hint: 'API endpoints related to this feature'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3799,6 +4204,7 @@ class FeatureModuleEntryDependencies {
     Field('externalIntegrations', String, 'External Integrations',
         hint: 'External systems integrated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3813,6 +4219,7 @@ class FeatureModuleEntryConfiguration {
     Field('enablementCriteria', String, 'Enablement Criteria',
         hint: 'When this feature is available'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3826,6 +4233,7 @@ class FeatureModuleEntryNavigation {
         hint: 'Deep linking patterns'),
     Field('notes', String, 'Notes', hint: 'Additional feature notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3842,21 +4250,26 @@ class ModuleVersioningStrategy {
     Field('patchVersionPolicy', String, 'Patch Version Policy',
         hint: 'When to bump patch version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Compatibility policy.
+  @SerializationOrder(1)
   ModuleVersioningStrategyCompatibility compatibility =
       ModuleVersioningStrategyCompatibility();
 
   /// Release management process.
+  @SerializationOrder(2)
   ModuleVersioningStrategyReleaseManagement releaseManagement =
       ModuleVersioningStrategyReleaseManagement();
 
   /// Dependency versioning rules.
+  @SerializationOrder(3)
   ModuleVersioningStrategyDependencies dependencies =
       ModuleVersioningStrategyDependencies();
 
   /// Cross-module coordination.
+  @SerializationOrder(4)
   ModuleVersioningStrategyCoordination coordination =
       ModuleVersioningStrategyCoordination();
 }
@@ -3872,6 +4285,7 @@ class ModuleVersioningStrategyCompatibility {
     Field('deprecationTimeline', String, 'Deprecation Timeline',
         hint: 'Timeline for deprecated APIs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3886,6 +4300,7 @@ class ModuleVersioningStrategyReleaseManagement {
     Field('releaseNotes', String, 'Release Notes',
         hint: 'Release notes requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3900,6 +4315,7 @@ class ModuleVersioningStrategyDependencies {
     Field('updateStrategy', String, 'Update Strategy',
         hint: 'How dependencies are updated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3913,6 +4329,7 @@ class ModuleVersioningStrategyCoordination {
         hint: 'Constraints between module versions'),
     Field('notes', String, 'Notes', hint: 'Additional versioning notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3978,41 +4395,53 @@ Provide an overview of the development environment philosophy.
 - Establish development environment SLAs
 - Regular tooling retrospectives and updates
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of development environment requirements.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// IDE and editor requirements.
   @SectionId('IDREEN-IDER-LST')
   @SectionIdPattern('IDREEN-IDER-xxx')
+  @SerializationOrder(2)
   List<IdeRequirementEntry> ideRequirements = [];
 
   /// Build tools and automation.
+  @SerializationOrder(3)
   BuildToolsConfiguration buildTools = BuildToolsConfiguration();
 
   /// Version control configuration.
+  @SerializationOrder(4)
   VersionControlConfiguration versionControl = VersionControlConfiguration();
 
   /// CI/CD pipeline requirements.
+  @SerializationOrder(5)
   CiCdPipelineConfiguration cicdPipeline = CiCdPipelineConfiguration();
 
   /// Code review process requirements.
+  @SerializationOrder(6)
   CodeReviewProcess codeReviewProcess = CodeReviewProcess();
 
   /// Local development setup.
+  @SerializationOrder(7)
   LocalDevelopmentSetup localDevelopmentSetup = LocalDevelopmentSetup();
 
   /// Debugging configuration.
+  @SerializationOrder(8)
   DebuggingConfiguration debugging = DebuggingConfiguration();
 
   /// Environment management.
+  @SerializationOrder(9)
   EnvironmentManagement environmentManagement = EnvironmentManagement();
 
   /// Developer onboarding requirements.
+  @SerializationOrder(10)
   DeveloperOnboarding developerOnboarding = DeveloperOnboarding();
 
   /// Development metrics and quality gates.
+  @SerializationOrder(11)
   DevelopmentQualityGates qualityGates = DevelopmentQualityGates();
 }
 
@@ -4028,17 +4457,21 @@ class IdeRequirementEntry {
     Field('platform', String, 'Platform',
         hint: 'Windows, macOS, Linux, Web'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Extension and workspace configuration.
+  @SerializationOrder(1)
   IdeRequirementEntryConfiguration configuration =
     IdeRequirementEntryConfiguration();
 
   /// Debugger, linting, and formatting integration.
+  @SerializationOrder(2)
   IdeRequirementEntryIntegration integration =
     IdeRequirementEntryIntegration();
 
   /// Shared team standardization settings.
+  @SerializationOrder(3)
   IdeRequirementEntryStandardization standardization =
     IdeRequirementEntryStandardization();
 }
@@ -4056,6 +4489,7 @@ class IdeRequirementEntryConfiguration {
   Field('workspaceConfiguration', String, 'Workspace Configuration',
     hint: 'Required workspace setup'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4072,6 +4506,7 @@ class IdeRequirementEntryIntegration {
   Field('gitIntegration', String, 'Git Integration',
     hint: 'Required Git tooling'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4085,6 +4520,7 @@ class IdeRequirementEntryStandardization {
     hint: 'How settings are synced across team'),
   Field('notes', String, 'Notes', hint: 'Additional IDE notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4099,20 +4535,25 @@ class BuildToolsConfiguration {
     Field('lockfileManagement', String, 'Lockfile Management',
         hint: 'Lockfile policies'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Build system settings.
+  @SerializationOrder(1)
   BuildToolsConfigurationBuildSystem buildSystemSettings =
       BuildToolsConfigurationBuildSystem();
 
   /// Compilation settings.
+  @SerializationOrder(2)
   BuildToolsConfigurationCompilation compilation =
       BuildToolsConfigurationCompilation();
 
   /// Script integration.
+  @SerializationOrder(3)
   BuildToolsConfigurationScripts scripts = BuildToolsConfigurationScripts();
 
   /// Artifact management.
+  @SerializationOrder(4)
   BuildToolsConfigurationArtifacts artifacts =
       BuildToolsConfigurationArtifacts();
 }
@@ -4128,6 +4569,7 @@ class BuildToolsConfigurationBuildSystem {
     Field('buildConfiguration', String, 'Build Configuration',
         hint: 'Build configuration files'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4142,6 +4584,7 @@ class BuildToolsConfigurationCompilation {
     Field('optimizationLevel', String, 'Optimization Level',
         hint: 'Debug, profile, release settings'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4156,6 +4599,7 @@ class BuildToolsConfigurationScripts {
     Field('postBuildActions', String, 'Post-Build Actions',
         hint: 'Actions after successful build'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4171,6 +4615,7 @@ class BuildToolsConfigurationArtifacts {
         hint: 'Build cache policies'),
     Field('notes', String, 'Notes', hint: 'Additional build tool notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4183,21 +4628,26 @@ class VersionControlConfiguration {
     Field('hostingPlatform', String, 'Hosting Platform',
         hint: 'GitHub, GitLab, Bitbucket, Azure DevOps'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Repository structure settings.
+  @SerializationOrder(1)
   VersionControlConfigurationRepository repository =
       VersionControlConfigurationRepository();
 
   /// Branching policy.
+  @SerializationOrder(2)
   VersionControlConfigurationBranching branching =
       VersionControlConfigurationBranching();
 
   /// Commit and merge policy.
+  @SerializationOrder(3)
   VersionControlConfigurationCommits commits =
       VersionControlConfigurationCommits();
 
   /// Tagging and file attribute settings.
+  @SerializationOrder(4)
   VersionControlConfigurationMetadata metadata =
       VersionControlConfigurationMetadata();
 }
@@ -4213,6 +4663,7 @@ class VersionControlConfigurationRepository {
     Field('lfsUsage', String, 'LFS Usage',
         hint: 'Git LFS for large files'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4231,6 +4682,7 @@ class VersionControlConfigurationBranching {
     Field('hotfixPolicy', String, 'Hotfix Policy',
         hint: 'Hotfix branch workflow'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4245,6 +4697,7 @@ class VersionControlConfigurationCommits {
     Field('squashMergePolicy', String, 'Squash/Merge Policy',
         hint: 'When to squash vs merge'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4262,6 +4715,7 @@ class VersionControlConfigurationMetadata {
         hint: 'Line endings, merge drivers'),
     Field('notes', String, 'Notes', hint: 'Additional VCS notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4277,21 +4731,25 @@ class CiCdPipelineConfiguration {
     Field('secretsManagement', String, 'Secrets Management',
         hint: 'How secrets are stored and accessed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Pipeline stages.
   @SectionId('PISTEN-STAG-LST')
   @SectionIdPattern('PISTEN-STAG-xxx')
+  @SerializationOrder(1)
   List<PipelineStageEntry> stages = [];
 
   /// Build jobs.
   @SectionId('PIJOEN-JOBS-LST')
   @SectionIdPattern('PIJOEN-JOBS-xxx')
+  @SerializationOrder(2)
   List<PipelineJobEntry> jobs = [];
 
   /// Deployment environments.
   @SectionId('DEENEN-ENVI-LST')
   @SectionIdPattern('DEENEN-ENVI-xxx')
+  @SerializationOrder(3)
   List<DeploymentEnvironmentEntry> environments = [];
 }
 
@@ -4305,18 +4763,23 @@ class PipelineStageEntry {
     Field('stageOrder', String, 'Order', hint: 'Execution order'),
     Field('description', String, 'Description', hint: 'What this stage does'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Triggering conditions and approval gates.
+  @SerializationOrder(1)
   PipelineStageEntryTrigger trigger = PipelineStageEntryTrigger();
 
   /// Execution environment and job strategy.
+  @SerializationOrder(2)
   PipelineStageEntryExecution execution = PipelineStageEntryExecution();
 
   /// Artifact flow between stages.
+  @SerializationOrder(3)
   PipelineStageEntryArtifacts artifacts = PipelineStageEntryArtifacts();
 
   /// Failure handling and retry behavior.
+  @SerializationOrder(4)
   PipelineStageEntryFailure failure = PipelineStageEntryFailure();
 }
 
@@ -4331,6 +4794,7 @@ class PipelineStageEntryTrigger {
     Field('manualApproval', bool, 'Manual Approval',
         hint: 'Requires human approval'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4345,6 +4809,7 @@ class PipelineStageEntryExecution {
     Field('parallelJobs', bool, 'Parallel Jobs',
         hint: 'Jobs in stage run in parallel'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4357,6 +4822,7 @@ class PipelineStageEntryArtifacts {
     Field('outputArtifacts', String, 'Output Artifacts',
         hint: 'Artifacts produced by this stage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4370,6 +4836,7 @@ class PipelineStageEntryFailure {
         hint: 'Automatic retry configuration'),
     Field('notes', String, 'Notes', hint: 'Additional stage notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4381,18 +4848,23 @@ class PipelineJobEntry {
     Field('parentStage', String, 'Parent Stage', hint: 'Stage this job belongs to'),
     Field('description', String, 'Description', hint: 'What this job does'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Execution environment.
+    @SerializationOrder(1)
     PipelineJobEntryEnvironment environment = PipelineJobEntryEnvironment();
 
     /// Job steps.
+    @SerializationOrder(2)
     PipelineJobEntrySteps steps = PipelineJobEntrySteps();
 
     /// Job dependencies.
+    @SerializationOrder(3)
     PipelineJobEntryDependencies dependencies = PipelineJobEntryDependencies();
 
     /// Outputs and notes.
+    @SerializationOrder(4)
     PipelineJobEntryOutputs outputs = PipelineJobEntryOutputs();
 }
 
@@ -4407,6 +4879,7 @@ class PipelineJobEntryEnvironment {
         Field('environmentVariables', String, 'Environment Variables',
                 hint: 'Required environment variables'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4419,6 +4892,7 @@ class PipelineJobEntrySteps {
         Field('mainSteps', String, 'Main Steps', hint: 'Main job steps'),
         Field('cleanupSteps', String, 'Cleanup Steps', hint: 'Cleanup after job'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4430,6 +4904,7 @@ class PipelineJobEntryDependencies {
         Field('services', String, 'Services', hint: 'Required services (DB, cache)'),
         Field('caching', String, 'Caching', hint: 'Cache configuration'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4443,6 +4918,7 @@ class PipelineJobEntryOutputs {
         Field('artifacts', String, 'Artifacts', hint: 'Produced artifacts'),
         Field('notes', String, 'Notes', hint: 'Additional job notes'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -4457,21 +4933,26 @@ class DeploymentEnvironmentEntry {
         hint: 'Development, Staging, Production'),
     Field('url', String, 'URL', hint: 'Environment URL'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Deployment method and rollback controls.
+  @SerializationOrder(1)
   DeploymentEnvironmentEntryDeployment deployment =
     DeploymentEnvironmentEntryDeployment();
 
   /// Approval and protection rules.
+  @SerializationOrder(2)
   DeploymentEnvironmentEntryProtection protection =
     DeploymentEnvironmentEntryProtection();
 
   /// Configuration and secrets sourcing.
+  @SerializationOrder(3)
   DeploymentEnvironmentEntryConfiguration configuration =
     DeploymentEnvironmentEntryConfiguration();
 
   /// Health verification and environment notes.
+  @SerializationOrder(4)
   DeploymentEnvironmentEntryMonitoring monitoring =
     DeploymentEnvironmentEntryMonitoring();
 }
@@ -4487,6 +4968,7 @@ class DeploymentEnvironmentEntryDeployment {
   Field('rollbackStrategy', String, 'Rollback Strategy',
     hint: 'How to rollback failed deployments'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4501,6 +4983,7 @@ class DeploymentEnvironmentEntryProtection {
   Field('preventSelfApproval', bool, 'Prevent Self-Approval',
     hint: 'Cannot approve own deployments'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4513,6 +4996,7 @@ class DeploymentEnvironmentEntryConfiguration {
   Field('configurationSource', String, 'Configuration Source',
     hint: 'Where config comes from'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4526,6 +5010,7 @@ class DeploymentEnvironmentEntryMonitoring {
     hint: 'Post-deployment checks'),
   Field('notes', String, 'Notes', hint: 'Additional environment notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4539,19 +5024,24 @@ class CodeReviewProcess {
         hint: 'PR title format'),
     Field('draftPrSupport', bool, 'Draft PR Support', hint: 'Use draft PRs'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Reviewer requirements.
+  @SerializationOrder(1)
   CodeReviewProcessRequirements requirements =
       CodeReviewProcessRequirements();
 
   /// Review workflow.
+  @SerializationOrder(2)
   CodeReviewProcessWorkflow workflow = CodeReviewProcessWorkflow();
 
   /// Automation requirements.
+  @SerializationOrder(3)
   CodeReviewProcessAutomation automation = CodeReviewProcessAutomation();
 
   /// Merge policy.
+  @SerializationOrder(4)
   CodeReviewProcessMerge merge = CodeReviewProcessMerge();
 }
 
@@ -4566,6 +5056,7 @@ class CodeReviewProcessRequirements {
     Field('automaticReviewerAssignment', String, 'Auto-Assignment',
         hint: 'How reviewers are assigned'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4582,6 +5073,7 @@ class CodeReviewProcessWorkflow {
     Field('discussionResolution', String, 'Discussion Resolution',
         hint: 'How discussions are resolved'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4597,6 +5089,7 @@ class CodeReviewProcessAutomation {
     Field('coverageThreshold', String, 'Coverage Threshold',
         hint: 'Minimum coverage for approval'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4612,6 +5105,7 @@ class CodeReviewProcessMerge {
         hint: 'Checks that must pass before merge'),
     Field('notes', String, 'Notes', hint: 'Additional review process notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4626,22 +5120,28 @@ class LocalDevelopmentSetup {
     Field('sdkVersions', String, 'SDK Versions',
         hint: 'Required SDK versions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Setup workflow.
+  @SerializationOrder(1)
   LocalDevelopmentSetupWorkflow workflow = LocalDevelopmentSetupWorkflow();
 
   /// Dependencies and local services.
+  @SerializationOrder(2)
   LocalDevelopmentSetupDependencies dependencies =
       LocalDevelopmentSetupDependencies();
 
   /// Running configuration.
+  @SerializationOrder(3)
   LocalDevelopmentSetupRunning running = LocalDevelopmentSetupRunning();
 
   /// Test setup.
+  @SerializationOrder(4)
   LocalDevelopmentSetupTesting testing = LocalDevelopmentSetupTesting();
 
   /// Troubleshooting details.
+  @SerializationOrder(5)
   LocalDevelopmentSetupTroubleshooting troubleshooting =
       LocalDevelopmentSetupTroubleshooting();
 }
@@ -4659,6 +5159,7 @@ class LocalDevelopmentSetupWorkflow {
     Field('configurationFiles', String, 'Configuration Files',
         hint: 'Config files to create/modify'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4673,6 +5174,7 @@ class LocalDevelopmentSetupDependencies {
     Field('dockerCompose', String, 'Docker Compose',
         hint: 'Docker Compose for services'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4687,6 +5189,7 @@ class LocalDevelopmentSetupRunning {
     Field('watchMode', String, 'Watch Mode',
         hint: 'File watching configuration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4701,6 +5204,7 @@ class LocalDevelopmentSetupTesting {
     Field('mockServices', String, 'Mock Services',
         hint: 'How to use mock services'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4714,6 +5218,7 @@ class LocalDevelopmentSetupTroubleshooting {
         hint: 'Where to get help'),
     Field('notes', String, 'Notes', hint: 'Additional setup notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4728,23 +5233,29 @@ class DebuggingConfiguration {
     Field('remoteDebugging', String, 'Remote Debugging',
         hint: 'Remote debugging setup'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Breakpoint and watch setup.
+  @SerializationOrder(1)
   DebuggingConfigurationBreakpoints breakpoints =
       DebuggingConfigurationBreakpoints();
 
   /// Logging setup for debugging.
+  @SerializationOrder(2)
   DebuggingConfigurationLogging logging = DebuggingConfigurationLogging();
 
   /// State and runtime inspection.
+  @SerializationOrder(3)
   DebuggingConfigurationInspection inspection =
       DebuggingConfigurationInspection();
 
   /// Flutter-specific tooling.
+  @SerializationOrder(4)
   DebuggingConfigurationFlutter flutter = DebuggingConfigurationFlutter();
 
   /// Error tracking details.
+  @SerializationOrder(5)
   DebuggingConfigurationErrors errors = DebuggingConfigurationErrors();
 }
 
@@ -4758,6 +5269,7 @@ class DebuggingConfigurationBreakpoints {
     Field('watchExpressions', String, 'Watch Expressions',
         hint: 'Standard watch expressions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4772,6 +5284,7 @@ class DebuggingConfigurationLogging {
     Field('structuredLogging', bool, 'Structured Logging',
         hint: 'JSON/structured logs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4786,6 +5299,7 @@ class DebuggingConfigurationInspection {
     Field('performanceInspection', String, 'Performance Inspection',
         hint: 'Performance profiling tools'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4800,6 +5314,7 @@ class DebuggingConfigurationFlutter {
     Field('repaintRainbow', bool, 'Repaint Rainbow',
         hint: 'Visual repaint debugging'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4813,6 +5328,7 @@ class DebuggingConfigurationErrors {
         hint: 'Local crash reporting'),
     Field('notes', String, 'Notes', hint: 'Additional debugging notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4827,19 +5343,24 @@ class EnvironmentManagement {
     Field('environmentPurposes', String, 'Environment Purposes',
         hint: 'Purpose of each environment'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Configuration settings.
+  @SerializationOrder(1)
   EnvironmentManagementConfiguration configuration =
       EnvironmentManagementConfiguration();
 
   /// Secrets handling.
+  @SerializationOrder(2)
   EnvironmentManagementSecrets secrets = EnvironmentManagementSecrets();
 
   /// Environment switching.
+  @SerializationOrder(3)
   EnvironmentManagementSwitching switching = EnvironmentManagementSwitching();
 
   /// Parity and notes.
+  @SerializationOrder(4)
   EnvironmentManagementParity parity = EnvironmentManagementParity();
 }
 
@@ -4854,6 +5375,7 @@ class EnvironmentManagementConfiguration {
     Field('configurationHierarchy', String, 'Configuration Hierarchy',
         hint: 'Default → environment → local'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4868,6 +5390,7 @@ class EnvironmentManagementSecrets {
     Field('secretsNeverCommit', String, 'Never Commit',
         hint: 'Secrets that must never be committed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4882,6 +5405,7 @@ class EnvironmentManagementSwitching {
     Field('runtimeSwitching', bool, 'Runtime Switching',
         hint: 'Can switch at runtime'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4898,6 +5422,7 @@ class EnvironmentManagementParity {
     Field('notes', String, 'Notes',
         hint: 'Additional environment management notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4912,21 +5437,27 @@ class DeveloperOnboarding {
     Field('codingStandardsDocs', String, 'Coding Standards Docs',
         hint: 'Where to find coding standards'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Setup expectations.
+  @SerializationOrder(1)
   DeveloperOnboardingSetup setup = DeveloperOnboardingSetup();
 
   /// Access provisioning.
+  @SerializationOrder(2)
   DeveloperOnboardingAccess access = DeveloperOnboardingAccess();
 
   /// Learning support.
+  @SerializationOrder(3)
   DeveloperOnboardingLearning learning = DeveloperOnboardingLearning();
 
   /// Early task expectations.
+  @SerializationOrder(4)
   DeveloperOnboardingFirstTasks firstTasks = DeveloperOnboardingFirstTasks();
 
   /// Completion verification.
+  @SerializationOrder(5)
   DeveloperOnboardingVerification verification =
       DeveloperOnboardingVerification();
 }
@@ -4942,6 +5473,7 @@ class DeveloperOnboardingSetup {
     Field('setupVideoGuide', String, 'Setup Video Guide',
         hint: 'Video walkthrough if available'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4956,6 +5488,7 @@ class DeveloperOnboardingAccess {
     Field('vpnSetup', String, 'VPN Setup',
         hint: 'VPN configuration if needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4970,6 +5503,7 @@ class DeveloperOnboardingLearning {
     Field('pairProgrammingBuddy', bool, 'Pair Programming Buddy',
         hint: 'Assigned onboarding buddy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4984,6 +5518,7 @@ class DeveloperOnboardingFirstTasks {
     Field('firstPrExpectation', String, 'First PR Expectation',
         hint: 'Expected time to first PR'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4997,6 +5532,7 @@ class DeveloperOnboardingVerification {
         hint: 'When onboarding is complete'),
     Field('notes', String, 'Notes', hint: 'Additional onboarding notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5011,25 +5547,31 @@ class DevelopmentQualityGates {
     Field('formatterConfiguration', String, 'Formatter Configuration',
         hint: 'Code formatter settings'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Coverage requirements.
+  @SerializationOrder(1)
   DevelopmentQualityGatesCoverage coverage =
       DevelopmentQualityGatesCoverage();
 
   /// Complexity thresholds.
+  @SerializationOrder(2)
   DevelopmentQualityGatesComplexity complexity =
       DevelopmentQualityGatesComplexity();
 
   /// Security checks.
+  @SerializationOrder(3)
   DevelopmentQualityGatesSecurity security =
       DevelopmentQualityGatesSecurity();
 
   /// Documentation requirements.
+  @SerializationOrder(4)
   DevelopmentQualityGatesDocumentation documentation =
       DevelopmentQualityGatesDocumentation();
 
   /// Performance checks.
+  @SerializationOrder(5)
   DevelopmentQualityGatesPerformance performance =
       DevelopmentQualityGatesPerformance();
 }
@@ -5045,6 +5587,7 @@ class DevelopmentQualityGatesCoverage {
     Field('coverageExclusions', String, 'Coverage Exclusions',
         hint: 'What is excluded from coverage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5059,6 +5602,7 @@ class DevelopmentQualityGatesComplexity {
     Field('functionSizeLimit', String, 'Function Size Limit',
         hint: 'Maximum lines per function'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5073,6 +5617,7 @@ class DevelopmentQualityGatesSecurity {
     Field('licenseCompliance', String, 'License Compliance',
         hint: 'OSS license checking'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5087,6 +5632,7 @@ class DevelopmentQualityGatesDocumentation {
     Field('readmeRequired', bool, 'README Required',
         hint: 'README for new features'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5102,6 +5648,7 @@ class DevelopmentQualityGatesPerformance {
         hint: 'Maximum startup time'),
     Field('notes', String, 'Notes', hint: 'Additional quality gate notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5164,43 +5711,53 @@ Provide an overview of the reusability strategy and component library.
 - Track component usage and dependencies
 - Plan for breaking change management
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of reusability strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Reusability principles and guidelines.
+  @SerializationOrder(2)
   ReusabilityPrinciples principles = ReusabilityPrinciples();
 
   /// Shared component library catalog.
   @SectionId('SHLCP-SHAR-LST')
   @SectionIdPattern('SHLCP-SHAR-xxx')
+  @SerializationOrder(3)
   List<SharedLibraryComponentEntry> sharedLibraries = [];
 
   /// UI component library entries.
   @SectionId('RUICMP-UICO-LST')
   @SectionIdPattern('RUICMP-UICO-xxx')
+    @SerializationOrder(4)
     List<ReusableUiComponentEntry> uiComponents = [];
 
   /// Business logic components.
   @SectionId('BUCOEN-BUSI-LST')
   @SectionIdPattern('BUCOEN-BUSI-xxx')
+  @SerializationOrder(5)
   List<BusinessComponentEntry> businessComponents = [];
 
   /// Infrastructure components.
   @SectionId('INCOEN-INFR-LST')
   @SectionIdPattern('INCOEN-INFR-xxx')
+  @SerializationOrder(6)
   List<InfrastructureComponentEntry> infrastructureComponents = [];
 
   /// Third-party frameworks and libraries.
   @SectionId('THPALI-THIR-LST')
   @SectionIdPattern('THPALI-THIR-xxx')
+  @SerializationOrder(7)
   List<ThirdPartyLibraryEntry> thirdPartyLibraries = [];
 
   /// Component governance and maintenance.
+  @SerializationOrder(8)
   ComponentGovernance governance = ComponentGovernance();
 
   /// Component discovery and registry.
+  @SerializationOrder(9)
   ComponentRegistry registry = ComponentRegistry();
 }
 
@@ -5215,20 +5772,25 @@ class ReusabilityPrinciples {
     Field('granularityGuidelines', String, 'Granularity Guidelines',
         hint: 'Right size for reusable components'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Abstraction rules.
+  @SerializationOrder(1)
   ReusabilityPrinciplesAbstraction abstraction =
     ReusabilityPrinciplesAbstraction();
 
   /// Quality expectations.
+  @SerializationOrder(2)
   ReusabilityPrinciplesQuality quality = ReusabilityPrinciplesQuality();
 
   /// Versioning policy.
+  @SerializationOrder(3)
   ReusabilityPrinciplesVersioning versioning =
     ReusabilityPrinciplesVersioning();
 
   /// Ownership and contribution.
+  @SerializationOrder(4)
   ReusabilityPrinciplesOwnership ownership = ReusabilityPrinciplesOwnership();
 }
 
@@ -5243,6 +5805,7 @@ class ReusabilityPrinciplesAbstraction {
   Field('dependencyRules', String, 'Dependency Rules',
     hint: 'Rules for component dependencies'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5257,6 +5820,7 @@ class ReusabilityPrinciplesQuality {
   Field('codeReviewProcess', String, 'Code Review Process',
     hint: 'Review process for shared components'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5271,6 +5835,7 @@ class ReusabilityPrinciplesVersioning {
   Field('deprecationProcess', String, 'Deprecation Process',
     hint: 'How components are deprecated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5284,6 +5849,7 @@ class ReusabilityPrinciplesOwnership {
     hint: 'How to contribute to shared components'),
   Field('notes', String, 'Notes', hint: 'Additional principles notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5297,21 +5863,26 @@ class SharedLibraryComponentEntry {
         hint: 'Core, Utility, Domain, Integration, Extension'),
     Field('version', String, 'Version', hint: 'Current version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Purpose and consumers.
+  @SerializationOrder(1)
   SharedLibraryComponentEntryDescription description =
       SharedLibraryComponentEntryDescription();
 
   /// Technical API details.
+  @SerializationOrder(2)
   SharedLibraryComponentEntryTechnical technical =
       SharedLibraryComponentEntryTechnical();
 
   /// Quality and documentation.
+  @SerializationOrder(3)
   SharedLibraryComponentEntryQuality quality =
       SharedLibraryComponentEntryQuality();
 
   /// Ownership and lifecycle.
+  @SerializationOrder(4)
   SharedLibraryComponentEntryOwnership ownership =
       SharedLibraryComponentEntryOwnership();
 }
@@ -5330,6 +5901,7 @@ class SharedLibraryComponentEntryDescription {
         hint: 'Who should use this component'),
     Field('useCases', String, 'Use Cases', hint: 'Example use cases'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5346,6 +5918,7 @@ class SharedLibraryComponentEntryTechnical {
     Field('dependencies', String, 'Dependencies',
         hint: 'Required dependencies'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5359,6 +5932,7 @@ class SharedLibraryComponentEntryQuality {
     Field('examplesLocation', String, 'Examples Location',
         hint: 'Where to find examples'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5375,6 +5949,7 @@ class SharedLibraryComponentEntryOwnership {
     Field('lastUpdated', String, 'Last Updated', hint: 'Last update date'),
     Field('notes', String, 'Notes', hint: 'Additional component notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5388,23 +5963,29 @@ class ReusableUiComponentEntry {
         hint: 'Input, Display, Navigation, Layout, Feedback, Data'),
     Field('purpose', String, 'Purpose', hint: 'What this component does'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Description and use cases.
+    @SerializationOrder(1)
     ReusableUiComponentEntryDescription description =
             ReusableUiComponentEntryDescription();
 
   /// Design specifications.
+    @SerializationOrder(2)
     ReusableUiComponentEntryDesign design = ReusableUiComponentEntryDesign();
 
   /// Interaction and accessibility.
+    @SerializationOrder(3)
     ReusableUiComponentEntryInteraction interaction =
             ReusableUiComponentEntryInteraction();
 
   /// Component API.
+    @SerializationOrder(4)
     ReusableUiComponentEntryApi api = ReusableUiComponentEntryApi();
 
   /// Implementation details.
+    @SerializationOrder(5)
     ReusableUiComponentEntryImplementation implementation =
             ReusableUiComponentEntryImplementation();
 }
@@ -5421,6 +6002,7 @@ class ReusableUiComponentEntryDescription {
     Field('antiPatterns', String, 'Anti-Patterns',
         hint: 'When NOT to use this component'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5437,6 +6019,7 @@ class ReusableUiComponentEntryDesign {
     Field('responsiveBehavior', String, 'Responsive Behavior',
         hint: 'How component adapts to screen sizes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5451,6 +6034,7 @@ class ReusableUiComponentEntryInteraction {
     Field('animations', String, 'Animations',
         hint: 'Animation specifications'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5467,6 +6051,7 @@ class ReusableUiComponentEntryApi {
     Field('slots', String, 'Slots/Children',
         hint: 'Child content areas'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5482,6 +6067,7 @@ class ReusableUiComponentEntryImplementation {
         hint: 'Link to component demo'),
     Field('notes', String, 'Notes', hint: 'Additional UI component notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5496,24 +6082,30 @@ class BusinessComponentEntry {
     Field('boundedContext', String, 'Bounded Context',
         hint: 'Domain area this belongs to'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Purpose and business rules.
+  @SerializationOrder(1)
   BusinessComponentEntryDescription description =
       BusinessComponentEntryDescription();
 
   /// Public interface details.
+  @SerializationOrder(2)
   BusinessComponentEntryInterface interface =
       BusinessComponentEntryInterface();
 
   /// Dependency mapping.
+  @SerializationOrder(3)
   BusinessComponentEntryDependencies dependencies =
       BusinessComponentEntryDependencies();
 
   /// Testing details.
+  @SerializationOrder(4)
   BusinessComponentEntryTesting testing = BusinessComponentEntryTesting();
 
   /// Reuse and customization notes.
+  @SerializationOrder(5)
   BusinessComponentEntryReuse reuse = BusinessComponentEntryReuse();
 }
 
@@ -5528,6 +6120,7 @@ class BusinessComponentEntryDescription {
     Field('capabilities', String, 'Capabilities',
         hint: 'What operations this provides'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5542,6 +6135,7 @@ class BusinessComponentEntryInterface {
     Field('errorHandling', String, 'Error Handling',
         hint: 'How errors are handled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5556,6 +6150,7 @@ class BusinessComponentEntryDependencies {
     Field('externalIntegrations', String, 'External Integrations',
         hint: 'External systems accessed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5570,6 +6165,7 @@ class BusinessComponentEntryTesting {
     Field('testDataRequirements', String, 'Test Data Requirements',
         hint: 'Required test data'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5584,6 +6180,7 @@ class BusinessComponentEntryReuse {
     Field('notes', String, 'Notes',
         hint: 'Additional business component notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5597,25 +6194,31 @@ class InfrastructureComponentEntry {
         hint: 'Logging, Caching, Messaging, Storage, Network'),
     Field('layer', String, 'Layer', hint: 'Infrastructure layer'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Purpose and technology choices.
+  @SerializationOrder(1)
   InfrastructureComponentEntryDescription description =
       InfrastructureComponentEntryDescription();
 
   /// Configuration requirements.
+  @SerializationOrder(2)
   InfrastructureComponentEntryConfiguration configuration =
       InfrastructureComponentEntryConfiguration();
 
   /// Integration lifecycle.
+  @SerializationOrder(3)
   InfrastructureComponentEntryIntegration integration =
       InfrastructureComponentEntryIntegration();
 
   /// Operational behavior.
+  @SerializationOrder(4)
   InfrastructureComponentEntryOperations operations =
       InfrastructureComponentEntryOperations();
 
   /// Resiliency behavior.
+  @SerializationOrder(5)
   InfrastructureComponentEntryResiliency resiliency =
       InfrastructureComponentEntryResiliency();
 }
@@ -5631,6 +6234,7 @@ class InfrastructureComponentEntryDescription {
     Field('technologyStack', String, 'Technology Stack',
         hint: 'Underlying technologies'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5644,6 +6248,7 @@ class InfrastructureComponentEntryConfiguration {
         hint: 'Required environment variables'),
     Field('secrets', String, 'Secrets', hint: 'Required secrets'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5658,6 +6263,7 @@ class InfrastructureComponentEntryIntegration {
     Field('shutdownProcess', String, 'Shutdown Process',
         hint: 'Graceful shutdown procedure'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5672,6 +6278,7 @@ class InfrastructureComponentEntryOperations {
     Field('scalability', String, 'Scalability',
         hint: 'Scaling considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5688,6 +6295,7 @@ class InfrastructureComponentEntryResiliency {
     Field('notes', String, 'Notes',
         hint: 'Additional infrastructure notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5702,23 +6310,29 @@ class ThirdPartyLibraryEntry {
     Field('version', String, 'Version',
         required: true, hint: 'Version constraint'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Evaluation and selection.
+  @SerializationOrder(1)
   ThirdPartyLibraryEntryEvaluation evaluation =
       ThirdPartyLibraryEntryEvaluation();
 
   /// Licensing details.
+  @SerializationOrder(2)
   ThirdPartyLibraryEntryLicense licenseInfo =
       ThirdPartyLibraryEntryLicense();
 
   /// Risk profile.
+  @SerializationOrder(3)
   ThirdPartyLibraryEntryRisk risk = ThirdPartyLibraryEntryRisk();
 
   /// Usage and upgrade strategy.
+  @SerializationOrder(4)
   ThirdPartyLibraryEntryUsage usage = ThirdPartyLibraryEntryUsage();
 
   /// Monitoring and notes.
+  @SerializationOrder(5)
   ThirdPartyLibraryEntryMonitoring monitoring =
       ThirdPartyLibraryEntryMonitoring();
 }
@@ -5734,6 +6348,7 @@ class ThirdPartyLibraryEntryEvaluation {
     Field('selectionRationale', String, 'Selection Rationale',
         hint: 'Why this was chosen'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5748,6 +6363,7 @@ class ThirdPartyLibraryEntryLicense {
     Field('attributionRequired', bool, 'Attribution Required',
         hint: 'Requires attribution'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5764,6 +6380,7 @@ class ThirdPartyLibraryEntryRisk {
     Field('vendorLockIn', String, 'Vendor Lock-In Risk',
         hint: 'Lock-in considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5778,6 +6395,7 @@ class ThirdPartyLibraryEntryUsage {
     Field('upgradeStrategy', String, 'Upgrade Strategy',
         hint: 'How upgrades are handled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5791,6 +6409,7 @@ class ThirdPartyLibraryEntryMonitoring {
         hint: 'Plan if library deprecated'),
     Field('notes', String, 'Notes', hint: 'Additional library notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5805,19 +6424,24 @@ class ComponentGovernance {
     Field('escalationPath', String, 'Escalation Path',
         hint: 'How issues are escalated'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Contribution governance.
+  @SerializationOrder(1)
   ComponentGovernanceContribution contribution =
       ComponentGovernanceContribution();
 
   /// Quality expectations.
+  @SerializationOrder(2)
   ComponentGovernanceQuality quality = ComponentGovernanceQuality();
 
   /// Lifecycle policies.
+  @SerializationOrder(3)
   ComponentGovernanceLifecycle lifecycle = ComponentGovernanceLifecycle();
 
   /// Metrics and notes.
+  @SerializationOrder(4)
   ComponentGovernanceMetrics metrics = ComponentGovernanceMetrics();
 }
 
@@ -5832,6 +6456,7 @@ class ComponentGovernanceContribution {
     Field('acceptanceCriteria', String, 'Acceptance Criteria',
         hint: 'Criteria for accepting components'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5846,6 +6471,7 @@ class ComponentGovernanceQuality {
     Field('documentationRequirements', String, 'Documentation Requirements',
         hint: 'Required documentation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5860,6 +6486,7 @@ class ComponentGovernanceLifecycle {
     Field('retirementProcess', String, 'Retirement Process',
         hint: 'How components are retired'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5875,6 +6502,7 @@ class ComponentGovernanceMetrics {
         hint: 'How success is measured'),
     Field('notes', String, 'Notes', hint: 'Additional governance notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5889,19 +6517,24 @@ class ComponentRegistry {
     Field('searchCapabilities', String, 'Search Capabilities',
         hint: 'How to search for components'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Metadata requirements.
+  @SerializationOrder(1)
   ComponentRegistryMetadata metadata = ComponentRegistryMetadata();
 
   /// Discovery workflow.
+  @SerializationOrder(2)
   ComponentRegistryDiscovery discovery = ComponentRegistryDiscovery();
 
   /// Documentation requirements.
+  @SerializationOrder(3)
   ComponentRegistryDocumentation documentation =
       ComponentRegistryDocumentation();
 
   /// Update communication.
+  @SerializationOrder(4)
   ComponentRegistryUpdates updates = ComponentRegistryUpdates();
 }
 
@@ -5916,6 +6549,7 @@ class ComponentRegistryMetadata {
     Field('categorizationScheme', String, 'Categorization Scheme',
         hint: 'How components are categorized'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5930,6 +6564,7 @@ class ComponentRegistryDiscovery {
     Field('integration', String, 'IDE Integration',
         hint: 'Integration with development tools'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5944,6 +6579,7 @@ class ComponentRegistryDocumentation {
     Field('apiDocGeneration', String, 'API Doc Generation',
         hint: 'Automated API documentation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -5959,6 +6595,7 @@ class ComponentRegistryUpdates {
         hint: 'Migration documentation'),
     Field('notes', String, 'Notes', hint: 'Additional registry notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6011,13 +6648,16 @@ Provide an overview of standard software requirements approach.
 - Maintain compatibility testing matrix
 - Establish proof-of-concept requirements
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 8.3.1. Compatibility Requirements.
+  @SerializationOrder(1)
   CompatibilityRequirementsSection compatibilityRequirements =
       CompatibilityRequirementsSection();
 
   /// 8.3.2. Standards Compliance.
+  @SerializationOrder(2)
   StandardsComplianceSection standardsCompliance = StandardsComplianceSection();
 }
 
@@ -6076,59 +6716,72 @@ Provide an overview of compatibility requirements and testing strategy.
 - Plan for mobile OS release cycles
 - Document workarounds for known issues
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of compatibility strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Operating system compatibility requirements.
   @SectionId('OSCOEN-OSCO-LST')
   @SectionIdPattern('OSCOEN-OSCO-xxx')
+  @SerializationOrder(2)
   List<OsCompatibilityEntry> osCompatibility = [];
 
   /// Browser compatibility requirements.
   @SectionId('BRCOEN-BROW-LST')
   @SectionIdPattern('BRCOEN-BROW-xxx')
+  @SerializationOrder(3)
   List<BrowserCompatibilityEntry> browserCompatibility = [];
 
   /// Database compatibility requirements.
   @SectionId('DACOEN-DATA-LST')
   @SectionIdPattern('DACOEN-DATA-xxx')
+  @SerializationOrder(4)
   List<DatabaseCompatibilityEntry> databaseCompatibility = [];
 
   /// Enterprise system compatibility requirements.
   @SectionId('ESCE-ENTE-LST')
   @SectionIdPattern('ESCE-ENTE-xxx')
+  @SerializationOrder(5)
   List<EnterpriseSystemCompatibilityEntry> enterpriseSystemCompatibility = [];
 
   /// API and protocol compatibility requirements.
   @SectionId('APCP-APIC-LST')
   @SectionIdPattern('APCP-APIC-xxx')
+  @SerializationOrder(6)
   List<ApiCompatibilityEntry> apiCompatibility = [];
 
   /// Legacy system compatibility requirements.
   @SectionId('LECOEN-LEGA-LST')
   @SectionIdPattern('LECOEN-LEGA-xxx')
+  @SerializationOrder(7)
   List<LegacyCompatibilityEntry> legacyCompatibility = [];
 
   /// Mobile device compatibility requirements.
   @SectionId('MOCOEN-MOBI-LST')
   @SectionIdPattern('MOCOEN-MOBI-xxx')
+  @SerializationOrder(8)
   List<MobileCompatibilityEntry> mobileCompatibility = [];
 
   /// Third-party software compatibility requirements.
   @SectionId('TPCE-THIR-LST')
   @SectionIdPattern('TPCE-THIR-xxx')
+  @SerializationOrder(9)
   List<ThirdPartyCompatibilityEntry> thirdPartyCompatibility = [];
 
   /// Data format and encoding compatibility.
+  @SerializationOrder(10)
   DataFormatCompatibility dataFormatCompatibility = DataFormatCompatibility();
 
   /// Backwards compatibility requirements.
+  @SerializationOrder(11)
   BackwardsCompatibilityRequirements backwardsCompatibility =
       BackwardsCompatibilityRequirements();
 
   /// Interoperability requirements.
+  @SerializationOrder(12)
   InteroperabilityRequirements interoperability = InteroperabilityRequirements();
 }
 
@@ -6145,19 +6798,24 @@ class OsCompatibilityEntry {
     Field('maxVersion', String, 'Maximum Version',
         hint: 'Maximum tested version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Support level and prioritization.
+  @SerializationOrder(1)
   OsCompatibilityEntrySupport support = OsCompatibilityEntrySupport();
 
   /// Platform requirements.
+  @SerializationOrder(2)
   OsCompatibilityEntryRequirements requirements =
       OsCompatibilityEntryRequirements();
 
   /// Testing expectations.
+  @SerializationOrder(3)
   OsCompatibilityEntryTesting testing = OsCompatibilityEntryTesting();
 
   /// Lifecycle notes.
+  @SerializationOrder(4)
   OsCompatibilityEntryLifecycle lifecycle = OsCompatibilityEntryLifecycle();
 }
 
@@ -6172,6 +6830,7 @@ class OsCompatibilityEntrySupport {
     Field('marketShare', String, 'Market Share',
         hint: 'Target market share percentage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6188,6 +6847,7 @@ class OsCompatibilityEntryRequirements {
     Field('prerequisites', String, 'Prerequisites',
         hint: 'Required runtime, frameworks'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6202,6 +6862,7 @@ class OsCompatibilityEntryTesting {
     Field('knownIssues', String, 'Known Issues',
         hint: 'OS-specific issues'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6215,6 +6876,7 @@ class OsCompatibilityEntryLifecycle {
         hint: 'Plan for OS end-of-life'),
     Field('notes', String, 'Notes', hint: 'Additional OS compatibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6231,18 +6893,23 @@ class BrowserCompatibilityEntry {
     Field('maxVersion', String, 'Maximum Version',
         hint: 'Maximum tested version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Support level and priority.
+  @SerializationOrder(1)
   BrowserCompatibilityEntrySupport support = BrowserCompatibilityEntrySupport();
 
   /// Feature support requirements.
+  @SerializationOrder(2)
   BrowserCompatibilityEntryFeatures features = BrowserCompatibilityEntryFeatures();
 
   /// Mobile and PWA support.
+  @SerializationOrder(3)
   BrowserCompatibilityEntryMobile mobile = BrowserCompatibilityEntryMobile();
 
   /// Testing notes.
+  @SerializationOrder(4)
   BrowserCompatibilityEntryTesting testing = BrowserCompatibilityEntryTesting();
 }
 
@@ -6257,6 +6924,7 @@ class BrowserCompatibilityEntrySupport {
     Field('userShare', String, 'User Share',
         hint: 'Expected user share percentage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6271,6 +6939,7 @@ class BrowserCompatibilityEntryFeatures {
     Field('gracefulDegradation', String, 'Graceful Degradation',
         hint: 'Fallback behavior'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6285,6 +6954,7 @@ class BrowserCompatibilityEntryMobile {
     Field('offlineSupport', String, 'Offline Support',
         hint: 'Offline capability'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6301,6 +6971,7 @@ class BrowserCompatibilityEntryTesting {
     Field('notes', String, 'Notes',
         hint: 'Additional browser compatibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6317,21 +6988,26 @@ class DatabaseCompatibilityEntry {
     Field('maxVersion', String, 'Maximum Version',
         hint: 'Maximum tested version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Support options.
+  @SerializationOrder(1)
   DatabaseCompatibilityEntrySupport support =
       DatabaseCompatibilityEntrySupport();
 
   /// Feature requirements.
+  @SerializationOrder(2)
   DatabaseCompatibilityEntryFeatures features =
       DatabaseCompatibilityEntryFeatures();
 
   /// Connection requirements.
+  @SerializationOrder(3)
   DatabaseCompatibilityEntryConnection connection =
       DatabaseCompatibilityEntryConnection();
 
   /// Performance and notes.
+  @SerializationOrder(4)
   DatabaseCompatibilityEntryPerformance performance =
       DatabaseCompatibilityEntryPerformance();
 }
@@ -6345,6 +7021,7 @@ class DatabaseCompatibilityEntrySupport {
     Field('cloudVariants', String, 'Cloud Variants',
         hint: 'AWS RDS, Azure SQL, Cloud SQL'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6359,6 +7036,7 @@ class DatabaseCompatibilityEntryFeatures {
     Field('extensions', String, 'Extensions',
         hint: 'Required extensions/plugins'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6373,6 +7051,7 @@ class DatabaseCompatibilityEntryConnection {
     Field('ssl', String, 'SSL Requirements',
         hint: 'SSL/TLS requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6389,6 +7068,7 @@ class DatabaseCompatibilityEntryPerformance {
     Field('notes', String, 'Notes',
         hint: 'Additional database compatibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6403,21 +7083,26 @@ class EnterpriseSystemCompatibilityEntry {
     Field('vendor', String, 'Vendor', hint: 'System vendor'),
     Field('version', String, 'Version', hint: 'Supported versions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Integration details.
+  @SerializationOrder(1)
   EnterpriseSystemCompatibilityEntryIntegration integration =
       EnterpriseSystemCompatibilityEntryIntegration();
 
   /// Authentication and access.
+  @SerializationOrder(2)
   EnterpriseSystemCompatibilityEntrySecurity security =
       EnterpriseSystemCompatibilityEntrySecurity();
 
   /// Setup requirements.
+  @SerializationOrder(3)
   EnterpriseSystemCompatibilityEntryRequirements requirements =
       EnterpriseSystemCompatibilityEntryRequirements();
 
   /// Testing and notes.
+  @SerializationOrder(4)
   EnterpriseSystemCompatibilityEntryTesting testing =
       EnterpriseSystemCompatibilityEntryTesting();
 }
@@ -6435,6 +7120,7 @@ class EnterpriseSystemCompatibilityEntryIntegration {
     Field('frequency', String, 'Frequency',
         hint: 'Real-time, batch, on-demand'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6449,6 +7135,7 @@ class EnterpriseSystemCompatibilityEntrySecurity {
     Field('sso', String, 'SSO Integration',
         hint: 'Single sign-on support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6463,6 +7150,7 @@ class EnterpriseSystemCompatibilityEntryRequirements {
     Field('customization', String, 'Customization',
         hint: 'Required customizations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6477,6 +7165,7 @@ class EnterpriseSystemCompatibilityEntryTesting {
     Field('notes', String, 'Notes',
         hint: 'Additional enterprise compatibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6491,19 +7180,24 @@ class ApiCompatibilityEntry {
     Field('version', String, 'Version',
         required: true, hint: 'Supported API versions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Compatibility policy.
+  @SerializationOrder(1)
   ApiCompatibilityEntryPolicy policy = ApiCompatibilityEntryPolicy();
 
   /// Data-format requirements.
+  @SerializationOrder(2)
   ApiCompatibilityEntryFormat format = ApiCompatibilityEntryFormat();
 
   /// Transport requirements.
+  @SerializationOrder(3)
   ApiCompatibilityEntryTransport transportDetails =
       ApiCompatibilityEntryTransport();
 
   /// Specification references.
+  @SerializationOrder(4)
   ApiCompatibilityEntrySpecification specification =
       ApiCompatibilityEntrySpecification();
 }
@@ -6519,6 +7213,7 @@ class ApiCompatibilityEntryPolicy {
     Field('deprecationPolicy', String, 'Deprecation Policy',
         hint: 'How deprecated APIs handled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6533,6 +7228,7 @@ class ApiCompatibilityEntryFormat {
     Field('compression', String, 'Compression',
         hint: 'gzip, deflate support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6547,6 +7243,7 @@ class ApiCompatibilityEntryTransport {
     Field('authentication', String, 'Authentication',
         hint: 'OAuth, API key, JWT'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6562,6 +7259,7 @@ class ApiCompatibilityEntrySpecification {
         hint: 'Strict, relaxed'),
     Field('notes', String, 'Notes', hint: 'Additional API compatibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6576,21 +7274,26 @@ class LegacyCompatibilityEntry {
     Field('technology', String, 'Technology',
         hint: 'COBOL, mainframe, etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Integration approach.
+  @SerializationOrder(1)
   LegacyCompatibilityEntryIntegration integration =
     LegacyCompatibilityEntryIntegration();
 
   /// Constraints and limitations.
+  @SerializationOrder(2)
   LegacyCompatibilityEntryConstraints constraintsSection =
     LegacyCompatibilityEntryConstraints();
 
   /// Migration planning.
+  @SerializationOrder(3)
   LegacyCompatibilityEntryMigration migration =
     LegacyCompatibilityEntryMigration();
 
   /// Risk management.
+  @SerializationOrder(4)
   LegacyCompatibilityEntryRisk risk = LegacyCompatibilityEntryRisk();
 }
 
@@ -6605,6 +7308,7 @@ class LegacyCompatibilityEntryIntegration {
   Field('bidirectional', bool, 'Bidirectional',
     hint: 'Two-way data flow'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6619,6 +7323,7 @@ class LegacyCompatibilityEntryConstraints {
   Field('performanceImpact', String, 'Performance Impact',
     hint: 'Impact on performance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6633,6 +7338,7 @@ class LegacyCompatibilityEntryMigration {
   Field('dataSync', String, 'Data Synchronization',
     hint: 'How data stays in sync'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6647,6 +7353,7 @@ class LegacyCompatibilityEntryRisk {
   Field('notes', String, 'Notes',
     hint: 'Additional legacy compatibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6661,20 +7368,25 @@ class MobileCompatibilityEntry {
     Field('maxVersion', String, 'Maximum Version',
         hint: 'Maximum tested version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Supported devices.
+  @SerializationOrder(1)
   MobileCompatibilityEntryDevices devices = MobileCompatibilityEntryDevices();
 
   /// Hardware requirements.
+  @SerializationOrder(2)
   MobileCompatibilityEntryHardware hardware =
       MobileCompatibilityEntryHardware();
 
   /// Platform capabilities.
+  @SerializationOrder(3)
   MobileCompatibilityEntryCapabilities capabilities =
       MobileCompatibilityEntryCapabilities();
 
   /// Distribution details.
+  @SerializationOrder(4)
   MobileCompatibilityEntryDistribution distribution =
       MobileCompatibilityEntryDistribution();
 }
@@ -6690,6 +7402,7 @@ class MobileCompatibilityEntryDevices {
     Field('specificDevices', String, 'Specific Devices',
         hint: 'Named device support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6703,6 +7416,7 @@ class MobileCompatibilityEntryHardware {
     Field('requiredHardware', String, 'Required Hardware',
         hint: 'Camera, GPS, biometric'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6719,6 +7433,7 @@ class MobileCompatibilityEntryCapabilities {
     Field('pushNotifications', String, 'Push Notifications',
         hint: 'Push notification support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6732,6 +7447,7 @@ class MobileCompatibilityEntryDistribution {
     Field('notes', String, 'Notes',
         hint: 'Additional mobile compatibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6746,21 +7462,26 @@ class ThirdPartyCompatibilityEntry {
         hint: 'Antivirus, Firewall, MDM, Office'),
     Field('version', String, 'Version', hint: 'Supported versions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Compatibility characteristics.
+  @SerializationOrder(1)
   ThirdPartyCompatibilityEntryCompatibility compatibility =
       ThirdPartyCompatibilityEntryCompatibility();
 
   /// Integration characteristics.
+  @SerializationOrder(2)
   ThirdPartyCompatibilityEntryIntegration integration =
       ThirdPartyCompatibilityEntryIntegration();
 
   /// Testing and certification details.
+  @SerializationOrder(3)
   ThirdPartyCompatibilityEntryTesting testing =
       ThirdPartyCompatibilityEntryTesting();
 
   /// Support and escalation.
+  @SerializationOrder(4)
   ThirdPartyCompatibilityEntrySupport support =
       ThirdPartyCompatibilityEntrySupport();
 }
@@ -6776,6 +7497,7 @@ class ThirdPartyCompatibilityEntryCompatibility {
     Field('conflicts', String, 'Known Conflicts',
         hint: 'Known compatibility issues'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6790,6 +7512,7 @@ class ThirdPartyCompatibilityEntryIntegration {
     Field('coordination', String, 'Coordination',
         hint: 'How operations coordinate'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6804,6 +7527,7 @@ class ThirdPartyCompatibilityEntryTesting {
     Field('testFrequency', String, 'Test Frequency',
         hint: 'How often tested'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6818,6 +7542,7 @@ class ThirdPartyCompatibilityEntrySupport {
     Field('notes', String, 'Notes',
         hint: 'Additional third-party compatibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6832,18 +7557,23 @@ class DataFormatCompatibility {
     Field('encodingConversion', String, 'Encoding Conversion',
         hint: 'How encoding conversion handled'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Data format compatibility.
+  @SerializationOrder(1)
   DataFormatCompatibilityFormats formats = DataFormatCompatibilityFormats();
 
   /// Date and time formatting.
+  @SerializationOrder(2)
   DataFormatCompatibilityDateTime dateTime = DataFormatCompatibilityDateTime();
 
   /// Numeric formatting.
+  @SerializationOrder(3)
   DataFormatCompatibilityNumbers numbers = DataFormatCompatibilityNumbers();
 
   /// Locale settings.
+  @SerializationOrder(4)
   DataFormatCompatibilityLocale locale = DataFormatCompatibilityLocale();
 }
 
@@ -6858,6 +7588,7 @@ class DataFormatCompatibilityFormats {
     Field('formatConversion', String, 'Format Conversion',
         hint: 'Format conversion support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6872,6 +7603,7 @@ class DataFormatCompatibilityDateTime {
     Field('calendarSystems', String, 'Calendar Systems',
         hint: 'Gregorian, other calendars'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6886,6 +7618,7 @@ class DataFormatCompatibilityNumbers {
     Field('precision', String, 'Numeric Precision',
         hint: 'Decimal precision handling'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6902,6 +7635,7 @@ class DataFormatCompatibilityLocale {
     Field('notes', String, 'Notes',
         hint: 'Additional data format notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6916,21 +7650,26 @@ class BackwardsCompatibilityRequirements {
     Field('deprecationTimeline', String, 'Deprecation Timeline',
         hint: 'Deprecation notice period'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Data compatibility requirements.
+  @SerializationOrder(1)
   BackwardsCompatibilityRequirementsData data =
       BackwardsCompatibilityRequirementsData();
 
   /// API compatibility requirements.
+  @SerializationOrder(2)
   BackwardsCompatibilityRequirementsApi api =
       BackwardsCompatibilityRequirementsApi();
 
   /// Database compatibility requirements.
+  @SerializationOrder(3)
   BackwardsCompatibilityRequirementsDatabase database =
       BackwardsCompatibilityRequirementsDatabase();
 
   /// Communication and support requirements.
+  @SerializationOrder(4)
   BackwardsCompatibilityRequirementsCommunication communication =
       BackwardsCompatibilityRequirementsCommunication();
 }
@@ -6946,6 +7685,7 @@ class BackwardsCompatibilityRequirementsData {
     Field('rollbackSupport', String, 'Rollback Support',
         hint: 'Can rollback to older version'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6960,6 +7700,7 @@ class BackwardsCompatibilityRequirementsApi {
     Field('clientUpdateGracePeriod', String, 'Client Update Grace Period',
         hint: 'Time for clients to update'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6974,6 +7715,7 @@ class BackwardsCompatibilityRequirementsDatabase {
     Field('backfillStrategy', String, 'Backfill Strategy',
         hint: 'New field population'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -6990,6 +7732,7 @@ class BackwardsCompatibilityRequirementsCommunication {
     Field('notes', String, 'Notes',
         hint: 'Additional backwards compatibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7004,21 +7747,26 @@ class InteroperabilityRequirements {
     Field('communicationProtocols', String, 'Communication Protocols',
         hint: 'Supported protocols'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Data-exchange definitions.
+  @SerializationOrder(1)
   InteroperabilityRequirementsDataExchange dataExchange =
       InteroperabilityRequirementsDataExchange();
 
   /// Standards and certifications.
+  @SerializationOrder(2)
   InteroperabilityRequirementsStandards standards =
       InteroperabilityRequirementsStandards();
 
   /// Interoperability testing.
+  @SerializationOrder(3)
   InteroperabilityRequirementsTesting testing =
       InteroperabilityRequirementsTesting();
 
   /// Governance and fallback behavior.
+  @SerializationOrder(4)
   InteroperabilityRequirementsGovernance governance =
       InteroperabilityRequirementsGovernance();
 }
@@ -7034,6 +7782,7 @@ class InteroperabilityRequirementsDataExchange {
     Field('dataContracts', String, 'Data Contracts',
         hint: 'Contract definition approach'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7048,6 +7797,7 @@ class InteroperabilityRequirementsStandards {
     Field('certifications', String, 'Certifications',
         hint: 'Interop certifications'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7062,6 +7812,7 @@ class InteroperabilityRequirementsTesting {
     Field('conformanceTests', String, 'Conformance Tests',
         hint: 'Standard conformance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7078,6 +7829,7 @@ class InteroperabilityRequirementsGovernance {
     Field('notes', String, 'Notes',
         hint: 'Additional interoperability notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7136,58 +7888,71 @@ Provide an overview of standards compliance strategy and roadmap.
 - Train team on compliance requirements
 - Engage compliance consultants for audits
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of standards compliance strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// IT standards compliance (ISO, IEEE, NIST).
   @SectionId('ISCE-ITST-LST')
   @SectionIdPattern('ISCE-ITST-xxx')
+  @SerializationOrder(2)
   List<ItStandardComplianceEntry> itStandards = [];
 
   /// Industry protocols compliance.
   @SectionId('IPCE-INDU-LST')
   @SectionIdPattern('IPCE-INDU-xxx')
+  @SerializationOrder(3)
   List<IndustryProtocolComplianceEntry> industryProtocols = [];
 
   /// Interface specification standards.
   @SectionId('INSPEN-INTE-LST')
   @SectionIdPattern('INSPEN-INTE-xxx')
+  @SerializationOrder(4)
   List<InterfaceSpecificationEntry> interfaceSpecifications = [];
 
   /// Regulatory compliance requirements.
   @SectionId('RECOEN-REGU-LST')
   @SectionIdPattern('RECOEN-REGU-xxx')
+  @SerializationOrder(5)
   List<RegulatoryComplianceEntry> regulatoryCompliance = [];
 
   /// Security standards compliance.
   @SectionId('SSCE-SECU-LST')
   @SectionIdPattern('SSCE-SECU-xxx')
+  @SerializationOrder(6)
   List<SecurityStandardComplianceEntry> securityStandards = [];
 
   /// Accessibility standards compliance.
   @SectionId('ACCSTD-ACCE-LST')
   @SectionIdPattern('ACCSTD-ACCE-xxx')
+  @SerializationOrder(7)
   List<AccessibilityStandardEntry> accessibilityStandards = [];
 
   /// Quality management standards.
   @SectionId('QLSTD-QUAL-LST')
   @SectionIdPattern('QLSTD-QUAL-xxx')
+  @SerializationOrder(8)
   List<QualityStandardEntry> qualityStandards = [];
 
   /// Documentation standards.
+  @SerializationOrder(9)
   DocumentationStandardsSection documentationStandards =
       DocumentationStandardsSection();
 
   /// Coding standards and conventions.
+  @SerializationOrder(10)
   CodingStandardsSection codingStandards = CodingStandardsSection();
 
   /// Certification requirements.
+  @SerializationOrder(11)
   CertificationRequirementsSection certificationRequirements =
       CertificationRequirementsSection();
 
   /// Compliance verification and auditing.
+  @SerializationOrder(12)
   ComplianceVerificationSection complianceVerification =
       ComplianceVerificationSection();
 }
@@ -7204,24 +7969,30 @@ class ItStandardComplianceEntry {
         hint: 'Official standard identifier'),
     Field('version', String, 'Version', hint: 'Standard version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Applicability and priority.
+  @SerializationOrder(1)
   ItStandardComplianceEntryScope scope = ItStandardComplianceEntryScope();
 
   /// Control requirements.
+  @SerializationOrder(2)
   ItStandardComplianceEntryRequirements requirements =
       ItStandardComplianceEntryRequirements();
 
   /// Compliance timeline.
+  @SerializationOrder(3)
   ItStandardComplianceEntryTimeline timeline =
       ItStandardComplianceEntryTimeline();
 
   /// Ownership and support.
+  @SerializationOrder(4)
   ItStandardComplianceEntryOwnership ownership =
       ItStandardComplianceEntryOwnership();
 
   /// Evidence and notes.
+  @SerializationOrder(5)
   ItStandardComplianceEntryEvidence evidence =
       ItStandardComplianceEntryEvidence();
 }
@@ -7237,6 +8008,7 @@ class ItStandardComplianceEntryScope {
     Field('priority', String, 'Priority',
         hint: 'Critical, High, Medium, Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7251,6 +8023,7 @@ class ItStandardComplianceEntryRequirements {
     Field('customizations', String, 'Customizations',
         hint: 'Organization-specific adaptations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7265,6 +8038,7 @@ class ItStandardComplianceEntryTimeline {
     Field('lastAssessment', String, 'Last Assessment Date',
         hint: 'Date of last assessment'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7277,6 +8051,7 @@ class ItStandardComplianceEntryOwnership {
     Field('externalSupport', String, 'External Support',
         hint: 'External consultants if any'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7289,6 +8064,7 @@ class ItStandardComplianceEntryEvidence {
     Field('notes', String, 'Notes',
         hint: 'Additional IT standard notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7305,21 +8081,26 @@ class IndustryProtocolComplianceEntry {
     Field('specificationUrl', String, 'Specification URL',
         hint: 'Link to official specification'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Compliance scope and features.
+  @SerializationOrder(1)
   IndustryProtocolComplianceEntryScope scope =
       IndustryProtocolComplianceEntryScope();
 
   /// Implementation details.
+  @SerializationOrder(2)
   IndustryProtocolComplianceEntryImplementation implementation =
       IndustryProtocolComplianceEntryImplementation();
 
   /// Testing details.
+  @SerializationOrder(3)
   IndustryProtocolComplianceEntryTesting testing =
       IndustryProtocolComplianceEntryTesting();
 
   /// Interoperability notes.
+  @SerializationOrder(4)
   IndustryProtocolComplianceEntryInteroperability interoperability =
       IndustryProtocolComplianceEntryInteroperability();
 }
@@ -7337,6 +8118,7 @@ class IndustryProtocolComplianceEntryScope {
     Field('extensionsUsed', String, 'Extensions Used',
         hint: 'Protocol extensions used'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7351,6 +8133,7 @@ class IndustryProtocolComplianceEntryImplementation {
     Field('performanceProfile', String, 'Performance Profile',
         hint: 'Expected performance characteristics'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7365,6 +8148,7 @@ class IndustryProtocolComplianceEntryTesting {
     Field('certificationStatus', String, 'Certification Status',
         hint: 'Official certification if any'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7379,6 +8163,7 @@ class IndustryProtocolComplianceEntryInteroperability {
     Field('notes', String, 'Notes',
         hint: 'Additional protocol compliance notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7393,21 +8178,26 @@ class InterfaceSpecificationEntry {
     Field('standardsBody', String, 'Standards Body',
         hint: 'IETF, W3C, OASIS, etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Definition storage and validation.
+  @SerializationOrder(1)
   InterfaceSpecificationEntryDefinition definition =
       InterfaceSpecificationEntryDefinition();
 
   /// Interface conventions.
+  @SerializationOrder(2)
   InterfaceSpecificationEntryConventions conventions =
       InterfaceSpecificationEntryConventions();
 
   /// Documentation expectations.
+  @SerializationOrder(3)
   InterfaceSpecificationEntryDocumentation documentation =
       InterfaceSpecificationEntryDocumentation();
 
   /// Tooling and notes.
+  @SerializationOrder(4)
   InterfaceSpecificationEntryTooling tooling =
       InterfaceSpecificationEntryTooling();
 }
@@ -7423,6 +8213,7 @@ class InterfaceSpecificationEntryDefinition {
     Field('schemaValidation', String, 'Schema Validation',
         hint: 'How schemas are validated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7439,6 +8230,7 @@ class InterfaceSpecificationEntryConventions {
     Field('pagination', String, 'Pagination',
         hint: 'Pagination approach'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7453,6 +8245,7 @@ class InterfaceSpecificationEntryDocumentation {
     Field('changelogMaintained', bool, 'Changelog Maintained',
         hint: 'Maintain API changelog'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7469,6 +8262,7 @@ class InterfaceSpecificationEntryTooling {
     Field('notes', String, 'Notes',
         hint: 'Additional interface spec notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7485,21 +8279,26 @@ class RegulatoryComplianceEntry {
     Field('effectiveDate', String, 'Effective Date',
         hint: 'When regulation took effect'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Applicability analysis.
+  @SerializationOrder(1)
   RegulatoryComplianceEntryApplicability applicability =
       RegulatoryComplianceEntryApplicability();
 
   /// Compliance requirements.
+  @SerializationOrder(2)
   RegulatoryComplianceEntryRequirements requirements =
       RegulatoryComplianceEntryRequirements();
 
   /// Penalties and reporting.
+  @SerializationOrder(3)
   RegulatoryComplianceEntryPenalties penalties =
       RegulatoryComplianceEntryPenalties();
 
   /// Ownership and review.
+  @SerializationOrder(4)
   RegulatoryComplianceEntryOwnership ownership =
       RegulatoryComplianceEntryOwnership();
 }
@@ -7517,6 +8316,7 @@ class RegulatoryComplianceEntryApplicability {
     Field('userRights', String, 'User Rights',
         hint: 'Rights granted to users'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7533,6 +8333,7 @@ class RegulatoryComplianceEntryRequirements {
     Field('documentationRequired', String, 'Documentation Required',
         hint: 'Required documentation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7545,6 +8346,7 @@ class RegulatoryComplianceEntryPenalties {
     Field('reportingObligations', String, 'Reporting Obligations',
         hint: 'Breach reporting requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7559,6 +8361,7 @@ class RegulatoryComplianceEntryOwnership {
     Field('notes', String, 'Notes',
         hint: 'Additional regulatory compliance notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7574,21 +8377,26 @@ class SecurityStandardComplianceEntry {
     Field('trustServiceCriteria', String, 'Trust Service Criteria',
         hint: 'For SOC 2: Security, Availability, etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scope details.
+  @SerializationOrder(1)
   SecurityStandardComplianceEntryScope scope =
       SecurityStandardComplianceEntryScope();
 
   /// Control definitions.
+  @SerializationOrder(2)
   SecurityStandardComplianceEntryControls controls =
       SecurityStandardComplianceEntryControls();
 
   /// Assessment schedule.
+  @SerializationOrder(3)
   SecurityStandardComplianceEntryAssessment assessment =
       SecurityStandardComplianceEntryAssessment();
 
   /// Overall status.
+  @SerializationOrder(4)
   SecurityStandardComplianceEntryStatus status =
       SecurityStandardComplianceEntryStatus();
 }
@@ -7604,6 +8412,7 @@ class SecurityStandardComplianceEntryScope {
     Field('exclusions', String, 'Exclusions',
         hint: 'What is excluded'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7620,6 +8429,7 @@ class SecurityStandardComplianceEntryControls {
     Field('compensatingControls', String, 'Compensating Controls',
         hint: 'Alternative controls'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7636,6 +8446,7 @@ class SecurityStandardComplianceEntryAssessment {
     Field('auditor', String, 'Auditor',
         hint: 'External auditor'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7648,6 +8459,7 @@ class SecurityStandardComplianceEntryStatus {
     Field('notes', String, 'Notes',
         hint: 'Additional security standard notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7663,19 +8475,24 @@ class AccessibilityStandardEntry {
     Field('jurisdiction', String, 'Jurisdiction',
         hint: 'Legal requirement region'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scope and affected users.
+  @SerializationOrder(1)
   AccessibilityStandardEntryScope scope = AccessibilityStandardEntryScope();
 
   /// Conformance requirements.
+  @SerializationOrder(2)
   AccessibilityStandardEntryRequirements requirements =
       AccessibilityStandardEntryRequirements();
 
   /// Testing approach.
+  @SerializationOrder(3)
   AccessibilityStandardEntryTesting testing = AccessibilityStandardEntryTesting();
 
   /// Documentation artifacts.
+  @SerializationOrder(4)
   AccessibilityStandardEntryDocumentation documentation =
       AccessibilityStandardEntryDocumentation();
 }
@@ -7691,6 +8508,7 @@ class AccessibilityStandardEntryScope {
     Field('assistiveTechnologies', String, 'Assistive Technologies',
         hint: 'Screen readers, etc. supported'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7707,6 +8525,7 @@ class AccessibilityStandardEntryRequirements {
     Field('robustRequirements', String, 'Robust Requirements',
         hint: 'Compatible with AT'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7721,6 +8540,7 @@ class AccessibilityStandardEntryTesting {
     Field('userTesting', String, 'User Testing',
         hint: 'Testing with disabled users'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7735,6 +8555,7 @@ class AccessibilityStandardEntryDocumentation {
     Field('notes', String, 'Notes',
         hint: 'Additional accessibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7750,20 +8571,25 @@ class QualityStandardEntry {
     Field('scope', String, 'Scope',
         hint: 'Organization-wide or project-specific'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Process coverage.
+  @SerializationOrder(1)
   QualityStandardEntryProcesses processes = QualityStandardEntryProcesses();
 
   /// Improvement implementation.
+  @SerializationOrder(2)
   QualityStandardEntryImplementation implementation =
       QualityStandardEntryImplementation();
 
   /// Certification status.
+  @SerializationOrder(3)
   QualityStandardEntryCertification certification =
       QualityStandardEntryCertification();
 
   /// Maintenance expectations.
+  @SerializationOrder(4)
   QualityStandardEntryMaintenance maintenance =
       QualityStandardEntryMaintenance();
 }
@@ -7779,6 +8605,7 @@ class QualityStandardEntryProcesses {
     Field('kpis', String, 'KPIs',
         hint: 'Key performance indicators'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7795,6 +8622,7 @@ class QualityStandardEntryImplementation {
     Field('improvementPlan', String, 'Improvement Plan',
         hint: 'Plan to close gaps'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7809,6 +8637,7 @@ class QualityStandardEntryCertification {
     Field('certificationExpiry', String, 'Certification Expiry',
         hint: 'When certification expires'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7823,6 +8652,7 @@ class QualityStandardEntryMaintenance {
     Field('notes', String, 'Notes',
         hint: 'Additional quality standard notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7839,20 +8669,25 @@ class DocumentationStandardsSection {
     Field('terminology', String, 'Terminology',
         hint: 'Standard terminology/glossary'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Technical documentation standards.
+  @SerializationOrder(1)
   DocumentationStandardsSectionTechnical technical =
       DocumentationStandardsSectionTechnical();
 
   /// User documentation standards.
+  @SerializationOrder(2)
   DocumentationStandardsSectionUser user = DocumentationStandardsSectionUser();
 
   /// Documentation process rules.
+  @SerializationOrder(3)
   DocumentationStandardsSectionProcess process =
       DocumentationStandardsSectionProcess();
 
   /// Documentation quality rules.
+  @SerializationOrder(4)
   DocumentationStandardsSectionQuality quality =
       DocumentationStandardsSectionQuality();
 }
@@ -7870,6 +8705,7 @@ class DocumentationStandardsSectionTechnical {
     Field('inlineDocRequirements', String, 'Inline Doc Requirements',
         hint: 'Required inline documentation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7884,6 +8720,7 @@ class DocumentationStandardsSectionUser {
     Field('localizationRequirements', String, 'Localization Requirements',
         hint: 'Translation requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7898,6 +8735,7 @@ class DocumentationStandardsSectionProcess {
     Field('archivalPolicy', String, 'Archival Policy',
         hint: 'How docs are archived'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7912,6 +8750,7 @@ class DocumentationStandardsSectionQuality {
     Field('notes', String, 'Notes',
         hint: 'Additional documentation standard notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7926,23 +8765,29 @@ class CodingStandardsSection {
     Field('linterTool', String, 'Linter Tool',
         hint: 'Required linter'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Formatting and layout rules.
+  @SerializationOrder(1)
   CodingStandardsSectionFormatting formatting =
       CodingStandardsSectionFormatting();
 
   /// Naming and structure rules.
+  @SerializationOrder(2)
   CodingStandardsSectionNaming naming = CodingStandardsSectionNaming();
 
   /// Static quality checks.
+  @SerializationOrder(3)
   CodingStandardsSectionQuality quality = CodingStandardsSectionQuality();
 
   /// Development practices.
+  @SerializationOrder(4)
   CodingStandardsSectionPractices practices =
       CodingStandardsSectionPractices();
 
   /// Review expectations.
+  @SerializationOrder(5)
   CodingStandardsSectionReview review = CodingStandardsSectionReview();
 }
 
@@ -7957,6 +8802,7 @@ class CodingStandardsSectionFormatting {
     Field('formatterTool', String, 'Formatter Tool',
         hint: 'Code formatter'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7971,6 +8817,7 @@ class CodingStandardsSectionNaming {
     Field('directoryStructure', String, 'Directory Structure',
         hint: 'Required directory layout'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7983,6 +8830,7 @@ class CodingStandardsSectionQuality {
     Field('complexityLimits', String, 'Complexity Limits',
         hint: 'Cyclomatic complexity limits'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -7999,6 +8847,7 @@ class CodingStandardsSectionPractices {
     Field('securityPractices', String, 'Security Practices',
         hint: 'Secure coding practices'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8013,6 +8862,7 @@ class CodingStandardsSectionReview {
     Field('notes', String, 'Notes',
         hint: 'Additional coding standard notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8027,21 +8877,26 @@ class CertificationRequirementsSection {
     Field('industryMandates', String, 'Industry Mandates',
         hint: 'Industry-required certs'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Certification process.
+  @SerializationOrder(1)
   CertificationRequirementsSectionProcess process =
       CertificationRequirementsSectionProcess();
 
   /// Timeline requirements.
+  @SerializationOrder(2)
   CertificationRequirementsSectionTimeline timeline =
       CertificationRequirementsSectionTimeline();
 
   /// Cost requirements.
+  @SerializationOrder(3)
   CertificationRequirementsSectionCosts costs =
       CertificationRequirementsSectionCosts();
 
   /// Marketing and notes.
+  @SerializationOrder(4)
   CertificationRequirementsSectionMarketing marketing =
       CertificationRequirementsSectionMarketing();
 }
@@ -8059,6 +8914,7 @@ class CertificationRequirementsSectionProcess {
     Field('auditorSelection', String, 'Auditor Selection',
         hint: 'How auditors chosen'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8073,6 +8929,7 @@ class CertificationRequirementsSectionTimeline {
     Field('maintenanceRequirements', String, 'Maintenance Requirements',
         hint: 'Ongoing maintenance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8087,6 +8944,7 @@ class CertificationRequirementsSectionCosts {
     Field('resourceRequirements', String, 'Resource Requirements',
         hint: 'Personnel needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8101,6 +8959,7 @@ class CertificationRequirementsSectionMarketing {
     Field('notes', String, 'Notes',
         hint: 'Additional certification notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8115,25 +8974,31 @@ class ComplianceVerificationSection {
     Field('automatedChecks', String, 'Automated Checks',
         hint: 'Automated compliance checks'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Manual review procedures.
+  @SerializationOrder(1)
   ComplianceVerificationSectionReview review =
       ComplianceVerificationSectionReview();
 
   /// Tooling and dashboards.
+  @SerializationOrder(2)
   ComplianceVerificationSectionTools tools =
       ComplianceVerificationSectionTools();
 
   /// Audit procedures.
+  @SerializationOrder(3)
   ComplianceVerificationSectionAuditing auditing =
       ComplianceVerificationSectionAuditing();
 
   /// Reporting requirements.
+  @SerializationOrder(4)
   ComplianceVerificationSectionReporting reporting =
       ComplianceVerificationSectionReporting();
 
   /// Continuous monitoring and improvement.
+  @SerializationOrder(5)
   ComplianceVerificationSectionContinuous continuous =
       ComplianceVerificationSectionContinuous();
 }
@@ -8145,6 +9010,7 @@ class ComplianceVerificationSectionReview {
     Field('manualReviews', String, 'Manual Reviews',
         hint: 'Manual review process'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8159,6 +9025,7 @@ class ComplianceVerificationSectionTools {
     Field('alerting', String, 'Alerting',
         hint: 'Compliance alert mechanism'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8175,6 +9042,7 @@ class ComplianceVerificationSectionAuditing {
     Field('findingsResolution', String, 'Findings Resolution',
         hint: 'How findings are resolved'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8189,6 +9057,7 @@ class ComplianceVerificationSectionReporting {
     Field('regulatoryReporting', String, 'Regulatory Reporting',
         hint: 'Reports to regulators'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8203,6 +9072,7 @@ class ComplianceVerificationSectionContinuous {
     Field('notes', String, 'Notes',
         hint: 'Additional compliance verification notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8255,15 +9125,19 @@ Provide an overview of hardware strategy and infrastructure approach.
 - Document hardware assumptions and risks
 - Regular capacity reviews and forecasting
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 8.4.1. Server Requirements.
+  @SerializationOrder(1)
   ServerRequirementsSection serverRequirements = ServerRequirementsSection();
 
   /// 8.4.2. Client Requirements.
+  @SerializationOrder(2)
   ClientRequirementsSection clientRequirements = ClientRequirementsSection();
 
   /// 8.4.3. Network Requirements.
+  @SerializationOrder(3)
   NetworkRequirementsSection networkRequirements = NetworkRequirementsSection();
 }
 
@@ -8327,43 +9201,55 @@ Provide an overview of server infrastructure strategy.
 - Plan for zone and region redundancy
 - Document capacity planning assumptions
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of server infrastructure strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Server environment tiers (dev, staging, production, DR).
   @SectionId('SEENEN-ENVI-LST')
   @SectionIdPattern('SEENEN-ENVI-xxx')
+  @SerializationOrder(2)
   List<ServerEnvironmentEntry> environments = [];
 
   /// Server role definitions (app server, db server, web server).
   @SectionId('SEROEN-SERV-LST')
   @SectionIdPattern('SEROEN-SERV-xxx')
+  @SerializationOrder(3)
   List<ServerRoleEntry> serverRoles = [];
 
   /// Compute resource requirements.
+  @SerializationOrder(4)
   ComputeResourceRequirements computeResources = ComputeResourceRequirements();
 
   /// Storage requirements.
+  @SerializationOrder(5)
   ServerStorageRequirements storageRequirements = ServerStorageRequirements();
 
   /// Load profile and capacity planning.
+  @SerializationOrder(6)
   LoadProfileRequirements loadProfile = LoadProfileRequirements();
 
   /// Scaling requirements and strategy.
+  @SerializationOrder(7)
   ScalingRequirements scalingRequirements = ScalingRequirements();
 
   /// High availability requirements.
+  @SerializationOrder(8)
   HighAvailabilityRequirements highAvailability = HighAvailabilityRequirements();
 
   /// Virtualization and containerization requirements.
+  @SerializationOrder(9)
   VirtualizationRequirements virtualization = VirtualizationRequirements();
 
   /// Cloud provider requirements.
+  @SerializationOrder(10)
   CloudProviderRequirements cloudProvider = CloudProviderRequirements();
 
   /// Operating system requirements.
+  @SerializationOrder(11)
   ServerOsRequirements osRequirements = ServerOsRequirements();
 }
 
@@ -8380,18 +9266,23 @@ class ServerEnvironmentEntry {
     Field('purpose', String, 'Purpose',
         hint: 'Primary purpose of this environment'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Location details.
+  @SerializationOrder(1)
   ServerEnvironmentEntryLocation location = ServerEnvironmentEntryLocation();
 
   /// Scale expectations.
+  @SerializationOrder(2)
   ServerEnvironmentEntryScale scale = ServerEnvironmentEntryScale();
 
   /// Access rules.
+  @SerializationOrder(3)
   ServerEnvironmentEntryAccess access = ServerEnvironmentEntryAccess();
 
   /// Lifecycle rules.
+  @SerializationOrder(4)
   ServerEnvironmentEntryLifecycle lifecycle = ServerEnvironmentEntryLifecycle();
 }
 
@@ -8408,6 +9299,7 @@ class ServerEnvironmentEntryLocation {
     Field('cloudRegion', String, 'Cloud Region',
         hint: 'Cloud provider region'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8422,6 +9314,7 @@ class ServerEnvironmentEntryScale {
     Field('expectedLoad', String, 'Expected Load',
         hint: 'Requests per second'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8436,6 +9329,7 @@ class ServerEnvironmentEntryAccess {
     Field('vpnRequired', bool, 'VPN Required',
         hint: 'VPN access required'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8450,6 +9344,7 @@ class ServerEnvironmentEntryLifecycle {
     Field('notes', String, 'Notes',
         hint: 'Additional environment notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8464,18 +9359,23 @@ class ServerRoleEntry {
     Field('roleAbbreviation', String, 'Abbreviation',
         hint: 'Short code for role'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Software stack details.
+  @SerializationOrder(1)
   ServerRoleEntrySoftware software = ServerRoleEntrySoftware();
 
   /// Capacity requirements.
+  @SerializationOrder(2)
   ServerRoleEntryCapacity capacity = ServerRoleEntryCapacity();
 
   /// Storage requirements.
+  @SerializationOrder(3)
   ServerRoleEntryStorage storage = ServerRoleEntryStorage();
 
   /// Networking requirements.
+  @SerializationOrder(4)
   ServerRoleEntryNetworking networking = ServerRoleEntryNetworking();
 }
 
@@ -8490,6 +9390,7 @@ class ServerRoleEntrySoftware {
     Field('osType', String, 'Operating System',
         hint: 'Linux distro, Windows Server'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8504,6 +9405,7 @@ class ServerRoleEntryCapacity {
     Field('recommendedMemoryGb', int, 'Recommended Memory (GB)',
         hint: 'Recommended RAM in GB'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8518,6 +9420,7 @@ class ServerRoleEntryStorage {
     Field('iopsRequired', int, 'IOPS Required',
         hint: 'Required I/O operations per second'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8531,6 +9434,7 @@ class ServerRoleEntryNetworking {
         hint: 'Ports exposed by this server'),
     Field('notes', String, 'Notes', hint: 'Additional server role notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8549,16 +9453,20 @@ class ComputeResourceRequirements {
     Field('specIntBenchmark', String, 'SPECint Benchmark',
         hint: 'Minimum SPECint score'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Memory requirements.
+  @SerializationOrder(1)
   ComputeResourceRequirementsMemory memory =
       ComputeResourceRequirementsMemory();
 
   /// GPU requirements.
+  @SerializationOrder(2)
   ComputeResourceRequirementsGpu gpu = ComputeResourceRequirementsGpu();
 
   /// Special hardware requirements.
+  @SerializationOrder(3)
   ComputeResourceRequirementsSpecial special =
       ComputeResourceRequirementsSpecial();
 }
@@ -8576,6 +9484,7 @@ class ComputeResourceRequirementsMemory {
     Field('eccRequired', bool, 'ECC Required',
         hint: 'Error-correcting memory'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8592,6 +9501,7 @@ class ComputeResourceRequirementsGpu {
     Field('gpuCount', int, 'GPU Count',
         hint: 'Number of GPUs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8606,6 +9516,7 @@ class ComputeResourceRequirementsSpecial {
     Field('notes', String, 'Notes',
         hint: 'Additional compute notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8622,20 +9533,25 @@ class ServerStorageRequirements {
     Field('readWriteRatio', String, 'Read/Write Ratio',
         hint: 'Expected R/W ratio'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Database storage requirements.
+  @SerializationOrder(1)
   ServerStorageRequirementsDatabase database =
       ServerStorageRequirementsDatabase();
 
   /// File storage requirements.
+  @SerializationOrder(2)
   ServerStorageRequirementsFileStorage fileStorage =
       ServerStorageRequirementsFileStorage();
 
   /// Backup storage requirements.
+  @SerializationOrder(3)
   ServerStorageRequirementsBackup backup = ServerStorageRequirementsBackup();
 
   /// Performance requirements and notes.
+  @SerializationOrder(4)
   ServerStorageRequirementsPerformance performance =
       ServerStorageRequirementsPerformance();
 }
@@ -8650,6 +9566,7 @@ class ServerStorageRequirementsDatabase {
         hint: 'Database storage size'),
     Field('databaseIops', String, 'Database IOPS', hint: 'Database IOPS'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8664,6 +9581,7 @@ class ServerStorageRequirementsFileStorage {
     Field('networkFileSystem', String, 'Network File System',
         hint: 'NFS, SMB, etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8678,6 +9596,7 @@ class ServerStorageRequirementsBackup {
     Field('backupRetention', String, 'Backup Retention',
         hint: 'Retention period'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8691,6 +9610,7 @@ class ServerStorageRequirementsPerformance {
         hint: 'Maximum latency'),
     Field('notes', String, 'Notes', hint: 'Additional storage notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8707,16 +9627,20 @@ class LoadProfileRequirements {
     Field('userGrowthRate', String, 'User Growth Rate',
         hint: 'Expected growth %/year'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Request volume assumptions.
+  @SerializationOrder(1)
   LoadProfileRequirementsRequestLoad requestLoad =
       LoadProfileRequirementsRequestLoad();
 
   /// Temporal and seasonal patterns.
+  @SerializationOrder(2)
   LoadProfileRequirementsPatterns patterns = LoadProfileRequirementsPatterns();
 
   /// Performance target metrics.
+  @SerializationOrder(3)
   LoadProfileRequirementsPerformanceTargets performanceTargets =
       LoadProfileRequirementsPerformanceTargets();
 }
@@ -8734,6 +9658,7 @@ class LoadProfileRequirementsRequestLoad {
     Field('responseSizeAverage', String, 'Average Response Size',
         hint: 'Average response size'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8748,6 +9673,7 @@ class LoadProfileRequirementsPatterns {
     Field('eventDrivenSpikes', String, 'Event-Driven Spikes',
         hint: 'Known spike events'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8764,6 +9690,7 @@ class LoadProfileRequirementsPerformanceTargets {
     Field('notes', String, 'Notes',
         hint: 'Additional load profile notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8778,19 +9705,24 @@ class ScalingRequirements {
     Field('scalingTriggers', String, 'Scaling Triggers',
         hint: 'What triggers scaling'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Horizontal scaling configuration.
+  @SerializationOrder(1)
   ScalingRequirementsHorizontal horizontal = ScalingRequirementsHorizontal();
 
   /// Vertical scaling configuration.
+  @SerializationOrder(2)
   ScalingRequirementsVertical vertical = ScalingRequirementsVertical();
 
   /// Auto-scaling thresholds.
+  @SerializationOrder(3)
   ScalingRequirementsAutoScaling autoScaling =
       ScalingRequirementsAutoScaling();
 
   /// Budget and timing constraints.
+  @SerializationOrder(4)
   ScalingRequirementsConstraints constraints =
       ScalingRequirementsConstraints();
 }
@@ -8808,6 +9740,7 @@ class ScalingRequirementsHorizontal {
     Field('sessionHandling', String, 'Session Handling',
         hint: 'Sticky, distributed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8822,6 +9755,7 @@ class ScalingRequirementsVertical {
     Field('maxMemoryGb', int, 'Max Memory (GB)',
         hint: 'Maximum RAM'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8838,6 +9772,7 @@ class ScalingRequirementsAutoScaling {
     Field('scaleDownPolicy', String, 'Scale Down Policy',
         hint: 'How to scale down'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8851,6 +9786,7 @@ class ScalingRequirementsConstraints {
         hint: 'When scaling is allowed'),
     Field('notes', String, 'Notes', hint: 'Additional scaling notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8865,21 +9801,26 @@ class HighAvailabilityRequirements {
     Field('plannedMaintenanceWindow', String, 'Planned Maintenance Window',
         hint: 'When maintenance allowed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Redundancy model.
+  @SerializationOrder(1)
   HighAvailabilityRequirementsRedundancy redundancy =
       HighAvailabilityRequirementsRedundancy();
 
   /// Failover behavior.
+  @SerializationOrder(2)
   HighAvailabilityRequirementsFailover failover =
       HighAvailabilityRequirementsFailover();
 
   /// Load balancing behavior.
+  @SerializationOrder(3)
   HighAvailabilityRequirementsLoadBalancing loadBalancing =
       HighAvailabilityRequirementsLoadBalancing();
 
   /// Disaster recovery alignment.
+  @SerializationOrder(4)
   HighAvailabilityRequirementsDisasterRecovery disasterRecovery =
       HighAvailabilityRequirementsDisasterRecovery();
 }
@@ -8897,6 +9838,7 @@ class HighAvailabilityRequirementsRedundancy {
     Field('activeActiveMode', bool, 'Active-Active Mode',
         hint: 'All sites active'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8913,6 +9855,7 @@ class HighAvailabilityRequirementsFailover {
     Field('healthCheckInterval', String, 'Health Check Interval',
         hint: 'How often to check health'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8927,6 +9870,7 @@ class HighAvailabilityRequirementsLoadBalancing {
     Field('healthCheckEndpoint', String, 'Health Check Endpoint',
         hint: 'Endpoint for health checks'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8940,6 +9884,7 @@ class HighAvailabilityRequirementsDisasterRecovery {
         hint: 'Sync or async replication'),
     Field('notes', String, 'Notes', hint: 'Additional HA notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8954,20 +9899,25 @@ class VirtualizationRequirements {
     Field('orchestrationPlatform', String, 'Orchestration Platform',
         hint: 'Kubernetes, ECS, etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// VM requirements.
+  @SerializationOrder(1)
   VirtualizationRequirementsVm vm = VirtualizationRequirementsVm();
 
   /// Container requirements.
+  @SerializationOrder(2)
   VirtualizationRequirementsContainer container =
       VirtualizationRequirementsContainer();
 
   /// Kubernetes requirements.
+  @SerializationOrder(3)
   VirtualizationRequirementsKubernetes kubernetes =
       VirtualizationRequirementsKubernetes();
 
   /// Networking requirements.
+  @SerializationOrder(4)
   VirtualizationRequirementsNetworking networking =
       VirtualizationRequirementsNetworking();
 }
@@ -8983,6 +9933,7 @@ class VirtualizationRequirementsVm {
     Field('vmTemplateRequired', bool, 'VM Template Required',
         hint: 'Golden image needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -8999,6 +9950,7 @@ class VirtualizationRequirementsContainer {
     Field('imageScanningRequired', bool, 'Image Scanning Required',
         hint: 'Security scanning'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9015,6 +9967,7 @@ class VirtualizationRequirementsKubernetes {
     Field('resourceQuotas', String, 'Resource Quotas',
         hint: 'CPU/memory limits'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9029,6 +9982,7 @@ class VirtualizationRequirementsNetworking {
     Field('notes', String, 'Notes',
         hint: 'Additional virtualization notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9043,21 +9997,26 @@ class CloudProviderRequirements {
     Field('multiCloudStrategy', String, 'Multi-Cloud Strategy',
         hint: 'Hybrid, Multi-cloud'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Account-structure requirements.
+  @SerializationOrder(1)
   CloudProviderRequirementsAccounts accounts =
       CloudProviderRequirementsAccounts();
 
   /// Service requirements.
+  @SerializationOrder(2)
   CloudProviderRequirementsServices services =
       CloudProviderRequirementsServices();
 
   /// Compliance requirements.
+  @SerializationOrder(3)
   CloudProviderRequirementsCompliance compliance =
       CloudProviderRequirementsCompliance();
 
   /// Governance requirements.
+  @SerializationOrder(4)
   CloudProviderRequirementsGovernance governance =
       CloudProviderRequirementsGovernance();
 }
@@ -9073,6 +10032,7 @@ class CloudProviderRequirementsAccounts {
     Field('billingModel', String, 'Billing Model',
         hint: 'Pay-as-you-go, reserved'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9089,6 +10049,7 @@ class CloudProviderRequirementsServices {
     Field('networkingServices', String, 'Networking Services',
         hint: 'VPC, Route 53, etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9103,6 +10064,7 @@ class CloudProviderRequirementsCompliance {
     Field('encryptionRequirements', String, 'Encryption Requirements',
         hint: 'At-rest, in-transit'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9117,6 +10079,7 @@ class CloudProviderRequirementsGovernance {
     Field('notes', String, 'Notes',
         hint: 'Additional cloud provider notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9133,18 +10096,23 @@ class ServerOsRequirements {
     Field('supportLevel', String, 'Support Level',
         hint: 'LTS, Standard'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Hardening requirements.
+  @SerializationOrder(1)
   ServerOsRequirementsHardening hardening = ServerOsRequirementsHardening();
 
   /// Security controls.
+  @SerializationOrder(2)
   ServerOsRequirementsSecurity security = ServerOsRequirementsSecurity();
 
   /// Monitoring setup.
+  @SerializationOrder(3)
   ServerOsRequirementsMonitoring monitoring = ServerOsRequirementsMonitoring();
 
   /// Licensing details.
+  @SerializationOrder(4)
   ServerOsRequirementsLicensing licensing = ServerOsRequirementsLicensing();
 }
 
@@ -9159,6 +10127,7 @@ class ServerOsRequirementsHardening {
     Field('autoUpdatePolicy', String, 'Auto-Update Policy',
         hint: 'Automatic or manual'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9175,6 +10144,7 @@ class ServerOsRequirementsSecurity {
     Field('antivirusRequired', bool, 'Antivirus Required',
         hint: 'AV/EDR requirement'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9189,6 +10159,7 @@ class ServerOsRequirementsMonitoring {
     Field('performanceMonitoring', String, 'Performance Monitoring',
         hint: 'Performance tools'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9202,6 +10173,7 @@ class ServerOsRequirementsLicensing {
         hint: 'Number of licenses'),
     Field('notes', String, 'Notes', hint: 'Additional OS notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9267,46 +10239,58 @@ Provide an overview of client requirements and support strategy.
 - Document graceful degradation strategy
 - Regular accessibility audits
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of client requirements strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Web browser requirements.
   @SectionId('BRREEN-BROW-LST')
   @SectionIdPattern('BRREEN-BROW-xxx')
+  @SerializationOrder(2)
   List<BrowserRequirementEntry> browserRequirements = [];
 
   /// Desktop operating system requirements.
   @SectionId('DORE1-DESK-LST')
   @SectionIdPattern('DORE1-DESK-xxx')
+  @SerializationOrder(3)
   List<DesktopOsRequirementEntry> desktopOsRequirements = [];
 
   /// Mobile device requirements.
   @SectionId('MDRE-MOBI-LST')
   @SectionIdPattern('MDRE-MOBI-xxx')
+  @SerializationOrder(4)
   List<MobileDeviceRequirementEntry> mobileRequirements = [];
 
   /// Display and screen requirements.
+  @SerializationOrder(5)
   DisplayRequirements displayRequirements = DisplayRequirements();
 
   /// Client network requirements.
+  @SerializationOrder(6)
   ClientNetworkRequirements networkRequirements = ClientNetworkRequirements();
 
   /// Client hardware requirements.
+  @SerializationOrder(7)
   ClientHardwareRequirements hardwareRequirements = ClientHardwareRequirements();
 
   /// Accessibility requirements for clients.
+  @SerializationOrder(8)
   ClientAccessibilityRequirements accessibilityRequirements =
       ClientAccessibilityRequirements();
 
   /// Progressive Web App (PWA) requirements.
+  @SerializationOrder(9)
   PwaRequirements pwaRequirements = PwaRequirements();
 
   /// Native app requirements.
+  @SerializationOrder(10)
   NativeAppRequirements nativeAppRequirements = NativeAppRequirements();
 
   /// Client security requirements.
+  @SerializationOrder(11)
   ClientSecurityRequirements securityRequirements = ClientSecurityRequirements();
 }
 
@@ -9323,18 +10307,23 @@ class BrowserRequirementEntry {
     Field('recommendedVersion', String, 'Recommended Version',
         hint: 'Recommended version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Support level and user share.
+  @SerializationOrder(1)
   BrowserRequirementEntrySupport support = BrowserRequirementEntrySupport();
 
   /// Required and optional features.
+  @SerializationOrder(2)
   BrowserRequirementEntryFeatures features = BrowserRequirementEntryFeatures();
 
   /// Testing strategy.
+  @SerializationOrder(3)
   BrowserRequirementEntryTesting testing = BrowserRequirementEntryTesting();
 
   /// Known issues and workarounds.
+  @SerializationOrder(4)
   BrowserRequirementEntryIssues issues = BrowserRequirementEntryIssues();
 }
 
@@ -9349,6 +10338,7 @@ class BrowserRequirementEntrySupport {
     Field('expectedUserShare', String, 'Expected User Share',
         hint: 'Percentage of users'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9365,6 +10355,7 @@ class BrowserRequirementEntryFeatures {
     Field('cssSupport', String, 'CSS Support',
         hint: 'CSS features required'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9379,6 +10370,7 @@ class BrowserRequirementEntryTesting {
     Field('manualTestingFrequency', String, 'Manual Testing Frequency',
         hint: 'How often manually tested'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9393,6 +10385,7 @@ class BrowserRequirementEntryIssues {
     Field('notes', String, 'Notes',
         hint: 'Additional browser requirement notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9409,21 +10402,26 @@ class DesktopOsRequirementEntry {
     Field('recommendedVersion', String, 'Recommended Version',
         hint: 'Recommended version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Support prioritization.
+  @SerializationOrder(1)
   DesktopOsRequirementEntrySupport support =
       DesktopOsRequirementEntrySupport();
 
   /// Hardware and display requirements.
+  @SerializationOrder(2)
   DesktopOsRequirementEntryRequirements requirements =
       DesktopOsRequirementEntryRequirements();
 
   /// Software prerequisites.
+  @SerializationOrder(3)
   DesktopOsRequirementEntrySoftware software =
       DesktopOsRequirementEntrySoftware();
 
   /// Testing and known issues.
+  @SerializationOrder(4)
   DesktopOsRequirementEntryTesting testing = DesktopOsRequirementEntryTesting();
 }
 
@@ -9438,6 +10436,7 @@ class DesktopOsRequirementEntrySupport {
     Field('expectedUserShare', String, 'Expected User Share',
         hint: 'Percentage of users'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9454,6 +10453,7 @@ class DesktopOsRequirementEntryRequirements {
     Field('displayDriver', String, 'Display Driver',
         hint: 'Graphics requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9466,6 +10466,7 @@ class DesktopOsRequirementEntrySoftware {
     Field('additionalSoftware', String, 'Additional Software',
         hint: 'Other required software'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9482,6 +10483,7 @@ class DesktopOsRequirementEntryTesting {
     Field('notes', String, 'Notes',
         hint: 'Additional desktop OS notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9496,21 +10498,26 @@ class MobileDeviceRequirementEntry {
     Field('recommendedOsVersion', String, 'Recommended OS Version',
         hint: 'Recommended OS version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Support prioritization.
+  @SerializationOrder(1)
   MobileDeviceRequirementEntrySupport support =
       MobileDeviceRequirementEntrySupport();
 
   /// Device coverage.
+  @SerializationOrder(2)
   MobileDeviceRequirementEntryDevices devices =
       MobileDeviceRequirementEntryDevices();
 
   /// Hardware expectations.
+  @SerializationOrder(3)
   MobileDeviceRequirementEntryHardware hardware =
       MobileDeviceRequirementEntryHardware();
 
   /// Capability requirements.
+  @SerializationOrder(4)
   MobileDeviceRequirementEntryCapabilities capabilities =
       MobileDeviceRequirementEntryCapabilities();
 }
@@ -9526,6 +10533,7 @@ class MobileDeviceRequirementEntrySupport {
     Field('expectedUserShare', String, 'Expected User Share',
         hint: 'Percentage of users'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9540,6 +10548,7 @@ class MobileDeviceRequirementEntryDevices {
     Field('screenSizes', String, 'Screen Sizes',
         hint: 'Supported screen sizes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9556,6 +10565,7 @@ class MobileDeviceRequirementEntryHardware {
     Field('hardwareAcceleration', bool, 'Hardware Acceleration',
         hint: 'GPU acceleration needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9572,6 +10582,7 @@ class MobileDeviceRequirementEntryCapabilities {
     Field('notes', String, 'Notes',
         hint: 'Additional mobile device notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9586,18 +10597,23 @@ class DisplayRequirements {
     Field('maxResolution', String, 'Maximum Resolution',
         hint: 'Maximum tested resolution'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Aspect ratio and layout support.
+  @SerializationOrder(1)
   DisplayRequirementsLayout layout = DisplayRequirementsLayout();
 
   /// DPI and scaling support.
+  @SerializationOrder(2)
   DisplayRequirementsScaling scaling = DisplayRequirementsScaling();
 
   /// Color and contrast support.
+  @SerializationOrder(3)
   DisplayRequirementsColor color = DisplayRequirementsColor();
 
   /// Multi-display support.
+  @SerializationOrder(4)
   DisplayRequirementsMultiDisplay multiDisplay =
       DisplayRequirementsMultiDisplay();
 }
@@ -9613,6 +10629,7 @@ class DisplayRequirementsLayout {
     Field('fluidLayout', bool, 'Fluid Layout',
         hint: 'Supports fluid layouts'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9629,6 +10646,7 @@ class DisplayRequirementsScaling {
     Field('vectorGraphics', bool, 'Vector Graphics',
         hint: 'SVG/vector support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9645,6 +10663,7 @@ class DisplayRequirementsColor {
     Field('highContrastSupport', bool, 'High Contrast Support',
         hint: 'High contrast mode'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9659,6 +10678,7 @@ class DisplayRequirementsMultiDisplay {
     Field('notes', String, 'Notes',
         hint: 'Additional display notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9675,20 +10695,25 @@ class ClientNetworkRequirements {
     Field('peakBandwidthUsage', String, 'Peak Bandwidth Usage',
         hint: 'Maximum bandwidth consumed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Latency requirements.
+  @SerializationOrder(1)
   ClientNetworkRequirementsLatency latency = ClientNetworkRequirementsLatency();
 
   /// Connection-type requirements.
+  @SerializationOrder(2)
   ClientNetworkRequirementsConnection connection =
       ClientNetworkRequirementsConnection();
 
   /// Protocol requirements.
+  @SerializationOrder(3)
   ClientNetworkRequirementsProtocols protocols =
       ClientNetworkRequirementsProtocols();
 
   /// Proxy and firewall requirements.
+  @SerializationOrder(4)
   ClientNetworkRequirementsProxy proxy = ClientNetworkRequirementsProxy();
 }
 
@@ -9703,6 +10728,7 @@ class ClientNetworkRequirementsLatency {
     Field('jitterTolerance', String, 'Jitter Tolerance',
         hint: 'Network jitter tolerance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9717,6 +10743,7 @@ class ClientNetworkRequirementsConnection {
     Field('lowBandwidthMode', String, 'Low Bandwidth Mode',
         hint: 'Degraded mode for slow connections'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9731,6 +10758,7 @@ class ClientNetworkRequirementsProtocols {
     Field('webRtcRequired', bool, 'WebRTC Required',
         hint: 'Real-time communication'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9745,6 +10773,7 @@ class ClientNetworkRequirementsProxy {
     Field('notes', String, 'Notes',
         hint: 'Additional network notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9761,20 +10790,25 @@ class ClientHardwareRequirements {
     Field('minCpuSpeed', String, 'Minimum CPU Speed',
         hint: 'Minimum clock speed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Memory requirements.
+  @SerializationOrder(1)
   ClientHardwareRequirementsMemory memory = ClientHardwareRequirementsMemory();
 
   /// Storage requirements.
+  @SerializationOrder(2)
   ClientHardwareRequirementsStorage storage =
       ClientHardwareRequirementsStorage();
 
   /// Graphics requirements.
+  @SerializationOrder(3)
   ClientHardwareRequirementsGraphics graphics =
       ClientHardwareRequirementsGraphics();
 
   /// Peripheral requirements.
+  @SerializationOrder(4)
   ClientHardwareRequirementsPeripherals peripherals =
       ClientHardwareRequirementsPeripherals();
 }
@@ -9790,6 +10824,7 @@ class ClientHardwareRequirementsMemory {
     Field('appMemoryUsage', String, 'App Memory Usage',
         hint: 'Expected memory consumption'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9806,6 +10841,7 @@ class ClientHardwareRequirementsStorage {
     Field('storageType', String, 'Storage Type',
         hint: 'SSD recommended'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9820,6 +10856,7 @@ class ClientHardwareRequirementsGraphics {
     Field('videoDecoding', String, 'Video Decoding',
         hint: 'Hardware video decode'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9834,6 +10871,7 @@ class ClientHardwareRequirementsPeripherals {
     Field('notes', String, 'Notes',
         hint: 'Additional hardware notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9848,21 +10886,26 @@ class ClientAccessibilityRequirements {
     Field('semanticHtml', bool, 'Semantic HTML',
         hint: 'Proper semantic structure'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Visual accessibility support.
+  @SerializationOrder(1)
   ClientAccessibilityRequirementsVisual visual =
       ClientAccessibilityRequirementsVisual();
 
   /// Motor accessibility support.
+  @SerializationOrder(2)
   ClientAccessibilityRequirementsMotor motor =
       ClientAccessibilityRequirementsMotor();
 
   /// Cognitive accessibility support.
+  @SerializationOrder(3)
   ClientAccessibilityRequirementsCognitive cognitive =
       ClientAccessibilityRequirementsCognitive();
 
   /// Standards and notes.
+  @SerializationOrder(4)
   ClientAccessibilityRequirementsStandards standards =
       ClientAccessibilityRequirementsStandards();
 }
@@ -9880,6 +10923,7 @@ class ClientAccessibilityRequirementsVisual {
     Field('fontScaling', String, 'Font Scaling',
         hint: 'Dynamic font scaling'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9896,6 +10940,7 @@ class ClientAccessibilityRequirementsMotor {
     Field('voiceControl', String, 'Voice Control',
         hint: 'Voice input support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9910,6 +10955,7 @@ class ClientAccessibilityRequirementsCognitive {
     Field('animationControls', bool, 'Animation Controls',
         hint: 'Reduce motion option'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9924,6 +10970,7 @@ class ClientAccessibilityRequirementsStandards {
     Field('notes', String, 'Notes',
         hint: 'Additional accessibility notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9942,18 +10989,23 @@ class PwaRequirements {
     Field('backgroundColor', String, 'Background Color',
         hint: 'Splash background color'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Icon requirements.
+  @SerializationOrder(1)
   PwaRequirementsIcons icons = PwaRequirementsIcons();
 
   /// Installation behavior.
+  @SerializationOrder(2)
   PwaRequirementsInstallation installation = PwaRequirementsInstallation();
 
   /// Offline support.
+  @SerializationOrder(3)
   PwaRequirementsOffline offline = PwaRequirementsOffline();
 
   /// Update handling.
+  @SerializationOrder(4)
   PwaRequirementsUpdates updates = PwaRequirementsUpdates();
 }
 
@@ -9968,6 +11020,7 @@ class PwaRequirementsIcons {
     Field('splashScreen', String, 'Splash Screen',
         hint: 'Splash screen config'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9982,6 +11035,7 @@ class PwaRequirementsInstallation {
     Field('startUrl', String, 'Start URL',
         hint: 'PWA start URL'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -9996,6 +11050,7 @@ class PwaRequirementsOffline {
     Field('backgroundSync', bool, 'Background Sync',
         hint: 'Background sync support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10010,6 +11065,7 @@ class PwaRequirementsUpdates {
     Field('notes', String, 'Notes',
         hint: 'Additional PWA notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10024,19 +11080,24 @@ class NativeAppRequirements {
     Field('sideloading', bool, 'Sideloading',
         hint: 'Direct installation'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Store presence requirements.
+  @SerializationOrder(1)
   NativeAppRequirementsStores stores = NativeAppRequirementsStores();
 
   /// SDK and version requirements.
+  @SerializationOrder(2)
   NativeAppRequirementsVersions versions = NativeAppRequirementsVersions();
 
   /// Size and performance requirements.
+  @SerializationOrder(3)
   NativeAppRequirementsPerformance performance =
       NativeAppRequirementsPerformance();
 
   /// Deep-linking support.
+  @SerializationOrder(4)
   NativeAppRequirementsLinking linking = NativeAppRequirementsLinking();
 }
 
@@ -10051,6 +11112,7 @@ class NativeAppRequirementsStores {
     Field('otherStores', String, 'Other Stores',
         hint: 'Amazon, Samsung, etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10065,6 +11127,7 @@ class NativeAppRequirementsVersions {
     Field('compileSdkVersion', String, 'Compile SDK Version',
         hint: 'Compile SDK version'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10078,6 +11141,7 @@ class NativeAppRequirementsPerformance {
         hint: 'Cold start time target'),
     Field('memoryLimit', String, 'Memory Limit', hint: 'Max memory usage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10092,6 +11156,7 @@ class NativeAppRequirementsLinking {
         hint: 'App URL scheme'),
     Field('notes', String, 'Notes', hint: 'Additional native app notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10106,20 +11171,25 @@ class ClientSecurityRequirements {
     Field('cacheClearing', String, 'Cache Clearing',
         hint: 'Sensitive data clearing'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Authentication requirements.
+  @SerializationOrder(1)
   ClientSecurityRequirementsAuthentication authentication =
       ClientSecurityRequirementsAuthentication();
 
   /// Device security controls.
+  @SerializationOrder(2)
   ClientSecurityRequirementsDevice device = ClientSecurityRequirementsDevice();
 
   /// Network security controls.
+  @SerializationOrder(3)
   ClientSecurityRequirementsNetwork network =
       ClientSecurityRequirementsNetwork();
 
   /// Code protection controls.
+  @SerializationOrder(4)
   ClientSecurityRequirementsCodeProtection codeProtection =
       ClientSecurityRequirementsCodeProtection();
 }
@@ -10137,6 +11207,7 @@ class ClientSecurityRequirementsAuthentication {
     Field('autoLockTimeout', String, 'Auto-Lock Timeout',
         hint: 'Session timeout'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10153,6 +11224,7 @@ class ClientSecurityRequirementsDevice {
     Field('vpnDetection', String, 'VPN Detection',
         hint: 'VPN/proxy detection'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10167,6 +11239,7 @@ class ClientSecurityRequirementsNetwork {
     Field('insecureConnectionBlocking', bool, 'Block Insecure Connections',
         hint: 'Block HTTP'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10181,6 +11254,7 @@ class ClientSecurityRequirementsCodeProtection {
     Field('notes', String, 'Notes',
         hint: 'Additional client security notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10246,47 +11320,60 @@ Provide an overview of network strategy and architecture.
 - Monitor network performance continuously
 - Plan for network capacity growth
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of network infrastructure strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Internal network requirements.
+  @SerializationOrder(2)
   InternalNetworkRequirements internalNetwork = InternalNetworkRequirements();
 
   /// External connectivity requirements.
+  @SerializationOrder(3)
   ExternalNetworkRequirements externalNetwork = ExternalNetworkRequirements();
 
   /// Bandwidth and throughput requirements.
+  @SerializationOrder(4)
   BandwidthRequirements bandwidthRequirements = BandwidthRequirements();
 
   /// Latency and performance requirements.
+  @SerializationOrder(5)
   NetworkLatencyRequirements latencyRequirements = NetworkLatencyRequirements();
 
   /// Network availability requirements.
+  @SerializationOrder(6)
   NetworkAvailabilityRequirements availabilityRequirements =
       NetworkAvailabilityRequirements();
 
   /// VPN requirements.
   @SectionId('VPREEN-VPNR-LST')
   @SectionIdPattern('VPREEN-VPNR-xxx')
+  @SerializationOrder(7)
   List<VpnRequirementEntry> vpnRequirements = [];
 
   /// Firewall rules and policies.
+  @SerializationOrder(8)
   FirewallRequirements firewallRequirements = FirewallRequirements();
 
   /// Geographic distribution and CDN.
+  @SerializationOrder(9)
   GeographicDistributionRequirements geographicDistribution =
       GeographicDistributionRequirements();
 
   /// DNS requirements.
+  @SerializationOrder(10)
   DnsRequirements dnsRequirements = DnsRequirements();
 
   /// Load balancing requirements.
+  @SerializationOrder(11)
   NetworkLoadBalancingRequirements loadBalancing =
       NetworkLoadBalancingRequirements();
 
   /// Network security requirements.
+  @SerializationOrder(12)
   NetworkSecurityRequirements networkSecurity = NetworkSecurityRequirements();
 }
 
@@ -10303,21 +11390,26 @@ class InternalNetworkRequirements {
     Field('cidrRanges', String, 'CIDR Ranges',
         hint: 'IP address ranges'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Segmentation and isolation.
+  @SerializationOrder(1)
   InternalNetworkRequirementsSegmentation segmentation =
       InternalNetworkRequirementsSegmentation();
 
   /// Routing and service discovery.
+  @SerializationOrder(2)
   InternalNetworkRequirementsRouting routing =
       InternalNetworkRequirementsRouting();
 
   /// Inter-service communication controls.
+  @SerializationOrder(3)
   InternalNetworkRequirementsInterService interService =
       InternalNetworkRequirementsInterService();
 
   /// Monitoring and notes.
+  @SerializationOrder(4)
   InternalNetworkRequirementsMonitoring monitoring =
       InternalNetworkRequirementsMonitoring();
 }
@@ -10333,6 +11425,7 @@ class InternalNetworkRequirementsSegmentation {
     Field('isolationRequirements', String, 'Isolation Requirements',
         hint: 'Network isolation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10347,6 +11440,7 @@ class InternalNetworkRequirementsRouting {
     Field('serviceMesh', String, 'Service Mesh',
         hint: 'Istio, Linkerd if used'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10361,6 +11455,7 @@ class InternalNetworkRequirementsInterService {
     Field('certificateManagement', String, 'Certificate Management',
         hint: 'Cert-manager, PKI'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10374,6 +11469,7 @@ class InternalNetworkRequirementsMonitoring {
     Field('notes', String, 'Notes',
         hint: 'Additional internal network notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10390,20 +11486,25 @@ class ExternalNetworkRequirements {
     Field('peeringRequirements', String, 'Peering Requirements',
         hint: 'Direct peering arrangements'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Public endpoint requirements.
+  @SerializationOrder(1)
   ExternalNetworkRequirementsPublic publicEndpointsConfig =
       ExternalNetworkRequirementsPublic();
 
   /// Third-party connectivity.
+  @SerializationOrder(2)
   ExternalNetworkRequirementsPartners partners =
       ExternalNetworkRequirementsPartners();
 
   /// Cloud connectivity.
+  @SerializationOrder(3)
   ExternalNetworkRequirementsCloud cloud = ExternalNetworkRequirementsCloud();
 
   /// Security controls.
+  @SerializationOrder(4)
   ExternalNetworkRequirementsSecurity security =
       ExternalNetworkRequirementsSecurity();
 }
@@ -10421,6 +11522,7 @@ class ExternalNetworkRequirementsPublic {
     Field('dnscname', String, 'DNS/CNAME Requirements',
         hint: 'DNS records needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10435,6 +11537,7 @@ class ExternalNetworkRequirementsPartners {
     Field('webhookEndpoints', String, 'Webhook Endpoints',
         hint: 'Inbound webhooks'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10447,6 +11550,7 @@ class ExternalNetworkRequirementsCloud {
     Field('hybridCloud', String, 'Hybrid Cloud',
         hint: 'Hybrid cloud networking'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10461,6 +11565,7 @@ class ExternalNetworkRequirementsSecurity {
     Field('notes', String, 'Notes',
         hint: 'Additional external network notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10477,18 +11582,23 @@ class BandwidthRequirements {
     Field('burstCapacity', String, 'Burst Capacity',
         hint: 'Burst handling capability'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Directional bandwidth requirements.
+  @SerializationOrder(1)
   BandwidthRequirementsDirection direction = BandwidthRequirementsDirection();
 
   /// Per-connection bandwidth requirements.
+  @SerializationOrder(2)
   BandwidthRequirementsConnection connection = BandwidthRequirementsConnection();
 
   /// Traffic-pattern requirements.
+  @SerializationOrder(3)
   BandwidthRequirementsTraffic traffic = BandwidthRequirementsTraffic();
 
   /// QoS requirements.
+  @SerializationOrder(4)
   BandwidthRequirementsQos qos = BandwidthRequirementsQos();
 }
 
@@ -10503,6 +11613,7 @@ class BandwidthRequirementsDirection {
     Field('eastWestBandwidth', String, 'East-West Bandwidth',
         hint: 'Internal traffic bandwidth'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10517,6 +11628,7 @@ class BandwidthRequirementsConnection {
     Field('connectionPooling', String, 'Connection Pooling',
         hint: 'Connection pool requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10531,6 +11643,7 @@ class BandwidthRequirementsTraffic {
     Field('fileTransfers', String, 'File Transfers',
         hint: 'Large file transfer needs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10545,6 +11658,7 @@ class BandwidthRequirementsQos {
     Field('notes', String, 'Notes',
         hint: 'Additional bandwidth notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10561,21 +11675,26 @@ class NetworkLatencyRequirements {
     Field('p99Latency', String, 'P99 Latency',
         hint: '99th percentile target'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Segment-level latency budgets.
+  @SerializationOrder(1)
   NetworkLatencyRequirementsSegments segments =
       NetworkLatencyRequirementsSegments();
 
   /// Geographic latency budgets.
+  @SerializationOrder(2)
   NetworkLatencyRequirementsGeographic geographic =
       NetworkLatencyRequirementsGeographic();
 
   /// Stability tolerances.
+  @SerializationOrder(3)
   NetworkLatencyRequirementsStability stability =
       NetworkLatencyRequirementsStability();
 
   /// Optimization strategies.
+  @SerializationOrder(4)
   NetworkLatencyRequirementsOptimization optimization =
       NetworkLatencyRequirementsOptimization();
 }
@@ -10593,6 +11712,7 @@ class NetworkLatencyRequirementsSegments {
     Field('databaseLatency', String, 'Database Latency',
         hint: 'DB access latency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10607,6 +11727,7 @@ class NetworkLatencyRequirementsGeographic {
     Field('globalLatency', String, 'Global Latency',
         hint: 'Worldwide latency targets'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10621,6 +11742,7 @@ class NetworkLatencyRequirementsStability {
     Field('connectionStability', String, 'Connection Stability',
         hint: 'Connection stability requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10632,6 +11754,7 @@ class NetworkLatencyRequirementsOptimization {
         hint: 'Optimization strategies'),
     Field('notes', String, 'Notes', hint: 'Additional latency notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10646,21 +11769,26 @@ class NetworkAvailabilityRequirements {
     Field('maintenanceWindows', String, 'Maintenance Windows',
         hint: 'Scheduled maintenance'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Redundancy configuration.
+  @SerializationOrder(1)
   NetworkAvailabilityRequirementsRedundancy redundancy =
       NetworkAvailabilityRequirementsRedundancy();
 
   /// Failover configuration.
+  @SerializationOrder(2)
   NetworkAvailabilityRequirementsFailover failover =
       NetworkAvailabilityRequirementsFailover();
 
   /// Recovery objectives.
+  @SerializationOrder(3)
   NetworkAvailabilityRequirementsRecovery recovery =
       NetworkAvailabilityRequirementsRecovery();
 
   /// Testing and notes.
+  @SerializationOrder(4)
   NetworkAvailabilityRequirementsTesting testing =
       NetworkAvailabilityRequirementsTesting();
 }
@@ -10678,6 +11806,7 @@ class NetworkAvailabilityRequirementsRedundancy {
     Field('deviceRedundancy', String, 'Device Redundancy',
         hint: 'Redundant network devices'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10694,6 +11823,7 @@ class NetworkAvailabilityRequirementsFailover {
     Field('automaticRerouting', bool, 'Automatic Rerouting',
         hint: 'Auto path rerouting'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10708,6 +11838,7 @@ class NetworkAvailabilityRequirementsRecovery {
     Field('drSite', String, 'DR Site Connectivity',
         hint: 'DR network connectivity'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10720,6 +11851,7 @@ class NetworkAvailabilityRequirementsTesting {
     Field('notes', String, 'Notes',
         hint: 'Additional availability notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10734,20 +11866,25 @@ class VpnRequirementEntry {
     Field('purpose', String, 'Purpose',
         hint: 'Purpose of this VPN'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Endpoint configuration.
+  @SerializationOrder(1)
   VpnRequirementEntryEndpoints endpoints = VpnRequirementEntryEndpoints();
 
   /// Protocol and cryptography.
+  @SerializationOrder(2)
   VpnRequirementEntryProtocol protocolDetails =
       VpnRequirementEntryProtocol();
 
   /// Performance expectations.
+  @SerializationOrder(3)
   VpnRequirementEntryPerformance performance =
       VpnRequirementEntryPerformance();
 
   /// Availability and notes.
+  @SerializationOrder(4)
   VpnRequirementEntryAvailability availabilityDetails =
       VpnRequirementEntryAvailability();
 }
@@ -10763,6 +11900,7 @@ class VpnRequirementEntryEndpoints {
     Field('remoteNetworks', String, 'Remote Networks',
         hint: 'Networks accessible via VPN'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10779,6 +11917,7 @@ class VpnRequirementEntryProtocol {
     Field('perfectForwardSecrecy', bool, 'Perfect Forward Secrecy',
         hint: 'PFS enabled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10793,6 +11932,7 @@ class VpnRequirementEntryPerformance {
     Field('splitTunneling', bool, 'Split Tunneling',
         hint: 'Split tunnel allowed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10806,6 +11946,7 @@ class VpnRequirementEntryAvailability {
         hint: 'VPN redundancy'),
     Field('notes', String, 'Notes', hint: 'Additional VPN notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10820,18 +11961,23 @@ class FirewallRequirements {
     Field('managementModel', String, 'Management Model',
         hint: 'Centralized, distributed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Rule definitions.
+  @SerializationOrder(1)
   FirewallRequirementsRules rules = FirewallRequirementsRules();
 
   /// Port requirements.
+  @SerializationOrder(2)
   FirewallRequirementsPorts ports = FirewallRequirementsPorts();
 
   /// Advanced inspection features.
+  @SerializationOrder(3)
   FirewallRequirementsAdvanced advanced = FirewallRequirementsAdvanced();
 
   /// Logging and alerts.
+  @SerializationOrder(4)
   FirewallRequirementsLogging logging = FirewallRequirementsLogging();
 }
 
@@ -10848,6 +11994,7 @@ class FirewallRequirementsRules {
     Field('internalRules', String, 'Internal Rules Summary',
         hint: 'Inter-zone rules'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10862,6 +12009,7 @@ class FirewallRequirementsPorts {
     Field('portRanges', String, 'Port Ranges',
         hint: 'Dynamic port ranges'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10878,6 +12026,7 @@ class FirewallRequirementsAdvanced {
     Field('threatIntelligence', String, 'Threat Intelligence',
         hint: 'Threat feed integration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10892,6 +12041,7 @@ class FirewallRequirementsLogging {
     Field('notes', String, 'Notes',
         hint: 'Additional firewall notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10908,21 +12058,26 @@ class GeographicDistributionRequirements {
     Field('regionalCompliance', String, 'Regional Compliance',
         hint: 'Data residency requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// CDN requirements.
+  @SerializationOrder(1)
   GeographicDistributionRequirementsCdn cdn =
       GeographicDistributionRequirementsCdn();
 
   /// Traffic routing requirements.
+  @SerializationOrder(2)
   GeographicDistributionRequirementsRouting routing =
       GeographicDistributionRequirementsRouting();
 
   /// Anycast and global load balancing.
+  @SerializationOrder(3)
   GeographicDistributionRequirementsAnycast anycast =
       GeographicDistributionRequirementsAnycast();
 
   /// Performance considerations.
+  @SerializationOrder(4)
   GeographicDistributionRequirementsPerformance performance =
       GeographicDistributionRequirementsPerformance();
 }
@@ -10941,6 +12096,7 @@ class GeographicDistributionRequirementsCdn {
     Field('cacheInvalidation', String, 'Cache Invalidation',
         hint: 'Invalidation strategy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10955,6 +12111,7 @@ class GeographicDistributionRequirementsRouting {
     Field('trafficSteering', String, 'Traffic Steering',
         hint: 'How traffic is directed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10966,6 +12123,7 @@ class GeographicDistributionRequirementsAnycast {
     Field('globalLoadBalancing', String, 'Global Load Balancing',
         hint: 'GSLB requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10978,6 +12136,7 @@ class GeographicDistributionRequirementsPerformance {
     Field('notes', String, 'Notes',
         hint: 'Additional geographic distribution notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -10992,18 +12151,23 @@ class DnsRequirements {
     Field('dnsSecEnabled', bool, 'DNSSEC Enabled',
         hint: 'DNS security extensions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Zone requirements.
+  @SerializationOrder(1)
   DnsRequirementsZones zones = DnsRequirementsZones();
 
   /// Record requirements.
+  @SerializationOrder(2)
   DnsRequirementsRecords records = DnsRequirementsRecords();
 
   /// Availability requirements.
+  @SerializationOrder(3)
   DnsRequirementsAvailability availability = DnsRequirementsAvailability();
 
   /// Health-check settings.
+  @SerializationOrder(4)
   DnsRequirementsHealthChecks healthChecks = DnsRequirementsHealthChecks();
 }
 
@@ -11018,6 +12182,7 @@ class DnsRequirementsZones {
     Field('splitHorizon', bool, 'Split Horizon DNS',
         hint: 'Internal/external split'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11032,6 +12197,7 @@ class DnsRequirementsRecords {
     Field('dynamicDns', bool, 'Dynamic DNS',
         hint: 'Dynamic DNS updates'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11046,6 +12212,7 @@ class DnsRequirementsAvailability {
     Field('failoverDns', String, 'Failover DNS',
         hint: 'DNS-based failover'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11062,6 +12229,7 @@ class DnsRequirementsHealthChecks {
     Field('notes', String, 'Notes',
         hint: 'Additional DNS notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11076,21 +12244,26 @@ class NetworkLoadBalancingRequirements {
     Field('deploymentModel', String, 'Deployment Model',
         hint: 'Cloud, on-premises, hybrid'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Routing strategy.
+  @SerializationOrder(1)
   NetworkLoadBalancingRequirementsRouting routing =
       NetworkLoadBalancingRequirementsRouting();
 
   /// Health-check behavior.
+  @SerializationOrder(2)
   NetworkLoadBalancingRequirementsHealthChecks healthChecks =
       NetworkLoadBalancingRequirementsHealthChecks();
 
   /// TLS settings.
+  @SerializationOrder(3)
   NetworkLoadBalancingRequirementsTls tls =
       NetworkLoadBalancingRequirementsTls();
 
   /// Availability settings.
+  @SerializationOrder(4)
   NetworkLoadBalancingRequirementsAvailability availability =
       NetworkLoadBalancingRequirementsAvailability();
 }
@@ -11106,6 +12279,7 @@ class NetworkLoadBalancingRequirementsRouting {
     Field('weightedRouting', bool, 'Weighted Routing',
         hint: 'Weighted distribution'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11124,6 +12298,7 @@ class NetworkLoadBalancingRequirementsHealthChecks {
     Field('healthyThreshold', int, 'Healthy Threshold',
         hint: 'Successes before healthy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11138,6 +12313,7 @@ class NetworkLoadBalancingRequirementsTls {
     Field('http2Support', bool, 'HTTP/2 Support',
         hint: 'HTTP/2 enabled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11152,6 +12328,7 @@ class NetworkLoadBalancingRequirementsAvailability {
     Field('notes', String, 'Notes',
         hint: 'Additional load balancing notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11168,19 +12345,24 @@ class NetworkSecurityRequirements {
     Field('certificateAuthority', String, 'Certificate Authority',
         hint: 'CA for certificates'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Access-control settings.
+  @SerializationOrder(1)
   NetworkSecurityRequirementsAccess access = NetworkSecurityRequirementsAccess();
 
   /// Monitoring controls.
+  @SerializationOrder(2)
   NetworkSecurityRequirementsMonitoring monitoring =
       NetworkSecurityRequirementsMonitoring();
 
   /// DDoS protection controls.
+  @SerializationOrder(3)
   NetworkSecurityRequirementsDdos ddos = NetworkSecurityRequirementsDdos();
 
   /// Compliance settings.
+  @SerializationOrder(4)
   NetworkSecurityRequirementsCompliance compliance =
       NetworkSecurityRequirementsCompliance();
 }
@@ -11198,6 +12380,7 @@ class NetworkSecurityRequirementsAccess {
     Field('ipBlacklisting', String, 'IP Blacklisting',
         hint: 'Blocked IP ranges'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11212,6 +12395,7 @@ class NetworkSecurityRequirementsMonitoring {
     Field('anomalyDetection', bool, 'Anomaly Detection',
         hint: 'Anomaly-based detection'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11226,6 +12410,7 @@ class NetworkSecurityRequirementsDdos {
     Field('geoBlocking', String, 'Geo-Blocking',
         hint: 'Geographic restrictions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11240,6 +12425,7 @@ class NetworkSecurityRequirementsCompliance {
     Field('notes', String, 'Notes',
         hint: 'Additional network security notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11303,19 +12489,24 @@ Provide an overview of operational philosophy and key requirements.
 - Regular disaster recovery testing
 - Continuous operational improvement
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 8.5.1. Backup And Recovery.
+  @SerializationOrder(1)
   BackupAndRecoverySection backupAndRecovery = BackupAndRecoverySection();
 
   /// 8.5.2. Deployment Strategy.
+  @SerializationOrder(2)
   DeploymentStrategySection deploymentStrategy = DeploymentStrategySection();
 
   /// 8.5.3. Monitoring And Alerting.
+  @SerializationOrder(3)
   MonitoringAndAlertingSection monitoringAndAlerting =
       MonitoringAndAlertingSection();
 
   /// 8.5.4. Maintenance Windows.
+  @SerializationOrder(4)
   MaintenanceWindowsSection maintenanceWindows = MaintenanceWindowsSection();
 }
 
@@ -11380,35 +12571,45 @@ Provide an overview of backup and recovery strategy.
 - Cross-train team on recovery operations
 - Review and update DR plan annually
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of backup and recovery strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Data classification for backup purposes.
+  @SerializationOrder(2)
   BackupDataClassification dataClassification = BackupDataClassification();
 
   /// Backup policies by data type.
   @SectionId('BAPOEN-BACK-LST')
   @SectionIdPattern('BAPOEN-BACK-xxx')
+  @SerializationOrder(3)
   List<BackupPolicyEntry> backupPolicies = [];
 
   /// RPO and RTO requirements.
+  @SerializationOrder(4)
   RpoRtoRequirements rpoRtoRequirements = RpoRtoRequirements();
 
   /// Backup infrastructure requirements.
+  @SerializationOrder(5)
   BackupInfrastructure infrastructure = BackupInfrastructure();
 
   /// Recovery procedures.
+  @SerializationOrder(6)
   RecoveryProcedures recoveryProcedures = RecoveryProcedures();
 
   /// Disaster recovery requirements.
+  @SerializationOrder(7)
   DisasterRecoveryRequirements disasterRecovery = DisasterRecoveryRequirements();
 
   /// Backup verification and testing.
+  @SerializationOrder(8)
   BackupVerification verification = BackupVerification();
 
   /// Compliance and audit requirements.
+  @SerializationOrder(9)
   BackupCompliance compliance = BackupCompliance();
 }
 
@@ -11425,13 +12626,16 @@ class BackupDataClassification {
     Field('lowPriorityData', String, 'Low Priority Data',
         hint: 'Non-essential data'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Included data categories.
+  @SerializationOrder(1)
   BackupDataClassificationCategories categories =
     BackupDataClassificationCategories();
 
   /// Exclusions and regeneration rules.
+  @SerializationOrder(2)
   BackupDataClassificationExclusions exclusions =
     BackupDataClassificationExclusions();
 }
@@ -11451,6 +12655,7 @@ class BackupDataClassificationCategories {
   Field('applicationState', String, 'Application State',
     hint: 'Stateful application data'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11467,6 +12672,7 @@ class BackupDataClassificationExclusions {
   Field('notes', String, 'Notes',
     hint: 'Additional classification notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11481,18 +12687,23 @@ class BackupPolicyEntry {
     Field('priority', String, 'Priority',
         hint: 'Critical, High, Medium, Low'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Backup type configuration.
+  @SerializationOrder(1)
   BackupPolicyEntryType backupType = BackupPolicyEntryType();
 
   /// Schedule settings.
+  @SerializationOrder(2)
   BackupPolicyEntrySchedule schedule = BackupPolicyEntrySchedule();
 
   /// Retention policies.
+  @SerializationOrder(3)
   BackupPolicyEntryRetention retention = BackupPolicyEntryRetention();
 
   /// Storage configuration.
+  @SerializationOrder(4)
   BackupPolicyEntryStorage storage = BackupPolicyEntryStorage();
 }
 
@@ -11509,6 +12720,7 @@ class BackupPolicyEntryType {
     Field('differentialFrequency', String, 'Differential Frequency',
         hint: 'If using differential'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11523,6 +12735,7 @@ class BackupPolicyEntrySchedule {
     Field('timezone', String, 'Timezone',
         hint: 'Backup schedule timezone'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11541,6 +12754,7 @@ class BackupPolicyEntryRetention {
     Field('yearlyRetention', String, 'Yearly Retention',
         hint: 'Annual backup retention'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11561,6 +12775,7 @@ class BackupPolicyEntryStorage {
     Field('notes', String, 'Notes',
         hint: 'Additional policy notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11573,15 +12788,19 @@ class RpoRtoRequirements {
     Field('overallRto', String, 'Overall RTO',
         hint: 'Maximum acceptable downtime'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Tier-based targets.
+  @SerializationOrder(1)
   RpoRtoRequirementsByTier byTier = RpoRtoRequirementsByTier();
 
   /// System-specific recovery targets.
+  @SerializationOrder(2)
   RpoRtoRequirementsSystems systems = RpoRtoRequirementsSystems();
 
   /// Degraded-mode guidance.
+  @SerializationOrder(3)
   RpoRtoRequirementsDegraded degraded = RpoRtoRequirementsDegraded();
 }
 
@@ -11606,6 +12825,7 @@ class RpoRtoRequirementsByTier {
     Field('lowRto', String, 'Low Priority RTO',
         hint: 'RTO for low priority'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11622,6 +12842,7 @@ class RpoRtoRequirementsSystems {
     Field('applicationRto', String, 'Application RTO',
         hint: 'Application recovery time'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11636,6 +12857,7 @@ class RpoRtoRequirementsDegraded {
     Field('notes', String, 'Notes',
         hint: 'Additional RPO/RTO notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11650,18 +12872,23 @@ class BackupInfrastructure {
     Field('storageCapacity', String, 'Storage Capacity',
         hint: 'Required capacity'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Performance and secondary storage.
+  @SerializationOrder(1)
   BackupInfrastructureStorage storage = BackupInfrastructureStorage();
 
   /// Backup software configuration.
+  @SerializationOrder(2)
   BackupInfrastructureSoftware software = BackupInfrastructureSoftware();
 
   /// Network requirements.
+  @SerializationOrder(3)
   BackupInfrastructureNetwork network = BackupInfrastructureNetwork();
 
   /// Security controls.
+  @SerializationOrder(4)
   BackupInfrastructureSecurity security = BackupInfrastructureSecurity();
 }
 
@@ -11680,6 +12907,7 @@ class BackupInfrastructureStorage {
     Field('crossRegionReplication', bool, 'Cross-Region Replication',
         hint: 'Replicate across regions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11696,6 +12924,7 @@ class BackupInfrastructureSoftware {
     Field('deduplication', bool, 'Deduplication',
         hint: 'Enable deduplication'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11710,6 +12939,7 @@ class BackupInfrastructureNetwork {
     Field('encryptionInTransit', bool, 'Encryption in Transit',
         hint: 'Encrypt backup traffic'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11728,6 +12958,7 @@ class BackupInfrastructureSecurity {
     Field('notes', String, 'Notes',
         hint: 'Additional infrastructure notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11744,18 +12975,23 @@ class RecoveryProcedures {
     Field('bareMetalRecovery', bool, 'Bare Metal Recovery',
         hint: 'Hardware replacement'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Database recovery behavior.
+  @SerializationOrder(1)
   RecoveryProceduresDatabase database = RecoveryProceduresDatabase();
 
   /// Application recovery behavior.
+  @SerializationOrder(2)
   RecoveryProceduresApplication application = RecoveryProceduresApplication();
 
   /// Recovery automation.
+  @SerializationOrder(3)
   RecoveryProceduresAutomation automation = RecoveryProceduresAutomation();
 
   /// Validation after recovery.
+  @SerializationOrder(4)
   RecoveryProceduresValidation validation = RecoveryProceduresValidation();
 }
 
@@ -11770,6 +13006,7 @@ class RecoveryProceduresDatabase {
     Field('transactionLogRecovery', bool, 'Transaction Log Recovery',
         hint: 'Log-based recovery'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11784,6 +13021,7 @@ class RecoveryProceduresApplication {
     Field('stateRecovery', String, 'State Recovery',
         hint: 'Session/state restoration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11798,6 +13036,7 @@ class RecoveryProceduresAutomation {
     Field('runbookLocation', String, 'Runbook Location',
         hint: 'Where runbooks are stored'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11814,6 +13053,7 @@ class RecoveryProceduresValidation {
     Field('notes', String, 'Notes',
         hint: 'Additional recovery notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11828,21 +13068,26 @@ class DisasterRecoveryRequirements {
     Field('drProvider', String, 'DR Provider',
         hint: 'DR service provider'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Failover execution.
+  @SerializationOrder(1)
   DisasterRecoveryRequirementsFailover failover =
       DisasterRecoveryRequirementsFailover();
 
   /// Failback procedure.
+  @SerializationOrder(2)
   DisasterRecoveryRequirementsFailback failback =
       DisasterRecoveryRequirementsFailback();
 
   /// Replication requirements.
+  @SerializationOrder(3)
   DisasterRecoveryRequirementsReplication replication =
       DisasterRecoveryRequirementsReplication();
 
   /// Continuity and coordination.
+  @SerializationOrder(4)
   DisasterRecoveryRequirementsContinuity continuity =
       DisasterRecoveryRequirementsContinuity();
 }
@@ -11858,6 +13103,7 @@ class DisasterRecoveryRequirementsFailover {
     Field('failoverDuration', String, 'Failover Duration',
         hint: 'Time to complete failover'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11872,6 +13118,7 @@ class DisasterRecoveryRequirementsFailback {
     Field('dataSync', String, 'Data Synchronization',
         hint: 'Syncing after failback'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11886,6 +13133,7 @@ class DisasterRecoveryRequirementsReplication {
     Field('replicationBandwidth', String, 'Replication Bandwidth',
         hint: 'Bandwidth for DR'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11904,6 +13152,7 @@ class DisasterRecoveryRequirementsContinuity {
     Field('notes', String, 'Notes',
         hint: 'Additional DR notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11920,15 +13169,19 @@ class BackupVerification {
     Field('alertOnFailure', bool, 'Alert on Failure',
         hint: 'Notify on verification failure'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Recovery testing.
+  @SerializationOrder(1)
   BackupVerificationRecovery recovery = BackupVerificationRecovery();
 
   /// Test environment constraints.
+  @SerializationOrder(2)
   BackupVerificationEnvironment environment = BackupVerificationEnvironment();
 
   /// Documentation and follow-up.
+  @SerializationOrder(3)
   BackupVerificationDocumentation documentation =
       BackupVerificationDocumentation();
 }
@@ -11946,6 +13199,7 @@ class BackupVerificationRecovery {
     Field('drTest', String, 'DR Test',
         hint: 'Disaster recovery drill'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11960,6 +13214,7 @@ class BackupVerificationEnvironment {
     Field('productionIsolation', bool, 'Production Isolation',
         hint: 'Isolated from production'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11976,6 +13231,7 @@ class BackupVerificationDocumentation {
     Field('notes', String, 'Notes',
         hint: 'Additional verification notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -11992,15 +13248,19 @@ class BackupCompliance {
     Field('crossBorderTransfer', bool, 'Cross-Border Transfer',
         hint: 'International data transfer'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Audit controls.
+  @SerializationOrder(1)
   BackupComplianceAudit audit = BackupComplianceAudit();
 
   /// Reporting obligations.
+  @SerializationOrder(2)
   BackupComplianceReporting reporting = BackupComplianceReporting();
 
   /// Legal hold support.
+  @SerializationOrder(3)
   BackupComplianceLegalHold legalHold = BackupComplianceLegalHold();
 }
 
@@ -12017,6 +13277,7 @@ class BackupComplianceAudit {
     Field('auditFrequency', String, 'Audit Frequency',
         hint: 'How often audited'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12031,6 +13292,7 @@ class BackupComplianceReporting {
     Field('reportRecipients', String, 'Report Recipients',
         hint: 'Who receives reports'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12047,6 +13309,7 @@ class BackupComplianceLegalHold {
     Field('notes', String, 'Notes',
         hint: 'Additional compliance notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12112,33 +13375,43 @@ Provide an overview of deployment strategy and pipeline.
 - Monitor deployments with automated rollback
 - Document deployment runbooks
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of deployment strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Deployment model requirements.
+  @SerializationOrder(2)
   DeploymentModelRequirements deploymentModel = DeploymentModelRequirements();
 
   /// Environment strategy.
+  @SerializationOrder(3)
   EnvironmentStrategy environments = EnvironmentStrategy();
 
   /// CI/CD pipeline requirements.
+  @SerializationOrder(4)
   CiCdPipelineRequirements cicdPipeline = CiCdPipelineRequirements();
 
   /// Release strategy.
+  @SerializationOrder(5)
   ReleaseStrategy releaseStrategy = ReleaseStrategy();
 
   /// Rollback strategy.
+  @SerializationOrder(6)
   RollbackStrategy rollbackStrategy = RollbackStrategy();
 
   /// Configuration management.
+  @SerializationOrder(7)
   ConfigurationManagement configurationManagement = ConfigurationManagement();
 
   /// Infrastructure as Code requirements.
+  @SerializationOrder(8)
   InfrastructureAsCode infrastructureAsCode = InfrastructureAsCode();
 
   /// Deployment security requirements.
+  @SerializationOrder(9)
   DeploymentSecurity deploymentSecurity = DeploymentSecurity();
 }
 
@@ -12155,21 +13428,26 @@ class DeploymentModelRequirements {
     Field('serverlessProvider', String, 'Serverless Provider',
         hint: 'AWS Lambda, Azure Functions, Cloud Run'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Container image policies.
+  @SerializationOrder(1)
   DeploymentModelRequirementsContainer container =
       DeploymentModelRequirementsContainer();
 
   /// Resource allocation.
+  @SerializationOrder(2)
   DeploymentModelRequirementsResources resources =
       DeploymentModelRequirementsResources();
 
   /// Networking configuration.
+  @SerializationOrder(3)
   DeploymentModelRequirementsNetworking networking =
       DeploymentModelRequirementsNetworking();
 
   /// Storage configuration.
+  @SerializationOrder(4)
   DeploymentModelRequirementsStorage storage =
       DeploymentModelRequirementsStorage();
 }
@@ -12187,6 +13465,7 @@ class DeploymentModelRequirementsContainer {
     Field('baseImagePolicy', String, 'Base Image Policy',
         hint: 'Approved base images'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12201,6 +13480,7 @@ class DeploymentModelRequirementsResources {
     Field('replicaCount', String, 'Replica Count',
         hint: 'Default and min/max replicas'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12215,6 +13495,7 @@ class DeploymentModelRequirementsNetworking {
     Field('loadBalancing', String, 'Load Balancing',
         hint: 'ALB, NLB, internal LB'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12229,6 +13510,7 @@ class DeploymentModelRequirementsStorage {
     Field('notes', String, 'Notes',
         hint: 'Additional deployment model notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12243,21 +13525,27 @@ class EnvironmentStrategy {
     Field('environmentIsolation', String, 'Environment Isolation',
         hint: 'Network, account, cluster isolation'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Development environment setup.
+  @SerializationOrder(1)
   EnvironmentStrategyDevelopment development = EnvironmentStrategyDevelopment();
 
   /// Test environment setup.
+  @SerializationOrder(2)
   EnvironmentStrategyTesting testing = EnvironmentStrategyTesting();
 
   /// Staging configuration.
+  @SerializationOrder(3)
   EnvironmentStrategyStaging staging = EnvironmentStrategyStaging();
 
   /// Production configuration.
+  @SerializationOrder(4)
   EnvironmentStrategyProduction production = EnvironmentStrategyProduction();
 
   /// Ephemeral environment strategy.
+  @SerializationOrder(5)
   EnvironmentStrategyEphemeral ephemeral = EnvironmentStrategyEphemeral();
 }
 
@@ -12272,6 +13560,7 @@ class EnvironmentStrategyDevelopment {
     Field('devDataStrategy', String, 'Dev Data Strategy',
         hint: 'Synthetic, anonymized, subset'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12286,6 +13575,7 @@ class EnvironmentStrategyTesting {
     Field('performanceEnvironment', String, 'Performance Environment',
         hint: 'Performance testing env'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12300,6 +13590,7 @@ class EnvironmentStrategyStaging {
     Field('stagingDataRefresh', String, 'Staging Data Refresh',
         hint: 'How staging data is refreshed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12314,6 +13605,7 @@ class EnvironmentStrategyProduction {
     Field('activeActive', bool, 'Active-Active',
         hint: 'Active-active configuration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12328,6 +13620,7 @@ class EnvironmentStrategyEphemeral {
     Field('notes', String, 'Notes',
         hint: 'Additional environment notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12342,19 +13635,24 @@ class CiCdPipelineRequirements {
     Field('pipelineLocation', String, 'Pipeline Location',
         hint: 'Where pipeline files are stored'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Build stage settings.
+  @SerializationOrder(1)
   CiCdPipelineRequirementsBuild build = CiCdPipelineRequirementsBuild();
 
   /// Quality gate settings.
+  @SerializationOrder(2)
   CiCdPipelineRequirementsQuality quality = CiCdPipelineRequirementsQuality();
 
   /// Deployment stage settings.
+  @SerializationOrder(3)
   CiCdPipelineRequirementsDeployment deployment =
       CiCdPipelineRequirementsDeployment();
 
   /// Notification and escalation settings.
+  @SerializationOrder(4)
   CiCdPipelineRequirementsNotifications notifications =
       CiCdPipelineRequirementsNotifications();
 }
@@ -12372,6 +13670,7 @@ class CiCdPipelineRequirementsBuild {
     Field('buildArtifacts', String, 'Build Artifacts',
         hint: 'What artifacts are produced'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12388,6 +13687,7 @@ class CiCdPipelineRequirementsQuality {
     Field('approvalRequired', bool, 'Approval Required',
         hint: 'Manual approval gates'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12404,6 +13704,7 @@ class CiCdPipelineRequirementsDeployment {
     Field('productionGate', String, 'Production Gate',
         hint: 'Prod deployment gate'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12418,6 +13719,7 @@ class CiCdPipelineRequirementsNotifications {
     Field('notes', String, 'Notes',
         hint: 'Additional CI/CD notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12432,18 +13734,23 @@ class ReleaseStrategy {
     Field('releaseSchedule', String, 'Release Schedule',
         hint: 'When releases occur'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Blue-green deployment configuration.
+  @SerializationOrder(1)
   ReleaseStrategyBlueGreen blueGreen = ReleaseStrategyBlueGreen();
 
   /// Canary deployment configuration.
+  @SerializationOrder(2)
   ReleaseStrategyCanary canary = ReleaseStrategyCanary();
 
   /// Feature flags configuration.
+  @SerializationOrder(3)
   ReleaseStrategyFeatureFlags featureFlags = ReleaseStrategyFeatureFlags();
 
   /// Release management.
+  @SerializationOrder(4)
   ReleaseStrategyManagement management = ReleaseStrategyManagement();
 }
 
@@ -12462,6 +13769,7 @@ class ReleaseStrategyBlueGreen {
     Field('greenRetention', String, 'Green Retention',
         hint: 'How long to keep old version'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12482,6 +13790,7 @@ class ReleaseStrategyCanary {
     Field('autoRollbackCriteria', String, 'Auto-Rollback Criteria',
         hint: 'When to auto-rollback canary'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12496,6 +13805,7 @@ class ReleaseStrategyFeatureFlags {
     Field('flagStrategy', String, 'Flag Strategy',
         hint: 'How flags are managed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12512,6 +13822,7 @@ class ReleaseStrategyManagement {
     Field('notes', String, 'Notes',
         hint: 'Additional release notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12524,21 +13835,27 @@ class RollbackStrategy {
     Field('autoRollbackEnabled', bool, 'Auto-Rollback Enabled',
         hint: 'Automatic rollback on failure'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Trigger and timing conditions.
+  @SerializationOrder(1)
   RollbackStrategyTriggers triggers = RollbackStrategyTriggers();
 
   /// Health-based rollback thresholds.
+  @SerializationOrder(2)
   RollbackStrategyHealth health = RollbackStrategyHealth();
 
   /// Rollback target and artifact retention.
+  @SerializationOrder(3)
   RollbackStrategyTargets targets = RollbackStrategyTargets();
 
   /// Data rollback safeguards.
+  @SerializationOrder(4)
   RollbackStrategyData data = RollbackStrategyData();
 
   /// Manual procedure and follow-up.
+  @SerializationOrder(5)
   RollbackStrategyOperations operations = RollbackStrategyOperations();
 }
 
@@ -12551,6 +13868,7 @@ class RollbackStrategyTriggers {
     Field('rollbackTimeTarget', String, 'Rollback Time Target',
         hint: 'Max time to complete rollback'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12567,6 +13885,7 @@ class RollbackStrategyHealth {
     Field('customMetricThresholds', String, 'Custom Metric Thresholds',
         hint: 'Business metrics for rollback'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12581,6 +13900,7 @@ class RollbackStrategyTargets {
     Field('artifactStorage', String, 'Artifact Storage',
         hint: 'Where rollback artifacts stored'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12595,6 +13915,7 @@ class RollbackStrategyData {
     Field('backwardCompatibility', String, 'Backward Compatibility',
         hint: 'Data format compatibility'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12611,6 +13932,7 @@ class RollbackStrategyOperations {
     Field('notes', String, 'Notes',
         hint: 'Additional rollback notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12627,21 +13949,26 @@ class ConfigurationManagement {
     Field('configAudit', bool, 'Config Audit',
         hint: 'Audit config changes'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Environment-configuration rules.
+  @SerializationOrder(1)
   ConfigurationManagementEnvironment environment =
       ConfigurationManagementEnvironment();
 
   /// Configuration injection rules.
+  @SerializationOrder(2)
   ConfigurationManagementInjection injection =
       ConfigurationManagementInjection();
 
   /// Feature-configuration rules.
+  @SerializationOrder(3)
   ConfigurationManagementFeatures features =
       ConfigurationManagementFeatures();
 
   /// Security controls.
+  @SerializationOrder(4)
   ConfigurationManagementSecurity security =
       ConfigurationManagementSecurity();
 }
@@ -12657,6 +13984,7 @@ class ConfigurationManagementEnvironment {
     Field('configValidation', String, 'Config Validation',
         hint: 'Config validation process'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12671,6 +13999,7 @@ class ConfigurationManagementInjection {
     Field('configReload', String, 'Config Reload',
         hint: 'How apps reload config'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12685,6 +14014,7 @@ class ConfigurationManagementFeatures {
     Field('tenantConfig', String, 'Tenant Configuration',
         hint: 'Per-tenant configuration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12699,6 +14029,7 @@ class ConfigurationManagementSecurity {
     Field('notes', String, 'Notes',
         hint: 'Additional config notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12715,18 +14046,23 @@ class InfrastructureAsCode {
     Field('iacRegistry', String, 'IaC Registry',
         hint: 'Private module registry'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// State management.
+  @SerializationOrder(1)
   InfrastructureAsCodeState state = InfrastructureAsCodeState();
 
   /// Execution governance.
+  @SerializationOrder(2)
   InfrastructureAsCodeExecution execution = InfrastructureAsCodeExecution();
 
   /// Drift detection settings.
+  @SerializationOrder(3)
   InfrastructureAsCodeDrift drift = InfrastructureAsCodeDrift();
 
   /// Security and policy controls.
+  @SerializationOrder(4)
   InfrastructureAsCodeSecurity security = InfrastructureAsCodeSecurity();
 }
 
@@ -12741,6 +14077,7 @@ class InfrastructureAsCodeState {
     Field('stateEnvironmentSeparation', String, 'State Separation',
         hint: 'Per-environment state files'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12755,6 +14092,7 @@ class InfrastructureAsCodeExecution {
     Field('pipelineIntegration', String, 'Pipeline Integration',
         hint: 'IaC in CI/CD pipeline'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12769,6 +14107,7 @@ class InfrastructureAsCodeDrift {
     Field('reconciliationSchedule', String, 'Reconciliation Schedule',
         hint: 'When to check for drift'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12785,6 +14124,7 @@ class InfrastructureAsCodeSecurity {
     Field('notes', String, 'Notes',
         hint: 'Additional IaC notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12801,15 +14141,19 @@ class DeploymentSecurity {
     Field('leastPrivilege', bool, 'Least Privilege',
         hint: 'Minimum required permissions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Supply-chain security.
+  @SerializationOrder(1)
   DeploymentSecuritySupplyChain supplyChain = DeploymentSecuritySupplyChain();
 
   /// Runtime security.
+  @SerializationOrder(2)
   DeploymentSecurityRuntime runtime = DeploymentSecurityRuntime();
 
   /// Access control and audit.
+  @SerializationOrder(3)
   DeploymentSecurityAccess access = DeploymentSecurityAccess();
 }
 
@@ -12826,6 +14170,7 @@ class DeploymentSecuritySupplyChain {
     Field('supplyChainAttestation', String, 'Supply Chain Attestation',
         hint: 'Provenance verification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12842,6 +14187,7 @@ class DeploymentSecurityRuntime {
     Field('readOnlyRootFilesystem', bool, 'Read-Only Root Filesystem',
         hint: 'Immutable containers'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12858,6 +14204,7 @@ class DeploymentSecurityAccess {
     Field('notes', String, 'Notes',
         hint: 'Additional deployment security notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -12927,43 +14274,55 @@ Provide an overview of monitoring and observability strategy.
 - Create actionable runbooks for alerts
 - Regular monitoring coverage reviews
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of monitoring strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Monitoring infrastructure requirements.
+  @SerializationOrder(2)
   MonitoringInfrastructure infrastructure = MonitoringInfrastructure();
 
   /// Metrics collection requirements.
+  @SerializationOrder(3)
   MetricsCollectionRequirements metricsCollection =
       MetricsCollectionRequirements();
 
   /// Application performance monitoring.
+  @SerializationOrder(4)
   ApplicationPerformanceMonitoring apm = ApplicationPerformanceMonitoring();
 
   /// Log management requirements.
+  @SerializationOrder(5)
   LogManagementRequirements logManagement = LogManagementRequirements();
 
   /// Alerting requirements.
+  @SerializationOrder(6)
   AlertingRequirements alerting = AlertingRequirements();
 
   /// Alert definitions.
   @SectionId('ALDEEN-ALER-LST')
   @SectionIdPattern('ALDEEN-ALER-xxx')
+  @SerializationOrder(7)
   List<AlertDefinitionEntry> alertDefinitions = [];
 
   /// Dashboard requirements.
+  @SerializationOrder(8)
   DashboardRequirements dashboards = DashboardRequirements();
 
   /// On-call procedures.
+  @SerializationOrder(9)
   OnCallProcedures onCallProcedures = OnCallProcedures();
 
   /// Incident management.
+  @SerializationOrder(10)
   IncidentManagementRequirements incidentManagement =
       IncidentManagementRequirements();
 
   /// SLA monitoring.
+  @SerializationOrder(11)
   SlaMonitoringRequirements slaMonitoring = SlaMonitoringRequirements();
 }
 
@@ -12980,17 +14339,21 @@ class MonitoringInfrastructure {
     Field('tracingBackend', String, 'Tracing Backend',
         hint: 'Jaeger, Zipkin, X-Ray'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Deployment model.
+  @SerializationOrder(1)
   MonitoringInfrastructureDeployment deployment =
     MonitoringInfrastructureDeployment();
 
   /// Collection model.
+  @SerializationOrder(2)
   MonitoringInfrastructureCollection collection =
     MonitoringInfrastructureCollection();
 
   /// Access and privacy controls.
+  @SerializationOrder(3)
   MonitoringInfrastructureAccess access = MonitoringInfrastructureAccess();
 }
 
@@ -13007,6 +14370,7 @@ class MonitoringInfrastructureDeployment {
   Field('highAvailability', bool, 'High Availability',
     hint: 'Monitoring HA required'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13021,6 +14385,7 @@ class MonitoringInfrastructureCollection {
   Field('agentlessCollection', bool, 'Agentless Collection',
     hint: 'Push-based metrics'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13037,6 +14402,7 @@ class MonitoringInfrastructureAccess {
   Field('notes', String, 'Notes',
     hint: 'Additional infrastructure notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13053,21 +14419,26 @@ class MetricsCollectionRequirements {
     Field('networkMetrics', bool, 'Network Metrics',
         hint: 'Network I/O, connections'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Container and cluster metrics.
+  @SerializationOrder(1)
   MetricsCollectionRequirementsContainer container =
       MetricsCollectionRequirementsContainer();
 
   /// Application metrics.
+  @SerializationOrder(2)
   MetricsCollectionRequirementsApplication application =
       MetricsCollectionRequirementsApplication();
 
   /// Business metrics.
+  @SerializationOrder(3)
   MetricsCollectionRequirementsBusiness business =
       MetricsCollectionRequirementsBusiness();
 
   /// Custom metrics settings.
+  @SerializationOrder(4)
   MetricsCollectionRequirementsCustom custom =
       MetricsCollectionRequirementsCustom();
 }
@@ -13085,6 +14456,7 @@ class MetricsCollectionRequirementsContainer {
     Field('clusterMetrics', bool, 'Cluster Metrics',
         hint: 'Cluster-level metrics'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13099,6 +14471,7 @@ class MetricsCollectionRequirementsApplication {
     Field('saturationMetrics', bool, 'Saturation Metrics',
         hint: 'Queue depth, utilization'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13113,6 +14486,7 @@ class MetricsCollectionRequirementsBusiness {
     Field('transactionMetrics', String, 'Transaction Metrics',
         hint: 'Transaction volume, value'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13127,6 +14501,7 @@ class MetricsCollectionRequirementsCustom {
     Field('notes', String, 'Notes',
         hint: 'Additional metrics notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13141,21 +14516,26 @@ class ApplicationPerformanceMonitoring {
     Field('samplingRate', String, 'Sampling Rate',
         hint: 'Trace sampling percentage'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Tracing settings.
+  @SerializationOrder(1)
   ApplicationPerformanceMonitoringTracing tracing =
       ApplicationPerformanceMonitoringTracing();
 
   /// Profiling settings.
+  @SerializationOrder(2)
   ApplicationPerformanceMonitoringProfiling profiling =
       ApplicationPerformanceMonitoringProfiling();
 
   /// Error tracking settings.
+  @SerializationOrder(3)
   ApplicationPerformanceMonitoringErrors errors =
       ApplicationPerformanceMonitoringErrors();
 
   /// User and synthetic monitoring settings.
+  @SerializationOrder(4)
   ApplicationPerformanceMonitoringUserSignals userSignals =
       ApplicationPerformanceMonitoringUserSignals();
 }
@@ -13173,6 +14553,7 @@ class ApplicationPerformanceMonitoringTracing {
     Field('traceRetention', String, 'Trace Retention',
         hint: 'Trace data retention'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13189,6 +14570,7 @@ class ApplicationPerformanceMonitoringProfiling {
     Field('profilingOverhead', String, 'Profiling Overhead',
         hint: 'Acceptable overhead'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13205,6 +14587,7 @@ class ApplicationPerformanceMonitoringErrors {
     Field('errorContext', String, 'Error Context',
         hint: 'Context data with errors'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13219,6 +14602,7 @@ class ApplicationPerformanceMonitoringUserSignals {
     Field('notes', String, 'Notes',
         hint: 'Additional APM notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13235,21 +14619,26 @@ class LogManagementRequirements {
     Field('logFields', String, 'Required Log Fields',
         hint: 'timestamp, correlation_id'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Collection method.
+  @SerializationOrder(1)
   LogManagementRequirementsCollection collection =
       LogManagementRequirementsCollection();
 
   /// Storage settings.
+  @SerializationOrder(2)
   LogManagementRequirementsStorage storage =
       LogManagementRequirementsStorage();
 
   /// Search and analysis.
+  @SerializationOrder(3)
   LogManagementRequirementsAnalysis analysis =
       LogManagementRequirementsAnalysis();
 
   /// Compliance settings.
+  @SerializationOrder(4)
   LogManagementRequirementsCompliance compliance =
       LogManagementRequirementsCompliance();
 }
@@ -13265,6 +14654,7 @@ class LogManagementRequirementsCollection {
     Field('bufferingStrategy', String, 'Buffering Strategy',
         hint: 'Memory, disk buffering'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13279,6 +14669,7 @@ class LogManagementRequirementsStorage {
     Field('compressionEnabled', bool, 'Compression Enabled',
         hint: 'Log compression'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13293,6 +14684,7 @@ class LogManagementRequirementsAnalysis {
     Field('anomalyDetection', bool, 'Anomaly Detection',
         hint: 'ML-based detection'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13309,6 +14701,7 @@ class LogManagementRequirementsCompliance {
     Field('notes', String, 'Notes',
         hint: 'Additional logging notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13323,20 +14716,25 @@ class AlertingRequirements {
     Field('secondaryChannel', String, 'Secondary Channel',
         hint: 'Fallback channel'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Routing rules.
+  @SerializationOrder(1)
   AlertingRequirementsRouting routing = AlertingRequirementsRouting();
 
   /// De-duplication behavior.
+  @SerializationOrder(2)
   AlertingRequirementsDeduplication deduplication =
       AlertingRequirementsDeduplication();
 
   /// Suppression rules.
+  @SerializationOrder(3)
   AlertingRequirementsSuppression suppression =
       AlertingRequirementsSuppression();
 
   /// Response automation.
+  @SerializationOrder(4)
   AlertingRequirementsResponse response = AlertingRequirementsResponse();
 }
 
@@ -13353,6 +14751,7 @@ class AlertingRequirementsRouting {
     Field('severityRouting', String, 'Severity Routing',
         hint: 'Severity-based routing'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13367,6 +14766,7 @@ class AlertingRequirementsDeduplication {
     Field('flappingDetection', bool, 'Flapping Detection',
         hint: 'Detect flapping alerts'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13381,6 +14781,7 @@ class AlertingRequirementsSuppression {
     Field('manualSuppression', bool, 'Manual Suppression',
         hint: 'Allow manual suppression'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13397,6 +14798,7 @@ class AlertingRequirementsResponse {
     Field('notes', String, 'Notes',
         hint: 'Additional alerting notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13413,15 +14815,19 @@ class AlertDefinitionEntry {
     Field('priority', String, 'Priority',
         hint: 'P1, P2, P3, P4, P5'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Trigger conditions.
+  @SerializationOrder(1)
   AlertDefinitionEntryCondition condition = AlertDefinitionEntryCondition();
 
   /// Recovery conditions.
+  @SerializationOrder(2)
   AlertDefinitionEntryRecovery recovery = AlertDefinitionEntryRecovery();
 
   /// Notification details.
+  @SerializationOrder(3)
   AlertDefinitionEntryNotification notification =
       AlertDefinitionEntryNotification();
 }
@@ -13441,6 +14847,7 @@ class AlertDefinitionEntryCondition {
     Field('evaluationPeriod', String, 'Evaluation Period',
         hint: 'Evaluation window'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13455,6 +14862,7 @@ class AlertDefinitionEntryRecovery {
     Field('autoResolve', bool, 'Auto-Resolve',
         hint: 'Auto-resolve enabled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13471,6 +14879,7 @@ class AlertDefinitionEntryNotification {
     Field('notes', String, 'Notes',
         hint: 'Additional alert notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13485,18 +14894,23 @@ class DashboardRequirements {
     Field('dashboardLocation', String, 'Dashboard Location',
         hint: 'Where dashboards are stored'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Standard dashboards.
+  @SerializationOrder(1)
   DashboardRequirementsStandard standard = DashboardRequirementsStandard();
 
   /// Access controls.
+  @SerializationOrder(2)
   DashboardRequirementsAccess access = DashboardRequirementsAccess();
 
   /// Feature requirements.
+  @SerializationOrder(3)
   DashboardRequirementsFeatures features = DashboardRequirementsFeatures();
 
   /// Mobile support and notes.
+  @SerializationOrder(4)
   DashboardRequirementsMobile mobile = DashboardRequirementsMobile();
 }
 
@@ -13513,6 +14927,7 @@ class DashboardRequirementsStandard {
     Field('businessDashboard', bool, 'Business Dashboard',
         hint: 'Business metrics dashboard'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13527,6 +14942,7 @@ class DashboardRequirementsAccess {
     Field('accessControl', String, 'Dashboard Access Control',
         hint: 'Who can view/edit'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13543,6 +14959,7 @@ class DashboardRequirementsFeatures {
     Field('alertIntegration', bool, 'Alert Integration',
         hint: 'Show alerts on dashboard'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13555,6 +14972,7 @@ class DashboardRequirementsMobile {
     Field('notes', String, 'Notes',
         hint: 'Additional dashboard notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13571,18 +14989,23 @@ class OnCallProcedures {
     Field('primarySecondary', bool, 'Primary/Secondary',
         hint: 'Primary and backup on-call'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Team coverage.
+  @SerializationOrder(1)
   OnCallProceduresTeams teams = OnCallProceduresTeams();
 
   /// Response SLAs.
+  @SerializationOrder(2)
   OnCallProceduresSlas slas = OnCallProceduresSlas();
 
   /// Escalation rules.
+  @SerializationOrder(3)
   OnCallProceduresEscalation escalation = OnCallProceduresEscalation();
 
   /// Documentation requirements.
+  @SerializationOrder(4)
   OnCallProceduresDocumentation documentation =
       OnCallProceduresDocumentation();
 }
@@ -13598,6 +15021,7 @@ class OnCallProceduresTeams {
     Field('managementEscalation', String, 'Management Escalation',
         hint: 'When to involve management'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13612,6 +15036,7 @@ class OnCallProceduresSlas {
     Field('resolutionSla', String, 'Resolution SLA',
         hint: 'Time to resolve'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13626,6 +15051,7 @@ class OnCallProceduresEscalation {
     Field('executiveEscalation', String, 'Executive Escalation',
         hint: 'When to involve executives'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13642,6 +15068,7 @@ class OnCallProceduresDocumentation {
     Field('notes', String, 'Notes',
         hint: 'Additional on-call notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13656,21 +15083,26 @@ class IncidentManagementRequirements {
     Field('incidentCommander', String, 'Incident Commander',
         hint: 'IC role and selection'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Communication requirements.
+  @SerializationOrder(1)
   IncidentManagementRequirementsCommunication communication =
       IncidentManagementRequirementsCommunication();
 
   /// War room setup.
+  @SerializationOrder(2)
   IncidentManagementRequirementsWarRoom warRoom =
       IncidentManagementRequirementsWarRoom();
 
   /// Post-incident expectations.
+  @SerializationOrder(3)
   IncidentManagementRequirementsPostIncident postIncident =
       IncidentManagementRequirementsPostIncident();
 
   /// Metrics and notes.
+  @SerializationOrder(4)
   IncidentManagementRequirementsMetrics metrics =
       IncidentManagementRequirementsMetrics();
 }
@@ -13688,6 +15120,7 @@ class IncidentManagementRequirementsCommunication {
     Field('stakeholderNotification', String, 'Stakeholder Notification',
         hint: 'Who gets notified'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13702,6 +15135,7 @@ class IncidentManagementRequirementsWarRoom {
     Field('chatChannel', String, 'Chat Channel',
         hint: 'Incident chat channel'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13718,6 +15152,7 @@ class IncidentManagementRequirementsPostIncident {
     Field('actionItemTracking', String, 'Action Item Tracking',
         hint: 'Track remediation items'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13732,6 +15167,7 @@ class IncidentManagementRequirementsMetrics {
     Field('notes', String, 'Notes',
         hint: 'Additional incident notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13746,21 +15182,26 @@ class SlaMonitoringRequirements {
     Field('errorRateSla', String, 'Error Rate SLA',
         hint: 'Maximum error rate'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Monitoring mechanics.
+  @SerializationOrder(1)
   SlaMonitoringRequirementsMonitoring monitoring =
       SlaMonitoringRequirementsMonitoring();
 
   /// Error-budget policy.
+  @SerializationOrder(2)
   SlaMonitoringRequirementsErrorBudget errorBudget =
       SlaMonitoringRequirementsErrorBudget();
 
   /// Customer-specific SLA rules.
+  @SerializationOrder(3)
   SlaMonitoringRequirementsCustomer customer =
       SlaMonitoringRequirementsCustomer();
 
   /// Reporting and review.
+  @SerializationOrder(4)
   SlaMonitoringRequirementsReporting reporting =
       SlaMonitoringRequirementsReporting();
 }
@@ -13778,6 +15219,7 @@ class SlaMonitoringRequirementsMonitoring {
     Field('slaBurnRate', bool, 'SLA Burn Rate',
         hint: 'Track error budget burn'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13792,6 +15234,7 @@ class SlaMonitoringRequirementsErrorBudget {
     Field('budgetResetPeriod', String, 'Budget Reset Period',
         hint: 'Monthly, quarterly reset'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13806,6 +15249,7 @@ class SlaMonitoringRequirementsCustomer {
     Field('slaCredits', String, 'SLA Credits',
         hint: 'Credit policy for misses'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13819,6 +15263,7 @@ class SlaMonitoringRequirementsReporting {
         hint: 'SLA review cadence'),
     Field('notes', String, 'Notes', hint: 'Additional SLA notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13884,32 +15329,40 @@ Provide an overview of maintenance strategy and policies.
 - Communicate early and often
 - Track maintenance metrics and trends
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of maintenance strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Scheduled maintenance policies.
+  @SerializationOrder(2)
   ScheduledMaintenancePolicy scheduledMaintenance =
       ScheduledMaintenancePolicy();
 
   /// Maintenance window definitions.
   @SectionId('MAWIEN-MAIN-LST')
   @SectionIdPattern('MAWIEN-MAIN-xxx')
+  @SerializationOrder(3)
   List<MaintenanceWindowEntry> maintenanceWindows = [];
 
   /// Emergency maintenance procedures.
+  @SerializationOrder(4)
   EmergencyMaintenanceProcedures emergencyMaintenance =
       EmergencyMaintenanceProcedures();
 
   /// Change management for maintenance.
+  @SerializationOrder(5)
   MaintenanceChangeManagement changeManagement =
       MaintenanceChangeManagement();
 
   /// User impact and communication.
+  @SerializationOrder(6)
   MaintenanceUserImpact userImpact = MaintenanceUserImpact();
 
   /// Post-maintenance validation.
+  @SerializationOrder(7)
   PostMaintenanceValidation postMaintenance = PostMaintenanceValidation();
 }
 
@@ -13924,20 +15377,25 @@ class ScheduledMaintenancePolicy {
     Field('maintenanceAgreement', String, 'Maintenance Agreement',
         hint: 'SLA for maintenance windows'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scheduling preferences.
+  @SerializationOrder(1)
   ScheduledMaintenancePolicyScheduling scheduling =
       ScheduledMaintenancePolicyScheduling();
 
   /// Duration constraints.
+  @SerializationOrder(2)
   ScheduledMaintenancePolicyDuration duration =
       ScheduledMaintenancePolicyDuration();
 
   /// Notice requirements.
+  @SerializationOrder(3)
   ScheduledMaintenancePolicyNotice notice = ScheduledMaintenancePolicyNotice();
 
   /// Approval requirements.
+  @SerializationOrder(4)
   ScheduledMaintenancePolicyApproval approval =
       ScheduledMaintenancePolicyApproval();
 }
@@ -13957,6 +15415,7 @@ class ScheduledMaintenancePolicyScheduling {
     Field('blackoutPeriods', String, 'Blackout Periods',
         hint: 'When maintenance is forbidden'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13971,6 +15430,7 @@ class ScheduledMaintenancePolicyDuration {
     Field('extensionPolicy', String, 'Extension Policy',
         hint: 'How to extend if needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13985,6 +15445,7 @@ class ScheduledMaintenancePolicyNotice {
     Field('noticeChannels', String, 'Notice Channels',
         hint: 'How users are notified'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -13999,6 +15460,7 @@ class ScheduledMaintenancePolicyApproval {
     Field('notes', String, 'Notes',
         hint: 'Additional policy notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14015,18 +15477,23 @@ class MaintenanceWindowEntry {
     Field('description', String, 'Description',
         hint: 'What maintenance is performed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Schedule details.
+  @SerializationOrder(1)
   MaintenanceWindowEntrySchedule schedule = MaintenanceWindowEntrySchedule();
 
   /// Scope details.
+  @SerializationOrder(2)
   MaintenanceWindowEntryScope scope = MaintenanceWindowEntryScope();
 
   /// Impact details.
+  @SerializationOrder(3)
   MaintenanceWindowEntryImpact impact = MaintenanceWindowEntryImpact();
 
   /// Rollback details.
+  @SerializationOrder(4)
   MaintenanceWindowEntryRollback rollback = MaintenanceWindowEntryRollback();
 }
 
@@ -14045,6 +15512,7 @@ class MaintenanceWindowEntrySchedule {
     Field('duration', String, 'Duration',
         hint: 'Expected duration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14059,6 +15527,7 @@ class MaintenanceWindowEntryScope {
     Field('affectedRegions', String, 'Affected Regions',
         hint: 'Geographic scope'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14075,6 +15544,7 @@ class MaintenanceWindowEntryImpact {
     Field('workarounds', String, 'Workarounds',
         hint: 'Workarounds during maintenance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14089,6 +15559,7 @@ class MaintenanceWindowEntryRollback {
     Field('notes', String, 'Notes',
         hint: 'Additional window notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14103,17 +15574,21 @@ class EmergencyMaintenanceProcedures {
     Field('severityThresholds', String, 'Severity Thresholds',
         hint: 'What severity warrants emergency'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Approval and documentation workflow.
+  @SerializationOrder(1)
   EmergencyMaintenanceProceduresGovernance governance =
     EmergencyMaintenanceProceduresGovernance();
 
   /// Notification and stakeholder handling.
+  @SerializationOrder(2)
   EmergencyMaintenanceProceduresCommunication communication =
     EmergencyMaintenanceProceduresCommunication();
 
   /// Execution and follow-up details.
+  @SerializationOrder(3)
   EmergencyMaintenanceProceduresExecution execution =
     EmergencyMaintenanceProceduresExecution();
 }
@@ -14129,6 +15604,7 @@ class EmergencyMaintenanceProceduresGovernance {
   Field('documentationRequired', String, 'Documentation Required',
     hint: 'Post-hoc documentation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14143,6 +15619,7 @@ class EmergencyMaintenanceProceduresCommunication {
   Field('stakeholderEscalation', String, 'Stakeholder Escalation',
     hint: 'How stakeholders are informed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14159,6 +15636,7 @@ class EmergencyMaintenanceProceduresExecution {
   Field('notes', String, 'Notes',
     hint: 'Additional emergency notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14174,21 +15652,26 @@ class MaintenanceChangeManagement {
     Field('changeBoard', String, 'Change Advisory Board',
         hint: 'CAB composition'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// CAB cadence and documentation prerequisites.
+  @SerializationOrder(1)
   MaintenanceChangeManagementGovernance governance =
     MaintenanceChangeManagementGovernance();
 
   /// Required assessments and rollback planning.
+  @SerializationOrder(2)
   MaintenanceChangeManagementDocumentation documentation =
     MaintenanceChangeManagementDocumentation();
 
   /// Testing and sign-off requirements.
+  @SerializationOrder(3)
   MaintenanceChangeManagementTesting testing =
     MaintenanceChangeManagementTesting();
 
   /// Logging and audit trail expectations.
+  @SerializationOrder(4)
   MaintenanceChangeManagementAudit audit = MaintenanceChangeManagementAudit();
 }
 
@@ -14199,6 +15682,7 @@ class MaintenanceChangeManagementGovernance {
   Field('changeBoardSchedule', String, 'CAB Schedule',
     hint: 'When CAB meets'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14215,6 +15699,7 @@ class MaintenanceChangeManagementDocumentation {
   Field('rollbackPlanRequired', bool, 'Rollback Plan Required',
     hint: 'Rollback plan mandatory'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14229,6 +15714,7 @@ class MaintenanceChangeManagementTesting {
   Field('signOffRequired', bool, 'Sign-Off Required',
     hint: 'Post-test sign-off'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14243,6 +15729,7 @@ class MaintenanceChangeManagementAudit {
   Field('notes', String, 'Notes',
     hint: 'Additional change management notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14261,16 +15748,20 @@ class MaintenanceUserImpact {
     Field('socialMediaNotice', bool, 'Social Media Notice',
         hint: 'Post on social media'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Communication during maintenance.
+  @SerializationOrder(1)
   MaintenanceUserImpactDuring during = MaintenanceUserImpactDuring();
 
   /// Graceful-degradation strategy.
+  @SerializationOrder(2)
   MaintenanceUserImpactGracefulDegradation gracefulDegradation =
       MaintenanceUserImpactGracefulDegradation();
 
   /// Post-maintenance communication.
+  @SerializationOrder(3)
   MaintenanceUserImpactPost post = MaintenanceUserImpactPost();
 }
 
@@ -14287,6 +15778,7 @@ class MaintenanceUserImpactDuring {
     Field('progressUpdates', bool, 'Progress Updates',
         hint: 'Periodic progress updates'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14301,6 +15793,7 @@ class MaintenanceUserImpactGracefulDegradation {
     Field('queuedOperations', bool, 'Queued Operations',
         hint: 'Queue writes during maintenance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14317,6 +15810,7 @@ class MaintenanceUserImpactPost {
     Field('notes', String, 'Notes',
         hint: 'Additional user impact notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14333,13 +15827,16 @@ class PostMaintenanceValidation {
     Field('healthChecks', bool, 'Health Checks',
         hint: 'Verify all health checks'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Monitoring requirements after maintenance.
+  @SerializationOrder(1)
   PostMaintenanceValidationMonitoring monitoring =
     PostMaintenanceValidationMonitoring();
 
   /// Sign-off and reporting expectations.
+  @SerializationOrder(2)
   PostMaintenanceValidationClosure closure =
     PostMaintenanceValidationClosure();
 }
@@ -14357,6 +15854,7 @@ class PostMaintenanceValidationMonitoring {
   Field('baselineComparison', bool, 'Baseline Comparison',
     hint: 'Compare to pre-maintenance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14373,6 +15871,7 @@ class PostMaintenanceValidationClosure {
   Field('notes', String, 'Notes',
     hint: 'Additional validation notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14427,13 +15926,16 @@ Provide an overview of communication architecture and strategy.
 - Version APIs for backward compatibility
 - Monitor communication health
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 8.6.1. Protocols and Standards.
+  @SerializationOrder(1)
   ProtocolsAndStandardsSection protocolsAndStandards =
       ProtocolsAndStandardsSection();
 
   /// 8.6.2. External Connectivity.
+  @SerializationOrder(2)
   ExternalConnectivitySection externalConnectivity =
       ExternalConnectivitySection();
 }
@@ -14491,32 +15993,41 @@ Provide an overview of protocol and standards approach.
 - Document protocol requirements clearly
 - Monitor protocol compliance
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of communication protocols and standards.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Protocol catalog — contains 0+× Protocol.
   @SectionId('PREN-PROT-LST')
   @SectionIdPattern('PREN-PROT-xxx')
+  @SerializationOrder(2)
   List<ProtocolEntry> protocols = [];
 
   /// TLS/SSL requirements.
+  @SerializationOrder(3)
   TlsRequirements tlsRequirements = TlsRequirements();
 
   /// Certificate management.
+  @SerializationOrder(4)
   CertificateManagement certificateManagement = CertificateManagement();
 
   /// API versioning strategy.
+  @SerializationOrder(5)
   ApiVersioningStrategy apiVersioning = ApiVersioningStrategy();
 
   /// Message format standards.
+  @SerializationOrder(6)
   MessageFormatStandards messageFormats = MessageFormatStandards();
 
   /// Rate limiting and throttling.
+  @SerializationOrder(7)
   RateLimitingPolicy rateLimiting = RateLimitingPolicy();
 
   /// Protocol compliance requirements.
+  @SerializationOrder(8)
   ProtocolComplianceRequirements compliance = ProtocolComplianceRequirements();
 }
 
@@ -14537,6 +16048,7 @@ class ProtocolEntry {
     Field('notes', String, 'Notes',
         hint: 'Additional protocol notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14555,6 +16067,7 @@ class ProtocolAuthSerialization {
     Field('compressionSupport', String, 'Compression Support',
         hint: 'gzip, brotli, none'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14573,6 +16086,7 @@ class ProtocolPerformance {
     Field('requestTimeout', String, 'Request Timeout',
         hint: 'Individual request timeout'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14587,6 +16101,7 @@ class ProtocolReliability {
     Field('deliveryGuarantee', String, 'Delivery Guarantee',
         hint: 'At-most-once, at-least-once, exactly-once'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14601,6 +16116,7 @@ class ProtocolUsage {
     Field('notes', String, 'Notes',
         hint: 'Additional protocol notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14615,19 +16131,24 @@ class TlsRequirements {
     Field('disabledProtocols', String, 'Disabled Protocols',
         hint: 'SSLv3, TLS 1.0, TLS 1.1'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Cipher suite policy.
+  @SerializationOrder(1)
   TlsRequirementsCipherSuites cipherSuites = TlsRequirementsCipherSuites();
 
   /// Certificate validation rules.
+  @SerializationOrder(2)
   TlsRequirementsCertificateValidation certificateValidation =
       TlsRequirementsCertificateValidation();
 
   /// Termination and internal encryption.
+  @SerializationOrder(3)
   TlsRequirementsTermination termination = TlsRequirementsTermination();
 
   /// Compliance and HSTS settings.
+  @SerializationOrder(4)
   TlsRequirementsCompliance compliance = TlsRequirementsCompliance();
 }
 
@@ -14642,6 +16163,7 @@ class TlsRequirementsCipherSuites {
     Field('keyExchangeAlgorithms', String, 'Key Exchange Algorithms',
         hint: 'ECDHE, DHE, X25519'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14656,6 +16178,7 @@ class TlsRequirementsCertificateValidation {
     Field('mutualTls', bool, 'Mutual TLS (mTLS)',
         hint: 'Client certificate authentication'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14668,6 +16191,7 @@ class TlsRequirementsTermination {
     Field('internalTls', bool, 'Internal TLS',
         hint: 'Encrypt service-to-service traffic'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14685,6 +16209,7 @@ class TlsRequirementsCompliance {
         hint: 'Apply HSTS to all subdomains'),
     Field('notes', String, 'Notes', hint: 'Additional TLS requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14697,18 +16222,23 @@ class CertificateManagement {
     Field('certificateType', String, 'Certificate Type',
         hint: 'DV, OV, EV, Wildcard'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Key specifications.
+  @SerializationOrder(1)
   CertificateManagementKeys keys = CertificateManagementKeys();
 
   /// Lifecycle management.
+  @SerializationOrder(2)
   CertificateManagementLifecycle lifecycle = CertificateManagementLifecycle();
 
   /// Storage and access controls.
+  @SerializationOrder(3)
   CertificateManagementStorage storage = CertificateManagementStorage();
 
   /// Monitoring rules.
+  @SerializationOrder(4)
   CertificateManagementMonitoring monitoring =
       CertificateManagementMonitoring();
 }
@@ -14724,6 +16254,7 @@ class CertificateManagementKeys {
     Field('signatureAlgorithm', String, 'Signature Algorithm',
         hint: 'SHA-256, SHA-384'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14742,6 +16273,7 @@ class CertificateManagementLifecycle {
     Field('revocationProcess', String, 'Revocation Process',
         hint: 'CRL, OCSP procedures'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14756,6 +16288,7 @@ class CertificateManagementStorage {
     Field('accessControl', String, 'Access Control',
         hint: 'Who can access certificates/keys'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14770,6 +16303,7 @@ class CertificateManagementMonitoring {
     Field('notes', String, 'Notes',
         hint: 'Additional certificate management notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14785,16 +16319,20 @@ class ApiVersioningStrategy {
     Field('currentVersion', String, 'Current Version',
         hint: 'Current active API version'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Supported versions and deprecation commitments.
+  @SerializationOrder(1)
   ApiVersioningStrategySupport support = ApiVersioningStrategySupport();
 
   /// Compatibility guarantees and migration expectations.
+  @SerializationOrder(2)
   ApiVersioningStrategyCompatibility compatibility =
     ApiVersioningStrategyCompatibility();
 
   /// Documentation and client generation practices.
+  @SerializationOrder(3)
   ApiVersioningStrategyDocumentation documentation =
     ApiVersioningStrategyDocumentation();
 }
@@ -14812,6 +16350,7 @@ class ApiVersioningStrategySupport {
   Field('minimumSupportPeriod', String, 'Minimum Support Period',
     hint: 'Minimum time a version stays supported'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14826,6 +16365,7 @@ class ApiVersioningStrategyCompatibility {
   Field('migrationGuidance', bool, 'Migration Guidance',
     hint: 'Provide migration guides between versions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14842,6 +16382,7 @@ class ApiVersioningStrategyDocumentation {
   Field('notes', String, 'Notes',
     hint: 'Additional versioning notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14854,20 +16395,25 @@ class MessageFormatStandards {
     Field('secondaryFormats', String, 'Secondary Formats',
         hint: 'Additional supported formats'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Schema standards.
+  @SerializationOrder(1)
   MessageFormatStandardsSchema schema = MessageFormatStandardsSchema();
 
   /// Field conventions.
+  @SerializationOrder(2)
   MessageFormatStandardsConventions conventions =
       MessageFormatStandardsConventions();
 
   /// Pagination and error envelopes.
+  @SerializationOrder(3)
   MessageFormatStandardsResponses responses =
       MessageFormatStandardsResponses();
 
   /// Compression and negotiation.
+  @SerializationOrder(4)
   MessageFormatStandardsTransport transport =
       MessageFormatStandardsTransport();
 }
@@ -14885,6 +16431,7 @@ class MessageFormatStandardsSchema {
     Field('schemaValidation', String, 'Schema Validation',
         hint: 'Request/response validation strategy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14903,6 +16450,7 @@ class MessageFormatStandardsConventions {
     Field('namingConvention', String, 'Naming Convention',
         hint: 'camelCase, snake_case for field names'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14917,6 +16465,7 @@ class MessageFormatStandardsResponses {
     Field('envelopeFormat', String, 'Envelope Format',
         hint: 'Flat, wrapped with metadata'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14931,6 +16480,7 @@ class MessageFormatStandardsTransport {
     Field('notes', String, 'Notes',
         hint: 'Additional message format notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14943,15 +16493,19 @@ class RateLimitingPolicy {
     Field('rateLimitScope', String, 'Rate Limit Scope',
         hint: 'Global, per-client, per-endpoint, per-tenant'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Rate-limit ceilings and burst handling.
+  @SerializationOrder(1)
   RateLimitingPolicyLimits limits = RateLimitingPolicyLimits();
 
   /// Runtime response behavior when limits are exceeded.
+  @SerializationOrder(2)
   RateLimitingPolicyBehavior behavior = RateLimitingPolicyBehavior();
 
   /// Quota management and exceptions.
+  @SerializationOrder(3)
   RateLimitingPolicyQuotas quotas = RateLimitingPolicyQuotas();
 }
 
@@ -14968,6 +16522,7 @@ class RateLimitingPolicyLimits {
   Field('burstAllowance', String, 'Burst Allowance',
     hint: 'Short burst above steady-state limit'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14982,6 +16537,7 @@ class RateLimitingPolicyBehavior {
   Field('rateLimitHeaders', bool, 'Rate Limit Headers',
     hint: 'X-RateLimit-* response headers'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -14998,6 +16554,7 @@ class RateLimitingPolicyQuotas {
   Field('notes', String, 'Notes',
     hint: 'Additional rate limiting notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15014,17 +16571,21 @@ class ProtocolComplianceRequirements {
     Field('cookiePolicy', String, 'Cookie Policy',
         hint: 'SameSite, Secure, HttpOnly attributes'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Caching requirements.
+  @SerializationOrder(1)
   ProtocolComplianceRequirementsCaching caching =
     ProtocolComplianceRequirementsCaching();
 
   /// Request logging and trace propagation rules.
+  @SerializationOrder(2)
   ProtocolComplianceRequirementsObservability observability =
     ProtocolComplianceRequirementsObservability();
 
   /// Webhook, event, and health endpoint standards.
+  @SerializationOrder(3)
   ProtocolComplianceRequirementsEvents events =
     ProtocolComplianceRequirementsEvents();
 }
@@ -15038,6 +16599,7 @@ class ProtocolComplianceRequirementsCaching {
   Field('cdnIntegration', String, 'CDN Integration',
     hint: 'CDN caching strategy and invalidation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15052,6 +16614,7 @@ class ProtocolComplianceRequirementsObservability {
   Field('tracePropagation', String, 'Trace Propagation',
     hint: 'Header format for trace context propagation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15068,6 +16631,7 @@ class ProtocolComplianceRequirementsEvents {
   Field('notes', String, 'Notes',
     hint: 'Additional compliance notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15128,29 +16692,37 @@ Provide an overview of external connectivity landscape.
 - Have fallback strategies for critical integrations
 - Regular vendor review and risk assessment
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of external connectivity requirements.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// External partner connections — contains 0+× ExternalPartnerConnection.
   @SectionId('EPCE-PART-LST')
   @SectionIdPattern('EPCE-PART-xxx')
+  @SerializationOrder(2)
   List<ExternalPartnerConnectionEntry> partnerConnections = [];
 
   /// Cloud service integrations.
+  @SerializationOrder(3)
   CloudServiceIntegrations cloudServices = CloudServiceIntegrations();
 
   /// Third-party API integrations.
+  @SerializationOrder(4)
   ThirdPartyApiIntegrations thirdPartyApis = ThirdPartyApiIntegrations();
 
   /// Network security and access control.
+  @SerializationOrder(5)
   NetworkSecurityPolicy networkSecurity = NetworkSecurityPolicy();
 
   /// Service mesh and API gateway.
+  @SerializationOrder(6)
   ServiceMeshAndGateway serviceMeshAndGateway = ServiceMeshAndGateway();
 
   /// Connectivity resilience requirements.
+  @SerializationOrder(7)
   ConnectivityResilience resilience = ConnectivityResilience();
 }
 
@@ -15165,28 +16737,35 @@ class ExternalPartnerConnectionEntry {
     Field('connectionPurpose', String, 'Connection Purpose',
         hint: 'Business purpose of this integration'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Protocol and endpoint.
+  @SerializationOrder(1)
   ExternalPartnerProtocol protocol = ExternalPartnerProtocol();
 
   /// Authentication settings.
+  @SerializationOrder(2)
   ExternalPartnerAuthentication authentication =
       ExternalPartnerAuthentication();
 
   /// Network configuration.
+  @SerializationOrder(3)
   ExternalPartnerNetwork network = ExternalPartnerNetwork();
 
   /// Reliability and SLA.
+  @SerializationOrder(4)
   ExternalPartnerReliability reliability = ExternalPartnerReliability();
 
   /// Data handling.
+  @SerializationOrder(5)
   ExternalPartnerDataHandling dataHandling =
       ExternalPartnerDataHandling();
 
   /// Operations and contacts.
   @SectionId('EXPAOP-OPER-LST')
   @SectionIdPattern('EXPAOP-OPER-xxx')
+  @SerializationOrder(6)
   List<ExternalPartnerOperations> operations = [];
 }
 
@@ -15203,6 +16782,7 @@ class ExternalPartnerProtocol {
     Field('dataFormat', String, 'Data Format',
         hint: 'JSON, XML, CSV, EDI X12, EDIFACT'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15217,6 +16797,7 @@ class ExternalPartnerAuthentication {
     Field('credentialRotation', String, 'Credential Rotation',
         hint: 'Rotation frequency and process'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15233,6 +16814,7 @@ class ExternalPartnerNetwork {
     Field('firewallRules', String, 'Firewall Rules',
         hint: 'Required firewall rule changes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15253,6 +16835,7 @@ class ExternalPartnerReliability {
     Field('circuitBreakerEnabled', bool, 'Circuit Breaker',
         hint: 'Circuit breaker for partner failures'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15267,6 +16850,7 @@ class ExternalPartnerDataHandling {
     Field('dataRetention', String, 'Data Retention',
         hint: 'Retention of exchanged data'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15283,6 +16867,7 @@ class ExternalPartnerOperations {
     Field('notes', String, 'Notes',
         hint: 'Additional connection notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15295,17 +16880,21 @@ class CloudServiceIntegrations {
     Field('secondaryProviders', String, 'Secondary Providers',
         hint: 'Additional cloud providers'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Managed services catalog.
+  @SerializationOrder(1)
   CloudServiceIntegrationsServices services =
       CloudServiceIntegrationsServices();
 
   /// Network connectivity.
+  @SerializationOrder(2)
   CloudServiceIntegrationsNetworking networking =
       CloudServiceIntegrationsNetworking();
 
   /// Compliance and notes.
+  @SerializationOrder(3)
   CloudServiceIntegrationsCompliance compliance =
       CloudServiceIntegrationsCompliance();
 }
@@ -15329,6 +16918,7 @@ class CloudServiceIntegrationsServices {
     Field('searchService', String, 'Search Service',
         hint: 'Elasticsearch, OpenSearch, Algolia'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15343,6 +16933,7 @@ class CloudServiceIntegrationsNetworking {
     Field('transitGateway', String, 'Transit Gateway',
         hint: 'Cross-VPC or cross-region routing'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15357,6 +16948,7 @@ class CloudServiceIntegrationsCompliance {
     Field('notes', String, 'Notes',
         hint: 'Additional cloud integration notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15369,27 +16961,34 @@ class ThirdPartyApiIntegrations {
     Field('paymentCompliance', String, 'Payment Compliance',
         hint: 'PCI DSS level, tokenization'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Analytics and monitoring providers.
+  @SerializationOrder(1)
   ThirdPartyApiIntegrationsAnalytics analytics =
       ThirdPartyApiIntegrationsAnalytics();
 
   /// Communication providers.
+  @SerializationOrder(2)
   ThirdPartyApiIntegrationsCommunication communication =
       ThirdPartyApiIntegrationsCommunication();
 
   /// Mapping and location providers.
+  @SerializationOrder(3)
   ThirdPartyApiIntegrationsLocation location =
       ThirdPartyApiIntegrationsLocation();
 
   /// Document and media providers.
+  @SerializationOrder(4)
   ThirdPartyApiIntegrationsMedia media = ThirdPartyApiIntegrationsMedia();
 
   /// AI and translation providers.
+  @SerializationOrder(5)
   ThirdPartyApiIntegrationsAi ai = ThirdPartyApiIntegrationsAi();
 
   /// Compliance and fallback controls.
+  @SerializationOrder(6)
   ThirdPartyApiIntegrationsOperations operations =
       ThirdPartyApiIntegrationsOperations();
 }
@@ -15403,6 +17002,7 @@ class ThirdPartyApiIntegrationsAnalytics {
     Field('errorTrackingServices', String, 'Error Tracking Services',
         hint: 'Sentry, Bugsnag, Datadog APM'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15417,6 +17017,7 @@ class ThirdPartyApiIntegrationsCommunication {
     Field('videoConferencing', String, 'Video Conferencing',
         hint: 'Zoom, Teams, Jitsi APIs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15429,6 +17030,7 @@ class ThirdPartyApiIntegrationsLocation {
     Field('geocodingServices', String, 'Geocoding Services',
         hint: 'Address validation and geocoding'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15443,6 +17045,7 @@ class ThirdPartyApiIntegrationsMedia {
     Field('ocrServices', String, 'OCR Services',
         hint: 'Document scanning and text extraction'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15455,6 +17058,7 @@ class ThirdPartyApiIntegrationsAi {
     Field('translationServices', String, 'Translation Services',
         hint: 'Google Translate, DeepL'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15471,6 +17075,7 @@ class ThirdPartyApiIntegrationsOperations {
     Field('notes', String, 'Notes',
         hint: 'Additional third-party integration notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15485,22 +17090,28 @@ class NetworkSecurityPolicy {
     Field('defaultDenyPolicy', bool, 'Default Deny Policy',
         hint: 'Deny all except explicit allow'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Firewall rule details.
+  @SerializationOrder(1)
   NetworkSecurityPolicyFirewall firewall = NetworkSecurityPolicyFirewall();
 
   /// IP management controls.
+  @SerializationOrder(2)
   NetworkSecurityPolicyIpManagement ipManagement =
       NetworkSecurityPolicyIpManagement();
 
   /// VPN configuration.
+  @SerializationOrder(3)
   NetworkSecurityPolicyVpn vpn = NetworkSecurityPolicyVpn();
 
   /// DDoS protections.
+  @SerializationOrder(4)
   NetworkSecurityPolicyDdos ddos = NetworkSecurityPolicyDdos();
 
   /// DNS controls and notes.
+  @SerializationOrder(5)
   NetworkSecurityPolicyDns dns = NetworkSecurityPolicyDns();
 }
 
@@ -15513,6 +17124,7 @@ class NetworkSecurityPolicyFirewall {
     Field('egressRules', String, 'Egress Rules',
         hint: 'Allowed outbound traffic rules'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15529,6 +17141,7 @@ class NetworkSecurityPolicyIpManagement {
     Field('geoBlocking', String, 'Geo-Blocking',
         hint: 'Country or region-based access control'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15545,6 +17158,7 @@ class NetworkSecurityPolicyVpn {
     Field('vpnHighAvailability', bool, 'VPN High Availability',
         hint: 'Redundant VPN tunnels'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15557,6 +17171,7 @@ class NetworkSecurityPolicyDdos {
     Field('rateLimitingAtEdge', String, 'Rate Limiting at Edge',
         hint: 'Edge-level request throttling'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15573,6 +17188,7 @@ class NetworkSecurityPolicyDns {
     Field('notes', String, 'Notes',
         hint: 'Additional network security notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15589,12 +17205,15 @@ class ServiceMeshAndGateway {
     Field('apiKeyManagement', String, 'API Key Management',
         hint: 'Developer portal, key provisioning'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Service mesh configuration.
+  @SerializationOrder(1)
   ServiceMeshAndGatewayMesh mesh = ServiceMeshAndGatewayMesh();
 
   /// Load balancing and termination rules.
+  @SerializationOrder(2)
   ServiceMeshAndGatewayLoadBalancing loadBalancing =
     ServiceMeshAndGatewayLoadBalancing();
 }
@@ -15612,6 +17231,7 @@ class ServiceMeshAndGatewayMesh {
   Field('mtlsEnabled', bool, 'mTLS Enabled',
     hint: 'Mutual TLS for internal traffic'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15630,6 +17250,7 @@ class ServiceMeshAndGatewayLoadBalancing {
   Field('notes', String, 'Notes',
     hint: 'Additional gateway/mesh notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15644,16 +17265,20 @@ class ConnectivityResilience {
     Field('geographicRedundancy', String, 'Geographic Redundancy',
         hint: 'Multi-region connectivity'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Circuit breaking and isolation strategy.
+  @SerializationOrder(1)
   ConnectivityResilienceProtection protection =
     ConnectivityResilienceProtection();
 
   /// Offline and reconnection behavior.
+  @SerializationOrder(2)
   ConnectivityResilienceOffline offline = ConnectivityResilienceOffline();
 
   /// Monitoring and alerting expectations.
+  @SerializationOrder(3)
   ConnectivityResilienceOperations operations =
     ConnectivityResilienceOperations();
 }
@@ -15669,6 +17294,7 @@ class ConnectivityResilienceProtection {
   Field('fallbackBehavior', String, 'Fallback Behavior',
     hint: 'Cached response, degraded mode, error page'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15683,6 +17309,7 @@ class ConnectivityResilienceOffline {
   Field('queuedOperations', bool, 'Queued Operations',
     hint: 'Queue requests when connectivity lost'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15697,6 +17324,7 @@ class ConnectivityResilienceOperations {
   Field('notes', String, 'Notes',
     hint: 'Additional resilience notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15755,15 +17383,19 @@ Provide an overview of operational approach and responsibilities.
 - Practice incident response
 - Regular operational reviews
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 8.7.1. System Operation.
+  @SerializationOrder(1)
   SystemOperation systemOperation = SystemOperation();
 
   /// 8.7.2. Monitoring.
+  @SerializationOrder(2)
   Monitoring monitoring = Monitoring();
 
   /// 8.7.3. Capacity Planning.
+  @SerializationOrder(3)
   CapacityPlanningSection capacityPlanning = CapacityPlanningSection();
 }
 
@@ -15820,15 +17452,18 @@ Provide an overview of system operation approach.
 - Review and update procedures regularly
 - Track operational metrics
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 8.7.1.1. Administration Requirements.
+  @SerializationOrder(1)
   AdministrationRequirementsSection administrationRequirements =
       AdministrationRequirementsSection();
 
   /// Maintenance Procedures.
   @SectionId('MAINT-MAIN-LST')
   @SectionIdPattern('MAINT-MAIN-xxx')
+  @SerializationOrder(2)
   List<MaintenanceProcedureEntry> maintenanceProcedures = [];
 }
 
@@ -15891,29 +17526,37 @@ Provide an overview of administration requirements.
 - Provide self-service where safe
 - Regular admin access reviews
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of administration requirements.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Admin interface requirements.
+  @SerializationOrder(2)
   AdminInterfaceRequirements adminInterface = AdminInterfaceRequirements();
 
   /// Configuration management.
+  @SerializationOrder(3)
   SystemConfigurationManagement configurationManagement =
       SystemConfigurationManagement();
 
   /// User provisioning and management tools.
+  @SerializationOrder(4)
   UserProvisioningTools userProvisioning = UserProvisioningTools();
 
   /// Batch job management.
+  @SerializationOrder(5)
   BatchJobManagement batchJobs = BatchJobManagement();
 
   /// Environment management.
+  @SerializationOrder(6)
   AdminEnvironmentManagement environmentManagement =
       AdminEnvironmentManagement();
 
   /// System diagnostic tools.
+  @SerializationOrder(7)
   SystemDiagnosticTools diagnosticTools = SystemDiagnosticTools();
 }
 
@@ -15930,16 +17573,20 @@ class AdminInterfaceRequirements {
     Field('authenticationMethod', String, 'Authentication Method',
         hint: 'SSO, LDAP, local credentials'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Dashboard widget requirements.
+  @SerializationOrder(1)
   AdminInterfaceRequirementsDashboard dashboard =
       AdminInterfaceRequirementsDashboard();
 
   /// Data management tooling.
+  @SerializationOrder(2)
   AdminInterfaceRequirementsData data = AdminInterfaceRequirementsData();
 
   /// Operational controls.
+  @SerializationOrder(3)
   AdminInterfaceRequirementsOperations operations =
       AdminInterfaceRequirementsOperations();
 }
@@ -15959,6 +17606,7 @@ class AdminInterfaceRequirementsDashboard {
     Field('resourceUsageWidget', bool, 'Resource Usage Widget',
         hint: 'CPU, memory, storage gauges'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15975,6 +17623,7 @@ class AdminInterfaceRequirementsData {
     Field('auditLogViewer', bool, 'Audit Log Viewer',
         hint: 'View admin action audit trail'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -15991,6 +17640,7 @@ class AdminInterfaceRequirementsOperations {
     Field('notes', String, 'Notes',
         hint: 'Additional admin interface notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16006,17 +17656,21 @@ class SystemConfigurationManagement {
     Field('centralConfigService', String, 'Central Config Service',
         hint: 'Consul, Spring Cloud Config, AWS AppConfig'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Dynamic configuration and rollback behavior.
+  @SerializationOrder(1)
   SystemConfigurationManagementDynamic dynamic =
     SystemConfigurationManagementDynamic();
 
   /// Environment overrides and secrets handling.
+  @SerializationOrder(2)
   SystemConfigurationManagementEnvironment environment =
     SystemConfigurationManagementEnvironment();
 
   /// Validation, diffing, and audit controls.
+  @SerializationOrder(3)
   SystemConfigurationManagementGovernance governance =
     SystemConfigurationManagementGovernance();
 }
@@ -16034,6 +17688,7 @@ class SystemConfigurationManagementDynamic {
   Field('configRollback', bool, 'Config Rollback',
     hint: 'Revert to previous configuration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16048,6 +17703,7 @@ class SystemConfigurationManagementEnvironment {
   Field('secretRotation', bool, 'Secret Rotation',
     hint: 'Automated secret rotation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16064,6 +17720,7 @@ class SystemConfigurationManagementGovernance {
   Field('notes', String, 'Notes',
     hint: 'Additional configuration management notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16080,16 +17737,20 @@ class UserProvisioningTools {
     Field('invitationWorkflow', bool, 'Invitation Workflow',
         hint: 'Invite users via email'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Account lifecycle management.
+  @SerializationOrder(1)
   UserProvisioningToolsLifecycle lifecycle = UserProvisioningToolsLifecycle();
 
   /// Role management and reviews.
+  @SerializationOrder(2)
   UserProvisioningToolsRoleManagement roleManagement =
       UserProvisioningToolsRoleManagement();
 
   /// Directory integration settings.
+  @SerializationOrder(3)
   UserProvisioningToolsDirectoryIntegration directoryIntegration =
       UserProvisioningToolsDirectoryIntegration();
 }
@@ -16109,6 +17770,7 @@ class UserProvisioningToolsLifecycle {
     Field('offboardingProcess', String, 'Offboarding Process',
         hint: 'Data transfer, access revocation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16123,6 +17785,7 @@ class UserProvisioningToolsRoleManagement {
     Field('accessReviewProcess', String, 'Access Review Process',
         hint: 'Periodic access recertification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16139,6 +17802,7 @@ class UserProvisioningToolsDirectoryIntegration {
     Field('notes', String, 'Notes',
         hint: 'Additional user provisioning notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16153,15 +17817,19 @@ class BatchJobManagement {
     Field('timeZoneHandling', String, 'Time Zone Handling',
         hint: 'UTC, local, configurable per job'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Supported job categories.
+  @SerializationOrder(1)
   BatchJobManagementJobTypes jobTypes = BatchJobManagementJobTypes();
 
   /// Execution controls.
+  @SerializationOrder(2)
   BatchJobManagementExecution execution = BatchJobManagementExecution();
 
   /// Monitoring and manual controls.
+  @SerializationOrder(3)
   BatchJobManagementMonitoring monitoring = BatchJobManagementMonitoring();
 }
 
@@ -16180,6 +17848,7 @@ class BatchJobManagementJobTypes {
     Field('integrationSyncJobs', String, 'Integration Sync Jobs',
         hint: 'External system synchronization'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16198,6 +17867,7 @@ class BatchJobManagementExecution {
     Field('timeout', String, 'Timeout',
         hint: 'Maximum job execution time'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16218,6 +17888,7 @@ class BatchJobManagementMonitoring {
     Field('notes', String, 'Notes',
         hint: 'Additional batch job notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16251,6 +17922,7 @@ class AdminEnvironmentManagement {
     Field('notes', String, 'Notes',
         hint: 'Additional environment management notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16267,15 +17939,19 @@ class SystemDiagnosticTools {
     Field('heapDumpCapability', bool, 'Heap Dump Capability',
         hint: 'Capture memory heap dumps'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Trace and dependency inspection tools.
+  @SerializationOrder(1)
   SystemDiagnosticToolsTracing tracing = SystemDiagnosticToolsTracing();
 
   /// Log analysis capabilities.
+  @SerializationOrder(2)
   SystemDiagnosticToolsLogs logs = SystemDiagnosticToolsLogs();
 
   /// Self-service diagnostic entry points.
+  @SerializationOrder(3)
   SystemDiagnosticToolsSelfService selfService =
     SystemDiagnosticToolsSelfService();
 }
@@ -16291,6 +17967,7 @@ class SystemDiagnosticToolsTracing {
   Field('dependencyMapping', bool, 'Dependency Mapping',
     hint: 'Visualize service dependencies'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16305,6 +17982,7 @@ class SystemDiagnosticToolsLogs {
   Field('correlatedLogView', bool, 'Correlated Log View',
     hint: 'View logs across services by trace ID'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16319,6 +17997,7 @@ class SystemDiagnosticToolsSelfService {
   Field('notes', String, 'Notes',
     hint: 'Additional diagnostic tool notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16356,27 +18035,34 @@ class Monitoring {
     Field('costBudget', String, 'Cost Budget',
         hint: 'Monthly monitoring cost budget'),
   ])
+  @SerializationOrder(0)
   String? monitoringOverview;
 
   /// Monitoring strategy narrative.
   @ContentHelp('Executive summary of monitoring philosophy, tool '
       'selection rationale, and observability goals.')
+  @SerializationOrder(1)
   TextSection overviewNarrative = TextSection();
 
   /// 8.7.2.1. Health Checks and Diagnostics.
+  @SerializationOrder(2)
   HealthChecksAndDiagnosticsSection healthChecksAndDiagnostics =
       HealthChecksAndDiagnosticsSection();
 
   /// 8.7.2.2. Alerting Configuration.
+  @SerializationOrder(3)
   AlertingConfiguration alertingConfiguration = AlertingConfiguration();
 
   /// 8.7.2.3. Metrics and Observability.
+  @SerializationOrder(4)
   MetricsAndObservability metricsAndObservability = MetricsAndObservability();
 
   /// 8.7.2.4. Monitoring Dashboards.
+  @SerializationOrder(5)
   MonitoringDashboards dashboards = MonitoringDashboards();
 
   /// 8.7.2.5. SLA and SLO Monitoring.
+  @SerializationOrder(6)
   SlaAndSloMonitoring slaAndSloMonitoring = SlaAndSloMonitoring();
 }
 
@@ -16416,28 +18102,35 @@ class AlertingConfiguration {
     Field('staleAlertCleanup', String, 'Stale Alert Cleanup',
         hint: 'Removing outdated alert rules'),
   ])
+  @SerializationOrder(0)
   String? alertingOverview;
 
   /// Alerting overview narrative.
+  @SerializationOrder(1)
   TextSection overviewNarrative = TextSection();
 
   /// Notification channels.
+  @SerializationOrder(2)
   AlertNotificationChannels notificationChannels = AlertNotificationChannels();
 
   /// Alert rules catalog.
   @SectionId('ALRUEN-ALER-LST')
   @SectionIdPattern('ALRUEN-ALER-xxx')
+  @SerializationOrder(3)
   List<AlertRuleEntry> alertRules = [];
 
   /// Escalation policies.
+  @SerializationOrder(4)
   AlertEscalationPolicies escalationPolicies = AlertEscalationPolicies();
 
   /// Alert suppression and maintenance windows.
   @SectionId('ALSURU-SUPP-LST')
   @SectionIdPattern('ALSURU-SUPP-xxx')
+  @SerializationOrder(5)
   List<AlertSuppressionRules> suppressionRules = [];
 
   /// On-call schedule.
+  @SerializationOrder(6)
   OnCallScheduleConfig onCallSchedule = OnCallScheduleConfig();
 }
 
@@ -16453,17 +18146,21 @@ class AlertNotificationChannels {
     Field('teamsIntegration', String, 'Teams Integration',
         hint: 'Microsoft Teams channel integration'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Secondary and escalation delivery methods.
+  @SerializationOrder(1)
   AlertNotificationChannelsDelivery delivery =
     AlertNotificationChannelsDelivery();
 
   /// Severity-based channel routing.
+  @SerializationOrder(2)
   AlertNotificationChannelsRouting routing =
     AlertNotificationChannelsRouting();
 
   /// Message templates, enrichment, and grouping rules.
+  @SerializationOrder(3)
   AlertNotificationChannelsFormatting formatting =
     AlertNotificationChannelsFormatting();
 }
@@ -16479,6 +18176,7 @@ class AlertNotificationChannelsDelivery {
   Field('phoneCallEscalation', String, 'Phone Call Escalation',
     hint: 'Voice call for unacknowledged criticals'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16493,6 +18191,7 @@ class AlertNotificationChannelsRouting {
   Field('infoAlertChannels', String, 'Info Alert Channels',
     hint: 'Where info alerts are sent'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16510,6 +18209,7 @@ class AlertNotificationChannelsFormatting {
     hint: 'How related alerts are grouped'),
   Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16525,15 +18225,19 @@ class AlertRuleEntry {
     Field('category', String, 'Category',
         hint: 'Infrastructure, Application, Business, Security'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Trigger conditions.
+  @SerializationOrder(1)
   AlertRuleEntryTrigger trigger = AlertRuleEntryTrigger();
 
   /// Response actions.
+  @SerializationOrder(2)
   AlertRuleEntryResponse response = AlertRuleEntryResponse();
 
   /// Ownership details.
+  @SerializationOrder(3)
   AlertRuleEntryOwnership ownership = AlertRuleEntryOwnership();
 }
 
@@ -16550,6 +18254,7 @@ class AlertRuleEntryTrigger {
     Field('requiredOccurrences', String, 'Required Occurrences',
         hint: 'N of M before alerting'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16566,6 +18271,7 @@ class AlertRuleEntryResponse {
     Field('autoRemediation', String, 'Auto-Remediation',
         hint: 'Automatic remediation action if any'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16577,6 +18283,7 @@ class AlertRuleEntryOwnership {
     Field('primaryContact', String, 'Primary Contact'),
     Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16592,16 +18299,20 @@ class AlertEscalationPolicies {
     Field('level3Responder', String, 'Level 3 Responder',
         hint: 'Senior engineer/architect escalation'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Management escalation path and timing thresholds.
+  @SerializationOrder(1)
   AlertEscalationPoliciesTiming timing = AlertEscalationPoliciesTiming();
 
   /// Escalation control behavior.
+  @SerializationOrder(2)
   AlertEscalationPoliciesBehavior behavior =
     AlertEscalationPoliciesBehavior();
 
   /// Schedule-specific policy variants.
+  @SerializationOrder(3)
   AlertEscalationPoliciesSchedules schedules =
     AlertEscalationPoliciesSchedules();
 }
@@ -16619,6 +18330,7 @@ class AlertEscalationPoliciesTiming {
   Field('level3ToManagementTime', String, 'L3 to Management Time',
     hint: 'Time before management notification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16633,6 +18345,7 @@ class AlertEscalationPoliciesBehavior {
   Field('repeatNotification', String, 'Repeat Notification',
     hint: 'Re-notify if unresolved after N minutes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16648,6 +18361,7 @@ class AlertEscalationPoliciesSchedules {
     hint: 'Escalation on weekends/holidays'),
   Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16678,6 +18392,7 @@ class AlertSuppressionRules {
         hint: 'Periodic review of active suppressions'),
     Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16694,12 +18409,15 @@ class OnCallScheduleConfig {
     Field('secondaryOnCallDuties', String, 'Secondary On-Call Duties',
         hint: 'Backup on-call responsibilities'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Override and coverage handling.
+  @SerializationOrder(1)
   OnCallScheduleConfigCoverage coverage = OnCallScheduleConfigCoverage();
 
   /// Compensation and tooling support.
+  @SerializationOrder(2)
   OnCallScheduleConfigOperations operations =
     OnCallScheduleConfigOperations();
 }
@@ -16715,6 +18433,7 @@ class OnCallScheduleConfigCoverage {
   Field('vacationCoverage', String, 'Vacation Coverage',
     hint: 'How vacation affects on-call'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16732,6 +18451,7 @@ class OnCallScheduleConfigOperations {
     hint: 'On-call handoff procedure'),
   Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16770,26 +18490,33 @@ class MetricsAndObservability {
     Field('samplingRate', String, 'Sampling Rate',
         hint: 'Trace sampling percentage'),
   ])
+  @SerializationOrder(0)
   String? metricsOverview;
 
   /// Observability overview narrative.
+  @SerializationOrder(1)
   TextSection overviewNarrative = TextSection();
 
   /// Application metrics specification.
+  @SerializationOrder(2)
   ApplicationMetricsSpec applicationMetrics = ApplicationMetricsSpec();
 
   /// Infrastructure metrics specification.
+  @SerializationOrder(3)
   InfrastructureMetricsSpec infrastructureMetrics = InfrastructureMetricsSpec();
 
   /// Business metrics specification.
+  @SerializationOrder(4)
   BusinessMetricsSpec businessMetrics = BusinessMetricsSpec();
 
   /// Distributed tracing specification.
+  @SerializationOrder(5)
   DistributedTracingSpec distributedTracing = DistributedTracingSpec();
 
   /// Custom metrics catalog.
   @SectionId('CUMEEN-CUST-LST')
   @SectionIdPattern('CUMEEN-CUST-xxx')
+  @SerializationOrder(6)
   List<CustomMetricEntry> customMetrics = [];
 }
 
@@ -16804,17 +18531,21 @@ class ApplicationMetricsSpec {
     Field('requestDuration', bool, 'Request Duration',
         hint: 'Latency histograms (p50, p95, p99)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// USE metrics.
+  @SerializationOrder(1)
   ApplicationMetricsSpecResources resources =
       ApplicationMetricsSpecResources();
 
   /// Application-specific metrics.
+  @SerializationOrder(2)
   ApplicationMetricsSpecApplication application =
       ApplicationMetricsSpecApplication();
 
   /// Labeling guidance.
+  @SerializationOrder(3)
   ApplicationMetricsSpecLabels labels = ApplicationMetricsSpecLabels();
 }
 
@@ -16829,6 +18560,7 @@ class ApplicationMetricsSpecResources {
     Field('resourceErrors', bool, 'Resource Errors',
         hint: 'Timeouts, failures'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16847,6 +18579,7 @@ class ApplicationMetricsSpecApplication {
     Field('messageQueueMetrics', bool, 'Message Queue Metrics',
         hint: 'Publish/consume rates, lag'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16862,6 +18595,7 @@ class ApplicationMetricsSpecLabels {
         hint: 'Max cardinality guidelines'),
     Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16879,16 +18613,20 @@ class InfrastructureMetricsSpec {
     Field('networkMetrics', bool, 'Network Metrics',
         hint: 'Bytes in/out, packets, errors'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Container and orchestration metrics.
+  @SerializationOrder(1)
   InfrastructureMetricsSpecKubernetes kubernetes =
     InfrastructureMetricsSpecKubernetes();
 
   /// Cloud-managed services and edge metrics.
+  @SerializationOrder(2)
   InfrastructureMetricsSpecCloud cloud = InfrastructureMetricsSpecCloud();
 
   /// Cost attribution and notes.
+  @SerializationOrder(3)
   InfrastructureMetricsSpecCost cost = InfrastructureMetricsSpecCost();
 }
 
@@ -16905,6 +18643,7 @@ class InfrastructureMetricsSpecKubernetes {
   Field('deploymentMetrics', bool, 'Deployment Metrics',
     hint: 'Replica count, rollout status'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16921,6 +18660,7 @@ class InfrastructureMetricsSpecCloud {
   Field('cdnMetrics', bool, 'CDN Metrics',
     hint: 'Cache hit ratio, bandwidth, latency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16932,6 +18672,7 @@ class InfrastructureMetricsSpecCost {
     hint: 'Resource cost attribution'),
   Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16947,20 +18688,25 @@ class BusinessMetricsSpec {
     Field('userJourneyMetrics', bool, 'User Journey Metrics',
         hint: 'Funnel completion, drop-off'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Transaction and revenue metrics.
+  @SerializationOrder(1)
   BusinessMetricsSpecTransactions transactions =
     BusinessMetricsSpecTransactions();
 
   /// Feature adoption and engagement metrics.
+  @SerializationOrder(2)
   BusinessMetricsSpecFeatureUsage featureUsage =
     BusinessMetricsSpecFeatureUsage();
 
   /// KPI and customer outcome metrics.
+  @SerializationOrder(3)
   BusinessMetricsSpecKpis kpis = BusinessMetricsSpecKpis();
 
   /// Real-time dashboard and notes.
+  @SerializationOrder(4)
   BusinessMetricsSpecOperations operations = BusinessMetricsSpecOperations();
 }
 
@@ -16975,6 +18721,7 @@ class BusinessMetricsSpecTransactions {
   Field('transactionSuccess', bool, 'Transaction Success',
     hint: 'Success/failure rates'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -16987,6 +18734,7 @@ class BusinessMetricsSpecFeatureUsage {
   Field('featureEngagement', bool, 'Feature Engagement',
     hint: 'Depth of feature usage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17001,6 +18749,7 @@ class BusinessMetricsSpecKpis {
   Field('slaCompliance', bool, 'SLA Compliance',
     hint: 'SLA adherence metrics'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17012,6 +18761,7 @@ class BusinessMetricsSpecOperations {
     hint: 'Live business metrics display'),
   Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17026,15 +18776,19 @@ class DistributedTracingSpec {
     Field('traceIdFormat', String, 'Trace ID Format',
         hint: 'W3C Trace Context, B3, custom'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Sampling strategy.
+  @SerializationOrder(1)
   DistributedTracingSpecSampling sampling = DistributedTracingSpecSampling();
 
   /// Span metadata.
+  @SerializationOrder(2)
   DistributedTracingSpecSpans spans = DistributedTracingSpecSpans();
 
   /// Correlation and retention.
+  @SerializationOrder(3)
   DistributedTracingSpecOperations operations =
     DistributedTracingSpecOperations();
 }
@@ -17052,6 +18806,7 @@ class DistributedTracingSpecSampling {
   Field('latencySampling', String, 'Latency Sampling',
     hint: 'Sample slow traces'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17066,6 +18821,7 @@ class DistributedTracingSpecSpans {
   Field('resourceAttributes', String, 'Resource Attributes',
     hint: 'Service name, version, environment'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17083,6 +18839,7 @@ class DistributedTracingSpecOperations {
     hint: 'How long traces are stored'),
   Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17107,6 +18864,7 @@ class CustomMetricEntry {
         hint: 'Which dashboards include this metric'),
     Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17144,19 +18902,23 @@ class MonitoringDashboards {
     Field('infrastructureDashboards', bool, 'Infrastructure Dashboards',
         hint: 'Infra-level dashboards'),
   ])
+  @SerializationOrder(0)
   String? dashboardOverview;
 
   /// Dashboard overview narrative.
+  @SerializationOrder(1)
   TextSection overviewNarrative = TextSection();
 
   /// Dashboard catalog.
   @SectionId('DAEN-DASH-LST')
   @SectionIdPattern('DAEN-DASH-xxx')
+  @SerializationOrder(2)
   List<DashboardEntry> dashboards = [];
 
   /// Dashboard template specifications.
   @SectionId('DATE-DASH-LST')
   @SectionIdPattern('DATE-DASH-xxx')
+  @SerializationOrder(3)
   List<DashboardTemplates> dashboardTemplates = [];
 }
 
@@ -17171,12 +18933,15 @@ class DashboardEntry {
     Field('targetAudience', String, 'Target Audience',
         hint: 'Who uses this dashboard'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Refresh and data composition details.
+  @SerializationOrder(1)
   DashboardEntryConfiguration configuration = DashboardEntryConfiguration();
 
   /// Alert ownership and notes.
+  @SerializationOrder(2)
   DashboardEntryOperations operations = DashboardEntryOperations();
 }
 
@@ -17192,6 +18957,7 @@ class DashboardEntryConfiguration {
     Field('dataSource', String, 'Data Source',
         hint: 'Data source for dashboard'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17204,6 +18970,7 @@ class DashboardEntryOperations {
     Field('ownerTeam', String, 'Owner Team'),
     Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17232,6 +18999,7 @@ class DashboardTemplates {
         hint: 'How templates are versioned'),
     Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17267,20 +19035,25 @@ class SlaAndSloMonitoring {
     Field('slaExclusions', String, 'SLA Exclusions',
         hint: 'Maintenance windows, force majeure'),
   ])
+  @SerializationOrder(0)
   String? slaOverview;
 
   /// SLA/SLO overview narrative.
+  @SerializationOrder(1)
   TextSection overviewNarrative = TextSection();
 
   /// Service Level Indicators.
+  @SerializationOrder(2)
   ServiceLevelIndicators slis = ServiceLevelIndicators();
 
   /// SLO catalog.
   @SectionId('SLEN-SLOS-LST')
   @SectionIdPattern('SLEN-SLOS-xxx')
+  @SerializationOrder(3)
   List<SloEntry> slos = [];
 
   /// Error budget tracking.
+  @SerializationOrder(4)
   ErrorBudgetTracking errorBudget = ErrorBudgetTracking();
 }
 
@@ -17293,16 +19066,20 @@ class ServiceLevelIndicators {
     Field('availabilityExclusions', String, 'Availability Exclusions',
         hint: 'What is excluded from availability'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Latency and throughput indicators.
+  @SerializationOrder(1)
   ServiceLevelIndicatorsPerformance performance =
     ServiceLevelIndicatorsPerformance();
 
   /// Error, correctness, and freshness indicators.
+  @SerializationOrder(2)
   ServiceLevelIndicatorsQuality quality = ServiceLevelIndicatorsQuality();
 
   /// Measurement method and location.
+  @SerializationOrder(3)
   ServiceLevelIndicatorsMeasurement measurement =
     ServiceLevelIndicatorsMeasurement();
 }
@@ -17318,6 +19095,7 @@ class ServiceLevelIndicatorsPerformance {
   Field('throughputSli', String, 'Throughput SLI',
     hint: 'How throughput is measured'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17334,6 +19112,7 @@ class ServiceLevelIndicatorsQuality {
   Field('freshnessSli', String, 'Freshness SLI',
     hint: 'Data freshness measurement'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17347,6 +19126,7 @@ class ServiceLevelIndicatorsMeasurement {
     hint: 'Server-side, client-side, edge'),
   Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17359,12 +19139,15 @@ class SloEntry {
     Field('sloDescription', String, 'SLO Description'),
     Field('serviceName', String, 'Service Name'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Objective target and budget definition.
+  @SerializationOrder(1)
   SloEntryTarget target = SloEntryTarget();
 
   /// Alerting and ownership rules.
+  @SerializationOrder(2)
   SloEntryOperations operations = SloEntryOperations();
 }
 
@@ -17381,6 +19164,7 @@ class SloEntryTarget {
     Field('errorBudget', String, 'Error Budget',
         hint: 'Derived error budget'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17395,6 +19179,7 @@ class SloEntryOperations {
     Field('ownerTeam', String, 'Owner Team'),
     Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17413,12 +19198,15 @@ class ErrorBudgetTracking {
     Field('budgetBurnRateDashboard', bool, 'Budget Burn Rate Dashboard',
         hint: 'Dashboard showing burn rate'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Burn-rate monitoring thresholds.
+  @SerializationOrder(1)
   ErrorBudgetTrackingMonitoring monitoring = ErrorBudgetTrackingMonitoring();
 
   /// Recovery policy and attribution rules.
+  @SerializationOrder(2)
   ErrorBudgetTrackingGovernance governance = ErrorBudgetTrackingGovernance();
 }
 
@@ -17431,6 +19219,7 @@ class ErrorBudgetTrackingMonitoring {
   Field('burnRateTimePeriods', String, 'Burn Rate Time Periods',
     hint: '1h, 6h, 24h, 7d burn rates'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17448,6 +19237,7 @@ class ErrorBudgetTrackingGovernance {
     hint: 'Attribute budget spend to incidents'),
   Field('notes', String, 'Notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17508,24 +19298,31 @@ Provide an overview of health check and diagnostics strategy.
 - Correlate logs and traces
 - Document troubleshooting procedures
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of health check and diagnostic strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Health check endpoint requirements.
+  @SerializationOrder(2)
   HealthCheckEndpoints healthEndpoints = HealthCheckEndpoints();
 
   /// Application diagnostics.
+  @SerializationOrder(3)
   ApplicationDiagnostics applicationDiagnostics = ApplicationDiagnostics();
 
   /// Log aggregation and analysis.
+  @SerializationOrder(4)
   LogAggregationRequirements logAggregation = LogAggregationRequirements();
 
   /// Troubleshooting capabilities.
+  @SerializationOrder(5)
   TroubleshootingCapabilities troubleshooting = TroubleshootingCapabilities();
 
   /// Dependency health monitoring.
+  @SerializationOrder(6)
   DependencyHealthMonitoring dependencyHealth = DependencyHealthMonitoring();
 }
 
@@ -17544,16 +19341,20 @@ class HealthCheckEndpoints {
     Field('healthCheckProtocol', String, 'Protocol',
         hint: 'HTTP, gRPC, TCP'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Response configuration.
+  @SerializationOrder(1)
   HealthCheckEndpointsConfiguration configuration =
       HealthCheckEndpointsConfiguration();
 
   /// Timing thresholds.
+  @SerializationOrder(2)
   HealthCheckEndpointsTiming timing = HealthCheckEndpointsTiming();
 
   /// Response content settings.
+  @SerializationOrder(3)
   HealthCheckEndpointsContent contentSettings =
       HealthCheckEndpointsContent();
 }
@@ -17571,6 +19372,7 @@ class HealthCheckEndpointsConfiguration {
     Field('failureStatusCode', int, 'Failure Status Code',
         hint: 'HTTP 503 for unhealthy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17587,6 +19389,7 @@ class HealthCheckEndpointsTiming {
     Field('successThreshold', int, 'Success Threshold',
         hint: 'Consecutive successes to become healthy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17607,6 +19410,7 @@ class HealthCheckEndpointsContent {
     Field('notes', String, 'Notes',
         hint: 'Additional health endpoint notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17622,16 +19426,20 @@ class ApplicationDiagnostics {
     Field('environmentEndpoint', String, 'Environment Endpoint',
         hint: '/env — configuration (redacted)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// On-demand profiling and slow-request tracing.
+  @SerializationOrder(1)
   ApplicationDiagnosticsPerformance performance =
     ApplicationDiagnosticsPerformance();
 
   /// Runtime queue and pool inspection.
+  @SerializationOrder(2)
   ApplicationDiagnosticsRuntime runtime = ApplicationDiagnosticsRuntime();
 
   /// Feature and resilience status indicators.
+  @SerializationOrder(3)
   ApplicationDiagnosticsFeatureStatus featureStatus =
     ApplicationDiagnosticsFeatureStatus();
 }
@@ -17649,6 +19457,7 @@ class ApplicationDiagnosticsPerformance {
   Field('slowRequestDetection', String, 'Slow Request Detection',
     hint: 'Threshold and alerting for slow requests'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17663,6 +19472,7 @@ class ApplicationDiagnosticsRuntime {
   Field('queueDepthMonitoring', bool, 'Queue Depth Monitoring',
     hint: 'Message queue backlog tracking'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17679,6 +19489,7 @@ class ApplicationDiagnosticsFeatureStatus {
   Field('notes', String, 'Notes',
     hint: 'Additional diagnostics notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17695,17 +19506,21 @@ class LogAggregationRequirements {
     Field('defaultLogLevel', String, 'Default Log Level',
         hint: 'Production default level (e.g. INFO)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Dynamic configuration and collection settings.
+  @SerializationOrder(1)
   LogAggregationRequirementsCollection collection =
       LogAggregationRequirementsCollection();
 
   /// Retention and archival settings.
+  @SerializationOrder(2)
   LogAggregationRequirementsRetention retention =
       LogAggregationRequirementsRetention();
 
   /// Search and analysis capabilities.
+  @SerializationOrder(3)
   LogAggregationRequirementsAnalysis analysis =
       LogAggregationRequirementsAnalysis();
 }
@@ -17725,6 +19540,7 @@ class LogAggregationRequirementsCollection {
     Field('logSampling', String, 'Log Sampling',
         hint: 'Sample rate for high-volume logs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17739,6 +19555,7 @@ class LogAggregationRequirementsRetention {
     Field('complianceRetention', String, 'Compliance Retention',
         hint: 'Regulatory retention requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17759,6 +19576,7 @@ class LogAggregationRequirementsAnalysis {
     Field('notes', String, 'Notes',
         hint: 'Additional log aggregation notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17773,17 +19591,21 @@ class TroubleshootingCapabilities {
     Field('replayCapability', bool, 'Replay Capability',
         hint: 'Replay failed requests for analysis'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Runbook and remediation support.
+  @SerializationOrder(1)
   TroubleshootingCapabilitiesRunbooks runbooks =
     TroubleshootingCapabilitiesRunbooks();
 
   /// Break-glass and diagnostic access controls.
+  @SerializationOrder(2)
   TroubleshootingCapabilitiesAccess access =
     TroubleshootingCapabilitiesAccess();
 
   /// Incident communication and retrospective support.
+  @SerializationOrder(3)
   TroubleshootingCapabilitiesCommunication communication =
     TroubleshootingCapabilitiesCommunication();
 }
@@ -17799,6 +19621,7 @@ class TroubleshootingCapabilitiesRunbooks {
   Field('incidentTimeline', bool, 'Incident Timeline',
     hint: 'Correlated event timeline for incidents'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17813,6 +19636,7 @@ class TroubleshootingCapabilitiesAccess {
   Field('networkDiagnostics', bool, 'Network Diagnostics',
     hint: 'Ping, traceroute, DNS lookup tools'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17829,6 +19653,7 @@ class TroubleshootingCapabilitiesCommunication {
   Field('notes', String, 'Notes',
     hint: 'Additional troubleshooting notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17844,19 +19669,24 @@ class DependencyHealthMonitoring {
     Field('databaseConnectionPoolHealth', bool, 'DB Pool Health',
         hint: 'Monitor pool exhaustion'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Cache subsystem checks.
+  @SerializationOrder(1)
   DependencyHealthMonitoringCache cache = DependencyHealthMonitoringCache();
 
   /// Queue and dead-letter monitoring.
+  @SerializationOrder(2)
   DependencyHealthMonitoringQueue queue = DependencyHealthMonitoringQueue();
 
   /// External service and certificate checks.
+  @SerializationOrder(3)
   DependencyHealthMonitoringExternal external =
     DependencyHealthMonitoringExternal();
 
   /// Thresholds and cascade protection settings.
+  @SerializationOrder(4)
   DependencyHealthMonitoringThresholds thresholds =
     DependencyHealthMonitoringThresholds();
 }
@@ -17870,6 +19700,7 @@ class DependencyHealthMonitoringCache {
   Field('cacheEvictionMonitoring', bool, 'Cache Eviction Monitoring',
     hint: 'Alert on high eviction rates'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17882,6 +19713,7 @@ class DependencyHealthMonitoringQueue {
   Field('dlqMonitoring', bool, 'Dead Letter Queue Monitoring',
     hint: 'Alert on DLQ message accumulation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17896,6 +19728,7 @@ class DependencyHealthMonitoringExternal {
   Field('dnsResolutionCheck', bool, 'DNS Resolution Check',
     hint: 'Verify DNS resolution for dependencies'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17912,6 +19745,7 @@ class DependencyHealthMonitoringThresholds {
   Field('notes', String, 'Notes',
     hint: 'Additional dependency health notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -17975,28 +19809,36 @@ Provide an overview of capacity planning approach.
 - Regular capacity reviews
 - Budget for growth in advance
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of capacity planning strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// User growth projections.
+  @SerializationOrder(2)
   UserGrowthProjections userGrowth = UserGrowthProjections();
 
   /// Data growth projections.
+  @SerializationOrder(3)
   DataGrowthProjections dataGrowth = DataGrowthProjections();
 
   /// Peak load patterns.
+  @SerializationOrder(4)
   PeakLoadPatterns peakLoadPatterns = PeakLoadPatterns();
 
   /// Scaling triggers and thresholds.
+  @SerializationOrder(5)
   ScalingTriggersAndThresholds scalingTriggers =
       ScalingTriggersAndThresholds();
 
   /// Resource capacity baselines.
+  @SerializationOrder(6)
   ResourceCapacityBaselines resourceCapacity = ResourceCapacityBaselines();
 
   /// Capacity review process.
+  @SerializationOrder(7)
   CapacityReviewProcess capacityReview = CapacityReviewProcess();
 }
 
@@ -18012,16 +19854,20 @@ class UserGrowthProjections {
     Field('currentConcurrentUsers', int, 'Current Concurrent Users',
         hint: 'Peak concurrent user count'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Growth-rate assumptions and time-based projections.
+  @SerializationOrder(1)
   UserGrowthProjectionsForecast forecast = UserGrowthProjectionsForecast();
 
   /// User segmentation and geographic patterns.
+  @SerializationOrder(2)
   UserGrowthProjectionsSegmentation segmentation =
     UserGrowthProjectionsSegmentation();
 
   /// Capacity thresholds and planning notes.
+  @SerializationOrder(3)
   UserGrowthProjectionsThresholds thresholds =
     UserGrowthProjectionsThresholds();
 }
@@ -18041,6 +19887,7 @@ class UserGrowthProjectionsForecast {
   Field('users36Months', int, 'Users at 36 Months',
     hint: 'Expected active users in 36 months'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18055,6 +19902,7 @@ class UserGrowthProjectionsSegmentation {
   Field('seasonalPatterns', String, 'Seasonal Patterns',
     hint: 'Monthly/quarterly user volume patterns'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18069,6 +19917,7 @@ class UserGrowthProjectionsThresholds {
   Field('notes', String, 'Notes',
     hint: 'Additional user growth notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18083,19 +19932,24 @@ class DataGrowthProjections {
     Field('currentFileStorageSize', String, 'Current File Storage Size',
         hint: 'File/blob storage usage'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Growth-rate assumptions.
+  @SerializationOrder(1)
   DataGrowthProjectionsGrowth growth = DataGrowthProjectionsGrowth();
 
   /// Volume projections.
+  @SerializationOrder(2)
   DataGrowthProjectionsProjections projections =
       DataGrowthProjectionsProjections();
 
   /// Data lifecycle strategy.
+  @SerializationOrder(3)
   DataGrowthProjectionsLifecycle lifecycle = DataGrowthProjectionsLifecycle();
 
   /// Thresholds and notes.
+  @SerializationOrder(4)
   DataGrowthProjectionsThresholds thresholds =
       DataGrowthProjectionsThresholds();
 }
@@ -18111,6 +19965,7 @@ class DataGrowthProjectionsGrowth {
     Field('transactionVolumeGrowth', String, 'Transaction Volume Growth',
         hint: 'Growth in daily/monthly transactions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18125,6 +19980,7 @@ class DataGrowthProjectionsProjections {
     Field('projectedVolume24Months', String, 'Projected Volume at 24 Months',
         hint: 'Expected total data at 24 months'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18141,6 +19997,7 @@ class DataGrowthProjectionsLifecycle {
     Field('compressionStrategy', String, 'Compression Strategy',
         hint: 'Data compression for storage efficiency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18155,6 +20012,7 @@ class DataGrowthProjectionsThresholds {
     Field('notes', String, 'Notes',
         hint: 'Additional data growth notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18171,15 +20029,19 @@ class PeakLoadPatterns {
     Field('yearlyPeakEvents', String, 'Yearly Peak Events',
         hint: 'Black Friday, tax season, renewals'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Peak metrics.
+  @SerializationOrder(1)
   PeakLoadPatternsMetrics metrics = PeakLoadPatternsMetrics();
 
   /// Load multipliers.
+  @SerializationOrder(2)
   PeakLoadPatternsCapacity capacity = PeakLoadPatternsCapacity();
 
   /// Testing regime.
+  @SerializationOrder(3)
   PeakLoadPatternsTesting testing = PeakLoadPatternsTesting();
 }
 
@@ -18196,6 +20058,7 @@ class PeakLoadPatternsMetrics {
   Field('p99ResponseTimeTarget', String, 'P99 Response Time Target',
     hint: 'Target p99 response time during peak'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18210,6 +20073,7 @@ class PeakLoadPatternsCapacity {
   Field('gracefulDegradationPlan', String, 'Graceful Degradation Plan',
     hint: 'What degrades first under extreme load'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18226,6 +20090,7 @@ class PeakLoadPatternsTesting {
   Field('notes', String, 'Notes',
     hint: 'Additional peak load notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18238,21 +20103,26 @@ class ScalingTriggersAndThresholds {
     Field('cpuScaleDownThreshold', String, 'CPU Scale-Down Threshold',
         hint: 'CPU % triggering scale-down (e.g. 30%)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Memory-based thresholds.
+  @SerializationOrder(1)
   ScalingTriggersAndThresholdsMemory memory =
       ScalingTriggersAndThresholdsMemory();
 
   /// Request-based thresholds.
+  @SerializationOrder(2)
   ScalingTriggersAndThresholdsRequest request =
       ScalingTriggersAndThresholdsRequest();
 
   /// Scaling behavior.
+  @SerializationOrder(3)
   ScalingTriggersAndThresholdsBehavior behavior =
       ScalingTriggersAndThresholdsBehavior();
 
   /// Scaling types and providers.
+  @SerializationOrder(4)
   ScalingTriggersAndThresholdsType type = ScalingTriggersAndThresholdsType();
 }
 
@@ -18265,6 +20135,7 @@ class ScalingTriggersAndThresholdsMemory {
     Field('memoryScaleDownThreshold', String, 'Memory Scale-Down Threshold',
         hint: 'Memory % triggering scale-down'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18279,6 +20150,7 @@ class ScalingTriggersAndThresholdsRequest {
     Field('queueDepthScaleUpThreshold', String, 'Queue Depth Scale-Up',
         hint: 'Message queue depth triggering scale-up'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18295,6 +20167,7 @@ class ScalingTriggersAndThresholdsBehavior {
     Field('scalingStepSize', String, 'Scaling Step Size',
         hint: 'Instances added per scale-up event'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18313,6 +20186,7 @@ class ScalingTriggersAndThresholdsType {
     Field('notes', String, 'Notes',
         hint: 'Additional scaling trigger notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18328,19 +20202,24 @@ class ResourceCapacityBaselines {
     Field('instanceCountBaseline', String, 'Instance Count Baseline',
         hint: 'Normal number of running instances'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Storage baselines.
+  @SerializationOrder(1)
   ResourceCapacityBaselinesStorage storage = ResourceCapacityBaselinesStorage();
 
   /// Network baselines.
+  @SerializationOrder(2)
   ResourceCapacityBaselinesNetwork network = ResourceCapacityBaselinesNetwork();
 
   /// Database baselines.
+  @SerializationOrder(3)
   ResourceCapacityBaselinesDatabase database =
     ResourceCapacityBaselinesDatabase();
 
   /// Cost baselines and notes.
+  @SerializationOrder(4)
   ResourceCapacityBaselinesCost cost = ResourceCapacityBaselinesCost();
 }
 
@@ -18353,6 +20232,7 @@ class ResourceCapacityBaselinesStorage {
   Field('storageThroughputBaseline', String, 'Storage Throughput Baseline',
     hint: 'Normal storage throughput (MB/s)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18365,6 +20245,7 @@ class ResourceCapacityBaselinesNetwork {
   Field('connectionCountBaseline', String, 'Connection Count Baseline',
     hint: 'Normal active connection count'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18380,6 +20261,7 @@ class ResourceCapacityBaselinesDatabase {
   Field('databaseSizeBaseline', String, 'Database Size Baseline',
     hint: 'Current database on-disk size'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18396,6 +20278,7 @@ class ResourceCapacityBaselinesCost {
   Field('notes', String, 'Notes',
     hint: 'Additional resource baseline notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18410,17 +20293,21 @@ class CapacityReviewProcess {
     Field('reviewChecklist', String, 'Review Checklist',
         hint: 'Standard items reviewed each cycle'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Monitoring and forecasting inputs.
+  @SerializationOrder(1)
   CapacityReviewProcessMonitoring monitoring =
     CapacityReviewProcessMonitoring();
 
   /// Escalation and emergency scaling decisions.
+  @SerializationOrder(2)
   CapacityReviewProcessEscalation escalation =
     CapacityReviewProcessEscalation();
 
   /// Budgeting and rightsizing planning.
+  @SerializationOrder(3)
   CapacityReviewProcessPlanning planning = CapacityReviewProcessPlanning();
 }
 
@@ -18435,6 +20322,7 @@ class CapacityReviewProcessMonitoring {
   Field('forecastingModel', String, 'Forecasting Model',
     hint: 'Linear, exponential, ML-based forecasting'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18449,6 +20337,7 @@ class CapacityReviewProcessEscalation {
   Field('emergencyScalingProcedure', String, 'Emergency Scaling Procedure',
     hint: 'Steps for urgent capacity increase'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18465,6 +20354,7 @@ class CapacityReviewProcessPlanning {
   Field('notes', String, 'Notes',
     hint: 'Additional capacity review notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18524,17 +20414,21 @@ Provide an overview of security approach and governance.
 - Threat modeling for new features
 - Continuous security improvement
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 8.8.1. IT Security Standards.
+  @SerializationOrder(1)
   ItSecurityStandardsSection itSecurityStandards =
       ItSecurityStandardsSection();
 
   /// 8.8.2. Data Protection and Privacy.
+  @SerializationOrder(2)
   DataProtectionAndPrivacySection dataProtectionAndPrivacy =
       DataProtectionAndPrivacySection();
 
   /// 8.8.3. Security Audit Requirements.
+  @SerializationOrder(3)
   SecurityAuditRequirementsSection securityAuditRequirements =
       SecurityAuditRequirementsSection();
 }
@@ -18599,33 +20493,41 @@ Provide an overview of IT security standards approach.
 - Track security metrics and trends
 - Continuous security improvement
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of IT security standards strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Security standards and frameworks — contains 0+× SecurityStandard.
   @SectionId('SESTEN-STAN-LST')
   @SectionIdPattern('SESTEN-STAN-xxx')
+  @SerializationOrder(2)
   List<SecurityStandardEntry> standards = [];
 
   /// Application security requirements (OWASP).
+  @SerializationOrder(3)
   ApplicationSecurityRequirements applicationSecurity =
       ApplicationSecurityRequirements();
 
   /// Infrastructure security hardening.
+  @SerializationOrder(4)
   InfrastructureSecurityHardening infrastructureSecurity =
       InfrastructureSecurityHardening();
 
   /// Security development lifecycle.
+  @SerializationOrder(5)
   SecurityDevelopmentLifecycle securityDevLifecycle =
       SecurityDevelopmentLifecycle();
 
   /// Vulnerability management.
+  @SerializationOrder(6)
   VulnerabilityManagementPolicy vulnerabilityManagement =
       VulnerabilityManagementPolicy();
 
   /// Incident response plan.
+  @SerializationOrder(7)
   IncidentResponsePlan incidentResponse = IncidentResponsePlan();
 }
 
@@ -18642,16 +20544,20 @@ class SecurityStandardEntry {
     Field('issuingBody', String, 'Issuing Body',
         hint: 'Organization that publishes the standard'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Applicability and regulatory scope.
+  @SerializationOrder(1)
   SecurityStandardEntryScope scope = SecurityStandardEntryScope();
 
   /// Implementation status and planning.
+  @SerializationOrder(2)
   SecurityStandardEntryImplementation implementation =
       SecurityStandardEntryImplementation();
 
   /// Verification and ownership.
+  @SerializationOrder(3)
   SecurityStandardEntryVerification verification =
       SecurityStandardEntryVerification();
 }
@@ -18667,6 +20573,7 @@ class SecurityStandardEntryScope {
     Field('regulatoryDriver', String, 'Regulatory Driver',
         hint: 'Regulation requiring this standard (e.g. GDPR, PCI-DSS)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18683,6 +20590,7 @@ class SecurityStandardEntryImplementation {
     Field('gapAnalysis', String, 'Gap Analysis',
         hint: 'Summary of current gaps against the standard'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18701,6 +20609,7 @@ class SecurityStandardEntryVerification {
     Field('notes', String, 'Notes',
         hint: 'Additional security standard notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18715,17 +20624,21 @@ class ApplicationSecurityRequirements {
     Field('authenticationControls', String, 'Authentication Controls',
         hint: 'Broken authentication prevention'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Core protection controls.
+  @SerializationOrder(1)
   ApplicationSecurityRequirementsControls controls =
       ApplicationSecurityRequirementsControls();
 
   /// Input and output validation.
+  @SerializationOrder(2)
   ApplicationSecurityRequirementsValidation validation =
       ApplicationSecurityRequirementsValidation();
 
   /// API and browser-facing protections.
+  @SerializationOrder(3)
   ApplicationSecurityRequirementsApi api =
       ApplicationSecurityRequirementsApi();
 }
@@ -18745,6 +20658,7 @@ class ApplicationSecurityRequirementsControls {
     Field('ssrfProtection', String, 'SSRF Protection',
         hint: 'Server-side request forgery prevention'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18759,6 +20673,7 @@ class ApplicationSecurityRequirementsValidation {
     Field('fileUploadSecurity', String, 'File Upload Security',
         hint: 'File type, size, malware scanning'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18775,6 +20690,7 @@ class ApplicationSecurityRequirementsApi {
     Field('notes', String, 'Notes',
         hint: 'Additional application security notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18791,17 +20707,21 @@ class InfrastructureSecurityHardening {
     Field('firewallRules', String, 'Firewall Rules',
         hint: 'Default deny, explicit allow rules'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Container security.
+  @SerializationOrder(1)
   InfrastructureSecurityHardeningContainer container =
     InfrastructureSecurityHardeningContainer();
 
   /// Network hardening.
+  @SerializationOrder(2)
   InfrastructureSecurityHardeningNetwork network =
     InfrastructureSecurityHardeningNetwork();
 
   /// Access hardening.
+  @SerializationOrder(3)
   InfrastructureSecurityHardeningAccess access =
     InfrastructureSecurityHardeningAccess();
 }
@@ -18819,6 +20739,7 @@ class InfrastructureSecurityHardeningContainer {
   Field('containerOrchestrationSecurity', String, 'Orchestration Security',
     hint: 'K8s RBAC, network policies, pod security'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18833,6 +20754,7 @@ class InfrastructureSecurityHardeningNetwork {
   Field('dnsSecurityPolicy', String, 'DNS Security Policy',
     hint: 'DNSSEC, private DNS zones'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18849,6 +20771,7 @@ class InfrastructureSecurityHardeningAccess {
   Field('notes', String, 'Notes',
     hint: 'Additional infrastructure security notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18865,17 +20788,21 @@ class SecurityDevelopmentLifecycle {
     Field('securityRequirementsProcess', String, 'Security Requirements Process',
         hint: 'How security requirements are gathered'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Development-phase controls.
+  @SerializationOrder(1)
   SecurityDevelopmentLifecycleDevelopment development =
       SecurityDevelopmentLifecycleDevelopment();
 
   /// Testing-phase controls.
+  @SerializationOrder(2)
   SecurityDevelopmentLifecycleTesting testing =
       SecurityDevelopmentLifecycleTesting();
 
   /// Release-phase controls.
+  @SerializationOrder(3)
   SecurityDevelopmentLifecycleRelease release =
       SecurityDevelopmentLifecycleRelease();
 }
@@ -18895,6 +20822,7 @@ class SecurityDevelopmentLifecycleDevelopment {
     Field('licenseScannerPolicy', String, 'License Compliance Scanning',
         hint: 'OSS license compatibility checking'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18911,6 +20839,7 @@ class SecurityDevelopmentLifecycleTesting {
     Field('manualCodeReview', String, 'Manual Code Review',
         hint: 'Security-focused code review process'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18925,6 +20854,7 @@ class SecurityDevelopmentLifecycleRelease {
     Field('notes', String, 'Notes',
         hint: 'Additional security dev lifecycle notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18939,17 +20869,21 @@ class VulnerabilityManagementPolicy {
     Field('scanScope', String, 'Scan Scope',
         hint: 'Infrastructure, applications, containers, dependencies'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Severity classification.
+  @SerializationOrder(1)
   VulnerabilityManagementPolicyClassification classification =
     VulnerabilityManagementPolicyClassification();
 
   /// Remediation process.
+  @SerializationOrder(2)
   VulnerabilityManagementPolicyProcess process =
     VulnerabilityManagementPolicyProcess();
 
   /// Reporting and disclosure.
+  @SerializationOrder(3)
   VulnerabilityManagementPolicyReporting reporting =
     VulnerabilityManagementPolicyReporting();
 }
@@ -18969,6 +20903,7 @@ class VulnerabilityManagementPolicyClassification {
   Field('lowVulnSla', String, 'Low Vulnerability SLA',
     hint: 'Max time to patch low (e.g. 90d)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18985,6 +20920,7 @@ class VulnerabilityManagementPolicyProcess {
   Field('zeroDayResponsePlan', String, 'Zero-Day Response Plan',
     hint: 'Emergency response for zero-day exploits'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -18999,6 +20935,7 @@ class VulnerabilityManagementPolicyReporting {
   Field('notes', String, 'Notes',
     hint: 'Additional vulnerability management notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19013,16 +20950,20 @@ class IncidentResponsePlan {
     Field('detectionMechanisms', String, 'Detection Mechanisms',
         hint: 'SIEM, IDS/IPS, anomaly detection, user reports'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Response process.
+  @SerializationOrder(1)
   IncidentResponsePlanProcess process = IncidentResponsePlanProcess();
 
   /// Communication requirements.
+  @SerializationOrder(2)
   IncidentResponsePlanCommunication communication =
     IncidentResponsePlanCommunication();
 
   /// Post-incident activities.
+  @SerializationOrder(3)
   IncidentResponsePlanPostIncident postIncident =
     IncidentResponsePlanPostIncident();
 }
@@ -19040,6 +20981,7 @@ class IncidentResponsePlanProcess {
   Field('recoveryProcedure', String, 'Recovery Procedure',
     hint: 'Steps to restore normal operations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19056,6 +20998,7 @@ class IncidentResponsePlanCommunication {
   Field('legalCounselEngagement', String, 'Legal Counsel Engagement',
     hint: 'When to engage legal team'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19072,6 +21015,7 @@ class IncidentResponsePlanPostIncident {
   Field('notes', String, 'Notes',
     hint: 'Additional incident response notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19143,35 +21087,44 @@ Provide an overview of data protection and privacy strategy.
 - Regular privacy impact assessments
 - Privacy training for all staff
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of data protection and privacy strategy.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Applicable privacy regulations and compliance framework.
+  @SerializationOrder(2)
   PrivacyRegulationCompliance regulationCompliance =
       PrivacyRegulationCompliance();
 
   /// Data residency and sovereignty requirements.
+  @SerializationOrder(3)
   DataResidencyRequirements dataResidency = DataResidencyRequirements();
 
   /// Consent collection, tracking and management.
+  @SerializationOrder(4)
   ConsentManagementRequirements consentManagement =
       ConsentManagementRequirements();
 
   /// Data subject rights management (access, erasure, portability).
+  @SerializationOrder(5)
   DataSubjectRightsManagement dataSubjectRights =
       DataSubjectRightsManagement();
 
   /// Privacy impact assessment and DPIA process.
+  @SerializationOrder(6)
   PrivacyImpactAssessmentProcess privacyImpactAssessment =
       PrivacyImpactAssessmentProcess();
 
   /// Data processing agreements with third parties.
+  @SerializationOrder(7)
   DataProcessingAgreementRequirements dataProcessingAgreements =
       DataProcessingAgreementRequirements();
 
   /// Data protection classification and handling rules.
+  @SerializationOrder(8)
   DataProtectionClassification dataClassification =
       DataProtectionClassification();
 }
@@ -19190,19 +21143,24 @@ class PrivacyRegulationCompliance {
     Field('regulatoryAuthority', String, 'Supervisory Authority',
         hint: 'Lead data protection authority for GDPR purposes'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// GDPR-specific requirements.
+  @SerializationOrder(1)
   PrivacyRegulationComplianceGdpr gdpr = PrivacyRegulationComplianceGdpr();
 
   /// Data Protection Officer details.
+  @SerializationOrder(2)
   PrivacyRegulationComplianceDpo dpo = PrivacyRegulationComplianceDpo();
 
   /// Records and documentation.
+  @SerializationOrder(3)
   PrivacyRegulationComplianceRecords records =
       PrivacyRegulationComplianceRecords();
 
   /// Cross-border transfer controls.
+  @SerializationOrder(4)
   PrivacyRegulationComplianceTransfers transfers =
       PrivacyRegulationComplianceTransfers();
 }
@@ -19223,6 +21181,7 @@ class PrivacyRegulationComplianceGdpr {
         'gdprLeadSupervisoryAuthority', String, 'Lead Supervisory Authority',
         hint: 'Lead supervisory authority for cross-border processing'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19237,6 +21196,7 @@ class PrivacyRegulationComplianceDpo {
     Field('dpoResponsibilities', String, 'DPO Responsibilities',
         hint: 'Monitoring compliance, advising on DPIA, liaison with authority'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19252,6 +21212,7 @@ class PrivacyRegulationComplianceRecords {
     Field('dataProtectionTraining', String, 'Data Protection Training',
         hint: 'Staff training frequency, content, and certification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19267,6 +21228,7 @@ class PrivacyRegulationComplianceTransfers {
     Field('notes', String, 'Notes',
         hint: 'Additional regulation compliance notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19282,17 +21244,21 @@ class DataResidencyRequirements {
     Field('prohibitedDataRegions', String, 'Prohibited Data Regions',
         hint: 'Regions where data must never be stored or processed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Governing regulation and sovereignty constraints.
+  @SerializationOrder(1)
   DataResidencyRequirementsSovereignty sovereignty =
     DataResidencyRequirementsSovereignty();
 
   /// Backup, replication, and CDN placement rules.
+  @SerializationOrder(2)
   DataResidencyRequirementsReplication replication =
     DataResidencyRequirementsReplication();
 
   /// Verification and transparency requirements.
+  @SerializationOrder(3)
   DataResidencyRequirementsVerification verification =
     DataResidencyRequirementsVerification();
 }
@@ -19313,6 +21279,7 @@ class DataResidencyRequirementsSovereignty {
     hint:
       'Sovereign cloud requirements, government-certified providers'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19327,6 +21294,7 @@ class DataResidencyRequirementsReplication {
   Field('cdnDataConstraints', String, 'CDN Data Constraints',
     hint: 'Content delivery network caching location restrictions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19344,6 +21312,7 @@ class DataResidencyRequirementsVerification {
   Field('notes', String, 'Notes',
     hint: 'Additional data residency notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19365,25 +21334,31 @@ class ConsentManagementRequirements {
         required: true,
         hint: 'How users can withdraw consent — must be as easy as giving it'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Collection requirements.
+  @SerializationOrder(1)
   ConsentManagementRequirementsCollection collection =
       ConsentManagementRequirementsCollection();
 
   /// Consent record storage rules.
+  @SerializationOrder(2)
   ConsentManagementRequirementsStorage storage =
       ConsentManagementRequirementsStorage();
 
   /// Preference management workflow.
+  @SerializationOrder(3)
   ConsentManagementRequirementsManagement management =
       ConsentManagementRequirementsManagement();
 
   /// Cookie and tracking rules.
+  @SerializationOrder(4)
   ConsentManagementRequirementsTracking tracking =
       ConsentManagementRequirementsTracking();
 
   /// Compliance evidence and reporting.
+  @SerializationOrder(5)
   ConsentManagementRequirementsCompliance compliance =
       ConsentManagementRequirementsCompliance();
 }
@@ -19401,6 +21376,7 @@ class ConsentManagementRequirementsCollection {
         hint:
             'Minimum age requirements, parental consent for minors (COPPA, GDPR Art. 8)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19413,6 +21389,7 @@ class ConsentManagementRequirementsStorage {
     Field('consentProofRetention', String, 'Consent Proof Retention',
         hint: 'How long consent proof is retained after withdrawal'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19428,6 +21405,7 @@ class ConsentManagementRequirementsManagement {
     Field('consentSynchronization', String, 'Cross-Platform Sync',
         hint: 'Synchronizing consent across web, mobile, and third parties'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19444,6 +21422,7 @@ class ConsentManagementRequirementsTracking {
     Field('thirdPartyConsentSharing', String, 'Third-Party Consent Sharing',
         hint: 'How consent status is communicated to third-party integrations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19458,6 +21437,7 @@ class ConsentManagementRequirementsCompliance {
     Field('notes', String, 'Notes',
         hint: 'Additional consent management notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19478,29 +21458,36 @@ class DataSubjectRightsManagement {
         required: true,
         hint: 'How requester identity is verified before disclosure'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Access and rectification handling.
+  @SerializationOrder(1)
   DataSubjectRightsManagementAccess access =
       DataSubjectRightsManagementAccess();
 
   /// Erasure handling.
+  @SerializationOrder(2)
   DataSubjectRightsManagementErasure erasure =
       DataSubjectRightsManagementErasure();
 
   /// Portability handling.
+  @SerializationOrder(3)
   DataSubjectRightsManagementPortability portability =
       DataSubjectRightsManagementPortability();
 
   /// Restriction and objection handling.
+  @SerializationOrder(4)
   DataSubjectRightsManagementRestriction restriction =
       DataSubjectRightsManagementRestriction();
 
   /// Automated decision safeguards.
+  @SerializationOrder(5)
   DataSubjectRightsManagementAutomation automation =
       DataSubjectRightsManagementAutomation();
 
   /// Operational workflow and tracking.
+  @SerializationOrder(6)
   DataSubjectRightsManagementOperations operations =
       DataSubjectRightsManagementOperations();
 }
@@ -19518,6 +21505,7 @@ class DataSubjectRightsManagementAccess {
     Field('rectificationPropagation', String, 'Rectification Propagation',
         hint: 'How corrections propagate to recipients of the data'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19536,6 +21524,7 @@ class DataSubjectRightsManagementErasure {
     Field('erasureVerification', String, 'Erasure Verification',
         hint: 'How complete erasure is verified across all systems'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19551,6 +21540,7 @@ class DataSubjectRightsManagementPortability {
     Field('portabilityDirectTransfer', String, 'Direct Transfer',
         hint: 'Whether direct controller-to-controller transfer is supported'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19564,6 +21554,7 @@ class DataSubjectRightsManagementRestriction {
         hint:
             'How objections to processing are handled (direct marketing, profiling)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19577,6 +21568,7 @@ class DataSubjectRightsManagementAutomation {
     Field('humanReviewProcess', String, 'Human Review Process',
         hint: 'Process for requesting human review of automated decisions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19591,6 +21583,7 @@ class DataSubjectRightsManagementOperations {
     Field('notes', String, 'Notes',
         hint: 'Additional data subject rights notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19611,17 +21604,21 @@ class PrivacyImpactAssessmentProcess {
         required: true,
         hint: 'Framework used: ICO template, CNIL PIA tool, NIST privacy'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Assessment process inputs.
+  @SerializationOrder(1)
   PrivacyImpactAssessmentProcessAssessment assessment =
       PrivacyImpactAssessmentProcessAssessment();
 
   /// Mitigation measures.
+  @SerializationOrder(2)
   PrivacyImpactAssessmentProcessMitigation mitigation =
       PrivacyImpactAssessmentProcessMitigation();
 
   /// Review and approval workflow.
+  @SerializationOrder(3)
   PrivacyImpactAssessmentProcessReview review =
       PrivacyImpactAssessmentProcessReview();
 }
@@ -19639,6 +21636,7 @@ class PrivacyImpactAssessmentProcessAssessment {
     Field('riskAssessmentCriteria', String, 'Risk Assessment Criteria',
         hint: 'Likelihood and severity matrix, residual risk thresholds'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19666,6 +21664,7 @@ class PrivacyImpactAssessmentProcessMitigation {
         hint:
             'Techniques for irreversible de-identification: k-anonymity, differential privacy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19682,6 +21681,7 @@ class PrivacyImpactAssessmentProcessReview {
     Field('notes', String, 'Notes',
         hint: 'Additional privacy impact assessment notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19703,21 +21703,26 @@ class DataProcessingAgreementRequirements {
         required: true,
         hint: 'Controller right to audit processor premises and practices'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Agreement-management details.
+  @SerializationOrder(1)
   DataProcessingAgreementRequirementsManagement management =
       DataProcessingAgreementRequirementsManagement();
 
   /// Data-handling details.
+  @SerializationOrder(2)
   DataProcessingAgreementRequirementsHandling handling =
       DataProcessingAgreementRequirementsHandling();
 
   /// Security and audit details.
+  @SerializationOrder(3)
   DataProcessingAgreementRequirementsSecurity security =
       DataProcessingAgreementRequirementsSecurity();
 
   /// International-transfer details.
+  @SerializationOrder(4)
   DataProcessingAgreementRequirementsTransfers transfers =
       DataProcessingAgreementRequirementsTransfers();
 }
@@ -19732,6 +21737,7 @@ class DataProcessingAgreementRequirementsManagement {
     Field('subProcessorNotification', String, 'Sub-Processor Notification',
         hint: 'Process for notifying controllers of sub-processor changes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19747,6 +21753,7 @@ class DataProcessingAgreementRequirementsHandling {
         hint:
             'Staff confidentiality commitments and access restrictions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19763,6 +21770,7 @@ class DataProcessingAgreementRequirementsSecurity {
     Field('complianceCertification', String, 'Compliance Certification',
         hint: 'Processor certifications accepted as audit evidence'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19780,6 +21788,7 @@ class DataProcessingAgreementRequirementsTransfers {
     Field('notes', String, 'Notes',
         hint: 'Additional data processing agreement notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19803,21 +21812,26 @@ class DataProtectionClassification {
     Field('classificationResponsibility', String, 'Classification Responsibility',
         hint: 'Who is responsible for classifying data'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Handling rules.
+  @SerializationOrder(1)
   DataProtectionClassificationHandling handling =
       DataProtectionClassificationHandling();
 
   /// Retention and disposal rules.
+  @SerializationOrder(2)
   DataProtectionClassificationRetention retention =
       DataProtectionClassificationRetention();
 
   /// Masking and de-identification rules.
+  @SerializationOrder(3)
   DataProtectionClassificationMasking masking =
       DataProtectionClassificationMasking();
 
   /// Incident handling.
+  @SerializationOrder(4)
   DataProtectionClassificationIncident incident =
       DataProtectionClassificationIncident();
 }
@@ -19836,6 +21850,7 @@ class DataProtectionClassificationHandling {
     Field('loggingByClassification', String, 'Logging Requirements',
         hint: 'Audit logging requirements per classification level'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19851,6 +21866,7 @@ class DataProtectionClassificationRetention {
     Field('retentionExceptions', String, 'Retention Exceptions',
         hint: 'Legal holds, regulatory overrides, litigation preservation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19865,6 +21881,7 @@ class DataProtectionClassificationMasking {
     Field('deIdentificationStandards', String, 'De-Identification Standards',
         hint: 'HIPAA Safe Harbor, Expert Determination, k-anonymity'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19879,6 +21896,7 @@ class DataProtectionClassificationIncident {
     Field('notes', String, 'Notes',
         hint: 'Additional data protection classification notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -19955,36 +21973,45 @@ Provide an overview of security audit strategy.
 - Regular security review meetings
 - Continuous improvement from findings
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Overview of security audit strategy and approach.
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Penetration testing requirements and schedule.
+  @SerializationOrder(2)
   PenetrationTestingRequirements penetrationTesting =
       PenetrationTestingRequirements();
 
   /// Security-focused code review policy and process.
+  @SerializationOrder(3)
   SecurityCodeReviewPolicy securityCodeReview = SecurityCodeReviewPolicy();
 
   /// Dependency and supply-chain scanning requirements.
+  @SerializationOrder(4)
   DependencyScanningRequirements dependencyScanning =
       DependencyScanningRequirements();
 
   /// Security certification and compliance framework needs.
+  @SerializationOrder(5)
   SecurityCertificationRequirements securityCertifications =
       SecurityCertificationRequirements();
 
   /// Compliance audit planning and scheduling.
+  @SerializationOrder(6)
   ComplianceAuditSchedule complianceAuditSchedule = ComplianceAuditSchedule();
 
   /// Automated security testing integration (SAST, DAST, IAST).
+  @SerializationOrder(7)
   SecurityTestingAutomation securityTestingAutomation =
       SecurityTestingAutomation();
 
   /// Individual security audit requirement entries — contains 0+× SecurityAudit.
   @SectionId('SEAUEN-AUDI-LST')
   @SectionIdPattern('SEAUEN-AUDI-xxx')
+  @SerializationOrder(8)
   List<SecurityAuditEntry> auditEntries = [];
 }
 
@@ -20004,17 +22031,21 @@ class PenetrationTestingRequirements {
     Field('pentestProvider', String, 'Testing Provider',
         hint: 'Internal red team, external firm, or both'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Frequency and scheduling.
+  @SerializationOrder(1)
   PenetrationTestingRequirementsScheduling scheduling =
       PenetrationTestingRequirementsScheduling();
 
   /// Execution rules.
+  @SerializationOrder(2)
   PenetrationTestingRequirementsExecution execution =
       PenetrationTestingRequirementsExecution();
 
   /// Reporting and remediation.
+  @SerializationOrder(3)
   PenetrationTestingRequirementsReporting reporting =
       PenetrationTestingRequirementsReporting();
 }
@@ -20032,6 +22063,7 @@ class PenetrationTestingRequirementsScheduling {
         hint:
             'Events triggering unscheduled tests: major changes, incidents, new integrations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20048,6 +22080,7 @@ class PenetrationTestingRequirementsExecution {
     Field('dosTestingAllowed', String, 'DoS Testing Allowed',
         hint: 'Whether denial-of-service testing is in scope'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20068,6 +22101,7 @@ class PenetrationTestingRequirementsReporting {
     Field('notes', String, 'Notes',
         hint: 'Additional penetration testing notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20089,17 +22123,21 @@ class SecurityCodeReviewPolicy {
     Field('reviewMethodology', String, 'Review Methodology',
         hint: 'OWASP Code Review Guide, CWE/SANS Top 25, manual + automated'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Reviewer qualification and independence rules.
+  @SerializationOrder(1)
   SecurityCodeReviewPolicyReviewers reviewers =
     SecurityCodeReviewPolicyReviewers();
 
   /// Review process guidance.
+  @SerializationOrder(2)
   SecurityCodeReviewPolicyProcess process =
     SecurityCodeReviewPolicyProcess();
 
   /// Finding management and residual risk handling.
+  @SerializationOrder(3)
   SecurityCodeReviewPolicyFindings findings =
     SecurityCodeReviewPolicyFindings();
 }
@@ -20117,6 +22155,7 @@ class SecurityCodeReviewPolicyReviewers {
   Field('reviewerRotation', String, 'Reviewer Rotation',
     hint: 'How security reviewers are rotated to avoid bias'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20133,6 +22172,7 @@ class SecurityCodeReviewPolicyProcess {
     hint:
       'Code annotations marking security-critical sections for priority review'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20149,6 +22189,7 @@ class SecurityCodeReviewPolicyFindings {
   Field('notes', String, 'Notes',
     hint: 'Additional security code review notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20169,20 +22210,25 @@ class DependencyScanningRequirements {
         required: true,
         hint: 'Build-blocking severity: Critical blocks, High warns, etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Vulnerability-management rules.
+  @SerializationOrder(1)
   DependencyScanningRequirementsVulnerabilities vulnerabilities =
       DependencyScanningRequirementsVulnerabilities();
 
   /// SBOM requirements.
+  @SerializationOrder(2)
   DependencyScanningRequirementsSbom sbom = DependencyScanningRequirementsSbom();
 
   /// License-compliance rules.
+  @SerializationOrder(3)
   DependencyScanningRequirementsLicensing licensing =
       DependencyScanningRequirementsLicensing();
 
   /// Supply-chain security rules.
+  @SerializationOrder(4)
   DependencyScanningRequirementsSupplyChain supplyChain =
       DependencyScanningRequirementsSupplyChain();
 }
@@ -20198,6 +22244,7 @@ class DependencyScanningRequirementsVulnerabilities {
     Field('exceptionProcess', String, 'Exception Process',
         hint: 'How vulnerabilities are risk-accepted with justification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20212,6 +22259,7 @@ class DependencyScanningRequirementsSbom {
     Field('sbomDistribution', String, 'SBOM Distribution',
         hint: 'Who receives SBOM: customers, auditors, regulators'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20225,6 +22273,7 @@ class DependencyScanningRequirementsLicensing {
     Field('licenseScanning', String, 'License Scanning',
         hint: 'Automated license detection and policy enforcement'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20241,6 +22290,7 @@ class DependencyScanningRequirementsSupplyChain {
     Field('notes', String, 'Notes',
         hint: 'Additional dependency scanning notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20257,21 +22307,26 @@ class SecurityCertificationRequirements {
     Field('certificationScope', String, 'Certification Scope',
         hint: 'Which systems, processes, and data are in scope'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// ISO 27001 requirements.
+  @SerializationOrder(1)
   SecurityCertificationRequirementsIso27001 iso27001 =
       SecurityCertificationRequirementsIso27001();
 
   /// SOC 2 requirements.
+  @SerializationOrder(2)
   SecurityCertificationRequirementsSoc2 soc2 =
       SecurityCertificationRequirementsSoc2();
 
   /// Industry-specific requirements.
+  @SerializationOrder(3)
   SecurityCertificationRequirementsIndustry industry =
       SecurityCertificationRequirementsIndustry();
 
   /// Maintenance and budget.
+  @SerializationOrder(4)
   SecurityCertificationRequirementsMaintenance maintenance =
       SecurityCertificationRequirementsMaintenance();
 }
@@ -20287,6 +22342,7 @@ class SecurityCertificationRequirementsIso27001 {
     Field('riskAssessmentMethodology', String, 'Risk Assessment Methodology',
         hint: 'Risk assessment approach for ISO 27001 compliance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20301,6 +22357,7 @@ class SecurityCertificationRequirementsSoc2 {
     Field('soc2AuditPeriod', String, 'SOC 2 Audit Period',
         hint: 'Observation window for Type II audit'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20315,6 +22372,7 @@ class SecurityCertificationRequirementsIndustry {
     Field('industrySpecificCompliance', String, 'Industry-Specific Compliance',
         hint: 'FINRA, FDA 21 CFR Part 11, NERC CIP, etc.'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20331,6 +22389,7 @@ class SecurityCertificationRequirementsMaintenance {
     Field('notes', String, 'Notes',
         hint: 'Additional security certification notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20349,16 +22408,20 @@ class ComplianceAuditSchedule {
         hint:
             'Technical audit, process audit, compliance audit, forensic audit'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Annual planning and scoping rules.
+  @SerializationOrder(1)
   ComplianceAuditSchedulePlanning planning = ComplianceAuditSchedulePlanning();
 
   /// Audit execution and evidence collection.
+  @SerializationOrder(2)
   ComplianceAuditScheduleExecution execution =
     ComplianceAuditScheduleExecution();
 
   /// Reporting and remediation follow-up.
+  @SerializationOrder(3)
   ComplianceAuditScheduleReporting reporting =
     ComplianceAuditScheduleReporting();
 }
@@ -20375,6 +22438,7 @@ class ComplianceAuditSchedulePlanning {
   Field('auditResourceRequirements', String, 'Resource Requirements',
     hint: 'Internal staff, external auditors, tools, budget'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20389,6 +22453,7 @@ class ComplianceAuditScheduleExecution {
   Field('auditInterviewProcess', String, 'Interview Process',
     hint: 'Staff interview methodology during audits'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20407,6 +22472,7 @@ class ComplianceAuditScheduleReporting {
   Field('notes', String, 'Notes',
     hint: 'Additional compliance audit schedule notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20430,23 +22496,29 @@ class SecurityTestingAutomation {
         hint:
             'Build-blocking criteria: no critical/high SAST findings, clean container scan'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Dynamic analysis configuration.
+  @SerializationOrder(1)
   SecurityTestingAutomationDast dast = SecurityTestingAutomationDast();
 
   /// Interactive analysis configuration.
+  @SerializationOrder(2)
   SecurityTestingAutomationIast iast = SecurityTestingAutomationIast();
 
   /// Fuzzing configuration.
+  @SerializationOrder(3)
   SecurityTestingAutomationFuzzing fuzzing =
       SecurityTestingAutomationFuzzing();
 
   /// Container and IaC scanning.
+  @SerializationOrder(4)
   SecurityTestingAutomationScanning scanning =
       SecurityTestingAutomationScanning();
 
   /// Governance and reporting.
+  @SerializationOrder(5)
   SecurityTestingAutomationGovernance governance =
       SecurityTestingAutomationGovernance();
 }
@@ -20463,6 +22535,7 @@ class SecurityTestingAutomationDast {
     Field('dastAuthenticationConfig', String, 'DAST Authentication',
         hint: 'How DAST scanner authenticates to test protected resources'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20476,6 +22549,7 @@ class SecurityTestingAutomationIast {
     Field('iastDeploymentModel', String, 'IAST Deployment',
         hint: 'Agent-based in QA/staging, runtime instrumentation approach'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20488,6 +22562,7 @@ class SecurityTestingAutomationFuzzing {
     Field('fuzzingTargets', String, 'Fuzzing Targets',
         hint: 'API endpoints, file parsers, protocol handlers to fuzz'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20502,6 +22577,7 @@ class SecurityTestingAutomationScanning {
     Field('secretsDetection', String, 'Secrets Detection',
         hint: 'Pre-commit secrets scanning: GitLeaks, TruffleHog, detect-secrets'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20516,6 +22592,7 @@ class SecurityTestingAutomationGovernance {
     Field('notes', String, 'Notes',
         hint: 'Additional security testing automation notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20534,15 +22611,19 @@ class SecurityAuditEntry {
   Field('frequency', String, 'Frequency',
     required: true, hint: 'Annual, semi-annual, quarterly, on-demand'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Audit schedule and cadence.
+  @SerializationOrder(1)
   SecurityAuditEntryScheduling scheduling = SecurityAuditEntryScheduling();
 
   /// Scope, standards, and execution model.
+  @SerializationOrder(2)
   SecurityAuditEntryExecution execution = SecurityAuditEntryExecution();
 
   /// Deliverables, ownership, and notes.
+  @SerializationOrder(3)
   SecurityAuditEntryFollowUp followUp = SecurityAuditEntryFollowUp();
 }
 
@@ -20555,6 +22636,7 @@ class SecurityAuditEntryScheduling {
   Field('nextAuditDate', String, 'Next Audit Date',
     hint: 'Planned date for next audit'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20571,6 +22653,7 @@ class SecurityAuditEntryExecution {
   Field('estimatedDuration', String, 'Estimated Duration',
     hint: 'Expected duration of the audit engagement'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20587,6 +22670,7 @@ class SecurityAuditEntryFollowUp {
   Field('notes', String, 'Notes',
     hint: 'Additional audit requirement notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20619,6 +22703,7 @@ drivers / trade-offs.
 - Reference architecture diagrams (high-level + key views)
 - Technology-radar alignment (Adopt / Trial / Assess / Hold)
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -20626,5 +22711,6 @@ drivers / trade-offs.
 @SectionId('MAINT')
 class MaintenanceProcedureEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }

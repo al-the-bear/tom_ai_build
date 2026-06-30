@@ -19,26 +19,33 @@ Executive summary of project-specific methodology deviations.
 Explain why this project requires deviations from standard TomSpecs practices,
 the overall impact on governance, and how deviations are tracked and approved.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Visual overview of methodology deviations.
   @ContentType('mermaid-flowchart', 'Diagram showing how project-specific '
       'methodology relates to standard TomSpecs, highlighting key deviations')
+  @SerializationOrder(1)
   String? methodologyDeviationDiagram;
 
   /// Summary of all methodology deviations.
+  @SerializationOrder(2)
   MethodologyDeviationSummary deviationSummary = MethodologyDeviationSummary();
 
   /// 2.1. Role Adjustments.
+  @SerializationOrder(3)
   RoleAdjustments roleAdjustments = RoleAdjustments();
 
   /// 2.2. Quality Gate Adjustments.
+  @SerializationOrder(4)
   QualityGateAdjustments qualityGateAdjustments = QualityGateAdjustments();
 
   /// 2.3. Process Adjustments.
+  @SerializationOrder(5)
   ProcessAdjustments processAdjustments = ProcessAdjustments();
 
   /// 2.4. Tooling and Environments.
+  @SerializationOrder(6)
   ToolingAndEnvironments toolingAndEnvironments = ToolingAndEnvironments();
 }
 
@@ -67,6 +74,7 @@ class MethodologyDeviationSummary {
     Field('deviationJustificationSummary', String, 'Justification Summary',
         hint: 'High-level rationale for why deviations are needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -86,19 +94,23 @@ Overview of role adjustments for this project. Explain why standard role
 definitions don't fit, what stakeholder or organizational factors drove
 the changes, and how role clarity is maintained despite deviations.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Role adjustment summary statistics.
+  @SerializationOrder(1)
   RoleAdjustmentSummary adjustmentSummary = RoleAdjustmentSummary();
 
   /// Visual comparison of standard vs adjusted roles.
   @ContentType('mermaid', 'Diagram comparing standard TomSpecs roles '
       'with project-specific role assignments')
+  @SerializationOrder(2)
   String? roleComparisonDiagram;
 
   /// Contains 0+× RoleAdjustment.
   @SectionId('RLAJE-ITEM-LST')
   @SectionIdPattern('RLAJE-ITEM-xxx')
+  @SerializationOrder(3)
   List<RoleAdjustmentEntry> items = [];
 }
 
@@ -123,6 +135,7 @@ class RoleAdjustmentSummary {
     Field('governanceImpact', String, 'Governance Impact Assessment',
         hint: 'Low / Medium / High — impact on project governance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -141,21 +154,27 @@ class RoleAdjustmentEntry {
     Field('adjustmentType', String, 'Adjustment Type',
         hint: 'Merged / Split / Modified / Omitted / Added'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Adjustment details: name changes, affected responsibilities.
+  @SerializationOrder(1)
   RoleAdjustmentEntryDetails details = RoleAdjustmentEntryDetails();
 
   /// Rationale for the adjustment.
+  @SerializationOrder(2)
   RoleAdjustmentEntryRationale rationale = RoleAdjustmentEntryRationale();
 
   /// Coverage: assignments and RACI impact.
+  @SerializationOrder(3)
   RoleAdjustmentEntryCoverage coverage = RoleAdjustmentEntryCoverage();
 
   /// Risk assessment.
+  @SerializationOrder(4)
   RoleAdjustmentEntryRisk risk = RoleAdjustmentEntryRisk();
 
   /// Governance: approval and review.
+  @SerializationOrder(5)
   RoleAdjustmentEntryGovernance governance = RoleAdjustmentEntryGovernance();
 }
 
@@ -174,6 +193,7 @@ class RoleAdjustmentEntryDetails {
     Field('splitIntoRoles', String, 'Split Into Roles',
         hint: 'If split, names of the resulting roles'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -188,6 +208,7 @@ class RoleAdjustmentEntryRationale {
     Field('stakeholderAgreement', String, 'Stakeholder Agreement',
         hint: 'Who agreed to this adjustment'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -202,6 +223,7 @@ class RoleAdjustmentEntryCoverage {
     Field('raciImpact', String, 'RACI Impact',
         hint: 'How this affects the RACI matrix for related activities'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -216,6 +238,7 @@ class RoleAdjustmentEntryRisk {
     Field('mitigationMeasures', String, 'Mitigation Measures',
         hint: 'How risks from this adjustment are mitigated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -234,6 +257,7 @@ class RoleAdjustmentEntryGovernance {
     Field('notes', String, 'Notes',
         hint: 'Additional context or considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -253,20 +277,24 @@ Overview of quality gate adjustments for this project. Explain why standard
 gates are modified, what project characteristics drove the changes, and
 how quality assurance is maintained despite deviations.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Quality gate adjustment summary.
+  @SerializationOrder(1)
   QualityGateAdjustmentSummary adjustmentSummary =
       QualityGateAdjustmentSummary();
 
   /// Visual representation of gate adjustments.
   @ContentType('mermaid', 'Diagram showing quality gate flow with '
       'adjustments highlighted')
+  @SerializationOrder(2)
   String? gateFlowDiagram;
 
   /// Contains 0+× QualityGateAdjustment.
   @SectionId('QGAJE-ITEM-LST')
   @SectionIdPattern('QGAJE-ITEM-xxx')
+  @SerializationOrder(3)
   List<QualityGateAdjustmentEntry> items = [];
 }
 
@@ -291,6 +319,7 @@ class QualityGateAdjustmentSummary {
     Field('auditImplications', String, 'Audit Implications',
         hint: 'Impact on quality audits and compliance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -309,21 +338,26 @@ class QualityGateAdjustmentEntry {
     Field('adjustmentType', String, 'Adjustment Type',
         hint: 'Skipped / Added / Modified / Deferred / Relaxed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Gate details.
   @SectionId('QGAED-DETA-LST')
   @SectionIdPattern('QGAED-DETA-xxx')
+  @SerializationOrder(1)
   List<QualityGateAdjustmentDetails> details = [];
 
   /// Rationale.
+  @SerializationOrder(2)
   QualityGateAdjustmentRationale rationale =
       QualityGateAdjustmentRationale();
 
   /// Impact assessment.
+  @SerializationOrder(3)
   QualityGateAdjustmentImpact impact = QualityGateAdjustmentImpact();
 
   /// Governance.
+  @SerializationOrder(4)
   QualityGateAdjustmentGovernance governance =
       QualityGateAdjustmentGovernance();
 }
@@ -343,6 +377,7 @@ class QualityGateAdjustmentDetails {
     Field('criteriaThresholdChange', String, 'Threshold Change',
         hint: 'How thresholds were modified'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -359,6 +394,7 @@ class QualityGateAdjustmentRationale {
     Field('expirationDate', String, 'Expiration Date',
         hint: 'If temporary, when this deviation expires'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -377,6 +413,7 @@ class QualityGateAdjustmentImpact {
     Field('monitoringMeasures', String, 'Monitoring Measures',
         hint: 'How quality is monitored despite the deviation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -397,6 +434,7 @@ class QualityGateAdjustmentGovernance {
     Field('notes', String, 'Notes',
         hint: 'Additional context or considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -416,20 +454,24 @@ Overview of process adjustments for this project. Explain why standard
 process steps are modified, what project constraints drove the changes,
 and how process integrity is maintained despite deviations.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Process adjustment summary.
+  @SerializationOrder(1)
   ProcessAdjustmentSummary adjustmentSummary = ProcessAdjustmentSummary();
 
   /// Visual representation of process adjustments.
   @ContentType('mermaid-flowchart', 'Diagram showing process flow with '
       'adjustments highlighted — skipped steps crossed out, '
       'reordered steps with arrows, added steps in different color')
+  @SerializationOrder(2)
   String? processFlowDiagram;
 
   /// Contains 0+× ProcessAdjustment.
   @SectionId('PCAJE-ITEM-LST')
   @SectionIdPattern('PCAJE-ITEM-xxx')
+  @SerializationOrder(3)
   List<ProcessAdjustmentEntry> items = [];
 }
 
@@ -458,6 +500,7 @@ class ProcessAdjustmentSummary {
     Field('processEfficiencyImpact', String, 'Efficiency Impact',
         hint: 'Faster / Same / Slower — impact on timeline'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -476,27 +519,34 @@ class ProcessAdjustmentEntry {
     Field('adjustmentType', String, 'Adjustment Type',
         hint: 'Skipped / Modified / Reordered / Parallelized / Added'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identification details.
+  @SerializationOrder(1)
   ProcessAdjustmentIdentity identity = ProcessAdjustmentIdentity();
 
   /// Adjustment details.
   @SectionId('PCAED-DETA-LST')
   @SectionIdPattern('PCAED-DETA-xxx')
+  @SerializationOrder(2)
   List<ProcessAdjustmentDetails> details = [];
 
   /// Rationale.
+  @SerializationOrder(3)
   ProcessAdjustmentRationale rationale = ProcessAdjustmentRationale();
 
   /// Implementation.
+  @SerializationOrder(4)
   ProcessAdjustmentImplementation implementation =
       ProcessAdjustmentImplementation();
 
   /// Risk and impact.
+  @SerializationOrder(5)
   ProcessAdjustmentRisk risk = ProcessAdjustmentRisk();
 
   /// Governance.
+  @SerializationOrder(6)
   ProcessAdjustmentGovernance governance = ProcessAdjustmentGovernance();
 }
 
@@ -509,6 +559,7 @@ class ProcessAdjustmentIdentity {
     Field('originalPosition', String, 'Original Position',
         hint: 'Original position in process, e.g. Step 5 of 12'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -527,6 +578,7 @@ class ProcessAdjustmentDetails {
     Field('splitInto', String, 'Split Into',
         hint: 'If split, names of the resulting sub-steps'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -545,6 +597,7 @@ class ProcessAdjustmentRationale {
     Field('successorChanges', String, 'Successor Changes',
         hint: 'Changes to dependent steps'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -561,6 +614,7 @@ class ProcessAdjustmentImplementation {
     Field('resourceChanges', String, 'Resource Changes',
         hint: 'Any staffing or skill changes required'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -581,6 +635,7 @@ class ProcessAdjustmentRisk {
     Field('notes', String, 'Notes',
         hint: 'Additional context or considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -597,6 +652,7 @@ class ProcessAdjustmentGovernance {
     Field('reviewDate', String, 'Next Review Date',
         hint: 'When this adjustment will be reviewed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -608,12 +664,15 @@ class ProcessAdjustmentGovernance {
 @SectionId('TOENV')
 class ToolingAndEnvironments {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// 2.4.1. Tooling.
+  @SerializationOrder(1)
   Tooling tooling = Tooling();
 
   /// 2.4.2. Environments.
+  @SerializationOrder(2)
   Environments environments = Environments();
 }
 
@@ -643,26 +702,32 @@ class Tooling {
         hint:
             'Workflow for requesting, evaluating, and approving new tools'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Stack composition and selection policies.
+  @SerializationOrder(1)
   ToolingStack stack = ToolingStack();
 
   /// Lifecycle and governance processes.
+  @SerializationOrder(2)
   ToolingLifecycle lifecycle = ToolingLifecycle();
 
   /// Review, catalog, and notes.
+  @SerializationOrder(3)
   ToolingGovernance governance = ToolingGovernance();
 
   /// Tool strategy narrative.
   @ContentType('description',
       'Narrative overview of tool strategy, integration philosophy, '
       'and long-term tooling roadmap.')
+  @SerializationOrder(4)
   TextSection strategyNarrative = TextSection();
 
   /// Contains 0+× Tool.
   @SectionId('TOLEN-ITEM-LST')
   @SectionIdPattern('TOLEN-ITEM-xxx')
+  @SerializationOrder(5)
   List<ToolEntry> items = [];
 }
 
@@ -686,6 +751,7 @@ class ToolingStack {
                 hint:
                         'Total annual budget for tool licenses, subscriptions, and infrastructure'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -700,6 +766,7 @@ class ToolingLifecycle {
                 hint:
                         'Steps when a member leaves — license reclaim, access revocation, data export'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -718,6 +785,7 @@ class ToolingGovernance {
         Field('notes', String, 'Notes',
                 hint: 'Additional tooling strategy notes'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -739,51 +807,67 @@ class ToolEntry {
     Field('notes', String, 'Notes',
         hint: 'Additional notes, caveats, or context'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identity and classification details.
+  @SerializationOrder(1)
   ToolIdentity identity = ToolIdentity();
 
   /// Licensing terms and compliance.
+  @SerializationOrder(2)
   ToolLicensing licensing = ToolLicensing();
 
   /// Version management and upgrade policies.
+  @SerializationOrder(3)
   ToolVersioning versioning = ToolVersioning();
 
   /// Access control and provisioning.
+  @SerializationOrder(4)
   ToolAccess access = ToolAccess();
 
   /// Integration with other tools and systems.
+  @SerializationOrder(5)
   ToolIntegration integration = ToolIntegration();
 
   /// Vendor and internal support details.
+  @SerializationOrder(6)
   ToolSupport support = ToolSupport();
 
   /// Security and compliance requirements.
+  @SerializationOrder(7)
   ToolSecurity security = ToolSecurity();
 
   /// Usage patterns and adoption metrics.
+  @SerializationOrder(8)
   ToolUsage usage = ToolUsage();
 
   /// Infrastructure and hosting details.
+  @SerializationOrder(9)
   ToolInfrastructure infrastructure = ToolInfrastructure();
 
   /// Lifecycle management and roadmap.
+  @SerializationOrder(10)
   ToolLifecycle lifecycle = ToolLifecycle();
 
   /// Cost structure and budget.
+  @SerializationOrder(11)
   ToolCost cost = ToolCost();
 
   /// Configuration standards and policies.
+  @SerializationOrder(12)
   ToolConfiguration configuration = ToolConfiguration();
 
   /// Documentation resources.
+  @SerializationOrder(13)
   ToolDocumentation documentation = ToolDocumentation();
 
   /// Approval status and ownership.
+  @SerializationOrder(14)
   ToolApproval approval = ToolApproval();
 
   /// Integration details narrative.
+  @SerializationOrder(15)
   TextSection integrationNotes = TextSection();
 }
 
@@ -828,6 +912,7 @@ class ToolIdentity {
     Field('selectionRationale', String, 'Selection Rationale',
         hint: 'Why this tool won over alternatives'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -864,6 +949,7 @@ class ToolLicensing {
     Field('licenseComplianceStatus', String, 'License Compliance Status',
         hint: 'Compliant / UnderReview / AtRisk / NonCompliant'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -900,6 +986,7 @@ class ToolVersioning {
     Field('releaseNotesUrl', String, 'Release Notes URL',
         hint: 'Link to vendor changelog or release announcements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -944,6 +1031,7 @@ class ToolAccess {
             'Rules for non-human accounts — naming, rotation, scope '
             'limits'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -978,6 +1066,7 @@ class ToolIntegration {
             'CI/CD hooks, scheduled tasks, scripting, CLI automation '
             'support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1007,6 +1096,7 @@ class ToolSupport {
         hint:
             'Current known issues or limitations affecting the project'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1051,6 +1141,7 @@ class ToolSecurity {
     Field('ipRestrictions', String, 'IP Restrictions',
         hint: 'IP allowlist, VPN-only access, geo-blocking'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1090,6 +1181,7 @@ class ToolUsage {
     Field('userSatisfactionScore', String, 'User Satisfaction Score',
         hint: 'Latest survey score, e.g. 4.2/5, NPS +35'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1128,6 +1220,7 @@ class ToolInfrastructure {
     Field('maintenanceWindow', String, 'Maintenance Window',
         hint: 'Scheduled maintenance times, e.g. Sun 02:00-06:00 UTC'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1160,6 +1253,7 @@ class ToolLifecycle {
             'Low / Medium / High — risk of vendor discontinuing the '
             'product'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1186,6 +1280,7 @@ class ToolCost {
             'Ways to reduce cost — right-sizing, license consolidation, '
             'tier change'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1216,6 +1311,7 @@ class ToolConfiguration {
             'Yes / No / Partial — whether tool config is '
             'version-controlled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1236,6 +1332,7 @@ class ToolDocumentation {
             'Link to diagram showing how this tool fits in the overall '
             'toolchain'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1255,6 +1352,7 @@ class ToolApproval {
     Field('toolChampion', String, 'Tool Champion',
         hint: 'Internal advocate driving adoption and best practices'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1286,11 +1384,13 @@ class Environments {
     Field('notes', String, 'Notes',
         hint: 'Additional environment overview notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Environment.
   @SectionId('ENVEN-ITEM-LST')
   @SectionIdPattern('ENVEN-ITEM-xxx')
+  @SerializationOrder(1)
   List<EnvironmentEntry> items = [];
 }
 
@@ -1312,42 +1412,55 @@ class EnvironmentEntry {
     Field('environmentType', String, 'Environment Type',
         hint: 'Development / Testing / QA / UAT / Staging / Production / DR'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identity and classification details.
+  @SerializationOrder(1)
   EnvironmentIdentity identity = EnvironmentIdentity();
 
   /// Infrastructure configuration.
+  @SerializationOrder(2)
   EnvironmentInfrastructure infrastructure = EnvironmentInfrastructure();
 
   /// Access and security configuration.
+  @SerializationOrder(3)
   EnvironmentSecurity security = EnvironmentSecurity();
 
   /// Data management policies.
+  @SerializationOrder(4)
   EnvironmentDataManagement dataManagement = EnvironmentDataManagement();
 
   /// Configuration and versions.
+  @SerializationOrder(5)
   EnvironmentConfiguration configuration = EnvironmentConfiguration();
 
   /// Availability and SLA targets.
+  @SerializationOrder(6)
   EnvironmentAvailability availability = EnvironmentAvailability();
 
   /// Connectivity and network configuration.
+  @SerializationOrder(7)
   EnvironmentConnectivity connectivity = EnvironmentConnectivity();
 
   /// Monitoring and observability.
+  @SerializationOrder(8)
   EnvironmentMonitoring monitoring = EnvironmentMonitoring();
 
   /// Lifecycle and provisioning.
+  @SerializationOrder(9)
   EnvironmentLifecycle lifecycle = EnvironmentLifecycle();
 
   /// Ownership and support contacts.
+  @SerializationOrder(10)
   EnvironmentOwnership ownership = EnvironmentOwnership();
 
   /// Cost and billing.
+  @SerializationOrder(11)
   EnvironmentCost cost = EnvironmentCost();
 
   /// Compliance and audit requirements.
+  @SerializationOrder(12)
   EnvironmentCompliance compliance = EnvironmentCompliance();
 }
 
@@ -1362,6 +1475,7 @@ class EnvironmentIdentity {
     Field('promotionPosition', String, 'Promotion Position',
         hint: 'Position in promotion path, e.g. 3 of 4 (before Prod)'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1386,6 +1500,7 @@ class EnvironmentInfrastructure {
     Field('containerPlatform', String, 'Container Platform',
         hint: 'Kubernetes / ECS / Docker Compose / None — cluster details'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1410,6 +1525,7 @@ class EnvironmentSecurity {
     Field('secretsManagement', String, 'Secrets Management',
         hint: 'Vault, AWS Secrets Manager, Azure Key Vault'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1430,6 +1546,7 @@ class EnvironmentDataManagement {
     Field('dataResidency', String, 'Data Residency',
         hint: 'Geographic/legal constraints for data storage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1450,6 +1567,7 @@ class EnvironmentConfiguration {
     Field('configurationMethod', String, 'Configuration Method',
         hint: 'Env vars / Secrets Manager / Config files / Consul'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1470,6 +1588,7 @@ class EnvironmentAvailability {
     Field('disasterRecoveryPlan', String, 'Disaster Recovery Plan',
         hint: 'DR strategy — warm standby, pilot light, active-active'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1490,6 +1609,7 @@ class EnvironmentConnectivity {
     Field('serviceDiscovery', String, 'Service Discovery',
         hint: 'DNS-based / Service mesh / Consul / K8s Services'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1508,6 +1628,7 @@ class EnvironmentMonitoring {
     Field('healthCheckEndpoints', String, 'Health Check Endpoints',
         hint: 'Health and readiness probe paths'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1528,6 +1649,7 @@ class EnvironmentLifecycle {
     Field('plannedRetirementDate', String, 'Planned Retirement Date',
         hint: 'Scheduled decommission date, if known'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1544,6 +1666,7 @@ class EnvironmentOwnership {
     Field('changeApprovalProcess', String, 'Change Approval Process',
         hint: 'How changes are approved — CAB, PR review, auto-deploy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1560,6 +1683,7 @@ class EnvironmentCost {
     Field('budgetAlertThreshold', String, 'Budget Alert Threshold',
         hint: 'Spending threshold that triggers alerts'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1576,5 +1700,6 @@ class EnvironmentCompliance {
     Field('notes', String, 'Notes',
         hint: 'Additional environment-specific notes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

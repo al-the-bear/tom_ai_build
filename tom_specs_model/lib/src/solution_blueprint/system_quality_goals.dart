@@ -30,45 +30,56 @@ class SystemQualityGoals {
     Field('qualityOwner', String, 'Quality Owner',
         hint: 'Role accountable for quality outcomes'),
   ])
+  @SerializationOrder(0)
   String? governanceContent;
 
   /// Governance board and escalation details.
+  @SerializationOrder(1)
   QualityGoalsGovernance governance = QualityGoalsGovernance();
 
   /// Baseline and target settings.
+  @SerializationOrder(2)
   QualityGoalsBaseline baseline = QualityGoalsBaseline();
 
   /// Measurement and reporting approach.
+  @SerializationOrder(3)
   QualityGoalsMeasurement measurement = QualityGoalsMeasurement();
 
   /// Quality resources and enablement.
+  @SerializationOrder(4)
   QualityGoalsResources resources = QualityGoalsResources();
 
   /// Executive summary of quality goals and approach.
   @ContentHelp('High-level overview of quality objectives, expected quality '
       'level, key quality risks, and approach summary.')
+  @SerializationOrder(5)
   TextSection executiveSummary = TextSection();
 
   /// Quality vision and principles.
   @ContentHelp('Quality vision statement, core principles guiding '
       'quality decisions, and non-negotiable quality standards.')
+  @SerializationOrder(6)
   TextSection qualityVision = TextSection();
 
   /// Quality assurance strategy.
   @ContentHelp('Overall QA strategy: shift-left testing, continuous testing, '
       'test pyramid approach, verification vs validation approach.')
+  @SerializationOrder(7)
   TextSection qaStrategy = TextSection();
 
   /// Quality attribute interdependencies.
   @SectionId('ATTRI-ATTR-LST')
   @SectionIdPattern('ATTRI-ATTR-xxx')
+  @SerializationOrder(8)
   List<AttributeInterdependencyEntry> attributeInterdependencies = [];
 
   /// Quality attribute priority radar.
   @ContentHelp('Visual showing relative importance of quality attributes.')
+  @SerializationOrder(9)
   DiagramSection qualityRadar = DiagramSection();
 
   /// 11.1. Quality Framework.
+  @SerializationOrder(10)
   QualityFramework framework = QualityFramework();
 
   // 11.2–11.9: the eight ISO/IEC 25010:2023 product-quality characteristics.
@@ -76,46 +87,58 @@ class SystemQualityGoals {
   // in L34C-8 and their attribute leaves re-homed under these characteristics.
 
   /// 11.2. Functional Suitability (ISO/IEC 25010:2023).
+  @SerializationOrder(11)
   FunctionalSuitabilityCharacteristic functionalSuitability =
       FunctionalSuitabilityCharacteristic();
 
   /// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
+  @SerializationOrder(12)
   PerformanceEfficiencyCharacteristic performanceEfficiency =
       PerformanceEfficiencyCharacteristic();
 
   /// 11.4. Compatibility (ISO/IEC 25010:2023).
+  @SerializationOrder(13)
   CompatibilityCharacteristic compatibility = CompatibilityCharacteristic();
 
   /// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
+  @SerializationOrder(14)
   InteractionCapabilityCharacteristic interactionCapability =
       InteractionCapabilityCharacteristic();
 
   /// 11.6. Reliability (ISO/IEC 25010:2023).
+  @SerializationOrder(15)
   ReliabilityCharacteristic reliability = ReliabilityCharacteristic();
 
   /// 11.7. Security (ISO/IEC 25010:2023).
+  @SerializationOrder(16)
   SecurityCharacteristic security = SecurityCharacteristic();
 
   /// 11.8. Maintainability (ISO/IEC 25010:2023).
+  @SerializationOrder(17)
   MaintainabilityCharacteristic maintainability =
       MaintainabilityCharacteristic();
 
   /// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
+  @SerializationOrder(18)
   FlexibilityCharacteristic flexibility = FlexibilityCharacteristic();
 
   /// 11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable
   /// annex — has no ISO/IEC 25010:2023 product-quality home; retained as a
   /// documentation-quality annex per L34C-8).
+  @SerializationOrder(19)
   DocumentationQualityCriteria documentationQuality =
       DocumentationQualityCriteria();
 
   /// 11.6. Quality Prioritization.
+  @SerializationOrder(20)
   QualityPrioritization prioritization = QualityPrioritization();
 
   /// 11.7. Acceptance Criteria Summary.
+  @SerializationOrder(21)
   AcceptanceCriteriaSummary acceptanceCriteria = AcceptanceCriteriaSummary();
 
   /// 11.8. Test Strategy..
+  @SerializationOrder(22)
   TestStrategy testStrategy = TestStrategy();
 }
 
@@ -130,6 +153,7 @@ class QualityGoalsGovernance {
         Field('qualityEscalationPath', String, 'Escalation Path',
                 hint: 'How quality issues escalate to leadership'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -145,6 +169,7 @@ class QualityGoalsBaseline {
         Field('qualityRiskTolerance', String, 'Quality Risk Tolerance',
                 hint: 'Low (zero defects), medium, high tolerance'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -163,6 +188,7 @@ class QualityGoalsMeasurement {
         Field('qualityTrendAnalysis', String, 'Trend Analysis Approach',
                 hint: 'How quality trends are tracked over time'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -179,6 +205,7 @@ class QualityGoalsResources {
         Field('qualityTrainingPlan', String, 'Quality Training Plan',
                 hint: 'Training for team on quality practices'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -202,36 +229,44 @@ class QualityFramework {
     Field('qualityModelAdaptations', String, 'Model Adaptations',
         hint: 'How standard model is adapted for this project'),
   ])
+  @SerializationOrder(0)
   String? frameworkContent;
 
   /// Quality objective structure and alignment.
+  @SerializationOrder(1)
   QualityFrameworkObjectives objectives = QualityFrameworkObjectives();
 
   /// Trade-off priorities and decision authority.
+  @SerializationOrder(2)
   QualityFrameworkTradeOffs tradeOffs = QualityFrameworkTradeOffs();
 
   /// Verification and defect handling approach.
+  @SerializationOrder(3)
   QualityFrameworkVerification verification =
       QualityFrameworkVerification();
 
   /// 11.1.1. Quality Objectives Overview.
   @ContentHelp('Overall quality objectives: expected quality level, '
       'how quality will be measured, acceptable trade-offs.')
+  @SerializationOrder(4)
   TextSection qualityObjectivesOverview = TextSection();
 
   /// Quality objectives breakdown by category.
   @ContentHelp('Structured breakdown of objectives for each quality '
       'category with measurable targets.')
+  @SerializationOrder(5)
   TextSection objectivesBreakdown = TextSection();
 
   /// 11.1.2. Quality Categories — contains 0+× QualityCategory.
   @SectionId('QCATE-QUAL-LST')
   @SectionIdPattern('QCATE-QUAL-xxx')
+  @SerializationOrder(6)
   List<QualityCategoryEntry> qualityCategories = [];
 
   /// Quality dependencies map.
   @SectionId('CATEG-CATE-LST')
   @SectionIdPattern('CATEG-CATE-xxx')
+  @SerializationOrder(7)
   List<CategoryDependencyEntry> categoryDependencies = [];
 }
 
@@ -246,6 +281,7 @@ class QualityFrameworkObjectives {
         Field('objectivesMeasurability', String, 'Measurability Requirement',
                 hint: 'All objectives SMART, key objectives only'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -261,6 +297,7 @@ class QualityFrameworkTradeOffs {
         Field('qualityCompromiseAuthority', String, 'Compromise Authority',
                 hint: 'Who can authorize quality trade-offs'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -277,6 +314,7 @@ class QualityFrameworkVerification {
         Field('defectPriorityScheme', String, 'Defect Priority Scheme',
                 hint: 'P1-P5, urgent/high/medium/low'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -294,25 +332,31 @@ class QualityCategoryEntry {
     Field('categoryWeight', int, 'Category Weight (1-100)',
         hint: 'Relative importance in overall quality'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Description and priority context.
+  @SerializationOrder(1)
   QualityCategoryEntryDefinition definition = QualityCategoryEntryDefinition();
 
   /// Category relationships.
+  @SerializationOrder(2)
   QualityCategoryEntryRelationships relationships =
       QualityCategoryEntryRelationships();
 
   /// Governance ownership.
+  @SerializationOrder(3)
   QualityCategoryEntryGovernance governance =
       QualityCategoryEntryGovernance();
 
   /// Measurement targets.
+  @SerializationOrder(4)
   QualityCategoryEntryMetrics metrics = QualityCategoryEntryMetrics();
 
   /// Detailed category definition.
   @ContentHelp('Extended description of category scope, boundaries, '
       'and quality attributes included.')
+  @SerializationOrder(5)
   TextSection categoryDetails = TextSection();
 }
 
@@ -329,6 +373,7 @@ class QualityCategoryEntryDefinition {
     Field('categoryRationale', String, 'Priority Rationale',
         hint: 'Why this priority level'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -343,6 +388,7 @@ class QualityCategoryEntryRelationships {
     Field('conflictingCategories', String, 'Conflicting Categories',
         hint: 'Categories that may trade off against this'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -357,6 +403,7 @@ class QualityCategoryEntryGovernance {
     Field('escalationThreshold', String, 'Escalation Threshold',
         hint: 'When category issues escalate'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -373,6 +420,7 @@ class QualityCategoryEntryMetrics {
     Field('currentBaseline', String, 'Current Baseline',
         hint: 'Starting baseline value'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -397,18 +445,22 @@ class FunctionalSuitabilityCharacteristic {
     Field('correctnessStandard', String, 'Correctness Standard',
         hint: 'Acceptable defect density, accuracy thresholds'),
   ])
+  @SerializationOrder(0)
   String? functionalSuitabilityContent;
 
   /// Functional suitability overview.
   @ContentHelp('Executive summary of functional-suitability goals, '
       'coverage targets, and correctness metrics.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 11.2.1. Functional Completeness.
+  @SerializationOrder(2)
   FunctionalCompleteness functionalCompleteness =
       FunctionalCompleteness();
 
   /// 11.2.2. Correctness.
+  @SerializationOrder(3)
   Correctness correctness = Correctness();
 }
 
@@ -439,14 +491,17 @@ class InteractionCapabilityCharacteristic {
     Field('accessibilityLevel', String, 'Accessibility Level',
         hint: 'WCAG 2.1 AA, AAA, Section 508'),
   ])
+  @SerializationOrder(0)
   String? interactionCapabilityContent;
 
   /// Interaction capability overview.
   @ContentHelp('Executive summary of interaction-capability goals, '
       'target user experience, and key user-quality metrics.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 11.5.1. Usability.
+  @SerializationOrder(2)
   Usability usability = Usability();
 }
 
@@ -461,24 +516,31 @@ class Usability {
     Field('learnabilityTarget', String, 'Learnability Target',
         hint: 'Time to proficiency: <1 hour, <1 day'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Operability verification and ergonomics goals.
+  @SerializationOrder(1)
   UsabilityOperability operability = UsabilityOperability();
 
   /// Learnability and onboarding expectations.
+  @SerializationOrder(2)
   UsabilityLearnability learnability = UsabilityLearnability();
 
   /// Clarity and complexity constraints.
+  @SerializationOrder(3)
   UsabilityClarity clarity = UsabilityClarity();
 
   /// Interaction control settings.
+  @SerializationOrder(4)
   UsabilityInteraction interaction = UsabilityInteraction();
 
   /// Perceived and measured responsiveness targets.
+  @SerializationOrder(5)
   UsabilityPerformance performance = UsabilityPerformance();
 
   /// Detailed usability requirements narrative.
+  @SerializationOrder(6)
   TextSection narrative = TextSection();
 }
 
@@ -493,6 +555,7 @@ class UsabilityOperability {
     Field('ergonomicsTarget', String, 'Ergonomics Target',
         hint: 'Reduce cognitive load, minimize clicks'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -505,6 +568,7 @@ class UsabilityLearnability {
     Field('onboardingRequirement', String, 'Onboarding Requirement',
         hint: 'Self-service, guided tour, training required'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -521,6 +585,7 @@ class UsabilityClarity {
     Field('cognitiveLoadTarget', String, 'Cognitive Load Target',
         hint: 'Info per screen, decision points'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -533,6 +598,7 @@ class UsabilityInteraction {
     Field('customizationLevel', String, 'Customization Level',
         hint: 'User preferences, layout, workflow'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -549,6 +615,7 @@ class UsabilityPerformance {
     Field('perceivedPerformance', String, 'Perceived Performance',
         hint: 'Loading indicators, optimistic updates'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -578,9 +645,11 @@ class FunctionalCompleteness {
     Field('gapAnalysisFrequency', String, 'Gap Analysis Frequency',
         hint: 'Sprint, release, milestone'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Detailed functional completeness narrative.
+  @SerializationOrder(1)
   TextSection narrative = TextSection();
 }
 
@@ -595,19 +664,24 @@ class Correctness {
     Field('defectEscapeRate', String, 'Defect Escape Rate',
         hint: 'Defects found post-release'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Data integrity expectations.
+  @SerializationOrder(1)
   CorrectnessIntegrity integrity = CorrectnessIntegrity();
 
   /// Accuracy and auditability requirements.
+  @SerializationOrder(2)
   CorrectnessAccuracy accuracy = CorrectnessAccuracy();
 
   /// Verification and regression approach.
+  @SerializationOrder(3)
   CorrectnessVerification verification =
       CorrectnessVerification();
 
   /// Detailed correctness requirements narrative.
+  @SerializationOrder(4)
   TextSection narrative = TextSection();
 }
 
@@ -622,6 +696,7 @@ class CorrectnessIntegrity {
     Field('dataCorruptionHandling', String, 'Data Corruption Handling',
         hint: 'Detection, recovery, prevention'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -636,6 +711,7 @@ class CorrectnessAccuracy {
     Field('auditTrailRequirement', String, 'Audit Trail Requirement',
         hint: 'All changes, financial only'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -650,6 +726,7 @@ class CorrectnessVerification {
     Field('regressionTestingApproach', String, 'Regression Testing',
         hint: 'Automated, manual, risk-based'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -678,14 +755,17 @@ class PerformanceEfficiencyCharacteristic {
     Field('designPrinciplesAdherence', String, 'Design Principles Adherence',
         hint: 'SOLID, DRY, KISS, YAGNI'),
   ])
+  @SerializationOrder(0)
   String? performanceEfficiencyContent;
 
   /// Performance efficiency overview.
   @ContentHelp('Executive summary of performance-efficiency goals, '
       'architectural decisions, and key technical metrics.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 11.3.1. Efficiency.
+  @SerializationOrder(2)
   Efficiency efficiency = Efficiency();
 }
 
@@ -705,10 +785,12 @@ class CompatibilityCharacteristic {
     Field('interoperabilityStandards', String, 'Interoperability Standards',
         hint: 'Protocols/formats for exchanging and using information'),
   ])
+  @SerializationOrder(0)
   String? compatibilityContent;
 
   /// Compatibility overview.
   @ContentHelp('Executive summary of co-existence and interoperability goals.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 }
 
@@ -728,17 +810,21 @@ class FlexibilityCharacteristic {
     Field('portabilityTarget', String, 'Portability Target',
         hint: 'Target environments/platforms the product must run on'),
   ])
+  @SerializationOrder(0)
   String? flexibilityContent;
 
   /// Flexibility overview.
   @ContentHelp('Executive summary of flexibility, adaptability and '
       'portability goals.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 11.9.1. Flexibility (adaptability/scalability/extensibility).
+  @SerializationOrder(2)
   Flexibility flexibility = Flexibility();
 
   /// 11.9.2. Portability.
+  @SerializationOrder(3)
   Portability portability = Portability();
 }
 
@@ -757,17 +843,21 @@ class SecurityCharacteristic {
     Field('securityComplianceTarget', String, 'Security Compliance Target',
         hint: 'ISO 27001, SOC 2, GDPR, sector-specific'),
   ])
+  @SerializationOrder(0)
   String? securityContent;
 
   /// Security overview.
   @ContentHelp('Executive summary of security goals, threat model, and '
       'compliance targets.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 11.7.1. Security (product security attributes).
+  @SerializationOrder(2)
   Security security = Security();
 
   /// 11.7.2. IT Security Operations.
+  @SerializationOrder(3)
   ItSecurityOperations itSecurityOperations = ItSecurityOperations();
 }
 
@@ -786,13 +876,16 @@ class MaintainabilityCharacteristic {
     Field('maintainabilityStandard', String, 'Maintainability Standard',
         hint: 'Complexity thresholds, test-coverage targets'),
   ])
+  @SerializationOrder(0)
   String? maintainabilityContent;
 
   /// Maintainability overview.
   @ContentHelp('Executive summary of maintainability goals and standards.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 11.8.1. Maintainability (product maintainability attributes).
+  @SerializationOrder(2)
   Maintainability maintainability = Maintainability();
 }
 
@@ -808,19 +901,24 @@ class Efficiency {
     Field('responseTimeP99Target', String, 'Response Time P99',
         hint: '99th percentile (e.g., <1s)'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Throughput and scale targets.
+  @SerializationOrder(1)
   EfficiencyThroughput throughput = EfficiencyThroughput();
 
   /// Resource utilization constraints.
+  @SerializationOrder(2)
   EfficiencyResources resources = EfficiencyResources();
 
   /// Performance validation and SLA commitments.
+  @SerializationOrder(3)
   EfficiencyVerification verification =
       EfficiencyVerification();
 
   /// Detailed efficiency requirements narrative.
+  @SerializationOrder(4)
   TextSection narrative = TextSection();
 }
 
@@ -835,6 +933,7 @@ class EfficiencyThroughput {
     Field('scalabilityModel', String, 'Scalability Model',
         hint: 'Horizontal, vertical, auto-scaling'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -851,6 +950,7 @@ class EfficiencyResources {
     Field('networkBandwidthLimit', String, 'Network Bandwidth Limit',
         hint: 'Max bandwidth consumption'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -867,6 +967,7 @@ class EfficiencyVerification {
     Field('performanceSlaDefinition', String, 'Performance SLA Definition',
         hint: 'SLA for performance metrics'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -899,9 +1000,11 @@ class Portability {
     Field('portabilityVerification', String, 'Portability Verification',
         hint: 'Cross-platform testing, compatibility matrix'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Detailed portability requirements narrative.
+  @SerializationOrder(1)
   TextSection narrative = TextSection();
 }
 
@@ -916,19 +1019,24 @@ class Flexibility {
     Field('componentReplaceability', String, 'Component Replaceability',
         hint: 'Hot-swap, restart required'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Modularity and reuse goals.
+  @SerializationOrder(1)
   FlexibilityModularity modularity = FlexibilityModularity();
 
   /// Distribution and configurability model.
+  @SerializationOrder(2)
   FlexibilityDeployment deployment = FlexibilityDeployment();
 
   /// Extensibility and verification expectations.
+  @SerializationOrder(3)
   FlexibilityExtensibility extensibility =
       FlexibilityExtensibility();
 
   /// Detailed flexibility requirements narrative.
+  @SerializationOrder(4)
   TextSection narrative = TextSection();
 }
 
@@ -943,6 +1051,7 @@ class FlexibilityModularity {
     Field('moduleReusability', String, 'Module Reusability',
         hint: 'Design for reuse, single-purpose'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -957,6 +1066,7 @@ class FlexibilityDeployment {
     Field('configurabilityLevel', String, 'Configurability Level',
         hint: 'Feature flags, runtime config, deploy-time'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -971,6 +1081,7 @@ class FlexibilityExtensibility {
     Field('flexibilityVerification', String, 'Flexibility Verification',
         hint: 'Architecture review, change impact analysis'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -985,24 +1096,30 @@ class Security {
     Field('keyManagement', String, 'Key Management',
         hint: 'HSM, KMS, key rotation policy'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Authentication controls.
+  @SerializationOrder(1)
   SecurityAuthentication authentication =
       SecurityAuthentication();
 
   /// Authorization controls.
+  @SerializationOrder(2)
   SecurityAuthorization authorization =
       SecurityAuthorization();
 
   /// Vulnerability management expectations.
+  @SerializationOrder(3)
   SecurityVulnerability vulnerability =
       SecurityVulnerability();
 
   /// Compliance and verification settings.
+  @SerializationOrder(4)
   SecurityCompliance compliance = SecurityCompliance();
 
   /// Detailed security requirements narrative.
+  @SerializationOrder(5)
   TextSection narrative = TextSection();
 }
 
@@ -1019,6 +1136,7 @@ class SecurityAuthentication {
     Field('sessionManagement', String, 'Session Management',
         hint: 'Timeout, concurrent sessions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1033,6 +1151,7 @@ class SecurityAuthorization {
     Field('privilegeEscalationPrevention', String, 'Privilege Escalation',
         hint: 'Controls to prevent escalation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1047,6 +1166,7 @@ class SecurityVulnerability {
     Field('cveResponseTime', String, 'CVE Response Time',
         hint: 'Critical: 24h, high: 7d'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1063,6 +1183,7 @@ class SecurityCompliance {
     Field('securityVerification', String, 'Security Verification',
         hint: 'SAST, DAST, security review'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1075,25 +1196,31 @@ class Maintainability {
     Field('changeImpactLimit', String, 'Change Impact Limit',
         hint: 'Max components affected by change'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Analyzability requirements.
+  @SerializationOrder(1)
   MaintainabilityAnalyzability analyzability =
       MaintainabilityAnalyzability();
 
   /// Changeability requirements.
+  @SerializationOrder(2)
   MaintainabilityChangeability changeability =
       MaintainabilityChangeability();
 
   /// Testability requirements.
+  @SerializationOrder(3)
   MaintainabilityTestability testability =
       MaintainabilityTestability();
 
   /// Extensibility and verification requirements.
+  @SerializationOrder(4)
   MaintainabilityGovernance governance =
       MaintainabilityGovernance();
 
   /// Detailed maintainability requirements narrative.
+  @SerializationOrder(5)
   TextSection narrative = TextSection();
 }
 
@@ -1108,6 +1235,7 @@ class MaintainabilityAnalyzability {
     Field('loggingStandard', String, 'Logging Standard',
         hint: 'Structured logging, log levels'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1124,6 +1252,7 @@ class MaintainabilityChangeability {
     Field('classLengthLimit', String, 'Class Length Limit',
         hint: 'Max lines per class'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1138,6 +1267,7 @@ class MaintainabilityTestability {
     Field('testDataManagement', String, 'Test Data Management',
         hint: 'Fixtures, factories, production-like'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1154,6 +1284,7 @@ class MaintainabilityGovernance {
     Field('technicalDebtTracking', String, 'Technical Debt Tracking',
         hint: 'SonarQube, manual tracking'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1168,22 +1299,28 @@ class Reliability {
     Field('degradedModeCapability', String, 'Degraded Mode Capability',
         hint: 'Graceful degradation approach'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Recovery objectives.
+  @SerializationOrder(1)
   ReliabilityRecovery recovery = ReliabilityRecovery();
 
   /// Failover requirements.
+  @SerializationOrder(2)
   ReliabilityFailover failover = ReliabilityFailover();
 
   /// Data durability requirements.
+  @SerializationOrder(3)
   ReliabilityDurability durability = ReliabilityDurability();
 
   /// Verification and learning.
+  @SerializationOrder(4)
   ReliabilityVerification verification =
       ReliabilityVerification();
 
   /// Detailed reliability requirements narrative.
+  @SerializationOrder(5)
   TextSection narrative = TextSection();
 }
 
@@ -1200,6 +1337,7 @@ class ReliabilityRecovery {
     Field('rpoTarget', String, 'RPO Target',
         hint: 'Recovery point objective'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1214,6 +1352,7 @@ class ReliabilityFailover {
     Field('failoverTesting', String, 'Failover Testing',
         hint: 'Chaos engineering, DR drills'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1230,6 +1369,7 @@ class ReliabilityDurability {
     Field('backupVerification', String, 'Backup Verification',
         hint: 'Restore testing frequency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1242,6 +1382,7 @@ class ReliabilityVerification {
     Field('incidentPostmortem', String, 'Incident Postmortem',
         hint: 'Blameless postmortem process'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1274,23 +1415,29 @@ class ReliabilityCharacteristic {
     Field('operationsToolchain', String, 'Operations Toolchain',
         hint: 'Key ops tools and platforms'),
   ])
+  @SerializationOrder(0)
   String? reliabilityContent;
 
   /// Reliability overview narrative.
   @ContentHelp('Executive summary of reliability and operational requirements, '
       'support model, and key operational metrics.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 11.6.1. Reliability (product reliability attributes).
+  @SerializationOrder(2)
   Reliability reliability = Reliability();
 
   /// 11.6.2. Availability.
+  @SerializationOrder(3)
   Availability availability = Availability();
 
   /// 11.6.3. Service Level Requirements.
+  @SerializationOrder(4)
   ServiceLevel serviceLevelRequirements = ServiceLevel();
 
   /// 11.6.4. Monitoring and Prevention.
+  @SerializationOrder(5)
   OperationalMonitoring monitoringAndPrevention = OperationalMonitoring();
 }
 
@@ -1305,25 +1452,31 @@ class Availability {
     Field('uptimeMeasurementPeriod', String, 'Measurement Period',
         hint: 'Monthly, quarterly, annually'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Operating-hour expectations.
+  @SerializationOrder(1)
   AvailabilityOperatingHours operatingHoursDetails =
       AvailabilityOperatingHours();
 
   /// Maintenance window policy.
+  @SerializationOrder(2)
   AvailabilityMaintenance maintenance =
       AvailabilityMaintenance();
 
   /// Degraded-mode behavior.
+  @SerializationOrder(3)
   AvailabilityDegradedMode degradedMode =
       AvailabilityDegradedMode();
 
   /// Monitoring and reporting.
+  @SerializationOrder(4)
   AvailabilityVerification verification =
       AvailabilityVerification();
 
   /// Detailed availability requirements narrative.
+  @SerializationOrder(5)
   TextSection narrative = TextSection();
 }
 
@@ -1338,6 +1491,7 @@ class AvailabilityOperatingHours {
     Field('peakHoursAvailability', String, 'Peak Hours Availability',
         hint: 'Higher availability during peaks'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1354,6 +1508,7 @@ class AvailabilityMaintenance {
     Field('maintenanceDurationLimit', String, 'Maintenance Duration Limit',
         hint: 'Max duration per window'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1368,6 +1523,7 @@ class AvailabilityDegradedMode {
     Field('degradedModeCommunication', String, 'Degraded Mode Communication',
         hint: 'How users are informed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1380,6 +1536,7 @@ class AvailabilityVerification {
     Field('availabilityReporting', String, 'Availability Reporting',
         hint: 'Dashboard, reports, SLA tracking'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1394,30 +1551,38 @@ class ServiceLevel {
     Field('highResponseTime', String, 'High Response Time',
         hint: 'Response time for P2 issues'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Remaining response targets.
+  @SerializationOrder(1)
   ServiceLevelResponse response = ServiceLevelResponse();
 
   /// Resolution targets.
+  @SerializationOrder(2)
   ServiceLevelResolution resolution = ServiceLevelResolution();
 
   /// Escalation rules.
+  @SerializationOrder(3)
   ServiceLevelEscalation escalation = ServiceLevelEscalation();
 
   /// On-call support expectations.
+  @SerializationOrder(4)
   ServiceLevelOnCall onCall = ServiceLevelOnCall();
 
   /// Restoration and communication priorities.
+  @SerializationOrder(5)
   ServiceLevelRestoration restoration =
       ServiceLevelRestoration();
 
   /// Detailed service level requirements narrative.
+  @SerializationOrder(6)
   TextSection narrative = TextSection();
 
   /// Service Level Agreement entries.
   @SectionId('SLAE-SLAE-LST')
   @SectionIdPattern('SLAE-SLAE-xxx')
+  @SerializationOrder(7)
   List<ServiceLevelAgreementEntry> slaEntries = [];
 }
 
@@ -1430,6 +1595,7 @@ class ServiceLevelResponse {
         Field('lowResponseTime', String, 'Low Response Time',
                 hint: 'Response time for P4 issues'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1446,6 +1612,7 @@ class ServiceLevelResolution {
         Field('lowResolutionTime', String, 'Low Resolution Time',
                 hint: 'Resolution target for P4'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1460,6 +1627,7 @@ class ServiceLevelEscalation {
         Field('executiveEscalation', String, 'Executive Escalation',
                 hint: 'When executive escalation occurs'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1474,6 +1642,7 @@ class ServiceLevelOnCall {
         Field('onCallCompensation', String, 'On-Call Compensation',
                 hint: 'Compensation model'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1486,6 +1655,7 @@ class ServiceLevelRestoration {
         Field('communicationDuringOutage', String, 'Communication During Outage',
                 hint: 'Status page, email, SMS'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1507,6 +1677,7 @@ class ServiceLevelAgreementEntry {
     Field('slaExclusions', String, 'Exclusions',
         hint: 'What is excluded from SLA'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1521,21 +1692,27 @@ class OperationalMonitoring {
     Field('growthProjections', String, 'Growth Projections',
         hint: 'Expected growth rate'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Component monitoring coverage.
+  @SerializationOrder(1)
   MonitoringCoverage coverage = MonitoringCoverage();
 
   /// Alert automation capabilities.
+  @SerializationOrder(2)
   MonitoringAutomation automation = MonitoringAutomation();
 
   /// Alerting strategy and channels.
+  @SerializationOrder(3)
   MonitoringAlerting alerting = MonitoringAlerting();
 
   /// Planning and observability settings.
+  @SerializationOrder(4)
   MonitoringOperations operations = MonitoringOperations();
 
   /// Detailed monitoring requirements narrative.
+  @SerializationOrder(5)
   TextSection narrative = TextSection();
 }
 
@@ -1552,6 +1729,7 @@ class MonitoringCoverage {
     Field('thirdPartyMonitoring', String, 'Third-Party Monitoring',
         hint: 'External service monitoring'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1566,6 +1744,7 @@ class MonitoringAutomation {
     Field('runbookAutomation', String, 'Runbook Automation',
         hint: 'Automated runbook execution'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1582,6 +1761,7 @@ class MonitoringAlerting {
     Field('alertFatiguePrevention', String, 'Alert Fatigue Prevention',
         hint: 'De-duplication, correlation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1600,6 +1780,7 @@ class MonitoringOperations {
     Field('logRetentionPeriod', String, 'Log Retention Period',
         hint: 'How long logs are kept'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1613,25 +1794,31 @@ class ItSecurityOperations {
     Field('incidentResponsePlan', String, 'Incident Response Plan',
         hint: 'NIST, custom'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Access protection controls.
+  @SerializationOrder(1)
   ItSecurityOperationsAccess access =
       ItSecurityOperationsAccess();
 
   /// Disaster recovery planning details.
+  @SerializationOrder(2)
   ItSecurityOperationsRecovery recovery =
       ItSecurityOperationsRecovery();
 
   /// Penetration testing and remediation.
+  @SerializationOrder(3)
   ItSecurityOperationsTesting testing =
       ItSecurityOperationsTesting();
 
   /// Incident handling and reporting.
+  @SerializationOrder(4)
   ItSecurityOperationsIncident incident =
       ItSecurityOperationsIncident();
 
   /// Detailed IT security operations narrative.
+  @SerializationOrder(5)
   TextSection narrative = TextSection();
 }
 
@@ -1646,6 +1833,7 @@ class ItSecurityOperationsAccess {
     Field('accessAuditLogging', String, 'Access Audit Logging',
         hint: 'What access is logged'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1662,6 +1850,7 @@ class ItSecurityOperationsRecovery {
     Field('drCommunicationPlan', String, 'DR Communication Plan',
         hint: 'How stakeholders are notified'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1677,6 +1866,7 @@ class ItSecurityOperationsTesting {
         hint: 'Resolution timeframes by severity'),
     Field('bugBountyProgram', bool, 'Bug Bounty Program'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1693,6 +1883,7 @@ class ItSecurityOperationsIncident {
     Field('regulatoryReporting', String, 'Regulatory Reporting',
         hint: 'Breach notification requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1726,23 +1917,29 @@ class DocumentationQualityCriteria {
     Field('documentationUpdateCadence', String, 'Update Cadence',
         hint: 'Continuous, per-release, scheduled'),
   ])
+  @SerializationOrder(0)
   String? documentationOverviewContent;
 
   /// Documentation quality overview narrative.
   @ContentHelp('Executive summary of documentation goals, '
       'target audiences, and key documentation metrics.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 11.5.1. Readability.
+  @SerializationOrder(2)
   Readability readability = Readability();
 
   /// 11.5.2. Completeness.
+  @SerializationOrder(3)
   DocCompleteness completeness = DocCompleteness();
 
   /// 11.5.3. Correctness.
+  @SerializationOrder(4)
   DocCorrectness correctness = DocCorrectness();
 
   /// 11.5.4. Changeability.
+  @SerializationOrder(5)
   DocChangeability changeability = DocChangeability();
 }
 
@@ -1757,22 +1954,28 @@ class Readability {
     Field('jargonPolicy', String, 'Jargon Policy',
         hint: 'Define all terms, minimize jargon'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identifiability and navigation.
+  @SerializationOrder(1)
   ReadabilityNavigation navigation = ReadabilityNavigation();
 
   /// Comprehensibility requirements.
+  @SerializationOrder(2)
   ReadabilityComprehensibility comprehensibility =
       ReadabilityComprehensibility();
 
   /// Document structure rules.
+  @SerializationOrder(3)
   ReadabilityStructure structure = ReadabilityStructure();
 
   /// Style guide alignment.
+  @SerializationOrder(4)
   ReadabilityStyle style = ReadabilityStyle();
 
   /// Detailed readability requirements narrative.
+  @SerializationOrder(5)
   TextSection narrative = TextSection();
 }
 
@@ -1787,6 +1990,7 @@ class ReadabilityNavigation {
     Field('searchability', String, 'Searchability',
         hint: 'Full-text search, tagged'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1801,6 +2005,7 @@ class ReadabilityComprehensibility {
     Field('visualAidRequirements', String, 'Visual Aid Requirements',
         hint: 'Diagrams, screenshots, examples'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1815,6 +2020,7 @@ class ReadabilityStructure {
     Field('navigationAids', String, 'Navigation Aids',
         hint: 'TOC, index, breadcrumbs'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1829,6 +2035,7 @@ class ReadabilityStyle {
     Field('formattingConventions', String, 'Formatting Conventions',
         hint: 'Code, commands, UI elements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1861,9 +2068,11 @@ class DocCompleteness {
     Field('gapIdentificationProcess', String, 'Gap Identification',
         hint: 'User feedback, coverage reports'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Detailed completeness requirements narrative.
+  @SerializationOrder(1)
   TextSection narrative = TextSection();
 }
 
@@ -1882,16 +2091,20 @@ class DocCorrectness {
     Field('terminologyConsistency', String, 'Terminology Consistency',
         hint: 'Glossary enforcement'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Formatting and implementation alignment.
+  @SerializationOrder(1)
   DocCorrectnessAlignment alignment = DocCorrectnessAlignment();
 
   /// Verification and feedback handling.
+  @SerializationOrder(2)
   DocCorrectnessVerification verification =
       DocCorrectnessVerification();
 
   /// Detailed correctness requirements narrative.
+  @SerializationOrder(3)
   TextSection narrative = TextSection();
 }
 
@@ -1910,6 +2123,7 @@ class DocCorrectnessAlignment {
         Field('deprecationHandling', String, 'Deprecation Handling',
                 hint: 'How deprecated features are handled'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1922,6 +2136,7 @@ class DocCorrectnessVerification {
         Field('userFeedbackIntegration', String, 'User Feedback Integration',
                 hint: 'How user-reported errors are handled'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -1936,21 +2151,26 @@ class DocChangeability {
     Field('multiVersionSupport', String, 'Multi-Version Support',
         hint: 'Multiple product versions documented'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Extensibility and localization readiness.
+  @SerializationOrder(1)
   DocChangeabilityExtensibility extensibility =
       DocChangeabilityExtensibility();
 
   /// Sizing and structural consistency rules.
+  @SerializationOrder(2)
   DocChangeabilityStructure structure =
       DocChangeabilityStructure();
 
   /// Review and retirement maintenance process.
+  @SerializationOrder(3)
   DocChangeabilityMaintenance maintenance =
       DocChangeabilityMaintenance();
 
   /// Detailed changeability requirements narrative.
+  @SerializationOrder(4)
   TextSection narrative = TextSection();
 }
 
@@ -1965,6 +2185,7 @@ class DocChangeabilityExtensibility {
     Field('localizationReadiness', String, 'Localization Readiness',
         hint: 'i18n considerations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1981,6 +2202,7 @@ class DocChangeabilityStructure {
     Field('structuralChangeProcess', String, 'Structural Change Process',
         hint: 'How structure changes are made'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1993,6 +2215,7 @@ class DocChangeabilityMaintenance {
     Field('retirementProcess', String, 'Retirement Process',
         hint: 'How outdated docs are retired'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2021,17 +2244,21 @@ class QualityPrioritization {
     Field('conflictResolutionAuthority', String, 'Conflict Resolution Authority',
         hint: 'Who resolves priority conflicts'),
   ])
+  @SerializationOrder(0)
   String? prioritizationFrameworkContent;
 
   /// Prioritization approach overview.
   @ContentHelp('Overview of how quality attributes are prioritized, '
       'including stakeholder involvement and decision process.')
+  @SerializationOrder(1)
   TextSection prioritizationOverview = TextSection();
 
   /// 11.6.1. Weighted Quality Matrix.
+  @SerializationOrder(2)
   WeightedQualityMatrix weightedQualityMatrix = WeightedQualityMatrix();
 
   /// 11.6.2. Trade-off Decisions.
+  @SerializationOrder(3)
   TradeOffDecisions tradeOffDecisions = TradeOffDecisions();
 }
 
@@ -2049,20 +2276,24 @@ class WeightedQualityMatrix {
     Field('matrixUpdateProcess', String, 'Matrix Update Process',
         hint: 'How weights are updated'),
   ])
+  @SerializationOrder(0)
   String? matrixConfigContent;
 
   /// Weighted quality matrix narrative.
   @ContentHelp('Description of weighted quality matrix including '
       'weights assigned to each attribute and rationale.')
+  @SerializationOrder(1)
   TextSection matrixNarrative = TextSection();
 
   /// Quality attribute weight entries.
   @SectionId('QLWGT-WEIG-LST')
   @SectionIdPattern('QLWGT-WEIG-xxx')
+  @SerializationOrder(2)
   List<QualityWeightEntry> weights = [];
 
   /// Quality matrix visualization.
   @ContentHelp('Visual representation of quality attribute priorities.')
+  @SerializationOrder(3)
   DiagramSection matrixVisualization = DiagramSection();
 }
 
@@ -2083,6 +2314,7 @@ class QualityWeightEntry {
     Field('tradeOffImplications', String, 'Trade-off Implications',
         hint: 'What this priority means for other attributes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2101,16 +2333,19 @@ class TradeOffDecisions {
     Field('tradeOffReversal', String, 'Trade-off Reversal',
         hint: 'Process to reverse a trade-off decision'),
   ])
+  @SerializationOrder(0)
   String? tradeOffGovernanceContent;
 
   /// Trade-off decisions overview.
   @ContentHelp('Overview of major trade-off decisions and their impact '
       'on system quality and design choices.')
+  @SerializationOrder(1)
   TextSection tradeOffOverview = TextSection();
 
   /// Contains 0+× TradeOffDecision.
   @SectionId('TODE-ITEM-LST')
   @SectionIdPattern('TODE-ITEM-xxx')
+  @SerializationOrder(2)
   List<TradeOffDecisionEntry> items = [];
 }
 
@@ -2124,27 +2359,34 @@ class TradeOffDecisionEntry {
     Field('decisionStatus', String, 'Status',
         hint: 'Proposed, approved, implemented, reversed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Qualities in conflict.
+  @SerializationOrder(1)
   TradeOffDecisionEntryQualities qualities = TradeOffDecisionEntryQualities();
 
   /// Rationale for trade-off.
+  @SerializationOrder(2)
   TradeOffDecisionEntryRationale rationale = TradeOffDecisionEntryRationale();
 
   /// Impact assessment.
+  @SerializationOrder(3)
   TradeOffDecisionEntryImpact impact = TradeOffDecisionEntryImpact();
 
   /// Mitigation measures.
+  @SerializationOrder(4)
   TradeOffDecisionEntryMitigation mitigation =
       TradeOffDecisionEntryMitigation();
 
   /// Approval and governance.
+  @SerializationOrder(5)
   TradeOffDecisionEntryApproval approval = TradeOffDecisionEntryApproval();
 
   /// Detailed trade-off analysis.
   @ContentHelp('Extended analysis of trade-off decision including '
       'quantitative impact assessment.')
+  @SerializationOrder(6)
   TextSection detailedAnalysis = TextSection();
 }
 
@@ -2159,6 +2401,7 @@ class TradeOffDecisionEntryQualities {
     Field('additionalQualitiesAffected', String, 'Additional Qualities Affected',
         hint: 'Other qualities impacted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2175,6 +2418,7 @@ class TradeOffDecisionEntryRationale {
     Field('alternativesConsidered', String, 'Alternatives Considered',
         hint: 'Other approaches evaluated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2193,6 +2437,7 @@ class TradeOffDecisionEntryImpact {
     Field('impactOnUserExperience', String, 'Impact on User Experience',
         hint: 'UX implications'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2207,6 +2452,7 @@ class TradeOffDecisionEntryMitigation {
     Field('monitoringApproach', String, 'Monitoring Approach',
         hint: 'How impact is monitored'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2222,6 +2468,7 @@ class TradeOffDecisionEntryApproval {
     Field('reviewDate', String, 'Review Date',
         hint: 'When decision will be reviewed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2257,17 +2504,21 @@ class AcceptanceCriteriaSummary {
     Field('acceptanceRejectionCriteria', String, 'Rejection Criteria',
         hint: 'What triggers rejection'),
   ])
+  @SerializationOrder(0)
   String? acceptanceFrameworkContent;
 
   /// Acceptance criteria overview.
   @ContentHelp('Overview of acceptance process, key acceptance criteria, '
       'and acceptance governance.')
+  @SerializationOrder(1)
   TextSection acceptanceOverview = TextSection();
 
   /// 11.7.1. Must-Pass Criteria.
+  @SerializationOrder(2)
   MustPassCriteria mustPassCriteria = MustPassCriteria();
 
   /// 11.7.2. Quality Gate Checklist.
+  @SerializationOrder(3)
   QualityGateChecklist qualityGateChecklist = QualityGateChecklist();
 
   /// Canonical, enumerated acceptance criteria (SR-54 explicit link).
@@ -2275,10 +2526,12 @@ class AcceptanceCriteriaSummary {
   /// The single source of truth for the full set of traceable acceptance
   /// criteria; this summary references — rather than duplicates — it. The same
   /// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
+  @SerializationOrder(4)
   AcceptanceCriteriaList detailedCriteria = AcceptanceCriteriaList();
 
   /// Acceptance test summary.
   @ContentHelp('Summary of acceptance test plan and expected outcomes.')
+  @SerializationOrder(5)
   TextSection acceptanceTestSummary = TextSection();
 }
 
@@ -2298,16 +2551,19 @@ class MustPassCriteria {
     Field('waiverAuthority', String, 'Waiver Authority',
         hint: 'Who can grant waivers'),
   ])
+  @SerializationOrder(0)
   String? mustPassOverviewContent;
 
   /// Must-pass criteria overview.
   @ContentHelp('Overview of must-pass criteria approach and '
       'rationale for selection.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Contains 0+× MustPassCriterion.
   @SectionId('MSTPCR-ITEM-LST')
   @SectionIdPattern('MSTPCR-ITEM-xxx')
+  @SerializationOrder(2)
   List<MustPassCriterionEntry> items = [];
 }
 
@@ -2321,26 +2577,32 @@ class MustPassCriterionEntry {
     Field('verificationMethod', String, 'Verification Method', required: true,
         hint: 'Test, demonstration, analysis, inspection'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Classification and intent of the criterion.
+  @SerializationOrder(1)
   MustPassCriterionEntryDefinition definition =
       MustPassCriterionEntryDefinition();
 
   /// Verification and threshold details.
+  @SerializationOrder(2)
   MustPassCriterionEntryVerification verification =
       MustPassCriterionEntryVerification();
 
   /// Responsibility and dependency information.
+  @SerializationOrder(3)
   MustPassCriterionEntryGovernance governance =
       MustPassCriterionEntryGovernance();
 
   /// Execution status and defects.
+  @SerializationOrder(4)
   MustPassCriterionEntryStatus status = MustPassCriterionEntryStatus();
 
   /// Additional criterion details.
   @ContentHelp('Extended description of criterion including '
       'edge cases and special considerations.')
+  @SerializationOrder(5)
   TextSection details = TextSection();
 }
 
@@ -2355,6 +2617,7 @@ class MustPassCriterionEntryDefinition {
     Field('qualityAttribute', String, 'Quality Attribute',
         hint: 'Specific attribute this relates to'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2373,6 +2636,7 @@ class MustPassCriterionEntryVerification {
     Field('toleranceAllowed', String, 'Tolerance Allowed',
         hint: 'Any acceptable variance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2391,6 +2655,7 @@ class MustPassCriterionEntryGovernance {
     Field('blockedByCriteria', String, 'Blocked By',
         hint: 'Criteria that block this'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2405,6 +2670,7 @@ class MustPassCriterionEntryStatus {
     Field('defectIds', String, 'Defect IDs',
         hint: 'Defects blocking pass'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2425,15 +2691,18 @@ class QualityGateChecklist {
     Field('checklistFrequency', String, 'Checklist Frequency',
         hint: 'When checklist is used'),
   ])
+  @SerializationOrder(0)
   String? checklistOverviewContent;
 
   /// Quality gate checklist overview.
   @ContentHelp('Overview of quality gate process and checklist usage.')
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// Contains 0+× QualityGateCheck.
   @SectionId('QGCHK-ITEM-LST')
   @SectionIdPattern('QGCHK-ITEM-xxx')
+  @SerializationOrder(2)
   List<QualityGateCheckEntry> items = [];
 }
 
@@ -2448,23 +2717,29 @@ class QualityGateCheckEntry {
     Field('verificationMethod', String, 'Verification Method', required: true,
         hint: 'How check is verified'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Check definition and categorization.
+  @SerializationOrder(1)
   QualityGateCheckEntryDefinition definition =
       QualityGateCheckEntryDefinition();
 
   /// Verification criteria and evidence.
+  @SerializationOrder(2)
   QualityGateCheckEntryVerification verification =
       QualityGateCheckEntryVerification();
 
   /// Responsibility and timing.
+  @SerializationOrder(3)
   QualityGateCheckEntryExecution execution = QualityGateCheckEntryExecution();
 
   /// Status and observations.
+  @SerializationOrder(4)
   QualityGateCheckEntryStatus status = QualityGateCheckEntryStatus();
 
   /// Blocking behavior.
+  @SerializationOrder(5)
   QualityGateCheckEntryBlocking blocking = QualityGateCheckEntryBlocking();
 }
 
@@ -2479,6 +2754,7 @@ class QualityGateCheckEntryDefinition {
     Field('qualityCategory', String, 'Quality Category',
         hint: 'User, Technical, Operations, Documentation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2493,6 +2769,7 @@ class QualityGateCheckEntryVerification {
     Field('automatedCheck', bool, 'Automated Check',
         hint: 'Is check automated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2511,6 +2788,7 @@ class QualityGateCheckEntryExecution {
     Field('checkDependencies', String, 'Dependencies',
         hint: 'What must be complete first'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2525,6 +2803,7 @@ class QualityGateCheckEntryStatus {
     Field('checkNotes', String, 'Notes',
         hint: 'Additional observations'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2537,6 +2816,7 @@ class QualityGateCheckEntryBlocking {
     Field('blockingRationale', String, 'Blocking Rationale',
         hint: 'Why this check blocks'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2567,6 +2847,7 @@ quality-goal sections; this section integrates them.
 - Traceability from requirements to tests
 - Risk-based test prioritization
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2574,6 +2855,7 @@ quality-goal sections; this section integrates them.
 @SectionId('CATEG')
 class CategoryDependencyEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2581,5 +2863,6 @@ class CategoryDependencyEntry {
 @SectionId('ATTRI')
 class AttributeInterdependencyEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }

@@ -35,42 +35,54 @@ class SystemStagePlan {
             'Sequential / PartialOverlap / FullyParallel — '
             'whether stages can overlap in execution'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Overall schedule and buffer model.
+  @SerializationOrder(1)
   StagePlanTimeline timeline = StagePlanTimeline();
 
   /// Dependencies, risks, and compliance constraints across stages.
+  @SerializationOrder(2)
   StagePlanCoordination coordination = StagePlanCoordination();
 
   /// Organizational capacity and plan confidence.
+  @SerializationOrder(3)
   StagePlanReadiness readiness = StagePlanReadiness();
 
   /// 13.1. Staging Strategy.
+  @SerializationOrder(4)
   StagingStrategy strategy = StagingStrategy();
 
   /// 13.2. Stage Overview.
+  @SerializationOrder(5)
   StageOverview stageOverview = StageOverview();
 
   /// 13.3. Stages — contains 1+× Stage.
   @SectionId('STAGE-STAG-LST')
   @SectionIdPattern('STAGE-STAG-xxx')
   @Min(1)
+  @SerializationOrder(6)
   List<StageEntry> stages = [];
 
   /// 13.4. Feature Prioritization.
+  @SerializationOrder(7)
   FeaturePrioritization featurePrioritization = FeaturePrioritization();
 
   /// 13.5. Data Migration Strategy.
+  @SerializationOrder(8)
   DataMigrationStrategy dataMigration = DataMigrationStrategy();
 
   /// 13.6. Governance.
+  @SerializationOrder(9)
   StageGovernance governance = StageGovernance();
 
   /// 13.7. Initial Development Flow. Covers DRM-IDV.
+  @SerializationOrder(10)
   InitialDevelopmentFlow initialDevelopmentFlow = InitialDevelopmentFlow();
 
   /// 13.8. Upgrade Cycle Framework. Covers DRM-UPG.
+  @SerializationOrder(11)
   UpgradeCycleFramework upgradeCycleFramework = UpgradeCycleFramework();
 }
 
@@ -90,6 +102,7 @@ class StagePlanTimeline {
                         'How schedule buffers are allocated — PerStage / '
                         'Aggregated / CriticalChain'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -111,6 +124,7 @@ class StagePlanCoordination {
                         'Regulatory requirements affecting staging order or '
                         'timing — e.g. SOX, GDPR data readiness, PCI-DSS'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -135,6 +149,7 @@ class StagePlanReadiness {
         Field('lastPlanReviewDate', String, 'Last Plan Review Date',
                 hint: 'When the staging plan was last formally reviewed'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -160,46 +175,59 @@ class StagingStrategy {
     Field('overallRiskLevel', String, 'Overall Risk Level',
         hint: 'Low / Medium / High / Critical'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Approach selection details.
+  @SerializationOrder(1)
   StagingApproachSelection approachSelection = StagingApproachSelection();
 
   /// Rationale and justification.
+  @SerializationOrder(2)
   StagingRationale rationale = StagingRationale();
 
   /// Key drivers and constraints.
   @SectionId('STAGDR-DRIV-LST')
   @SectionIdPattern('STAGDR-DRIV-xxx')
+  @SerializationOrder(3)
   List<StagingDrivers> drivers = [];
 
   /// Risk assessment.
+  @SerializationOrder(4)
   StagingRiskAssessment riskAssessment = StagingRiskAssessment();
 
   /// Complexity assessment.
+  @SerializationOrder(5)
   StagingComplexity complexity = StagingComplexity();
 
   /// Readiness and resources.
+  @SerializationOrder(6)
   StagingReadiness readiness = StagingReadiness();
 
   /// Rollback and cutover strategy.
+  @SerializationOrder(7)
   StagingCutover cutover = StagingCutover();
 
   /// Success criteria and metrics.
+  @SerializationOrder(8)
   StagingSuccessCriteria successCriteria = StagingSuccessCriteria();
 
   /// Communication and change management.
+  @SerializationOrder(9)
   StagingCommunication communication = StagingCommunication();
 
   /// Framework alignment.
+  @SerializationOrder(10)
   StagingFrameworkAlignment frameworkAlignment = StagingFrameworkAlignment();
 
   /// Dependencies and prerequisites.
   @SectionId('STAGDP-DEPE-LST')
   @SectionIdPattern('STAGDP-DEPE-xxx')
+  @SerializationOrder(11)
   List<StagingDependencies> dependencies = [];
 
   /// Governance and approvals.
+  @SerializationOrder(12)
   StagingGovernance governance = StagingGovernance();
 
   /// 13.1.1. Staging Approach.
@@ -207,6 +235,7 @@ class StagingStrategy {
       'are defined, sequenced, and executed. Cover big bang vs phased '
       'rollout, geography-based vs function-based staging, pilot groups, '
       'parallel operation periods, and cutover methodologies.')
+  @SerializationOrder(13)
   TextSection stagingApproach = TextSection();
 
   /// 13.1.2. Rationale.
@@ -214,16 +243,19 @@ class StagingStrategy {
       'reduction benefits, early value delivery opportunities, resource '
       'optimization factors, alternatives considered and why rejected, '
       'alignment with organizational change capacity.')
+  @SerializationOrder(14)
   TextSection rationaleNarrative = TextSection();
 
   /// 13.1.3. Key Assumptions.
   @SectionId('KEYAS-KEYA-LST')
   @SectionIdPattern('KEYAS-KEYA-xxx')
+  @SerializationOrder(15)
   List<KeyAssumptionEntry> keyAssumptions = [];
 
   /// 13.1.4. Constraints.
   @SectionId('STAGI-CONS-LST')
   @SectionIdPattern('STAGI-CONS-xxx')
+  @SerializationOrder(16)
   List<StagingStrategyConstraintEntry> constraints = [];
 }
 
@@ -238,6 +270,7 @@ class StagingApproachSelection {
     Field('selectionCriteria', String, 'Selection Criteria',
         hint: 'Criteria used to select this approach'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -254,6 +287,7 @@ class StagingRationale {
     Field('businessContinuityRationale', String, 'Business Continuity Rationale',
         hint: 'How this approach ensures business operations continue'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -274,6 +308,7 @@ class StagingDrivers {
     Field('seasonalConsiderations', String, 'Seasonal Considerations',
         hint: 'Seasonal business factors'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -292,6 +327,7 @@ class StagingRiskAssessment {
     Field('rollbackTriggers', String, 'Rollback Triggers',
         hint: 'Criteria that would trigger a rollback'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -310,6 +346,7 @@ class StagingComplexity {
     Field('userImpactComplexity', String, 'User Impact Complexity',
         hint: 'Complexity of user impact management'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -330,6 +367,7 @@ class StagingReadiness {
     Field('supportCapacity', String, 'Support Capacity',
         hint: 'Support team capacity during transition'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -356,6 +394,7 @@ class StagingCutover {
     Field('cutoverCriteria', String, 'Cutover Criteria',
         hint: 'Criteria that must be met before cutover'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -374,6 +413,7 @@ class StagingSuccessCriteria {
     Field('acceptanceCriteria', String, 'Acceptance Criteria',
         hint: 'Formal acceptance criteria for stage completion'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -394,6 +434,7 @@ class StagingCommunication {
     Field('feedbackMechanisms', String, 'Feedback Mechanisms',
         hint: 'How user feedback will be collected'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -412,6 +453,7 @@ class StagingFrameworkAlignment {
     Field('releaseTrainCadence', String, 'Release Train Cadence',
         hint: 'SAFe release train cadence if applicable'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -428,6 +470,7 @@ class StagingDependencies {
     Field('dependencyRisks', String, 'Dependency Risks',
         hint: 'Risks associated with dependencies'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -444,6 +487,7 @@ class StagingGovernance {
     Field('exceptionHandling', String, 'Exception Handling',
         hint: 'How exceptions to the staging plan will be handled'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -472,39 +516,51 @@ class StageOverview {
             'Aggregate budget across all stages including '
             'contingency, e.g. EUR 2.4M'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Summary metrics across all stages.
+  @SerializationOrder(1)
   StageOverviewMetrics metrics = StageOverviewMetrics();
 
   /// Planning baseline and revision history.
+  @SerializationOrder(2)
   StageOverviewBaseline baseline = StageOverviewBaseline();
 
   /// Cross-stage dependencies and critical path.
+  @SerializationOrder(3)
   StageOverviewDependencies dependencies = StageOverviewDependencies();
 
   /// Resource allocation patterns.
+  @SerializationOrder(4)
   StageOverviewResources resources = StageOverviewResources();
 
   /// Budget distribution across stages.
+  @SerializationOrder(5)
   StageOverviewBudget budget = StageOverviewBudget();
 
   /// Schedule analytics and float.
+  @SerializationOrder(6)
   StageOverviewSchedule schedule = StageOverviewSchedule();
 
   /// Quality and compliance targets.
+  @SerializationOrder(7)
   StageOverviewQuality quality = StageOverviewQuality();
 
   /// Risk profile summary.
+  @SerializationOrder(8)
   StageOverviewRisk risk = StageOverviewRisk();
 
   /// Plan status and health indicators.
+  @SerializationOrder(9)
   StageOverviewStatus status = StageOverviewStatus();
 
   /// Stakeholder communication approach.
+  @SerializationOrder(10)
   StageOverviewCommunication communication = StageOverviewCommunication();
 
   /// Assumptions and constraints.
+  @SerializationOrder(11)
   StageOverviewConstraints constraints = StageOverviewConstraints();
 
   /// 13.2.1. Stage Summary — contains 1+× Stage
@@ -512,6 +568,7 @@ class StageOverview {
   @SectionId('STAGSE-STAG-LST')
   @SectionIdPattern('STAGSE-STAG-xxx')
   @Min(1)
+  @SerializationOrder(12)
   List<StageSummaryEntry> stageSummaries = [];
 
   /// Stage Summary narrative.
@@ -519,12 +576,14 @@ class StageOverview {
       'summaries: overall staging philosophy, key milestones across stages, '
       'critical path highlights, aggregate risk profile, '
       'resource allocation patterns, and major dependencies.')
+  @SerializationOrder(13)
   TextSection stageSummaryNarrative = TextSection();
 
   /// 13.2.2. Stage Timeline Diagram (mermaid-gantt).
   @ContentHelp('Gantt chart showing all stages with start/end dates, '
       'milestones, parallel activities, critical path, buffer allocations, '
       'and key decision points. Show dependencies between stages.')
+  @SerializationOrder(14)
   GanttDiagramSection timelineDiagram = GanttDiagramSection();
 
   /// 13.2.3. Resource Allocation Diagram
@@ -532,6 +591,7 @@ class StageOverview {
   @ContentHelp('Gantt-style resource allocation across stages: '
       'team assignments, role transitions, ramp-up/ramp-down periods, '
       'shared resources, external consultants, training periods.')
+  @SerializationOrder(15)
   GanttDiagramSection resourceAllocationDiagram = GanttDiagramSection();
 
   /// 13.2.4. Budget Distribution Diagram
@@ -539,12 +599,14 @@ class StageOverview {
   @ContentHelp('Visual budget distribution: percentage per stage, '
       'capital vs operational split, contingency allocation, '
       'major cost drivers per stage, cumulative spend curve.')
+  @SerializationOrder(16)
   FlowDiagramSection budgetDistributionDiagram = FlowDiagramSection();
 
   /// 13.2.5. Dependency Map (mermaid-flow).
   @ContentHelp('Visual map of cross-stage dependencies and critical paths: '
       'mandatory sequencing, shared resources, data dependencies, '
       'integration touchpoints, and external milestones.')
+  @SerializationOrder(17)
   FlowDiagramSection dependencyMap = FlowDiagramSection();
 }
 
@@ -576,6 +638,7 @@ class StageOverviewMetrics {
     Field('longestStageDuration', String, 'Longest Stage Duration',
         hint: 'Duration of the longest stage and which stage it is'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -600,6 +663,7 @@ class StageOverviewBaseline {
     Field('nextScheduledReview', String, 'Next Scheduled Review',
         hint: 'Date of the next formal plan review, e.g. 2026-07-15'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -622,6 +686,7 @@ class StageOverviewDependencies {
     Field('interStagebufferDays', String, 'Inter-Stage Buffer (Days)',
         hint: 'Average buffer time between consecutive stages, e.g. 10 working days'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -646,6 +711,7 @@ class StageOverviewResources {
     Field('resourceOnboardingLeadTime', String, 'Resource Onboarding Lead Time',
         hint: 'Average time needed to onboard new team members, e.g. 2-3 weeks'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -668,6 +734,7 @@ class StageOverviewBudget {
     Field('capitalVsOperationalSplit', String, 'Capital vs Operational Split',
         hint: 'Ratio of capital to operational expenditure, e.g. 60% CAPEX / 40% OPEX'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -688,6 +755,7 @@ class StageOverviewSchedule {
     Field('milestoneCount', String, 'Milestone Count',
         hint: 'Total number of key milestones across all stages'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -706,6 +774,7 @@ class StageOverviewQuality {
     Field('regressionTestingApproach', String, 'Regression Testing Approach',
         hint: 'How regression testing is managed across stages'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -728,6 +797,7 @@ class StageOverviewRisk {
     Field('riskReviewCadence', String, 'Risk Review Cadence',
         hint: 'How often risks are formally reviewed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -752,6 +822,7 @@ class StageOverviewStatus {
     Field('confidenceBasis', String, 'Confidence Basis',
         hint: 'Basis for confidence level — analogous / expert / parametric / Monte Carlo'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -768,6 +839,7 @@ class StageOverviewCommunication {
     Field('dashboardAvailability', String, 'Dashboard Availability',
         hint: 'Where the live plan status is available'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -786,6 +858,7 @@ class StageOverviewConstraints {
     Field('stageOverlapMaxPercent', String, 'Stage Overlap Max Percentage',
         hint: 'Maximum allowed overlap between consecutive stages, e.g. 20%'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -808,31 +881,39 @@ class StageSummaryEntry {
     Field('scopeSummary', String, 'Scope Summary',
         hint: 'One-line summary of what this stage delivers', required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identity and theme.
+  @SerializationOrder(1)
   StageSummaryIdentity identity = StageSummaryIdentity();
 
   /// Timeline.
+  @SerializationOrder(2)
   StageSummaryTimeline timeline = StageSummaryTimeline();
 
   /// Scope.
+  @SerializationOrder(3)
   StageSummaryScope scope = StageSummaryScope();
 
   /// Resources and budget.
   @SectionId('STSURE-RESO-LST')
   @SectionIdPattern('STSURE-RESO-xxx')
+  @SerializationOrder(4)
   List<StageSummaryResources> resources = [];
 
   /// Dependencies and risks.
   @SectionId('STSUDE-DEPE-LST')
   @SectionIdPattern('STSUDE-DEPE-xxx')
+  @SerializationOrder(5)
   List<StageSummaryDependencies> dependencies = [];
 
   /// Quality and acceptance.
+  @SerializationOrder(6)
   StageSummaryQuality quality = StageSummaryQuality();
 
   /// Status.
+  @SerializationOrder(7)
   StageSummaryStatus status = StageSummaryStatus();
 }
 
@@ -845,6 +926,7 @@ class StageSummaryIdentity {
     Field('stageTheme', String, 'Stage Theme',
         hint: 'High-level theme — Infrastructure / CoreBusiness'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -863,6 +945,7 @@ class StageSummaryTimeline {
     Field('overlapWithPrevious', String, 'Overlap with Previous Stage',
         hint: 'Duration of overlap with preceding stage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -881,6 +964,7 @@ class StageSummaryScope {
     Field('outOfScopeItems', String, 'Out of Scope Items',
         hint: 'Key items excluded from this stage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -899,6 +983,7 @@ class StageSummaryResources {
     Field('externalCostPercent', String, 'External Cost Percentage',
         hint: 'Percentage going to external vendors'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -917,6 +1002,7 @@ class StageSummaryDependencies {
     Field('riskLevel', String, 'Risk Level',
         hint: 'Low / Medium / High / Critical'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -931,6 +1017,7 @@ class StageSummaryQuality {
     Field('gateReviewType', String, 'Gate Review Type',
         hint: 'Formal / Informal / Automated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -947,6 +1034,7 @@ class StageSummaryStatus {
     Field('trafficLightStatus', String, 'Traffic Light Status',
         hint: 'Green / Amber / Red'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -969,42 +1057,53 @@ class StageEntry {
     Field('currentStatus', String, 'Current Status',
         hint: 'Planned / Active / Completed / OnHold / Cancelled'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Identity and classification.
+  @SerializationOrder(1)
   StageIdentity identity = StageIdentity();
 
   /// Timeline and schedule.
+  @SerializationOrder(2)
   StageTimeline timeline = StageTimeline();
 
   /// Scope and features.
+  @SerializationOrder(3)
   StageScope scope = StageScope();
 
   /// Dependencies.
   @SectionId('STDE-DEPE-LST')
   @SectionIdPattern('STDE-DEPE-xxx')
+  @SerializationOrder(4)
   List<StageDependencies> dependencies = [];
 
   /// Resources and budget.
   @SectionId('STRE-RESO-LST')
   @SectionIdPattern('STRE-RESO-xxx')
+  @SerializationOrder(5)
   List<StageResources> resources = [];
 
   /// Quality and governance.
+  @SerializationOrder(6)
   StageQuality quality = StageQuality();
 
   /// Deployment and rollout.
+  @SerializationOrder(7)
   StageDeployment deployment = StageDeployment();
 
   /// Stakeholders and communication.
   @SectionId('STST-STAK-LST')
   @SectionIdPattern('STST-STAK-xxx')
+  @SerializationOrder(8)
   List<StageStakeholders> stakeholders = [];
 
   /// Risk.
+  @SerializationOrder(9)
   StageRisk risk = StageRisk();
 
   /// Status and metrics.
+  @SerializationOrder(10)
   StageMetrics metrics = StageMetrics();
 
   /// Feature Scope narrative.
@@ -1012,22 +1111,26 @@ class StageEntry {
       'and explicitly excluded, minimum viable scope, dependencies on '
       'prior stages, features deferred to future stages, acceptance '
       'criteria for scope completeness.')
+  @SerializationOrder(11)
   TextSection featureScope = TextSection();
 
   /// Sub-stages and Milestones — contains 0+× SubStage.
   @SectionId('SUSST-SUBS-LST')
   @SectionIdPattern('SUSST-SUBS-xxx')
+  @SerializationOrder(12)
   List<SubStageEntry> subStagesAndMilestones = [];
 
   /// Timeline narrative.
   @ContentHelp('Stage timeline details: key milestones, buffer allocation, '
       'critical path activities, dependencies on other stages, '
       'schedule risks, compression options, and go/no-go checkpoints.')
+  @SerializationOrder(13)
   TextSection timelineNarrative = TextSection();
 
   /// Success Criteria — contains 0+× StageSuccessCriterion.
   @SectionId('STGSUC-SUCC-LST')
   @SectionIdPattern('STGSUC-SUCC-xxx')
+  @SerializationOrder(14)
   List<StageSuccessCriterionEntry> successCriteria = [];
 
   /// Rollout Plan narrative.
@@ -1035,6 +1138,7 @@ class StageEntry {
       'data cutover procedure, parallel operation period, '
       'rollback triggers and procedures, hypercare support model, '
       'communication plan, and user training schedule.')
+  @SerializationOrder(15)
   TextSection rolloutPlan = TextSection();
 }
 
@@ -1051,6 +1155,7 @@ class StageIdentity {
     Field('stageType', String, 'Stage Type',
         hint: 'Foundation / Incremental / Enhancement / Optimization / Migration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1078,6 +1183,7 @@ class StageTimeline {
     Field('freezePeriods', String, 'Freeze Periods',
         hint: 'Periods during which no changes can be deployed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1102,6 +1208,7 @@ class StageScope {
     Field('technicalDebtItems', String, 'Technical Debt Items',
         hint: 'Known technical debt to be addressed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1118,6 +1225,7 @@ class StageDependencies {
     Field('blockingRisks', String, 'Blocking Risks',
         hint: 'Risks that could block stage start or completion'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1136,6 +1244,7 @@ class StageResources {
     Field('toolingRequirements', String, 'Tooling Requirements',
         hint: 'Software licenses or third-party services needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1156,6 +1265,7 @@ class StageQuality {
     Field('toleranceLevels', String, 'Tolerance Levels',
         hint: 'PRINCE2 tolerances — time, cost, scope, quality'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1178,6 +1288,7 @@ class StageDeployment {
     Field('hypercarePeriod', String, 'Hypercare Period',
         hint: 'Duration of intensive post-go-live support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1202,6 +1313,7 @@ class StageStakeholders {
     Field('documentationUpdates', String, 'Documentation Updates',
         hint: 'User guides, runbooks, SOPs requiring updates'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1218,6 +1330,7 @@ class StageRisk {
     Field('escalationPath', String, 'Escalation Path',
         hint: 'Escalation process for critical issues'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1236,6 +1349,7 @@ class StageMetrics {
     Field('successThreshold', String, 'Success Threshold',
         hint: 'Minimum outcome required to declare success'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1257,21 +1371,27 @@ class SubStageEntry {
     Field('sequenceNumber', String, 'Sequence Number',
         hint: 'Order within the parent stage — 1, 2, 3…'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Description and objectives.
+  @SerializationOrder(1)
   SubStageEntryOverview overview = SubStageEntryOverview();
 
   /// Timeline and sequencing.
+  @SerializationOrder(2)
   SubStageEntryTimeline timeline = SubStageEntryTimeline();
 
   /// Scope and deliverables.
+  @SerializationOrder(3)
   SubStageEntryScope scope = SubStageEntryScope();
 
   /// Resources and quality focus.
+  @SerializationOrder(4)
   SubStageEntryExecution execution = SubStageEntryExecution();
 
   /// Current status.
+  @SerializationOrder(5)
   SubStageEntryStatus status = SubStageEntryStatus();
 }
 
@@ -1284,6 +1404,7 @@ class SubStageEntryOverview {
     Field('objective', String, 'Objective',
         hint: 'What this sub-stage aims to achieve'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1302,6 +1423,7 @@ class SubStageEntryTimeline {
             'Name or number of the sub-stage that must complete '
             'before this one'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1320,6 +1442,7 @@ class SubStageEntryScope {
             'Which user groups are included — e.g. internal only, '
             'pilot group, beta testers, all users'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1342,6 +1465,7 @@ class SubStageEntryExecution {
             'Primary testing activities — smoke, regression, '
             'performance, UAT, security'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1356,6 +1480,7 @@ class SubStageEntryStatus {
     Field('completionPercentage', String, 'Completion %',
         hint: '0-100 — current progress'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1381,17 +1506,21 @@ class StageSuccessCriterionEntry {
             'MustMeet / ShouldMeet / NiceToHave — importance for '
             'stage sign-off'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Measurement targets.
+  @SerializationOrder(1)
   StageSuccessCriterionEntryMeasurement measurement =
       StageSuccessCriterionEntryMeasurement();
 
   /// Verification planning.
+  @SerializationOrder(2)
   StageSuccessCriterionEntryVerification verification =
       StageSuccessCriterionEntryVerification();
 
   /// Current status and results.
+  @SerializationOrder(3)
   StageSuccessCriterionEntryStatus status = StageSuccessCriterionEntryStatus();
 }
 
@@ -1415,6 +1544,7 @@ class StageSuccessCriterionEntryMeasurement {
     Field('baselineValue', String, 'Baseline Value',
         hint: 'Current baseline before the stage, for comparison'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1430,6 +1560,7 @@ class StageSuccessCriterionEntryVerification {
     Field('verificationDate', String, 'Verification Date',
         hint: 'When verification will be performed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1442,6 +1573,7 @@ class StageSuccessCriterionEntryStatus {
     Field('actualValue', String, 'Actual Value',
         hint: 'Measured value — populated during or after stage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1466,29 +1598,36 @@ class FeaturePrioritization {
     Field('reviewCadence', String, 'Review Cadence',
         hint: 'How often prioritization is reviewed', required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Methodology and scoring.
+  @SerializationOrder(1)
   FeaturePrioritizationMethodology methodology =
       FeaturePrioritizationMethodology();
 
   /// Stakeholder involvement.
+  @SerializationOrder(2)
   FeaturePrioritizationStakeholder stakeholder =
       FeaturePrioritizationStakeholder();
 
   /// Cadence and triggers.
+  @SerializationOrder(3)
   FeaturePrioritizationCadence cadence =
       FeaturePrioritizationCadence();
 
   /// Capacity constraints.
+  @SerializationOrder(4)
   FeaturePrioritizationCapacity capacity =
       FeaturePrioritizationCapacity();
 
   /// Backlog health.
+  @SerializationOrder(5)
   FeaturePrioritizationBacklog backlog =
       FeaturePrioritizationBacklog();
 
   /// Traceability.
+  @SerializationOrder(6)
   FeaturePrioritizationTraceability traceability =
       FeaturePrioritizationTraceability();
 
@@ -1497,19 +1636,24 @@ class FeaturePrioritization {
       'stakeholder input process, business value criteria, '
       'technical feasibility factors, risk considerations, '
       'trade-offs made, and how priorities map to stage planning.')
+  @SerializationOrder(7)
   TextSection prioritizationRationale = TextSection();
 
   /// 13.4.1. MoSCoW Analysis.
+  @SerializationOrder(8)
   MoscowAnalysis moscowAnalysis = MoscowAnalysis();
 
   /// 13.4.2. Feature-Stage Matrix.
+  @SerializationOrder(9)
   FeatureStageMatrix featureStageMatrix = FeatureStageMatrix();
 
   /// 13.4.3. Feature Priority Register.
+  @SerializationOrder(10)
   FeaturePriorityRegister featurePriorityRegister =
       FeaturePriorityRegister();
 
   /// 13.4.4. Feature Dependencies.
+  @SerializationOrder(11)
   FeatureDependencies featureDependencies = FeatureDependencies();
 }
 
@@ -1526,6 +1670,7 @@ class FeaturePrioritizationMethodology {
     Field('criteriaWeights', String, 'Criteria Weights',
         hint: 'Weight per criterion'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1540,6 +1685,7 @@ class FeaturePrioritizationStakeholder {
     Field('conflictResolutionProcess', String, 'Conflict Resolution Process',
         hint: 'How disagreements are resolved'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1554,6 +1700,7 @@ class FeaturePrioritizationCadence {
     Field('nextReviewDate', String, 'Next Scheduled Review',
         hint: 'Next planned prioritization review session'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1570,6 +1717,7 @@ class FeaturePrioritizationCapacity {
     Field('resourceBottlenecks', String, 'Resource Bottlenecks',
         hint: 'Scarce resources constraining delivery'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1588,6 +1736,7 @@ class FeaturePrioritizationBacklog {
     Field('averageFeatureAge', String, 'Average Feature Age',
         hint: 'Mean time features spend in backlog'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1602,6 +1751,7 @@ class FeaturePrioritizationTraceability {
         'Traceability to Requirements',
         hint: 'How features map to requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1639,6 +1789,7 @@ class MoscowAnalysis {
         'Classification Approved By',
         hint: 'Person or body who approved the classification'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// MoSCoW rationale narrative.
@@ -1646,11 +1797,13 @@ class MoscowAnalysis {
       'criteria used to assign categories, stakeholder alignment '
       'process, handling of contested classifications, '
       'relationship to stage boundaries and MVP definition.')
+  @SerializationOrder(1)
   TextSection moscowRationale = TextSection();
 
   /// Contains 0+× MoscowEntry.
   @SectionId('MOEN-ITEM-LST')
   @SectionIdPattern('MOEN-ITEM-xxx')
+  @SerializationOrder(2)
   List<MoscowEntry> items = [];
 }
 
@@ -1674,18 +1827,23 @@ class MoscowEntry {
             'Logical grouping — e.g. Authentication, Reporting, '
             'Payments, User Management'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// MoSCoW classification details.
+  @SerializationOrder(1)
   MoscowEntryClassification classification = MoscowEntryClassification();
 
   /// Value and effort estimates.
+  @SerializationOrder(2)
   MoscowEntryValue value = MoscowEntryValue();
 
   /// Stage assignment.
+  @SerializationOrder(3)
   MoscowEntryStageAssignment stageAssignment = MoscowEntryStageAssignment();
 
   /// Traceability and notes.
+  @SerializationOrder(4)
   MoscowEntryTraceability traceability = MoscowEntryTraceability();
 }
 
@@ -1704,6 +1862,7 @@ class MoscowEntryClassification {
         hint:
             'Low / Medium / High — likelihood the category will change before delivery'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1721,6 +1880,7 @@ class MoscowEntryValue {
         hint:
             'Impact of not delivering on time — revenue loss, penalty, competitive risk'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1737,6 +1897,7 @@ class MoscowEntryStageAssignment {
         hint:
             'Earliest stage where prerequisites allow delivery'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1755,6 +1916,7 @@ class MoscowEntryTraceability {
     Field('notes', String, 'Notes',
         hint: 'Additional notes or caveats'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1784,6 +1946,7 @@ class FeatureStageMatrix {
     Field('matrixApprovedBy', String, 'Matrix Approved By',
         hint: 'Person or body who approved the current matrix'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Feature-Stage matrix narrative.
@@ -1791,11 +1954,13 @@ class FeatureStageMatrix {
       'allocation criteria, dependency constraints, capacity '
       'considerations, cross-stage feature splitting, '
       'handling of scope changes and re-prioritizations.')
+  @SerializationOrder(1)
   TextSection matrixNarrative = TextSection();
 
   /// Contains 0+× FeatureStageMapping.
   @SectionId('FESTM1-ITEM-LST')
   @SectionIdPattern('FESTM1-ITEM-xxx')
+  @SerializationOrder(2)
   List<FeatureStageMapping> items = [];
 }
 
@@ -1817,19 +1982,24 @@ class FeatureStageMapping {
     Field('featureGroup', String, 'Feature Group',
         hint: 'Logical grouping for this feature'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Stage assignment details.
+  @SerializationOrder(1)
   FeatureStageMappingAssignment assignment = FeatureStageMappingAssignment();
 
   /// Readiness and confidence.
+  @SerializationOrder(2)
   FeatureStageMappingReadiness readiness = FeatureStageMappingReadiness();
 
   /// Dependencies.
+  @SerializationOrder(3)
   FeatureStageMappingDependencies dependencies =
       FeatureStageMappingDependencies();
 
   /// Acceptance and notes.
+  @SerializationOrder(4)
   FeatureStageMappingAcceptance acceptance = FeatureStageMappingAcceptance();
 }
 
@@ -1847,6 +2017,7 @@ class FeatureStageMappingAssignment {
         hint:
             'Stage to which this feature moves if cut from target stage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1865,6 +2036,7 @@ class FeatureStageMappingReadiness {
         hint:
             'Why confidence is at this level — blockers, unknowns, resource gaps'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1884,6 +2056,7 @@ class FeatureStageMappingDependencies {
         hint:
             'Does this feature depend on something from a prior stage — Yes/No, plus which stage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1901,6 +2074,7 @@ class FeatureStageMappingAcceptance {
     Field('notes', String, 'Notes',
         hint: 'Additional context or caveats'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1922,12 +2096,14 @@ class FeaturePriorityRegister {
             'Person responsible for maintaining the register — '
             'typically Product Owner'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 1+× FeaturePriorityEntry.
   @SectionId('FEPREN-ITEM-LST')
   @SectionIdPattern('FEPREN-ITEM-xxx')
   @Min(1)
+  @SerializationOrder(1)
   List<FeaturePriorityEntry> items = [];
 }
 
@@ -1949,35 +2125,45 @@ class FeaturePriorityEntry {
         hint: 'Ordinal rank — 1 = highest',
         required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Feature identity.
+  @SerializationOrder(1)
   FeatureIdentity identity = FeatureIdentity();
 
   /// Business value.
+  @SerializationOrder(2)
   FeatureBusinessValue businessValue = FeatureBusinessValue();
 
   /// Effort and complexity.
+  @SerializationOrder(3)
   FeatureEffort effort = FeatureEffort();
 
   /// Priority scoring.
+  @SerializationOrder(4)
   FeaturePriorityScoring priorityScoring = FeaturePriorityScoring();
 
   /// Stage assignment.
+  @SerializationOrder(5)
   FeatureStageAssignment stageAssignment = FeatureStageAssignment();
 
   /// Dependencies.
+  @SerializationOrder(6)
   FeatureDependenciesInfo dependencies = FeatureDependenciesInfo();
 
   /// Stakeholders.
   @SectionId('FEST-STAK-LST')
   @SectionIdPattern('FEST-STAK-xxx')
+  @SerializationOrder(7)
   List<FeatureStakeholders> stakeholders = [];
 
   /// Traceability.
+  @SerializationOrder(8)
   FeatureTraceability traceability = FeatureTraceability();
 
   /// Status.
+  @SerializationOrder(9)
   FeatureStatus status = FeatureStatus();
 }
 
@@ -1999,6 +2185,7 @@ class FeatureIdentity {
     Field('epicLink', String, 'Epic Link',
         hint: 'Parent epic or theme'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2033,6 +2220,7 @@ class FeatureBusinessValue {
     Field('regulatoryDeadline', String, 'Regulatory Deadline',
         hint: 'Hard compliance deadline'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2059,6 +2247,7 @@ class FeatureEffort {
     Field('integrationComplexity', String, 'Integration Complexity',
         hint: 'None / Low / Medium / High'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2079,6 +2268,7 @@ class FeaturePriorityScoring {
     Field('prioritizationNotes', String, 'Prioritization Notes',
         hint: 'Justification or context for the scoring'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2096,6 +2286,7 @@ class FeatureStageAssignment {
     Field('stageAssignmentRationale', String, 'Stage Assignment Rationale',
         hint: 'Why this stage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2112,6 +2303,7 @@ class FeatureDependenciesInfo {
     Field('dependencyCriticalPath', String, 'On Dependency Critical Path',
         hint: 'Yes / No'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2135,6 +2327,7 @@ class FeatureStakeholders {
     Field('approvalDate', String, 'Approval Date',
         hint: 'When approval was granted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2153,6 +2346,7 @@ class FeatureTraceability {
     Field('linkedArchitectureDecisions', String, 'Linked Architecture Decisions',
         hint: 'ADR IDs affected by or affecting this feature'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2172,6 +2366,7 @@ class FeatureStatus {
     Field('changeHistory', String, 'Change History',
         hint: 'Brief log of priority/stage changes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2202,6 +2397,7 @@ class FeatureDependencies {
         'Dependency Map Last Updated',
         hint: 'When the dependency map was last analyzed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Dependency analysis narrative.
@@ -2209,11 +2405,13 @@ class FeatureDependencies {
       'impact assessment methodology, critical dependency chains, '
       'circular dependency resolution, cross-stage dependencies, '
       'external system dependencies.')
+  @SerializationOrder(1)
   TextSection dependencyAnalysis = TextSection();
 
   /// Contains 0+× FeatureDependencyEntry.
   @SectionId('FEDEEN-ITEM-LST')
   @SectionIdPattern('FEDEEN-ITEM-xxx')
+  @SerializationOrder(2)
   List<FeatureDependencyEntry> items = [];
 }
 
@@ -2267,6 +2465,7 @@ class FeatureDependencyEntry {
     Field('notes', String, 'Notes',
         hint: 'Additional context or constraints'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2292,53 +2491,67 @@ class DataMigrationStrategy {
         hint: 'Person accountable for end-to-end migration',
         required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Strategic approach details.
+  @SerializationOrder(1)
   MigrationApproach approach = MigrationApproach();
 
   /// Scope and data landscape.
+  @SerializationOrder(2)
   MigrationScope scope = MigrationScope();
 
   /// Source and target system details.
   @SectionId('MISY-SYST-LST')
   @SectionIdPattern('MISY-SYST-xxx')
+  @SerializationOrder(3)
   List<MigrationSystems> systems = [];
 
   /// Data quality strategy.
+  @SerializationOrder(4)
   MigrationDataQuality dataQuality = MigrationDataQuality();
 
   /// Tooling and technology stack.
+  @SerializationOrder(5)
   MigrationTooling tooling = MigrationTooling();
 
   /// Environment strategy.
   @SectionId('MIEN-ENVI-LST')
   @SectionIdPattern('MIEN-ENVI-xxx')
+  @SerializationOrder(6)
   List<MigrationEnvironments> environments = [];
 
   /// Cutover planning.
+  @SerializationOrder(7)
   MigrationCutover cutover = MigrationCutover();
 
   /// Rollback and recovery strategy.
+  @SerializationOrder(8)
   MigrationRollback rollback = MigrationRollback();
 
   /// Compliance and governance.
+  @SerializationOrder(9)
   MigrationCompliance compliance = MigrationCompliance();
 
   /// Success metrics.
+  @SerializationOrder(10)
   MigrationMetrics metrics = MigrationMetrics();
 
   /// Stakeholder communication.
   @SectionId('MIST-STAK-LST')
   @SectionIdPattern('MIST-STAK-xxx')
+  @SerializationOrder(11)
   List<MigrationStakeholders> stakeholders = [];
 
   /// Budget and resources.
     @SectionId('STMIRE-RESO-LST')
   @SectionIdPattern('STMIRE-RESO-xxx')
+  @SerializationOrder(12)
   List<StageMigrationResources> resources = [];
 
   /// Schedule overview.
+  @SerializationOrder(13)
   MigrationSchedule schedule = MigrationSchedule();
 
   /// Migration strategy narrative.
@@ -2346,12 +2559,15 @@ class DataMigrationStrategy {
       'tool selection rationale, phasing strategy, dry run plan, '
       'data quality assurance approach, rollback mechanisms, '
       'parallel operation strategy, and hypercare support model.')
+  @SerializationOrder(14)
   TextSection migrationStrategyNarrative = TextSection();
 
   /// 13.5.1. Migration Phases.
+  @SerializationOrder(15)
   MigrationPhases migrationPhases = MigrationPhases();
 
   /// 13.5.2. Migration Risks.
+  @SerializationOrder(16)
   StageMigrationRisks migrationRisks = StageMigrationRisks();
 }
 
@@ -2364,6 +2580,7 @@ class MigrationApproach {
     Field('alternativesConsidered', String, 'Alternatives Considered',
         hint: 'Other approaches evaluated and why rejected'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2386,6 +2603,7 @@ class MigrationScope {
     Field('excludedFromMigration', String, 'Excluded from Migration',
         hint: 'Data explicitly out of scope'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2403,6 +2621,7 @@ class MigrationSystems {
     Field('dataModelChangeSummary', String, 'Data Model Change Summary',
         hint: 'Key structural changes — table splits/merges, normalization'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2422,6 +2641,7 @@ class MigrationDataQuality {
     Field('dataQualityThresholds', String, 'Data Quality Thresholds',
         hint: 'Minimum quality metrics for migration approval'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2443,6 +2663,7 @@ class MigrationTooling {
     Field('versionControlForMigrations', String, 'Version Control for Migrations',
         hint: 'How migration scripts are versioned'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2460,6 +2681,7 @@ class MigrationEnvironments {
     Field('environmentRefreshCadence', String, 'Environment Refresh Cadence',
         hint: 'How often test environments are refreshed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2484,6 +2706,7 @@ class MigrationCutover {
     Field('goNoGoCriteria', String, 'Go/No-Go Criteria',
         hint: 'Key criteria for cutover approval'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2503,6 +2726,7 @@ class MigrationRollback {
     Field('pointOfNoReturn', String, 'Point of No Return',
         hint: 'Step after which rollback is no longer viable'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2524,6 +2748,7 @@ class MigrationCompliance {
     Field('migrationGovernanceBody', String, 'Migration Governance Body',
         hint: 'Who oversees migration quality'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2543,6 +2768,7 @@ class MigrationMetrics {
     Field('maxAcceptableDowntime', String, 'Max Acceptable Downtime',
         hint: 'Business-defined downtime limit'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2559,6 +2785,7 @@ class MigrationStakeholders {
     Field('trainingForMigrationTeam', String, 'Training for Migration Team',
         hint: 'Training needed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2573,6 +2800,7 @@ class StageMigrationResources {
     Field('externalVendorSupport', String, 'External Vendor Support',
         hint: 'Third-party support'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2591,6 +2819,7 @@ class MigrationSchedule {
     Field('hypercareDuration', String, 'Hypercare Duration',
         hint: 'Post-migration intensive support period'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2645,6 +2874,7 @@ class MigrationPhases {
             'How dry runs are organized — per phase, combined, '
             'incremental buildup, production-equivalent'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Phase overview narrative.
@@ -2652,12 +2882,14 @@ class MigrationPhases {
       'parallel vs sequential execution, phase dependencies, '
       'resource allocation across phases, quality gates between '
       'phases, aggregate validation approach.')
+  @SerializationOrder(1)
   TextSection phaseOverview = TextSection();
 
   /// Contains 1+× MigrationPhaseEntry.
   @SectionId('MGPHS-ITEM-LST')
   @SectionIdPattern('MGPHS-ITEM-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<MigrationPhaseEntry> items = [];
 }
 
@@ -2681,43 +2913,55 @@ class MigrationPhaseEntry {
         hint: 'MasterData / ReferenceData / Transactional / Historical / Documents',
         required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Phase identity details.
+  @SerializationOrder(1)
   MigrationPhaseIdentity identity = MigrationPhaseIdentity();
 
   /// Data scope.
+  @SerializationOrder(2)
   MigrationPhaseDataScope dataScope = MigrationPhaseDataScope();
 
   /// Migration method.
+  @SerializationOrder(3)
   MigrationPhaseMethod method = MigrationPhaseMethod();
 
   /// Transformation and mapping.
+  @SerializationOrder(4)
   MigrationPhaseTransformation transformation = MigrationPhaseTransformation();
 
   /// Schedule and dependencies.
+  @SerializationOrder(5)
   MigrationPhaseSchedule schedule = MigrationPhaseSchedule();
 
   /// Dry runs.
   @SectionId('MPDR-DRYR-LST')
   @SectionIdPattern('MPDR-DRYR-xxx')
+  @SerializationOrder(6)
   List<MigrationPhaseDryRuns> dryRuns = [];
 
   /// Validation and reconciliation.
+  @SerializationOrder(7)
   MigrationPhaseValidation validation = MigrationPhaseValidation();
 
   /// Acceptance criteria.
+  @SerializationOrder(8)
   MigrationPhaseAcceptance acceptance = MigrationPhaseAcceptance();
 
   /// Rollback.
+  @SerializationOrder(9)
   MigrationPhaseRollback rollback = MigrationPhaseRollback();
 
   /// Resources.
   @SectionId('MIPHRE-RESO-LST')
   @SectionIdPattern('MIPHRE-RESO-xxx')
+  @SerializationOrder(10)
   List<MigrationPhaseResources> resources = [];
 
   /// Status.
+  @SerializationOrder(11)
   MigrationPhaseStatus status = MigrationPhaseStatus();
 }
 
@@ -2732,6 +2976,7 @@ class MigrationPhaseIdentity {
     Field('linkedProjectStage', String, 'Linked Project Stage',
         hint: 'Which system stage this phase supports'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2764,6 +3009,7 @@ class MigrationPhaseDataScope {
     Field('dataOwner', String, 'Data Owner',
         hint: 'Business owner of this data domain'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2784,6 +3030,7 @@ class MigrationPhaseMethod {
     Field('loadStrategy', String, 'Load Strategy',
         hint: 'BulkInsert / UpsertMerge / TruncateAndReload / AppendOnly'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2809,6 +3056,7 @@ class MigrationPhaseTransformation {
     Field('characterEncodingHandling', String, 'Character Encoding Handling',
         hint: 'Encoding conversion approach'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2835,6 +3083,7 @@ class MigrationPhaseSchedule {
     Field('infrastructureDependencies', String, 'Infrastructure Dependencies',
         hint: 'Required infrastructure'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2857,6 +3106,7 @@ class MigrationPhaseDryRuns {
     Field('dryRunIssuesResolved', String, 'Dry Run Issues Resolved',
         hint: 'How many issues were fixed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2884,6 +3134,7 @@ class MigrationPhaseValidation {
     Field('validationReportLocation', String, 'Validation Report Location',
         hint: 'Where validation results are stored'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2899,6 +3150,7 @@ class MigrationPhaseAcceptance {
     Field('acceptanceSignoffDate', String, 'Acceptance Sign-off Date',
         hint: 'Date when sign-off was granted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2911,6 +3163,7 @@ class MigrationPhaseRollback {
     Field('phaseRollbackTimeBudget', String, 'Rollback Time Budget',
         hint: 'Maximum time to rollback this phase'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2923,6 +3176,7 @@ class MigrationPhaseResources {
     Field('estimatedEffort', String, 'Estimated Effort',
         hint: 'Person-days of effort'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2937,6 +3191,7 @@ class MigrationPhaseStatus {
     Field('notes', String, 'Notes',
         hint: 'Additional context or special instructions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -2992,6 +3247,7 @@ class StageMigrationRisks {
             'Low / Medium / High / Critical — aggregate risk '
             'assessment for the entire migration'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Risk summary narrative.
@@ -2999,12 +3255,14 @@ class StageMigrationRisks {
       'aggregate risk level, key mitigation strategies, '
       'contingency approaches, risk monitoring plan, '
       'escalation triggers and paths.')
+  @SerializationOrder(1)
   TextSection riskSummary = TextSection();
 
   /// Contains 1+× StageMigrationRiskEntry.
   @SectionId('STGMRS-ITEM-LST')
   @SectionIdPattern('STGMRS-ITEM-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<StageMigrationRiskEntry> items = [];
 }
 
@@ -3027,34 +3285,43 @@ class StageMigrationRiskEntry {
         hint: 'DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach',
         required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Risk identity and description.
+  @SerializationOrder(1)
   StageMigrationRiskIdentity identity = StageMigrationRiskIdentity();
 
   /// Probability and impact assessment.
+  @SerializationOrder(2)
   StageMigrationRiskProbabilityImpact probabilityImpact =
       StageMigrationRiskProbabilityImpact();
 
   /// Mitigation planning.
+  @SerializationOrder(3)
   StageMigrationRiskMitigation mitigation =
       StageMigrationRiskMitigation();
 
   /// Contingency actions.
+  @SerializationOrder(4)
   StageMigrationRiskContingency contingency =
       StageMigrationRiskContingency();
 
   /// Monitoring and detection.
+  @SerializationOrder(5)
   StageMigrationRiskMonitoring monitoring =
       StageMigrationRiskMonitoring();
 
   /// Ownership and accountability.
+  @SerializationOrder(6)
   StageMigrationRiskOwnership ownership = StageMigrationRiskOwnership();
 
   /// Residual risk assessment.
+  @SerializationOrder(7)
   StageMigrationRiskResidual residual = StageMigrationRiskResidual();
 
   /// Status and review.
+  @SerializationOrder(8)
   StageMigrationRiskStatus status = StageMigrationRiskStatus();
 }
 
@@ -3066,6 +3333,7 @@ class StageMigrationRiskIdentity {
         hint: 'Detailed description of the risk scenario',
         required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3086,6 +3354,7 @@ class StageMigrationRiskProbabilityImpact {
     Field('affectedPhases', String, 'Affected Phases',
         hint: 'Which migration phases are exposed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3103,6 +3372,7 @@ class StageMigrationRiskMitigation {
     Field('mitigationDeadline', String, 'Mitigation Deadline',
         hint: 'Date by which mitigation must be in place'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3118,6 +3388,7 @@ class StageMigrationRiskContingency {
     Field('contingencyBudget', String, 'Contingency Budget',
         hint: 'Reserved budget for contingency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3134,6 +3405,7 @@ class StageMigrationRiskMonitoring {
     Field('alertThresholds', String, 'Alert Thresholds',
         hint: 'Thresholds triggering alerts'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3147,6 +3419,7 @@ class StageMigrationRiskOwnership {
     Field('escalationPath', String, 'Escalation Path',
         hint: 'Escalation chain if risk materializes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3161,6 +3434,7 @@ class StageMigrationRiskResidual {
     Field('residualRiskAcceptable', String, 'Residual Risk Acceptable',
         hint: 'Yes / No / Conditional'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3175,6 +3449,7 @@ class StageMigrationRiskStatus {
     Field('notes', String, 'Notes',
         hint: 'Additional context — lessons learned, related incidents'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3200,27 +3475,35 @@ class StageGovernance {
         hint: 'Consensus / MajorityVote / DelegatedAuthority / RACI-based',
         required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Governance model details.
+  @SerializationOrder(1)
   StageGovernanceModel model = StageGovernanceModel();
 
   /// Authority and oversight.
+  @SerializationOrder(2)
   StageGovernanceAuthority authority = StageGovernanceAuthority();
 
   /// Escalation paths and triggers.
+  @SerializationOrder(3)
   StageGovernanceEscalation escalation = StageGovernanceEscalation();
 
   /// Meeting cadence and process.
+  @SerializationOrder(4)
   StageGovernanceCadence cadence = StageGovernanceCadence();
 
   /// Compliance and audit requirements.
+  @SerializationOrder(5)
   StageGovernanceCompliance compliance = StageGovernanceCompliance();
 
   /// Metrics and reporting.
+  @SerializationOrder(6)
   StageGovernanceMetrics metrics = StageGovernanceMetrics();
 
   /// Stage transition rules.
+  @SerializationOrder(7)
   StageGovernanceTransition transition = StageGovernanceTransition();
 
   /// Governance narrative and rationale.
@@ -3228,12 +3511,15 @@ class StageGovernance {
       'authority levels, escalation paths, review cadence, '
       'documentation requirements, communication protocols, '
       'emergency bypass procedures.')
+  @SerializationOrder(8)
   TextSection governanceNarrative = TextSection();
 
   /// 13.6.1. Phase Gate Reviews.
+  @SerializationOrder(9)
   PhaseGateReviews phaseGateReviews = PhaseGateReviews();
 
   /// 13.6.2. Decision Points.
+  @SerializationOrder(10)
   DecisionPoints decisionPoints = DecisionPoints();
 }
 
@@ -3244,6 +3530,7 @@ class StageGovernanceModel {
     Field('governanceCharter', String, 'Governance Charter',
         hint: 'Name or reference to the formal governance charter document'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3263,6 +3550,7 @@ class StageGovernanceAuthority {
         'Delegated Authority Threshold',
         hint: 'Decisions the PM can make without board'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3277,6 +3565,7 @@ class StageGovernanceEscalation {
     Field('escalationTimeframe', String, 'Escalation Timeframe',
         hint: 'Maximum time before escalation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3296,6 +3585,7 @@ class StageGovernanceCadence {
     Field('minutesDistribution', String, 'Minutes Distribution',
         hint: 'How minutes are distributed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3313,6 +3603,7 @@ class StageGovernanceCompliance {
     Field('externalAuditIntegration', String, 'External Audit Integration',
         hint: 'None / Annual / PerMajorGate'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3327,6 +3618,7 @@ class StageGovernanceMetrics {
     Field('dashboardLocation', String, 'Dashboard Location',
         hint: 'Where governance status is visible'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3345,6 +3637,7 @@ class StageGovernanceTransition {
     Field('emergencyBypassProcess', String, 'Emergency Bypass Process',
         hint: 'Expedited review, post-hoc ratification'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3375,12 +3668,15 @@ class PhaseGateReviews {
             'Presentation / Checklist / DemoAndReview / '
             'DocumentReview / Mixed'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Standard participants and evidence package.
+  @SerializationOrder(1)
   PhaseGateReviewsPreparation preparation = PhaseGateReviewsPreparation();
 
   /// Gate decision outcomes and follow-up rules.
+  @SerializationOrder(2)
   PhaseGateReviewsOutcomes outcomes = PhaseGateReviewsOutcomes();
 
   /// Phase gate review process narrative.
@@ -3388,11 +3684,13 @@ class PhaseGateReviews {
       'review rhythm, participant roles, evidence gathering, '
       'decision criteria, proceed/rework/cancel definitions, '
       'conditional approval handling.')
+  @SerializationOrder(3)
   TextSection gateReviewNarrative = TextSection();
 
   /// Contains 0+× PhaseGateReviewEntry.
   @SectionId('PGRE-ITEM-LST')
   @SectionIdPattern('PGRE-ITEM-xxx')
+  @SerializationOrder(4)
   List<PhaseGateReviewEntry> items = [];
 }
 
@@ -3420,6 +3718,7 @@ class PhaseGateReviewsPreparation {
             'When evidence must be submitted before the gate — '
             'e.g. 3 business days prior'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3448,6 +3747,7 @@ class PhaseGateReviewsOutcomes {
             'What happens on cancel — asset disposition, team '
             'reassignment, lessons learned'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3465,35 +3765,44 @@ class PhaseGateReviewEntry {
     Field('stage', String, 'Stage',
         hint: 'Stage this gate is associated with', required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Gate identity.
+  @SerializationOrder(1)
   PhaseGateIdentity identity = PhaseGateIdentity();
 
   /// Authority and participants.
+  @SerializationOrder(2)
   PhaseGateAuthority authority = PhaseGateAuthority();
 
   /// Schedule.
+  @SerializationOrder(3)
   PhaseGateSchedule schedule = PhaseGateSchedule();
 
   /// Entry conditions.
+  @SerializationOrder(4)
   PhaseGateEntry entry = PhaseGateEntry();
 
   /// Evidence.
+  @SerializationOrder(5)
   PhaseGateEvidence evidence = PhaseGateEvidence();
 
   /// Exit conditions and outcome.
+  @SerializationOrder(6)
   PhaseGateExit exit = PhaseGateExit();
 
   /// Gate-specific narrative and context.
   @ContentHelp('Context for this specific gate: strategic importance, '
       'relationship to prior and subsequent gates, '
       'unique considerations, historical lessons applied.')
+  @SerializationOrder(7)
   TextSection gateNarrative = TextSection();
 
   /// Contains 0+× ReviewCriterionEntry.
   @SectionId('RVCRI-REVI-LST')
   @SectionIdPattern('RVCRI-REVI-xxx')
+  @SerializationOrder(8)
   List<ReviewCriterionEntry> reviewCriteria = [];
 }
 
@@ -3506,6 +3815,7 @@ class PhaseGateIdentity {
     Field('gatePosition', String, 'Gate Position',
         hint: 'StageEntry / MidStage / StageExit / CrossStage'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3522,6 +3832,7 @@ class PhaseGateAuthority {
     Field('externalParticipants', String, 'External Participants',
         hint: 'External stakeholders — auditors, customer reps'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3536,6 +3847,7 @@ class PhaseGateSchedule {
     Field('reviewDuration', String, 'Review Duration',
         hint: 'Expected duration — e.g. 2 hours, 4 hours'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3548,6 +3860,7 @@ class PhaseGateEntry {
     Field('entryChecklistComplete', String, 'Entry Checklist Complete',
         hint: 'Yes / No / Partial — whether entry conditions verified'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3562,6 +3875,7 @@ class PhaseGateEvidence {
     Field('evidenceLocation', String, 'Evidence Location',
         hint: 'Where evidence is stored — SharePoint folder, wiki'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3584,6 +3898,7 @@ class PhaseGateExit {
     Field('nextGateReference', String, 'Next Gate Reference',
         hint: 'Gate ID of the next gate in sequence'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3609,13 +3924,16 @@ class ReviewCriterionEntry {
             'Quality / Security / Compliance / Performance / '
             'Completeness / Business / Operational'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// How this criterion is measured and weighted.
+  @SerializationOrder(1)
   ReviewCriterionEntryAssessment assessment =
       ReviewCriterionEntryAssessment();
 
   /// Post-review result and remediation status.
+  @SerializationOrder(2)
   ReviewCriterionEntryResult result = ReviewCriterionEntryResult();
 }
 
@@ -3644,6 +3962,7 @@ class ReviewCriterionEntryAssessment {
             'What evidence proves this criterion — test report, '
             'sign-off email, audit log, screenshot'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3663,6 +3982,7 @@ class ReviewCriterionEntryResult {
             'What must be fixed if failed — description and '
             'deadline'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3707,6 +4027,7 @@ class DecisionPoints {
             'validity — Never / Quarterly / PerStage / '
             'OnDemand'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Decision framework narrative.
@@ -3714,11 +4035,13 @@ class DecisionPoints {
       'decision types and their governance levels, '
       'RACI for key decisions, documentation requirements, '
       'appeal processes, decision review cadence.')
+  @SerializationOrder(1)
   TextSection decisionFrameworkNarrative = TextSection();
 
   /// Contains 0+× DecisionPointEntry.
   @SectionId('DEPOEN-ITEM-LST')
   @SectionIdPattern('DEPOEN-ITEM-xxx')
+  @SerializationOrder(2)
   List<DecisionPointEntry> items = [];
 }
 
@@ -3743,19 +4066,24 @@ class DecisionPointEntry {
             'ArchitectureChange / RiskResponse',
         required: true),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Context and timing information.
+  @SerializationOrder(1)
   DecisionPointEntryContext context = DecisionPointEntryContext();
 
   /// Stakeholder assignments.
+  @SerializationOrder(2)
   DecisionPointEntryStakeholders stakeholders =
       DecisionPointEntryStakeholders();
 
   /// Criteria and required inputs.
+  @SerializationOrder(3)
   DecisionPointEntryCriteria criteria = DecisionPointEntryCriteria();
 
   /// Resolution details (filled when decided).
+  @SerializationOrder(4)
   DecisionPointEntryResolution resolution = DecisionPointEntryResolution();
 }
 
@@ -3779,6 +4107,7 @@ class DecisionPointEntryContext {
             'risk materialization, milestone reached, '
             'stakeholder request'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3800,6 +4129,7 @@ class DecisionPointEntryStakeholders {
         hint: 'Stakeholders informed of the outcome — '
             'comma-separated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3822,6 +4152,7 @@ class DecisionPointEntryCriteria {
         hint: 'Consequence of not making the decision on time — '
             'schedule slip, cost increase, missed window'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3848,6 +4179,7 @@ class DecisionPointEntryResolution {
         hint: 'Impact of the decision — affected stages, teams, '
             'budget, schedule'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Decision context narrative.
@@ -3855,11 +4187,13 @@ class DecisionPointEntryResolution {
       'prior related decisions, constraints shaping options, '
       'stakeholder perspectives, risk considerations, '
       'organizational readiness factors.')
+  @SerializationOrder(1)
   TextSection decisionNarrative = TextSection();
 
   /// Contains 0+× DecisionOptionEntry.
   @SectionId('DEOPEN-OPTI-LST')
   @SectionIdPattern('DEOPEN-OPTI-xxx')
+  @SerializationOrder(2)
   List<DecisionOptionEntry> options = [];
 }
 
@@ -3881,19 +4215,24 @@ class DecisionOptionEntry {
     Field('description', String, 'Description',
         hint: 'Detailed description of what this option entails'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Recommendation flags.
+  @SerializationOrder(1)
   DecisionOptionEntrySelection selection = DecisionOptionEntrySelection();
 
   /// Impact analysis.
+  @SerializationOrder(2)
   DecisionOptionEntryImpact impact = DecisionOptionEntryImpact();
 
   /// Feasibility assessment.
+  @SerializationOrder(3)
   DecisionOptionEntryFeasibility feasibility =
       DecisionOptionEntryFeasibility();
 
   /// Trade-offs and reversibility.
+  @SerializationOrder(4)
   DecisionOptionEntryTradeOffs tradeOffs = DecisionOptionEntryTradeOffs();
 }
 
@@ -3910,6 +4249,7 @@ class DecisionOptionEntrySelection {
             'Yes / No — whether the analysis team recommends '
             'this option'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3941,6 +4281,7 @@ class DecisionOptionEntryImpact {
             'Team changes — additional hires, skill gaps, '
             'vendor engagement'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3962,6 +4303,7 @@ class DecisionOptionEntryFeasibility {
             'Key factors — skill availability, technology '
             'maturity, vendor reliability'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -3987,6 +4329,7 @@ class DecisionOptionEntryTradeOffs {
             'Reversible / PartiallyReversible / Irreversible — '
             'can the decision be undone'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4015,6 +4358,7 @@ dependencies, parallel work streams, and synchronization points.
 - Team coordination model during the initial build
 - Transition criteria to post-development (where DRM-UPG takes over)
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4044,6 +4388,7 @@ finishes. Provides the project-specific bridge to the static
 - Rollout strategy differences for upgrades vs. initial launch
 - Version and numbering scheme
 ''')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4051,6 +4396,7 @@ finishes. Provides the project-specific bridge to the static
 @SectionId('KEYAS')
 class KeyAssumptionEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -4058,5 +4404,6 @@ class KeyAssumptionEntry {
 @SectionId('STAGI')
 class StagingStrategyConstraintEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
+  @SerializationOrder(0)
   String? content;
 }

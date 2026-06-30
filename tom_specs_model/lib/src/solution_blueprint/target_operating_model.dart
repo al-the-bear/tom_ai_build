@@ -17,12 +17,15 @@ import 'target_business_process.dart';
 @SectionId('TOMC')
 class TargetOperatingModel {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// Target organizational structure and roles.
+  @SerializationOrder(1)
   OrganizationalFramework organizationalFramework = OrganizationalFramework();
 
   /// Target business process model.
+  @SerializationOrder(2)
   TargetBusinessProcessModel targetBusinessProcess =
       TargetBusinessProcessModel();
 }

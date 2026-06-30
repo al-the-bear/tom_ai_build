@@ -25,33 +25,43 @@ import '../solution_blueprint/solution_blueprint.dart';
 @SectionId('SAS')
 class D08SecurityAccessSpecification {
   @ContentHelp('Executive overview of the access and authorization concept.')
+  @SerializationOrder(0)
   String? content;
 
   /// Standard TomSpecs document header.
+  @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
   /// User management.
+  @SerializationOrder(2)
   UserManagement userManagement = UserManagement();
 
   /// Identification and authentication.
+  @SerializationOrder(3)
   IdentificationAndAuthentication identificationAndAuthentication =
       IdentificationAndAuthentication();
 
   /// Resource protection.
+  @SerializationOrder(4)
   ResourceProtection resourceProtection = ResourceProtection();
 
   /// User authorization.
+  @SerializationOrder(5)
   UserAuthorization userAuthorization = UserAuthorization();
 
   /// Sensitive data encryption.
+  @SerializationOrder(6)
   SensitiveDataEncryption sensitiveDataEncryption = SensitiveDataEncryption();
 
   /// Audit and logging.
+  @SerializationOrder(7)
   AuditAndLogging auditAndLogging = AuditAndLogging();
 
   /// Role matrix.
+  @SerializationOrder(8)
   RoleMatrix roleMatrix = RoleMatrix();
 
   /// Compliance framework.
+  @SerializationOrder(9)
   ComplianceFramework complianceFramework = ComplianceFramework();
 }

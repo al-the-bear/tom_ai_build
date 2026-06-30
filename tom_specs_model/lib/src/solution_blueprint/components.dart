@@ -44,26 +44,33 @@ Each component should specify:
 - Support model
 - Risk profile
 ''')
+    @SerializationOrder(0)
     String? content;
 
     /// 12.1. Component Strategy.
+    @SerializationOrder(1)
     ComponentStrategy strategy = ComponentStrategy();
 
     /// 12.2. Component Catalog — contains 0+× Component.
     @SectionId('CMPNT-COMP-LST')
     @SectionIdPattern('CMPNT-COMP-xxx')
+    @SerializationOrder(2)
     List<ComponentEntry> componentCatalog = [];
 
     /// 12.3. Component Role In System.
+    @SerializationOrder(3)
     TextSection componentRoleInSystem = TextSection();
 
     /// 12.4. Runtime Dependencies.
+    @SerializationOrder(4)
     RuntimeDependencies runtimeDependencies = RuntimeDependencies();
 
     /// 12.5. Maintenance Dependencies.
+    @SerializationOrder(5)
     MaintenanceDependencies maintenanceDependencies = MaintenanceDependencies();
 
     /// 12.6. Risk Assessment.
+    @SerializationOrder(6)
     ComponentRiskAssessment riskAssessment = ComponentRiskAssessment();
 }
 
@@ -90,29 +97,37 @@ class ComponentStrategy {
                 hint:
                         'Target stack, e.g. Dart/Flutter, PostgreSQL, Redis, Kubernetes'),
     ])
+    @SerializationOrder(0)
     String? content;
 
     /// Vendor preferences and exceptions.
+    @SerializationOrder(1)
     ComponentStrategyVendors vendors = ComponentStrategyVendors();
 
     /// Governance and evaluation process.
+    @SerializationOrder(2)
     ComponentStrategyGovernance governance = ComponentStrategyGovernance();
 
     /// Portfolio management settings.
+    @SerializationOrder(3)
     ComponentStrategyPortfolio portfolio = ComponentStrategyPortfolio();
 
     /// Policy and baseline requirements.
+    @SerializationOrder(4)
     ComponentStrategyPolicies policies = ComponentStrategyPolicies();
 
     /// Budget and pilot planning.
+    @SerializationOrder(5)
     ComponentStrategyPlanning planning = ComponentStrategyPlanning();
 
     /// 12.1.1. Reuse Goals — contains 0+× ReuseGoal.
     @SectionId('RGUSE-REUS-LST')
     @SectionIdPattern('RGUSE-REUS-xxx')
+    @SerializationOrder(6)
     List<ReuseGoalEntry> reuseGoals = [];
 
     /// 12.1.2. Evaluation Criteria.
+    @SerializationOrder(7)
     EvaluationCriteria evaluationCriteria = EvaluationCriteria();
 }
 
@@ -130,6 +145,7 @@ class ComponentStrategyVendors {
                 hint:
                         'How to request approval for off-stack choices'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -147,6 +163,7 @@ class ComponentStrategyGovernance {
                 hint:
                         'How often new/existing components are formally evaluated'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -166,6 +183,7 @@ class ComponentStrategyPortfolio {
                 hint:
                         'Components targeted for elimination or merger'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -190,6 +208,7 @@ class ComponentStrategyPolicies {
                 hint:
                         'How end-of-life components are retired — timeline, migration support'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -204,6 +223,7 @@ class ComponentStrategyPlanning {
                 hint:
                         'Annual budget ceiling for all component costs'),
     ])
+    @SerializationOrder(0)
     String? content;
 }
 
@@ -227,15 +247,19 @@ class ReuseGoalEntry {
         hint:
             'UIComponents / DataLayer / Authentication / Infrastructure / APIs'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Measurement and scope.
+  @SerializationOrder(1)
   ReuseGoalEntryMeasurement measurement = ReuseGoalEntryMeasurement();
 
   /// Governance and ownership.
+  @SerializationOrder(2)
   ReuseGoalEntryGovernance governance = ReuseGoalEntryGovernance();
 
   /// Delivery support and assets.
+  @SerializationOrder(3)
   ReuseGoalEntryEnablement enablement = ReuseGoalEntryEnablement();
 }
 
@@ -255,6 +279,7 @@ class ReuseGoalEntryMeasurement {
     Field('measurementFrequency', String, 'Measurement Frequency',
         hint: 'How often reuse is measured, e.g. sprint, quarterly, release'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -269,6 +294,7 @@ class ReuseGoalEntryGovernance {
     Field('owner', String, 'Goal Owner',
         hint: 'Person or team responsible for driving this goal'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -284,6 +310,7 @@ class ReuseGoalEntryEnablement {
         hint:
             'Specific components, libraries, or services to be reused'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -314,11 +341,13 @@ Each criterion includes:
 - Evidence requirements
 - Evaluation method
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× EvaluationCriterion.
   @SectionId('EVCEN-ITEM-LST')
   @SectionIdPattern('EVCEN-ITEM-xxx')
+  @SerializationOrder(1)
   List<EvaluationCriterionEntry> items = [];
 }
 
@@ -339,15 +368,19 @@ class EvaluationCriterionEntry {
         hint:
             'Technical / Commercial / Operational / Strategic / Compliance'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scoring settings.
+  @SerializationOrder(1)
   EvaluationCriterionEntryScoring scoring = EvaluationCriterionEntryScoring();
 
   /// Evaluation process.
+  @SerializationOrder(2)
   EvaluationCriterionEntryProcess process = EvaluationCriterionEntryProcess();
 
   /// Scoring guidelines and scope.
+  @SerializationOrder(3)
   EvaluationCriterionEntryGuidelines guidelines =
       EvaluationCriterionEntryGuidelines();
 }
@@ -366,6 +399,7 @@ class EvaluationCriterionEntryScoring {
         hint:
             'Yes / No — does failing this criterion disqualify the component?'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -385,6 +419,7 @@ class EvaluationCriterionEntryProcess {
     Field('evaluationDuration', String, 'Evaluation Duration',
         hint: 'Expected time to complete this evaluation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -402,6 +437,7 @@ class EvaluationCriterionEntryGuidelines {
         hint:
             'Which component categories this criterion applies to'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -424,51 +460,65 @@ class ComponentEntry {
     Field('category', String, 'Category',
         hint: 'Database / Framework / Library / Service / Middleware'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Vendor information.
+  @SerializationOrder(1)
   ComponentVendor vendor = ComponentVendor();
 
   /// Maturity and community.
+  @SerializationOrder(2)
   ComponentMaturity maturity = ComponentMaturity();
 
   /// Support.
+  @SerializationOrder(3)
   ComponentSupport support = ComponentSupport();
 
   /// Security and performance.
+  @SerializationOrder(4)
   ComponentPerformance performance = ComponentPerformance();
 
   /// Deployment.
+  @SerializationOrder(5)
   ComponentDeployment deployment = ComponentDeployment();
 
   /// Cost.
+  @SerializationOrder(6)
   ComponentCost cost = ComponentCost();
 
   /// Compliance and training.
+  @SerializationOrder(7)
   ComponentCompliance compliance = ComponentCompliance();
 
   /// Risk assessment.
+  @SerializationOrder(8)
   ComponentRisk risk = ComponentRisk();
 
   /// Documentation.
   @SectionId('CODO-DOCS-LST')
   @SectionIdPattern('CODO-DOCS-xxx')
+  @SerializationOrder(9)
   List<ComponentDocs> docs = [];
 
   /// Interfaces — contains 0+× ComponentInterface.
   @SectionId('CMIF-INTE-LST')
   @SectionIdPattern('CMIF-INTE-xxx')
+  @SerializationOrder(10)
   List<ComponentInterfaceEntry> interfaces = [];
 
   /// Licensing (form).
+  @SerializationOrder(11)
   ComponentLicensingEntry? licensing;
 
   /// Usage Rights.
+  @SerializationOrder(12)
   TextSection usageRights = TextSection();
 
   /// Responsibilities (form).
   @SectionId('COREEN-RESP-LST')
   @SectionIdPattern('COREEN-RESP-xxx')
+  @SerializationOrder(13)
   List<ComponentResponsibilitiesEntry> responsibilities = [];
 }
 
@@ -485,6 +535,7 @@ class ComponentVendor {
     Field('vendorStability', String, 'Vendor Stability Assessment',
         hint: 'Financial health, market position, acquisition risk'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -499,6 +550,7 @@ class ComponentMaturity {
     Field('releaseFrequency', String, 'Release Cadence',
         hint: 'How often new versions are published'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -513,6 +565,7 @@ class ComponentSupport {
     Field('securityTrackingUrl', String, 'Security Advisory URL',
         hint: 'CVE feed or security bulletin URL'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -525,6 +578,7 @@ class ComponentPerformance {
     Field('scalabilityLimit', String, 'Scalability Ceiling',
         hint: 'Known upper limits'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -537,6 +591,7 @@ class ComponentDeployment {
     Field('resourceFootprint', String, 'Resource Requirements',
         hint: 'CPU, memory, disk, network baseline requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -549,6 +604,7 @@ class ComponentCost {
     Field('totalCostOngoing', String, 'Annual Ongoing TCO',
         hint: 'Recurring annual cost after first year'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -561,6 +617,7 @@ class ComponentCompliance {
     Field('trainingRequirement', String, 'Training Requirement',
         hint: 'Estimated ramp-up effort'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -575,6 +632,7 @@ class ComponentRisk {
     Field('integrationComplexity', String, 'Integration Complexity',
         hint: 'Effort to integrate — Low / Medium / High'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -591,6 +649,7 @@ class ComponentDocs {
     Field('approvedBy', String, 'Approved By',
         hint: 'Name/role of person who approved this component'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -608,21 +667,27 @@ class ComponentInterfaceEntry {
     Field('protocol', String, 'Protocol',
         hint: 'HTTP/1.1 / HTTP/2 / AMQP / MQTT / TCP / UDP'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Network configuration.
+  @SerializationOrder(1)
   ComponentInterfaceEntryNetwork network = ComponentInterfaceEntryNetwork();
 
   /// Security settings.
+  @SerializationOrder(2)
   ComponentInterfaceEntrySecurity security = ComponentInterfaceEntrySecurity();
 
   /// Data format configuration.
+  @SerializationOrder(3)
   ComponentInterfaceEntryData data = ComponentInterfaceEntryData();
 
   /// SLA and monitoring.
+  @SerializationOrder(4)
   ComponentInterfaceEntrySla sla = ComponentInterfaceEntrySla();
 
   /// Operations and documentation.
+  @SerializationOrder(5)
   ComponentInterfaceEntryOperations operations =
       ComponentInterfaceEntryOperations();
 }
@@ -638,6 +703,7 @@ class ComponentInterfaceEntryNetwork {
     Field('rateLimitRequests', int, 'Rate Limit (req/min)',
         hint: 'Maximum requests per minute allowed'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -652,6 +718,7 @@ class ComponentInterfaceEntrySecurity {
     Field('tlsRequired', String, 'TLS Requirement',
         hint: 'Required / Optional / NotSupported, minimum TLS version'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -670,6 +737,7 @@ class ComponentInterfaceEntryData {
     Field('backwardCompatibility', String, 'Backward Compatibility Policy',
         hint: 'How breaking changes are handled and communicated'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -686,6 +754,7 @@ class ComponentInterfaceEntrySla {
     Field('monitoringEndpoint', String, 'Metrics Endpoint',
         hint: 'Prometheus, StatsD, or custom metrics endpoint'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -700,6 +769,7 @@ class ComponentInterfaceEntryOperations {
     Field('description', String, 'Description',
         hint: 'Purpose and usage context for this interface'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -719,22 +789,28 @@ class ComponentLicensingEntry {
     Field('contractTermLength', String, 'Contract Term',
         hint: 'Duration of the agreement, e.g. 3 years'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Cost and renewal details.
+  @SerializationOrder(1)
   ComponentLicensingEntryCosts costs = ComponentLicensingEntryCosts();
 
   /// Usage rights and obligations.
+  @SerializationOrder(2)
   ComponentLicensingEntryRights rights = ComponentLicensingEntryRights();
 
   /// Compliance restrictions.
+  @SerializationOrder(3)
   ComponentLicensingEntryCompliance compliance =
       ComponentLicensingEntryCompliance();
 
   /// Metering and capacity rules.
+  @SerializationOrder(4)
   ComponentLicensingEntryCapacity capacity = ComponentLicensingEntryCapacity();
 
   /// Contract termination terms.
+  @SerializationOrder(5)
   ComponentLicensingEntryContract contract = ComponentLicensingEntryContract();
 }
 
@@ -751,6 +827,7 @@ class ComponentLicensingEntryCosts {
     Field('autoRenewal', String, 'Auto-Renewal',
         hint: 'Yes / No — and cancellation notice period'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -770,6 +847,7 @@ class ComponentLicensingEntryRights {
         hint:
             'FileLevel / LibraryLevel / ProjectWide — copyleft impact'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -786,6 +864,7 @@ class ComponentLicensingEntryCompliance {
     Field('exportControlClassification', String, 'Export Control',
         hint: 'ECCN classification or export restriction category'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -802,6 +881,7 @@ class ComponentLicensingEntryCapacity {
         hint:
             'What happens when capacity is exceeded — throttle, surcharge, block'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -812,6 +892,7 @@ class ComponentLicensingEntryContract {
     Field('terminationClause', String, 'Termination Terms',
         hint: 'Early termination penalties and data export rights'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -830,20 +911,25 @@ class ComponentResponsibilitiesEntry {
         hint:
             'Ordered escalation chain with roles and timeframes'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Vendor support details.
+  @SerializationOrder(1)
   ComponentResponsibilitiesEntrySupport support =
       ComponentResponsibilitiesEntrySupport();
 
   /// SLA commitments.
+  @SerializationOrder(2)
   ComponentResponsibilitiesEntrySla sla = ComponentResponsibilitiesEntrySla();
 
   /// Security and update operations.
+  @SerializationOrder(3)
   ComponentResponsibilitiesEntryOperations operations =
       ComponentResponsibilitiesEntryOperations();
 
   /// Governance and planning.
+  @SerializationOrder(4)
   ComponentResponsibilitiesEntryGovernance governance =
       ComponentResponsibilitiesEntryGovernance();
 }
@@ -858,6 +944,7 @@ class ComponentResponsibilitiesEntrySupport {
         hint:
             'Availability window, e.g. 24/7 or Mon-Fri 9-17 CET'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -872,6 +959,7 @@ class ComponentResponsibilitiesEntrySla {
     Field('slaResolutionCritical', String, 'Critical Issue Resolution Time',
         hint: 'Max time to resolve or workaround a P1 incident'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -894,6 +982,7 @@ class ComponentResponsibilitiesEntryOperations {
     Field('monitoringOwner', String, 'Monitoring Owner',
         hint: 'Who maintains dashboards and alerts'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -912,6 +1001,7 @@ class ComponentResponsibilitiesEntryGovernance {
     Field('capacityPlanningOwner', String, 'Capacity Planning Owner',
         hint: 'Who monitors usage and plans for growth'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -946,11 +1036,13 @@ Runtime dependencies between components.
 For each dependency, document latency tolerance, caching
 strategy, and fallback alternatives.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Runtime Dependency.
   @SectionId('RNDEP-ITEM-LST')
   @SectionIdPattern('RNDEP-ITEM-xxx')
+  @SerializationOrder(1)
   List<RuntimeDependencyEntry> items = [];
 }
 
@@ -980,11 +1072,13 @@ Maintenance relationships and update coordination.
 - Migration planning
 - Deprecation handling
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× Maintenance Dependency.
   @SectionId('MNDEP-ITEM-LST')
   @SectionIdPattern('MNDEP-ITEM-xxx')
+  @SerializationOrder(1)
   List<MaintenanceDependencyEntry> items = [];
 }
 
@@ -1004,24 +1098,30 @@ class RuntimeDependencyEntry {
     Field('dependencyType', String, 'Dependency Type',
         hint: 'Runtime / Optional / Peer / Conditional'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Versioning and business criticality.
+  @SerializationOrder(1)
   RuntimeDependencyEntryClassification classification =
       RuntimeDependencyEntryClassification();
 
   /// Startup and health behavior.
+  @SerializationOrder(2)
   RuntimeDependencyEntryStartup startup = RuntimeDependencyEntryStartup();
 
   /// Resilience behavior.
+  @SerializationOrder(3)
   RuntimeDependencyEntryResilience resilience =
       RuntimeDependencyEntryResilience();
 
   /// Data flow and network characteristics.
+  @SerializationOrder(4)
   RuntimeDependencyEntryIntegration integration =
       RuntimeDependencyEntryIntegration();
 
   /// Compatibility and transitive risk notes.
+  @SerializationOrder(5)
   RuntimeDependencyEntryRisk risk = RuntimeDependencyEntryRisk();
 }
 
@@ -1037,6 +1137,7 @@ class RuntimeDependencyEntryClassification {
     Field('purpose', String, 'Purpose',
         hint: 'Why this dependency exists'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1054,6 +1155,7 @@ class RuntimeDependencyEntryStartup {
     Field('healthCheckInterval', String, 'Health Check Interval',
         hint: 'How often health is verified, e.g. 30s'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1071,6 +1173,7 @@ class RuntimeDependencyEntryResilience {
         hint:
             'How responses/data from this dependency are cached'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1087,6 +1190,7 @@ class RuntimeDependencyEntryIntegration {
     Field('latencyTolerance', String, 'Latency Tolerance',
         hint: 'Max acceptable latency to this dependency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1101,6 +1205,7 @@ class RuntimeDependencyEntryRisk {
         hint:
             'Known incompatibilities with other components in our stack'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1121,16 +1226,20 @@ class MaintenanceDependencyEntry {
     Field('versionConstraint', String, 'Version Constraint',
         hint: 'Acceptable version range, e.g. >=3.2 <4.0'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Classification and purpose.
+  @SerializationOrder(1)
   MaintenanceDependencyEntryClassification classification =
       MaintenanceDependencyEntryClassification();
 
   /// Update coordination.
+  @SerializationOrder(2)
   MaintenanceDependencyEntryUpdate update = MaintenanceDependencyEntryUpdate();
 
   /// Risk and fallback planning.
+  @SerializationOrder(3)
   MaintenanceDependencyEntryRisk risk = MaintenanceDependencyEntryRisk();
 }
 
@@ -1146,6 +1255,7 @@ class MaintenanceDependencyEntryClassification {
     Field('purpose', String, 'Purpose',
         hint: 'Why this maintenance dependency exists'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1166,6 +1276,7 @@ class MaintenanceDependencyEntryUpdate {
         hint:
             'How breaking changes are handled — pin version, adapt, delay'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1185,6 +1296,7 @@ class MaintenanceDependencyEntryRisk {
         hint:
             'How quickly security patches must be applied, e.g. Critical: 24h'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1220,14 +1332,17 @@ Each risk includes:
 - **12.6.1 Component Risks** — Individual risk entries
 - **12.6.2 Contingency Plans** — Response plans for critical risks
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 12.6.1. Component Risks — contains 0+× Risk.
   @SectionId('CMRS-RISK-LST')
   @SectionIdPattern('CMRS-RISK-xxx')
+  @SerializationOrder(1)
   List<ComponentRiskEntry> risks = [];
 
   /// 12.6.2. Contingency Plans.
+  @SerializationOrder(2)
   ContingencyPlans contingencyPlans = ContingencyPlans();
 }
 
@@ -1256,11 +1371,13 @@ Plans for responding to component risk events.
 ### Dependencies
 Document tools, access, and backups required to execute.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Contains 0+× ContingencyPlan.
   @SectionId('COPL-ITEM-LST')
   @SectionIdPattern('COPL-ITEM-xxx')
+  @SerializationOrder(1)
   List<ContingencyPlanEntry> items = [];
 }
 
@@ -1278,23 +1395,29 @@ class ContingencyPlanEntry {
     Field('triggerCondition', String, 'Trigger Condition',
         hint: 'Specific event or threshold that activates this plan'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Reference links to risk and component.
+  @SerializationOrder(1)
   ContingencyPlanEntryReferences references = ContingencyPlanEntryReferences();
 
   /// Action steps: trigger detection, immediate, and recovery.
+  @SerializationOrder(2)
   ContingencyPlanEntryActions actions = ContingencyPlanEntryActions();
 
   /// Responsibility and recovery targets.
+  @SerializationOrder(3)
   ContingencyPlanEntryResponsibility responsibility =
       ContingencyPlanEntryResponsibility();
 
   /// Communication plans.
+  @SerializationOrder(4)
   ContingencyPlanEntryCommunication communication =
       ContingencyPlanEntryCommunication();
 
   /// Testing and resources.
+  @SerializationOrder(5)
   ContingencyPlanEntryTesting testing = ContingencyPlanEntryTesting();
 }
 
@@ -1307,6 +1430,7 @@ class ContingencyPlanEntryReferences {
     Field('componentRef', String, 'Component',
         hint: 'Component ID this plan covers'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1321,6 +1445,7 @@ class ContingencyPlanEntryActions {
     Field('recoveryActions', String, 'Recovery Actions',
         hint: 'Steps to restore full operation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1337,6 +1462,7 @@ class ContingencyPlanEntryResponsibility {
     Field('targetRecoveryPoint', String, 'Target Recovery Point (RPO)',
         hint: 'Maximum acceptable data loss window'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1349,6 +1475,7 @@ class ContingencyPlanEntryCommunication {
     Field('customerCommunication', String, 'Customer Communication',
         hint: 'External messaging template or process'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1373,6 +1500,7 @@ class ContingencyPlanEntryTesting {
     Field('documentLocation', String, 'Runbook Location',
         hint: 'Where the detailed step-by-step runbook is stored'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1390,21 +1518,27 @@ class ComponentRiskEntry {
     Field('riskTitle', String, 'Risk Title',
         hint: 'Short descriptive name'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Risk description and categorization.
+  @SerializationOrder(1)
   ComponentRiskEntryDescription description = ComponentRiskEntryDescription();
 
   /// Risk assessment.
+  @SerializationOrder(2)
   ComponentRiskEntryAssessment assessment = ComponentRiskEntryAssessment();
 
   /// Detection and monitoring.
+  @SerializationOrder(3)
   ComponentRiskEntryDetection detection = ComponentRiskEntryDetection();
 
   /// Mitigation strategy.
+  @SerializationOrder(4)
   ComponentRiskEntryMitigation mitigation = ComponentRiskEntryMitigation();
 
   /// Governance and ownership.
+  @SerializationOrder(5)
   ComponentRiskEntryGovernance governance = ComponentRiskEntryGovernance();
 }
 
@@ -1417,6 +1551,7 @@ class ComponentRiskEntryDescription {
     Field('riskCategory', String, 'Risk Category',
         hint: 'Technical / Vendor / Security / Compliance / Operational / Financial'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1433,6 +1568,7 @@ class ComponentRiskEntryAssessment {
     Field('riskTrend', String, 'Risk Trend',
         hint: 'Increasing / Stable / Decreasing — direction since last review'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1447,6 +1583,7 @@ class ComponentRiskEntryDetection {
     Field('monitoringMechanism', String, 'Monitoring',
         hint: 'Dashboards, alerts, or scans that track this risk'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1465,6 +1602,7 @@ class ComponentRiskEntryMitigation {
     Field('contingencyTrigger', String, 'Contingency Trigger',
         hint: 'Condition activating the contingency plan, e.g. No release for 12 months'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1481,5 +1619,6 @@ class ComponentRiskEntryGovernance {
     Field('acceptanceCriteria', String, 'Risk Acceptance Criteria',
         hint: 'Under what conditions is this risk formally accepted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

@@ -173,6 +173,35 @@ void main() {
       expect(pureProjectionErrors, isEmpty,
           reason: pureProjectionErrors.join('\n'));
     });
+
+    test(
+      'SD-2: every instance member carries a 0-based contiguous '
+      '@SerializationOrder ordinal',
+      () {
+        final problems = <String>[];
+        classes.forEach((name, cls) {
+          if (cls.fields.isEmpty) return;
+          final orders = <int>[];
+          for (final f in cls.fields) {
+            final o = f.serializationOrder;
+            if (o == null) {
+              problems.add('$name.${f.name}: missing @SerializationOrder');
+            } else {
+              orders.add(o);
+            }
+          }
+          orders.sort();
+          final expected = [for (var i = 0; i < cls.fields.length; i++) i];
+          if (orders.join(',') != expected.join(',')) {
+            problems.add('$name: ordinals {${orders.join(',')}} '
+                '!= {${expected.join(',')}}');
+          }
+        });
+        // The SD-2 stamping script must cover every member of every spec-model
+        // class with a unique, contiguous, 0-based ordinal in source order.
+        expect(problems, isEmpty, reason: problems.take(20).join('\n'));
+      },
+    );
   });
 
   // ---------------------------------------------------------------------------
@@ -1094,6 +1123,42 @@ void main() {
       expect(field.containsKey('standardReferences'), isFalse);
       final empty = (json['classes'] as Map)['Empty'] as Map;
       expect(empty.containsKey('standardReferences'), isFalse);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // SD-2: @SerializationOrder ordinal flows onto every member node. The reader
+  // exposes it as ModelField.serializationOrder; the exporter surfaces it as a
+  // curated `serializationOrder` key.
+  // ---------------------------------------------------------------------------
+  group('unit: ModelJsonExporter @SerializationOrder (SD-2)', () {
+    test('ModelField.serializationOrder reads the ordinal from the annotation',
+        () {
+      final f = _field('header', 'DocumentHeader',
+          [AnnotationData('SerializationOrder', {'order': 3})]);
+      expect(f.serializationOrder, 3);
+      expect(_field('bare', 'String').serializationOrder, isNull);
+    });
+
+    test('serializationOrder surfaces on member nodes; omitted when absent', () {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', [AnnotationData('SectionId', {'id': 'DC00'})], [
+          _field('content', 'String',
+              [AnnotationData('SerializationOrder', {'order': 0})]),
+          _field('header', 'DocumentHeader',
+              [AnnotationData('SerializationOrder', {'order': 1})]),
+          _field('unstamped', 'String'),
+        ]),
+      };
+      final json = ModelJsonExporter(classes).export();
+      final fields = ((json['classes'] as Map)['Doc'] as Map)['fields'] as List;
+      final byName = {
+        for (final f in fields.cast<Map>()) f['name'] as String: f,
+      };
+      expect(byName['content']!['serializationOrder'], 0);
+      expect(byName['header']!['serializationOrder'], 1);
+      expect(byName['unstamped']!.containsKey('serializationOrder'), isFalse);
+      expect(() => jsonEncode(json), returnsNormally);
     });
   });
 

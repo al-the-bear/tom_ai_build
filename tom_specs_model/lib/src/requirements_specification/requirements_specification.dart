@@ -25,21 +25,27 @@ import '../solution_blueprint/solution_blueprint.dart';
 class D04RequirementsSpecification {
   @ContentHelp('Executive overview of the requirements catalog and its '
       'traceability model.')
+  @SerializationOrder(0)
   String? content;
 
   /// Standard TomSpecs document header.
+  @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
   /// Functional requirements.
+  @SerializationOrder(2)
   FunctionalRequirements functionalRequirements = FunctionalRequirements();
 
   /// Technical (non-functional) requirements.
+  @SerializationOrder(3)
   TechnicalRequirements technicalRequirements = TechnicalRequirements();
 
   /// Security requirements.
+  @SerializationOrder(4)
   SecurityRequirements securityRequirements = SecurityRequirements();
 
   /// Organizational requirements.
+  @SerializationOrder(5)
   OrganizationalRequirements organizationalRequirements =
       OrganizationalRequirements();
 
@@ -50,13 +56,16 @@ class D04RequirementsSpecification {
   /// Blueprint side.
   @ContentType('description', 'Summary of traceability matrix showing '
       'connections between requirements, goals, use cases, and tests.')
+  @SerializationOrder(6)
   String? traceabilityMatrix;
 
   /// Requirement relationships.
   @SectionId('RERE-REQU-LST')
   @SectionIdPattern('RERE-REQU-xxx')
+  @SerializationOrder(7)
   List<RequirementRelationships> requirementRelationships = [];
 
   /// Requirement coverage.
+  @SerializationOrder(8)
   RequirementCoverage requirementCoverage = RequirementCoverage();
 }

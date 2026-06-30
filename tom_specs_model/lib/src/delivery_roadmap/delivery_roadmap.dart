@@ -27,38 +27,49 @@ import '../solution_blueprint/solution_blueprint.dart';
 @SectionId('DRM')
 class D11DeliveryRoadmap {
   @ContentHelp('Executive overview of the phase plan and its gate model.')
+  @SerializationOrder(0)
   String? content;
 
   /// Standard TomSpecs document header.
+  @SerializationOrder(1)
   DocumentHeader header = DocumentHeader();
 
   /// Staging strategy.
+  @SerializationOrder(2)
   StagingStrategy stagingStrategy = StagingStrategy();
 
   /// Stage overview.
+  @SerializationOrder(3)
   StageOverview stageOverview = StageOverview();
 
   /// Stages (list).
   @SectionId('STAGE-STAG-LST')
   @SectionIdPattern('STAGE-STAG-xxx')
   @Min(1)
+  @SerializationOrder(4)
   List<StageEntry> stages = [];
 
   /// Feature prioritization.
+  @SerializationOrder(5)
   FeaturePrioritization featurePrioritization = FeaturePrioritization();
 
   /// Data migration strategy.
+  @SerializationOrder(6)
   DataMigrationStrategy dataMigrationStrategy = DataMigrationStrategy();
 
   /// Gate criteria (promoted from GOV).
+  @SerializationOrder(7)
   PhaseGateReviews gateCriteria = PhaseGateReviews();
 
   /// Decision processes (promoted from GOV).
+  @SerializationOrder(8)
   DecisionPoints decisionProcesses = DecisionPoints();
 
   /// Initial development flow.
+  @SerializationOrder(9)
   InitialDevelopmentFlow initialDevelopmentFlow = InitialDevelopmentFlow();
 
   /// Upgrade cycle framework (links tom_system_upgrade.md).
+  @SerializationOrder(10)
   UpgradeCycleFramework upgradeCycleFramework = UpgradeCycleFramework();
 }

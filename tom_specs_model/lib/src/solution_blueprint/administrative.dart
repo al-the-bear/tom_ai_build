@@ -49,6 +49,7 @@ class AdministrativeSummary {
     Field('meetingCadenceOverview', String, 'Meeting Cadence Overview',
         hint: 'Summary of regular meetings and frequency'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -60,12 +61,15 @@ Overview of project organization structure including reporting lines,
 steering committee composition, and governance arrangements.
 Describe the organizational model and key decision-making paths.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// 3.1.1. Organization Structure.
+  @SerializationOrder(1)
   OrganizationStructure organizationStructure = OrganizationStructure();
 
   /// 3.1.2. Steering Committee.
+  @SerializationOrder(2)
   SteeringCommittee steeringCommittee = SteeringCommittee();
 }
 
@@ -77,12 +81,15 @@ class OrganizationStructure {
   @ContentHelp('Insert project organization chart showing reporting lines. '
       'Describe the governance model: who decides what, escalation paths, '
       'meeting cadence.')
+  @SerializationOrder(0)
   String? content;
 
   /// Governance model details.
+  @SerializationOrder(1)
   GovernanceModel governanceModel = GovernanceModel();
 
   /// Organization chart diagram (e.g. Mermaid or image reference).
+  @SerializationOrder(2)
   DiagramSection orgChartDiagram = DiagramSection();
 }
 
@@ -95,11 +102,13 @@ class GovernanceModel {
     Field('meetingCadence', String, 'Meeting Cadence'),
     Field('reportingFrequency', String, 'Reporting Frequency'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Decision authority matrix.
   @SectionId('DCAUT-DECI-LST')
   @SectionIdPattern('DCAUT-DECI-xxx')
+  @SerializationOrder(1)
   List<DecisionAuthorityEntry> decisionAuthorities = [];
 }
 
@@ -113,6 +122,7 @@ class DecisionAuthorityEntry {
     Field('escalationTo', String, 'Escalation To'),
     Field('responseTime', String, 'Expected Response Time'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -125,15 +135,18 @@ class DecisionAuthorityEntry {
 class SteeringCommittee {
   @ContentType('description', 'Overview of steering committee composition '
       'and responsibilities.')
+  @SerializationOrder(0)
   String? content;
 
   /// Committee charter and rules.
+  @SerializationOrder(1)
   CommitteeCharter charter = CommitteeCharter();
 
   /// Steering committee members — contains 1+× Committee Member.
   @SectionId('COMMB-MEMB-LST')
   @SectionIdPattern('COMMB-MEMB-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<CommitteeMemberEntry> members = [];
 }
 
@@ -147,6 +160,7 @@ class CommitteeCharter {
     Field('votingRules', String, 'Voting Rules'),
     Field('minutesDistribution', String, 'Minutes Distribution'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -168,11 +182,13 @@ class CommitteeMemberEntry {
     Field('contactInfo', String, 'Contact Information'),
     Field('substitute', String, 'Substitute/Deputy'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Specific responsibilities of this member.
   @SectionId('COMRS-RESP-LST')
   @SectionIdPattern('COMRS-RESP-xxx')
+  @SerializationOrder(1)
   List<CommitteeResponsibilityEntry> responsibilities = [];
 }
 
@@ -184,6 +200,7 @@ class CommitteeResponsibilityEntry {
     Field('scope', String, 'Scope'),
     Field('escalationTo', String, 'Escalation To'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -201,20 +218,24 @@ class CommitteeResponsibilityEntry {
 class ProjectTeamStaffing {
   @ContentType('description', 'Overview of team structure, staffing approach, '
       'and resource planning considerations.')
+  @SerializationOrder(0)
   String? content;
 
   /// Team structure overview.
+  @SerializationOrder(1)
   TeamStructureOverview teamStructure = TeamStructureOverview();
 
   /// Team members — contains 1+× Team Member.
   @SectionId('TMMBE-MEMB-LST')
   @SectionIdPattern('TMMBE-MEMB-xxx')
   @Min(1)
+  @SerializationOrder(2)
   List<TeamMemberEntry> members = [];
 
   /// Resource requirements not yet filled.
   @SectionId('RREQE-OPEN-LST')
   @SectionIdPattern('RREQE-OPEN-xxx')
+  @SerializationOrder(3)
   List<ResourceRequirementEntry> openRequirements = [];
 }
 
@@ -229,9 +250,11 @@ class TeamStructureOverview {
     Field('coreHours', String, 'Core Working Hours'),
     Field('reportingStructure', String, 'Reporting Structure'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Team structure diagram.
+  @SerializationOrder(1)
   DiagramSection teamDiagram = DiagramSection();
 }
 
@@ -247,6 +270,7 @@ class ResourceRequirementEntry {
     Field('priority', String, 'Priority (Critical/High/Medium/Low)'),
     Field('status', String, 'Recruitment Status'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -264,27 +288,34 @@ class TeamMemberEntry {
     Field('organization', String, 'Organization/Department'),
     Field('jobTitle', String, 'Job Title'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Allocation and scheduling details.
+  @SerializationOrder(1)
   TeamMemberEntryAllocation allocationDetails =
       TeamMemberEntryAllocation();
 
   /// Work location and contact details.
+  @SerializationOrder(2)
   TeamMemberEntryContact contact = TeamMemberEntryContact();
 
   /// Reporting and backup structure.
+  @SerializationOrder(3)
   TeamMemberEntryGovernance governance = TeamMemberEntryGovernance();
 
   /// Special skills and certifications.
+  @SerializationOrder(4)
   TeamMemberSkills skills = TeamMemberSkills();
 
   /// Availability constraints.
+  @SerializationOrder(5)
   TeamMemberAvailability availability = TeamMemberAvailability();
 
   /// Role-specific responsibilities.
   @SectionId('TMMRP-RESP-LST')
   @SectionIdPattern('TMMRP-RESP-xxx')
+  @SerializationOrder(6)
   List<TeamMemberResponsibilityEntry> responsibilities = [];
 }
 
@@ -296,6 +327,7 @@ class TeamMemberEntryAllocation {
     Field('startDate', String, 'Start Date'),
     Field('endDate', String, 'End Date'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -308,6 +340,7 @@ class TeamMemberEntryContact {
     Field('contactEmail', String, 'Contact Email'),
     Field('contactPhone', String, 'Contact Phone'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -318,6 +351,7 @@ class TeamMemberEntryGovernance {
     Field('reportingTo', String, 'Reporting To'),
     Field('backup', String, 'Backup/Deputy'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -331,11 +365,13 @@ class TeamMemberSkills {
     Field('domainExpertise', String, 'Domain Expertise'),
     Field('yearsExperience', int, 'Years of Experience'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Individual skill entries.
   @SectionId('TMSKE-SKIL-LST')
   @SectionIdPattern('TMSKE-SKIL-xxx')
+  @SerializationOrder(1)
   List<TeamMemberSkillEntry> skillDetails = [];
 }
 
@@ -348,6 +384,7 @@ class TeamMemberSkillEntry {
     Field('yearsUsing', int, 'Years Using'),
     Field('lastUsed', String, 'Last Used'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -362,6 +399,7 @@ class TeamMemberAvailability {
     Field('constraints', String, 'Availability Constraints'),
     Field('onCallRequirements', String, 'On-Call Requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -374,6 +412,7 @@ class TeamMemberResponsibilityEntry {
     Field('deliverables', String, 'Key Deliverables'),
     Field('authority', String, 'Decision Authority'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -394,20 +433,25 @@ Describe the different stakeholder groups, their information needs,
 and how documents and updates are distributed. Define the communication
 channels and frequency for different types of information.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Communication matrix overview.
+  @SerializationOrder(1)
   CommunicationMatrix communicationMatrix = CommunicationMatrix();
 
   /// 3.3.1. Full Distribution.
+  @SerializationOrder(2)
   FullDistribution fullDistribution = FullDistribution();
 
   /// 3.3.2. Executive Summary.
+  @SerializationOrder(3)
   ExecutiveSummaryDistribution executiveSummary = ExecutiveSummaryDistribution();
 
   /// 3.3.3. Custom Distribution Groups — contains 0+× Group.
   @SectionId('CSDSGR-CUST-LST')
   @SectionIdPattern('CSDSGR-CUST-xxx')
+  @SerializationOrder(4)
   List<CustomDistributionGroup> customGroups = [];
 }
 
@@ -430,16 +474,19 @@ class CommunicationMatrix {
     Field('translationProcess', String, 'Translation Process',
         hint: 'How documents are translated for non-primary speakers'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Communication matrix diagram.
   @ContentType('mermaid', 'Diagram showing communication flows between '
       'stakeholder groups and information types')
+  @SerializationOrder(1)
   String? communicationFlowDiagram;
 
   /// Communication types and their distribution rules.
   @SectionId('COTY-COMM-LST')
   @SectionIdPattern('COTY-COMM-xxx')
+  @SerializationOrder(2)
   List<CommunicationTypeEntry> communicationTypes = [];
 }
 
@@ -466,6 +513,7 @@ class CommunicationTypeEntry {
     Field('confidentialityLevel', String, 'Confidentiality Level',
         hint: 'Public / Internal / Confidential / Restricted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -484,11 +532,13 @@ class CustomDistributionGroup {
     Field('primaryChannel', String, 'Primary Channel',
         hint: 'Main distribution channel for this group'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Group members.
   @SectionId('DSRC-MEMB-LST')
   @SectionIdPattern('DSRC-MEMB-xxx')
+  @SerializationOrder(1)
   List<DistributionRecipientEntry> members = [];
 }
 
@@ -502,14 +552,17 @@ List of stakeholders who receive complete project documentation.
 These are typically core team members and key stakeholders who need
 full visibility into all project activities and decisions.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Full distribution summary.
+  @SerializationOrder(1)
   DistributionGroupSummary groupSummary = DistributionGroupSummary();
 
   /// Contains 0+× DistributionRecipient.
   @SectionId('DSRC-ITEM-LST')
   @SectionIdPattern('DSRC-ITEM-xxx')
+  @SerializationOrder(2)
   List<DistributionRecipientEntry> items = [];
 }
 
@@ -523,14 +576,17 @@ List of stakeholders who receive executive summaries only.
 These are typically senior executives and sponsors who need
 high-level progress updates without operational details.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Executive distribution summary.
+  @SerializationOrder(1)
   DistributionGroupSummary groupSummary = DistributionGroupSummary();
 
   /// Contains 0+× DistributionRecipient.
   @SectionId('DSRC-ITEM-LST')
   @SectionIdPattern('DSRC-ITEM-xxx')
+  @SerializationOrder(2)
   List<DistributionRecipientEntry> items = [];
 }
 
@@ -549,6 +605,7 @@ class DistributionGroupSummary {
     Field('distributionFrequency', String, 'Distribution Frequency',
         hint: 'Default frequency for this group'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -566,24 +623,30 @@ class DistributionRecipientEntry {
     Field('organization', String, 'Organization',
         hint: 'Department or company'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Contact information.
+  @SerializationOrder(1)
   DistributionRecipientContact contact = DistributionRecipientContact();
 
   /// Distribution preferences.
   @SectionId('DIREPR-PREF-LST')
   @SectionIdPattern('DIREPR-PREF-xxx')
+  @SerializationOrder(2)
   List<DistributionRecipientPreferences> preferences = [];
 
   /// Access and information scope.
+  @SerializationOrder(3)
   DistributionRecipientAccess access = DistributionRecipientAccess();
 
   /// Subscription period.
+  @SerializationOrder(4)
   DistributionRecipientSubscription subscription =
       DistributionRecipientSubscription();
 
   /// Backup and delegation.
+  @SerializationOrder(5)
   DistributionRecipientBackup backup = DistributionRecipientBackup();
 }
 
@@ -602,6 +665,7 @@ class DistributionRecipientContact {
     Field('preferredContactMethod', String, 'Preferred Contact Method',
         hint: 'Email / Phone / Teams / Slack'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -620,6 +684,7 @@ class DistributionRecipientPreferences {
     Field('notificationPreference', String, 'Notification Preference',
         hint: 'Immediate / Batched / Manual Check'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -638,6 +703,7 @@ class DistributionRecipientAccess {
     Field('confidentialityCleared', String, 'Confidentiality Cleared',
         hint: 'Public / Internal / Confidential / Restricted'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -652,6 +718,7 @@ class DistributionRecipientSubscription {
     Field('subscriptionStatus', String, 'Subscription Status',
         hint: 'Active / Paused / Ended'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -668,6 +735,7 @@ class DistributionRecipientBackup {
     Field('notes', String, 'Notes',
         hint: 'Additional notes about this recipient'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -687,23 +755,29 @@ Overview of the change management process for project documents.
 Describe the philosophy for change control, when formal change requests
 are required, and how the process balances agility with governance needs.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Change procedure summary.
+  @SerializationOrder(1)
   ChangeProcedureSummary summary = ChangeProcedureSummary();
 
   /// 3.4.1. Change Process.
+  @SerializationOrder(2)
   ChangeProcess changeProcess = ChangeProcess();
 
   /// 3.4.2. Change Impact Criteria.
+  @SerializationOrder(3)
   ChangeImpactCriteria changeImpactCriteria = ChangeImpactCriteria();
 
   /// 3.4.3. Change Control Board.
+  @SerializationOrder(4)
   ChangeControlBoard changeControlBoard = ChangeControlBoard();
 
   /// 3.4.4. Change Categories — contains 0+× Category.
   @SectionId('CHCA-CHAN-LST')
   @SectionIdPattern('CHCA-CHAN-xxx')
+  @SerializationOrder(5)
   List<ChangeCategoryEntry> changeCategories = [];
 }
 
@@ -724,6 +798,7 @@ class ChangeProcedureSummary {
     Field('retroactiveChangePolicy', String, 'Retroactive Change Policy',
         hint: 'How already-implemented changes are documented'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -754,27 +829,33 @@ decision points, parallel activities, and notification triggers.
     Field('auditRequirements', String, 'Audit Requirements',
         hint: 'Documentation requirements for audit trail'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Overview diagram (e.g. Mermaid or image reference).
+  @SerializationOrder(1)
   FlowDiagramSection overviewDiagram = FlowDiagramSection();
 
   /// Process steps — ordered list of change process steps — contains 0+× ChangeStep.
   @SectionId('CHST-STEP-LST')
   @SectionIdPattern('CHST-STEP-xxx')
+  @SerializationOrder(2)
   List<ChangeStepEntry> steps = [];
 
   /// Roles involved in the change process — contains 0+× ChangeRole.
   @SectionId('CHRO-ROLE-LST')
   @SectionIdPattern('CHRO-ROLE-xxx')
+  @SerializationOrder(3)
   List<ChangeRoleEntry> roles = [];
 
   /// Decision criteria for change approval.
+  @SerializationOrder(4)
   ChangeDecisionCriteria decisionCriteria = ChangeDecisionCriteria();
 
   /// Notification rules during change process.
   @SectionId('CHNORU-NOTI-LST')
   @SectionIdPattern('CHNORU-NOTI-xxx')
+  @SerializationOrder(5)
   List<ChangeNotificationRules> notificationRules = [];
 }
 
@@ -797,6 +878,7 @@ class ChangeDecisionCriteria {
     Field('vetoPower', String, 'Veto Power',
         hint: 'Who can veto an approved change'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -817,6 +899,7 @@ class ChangeNotificationRules {
     Field('escalationNotification', String, 'Escalation Notification',
         hint: 'Who is notified on escalation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -839,6 +922,7 @@ class ChangeRoleEntry {
     Field('availabilityRequirement', String, 'Availability Requirement',
         hint: 'Response time expectation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -855,22 +939,28 @@ class ChangeStepEntry {
     Field('description', String, 'Description',
         hint: 'Detailed description of what happens in this step'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Responsibility assignments.
+  @SerializationOrder(1)
   ChangeStepEntryResponsibility responsibility =
     ChangeStepEntryResponsibility();
 
   /// Inputs and outputs.
+  @SerializationOrder(2)
   ChangeStepEntryArtifacts artifacts = ChangeStepEntryArtifacts();
 
   /// Criteria and timing.
+  @SerializationOrder(3)
   ChangeStepEntryCriteria criteria = ChangeStepEntryCriteria();
 
   /// Decision paths.
+  @SerializationOrder(4)
   ChangeStepEntryDecision decision = ChangeStepEntryDecision();
 
   /// Subflow diagram for this step (e.g. Mermaid or image reference).
+  @SerializationOrder(5)
   FlowDiagramSection? subflowDiagram;
 }
 
@@ -887,6 +977,7 @@ class ChangeStepEntryResponsibility {
   Field('informedRoles', String, 'Informed Roles',
     hint: 'Roles informed of step completion'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -901,6 +992,7 @@ class ChangeStepEntryArtifacts {
   Field('tools', String, 'Tools Used',
     hint: 'Tools or systems used in this step'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -919,6 +1011,7 @@ class ChangeStepEntryCriteria {
   Field('maximumDuration', String, 'Maximum Duration',
     hint: 'Maximum allowed time before escalation'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -937,6 +1030,7 @@ class ChangeStepEntryDecision {
   Field('escalationTrigger', String, 'Escalation Trigger',
     hint: 'What triggers escalation from this step'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -951,16 +1045,19 @@ Criteria for assessing change impact across different dimensions.
 Define thresholds that determine whether a change is minor, moderate,
 major, or critical, and the corresponding approval requirements.
 ''')
+  @SerializationOrder(0)
   String? content;
 
   /// Impact level definitions.
   @SectionId('IMLEDE-IMPA-LST')
   @SectionIdPattern('IMLEDE-IMPA-xxx')
+  @SerializationOrder(1)
   List<ImpactLevelDefinitions> impactLevels = [];
 
   /// Contains 0+× ChangeImpactCriterion.
   @SectionId('CHIMCR-ITEM-LST')
   @SectionIdPattern('CHIMCR-ITEM-xxx')
+  @SerializationOrder(2)
   List<ChangeImpactCriterionEntry> items = [];
 }
 
@@ -985,6 +1082,7 @@ class ImpactLevelDefinitions {
     Field('criticalApproval', String, 'Critical Approval',
         hint: 'Who approves critical changes'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1001,21 +1099,26 @@ class ChangeImpactCriterionEntry {
     Field('category', String, 'Category',
         hint: 'Scope / Schedule / Budget / Quality / Risk / Resource'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Threshold levels.
+  @SerializationOrder(1)
   ChangeImpactCriterionEntryThresholds thresholds =
     ChangeImpactCriterionEntryThresholds();
 
   /// Measurement configuration.
+  @SerializationOrder(2)
   ChangeImpactCriterionEntryMeasurement measurement =
     ChangeImpactCriterionEntryMeasurement();
 
   /// Approval path rules.
+  @SerializationOrder(3)
   ChangeImpactCriterionEntryApproval approval =
     ChangeImpactCriterionEntryApproval();
 
   /// Weighting and supporting notes.
+  @SerializationOrder(4)
   ChangeImpactCriterionEntryGovernance governance =
     ChangeImpactCriterionEntryGovernance();
 }
@@ -1035,6 +1138,7 @@ class ChangeImpactCriterionEntryThresholds {
   Field('criticalThreshold', String, 'Critical Threshold',
     hint: 'Threshold for critical impact — e.g. >30% budget'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1049,6 +1153,7 @@ class ChangeImpactCriterionEntryMeasurement {
   Field('baselineReference', String, 'Baseline Reference',
     hint: 'What baseline this is measured against'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1063,6 +1168,7 @@ class ChangeImpactCriterionEntryApproval {
   Field('notificationRequired', String, 'Notification Required',
     hint: 'Who must be notified if threshold is exceeded'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1079,6 +1185,7 @@ class ChangeImpactCriterionEntryGovernance {
   Field('notes', String, 'Notes',
     hint: 'Additional notes about this criterion'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1100,21 +1207,26 @@ and decision-making rules.
     Field('meetingFrequency', String, 'Meeting Frequency',
         hint: 'How often the board meets — Weekly / Bi-weekly / Monthly'),
   ])
+  @SerializationOrder(0)
   String? content;
 
     /// Regular meeting cadence details.
+    @SerializationOrder(1)
     ChangeControlBoardMeetings meetings = ChangeControlBoardMeetings();
 
     /// Decision-making and emergency governance.
+    @SerializationOrder(2)
     ChangeControlBoardGovernance governance = ChangeControlBoardGovernance();
 
     /// Decision record distribution.
+    @SerializationOrder(3)
     ChangeControlBoardRecords records = ChangeControlBoardRecords();
 
   /// CCB members — contains 1+× CCB Member.
   @SectionId('CCME-MEMB-LST')
   @SectionIdPattern('CCME-MEMB-xxx')
   @Min(1)
+  @SerializationOrder(4)
   List<CcbMemberEntry> members = [];
 }
 
@@ -1129,6 +1241,7 @@ class ChangeControlBoardMeetings {
     Field('meetingDuration', String, 'Meeting Duration',
         hint: 'Standard meeting duration'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1143,6 +1256,7 @@ class ChangeControlBoardGovernance {
     Field('emergencyProcedure', String, 'Emergency Procedure',
         hint: 'How emergency decisions are handled outside meetings'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1155,6 +1269,7 @@ class ChangeControlBoardRecords {
     Field('decisionLog', String, 'Decision Log',
         hint: 'Where decisions are recorded'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1177,6 +1292,7 @@ class CcbMemberEntry {
     Field('requiredForQuorum', String, 'Required for Quorum',
         hint: 'Yes / No — whether this member is required for quorum'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1194,15 +1310,19 @@ class ChangeCategoryEntry {
     Field('description', String, 'Description',
         hint: 'What types of changes fall into this category'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Scope and example changes.
+  @SerializationOrder(1)
   ChangeCategoryEntryScope scopeDetails = ChangeCategoryEntryScope();
 
   /// Default handling and approval path.
+  @SerializationOrder(2)
   ChangeCategoryEntryHandling handling = ChangeCategoryEntryHandling();
 
   /// Documentation and special considerations.
+  @SerializationOrder(3)
   ChangeCategoryEntryGovernance governance = ChangeCategoryEntryGovernance();
 }
 
@@ -1215,6 +1335,7 @@ class ChangeCategoryEntryScope {
   Field('examples', String, 'Examples',
     hint: 'Examples of changes in this category'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1233,6 +1354,7 @@ class ChangeCategoryEntryHandling {
   Field('typicalProcessingTime', String, 'Typical Processing Time',
     hint: 'Normal time for change processing'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1247,6 +1369,7 @@ class ChangeCategoryEntryGovernance {
   Field('specialConsiderations', String, 'Special Considerations',
     hint: 'Special handling requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1274,29 +1397,36 @@ class ChangeCategoryEntryGovernance {
 class LegalAndContractualRequirements {
   @ContentType('description', 'Overview of additional administrative '
       'requirements and their impact on the project.')
+  @SerializationOrder(0)
   String? content;
 
   /// 3.6.1. Intellectual Property.
+  @SerializationOrder(1)
   IntellectualPropertyRequirements intellectualProperty =
       IntellectualPropertyRequirements();
 
   /// 3.6.2. Confidentiality and NDAs.
+  @SerializationOrder(2)
   ConfidentialityRequirements confidentiality = ConfidentialityRequirements();
 
   /// 3.6.3. Regulatory Compliance.
+  @SerializationOrder(3)
   RegulatoryComplianceRequirements regulatoryCompliance =
       RegulatoryComplianceRequirements();
 
   /// 3.6.4. Audit Requirements.
+  @SerializationOrder(4)
   AuditRequirements auditRequirements = AuditRequirements();
 
   /// 3.6.5. Insurance and Liability.
+  @SerializationOrder(5)
   InsuranceLiabilityRequirements insuranceLiability =
       InsuranceLiabilityRequirements();
 
   /// 3.6.6. Other Agreements — contains 0+× Agreement.
   @SectionId('OTAGR-OTHE-LST')
   @SectionIdPattern('OTAGR-OTHE-xxx')
+  @SerializationOrder(6)
   List<OtherAgreementEntry> otherAgreements = [];
 }
 
@@ -1314,11 +1444,13 @@ class IntellectualPropertyRequirements {
     Field('licensingTerms', String, 'Licensing Terms'),
     Field('transferConditions', String, 'Transfer Conditions'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// IP ownership details — contains 0+× IP Ownership Entry.
   @SectionId('IPOWN-OWNE-LST')
   @SectionIdPattern('IPOWN-OWNE-xxx')
+  @SerializationOrder(1)
   List<IpOwnershipEntry> ownershipDetails = [];
 }
 
@@ -1332,6 +1464,7 @@ class IpOwnershipEntry {
     Field('usageRights', String, 'Usage Rights'),
     Field('restrictions', String, 'Restrictions'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1348,14 +1481,17 @@ class ConfidentialityRequirements {
     Field('expirationDate', String, 'Expiration Date'),
     Field('governingLaw', String, 'Governing Law'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Confidential information categories.
   @SectionId('COINCA-CATE-LST')
   @SectionIdPattern('COINCA-CATE-xxx')
+  @SerializationOrder(1)
   List<ConfidentialInfoCategoryEntry> categories = [];
 
   /// Data handling procedures.
+  @SerializationOrder(2)
   DataHandlingProcedures dataHandling = DataHandlingProcedures();
 }
 
@@ -1369,6 +1505,7 @@ class ConfidentialInfoCategoryEntry {
     Field('handlingInstructions', String, 'Handling Instructions'),
     Field('authorizedPersonnel', String, 'Authorized Personnel'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1381,6 +1518,7 @@ class DataHandlingProcedures {
     Field('destructionProcedure', String, 'Destruction Procedure'),
     Field('breachNotificationProcess', String, 'Breach Notification Process'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1393,16 +1531,19 @@ class DataHandlingProcedures {
 class RegulatoryComplianceRequirements {
   @ContentType('description', 'Overview of regulatory landscape and '
       'compliance approach.')
+  @SerializationOrder(0)
   String? content;
 
   /// Regulatory requirements — contains 0+× Regulatory Requirement.
   @SectionId('REGRQ-REQU-LST')
   @SectionIdPattern('REGRQ-REQU-xxx')
+  @SerializationOrder(1)
   List<RegulatoryRequirementEntry> requirements = [];
 
   /// Compliance milestones.
   @SectionId('CPML-MILE-LST')
   @SectionIdPattern('CPML-MILE-xxx')
+  @SerializationOrder(2)
   List<ComplianceMilestoneEntry> milestones = [];
 }
 
@@ -1419,6 +1560,7 @@ class RegulatoryRequirementEntry {
     Field('responsibleParty', String, 'Responsible Party'),
     Field('penaltyForNonCompliance', String, 'Penalty for Non-compliance'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1433,6 +1575,7 @@ class ComplianceMilestoneEntry {
     Field('verificationMethod', String, 'Verification Method'),
     Field('status', String, 'Status'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1444,14 +1587,17 @@ class ComplianceMilestoneEntry {
 @SectionId('AR')
 class AuditRequirements {
   @ContentType('description', 'Overview of audit requirements and approach.')
+  @SerializationOrder(0)
   String? content;
 
   /// Planned audits — contains 0+× Audit Entry.
   @SectionId('AUD-AUDI-LST')
   @SectionIdPattern('AUD-AUDI-xxx')
+  @SerializationOrder(1)
   List<AuditEntry> audits = [];
 
   /// Audit evidence requirements.
+  @SerializationOrder(2)
   AuditEvidenceRequirements evidenceRequirements = AuditEvidenceRequirements();
 }
 
@@ -1467,6 +1613,7 @@ class AuditEntry {
     Field('frequency', String, 'Frequency'),
     Field('standards', String, 'Applicable Standards'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1479,11 +1626,13 @@ class AuditEvidenceRequirements {
     Field('traceabilityRequirements', String, 'Traceability Requirements'),
     Field('signoffRequirements', String, 'Sign-off Requirements'),
   ])
+  @SerializationOrder(0)
   String? content;
 
   /// Evidence types required.
   @SectionId('AUEVTY-EVID-LST')
   @SectionIdPattern('AUEVTY-EVID-xxx')
+  @SerializationOrder(1)
   List<AuditEvidenceTypeEntry> evidenceTypes = [];
 }
 
@@ -1496,6 +1645,7 @@ class AuditEvidenceTypeEntry {
     Field('format', String, 'Required Format'),
     Field('responsibleRole', String, 'Responsible Role'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1507,16 +1657,19 @@ class AuditEvidenceTypeEntry {
 @SectionId('ILR')
 class InsuranceLiabilityRequirements {
   @ContentType('description', 'Overview of insurance and liability framework.')
+  @SerializationOrder(0)
   String? content;
 
   /// Insurance requirements — contains 0+× Insurance Entry.
   @SectionId('INSURE-INSU-LST')
   @SectionIdPattern('INSURE-INSU-xxx')
+  @SerializationOrder(1)
   List<InsuranceEntry> insuranceRequirements = [];
 
   /// Liability limitations.
   @SectionId('LILI-LIAB-LST')
   @SectionIdPattern('LILI-LIAB-xxx')
+  @SerializationOrder(2)
   List<LiabilityLimitations> liabilityLimitations = [];
 }
 
@@ -1531,6 +1684,7 @@ class InsuranceEntry {
     Field('validityPeriod', String, 'Validity Period'),
     Field('certificateRequired', bool, 'Certificate Required'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1543,6 +1697,7 @@ class LiabilityLimitations {
     Field('indemnificationClauses', String, 'Indemnification Clauses'),
     Field('limitationOfDamages', String, 'Limitation of Damages'),
   ])
+  @SerializationOrder(0)
   String? content;
 }
 
@@ -1559,5 +1714,6 @@ class OtherAgreementEntry {
     Field('obligations', String, 'Obligations'),
     Field('location', String, 'Document Location'),
   ])
+  @SerializationOrder(0)
   String? content;
 }

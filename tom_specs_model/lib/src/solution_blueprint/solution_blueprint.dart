@@ -62,55 +62,70 @@ import 'target_operating_model.dart';
 @SectionId('SBP')
 class D00SolutionBlueprint {
   @Unused()
+  @SerializationOrder(0)
   String? content;
 
   /// SBP.1 Document Control (header + revision history + approvals).
+  @SerializationOrder(1)
   DocumentControl documentControl = DocumentControl();
 
   /// SBP.2 Introduction & Scope.
+  @SerializationOrder(2)
   IntroductionAndScope introductionAndScope = IntroductionAndScope();
 
   /// SBP.3 Glossary & Abbreviations.
+  @SerializationOrder(3)
   GlossaryAndAbbreviations glossaryAndAbbreviations =
       GlossaryAndAbbreviations();
 
   /// SBP.4 Stakeholders & Governance.
+  @SerializationOrder(4)
   StakeholdersAndGovernance stakeholdersAndGovernance =
       StakeholdersAndGovernance();
 
   /// SBP.5 Current Landscape. Seeds → CLA.
+  @SerializationOrder(5)
   CurrentLandscape currentLandscape = CurrentLandscape();
 
   /// SBP.6 Assumptions, Constraints & Dependencies.
+  @SerializationOrder(6)
   AssumptionsConstraintsDependencies assumptionsConstraintsDependencies =
       AssumptionsConstraintsDependencies();
 
   /// SBP.7 Target Operating Model concept. Seeds → TOM.
+  @SerializationOrder(7)
   TargetOperatingModel targetOperatingModelConcept =
       TargetOperatingModel();
 
   /// SBP.8 Information & Data Model. Seeds → IFM.
+  @SerializationOrder(8)
   InformationAndDataModel informationAndDataModel = InformationAndDataModel();
 
   /// SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.
+  @SerializationOrder(9)
   Requirements requirements = Requirements();
 
   /// SBP.11 Solution Architecture & Technology. Seeds → ATS.
+  @SerializationOrder(10)
   SolutionArchitectureAndTechnology solutionArchitectureAndTechnology =
       SolutionArchitectureAndTechnology();
 
   /// SBP.12 Security & Access Model. Seeds → SAS.
+  @SerializationOrder(11)
   SecurityAndAccessModel securityAndAccessModel = SecurityAndAccessModel();
 
   /// SBP.13 Experience & Interface Design. Seeds → XDS.
+  @SerializationOrder(12)
   ExperienceAndInterfaceDesign experienceAndInterfaceDesign =
       ExperienceAndInterfaceDesign();
 
   /// SBP.14 Quality & Acceptance Model. Seeds → QAP.
+  @SerializationOrder(13)
   QualityAndAcceptanceModel qualityAndAcceptanceModel =
       QualityAndAcceptanceModel();
 
   /// SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
+  @SerializationOrder(14)
   DeliveryTransitionAndRollout deliveryTransitionAndRollout =
       DeliveryTransitionAndRollout();
 }
