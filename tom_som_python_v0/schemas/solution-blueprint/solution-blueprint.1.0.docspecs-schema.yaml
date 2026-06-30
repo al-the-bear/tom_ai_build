@@ -1121,7 +1121,7 @@ section-types:
     pattern-check-id:
       pattern: ^compl_comp_lst-\d+$
       error-message: ID must match compl_comp_lst-NNN
-    description: Specific compliance measures for this regulation.
+    description: Add one entry per compliance measure taken to satisfy this regulation.
   COMRS-RESP-LST:
     prefix: comrs_resp_lst
     pattern-check-id:
@@ -1456,7 +1456,7 @@ section-types:
     pattern-check-id:
       pattern: ^inter_inte_lst-\d+$
       error-message: ID must match inter_inte_lst-NNN
-    description: Interaction scenarios for this actor.
+    description: Add one entry per interaction scenario between this actor and the system.
   IPOWN-OWNE-LST:
     prefix: ipown_owne_lst
     pattern-check-id:
@@ -1499,7 +1499,7 @@ section-types:
     pattern-check-id:
       pattern: ^keyto_keyt_lst-\d+$
       error-message: ID must match keyto_keyt_lst-NNN
-    description: Key touchpoints.
+    description: Add one entry per key touchpoint in the user journey.
   KNOWN-KNOW-LST:
     prefix: known_know_lst
     pattern-check-id:
@@ -1511,7 +1511,7 @@ section-types:
     pattern-check-id:
       pattern: ^kpien_kpis_lst-\d+$
       error-message: ID must match kpien_kpis_lst-NNN
-    description: Key Performance Indicators for value measurement.
+    description: "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target."
   LFTRS-LIFE-LST:
     prefix: lftrs_life_lst
     pattern-check-id:
@@ -1912,7 +1912,7 @@ section-types:
     pattern-check-id:
       pattern: ^repre_repr_lst-\d+$
       error-message: ID must match repre_repr_lst-NNN
-    description: Key quotes that represent this persona's mindset.
+    description: "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers."
   RESPO-RESP-LST:
     prefix: respo_resp_lst
     pattern-check-id:
@@ -2095,7 +2095,7 @@ section-types:
     pattern-check-id:
       pattern: ^scope_scop_lst-\d+$
       error-message: ID must match scope_scop_lst-NNN
-    description: Scope Assumptions.
+    description: Add one entry per assumption that underpins the scope boundaries. State what is assumed and the impact if it proves false.
   SCRAC-ITEM-LST:
     prefix: scrac_item_lst
     pattern-check-id:
@@ -2230,7 +2230,7 @@ section-types:
     pattern-check-id:
       pattern: ^syste_work_lst-\d+$
       error-message: ID must match syste_work_lst-NNN
-    description: Task workflow steps.
+    description: "Add one entry per step in the task workflow, in the order the user performs them."
   TECHN-TECH-LST:
     prefix: techn_tech_lst
     pattern-check-id:
@@ -2338,7 +2338,7 @@ section-types:
     pattern-check-id:
       pattern: ^userj_pain_lst-\d+$
       error-message: ID must match userj_pain_lst-NNN
-    description: Pain points in the journey.
+    description: Add one entry per pain point or friction in the user journey.
   VALID-VALI-LST:
     prefix: valid_vali_lst
     pattern-check-id:
@@ -2350,7 +2350,7 @@ section-types:
     pattern-check-id:
       pattern: ^varia_vari_lst-\d+$
       error-message: ID must match varia_vari_lst-NNN
-    description: Variations and exceptions.
+    description: Add one entry per variation or exception to the normal task flow.
   VOLUM-VOLU-LST:
     prefix: volum_volu_lst
     pattern-check-id:
@@ -2948,7 +2948,7 @@ section-types:
     pattern-check-id:
       pattern: ^rppe_rela_lst-\d+$
       error-message: ID must match rppe_rela_lst-NNN
-    description: Related pain points from Current State Analysis.
+    description: Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.
   SBPE-SUPP-LST:
     prefix: sbpe_supp_lst
     pattern-check-id:
@@ -3063,7 +3063,7 @@ section-types:
     pattern-check-id:
       pattern: ^syts_syst_lst-\d+$
       error-message: ID must match syts_syst_lst-NNN
-    description: 4.1.4.n.3. System Tasks — contains 1+× System Task.
+    description: Add one entry per distinct task this user category performs with the system.
   TBDE-TABB-LST:
     prefix: tbde_tabb_lst
     pattern-check-id:
@@ -3166,7 +3166,7 @@ section-types:
     pattern-check-id:
       pattern: ^usca_user_lst-\d+$
       error-message: ID must match usca_user_lst-NNN
-    description: 4.1.4. User Categories — contains 1+× User Category.
+    description: "Add one entry per distinct category of user, distinguished by role, access level, or interaction pattern with the system."
   WFAC-ACTO-LST:
     prefix: wfac_acto_lst
     pattern-check-id:
@@ -3321,7 +3321,7 @@ section-types:
     pattern-check-id:
       pattern: ^unp_pref_lst-\d+$
       error-message: ID must match unp_pref_lst-NNN
-    description: User notification preferences.
+    description: Add one entry per user notification-preference profile.
   WSE-ERRO-LST:
     prefix: wse_erro_lst
     pattern-check-id:
@@ -3345,7 +3345,7 @@ section-types:
     pattern-check-id:
       pattern: ^ci_inte_lst-\d+$
       error-message: ID must match ci_inte_lst-NNN
-    description: Channel-specific integration requirements.
+    description: Add one entry per channel-specific integration requirement.
   RR-RELA-LST:
     prefix: rr_rela_lst
     pattern-check-id:

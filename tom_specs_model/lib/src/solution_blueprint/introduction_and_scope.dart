@@ -184,6 +184,15 @@ class SystemComplexity {
 /// Concise description of the system to be created, its primary purpose,
 /// and the business domain it addresses. This section provides the
 /// foundation for understanding what the system does and who uses it.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — system overview',
+    'ISO/IEC/IEEE 29148 §9 — stakeholder needs & requirements',
+  ],
+  'The root of §4.1: captures what the system is, its primary purpose, and the '
+  'business domain it serves, establishing a shared mental model for all '
+  'stakeholders.',
+)
 @SectionId('SYDSC')
 class SystemDescription {
   @ContentHelp('''
@@ -213,9 +222,18 @@ that all stakeholders can refer to.
   BusinessDomain businessDomain = BusinessDomain();
 
   /// 4.1.4. User Categories — contains 1+× User Category.
+  @StandardReferences(
+    [
+      'BABOK v3 §10.43 — stakeholder list/map/personas',
+      'ISO/IEC/IEEE 29148 §6 — stakeholders',
+    ],
+    'The set of distinct user categories that interact with the system.',
+  )
   @SectionId('USCA-USER-LST')
   @SectionIdPattern('USCA-USER-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per distinct category of user, distinguished by '
+      'role, access level, or interaction pattern with the system.')
   @SerializationOrder(5)
   List<UserCategoryEntry> userCategories = [];
 
@@ -228,6 +246,11 @@ that all stakeholders can refer to.
 ///
 /// Provides structured classification of the system including its primary
 /// function, domain classification, technology stack, and key characteristics.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §6 — system overview'],
+  'A structured at-a-glance classification of the system — its function, '
+  'domain, architecture, deployment, and key characteristics.',
+)
 @Form([
   Field('primaryFunction', String, 'Primary function the system performs',
       hint: 'e.g., Enterprise resource planning and management'),
@@ -286,6 +309,15 @@ class SystemDescriptionSummary {
 /// Describes the overarching purpose of the system including the problem it
 /// solves, the opportunity it enables, and who the primary beneficiaries are.
 /// This section establishes the fundamental justification for the project.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — system overview',
+    'ISO/IEC/IEEE 29148 §9 — stakeholder needs & requirements',
+  ],
+  'Captures the fundamental justification for the system — the problem it '
+  'solves, the opportunity it enables, its beneficiaries, and its strategic '
+  'fit.',
+)
 @ContentHelp('Describe the overarching purpose of the system. Address: '
     'What problem does it solve? What opportunity does it enable? '
     'Who are the primary beneficiaries? How does it align with '
@@ -332,6 +364,14 @@ class SystemPurpose {
 ///
 /// Detailed description of the problem or pain point that this system will
 /// address. Includes impact analysis and urgency assessment.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — problem space',
+    'BABOK v3 §6 — strategy analysis (needs & business goals)',
+  ],
+  'Captures the problem or pain point the system addresses, with its impact, '
+  'root causes, and urgency.',
+)
 @ContentHelp('Describe the problem in detail. What is the current state? '
     'What makes it a problem? Who is affected and how severely?')
 @SectionId('PS')
@@ -342,31 +382,48 @@ class ProblemStatement {
   /// Problem Description Form.
   @Form([
     Field('problemSummary', String, 'Problem Summary (one sentence)',
-        required: true),
+        required: true,
+        hint: 'State the core problem in a single concise sentence'),
     Field('currentState', String,
-        'Current State (describe the AS-IS situation that is problematic)'),
+        'Current State (describe the AS-IS situation that is problematic)',
+        hint: 'Describe the current AS-IS situation that is problematic'),
     Field('affectedParties', String,
-        'Affected Parties (who suffers from this problem)'),
+        'Affected Parties (who suffers from this problem)',
+        hint: 'Who suffers from this problem and in what way'),
     Field('impactDescription', String,
-        'Impact Description (business, financial, operational impacts)'),
+        'Impact Description (business, financial, operational impacts)',
+        hint: 'Business, financial, and operational impacts of the problem'),
     Field('impactSeverity', String,
-        'Impact Severity (Critical, High, Medium, Low)'),
+        'Impact Severity (Critical, High, Medium, Low)',
+        hint: 'Critical / High / Medium / Low'),
     Field('impactMetrics', String,
-        'Impact Metrics (quantifiable measures of the problem\'s cost)'),
-    Field('rootCauses', String, 'Root Causes (underlying reasons for problem)'),
+        'Impact Metrics (quantifiable measures of the problem\'s cost)',
+        hint: 'Quantifiable measures of the problem\'s cost'),
+    Field('rootCauses', String, 'Root Causes (underlying reasons for problem)',
+        hint: 'Underlying reasons that cause the problem'),
     Field('urgency', String,
-        'Urgency (Immediate, Short-term, Medium-term, Long-term)'),
+        'Urgency (Immediate, Short-term, Medium-term, Long-term)',
+        hint: 'Immediate / Short-term / Medium-term / Long-term'),
     Field('urgencyJustification', String,
-        'Urgency Justification (why this timeline is critical)'),
+        'Urgency Justification (why this timeline is critical)',
+        hint: 'Why the stated timeline is critical'),
     Field('consequencesOfInaction', String,
-        'Consequences of Inaction (what happens if not addressed)'),
+        'Consequences of Inaction (what happens if not addressed)',
+        hint: 'What happens if the problem is not addressed'),
   ])
   @SerializationOrder(1)
   TextSection? problemDetails;
 
   /// Related pain points from Current State Analysis.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §6 — problem space'],
+    'The set of related pain points drawn from the Current State Analysis that '
+    'this problem connects to.',
+  )
   @SectionId('RPPE-RELA-LST')
   @SectionIdPattern('RPPE-RELA-xxx')
+  @ContentHelp('Add one entry per related pain point identified in the Current '
+      'State Analysis that this problem statement connects to.')
   @SerializationOrder(2)
   List<RelatedPainPointEntry> relatedPainPoints = [];
 }
@@ -375,6 +432,14 @@ class ProblemStatement {
 ///
 /// Description of the opportunity this system enables — new capabilities,
 /// competitive advantages, or improvements over current state.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — problem space',
+    'BABOK v3 §6 — strategy analysis (needs & business goals)',
+  ],
+  'Captures the opportunity the system enables — the TO-BE state, new '
+  'capabilities, and competitive advantages over the current state.',
+)
 @ContentHelp('Describe what the system will enable. What new capabilities '
     'will be available? What improvements over current state? What '
     'competitive advantages will it provide?')
@@ -386,23 +451,32 @@ class OpportunityStatement {
   /// Opportunity Details Form.
   @Form([
     Field('opportunitySummary', String, 'Opportunity Summary (one sentence)',
-        required: true),
+        required: true,
+        hint: 'State the core opportunity in a single concise sentence'),
     Field('futureState', String,
-        'Future State (describe the TO-BE situation after implementation)'),
+        'Future State (describe the TO-BE situation after implementation)',
+        hint: 'Describe the TO-BE situation after implementation'),
     Field('newCapabilities', String,
-        'New Capabilities (what becomes possible that wasn\'t before)'),
+        'New Capabilities (what becomes possible that wasn\'t before)',
+        hint: 'What becomes possible that was not possible before'),
     Field('improvements', String,
-        'Improvements (quantitative and qualitative improvements expected)'),
+        'Improvements (quantitative and qualitative improvements expected)',
+        hint: 'Quantitative and qualitative improvements expected'),
     Field('competitiveAdvantage', String,
-        'Competitive Advantage (market positioning benefits)'),
+        'Competitive Advantage (market positioning benefits)',
+        hint: 'Market positioning benefits the system provides'),
     Field('innovationAspects', String,
-        'Innovation Aspects (novel or differentiating features)'),
+        'Innovation Aspects (novel or differentiating features)',
+        hint: 'Novel or differentiating features'),
     Field('growthEnablement', String,
-        'Growth Enablement (how this supports business growth)'),
+        'Growth Enablement (how this supports business growth)',
+        hint: 'How the system supports business growth'),
     Field('efficiencyGains', String,
-        'Efficiency Gains (productivity and cost improvements)'),
+        'Efficiency Gains (productivity and cost improvements)',
+        hint: 'Productivity and cost improvements expected'),
     Field('timeToValue', String,
-        'Time to Value (when benefits will start being realized)'),
+        'Time to Value (when benefits will start being realized)',
+        hint: 'When benefits will start being realized'),
   ])
   @SerializationOrder(1)
   TextSection? opportunityDetails;
@@ -415,6 +489,15 @@ class OpportunityStatement {
 /// register — with role, interest, influence, concerns and engagement
 /// strategy — lives in SBP.4 [StakeholderRegister]; those attributes are
 /// recorded there once and are not restated here (L34C-6 / SR-15).
+@StandardReferences(
+  [
+    'BABOK v3 §10.43 — stakeholder list/map/personas',
+    'ISO/IEC/IEEE 29148 §6 — stakeholders',
+  ],
+  'Frames the stakeholder landscape through a benefits lens — who benefits '
+  'from the system and the value they gain — while the canonical register '
+  'lives in SBP.4.',
+)
 @ContentHelp('Identify the stakeholders and beneficiaries from a benefits '
     'perspective: who they are and the value they gain from the system. '
     'Record the canonical register (role, interest, influence, engagement) '
@@ -428,6 +511,11 @@ class StakeholdersAndBeneficiaries {
   String? content;
 
   /// Primary stakeholders — contains 1+× StakeholderEntry (benefits lens).
+  @StandardReferences(
+    ['BABOK v3 §10.43 — stakeholder list/map/personas'],
+    'The set of primary stakeholders directly affected by the system, framed '
+    'by the benefit each gains.',
+  )
   @SectionId('STKNT-PRIM-LST')
   @SectionIdPattern('STKNT-PRIM-xxx')
   @Min(1)
@@ -437,6 +525,11 @@ class StakeholdersAndBeneficiaries {
   List<StakeholderEntry> primaryStakeholders = [];
 
   /// Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
+  @StandardReferences(
+    ['BABOK v3 §10.43 — stakeholder list/map/personas'],
+    'The set of secondary stakeholders indirectly affected by the system, '
+    'framed by the benefit each gains.',
+  )
   @SectionId('STKNT-SECO-LST')
   @SectionIdPattern('STKNT-SECO-xxx')
   @ContentHelp('Secondary stakeholders are indirectly affected by the system.')
@@ -449,16 +542,24 @@ class StakeholdersAndBeneficiaries {
 /// Keeps only the scope-framing identity + benefit. Role, interest, influence,
 /// concerns and engagement strategy are owned by the canonical SBP.4
 /// [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
+@StandardReferences(
+  ['BABOK v3 §10.43 — stakeholder list/map/personas'],
+  'A single stakeholder or beneficiary, identified by name/type and the '
+  'scope-framing benefit they gain from the system.',
+)
 @SectionId('STKNT')
 class StakeholderEntry {
   @Form([
     Field('stakeholderName', String, 'Stakeholder Name or Group',
-        required: true),
+        required: true,
+        hint: 'Name of the stakeholder individual or group'),
     Field('stakeholderType', String,
-        'Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)'),
+        'Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)',
+        hint: 'Sponsor, User, Customer, Partner, Regulator, etc.'),
     Field('expectedBenefits', String,
         'Expected Benefits (the scope-framing value this group gains from the '
-            'system)'),
+            'system)',
+        hint: 'The scope-framing value this group gains from the system'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -468,6 +569,15 @@ class StakeholderEntry {
 ///
 /// Clear articulation of the value this system provides, including
 /// quantifiable benefits and return on investment analysis.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — business value',
+    'ISO/IEC/IEEE 29148 §6 — business need/value',
+  ],
+  'Articulates the business value the system delivers — its core value '
+  'statement, quantifiable and qualitative benefits, and how value is '
+  'measured.',
+)
 @ContentHelp('Articulate the business value clearly. Include quantifiable '
     'benefits, ROI expectations, and how value will be measured.')
 @SectionId('VALPX')
@@ -478,13 +588,17 @@ class ValueProposition {
   /// Value Proposition Details (form).
   @Form([
     Field('valueStatement', String,
-        'Value Statement (concise statement of value delivered)', required: true),
+        'Value Statement (concise statement of value delivered)', required: true,
+        hint: 'Concise statement of the value the system delivers'),
     Field('primaryBenefits', String,
-        'Primary Benefits (top 3-5 benefits in priority order)'),
+        'Primary Benefits (top 3-5 benefits in priority order)',
+        hint: 'Top 3-5 benefits in priority order'),
     Field('quantifiableBenefits', String,
-        'Quantifiable Benefits (measurable improvements with targets)'),
+        'Quantifiable Benefits (measurable improvements with targets)',
+        hint: 'Measurable improvements with concrete targets'),
     Field('qualitativeBenefits', String,
-        'Qualitative Benefits (non-quantifiable but important benefits)'),
+        'Qualitative Benefits (non-quantifiable but important benefits)',
+        hint: 'Non-quantifiable but important benefits'),
   ])
   @SerializationOrder(1)
   TextSection? valueDetails;
@@ -499,39 +613,63 @@ class ValueProposition {
       ValuePropositionReturnProfile();
 
   /// Key Performance Indicators for value measurement.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §6 — measures of effectiveness'],
+    'The set of key performance indicators by which the system\'s delivered '
+    'value will be measured.',
+  )
   @SectionId('KPIEN-KPIS-LST')
   @SectionIdPattern('KPIEN-KPIS-xxx')
+  @ContentHelp('Add one entry per KPI used to measure delivered value. '
+      'Include the metric, its baseline, and its target.')
   @SerializationOrder(4)
   List<KpiEntry> kpis = [];
 }
 
 /// Financial and efficiency benefits.
+@StandardReferences(
+  ['BABOK v3 §10 — business value'],
+  'The financial and efficiency benefits of the system — cost savings, '
+  'revenue impact, productivity gains, and risk reduction.',
+)
 @SectionId('VALBN')
 class ValuePropositionBenefits {
     @Form([
         Field('costSavings', String,
-                'Cost Savings (expected cost reductions and where)'),
+                'Cost Savings (expected cost reductions and where)',
+                hint: 'Expected cost reductions and where they occur'),
         Field('revenueImpact', String,
-                'Revenue Impact (how system affects revenue generation)'),
+                'Revenue Impact (how system affects revenue generation)',
+                hint: 'How the system affects revenue generation'),
         Field('productivityGains', String,
-                'Productivity Gains (efficiency improvements expected)'),
+                'Productivity Gains (efficiency improvements expected)',
+                hint: 'Efficiency improvements expected from the system'),
         Field('riskReduction', String,
-                'Risk Reduction (operational, compliance, security risks mitigated)'),
+                'Risk Reduction (operational, compliance, security risks mitigated)',
+                hint: 'Operational, compliance, and security risks mitigated'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// ROI and realization timeline.
+@StandardReferences(
+  ['BABOK v3 §10 — business value'],
+  'The return profile of the system — estimated ROI, payback period, and the '
+  'timeline over which value is realized.',
+)
 @SectionId('VALRP')
 class ValuePropositionReturnProfile {
     @Form([
         Field('estimatedRoi', String,
-                'Estimated ROI (return on investment calculation or estimate)'),
+                'Estimated ROI (return on investment calculation or estimate)',
+                hint: 'Return-on-investment calculation or estimate'),
         Field('paybackPeriod', String,
-                'Payback Period (time until investment is recovered)'),
+                'Payback Period (time until investment is recovered)',
+                hint: 'Time until the investment is recovered'),
         Field('valueRealizationTimeline', String,
-                'Value Realization Timeline (when benefits start accruing)'),
+                'Value Realization Timeline (when benefits start accruing)',
+                hint: 'When benefits start accruing after delivery'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -541,6 +679,12 @@ class ValuePropositionReturnProfile {
 ///
 /// How this system aligns with organizational strategy, goals, and
 /// initiatives. Demonstrates strategic justification for the project.
+@StandardReferences(
+  ['BABOK v3 §6 — strategy analysis (alignment)'],
+  'Demonstrates how the system aligns with organizational strategy — '
+  'corporate goals, IT roadmap, and strategic initiatives — justifying the '
+  'project strategically.',
+)
 @ContentHelp('Show how this project aligns with organizational strategy. '
     'Reference corporate goals, IT roadmap, and strategic initiatives.')
 @SectionId('STRAL')
@@ -551,23 +695,32 @@ class StrategicAlignment {
   /// Strategic Alignment Details (form).
   @Form([
     Field('alignedCorporateGoals', String,
-        'Aligned Corporate Goals (which company goals this supports)'),
+        'Aligned Corporate Goals (which company goals this supports)',
+        hint: 'Which company goals this initiative supports'),
     Field('alignedBusinessObjectives', String,
-        'Aligned Business Objectives (specific objectives this serves)'),
+        'Aligned Business Objectives (specific objectives this serves)',
+        hint: 'Specific business objectives this serves'),
     Field('alignedItStrategy', String,
-        'Aligned IT Strategy (how this fits in the IT roadmap)'),
+        'Aligned IT Strategy (how this fits in the IT roadmap)',
+        hint: 'How this fits within the IT roadmap'),
     Field('relatedInitiatives', String,
-        'Related Initiatives (other projects or programs this connects to)'),
+        'Related Initiatives (other projects or programs this connects to)',
+        hint: 'Other projects or programs this connects to'),
     Field('digitizationContribution', String,
-        'Digitization Contribution (how this advances digital transformation)'),
+        'Digitization Contribution (how this advances digital transformation)',
+        hint: 'How this advances digital transformation'),
     Field('innovationContribution', String,
-        'Innovation Contribution (how this supports innovation goals)'),
+        'Innovation Contribution (how this supports innovation goals)',
+        hint: 'How this supports innovation goals'),
     Field('complianceContribution', String,
-        'Compliance Contribution (regulatory or policy requirements met)'),
+        'Compliance Contribution (regulatory or policy requirements met)',
+        hint: 'Regulatory or policy requirements met'),
     Field('marketPositioning', String,
-        'Market Positioning (how this affects competitive position)'),
+        'Market Positioning (how this affects competitive position)',
+        hint: 'How this affects competitive market position'),
     Field('strategicTimingRationale', String,
-        'Strategic Timing (why this is the right time for this initiative)'),
+        'Strategic Timing (why this is the right time for this initiative)',
+        hint: 'Why now is the right time for this initiative'),
   ])
   @SerializationOrder(1)
   TextSection? alignmentDetails;
@@ -577,6 +730,14 @@ class StrategicAlignment {
 ///
 /// Clear definition of what is in scope and out of scope for this system.
 /// Helps set expectations and prevent scope creep.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — system scope & boundaries',
+    'BABOK v3 §10.41 — scope modelling',
+  ],
+  'Defines the boundaries of the system — what is in scope, out of scope, '
+  'and deferred — to set expectations and prevent scope creep.',
+)
 @ContentHelp('Define clear boundaries. What is included? What is explicitly '
     'excluded? What is deferred to future phases? This prevents scope creep '
     'and sets clear expectations.')
@@ -586,6 +747,10 @@ class ScopeBoundaries {
   String? content;
 
   /// In-Scope Items — contains 1+× ScopeItem.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §6 — system scope & boundaries'],
+    'The set of items explicitly included within the scope of this project.',
+  )
   @SectionId('SCITE-INSC-LST')
   @SectionIdPattern('SCITE-INSC-xxx')
   @Min(1)
@@ -595,6 +760,10 @@ class ScopeBoundaries {
   List<ScopeItemEntry> inScopeItems = [];
 
   /// Out-of-Scope Items — contains 0+× ScopeItem.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §6 — system scope & boundaries'],
+    'The set of items explicitly excluded from the scope of this project.',
+  )
   @SectionId('SCITE-OUTO-LST')
   @SectionIdPattern('SCITE-OUTO-xxx')
   @ContentHelp('List items explicitly excluded. This is as important as '
@@ -603,6 +772,11 @@ class ScopeBoundaries {
   List<ScopeItemEntry> outOfScopeItems = [];
 
   /// Deferred Items — contains 0+× ScopeItem.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §6 — system scope & boundaries'],
+    'The set of items deferred to future phases rather than the current '
+    'scope.',
+  )
   @SectionId('DFSCP-DEFE-LST')
   @SectionIdPattern('DFSCP-DEFE-xxx')
   @ContentHelp('Items deferred to future phases. Include tentative timing.')
@@ -610,39 +784,65 @@ class ScopeBoundaries {
   List<DeferredScopeItemEntry> deferredItems = [];
 
   /// Scope Assumptions.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §6 — system scope & boundaries'],
+    'The set of assumptions on which the defined scope boundaries depend.',
+  )
   @SectionId('SCOPE-SCOP-LST')
   @SectionIdPattern('SCOPE-SCOP-xxx')
+  @ContentHelp('Add one entry per assumption that underpins the scope '
+      'boundaries. State what is assumed and the impact if it proves false.')
   @SerializationOrder(4)
   List<ScopeAssumptionEntry> scopeAssumptions = [];
 }
 
 /// A scope item entry (in-scope or out-of-scope).
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §6 — system scope & boundaries'],
+  'A single scope item — its description, category, and the rationale for '
+  'including or excluding it.',
+)
 @SectionId('SIE')
 class ScopeItemEntry {
   @Form([
-    Field('itemDescription', String, 'Item Description', required: true),
+    Field('itemDescription', String, 'Item Description', required: true,
+        hint: 'Describe the feature, process, or system in scope or excluded'),
     Field('category', String,
-        'Category (Feature, Process, User Group, System, Data, Geography, etc.)'),
-    Field('rationale', String, 'Rationale (why included or excluded)'),
+        'Category (Feature, Process, User Group, System, Data, Geography, etc.)',
+        hint: 'Feature, Process, User Group, System, Data, Geography, etc.'),
+    Field('rationale', String, 'Rationale (why included or excluded)',
+        hint: 'Why this item is included or excluded'),
     Field('relatedRequirements', String,
-        'Related Requirements (requirement IDs if applicable)'),
+        'Related Requirements (requirement IDs if applicable)',
+        hint: 'Requirement IDs related to this item, if applicable'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A deferred scope item entry (for future phases).
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §6 — system scope & boundaries'],
+  'A single deferred scope item — its description, target phase, deferral '
+  'reason, dependencies, and estimated effort.',
+)
 @SectionId('DFSCP')
 class DeferredScopeItemEntry {
   @Form([
-    Field('itemDescription', String, 'Item Description', required: true),
-    Field('category', String, 'Category (Feature, Process, etc.)'),
-    Field('targetPhase', String, 'Target Phase (when this will be addressed)'),
-    Field('deferralReason', String, 'Deferral Reason (why not in current scope)'),
+    Field('itemDescription', String, 'Item Description', required: true,
+        hint: 'Describe the item being deferred to a future phase'),
+    Field('category', String, 'Category (Feature, Process, etc.)',
+        hint: 'Feature, Process, etc.'),
+    Field('targetPhase', String, 'Target Phase (when this will be addressed)',
+        hint: 'Which future phase will address this item'),
+    Field('deferralReason', String, 'Deferral Reason (why not in current scope)',
+        hint: 'Why this item is not in the current scope'),
     Field('dependencies', String,
-        'Dependencies (what must be done before this can be addressed)'),
+        'Dependencies (what must be done before this can be addressed)',
+        hint: 'What must be done before this can be addressed'),
     Field('estimatedEffort', String,
-        'Estimated Effort (rough sizing for planning purposes)'),
+        'Estimated Effort (rough sizing for planning purposes)',
+        hint: 'Rough sizing for planning purposes'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -657,6 +857,15 @@ class DeferredScopeItemEntry {
 /// Describes the system in its operational context: how it fits within the
 /// organization's IT landscape, who interacts with it, and what external
 /// systems it connects to. Based on UML context diagrams and IEEE 830.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description (context)',
+    'ISO/IEC/IEEE 29148 §6 — system context & boundaries',
+  ],
+  'Captures the system in its operational context: how it fits the IT '
+      'landscape, who interacts with it, and what external systems it '
+      'connects to.',
+)
 @ContentHelp('Describe the system in its operational context. Include: '
     'how it fits in the IT landscape, who interacts with it, '
     'external systems it connects to, and a context diagram.')
@@ -704,11 +913,21 @@ class SystemContext {
 ///
 /// Visual representation of the system as a black box showing external
 /// entities and data flows (UML context diagram / DFD Level 0).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description (context)',
+    'C4 model — system context diagram',
+  ],
+  'Captures a black-box context diagram of the system showing external '
+      'entities and the data flows between them.',
+)
 @ContentHelp('Provide a context diagram showing the system as a black box '
     'with all external entities (users, systems, organizations) and '
     'the data/control flows between them.')
 @SectionId('CD')
 class ContextDiagram {
+  @ContentHelp('Provide a narrative overview of the context diagram and '
+      'what the depicted black-box view represents.')
   @SerializationOrder(0)
   String? content;
 
@@ -733,33 +952,52 @@ class ContextDiagram {
 ///
 /// How this system fits within the organization's overall IT architecture
 /// and application portfolio.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — environment/context',
+    'TOGAF — baseline architecture landscape',
+  ],
+  'Captures how this system fits the organization\'s overall IT '
+      'architecture and application portfolio.',
+)
 @ContentHelp('Describe how this system fits in the overall IT architecture. '
     'What role does it play? What other systems does it complement or replace?')
 @SectionId('ILP')
 class ItLandscapePosition {
+  @ContentHelp('Provide a narrative overview of the system\'s position '
+      'within the IT landscape before the structured details below.')
   @SerializationOrder(0)
   String? content;
 
   /// IT Landscape Position Details (form).
   @Form([
     Field('architectureLayer', String,
-        'Architecture Layer (Presentation, Business, Data, Integration)'),
+        'Architecture Layer (Presentation, Business, Data, Integration)',
+        hint: 'Which architecture layer this system primarily belongs to'),
     Field('applicationCategory', String,
-        'Application Category (Core, Support, Management, Infrastructure)'),
+        'Application Category (Core, Support, Management, Infrastructure)',
+        hint: 'The portfolio category this application falls under'),
     Field('portfolioRole', String,
-        'Portfolio Role (Strategic, Key Operational, Support, Legacy)'),
+        'Portfolio Role (Strategic, Key Operational, Support, Legacy)',
+        hint: 'The strategic role this system plays in the portfolio'),
     Field('replacedSystems', String,
-        'Replaced Systems (systems this will replace or retire)'),
+        'Replaced Systems (systems this will replace or retire)',
+        hint: 'Systems this will replace or retire'),
     Field('complementarySystems', String,
-        'Complementary Systems (systems this works alongside)'),
+        'Complementary Systems (systems this works alongside)',
+        hint: 'Systems this works alongside'),
     Field('dependsOnSystems', String,
-        'Depends On Systems (systems this requires to operate)'),
+        'Depends On Systems (systems this requires to operate)',
+        hint: 'Systems this requires to operate'),
     Field('dependentSystems', String,
-        'Dependent Systems (systems that will depend on this)'),
+        'Dependent Systems (systems that will depend on this)',
+        hint: 'Systems that will depend on this one'),
     Field('dataOwnership', String,
-        'Data Ownership (what master data does this system own)'),
+        'Data Ownership (what master data does this system own)',
+        hint: 'What master data this system owns'),
     Field('integrationPattern', String,
-        'Primary Integration Pattern (API, Event, Batch, Real-time)'),
+        'Primary Integration Pattern (API, Event, Batch, Real-time)',
+        hint: 'The primary integration pattern used'),
   ])
   @SerializationOrder(1)
   TextSection? positionDetails;
@@ -769,6 +1007,14 @@ class ItLandscapePosition {
 ///
 /// Human users and organizational entities that interact with the system
 /// from outside the system boundary.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — external interfaces & actors',
+    'BABOK v3 §10.43 — stakeholder/actor analysis',
+  ],
+  'Captures the human users and organizational entities that interact '
+      'with the system from outside its boundary.',
+)
 @ContentHelp('List all external actors (human users, organizations, '
     'external parties) that interact with the system.')
 @SectionId('EA')
@@ -779,6 +1025,10 @@ class ExternalActors {
   String? content;
 
   /// Actor entries — contains 1+× ExternalActorEntry.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §6 — external interfaces & actors'],
+    'The set of individual external-actor entries for this system.',
+  )
   @SectionId('EAE-ACTO-LST')
   @SectionIdPattern('EAE-ACTO-xxx')
   @Min(1)
@@ -789,16 +1039,28 @@ class ExternalActors {
 }
 
 /// An external actor entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — external interfaces & actors',
+    'BABOK v3 §10.43 — stakeholder/actor analysis',
+  ],
+  'Captures a single external actor: its name, type, description, and '
+      'why it interacts with the system.',
+)
 @SectionId('EAE')
 class ExternalActorEntry {
   @Form([
-    Field('actorName', String, 'Actor Name', required: true),
+    Field('actorName', String, 'Actor Name', required: true,
+        hint: 'The name of this external actor'),
     Field('actorType', String,
         'Actor Type (Internal User, External User, Organization, '
-            'Partner, Customer, Regulator, etc.)', required: true),
-    Field('description', String, 'Actor Description'),
+            'Partner, Customer, Regulator, etc.)', required: true,
+        hint: 'The category of actor'),
+    Field('description', String, 'Actor Description',
+        hint: 'A short description of this actor'),
     Field('interactionPurpose', String,
-        'Interaction Purpose (why they interact with the system)'),
+        'Interaction Purpose (why they interact with the system)',
+        hint: 'Why this actor interacts with the system'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -812,39 +1074,68 @@ class ExternalActorEntry {
   ExternalActorEntryContext context = ExternalActorEntryContext();
 
   /// Interaction scenarios for this actor.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §6 — external interfaces & actors'],
+    'The set of interaction-scenario entries for this actor.',
+  )
   @SectionId('INTER-INTE-LST')
   @SectionIdPattern('INTER-INTE-xxx')
+  @ContentHelp('Add one entry per interaction scenario between this actor '
+      'and the system.')
   @SerializationOrder(3)
   List<InteractionScenarioEntry> interactionScenarios = [];
 }
 
 /// Interaction cadence and exchanged information.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — external interfaces & actors',
+    'BABOK v3 §10.43 — stakeholder/actor analysis',
+  ],
+  'Captures the cadence and channel of an actor\'s interaction and the '
+      'information exchanged with the system.',
+)
 @SectionId('EAEI')
 class ExternalActorEntryInteraction {
   @Form([
     Field('interactionFrequency', String,
-        'Interaction Frequency (Real-time, Daily, Weekly, On-demand)'),
+        'Interaction Frequency (Real-time, Daily, Weekly, On-demand)',
+        hint: 'How often this actor interacts with the system'),
     Field('interactionChannel', String,
-        'Interaction Channel (Web UI, Mobile App, API, Email, etc.)'),
+        'Interaction Channel (Web UI, Mobile App, API, Email, etc.)',
+        hint: 'The channel through which the interaction occurs'),
     Field('dataExchanged', String,
-        'Data Exchanged (what information flows to/from this actor)'),
+        'Data Exchanged (what information flows to/from this actor)',
+        hint: 'What information flows to and from this actor'),
     Field('accessLevel', String,
-        'Access Level (Read, Write, Admin, API-only, etc.)'),
+        'Access Level (Read, Write, Admin, API-only, etc.)',
+        hint: 'The level of access this actor has'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Access, authentication, and context details.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — external interfaces & actors',
+    'ISO/IEC 27001 Annex A — access control',
+  ],
+  'Captures an actor\'s access, authentication, location, and volume '
+      'context relative to the system.',
+)
 @SectionId('EAEC')
 class ExternalActorEntryContext {
   @Form([
     Field('authenticationMethod', String,
-        'Authentication Method (SSO, Password, Certificate, API Key, etc.)'),
+        'Authentication Method (SSO, Password, Certificate, API Key, etc.)',
+        hint: 'How this actor authenticates'),
     Field('location', String,
-        'Location (On-site, Remote, Mobile, Global, etc.)'),
+        'Location (On-site, Remote, Mobile, Global, etc.)',
+        hint: 'Where this actor accesses the system from'),
     Field('volumeEstimate', String,
-        'Volume Estimate (number of actors, transactions per day)'),
+        'Volume Estimate (number of actors, transactions per day)',
+        hint: 'Estimated number of actors or transactions per day'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -853,6 +1144,14 @@ class ExternalActorEntryContext {
 /// 4.1.2.4. External Systems.
 ///
 /// External systems, services, and APIs that the system integrates with.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — external system interfaces',
+    'ISO/IEC/IEEE 42010 — context',
+  ],
+  'Captures the external systems, services, and APIs the system '
+      'integrates with, inbound and outbound.',
+)
 @ContentHelp('List all external systems, services, and APIs that this '
     'system will integrate with. Include both incoming and outgoing '
     'integrations.')
@@ -864,6 +1163,10 @@ class ExternalSystemsContext {
   String? content;
 
   /// External system entries — contains 0+× ExternalSystemContextEntry.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §6 — external system interfaces'],
+    'The set of individual external-system integration entries.',
+  )
   @SectionId('EXSYCOEN-SYST-LST')
   @SectionIdPattern('EXSYCOEN-SYST-xxx')
   @ContentHelp('Add one entry per external system that this system '
@@ -873,14 +1176,24 @@ class ExternalSystemsContext {
 }
 
 /// An external system context entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — external system interfaces',
+    'ISO/IEC/IEEE 42010 — context',
+  ],
+  'Captures a single external system the platform integrates with: its '
+      'name, owner, and type.',
+)
 @SectionId('EXSYCOEN')
 class ExternalSystemContextEntry {
   @Form([
-    Field('systemName', String, 'System Name', required: true),
-    Field('systemOwner', String, 'System Owner (organization/department)'),
+    Field('systemName', String, 'System Name', required: true,
+        hint: 'The name of this external system'),
+    Field('systemOwner', String, 'System Owner (organization/department)',
+        hint: 'The organization or department that owns this system'),
     Field('systemType', String,
         'System Type (ERP, CRM, Database, API, SaaS, Legacy, etc.)',
-        required: true),
+        required: true, hint: 'The category of external system'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -908,49 +1221,83 @@ class ExternalSystemContextEntry {
 }
 
 /// Integration intent and exchanged information.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — external system interfaces',
+    'ISO/IEC/IEEE 42010 — context',
+  ],
+  'Captures the direction, purpose, data, and method of an external '
+      'system integration.',
+)
 @SectionId('EXSYCOENIN')
 class ExternalSystemContextEntryIntegration {
   @Form([
     Field('integrationDirection', String,
         'Integration Direction (Inbound, Outbound, Bidirectional)',
-        required: true),
+        required: true,
+        hint: 'The direction in which data flows for this integration'),
     Field('integrationPurpose', String,
-        'Integration Purpose (what business need does this serve)'),
+        'Integration Purpose (what business need does this serve)',
+        hint: 'The business need this integration serves'),
     Field('dataExchanged', String,
-        'Data Exchanged (what data flows between systems)'),
+        'Data Exchanged (what data flows between systems)',
+        hint: 'What data flows between the systems'),
     Field('integrationMethod', String,
         'Integration Method (REST API, SOAP, File Transfer, Database, '
-            'Message Queue, Event Stream, etc.)'),
+            'Message Queue, Event Stream, etc.)',
+        hint: 'The technical method used for the integration'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Operational delivery characteristics for an external system context.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — external system interfaces',
+    'ISO/IEC/IEEE 42010 — context',
+  ],
+  'Captures the operational delivery characteristics of an external '
+      'system integration: frequency, volume, SLA, and error handling.',
+)
 @SectionId('ESCEO')
 class ExternalSystemContextEntryOperations {
   @Form([
     Field('integrationFrequency', String,
         'Integration Frequency (Real-time, Near-real-time, Batch, '
-            'On-demand)'),
+            'On-demand)',
+        hint: 'How often the integration runs'),
     Field('dataVolume', String,
-        'Data Volume (estimated records/transactions per time period)'),
+        'Data Volume (estimated records/transactions per time period)',
+        hint: 'Estimated records or transactions per time period'),
     Field('sla', String,
-        'SLA (availability, response time requirements)'),
+        'SLA (availability, response time requirements)',
+        hint: 'Availability and response-time requirements'),
     Field('errorHandling', String,
-        'Error Handling (retry, dead-letter, manual intervention)'),
+        'Error Handling (retry, dead-letter, manual intervention)',
+        hint: 'How integration errors are handled'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Security and support contacts for an external system context.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — security boundaries',
+    'ISO/IEC/IEEE 29148 §6 — external system interfaces',
+  ],
+  'Captures the security requirements and technical contact governing an '
+      'external system integration.',
+)
 @SectionId('ESCEG')
 class ExternalSystemContextEntryGovernance {
   @Form([
     Field('securityRequirements', String,
-        'Security Requirements (encryption, authentication, network)'),
-    Field('contactPerson', String, 'Contact Person (technical contact)'),
+        'Security Requirements (encryption, authentication, network)',
+        hint: 'Encryption, authentication, and network requirements'),
+    Field('contactPerson', String, 'Contact Person (technical contact)',
+        hint: 'The technical contact for this integration'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -960,6 +1307,14 @@ class ExternalSystemContextEntryGovernance {
 ///
 /// Security zones and trust boundaries that the system operates within
 /// or crosses.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — security boundaries',
+    'ISO/IEC/IEEE 42010 — context',
+  ],
+  'Captures the security zones and trust boundaries the system operates '
+      'within or crosses.',
+)
 @ContentHelp('Define the trust boundaries (security zones) that the system '
     'operates within and crosses. This is important for security design.')
 @SectionId('TB')
@@ -970,6 +1325,10 @@ class TrustBoundaries {
   String? content;
 
   /// Trust boundary entries — contains 0+× TrustBoundaryEntry.
+  @StandardReferences(
+    ['ISO/IEC 27001 Annex A — security boundaries'],
+    'The set of individual trust-boundary entries for this system.',
+  )
   @SectionId('TRBN-BOUN-LST')
   @SectionIdPattern('TRBN-BOUN-xxx')
   @ContentHelp('Add one entry per trust boundary or security zone.')
@@ -978,22 +1337,37 @@ class TrustBoundaries {
 }
 
 /// A trust boundary entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — security boundaries',
+    'ISO/IEC/IEEE 42010 — context',
+  ],
+  'Captures a single trust boundary or security zone, what crosses it, '
+      'and its protection mechanisms.',
+)
 @SectionId('TRBN')
 class TrustBoundaryEntry {
   @Form([
-    Field('boundaryName', String, 'Boundary Name', required: true),
+    Field('boundaryName', String, 'Boundary Name', required: true,
+        hint: 'The name of this trust boundary'),
     Field('boundaryType', String,
         'Boundary Type (Network Zone, Authentication Domain, '
-            'Organizational, Legal/Regulatory, Cloud/On-Prem)', required: true),
-    Field('description', String, 'Description'),
+            'Organizational, Legal/Regulatory, Cloud/On-Prem)', required: true,
+        hint: 'The category of trust boundary'),
+    Field('description', String, 'Description',
+        hint: 'A short description of this boundary'),
     Field('componentsCrossing', String,
-        'Components Crossing (which parts of the system cross this boundary)'),
+        'Components Crossing (which parts of the system cross this boundary)',
+        hint: 'Which parts of the system cross this boundary'),
     Field('protectionMechanisms', String,
-        'Protection Mechanisms (firewall, encryption, authentication, etc.)'),
+        'Protection Mechanisms (firewall, encryption, authentication, etc.)',
+        hint: 'Mechanisms protecting this boundary'),
     Field('trustLevel', String,
-        'Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted)'),
+        'Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted)',
+        hint: 'The trust level on the other side of this boundary'),
     Field('complianceImplications', String,
-        'Compliance Implications (regulatory requirements for crossing)'),
+        'Compliance Implications (regulatory requirements for crossing)',
+        hint: 'Regulatory requirements for crossing this boundary'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1003,14 +1377,28 @@ class TrustBoundaryEntry {
 ///
 /// Organizational units, departments, and business areas that the system
 /// serves or interacts with.
+@StandardReferences(
+  [
+    'TOGAF — organization context',
+    'BABOK v3 §10 — organizational modelling',
+  ],
+  'Captures the organizational units, departments, and business areas the '
+      'system serves or interacts with.',
+)
 @ContentHelp('Describe the organizational context: which departments, '
     'business units, and organizational structures are involved.')
 @SectionId('OC')
 class OrganizationalContext {
+  @ContentHelp('Provide a narrative overview of the organizational context '
+      'before the structured organizational-unit entries below.')
   @SerializationOrder(0)
   String? content;
 
   /// Organizational unit entries — contains 0+× OrganizationalUnitContextEntry.
+  @StandardReferences(
+    ['TOGAF — organization context'],
+    'The set of individual organizational-unit entries for this system.',
+  )
   @SectionId('OUCE-ORGA-LST')
   @SectionIdPattern('OUCE-ORGA-xxx')
   @ContentHelp('Add one entry per organizational unit that uses or '
@@ -1026,21 +1414,37 @@ class OrganizationalContext {
 }
 
 /// An organizational unit context entry (form).
+@StandardReferences(
+  [
+    'TOGAF — organization context',
+    'BABOK v3 §10 — organizational modelling',
+  ],
+  'Captures a single organizational unit that uses or is affected by the '
+      'system, including its role and responsibilities.',
+)
 @SectionId('OUCE')
 class OrganizationalUnitContextEntry {
   @Form([
-    Field('unitName', String, 'Unit Name', required: true),
+    Field('unitName', String, 'Unit Name', required: true,
+        hint: 'The name of this organizational unit'),
     Field('unitType', String,
         'Unit Type (Department, Division, Team, Business Unit, '
-            'Subsidiary, External Partner)'),
+            'Subsidiary, External Partner)',
+        hint: 'The category of organizational unit'),
     Field('role', String, 'Role (Primary User, Secondary User, '
-        'Data Provider, Beneficiary, Sponsor)'),
+        'Data Provider, Beneficiary, Sponsor)',
+        hint: 'The role this unit plays relative to the system'),
     Field('responsibilities', String,
-        'Responsibilities (what they do with/for the system)'),
-    Field('headcount', String, 'Headcount (estimated number of users)'),
-    Field('location', String, 'Location (geographic location)'),
-    Field('timezone', String, 'Timezone (primary operating timezone)'),
-    Field('keyContacts', String, 'Key Contacts (business contacts)'),
+        'Responsibilities (what they do with/for the system)',
+        hint: 'What this unit does with or for the system'),
+    Field('headcount', String, 'Headcount (estimated number of users)',
+        hint: 'Estimated number of users in this unit'),
+    Field('location', String, 'Location (geographic location)',
+        hint: 'The geographic location of this unit'),
+    Field('timezone', String, 'Timezone (primary operating timezone)',
+        hint: 'The primary operating timezone of this unit'),
+    Field('keyContacts', String, 'Key Contacts (business contacts)',
+        hint: 'Business contacts for this unit'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1050,35 +1454,55 @@ class OrganizationalUnitContextEntry {
 ///
 /// Where and how the system will be deployed in the infrastructure
 /// landscape.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — deployment environment',
+    'TOGAF — technology/deployment landscape',
+  ],
+  'Captures where and how the system will be deployed within the '
+      'infrastructure landscape, including constraints.',
+)
 @ContentHelp('Describe the deployment context: where the system will be '
     'deployed, what infrastructure it will use, and deployment constraints.')
 @SectionId('DC')
 class DeploymentContext {
+  @ContentHelp('Provide a narrative overview of the deployment context '
+      'before the structured deployment details below.')
   @SerializationOrder(0)
   String? content;
 
   /// Deployment Context Details (form).
   @Form([
     Field('deploymentModel', String,
-        'Deployment Model (On-Premises, Cloud, Hybrid, Multi-Cloud)'),
+        'Deployment Model (On-Premises, Cloud, Hybrid, Multi-Cloud)',
+        hint: 'The overall deployment model'),
     Field('cloudProvider', String,
-        'Cloud Provider (AWS, Azure, GCP, Private Cloud, N/A)'),
+        'Cloud Provider (AWS, Azure, GCP, Private Cloud, N/A)',
+        hint: 'The cloud provider, if any'),
     Field('hostingEnvironment', String,
-        'Hosting Environment (Containers, VMs, Serverless, Bare Metal)'),
+        'Hosting Environment (Containers, VMs, Serverless, Bare Metal)',
+        hint: 'The hosting environment type'),
     Field('dataCenter', String,
-        'Data Center (location, name, or identifier)'),
+        'Data Center (location, name, or identifier)',
+        hint: 'The data center location, name, or identifier'),
     Field('geographicDistribution', String,
-        'Geographic Distribution (Single region, Multi-region, Global)'),
+        'Geographic Distribution (Single region, Multi-region, Global)',
+        hint: 'How the deployment is distributed geographically'),
     Field('availabilityZones', String,
-        'Availability Zones (redundancy configuration)'),
+        'Availability Zones (redundancy configuration)',
+        hint: 'The redundancy / availability-zone configuration'),
     Field('networkZone', String,
-        'Network Zone (DMZ, Internal, Private, Public)'),
+        'Network Zone (DMZ, Internal, Private, Public)',
+        hint: 'The network zone the system is deployed in'),
     Field('scalingModel', String,
-        'Scaling Model (Horizontal, Vertical, Auto-scaling, Manual)'),
+        'Scaling Model (Horizontal, Vertical, Auto-scaling, Manual)',
+        hint: 'The scaling model used'),
     Field('disasterRecovery', String,
-        'Disaster Recovery (DR site, strategy)'),
+        'Disaster Recovery (DR site, strategy)',
+        hint: 'The disaster-recovery site and strategy'),
     Field('environmentTypes', String,
-        'Environment Types (Dev, Test, Staging, Production, DR)'),
+        'Environment Types (Dev, Test, Staging, Production, DR)',
+        hint: 'Which environment types exist'),
   ])
   @SerializationOrder(1)
   TextSection? deploymentDetails;
@@ -1088,6 +1512,14 @@ class DeploymentContext {
 ///
 /// Regulatory and compliance context that affects system design and
 /// operations.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — compliance with legal & contractual requirements',
+    'ISO/IEC/IEEE 29148 §6 — regulatory constraints',
+  ],
+  'Captures the regulatory and compliance context affecting the system\'s '
+      'design and operations.',
+)
 @ContentHelp('Describe the regulatory and compliance context: which '
     'regulations apply, what compliance requirements exist.')
 @SectionId('RC1')
@@ -1098,6 +1530,10 @@ class RegulatoryContext {
   String? content;
 
   /// Applicable regulations — contains 0+× ApplicableRegulationEntry.
+  @StandardReferences(
+    ['ISO/IEC 27001 — compliance with legal & contractual requirements'],
+    'The set of individual applicable-regulation entries for this system.',
+  )
   @SectionId('ARE-REGU-LST')
   @SectionIdPattern('ARE-REGU-xxx')
   @ContentHelp('Add one entry per applicable regulation or compliance '
@@ -1107,36 +1543,60 @@ class RegulatoryContext {
 }
 
 /// An applicable regulation entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 27001 — compliance with legal & contractual requirements',
+    'ISO/IEC/IEEE 29148 §6 — regulatory constraints',
+  ],
+  'Captures a single applicable regulation or compliance requirement, '
+      'its scope, key requirements, and compliance status.',
+)
 @SectionId('ARE')
 class ApplicableRegulationEntry {
   @Form([
-    Field('regulationName', String, 'Regulation Name', required: true),
-    Field('regulationCode', String, 'Regulation Code / Reference'),
+    Field('regulationName', String, 'Regulation Name', required: true,
+        hint: 'The name of this regulation'),
+    Field('regulationCode', String, 'Regulation Code / Reference',
+        hint: 'The code or reference identifier for this regulation'),
     Field('regulationType', String,
         'Regulation Type (Privacy, Security, Financial, Industry, '
-            'Data Retention, Accessibility)', required: true),
+            'Data Retention, Accessibility)', required: true,
+        hint: 'The category of regulation'),
     Field('jurisdiction', String,
-        'Jurisdiction (Geographic or organizational scope)'),
+        'Jurisdiction (Geographic or organizational scope)',
+        hint: 'The geographic or organizational scope of this regulation'),
     Field('applicability', String,
-        'Applicability (why this regulation applies to this system)'),
+        'Applicability (why this regulation applies to this system)',
+        hint: 'Why this regulation applies to this system'),
     Field('keyRequirements', String,
-        'Key Requirements (summary of main requirements)'),
+        'Key Requirements (summary of main requirements)',
+        hint: 'A summary of the main requirements'),
     Field('complianceStatus', String,
         'Compliance Status (Compliant, Partially Compliant, Non-Compliant, '
-            'To Be Assessed)'),
+            'To Be Assessed)',
+        hint: 'The current compliance status'),
     Field('complianceOwner', String,
-        'Compliance Owner (who is responsible for compliance)'),
+        'Compliance Owner (who is responsible for compliance)',
+        hint: 'Who is responsible for compliance'),
     Field('auditRequirements', String,
-        'Audit Requirements (audit frequency, type)'),
+        'Audit Requirements (audit frequency, type)',
+        hint: 'Audit frequency and type required'),
     Field('penalties', String,
-        'Penalties (consequences of non-compliance)'),
+        'Penalties (consequences of non-compliance)',
+        hint: 'Consequences of non-compliance'),
   ])
   @SerializationOrder(0)
   String? content;
 
   /// Specific compliance measures for this regulation.
+  @StandardReferences(
+    ['ISO/IEC 27001 — compliance with legal & contractual requirements'],
+    'The set of specific compliance-measure entries for this regulation.',
+  )
   @SectionId('COMPL-COMP-LST')
   @SectionIdPattern('COMPL-COMP-xxx')
+  @ContentHelp('Add one entry per compliance measure taken to satisfy '
+      'this regulation.')
   @SerializationOrder(1)
   List<ComplianceMeasureEntry> complianceMeasures = [];
 }
@@ -1151,6 +1611,15 @@ class ApplicableRegulationEntry {
 /// Defines the domain vocabulary and key concepts (ubiquitous language)
 /// that will be used throughout the project. Based on Domain-Driven Design
 /// principles for establishing a shared understanding.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — domain modelling',
+    'ISO/IEC/IEEE 29148 §6 — business/problem domain',
+  ],
+  'Captures the business domain and task area the system addresses, '
+      'establishing the ubiquitous language, key concepts, boundaries, '
+      'rules, processes, and events of that domain.',
+)
 @ContentHelp('Describe the business domain and task area this system '
     'addresses. Define the domain vocabulary and key concepts that will '
     'be used throughout the project documentation. This establishes '
@@ -1196,6 +1665,14 @@ class BusinessDomain {
 ///
 /// High-level description of the business domain including its purpose,
 /// scope, and relationship to the overall business.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — domain modelling',
+    'ISO/IEC/IEEE 29148 §6 — business/problem domain',
+  ],
+  'Gives a high-level overview of the business domain: its purpose, '
+      'scope, importance, and relationship to other domains.',
+)
 @ContentHelp('Provide a comprehensive overview of the business domain: '
     'what area of business it covers, its importance to the organization, '
     'and how it relates to other business domains.')
@@ -1206,23 +1683,32 @@ class DomainOverview {
 
   /// Domain Overview Details (form).
   @Form([
-    Field('domainName', String, 'Domain Name', required: true),
+    Field('domainName', String, 'Domain Name', required: true,
+        hint: 'Name of the business domain this section describes'),
     Field('domainDescription', String,
-        'Domain Description (what this domain encompasses)'),
+        'Domain Description (what this domain encompasses)',
+        hint: 'What business activities and concepts this domain covers'),
     Field('businessImportance', String,
-        'Business Importance (why this domain matters to the organization)'),
+        'Business Importance (why this domain matters to the organization)',
+        hint: 'Why this domain is important to the organization'),
     Field('industryContext', String,
-        'Industry Context (how this domain fits in the industry)'),
+        'Industry Context (how this domain fits in the industry)',
+        hint: 'How this domain fits within the broader industry'),
     Field('relatedDomains', String,
-        'Related Domains (other business domains this interacts with)'),
+        'Related Domains (other business domains this interacts with)',
+        hint: 'Other business domains this one interacts with'),
     Field('domainOwner', String,
-        'Domain Owner (business unit or person responsible)'),
+        'Domain Owner (business unit or person responsible)',
+        hint: 'Business unit or person responsible for this domain'),
     Field('keyStakeholders', String,
-        'Key Stakeholders (who has interest in this domain)'),
+        'Key Stakeholders (who has interest in this domain)',
+        hint: 'Who has a stake or interest in this domain'),
     Field('domainMaturity', String,
-        'Domain Maturity (Emerging, Established, Mature, Legacy)'),
+        'Domain Maturity (Emerging, Established, Mature, Legacy)',
+        hint: 'Emerging / Established / Mature / Legacy'),
     Field('changeFrequency', String,
-        'Change Frequency (how often this domain changes)'),
+        'Change Frequency (how often this domain changes)',
+        hint: 'How often this domain is expected to change'),
   ])
   @SerializationOrder(1)
   TextSection? domainDetails;
@@ -1232,6 +1718,14 @@ class DomainOverview {
 ///
 /// Glossary of domain-specific terms and definitions establishing the
 /// ubiquitous language for the project.
+@StandardReferences(
+  [
+    'Domain-Driven Design — ubiquitous language',
+    'ISO/IEC/IEEE 24765 — vocabulary/terms',
+  ],
+  'Captures the glossary of domain-specific terms and definitions that '
+      'form the shared ubiquitous language for the project.',
+)
 @ContentHelp('Define all domain-specific terms and their meanings. '
     'This glossary establishes the ubiquitous language - the shared '
     'vocabulary that all team members and stakeholders will use.')
@@ -1243,6 +1737,13 @@ class DomainVocabulary {
   String? content;
 
   /// Vocabulary entries — contains 1+× DomainTermEntry.
+  @StandardReferences(
+    [
+      'Domain-Driven Design — ubiquitous language',
+      'ISO/IEC/IEEE 24765 — vocabulary/terms',
+    ],
+    'The set of individual domain-term glossary entries.',
+  )
   @SectionId('DTE-TERM-LST')
   @SectionIdPattern('DTE-TERM-xxx')
   @Min(1)
@@ -1253,21 +1754,37 @@ class DomainVocabulary {
 }
 
 /// A domain term entry (form).
+@StandardReferences(
+  [
+    'Domain-Driven Design — ubiquitous language',
+    'ISO/IEC/IEEE 24765 — vocabulary/terms',
+  ],
+  'A single domain-vocabulary term with its definition and usage detail.',
+)
 @SectionId('DTE')
 class DomainTermEntry {
   @Form([
-    Field('term', String, 'Term', required: true),
-    Field('definition', String, 'Definition', required: true),
-    Field('synonyms', String, 'Synonyms (alternative terms sometimes used)'),
+    Field('term', String, 'Term', required: true,
+        hint: 'The domain term being defined'),
+    Field('definition', String, 'Definition', required: true,
+        hint: 'Precise meaning of the term in this domain'),
+    Field('synonyms', String, 'Synonyms (alternative terms sometimes used)',
+        hint: 'Alternative terms sometimes used for the same concept'),
     Field('antiPatterns', String,
-        'Anti-Patterns (terms to avoid, incorrect usage)'),
-    Field('examples', String, 'Examples (usage examples)'),
-    Field('relatedTerms', String, 'Related Terms (linked concepts)'),
+        'Anti-Patterns (terms to avoid, incorrect usage)',
+        hint: 'Terms to avoid or incorrect usages of this term'),
+    Field('examples', String, 'Examples (usage examples)',
+        hint: 'Concrete examples of the term in use'),
+    Field('relatedTerms', String, 'Related Terms (linked concepts)',
+        hint: 'Other terms or concepts linked to this one'),
     Field('category', String,
-        'Category (Entity, Process, Role, Metric, Status, etc.)'),
+        'Category (Entity, Process, Role, Metric, Status, etc.)',
+        hint: 'Entity / Process / Role / Metric / Status, etc.'),
     Field('source', String,
-        'Source (where this definition comes from: industry, company, etc.)'),
-    Field('abbreviation', String, 'Abbreviation (if commonly abbreviated)'),
+        'Source (where this definition comes from: industry, company, etc.)',
+        hint: 'Where this definition originates (industry, company, etc.)'),
+    Field('abbreviation', String, 'Abbreviation (if commonly abbreviated)',
+        hint: 'Common abbreviation for the term, if any'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1277,6 +1794,14 @@ class DomainTermEntry {
 ///
 /// Core business concepts and entities in the domain, their attributes,
 /// and relationships (conceptual domain model).
+@StandardReferences(
+  [
+    'Domain-Driven Design — domain model concepts',
+    'BABOK v3 §10 — concept modelling',
+  ],
+  'Captures the core business concepts and entities of the domain, their '
+      'attributes, and relationships as a conceptual domain model.',
+)
 @ContentHelp('Describe the key concepts (entities, value objects, aggregates) '
     'in the domain. This is the conceptual domain model showing core '
     'business objects and their relationships.')
@@ -1295,6 +1820,13 @@ class KeyConcepts {
   String? conceptualModelDiagram;
 
   /// Key concept entries — contains 1+× KeyConceptEntry.
+  @StandardReferences(
+    [
+      'Domain-Driven Design — domain model concepts',
+      'BABOK v3 §10 — concept modelling',
+    ],
+    'The set of individual key-concept entries for the domain.',
+  )
   @SectionId('KECON-CONC-LST')
   @SectionIdPattern('KECON-CONC-xxx')
   @Min(1)
@@ -1304,28 +1836,46 @@ class KeyConcepts {
 }
 
 /// A key concept entry (form).
+@StandardReferences(
+  [
+    'Domain-Driven Design — domain model concepts',
+    'BABOK v3 §10 — concept modelling',
+  ],
+  'A single key domain concept or entity with its attributes, lifecycle, '
+      'ownership, and relationships.',
+)
 @SectionId('KECON')
 class KeyConceptEntry {
   @Form([
-    Field('conceptName', String, 'Concept Name', required: true),
+    Field('conceptName', String, 'Concept Name', required: true,
+        hint: 'Name of the business concept or entity'),
     Field('conceptType', String,
         'Concept Type (Entity, Value Object, Aggregate Root, Event, Service)',
-        required: true),
-    Field('description', String, 'Description', required: true),
+        required: true,
+        hint: 'Entity / Value Object / Aggregate Root / Event / Service'),
+    Field('description', String, 'Description', required: true,
+        hint: 'What this concept represents in the domain'),
     Field('keyAttributes', String,
-        'Key Attributes (main properties of this concept)'),
+        'Key Attributes (main properties of this concept)',
+        hint: 'Main properties or attributes of this concept'),
     Field('identifiedBy', String,
-        'Identified By (what uniquely identifies instances)'),
+        'Identified By (what uniquely identifies instances)',
+        hint: 'What uniquely identifies instances of this concept'),
     Field('lifecycle', String,
-        'Lifecycle (how instances are created, modified, archived)'),
+        'Lifecycle (how instances are created, modified, archived)',
+        hint: 'How instances are created, modified, and archived'),
     Field('ownedBy', String,
-        'Owned By (which business function owns this concept)'),
+        'Owned By (which business function owns this concept)',
+        hint: 'Which business function owns this concept'),
     Field('relatedConcepts', String,
-        'Related Concepts (other concepts this relates to)'),
+        'Related Concepts (other concepts this relates to)',
+        hint: 'Other concepts this one relates to'),
     Field('businessRules', String,
-        'Business Rules (rules that govern this concept)'),
+        'Business Rules (rules that govern this concept)',
+        hint: 'Business rules that govern this concept'),
     Field('volumeEstimate', String,
-        'Volume Estimate (expected number of instances)'),
+        'Volume Estimate (expected number of instances)',
+        hint: 'Expected number of instances of this concept'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1343,6 +1893,14 @@ class KeyConceptEntry {
 ///
 /// Clear definition of what is within and outside the domain scope,
 /// based on bounded context principles.
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts',
+    'ISO/IEC/IEEE 42010 — context boundaries',
+  ],
+  'Defines what lies inside and outside this domain\'s scope and how it '
+      'interfaces with adjacent domains, establishing its bounded context.',
+)
 @ContentHelp('Define clear boundaries for this domain: what concepts, '
     'processes, and responsibilities are within scope, and what belongs '
     'to adjacent domains. This establishes the bounded context.')
@@ -1372,6 +1930,14 @@ class DomainBoundaries {
   String? outsideScope;
 
   /// Domain interfaces — contains 0+× DomainInterfaceEntry.
+  @StandardReferences(
+    [
+      'Domain-Driven Design — bounded contexts',
+      'ISO/IEC/IEEE 42010 — context boundaries',
+    ],
+    'The set of interface entries describing how this domain connects to '
+        'adjacent domains.',
+  )
   @SectionId('DIE-INTE-LST')
   @SectionIdPattern('DIE-INTE-xxx')
   @ContentHelp('Define interfaces to adjacent domains - how this domain '
@@ -1381,24 +1947,40 @@ class DomainBoundaries {
 }
 
 /// A domain interface entry (form).
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts',
+    'ISO/IEC/IEEE 42010 — context boundaries',
+  ],
+  'A single interface between this domain and an adjacent domain, '
+      'describing its type, direction, data exchange, and ownership.',
+)
 @SectionId('DIE')
 class DomainInterfaceEntry {
   @Form([
-    Field('adjacentDomain', String, 'Adjacent Domain Name', required: true),
+    Field('adjacentDomain', String, 'Adjacent Domain Name', required: true,
+        hint: 'Name of the adjacent domain this interface connects to'),
     Field('interfaceType', String,
         'Interface Type (Shared Kernel, Customer-Supplier, '
             'Conformist, Anti-Corruption Layer, Published Language)',
-        required: true),
+        required: true,
+        hint: 'Shared Kernel / Customer-Supplier / Conformist / '
+            'Anti-Corruption Layer / Published Language'),
     Field('direction', String,
-        'Direction (Upstream, Downstream, Bidirectional)'),
+        'Direction (Upstream, Downstream, Bidirectional)',
+        hint: 'Upstream / Downstream / Bidirectional'),
     Field('dataExchanged', String,
-        'Data Exchanged (what information crosses the boundary)'),
+        'Data Exchanged (what information crosses the boundary)',
+        hint: 'What information crosses this domain boundary'),
     Field('integrationMechanism', String,
-        'Integration Mechanism (API, Events, Shared Database, etc.)'),
+        'Integration Mechanism (API, Events, Shared Database, etc.)',
+        hint: 'API / Events / Shared Database, etc.'),
     Field('translationRequired', String,
-        'Translation Required (does data need transformation?)'),
+        'Translation Required (does data need transformation?)',
+        hint: 'Whether data needs transformation across the boundary'),
     Field('owner', String,
-        'Owner (who owns this interface)'),
+        'Owner (who owns this interface)',
+        hint: 'Who owns and maintains this interface'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1408,6 +1990,14 @@ class DomainInterfaceEntry {
 ///
 /// Business rules, policies, and constraints that govern behavior
 /// within this domain.
+@StandardReferences(
+  [
+    'BABOK v3 §10.9 — business rules analysis',
+    'ISO/IEC/IEEE 29148 §6 — business rules',
+  ],
+  'Captures the business rules, policies, and constraints that govern '
+      'behavior within this domain.',
+)
 @ContentHelp('Document the business rules that govern this domain. '
     'Include policies, constraints, calculations, and decision logic.')
 @SectionId('DBR')
@@ -1418,6 +2008,13 @@ class DomainBusinessRules {
   String? content;
 
   /// Business rule entries — contains 0+× BusinessRuleEntry.
+  @StandardReferences(
+    [
+      'BABOK v3 §10.9 — business rules analysis',
+      'ISO/IEC/IEEE 29148 §6 — business rules',
+    ],
+    'The set of individual business-rule entries for this domain.',
+  )
   @SectionId('DOBIRU-RULE-LST')
   @SectionIdPattern('DOBIRU-RULE-xxx')
   @ContentHelp('Add one entry per business rule. Be specific and unambiguous.')
@@ -1426,15 +2023,28 @@ class DomainBusinessRules {
 }
 
 /// A domain business rule entry (form).
+@StandardReferences(
+  [
+    'BABOK v3 §10.9 — business rules analysis',
+    'ISO/IEC/IEEE 29148 §6 — business rules',
+  ],
+  'A single domain business rule with its type, plain-language description, '
+      'formal definition, and governance metadata.',
+)
 @SectionId('DBRE')
 class DomainBusinessRuleEntry {
   @Form([
-    Field('ruleId', String, 'Rule ID', required: true),
-    Field('ruleName', String, 'Rule Name', required: true),
+    Field('ruleId', String, 'Rule ID', required: true,
+        hint: 'Unique identifier for this business rule'),
+    Field('ruleName', String, 'Rule Name', required: true,
+        hint: 'Short descriptive name for this rule'),
     Field('ruleType', String,
         'Rule Type (Constraint, Calculation, Derivation, Action-Trigger, '
-            'Authorization, Validation)', required: true),
-    Field('description', String, 'Description (plain language)', required: true),
+            'Authorization, Validation)', required: true,
+        hint: 'Constraint / Calculation / Derivation / Action-Trigger / '
+            'Authorization / Validation'),
+    Field('description', String, 'Description (plain language)', required: true,
+        hint: 'Plain-language statement of what this rule requires'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1451,34 +2061,58 @@ class DomainBusinessRuleEntry {
 }
 
 /// Formal definition and applicability.
+@StandardReferences(
+  [
+    'BABOK v3 §10.9 — business rules analysis',
+    'ISO/IEC/IEEE 29148 §6 — business rules',
+  ],
+  'The formal, unambiguous statement of a business rule and the conditions '
+      'under which it applies.',
+)
 @SectionId('DBRED')
 class DomainBusinessRuleEntryDefinition {
   @Form([
     Field('formalStatement', String,
-        'Formal Statement (precise, unambiguous statement)'),
+        'Formal Statement (precise, unambiguous statement)',
+        hint: 'Precise, unambiguous statement of the rule'),
     Field('appliesTo', String,
-        'Applies To (which concepts/processes this rule governs)'),
+        'Applies To (which concepts/processes this rule governs)',
+        hint: 'Which concepts or processes this rule governs'),
     Field('conditions', String,
-        'Conditions (when this rule applies)'),
+        'Conditions (when this rule applies)',
+        hint: 'The conditions under which this rule applies'),
     Field('consequences', String,
-        'Consequences (what happens when rule is triggered/violated)'),
+        'Consequences (what happens when rule is triggered/violated)',
+        hint: 'What happens when the rule is triggered or violated'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Priority, provenance, and interpretation aids.
+@StandardReferences(
+  [
+    'BABOK v3 §10.9 — business rules analysis',
+    'ISO/IEC/IEEE 29148 §6 — business rules',
+  ],
+  'The governance metadata for a business rule: precedence, provenance, '
+      'exceptions, and illustrative examples.',
+)
 @SectionId('DBREG')
 class DomainBusinessRuleEntryGovernance {
   @Form([
     Field('priority', String,
-        'Priority (if rules conflict, which takes precedence)'),
+        'Priority (if rules conflict, which takes precedence)',
+        hint: 'Which rule takes precedence when rules conflict'),
     Field('source', String,
-        'Source (regulation, policy, business decision)'),
+        'Source (regulation, policy, business decision)',
+        hint: 'Origin of the rule: regulation, policy, business decision'),
     Field('exceptions', String,
-        'Exceptions (when rule does not apply)'),
+        'Exceptions (when rule does not apply)',
+        hint: 'Circumstances in which the rule does not apply'),
     Field('examples', String,
-        'Examples (concrete examples of rule application)'),
+        'Examples (concrete examples of rule application)',
+        hint: 'Concrete examples of the rule being applied'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1488,6 +2122,14 @@ class DomainBusinessRuleEntryGovernance {
 ///
 /// High-level business processes within this domain, showing the main
 /// workflows and activities.
+@StandardReferences(
+  [
+    'BABOK v3 §10.35 — process modelling',
+    'ISO/IEC/IEEE 29148 §6 — business process context',
+  ],
+  'Captures the main high-level business processes within this domain, '
+      'their workflows, and how they interact.',
+)
 @ContentHelp('Describe the main business processes within this domain. '
     'Focus on business activities, not system implementation.')
 @SectionId('DP')
@@ -1504,6 +2146,13 @@ class DomainProcesses {
   String? processOverviewDiagram;
 
   /// Domain process entries — contains 0+× DomainProcessEntry.
+  @StandardReferences(
+    [
+      'BABOK v3 §10.35 — process modelling',
+      'ISO/IEC/IEEE 29148 §6 — business process context',
+    ],
+    'The set of individual domain-process entries.',
+  )
   @SectionId('DOPR-PROC-LST')
   @SectionIdPattern('DOPR-PROC-xxx')
   @ContentHelp('Add one entry per major business process in this domain.')
@@ -1512,15 +2161,27 @@ class DomainProcesses {
 }
 
 /// A domain process entry (form).
+@StandardReferences(
+  [
+    'BABOK v3 §10.35 — process modelling',
+    'ISO/IEC/IEEE 29148 §6 — business process context',
+  ],
+  'A single domain business process with its type, trigger, flow, and '
+      'operating characteristics.',
+)
 @SectionId('DOPREN')
 class DomainProcessEntry {
   @Form([
-    Field('processName', String, 'Process Name', required: true),
-    Field('processDescription', String, 'Process Description', required: true),
+    Field('processName', String, 'Process Name', required: true,
+        hint: 'Name of the business process'),
+    Field('processDescription', String, 'Process Description', required: true,
+        hint: 'What this process does and why it exists'),
     Field('processType', String,
-        'Process Type (Core, Support, Management)'),
+        'Process Type (Core, Support, Management)',
+        hint: 'Core / Support / Management'),
     Field('trigger', String,
-        'Trigger (what initiates this process)'),
+        'Trigger (what initiates this process)',
+        hint: 'What event or condition initiates this process'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1539,34 +2200,58 @@ class DomainProcessEntry {
 }
 
 /// Inputs, outputs, and participant flow.
+@StandardReferences(
+  [
+    'BABOK v3 §10.35 — process modelling',
+    'ISO/IEC/IEEE 29148 §6 — business process context',
+  ],
+  'The inputs, outputs, participants, and related processes that make up '
+      'a domain process\'s flow.',
+)
 @SectionId('DPEF')
 class DomainProcessEntryFlow {
   @Form([
     Field('inputs', String,
-        'Inputs (what data/artifacts are needed)'),
+        'Inputs (what data/artifacts are needed)',
+        hint: 'Data or artifacts this process needs as input'),
     Field('outputs', String,
-        'Outputs (what is produced)'),
+        'Outputs (what is produced)',
+        hint: 'What this process produces'),
     Field('participants', String,
-        'Participants (roles/actors involved)'),
+        'Participants (roles/actors involved)',
+        hint: 'Roles or actors involved in this process'),
     Field('relatedProcesses', String,
-        'Related Processes (processes that interact with this one)'),
+        'Related Processes (processes that interact with this one)',
+        hint: 'Other processes that interact with this one'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Operating cadence and coordination details.
+@StandardReferences(
+  [
+    'BABOK v3 §10.35 — process modelling',
+    'ISO/IEC/IEEE 29148 §6 — business process context',
+  ],
+  'The operating cadence of a domain process: frequency, duration, success '
+      'criteria, and key decision points.',
+)
 @SectionId('DPEO')
 class DomainProcessEntryOperations {
   @Form([
     Field('frequency', String,
-        'Frequency (how often this process runs)'),
+        'Frequency (how often this process runs)',
+        hint: 'How often this process runs'),
     Field('duration', String,
-        'Duration (typical time to complete)'),
+        'Duration (typical time to complete)',
+        hint: 'Typical time for the process to complete'),
     Field('successCriteria', String,
-        'Success Criteria (what defines successful completion)'),
+        'Success Criteria (what defines successful completion)',
+        hint: 'What defines successful completion of the process'),
     Field('keyDecisions', String,
-        'Key Decisions (decision points within the process)'),
+        'Key Decisions (decision points within the process)',
+        hint: 'Decision points within the process'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1576,6 +2261,14 @@ class DomainProcessEntryOperations {
 ///
 /// Significant business events that occur within this domain and
 /// trigger actions or state changes.
+@StandardReferences(
+  [
+    'Domain-Driven Design — domain events',
+    'BABOK v3 §10 — event analysis',
+  ],
+  'Captures the significant business events that occur within this domain '
+      'and trigger actions or state changes.',
+)
 @ContentHelp('Document significant business events within this domain. '
     'Events represent things that happen which are important to the '
     'business and may trigger reactions.')
@@ -1587,6 +2280,13 @@ class DomainEvents {
   String? content;
 
   /// Domain event entries — contains 0+× DomainEventEntry.
+  @StandardReferences(
+    [
+      'Domain-Driven Design — domain events',
+      'BABOK v3 §10 — event analysis',
+    ],
+    'The set of individual domain-event entries.',
+  )
   @SectionId('DOEV-EVEN-LST')
   @SectionIdPattern('DOEV-EVEN-xxx')
   @ContentHelp('Add one entry per significant business event.')
@@ -1595,28 +2295,46 @@ class DomainEvents {
 }
 
 /// A domain event entry (form).
+@StandardReferences(
+  [
+    'Domain-Driven Design — domain events',
+    'BABOK v3 §10 — event analysis',
+  ],
+  'A single domain event with its trigger, source, payload, subscribers, '
+      'reactions, and business impact.',
+)
 @SectionId('DOEV')
 class DomainEventEntry {
   @Form([
     Field('eventName', String, 'Event Name (past tense, e.g., OrderPlaced)',
-        required: true),
-    Field('eventDescription', String, 'Event Description', required: true),
+        required: true,
+        hint: 'Past-tense event name, e.g., OrderPlaced'),
+    Field('eventDescription', String, 'Event Description', required: true,
+        hint: 'What this event represents in the business'),
     Field('eventType', String,
-        'Event Type (State Change, Action Completed, Time-based, External)'),
+        'Event Type (State Change, Action Completed, Time-based, External)',
+        hint: 'State Change / Action Completed / Time-based / External'),
     Field('trigger', String,
-        'Trigger (what causes this event)'),
+        'Trigger (what causes this event)',
+        hint: 'What causes this event to occur'),
     Field('sourceEntity', String,
-        'Source Entity (which concept generates this event)'),
+        'Source Entity (which concept generates this event)',
+        hint: 'Which domain concept generates this event'),
     Field('eventData', String,
-        'Event Data (what information is carried with the event)'),
+        'Event Data (what information is carried with the event)',
+        hint: 'Information carried in the event payload'),
     Field('subscribers', String,
-        'Subscribers (who/what reacts to this event)'),
+        'Subscribers (who/what reacts to this event)',
+        hint: 'Who or what reacts to this event'),
     Field('reactions', String,
-        'Reactions (what happens when this event occurs)'),
+        'Reactions (what happens when this event occurs)',
+        hint: 'What happens in response to this event'),
     Field('frequency', String,
-        'Frequency (how often this event occurs)'),
+        'Frequency (how often this event occurs)',
+        hint: 'How often this event occurs'),
     Field('businessImpact', String,
-        'Business Impact (significance of this event)'),
+        'Business Impact (significance of this event)',
+        hint: 'Significance of this event to the business'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -1627,6 +2345,14 @@ class DomainEventEntry {
 /// Describes how different user categories interact with the system including
 /// access channels, interaction patterns, access levels, and session management.
 /// Based on user experience best practices and multi-channel interaction design.
+@StandardReferences(
+  [
+    'ISO 9241-210 — human-centred design for interactive systems',
+    'ISO/IEC 25010 — usability quality characteristic',
+  ],
+  'Captures how each user category interacts with the system across channels, '
+  'patterns, access levels, sessions, and notifications.',
+)
 @ContentHelp('Describe how different user categories interact with the system: '
     'access channels (web, mobile, API, CLI), interaction patterns (real-time, '
     'batch, notification-driven), access levels, session management, and '
@@ -1669,12 +2395,23 @@ class UserInteractionModel {
 }
 
 /// Summary statistics for user interaction model.
+@StandardReferences(
+  [
+    'ISO 9241-210 — human-centred design for interactive systems',
+    'ISO/IEC 25010 — usability quality characteristic',
+  ],
+  'An at-a-glance summary of the user interaction model: primary channel, '
+  'channel/pattern/level counts, and multi-channel posture.',
+)
 @Form([
   Field('primaryAccessChannel', String, 'Primary Access Channel',
       hint: 'Web, Mobile App, Desktop App, API, CLI'),
-  Field('channelCount', int, 'Number of Access Channels'),
-  Field('interactionPatternCount', int, 'Number of Interaction Patterns'),
-  Field('accessLevelCount', int, 'Number of Access Levels'),
+  Field('channelCount', int, 'Number of Access Channels',
+      hint: 'Total count of access channels defined'),
+  Field('interactionPatternCount', int, 'Number of Interaction Patterns',
+      hint: 'Total count of interaction patterns defined'),
+  Field('accessLevelCount', int, 'Number of Access Levels',
+      hint: 'Total count of access levels defined'),
   Field('multiChannelSupport', String, 'Multi-Channel Support',
       hint: 'None, Limited, Full'),
   Field('offlineCapability', String, 'Offline Capability',
@@ -1701,11 +2438,21 @@ class UserInteractionModelSummary {
 ///
 /// Defines all channels through which users can access the system including
 /// web, mobile, desktop applications, APIs, and other interfaces.
+@StandardReferences(
+  [
+    'ISO 9241-210 — interaction design',
+    'ISO/IEC 25010 — usability/operability',
+  ],
+  'The set of channels through which users access the system, each with its '
+  'target users, features, and constraints.',
+)
 @ContentHelp('Define all channels through which users can access the system. '
     'For each channel, specify target users, features available, and '
     'any channel-specific constraints.')
 @SectionId('AC1')
 class AccessChannels {
+  @ContentHelp('Provide an overview of the access channel landscape and how '
+      'channels collectively serve the user base.')
   @SerializationOrder(0)
   String? content;
 
@@ -1718,6 +2465,13 @@ class AccessChannels {
   String? channelDiagram;
 
   /// Channel entries — contains 1+× InteractionChannelEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-210 — interaction design',
+      'ISO/IEC 25010 — usability/operability',
+    ],
+    'The set of individual access-channel entries defined for the system.',
+  )
   @SectionId('ICE-CHAN-LST')
   @SectionIdPattern('ICE-CHAN-xxx')
   @Min(1)
@@ -1731,6 +2485,14 @@ class AccessChannels {
 ///
 /// Comprehensive definition of an access channel including platform details,
 /// features, constraints, and user experience considerations.
+@StandardReferences(
+  [
+    'ISO 9241-210 — interaction design',
+    'ISO/IEC 25010 — usability/operability',
+  ],
+  'A single access-channel definition: its platform, features, access, '
+  'compliance, UX, and integrations.',
+)
 @SectionId('ICE')
 class InteractionChannelEntry {
   @Form([
@@ -1767,13 +2529,26 @@ class InteractionChannelEntry {
   ChannelUxSpecification uxSpecification = ChannelUxSpecification();
 
   /// Channel-specific integration requirements.
+  @StandardReferences(
+    ['ISO/IEC/IEEE 29148 §6 — external interfaces'],
+    'The set of channel-specific integration entries (push, analytics, '
+    'payments, etc.) for this channel.',
+  )
   @SectionId('CI-INTE-LST')
   @SectionIdPattern('CI-INTE-xxx')
+  @ContentHelp('Add one entry per channel-specific integration requirement.')
   @SerializationOrder(6)
   List<ChannelIntegrations> integrations = [];
 }
 
 /// Platform and targeting for interaction channel.
+@StandardReferences(
+  [
+    'ISO 9241-210 — interaction design',
+    'ISO/IEC 25010 — usability/operability',
+  ],
+  'The platform/technology and target-user details for an access channel.',
+)
 @SectionId('ICEP')
 class InteractionChannelEntryPlatform {
   @Form([
@@ -1791,6 +2566,14 @@ class InteractionChannelEntryPlatform {
 }
 
 /// Feature scope for interaction channel.
+@StandardReferences(
+  [
+    'ISO 9241-210 — interaction design',
+    'ISO/IEC 25010 — usability/operability',
+  ],
+  'The feature scope of an access channel: what is included, excluded, and '
+  'its breadth.',
+)
 @SectionId('ICEF')
 class InteractionChannelEntryFeatures {
   @Form([
@@ -1806,6 +2589,14 @@ class InteractionChannelEntryFeatures {
 }
 
 /// Access and sync for interaction channel.
+@StandardReferences(
+  [
+    'ISO 9241-210 — interaction design',
+    'ISO/IEC 25010 — usability/operability',
+  ],
+  'The availability, performance, offline, sync, and authentication '
+  'characteristics of an access channel.',
+)
 @SectionId('ICEA')
 class InteractionChannelEntryAccess {
   @Form([
@@ -1825,6 +2616,14 @@ class InteractionChannelEntryAccess {
 }
 
 /// Compliance and requirements for interaction channel.
+@StandardReferences(
+  [
+    'EN 301 549 — ICT accessibility',
+    'ISO/IEC 27001 Annex A — access control',
+  ],
+  'The device, browser, accessibility, localization, branding, and analytics '
+  'compliance requirements for an access channel.',
+)
 @SectionId('INCHENCO')
 class InteractionChannelEntryCompliance {
   @Form([
@@ -1846,6 +2645,14 @@ class InteractionChannelEntryCompliance {
 }
 
 /// Channel-specific UX specification.
+@StandardReferences(
+  [
+    'ISO 9241-210 — UX design',
+    'Nielsen usability heuristics',
+  ],
+  'The channel-specific user-experience specification: navigation, input, '
+  'screen sizes, and interaction affordances.',
+)
 @Form([
   Field('navigationModel', String, 'Navigation Model',
       hint: 'Tab-based, Drawer, Bottom Nav, Sidebar, etc.'),
@@ -1873,6 +2680,11 @@ class ChannelUxSpecification {
 }
 
 /// Channel-specific integration requirements.
+@StandardReferences(
+  ['ISO/IEC/IEEE 29148 §6 — external interfaces'],
+  'A single channel-specific integration definition (push, analytics, '
+  'crash reporting, payments, biometrics, etc.).',
+)
 @Form([
   Field('pushNotificationService', String, 'Push Notification Service',
       hint: 'FCM, APNs, Web Push'),
@@ -1905,6 +2717,14 @@ class ChannelIntegrations {
 ///
 /// Defines how users interact with the system including real-time interactions,
 /// batch processing, workflow-driven tasks, and notification-driven actions.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO 9241-210 — interaction patterns',
+  ],
+  'The set of interaction patterns the system uses — real-time, batch, '
+  'workflow, notification-driven, and scheduled.',
+)
 @ContentHelp('Define the interaction patterns used in the system: real-time '
     'interactions, batch processing, workflow-driven tasks, notification-driven '
     'actions, and scheduled operations.')
@@ -1916,6 +2736,13 @@ class InteractionPatterns {
   String? content;
 
   /// Pattern entries — contains 1+× InteractionPatternEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-110 — dialogue principles',
+      'ISO 9241-210 — interaction patterns',
+    ],
+    'The set of individual interaction-pattern entries defined for the system.',
+  )
   @SectionId('INPTN-PATT-LST')
   @SectionIdPattern('INPTN-PATT-xxx')
   @Min(1)
@@ -1928,6 +2755,14 @@ class InteractionPatterns {
 ///
 /// Definition of a specific interaction pattern including timing, triggers,
 /// and user experience considerations.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO 9241-210 — interaction patterns',
+  ],
+  'A single interaction-pattern definition: its type, triggers, runtime '
+  'behavior, and usage.',
+)
 @SectionId('INPTN')
 class InteractionPatternEntry {
   @Form([
@@ -1962,6 +2797,14 @@ class InteractionPatternEntry {
 }
 
 /// Narrative summary and typical scenarios.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO 9241-210 — interaction patterns',
+  ],
+  'The narrative description, use cases, and applicable user categories for '
+  'an interaction pattern.',
+)
 @SectionId('IPED')
 class InteractionPatternEntryDefinition {
   @Form([
@@ -1977,6 +2820,14 @@ class InteractionPatternEntryDefinition {
 }
 
 /// Trigger conditions and cadence.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO 9241-210 — interaction patterns',
+  ],
+  'The trigger type, conditions, and expected frequency for an interaction '
+  'pattern.',
+)
 @SectionId('IPET')
 class InteractionPatternEntryTrigger {
   @Form([
@@ -1992,6 +2843,14 @@ class InteractionPatternEntryTrigger {
 }
 
 /// User experience and runtime behavior.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO 9241-210 — interaction patterns',
+  ],
+  'The runtime behavior of an interaction pattern: response time, feedback, '
+  'error handling, and concurrency.',
+)
 @SectionId('IPEB')
 class InteractionPatternEntryBehavior {
   @Form([
@@ -2009,6 +2868,13 @@ class InteractionPatternEntryBehavior {
 }
 
 /// Applicability and operational priority.
+@StandardReferences(
+  [
+    'ISO 9241-110 — dialogue principles',
+    'ISO 9241-210 — interaction patterns',
+  ],
+  'The applicability and operational priority of an interaction pattern.',
+)
 @SectionId('IPEU')
 class InteractionPatternEntryUsage {
   @Form([
@@ -2027,10 +2893,20 @@ class InteractionPatternEntryUsage {
 ///
 /// Defines the access level hierarchy and how permissions are structured
 /// across user categories and system functions.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A.9 — access control',
+    'NIST RBAC — role-based access',
+  ],
+  'The access-level hierarchy and authorization framework relating user '
+  'categories to permissions.',
+)
 @ContentHelp('Define access levels and how they relate to user categories, '
     'features, and data. This establishes the authorization framework.')
 @SectionId('AL')
 class AccessLevels {
+  @ContentHelp('Provide an overview of the access-level model and how levels '
+      'structure authorization across the system.')
   @SerializationOrder(0)
   String? content;
 
@@ -2042,6 +2918,13 @@ class AccessLevels {
   String? accessLevelDiagram;
 
   /// Access level entries — contains 1+× AccessLevelEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001 Annex A.9 — access control',
+      'NIST RBAC — role-based access',
+    ],
+    'The set of individual access-level entries defined for the system.',
+  )
   @SectionId('ACLV-LEVE-LST')
   @SectionIdPattern('ACLV-LEVE-xxx')
   @Min(1)
@@ -2059,6 +2942,14 @@ class AccessLevels {
 }
 
 /// An access level entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A.9 — access control',
+    'NIST RBAC — role-based access',
+  ],
+  'A single access-level definition: its scope, granted permissions, and '
+  'governance.',
+)
 @SectionId('ACLV')
 class AccessLevelEntry {
   @Form([
@@ -2086,6 +2977,13 @@ class AccessLevelEntry {
 }
 
 /// Scope and hierarchy of an access level.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A.9 — access control',
+    'NIST RBAC — role-based access',
+  ],
+  'The scope, inheritance, and applicable user categories of an access level.',
+)
 @SectionId('ALES')
 class AccessLevelEntryScope {
   @Form([
@@ -2101,6 +2999,14 @@ class AccessLevelEntryScope {
 }
 
 /// Permission surfaces granted by an access level.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A.9 — access control',
+    'NIST RBAC — role-based access',
+  ],
+  'The permission surfaces (features, data, admin, API) granted by an access '
+  'level.',
+)
 @SectionId('ALEP')
 class AccessLevelEntryPermissions {
   @Form([
@@ -2118,6 +3024,14 @@ class AccessLevelEntryPermissions {
 }
 
 /// Restrictions and governance for an access level.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A.9 — access control',
+    'NIST RBAC — role-based access',
+  ],
+  'The restrictions, audit requirements, and elevation process governing an '
+  'access level.',
+)
 @SectionId('ALEG')
 class AccessLevelEntryGovernance {
   @Form([
@@ -2140,10 +3054,20 @@ class AccessLevelEntryGovernance {
 ///
 /// Defines session management including authentication, timeouts, and
 /// multi-device session handling.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — session management',
+    'OWASP ASVS — session management',
+  ],
+  'The session management model: lifecycle, timeouts, multi-device handling, '
+  'and session security.',
+)
 @ContentHelp('Define session management: session lifecycle, timeouts, '
     'multi-device handling, and session security.')
 @SectionId('SM')
 class SessionModel {
+  @ContentHelp('Provide an overview of the session management approach for '
+      'the system.')
   @SerializationOrder(0)
   String? content;
 
@@ -2171,6 +3095,14 @@ class SessionModel {
 }
 
 /// Refresh, concurrency, and termination behavior.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — session management',
+    'OWASP ASVS — session management',
+  ],
+  'The session lifecycle: token refresh, multi-device policy, concurrency '
+  'limits, and termination behavior.',
+)
 @SectionId('SEMOLI')
 class SessionModelLifecycle {
   @Form([
@@ -2188,6 +3120,14 @@ class SessionModelLifecycle {
 }
 
 /// Convenience features and security-trigger handling.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A — session management',
+    'OWASP ASVS — session management',
+  ],
+  'The session security and convenience features: remember-me, device trust, '
+  'recovery, and security-event handling.',
+)
 @SectionId('SEMOSE')
 class SessionModelSecurity {
   @Form([
@@ -2212,6 +3152,14 @@ class SessionModelSecurity {
 ///
 /// Defines how the system notifies users of events, updates, and actions
 /// across different channels.
+@StandardReferences(
+  [
+    'ISO 9241-210 — user feedback & notifications',
+    'ISO/IEC 25010 — user-interface aesthetics/operability',
+  ],
+  'The notification strategy: channels, types, triggers, preferences, and '
+  'delivery mechanisms.',
+)
 @ContentHelp('Define notification strategy: channels, triggers, preferences, '
     'and delivery mechanisms.')
 @SectionId('NM')
@@ -2221,6 +3169,13 @@ class NotificationModel {
   String? content;
 
   /// Notification channel entries — contains 1+× NotificationChannelEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-210 — user feedback & notifications',
+      'ISO/IEC 25010 — user-interface aesthetics/operability',
+    ],
+    'The set of individual notification-channel entries defined for the system.',
+  )
   @SectionId('NTFCH-CHAN-LST')
   @SectionIdPattern('NTFCH-CHAN-xxx')
   @Min(1)
@@ -2229,6 +3184,13 @@ class NotificationModel {
   List<NotificationChannelEntry> channels = [];
 
   /// Notification type entries — contains 1+× NotificationTypeEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-210 — user feedback & notifications',
+      'ISO/IEC 25010 — user-interface aesthetics/operability',
+    ],
+    'The set of individual notification-type entries defined for the system.',
+  )
   @SectionId('NTFTY-NOTI-LST')
   @SectionIdPattern('NTFTY-NOTI-xxx')
   @ContentHelp('Define each notification type.')
@@ -2236,20 +3198,38 @@ class NotificationModel {
   List<NotificationTypeEntry> notificationTypes = [];
 
   /// User notification preferences.
+  @StandardReferences(
+    [
+      'ISO 9241-210 — user feedback & notifications',
+      'ISO/IEC 25010 — user-interface aesthetics/operability',
+    ],
+    'The set of user notification-preference entries defined for the system.',
+  )
   @SectionId('UNP-PREF-LST')
   @SectionIdPattern('UNP-PREF-xxx')
+  @ContentHelp('Add one entry per user notification-preference profile.')
   @SerializationOrder(3)
   List<UserNotificationPreferences> preferences = [];
 }
 
 /// A notification channel entry.
+@StandardReferences(
+  [
+    'ISO 9241-210 — user feedback & notifications',
+    'ISO/IEC 25010 — user-interface aesthetics/operability',
+  ],
+  'A single notification-channel definition: its delivery, retry, fallback, '
+  'and urgency characteristics.',
+)
 @SectionId('NTFCH')
 class NotificationChannelEntry {
   @Form([
     Field('channelName', String, 'Channel Name', required: true,
         hint: 'Email, SMS, Push Notification, In-App, Slack, Teams'),
-    Field('channelId', String, 'Channel ID'),
-    Field('description', String, 'Description'),
+    Field('channelId', String, 'Channel ID',
+        hint: 'Unique identifier for the notification channel'),
+    Field('description', String, 'Description',
+        hint: 'Purpose and scope of this notification channel'),
     Field('deliveryMethod', String, 'Delivery Method',
         hint: 'Immediate, Batched, Digest'),
     Field('retryPolicy', String, 'Retry Policy',
@@ -2266,12 +3246,21 @@ class NotificationChannelEntry {
 }
 
 /// A notification type entry.
+@StandardReferences(
+  [
+    'ISO 9241-210 — user feedback & notifications',
+    'ISO/IEC 25010 — user-interface aesthetics/operability',
+  ],
+  'A single notification-type definition: its category, urgency, channels, '
+  'trigger, and content template.',
+)
 @SectionId('NTFTY')
 class NotificationTypeEntry {
   @Form([
     Field('notificationType', String, 'Notification Type', required: true,
         hint: 'e.g., Order Confirmation, Password Reset, System Alert'),
-    Field('typeId', String, 'Type ID'),
+    Field('typeId', String, 'Type ID',
+        hint: 'Unique identifier for the notification type'),
     Field('category', String, 'Category',
         hint: 'Transactional, Marketing, System, Security'),
     Field('urgency', String, 'Urgency Level',
@@ -2294,6 +3283,14 @@ class NotificationTypeEntry {
 }
 
 /// User notification preferences.
+@StandardReferences(
+  [
+    'ISO 9241-210 — user feedback & notifications',
+    'ISO/IEC 25010 — user-interface aesthetics/operability',
+  ],
+  'The user-configurable notification preference options: opt-out, per-type '
+  'control, channel choice, frequency, and quiet hours.',
+)
 @Form([
   Field('globalOptOut', String, 'Global Opt-Out Support',
       hint: 'Can users opt out of all non-essential notifications'),
@@ -2324,10 +3321,20 @@ class UserNotificationPreferences {
 ///
 /// Defines how the system provides a consistent experience across channels
 /// and handles channel switching.
+@StandardReferences(
+  [
+    'ISO 9241-210 — human-centred design for interactive systems',
+    'ISO/IEC 25010 — usability quality characteristic',
+  ],
+  'The multi-channel experience model: context handoff, data synchronization, '
+  'and experience consistency across channels.',
+)
 @ContentHelp('Define multi-channel experience: context handoff between '
     'channels, data synchronization, and experience consistency.')
 @SectionId('MCE')
 class MultiChannelExperience {
+  @ContentHelp('Provide an overview of how a consistent experience is '
+      'maintained across channels and during channel switching.')
   @SerializationOrder(0)
   String? content;
 
@@ -2366,6 +3373,15 @@ class MultiChannelExperience {
 /// distinct group of users with shared characteristics, access needs, and
 /// system interaction patterns. Based on user persona methodology for
 /// user-centered design.
+@StandardReferences(
+  [
+    'ISO 9241-210 — user characteristics & context of use',
+    'BABOK v3 §10.43 — stakeholder/user analysis',
+  ],
+  'The root of §4.1.4: captures every distinct user category (persona) that '
+  'interacts with the system, with its shared characteristics, access needs, '
+  'and interaction patterns.',
+)
 @ContentHelp('Define all user categories (personas) that will interact with '
     'the system. Each category represents a distinct group with shared '
     'characteristics, needs, and interaction patterns. Use this to drive '
@@ -2387,6 +3403,13 @@ class UserCategories {
   String? userCategoryDiagram;
 
   /// User category entries — contains 1+× UserCategoryEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-210 — user characteristics & context of use',
+      'BABOK v3 §10.43 — stakeholder/user analysis',
+    ],
+    'The set of individual user-category entries defined for this system.',
+  )
   @SectionId('USCA-CATE-LST')
   @SectionIdPattern('USCA-CATE-xxx')
   @Min(1)
@@ -2401,16 +3424,28 @@ class UserCategories {
 ///
 /// Comprehensive user persona definition including demographics, goals,
 /// frustrations, technical proficiency, and system interaction patterns.
+@StandardReferences(
+  [
+    'ISO 9241-210 — personas & context of use',
+    'BABOK v3 §10.43 — personas',
+  ],
+  'A single user-category persona, bundling its usage profile, importance, '
+  'persona details, role, tasks, permissions, training, accessibility, and '
+  'journey.',
+)
 @SectionId('UCE')
 class UserCategoryEntry {
   @Form([
-    Field('categoryName', String, 'Category Name', required: true),
-    Field('categoryId', String, 'Category ID (unique identifier)'),
+    Field('categoryName', String, 'Category Name',
+        required: true, hint: 'Descriptive name of this user category'),
+    Field('categoryId', String, 'Category ID (unique identifier)',
+        hint: 'Unique stable identifier for cross-referencing this category'),
     Field('description', String, 'Description (brief summary of this user type)',
-        required: true),
+        required: true, hint: 'One- or two-sentence summary of this user type'),
     Field('userType', String,
         'User Type (Internal, External, Partner, Customer, Administrator, etc.)',
-        required: true),
+        required: true,
+        hint: 'Internal / External / Partner / Customer / Administrator'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2432,9 +3467,18 @@ class UserCategoryEntry {
   UserCategoryRoleEntry? role;
 
   /// 4.1.4.n.3. System Tasks — contains 1+× System Task.
+  @StandardReferences(
+    [
+      'ISO 9241-11 — tasks & goals (usability)',
+      'ISO/IEC/IEEE 29148 §6 — user tasks/use cases',
+    ],
+    'The set of system tasks this user category performs.',
+  )
   @SectionId('SYTS-SYST-LST')
   @SectionIdPattern('SYTS-SYST-xxx')
   @Min(1)
+  @ContentHelp('Add one entry per distinct task this user category performs '
+      'with the system.')
   @SerializationOrder(5)
   List<SystemTaskEntry> systemTasks = [];
 
@@ -2456,32 +3500,55 @@ class UserCategoryEntry {
 }
 
 /// Interaction profile and scale indicators.
+@StandardReferences(
+  [
+    'ISO 9241-210 — user characteristics & context of use',
+    'BABOK v3 §10.43 — stakeholder/user analysis',
+  ],
+  'Captures how this user category uses the system — proficiency, frequency, '
+  'access channel, and population size.',
+)
 @SectionId('UCEU')
 class UserCategoryEntryUsage {
     @Form([
         Field('technicalProficiency', String,
-                'Technical Proficiency (Novice, Intermediate, Advanced, Expert)'),
+                'Technical Proficiency (Novice, Intermediate, Advanced, Expert)',
+                hint: 'Novice / Intermediate / Advanced / Expert'),
         Field('frequencyOfUse', String,
-                'Frequency of Use (Continuous, Daily, Weekly, Monthly, Occasional)'),
+                'Frequency of Use (Continuous, Daily, Weekly, Monthly, Occasional)',
+                hint: 'Continuous / Daily / Weekly / Monthly / Occasional'),
         Field('accessChannel', String,
-                'Primary Access Channel (Web, Mobile, Desktop, API, etc.)'),
+                'Primary Access Channel (Web, Mobile, Desktop, API, etc.)',
+                hint: 'Web / Mobile / Desktop / API'),
         Field('estimatedUserCount', String,
-                'Estimated User Count (current number or range)'),
+                'Estimated User Count (current number or range)',
+                hint: 'Current number or expected range of users'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Growth and prioritization profile.
+@StandardReferences(
+  [
+    'ISO 9241-210 — user characteristics & context of use',
+    'BABOK v3 §10.43 — stakeholder/user analysis',
+  ],
+  'Captures the strategic weight of this user category — expected growth, '
+  'criticality, and design priority.',
+)
 @SectionId('UCEI')
 class UserCategoryEntryImportance {
     @Form([
         Field('growthExpectation', String,
-                'Growth Expectation (expected change in user count)'),
+                'Growth Expectation (expected change in user count)',
+                hint: 'Expected change in user count over time'),
         Field('criticality', String,
-                'Criticality (how critical is this user group to the system)'),
+                'Criticality (how critical is this user group to the system)',
+                hint: 'How critical this user group is to the system'),
         Field('priority', String,
-                'Priority (High, Medium, Low - for design decisions)'),
+                'Priority (High, Medium, Low - for design decisions)',
+                hint: 'High / Medium / Low — for design decisions'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -2491,6 +3558,14 @@ class UserCategoryEntryImportance {
 ///
 /// Detailed persona information including demographics, goals, frustrations,
 /// and behavioral characteristics for user-centered design.
+@StandardReferences(
+  [
+    'ISO 9241-210 — personas & context of use',
+    'BABOK v3 §10.43 — personas',
+  ],
+  'Captures the detailed persona for this user category — demographics, '
+  'context, goals, and behavior — so designers can empathize with the user.',
+)
 @ContentHelp('Describe the persona in detail to help designers and developers '
     'understand and empathize with this user type.')
 @SectionId('UPD')
@@ -2501,10 +3576,14 @@ class UserPersonaDetails {
   /// Persona Details Form.
   @Form([
     Field('representativeName', String,
-        'Representative Name (fictional name for this persona)'),
-    Field('ageRange', String, 'Age Range'),
-    Field('educationLevel', String, 'Education Level'),
-    Field('jobTitle', String, 'Job Title / Position'),
+        'Representative Name (fictional name for this persona)',
+        hint: 'A memorable fictional name to humanize the persona'),
+    Field('ageRange', String, 'Age Range',
+        hint: 'Typical age range for this persona'),
+    Field('educationLevel', String, 'Education Level',
+        hint: 'Highest education level typical for this persona'),
+    Field('jobTitle', String, 'Job Title / Position',
+        hint: 'Typical job title or position'),
   ])
   @SerializationOrder(1)
   String? personaForm;
@@ -2528,52 +3607,96 @@ class UserPersonaDetails {
   String? visualRepresentation;
 
   /// Key quotes that represent this persona's mindset.
+  @StandardReferences(
+    [
+      'ISO 9241-210 — personas & context of use',
+      'BABOK v3 §10.43 — personas',
+    ],
+    'The set of representative quotes capturing this persona\'s mindset.',
+  )
   @SectionId('REPRE-REPR-LST')
   @SectionIdPattern('REPRE-REPR-xxx')
+  @ContentHelp('Add quotes that capture how this persona thinks and speaks, '
+      'to make the persona vivid for designers.')
   @SerializationOrder(6)
   List<RepresentativeQuoteEntry> representativeQuotes = [];
 }
 
 /// Experience and work context.
+@StandardReferences(
+  [
+    'ISO 9241-210 — personas & context of use',
+    'BABOK v3 §10.43 — personas',
+  ],
+  'Captures the persona\'s working context — experience, environment, and '
+  'typical workday.',
+)
 @SectionId('UPDC')
 class UserPersonaDetailsContext {
     @Form([
-        Field('yearsOfExperience', String, 'Years of Experience (in this role)'),
+        Field('yearsOfExperience', String, 'Years of Experience (in this role)',
+                hint: 'Years of experience in this role'),
         Field('workEnvironment', String,
-                'Work Environment (office, remote, field, etc.)'),
+                'Work Environment (office, remote, field, etc.)',
+                hint: 'Office / remote / field / hybrid'),
         Field('typicalWorkday', String,
-                'Typical Workday (relevant aspects of daily routine)'),
+                'Typical Workday (relevant aspects of daily routine)',
+                hint: 'Relevant aspects of the persona\'s daily routine'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Goals and drivers.
+@StandardReferences(
+  [
+    'ISO 9241-210 — personas & context of use',
+    'BABOK v3 §10.43 — personas',
+  ],
+  'Captures what drives this persona — goals, frustrations, motivations, and '
+  'fears.',
+)
 @SectionId('UPDG')
 class UserPersonaDetailsGoals {
     @Form([
         Field('primaryGoals', String,
-                'Primary Goals (what they want to achieve with the system)'),
-        Field('secondaryGoals', String, 'Secondary Goals'),
+                'Primary Goals (what they want to achieve with the system)',
+                hint: 'What this persona most wants to achieve with the system'),
+        Field('secondaryGoals', String, 'Secondary Goals',
+                hint: 'Less critical goals this persona also has'),
         Field('frustrations', String,
-                'Frustrations (pain points with current solutions)'),
-        Field('motivations', String, 'Motivations (what drives them)'),
-        Field('fears', String, 'Fears (concerns about new systems)'),
+                'Frustrations (pain points with current solutions)',
+                hint: 'Pain points with current solutions or workflows'),
+        Field('motivations', String, 'Motivations (what drives them)',
+                hint: 'What drives and motivates this persona'),
+        Field('fears', String, 'Fears (concerns about new systems)',
+                hint: 'Concerns or anxieties about adopting a new system'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Preferences and behavior.
+@StandardReferences(
+  [
+    'ISO 9241-210 — personas & context of use',
+    'BABOK v3 §10.43 — personas',
+  ],
+  'Captures this persona\'s behavioral traits — technology comfort, learning '
+  'style, and decision-making style.',
+)
 @SectionId('UPDB')
 class UserPersonaDetailsBehavior {
     @Form([
         Field('techComfort', String,
-                'Technology Comfort Level (attitude toward technology)'),
+                'Technology Comfort Level (attitude toward technology)',
+                hint: 'This persona\'s general attitude toward technology'),
         Field('preferredLearningStyle', String,
-                'Preferred Learning Style (visual, hands-on, documentation, etc.)'),
+                'Preferred Learning Style (visual, hands-on, documentation, etc.)',
+                hint: 'Visual / hands-on / documentation / video'),
         Field('decisionMakingStyle', String,
-                'Decision Making Style (analytical, intuitive, collaborative)'),
+                'Decision Making Style (analytical, intuitive, collaborative)',
+                hint: 'Analytical / intuitive / collaborative'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -2582,24 +3705,42 @@ class UserPersonaDetailsBehavior {
 /// Role within a user category.
 ///
 /// Organizational role and responsibilities associated with this user category.
+@StandardReferences(
+  [
+    'NIST RBAC — role-based access',
+    'BABOK v3 §10.43 — roles',
+  ],
+  'Captures the organizational role for this user category — its '
+  'responsibilities, reporting lines, and decision/budget authority.',
+)
 @SectionId('UCRE')
 class UserCategoryRoleEntry {
   @Form([
-    Field('roleName', String, 'Role Name', required: true),
-    Field('roleDescription', String, 'Role Description', required: true),
-    Field('organizationUnit', String, 'Organization Unit'),
-    Field('reportsTo', String, 'Reports To (role or position)'),
-    Field('directReports', String, 'Direct Reports (roles reporting to this)'),
+    Field('roleName', String, 'Role Name',
+        required: true, hint: 'Name of the organizational role'),
+    Field('roleDescription', String, 'Role Description',
+        required: true, hint: 'Brief description of the role and its purpose'),
+    Field('organizationUnit', String, 'Organization Unit',
+        hint: 'Department or unit this role belongs to'),
+    Field('reportsTo', String, 'Reports To (role or position)',
+        hint: 'Role or position this role reports to'),
+    Field('directReports', String, 'Direct Reports (roles reporting to this)',
+        hint: 'Roles or positions that report to this role'),
     Field('responsibilities', String,
-        'Key Responsibilities (main job functions)'),
+        'Key Responsibilities (main job functions)',
+        hint: 'Main job functions and duties of this role'),
     Field('decisionAuthority', String,
-        'Decision Authority (what decisions can they make)'),
+        'Decision Authority (what decisions can they make)',
+        hint: 'What decisions this role is authorized to make'),
     Field('budgetAuthority', String,
-        'Budget Authority (financial approval limits)'),
+        'Budget Authority (financial approval limits)',
+        hint: 'Financial approval limits for this role'),
     Field('collaborators', String,
-        'Primary Collaborators (roles they work with)'),
+        'Primary Collaborators (roles they work with)',
+        hint: 'Roles this role regularly works with'),
     Field('performanceMetrics', String,
-        'Performance Metrics (how their success is measured)'),
+        'Performance Metrics (how their success is measured)',
+        hint: 'How success is measured for this role'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2609,12 +3750,23 @@ class UserCategoryRoleEntry {
 ///
 /// Describes one activity this user category performs with the system.
 /// Tasks map to interaction scenarios in the ISC document.
+@StandardReferences(
+  [
+    'ISO 9241-11 — tasks & goals (usability)',
+    'ISO/IEC/IEEE 29148 §6 — user tasks/use cases',
+  ],
+  'A single activity this user category performs with the system, with its '
+  'execution profile, data interaction, context, workflow, and variations.',
+)
 @SectionId('SYTS')
 class SystemTaskEntry {
   @Form([
-    Field('taskId', String, 'Task ID', required: true),
-    Field('taskName', String, 'Task Name', required: true),
-    Field('description', String, 'Description (what the user does)'),
+    Field('taskId', String, 'Task ID',
+        required: true, hint: 'Unique identifier for this task'),
+    Field('taskName', String, 'Task Name',
+        required: true, hint: 'Short descriptive name of the task'),
+    Field('description', String, 'Description (what the user does)',
+        hint: 'What the user does when performing this task'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2636,53 +3788,105 @@ class SystemTaskEntry {
   String? relatedUseCase;
 
   /// Task workflow steps.
+  @StandardReferences(
+    [
+      'ISO 9241-11 — tasks & goals (usability)',
+      'ISO/IEC/IEEE 29148 §6 — user tasks/use cases',
+    ],
+    'The ordered set of workflow steps that make up this task.',
+  )
   @SectionId('SYSTE-WORK-LST')
   @SectionIdPattern('SYSTE-WORK-xxx')
+  @ContentHelp('Add one entry per step in the task workflow, in the order the '
+      'user performs them.')
   @SerializationOrder(5)
   List<SystemTaskWorkflowStepEntry> workflowSteps = [];
 
   /// Variations and exceptions.
+  @StandardReferences(
+    [
+      'ISO 9241-11 — tasks & goals (usability)',
+      'ISO/IEC/IEEE 29148 §6 — user tasks/use cases',
+    ],
+    'The set of alternative flows and exceptions for this task.',
+  )
   @SectionId('VARIA-VARI-LST')
   @SectionIdPattern('VARIA-VARI-xxx')
+  @ContentHelp('Add one entry per variation or exception to the normal task '
+      'flow.')
   @SerializationOrder(6)
   List<VariationsAndExceptionEntry> variationsAndExceptions = [];
 }
 
 /// Timing, complexity, and trigger details for a system task.
+@StandardReferences(
+  [
+    'ISO 9241-11 — tasks & goals (usability)',
+    'ISO/IEC/IEEE 29148 §6 — user tasks/use cases',
+  ],
+  'Captures the execution profile of a task — frequency, duration, complexity, '
+  'importance, and trigger.',
+)
 @SectionId('STEE')
 class SystemTaskEntryExecution {
     @Form([
         Field('frequency', String,
-                'Frequency (how often: Continuous, Daily, Weekly, Monthly, Ad-hoc)'),
+                'Frequency (how often: Continuous, Daily, Weekly, Monthly, Ad-hoc)',
+                hint: 'Continuous / Daily / Weekly / Monthly / Ad-hoc'),
         Field('averageDuration', String,
-                'Average Duration (typical time to complete)'),
-        Field('complexity', String, 'Complexity (Simple, Moderate, Complex)'),
+                'Average Duration (typical time to complete)',
+                hint: 'Typical time to complete this task'),
+        Field('complexity', String, 'Complexity (Simple, Moderate, Complex)',
+                hint: 'Simple / Moderate / Complex'),
         Field('importance', String,
-                'Importance (Critical, High, Medium, Low)'),
-        Field('trigger', String, 'Trigger (what initiates this task)'),
+                'Importance (Critical, High, Medium, Low)',
+                hint: 'Critical / High / Medium / Low'),
+        Field('trigger', String, 'Trigger (what initiates this task)',
+                hint: 'Event or condition that initiates this task'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Outcome and data interaction details for a system task.
+@StandardReferences(
+  [
+    'ISO 9241-11 — tasks & goals (usability)',
+    'ISO/IEC/IEEE 29148 §6 — user tasks/use cases',
+  ],
+  'Captures the data interaction of a task — expected outcome, success '
+  'criteria, and data accessed or modified.',
+)
 @SectionId('STED')
 class SystemTaskEntryData {
     @Form([
-        Field('expectedOutcome', String, 'Expected Outcome'),
-        Field('successCriteria', String, 'Success Criteria'),
-        Field('dataAccessed', String, 'Data Accessed (what information is needed)'),
-        Field('dataModified', String, 'Data Modified (what information changes)'),
+        Field('expectedOutcome', String, 'Expected Outcome',
+                hint: 'The result the user expects from completing the task'),
+        Field('successCriteria', String, 'Success Criteria',
+                hint: 'How to tell the task completed successfully'),
+        Field('dataAccessed', String, 'Data Accessed (what information is needed)',
+                hint: 'What information the task needs to read'),
+        Field('dataModified', String, 'Data Modified (what information changes)',
+                hint: 'What information the task creates or changes'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Tooling and linked artifacts for a system task.
+@StandardReferences(
+  [
+    'ISO 9241-11 — tasks & goals (usability)',
+    'ISO/IEC/IEEE 29148 §6 — user tasks/use cases',
+  ],
+  'Captures the tooling context of a task — the systems and tools involved in '
+  'performing it.',
+)
 @SectionId('STEC')
 class SystemTaskEntryContext {
     @Form([
-        Field('toolsUsed', String, 'Tools Used (systems or tools involved)'),
+        Field('toolsUsed', String, 'Tools Used (systems or tools involved)',
+                hint: 'Systems or tools involved in performing this task'),
     ])
     @SerializationOrder(0)
     String? content;
@@ -2691,6 +3895,14 @@ class SystemTaskEntryContext {
 /// 4.1.4.n.4. Access and Permissions.
 ///
 /// Security and access control specifications for this user category.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A.9 — access control',
+    'NIST RBAC — permissions',
+  ],
+  'Captures the access rights, authentication, restrictions, governance, and '
+  'permission matrix for this user category.',
+)
 @ContentHelp('Define the access rights, permissions, and security '
     'constraints for this user category.')
 @SectionId('UAP')
@@ -2702,14 +3914,17 @@ class UserAccessPermissions {
   @Form([
     Field('accessLevel', String,
         'Access Level (Guest, User, Power User, Administrator, Super Admin)',
-        required: true),
+        required: true,
+        hint: 'Guest / User / Power User / Administrator / Super Admin'),
     Field('authenticationMethod', String,
         'Authentication Method (Password, SSO, MFA, Certificate, etc.)',
-        required: true),
+        required: true, hint: 'Password / SSO / MFA / Certificate'),
     Field('authorizationRoles', String,
-        'Authorization Roles (system roles assigned to this category)'),
+        'Authorization Roles (system roles assigned to this category)',
+        hint: 'System roles assigned to this user category'),
     Field('dataAccessScope', String,
-        'Data Access Scope (all, department, team, own records)'),
+        'Data Access Scope (all, department, team, own records)',
+        hint: 'all / department / team / own records'),
   ])
   @SerializationOrder(1)
   String? permissionsForm;
@@ -2725,6 +3940,13 @@ class UserAccessPermissions {
       UserAccessPermissionsGovernance();
 
   /// Permission matrix entries — contains 0+× PermissionMatrixEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC 27001 Annex A.9 — access control',
+      'NIST RBAC — permissions',
+    ],
+    'The set of fine-grained permission entries for this user category.',
+  )
   @SectionId('PRMTX-PERM-LST')
   @SectionIdPattern('PRMTX-PERM-xxx')
   @ContentHelp('Define specific permission entries for fine-grained access.')
@@ -2733,47 +3955,82 @@ class UserAccessPermissions {
 }
 
 /// Functional and environmental restrictions.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A.9 — access control',
+    'NIST RBAC — permissions',
+  ],
+  'Captures the functional and environmental restrictions on this user '
+  'category — what they cannot do, and time/location/device constraints.',
+)
 @SectionId('UAPR')
 class UserAccessPermissionsRestrictions {
     @Form([
         Field('functionalAccess', String,
-                'Functional Access (what features they can use)'),
+                'Functional Access (what features they can use)',
+                hint: 'Features and functions this category can use'),
         Field('restrictions', String,
-                'Restrictions (what they cannot access or do)'),
+                'Restrictions (what they cannot access or do)',
+                hint: 'What this category cannot access or do'),
         Field('timeRestrictions', String,
-                'Time Restrictions (business hours, specific times)'),
+                'Time Restrictions (business hours, specific times)',
+                hint: 'Business hours or specific times access is allowed'),
         Field('locationRestrictions', String,
-                'Location Restrictions (office only, VPN required, etc.)'),
+                'Location Restrictions (office only, VPN required, etc.)',
+                hint: 'Office only / VPN required / geographic limits'),
         Field('deviceRestrictions', String,
-                'Device Restrictions (managed devices only, etc.)'),
+                'Device Restrictions (managed devices only, etc.)',
+                hint: 'Managed devices only / device type limits'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Session and audit controls.
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A.9 — access control',
+    'NIST RBAC — permissions',
+  ],
+  'Captures the session and audit governance for this user category — '
+  'timeout behaviour and audit-logging requirements.',
+)
 @SectionId('UAPG')
 class UserAccessPermissionsGovernance {
     @Form([
         Field('sessionTimeout', String,
-                'Session Timeout (inactivity timeout duration)'),
+                'Session Timeout (inactivity timeout duration)',
+                hint: 'Inactivity timeout duration before re-authentication'),
         Field('auditRequirements', String,
-                'Audit Requirements (what actions are logged)'),
+                'Audit Requirements (what actions are logged)',
+                hint: 'Which actions must be logged for audit'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// A permission matrix entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC 27001 Annex A.9 — access control',
+    'NIST RBAC — permissions',
+  ],
+  'A single fine-grained permission rule — a resource, an action, and whether '
+  'it is allowed, denied, or conditional, with scope.',
+)
 @SectionId('PRMTX')
 class PermissionMatrixEntry {
   @Form([
-    Field('resource', String, 'Resource (what is being accessed)', required: true),
+    Field('resource', String, 'Resource (what is being accessed)',
+        required: true, hint: 'The resource or entity being accessed'),
     Field('action', String, 'Action (Create, Read, Update, Delete, Execute)',
-        required: true),
-    Field('permission', String, 'Permission (Allowed, Denied, Conditional)'),
-    Field('condition', String, 'Condition (if conditional, what is required)'),
-    Field('scope', String, 'Scope (all, own, department, etc.)'),
+        required: true, hint: 'Create / Read / Update / Delete / Execute'),
+    Field('permission', String, 'Permission (Allowed, Denied, Conditional)',
+        hint: 'Allowed / Denied / Conditional'),
+    Field('condition', String, 'Condition (if conditional, what is required)',
+        hint: 'If conditional, the condition that must hold'),
+    Field('scope', String, 'Scope (all, own, department, etc.)',
+        hint: 'all / own / department / team'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2782,6 +4039,14 @@ class PermissionMatrixEntry {
 /// 4.1.4.n.5. Training Requirements.
 ///
 /// Training and onboarding requirements for this user category.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207 — training/support processes',
+    'ISO 9241-210 — user support',
+  ],
+  'Captures the training and onboarding needs for this user category — '
+  'formats, certification, support level, and topics.',
+)
 @SectionId('USTRRE')
 @ContentHelp('Define the training and support needs for this user category.')
 class UserTrainingRequirements {
@@ -2791,28 +4056,44 @@ class UserTrainingRequirements {
   /// Training Requirements Form.
   @Form([
     Field('initialTrainingRequired', bool,
-        'Initial Training Required (is formal training needed)'),
+        'Initial Training Required (is formal training needed)',
+        hint: 'Whether formal up-front training is needed'),
     Field('trainingFormat', String,
-        'Training Format (In-person, Online, Self-paced, On-the-job)'),
+        'Training Format (In-person, Online, Self-paced, On-the-job)',
+        hint: 'In-person / Online / Self-paced / On-the-job'),
     Field('estimatedTrainingDuration', String,
-        'Estimated Training Duration'),
+        'Estimated Training Duration',
+        hint: 'Estimated time required to complete training'),
     Field('certificationRequired', bool,
-        'Certification Required (must pass assessment)'),
+        'Certification Required (must pass assessment)',
+        hint: 'Whether users must pass an assessment to be certified'),
     Field('refresherFrequency', String,
-        'Refresher Frequency (how often retraining is needed)'),
+        'Refresher Frequency (how often retraining is needed)',
+        hint: 'How often retraining or refresher courses are needed'),
     Field('supportLevel', String,
-        'Support Level Expected (Self-service, Help desk, Dedicated)'),
+        'Support Level Expected (Self-service, Help desk, Dedicated)',
+        hint: 'Self-service / Help desk / Dedicated'),
     Field('documentationNeeds', String,
-        'Documentation Needs (User guide, Quick reference, Video tutorials)'),
+        'Documentation Needs (User guide, Quick reference, Video tutorials)',
+        hint: 'User guide / Quick reference / Video tutorials'),
     Field('onboardingProcess', String,
-        'Onboarding Process (steps to get started)'),
+        'Onboarding Process (steps to get started)',
+        hint: 'Steps needed to get a new user started'),
     Field('mentoringRequired', bool,
-        'Mentoring Required (paired with experienced user)'),
+        'Mentoring Required (paired with experienced user)',
+        hint: 'Whether new users are paired with an experienced mentor'),
   ])
   @SerializationOrder(1)
   String? trainingForm;
 
   /// Training topics — contains 0+× TrainingTopicEntry.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 12207 — training/support processes',
+      'ISO 9241-210 — user support',
+    ],
+    'The set of specific training topics for this user category.',
+  )
   @SectionId('TRTP-TRAI-LST')
   @SectionIdPattern('TRTP-TRAI-xxx')
   @ContentHelp('Define specific training topics for this user category.')
@@ -2821,15 +4102,29 @@ class UserTrainingRequirements {
 }
 
 /// A training topic entry (form).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 12207 — training/support processes',
+    'ISO 9241-210 — user support',
+  ],
+  'A single training topic — its learning objectives, duration, prerequisites, '
+  'and assessment method.',
+)
 @SectionId('TRTP')
 class TrainingTopicEntry {
   @Form([
-    Field('topicName', String, 'Topic Name', required: true),
-    Field('description', String, 'Description'),
-    Field('learningObjectives', String, 'Learning Objectives'),
-    Field('duration', String, 'Duration'),
-    Field('prerequisites', String, 'Prerequisites'),
-    Field('assessmentMethod', String, 'Assessment Method'),
+    Field('topicName', String, 'Topic Name',
+        required: true, hint: 'Name of the training topic'),
+    Field('description', String, 'Description',
+        hint: 'Brief description of what this topic covers'),
+    Field('learningObjectives', String, 'Learning Objectives',
+        hint: 'What learners should be able to do after this topic'),
+    Field('duration', String, 'Duration',
+        hint: 'Estimated time to cover this topic'),
+    Field('prerequisites', String, 'Prerequisites',
+        hint: 'Knowledge or topics required before this one'),
+    Field('assessmentMethod', String, 'Assessment Method',
+        hint: 'How learning of this topic is assessed'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -2838,6 +4133,14 @@ class TrainingTopicEntry {
 /// 4.1.4.n.6. Accessibility Needs.
 ///
 /// Accessibility requirements and accommodations for this user category.
+@StandardReferences(
+  [
+    'WCAG 2.1 — web content accessibility',
+    'EN 301 549 — ICT accessibility',
+  ],
+  'Captures the accessibility requirements and accommodations for this user '
+  'category — visual, auditory, motor, cognitive, and language needs.',
+)
 @ContentHelp('Document any accessibility requirements or accommodations '
     'that should be considered for this user category.')
 @SectionId('UAN')
@@ -2848,21 +4151,29 @@ class UserAccessibilityNeeds {
   /// Accessibility Needs Form.
   @Form([
     Field('visualRequirements', String,
-        'Visual Requirements (screen reader, high contrast, magnification)'),
+        'Visual Requirements (screen reader, high contrast, magnification)',
+        hint: 'Screen reader / high contrast / magnification needs'),
     Field('auditoryRequirements', String,
-        'Auditory Requirements (captions, visual alerts)'),
+        'Auditory Requirements (captions, visual alerts)',
+        hint: 'Captions / visual alerts for auditory content'),
     Field('motorRequirements', String,
-        'Motor Requirements (keyboard navigation, voice control)'),
+        'Motor Requirements (keyboard navigation, voice control)',
+        hint: 'Keyboard navigation / voice control needs'),
     Field('cognitiveRequirements', String,
-        'Cognitive Requirements (simple language, clear navigation)'),
+        'Cognitive Requirements (simple language, clear navigation)',
+        hint: 'Simple language / clear navigation needs'),
     Field('languageRequirements', String,
-        'Language Requirements (multiple languages, reading level)'),
+        'Language Requirements (multiple languages, reading level)',
+        hint: 'Multiple languages / reading level needs'),
     Field('deviceAccommodations', String,
-        'Device Accommodations (large buttons, touch targets)'),
+        'Device Accommodations (large buttons, touch targets)',
+        hint: 'Large buttons / touch target sizing needs'),
     Field('wcagLevel', String,
-        'WCAG Conformance Level Required (A, AA, AAA)'),
+        'WCAG Conformance Level Required (A, AA, AAA)',
+        hint: 'A / AA / AAA'),
     Field('additionalStandards', String,
-        'Additional Standards (Section 508, EN 301 549, etc.)'),
+        'Additional Standards (Section 508, EN 301 549, etc.)',
+        hint: 'Section 508 / EN 301 549 / other accessibility standards'),
   ])
   @SerializationOrder(1)
   String? accessibilityForm;
@@ -2871,6 +4182,14 @@ class UserAccessibilityNeeds {
 /// 4.1.4.n.7. User Journey.
 ///
 /// Key touchpoints and journey map for this user category's experience.
+@StandardReferences(
+  [
+    'ISO 9241-210 — user journey & experience',
+    'BABOK v3 §10 — customer journey mapping',
+  ],
+  'Captures the end-to-end journey for this user category — its stages, '
+  'touchpoints, pain points, and opportunities for delight.',
+)
 @ContentHelp('Document the user journey - key touchpoints and stages '
     'in this user category\'s interaction with the system.')
 @SectionId('UJ')
@@ -2887,6 +4206,13 @@ class UserJourney {
   String? journeyDiagram;
 
   /// Journey stage entries — contains 0+× JourneyStageEntry.
+  @StandardReferences(
+    [
+      'ISO 9241-210 — user journey & experience',
+      'BABOK v3 §10 — customer journey mapping',
+    ],
+    'The ordered set of stages that make up this user journey.',
+  )
   @SectionId('JRNST-STAG-LST')
   @SectionIdPattern('JRNST-STAG-xxx')
   @ContentHelp('Define each stage of the user journey.')
@@ -2894,14 +4220,31 @@ class UserJourney {
   List<JourneyStageEntry> stages = [];
 
   /// Key touchpoints.
+  @StandardReferences(
+    [
+      'ISO 9241-210 — user journey & experience',
+      'BABOK v3 §10 — customer journey mapping',
+    ],
+    'The set of key touchpoints where this user category interacts with the '
+    'system across the journey.',
+  )
   @SectionId('KEYTO-KEYT-LST')
   @SectionIdPattern('KEYTO-KEYT-xxx')
+  @ContentHelp('Add one entry per key touchpoint in the user journey.')
   @SerializationOrder(3)
   List<KeyTouchpointEntry> keyTouchpoints = [];
 
   /// Pain points in the journey.
+  @StandardReferences(
+    [
+      'ISO 9241-210 — user journey & experience',
+      'BABOK v3 §10 — customer journey mapping',
+    ],
+    'The set of pain points this user category encounters during the journey.',
+  )
   @SectionId('USERJ-PAIN-LST')
   @SectionIdPattern('USERJ-PAIN-xxx')
+  @ContentHelp('Add one entry per pain point or friction in the user journey.')
   @SerializationOrder(4)
   List<UserJourneyPainPointEntry> painPoints = [];
 
@@ -2913,18 +4256,35 @@ class UserJourney {
 }
 
 /// A journey stage entry (form).
+@StandardReferences(
+  [
+    'ISO 9241-210 — user journey & experience',
+    'BABOK v3 §10 — customer journey mapping',
+  ],
+  'A single stage of the user journey — its goal, user actions, system '
+  'response, emotions, touchpoints, and success metrics.',
+)
 @SectionId('JRNST')
 class JourneyStageEntry {
   @Form([
-    Field('stageName', String, 'Stage Name', required: true),
-    Field('stageDescription', String, 'Stage Description'),
-    Field('userGoal', String, 'User Goal (what they want to achieve)'),
-    Field('userActions', String, 'User Actions (what they do)'),
-    Field('systemResponse', String, 'System Response (what system does)'),
-    Field('userEmotions', String, 'User Emotions (expected feeling)'),
-    Field('touchpoints', String, 'Touchpoints (system interactions)'),
-    Field('potentialIssues', String, 'Potential Issues'),
-    Field('successMetrics', String, 'Success Metrics'),
+    Field('stageName', String, 'Stage Name',
+        required: true, hint: 'Name of this journey stage'),
+    Field('stageDescription', String, 'Stage Description',
+        hint: 'Brief description of what happens in this stage'),
+    Field('userGoal', String, 'User Goal (what they want to achieve)',
+        hint: 'What the user wants to achieve in this stage'),
+    Field('userActions', String, 'User Actions (what they do)',
+        hint: 'What the user does during this stage'),
+    Field('systemResponse', String, 'System Response (what system does)',
+        hint: 'How the system responds during this stage'),
+    Field('userEmotions', String, 'User Emotions (expected feeling)',
+        hint: 'The emotion the user is expected to feel here'),
+    Field('touchpoints', String, 'Touchpoints (system interactions)',
+        hint: 'System interactions or touchpoints in this stage'),
+    Field('potentialIssues', String, 'Potential Issues',
+        hint: 'Problems or friction the user may hit in this stage'),
+    Field('successMetrics', String, 'Success Metrics',
+        hint: 'How success is measured for this stage'),
   ])
   @SerializationOrder(0)
   String? content;
