@@ -921,13 +921,13 @@ section-types:
     pattern-check-id:
       pattern: ^trcoch_chan_lst-\d+$
       error-message: ID must match trcoch_chan_lst-NNN
-    description: Communication channels and their use.
+    description: "Add one entry per communication channel describing its purpose, ownership, and accessibility."
   TRESPA-ESCA-LST:
     prefix: trespa_esca_lst
     pattern-check-id:
       pattern: ^trespa_esca_lst-\d+$
       error-message: ID must match trespa_esca_lst-NNN
-    description: Escalation paths for support.
+    description: "Add one entry per escalation path describing its levels, criteria, and response-time targets."
   TRMOEN-TRAI-LST:
     prefix: trmoen_trai_lst
     pattern-check-id:
@@ -939,7 +939,7 @@ section-types:
     pattern-check-id:
       pattern: ^trspre_supp_lst-\d+$
       error-message: ID must match trspre_supp_lst-NNN
-    description: Support resources available.
+    description: "Add one entry per support resource describing its type, coverage, capacity, and ownership."
   TRVEEN-VEND-LST:
     prefix: trveen_vend_lst
     pattern-check-id:
@@ -1653,7 +1653,7 @@ section-types:
     pattern-check-id:
       pattern: ^ocrsk_risk_lst-\d+$
       error-message: ID must match ocrsk_risk_lst-NNN
-    description: Risks and mitigations.
+    description: "Add one entry per risk associated with this change, each with its mitigation and any dependencies on other changes."
   ONGTR-ONGO-LST:
     prefix: ongtr_ongo_lst
     pattern-check-id:
@@ -1665,7 +1665,7 @@ section-types:
     pattern-check-id:
       pattern: ^orgce_item_lst-\d+$
       error-message: ID must match orgce_item_lst-NNN
-    description: Contains 0+× OrganizationalChange.
+    description: "Add one entry per discrete organizational change — each with its current state, target state, rationale, impact, and transition."
   ORGIM-ACTI-LST:
     prefix: orgim_acti_lst
     pattern-check-id:
@@ -1870,7 +1870,7 @@ section-types:
     pattern-check-id:
       pattern: ^rdrce_read_lst-\d+$
       error-message: ID must match rdrce_read_lst-NNN
-    description: Readiness criteria per stakeholder group.
+    description: "Add one entry per stakeholder group whose readiness is being assessed, capturing ADKAR levels, resistance factors, and status."
   REARS-ITEM-LST:
     prefix: rears_item_lst
     pattern-check-id:
@@ -2272,13 +2272,13 @@ section-types:
     pattern-check-id:
       pattern: ^tpact_acti_lst-\d+$
       error-message: ID must match tpact_acti_lst-NNN
-    description: Activities and deliverables for this phase.
+    description: "Add one entry per group of activities and deliverables for this phase — e.g. training, communication, system, and process work."
   TPSTK-STAK-LST:
     prefix: tpstk_stak_lst
     pattern-check-id:
       pattern: ^tpstk_stak_lst-\d+$
       error-message: ID must match tpstk_stak_lst-NNN
-    description: Stakeholder engagement for this phase.
+    description: "Add one entry per stakeholder group engaged in this phase, with the engagement and feedback approach for each."
   TRDLV-ITEM-LST:
     prefix: trdlv_item_lst
     pattern-check-id:
@@ -2290,13 +2290,13 @@ section-types:
     pattern-check-id:
       pattern: ^trmil_mile_lst-\d+$
       error-message: ID must match trmil_mile_lst-NNN
-    description: Key transition milestones and decision gates.
+    description: "Add one entry per transition milestone or decision gate — e.g. checkpoints, go-live, closure."
   TRPHE-PHAS-LST:
     prefix: trphe_phas_lst
     pattern-check-id:
       pattern: ^trphe_phas_lst-\d+$
       error-message: ID must match trphe_phas_lst-NNN
-    description: Transition phases with milestones and durations.
+    description: "Add one entry per transition phase, in sequence — e.g. Preparation, Pilot, Rollout, Stabilization, Closure."
   TURST-STEP-LST:
     prefix: turst_step_lst
     pattern-check-id:
@@ -2594,7 +2594,7 @@ section-types:
     pattern-check-id:
       pattern: ^coev_comm_lst-\d+$
       error-message: ID must match coev_comm_lst-NNN
-    description: Specific communication events/activities.
+    description: "Add one entry per planned communication event, such as a town hall, announcement, workshop, or newsletter."
   COPA-COLO-LST:
     prefix: copa_colo_lst
     pattern-check-id:
@@ -3117,13 +3117,13 @@ section-types:
     pattern-check-id:
       pattern: ^trme_metr_lst-\d+$
       error-message: ID must match trme_metr_lst-NNN
-    description: Specific success metrics.
+    description: "Add one entry per success metric describing its category, measurement method, baseline, and target."
   TRRS-TRAN-LST:
     prefix: trrs_tran_lst
     pattern-check-id:
       pattern: ^trrs_tran_lst-\d+$
       error-message: ID must match trrs_tran_lst-NNN
-    description: Risks specific to the organizational transition.
+    description: "Add one entry per transition-specific risk, with its likelihood, impact, and planned mitigation."
   TRTP-TRAI-LST:
     prefix: trtp_trai_lst
     pattern-check-id:

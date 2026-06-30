@@ -54,6 +54,16 @@ class OrganizationalFramework {
 /// restructured departments, changed responsibilities, and new communication
 /// channels. Follows organizational design principles (span of control,
 /// decision rights, coordination mechanisms) and change management patterns.
+@StandardReferences(
+  [
+    'McKinsey 7-S — organizational design',
+    'Galbraith Star Model — organization design',
+    'BABOK v3 — future-state analysis',
+  ],
+  'Defines the target organizational structure required by the new system — '
+  'teams, departments, responsibilities, and communication channels in the '
+  'future state.',
+)
 @SectionId('NORGS')
 class NewOrganizationStructure {
   /// Overview of the target organization structure.
@@ -79,6 +89,15 @@ class NewOrganizationStructure {
 /// Explicitly documents what changes from the current organization structure.
 /// Identifies affected departments, changed reporting lines, and new roles
 /// that need to be created. Provides traceability from current to future state.
+@StandardReferences(
+  [
+    'BABOK v3 — future-state analysis',
+    'McKinsey 7-S — organizational design',
+  ],
+  'Captures the explicit delta between the current and target organization '
+  'structures — affected departments, changed reporting lines, and new roles — '
+  'providing current-to-future-state traceability.',
+)
 @SectionId('OCCHG')
 class ChangesFromCurrentStructure {
   // -------------------------------------------------------------------------
@@ -119,8 +138,18 @@ class ChangesFromCurrentStructure {
   DiagramSection orgChartComparison = DiagramSection();
 
   /// Contains 0+× OrganizationalChange.
+  @StandardReferences(
+    [
+      'BABOK v3 — future-state analysis',
+      'PMBOK — resource management (organizational roles & responsibilities)',
+    ],
+    'The set of discrete structural changes that together transform the '
+    'current organization into the target structure.',
+  )
   @SectionId('ORGCE-ITEM-LST')
   @SectionIdPattern('ORGCE-ITEM-xxx')
+  @ContentHelp('Add one entry per discrete organizational change — each with '
+      'its current state, target state, rationale, impact, and transition.')
   @SerializationOrder(3)
   List<OrganizationalChangeEntry> items = [];
 }
@@ -129,6 +158,15 @@ class ChangesFromCurrentStructure {
 ///
 /// Documents a specific structural change including current state, target
 /// state, rationale, impact assessment, and transition requirements.
+@StandardReferences(
+  [
+    'BABOK v3 — future-state analysis',
+    'PROSCI ADKAR — change management',
+  ],
+  'Documents a single structural change — its current state, target state, '
+  'rationale, impact, transition, and risks — as one unit of the '
+  'organizational transformation.',
+)
 @SectionId('ORGCE')
 class OrganizationalChangeEntry {
   @Form([
@@ -163,8 +201,18 @@ class OrganizationalChangeEntry {
   OrgChangeTransition transition = OrgChangeTransition();
 
   /// Risks and mitigations.
+  @StandardReferences(
+    [
+      'ISO 31000 — risk management',
+      'PROSCI ADKAR — change management',
+    ],
+    'The risks arising from this structural change together with their '
+    'mitigations and dependencies.',
+  )
   @SectionId('OCRSK-RISK-LST')
   @SectionIdPattern('OCRSK-RISK-xxx')
+  @ContentHelp('Add one entry per risk associated with this change, each with '
+      'its mitigation and any dependencies on other changes.')
   @SerializationOrder(6)
   List<OrgChangeRisks> risks = [];
 
@@ -174,6 +222,11 @@ class OrganizationalChangeEntry {
 }
 
 /// Identification details for organizational change.
+@StandardReferences(
+  ['BABOK v3 — future-state analysis'],
+  'Categorizes and prioritizes a structural change for tracking and '
+  'sequencing within the transformation.',
+)
 @SectionId('OCIDN')
 class OrgChangeIdentification {
   @Form([
@@ -187,6 +240,14 @@ class OrgChangeIdentification {
 }
 
 /// Scope for organizational change.
+@StandardReferences(
+  [
+    'BABOK v3 — future-state analysis',
+    'PMBOK — resource management (organizational roles & responsibilities)',
+  ],
+  'Bounds the affected area of a structural change and quantifies the '
+  'current-to-target shift, including the headcount delta.',
+)
 @SectionId('OCSCP')
 class OrgChangeScope {
   @Form([
@@ -208,6 +269,14 @@ class OrgChangeScope {
 }
 
 /// Rationale for organizational change.
+@StandardReferences(
+  [
+    'BABOK v3 — future-state analysis',
+    'ISO 21500 — project management (governance & process tailoring)',
+  ],
+  'States the business justification and expected benefits for a structural '
+  'change and how it aligns to the new system and processes.',
+)
 @SectionId('OCRAT')
 class OrgChangeRationale {
   @Form([
@@ -225,6 +294,14 @@ class OrgChangeRationale {
 }
 
 /// Impact assessment for organizational change.
+@StandardReferences(
+  [
+    'PROSCI ADKAR — change management',
+    'PMBOK — resource management (organizational roles & responsibilities)',
+  ],
+  'Assesses the disruption a structural change causes to roles, people, '
+  'reporting lines, decision rights, communication, and collaboration.',
+)
 @SectionId('OCIMP')
 class OrgChangeImpact {
   @Form([
@@ -248,6 +325,14 @@ class OrgChangeImpact {
 }
 
 /// Transition for organizational change.
+@StandardReferences(
+  [
+    'Kotter 8-Step — leading change',
+    'ISO/IEC/IEEE 29148 §6 — transition',
+  ],
+  'Plans how a structural change is brought into effect — timing, ownership, '
+  'and the communication, training, HR, and IT actions it requires.',
+)
 @SectionId('OCTRS')
 class OrgChangeTransition {
   @Form([
@@ -271,6 +356,14 @@ class OrgChangeTransition {
 }
 
 /// Risks for organizational change.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management',
+    'PROSCI ADKAR — change management',
+  ],
+  'A single risk for a structural change paired with its mitigation and '
+  'dependencies.',
+)
 @SectionId('OCRSK')
 class OrgChangeRisks {
   @Form([
@@ -286,6 +379,14 @@ class OrgChangeRisks {
 }
 
 /// Status for organizational change.
+@StandardReferences(
+  [
+    'ISO 21500 — project management (governance & process tailoring)',
+    'PMBOK — resource management (organizational roles & responsibilities)',
+  ],
+  'Tracks the approval and implementation status of a structural change, '
+  'including who must approve it.',
+)
 @SectionId('OCSTA')
 class OrgChangeStatus {
   @Form([
@@ -311,6 +412,15 @@ class OrgChangeStatus {
 /// Describes when organizational changes take effect, how the transition is
 /// managed, and what training or communication is needed. Follows change
 /// management best practices (PROSCI ADKAR, Kotter's 8-step model).
+@StandardReferences(
+  [
+    'PROSCI ADKAR — change management',
+    'Kotter 8-Step — leading change',
+    'ISO/IEC/IEEE 29148 §6 — transition',
+  ],
+  'Defines when organizational changes take effect, how the transition is '
+  'managed, and the phasing, milestones, and risks that govern cutover.',
+)
 @SectionId('OTTML')
 class OrganizationalTransitionTimeline {
   /// Overview of the transition approach and guiding principles.
@@ -318,14 +428,34 @@ class OrganizationalTransitionTimeline {
   TransitionOverview overview = TransitionOverview();
 
   /// Transition phases with milestones and durations.
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §6 — transition',
+      'PMBOK — schedule management',
+    ],
+    'The ordered set of distinct transition phases, each with its own '
+    'timeline, activities, and milestones.',
+  )
   @SectionId('TRPHE-PHAS-LST')
   @SectionIdPattern('TRPHE-PHAS-xxx')
+  @ContentHelp('Add one entry per transition phase, in sequence — e.g. '
+      'Preparation, Pilot, Rollout, Stabilization, Closure.')
   @SerializationOrder(1)
   List<TransitionPhaseEntry> phases = [];
 
   /// Key transition milestones and decision gates.
+  @StandardReferences(
+    [
+      'PMBOK — schedule management',
+      'ITIL 4 — service transition',
+    ],
+    'The set of key transition milestones and decision gates that mark '
+    'progress and Go/No-Go points across the transition.',
+  )
   @SectionId('TRMIL-MILE-LST')
   @SectionIdPattern('TRMIL-MILE-xxx')
+  @ContentHelp('Add one entry per transition milestone or decision gate — '
+      'e.g. checkpoints, go-live, closure.')
   @SerializationOrder(2)
   List<TransitionMilestoneEntry> milestones = [];
 
@@ -346,22 +476,44 @@ class OrganizationalTransitionTimeline {
   TransitionSuccessMetrics successMetrics = TransitionSuccessMetrics();
 
   /// Risks specific to the organizational transition.
+  @StandardReferences(
+    ['ISO 31000 — risk management'],
+    'The set of risks specific to the organizational transition, each with '
+    'its likelihood, impact, and mitigation.',
+  )
   @SectionId('TRRS-TRAN-LST')
   @SectionIdPattern('TRRS-TRAN-xxx')
+  @ContentHelp('Add one entry per transition-specific risk, with its '
+      'likelihood, impact, and planned mitigation.')
   @SerializationOrder(7)
   List<TransitionRiskEntry> transitionRisks = [];
 }
 
 /// Overview of the organizational transition approach.
+@StandardReferences(
+  [
+    'PROSCI ADKAR — change management',
+    'Kotter 8-Step — leading change',
+  ],
+  'Captures the overall transition approach, change-management methodology, '
+  'and the high-level start and completion dates for the transition.',
+)
 @SectionId('TROVW')
 class TransitionOverview {
   @Form([
     Field('transitionApproach', String,
-        'Transition Approach — phased, big-bang, parallel run, pilot'),
+        'Transition Approach — phased, big-bang, parallel run, pilot',
+        hint: 'Overall approach to the transition: phased rollout, big-bang '
+            'cutover, parallel run, or pilot-first'),
     Field('changeManagementMethodology', String,
-        'Change Management Methodology — PROSCI ADKAR, Kotter, Lewin, custom'),
-    Field('transitionStartDate', String, 'Transition Start Date'),
-    Field('targetCompletionDate', String, 'Target Completion Date'),
+        'Change Management Methodology — PROSCI ADKAR, Kotter, Lewin, custom',
+        hint: 'The change-management framework guiding the transition: PROSCI '
+            'ADKAR, Kotter 8-step, Lewin, or a custom methodology'),
+    Field('transitionStartDate', String, 'Transition Start Date',
+        hint: 'The date on which the organizational transition begins'),
+    Field('targetCompletionDate', String, 'Target Completion Date',
+        hint: 'The target date by which the transition should be fully '
+            'complete'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -376,32 +528,62 @@ class TransitionOverview {
 }
 
 /// Timeline and cutover planning.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — transition',
+    'ITIL 4 — service transition',
+  ],
+  'Defines the overall transition duration, parallel-operation window, '
+  'cutover strategy, and rollback plan for the go-live moment.',
+)
 @SectionId('TROML')
 class TransitionOverviewTimeline {
   @Form([
     Field('transitionDuration', String,
-        'Overall Transition Duration — weeks/months'),
+        'Overall Transition Duration — weeks/months',
+        hint: 'Total expected duration of the transition, expressed in weeks '
+            'or months'),
     Field('parallelOperationPeriod', String,
-        'Parallel Operation Period — duration of overlap with old processes'),
+        'Parallel Operation Period — duration of overlap with old processes',
+        hint: 'How long old and new processes run side by side before the old '
+            'ones are retired'),
     Field('cutoverStrategy', String,
-        'Cutover Strategy — planning for go-live moment'),
+        'Cutover Strategy — planning for go-live moment',
+        hint: 'How the go-live moment is planned and executed, including '
+            'sequencing and timing of the switchover'),
     Field('rollbackPlan', String,
-        'Rollback Plan — fallback if transition fails'),
+        'Rollback Plan — fallback if transition fails',
+        hint: 'The fallback procedure to revert to the prior state if the '
+            'transition fails'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Governance and change ownership.
+@StandardReferences(
+  [
+    'PMBOK — resource management',
+    'PROSCI ADKAR — change management',
+  ],
+  'Establishes the transition governance structure, the accountable '
+  'transition owner, and the change champions who drive adoption.',
+)
 @SectionId('TROGV')
 class TransitionOverviewGovernance {
   @Form([
     Field('transitionGovernance', String,
-        'Transition Governance — oversight structure and decision authority'),
+        'Transition Governance — oversight structure and decision authority',
+        hint: 'The oversight structure and where decision authority sits for '
+            'the transition'),
     Field('transitionOwner', String,
-        'Transition Owner — accountable person/role'),
+        'Transition Owner — accountable person/role',
+        hint: 'The single person or role accountable for the overall '
+            'transition'),
     Field('changeChampions', String,
-        'Change Champions — advocates in each affected area'),
+        'Change Champions — advocates in each affected area',
+        hint: 'The advocates within each affected area who champion the change '
+            'and support adoption'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -410,6 +592,14 @@ class TransitionOverviewGovernance {
 /// A transition phase entry (form).
 ///
 /// Defines a distinct phase in the organizational transition sequence.
+@StandardReferences(
+  [
+    'PMBOK — schedule management',
+    'PROSCI ADKAR — change management',
+  ],
+  'Represents one distinct phase in the organizational transition sequence, '
+  'with its identification, activities, stakeholders, and exit criteria.',
+)
 @SectionId('TRPHE')
 class TransitionPhaseEntry {
   /// Phase identification and timeline.
@@ -418,14 +608,28 @@ class TransitionPhaseEntry {
       TransitionPhaseIdentification();
 
   /// Activities and deliverables for this phase.
+  @StandardReferences(
+    ['PMBOK — schedule management'],
+    'The set of activities and deliverables to be completed within this '
+    'transition phase.',
+  )
   @SectionId('TPACT-ACTI-LST')
   @SectionIdPattern('TPACT-ACTI-xxx')
+  @ContentHelp('Add one entry per group of activities and deliverables for '
+      'this phase — e.g. training, communication, system, and process work.')
   @SerializationOrder(1)
   List<TransitionPhaseActivities> activities = [];
 
   /// Stakeholder engagement for this phase.
+  @StandardReferences(
+    ['PMBOK — resource management'],
+    'The stakeholders engaged in this transition phase and how they are '
+    'involved.',
+  )
   @SectionId('TPSTK-STAK-LST')
   @SectionIdPattern('TPSTK-STAK-xxx')
+  @ContentHelp('Add one entry per stakeholder group engaged in this phase, '
+      'with the engagement and feedback approach for each.')
   @SerializationOrder(2)
   List<TransitionPhaseStakeholders> stakeholders = [];
 
@@ -435,14 +639,27 @@ class TransitionPhaseEntry {
 }
 
 /// Phase identification and timeline.
+@StandardReferences(
+  [
+    'PMBOK — schedule management',
+    'ISO/IEC/IEEE 29148 §6 — transition',
+  ],
+  'Identifies a transition phase by ID, name, type, and owner as the anchor '
+  'for its timeline and scope.',
+)
 @SectionId('TPIDN')
 class TransitionPhaseIdentification {
   @Form([
-    Field('phaseId', String, 'Phase ID (e.g., PH-01)', required: true),
-    Field('phaseName', String, 'Phase Name', required: true),
+    Field('phaseId', String, 'Phase ID (e.g., PH-01)', required: true,
+        hint: 'Unique identifier for the phase, e.g. PH-01'),
+    Field('phaseName', String, 'Phase Name', required: true,
+        hint: 'Short descriptive name for the transition phase'),
     Field('phaseType', String,
-        'Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure'),
-    Field('phaseOwner', String, 'Phase Owner'),
+        'Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure',
+        hint: 'The kind of phase: Preparation, Pilot, Rollout, '
+            'Stabilization, or Closure'),
+    Field('phaseOwner', String, 'Phase Owner',
+        hint: 'The person or role accountable for delivering this phase'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -459,107 +676,199 @@ class TransitionPhaseIdentification {
 }
 
 /// Timeline and sequencing details.
+@StandardReferences(
+  [
+    'PMBOK — schedule management',
+    'ISO/IEC/IEEE 29148 §6 — transition',
+  ],
+  'Captures the start/end dates, duration, and sequencing dependencies that '
+  'place this phase within the transition timeline.',
+)
 @SectionId('TPIML')
 class TransitionPhaseIdentificationTimeline {
     @Form([
-        Field('startDate', String, 'Start Date'),
-        Field('endDate', String, 'End Date'),
-        Field('duration', String, 'Duration — weeks'),
-        Field('precedingPhase', String, 'Preceding Phase — phase ID'),
-        Field('dependsOnMilestone', String, 'Depends on Milestone — milestone ID'),
+        Field('startDate', String, 'Start Date',
+            hint: 'The planned start date for this phase'),
+        Field('endDate', String, 'End Date',
+            hint: 'The planned end date for this phase'),
+        Field('duration', String, 'Duration — weeks',
+            hint: 'Expected duration of the phase, expressed in weeks'),
+        Field('precedingPhase', String, 'Preceding Phase — phase ID',
+            hint: 'The phase ID that must complete before this phase begins'),
+        Field('dependsOnMilestone', String, 'Depends on Milestone — milestone ID',
+            hint: 'The milestone ID this phase depends on before it can start'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Scope of organizational impact.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 29148 §6 — transition',
+    'PMBOK — resource management',
+  ],
+  'Defines the organizational scope of this phase — which locations, '
+  'departments, and how many users it affects.',
+)
 @SectionId('TPISC')
 class TransitionPhaseIdentificationScope {
     @Form([
         Field('affectedLocations', String,
-                'Affected Locations — sites/regions in scope'),
+                'Affected Locations — sites/regions in scope',
+            hint: 'The sites or regions that fall within the scope of this '
+                'phase'),
         Field('affectedDepartments', String,
-                'Affected Departments — organizational units'),
-        Field('affectedUserCount', int, 'Affected User Count'),
+                'Affected Departments — organizational units',
+            hint: 'The organizational units or departments impacted by this '
+                'phase'),
+        Field('affectedUserCount', int, 'Affected User Count',
+            hint: 'The number of users affected by this phase'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Activities and deliverables for a transition phase.
+@StandardReferences(
+  [
+    'PMBOK — schedule management',
+    'PROSCI ADKAR — change management',
+  ],
+  'Enumerates the activities and deliverables — key tasks, training, '
+  'communication, system, and process work — produced within a transition '
+  'phase.',
+)
 @SectionId('TPACT')
 class TransitionPhaseActivities {
   @Form([
     Field('keyActivities', String,
-        'Key Activities — main tasks to complete in this phase'),
+        'Key Activities — main tasks to complete in this phase',
+        hint: 'The main tasks that must be completed during this phase'),
     Field('trainingActivities', String,
-        'Training Activities — training to deliver'),
+        'Training Activities — training to deliver',
+        hint: 'The training sessions or materials to be delivered in this '
+            'phase'),
     Field('communicationActivities', String,
-        'Communication Activities — announcements, meetings'),
+        'Communication Activities — announcements, meetings',
+        hint: 'The announcements, meetings, and other communications planned '
+            'for this phase'),
     Field('systemActivities', String,
-        'System Activities — technical preparations, data migration'),
+        'System Activities — technical preparations, data migration',
+        hint: 'The technical preparations and data-migration work required in '
+            'this phase'),
     Field('processActivities', String,
-        'Process Activities — process rollout, SOP distribution'),
-    Field('deliverables', String, 'Phase Deliverables — outputs to produce'),
+        'Process Activities — process rollout, SOP distribution',
+        hint: 'The process rollout and SOP distribution work for this phase'),
+    Field('deliverables', String, 'Phase Deliverables — outputs to produce',
+        hint: 'The concrete outputs the phase must produce'),
     Field('resourceRequirements', String,
-        'Resource Requirements — people, budget, tools'),
+        'Resource Requirements — people, budget, tools',
+        hint: 'The people, budget, and tools required to execute the phase'),
     Field('externalSupport', String,
-        'External Support — consultants, vendors needed'),
+        'External Support — consultants, vendors needed',
+        hint: 'Any consultants or vendors needed to support this phase'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Stakeholder engagement for a transition phase.
+@StandardReferences(
+  [
+    'PMBOK — resource management',
+    'PROSCI ADKAR — change management',
+  ],
+  'Describes how stakeholders are engaged in a transition phase — who is '
+  'involved, how feedback flows, and how issues escalate.',
+)
 @SectionId('TPSTK')
 class TransitionPhaseStakeholders {
   @Form([
     Field('primaryStakeholders', String,
-        'Primary Stakeholders — directly impacted groups'),
+        'Primary Stakeholders — directly impacted groups',
+        hint: 'The groups directly impacted by this phase'),
     Field('engagementApproach', String,
-        'Engagement Approach — how stakeholders are involved'),
+        'Engagement Approach — how stakeholders are involved',
+        hint: 'How stakeholders are involved and engaged during this phase'),
     Field('feedbackMechanism', String,
-        'Feedback Mechanism — how input is collected'),
+        'Feedback Mechanism — how input is collected',
+        hint: 'The mechanism used to collect stakeholder input during this '
+            'phase'),
     Field('escalationPath', String,
-        'Escalation Path — for issues during this phase'),
+        'Escalation Path — for issues during this phase',
+        hint: 'The path for escalating issues that arise during this phase'),
     Field('sponsorInvolvement', String,
-        'Sponsor Involvement — executive actions needed'),
+        'Sponsor Involvement — executive actions needed',
+        hint: 'The executive sponsor actions needed to support this phase'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Exit criteria for a transition phase.
+@StandardReferences(
+  [
+    'PMBOK — schedule management',
+    'ITIL 4 — service transition',
+  ],
+  'Specifies the exit criteria, sign-offs, and quality gates that must be '
+  'met before a transition phase is considered complete.',
+)
 @SectionId('TPEXT')
 class TransitionPhaseExitCriteria {
   @Form([
     Field('exitCriteria', String,
-        'Exit Criteria — conditions to complete phase'),
+        'Exit Criteria — conditions to complete phase',
+        hint: 'The conditions that must be satisfied for the phase to be '
+            'considered complete'),
     Field('signOffRequired', String,
-        'Sign-Off Required — who must approve phase completion'),
-    Field('qualityGates', String, 'Quality Gates — checks to pass'),
+        'Sign-Off Required — who must approve phase completion',
+        hint: 'Who must approve phase completion before moving on'),
+    Field('qualityGates', String, 'Quality Gates — checks to pass',
+        hint: 'The quality checks that must pass before the phase can close'),
     Field('successIndicators', String,
-        'Success Indicators — measurable outcomes'),
+        'Success Indicators — measurable outcomes',
+        hint: 'The measurable outcomes that indicate the phase succeeded'),
     Field('knownIssuesResolution', String,
-        'Known Issues Resolution — outstanding items allowed'),
+        'Known Issues Resolution — outstanding items allowed',
+        hint: 'Which outstanding items are permitted to remain unresolved at '
+            'phase exit'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A transition milestone entry (form).
+@StandardReferences(
+  [
+    'PMBOK — schedule management',
+    'ITIL 4 — service transition',
+  ],
+  'Represents a single transition milestone or decision gate, with its type, '
+  'target/actual dates, and status.',
+)
 @SectionId('TRMIL')
 class TransitionMilestoneEntry {
   @Form([
-    Field('milestoneId', String, 'Milestone ID (e.g., MS-01)', required: true),
-    Field('milestoneName', String, 'Milestone Name', required: true),
+    Field('milestoneId', String, 'Milestone ID (e.g., MS-01)', required: true,
+        hint: 'Unique identifier for the milestone, e.g. MS-01'),
+    Field('milestoneName', String, 'Milestone Name', required: true,
+        hint: 'Short descriptive name for the milestone'),
     Field('milestoneType', String,
-        'Milestone Type — Decision Gate, Checkpoint, Go-Live, Closure'),
-    Field('targetDate', String, 'Target Date'),
-    Field('actualDate', String, 'Actual Date — when achieved'),
+        'Milestone Type — Decision Gate, Checkpoint, Go-Live, Closure',
+        hint: 'The kind of milestone: Decision Gate, Checkpoint, Go-Live, or '
+            'Closure'),
+    Field('targetDate', String, 'Target Date',
+        hint: 'The planned date by which the milestone should be achieved'),
+    Field('actualDate', String, 'Actual Date — when achieved',
+        hint: 'The actual date on which the milestone was achieved'),
     Field('status', String,
-        'Status — Planned, On Track, At Risk, Delayed, Achieved'),
-    Field('description', String, 'Description'),
+        'Status — Planned, On Track, At Risk, Delayed, Achieved',
+        hint: 'Current status of the milestone: Planned, On Track, At Risk, '
+            'Delayed, or Achieved'),
+    Field('description', String, 'Description',
+        hint: 'A short description of what the milestone represents'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -581,44 +890,90 @@ class TransitionMilestoneEntry {
 }
 
 /// Deliverables and decisioning.
+@StandardReferences(
+  [
+    'PMBOK — schedule management',
+    'PMBOK — resource management',
+  ],
+  'Captures the deliverables required for a milestone and the Go/No-Go '
+  'decision and decision owner attached to it.',
+)
 @SectionId('TMLGV')
 class TransitionMilestoneEntryGovernance {
     @Form([
-        Field('deliverables', String, 'Deliverables — required for milestone'),
+        Field('deliverables', String, 'Deliverables — required for milestone',
+            hint: 'The deliverables that must be in place for the milestone to '
+                'be reached'),
         Field('decisionRequired', String,
-                'Decision Required — Go/No-Go decision at this point'),
-        Field('decisionOwner', String, 'Decision Owner'),
+                'Decision Required — Go/No-Go decision at this point',
+            hint: 'The Go/No-Go or other decision that must be made at this '
+                'milestone'),
+        Field('decisionOwner', String, 'Decision Owner',
+            hint: 'The person or role accountable for making the decision at '
+                'this milestone'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Dependencies and criticality.
+@StandardReferences(
+  [
+    'PMBOK — schedule management',
+    'ISO 31000 — risk management',
+  ],
+  'Records the phases and prior milestones a milestone depends on and its '
+  'criticality to the transition.',
+)
 @SectionId('TMED')
 class TransitionMilestoneEntryDependencies {
     @Form([
         Field('dependsOnPhases', String,
-                'Depends on Phases — phases that must complete'),
+                'Depends on Phases — phases that must complete',
+            hint: 'The phases that must complete before this milestone can be '
+                'achieved'),
         Field('dependsOnMilestones', String,
-                'Depends on Milestones — prior milestones required'),
-        Field('criticality', String, 'Criticality — High, Medium, Low'),
+                'Depends on Milestones — prior milestones required',
+            hint: 'The prior milestones required before this milestone can be '
+                'reached'),
+        Field('criticality', String, 'Criticality — High, Medium, Low',
+            hint: 'How critical this milestone is to the transition: High, '
+                'Medium, or Low'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Recognition activities.
+@StandardReferences(
+  [
+    'PROSCI ADKAR — change management',
+    'Kotter 8-Step — leading change',
+  ],
+  'Captures the recognition and celebration activities used to reinforce '
+  'achievement of a transition milestone.',
+)
 @SectionId('TMER')
 class TransitionMilestoneEntryRecognition {
     @Form([
         Field('celebrationActivities', String,
-                'Celebration Activities — recognition for achieving milestone'),
+                'Celebration Activities — recognition for achieving milestone',
+            hint: 'The recognition or celebration activities planned for '
+                'achieving this milestone'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Change readiness assessment approach.
+@StandardReferences(
+  [
+    'PROSCI ADKAR — change readiness assessment',
+    'Kotter 8-Step — leading change',
+  ],
+  'Defines how the organization gauges whether stakeholder groups are ready '
+  'to adopt the change before the transition proceeds.',
+)
 @SectionId('CHREAS')
 class ChangeReadinessAssessment {
   /// Overview of readiness assessment approach.
@@ -626,62 +981,129 @@ class ChangeReadinessAssessment {
   ChangeReadinessOverview overview = ChangeReadinessOverview();
 
   /// Readiness criteria per stakeholder group.
+  @StandardReferences(
+    [
+      'PROSCI ADKAR — change readiness assessment',
+      'ITIL 4 — organizational change management',
+    ],
+    'The set of readiness criteria evaluated per stakeholder group to judge '
+    'their preparedness for the change.',
+  )
   @SectionId('RDRCE-READ-LST')
   @SectionIdPattern('RDRCE-READ-xxx')
+  @ContentHelp('Add one entry per stakeholder group whose readiness is being '
+      'assessed, capturing ADKAR levels, resistance factors, and status.')
   @SerializationOrder(1)
   List<ReadinessCriteriaEntry> readinessCriteria = [];
 }
 
 /// Overview of change readiness assessment.
+@StandardReferences(
+  [
+    'PROSCI ADKAR — change readiness assessment',
+    'Kotter 8-Step — leading change',
+  ],
+  'Summarizes the overall method, cadence, ownership, and thresholds used to '
+  'assess organizational readiness for the change.',
+)
 @SectionId('CHREOV')
 class ChangeReadinessOverview {
   @Form([
     Field('assessmentMethod', String,
-        'Assessment Method — surveys, interviews, observations, readiness gates'),
+        'Assessment Method — surveys, interviews, observations, readiness gates',
+        hint: 'The techniques used to assess readiness: surveys, interviews, '
+            'observations, or formal readiness gates'),
     Field('assessmentFrequency', String,
-        'Assessment Frequency — how often readiness is evaluated'),
+        'Assessment Frequency — how often readiness is evaluated',
+        hint: 'How frequently readiness is re-evaluated, e.g. weekly, per '
+            'phase, or at each milestone gate'),
     Field('readinessOwner', String,
-        'Readiness Owner — who tracks readiness'),
+        'Readiness Owner — who tracks readiness',
+        hint: 'The person or role accountable for tracking and reporting '
+            'change readiness'),
     Field('minimumReadinessLevel', String,
-        'Minimum Readiness Level — threshold to proceed'),
+        'Minimum Readiness Level — threshold to proceed',
+        hint: 'The minimum readiness score or level required before the '
+            'transition is allowed to proceed'),
     Field('escalationTrigger', String,
-        'Escalation Trigger — when to escalate readiness concerns'),
+        'Escalation Trigger — when to escalate readiness concerns',
+        hint: 'The conditions under which readiness concerns must be '
+            'escalated to leadership'),
     Field('readinessTooling', String,
-        'Readiness Tooling — tools/surveys used for assessment'),
+        'Readiness Tooling — tools/surveys used for assessment',
+        hint: 'The tools, survey platforms, or instruments used to collect '
+            'and analyze readiness data'),
     Field('adkarFocus', String,
-        'ADKAR Focus — Awareness, Desire, Knowledge, Ability, Reinforcement status'),
+        'ADKAR Focus — Awareness, Desire, Knowledge, Ability, Reinforcement status',
+        hint: 'Which ADKAR dimensions (Awareness, Desire, Knowledge, Ability, '
+            'Reinforcement) are the current focus and their status'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Readiness criteria entry (form).
+@StandardReferences(
+  [
+    'PROSCI ADKAR — change readiness assessment',
+    'Kotter 8-Step — leading change',
+  ],
+  'Captures the readiness of a single stakeholder group across the ADKAR '
+  'dimensions together with resistance factors and mitigation actions.',
+)
 @SectionId('RDRCE')
 class ReadinessCriteriaEntry {
   @Form([
-    Field('stakeholderGroup', String, 'Stakeholder Group', required: true),
+    Field('stakeholderGroup', String, 'Stakeholder Group', required: true,
+        hint: 'The stakeholder group whose change readiness this entry '
+            'assesses'),
     Field('awarenessLevel', String,
-        'Awareness Level — understanding of change (1-5)'),
-    Field('desireLevel', String, 'Desire Level — willingness to participate (1-5)'),
+        'Awareness Level — understanding of change (1-5)',
+        hint: 'The group\'s level of awareness of the change, rated 1 (none) '
+            'to 5 (full understanding)'),
+    Field('desireLevel', String, 'Desire Level — willingness to participate (1-5)',
+        hint: 'The group\'s willingness to participate in the change, rated 1 '
+            '(resistant) to 5 (fully committed)'),
     Field('knowledgeLevel', String,
-        'Knowledge Level — skills/knowledge acquired (1-5)'),
+        'Knowledge Level — skills/knowledge acquired (1-5)',
+        hint: 'The skills and knowledge the group has acquired to operate in '
+            'the new state, rated 1 to 5'),
     Field('abilityLevel', String,
-        'Ability Level — demonstrated capability (1-5)'),
+        'Ability Level — demonstrated capability (1-5)',
+        hint: 'The group\'s demonstrated capability to perform in the new '
+            'state, rated 1 to 5'),
     Field('reinforcementNeeded', String,
-        'Reinforcement Needed — support to sustain change'),
+        'Reinforcement Needed — support to sustain change',
+        hint: 'The reinforcement or ongoing support required to sustain the '
+            'change for this group'),
     Field('resistanceFactors', String,
-        'Resistance Factors — barriers to adoption'),
+        'Resistance Factors — barriers to adoption',
+        hint: 'The specific barriers, concerns, or sources of resistance to '
+            'adoption within this group'),
     Field('mitigationActions', String,
-        'Mitigation Actions — how to address resistance'),
+        'Mitigation Actions — how to address resistance',
+        hint: 'The actions planned to address the identified resistance '
+            'factors for this group'),
     Field('readinessStatus', String,
-        'Readiness Status — Ready, Needs Work, At Risk, Not Ready'),
-    Field('assessmentDate', String, 'Last Assessment Date'),
+        'Readiness Status — Ready, Needs Work, At Risk, Not Ready',
+        hint: 'The overall readiness status of the group: Ready, Needs Work, '
+            'At Risk, or Not Ready'),
+    Field('assessmentDate', String, 'Last Assessment Date',
+        hint: 'The date on which this group\'s readiness was last assessed'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Communication plan for the transition.
+@StandardReferences(
+  [
+    'PMBOK — communications management',
+    'PROSCI ADKAR — change communications',
+  ],
+  'Defines how the transition is communicated to stakeholders — the strategy, '
+  'the specific events, and the channels through which messages flow.',
+)
 @SectionId('TRCOPL')
 class TransitionCommunicationPlan {
   /// Communication strategy overview.
@@ -689,55 +1111,118 @@ class TransitionCommunicationPlan {
   TransitionCommunicationStrategy strategy = TransitionCommunicationStrategy();
 
   /// Specific communication events/activities.
+  @StandardReferences(
+    [
+      'PMBOK — communications management',
+      'PROSCI ADKAR — change communications',
+    ],
+    'The scheduled communication events and activities that deliver the '
+    'transition messages to their target audiences.',
+  )
   @SectionId('COEV-COMM-LST')
   @SectionIdPattern('COEV-COMM-xxx')
+  @ContentHelp('Add one entry per planned communication event, such as a town '
+      'hall, announcement, workshop, or newsletter.')
   @SerializationOrder(1)
   List<CommunicationEventEntry> communicationEvents = [];
 
   /// Communication channels and their use.
+  @StandardReferences(
+    [
+      'PMBOK — communications management',
+      'PROSCI ADKAR — change communications',
+    ],
+    'The communication channels used during the transition and how each is '
+    'owned, accessed, and applied.',
+  )
   @SectionId('TRCOCH-CHAN-LST')
   @SectionIdPattern('TRCOCH-CHAN-xxx')
+  @ContentHelp('Add one entry per communication channel describing its '
+      'purpose, ownership, and accessibility.')
   @SerializationOrder(2)
   List<TransitionCommunicationChannels> channels = [];
 }
 
 /// Communication strategy overview.
+@StandardReferences(
+  [
+    'PMBOK — communications management',
+    'PROSCI ADKAR — change communications',
+  ],
+  'Captures the overall communication approach, key messages, ownership, and '
+  'cadence that govern all transition communications.',
+)
 @SectionId('TRCOST')
 class TransitionCommunicationStrategy {
   @Form([
     Field('communicationStrategy', String,
-        'Communication Strategy — overall approach'),
+        'Communication Strategy — overall approach',
+        hint: 'The overarching approach to transition communications, '
+            'including tone, principles, and objectives'),
     Field('keyMessages', String,
-        'Key Messages — core messages to convey throughout'),
+        'Key Messages — core messages to convey throughout',
+        hint: 'The core messages to be reinforced consistently across all '
+            'communications throughout the transition'),
     Field('messagingOwner', String,
-        'Messaging Owner — who controls/approves communications'),
+        'Messaging Owner — who controls/approves communications',
+        hint: 'The person or role that owns and approves the content of all '
+            'transition communications'),
     Field('feedbackChannels', String,
-        'Feedback Channels — how stakeholders can respond'),
+        'Feedback Channels — how stakeholders can respond',
+        hint: 'The mechanisms through which stakeholders can ask questions, '
+            'raise concerns, or provide feedback'),
     Field('communicationCadence', String,
-        'Communication Cadence — frequency of updates'),
+        'Communication Cadence — frequency of updates',
+        hint: 'How often transition updates are issued, e.g. weekly digests '
+            'or per-milestone bulletins'),
     Field('brandingGuidelines', String,
-        'Branding Guidelines — visual identity for change'),
+        'Branding Guidelines — visual identity for change',
+        hint: 'The visual identity, naming, and branding standards applied to '
+            'change communications'),
     Field('languageRequirements', String,
-        'Language Requirements — languages/translations needed'),
+        'Language Requirements — languages/translations needed',
+        hint: 'The languages and translation requirements needed to reach all '
+            'affected audiences'),
     Field('accessibilityRequirements', String,
-        'Accessibility Requirements — accessibility considerations'),
+        'Accessibility Requirements — accessibility considerations',
+        hint: 'The accessibility considerations (formats, captions, screen '
+            'reader support) communications must meet'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Communication event entry (form).
+@StandardReferences(
+  [
+    'PMBOK — communications management',
+    'PROSCI ADKAR — change communications',
+  ],
+  'Describes a single planned communication event — its type, audience, '
+  'timing, and the messages it delivers.',
+)
 @SectionId('COEV')
 class CommunicationEventEntry {
   @Form([
-    Field('eventId', String, 'Event ID', required: true),
-    Field('eventName', String, 'Event Name', required: true),
+    Field('eventId', String, 'Event ID', required: true,
+        hint: 'A unique identifier for this communication event'),
+    Field('eventName', String, 'Event Name', required: true,
+        hint: 'A short descriptive name for this communication event'),
     Field('eventType', String,
-        'Event Type — Announcement, Town Hall, Email, Workshop, Newsletter'),
-    Field('targetAudience', String, 'Target Audience'),
-    Field('scheduledDate', String, 'Scheduled Date'),
-    Field('phase', String, 'Phase — which transition phase'),
-    Field('keyMessages', String, 'Key Messages — specific to this event'),
+        'Event Type — Announcement, Town Hall, Email, Workshop, Newsletter',
+        hint: 'The kind of communication event: Announcement, Town Hall, '
+            'Email, Workshop, Newsletter, etc.'),
+    Field('targetAudience', String, 'Target Audience',
+        hint: 'The stakeholder group or audience this event is intended to '
+            'reach'),
+    Field('scheduledDate', String, 'Scheduled Date',
+        hint: 'The date on which this communication event is scheduled to '
+            'occur'),
+    Field('phase', String, 'Phase — which transition phase',
+        hint: 'The transition phase during which this event takes place'),
+    Field('keyMessages', String, 'Key Messages — specific to this event',
+        hint: 'The specific messages this particular event is designed to '
+            'convey'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -752,52 +1237,109 @@ class CommunicationEventEntry {
 }
 
 /// Delivery ownership.
+@StandardReferences(
+  [
+    'PMBOK — communications management',
+    'PROSCI ADKAR — change communications',
+  ],
+  'Records who prepares, approves, and delivers a communication event, and '
+  'through which channel and materials.',
+)
 @SectionId('CEED')
 class CommunicationEventEntryDelivery {
     @Form([
-        Field('channel', String, 'Channel — delivery method'),
-        Field('owner', String, 'Owner — who prepares/delivers'),
-        Field('approver', String, 'Approver — who approves content'),
-        Field('materialsRequired', String, 'Materials Required — slides, scripts, etc.'),
+        Field('channel', String, 'Channel — delivery method',
+            hint: 'The channel or medium through which this event is '
+                'delivered, e.g. email, intranet, in-person'),
+        Field('owner', String, 'Owner — who prepares/delivers',
+            hint: 'The person or role responsible for preparing and '
+                'delivering this event'),
+        Field('approver', String, 'Approver — who approves content',
+            hint: 'The person or role who must approve the content before it '
+                'is delivered'),
+        Field('materialsRequired', String, 'Materials Required — slides, scripts, etc.',
+            hint: 'The materials needed to deliver this event, such as slides, '
+                'scripts, handouts, or recordings'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Follow-up and measurement.
+@StandardReferences(
+  [
+    'PMBOK — communications management',
+    'PROSCI — adoption metrics',
+  ],
+  'Captures the follow-up actions, effectiveness measures, and delivery '
+  'status for a communication event.',
+)
 @SectionId('CEEO')
 class CommunicationEventEntryOutcome {
     @Form([
-        Field('followUpActions', String, 'Follow-Up Actions — after event'),
-        Field('successMeasure', String, 'Success Measure — how effectiveness is measured'),
-        Field('status', String, 'Status — Planned, In Preparation, Delivered, Cancelled'),
+        Field('followUpActions', String, 'Follow-Up Actions — after event',
+            hint: 'The actions to be taken after the event, such as sharing '
+                'recordings or following up on questions'),
+        Field('successMeasure', String, 'Success Measure — how effectiveness is measured',
+            hint: 'How the effectiveness of this communication event is '
+                'measured, e.g. attendance, survey scores, reach'),
+        Field('status', String, 'Status — Planned, In Preparation, Delivered, Cancelled',
+            hint: 'The current status of this event: Planned, In Preparation, '
+                'Delivered, or Cancelled'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Communication channels definition.
+@StandardReferences(
+  [
+    'PMBOK — communications management',
+    'PROSCI ADKAR — change communications',
+  ],
+  'Defines a communication channel used during the transition — its purpose, '
+  'urgency, ownership, and who can access it.',
+)
 @SectionId('TRCOCH')
 class TransitionCommunicationChannels {
   @Form([
     Field('primaryChannels', String,
-        'Primary Channels — main communication methods'),
+        'Primary Channels — main communication methods',
+        hint: 'The main channels used for routine transition communications, '
+            'e.g. email, intranet, team meetings'),
     Field('urgentChannels', String,
-        'Urgent Channels — for time-sensitive communications'),
+        'Urgent Channels — for time-sensitive communications',
+        hint: 'The channels reserved for time-sensitive or urgent '
+            'communications, e.g. SMS, alerts, calls'),
     Field('feedbackChannels', String,
-        'Feedback Channels — for two-way communication'),
+        'Feedback Channels — for two-way communication',
+        hint: 'The channels enabling two-way communication so stakeholders '
+            'can respond and provide feedback'),
     Field('documentationRepository', String,
-        'Documentation Repository — where materials are stored'),
+        'Documentation Repository — where materials are stored',
+        hint: 'The location where communication materials and documentation '
+            'are stored and accessed'),
     Field('channelOwnership', String,
-        'Channel Ownership — who manages each channel'),
+        'Channel Ownership — who manages each channel',
+        hint: 'Who owns and manages each communication channel'),
     Field('channelAccessibility', String,
-        'Channel Accessibility — who can access what'),
+        'Channel Accessibility — who can access what',
+        hint: 'Which audiences can access each channel and any access '
+            'restrictions that apply'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Support structure during transition.
+@StandardReferences(
+  [
+    'ITIL 4 — service transition / early life support',
+    'PMBOK — resource management',
+  ],
+  'Defines the support organization that helps users through the transition — '
+  'its model, the resources provided, and how issues escalate.',
+)
 @SectionId('TRSUST')
 class TransitionSupportStructure {
   /// Support organization overview.
@@ -805,84 +1347,178 @@ class TransitionSupportStructure {
   TransitionSupportOverview overview = TransitionSupportOverview();
 
   /// Support resources available.
+  @StandardReferences(
+    [
+      'ITIL 4 — service transition / early life support',
+      'PMBOK — resource management',
+    ],
+    'The support resources made available during the transition, such as help '
+    'desks, super users, floor walkers, and coaches.',
+  )
   @SectionId('TRSPRE-SUPP-LST')
   @SectionIdPattern('TRSPRE-SUPP-xxx')
+  @ContentHelp('Add one entry per support resource describing its type, '
+      'coverage, capacity, and ownership.')
   @SerializationOrder(1)
   List<TransitionSupportResourceEntry> supportResources = [];
 
   /// Escalation paths for support.
+  @StandardReferences(
+    [
+      'ITIL 4 — service transition / early life support',
+      'PMBOK — resource management',
+    ],
+    'The escalation paths that route support issues from first-line help '
+    'through to specialist, expert, and management levels.',
+  )
   @SectionId('TRESPA-ESCA-LST')
   @SectionIdPattern('TRESPA-ESCA-xxx')
+  @ContentHelp('Add one entry per escalation path describing its levels, '
+      'criteria, and response-time targets.')
   @SerializationOrder(2)
   List<TransitionEscalationPaths> escalationPaths = [];
 }
 
 /// Support structure overview.
+@StandardReferences(
+  [
+    'ITIL 4 — service transition / early life support',
+    'PMBOK — resource management',
+  ],
+  'Summarizes the support model, hours, channels, capacity, and duration that '
+  'frame how users are supported through the transition.',
+)
 @SectionId('TRSUOV')
 class TransitionSupportOverview {
   @Form([
     Field('supportModel', String,
-        'Support Model — tiered support, buddy system, floor walkers'),
+        'Support Model — tiered support, buddy system, floor walkers',
+        hint: 'How transition support is organized: tiered help desk, buddy '
+            'system, floor walkers, super-users'),
     Field('supportHours', String,
-        'Support Hours — when support is available'),
+        'Support Hours — when support is available',
+        hint: 'The hours and days during which transition support is '
+            'available to users'),
     Field('supportChannels', String,
-        'Support Channels — help desk, chat, in-person, phone'),
+        'Support Channels — help desk, chat, in-person, phone',
+        hint: 'The channels through which users can reach support: help desk, '
+            'chat, in-person, phone'),
     Field('supportCapacity', String,
-        'Support Capacity — expected volumes and staffing'),
+        'Support Capacity — expected volumes and staffing',
+        hint: 'The expected support volumes and the staffing provisioned to '
+            'meet them'),
     Field('supportDuration', String,
-        'Support Duration — how long enhanced support lasts'),
+        'Support Duration — how long enhanced support lasts',
+        hint: 'How long the period of enhanced transition support will last '
+            'before scaling back'),
     Field('transitionToBAU', String,
-        'Transition to BAU — when/how support moves to business-as-usual'),
+        'Transition to BAU — when/how support moves to business-as-usual',
+        hint: 'When and how support hands over to the business-as-usual '
+            'support organization'),
     Field('knowledgeBase', String,
-        'Knowledge Base — self-service resources available'),
+        'Knowledge Base — self-service resources available',
+        hint: 'The self-service resources (FAQs, guides, knowledge base) '
+            'available to users'),
     Field('superUserNetwork', String,
-        'Super-User Network — local experts in each area'),
+        'Super-User Network — local experts in each area',
+        hint: 'The network of local super-users or champions who provide '
+            'peer support in each area'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Support resource entry (form).
+@StandardReferences(
+  [
+    'ITIL 4 — service transition / early life support',
+    'PMBOK — resource management',
+  ],
+  'Describes a single support resource provided during the transition — its '
+  'type, coverage, capacity, skills, and ownership.',
+)
 @SectionId('TRSPRE')
 class TransitionSupportResourceEntry {
   @Form([
     Field('resourceType', String,
         'Resource Type — Help Desk, Super User, Floor Walker, Coach, FAQ',
-        required: true),
-    Field('resourceName', String, 'Resource Name/Title'),
+        required: true,
+        hint: 'The kind of support resource: Help Desk, Super User, Floor '
+            'Walker, Coach, FAQ, etc.'),
+    Field('resourceName', String, 'Resource Name/Title',
+        hint: 'The name or title of this support resource'),
     Field('availabilityPeriod', String,
-        'Availability Period — start/end dates'),
-    Field('coverage', String, 'Coverage — locations/departments covered'),
-    Field('contactInfo', String, 'Contact Info — how to reach'),
-    Field('capacity', String, 'Capacity — how many can be supported'),
-    Field('skills', String, 'Skills — expertise areas'),
-    Field('owner', String, 'Owner — who manages this resource'),
-    Field('costCenter', String, 'Cost Center — budget allocation'),
+        'Availability Period — start/end dates',
+        hint: 'The start and end dates during which this resource is '
+            'available'),
+    Field('coverage', String, 'Coverage — locations/departments covered',
+        hint: 'The locations, departments, or groups this resource covers'),
+    Field('contactInfo', String, 'Contact Info — how to reach',
+        hint: 'How users can reach this support resource'),
+    Field('capacity', String, 'Capacity — how many can be supported',
+        hint: 'The number of users or volume this resource can support'),
+    Field('skills', String, 'Skills — expertise areas',
+        hint: 'The areas of expertise or skills this resource provides'),
+    Field('owner', String, 'Owner — who manages this resource',
+        hint: 'The person or role that manages this support resource'),
+    Field('costCenter', String, 'Cost Center — budget allocation',
+        hint: 'The cost center or budget against which this resource is '
+            'allocated'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Escalation paths for transition support.
+@StandardReferences(
+  [
+    'ITIL 4 — service transition / early life support',
+    'PMBOK — resource management',
+  ],
+  'Defines how support issues escalate through tiered levels, with criteria '
+  'and response-time targets for each.',
+)
 @SectionId('TRESPA')
 class TransitionEscalationPaths {
   @Form([
-    Field('level1', String, 'Level 1 — first-line support'),
-    Field('level2', String, 'Level 2 — specialist support'),
-    Field('level3', String, 'Level 3 — expert/vendor support'),
-    Field('emergencyContact', String, 'Emergency Contact — critical issues'),
+    Field('level1', String, 'Level 1 — first-line support',
+        hint: 'The first-line support tier that handles initial user '
+            'requests'),
+    Field('level2', String, 'Level 2 — specialist support',
+        hint: 'The specialist support tier that issues escalate to from '
+            'first-line'),
+    Field('level3', String, 'Level 3 — expert/vendor support',
+        hint: 'The expert or vendor support tier for issues that specialists '
+            'cannot resolve'),
+    Field('emergencyContact', String, 'Emergency Contact — critical issues',
+        hint: 'The contact to use for critical or emergency issues requiring '
+            'immediate attention'),
     Field('escalationCriteria', String,
-        'Escalation Criteria — when to escalate'),
+        'Escalation Criteria — when to escalate',
+        hint: 'The conditions that determine when an issue must be escalated '
+            'to the next level'),
     Field('responseTimeTargets', String,
-        'Response Time Targets — per severity level'),
+        'Response Time Targets — per severity level',
+        hint: 'The target response times for each severity level of support '
+            'issue'),
     Field('managementEscalation', String,
-        'Management Escalation — for organizational issues'),
+        'Management Escalation — for organizational issues',
+        hint: 'The path for escalating organizational or non-technical issues '
+            'to management'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Success metrics for the transition.
+@StandardReferences(
+  [
+    'PMBOK — monitoring & controlling',
+    'PROSCI — adoption metrics',
+  ],
+  'Defines how the success of the transition is measured — the overall '
+  'measurement approach and the specific metrics tracked.',
+)
 @SectionId('TRSUME')
 class TransitionSuccessMetrics {
   /// Metrics overview.
@@ -890,47 +1526,95 @@ class TransitionSuccessMetrics {
   TransitionMetricsOverview overview = TransitionMetricsOverview();
 
   /// Specific success metrics.
+  @StandardReferences(
+    [
+      'PMBOK — monitoring & controlling',
+      'ISO/IEC 25010 — quality measurement',
+    ],
+    'The specific success metrics tracked to evaluate adoption, performance, '
+    'quality, and satisfaction during the transition.',
+  )
   @SectionId('TRME-METR-LST')
   @SectionIdPattern('TRME-METR-xxx')
+  @ContentHelp('Add one entry per success metric describing its category, '
+      'measurement method, baseline, and target.')
   @SerializationOrder(1)
   List<TransitionMetricEntry> metrics = [];
 }
 
 /// Metrics overview.
+@StandardReferences(
+  [
+    'PMBOK — monitoring & controlling',
+    'PROSCI — adoption metrics',
+  ],
+  'Summarizes how transition success is measured and reported — the approach, '
+  'cadence, ownership, audience, and baseline.',
+)
 @SectionId('TRMEOV')
 class TransitionMetricsOverview {
   @Form([
     Field('measurementApproach', String,
-        'Measurement Approach — how success is evaluated'),
+        'Measurement Approach — how success is evaluated',
+        hint: 'The overall approach to evaluating transition success, '
+            'including data collection and analysis methods'),
     Field('reportingCadence', String,
-        'Reporting Cadence — how often metrics are reported'),
+        'Reporting Cadence — how often metrics are reported',
+        hint: 'How often metrics are compiled and reported, e.g. weekly, '
+            'monthly, per milestone'),
     Field('reportingOwner', String,
-        'Reporting Owner — who produces reports'),
+        'Reporting Owner — who produces reports',
+        hint: 'The person or role responsible for producing the metrics '
+            'reports'),
     Field('reportingAudience', String,
-        'Reporting Audience — who receives reports'),
+        'Reporting Audience — who receives reports',
+        hint: 'The audience who receives the metrics reports, e.g. steering '
+            'committee, sponsors, teams'),
     Field('dashboardLocation', String,
-        'Dashboard Location — where metrics are visible'),
+        'Dashboard Location — where metrics are visible',
+        hint: 'Where the metrics dashboard or reports can be viewed'),
     Field('baselinePeriod', String,
-        'Baseline Period — when baseline was established'),
+        'Baseline Period — when baseline was established',
+        hint: 'The period during which the baseline values were established '
+            'for comparison'),
     Field('targetAchievementDate', String,
-        'Target Achievement Date — when targets should be met'),
+        'Target Achievement Date — when targets should be met',
+        hint: 'The date by which the metric targets are expected to be met'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Transition metric entry (form).
+@StandardReferences(
+  [
+    'PMBOK — monitoring & controlling',
+    'ISO/IEC 25010 — quality measurement',
+  ],
+  'Describes a single transition success metric — its category, measurement '
+  'method, baseline, and target value.',
+)
 @SectionId('TRME')
 class TransitionMetricEntry {
   @Form([
-    Field('metricId', String, 'Metric ID', required: true),
-    Field('metricName', String, 'Metric Name', required: true),
+    Field('metricId', String, 'Metric ID', required: true,
+        hint: 'A unique identifier for this success metric'),
+    Field('metricName', String, 'Metric Name', required: true,
+        hint: 'A short descriptive name for this success metric'),
     Field('category', String,
-        'Category — Adoption, Performance, Quality, Satisfaction, Efficiency'),
-    Field('description', String, 'Description'),
-    Field('measurementMethod', String, 'Measurement Method'),
-    Field('baseline', String, 'Baseline Value'),
-    Field('target', String, 'Target Value'),
+        'Category — Adoption, Performance, Quality, Satisfaction, Efficiency',
+        hint: 'The category of this metric: Adoption, Performance, Quality, '
+            'Satisfaction, or Efficiency'),
+    Field('description', String, 'Description',
+        hint: 'A description of what this metric measures and why it matters'),
+    Field('measurementMethod', String, 'Measurement Method',
+        hint: 'How this metric is measured, including the data source and '
+            'calculation'),
+    Field('baseline', String, 'Baseline Value',
+        hint: 'The baseline value of this metric before the transition, used '
+            'as a comparison point'),
+    Field('target', String, 'Target Value',
+        hint: 'The target value this metric should reach to indicate success'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -945,39 +1629,81 @@ class TransitionMetricEntry {
 }
 
 /// Measurement operations.
+@StandardReferences(
+  [
+    'PMBOK — monitoring & controlling',
+    'ISO/IEC 25010 — quality measurement',
+  ],
+  'Captures the operational details of measuring a metric — its threshold, '
+  'current value, frequency, data source, and owner.',
+)
 @SectionId('TMEO')
 class TransitionMetricEntryOperations {
     @Form([
-        Field('threshold', String, 'Threshold — minimum acceptable'),
-        Field('currentValue', String, 'Current Value'),
-        Field('measurementFrequency', String, 'Measurement Frequency'),
-        Field('dataSource', String, 'Data Source'),
-        Field('owner', String, 'Owner'),
+        Field('threshold', String, 'Threshold — minimum acceptable',
+            hint: 'The minimum acceptable value for this metric below which '
+                'action is required'),
+        Field('currentValue', String, 'Current Value',
+            hint: 'The most recently measured value of this metric'),
+        Field('measurementFrequency', String, 'Measurement Frequency',
+            hint: 'How often this metric is measured, e.g. daily, weekly, '
+                'monthly'),
+        Field('dataSource', String, 'Data Source',
+            hint: 'The system or source from which this metric\'s data is '
+                'collected'),
+        Field('owner', String, 'Owner',
+            hint: 'The person or role responsible for measuring and reporting '
+                'this metric'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Current status.
+@StandardReferences(
+  [
+    'PMBOK — monitoring & controlling',
+    'PROSCI — adoption metrics',
+  ],
+  'Records the current status and trend of a metric against its target.',
+)
 @SectionId('TMES')
 class TransitionMetricEntryStatus {
     @Form([
-        Field('status', String, 'Status — On Track, At Risk, Below Target, Achieved'),
-        Field('trend', String, 'Trend — Improving, Stable, Declining'),
+        Field('status', String, 'Status — On Track, At Risk, Below Target, Achieved',
+            hint: 'The current status of this metric: On Track, At Risk, '
+                'Below Target, or Achieved'),
+        Field('trend', String, 'Trend — Improving, Stable, Declining',
+            hint: 'The direction this metric is trending: Improving, Stable, '
+                'or Declining'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Transition risk entry (form).
+@StandardReferences(
+  [
+    'ISO 31000 — risk management',
+    'PMBOK — risk management',
+  ],
+  'Describes a single transition risk — its category and nature — as the '
+  'header for its assessment and response details.',
+)
 @SectionId('TRRS')
 class TransitionRiskEntry {
   @Form([
-    Field('riskId', String, 'Risk ID', required: true),
-    Field('riskName', String, 'Risk Name', required: true),
+    Field('riskId', String, 'Risk ID', required: true,
+        hint: 'A unique identifier for this transition risk'),
+    Field('riskName', String, 'Risk Name', required: true,
+        hint: 'A short descriptive name for this transition risk'),
     Field('riskCategory', String,
-        'Risk Category — Resistance, Capacity, Timing, Resources, Dependencies'),
-    Field('description', String, 'Description'),
+        'Risk Category — Resistance, Capacity, Timing, Resources, Dependencies',
+        hint: 'The category of this risk: Resistance, Capacity, Timing, '
+            'Resources, or Dependencies'),
+    Field('description', String, 'Description',
+        hint: 'A description of the risk, including what could go wrong and '
+            'its potential consequences'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -992,26 +1718,58 @@ class TransitionRiskEntry {
 }
 
 /// Risk assessment and exposure details.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management',
+    'PMBOK — risk management',
+  ],
+  'Captures the probability, impact, affected phases, and early-warning '
+  'indicators that quantify a transition risk\'s exposure.',
+)
 @SectionId('TREA')
 class TransitionRiskEntryAssessment {
     @Form([
-        Field('probability', String, 'Probability — Low, Medium, High'),
-        Field('impact', String, 'Impact — Low, Medium, High'),
-        Field('affectedPhases', String, 'Affected Phases'),
-        Field('earlyWarningIndicator', String, 'Early Warning Indicator'),
+        Field('probability', String, 'Probability — Low, Medium, High',
+            hint: 'The likelihood that this risk materializes: Low, Medium, '
+                'or High'),
+        Field('impact', String, 'Impact — Low, Medium, High',
+            hint: 'The severity of the consequences if this risk occurs: Low, '
+                'Medium, or High'),
+        Field('affectedPhases', String, 'Affected Phases',
+            hint: 'The transition phases that would be affected if this risk '
+                'materializes'),
+        Field('earlyWarningIndicator', String, 'Early Warning Indicator',
+            hint: 'The signals or indicators that would warn the team this '
+                'risk is emerging'),
     ])
     @SerializationOrder(0)
     String? content;
 }
 
 /// Mitigation ownership and monitoring.
+@StandardReferences(
+  [
+    'ISO 31000 — risk management',
+    'PMBOK — risk management',
+  ],
+  'Records how a transition risk is responded to — its mitigation strategy, '
+  'contingency plan, owner, and current status.',
+)
 @SectionId('TRER')
 class TransitionRiskEntryResponse {
     @Form([
-        Field('mitigationStrategy', String, 'Mitigation Strategy'),
-        Field('contingencyPlan', String, 'Contingency Plan'),
-        Field('owner', String, 'Risk Owner'),
-        Field('status', String, 'Status — Active, Mitigated, Realized, Closed'),
+        Field('mitigationStrategy', String, 'Mitigation Strategy',
+            hint: 'The planned actions to reduce the probability or impact of '
+                'this risk'),
+        Field('contingencyPlan', String, 'Contingency Plan',
+            hint: 'The fallback plan to execute if this risk materializes '
+                'despite mitigation'),
+        Field('owner', String, 'Risk Owner',
+            hint: 'The person or role accountable for managing and monitoring '
+                'this risk'),
+        Field('status', String, 'Status — Active, Mitigated, Realized, Closed',
+            hint: 'The current status of this risk: Active, Mitigated, '
+                'Realized, or Closed'),
     ])
     @SerializationOrder(0)
     String? content;
