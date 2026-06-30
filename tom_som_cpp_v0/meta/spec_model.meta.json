@@ -95053,11 +95053,32 @@
       "name": "LocaleRolloutPlan",
       "sectionId": "LOCRP",
       "doc": "Rollout sequencing by region and time.",
+      "mapsTo": "D12TransitionRolloutPlan",
+      "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
             "id": "LOCRP"
+          }
+        },
+        {
+          "name": "MapsTo",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan",
+            "id": "TRP-RLP"
           }
         }
       ],

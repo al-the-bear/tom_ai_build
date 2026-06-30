@@ -6405,6 +6405,9 @@ class LocaleHandlingRequirements {
 
 /// Rollout sequencing by region and time.
 @SectionId('LOCRP')
+@MapsTo(D12TransitionRolloutPlan)
+@DetailedIn(D12TransitionRolloutPlan)
+@SecondLevelSectionId(D12TransitionRolloutPlan, 'TRP-RLP')
 class LocaleRolloutPlan {
     @Form([
         Field('rolloutStrategy', String, 'Rollout Strategy',

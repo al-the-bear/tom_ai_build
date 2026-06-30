@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T16:24:53.990809Z",
+  "generatedAt": "2026-06-30T16:31:15.457826Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -95053,11 +95053,32 @@
       "name": "LocaleRolloutPlan",
       "sectionId": "LOCRP",
       "doc": "Rollout sequencing by region and time.",
+      "mapsTo": "D12TransitionRolloutPlan",
+      "detailedIn": "D12TransitionRolloutPlan",
       "annotations": [
         {
           "name": "SectionId",
           "arguments": {
             "id": "LOCRP"
+          }
+        },
+        {
+          "name": "MapsTo",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "DetailedIn",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "SecondLevelSectionId",
+          "arguments": {
+            "documentClass": "D12TransitionRolloutPlan",
+            "id": "TRP-RLP"
           }
         }
       ],
