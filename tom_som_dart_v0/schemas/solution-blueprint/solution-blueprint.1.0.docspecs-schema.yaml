@@ -127,7 +127,7 @@ section-types:
     pattern-check-id:
       pattern: ^bupapo_item_lst-\d+$
       error-message: ID must match bupapo_item_lst-NNN
-    description: Contains 0+× PainPoint.
+    description: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail."
   CHAROL-CHAN-LST:
     prefix: charol_chan_lst
     pattern-check-id:
@@ -194,7 +194,7 @@ section-types:
     pattern-check-id:
       pattern: ^cubipr_proc_lst-\d+$
       error-message: ID must match cubipr_proc_lst-NNN
-    description: 1.2.nn. Business Processes — contains 1+× Business Process.
+    description: "Add one entry per business process in scope. Document each process in full — its workflows, actors, metrics, and pain points."
   CUMEEN-CUST-LST:
     prefix: cumeen_cust_lst
     pattern-check-id:
@@ -462,7 +462,7 @@ section-types:
     pattern-check-id:
       pattern: ^mebaen_entr_lst-\d+$
       error-message: ID must match mebaen_entr_lst-NNN
-    description: Baseline entries.
+    description: "Add one entry per metric to be tracked, with its baseline value, target value, and improvement target."
   MFACRQ-MFAC-LST:
     prefix: mfacrq_mfac_lst
     pattern-check-id:
@@ -516,7 +516,7 @@ section-types:
     pattern-check-id:
       pattern: ^oppapo_item_lst-\d+$
       error-message: ID must match oppapo_item_lst-NNN
-    description: Contains 0+× PainPoint.
+    description: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns."
   OSCOEN-OSCO-LST:
     prefix: oscoen_osco_lst
     pattern-check-id:
@@ -528,7 +528,7 @@ section-types:
     pattern-check-id:
       pattern: ^papor1_rela_lst-\d+$
       error-message: ID must match papor1_rela_lst-NNN
-    description: Relationships.
+    description: "Add one entry per relationship this pain point has — related pain points, originating gaps, or other pain points it depends on."
   PIJOEN-JOBS-LST:
     prefix: pijoen_jobs_lst
     pattern-check-id:
@@ -558,7 +558,7 @@ section-types:
     pattern-check-id:
       pattern: ^prdeen_depe_lst-\d+$
       error-message: ID must match prdeen_depe_lst-NNN
-    description: Individual process dependencies.
+    description: "Add one entry per source→target process dependency, capturing the artifact exchanged, coupling, timing, and failure impact."
   PRFEEN-FEAT-LST:
     prefix: prfeen_feat_lst
     pattern-check-id:
@@ -576,43 +576,43 @@ section-types:
     pattern-check-id:
       pattern: ^prmeca_cost_lst-\d+$
       error-message: ID must match prmeca_cost_lst-NNN
-    description: Cost metrics.
+    description: "Add cost metrics — cost per transaction, resource costs."
   PRMECA-EFFI-LST:
     prefix: prmeca_effi_lst
     pattern-check-id:
       pattern: ^prmeca_effi_lst-\d+$
       error-message: ID must match prmeca_effi_lst-NNN
-    description: Efficiency metrics.
+    description: "Add efficiency metrics — throughput, cycle times, utilization."
   PRMECA-MANU-LST:
     prefix: prmeca_manu_lst
     pattern-check-id:
       pattern: ^prmeca_manu_lst-\d+$
       error-message: ID must match prmeca_manu_lst-NNN
-    description: Manual intervention metrics.
+    description: "Add manual-intervention metrics — manual steps, human intervention frequency."
   PRMECA-QUAL-LST:
     prefix: prmeca_qual_lst
     pattern-check-id:
       pattern: ^prmeca_qual_lst-\d+$
       error-message: ID must match prmeca_qual_lst-NNN
-    description: Quality metrics.
+    description: "Add quality metrics — error rates, defect rates, rework rates."
   PRMECA-VOLU-LST:
     prefix: prmeca_volu_lst
     pattern-check-id:
       pattern: ^prmeca_volu_lst-\d+$
       error-message: ID must match prmeca_volu_lst-NNN
-    description: Volume metrics.
+    description: "Add volume metrics — transaction counts, throughput volumes."
   PRSCEN-INSC-LST:
     prefix: prscen_insc_lst
     pattern-check-id:
       pattern: ^prscen_insc_lst-\d+$
       error-message: ID must match prscen_insc_lst-NNN
-    description: Processes in scope.
+    description: "Add one entry per process that is in scope for analysis, with the rationale for its inclusion."
   PRSCEN-OUTO-LST:
     prefix: prscen_outo_lst
     pattern-check-id:
       pattern: ^prscen_outo_lst-\d+$
       error-message: ID must match prscen_outo_lst-NNN
-    description: Processes explicitly out of scope.
+    description: "Add one entry per process excluded from analysis, noting why and the impact of leaving it out."
   RCVSCN-RECO-LST:
     prefix: rcvscn_reco_lst
     pattern-check-id:
@@ -897,7 +897,7 @@ section-types:
     pattern-check-id:
       pattern: ^tepapo_item_lst-\d+$
       error-message: ID must match tepapo_item_lst-NNN
-    description: Contains 0+× PainPoint.
+    description: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
   TESCNO-NOTE-LST:
     prefix: tescno_note_lst
     pattern-check-id:
@@ -981,55 +981,55 @@ section-types:
     pattern-check-id:
       pattern: ^woburu_busi_lst-\d+$
       error-message: ID must match woburu_busi_lst-NNN
-    description: Business rules governing the workflow.
+    description: "Add one entry per business rule constraining this workflow, with its logic, source, and exceptions."
   WODEPO-DECI-LST:
     prefix: wodepo_deci_lst
     pattern-check-id:
       pattern: ^wodepo_deci_lst-\d+$
       error-message: ID must match wodepo_deci_lst-NNN
-    description: Decision points within the workflow.
+    description: "Add one entry per decision point, with its criteria, decision maker, possible outcomes, and escalation path."
   WOEXEN-EXCE-LST:
     prefix: woexen_exce_lst
     pattern-check-id:
       pattern: ^woexen_exce_lst-\d+$
       error-message: ID must match woexen_exce_lst-NNN
-    description: Exception entries.
+    description: "Add one entry per exception type, with its frequency, handling procedure, escalation path, and recovery time."
   WOINEN-INPU-LST:
     prefix: woinen_inpu_lst
     pattern-check-id:
       pattern: ^woinen_inpu_lst-\d+$
       error-message: ID must match woinen_inpu_lst-NNN
-    description: Workflow inputs.
+    description: "Add one entry per input the workflow consumes, with its source, format, and validation rules."
   WOOUEN-OUTP-LST:
     prefix: woouen_outp_lst
     pattern-check-id:
       pattern: ^woouen_outp_lst-\d+$
       error-message: ID must match woouen_outp_lst-NNN
-    description: Workflow outputs.
+    description: "Add one entry per output the workflow produces, with its destination, format, and retention requirements."
   WOSTIS-KNOW-LST:
     prefix: wostis_know_lst
     pattern-check-id:
       pattern: ^wostis_know_lst-\d+$
       error-message: ID must match wostis_know_lst-NNN
-    description: Known issues with this step.
+    description: "Add one entry per known issue with this step, noting its frequency, impact, and any current workaround."
   WOSTSY-SYST-LST:
     prefix: wostsy_syst_lst
     pattern-check-id:
       pattern: ^wostsy_syst_lst-\d+$
       error-message: ID must match wostsy_syst_lst-NNN
-    description: Systems used in this step.
+    description: Add one entry per system the step uses.
   WOSUEN-ENTR-LST:
     prefix: wosuen_entr_lst
     pattern-check-id:
       pattern: ^wosuen_entr_lst-\d+$
       error-message: ID must match wosuen_entr_lst-NNN
-    description: Summary entries per workflow.
+    description: "Add one summary row per workflow capturing its type, frequency, cycle time, step counts, actors, and automation potential."
   WOTREN-TRIG-LST:
     prefix: wotren_trig_lst
     pattern-check-id:
       pattern: ^wotren_trig_lst-\d+$
       error-message: ID must match wotren_trig_lst-NNN
-    description: Trigger entries.
+    description: "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency."
   ACRSE-ACCE-LST:
     prefix: acrse_acce_lst
     pattern-check-id:
@@ -1306,7 +1306,7 @@ section-types:
     pattern-check-id:
       pattern: ^exsde_item_lst-\d+$
       error-message: ID must match exsde_item_lst-NNN
-    description: Contains 0+× External Service Dependency.
+    description: "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each."
   EXTEN-EXTE-LST:
     prefix: exten_exte_lst
     pattern-check-id:
@@ -1348,7 +1348,7 @@ section-types:
     pattern-check-id:
       pattern: ^fragi_frag_lst-\d+$
       error-message: ID must match fragi_frag_lst-NNN
-    description: Fragile integration points requiring attention.
+    description: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation."
   FUNCT-FUNC-LST:
     prefix: funct_func_lst
     pattern-check-id:
@@ -1792,7 +1792,7 @@ section-types:
     pattern-check-id:
       pattern: ^ppgce_corr_lst-\d+$
       error-message: ID must match ppgce_corr_lst-NNN
-    description: Tabular correlation data.
+    description: "Add one entry per pain-point-to-gap relationship, naming both IDs and describing how they are linked (cause, contribution, or indication) and how strong the link is."
   PPPEN-ITEM-LST:
     prefix: pppen_item_lst
     pattern-check-id:
@@ -2150,13 +2150,13 @@ section-types:
     pattern-check-id:
       pattern: ^share_shar_lst-\d+$
       error-message: ID must match share_shar_lst-NNN
-    description: Shared services inventory.
+    description: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
   SHIEN-ITEM-LST:
     prefix: shien_item_lst
     pattern-check-id:
       pattern: ^shien_item_lst-\d+$
       error-message: ID must match shien_item_lst-NNN
-    description: Contains 0+× Shared Infrastructure Component.
+    description: "Add one entry per shared infrastructure component (e.g. a database cluster, message broker, identity provider). Capture its criticality, resilience, and the systems that depend on it."
   SHLCP-SHAR-LST:
     prefix: shlcp_shar_lst
     pattern-check-id:
@@ -2618,7 +2618,7 @@ section-types:
     pattern-check-id:
       pattern: ^cpie_impr_lst-\d+$
       error-message: ID must match cpie_impr_lst-NNN
-    description: Process improvement opportunities.
+    description: "Add one entry per improvement opportunity, contrasting the current and desired state with its benefit, effort, and priority."
   CPML-MILE-LST:
     prefix: cpml_mile_lst
     pattern-check-id:
@@ -2631,7 +2631,7 @@ section-types:
     pattern-check-id:
       pattern: ^cuwf_work_lst-\d+$
       error-message: ID must match cuwf_work_lst-NNN
-    description: Individual workflow entries.
+    description: "Add one entry per workflow within this process, documenting its triggers, steps, actors, inputs, outputs, and timing."
   DADU-DUPL-LST:
     prefix: dadu_dupl_lst
     pattern-check-id:
@@ -2785,7 +2785,7 @@ section-types:
     pattern-check-id:
       pattern: ^gape_item_lst-\d+$
       error-message: ID must match gape_item_lst-NNN
-    description: Contains 0+× Gap.
+    description: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
   IBPE-DEPE-LST:
     prefix: ibpe_depe_lst
     pattern-check-id:
@@ -3044,13 +3044,13 @@ section-types:
     pattern-check-id:
       pattern: ^syde_item_lst-\d+$
       error-message: ID must match syde_item_lst-NNN
-    description: Contains 0+× Internal System Dependency.
+    description: "Add one entry per dependency between internal systems. Capture the mechanism, coupling strength, data flow, and failure impact of each."
   SYIN-ITEM-LST:
     prefix: syin_item_lst
     pattern-check-id:
       pattern: ^syin_item_lst-\d+$
       error-message: ID must match syin_item_lst-NNN
-    description: Contains 0+× SystemIntegration.
+    description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
   SYTR-SYST-LST:
     prefix: sytr_syst_lst
     pattern-check-id:
@@ -3172,7 +3172,7 @@ section-types:
     pattern-check-id:
       pattern: ^wfac_acto_lst-\d+$
       error-message: ID must match wfac_acto_lst-NNN
-    description: Workflow actors and responsibilities.
+    description: "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level."
   WPDE-WORK-LST:
     prefix: wpde_work_lst
     min-count-in-document: 1
@@ -3271,7 +3271,7 @@ section-types:
     pattern-check-id:
       pattern: ^ipe_inte_lst-\d+$
       error-message: ID must match ipe_inte_lst-NNN
-    description: Integration patterns used.
+    description: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why."
   KIE-KNOW-LST:
     prefix: kie_know_lst
     pattern-check-id:
@@ -3289,19 +3289,19 @@ section-types:
     pattern-check-id:
       pattern: ^pme_item_lst-\d+$
       error-message: ID must match pme_item_lst-NNN
-    description: Individual metric entries.
+    description: Add any individual metrics that do not fit a specific category above.
   PME-KEYM-LST:
     prefix: pme_keym_lst
     pattern-check-id:
       pattern: ^pme_keym_lst-\d+$
       error-message: ID must match pme_keym_lst-NNN
-    description: Key metrics summary.
+    description: Add the most important metrics that characterize overall process performance at a glance.
   PME-METR-LST:
     prefix: pme_metr_lst
     pattern-check-id:
       pattern: ^pme_metr_lst-\d+$
       error-message: ID must match pme_metr_lst-NNN
-    description: Metrics in this category.
+    description: "Add one entry per metric in this category, with its current value, unit, and measurement details."
   SCE-ITEM-LST:
     prefix: sce_item_lst
     min-count-in-document: 1
@@ -3339,7 +3339,7 @@ section-types:
     pattern-check-id:
       pattern: ^wse_step_lst-\d+$
       error-message: ID must match wse_step_lst-NNN
-    description: Workflow steps in sequence.
+    description: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual."
   CI-INTE-LST:
     prefix: ci_inte_lst
     pattern-check-id:
@@ -5136,7 +5136,7 @@ section-types:
     description: Metrics collection requirements.
   MEDASU:
     prefix: medasu
-    description: Metrics dashboard summary for executive overview.
+    description: "Summarize the key process metrics for an executive audience — measurement period, data quality, and the headline performance figures."
   MEFOST:
     prefix: mefost
     description: Message format standards.
@@ -5385,7 +5385,7 @@ section-types:
     description: Resolution for pain point.
   PAPOSU:
     prefix: paposu
-    description: Summary statistics and metrics for all pain points.
+    description: "Summarize the documented pain points as a whole: totals by severity, aggregate cost and productivity loss, and the most affected process and stakeholder group. Derive these from the individual entries."
   PAPOWO:
     prefix: papowo
     description: Workaround for pain point.
@@ -5475,7 +5475,7 @@ section-types:
     description: 6.1.5. Improvement Summary.
   PRINMA:
     prefix: prinma
-    description: Process interdependency matrix showing how processes interact.
+    description: "Document how processes interact: which feed which, what is exchanged, and how tightly coupled they are. Use the diagram for the overall picture and the entries for each pairwise dependency."
   PRINOU:
     prefix: prinou
     description: Process inputs and outputs.
@@ -5490,7 +5490,7 @@ section-types:
     description: Watermark and confidentiality.
   PRMECA:
     prefix: prmeca
-    description: A category of process metrics.
+    description: Group related metrics under this category and add one entry per metric it contains.
   PRNADR:
     prefix: prnadr
     description: Drawer and rail behavior.
@@ -5508,13 +5508,13 @@ section-types:
     description: 6.1.4. Process Overview Diagram.
   PRPAPO:
     prefix: prpapo
-    description: Process-specific pain points and improvement opportunities.
+    description: Capture the problems and improvement opportunities specific to this process — what works poorly today and where it could be better.
   PRPEOV:
     prefix: prpeov
     description: Process performance overview.
   PRPESU:
     prefix: prpesu
-    description: Process performance summary with high-level metrics.
+    description: "Summarize the overall health of the current processes — maturity, automation level, manual and error-prone steps, bottlenecks, and the estimated cost of inefficiency."
   PRRECO:
     prefix: prreco
     description: Privacy regulation compliance requirements.
@@ -5526,7 +5526,7 @@ section-types:
     description: A process scope entry indicating in/out of scope status.
   PRSCSU:
     prefix: prscsu
-    description: Process scope summary defining in-scope and out-of-scope processes.
+    description: Summarize how many processes were identified and which were selected for analysis. Record the rationale for scope decisions and any processes deferred to later phases.
   PRSTOV:
     prefix: prstov
     description: 6.2. Process Steps Overview.
@@ -6526,7 +6526,7 @@ section-types:
     description: Support resources available to users.
   WOSUTA:
     prefix: wosuta
-    description: Summary table of all workflows for quick reference.
+    description: "Summarize the workflows for this process — totals, average cycle time, and automation potential — then add one summary row per workflow."
   WOTREN:
     prefix: wotren
     description: A single workflow trigger.
@@ -7068,7 +7068,7 @@ section-types:
     description: Integration profile for an existing system.
   ESLAN:
     prefix: eslan
-    description: 1.1. Existing Systems Landscape.
+    description: "Describe the existing systems landscape: inventory every relevant system, sketch the current architecture, and map dependencies and integrations. Include a context diagram showing how the systems interact."
   ESLCY:
     prefix: eslcy
     description: Lifecycle information for an existing system.
@@ -8248,7 +8248,7 @@ section-types:
     description: 4.1. System Description.
   SYINV:
     prefix: syinv
-    description: 1.1.1. System Inventory.
+    description: "Inventory every system relevant to the project: those that will be replaced, integrated with, or affected by the new system. State the inclusion criteria so the boundary of the AS-IS landscape is clear."
   SYPUP:
     prefix: sypup
     description: "Describe the overarching purpose of the system. Address: What problem does it solve? What opportunity does it enable? Who are the primary beneficiaries? How does it align with organizational strategy?"
@@ -9007,7 +9007,7 @@ section-types:
     description: Backup type configuration.
   BPPS:
     prefix: bpps
-    description: Summary specific to business pain points.
+    description: "Aggregate the business pain points into category metrics: estimated revenue loss, compliance risk exposure, customer-satisfaction impact, and scalability constraints."
   BRCO:
     prefix: brco
     description: 10.3.1.6.1. Breadcrumb Configuration.
@@ -10916,7 +10916,7 @@ section-types:
     description: State and event lifecycle details for an object operation.
   OPPS:
     prefix: opps
-    description: Summary specific to operational pain points.
+    description: "Aggregate the operational pain points into category metrics: average downtime, number of manual workarounds, data-inconsistency frequency, and staff overhead spent on workarounds."
   OPRE:
     prefix: opre
     description: |
@@ -11102,10 +11102,10 @@ section-types:
     description: 6.1.10. Process Metrics and KPIs.
   PMEM:
     prefix: pmem
-    description: Measurement collection details.
+    description: "Record how this metric is measured — the method, data source, and how often it is collected."
   PMET:
     prefix: pmet
-    description: Target setting and benchmarking context.
+    description: "Record the target value for this metric, its current trend, and any industry benchmark for comparison."
   PMVC:
     prefix: pmvc
     description: Sign-off and reporting expectations.
@@ -12147,7 +12147,7 @@ section-types:
     description: Third-party API integrations.
   TPPS:
     prefix: tpps
-    description: Summary specific to technical pain points.
+    description: "Aggregate the technical pain points into category metrics: technical-debt estimate, security-vulnerability counts, systems at end of life, vendor lock-in risk, and integration complexity."
   TRAS:
     prefix: tras
     description: Training assessment and evaluation.
@@ -12384,16 +12384,16 @@ section-types:
     description: 10.9.1. WCAG Compliance Level.
   WODE:
     prefix: wode
-    description: 1.2.nn.1. Workflow Descriptions.
+    description: Describe the workflows that make up this process. Use the overview diagram for how they fit together and add one entry per individual workflow below.
   WOEX:
     prefix: woex
-    description: Workflow exception handling.
+    description: Describe how exceptions are handled in this workflow and list each distinct exception type with its handling and escalation.
   WOTI:
     prefix: woti
     description: Workflow timing and performance characteristics.
   WOTR:
     prefix: wotr
-    description: Workflow triggers and initiation conditions.
+    description: "Describe what initiates this workflow and list each distinct trigger with its type, source, and conditions."
   WPDE:
     prefix: wpde
     description: "A workplace description entry (form, per user category)."

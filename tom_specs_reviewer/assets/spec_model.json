@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T18:49:21.221089Z",
+  "generatedAt": "2026-06-30T19:59:28.309364Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+7.1f49ac3",
@@ -23293,7 +23293,22 @@
       "name": "BusinessPainPoints",
       "sectionId": "BUPAPO",
       "doc": "1.3.2. Business Pain Points.\n\nProblems that affect business outcomes: lost revenue, compliance risk,\ncustomer dissatisfaction, inability to scale, and missed opportunities.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (business performance shortfalls)"
+        ],
+        "connotation": "Problems in the current state that erode business outcomes — lost revenue, compliance exposure, customer dissatisfaction, and missed opportunities."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (business performance shortfalls)"
+            ],
+            "connotation": "Problems in the current state that erode business outcomes — lost revenue, compliance exposure, customer dissatisfaction, and missed opportunities."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -23342,10 +23357,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PainPoint.",
+          "help": "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail.",
           "sectionId": "BUPAPO-ITEM-LST",
           "sectionIdPattern": "BUPAPO-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (problem identification)"
+            ],
+            "connotation": "The list of individual business pain points documented in detail."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (problem identification)"
+                ],
+                "connotation": "The list of individual business pain points documented in detail."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -23356,6 +23387,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "BUPAPO-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail."
               }
             },
             {
@@ -23374,7 +23411,29 @@
       "name": "BusinessPainPointsSummary",
       "sectionId": "BPPS",
       "doc": "Summary specific to business pain points.",
+      "help": "Aggregate the business pain points into category metrics: estimated revenue loss, compliance risk exposure, customer-satisfaction impact, and scalability constraints.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (business measures)"
+        ],
+        "connotation": "Category roll-up quantifying the business pain points — revenue loss, compliance exposure, and customer-satisfaction impact in the current state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (business measures)"
+            ],
+            "connotation": "Category roll-up quantifying the business pain points — revenue loss, compliance exposure, and customer-satisfaction impact in the current state."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Aggregate the business pain points into category metrics: estimated revenue loss, compliance risk exposure, customer-satisfaction impact, and scalability constraints."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -47661,7 +47720,24 @@
       "name": "CurrentArchitecture",
       "sectionId": "CARCH",
       "doc": "1.1.2. Current Architecture.\n\nDescription of the current system architecture including deployment\ntopology, integration patterns, shared services, and data stores.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (architecture baseline)",
+          "TOGAF ADM Phase B/C — baseline architecture (current state)"
+        ],
+        "connotation": "The AS-IS architecture baseline: deployment topology, integration patterns, and shared services that describe how today's systems fit together."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (architecture baseline)",
+              "TOGAF ADM Phase B/C — baseline architecture (current state)"
+            ],
+            "connotation": "The AS-IS architecture baseline: deployment topology, integration patterns, and shared services that describe how today's systems fit together."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -47739,10 +47815,26 @@
           "name": "integrationPatterns",
           "kind": "list",
           "doc": "Integration patterns used.",
+          "help": "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.",
           "sectionId": "IPE-INTE-LST",
           "sectionIdPattern": "IPE-INTE-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration patterns)"
+            ],
+            "connotation": "The set of integration patterns the current architecture relies on to connect its systems."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (integration patterns)"
+                ],
+                "connotation": "The set of integration patterns the current architecture relies on to connect its systems."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -47753,6 +47845,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "IPE-INTE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why."
               }
             },
             {
@@ -47769,10 +47867,26 @@
           "name": "sharedServices",
           "kind": "list",
           "doc": "Shared services inventory.",
+          "help": "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it.",
           "sectionId": "SHARE-SHAR-LST",
           "sectionIdPattern": "SHARE-SHAR-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (shared services)"
+            ],
+            "connotation": "The set of shared services the current architecture provides across multiple systems."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (shared services)"
+                ],
+                "connotation": "The set of shared services the current architecture provides across multiple systems."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -47783,6 +47897,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SHARE-SHAR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
               }
             },
             {
@@ -47802,7 +47922,24 @@
       "sectionId": "CUBIPR",
       "doc": "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.",
       "help": "Document each business process that the project will impact. Include process maps (BPMN recommended), actor descriptions, and quantitative metrics. Identify manual steps and error-prone areas.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (as-is process model)",
+          "BPMN 2.0 — business process modelling notation"
+        ],
+        "connotation": "The complete AS-IS picture of one business process: its context, workflows, metrics, and pain points as they operate today."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (as-is process model)",
+              "BPMN 2.0 — business process modelling notation"
+            ],
+            "connotation": "The complete AS-IS picture of one business process: its context, workflows, metrics, and pain points as they operate today."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -47935,7 +48072,22 @@
       "sectionId": "CUBUPR",
       "doc": "1.2. Current Business Processes.\n\nDocuments the current business processes that the project will impact,\nreplace, or enhance. Understanding existing workflows is critical for\ngap analysis, migration planning, and ensuring the new system meets\noperational needs.",
       "detailedIn": "D01CurrentLandscapeAssessment",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — Define the Current State (as-is business process model)"
+        ],
+        "connotation": "The catalogue of business processes operating today that the project will impact, replace, or enhance — the AS-IS process picture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — Define the Current State (as-is business process model)"
+            ],
+            "connotation": "The catalogue of business processes operating today that the project will impact, replace, or enhance — the AS-IS process picture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48067,10 +48219,26 @@
           "name": "processes",
           "kind": "list",
           "doc": "1.2.nn. Business Processes — contains 1+× Business Process.",
+          "help": "Add one entry per business process in scope. Document each process in full — its workflows, actors, metrics, and pain points.",
           "sectionId": "CUBIPR-PROC-LST",
           "sectionIdPattern": "CUBIPR-PROC-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (as-is process inventory)"
+            ],
+            "connotation": "The ordered set of individual business processes documented for the current state."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (as-is process inventory)"
+                ],
+                "connotation": "The ordered set of individual business processes documented for the current state."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -48081,6 +48249,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CUBIPR-PROC-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per business process in scope. Document each process in full — its workflows, actors, metrics, and pain points."
               }
             },
             {
@@ -48484,7 +48658,22 @@
       "sectionId": "CUSA",
       "doc": "1. Current Landscape. Seeds → CLA.\n\nSeeds the CLA (Current Landscape Assessment) Phase 3 DocSpec. Its subtree\nflows to CLA together with the systems-to-replace inventory.",
       "mapsTo": "D01CurrentLandscapeAssessment",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — Define the Current State (current-state analysis)"
+        ],
+        "connotation": "The AS-IS analysis that motivates the project — existing systems, current processes, pain points, data, operational metrics and current-state risks — and the seed for the Current Landscape Assessment (CLA)."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — Define the Current State (current-state analysis)"
+            ],
+            "connotation": "The AS-IS analysis that motivates the project — existing systems, current processes, pain points, data, operational metrics and current-state risks — and the seed for the Current Landscape Assessment (CLA)."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48681,7 +48870,22 @@
       "name": "CurrentProcessImprovementEntry",
       "sectionId": "CPIE",
       "doc": "A process improvement opportunity.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (improvement opportunity)"
+        ],
+        "connotation": "A single improvement opportunity for the process: the gap between its current and desired state and the value of closing it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (improvement opportunity)"
+            ],
+            "connotation": "A single improvement opportunity for the process: the gap between its current and desired state and the value of closing it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -48804,7 +49008,24 @@
       "sectionId": "CUWF",
       "doc": "A current workflow entry (form).\n\nDetailed documentation of a single workflow within a business process.\nIncludes triggers, steps, actors, inputs, outputs, and timing.",
       "help": "Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (as-is workflow model)",
+          "BPMN 2.0 — business process modelling notation"
+        ],
+        "connotation": "The full AS-IS model of one workflow: how it is triggered, the steps and actors involved, its inputs/outputs, rules, timing, and exceptions."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (as-is workflow model)",
+              "BPMN 2.0 — business process modelling notation"
+            ],
+            "connotation": "The full AS-IS model of one workflow: how it is triggered, the steps and actors involved, its inputs/outputs, rules, timing, and exceptions."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -48924,10 +49145,26 @@
           "name": "steps",
           "kind": "list",
           "doc": "Workflow steps in sequence.",
+          "help": "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual.",
           "sectionId": "WSE-STEP-LST",
           "sectionIdPattern": "WSE-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow steps / activities)"
+            ],
+            "connotation": "The ordered sequence of steps that make up the workflow."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (workflow steps / activities)"
+                ],
+                "connotation": "The ordered sequence of steps that make up the workflow."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -48938,6 +49175,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WSE-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual."
               }
             },
             {
@@ -48954,10 +49197,26 @@
           "name": "actors",
           "kind": "list",
           "doc": "Workflow actors and responsibilities.",
+          "help": "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level.",
           "sectionId": "WFAC-ACTO-LST",
           "sectionIdPattern": "WFAC-ACTO-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow participants / roles)"
+            ],
+            "connotation": "The actors who participate in the workflow and their responsibilities."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (workflow participants / roles)"
+                ],
+                "connotation": "The actors who participate in the workflow and their responsibilities."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -48968,6 +49227,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WFAC-ACTO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level."
               }
             },
             {
@@ -48984,10 +49249,26 @@
           "name": "inputs",
           "kind": "list",
           "doc": "Workflow inputs.",
+          "help": "Add one entry per input the workflow consumes, with its source, format, and validation rules.",
           "sectionId": "WOINEN-INPU-LST",
           "sectionIdPattern": "WOINEN-INPU-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow inputs)"
+            ],
+            "connotation": "The data and documents consumed by the workflow."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (workflow inputs)"
+                ],
+                "connotation": "The data and documents consumed by the workflow."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -48998,6 +49279,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOINEN-INPU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per input the workflow consumes, with its source, format, and validation rules."
               }
             },
             {
@@ -49014,10 +49301,26 @@
           "name": "outputs",
           "kind": "list",
           "doc": "Workflow outputs.",
+          "help": "Add one entry per output the workflow produces, with its destination, format, and retention requirements.",
           "sectionId": "WOOUEN-OUTP-LST",
           "sectionIdPattern": "WOOUEN-OUTP-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow outputs)"
+            ],
+            "connotation": "The data and documents produced by the workflow."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (workflow outputs)"
+                ],
+                "connotation": "The data and documents produced by the workflow."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -49028,6 +49331,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOOUEN-OUTP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per output the workflow produces, with its destination, format, and retention requirements."
               }
             },
             {
@@ -49044,10 +49353,28 @@
           "name": "decisionPoints",
           "kind": "list",
           "doc": "Decision points within the workflow.",
+          "help": "Add one entry per decision point, with its criteria, decision maker, possible outcomes, and escalation path.",
           "sectionId": "WODEPO-DECI-LST",
           "sectionIdPattern": "WODEPO-DECI-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (decision points)",
+              "BPMN 2.0 — gateways (decision points)"
+            ],
+            "connotation": "The points in the workflow where a decision branches the flow."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (decision points)",
+                  "BPMN 2.0 — gateways (decision points)"
+                ],
+                "connotation": "The points in the workflow where a decision branches the flow."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -49058,6 +49385,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WODEPO-DECI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per decision point, with its criteria, decision maker, possible outcomes, and escalation path."
               }
             },
             {
@@ -49074,10 +49407,26 @@
           "name": "businessRules",
           "kind": "list",
           "doc": "Business rules governing the workflow.",
+          "help": "Add one entry per business rule constraining this workflow, with its logic, source, and exceptions.",
           "sectionId": "WOBURU-BUSI-LST",
           "sectionIdPattern": "WOBURU-BUSI-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (business rules)"
+            ],
+            "connotation": "The business rules that govern how the workflow behaves."
+          },
           "serializationOrder": 8,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (business rules)"
+                ],
+                "connotation": "The business rules that govern how the workflow behaves."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -49088,6 +49437,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOBURU-BUSI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per business rule constraining this workflow, with its logic, source, and exceptions."
               }
             },
             {
@@ -49107,8 +49462,23 @@
           "help": "Identify steps that cannot be automated or require human judgment.",
           "sectionId": "WSE-MANU-LST",
           "sectionIdPattern": "WSE-MANU-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (manual / non-automated steps)"
+            ],
+            "connotation": "The subset of workflow steps that require human intervention."
+          },
           "serializationOrder": 9,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (manual / non-automated steps)"
+                ],
+                "connotation": "The subset of workflow steps that require human intervention."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -49144,8 +49514,23 @@
           "help": "Identify steps with known issues, high error rates, or workarounds.",
           "sectionId": "WSE-ERRO-LST",
           "sectionIdPattern": "WSE-ERRO-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (error-prone steps)"
+            ],
+            "connotation": "The subset of workflow steps known to have high error or failure rates."
+          },
           "serializationOrder": 10,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (error-prone steps)"
+                ],
+                "connotation": "The subset of workflow steps known to have high error or failure rates."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -67050,7 +67435,22 @@
       "name": "DependenciesAndIntegrations",
       "sectionId": "DEPNT",
       "doc": "1.1.3. Dependencies and Integrations.\n\nDocuments how current systems depend on each other, on external services,\nand on shared infrastructure. Identifies fragile integration points that\npose risk to operations or to the new system implementation.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (dependencies & integrations)"
+        ],
+        "connotation": "The web of dependencies and integrations across the AS-IS landscape — internal, external-service, and shared-infrastructure couplings plus the active integrations and their overall health."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (dependencies & integrations)"
+            ],
+            "connotation": "The web of dependencies and integrations across the AS-IS landscape — internal, external-service, and shared-infrastructure couplings plus the active integrations and their overall health."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -86981,7 +87381,22 @@
       "name": "ExistingSystemBusinessContext",
       "sectionId": "ESBCT",
       "doc": "Business context for an existing system.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (business context)"
+        ],
+        "connotation": "The business context of one existing system: its purpose, domain, ownership, and criticality to the organization."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (business context)"
+            ],
+            "connotation": "The business context of one existing system: its purpose, domain, ownership, and criticality to the organization."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87012,36 +87427,42 @@
             {
               "name": "purpose",
               "label": "Purpose/Description",
+              "hint": "What the system does for the business, in one or two sentences.",
               "type": "String",
               "required": true
             },
             {
               "name": "businessDomain",
               "label": "Business Domain (Finance, Sales, Operations, HR, etc.)",
+              "hint": "Primary domain served, e.g. Finance, Sales, Operations, HR.",
               "type": "String",
               "required": false
             },
             {
               "name": "owningDepartment",
               "label": "Owning Business Unit/Department",
+              "hint": "Business unit accountable for the system.",
               "type": "String",
               "required": false
             },
             {
               "name": "businessCriticality",
               "label": "Business Criticality (Mission Critical, Business Critical, Standard, Low)",
+              "hint": "How critical to operations: Mission Critical, Business Critical, Standard, or Low.",
               "type": "String",
               "required": false
             },
             {
               "name": "businessOwner",
               "label": "Business Owner (name/role)",
+              "hint": "Person or role owning the business outcomes, e.g. \"Head of Sales\".",
               "type": "String",
               "required": false
             },
             {
               "name": "technicalOwner",
               "label": "Technical Owner (name/role)",
+              "hint": "Person or role owning the technical operation of the system.",
               "type": "String",
               "required": false
             }
@@ -87053,7 +87474,22 @@
       "name": "ExistingSystemEntry",
       "sectionId": "ESENT",
       "doc": "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (system profile)"
+        ],
+        "connotation": "A complete AS-IS profile of one existing system — its identity, technology, business context, usage, lifecycle, integration, infrastructure, limitations, and quality/risk posture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (system profile)"
+            ],
+            "connotation": "A complete AS-IS profile of one existing system — its identity, technology, business context, usage, lifecycle, integration, infrastructure, limitations, and quality/risk posture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87084,36 +87520,42 @@
             {
               "name": "systemName",
               "label": "System Name",
+              "hint": "Common name of the system, e.g. \"SAP ERP\", \"Salesforce CRM\".",
               "type": "String",
               "required": true
             },
             {
               "name": "systemId",
               "label": "System ID/Code (internal identifier)",
+              "hint": "Internal catalogue code or CMDB identifier, if any.",
               "type": "String",
               "required": false
             },
             {
               "name": "systemVersion",
               "label": "Current Version",
+              "hint": "Release or version currently in production, e.g. \"ECC 6.0\".",
               "type": "String",
               "required": false
             },
             {
               "name": "systemType",
               "label": "System Type (ERP, CRM, Custom Development, COTS, SaaS, etc.)",
+              "hint": "Classify the system: ERP, CRM, Custom Development, COTS, SaaS.",
               "type": "String",
               "required": false
             },
             {
               "name": "vendor",
               "label": "Vendor (if commercial software)",
+              "hint": "Software publisher, e.g. \"SAP\", \"Salesforce\" — blank if in-house.",
               "type": "String",
               "required": false
             },
             {
               "name": "licenseType",
               "label": "License Type (Enterprise, Per-User, Subscription, Open Source, etc.)",
+              "hint": "Licensing model: Enterprise, Per-User, Subscription, Open Source.",
               "type": "String",
               "required": false
             }
@@ -87252,8 +87694,23 @@
           "help": "Document each known limitation with its impact on current operations and any workarounds in place.",
           "sectionId": "LIMET-KNOW-LST",
           "sectionIdPattern": "LIMET-KNOW-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (known limitations)"
+            ],
+            "connotation": "The set of known limitations of this system that constrain current operations."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (known limitations)"
+                ],
+                "connotation": "The set of known limitations of this system that constrain current operations."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -87309,7 +87766,22 @@
       "name": "ExistingSystemInfrastructure",
       "sectionId": "ESINF",
       "doc": "Infrastructure details for an existing system.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (infrastructure)"
+        ],
+        "connotation": "The infrastructure footprint of one existing system: its hosting model, environments, geographic spread, and resilience posture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (infrastructure)"
+            ],
+            "connotation": "The infrastructure footprint of one existing system: its hosting model, environments, geographic spread, and resilience posture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87340,36 +87812,42 @@
             {
               "name": "hostingModel",
               "label": "Hosting Model (On-Premise, Private Cloud, Public Cloud, Hybrid, SaaS)",
+              "hint": "Where it runs: On-Premise, Private Cloud, Public Cloud, Hybrid, SaaS.",
               "type": "String",
               "required": false
             },
             {
               "name": "cloudProvider",
               "label": "Cloud Provider (if applicable)",
+              "hint": "Cloud provider, e.g. \"AWS\", \"Azure\", \"GCP\" — blank if on-prem.",
               "type": "String",
               "required": false
             },
             {
               "name": "environmentCount",
               "label": "Number of Environments (Dev, Test, Staging, Prod, etc.)",
+              "hint": "How many environments exist (Dev, Test, Staging, Prod, ...).",
               "type": "int",
               "required": false
             },
             {
               "name": "geographicDeployment",
               "label": "Geographic Deployment (Single region, Multi-region, Global)",
+              "hint": "Deployment reach: Single region, Multi-region, or Global.",
               "type": "String",
               "required": false
             },
             {
               "name": "disasterRecovery",
               "label": "Disaster Recovery Capability (Hot standby, Warm standby, Cold backup, None)",
+              "hint": "DR posture: Hot standby, Warm standby, Cold backup, or None.",
               "type": "String",
               "required": false
             },
             {
               "name": "backupFrequency",
               "label": "Backup Frequency",
+              "hint": "How often backups run, e.g. \"hourly\", \"nightly\".",
               "type": "String",
               "required": false
             }
@@ -87381,7 +87859,22 @@
       "name": "ExistingSystemIntegration",
       "sectionId": "ESINT",
       "doc": "Integration profile for an existing system.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration profile)"
+        ],
+        "connotation": "The integration profile of one existing system: the APIs it exposes, the methods and formats it exchanges by, and its interface counts."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration profile)"
+            ],
+            "connotation": "The integration profile of one existing system: the APIs it exposes, the methods and formats it exchanges by, and its interface counts."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87412,42 +87905,49 @@
             {
               "name": "apiTypesAvailable",
               "label": "API Types Available (REST, SOAP, GraphQL, gRPC, none)",
+              "hint": "APIs the system exposes: REST, SOAP, GraphQL, gRPC, or none.",
               "type": "String",
               "required": false
             },
             {
               "name": "integrationMethods",
               "label": "Integration Methods (API, File Transfer, Database Link, Message Queue, manual)",
+              "hint": "How it integrates: API, File Transfer, Database Link, MQ, manual.",
               "type": "String",
               "required": false
             },
             {
               "name": "dataFormats",
               "label": "Data Formats (JSON, XML, CSV, EDI, etc.)",
+              "hint": "Formats exchanged: JSON, XML, CSV, EDI, etc.",
               "type": "String",
               "required": false
             },
             {
               "name": "realTimeCapable",
               "label": "Real-Time Integration Capable",
+              "hint": "True if the system supports real-time integration.",
               "type": "bool",
               "required": false
             },
             {
               "name": "batchProcessingWindows",
               "label": "Batch Processing Windows",
+              "hint": "Scheduled batch windows, e.g. \"nightly 01:00–03:00\".",
               "type": "String",
               "required": false
             },
             {
               "name": "externalInterfaceCount",
               "label": "Number of External Interfaces",
+              "hint": "Count of interfaces to systems outside the organization.",
               "type": "int",
               "required": false
             },
             {
               "name": "internalInterfaceCount",
               "label": "Number of Internal Interfaces",
+              "hint": "Count of interfaces to other internal systems.",
               "type": "int",
               "required": false
             }
@@ -87459,7 +87959,22 @@
       "name": "ExistingSystemLifecycle",
       "sectionId": "ESLCY",
       "doc": "Lifecycle information for an existing system.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (system lifecycle)"
+        ],
+        "connotation": "The lifecycle status of one existing system: when it went live, its support horizon, and how urgently it must be migrated or retired."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (system lifecycle)"
+            ],
+            "connotation": "The lifecycle status of one existing system: when it went live, its support horizon, and how urgently it must be migrated or retired."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87490,42 +88005,49 @@
             {
               "name": "goLiveDate",
               "label": "Go-Live Date (operational since)",
+              "hint": "When the system first went into production (ISO 8601).",
               "type": "String",
               "required": false
             },
             {
               "name": "lastMajorUpgrade",
               "label": "Last Major Upgrade Date",
+              "hint": "Date of the most recent major upgrade (ISO 8601).",
               "type": "String",
               "required": false
             },
             {
               "name": "currentVersion",
               "label": "Current Version",
+              "hint": "Version currently running in production.",
               "type": "String",
               "required": false
             },
             {
               "name": "supportStatus",
               "label": "Support Status (Active, Limited, Extended, End-of-Life)",
+              "hint": "Vendor support state: Active, Limited, Extended, or End-of-Life.",
               "type": "String",
               "required": false
             },
             {
               "name": "supportExpiryDate",
               "label": "Support Expiry Date",
+              "hint": "Date vendor support ends (ISO 8601), if known.",
               "type": "String",
               "required": false
             },
             {
               "name": "plannedRetirementDate",
               "label": "Planned Retirement Date (if any)",
+              "hint": "Target decommission date, if one is planned.",
               "type": "String",
               "required": false
             },
             {
               "name": "migrationUrgency",
               "label": "Migration Urgency (Immediate, Within 1 year, Within 3 years, No deadline)",
+              "hint": "How soon migration is needed: Immediate, Within 1 year, etc.",
               "type": "String",
               "required": false
             }
@@ -87537,7 +88059,24 @@
       "name": "ExistingSystemQuality",
       "sectionId": "ESQUA",
       "doc": "Quality and risk assessment for an existing system.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (quality & risk)",
+          "ISO/IEC 25010 — product quality model (maintainability, security)"
+        ],
+        "connotation": "The quality and risk posture of one existing system: technical debt, code and documentation quality, achieved SLAs, and security/accessibility compliance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (quality & risk)",
+              "ISO/IEC 25010 — product quality model (maintainability, security)"
+            ],
+            "connotation": "The quality and risk posture of one existing system: technical debt, code and documentation quality, achieved SLAs, and security/accessibility compliance."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87568,48 +88107,56 @@
             {
               "name": "technicalDebtLevel",
               "label": "Technical Debt Level (Low, Medium, High, Critical)",
+              "hint": "Accumulated technical debt: Low, Medium, High, or Critical.",
               "type": "String",
               "required": false
             },
             {
               "name": "codeQuality",
               "label": "Code Quality Assessment (Good, Acceptable, Poor, Unknown)",
+              "hint": "Code quality judgement: Good, Acceptable, Poor, or Unknown.",
               "type": "String",
               "required": false
             },
             {
               "name": "documentationStatus",
               "label": "Documentation Status (Current, Outdated, Minimal, None)",
+              "hint": "State of docs: Current, Outdated, Minimal, or None.",
               "type": "String",
               "required": false
             },
             {
               "name": "availabilitySla",
               "label": "Availability SLA (actual achieved)",
+              "hint": "Actual availability achieved, e.g. \"99.5%\" — not the target.",
               "type": "String",
               "required": false
             },
             {
               "name": "securityComplianceStatus",
               "label": "Security Compliance Status",
+              "hint": "Compliance standing, e.g. \"PCI-DSS compliant\", \"gaps open\".",
               "type": "String",
               "required": false
             },
             {
               "name": "lastSecurityAudit",
               "label": "Last Security Audit Date",
+              "hint": "Date of the most recent security audit (ISO 8601).",
               "type": "String",
               "required": false
             },
             {
               "name": "lastPenetrationTest",
               "label": "Last Penetration Test Date",
+              "hint": "Date of the most recent penetration test (ISO 8601).",
               "type": "String",
               "required": false
             },
             {
               "name": "accessibilityCompliance",
               "label": "Accessibility Compliance (WCAG level, Section 508, etc.)",
+              "hint": "Accessibility standing, e.g. \"WCAG 2.1 AA\", \"Section 508\".",
               "type": "String",
               "required": false
             }
@@ -87621,7 +88168,22 @@
       "name": "ExistingSystemTechnology",
       "sectionId": "ESTEC",
       "doc": "Technology stack details for an existing system.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (technology stack)"
+        ],
+        "connotation": "The technology stack of one existing system: its platform, languages, database, OS, frameworks, and frontend."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (technology stack)"
+            ],
+            "connotation": "The technology stack of one existing system: its platform, languages, database, OS, frameworks, and frontend."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87652,36 +88214,42 @@
             {
               "name": "primaryPlatform",
               "label": "Primary Technology Platform",
+              "hint": "Dominant platform, e.g. \".NET\", \"Java EE\", \"SAP NetWeaver\".",
               "type": "String",
               "required": false
             },
             {
               "name": "programmingLanguages",
               "label": "Programming Languages (comma-separated)",
+              "hint": "Languages in use, comma-separated, e.g. \"Java, JavaScript, SQL\".",
               "type": "String",
               "required": false
             },
             {
               "name": "databaseTechnology",
               "label": "Database Technology",
+              "hint": "Database engine, e.g. \"Oracle 19c\", \"PostgreSQL\", \"MS SQL\".",
               "type": "String",
               "required": false
             },
             {
               "name": "operatingSystem",
               "label": "Operating System",
+              "hint": "Host OS, e.g. \"RHEL 8\", \"Windows Server 2019\".",
               "type": "String",
               "required": false
             },
             {
               "name": "frameworksMiddleware",
               "label": "Frameworks/Middleware",
+              "hint": "Key frameworks/middleware, e.g. \"Spring Boot, WebLogic\".",
               "type": "String",
               "required": false
             },
             {
               "name": "frontendTechnology",
               "label": "Frontend Technology (if applicable)",
+              "hint": "Frontend stack, e.g. \"Angular\", \"JSP\", \"SAP GUI\" — blank if none.",
               "type": "String",
               "required": false
             }
@@ -87693,7 +88261,22 @@
       "name": "ExistingSystemUsage",
       "sectionId": "ESUSG",
       "doc": "Usage metrics for an existing system.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (usage metrics)"
+        ],
+        "connotation": "The measured usage of one existing system: user counts, transaction and data volumes, growth, and availability needs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (usage metrics)"
+            ],
+            "connotation": "The measured usage of one existing system: user counts, transaction and data volumes, growth, and availability needs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -87724,42 +88307,49 @@
             {
               "name": "activeUsers",
               "label": "Active Users (total registered)",
+              "hint": "Total registered/licensed users, e.g. 1200.",
               "type": "int",
               "required": false
             },
             {
               "name": "dailyActiveUsers",
               "label": "Daily Active Users",
+              "hint": "Typical number of users active on a normal day.",
               "type": "int",
               "required": false
             },
             {
               "name": "peakConcurrentUsers",
               "label": "Peak Concurrent Users",
+              "hint": "Highest number of simultaneous users observed.",
               "type": "int",
               "required": false
             },
             {
               "name": "transactionVolumeDaily",
               "label": "Transaction Volume (daily average)",
+              "hint": "Average daily transactions, e.g. \"~50k orders/day\".",
               "type": "String",
               "required": false
             },
             {
               "name": "dataVolumeCurrent",
               "label": "Current Data Volume",
+              "hint": "Size of the data set today, e.g. \"2.5 TB\".",
               "type": "String",
               "required": false
             },
             {
               "name": "dataGrowthRate",
               "label": "Data Growth Rate (monthly/yearly)",
+              "hint": "How fast data grows, e.g. \"~50 GB/month\".",
               "type": "String",
               "required": false
             },
             {
               "name": "availabilityRequirement",
               "label": "Availability Requirement (e.g., 99.9%, 24x7, business hours)",
+              "hint": "Required uptime, e.g. \"99.9%\", \"24x7\", \"business hours\".",
               "type": "String",
               "required": false
             }
@@ -87771,8 +88361,30 @@
       "name": "ExistingSystemsLandscape",
       "sectionId": "ESLAN",
       "doc": "1.1. Existing Systems Landscape.\n\nOverview of the current systems in use, their roles, technology stacks,\nand limitations. Provides the foundation for understanding the AS-IS state.",
+      "help": "Describe the existing systems landscape: inventory every relevant system, sketch the current architecture, and map dependencies and integrations. Include a context diagram showing how the systems interact.",
       "detailedIn": "D01CurrentLandscapeAssessment",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (systems & capability inventory)"
+        ],
+        "connotation": "The AS-IS catalogue of systems in use today — their inventory, architecture and inter-system dependencies — establishing the technical baseline the new system must replace, integrate with, or coexist alongside."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (systems & capability inventory)"
+            ],
+            "connotation": "The AS-IS catalogue of systems in use today — their inventory, architecture and inter-system dependencies — establishing the technical baseline the new system must replace, integrate with, or coexist alongside."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Describe the existing systems landscape: inventory every relevant system, sketch the current architecture, and map dependencies and integrations. Include a context diagram showing how the systems interact."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91606,7 +92218,22 @@
       "name": "ExternalServiceDependencies",
       "sectionId": "EXTDP",
       "doc": "1.1.3.2. External Service Dependencies.\n\nDependencies on external services, third-party APIs, SaaS platforms,\nand cloud services not under direct organizational control.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (external dependencies)"
+        ],
+        "connotation": "The dependencies on external services, third-party APIs, SaaS platforms, and cloud services outside direct organizational control."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (external dependencies)"
+            ],
+            "connotation": "The dependencies on external services, third-party APIs, SaaS platforms, and cloud services outside direct organizational control."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91647,10 +92274,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× External Service Dependency.",
+          "help": "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each.",
           "sectionId": "EXSDE-ITEM-LST",
           "sectionIdPattern": "EXSDE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (external dependencies)"
+            ],
+            "connotation": "The set of documented dependencies on external services and third-party providers."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (external dependencies)"
+                ],
+                "connotation": "The set of documented dependencies on external services and third-party providers."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -91661,6 +92304,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "EXSDE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each."
               }
             },
             {
@@ -91679,7 +92328,22 @@
       "name": "ExternalServiceDependencyEntry",
       "sectionId": "EXSDE",
       "doc": "An external service dependency entry (form).\n\nDocuments a dependency on an external service or third-party provider\nincluding vendor details, SLA, risk assessment, and fallback options.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (external dependency profile)"
+        ],
+        "connotation": "A complete profile of one external-service dependency: the service, its provider, relationship, operations, risk, and fallback."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (external dependency profile)"
+            ],
+            "connotation": "A complete profile of one external-service dependency: the service, its provider, relationship, operations, risk, and fallback."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91710,12 +92374,14 @@
             {
               "name": "serviceName",
               "label": "External Service Name",
+              "hint": "Name of the external service, e.g. \"Stripe Payments\".",
               "type": "String",
               "required": true
             },
             {
               "name": "serviceProvider",
               "label": "Service Provider/Vendor",
+              "hint": "Company providing the service, e.g. \"Stripe, Inc.\".",
               "type": "String",
               "required": false
             },
@@ -91799,7 +92465,22 @@
       "name": "ExternalServiceDependencyEntryOperations",
       "sectionId": "EXSOP",
       "doc": "Availability and data handling details.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (external dependency operations)"
+        ],
+        "connotation": "The operational facts for one external-service dependency: its SLA, actual availability, data handling, residency, and vendor certifications."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (external dependency operations)"
+            ],
+            "connotation": "The operational facts for one external-service dependency: its SLA, actual availability, data handling, residency, and vendor certifications."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91870,7 +92551,22 @@
       "name": "ExternalServiceDependencyEntryRelationship",
       "sectionId": "EXSRL",
       "doc": "Internal dependency and contract details.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (external dependency relationship)"
+        ],
+        "connotation": "The relationship and contract facts for one external-service dependency: which systems depend on it, its criticality, and contract status."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (external dependency relationship)"
+            ],
+            "connotation": "The relationship and contract facts for one external-service dependency: which systems depend on it, its criticality, and contract status."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -91922,6 +92618,7 @@
             {
               "name": "contractExpiry",
               "label": "Contract Expiry Date",
+              "hint": "Date the current contract expires (ISO 8601).",
               "type": "String",
               "required": false
             }
@@ -91933,7 +92630,22 @@
       "name": "ExternalServiceDependencyEntryRisk",
       "sectionId": "EXSRK",
       "doc": "Risk and fallback considerations.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (external dependency risk)"
+        ],
+        "connotation": "The risk and fallback facts for one external-service dependency: lock-in, switching cost, alternatives, fallback procedure, and outage history."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (external dependency risk)"
+            ],
+            "connotation": "The risk and fallback facts for one external-service dependency: lock-in, switching cost, alternatives, fallback procedure, and outage history."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -96622,7 +97334,22 @@
       "name": "FragilePointEntry",
       "sectionId": "FRAGI",
       "doc": "A single fragile point entry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration risk / fragile point)"
+        ],
+        "connotation": "One fragile or high-risk point in the current integration landscape whose failure would disrupt operations or threaten the new system implementation."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration risk / fragile point)"
+            ],
+            "connotation": "One fragile or high-risk point in the current integration landscape whose failure would disrupt operations or threaten the new system implementation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -98948,7 +99675,22 @@
       "name": "GapEntry",
       "sectionId": "GAPE",
       "doc": "A gap entry (form) — a missing capability or feature.\n\nDocuments a specific gap between current capabilities and business needs:\ncategory, severity, quantified cost, stakeholders, compliance drivers,\nworkarounds, resolution approach, and success criteria.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §6 — gap analysis (single capability gap)"
+        ],
+        "connotation": "One fully documented capability gap — its category, severity, impact, discovery, workaround, and proposed resolution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (single capability gap)"
+            ],
+            "connotation": "One fully documented capability gap — its category, severity, impact, discovery, workaround, and proposed resolution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -99065,7 +99807,22 @@
       "name": "GapEntryDescription",
       "sectionId": "GAENDE",
       "doc": "Gap description and business impact.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §6 — gap analysis (gap definition & business impact)"
+        ],
+        "connotation": "What is missing or inadequate and why it matters — the gap description, priority, quantified cost, and affected processes and stakeholders."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (gap definition & business impact)"
+            ],
+            "connotation": "What is missing or inadequate and why it matters — the gap description, priority, quantified cost, and affected processes and stakeholders."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -99143,7 +99900,22 @@
       "name": "GapEntryDiscovery",
       "sectionId": "GAENDI",
       "doc": "Discovery and validation for gap.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §6 — gap analysis (gap discovery, drivers & validation)"
+        ],
+        "connotation": "How this gap was found and confirmed — its compliance driver, discovery method, age, validation status, and links to related pain points."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (gap discovery, drivers & validation)"
+            ],
+            "connotation": "How this gap was found and confirmed — its compliance driver, discovery method, age, validation status, and links to related pain points."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -99214,7 +99986,22 @@
       "name": "GapEntryResolution",
       "sectionId": "GAENRE",
       "doc": "Resolution planning for gap.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §6 — gap analysis (closing the gap toward the desired state)"
+        ],
+        "connotation": "The proposed path from this gap to the desired state — approach, timeline, success criteria, and dependencies on other gaps."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (closing the gap toward the desired state)"
+            ],
+            "connotation": "The proposed path from this gap to the desired state — approach, timeline, success criteria, and dependencies on other gaps."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -99278,7 +100065,22 @@
       "name": "GapEntryWorkaround",
       "sectionId": "GAENWO",
       "doc": "Current workarounds for gap.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §6 — gap analysis (current coping with the gap)"
+        ],
+        "connotation": "How the organisation copes with this gap today — the interim workaround, its cost, and the risk if the gap remains unclosed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (current coping with the gap)"
+            ],
+            "connotation": "How the organisation copes with this gap today — the interim workaround, its cost, and the risk if the gap remains unclosed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -99335,7 +100137,22 @@
       "name": "Gaps",
       "sectionId": "GAPS",
       "doc": "1.3.4. Gaps.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §6 — gap analysis (current vs. desired state)"
+        ],
+        "connotation": "The set of missing or inadequate capabilities — the differences between what the current state delivers and what the business needs."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (current vs. desired state)"
+            ],
+            "connotation": "The set of missing or inadequate capabilities — the differences between what the current state delivers and what the business needs."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -99365,10 +100182,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Gap.",
+          "help": "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution.",
           "sectionId": "GAPE-ITEM-LST",
           "sectionIdPattern": "GAPE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (capability gap identification)"
+            ],
+            "connotation": "The list of individual capability gaps documented in detail."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §6 — gap analysis (capability gap identification)"
+                ],
+                "connotation": "The list of individual capability gaps documented in detail."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -99379,6 +100212,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "GAPE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
               }
             },
             {
@@ -109130,7 +109969,22 @@
       "name": "IntegrationHealthSummary",
       "sectionId": "INHESU",
       "doc": "1.1.3.5. Integration Health Summary.\n\nExecutive summary of overall integration landscape health and risk areas.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration health)"
+        ],
+        "connotation": "The executive summary of overall integration-landscape health: aggregate counts, risk areas, technical debt, and impact on this project."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration health)"
+            ],
+            "connotation": "The executive summary of overall integration-landscape health: aggregate counts, risk areas, technical debt, and impact on this project."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -109222,10 +110076,26 @@
           "name": "fragilePoints",
           "kind": "list",
           "doc": "Fragile integration points requiring attention.",
+          "help": "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation.",
           "sectionId": "FRAGI-FRAG-LST",
           "sectionIdPattern": "FRAGI-FRAG-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (fragile integration points)"
+            ],
+            "connotation": "The set of fragile integration points in the AS-IS landscape that pose risk and require attention."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (fragile integration points)"
+                ],
+                "connotation": "The set of fragile integration points in the AS-IS landscape that pose risk and require attention."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -109236,6 +110106,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "FRAGI-FRAG-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation."
               }
             },
             {
@@ -109254,7 +110130,22 @@
       "name": "IntegrationPatternEntry",
       "sectionId": "IPE",
       "doc": "A single integration pattern entry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration pattern)"
+        ],
+        "connotation": "One integration pattern in use across the current architecture — the style and mechanism by which two or more existing systems exchange data today."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration pattern)"
+            ],
+            "connotation": "One integration pattern in use across the current architecture — the style and mechanism by which two or more existing systems exchange data today."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -109354,7 +110245,22 @@
       "name": "Integrations",
       "sectionId": "INTEGR",
       "doc": "1.1.3.4. System Integrations.\n\nActive integrations between systems including protocols, data formats,\nerror handling, and monitoring.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (system integrations)"
+        ],
+        "connotation": "The active integrations between systems in the AS-IS landscape — their protocols, data exchange, error handling, and monitoring."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (system integrations)"
+            ],
+            "connotation": "The active integrations between systems in the AS-IS landscape — their protocols, data exchange, error handling, and monitoring."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -109395,10 +110301,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× SystemIntegration.",
+          "help": "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring.",
           "sectionId": "SYIN-ITEM-LST",
           "sectionIdPattern": "SYIN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (system integrations)"
+            ],
+            "connotation": "The set of documented active integrations between systems."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (system integrations)"
+                ],
+                "connotation": "The set of documented active integrations between systems."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -109409,6 +110331,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SYIN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
               }
             },
             {
@@ -114322,7 +115250,22 @@
       "name": "InternalDependencies",
       "sectionId": "INTDP",
       "doc": "1.1.3.1. Internal Dependencies.\n\nDependencies between systems owned and operated internally.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (internal dependencies)"
+        ],
+        "connotation": "The dependencies between systems the organization owns and operates internally."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (internal dependencies)"
+            ],
+            "connotation": "The dependencies between systems the organization owns and operates internally."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -114363,10 +115306,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Internal System Dependency.",
+          "help": "Add one entry per dependency between internal systems. Capture the mechanism, coupling strength, data flow, and failure impact of each.",
           "sectionId": "SYDE-ITEM-LST",
           "sectionIdPattern": "SYDE-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (internal dependencies)"
+            ],
+            "connotation": "The set of documented dependencies between internal systems."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (internal dependencies)"
+                ],
+                "connotation": "The set of documented dependencies between internal systems."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -114377,6 +115336,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SYDE-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per dependency between internal systems. Capture the mechanism, coupling strength, data flow, and failure impact of each."
               }
             },
             {
@@ -120276,7 +121241,22 @@
       "name": "LimitationEntry",
       "sectionId": "LIMET",
       "doc": "A known limitation of an existing system (form).",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (known limitations)"
+        ],
+        "connotation": "A single known limitation of an existing system and its impact on current operations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (known limitations)"
+            ],
+            "connotation": "A single known limitation of an existing system and its impact on current operations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -120307,12 +121287,14 @@
             {
               "name": "limitation",
               "label": "Limitation",
+              "hint": "The limitation itself, e.g. \"No multi-currency support\".",
               "type": "String",
               "required": true
             },
             {
               "name": "impact",
               "label": "Impact assessment",
+              "hint": "Effect on operations and any workaround in place.",
               "type": "String",
               "required": false
             }
@@ -126386,7 +127368,22 @@
       "name": "MetricsBaselineEntry",
       "sectionId": "MEBAEN",
       "doc": "A baseline entry for tracking metric changes.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (baseline entry)"
+        ],
+        "connotation": "A single baselined metric: its current value, target value, dates, and the improvement expected."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (baseline entry)"
+            ],
+            "connotation": "A single baselined metric: its current value, target value, dates, and the improvement expected."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126466,7 +127463,22 @@
       "name": "MetricsBaselineTable",
       "sectionId": "MEBATA",
       "doc": "Baseline table for tracking metrics over time.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (baseline for improvement tracking)"
+        ],
+        "connotation": "The set of baselined metrics against which future improvement will be measured, with their current and target values."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (baseline for improvement tracking)"
+            ],
+            "connotation": "The set of baselined metrics against which future improvement will be measured, with their current and target values."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -126507,10 +127519,26 @@
           "name": "entries",
           "kind": "list",
           "doc": "Baseline entries.",
+          "help": "Add one entry per metric to be tracked, with its baseline value, target value, and improvement target.",
           "sectionId": "MEBAEN-ENTR-LST",
           "sectionIdPattern": "MEBAEN-ENTR-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (baseline entry)"
+            ],
+            "connotation": "The individual baselined metrics tracked for improvement."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (baseline entry)"
+                ],
+                "connotation": "The individual baselined metrics tracked for improvement."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -126521,6 +127549,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "MEBAEN-ENTR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per metric to be tracked, with its baseline value, target value, and improvement target."
               }
             },
             {
@@ -126898,7 +127932,29 @@
       "name": "MetricsDashboardSummary",
       "sectionId": "MEDASU",
       "doc": "Metrics dashboard summary for executive overview.",
+      "help": "Summarize the key process metrics for an executive audience — measurement period, data quality, and the headline performance figures.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (performance dashboard)"
+        ],
+        "connotation": "An executive roll-up of the headline process metrics: throughput, cycle time, error and manual-intervention rates, utilization, and overall trend."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (performance dashboard)"
+            ],
+            "connotation": "An executive roll-up of the headline process metrics: throughput, cycle time, error and manual-intervention rates, utilization, and overall trend."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Summarize the key process metrics for an executive audience — measurement period, data quality, and the headline performance figures."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -143452,7 +144508,22 @@
       "name": "OperationalPainPoints",
       "sectionId": "OPPAPO",
       "doc": "1.3.1. Operational Pain Points.\n\nProblems that affect day-to-day operations: downtime, slow response,\ndata inconsistencies, manual workarounds, and process interruptions.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (operational performance shortfalls)"
+        ],
+        "connotation": "Day-to-day operational problems in the current state — downtime, manual workarounds, and data inconsistencies that disrupt routine work."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (operational performance shortfalls)"
+            ],
+            "connotation": "Day-to-day operational problems in the current state — downtime, manual workarounds, and data inconsistencies that disrupt routine work."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -143501,10 +144572,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PainPoint.",
+          "help": "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns.",
           "sectionId": "OPPAPO-ITEM-LST",
           "sectionIdPattern": "OPPAPO-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (problem identification)"
+            ],
+            "connotation": "The list of individual operational pain points documented in detail."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (problem identification)"
+                ],
+                "connotation": "The list of individual operational pain points documented in detail."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -143515,6 +144602,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "OPPAPO-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns."
               }
             },
             {
@@ -143533,7 +144626,29 @@
       "name": "OperationalPainPointsSummary",
       "sectionId": "OPPS",
       "doc": "Summary specific to operational pain points.",
+      "help": "Aggregate the operational pain points into category metrics: average downtime, number of manual workarounds, data-inconsistency frequency, and staff overhead spent on workarounds.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (operational measures)"
+        ],
+        "connotation": "Category roll-up quantifying the operational pain points — downtime, workaround count, and staff overhead in the current state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (operational measures)"
+            ],
+            "connotation": "Category roll-up quantifying the operational pain points — downtime, workaround count, and staff overhead in the current state."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Aggregate the operational pain points into category metrics: average downtime, number of manual workarounds, data-inconsistency frequency, and staff overhead spent on workarounds."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -147309,7 +148424,22 @@
       "name": "PainPointClassification",
       "sectionId": "PAPOCL",
       "doc": "Classification for pain point.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (problem categorisation & prioritisation)"
+        ],
+        "connotation": "How this pain point is categorised and prioritised — its description, category, urgency, and resolution priority."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (problem categorisation & prioritisation)"
+            ],
+            "connotation": "How this pain point is categorised and prioritised — its description, category, urgency, and resolution priority."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -147380,7 +148510,22 @@
       "name": "PainPointEntry",
       "sectionId": "PAPE",
       "doc": "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (single problem statement)"
+        ],
+        "connotation": "One fully documented pain point — its classification, root cause, impact, evidence, workaround, and proposed resolution."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (single problem statement)"
+            ],
+            "connotation": "One fully documented pain point — its classification, root cause, impact, evidence, workaround, and proposed resolution."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -147525,10 +148670,26 @@
           "name": "relationships",
           "kind": "list",
           "doc": "Relationships.",
+          "help": "Add one entry per relationship this pain point has — related pain points, originating gaps, or other pain points it depends on.",
           "sectionId": "PAPOR1-RELA-LST",
           "sectionIdPattern": "PAPOR1-RELA-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (relationships among problems)"
+            ],
+            "connotation": "The set of links from this pain point to related pain points, gaps, and dependencies."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (relationships among problems)"
+                ],
+                "connotation": "The set of links from this pain point to related pain points, gaps, and dependencies."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -147539,6 +148700,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PAPOR1-RELA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per relationship this pain point has — related pain points, originating gaps, or other pain points it depends on."
               }
             },
             {
@@ -147557,7 +148724,22 @@
       "name": "PainPointEvidence",
       "sectionId": "PAPOEV",
       "doc": "Evidence for pain point.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (evidence & validation of problems)"
+        ],
+        "connotation": "How this pain point was discovered and validated — discovery method, validation status, and the data sources that substantiate it."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (evidence & validation of problems)"
+            ],
+            "connotation": "How this pain point was discovered and validated — discovery method, validation status, and the data sources that substantiate it."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -147628,7 +148810,22 @@
       "name": "PainPointGapCorrelation",
       "sectionId": "PPGC",
       "doc": "Cross-reference analysis between pain points and gaps.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §6 — gap analysis (linking problems to capability gaps)"
+        ],
+        "connotation": "The mapping that ties documented pain points to capability gaps — showing which gaps cause which pains and where unstated gaps may lurk."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (linking problems to capability gaps)"
+            ],
+            "connotation": "The mapping that ties documented pain points to capability gaps — showing which gaps cause which pains and where unstated gaps may lurk."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -147684,10 +148881,26 @@
           "name": "correlationEntries",
           "kind": "list",
           "doc": "Tabular correlation data.",
+          "help": "Add one entry per pain-point-to-gap relationship, naming both IDs and describing how they are linked (cause, contribution, or indication) and how strong the link is.",
           "sectionId": "PPGCE-CORR-LST",
           "sectionIdPattern": "PPGCE-CORR-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (pain-point to gap traceability)"
+            ],
+            "connotation": "The list of individual pain-point-to-gap correlation entries."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §6 — gap analysis (pain-point to gap traceability)"
+                ],
+                "connotation": "The list of individual pain-point-to-gap correlation entries."
+              }
+            },
             {
               "name": "Min",
               "arguments": {
@@ -147707,6 +148920,12 @@
               }
             },
             {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per pain-point-to-gap relationship, naming both IDs and describing how they are linked (cause, contribution, or indication) and how strong the link is."
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 2
@@ -147723,7 +148942,22 @@
       "name": "PainPointGapCorrelationEntry",
       "sectionId": "PPGCE",
       "doc": "Individual pain point to gap correlation entry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §6 — gap analysis (single pain-point/gap correlation)"
+        ],
+        "connotation": "One link between a specific pain point and a specific gap, with its correlation type and strength."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (single pain-point/gap correlation)"
+            ],
+            "connotation": "One link between a specific pain point and a specific gap, with its correlation type and strength."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -147794,7 +149028,22 @@
       "name": "PainPointImpact",
       "sectionId": "PAPOIM",
       "doc": "Impact assessment for pain point.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (impact assessment & quantification)"
+        ],
+        "connotation": "The reach and cost of this pain point — affected processes, systems, stakeholders, frequency, and quantified business impact."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (impact assessment & quantification)"
+            ],
+            "connotation": "The reach and cost of this pain point — affected processes, systems, stakeholders, frequency, and quantified business impact."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -147886,7 +149135,22 @@
       "name": "PainPointRelationships",
       "sectionId": "PAPOR1",
       "doc": "Relationships for pain point.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (relationships among problems)"
+        ],
+        "connotation": "A single link from this pain point to another pain point, a gap, or a dependency that must be resolved first."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (relationships among problems)"
+            ],
+            "connotation": "A single link from this pain point to another pain point, a gap, or a dependency that must be resolved first."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -147943,7 +149207,22 @@
       "name": "PainPointResolution",
       "sectionId": "PAPORE",
       "doc": "Resolution for pain point.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §6 — gap analysis (current vs. desired state)"
+        ],
+        "connotation": "The proposed path from this pain point to a resolved state — approach, complexity, effort, expected benefit, and success criteria."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §6 — gap analysis (current vs. desired state)"
+            ],
+            "connotation": "The proposed path from this pain point to a resolved state — approach, complexity, effort, expected benefit, and success criteria."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148014,7 +149293,22 @@
       "name": "PainPointRootCause",
       "sectionId": "PPRC",
       "doc": "Root cause for pain point.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (root cause analysis)"
+        ],
+        "connotation": "The underlying cause of this pain point and the factors that exacerbate it, distinguishing the true root cause from its symptoms."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (root cause analysis)"
+            ],
+            "connotation": "The underlying cause of this pain point and the factors that exacerbate it, distinguishing the true root cause from its symptoms."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148071,7 +149365,22 @@
       "name": "PainPointWorkaround",
       "sectionId": "PAPOWO",
       "doc": "Workaround for pain point.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (current workarounds & coping mechanisms)"
+        ],
+        "connotation": "How the organisation currently copes with this pain point — the interim workaround, its effectiveness and cost, and the risk if left unaddressed."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (current workarounds & coping mechanisms)"
+            ],
+            "connotation": "How the organisation currently copes with this pain point — the interim workaround, its effectiveness and cost, and the risk if left unaddressed."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148136,7 +149445,22 @@
       "sectionId": "PPAG",
       "doc": "1.3. Pain Points and Gaps.\n\nComprehensive documentation of specific problems, inefficiencies,\ncompliance gaps, and user frustrations in the current state.\nEach pain point includes business impact quantification and root cause.",
       "detailedIn": "D01CurrentLandscapeAssessment",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (problem & opportunity identification)"
+        ],
+        "connotation": "The catalogue of AS-IS problems, inefficiencies, and capability gaps that justify change — the pain the future solution must relieve."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (problem & opportunity identification)"
+            ],
+            "connotation": "The catalogue of AS-IS problems, inefficiencies, and capability gaps that justify change — the pain the future solution must relieve."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -148319,7 +149643,29 @@
       "name": "PainPointsSummary",
       "sectionId": "PAPOSU",
       "doc": "Summary statistics and metrics for all pain points.",
+      "help": "Summarize the documented pain points as a whole: totals by severity, aggregate cost and productivity loss, and the most affected process and stakeholder group. Derive these from the individual entries.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (measurement of current performance)"
+        ],
+        "connotation": "Aggregate roll-up of all documented pain points — counts, severity mix, and total cost — giving a single quantified view of the AS-IS problem space."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (measurement of current performance)"
+            ],
+            "connotation": "Aggregate roll-up of all documented pain points — counts, severity mix, and total cost — giving a single quantified view of the AS-IS problem space."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Summarize the documented pain points as a whole: totals by severity, aggregate cost and productivity loss, and the most affected process and stakeholder group. Derive these from the individual entries."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -156391,7 +157737,22 @@
       "sectionId": "PC",
       "doc": "Context and purpose of a business process.",
       "help": "Describe why this process exists, what business value it delivers, and how it fits into the overall organizational workflow.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (process context and drivers)"
+        ],
+        "connotation": "The reason a process exists and how it fits the organization: its purpose, value, regulatory drivers, SLAs, and up/downstream relationships."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (process context and drivers)"
+            ],
+            "connotation": "The reason a process exists and how it fits the organization: its purpose, value, regulatory drivers, SLAs, and up/downstream relationships."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -156823,7 +158184,22 @@
       "name": "ProcessDependencyEntry",
       "sectionId": "PRDEEN",
       "doc": "A single process dependency entry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (process dependency)"
+        ],
+        "connotation": "A single directed dependency between two processes: what flows between them, how tightly they are coupled, and the impact if it fails."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (process dependency)"
+            ],
+            "connotation": "A single directed dependency between two processes: what flows between them, how tightly they are coupled, and the impact if it fails."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158388,7 +159764,29 @@
       "name": "ProcessInterdependencyMatrix",
       "sectionId": "PRINMA",
       "doc": "Process interdependency matrix showing how processes interact.",
+      "help": "Document how processes interact: which feed which, what is exchanged, and how tightly coupled they are. Use the diagram for the overall picture and the entries for each pairwise dependency.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (process interdependencies)"
+        ],
+        "connotation": "The map of how the current processes depend on and interact with each other, including the artifacts exchanged between them."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (process interdependencies)"
+            ],
+            "connotation": "The map of how the current processes depend on and interact with each other, including the artifacts exchanged between them."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Document how processes interact: which feed which, what is exchanged, and how tightly coupled they are. Use the diagram for the overall picture and the entries for each pairwise dependency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158444,10 +159842,26 @@
           "name": "dependencies",
           "kind": "list",
           "doc": "Individual process dependencies.",
+          "help": "Add one entry per source→target process dependency, capturing the artifact exchanged, coupling, timing, and failure impact.",
           "sectionId": "PRDEEN-DEPE-LST",
           "sectionIdPattern": "PRDEEN-DEPE-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (process dependency)"
+            ],
+            "connotation": "The set of individual dependencies between processes."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (process dependency)"
+                ],
+                "connotation": "The set of individual dependencies between processes."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -158458,6 +159872,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRDEEN-DEPE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per source→target process dependency, capturing the artifact exchanged, coupling, timing, and failure impact."
               }
             },
             {
@@ -158736,7 +160156,29 @@
       "name": "ProcessMetricCategory",
       "sectionId": "PRMECA",
       "doc": "A category of process metrics.",
+      "help": "Group related metrics under this category and add one entry per metric it contains.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (metric category)"
+        ],
+        "connotation": "A grouping of related process metrics under one category (e.g. efficiency, quality, volume, cost)."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (metric category)"
+            ],
+            "connotation": "A grouping of related process metrics under one category (e.g. efficiency, quality, volume, cost)."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Group related metrics under this category and add one entry per metric it contains."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158770,10 +160212,26 @@
           "name": "metrics",
           "kind": "list",
           "doc": "Metrics in this category.",
+          "help": "Add one entry per metric in this category, with its current value, unit, and measurement details.",
           "sectionId": "PME-METR-LST",
           "sectionIdPattern": "PME-METR-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (metrics in category)"
+            ],
+            "connotation": "The individual metrics belonging to this category."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (metrics in category)"
+                ],
+                "connotation": "The individual metrics belonging to this category."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -158784,6 +160242,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PME-METR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per metric in this category, with its current value, unit, and measurement details."
               }
             },
             {
@@ -158803,7 +160267,22 @@
       "sectionId": "PME",
       "doc": "A process metric entry (form).\n\nA single measurable metric with current value and measurement details.",
       "help": "Define each metric clearly with current baseline values, measurement methodology, and target values if known.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (performance metric)"
+        ],
+        "connotation": "A single measurable process metric: its current value and unit, how it is measured, and its target/benchmark context."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (performance metric)"
+            ],
+            "connotation": "A single measurable process metric: its current value and unit, how it is measured, and its target/benchmark context."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -158925,7 +160404,29 @@
       "name": "ProcessMetricEntryMeasurement",
       "sectionId": "PMEM",
       "doc": "Measurement collection details.",
+      "help": "Record how this metric is measured — the method, data source, and how often it is collected.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (metric measurement method)"
+        ],
+        "connotation": "How a metric is collected: its measurement method, data source, and measurement frequency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (metric measurement method)"
+            ],
+            "connotation": "How a metric is collected: its measurement method, data source, and measurement frequency."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Record how this metric is measured — the method, data source, and how often it is collected."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -158979,7 +160480,29 @@
       "name": "ProcessMetricEntryTargets",
       "sectionId": "PMET",
       "doc": "Target setting and benchmarking context.",
+      "help": "Record the target value for this metric, its current trend, and any industry benchmark for comparison.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (metric target and benchmark)"
+        ],
+        "connotation": "The target and benchmarking context for a metric: its target value, trend, and industry benchmark."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (metric target and benchmark)"
+            ],
+            "connotation": "The target and benchmarking context for a metric: its target value, trend, and industry benchmark."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Record the target value for this metric, its current trend, and any industry benchmark for comparison."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -159034,7 +160557,22 @@
       "sectionId": "PM",
       "doc": "1.2.2. Process Metrics.\n\nQuantitative metrics for measuring process performance. These metrics\nform the baseline against which improvements will be measured.",
       "help": "Document current process performance including throughput, cycle times, error rates, and manual intervention frequency. These become the baseline against which improvements are measured.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (performance measures / baseline)"
+        ],
+        "connotation": "The quantitative performance baseline of a process: its efficiency, quality, volume, cost, and manual-intervention metrics as measured today."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (performance measures / baseline)"
+            ],
+            "connotation": "The quantitative performance baseline of a process: its efficiency, quality, volume, cost, and manual-intervention metrics as measured today."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -159102,10 +160640,26 @@
           "name": "efficiencyMetrics",
           "kind": "list",
           "doc": "Efficiency metrics.",
+          "help": "Add efficiency metrics — throughput, cycle times, utilization.",
           "sectionId": "PRMECA-EFFI-LST",
           "sectionIdPattern": "PRMECA-EFFI-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (efficiency measures)"
+            ],
+            "connotation": "The efficiency metrics for the process: throughput, cycle times, and resource utilization."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (efficiency measures)"
+                ],
+                "connotation": "The efficiency metrics for the process: throughput, cycle times, and resource utilization."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -159116,6 +160670,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRMECA-EFFI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add efficiency metrics — throughput, cycle times, utilization."
               }
             },
             {
@@ -159138,10 +160698,26 @@
           "name": "qualityMetrics",
           "kind": "list",
           "doc": "Quality metrics.",
+          "help": "Add quality metrics — error rates, defect rates, rework rates.",
           "sectionId": "PRMECA-QUAL-LST",
           "sectionIdPattern": "PRMECA-QUAL-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (quality measures)"
+            ],
+            "connotation": "The quality metrics for the process: error, defect, and rework rates."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (quality measures)"
+                ],
+                "connotation": "The quality metrics for the process: error, defect, and rework rates."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -159152,6 +160728,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRMECA-QUAL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add quality metrics — error rates, defect rates, rework rates."
               }
             },
             {
@@ -159174,10 +160756,26 @@
           "name": "volumeMetrics",
           "kind": "list",
           "doc": "Volume metrics.",
+          "help": "Add volume metrics — transaction counts, throughput volumes.",
           "sectionId": "PRMECA-VOLU-LST",
           "sectionIdPattern": "PRMECA-VOLU-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (volume measures)"
+            ],
+            "connotation": "The volume metrics for the process: transaction counts and throughput volumes."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (volume measures)"
+                ],
+                "connotation": "The volume metrics for the process: transaction counts and throughput volumes."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -159188,6 +160786,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRMECA-VOLU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add volume metrics — transaction counts, throughput volumes."
               }
             },
             {
@@ -159210,10 +160814,26 @@
           "name": "costMetrics",
           "kind": "list",
           "doc": "Cost metrics.",
+          "help": "Add cost metrics — cost per transaction, resource costs.",
           "sectionId": "PRMECA-COST-LST",
           "sectionIdPattern": "PRMECA-COST-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (cost measures)"
+            ],
+            "connotation": "The cost metrics for the process: cost per transaction and resource costs."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (cost measures)"
+                ],
+                "connotation": "The cost metrics for the process: cost per transaction and resource costs."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -159224,6 +160844,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRMECA-COST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add cost metrics — cost per transaction, resource costs."
               }
             },
             {
@@ -159246,10 +160872,26 @@
           "name": "manualInterventionMetrics",
           "kind": "list",
           "doc": "Manual intervention metrics.",
+          "help": "Add manual-intervention metrics — manual steps, human intervention frequency.",
           "sectionId": "PRMECA-MANU-LST",
           "sectionIdPattern": "PRMECA-MANU-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (manual-intervention measures)"
+            ],
+            "connotation": "The metrics describing how much manual effort the process requires."
+          },
           "serializationOrder": 6,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (manual-intervention measures)"
+                ],
+                "connotation": "The metrics describing how much manual effort the process requires."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -159260,6 +160902,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRMECA-MANU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add manual-intervention metrics — manual steps, human intervention frequency."
               }
             },
             {
@@ -159282,10 +160930,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Individual metric entries.",
+          "help": "Add any individual metrics that do not fit a specific category above.",
           "sectionId": "PME-ITEM-LST",
           "sectionIdPattern": "PME-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (individual metrics)"
+            ],
+            "connotation": "The flat list of individual metric entries not grouped by category."
+          },
           "serializationOrder": 7,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (individual metrics)"
+                ],
+                "connotation": "The flat list of individual metric entries not grouped by category."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -159296,6 +160960,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PME-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add any individual metrics that do not fit a specific category above."
               }
             },
             {
@@ -159523,7 +161193,29 @@
       "name": "ProcessPainPoints",
       "sectionId": "PRPAPO",
       "doc": "Process-specific pain points and improvement opportunities.",
+      "help": "Capture the problems and improvement opportunities specific to this process — what works poorly today and where it could be better.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (process problems and opportunities)"
+        ],
+        "connotation": "The known issues, inefficiencies, and improvement opportunities specific to one process in its current state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (process problems and opportunities)"
+            ],
+            "connotation": "The known issues, inefficiencies, and improvement opportunities specific to one process in its current state."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Capture the problems and improvement opportunities specific to this process — what works poorly today and where it could be better."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -159557,10 +161249,26 @@
           "name": "improvements",
           "kind": "list",
           "doc": "Process improvement opportunities.",
+          "help": "Add one entry per improvement opportunity, contrasting the current and desired state with its benefit, effort, and priority.",
           "sectionId": "CPIE-IMPR-LST",
           "sectionIdPattern": "CPIE-IMPR-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (improvement opportunity)"
+            ],
+            "connotation": "The set of improvement opportunities identified for this process."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (improvement opportunity)"
+                ],
+                "connotation": "The set of improvement opportunities identified for this process."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -159571,6 +161279,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CPIE-IMPR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per improvement opportunity, contrasting the current and desired state with its benefit, effort, and priority."
               }
             },
             {
@@ -159763,7 +161477,29 @@
       "name": "ProcessPerformanceSummary",
       "sectionId": "PRPESU",
       "doc": "Process performance summary with high-level metrics.",
+      "help": "Summarize the overall health of the current processes — maturity, automation level, manual and error-prone steps, bottlenecks, and the estimated cost of inefficiency.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (process performance baseline)"
+        ],
+        "connotation": "A high-level view of how the current processes perform overall: maturity, automation, manual and error-prone effort, and estimated waste."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (process performance baseline)"
+            ],
+            "connotation": "A high-level view of how the current processes perform overall: maturity, automation, manual and error-prone effort, and estimated waste."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Summarize the overall health of the current processes — maturity, automation level, manual and error-prone steps, bottlenecks, and the estimated cost of inefficiency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -159849,10 +161585,26 @@
           "name": "keyMetrics",
           "kind": "list",
           "doc": "Key metrics summary.",
+          "help": "Add the most important metrics that characterize overall process performance at a glance.",
           "sectionId": "PME-KEYM-LST",
           "sectionIdPattern": "PME-KEYM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (key performance metrics)"
+            ],
+            "connotation": "The headline metrics chosen to summarize current process performance."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (key performance metrics)"
+                ],
+                "connotation": "The headline metrics chosen to summarize current process performance."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -159863,6 +161615,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PME-KEYM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add the most important metrics that characterize overall process performance at a glance."
               }
             },
             {
@@ -160381,7 +162139,22 @@
       "name": "ProcessScopeEntry",
       "sectionId": "PRSCEN",
       "doc": "A process scope entry indicating in/out of scope status.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (scope decision)"
+        ],
+        "connotation": "A single scope decision for one process: whether it is in or out of scope and the reasoning behind that decision."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (scope decision)"
+            ],
+            "connotation": "A single scope decision for one process: whether it is in or out of scope and the reasoning behind that decision."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -160448,7 +162221,29 @@
       "name": "ProcessScopeSummary",
       "sectionId": "PRSCSU",
       "doc": "Process scope summary defining in-scope and out-of-scope processes.",
+      "help": "Summarize how many processes were identified and which were selected for analysis. Record the rationale for scope decisions and any processes deferred to later phases.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (analysis scope)"
+        ],
+        "connotation": "The boundary statement for the current-state analysis: which processes are in scope, which are excluded, and why."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (analysis scope)"
+            ],
+            "connotation": "The boundary statement for the current-state analysis: which processes are in scope, which are excluded, and why."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Summarize how many processes were identified and which were selected for analysis. Record the rationale for scope decisions and any processes deferred to later phases."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -160514,10 +162309,26 @@
           "name": "inScopeProcesses",
           "kind": "list",
           "doc": "Processes in scope.",
+          "help": "Add one entry per process that is in scope for analysis, with the rationale for its inclusion.",
           "sectionId": "PRSCEN-INSC-LST",
           "sectionIdPattern": "PRSCEN-INSC-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (in-scope processes)"
+            ],
+            "connotation": "The processes explicitly included in the current-state analysis."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (in-scope processes)"
+                ],
+                "connotation": "The processes explicitly included in the current-state analysis."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -160528,6 +162339,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRSCEN-INSC-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per process that is in scope for analysis, with the rationale for its inclusion."
               }
             },
             {
@@ -160544,10 +162361,26 @@
           "name": "outOfScopeProcesses",
           "kind": "list",
           "doc": "Processes explicitly out of scope.",
+          "help": "Add one entry per process excluded from analysis, noting why and the impact of leaving it out.",
           "sectionId": "PRSCEN-OUTO-LST",
           "sectionIdPattern": "PRSCEN-OUTO-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (out-of-scope processes)"
+            ],
+            "connotation": "The processes deliberately excluded from the current-state analysis."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (out-of-scope processes)"
+                ],
+                "connotation": "The processes deliberately excluded from the current-state analysis."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -160558,6 +162391,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "PRSCEN-OUTO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per process excluded from analysis, noting why and the impact of leaving it out."
               }
             },
             {
@@ -202642,7 +204481,22 @@
       "name": "SharedInfrastructureDependencies",
       "sectionId": "SHDEP",
       "doc": "1.1.3.3. Shared Infrastructure Dependencies.\n\nDependencies on shared infrastructure components used by multiple systems.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (shared infrastructure)"
+        ],
+        "connotation": "The dependencies on shared infrastructure components that multiple systems rely on — the cross-cutting single points of failure in the AS-IS estate."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (shared infrastructure)"
+            ],
+            "connotation": "The dependencies on shared infrastructure components that multiple systems rely on — the cross-cutting single points of failure in the AS-IS estate."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -202683,10 +204537,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× Shared Infrastructure Component.",
+          "help": "Add one entry per shared infrastructure component (e.g. a database cluster, message broker, identity provider). Capture its criticality, resilience, and the systems that depend on it.",
           "sectionId": "SHIEN-ITEM-LST",
           "sectionIdPattern": "SHIEN-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (shared infrastructure)"
+            ],
+            "connotation": "The set of documented shared infrastructure components that multiple systems depend on."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (shared infrastructure)"
+                ],
+                "connotation": "The set of documented shared infrastructure components that multiple systems depend on."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -202697,6 +204567,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "SHIEN-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per shared infrastructure component (e.g. a database cluster, message broker, identity provider). Capture its criticality, resilience, and the systems that depend on it."
               }
             },
             {
@@ -202715,7 +204591,22 @@
       "name": "SharedInfrastructureEntry",
       "sectionId": "SHIEN",
       "doc": "A shared infrastructure entry (form).\n\nDocuments a shared infrastructure component that multiple systems depend on.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (shared infrastructure component)"
+        ],
+        "connotation": "A complete profile of one shared infrastructure component: its identity, resilience, capacity, and ownership."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (shared infrastructure component)"
+            ],
+            "connotation": "A complete profile of one shared infrastructure component: its identity, resilience, capacity, and ownership."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -202746,6 +204637,7 @@
             {
               "name": "componentName",
               "label": "Infrastructure Component Name",
+              "hint": "Name of the component, e.g. \"Prod Oracle RAC cluster\".",
               "type": "String",
               "required": true
             },
@@ -202759,12 +204651,14 @@
             {
               "name": "dependentSystemCount",
               "label": "Number of Dependent Systems",
+              "hint": "How many systems depend on this component.",
               "type": "int",
               "required": false
             },
             {
               "name": "dependentSystemList",
               "label": "List of Dependent Systems",
+              "hint": "Names of the systems that depend on this component.",
               "type": "String",
               "required": false
             }
@@ -202821,7 +204715,22 @@
       "name": "SharedInfrastructureEntryCapacity",
       "sectionId": "SIEC",
       "doc": "Capacity constraints.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (infrastructure capacity)"
+        ],
+        "connotation": "The capacity facts for one shared infrastructure component: its headroom and scaling limitations."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (infrastructure capacity)"
+            ],
+            "connotation": "The capacity facts for one shared infrastructure component: its headroom and scaling limitations."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -202871,7 +204780,22 @@
       "name": "SharedInfrastructureEntryOperations",
       "sectionId": "SIEO",
       "doc": "Ownership and maintenance.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (infrastructure ownership)"
+        ],
+        "connotation": "The ownership and maintenance facts for one shared infrastructure component: who manages it, its maintenance window, and documentation state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (infrastructure ownership)"
+            ],
+            "connotation": "The ownership and maintenance facts for one shared infrastructure component: who manages it, its maintenance window, and documentation state."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -202928,7 +204852,22 @@
       "name": "SharedInfrastructureEntryResilience",
       "sectionId": "SIER",
       "doc": "Criticality and resilience.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (infrastructure resilience)"
+        ],
+        "connotation": "The criticality and resilience facts for one shared infrastructure component: whether it is a single point of failure and its redundancy."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (infrastructure resilience)"
+            ],
+            "connotation": "The criticality and resilience facts for one shared infrastructure component: whether it is a single point of failure and its redundancy."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -203679,7 +205618,22 @@
       "name": "SharedServiceEntry",
       "sectionId": "SHARE",
       "doc": "A single shared service entry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (shared service)"
+        ],
+        "connotation": "One shared service or common capability that multiple existing systems depend on, forming part of the current architectural baseline."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (shared service)"
+            ],
+            "connotation": "One shared service or common capability that multiple existing systems depend on, forming part of the current architectural baseline."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -218876,7 +220830,22 @@
       "name": "SystemDependencyEntry",
       "sectionId": "SYDE",
       "doc": "A system dependency entry (form).\n\nDocuments one dependency between systems in the current landscape:\nmechanism, coupling strength, data flow, failure impact, SLA,\nmonitoring, and technical debt assessment.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (system dependency profile)"
+        ],
+        "connotation": "A complete profile of one inter-system dependency: its mechanism, coupling, data exchange, reliability, and operational ownership."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (system dependency profile)"
+            ],
+            "connotation": "A complete profile of one inter-system dependency: its mechanism, coupling, data exchange, reliability, and operational ownership."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219033,7 +221002,22 @@
       "name": "SystemDependencyEntryDataExchange",
       "sectionId": "SDEDE",
       "doc": "Data exchange characteristics for system dependency.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (dependency data exchange)"
+        ],
+        "connotation": "The data-exchange characteristics of one inter-system dependency: what data flows, in what volume, and how fresh it must be."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (dependency data exchange)"
+            ],
+            "connotation": "The data-exchange characteristics of one inter-system dependency: what data flows, in what volume, and how fresh it must be."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219090,7 +221074,22 @@
       "name": "SystemDependencyEntryMechanism",
       "sectionId": "SDEM",
       "doc": "Mechanism and coupling for system dependency.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (dependency mechanism)"
+        ],
+        "connotation": "The mechanism and coupling facts for one inter-system dependency: how the systems are linked and how tightly they are coupled."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (dependency mechanism)"
+            ],
+            "connotation": "The mechanism and coupling facts for one inter-system dependency: how the systems are linked and how tightly they are coupled."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219147,7 +221146,22 @@
       "name": "SystemDependencyEntryOperations",
       "sectionId": "SDEO",
       "doc": "Operations and documentation for system dependency.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (dependency operations)"
+        ],
+        "connotation": "The operational facts for one inter-system dependency: its monitoring, documentation, ownership, and technical-debt assessment."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (dependency operations)"
+            ],
+            "connotation": "The operational facts for one inter-system dependency: its monitoring, documentation, ownership, and technical-debt assessment."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -219225,7 +221239,22 @@
       "name": "SystemDependencyEntryReliability",
       "sectionId": "SDER",
       "doc": "Reliability and SLA for system dependency.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (dependency reliability)"
+        ],
+        "connotation": "The reliability and SLA facts for one inter-system dependency: failure impact, cascade risk, latency/availability needs, and fallback."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (dependency reliability)"
+            ],
+            "connotation": "The reliability and SLA facts for one inter-system dependency: failure impact, cascade risk, latency/availability needs, and fallback."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220461,7 +222490,22 @@
       "name": "SystemIntegrationDataExchange",
       "sectionId": "SIDE",
       "doc": "Data exchange configuration.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration data exchange)"
+        ],
+        "connotation": "The data-exchange configuration of one integration: payloads, message format, schema version, and transformation complexity."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration data exchange)"
+            ],
+            "connotation": "The data-exchange configuration of one integration: payloads, message format, schema version, and transformation complexity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220532,7 +222576,22 @@
       "name": "SystemIntegrationEntry",
       "sectionId": "SYIN",
       "doc": "A system integration entry (form).\n\nDocuments one integration between systems: type, pattern, protocol,\ndata format, throughput, error handling, monitoring, security,\nand technical debt.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (system integration profile)"
+        ],
+        "connotation": "A complete profile of one active integration between systems: its type, pattern, protocol, data exchange, error handling, throughput, monitoring, and ownership."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (system integration profile)"
+            ],
+            "connotation": "A complete profile of one active integration between systems: its type, pattern, protocol, data exchange, error handling, throughput, monitoring, and ownership."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220719,7 +222778,22 @@
       "name": "SystemIntegrationErrorHandling",
       "sectionId": "SIEH",
       "doc": "Error handling and retry.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration error handling)"
+        ],
+        "connotation": "The error-handling and retry behaviour of one integration."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration error handling)"
+            ],
+            "connotation": "The error-handling and retry behaviour of one integration."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220769,7 +222843,22 @@
       "name": "SystemIntegrationMonitoring",
       "sectionId": "SYINMO",
       "doc": "Monitoring and failover.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration monitoring)"
+        ],
+        "connotation": "The monitoring and failover facts for one integration: how it is observed and how it behaves on failure."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration monitoring)"
+            ],
+            "connotation": "The monitoring and failover facts for one integration: how it is observed and how it behaves on failure."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220819,7 +222908,22 @@
       "name": "SystemIntegrationOwnership",
       "sectionId": "SYINOW",
       "doc": "Ownership and documentation.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration ownership)"
+        ],
+        "connotation": "The ownership and documentation facts for one integration: its age, documentation quality, maintenance owner, and compliance posture."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration ownership)"
+            ],
+            "connotation": "The ownership and documentation facts for one integration: its age, documentation quality, maintenance owner, and compliance posture."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220897,7 +223001,22 @@
       "name": "SystemIntegrationProtocol",
       "sectionId": "SYINPR",
       "doc": "Protocol and transport details.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration protocol)"
+        ],
+        "connotation": "The protocol and transport facts for one integration: protocol, direction, frequency, middleware, and authentication."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration protocol)"
+            ],
+            "connotation": "The protocol and transport facts for one integration: protocol, direction, frequency, middleware, and authentication."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -220968,7 +223087,22 @@
       "name": "SystemIntegrationThroughput",
       "sectionId": "SYINTH",
       "doc": "Throughput and capacity.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (integration throughput)"
+        ],
+        "connotation": "The throughput and capacity facts for one integration: its capacity, current utilization, and peak-load behaviour."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (integration throughput)"
+            ],
+            "connotation": "The throughput and capacity facts for one integration: its capacity, current utilization, and peak-load behaviour."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -221025,7 +223159,29 @@
       "name": "SystemInventory",
       "sectionId": "SYINV",
       "doc": "1.1.1. System Inventory.\n\nContainer for individual system descriptions. Add one entry per existing\nsystem relevant to the project scope.",
+      "help": "Inventory every system relevant to the project: those that will be replaced, integrated with, or affected by the new system. State the inclusion criteria so the boundary of the AS-IS landscape is clear.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (system inventory)"
+        ],
+        "connotation": "The catalogue of individual systems in use today, one entry per system relevant to the project scope."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (system inventory)"
+            ],
+            "connotation": "The catalogue of individual systems in use today, one entry per system relevant to the project scope."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Inventory every system relevant to the project: those that will be replaced, integrated with, or affected by the new system. State the inclusion criteria so the boundary of the AS-IS landscape is clear."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -221062,8 +223218,23 @@
           "help": "Add one entry per existing system that is relevant to the project scope. Include all systems that will be replaced, integrated with, or affected by the new system.",
           "sectionId": "ESENT-SYST-LST",
           "sectionIdPattern": "ESENT-SYST-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (system inventory)"
+            ],
+            "connotation": "The set of existing systems catalogued in the AS-IS landscape."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (system inventory)"
+                ],
+                "connotation": "The set of existing systems catalogued in the AS-IS landscape."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -228603,7 +230774,22 @@
       "name": "TechnicalPainPoints",
       "sectionId": "TEPAPO",
       "doc": "1.3.3. Technical Pain Points.\n\nProblems that affect development and maintenance: outdated technology,\nsecurity vulnerabilities, lack of documentation, vendor lock-in,\nand technical debt.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (technology & infrastructure constraints)"
+        ],
+        "connotation": "Problems in the current state that hinder development and maintenance — aging technology, security vulnerabilities, technical debt, and lock-in."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (technology & infrastructure constraints)"
+            ],
+            "connotation": "Problems in the current state that hinder development and maintenance — aging technology, security vulnerabilities, technical debt, and lock-in."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -228652,10 +230838,26 @@
           "name": "items",
           "kind": "list",
           "doc": "Contains 0+× PainPoint.",
+          "help": "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns.",
           "sectionId": "TEPAPO-ITEM-LST",
           "sectionIdPattern": "TEPAPO-ITEM-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (problem identification)"
+            ],
+            "connotation": "The list of individual technical pain points documented in detail."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (problem identification)"
+                ],
+                "connotation": "The list of individual technical pain points documented in detail."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -228666,6 +230868,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "TEPAPO-ITEM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
               }
             },
             {
@@ -228684,7 +230892,29 @@
       "name": "TechnicalPainPointsSummary",
       "sectionId": "TPPS",
       "doc": "Summary specific to technical pain points.",
+      "help": "Aggregate the technical pain points into category metrics: technical-debt estimate, security-vulnerability counts, systems at end of life, vendor lock-in risk, and integration complexity.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (technical measures)"
+        ],
+        "connotation": "Category roll-up quantifying the technical pain points — technical debt, security vulnerabilities, and end-of-life systems in the current state."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (technical measures)"
+            ],
+            "connotation": "Category roll-up quantifying the technical pain points — technical debt, security vulnerabilities, and end-of-life systems in the current state."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Aggregate the technical pain points into category metrics: technical-debt estimate, security-vulnerability counts, systems at end of life, vendor lock-in risk, and integration complexity."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253593,7 +255823,22 @@
       "sectionId": "WAE",
       "doc": "A workflow actor entry (form).\n\nDocumentation of a participant in the workflow.",
       "help": "Document all actors including their roles, responsibilities, authorization levels, and involvement pattern.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow participant / role)"
+        ],
+        "connotation": "A single participant in the workflow: its role, responsibilities, authorization, skills, and headcount."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow participant / role)"
+            ],
+            "connotation": "A single participant in the workflow: its role, responsibilities, authorization, skills, and headcount."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -253705,7 +255950,22 @@
       "name": "WorkflowBusinessRule",
       "sectionId": "WOBURU",
       "doc": "A business rule governing workflow behavior.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (business rule)"
+        ],
+        "connotation": "A single business rule constraining the workflow: its logic, governing source, and the cases where it does not apply."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (business rule)"
+            ],
+            "connotation": "A single business rule constraining the workflow: its logic, governing source, and the cases where it does not apply."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253771,7 +256031,24 @@
       "name": "WorkflowDecisionPoint",
       "sectionId": "WODEPO",
       "doc": "A decision point within a workflow.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (decision point)",
+          "BPMN 2.0 — gateways (decision points)"
+        ],
+        "connotation": "A single branching decision in the workflow: its criteria, who decides, the possible outcomes, and the escalation path."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (decision point)",
+              "BPMN 2.0 — gateways (decision points)"
+            ],
+            "connotation": "A single branching decision in the workflow: its criteria, who decides, the possible outcomes, and the escalation path."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253843,7 +256120,31 @@
       "name": "WorkflowDescriptions",
       "sectionId": "WODE",
       "doc": "1.2.nn.1. Workflow Descriptions.\n\nContainer for workflow entries within a business process.\n1.2.nn.1. Workflow Descriptions.\n\nContainer for workflow entries within a business process. Add one\nsubsection per current workflow relevant to the project.",
+      "help": "Describe the workflows that make up this process. Use the overview diagram for how they fit together and add one entry per individual workflow below.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow / process flow)",
+          "BPMN 2.0 — business process modelling notation"
+        ],
+        "connotation": "The collection of workflows that make up a business process, with their overview map and per-workflow detail."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow / process flow)",
+              "BPMN 2.0 — business process modelling notation"
+            ],
+            "connotation": "The collection of workflows that make up a business process, with their overview map and per-workflow detail."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Describe the workflows that make up this process. Use the overview diagram for how they fit together and add one entry per individual workflow below."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -253920,10 +256221,26 @@
           "name": "workflows",
           "kind": "list",
           "doc": "Individual workflow entries.",
+          "help": "Add one entry per workflow within this process, documenting its triggers, steps, actors, inputs, outputs, and timing.",
           "sectionId": "CUWF-WORK-LST",
           "sectionIdPattern": "CUWF-WORK-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow inventory)"
+            ],
+            "connotation": "The ordered set of individual workflows documented for this process."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (workflow inventory)"
+                ],
+                "connotation": "The ordered set of individual workflows documented for this process."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -253934,6 +256251,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "CUWF-WORK-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per workflow within this process, documenting its triggers, steps, actors, inputs, outputs, and timing."
               }
             },
             {
@@ -253959,7 +256282,22 @@
       "name": "WorkflowExceptionEntry",
       "sectionId": "WOEXEN",
       "doc": "A workflow exception type.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow exception)"
+        ],
+        "connotation": "A single exception type the workflow handles: how often it occurs, the handling procedure, escalation path, and recovery time."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow exception)"
+            ],
+            "connotation": "A single exception type the workflow handles: how often it occurs, the handling procedure, escalation path, and recovery time."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254031,7 +256369,29 @@
       "name": "WorkflowExceptions",
       "sectionId": "WOEX",
       "doc": "Workflow exception handling.",
+      "help": "Describe how exceptions are handled in this workflow and list each distinct exception type with its handling and escalation.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (exception handling)"
+        ],
+        "connotation": "How the workflow deals with exceptions and error conditions today."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (exception handling)"
+            ],
+            "connotation": "How the workflow deals with exceptions and error conditions today."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Describe how exceptions are handled in this workflow and list each distinct exception type with its handling and escalation."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254065,10 +256425,26 @@
           "name": "exceptions",
           "kind": "list",
           "doc": "Exception entries.",
+          "help": "Add one entry per exception type, with its frequency, handling procedure, escalation path, and recovery time.",
           "sectionId": "WOEXEN-EXCE-LST",
           "sectionIdPattern": "WOEXEN-EXCE-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow exception)"
+            ],
+            "connotation": "The set of exception types the workflow must handle."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (workflow exception)"
+                ],
+                "connotation": "The set of exception types the workflow must handle."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -254079,6 +256455,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOEXEN-EXCE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per exception type, with its frequency, handling procedure, escalation path, and recovery time."
               }
             },
             {
@@ -254097,7 +256479,22 @@
       "name": "WorkflowInputEntry",
       "sectionId": "WOINEN",
       "doc": "A workflow input.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow input)"
+        ],
+        "connotation": "A single input consumed by a workflow or step: its type, source, format, and validation rules."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow input)"
+            ],
+            "connotation": "A single input consumed by a workflow or step: its type, source, format, and validation rules."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254169,7 +256566,22 @@
       "name": "WorkflowOutputEntry",
       "sectionId": "WOOUEN",
       "doc": "A workflow output.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow output)"
+        ],
+        "connotation": "A single output produced by a workflow or step: its type, destination, format, and retention requirements."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow output)"
+            ],
+            "connotation": "A single output produced by a workflow or step: its type, destination, format, and retention requirements."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254236,7 +256648,24 @@
       "sectionId": "WSE",
       "doc": "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.",
       "help": "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow step / activity)",
+          "BPMN 2.0 — tasks and activities"
+        ],
+        "connotation": "The full detail of one workflow step: what it does, who performs it, the systems and data it uses, whether it is manual, and its known issues."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow step / activity)",
+              "BPMN 2.0 — tasks and activities"
+            ],
+            "connotation": "The full detail of one workflow step: what it does, who performs it, the systems and data it uses, whether it is manual, and its known issues."
+          }
+        },
         {
           "name": "ContentHelp",
           "arguments": {
@@ -254324,10 +256753,26 @@
           "name": "systemsUsed",
           "kind": "list",
           "doc": "Systems used in this step.",
+          "help": "Add one entry per system the step uses.",
           "sectionId": "WOSTSY-SYST-LST",
           "sectionIdPattern": "WOSTSY-SYST-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (systems used in step)"
+            ],
+            "connotation": "The systems this step relies on to perform its work."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (systems used in step)"
+                ],
+                "connotation": "The systems this step relies on to perform its work."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -254338,6 +256783,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOSTSY-SYST-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per system the step uses."
               }
             },
             {
@@ -254354,10 +256805,26 @@
           "name": "inputs",
           "kind": "list",
           "doc": "Step inputs.",
+          "help": "Add one entry per input this step consumes, with its source, format, and validation rules.",
           "sectionId": "WOINEN-INPU-LST",
           "sectionIdPattern": "WOINEN-INPU-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (step inputs)"
+            ],
+            "connotation": "The data and documents this step consumes."
+          },
           "serializationOrder": 2,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (step inputs)"
+                ],
+                "connotation": "The data and documents this step consumes."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -254368,6 +256835,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOINEN-INPU-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per input this step consumes, with its source, format, and validation rules."
               }
             },
             {
@@ -254384,10 +256857,26 @@
           "name": "outputs",
           "kind": "list",
           "doc": "Step outputs.",
+          "help": "Add one entry per output this step produces, with its destination and format.",
           "sectionId": "WOOUEN-OUTP-LST",
           "sectionIdPattern": "WOOUEN-OUTP-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (step outputs)"
+            ],
+            "connotation": "The data and documents this step produces."
+          },
           "serializationOrder": 3,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (step outputs)"
+                ],
+                "connotation": "The data and documents this step produces."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -254398,6 +256887,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOOUEN-OUTP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per output this step produces, with its destination and format."
               }
             },
             {
@@ -254414,10 +256909,26 @@
           "name": "businessRules",
           "kind": "list",
           "doc": "Step-specific business rules.",
+          "help": "Add one entry per business rule constraining this step, with its logic, source, and exceptions.",
           "sectionId": "WOBURU-BUSI-LST",
           "sectionIdPattern": "WOBURU-BUSI-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (step business rules)"
+            ],
+            "connotation": "The business rules that govern how this step behaves."
+          },
           "serializationOrder": 4,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (step business rules)"
+                ],
+                "connotation": "The business rules that govern how this step behaves."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -254428,6 +256939,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOBURU-BUSI-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per business rule constraining this step, with its logic, source, and exceptions."
               }
             },
             {
@@ -254444,10 +256961,26 @@
           "name": "knownIssues",
           "kind": "list",
           "doc": "Known issues with this step.",
+          "help": "Add one entry per known issue with this step, noting its frequency, impact, and any current workaround.",
           "sectionId": "WOSTIS-KNOW-LST",
           "sectionIdPattern": "WOSTIS-KNOW-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (step known issues)"
+            ],
+            "connotation": "The known problems and recurring failures associated with this step."
+          },
           "serializationOrder": 5,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (step known issues)"
+                ],
+                "connotation": "The known problems and recurring failures associated with this step."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -254458,6 +256991,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOSTIS-KNOW-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per known issue with this step, noting its frequency, impact, and any current workaround."
               }
             },
             {
@@ -254476,7 +257015,22 @@
       "name": "WorkflowStepIssue",
       "sectionId": "WOSTIS",
       "doc": "Known issue with a workflow step.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (step known issue)"
+        ],
+        "connotation": "A single known problem with a workflow step: how often it occurs, its business impact, and any workaround in use."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (step known issue)"
+            ],
+            "connotation": "A single known problem with a workflow step: how often it occurs, its business impact, and any workaround in use."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254542,7 +257096,22 @@
       "name": "WorkflowStepSystem",
       "sectionId": "WOSTSY",
       "doc": "A system used in a workflow step.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (system used in workflow step)"
+        ],
+        "connotation": "A single system that a workflow step relies on to do its work."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (system used in workflow step)"
+            ],
+            "connotation": "A single system that a workflow step relies on to do its work."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254578,7 +257147,22 @@
       "name": "WorkflowSummaryEntry",
       "sectionId": "WOSUEN",
       "doc": "Summary entry for a single workflow.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow summary entry)"
+        ],
+        "connotation": "A one-line summary of a single workflow: its type, frequency, cycle time, step and actor counts, and automation potential."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow summary entry)"
+            ],
+            "connotation": "A one-line summary of a single workflow: its type, frequency, cycle time, step and actor counts, and automation potential."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254668,7 +257252,29 @@
       "name": "WorkflowSummaryTable",
       "sectionId": "WOSUTA",
       "doc": "Summary table of all workflows for quick reference.",
+      "help": "Summarize the workflows for this process — totals, average cycle time, and automation potential — then add one summary row per workflow.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow summary)"
+        ],
+        "connotation": "A quick-reference roll-up of all workflows in the process: counts, cycle times, and automation potential at a glance."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow summary)"
+            ],
+            "connotation": "A quick-reference roll-up of all workflows in the process: counts, cycle times, and automation potential at a glance."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Summarize the workflows for this process — totals, average cycle time, and automation potential — then add one summary row per workflow."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254733,10 +257339,26 @@
           "name": "entries",
           "kind": "list",
           "doc": "Summary entries per workflow.",
+          "help": "Add one summary row per workflow capturing its type, frequency, cycle time, step counts, actors, and automation potential.",
           "sectionId": "WOSUEN-ENTR-LST",
           "sectionIdPattern": "WOSUEN-ENTR-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow summary entry)"
+            ],
+            "connotation": "The per-workflow rows of the summary table."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (workflow summary entry)"
+                ],
+                "connotation": "The per-workflow rows of the summary table."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -254747,6 +257369,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOSUEN-ENTR-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one summary row per workflow capturing its type, frequency, cycle time, step counts, actors, and automation potential."
               }
             },
             {
@@ -254765,7 +257393,22 @@
       "name": "WorkflowTiming",
       "sectionId": "WOTI",
       "doc": "Workflow timing and performance characteristics.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow timing and performance)"
+        ],
+        "connotation": "The timing profile of the workflow: elapsed, processing and wait times, SLA performance, peak periods, and bottlenecks."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow timing and performance)"
+            ],
+            "connotation": "The timing profile of the workflow: elapsed, processing and wait times, SLA performance, peak periods, and bottlenecks."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254843,7 +257486,22 @@
       "name": "WorkflowTriggerEntry",
       "sectionId": "WOTREN",
       "doc": "A single workflow trigger.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow trigger)"
+        ],
+        "connotation": "A single initiating condition for the workflow: its type, source, condition, and frequency."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow trigger)"
+            ],
+            "connotation": "A single initiating condition for the workflow: its type, source, condition, and frequency."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254909,7 +257567,29 @@
       "name": "WorkflowTriggers",
       "sectionId": "WOTR",
       "doc": "Workflow triggers and initiation conditions.",
+      "help": "Describe what initiates this workflow and list each distinct trigger with its type, source, and conditions.",
+      "standardReferences": {
+        "standards": [
+          "BABOK v3 §10 — current-state analysis (workflow triggers / events)"
+        ],
+        "connotation": "The conditions and events that cause this workflow to start."
+      },
       "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow triggers / events)"
+            ],
+            "connotation": "The conditions and events that cause this workflow to start."
+          }
+        },
+        {
+          "name": "ContentHelp",
+          "arguments": {
+            "guidance": "Describe what initiates this workflow and list each distinct trigger with its type, source, and conditions."
+          }
+        },
         {
           "name": "SectionId",
           "arguments": {
@@ -254943,10 +257623,26 @@
           "name": "triggers",
           "kind": "list",
           "doc": "Trigger entries.",
+          "help": "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency.",
           "sectionId": "WOTREN-TRIG-LST",
           "sectionIdPattern": "WOTREN-TRIG-xxx",
+          "standardReferences": {
+            "standards": [
+              "BABOK v3 §10 — current-state analysis (workflow trigger)"
+            ],
+            "connotation": "The set of distinct triggers that can start this workflow."
+          },
           "serializationOrder": 1,
           "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "BABOK v3 §10 — current-state analysis (workflow trigger)"
+                ],
+                "connotation": "The set of distinct triggers that can start this workflow."
+              }
+            },
             {
               "name": "SectionId",
               "arguments": {
@@ -254957,6 +257653,12 @@
               "name": "SectionIdPattern",
               "arguments": {
                 "pattern": "WOTREN-TRIG-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency."
               }
             },
             {

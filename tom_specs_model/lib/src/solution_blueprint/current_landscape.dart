@@ -12,6 +12,12 @@ import '../document_stubs.dart';
 ///
 /// Seeds the CLA (Current Landscape Assessment) Phase 3 DocSpec. Its subtree
 /// flows to CLA together with the systems-to-replace inventory.
+@StandardReferences(
+  ['BABOK v3 §10 — Define the Current State (current-state analysis)'],
+  'The AS-IS analysis that motivates the project — existing systems, current '
+  'processes, pain points, data, operational metrics and current-state risks — '
+  'and the seed for the Current Landscape Assessment (CLA).',
+)
 @SectionId('CUSA')
 @MapsTo(D01CurrentLandscapeAssessment)
 class CurrentLandscape {
@@ -59,6 +65,15 @@ document alongside the systems-to-replace inventory.
 ///
 /// Overview of the current systems in use, their roles, technology stacks,
 /// and limitations. Provides the foundation for understanding the AS-IS state.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (systems & capability inventory)'],
+  'The AS-IS catalogue of systems in use today — their inventory, architecture '
+  'and inter-system dependencies — establishing the technical baseline the new '
+  'system must replace, integrate with, or coexist alongside.',
+)
+@ContentHelp('Describe the existing systems landscape: inventory every relevant '
+    'system, sketch the current architecture, and map dependencies and '
+    'integrations. Include a context diagram showing how the systems interact.')
 @SectionId('ESLAN')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-SYS')
@@ -86,6 +101,14 @@ class ExistingSystemsLandscape {
 ///
 /// Container for individual system descriptions. Add one entry per existing
 /// system relevant to the project scope.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (system inventory)'],
+  'The catalogue of individual systems in use today, one entry per system '
+  'relevant to the project scope.',
+)
+@ContentHelp('Inventory every system relevant to the project: those that will '
+    'be replaced, integrated with, or affected by the new system. State the '
+    'inclusion criteria so the boundary of the AS-IS landscape is clear.')
 @SectionId('SYINV')
 class SystemInventory {
   @ContentType('description', 'Introduction to the system inventory. '
@@ -94,6 +117,10 @@ class SystemInventory {
   String? content;
 
   /// Contains 1+× Existing System.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (system inventory)'],
+    'The set of existing systems catalogued in the AS-IS landscape.',
+  )
   @SectionId('ESENT-SYST-LST')
   @SectionIdPattern('ESENT-SYST-xxx')
   @Min(1)
@@ -108,6 +135,14 @@ class SystemInventory {
 ///
 /// Description of the current system architecture including deployment
 /// topology, integration patterns, shared services, and data stores.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — current-state analysis (architecture baseline)',
+    'TOGAF ADM Phase B/C — baseline architecture (current state)',
+  ],
+  'The AS-IS architecture baseline: deployment topology, integration patterns, '
+  'and shared services that describe how today\'s systems fit together.',
+)
 @SectionId('CARCH')
 class CurrentArchitecture {
   @SerializationOrder(0)
@@ -128,14 +163,30 @@ class CurrentArchitecture {
   String? deploymentTopology;
 
   /// Integration patterns used.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (integration patterns)'],
+    'The set of integration patterns the current architecture relies on to '
+    'connect its systems.',
+  )
   @SectionId('IPE-INTE-LST')
   @SectionIdPattern('IPE-INTE-xxx')
+  @ContentHelp('Add one entry per integration pattern in use (e.g. point-to-'
+      'point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each '
+      'pattern is applied and why.')
   @SerializationOrder(3)
   List<IntegrationPatternEntry> integrationPatterns = [];
 
   /// Shared services inventory.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (shared services)'],
+    'The set of shared services the current architecture provides across '
+    'multiple systems.',
+  )
   @SectionId('SHARE-SHAR-LST')
   @SectionIdPattern('SHARE-SHAR-xxx')
+  @ContentHelp('Add one entry per shared service used by more than one system '
+      '(e.g. authentication, logging, notifications). Capture which systems '
+      'consume it.')
   @SerializationOrder(4)
   List<SharedServiceEntry> sharedServices = [];
 }
@@ -144,6 +195,12 @@ class CurrentArchitecture {
 ///
 /// Captures comprehensive information about an existing system including
 /// identity, technology, business context, usage metrics, lifecycle, and risks.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (system profile)'],
+  'A complete AS-IS profile of one existing system — its identity, technology, '
+  'business context, usage, lifecycle, integration, infrastructure, '
+  'limitations, and quality/risk posture.',
+)
 @SectionId('ESENT')
 class ExistingSystemEntry {
   // -------------------------------------------------------------------------
@@ -151,14 +208,21 @@ class ExistingSystemEntry {
   // -------------------------------------------------------------------------
 
   @Form([
-    Field('systemName', String, 'System Name', required: true),
-    Field('systemId', String, 'System ID/Code (internal identifier)'),
-    Field('systemVersion', String, 'Current Version'),
+    Field('systemName', String, 'System Name',
+        required: true,
+        hint: 'Common name of the system, e.g. "SAP ERP", "Salesforce CRM".'),
+    Field('systemId', String, 'System ID/Code (internal identifier)',
+        hint: 'Internal catalogue code or CMDB identifier, if any.'),
+    Field('systemVersion', String, 'Current Version',
+        hint: 'Release or version currently in production, e.g. "ECC 6.0".'),
     Field('systemType', String, 'System Type '
-        '(ERP, CRM, Custom Development, COTS, SaaS, etc.)'),
-    Field('vendor', String, 'Vendor (if commercial software)'),
+        '(ERP, CRM, Custom Development, COTS, SaaS, etc.)',
+        hint: 'Classify the system: ERP, CRM, Custom Development, COTS, SaaS.'),
+    Field('vendor', String, 'Vendor (if commercial software)',
+        hint: 'Software publisher, e.g. "SAP", "Salesforce" — blank if in-house.'),
     Field('licenseType', String, 'License Type '
-        '(Enterprise, Per-User, Subscription, Open Source, etc.)'),
+        '(Enterprise, Per-User, Subscription, Open Source, etc.)',
+        hint: 'Licensing model: Enterprise, Per-User, Subscription, Open Source.'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -222,6 +286,11 @@ class ExistingSystemEntry {
   // -------------------------------------------------------------------------
 
   /// Contains 0+× Limitation.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (known limitations)'],
+    'The set of known limitations of this system that constrain current '
+    'operations.',
+  )
   @SectionId('LIMET-KNOW-LST')
   @SectionIdPattern('LIMET-KNOW-xxx')
   @ContentHelp('Document each known limitation with its impact on current '
@@ -236,136 +305,232 @@ class ExistingSystemEntry {
 }
 
 /// Technology stack details for an existing system.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (technology stack)'],
+  'The technology stack of one existing system: its platform, languages, '
+  'database, OS, frameworks, and frontend.',
+)
 @SectionId('ESTEC')
 class ExistingSystemTechnology {
   @Form([
-    Field('primaryPlatform', String, 'Primary Technology Platform'),
-    Field('programmingLanguages', String, 'Programming Languages (comma-separated)'),
-    Field('databaseTechnology', String, 'Database Technology'),
-    Field('operatingSystem', String, 'Operating System'),
-    Field('frameworksMiddleware', String, 'Frameworks/Middleware'),
-    Field('frontendTechnology', String, 'Frontend Technology (if applicable)'),
+    Field('primaryPlatform', String, 'Primary Technology Platform',
+        hint: 'Dominant platform, e.g. ".NET", "Java EE", "SAP NetWeaver".'),
+    Field('programmingLanguages', String, 'Programming Languages (comma-separated)',
+        hint: 'Languages in use, comma-separated, e.g. "Java, JavaScript, SQL".'),
+    Field('databaseTechnology', String, 'Database Technology',
+        hint: 'Database engine, e.g. "Oracle 19c", "PostgreSQL", "MS SQL".'),
+    Field('operatingSystem', String, 'Operating System',
+        hint: 'Host OS, e.g. "RHEL 8", "Windows Server 2019".'),
+    Field('frameworksMiddleware', String, 'Frameworks/Middleware',
+        hint: 'Key frameworks/middleware, e.g. "Spring Boot, WebLogic".'),
+    Field('frontendTechnology', String, 'Frontend Technology (if applicable)',
+        hint: 'Frontend stack, e.g. "Angular", "JSP", "SAP GUI" — blank if none.'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Business context for an existing system.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (business context)'],
+  'The business context of one existing system: its purpose, domain, '
+  'ownership, and criticality to the organization.',
+)
 @SectionId('ESBCT')
 class ExistingSystemBusinessContext {
   @Form([
-    Field('purpose', String, 'Purpose/Description', required: true),
+    Field('purpose', String, 'Purpose/Description',
+        required: true,
+        hint: 'What the system does for the business, in one or two sentences.'),
     Field('businessDomain', String, 'Business Domain '
-        '(Finance, Sales, Operations, HR, etc.)'),
-    Field('owningDepartment', String, 'Owning Business Unit/Department'),
+        '(Finance, Sales, Operations, HR, etc.)',
+        hint: 'Primary domain served, e.g. Finance, Sales, Operations, HR.'),
+    Field('owningDepartment', String, 'Owning Business Unit/Department',
+        hint: 'Business unit accountable for the system.'),
     Field('businessCriticality', String, 'Business Criticality '
-        '(Mission Critical, Business Critical, Standard, Low)'),
-    Field('businessOwner', String, 'Business Owner (name/role)'),
-    Field('technicalOwner', String, 'Technical Owner (name/role)'),
+        '(Mission Critical, Business Critical, Standard, Low)',
+        hint: 'How critical to operations: Mission Critical, Business Critical, '
+            'Standard, or Low.'),
+    Field('businessOwner', String, 'Business Owner (name/role)',
+        hint: 'Person or role owning the business outcomes, e.g. "Head of Sales".'),
+    Field('technicalOwner', String, 'Technical Owner (name/role)',
+        hint: 'Person or role owning the technical operation of the system.'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Usage metrics for an existing system.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (usage metrics)'],
+  'The measured usage of one existing system: user counts, transaction and '
+  'data volumes, growth, and availability needs.',
+)
 @SectionId('ESUSG')
 class ExistingSystemUsage {
   @Form([
-    Field('activeUsers', int, 'Active Users (total registered)'),
-    Field('dailyActiveUsers', int, 'Daily Active Users'),
-    Field('peakConcurrentUsers', int, 'Peak Concurrent Users'),
-    Field('transactionVolumeDaily', String, 'Transaction Volume (daily average)'),
-    Field('dataVolumeCurrent', String, 'Current Data Volume'),
-    Field('dataGrowthRate', String, 'Data Growth Rate (monthly/yearly)'),
+    Field('activeUsers', int, 'Active Users (total registered)',
+        hint: 'Total registered/licensed users, e.g. 1200.'),
+    Field('dailyActiveUsers', int, 'Daily Active Users',
+        hint: 'Typical number of users active on a normal day.'),
+    Field('peakConcurrentUsers', int, 'Peak Concurrent Users',
+        hint: 'Highest number of simultaneous users observed.'),
+    Field('transactionVolumeDaily', String, 'Transaction Volume (daily average)',
+        hint: 'Average daily transactions, e.g. "~50k orders/day".'),
+    Field('dataVolumeCurrent', String, 'Current Data Volume',
+        hint: 'Size of the data set today, e.g. "2.5 TB".'),
+    Field('dataGrowthRate', String, 'Data Growth Rate (monthly/yearly)',
+        hint: 'How fast data grows, e.g. "~50 GB/month".'),
     Field('availabilityRequirement', String, 'Availability Requirement '
-        '(e.g., 99.9%, 24x7, business hours)'),
+        '(e.g., 99.9%, 24x7, business hours)',
+        hint: 'Required uptime, e.g. "99.9%", "24x7", "business hours".'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Lifecycle information for an existing system.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (system lifecycle)'],
+  'The lifecycle status of one existing system: when it went live, its support '
+  'horizon, and how urgently it must be migrated or retired.',
+)
 @SectionId('ESLCY')
 class ExistingSystemLifecycle {
   @Form([
-    Field('goLiveDate', String, 'Go-Live Date (operational since)'),
-    Field('lastMajorUpgrade', String, 'Last Major Upgrade Date'),
-    Field('currentVersion', String, 'Current Version'),
+    Field('goLiveDate', String, 'Go-Live Date (operational since)',
+        hint: 'When the system first went into production (ISO 8601).'),
+    Field('lastMajorUpgrade', String, 'Last Major Upgrade Date',
+        hint: 'Date of the most recent major upgrade (ISO 8601).'),
+    Field('currentVersion', String, 'Current Version',
+        hint: 'Version currently running in production.'),
     Field('supportStatus', String, 'Support Status '
-        '(Active, Limited, Extended, End-of-Life)'),
-    Field('supportExpiryDate', String, 'Support Expiry Date'),
-    Field('plannedRetirementDate', String, 'Planned Retirement Date (if any)'),
+        '(Active, Limited, Extended, End-of-Life)',
+        hint: 'Vendor support state: Active, Limited, Extended, or End-of-Life.'),
+    Field('supportExpiryDate', String, 'Support Expiry Date',
+        hint: 'Date vendor support ends (ISO 8601), if known.'),
+    Field('plannedRetirementDate', String, 'Planned Retirement Date (if any)',
+        hint: 'Target decommission date, if one is planned.'),
     Field('migrationUrgency', String, 'Migration Urgency '
-        '(Immediate, Within 1 year, Within 3 years, No deadline)'),
+        '(Immediate, Within 1 year, Within 3 years, No deadline)',
+        hint: 'How soon migration is needed: Immediate, Within 1 year, etc.'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Integration profile for an existing system.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration profile)'],
+  'The integration profile of one existing system: the APIs it exposes, the '
+  'methods and formats it exchanges by, and its interface counts.',
+)
 @SectionId('ESINT')
 class ExistingSystemIntegration {
   @Form([
     Field('apiTypesAvailable', String, 'API Types Available '
-        '(REST, SOAP, GraphQL, gRPC, none)'),
+        '(REST, SOAP, GraphQL, gRPC, none)',
+        hint: 'APIs the system exposes: REST, SOAP, GraphQL, gRPC, or none.'),
     Field('integrationMethods', String, 'Integration Methods '
-        '(API, File Transfer, Database Link, Message Queue, manual)'),
-    Field('dataFormats', String, 'Data Formats (JSON, XML, CSV, EDI, etc.)'),
-    Field('realTimeCapable', bool, 'Real-Time Integration Capable'),
-    Field('batchProcessingWindows', String, 'Batch Processing Windows'),
-    Field('externalInterfaceCount', int, 'Number of External Interfaces'),
-    Field('internalInterfaceCount', int, 'Number of Internal Interfaces'),
+        '(API, File Transfer, Database Link, Message Queue, manual)',
+        hint: 'How it integrates: API, File Transfer, Database Link, MQ, manual.'),
+    Field('dataFormats', String, 'Data Formats (JSON, XML, CSV, EDI, etc.)',
+        hint: 'Formats exchanged: JSON, XML, CSV, EDI, etc.'),
+    Field('realTimeCapable', bool, 'Real-Time Integration Capable',
+        hint: 'True if the system supports real-time integration.'),
+    Field('batchProcessingWindows', String, 'Batch Processing Windows',
+        hint: 'Scheduled batch windows, e.g. "nightly 01:00–03:00".'),
+    Field('externalInterfaceCount', int, 'Number of External Interfaces',
+        hint: 'Count of interfaces to systems outside the organization.'),
+    Field('internalInterfaceCount', int, 'Number of Internal Interfaces',
+        hint: 'Count of interfaces to other internal systems.'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Infrastructure details for an existing system.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (infrastructure)'],
+  'The infrastructure footprint of one existing system: its hosting model, '
+  'environments, geographic spread, and resilience posture.',
+)
 @SectionId('ESINF')
 class ExistingSystemInfrastructure {
   @Form([
     Field('hostingModel', String, 'Hosting Model '
-        '(On-Premise, Private Cloud, Public Cloud, Hybrid, SaaS)'),
-    Field('cloudProvider', String, 'Cloud Provider (if applicable)'),
+        '(On-Premise, Private Cloud, Public Cloud, Hybrid, SaaS)',
+        hint: 'Where it runs: On-Premise, Private Cloud, Public Cloud, Hybrid, SaaS.'),
+    Field('cloudProvider', String, 'Cloud Provider (if applicable)',
+        hint: 'Cloud provider, e.g. "AWS", "Azure", "GCP" — blank if on-prem.'),
     Field('environmentCount', int, 'Number of Environments '
-        '(Dev, Test, Staging, Prod, etc.)'),
+        '(Dev, Test, Staging, Prod, etc.)',
+        hint: 'How many environments exist (Dev, Test, Staging, Prod, ...).'),
     Field('geographicDeployment', String, 'Geographic Deployment '
-        '(Single region, Multi-region, Global)'),
+        '(Single region, Multi-region, Global)',
+        hint: 'Deployment reach: Single region, Multi-region, or Global.'),
     Field('disasterRecovery', String, 'Disaster Recovery Capability '
-        '(Hot standby, Warm standby, Cold backup, None)'),
-    Field('backupFrequency', String, 'Backup Frequency'),
+        '(Hot standby, Warm standby, Cold backup, None)',
+        hint: 'DR posture: Hot standby, Warm standby, Cold backup, or None.'),
+    Field('backupFrequency', String, 'Backup Frequency',
+        hint: 'How often backups run, e.g. "hourly", "nightly".'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Quality and risk assessment for an existing system.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — current-state analysis (quality & risk)',
+    'ISO/IEC 25010 — product quality model (maintainability, security)',
+  ],
+  'The quality and risk posture of one existing system: technical debt, code '
+  'and documentation quality, achieved SLAs, and security/accessibility '
+  'compliance.',
+)
 @SectionId('ESQUA')
 class ExistingSystemQuality {
   @Form([
     Field('technicalDebtLevel', String, 'Technical Debt Level '
-        '(Low, Medium, High, Critical)'),
+        '(Low, Medium, High, Critical)',
+        hint: 'Accumulated technical debt: Low, Medium, High, or Critical.'),
     Field('codeQuality', String, 'Code Quality Assessment '
-        '(Good, Acceptable, Poor, Unknown)'),
+        '(Good, Acceptable, Poor, Unknown)',
+        hint: 'Code quality judgement: Good, Acceptable, Poor, or Unknown.'),
     Field('documentationStatus', String, 'Documentation Status '
-        '(Current, Outdated, Minimal, None)'),
-    Field('availabilitySla', String, 'Availability SLA (actual achieved)'),
-    Field('securityComplianceStatus', String, 'Security Compliance Status'),
-    Field('lastSecurityAudit', String, 'Last Security Audit Date'),
-    Field('lastPenetrationTest', String, 'Last Penetration Test Date'),
+        '(Current, Outdated, Minimal, None)',
+        hint: 'State of docs: Current, Outdated, Minimal, or None.'),
+    Field('availabilitySla', String, 'Availability SLA (actual achieved)',
+        hint: 'Actual availability achieved, e.g. "99.5%" — not the target.'),
+    Field('securityComplianceStatus', String, 'Security Compliance Status',
+        hint: 'Compliance standing, e.g. "PCI-DSS compliant", "gaps open".'),
+    Field('lastSecurityAudit', String, 'Last Security Audit Date',
+        hint: 'Date of the most recent security audit (ISO 8601).'),
+    Field('lastPenetrationTest', String, 'Last Penetration Test Date',
+        hint: 'Date of the most recent penetration test (ISO 8601).'),
     Field('accessibilityCompliance', String, 'Accessibility Compliance '
-        '(WCAG level, Section 508, etc.)'),
+        '(WCAG level, Section 508, etc.)',
+        hint: 'Accessibility standing, e.g. "WCAG 2.1 AA", "Section 508".'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// A known limitation of an existing system (form).
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (known limitations)'],
+  'A single known limitation of an existing system and its impact on current '
+  'operations.',
+)
 @SectionId('LIMET')
 class LimitationEntry {
   @Form([
-    Field('limitation', String, 'Limitation', required: true),
-    Field('impact', String, 'Impact assessment'),
+    Field('limitation', String, 'Limitation',
+        required: true,
+        hint: 'The limitation itself, e.g. "No multi-currency support".'),
+    Field('impact', String, 'Impact assessment',
+        hint: 'Effect on operations and any workaround in place.'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -376,6 +541,12 @@ class LimitationEntry {
 /// Documents how current systems depend on each other, on external services,
 /// and on shared infrastructure. Identifies fragile integration points that
 /// pose risk to operations or to the new system implementation.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (dependencies & integrations)'],
+  'The web of dependencies and integrations across the AS-IS landscape — '
+  'internal, external-service, and shared-infrastructure couplings plus the '
+  'active integrations and their overall health.',
+)
 @SectionId('DEPNT')
 class DependenciesAndIntegrations {
   @SerializationOrder(0)
@@ -421,6 +592,11 @@ class DependenciesAndIntegrations {
 /// 1.1.3.1. Internal Dependencies.
 ///
 /// Dependencies between systems owned and operated internally.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (internal dependencies)'],
+  'The dependencies between systems the organization owns and operates '
+  'internally.',
+)
 @SectionId('INTDP')
 class InternalDependencies {
   @ContentType('description', 'Overview of internal system dependencies.')
@@ -431,8 +607,14 @@ class InternalDependencies {
   String? content;
 
   /// Contains 0+× Internal System Dependency.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (internal dependencies)'],
+    'The set of documented dependencies between internal systems.',
+  )
   @SectionId('SYDE-ITEM-LST')
   @SectionIdPattern('SYDE-ITEM-xxx')
+  @ContentHelp('Add one entry per dependency between internal systems. Capture '
+      'the mechanism, coupling strength, data flow, and failure impact of each.')
   @SerializationOrder(1)
   List<SystemDependencyEntry> items = [];
 }
@@ -441,6 +623,11 @@ class InternalDependencies {
 ///
 /// Dependencies on external services, third-party APIs, SaaS platforms,
 /// and cloud services not under direct organizational control.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (external dependencies)'],
+  'The dependencies on external services, third-party APIs, SaaS platforms, '
+  'and cloud services outside direct organizational control.',
+)
 @SectionId('EXTDP')
 class ExternalServiceDependencies {
   @ContentType('description', 'Overview of external service dependencies '
@@ -451,8 +638,15 @@ class ExternalServiceDependencies {
   String? content;
 
   /// Contains 0+× External Service Dependency.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (external dependencies)'],
+    'The set of documented dependencies on external services and third-party '
+    'providers.',
+  )
   @SectionId('EXSDE-ITEM-LST')
   @SectionIdPattern('EXSDE-ITEM-xxx')
+  @ContentHelp('Add one entry per external service or third-party provider the '
+      'current systems rely on. Capture vendor, SLA, risk, and fallback for each.')
   @SerializationOrder(1)
   List<ExternalServiceDependencyEntry> items = [];
 }
@@ -461,11 +655,19 @@ class ExternalServiceDependencies {
 ///
 /// Documents a dependency on an external service or third-party provider
 /// including vendor details, SLA, risk assessment, and fallback options.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (external dependency profile)'],
+  'A complete profile of one external-service dependency: the service, its '
+  'provider, relationship, operations, risk, and fallback.',
+)
 @SectionId('EXSDE')
 class ExternalServiceDependencyEntry {
   @Form([
-    Field('serviceName', String, 'External Service Name', required: true),
-    Field('serviceProvider', String, 'Service Provider/Vendor'),
+    Field('serviceName', String, 'External Service Name',
+        required: true,
+        hint: 'Name of the external service, e.g. "Stripe Payments".'),
+    Field('serviceProvider', String, 'Service Provider/Vendor',
+        hint: 'Company providing the service, e.g. "Stripe, Inc.".'),
     Field('serviceType', String, 'Service Type',
         hint: 'SaaS / PaaS / IaaS / API Service / Data Feed / Payment Gateway / etc.'),
   ])
@@ -493,6 +695,11 @@ class ExternalServiceDependencyEntry {
 }
 
 /// Internal dependency and contract details.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (external dependency relationship)'],
+  'The relationship and contract facts for one external-service dependency: '
+  'which systems depend on it, its criticality, and contract status.',
+)
 @SectionId('EXSRL')
 class ExternalServiceDependencyEntryRelationship {
   @Form([
@@ -502,13 +709,19 @@ class ExternalServiceDependencyEntryRelationship {
         hint: 'Critical / High / Medium / Low'),
     Field('contractStatus', String, 'Contract Status',
         hint: 'Active / Renewal Due / Negotiating / Month-to-Month'),
-    Field('contractExpiry', String, 'Contract Expiry Date'),
+    Field('contractExpiry', String, 'Contract Expiry Date',
+        hint: 'Date the current contract expires (ISO 8601).'),
   ])
   @SerializationOrder(0)
   String? content;
 }
 
 /// Availability and data handling details.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (external dependency operations)'],
+  'The operational facts for one external-service dependency: its SLA, actual '
+  'availability, data handling, residency, and vendor certifications.',
+)
 @SectionId('EXSOP')
 class ExternalServiceDependencyEntryOperations {
   @Form([
@@ -528,6 +741,11 @@ class ExternalServiceDependencyEntryOperations {
 }
 
 /// Risk and fallback considerations.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (external dependency risk)'],
+  'The risk and fallback facts for one external-service dependency: lock-in, '
+  'switching cost, alternatives, fallback procedure, and outage history.',
+)
 @SectionId('EXSRK')
 class ExternalServiceDependencyEntryRisk {
   @Form([
@@ -551,6 +769,11 @@ class ExternalServiceDependencyEntryRisk {
 /// 1.1.3.3. Shared Infrastructure Dependencies.
 ///
 /// Dependencies on shared infrastructure components used by multiple systems.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (shared infrastructure)'],
+  'The dependencies on shared infrastructure components that multiple systems '
+  'rely on — the cross-cutting single points of failure in the AS-IS estate.',
+)
 @SectionId('SHDEP')
 class SharedInfrastructureDependencies {
   @ContentType('description', 'Overview of shared infrastructure and '
@@ -562,8 +785,16 @@ class SharedInfrastructureDependencies {
   String? content;
 
   /// Contains 0+× Shared Infrastructure Component.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (shared infrastructure)'],
+    'The set of documented shared infrastructure components that multiple '
+    'systems depend on.',
+  )
   @SectionId('SHIEN-ITEM-LST')
   @SectionIdPattern('SHIEN-ITEM-xxx')
+  @ContentHelp('Add one entry per shared infrastructure component (e.g. a '
+      'database cluster, message broker, identity provider). Capture its '
+      'criticality, resilience, and the systems that depend on it.')
   @SerializationOrder(1)
   List<SharedInfrastructureEntry> items = [];
 }
@@ -571,16 +802,25 @@ class SharedInfrastructureDependencies {
 /// A shared infrastructure entry (form).
 ///
 /// Documents a shared infrastructure component that multiple systems depend on.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (shared infrastructure component)'],
+  'A complete profile of one shared infrastructure component: its identity, '
+  'resilience, capacity, and ownership.',
+)
 @SectionId('SHIEN')
 class SharedInfrastructureEntry {
   @Form([
-    Field('componentName', String, 'Infrastructure Component Name', required: true),
+    Field('componentName', String, 'Infrastructure Component Name',
+        required: true,
+        hint: 'Name of the component, e.g. "Prod Oracle RAC cluster".'),
     Field('componentType', String, 'Component Type',
         hint: 'Database Cluster / Message Broker / Load Balancer / '
             'Identity Provider / DNS / Certificate Authority / '
             'Logging Platform / Monitoring System / Network Segment'),
-    Field('dependentSystemCount', int, 'Number of Dependent Systems'),
-    Field('dependentSystemList', String, 'List of Dependent Systems'),
+    Field('dependentSystemCount', int, 'Number of Dependent Systems',
+        hint: 'How many systems depend on this component.'),
+    Field('dependentSystemList', String, 'List of Dependent Systems',
+        hint: 'Names of the systems that depend on this component.'),
   ])
   @SerializationOrder(0)
   String? content;
@@ -602,6 +842,11 @@ class SharedInfrastructureEntry {
 }
 
 /// Criticality and resilience.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (infrastructure resilience)'],
+  'The criticality and resilience facts for one shared infrastructure '
+  'component: whether it is a single point of failure and its redundancy.',
+)
 @SectionId('SIER')
 class SharedInfrastructureEntryResilience {
   @Form([
@@ -620,6 +865,11 @@ class SharedInfrastructureEntryResilience {
 }
 
 /// Capacity constraints.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (infrastructure capacity)'],
+  'The capacity facts for one shared infrastructure component: its headroom '
+  'and scaling limitations.',
+)
 @SectionId('SIEC')
 class SharedInfrastructureEntryCapacity {
   @Form([
@@ -633,6 +883,11 @@ class SharedInfrastructureEntryCapacity {
 }
 
 /// Ownership and maintenance.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (infrastructure ownership)'],
+  'The ownership and maintenance facts for one shared infrastructure '
+  'component: who manages it, its maintenance window, and documentation state.',
+)
 @SectionId('SIEO')
 class SharedInfrastructureEntryOperations {
   @Form([
@@ -650,6 +905,11 @@ class SharedInfrastructureEntryOperations {
 /// 1.1.3.5. Integration Health Summary.
 ///
 /// Executive summary of overall integration landscape health and risk areas.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration health)'],
+  'The executive summary of overall integration-landscape health: aggregate '
+  'counts, risk areas, technical debt, and impact on this project.',
+)
 @SectionId('INHESU')
 class IntegrationHealthSummary {
   @Form([
@@ -671,8 +931,16 @@ class IntegrationHealthSummary {
   String? content;
 
   /// Fragile integration points requiring attention.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (fragile integration points)'],
+    'The set of fragile integration points in the AS-IS landscape that pose '
+    'risk and require attention.',
+  )
   @SectionId('FRAGI-FRAG-LST')
   @SectionIdPattern('FRAGI-FRAG-xxx')
+  @ContentHelp('Add one entry per fragile or high-risk integration point — '
+      'brittle interfaces, undocumented links, or single points of failure '
+      'that threaten operations or the new system implementation.')
   @SerializationOrder(1)
   List<FragilePointEntry> fragilePoints = [];
 }
@@ -681,6 +949,11 @@ class IntegrationHealthSummary {
 ///
 /// Active integrations between systems including protocols, data formats,
 /// error handling, and monitoring.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (system integrations)'],
+  'The active integrations between systems in the AS-IS landscape — their '
+  'protocols, data exchange, error handling, and monitoring.',
+)
 @SectionId('INTEGR')
 class Integrations {
   @ContentType('description', 'Overview of system integrations and '
@@ -691,8 +964,14 @@ class Integrations {
   String? content;
 
   /// Contains 0+× SystemIntegration.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (system integrations)'],
+    'The set of documented active integrations between systems.',
+  )
   @SectionId('SYIN-ITEM-LST')
   @SectionIdPattern('SYIN-ITEM-xxx')
+  @ContentHelp('Add one entry per active integration between systems. Capture '
+      'its type, pattern, protocol, data format, throughput, and monitoring.')
   @SerializationOrder(1)
   List<SystemIntegrationEntry> items = [];
 }
@@ -702,6 +981,11 @@ class Integrations {
 /// Documents one dependency between systems in the current landscape:
 /// mechanism, coupling strength, data flow, failure impact, SLA,
 /// monitoring, and technical debt assessment.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (system dependency profile)'],
+  'A complete profile of one inter-system dependency: its mechanism, coupling, '
+  'data exchange, reliability, and operational ownership.',
+)
 @SectionId('SYDE')
 class SystemDependencyEntry {
   @Form([
@@ -745,6 +1029,11 @@ class SystemDependencyEntry {
 }
 
 /// Mechanism and coupling for system dependency.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (dependency mechanism)'],
+  'The mechanism and coupling facts for one inter-system dependency: how the '
+  'systems are linked and how tightly they are coupled.',
+)
 @SectionId('SDEM')
 class SystemDependencyEntryMechanism {
   @Form([
@@ -760,6 +1049,11 @@ class SystemDependencyEntryMechanism {
 }
 
 /// Data exchange characteristics for system dependency.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (dependency data exchange)'],
+  'The data-exchange characteristics of one inter-system dependency: what data '
+  'flows, in what volume, and how fresh it must be.',
+)
 @SectionId('SDEDE')
 class SystemDependencyEntryDataExchange {
   @Form([
@@ -775,6 +1069,11 @@ class SystemDependencyEntryDataExchange {
 }
 
 /// Reliability and SLA for system dependency.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (dependency reliability)'],
+  'The reliability and SLA facts for one inter-system dependency: failure '
+  'impact, cascade risk, latency/availability needs, and fallback.',
+)
 @SectionId('SDER')
 class SystemDependencyEntryReliability {
   @Form([
@@ -796,6 +1095,11 @@ class SystemDependencyEntryReliability {
 }
 
 /// Operations and documentation for system dependency.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (dependency operations)'],
+  'The operational facts for one inter-system dependency: its monitoring, '
+  'documentation, ownership, and technical-debt assessment.',
+)
 @SectionId('SDEO')
 class SystemDependencyEntryOperations {
   @Form([
@@ -821,6 +1125,12 @@ class SystemDependencyEntryOperations {
 /// Documents one integration between systems: type, pattern, protocol,
 /// data format, throughput, error handling, monitoring, security,
 /// and technical debt.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (system integration profile)'],
+  'A complete profile of one active integration between systems: its type, '
+  'pattern, protocol, data exchange, error handling, throughput, monitoring, '
+  'and ownership.',
+)
 @SectionId('SYIN')
 class SystemIntegrationEntry {
   @Form([
@@ -872,6 +1182,11 @@ class SystemIntegrationEntry {
 }
 
 /// Protocol and transport details.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration protocol)'],
+  'The protocol and transport facts for one integration: protocol, direction, '
+  'frequency, middleware, and authentication.',
+)
 @SectionId('SYINPR')
 class SystemIntegrationProtocol {
   @Form([
@@ -891,6 +1206,11 @@ class SystemIntegrationProtocol {
 }
 
 /// Data exchange configuration.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration data exchange)'],
+  'The data-exchange configuration of one integration: payloads, message '
+  'format, schema version, and transformation complexity.',
+)
 @SectionId('SIDE')
 class SystemIntegrationDataExchange {
   @Form([
@@ -910,6 +1230,10 @@ class SystemIntegrationDataExchange {
 }
 
 /// Error handling and retry.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration error handling)'],
+  'The error-handling and retry behaviour of one integration.',
+)
 @SectionId('SIEH')
 class SystemIntegrationErrorHandling {
   @Form([
@@ -923,6 +1247,11 @@ class SystemIntegrationErrorHandling {
 }
 
 /// Throughput and capacity.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration throughput)'],
+  'The throughput and capacity facts for one integration: its capacity, '
+  'current utilization, and peak-load behaviour.',
+)
 @SectionId('SYINTH')
 class SystemIntegrationThroughput {
   @Form([
@@ -938,6 +1267,11 @@ class SystemIntegrationThroughput {
 }
 
 /// Monitoring and failover.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration monitoring)'],
+  'The monitoring and failover facts for one integration: how it is observed '
+  'and how it behaves on failure.',
+)
 @SectionId('SYINMO')
 class SystemIntegrationMonitoring {
   @Form([
@@ -951,6 +1285,11 @@ class SystemIntegrationMonitoring {
 }
 
 /// Ownership and documentation.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration ownership)'],
+  'The ownership and documentation facts for one integration: its age, '
+  'documentation quality, maintenance owner, and compliance posture.',
+)
 @SectionId('SYINOW')
 class SystemIntegrationOwnership {
   @Form([
@@ -981,6 +1320,11 @@ class SystemIntegrationOwnership {
 /// replace, or enhance. Understanding existing workflows is critical for
 /// gap analysis, migration planning, and ensuring the new system meets
 /// operational needs.
+@StandardReferences(
+  ['BABOK v3 §10 — Define the Current State (as-is business process model)'],
+  'The catalogue of business processes operating today that the project will '
+  'impact, replace, or enhance — the AS-IS process picture.',
+)
 @SectionId('CUBUPR')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-PRO')
@@ -1013,14 +1357,29 @@ class CurrentBusinessProcesses {
   ProcessPerformanceSummary? performanceSummary;
 
   /// 1.2.nn. Business Processes — contains 1+× Business Process.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (as-is process inventory)'],
+    'The ordered set of individual business processes documented for the '
+    'current state.',
+  )
   @SectionId('CUBIPR-PROC-LST')
   @SectionIdPattern('CUBIPR-PROC-xxx')
+  @ContentHelp('Add one entry per business process in scope. Document each '
+      'process in full — its workflows, actors, metrics, and pain points.')
   @Min(1)
   @SerializationOrder(5)
   List<CurrentBusinessProcess> processes = [];
 }
 
 /// Process scope summary defining in-scope and out-of-scope processes.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (analysis scope)'],
+  'The boundary statement for the current-state analysis: which processes are '
+  'in scope, which are excluded, and why.',
+)
+@ContentHelp('Summarize how many processes were identified and which were '
+    'selected for analysis. Record the rationale for scope decisions and any '
+    'processes deferred to later phases.')
 @SectionId('PRSCSU')
 class ProcessScopeSummary {
   @Form([
@@ -1036,19 +1395,36 @@ class ProcessScopeSummary {
   String? content;
 
   /// Processes in scope.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (in-scope processes)'],
+    'The processes explicitly included in the current-state analysis.',
+  )
   @SectionId('PRSCEN-INSC-LST')
   @SectionIdPattern('PRSCEN-INSC-xxx')
+  @ContentHelp('Add one entry per process that is in scope for analysis, with '
+      'the rationale for its inclusion.')
   @SerializationOrder(1)
   List<ProcessScopeEntry> inScopeProcesses = [];
 
   /// Processes explicitly out of scope.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (out-of-scope processes)'],
+    'The processes deliberately excluded from the current-state analysis.',
+  )
   @SectionId('PRSCEN-OUTO-LST')
   @SectionIdPattern('PRSCEN-OUTO-xxx')
+  @ContentHelp('Add one entry per process excluded from analysis, noting why '
+      'and the impact of leaving it out.')
   @SerializationOrder(2)
   List<ProcessScopeEntry> outOfScopeProcesses = [];
 }
 
 /// A process scope entry indicating in/out of scope status.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (scope decision)'],
+  'A single scope decision for one process: whether it is in or out of scope '
+  'and the reasoning behind that decision.',
+)
 @SectionId('PRSCEN')
 class ProcessScopeEntry {
   @Form([
@@ -1064,6 +1440,14 @@ class ProcessScopeEntry {
 }
 
 /// Process interdependency matrix showing how processes interact.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (process interdependencies)'],
+  'The map of how the current processes depend on and interact with each '
+  'other, including the artifacts exchanged between them.',
+)
+@ContentHelp('Document how processes interact: which feed which, what is '
+    'exchanged, and how tightly coupled they are. Use the diagram for the '
+    'overall picture and the entries for each pairwise dependency.')
 @SectionId('PRINMA')
 class ProcessInterdependencyMatrix {
   @SerializationOrder(0)
@@ -1077,13 +1461,24 @@ class ProcessInterdependencyMatrix {
   String? dependencyDiagram;
 
   /// Individual process dependencies.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (process dependency)'],
+    'The set of individual dependencies between processes.',
+  )
   @SectionId('PRDEEN-DEPE-LST')
   @SectionIdPattern('PRDEEN-DEPE-xxx')
+  @ContentHelp('Add one entry per source→target process dependency, capturing '
+      'the artifact exchanged, coupling, timing, and failure impact.')
   @SerializationOrder(2)
   List<ProcessDependencyEntry> dependencies = [];
 }
 
 /// A single process dependency entry.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (process dependency)'],
+  'A single directed dependency between two processes: what flows between '
+  'them, how tightly they are coupled, and the impact if it fails.',
+)
 @SectionId('PRDEEN')
 class ProcessDependencyEntry {
   @Form([
@@ -1106,6 +1501,14 @@ class ProcessDependencyEntry {
 }
 
 /// Process performance summary with high-level metrics.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (process performance baseline)'],
+  'A high-level view of how the current processes perform overall: maturity, '
+  'automation, manual and error-prone effort, and estimated waste.',
+)
+@ContentHelp('Summarize the overall health of the current processes — maturity, '
+    'automation level, manual and error-prone steps, bottlenecks, and the '
+    'estimated cost of inefficiency.')
 @SectionId('PRPESU')
 class ProcessPerformanceSummary {
   @Form([
@@ -1126,8 +1529,14 @@ class ProcessPerformanceSummary {
   String? content;
 
   /// Key metrics summary.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (key performance metrics)'],
+    'The headline metrics chosen to summarize current process performance.',
+  )
   @SectionId('PME-KEYM-LST')
   @SectionIdPattern('PME-KEYM-xxx')
+  @ContentHelp('Add the most important metrics that characterize overall '
+      'process performance at a glance.')
   @SerializationOrder(1)
   List<ProcessMetricEntry> keyMetrics = [];
 }
@@ -1136,6 +1545,14 @@ class ProcessPerformanceSummary {
 ///
 /// Detailed documentation of a single business process including its
 /// workflows, actors, metrics, and pain points.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — current-state analysis (as-is process model)',
+    'BPMN 2.0 — business process modelling notation',
+  ],
+  'The complete AS-IS picture of one business process: its context, workflows, '
+  'metrics, and pain points as they operate today.',
+)
 @ContentHelp('Document each business process that the project will impact. '
     'Include process maps (BPMN recommended), actor descriptions, and '
     'quantitative metrics. Identify manual steps and error-prone areas.')
@@ -1169,6 +1586,11 @@ class CurrentBusinessProcess {
 }
 
 /// Context and purpose of a business process.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (process context and drivers)'],
+  'The reason a process exists and how it fits the organization: its purpose, '
+  'value, regulatory drivers, SLAs, and up/downstream relationships.',
+)
 @ContentHelp('Describe why this process exists, what business value it delivers, '
     'and how it fits into the overall organizational workflow.')
 @SectionId('PC')
@@ -1186,6 +1608,13 @@ class ProcessContext {
 }
 
 /// Process-specific pain points and improvement opportunities.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (process problems and opportunities)'],
+  'The known issues, inefficiencies, and improvement opportunities specific to '
+  'one process in its current state.',
+)
+@ContentHelp('Capture the problems and improvement opportunities specific to '
+    'this process — what works poorly today and where it could be better.')
 @SectionId('PRPAPO')
 class ProcessPainPoints {
   @ContentType('description', 'Known issues, inefficiencies, and improvement '
@@ -1194,13 +1623,24 @@ class ProcessPainPoints {
   String? content;
 
   /// Process improvement opportunities.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (improvement opportunity)'],
+    'The set of improvement opportunities identified for this process.',
+  )
   @SectionId('CPIE-IMPR-LST')
   @SectionIdPattern('CPIE-IMPR-xxx')
+  @ContentHelp('Add one entry per improvement opportunity, contrasting the '
+      'current and desired state with its benefit, effort, and priority.')
     @SerializationOrder(1)
     List<CurrentProcessImprovementEntry> improvements = [];
 }
 
 /// A process improvement opportunity.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (improvement opportunity)'],
+  'A single improvement opportunity for the process: the gap between its '
+  'current and desired state and the value of closing it.',
+)
 @SectionId('CPIE')
 class CurrentProcessImprovementEntry {
   @Form([
@@ -1222,6 +1662,17 @@ class CurrentProcessImprovementEntry {
 ///
 /// Container for workflow entries within a business process. Add one
 /// subsection per current workflow relevant to the project.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — current-state analysis (workflow / process flow)',
+    'BPMN 2.0 — business process modelling notation',
+  ],
+  'The collection of workflows that make up a business process, with their '
+  'overview map and per-workflow detail.',
+)
+@ContentHelp('Describe the workflows that make up this process. Use the '
+    'overview diagram for how they fit together and add one entry per '
+    'individual workflow below.')
 @SectionId('WODE')
 class WorkflowDescriptions {
   @SerializationOrder(0)
@@ -1242,14 +1693,27 @@ class WorkflowDescriptions {
   WorkflowSummaryTable? summaryTable;
 
   /// Individual workflow entries.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (workflow inventory)'],
+    'The ordered set of individual workflows documented for this process.',
+  )
   @SectionId('CUWF-WORK-LST')
   @SectionIdPattern('CUWF-WORK-xxx')
+  @ContentHelp('Add one entry per workflow within this process, documenting '
+      'its triggers, steps, actors, inputs, outputs, and timing.')
   @Min(1)
   @SerializationOrder(3)
   List<CurrentWorkflowEntry> workflows = [];
 }
 
 /// Summary table of all workflows for quick reference.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (workflow summary)'],
+  'A quick-reference roll-up of all workflows in the process: counts, cycle '
+  'times, and automation potential at a glance.',
+)
+@ContentHelp('Summarize the workflows for this process — totals, average cycle '
+    'time, and automation potential — then add one summary row per workflow.')
 @SectionId('WOSUTA')
 class WorkflowSummaryTable {
   @Form([
@@ -1264,13 +1728,24 @@ class WorkflowSummaryTable {
   String? content;
 
   /// Summary entries per workflow.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (workflow summary entry)'],
+    'The per-workflow rows of the summary table.',
+  )
   @SectionId('WOSUEN-ENTR-LST')
   @SectionIdPattern('WOSUEN-ENTR-xxx')
+  @ContentHelp('Add one summary row per workflow capturing its type, '
+      'frequency, cycle time, step counts, actors, and automation potential.')
   @SerializationOrder(1)
   List<WorkflowSummaryEntry> entries = [];
 }
 
 /// Summary entry for a single workflow.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (workflow summary entry)'],
+  'A one-line summary of a single workflow: its type, frequency, cycle time, '
+  'step and actor counts, and automation potential.',
+)
 @SectionId('WOSUEN')
 class WorkflowSummaryEntry {
   @Form([
@@ -1292,6 +1767,14 @@ class WorkflowSummaryEntry {
 ///
 /// Detailed documentation of a single workflow within a business process.
 /// Includes triggers, steps, actors, inputs, outputs, and timing.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — current-state analysis (as-is workflow model)',
+    'BPMN 2.0 — business process modelling notation',
+  ],
+  'The full AS-IS model of one workflow: how it is triggered, the steps and '
+  'actors involved, its inputs/outputs, rules, timing, and exceptions.',
+)
 @ContentHelp('Document each workflow with enough detail to understand the '
     'current state and identify improvement opportunities. Include swim-lane '
     'diagrams for complex workflows with multiple actors.')
@@ -1322,42 +1805,86 @@ class CurrentWorkflowEntry {
   WorkflowTriggers triggers = WorkflowTriggers();
 
   /// Workflow steps in sequence.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (workflow steps / activities)'],
+    'The ordered sequence of steps that make up the workflow.',
+  )
   @SectionId('WSE-STEP-LST')
   @SectionIdPattern('WSE-STEP-xxx')
+  @ContentHelp('Add the workflow steps in execution order, capturing the '
+      'responsible actor, inputs/outputs, and whether each is manual.')
   @SerializationOrder(3)
   List<WorkflowStepEntry> steps = [];
 
   /// Workflow actors and responsibilities.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (workflow participants / roles)'],
+    'The actors who participate in the workflow and their responsibilities.',
+  )
   @SectionId('WFAC-ACTO-LST')
   @SectionIdPattern('WFAC-ACTO-xxx')
+  @ContentHelp('Add one entry per actor (role, system, department, external) '
+      'taking part in this workflow, with their responsibilities and '
+      'authorization level.')
   @SerializationOrder(4)
   List<WorkflowActorEntry> actors = [];
 
   /// Workflow inputs.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (workflow inputs)'],
+    'The data and documents consumed by the workflow.',
+  )
   @SectionId('WOINEN-INPU-LST')
   @SectionIdPattern('WOINEN-INPU-xxx')
+  @ContentHelp('Add one entry per input the workflow consumes, with its '
+      'source, format, and validation rules.')
   @SerializationOrder(5)
   List<WorkflowInputEntry> inputs = [];
 
   /// Workflow outputs.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (workflow outputs)'],
+    'The data and documents produced by the workflow.',
+  )
   @SectionId('WOOUEN-OUTP-LST')
   @SectionIdPattern('WOOUEN-OUTP-xxx')
+  @ContentHelp('Add one entry per output the workflow produces, with its '
+      'destination, format, and retention requirements.')
   @SerializationOrder(6)
   List<WorkflowOutputEntry> outputs = [];
 
   /// Decision points within the workflow.
+  @StandardReferences(
+    [
+      'BABOK v3 §10 — current-state analysis (decision points)',
+      'BPMN 2.0 — gateways (decision points)',
+    ],
+    'The points in the workflow where a decision branches the flow.',
+  )
   @SectionId('WODEPO-DECI-LST')
   @SectionIdPattern('WODEPO-DECI-xxx')
+  @ContentHelp('Add one entry per decision point, with its criteria, decision '
+      'maker, possible outcomes, and escalation path.')
   @SerializationOrder(7)
   List<WorkflowDecisionPoint> decisionPoints = [];
 
   /// Business rules governing the workflow.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (business rules)'],
+    'The business rules that govern how the workflow behaves.',
+  )
   @SectionId('WOBURU-BUSI-LST')
   @SectionIdPattern('WOBURU-BUSI-xxx')
+  @ContentHelp('Add one entry per business rule constraining this workflow, '
+      'with its logic, source, and exceptions.')
   @SerializationOrder(8)
   List<WorkflowBusinessRule> businessRules = [];
 
   /// Manual steps requiring human intervention.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (manual / non-automated steps)'],
+    'The subset of workflow steps that require human intervention.',
+  )
   @SectionId('WSE-MANU-LST')
   @SectionIdPattern('WSE-MANU-xxx')
   @ContentHelp('Identify steps that cannot be automated or require human judgment.')
@@ -1365,6 +1892,10 @@ class CurrentWorkflowEntry {
   List<WorkflowStepEntry> manualSteps = [];
 
   /// Error-prone steps with high failure rates.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (error-prone steps)'],
+    'The subset of workflow steps known to have high error or failure rates.',
+  )
   @SectionId('WSE-ERRO-LST')
   @SectionIdPattern('WSE-ERRO-xxx')
   @ContentHelp('Identify steps with known issues, high error rates, or workarounds.')
@@ -1381,6 +1912,12 @@ class CurrentWorkflowEntry {
 }
 
 /// Workflow triggers and initiation conditions.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (workflow triggers / events)'],
+  'The conditions and events that cause this workflow to start.',
+)
+@ContentHelp('Describe what initiates this workflow and list each distinct '
+    'trigger with its type, source, and conditions.')
 @SectionId('WOTR')
 class WorkflowTriggers {
   @ContentType('description', 'Conditions that initiate this workflow.')
@@ -1388,13 +1925,24 @@ class WorkflowTriggers {
   String? content;
 
   /// Trigger entries.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (workflow trigger)'],
+    'The set of distinct triggers that can start this workflow.',
+  )
   @SectionId('WOTREN-TRIG-LST')
   @SectionIdPattern('WOTREN-TRIG-xxx')
+  @ContentHelp('Add one entry per trigger, with its type (event, schedule, '
+      'manual, system), source, condition, and frequency.')
   @SerializationOrder(1)
   List<WorkflowTriggerEntry> triggers = [];
 }
 
 /// A single workflow trigger.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (workflow trigger)'],
+  'A single initiating condition for the workflow: its type, source, '
+  'condition, and frequency.',
+)
 @SectionId('WOTREN')
 class WorkflowTriggerEntry {
   @Form([
@@ -1409,6 +1957,10 @@ class WorkflowTriggerEntry {
 }
 
 /// A system used in a workflow step.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (system used in workflow step)'],
+  'A single system that a workflow step relies on to do its work.',
+)
 @SectionId('WOSTSY')
 class WorkflowStepSystem {
   @ContentHelp('Name of the system used in this workflow step.')
@@ -1419,6 +1971,14 @@ class WorkflowStepSystem {
 /// A workflow step entry (form).
 ///
 /// Detailed documentation of a single step within a workflow.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — current-state analysis (workflow step / activity)',
+    'BPMN 2.0 — tasks and activities',
+  ],
+  'The full detail of one workflow step: what it does, who performs it, the '
+  'systems and data it uses, whether it is manual, and its known issues.',
+)
 @ContentHelp('Document each step with enough detail for process analysis and '
     'system design. Include responsible actors, inputs, outputs, and timing.')
 @SectionId('WSE')
@@ -1437,37 +1997,71 @@ class WorkflowStepEntry {
   String? content;
 
   /// Systems used in this step.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (systems used in step)'],
+    'The systems this step relies on to perform its work.',
+  )
   @SectionId('WOSTSY-SYST-LST')
   @SectionIdPattern('WOSTSY-SYST-xxx')
+  @ContentHelp('Add one entry per system the step uses.')
   @SerializationOrder(1)
   List<WorkflowStepSystem> systemsUsed = [];
 
   /// Step inputs.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (step inputs)'],
+    'The data and documents this step consumes.',
+  )
   @SectionId('WOINEN-INPU-LST')
   @SectionIdPattern('WOINEN-INPU-xxx')
+  @ContentHelp('Add one entry per input this step consumes, with its source, '
+      'format, and validation rules.')
   @SerializationOrder(2)
   List<WorkflowInputEntry> inputs = [];
 
   /// Step outputs.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (step outputs)'],
+    'The data and documents this step produces.',
+  )
   @SectionId('WOOUEN-OUTP-LST')
   @SectionIdPattern('WOOUEN-OUTP-xxx')
+  @ContentHelp('Add one entry per output this step produces, with its '
+      'destination and format.')
   @SerializationOrder(3)
   List<WorkflowOutputEntry> outputs = [];
 
   /// Step-specific business rules.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (step business rules)'],
+    'The business rules that govern how this step behaves.',
+  )
   @SectionId('WOBURU-BUSI-LST')
   @SectionIdPattern('WOBURU-BUSI-xxx')
+  @ContentHelp('Add one entry per business rule constraining this step, with '
+      'its logic, source, and exceptions.')
   @SerializationOrder(4)
   List<WorkflowBusinessRule> businessRules = [];
 
   /// Known issues with this step.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (step known issues)'],
+    'The known problems and recurring failures associated with this step.',
+  )
   @SectionId('WOSTIS-KNOW-LST')
   @SectionIdPattern('WOSTIS-KNOW-xxx')
+  @ContentHelp('Add one entry per known issue with this step, noting its '
+      'frequency, impact, and any current workaround.')
   @SerializationOrder(5)
   List<WorkflowStepIssue> knownIssues = [];
 }
 
 /// Known issue with a workflow step.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (step known issue)'],
+  'A single known problem with a workflow step: how often it occurs, its '
+  'business impact, and any workaround in use.',
+)
 @SectionId('WOSTIS')
 class WorkflowStepIssue {
   @Form([
@@ -1484,6 +2078,11 @@ class WorkflowStepIssue {
 /// A workflow actor entry (form).
 ///
 /// Documentation of a participant in the workflow.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (workflow participant / role)'],
+  'A single participant in the workflow: its role, responsibilities, '
+  'authorization, skills, and headcount.',
+)
 @ContentHelp('Document all actors including their roles, responsibilities, '
     'authorization levels, and involvement pattern.')
 @SectionId('WAE')
@@ -1508,6 +2107,11 @@ class WorkflowActorEntry {
 }
 
 /// A workflow input.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (workflow input)'],
+  'A single input consumed by a workflow or step: its type, source, format, '
+  'and validation rules.',
+)
 @SectionId('WOINEN')
 class WorkflowInputEntry {
   @Form([
@@ -1523,6 +2127,11 @@ class WorkflowInputEntry {
 }
 
 /// A workflow output.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (workflow output)'],
+  'A single output produced by a workflow or step: its type, destination, '
+  'format, and retention requirements.',
+)
 @SectionId('WOOUEN')
 class WorkflowOutputEntry {
   @Form([
@@ -1537,6 +2146,14 @@ class WorkflowOutputEntry {
 }
 
 /// A decision point within a workflow.
+@StandardReferences(
+  [
+    'BABOK v3 §10 — current-state analysis (decision point)',
+    'BPMN 2.0 — gateways (decision points)',
+  ],
+  'A single branching decision in the workflow: its criteria, who decides, the '
+  'possible outcomes, and the escalation path.',
+)
 @SectionId('WODEPO')
 class WorkflowDecisionPoint {
   @Form([
@@ -1552,6 +2169,11 @@ class WorkflowDecisionPoint {
 }
 
 /// A business rule governing workflow behavior.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (business rule)'],
+  'A single business rule constraining the workflow: its logic, governing '
+  'source, and the cases where it does not apply.',
+)
 @SectionId('WOBURU')
 class WorkflowBusinessRule {
   @Form([
@@ -1566,6 +2188,11 @@ class WorkflowBusinessRule {
 }
 
 /// Workflow timing and performance characteristics.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (workflow timing and performance)'],
+  'The timing profile of the workflow: elapsed, processing and wait times, SLA '
+  'performance, peak periods, and bottlenecks.',
+)
 @SectionId('WOTI')
 class WorkflowTiming {
   @Form([
@@ -1582,6 +2209,12 @@ class WorkflowTiming {
 }
 
 /// Workflow exception handling.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (exception handling)'],
+  'How the workflow deals with exceptions and error conditions today.',
+)
+@ContentHelp('Describe how exceptions are handled in this workflow and list '
+    'each distinct exception type with its handling and escalation.')
 @SectionId('WOEX')
 class WorkflowExceptions {
   @ContentType('description', 'How exceptions are handled in this workflow.')
@@ -1589,13 +2222,24 @@ class WorkflowExceptions {
   String? content;
 
   /// Exception entries.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (workflow exception)'],
+    'The set of exception types the workflow must handle.',
+  )
   @SectionId('WOEXEN-EXCE-LST')
   @SectionIdPattern('WOEXEN-EXCE-xxx')
+  @ContentHelp('Add one entry per exception type, with its frequency, handling '
+      'procedure, escalation path, and recovery time.')
   @SerializationOrder(1)
   List<WorkflowExceptionEntry> exceptions = [];
 }
 
 /// A workflow exception type.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (workflow exception)'],
+  'A single exception type the workflow handles: how often it occurs, the '
+  'handling procedure, escalation path, and recovery time.',
+)
 @SectionId('WOEXEN')
 class WorkflowExceptionEntry {
   @Form([
@@ -1614,6 +2258,11 @@ class WorkflowExceptionEntry {
 ///
 /// Quantitative metrics for measuring process performance. These metrics
 /// form the baseline against which improvements will be measured.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (performance measures / baseline)'],
+  'The quantitative performance baseline of a process: its efficiency, '
+  'quality, volume, cost, and manual-intervention metrics as measured today.',
+)
 @ContentHelp('Document current process performance including throughput, '
     'cycle times, error rates, and manual intervention frequency. '
     'These become the baseline against which improvements are measured.')
@@ -1631,43 +2280,78 @@ class ProcessMetrics {
   MetricsDashboardSummary? dashboardSummary;
 
   /// Efficiency metrics.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (efficiency measures)'],
+    'The efficiency metrics for the process: throughput, cycle times, and '
+    'resource utilization.',
+  )
   @SectionId('PRMECA-EFFI-LST')
   @SectionIdPattern('PRMECA-EFFI-xxx')
+  @ContentHelp('Add efficiency metrics — throughput, cycle times, utilization.')
   @Comment('Throughput, cycle times, utilization')
   @SerializationOrder(2)
   List<ProcessMetricCategory> efficiencyMetrics = [];
 
   /// Quality metrics.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (quality measures)'],
+    'The quality metrics for the process: error, defect, and rework rates.',
+  )
   @SectionId('PRMECA-QUAL-LST')
   @SectionIdPattern('PRMECA-QUAL-xxx')
+  @ContentHelp('Add quality metrics — error rates, defect rates, rework rates.')
   @Comment('Error rates, defect rates, rework rates')
   @SerializationOrder(3)
   List<ProcessMetricCategory> qualityMetrics = [];
 
   /// Volume metrics.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (volume measures)'],
+    'The volume metrics for the process: transaction counts and throughput '
+    'volumes.',
+  )
   @SectionId('PRMECA-VOLU-LST')
   @SectionIdPattern('PRMECA-VOLU-xxx')
+  @ContentHelp('Add volume metrics — transaction counts, throughput volumes.')
   @Comment('Transaction counts, throughput volumes')
   @SerializationOrder(4)
   List<ProcessMetricCategory> volumeMetrics = [];
 
   /// Cost metrics.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (cost measures)'],
+    'The cost metrics for the process: cost per transaction and resource '
+    'costs.',
+  )
   @SectionId('PRMECA-COST-LST')
   @SectionIdPattern('PRMECA-COST-xxx')
+  @ContentHelp('Add cost metrics — cost per transaction, resource costs.')
   @Comment('Cost per transaction, resource costs')
   @SerializationOrder(5)
   List<ProcessMetricCategory> costMetrics = [];
 
   /// Manual intervention metrics.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (manual-intervention measures)'],
+    'The metrics describing how much manual effort the process requires.',
+  )
   @SectionId('PRMECA-MANU-LST')
   @SectionIdPattern('PRMECA-MANU-xxx')
+  @ContentHelp('Add manual-intervention metrics — manual steps, human '
+      'intervention frequency.')
   @Comment('Manual steps, human intervention frequency')
   @SerializationOrder(6)
   List<ProcessMetricCategory> manualInterventionMetrics = [];
 
   /// Individual metric entries.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (individual metrics)'],
+    'The flat list of individual metric entries not grouped by category.',
+  )
   @SectionId('PME-ITEM-LST')
   @SectionIdPattern('PME-ITEM-xxx')
+  @ContentHelp('Add any individual metrics that do not fit a specific '
+      'category above.')
   @SerializationOrder(7)
   List<ProcessMetricEntry> items = [];
 
@@ -1678,6 +2362,13 @@ class ProcessMetrics {
 }
 
 /// Metrics dashboard summary for executive overview.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (performance dashboard)'],
+  'An executive roll-up of the headline process metrics: throughput, cycle '
+  'time, error and manual-intervention rates, utilization, and overall trend.',
+)
+@ContentHelp('Summarize the key process metrics for an executive audience — '
+    'measurement period, data quality, and the headline performance figures.')
 @SectionId('MEDASU')
 class MetricsDashboardSummary {
   @Form([
@@ -1707,6 +2398,11 @@ class MetricsDashboardSummary {
 }
 
 /// Baseline table for tracking metrics over time.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (baseline for improvement tracking)'],
+  'The set of baselined metrics against which future improvement will be '
+  'measured, with their current and target values.',
+)
 @SectionId('MEBATA')
 class MetricsBaselineTable {
   @ContentType('description', 'Baseline tracking approach and comparison periods.')
@@ -1716,13 +2412,24 @@ class MetricsBaselineTable {
   String? content;
 
   /// Baseline entries.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (baseline entry)'],
+    'The individual baselined metrics tracked for improvement.',
+  )
   @SectionId('MEBAEN-ENTR-LST')
   @SectionIdPattern('MEBAEN-ENTR-xxx')
+  @ContentHelp('Add one entry per metric to be tracked, with its baseline '
+      'value, target value, and improvement target.')
   @SerializationOrder(1)
   List<MetricsBaselineEntry> entries = [];
 }
 
 /// A baseline entry for tracking metric changes.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (baseline entry)'],
+  'A single baselined metric: its current value, target value, dates, and the '
+  'improvement expected.',
+)
 @SectionId('MEBAEN')
 class MetricsBaselineEntry {
   @Form([
@@ -1741,6 +2448,13 @@ class MetricsBaselineEntry {
 }
 
 /// A category of process metrics.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (metric category)'],
+  'A grouping of related process metrics under one category (e.g. efficiency, '
+  'quality, volume, cost).',
+)
+@ContentHelp('Group related metrics under this category and add one entry per '
+    'metric it contains.')
 @SectionId('PRMECA')
 class ProcessMetricCategory {
   @ContentType('description', 'Category-level summary of metrics.')
@@ -1748,8 +2462,14 @@ class ProcessMetricCategory {
   String? content;
 
   /// Metrics in this category.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (metrics in category)'],
+    'The individual metrics belonging to this category.',
+  )
   @SectionId('PME-METR-LST')
   @SectionIdPattern('PME-METR-xxx')
+  @ContentHelp('Add one entry per metric in this category, with its current '
+      'value, unit, and measurement details.')
   @SerializationOrder(1)
   List<ProcessMetricEntry> metrics = [];
 }
@@ -1757,6 +2477,11 @@ class ProcessMetricCategory {
 /// A process metric entry (form).
 ///
 /// A single measurable metric with current value and measurement details.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (performance metric)'],
+  'A single measurable process metric: its current value and unit, how it is '
+  'measured, and its target/benchmark context.',
+)
 @ContentHelp('Define each metric clearly with current baseline values, '
     'measurement methodology, and target values if known.')
 @SectionId('PME')
@@ -1785,6 +2510,13 @@ class ProcessMetricEntry {
 }
 
 /// Measurement collection details.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (metric measurement method)'],
+  'How a metric is collected: its measurement method, data source, and '
+  'measurement frequency.',
+)
+@ContentHelp('Record how this metric is measured — the method, data source, '
+    'and how often it is collected.')
 @SectionId('PMEM')
 class ProcessMetricEntryMeasurement {
     @Form([
@@ -1797,6 +2529,13 @@ class ProcessMetricEntryMeasurement {
 }
 
 /// Target setting and benchmarking context.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (metric target and benchmark)'],
+  'The target and benchmarking context for a metric: its target value, trend, '
+  'and industry benchmark.',
+)
+@ContentHelp('Record the target value for this metric, its current trend, and '
+    'any industry benchmark for comparison.')
 @SectionId('PMET')
 class ProcessMetricEntryTargets {
     @Form([
@@ -1817,6 +2556,11 @@ class ProcessMetricEntryTargets {
 /// Comprehensive documentation of specific problems, inefficiencies,
 /// compliance gaps, and user frustrations in the current state.
 /// Each pain point includes business impact quantification and root cause.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (problem & opportunity identification)'],
+  'The catalogue of AS-IS problems, inefficiencies, and capability gaps that '
+  'justify change — the pain the future solution must relieve.',
+)
 @SectionId('PPAG')
 @DetailedIn(D01CurrentLandscapeAssessment)
 @SecondLevelSectionId(D01CurrentLandscapeAssessment, 'CLA-PAI')
@@ -1868,6 +2612,14 @@ and technical capabilities. Highlight interdependencies between pain points.
 }
 
 /// Summary statistics and metrics for all pain points.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (measurement of current performance)'],
+  'Aggregate roll-up of all documented pain points — counts, severity mix, and '
+  'total cost — giving a single quantified view of the AS-IS problem space.',
+)
+@ContentHelp('Summarize the documented pain points as a whole: totals by '
+    'severity, aggregate cost and productivity loss, and the most affected '
+    'process and stakeholder group. Derive these from the individual entries.')
 @SectionId('PAPOSU')
 class PainPointsSummary {
   @Form([
@@ -1900,6 +2652,11 @@ class PainPointsSummary {
 ///
 /// Problems that affect day-to-day operations: downtime, slow response,
 /// data inconsistencies, manual workarounds, and process interruptions.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (operational performance shortfalls)'],
+  'Day-to-day operational problems in the current state — downtime, manual '
+  'workarounds, and data inconsistencies that disrupt routine work.',
+)
 @SectionId('OPPAPO')
 class OperationalPainPoints {
   @ContentHelp('''
@@ -1915,13 +2672,28 @@ on specific systems or personnel.
   OperationalPainPointsSummary categorySummary = OperationalPainPointsSummary();
 
   /// Contains 0+× PainPoint.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (problem identification)'],
+    'The list of individual operational pain points documented in detail.',
+  )
   @SectionId('OPPAPO-ITEM-LST')
   @SectionIdPattern('OPPAPO-ITEM-xxx')
+  @ContentHelp('Add one entry per distinct operational problem, each with its '
+      'own root cause, impact, and workaround. Keep entries scoped to '
+      'day-to-day operations rather than business or technical concerns.')
   @SerializationOrder(2)
   List<PainPointEntry> items = [];
 }
 
 /// Summary specific to operational pain points.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (operational measures)'],
+  'Category roll-up quantifying the operational pain points — downtime, '
+  'workaround count, and staff overhead in the current state.',
+)
+@ContentHelp('Aggregate the operational pain points into category metrics: '
+    'average downtime, number of manual workarounds, data-inconsistency '
+    'frequency, and staff overhead spent on workarounds.')
 @SectionId('OPPS')
 class OperationalPainPointsSummary {
   @Form([
@@ -1944,6 +2716,11 @@ class OperationalPainPointsSummary {
 ///
 /// Problems that affect business outcomes: lost revenue, compliance risk,
 /// customer dissatisfaction, inability to scale, and missed opportunities.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (business performance shortfalls)'],
+  'Problems in the current state that erode business outcomes — lost revenue, '
+  'compliance exposure, customer dissatisfaction, and missed opportunities.',
+)
 @SectionId('BUPAPO')
 class BusinessPainPoints {
   @ContentHelp('''
@@ -1959,13 +2736,29 @@ and competitive positioning concerns.
   BusinessPainPointsSummary categorySummary = BusinessPainPointsSummary();
 
   /// Contains 0+× PainPoint.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (problem identification)'],
+    'The list of individual business pain points documented in detail.',
+  )
   @SectionId('BUPAPO-ITEM-LST')
   @SectionIdPattern('BUPAPO-ITEM-xxx')
+  @ContentHelp('Add one entry per distinct business problem, each with its own '
+      'root cause, quantified impact, and resolution outlook. Scope entries to '
+      'strategic and financial outcomes rather than operational or technical '
+      'detail.')
   @SerializationOrder(2)
   List<PainPointEntry> items = [];
 }
 
 /// Summary specific to business pain points.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (business measures)'],
+  'Category roll-up quantifying the business pain points — revenue loss, '
+  'compliance exposure, and customer-satisfaction impact in the current state.',
+)
+@ContentHelp('Aggregate the business pain points into category metrics: '
+    'estimated revenue loss, compliance risk exposure, customer-satisfaction '
+    'impact, and scalability constraints.')
 @SectionId('BPPS')
 class BusinessPainPointsSummary {
   @Form([
@@ -1991,6 +2784,11 @@ class BusinessPainPointsSummary {
 /// Problems that affect development and maintenance: outdated technology,
 /// security vulnerabilities, lack of documentation, vendor lock-in,
 /// and technical debt.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (technology & infrastructure constraints)'],
+  'Problems in the current state that hinder development and maintenance — '
+  'aging technology, security vulnerabilities, technical debt, and lock-in.',
+)
 @SectionId('TEPAPO')
 class TechnicalPainPoints {
   @ContentHelp('''
@@ -2006,13 +2804,28 @@ integration complexity, and team capability constraints.
   TechnicalPainPointsSummary categorySummary = TechnicalPainPointsSummary();
 
   /// Contains 0+× PainPoint.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (problem identification)'],
+    'The list of individual technical pain points documented in detail.',
+  )
   @SectionId('TEPAPO-ITEM-LST')
   @SectionIdPattern('TEPAPO-ITEM-xxx')
+  @ContentHelp('Add one entry per distinct technical problem, each with its own '
+      'root cause, impact, and resolution outlook. Scope entries to technology, '
+      'architecture, security, and maintainability concerns.')
   @SerializationOrder(2)
   List<PainPointEntry> items = [];
 }
 
 /// Summary specific to technical pain points.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (technical measures)'],
+  'Category roll-up quantifying the technical pain points — technical debt, '
+  'security vulnerabilities, and end-of-life systems in the current state.',
+)
+@ContentHelp('Aggregate the technical pain points into category metrics: '
+    'technical-debt estimate, security-vulnerability counts, systems at '
+    'end of life, vendor lock-in risk, and integration complexity.')
 @SectionId('TPPS')
 class TechnicalPainPointsSummary {
   @Form([
@@ -2040,6 +2853,11 @@ class TechnicalPainPointsSummary {
 /// Documents a specific problem in the current state with comprehensive details:
 /// root cause analysis, impact quantification, affected stakeholders,
 /// current workarounds, and proposed resolution approach.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (single problem statement)'],
+  'One fully documented pain point — its classification, root cause, impact, '
+  'evidence, workaround, and proposed resolution.',
+)
 @SectionId('PAPE')
 class PainPointEntry {
   @Form([
@@ -2078,13 +2896,25 @@ class PainPointEntry {
   PainPointResolution resolution = PainPointResolution();
 
   /// Relationships.
+  @StandardReferences(
+    ['BABOK v3 §10 — current-state analysis (relationships among problems)'],
+    'The set of links from this pain point to related pain points, gaps, and '
+    'dependencies.',
+  )
   @SectionId('PAPOR1-RELA-LST')
   @SectionIdPattern('PAPOR1-RELA-xxx')
+  @ContentHelp('Add one entry per relationship this pain point has — related '
+      'pain points, originating gaps, or other pain points it depends on.')
   @SerializationOrder(7)
   List<PainPointRelationships> relationships = [];
 }
 
 /// Classification for pain point.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (problem categorisation & prioritisation)'],
+  'How this pain point is categorised and prioritised — its description, '
+  'category, urgency, and resolution priority.',
+)
 @SectionId('PAPOCL')
 class PainPointClassification {
   @Form([
@@ -2104,6 +2934,11 @@ class PainPointClassification {
 }
 
 /// Root cause for pain point.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (root cause analysis)'],
+  'The underlying cause of this pain point and the factors that exacerbate it, '
+  'distinguishing the true root cause from its symptoms.',
+)
 @SectionId('PPRC')
 class PainPointRootCause {
   @Form([
@@ -2119,6 +2954,11 @@ class PainPointRootCause {
 }
 
 /// Impact assessment for pain point.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (impact assessment & quantification)'],
+  'The reach and cost of this pain point — affected processes, systems, '
+  'stakeholders, frequency, and quantified business impact.',
+)
 @SectionId('PAPOIM')
 class PainPointImpact {
   @Form([
@@ -2144,6 +2984,11 @@ class PainPointImpact {
 }
 
 /// Evidence for pain point.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (evidence & validation of problems)'],
+  'How this pain point was discovered and validated — discovery method, '
+  'validation status, and the data sources that substantiate it.',
+)
 @SectionId('PAPOEV')
 class PainPointEvidence {
   @Form([
@@ -2163,6 +3008,11 @@ class PainPointEvidence {
 }
 
 /// Workaround for pain point.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (current workarounds & coping mechanisms)'],
+  'How the organisation currently copes with this pain point — the interim '
+  'workaround, its effectiveness and cost, and the risk if left unaddressed.',
+)
 @SectionId('PAPOWO')
 class PainPointWorkaround {
   @Form([
@@ -2180,6 +3030,11 @@ class PainPointWorkaround {
 }
 
 /// Resolution for pain point.
+@StandardReferences(
+  ['BABOK v3 §6 — gap analysis (current vs. desired state)'],
+  'The proposed path from this pain point to a resolved state — approach, '
+  'complexity, effort, expected benefit, and success criteria.',
+)
 @SectionId('PAPORE')
 class PainPointResolution {
   @Form([
@@ -2199,6 +3054,11 @@ class PainPointResolution {
 }
 
 /// Relationships for pain point.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (relationships among problems)'],
+  'A single link from this pain point to another pain point, a gap, or a '
+  'dependency that must be resolved first.',
+)
 @SectionId('PAPOR1')
 class PainPointRelationships {
   @Form([
@@ -2214,6 +3074,11 @@ class PainPointRelationships {
 }
 
 /// Cross-reference analysis between pain points and gaps.
+@StandardReferences(
+  ['BABOK v3 §6 — gap analysis (linking problems to capability gaps)'],
+  'The mapping that ties documented pain points to capability gaps — showing '
+  'which gaps cause which pains and where unstated gaps may lurk.',
+)
 @SectionId('PPGC')
 class PainPointGapCorrelation {
   @ContentHelp('''
@@ -2231,14 +3096,26 @@ underlying gaps that may not be explicitly documented.
   String? correlationDiagram;
 
   /// Tabular correlation data.
+  @StandardReferences(
+    ['BABOK v3 §6 — gap analysis (pain-point to gap traceability)'],
+    'The list of individual pain-point-to-gap correlation entries.',
+  )
   @Min(1)
   @SectionId('PPGCE-CORR-LST')
   @SectionIdPattern('PPGCE-CORR-xxx')
+  @ContentHelp('Add one entry per pain-point-to-gap relationship, naming both '
+      'IDs and describing how they are linked (cause, contribution, or '
+      'indication) and how strong the link is.')
   @SerializationOrder(2)
   List<PainPointGapCorrelationEntry> correlationEntries = [];
 }
 
 /// Individual pain point to gap correlation entry.
+@StandardReferences(
+  ['BABOK v3 §6 — gap analysis (single pain-point/gap correlation)'],
+  'One link between a specific pain point and a specific gap, with its '
+  'correlation type and strength.',
+)
 @SectionId('PPGCE')
 class PainPointGapCorrelationEntry {
   @Form([
@@ -2258,6 +3135,11 @@ class PainPointGapCorrelationEntry {
 }
 
 /// 1.3.4. Gaps.
+@StandardReferences(
+  ['BABOK v3 §6 — gap analysis (current vs. desired state)'],
+  'The set of missing or inadequate capabilities — the differences between '
+  'what the current state delivers and what the business needs.',
+)
 @SectionId('GAPS')
 class Gaps {
   @Unused()
@@ -2265,8 +3147,15 @@ class Gaps {
   String? content;
 
   /// Contains 0+× Gap.
+  @StandardReferences(
+    ['BABOK v3 §6 — gap analysis (capability gap identification)'],
+    'The list of individual capability gaps documented in detail.',
+  )
   @SectionId('GAPE-ITEM-LST')
   @SectionIdPattern('GAPE-ITEM-xxx')
+  @ContentHelp('Add one entry per identified gap between current capabilities '
+      'and business needs, each with its category, severity, cost, drivers, '
+      'and proposed resolution.')
   @SerializationOrder(1)
   List<GapEntry> items = [];
 }
@@ -2276,6 +3165,11 @@ class Gaps {
 /// Documents a specific gap between current capabilities and business needs:
 /// category, severity, quantified cost, stakeholders, compliance drivers,
 /// workarounds, resolution approach, and success criteria.
+@StandardReferences(
+  ['BABOK v3 §6 — gap analysis (single capability gap)'],
+  'One fully documented capability gap — its category, severity, impact, '
+  'discovery, workaround, and proposed resolution.',
+)
 @SectionId('GAPE')
 class GapEntry {
   @Form([
@@ -2307,6 +3201,11 @@ class GapEntry {
 }
 
 /// Gap description and business impact.
+@StandardReferences(
+  ['BABOK v3 §6 — gap analysis (gap definition & business impact)'],
+  'What is missing or inadequate and why it matters — the gap description, '
+  'priority, quantified cost, and affected processes and stakeholders.',
+)
 @SectionId('GAENDE')
 class GapEntryDescription {
   @Form([
@@ -2328,6 +3227,11 @@ class GapEntryDescription {
 }
 
 /// Discovery and validation for gap.
+@StandardReferences(
+  ['BABOK v3 §6 — gap analysis (gap discovery, drivers & validation)'],
+  'How this gap was found and confirmed — its compliance driver, discovery '
+  'method, age, validation status, and links to related pain points.',
+)
 @SectionId('GAENDI')
 class GapEntryDiscovery {
   @Form([
@@ -2347,6 +3251,11 @@ class GapEntryDiscovery {
 }
 
 /// Current workarounds for gap.
+@StandardReferences(
+  ['BABOK v3 §6 — gap analysis (current coping with the gap)'],
+  'How the organisation copes with this gap today — the interim workaround, '
+  'its cost, and the risk if the gap remains unclosed.',
+)
 @SectionId('GAENWO')
 class GapEntryWorkaround {
   @Form([
@@ -2362,6 +3271,11 @@ class GapEntryWorkaround {
 }
 
 /// Resolution planning for gap.
+@StandardReferences(
+  ['BABOK v3 §6 — gap analysis (closing the gap toward the desired state)'],
+  'The proposed path from this gap to the desired state — approach, timeline, '
+  'success criteria, and dependencies on other gaps.',
+)
 @SectionId('GAENRE')
 class GapEntryResolution {
   @Form([
@@ -3984,6 +4898,11 @@ replacing them. Not to be confused with target-state risks.
 
 
 /// A single integration pattern entry.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration pattern)'],
+  'One integration pattern in use across the current architecture — the style '
+  'and mechanism by which two or more existing systems exchange data today.',
+)
 @SectionId('IPE')
 class IntegrationPatternEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
@@ -3992,6 +4911,11 @@ class IntegrationPatternEntry {
 }
 
 /// A single shared service entry.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (shared service)'],
+  'One shared service or common capability that multiple existing systems '
+  'depend on, forming part of the current architectural baseline.',
+)
 @SectionId('SHARE')
 class SharedServiceEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
@@ -4000,6 +4924,11 @@ class SharedServiceEntry {
 }
 
 /// A single fragile point entry.
+@StandardReferences(
+  ['BABOK v3 §10 — current-state analysis (integration risk / fragile point)'],
+  'One fragile or high-risk point in the current integration landscape whose '
+  'failure would disrupt operations or threaten the new system implementation.',
+)
 @SectionId('FRAGI')
 class FragilePointEntry {
   @ContentType('text', 'The description for the content is provided by the doc-comment on the field declaration of this type')
