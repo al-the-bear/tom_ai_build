@@ -6,7 +6,6 @@
 library;
 
 
-export 'administrative.dart';
 export 'architecture_and_technology.dart';
 export 'assumptions_constraints_dependencies.dart';
 export 'business_process_model.dart';
@@ -17,9 +16,10 @@ export 'delivery_transition_and_rollout.dart';
 export 'document_control.dart';
 export 'experience_and_interface_design.dart';
 export 'glossary_and_abbreviations.dart';
+export 'governance_administration.dart';
 export 'information_and_data_model.dart';
 export 'introduction_and_scope.dart';
-export 'project_organization_process.dart';
+export 'project_process_adjustments.dart';
 export 'quality_and_acceptance_model.dart';
 export 'requirements.dart';
 export 'security_and_access_model.dart';

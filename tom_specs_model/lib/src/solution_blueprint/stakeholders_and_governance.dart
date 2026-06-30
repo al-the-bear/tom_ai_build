@@ -11,8 +11,8 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
-import 'administrative.dart';
-import 'project_organization_process.dart';
+import 'governance_administration.dart';
+import 'project_process_adjustments.dart';
 
 /// SBP.4 Stakeholders & Governance.
 @StandardReferences(
